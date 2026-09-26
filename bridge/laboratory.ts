@@ -1,6 +1,7 @@
 /** P13A's private player Laboratory read side. Engine actions/quotes remain the authority. */
 import { applyActions } from '../src/core/actions.js'
 import { campaignDate } from '../src/core/calendar.js'
+import { withdrawnPersonIds } from '../src/core/careerLifecycle.js'
 import { activeContract, economyEngaged, offerForTalent, weeklySalary } from '../src/core/employment.js'
 import { weeklyBurn, weeklyOverhead } from '../src/core/economyView.js'
 import { hasOperationalFacilityInstallation } from '../src/core/facilityEffects.js'
@@ -255,13 +256,14 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
     !state.technology.projects.some(p => p.studioId === own && p.technologyId === entry.id && p.status === 'completed'))
   const labs = state.placement.facilities.filter(p => p.blueprintId === 'research-laboratory' && p.installation === undefined)
   const scientists = ordered(state.talent.filter(t => t.role === 'scientist' && activeContract(state, t.id)))
+  const withdrawn = withdrawnPersonIds(state)
   for (const lab of labs) {
     const buildingId = `placed-${lab.id}`
     const labProjects = projectsOnLaboratory(state, own, lab.facilityId)
     // One selectable row per named candidate who is free to be employed, while
     // the programme still has room for another Scientist (P13B-S1).
     if (scientists.length < RESEARCH_SCIENTISTS_PER_STUDIO) for (const candidate of researchCandidates(state)) {
-        if (activeContract(state, candidate.id)) continue
+        if (activeContract(state, candidate.id) || withdrawn.has(candidate.id)) continue
         const offer = offerForTalent(state.seed, candidate, 208, state.market.tick)
         add(`recruit-${lab.id}-${candidate.id}`, { kind: 'recruitScientist', laboratoryFacilityId: lab.facilityId, scientistId: candidate.id },
           `Employ ${candidate.name} · Scientist`,

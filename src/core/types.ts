@@ -2284,9 +2284,9 @@ export type GameStateV31 = GameStateV30 & {
 // P14B.5 added the `relationships` root at V31, P14B.7 the waived-promise link at
 // V32, P14C.1 the talent provenance root at V33, P14C.2a the career lifecycle root at
 // V34, P14C.4 the cohort receipts inside that root at V35. Since P14C.2b the live
-// gameplay boundary is V36 (the single final extension); V35 remains the frozen prior
-// save shape, and its one lossless-while-no-extension downgrade is the only way back.
-export type GameState = GameStateV36
+// gameplay shape includes V36's single final extension. V37 configures Scientist
+// retirement without adding fields; the save version distinguishes its semantic law.
+export type GameState = GameStateV37
 
 // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
 
@@ -2394,7 +2394,7 @@ export type CareerLifecycleRootV35 = CareerLifecycleRoot & { cohorts: readonly C
 export type GameStateV35 = Omit<GameStateV34, 'careerLifecycle'> & { careerLifecycle: CareerLifecycleRootV35 }
 
 // ── P14C.2b — the single final extension (Save V36; records 780 and 806) ──────
-// The live shape since P14C.2b (`GameState = GameStateV36`). `GameStateV35` keeps the V34
+// The shape introduced by P14C.2b. `GameStateV35` keeps the V34
 // record and the V28 case, so the frozen V35 chain never learns the new keys.
 
 /** 780 X10: whether the one extension was taken, and the effective week it moved from. */
@@ -2408,6 +2408,10 @@ export type GameStateV36 = Omit<GameStateV35, 'careerLifecycle' | 'talentMarket'
   careerLifecycle: CareerLifecycleRootV36
   talentMarket: TalentMarketStateV36
 }
+
+/** Record 840: Scientist retirement uses the existing lifecycle record shape.
+ * V37's validator selects the amended profession law; V34–V36 remain frozen. */
+export type GameStateV37 = GameStateV36
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.

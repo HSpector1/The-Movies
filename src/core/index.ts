@@ -1334,12 +1334,16 @@ export {
   convertV34ToV35,
   convertV35ToV34,
   migrateToV35,
-  // P14C.2b — live V35 → NEW V36 + migrateToV36 (the single final extension);
-  // migrateToLive lifts to V36 now (record 806 §2).
+  // P14C.2b — V35 → V36 + migrateToV36 (the single final extension).
   validateSaveV36,
   convertV35ToV36,
   convertV36ToV35,
   migrateToV36,
+  // Record 840 — the Scientist retirement law, with frozen prior readers.
+  validateSaveV37,
+  convertV36ToV37,
+  convertV37ToV36,
+  migrateToV37,
   convertV27ToV28,
   convertV28ToV27,
   // P13B-S5-R07 — live V24 → NEW V25 + migrateToV25 (the widened production
@@ -1385,6 +1389,7 @@ export type {
   SaveFileV34,
   SaveFileV35,
   SaveFileV36,
+  SaveFileV37,
   LiveSaveFile,
   SaveFile,
   TalentV1,
@@ -1636,6 +1641,7 @@ export {
 export type { LifecycleStatus } from './careerLifecycle.js'
 export type { RetirementCause, RetirementStatus, RetirementRecord, CareerLifecycleRoot, GameStateV34, CohortReceipt, CareerLifecycleRootV35, GameStateV35 } from './types.js'
 export type { RetirementRecordV36, CareerLifecycleRootV36, MarketCaseVariant, TalentMarketCaseV36, TalentMarketStateV36, GameStateV36 } from './types.js'
+export type { GameStateV37 } from './types.js'
 // P14C.2b (record 806 §8.4)
 export { openMarketCaseFor } from './talentMarket.js'
 export { campaignDate } from './calendar.js'

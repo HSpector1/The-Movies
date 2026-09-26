@@ -406,15 +406,16 @@ export const TUNING = {
   MARKET_PREMIUM_TIERS: [1.0, 1.05, 1.1, 1.15, 1.2, 1.25] as readonly number[],
 
   // P14C.2a retirement (companion §6.2; records 773 D1/D3/D4 and 777). PROVISIONAL
-  // TUNING: every value is the companion's NUMERICAL HYPOTHESIS, not an Owner ruling.
-  // A Scientist has NO window (773 D2 — the Owner said not to invent Scientist tuning),
-  // so no Scientist announces until a window is selected.
+  // TUNING: the film windows are the companion's NUMERICAL HYPOTHESIS. Scientist
+  // 62/72 is the Owner-approved craft-window amendment (773 §10, record 840), also
+  // provisional tuning. The hard edge announces with notice; it removes nobody.
   RETIREMENT_WINDOWS: {
     actor: { start: 60, hard: 70 },
     director: { start: 65, hard: 75 },
     writer: { start: 65, hard: 75 },
     craft: { start: 62, hard: 72 },
-  } as Readonly<Record<'actor' | 'director' | 'writer' | 'craft', { readonly start: number; readonly hard: number }>>,
+    scientist: { start: 62, hard: 72 },
+  } as Readonly<Record<'actor' | 'director' | 'writer' | 'craft' | 'scientist', { readonly start: number; readonly hard: number }>>,
   RETIREMENT_NOTICE_WEEKS: 52, // the announcement horizon
   RETIREMENT_RECENT_WORK_WEEKS: 104, // D3's recency horizon, and the record span it needs
 

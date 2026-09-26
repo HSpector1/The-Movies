@@ -2855,11 +2855,16 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         }
         const candidates = researchCandidates(next)
         const scientist = action.scientistId === undefined
-          ? candidates.find(candidate => !activeContract(next, candidate.id))
+          ? candidates.find(candidate => !activeContract(next, candidate.id)
+            && contractEndRefusal(next, candidate.id, next.market.tick + 208) === null)
           : candidates.find(candidate => candidate.id === action.scientistId)
-        if (!scientist) throw new Error(action.scientistId === undefined
-          ? `This studio's research programme already employs its ${spelled(RESEARCH_SCIENTISTS_PER_STUDIO)} Scientists.`
-          : 'That person is not a research candidate for this studio.')
+        if (!scientist) {
+          if (action.scientistId !== undefined) throw new Error('That person is not a research candidate for this studio.')
+          const allEmployed = candidates.every(candidate => activeContract(next, candidate.id) !== undefined)
+          throw new Error(allEmployed
+            ? `This studio's research programme already employs its ${spelled(RESEARCH_SCIENTISTS_PER_STUDIO)} Scientists.`
+            : 'No research candidate is available for this programme\'s 208-week contract.')
+        }
         if (activeContract(next, scientist.id)) throw new Error(`This programme already employs ${scientist.name}.`)
         if (next.talent.filter(t => t.role === 'scientist' && activeContract(next, t.id)).length >= RESEARCH_SCIENTISTS_PER_STUDIO) throw new Error(`This studio's research programme already employs its ${spelled(RESEARCH_SCIENTISTS_PER_STUDIO)} Scientists.`)
         if (next.talent.some(t => t.id === scientist.id && t !== scientist)) throw new Error('The Scientist identity is already in use.')

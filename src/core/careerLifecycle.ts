@@ -30,9 +30,9 @@ export const LIFECYCLE_INTENT_RULES_VERSION = 1 as const
 /** 773 D3's recency horizon, and the record span it needs (PROVISIONAL TUNING). */
 export const RETIREMENT_RECENT_WORK_WEEKS = TUNING.RETIREMENT_RECENT_WORK_WEEKS
 
-/** `{start, hard}` for a profession (773 D1), `null` for a Scientist (773 D2). */
+/** Live profession windows (773 D1 and §10, record 840). Historical save readers
+ * own their frozen pre-amendment table; they never call this live configuration. */
 export function retirementWindow(role: CreativeRole): { start: number; hard: number } | null {
-  if (role === 'scientist') return null
   const window = TUNING.RETIREMENT_WINDOWS[role]
   return { start: window.start, hard: window.hard }
 }

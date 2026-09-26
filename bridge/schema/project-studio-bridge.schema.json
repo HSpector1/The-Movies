@@ -492,7 +492,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 50,
+          "const": 51,
           "type": "integer"
         },
         "stateDigest": {
@@ -609,7 +609,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 50,
+          "const": 51,
           "type": "integer"
         },
         "stateDigest": {
@@ -1132,7 +1132,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 50,
+          "const": 51,
           "type": "integer"
         },
         "stateDigest": {
@@ -1211,7 +1211,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 50,
+          "const": 51,
           "type": "integer"
         },
         "stateDigest": {
@@ -1503,7 +1503,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 50,
+          "const": 51,
           "type": "integer"
         },
         "stateDigest": {
@@ -16840,7 +16840,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-50",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-51",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -16896,7 +16896,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 50,
+    "projectionVersion": 51,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

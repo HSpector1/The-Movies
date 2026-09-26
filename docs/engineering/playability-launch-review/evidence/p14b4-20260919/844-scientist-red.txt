@@ -1,0 +1,397 @@
+{"sourceSha":"8f893e0e9fd8623e79bfc30d673f0e0aaf502fab","testedDiffSha256":"896d8423819dc3410c094ecdf0e454df31a823c8aa06b399cd355420815c1aca","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c2s-scientist-retirement.test.ts","tests/bridge-p14c2s-scientist.test.ts"],"node":"v20.20.2","start":"2026-09-26T13:54:39.601Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /private/tmp/codex-c2c-red.aWg2tP
+
+ ❯ |core| tests/bridge-p14c2s-scientist.test.ts (2 tests | 2 failed) 7695ms
+   × C.2 Scientist private Laboratory disclosure > S9c announced candidate remains inspectable with actual208-week cap refusal, then retired candidate drops without identity deletion 3102ms
+     → expected undefined to be 'announced' // Object.is equality
+   × C.2 Scientist private Laboratory disclosure > S9d real held film seat: finishing Scientist drops from recruit candidates without disturbing retained work 4592ms
+     → expected undefined to be 'finishing_commitments' // Object.is equality
+ ❯ |core| tests/p14c2s-scientist-retirement.test.ts (15 tests | 14 failed) 15815ms
+   × C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S0 the configured Scientist window is eligible62/hard72 22ms
+     → expected null to deeply equal { start: 62, hard: 72 }
+   × C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S1 genuine V33 continuation: recent employment prevents age62 announcement566, idle age63 announces618 3637ms
+     → expected undefined to match object { profession: 'scientist', …(6) }
+   × C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S2 SYNTHETIC age/provenance -1 year only: 61 is ineligible; literal62 announces with full notice 2777ms
+     → expected undefined to match object { cause: 'idleInWindow', …(4) }
+   × C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S3 SYNTHETIC +10 years, real rehire/research: busy72 forces announcement, not removal; current binding determines E 895ms
+     → expected undefined to match object { cause: 'hardBoundary', …(5) }
+   × C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S4 SYNTHETIC +10 years, no rehire: hard announcement566 gives full52-week notice to618 and retains identity 1304ms
+     → expected undefined to match object { cause: 'hardBoundary', …(4) }
+   × C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S5 real pause567/resume716 leaves unfinished work at728: expiry retires and pauses without deleting or charging retained work 1273ms
+     → expected undefined to match object { effectiveWeek: 728, …(3) }
+   × C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S6 incumbent-only final extension settles728 to780 once; retained research resumes only by explicit command if paused 38ms
+     → expected { talentId: 't-sci-00', …(7) } to match object { Object (variant, subjectStudioId) }
+(6 matching properties omitted from actual)
+   × C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S7 real Scientist craft seat admitted at E-9 remains finishing across held take; actual cancel frees obligations then retirement 1843ms
+     → expected undefined to match object { …(4) }
+   ✓ C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S8 real save/import/replay is identical across announcement and expiry, without mutating the source 1382ms
+   × Scientist supply is measured; no replacement policy is invented > S9 retired identity is retained/refused; default recruit skips it to next legal fixed-pool identity 588ms
+     → expected undefined to be 'retired' // Object.is equality
+   × Scientist supply is measured; no replacement policy is invented > S9b SYNTHETIC materialized age71 pool, real8 contracts: all retired at728 means zero supply, not eight employed or a ninth person 1778ms
+     → expected false to be true // Object.is equality
+   × Scientist retirement persistence has an explicit semantic version boundary > S10 no Scientist record: live37 writes and V36 downgrade preserves exact state bytes without time, RNG or history changes 168ms
+     → expected 36 to be 37 // Object.is equality
+   × Scientist retirement persistence has an explicit semantic version boundary > S10 actual Scientist record: live37 accepts, V36 and prior downgrade refuse without stripping obligations/history 40ms
+     → expected undefined to be 'scientist' // Object.is equality
+   × Scientist retirement persistence has an explicit semantic version boundary > S10 frozen public34/35/36 readers still refuse the Scientist law, independently of the live tuning table 40ms
+     → expected undefined to be 'scientist' // Object.is equality
+   × Scientist retirement persistence has an explicit semantic version boundary > S10 amended live validator still refuses age, provenance, notice, cap, extension and exact-key corruption independently 28ms
+     → expected undefined to be 'scientist' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 16 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14c2s-scientist.test.ts > C.2 Scientist private Laboratory disclosure > S9c announced candidate remains inspectable with actual208-week cap refusal, then retired candidate drops without identity deletion
+AssertionError: expected undefined to be 'announced' // Object.is equality
+
+- Expected: 
+"announced"
+
++ Received: 
+undefined
+
+ ❯ tests/bridge-p14c2s-scientist.test.ts:15:57
+     13|   it('S9c announced candidate remains inspectable with actual208-week …
+     14|     const announced = scientistAt('hardIdle', 566)
+     15|     expect(retirementRecordFor(announced, SCI)?.status).toBe('announce…
+       |                                                         ^
+     16|     const before = JSON.stringify(makeSave(announced))
+     17|     const row = laboratoryActionSpecs(announced).find(spec =>
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/16]⎯
+
+ FAIL |core|  tests/bridge-p14c2s-scientist.test.ts > C.2 Scientist private Laboratory disclosure > S9d real held film seat: finishing Scientist drops from recruit candidates without disturbing retained work
+AssertionError: expected undefined to be 'finishing_commitments' // Object.is equality
+
+- Expected: 
+"finishing_commitments"
+
++ Received: 
+undefined
+
+ ❯ tests/bridge-p14c2s-scientist.test.ts:41:52
+     39|   it('S9d real held film seat: finishing Scientist drops from recruit …
+     40|     const { held } = scientistFilm()
+     41|     expect(retirementRecordFor(held, SCI)?.status).toBe('finishing_com…
+       |                                                    ^
+     42|     const before = JSON.stringify(makeSave(held))
+     43|     expect(laboratoryActionSpecs(held).filter(spec => spec.action.kind…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/16]⎯
+
+ FAIL |core|  tests/p14c2s-scientist-retirement.test.ts > C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S0 the configured Scientist window is eligible62/hard72
+AssertionError: expected null to deeply equal { start: 62, hard: 72 }
+
+- Expected: 
+Object {
+  "hard": 72,
+  "start": 62,
+}
+
++ Received: 
+null
+
+ ❯ tests/p14c2s-scientist-retirement.test.ts:21:43
+     19| describe('C.2 Scientist retirement: literal eligibility, hard announce…
+     20|   it('S0 the configured Scientist window is eligible62/hard72', () => {
+     21|     expect(retirementWindow('scientist')).toEqual({ start: 62, hard: 7…
+       |                                           ^
+     22|   })
+     23| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/16]⎯
+
+ FAIL |core|  tests/p14c2s-scientist-retirement.test.ts > C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S1 genuine V33 continuation: recent employment prevents age62 announcement566, idle age63 announces618
+AssertionError: expected undefined to match object { profession: 'scientist', …(6) }
+
+- Expected: 
+Object {
+  "ageAtAnnouncement": 63,
+  "announcedWeek": 618,
+  "cause": "idleInWindow",
+  "effectiveWeek": 670,
+  "intentRulesVersion": 1,
+  "profession": "scientist",
+  "status": "announced",
+}
+
++ Received: 
+undefined
+
+ ❯ tests/p14c2s-scientist-retirement.test.ts:34:31
+     32|     expect(record(before)).toBeUndefined()
+     33|     const announced = tick(before)
+     34|     expect(record(announced)).toMatchObject({ profession: 'scientist',…
+       |                               ^
+     35|       cause: 'idleInWindow', ageAtAnnouncement: 63, announcedWeek: 618…
+     36|     expect(announced.hollywood!.employment.find(row => row.contractId …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/16]⎯
+
+ FAIL |core|  tests/p14c2s-scientist-retirement.test.ts > C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S2 SYNTHETIC age/provenance -1 year only: 61 is ineligible; literal62 announces with full notice
+AssertionError: expected undefined to match object { cause: 'idleInWindow', …(4) }
+
+- Expected: 
+Object {
+  "ageAtAnnouncement": 62,
+  "announcedWeek": 618,
+  "cause": "idleInWindow",
+  "effectiveWeek": 670,
+  "status": "announced",
+}
+
++ Received: 
+undefined
+
+ ❯ tests/p14c2s-scientist-retirement.test.ts:49:27
+     47|     expect(record(before)).toBeUndefined()
+     48|     const after = tick(before)
+     49|     expect(record(after)).toMatchObject({ cause: 'idleInWindow', ageAt…
+       |                           ^
+     50|       announcedWeek: 618, effectiveWeek: 670, status: 'announced' })
+     51|     expect(bytes(saveRoundTrip(after))).toBe(bytes(after))
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/16]⎯
+
+ FAIL |core|  tests/p14c2s-scientist-retirement.test.ts > C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S3 SYNTHETIC +10 years, real rehire/research: busy72 forces announcement, not removal; current binding determines E
+AssertionError: expected undefined to match object { cause: 'hardBoundary', …(5) }
+
+- Expected: 
+Object {
+  "ageAtAnnouncement": 72,
+  "announcedWeek": 566,
+  "cause": "hardBoundary",
+  "effectiveWeek": 728,
+  "retiredWeek": null,
+  "status": "announced",
+}
+
++ Received: 
+undefined
+
+ ❯ tests/p14c2s-scientist-retirement.test.ts:61:27
+     59|     expect(busyTalentIds(before).has(SCI)).toBe(true)
+     60|     const after = tick(before)
+     61|     expect(record(after)).toMatchObject({ cause: 'hardBoundary', ageAt…
+       |                           ^
+     62|       announcedWeek: 566, effectiveWeek: SCI_END, status: 'announced',…
+     63|     expect(activeContract(after, SCI)).toEqual(activeContract(before, …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/16]⎯
+
+ FAIL |core|  tests/p14c2s-scientist-retirement.test.ts > C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S4 SYNTHETIC +10 years, no rehire: hard announcement566 gives full52-week notice to618 and retains identity
+AssertionError: expected undefined to match object { cause: 'hardBoundary', …(4) }
+
+- Expected: 
+Object {
+  "ageAtAnnouncement": 72,
+  "announcedWeek": 566,
+  "cause": "hardBoundary",
+  "effectiveWeek": 618,
+  "status": "announced",
+}
+
++ Received: 
+undefined
+
+ ❯ tests/p14c2s-scientist-retirement.test.ts:79:27
+     77|     expect(record(before)).toBeUndefined()
+     78|     const after = tick(before)
+     79|     expect(record(after)).toMatchObject({ cause: 'hardBoundary', ageAt…
+       |                           ^
+     80|       announcedWeek: 566, effectiveWeek: 618, status: 'announced' })
+     81|     expect(() => applyActions(after, [{ kind: 'recruitScientist', labo…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/16]⎯
+
+ FAIL |core|  tests/p14c2s-scientist-retirement.test.ts > C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S5 real pause567/resume716 leaves unfinished work at728: expiry retires and pauses without deleting or charging retained work
+AssertionError: expected undefined to match object { effectiveWeek: 728, …(3) }
+
+- Expected: 
+Object {
+  "effectiveWeek": 728,
+  "finishingFromWeek": null,
+  "retiredWeek": 728,
+  "status": "retired",
+}
+
++ Received: 
+undefined
+
+ ❯ tests/p14c2s-scientist-retirement.test.ts:95:27
+     93|     expect(busyTalentIds(before).has(SCI)).toBe(true)
+     94|     const after = tick(before)
+     95|     expect(record(after)).toMatchObject({ effectiveWeek: SCI_END, stat…
+       |                           ^
+     96|     expect(activeContract(after, SCI)).toBeUndefined()
+     97|     expect(busyTalentIds(after).has(SCI)).toBe(false)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/16]⎯
+
+ FAIL |core|  tests/p14c2s-scientist-retirement.test.ts > C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S6 incumbent-only final extension settles728 to780 once; retained research resumes only by explicit command if paused
+AssertionError: expected { talentId: 't-sci-00', …(7) } to match object { Object (variant, subjectStudioId) }
+(6 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "subjectStudioId": "studio-aca408ec-player",
+-   "variant": "retirementExtension",
++   "variant": "expiry",
+  }
+
+ ❯ tests/p14c2s-scientist-retirement.test.ts:121:46
+    119|   it('S6 incumbent-only final extension settles728 to780 once; retaine…
+    120|     const atWindow = scientistAt('hardResearch', 716)
+    121|     expect(openMarketCaseFor(atWindow, SCI)).toMatchObject({ variant: …
+       |                                              ^
+    122|     const rival = atWindow.hollywood!.identities.find(identity => iden…
+    123|     const untouched = bytes(atWindow)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/16]⎯
+
+ FAIL |core|  tests/p14c2s-scientist-retirement.test.ts > C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S7 real Scientist craft seat admitted at E-9 remains finishing across held take; actual cancel frees obligations then retirement
+AssertionError: expected undefined to match object { …(4) }
+
+- Expected: 
+Object {
+  "effectiveWeek": 728,
+  "finishingFromWeek": 728,
+  "retiredWeek": null,
+  "status": "finishing_commitments",
+}
+
++ Received: 
+undefined
+
+ ❯ tests/p14c2s-scientist-retirement.test.ts:150:28
+    148|     expect(f.ready.market.tick).toBe(719)
+    149|     expect(project(f.held).status).toBe('paused')
+    150|     expect(record(f.held)).toMatchObject({ status: 'finishing_commitme…
+       |                            ^
+    151|       finishingFromWeek: SCI_END, retiredWeek: null })
+    152|     expect(activeContract(f.held, SCI)).toBeUndefined()
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/16]⎯
+
+ FAIL |core|  tests/p14c2s-scientist-retirement.test.ts > Scientist supply is measured; no replacement policy is invented > S9 retired identity is retained/refused; default recruit skips it to next legal fixed-pool identity
+AssertionError: expected undefined to be 'retired' // Object.is equality
+
+- Expected: 
+"retired"
+
++ Received: 
+undefined
+
+ ❯ tests/p14c2s-scientist-retirement.test.ts:185:36
+    183|     const initial = scientistWorld()
+    184|     const before = scientistAt('hardIdle', 618)
+    185|     expect(record(before)?.status).toBe('retired')
+       |                                    ^
+    186|     const frozen = bytes(before)
+    187|     expect(() => applyActions(before, [{ kind: 'recruitScientist', lab…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/16]⎯
+
+ FAIL |core|  tests/p14c2s-scientist-retirement.test.ts > Scientist supply is measured; no replacement policy is invented > S9b SYNTHETIC materialized age71 pool, real8 contracts: all retired at728 means zero supply, not eight employed or a ninth person
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/p14c2s-scientist-retirement.test.ts:219:68
+    217|     expect(supply.materializedIds).toEqual(supply.rawIds)
+    218|     expect(supply.latentIds).toEqual([])
+    219|     expect(supply.statuses.every(row => row.status === 'retired')).toB…
+       |                                                                    ^
+    220|     expect(supply.playerEmployedIds).toEqual([])
+    221|     expect(supply.recruitableIds).toEqual([])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/16]⎯
+
+ FAIL |core|  tests/p14c2s-scientist-retirement.test.ts > Scientist retirement persistence has an explicit semantic version boundary > S10 no Scientist record: live37 writes and V36 downgrade preserves exact state bytes without time, RNG or history changes
+AssertionError: expected 36 to be 37 // Object.is equality
+
+- Expected
++ Received
+
+- 37
++ 36
+
+ ❯ tests/p14c2s-scientist-retirement.test.ts:241:30
+    239|     const before = bytes(state)
+    240|     const live = makeSave(state)
+    241|     expect(live.saveVersion).toBe(37)
+       |                              ^
+    242|     const old = migrateToV36(live)
+    243|     expect(old.saveVersion).toBe(36)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/16]⎯
+
+ FAIL |core|  tests/p14c2s-scientist-retirement.test.ts > Scientist retirement persistence has an explicit semantic version boundary > S10 actual Scientist record: live37 accepts, V36 and prior downgrade refuse without stripping obligations/history
+AssertionError: expected undefined to be 'scientist' // Object.is equality
+
+- Expected: 
+"scientist"
+
++ Received: 
+undefined
+
+ ❯ tests/p14c2s-scientist-retirement.test.ts:253:39
+    251|   it('S10 actual Scientist record: live37 accepts, V36 and prior downg…
+    252|     const state = scientistAt('hardResearch', 566)
+    253|     expect(record(state)?.profession).toBe('scientist')
+       |                                       ^
+    254|     const live = makeSave(state)
+    255|     expect(live.saveVersion).toBe(37)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/16]⎯
+
+ FAIL |core|  tests/p14c2s-scientist-retirement.test.ts > Scientist retirement persistence has an explicit semantic version boundary > S10 frozen public34/35/36 readers still refuse the Scientist law, independently of the live tuning table
+AssertionError: expected undefined to be 'scientist' // Object.is equality
+
+- Expected: 
+"scientist"
+
++ Received: 
+undefined
+
+ ❯ tests/p14c2s-scientist-retirement.test.ts:266:39
+    264|   it('S10 frozen public34/35/36 readers still refuse the Scientist law…
+    265|     const state = scientistAt('hardIdle', 566)
+    266|     expect(record(state)?.profession).toBe('scientist')
+       |                                       ^
+    267|     const before = bytes(state)
+    268|     for (const version of [34, 35, 36]) {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/16]⎯
+
+ FAIL |core|  tests/p14c2s-scientist-retirement.test.ts > Scientist retirement persistence has an explicit semantic version boundary > S10 amended live validator still refuses age, provenance, notice, cap, extension and exact-key corruption independently
+AssertionError: expected undefined to be 'scientist' // Object.is equality
+
+- Expected: 
+"scientist"
+
++ Received: 
+undefined
+
+ ❯ tests/p14c2s-scientist-retirement.test.ts:293:39
+    291|   it('S10 amended live validator still refuses age, provenance, notice…
+    292|     const state = scientistAt('hardResearch', 566)
+    293|     expect(record(state)?.profession).toBe('scientist')
+       |                                       ^
+    294|     const live = makeSave(state)
+    295|     expect(live.saveVersion).toBe(37)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/16]⎯
+
+ Test Files  2 failed (2)
+      Tests  16 failed | 1 passed (17)
+   Start at  15:54:40
+   Duration  18.87s (transform 3.00s, setup 0ms, collect 5.82s, tests 23.51s, environment 1ms, prepare 436ms)
+

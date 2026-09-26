@@ -1,0 +1,24 @@
+{
+  "sourceSha": "8f893e0e9fd8623e79bfc30d673f0e0aaf502fab",
+  "testedDiffSha256": "3869f57ba2bfe2945bdd496bcda152a0ddcd2c75349ebb51b4707208946cfd93",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14c2s-scientist-retirement.test.ts",
+    "-t",
+    "S6 incumbent-only"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-26T14:04:24.723Z",
+  "end": "2026-09-26T14:04:33.276Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "8f893e0e9fd8623e79bfc30d673f0e0aaf502fab",
+  "testedDiffSha256AtEnd": "3869f57ba2bfe2945bdd496bcda152a0ddcd2c75349ebb51b4707208946cfd93",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

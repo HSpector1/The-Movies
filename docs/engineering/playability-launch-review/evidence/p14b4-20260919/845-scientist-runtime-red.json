@@ -1,0 +1,22 @@
+{
+  "sourceSha": "8f893e0e9fd8623e79bfc30d673f0e0aaf502fab",
+  "testedDiffSha256": "7be88573a0c5d2e790779efb8a032647429152641d8c2e8ba4987e44708087a4",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/bridge-p14c2s-scientist-runtime.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-26T13:59:32.225Z",
+  "end": "2026-09-26T13:59:39.548Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "8f893e0e9fd8623e79bfc30d673f0e0aaf502fab",
+  "testedDiffSha256AtEnd": "7be88573a0c5d2e790779efb8a032647429152641d8c2e8ba4987e44708087a4",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

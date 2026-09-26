@@ -1,0 +1,40 @@
+{"sourceSha":"8f893e0e9fd8623e79bfc30d673f0e0aaf502fab","testedDiffSha256":"3869f57ba2bfe2945bdd496bcda152a0ddcd2c75349ebb51b4707208946cfd93","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c2s-scientist-retirement.test.ts","-t","S6 incumbent-only"],"node":"v20.20.2","start":"2026-09-26T14:04:24.723Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /private/tmp/codex-c2c-red.aWg2tP
+
+ ❯ |core| tests/p14c2s-scientist-retirement.test.ts (15 tests | 1 failed | 14 skipped) 3598ms
+   × C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S6 incumbent-only final extension settles728 to780 once; retained research stays paused until explicit resume 3594ms
+     → expected { talentId: 't-sci-00', …(7) } to match object { Object (variant, subjectStudioId) }
+(6 matching properties omitted from actual)
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14c2s-scientist-retirement.test.ts > C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S6 incumbent-only final extension settles728 to780 once; retained research stays paused until explicit resume
+AssertionError: expected { talentId: 't-sci-00', …(7) } to match object { Object (variant, subjectStudioId) }
+(6 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "subjectStudioId": "studio-aca408ec-player",
+-   "variant": "retirementExtension",
++   "variant": "expiry",
+  }
+
+ ❯ tests/p14c2s-scientist-retirement.test.ts:121:46
+    119|   it('S6 incumbent-only final extension settles728 to780 once; retaine…
+    120|     const atWindow = scientistAt('hardResearch', 716)
+    121|     expect(openMarketCaseFor(atWindow, SCI)).toMatchObject({ variant: …
+       |                                              ^
+    122|     const rival = atWindow.hollywood!.identities.find(identity => iden…
+    123|     const untouched = bytes(atWindow)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 14 skipped (15)
+   Start at  16:04:25
+   Duration  7.48s (transform 2.21s, setup 0ms, collect 3.05s, tests 3.60s, environment 0ms, prepare 118ms)
+

@@ -1,0 +1,124 @@
+{"sourceSha":"8f893e0e9fd8623e79bfc30d673f0e0aaf502fab","testedDiffSha256":"7be88573a0c5d2e790779efb8a032647429152641d8c2e8ba4987e44708087a4","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-p14c2s-scientist-runtime.test.ts"],"node":"v20.20.2","start":"2026-09-26T13:59:32.225Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /private/tmp/codex-c2c-red.aWg2tP
+
+ ❯ |core| tests/bridge-p14c2s-scientist-runtime.test.ts (10 tests | 6 failed) 2649ms
+   ✓ C.2 Scientist S11: genuine outgoing50 runtime compatibility > '842 Scientist' original artifact, canonical independent slots and producer authority remain exact 391ms
+   × C.2 Scientist S11: genuine outgoing50 runtime compatibility > requires literal projection51/Save37, registers actual outgoing50, and excludes the running identity from prior schemas 11ms
+     → expected 50 to be 51 // Object.is equality
+   × C.2 Scientist S11: genuine outgoing50 runtime compatibility > '842 Scientist' migrates each authoritative slot at its OWN week with exact canonical state, identity and history 277ms
+     → expected null to be 4 // Object.is equality
+   × C.2 Scientist S11: genuine outgoing50 runtime compatibility > '824 retained retirement' migrates each authoritative slot at its OWN week with exact canonical state, identity and history 166ms
+     → expected null to be 4 // Object.is equality
+   × C.2 Scientist S11: genuine outgoing50 runtime compatibility > 842 starts a fresh logical session and reopens current51 without another migration; genuine journal was empty, not fabricated 261ms
+     → expected [Function] to throw an error
+   × C.2 Scientist S11: genuine outgoing50 runtime compatibility > 842 real saved-slot LOAD restores520 from current521 and replays only its NEW-schema receipt, never prior runtime authority 318ms
+     → expected null to be 4 // Object.is equality
+   ✓ C.2 Scientist S11: genuine outgoing50 runtime compatibility > 842 invalid savedSaveJson refuses before creating a replacement session and leaves original bytes recoverable 306ms
+   × C.2 Scientist S11: genuine outgoing50 runtime compatibility > 842 refuses unknown outer schema, damaged slot digest, and reused logical session without altering preserved source 536ms
+     → expected [Function] to throw an error
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14c2s-scientist-runtime.test.ts > C.2 Scientist S11: genuine outgoing50 runtime compatibility > requires literal projection51/Save37, registers actual outgoing50, and excludes the running identity from prior schemas
+AssertionError: expected 50 to be 51 // Object.is equality
+
+- Expected
++ Received
+
+- 51
++ 50
+
+ ❯ tests/bridge-p14c2s-scientist-runtime.test.ts:82:32
+     80|   it('requires literal projection51/Save37, registers actual outgoing5…
+     81|     expect(PROTOCOL_VERSION).toBe(4)
+     82|     expect(PROJECTION_VERSION).toBe(51)
+       |                                ^
+     83|     expect(LIVE_SAVE_VERSION).toBe(37)
+     84|     expect(SCHEMA_ID).not.toBe(OUTGOING_50)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL |core|  tests/bridge-p14c2s-scientist-runtime.test.ts > C.2 Scientist S11: genuine outgoing50 runtime compatibility > '842 Scientist' migrates each authoritative slot at its OWN week with exact canonical state, identity and history
+ FAIL |core|  tests/bridge-p14c2s-scientist-runtime.test.ts > C.2 Scientist S11: genuine outgoing50 runtime compatibility > '824 retained retirement' migrates each authoritative slot at its OWN week with exact canonical state, identity and history
+AssertionError: expected null to be 4 // Object.is equality
+
+- Expected: 
+4
+
++ Received: 
+null
+
+ ❯ tests/bridge-p14c2s-scientist-runtime.test.ts:93:48
+     91|     const createSession = vi.fn(() => `c2s-${fixture.currentWeek}-gove…
+     92|     const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, createS…
+     93|     expect(loaded.migratedFromProtocolVersion).toBe(4)
+       |                                                ^
+     94|     expect(createSession).toHaveBeenCalledTimes(1)
+     95|     for (const [slot, week] of [['currentSaveJson', fixture.currentWee…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL |core|  tests/bridge-p14c2s-scientist-runtime.test.ts > C.2 Scientist S11: genuine outgoing50 runtime compatibility > 842 starts a fresh logical session and reopens current51 without another migration; genuine journal was empty, not fabricated
+AssertionError: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/bridge-p14c2s-scientist-runtime.test.ts:117:54
+    115|   it('842 starts a fresh logical session and reopens current51 without…
+    116|     const { raw, prior } = readFixture(CASES[0])
+    117|     expect(() => decodeBridgeRuntimeCheckpoint(raw)).toThrow(/schemaId…
+       |                                                      ^
+    118|     const createSession = vi.fn(() => 'c2s-scientist-current51')
+    119|     const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, createS…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL |core|  tests/bridge-p14c2s-scientist-runtime.test.ts > C.2 Scientist S11: genuine outgoing50 runtime compatibility > 842 real saved-slot LOAD restores520 from current521 and replays only its NEW-schema receipt, never prior runtime authority
+AssertionError: expected null to be 4 // Object.is equality
+
+- Expected: 
+4
+
++ Received: 
+null
+
+ ❯ tests/bridge-p14c2s-scientist-runtime.test.ts:147:48
+    145|     const { raw, prior } = readFixture(CASES[0])
+    146|     const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, () => '…
+    147|     expect(loaded.migratedFromProtocolVersion).toBe(4)
+       |                                                ^
+    148|     const session = BridgeSession.fromRuntimeCheckpoint(loaded.hydrate…
+    149|     const checkpointBefore = encodeBridgeRuntimeCheckpoint(loaded.hydr…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL |core|  tests/bridge-p14c2s-scientist-runtime.test.ts > C.2 Scientist S11: genuine outgoing50 runtime compatibility > 842 refuses unknown outer schema, damaged slot digest, and reused logical session without altering preserved source
+AssertionError: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/bridge-p14c2s-scientist-runtime.test.ts:193:86
+    191|       expect(factory).not.toHaveBeenCalled()
+    192|     }
+    193|     expect(() => loadBridgeRuntimeCheckpoint(raw, undefined, () => pri…
+       |                                                                                      ^
+    194|     expect(readFixture(CASES[0]).raw).toBe(raw)
+    195|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ Test Files  1 failed (1)
+      Tests  6 failed | 4 passed (10)
+   Start at  15:59:32
+   Duration  6.40s (transform 2.33s, setup 0ms, collect 3.18s, tests 2.65s, environment 0ms, prepare 161ms)
+

@@ -266,7 +266,10 @@ export const PROTOCOL_VERSION = 4 as const
 // complete and B.8 moves none of it. The OWNERSHIP of a promise is not on this wire and
 // never becomes a client's to assert: the bridge resolves the issuer from the promise id
 // and refuses every id the player's own studio does not hold.
-export const PROJECTION_VERSION = 50 as const
+// Record 840 (projection 51): the current runtime now owns Save37's Scientist
+// retirement law. No DTO field changes; exact schema50 checkpoints migrate both
+// independent slots through the governed prior-schema path in the same slice.
+export const PROJECTION_VERSION = 51 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })

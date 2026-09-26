@@ -58,6 +58,10 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
 // that window would carry the earlier hash, and this map is keyed on the
 // hash, not the label.
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // Record 840: genuine outgoing runtime50 checkpoints were preserved before
+  // this boundary (824 and 842). Each current/saved slot independently lifts
+  // to Save37; historical response journals do not become current-schema proof.
+  ['sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', 'projection-v50'],
   // P14B.8: exact OUTGOING projection-49 identity (Save V32 / rules 4, no waiver quote
   // family and no `supersededByPromiseId`/`progress` on the promise history row), minted
   // at 4cba7090 and frozen in tests/fixtures/p14/genuine-projection49-runtime BEFORE this
