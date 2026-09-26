@@ -136,9 +136,21 @@ const LEDGER_SEEDS = {
   // reaches the `takes` assertion; every earlier pin (rows/settled/declined/
   // expired/settlementDigest/receipts/rngState) stays unmoved, confining the
   // change to exactly what contract 762 §12 F3 predicts.
-  'seed-b': { role: 'seed-b (the seating/outcomes witness seed)', rows: 48, settled: 48, declined: 0, expired: 0,
-    settlement: 'f9622a876a73673591f4016b5fe80ab708bbec30e330a423d3d82729b0ec678c', receipts: '8e791d65d1a54ee73a8c7a2debbfed272a0f144f240040d074118a337edeb871',
-    employment: '6c7f608cea8d3ceafef0f844f949805c252f21ebc88d22d36dd09c8a6f7ef855', takes: '1d9395b7c8408fb73d1eaff037297661e95326bd3cb9e70711effb6abba3b2a1',
+  // P14C.2a (record 788, approved_behavioral_change): ONE row left this seed's chain, dropping rows
+  // 48 -> 47 and settled 48 -> 47 (declined/expired unmoved at 0). The row that left is
+  // `416:settled:person-studio-bc14baf6-r02-3` (event `talent-market-event-280` now falls where
+  // `-281` used to; the whole `-r02-*` sequence is otherwise intact, `-0,-1,-2,-4,-5` all still
+  // settle at 416). Cause (788): that rival actor crosses the actor hard-boundary at week 358 and
+  // its 208-week contract's own end (E) is week 416 — the SAME week this ledger's natural chain
+  // would have opened a renewal-market case for it — so under D8 no market case opens for an
+  // announced (retiring) person, and the case that used to settle at 416 never opens. Intended law
+  // (C.2a idle/hard-boundary retirement), measured, not a defect. `takes` and `rng` are CONFIRMED
+  // UNMOVED (re-measured byte-identical to the pre-C.2a pins below) since the removed case never
+  // touched casting or consumed any RNG draw; only the two digests that hash settlement/receipt/
+  // employment rows move, and only because one row is now absent from each.
+  'seed-b': { role: 'seed-b (the seating/outcomes witness seed)', rows: 47, settled: 47, declined: 0, expired: 0,
+    settlement: '4b2e568a4c08713c14e6a7828dc0aaaef287f499d27d097bee26eea8dae3684a', receipts: 'f22a80e791d525b5a08b7ae95b3c269d382b3144d5271bc4e2df1f943e64063f',
+    employment: '51765b9e7c20535ab3be7bc368ebe34d8fe341f5bbf35810db122131d552e9b1', takes: '1d9395b7c8408fb73d1eaff037297661e95326bd3cb9e70711effb6abba3b2a1',
     rng: '1640490702,2161102015,891615888,2071390822' },
   'p13b-s8-bridge-probe-01': { role: 'the bridge seed (plain campaign; the s8 file adds a laboratory placement it does not share)', rows: 48, settled: 48, declined: 0, expired: 0,
     settlement: 'f8b0d3a7a9d15b30ce65b3b90c291d29189aabd5f445621c7996117b4fd178c2', receipts: 'b729a1f33fac085228697a52bb474400b26ca04dab8114f2cd3fa893861186c4',

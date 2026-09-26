@@ -61,8 +61,17 @@ describe('P14C.2a E1-E3, F1: settlement and the rival symmetry', () => {
     // the EXISTING P10 expiry wrote the end, not a second lifecycle-owned write
     expect(lifecycle.contracts.find((c) => c.talentId === id)).toBeUndefined() // expired off the active list
     expect(lifecycle.freeAgents).toContain(id)
-    // D12 preservation: nothing shortened, nothing reordered, nothing deleted
-    expect(lifecycle.talent.map((t) => t.id)).toEqual(talentBefore)
+    // D12 preservation: nothing shortened, nothing reordered, nothing deleted.
+    // 809 repair (approved_behavioral_change, record 804): this span crosses week 52, where C.4's
+    // youth floor legitimately appends one cohort entrant per profession per campaign year (782
+    // §7.1/§9) — a real, lawful mutation of `state.talent`, not a regression. Re-expressed rather
+    // than dropped: the PRE-EXISTING prefix is byte-for-byte unchanged (still D12's requirement),
+    // and anything appended after it is named and bounded — exactly the union of the cohort
+    // receipts' own `personIds`, nothing more and nothing fewer.
+    const talentAfter = lifecycle.talent.map((t) => t.id)
+    expect(talentAfter.slice(0, talentBefore.length)).toEqual(talentBefore)
+    const cohortPersonIds = lifecycle.careerLifecycle.cohorts.flatMap((receipt) => receipt.personIds)
+    expect(talentAfter.slice(talentBefore.length)).toEqual(cohortPersonIds)
     expect(lifecycle.careerEvents).toEqual(careerEventsBefore)
   })
 

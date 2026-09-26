@@ -386,9 +386,18 @@ function f6Base(): F6Base {
     // resampled at 208. The committed-at-W probe signs the SAME actor at 207 (branch ii) and inside the 208
     // pass (branch i), so the actor must be listed in BOTH weeks; the :851 guard still measures the 208 listing
     // on the real pre-market input, never a forged row.
+    // 809 repair (approved_behavioral_change, record 788): C.2a's idle retirements thin the week-207/208
+    // rotation to exactly one both-weeks actor, and on this seed it is always whoever plays `reliable`
+    // (measured: reserving a different actor for `reliable` just moves the same coupling to the new
+    // choice — record 809 tried it). `reliable`'s own contract ends at week 52, well before W, so by W it
+    // is itself a free agent satisfying the D1 predicate; it is never asserted by identity anywhere else
+    // in family 6 (grepped), so it is not "reserved" in any sense the assertions depend on — only
+    // `closedAtW`/`offCycle` are genuinely spoken for (their own sub-tests need them on-roster at W).
+    // Excluding only those from the search lets `free` resolve to `reliable`, the actual lawful
+    // both-weeks/not-on-roster actor at the current engine, with no assertion weakened.
     const listedAt208 = new Set(hiringMarketIds(state, F6.W))
     const free = hiringMarketIds(state, 207).map((i) => state.talent.find((t) => t.id === i))
-      .find((t) => t?.role === 'actor' && listedAt208.has(t.id) && ![reliable.id, closedAtW.id, offCycle.id].includes(t.id))?.id
+      .find((t) => t?.role === 'actor' && listedAt208.has(t.id) && ![closedAtW.id, offCycle.id].includes(t.id))?.id
     if (free === undefined) throw new Error('F6 premise: no actor listed at both 207 and 208 for the committed-at-W probe')
     expect(state.market.tick).toBe(207)
     // 662-T2 amendment (658-W item 1; plan (2a) is symmetric across studios — family 2 asserts a RIVAL take mints
