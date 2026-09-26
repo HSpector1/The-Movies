@@ -1,0 +1,19 @@
+{
+  "sourceSha": "8a932204565c97bc3cdb2dd01fc11d94442ece8d",
+  "testedDiffSha256": "527604fcadbe8bf44f84318b99dda71c4491c821f114e6d875856483eb0c5a7f",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/tsc",
+    "--noEmit"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-26T23:01:32.938Z",
+  "end": "2026-09-26T23:02:36.578Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "8a932204565c97bc3cdb2dd01fc11d94442ece8d",
+  "testedDiffSha256AtEnd": "527604fcadbe8bf44f84318b99dda71c4491c821f114e6d875856483eb0c5a7f",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

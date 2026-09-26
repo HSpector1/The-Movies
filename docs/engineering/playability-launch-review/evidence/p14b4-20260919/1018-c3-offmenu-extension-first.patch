@@ -1,0 +1,512 @@
+diff --git a/tests/helpers/p14c3-offmenu-extension-fixtures.ts b/tests/helpers/p14c3-offmenu-extension-fixtures.ts
+new file mode 100644
+index 00000000..0ec15ddf
+--- /dev/null
++++ b/tests/helpers/p14c3-offmenu-extension-fixtures.ts
+@@ -0,0 +1,235 @@
++// 1019-A/1024-A: real early termination creates D410<E416, with no edited dates,
++// receipts, employment, promises or trust. Two103→469 routes, <=732 total ticks.
++import assert from 'node:assert/strict'
++import { expect } from 'vitest'
++import { applyActions } from '../../src/core/actions.js'
++import { retirementRecordFor } from '../../src/core/careerLifecycle.js'
++import { activeContract, busyTalentIds, hiringMarketIds } from '../../src/core/employment.js'
++import { trustDescriptor, trustDrivers } from '../../src/core/promises.js'
++import { exportSave, importSave, makeSave, migrateToLive } from '../../src/core/save.js'
++import { caseForTalent, openMarketCaseFor, playerOffer, releaseFloor, submitProposal } from '../../src/core/talentMarket.js'
++import { tick } from '../../src/core/tick.js'
++import { TUNING } from '../../src/core/tuning.js'
++import type { GameState, TalentMarketCaseV36 } from '../../src/core/types.js'
++import { changedAndHired, extensionCase, preserveOriginalEvidence } from './p14c3-dual-extension-fixtures.js'
++import { clone, FOCUS, person, type Target } from './p14c3-fixtures.js'
++import { accepted } from './p14c3-second-episode-fixtures.js'
++
++export const OFFMENU_TARGETS = ['director', 'writer'] as const
++type Cached<T> = { ok: true; value: T } | { ok: false; error: unknown }
++const cache = new Map<string, Cached<unknown>>()
++const directCalls: Record<Target, number> = { director: 0, writer: 0 }
++const prefixes = new Set<Target>()
++function memo<T>(target: Target, phase: string, build: () => T): T {
++  const key = `${target}/${phase}`, prior = cache.get(key) as Cached<T> | undefined
++  if (prior) { if (!prior.ok) throw prior.error; return clone(prior.value) }
++  try { const value = build(); cache.set(key, { ok: true, value }); return clone(value) }
++  catch (error) { cache.set(key, { ok: false, error }); throw error }
++}
++function advance(target: Target, state: GameState, end: number): GameState {
++  assert.ok(Number.isSafeInteger(end) && end >= state.market.tick && end <= 469, 'off-menu maximum world469')
++  while (state.market.tick < end) {
++    assert.ok(directCalls[target] < 209, `off-menu ${target}209 direct-tick cap`)
++    directCalls[target]++
++    const before = state.market.tick
++    state = tick(state, { develop: true })
++    expect(state.market.tick).toBe(before + 1)
++  }
++  return state
++}
++export function offmenuAccounting() {
++  return { prefixRouteWeeks: 157, completedPrefixes: [...prefixes], directTickCalls: { ...directCalls },
++    completedPrefixWeeksPlusDirectCalls: prefixes.size * 157 + directCalls.director + directCalls.writer }
++}
++export function carryingEmployment(state: GameState, id: string, start: number, end: number) {
++  const rows = state.hollywood!.employment.filter(row => row.studioId === state.hollywood!.playerStudioId
++    && row.terms.talentId === id && row.terms.startWeek === start && row.terms.endWeekExclusive === end)
++  expect(rows).toHaveLength(1)
++  return rows[0]!
++}
++export function ordinaryCase(state: GameState, id: string): TalentMarketCaseV36 {
++  const rows = state.talentMarket.cases.filter(row => row.talentId === id && row.variant === 'expiry' && row.openedWeek === 300)
++  expect(rows).toHaveLength(1)
++  return rows[0]!
++}
++export function offmenuOrigin(target: Target): GameState {
++  return memo(target, 'origin260', () => {
++    // The qualified read-only prefix executes103→260 once; its discarded later
++    // 208-week hire is a separate immutable action, never this52-week contract.
++    const state = changedAndHired(target).beforeHire, id = FOCUS[target]
++    expect(state.market.tick).toBe(260)
++    expect(person(state, id)).toMatchObject({ role: target, age: 73 })
++    expect(retirementRecordFor(state, id, 'actor')).toMatchObject({ status: 'retired', retiredWeek: 260,
++      extensionUsed: true, extendedFromWeek: 208, effectiveWeek: 260 })
++    expect(retirementRecordFor(state, id)).toBeUndefined()
++    expect(activeContract(state, id)).toBeUndefined()
++    expect(busyTalentIds(state).has(id)).toBe(false)
++    expect(state.hollywood!.employment.filter(row => row.terms.talentId === id && row.terms.startWeek <= 260
++      && 260 < (row.endedWeek ?? row.terms.endWeekExclusive))).toEqual([])
++    expect(state.freeAgents.filter(row => row === id)).toHaveLength(1)
++    expect(state.careerLifecycle.transitionEvaluations.filter(row => row.personId === id))
++      .toEqual([expect.objectContaining({ week: 260, outcome: 'chosen', selected: target })])
++    accepted(state)
++    prefixes.add(target)
++    return state
++  })
++}
++export function preserveOffmenuOrigin(state: GameState, target: Target): void {
++  const id = FOCUS[target], origin = offmenuOrigin(target)
++  preserveOriginalEvidence(state, origin, id)
++  expect(retirementRecordFor(state, id, 'actor')).toEqual(retirementRecordFor(origin, id, 'actor'))
++  expect(extensionCase(state, id, 196)).toEqual(extensionCase(origin, id, 196))
++  expect(state.talentMarket.receipts.filter(row => row.talentId === id && row.week <= 260))
++    .toEqual(origin.talentMarket.receipts.filter(row => row.talentId === id))
++  expect(state.careerLifecycle.transitionEvaluations.filter(row => row.personId === id))
++    .toEqual(origin.careerLifecycle.transitionEvaluations.filter(row => row.personId === id))
++  expect(state.careerLifecycle.professionChanges.filter(row => row.personId === id))
++    .toEqual(origin.careerLifecycle.professionChanges.filter(row => row.personId === id))
++}
++export function offmenuRehire(target: Target) {
++  return memo(target, 'release-rehire312', () => {
++    const id = FOCUS[target], origin = offmenuOrigin(target), owner = origin.hollywood!.playerStudioId
++    const quote = playerOffer(origin, id, 52, 260)
++    let state = applyActions(origin, [{ kind: 'signContract', talentId: id, termWeeks: 52 }])
++    expect(activeContract(state, id)).toMatchObject({ startWeek: 260, endWeekExclusive: 312, termWeeks: 52,
++      annualSalary: quote.annualSalary, signingBonus: quote.signingBonus })
++    accepted(state)
++    const hired260 = clone(state), oldEmployment = clone(carryingEmployment(state, id, 260, 312))
++    state = advance(target, state, 300)
++    const opened300 = clone(state), kase = ordinaryCase(state, id)
++    expect(kase).toMatchObject({ subjectStudioId: owner, contractId: oldEmployment.contractId,
++      openedWeek: 300, outcome: null, closedWeek: null })
++    expect(openMarketCaseFor(state, id)).toEqual(kase)
++    accepted(state)
++    state = advance(target, state, 306)
++    expect(activeContract(state, id)).toEqual(oldEmployment.terms)
++    expect(retirementRecordFor(state, id)).toBeUndefined()
++    expect(busyTalentIds(state).has(id)).toBe(false)
++    const beforeRelease = clone(state)
++    expect(state.promises.filter(row => row.issuerStudioId === owner && row.beneficiaryPersonId === id
++      && row.contractId !== null && row.outcome === null), 'actual release premise: no bound open promise is silently erased').toEqual([])
++    state = applyActions(state, [{ kind: 'releaseTalent', talentId: id }])
++    expect(state.market.tick).toBe(306)
++    expect(activeContract(state, id)).toBeUndefined()
++    expect(hiringMarketIds(state)).toContain(id)
++    expect(state.freeAgents.filter(row => row === id)).toHaveLength(1)
++    expect(carryingEmployment(state, id, 260, 312)).toMatchObject({ endedWeek: 306 })
++    expect(caseForTalent(state, id)).toMatchObject({ contractId: oldEmployment.contractId, status: 'invalidated', decisionWeek: 312 })
++    expect(ordinaryCase(state, id)).toEqual(kase)
++    expect(releaseFloor(state, owner, id)).toEqual({ floorAnnual: oldEmployment.terms.annualSalary, validUntilWeek: 312 })
++    accepted(state)
++    const released306 = clone(state), rehireQuote = playerOffer(state, id, 104, 306)
++    state = applyActions(state, [{ kind: 'signContract', talentId: id, termWeeks: 104 }])
++    expect(state.market.tick).toBe(306)
++    expect(activeContract(state, id)).toMatchObject({ startWeek: 306, endWeekExclusive: 410, termWeeks: 104,
++      annualSalary: rehireQuote.annualSalary, signingBonus: rehireQuote.signingBonus })
++    const newEmployment = carryingEmployment(state, id, 306, 410)
++    expect(newEmployment.contractId).not.toBe(oldEmployment.contractId)
++    expect(carryingEmployment(state, id, 260, 312)).toMatchObject({ endedWeek: 306 })
++    accepted(state)
++    const rehired306 = clone(state)
++    state = advance(target, state, 307)
++    expect(ordinaryCase(state, id)).toMatchObject({ contractId: oldEmployment.contractId, outcome: 'invalidated', closedWeek: 307 })
++    expect(state.talentMarket.proposals.filter(row => row.talentId === id)).toEqual([])
++    accepted(state)
++    const closed307 = clone(state)
++    state = advance(target, state, 312)
++    expect(activeContract(state, id)).toMatchObject({ startWeek: 306, endWeekExclusive: 410 })
++    expect(releaseFloor(state, owner, id)).toBeNull()
++    expect(state.talentMarket.receipts.filter(row => row.talentId === id && row.kind === 'settled' && row.week === 312)).toEqual([])
++    expect(state.ledger.filter(row => row.talentId === id && row.kind === 'signingBonus' && row.week === 312)).toEqual([])
++    accepted(state)
++    return { origin, hired260, oldEmployment, opened300, beforeRelease, released306, rehired306, closed307, at312: state }
++  })
++}
++export function offmenuWindow(target: Target) {
++  return memo(target, 'window404', () => {
++    const f = offmenuRehire(target), id = FOCUS[target]
++    let state = advance(target, f.at312, 364)
++    expect(person(state, id)).toMatchObject({ role: target, age: 75 })
++    expect(busyTalentIds(state).has(id)).toBe(false)
++    const ends = state.hollywood!.employment.filter(row => row.terms.talentId === id && row.terms.startWeek <= 364
++      && 364 < (row.endedWeek ?? row.terms.endWeekExclusive)).map(row => row.terms.endWeekExclusive)
++    expect(ends).toEqual([410])
++    const effective = Math.max(364 + TUNING.RETIREMENT_NOTICE_WEEKS, ...ends)
++    expect(effective).toBe(416)
++    expect(retirementRecordFor(state, id)).toMatchObject({ profession: target, status: 'announced', cause: 'hardBoundary',
++      announcedWeek: 364, ageAtAnnouncement: 75, effectiveWeek: effective, extensionUsed: false })
++    accepted(state)
++    const announced364 = clone(state)
++    state = advance(target, state, 403)
++    expect(openMarketCaseFor(state, id)).toBeUndefined()
++    expect(state.talentMarket.cases.filter(row => row.talentId === id && row.variant === 'retirementExtension')).toHaveLength(1)
++    const before403 = clone(state)
++    state = advance(target, state, 404)
++    const kase = extensionCase(state, id, 404), employment = carryingEmployment(state, id, 306, 410)
++    expect(kase).toMatchObject({ subjectStudioId: state.hollywood!.playerStudioId, contractId: employment.contractId,
++      openedWeek: 404, outcome: null, closedWeek: null })
++    expect(caseForTalent(state, id)).toMatchObject({ decisionWeek: 410, openedWeek: 404, status: 'discovered' })
++    expect(openMarketCaseFor(state, id)).toEqual(kase)
++    expect(ordinaryCase(state, id)).toEqual(ordinaryCase(f.closed307, id))
++    preserveOffmenuOrigin(state, target)
++    accepted(state)
++    return { announced364, before403, window404: state }
++  })
++}
++export function offmenuSubmitted(target: Target): GameState {
++  return memo(target, 'submitted404', () => {
++    const state = offmenuWindow(target).window404, id = FOCUS[target]
++    const record = retirementRecordFor(state, id), view = caseForTalent(state, id)
++    assert.ok(record && view)
++    const term = record.effectiveWeek + 52 - view.decisionWeek
++    expect(term).toBe(58)
++    const next = submitProposal(state, { talentId: id, issuerStudioId: state.hollywood!.playerStudioId, termWeeks: term, premiumTier: 1.25 })
++    expect(next.talentMarket.proposals.filter(row => row.talentId === id)).toEqual([expect.objectContaining({
++      issuerStudioId: state.hollywood!.playerStudioId, submittedWeek: 404, startWeek: 410, termWeeks: 58,
++      premiumTier: 1.25, promises: [], representation: null })])
++    expect(next.contracts).toEqual(state.contracts)
++    expect(next.ledger).toEqual(state.ledger)
++    expect(next.hollywood!.employment).toEqual(state.hollywood!.employment)
++    accepted(next)
++    return next
++  })
++}
++export function offmenuSettlement(target: Target) {
++  return memo(target, 'settled410', () => {
++    const submitted = offmenuSubmitted(target), id = FOCUS[target], owner = submitted.hollywood!.playerStudioId
++    let state = advance(target, submitted, 409)
++    expect(state.talentMarket.proposals.filter(row => row.talentId === id))
++      .toEqual(submitted.talentMarket.proposals.filter(row => row.talentId === id))
++    expect(trustDescriptor(state, id, owner, 409).label, 'actual trust is a premise, not guaranteed by premium').not.toBe('Distrusted')
++    expect(trustDrivers(state, id, owner, 409).filter(row => row.kind === 'terminatedEarly' && row.week === 306)).toHaveLength(1)
++    const before409 = clone(state)
++    state = advance(target, state, 410)
++    expect(extensionCase(state, id, 404)).toMatchObject({ outcome: 'settled', closedWeek: 410 })
++    expect(activeContract(state, id), 'actual acceptance required; no forced winner or funding fallback')
++      .toMatchObject({ startWeek: 410, endWeekExclusive: 468, termWeeks: 58 })
++    expect(retirementRecordFor(state, id)).toMatchObject({ profession: target, extendedFromWeek: 416,
++      effectiveWeek: 468, extensionUsed: true, status: 'announced', retiredWeek: null })
++    preserveOffmenuOrigin(state, target)
++    accepted(state)
++    return { before409, settled410: state }
++  })
++}
++export function offmenuTerminal(target: Target) {
++  return memo(target, 'terminal469', () => {
++    const before = offmenuSettlement(target).settled410, id = FOCUS[target]
++    let state = advance(target, before, 456)
++    expect(openMarketCaseFor(state, id)).toBeUndefined()
++    expect(state.talentMarket.cases.filter(row => row.talentId === id)).toEqual(before.talentMarket.cases.filter(row => row.talentId === id))
++    const at456 = clone(state)
++    state = advance(target, state, 468)
++    expect(retirementRecordFor(state, id)).toMatchObject({ profession: target, status: 'retired', retiredWeek: 468 })
++    expect(activeContract(state, id)).toBeUndefined()
++    expect(busyTalentIds(state).has(id)).toBe(false)
++    accepted(state)
++    const at468 = clone(state), raw = exportSave(makeSave(state)), loaded468 = migrateToLive(importSave(raw)).state
++    expect(exportSave(makeSave(loaded468))).toBe(raw)
++    accepted(loaded468)
++    state = advance(target, loaded468, 469)
++    preserveOffmenuOrigin(state, target)
++    accepted(state)
++    expect(directCalls[target]).toBe(209)
++    return { at456, at468, loaded468, at469: state }
++  })
++}
+diff --git a/tests/p14c3-offmenu-extensions.test.ts b/tests/p14c3-offmenu-extensions.test.ts
+new file mode 100644
+index 00000000..fc4c06e0
+--- /dev/null
++++ b/tests/p14c3-offmenu-extensions.test.ts
+@@ -0,0 +1,265 @@
++// 1019-A/1024-A: genuine two-episode D<E extensions. Eight qualification leaves,
++// no fabricated RED, term/date/receipt edits or trust/funding substitutions.
++import assert from 'node:assert/strict'
++import { afterAll, describe, expect, it } from 'vitest'
++import { extensionIssuer, retirementRecordFor } from '../src/core/careerLifecycle.js'
++import { activeContract, canAfford, contractOffer, hiringMarketIds } from '../src/core/employment.js'
++import { professionAtWeek } from '../src/core/index.js'
++import { trustDescriptor, trustDrivers } from '../src/core/promises.js'
++import { tiersOnRoster } from '../src/core/relationships.js'
++import { convertV38ToV37, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
++import { caseForTalent, marketEligibility, openMarketCaseFor, playerOffer, proposalDraft, releaseFloor, studioOffer, submitProposal } from '../src/core/talentMarket.js'
++import { TUNING } from '../src/core/tuning.js'
++import type { GameState } from '../src/core/types.js'
++import { extensionCase } from './helpers/p14c3-dual-extension-fixtures.js'
++import { FOCUS, type Target } from './helpers/p14c3-fixtures.js'
++import { carryingEmployment, OFFMENU_TARGETS, offmenuAccounting, offmenuRehire, offmenuSettlement,
++  offmenuSubmitted, offmenuTerminal, offmenuWindow, ordinaryCase, preserveOffmenuOrigin } from './helpers/p14c3-offmenu-extension-fixtures.js'
++import { accepted } from './helpers/p14c3-second-episode-fixtures.js'
++
++const observed: Partial<Record<Target, { floorBinds?: boolean; term?: number; decision?: number; end?: number; finality?: number }>> = {}
++afterAll(() => console.info(JSON.stringify({ phase: '1026-offmenu-route-observation', ...offmenuAccounting(), observed })))
++function actualTermination(state: GameState, target: Target): void {
++  const f = offmenuRehire(target), id = FOCUS[target], owner = state.hollywood!.playerStudioId
++  const old = carryingEmployment(state, id, 260, 312)
++  expect(old).toEqual({ ...f.oldEmployment, endedWeek: 306 })
++  expect(state.hollywood!.receipts.filter(row => row.kind === 'employment' && row.reason === 'termination'
++    && row.contractId === old.contractId && row.talentId === id))
++    .toEqual([expect.objectContaining({ week: 306, studioId: owner, fromStudioId: owner, toStudioId: null })])
++  const cost = Math.round(old.terms.annualSalary / 52) * 6
++  expect(state.ledger.filter(row => row.kind === 'termination' && row.talentId === id))
++    .toEqual([expect.objectContaining({ week: 306, amount: -cost })])
++}
++function preserveOrdinaryHistory(state: GameState, target: Target): void {
++  const f = offmenuRehire(target), id = FOCUS[target]
++  expect(ordinaryCase(state, id)).toEqual(ordinaryCase(f.closed307, id))
++  expect(ordinaryCase(state, id)).toMatchObject({ contractId: f.oldEmployment.contractId, openedWeek: 300,
++    outcome: 'invalidated', closedWeek: 307 })
++  expect(state.talentMarket.receipts.filter(row => row.talentId === id && row.week >= 300 && row.week <= 307))
++    .toEqual(f.closed307.talentMarket.receipts.filter(row => row.talentId === id && row.week >= 300 && row.week <= 307))
++  expect(state.talentMarket.receipts.filter(row => row.talentId === id && row.kind === 'settled' && row.week === 312)).toEqual([])
++  expect(state.ledger.filter(row => row.talentId === id && row.kind === 'signingBonus' && row.week === 312)).toEqual([])
++  actualTermination(state, target)
++  for (const promise of f.beforeRelease.promises.filter(row => row.beneficiaryPersonId === id && row.outcome !== null)) {
++    expect(state.promises.find(row => row.promiseId === promise.promiseId)).toEqual(promise)
++  }
++}
++function repeatRefused(state: GameState, id: string): void {
++  const before = stableStringify(state)
++  expect(retirementRecordFor(state, id)).toMatchObject({ status: 'announced', extensionUsed: true })
++  expect(openMarketCaseFor(state, id)).toBeUndefined()
++  expect(extensionIssuer(state, id, state.market.tick)).toBeNull()
++  expect(() => submitProposal(state, { talentId: id, issuerStudioId: state.hollywood!.playerStudioId,
++    termWeeks: 58, premiumTier: 1.25 })).toThrow(/retirementAnnounced/)
++  expect(stableStringify(state)).toBe(before)
++}
++
++describe.each(OFFMENU_TARGETS)('C.3 actor→%s genuine off-menu58-week extension', target => {
++  it('O1 records a real six-week termination, floored same-week rehire and invalidation of the old ordinary case', () => {
++    const f = offmenuRehire(target), id = FOCUS[target], owner = f.origin.hollywood!.playerStudioId
++    for (const state of [f.origin, f.hired260, f.opened300, f.beforeRelease, f.released306, f.rehired306, f.closed307, f.at312]) accepted(state)
++    const firstQuote = playerOffer(f.origin, id, 52, 260)
++    expect(f.hired260.studio.cash).toBe(f.origin.studio.cash - firstQuote.signingBonus)
++    expect(f.hired260.ledger.slice(f.origin.ledger.length))
++      .toEqual([expect.objectContaining({ kind: 'signingBonus', week: 260, talentId: id, amount: -firstQuote.signingBonus })])
++    expect(f.oldEmployment).toMatchObject({ studioId: owner, endedWeek: null,
++      terms: { talentId: id, startWeek: 260, endWeekExclusive: 312, termWeeks: 52 } })
++    const oldCase = ordinaryCase(f.opened300, id)
++    expect(oldCase.contractId).toBe(f.oldEmployment.contractId)
++    expect(f.opened300.talentMarket.receipts.filter(row => row.talentId === id && row.kind === 'discovered' && row.week === 300))
++      .toEqual([expect.objectContaining({ studioId: owner })])
++    expect(312 - f.beforeRelease.market.tick).toBe(6)
++    expect(TUNING.TICKS_PER_YEAR).toBe(52)
++    expect(TUNING.HIRING_TERMINATION_CAP_WEEKS).toBe(26)
++    const cost = Math.round(f.oldEmployment.terms.annualSalary / 52) * 6
++    expect(f.released306.studio.cash).toBe(f.beforeRelease.studio.cash - cost)
++    expect(f.released306.ledger.slice(f.beforeRelease.ledger.length))
++      .toEqual([expect.objectContaining({ kind: 'termination', week: 306, talentId: id, amount: -cost })])
++    expect(f.released306.market.tick).toBe(f.rehired306.market.tick)
++    expect(activeContract(f.released306, id)).toBeUndefined()
++    expect(hiringMarketIds(f.released306)).toContain(id)
++    expect(f.released306.freeAgents.filter(row => row === id)).toHaveLength(1)
++    expect(f.released306.promises).toEqual(f.beforeRelease.promises)
++    expect(f.rehired306.promises).toEqual(f.released306.promises)
++    expect(f.released306.talentMarket.receipts.filter(row => row.kind === 'promiseOutcome' && row.talentId === id))
++      .toEqual(f.beforeRelease.talentMarket.receipts.filter(row => row.kind === 'promiseOutcome' && row.talentId === id))
++    actualTermination(f.released306, target)
++    expect(caseForTalent(f.released306, id)).toMatchObject({ status: 'invalidated', decisionWeek: 312, openedWeek: 300 })
++    expect(ordinaryCase(f.released306, id)).toEqual(oldCase)
++    expect(oldCase).toMatchObject({ outcome: null, closedWeek: null })
++    const floor = releaseFloor(f.released306, owner, id), plain = contractOffer(f.released306, id, 104, 306)
++    assert.ok(floor)
++    expect(floor).toEqual({ floorAnnual: f.oldEmployment.terms.annualSalary, validUntilWeek: 312 })
++    const annual = Math.max(plain.annualSalary, floor.floorAnnual)
++    const bonus = Math.round(annual * TUNING.CONTRACT_SIGNING_BONUS_FRACTION)
++    const quoted = studioOffer(f.released306, owner, id, 104, 306)
++    expect(quoted).toMatchObject({ annualSalary: annual, signingBonus: bonus, startWeek: 306, endWeekExclusive: 410, termWeeks: 104 })
++    expect(playerOffer(f.released306, id, 104, 306)).toEqual(quoted)
++    observed[target] = { ...observed[target], floorBinds: floor.floorAnnual > plain.annualSalary }
++    if (floor.floorAnnual > plain.annualSalary) expect(quoted.annualSalary).toBeGreaterThan(plain.annualSalary)
++    else expect(quoted.annualSalary).toBe(plain.annualSalary)
++    expect(f.rehired306.studio.cash).toBe(f.released306.studio.cash - bonus)
++    expect(f.rehired306.ledger.slice(f.released306.ledger.length))
++      .toEqual([expect.objectContaining({ kind: 'signingBonus', week: 306, talentId: id, amount: -bonus })])
++    const replacement = carryingEmployment(f.rehired306, id, 306, 410)
++    expect(replacement.contractId).not.toBe(f.oldEmployment.contractId)
++    expect(replacement).toMatchObject({ endedWeek: null, reason: 'player-contract', terms: { annualSalary: annual, signingBonus: bonus } })
++    expect(replacement.terms).toEqual(activeContract(f.rehired306, id))
++    expect(f.rehired306.hollywood!.receipts.filter(row => row.kind === 'employment' && row.contractId === replacement.contractId))
++      .toEqual([expect.objectContaining({ week: 306, talentId: id, studioId: owner,
++        reason: 'player-contract', fromStudioId: null, toStudioId: owner })])
++    expect(carryingEmployment(f.rehired306, id, 260, 312).endedWeek).toBe(replacement.terms.startWeek)
++    expect(ordinaryCase(f.closed307, id)).toMatchObject({ outcome: 'invalidated', closedWeek: 307 })
++    expect(f.closed307.talentMarket.receipts.filter(row => row.talentId === id && row.kind === 'invalidated' && row.week === 307))
++      .toEqual([expect.objectContaining({ reasons: ['the person was released early and is a free agent now'] })])
++    expect(f.closed307.talentMarket.proposals.filter(row => row.talentId === id)).toEqual([])
++    expect(releaseFloor(f.at312, owner, id)).toBeNull()
++    expect(trustDrivers(f.rehired306, id, owner, 306).filter(row => row.kind === 'terminatedEarly' && row.week === 306))
++      .toEqual([expect.objectContaining({ positive: false })])
++    preserveOrdinaryHistory(f.at312, target)
++    preserveOffmenuOrigin(f.at312, target)
++  })
++
++  it('O2 derives real D410<E416 and accepts only the entered incumbent58-week proposal ending468', () => {
++    const f = offmenuWindow(target), state = f.window404, id = FOCUS[target], owner = state.hollywood!.playerStudioId
++    accepted(f.announced364); accepted(f.before403); accepted(state)
++    const record = retirementRecordFor(state, id)
++    assert.ok(record)
++    expect(record).toMatchObject({ profession: target, announcedWeek: 364, effectiveWeek: 416, extensionUsed: false })
++    expect(openMarketCaseFor(f.before403, id)).toBeUndefined()
++    const kase = extensionCase(state, id, 404), view = caseForTalent(state, id)
++    assert.ok(view)
++    expect(kase.contractId).toBe(carryingEmployment(state, id, 306, 410).contractId)
++    expect(view).toMatchObject({ openedWeek: 404, decisionWeek: 410, status: 'discovered' })
++    expect(view.decisionWeek).toBeLessThan(record.effectiveWeek)
++    expect(record.effectiveWeek - TUNING.RETIREMENT_EXTENSION_WINDOW_WEEKS).toBe(404)
++    const term = record.effectiveWeek + 52 - view.decisionWeek
++    expect(term).toBe(58)
++    expect(TUNING.CONTRACT_TERM_OPTIONS).toEqual([52, 104, 156, 208])
++    expect(TUNING.CONTRACT_TERM_OPTIONS).not.toContain(term)
++    expect(marketEligibility(state, id).proposers).toEqual([owner])
++    expect(extensionIssuer(state, id, 404)).toBe(owner)
++    const rival = state.hollywood!.identities.find(row => row.studioId !== owner && row.enteredWeek !== null
++      && row.enteredWeek <= 404 && state.hollywood!.businesses.some(business => business.studioId === row.studioId))
++    assert.ok(rival, 'wrong issuer must be an actual entered non-incumbent, not an invented id')
++    const before = stableStringify(state)
++    expect(() => submitProposal(state, { talentId: id, issuerStudioId: rival.studioId, termWeeks: term, premiumTier: 1.25 }))
++      .toThrow(/retirementAnnounced/)
++    for (const wrong of [57, 59, 52]) {
++      expect(() => submitProposal(state, { talentId: id, issuerStudioId: owner, termWeeks: wrong, premiumTier: 1.25 }))
++        .toThrow('must end at exactly week 468')
++    }
++    expect(stableStringify(state)).toBe(before)
++    const offered = offmenuSubmitted(target), quote = playerOffer(state, id, 58, 404)
++    const annual = Math.round(quote.annualSalary * 1.25), bonus = Math.round(annual * TUNING.CONTRACT_SIGNING_BONUS_FRACTION)
++    expect(contractOffer(state, id, 58, 404).annualSalary).toBe(contractOffer(state, id, 52, 404).annualSalary)
++    expect(quote.termWeeks).toBe(58)
++    expect(canAfford(state, bonus).ok).toBe(true)
++    expect(offered.talentMarket.proposals.filter(row => row.talentId === id)).toEqual([expect.objectContaining({
++      termWeeks: 58, startWeek: 410, premiumTier: 1.25, issuerStudioId: owner, annualSalary: annual,
++      signingBonus: bonus, promises: [], representation: null })])
++    expect(offered.talentMarket.receipts.filter(row => row.talentId === id && row.kind === 'proposalSubmitted' && row.week === 404))
++      .toEqual([expect.objectContaining({ studioId: owner })])
++    expect(offered.contracts).toEqual(state.contracts)
++    expect(offered.hollywood!.employment).toEqual(state.hollywood!.employment)
++    expect(offered.ledger).toEqual(state.ledger)
++    expect(offered.studio.cash).toBe(state.studio.cash)
++    expect(offered.promises).toEqual(state.promises)
++    expect(professionAtWeek(offered, id, 196)).toBe('actor')
++    expect(professionAtWeek(offered, id, 404)).toBe(target)
++    preserveOrdinaryHistory(offered, target)
++    accepted(offered)
++  })
++
++  it('O3 actually settles and pays58 weeks at410 with real trust and both dated used episodes preserved', () => {
++    const f = offmenuSettlement(target), state = f.settled410, id = FOCUS[target], owner = state.hollywood!.playerStudioId
++    const submitted = offmenuSubmitted(target), proposal = submitted.talentMarket.proposals.find(row => row.talentId === id)!
++    const kase = extensionCase(state, id, 404), oldEmployment = carryingEmployment(state, id, 306, 410)
++    expect(kase).toMatchObject({ contractId: oldEmployment.contractId, subjectStudioId: owner, outcome: 'settled', closedWeek: 410 })
++    expect(oldEmployment).toMatchObject({ endedWeek: 410 })
++    expect(state.hollywood!.receipts.filter(row => row.kind === 'employment' && row.reason === 'expiry'
++      && row.contractId === oldEmployment.contractId && row.talentId === id && row.week === 410))
++      .toEqual([expect.objectContaining({ studioId: owner, fromStudioId: owner, toStudioId: null })])
++    expect(oldEmployment.contractId).not.toBe(carryingEmployment(state, id, 260, 312).contractId)
++    const employment = carryingEmployment(state, id, 410, 468), contract = activeContract(state, id)
++    assert.ok(contract)
++    expect(employment.contractId).not.toBe(oldEmployment.contractId)
++    expect(employment.terms).toEqual(contract)
++    expect(contract.termWeeks).toBe(58)
++    expect(state.hollywood!.employment.filter(row => row.terms.talentId === id && row.terms.startWeek <= 410
++      && 410 < (row.endedWeek ?? row.terms.endWeekExclusive))).toEqual([employment])
++    expect(releaseFloor(state, owner, id)).toBeNull()
++    const ask = playerOffer(state, id, 58, 410)
++    const annual = Math.round(ask.annualSalary * 1.25), bonus = Math.round(annual * TUNING.CONTRACT_SIGNING_BONUS_FRACTION)
++    expect(contract).toMatchObject({ talentId: id, startWeek: 410, endWeekExclusive: 468, annualSalary: annual, signingBonus: bonus })
++    expect(annual).toBeGreaterThanOrEqual(Math.round(ask.annualSalary * TUNING.RETIREMENT_EXTENSION_RESERVATION_FACTOR))
++    expect(proposalDraft(state, owner, id, 58, 1.25, 410).digest).toBe(proposal.digest)
++    expect(proposal.promises).toEqual([])
++    expect(state.ledger.filter(row => row.talentId === id && row.kind === 'signingBonus' && row.week >= 404 && row.week <= 410))
++      .toEqual([expect.objectContaining({ week: 410, amount: -bonus })])
++    expect(state.ledger.slice(0, f.before409.ledger.length)).toEqual(f.before409.ledger)
++    expect(state.studio.cash - f.before409.studio.cash)
++      .toBe(state.ledger.slice(f.before409.ledger.length).reduce((sum, row) => sum + row.amount, 0))
++    expect(state.studio.cash, 'actual affordable settlement remains solvent after its one bonus').toBeGreaterThanOrEqual(0)
++    expect(trustDescriptor(state, id, owner, 410).label).not.toBe('Distrusted')
++    expect(trustDrivers(state, id, owner, 410).filter(row => row.kind === 'terminatedEarly' && row.week === 306))
++      .toEqual([expect.objectContaining({ positive: false })])
++    const roster = new Set(state.hollywood!.employment.filter(row => row.studioId === owner && row.terms.talentId !== id
++      && row.terms.startWeek < 410 && (row.endedWeek === null || 410 < row.endedWeek)).map(row => row.terms.talentId))
++    expect(tiersOnRoster(state, id, roster, 410)).not.toContain('Nemeses')
++    expect(state.talentMarket.receipts.filter(row => row.talentId === id && row.kind === 'settled' && row.week >= 404 && row.week <= 410))
++      .toEqual([expect.objectContaining({ week: 410, studioId: owner,
++        reasons: ['they accepted the one final extension before retiring'], dropped: [] })])
++    expect(state.talentMarket.proposals.filter(row => row.talentId === id)).toEqual([])
++    expect(retirementRecordFor(state, id)).toMatchObject({ extendedFromWeek: 416, effectiveWeek: 468,
++      extensionUsed: true, status: 'announced', retiredWeek: null })
++    expect(state.careerLifecycle.records.filter(row => row.personId === id && row.extensionUsed)).toHaveLength(2)
++    expect(state.careerLifecycle.industryRetirements.filter(row => row.personId === id)).toEqual([])
++    expect(state.careerLifecycle.transitionDue.filter(row => row.personId === id)).toEqual([])
++    repeatRefused(state, id)
++    preserveOrdinaryHistory(state, target)
++    preserveOffmenuOrigin(state, target)
++    const saved = makeSave(state), raw = exportSave(saved), loaded = migrateToLive(importSave(raw)).state
++    expect(exportSave(makeSave(loaded))).toBe(raw)
++    expect(loaded.careerLifecycle).toEqual(state.careerLifecycle)
++    expect(loaded.talentMarket.cases.filter(row => row.talentId === id)).toEqual(state.talentMarket.cases.filter(row => row.talentId === id))
++    expect(carryingEmployment(loaded, id, 410, 468)).toEqual(employment)
++    expect(professionAtWeek(loaded, id, extensionCase(loaded, id, 196).openedWeek)).toBe('actor')
++    expect(professionAtWeek(loaded, id, extensionCase(loaded, id, 404).openedWeek)).toBe(target)
++    expect(() => convertV38ToV37(saved)).toThrow(/cannot downgrade or discard profession transition, industry retirement or entrant authority/)
++    accepted(loaded)
++    observed[target] = { ...observed[target], term: contract.termWeeks, decision: contract.startWeek, end: contract.endWeekExclusive }
++  })
++
++  it('O4 opens no repeat case and preserves actual468 finality and all termination history through loaded469', () => {
++    const f = offmenuTerminal(target), before = offmenuSettlement(target).settled410, id = FOCUS[target]
++    expect(f.at456.market.tick).toBe(456)
++    repeatRefused(f.at456, id)
++    expect(f.at468.market.tick).toBe(468)
++    expect(f.loaded468.market.tick).toBe(468)
++    expect(f.at469.market.tick).toBe(469)
++    const finality = [{ personId: id, week: 468, profession: target,
++      source: { personId: id, profession: target }, cause: 'noCatalogue', evaluationId: null }]
++    for (const state of [f.at468, f.loaded468, f.at469]) {
++      accepted(state)
++      expect(retirementRecordFor(state, id)).toMatchObject({ profession: target, status: 'retired', retiredWeek: 468,
++        effectiveWeek: 468, extendedFromWeek: 416, extensionUsed: true })
++      expect(state.careerLifecycle.industryRetirements.filter(row => row.personId === id)).toEqual(finality)
++      expect(state.careerLifecycle.transitionDue.filter(row => row.personId === id)).toEqual([])
++      expect(activeContract(state, id)).toBeUndefined()
++      expect(state.freeAgents).not.toContain(id)
++      expect(state.talentMarket.cases.filter(row => row.talentId === id)).toEqual(before.talentMarket.cases.filter(row => row.talentId === id))
++      expect(state.talentMarket.receipts.filter(row => row.talentId === id)).toEqual(before.talentMarket.receipts.filter(row => row.talentId === id))
++      expect(state.ledger.filter(row => row.talentId === id && row.kind === 'signingBonus'))
++        .toEqual(before.ledger.filter(row => row.talentId === id && row.kind === 'signingBonus'))
++      preserveOrdinaryHistory(state, target)
++      preserveOffmenuOrigin(state, target)
++    }
++    const extension = carryingEmployment(f.at468, id, 410, 468)
++    expect(extension).toMatchObject({ endedWeek: 468 })
++    expect(f.at468.hollywood!.receipts.filter(row => row.kind === 'employment' && row.reason === 'expiry'
++      && row.contractId === extension.contractId && row.talentId === id && row.week === 468)).toHaveLength(1)
++    expect(offmenuAccounting().directTickCalls[target]).toBe(209)
++    observed[target] = { ...observed[target], finality: f.at468.careerLifecycle.industryRetirements.find(row => row.personId === id)!.week }
++  })
++})

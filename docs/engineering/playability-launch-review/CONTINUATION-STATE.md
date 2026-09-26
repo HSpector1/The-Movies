@@ -1,5 +1,54 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — off-menu tests and types pass; preparing1031 checkpoint
+
+1018 first eight casesPASS158.906s;1019 roottypesPASS63.640s,closed23:02:36.578Z.
+Both fixed-source on8a932204 plus527604fc. Both58-week410→468 acceptance/payment
+routes, binding306 floors, correct300/307 invalidation and468/loaded469 finality
+are observed. All heavy processes closed. Independent1027-A final review then
+parent1031 publication next. Source remains unchanged. Existingauthor idle until
+next accepted1028 G4 four-leaf source release; reviewer finishes1027/1030docs.
+StageC/StageD/full gates and deferrednative remain; no launch acceptance.
+
+## CURRENT — eight off-menu extension cases pass; types active
+
+1018 closed23:01:08.970Z,8PASS/1file,158.906s,child0/fixedSource on8a932204
+plus527604fc. Both actual D410<E416 routes accepted paid58-week410→468
+extensions, both306 price floors bound, invalidated300 cases stayed closed, and
+actual468 finality survived loaded469. Two completed157-week prefixes plus
+209direct calls each give732successfulrouteweeks; oldprefixcalls are source-derived.
+1019roottypes is active in the soleheavy lane(session29351). All consumed source/
+HEAD remainfrozen. Reviewer1027-A finalreview pending; parent1031 checkpoint follows
+types/review.1028-A G4 fourleaves/max300 accepted but source release waits for
+checkpoint. Same two specialists/soleproductionwriter; remainingStageC/StageD/full
+gates and Unity/native deferralunchanged. No production fix or inventedRED.
+
+## CURRENT — off-menu extension first run active
+
+Parent1018-c3-offmenu-extension-first started2026-09-26T22:58:30.064Z in the sole heavy lane
+(exec session52192). Frozen source is8a932204 plus
+527604fcadbe8bf44f84318b99dda71c4491c821f114e6d875856483eb0c5a7f, the two
+new off-menu files only. Exactly eight leaves/max732 ticks/world469. No consumed
+source or HEAD changes until recorded closure. Read actual JSON/raw output before
+claiming qualification. Author completes docs-only1026-A handback; reviewer1027-A
+source/result review and1030-A future StageD seams are docs-only.1028-A four-leaf
+G4 plan is accepted, but its source is not yet released. Next attribute actual
+result, matching corrections if needed, types/review/publication; continue G4,
+StageC, StageD and full gates. Same ownership/native deferral remains.
+
+## CURRENT — 8a932204 published; off-menu extension tests released
+
+Local HEAD and GitHub independently matched8a932204565c97bc3cdb2dd01fc11d94442ece8d;
+whole worktree was clean at verification.1025 records12 genuine-evidence PASS,
+root types PASS and independent1023-A KEEP. All heavy runs closed.
+Existing author owns only the two NEW1019/1024 off-menu test/helper paths and
+1026-A handback: eight leaves, maximum732 ticks/world469. Existing source stays
+read-only to that author. Existing reviewer owns1027-A source review and docs-only
+1028-A refinement of the previously reviewed G4 path. Parent remains sole production
+writer/integrator/heavy executor; maximum two specialists. Next freeze/first off-menu
+run, then causal attribution/types/review/checkpoint and remaining G4/StageC/StageD/
+full gates. Save38 partial/projection52 and Unity/native deferral remain unchanged.
+
 ## CURRENT — 1016 twelve genuine cases verified; preparing1025 checkpoint
 
 1016 first run12PASS/3files,50.196s,fixedSource; actual840 ticks (10+562+268),
