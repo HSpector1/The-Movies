@@ -427,6 +427,11 @@ export const TUNING = {
   COHORT_YOUTH_BELOW_AGE: 30, // the youth floor (782 §7.1, looking ahead to the next request per §9): the same 30 `isProven` reads
   COHORT_REQUEST_WEEKS: 52, // one request per campaign year (782 R2)
 
+  // P14C.2b the single final extension (780 X1/X5, 806 §1). PROVISIONAL TUNING: the
+  // companion's numerical hypotheses (window = the renewal window; the retirement factor).
+  RETIREMENT_EXTENSION_WINDOW_WEEKS: 12, // the case opens at effectiveWeek − 12
+  RETIREMENT_EXTENSION_RESERVATION_FACTOR: 1.10, // the offer must clear ask × 1.10 (equality accepts)
+
   // Freelancers (D-11.10). fee = round(salaryCurve × premium); a one-time project cost.
   FREELANCER_FEE_PREMIUM: 1.5, // freelancer one-film fee vs base per-production salary
   HIRING_FREELANCER_MARKET_SIZE: 6, // rotating freelancer listing size

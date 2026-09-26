@@ -2393,6 +2393,21 @@ export type CareerLifecycleRootV35 = CareerLifecycleRoot & { cohorts: readonly C
 
 export type GameStateV35 = Omit<GameStateV34, 'careerLifecycle'> & { careerLifecycle: CareerLifecycleRootV35 }
 
+// ── P14C.2b — the single final extension (Save V36; records 780 and 806) ──────
+// SCAFFOLD: the types land first; `GameState` moves to V36 with the writer.
+
+/** 780 X10: whether the one extension was taken, and the effective week it moved from. */
+export type RetirementRecordV36 = RetirementRecord & { extensionUsed: boolean; extendedFromWeek: number | null }
+export type CareerLifecycleRootV36 = Omit<CareerLifecycleRootV35, 'records'> & { records: readonly RetirementRecordV36[] }
+/** 780 X3: an ordinary contested expiry, or the one-issuer retirement extension. */
+export type MarketCaseVariant = 'expiry' | 'retirementExtension'
+export type TalentMarketCaseV36 = TalentMarketCase & { variant: MarketCaseVariant }
+export type TalentMarketStateV36 = Omit<TalentMarketState, 'cases'> & { cases: readonly TalentMarketCaseV36[] }
+export type GameStateV36 = Omit<GameStateV35, 'careerLifecycle' | 'talentMarket'> & {
+  careerLifecycle: CareerLifecycleRootV36
+  talentMarket: TalentMarketStateV36
+}
+
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.
 // Autopsy (film-centric) and Talent Profile (talent-centric) BOTH render from this —

@@ -94,6 +94,7 @@ import type {
   GameStateV33,
   GameStateV34,
   GameStateV35,
+  GameStateV36,
   CohortReceipt,
   FilmCreativeRole,
   RetirementRecord,
@@ -561,6 +562,14 @@ export type SaveFileV35 = {
   saveVersion: 35;
   seed: string;
   state: GameStateV35;
+  broadcastCache: BroadcastItem[];
+};
+
+/** P14C.2b SCAFFOLD (record 806 §2): the V36 envelope. `LiveSaveFile` moves with the writer. */
+export type SaveFileV36 = {
+  saveVersion: 36;
+  seed: string;
+  state: GameStateV36;
   broadcastCache: BroadcastItem[];
 };
 
@@ -9758,4 +9767,22 @@ export function migrateToV20(save: SaveFile): SaveFileV20 {
   if (save.saveVersion === 21) throw new Error('migrateToV20: cannot downgrade SaveFileV21 or discard research seats');
   if (save.saveVersion === 20) return validateSaveV20(save);
   return convertV19ToV20(migrateToV19(save));
+}
+
+// ── P14C.2b SCAFFOLD (record 806 §2): Save V36, every entry throws until the writer lands ──
+
+export function validateSaveV36(_save: unknown): SaveFileV36 {
+  throw new Error('not implemented (P14C.2b)');
+}
+
+export function convertV35ToV36(_save: SaveFileV35): SaveFileV36 {
+  throw new Error('not implemented (P14C.2b)');
+}
+
+export function convertV36ToV35(_save: SaveFileV36): SaveFileV35 {
+  throw new Error('not implemented (P14C.2b)');
+}
+
+export function migrateToV36(_save: SaveFile | { saveVersion: number }): SaveFileV36 {
+  throw new Error('not implemented (P14C.2b)');
 }

@@ -335,3 +335,28 @@ function advanceCohort(state: GameState, week: number): GameState {
   for (const person of entered) next = withTalentProvenance(next, person)
   return next
 }
+
+// ── P14C.2b SCAFFOLD (record 806 §3–§5): every export throws until the writer lands ──
+
+const C2B_SCAFFOLD = 'not implemented (P14C.2b)'
+
+/** The subject studio of this person's OPEN `retirementExtension` case, else `null` (806 §4). */
+export function extensionIssuer(_state: GameState, _personId: string, _week: number): string | null {
+  throw new Error(C2B_SCAFFOLD)
+}
+
+/** The ONE writer of the extension fields (806 §5): `extendedFromWeek = effectiveWeek`,
+ * `effectiveWeek += 52`, `extensionUsed = true`; called BEFORE the contract commit. */
+export function commitRetirementExtension(_state: GameState, _personId: string, _week: number): GameState {
+  throw new Error(C2B_SCAFFOLD)
+}
+
+/** The intent half of the weekly step (806 §3), run before the market. */
+export function advanceLifecycleIntent(_state: GameState, _birthdays: readonly string[]): GameState {
+  throw new Error(C2B_SCAFFOLD)
+}
+
+/** The settlement half of the weekly step, cohort included (806 §3), run after the market. */
+export function advanceLifecycleSettlement(_state: GameState): GameState {
+  throw new Error(C2B_SCAFFOLD)
+}

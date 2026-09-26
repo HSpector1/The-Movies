@@ -1,4 +1,4 @@
-# 806 — P14C.2b API contract: the single final extension (DRAFT; the RED and the sole writer work from it once final)
+# 806 — P14C.2b API contract: the single final extension (FINAL after review 806-A and §8; the RED and the sole writer work from it)
 
 Derived from 780 (decisions X1–X11) as amended by §5 (after 780-A) and §6 (after C.4). Behaviour is 780's.
 This record fixes names, shapes, order and placement, and adds decisions the source reading forced (§7). The
@@ -117,3 +117,14 @@ is C.2-RM's (Unity backlog).
    LARGEST catalogue term ≤ `term`, so a 52–63-week extension prices as a one-year contract, which is what Owner
    direction 10 names. The parent EXPECTS (unverified) that every existing caller prices a catalogue term, so that
    nothing changes for them. The writer must prove it by grep, and the matched pass must show unchanged goldens.
+
+## 9. Scaffold (published with this record's final form)
+
+Throwing exports: `extensionIssuer`, `commitRetirementExtension`, `advanceLifecycleIntent`, `advanceLifecycleSettlement`
+(`careerLifecycle.ts`); `openMarketCaseFor` (`talentMarket.ts`); `validateSaveV36`, `convertV35ToV36`,
+`convertV36ToV35`, `migrateToV36` (`save.ts`). Types: `RetirementRecordV36`, `CareerLifecycleRootV36`,
+`MarketCaseVariant`, `TalentMarketCaseV36`, `TalentMarketStateV36`, `GameStateV36`, `SaveFileV36`. Tuning:
+`RETIREMENT_EXTENSION_WINDOW_WEEKS`, `RETIREMENT_EXTENSION_RESERVATION_FACTOR`. `GameState`, `LiveSaveFile`,
+`LIVE_SAVE_VERSION` and the tick tail do NOT move in the scaffold; the writer moves them. Verified at the
+scaffold: both typechecks exit 0, `check:bridge-contract` verified, `generated/` clean, and the C.2a (40) and C.4
+(56 + 1 todo) suites unchanged.

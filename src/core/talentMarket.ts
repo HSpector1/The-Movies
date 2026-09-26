@@ -1555,3 +1555,10 @@ export function projectTalentMarketPreV28(talentMarket: unknown): void {
     }
   }
 }
+
+// ── P14C.2b SCAFFOLD (record 806 §8.4) ──────────────────────────────────────────
+
+/** The person's OPEN market case, of either variant, else `undefined`. */
+export function openMarketCaseFor(_state: GameState, _talentId: string): TalentMarketCase | undefined {
+  throw new Error('not implemented (P14C.2b)')
+}
