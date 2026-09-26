@@ -19,6 +19,8 @@ import type { GameState, TalentMarketCase } from '../src/core/types.js'
 import { castingDraftToEngine } from './casting.ts'
 import { marketAttentionRows, marketCaseProjection, peopleProjection } from './people.ts'
 import { promiseAttentionRows, promiseRowsForPerson } from './trust.ts'
+import { extensionTerminalReceipt, retirementExtensionFields } from './retirement-extension.ts'
+import { retirementAttentionRows } from './lifecycle.ts'
 import type {
   BridgeMarketAttentionRowSnapshot, BridgeMarketCaseDetail, BridgeMarketCaseRow,
   BridgeMarketEmployerRow, BridgeMarketFreeAgentRow, BridgeMarketPage,
@@ -71,14 +73,14 @@ type CaseEntry = { kase: TalentMarketCase; view: MarketCaseView; ordinal: number
  * case, so a person who has been through two cases contributes exactly one entry, at the
  * later one's ordinal; an earlier closed case of the same person is not separately
  * listed (recorded limit: the engine publishes no reader for a superseded case).
- * P14C.2b (806 §6): a person whose latest case is a `retirementExtension` contributes
- * nothing — the one-issuer extension is not listed as a contest.
+ * C.2-RM875 includes the final-extension variant with its own public terms and
+ * one-issuer wording; the underlying latest-case history limit is unchanged.
  */
 function caseEntries(state: GameState, week: number): CaseEntry[] {
   const byTalent = new Map<string, CaseEntry>()
   state.talentMarket.cases.forEach((kase, ordinal) => {
     const view = caseForTalent(state, kase.talentId, week)
-    if (view !== null && !latestCaseIsExtension(state, kase.talentId)) byTalent.set(kase.talentId, { kase, view, ordinal })
+    if (view !== null) byTalent.set(kase.talentId, { kase, view, ordinal })
   })
   return [...byTalent.values()]
 }
@@ -93,6 +95,7 @@ function caseRow(state: GameState, entry: CaseEntry, viewerStudioId: string, nam
   const proposals = state.talentMarket.proposals.filter((p) => p.talentId === entry.view.talentId)
   return {
     talentId: entry.view.talentId,
+    ...retirementExtensionFields(state, entry.view.talentId, viewerStudioId),
     name: talent?.name ?? entry.view.talentId,
     roleLabel: roleLabel(talent?.role ?? 'craft'),
     subjectStudioId: entry.view.subjectStudioId,
@@ -189,12 +192,13 @@ function employerRows(state: GameState, talentId: string, viewerStudioId: string
  * two studios whose names share a prefix are separated by nothing but that name.
  */
 function ownDroppedReasons(state: GameState, view: MarketCaseView, viewerStudioId: string, names: Map<string, string>): string[] {
-  const receipt = [...state.talentMarket.receipts].reverse().find((r) =>
+  const extension = latestCaseIsExtension(state, view.talentId)
+  const receipt = extension ? extensionTerminalReceipt(state, view.talentId) : [...state.talentMarket.receipts].reverse().find((r) =>
     r.talentId === view.talentId && TERMINAL.has(r.kind) && r.dropped.length > 0)
   if (receipt === undefined) return []
   const proposed = state.talentMarket.receipts.some((r) =>
     r.kind === 'proposalSubmitted' && r.talentId === view.talentId &&
-    r.studioId === viewerStudioId && r.week >= view.openedWeek)
+    r.studioId === viewerStudioId && r.week >= view.openedWeek && (!extension || r.week <= receipt.week))
   if (!proposed) return []
   const name = names.get(viewerStudioId) ?? viewerStudioId
   return receipt.dropped.filter((sentence) => sentence.startsWith(name))
@@ -295,6 +299,12 @@ export function marketPage(state: GameState, request: MarketPageRequest): Bridge
     attention.push(row)
   }
 
+  for (const row of retirementAttentionRows(state, week)) {
+    const key = `${row.cause}:${row.talentId}`
+    if (seen.has(key)) continue
+    seen.add(key)
+    attention.push(row)
+  }
   const page = Math.max(0, request.page ?? 0)
   return structuredClone({
     attention,

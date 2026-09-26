@@ -1,5 +1,59 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — C.2-RM candidate checkpoint893; writer validation correction next
+
+Read893-c2rm-candidate-checkpoint.md and880-B-retirement-writer-validation-contract.md.
+All recorded runs CLOSED; no heavy process.875 read models and Calendar profile
+route implemented at projection52/save37, generated contracts updated.882 core
+39PASS/3FAIL: two genuine writer continuation failures (880-B), one invalid-page
+read guard now repaired.884 UI2PASS;886 root/UItypesPASS;888/889generatedPASS;
+890bridgetypesPASS after explicit independent-helper number annotation;891four
+alumni boundary checksPASS including repaired pages.892 independent reviewKEEP,
+including employer-history one-pass refinement. Candidate is NOT qualified and
+full run is pending. Parent will publish/verify this checkpoint, then release
+independent880-B regression expansion and recordRED before validation edits.
+Same two native specialists, one production writer/one heavy test lane. All genuine
+corpora and old worktrees preserved. Unity/native deferred. No Owner decision
+needed:880-B corrects validation of already-approved existing writing obligations.
+
+
+## CURRENT — C.2-RM candidate882 running; discovered writer validation defect
+
+HEAD/last verified remote c3da00847bbdbdd2dc448d94e45d19cd5a2e56ae.
+Uncommitted52 candidate now implements875 read models and Calendar profile route;
+NOT qualified, generators/types/full verification still pending.883 freezes the
+production review diff (e174b8243a7930227eaf03fad8ba7c1f4d361e854b47bd1f7d823432cc7d5161).
+Independent review active.878 closed19PASS20FAIL, attributed in880-A; three
+premise issues and genuine retirement-writer saveability contradiction separated.
+879 UI path failures repaired;881 then reached real missing-renderer RED (2FAIL),
+after which parent added the UI route.882 core is ACTIVE on the captured candidate:
+inspect its JSON/process before editing source/committing or starting another run.
+Both parent and c2rm_tests FROZEN. Next close882, attribute, run Calendar GREEN,
+generated/types/focused checks, preserve recoverable checkpoint.880-B is separately
+reviewed existing-law validation correction, NOT implemented; requires independent
+RED and strict historical-reader preservation before qualification. No core gameplay
+law changed. Parent sole production writer/test runner; same two native specialists,
+no other owners, no native work, no old fixture/worktree cleanup.
+
+
+## CURRENT — first C.2-RM RED published; partial extension writer in review
+
+Actual local/remote c3da00847bbdbdd2dc448d94e45d19cd5a2e56ae verified after push.
+876 CLOSED/fixedSource:true on6575a8a4 plus exact independent test patch:
+20cases,15expectedFAIL/5controlPASS, no premise/import/timeout failure.876-A
+attributes every cause and releases only extension readers/proposal and prior-runtime
+scope. Parent has implemented that bounded scope in a working bridge patch, now
+projection52 with actual outgoing51 registered; it is UNVERIFIED and generators
+have NOT run. Stable patch877 SHA256a63c25e289189f00f3d5ae3f1629ff403a0e7cd6e054705e7a373fd6ffa9569f
+is under independent c2rm_contract_review. Do not mistake it for final52 source.
+
+c2rm_tests authors remaining lifecycle/alumni/Calendar/as-of tests separately;
+those behaviors are NOT yet implemented. Both owners must freeze all consumed
+source before parent runs the next batch. No active heavy process. Next: close
+bounded review, run first-scope GREEN/remaining-surface RED on the accurately
+captured partial patch, attribute premises, then finish875. Parent sole production
+writer/heavy-test owner; two specialists maximum. No native or old fixture changes.
+
 ## CURRENT — C.2-RM API875 reviewed KEEP; independent tests in progress
 
 Scientist qualification published48a76a87; genuine outgoing51 T0 published and

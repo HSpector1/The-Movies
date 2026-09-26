@@ -1,0 +1,14 @@
+{"sourceSha":"c3da00847bbdbdd2dc448d94e45d19cd5a2e56ae","testedDiffSha256":"1985fe6f705fb91a0bd8fd786d7c6d52b11d9859f08341ecce1a12b28e0924d5","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","ui","ui/src/screens/StudioCalendar.retirement.test.tsx"],"node":"v20.20.2","start":"2026-09-26T16:25:01.576Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |ui| ui/src/screens/StudioCalendar.retirement.test.tsx (2 tests) 1072ms
+   ✓ C.2-RM real Calendar retirement route > shows the public boundary immediately beyond the Finance horizon, with nonfinancial wording and exact profile identity 603ms
+   ✓ C.2-RM real Calendar retirement route > App opens the existing exact off-roster profile and restores Calendar focus without gameplay/autosave writes 468ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  18:25:02
+   Duration  9.08s (transform 3.59s, setup 375ms, collect 4.88s, tests 1.07s, environment 1.98s, prepare 193ms)
+

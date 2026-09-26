@@ -21,6 +21,7 @@ export type StudioCalendarRoute =
   | { kind: 'production'; productionId: string }
   | { kind: 'theatricalRun'; productionId: string }
   | { kind: 'contract'; talentId: string }
+  | { kind: 'profile'; talentId: string }
   | { kind: 'studioDevelopment' }
   // C2a-M4 (§3.3): a queue remedy is only actionable if it goes somewhere. A
   // ROOM is built on the lot, where the ground is chosen; SCENERY is commissioned
@@ -93,6 +94,8 @@ function decisionCopy(
 
 function commitmentRoute(event: StudioCalendarCommitmentView): StudioCalendarRoute {
   switch (event.kind) {
+    case 'retirement':
+      return { kind: 'profile', talentId: event.talentId }
     case 'scriptDue':
       return { kind: 'script', projectId: event.projectId }
     case 'castingDue':
@@ -114,6 +117,13 @@ function commitmentCopy(event: StudioCalendarCommitmentView): {
   ariaLabel: string
 } {
   switch (event.kind) {
+    case 'retirement':
+      return {
+        title: `${event.talentName} · ${event.status === 'finishing_commitments' ? 'Finishing commitments before retirement' : 'Retirement boundary'}`,
+        detail: `Retirement from ${event.profession}, announced Week ${event.announcedWeek}. This is nonfinancial; no automatic charge. Existing obligations may finish after Week ${event.week}; final completion is not yet known.`,
+        action: 'Open Profile',
+        ariaLabel: `Open ${event.talentName} Profile`,
+      }
     case 'scriptDue':
       return {
         title: `${event.title} · ${event.activity === 'drafting' ? 'Draft due' : 'Rewrite due'}`,
@@ -458,13 +468,13 @@ export function StudioCalendar({
         <div className="spread">
           <div>
             <h2 id="calendar-commitments-heading">Committed schedule</h2>
-            <p className="hint">Persisted due work, construction completion, locked Studio Revenue receipts, and contract boundaries.</p>
+            <p className="hint">Persisted due work, construction completion, locked Studio Revenue receipts, contract boundaries, and public announced retirement boundaries.</p>
           </div>
           <span className="tag fact">Committed</span>
         </div>
         {calendar.commitments.length === 0 ? (
           <div className="empty" data-testid="calendar-no-commitments">
-            No future work, construction, receipt, renewal, or expiry boundary is currently committed.
+            No future work, construction, receipt, renewal, expiry, or retirement boundary is currently committed.
           </div>
         ) : (
           <ol className="calendar-event-list" data-testid="calendar-commitments">
@@ -578,7 +588,7 @@ export function StudioCalendar({
                     {contract.renewalOpen ? 'Renewal open' : `${contract.remainingWeeks} wk left`}
                   </span>
                 </div>
-                <span>Renewal opens Week {contract.renewalWindowWeek} · exclusive end Week {contract.endWeekExclusive}</span>
+                <span>{contract.renewalWindowWeek === null ? 'Ordinary renewal unavailable under the recorded retirement boundary' : `Renewal opens Week ${contract.renewalWindowWeek}`} · exclusive end Week {contract.endWeekExclusive}</span>
                 <span className="hint">{moneyExact(contract.weeklySalary)} weekly salary</span>
                 <button
                   type="button"

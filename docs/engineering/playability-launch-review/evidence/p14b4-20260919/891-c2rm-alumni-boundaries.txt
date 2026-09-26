@@ -1,0 +1,15 @@
+{"sourceSha":"c3da00847bbdbdd2dc448d94e45d19cd5a2e56ae","testedDiffSha256":"e857c0425830b13062e6dd590d8c4dc07f731a5c380144ce59643447e6452b9c","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-p14c2rm-retirement.test.ts","-t","65 actual|an actual release|SYNTHETIC validated imported|genuine long-career"],"node":"v20.20.2","start":"2026-09-26T16:29:25.696Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p14c2rm-retirement.test.ts (21 tests | 17 skipped) 9721ms
+   ✓ C.2-RM obligations, retired discovery and public boundaries > 65 actual retirement boundaries remain in Calendar, bounded Finance rows count exact overflow, and alumni paginate deterministically 3633ms
+   ✓ C.2-RM alumni evidence and disclosure > an actual release and real retirement preserve credit/promise/employer routes and invent no honors 3326ms
+   ✓ C.2-RM alumni evidence and disclosure > a genuine long-career alumnus counts the complete >24 credit record, not the bounded profile rows 2582ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed | 17 skipped (21)
+   Start at  18:29:26
+   Duration  13.64s (transform 2.43s, setup 0ms, collect 3.37s, tests 9.72s, environment 0ms, prepare 127ms)
+

@@ -4,10 +4,11 @@ import { expectedWeeklyRunRevenue, pipelineRunRevenue } from '../src/core/econom
 import { weeklySalary } from '../src/core/employment.ts'
 import { setIsUnderRepair } from '../src/core/sets.ts'
 import { TUNING } from '../src/core/tuning.ts'
+import { ordinaryRenewalWindow } from '../src/core/studioCalendar.ts'
 import type { FinanceRoute } from './finance-route.ts'
 
 export type FinanceUpcomingEvent = {
-  id: string; kind: 'facilityCompletion' | 'facilityOpex' | 'contractRenewal' | 'contractExpiry' | 'setCompletion'
+  id: string; kind: 'facilityCompletion' | 'facilityOpex' | 'contractRenewal' | 'contractExpiry' | 'setCompletion' | 'retirement'
   week: number; label: string; detail: string; weeklyOperatingCostChange: number | null; route: FinanceRoute | null
 }
 export const FINANCE_UPCOMING_LIMIT = 64
@@ -34,8 +35,9 @@ export function financeUpcoming(state: GameState) {
     const talent = state.talent.find(t => t.id === contract.talentId)
     if (talent === undefined) throw new Error('Finance Upcoming: unknown contracted person')
     const route: FinanceRoute = { kind: 'profile', targetId: talent.id, label: 'Open Profile' }
-    events.push({ id: `renewal:${talent.id}:${contract.endWeekExclusive}`, kind: 'contractRenewal',
-      week: Math.max(contract.startWeek, contract.endWeekExclusive - TUNING.HIRING_RENEWAL_WINDOW_WEEKS),
+    const renewalWeek = ordinaryRenewalWindow(state, contract)
+    if (renewalWeek !== null) events.push({ id: `renewal:${talent.id}:${contract.endWeekExclusive}`, kind: 'contractRenewal',
+      week: renewalWeek,
       label: `${talent.name} renewal window ${contract.endWeekExclusive - TUNING.HIRING_RENEWAL_WINDOW_WEEKS <= week ? 'is open' : 'opens'}`, detail: 'Review the current terms. Renewal is a decision, not an automatic signing debit.',
       weeklyOperatingCostChange: null, route })
     events.push({ id: `expiry:${talent.id}:${contract.endWeekExclusive}`, kind: 'contractExpiry', week: contract.endWeekExclusive,
@@ -49,16 +51,24 @@ export function financeUpcoming(state: GameState) {
       label: `${set.name} ${setIsUnderRepair(set) ? 'repair completes' : 'becomes standing'}`, detail: `${set.completesWeek < week ? 'The retained completion date is overdue; no replacement date is invented. ' : ''}Completion of already-started Set work. Its committed cost has already been paid; this is not a new recurring charge.`,
       weeklyOperatingCostChange: null, route: null })
   }
+  for (const record of state.careerLifecycle?.records ?? []) {
+    if (record.status === 'retired') continue
+    const name = state.talent.find(t => t.id === record.personId)!.name
+    events.push({ id: `retirement:${record.personId}`, kind: 'retirement', week: record.effectiveWeek,
+      label: `${name} · ${record.status === 'finishing_commitments' ? 'Finishing commitments before retirement' : 'Retirement boundary'}`,
+      detail: `Retirement from ${record.profession}, announced Week ${record.announcedWeek}. This is nonfinancial; no automatic charge. Existing obligations may finish after this boundary; final completion is not yet known.`,
+      weeklyOperatingCostChange: null, route: { kind: 'profile', targetId: record.personId, label: 'Open Profile' } })
+  }
   events.sort((a, b) => a.week - b.week || a.id.localeCompare(b.id))
   return { timeClass: 'knownCommitment' as const, defaultWindowWeeks: 13 as const,
     nextAdvanceStudioRevenue: state.founding === null ? expectedWeeklyRunRevenue(state) : 0,
     remainingStudioRevenue: pipelineRunRevenue(state),
-    basis: 'Known commitments only. The dated list includes this week, the selected rolling window, already-open renewal windows and any overdue committed Set work. Revenue totals cover already-active runs; remaining revenue has no single payment date here. Excludes new films, automatic renewals and uncommitted decisions.',
+    basis: 'Known commitments and public retirement boundaries. The dated list includes this week, the selected rolling window, already-open renewal windows, overdue committed Set work and finishing retirement obligations. Retirement facts are nonfinancial. Revenue totals cover already-active runs; remaining revenue has no single payment date here. Excludes new films, automatic renewals and uncommitted decisions.',
     windows: ([13, 52] as const).map(windowWeeks => {
       const fromWeek = week, toWeekInclusive = week + windowWeeks - 1
-      const eligible = events.filter(e => e.week <= toWeekInclusive && (e.week >= fromWeek || e.kind === 'contractRenewal' || e.kind === 'setCompletion'))
+      const eligible = events.filter(e => e.week <= toWeekInclusive && (e.week >= fromWeek || e.kind === 'contractRenewal' || e.kind === 'setCompletion' || e.kind === 'retirement'))
       const remainingRows = Math.max(0, eligible.length - FINANCE_UPCOMING_LIMIT)
       return { windowWeeks, fromWeek, toWeekInclusive, rows: eligible.slice(0, FINANCE_UPCOMING_LIMIT), remainingRows,
-        notice: remainingRows === 0 ? null : `${remainingRows} further dated commitments are outside this bounded list. Review Payroll and Operations for their exact owners.` }
+        notice: remainingRows === 0 ? null : `${remainingRows} further dated commitments are outside this bounded list. Review Payroll, Operations and public profiles or Calendar for their exact owners.` }
     }) }
 }

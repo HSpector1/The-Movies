@@ -1,0 +1,9 @@
+{"sourceSha":"c3da00847bbdbdd2dc448d94e45d19cd5a2e56ae","testedDiffSha256":"3f74b18dcc28dba49c68d00af422e849cfa4523099e62cb8130c2f0c90e75bf1","untrackedSource":[],"command":["npm","run","check:bridge-contract"],"node":"v20.20.2","start":"2026-09-26T16:28:03.050Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+> project-studio-core@0.1.0 check:bridge-contract
+> vite-node scripts/generate-bridge-contract.ts --check
+
+verified /Users/zacheryspector/The-Movies-headless-program/bridge/schema/project-studio-bridge.schema.json
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/StudioBridgeDtos.Generated.cs
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/project-studio-bridge.contract-manifest.json

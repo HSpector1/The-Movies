@@ -355,6 +355,75 @@
       "type": "object",
       "x-csharp-name": "StudioAdoptionRow"
     },
+    "StudioAlumniEmployer": {
+      "additionalProperties": false,
+      "properties": {
+        "fromWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "studioId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "studioName": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "toWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "fromWeek",
+        "studioId",
+        "studioName",
+        "toWeek"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAlumniEmployer"
+    },
+    "StudioAlumniEmploymentRef": {
+      "additionalProperties": false,
+      "properties": {
+        "targetId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "view": {
+          "const": "employment",
+          "type": "string"
+        }
+      },
+      "required": [
+        "targetId",
+        "view"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAlumniEmploymentRef"
+    },
+    "StudioAlumniFilmographyRef": {
+      "additionalProperties": false,
+      "properties": {
+        "targetId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "view": {
+          "const": "person",
+          "type": "string"
+        }
+      },
+      "required": [
+        "targetId",
+        "view"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAlumniFilmographyRef"
+    },
     "StudioAssignShootingDirectorCommand": {
       "additionalProperties": false,
       "properties": {
@@ -492,7 +561,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 51,
+          "const": 52,
           "type": "integer"
         },
         "stateDigest": {
@@ -609,7 +678,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 51,
+          "const": 52,
           "type": "integer"
         },
         "stateDigest": {
@@ -1132,7 +1201,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 51,
+          "const": 52,
           "type": "integer"
         },
         "stateDigest": {
@@ -1211,7 +1280,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 51,
+          "const": 52,
           "type": "integer"
         },
         "stateDigest": {
@@ -1503,7 +1572,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 51,
+          "const": 52,
           "type": "integer"
         },
         "stateDigest": {
@@ -5986,7 +6055,8 @@
             "facilityOpex",
             "contractRenewal",
             "contractExpiry",
-            "setCompletion"
+            "setCompletion",
+            "retirement"
           ],
           "type": "string"
         },
@@ -7590,6 +7660,19 @@
           "minLength": 1,
           "type": "string"
         },
+        "lifecycleLine": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "lifecycleStatus": {
+          "enum": [
+            "active",
+            "announced",
+            "finishing_commitments",
+            "retired"
+          ],
+          "type": "string"
+        },
         "name": {
           "minLength": 1,
           "type": "string"
@@ -7600,6 +7683,18 @@
         },
         "onPlayerLot": {
           "type": "boolean"
+        },
+        "retiredWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "roleLabel": {
           "minLength": 1,
@@ -7617,9 +7712,12 @@
         "employerName",
         "employerStudioId",
         "employmentLabel",
+        "lifecycleLine",
+        "lifecycleStatus",
         "name",
         "notice",
         "onPlayerLot",
+        "retiredWeek",
         "roleLabel",
         "talentId"
       ],
@@ -7781,7 +7879,8 @@
             "laboratory",
             "plans",
             "office",
-            "market"
+            "market",
+            "alumni"
           ],
           "type": "string"
         }
@@ -7987,7 +8086,8 @@
             "laboratory",
             "plans",
             "office",
-            "market"
+            "market",
+            "alumni"
           ],
           "type": "string"
         }
@@ -8711,7 +8811,10 @@
             "settlementCompleted",
             "proposalWouldFail",
             "promiseDue",
-            "promiseOutcome"
+            "promiseOutcome",
+            "retirementExtensionOpen",
+            "retirementAnnounced",
+            "finishingCommitments"
           ],
           "type": "string"
         },
@@ -8866,9 +8969,30 @@
           "minimum": 0,
           "type": "integer"
         },
+        "retirementExtension": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioRetirementExtension"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "roleLabel": {
           "minLength": 1,
           "type": "string"
+        },
+        "soleIssuerStudioId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "status": {
           "enum": [
@@ -8893,6 +9017,13 @@
         "talentId": {
           "minLength": 1,
           "type": "string"
+        },
+        "variant": {
+          "enum": [
+            "expiry",
+            "retirementExtension"
+          ],
+          "type": "string"
         }
       },
       "required": [
@@ -8903,11 +9034,14 @@
         "outcome",
         "ownProposal",
         "proposalCount",
+        "retirementExtension",
         "roleLabel",
+        "soleIssuerStudioId",
         "status",
         "subjectStudioId",
         "subjectStudioName",
-        "talentId"
+        "talentId",
+        "variant"
       ],
       "type": "object",
       "x-csharp-name": "StudioMarketCaseRow"
@@ -8945,12 +9079,33 @@
           },
           "type": "array"
         },
+        "retirementExtension": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioRetirementExtension"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "settlementReasons": {
           "items": {
             "minLength": 1,
             "type": "string"
           },
           "type": "array"
+        },
+        "soleIssuerStudioId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "status": {
           "enum": [
@@ -8979,6 +9134,13 @@
             "Distrusted"
           ],
           "type": "string"
+        },
+        "variant": {
+          "enum": [
+            "expiry",
+            "retirementExtension"
+          ],
+          "type": "string"
         }
       },
       "required": [
@@ -8988,11 +9150,14 @@
         "preferences",
         "promiseHistory",
         "proposals",
+        "retirementExtension",
         "settlementReasons",
+        "soleIssuerStudioId",
         "status",
         "subjectStudioId",
         "talentId",
-        "trustLabel"
+        "trustLabel",
+        "variant"
       ],
       "type": "object",
       "x-csharp-name": "StudioMarketCaseSnapshot"
@@ -10650,6 +10815,106 @@
       "type": "object",
       "x-csharp-name": "StudioPeopleProjection"
     },
+    "StudioPersonAlumni": {
+      "additionalProperties": false,
+      "properties": {
+        "authoredCredits": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "campaignCredits": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "creditBasis": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "employmentRef": {
+          "$ref": "#/$defs/StudioAlumniEmploymentRef"
+        },
+        "extensionUsed": {
+          "type": "boolean"
+        },
+        "filmographyRef": {
+          "$ref": "#/$defs/StudioAlumniFilmographyRef"
+        },
+        "honorsNotice": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "lastEmployer": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioAlumniEmployer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "profession": {
+          "enum": [
+            "actor",
+            "director",
+            "writer",
+            "craft",
+            "scientist"
+          ],
+          "type": "string"
+        },
+        "recordedCredits": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "recordingNotice": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retiredLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "retiredWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "uncapturedFilms": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "authoredCredits",
+        "campaignCredits",
+        "creditBasis",
+        "employmentRef",
+        "extensionUsed",
+        "filmographyRef",
+        "honorsNotice",
+        "lastEmployer",
+        "profession",
+        "recordedCredits",
+        "recordingNotice",
+        "retiredLabel",
+        "retiredWeek",
+        "uncapturedFilms"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPersonAlumni"
+    },
     "StudioPersonAttentionSnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -11117,6 +11382,174 @@
       "type": "object",
       "x-csharp-name": "StudioPersonEmploymentSnapshot"
     },
+    "StudioPersonLifecycle": {
+      "additionalProperties": false,
+      "properties": {
+        "announcedLabel": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "announcedWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effectiveLabel": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effectiveWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "eligible": {
+          "type": "boolean"
+        },
+        "eligibleAge": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "extendedFromWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "extensionUsed": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "finishingFromWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "hardAge": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "line": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "planningLine": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "profession": {
+          "enum": [
+            "actor",
+            "director",
+            "writer",
+            "craft",
+            "scientist"
+          ],
+          "type": "string"
+        },
+        "retiredLabel": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retiredWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "active",
+            "announced",
+            "finishing_commitments",
+            "retired"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "announcedLabel",
+        "announcedWeek",
+        "effectiveLabel",
+        "effectiveWeek",
+        "eligible",
+        "eligibleAge",
+        "extendedFromWeek",
+        "extensionUsed",
+        "finishingFromWeek",
+        "hardAge",
+        "line",
+        "planningLine",
+        "profession",
+        "retiredLabel",
+        "retiredWeek",
+        "status"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPersonLifecycle"
+    },
     "StudioPersonPresenceSnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -11214,6 +11647,16 @@
           "minimum": 0,
           "type": "number"
         },
+        "alumni": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioPersonAlumni"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "attention": {
           "$ref": "#/$defs/StudioPersonAttentionSnapshot"
         },
@@ -11251,6 +11694,9 @@
             "$ref": "#/$defs/StudioPersonSpecialtySnapshot"
           },
           "type": "array"
+        },
+        "lifecycle": {
+          "$ref": "#/$defs/StudioPersonLifecycle"
         },
         "marketCase": {
           "anyOf": [
@@ -11358,6 +11804,7 @@
       },
       "required": [
         "age",
+        "alumni",
         "attention",
         "authored",
         "capableButUnproven",
@@ -11367,6 +11814,7 @@
         "disciplines",
         "employment",
         "genreExperience",
+        "lifecycle",
         "marketCase",
         "name",
         "nameShared",
@@ -14324,6 +14772,40 @@
     "StudioRelationshipBlock": {
       "additionalProperties": false,
       "properties": {
+        "asOfLabel": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "asOfWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "historicalTierNotice": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "line": {
           "minLength": 1,
           "type": "string"
@@ -14336,6 +14818,9 @@
         }
       },
       "required": [
+        "asOfLabel",
+        "asOfWeek",
+        "historicalTierNotice",
         "line",
         "rows"
       ],
@@ -14777,6 +15262,42 @@
       "type": "object",
       "x-csharp-name": "StudioResearchWeek"
     },
+    "StudioRetirementExtension": {
+      "additionalProperties": false,
+      "properties": {
+        "endWeekExclusive": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "issuerStudioId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "requiredTermWeeks": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "startWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "viewerCanOffer": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "endWeekExclusive",
+        "issuerStudioId",
+        "requiredTermWeeks",
+        "startWeek",
+        "viewerCanOffer"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioRetirementExtension"
+    },
     "StudioRewritePreviewSnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -14996,6 +15517,19 @@
           "minLength": 1,
           "type": "string"
         },
+        "lifecycleLine": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "lifecycleStatus": {
+          "enum": [
+            "active",
+            "announced",
+            "finishing_commitments",
+            "retired"
+          ],
+          "type": "string"
+        },
         "name": {
           "minLength": 1,
           "type": "string"
@@ -15098,6 +15632,8 @@
         "contractEndWeek",
         "contractLine",
         "currentWork",
+        "lifecycleLine",
+        "lifecycleStatus",
         "name",
         "nameShared",
         "ovr",
@@ -16840,7 +17376,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-51",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-52",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -16896,7 +17432,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 51,
+    "projectionVersion": 52,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

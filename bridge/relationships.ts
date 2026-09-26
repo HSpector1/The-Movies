@@ -25,6 +25,8 @@
 //     readily as for a pair with one, and never implies a tier. A campaign that predates
 //     the V31 root therefore shows counts and no tiers — nothing is backfilled.
 import { pairChemistry, type PairChemistry } from '../src/core/relationships.ts'
+import { retirementRecordFor } from '../src/core/careerLifecycle.ts'
+import { campaignDate } from '../src/core/calendar.ts'
 import type { GameState } from '../src/core/types.ts'
 import type {
   BridgeCastingChemistryRow, BridgeRelationshipBlock, BridgeRelationshipRow,
@@ -186,6 +188,9 @@ export function relationshipBlockFor(
   viewerStudioId: string,
   week: number = state.market.tick,
 ): BridgeRelationshipBlock {
+  const retirement = retirementRecordFor(state, talentId)
+  const asOfWeek = retirement?.status === 'retired' ? retirement.retiredWeek : null
+  let historicalTierNotice: string | null = null
   const edges = state.relationships ?? []
   const disclosed = rosterAt(state, viewerStudioId, talentId, week)
   const tied = new Set<string>()
@@ -201,7 +206,12 @@ export function relationshipBlockFor(
   for (const counterpartId of [...disclosed].sort()) {
     const sharedPictures = sharedPictureCount(state, talentId, counterpartId)
     if (!tied.has(counterpartId) && sharedPictures === 0) continue
-    const chemistry = chemistryOf(state, talentId, counterpartId, week)
+    const edge = edges.find(e => (e.a === talentId && e.b === counterpartId) || (e.b === talentId && e.a === counterpartId))
+    // Only inspect a disclosed counterpart. Later retained events cannot reconstruct
+    // a prior tier, and an undisclosed edge must not leak through the notice.
+    const unavailable = asOfWeek !== null && edge !== undefined && edge.lastEventWeek > asOfWeek
+    if (unavailable) historicalTierNotice = 'A retirement-dated tier cannot be reconstructed for a displayed tie with a later recorded event.'
+    const chemistry = unavailable ? NO_ROOT : chemistryOf(state, talentId, counterpartId, asOfWeek ?? week)
     rows.push({
       counterpartId,
       counterpartName: names.get(counterpartId) ?? counterpartId,
@@ -220,7 +230,7 @@ export function relationshipBlockFor(
     : withheld ? withheldLine
       : sharesViewerPicture(state, talentId, viewerStudioId) ? SHARED_NO_TIE_LINE
         : QUIET_LINE
-  return { line, rows }
+  return { line, rows, asOfWeek, asOfLabel: asOfWeek === null ? null : campaignDate(asOfWeek).label, historicalTierNotice }
 }
 
 /**

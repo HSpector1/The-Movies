@@ -1,0 +1,430 @@
+{"sourceSha":"c3da00847bbdbdd2dc448d94e45d19cd5a2e56ae","testedDiffSha256":"eaea6ea9f67368529b78432475f6f7b31020b6671e19c2d38201d0d9927d6490","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-p14c2rm-runtime.test.ts","tests/bridge-p14c2rm-proposals.test.ts","tests/bridge-p14c2rm-retirement.test.ts"],"node":"v20.20.2","start":"2026-09-26T16:13:11.243Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p14c2rm-runtime.test.ts (8 tests) 40780ms
+   ✓ C.2-RM genuine projection51 recovery > preserves the real producer, actual nonempty journal and independent announced669/retired670 slots 1534ms
+   ✓ C.2-RM genuine projection51 recovery > lifts both slots byte-exactly but resets old journal/revision/session authority, then reopens52 without migration 10193ms
+   ✓ C.2-RM genuine projection51 recovery > rejects the old command identity and replays only a new52 saved-slot LOAD receipt after restart 14082ms
+   ✓ C.2-RM genuine projection51 recovery > rejects invalid currentSaveJson through whole-save validation before creating a new session 903ms
+   ✓ C.2-RM genuine projection51 recovery > rejects invalid savedSaveJson through whole-save validation before creating a new session 1766ms
+   ✓ C.2-RM genuine projection51 recovery > refuses unknown schema, corrupted digest and a reused prior session id without touching the artifact 2184ms
+   ✓ C.2-RM genuine projection51 recovery > keeps independently recovered Save As branches isolated despite identical PersonIds and source bytes 10115ms
+ ❯ |core| tests/bridge-p14c2rm-retirement.test.ts (18 tests | 18 failed) 58187ms
+   × C.2-RM planning and actual retirement announcements > actor profile states literal eligibility 60/hard70 without inventing intent 943ms
+     → 875 required lifecycle block: expected undefined to be defined
+   × C.2-RM planning and actual retirement announcements > director profile states literal eligibility 65/hard75 without inventing intent 496ms
+     → 875 required lifecycle block: expected undefined to be defined
+   × C.2-RM planning and actual retirement announcements > writer profile states literal eligibility 65/hard75 without inventing intent 432ms
+     → 875 required lifecycle block: expected undefined to be defined
+   × C.2-RM planning and actual retirement announcements > craft profile states literal eligibility 62/hard72 without inventing intent 243ms
+     → 875 required lifecycle block: expected undefined to be defined
+   × C.2-RM planning and actual retirement announcements > scientist profile states literal eligibility 62/hard72 without inventing intent 39ms
+     → applyActions: createTalent role "scientist" is not a valid CreativeRole
+   × C.2-RM planning and actual retirement announcements > a genuine old save lifted past hard age stays active until an actual recorded announcement 1334ms
+     → 875 required lifecycle block: expected undefined to be defined
+   × C.2-RM planning and actual retirement announcements > natural Scientist announcement is immediate on real Calendar, with honest finite Finance exclusion 867ms
+     → 875 required lifecycle block: expected undefined to be defined
+   × C.2-RM planning and actual retirement announcements > announcement news lasts exactly13 weeks even without a case; profiles and Calendar persist afterward 410ms
+     → expected [] to have a length of 1 but got +0
+   × C.2-RM obligations, retired discovery and public boundaries > actual held Scientist work stays finishing through overdue E, then real cancel/tick retires without deleting identity 10054ms
+     → 875 required lifecycle block: expected undefined to be defined
+   × C.2-RM obligations, retired discovery and public boundaries > a naturally announced contracted writer can start genuine writing at E−1 and finishes it after E 12114ms
+     → validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV15: frozen V14 state is invalid — validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: active project "script-0000" writer is not contracted
+   × C.2-RM obligations, retired discovery and public boundaries > unavailable ordinary windows disappear before/open/after the final extension while actual expiry stays 4855ms
+     → expected true to be false // Object.is equality
+   × C.2-RM obligations, retired discovery and public boundaries > 65 actual retirement boundaries remain in Calendar, bounded Finance rows count exact overflow, and alumni paginate deterministically 6329ms
+     → expected [] to have a length of 65 but got +0
+   × C.2-RM alumni evidence and disclosure > multi-role actual release counts two role credits, preserves promise/film/employer routes, and invents no honors 3687ms
+     → applyActions: greenlight assigns talent "authored-0000" to more than one role in the same production (writerId and cast.lead) — a talent fills exactly one role in one production (M16)
+   × C.2-RM alumni evidence and disclosure > a genuine long-career alumnus counts the complete >24 credit record, not the bounded profile rows 3301ms
+     → expected undefined to match object { recordedCredits: 230, …(3) }
+   × C.2-RM alumni evidence and disclosure > natural retired tiers stay fixed across real drift while lawful current employment changes disclosure 10923ms
+     → expected { …(2) } to match object { asOfWeek: 156, …(2) }
+(2 matching properties omitted from actual)
+   × C.2-RM alumni evidence and disclosure > SYNTHETIC imported newer edge withholds unreconstructible retirement tier, with no hidden-counterpart notice leak 799ms
+     → expected { Object (counterpartId, counterpartName, ...) } to match object { tierLabel: null, sign: +0, …(1) }
+(3 matching properties omitted from actual)
+   × C.2-RM alumni evidence and disclosure > active/no-root/no-edge collaborator reads retain honest gaps and current as-of nulls 75ms
+     → expected { …(2) } to match object { asOfWeek: null, …(2) }
+(2 matching properties omitted from actual)
+   × C.2-RM alumni evidence and disclosure > whole snapshots validate and campaign-local people with identical ids never share lifecycle data 1276ms
+     → 875 required lifecycle block: expected undefined to be defined
+ ❯ |core| tests/bridge-p14c2rm-proposals.test.ts (13 tests | 2 failed) 78893ms
+   ✓ C.2-RM discovered one-issuer extension through every existing reader > gap real case publishes one exact opportunity, shared across profile, list, detail and world route 3604ms
+   ✓ C.2-RM discovered one-issuer extension through every existing reader > exact real case publishes one exact opportunity, shared across profile, list, detail and world route 5594ms
+   ✓ C.2-RM discovered one-issuer extension through every existing reader > rival extension is readable but read-only, with exact UNKNOWN figures and no own extension alert 18797ms
+   × C.2-RM exact public proposal commands > a new extension never inherits a genuine earlier ordinary settlement explanation 10123ms
+     → current extension owns no settled receipt: expected [ Array(1) ] to deeply equal []
+   ✓ C.2-RM exact public proposal commands > gap quote -> submit -> revise -> withdraw uses exact term and never charges before settlement 10772ms
+   ✓ C.2-RM exact public proposal commands > exact quote -> submit -> revise -> withdraw uses exact term and never charges before settlement 9693ms
+   × C.2-RM exact public proposal commands > wrong terms, no case, promises, ordinary off-catalogue terms and forged issuer are refused without state changes 1669ms
+     → expected { protocolVersion: 4, …(9) } to match object { accepted: false }
+(33 matching properties omitted from actual)
+   ✓ C.2-RM exact public proposal commands > a real58-week proposal settles once at98, survives save/runtime replay, and never opens a second opportunity 17616ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 20 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-proposals.test.ts > C.2-RM exact public proposal commands > a new extension never inherits a genuine earlier ordinary settlement explanation
+AssertionError: current extension owns no settled receipt: expected [ Array(1) ] to deeply equal []
+
+- Expected
++ Received
+
+- Array []
++ Array [
++   "theirs was the only proposal on the table",
++ ]
+
+ ❯ tests/bridge-p14c2rm-proposals.test.ts:111:86
+    109|       const detail = marketCaseProjection(state, f.actorId, owner(stat…
+    110|       expect(detail).not.toBeNull()
+    111|       expect(detail!.settlementReasons, 'current extension owns no set…
+       |                                                                                      ^
+    112|       expect(marketPage(state, { view: 'market', targetId: f.actorId }…
+    113|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/20]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-proposals.test.ts > C.2-RM exact public proposal commands > wrong terms, no case, promises, ordinary off-catalogue terms and forged issuer are refused without state changes
+AssertionError: expected { protocolVersion: 4, …(9) } to match object { accepted: false }
+(33 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "accepted": false,
++   "accepted": true,
+  }
+
+ ❯ tests/bridge-p14c2rm-proposals.test.ts:164:123
+    162|     const before = bytes(session.gameState)
+    163|     expect(session.quote({ ...header(session, 'forged-issuer'), type: …
+    164|       verb: 'propose', talentId: facts.personId, termWeeks: 58, premiu…
+       |                                                                                                                           ^
+    165|     expect(bytes(session.gameState)).toBe(before)
+    166|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/20]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-retirement.test.ts > C.2-RM planning and actual retirement announcements > actor profile states literal eligibility 60/hard70 without inventing intent
+ FAIL |core|  tests/bridge-p14c2rm-retirement.test.ts > C.2-RM planning and actual retirement announcements > director profile states literal eligibility 65/hard75 without inventing intent
+ FAIL |core|  tests/bridge-p14c2rm-retirement.test.ts > C.2-RM planning and actual retirement announcements > writer profile states literal eligibility 65/hard75 without inventing intent
+ FAIL |core|  tests/bridge-p14c2rm-retirement.test.ts > C.2-RM planning and actual retirement announcements > craft profile states literal eligibility 62/hard72 without inventing intent
+AssertionError: 875 required lifecycle block: expected undefined to be defined
+ ❯ lifecycle tests/bridge-p14c2rm-retirement.test.ts:47:50
+     45| function lifecycle(state: GameState, id: string): Lifecycle {
+     46|   const result = profile(state, id).lifecycle
+     47|   expect(result, '875 required lifecycle block').toBeDefined()
+       |                                                  ^
+     48|   return result
+     49| }
+ ❯ tests/bridge-p14c2rm-retirement.test.ts:88:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/20]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-retirement.test.ts > C.2-RM planning and actual retirement announcements > scientist profile states literal eligibility 62/hard72 without inventing intent
+Error: applyActions: createTalent role "scientist" is not a valid CreativeRole
+ ❯ applyCreateTalent src/core/actions.ts:783:11
+    781|   // Validation: role is a valid CreativeRole.
+    782|   if (!CREATIVE_ROLES.includes(a.role)) {
+    783|     throw new Error(`applyActions: createTalent role "${a.role}" is no…
+       |           ^
+    784|   }
+    785|   // Validation: workEthic ∈ [1,99].
+ ❯ Module.applyActions src/core/actions.ts:2905:16
+ ❯ Module.addPerson tests/helpers/p14c2rm-fixtures.ts:88:16
+ ❯ tests/bridge-p14c2rm-retirement.test.ts:83:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/20]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-retirement.test.ts > C.2-RM planning and actual retirement announcements > a genuine old save lifted past hard age stays active until an actual recorded announcement
+AssertionError: 875 required lifecycle block: expected undefined to be defined
+ ❯ lifecycle tests/bridge-p14c2rm-retirement.test.ts:47:50
+     45| function lifecycle(state: GameState, id: string): Lifecycle {
+     46|   const result = profile(state, id).lifecycle
+     47|   expect(result, '875 required lifecycle block').toBeDefined()
+       |                                                  ^
+     48|   return result
+     49| }
+ ❯ tests/bridge-p14c2rm-retirement.test.ts:103:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/20]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-retirement.test.ts > C.2-RM planning and actual retirement announcements > natural Scientist announcement is immediate on real Calendar, with honest finite Finance exclusion
+AssertionError: 875 required lifecycle block: expected undefined to be defined
+ ❯ lifecycle tests/bridge-p14c2rm-retirement.test.ts:47:50
+     45| function lifecycle(state: GameState, id: string): Lifecycle {
+     46|   const result = profile(state, id).lifecycle
+     47|   expect(result, '875 required lifecycle block').toBeDefined()
+       |                                                  ^
+     48|   return result
+     49| }
+ ❯ tests/bridge-p14c2rm-retirement.test.ts:109:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/20]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-retirement.test.ts > C.2-RM planning and actual retirement announcements > announcement news lasts exactly13 weeks even without a case; profiles and Calendar persist afterward
+AssertionError: expected [] to have a length of 1 but got +0
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ tests/bridge-p14c2rm-retirement.test.ts:137:20
+    135|       const state = advanceTo(scientistSnapshot(618), week)
+    136|       const news = causes(state, SCI).filter(cause => cause === 'retir…
+    137|       expect(news).toHaveLength(visible ? 1 : 0)
+       |                    ^
+    138|       expect(lifecycle(state, SCI).announcedWeek).toBe(618)
+    139|       expect(calendarRetirements(state).filter(row => row.talentId ===…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/20]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-retirement.test.ts > C.2-RM obligations, retired discovery and public boundaries > actual held Scientist work stays finishing through overdue E, then real cancel/tick retires without deleting identity
+AssertionError: 875 required lifecycle block: expected undefined to be defined
+ ❯ lifecycle tests/bridge-p14c2rm-retirement.test.ts:47:50
+     45| function lifecycle(state: GameState, id: string): Lifecycle {
+     46|   const result = profile(state, id).lifecycle
+     47|   expect(result, '875 required lifecycle block').toBeDefined()
+       |                                                  ^
+     48|   return result
+     49| }
+ ❯ tests/bridge-p14c2rm-retirement.test.ts:151:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/20]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-retirement.test.ts > C.2-RM obligations, retired discovery and public boundaries > a naturally announced contracted writer can start genuine writing at E−1 and finishes it after E
+Error: validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV15: frozen V14 state is invalid — validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: active project "script-0000" writer is not contracted
+ ❯ validateSaveV37 src/core/save.ts:10058:11
+    10056|     validateSaveV36WithPolicy({ ...save, saveVersion: 36 }, retirement…
+    10057|   } catch (error) {
+    10058|     throw new Error(`validateSaveV37: state is invalid — ${(error as E…
+       |           ^
+    10059|   }
+    10060|   return save as SaveFileV37;
+ ❯ Module.makeSave src/core/save.ts:6499:16
+ ❯ bytes tests/helpers/p14c2rm-fixtures.ts:20:55
+ ❯ admitted tests/helpers/p14c2rm-fixtures.ts:23:37
+ ❯ Module.finishingWriter tests/helpers/p14c2rm-fixtures.ts:118:55
+ ❯ tests/bridge-p14c2rm-retirement.test.ts:170:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/20]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-retirement.test.ts > C.2-RM obligations, retired discovery and public boundaries > unavailable ordinary windows disappear before/open/after the final extension while actual expiry stays
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/bridge-p14c2rm-retirement.test.ts:185:115
+    183|     for (const state of [extensionWorld('gap', 80), base, accepted]) {
+    184|       const calendar = studioCalendar(state)
+    185|       expect(calendar.commitments.some(row => row.kind === 'contractRe…
+       |                                                                                                                   ^
+    186|       expect(calendar.commitments.some(row => row.kind === 'contractEx…
+    187|       expect(calendar.staffingHorizon.contracts.find(row => row.talent…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/20]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-retirement.test.ts > C.2-RM obligations, retired discovery and public boundaries > 65 actual retirement boundaries remain in Calendar, bounded Finance rows count exact overflow, and alumni paginate deterministically
+AssertionError: expected [] to have a length of 65 but got +0
+
+- Expected
++ Received
+
+- 65
++ 0
+
+ ❯ tests/bridge-p14c2rm-retirement.test.ts:199:90
+    197|   it('65 actual retirement boundaries remain in Calendar, bounded Fina…
+    198|     const f = retirementCrowd(), state = f.near, before = bytes(state)
+    199|     expect(calendarRetirements(f.announced).filter(row => f.ids.includ…
+       |                                                                                          ^
+    200|     // A controlled no-construction/no-set-work fixture makes the fini…
+    201|     expect(state.placement.facilities.some(row => row.status === 'unde…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/20]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-retirement.test.ts > C.2-RM alumni evidence and disclosure > multi-role actual release counts two role credits, preserves promise/film/employer routes, and invents no honors
+Error: applyActions: greenlight assigns talent "authored-0000" to more than one role in the same production (writerId and cast.lead) — a talent fills exactly one role in one production (M16)
+ ❯ Module.resolveGreenlightStaffing src/core/productionAdmission.ts:193:13
+    191|     const priorRole = seenRoleById.get(id)
+    192|     if (priorRole !== undefined) {
+    193|       throw new Error(
+       |             ^
+    194|         `applyActions: greenlight assigns talent "${id}" to more than …
+    195|           `(${priorRole} and ${role}) — a talent fills exactly one rol…
+ ❯ applyGreenlight src/core/actions.ts:316:20
+ ❯ Module.applyActions src/core/actions.ts:2899:16
+ ❯ Module.multiRoleAlumnus tests/helpers/p14c2rm-fixtures.ts:157:17
+ ❯ tests/bridge-p14c2rm-retirement.test.ts:245:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/20]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-retirement.test.ts > C.2-RM alumni evidence and disclosure > a genuine long-career alumnus counts the complete >24 credit record, not the bounded profile rows
+AssertionError: expected undefined to match object { recordedCredits: 230, …(3) }
+
+- Expected: 
+Object {
+  "authoredCredits": 2,
+  "campaignCredits": 228,
+  "recordedCredits": 230,
+  "uncapturedFilms": 0,
+}
+
++ Received: 
+undefined
+
+ ❯ tests/bridge-p14c2rm-retirement.test.ts:276:24
+    274|     const chosen = candidates[0]!, row = profile(state, chosen.id)
+    275|     expect(row.career.rows.length).toBeLessThanOrEqual(24)
+    276|     expect(row.alumni).toMatchObject(chosen.counts)
+       |                        ^
+    277|     expect(row.alumni!.recordedCredits).toBeGreaterThan(row.career.row…
+    278|     expect(industry(state, 'person', { targetId: chosen.id }).people[0…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/20]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-retirement.test.ts > C.2-RM alumni evidence and disclosure > natural retired tiers stay fixed across real drift while lawful current employment changes disclosure
+AssertionError: expected { …(2) } to match object { asOfWeek: 156, …(2) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "asOfLabel": "1923 · Week 1",
+-   "asOfWeek": 156,
+-   "historicalTierNotice": null,
++   "line": "Working ties with people on your roster.",
++   "rows": Array [
++     Object {
++       "counterpartId": "authored-0001",
++       "counterpartName": "C2c Director",
++       "drivers": Array [
++         "they have worked on a picture together",
++         "they have worked together more than once",
++         "a picture they shared was cancelled after its first take",
++       ],
++       "sharedPictures": 2,
++       "sign": 1,
++       "tierLabel": "Colleagues",
++     },
++     Object {
++       "counterpartId": "authored-0004",
++       "counterpartName": "C2c Antagonist",
++       "drivers": Array [
++         "they have worked on a picture together",
++         "they have worked together more than once",
++         "a picture they shared was cancelled after its first take",
++       ],
++       "sharedPictures": 2,
++       "sign": 1,
++       "tierLabel": "Colleagues",
++     },
++     Object {
++       "counterpartId": "authored-0005",
++       "counterpartName": "C2c Support",
++       "drivers": Array [
++         "they have worked on a picture together",
++         "they have worked together more than once",
++         "a picture they shared was cancelled after its first take",
++       ],
++       "sharedPictures": 2,
++       "sign": 0,
++       "tierLabel": "Acquaintances",
++     },
++   ],
+  }
+
+ ❯ tests/bridge-p14c2rm-retirement.test.ts:285:21
+    283|     for (const state of [f.retired, f.later, f.rehired]) {
+    284|       const block = profile(state, f.personId).collaborators
+    285|       expect(block).toMatchObject({ asOfWeek: 156, asOfLabel: campaign…
+       |                     ^
+    286|       expect(block.rows.find(row => row.counterpartId === f.counterpar…
+    287|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/20]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-retirement.test.ts > C.2-RM alumni evidence and disclosure > SYNTHETIC imported newer edge withholds unreconstructible retirement tier, with no hidden-counterpart notice leak
+AssertionError: expected { Object (counterpartId, counterpartName, ...) } to match object { tierLabel: null, sign: +0, …(1) }
+(3 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "drivers": Array [],
+-   "sign": 0,
+-   "tierLabel": null,
++   "drivers": Array [
++     "they have worked on a picture together",
++     "they have worked together more than once",
++     "a picture they shared was cancelled after its first take",
++   ],
++   "sign": 1,
++   "tierLabel": "Colleagues",
+  }
+
+ ❯ tests/bridge-p14c2rm-retirement.test.ts:300:77
+    298|         ? { ...edge, lastEventWeek: 400 } : edge) })
+    299|     const visible = profile(alter(f.later), f.personId).collaborators
+    300|     expect(visible.rows.find(row => row.counterpartId === f.counterpar…
+       |                                                                             ^
+    301|     expect(visible).toMatchObject({ asOfWeek: 156 })
+    302|     expect((visible as unknown as { historicalTierNotice: string | nul…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/20]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-retirement.test.ts > C.2-RM alumni evidence and disclosure > active/no-root/no-edge collaborator reads retain honest gaps and current as-of nulls
+AssertionError: expected { …(2) } to match object { asOfWeek: null, …(2) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "asOfLabel": null,
+-   "asOfWeek": null,
+-   "historicalTierNotice": null,
++   "line": "No shared work on your pictures yet.",
++   "rows": Array [],
+  }
+
+ ❯ tests/bridge-p14c2rm-retirement.test.ts:310:52
+    308|   it('active/no-root/no-edge collaborator reads retain honest gaps and…
+    309|     const state = freshWorld('c2rm-no-root'), personId = state.talent[…
+    310|     expect(profile(state, personId).collaborators).toMatchObject({ asO…
+       |                                                    ^
+    311|     const { relationships: _oldRoot, ...oldReaderShape } = state
+    312|     const historical = relationshipBlockFor(oldReaderShape as GameStat…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/20]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-retirement.test.ts > C.2-RM alumni evidence and disclosure > whole snapshots validate and campaign-local people with identical ids never share lifecycle data
+AssertionError: 875 required lifecycle block: expected undefined to be defined
+ ❯ lifecycle tests/bridge-p14c2rm-retirement.test.ts:47:50
+     45| function lifecycle(state: GameState, id: string): Lifecycle {
+     46|   const result = profile(state, id).lifecycle
+     47|   expect(result, '875 required lifecycle block').toBeDefined()
+       |                                                  ^
+     48|   return result
+     49| }
+ ❯ tests/bridge-p14c2rm-retirement.test.ts:322:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/20]⎯
+
+ Test Files  2 failed | 1 passed (3)
+      Tests  20 failed | 19 passed (39)
+   Start at  18:13:11
+   Duration  83.42s (transform 3.73s, setup 0ms, collect 11.20s, tests 177.86s, environment 1ms, prepare 596ms)
+

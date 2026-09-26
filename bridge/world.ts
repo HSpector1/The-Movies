@@ -59,8 +59,11 @@ export function personWorldRoute(
   const present = onLot ?? studioPresence(state).people.some((person) => person.talentId === talentId)
   const reach = present ? 'playerLot' : 'industry'
   const view = caseForTalent(state, talentId, week)
-  // P14C.2b (780 §5.3): the one-issuer extension is no renewal window and no market case to open.
-  if (view === null || TERMINAL.has(view.status) || latestCaseIsExtension(state, talentId)) return { statusLine: null, caseRef: null, reach }
+  if (view === null || TERMINAL.has(view.status)) return { statusLine: null, caseRef: null, reach }
+  if (latestCaseIsExtension(state, talentId)) {
+    return { statusLine: `One final extension · decides Week ${view.decisionWeek}`,
+      caseRef: { view: 'market', targetId: talentId }, reach }
+  }
   const statusLine =
     view.decisionWeek <= week + 1
       ? `Decides next week · Week ${String(view.decisionWeek)}`

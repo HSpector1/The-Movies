@@ -1,0 +1,12 @@
+{"sourceSha":"c3da00847bbdbdd2dc448d94e45d19cd5a2e56ae","testedDiffSha256":"3f74b18dcc28dba49c68d00af422e849cfa4523099e62cb8130c2f0c90e75bf1","untrackedSource":[],"command":["npm","run","typecheck:bridge"],"node":"v20.20.2","start":"2026-09-26T16:27:36.775Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+tests/bridge-p14c2rm-proposals.test.ts(158,62): error TS2345: Argument of type '52' is not assignable to parameter of type '92 | 138 | 2692 | undefined'.
+tests/bridge-p14c2rm-retirement.test.ts(139,56): error TS2345: Argument of type '52' is not assignable to parameter of type '92 | 138 | 2692 | undefined'.
+tests/bridge-p14c2rm-retirement.test.ts(202,48): error TS2345: Argument of type '80' is not assignable to parameter of type '92 | 138 | 2692 | undefined'.
+tests/bridge-p14c2rm-retirement.test.ts(321,43): error TS2345: Argument of type '2600' is not assignable to parameter of type '92 | 138 | 2692 | undefined'.
+tests/bridge-p14c2rm-retirement.test.ts(370,37): error TS2345: Argument of type '52' is not assignable to parameter of type '92 | 138 | 2692 | undefined'.
+tests/bridge-p14c2rm-retirement.test.ts(370,70): error TS2345: Argument of type '52' is not assignable to parameter of type '92 | 138 | 2692 | undefined'.

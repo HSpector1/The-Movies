@@ -58,6 +58,10 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
 // that window would carry the earlier hash, and this map is keyed on the
 // hash, not the label.
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // C.2-RM875: genuine outgoing51 current670/saved669 and its actual nonempty
+  // journal were preserved by872 before this projection-only boundary. Save37
+  // slots stay exact; old session/revision/journal authority follows the prior path.
+  ['sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f', 'projection-v51'],
   // Record 840: genuine outgoing runtime50 checkpoints were preserved before
   // this boundary (824 and 842). Each current/saved slot independently lifts
   // to Save37; historical response journals do not become current-schema proof.

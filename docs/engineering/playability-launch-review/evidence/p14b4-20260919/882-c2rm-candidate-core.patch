@@ -1,0 +1,1682 @@
+diff --git a/bridge/contract.ts b/bridge/contract.ts
+index 3bcad526..ab0077b9 100644
+--- a/bridge/contract.ts
++++ b/bridge/contract.ts
+@@ -52,6 +52,7 @@ import { corePredicateOf, promiseQuoteSnapshot } from './promises.ts'
+ import type { WirePromiseDraft } from './promises.ts'
+ import { attachPromise } from '../src/core/promises.ts'
+ import { latestCaseIsExtension } from '../src/core/talentMarket.ts'
++import { retirementExtensionFields } from './retirement-extension.ts'
+ import { TUNING } from '../src/core/tuning.ts'
+ import type { ActionOutcome } from '../ui/src/engine/adapter.ts'
+ import type {
+@@ -431,7 +432,9 @@ function liveMarketRefusal(state: GameState, draft: MarketProposalDraft, talent:
+       return {
+         code: 'insufficientFunds',
+         reason: `The studio cannot cover the ${dollars(priced.signingBonus)} signing bonus this proposal would owe at settlement (${affordability.reason}).`,
+-        remedy: 'Choose a shorter term or a lower tier, or propose once cash allows.',
++        remedy: latestCaseIsExtension(state, talent.id)
++          ? 'Choose lower compensation, or propose once cash allows. This final extension has a fixed ending boundary.'
++          : 'Choose a shorter term or a lower tier, or propose once cash allows.',
+       }
+     }
+   }
+@@ -507,7 +510,11 @@ export function marketProposalDraftToEngine(state: GameState, input: MarketPropo
+   }
+   const priced = draft.verb === 'withdraw'
+   if (!priced) {
+-    if (draft.termWeeks === null || draft.termWeeks === undefined || !TUNING.CONTRACT_TERM_OPTIONS.includes(draft.termWeeks)) {
++    const extension = retirementExtensionFields(state, talent.id, draft.issuerStudioId).retirementExtension
++    const exactExtension = extension !== null && extension.viewerCanOffer
++      && extension.issuerStudioId === draft.issuerStudioId && draft.termWeeks === extension.requiredTermWeeks
++    if (draft.termWeeks === null || draft.termWeeks === undefined
++      || (!TUNING.CONTRACT_TERM_OPTIONS.includes(draft.termWeeks) && !exactExtension)) {
+       return { ok: false, error: 'Choose one of the published terms before proposing.' }
+     }
+     if (draft.premiumTier === null || draft.premiumTier === undefined || !isPremiumTier(draft.premiumTier)) {
+@@ -557,7 +564,7 @@ export function marketProposalQuoteSnapshot(
+   conversion: MarketProposalConversionOk,
+   intentId: string,
+ ): BridgeMarketProposalQuoteSnapshot {
+-  const { talent, refusal, annualSalary, signingBonus, termWeeks, decisionWeek } = conversion
++  const { talent, refusal, annualSalary, signingBonus, termWeeks, decisionWeek, effectiveWeek } = conversion
+   const ok = refusal === null && conversion.promise?.ok !== false
+   const consequence = refusal !== null
+     ? `${refusal.reason} ${refusal.remedy}`.trim()
+@@ -567,7 +574,7 @@ export function marketProposalQuoteSnapshot(
+         ? `Withdraws your proposal for ${talent.name}. Nothing is charged, and you may propose again while the case is open.`
+         // P14C.2b (780 §5.3): the one final extension is one issuer's offer, never a contest.
+         : latestCaseIsExtension(state, talent.id)
+-          ? `Stands until Week ${String(decisionWeek ?? state.market.tick)}, when ${talent.name} decides on this one final extension before retiring. If they accept, the contract runs ${contractTermLabel(termWeeks ?? 0)} at ${dollars(annualSalary ?? 0)} a year and the ${dollars(signingBonus ?? 0)} signing bonus is paid then — nothing is charged now.`
++          ? `Stands until Week ${String(decisionWeek ?? state.market.tick)}, when ${talent.name} decides on this one final extension before retiring. If they accept, the contract runs from Week ${effectiveWeek} until Week ${(effectiveWeek ?? 0) + (termWeeks ?? 0)} (exclusive; ${contractTermLabel(termWeeks ?? 0)}) at ${dollars(annualSalary ?? 0)} a year and the ${dollars(signingBonus ?? 0)} signing bonus is paid then — nothing is charged now.`
+           : `Stands until Week ${String(decisionWeek ?? state.market.tick)}, when ${talent.name} chooses among every proposal on the table. If they choose yours, the contract runs ${contractTermLabel(termWeeks ?? 0)} at ${dollars(annualSalary ?? 0)} a year and the ${dollars(signingBonus ?? 0)} signing bonus is paid then — nothing is charged now. A competing studio's terms stay UNKNOWN.`
+   return {
+     intentId,
+diff --git a/bridge/finance-upcoming.ts b/bridge/finance-upcoming.ts
+index a941114f..bbaa14bf 100644
+--- a/bridge/finance-upcoming.ts
++++ b/bridge/finance-upcoming.ts
+@@ -4,10 +4,11 @@ import { expectedWeeklyRunRevenue, pipelineRunRevenue } from '../src/core/econom
+ import { weeklySalary } from '../src/core/employment.ts'
+ import { setIsUnderRepair } from '../src/core/sets.ts'
+ import { TUNING } from '../src/core/tuning.ts'
++import { ordinaryRenewalWindow } from '../src/core/studioCalendar.ts'
+ import type { FinanceRoute } from './finance-route.ts'
+ 
+ export type FinanceUpcomingEvent = {
+-  id: string; kind: 'facilityCompletion' | 'facilityOpex' | 'contractRenewal' | 'contractExpiry' | 'setCompletion'
++  id: string; kind: 'facilityCompletion' | 'facilityOpex' | 'contractRenewal' | 'contractExpiry' | 'setCompletion' | 'retirement'
+   week: number; label: string; detail: string; weeklyOperatingCostChange: number | null; route: FinanceRoute | null
+ }
+ export const FINANCE_UPCOMING_LIMIT = 64
+@@ -34,8 +35,9 @@ export function financeUpcoming(state: GameState) {
+     const talent = state.talent.find(t => t.id === contract.talentId)
+     if (talent === undefined) throw new Error('Finance Upcoming: unknown contracted person')
+     const route: FinanceRoute = { kind: 'profile', targetId: talent.id, label: 'Open Profile' }
+-    events.push({ id: `renewal:${talent.id}:${contract.endWeekExclusive}`, kind: 'contractRenewal',
+-      week: Math.max(contract.startWeek, contract.endWeekExclusive - TUNING.HIRING_RENEWAL_WINDOW_WEEKS),
++    const renewalWeek = ordinaryRenewalWindow(state, contract)
++    if (renewalWeek !== null) events.push({ id: `renewal:${talent.id}:${contract.endWeekExclusive}`, kind: 'contractRenewal',
++      week: renewalWeek,
+       label: `${talent.name} renewal window ${contract.endWeekExclusive - TUNING.HIRING_RENEWAL_WINDOW_WEEKS <= week ? 'is open' : 'opens'}`, detail: 'Review the current terms. Renewal is a decision, not an automatic signing debit.',
+       weeklyOperatingCostChange: null, route })
+     events.push({ id: `expiry:${talent.id}:${contract.endWeekExclusive}`, kind: 'contractExpiry', week: contract.endWeekExclusive,
+@@ -49,16 +51,24 @@ export function financeUpcoming(state: GameState) {
+       label: `${set.name} ${setIsUnderRepair(set) ? 'repair completes' : 'becomes standing'}`, detail: `${set.completesWeek < week ? 'The retained completion date is overdue; no replacement date is invented. ' : ''}Completion of already-started Set work. Its committed cost has already been paid; this is not a new recurring charge.`,
+       weeklyOperatingCostChange: null, route: null })
+   }
++  for (const record of state.careerLifecycle?.records ?? []) {
++    if (record.status === 'retired') continue
++    const name = state.talent.find(t => t.id === record.personId)!.name
++    events.push({ id: `retirement:${record.personId}`, kind: 'retirement', week: record.effectiveWeek,
++      label: `${name} · ${record.status === 'finishing_commitments' ? 'Finishing commitments before retirement' : 'Retirement boundary'}`,
++      detail: `Retirement from ${record.profession}, announced Week ${record.announcedWeek}. This is nonfinancial; no automatic charge. Existing obligations may finish after this boundary; final completion is not yet known.`,
++      weeklyOperatingCostChange: null, route: { kind: 'profile', targetId: record.personId, label: 'Open Profile' } })
++  }
+   events.sort((a, b) => a.week - b.week || a.id.localeCompare(b.id))
+   return { timeClass: 'knownCommitment' as const, defaultWindowWeeks: 13 as const,
+     nextAdvanceStudioRevenue: state.founding === null ? expectedWeeklyRunRevenue(state) : 0,
+     remainingStudioRevenue: pipelineRunRevenue(state),
+-    basis: 'Known commitments only. The dated list includes this week, the selected rolling window, already-open renewal windows and any overdue committed Set work. Revenue totals cover already-active runs; remaining revenue has no single payment date here. Excludes new films, automatic renewals and uncommitted decisions.',
++    basis: 'Known commitments and public retirement boundaries. The dated list includes this week, the selected rolling window, already-open renewal windows, overdue committed Set work and finishing retirement obligations. Retirement facts are nonfinancial. Revenue totals cover already-active runs; remaining revenue has no single payment date here. Excludes new films, automatic renewals and uncommitted decisions.',
+     windows: ([13, 52] as const).map(windowWeeks => {
+       const fromWeek = week, toWeekInclusive = week + windowWeeks - 1
+-      const eligible = events.filter(e => e.week <= toWeekInclusive && (e.week >= fromWeek || e.kind === 'contractRenewal' || e.kind === 'setCompletion'))
++      const eligible = events.filter(e => e.week <= toWeekInclusive && (e.week >= fromWeek || e.kind === 'contractRenewal' || e.kind === 'setCompletion' || e.kind === 'retirement'))
+       const remainingRows = Math.max(0, eligible.length - FINANCE_UPCOMING_LIMIT)
+       return { windowWeeks, fromWeek, toWeekInclusive, rows: eligible.slice(0, FINANCE_UPCOMING_LIMIT), remainingRows,
+-        notice: remainingRows === 0 ? null : `${remainingRows} further dated commitments are outside this bounded list. Review Payroll and Operations for their exact owners.` }
++        notice: remainingRows === 0 ? null : `${remainingRows} further dated commitments are outside this bounded list. Review Payroll, Operations and public profiles or Calendar for their exact owners.` }
+     }) }
+ }
+diff --git a/bridge/industry.ts b/bridge/industry.ts
+index f6976f05..bc6efbc4 100644
+--- a/bridge/industry.ts
++++ b/bridge/industry.ts
+@@ -17,6 +17,7 @@ import {officePage,type OfficeIntent} from './office.ts'
+ import {contractTermLabel} from './contract.ts'
+ import {marketPage,MARKET_CLOSED_PAGE_SIZE} from './market.ts'
+ import {personWorldRoute} from './world.ts'
++import {personLifecycle} from './lifecycle.ts'
+ import {studioTrustDescriptor} from '../src/core/promises.ts'
+ 
+ type Film=IndustryPage['films'][number]
+@@ -79,7 +80,7 @@ function indexFor(state:GameState):Index {
+   // P14A.3: the PUBLIC world-route case facts join the row — the open-case status line and
+   // the reference that opens that exact case, both null unless a case is open, and neither
+   // carrying a figure of any kind. The presence set is reused, never rebuilt per person.
+-  for(const t of state.talent){const owner=employer.get(t.id)??null;const route=personWorldRoute(state,t.id,onLot.has(t.id));const person:Person={talentId:t.id,name:t.name,roleLabel:t.role==='craft'?'Crew':t.role[0]!.toUpperCase()+t.role.slice(1),employerStudioId:owner,employerName:owner?names.get(owner)??null:null,
++  for(const t of state.talent){const owner=employer.get(t.id)??null;const route=personWorldRoute(state,t.id,onLot.has(t.id));const lifecycle=personLifecycle(state,t);const person:Person={lifecycleStatus:lifecycle.status,lifecycleLine:lifecycle.line,retiredWeek:lifecycle.retiredWeek,talentId:t.id,name:t.name,roleLabel:t.role==='craft'?'Crew':t.role[0]!.toUpperCase()+t.role.slice(1),employerStudioId:owner,employerName:owner?names.get(owner)??null:null,
+     employmentLabel:owner?`Studio: ${names.get(owner)}`:'No exclusive studio contract',creditCount:filmsByPerson.get(t.id)?.length??0,onPlayerLot:onLot.has(t.id),
+     caseStatusLine:route.statusLine,caseRef:route.caseRef,
+     notice:'Credits establish work on a film. They do not establish historical employment. Current employer is read from the present contract.'};people.set(t.id,person);if(owner)append(roster,owner,person)}
+@@ -230,7 +231,13 @@ export function industryPage(state:GameState,sessionId:string,stateRevision:numb
+   const index=indexFor(state),h=state.hollywood!,calendar=campaignDate(state.market.tick)
+   const result:IndustryPage={protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,snapshotVersion:SNAPSHOT_VERSION,type:'industryPage',requestId:q.requestId,sessionId,stateRevision,stateDigest:snapshotBuildContextFor(state).stateDigest(),calendar,view:q.view,targetId:q.targetId,page:q.page,pageSize:q.pageSize,totalRows:0,pageCount:0,lane:q.lane,period:q.period,title:'Industry',notice:'Public facts only. Standing channels and film measures have separate meanings; there is no combined Power score.',studios:[],films:[],people:[],credits:[],activities:[],projects:[],tendencies:[],laboratory:null,plans:null,office:null,market:null}
+   const page=<T>(rows:T[]):T[]=>{result.totalRows=rows.length;result.pageCount=Math.ceil(rows.length/q.pageSize);if(q.page>0&&q.page>=result.pageCount)throw new Error('That page is outside this snapshot. Return to the first page.');return rows.slice(q.page*q.pageSize,(q.page+1)*q.pageSize)}
+-  if(q.view==='office') {
++  if(q.view==='alumni') {
++    if(q.targetId!==null)throw new Error('The alumni list requires a null targetId; open a person for detail.')
++    result.title='Alumni'
++    result.notice='Retired professionals remain in the public record. Recorded credits count roles on released films; honors are not recorded.'
++    result.people=page([...index.people.values()].filter(person=>person.lifecycleStatus==='retired')
++      .sort((a,b)=>b.retiredWeek!-a.retiredWeek!||byText(a.talentId,b.talentId)))
++  } else if(q.view==='office') {
+     // P13B-S4: one Development & Casting building's standard and its in-place
+     // conversions. `officePage` resolves this studio's own bodies alone; a rival
+     // facility id is absent from that set and refused above as INVALID_CONTROL.
+diff --git a/bridge/lifecycle.ts b/bridge/lifecycle.ts
+new file mode 100644
+index 00000000..631078fc
+--- /dev/null
++++ b/bridge/lifecycle.ts
+@@ -0,0 +1,57 @@
++// C.2-RM: public retirement facts only; no intent prediction or game-state writes.
++import { campaignDate } from '../src/core/calendar.ts'
++import { retirementRecordFor, retirementWindow } from '../src/core/careerLifecycle.ts'
++import type { GameState, Talent } from '../src/core/types.ts'
++import type { BridgePersonAlumni, BridgePersonLifecycle, BridgeMarketAttentionRowSnapshot } from './schema/bridge-schema.ts'
++
++export function personLifecycle(state: GameState, person: Talent): BridgePersonLifecycle {
++  const record = retirementRecordFor(state, person.id)
++  const profession = record?.profession ?? person.role
++  const window = retirementWindow(profession)!
++  const status = record?.status ?? 'active'
++  const line = status === 'retired' ? `Retired from ${profession} in Week ${record!.retiredWeek}.`
++    : status === 'finishing_commitments' ? `Finishing existing commitments before retiring from ${profession}; no new work or contract may attach. Final completion is not yet known.`
++      : status === 'announced' ? `Retirement from ${profession} announced; recorded boundary Week ${record!.effectiveWeek}. Existing obligations may finish afterward.`
++        : `Active in ${profession}; no retirement announcement recorded.`
++  const planningLine = `Retirement eligibility starts at age ${window.start}; age ${window.hard} is the announcement boundary, not automatic removal.`
++    + (status === 'announced' && profession === 'writer' ? ' A currently contracted writer may begin writing and finish it after the recorded boundary.' : '')
++  return {
++    status, profession, eligibleAge: window.start, hardAge: window.hard, eligible: person.age >= window.start,
++    line, planningLine, announcedWeek: record?.announcedWeek ?? null, effectiveWeek: record?.effectiveWeek ?? null,
++    finishingFromWeek: record?.finishingFromWeek ?? null, retiredWeek: record?.retiredWeek ?? null,
++    announcedLabel: record ? campaignDate(record.announcedWeek).label : null,
++    effectiveLabel: record ? campaignDate(record.effectiveWeek).label : null,
++    retiredLabel: record?.retiredWeek == null ? null : campaignDate(record.retiredWeek).label,
++    extensionUsed: record?.extensionUsed ?? null, extendedFromWeek: record?.extendedFromWeek ?? null,
++  }
++}
++
++export function personAlumni(state: GameState, person: Talent, campaignCredits: number, authoredCredits: number, uncapturedFilms: number): BridgePersonAlumni | null {
++  const record = retirementRecordFor(state, person.id)
++  if (record?.status !== 'retired' || record.retiredWeek === null) return null
++  const last = (state.hollywood?.employment ?? []).map((row, ordinal) => ({ row, ordinal }))
++    .filter(({ row }) => row.terms.talentId === person.id)
++    .sort((a, b) => (b.row.endedWeek ?? b.row.terms.endWeekExclusive) - (a.row.endedWeek ?? a.row.terms.endWeekExclusive) || b.ordinal - a.ordinal)[0]?.row
++  return {
++    profession: record.profession, retiredWeek: record.retiredWeek, retiredLabel: campaignDate(record.retiredWeek).label,
++    extensionUsed: record.extensionUsed, recordedCredits: campaignCredits + authoredCredits, authoredCredits, campaignCredits, uncapturedFilms,
++    creditBasis: 'Recorded credits count each credited role on a released picture, including separately recorded authored starting credits.',
++    recordingNotice: uncapturedFilms > 0 ? `${uncapturedFilms} earlier player films have no captured participants; this global recording gap cannot be assigned to a particular person.` : null,
++    honorsNotice: 'Honors are not recorded.',
++    lastEmployer: last ? { studioId: last.studioId, studioName: state.hollywood!.identities.find(s => s.studioId === last.studioId)!.name,
++      fromWeek: last.terms.startWeek, toWeek: last.endedWeek ?? last.terms.endWeekExclusive } : null,
++    filmographyRef: { view: 'person', targetId: person.id }, employmentRef: { view: 'employment', targetId: person.id },
++  }
++}
++
++/** Presentation news retention only; never an automatic advance stop. */
++export function retirementAttentionRows(state: GameState, week = state.market.tick): BridgeMarketAttentionRowSnapshot[] {
++  const rows: { row: BridgeMarketAttentionRowSnapshot; order: number; week: number }[] = []
++  for (const record of state.careerLifecycle?.records ?? []) {
++    if (record.status === 'finishing_commitments') rows.push({ order: 0, week: record.finishingFromWeek!, row: {
++      cause: 'finishingCommitments', talentId: record.personId, reason: `Finishing existing ${record.profession} commitments before retirement; final completion is not yet known.` } })
++    if (record.status !== 'retired' && week >= record.announcedWeek && week - record.announcedWeek < 13) rows.push({ order: 1, week: record.announcedWeek, row: {
++      cause: 'retirementAnnounced', talentId: record.personId, reason: `Retirement from ${record.profession} announced in Week ${record.announcedWeek}; recorded boundary Week ${record.effectiveWeek}.` } })
++  }
++  return rows.sort((a, b) => a.order - b.order || a.week - b.week || (a.row.talentId < b.row.talentId ? -1 : a.row.talentId > b.row.talentId ? 1 : 0)).map(item => item.row)
++}
+diff --git a/bridge/market.ts b/bridge/market.ts
+index e9d93faf..185ed4ca 100644
+--- a/bridge/market.ts
++++ b/bridge/market.ts
+@@ -19,6 +19,8 @@ import type { GameState, TalentMarketCase } from '../src/core/types.js'
+ import { castingDraftToEngine } from './casting.ts'
+ import { marketAttentionRows, marketCaseProjection, peopleProjection } from './people.ts'
+ import { promiseAttentionRows, promiseRowsForPerson } from './trust.ts'
++import { extensionTerminalReceipt, retirementExtensionFields } from './retirement-extension.ts'
++import { retirementAttentionRows } from './lifecycle.ts'
+ import type {
+   BridgeMarketAttentionRowSnapshot, BridgeMarketCaseDetail, BridgeMarketCaseRow,
+   BridgeMarketEmployerRow, BridgeMarketFreeAgentRow, BridgeMarketPage,
+@@ -71,14 +73,14 @@ type CaseEntry = { kase: TalentMarketCase; view: MarketCaseView; ordinal: number
+  * case, so a person who has been through two cases contributes exactly one entry, at the
+  * later one's ordinal; an earlier closed case of the same person is not separately
+  * listed (recorded limit: the engine publishes no reader for a superseded case).
+- * P14C.2b (806 §6): a person whose latest case is a `retirementExtension` contributes
+- * nothing — the one-issuer extension is not listed as a contest.
++ * C.2-RM875 includes the final-extension variant with its own public terms and
++ * one-issuer wording; the underlying latest-case history limit is unchanged.
+  */
+ function caseEntries(state: GameState, week: number): CaseEntry[] {
+   const byTalent = new Map<string, CaseEntry>()
+   state.talentMarket.cases.forEach((kase, ordinal) => {
+     const view = caseForTalent(state, kase.talentId, week)
+-    if (view !== null && !latestCaseIsExtension(state, kase.talentId)) byTalent.set(kase.talentId, { kase, view, ordinal })
++    if (view !== null) byTalent.set(kase.talentId, { kase, view, ordinal })
+   })
+   return [...byTalent.values()]
+ }
+@@ -93,6 +95,7 @@ function caseRow(state: GameState, entry: CaseEntry, viewerStudioId: string, nam
+   const proposals = state.talentMarket.proposals.filter((p) => p.talentId === entry.view.talentId)
+   return {
+     talentId: entry.view.talentId,
++    ...retirementExtensionFields(state, entry.view.talentId, viewerStudioId),
+     name: talent?.name ?? entry.view.talentId,
+     roleLabel: roleLabel(talent?.role ?? 'craft'),
+     subjectStudioId: entry.view.subjectStudioId,
+@@ -189,12 +192,13 @@ function employerRows(state: GameState, talentId: string, viewerStudioId: string
+  * two studios whose names share a prefix are separated by nothing but that name.
+  */
+ function ownDroppedReasons(state: GameState, view: MarketCaseView, viewerStudioId: string, names: Map<string, string>): string[] {
+-  const receipt = [...state.talentMarket.receipts].reverse().find((r) =>
++  const extension = latestCaseIsExtension(state, view.talentId)
++  const receipt = extension ? extensionTerminalReceipt(state, view.talentId) : [...state.talentMarket.receipts].reverse().find((r) =>
+     r.talentId === view.talentId && TERMINAL.has(r.kind) && r.dropped.length > 0)
+   if (receipt === undefined) return []
+   const proposed = state.talentMarket.receipts.some((r) =>
+     r.kind === 'proposalSubmitted' && r.talentId === view.talentId &&
+-    r.studioId === viewerStudioId && r.week >= view.openedWeek)
++    r.studioId === viewerStudioId && r.week >= view.openedWeek && (!extension || r.week <= receipt.week))
+   if (!proposed) return []
+   const name = names.get(viewerStudioId) ?? viewerStudioId
+   return receipt.dropped.filter((sentence) => sentence.startsWith(name))
+@@ -295,6 +299,12 @@ export function marketPage(state: GameState, request: MarketPageRequest): Bridge
+     attention.push(row)
+   }
+ 
++  for (const row of retirementAttentionRows(state, week)) {
++    const key = `${row.cause}:${row.talentId}`
++    if (seen.has(key)) continue
++    seen.add(key)
++    attention.push(row)
++  }
+   const page = Math.max(0, request.page ?? 0)
+   return structuredClone({
+     attention,
+diff --git a/bridge/people.ts b/bridge/people.ts
+index 45125e13..e8c08b34 100644
+--- a/bridge/people.ts
++++ b/bridge/people.ts
+@@ -34,6 +34,8 @@ import {
+ import type { GameState, TalentProfile } from '../ui/src/engine/adapter.ts'
+ import { studioPresence } from '../src/core/presence.ts'
+ import { campaignDate } from '../src/core/calendar.ts'
++import { ordinaryRenewalWindow } from '../src/core/studioCalendar.ts'
++import { personAlumni, personLifecycle } from './lifecycle.ts'
+ import { rivalEmployment } from '../src/core/hollywood.ts'
+ import { DISCIPLINE_ORDER, PERSON_DISCIPLINE_ORDER, ROLE_TO_DISCIPLINE } from '../src/core/tuning.ts'
+ import { guaranteedComp, activeContract, busyTalentIds, renewalWindowOpen } from '../src/core/employment.ts'
+@@ -42,6 +44,7 @@ import {
+   publicPreferredOpportunity, publicPreferredTerm, publicPriorityOrder, submitProposal, UNKNOWN,
+ } from '../src/core/talentMarket.ts'
+ import type { Disclosed, MarketCaseView } from '../src/core/talentMarket.ts'
++import { extensionTerminalReceipt, retirementExtensionFields } from './retirement-extension.ts'
+ import { trustDescriptor } from '../src/core/promises.ts'
+ import { promiseHistoryFor, unboxPromise } from './promises.ts'
+ import { promiseAttentionRows, promiseRowsForPerson, trustBlockFor } from './trust.ts'
+@@ -51,7 +54,7 @@ import { personWorldRoute } from './world.ts'
+ import type {
+   BridgeMarketAttentionRowSnapshot, BridgeMarketCaseSnapshot, BridgeMarketProposalSnapshot,
+   BridgeMarketPromiseHistoryRow, BridgePersonContractActionsSnapshot, BridgeRelationshipBlock, BridgeTrustBlock,
+-  BridgeWorldRouteSnapshot,
++  BridgeWorldRouteSnapshot, BridgePersonLifecycle, BridgePersonAlumni,
+ } from './schema/bridge-schema.ts'
+ import type {
+   CreativeRole,
+@@ -186,6 +189,8 @@ export type BridgePersonCareerSnapshot = {
+ }
+ 
+ export type BridgePersonProfileSnapshot = {
++  lifecycle: BridgePersonLifecycle
++  alumni: BridgePersonAlumni | null
+   talentId: string
+   name: string
+   /** Another authoritative person shares this name — presentation must show the id. */
+@@ -233,6 +238,8 @@ export type BridgePersonProfileSnapshot = {
+ }
+ 
+ export type BridgeRosterRowSnapshot = {
++  lifecycleStatus: BridgePersonLifecycle['status']
++  lifecycleLine: string
+   talentId: string
+   name: string
+   nameShared: boolean
+@@ -481,14 +488,23 @@ function buildProfile(
+       ? 'No clear specialty'
+       : `Top specialty: ${specialties.map((s) => s.label).join(' · ')}`
+   const work = buildWork(state, talent.id)
++  const lifecycle = personLifecycle(state, talent)
+   const employment = buildEmployment(state, talent, input.week, input.busy, work.kind === 'ambiguous')
+   const presence = buildPresence(input)
++  if (lifecycle.status === 'retired') presence.canLocate = false
++  if (lifecycle.status === 'finishing_commitments' || lifecycle.status === 'retired') {
++    employment.offersAvailable = false
++    employment.availability = lifecycle.status === 'retired' ? 'Retired from profession' : 'Finishing existing commitments; no new work'
++    if (work.kind === 'available') work.reason = lifecycle.line
++  }
+   const career = buildCareer(input)
+-  const attention = decideAttention(employment, work, presence, input.week)
+   const identityLabel = careerIdentityLabel(identity)
+   const viewerStudioId = state.hollywood?.playerStudioId ?? ''
+   const marketCase = marketCaseProjection(state, talent.id, viewerStudioId, input.week)
++  const attention = decideAttention(employment, work, presence, input.week, lifecycle, marketCase)
+   return {
++    lifecycle,
++    alumni: personAlumni(state, talent, input.credits, input.authoredCredits, input.uncapturedFilms),
+     talentId: talent.id,
+     name: talent.name,
+     nameShared: input.nameShared,
+@@ -558,6 +574,7 @@ function buildEmployment(state: GameState, talent: Talent, week: number, busy: b
+   }
+   const info = employmentInfo(state, talent.id)
+   const contract = activeContract(state, talent.id)
++  const ordinaryWindow = contract ? ordinaryRenewalWindow(state, contract) : null
+   const wire: BridgePersonContractSnapshot | null =
+     info.contract && contract
+       ? {
+@@ -570,8 +587,8 @@ function buildEmployment(state: GameState, talent: Talent, week: number, busy: b
+           remainingWeeks: info.contract.remainingWeeks,
+           guaranteedRemaining: Math.round(guaranteedComp(contract, week)),
+           terminationCost: info.contract.terminationCost,
+-          renewalOpen: info.contract.renewalOpen,
+-          renewalLine: renewalLine(contract.endWeekExclusive, week, renewalWindowOpen(contract, week)),
++          renewalOpen: ordinaryWindow !== null && info.contract.renewalOpen,
++          renewalLine: ordinaryWindow === null ? 'Ordinary renewal unavailable under the recorded retirement boundary' : renewalLine(contract.endWeekExclusive, week, renewalWindowOpen(contract, week)),
+           // P10-R1: the two material actions and their legal windows, decided by the same
+           // authorities the quote family re-asks (the sheet can never disagree with the Profile).
+           actions: contractActionDecisions(state, talent.id),
+@@ -727,6 +744,8 @@ function decideAttention(
+   work: BridgePersonWorkSnapshot,
+   presence: BridgePersonPresenceSnapshot,
+   week: number,
++  lifecycle: BridgePersonLifecycle,
++  marketCase: BridgeMarketCaseSnapshot | null,
+ ): BridgePersonAttentionSnapshot {
+   // Highest tier first; one reason per person.
+   if (work.kind === 'ambiguous') {
+@@ -735,6 +754,14 @@ function decideAttention(
+   if (presence.onLot && presence.blockedReason !== null) {
+     return { tier: 'attention', reason: presence.blockedReason, cohort: 'presence-blocked' }
+   }
++  if (marketCase?.retirementExtension?.viewerCanOffer) {
++    return { tier: 'decision', reason: 'One final retirement extension may be offered by your studio.', cohort: 'retirement-extension' }
++  }
++  if (lifecycle.status === 'finishing_commitments') return { tier: 'info', reason: lifecycle.line, cohort: 'finishing-commitments' }
++  if (lifecycle.status === 'announced' && lifecycle.announcedWeek !== null && week >= lifecycle.announcedWeek && week - lifecycle.announcedWeek < 13) {
++    return { tier: 'info', reason: lifecycle.line, cohort: 'retirement-announced' }
++  }
++  if (lifecycle.status !== 'active') return { tier: null, reason: null, cohort: null }
+   const c = employment.contract
+   if (c !== null) {
+     if (c.renewalOpen) {
+@@ -764,7 +791,7 @@ function decideAttention(
+ }
+ 
+ function buildRoster(profiles: BridgePersonProfileSnapshot[]): BridgeRosterSnapshot {
+-  const rows: BridgeRosterRowSnapshot[] = profiles.map((p) => {
++  const rows: BridgeRosterRowSnapshot[] = profiles.filter(p => p.lifecycle.status !== 'retired').map((p) => {
+     const primary = p.disciplines.find((d) => d.isPrimary)!
+     const population: BridgeRosterRowSnapshot['population'] =
+       p.employment.status === 'contracted'
+@@ -773,6 +800,7 @@ function buildRoster(profiles: BridgePersonProfileSnapshot[]): BridgeRosterSnaps
+           ? 'freelancer'
+           : 'known'
+     return {
++      lifecycleStatus: p.lifecycle.status, lifecycleLine: p.lifecycle.line,
+       talentId: p.talentId,
+       name: p.name,
+       nameShared: p.nameShared,
+@@ -786,7 +814,7 @@ function buildRoster(profiles: BridgePersonProfileSnapshot[]): BridgeRosterSnaps
+       ovrByDiscipline: p.disciplines.map((d) => ({ discipline: d.discipline, label: d.label, ovr: d.ovr })),
+       starPower: p.starPower,
+       specialtyLine: p.specialtyLine,
+-      currentWork: p.work.kind === 'assigned' ? (p.work.label ?? '') : p.work.kind === 'ambiguous' ? 'Unknown' : 'Available',
++      currentWork: p.work.kind === 'assigned' ? (p.work.label ?? '') : p.work.kind === 'ambiguous' ? 'Unknown' : p.lifecycle.status === 'finishing_commitments' ? 'Finishing existing commitments' : 'Available',
+       availability: p.employment.availability,
+       status: p.employment.status,
+       contractLine: contractLine(p.employment),
+@@ -827,6 +855,9 @@ function contractLine(employment: BridgePersonEmploymentSnapshot): string {
+ const COHORT_LABEL: Record<string, { label: string; tier: BridgePersonAttentionTier; order: number }> = {
+   'work-ambiguous': { label: 'Current work could not be determined', tier: 'blocking', order: 0 },
+   'presence-blocked': { label: 'Blocked on the lot this week', tier: 'attention', order: 1 },
++  'retirement-extension': { label: 'One final retirement extension', tier: 'decision', order: 1.1 },
++  'finishing-commitments': { label: 'Finishing existing commitments', tier: 'info', order: 1.2 },
++  'retirement-announced': { label: 'Retirement announced', tier: 'info', order: 1.3 },
+   'renewal-open': { label: 'Renewal window open', tier: 'decision', order: 2 },
+   'contract-ends-26': { label: 'Contracts ending within 26 weeks', tier: 'attention', order: 3 },
+   'contract-ends-52': { label: 'Contracts ending within a year', tier: 'info', order: 4 },
+@@ -923,11 +954,18 @@ export function marketAttentionRows(
+   week: number,
+ ): BridgeMarketAttentionRowSnapshot[] {
+   const rows: BridgeMarketAttentionRowSnapshot[] = []
+-  // P14C.2b (780 §5.3): the one-issuer extension is not a contest; no row interrupts for it.
+-  if (latestCaseIsExtension(state, view.talentId)) return rows
+   const add = (cause: BridgeMarketAttentionRowSnapshot['cause'], reason: string): void => {
+     rows.push({ cause, talentId: view.talentId, reason })
+   }
++  if (latestCaseIsExtension(state, view.talentId)) {
++    const extension = retirementExtensionFields(state, view.talentId, viewerStudioId, week).retirementExtension
++    if (extension?.viewerCanOffer) {
++      add('retirementExtensionOpen', `One final extension may be offered before Week ${view.decisionWeek}; the contract would end in Week ${extension.endWeekExclusive}.`)
++    } else if (view.subjectStudioId === viewerStudioId && SETTLEMENT_OUTCOMES.has(view.status)) {
++      add('settlementCompleted', `The one final extension case closed in Week ${view.decisionWeek}.`)
++    }
++    return rows
++  }
+   const proposals = currentProposals(state, view.talentId)
+   const mine = proposals.find((p) => p.issuerStudioId === viewerStudioId)
+   // Interrupt only what is this studio's business: a case it has bid on, or one about
+@@ -969,8 +1007,7 @@ export function marketCaseProjection(
+ ): BridgeMarketCaseSnapshot | null {
+   if (state.hollywood === null) return null
+   const view = caseForTalent(state, talentId, week)
+-  // P14C.2b (780 §5.3): a person whose latest case is the extension holds no listable case.
+-  if (view === null || latestCaseIsExtension(state, talentId)) return null
++  if (view === null) return null
+   const disclosure = caseDisclosure(state, talentId, viewerStudioId, week)
+   const proposals: BridgeMarketProposalSnapshot[] = disclosure.proposals.map((row) => {
+     const common = {
+@@ -992,6 +1029,7 @@ export function marketCaseProjection(
+   const preferredTermWeeks = publicPreferredTerm(state, talentId)
+   return {
+     talentId: view.talentId,
++    ...retirementExtensionFields(state, talentId, viewerStudioId, week),
+     subjectStudioId: view.subjectStudioId,
+     status: view.status,
+     decisionWeek: view.decisionWeek,
+@@ -1009,7 +1047,9 @@ export function marketCaseProjection(
+       ...marketAttentionRows(state, view, viewerStudioId, week),
+       ...promiseAttentionRows(state, viewerStudioId, week, talentId),
+     ],
+-    settlementReasons: [...disclosure.settlementReasons],
++    settlementReasons: latestCaseIsExtension(state, talentId)
++      ? [...(extensionTerminalReceipt(state, talentId)?.kind === 'settled' ? extensionTerminalReceipt(state, talentId)!.reasons : [])]
++      : [...disclosure.settlementReasons],
+     // P14B.1 §4.5: the public descriptor label for THIS viewing studio, derived on
+     // read through the engine's own service. The Profile carries its driver text.
+     trustLabel: trustDescriptor(state, talentId, viewerStudioId, week).label,
+diff --git a/bridge/relationships.ts b/bridge/relationships.ts
+index 89586929..7f379580 100644
+--- a/bridge/relationships.ts
++++ b/bridge/relationships.ts
+@@ -25,6 +25,8 @@
+ //     readily as for a pair with one, and never implies a tier. A campaign that predates
+ //     the V31 root therefore shows counts and no tiers — nothing is backfilled.
+ import { pairChemistry, type PairChemistry } from '../src/core/relationships.ts'
++import { retirementRecordFor } from '../src/core/careerLifecycle.ts'
++import { campaignDate } from '../src/core/calendar.ts'
+ import type { GameState } from '../src/core/types.ts'
+ import type {
+   BridgeCastingChemistryRow, BridgeRelationshipBlock, BridgeRelationshipRow,
+@@ -186,6 +188,9 @@ export function relationshipBlockFor(
+   viewerStudioId: string,
+   week: number = state.market.tick,
+ ): BridgeRelationshipBlock {
++  const retirement = retirementRecordFor(state, talentId)
++  const asOfWeek = retirement?.status === 'retired' ? retirement.retiredWeek : null
++  let historicalTierNotice: string | null = null
+   const edges = state.relationships ?? []
+   const disclosed = rosterAt(state, viewerStudioId, talentId, week)
+   const tied = new Set<string>()
+@@ -201,7 +206,12 @@ export function relationshipBlockFor(
+   for (const counterpartId of [...disclosed].sort()) {
+     const sharedPictures = sharedPictureCount(state, talentId, counterpartId)
+     if (!tied.has(counterpartId) && sharedPictures === 0) continue
+-    const chemistry = chemistryOf(state, talentId, counterpartId, week)
++    const edge = edges.find(e => (e.a === talentId && e.b === counterpartId) || (e.b === talentId && e.a === counterpartId))
++    // Only inspect a disclosed counterpart. Later retained events cannot reconstruct
++    // a prior tier, and an undisclosed edge must not leak through the notice.
++    const unavailable = asOfWeek !== null && edge !== undefined && edge.lastEventWeek > asOfWeek
++    if (unavailable) historicalTierNotice = 'A retirement-dated tier cannot be reconstructed for a displayed tie with a later recorded event.'
++    const chemistry = unavailable ? NO_ROOT : chemistryOf(state, talentId, counterpartId, asOfWeek ?? week)
+     rows.push({
+       counterpartId,
+       counterpartName: names.get(counterpartId) ?? counterpartId,
+@@ -220,7 +230,7 @@ export function relationshipBlockFor(
+     : withheld ? withheldLine
+       : sharesViewerPicture(state, talentId, viewerStudioId) ? SHARED_NO_TIE_LINE
+         : QUIET_LINE
+-  return { line, rows }
++  return { line, rows, asOfWeek, asOfLabel: asOfWeek === null ? null : campaignDate(asOfWeek).label, historicalTierNotice }
+ }
+ 
+ /**
+diff --git a/bridge/retirement-extension.ts b/bridge/retirement-extension.ts
+new file mode 100644
+index 00000000..2f2486d8
+--- /dev/null
++++ b/bridge/retirement-extension.ts
+@@ -0,0 +1,49 @@
++// C.2-RM875: public case identity/terms only. Prices and proposal disclosure remain
++// with talentMarket; this projection never reads a rival's compensation.
++import { retirementRecordFor } from '../src/core/careerLifecycle.ts'
++import { TUNING } from '../src/core/tuning.ts'
++import { caseForTalent, latestCaseIsExtension, marketEligibility, openMarketCaseFor } from '../src/core/talentMarket.ts'
++import type { GameState } from '../src/core/types.ts'
++import type { BridgeMarketCaseSnapshot } from './schema/bridge-schema.ts'
++
++export function retirementExtensionFields(
++  state: GameState,
++  talentId: string,
++  viewerStudioId: string,
++  week: number = state.market.tick,
++): Pick<BridgeMarketCaseSnapshot, 'variant' | 'soleIssuerStudioId' | 'retirementExtension'> {
++  if (!latestCaseIsExtension(state, talentId)) {
++    return { variant: 'expiry', soleIssuerStudioId: null, retirementExtension: null }
++  }
++  const view = caseForTalent(state, talentId, week)
++  const issuer = view?.subjectStudioId ?? null
++  const record = retirementRecordFor(state, talentId)
++  const open = openMarketCaseFor(state, talentId, week)
++  // Closed cases retain the real issuer/variant, never a second opportunity
++  // computed from the effective week an accepted extension has already moved.
++  if (view === null || issuer === null || open === undefined || record?.status !== 'announced' || record.extensionUsed) {
++    return { variant: 'retirementExtension', soleIssuerStudioId: issuer, retirementExtension: null }
++  }
++  const endWeekExclusive = record.effectiveWeek + TUNING.RETIREMENT_NOTICE_WEEKS
++  return {
++    variant: 'retirementExtension', soleIssuerStudioId: issuer,
++    retirementExtension: {
++      issuerStudioId: issuer,
++      viewerCanOffer: marketEligibility(state, talentId, week).proposers.includes(viewerStudioId),
++      requiredTermWeeks: endWeekExclusive - view.decisionWeek,
++      startWeek: view.decisionWeek,
++      endWeekExclusive,
++    },
++  }
++}
++
++/** Receipts carry no case id, so join the latest case identity, terminal kind and
++ * exact closed week within its own opening span. Never borrow an older outcome. */
++export function extensionTerminalReceipt(state: GameState, talentId: string) {
++  const kase = [...state.talentMarket.cases].reverse().find(row => row.talentId === talentId)
++  if (kase?.variant !== 'retirementExtension' || kase.outcome === null || kase.closedWeek === null) return undefined
++  const view = caseForTalent(state, talentId)
++  if (view === null || view.contractId !== kase.contractId || view.openedWeek !== kase.openedWeek || view.status !== kase.outcome) return undefined
++  return [...state.talentMarket.receipts].reverse().find(receipt => receipt.talentId === talentId
++    && receipt.kind === kase.outcome && receipt.week === kase.closedWeek && receipt.week >= kase.openedWeek)
++}
+diff --git a/bridge/runtime-checkpoint.ts b/bridge/runtime-checkpoint.ts
+index 047e3040..7ca78b62 100644
+--- a/bridge/runtime-checkpoint.ts
++++ b/bridge/runtime-checkpoint.ts
+@@ -58,6 +58,10 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
+ // that window would carry the earlier hash, and this map is keyed on the
+ // hash, not the label.
+ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
++  // C.2-RM875: genuine outgoing51 current670/saved669 and its actual nonempty
++  // journal were preserved by872 before this projection-only boundary. Save37
++  // slots stay exact; old session/revision/journal authority follows the prior path.
++  ['sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f', 'projection-v51'],
+   // Record 840: genuine outgoing runtime50 checkpoints were preserved before
+   // this boundary (824 and 842). Each current/saved slot independently lifts
+   // to Save37; historical response journals do not become current-schema proof.
+diff --git a/bridge/schema/bridge-schema.ts b/bridge/schema/bridge-schema.ts
+index bfefa098..8d34cf59 100644
+--- a/bridge/schema/bridge-schema.ts
++++ b/bridge/schema/bridge-schema.ts
+@@ -269,7 +269,10 @@ export const PROTOCOL_VERSION = 4 as const
+ // Record 840 (projection 51): the current runtime now owns Save37's Scientist
+ // retirement law. No DTO field changes; exact schema50 checkpoints migrate both
+ // independent slots through the governed prior-schema path in the same slice.
+-export const PROJECTION_VERSION = 51 as const
++// C.2-RM875: lifecycle/alumni, retirement Calendar/Finance facts, one-issuer
++// extension routes and retirement-dated collaborators. Save37 remains current;
++// exact outgoing51 is registered before any52 checkpoint is minted.
++export const PROJECTION_VERSION = 52 as const
+ 
+ const nonEmptyText = () => text({ minLength: 1 })
+ const nonNegativeInteger = () => integer({ minimum: 0 })
+@@ -2469,6 +2472,9 @@ const MARKET_ATTENTION_CAUSES = [
+   'proposalWouldFail',
+   'promiseDue',
+   'promiseOutcome',
++  'retirementExtensionOpen',
++  'retirementAnnounced',
++  'finishingCommitments',
+ ] as const
+ const StudioMarketAttentionRowSnapshot = object('StudioMarketAttentionRowSnapshot', {
+   cause: enumeration(MARKET_ATTENTION_CAUSES),
+@@ -2490,7 +2496,20 @@ const StudioMarketPreferencesSnapshot = object('StudioMarketPreferencesSnapshot'
+   preferredOpportunity: enumeration(['significantCastRole', 'anyCastAppearance']),
+   line: nonEmptyText(),
+ })
++const StudioRetirementExtension = object('StudioRetirementExtension', {
++  issuerStudioId: nonEmptyText(),
++  viewerCanOffer: bool(),
++  requiredTermWeeks: integer({ minimum: 1 }),
++  startWeek: nonNegativeInteger(),
++  endWeekExclusive: nonNegativeInteger(),
++})
++const marketLifecycleFields = {
++  variant: enumeration(['expiry', 'retirementExtension']),
++  soleIssuerStudioId: nullable(nonEmptyText()),
++  retirementExtension: nullable(reference('StudioRetirementExtension', StudioRetirementExtension)),
++}
+ const StudioMarketCaseSnapshot = object('StudioMarketCaseSnapshot', {
++  ...marketLifecycleFields,
+   talentId: nonEmptyText(),
+   /** The employer whose contract is expiring (the case's subject studio). */
+   subjectStudioId: nonEmptyText(),
+@@ -2533,6 +2552,7 @@ const MARKET_CASE_OUTCOMES = ['settled', 'declined', 'expired', 'invalidated'] a
+ // when it decides, HOW MANY proposals are on the table (existence is public; the figures
+ // are not) and whether this studio is one of the issuers.
+ const StudioMarketCaseRow = object('StudioMarketCaseRow', {
++  ...marketLifecycleFields,
+   talentId: nonEmptyText(),
+   name: nonEmptyText(),
+   roleLabel: nonEmptyText(),
+@@ -2711,6 +2731,9 @@ const StudioRelationshipRow = object('StudioRelationshipRow', {
+   sharedPictures: nonNegativeInteger(),
+ })
+ const StudioRelationshipBlock = object('StudioRelationshipBlock', {
++  asOfWeek: nullable(nonNegativeInteger()),
++  asOfLabel: nullable(nonEmptyText()),
++  historicalTierNotice: nullable(nonEmptyText()),
+   /** Present on every profile. When ties exist that the player cannot see in their own
+    *  right, this line says so WITHOUT a count and WITHOUT an identity (the
+    *  `presence.withheld` precedent). */
+@@ -2718,7 +2741,28 @@ const StudioRelationshipBlock = object('StudioRelationshipBlock', {
+   rows: array(reference('StudioRelationshipRow', StudioRelationshipRow)),
+ })
+ 
++const lifecycleStatusEnum = () => enumeration(['active', 'announced', 'finishing_commitments', 'retired'])
++const StudioPersonLifecycle = object('StudioPersonLifecycle', {
++  status: lifecycleStatusEnum(), profession: professionEnum(), eligibleAge: nonNegativeInteger(), hardAge: nonNegativeInteger(), eligible: bool(),
++  line: nonEmptyText(), planningLine: nonEmptyText(), announcedWeek: nullable(nonNegativeInteger()), effectiveWeek: nullable(nonNegativeInteger()),
++  finishingFromWeek: nullable(nonNegativeInteger()), retiredWeek: nullable(nonNegativeInteger()), announcedLabel: nullable(nonEmptyText()),
++  effectiveLabel: nullable(nonEmptyText()), retiredLabel: nullable(nonEmptyText()), extensionUsed: nullable(bool()), extendedFromWeek: nullable(nonNegativeInteger()),
++})
++const StudioAlumniEmployer = object('StudioAlumniEmployer', {
++  studioId: nonEmptyText(), studioName: nonEmptyText(), fromWeek: nonNegativeInteger(), toWeek: nonNegativeInteger(),
++})
++const StudioAlumniFilmographyRef = object('StudioAlumniFilmographyRef', { view: literal('person'), targetId: nonEmptyText() })
++const StudioAlumniEmploymentRef = object('StudioAlumniEmploymentRef', { view: literal('employment'), targetId: nonEmptyText() })
++const StudioPersonAlumni = object('StudioPersonAlumni', {
++  profession: professionEnum(), retiredWeek: nonNegativeInteger(), retiredLabel: nonEmptyText(), extensionUsed: bool(),
++  recordedCredits: nonNegativeInteger(), authoredCredits: nonNegativeInteger(), campaignCredits: nonNegativeInteger(), uncapturedFilms: nonNegativeInteger(),
++  creditBasis: nonEmptyText(), recordingNotice: nullable(nonEmptyText()), honorsNotice: nonEmptyText(),
++  lastEmployer: nullable(reference('StudioAlumniEmployer', StudioAlumniEmployer)),
++  filmographyRef: reference('StudioAlumniFilmographyRef', StudioAlumniFilmographyRef), employmentRef: reference('StudioAlumniEmploymentRef', StudioAlumniEmploymentRef),
++})
+ const StudioPersonProfileSnapshot = object('StudioPersonProfileSnapshot', {
++  lifecycle: reference('StudioPersonLifecycle', StudioPersonLifecycle),
++  alumni: nullable(reference('StudioPersonAlumni', StudioPersonAlumni)),
+   talentId: nonEmptyText(),
+   name: nonEmptyText(),
+   nameShared: bool(),
+@@ -2763,6 +2807,7 @@ const StudioRosterOvrSnapshot = object('StudioRosterOvrSnapshot', {
+   ovr: number({ minimum: 0, maximum: 99 }),
+ })
+ const StudioRosterRowSnapshot = object('StudioRosterRowSnapshot', {
++  lifecycleStatus: lifecycleStatusEnum(), lifecycleLine: nonEmptyText(),
+   talentId: nonEmptyText(),
+   name: nonEmptyText(),
+   nameShared: bool(),
+@@ -3126,7 +3171,7 @@ const StudioFinanceAttention = object('StudioFinanceAttention', {
+   id: nonEmptyText(), message: nonEmptyText(), route: nullable(reference('StudioFinanceRoute', StudioFinanceRoute)),
+ })
+ const StudioFinanceUpcomingEvent = object('StudioFinanceUpcomingEvent', {
+-  id: nonEmptyText(), kind: enumeration(['facilityCompletion','facilityOpex','contractRenewal','contractExpiry','setCompletion']),
++  id: nonEmptyText(), kind: enumeration(['facilityCompletion','facilityOpex','contractRenewal','contractExpiry','setCompletion','retirement']),
+   week: nonNegativeInteger(), label: nonEmptyText(), detail: nonEmptyText(),
+   weeklyOperatingCostChange: nullable(number()), route: nullable(reference('StudioFinanceRoute', StudioFinanceRoute)),
+ })
+@@ -3561,6 +3606,7 @@ const definitions = {
+   StudioMarketAttentionRowSnapshot,
+   StudioMarketPreferencesSnapshot,
+   StudioMarketCaseSnapshot,
++  StudioRetirementExtension,
+   StudioMarketCaseRow,
+   StudioMarketFreeAgentRow,
+   StudioMarketClosedCases,
+@@ -3576,6 +3622,11 @@ const definitions = {
+   StudioTrustBlock,
+   StudioRelationshipRow,
+   StudioRelationshipBlock,
++  StudioPersonLifecycle,
++  StudioPersonAlumni,
++  StudioAlumniEmployer,
++  StudioAlumniFilmographyRef,
++  StudioAlumniEmploymentRef,
+   StudioPersonProfileSnapshot,
+   StudioRosterOvrSnapshot,
+   StudioRosterRowSnapshot,
+@@ -3748,6 +3799,8 @@ export const AVAILABLE_INTENT_KEYS = Object.keys(
+ ) as Array<keyof BridgeAvailableIntent>
+ 
+ export type CampaignRequest=InferSchema<typeof StudioCampaignRequest>
++export type BridgePersonLifecycle = InferSchema<typeof StudioPersonLifecycle>
++export type BridgePersonAlumni = InferSchema<typeof StudioPersonAlumni>
+ export type CampaignSummary=InferSchema<typeof StudioCampaignSummary>
+ export type CampaignLibraryResponse=InferSchema<typeof StudioCampaignLibraryResponse>
+ export type CampaignAcceptedResponse=InferSchema<typeof StudioCampaignAcceptedResponse>
+diff --git a/bridge/schema/industry-schema.ts b/bridge/schema/industry-schema.ts
+index f9c1888c..457c698f 100644
+--- a/bridge/schema/industry-schema.ts
++++ b/bridge/schema/industry-schema.ts
+@@ -132,7 +132,7 @@ const StudioIndustryFilm=object('StudioIndustryFilm',{filmId:id(),studioId:id(),
+ // figure-free: a rival's tier, salary and bonus remain behind A.1's disclosure and appear
+ // on no Industry row. The row's own `onPlayerLot` still states where the person is; a
+ // rival's person is never on the player's lot and no rival lot exists on this wire.
+-const StudioIndustryPerson=object('StudioIndustryPerson',{talentId:id(),name:id(),roleLabel:id(),employerStudioId:nullable(id()),employerName:nullable(id()),employmentLabel:id(),creditCount:count(),onPlayerLot:bool(),notice:id(),caseStatusLine:nullable(id()),caseRef:nullable(worldCaseRefRef())})
++const StudioIndustryPerson=object('StudioIndustryPerson',{lifecycleStatus:enumeration(['active','announced','finishing_commitments','retired']),lifecycleLine:id(),retiredWeek:nullable(count()),talentId:id(),name:id(),roleLabel:id(),employerStudioId:nullable(id()),employerName:nullable(id()),employmentLabel:id(),creditCount:count(),onPlayerLot:bool(),notice:id(),caseStatusLine:nullable(id()),caseRef:nullable(worldCaseRefRef())})
+ const StudioIndustryCredit=object('StudioIndustryCredit',{talentId:id(),name:id(),role:id(),employerStudioId:nullable(id()),employerName:nullable(id())})
+ // P13B-S7: `studioId` is NULLABLE. Every receipt-derived row still names the studio whose
+ // receipt it is; a DERIVED public milestone row (the technology announcement) is minted by
+@@ -153,8 +153,8 @@ export const StudioIndustryProjection=object('StudioIndustryProjection',{industr
+ // person's talentId (null for the buckets alone), `page` pages the CLOSED case bucket and
+ // the OPTIONAL `historyPage` pages the selected person's employer history. `historyPage` is
+ // optional so every request minted before projection 43 stays valid exactly as it is.
+-export const StudioIndustryRequest=object('StudioIndustryRequest',{protocolVersion:literal(4),schemaId:id(),sessionId:id(),requestId:id(),expectedStateRevision:count(),type:literal('industryQuery'),view:enumeration(['studios','studio','films','film','person','pulse','history','roster','project','employment','laboratory','plans','office','market']),targetId:nullable(id()),page:count(),pageSize:integer({minimum:1,maximum:50}),lane:enumeration([...INDUSTRY_LANES,...INDUSTRY_FILM_LANES]),period:enumeration(['recent','all','authored','live']),historyPage:optional(count())})
+-export const StudioIndustryResponse=object('StudioIndustryResponse',{protocolVersion:literal(4),schemaId:id(),snapshotVersion:count(),type:literal('industryPage'),requestId:id(),sessionId:id(),stateRevision:count(),stateDigest:id(),calendar:reference('StudioCampaignDate',StudioCampaignDate),view:enumeration(['studios','studio','films','film','person','pulse','history','roster','project','employment','laboratory','plans','office','market']),targetId:nullable(id()),page:count(),pageSize:integer({minimum:1,maximum:50}),totalRows:count(),pageCount:count(),lane:id(),period:id(),title:id(),notice:id(),studios:array(reference('StudioIndustryStudio',StudioIndustryStudio)),films:array(reference('StudioIndustryFilm',StudioIndustryFilm)),people:array(reference('StudioIndustryPerson',StudioIndustryPerson)),credits:array(reference('StudioIndustryCredit',StudioIndustryCredit)),activities:array(reference('StudioIndustryActivity',StudioIndustryActivity)),projects:array(reference('StudioIndustryProject',StudioIndustryProject)),tendencies:array(reference('StudioIndustryTendency',StudioIndustryTendency)),laboratory:nullable(reference('StudioLaboratoryPage',StudioLaboratoryPage)),plans:nullable(reference('StudioPlansPage',StudioPlansPage)),office:nullable(reference('StudioOfficePage',StudioOfficePage)),market:nullable(marketPageRef())})
++export const StudioIndustryRequest=object('StudioIndustryRequest',{protocolVersion:literal(4),schemaId:id(),sessionId:id(),requestId:id(),expectedStateRevision:count(),type:literal('industryQuery'),view:enumeration(['studios','studio','films','film','person','pulse','history','roster','project','employment','laboratory','plans','office','market','alumni']),targetId:nullable(id()),page:count(),pageSize:integer({minimum:1,maximum:50}),lane:enumeration([...INDUSTRY_LANES,...INDUSTRY_FILM_LANES]),period:enumeration(['recent','all','authored','live']),historyPage:optional(count())})
++export const StudioIndustryResponse=object('StudioIndustryResponse',{protocolVersion:literal(4),schemaId:id(),snapshotVersion:count(),type:literal('industryPage'),requestId:id(),sessionId:id(),stateRevision:count(),stateDigest:id(),calendar:reference('StudioCampaignDate',StudioCampaignDate),view:enumeration(['studios','studio','films','film','person','pulse','history','roster','project','employment','laboratory','plans','office','market','alumni']),targetId:nullable(id()),page:count(),pageSize:integer({minimum:1,maximum:50}),totalRows:count(),pageCount:count(),lane:id(),period:id(),title:id(),notice:id(),studios:array(reference('StudioIndustryStudio',StudioIndustryStudio)),films:array(reference('StudioIndustryFilm',StudioIndustryFilm)),people:array(reference('StudioIndustryPerson',StudioIndustryPerson)),credits:array(reference('StudioIndustryCredit',StudioIndustryCredit)),activities:array(reference('StudioIndustryActivity',StudioIndustryActivity)),projects:array(reference('StudioIndustryProject',StudioIndustryProject)),tendencies:array(reference('StudioIndustryTendency',StudioIndustryTendency)),laboratory:nullable(reference('StudioLaboratoryPage',StudioLaboratoryPage)),plans:nullable(reference('StudioPlansPage',StudioPlansPage)),office:nullable(reference('StudioOfficePage',StudioOfficePage)),market:nullable(marketPageRef())})
+ export const industryDefinitions={StudioAdoptionComponent,StudioCancellationRestoration,StudioActionQuoteComponent,StudioActionQuote,StudioEquipmentAsset,StudioAdoptionRow,StudioLaboratoryAction,StudioOfficeConversionRow,StudioOfficePage,StudioPlanQuoteComponent,StudioPlanQuote,StudioPlanNext,StudioPlanCommitReceipt,StudioPlanRow,StudioPlansPage,StudioLaboratorySeat,StudioResearchLabRow,StudioResearchReceipt,StudioResearchLabShare,StudioResearchWeek,StudioLaboratoryProject,StudioTechnologyForecast,StudioLaboratoryPage,StudioCampaignDate,StudioIndustryLane,StudioIndustryStudio,StudioIndustryFilm,StudioIndustryPerson,StudioIndustryCredit,StudioIndustryActivity,StudioIndustryProject,StudioIndustryTendency,StudioIndustrySummary,StudioIndustryProjection,StudioIndustryRequest,StudioIndustryResponse}
+ export type IndustryQuery=InferSchema<typeof StudioIndustryRequest>
+ export type IndustryPage=InferSchema<typeof StudioIndustryResponse>
+diff --git a/bridge/world.ts b/bridge/world.ts
+index 0e85fb71..27aef97e 100644
+--- a/bridge/world.ts
++++ b/bridge/world.ts
+@@ -59,8 +59,11 @@ export function personWorldRoute(
+   const present = onLot ?? studioPresence(state).people.some((person) => person.talentId === talentId)
+   const reach = present ? 'playerLot' : 'industry'
+   const view = caseForTalent(state, talentId, week)
+-  // P14C.2b (780 §5.3): the one-issuer extension is no renewal window and no market case to open.
+-  if (view === null || TERMINAL.has(view.status) || latestCaseIsExtension(state, talentId)) return { statusLine: null, caseRef: null, reach }
++  if (view === null || TERMINAL.has(view.status)) return { statusLine: null, caseRef: null, reach }
++  if (latestCaseIsExtension(state, talentId)) {
++    return { statusLine: `One final extension · decides Week ${view.decisionWeek}`,
++      caseRef: { view: 'market', targetId: talentId }, reach }
++  }
+   const statusLine =
+     view.decisionWeek <= week + 1
+       ? `Decides next week · Week ${String(view.decisionWeek)}`
+diff --git a/src/core/studioCalendar.ts b/src/core/studioCalendar.ts
+index bc1ec36e..9ab8cbd8 100644
+--- a/src/core/studioCalendar.ts
++++ b/src/core/studioCalendar.ts
+@@ -3,6 +3,7 @@
+ // This module creates no schedule, reservation, command, or second clock.
+ 
+ import { renewalWindowOpen, weeklySalary } from './employment.js'
++import { contractEndRefusal } from './careerLifecycle.js'
+ import { facilitySlotKey, occupiedResourceSlots, resourceSlotClaimsOf } from './occupancy.js'
+ import { offlineFacilityIds } from './officeConversion.js'
+ import {
+@@ -19,6 +20,7 @@ import { TUNING } from './tuning.js'
+ import type {
+   FacilityCapability,
+   GameState,
++  CreativeRole,
+   ProductionPhase,
+ } from './types.js'
+ 
+@@ -61,6 +63,14 @@ type CommitmentBase = {
+ }
+ 
+ export type StudioCalendarCommitmentView =
++  | (CommitmentBase & {
++      kind: 'retirement'
++      talentId: string
++      talentName: string
++      profession: CreativeRole
++      status: 'announced' | 'finishing_commitments'
++      announcedWeek: number
++    })
+   | (CommitmentBase & {
+       kind: 'scriptDue'
+       projectId: string
+@@ -154,7 +164,7 @@ export type StudioCalendarContractView = {
+   weeklySalary: number
+   remainingWeeks: number
+   renewalOpen: boolean
+-  renewalWindowWeek: number
++  renewalWindowWeek: number | null
+   endWeekExclusive: number
+ }
+ 
+@@ -216,6 +226,7 @@ const COMMITMENT_KIND_ORDER: Record<StudioCalendarCommitmentView['kind'], number
+   theatricalReceipt: 3,
+   contractRenewal: 4,
+   contractExpiry: 5,
++  retirement: 6,
+ }
+ 
+ const CONDITIONAL_RELEASE_ASSUMPTION =
+@@ -444,6 +455,14 @@ function commitmentPlacementId(event: StudioCalendarCommitmentView): number {
+   return event.kind === 'constructionCompletion' ? event.placementId : 0
+ }
+ 
++/** Presentation of the ordinary window, using the existing retirement cap law.
++ * Test terms at the first usable week, retaining a legal term ending exactly at E. */
++export function ordinaryRenewalWindow(state: GameState, contract: GameState['contracts'][number]): number | null {
++  const opening = Math.max(contract.startWeek, contract.endWeekExclusive - TUNING.HIRING_RENEWAL_WINDOW_WEEKS)
++  const decisionWeek = Math.max(state.market.tick, opening)
++  return TUNING.CONTRACT_TERM_OPTIONS.some(term => contractEndRefusal(state, contract.talentId, decisionWeek + term) === null) ? opening : null
++}
++
+ function commitmentViews(state: GameState): StudioCalendarCommitmentView[] {
+   const currentWeek = state.market.tick
+   const events: StudioCalendarCommitmentView[] = []
+@@ -537,11 +556,8 @@ function commitmentViews(state: GameState): StudioCalendarCommitmentView[] {
+     if (!(contract.startWeek <= currentWeek && currentWeek < contract.endWeekExclusive)) continue
+     const salary = weeklySalary(contract.annualSalary)
+     const talentName = requireTalentName(state, contract.talentId, 'contract')
+-    const renewalWeek = Math.max(
+-      contract.startWeek,
+-      contract.endWeekExclusive - TUNING.HIRING_RENEWAL_WINDOW_WEEKS,
+-    )
+-    events.push({
++    const renewalWeek = ordinaryRenewalWindow(state, contract)
++    if (renewalWeek !== null) events.push({
+       kind: 'contractRenewal',
+       certainty: 'committed',
+       week: renewalWeek,
+@@ -564,6 +580,13 @@ function commitmentViews(state: GameState): StudioCalendarCommitmentView[] {
+     })
+   }
+ 
++  for (const record of state.careerLifecycle?.records ?? []) {
++    if (record.status === 'retired') continue
++    events.push({ kind: 'retirement', certainty: 'committed', week: record.effectiveWeek,
++      ownerId: record.personId, occurrenceIndex: 0, talentId: record.personId,
++      talentName: requireTalentName(state, record.personId, 'retirement'), profession: record.profession,
++      status: record.status, announcedWeek: record.announcedWeek })
++  }
+   return events.sort((a, b) =>
+     a.week - b.week ||
+     COMMITMENT_KIND_ORDER[a.kind] - COMMITMENT_KIND_ORDER[b.kind] ||
+@@ -796,11 +819,8 @@ function staffingViews(state: GameState): StudioCalendarView['staffingHorizon']
+       talentName: requireTalentName(state, contract.talentId, 'contract'),
+       weeklySalary: weeklySalary(contract.annualSalary),
+       remainingWeeks: contract.endWeekExclusive - currentWeek,
+-      renewalOpen: renewalWindowOpen(contract, currentWeek),
+-      renewalWindowWeek: Math.max(
+-        contract.startWeek,
+-        contract.endWeekExclusive - TUNING.HIRING_RENEWAL_WINDOW_WEEKS,
+-      ),
++      renewalOpen: ordinaryRenewalWindow(state, contract) !== null && renewalWindowOpen(contract, currentWeek),
++      renewalWindowWeek: ordinaryRenewalWindow(state, contract),
+       endWeekExclusive: contract.endWeekExclusive,
+     }))
+     .sort((a, b) => compareId(a.talentId, b.talentId))
+diff --git a/tests/bridge-p14c2rm-proposals.test.ts b/tests/bridge-p14c2rm-proposals.test.ts
+index 77b52010..42409487 100644
+--- a/tests/bridge-p14c2rm-proposals.test.ts
++++ b/tests/bridge-p14c2rm-proposals.test.ts
+@@ -1,7 +1,7 @@
+ // Independent 875 RM-D/E/F/G. Real old corpus, live engine discovery, public session verbs.
+ import { describe, expect, it } from 'vitest'
+ import { BridgeSession } from '../bridge/session.ts'
+-import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
++import { PROTOCOL_VERSION, SCHEMA_ID, validateQuote } from '../bridge/protocol.ts'
+ import { BRIDGE_SCHEMA, type BridgeMarketProposalDraftPayload } from '../bridge/schema/bridge-schema.ts'
+ import { parseWireValue } from '../bridge/schema/runtime.ts'
+ import { canonicalJson } from '../bridge/schema/canonical.ts'
+@@ -9,12 +9,13 @@ import { decodeBridgeRuntimeCheckpoint, encodeBridgeRuntimeCheckpoint } from '..
+ import { marketPage } from '../bridge/market.ts'
+ import { marketCaseProjection, peopleProjection } from '../bridge/people.ts'
+ import { personWorldRoute } from '../bridge/world.ts'
+-import { marketProposalDraftToEngine } from '../bridge/contract.ts'
++import { marketProposalDraftToEngine, playerProposalDraft } from '../bridge/contract.ts'
+ import { applyActions } from '../src/core/actions.js'
+ import { retirementRecordFor } from '../src/core/careerLifecycle.js'
+ import { caseForTalent, currentProposals, openMarketCaseFor, playerOffer, submitProposal } from '../src/core/talentMarket.js'
+ import { TUNING } from '../src/core/tuning.js'
+ import { AXES, admitted, advanceTo, bytes, extensionWorld, owner } from './helpers/p14c2rm-fixtures.js'
++import { c2cFixture } from './helpers/p14c2c-fixtures.js'
+ 
+ type ExtensionFields = { variant: 'expiry' | 'retirementExtension'; soleIssuerStudioId: string | null;
+   retirementExtension: null | { issuerStudioId: string; viewerCanOffer: boolean; requiredTermWeeks: number;
+@@ -92,6 +93,28 @@ describe('C.2-RM discovered one-issuer extension through every existing reader',
+ })
+ 
+ describe('C.2-RM exact public proposal commands', () => {
++  it('a new extension never inherits a genuine earlier ordinary settlement explanation', () => {
++    const f = c2cFixture()
++    const prior = f.announced.talentMarket.receipts.find(row => row.talentId === f.actorId && row.kind === 'settled' && row.week === 52)
++    expect(prior, 'history premise: actual earlier ordinary settlement').toBeDefined()
++    expect(prior!.reasons.length).toBeGreaterThan(0)
++    const open = admitted(advanceTo(f.announced, 144))
++    expect(openMarketCaseFor(open, f.actorId)?.variant).toBe('retirementExtension')
++    const expired = admitted(advanceTo(open, 156))
++    const declined = admitted(advanceTo(submitProposal(open, { talentId: f.actorId,
++      issuerStudioId: owner(open), termWeeks: 52, premiumTier: 1.05 }), 156))
++    expect(caseForTalent(expired, f.actorId)?.status).toBe('expired')
++    expect(caseForTalent(declined, f.actorId)?.status).toBe('declined')
++    for (const state of [open, expired, declined]) {
++      const detail = marketCaseProjection(state, f.actorId, owner(state))
++      expect(detail).not.toBeNull()
++      expect(detail!.settlementReasons, 'current extension owns no settled receipt').toEqual([])
++      expect(marketPage(state, { view: 'market', targetId: f.actorId }).selected?.marketCase).toEqual(detail)
++    }
++    expect(marketPage(open, { view: 'market', targetId: f.actorId }).selected?.droppedReasons).toEqual([])
++    // No claimed earlier own-drop control: this actual prior proposal won.
++  })
++
+   it.each(['gap', 'exact'] as const)('%s quote -> submit -> revise -> withdraw uses exact term and never charges before settlement', axis => {
+     const facts = AXES[axis], session = new BridgeSession(extensionWorld(axis), `c2rm-${axis}-verbs`)
+     const initial = bytes(session.gameState), cash = session.gameState.studio.cash, ledger = session.gameState.ledger
+@@ -137,8 +160,13 @@ describe('C.2-RM exact public proposal commands', () => {
+     refuse(ordinary, 'ordinary-off-catalogue', { verb: 'propose', talentId: 'authored-0002', termWeeks: 58, premiumTier: 1.25 })
+     expect(quote(ordinary, 'ordinary-published', { verb: 'propose', talentId: 'authored-0002', termWeeks: 52, premiumTier: 1.25 }).ok).toBe(true)
+     const before = bytes(session.gameState)
+-    expect(session.quote({ ...header(session, 'forged-issuer'), type: 'quoteMarketProposal', draft: {
+-      verb: 'propose', talentId: facts.personId, termWeeks: 58, premiumTier: 1.25, issuerStudioId: 'another-studio' } })).toMatchObject({ accepted: false })
++    const forgedDraft = { verb: 'propose' as const, talentId: facts.personId, termWeeks: 58,
++      premiumTier: 1.25, issuerStudioId: 'another-studio' }
++    //878: a direct typed session call bypasses the wire decoder; its extra field
++    //was ignored safely, not accepted as authority. Exercise the actual boundary.
++    expect(validateQuote({ ...header(session, 'forged-issuer'), type: 'quoteMarketProposal', draft: forgedDraft }))
++      .toMatchObject({ ok: false, reasonCode: 'INVALID_COMMAND' })
++    expect(playerProposalDraft(session.gameState, forgedDraft).issuerStudioId).toBe(facts.issuer)
+     expect(bytes(session.gameState)).toBe(before)
+   })
+ 
+diff --git a/tests/bridge-p14c2rm-retirement.test.ts b/tests/bridge-p14c2rm-retirement.test.ts
+new file mode 100644
+index 00000000..e7ac537f
+--- /dev/null
++++ b/tests/bridge-p14c2rm-retirement.test.ts
+@@ -0,0 +1,382 @@
++// Independent 875 RM-A/B/C/H/I/J/K/M. Assertions come from lifecycle records and
++// recorded public credits, never a production-generated expected snapshot.
++import { describe, expect, it } from 'vitest'
++import { peopleProjection, type BridgePersonProfileSnapshot } from '../bridge/people.ts'
++import { marketPage } from '../bridge/market.ts'
++import { industryPage } from '../bridge/industry.ts'
++import { financeUpcoming } from '../bridge/finance-upcoming.ts'
++import { relationshipBlockFor } from '../bridge/relationships.ts'
++import { BridgeSession } from '../bridge/session.ts'
++import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
++import { BRIDGE_SCHEMA } from '../bridge/schema/bridge-schema.ts'
++import { parseWireValue } from '../bridge/schema/runtime.ts'
++import type { IndustryQuery } from '../bridge/schema/industry-schema.ts'
++import { campaignDate } from '../src/core/calendar.js'
++import { applyActions } from '../src/core/actions.js'
++import { contractEndRefusal, retirementRecordFor } from '../src/core/careerLifecycle.js'
++import { tick } from '../src/core/tick.js'
++import { submitProposal } from '../src/core/talentMarket.js'
++import { studioCalendar } from '../src/core/studioCalendar.js'
++import { migrateToLive } from '../src/core/save.js'
++import { TUNING } from '../src/core/tuning.js'
++import type { CreativeRole, GameState, RetirementStatus } from '../src/core/types.js'
++import { c2Fixture } from './helpers/p14c2a-fixtures.js'
++import { scientistFilm, scientistWorld } from './helpers/p14c2s-fixtures.js'
++import { AXES, SCI, addPerson, admitted, advanceTo, bytes, extensionWorld, finishingWriter, freshWorld,
++  frozenTies, multiRoleAlumnus, owner, retirementCrowd, scientistSnapshot } from './helpers/p14c2rm-fixtures.js'
++
++type Lifecycle = { status: 'active' | RetirementStatus; profession: CreativeRole; eligibleAge: number; hardAge: number;
++  eligible: boolean; line: string; planningLine: string; announcedWeek: number | null; effectiveWeek: number | null;
++  finishingFromWeek: number | null; retiredWeek: number | null; announcedLabel: string | null; effectiveLabel: string | null;
++  retiredLabel: string | null; extensionUsed: boolean | null; extendedFromWeek: number | null }
++type Alumni = { profession: CreativeRole; retiredWeek: number; retiredLabel: string; extensionUsed: boolean;
++  recordedCredits: number; authoredCredits: number; campaignCredits: number; uncapturedFilms: number;
++  creditBasis: string; recordingNotice: string | null; honorsNotice: string;
++  lastEmployer: { studioId: string; studioName: string; fromWeek: number; toWeek: number } | null;
++  filmographyRef: { view: 'person'; targetId: string }; employmentRef: { view: 'employment'; targetId: string } }
++type Profile = BridgePersonProfileSnapshot & { lifecycle: Lifecycle; alumni: Alumni | null }
++type CalendarRetirement = { kind: 'retirement'; certainty: 'committed'; week: number; ownerId: string; occurrenceIndex: 0;
++  talentId: string; talentName: string; profession: CreativeRole; status: 'announced' | 'finishing_commitments'; announcedWeek: number }
++function profile(state: GameState, id: string): Profile {
++  const row = peopleProjection(state).profiles.find(p => p.talentId === id)
++  expect(row, 'persistent profile identity').toBeDefined()
++  return row as Profile
++}
++function lifecycle(state: GameState, id: string): Lifecycle {
++  const result = profile(state, id).lifecycle
++  expect(result, '875 required lifecycle block').toBeDefined()
++  return result
++}
++function calendarRetirements(state: GameState): CalendarRetirement[] {
++  return studioCalendar(state).commitments.filter(row => String(row.kind) === 'retirement') as unknown as CalendarRetirement[]
++}
++function query(view: string, extra: Partial<IndustryQuery> = {}): IndustryQuery {
++  return { protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: 'c2rm-industry', requestId: 'read',
++    expectedStateRevision: 0, type: 'industryQuery', view, targetId: null, page: 0, pageSize: 50,
++    lane: 'recent', period: 'all', ...extra } as IndustryQuery
++}
++function industry(state: GameState, view: string, extra: Partial<IndustryQuery> = {}) {
++  return industryPage(state, 'c2rm-industry', 0, query(view, extra))
++}
++function credits(state: GameState, id: string) {
++  let authored = 0, campaign = 0, uncaptured = 0
++  for (const film of state.hollywood?.films ?? []) {
++    const count = film.credits.filter(row => row.talentId === id).length
++    if (film.provenance === 'authored-start/v1') authored += count
++    else campaign += count
++  }
++  for (const film of state.studio.releasedFilms) {
++    const p = film.participants
++    if (p === undefined) { uncaptured++; continue }
++    campaign += [p.writer, p.director, p.cast.lead, p.cast.antagonist, p.cast.support, ...p.craft]
++      .filter(row => row.talentId === id).length
++  }
++  return { recordedCredits: authored + campaign, authoredCredits: authored, campaignCredits: campaign, uncapturedFilms: uncaptured }
++}
++const causes = (state: GameState, id: string) => marketPage(state, { view: 'market', targetId: null }).attention
++  .filter(row => row.talentId === id).map(row => String(row.cause))
++
++describe('C.2-RM planning and actual retirement announcements', () => {
++  it.each([
++    ['actor', 60, 70], ['director', 65, 75], ['writer', 65, 75], ['craft', 62, 72], ['scientist', 62, 72],
++  ] as const)('%s profile states literal eligibility %i/hard%i without inventing intent', (role, start, hard) => {
++    //Scientist recruitment has its own fixed pool; the public creative creator
++    //does not accept that role. Use real materialized ages61 and62 from its corpus.
++    const inputs: { state: GameState; id: string; eligible: boolean }[] = []
++    if (role === 'scientist') {
++      inputs.push({ state: scientistWorld(), id: SCI, eligible: false },
++        { state: scientistSnapshot(617), id: SCI, eligible: true })
++    } else {
++      const low = addPerson(freshWorld(`c2rm-window-${role}`), 'Before window', role, start - 1)
++      const high = addPerson(low.state, 'Eligible without intent', role, start)
++      const state = admitted(high.state)
++      inputs.push({ state, id: low.id, eligible: false }, { state, id: high.id, eligible: true })
++    }
++    for (const { state, id, eligible } of inputs) {
++      const before = bytes(state)
++      expect(retirementRecordFor(state, id)).toBeUndefined()
++      expect(lifecycle(state, id)).toMatchObject({ status: 'active', profession: role,
++        eligibleAge: start, hardAge: hard, eligible, announcedWeek: null, effectiveWeek: null,
++        finishingFromWeek: null, retiredWeek: null, announcedLabel: null, effectiveLabel: null,
++        retiredLabel: null, extensionUsed: null, extendedFromWeek: null })
++      expect(lifecycle(state, id).planningLine.length).toBeGreaterThan(0)
++      expect(profile(state, id).alumni).toBeNull()
++      expect(bytes(state)).toBe(before)
++    }
++  })
++
++  it('a genuine old save lifted past hard age stays active until an actual recorded announcement', () => {
++    const old = c2Fixture('genuine-v33-c2-hard-boundary-and-idle-window')
++    const state = migrateToLive({ saveVersion: 33, seed: old.seed, state: old, broadcastCache: old.broadcastItems } as Parameters<typeof migrateToLive>[0]).state
++    const person = state.talent.find(row => row.age >= 80 && retirementRecordFor(state, row.id) === undefined)
++    expect(person, 'genuine old-save premise: past-hard unrecorded person').toBeDefined()
++    expect(lifecycle(state, person!.id)).toMatchObject({ status: 'active', eligible: true, announcedWeek: null, effectiveWeek: null })
++    expect(profile(state, person!.id).alumni).toBeNull()
++  })
++
++  it('natural Scientist announcement is immediate on real Calendar, with honest finite Finance exclusion', () => {
++    const before = scientistSnapshot(617), state = scientistSnapshot(618), original = bytes(state)
++    expect(lifecycle(before, SCI)).toMatchObject({ status: 'active', announcedWeek: null })
++    expect(lifecycle(state, SCI)).toMatchObject({ status: 'announced', profession: 'scientist', announcedWeek: 618,
++      effectiveWeek: 670, announcedLabel: campaignDate(618).label, effectiveLabel: campaignDate(670).label,
++      retiredWeek: null, extensionUsed: false })
++    expect(calendarRetirements(state).filter(row => row.talentId === SCI)).toEqual([{
++      kind: 'retirement', certainty: 'committed', week: 670, ownerId: SCI, occurrenceIndex: 0,
++      talentId: SCI, talentName: state.talent.find(row => row.id === SCI)!.name, profession: 'scientist',
++      status: 'announced', announcedWeek: 618,
++    }])
++    const roster = peopleProjection(state).roster.rows.find(row => row.talentId === SCI)
++    expect(roster).toMatchObject({ lifecycleStatus: 'announced' })
++    expect(causes(state, SCI)).toContain('retirementAnnounced')
++    for (const window of financeUpcoming(state).windows) {
++      expect(window.toWeekInclusive).toBe(618 + window.windowWeeks - 1)
++      expect(window.rows.some(row => row.route?.targetId === SCI && String(row.kind) === 'retirement')).toBe(false)
++    }
++    const at619 = tick(state)
++    expect(financeUpcoming(at619).windows.find(row => row.windowWeeks === 52)!.rows.find(row =>
++      row.route?.targetId === SCI && String(row.kind) === 'retirement')).toMatchObject({ week: 670, weeklyOperatingCostChange: null,
++        route: { kind: 'profile', targetId: SCI } })
++    expect(calendarRetirements(extensionWorld('exact', 52)).find(row => row.talentId === AXES.exact.personId)?.week).toBe(150)
++    expect(bytes(state)).toBe(original)
++  })
++
++  it('announcement news lasts exactly13 weeks even without a case; profiles and Calendar persist afterward', () => {
++    for (const [week, visible] of [[618, true], [630, true], [631, false]] as const) {
++      const state = advanceTo(scientistSnapshot(618), week)
++      const news = causes(state, SCI).filter(cause => cause === 'retirementAnnounced')
++      expect(news).toHaveLength(visible ? 1 : 0)
++      expect(lifecycle(state, SCI).announcedWeek).toBe(618)
++      expect(calendarRetirements(state).filter(row => row.talentId === SCI)).toHaveLength(1)
++    }
++    const retired = scientistSnapshot(670)
++    expect(causes(retired, SCI)).not.toContain('retirementAnnounced')
++    expect(causes(retired, SCI)).not.toContain('finishingCommitments')
++    expect(calendarRetirements(retired).some(row => row.talentId === SCI)).toBe(false)
++  })
++})
++
++describe('C.2-RM obligations, retired discovery and public boundaries', () => {
++  it('actual held Scientist work stays finishing through overdue E, then real cancel/tick retires without deleting identity', () => {
++    const f = scientistFilm(), held = advanceTo(f.held, 729), before = bytes(held)
++    expect(lifecycle(held, SCI)).toMatchObject({ status: 'finishing_commitments', effectiveWeek: 728, finishingFromWeek: 728, retiredWeek: null })
++    expect(lifecycle(held, SCI).line).toMatch(/finish/i)
++    expect(profile(held, SCI).alumni).toBeNull()
++    expect(peopleProjection(held).roster.rows.find(row => row.talentId === SCI)).toMatchObject({ lifecycleStatus: 'finishing_commitments' })
++    expect(calendarRetirements(held).find(row => row.talentId === SCI)).toMatchObject({ week: 728, status: 'finishing_commitments' })
++    for (const window of financeUpcoming(held).windows) expect(window.rows.find(row =>
++      row.route?.targetId === SCI && String(row.kind) === 'retirement')).toMatchObject({ week: 728, weeklyOperatingCostChange: null })
++    expect(causes(held, SCI).filter(cause => cause === 'finishingCommitments')).toHaveLength(1)
++    expect(bytes(held)).toBe(before)
++    const retired = tick(applyActions(held, [{ kind: 'cancel', productionId: f.productionId }]))
++    expect(lifecycle(retired, SCI)).toMatchObject({ status: 'retired', retiredWeek: 730 })
++    expect(peopleProjection(retired).roster.rows.some(row => row.talentId === SCI)).toBe(false)
++    expect(profile(retired, SCI).presence.canLocate).toBe(false)
++    expect(profile(retired, SCI).employment.offersAvailable).toBe(false)
++    expect(industry(retired, 'person', { targetId: SCI }).people[0]).toMatchObject({ talentId: SCI, lifecycleStatus: 'retired', retiredWeek: 730 })
++    expect(retired.talent.some(row => row.id === SCI)).toBe(true)
++  })
++
++  it('a naturally announced contracted writer can start genuine writing at E−1 and finishes it after E', () => {
++    const f = finishingWriter()
++    expect(lifecycle(f.commissioned, f.writerId).planningLine).toMatch(/writ/i)
++    expect(lifecycle(f.finishing, f.writerId)).toMatchObject({ status: 'finishing_commitments', effectiveWeek: 312, retiredWeek: null })
++    expect(profile(f.finishing, f.writerId).work).toMatchObject({ kind: 'assigned', assignmentKind: 'script' })
++    expect(peopleProjection(f.finishing).roster.rows.find(row => row.talentId === f.writerId)).toMatchObject({ lifecycleStatus: 'finishing_commitments' })
++    expect(lifecycle(f.retired, f.writerId)).toMatchObject({ status: 'retired', retiredWeek: f.dueWeek })
++    expect(profile(f.retired, f.writerId).alumni?.retiredWeek).toBe(f.dueWeek)
++  })
++
++  it('a lawful original screenplay crossing E remains a saveable whole live campaign while its writer finishes', () => {
++    const f = finishingWriter()
++    expect(retirementRecordFor(f.finishing, f.writerId)).toMatchObject({ status: 'finishing_commitments', effectiveWeek: 312 })
++    expect(f.finishing.scriptDevelopment.projects.some(row => row.writerId === f.writerId && row.status === 'drafting' && row.dueWeek! > 312)).toBe(true)
++    //878's actual failure is retained as a standalone regression. No task deletion,
++    //invented contract or expectation of rejection may conceal this contradiction.
++    expect(() => admitted(f.finishing)).not.toThrow()
++  })
++
++  it('unavailable ordinary windows disappear before/open/after the final extension while actual expiry stays', () => {
++    const facts = AXES.gap
++    const base = extensionWorld(), accepted = advanceTo(submitProposal(base, { talentId: facts.personId,
++      issuerStudioId: facts.issuer, termWeeks: 58, premiumTier: 1.1 }), 98)
++    for (const state of [extensionWorld('gap', 80), base, accepted]) {
++      const calendar = studioCalendar(state)
++      expect(calendar.commitments.some(row => row.kind === 'contractRenewal' && row.talentId === facts.personId)).toBe(false)
++      expect(calendar.commitments.some(row => row.kind === 'contractExpiry' && row.talentId === facts.personId)).toBe(true)
++      expect(calendar.staffingHorizon.contracts.find(row => row.talentId === facts.personId)).toMatchObject({ renewalOpen: false, renewalWindowWeek: null })
++      for (const window of financeUpcoming(state).windows) expect(window.rows.some(row =>
++        row.kind === 'contractRenewal' && row.route?.targetId === facts.personId)).toBe(false)
++      const contract = profile(state, facts.personId).employment.contract!
++      expect(contract.renewalOpen).toBe(false)
++      expect(contract.renewalLine).not.toMatch(/renewal open|opens in/i)
++    }
++    expect(causes(accepted, facts.personId)).not.toContain('retirementExtensionOpen')
++  })
++
++  it('a naturally announced actor retains an exactly capped lawful ordinary renewal, then loses it one week later', () => {
++    const made = addPerson(freshWorld('c2rm-lawful-capped-renewal'), 'C2RM Exact Cap', 'actor', 69)
++    let state = advanceTo(made.state, 2)
++    state = applyActions(state, [{ kind: 'signContract', talentId: made.id, termWeeks: 52 }])
++    expect(state.contracts.find(row => row.talentId === made.id)).toMatchObject({ startWeek: 2, endWeekExclusive: 54 })
++    state = admitted(advanceTo(state, 52))
++    expect(retirementRecordFor(state, made.id), 'natural hard70 announcement').toMatchObject({ announcedWeek: 52, effectiveWeek: 104 })
++    expect(contractEndRefusal(state, made.id, 104)).toBeNull()
++    const renewed = admitted(applyActions(state, [{ kind: 'renewContract', talentId: made.id, termWeeks: 52 }]))
++    expect(renewed.contracts.find(row => row.talentId === made.id)).toMatchObject({ startWeek: 52, endWeekExclusive: 104 })
++    expect(retirementRecordFor(renewed, made.id)?.extensionUsed).toBe(false)
++    expect(profile(state, made.id).employment.contract).toMatchObject({ renewalOpen: true })
++    expect(studioCalendar(state).staffingHorizon.contracts.find(row => row.talentId === made.id))
++      .toMatchObject({ renewalOpen: true, renewalWindowWeek: 42, endWeekExclusive: 54 })
++    expect(studioCalendar(state).commitments.some(row => row.kind === 'contractRenewal' && row.talentId === made.id)).toBe(true)
++    for (const window of financeUpcoming(state).windows) expect(window.rows.some(row =>
++      row.kind === 'contractRenewal' && row.route?.targetId === made.id)).toBe(true)
++    //An independent untaken branch loses the exact fit; no clock/record edit.
++    const later = admitted(tick(state))
++    expect(contractEndRefusal(later, made.id, 105)).not.toBeNull()
++    expect(profile(later, made.id).employment.contract?.renewalOpen).toBe(false)
++    expect(studioCalendar(later).commitments.some(row => row.kind === 'contractRenewal' && row.talentId === made.id)).toBe(false)
++  })
++
++  it('65 actual retirement boundaries remain in Calendar, bounded Finance rows count exact overflow, and alumni paginate deterministically', () => {
++    const f = retirementCrowd(), state = f.near, before = bytes(state)
++    expect(calendarRetirements(f.announced).filter(row => f.ids.includes(row.talentId))).toHaveLength(65)
++    // A controlled no-construction/no-set-work fixture makes the finite event oracle explicit.
++    expect(state.placement.facilities.some(row => row.status === 'underConstruction' || row.completesWeek === state.market.tick)).toBe(false)
++    expect(state.sets.some(row => row.status === 'under-construction')).toBe(false)
++    for (const window of financeUpcoming(state).windows) {
++      const retirementCount = state.careerLifecycle.records.filter(row => row.status !== 'retired' && row.effectiveWeek <= window.toWeekInclusive
++        && (row.effectiveWeek >= state.market.tick || row.status === 'finishing_commitments')).length
++      const live = state.contracts.filter(row => row.startWeek <= state.market.tick && state.market.tick < row.endWeekExclusive)
++      const expiries = live.filter(row => row.endWeekExclusive <= window.toWeekInclusive).length
++      const renewals = live.filter(row => {
++        const opens = Math.max(row.startWeek, row.endWeekExclusive - TUNING.HIRING_RENEWAL_WINDOW_WEEKS)
++        return opens <= window.toWeekInclusive && TUNING.CONTRACT_TERM_OPTIONS.some(term =>
++          contractEndRefusal(state, row.talentId, Math.max(state.market.tick, opens) + term) === null)
++      }).length
++      expect(retirementCount).toBeGreaterThanOrEqual(65)
++      expect(window.rows).toHaveLength(64)
++      expect(window.remainingRows).toBe(retirementCount + expiries + renewals - 64)
++      expect(window.notice).toMatch(/profile|retirement/i)
++      expect(window.rows).toEqual([...window.rows].sort((a, b) => a.week - b.week || a.id.localeCompare(b.id)))
++    }
++    expect(bytes(state)).toBe(before)
++    const expected = f.retired.careerLifecycle.records.filter(row => row.status === 'retired')
++      .sort((a, b) => b.retiredWeek! - a.retiredWeek! || a.personId.localeCompare(b.personId)).map(row => row.personId)
++    const pages = Array.from({ length: Math.ceil(expected.length / 17) }, (_, page) => industry(f.retired, 'alumni', { page, pageSize: 17 }))
++    expect(pages.flatMap(page => page.people.map(row => row.talentId))).toEqual(expected)
++    for (const page of pages) {
++      expect(page.totalRows).toBe(expected.length)
++      expect(page.pageCount).toBe(Math.ceil(expected.length / 17))
++      expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioIndustryResponse, page)).toEqual(page)
++    }
++    expect(() => industry(f.retired, 'alumni', { page: pages.length, pageSize: 17 })).toThrow(/outside/i)
++    const session = new BridgeSession(f.retired, 'c2rm-industry')
++    for (const invalid of [{ pageSize: 0 }, { pageSize: 51 }, { targetId: f.ids[0] }]) {
++      expect(session.industry({ ...query('alumni'), ...invalid })).toMatchObject({ accepted: false })
++    }
++    const projection = peopleProjection(f.retired)
++    expect(projection.roster.rows.some(row => expected.includes(row.talentId))).toBe(false)
++    expect(projection.profiles.filter(row => f.ids.slice(0, 2).includes(row.talentId))).toHaveLength(2)
++    for (const id of f.ids.slice(0, 2)) expect(profile(f.retired, id)).toMatchObject({ name: 'C2RM Same Name', nameShared: true })
++    for (const population of ['employed', 'freelancer', 'known'] as const) expect(projection.roster.counts[population])
++      .toBe(projection.roster.rows.filter(row => row.population === population).length)
++  })
++})
++
++describe('C.2-RM alumni evidence and disclosure', () => {
++  it('an actual release and real retirement preserve credit/promise/employer routes and invent no honors', () => {
++    const f = multiRoleAlumnus(), original = bytes(f.state), row = profile(f.state, f.personId)
++    const expected = credits(f.state, f.personId)
++    expect(expected.campaignCredits, 'actual lead credit').toBeGreaterThanOrEqual(1)
++    expect(row.alumni).toMatchObject({ ...expected, profession: 'actor', retiredWeek: 156,
++      retiredLabel: campaignDate(156).label, extensionUsed: false, filmographyRef: { view: 'person', targetId: f.personId },
++      employmentRef: { view: 'employment', targetId: f.personId } })
++    expect(row.alumni!.creditBasis).toMatch(/credit/i)
++    expect(row.alumni!.honorsNotice).toMatch(/unrecorded|not recorded/i)
++    const film = industry(f.state, 'film', { targetId: f.filmId })
++    expect(film.credits.filter(credit => credit.talentId === f.personId)).toHaveLength(1)
++    expect(industry(f.state, 'person', { targetId: f.personId }).people[0]!.creditCount).toBe(expected.recordedCredits)
++    expect(industry(f.state, 'person', { targetId: f.personId }).films.some(film => film.filmId === f.filmId)).toBe(true)
++    expect(industry(f.state, 'employment', { targetId: f.personId }).activities.length).toBeGreaterThan(0)
++    expect(row.promises.some(promise => promise.promiseId === f.promiseId)).toBe(true)
++    const intervals = f.state.hollywood!.employment.map((interval, ordinal) => ({ interval, ordinal }))
++      .filter(({ interval }) => interval.terms.talentId === f.personId)
++      .sort((a, b) => (b.interval.endedWeek ?? b.interval.terms.endWeekExclusive) - (a.interval.endedWeek ?? a.interval.terms.endWeekExclusive) || b.ordinal - a.ordinal)
++    const last = intervals[0]!.interval
++    expect(row.alumni!.lastEmployer).toEqual({ studioId: last.studioId,
++      studioName: f.state.hollywood!.identities.find(studio => studio.studioId === last.studioId)!.name,
++      fromWeek: last.terms.startWeek, toWeek: last.endedWeek ?? last.terms.endWeekExclusive })
++    expect(bytes(f.state)).toBe(original)
++  })
++
++  it('SYNTHETIC validated imported role-credit variant counts two roles on one actual film, not one distinct film', () => {
++    const f = multiRoleAlumnus(), source = credits(f.state, f.personId), expected = credits(f.multiRole, f.personId)
++    expect(expected.recordedCredits).toBe(source.recordedCredits + 1)
++    expect(industry(f.multiRole, 'film', { targetId: f.filmId }).credits.filter(row => row.talentId === f.personId)).toHaveLength(2)
++    expect(profile(f.multiRole, f.personId).alumni).toMatchObject(expected)
++    expect(industry(f.multiRole, 'person', { targetId: f.personId }).people[0]!.creditCount).toBe(expected.recordedCredits)
++  })
++
++  it('a genuine long-career alumnus counts the complete >24 credit record, not the bounded profile rows', () => {
++    const state = extensionWorld('rival', 2600)
++    const candidates = state.careerLifecycle.records.filter(row => row.status === 'retired').map(row => ({ id: row.personId, counts: credits(state, row.personId) }))
++      .sort((a, b) => b.counts.recordedCredits - a.counts.recordedCredits || a.id.localeCompare(b.id))
++    expect(candidates[0]?.counts.recordedCredits, 'unmeasured corpus premise: a genuinely retired >24-credit person must exist').toBeGreaterThan(24)
++    const chosen = candidates[0]!, row = profile(state, chosen.id)
++    expect(row.career.rows.length).toBeLessThanOrEqual(24)
++    expect(row.alumni).toMatchObject(chosen.counts)
++    expect(row.alumni!.recordedCredits).toBeGreaterThan(row.career.rows.length)
++    expect(industry(state, 'person', { targetId: chosen.id }).people[0]!.creditCount).toBe(chosen.counts.recordedCredits)
++  })
++
++  it('natural retired tiers stay fixed across real drift while lawful current employment changes disclosure', () => {
++    const f = frozenTies()
++    for (const state of [f.retired, f.later, f.rehired]) {
++      const block = profile(state, f.personId).collaborators
++      expect(block).toMatchObject({ asOfWeek: 156, asOfLabel: campaignDate(156).label, historicalTierNotice: null })
++      expect(block.rows.find(row => row.counterpartId === f.counterpartId)?.tierLabel).toBe(f.retiredTier)
++    }
++    expect(profile(f.hidden, f.personId).collaborators.rows.some(row => row.counterpartId === f.counterpartId)).toBe(false)
++    const wire = JSON.stringify(profile(f.hidden, f.personId).collaborators)
++    expect(wire).not.toContain(f.counterpartId)
++    for (const token of ['"closeness":', '"edgeId":', 'relationship-edge-', '"relationships":', '"lastEventWeek":', '"peakTier":']) expect(wire).not.toContain(token)
++  })
++
++  it('SYNTHETIC imported newer edge withholds unreconstructible retirement tier, with no hidden-counterpart notice leak', () => {
++    const f = frozenTies()
++    const alter = (state: GameState) => admitted({ ...state, relationships: state.relationships.map(edge =>
++      (edge.a === f.personId && edge.b === f.counterpartId) || (edge.b === f.personId && edge.a === f.counterpartId)
++        ? { ...edge, lastEventWeek: 400 } : edge) })
++    const visible = profile(alter(f.later), f.personId).collaborators
++    expect(visible.rows.find(row => row.counterpartId === f.counterpartId)).toMatchObject({ tierLabel: null, sign: 0, drivers: [] })
++    expect(visible).toMatchObject({ asOfWeek: 156 })
++    expect((visible as unknown as { historicalTierNotice: string | null }).historicalTierNotice).toMatch(/unavailable|not recorded|cannot/i)
++    const hidden = profile(alter(f.hidden), f.personId).collaborators
++    expect((hidden as unknown as { historicalTierNotice: string | null }).historicalTierNotice).toBeNull()
++    expect(JSON.stringify(hidden)).not.toContain(f.counterpartId)
++  })
++
++  it('active/no-root/no-edge collaborator reads retain honest gaps and current as-of nulls', () => {
++    const state = freshWorld('c2rm-no-root'), personId = state.talent[0]!.id
++    expect(profile(state, personId).collaborators).toMatchObject({ asOfWeek: null, asOfLabel: null, historicalTierNotice: null })
++    const { relationships: _oldRoot, ...oldReaderShape } = state
++    const historical = relationshipBlockFor(oldReaderShape as GameState, personId, owner(state))
++    expect(historical.rows.every(row => row.tierLabel === null)).toBe(true)
++    const empty = relationshipBlockFor(admitted({ ...state, relationships: [] }), personId, owner(state))
++    expect(empty.rows.every(row => row.tierLabel === null)).toBe(true)
++  })
++
++  it('whole snapshots validate and campaign-local people with identical ids never share lifecycle data', () => {
++    const a = extensionWorld('gap', 52), b = extensionWorld('exact', 52), id = 'authored-0000'
++    for (const state of [a, b, a, b]) {
++      const before = bytes(state), expected = state === a ? 104 : 150
++      expect(lifecycle(state, id).effectiveWeek).toBe(expected)
++      const snapshot = new BridgeSession(state, `c2rm-${expected}`).snapshot()
++      expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse, snapshot)).toEqual(snapshot)
++      expect(bytes(state)).toBe(before)
++    }
++    const rival = extensionWorld('rival')
++    const publicDtos = JSON.stringify({ people: peopleProjection(rival), alumni: industry(rival, 'alumni'), calendar: calendarRetirements(rival) })
++    for (const token of ['"verifiedWork":', '"seatTalentIds":', '"budgetPerWeek":', '"researchCapacity":', '"edgeId":']) expect(publicDtos).not.toContain(token)
++  })
++})
+diff --git a/tests/helpers/p14c2rm-fixtures.ts b/tests/helpers/p14c2rm-fixtures.ts
+index 96c928ce..405a11f4 100644
+--- a/tests/helpers/p14c2rm-fixtures.ts
++++ b/tests/helpers/p14c2rm-fixtures.ts
+@@ -5,9 +5,16 @@ import { gunzipSync } from 'node:zlib'
+ import { expect } from 'vitest'
+ import { exportSave, importSave, makeSave, migrateToLive, validateSaveV37 } from '../../src/core/save.js'
+ import { retirementRecordFor } from '../../src/core/careerLifecycle.js'
+-import type { GameState } from '../../src/core/types.js'
++import { applyActions } from '../../src/core/actions.js'
++import { tick } from '../../src/core/tick.js'
++import { currentTier } from '../../src/core/relationships.js'
++import { submitProposal } from '../../src/core/talentMarket.js'
++import { activeContract } from '../../src/core/employment.js'
++import type { CreativeRole, GameState } from '../../src/core/types.js'
+ import { advanceTo } from '../../src/harness/p13a/fixtures.js'
+ import { c2bFixture } from './p14c2b-fixtures.js'
++import { fund, p13aGeneratedStudio } from './p14b2-fixtures.js'
++import { c2cFixture, greenlightAction, toScheduledTake } from './p14c2c-fixtures.js'
+ export { advanceTo }
+ export const sha = (value: string | Uint8Array) => createHash('sha256').update(value).digest('hex')
+ export const bytes = (state: GameState) => exportSave(makeSave(state))
+@@ -27,8 +34,10 @@ export const RUNTIME_51 = {
+   saved: '4482ac4eaedae72245fc36ef58242e412cba7fdaeee80322b4fa364845667d1e',
+   journal: 'cb804269140603f3d426e027053304a593f453aa8ec8fd104cd607dcac423206',
+ } as const
+-export function runtime51Artifact(filename = RUNTIME_51.filename): URL {
+-  return new URL(`../fixtures/p14/genuine-projection51-runtime-c2rm/${filename}`, import.meta.url)
++export function runtime51Artifact(filename: string = RUNTIME_51.filename): string {
++  // Same repository-relative convention as the older corpus helpers. jsdom's
++  // Vite import.meta URL is an HTTP URL and must not become a filesystem root.
++  return `tests/fixtures/p14/genuine-projection51-runtime-c2rm/${filename}`
+ }
+ export function readRuntime51(): string {
+   const gz = readFileSync(runtime51Artifact())
+@@ -75,3 +84,157 @@ export function extensionWorld(axis: keyof typeof AXES = 'gap', atWeek = AXES[ax
+   }
+   return structuredClone(extensionCache.get(key)!)
+ }
++
++/** Public creator, named to distinguish input authorship from a synthetic ledger. */
++export function addPerson(state: GameState, name: string, role: CreativeRole, age: number) {
++  const next = applyActions(state, [{ kind: 'createTalent', talent: { name, role, age,
++    actual: { warmth: 0, gravity: 0, physicality: 0.2 }, potentialTier: 'Steady', workEthic: 55 } }])
++  return { state: next, id: next.talent.at(-1)!.id }
++}
++export const freshWorld = (seed = 'c2rm-independent-read-models') => fund(p13aGeneratedStudio(seed))
++
++type WriterFixture = { commissioned: GameState; finishing: GameState; retired: GameState; writerId: string; dueWeek: number }
++let writerCache: WriterFixture | undefined
++/** Entirely natural: a70-year-old writer reaches hard75 at260; no age/clock edits. */
++export function finishingWriter(): WriterFixture {
++  if (writerCache === undefined) {
++    const made = addPerson(freshWorld('c2rm-writer-natural'), 'C2RM Finishing Writer', 'writer', 70)
++    const writerId = made.id
++    let state = applyActions(made.state, [{ kind: 'signContract', talentId: writerId, termWeeks: 208 },
++      { kind: 'activateScriptDevelopment' }])
++    state = advanceTo(state, 201)
++    state = submitProposal(state, { talentId: writerId, issuerStudioId: owner(state), termWeeks: 104, premiumTier: 1.25 })
++    state = advanceTo(state, 208)
++    expect(activeContract(state, writerId), 'writer premise: actual carrying renewal').toMatchObject({ startWeek: 208, endWeekExclusive: 312 })
++    state = advanceTo(state, 260)
++    expect(retirementRecordFor(state, writerId), 'writer premise: real hard75 birthday').toMatchObject({
++      announcedWeek: 260, ageAtAnnouncement: 75, effectiveWeek: 312, status: 'announced' })
++    state = advanceTo(state, 311)
++    state = applyActions(state, [{ kind: 'commissionOriginalScreenplay', screenplay: {
++      writerId, genre: 'crime', shape: { opening: 'mysteryHook', midpoint: 'reversal', ending: 'bittersweet' },
++      promise: { genre: 'crime', intendedSegments: ['adult'], ranges: {
++        intimacy: [-0.4, 0.6], tonalWeight: [0, 0.8], kineticEnergy: [-0.7, 0.2] } },
++    } }])
++    const dueWeek = state.scriptDevelopment.projects.at(-1)!.dueWeek!
++    expect(dueWeek, 'original screenplay must genuinely outlast E, unlike a one-week pool script').toBeGreaterThan(312)
++    const commissioned = admitted(state), finishing = advanceTo(state, 312)
++    //878 exposed a real live persistence contradiction: the legitimate tick
++    //reaches finishing, but the frozen script validator still requires a current
++    //contract. Keep this real state and test persistence separately; do not label
++    //it a validated save or repair/drop its retained task to make a fixture pass.
++    expect(retirementRecordFor(finishing, writerId)).toMatchObject({ status: 'finishing_commitments', finishingFromWeek: 312 })
++    const retired = admitted(advanceTo(finishing, dueWeek))
++    expect(retirementRecordFor(retired, writerId)).toMatchObject({ status: 'retired', retiredWeek: dueWeek })
++    writerCache = { commissioned, finishing, retired, writerId, dueWeek }
++  }
++  return structuredClone(writerCache)
++}
++
++type Crowd = { ids: string[]; announced: GameState; near: GameState; retired: GameState }
++let crowdCache: Crowd | undefined
++/**65 actual creator/signing/birthday records; cash bootstrap is the existing disclosed fixture law. */
++export function retirementCrowd(): Crowd {
++  if (crowdCache === undefined) {
++    let state = freshWorld('c2rm-calendar-crowd')
++    const ids: string[] = []
++    for (let i = 0; i < 65; i++) {
++      const made = addPerson(state, i < 2 ? 'C2RM Same Name' : `C2RM Actor ${i}`, 'actor', 70)
++      ids.push(made.id)
++      state = applyActions(made.state, [{ kind: 'signContract', talentId: made.id, termWeeks: 104 }])
++    }
++    state = fund(state)
++    const announced = admitted(advanceTo(state, 52))
++    for (const id of ids) expect(retirementRecordFor(announced, id)).toMatchObject({ announcedWeek: 52, effectiveWeek: 104, status: 'announced' })
++    const near = admitted(advanceTo(announced, 103))
++    const retired = admitted(advanceTo(near, 104))
++    for (const id of ids) expect(retirementRecordFor(retired, id)).toMatchObject({ retiredWeek: 104, status: 'retired' })
++    crowdCache = { ids, announced, near, retired }
++  }
++  return structuredClone(crowdCache)
++}
++
++type MultiRole = { state: GameState; multiRole: GameState; personId: string; filmId: string; promiseId: string }
++let multiRoleCache: MultiRole | undefined
++/** One real release, plus an explicitly SYNTHETIC imported credit-only variant.
++ * M16 refuses two roles for one person at greenlight; this is NOT a natural
++ * multirole producer. The player-film persisted participant validator can admit
++ * the adversarial historical role-credit shape; prove that whole-save premise. */
++export function multiRoleAlumnus(): MultiRole {
++  if (multiRoleCache === undefined) {
++    const f = c2cFixture(), action = greenlightAction(f, f.beforeAnnouncement)
++    if (action.kind !== 'greenlight') throw new Error('Expected actual greenlight action')
++    let state = applyActions(f.beforeAnnouncement, [action])
++    const filmId = state.studio.activeProductions.at(-1)!.id
++    let released = false
++    for (let step = 0; step < 40; step++) {
++      const workflow = state.operations.workflows.find(row => row.productionId === filmId)
++      if (workflow?.phase === 'shooting' && workflow.shootingTask?.status === 'unassigned') {
++        state = applyActions(state, [{ kind: 'assignShootingDirector', productionId: filmId, directorId: f.directorId }])
++      }
++      const task = state.operations.workflows.find(row => row.productionId === filmId)?.shootingTask
++      if (task?.status === 'ready') state = applyActions(state, [{ kind: 'scheduleShootingTake', productionId: filmId }])
++      if (state.studio.activeProductions.find(row => row.id === filmId)?.remainingTicks === 1) {
++        state = applyActions(state, [{ kind: 'commitPictureToRelease', productionId: filmId }])
++      }
++      state = tick(state)
++      if (state.studio.releasedFilms.some(row => row.productionId === filmId)) { released = true; break }
++    }
++    expect(released, 'multi-role premise: real picture must release within bounded drive').toBe(true)
++    const film = state.studio.releasedFilms.find(row => row.productionId === filmId)!
++    expect(film.participants?.writer.talentId).toBe(f.writerId)
++    expect(film.participants?.cast.lead.talentId).toBe(f.actorId)
++    state = admitted(advanceTo(state, 156))
++    expect(retirementRecordFor(state, f.actorId)).toMatchObject({ status: 'retired', retiredWeek: 156 })
++    const person = state.talent.find(row => row.id === f.actorId)!
++    const multiRole = admitted({ ...state, studio: { ...state.studio,
++      releasedFilms: state.studio.releasedFilms.map(row => row.productionId !== filmId ? row : {
++        ...row, participants: { ...row.participants!, writer: { ...row.participants!.writer,
++          talentId: person.id, name: person.name } },
++      }),
++    } })
++    // Only two fields of one captured role-credit row differ. No new film,
++    //release, employment, career event, promise or relationship is invented.
++    expect(multiRole.careerEvents).toEqual(state.careerEvents)
++    expect(multiRole.firstTakes).toEqual(state.firstTakes)
++    expect(multiRole.promises).toEqual(state.promises)
++    multiRoleCache = { state, multiRole, personId: f.actorId, filmId, promiseId: f.promiseId }
++  }
++  return structuredClone(multiRoleCache)
++}
++
++type FrozenTies = { retired: GameState; later: GameState; hidden: GameState; rehired: GameState;
++  personId: string; counterpartId: string; retiredTier: ReturnType<typeof currentTier> }
++let tiesCache: FrozenTies | undefined
++/** Natural work twice, cancellation twice, birthday retirement, real renewal and drift. */
++export function frozenTies(): FrozenTies {
++  if (tiesCache === undefined) {
++    const f = c2cFixture()
++    let state = f.announced
++    for (let picture = 0; picture < 2; picture++) {
++      const scheduled = toScheduledTake(f, state)
++      state = tick(scheduled.state)
++      expect(state.firstTakes.some(row => row.productionId === scheduled.productionId), 'freeze premise: real take').toBe(true)
++      state = applyActions(state, [{ kind: 'cancel', productionId: scheduled.productionId }])
++    }
++    const retired = admitted(advanceTo(state, 156))
++    expect(retirementRecordFor(retired, f.actorId)).toMatchObject({ status: 'retired', retiredWeek: 156 })
++    const incident = retired.relationships.filter(row => row.a === f.actorId || row.b === f.actorId)
++    const edge = incident.find(row => row.a === f.directorId || row.b === f.directorId)
++    expect(edge, 'freeze premise: retained actual actor/director edge').toBeDefined()
++    const retiredTier = currentTier(edge!, 156)
++    expect(retiredTier, 'two real takes must discriminate freezing from baseline drift').not.toBe('Acquaintances')
++    state = advanceTo(retired, 196)
++    state = submitProposal(state, { talentId: f.directorId, issuerStudioId: owner(state), termWeeks: 208, premiumTier: 1.25 })
++    state = advanceTo(state, 208)
++    expect(activeContract(state, f.directorId), 'freeze premise: counterpart stays lawfully disclosed').toMatchObject({ endWeekExclusive: 416 })
++    const later = admitted(advanceTo(state, 400))
++    expect(later.relationships.filter(row => row.a === f.actorId || row.b === f.actorId)).toEqual(incident)
++    expect(currentTier(edge!, 400), 'freeze control MUST cross a real tier boundary').not.toBe(retiredTier)
++    const hidden = admitted(applyActions(later, [{ kind: 'releaseTalent', talentId: f.directorId }]))
++    let rehired = applyActions(hidden, [{ kind: 'signContract', talentId: f.directorId, termWeeks: 52 }])
++    rehired = admitted(tick(rehired)) // strict disclosure starts AFTER startWeek.
++    expect(rehired.relationships.filter(row => row.a === f.actorId || row.b === f.actorId)).toEqual(incident)
++    tiesCache = { retired, later, hidden, rehired, personId: f.actorId, counterpartId: f.directorId, retiredTier }
++  }
++  return structuredClone(tiesCache)
++}
+diff --git a/ui/src/App.tsx b/ui/src/App.tsx
+index f0c10c0a..0feaa5de 100644
+--- a/ui/src/App.tsx
++++ b/ui/src/App.tsx
+@@ -2645,6 +2645,9 @@ export function App() {
+     returnContext: StudioReturnContext,
+   ) {
+     switch (route.kind) {
++      case 'profile':
++        openTalentProfile(route.talentId)
++        break
+       case 'script':
+         setScreen({ kind: 'writersRoom', returnContext, focusProjectId: route.projectId })
+         break
+diff --git a/ui/src/screens/StudioCalendar.retirement.test.tsx b/ui/src/screens/StudioCalendar.retirement.test.tsx
+new file mode 100644
+index 00000000..e0f80c1a
+--- /dev/null
++++ b/ui/src/screens/StudioCalendar.retirement.test.tsx
+@@ -0,0 +1,61 @@
++// 875 Calendar route and disclosure. Actual current37 snapshots, jsdom component
++// and App navigation checks; not a browser or native playtest.
++import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
++import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
++import type { GameState } from '../engine/adapter.ts'
++import { exportSaveJson } from '../engine/adapter.ts'
++import { StudioCalendar } from './StudioCalendar.tsx'
++import { App } from '../App.tsx'
++import { setStudioLotOverviewOverride } from '../flags.ts'
++import { SCI, scientistSnapshot } from '../../../tests/helpers/p14c2rm-fixtures.ts'
++
++const activeSession = vi.hoisted(() => ({ state: null as GameState | null, saves: 0 }))
++vi.mock('../engine/session.ts', () => ({
++  clearActiveSession: () => { activeSession.state = null },
++  saveActiveSession: (state: GameState) => { activeSession.state = state; activeSession.saves++ },
++  loadActiveSession: () => activeSession.state
++    ? { ok: true, state: activeSession.state, converted: false } : { ok: false, reason: 'none' },
++}))
++beforeEach(() => setStudioLotOverviewOverride(false))
++afterEach(() => { cleanup(); activeSession.state = null; activeSession.saves = 0 })
++
++describe('C.2-RM real Calendar retirement route', () => {
++  it('shows the public boundary immediately beyond the Finance horizon, with nonfinancial wording and exact profile identity', () => {
++    const state = scientistSnapshot(618), original = exportSaveJson(state), navigate = vi.fn()
++    const name = state.talent.find(row => row.id === SCI)!.name
++    render(<StudioCalendar state={state} onNavigate={navigate} onBack={() => {}} />)
++    const button = screen.getByTestId(`calendar-event-open-retirement-${SCI}-0`)
++    expect(button).toHaveTextContent(/open profile/i)
++    const row = button.closest('li')!
++    expect(within(row).getByLabelText('Week 670')).toBeVisible()
++    expect(row).toHaveTextContent(name)
++    expect(row).toHaveTextContent(/retir/i)
++    expect(row).toHaveTextContent(/no.*(charge|payment)|nonfinancial|not.*(charge|payment)/i)
++    fireEvent.click(button)
++    expect(navigate).toHaveBeenCalledTimes(1)
++    expect(navigate).toHaveBeenCalledWith({ kind: 'profile', talentId: SCI })
++    expect(exportSaveJson(state)).toBe(original)
++  })
++
++  it('App opens the existing exact off-roster profile and restores Calendar focus without gameplay/autosave writes', async () => {
++    const state = scientistSnapshot(618), before = exportSaveJson(state)
++    expect(state.contracts.some(row => row.talentId === SCI)).toBe(false)
++    activeSession.state = state
++    render(<App />)
++    await waitFor(() => expect(activeSession.saves).toBeGreaterThan(0))
++    const writes = activeSession.saves
++    fireEvent.click(screen.getByTestId('open-studio-calendar'))
++    await waitFor(() => expect(document.activeElement).toBe(screen.getByRole('heading', { level: 1, name: /Studio Calendar & Capacity Board/i })))
++    const open = screen.getByTestId(`calendar-event-open-retirement-${SCI}-0`)
++    open.focus()
++    fireEvent.click(open)
++    const close = screen.getByTestId('talent-profile-close')
++    await waitFor(() => expect(document.activeElement).toBe(close))
++    expect(screen.getByTestId('talent-profile-name')).toHaveTextContent(state.talent.find(row => row.id === SCI)!.name)
++    fireEvent.click(close)
++    await waitFor(() => expect(document.activeElement).toBe(open))
++    expect(screen.getByRole('heading', { level: 1, name: /Studio Calendar & Capacity Board/i })).toBeVisible()
++    expect(activeSession.saves).toBe(writes)
++    expect(exportSaveJson(activeSession.state!)).toBe(before)
++  })
++})
+diff --git a/ui/src/screens/StudioCalendar.tsx b/ui/src/screens/StudioCalendar.tsx
+index edbff865..2cd4bf6f 100644
+--- a/ui/src/screens/StudioCalendar.tsx
++++ b/ui/src/screens/StudioCalendar.tsx
+@@ -21,6 +21,7 @@ export type StudioCalendarRoute =
+   | { kind: 'production'; productionId: string }
+   | { kind: 'theatricalRun'; productionId: string }
+   | { kind: 'contract'; talentId: string }
++  | { kind: 'profile'; talentId: string }
+   | { kind: 'studioDevelopment' }
+   // C2a-M4 (§3.3): a queue remedy is only actionable if it goes somewhere. A
+   // ROOM is built on the lot, where the ground is chosen; SCENERY is commissioned
+@@ -93,6 +94,8 @@ function decisionCopy(
+ 
+ function commitmentRoute(event: StudioCalendarCommitmentView): StudioCalendarRoute {
+   switch (event.kind) {
++    case 'retirement':
++      return { kind: 'profile', talentId: event.talentId }
+     case 'scriptDue':
+       return { kind: 'script', projectId: event.projectId }
+     case 'castingDue':
+@@ -114,6 +117,13 @@ function commitmentCopy(event: StudioCalendarCommitmentView): {
+   ariaLabel: string
+ } {
+   switch (event.kind) {
++    case 'retirement':
++      return {
++        title: `${event.talentName} · ${event.status === 'finishing_commitments' ? 'Finishing commitments before retirement' : 'Retirement boundary'}`,
++        detail: `Retirement from ${event.profession}, announced Week ${event.announcedWeek}. This is nonfinancial; no automatic charge. Existing obligations may finish after Week ${event.week}; final completion is not yet known.`,
++        action: 'Open Profile',
++        ariaLabel: `Open ${event.talentName} Profile`,
++      }
+     case 'scriptDue':
+       return {
+         title: `${event.title} · ${event.activity === 'drafting' ? 'Draft due' : 'Rewrite due'}`,
+@@ -458,13 +468,13 @@ export function StudioCalendar({
+         <div className="spread">
+           <div>
+             <h2 id="calendar-commitments-heading">Committed schedule</h2>
+-            <p className="hint">Persisted due work, construction completion, locked Studio Revenue receipts, and contract boundaries.</p>
++            <p className="hint">Persisted due work, construction completion, locked Studio Revenue receipts, contract boundaries, and public announced retirement boundaries.</p>
+           </div>
+           <span className="tag fact">Committed</span>
+         </div>
+         {calendar.commitments.length === 0 ? (
+           <div className="empty" data-testid="calendar-no-commitments">
+-            No future work, construction, receipt, renewal, or expiry boundary is currently committed.
++            No future work, construction, receipt, renewal, expiry, or retirement boundary is currently committed.
+           </div>
+         ) : (
+           <ol className="calendar-event-list" data-testid="calendar-commitments">
+@@ -578,7 +588,7 @@ export function StudioCalendar({
+                     {contract.renewalOpen ? 'Renewal open' : `${contract.remainingWeeks} wk left`}
+                   </span>
+                 </div>
+-                <span>Renewal opens Week {contract.renewalWindowWeek} · exclusive end Week {contract.endWeekExclusive}</span>
++                <span>{contract.renewalWindowWeek === null ? 'Ordinary renewal unavailable under the recorded retirement boundary' : `Renewal opens Week ${contract.renewalWindowWeek}`} · exclusive end Week {contract.endWeekExclusive}</span>
+                 <span className="hint">{moneyExact(contract.weeklySalary)} weekly salary</span>
+                 <button
+                   type="button"

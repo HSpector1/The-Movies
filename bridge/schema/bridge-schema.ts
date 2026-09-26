@@ -269,7 +269,10 @@ export const PROTOCOL_VERSION = 4 as const
 // Record 840 (projection 51): the current runtime now owns Save37's Scientist
 // retirement law. No DTO field changes; exact schema50 checkpoints migrate both
 // independent slots through the governed prior-schema path in the same slice.
-export const PROJECTION_VERSION = 51 as const
+// C.2-RM875: lifecycle/alumni, retirement Calendar/Finance facts, one-issuer
+// extension routes and retirement-dated collaborators. Save37 remains current;
+// exact outgoing51 is registered before any52 checkpoint is minted.
+export const PROJECTION_VERSION = 52 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -2469,6 +2472,9 @@ const MARKET_ATTENTION_CAUSES = [
   'proposalWouldFail',
   'promiseDue',
   'promiseOutcome',
+  'retirementExtensionOpen',
+  'retirementAnnounced',
+  'finishingCommitments',
 ] as const
 const StudioMarketAttentionRowSnapshot = object('StudioMarketAttentionRowSnapshot', {
   cause: enumeration(MARKET_ATTENTION_CAUSES),
@@ -2490,7 +2496,20 @@ const StudioMarketPreferencesSnapshot = object('StudioMarketPreferencesSnapshot'
   preferredOpportunity: enumeration(['significantCastRole', 'anyCastAppearance']),
   line: nonEmptyText(),
 })
+const StudioRetirementExtension = object('StudioRetirementExtension', {
+  issuerStudioId: nonEmptyText(),
+  viewerCanOffer: bool(),
+  requiredTermWeeks: integer({ minimum: 1 }),
+  startWeek: nonNegativeInteger(),
+  endWeekExclusive: nonNegativeInteger(),
+})
+const marketLifecycleFields = {
+  variant: enumeration(['expiry', 'retirementExtension']),
+  soleIssuerStudioId: nullable(nonEmptyText()),
+  retirementExtension: nullable(reference('StudioRetirementExtension', StudioRetirementExtension)),
+}
 const StudioMarketCaseSnapshot = object('StudioMarketCaseSnapshot', {
+  ...marketLifecycleFields,
   talentId: nonEmptyText(),
   /** The employer whose contract is expiring (the case's subject studio). */
   subjectStudioId: nonEmptyText(),
@@ -2533,6 +2552,7 @@ const MARKET_CASE_OUTCOMES = ['settled', 'declined', 'expired', 'invalidated'] a
 // when it decides, HOW MANY proposals are on the table (existence is public; the figures
 // are not) and whether this studio is one of the issuers.
 const StudioMarketCaseRow = object('StudioMarketCaseRow', {
+  ...marketLifecycleFields,
   talentId: nonEmptyText(),
   name: nonEmptyText(),
   roleLabel: nonEmptyText(),
@@ -2711,6 +2731,9 @@ const StudioRelationshipRow = object('StudioRelationshipRow', {
   sharedPictures: nonNegativeInteger(),
 })
 const StudioRelationshipBlock = object('StudioRelationshipBlock', {
+  asOfWeek: nullable(nonNegativeInteger()),
+  asOfLabel: nullable(nonEmptyText()),
+  historicalTierNotice: nullable(nonEmptyText()),
   /** Present on every profile. When ties exist that the player cannot see in their own
    *  right, this line says so WITHOUT a count and WITHOUT an identity (the
    *  `presence.withheld` precedent). */
@@ -2718,7 +2741,28 @@ const StudioRelationshipBlock = object('StudioRelationshipBlock', {
   rows: array(reference('StudioRelationshipRow', StudioRelationshipRow)),
 })
 
+const lifecycleStatusEnum = () => enumeration(['active', 'announced', 'finishing_commitments', 'retired'])
+const StudioPersonLifecycle = object('StudioPersonLifecycle', {
+  status: lifecycleStatusEnum(), profession: professionEnum(), eligibleAge: nonNegativeInteger(), hardAge: nonNegativeInteger(), eligible: bool(),
+  line: nonEmptyText(), planningLine: nonEmptyText(), announcedWeek: nullable(nonNegativeInteger()), effectiveWeek: nullable(nonNegativeInteger()),
+  finishingFromWeek: nullable(nonNegativeInteger()), retiredWeek: nullable(nonNegativeInteger()), announcedLabel: nullable(nonEmptyText()),
+  effectiveLabel: nullable(nonEmptyText()), retiredLabel: nullable(nonEmptyText()), extensionUsed: nullable(bool()), extendedFromWeek: nullable(nonNegativeInteger()),
+})
+const StudioAlumniEmployer = object('StudioAlumniEmployer', {
+  studioId: nonEmptyText(), studioName: nonEmptyText(), fromWeek: nonNegativeInteger(), toWeek: nonNegativeInteger(),
+})
+const StudioAlumniFilmographyRef = object('StudioAlumniFilmographyRef', { view: literal('person'), targetId: nonEmptyText() })
+const StudioAlumniEmploymentRef = object('StudioAlumniEmploymentRef', { view: literal('employment'), targetId: nonEmptyText() })
+const StudioPersonAlumni = object('StudioPersonAlumni', {
+  profession: professionEnum(), retiredWeek: nonNegativeInteger(), retiredLabel: nonEmptyText(), extensionUsed: bool(),
+  recordedCredits: nonNegativeInteger(), authoredCredits: nonNegativeInteger(), campaignCredits: nonNegativeInteger(), uncapturedFilms: nonNegativeInteger(),
+  creditBasis: nonEmptyText(), recordingNotice: nullable(nonEmptyText()), honorsNotice: nonEmptyText(),
+  lastEmployer: nullable(reference('StudioAlumniEmployer', StudioAlumniEmployer)),
+  filmographyRef: reference('StudioAlumniFilmographyRef', StudioAlumniFilmographyRef), employmentRef: reference('StudioAlumniEmploymentRef', StudioAlumniEmploymentRef),
+})
 const StudioPersonProfileSnapshot = object('StudioPersonProfileSnapshot', {
+  lifecycle: reference('StudioPersonLifecycle', StudioPersonLifecycle),
+  alumni: nullable(reference('StudioPersonAlumni', StudioPersonAlumni)),
   talentId: nonEmptyText(),
   name: nonEmptyText(),
   nameShared: bool(),
@@ -2763,6 +2807,7 @@ const StudioRosterOvrSnapshot = object('StudioRosterOvrSnapshot', {
   ovr: number({ minimum: 0, maximum: 99 }),
 })
 const StudioRosterRowSnapshot = object('StudioRosterRowSnapshot', {
+  lifecycleStatus: lifecycleStatusEnum(), lifecycleLine: nonEmptyText(),
   talentId: nonEmptyText(),
   name: nonEmptyText(),
   nameShared: bool(),
@@ -3126,7 +3171,7 @@ const StudioFinanceAttention = object('StudioFinanceAttention', {
   id: nonEmptyText(), message: nonEmptyText(), route: nullable(reference('StudioFinanceRoute', StudioFinanceRoute)),
 })
 const StudioFinanceUpcomingEvent = object('StudioFinanceUpcomingEvent', {
-  id: nonEmptyText(), kind: enumeration(['facilityCompletion','facilityOpex','contractRenewal','contractExpiry','setCompletion']),
+  id: nonEmptyText(), kind: enumeration(['facilityCompletion','facilityOpex','contractRenewal','contractExpiry','setCompletion','retirement']),
   week: nonNegativeInteger(), label: nonEmptyText(), detail: nonEmptyText(),
   weeklyOperatingCostChange: nullable(number()), route: nullable(reference('StudioFinanceRoute', StudioFinanceRoute)),
 })
@@ -3561,6 +3606,7 @@ const definitions = {
   StudioMarketAttentionRowSnapshot,
   StudioMarketPreferencesSnapshot,
   StudioMarketCaseSnapshot,
+  StudioRetirementExtension,
   StudioMarketCaseRow,
   StudioMarketFreeAgentRow,
   StudioMarketClosedCases,
@@ -3576,6 +3622,11 @@ const definitions = {
   StudioTrustBlock,
   StudioRelationshipRow,
   StudioRelationshipBlock,
+  StudioPersonLifecycle,
+  StudioPersonAlumni,
+  StudioAlumniEmployer,
+  StudioAlumniFilmographyRef,
+  StudioAlumniEmploymentRef,
   StudioPersonProfileSnapshot,
   StudioRosterOvrSnapshot,
   StudioRosterRowSnapshot,
@@ -3748,6 +3799,8 @@ export const AVAILABLE_INTENT_KEYS = Object.keys(
 ) as Array<keyof BridgeAvailableIntent>
 
 export type CampaignRequest=InferSchema<typeof StudioCampaignRequest>
+export type BridgePersonLifecycle = InferSchema<typeof StudioPersonLifecycle>
+export type BridgePersonAlumni = InferSchema<typeof StudioPersonAlumni>
 export type CampaignSummary=InferSchema<typeof StudioCampaignSummary>
 export type CampaignLibraryResponse=InferSchema<typeof StudioCampaignLibraryResponse>
 export type CampaignAcceptedResponse=InferSchema<typeof StudioCampaignAcceptedResponse>

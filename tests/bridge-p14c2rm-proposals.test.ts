@@ -1,7 +1,7 @@
 // Independent 875 RM-D/E/F/G. Real old corpus, live engine discovery, public session verbs.
 import { describe, expect, it } from 'vitest'
 import { BridgeSession } from '../bridge/session.ts'
-import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
+import { PROTOCOL_VERSION, SCHEMA_ID, validateQuote } from '../bridge/protocol.ts'
 import { BRIDGE_SCHEMA, type BridgeMarketProposalDraftPayload } from '../bridge/schema/bridge-schema.ts'
 import { parseWireValue } from '../bridge/schema/runtime.ts'
 import { canonicalJson } from '../bridge/schema/canonical.ts'
@@ -9,12 +9,13 @@ import { decodeBridgeRuntimeCheckpoint, encodeBridgeRuntimeCheckpoint } from '..
 import { marketPage } from '../bridge/market.ts'
 import { marketCaseProjection, peopleProjection } from '../bridge/people.ts'
 import { personWorldRoute } from '../bridge/world.ts'
-import { marketProposalDraftToEngine } from '../bridge/contract.ts'
+import { marketProposalDraftToEngine, playerProposalDraft } from '../bridge/contract.ts'
 import { applyActions } from '../src/core/actions.js'
 import { retirementRecordFor } from '../src/core/careerLifecycle.js'
 import { caseForTalent, currentProposals, openMarketCaseFor, playerOffer, submitProposal } from '../src/core/talentMarket.js'
 import { TUNING } from '../src/core/tuning.js'
 import { AXES, admitted, advanceTo, bytes, extensionWorld, owner } from './helpers/p14c2rm-fixtures.js'
+import { c2cFixture } from './helpers/p14c2c-fixtures.js'
 
 type ExtensionFields = { variant: 'expiry' | 'retirementExtension'; soleIssuerStudioId: string | null;
   retirementExtension: null | { issuerStudioId: string; viewerCanOffer: boolean; requiredTermWeeks: number;
@@ -92,6 +93,28 @@ describe('C.2-RM discovered one-issuer extension through every existing reader',
 })
 
 describe('C.2-RM exact public proposal commands', () => {
+  it('a new extension never inherits a genuine earlier ordinary settlement explanation', () => {
+    const f = c2cFixture()
+    const prior = f.announced.talentMarket.receipts.find(row => row.talentId === f.actorId && row.kind === 'settled' && row.week === 52)
+    expect(prior, 'history premise: actual earlier ordinary settlement').toBeDefined()
+    expect(prior!.reasons.length).toBeGreaterThan(0)
+    const open = admitted(advanceTo(f.announced, 144))
+    expect(openMarketCaseFor(open, f.actorId)?.variant).toBe('retirementExtension')
+    const expired = admitted(advanceTo(open, 156))
+    const declined = admitted(advanceTo(submitProposal(open, { talentId: f.actorId,
+      issuerStudioId: owner(open), termWeeks: 52, premiumTier: 1.05 }), 156))
+    expect(caseForTalent(expired, f.actorId)?.status).toBe('expired')
+    expect(caseForTalent(declined, f.actorId)?.status).toBe('declined')
+    for (const state of [open, expired, declined]) {
+      const detail = marketCaseProjection(state, f.actorId, owner(state))
+      expect(detail).not.toBeNull()
+      expect(detail!.settlementReasons, 'current extension owns no settled receipt').toEqual([])
+      expect(marketPage(state, { view: 'market', targetId: f.actorId }).selected?.marketCase).toEqual(detail)
+    }
+    expect(marketPage(open, { view: 'market', targetId: f.actorId }).selected?.droppedReasons).toEqual([])
+    // No claimed earlier own-drop control: this actual prior proposal won.
+  })
+
   it.each(['gap', 'exact'] as const)('%s quote -> submit -> revise -> withdraw uses exact term and never charges before settlement', axis => {
     const facts = AXES[axis], session = new BridgeSession(extensionWorld(axis), `c2rm-${axis}-verbs`)
     const initial = bytes(session.gameState), cash = session.gameState.studio.cash, ledger = session.gameState.ledger
@@ -137,8 +160,13 @@ describe('C.2-RM exact public proposal commands', () => {
     refuse(ordinary, 'ordinary-off-catalogue', { verb: 'propose', talentId: 'authored-0002', termWeeks: 58, premiumTier: 1.25 })
     expect(quote(ordinary, 'ordinary-published', { verb: 'propose', talentId: 'authored-0002', termWeeks: 52, premiumTier: 1.25 }).ok).toBe(true)
     const before = bytes(session.gameState)
-    expect(session.quote({ ...header(session, 'forged-issuer'), type: 'quoteMarketProposal', draft: {
-      verb: 'propose', talentId: facts.personId, termWeeks: 58, premiumTier: 1.25, issuerStudioId: 'another-studio' } })).toMatchObject({ accepted: false })
+    const forgedDraft = { verb: 'propose' as const, talentId: facts.personId, termWeeks: 58,
+      premiumTier: 1.25, issuerStudioId: 'another-studio' }
+    //878: a direct typed session call bypasses the wire decoder; its extra field
+    //was ignored safely, not accepted as authority. Exercise the actual boundary.
+    expect(validateQuote({ ...header(session, 'forged-issuer'), type: 'quoteMarketProposal', draft: forgedDraft }))
+      .toMatchObject({ ok: false, reasonCode: 'INVALID_COMMAND' })
+    expect(playerProposalDraft(session.gameState, forgedDraft).issuerStudioId).toBe(facts.issuer)
     expect(bytes(session.gameState)).toBe(before)
   })
 

@@ -1,0 +1,12 @@
+
+> project-studio-core@0.1.0 generate:bridge-contract
+> vite-node scripts/generate-bridge-contract.ts
+
+generated /Users/zacheryspector/The-Movies-headless-program/bridge/schema/project-studio-bridge.schema.json
+generated /Users/zacheryspector/The-Movies-headless-program/generated/unity/StudioBridgeDtos.Generated.cs
+generated /Users/zacheryspector/The-Movies-headless-program/generated/unity/project-studio-bridge.contract-manifest.json
+
+> project-studio-core@0.1.0 generate:bridge-contract:fixtures
+> vite-node scripts/generate-bridge-contract-fixtures.ts
+
+generated /Users/zacheryspector/The-Movies-headless-program/generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs

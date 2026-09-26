@@ -17,6 +17,7 @@ import {officePage,type OfficeIntent} from './office.ts'
 import {contractTermLabel} from './contract.ts'
 import {marketPage,MARKET_CLOSED_PAGE_SIZE} from './market.ts'
 import {personWorldRoute} from './world.ts'
+import {personLifecycle} from './lifecycle.ts'
 import {studioTrustDescriptor} from '../src/core/promises.ts'
 
 type Film=IndustryPage['films'][number]
@@ -79,7 +80,7 @@ function indexFor(state:GameState):Index {
   // P14A.3: the PUBLIC world-route case facts join the row — the open-case status line and
   // the reference that opens that exact case, both null unless a case is open, and neither
   // carrying a figure of any kind. The presence set is reused, never rebuilt per person.
-  for(const t of state.talent){const owner=employer.get(t.id)??null;const route=personWorldRoute(state,t.id,onLot.has(t.id));const person:Person={talentId:t.id,name:t.name,roleLabel:t.role==='craft'?'Crew':t.role[0]!.toUpperCase()+t.role.slice(1),employerStudioId:owner,employerName:owner?names.get(owner)??null:null,
+  for(const t of state.talent){const owner=employer.get(t.id)??null;const route=personWorldRoute(state,t.id,onLot.has(t.id));const lifecycle=personLifecycle(state,t);const person:Person={lifecycleStatus:lifecycle.status,lifecycleLine:lifecycle.line,retiredWeek:lifecycle.retiredWeek,talentId:t.id,name:t.name,roleLabel:t.role==='craft'?'Crew':t.role[0]!.toUpperCase()+t.role.slice(1),employerStudioId:owner,employerName:owner?names.get(owner)??null:null,
     employmentLabel:owner?`Studio: ${names.get(owner)}`:'No exclusive studio contract',creditCount:filmsByPerson.get(t.id)?.length??0,onPlayerLot:onLot.has(t.id),
     caseStatusLine:route.statusLine,caseRef:route.caseRef,
     notice:'Credits establish work on a film. They do not establish historical employment. Current employer is read from the present contract.'};people.set(t.id,person);if(owner)append(roster,owner,person)}
@@ -227,10 +228,19 @@ function filterFilms(rows:Film[],q:IndustryQuery,week:number):Film[] {
 }
 /** Query results own their output objects; the immutable per-state index never escapes. */
 export function industryPage(state:GameState,sessionId:string,stateRevision:number,q:IndustryQuery,laboratoryIntents:readonly LaboratoryIntent[]=[],planIntents:readonly PlanIntent[]=[],officeIntents:readonly OfficeIntent[]=[]):IndustryPage {
+  if(!Number.isInteger(q.page)||q.page<0||!Number.isInteger(q.pageSize)||q.pageSize<1||q.pageSize>50) {
+    throw new Error('Industry pages require a non-negative integer page and a pageSize from 1 to 50.')
+  }
   const index=indexFor(state),h=state.hollywood!,calendar=campaignDate(state.market.tick)
   const result:IndustryPage={protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,snapshotVersion:SNAPSHOT_VERSION,type:'industryPage',requestId:q.requestId,sessionId,stateRevision,stateDigest:snapshotBuildContextFor(state).stateDigest(),calendar,view:q.view,targetId:q.targetId,page:q.page,pageSize:q.pageSize,totalRows:0,pageCount:0,lane:q.lane,period:q.period,title:'Industry',notice:'Public facts only. Standing channels and film measures have separate meanings; there is no combined Power score.',studios:[],films:[],people:[],credits:[],activities:[],projects:[],tendencies:[],laboratory:null,plans:null,office:null,market:null}
   const page=<T>(rows:T[]):T[]=>{result.totalRows=rows.length;result.pageCount=Math.ceil(rows.length/q.pageSize);if(q.page>0&&q.page>=result.pageCount)throw new Error('That page is outside this snapshot. Return to the first page.');return rows.slice(q.page*q.pageSize,(q.page+1)*q.pageSize)}
-  if(q.view==='office') {
+  if(q.view==='alumni') {
+    if(q.targetId!==null)throw new Error('The alumni list requires a null targetId; open a person for detail.')
+    result.title='Alumni'
+    result.notice='Retired professionals remain in the public record. Recorded credits count roles on released films; honors are not recorded.'
+    result.people=page([...index.people.values()].filter(person=>person.lifecycleStatus==='retired')
+      .sort((a,b)=>b.retiredWeek!-a.retiredWeek!||byText(a.talentId,b.talentId)))
+  } else if(q.view==='office') {
     // P13B-S4: one Development & Casting building's standard and its in-place
     // conversions. `officePage` resolves this studio's own bodies alone; a rival
     // facility id is absent from that set and refused above as INVALID_CONTROL.

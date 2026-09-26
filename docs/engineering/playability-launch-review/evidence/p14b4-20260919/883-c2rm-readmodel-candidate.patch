@@ -1,0 +1,961 @@
+diff --git a/bridge/contract.ts b/bridge/contract.ts
+index 3bcad526..ab0077b9 100644
+--- a/bridge/contract.ts
++++ b/bridge/contract.ts
+@@ -52,6 +52,7 @@ import { corePredicateOf, promiseQuoteSnapshot } from './promises.ts'
+ import type { WirePromiseDraft } from './promises.ts'
+ import { attachPromise } from '../src/core/promises.ts'
+ import { latestCaseIsExtension } from '../src/core/talentMarket.ts'
++import { retirementExtensionFields } from './retirement-extension.ts'
+ import { TUNING } from '../src/core/tuning.ts'
+ import type { ActionOutcome } from '../ui/src/engine/adapter.ts'
+ import type {
+@@ -431,7 +432,9 @@ function liveMarketRefusal(state: GameState, draft: MarketProposalDraft, talent:
+       return {
+         code: 'insufficientFunds',
+         reason: `The studio cannot cover the ${dollars(priced.signingBonus)} signing bonus this proposal would owe at settlement (${affordability.reason}).`,
+-        remedy: 'Choose a shorter term or a lower tier, or propose once cash allows.',
++        remedy: latestCaseIsExtension(state, talent.id)
++          ? 'Choose lower compensation, or propose once cash allows. This final extension has a fixed ending boundary.'
++          : 'Choose a shorter term or a lower tier, or propose once cash allows.',
+       }
+     }
+   }
+@@ -507,7 +510,11 @@ export function marketProposalDraftToEngine(state: GameState, input: MarketPropo
+   }
+   const priced = draft.verb === 'withdraw'
+   if (!priced) {
+-    if (draft.termWeeks === null || draft.termWeeks === undefined || !TUNING.CONTRACT_TERM_OPTIONS.includes(draft.termWeeks)) {
++    const extension = retirementExtensionFields(state, talent.id, draft.issuerStudioId).retirementExtension
++    const exactExtension = extension !== null && extension.viewerCanOffer
++      && extension.issuerStudioId === draft.issuerStudioId && draft.termWeeks === extension.requiredTermWeeks
++    if (draft.termWeeks === null || draft.termWeeks === undefined
++      || (!TUNING.CONTRACT_TERM_OPTIONS.includes(draft.termWeeks) && !exactExtension)) {
+       return { ok: false, error: 'Choose one of the published terms before proposing.' }
+     }
+     if (draft.premiumTier === null || draft.premiumTier === undefined || !isPremiumTier(draft.premiumTier)) {
+@@ -557,7 +564,7 @@ export function marketProposalQuoteSnapshot(
+   conversion: MarketProposalConversionOk,
+   intentId: string,
+ ): BridgeMarketProposalQuoteSnapshot {
+-  const { talent, refusal, annualSalary, signingBonus, termWeeks, decisionWeek } = conversion
++  const { talent, refusal, annualSalary, signingBonus, termWeeks, decisionWeek, effectiveWeek } = conversion
+   const ok = refusal === null && conversion.promise?.ok !== false
+   const consequence = refusal !== null
+     ? `${refusal.reason} ${refusal.remedy}`.trim()
+@@ -567,7 +574,7 @@ export function marketProposalQuoteSnapshot(
+         ? `Withdraws your proposal for ${talent.name}. Nothing is charged, and you may propose again while the case is open.`
+         // P14C.2b (780 §5.3): the one final extension is one issuer's offer, never a contest.
+         : latestCaseIsExtension(state, talent.id)
+-          ? `Stands until Week ${String(decisionWeek ?? state.market.tick)}, when ${talent.name} decides on this one final extension before retiring. If they accept, the contract runs ${contractTermLabel(termWeeks ?? 0)} at ${dollars(annualSalary ?? 0)} a year and the ${dollars(signingBonus ?? 0)} signing bonus is paid then — nothing is charged now.`
++          ? `Stands until Week ${String(decisionWeek ?? state.market.tick)}, when ${talent.name} decides on this one final extension before retiring. If they accept, the contract runs from Week ${effectiveWeek} until Week ${(effectiveWeek ?? 0) + (termWeeks ?? 0)} (exclusive; ${contractTermLabel(termWeeks ?? 0)}) at ${dollars(annualSalary ?? 0)} a year and the ${dollars(signingBonus ?? 0)} signing bonus is paid then — nothing is charged now.`
+           : `Stands until Week ${String(decisionWeek ?? state.market.tick)}, when ${talent.name} chooses among every proposal on the table. If they choose yours, the contract runs ${contractTermLabel(termWeeks ?? 0)} at ${dollars(annualSalary ?? 0)} a year and the ${dollars(signingBonus ?? 0)} signing bonus is paid then — nothing is charged now. A competing studio's terms stay UNKNOWN.`
+   return {
+     intentId,
+diff --git a/bridge/finance-upcoming.ts b/bridge/finance-upcoming.ts
+index a941114f..bbaa14bf 100644
+--- a/bridge/finance-upcoming.ts
++++ b/bridge/finance-upcoming.ts
+@@ -4,10 +4,11 @@ import { expectedWeeklyRunRevenue, pipelineRunRevenue } from '../src/core/econom
+ import { weeklySalary } from '../src/core/employment.ts'
+ import { setIsUnderRepair } from '../src/core/sets.ts'
+ import { TUNING } from '../src/core/tuning.ts'
++import { ordinaryRenewalWindow } from '../src/core/studioCalendar.ts'
+ import type { FinanceRoute } from './finance-route.ts'
+ 
+ export type FinanceUpcomingEvent = {
+-  id: string; kind: 'facilityCompletion' | 'facilityOpex' | 'contractRenewal' | 'contractExpiry' | 'setCompletion'
++  id: string; kind: 'facilityCompletion' | 'facilityOpex' | 'contractRenewal' | 'contractExpiry' | 'setCompletion' | 'retirement'
+   week: number; label: string; detail: string; weeklyOperatingCostChange: number | null; route: FinanceRoute | null
+ }
+ export const FINANCE_UPCOMING_LIMIT = 64
+@@ -34,8 +35,9 @@ export function financeUpcoming(state: GameState) {
+     const talent = state.talent.find(t => t.id === contract.talentId)
+     if (talent === undefined) throw new Error('Finance Upcoming: unknown contracted person')
+     const route: FinanceRoute = { kind: 'profile', targetId: talent.id, label: 'Open Profile' }
+-    events.push({ id: `renewal:${talent.id}:${contract.endWeekExclusive}`, kind: 'contractRenewal',
+-      week: Math.max(contract.startWeek, contract.endWeekExclusive - TUNING.HIRING_RENEWAL_WINDOW_WEEKS),
++    const renewalWeek = ordinaryRenewalWindow(state, contract)
++    if (renewalWeek !== null) events.push({ id: `renewal:${talent.id}:${contract.endWeekExclusive}`, kind: 'contractRenewal',
++      week: renewalWeek,
+       label: `${talent.name} renewal window ${contract.endWeekExclusive - TUNING.HIRING_RENEWAL_WINDOW_WEEKS <= week ? 'is open' : 'opens'}`, detail: 'Review the current terms. Renewal is a decision, not an automatic signing debit.',
+       weeklyOperatingCostChange: null, route })
+     events.push({ id: `expiry:${talent.id}:${contract.endWeekExclusive}`, kind: 'contractExpiry', week: contract.endWeekExclusive,
+@@ -49,16 +51,24 @@ export function financeUpcoming(state: GameState) {
+       label: `${set.name} ${setIsUnderRepair(set) ? 'repair completes' : 'becomes standing'}`, detail: `${set.completesWeek < week ? 'The retained completion date is overdue; no replacement date is invented. ' : ''}Completion of already-started Set work. Its committed cost has already been paid; this is not a new recurring charge.`,
+       weeklyOperatingCostChange: null, route: null })
+   }
++  for (const record of state.careerLifecycle?.records ?? []) {
++    if (record.status === 'retired') continue
++    const name = state.talent.find(t => t.id === record.personId)!.name
++    events.push({ id: `retirement:${record.personId}`, kind: 'retirement', week: record.effectiveWeek,
++      label: `${name} · ${record.status === 'finishing_commitments' ? 'Finishing commitments before retirement' : 'Retirement boundary'}`,
++      detail: `Retirement from ${record.profession}, announced Week ${record.announcedWeek}. This is nonfinancial; no automatic charge. Existing obligations may finish after this boundary; final completion is not yet known.`,
++      weeklyOperatingCostChange: null, route: { kind: 'profile', targetId: record.personId, label: 'Open Profile' } })
++  }
+   events.sort((a, b) => a.week - b.week || a.id.localeCompare(b.id))
+   return { timeClass: 'knownCommitment' as const, defaultWindowWeeks: 13 as const,
+     nextAdvanceStudioRevenue: state.founding === null ? expectedWeeklyRunRevenue(state) : 0,
+     remainingStudioRevenue: pipelineRunRevenue(state),
+-    basis: 'Known commitments only. The dated list includes this week, the selected rolling window, already-open renewal windows and any overdue committed Set work. Revenue totals cover already-active runs; remaining revenue has no single payment date here. Excludes new films, automatic renewals and uncommitted decisions.',
++    basis: 'Known commitments and public retirement boundaries. The dated list includes this week, the selected rolling window, already-open renewal windows, overdue committed Set work and finishing retirement obligations. Retirement facts are nonfinancial. Revenue totals cover already-active runs; remaining revenue has no single payment date here. Excludes new films, automatic renewals and uncommitted decisions.',
+     windows: ([13, 52] as const).map(windowWeeks => {
+       const fromWeek = week, toWeekInclusive = week + windowWeeks - 1
+-      const eligible = events.filter(e => e.week <= toWeekInclusive && (e.week >= fromWeek || e.kind === 'contractRenewal' || e.kind === 'setCompletion'))
++      const eligible = events.filter(e => e.week <= toWeekInclusive && (e.week >= fromWeek || e.kind === 'contractRenewal' || e.kind === 'setCompletion' || e.kind === 'retirement'))
+       const remainingRows = Math.max(0, eligible.length - FINANCE_UPCOMING_LIMIT)
+       return { windowWeeks, fromWeek, toWeekInclusive, rows: eligible.slice(0, FINANCE_UPCOMING_LIMIT), remainingRows,
+-        notice: remainingRows === 0 ? null : `${remainingRows} further dated commitments are outside this bounded list. Review Payroll and Operations for their exact owners.` }
++        notice: remainingRows === 0 ? null : `${remainingRows} further dated commitments are outside this bounded list. Review Payroll, Operations and public profiles or Calendar for their exact owners.` }
+     }) }
+ }
+diff --git a/bridge/industry.ts b/bridge/industry.ts
+index f6976f05..bc6efbc4 100644
+--- a/bridge/industry.ts
++++ b/bridge/industry.ts
+@@ -17,6 +17,7 @@ import {officePage,type OfficeIntent} from './office.ts'
+ import {contractTermLabel} from './contract.ts'
+ import {marketPage,MARKET_CLOSED_PAGE_SIZE} from './market.ts'
+ import {personWorldRoute} from './world.ts'
++import {personLifecycle} from './lifecycle.ts'
+ import {studioTrustDescriptor} from '../src/core/promises.ts'
+ 
+ type Film=IndustryPage['films'][number]
+@@ -79,7 +80,7 @@ function indexFor(state:GameState):Index {
+   // P14A.3: the PUBLIC world-route case facts join the row — the open-case status line and
+   // the reference that opens that exact case, both null unless a case is open, and neither
+   // carrying a figure of any kind. The presence set is reused, never rebuilt per person.
+-  for(const t of state.talent){const owner=employer.get(t.id)??null;const route=personWorldRoute(state,t.id,onLot.has(t.id));const person:Person={talentId:t.id,name:t.name,roleLabel:t.role==='craft'?'Crew':t.role[0]!.toUpperCase()+t.role.slice(1),employerStudioId:owner,employerName:owner?names.get(owner)??null:null,
++  for(const t of state.talent){const owner=employer.get(t.id)??null;const route=personWorldRoute(state,t.id,onLot.has(t.id));const lifecycle=personLifecycle(state,t);const person:Person={lifecycleStatus:lifecycle.status,lifecycleLine:lifecycle.line,retiredWeek:lifecycle.retiredWeek,talentId:t.id,name:t.name,roleLabel:t.role==='craft'?'Crew':t.role[0]!.toUpperCase()+t.role.slice(1),employerStudioId:owner,employerName:owner?names.get(owner)??null:null,
+     employmentLabel:owner?`Studio: ${names.get(owner)}`:'No exclusive studio contract',creditCount:filmsByPerson.get(t.id)?.length??0,onPlayerLot:onLot.has(t.id),
+     caseStatusLine:route.statusLine,caseRef:route.caseRef,
+     notice:'Credits establish work on a film. They do not establish historical employment. Current employer is read from the present contract.'};people.set(t.id,person);if(owner)append(roster,owner,person)}
+@@ -230,7 +231,13 @@ export function industryPage(state:GameState,sessionId:string,stateRevision:numb
+   const index=indexFor(state),h=state.hollywood!,calendar=campaignDate(state.market.tick)
+   const result:IndustryPage={protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,snapshotVersion:SNAPSHOT_VERSION,type:'industryPage',requestId:q.requestId,sessionId,stateRevision,stateDigest:snapshotBuildContextFor(state).stateDigest(),calendar,view:q.view,targetId:q.targetId,page:q.page,pageSize:q.pageSize,totalRows:0,pageCount:0,lane:q.lane,period:q.period,title:'Industry',notice:'Public facts only. Standing channels and film measures have separate meanings; there is no combined Power score.',studios:[],films:[],people:[],credits:[],activities:[],projects:[],tendencies:[],laboratory:null,plans:null,office:null,market:null}
+   const page=<T>(rows:T[]):T[]=>{result.totalRows=rows.length;result.pageCount=Math.ceil(rows.length/q.pageSize);if(q.page>0&&q.page>=result.pageCount)throw new Error('That page is outside this snapshot. Return to the first page.');return rows.slice(q.page*q.pageSize,(q.page+1)*q.pageSize)}
+-  if(q.view==='office') {
++  if(q.view==='alumni') {
++    if(q.targetId!==null)throw new Error('The alumni list requires a null targetId; open a person for detail.')
++    result.title='Alumni'
++    result.notice='Retired professionals remain in the public record. Recorded credits count roles on released films; honors are not recorded.'
++    result.people=page([...index.people.values()].filter(person=>person.lifecycleStatus==='retired')
++      .sort((a,b)=>b.retiredWeek!-a.retiredWeek!||byText(a.talentId,b.talentId)))
++  } else if(q.view==='office') {
+     // P13B-S4: one Development & Casting building's standard and its in-place
+     // conversions. `officePage` resolves this studio's own bodies alone; a rival
+     // facility id is absent from that set and refused above as INVALID_CONTROL.
+diff --git a/bridge/lifecycle.ts b/bridge/lifecycle.ts
+new file mode 100644
+index 00000000..631078fc
+--- /dev/null
++++ b/bridge/lifecycle.ts
+@@ -0,0 +1,57 @@
++// C.2-RM: public retirement facts only; no intent prediction or game-state writes.
++import { campaignDate } from '../src/core/calendar.ts'
++import { retirementRecordFor, retirementWindow } from '../src/core/careerLifecycle.ts'
++import type { GameState, Talent } from '../src/core/types.ts'
++import type { BridgePersonAlumni, BridgePersonLifecycle, BridgeMarketAttentionRowSnapshot } from './schema/bridge-schema.ts'
++
++export function personLifecycle(state: GameState, person: Talent): BridgePersonLifecycle {
++  const record = retirementRecordFor(state, person.id)
++  const profession = record?.profession ?? person.role
++  const window = retirementWindow(profession)!
++  const status = record?.status ?? 'active'
++  const line = status === 'retired' ? `Retired from ${profession} in Week ${record!.retiredWeek}.`
++    : status === 'finishing_commitments' ? `Finishing existing commitments before retiring from ${profession}; no new work or contract may attach. Final completion is not yet known.`
++      : status === 'announced' ? `Retirement from ${profession} announced; recorded boundary Week ${record!.effectiveWeek}. Existing obligations may finish afterward.`
++        : `Active in ${profession}; no retirement announcement recorded.`
++  const planningLine = `Retirement eligibility starts at age ${window.start}; age ${window.hard} is the announcement boundary, not automatic removal.`
++    + (status === 'announced' && profession === 'writer' ? ' A currently contracted writer may begin writing and finish it after the recorded boundary.' : '')
++  return {
++    status, profession, eligibleAge: window.start, hardAge: window.hard, eligible: person.age >= window.start,
++    line, planningLine, announcedWeek: record?.announcedWeek ?? null, effectiveWeek: record?.effectiveWeek ?? null,
++    finishingFromWeek: record?.finishingFromWeek ?? null, retiredWeek: record?.retiredWeek ?? null,
++    announcedLabel: record ? campaignDate(record.announcedWeek).label : null,
++    effectiveLabel: record ? campaignDate(record.effectiveWeek).label : null,
++    retiredLabel: record?.retiredWeek == null ? null : campaignDate(record.retiredWeek).label,
++    extensionUsed: record?.extensionUsed ?? null, extendedFromWeek: record?.extendedFromWeek ?? null,
++  }
++}
++
++export function personAlumni(state: GameState, person: Talent, campaignCredits: number, authoredCredits: number, uncapturedFilms: number): BridgePersonAlumni | null {
++  const record = retirementRecordFor(state, person.id)
++  if (record?.status !== 'retired' || record.retiredWeek === null) return null
++  const last = (state.hollywood?.employment ?? []).map((row, ordinal) => ({ row, ordinal }))
++    .filter(({ row }) => row.terms.talentId === person.id)
++    .sort((a, b) => (b.row.endedWeek ?? b.row.terms.endWeekExclusive) - (a.row.endedWeek ?? a.row.terms.endWeekExclusive) || b.ordinal - a.ordinal)[0]?.row
++  return {
++    profession: record.profession, retiredWeek: record.retiredWeek, retiredLabel: campaignDate(record.retiredWeek).label,
++    extensionUsed: record.extensionUsed, recordedCredits: campaignCredits + authoredCredits, authoredCredits, campaignCredits, uncapturedFilms,
++    creditBasis: 'Recorded credits count each credited role on a released picture, including separately recorded authored starting credits.',
++    recordingNotice: uncapturedFilms > 0 ? `${uncapturedFilms} earlier player films have no captured participants; this global recording gap cannot be assigned to a particular person.` : null,
++    honorsNotice: 'Honors are not recorded.',
++    lastEmployer: last ? { studioId: last.studioId, studioName: state.hollywood!.identities.find(s => s.studioId === last.studioId)!.name,
++      fromWeek: last.terms.startWeek, toWeek: last.endedWeek ?? last.terms.endWeekExclusive } : null,
++    filmographyRef: { view: 'person', targetId: person.id }, employmentRef: { view: 'employment', targetId: person.id },
++  }
++}
++
++/** Presentation news retention only; never an automatic advance stop. */
++export function retirementAttentionRows(state: GameState, week = state.market.tick): BridgeMarketAttentionRowSnapshot[] {
++  const rows: { row: BridgeMarketAttentionRowSnapshot; order: number; week: number }[] = []
++  for (const record of state.careerLifecycle?.records ?? []) {
++    if (record.status === 'finishing_commitments') rows.push({ order: 0, week: record.finishingFromWeek!, row: {
++      cause: 'finishingCommitments', talentId: record.personId, reason: `Finishing existing ${record.profession} commitments before retirement; final completion is not yet known.` } })
++    if (record.status !== 'retired' && week >= record.announcedWeek && week - record.announcedWeek < 13) rows.push({ order: 1, week: record.announcedWeek, row: {
++      cause: 'retirementAnnounced', talentId: record.personId, reason: `Retirement from ${record.profession} announced in Week ${record.announcedWeek}; recorded boundary Week ${record.effectiveWeek}.` } })
++  }
++  return rows.sort((a, b) => a.order - b.order || a.week - b.week || (a.row.talentId < b.row.talentId ? -1 : a.row.talentId > b.row.talentId ? 1 : 0)).map(item => item.row)
++}
+diff --git a/bridge/market.ts b/bridge/market.ts
+index e9d93faf..185ed4ca 100644
+--- a/bridge/market.ts
++++ b/bridge/market.ts
+@@ -19,6 +19,8 @@ import type { GameState, TalentMarketCase } from '../src/core/types.js'
+ import { castingDraftToEngine } from './casting.ts'
+ import { marketAttentionRows, marketCaseProjection, peopleProjection } from './people.ts'
+ import { promiseAttentionRows, promiseRowsForPerson } from './trust.ts'
++import { extensionTerminalReceipt, retirementExtensionFields } from './retirement-extension.ts'
++import { retirementAttentionRows } from './lifecycle.ts'
+ import type {
+   BridgeMarketAttentionRowSnapshot, BridgeMarketCaseDetail, BridgeMarketCaseRow,
+   BridgeMarketEmployerRow, BridgeMarketFreeAgentRow, BridgeMarketPage,
+@@ -71,14 +73,14 @@ type CaseEntry = { kase: TalentMarketCase; view: MarketCaseView; ordinal: number
+  * case, so a person who has been through two cases contributes exactly one entry, at the
+  * later one's ordinal; an earlier closed case of the same person is not separately
+  * listed (recorded limit: the engine publishes no reader for a superseded case).
+- * P14C.2b (806 §6): a person whose latest case is a `retirementExtension` contributes
+- * nothing — the one-issuer extension is not listed as a contest.
++ * C.2-RM875 includes the final-extension variant with its own public terms and
++ * one-issuer wording; the underlying latest-case history limit is unchanged.
+  */
+ function caseEntries(state: GameState, week: number): CaseEntry[] {
+   const byTalent = new Map<string, CaseEntry>()
+   state.talentMarket.cases.forEach((kase, ordinal) => {
+     const view = caseForTalent(state, kase.talentId, week)
+-    if (view !== null && !latestCaseIsExtension(state, kase.talentId)) byTalent.set(kase.talentId, { kase, view, ordinal })
++    if (view !== null) byTalent.set(kase.talentId, { kase, view, ordinal })
+   })
+   return [...byTalent.values()]
+ }
+@@ -93,6 +95,7 @@ function caseRow(state: GameState, entry: CaseEntry, viewerStudioId: string, nam
+   const proposals = state.talentMarket.proposals.filter((p) => p.talentId === entry.view.talentId)
+   return {
+     talentId: entry.view.talentId,
++    ...retirementExtensionFields(state, entry.view.talentId, viewerStudioId),
+     name: talent?.name ?? entry.view.talentId,
+     roleLabel: roleLabel(talent?.role ?? 'craft'),
+     subjectStudioId: entry.view.subjectStudioId,
+@@ -189,12 +192,13 @@ function employerRows(state: GameState, talentId: string, viewerStudioId: string
+  * two studios whose names share a prefix are separated by nothing but that name.
+  */
+ function ownDroppedReasons(state: GameState, view: MarketCaseView, viewerStudioId: string, names: Map<string, string>): string[] {
+-  const receipt = [...state.talentMarket.receipts].reverse().find((r) =>
++  const extension = latestCaseIsExtension(state, view.talentId)
++  const receipt = extension ? extensionTerminalReceipt(state, view.talentId) : [...state.talentMarket.receipts].reverse().find((r) =>
+     r.talentId === view.talentId && TERMINAL.has(r.kind) && r.dropped.length > 0)
+   if (receipt === undefined) return []
+   const proposed = state.talentMarket.receipts.some((r) =>
+     r.kind === 'proposalSubmitted' && r.talentId === view.talentId &&
+-    r.studioId === viewerStudioId && r.week >= view.openedWeek)
++    r.studioId === viewerStudioId && r.week >= view.openedWeek && (!extension || r.week <= receipt.week))
+   if (!proposed) return []
+   const name = names.get(viewerStudioId) ?? viewerStudioId
+   return receipt.dropped.filter((sentence) => sentence.startsWith(name))
+@@ -295,6 +299,12 @@ export function marketPage(state: GameState, request: MarketPageRequest): Bridge
+     attention.push(row)
+   }
+ 
++  for (const row of retirementAttentionRows(state, week)) {
++    const key = `${row.cause}:${row.talentId}`
++    if (seen.has(key)) continue
++    seen.add(key)
++    attention.push(row)
++  }
+   const page = Math.max(0, request.page ?? 0)
+   return structuredClone({
+     attention,
+diff --git a/bridge/people.ts b/bridge/people.ts
+index 45125e13..e8c08b34 100644
+--- a/bridge/people.ts
++++ b/bridge/people.ts
+@@ -34,6 +34,8 @@ import {
+ import type { GameState, TalentProfile } from '../ui/src/engine/adapter.ts'
+ import { studioPresence } from '../src/core/presence.ts'
+ import { campaignDate } from '../src/core/calendar.ts'
++import { ordinaryRenewalWindow } from '../src/core/studioCalendar.ts'
++import { personAlumni, personLifecycle } from './lifecycle.ts'
+ import { rivalEmployment } from '../src/core/hollywood.ts'
+ import { DISCIPLINE_ORDER, PERSON_DISCIPLINE_ORDER, ROLE_TO_DISCIPLINE } from '../src/core/tuning.ts'
+ import { guaranteedComp, activeContract, busyTalentIds, renewalWindowOpen } from '../src/core/employment.ts'
+@@ -42,6 +44,7 @@ import {
+   publicPreferredOpportunity, publicPreferredTerm, publicPriorityOrder, submitProposal, UNKNOWN,
+ } from '../src/core/talentMarket.ts'
+ import type { Disclosed, MarketCaseView } from '../src/core/talentMarket.ts'
++import { extensionTerminalReceipt, retirementExtensionFields } from './retirement-extension.ts'
+ import { trustDescriptor } from '../src/core/promises.ts'
+ import { promiseHistoryFor, unboxPromise } from './promises.ts'
+ import { promiseAttentionRows, promiseRowsForPerson, trustBlockFor } from './trust.ts'
+@@ -51,7 +54,7 @@ import { personWorldRoute } from './world.ts'
+ import type {
+   BridgeMarketAttentionRowSnapshot, BridgeMarketCaseSnapshot, BridgeMarketProposalSnapshot,
+   BridgeMarketPromiseHistoryRow, BridgePersonContractActionsSnapshot, BridgeRelationshipBlock, BridgeTrustBlock,
+-  BridgeWorldRouteSnapshot,
++  BridgeWorldRouteSnapshot, BridgePersonLifecycle, BridgePersonAlumni,
+ } from './schema/bridge-schema.ts'
+ import type {
+   CreativeRole,
+@@ -186,6 +189,8 @@ export type BridgePersonCareerSnapshot = {
+ }
+ 
+ export type BridgePersonProfileSnapshot = {
++  lifecycle: BridgePersonLifecycle
++  alumni: BridgePersonAlumni | null
+   talentId: string
+   name: string
+   /** Another authoritative person shares this name — presentation must show the id. */
+@@ -233,6 +238,8 @@ export type BridgePersonProfileSnapshot = {
+ }
+ 
+ export type BridgeRosterRowSnapshot = {
++  lifecycleStatus: BridgePersonLifecycle['status']
++  lifecycleLine: string
+   talentId: string
+   name: string
+   nameShared: boolean
+@@ -481,14 +488,23 @@ function buildProfile(
+       ? 'No clear specialty'
+       : `Top specialty: ${specialties.map((s) => s.label).join(' · ')}`
+   const work = buildWork(state, talent.id)
++  const lifecycle = personLifecycle(state, talent)
+   const employment = buildEmployment(state, talent, input.week, input.busy, work.kind === 'ambiguous')
+   const presence = buildPresence(input)
++  if (lifecycle.status === 'retired') presence.canLocate = false
++  if (lifecycle.status === 'finishing_commitments' || lifecycle.status === 'retired') {
++    employment.offersAvailable = false
++    employment.availability = lifecycle.status === 'retired' ? 'Retired from profession' : 'Finishing existing commitments; no new work'
++    if (work.kind === 'available') work.reason = lifecycle.line
++  }
+   const career = buildCareer(input)
+-  const attention = decideAttention(employment, work, presence, input.week)
+   const identityLabel = careerIdentityLabel(identity)
+   const viewerStudioId = state.hollywood?.playerStudioId ?? ''
+   const marketCase = marketCaseProjection(state, talent.id, viewerStudioId, input.week)
++  const attention = decideAttention(employment, work, presence, input.week, lifecycle, marketCase)
+   return {
++    lifecycle,
++    alumni: personAlumni(state, talent, input.credits, input.authoredCredits, input.uncapturedFilms),
+     talentId: talent.id,
+     name: talent.name,
+     nameShared: input.nameShared,
+@@ -558,6 +574,7 @@ function buildEmployment(state: GameState, talent: Talent, week: number, busy: b
+   }
+   const info = employmentInfo(state, talent.id)
+   const contract = activeContract(state, talent.id)
++  const ordinaryWindow = contract ? ordinaryRenewalWindow(state, contract) : null
+   const wire: BridgePersonContractSnapshot | null =
+     info.contract && contract
+       ? {
+@@ -570,8 +587,8 @@ function buildEmployment(state: GameState, talent: Talent, week: number, busy: b
+           remainingWeeks: info.contract.remainingWeeks,
+           guaranteedRemaining: Math.round(guaranteedComp(contract, week)),
+           terminationCost: info.contract.terminationCost,
+-          renewalOpen: info.contract.renewalOpen,
+-          renewalLine: renewalLine(contract.endWeekExclusive, week, renewalWindowOpen(contract, week)),
++          renewalOpen: ordinaryWindow !== null && info.contract.renewalOpen,
++          renewalLine: ordinaryWindow === null ? 'Ordinary renewal unavailable under the recorded retirement boundary' : renewalLine(contract.endWeekExclusive, week, renewalWindowOpen(contract, week)),
+           // P10-R1: the two material actions and their legal windows, decided by the same
+           // authorities the quote family re-asks (the sheet can never disagree with the Profile).
+           actions: contractActionDecisions(state, talent.id),
+@@ -727,6 +744,8 @@ function decideAttention(
+   work: BridgePersonWorkSnapshot,
+   presence: BridgePersonPresenceSnapshot,
+   week: number,
++  lifecycle: BridgePersonLifecycle,
++  marketCase: BridgeMarketCaseSnapshot | null,
+ ): BridgePersonAttentionSnapshot {
+   // Highest tier first; one reason per person.
+   if (work.kind === 'ambiguous') {
+@@ -735,6 +754,14 @@ function decideAttention(
+   if (presence.onLot && presence.blockedReason !== null) {
+     return { tier: 'attention', reason: presence.blockedReason, cohort: 'presence-blocked' }
+   }
++  if (marketCase?.retirementExtension?.viewerCanOffer) {
++    return { tier: 'decision', reason: 'One final retirement extension may be offered by your studio.', cohort: 'retirement-extension' }
++  }
++  if (lifecycle.status === 'finishing_commitments') return { tier: 'info', reason: lifecycle.line, cohort: 'finishing-commitments' }
++  if (lifecycle.status === 'announced' && lifecycle.announcedWeek !== null && week >= lifecycle.announcedWeek && week - lifecycle.announcedWeek < 13) {
++    return { tier: 'info', reason: lifecycle.line, cohort: 'retirement-announced' }
++  }
++  if (lifecycle.status !== 'active') return { tier: null, reason: null, cohort: null }
+   const c = employment.contract
+   if (c !== null) {
+     if (c.renewalOpen) {
+@@ -764,7 +791,7 @@ function decideAttention(
+ }
+ 
+ function buildRoster(profiles: BridgePersonProfileSnapshot[]): BridgeRosterSnapshot {
+-  const rows: BridgeRosterRowSnapshot[] = profiles.map((p) => {
++  const rows: BridgeRosterRowSnapshot[] = profiles.filter(p => p.lifecycle.status !== 'retired').map((p) => {
+     const primary = p.disciplines.find((d) => d.isPrimary)!
+     const population: BridgeRosterRowSnapshot['population'] =
+       p.employment.status === 'contracted'
+@@ -773,6 +800,7 @@ function buildRoster(profiles: BridgePersonProfileSnapshot[]): BridgeRosterSnaps
+           ? 'freelancer'
+           : 'known'
+     return {
++      lifecycleStatus: p.lifecycle.status, lifecycleLine: p.lifecycle.line,
+       talentId: p.talentId,
+       name: p.name,
+       nameShared: p.nameShared,
+@@ -786,7 +814,7 @@ function buildRoster(profiles: BridgePersonProfileSnapshot[]): BridgeRosterSnaps
+       ovrByDiscipline: p.disciplines.map((d) => ({ discipline: d.discipline, label: d.label, ovr: d.ovr })),
+       starPower: p.starPower,
+       specialtyLine: p.specialtyLine,
+-      currentWork: p.work.kind === 'assigned' ? (p.work.label ?? '') : p.work.kind === 'ambiguous' ? 'Unknown' : 'Available',
++      currentWork: p.work.kind === 'assigned' ? (p.work.label ?? '') : p.work.kind === 'ambiguous' ? 'Unknown' : p.lifecycle.status === 'finishing_commitments' ? 'Finishing existing commitments' : 'Available',
+       availability: p.employment.availability,
+       status: p.employment.status,
+       contractLine: contractLine(p.employment),
+@@ -827,6 +855,9 @@ function contractLine(employment: BridgePersonEmploymentSnapshot): string {
+ const COHORT_LABEL: Record<string, { label: string; tier: BridgePersonAttentionTier; order: number }> = {
+   'work-ambiguous': { label: 'Current work could not be determined', tier: 'blocking', order: 0 },
+   'presence-blocked': { label: 'Blocked on the lot this week', tier: 'attention', order: 1 },
++  'retirement-extension': { label: 'One final retirement extension', tier: 'decision', order: 1.1 },
++  'finishing-commitments': { label: 'Finishing existing commitments', tier: 'info', order: 1.2 },
++  'retirement-announced': { label: 'Retirement announced', tier: 'info', order: 1.3 },
+   'renewal-open': { label: 'Renewal window open', tier: 'decision', order: 2 },
+   'contract-ends-26': { label: 'Contracts ending within 26 weeks', tier: 'attention', order: 3 },
+   'contract-ends-52': { label: 'Contracts ending within a year', tier: 'info', order: 4 },
+@@ -923,11 +954,18 @@ export function marketAttentionRows(
+   week: number,
+ ): BridgeMarketAttentionRowSnapshot[] {
+   const rows: BridgeMarketAttentionRowSnapshot[] = []
+-  // P14C.2b (780 §5.3): the one-issuer extension is not a contest; no row interrupts for it.
+-  if (latestCaseIsExtension(state, view.talentId)) return rows
+   const add = (cause: BridgeMarketAttentionRowSnapshot['cause'], reason: string): void => {
+     rows.push({ cause, talentId: view.talentId, reason })
+   }
++  if (latestCaseIsExtension(state, view.talentId)) {
++    const extension = retirementExtensionFields(state, view.talentId, viewerStudioId, week).retirementExtension
++    if (extension?.viewerCanOffer) {
++      add('retirementExtensionOpen', `One final extension may be offered before Week ${view.decisionWeek}; the contract would end in Week ${extension.endWeekExclusive}.`)
++    } else if (view.subjectStudioId === viewerStudioId && SETTLEMENT_OUTCOMES.has(view.status)) {
++      add('settlementCompleted', `The one final extension case closed in Week ${view.decisionWeek}.`)
++    }
++    return rows
++  }
+   const proposals = currentProposals(state, view.talentId)
+   const mine = proposals.find((p) => p.issuerStudioId === viewerStudioId)
+   // Interrupt only what is this studio's business: a case it has bid on, or one about
+@@ -969,8 +1007,7 @@ export function marketCaseProjection(
+ ): BridgeMarketCaseSnapshot | null {
+   if (state.hollywood === null) return null
+   const view = caseForTalent(state, talentId, week)
+-  // P14C.2b (780 §5.3): a person whose latest case is the extension holds no listable case.
+-  if (view === null || latestCaseIsExtension(state, talentId)) return null
++  if (view === null) return null
+   const disclosure = caseDisclosure(state, talentId, viewerStudioId, week)
+   const proposals: BridgeMarketProposalSnapshot[] = disclosure.proposals.map((row) => {
+     const common = {
+@@ -992,6 +1029,7 @@ export function marketCaseProjection(
+   const preferredTermWeeks = publicPreferredTerm(state, talentId)
+   return {
+     talentId: view.talentId,
++    ...retirementExtensionFields(state, talentId, viewerStudioId, week),
+     subjectStudioId: view.subjectStudioId,
+     status: view.status,
+     decisionWeek: view.decisionWeek,
+@@ -1009,7 +1047,9 @@ export function marketCaseProjection(
+       ...marketAttentionRows(state, view, viewerStudioId, week),
+       ...promiseAttentionRows(state, viewerStudioId, week, talentId),
+     ],
+-    settlementReasons: [...disclosure.settlementReasons],
++    settlementReasons: latestCaseIsExtension(state, talentId)
++      ? [...(extensionTerminalReceipt(state, talentId)?.kind === 'settled' ? extensionTerminalReceipt(state, talentId)!.reasons : [])]
++      : [...disclosure.settlementReasons],
+     // P14B.1 §4.5: the public descriptor label for THIS viewing studio, derived on
+     // read through the engine's own service. The Profile carries its driver text.
+     trustLabel: trustDescriptor(state, talentId, viewerStudioId, week).label,
+diff --git a/bridge/relationships.ts b/bridge/relationships.ts
+index 89586929..7f379580 100644
+--- a/bridge/relationships.ts
++++ b/bridge/relationships.ts
+@@ -25,6 +25,8 @@
+ //     readily as for a pair with one, and never implies a tier. A campaign that predates
+ //     the V31 root therefore shows counts and no tiers — nothing is backfilled.
+ import { pairChemistry, type PairChemistry } from '../src/core/relationships.ts'
++import { retirementRecordFor } from '../src/core/careerLifecycle.ts'
++import { campaignDate } from '../src/core/calendar.ts'
+ import type { GameState } from '../src/core/types.ts'
+ import type {
+   BridgeCastingChemistryRow, BridgeRelationshipBlock, BridgeRelationshipRow,
+@@ -186,6 +188,9 @@ export function relationshipBlockFor(
+   viewerStudioId: string,
+   week: number = state.market.tick,
+ ): BridgeRelationshipBlock {
++  const retirement = retirementRecordFor(state, talentId)
++  const asOfWeek = retirement?.status === 'retired' ? retirement.retiredWeek : null
++  let historicalTierNotice: string | null = null
+   const edges = state.relationships ?? []
+   const disclosed = rosterAt(state, viewerStudioId, talentId, week)
+   const tied = new Set<string>()
+@@ -201,7 +206,12 @@ export function relationshipBlockFor(
+   for (const counterpartId of [...disclosed].sort()) {
+     const sharedPictures = sharedPictureCount(state, talentId, counterpartId)
+     if (!tied.has(counterpartId) && sharedPictures === 0) continue
+-    const chemistry = chemistryOf(state, talentId, counterpartId, week)
++    const edge = edges.find(e => (e.a === talentId && e.b === counterpartId) || (e.b === talentId && e.a === counterpartId))
++    // Only inspect a disclosed counterpart. Later retained events cannot reconstruct
++    // a prior tier, and an undisclosed edge must not leak through the notice.
++    const unavailable = asOfWeek !== null && edge !== undefined && edge.lastEventWeek > asOfWeek
++    if (unavailable) historicalTierNotice = 'A retirement-dated tier cannot be reconstructed for a displayed tie with a later recorded event.'
++    const chemistry = unavailable ? NO_ROOT : chemistryOf(state, talentId, counterpartId, asOfWeek ?? week)
+     rows.push({
+       counterpartId,
+       counterpartName: names.get(counterpartId) ?? counterpartId,
+@@ -220,7 +230,7 @@ export function relationshipBlockFor(
+     : withheld ? withheldLine
+       : sharesViewerPicture(state, talentId, viewerStudioId) ? SHARED_NO_TIE_LINE
+         : QUIET_LINE
+-  return { line, rows }
++  return { line, rows, asOfWeek, asOfLabel: asOfWeek === null ? null : campaignDate(asOfWeek).label, historicalTierNotice }
+ }
+ 
+ /**
+diff --git a/bridge/retirement-extension.ts b/bridge/retirement-extension.ts
+new file mode 100644
+index 00000000..2f2486d8
+--- /dev/null
++++ b/bridge/retirement-extension.ts
+@@ -0,0 +1,49 @@
++// C.2-RM875: public case identity/terms only. Prices and proposal disclosure remain
++// with talentMarket; this projection never reads a rival's compensation.
++import { retirementRecordFor } from '../src/core/careerLifecycle.ts'
++import { TUNING } from '../src/core/tuning.ts'
++import { caseForTalent, latestCaseIsExtension, marketEligibility, openMarketCaseFor } from '../src/core/talentMarket.ts'
++import type { GameState } from '../src/core/types.ts'
++import type { BridgeMarketCaseSnapshot } from './schema/bridge-schema.ts'
++
++export function retirementExtensionFields(
++  state: GameState,
++  talentId: string,
++  viewerStudioId: string,
++  week: number = state.market.tick,
++): Pick<BridgeMarketCaseSnapshot, 'variant' | 'soleIssuerStudioId' | 'retirementExtension'> {
++  if (!latestCaseIsExtension(state, talentId)) {
++    return { variant: 'expiry', soleIssuerStudioId: null, retirementExtension: null }
++  }
++  const view = caseForTalent(state, talentId, week)
++  const issuer = view?.subjectStudioId ?? null
++  const record = retirementRecordFor(state, talentId)
++  const open = openMarketCaseFor(state, talentId, week)
++  // Closed cases retain the real issuer/variant, never a second opportunity
++  // computed from the effective week an accepted extension has already moved.
++  if (view === null || issuer === null || open === undefined || record?.status !== 'announced' || record.extensionUsed) {
++    return { variant: 'retirementExtension', soleIssuerStudioId: issuer, retirementExtension: null }
++  }
++  const endWeekExclusive = record.effectiveWeek + TUNING.RETIREMENT_NOTICE_WEEKS
++  return {
++    variant: 'retirementExtension', soleIssuerStudioId: issuer,
++    retirementExtension: {
++      issuerStudioId: issuer,
++      viewerCanOffer: marketEligibility(state, talentId, week).proposers.includes(viewerStudioId),
++      requiredTermWeeks: endWeekExclusive - view.decisionWeek,
++      startWeek: view.decisionWeek,
++      endWeekExclusive,
++    },
++  }
++}
++
++/** Receipts carry no case id, so join the latest case identity, terminal kind and
++ * exact closed week within its own opening span. Never borrow an older outcome. */
++export function extensionTerminalReceipt(state: GameState, talentId: string) {
++  const kase = [...state.talentMarket.cases].reverse().find(row => row.talentId === talentId)
++  if (kase?.variant !== 'retirementExtension' || kase.outcome === null || kase.closedWeek === null) return undefined
++  const view = caseForTalent(state, talentId)
++  if (view === null || view.contractId !== kase.contractId || view.openedWeek !== kase.openedWeek || view.status !== kase.outcome) return undefined
++  return [...state.talentMarket.receipts].reverse().find(receipt => receipt.talentId === talentId
++    && receipt.kind === kase.outcome && receipt.week === kase.closedWeek && receipt.week >= kase.openedWeek)
++}
+diff --git a/bridge/runtime-checkpoint.ts b/bridge/runtime-checkpoint.ts
+index 047e3040..7ca78b62 100644
+--- a/bridge/runtime-checkpoint.ts
++++ b/bridge/runtime-checkpoint.ts
+@@ -58,6 +58,10 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
+ // that window would carry the earlier hash, and this map is keyed on the
+ // hash, not the label.
+ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
++  // C.2-RM875: genuine outgoing51 current670/saved669 and its actual nonempty
++  // journal were preserved by872 before this projection-only boundary. Save37
++  // slots stay exact; old session/revision/journal authority follows the prior path.
++  ['sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f', 'projection-v51'],
+   // Record 840: genuine outgoing runtime50 checkpoints were preserved before
+   // this boundary (824 and 842). Each current/saved slot independently lifts
+   // to Save37; historical response journals do not become current-schema proof.
+diff --git a/bridge/schema/bridge-schema.ts b/bridge/schema/bridge-schema.ts
+index bfefa098..8d34cf59 100644
+--- a/bridge/schema/bridge-schema.ts
++++ b/bridge/schema/bridge-schema.ts
+@@ -269,7 +269,10 @@ export const PROTOCOL_VERSION = 4 as const
+ // Record 840 (projection 51): the current runtime now owns Save37's Scientist
+ // retirement law. No DTO field changes; exact schema50 checkpoints migrate both
+ // independent slots through the governed prior-schema path in the same slice.
+-export const PROJECTION_VERSION = 51 as const
++// C.2-RM875: lifecycle/alumni, retirement Calendar/Finance facts, one-issuer
++// extension routes and retirement-dated collaborators. Save37 remains current;
++// exact outgoing51 is registered before any52 checkpoint is minted.
++export const PROJECTION_VERSION = 52 as const
+ 
+ const nonEmptyText = () => text({ minLength: 1 })
+ const nonNegativeInteger = () => integer({ minimum: 0 })
+@@ -2469,6 +2472,9 @@ const MARKET_ATTENTION_CAUSES = [
+   'proposalWouldFail',
+   'promiseDue',
+   'promiseOutcome',
++  'retirementExtensionOpen',
++  'retirementAnnounced',
++  'finishingCommitments',
+ ] as const
+ const StudioMarketAttentionRowSnapshot = object('StudioMarketAttentionRowSnapshot', {
+   cause: enumeration(MARKET_ATTENTION_CAUSES),
+@@ -2490,7 +2496,20 @@ const StudioMarketPreferencesSnapshot = object('StudioMarketPreferencesSnapshot'
+   preferredOpportunity: enumeration(['significantCastRole', 'anyCastAppearance']),
+   line: nonEmptyText(),
+ })
++const StudioRetirementExtension = object('StudioRetirementExtension', {
++  issuerStudioId: nonEmptyText(),
++  viewerCanOffer: bool(),
++  requiredTermWeeks: integer({ minimum: 1 }),
++  startWeek: nonNegativeInteger(),
++  endWeekExclusive: nonNegativeInteger(),
++})
++const marketLifecycleFields = {
++  variant: enumeration(['expiry', 'retirementExtension']),
++  soleIssuerStudioId: nullable(nonEmptyText()),
++  retirementExtension: nullable(reference('StudioRetirementExtension', StudioRetirementExtension)),
++}
+ const StudioMarketCaseSnapshot = object('StudioMarketCaseSnapshot', {
++  ...marketLifecycleFields,
+   talentId: nonEmptyText(),
+   /** The employer whose contract is expiring (the case's subject studio). */
+   subjectStudioId: nonEmptyText(),
+@@ -2533,6 +2552,7 @@ const MARKET_CASE_OUTCOMES = ['settled', 'declined', 'expired', 'invalidated'] a
+ // when it decides, HOW MANY proposals are on the table (existence is public; the figures
+ // are not) and whether this studio is one of the issuers.
+ const StudioMarketCaseRow = object('StudioMarketCaseRow', {
++  ...marketLifecycleFields,
+   talentId: nonEmptyText(),
+   name: nonEmptyText(),
+   roleLabel: nonEmptyText(),
+@@ -2711,6 +2731,9 @@ const StudioRelationshipRow = object('StudioRelationshipRow', {
+   sharedPictures: nonNegativeInteger(),
+ })
+ const StudioRelationshipBlock = object('StudioRelationshipBlock', {
++  asOfWeek: nullable(nonNegativeInteger()),
++  asOfLabel: nullable(nonEmptyText()),
++  historicalTierNotice: nullable(nonEmptyText()),
+   /** Present on every profile. When ties exist that the player cannot see in their own
+    *  right, this line says so WITHOUT a count and WITHOUT an identity (the
+    *  `presence.withheld` precedent). */
+@@ -2718,7 +2741,28 @@ const StudioRelationshipBlock = object('StudioRelationshipBlock', {
+   rows: array(reference('StudioRelationshipRow', StudioRelationshipRow)),
+ })
+ 
++const lifecycleStatusEnum = () => enumeration(['active', 'announced', 'finishing_commitments', 'retired'])
++const StudioPersonLifecycle = object('StudioPersonLifecycle', {
++  status: lifecycleStatusEnum(), profession: professionEnum(), eligibleAge: nonNegativeInteger(), hardAge: nonNegativeInteger(), eligible: bool(),
++  line: nonEmptyText(), planningLine: nonEmptyText(), announcedWeek: nullable(nonNegativeInteger()), effectiveWeek: nullable(nonNegativeInteger()),
++  finishingFromWeek: nullable(nonNegativeInteger()), retiredWeek: nullable(nonNegativeInteger()), announcedLabel: nullable(nonEmptyText()),
++  effectiveLabel: nullable(nonEmptyText()), retiredLabel: nullable(nonEmptyText()), extensionUsed: nullable(bool()), extendedFromWeek: nullable(nonNegativeInteger()),
++})
++const StudioAlumniEmployer = object('StudioAlumniEmployer', {
++  studioId: nonEmptyText(), studioName: nonEmptyText(), fromWeek: nonNegativeInteger(), toWeek: nonNegativeInteger(),
++})
++const StudioAlumniFilmographyRef = object('StudioAlumniFilmographyRef', { view: literal('person'), targetId: nonEmptyText() })
++const StudioAlumniEmploymentRef = object('StudioAlumniEmploymentRef', { view: literal('employment'), targetId: nonEmptyText() })
++const StudioPersonAlumni = object('StudioPersonAlumni', {
++  profession: professionEnum(), retiredWeek: nonNegativeInteger(), retiredLabel: nonEmptyText(), extensionUsed: bool(),
++  recordedCredits: nonNegativeInteger(), authoredCredits: nonNegativeInteger(), campaignCredits: nonNegativeInteger(), uncapturedFilms: nonNegativeInteger(),
++  creditBasis: nonEmptyText(), recordingNotice: nullable(nonEmptyText()), honorsNotice: nonEmptyText(),
++  lastEmployer: nullable(reference('StudioAlumniEmployer', StudioAlumniEmployer)),
++  filmographyRef: reference('StudioAlumniFilmographyRef', StudioAlumniFilmographyRef), employmentRef: reference('StudioAlumniEmploymentRef', StudioAlumniEmploymentRef),
++})
+ const StudioPersonProfileSnapshot = object('StudioPersonProfileSnapshot', {
++  lifecycle: reference('StudioPersonLifecycle', StudioPersonLifecycle),
++  alumni: nullable(reference('StudioPersonAlumni', StudioPersonAlumni)),
+   talentId: nonEmptyText(),
+   name: nonEmptyText(),
+   nameShared: bool(),
+@@ -2763,6 +2807,7 @@ const StudioRosterOvrSnapshot = object('StudioRosterOvrSnapshot', {
+   ovr: number({ minimum: 0, maximum: 99 }),
+ })
+ const StudioRosterRowSnapshot = object('StudioRosterRowSnapshot', {
++  lifecycleStatus: lifecycleStatusEnum(), lifecycleLine: nonEmptyText(),
+   talentId: nonEmptyText(),
+   name: nonEmptyText(),
+   nameShared: bool(),
+@@ -3126,7 +3171,7 @@ const StudioFinanceAttention = object('StudioFinanceAttention', {
+   id: nonEmptyText(), message: nonEmptyText(), route: nullable(reference('StudioFinanceRoute', StudioFinanceRoute)),
+ })
+ const StudioFinanceUpcomingEvent = object('StudioFinanceUpcomingEvent', {
+-  id: nonEmptyText(), kind: enumeration(['facilityCompletion','facilityOpex','contractRenewal','contractExpiry','setCompletion']),
++  id: nonEmptyText(), kind: enumeration(['facilityCompletion','facilityOpex','contractRenewal','contractExpiry','setCompletion','retirement']),
+   week: nonNegativeInteger(), label: nonEmptyText(), detail: nonEmptyText(),
+   weeklyOperatingCostChange: nullable(number()), route: nullable(reference('StudioFinanceRoute', StudioFinanceRoute)),
+ })
+@@ -3561,6 +3606,7 @@ const definitions = {
+   StudioMarketAttentionRowSnapshot,
+   StudioMarketPreferencesSnapshot,
+   StudioMarketCaseSnapshot,
++  StudioRetirementExtension,
+   StudioMarketCaseRow,
+   StudioMarketFreeAgentRow,
+   StudioMarketClosedCases,
+@@ -3576,6 +3622,11 @@ const definitions = {
+   StudioTrustBlock,
+   StudioRelationshipRow,
+   StudioRelationshipBlock,
++  StudioPersonLifecycle,
++  StudioPersonAlumni,
++  StudioAlumniEmployer,
++  StudioAlumniFilmographyRef,
++  StudioAlumniEmploymentRef,
+   StudioPersonProfileSnapshot,
+   StudioRosterOvrSnapshot,
+   StudioRosterRowSnapshot,
+@@ -3748,6 +3799,8 @@ export const AVAILABLE_INTENT_KEYS = Object.keys(
+ ) as Array<keyof BridgeAvailableIntent>
+ 
+ export type CampaignRequest=InferSchema<typeof StudioCampaignRequest>
++export type BridgePersonLifecycle = InferSchema<typeof StudioPersonLifecycle>
++export type BridgePersonAlumni = InferSchema<typeof StudioPersonAlumni>
+ export type CampaignSummary=InferSchema<typeof StudioCampaignSummary>
+ export type CampaignLibraryResponse=InferSchema<typeof StudioCampaignLibraryResponse>
+ export type CampaignAcceptedResponse=InferSchema<typeof StudioCampaignAcceptedResponse>
+diff --git a/bridge/schema/industry-schema.ts b/bridge/schema/industry-schema.ts
+index f9c1888c..457c698f 100644
+--- a/bridge/schema/industry-schema.ts
++++ b/bridge/schema/industry-schema.ts
+@@ -132,7 +132,7 @@ const StudioIndustryFilm=object('StudioIndustryFilm',{filmId:id(),studioId:id(),
+ // figure-free: a rival's tier, salary and bonus remain behind A.1's disclosure and appear
+ // on no Industry row. The row's own `onPlayerLot` still states where the person is; a
+ // rival's person is never on the player's lot and no rival lot exists on this wire.
+-const StudioIndustryPerson=object('StudioIndustryPerson',{talentId:id(),name:id(),roleLabel:id(),employerStudioId:nullable(id()),employerName:nullable(id()),employmentLabel:id(),creditCount:count(),onPlayerLot:bool(),notice:id(),caseStatusLine:nullable(id()),caseRef:nullable(worldCaseRefRef())})
++const StudioIndustryPerson=object('StudioIndustryPerson',{lifecycleStatus:enumeration(['active','announced','finishing_commitments','retired']),lifecycleLine:id(),retiredWeek:nullable(count()),talentId:id(),name:id(),roleLabel:id(),employerStudioId:nullable(id()),employerName:nullable(id()),employmentLabel:id(),creditCount:count(),onPlayerLot:bool(),notice:id(),caseStatusLine:nullable(id()),caseRef:nullable(worldCaseRefRef())})
+ const StudioIndustryCredit=object('StudioIndustryCredit',{talentId:id(),name:id(),role:id(),employerStudioId:nullable(id()),employerName:nullable(id())})
+ // P13B-S7: `studioId` is NULLABLE. Every receipt-derived row still names the studio whose
+ // receipt it is; a DERIVED public milestone row (the technology announcement) is minted by
+@@ -153,8 +153,8 @@ export const StudioIndustryProjection=object('StudioIndustryProjection',{industr
+ // person's talentId (null for the buckets alone), `page` pages the CLOSED case bucket and
+ // the OPTIONAL `historyPage` pages the selected person's employer history. `historyPage` is
+ // optional so every request minted before projection 43 stays valid exactly as it is.
+-export const StudioIndustryRequest=object('StudioIndustryRequest',{protocolVersion:literal(4),schemaId:id(),sessionId:id(),requestId:id(),expectedStateRevision:count(),type:literal('industryQuery'),view:enumeration(['studios','studio','films','film','person','pulse','history','roster','project','employment','laboratory','plans','office','market']),targetId:nullable(id()),page:count(),pageSize:integer({minimum:1,maximum:50}),lane:enumeration([...INDUSTRY_LANES,...INDUSTRY_FILM_LANES]),period:enumeration(['recent','all','authored','live']),historyPage:optional(count())})
+-export const StudioIndustryResponse=object('StudioIndustryResponse',{protocolVersion:literal(4),schemaId:id(),snapshotVersion:count(),type:literal('industryPage'),requestId:id(),sessionId:id(),stateRevision:count(),stateDigest:id(),calendar:reference('StudioCampaignDate',StudioCampaignDate),view:enumeration(['studios','studio','films','film','person','pulse','history','roster','project','employment','laboratory','plans','office','market']),targetId:nullable(id()),page:count(),pageSize:integer({minimum:1,maximum:50}),totalRows:count(),pageCount:count(),lane:id(),period:id(),title:id(),notice:id(),studios:array(reference('StudioIndustryStudio',StudioIndustryStudio)),films:array(reference('StudioIndustryFilm',StudioIndustryFilm)),people:array(reference('StudioIndustryPerson',StudioIndustryPerson)),credits:array(reference('StudioIndustryCredit',StudioIndustryCredit)),activities:array(reference('StudioIndustryActivity',StudioIndustryActivity)),projects:array(reference('StudioIndustryProject',StudioIndustryProject)),tendencies:array(reference('StudioIndustryTendency',StudioIndustryTendency)),laboratory:nullable(reference('StudioLaboratoryPage',StudioLaboratoryPage)),plans:nullable(reference('StudioPlansPage',StudioPlansPage)),office:nullable(reference('StudioOfficePage',StudioOfficePage)),market:nullable(marketPageRef())})
++export const StudioIndustryRequest=object('StudioIndustryRequest',{protocolVersion:literal(4),schemaId:id(),sessionId:id(),requestId:id(),expectedStateRevision:count(),type:literal('industryQuery'),view:enumeration(['studios','studio','films','film','person','pulse','history','roster','project','employment','laboratory','plans','office','market','alumni']),targetId:nullable(id()),page:count(),pageSize:integer({minimum:1,maximum:50}),lane:enumeration([...INDUSTRY_LANES,...INDUSTRY_FILM_LANES]),period:enumeration(['recent','all','authored','live']),historyPage:optional(count())})
++export const StudioIndustryResponse=object('StudioIndustryResponse',{protocolVersion:literal(4),schemaId:id(),snapshotVersion:count(),type:literal('industryPage'),requestId:id(),sessionId:id(),stateRevision:count(),stateDigest:id(),calendar:reference('StudioCampaignDate',StudioCampaignDate),view:enumeration(['studios','studio','films','film','person','pulse','history','roster','project','employment','laboratory','plans','office','market','alumni']),targetId:nullable(id()),page:count(),pageSize:integer({minimum:1,maximum:50}),totalRows:count(),pageCount:count(),lane:id(),period:id(),title:id(),notice:id(),studios:array(reference('StudioIndustryStudio',StudioIndustryStudio)),films:array(reference('StudioIndustryFilm',StudioIndustryFilm)),people:array(reference('StudioIndustryPerson',StudioIndustryPerson)),credits:array(reference('StudioIndustryCredit',StudioIndustryCredit)),activities:array(reference('StudioIndustryActivity',StudioIndustryActivity)),projects:array(reference('StudioIndustryProject',StudioIndustryProject)),tendencies:array(reference('StudioIndustryTendency',StudioIndustryTendency)),laboratory:nullable(reference('StudioLaboratoryPage',StudioLaboratoryPage)),plans:nullable(reference('StudioPlansPage',StudioPlansPage)),office:nullable(reference('StudioOfficePage',StudioOfficePage)),market:nullable(marketPageRef())})
+ export const industryDefinitions={StudioAdoptionComponent,StudioCancellationRestoration,StudioActionQuoteComponent,StudioActionQuote,StudioEquipmentAsset,StudioAdoptionRow,StudioLaboratoryAction,StudioOfficeConversionRow,StudioOfficePage,StudioPlanQuoteComponent,StudioPlanQuote,StudioPlanNext,StudioPlanCommitReceipt,StudioPlanRow,StudioPlansPage,StudioLaboratorySeat,StudioResearchLabRow,StudioResearchReceipt,StudioResearchLabShare,StudioResearchWeek,StudioLaboratoryProject,StudioTechnologyForecast,StudioLaboratoryPage,StudioCampaignDate,StudioIndustryLane,StudioIndustryStudio,StudioIndustryFilm,StudioIndustryPerson,StudioIndustryCredit,StudioIndustryActivity,StudioIndustryProject,StudioIndustryTendency,StudioIndustrySummary,StudioIndustryProjection,StudioIndustryRequest,StudioIndustryResponse}
+ export type IndustryQuery=InferSchema<typeof StudioIndustryRequest>
+ export type IndustryPage=InferSchema<typeof StudioIndustryResponse>
+diff --git a/bridge/world.ts b/bridge/world.ts
+index 0e85fb71..27aef97e 100644
+--- a/bridge/world.ts
++++ b/bridge/world.ts
+@@ -59,8 +59,11 @@ export function personWorldRoute(
+   const present = onLot ?? studioPresence(state).people.some((person) => person.talentId === talentId)
+   const reach = present ? 'playerLot' : 'industry'
+   const view = caseForTalent(state, talentId, week)
+-  // P14C.2b (780 §5.3): the one-issuer extension is no renewal window and no market case to open.
+-  if (view === null || TERMINAL.has(view.status) || latestCaseIsExtension(state, talentId)) return { statusLine: null, caseRef: null, reach }
++  if (view === null || TERMINAL.has(view.status)) return { statusLine: null, caseRef: null, reach }
++  if (latestCaseIsExtension(state, talentId)) {
++    return { statusLine: `One final extension · decides Week ${view.decisionWeek}`,
++      caseRef: { view: 'market', targetId: talentId }, reach }
++  }
+   const statusLine =
+     view.decisionWeek <= week + 1
+       ? `Decides next week · Week ${String(view.decisionWeek)}`
+diff --git a/src/core/studioCalendar.ts b/src/core/studioCalendar.ts
+index bc1ec36e..9ab8cbd8 100644
+--- a/src/core/studioCalendar.ts
++++ b/src/core/studioCalendar.ts
+@@ -3,6 +3,7 @@
+ // This module creates no schedule, reservation, command, or second clock.
+ 
+ import { renewalWindowOpen, weeklySalary } from './employment.js'
++import { contractEndRefusal } from './careerLifecycle.js'
+ import { facilitySlotKey, occupiedResourceSlots, resourceSlotClaimsOf } from './occupancy.js'
+ import { offlineFacilityIds } from './officeConversion.js'
+ import {
+@@ -19,6 +20,7 @@ import { TUNING } from './tuning.js'
+ import type {
+   FacilityCapability,
+   GameState,
++  CreativeRole,
+   ProductionPhase,
+ } from './types.js'
+ 
+@@ -61,6 +63,14 @@ type CommitmentBase = {
+ }
+ 
+ export type StudioCalendarCommitmentView =
++  | (CommitmentBase & {
++      kind: 'retirement'
++      talentId: string
++      talentName: string
++      profession: CreativeRole
++      status: 'announced' | 'finishing_commitments'
++      announcedWeek: number
++    })
+   | (CommitmentBase & {
+       kind: 'scriptDue'
+       projectId: string
+@@ -154,7 +164,7 @@ export type StudioCalendarContractView = {
+   weeklySalary: number
+   remainingWeeks: number
+   renewalOpen: boolean
+-  renewalWindowWeek: number
++  renewalWindowWeek: number | null
+   endWeekExclusive: number
+ }
+ 
+@@ -216,6 +226,7 @@ const COMMITMENT_KIND_ORDER: Record<StudioCalendarCommitmentView['kind'], number
+   theatricalReceipt: 3,
+   contractRenewal: 4,
+   contractExpiry: 5,
++  retirement: 6,
+ }
+ 
+ const CONDITIONAL_RELEASE_ASSUMPTION =
+@@ -444,6 +455,14 @@ function commitmentPlacementId(event: StudioCalendarCommitmentView): number {
+   return event.kind === 'constructionCompletion' ? event.placementId : 0
+ }
+ 
++/** Presentation of the ordinary window, using the existing retirement cap law.
++ * Test terms at the first usable week, retaining a legal term ending exactly at E. */
++export function ordinaryRenewalWindow(state: GameState, contract: GameState['contracts'][number]): number | null {
++  const opening = Math.max(contract.startWeek, contract.endWeekExclusive - TUNING.HIRING_RENEWAL_WINDOW_WEEKS)
++  const decisionWeek = Math.max(state.market.tick, opening)
++  return TUNING.CONTRACT_TERM_OPTIONS.some(term => contractEndRefusal(state, contract.talentId, decisionWeek + term) === null) ? opening : null
++}
++
+ function commitmentViews(state: GameState): StudioCalendarCommitmentView[] {
+   const currentWeek = state.market.tick
+   const events: StudioCalendarCommitmentView[] = []
+@@ -537,11 +556,8 @@ function commitmentViews(state: GameState): StudioCalendarCommitmentView[] {
+     if (!(contract.startWeek <= currentWeek && currentWeek < contract.endWeekExclusive)) continue
+     const salary = weeklySalary(contract.annualSalary)
+     const talentName = requireTalentName(state, contract.talentId, 'contract')
+-    const renewalWeek = Math.max(
+-      contract.startWeek,
+-      contract.endWeekExclusive - TUNING.HIRING_RENEWAL_WINDOW_WEEKS,
+-    )
+-    events.push({
++    const renewalWeek = ordinaryRenewalWindow(state, contract)
++    if (renewalWeek !== null) events.push({
+       kind: 'contractRenewal',
+       certainty: 'committed',
+       week: renewalWeek,
+@@ -564,6 +580,13 @@ function commitmentViews(state: GameState): StudioCalendarCommitmentView[] {
+     })
+   }
+ 
++  for (const record of state.careerLifecycle?.records ?? []) {
++    if (record.status === 'retired') continue
++    events.push({ kind: 'retirement', certainty: 'committed', week: record.effectiveWeek,
++      ownerId: record.personId, occurrenceIndex: 0, talentId: record.personId,
++      talentName: requireTalentName(state, record.personId, 'retirement'), profession: record.profession,
++      status: record.status, announcedWeek: record.announcedWeek })
++  }
+   return events.sort((a, b) =>
+     a.week - b.week ||
+     COMMITMENT_KIND_ORDER[a.kind] - COMMITMENT_KIND_ORDER[b.kind] ||
+@@ -796,11 +819,8 @@ function staffingViews(state: GameState): StudioCalendarView['staffingHorizon']
+       talentName: requireTalentName(state, contract.talentId, 'contract'),
+       weeklySalary: weeklySalary(contract.annualSalary),
+       remainingWeeks: contract.endWeekExclusive - currentWeek,
+-      renewalOpen: renewalWindowOpen(contract, currentWeek),
+-      renewalWindowWeek: Math.max(
+-        contract.startWeek,
+-        contract.endWeekExclusive - TUNING.HIRING_RENEWAL_WINDOW_WEEKS,
+-      ),
++      renewalOpen: ordinaryRenewalWindow(state, contract) !== null && renewalWindowOpen(contract, currentWeek),
++      renewalWindowWeek: ordinaryRenewalWindow(state, contract),
+       endWeekExclusive: contract.endWeekExclusive,
+     }))
+     .sort((a, b) => compareId(a.talentId, b.talentId))
+diff --git a/ui/src/App.tsx b/ui/src/App.tsx
+index f0c10c0a..0feaa5de 100644
+--- a/ui/src/App.tsx
++++ b/ui/src/App.tsx
+@@ -2645,6 +2645,9 @@ export function App() {
+     returnContext: StudioReturnContext,
+   ) {
+     switch (route.kind) {
++      case 'profile':
++        openTalentProfile(route.talentId)
++        break
+       case 'script':
+         setScreen({ kind: 'writersRoom', returnContext, focusProjectId: route.projectId })
+         break
+diff --git a/ui/src/screens/StudioCalendar.tsx b/ui/src/screens/StudioCalendar.tsx
+index edbff865..2cd4bf6f 100644
+--- a/ui/src/screens/StudioCalendar.tsx
++++ b/ui/src/screens/StudioCalendar.tsx
+@@ -21,6 +21,7 @@ export type StudioCalendarRoute =
+   | { kind: 'production'; productionId: string }
+   | { kind: 'theatricalRun'; productionId: string }
+   | { kind: 'contract'; talentId: string }
++  | { kind: 'profile'; talentId: string }
+   | { kind: 'studioDevelopment' }
+   // C2a-M4 (§3.3): a queue remedy is only actionable if it goes somewhere. A
+   // ROOM is built on the lot, where the ground is chosen; SCENERY is commissioned
+@@ -93,6 +94,8 @@ function decisionCopy(
+ 
+ function commitmentRoute(event: StudioCalendarCommitmentView): StudioCalendarRoute {
+   switch (event.kind) {
++    case 'retirement':
++      return { kind: 'profile', talentId: event.talentId }
+     case 'scriptDue':
+       return { kind: 'script', projectId: event.projectId }
+     case 'castingDue':
+@@ -114,6 +117,13 @@ function commitmentCopy(event: StudioCalendarCommitmentView): {
+   ariaLabel: string
+ } {
+   switch (event.kind) {
++    case 'retirement':
++      return {
++        title: `${event.talentName} · ${event.status === 'finishing_commitments' ? 'Finishing commitments before retirement' : 'Retirement boundary'}`,
++        detail: `Retirement from ${event.profession}, announced Week ${event.announcedWeek}. This is nonfinancial; no automatic charge. Existing obligations may finish after Week ${event.week}; final completion is not yet known.`,
++        action: 'Open Profile',
++        ariaLabel: `Open ${event.talentName} Profile`,
++      }
+     case 'scriptDue':
+       return {
+         title: `${event.title} · ${event.activity === 'drafting' ? 'Draft due' : 'Rewrite due'}`,
+@@ -458,13 +468,13 @@ export function StudioCalendar({
+         <div className="spread">
+           <div>
+             <h2 id="calendar-commitments-heading">Committed schedule</h2>
+-            <p className="hint">Persisted due work, construction completion, locked Studio Revenue receipts, and contract boundaries.</p>
++            <p className="hint">Persisted due work, construction completion, locked Studio Revenue receipts, contract boundaries, and public announced retirement boundaries.</p>
+           </div>
+           <span className="tag fact">Committed</span>
+         </div>
+         {calendar.commitments.length === 0 ? (
+           <div className="empty" data-testid="calendar-no-commitments">
+-            No future work, construction, receipt, renewal, or expiry boundary is currently committed.
++            No future work, construction, receipt, renewal, expiry, or retirement boundary is currently committed.
+           </div>
+         ) : (
+           <ol className="calendar-event-list" data-testid="calendar-commitments">
+@@ -578,7 +588,7 @@ export function StudioCalendar({
+                     {contract.renewalOpen ? 'Renewal open' : `${contract.remainingWeeks} wk left`}
+                   </span>
+                 </div>
+-                <span>Renewal opens Week {contract.renewalWindowWeek} · exclusive end Week {contract.endWeekExclusive}</span>
++                <span>{contract.renewalWindowWeek === null ? 'Ordinary renewal unavailable under the recorded retirement boundary' : `Renewal opens Week ${contract.renewalWindowWeek}`} · exclusive end Week {contract.endWeekExclusive}</span>
+                 <span className="hint">{moneyExact(contract.weeklySalary)} weekly salary</span>
+                 <button
+                   type="button"

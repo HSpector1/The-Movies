@@ -34,6 +34,9 @@ import {
 import type { GameState, TalentProfile } from '../ui/src/engine/adapter.ts'
 import { studioPresence } from '../src/core/presence.ts'
 import { campaignDate } from '../src/core/calendar.ts'
+import { ordinaryRenewalWindow } from '../src/core/studioCalendar.ts'
+import { latestEmployers, personAlumni, personLifecycle } from './lifecycle.ts'
+import type { IndustryEmployment } from '../src/core/hollywoodTypes.ts'
 import { rivalEmployment } from '../src/core/hollywood.ts'
 import { DISCIPLINE_ORDER, PERSON_DISCIPLINE_ORDER, ROLE_TO_DISCIPLINE } from '../src/core/tuning.ts'
 import { guaranteedComp, activeContract, busyTalentIds, renewalWindowOpen } from '../src/core/employment.ts'
@@ -42,6 +45,7 @@ import {
   publicPreferredOpportunity, publicPreferredTerm, publicPriorityOrder, submitProposal, UNKNOWN,
 } from '../src/core/talentMarket.ts'
 import type { Disclosed, MarketCaseView } from '../src/core/talentMarket.ts'
+import { extensionTerminalReceipt, retirementExtensionFields } from './retirement-extension.ts'
 import { trustDescriptor } from '../src/core/promises.ts'
 import { promiseHistoryFor, unboxPromise } from './promises.ts'
 import { promiseAttentionRows, promiseRowsForPerson, trustBlockFor } from './trust.ts'
@@ -51,7 +55,7 @@ import { personWorldRoute } from './world.ts'
 import type {
   BridgeMarketAttentionRowSnapshot, BridgeMarketCaseSnapshot, BridgeMarketProposalSnapshot,
   BridgeMarketPromiseHistoryRow, BridgePersonContractActionsSnapshot, BridgeRelationshipBlock, BridgeTrustBlock,
-  BridgeWorldRouteSnapshot,
+  BridgeWorldRouteSnapshot, BridgePersonLifecycle, BridgePersonAlumni,
 } from './schema/bridge-schema.ts'
 import type {
   CreativeRole,
@@ -186,6 +190,8 @@ export type BridgePersonCareerSnapshot = {
 }
 
 export type BridgePersonProfileSnapshot = {
+  lifecycle: BridgePersonLifecycle
+  alumni: BridgePersonAlumni | null
   talentId: string
   name: string
   /** Another authoritative person shares this name — presentation must show the id. */
@@ -233,6 +239,8 @@ export type BridgePersonProfileSnapshot = {
 }
 
 export type BridgeRosterRowSnapshot = {
+  lifecycleStatus: BridgePersonLifecycle['status']
+  lifecycleLine: string
   talentId: string
   name: string
   nameShared: boolean
@@ -408,6 +416,7 @@ export function peopleProjection(state: GameState): BridgePeopleProjection {
   for (const t of state.talent) nameCounts.set(t.name, (nameCounts.get(t.name) ?? 0) + 1)
 
   const profiles: BridgePersonProfileSnapshot[] = []
+  const lastEmployers = latestEmployers(state)
   for (const talent of [...state.talent].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))) {
     const profile = talentProfile(state, talent.id)
     if (profile === undefined) continue
@@ -424,6 +433,7 @@ export function peopleProjection(state: GameState): BridgePeopleProjection {
         credits: creditsById.get(talent.id) ?? 0,
         authoredCredits: authoredCreditsById.get(talent.id) ?? 0,
         uncapturedFilms,
+        lastEmployer: lastEmployers.get(talent.id),
         events: eventsById.get(talent.id) ?? [],
       }),
     )
@@ -446,6 +456,7 @@ type ProfileInputs = {
   authoredCredits: number
   uncapturedFilms: number
   events: TalentCareerEvent[]
+  lastEmployer: IndustryEmployment | undefined
 }
 
 function buildProfile(
@@ -481,14 +492,23 @@ function buildProfile(
       ? 'No clear specialty'
       : `Top specialty: ${specialties.map((s) => s.label).join(' · ')}`
   const work = buildWork(state, talent.id)
+  const lifecycle = personLifecycle(state, talent)
   const employment = buildEmployment(state, talent, input.week, input.busy, work.kind === 'ambiguous')
   const presence = buildPresence(input)
+  if (lifecycle.status === 'retired') presence.canLocate = false
+  if (lifecycle.status === 'finishing_commitments' || lifecycle.status === 'retired') {
+    employment.offersAvailable = false
+    employment.availability = lifecycle.status === 'retired' ? 'Retired from profession' : 'Finishing existing commitments; no new work'
+    if (work.kind === 'available') work.reason = lifecycle.line
+  }
   const career = buildCareer(input)
-  const attention = decideAttention(employment, work, presence, input.week)
   const identityLabel = careerIdentityLabel(identity)
   const viewerStudioId = state.hollywood?.playerStudioId ?? ''
   const marketCase = marketCaseProjection(state, talent.id, viewerStudioId, input.week)
+  const attention = decideAttention(employment, work, presence, input.week, lifecycle, marketCase)
   return {
+    lifecycle,
+    alumni: personAlumni(state, talent, input.credits, input.authoredCredits, input.uncapturedFilms, input.lastEmployer),
     talentId: talent.id,
     name: talent.name,
     nameShared: input.nameShared,
@@ -558,6 +578,7 @@ function buildEmployment(state: GameState, talent: Talent, week: number, busy: b
   }
   const info = employmentInfo(state, talent.id)
   const contract = activeContract(state, talent.id)
+  const ordinaryWindow = contract ? ordinaryRenewalWindow(state, contract) : null
   const wire: BridgePersonContractSnapshot | null =
     info.contract && contract
       ? {
@@ -570,8 +591,8 @@ function buildEmployment(state: GameState, talent: Talent, week: number, busy: b
           remainingWeeks: info.contract.remainingWeeks,
           guaranteedRemaining: Math.round(guaranteedComp(contract, week)),
           terminationCost: info.contract.terminationCost,
-          renewalOpen: info.contract.renewalOpen,
-          renewalLine: renewalLine(contract.endWeekExclusive, week, renewalWindowOpen(contract, week)),
+          renewalOpen: ordinaryWindow !== null && info.contract.renewalOpen,
+          renewalLine: ordinaryWindow === null ? 'Ordinary renewal unavailable under the recorded retirement boundary' : renewalLine(contract.endWeekExclusive, week, renewalWindowOpen(contract, week)),
           // P10-R1: the two material actions and their legal windows, decided by the same
           // authorities the quote family re-asks (the sheet can never disagree with the Profile).
           actions: contractActionDecisions(state, talent.id),
@@ -727,6 +748,8 @@ function decideAttention(
   work: BridgePersonWorkSnapshot,
   presence: BridgePersonPresenceSnapshot,
   week: number,
+  lifecycle: BridgePersonLifecycle,
+  marketCase: BridgeMarketCaseSnapshot | null,
 ): BridgePersonAttentionSnapshot {
   // Highest tier first; one reason per person.
   if (work.kind === 'ambiguous') {
@@ -735,6 +758,14 @@ function decideAttention(
   if (presence.onLot && presence.blockedReason !== null) {
     return { tier: 'attention', reason: presence.blockedReason, cohort: 'presence-blocked' }
   }
+  if (marketCase?.retirementExtension?.viewerCanOffer) {
+    return { tier: 'decision', reason: 'One final retirement extension may be offered by your studio.', cohort: 'retirement-extension' }
+  }
+  if (lifecycle.status === 'finishing_commitments') return { tier: 'info', reason: lifecycle.line, cohort: 'finishing-commitments' }
+  if (lifecycle.status === 'announced' && lifecycle.announcedWeek !== null && week >= lifecycle.announcedWeek && week - lifecycle.announcedWeek < 13) {
+    return { tier: 'info', reason: lifecycle.line, cohort: 'retirement-announced' }
+  }
+  if (lifecycle.status !== 'active') return { tier: null, reason: null, cohort: null }
   const c = employment.contract
   if (c !== null) {
     if (c.renewalOpen) {
@@ -764,7 +795,7 @@ function decideAttention(
 }
 
 function buildRoster(profiles: BridgePersonProfileSnapshot[]): BridgeRosterSnapshot {
-  const rows: BridgeRosterRowSnapshot[] = profiles.map((p) => {
+  const rows: BridgeRosterRowSnapshot[] = profiles.filter(p => p.lifecycle.status !== 'retired').map((p) => {
     const primary = p.disciplines.find((d) => d.isPrimary)!
     const population: BridgeRosterRowSnapshot['population'] =
       p.employment.status === 'contracted'
@@ -773,6 +804,7 @@ function buildRoster(profiles: BridgePersonProfileSnapshot[]): BridgeRosterSnaps
           ? 'freelancer'
           : 'known'
     return {
+      lifecycleStatus: p.lifecycle.status, lifecycleLine: p.lifecycle.line,
       talentId: p.talentId,
       name: p.name,
       nameShared: p.nameShared,
@@ -786,7 +818,7 @@ function buildRoster(profiles: BridgePersonProfileSnapshot[]): BridgeRosterSnaps
       ovrByDiscipline: p.disciplines.map((d) => ({ discipline: d.discipline, label: d.label, ovr: d.ovr })),
       starPower: p.starPower,
       specialtyLine: p.specialtyLine,
-      currentWork: p.work.kind === 'assigned' ? (p.work.label ?? '') : p.work.kind === 'ambiguous' ? 'Unknown' : 'Available',
+      currentWork: p.work.kind === 'assigned' ? (p.work.label ?? '') : p.work.kind === 'ambiguous' ? 'Unknown' : p.lifecycle.status === 'finishing_commitments' ? 'Finishing existing commitments' : 'Available',
       availability: p.employment.availability,
       status: p.employment.status,
       contractLine: contractLine(p.employment),
@@ -827,6 +859,9 @@ function contractLine(employment: BridgePersonEmploymentSnapshot): string {
 const COHORT_LABEL: Record<string, { label: string; tier: BridgePersonAttentionTier; order: number }> = {
   'work-ambiguous': { label: 'Current work could not be determined', tier: 'blocking', order: 0 },
   'presence-blocked': { label: 'Blocked on the lot this week', tier: 'attention', order: 1 },
+  'retirement-extension': { label: 'One final retirement extension', tier: 'decision', order: 1.1 },
+  'finishing-commitments': { label: 'Finishing existing commitments', tier: 'info', order: 1.2 },
+  'retirement-announced': { label: 'Retirement announced', tier: 'info', order: 1.3 },
   'renewal-open': { label: 'Renewal window open', tier: 'decision', order: 2 },
   'contract-ends-26': { label: 'Contracts ending within 26 weeks', tier: 'attention', order: 3 },
   'contract-ends-52': { label: 'Contracts ending within a year', tier: 'info', order: 4 },
@@ -923,10 +958,17 @@ export function marketAttentionRows(
   week: number,
 ): BridgeMarketAttentionRowSnapshot[] {
   const rows: BridgeMarketAttentionRowSnapshot[] = []
-  // P14C.2b (780 §5.3): the one-issuer extension is not a contest; no row interrupts for it.
-  if (latestCaseIsExtension(state, view.talentId)) return rows
   const add = (cause: BridgeMarketAttentionRowSnapshot['cause'], reason: string): void => {
     rows.push({ cause, talentId: view.talentId, reason })
+  }
+  if (latestCaseIsExtension(state, view.talentId)) {
+    const extension = retirementExtensionFields(state, view.talentId, viewerStudioId, week).retirementExtension
+    if (extension?.viewerCanOffer) {
+      add('retirementExtensionOpen', `One final extension may be offered before Week ${view.decisionWeek}; the contract would end in Week ${extension.endWeekExclusive}.`)
+    } else if (view.subjectStudioId === viewerStudioId && SETTLEMENT_OUTCOMES.has(view.status)) {
+      add('settlementCompleted', `The one final extension case closed in Week ${view.decisionWeek}.`)
+    }
+    return rows
   }
   const proposals = currentProposals(state, view.talentId)
   const mine = proposals.find((p) => p.issuerStudioId === viewerStudioId)
@@ -969,8 +1011,7 @@ export function marketCaseProjection(
 ): BridgeMarketCaseSnapshot | null {
   if (state.hollywood === null) return null
   const view = caseForTalent(state, talentId, week)
-  // P14C.2b (780 §5.3): a person whose latest case is the extension holds no listable case.
-  if (view === null || latestCaseIsExtension(state, talentId)) return null
+  if (view === null) return null
   const disclosure = caseDisclosure(state, talentId, viewerStudioId, week)
   const proposals: BridgeMarketProposalSnapshot[] = disclosure.proposals.map((row) => {
     const common = {
@@ -992,6 +1033,7 @@ export function marketCaseProjection(
   const preferredTermWeeks = publicPreferredTerm(state, talentId)
   return {
     talentId: view.talentId,
+    ...retirementExtensionFields(state, talentId, viewerStudioId, week),
     subjectStudioId: view.subjectStudioId,
     status: view.status,
     decisionWeek: view.decisionWeek,
@@ -1009,7 +1051,9 @@ export function marketCaseProjection(
       ...marketAttentionRows(state, view, viewerStudioId, week),
       ...promiseAttentionRows(state, viewerStudioId, week, talentId),
     ],
-    settlementReasons: [...disclosure.settlementReasons],
+    settlementReasons: latestCaseIsExtension(state, talentId)
+      ? [...(extensionTerminalReceipt(state, talentId)?.kind === 'settled' ? extensionTerminalReceipt(state, talentId)!.reasons : [])]
+      : [...disclosure.settlementReasons],
     // P14B.1 §4.5: the public descriptor label for THIS viewing studio, derived on
     // read through the engine's own service. The Profile carries its driver text.
     trustLabel: trustDescriptor(state, talentId, viewerStudioId, week).label,

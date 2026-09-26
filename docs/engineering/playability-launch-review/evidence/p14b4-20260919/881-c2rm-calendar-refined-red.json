@@ -1,0 +1,22 @@
+{
+  "sourceSha": "c3da00847bbdbdd2dc448d94e45d19cd5a2e56ae",
+  "testedDiffSha256": "0fb64cbfd09222bffa264b6c3cf4b66fa511b13984eb99a74f45633effa4e642",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "ui",
+    "ui/src/screens/StudioCalendar.retirement.test.tsx"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-26T16:22:12.220Z",
+  "end": "2026-09-26T16:22:20.494Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "c3da00847bbdbdd2dc448d94e45d19cd5a2e56ae",
+  "testedDiffSha256AtEnd": "0fb64cbfd09222bffa264b6c3cf4b66fa511b13984eb99a74f45633effa4e642",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

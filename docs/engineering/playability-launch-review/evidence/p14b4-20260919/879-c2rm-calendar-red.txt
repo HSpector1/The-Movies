@@ -1,0 +1,44 @@
+{"sourceSha":"c3da00847bbdbdd2dc448d94e45d19cd5a2e56ae","testedDiffSha256":"eaea6ea9f67368529b78432475f6f7b31020b6671e19c2d38201d0d9927d6490","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","ui","ui/src/screens/StudioCalendar.retirement.test.tsx"],"node":"v20.20.2","start":"2026-09-26T16:14:57.235Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |ui| ui/src/screens/StudioCalendar.retirement.test.tsx (2 tests | 2 failed) 16ms
+   × C.2-RM real Calendar retirement route > shows the public boundary immediately beyond the Finance horizon, with nonfinancial wording and exact profile identity 12ms
+     → ENOENT: no such file or directory, open '/tests/fixtures/p14/genuine-projection51-runtime-c2rm/genuine-v37-scientist-week618.json.gz'
+   × C.2-RM real Calendar retirement route > App opens the existing exact off-roster profile and restores Calendar focus without gameplay/autosave writes 2ms
+     → ENOENT: no such file or directory, open '/tests/fixtures/p14/genuine-projection51-runtime-c2rm/genuine-v37-scientist-week618.json.gz'
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |ui|  ui/src/screens/StudioCalendar.retirement.test.tsx > C.2-RM real Calendar retirement route > shows the public boundary immediately beyond the Finance horizon, with nonfinancial wording and exact profile identity
+Error: ENOENT: no such file or directory, open '/tests/fixtures/p14/genuine-projection51-runtime-c2rm/genuine-v37-scientist-week618.json.gz'
+ ❯ Module.scientistSnapshot tests/helpers/p14c2rm-fixtures.ts:54:14
+     52| } as const
+     53| export function scientistSnapshot(week: keyof typeof SCIENTIST_SAVES):…
+     54|   const gz = readFileSync(runtime51Artifact(`genuine-v37-scientist-wee…
+       |              ^
+     55|   expect(sha(gz)).toBe(SCIENTIST_SAVES[week][0])
+     56|   const raw = gunzipSync(gz).toString('utf8')
+ ❯ ui/src/screens/StudioCalendar.retirement.test.tsx:24:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |ui|  ui/src/screens/StudioCalendar.retirement.test.tsx > C.2-RM real Calendar retirement route > App opens the existing exact off-roster profile and restores Calendar focus without gameplay/autosave writes
+Error: ENOENT: no such file or directory, open '/tests/fixtures/p14/genuine-projection51-runtime-c2rm/genuine-v37-scientist-week618.json.gz'
+ ❯ Module.scientistSnapshot tests/helpers/p14c2rm-fixtures.ts:54:14
+     52| } as const
+     53| export function scientistSnapshot(week: keyof typeof SCIENTIST_SAVES):…
+     54|   const gz = readFileSync(runtime51Artifact(`genuine-v37-scientist-wee…
+       |              ^
+     55|   expect(sha(gz)).toBe(SCIENTIST_SAVES[week][0])
+     56|   const raw = gunzipSync(gz).toString('utf8')
+ ❯ ui/src/screens/StudioCalendar.retirement.test.tsx:41:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  18:14:57
+   Duration  8.01s (transform 3.58s, setup 378ms, collect 4.91s, tests 16ms, environment 2.08s, prepare 155ms)
+

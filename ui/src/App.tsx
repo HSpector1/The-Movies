@@ -2645,6 +2645,9 @@ export function App() {
     returnContext: StudioReturnContext,
   ) {
     switch (route.kind) {
+      case 'profile':
+        openTalentProfile(route.talentId)
+        break
       case 'script':
         setScreen({ kind: 'writersRoom', returnContext, focusProjectId: route.projectId })
         break

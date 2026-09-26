@@ -1,0 +1,150 @@
+{"sourceSha":"c3da00847bbdbdd2dc448d94e45d19cd5a2e56ae","testedDiffSha256":"6f4f8b6a1b274eeea706dc6a8e7928610395d27cb02de093a968cbb83960bd71","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-p14c2rm-runtime.test.ts","tests/bridge-p14c2rm-proposals.test.ts","tests/bridge-p14c2rm-retirement.test.ts"],"node":"v20.20.2","start":"2026-09-26T16:22:59.201Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p14c2rm-runtime.test.ts (8 tests) 43262ms
+   ✓ C.2-RM genuine projection51 recovery > preserves the real producer, actual nonempty journal and independent announced669/retired670 slots 1384ms
+   ✓ C.2-RM genuine projection51 recovery > lifts both slots byte-exactly but resets old journal/revision/session authority, then reopens52 without migration 8574ms
+   ✓ C.2-RM genuine projection51 recovery > rejects the old command identity and replays only a new52 saved-slot LOAD receipt after restart 18394ms
+   ✓ C.2-RM genuine projection51 recovery > rejects invalid currentSaveJson through whole-save validation before creating a new session 1039ms
+   ✓ C.2-RM genuine projection51 recovery > rejects invalid savedSaveJson through whole-save validation before creating a new session 1679ms
+   ✓ C.2-RM genuine projection51 recovery > refuses unknown schema, corrupted digest and a reused prior session id without touching the artifact 2155ms
+   ✓ C.2-RM genuine projection51 recovery > keeps independently recovered Save As branches isolated despite identical PersonIds and source bytes 10034ms
+ ❯ |core| tests/bridge-p14c2rm-retirement.test.ts (21 tests | 3 failed) 87782ms
+   ✓ C.2-RM planning and actual retirement announcements > actor profile states literal eligibility 60/hard70 without inventing intent 1397ms
+   ✓ C.2-RM planning and actual retirement announcements > director profile states literal eligibility 65/hard75 without inventing intent 838ms
+   ✓ C.2-RM planning and actual retirement announcements > writer profile states literal eligibility 65/hard75 without inventing intent 672ms
+   ✓ C.2-RM planning and actual retirement announcements > craft profile states literal eligibility 62/hard72 without inventing intent 715ms
+   ✓ C.2-RM planning and actual retirement announcements > scientist profile states literal eligibility 62/hard72 without inventing intent 3181ms
+   ✓ C.2-RM planning and actual retirement announcements > a genuine old save lifted past hard age stays active until an actual recorded announcement 1430ms
+   ✓ C.2-RM planning and actual retirement announcements > natural Scientist announcement is immediate on real Calendar, with honest finite Finance exclusion 3000ms
+   ✓ C.2-RM planning and actual retirement announcements > announcement news lasts exactly13 weeks even without a case; profiles and Calendar persist afterward 3964ms
+   ✓ C.2-RM obligations, retired discovery and public boundaries > actual held Scientist work stays finishing through overdue E, then real cancel/tick retires without deleting identity 9959ms
+   × C.2-RM obligations, retired discovery and public boundaries > a naturally announced contracted writer can start genuine writing at E−1 and finishes it after E 13027ms
+     → script development invariant: active project "script-0000" writer is not contracted
+   × C.2-RM obligations, retired discovery and public boundaries > a lawful original screenplay crossing E remains a saveable whole live campaign while its writer finishes 7649ms
+     → script development invariant: active project "script-0000" writer is not contracted
+   ✓ C.2-RM obligations, retired discovery and public boundaries > unavailable ordinary windows disappear before/open/after the final extension while actual expiry stays 2001ms
+   ✓ C.2-RM obligations, retired discovery and public boundaries > a naturally announced actor retains an exactly capped lawful ordinary renewal, then loses it one week later 1805ms
+   × C.2-RM obligations, retired discovery and public boundaries > 65 actual retirement boundaries remain in Calendar, bounded Finance rows count exact overflow, and alumni paginate deterministically 2910ms
+     → expected { protocolVersion: 4, …(29) } to match object { accepted: false }
+(35 matching properties omitted from actual)
+   ✓ C.2-RM alumni evidence and disclosure > an actual release and real retirement preserve credit/promise/employer routes and invent no honors 6025ms
+   ✓ C.2-RM alumni evidence and disclosure > SYNTHETIC validated imported role-credit variant counts two roles on one actual film, not one distinct film 322ms
+   ✓ C.2-RM alumni evidence and disclosure > a genuine long-career alumnus counts the complete >24 credit record, not the bounded profile rows 4849ms
+   ✓ C.2-RM alumni evidence and disclosure > natural retired tiers stay fixed across real drift while lawful current employment changes disclosure 10668ms
+   ✓ C.2-RM alumni evidence and disclosure > SYNTHETIC imported newer edge withholds unreconstructible retirement tier, with no hidden-counterpart notice leak 796ms
+   ✓ C.2-RM alumni evidence and disclosure > whole snapshots validate and campaign-local people with identical ids never share lifecycle data 12403ms
+ ✓ |core| tests/bridge-p14c2rm-proposals.test.ts (13 tests) 95487ms
+   ✓ C.2-RM discovered one-issuer extension through every existing reader > gap real case publishes one exact opportunity, shared across profile, list, detail and world route 3399ms
+   ✓ C.2-RM discovered one-issuer extension through every existing reader > exact real case publishes one exact opportunity, shared across profile, list, detail and world route 3793ms
+   ✓ C.2-RM discovered one-issuer extension through every existing reader > rival extension is readable but read-only, with exact UNKNOWN figures and no own extension alert 20819ms
+   ✓ C.2-RM exact public proposal commands > a new extension never inherits a genuine earlier ordinary settlement explanation 9844ms
+   ✓ C.2-RM exact public proposal commands > gap quote -> submit -> revise -> withdraw uses exact term and never charges before settlement 11125ms
+   ✓ C.2-RM exact public proposal commands > exact quote -> submit -> revise -> withdraw uses exact term and never charges before settlement 10926ms
+   ✓ C.2-RM exact public proposal commands > wrong terms, no case, promises, ordinary off-catalogue terms and forged issuer are refused without state changes 4053ms
+   ✓ C.2-RM exact public proposal commands > a real58-week proposal settles once at98, survives save/runtime replay, and never opens a second opportunity 30545ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-retirement.test.ts > C.2-RM obligations, retired discovery and public boundaries > a naturally announced contracted writer can start genuine writing at E−1 and finishes it after E
+Error: script development invariant: active project "script-0000" writer is not contracted
+ ❯ invariant src/core/scriptDevelopment.ts:808:25
+    806| 
+    807| function invariant(condition: boolean, message: string): asserts condi…
+    808|   if (!condition) throw new Error(`script development invariant: ${mes…
+       |                         ^
+    809| }
+    810| 
+ ❯ Module.assertScriptDevelopmentInvariants src/core/scriptDevelopment.ts:1112:9
+ ❯ Module.assertStudioConstructionInvariants src/core/construction.ts:396:3
+ ❯ Module.assertStudioPlacementInvariants src/core/placement.ts:2276:3
+ ❯ Module.tick src/core/tick.ts:219:3
+ ❯ Module.advanceTo src/harness/p13a/fixtures.ts:15:44
+ ❯ Module.finishingWriter tests/helpers/p14c2rm-fixtures.ts:126:30
+ ❯ tests/bridge-p14c2rm-retirement.test.ts:180:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-retirement.test.ts > C.2-RM obligations, retired discovery and public boundaries > a lawful original screenplay crossing E remains a saveable whole live campaign while its writer finishes
+Error: script development invariant: active project "script-0000" writer is not contracted
+ ❯ invariant src/core/scriptDevelopment.ts:808:25
+    806| 
+    807| function invariant(condition: boolean, message: string): asserts condi…
+    808|   if (!condition) throw new Error(`script development invariant: ${mes…
+       |                         ^
+    809| }
+    810| 
+ ❯ Module.assertScriptDevelopmentInvariants src/core/scriptDevelopment.ts:1112:9
+ ❯ Module.assertStudioConstructionInvariants src/core/construction.ts:396:3
+ ❯ Module.assertStudioPlacementInvariants src/core/placement.ts:2276:3
+ ❯ Module.tick src/core/tick.ts:219:3
+ ❯ Module.advanceTo src/harness/p13a/fixtures.ts:15:44
+ ❯ Module.finishingWriter tests/helpers/p14c2rm-fixtures.ts:126:30
+ ❯ tests/bridge-p14c2rm-retirement.test.ts:190:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-retirement.test.ts > C.2-RM obligations, retired discovery and public boundaries > 65 actual retirement boundaries remain in Calendar, bounded Finance rows count exact overflow, and alumni paginate deterministically
+AssertionError: expected { protocolVersion: 4, …(29) } to match object { accepted: false }
+(35 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "accepted": false,
++   "activities": Array [],
++   "calendar": Object {
++     "absoluteWeek": 104,
++     "label": "1922 · Week 1",
++     "policy": "campaign-calendar-1920-52/v1",
++     "weekOfYear": 1,
++     "year": 1922,
++   },
++   "credits": Array [],
++   "films": Array [],
++   "laboratory": null,
++   "lane": "recent",
++   "market": null,
++   "notice": "Retired professionals remain in the public record. Recorded credits count roles on released films; honors are not recorded.",
++   "office": null,
++   "page": 0,
++   "pageCount": Infinity,
++   "pageSize": 0,
++   "people": Array [],
++   "period": "all",
++   "plans": null,
++   "projects": Array [],
++   "protocolVersion": 4,
++   "requestId": "read",
++   "schemaId": "sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2",
++   "sessionId": "c2rm-industry",
++   "snapshotVersion": 52,
++   "stateDigest": "e68e0092ecad0b13ddaab78da76de58d97c70cfdf5a9039b3c42a8c68b372502",
++   "stateRevision": 0,
++   "studios": Array [],
++   "targetId": null,
++   "tendencies": Array [],
++   "title": "Alumni",
++   "totalRows": 65,
++   "type": "industryPage",
++   "view": "alumni",
+  }
+
+ ❯ tests/bridge-p14c2rm-retirement.test.ts:275:68
+    273|     const session = new BridgeSession(f.retired, 'c2rm-industry')
+    274|     for (const invalid of [{ pageSize: 0 }, { pageSize: 51 }, { target…
+    275|       expect(session.industry({ ...query('alumni'), ...invalid })).toM…
+       |                                                                    ^
+    276|     }
+    277|     const projection = peopleProjection(f.retired)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  3 failed | 39 passed (42)
+   Start at  18:22:59
+   Duration  99.75s (transform 3.50s, setup 0ms, collect 10.70s, tests 226.53s, environment 1ms, prepare 573ms)
+

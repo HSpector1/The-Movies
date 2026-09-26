@@ -52,6 +52,7 @@ import { corePredicateOf, promiseQuoteSnapshot } from './promises.ts'
 import type { WirePromiseDraft } from './promises.ts'
 import { attachPromise } from '../src/core/promises.ts'
 import { latestCaseIsExtension } from '../src/core/talentMarket.ts'
+import { retirementExtensionFields } from './retirement-extension.ts'
 import { TUNING } from '../src/core/tuning.ts'
 import type { ActionOutcome } from '../ui/src/engine/adapter.ts'
 import type {
@@ -431,7 +432,9 @@ function liveMarketRefusal(state: GameState, draft: MarketProposalDraft, talent:
       return {
         code: 'insufficientFunds',
         reason: `The studio cannot cover the ${dollars(priced.signingBonus)} signing bonus this proposal would owe at settlement (${affordability.reason}).`,
-        remedy: 'Choose a shorter term or a lower tier, or propose once cash allows.',
+        remedy: latestCaseIsExtension(state, talent.id)
+          ? 'Choose lower compensation, or propose once cash allows. This final extension has a fixed ending boundary.'
+          : 'Choose a shorter term or a lower tier, or propose once cash allows.',
       }
     }
   }
@@ -507,7 +510,11 @@ export function marketProposalDraftToEngine(state: GameState, input: MarketPropo
   }
   const priced = draft.verb === 'withdraw'
   if (!priced) {
-    if (draft.termWeeks === null || draft.termWeeks === undefined || !TUNING.CONTRACT_TERM_OPTIONS.includes(draft.termWeeks)) {
+    const extension = retirementExtensionFields(state, talent.id, draft.issuerStudioId).retirementExtension
+    const exactExtension = extension !== null && extension.viewerCanOffer
+      && extension.issuerStudioId === draft.issuerStudioId && draft.termWeeks === extension.requiredTermWeeks
+    if (draft.termWeeks === null || draft.termWeeks === undefined
+      || (!TUNING.CONTRACT_TERM_OPTIONS.includes(draft.termWeeks) && !exactExtension)) {
       return { ok: false, error: 'Choose one of the published terms before proposing.' }
     }
     if (draft.premiumTier === null || draft.premiumTier === undefined || !isPremiumTier(draft.premiumTier)) {
@@ -557,7 +564,7 @@ export function marketProposalQuoteSnapshot(
   conversion: MarketProposalConversionOk,
   intentId: string,
 ): BridgeMarketProposalQuoteSnapshot {
-  const { talent, refusal, annualSalary, signingBonus, termWeeks, decisionWeek } = conversion
+  const { talent, refusal, annualSalary, signingBonus, termWeeks, decisionWeek, effectiveWeek } = conversion
   const ok = refusal === null && conversion.promise?.ok !== false
   const consequence = refusal !== null
     ? `${refusal.reason} ${refusal.remedy}`.trim()
@@ -567,7 +574,7 @@ export function marketProposalQuoteSnapshot(
         ? `Withdraws your proposal for ${talent.name}. Nothing is charged, and you may propose again while the case is open.`
         // P14C.2b (780 §5.3): the one final extension is one issuer's offer, never a contest.
         : latestCaseIsExtension(state, talent.id)
-          ? `Stands until Week ${String(decisionWeek ?? state.market.tick)}, when ${talent.name} decides on this one final extension before retiring. If they accept, the contract runs ${contractTermLabel(termWeeks ?? 0)} at ${dollars(annualSalary ?? 0)} a year and the ${dollars(signingBonus ?? 0)} signing bonus is paid then — nothing is charged now.`
+          ? `Stands until Week ${String(decisionWeek ?? state.market.tick)}, when ${talent.name} decides on this one final extension before retiring. If they accept, the contract runs from Week ${effectiveWeek} until Week ${(effectiveWeek ?? 0) + (termWeeks ?? 0)} (exclusive; ${contractTermLabel(termWeeks ?? 0)}) at ${dollars(annualSalary ?? 0)} a year and the ${dollars(signingBonus ?? 0)} signing bonus is paid then — nothing is charged now.`
           : `Stands until Week ${String(decisionWeek ?? state.market.tick)}, when ${talent.name} chooses among every proposal on the table. If they choose yours, the contract runs ${contractTermLabel(termWeeks ?? 0)} at ${dollars(annualSalary ?? 0)} a year and the ${dollars(signingBonus ?? 0)} signing bonus is paid then — nothing is charged now. A competing studio's terms stay UNKNOWN.`
   return {
     intentId,

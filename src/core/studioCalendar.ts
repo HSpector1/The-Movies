@@ -3,6 +3,7 @@
 // This module creates no schedule, reservation, command, or second clock.
 
 import { renewalWindowOpen, weeklySalary } from './employment.js'
+import { contractEndRefusal } from './careerLifecycle.js'
 import { facilitySlotKey, occupiedResourceSlots, resourceSlotClaimsOf } from './occupancy.js'
 import { offlineFacilityIds } from './officeConversion.js'
 import {
@@ -19,6 +20,7 @@ import { TUNING } from './tuning.js'
 import type {
   FacilityCapability,
   GameState,
+  CreativeRole,
   ProductionPhase,
 } from './types.js'
 
@@ -61,6 +63,14 @@ type CommitmentBase = {
 }
 
 export type StudioCalendarCommitmentView =
+  | (CommitmentBase & {
+      kind: 'retirement'
+      talentId: string
+      talentName: string
+      profession: CreativeRole
+      status: 'announced' | 'finishing_commitments'
+      announcedWeek: number
+    })
   | (CommitmentBase & {
       kind: 'scriptDue'
       projectId: string
@@ -154,7 +164,7 @@ export type StudioCalendarContractView = {
   weeklySalary: number
   remainingWeeks: number
   renewalOpen: boolean
-  renewalWindowWeek: number
+  renewalWindowWeek: number | null
   endWeekExclusive: number
 }
 
@@ -216,6 +226,7 @@ const COMMITMENT_KIND_ORDER: Record<StudioCalendarCommitmentView['kind'], number
   theatricalReceipt: 3,
   contractRenewal: 4,
   contractExpiry: 5,
+  retirement: 6,
 }
 
 const CONDITIONAL_RELEASE_ASSUMPTION =
@@ -444,6 +455,14 @@ function commitmentPlacementId(event: StudioCalendarCommitmentView): number {
   return event.kind === 'constructionCompletion' ? event.placementId : 0
 }
 
+/** Presentation of the ordinary window, using the existing retirement cap law.
+ * Test terms at the first usable week, retaining a legal term ending exactly at E. */
+export function ordinaryRenewalWindow(state: GameState, contract: GameState['contracts'][number]): number | null {
+  const opening = Math.max(contract.startWeek, contract.endWeekExclusive - TUNING.HIRING_RENEWAL_WINDOW_WEEKS)
+  const decisionWeek = Math.max(state.market.tick, opening)
+  return TUNING.CONTRACT_TERM_OPTIONS.some(term => contractEndRefusal(state, contract.talentId, decisionWeek + term) === null) ? opening : null
+}
+
 function commitmentViews(state: GameState): StudioCalendarCommitmentView[] {
   const currentWeek = state.market.tick
   const events: StudioCalendarCommitmentView[] = []
@@ -537,11 +556,8 @@ function commitmentViews(state: GameState): StudioCalendarCommitmentView[] {
     if (!(contract.startWeek <= currentWeek && currentWeek < contract.endWeekExclusive)) continue
     const salary = weeklySalary(contract.annualSalary)
     const talentName = requireTalentName(state, contract.talentId, 'contract')
-    const renewalWeek = Math.max(
-      contract.startWeek,
-      contract.endWeekExclusive - TUNING.HIRING_RENEWAL_WINDOW_WEEKS,
-    )
-    events.push({
+    const renewalWeek = ordinaryRenewalWindow(state, contract)
+    if (renewalWeek !== null) events.push({
       kind: 'contractRenewal',
       certainty: 'committed',
       week: renewalWeek,
@@ -564,6 +580,13 @@ function commitmentViews(state: GameState): StudioCalendarCommitmentView[] {
     })
   }
 
+  for (const record of state.careerLifecycle?.records ?? []) {
+    if (record.status === 'retired') continue
+    events.push({ kind: 'retirement', certainty: 'committed', week: record.effectiveWeek,
+      ownerId: record.personId, occurrenceIndex: 0, talentId: record.personId,
+      talentName: requireTalentName(state, record.personId, 'retirement'), profession: record.profession,
+      status: record.status, announcedWeek: record.announcedWeek })
+  }
   return events.sort((a, b) =>
     a.week - b.week ||
     COMMITMENT_KIND_ORDER[a.kind] - COMMITMENT_KIND_ORDER[b.kind] ||
@@ -796,11 +819,8 @@ function staffingViews(state: GameState): StudioCalendarView['staffingHorizon'] 
       talentName: requireTalentName(state, contract.talentId, 'contract'),
       weeklySalary: weeklySalary(contract.annualSalary),
       remainingWeeks: contract.endWeekExclusive - currentWeek,
-      renewalOpen: renewalWindowOpen(contract, currentWeek),
-      renewalWindowWeek: Math.max(
-        contract.startWeek,
-        contract.endWeekExclusive - TUNING.HIRING_RENEWAL_WINDOW_WEEKS,
-      ),
+      renewalOpen: ordinaryRenewalWindow(state, contract) !== null && renewalWindowOpen(contract, currentWeek),
+      renewalWindowWeek: ordinaryRenewalWindow(state, contract),
       endWeekExclusive: contract.endWeekExclusive,
     }))
     .sort((a, b) => compareId(a.talentId, b.talentId))

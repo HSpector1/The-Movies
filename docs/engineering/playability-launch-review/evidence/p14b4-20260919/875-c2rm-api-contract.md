@@ -139,6 +139,10 @@ continues to link OPEN cases only; closed detail remains in existing latest-case
 history. A selected Market case equals its profile marketCase. Existing latest-case
 limitation remains; this slice does not promise independent routes to every old case.
 Rival prices, bonuses, premium and promises remain UNKNOWN through caseDisclosure.
+Review877 adds a specific acceptance control: extension settlement/dropped reasons
+must belong to that extension's own opened/closed span and terminal outcome.
+Never carry an earlier ordinary case's reasons into an open or differently closed
+extension. Correct this in bridge readers; preserve ordinary-case/core behavior.
 
 Proposal catalogue exception is EXACTLY a matching open retirementExtension whose
 eligible proposer is the supplied issuer, with term E+52−D. Core proposalDraft/

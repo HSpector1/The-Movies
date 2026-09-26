@@ -1,0 +1,286 @@
+diff --git a/bridge/contract.ts b/bridge/contract.ts
+index 3bcad526..de559f6a 100644
+--- a/bridge/contract.ts
++++ b/bridge/contract.ts
+@@ -52,6 +52,7 @@ import { corePredicateOf, promiseQuoteSnapshot } from './promises.ts'
+ import type { WirePromiseDraft } from './promises.ts'
+ import { attachPromise } from '../src/core/promises.ts'
+ import { latestCaseIsExtension } from '../src/core/talentMarket.ts'
++import { retirementExtensionFields } from './retirement-extension.ts'
+ import { TUNING } from '../src/core/tuning.ts'
+ import type { ActionOutcome } from '../ui/src/engine/adapter.ts'
+ import type {
+@@ -431,7 +432,9 @@ function liveMarketRefusal(state: GameState, draft: MarketProposalDraft, talent:
+       return {
+         code: 'insufficientFunds',
+         reason: `The studio cannot cover the ${dollars(priced.signingBonus)} signing bonus this proposal would owe at settlement (${affordability.reason}).`,
+-        remedy: 'Choose a shorter term or a lower tier, or propose once cash allows.',
++        remedy: latestCaseIsExtension(state, talent.id)
++          ? 'Choose lower compensation, or propose once cash allows. This final extension has a fixed ending boundary.'
++          : 'Choose a shorter term or a lower tier, or propose once cash allows.',
+       }
+     }
+   }
+@@ -507,7 +510,11 @@ export function marketProposalDraftToEngine(state: GameState, input: MarketPropo
+   }
+   const priced = draft.verb === 'withdraw'
+   if (!priced) {
+-    if (draft.termWeeks === null || draft.termWeeks === undefined || !TUNING.CONTRACT_TERM_OPTIONS.includes(draft.termWeeks)) {
++    const extension = retirementExtensionFields(state, talent.id, draft.issuerStudioId).retirementExtension
++    const exactExtension = extension !== null && extension.viewerCanOffer
++      && extension.issuerStudioId === draft.issuerStudioId && draft.termWeeks === extension.requiredTermWeeks
++    if (draft.termWeeks === null || draft.termWeeks === undefined
++      || (!TUNING.CONTRACT_TERM_OPTIONS.includes(draft.termWeeks) && !exactExtension)) {
+       return { ok: false, error: 'Choose one of the published terms before proposing.' }
+     }
+     if (draft.premiumTier === null || draft.premiumTier === undefined || !isPremiumTier(draft.premiumTier)) {
+@@ -557,7 +564,7 @@ export function marketProposalQuoteSnapshot(
+   conversion: MarketProposalConversionOk,
+   intentId: string,
+ ): BridgeMarketProposalQuoteSnapshot {
+-  const { talent, refusal, annualSalary, signingBonus, termWeeks, decisionWeek } = conversion
++  const { talent, refusal, annualSalary, signingBonus, termWeeks, decisionWeek, effectiveWeek } = conversion
+   const ok = refusal === null && conversion.promise?.ok !== false
+   const consequence = refusal !== null
+     ? `${refusal.reason} ${refusal.remedy}`.trim()
+@@ -567,7 +574,7 @@ export function marketProposalQuoteSnapshot(
+         ? `Withdraws your proposal for ${talent.name}. Nothing is charged, and you may propose again while the case is open.`
+         // P14C.2b (780 §5.3): the one final extension is one issuer's offer, never a contest.
+         : latestCaseIsExtension(state, talent.id)
+-          ? `Stands until Week ${String(decisionWeek ?? state.market.tick)}, when ${talent.name} decides on this one final extension before retiring. If they accept, the contract runs ${contractTermLabel(termWeeks ?? 0)} at ${dollars(annualSalary ?? 0)} a year and the ${dollars(signingBonus ?? 0)} signing bonus is paid then — nothing is charged now.`
++          ? `Stands until Week ${String(decisionWeek ?? state.market.tick)}, when ${talent.name} decides on this one final extension before retiring. If they accept, the contract runs from Week ${effectiveWeek} through the exclusive end of Week ${(effectiveWeek ?? 0) + (termWeeks ?? 0)} (${contractTermLabel(termWeeks ?? 0)}) at ${dollars(annualSalary ?? 0)} a year and the ${dollars(signingBonus ?? 0)} signing bonus is paid then — nothing is charged now.`
+           : `Stands until Week ${String(decisionWeek ?? state.market.tick)}, when ${talent.name} chooses among every proposal on the table. If they choose yours, the contract runs ${contractTermLabel(termWeeks ?? 0)} at ${dollars(annualSalary ?? 0)} a year and the ${dollars(signingBonus ?? 0)} signing bonus is paid then — nothing is charged now. A competing studio's terms stay UNKNOWN.`
+   return {
+     intentId,
+diff --git a/bridge/market.ts b/bridge/market.ts
+index e9d93faf..6c35f4b9 100644
+--- a/bridge/market.ts
++++ b/bridge/market.ts
+@@ -12,13 +12,14 @@
+ // The workspace adds no fact the Profile could not already state; it gathers them.
+ import { campaignDate } from '../src/core/calendar.js'
+ import {
+-  caseForTalent, latestCaseIsExtension, marketEligibility, playerOffer, type MarketCaseView,
++  caseForTalent, marketEligibility, playerOffer, type MarketCaseView,
+ } from '../src/core/talentMarket.js'
+ import { PERSON_DISCIPLINE_ORDER, ROLE_TO_DISCIPLINE, TUNING } from '../src/core/tuning.js'
+ import type { GameState, TalentMarketCase } from '../src/core/types.js'
+ import { castingDraftToEngine } from './casting.ts'
+ import { marketAttentionRows, marketCaseProjection, peopleProjection } from './people.ts'
+ import { promiseAttentionRows, promiseRowsForPerson } from './trust.ts'
++import { retirementExtensionFields } from './retirement-extension.ts'
+ import type {
+   BridgeMarketAttentionRowSnapshot, BridgeMarketCaseDetail, BridgeMarketCaseRow,
+   BridgeMarketEmployerRow, BridgeMarketFreeAgentRow, BridgeMarketPage,
+@@ -71,14 +72,14 @@ type CaseEntry = { kase: TalentMarketCase; view: MarketCaseView; ordinal: number
+  * case, so a person who has been through two cases contributes exactly one entry, at the
+  * later one's ordinal; an earlier closed case of the same person is not separately
+  * listed (recorded limit: the engine publishes no reader for a superseded case).
+- * P14C.2b (806 §6): a person whose latest case is a `retirementExtension` contributes
+- * nothing — the one-issuer extension is not listed as a contest.
++ * C.2-RM875 includes the final-extension variant with its own public terms and
++ * one-issuer wording; the underlying latest-case history limit is unchanged.
+  */
+ function caseEntries(state: GameState, week: number): CaseEntry[] {
+   const byTalent = new Map<string, CaseEntry>()
+   state.talentMarket.cases.forEach((kase, ordinal) => {
+     const view = caseForTalent(state, kase.talentId, week)
+-    if (view !== null && !latestCaseIsExtension(state, kase.talentId)) byTalent.set(kase.talentId, { kase, view, ordinal })
++    if (view !== null) byTalent.set(kase.talentId, { kase, view, ordinal })
+   })
+   return [...byTalent.values()]
+ }
+@@ -93,6 +94,7 @@ function caseRow(state: GameState, entry: CaseEntry, viewerStudioId: string, nam
+   const proposals = state.talentMarket.proposals.filter((p) => p.talentId === entry.view.talentId)
+   return {
+     talentId: entry.view.talentId,
++    ...retirementExtensionFields(state, entry.view.talentId, viewerStudioId),
+     name: talent?.name ?? entry.view.talentId,
+     roleLabel: roleLabel(talent?.role ?? 'craft'),
+     subjectStudioId: entry.view.subjectStudioId,
+diff --git a/bridge/people.ts b/bridge/people.ts
+index 45125e13..7be2aece 100644
+--- a/bridge/people.ts
++++ b/bridge/people.ts
+@@ -42,6 +42,7 @@ import {
+   publicPreferredOpportunity, publicPreferredTerm, publicPriorityOrder, submitProposal, UNKNOWN,
+ } from '../src/core/talentMarket.ts'
+ import type { Disclosed, MarketCaseView } from '../src/core/talentMarket.ts'
++import { retirementExtensionFields } from './retirement-extension.ts'
+ import { trustDescriptor } from '../src/core/promises.ts'
+ import { promiseHistoryFor, unboxPromise } from './promises.ts'
+ import { promiseAttentionRows, promiseRowsForPerson, trustBlockFor } from './trust.ts'
+@@ -923,11 +924,18 @@ export function marketAttentionRows(
+   week: number,
+ ): BridgeMarketAttentionRowSnapshot[] {
+   const rows: BridgeMarketAttentionRowSnapshot[] = []
+-  // P14C.2b (780 §5.3): the one-issuer extension is not a contest; no row interrupts for it.
+-  if (latestCaseIsExtension(state, view.talentId)) return rows
+   const add = (cause: BridgeMarketAttentionRowSnapshot['cause'], reason: string): void => {
+     rows.push({ cause, talentId: view.talentId, reason })
+   }
++  if (latestCaseIsExtension(state, view.talentId)) {
++    const extension = retirementExtensionFields(state, view.talentId, viewerStudioId, week).retirementExtension
++    if (extension?.viewerCanOffer) {
++      add('retirementExtensionOpen', `One final extension may be offered before Week ${view.decisionWeek}; the contract would end in Week ${extension.endWeekExclusive}.`)
++    } else if (view.subjectStudioId === viewerStudioId && SETTLEMENT_OUTCOMES.has(view.status)) {
++      add('settlementCompleted', `The one final extension case closed in Week ${view.decisionWeek}.`)
++    }
++    return rows
++  }
+   const proposals = currentProposals(state, view.talentId)
+   const mine = proposals.find((p) => p.issuerStudioId === viewerStudioId)
+   // Interrupt only what is this studio's business: a case it has bid on, or one about
+@@ -969,8 +977,7 @@ export function marketCaseProjection(
+ ): BridgeMarketCaseSnapshot | null {
+   if (state.hollywood === null) return null
+   const view = caseForTalent(state, talentId, week)
+-  // P14C.2b (780 §5.3): a person whose latest case is the extension holds no listable case.
+-  if (view === null || latestCaseIsExtension(state, talentId)) return null
++  if (view === null) return null
+   const disclosure = caseDisclosure(state, talentId, viewerStudioId, week)
+   const proposals: BridgeMarketProposalSnapshot[] = disclosure.proposals.map((row) => {
+     const common = {
+@@ -992,6 +999,7 @@ export function marketCaseProjection(
+   const preferredTermWeeks = publicPreferredTerm(state, talentId)
+   return {
+     talentId: view.talentId,
++    ...retirementExtensionFields(state, talentId, viewerStudioId, week),
+     subjectStudioId: view.subjectStudioId,
+     status: view.status,
+     decisionWeek: view.decisionWeek,
+diff --git a/bridge/retirement-extension.ts b/bridge/retirement-extension.ts
+new file mode 100644
+index 00000000..343c9f62
+--- /dev/null
++++ b/bridge/retirement-extension.ts
+@@ -0,0 +1,38 @@
++// C.2-RM875: public case identity/terms only. Prices and proposal disclosure remain
++// with talentMarket; this projection never reads a rival's compensation.
++import { retirementRecordFor } from '../src/core/careerLifecycle.ts'
++import { TUNING } from '../src/core/tuning.ts'
++import { caseForTalent, latestCaseIsExtension, marketEligibility, openMarketCaseFor } from '../src/core/talentMarket.ts'
++import type { GameState } from '../src/core/types.ts'
++import type { BridgeMarketCaseSnapshot } from './schema/bridge-schema.ts'
++
++export function retirementExtensionFields(
++  state: GameState,
++  talentId: string,
++  viewerStudioId: string,
++  week: number = state.market.tick,
++): Pick<BridgeMarketCaseSnapshot, 'variant' | 'soleIssuerStudioId' | 'retirementExtension'> {
++  if (!latestCaseIsExtension(state, talentId)) {
++    return { variant: 'expiry', soleIssuerStudioId: null, retirementExtension: null }
++  }
++  const view = caseForTalent(state, talentId, week)
++  const issuer = view?.subjectStudioId ?? null
++  const record = retirementRecordFor(state, talentId)
++  const open = openMarketCaseFor(state, talentId, week)
++  // Closed cases retain the real issuer/variant, never a second opportunity
++  // computed from the effective week an accepted extension has already moved.
++  if (view === null || issuer === null || open === undefined || record?.status !== 'announced' || record.extensionUsed) {
++    return { variant: 'retirementExtension', soleIssuerStudioId: issuer, retirementExtension: null }
++  }
++  const endWeekExclusive = record.effectiveWeek + TUNING.RETIREMENT_NOTICE_WEEKS
++  return {
++    variant: 'retirementExtension', soleIssuerStudioId: issuer,
++    retirementExtension: {
++      issuerStudioId: issuer,
++      viewerCanOffer: marketEligibility(state, talentId, week).proposers.includes(viewerStudioId),
++      requiredTermWeeks: endWeekExclusive - view.decisionWeek,
++      startWeek: view.decisionWeek,
++      endWeekExclusive,
++    },
++  }
++}
+diff --git a/bridge/runtime-checkpoint.ts b/bridge/runtime-checkpoint.ts
+index 047e3040..7ca78b62 100644
+--- a/bridge/runtime-checkpoint.ts
++++ b/bridge/runtime-checkpoint.ts
+@@ -58,6 +58,10 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
+ // that window would carry the earlier hash, and this map is keyed on the
+ // hash, not the label.
+ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
++  // C.2-RM875: genuine outgoing51 current670/saved669 and its actual nonempty
++  // journal were preserved by872 before this projection-only boundary. Save37
++  // slots stay exact; old session/revision/journal authority follows the prior path.
++  ['sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f', 'projection-v51'],
+   // Record 840: genuine outgoing runtime50 checkpoints were preserved before
+   // this boundary (824 and 842). Each current/saved slot independently lifts
+   // to Save37; historical response journals do not become current-schema proof.
+diff --git a/bridge/schema/bridge-schema.ts b/bridge/schema/bridge-schema.ts
+index bfefa098..434e3d38 100644
+--- a/bridge/schema/bridge-schema.ts
++++ b/bridge/schema/bridge-schema.ts
+@@ -269,7 +269,7 @@ export const PROTOCOL_VERSION = 4 as const
+ // Record 840 (projection 51): the current runtime now owns Save37's Scientist
+ // retirement law. No DTO field changes; exact schema50 checkpoints migrate both
+ // independent slots through the governed prior-schema path in the same slice.
+-export const PROJECTION_VERSION = 51 as const
++export const PROJECTION_VERSION = 52 as const
+ 
+ const nonEmptyText = () => text({ minLength: 1 })
+ const nonNegativeInteger = () => integer({ minimum: 0 })
+@@ -2469,6 +2469,7 @@ const MARKET_ATTENTION_CAUSES = [
+   'proposalWouldFail',
+   'promiseDue',
+   'promiseOutcome',
++  'retirementExtensionOpen',
+ ] as const
+ const StudioMarketAttentionRowSnapshot = object('StudioMarketAttentionRowSnapshot', {
+   cause: enumeration(MARKET_ATTENTION_CAUSES),
+@@ -2490,7 +2491,20 @@ const StudioMarketPreferencesSnapshot = object('StudioMarketPreferencesSnapshot'
+   preferredOpportunity: enumeration(['significantCastRole', 'anyCastAppearance']),
+   line: nonEmptyText(),
+ })
++const StudioRetirementExtension = object('StudioRetirementExtension', {
++  issuerStudioId: nonEmptyText(),
++  viewerCanOffer: bool(),
++  requiredTermWeeks: integer({ minimum: 1 }),
++  startWeek: nonNegativeInteger(),
++  endWeekExclusive: nonNegativeInteger(),
++})
++const marketLifecycleFields = {
++  variant: enumeration(['expiry', 'retirementExtension']),
++  soleIssuerStudioId: nullable(nonEmptyText()),
++  retirementExtension: nullable(reference('StudioRetirementExtension', StudioRetirementExtension)),
++}
+ const StudioMarketCaseSnapshot = object('StudioMarketCaseSnapshot', {
++  ...marketLifecycleFields,
+   talentId: nonEmptyText(),
+   /** The employer whose contract is expiring (the case's subject studio). */
+   subjectStudioId: nonEmptyText(),
+@@ -2533,6 +2547,7 @@ const MARKET_CASE_OUTCOMES = ['settled', 'declined', 'expired', 'invalidated'] a
+ // when it decides, HOW MANY proposals are on the table (existence is public; the figures
+ // are not) and whether this studio is one of the issuers.
+ const StudioMarketCaseRow = object('StudioMarketCaseRow', {
++  ...marketLifecycleFields,
+   talentId: nonEmptyText(),
+   name: nonEmptyText(),
+   roleLabel: nonEmptyText(),
+@@ -3561,6 +3576,7 @@ const definitions = {
+   StudioMarketAttentionRowSnapshot,
+   StudioMarketPreferencesSnapshot,
+   StudioMarketCaseSnapshot,
++  StudioRetirementExtension,
+   StudioMarketCaseRow,
+   StudioMarketFreeAgentRow,
+   StudioMarketClosedCases,
+diff --git a/bridge/world.ts b/bridge/world.ts
+index 0e85fb71..27aef97e 100644
+--- a/bridge/world.ts
++++ b/bridge/world.ts
+@@ -59,8 +59,11 @@ export function personWorldRoute(
+   const present = onLot ?? studioPresence(state).people.some((person) => person.talentId === talentId)
+   const reach = present ? 'playerLot' : 'industry'
+   const view = caseForTalent(state, talentId, week)
+-  // P14C.2b (780 §5.3): the one-issuer extension is no renewal window and no market case to open.
+-  if (view === null || TERMINAL.has(view.status) || latestCaseIsExtension(state, talentId)) return { statusLine: null, caseRef: null, reach }
++  if (view === null || TERMINAL.has(view.status)) return { statusLine: null, caseRef: null, reach }
++  if (latestCaseIsExtension(state, talentId)) {
++    return { statusLine: `One final extension · decides Week ${view.decisionWeek}`,
++      caseRef: { view: 'market', targetId: talentId }, reach }
++  }
+   const statusLine =
+     view.decisionWeek <= week + 1
+       ? `Decides next week · Week ${String(view.decisionWeek)}`
