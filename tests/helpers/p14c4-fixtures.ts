@@ -9,9 +9,9 @@ import { existsSync, readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { expect } from 'vitest'
 import {
-  convertV36ToV35, LIVE_SAVE_VERSION, migrateToLive, validateSaveV34, validateSaveV36,
+  convertV36ToV35, convertV37ToV36, LIVE_SAVE_VERSION, migrateToLive, validateSaveV34, validateSaveV37,
 } from '../../src/core/save.js'
-import type { SaveFileV34, SaveFileV35, SaveFileV36 } from '../../src/core/save.js'
+import type { SaveFileV34, SaveFileV35, LiveSaveFile } from '../../src/core/save.js'
 import { ageAt } from '../../src/core/aging.js'
 import { stream } from '../../src/core/rng.js'
 import { TUNING } from '../../src/core/tuning.js'
@@ -60,12 +60,14 @@ export function envelopeV34(state: GameStateV34): SaveFileV34 {
  * exactly as before P14C.2b. None of these C.4 worlds ever open or settle a retirement
  * extension, so `convertV36ToV35` always succeeds (P14C.2b, `812` T8: this function
  * now builds the live V36 envelope FIRST — the live engine is V36, not V35 — and hands
- * the frozen chain the V35 it already knew how to read). */
+ * the frozen chain the V35 it already knew how to read).
+ * Record840: start at live37, then use the guarded37→36 downgrade before36→35.
+ * A Scientist record must refuse rather than be removed to manufacture old data. */
 export function liveEnvelope(state: GameState): SaveFileV35 {
-  const live: SaveFileV36 = validateSaveV36({
+  const live: LiveSaveFile = validateSaveV37({
     saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems,
   })
-  return convertV36ToV35(live)
+  return convertV36ToV35(convertV37ToV36(live))
 }
 
 /**

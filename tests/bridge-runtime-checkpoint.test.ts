@@ -229,8 +229,8 @@ describe('BridgeRuntimeCheckpointV1', () => {
     })
     expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(sha256(source.currentSaveJson))
     expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(sha256(source.savedSaveJson))
-    expect(loaded.hydrated.currentSave.saveVersion).toBe(36)
-    expect(loaded.hydrated.savedSave?.saveVersion).toBe(36)
+    expect(loaded.hydrated.currentSave.saveVersion).toBe(37)
+    expect(loaded.hydrated.savedSave?.saveVersion).toBe(37)
     expect(() => decodeBridgeRuntimeCheckpoint(
       encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint),
     )).not.toThrow()
@@ -266,8 +266,8 @@ describe('BridgeRuntimeCheckpointV1', () => {
       savedStateDigest: sha256(source.savedSaveJson),
       journal: [],
     })
-    expect(loaded.hydrated.currentSave.saveVersion).toBe(36)
-    expect(loaded.hydrated.savedSave?.saveVersion).toBe(36)
+    expect(loaded.hydrated.currentSave.saveVersion).toBe(37)
+    expect(loaded.hydrated.savedSave?.saveVersion).toBe(37)
 
     const corrupted = JSON.parse(priorBytes) as Record<string, unknown>
     corrupted.journalDigest = '0'.repeat(64)
@@ -328,8 +328,8 @@ describe('BridgeRuntimeCheckpointV1', () => {
     const hydrated = decodeBridgeRuntimeCheckpoint(encoded)
     expect(hydrated.checkpoint).toEqual(source.checkpoint)
     expect(encodeBridgeRuntimeCheckpoint(hydrated.checkpoint)).toBe(encoded)
-    expect(hydrated.currentSave.saveVersion).toBe(36)
-    expect(hydrated.savedSave?.saveVersion).toBe(36)
+    expect(hydrated.currentSave.saveVersion).toBe(37)
+    expect(hydrated.savedSave?.saveVersion).toBe(37)
     expect(hydrated.checkpoint.currentSaveJson).toBe(source.currentSaveJson)
     expect(hydrated.checkpoint.savedSaveJson).toBe(source.savedSaveJson)
     expect(hydrated.checkpoint.currentStateDigest).toBe(sha256(source.currentSaveJson))
@@ -428,7 +428,7 @@ describe('BridgeRuntimeCheckpointV1', () => {
       currentSaveJson: nonCanonicalSave,
       savedSaveJson: checkpoint.savedSaveJson,
       journal: checkpoint.journal,
-    })).toThrow(/canonical V36 save bytes exactly/)
+    })).toThrow(/canonical V37 save bytes exactly/)
 
     const forgedSave = JSON.parse(checkpoint.currentSaveJson) as Record<string, unknown>
     forgedSave['bridgeJournal'] = []
@@ -718,7 +718,7 @@ describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => 
 
     // save now V16, digests recomputed correctly.
     expect(loaded.hydrated.checkpoint.schemaId).toBe(SCHEMA_ID)
-    expect(loaded.hydrated.currentSave.saveVersion).toBe(36)
+    expect(loaded.hydrated.currentSave.saveVersion).toBe(37)
     expect(loaded.hydrated.checkpoint.currentStateDigest)
       .toBe(sha256(loaded.hydrated.checkpoint.currentSaveJson))
 
@@ -746,7 +746,7 @@ describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => 
 
     expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
     expect(loaded.hydrated.checkpoint.savedSaveJson).not.toBeNull()
-    expect(loaded.hydrated.savedSave?.saveVersion).toBe(36)
+    expect(loaded.hydrated.savedSave?.saveVersion).toBe(37)
     expect(loaded.hydrated.savedSave?.state.market.tick).toBe(savedState.market.tick)
     expect(loaded.hydrated.savedSave?.state.studio.cash).toBe(savedState.studio.cash)
     expect(loaded.hydrated.checkpoint.savedStateDigest)
@@ -774,7 +774,7 @@ describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => 
       expect(loaded.hydrated.checkpoint.schemaId).toBe(SCHEMA_ID)
       expect(loaded.hydrated.checkpoint.stateRevision).toBe(0)
       expect(loaded.hydrated.checkpoint.journal).toEqual([])
-      expect(loaded.hydrated.currentSave.saveVersion).toBe(36)
+      expect(loaded.hydrated.currentSave.saveVersion).toBe(37)
     },
   )
 
@@ -1023,6 +1023,7 @@ describe('prior protocol-4 acceptance boundary pins', () => {
       'sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99',
       // R3-N4-SIM-20: the outgoing projection-30 identity (4dd667dc's generated header),
       // appended when the batched N4/N5/N6 read-model deltas moved the running schema to 31.
+      'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', // 840: genuine outgoing projection50 (824/842)
       'sha256:e64a3b659e4247b98631f1caa1f0e9eb0b6016aac92b0f46be590360ff9cee48',
       'sha256:ea5d645f34a472f4710b9273b225d6f15433d6d17ae8ed1af3c03686a225c8c4',
       'sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25',

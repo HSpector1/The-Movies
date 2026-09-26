@@ -22,7 +22,7 @@ import { attachPromise } from '../src/core/promises.js'
 import * as promiseModule from '../src/core/promises.js'
 import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
-import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV36 } from '../src/core/save.js'
+import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV36, validateSaveV37 } from '../src/core/save.js'
 import { advanceTo } from '../src/harness/p13a/fixtures.js'
 import { provenanceRowFor, recomputeDue } from '../src/core/aging.js'
 import type { GameState, ProfessionalPromiseV30 } from '../src/core/types.js'
@@ -499,7 +499,7 @@ describe('P14B4 existing own/private/public carriers', () => {
     const savedSession = new BridgeSession(brokenState, 'b4-saved-' + seatClass)
     const saved = savedSession.save(control(savedSession, 'save-real-outcome'))
     if (!saved.accepted) throw new Error(saved.message)
-    expect(validateSaveV36(JSON.parse(saved.saveJson)).state.promises).toEqual(brokenState.promises)
+    expect(validateSaveV37(JSON.parse(saved.saveJson)).state.promises).toEqual(brokenState.promises)
     const loaded = BridgeSession.fromSaveJson(saved.saveJson, 'b4-loaded-' + seatClass)
     expect(loaded.gameState.promises).toEqual(brokenState.promises)
     history(loaded.gameState, loaded.gameState.promises.find((p) => p.promiseId === broken.promiseId)!, seatClass)

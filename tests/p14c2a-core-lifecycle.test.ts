@@ -163,14 +163,20 @@ describe('P14C.2a A1-A7: the retirement intent/settlement law', () => {
     })
   })
 
-  // ── A4: Scientists never announce ──
-  it('A4: retirementWindow(\'scientist\') is null, and t-sci-00 (aged 61, scientist) never announces however far it ticks', () => {
-    expect(retirementWindow('scientist')).toBeNull()
+  // 773 §10 / 840 supersedes the former Scientist-null law; the genuine
+  // fixture's recent employment still postpones its first eligible birthday.
+  it('A4: Scientists use62/72; recent work prevents announcement at62, then idle63 announces618', () => {
+    expect(retirementWindow('scientist')).toEqual({ start: 62, hard: 72 })
     const base = c2Fixture('genuine-v33-c2-scientist') // week 520, t-sci-00 age 61
     let state = withSyntheticCareerLifecycle(base, initialSyntheticRoot(520))
-    state = advanceLifecycleTo(state, 572) // one full year further; scientist has no window to cross
+    state = advanceLifecycleTo(state, 572) // employment[260,468) intersects birthday566's recent-work horizon
     expect(retirementRecordFor(state, 't-sci-00')).toBeUndefined()
     expect(state.careerLifecycle.records.some((r) => r.profession === 'scientist')).toBe(false)
+    state = advanceLifecycleTo(state, 618)
+    expect(retirementRecordFor(state, 't-sci-00')).toMatchObject({
+      profession: 'scientist', cause: 'idleInWindow', ageAtAnnouncement: 63,
+      announcedWeek: 618, effectiveWeek: 670, status: 'announced',
+    })
   })
 
   // ── A5: one record per person; later birthdays change nothing ──

@@ -215,8 +215,8 @@ function assertActualBacking(save: OldSave, root: OldPromise): void {
 }
 
 describe('P14B4 Save30: genuine final V29 corpus, exact old-state preservation', () => {
-  it('pins LIVE_SAVE_VERSION to literal36 (stale number corrected post-C.2b) independently of the value under test (P14B.7, 735-T)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(36)
+  it('pins LIVE_SAVE_VERSION to literal37 (stale number corrected post-C.2b) independently of the value under test (P14B.7, 735-T)', () => {
+    expect(LIVE_SAVE_VERSION).toBe(37)
   })
 
   it.each(NAMES)('migrates genuine %s without rewriting roots, receipts, digests or history and downgrades losslessly', (name) => {

@@ -1,5 +1,22 @@
 # CODEX continuation — Project Studio
 
+## CURRENT RESUME — Scientist focused checkpoint; full verification next
+
+Read854-scientist-resumed-verification.md. Recovery waited for the outgoing owner
+to finish publication. Local/actual remote matched1f3091e6; clean worktree, no jobs,
+ownership released by847a. Production remains697a6039. No agents were recreated.
+848 CLOSED/fixedSource:true:27PASS. 851/852 generated contract/fixtures PASS.
+849/850's stale live-save test annotations were repaired after attribution854/855.
+856 root/UI and857 bridge types PASS. 853 CLOSED:160PASS/87attributed boundaryFAIL.
+858 CLOSED/fixedSource:true:373PASS across23files. 859 bounded rival supply PASS:
+actual deficit supply creates new identities after the synthetic aged branch's
+four retire; no retired revival or fixed-player-pool replenishment. Read860 for
+the focused checkpoint and precise evidence limits. Production stays697a6039;
+all genuine fixture and new Scientist test bytes unchanged. Publish/check remote,
+then861-scientist-full-core (UNRUN at this record), compare837's inherited54.
+No source edits/commits during a recorded run. Full qualification remains pending;
+afterward continue C.2-RM821 and the authorized program.
+
 ## OWNER PAUSED — permission-mode restart; Scientist IN PROGRESS
 
 The Owner explicitly stopped implementation for a Codex permission-mode restart.

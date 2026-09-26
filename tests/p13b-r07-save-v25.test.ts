@@ -263,9 +263,9 @@ describe('P13B-S5-R07 Save V25 (test 5)', () => {
   // forward exactly as p13b-s5-save-v24.test.ts's own sentinel case does
   // (superseded as the canonical proof by tests/p13b-s6-save-v26.test.ts's
   // "an unknown saveVersion 35..." case, kept here rather than deleted).
-  it('an unknown saveVersion 37 is refused, naming the handled range "1 through 36 only" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {
-    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 37 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 36 only/)
+  it('an unknown saveVersion 38 is refused, naming the handled range "1 through 36 only" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {
+    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 38 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 37 only/)
   })
 
   it('mid-setup save/reload round-trips byte-identically (export/import codec only) — INTERPRETATION 3: hand-authored setup, no genuine producer exists yet', () => {

@@ -21,8 +21,8 @@
 
 import { describe, expect, it } from 'vitest'
 
-import { applyActions, exportSave, importSave, makeSave, stableStringify, tick, validateSaveV36 } from '../../src/core/index.js'
-import type { GameState, SaveFileV36 } from '../../src/core/index.js'
+import { applyActions, exportSave, importSave, makeSave, stableStringify, tick, validateSaveV37 } from '../../src/core/index.js'
+import type { GameState, LiveSaveFile } from '../../src/core/index.js'
 import {
   auditionSlate,
   availableConceptId,
@@ -67,9 +67,9 @@ function auditionBesideScreenplay(seed: string): GameState {
   return commission(state)
 }
 
-function legalSave(state: GameState): SaveFileV36 {
+function legalSave(state: GameState): LiveSaveFile {
   const save = makeSave(state)
-  expect(validateSaveV36(save)).toBe(save)
+  expect(validateSaveV37(save)).toBe(save)
   return save
 }
 
@@ -80,12 +80,12 @@ function legalSave(state: GameState): SaveFileV36 {
  * the original BYTES exactly.
  */
 function proveRefusal(
-  legal: SaveFileV36,
-  forge: (save: SaveFileV36) => { restore: (save: SaveFileV36) => void; slotKey: string },
+  legal: LiveSaveFile,
+  forge: (save: LiveSaveFile) => { restore: (save: LiveSaveFile) => void; slotKey: string },
   label: string,
 ): void {
   const legalJson = exportSave(legal)
-  expect(exportSave(importSave(legalJson) as SaveFileV36), `${label}: legal twin round-trips`).toBe(
+  expect(exportSave(importSave(legalJson) as LiveSaveFile), `${label}: legal twin round-trips`).toBe(
     legalJson,
   )
 
@@ -97,7 +97,7 @@ function proveRefusal(
 
   let thrown: unknown = null
   try {
-    validateSaveV36(forged)
+    validateSaveV37(forged)
   } catch (error) {
     thrown = error
   }
@@ -115,7 +115,7 @@ function proveRefusal(
   expect(stableStringify(forged), `${label}: the twin is byte-identical`).toBe(
     stableStringify(legal),
   )
-  expect(validateSaveV36(forged as SaveFileV36)).toBe(forged)
+  expect(validateSaveV37(forged as LiveSaveFile)).toBe(forged)
 }
 
 describe('C2a-M0 · §12-M0 gate — a slot claimed by two owners is REFUSED', () => {

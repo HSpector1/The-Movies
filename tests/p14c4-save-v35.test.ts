@@ -30,7 +30,7 @@
 //    merely that it says "downgrade".
 import { describe, expect, it } from 'vitest'
 import {
-  LIVE_SAVE_VERSION, convertV34ToV35, convertV35ToV34, makeSave, migrateToV35, validateSaveV35, validateSaveV36,
+  LIVE_SAVE_VERSION, convertV34ToV35, convertV35ToV34, makeSave, migrateToV35, validateSaveV35, validateSaveV37,
 } from '../src/core/save.js'
 import type { CohortReceipt, GameState } from '../src/core/types.js'
 import { recomputeDue } from '../src/core/aging.js'
@@ -53,14 +53,14 @@ describe('P14C.4 D1: every corpus world migrates V34 -> V35 with cohorts: [] and
 })
 
 describe('P14C.4 D2: the live boundary moved through 35 (stale numbers corrected post-C.2b; both bodies always assert the live constant)', () => {
-  it('LIVE_SAVE_VERSION === 36', () => {
-    expect(LIVE_SAVE_VERSION).toBe(36)
+  it('LIVE_SAVE_VERSION === 37', () => {
+    expect(LIVE_SAVE_VERSION).toBe(37)
   })
 
-  it('makeSave stamps 36', () => {
+  it('makeSave stamps 37', () => {
     const state = c4LiveFixture('genuine-v34-c4-mid-year') // F2: migrate first — makeSave now expects the live (V36) shape
     const saved = makeSave(state)
-    expect((saved as { saveVersion: number }).saveVersion).toBe(36)
+    expect((saved as { saveVersion: number }).saveVersion).toBe(37)
   })
 })
 
@@ -274,8 +274,8 @@ describe('P14C.4 D5: replay determinism, and save/load mid-year then continuing 
     // P14C.2b: reload at the LIVE (V36) boundary, not the frozen V35 one `liveEnvelope`
     // now targets (helpers/p14c4-fixtures.ts) — continuing to tick needs every V36 key
     // `readExtensionUsed` requires, which the V35-stripped shape no longer carries.
-    const savedLive = validateSaveV36({ saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems })
-    const reloaded = validateSaveV36(JSON.parse(JSON.stringify(savedLive)))
+    const savedLive = validateSaveV37({ saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems })
+    const reloaded = validateSaveV37(JSON.parse(JSON.stringify(savedLive)))
     const viaSaveLoad = advanceTo(reloaded.state, 156)
     expect(JSON.stringify(viaSaveLoad)).toBe(JSON.stringify(continuous))
   })

@@ -648,7 +648,7 @@ describe('P14B.7 group9 — Save V31 -> V32: supersededByPromiseId opens null, d
   // bridge/schema/bridge-schema.ts, and that import alone fails `npx tsc --noEmit` under the root
   // tsconfig regardless of anything downstream (730-T finding 3).
   it('LIVE_SAVE_VERSION is the value this slice\'s own V31->V32 step must produce (720 item 11)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(36)
+    expect(LIVE_SAVE_VERSION).toBe(37)
   })
   it('convertV31ToV32 and convertV32ToV31 exist (the RED-mechanism guard for this group)', () => {
     assertMigrationFns()

@@ -548,7 +548,7 @@ describe('D-11 — determinism & live saves', () => {
   it('new games save at the live version and round-trip byte-identically', () => {
     const s = foundStudio('save-v4')
     const save = makeSave(s)
-    expect(save.saveVersion).toBe(36) // P13B-S8: new games save as V27.
+    expect(save.saveVersion).toBe(37) // P13B-S8: new games save as V27.
     const a = exportSave(save)
     const b = exportSave(importSave(a))
     expect(b).toBe(a)

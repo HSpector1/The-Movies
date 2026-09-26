@@ -10,7 +10,7 @@ import { beforeAll, describe, expect, it, vi } from 'vitest'
 import * as promiseModule from '../src/core/promises.js'
 import { attachPromise, PROMISE_RULES_VERSION } from '../src/core/promises.js'
 import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
-import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV36 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV37 } from '../src/core/save.js'
 import type { GameState, PromiseFeasibilityReceipt } from '../src/core/types.js'
 import { buildTalentProvenance } from '../src/core/aging.js'
 import { initialCareerLifecycle } from '../src/core/careerLifecycle.js'
@@ -201,7 +201,7 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
     expect(JSON.stringify(attached.promises.slice(0, state.promises.length))).toBe(priorRoots)
     expect(currentProposals(attached, proposal.talentId).find((p) => p.issuerStudioId === proposal.issuerStudioId)!.promises)
       .toEqual([fresh.promiseId])
-    const reloaded = validateSaveV36(importSave(exportSave(makeSave(attached)))).state
+    const reloaded = validateSaveV37(importSave(exportSave(makeSave(attached)))).state
     expect(reloaded.promises).toEqual(attached.promises)
   })
 
@@ -243,7 +243,7 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
       talentId: old.beneficiaryPersonId, studioId: old.issuerStudioId, week: proposal.startWeek }))
     expect(currentProposals(settled, old.beneficiaryPersonId)).toEqual([])
     expect(JSON.stringify(state.promises)).toBe(priorRoots)
-    const reloaded = validateSaveV36(importSave(exportSave(makeSave(settled)))).state
+    const reloaded = validateSaveV37(importSave(exportSave(makeSave(settled)))).state
     expect(reloaded.promises.find((p) => p.promiseId === old.promiseId)).toEqual(bound)
     expect(old.version).toBe(1)
     expect(old.feasibilityReceipt.rulesVersion).toBe(1)

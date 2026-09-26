@@ -81,7 +81,8 @@ const EXPECTED_PRIOR_IDS = [
   'sha256:c9dad9f3d8bb94445db1a5425d90db3f9894da9354f47a07992ff96261cfc399',
   'sha256:d3338cb713385cc23414e6a17293a5900871764f0eeaed19698e17634e74740b',
   'sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99',
-  'sha256:e64a3b659e4247b98631f1caa1f0e9eb0b6016aac92b0f46be590360ff9cee48',
+  'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', // 840: genuine outgoing projection50 (824/842)
+      'sha256:e64a3b659e4247b98631f1caa1f0e9eb0b6016aac92b0f46be590360ff9cee48',
   'sha256:ea5d645f34a472f4710b9273b225d6f15433d6d17ae8ed1af3c03686a225c8c4',
   'sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25',
   'sha256:f84ae77ec59a0d7ca7cdd89115456504ddecbde2c6e3839936e4951bd65bce61',
@@ -173,10 +174,10 @@ describe('P14B4 genuine outgoing46 runtime compatibility — future Save30/proje
     expect(current.state.talentMarket.proposals.filter((p) => p.promises.includes('promise-0'))).toEqual([])
   })
 
-  it('requires literal projection50/Save34 (stale number corrected post-C.2a) and exact 38 prior IDs, excluding the running identity', () => {
+  it('requires literal projection51/Save37 (840) and exact 39 prior IDs, excluding the running identity', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(50)
-    expect(LIVE_SAVE_VERSION).toBe(36)
+    expect(PROJECTION_VERSION).toBe(51)
+    expect(LIVE_SAVE_VERSION).toBe(37)
     expect(SCHEMA_ID).not.toBe(OUTGOING_46)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual(EXPECTED_PRIOR_IDS)

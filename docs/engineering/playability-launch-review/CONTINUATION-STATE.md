@@ -1,5 +1,20 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — resumed ownership; Scientist integration verification
+
+Read854. Outgoing handoff publication completed at1f3091e6, verified against actual
+remote; no overlapping jobs or owners. Existing production697a6039 preserved.
+848 fixedSource:true,27PASS. 851/852 generated checks PASS. After attribution854,
+855 repairs live37/projection51 tests;856 root/UI and857 bridge types PASS.
+853 CLOSED:160PASS/87attributed boundaryFAIL. 858 CLOSED:373PASS across23files,
+fixedSource:true. 859 supply measurement PASS; actual rival path creates distinct
+people after synthetic aged retirees; player pool stays8. Read860 focused checkpoint.
+Publish/check actual remote then861 full core (UNRUN at this record), compare837.
+Parent owns test maintenance/integration review; production unchanged; no recreated
+agents. 854 states attribution rules and measured fixed-pool supply. Scientist
+remains unqualified pending integration/supply/full checks. Then C.2-RM and the
+authorized program. Unity/native deferred; no new replacement policy.
+
 ## OWNER PAUSED — safely preserve, publish, yield; do not continue in this session
 
 Read evidence/p14b4-20260919/847a-permission-restart-parking.md. Newest candidate

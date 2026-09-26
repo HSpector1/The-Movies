@@ -11,7 +11,7 @@
 // P14C.4: G5 alone moved to the LIVE V35 round trip (`makeSave`/`validateSaveV35`,
 // both long-established exports by now), so it carries no such premise.
 // P14C.2b: G5's round trip moves once more, to the LIVE V36 validator
-// (`validateSaveV36`) — the live writer's own boundary, same reasoning.
+// (`validateSaveV37`) — the live writer's own boundary, same reasoning.
 import { describe, expect, it } from 'vitest'
 import { applyActions, busyTalentIds, hiringMarketIds, tick } from '../src/core/index.js'
 import { freelancerMarketIds } from '../src/core/employment.js'
@@ -25,7 +25,7 @@ import {
   // RED-by-design (776 S6): none of these five exist in src/core/save.ts today.
   validateSaveV34, convertV33ToV34, convertV34ToV33, migrateToV34, migrateToLive,
   // P14C.2b: the live validator now (G5 alone drives a real tick()/makeSave round trip).
-  validateSaveV36,
+  validateSaveV37,
 } from '../src/core/save.js'
 import type { GameState, GameStateV34 } from '../src/core/types.js'
 import {
@@ -289,7 +289,7 @@ describe('P14C.2a G1-G5: Save V34', () => {
     }))
     expect(() => validateSaveV34(statusDisagrees as never), 'must name the status/week disagreement cause').toThrow(/at or after its effective week/)
 
-    // (4) a Scientist record: retirementWindow('scientist') is null (A4), so ANY
+    // (4) a Scientist record: frozen V34 keeps its pre-amendment null window, so ANY
     // record naming a real Scientist is refused, whatever its cause. Reuses a REAL
     // scientist from this same fixture so the person/profession/age checks ahead of
     // it in the validator all agree — isolating the Scientist-window cause alone.
@@ -313,7 +313,7 @@ describe('P14C.2a G1-G5: Save V34', () => {
     // saved through the live writer), this state IS driven through the real `tick()`
     // and `makeSave` below, so it needs `cohorts` (793 §5) and the round trip moves
     // from `validateSaveV34` to `validateSaveV35`, the live validator now.
-    // P14C.2b: the round trip moves once more, to `validateSaveV36` — a live record
+    // P14C.2b: the round trip moves once more, to `validateSaveV37` — a live record
     // also owes `extensionUsed`/`extendedFromWeek` now, which `syntheticRecord`
     // supplies by default (helpers/p14c2a-fixtures.ts).
     let state: GameState = {
@@ -321,19 +321,19 @@ describe('P14C.2a G1-G5: Save V34', () => {
       careerLifecycle: { boundaryWeek: week, cohorts: [], records: [syntheticRecord({ personId: id, profession: 'actor', cause: 'hardBoundary', announcedWeek: week, ageAtAnnouncement: realAge(base, id, week), effectiveWeek: week + 500 })] },
       // P14C.2b: `base` comes straight from the frozen V33 fixture, so its
       // `talentMarket.cases` carry no `variant` yet either — needed the moment
-      // this state is actually SAVED (`makeSave`/`validateSaveV36`'s exact-key
+      // this state is actually SAVED (`makeSave`/`validateSaveV37`'s exact-key
       // check) below, though `tick()` alone never reads it.
       talentMarket: { ...base.talentMarket, cases: base.talentMarket.cases.map((kase) => ({ ...kase, variant: 'expiry' as const })) },
     }
     const continuous = tick(tick(state))
-    const reloaded = validateSaveV36(JSON.parse(JSON.stringify(makeSave(state))) as never).state
+    const reloaded = validateSaveV37(JSON.parse(JSON.stringify(makeSave(state))) as never).state
     const viaSaveLoad = tick(tick(reloaded))
     expect(JSON.stringify(viaSaveLoad)).toBe(JSON.stringify(continuous))
   })
 
   it('records LIVE_SAVE_VERSION and confirms migrateToV34/migrateToLive exist (RED premise only — not exercised further here)', () => {
     // P14C.4: LIVE_SAVE_VERSION is the live writer's own stamp — moves with the bump.
-    expect(LIVE_SAVE_VERSION).toBe(36)
+    expect(LIVE_SAVE_VERSION).toBe(37)
     expect(typeof migrateToV34, 'RED premise: migrateToV34 must exist as a named export of src/core/save.ts').toBe('function')
     expect(typeof migrateToLive, 'RED premise: migrateToLive must exist as a named export of src/core/save.ts').toBe('function')
   })

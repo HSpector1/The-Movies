@@ -1,0 +1,12 @@
+{"sourceSha":"1f3091e6e84b8bca98a72c6e491640463b6fed3c","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["npm","run","typecheck:bridge"],"node":"v20.20.2","start":"2026-09-26T14:20:11.770Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+tests/bridge-p06-checkpoint-recovery.test.ts(187,50): error TS2345: Argument of type 'SaveFileV37' is not assignable to parameter of type 'SaveFileV36'.
+  Types of property 'saveVersion' are incompatible.
+    Type '37' is not assignable to type '36'.
+tests/bridge-p06-checkpoint-recovery.test.ts(194,50): error TS2345: Argument of type 'SaveFileV37' is not assignable to parameter of type 'SaveFileV36'.
+  Types of property 'saveVersion' are incompatible.
+    Type '37' is not assignable to type '36'.

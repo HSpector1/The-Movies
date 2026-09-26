@@ -777,10 +777,10 @@ describe('P14B.8 group11 — A8: the waiver draft offers only what this surface 
 // ═══════════════════════════════════════════════════════════════════════════════════════════════
 // group12 — 744 §11 A3: the projection bump, complete and consistent, in ONE commit.
 describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing identity is registered as a prior', () => {
-  it('PROJECTION_VERSION is 50 and the schema document agrees', () => {
-    expect(PROJECTION_VERSION).toBe(50)
+  it('PROJECTION_VERSION is 51 and the schema document agrees', () => {
+    expect(PROJECTION_VERSION).toBe(51)
     expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-50`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(50)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(51)
     expect(PROJECTION_VERSION).toBeGreaterThan(OUTGOING_PROJECTION)
   })
 
@@ -788,7 +788,7 @@ describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing iden
     expect(SCHEMA_ID, 'the new quote family and the two new row members alone mint a new content hash').not.toBe(OUTGOING_49)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_49), 'validateVersionedRecord strands every checkpoint written under an unregistered identity').toBe('projection-v49')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID), 'the RUNNING identity is never its own prior').toBe(false)
-    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size, 'exactly one entry is added: 37 -> 38').toBe(38)
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size, '840 adds the genuine outgoing50 identity: 38 -> 39').toBe(39)
   })
 
   it('the checked-in JSON schema, the contract manifest and the C# header all equal the running identity', () => {
@@ -817,8 +817,8 @@ describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing iden
     expect(loaded.migratedFromProtocolVersion, 'handled exactly as its projection-47 and -48 siblings are').toBe(4)
     expect(minted, 'the governed prior path mints one fresh session id').toBe(1)
     const hydrated = loaded.hydrated as unknown as { currentSave: { saveVersion: number; state: { market: { tick: number } } }; savedSave: { saveVersion: number } }
-    expect(hydrated.currentSave.saveVersion, '744 §6: B.8 is a wire change, so both slots migrate as identity').toBe(36)
-    expect(hydrated.savedSave.saveVersion).toBe(36)
+    expect(hydrated.currentSave.saveVersion, '744 §6: B.8 is a wire change, so both slots migrate as identity').toBe(37)
+    expect(hydrated.savedSave.saveVersion).toBe(37)
     expect(hydrated.currentSave.state.market.tick).toBe(PROJECTION49_CHECKPOINT.week)
   })
 })

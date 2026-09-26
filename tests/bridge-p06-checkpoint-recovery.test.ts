@@ -14,7 +14,7 @@ import { SCHEMA_ID } from '../bridge/protocol.ts'
 import { canonicalJson } from '../bridge/schema/canonical.ts'
 import type { BridgeCheckpointStore } from '../bridge/runtime/checkpoint-store.ts'
 import { createBridgeRuntimeCoordinator } from '../bridge/runtime/runtime-coordinator.ts'
-import { importSave, LIVE_SAVE_VERSION, type SaveFileV36 } from '../src/core/save.js'
+import { importSave, LIVE_SAVE_VERSION, type LiveSaveFile } from '../src/core/save.js'
 import { buildTalentProvenance } from '../src/core/aging.js'
 import { initialTechnology } from '../src/core/technology.js'
 import { initialPhysicalPlans } from '../src/core/physicalPlans.js'
@@ -53,7 +53,7 @@ function previous(bytes: string): BridgeRuntimeCheckpointV1 {
   return JSON.parse(bytes) as BridgeRuntimeCheckpointV1
 }
 
-function expectPreservedGameplay(beforeJson: string, after: SaveFileV36): void {
+function expectPreservedGameplay(beforeJson: string, after: LiveSaveFile): void {
   const before = importSave(beforeJson)
   if (before.saveVersion !== 16) throw new Error('Frozen P06 evidence must contain an original Save V16')
   // Assert every old root, including IDs, commitment, cash/ledger, week and RNG,

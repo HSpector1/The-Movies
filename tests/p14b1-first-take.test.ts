@@ -291,7 +291,7 @@ describe('P14B.1 test 1: the first-take receipt', () => {
     // 33 -> 34 and the validator with it, same reasoning one step further.
     expect(afterFirstWeek.relationships.length).toBeGreaterThan(0)
     const envelope = { saveVersion: save.LIVE_SAVE_VERSION, seed: afterFirstWeek.seed, state: afterFirstWeek, broadcastCache: afterFirstWeek.broadcastItems }
-    const roundTripped = save.validateSaveV36(JSON.parse(JSON.stringify(envelope)))
+    const roundTripped = save.validateSaveV37(JSON.parse(JSON.stringify(envelope)))
     // Filtered by productionId, exactly like `takes` above: an industry
     // world's `firstTakes` root also carries every rival's own first takes
     // (unlike the V28-fixture's isolated operations-only world), so the

@@ -267,9 +267,9 @@ function ownPlans<T extends { studioId: string }>(state: { physicalPlans: { plan
 
 describe('P13B-S6-T3 item 1: projection version bump (38 -> 39; 46 after the P14B.2 bump) and the cancellationAction intent kind', () => {
   it('bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it', () => {
-    expect(PROJECTION_VERSION).toBe(50)
+    expect(PROJECTION_VERSION).toBe(51)
     expect(BRIDGE_SCHEMA.$id).toContain('projection-50')
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(50)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(51)
   })
   it('AVAILABLE_INTENT_KINDS gains cancellationAction, distinct from researchAction/installationAction/physicalPlanAction/adoptTechnology', () => {
     const kinds = AVAILABLE_INTENT_KINDS as readonly string[]

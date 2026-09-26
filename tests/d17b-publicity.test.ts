@@ -62,7 +62,7 @@ function foundStudio(seed: string): GameState {
  * P14C.1 (record 771, inconsistent_fixture): jumping `market.tick` by hand, as
  * this helper always has, skips the tick tail's `materializeAges` step
  * (contract 762 §10), leaving `talent[].age` stale against its own provenance —
- * `validateSaveV36` then refuses the very state the round-trip cases below build (was validateSaveV35, was validateSaveV34).
+ * `validateSaveV37` then refuses the very state the round-trip cases below build (was validateSaveV35, was validateSaveV34).
  * Production is right to check this; the fixture must do what the tick tail
  * does. `materializeAges` is idempotent and a no-op when nothing is due, so this
  * is harmless for callers that pass no `week` at all.
