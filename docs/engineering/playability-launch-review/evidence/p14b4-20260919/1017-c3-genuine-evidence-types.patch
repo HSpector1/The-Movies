@@ -1,0 +1,782 @@
+diff --git a/tests/helpers/p14c3-genuine-evidence-fixtures.ts b/tests/helpers/p14c3-genuine-evidence-fixtures.ts
+new file mode 100644
+index 00000000..605e2c33
+--- /dev/null
++++ b/tests/helpers/p14c3-genuine-evidence-fixtures.ts
+@@ -0,0 +1,268 @@
++// 1018-A/1020-A: genuine public continuations only. No fixture bytes or existing
++// helper are edited. Each group caches failures and enforces its aggregate cap.
++import assert from 'node:assert/strict'
++import { expect } from 'vitest'
++import { applyActions } from '../../src/core/actions.js'
++import { retirementRecordFor } from '../../src/core/careerLifecycle.js'
++import { activeContract, busyTalentIds } from '../../src/core/employment.js'
++import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV38 } from '../../src/core/save.js'
++import { careerIdentity } from '../../src/core/talentSummary.js'
++import { tick } from '../../src/core/tick.js'
++import { TUNING } from '../../src/core/tuning.js'
++import type { Action, GameState, TransitionEvaluation } from '../../src/core/types.js'
++import { clone, DEFERRED_ACTOR, deferredBoundary, FOCUS, migrated, person } from './p14c3-fixtures.js'
++
++export function acceptedEvidence(state: GameState): void {
++  const before = stableStringify(state), saved = makeSave(state)
++  expect(saved.saveVersion).toBe(38)
++  expect(validateSaveV38(saved)).toBe(saved)
++  expect(stableStringify(state)).toBe(before)
++}
++export function reopenEvidence(state: GameState): GameState {
++  acceptedEvidence(state)
++  const raw = exportSave(makeSave(state)), loaded = migrateToLive(importSave(raw)).state
++  acceptedEvidence(loaded)
++  expect(exportSave(makeSave(loaded))).toBe(raw)
++  return loaded
++}
++export const actEvidence = (state: GameState, action: Action): GameState => applyActions(state, [action])
++export function addYoungEvidence(state: GameState, role: 'actor' | 'director' | 'writer' | 'craft', label: string) {
++  const count = state.talent.length, week = state.market.tick
++  let next = actEvidence(state, { kind: 'createTalent', talent: { name: `1020 ${label}`, role, age: 30,
++    actual: { warmth: 0, gravity: 0, physicality: 0.2 }, potentialTier: 'Steady', workEthic: 55 } })
++  expect(next.talent).toHaveLength(count + 1)
++  const id = next.talent.at(-1)!.id
++  expect(person(next, id)).toMatchObject({ age: 30, role })
++  next = actEvidence(next, { kind: 'signContract', talentId: id, termWeeks: 52 })
++  expect(activeContract(next, id)).toMatchObject({ startWeek: week, endWeekExclusive: week + 52 })
++  return { state: next, id }
++}
++export function greenlightEvidence(state: GameState, team: { writerId: string; directorId: string;
++  cast: { lead: string; antagonist: string; support: string }; craftIds: string[] }) {
++  const concept = state.concepts.find(row => !state.studio.activeProductions.some(film => film.conceptId === row.id)
++    && !state.studio.releasedFilms.some(film => film.conceptId === row.id)
++    && !state.scriptDevelopment.projects.some(project => project.conceptId === row.id))
++  assert.ok(concept, 'bounded genuine route requires an actual unused concept')
++  expect(state.sets.some(set => set.mountedOn === 'facility-soundstage-07' && set.status === 'standing')).toBe(true)
++  const ids = new Set(state.studio.activeProductions.map(row => row.id))
++  const next = actEvidence(state, { kind: 'greenlight', production: { ...team, conceptId: concept.id,
++    shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
++    promise: { genre: concept.genre, intendedSegments: ['adult'], ranges: {
++      intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } },
++    budget: { negative: concept.baseNegativeCost, marketing: 0 } } })
++  const added = next.studio.activeProductions.filter(row => !ids.has(row.id))
++  expect(added).toHaveLength(1)
++  acceptedEvidence(next)
++  return { state: next, productionId: added[0]!.id }
++}
++export function releaseEvidence(input: GameState, productionId: string, directorId: string,
++  step: (state: GameState) => GameState): GameState {
++  let state = input
++  for (let count = 0; count < 40; count++) {
++    const workflow = state.operations.workflows.find(row => row.productionId === productionId)
++    if (workflow?.phase === 'shooting' && workflow.shootingTask?.status === 'unassigned') {
++      state = actEvidence(state, { kind: 'assignShootingDirector', productionId, directorId })
++    }
++    if (state.operations.workflows.find(row => row.productionId === productionId)?.shootingTask?.status === 'ready') {
++      state = actEvidence(state, { kind: 'scheduleShootingTake', productionId })
++    }
++    if (state.studio.activeProductions.find(row => row.id === productionId)?.remainingTicks === 1) {
++      state = actEvidence(state, { kind: 'commitPictureToRelease', productionId })
++    }
++    state = step(state)
++    if (state.studio.releasedFilms.some(row => row.productionId === productionId)) {
++      acceptedEvidence(state)
++      return state
++    }
++  }
++  throw new Error('1020 genuine release premise absent after40 actual ticks; no extra search permitted')
++}
++
++type Result<T> = { ok: true; value: T } | { ok: false; error: unknown }
++const cache = new Map<string, Result<unknown>>()
++function memo<T>(key: string, build: () => T): T {
++  const old = cache.get(key) as Result<T> | undefined
++  if (old) { if (!old.ok) throw old.error; return clone(old.value) }
++  try { const value = build(); cache.set(key, { ok: true, value }); return clone(value) }
++  catch (error) { cache.set(key, { ok: false, error }); throw error }
++}
++const consumed = { deferred: 0, held: 0 }
++const limits = { deferred: { ticks: 562, week: 3162 }, held: { ticks: 304, week: 365 } }
++function stepEvidence(group: keyof typeof consumed, state: GameState): GameState {
++  const limit = limits[group]
++  assert.ok(consumed[group] < limit.ticks, `${group} aggregate ${limit.ticks}-tick limit`)
++  assert.ok(state.market.tick < limit.week, `${group} maximum world${limit.week}`)
++  consumed[group]++
++  const next = tick(state, { develop: true })
++  expect(next.market.tick).toBe(state.market.tick + 1)
++  return next
++}
++export function evidenceTickCount(group: keyof typeof consumed): number { return consumed[group] }
++function heldTo(state: GameState, week: number): GameState {
++  assert.ok(Number.isSafeInteger(week) && week >= state.market.tick && week <= 365)
++  while (state.market.tick < week) state = stepEvidence('held', state)
++  return state
++}
++export const subjectEvaluations = (state: GameState, id: string) => state.careerLifecycle.transitionEvaluations.filter(row => row.personId === id)
++export function noSubjectDecision(state: GameState, id: string): void {
++  expect(subjectEvaluations(state, id)).toEqual([])
++  expect(state.careerLifecycle.professionChanges.filter(row => row.personId === id)).toEqual([])
++  expect(state.careerLifecycle.industryRetirements.filter(row => row.personId === id)).toEqual([])
++  expect(state.careerLifecycle.transitionDue.filter(row => row.personId === id)).toEqual([])
++}
++function occupiedOrEmployed(state: GameState, id: string) {
++  return { busy: busyTalentIds(state).has(id), contracted: activeContract(state, id) !== undefined,
++    employed: state.hollywood!.employment.some(row => row.terms.talentId === id
++      && row.terms.startWeek <= state.market.tick && state.market.tick < (row.endedWeek ?? row.terms.endWeekExclusive)) }
++}
++export type DeferredObservation = { week: number; age: number; evaluations: number; lastWeek: number | null;
++  due: number[]; finalities: number; changes: number; free: boolean; takes: number;
++  busy: boolean; contracted: boolean; employed: boolean }
++type DeferredRun = { origin: GameState; beforeAge: GameState; atAge: GameState; loaded: GameState; after: GameState;
++  observations: DeferredObservation[] }
++export function deferredEvidence(): DeferredRun {
++  return memo('deferred-all', () => {
++    let state = deferredBoundary()
++    acceptedEvidence(state)
++    expect(state.talent).toHaveLength(182)
++    expect(state.talentProvenance.rows.find(row => row.personId === DEFERRED_ACTOR))
++      .toMatchObject({ kind: 'authored_exact_week', ageAtEntry: 23.21459235740464, entryWeek: 468 })
++    expect(state.careerLifecycle.transitionDue.filter(row => row.personId === DEFERRED_ACTOR))
++      .toEqual([{ personId: DEFERRED_ACTOR, week: 2601 }])
++    expect(occupiedOrEmployed(state, DEFERRED_ACTOR)).toEqual({ busy: false, contracted: false, employed: false })
++    const origin = clone(state), oldRetirement = clone(retirementRecordFor(state, DEFERRED_ACTOR, 'actor'))
++    const observations: DeferredObservation[] = []
++    let prior: readonly TransitionEvaluation[] = []
++    let beforeAge: GameState | undefined, atAge: GameState | undefined, loaded: GameState | undefined
++    while (state.market.tick < 3162) {
++      state = stepEvidence('deferred', state)
++      const rows = subjectEvaluations(state, DEFERRED_ACTOR)
++      expect(rows.slice(0, prior.length), `retained questions at${state.market.tick}`).toEqual(prior)
++      expect(retirementRecordFor(state, DEFERRED_ACTOR, 'actor')).toEqual(oldRetirement)
++      expect(state.talentProvenance.rows.find(row => row.personId === DEFERRED_ACTOR))
++        .toEqual(origin.talentProvenance.rows.find(row => row.personId === DEFERRED_ACTOR))
++      const work = occupiedOrEmployed(state, DEFERRED_ACTOR)
++      observations.push({ week: state.market.tick, age: person(state, DEFERRED_ACTOR).age, evaluations: rows.length,
++        lastWeek: rows.at(-1)?.week ?? null,
++        due: state.careerLifecycle.transitionDue.filter(row => row.personId === DEFERRED_ACTOR).map(row => row.week),
++        finalities: state.careerLifecycle.industryRetirements.filter(row => row.personId === DEFERRED_ACTOR).length,
++        changes: state.careerLifecycle.professionChanges.filter(row => row.personId === DEFERRED_ACTOR).length,
++        free: state.freeAgents.includes(DEFERRED_ACTOR),
++        takes: state.firstTakes.filter(row => Object.values(row.cast).includes(DEFERRED_ACTOR)).length, ...work })
++      if (rows.length !== prior.length) acceptedEvidence(state)
++      prior = clone(rows)
++      if (state.market.tick === 3160) { acceptedEvidence(state); beforeAge = clone(state) }
++      if (state.market.tick === 3161) { atAge = clone(state); loaded = reopenEvidence(state); state = clone(loaded) }
++    }
++    assert.ok(beforeAge && atAge && loaded)
++    acceptedEvidence(state)
++    expect(consumed.deferred).toBe(562)
++    return { origin, beforeAge, atAge, loaded, after: state, observations }
++  })
++}
++
++export type HeldEvidence = { origin: GameState; held: GameState; productionId: string; directorId: string }
++export function assertHeldEvidence(state: GameState, productionId: string): void {
++  expect(state.studio.activeProductions.find(row => row.id === productionId)).toMatchObject({ remainingTicks: 5 })
++  const workflow = state.operations.workflows.find(row => row.productionId === productionId)
++  expect(workflow?.phase).toBe('shooting')
++  expect(workflow?.shootingTask?.status).not.toBe('scheduled')
++  expect(state.firstTakes.filter(row => row.productionId === productionId)).toEqual([])
++  expect(state.studio.releasedFilms.filter(row => row.productionId === productionId)).toEqual([])
++  for (const id of Object.values(FOCUS)) {
++    expect(retirementRecordFor(state, id, 'actor')).toMatchObject({ effectiveWeek: 208, status: 'finishing_commitments', finishingFromWeek: 208 })
++    expect(busyTalentIds(state).has(id)).toBe(true)
++    noSubjectDecision(state, id)
++  }
++}
++export function heldEvidence(): HeldEvidence {
++  return memo('held208', () => {
++    let state = migrated('genuine-v37-c3-announced-week104.json.gz')
++    expect(state.market.tick).toBe(104)
++    acceptedEvidence(state)
++    const origin = clone(state)
++    state = heldTo(state, 199)
++    expect(TUNING.PRODUCTION_TICKS).toBe(8)
++    for (const id of Object.values(FOCUS)) {
++      expect(retirementRecordFor(state, id, 'actor')).toMatchObject({ effectiveWeek: 208, status: 'announced' })
++      expect(busyTalentIds(state).has(id)).toBe(false)
++      expect(state.firstTakes.filter(row => Object.values(row.cast).includes(id))).toHaveLength(3)
++      noSubjectDecision(state, id)
++    }
++    const director = addYoungEvidence(state, 'director', 'held director'); state = director.state
++    const craft = addYoungEvidence(state, 'craft', 'held craft'); state = craft.state
++    const support = addYoungEvidence(state, 'actor', 'held support'); state = support.state
++    expect(activeContract(state, 'authored-0003')).toMatchObject({ endWeekExclusive: 208 })
++    const made = greenlightEvidence(state, { writerId: 'authored-0003', directorId: director.id,
++      cast: { lead: FOCUS.director, antagonist: FOCUS.writer, support: support.id }, craftIds: [craft.id] })
++    state = heldTo(made.state, 208)
++    assertHeldEvidence(state, made.productionId)
++    acceptedEvidence(state)
++    return { origin, held: state, productionId: made.productionId, directorId: director.id }
++  })
++}
++export function cancelledBeforeEvidence(): GameState {
++  return memo('cancel-before209', () => {
++    const f = heldEvidence()
++    const result = stepEvidence('held', actEvidence(f.held, { kind: 'cancel', productionId: f.productionId }))
++    expect(result.market.tick).toBe(209)
++    acceptedEvidence(result)
++    return result
++  })
++}
++export function takenEvidence(): GameState {
++  return memo('taken209', () => {
++    const f = heldEvidence()
++    expect(activeContract(f.held, f.directorId)).toMatchObject({ endWeekExclusive: 251 })
++    let state = actEvidence(f.held, { kind: 'assignShootingDirector', productionId: f.productionId, directorId: f.directorId })
++    state = actEvidence(state, { kind: 'scheduleShootingTake', productionId: f.productionId })
++    state = stepEvidence('held', state)
++    expect(state.market.tick).toBe(209)
++    expect(state.firstTakes.filter(row => row.productionId === f.productionId)).toHaveLength(1)
++    acceptedEvidence(state)
++    return state
++  })
++}
++export function cancelledAfterEvidence(): GameState {
++  return memo('cancel-after210', () => {
++    const f = heldEvidence(), state = takenEvidence()
++    const after = stepEvidence('held', actEvidence(state, { kind: 'cancel', productionId: f.productionId }))
++    expect(after.market.tick).toBe(210)
++    acceptedEvidence(after)
++    return after
++  })
++}
++export function releasedHeldEvidence(): GameState {
++  return memo('held-release', () => {
++    const f = heldEvidence()
++    return releaseEvidence(takenEvidence(), f.productionId, f.directorId, state => stepEvidence('held', state))
++  })
++}
++export function agedHeldEvidence(): { before: GameState; retired: GameState; loaded: GameState; after: GameState } {
++  return memo('held-age364', () => {
++    const f = heldEvidence()
++    let state = f.held
++    while (state.market.tick < 363) {
++      state = stepEvidence('held', state)
++      assertHeldEvidence(state, f.productionId)
++    }
++    acceptedEvidence(state)
++    for (const [target, id] of Object.entries(FOCUS)) {
++      const discipline = target === 'director' ? 'directing' : 'writing'
++      const standing = careerIdentity(person(state, id)).disciplines.find(row => row.discipline === discipline)
++      assert.ok(standing)
++      expect(standing.capable).toBe(true)
++      expect(standing.ovr).toBeGreaterThanOrEqual(60)
++      expect(person(state, id).age).toBe(74)
++    }
++    const before = clone(state)
++    state = stepEvidence('held', actEvidence(state, { kind: 'cancel', productionId: f.productionId }))
++    expect(state.market.tick).toBe(364)
++    acceptedEvidence(state)
++    const retired = clone(state), loaded = reopenEvidence(state)
++    const after = stepEvidence('held', loaded)
++    expect(after.market.tick).toBe(365)
++    acceptedEvidence(after)
++    return { before, retired, loaded, after }
++  })
++}
+diff --git a/tests/p14c3-deferred-transition-chain.test.ts b/tests/p14c3-deferred-transition-chain.test.ts
+new file mode 100644
+index 00000000..a0929ab5
+--- /dev/null
++++ b/tests/p14c3-deferred-transition-chain.test.ts
+@@ -0,0 +1,97 @@
++// 1018-A G2: one genuine2600→3162 chain, no authored due/age/receipt values.
++import assert from 'node:assert/strict'
++import { afterAll, describe, expect, it } from 'vitest'
++import { ageAt } from '../src/core/aging.js'
++import { retirementRecordFor } from '../src/core/careerLifecycle.js'
++import { DEFERRED_ACTOR, person } from './helpers/p14c3-fixtures.js'
++import { acceptedEvidence, deferredEvidence, evidenceTickCount, subjectEvaluations } from './helpers/p14c3-genuine-evidence-fixtures.js'
++
++const annual = [2601, 2653, 2705, 2757, 2809, 2861, 2913, 2965, 3017, 3069, 3121]
++const allWeeks = [...annual, 3161]
++let observedFinalityWeek: number | null = null
++afterAll(() => console.info(JSON.stringify({ phase: '1020-genuine-route-observation', group: 'G2',
++  tickCalls: evidenceTickCount('deferred'), finalityWeek: observedFinalityWeek })))
++
++describe('C.3 genuine fractional-provenance deferred chain', () => {
++  it('D1 records eleven exact annual deferrals and no intervening weekly retries', () => {
++    const f = deferredEvidence(), original = retirementRecordFor(f.origin, DEFERRED_ACTOR, 'actor')
++    observedFinalityWeek = f.atAge.careerLifecycle.industryRetirements.find(row => row.personId === DEFERRED_ACTOR)?.week ?? null
++    expect(f.origin.market.tick).toBe(2600)
++    expect(f.origin.talent).toHaveLength(182)
++    expect(original).toMatchObject({ profession: 'actor', status: 'retired', retiredWeek: 2433 })
++    expect(subjectEvaluations(f.origin, DEFERRED_ACTOR)).toEqual([])
++    const rows = subjectEvaluations(f.beforeAge, DEFERRED_ACTOR)
++    expect(rows.map(row => row.week)).toEqual(annual)
++    expect(rows.length).toBeGreaterThan(5)
++    for (const row of rows) {
++      expect(row).toMatchObject({ personId: DEFERRED_ACTOR, rulesVersion: 1,
++        source: { personId: DEFERRED_ACTOR, profession: 'actor' }, outcome: 'deferred', selected: null, reason: 'noEligibleTarget' })
++      expect(row.inputs).toMatchObject({ actingFirstTakes: 0, leadFirstTakes: 0, actingWitnesses: [] })
++      expect(row.inputsDigest).toMatch(/^[0-9a-f]{16}$/)
++    }
++    const between = f.observations.filter(row => row.week <= 3160)
++    expect(between).toHaveLength(560)
++    for (const observation of between) {
++      const reached = annual.filter(week => week <= observation.week), last = reached.at(-1)!
++      expect(observation, `actual weekly observation${observation.week}`).toMatchObject({ evaluations: reached.length,
++        lastWeek: last, due: [Math.min(last + 52, 3161)], finalities: 0, changes: 0,
++        free: false, takes: 0, busy: false, contracted: false, employed: false })
++    }
++    expect(retirementRecordFor(f.beforeAge, DEFERRED_ACTOR, 'actor')).toEqual(original)
++    expect(evidenceTickCount('deferred')).toBe(562)
++  })
++
++  it('D2 clips the annual due at the actual fractional75 crossing and writes one linked finality', () => {
++    const f = deferredEvidence()
++    const provenance = f.origin.talentProvenance.rows.find(row => row.personId === DEFERRED_ACTOR)
++    assert.ok(provenance?.kind === 'authored_exact_week')
++    expect(provenance).toMatchObject({ ageAtEntry: 23.21459235740464, entryWeek: 468 })
++    const crossing = Math.ceil(provenance.entryWeek + (75 - provenance.ageAtEntry) * 52)
++    expect(crossing).toBe(3161)
++    expect(Math.floor(provenance.ageAtEntry + (3160 - provenance.entryWeek) / 52)).toBe(74)
++    expect(Math.floor(provenance.ageAtEntry + (3161 - provenance.entryWeek) / 52)).toBe(75)
++    expect(ageAt(provenance, 3160)).toBe(74)
++    expect(ageAt(provenance, 3161)).toBe(75)
++    expect(person(f.beforeAge, DEFERRED_ACTOR).age).toBe(74)
++    expect(person(f.atAge, DEFERRED_ACTOR).age).toBe(75)
++    expect(f.observations.find(row => row.week === 3121)?.due).toEqual([3161])
++    expect(3121 + 52).toBe(3173)
++    const rows = subjectEvaluations(f.atAge, DEFERRED_ACTOR)
++    expect(rows.map(row => row.week)).toEqual(allWeeks)
++    expect(rows.slice(0, 11)).toEqual(subjectEvaluations(f.beforeAge, DEFERRED_ACTOR))
++    const last = rows[11]!
++    expect(last).toMatchObject({ week: crossing, outcome: 'ageBoundary', reason: 'waitingAgeReached', selected: null,
++      source: { personId: DEFERRED_ACTOR, profession: 'actor' }, inputs: { age: 75, actingFirstTakes: 0 } })
++    expect(f.atAge.careerLifecycle.industryRetirements.filter(row => row.personId === DEFERRED_ACTOR))
++      .toEqual([{ personId: DEFERRED_ACTOR, week: 3161, profession: 'actor',
++        source: { personId: DEFERRED_ACTOR, profession: 'actor' }, cause: 'ageBoundary', evaluationId: last.id }])
++    expect(f.atAge.careerLifecycle.transitionDue.filter(row => row.personId === DEFERRED_ACTOR)).toEqual([])
++    expect(f.atAge.careerLifecycle.professionChanges.filter(row => row.personId === DEFERRED_ACTOR)).toEqual([])
++    expect(f.atAge.freeAgents).not.toContain(DEFERRED_ACTOR)
++    acceptedEvidence(f.beforeAge)
++    acceptedEvidence(f.atAge)
++  })
++
++  it('D3 reopens the actual final save and advances once without replacing old questions or reopening due work', () => {
++    const f = deferredEvidence(), rows = subjectEvaluations(f.atAge, DEFERRED_ACTOR)
++    const finalities = f.atAge.careerLifecycle.industryRetirements.filter(row => row.personId === DEFERRED_ACTOR)
++    expect(rows).toHaveLength(12)
++    expect(finalities).toHaveLength(1)
++    expect(f.loaded.market.tick).toBe(3161)
++    expect(f.after.market.tick).toBe(3162)
++    for (const state of [f.loaded, f.after]) {
++      acceptedEvidence(state)
++      expect(subjectEvaluations(state, DEFERRED_ACTOR)).toEqual(rows)
++      expect(retirementRecordFor(state, DEFERRED_ACTOR, 'actor')).toEqual(retirementRecordFor(f.origin, DEFERRED_ACTOR, 'actor'))
++      expect(state.careerLifecycle.industryRetirements.filter(row => row.personId === DEFERRED_ACTOR)).toEqual(finalities)
++      expect(state.careerLifecycle.professionChanges.filter(row => row.personId === DEFERRED_ACTOR)).toEqual([])
++      expect(state.careerLifecycle.transitionDue.filter(row => row.personId === DEFERRED_ACTOR)).toEqual([])
++      expect(state.freeAgents).not.toContain(DEFERRED_ACTOR)
++      expect(person(state, DEFERRED_ACTOR).role).toBe('actor')
++      expect(state.talentProvenance.rows.find(row => row.personId === DEFERRED_ACTOR))
++        .toEqual(f.origin.talentProvenance.rows.find(row => row.personId === DEFERRED_ACTOR))
++    }
++    expect(f.observations).toHaveLength(562)
++    expect(evidenceTickCount('deferred')).toBe(562)
++  })
++})
+diff --git a/tests/p14c3-held-actor-evidence.test.ts b/tests/p14c3-held-actor-evidence.test.ts
+new file mode 100644
+index 00000000..7a8ce7a9
+--- /dev/null
++++ b/tests/p14c3-held-actor-evidence.test.ts
+@@ -0,0 +1,213 @@
++// 1018-A G3: authentic held production and four public forks, <=304 total ticks.
++import assert from 'node:assert/strict'
++import { afterAll, describe, expect, it } from 'vitest'
++import { transitionInputsFor } from '../src/core/index.js'
++import { retirementRecordFor } from '../src/core/careerLifecycle.js'
++import { careerIdentity } from '../src/core/talentSummary.js'
++import type { GameState, TransitionPictureRef } from '../src/core/types.js'
++import { compareText, expectFocusChosen, FOCUS, person } from './helpers/p14c3-fixtures.js'
++import { acceptedEvidence, agedHeldEvidence, assertHeldEvidence, cancelledAfterEvidence, cancelledBeforeEvidence,
++  evidenceTickCount, heldEvidence, noSubjectDecision, releasedHeldEvidence, subjectEvaluations, takenEvidence } from './helpers/p14c3-genuine-evidence-fixtures.js'
++
++const orderPicture = (a: TransitionPictureRef, b: TransitionPictureRef) => compareText(a.studioId, b.studioId) || compareText(a.pictureId, b.pictureId)
++let observedReleaseWeek: number | null = null
++let observedClearanceWeek: number | null = null
++let observedAgeFinalityWeek: number | null = null
++afterAll(() => console.info(JSON.stringify({ phase: '1020-genuine-route-observation', group: 'G3',
++  tickCalls: evidenceTickCount('held'), releaseWeek: observedReleaseWeek,
++  clearanceWeek: observedClearanceWeek, ageFinalityWeek: observedAgeFinalityWeek })))
++function evidence(state: GameState, takesExpected: 3 | 4, writerExpected: 3 | 4): void {
++  const f = heldEvidence(), owner = state.hollywood!.playerStudioId
++  for (const id of Object.values(FOCUS)) {
++    const takes = state.firstTakes.filter(row => row.week <= state.market.tick && Object.values(row.cast).includes(id))
++      .sort((a, b) => a.week - b.week || compareText(a.studioId, b.studioId)
++        || compareText(a.productionId, b.productionId) || compareText(a.eventId, b.eventId))
++    expect(takes).toHaveLength(takesExpected)
++    expect(new Set(takes.map(row => JSON.stringify([row.studioId, row.productionId]))).size).toBe(takesExpected)
++    expect(takes.every(row => row.studioId === owner)).toBe(true)
++    const leads = takes.filter(row => row.cast.lead === id)
++    const originalDirector = leads.filter(row => row.directorId === 'authored-0002')
++    const youngDirector = leads.filter(row => row.directorId === f.directorId)
++    expect(leads).toHaveLength(id === FOCUS.director ? takesExpected : 0)
++    expect(originalDirector).toHaveLength(id === FOCUS.director ? 3 : 0)
++    expect(youngDirector).toHaveLength(id === FOCUS.director ? takesExpected - 3 : 0)
++    expect(originalDirector.length + youngDirector.length).toBe(leads.length)
++    const films = state.studio.releasedFilms.filter(row => row.releaseTick <= state.market.tick && row.participants
++      && Object.values(row.participants.cast).some(credit => credit.talentId === id))
++    expect(films).toHaveLength(writerExpected)
++    expect(films.every(row => row.participants!.writer.talentId === 'authored-0003')).toBe(true)
++    expect(new Set(films.map(row => row.productionId)).size).toBe(writerExpected)
++    // This corpus has no other owner's films for these publicly authored people.
++    expect(state.hollywood!.films.filter(row => row.credits.some(credit => credit.talentId === id))).toEqual([])
++    const inputs = transitionInputsFor(state, id, state.market.tick)
++    expect(inputs.actingFirstTakes).toBe(takesExpected)
++    expect(inputs.leadFirstTakes).toBe(leads.length)
++    expect(inputs.actingWitnesses).toEqual(takes.slice(0, 3).map(row => row.eventId))
++    const director = inputs.targets.find(row => row.profession === 'director')!
++    const directorPictures = originalDirector.map(row => ({ studioId: row.studioId, pictureId: row.productionId })).sort(orderPicture)
++    expect(director).toMatchObject({ contextCount: originalDirector.length,
++      contextBand: id === FOCUS.director ? 2 : 0, contextWitness: {
++        counterpartId: id === FOCUS.director ? 'authored-0002' : null, pictures: directorPictures.slice(0, 2) } })
++    const writerPictures = films.map(row => ({ studioId: owner, pictureId: row.productionId })).sort(orderPicture)
++    expect(inputs.targets.find(row => row.profession === 'writer')).toMatchObject({ contextCount: writerExpected, contextBand: 2,
++      contextWitness: { counterpartId: 'authored-0003', pictures: writerPictures.slice(0, 2) } })
++    // At an actual decision boundary the immutable recorded question must contain
++    // these newly available retained facts, not a stale pre-clearance count.
++    const recorded = subjectEvaluations(state, id).find(row => row.week === state.market.tick)
++    if (recorded) {
++      expect(recorded.inputs.actingFirstTakes).toBe(inputs.actingFirstTakes)
++      expect(recorded.inputs.leadFirstTakes).toBe(inputs.leadFirstTakes)
++      expect(recorded.inputs.actingWitnesses).toEqual(inputs.actingWitnesses)
++      for (const target of ['director', 'writer'] as const) {
++        const question = recorded.inputs.targets.find(row => row.profession === target)!
++        const current = inputs.targets.find(row => row.profession === target)!
++        expect({ count: question.contextCount, band: question.contextBand, witness: question.contextWitness })
++          .toEqual({ count: current.contextCount, band: current.contextBand, witness: current.contextWitness })
++      }
++    }
++  }
++}
++function originals(state: GameState): void {
++  const f = heldEvidence()
++  for (const id of Object.values(FOCUS)) {
++    expect(state.talentProvenance.rows.find(row => row.personId === id))
++      .toEqual(f.origin.talentProvenance.rows.find(row => row.personId === id))
++    expect(state.careerLifecycle.professionAnchors.find(row => row.personId === id))
++      .toEqual(f.origin.careerLifecycle.professionAnchors.find(row => row.personId === id))
++    expect(retirementRecordFor(state, id, 'actor')).toMatchObject({ personId: id, profession: 'actor', announcedWeek: 104,
++      effectiveWeek: 208, extensionUsed: false, extendedFromWeek: null })
++    for (const take of f.origin.firstTakes.filter(row => Object.values(row.cast).includes(id))) {
++      expect(state.firstTakes.find(row => row.eventId === take.eventId)).toEqual(take)
++    }
++    for (const film of f.origin.studio.releasedFilms.filter(row => row.participants
++      && Object.values(row.participants.cast).some(credit => credit.talentId === id))) {
++      expect(state.studio.releasedFilms.find(row => row.productionId === film.productionId))
++        .toMatchObject({ productionId: film.productionId, releaseTick: film.releaseTick, participants: film.participants })
++    }
++  }
++  expect(state.talent.slice(0, f.origin.talent.length).map(row => row.id)).toEqual(f.origin.talent.map(row => row.id))
++}
++function chosenAt(state: GameState, week: number): void {
++  acceptedEvidence(state)
++  expectFocusChosen(state, week)
++  for (const id of Object.values(FOCUS)) {
++    expect(retirementRecordFor(state, id, 'actor')).toMatchObject({ status: 'retired', retiredWeek: week, finishingFromWeek: 208 })
++  }
++  originals(state)
++}
++
++describe('C.3 genuine held actor evidence and retirement clearance', () => {
++  it('H1 holds a real unscheduled company across E without a take, release or transition', () => {
++    const f = heldEvidence()
++    expect(f.origin.market.tick).toBe(104)
++    expect(f.held.market.tick).toBe(208)
++    expect(f.held.studio.activeProductions.find(row => row.id === f.productionId)).toMatchObject({ startTick: 199,
++      directorId: f.directorId, writerId: 'authored-0003', cast: { lead: FOCUS.director, antagonist: FOCUS.writer } })
++    acceptedEvidence(f.held)
++    assertHeldEvidence(f.held, f.productionId)
++    evidence(f.held, 3, 3)
++    originals(f.held)
++  })
++
++  it('H2 cancels before a take and makes one genuine decision at clearance209 without new evidence', () => {
++    const f = heldEvidence(), state = cancelledBeforeEvidence()
++    chosenAt(state, 209)
++    expect(state.studio.activeProductions.filter(row => row.id === f.productionId)).toEqual([])
++    expect(state.firstTakes.filter(row => row.productionId === f.productionId)).toEqual([])
++    expect(state.studio.releasedFilms.filter(row => row.productionId === f.productionId)).toEqual([])
++    expect(state.careerEvents.filter(row => row.filmId === f.productionId)).toEqual([])
++    evidence(state, 3, 3)
++  })
++
++  it('H3 captures an actual post-E take while the active company still postpones both decisions', () => {
++    const f = heldEvidence(), state = takenEvidence()
++    expect(state.market.tick).toBe(209)
++    acceptedEvidence(state)
++    expect(state.firstTakes.filter(row => row.productionId === f.productionId)).toEqual([expect.objectContaining({
++      week: 209, studioId: state.hollywood!.playerStudioId, productionId: f.productionId, directorId: f.directorId,
++      cast: expect.objectContaining({ lead: FOCUS.director, antagonist: FOCUS.writer }) })])
++    expect(state.studio.activeProductions.some(row => row.id === f.productionId)).toBe(true)
++    expect(state.studio.releasedFilms.some(row => row.productionId === f.productionId)).toBe(false)
++    for (const id of Object.values(FOCUS)) {
++      expect(retirementRecordFor(state, id, 'actor')).toMatchObject({ status: 'finishing_commitments', finishingFromWeek: 208 })
++      noSubjectDecision(state, id)
++    }
++    evidence(state, 4, 3)
++    originals(state)
++  })
++
++  it('H4 cancels after the take and retains acting/directing facts but no released Writer picture at210', () => {
++    const f = heldEvidence(), state = cancelledAfterEvidence()
++    chosenAt(state, 210)
++    expect(state.studio.activeProductions.filter(row => row.id === f.productionId)).toEqual([])
++    expect(state.firstTakes.filter(row => row.productionId === f.productionId))
++      .toEqual(takenEvidence().firstTakes.filter(row => row.productionId === f.productionId))
++    expect(state.studio.releasedFilms.filter(row => row.productionId === f.productionId)).toEqual([])
++    expect(state.careerEvents.filter(row => row.filmId === f.productionId)).toEqual([])
++    evidence(state, 4, 3)
++  })
++
++  it('H5 actual release adds the fourth shared Writer credit before one observed clearance decision each', () => {
++    const f = heldEvidence(), state = releasedHeldEvidence()
++    observedReleaseWeek = state.studio.releasedFilms.find(row => row.productionId === f.productionId)?.releaseTick ?? null
++    observedClearanceWeek = retirementRecordFor(state, FOCUS.director, 'actor')?.retiredWeek ?? null
++    expect(state.market.tick).toBeGreaterThan(209)
++    expect(state.market.tick).toBeLessThanOrEqual(249)
++    chosenAt(state, state.market.tick)
++    const film = state.studio.releasedFilms.find(row => row.productionId === f.productionId)
++    assert.ok(film)
++    expect(film.releaseTick).toBeGreaterThanOrEqual(209)
++    expect(film.releaseTick).toBeLessThanOrEqual(state.market.tick)
++    expect(film.participants).toMatchObject({ writer: { talentId: 'authored-0003' }, director: { talentId: f.directorId },
++      cast: { lead: { talentId: FOCUS.director }, antagonist: { talentId: FOCUS.writer } } })
++    expect(state.firstTakes.filter(row => row.productionId === f.productionId))
++      .toEqual(takenEvidence().firstTakes.filter(row => row.productionId === f.productionId))
++    expect(state.studio.activeProductions.some(row => row.id === f.productionId)).toBe(false)
++    evidence(state, 4, 4)
++    for (const id of Object.values(FOCUS)) {
++      expect(subjectEvaluations(cancelledAfterEvidence(), id)[0]!.inputs.targets.find(row => row.profession === 'writer')?.contextCount).toBe(3)
++      expect(subjectEvaluations(state, id)[0]!.inputs.targets.find(row => row.profession === 'writer')?.contextCount).toBe(4)
++    }
++  })
++
++  it('H6 holds genuine work to75 and takes age precedence over qualifying evidence, preserving finality after reopening', () => {
++    const f = heldEvidence(), route = agedHeldEvidence()
++    observedAgeFinalityWeek = route.retired.careerLifecycle.industryRetirements.find(row => row.personId === FOCUS.director)?.week ?? null
++    expect(route.before.market.tick).toBe(363)
++    assertHeldEvidence(route.before, f.productionId)
++    evidence(route.before, 3, 3)
++    for (const [target, id] of Object.entries(FOCUS)) {
++      const discipline = target === 'director' ? 'directing' : 'writing'
++      const provenance = route.before.talentProvenance.rows.find(row => row.personId === id)
++      expect(provenance).toMatchObject({ ageAtEntry: 68, entryWeek: 0 })
++      expect(Math.floor(68 + 363 / 52)).toBe(74)
++      expect(Math.floor(68 + 364 / 52)).toBe(75)
++      expect(careerIdentity(person(route.before, id)).disciplines.find(row => row.discipline === discipline)?.ovr).toBeGreaterThanOrEqual(60)
++      const beforeInputs = transitionInputsFor(route.before, id, 363)
++      expect(beforeInputs.actingFirstTakes).toBe(3)
++      expect(beforeInputs.targets.find(row => row.profession === target)?.contextCount).toBe(3)
++      const rows = subjectEvaluations(route.retired, id)
++      expect(rows).toHaveLength(1)
++      expect(rows[0]).toMatchObject({ week: 364, source: { personId: id, profession: 'actor' },
++        outcome: 'ageBoundary', reason: 'waitingAgeReached', selected: null, inputs: { age: 75, actingFirstTakes: 3 } })
++      const finalities = route.retired.careerLifecycle.industryRetirements.filter(row => row.personId === id)
++      expect(finalities).toEqual([{ personId: id, week: 364, profession: 'actor', source: { personId: id, profession: 'actor' },
++        cause: 'ageBoundary', evaluationId: rows[0]!.id }])
++      for (const state of [route.retired, route.loaded, route.after]) {
++        acceptedEvidence(state)
++        expect(person(state, id)).toMatchObject({ role: 'actor', age: 75 })
++        expect(retirementRecordFor(state, id, 'actor')).toMatchObject({ status: 'retired', retiredWeek: 364, finishingFromWeek: 208 })
++        expect(subjectEvaluations(state, id)).toEqual(rows)
++        expect(state.careerLifecycle.industryRetirements.filter(row => row.personId === id)).toEqual(finalities)
++        expect(state.careerLifecycle.professionChanges.filter(row => row.personId === id)).toEqual([])
++        expect(state.careerLifecycle.transitionDue.filter(row => row.personId === id)).toEqual([])
++        expect(state.freeAgents).not.toContain(id)
++        expect(state.firstTakes.some(row => row.productionId === f.productionId)).toBe(false)
++        expect(state.studio.releasedFilms.some(row => row.productionId === f.productionId)).toBe(false)
++        originals(state)
++      }
++    }
++    expect(route.after.market.tick).toBe(365)
++    expect(evidenceTickCount('held')).toBeLessThanOrEqual(304)
++  })
++})
+diff --git a/tests/p14c3-transition-owner-and-snapshots.test.ts b/tests/p14c3-transition-owner-and-snapshots.test.ts
+new file mode 100644
+index 00000000..85af968e
+--- /dev/null
++++ b/tests/p14c3-transition-owner-and-snapshots.test.ts
+@@ -0,0 +1,180 @@
++// 1018-A G1/G5: one actual settlement seam and one real later film, <=41 ticks.
++import assert from 'node:assert/strict'
++import { afterAll, describe, expect, it, vi } from 'vitest'
++import * as core from '../src/core/index.js'
++import * as owner from '../src/core/professionTransitions.js'
++import { retirementRecordFor } from '../src/core/careerLifecycle.js'
++import { activeContract } from '../src/core/employment.js'
++import { careerIdentity, expectedPotentialTier, roleOVR, roleTier } from '../src/core/talentSummary.js'
++import { tick } from '../src/core/tick.js'
++import type { GameState, RetirementKey } from '../src/core/types.js'
++import { clone, expectFocusChosen, FOCUS, migrated, person } from './helpers/p14c3-fixtures.js'
++import { acceptedEvidence, actEvidence, addYoungEvidence, greenlightEvidence, releaseEvidence,
++  reopenEvidence, subjectEvaluations } from './helpers/p14c3-genuine-evidence-fixtures.js'
++
++type Cached<T> = { ok: true; value: T } | { ok: false; error: unknown }
++const cache = new Map<string, Cached<unknown>>()
++function memo<T>(key: string, build: () => T): T {
++  const found = cache.get(key) as Cached<T> | undefined
++  if (found) { if (!found.ok) throw found.error; return clone(found.value) }
++  try { const value = build(); cache.set(key, { ok: true, value }); return clone(value) }
++  catch (error) { cache.set(key, { ok: false, error }); throw error }
++}
++let ticks = 0
++let releaseWeek: number | null = null
++let releasedStateWeek: number | null = null
++afterAll(() => console.info(JSON.stringify({ phase: '1020-genuine-route-observation', group: 'G1/G5',
++  tickCalls: ticks, releaseWeek, releasedStateWeek })))
++function step(state: GameState): GameState {
++  assert.ok(ticks < 41 && state.market.tick < 248, 'G1/G5 shared41-tick/max248 cap')
++  ticks++
++  const after = tick(state, { develop: true })
++  expect(after.market.tick).toBe(state.market.tick + 1)
++  return after
++}
++type ObservedOwner = { before: GameState; after: GameState; keys: readonly RetirementKey[]; settled: GameState }
++function actualOwner(): ObservedOwner {
++  return memo('owner208', () => {
++    const input = migrated()
++    expect(input.market.tick).toBe(207)
++    acceptedEvidence(input)
++    expect(input.careerLifecycle.records.map(row => row.personId).sort()).toEqual(Object.values(FOCUS).sort())
++    expect(input.careerLifecycle.records.every(row => row.profession === 'actor' && row.status === 'announced' && row.effectiveWeek === 208)).toBe(true)
++    expect(input.careerLifecycle.transitionEvaluations).toEqual([])
++    expect(input.careerLifecycle.professionChanges).toEqual([])
++    expect(input.careerLifecycle.industryRetirements).toEqual([])
++    expect(input.careerLifecycle.transitionDue).toEqual([])
++    const original = owner.advanceProfessionTransitions
++    const observations: Omit<ObservedOwner, 'settled'>[] = []
++    const spy = vi.spyOn(owner, 'advanceProfessionTransitions').mockImplementation((state, keys) => {
++      const before = clone(state), suppliedKeys = clone(keys)
++      const result = original(state, keys)
++      expect(keys).toEqual(suppliedKeys)
++      expect(state).toEqual(before)
++      observations.push({ before, after: clone(result), keys: suppliedKeys })
++      return result
++    })
++    let settled: GameState
++    try {
++      settled = step(input)
++      expect(spy.mock.calls, 'actual tick settlement must reach the real owner exactly once').toHaveLength(1)
++      expect(observations).toHaveLength(1)
++    } finally { spy.mockRestore() }
++    const captured = observations[0]!
++    expect(captured.before.market.tick).toBe(208)
++    for (const id of Object.values(FOCUS)) {
++      expect(captured.keys).toContainEqual({ personId: id, profession: 'actor' })
++      expect(retirementRecordFor(captured.before, id, 'actor')).toMatchObject({ status: 'retired', retiredWeek: 208 })
++      expect(person(captured.before, id).role).toBe('actor')
++    }
++    expectFocusChosen(captured.after, 208)
++    expectFocusChosen(settled, 208)
++    acceptedEvidence(settled)
++    return { ...captured, settled }
++  })
++}
++function masked(state: GameState, chosen: ReadonlySet<string>) {
++  return { ...state, freeAgents: [], careerLifecycle: { ...state.careerLifecycle,
++    transitionEvaluations: [], professionChanges: [], industryRetirements: [], transitionDue: [] },
++  talent: state.talent.map(row => chosen.has(row.id)
++    ? { ...row, role: undefined, skill: undefined, salary: undefined } : row) }
++}
++function actualLaterFilm() {
++  return memo('later-release', () => {
++    const origin = actualOwner().settled
++    let state = clone(origin)
++    for (const id of Object.values(FOCUS)) {
++      state = actEvidence(state, { kind: 'signContract', talentId: id, termWeeks: 52 })
++      expect(activeContract(state, id)).toMatchObject({ startWeek: 208, endWeekExclusive: 260 })
++    }
++    const cast: string[] = []
++    for (const slot of ['lead', 'antagonist', 'support']) {
++      const added = addYoungEvidence(state, 'actor', `snapshot ${slot}`); state = added.state; cast.push(added.id)
++    }
++    const craft = addYoungEvidence(state, 'craft', 'snapshot craft'); state = craft.state
++    const made = greenlightEvidence(state, { directorId: FOCUS.director, writerId: FOCUS.writer,
++      cast: { lead: cast[0]!, antagonist: cast[1]!, support: cast[2]! }, craftIds: [craft.id] })
++    const beforeWork = clone(made.state)
++    const released = releaseEvidence(made.state, made.productionId, FOCUS.director, step)
++    const film = released.studio.releasedFilms.find(row => row.productionId === made.productionId)
++    assert.ok(film)
++    releaseWeek = film.releaseTick
++    releasedStateWeek = released.market.tick
++    expect(film.participants?.director.talentId).toBe(FOCUS.director)
++    expect(film.participants?.writer.talentId).toBe(FOCUS.writer)
++    expect(released.firstTakes.filter(row => row.productionId === made.productionId)).toHaveLength(1)
++    expect(released.market.tick).toBeGreaterThan(208)
++    expect(released.market.tick).toBeLessThanOrEqual(248)
++    return { origin, beforeWork, released, loaded: reopenEvidence(released), productionId: made.productionId }
++  })
++}
++
++describe('C.3 genuine transition owner and later public snapshots', () => {
++  it('O1 observes the actual retirement-owner call and preserves all state outside its exact write set', () => {
++    const { before, after } = actualOwner()
++    const old = before.careerLifecycle, current = after.careerLifecycle
++    expect(current.transitionEvaluations.slice(0, old.transitionEvaluations.length)).toEqual(old.transitionEvaluations)
++    expect(current.professionChanges.slice(0, old.professionChanges.length)).toEqual(old.professionChanges)
++    expect(current.industryRetirements.slice(0, old.industryRetirements.length)).toEqual(old.industryRetirements)
++    const changes = current.professionChanges.slice(old.professionChanges.length)
++    const finalities = current.industryRetirements.slice(old.industryRetirements.length)
++    const evaluations = current.transitionEvaluations.slice(old.transitionEvaluations.length)
++    expect(changes).toHaveLength(2)
++    expect(evaluations).toHaveLength(2)
++    expect(finalities).toEqual([])
++    expect(old.transitionDue).toEqual([])
++    expect(current.transitionDue).toEqual([])
++    const ids = new Set(changes.map(row => row.personId))
++    expect(ids.has(FOCUS.director) && ids.has(FOCUS.writer)).toBe(true)
++    expect(masked(after, ids)).toEqual(masked(before, ids))
++    for (const change of changes) {
++      const destination = person(after, change.personId)
++      expect(change).toMatchObject({ from: 'actor', week: 208 })
++      expect(destination.role).toBe(change.to)
++      expect(destination.skill).toBe(roleOVR(destination, change.to === 'director' ? 'directing' : 'writing'))
++      expect(destination.salary).toBe(core.salaryCurve(destination))
++      expect(evaluations.find(row => row.id === change.evaluationId))
++        .toMatchObject({ personId: change.personId, week: 208, outcome: 'chosen', selected: change.to })
++      expect(current.transitionDue.filter(row => row.personId === change.personId)).toEqual([])
++    }
++    const expectedFree = [...before.freeAgents]
++    for (const change of changes) if (!expectedFree.includes(change.personId)) expectedFree.push(change.personId)
++    expect(after.freeAgents).toEqual(expectedFree)
++  })
++
++  for (const target of ['director', 'writer'] as const) {
++    it(`${target === 'director' ? 'S1' : 'S2'} real later ${target} credit changes public proof but preserves the old stored question`, () => {
++      const f = actualLaterFilm(), id = FOCUS[target], discipline = target === 'director' ? 'directing' : 'writing'
++      const oldRows = subjectEvaluations(f.origin, id)
++      expect(oldRows).toHaveLength(1)
++      const oldTarget = oldRows[0]!.inputs.targets.find(row => row.profession === target)!
++      expect(oldTarget).toMatchObject({ workHistory: 0, proven: false })
++      const beforeStanding = careerIdentity(person(f.beforeWork, id)).disciplines.find(row => row.discipline === discipline)!
++      expect(beforeStanding).toMatchObject({ workHistory: 0, capable: true, proven: false })
++      for (const state of [f.released, f.loaded]) {
++        acceptedEvidence(state)
++        const talent = person(state, id), standing = careerIdentity(talent).disciplines.find(row => row.discipline === discipline)!
++        expect(standing).toMatchObject({ workHistory: 1, capable: true, proven: true })
++        expect(standing.ovr).toBeGreaterThanOrEqual(60)
++        expect(state.careerEvents.filter(row => row.talentId === id && row.filmId === f.productionId))
++          .toEqual([expect.objectContaining({ role: target, discipline, workHistoryBefore: 0, workHistoryAfter: 1 })])
++        const inputs = core.transitionInputsFor(state, id, state.market.tick)
++        const current = inputs.targets.find(row => row.profession === target)!
++        expect(current).toMatchObject({ capability: standing.ovr, roleTier: roleTier(standing.ovr),
++          workHistory: 1, proven: true, potentialTier: expectedPotentialTier(talent, discipline, state.seed) })
++        expect(current.workHistory).not.toBe(oldTarget.workHistory)
++        expect(current.proven).not.toBe(oldTarget.proven)
++        expect(subjectEvaluations(state, id)).toEqual(oldRows)
++        expect(state.firstTakes.filter(row => Object.values(row.cast).includes(id)))
++          .toEqual(f.origin.firstTakes.filter(row => Object.values(row.cast).includes(id)))
++        const oldCredits = f.origin.studio.releasedFilms.filter(row => row.participants
++          && Object.values(row.participants.cast).some(credit => credit.talentId === id))
++        expect(oldCredits).toHaveLength(3)
++        for (const film of oldCredits) expect(state.studio.releasedFilms.find(row => row.productionId === film.productionId)?.participants)
++          .toEqual(film.participants)
++        expect(() => core.transitionInputsFor(state, id, 208)).toThrow(/public inputs are available only for the current week/)
++      }
++      expect(ticks).toBeLessThanOrEqual(41)
++    })
++  }
++})

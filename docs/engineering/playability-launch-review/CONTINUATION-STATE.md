@@ -1,5 +1,58 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — 1016 twelve genuine cases verified; preparing1025 checkpoint
+
+1016 first run12PASS/3files,50.196s,fixedSource; actual840 ticks (10+562+268),
+not the907 cap. Genuine owner isolation/later public proof,12-decision fractional
+chain through3161, held-work cancellations/release and actual75 precedence all
+passed. Release216/state217 and held release212/clearance213 remain distinct.
+1017 roottypesPASS31.887s,closed22:39:54.196Z. Both on87d1449c plusde184518.
+All heavy processes closed. Reviewer1023-A final result review then parent1025
+checkpoint/push. Author1024-A is docs-only exactpaths for1019's eight-leaf off-menu
+route; no further source yet. Parent soleproductionwriter/executor; two specialists.
+Next off-menu source freeze/first result, then G4/StageC/StageD/full gates. Save38
+partial/projection52/native deferral unchanged. Preserve all historical evidence.
+
+## CURRENT — 1016 genuine evidence first run active
+
+The four new1018 source files are frozen under1020-A, patch
+de18451837606d7ee1c64603fa5ae2c08f1f86ff608c9987d9923ae3f92a6a9f on published
+87d1449cde16e6a30cbf4b406ecbbc072faca512. Parent1016-c3-genuine-evidence-first
+started2026-09-26T22:38:17.616Z in the sole heavy lane (exec session50649).
+All consumed source/HEAD frozen until recorded closure.12 leaves/max907 ticks.
+Reviewer1023-A is docs-only source/result review; author now only1024-A's concise
+future off-menu plan, no new source release. Parent soleproductionwriter/executor.
+Read actual JSON/log before claiming results; preserve setup failures and actual
+route metadata. Next causal attribution, matching fixes if needed, types/review
+and publication, then next authorized genuine work.1019 D<E, G4,1021 StageC,
+1022 StageD/projection53 and full verification remain; Unity/native deferred.
+
+## CURRENT — genuine evidence tests released on 87d1449c
+
+Checkpoint87d1449c is published and independently verified. Heavy lane is empty.
+Author owns only1018-A's four new G1/G2/G3/G5 files and1020-A handback:12 leaves,
+at most907 actual ticks, maxworld3162. Frozen1018-A SHA b2a60d9e9889a34ccebb40f6732b78ba48f63935d8b84adddf21f56d93dea0c1;
+reviewer1018-B final affirmation KEEP SHA adc7e3522b1e52864e01811eeefaab36d534979aecfa4bcc7ef69efa2e94e234.
+Lead/antagonist directing evidence is explicitly distinct. Existing source stays
+read-only for the author; parent remains sole production writer/heavy executor.
+Next freeze and record1016 first genuine-evidence result; attribute actual premises.
+Reviewer owns docs-only1021-A StageC feasibility. Frozen1019-A's eight-case D<E
+proposal remains separate and unexecuted. Parent prepares StageD implementation
+mapping without implementing ahead of independent RED. Projection52/partialSave38,
+all remaining971/938/full gates and Unity/native deferral remain unchanged.
+
+## CURRENT — 87d1449c published; next genuine-evidence plan in progress
+
+Local/GitHub refs matched87d1449cde16e6a30cbf4b406ecbbc072faca512; wholeworktree
+clean atverification.1017 records12 genuine dual-extensionPASS, roottypesPASS and
+independentreviewKEEP. All heavy processes closed; no production change required.
+Parent soleproductionwriter/heavyexecutor, same two specialists, separate test/review.
+Author1018-A exact G1/G2/G3/G5 plan and reviewer1018-B are docs-only before release;
+reviewer1019-A separately checks D<E off-menu public continuation feasibility.
+Next execute the reviewed genuine evidence increment, then remaining971/938,
+StageC, projection53/UI/runtime and full verification. Do not repeat completed
+mint/checks or reset older source. Save38partial/projection52/native deferral remain.
+
 ## CURRENT — dual extensions verified; preparing next genuine-evidence batch
 
 1014 first run passed all12 dual-extension cases in36.766s;1015 root TypeScript

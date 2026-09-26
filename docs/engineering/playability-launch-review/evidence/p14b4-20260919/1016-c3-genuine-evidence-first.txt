@@ -1,0 +1,35 @@
+{"sourceSha":"87d1449cde16e6a30cbf4b406ecbbc072faca512","testedDiffSha256":"de18451837606d7ee1c64603fa5ae2c08f1f86ff608c9987d9923ae3f92a6a9f","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c3-transition-owner-and-snapshots.test.ts","tests/p14c3-deferred-transition-chain.test.ts","tests/p14c3-held-actor-evidence.test.ts"],"node":"v20.20.2","start":"2026-09-26T22:38:17.616Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14c3-transition-owner-and-snapshots.test.ts
+{"phase":"1020-genuine-route-observation","group":"G1/G5","tickCalls":10,"releaseWeek":216,"releasedStateWeek":217}
+
+ ✓ |core| tests/p14c3-transition-owner-and-snapshots.test.ts (3 tests) 10908ms
+   ✓ C.3 genuine transition owner and later public snapshots > O1 observes the actual retirement-owner call and preserves all state outside its exact write set 3145ms
+   ✓ C.3 genuine transition owner and later public snapshots > S1 real later director credit changes public proof but preserves the old stored question 6489ms
+   ✓ C.3 genuine transition owner and later public snapshots > S2 real later writer credit changes public proof but preserves the old stored question 1272ms
+stdout | tests/p14c3-held-actor-evidence.test.ts
+{"phase":"1020-genuine-route-observation","group":"G3","tickCalls":268,"releaseWeek":212,"clearanceWeek":213,"ageFinalityWeek":364}
+
+ ✓ |core| tests/p14c3-held-actor-evidence.test.ts (6 tests) 26574ms
+   ✓ C.3 genuine held actor evidence and retirement clearance > H1 holds a real unscheduled company across E without a take, release or transition 9455ms
+   ✓ C.3 genuine held actor evidence and retirement clearance > H2 cancels before a take and makes one genuine decision at clearance209 without new evidence 1537ms
+   ✓ C.3 genuine held actor evidence and retirement clearance > H3 captures an actual post-E take while the active company still postpones both decisions 1041ms
+   ✓ C.3 genuine held actor evidence and retirement clearance > H4 cancels after the take and retains acting/directing facts but no released Writer picture at210 1247ms
+   ✓ C.3 genuine held actor evidence and retirement clearance > H5 actual release adds the fourth shared Writer credit before one observed clearance decision each 1850ms
+   ✓ C.3 genuine held actor evidence and retirement clearance > H6 holds genuine work to75 and takes age precedence over qualifying evidence, preserving finality after reopening 11441ms
+stdout | tests/p14c3-deferred-transition-chain.test.ts
+{"phase":"1020-genuine-route-observation","group":"G2","tickCalls":562,"finalityWeek":3161}
+
+ ✓ |core| tests/p14c3-deferred-transition-chain.test.ts (3 tests) 45757ms
+   ✓ C.3 genuine fractional-provenance deferred chain > D1 records eleven exact annual deferrals and no intervening weekly retries 41238ms
+   ✓ C.3 genuine fractional-provenance deferred chain > D2 clips the annual due at the actual fractional75 crossing and writes one linked finality 2116ms
+   ✓ C.3 genuine fractional-provenance deferred chain > D3 reopens the actual final save and advances once without replacing old questions or reopening due work 2399ms
+
+ Test Files  3 passed (3)
+      Tests  12 passed (12)
+   Start at  00:38:18
+   Duration  49.20s (transform 2.45s, setup 0ms, collect 7.86s, tests 83.24s, environment 1ms, prepare 849ms)
+

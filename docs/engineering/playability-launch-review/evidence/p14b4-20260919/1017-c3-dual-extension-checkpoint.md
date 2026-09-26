@@ -37,3 +37,10 @@ Unity/native remains deferred. No full C.3 or launch acceptance claim.
 Staged whitespace inspection reports only the preserved terminal blank line in
 each1014/1015 raw .txt log. Source-file whitespace checks passed. The evidence
 bytes remain unchanged; no all-path whitespace PASS is claimed.
+
+## Publication receipt
+
+Normally pushed87d1449cde16e6a30cbf4b406ecbbc072faca512 to the existing working
+branch. Independent ls-remote matched exact local HEAD; the whole worktree was
+clean at that verification. No force push, main promotion, hooks or persistent
+configuration changes. Subsequent docs/author work belongs to the next checkpoint.
