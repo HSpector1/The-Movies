@@ -1,5 +1,33 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — C.3 input inventory closed; exact contract and genuine T0 next
+
+C.2-RM qualification remains published9afae887, LOGIC VERIFIED · UNITY NOT VERIFIED.
+937 expansion received939 independentKEEP;938 independent24-row test matrix frozen.
+941 factual inventory closed0/fixedSource:true on9afae887/emptydiff, no source/input
+mutation.943 records seven target-capable actors, all lacking the required recorded
+acting work; no positive transition witness or new fixture claimed. Thresholds were
+not lowered. Parent owns942 exactexecutioncontract and943attribution; c2rm_tests
+prepares only944docs T0producer through actualpublicauthoring/work/ticks. Reviewer
+idle/reusable. No C.3 production/runnabletest edits, no heavy process active.
+Next freeze/publish exactcontract; inspect/run genuine outgoingSave37/runtime52 T0;
+then independent RED and solewriter implementation. Same2specialists, oneheavylane.
+Unity/native remains deferred; all older qualification limits and failures preserved.
+
+## CURRENT — published C.2-RM qualification; C.3 reconciliation ACTIVE
+
+Actual local/GitHub ref9afae8874486fbb20dc5d373526698aacbec2114 verified; clean
+at publication.936 qualifies C.2-RM LOGIC VERIFIED · UNITY NOT VERIFIED, with
+full927 and all inherited failures/limits retained. No test process is active.
+Parent owns937 C.3 expansion/source reconciliation; c2rm_tests owns only938
+requirements/test-seam document; c2rm_contract_review is read-only authority scout
+for parent-persisted939. Same two specialists; no production/test edits authorized
+for C.3 until contract and T0/RED gates. Current Save37/projection52 remains.
+First findings: per-person retirement lookup, role equality, historical cohort
+re-derivation and authored-credit validation need dated profession authority.
+Continue bounded reconciliation, publish plan, preserve genuine outgoing source,
+then independent RED and implementation within settled/delegated law. Unity deferred.
+
 ## CURRENT — C.2-RM qualified; publication then C.3 reconciliation
 
 936 records LOGIC VERIFIED · UNITY NOT VERIFIED.927 full4377PASS/58FAIL/11todo

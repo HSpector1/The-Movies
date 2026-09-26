@@ -73,3 +73,8 @@ P10 role authority, autonomous choice, migration, promise interaction and875's
 retired-relationship disclosure premise before any C.3 implementation. Routine
 implementation choices remain delegated; genuine unresolved product decisions
 must be presented concretely. Unity/native and destructive actions stay deferred.
+
+Publication verified: local and actual GitHub branch refs both equal
+9afae8874486fbb20dc5d373526698aacbec2114; clean worktree immediately after push.
+C.3 expansion/source reconciliation is now active; no production/test writer or
+heavy process is active. Same specialists reused, no recreated agents.

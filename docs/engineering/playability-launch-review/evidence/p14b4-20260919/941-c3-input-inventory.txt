@@ -1,0 +1,762 @@
+{"sourceSha":"9afae8874486fbb20dc5d373526698aacbec2114","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vite-node","docs/engineering/playability-launch-review/evidence/p14b4-20260919/940-c3-input-probe.ts"],"node":"v20.20.2","start":"2026-09-26T18:40:17.400Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+{
+  "probe": "940-c3-input-probe.ts",
+  "producerSha256": "db107bf0df20f5b1f96180db1d19d68dca44726d8651518a4b272de56062b03d",
+  "sourceBefore": {
+    "head": "9afae8874486fbb20dc5d373526698aacbec2114",
+    "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untracked": ""
+  },
+  "sourceAfter": {
+    "head": "9afae8874486fbb20dc5d373526698aacbec2114",
+    "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untracked": ""
+  },
+  "environment": {
+    "node": "v20.20.2",
+    "platform": "darwin",
+    "arch": "x64"
+  },
+  "limits": {
+    "maximumCandidateRowsPerWorld": 128,
+    "exampleIdsOrContextsPerGroup": 8
+  },
+  "factsOnly": true,
+  "simulatedWeeks": 0,
+  "results": [
+    {
+      "input": {
+        "path": "tests/fixtures/p14/genuine-v35-c2b-corpus/genuine-v35-c2b-rival-incumbent-cohorts.json.gz",
+        "manifestPath": "tests/fixtures/p14/genuine-v35-c2b-corpus/MANIFEST.json",
+        "manifestSha256": "f47f781a4063ed53dc52adb361fabddded63909bf888d217ae9b2c9fc799531b",
+        "sourceVersion": 35,
+        "compressedSha256": "afb89ad0a5f1e972564d1389c800fb544e5082e8a8dddb4bbd5a2a43520e085d",
+        "uncompressedSha256": "8b4c1934222bc28da2bd4517b3967350cc01e2517cb18044246a3a65323f2fa8",
+        "rawBytes": 5867589
+      },
+      "live": {
+        "saveVersion": 37,
+        "week": 2600,
+        "seed": "p14c2b-corpus-01-c1",
+        "stateSha256": "8b76bd66d5e6e2809e7469479b17180dee48cf9e0480252a6f3ab748b5fe01be"
+      },
+      "aggregate": {
+        "population": 182,
+        "actors": {
+          "all": 85,
+          "activeWithoutRecord": 39,
+          "announced": 1,
+          "finishing": 0,
+          "retired": 45
+        },
+        "actorsUnder75": {
+          "all": 46,
+          "activeWithoutRecord": 39,
+          "announced": 1,
+          "finishing": 0,
+          "retired": 6
+        },
+        "candidates": {
+          "all": 5,
+          "activeWithoutRecord": 4,
+          "announced": 0,
+          "finishing": 0,
+          "retired": 1
+        },
+        "candidateFilter": "current Talent.role actor; materialized age <75; directing or writing careerIdentity capable at current P10 minimum60; not a C.3 eligibility rule",
+        "directingCapableUnder75": 2,
+        "writingCapableUnder75": 3,
+        "directingProvenUnder75": 0,
+        "writingProvenUnder75": 0,
+        "maxDirectingOvrUnder75": 69,
+        "maxWritingOvrUnder75": 76,
+        "firstTakeReceipts": 321,
+        "releasedFilms": 329,
+        "uncapturedPlayerFilms": 0,
+        "lifecycleRecords": 94,
+        "cohortReceipts": 50
+      },
+      "candidates": [
+        {
+          "personId": "person-cohort-1092-actor-0",
+          "name": "Myrna Nakamura",
+          "currentRole": "actor",
+          "age": 49,
+          "lifecycle": {
+            "status": "active"
+          },
+          "currentEmployerStudioIds": [],
+          "recordedEmploymentStudioIds": [],
+          "cohortEntryWeek": 1092,
+          "target": {
+            "directing": {
+              "perceivedOvr": 49,
+              "capable": false,
+              "proven": false,
+              "capableButUnproven": false,
+              "recordedWorkHistory": 0,
+              "publicExpectedPotentialTier": "Promising",
+              "publicExpectedPotentialRange": {
+                "low": 60,
+                "high": 68
+              }
+            },
+            "writing": {
+              "perceivedOvr": 76,
+              "capable": true,
+              "proven": false,
+              "capableButUnproven": true,
+              "recordedWorkHistory": 0,
+              "publicExpectedPotentialTier": "Promising",
+              "publicExpectedPotentialRange": {
+                "low": 88,
+                "high": 96
+              }
+            }
+          },
+          "firstTakes": {
+            "acting": 0,
+            "lead": 0,
+            "productionIds": {
+              "count": 0,
+              "ids": [],
+              "omitted": 0
+            },
+            "uniqueLeadDirectors": 0,
+            "repeatedDirectorLeadPairs": 0,
+            "repeatedDirectorLeadTakes": 0,
+            "repeatedDirectorLead": [],
+            "omittedDirectorPairs": 0
+          },
+          "releasedCredits": {
+            "roleCredits": 0,
+            "distinctFilms": 0,
+            "actingFilms": 0,
+            "authoredActingFilms": 0,
+            "campaignActingFilms": 0,
+            "capturedCareerEvents": 0,
+            "careerEventRoles": {},
+            "sharedWriterFilmCount": 0,
+            "sharedWriterRoleCreditPairs": 0,
+            "authoredSharedWriterFilmCount": 0,
+            "campaignSharedWriterFilmCount": 0,
+            "matchedFirstTakeSharedWriterFilmCount": 0,
+            "uniqueWriters": 0,
+            "repeatedWriters": {
+              "count": 0,
+              "ids": [],
+              "omitted": 0
+            },
+            "contexts": [],
+            "omittedContexts": 0
+          }
+        },
+        {
+          "personId": "person-cohort-1300-actor-0",
+          "name": "Ruth Halloran",
+          "currentRole": "actor",
+          "age": 53,
+          "lifecycle": {
+            "status": "active"
+          },
+          "currentEmployerStudioIds": [],
+          "recordedEmploymentStudioIds": [],
+          "cohortEntryWeek": 1300,
+          "target": {
+            "directing": {
+              "perceivedOvr": 17,
+              "capable": false,
+              "proven": false,
+              "capableButUnproven": false,
+              "recordedWorkHistory": 0,
+              "publicExpectedPotentialTier": "High Upside",
+              "publicExpectedPotentialRange": {
+                "low": 36,
+                "high": 44
+              }
+            },
+            "writing": {
+              "perceivedOvr": 69,
+              "capable": true,
+              "proven": false,
+              "capableButUnproven": true,
+              "recordedWorkHistory": 0,
+              "publicExpectedPotentialTier": "Promising",
+              "publicExpectedPotentialRange": {
+                "low": 78,
+                "high": 86
+              }
+            }
+          },
+          "firstTakes": {
+            "acting": 0,
+            "lead": 0,
+            "productionIds": {
+              "count": 0,
+              "ids": [],
+              "omitted": 0
+            },
+            "uniqueLeadDirectors": 0,
+            "repeatedDirectorLeadPairs": 0,
+            "repeatedDirectorLeadTakes": 0,
+            "repeatedDirectorLead": [],
+            "omittedDirectorPairs": 0
+          },
+          "releasedCredits": {
+            "roleCredits": 0,
+            "distinctFilms": 0,
+            "actingFilms": 0,
+            "authoredActingFilms": 0,
+            "campaignActingFilms": 0,
+            "capturedCareerEvents": 0,
+            "careerEventRoles": {},
+            "sharedWriterFilmCount": 0,
+            "sharedWriterRoleCreditPairs": 0,
+            "authoredSharedWriterFilmCount": 0,
+            "campaignSharedWriterFilmCount": 0,
+            "matchedFirstTakeSharedWriterFilmCount": 0,
+            "uniqueWriters": 0,
+            "repeatedWriters": {
+              "count": 0,
+              "ids": [],
+              "omitted": 0
+            },
+            "contexts": [],
+            "omittedContexts": 0
+          }
+        },
+        {
+          "personId": "person-cohort-1924-actor-0",
+          "name": "Cary Sunderland",
+          "currentRole": "actor",
+          "age": 35,
+          "lifecycle": {
+            "status": "active"
+          },
+          "currentEmployerStudioIds": [],
+          "recordedEmploymentStudioIds": [],
+          "cohortEntryWeek": 1924,
+          "target": {
+            "directing": {
+              "perceivedOvr": 64,
+              "capable": true,
+              "proven": false,
+              "capableButUnproven": true,
+              "recordedWorkHistory": 0,
+              "publicExpectedPotentialTier": "High Upside",
+              "publicExpectedPotentialRange": {
+                "low": 80,
+                "high": 88
+              }
+            },
+            "writing": {
+              "perceivedOvr": 8,
+              "capable": false,
+              "proven": false,
+              "capableButUnproven": false,
+              "recordedWorkHistory": 0,
+              "publicExpectedPotentialTier": "Exceptional Upside",
+              "publicExpectedPotentialRange": {
+                "low": 34,
+                "high": 42
+              }
+            }
+          },
+          "firstTakes": {
+            "acting": 0,
+            "lead": 0,
+            "productionIds": {
+              "count": 0,
+              "ids": [],
+              "omitted": 0
+            },
+            "uniqueLeadDirectors": 0,
+            "repeatedDirectorLeadPairs": 0,
+            "repeatedDirectorLeadTakes": 0,
+            "repeatedDirectorLead": [],
+            "omittedDirectorPairs": 0
+          },
+          "releasedCredits": {
+            "roleCredits": 0,
+            "distinctFilms": 0,
+            "actingFilms": 0,
+            "authoredActingFilms": 0,
+            "campaignActingFilms": 0,
+            "capturedCareerEvents": 0,
+            "careerEventRoles": {},
+            "sharedWriterFilmCount": 0,
+            "sharedWriterRoleCreditPairs": 0,
+            "authoredSharedWriterFilmCount": 0,
+            "campaignSharedWriterFilmCount": 0,
+            "matchedFirstTakeSharedWriterFilmCount": 0,
+            "uniqueWriters": 0,
+            "repeatedWriters": {
+              "count": 0,
+              "ids": [],
+              "omitted": 0
+            },
+            "contexts": [],
+            "omittedContexts": 0
+          }
+        },
+        {
+          "personId": "person-cohort-468-actor-0",
+          "name": "Orson Attwater",
+          "currentRole": "actor",
+          "age": 64,
+          "lifecycle": {
+            "status": "retired",
+            "profession": "actor",
+            "announcedWeek": 2381,
+            "effectiveWeek": 2433,
+            "retiredWeek": 2433,
+            "extensionUsed": false
+          },
+          "currentEmployerStudioIds": [],
+          "recordedEmploymentStudioIds": [],
+          "cohortEntryWeek": 468,
+          "target": {
+            "directing": {
+              "perceivedOvr": 1,
+              "capable": false,
+              "proven": false,
+              "capableButUnproven": false,
+              "recordedWorkHistory": 0,
+              "publicExpectedPotentialTier": "Promising",
+              "publicExpectedPotentialRange": {
+                "low": 11,
+                "high": 19
+              }
+            },
+            "writing": {
+              "perceivedOvr": 67,
+              "capable": true,
+              "proven": false,
+              "capableButUnproven": true,
+              "recordedWorkHistory": 0,
+              "publicExpectedPotentialTier": "Steady",
+              "publicExpectedPotentialRange": {
+                "low": 70,
+                "high": 78
+              }
+            }
+          },
+          "firstTakes": {
+            "acting": 0,
+            "lead": 0,
+            "productionIds": {
+              "count": 0,
+              "ids": [],
+              "omitted": 0
+            },
+            "uniqueLeadDirectors": 0,
+            "repeatedDirectorLeadPairs": 0,
+            "repeatedDirectorLeadTakes": 0,
+            "repeatedDirectorLead": [],
+            "omittedDirectorPairs": 0
+          },
+          "releasedCredits": {
+            "roleCredits": 0,
+            "distinctFilms": 0,
+            "actingFilms": 0,
+            "authoredActingFilms": 0,
+            "campaignActingFilms": 0,
+            "capturedCareerEvents": 0,
+            "careerEventRoles": {},
+            "sharedWriterFilmCount": 0,
+            "sharedWriterRoleCreditPairs": 0,
+            "authoredSharedWriterFilmCount": 0,
+            "campaignSharedWriterFilmCount": 0,
+            "matchedFirstTakeSharedWriterFilmCount": 0,
+            "uniqueWriters": 0,
+            "repeatedWriters": {
+              "count": 0,
+              "ids": [],
+              "omitted": 0
+            },
+            "contexts": [],
+            "omittedContexts": 0
+          }
+        },
+        {
+          "personId": "person-cohort-832-actor-0",
+          "name": "Carole Brandt",
+          "currentRole": "actor",
+          "age": 57,
+          "lifecycle": {
+            "status": "active"
+          },
+          "currentEmployerStudioIds": [],
+          "recordedEmploymentStudioIds": [],
+          "cohortEntryWeek": 832,
+          "target": {
+            "directing": {
+              "perceivedOvr": 69,
+              "capable": true,
+              "proven": false,
+              "capableButUnproven": true,
+              "recordedWorkHistory": 0,
+              "publicExpectedPotentialTier": "High Upside",
+              "publicExpectedPotentialRange": {
+                "low": 85,
+                "high": 93
+              }
+            },
+            "writing": {
+              "perceivedOvr": 13,
+              "capable": false,
+              "proven": false,
+              "capableButUnproven": false,
+              "recordedWorkHistory": 0,
+              "publicExpectedPotentialTier": "High Upside",
+              "publicExpectedPotentialRange": {
+                "low": 27,
+                "high": 35
+              }
+            }
+          },
+          "firstTakes": {
+            "acting": 0,
+            "lead": 0,
+            "productionIds": {
+              "count": 0,
+              "ids": [],
+              "omitted": 0
+            },
+            "uniqueLeadDirectors": 0,
+            "repeatedDirectorLeadPairs": 0,
+            "repeatedDirectorLeadTakes": 0,
+            "repeatedDirectorLead": [],
+            "omittedDirectorPairs": 0
+          },
+          "releasedCredits": {
+            "roleCredits": 0,
+            "distinctFilms": 0,
+            "actingFilms": 0,
+            "authoredActingFilms": 0,
+            "campaignActingFilms": 0,
+            "capturedCareerEvents": 0,
+            "careerEventRoles": {},
+            "sharedWriterFilmCount": 0,
+            "sharedWriterRoleCreditPairs": 0,
+            "authoredSharedWriterFilmCount": 0,
+            "campaignSharedWriterFilmCount": 0,
+            "matchedFirstTakeSharedWriterFilmCount": 0,
+            "uniqueWriters": 0,
+            "repeatedWriters": {
+              "count": 0,
+              "ids": [],
+              "omitted": 0
+            },
+            "contexts": [],
+            "omittedContexts": 0
+          }
+        }
+      ],
+      "requestedFocus": [
+        {
+          "personId": "person-cohort-208-actor-1",
+          "name": "Marion Cabral",
+          "currentRole": "actor",
+          "age": 70,
+          "lifecycle": {
+            "status": "announced",
+            "profession": "actor",
+            "announcedWeek": 2566,
+            "effectiveWeek": 2704,
+            "retiredWeek": null,
+            "extensionUsed": false
+          },
+          "currentEmployerStudioIds": [
+            "studio-25969b11-r01"
+          ],
+          "recordedEmploymentStudioIds": [
+            "studio-25969b11-r01",
+            "studio-25969b11-r08"
+          ],
+          "cohortEntryWeek": 208,
+          "target": {
+            "directing": {
+              "perceivedOvr": 12,
+              "capable": false,
+              "proven": false,
+              "capableButUnproven": false,
+              "recordedWorkHistory": 0,
+              "publicExpectedPotentialTier": "High Upside",
+              "publicExpectedPotentialRange": {
+                "low": 32,
+                "high": 40
+              }
+            },
+            "writing": {
+              "perceivedOvr": 6,
+              "capable": false,
+              "proven": false,
+              "capableButUnproven": false,
+              "recordedWorkHistory": 0,
+              "publicExpectedPotentialTier": "Promising",
+              "publicExpectedPotentialRange": {
+                "low": 11,
+                "high": 19
+              }
+            }
+          },
+          "firstTakes": {
+            "acting": 1,
+            "lead": 1,
+            "productionIds": {
+              "count": 1,
+              "ids": [
+                "studio-25969b11-r01:film:228"
+              ],
+              "omitted": 0
+            },
+            "uniqueLeadDirectors": 1,
+            "repeatedDirectorLeadPairs": 0,
+            "repeatedDirectorLeadTakes": 0,
+            "repeatedDirectorLead": [],
+            "omittedDirectorPairs": 0
+          },
+          "releasedCredits": {
+            "roleCredits": 1,
+            "distinctFilms": 1,
+            "actingFilms": 1,
+            "authoredActingFilms": 0,
+            "campaignActingFilms": 1,
+            "capturedCareerEvents": 1,
+            "careerEventRoles": {
+              "lead": 1
+            },
+            "sharedWriterFilmCount": 1,
+            "sharedWriterRoleCreditPairs": 1,
+            "authoredSharedWriterFilmCount": 0,
+            "campaignSharedWriterFilmCount": 1,
+            "matchedFirstTakeSharedWriterFilmCount": 1,
+            "uniqueWriters": 1,
+            "repeatedWriters": {
+              "count": 0,
+              "ids": [],
+              "omitted": 0
+            },
+            "contexts": [
+              {
+                "filmId": "studio-25969b11-r01:film:228",
+                "writerId": "t-wri-02",
+                "provenance": "simulation/v1",
+                "releaseWeek": 2088,
+                "historicalYear": null,
+                "matchingFirstTake": true
+              }
+            ],
+            "omittedContexts": 0
+          }
+        }
+      ]
+    },
+    {
+      "input": {
+        "path": "tests/fixtures/p14/genuine-projection51-runtime-c2rm/genuine-v37-scientist-week670.json.gz",
+        "manifestPath": "tests/fixtures/p14/genuine-projection51-runtime-c2rm/MANIFEST.json",
+        "manifestSha256": "9c6dc13f98ee5b1f17864ea35afca6dfca5c7b08740f2612ab33dc56e1587e47",
+        "sourceVersion": 37,
+        "compressedSha256": "34f0ac18280f8e5fef2482e6e1dcc5c48f30a1ef10d3ca9eaece8699ece99861",
+        "uncompressedSha256": "c119e1aac5b1dda794bf6c6967dceade05eeace2626002eebdae68628d31db72",
+        "rawBytes": 1585751
+      },
+      "live": {
+        "saveVersion": 37,
+        "week": 670,
+        "seed": "p13a-core-causal-01",
+        "stateSha256": "2748668d15fd3f66bacdcfc86cc197e8429cad7c7a9cf78a1bf685b019749ba4"
+      },
+      "aggregate": {
+        "population": 93,
+        "actors": {
+          "all": 45,
+          "activeWithoutRecord": 39,
+          "announced": 1,
+          "finishing": 0,
+          "retired": 5
+        },
+        "actorsUnder75": {
+          "all": 44,
+          "activeWithoutRecord": 39,
+          "announced": 1,
+          "finishing": 0,
+          "retired": 4
+        },
+        "candidates": {
+          "all": 2,
+          "activeWithoutRecord": 2,
+          "announced": 0,
+          "finishing": 0,
+          "retired": 0
+        },
+        "candidateFilter": "current Talent.role actor; materialized age <75; directing or writing careerIdentity capable at current P10 minimum60; not a C.3 eligibility rule",
+        "directingCapableUnder75": 1,
+        "writingCapableUnder75": 1,
+        "directingProvenUnder75": 0,
+        "writingProvenUnder75": 0,
+        "maxDirectingOvrUnder75": 69,
+        "maxWritingOvrUnder75": 61,
+        "firstTakeReceipts": 60,
+        "releasedFilms": 68,
+        "uncapturedPlayerFilms": 0,
+        "lifecycleRecords": 14,
+        "cohortReceipts": 2
+      },
+      "candidates": [
+        {
+          "personId": "t-act-07",
+          "name": "Clark Grimaldi",
+          "currentRole": "actor",
+          "age": 34,
+          "lifecycle": {
+            "status": "active"
+          },
+          "currentEmployerStudioIds": [],
+          "recordedEmploymentStudioIds": [],
+          "cohortEntryWeek": null,
+          "target": {
+            "directing": {
+              "perceivedOvr": 69,
+              "capable": true,
+              "proven": false,
+              "capableButUnproven": true,
+              "recordedWorkHistory": 0,
+              "publicExpectedPotentialTier": "Promising",
+              "publicExpectedPotentialRange": {
+                "low": 76,
+                "high": 84
+              }
+            },
+            "writing": {
+              "perceivedOvr": 8,
+              "capable": false,
+              "proven": false,
+              "capableButUnproven": false,
+              "recordedWorkHistory": 0,
+              "publicExpectedPotentialTier": "Promising",
+              "publicExpectedPotentialRange": {
+                "low": 17,
+                "high": 25
+              }
+            }
+          },
+          "firstTakes": {
+            "acting": 0,
+            "lead": 0,
+            "productionIds": {
+              "count": 0,
+              "ids": [],
+              "omitted": 0
+            },
+            "uniqueLeadDirectors": 0,
+            "repeatedDirectorLeadPairs": 0,
+            "repeatedDirectorLeadTakes": 0,
+            "repeatedDirectorLead": [],
+            "omittedDirectorPairs": 0
+          },
+          "releasedCredits": {
+            "roleCredits": 0,
+            "distinctFilms": 0,
+            "actingFilms": 0,
+            "authoredActingFilms": 0,
+            "campaignActingFilms": 0,
+            "capturedCareerEvents": 0,
+            "careerEventRoles": {},
+            "sharedWriterFilmCount": 0,
+            "sharedWriterRoleCreditPairs": 0,
+            "authoredSharedWriterFilmCount": 0,
+            "campaignSharedWriterFilmCount": 0,
+            "matchedFirstTakeSharedWriterFilmCount": 0,
+            "uniqueWriters": 0,
+            "repeatedWriters": {
+              "count": 0,
+              "ids": [],
+              "omitted": 0
+            },
+            "contexts": [],
+            "omittedContexts": 0
+          }
+        },
+        {
+          "personId": "t-act-13",
+          "name": "Joan Winters",
+          "currentRole": "actor",
+          "age": 53,
+          "lifecycle": {
+            "status": "active"
+          },
+          "currentEmployerStudioIds": [],
+          "recordedEmploymentStudioIds": [],
+          "cohortEntryWeek": null,
+          "target": {
+            "directing": {
+              "perceivedOvr": 1,
+              "capable": false,
+              "proven": false,
+              "capableButUnproven": false,
+              "recordedWorkHistory": 0,
+              "publicExpectedPotentialTier": "Steady",
+              "publicExpectedPotentialRange": {
+                "low": 1,
+                "high": 9
+              }
+            },
+            "writing": {
+              "perceivedOvr": 61,
+              "capable": true,
+              "proven": false,
+              "capableButUnproven": true,
+              "recordedWorkHistory": 0,
+              "publicExpectedPotentialTier": "Promising",
+              "publicExpectedPotentialRange": {
+                "low": 67,
+                "high": 75
+              }
+            }
+          },
+          "firstTakes": {
+            "acting": 0,
+            "lead": 0,
+            "productionIds": {
+              "count": 0,
+              "ids": [],
+              "omitted": 0
+            },
+            "uniqueLeadDirectors": 0,
+            "repeatedDirectorLeadPairs": 0,
+            "repeatedDirectorLeadTakes": 0,
+            "repeatedDirectorLead": [],
+            "omittedDirectorPairs": 0
+          },
+          "releasedCredits": {
+            "roleCredits": 0,
+            "distinctFilms": 0,
+            "actingFilms": 0,
+            "authoredActingFilms": 0,
+            "campaignActingFilms": 0,
+            "capturedCareerEvents": 0,
+            "careerEventRoles": {},
+            "sharedWriterFilmCount": 0,
+            "sharedWriterRoleCreditPairs": 0,
+            "authoredSharedWriterFilmCount": 0,
+            "campaignSharedWriterFilmCount": 0,
+            "matchedFirstTakeSharedWriterFilmCount": 0,
+            "uniqueWriters": 0,
+            "repeatedWriters": {
+              "count": 0,
+              "ids": [],
+              "omitted": 0
+            },
+            "contexts": [],
+            "omittedContexts": 0
+          }
+        }
+      ],
+      "requestedFocus": []
+    }
+  ]
+}
