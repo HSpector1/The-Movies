@@ -36,7 +36,8 @@ describe('C.2-RM genuine projection51 recovery', () => {
     for (const [slot, week, status] of [['currentSaveJson', 670, 'retired'], ['savedSaveJson', 669, 'announced']] as const) {
       const old = validateSaveV37(JSON.parse(prior[slot]))
       expect(old.state.market.tick).toBe(week)
-      expect(retirementRecordFor(old.state, SCI)).toMatchObject({ announcedWeek: 618, effectiveWeek: 670, status })
+      // Frozen37 fixture inspection: read its actual scientist row without a current-only helper.
+      expect(old.state.careerLifecycle.records.find(row => row.personId === SCI && row.profession === 'scientist')).toMatchObject({ announcedWeek: 618, effectiveWeek: 670, status })
       expect(exportSave(old)).toBe(prior[slot])
       expect(sha(prior[slot])).toBe(slot === 'currentSaveJson' ? RUNTIME_51.current : RUNTIME_51.saved)
     }

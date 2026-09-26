@@ -10,6 +10,7 @@
 // Lifecycle facts live in `state.careerLifecycle` and nowhere else. The step reads the
 // week the tick has already produced (`state.market.tick`), like the market step that
 // runs between its intent and settlement halves (P14C.2b).
+import { advanceProfessionTransitions } from './professionTransitions.js'
 import { ageAt, anchorOf, withTalentProvenance } from './aging.js'
 import { activeContract, busyTalentIds } from './employment.js'
 import { uniqueIdentity } from './hollywood.js'
@@ -18,7 +19,7 @@ import { openMarketCaseFor } from './talentMarket.js'
 import { TUNING } from './tuning.js'
 import { generateIndustryTalent } from './worldgen.js'
 import type {
-  CareerLifecycleRootV36, CohortReceipt, CreativeRole, FilmCreativeRole, GameState, RetirementRecord, RetirementRecordV36, Talent,
+  CareerLifecycleRootV38, CohortReceipt, CreativeRole, FilmCreativeRole, GameState, RetirementKey, RetirementRecord, RetirementRecordV36, Talent,
   TalentProvenanceRow,
 } from './types.js'
 
@@ -37,30 +38,47 @@ export function retirementWindow(role: CreativeRole): { start: number; hard: num
   return { start: window.start, hard: window.hard }
 }
 
-/** The LIVE opener (793 §5): the empty root a fresh world and the live lift open. An
- * empty V36 root is the V35 root byte for byte (the V36 keys live on records). The frozen
- * V33 → V34 conversion writes its own V34 literal and never calls this. */
-export function initialCareerLifecycle(week: number): CareerLifecycleRootV36 {
-  return { boundaryWeek: week, records: [], cohorts: [] }
+/** The live fresh-population opener. Save38 observes each original profession
+ * without inventing any choice or retirement. Frozen converters retain their own
+ * historical literals; V37→38 preserves old lifecycle fields around this scaffold. */
+export function initialCareerLifecycle(week: number, people: readonly Pick<Talent, 'id' | 'role'>[] = []): CareerLifecycleRootV38 {
+  return {
+    boundaryWeek: week, records: [], cohorts: [], transitionBoundaryWeek: week,
+    professionAnchors: people.map(person => ({ personId: person.id, profession: person.role, recordedWeek: week, kind: 'existing' })),
+    transitionEvaluations: [], professionChanges: [], industryRetirements: [], transitionDue: [],
+  }
 }
 
 /** The person's record, or `undefined`. A state with NO root is only ever a frozen
  * conversion's intermediate (V18 → V19 reaches `enterRival` through
  * `initializeHollywood`): the root travels with the state, and a state that predates
  * it holds no announcement. Every live state carries the root (the V34 validator). */
-export function retirementRecordFor(state: Pick<GameState, 'careerLifecycle'>, personId: string): RetirementRecordV36 | undefined {
-  return state.careerLifecycle?.records.find((record) => record.personId === personId)
+export function retirementRecordFor(state: Pick<GameState, 'careerLifecycle' | 'talent'>, personId: string, profession?: CreativeRole): RetirementRecordV36 | undefined {
+  const current = profession ?? state.talent.find(person => person.id === personId)?.role
+  return state.careerLifecycle?.records.find(record => record.personId === personId && record.profession === current)
 }
 
-export function lifecycleStatus(state: Pick<GameState, 'careerLifecycle'>, personId: string): LifecycleStatus {
+export function latestCompletedRetirement(state: Pick<GameState, 'careerLifecycle'>, personId: string): RetirementRecordV36 | undefined {
+  let latest: RetirementRecordV36 | undefined
+  for (const record of state.careerLifecycle?.records ?? []) {
+    if (record.personId === personId && record.status === 'retired' && record.retiredWeek !== null
+      && (latest === undefined || record.retiredWeek >= latest.retiredWeek!)) latest = record
+  }
+  return latest
+}
+
+export function lifecycleStatus(state: Pick<GameState, 'careerLifecycle' | 'talent'>, personId: string): LifecycleStatus {
   return retirementRecordFor(state, personId)?.status ?? 'active'
 }
 
 /** The ids a listing must drop (773 D11): finishing and retired people. Built once
  * per listing so a whole-population filter stays one pass. */
-export function withdrawnPersonIds(state: Pick<GameState, 'careerLifecycle'>): Set<string> {
+export function withdrawnPersonIds(state: Pick<GameState, 'careerLifecycle' | 'talent'>): Set<string> {
   const ids = new Set<string>()
-  for (const record of state.careerLifecycle?.records ?? []) if (record.status !== 'announced') ids.add(record.personId)
+  const current = new Map(state.talent.map(person => [person.id, person.role]))
+  for (const record of state.careerLifecycle?.records ?? []) {
+    if (record.profession === current.get(record.personId) && record.status !== 'announced') ids.add(record.personId)
+  }
   return ids
 }
 
@@ -82,7 +100,7 @@ export function lifecycleRefusal(record: RetirementRecord, announcedClause: stri
 /** `null` when a contract ending at `endWeekExclusive` may bind this person; else a
  * reason carrying `retirementAnnounced`, `finishingCommitments` or
  * `retiredFromProfession` (777 §3). A term ending exactly AT the effective week binds. */
-export function contractEndRefusal(state: Pick<GameState, 'careerLifecycle'>, personId: string, endWeekExclusive: number): string | null {
+export function contractEndRefusal(state: Pick<GameState, 'careerLifecycle' | 'talent'>, personId: string, endWeekExclusive: number): string | null {
   const record = retirementRecordFor(state, personId)
   if (record === undefined) return null
   if (record.status === 'announced' && endWeekExclusive <= record.effectiveWeek) return null
@@ -92,11 +110,14 @@ export function contractEndRefusal(state: Pick<GameState, 'careerLifecycle'>, pe
 /** `null` when a production seat assigned at `week` is lawful for this person (773 D9):
  * an announced person is seated only while `week + PRODUCTION_TICKS + 1 <= effectiveWeek`;
  * a finishing or retired person never. */
-export function assignmentRefusal(state: Pick<GameState, 'careerLifecycle'>, personId: string, week: number): string | null {
-  const record = retirementRecordFor(state, personId)
-  if (record === undefined) return null
-  if (record.status === 'announced' && week + TUNING.PRODUCTION_TICKS + 1 <= record.effectiveWeek) return null
-  return lifecycleRefusal(record, `a production seat taken at week ${week} cannot release before it`)
+export function assignmentRefusal(state: Pick<GameState, 'careerLifecycle' | 'talent'>, personId: string, week: number, requestedProfession?: CreativeRole): string | null {
+  const current = retirementRecordFor(state, personId)
+  const requested = requestedProfession === undefined ? current : retirementRecordFor(state, personId, requestedProfession)
+  for (const record of new Set([current, requested])) {
+    if (record === undefined || record.status === 'announced' && week + TUNING.PRODUCTION_TICKS + 1 <= record.effectiveWeek) continue
+    return lifecycleRefusal(record, `a production seat taken at week ${week} cannot release before it`)
+  }
+  return null
 }
 
 /** An interval `[start, end)` is active at some week of `[from, to]`. */
@@ -155,7 +176,7 @@ function retire(state: GameState, record: RetirementRecordV36, week: number): Re
 /** The root both halves of the step read, or `null` when the lifecycle does not engage
  * (773 D6: it engages iff the market does). Loud, never silent: a live state MUST carry
  * the V34 root (the market's own rule). */
-function engagedRoot(state: GameState): CareerLifecycleRootV36 | null {
+function engagedRoot(state: GameState): CareerLifecycleRootV38 | null {
   if (state.hollywood === null) return null
   const root = state.careerLifecycle
   if (root === undefined) {
@@ -180,18 +201,17 @@ export function advanceLifecycleIntent(state: GameState, birthdays: readonly str
   let busySet: Set<string> | undefined
   const busy = (): ReadonlySet<string> => (busySet ??= busyTalentIds(state))
   const announced: RetirementRecordV36[] = []
-  const recorded = new Set(root.records.map((record) => record.personId))
+  const recorded = new Set(root.records.map(record => JSON.stringify([record.personId, record.profession])))
   for (const personId of birthdays) {
-    if (recorded.has(personId)) continue
     const person = state.talent.find((candidate) => candidate.id === personId)
-    if (person === undefined) continue
+    if (person === undefined || recorded.has(JSON.stringify([personId, person.role]))) continue
     const window = retirementWindow(person.role)
     if (window === null) continue
     const cause = person.age >= window.hard ? 'hardBoundary'
       : person.age >= window.start && idle(state, personId, week, busy) ? 'idleInWindow'
         : null
     if (cause === null) continue
-    recorded.add(personId)
+    recorded.add(JSON.stringify([personId, person.role]))
     announced.push({
       personId,
       profession: person.role,
@@ -224,6 +244,7 @@ export function advanceLifecycleSettlement(state: GameState): GameState {
   let busySet: Set<string> | undefined
   const busy = (): ReadonlySet<string> => (busySet ??= busyTalentIds(state))
   let records: RetirementRecordV36[] | null = null
+  const newlyRetired: RetirementKey[] = []
   for (const [index, record] of root.records.entries()) {
     let settled: RetirementRecordV36 | null = null
     if (record.status === 'announced' && record.effectiveWeek <= week) {
@@ -233,12 +254,16 @@ export function advanceLifecycleSettlement(state: GameState): GameState {
     } else if (record.status === 'finishing_commitments' && !busy().has(record.personId)) {
       settled = retire(state, record, week)
     }
-    if (settled !== null) (records ??= [...root.records])[index] = settled
+    if (settled !== null) {
+      (records ??= [...root.records])[index] = settled
+      if (settled.status === 'retired') newlyRetired.push({ personId: settled.personId, profession: settled.profession })
+    }
   }
   const settledState = records === null ? state : { ...state, careerLifecycle: { ...root, records } }
+  const transitioned = advanceProfessionTransitions(settledState, newlyRetired)
   // The cohort (793 §4), on the post-settlement state. Never skipped by the "nothing
   // changed" case above: an unchanged world still requests at a cohort week.
-  return isCohortWeek(week) ? advanceCohort(settledState, week) : settledState
+  return isCohortWeek(week) ? advanceCohort(transitioned, week) : transitioned
 }
 
 /**
@@ -319,7 +344,8 @@ export function cohortRequest(state: GameState, week: number): {
   talentCountBefore: number
 } {
   return {
-    ...deriveCohortRequest(state.talent, state.careerLifecycle.records, state.talentProvenance.rows, week),
+    ...deriveCohortRequest(state.talent, state.careerLifecycle.records.filter(record =>
+      state.talent.find(person => person.id === record.personId)?.role === record.profession), state.talentProvenance.rows, week),
     talentCountBefore: state.talent.length,
   }
 }
@@ -396,7 +422,8 @@ export function extensionIssuer(state: GameState, personId: string, week: number
  * Loud on anything but a first extension of an announced record not yet due. */
 export function commitRetirementExtension(state: GameState, personId: string, week: number): GameState {
   const root = state.careerLifecycle
-  const index = root.records.findIndex((record) => record.personId === personId)
+  const current = state.talent.find(person => person.id === personId)?.role
+  const index = root.records.findIndex(record => record.personId === personId && record.profession === current)
   const record = root.records[index]
   if (record === undefined) throw new Error(`careerLifecycle: ${personId} holds no retirement record to extend`)
   if (record.status !== 'announced') throw new Error(`careerLifecycle: ${personId} is ${record.status}, and only an announced retirement can be extended`)

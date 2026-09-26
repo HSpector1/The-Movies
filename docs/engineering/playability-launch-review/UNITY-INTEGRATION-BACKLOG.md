@@ -1,5 +1,39 @@
 # UNITY-INTEGRATION-BACKLOG — work reserved for the replacement laptop
 
+## CURRENT — C.3 Stage A checkpoint verified; Stage B admission next
+
+993 records the partial Save38 foundation checkpoint. Final 992 root, UI and bridge
+type checks passed (20:57:21.591Z, 96.812s, child0, fixedSource). Final source is
+c000479d plus patch61ba8544dc0053a2d18e4d8c6e3afa44a6e526ca5a64bcf9b316afa07138efac.
+987 passed144 core cases, including all90 C.3 foundation controls. 990 passed all34
+B4/B7 bridge cases. 991 passed19 B2 cases, resolving all17 new stale-helper failures;
+its three inherited poaching failures remain unchanged and documented in985/976.
+Every run is closed. Parent publishes the checkpoint, verifies the GitHub ref, then
+releases the same test specialist for984's20-case B1/B2 slice and records RED before
+matching production changes. Parent remains sole production writer/heavy executor;
+reviewer is read-only. Maximum two specialists and one heavy process remain.
+Save38 is partial; projection remains52. Requested-profession callers, promise
+facts, live two-episode writing, projection53/runtime reset, later938 coverage and
+full C.3 verification remain. 994-A is a static later-cutover audit, not new test
+execution. Unity/native remains deferred. Historical failures and controls persist.
+
+## CURRENT — C.3 Save38 Stage A pending final checkpoint
+
+On published c000479d, pending Stage A source implements profession-history roots,
+prospective reconciliation, deterministic choice/due/finality and dated private
+historical validation. 973 passed74 independent cases and972 passed core types;
+974 found21 test-only type-cutover diagnostics. Final independent review is KEEP
+after additional presence, idle-work and dated-obligation refinements, whose final
+rerun is pending. 975 owns test maintenance;978 produced five bounded archived-
+engine historical-control files with child0/fixedExistingSource/exactOutputs.
+
+This is partial C.3 progress. Projection remains52; projection53, runtime reset,
+actual new-role work/two-episode coverage, full938 matrix and C-track endurance
+remain. No current C.3 or launch qualification, generated53 consumer, Unity/native
+execution or Owner campaign acceptance is claimed. Existing936 qualification and
+its inherited failures/coverage limits remain unchanged. Exact active ownership and
+next run are at the top of CODEX-START-HERE and CONTINUATION-STATE.
+
 ## CURRENT — digest correction verified; C.3 Stage A ready
 
 The serialization prerequisite is verified: final962 passes all ten independent

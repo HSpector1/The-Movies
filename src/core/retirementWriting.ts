@@ -1,3 +1,4 @@
+import type { ProfessionValidationContext } from './professionHistory.js'
 //880-B: evidence for validating existing writing after natural employment expiry.
 // This grants no action and changes no contract, assignment or retirement law.
 import type { ScriptProject } from './types.js'
@@ -20,16 +21,18 @@ const identity = (value: unknown): value is string => typeof value === 'string' 
 
 /** Called explicitly by current entry points only. Malformed input confers no
  * authority; the normal full validators still check every original field. */
-export function retirementWritingAuthority(input: unknown): RetirementWritingAuthority | undefined {
+export function retirementWritingAuthority(input: unknown, professionContext?: ProfessionValidationContext): RetirementWritingAuthority | undefined {
   const state = record(input), h = record(state?.hollywood), lifecycle = record(state?.careerLifecycle)
   const week = record(state?.market)?.tick
   if (!state || !h || !lifecycle || !identity(h.playerStudioId) || !evidenceWeek(week)) return undefined
-  const retiring = new Map<string, { effectiveWeek: number }>(), seen = new Set<string>()
+  const retiring = new Map<string, { effectiveWeek: number }>(), seen = new Set<string>(), ambiguous = new Set<string>()
   for (const row of rows(lifecycle.records)) {
     if (!identity(row.personId)) continue
     // Even a malformed second record makes this person's authority ambiguous.
-    if (seen.has(row.personId)) { retiring.delete(row.personId); continue }
-    seen.add(row.personId)
+    const key = professionContext ? JSON.stringify([row.personId, row.profession]) : row.personId
+    if (seen.has(key)) { ambiguous.add(row.personId); retiring.delete(row.personId); continue }
+    seen.add(key)
+    if (ambiguous.has(row.personId) || professionContext && row.profession !== professionContext.professionAtWeek(row.personId, week)) continue
     if (row.intentRulesVersion !== 1 || row.retiredWeek !== null
       || !evidenceWeek(row.announcedWeek) || !evidenceWeek(row.effectiveWeek)
       || row.announcedWeek > week || row.effectiveWeek - row.announcedWeek < TUNING.RETIREMENT_NOTICE_WEEKS) continue

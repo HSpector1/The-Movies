@@ -23,7 +23,7 @@ import { ageAt, birthdaysDueAt, nextBirthdayWeek, provenanceRowFor, recomputeDue
 import { TUNING } from '../src/core/tuning.js'
 import type { GameState, RetirementRecord } from '../src/core/types.js'
 import {
-  c2Fixture, initialSyntheticRoot, nullHollywoodFixture, p13aGeneratedStudio, prependSyntheticCandidate, stepWeekWithLifecycle,
+  c2LiveFixture as c2Fixture, initialSyntheticRoot, nullHollywoodLiveFixture as nullHollywoodFixture, p13aGeneratedStudio, prependSyntheticCandidate, stepWeekWithLifecycle,
   withSyntheticCareerLifecycle,
 } from './helpers/p14c2a-fixtures.js'
 

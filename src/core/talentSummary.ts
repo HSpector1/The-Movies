@@ -120,13 +120,12 @@ function ovrCore(skills: number[], discipline: Discipline): number {
   return clamp(Math.floor(applyGates(raw, weightedMeanVal, minCore)), 1, 99)
 }
 
-// D-9.2 — role OVR from PERCEIVED skills. Read-only display summary; the sim never
-// reads it. Invariant to the selected film (skills only).
+// D-9.2 — role OVR from PERCEIVED skills. Read-only public summary; C.3 also uses it for the reviewed profession choice. Invariant to the selected film (skills only).
 export function roleOVR(talent: Talent, discipline: Discipline): number {
   return ovrCore(skillVector(talent, discipline, 'perceived'), discipline)
 }
 
-// D-9.2 — player-facing tier label (display only).
+// D-9.2 — player-facing tier label, also the C.3 public comparison tier.
 export function roleTier(ovr: number): string {
   if (ovr >= 95) return 'Generational'
   if (ovr >= 90) return 'Elite'

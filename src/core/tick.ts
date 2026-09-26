@@ -1074,6 +1074,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     market: { ...state.market, tick: currentTick + 1 },
     talent: materialized.talent,
     talentProvenance: materialized.talentProvenance,
+    careerLifecycle: materialized.careerLifecycle,
     studio: {
       ...admitted.studio,
       cash,

@@ -3,7 +3,8 @@ import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { expect } from 'vitest'
-import { exportSave, importSave, makeSave, migrateToLive, validateSaveV37 } from '../../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToLive, validateSaveV37, validateSaveV38 } from '../../src/core/save.js'
+import type { SaveFileV37 } from '../../src/core/save.js'
 import { retirementRecordFor } from '../../src/core/careerLifecycle.js'
 import { applyActions } from '../../src/core/actions.js'
 import { tick } from '../../src/core/tick.js'
@@ -20,7 +21,7 @@ export const sha = (value: string | Uint8Array) => createHash('sha256').update(v
 export const bytes = (state: GameState) => exportSave(makeSave(state))
 export const owner = (state: GameState) => state.hollywood!.playerStudioId
 export function admitted(state: GameState): GameState {
-  return validateSaveV37(JSON.parse(bytes(state))).state
+  return validateSaveV38(JSON.parse(bytes(state))).state
 }
 export const OUTGOING_51 = 'sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f'
 export const SCI = 't-sci-00'
@@ -57,9 +58,34 @@ export function scientistSnapshot(week: keyof typeof SCIENTIST_SAVES): GameState
   expect(sha(gz)).toBe(SCIENTIST_SAVES[week][0])
   const raw = gunzipSync(gz).toString('utf8')
   expect(sha(raw)).toBe(SCIENTIST_SAVES[week][1])
-  const state = validateSaveV37(JSON.parse(raw)).state
+  const state = migrateToLive(validateSaveV37(JSON.parse(raw))).state
   expect(state.market.tick).toBe(week)
   return state
+}
+
+/** 978 is a new archived-engine reproduction, not a current38 downgrade. Both
+ * historical snapshots are independently admitted by the unchanged public37 reader. */
+export function historicalWriterPair(): { writerId: string; dueWeek: number; commissioned: SaveFileV37; finishing: SaveFileV37 } {
+  const directory = 'tests/fixtures/p14/genuine-pre38-validation-controls'
+  const filename = 'reproduced-v37-writer-commissioned311-finishing312.json.gz'
+  const manifest = JSON.parse(readFileSync(`${directory}/MANIFEST.json`, 'utf8'))
+  expect(manifest).toMatchObject({ sourceSha: 'c000479d6e888d3a02f5c2ff534f5dfcbb32af3f',
+    producerSha256: '5de47c19d3c665e79590126c3c7155d517ef65fc3285a69a751a539cc355e161' })
+  const artifact = manifest.artifacts.find((row: { filename: string }) => row.filename === filename)
+  expect(artifact).toBeDefined()
+  const compressed = readFileSync(`${directory}/${filename}`), raw = gunzipSync(compressed).toString('utf8')
+  expect(sha(compressed)).toBe('db162c4a2576a2b828bae198a57f56ed20cf05bfd431d6896d53894a18588b1d')
+  expect(sha(raw)).toBe(artifact.uncompressedSha256)
+  const pair = JSON.parse(raw)
+  expect(pair.format).toBe('historical-writer-pair/v1')
+  expect(sha(pair.commissionedSaveJson)).toBe(artifact.facts.commissionedSha256)
+  expect(sha(pair.finishingSaveJson)).toBe(artifact.facts.finishingSha256)
+  const commissioned = validateSaveV37(JSON.parse(pair.commissionedSaveJson)), finishing = validateSaveV37(JSON.parse(pair.finishingSaveJson))
+  expect(exportSave(commissioned)).toBe(pair.commissionedSaveJson)
+  expect(exportSave(finishing)).toBe(pair.finishingSaveJson)
+  expect(commissioned.state.market.tick).toBe(311)
+  expect(finishing.state.market.tick).toBe(312)
+  return { writerId: pair.writerId, dueWeek: pair.dueWeek, commissioned, finishing }
 }
 export const AXES = {
   gap: { fixture: 'genuine-v35-c2b-contract-gap-freeagent-expiry', personId: 'authored-0000',

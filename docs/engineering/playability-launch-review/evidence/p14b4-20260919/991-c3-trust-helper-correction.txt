@@ -1,0 +1,86 @@
+{"sourceSha":"c000479d6e888d3a02f5c2ff534f5dfcbb32af3f","testedDiffSha256":"61ba8544dc0053a2d18e4d8c6e3afa44a6e526ca5a64bcf9b316afa07138efac","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-p14b2-trust.test.ts"],"node":"v20.20.2","start":"2026-09-26T20:54:17.232Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p14b2-trust.test.ts (22 tests | 3 failed) 20346ms
+   ✓ P14B.2 group1 — projection46, unchanged Save29/intents, closed wire shapes > validates actual session profile, Market, Pulse and studio DTOs without stripping the new members 2623ms
+   ✓ P14B.2 group3 — one bound-only newest-first history DTO on both carriers > shows two real contracts newest-first, with contract identity, open/outcome fields and exact causes 666ms
+   ✓ P14B.2 group3 — one bound-only newest-first history DTO on both carriers > does not publish another studio’s real bound history as the player’s own terms 3031ms
+   × P14B.2 group5 — independent promise attention after cases close > raises due at minus8 but not minus9 for an actual player poaching winner with no proposals 2507ms
+     → expected 208 to be 52 // Object.is equality
+   × P14B.2 group5 — independent promise attention after cases close > raises the poaching winner’s actual outcome only in its recorded week, once per cause/person 2616ms
+     → expected 208 to be 52 // Object.is equality
+   × P14B.2 group5 — independent promise attention after cases close > does not require any case entry to retain a real promise reminder (explicit read-only case-carrier probe) 2537ms
+     → expected 208 to be 52 // Object.is equality
+   ✓ P14B.2 group5 — independent promise attention after cases close > ignores real withdrawn unbound drafts near due and never interrupts for rival-issued promises 542ms
+   ✓ P14B.2 group7 — rival terms stay private and rival outcomes stay public > is semantically unchanged when only hidden terminal terms vary, retaining real outcome/event identities 962ms
+   ✓ P14B.2 group9 — validated kept+broken V29 BridgeSession roundtrip > preserves Profile, Market, attention, Pulse and Industry DTO bytes after real save/load 3686ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group5 — independent promise attention after cases close > raises due at minus8 but not minus9 for an actual player poaching winner with no proposals
+AssertionError: expected 208 to be 52 // Object.is equality
+
+- Expected
++ Received
+
+- 52
++ 208
+
+ ❯ Module.poachingFixture tests/helpers/p14b2-fixtures.ts:198:48
+    196|   expect(trustDescriptor(state, talentId, player(state), state.market.…
+    197|   expect(state.hollywood!.businesses.find((b) => b.studioId === incumb…
+    198|   expect(publicPreferredTerm(state, talentId)).toBe(52)
+       |                                                ^
+    199|   expect(trustDrivers(state, talentId, player(state), state.market.tic…
+    200|   expect(caseForTalent(state, talentId)!.subjectStudioId).toBe(incumbe…
+ ❯ tests/bridge-p14b2-trust.test.ts:294:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group5 — independent promise attention after cases close > raises the poaching winner’s actual outcome only in its recorded week, once per cause/person
+AssertionError: expected 208 to be 52 // Object.is equality
+
+- Expected
++ Received
+
+- 52
++ 208
+
+ ❯ Module.poachingFixture tests/helpers/p14b2-fixtures.ts:198:48
+    196|   expect(trustDescriptor(state, talentId, player(state), state.market.…
+    197|   expect(state.hollywood!.businesses.find((b) => b.studioId === incumb…
+    198|   expect(publicPreferredTerm(state, talentId)).toBe(52)
+       |                                                ^
+    199|   expect(trustDrivers(state, talentId, player(state), state.market.tic…
+    200|   expect(caseForTalent(state, talentId)!.subjectStudioId).toBe(incumbe…
+ ❯ tests/bridge-p14b2-trust.test.ts:313:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group5 — independent promise attention after cases close > does not require any case entry to retain a real promise reminder (explicit read-only case-carrier probe)
+AssertionError: expected 208 to be 52 // Object.is equality
+
+- Expected
++ Received
+
+- 52
++ 208
+
+ ❯ Module.poachingFixture tests/helpers/p14b2-fixtures.ts:198:48
+    196|   expect(trustDescriptor(state, talentId, player(state), state.market.…
+    197|   expect(state.hollywood!.businesses.find((b) => b.studioId === incumb…
+    198|   expect(publicPreferredTerm(state, talentId)).toBe(52)
+       |                                                ^
+    199|   expect(trustDrivers(state, talentId, player(state), state.market.tic…
+    200|   expect(caseForTalent(state, talentId)!.subjectStudioId).toBe(incumbe…
+ ❯ tests/bridge-p14b2-trust.test.ts:341:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 19 passed (22)
+   Start at  22:54:17
+   Duration  24.32s (transform 2.51s, setup 0ms, collect 3.39s, tests 20.35s, environment 0ms, prepare 118ms)
+

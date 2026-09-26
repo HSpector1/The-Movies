@@ -49,7 +49,7 @@ export function liftV18Control(state:GameStateV18):GameState { const cloned=stru
   // P14C.2a (Save V34): a historical control has no industry, so the lifecycle never
   // engages and nobody announces — the empty root, exactly what the real lift writes.
   // P14C.4 (Save V35): nor does any cohort enter — the live opener carries `cohorts: []`.
-  careerLifecycle:initialCareerLifecycle(state.market.tick)} }
+  careerLifecycle:initialCareerLifecycle(state.market.tick, people)} }
 export function historicalHashState<T extends object>(state:T):object {
   if(!('technology' in state) && !('hollywood' in state) && !('physicalPlans' in state) && !('talentMarket' in state)
     && !('firstTakes' in state) && !('promises' in state) && !('relationships' in state) && !('talentProvenance' in state)

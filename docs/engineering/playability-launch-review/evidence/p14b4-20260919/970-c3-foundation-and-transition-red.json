@@ -1,0 +1,23 @@
+{
+  "sourceSha": "c000479d6e888d3a02f5c2ff534f5dfcbb32af3f",
+  "testedDiffSha256": "f664e0fe12c93fad6c377743c7867fb817925a4b5a592fa33cf23a3b460efbca",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14c3-save-v38.test.ts",
+    "tests/p14c3-transitions.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-26T19:56:43.612Z",
+  "end": "2026-09-26T19:56:55.354Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "c000479d6e888d3a02f5c2ff534f5dfcbb32af3f",
+  "testedDiffSha256AtEnd": "f664e0fe12c93fad6c377743c7867fb817925a4b5a592fa33cf23a3b460efbca",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

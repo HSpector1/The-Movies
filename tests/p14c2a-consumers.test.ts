@@ -15,7 +15,7 @@ import { lifecycleStatus, readExtensionUsed, retirementRecordFor } from '../src/
 import { TUNING } from '../src/core/tuning.js'
 import type { CastSlot, GameState, SegmentId } from '../src/core/types.js'
 import {
-  advanceTo, c2Fixture, fund, p13aGeneratedStudio, player, prependSyntheticCandidate, syntheticRecord, withSyntheticCareerLifecycle,
+  advanceTo, c2LiveFixture as c2Fixture, fund, p13aGeneratedStudio, player, prependSyntheticCandidate, syntheticRecord, withSyntheticCareerLifecycle,
 } from './helpers/p14c2a-fixtures.js'
 
 const snapshot = (state: GameState): string => JSON.stringify(state)

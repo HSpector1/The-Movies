@@ -1,5 +1,127 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — C.3 Stage A checkpoint verified; Stage B admission next
+
+993 records the partial Save38 foundation checkpoint. Final 992 root, UI and bridge
+type checks passed (20:57:21.591Z, 96.812s, child0, fixedSource). Final source is
+c000479d plus patch61ba8544dc0053a2d18e4d8c6e3afa44a6e526ca5a64bcf9b316afa07138efac.
+987 passed144 core cases, including all90 C.3 foundation controls. 990 passed all34
+B4/B7 bridge cases. 991 passed19 B2 cases, resolving all17 new stale-helper failures;
+its three inherited poaching failures remain unchanged and documented in985/976.
+Every run is closed. Parent publishes the checkpoint, verifies the GitHub ref, then
+releases the same test specialist for984's20-case B1/B2 slice and records RED before
+matching production changes. Parent remains sole production writer/heavy executor;
+reviewer is read-only. Maximum two specialists and one heavy process remain.
+Save38 is partial; projection remains52. Requested-profession callers, promise
+facts, live two-episode writing, projection53/runtime reset, later938 coverage and
+full C.3 verification remain. 994-A is a static later-cutover audit, not new test
+execution. Unity/native remains deferred. Historical failures and controls persist.
+
+## CURRENT — maintenance frozen; verification resumed
+
+985 records four982 failures and seven983 test-type diagnostics without weakening
+oldreader/assertion causes. Parent preserves oldlifecycle rootkeyorder in37→38.
+Author split strict33/current loaders, retained actual38 scaffold through disclosed
+C2overlays, maintained exact current E1deferral/due/exclusion, and corrected four
+bridge test live boundaries. Ninepathpatch5c75831e219dcaa662a818505e909db021bd1acbca460d8dc2c3b6983e6948db.
+986 root/UItypes PASS, closed20:48:02.165Z69.452s child0/fixedSource.
+987 focused7corefiles144PASS, closed20:49:24.522Z child0/fixedSource.
+988failedthree missingtestimportrefs; correctedonlyafteritsclosure.
+989 finalbridgetypes PASS, closed20:51:11.692Z child0/fixedSource.
+990closed36PASS/20FAIL:34B4/B7PASS;17stale helpercurrent-validator failures
+and3exactinheritedpoaching failures. Only helpercurrentvalidators changedafterclosure.
+991 B2correction ACTIVE soleheavy; allconsumedsource/HEADFROZEN. Parent executes;
+reviewer readonly; author docs-only. Next focused C2a/C2b+90core and affectedbridge
+gates, then partialcheckpoint and984first20Bcases. Previous980/981passes and
+982/983failures remain recorded. Save38partial; projection53/native unqualified.
+
+## CURRENT — final gates attributed; bounded maintenance before checkpoint
+
+980 root/UI types PASS and98190corecases PASS on1a848ad7 patch.982 closed
+20:41:38.987Z child1/fixedSource:254PASS/4FAIL;3 old C2a synthetic live inputs
+drop38scaffolding,1 strictC2bJSONcomparison differs onlyin oldrootkeyorder.985-A
+proves zero value/keyset differences and exactlyone order difference. Parent
+corrected37→38 rootconstruction to preserve oldkeyslots/values; rerunpending.
+983 bridge types closed20:42:52.446Z child2/fixedSource with7test-only diagnostics
+in4files. Author owns named helper/bridge maintenance and985attribution; reviewer
+read-only. No heavy process active. Existing assertions/frozenreaders stay intact.
+Next freeze and focused rerun/type gates, publishpartialStageAcheckpoint, release
+reviewed98420-case firstB1/B2plan. Later938/53/native limits unchanged.
+
+## CURRENT — final Stage A verification active; source frozen
+
+Author froze17 test/helper paths (patch eae93e1b64e19d275cf1290fa69cab8a6cb9c929da1ca4dc759f62b5a9d42a2b):
+82 Stage A cases including8 review controls, plus8 core955 cases =90 declared.
+980 root/UI types PASS, closed20:38:48.451Z (72.093s), child0/fixedSource.
+98190-case core PASS, closed20:39:33.493Z (38.694s), child0/fixedSource.
+98211-file compatibility gate ACTIVE in the sole heavy lane; parent executes. All consumed
+source and HEAD FROZEN until run closure, with further gates sequential. Author
+975/979 docs-only; reviewer final read-only test/source review. Production review
+and978 artifact audit KEEP. Next981 core,982 affected neighbors,983 bridge types,
+then attributed fixes if needed and recoverable partial checkpoint;971 Stage B
+follows. Current52 bridge955 full-runtime-byte control remains pending53 cutover.
+No full C.3, projection53 or Unity/native qualification claimed.
+
+## CURRENT — historical controls passed; final Stage A tests preparing
+
+978 closed20:21:57.923Z child0/fixedExistingSource:true/exact5outputs. New bounded
+501-tick archived-c000 reproduction preserves frozen35 cohort and37 writer controls;
+977/978 and corpus manifest record provenance. No reset/clone or old capture claim.
+Independent reviewer final KEEP on Stage A after retained dated production/drafting
+guards. Author now owns historical test rewiring and independent review controls;
+parent sole production writer/executor. No heavy process active. Next freeze, run
+Stage A plus affected compatibility/type gates, publish partial checkpoint, then
+release971 B1/B2. Save38 implemented; projection53 and later938 obligations remain.
+Native remains deferred.
+
+## CURRENT — bounded historical-control mint active
+
+978 executes975-A against read-only Git-object archive977 of outgoingc000479d;
+501 ticks bounded, four new compatibility payloads plus manifest, written only
+after every premise. This is a new reproduction, not a past capture or current38
+gameplay. Active worktree/HEAD remain c000479d plus pending C.3 Stage A patch.
+All consumed source is FROZEN during the sole heavy process; parent executes,
+author/reviewer docs-only or read-only. Review guard now checks retained dated
+production obligations and original drafting only, permitting later pooled writers.
+After closure: historical test rewiring, independent review controls, final Stage A
+and type gates, then recoverable GitHub checkpoint and971 Stage B. Native deferred.
+
+## CURRENT — Stage A74 PASS; review and type maintenance before checkpoint
+
+973 passed all74 independent Stage A cases on c000479d plusf68162a2 patch;972 core
+types also passed.974 closed20:09:08.250Z with21 test-only type diagnostics; UI
+was not reached.975 is independent test-owner attribution/maintenance.976 records
+exact runs and review fixes. Parent has since added reviewed presence and idle-work
+guards, so final rerun remains required. No heavy process is active.
+
+Save38 transition/due execution and private dated validation now exist; the earlier
+temporary event refusal is removed. Projection53 and later938 obligations remain.
+Reviewer continues read-only review; author owns named test maintenance; parent
+sole production writer/executor. Next freeze, final Stage A/type gates and normal
+GitHub checkpoint, then release971 B1/B2. Unity/native remains deferred.
+
+## CURRENT — Save38 foundation implementation; transition RED next
+
+968 closed with nine expected foundation failures on c000479d plus06f8037b test
+patch, fixedSource:true (19:50:51.780Z). Parent implemented the matching Save38
+root/migration/anchor/downgrade foundation; source is unverified and incomplete.
+969 explicitly records the temporary nonempty-event refusal. No choice or due
+execution, dated historical validation route or projection53 exists yet.
+Test author owns the next independent transition/choice/due slice; reviewer reads
+the foundation diff. Parent remains sole writer/executor; no heavy run. Next
+freeze source, record foundation GREEN and transition RED before further behavior.
+
+## CURRENT — published correction c000479d; independent C.3 tests underway
+
+Local HEAD and GitHub branch matched c000479d6e888d3a02f5c2ff534f5dfcbb32af3f;
+clean at publication.966 records the verified digest correction and963 Stage A
+plan. Test author now owns the two first C.3 core suites, bridge-free helper and
+967 evidence only. Reviewer performs read-only validation preflight. Parent owns
+all production and execution; no heavy process or C.3 production edit yet. Next
+freeze tests, record968 RED and implement the matching Save38 transition slice.
+Same two specialists, one writer and one heavy lane. All later938 obligations
+and full C.3 verification remain required; native work remains deferred.
+
 ## CURRENT — digest correction verified; C.3 Stage A ready
 
 The serialization prerequisite is verified: final962 passes all ten independent

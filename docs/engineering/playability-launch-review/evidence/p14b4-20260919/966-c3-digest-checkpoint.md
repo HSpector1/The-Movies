@@ -34,3 +34,17 @@ one heavy lane, all native/Owner-campaign restrictions unchanged.
 This checkpoint is recoverability plus focused verification, not main promotion
 or full program completion. Actual new local/GitHub identity is read after commit
 and normal push; no source qualification is inferred from publication alone.
+
+## Published identity and ownership transfer
+
+Normal branch commit and push completed at
+`c000479d6e888d3a02f5c2ff534f5dfcbb32af3f`. Actual local HEAD and
+`git ls-remote origin refs/heads/wip/headless-program-20260916-ts` matched;
+worktree was clean immediately afterward. No hook, main promotion or force push.
+
+963 Stage A is released to the existing independent test author: only
+`tests/p14c3-save-v38.test.ts`, `tests/p14c3-transitions.test.ts`,
+`tests/helpers/p14c3-fixtures.ts` and evidence967. No test execution or production
+write by that specialist. The existing reviewer performs read-only validation-route
+preflight. Parent reads the implementation seams, then records968 RED after the
+test files freeze. No C.3 production writes before that run closes.

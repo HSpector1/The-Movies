@@ -30,11 +30,11 @@
 //    merely that it says "downgrade".
 import { describe, expect, it } from 'vitest'
 import {
-  LIVE_SAVE_VERSION, convertV34ToV35, convertV35ToV34, makeSave, migrateToV35, validateSaveV35, validateSaveV37,
+  LIVE_SAVE_VERSION, convertV34ToV35, convertV35ToV34, makeSave, migrateToV35, validateSaveV35, validateSaveV38,
 } from '../src/core/save.js'
-import type { CohortReceipt, GameState } from '../src/core/types.js'
+import type { CohortReceipt, GameStateV37 } from '../src/core/types.js'
 import { recomputeDue } from '../src/core/aging.js'
-import { advanceTo, c4Fixture, c4LiveFixture, envelopeV34, liveEnvelope } from './helpers/p14c4-fixtures.js'
+import { advanceTo, c4Fixture, c4LiveFixture, envelopeV34, historicalC4Control, historicalC4Envelope } from './helpers/p14c4-fixtures.js'
 
 const CORPUS_NAMES = [
   'genuine-v34-c4-mid-year', 'genuine-v34-c4-cohort-week', 'genuine-v34-c4-all-statuses',
@@ -53,14 +53,14 @@ describe('P14C.4 D1: every corpus world migrates V34 -> V35 with cohorts: [] and
 })
 
 describe('P14C.4 D2: the live boundary moved through 35 (stale numbers corrected post-C.2b; both bodies always assert the live constant)', () => {
-  it('LIVE_SAVE_VERSION === 37', () => {
-    expect(LIVE_SAVE_VERSION).toBe(37)
+  it('LIVE_SAVE_VERSION === 38', () => {
+    expect(LIVE_SAVE_VERSION).toBe(38)
   })
 
-  it('makeSave stamps 37', () => {
+  it('makeSave stamps 38', () => {
     const state = c4LiveFixture('genuine-v34-c4-mid-year') // F2: migrate first — makeSave now expects the live (V36) shape
     const saved = makeSave(state)
-    expect((saved as { saveVersion: number }).saveVersion).toBe(37)
+    expect((saved as { saveVersion: number }).saveVersion).toBe(38)
   })
 })
 
@@ -76,7 +76,7 @@ describe('P14C.4 D3: V35 -> V34 downgrade', () => {
   it('refused as a downgrade, naming the first receipt\'s week, when any receipt exists', () => {
     // The real engine now produces a genuine receipt on its own — no synthetic
     // construction needed (unlike the scaffold-era version of this case).
-    const state = advanceTo(c4LiveFixture('genuine-v34-c4-cohort-week'), 156) // B6's own world/week: a real (near-empty) receipt
+    const state = historicalC4Control('cohort-week') // B6's own world/week: a real (near-empty) receipt
     expect(state.careerLifecycle.cohorts.length).toBeGreaterThan(0)
     const firstWeek = state.careerLifecycle.cohorts[0]!.week
     expect(firstWeek).toBe(156)
@@ -84,7 +84,7 @@ describe('P14C.4 D3: V35 -> V34 downgrade', () => {
     // from merely refusing — a bare /downgrade/i would also match a refusal that named
     // the WRONG week (or none at all). Anchor the regex on the specific week this
     // world's own receipt actually carries, checked against the real thrown text.
-    expect(() => convertV35ToV34(liveEnvelope(state))).toThrow(new RegExp(`downgrade.*week ${firstWeek}`, 'is'))
+    expect(() => convertV35ToV34(historicalC4Envelope(state))).toThrow(new RegExp(`downgrade.*week ${firstWeek}`, 'is'))
   })
 
   it('with two receipts, the downgrade refusal names the FIRST one\'s week, not the second\'s', () => {
@@ -102,11 +102,11 @@ describe('P14C.4 D3: V35 -> V34 downgrade', () => {
     // weeks (measured, natural ticks from its week-227 save) are 260 and 312 — proving
     // "first" is not vacuously true with only one receipt ever tried, on a lawful
     // (non-extension) world.
-    const state = advanceTo(c4LiveFixture('genuine-v34-c4-all-statuses'), 312)
+    const state = historicalC4Control('all-statuses')
     expect(state.careerLifecycle.cohorts.map((r) => r.week)).toEqual([260, 312])
     expect(state.talentMarket.cases.some((c) => c.variant === 'retirementExtension'), 'this world\'s own C.4 premise requires no extension by week 312').toBe(false)
-    expect(() => convertV35ToV34(liveEnvelope(state))).toThrow(/week 260/)
-    expect(() => convertV35ToV34(liveEnvelope(state))).not.toThrow(/week 312/)
+    expect(() => convertV35ToV34(historicalC4Envelope(state))).toThrow(/week 260/)
+    expect(() => convertV35ToV34(historicalC4Envelope(state))).not.toThrow(/week 312/)
   })
 })
 
@@ -115,16 +115,16 @@ describe('P14C.4 D3: V35 -> V34 downgrade', () => {
  * state the real engine actually produced. `lawfulBaseline` always carries exactly one
  * receipt, so replacing the array outright (rather than matching by week, which breaks
  * the moment the tamper itself changes the week) is both simpler and correct. */
-function withReceipts(state: GameState, cohorts: readonly CohortReceipt[]): GameState {
+function withReceipts(state: GameStateV37, cohorts: readonly CohortReceipt[]): GameStateV37 {
   return { ...state, careerLifecycle: { ...state.careerLifecycle, cohorts } }
 }
 
 describe('P14C.4 D4: the validator refuses each tampering, one per case, from a GENUINE ticked V35 state', () => {
-  function lawfulBaseline(): { state: GameState; receipt: CohortReceipt } {
+  function lawfulBaseline(): { state: GameStateV37; receipt: CohortReceipt } {
     // deep-deficit at week 2652: the SAME guaranteed-non-empty world C1-C4 use (782
     // §7.1's own 32-entrant clip, pinned by B5) — a real receipt, real entrants, real
     // provenance, produced entirely by the live engine (F5: no more synthetic mint).
-    const state = advanceTo(c4LiveFixture('genuine-v34-c4-deep-deficit'), 2652)
+    const state = historicalC4Control('deep-deficit')
     const receipt = state.careerLifecycle.cohorts.find((r) => r.week === 2652)
     expect(receipt, 'a genuine receipt must exist at week 2652 (B5)').toBeDefined()
     return { state, receipt: receipt! }
@@ -132,25 +132,25 @@ describe('P14C.4 D4: the validator refuses each tampering, one per case, from a 
 
   it('the unmutated baseline must validate', () => {
     const { state } = lawfulBaseline()
-    expect(() => validateSaveV35(liveEnvelope(state))).not.toThrow()
+    expect(() => validateSaveV35(historicalC4Envelope(state))).not.toThrow()
   })
 
   it('requested: an inflated count not matching personIds.length (the deep-deficit cohort is entirely actor, so a same-role/other-role redistribution would instead trip the per-entrant role check first — probed directly; this tamper isolates the count check cleanly)', () => {
     const { state, receipt } = lawfulBaseline()
     const tampered: CohortReceipt = { ...receipt, requested: { ...receipt.requested, actor: receipt.requested.actor + 1 } }
-    expect(() => validateSaveV35(liveEnvelope(withReceipts(state, [tampered])))).toThrow(/requests \d+ people|but names/i)
+    expect(() => validateSaveV35(historicalC4Envelope(withReceipts(state, [tampered])))).toThrow(/requests \d+ people|but names/i)
   })
 
   it('talentCountBefore: off by one from the real talent-length-at-request-time', () => {
     const { state, receipt } = lawfulBaseline()
     const tampered: CohortReceipt = { ...receipt, talentCountBefore: receipt.talentCountBefore + 1 }
-    expect(() => validateSaveV35(liveEnvelope(withReceipts(state, [tampered])))).toThrow(/talent index|past the/i)
+    expect(() => validateSaveV35(historicalC4Envelope(withReceipts(state, [tampered])))).toThrow(/talent index|past the/i)
   })
 
   it('personIds: swapped for an id outside the real talent slice at talentCountBefore', () => {
     const { state, receipt } = lawfulBaseline()
     const tampered: CohortReceipt = { ...receipt, personIds: [...receipt.personIds.slice(1), 'not-a-real-entrant-id'] }
-    expect(() => validateSaveV35(liveEnvelope(withReceipts(state, [tampered])))).toThrow(/which holds/i)
+    expect(() => validateSaveV35(historicalC4Envelope(withReceipts(state, [tampered])))).toThrow(/which holds/i)
   })
 
   // G4 (801, source review 798): both provenance tamperings previously matched only
@@ -168,19 +168,19 @@ describe('P14C.4 D4: the validator refuses each tampering, one per case, from a 
   it('missing provenance row: one entrant loses its authored_exact_week row entirely', () => {
     const { state, receipt } = lawfulBaseline()
     const droppedId = receipt.personIds[0]! // entrant 0 — reserved for "missing"
-    const tamperedState: GameState = {
+    const tamperedState: GameStateV37 = {
       ...state,
       talentProvenance: { ...state.talentProvenance, rows: state.talentProvenance.rows.filter((r) => r.personId !== droppedId) },
     }
-    expect(() => validateSaveV35(liveEnvelope(tamperedState))).toThrow(new RegExp(`${droppedId} has no authored_exact_week`))
+    expect(() => validateSaveV35(historicalC4Envelope(tamperedState))).toThrow(new RegExp(`${droppedId} has no authored_exact_week`))
   })
 
   it('wrong provenance row: one entrant\'s row is anchored at the wrong week (w+1, not w)', () => {
     const { state, receipt } = lawfulBaseline()
     const targetId = receipt.personIds[1]! // entrant 1 — a DIFFERENT id from "missing", so the regexes discriminate
     const rows = state.talentProvenance.rows.map((r) => (r.personId === targetId && r.kind === 'authored_exact_week' ? { ...r, entryWeek: r.entryWeek + 1 } : r))
-    const tamperedState: GameState = { ...state, talentProvenance: { ...state.talentProvenance, rows } }
-    expect(() => validateSaveV35(liveEnvelope(tamperedState))).toThrow(new RegExp(`${targetId} has no authored_exact_week`))
+    const tamperedState: GameStateV37 = { ...state, talentProvenance: { ...state.talentProvenance, rows } }
+    expect(() => validateSaveV35(historicalC4Envelope(tamperedState))).toThrow(new RegExp(`${targetId} has no authored_exact_week`))
   })
 
   it('age out of bounds per 782/793 §9: one entrant\'s provenance age is pushed to 30 (inside the OLD [20,32] bound, outside the NEW [20,29] one, landed at ccb8ab17).', () => {
@@ -197,8 +197,8 @@ describe('P14C.4 D4: the validator refuses each tampering, one per case, from a 
     // match caught only by inspecting the actual thrown text).
     const talent = state.talent.map((t) => (t.id === targetId ? { ...t, age: 30 } : t))
     const due = recomputeDue(rows, (id) => talent.find((t) => t.id === id)?.age)
-    const tamperedState: GameState = { ...state, talent, talentProvenance: { ...state.talentProvenance, rows, due } }
-    expect(() => validateSaveV35(liveEnvelope(tamperedState))).toThrow(/outside|age/i)
+    const tamperedState: GameStateV37 = { ...state, talent, talentProvenance: { ...state.talentProvenance, rows, due } }
+    expect(() => validateSaveV35(historicalC4Envelope(tamperedState))).toThrow(/outside|age/i)
   })
 
   it('non-increasing weeks: a second receipt claims the SAME week as the first', () => {
@@ -207,20 +207,20 @@ describe('P14C.4 D4: the validator refuses each tampering, one per case, from a 
       week: receipt.week, // the ONE deliberate defect: must be strictly greater than the prior receipt's week
       talentCountBefore: state.talent.length, requested: { actor: 0, director: 0, writer: 0, craft: 0 }, clipped: 0, personIds: [],
     }
-    const tamperedState: GameState = { ...state, careerLifecycle: { ...state.careerLifecycle, cohorts: [...state.careerLifecycle.cohorts, duplicateAtSameWeek] } }
-    expect(() => validateSaveV35(liveEnvelope(tamperedState))).toThrow(/strictly increase/i)
+    const tamperedState: GameStateV37 = { ...state, careerLifecycle: { ...state.careerLifecycle, cohorts: [...state.careerLifecycle.cohorts, duplicateAtSameWeek] } }
+    expect(() => validateSaveV35(historicalC4Envelope(tamperedState))).toThrow(/strictly increase/i)
   })
 
   it('a non-52k week: a receipt whose week is not a multiple of 52', () => {
     const { state, receipt } = lawfulBaseline()
     const tampered: CohortReceipt = { ...receipt, week: receipt.week + 1 }
-    expect(() => validateSaveV35(liveEnvelope(withReceipts(state, [tampered])))).toThrow(/52/)
+    expect(() => validateSaveV35(historicalC4Envelope(withReceipts(state, [tampered])))).toThrow(/52/)
   })
 
   it('wrong clipped: the receipt claims a clip its own requested totals do not support', () => {
     const { state, receipt } = lawfulBaseline()
     const tampered: CohortReceipt = { ...receipt, clipped: receipt.clipped + 5 }
-    expect(() => validateSaveV35(liveEnvelope(withReceipts(state, [tampered])))).toThrow(/clipped/i)
+    expect(() => validateSaveV35(historicalC4Envelope(withReceipts(state, [tampered])))).toThrow(/clipped/i)
   })
 
   // G3 (801, source review 798): four tamperings the writer's own source review found
@@ -230,7 +230,7 @@ describe('P14C.4 D4: the validator refuses each tampering, one per case, from a 
   // `validateSaveV35` itself takes `unknown`, exactly for this reason.
   it('an extra root key on careerLifecycle', () => {
     const { state, receipt } = lawfulBaseline()
-    const goodEnvelope = liveEnvelope(withReceipts(state, [receipt]))
+    const goodEnvelope = historicalC4Envelope(withReceipts(state, [receipt]))
     const raw = JSON.parse(JSON.stringify(goodEnvelope)) as { state: { careerLifecycle: Record<string, unknown> } }
     raw.state.careerLifecycle.bogusExtraKey = 'nope'
     expect(() => validateSaveV35(raw)).toThrow(/must carry exactly boundaryWeek, cohorts and records/i)
@@ -238,7 +238,7 @@ describe('P14C.4 D4: the validator refuses each tampering, one per case, from a 
 
   it('a missing cohorts key', () => {
     const { state, receipt } = lawfulBaseline()
-    const goodEnvelope = liveEnvelope(withReceipts(state, [receipt]))
+    const goodEnvelope = historicalC4Envelope(withReceipts(state, [receipt]))
     const raw = JSON.parse(JSON.stringify(goodEnvelope)) as { state: { careerLifecycle: Record<string, unknown> } }
     delete raw.state.careerLifecycle.cohorts
     expect(() => validateSaveV35(raw)).toThrow(/must carry exactly boundaryWeek, cohorts and records/i)
@@ -246,7 +246,7 @@ describe('P14C.4 D4: the validator refuses each tampering, one per case, from a 
 
   it('an extra receipt key', () => {
     const { state, receipt } = lawfulBaseline()
-    const goodEnvelope = liveEnvelope(withReceipts(state, [receipt]))
+    const goodEnvelope = historicalC4Envelope(withReceipts(state, [receipt]))
     const raw = JSON.parse(JSON.stringify(goodEnvelope)) as { state: { careerLifecycle: { cohorts: Record<string, unknown>[] } } }
     raw.state.careerLifecycle.cohorts[0]!.bogusExtra = 1
     expect(() => validateSaveV35(raw)).toThrow(/must carry exactly clipped,personIds,requested,talentCountBefore,week/i)
@@ -255,7 +255,7 @@ describe('P14C.4 D4: the validator refuses each tampering, one per case, from a 
   it('a receipt dated after market.tick', () => {
     const { state, receipt } = lawfulBaseline()
     const tampered: CohortReceipt = { ...receipt, week: receipt.week + 52 } // still a valid cohort week (multiple of 52), just after the campaign week
-    expect(() => validateSaveV35(liveEnvelope(withReceipts(state, [tampered])))).toThrow(/after the campaign week/i)
+    expect(() => validateSaveV35(historicalC4Envelope(withReceipts(state, [tampered])))).toThrow(/after the campaign week/i)
   })
 })
 
@@ -274,8 +274,8 @@ describe('P14C.4 D5: replay determinism, and save/load mid-year then continuing 
     // P14C.2b: reload at the LIVE (V36) boundary, not the frozen V35 one `liveEnvelope`
     // now targets (helpers/p14c4-fixtures.ts) — continuing to tick needs every V36 key
     // `readExtensionUsed` requires, which the V35-stripped shape no longer carries.
-    const savedLive = validateSaveV37({ saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems })
-    const reloaded = validateSaveV37(JSON.parse(JSON.stringify(savedLive)))
+    const savedLive = validateSaveV38({ saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems })
+    const reloaded = validateSaveV38(JSON.parse(JSON.stringify(savedLive)))
     const viaSaveLoad = advanceTo(reloaded.state, 156)
     expect(JSON.stringify(viaSaveLoad)).toBe(JSON.stringify(continuous))
   })

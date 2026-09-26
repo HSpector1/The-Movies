@@ -1344,6 +1344,10 @@ export {
   convertV36ToV37,
   convertV37ToV36,
   migrateToV37,
+  validateSaveV38,
+  convertV37ToV38,
+  convertV38ToV37,
+  migrateToV38,
   convertV27ToV28,
   convertV28ToV27,
   // P13B-S5-R07 — live V24 → NEW V25 + migrateToV25 (the widened production
@@ -1390,6 +1394,7 @@ export type {
   SaveFileV35,
   SaveFileV36,
   SaveFileV37,
+  SaveFileV38,
   LiveSaveFile,
   SaveFile,
   TalentV1,
@@ -1650,3 +1655,9 @@ export { adoptionQuote, equipmentAssets } from './technologyAdoption.js'
 export type { AdoptionQuote, AdoptionRequest } from './technologyAdoption.js'
 export { productionTechnologyView } from './technologyProduction.js'
 export type { StudioTechnology, StudioTechnologyV2, StudioTechnologyV3, TechnologyAction, ResearchProject, ResearchWeekReceipt, ResearchLabContribution, TechnologyAdoption, TechnologyAdoptionComponent, TechnologyEquipmentAsset, ProductionTechnology } from './technologyTypes.js'
+
+export type { GameStateV38, CareerLifecycleRootV38, TransitionTarget, TransitionRoleTier, TransitionPotentialTier,
+  RetirementKey, ProfessionAnchor, TransitionPictureRef, TransitionContextWitness, TransitionTargetInput,
+  TransitionInputs, TransitionEvaluation, ProfessionChange, IndustryRetirement, TransitionDue } from './types.js'
+export { professionAtWeek, transitionInputsFor, chooseProfessionTransition, advanceProfessionTransitions,
+  TRANSITION_RULES_VERSION } from './professionTransitions.js'

@@ -1,3 +1,4 @@
+import { scheduleProfessionReconciliation } from './professionHistory.js'
 import { productionCompanyTalentIds } from './productionPeople.js'
 import { boundedStableSort } from './boundedStableSort.js'
 import { recordPlayerEmployment } from './industryEmployment.js'
@@ -181,7 +182,7 @@ export function initializeHollywood(state: GameStateV18 & { hollywood?: Hollywoo
   for (const identity of identities.slice(1)) if (identity.eligibleWeek <= state.market.tick) {
     next = enterRival(next,identity.studioId,origin)
   }
-  return recordPlayerEmployment(next,origin==='migration')
+  return scheduleProfessionReconciliation(recordPlayerEmployment(next,origin==='migration'))
 }
 
 /** Atomic pure entry: no caller-owned object is modified, even if validation throws. */

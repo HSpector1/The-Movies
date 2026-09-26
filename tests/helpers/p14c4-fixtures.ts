@@ -9,7 +9,8 @@ import { existsSync, readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { expect } from 'vitest'
 import {
-  convertV36ToV35, convertV37ToV36, LIVE_SAVE_VERSION, migrateToLive, validateSaveV34, validateSaveV37,
+  convertV35ToV36, convertV36ToV37, convertV36ToV35, convertV37ToV36, convertV38ToV37,
+  LIVE_SAVE_VERSION, migrateToLive, validateSaveV34, validateSaveV35, validateSaveV37, validateSaveV38,
 } from '../../src/core/save.js'
 import type { SaveFileV34, SaveFileV35, LiveSaveFile } from '../../src/core/save.js'
 import { ageAt } from '../../src/core/aging.js'
@@ -18,7 +19,7 @@ import { TUNING } from '../../src/core/tuning.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './p14b2-fixtures.js'
 export { advanceTo, fund, p13aGeneratedStudio, player }
 import type {
-  CareerLifecycleRootV35, CohortReceipt, FilmCreativeRole, GameState, GameStateV34, GameStateV35,
+  CareerLifecycleRootV35, CohortReceipt, FilmCreativeRole, GameState, GameStateV34, GameStateV35, GameStateV37,
 } from '../../src/core/types.js'
 
 const sha256 = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
@@ -62,12 +63,44 @@ export function envelopeV34(state: GameStateV34): SaveFileV34 {
  * now builds the live V36 envelope FIRST — the live engine is V36, not V35 — and hands
  * the frozen chain the V35 it already knew how to read).
  * Record840: start at live37, then use the guarded37→36 downgrade before36→35.
- * A Scientist record must refuse rather than be removed to manufacture old data. */
+ * A Scientist record must refuse rather than be removed to manufacture old data.
+ * Record975: also use guarded38→37. New actual entrants/events now make this
+ * projection refuse; older cohort assertions then need genuine historical inputs,
+ * never a manually stripped current root. */
 export function liveEnvelope(state: GameState): SaveFileV35 {
-  const live: LiveSaveFile = validateSaveV37({
+  const live: LiveSaveFile = validateSaveV38({
     saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems,
   })
-  return convertV36ToV35(convertV37ToV36(live))
+  return convertV36ToV35(convertV37ToV36(convertV38ToV37(live)))
+}
+
+/** 978 newly reproduced under archived outgoing c000479d code. Immutable old
+ * controls, never current38 output stripped into historical acceptance. */
+export function historicalC4Control(axis: 'cohort-week' | 'all-statuses' | 'deep-deficit'): GameStateV37 {
+  const info = {
+    'cohort-week': { week: 156, gzip: '4d7a46d08a456f01dfa561dfc57cdde4c93aa8fd42bb8ca7de148bd8c8380f41' },
+    'all-statuses': { week: 312, gzip: '4c53ede9e7b548b60f09385a7d0427bedcfca98654bb62d3619ed6b549121d18' },
+    'deep-deficit': { week: 2652, gzip: 'b2c50a92a2c0f8d69169fc77b58fd4769d1d55ed2dddb70cd788192b1163e6ff' },
+  }[axis]
+  const directory = 'tests/fixtures/p14/genuine-pre38-validation-controls'
+  const manifest = JSON.parse(readFileSync(`${directory}/MANIFEST.json`, 'utf8'))
+  expect(manifest).toMatchObject({ sourceSha: 'c000479d6e888d3a02f5c2ff534f5dfcbb32af3f',
+    producerSha256: '5de47c19d3c665e79590126c3c7155d517ef65fc3285a69a751a539cc355e161' })
+  const filename = `reproduced-v35-c4-${axis}-week${info.week}.json.gz`
+  const artifact = manifest.artifacts.find((row: { filename: string }) => row.filename === filename)
+  expect(artifact).toBeDefined()
+  const compressed = readFileSync(`${directory}/${filename}`), raw = gunzipSync(compressed).toString('utf8')
+  expect(sha256(compressed)).toBe(info.gzip)
+  expect(sha256(raw)).toBe(artifact.uncompressedSha256)
+  const old = validateSaveV35(JSON.parse(raw))
+  expect(old.state.market.tick).toBe(info.week)
+  // Restore only the real frozen36/37 shape required by the original controls.
+  return convertV36ToV37(convertV35ToV36(old)).state
+}
+
+export function historicalC4Envelope(state: GameStateV37): SaveFileV35 {
+  const historical = validateSaveV37({ saveVersion: 37, seed: state.seed, state, broadcastCache: state.broadcastItems })
+  return convertV36ToV35(convertV37ToV36(historical))
 }
 
 /**

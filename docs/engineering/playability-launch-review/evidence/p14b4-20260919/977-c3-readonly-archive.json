@@ -1,0 +1,12 @@
+{
+  "archiveRoot": "/private/tmp/studio-c3-validation-c000479d.q1z1_lrn",
+  "sourceSha": "c000479d6e888d3a02f5c2ff534f5dfcbb32af3f",
+  "archiveSha256": "c9a0ea1523b30c04e2a67effc39929141837b14240ca1cf528f090eee5b9847c",
+  "paths": [
+    "src",
+    "package.json"
+  ],
+  "method": "read-only Git-object archive; active worktree and HEAD unchanged",
+  "nodeModules": "symlink to existing workspace dependencies",
+  "sourceFiles": 174
+}

@@ -419,6 +419,12 @@ export const TUNING = {
   RETIREMENT_NOTICE_WEEKS: 52, // the announcement horizon
   RETIREMENT_RECENT_WORK_WEEKS: 104, // D3's recency horizon, and the record span it needs
 
+  // P14C.3 delegated numerical hypotheses (942/946); no thresholds adapted to fixtures.
+  PROFESSION_TRANSITION_MIN_ACTING_TAKES: 3,
+  PROFESSION_TRANSITION_MIN_CONTEXT_PICTURES: 2,
+  PROFESSION_TRANSITION_RECHECK_WEEKS: 52,
+  PROFESSION_TRANSITION_WAIT_AGE_MARGIN: 5,
+
   // P14C.4 replenishment (companion §6.5; records 782 §7 and 793). PROVISIONAL TUNING:
   // the companion leaves every count to tuning. The accepted population is the measured
   // fresh-founding composition (record 792: genesis ROLE_BLOCKS + 4 founding rivals).

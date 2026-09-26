@@ -1,0 +1,20 @@
+{
+  "sourceSha": "c000479d6e888d3a02f5c2ff534f5dfcbb32af3f",
+  "testedDiffSha256": "61ba8544dc0053a2d18e4d8c6e3afa44a6e526ca5a64bcf9b316afa07138efac",
+  "untrackedSource": [],
+  "command": [
+    "node",
+    "-e",
+    "const {spawnSync}=require(\"node:child_process\"); for (const args of [[\"run\",\"typecheck\"],[\"run\",\"typecheck:bridge\"]]) { const result=spawnSync(\"npm\",args,{stdio:\"inherit\"}); if(result.status!==0) process.exit(result.status??1); }"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-26T20:55:44.779Z",
+  "end": "2026-09-26T20:57:21.591Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "c000479d6e888d3a02f5c2ff534f5dfcbb32af3f",
+  "testedDiffSha256AtEnd": "61ba8544dc0053a2d18e4d8c6e3afa44a6e526ca5a64bcf9b316afa07138efac",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

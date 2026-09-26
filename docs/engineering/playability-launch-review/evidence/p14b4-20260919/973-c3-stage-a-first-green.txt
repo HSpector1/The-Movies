@@ -1,0 +1,39 @@
+{"sourceSha":"c000479d6e888d3a02f5c2ff534f5dfcbb32af3f","testedDiffSha256":"f68162a2f6db85d8969990b7991f769714c1d24e37be429b4b6593023e17bedd","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c3-save-v38.test.ts","tests/p14c3-transitions.test.ts"],"node":"v20.20.2","start":"2026-09-26T20:07:56.436Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14c3-transitions.test.ts (35 tests) 12266ms
+   ✓ C.3 A03/A04 genuine retirement choices through existing tick > retires the two genuine207 actors into director and writer at208 with real bounded evidence 1235ms
+   ✓ C.3 A03/A04 genuine retirement choices through existing tick > reconciles actual retired genuine-v37-c3-retired-week208.json.gz prospectively at209 without backdating or rewriting old receipts 1381ms
+   ✓ C.3 A03/A04 genuine retirement choices through existing tick > reconciles actual retired genuine-v37-c3-runtime-current208.json.gz prospectively at209 without backdating or rewriting old receipts 1713ms
+   ✓ C.3 A05/A06 public profession history, current evidence and repeat safety > derives the exact current public input without mutation and refuses past-week reconstruction 724ms
+   ✓ C.3 A05/A06 public profession history, current evidence and repeat safety > uses inclusive change weeks and current-versus-explicit retirement lookup after save and reload 2183ms
+   ✓ C.3 A09/A10 genuine prospective finality and deferred reconciliation > records Scientist noCatalogue finality at671 once, preserving the actual670 profession retirement 1182ms
+   ✓ C.3 A09/A10 genuine prospective finality and deferred reconciliation > defers the real retired cohort actor at2601 and schedules the exact annual-or-age deadline, never the next week 3823ms
+ ✓ |core| tests/p14c3-save-v38.test.ts (39 tests) 19641ms
+   ✓ C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-created-week0.json.gz losslessly except for explicit prospective38 scaffolding 402ms
+   ✓ C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-preretirement-week207.json.gz losslessly except for explicit prospective38 scaffolding 1273ms
+   ✓ C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-retired-week208.json.gz losslessly except for explicit prospective38 scaffolding 1020ms
+   ✓ C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-runtime-current208.json.gz losslessly except for explicit prospective38 scaffolding 1691ms
+   ✓ C.3 A01/A02 exact Save38 opening > exposes matching strict38 conversion, validation and current migration over a genuine37 save 1586ms
+   ✓ C.3 A12 exact root, anchored identity and due authority > rejects every omitted new root field and an unrecognized root authority 1388ms
+   ✓ C.3 A12 exact root, anchored identity and due authority > requires a finite safe nonnegative boundary at or before the actual clock 1274ms
+   ✓ C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates 1439ms
+   ✓ C.3 A12 exact root, anchored identity and due authority > cannot relabel a genuinely later-created person as an existing person before their entry 1064ms
+   ✓ C.3 A12 exact root, anchored identity and due authority > requires the complete sorted prospective queue and strictly future exact due dates 888ms
+   ✓ C.3 A12 actual chosen receipts and their dated joins > checks exact keys on evaluation, input, target, context, picture and source objects 573ms
+   ✓ C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology 615ms
+   ✓ C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth 752ms
+   ✓ C.3 A12 actual chosen receipts and their dated joins > recomputes the outcome separately from the unchanged question digest 356ms
+   ✓ C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person 941ms
+   ✓ C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation 1018ms
+   ✓ C.3 A11/A12 industry finality and frozen strict readers > keeps the genuine public37 reader strict even when a caller adds current authority or strips its evidence 411ms
+   ✓ C.3 A11 lossless empty-boundary downgrade and actual entrant authority > downgrades untouched genuine-v37-c3-preretirement-week207.json.gz exactly, including its unexecuted prospective queue 522ms
+   ✓ C.3 A11 lossless empty-boundary downgrade and actual entrant authority > downgrades untouched genuine-v37-c3-retired-week208.json.gz exactly, including its unexecuted prospective queue 571ms
+
+ Test Files  2 passed (2)
+      Tests  74 passed (74)
+   Start at  22:07:56
+   Duration  22.45s (transform 2.31s, setup 0ms, collect 4.36s, tests 31.91s, environment 1ms, prepare 271ms)
+

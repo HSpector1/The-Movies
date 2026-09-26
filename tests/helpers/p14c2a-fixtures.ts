@@ -7,12 +7,12 @@ import { createHash } from 'node:crypto'
 import { existsSync, readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { expect } from 'vitest'
-import { convertV32ToV33, validateSaveV33 } from '../../src/core/save.js'
+import { convertV32ToV33, migrateToLive, validateSaveV33 } from '../../src/core/save.js'
 import { tick } from '../../src/core/index.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './p14b2-fixtures.js'
 export { advanceTo, fund, p13aGeneratedStudio, player }
 import type {
-  CareerLifecycleRootV36, CreativeRole, GameState, RetirementCause, RetirementRecordV36, RetirementStatus,
+  CareerLifecycleRootV36, CreativeRole, GameState, GameStateV33, RetirementCause, RetirementRecordV36, RetirementStatus,
   Talent, TalentProvenanceRow,
 } from '../../src/core/types.js'
 
@@ -29,7 +29,8 @@ export const C2_CORPUS = {
 } as const
 export type C2CorpusName = keyof typeof C2_CORPUS
 
-export function c2Fixture(name: C2CorpusName): GameState {
+/** Frozen33 only. Live callers must explicitly use c2LiveFixture before edits. */
+export function c2Fixture(name: C2CorpusName): GameStateV33 {
   const path = `tests/fixtures/p14/genuine-v33-c2-corpus/${name}.json.gz`
   expect(existsSync(path), `T0 NOT COMPLETE: genuine V33 C.2a artifact missing: ${path}`).toBe(true)
   const compressed = readFileSync(path)
@@ -38,7 +39,13 @@ export function c2Fixture(name: C2CorpusName): GameState {
   expect(sha256(raw), `${name}: uncompressed bytes drifted from record 775's MANIFEST`).toBe(C2_CORPUS[name].raw)
   const save = validateSaveV33(JSON.parse(raw)) // the genuine frozen V33 validator FIRST
   expect(save.state.market.tick, `${name}: week drifted from record 775's MANIFEST`).toBe(C2_CORPUS[name].week)
-  return save.state as unknown as GameState
+  return save.state
+}
+
+/** Actual governed current migration of unmodified, strictly validated old bytes. */
+export function c2LiveFixture(name: C2CorpusName): GameState {
+  const state = c2Fixture(name)
+  return migrateToLive({ saveVersion: 33, seed: state.seed, state, broadcastCache: state.broadcastItems }).state
 }
 
 // ── the held null-hollywood V32 worlds (P14C.1 corpus; migrated up to V33 here) ──
@@ -51,7 +58,7 @@ export type NullHollywoodName = keyof typeof C1_NULL_HOLLYWOOD
 /** A null-`hollywood` V33 state (migrated from the held C.1 V32 corpus). A7 needs
  * exactly this shape, and P14C.1's own suite already established these two files as
  * the accepted null-hollywood worlds — reused here, never re-minted. */
-export function nullHollywoodFixture(name: NullHollywoodName): GameState {
+export function nullHollywoodFixture(name: NullHollywoodName): GameStateV33 {
   const path = `tests/fixtures/p14/genuine-v32-c1-corpus/genuine-v32-${name}.json.gz`
   expect(existsSync(path), `held C.1 fixture missing: ${path}`).toBe(true)
   const compressed = readFileSync(path)
@@ -62,7 +69,12 @@ export function nullHollywoodFixture(name: NullHollywoodName): GameState {
   expect(parsed.state.market.tick, `${name}: week drifted`).toBe(C1_NULL_HOLLYWOOD[name].week)
   expect(parsed.state.hollywood, `${name}: expected a null-hollywood world`).toBeNull()
   const v33 = convertV32ToV33(parsed)
-  return v33.state as unknown as GameState
+  return v33.state
+}
+
+export function nullHollywoodLiveFixture(name: NullHollywoodName): GameState {
+  const state = nullHollywoodFixture(name)
+  return migrateToLive({ saveVersion: 33, seed: state.seed, state, broadcastCache: state.broadcastItems }).state
 }
 
 // ── SYNTHETIC V34 overlay (labeled at every call site; never a fixture file edit) ──
@@ -88,8 +100,11 @@ export function nullHollywoodFixture(name: NullHollywoodName): GameState {
 // `CareerLifecycleRootV36` — every record now owes `extensionUsed`/
 // `extendedFromWeek` (`readExtensionUsed`, `careerLifecycle.ts`, throws loudly on a
 // live record missing them), which `syntheticRecord` below now always supplies.
+// 985: the isolated synthetic C.2 facts do not replace current profession authority.
+// Callers first obtain a real current state; preserve its actual six-field scaffold.
+// This remains a disclosed synthetic consumer input, not a genuine saved history.
 export function withSyntheticCareerLifecycle(state: GameState, root: CareerLifecycleRootV36): GameState {
-  return { ...state, careerLifecycle: root } as unknown as GameState
+  return { ...state, careerLifecycle: { ...state.careerLifecycle, ...root } }
 }
 
 export function initialSyntheticRoot(boundaryWeek: number): CareerLifecycleRootV36 {

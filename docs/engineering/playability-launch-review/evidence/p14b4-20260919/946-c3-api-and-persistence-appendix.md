@@ -216,14 +216,16 @@ completes earliest normal retirement at61 can evaluate61 through75 inclusive.
 
 Frozen public validate/migrate readers through37 keep their old defaults. Add
 make/validate/convert/migrate38 following existing version patterns. A downgrade
-to37 refuses any nonempty event/change/finality or actual post-boundary entrant
-anchor/new semantic state, before stripping empty scaffolding. Empty boundary
+to37 refuses any nonempty event/change/finality or actual entrant
+anchor/new semantic state (including creation in the boundary week), before stripping empty scaffolding. Empty boundary
 anchors and untouched prospective migration queue may be stripped losslessly.
 
 ## Projection53 fields
 
 Keep `StudioPersonLifecycle` as the current primary profession's lifecycle shape.
-Add required `career` to `StudioPersonProfileSnapshot`, reference `StudioPersonCareer`:
+Add required `professionCareer` to `StudioPersonProfileSnapshot`, reference `StudioPersonCareer`.
+The existing `career: StudioPersonCareerSnapshot` contains released development rows
+and remains intact; the additive name avoids replacing that established history:
 
 ```text
 StudioProfessionRetirement:
@@ -311,3 +313,13 @@ Market uses actual-event retention, existing attention assembly and public text.
 No remaining contract correction or Owner decision is identified. No tests were
 executed by the reviewer. T0 parity failure is causally attributed952 and preserved
 in953; independent serialization RED/correction comes next, then C.3 behavior RED.
+
+## Implementation preflight refinements after966
+
+Independent reviewer confirmed two concrete details before C.3 production:
+any `kind: 'entrant'` anchor is semantic creation authority, even if its creation
+week equals the opening boundary; downgrade must refuse before stripping it.
+The selected profile field is `professionCareer`, because `career` already owns
+`StudioPersonCareerSnapshot` development rows (schema2382/2791, people223).
+The new `StudioPersonCareer` object's fields and all product law remain as above.
+These are additive implementation clarifications; no existing career data is replaced.

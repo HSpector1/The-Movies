@@ -1,0 +1,103 @@
+{"sourceSha":"c000479d6e888d3a02f5c2ff534f5dfcbb32af3f","testedDiffSha256":"60f9daa7ffb2054aff91ecf5ac28a18a07bb815ae7950d1d24ce89b6529eae1a","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c2a-save-and-settlement.test.ts","tests/p14c2a-core-lifecycle.test.ts","tests/p14c2a-consumers.test.ts","tests/p14c2b-save-v36.test.ts","tests/p14c3-save-v38.test.ts","tests/p14c3-transitions.test.ts","tests/p14c3-promise-digest-continuity.test.ts"],"node":"v20.20.2","start":"2026-09-26T20:48:14.542Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14c2a-save-and-settlement.test.ts (10 tests) 15240ms
+   ✓ P14C.2a E1-E3, F1: settlement and the rival symmetry > E1: a signed, NOT-seated actor announced with E = their own contract end settles to retired exactly at E, via the EXISTING expiry receipt; talent/history untouched 3312ms
+   ✓ P14C.2a E1-E3, F1: settlement and the rival symmetry > E2: the seated director (genuine-v33-c2-seated) settles to finishing_commitments while busy, and to retired the FIRST week (never earlier) the seat clears 7141ms
+   ✓ P14C.2a E1-E3, F1: settlement and the rival symmetry > F1: a rival employee (t-dir-00) settles under the IDENTICAL law as a player contract once its own interval end is reached 1799ms
+   ✓ P14C.2a G1-G5: Save V34 > G1: validateSaveV34 round-trips a genuine V34 envelope byte-stable with a record in each status (announced, finishing_commitments, retired) 420ms
+   ✓ P14C.2a G1-G5: Save V34 > G2: every T0 V33 fixture migrates — empty root, boundaryWeek = the migration tick 949ms
+   ✓ P14C.2a G1-G5: Save V34 > G3: V34 -> V33 is lossless iff no record; refused as a downgrade otherwise 359ms
+   ✓ P14C.2a G1-G5: Save V34 > G5: save/load mid-notice then continue equals the continuous run, byte-for-byte 983ms
+ ✓ |core| tests/p14c2a-consumers.test.ts (17 tests) 30203ms
+   ✓ P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, real consumer) > B2: signContract on an announced free agent — refused past E with retirementAnnounced, byte-identical state; allowed ending exactly at E 2575ms
+   ✓ P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, real consumer) > B3: an announced person under an open case reads retirement_announced with no proposers, and submitProposal is refused without mutation 595ms
+   ✓ P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, real consumer) > C1: announcing retirement invalidates the open case the same week, with a receipt naming "announced retirement", and drops its proposals 420ms
+   ✓ P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, real consumer) > C2: no EXPIRY case ever opens for an announced person under an active contract, through its own real renewal window; exactly one retirementExtension case opens at E-12 and expires at E with no proposal (natural route via tick) 7029ms
+   ✓ P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, real consumer) > D1: greenlight refuses an announced director when week + PRODUCTION_TICKS + 1 > E; allows it at exact equality; no mutation on refusal 1265ms
+   ✓ P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, real consumer) > B4a (restated, 817 §4/806 §4/§5/§8.1, C.2b — never re-hired by staff()'s fresh hire): r01's only director, announced with E = its own (shortened) contract end, has its live row be exactly the settled retirementExtension, never a fresh staff() re-hire 984ms
+   ✓ P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, real consumer) > B4b (staff() fresh hire): an announced free candidate, made the ONLY non-busy craft in the world, is never hired to fill r01's (synthetically vacated) craft seat 505ms
+   ✓ P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, real consumer) > B5: a retired free candidate, made the FIRST match for r05's scheduled entry (week 520), is skipped — r05 mints a fresh person instead, exactly as it does with no candidate at all 12984ms
+   ✓ P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, real consumer) > D2: r01's only director, announced with E=4, is never cast into r01's first production (an established accepted fact: r01 forms film:0 by tick 3 on this seed unmodified) 502ms
+   ✓ P14C.2a W1: the writing-verb gate already refuses finishing/retired (amendment log item 1) > an ANNOUNCED but still-contracted writer may be commissioned (announced alone is not a writing refusal) 1065ms
+   ✓ P14C.2a P1: every open promise to an announced person has dueWeekExclusive <= E > genuine-v33-c2-contract-and-case: promise-0 (open, on the director authored-0001) sits inside E derived from the save week's own fixed facts 479ms
+   ✓ P14C.2a P1: every open promise to an announced person has dueWeekExclusive <= E > genuine-v33-c2-hard-boundary-and-idle-window: promise-71 (RIVAL-authored, on the rival-employed director t-dir-00) sits inside E derived from the save week's own fixed facts 1522ms
+ ✓ |core| tests/p14c2a-core-lifecycle.test.ts (13 tests) 29054ms
+   ✓ P14C.2a A1-A7: the retirement intent/settlement law > A1: authored-0000 (actor, hard-boundary world) announces exactly at week 832, never at 831 2525ms
+   ✓ P14C.2a A1-A7: the retirement intent/settlement law > A2a: t-act-07 (idle in-window, natural genesis actor) announces at its predicted week 798 1760ms
+   ✓ P14C.2a A1-A7: the retirement intent/settlement law > A2b: authored-0000 (actor, contract-and-case world) stays silent at every in-window birthday while CONTRACTED (52,104,156,208), then announces hardBoundary once free (week 260) 7537ms
+   ✓ P14C.2a A1-A7: the retirement intent/settlement law > A2c SYNTHETIC (isolated boundary): a candidate whose provenance anchor is exactly w-104 is eligible; one week later (anchor at w-103) is not 1342ms
+   ✓ P14C.2a A1-A7: the retirement intent/settlement law > A3a SYNTHETIC (isolated boundary, rival interval): a hard-boundary director under an ACTIVE RIVAL employment interval ending AFTER A+52 announces with E = the interval's own end 1551ms
+   ✓ P14C.2a A1-A7: the retirement intent/settlement law > A3b SYNTHETIC (isolated boundary): a hard-boundary actor under an active player contract ending BEFORE A+52 announces with E = A + 52 (the contract does not shorten it) 1495ms
+   ✓ P14C.2a A1-A7: the retirement intent/settlement law > A4: Scientists use62/72; recent work prevents announcement at62, then idle63 announces618 3820ms
+   ✓ P14C.2a A1-A7: the retirement intent/settlement law > A5: authored-0000 gets exactly one record; re-evaluating a LATER birthday never mints a second one or alters the announcement facts (only settlement, a separate step, may advance status) 2669ms
+   ✓ P14C.2a A1-A7: the retirement intent/settlement law > A6a: advanceCareerLifecycleWeek does not move rngState 1757ms
+   ✓ P14C.2a A1-A7: the retirement intent/settlement law > A6b: calling advanceCareerLifecycleWeek twice with the same birthdays produces byte-equal output (idempotent, deterministic) 1627ms
+   ✓ P14C.2a A1-A7: the retirement intent/settlement law > A7: a null-hollywood world (bare-world) returns state UNCHANGED from advanceCareerLifecycleWeek, even with real due birthdays supplied 349ms
+   ✓ P14C.2a A1-A7: the retirement intent/settlement law > A7b: the SAME rule holds after real ticks (bare-ticked, week 1, still null hollywood) 340ms
+   ✓ P14C.2a tick-wiring (783 gap 1): tick() alone must run the lifecycle step, and run it BEFORE the market > a bare tick() (no stepWeekWithLifecycle, no manual advanceCareerLifecycleWeek/birthdaysDueAt call) both announces r01's own director at their real due week AND invalidates the REAL market case naturally discovered on their REAL contract, in that SAME tick 2279ms
+ ✓ |core| tests/p14c3-transitions.test.ts (35 tests) 20116ms
+   ✓ C.3 A03/A04 genuine retirement choices through existing tick > retires the two genuine207 actors into director and writer at208 with real bounded evidence 2486ms
+   ✓ C.3 A03/A04 genuine retirement choices through existing tick > reconciles actual retired genuine-v37-c3-retired-week208.json.gz prospectively at209 without backdating or rewriting old receipts 2778ms
+   ✓ C.3 A03/A04 genuine retirement choices through existing tick > reconciles actual retired genuine-v37-c3-runtime-current208.json.gz prospectively at209 without backdating or rewriting old receipts 2735ms
+   ✓ C.3 A05/A06 public profession history, current evidence and repeat safety > derives the exact current public input without mutation and refuses past-week reconstruction 1091ms
+   ✓ C.3 A05/A06 public profession history, current evidence and repeat safety > uses inclusive change weeks and current-versus-explicit retirement lookup after save and reload 3005ms
+   ✓ C.3 A09/A10 genuine prospective finality and deferred reconciliation > records Scientist noCatalogue finality at671 once, preserving the actual670 profession retirement 1658ms
+   ✓ C.3 A09/A10 genuine prospective finality and deferred reconciliation > defers the real retired cohort actor at2601 and schedules the exact annual-or-age deadline, never the next week 6237ms
+ ✓ |core| tests/p14c3-save-v38.test.ts (47 tests) 57774ms
+   ✓ C.3 A01/A02 exact Save38 opening > moves the existing live writer and fresh root together while preserving intent1 and promise4 695ms
+   ✓ C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-created-week0.json.gz losslessly except for explicit prospective38 scaffolding 1315ms
+   ✓ C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-preretirement-week207.json.gz losslessly except for explicit prospective38 scaffolding 2063ms
+   ✓ C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-retired-week208.json.gz losslessly except for explicit prospective38 scaffolding 1948ms
+   ✓ C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-runtime-current208.json.gz losslessly except for explicit prospective38 scaffolding 2012ms
+   ✓ C.3 A01/A02 exact Save38 opening > exposes matching strict38 conversion, validation and current migration over a genuine37 save 1625ms
+   ✓ C.3 A12 exact root, anchored identity and due authority > rejects every omitted new root field and an unrecognized root authority 1707ms
+   ✓ C.3 A12 exact root, anchored identity and due authority > requires a finite safe nonnegative boundary at or before the actual clock 1794ms
+   ✓ C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates 1714ms
+   ✓ C.3 A12 exact root, anchored identity and due authority > cannot relabel a genuinely later-created person as an existing person before their entry 1501ms
+   ✓ C.3 A12 exact root, anchored identity and due authority > requires the complete sorted prospective queue and strictly future exact due dates 1422ms
+   ✓ C.3 A12 actual chosen receipts and their dated joins > checks exact keys on evaluation, input, target, context, picture and source objects 1516ms
+   ✓ C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology 1538ms
+   ✓ C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth 2072ms
+   ✓ C.3 A12 actual chosen receipts and their dated joins > recomputes the outcome separately from the unchanged question digest 1020ms
+   ✓ C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person 1724ms
+   ✓ C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation 2439ms
+   ✓ C.3 A11/A12 industry finality and frozen strict readers > keeps the genuine public37 reader strict even when a caller adds current authority or strips its evidence 987ms
+   ✓ C.3 979 retained dated obligations stay narrow > admits actual post-change director work and ordinary new-role employment 636ms
+   ✓ C.3 979 retained dated obligations stay narrow > refuses a detached player-production date that puts the actual company seat across its change 332ms
+   ✓ C.3 979 retained dated obligations stay narrow > admits an actual later release but refuses a first-take date claiming completed work across the change 1331ms
+   ✓ C.3 979 retained dated obligations stay narrow > refuses a detached rival company-seat substitution against an otherwise accepted actual world 649ms
+   ✓ C.3 979 retained dated obligations stay narrow > admits actual later original drafting but refuses a claimed pre-change original commission 1247ms
+   ✓ C.3 979 retained dated obligations stay narrow > admits actual secondary-writer pool joining after the change despite an earlier original commission 1903ms
+   ✓ C.3 979 retained dated obligations stay narrow > admits a real post-change rewrite of a screenplay completed before acting retirement 8445ms
+   ✓ C.3 979 retained dated obligations stay narrow > admits an actual pre-change production whose permanent credited writer occupies no company seat 7430ms
+   ✓ C.3 A11 lossless empty-boundary downgrade and actual entrant authority > downgrades untouched genuine-v37-c3-preretirement-week207.json.gz exactly, including its unexecuted prospective queue 1367ms
+   ✓ C.3 A11 lossless empty-boundary downgrade and actual entrant authority > downgrades untouched genuine-v37-c3-retired-week208.json.gz exactly, including its unexecuted prospective queue 1323ms
+   ✓ C.3 A11 lossless empty-boundary downgrade and actual entrant authority > refuses loss of a genuine entrant created at the same week as the38 opening 607ms
+ ✓ |core| tests/p14c3-promise-digest-continuity.test.ts (8 tests) 13588ms
+   ✓ 955 same logical inputs give the same promise feasibility receipt > ignores nested object insertion order with a real active player workflow (tagged P2=false) 3495ms
+   ✓ 955 same logical inputs give the same promise feasibility receipt > ignores nested object insertion order with a real active player workflow (tagged P2=true) 1117ms
+   ✓ 955 same logical inputs give the same promise feasibility receipt > keeps an exact refusal, its rules version and its digest invariant under the same key permutation 474ms
+   ✓ 955 genuine207 normal-development continuation > produces identical208 saves and all twelve actual affected receipts from value-identical key orders 4768ms
+   ✓ 955 historical preservation and interim projection52 journal authority > loads genuine-v37-c3-preretirement-week207.json.gz without rewriting its stored promises or other historical bytes 1668ms
+   ✓ 955 historical preservation and interim projection52 journal authority > loads genuine-v37-c3-retired-week208.json.gz without rewriting its stored promises or other historical bytes 1006ms
+   ✓ 955 historical preservation and interim projection52 journal authority > loads genuine-v37-c3-runtime-current208.json.gz without rewriting its stored promises or other historical bytes 969ms
+ ✓ |core| tests/p14c2b-save-v36.test.ts (14 tests) 11977ms
+   ✓ P14C.2b S1: every corpus world migrates V35 -> V36 per 806 §2 > genuine-v35-c2b-contract-gap-freeagent-expiry 574ms
+   ✓ P14C.2b S1: every corpus world migrates V35 -> V36 per 806 §2 > genuine-v35-c2b-rival-incumbent-cohorts 1457ms
+   ✓ P14C.2b S2: V36 -> V35 downgrade > lossless when no record has extensionUsed and no case is a retirementExtension (a genuinely migrated, never-ticked world) 1228ms
+   ✓ P14C.2b S2: V36 -> V35 downgrade > refused as a downgrade when a record carries extensionUsed: true (a genuinely accepted extension, axis a, natural route) 2814ms
+   ✓ P14C.2b S2: V36 -> V35 downgrade > refused as a downgrade when a case carries variant: retirementExtension (open, not yet used — the case alone is enough) 1360ms
+   ✓ P14C.2b S3: the validator refuses each tampering, one per case, from a GENUINE settled V36 state (806 §8.2) > the unmutated, genuinely-produced baseline must validate 829ms
+   ✓ P14C.2b S3: the validator refuses each tampering, one per case, from a GENUINE settled V36 state (806 §8.2) > a second extension case for the SAME person is refused (at most one per person, ever) 733ms
+   ✓ P14C.2b S3: the validator refuses each tampering, one per case, from a GENUINE settled V36 state (806 §8.2) > extensionUsed: true with no SETTLED extension case for that person is refused 725ms
+   ✓ P14C.2b S3: the validator refuses each tampering, one per case, from a GENUINE settled V36 state (806 §8.2) > extendedFromWeek mismatched with effectiveWeek - 52 is refused 877ms
+   ✓ P14C.2b S3: the validator refuses each tampering, one per case, from a GENUINE settled V36 state (806 §8.2) > no contract ending at the new E is found by TERMS (the new contract's endWeekExclusive is altered) — refused 741ms
+
+ Test Files  7 passed (7)
+      Tests  144 passed (144)
+   Start at  22:48:15
+   Duration  68.76s (transform 3.39s, setup 0ms, collect 11.34s, tests 177.95s, environment 2ms, prepare 1.48s)
+

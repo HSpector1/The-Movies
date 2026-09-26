@@ -2286,7 +2286,8 @@ export type GameStateV31 = GameStateV30 & {
 // V34, P14C.4 the cohort receipts inside that root at V35. Since P14C.2b the live
 // gameplay shape includes V36's single final extension. V37 configures Scientist
 // retirement without adding fields; the save version distinguishes its semantic law.
-export type GameState = GameStateV37
+// V38 adds prospective profession history and its one actor transition catalogue.
+export type GameState = GameStateV38
 
 // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
 
@@ -2412,6 +2413,60 @@ export type GameStateV36 = Omit<GameStateV35, 'careerLifecycle' | 'talentMarket'
 /** Record 840: Scientist retirement uses the existing lifecycle record shape.
  * V37's validator selects the amended profession law; V34–V36 remain frozen. */
 export type GameStateV37 = GameStateV36
+
+// P14C.3 (942/946): a profession episode ends before a possible single actor
+// transition. All prior shapes remain frozen; these facts open prospectively.
+export type TransitionTarget = 'director' | 'writer'
+export type TransitionRoleTier = 'Highly unproven' | 'Raw prospect' | 'Limited-or-developing'
+  | 'Strong' | 'Major-studio' | 'Elite' | 'Generational'
+export type TransitionPotentialTier = 'Limited' | 'Steady' | 'Promising' | 'High Upside'
+  | 'Exceptional Upside' | 'Generational Upside'
+export type RetirementKey = { personId: string; profession: CreativeRole }
+export type ProfessionAnchor = {
+  personId: string; profession: CreativeRole; recordedWeek: number; kind: 'existing' | 'entrant'
+}
+export type TransitionPictureRef = { studioId: string; pictureId: string }
+export type TransitionContextWitness = {
+  counterpartId: string | null; pictures: readonly TransitionPictureRef[]
+}
+export type TransitionTargetInput = {
+  profession: TransitionTarget; capability: number; roleTier: TransitionRoleTier
+  workHistory: number; proven: boolean; potentialTier: TransitionPotentialTier
+  contextCount: number; contextBand: 0 | 1 | 2; contextWitness: TransitionContextWitness
+}
+export type TransitionInputs = {
+  age: number; actingFirstTakes: number; leadFirstTakes: number
+  actingWitnesses: readonly string[]
+  targets: readonly [TransitionTargetInput, TransitionTargetInput]
+}
+export type TransitionEvaluation = {
+  id: string; ordinal: number; week: number; personId: string; source: RetirementKey
+  rulesVersion: 1; inputs: TransitionInputs; inputsDigest: string
+  outcome: 'deferred' | 'chosen' | 'declinedAll' | 'ageBoundary'
+  selected: TransitionTarget | null
+  reason: 'noEligibleTarget' | 'onlyEligibleTarget' | 'strongerPublicTuple'
+    | 'equalPublicTuples' | 'waitingAgeReached'
+}
+export type ProfessionChange = {
+  id: string; ordinal: number; week: number; personId: string
+  from: 'actor'; to: TransitionTarget; evaluationId: string
+}
+export type IndustryRetirement = {
+  personId: string; week: number; profession: CreativeRole; source: RetirementKey
+  cause: 'noCatalogue' | 'declinedAll' | 'ageBoundary'; evaluationId: string | null
+}
+export type TransitionDue = { personId: string; week: number }
+export type CareerLifecycleRootV38 = CareerLifecycleRootV36 & {
+  transitionBoundaryWeek: number
+  professionAnchors: readonly ProfessionAnchor[]
+  transitionEvaluations: readonly TransitionEvaluation[]
+  professionChanges: readonly ProfessionChange[]
+  industryRetirements: readonly IndustryRetirement[]
+  transitionDue: readonly TransitionDue[]
+}
+export type GameStateV38 = Omit<GameStateV37, 'careerLifecycle'> & {
+  careerLifecycle: CareerLifecycleRootV38
+}
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.

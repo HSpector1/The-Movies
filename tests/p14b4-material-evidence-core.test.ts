@@ -14,7 +14,7 @@ import { fnv1a64 } from '../src/core/math.js'
 import { advancePromisesWeek, attachedPromiseDigest, promiseDigest } from '../src/core/promises.js'
 import * as promisesModule from '../src/core/promises.js'
 import * as operationsModule from '../src/core/operations.js'
-import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, exportSave, migrateToV31, validateSaveV29, validateSaveV31, validateSaveV36 } from '../src/core/save.js'
+import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, convertV36ToV37, convertV37ToV38, exportSave, migrateToV31, validateSaveV29, validateSaveV31, validateSaveV38 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import type { Action, CastSlot, GameState, GameStateV31, ProfessionalPromiseV30 } from '../src/core/types.js'
 
@@ -35,7 +35,9 @@ type Envelope = ReturnType<typeof validateSaveV31>
 // envelope (`cohorts` included).
 // P14C.2b: the NAME stays unchanged again; the VALUE now reaches the live V36
 // envelope (every record's `extensionUsed`/`extendedFromWeek`, every case's `variant`).
-type EnvelopeV33 = ReturnType<typeof validateSaveV36>
+// 975: only this live carrier reaches38. The independent frozen31 carrier below
+// retains its original reader, assertions and immutable fixture bytes.
+type EnvelopeV33 = ReturnType<typeof validateSaveV38>
 const SLOTS = ['lead', 'antagonist', 'support'] as const
 const CLASSES = ['lead', 'leadOrAntagonist'] as const
 type SeatClass = typeof CLASSES[number]
@@ -104,7 +106,7 @@ function validateStateV33(carrier: EnvelopeV33, state: GameState): EnvelopeV33 {
   // The live-boundary twin of validateState above, for the second describe
   // block's real-gameplay states (genuinely live-shaped once applyActions/tick
   // have touched them) -- same device, the frozen V31 reader untouched.
-  return validateSaveV36({ ...carrier, state, broadcastCache: state.broadcastItems })
+  return validateSaveV38({ ...carrier, state, broadcastCache: state.broadcastItems })
 }
 function binding(state: GameStateV31, promise: ProfessionalPromiseV30): void {
   assert.notEqual(promise.contractId, null)
@@ -287,7 +289,8 @@ function actualTakeInput(slot: CastSlot): Prepared {
   // P14C.2b: the live alias is now GameStateV36, one further governed step --
   // `convertV35ToV36`, adding every record's unused extension and every case's
   // `expiry` variant.
-  const migratedLive: EnvelopeV33 = convertV35ToV36(convertV34ToV35(convertV33ToV34(convertV32ToV33(convertV31ToV32({ saveVersion: 31, seed: frozenState.seed, state: frozenState, broadcastCache: frozenState.broadcastItems })))))
+  // 975: complete the same real chain through37 and38 before any live action.
+  const migratedLive: EnvelopeV33 = convertV37ToV38(convertV36ToV37(convertV35ToV36(convertV34ToV35(convertV33ToV34(convertV32ToV33(convertV31ToV32({ saveVersion: 31, seed: frozenState.seed, state: frozenState, broadcastCache: frozenState.broadcastItems })))))))
   let state: GameState = migratedLive.state
   state = applyActions(state, [{ kind: 'greenlight', production }])
   const filmId = state.studio.activeProductions.at(-1)!.id
@@ -356,7 +359,7 @@ function actualTakeInput(slot: CastSlot): Prepared {
 }
 function outcomes(state: GameState) { return state.talentMarket.receipts.filter((r) => r.kind === 'promiseOutcome') }
 function evaluate(input: EnvelopeV33): GameState {
-  validateSaveV36(input)
+  validateSaveV38(input)
   const before = clone(input)
   const after = advancePromisesWeek(input.state) // existing structurally compatible public owner, no cast
   expect(input).toEqual(before)

@@ -1,0 +1,408 @@
+{"sourceSha":"c000479d6e888d3a02f5c2ff534f5dfcbb32af3f","testedDiffSha256":"11594d580c4b00a82dedab5873d1a583c88a5986813157be373fd23ad76c74ad","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-p14b2-trust.test.ts","tests/bridge-p14b4-cast-class.test.ts","tests/bridge-p14b7-promise-waiver.test.ts"],"node":"v20.20.2","start":"2026-09-26T20:51:57.966Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p14b7-promise-waiver.test.ts (6 tests) 5584ms
+   ✓ P14B.7 group10 — a waived promise mints a promiseOutcome attention row, exactly like SATISFIED/BROKEN > mints exactly one promiseOutcome attention row for the waived promise, in the waived week 1596ms
+   ✓ P14B.7 group10 — a waived promise mints a promiseOutcome attention row, exactly like SATISFIED/BROKEN > item 18, HARD NEGATIVE (730-T finding 3, previously unpinned): the row TEXT never reads "kept" or "broken" -- mislabelling a waiver as either is the hazard 720 names 856ms
+   ✓ P14B.7 group10 — a waived promise mints a promiseOutcome attention row, exactly like SATISFIED/BROKEN > item 18, SOFT/INTERPRETIVE (I5, not the item's hard requirement): the row text mentions "waived" 807ms
+   ✓ P14B.7 group10 — a waived promise mints a promiseOutcome attention row, exactly like SATISFIED/BROKEN > 740-T gap 2 (hard pin, upgraded from the soft I5 case above now that the landed table is a verified fact, not an interpretation): the row is byte-identical to PROMISE_OUTCOME_WORD's own WAIVED entry, reconstructed from the row's own name and outcomeCause, not a loose regex 961ms
+   ✓ P14B.7 group11 — a waived promise is public as an OUTCOME receipt but mints NO public industry activity > the promiseOutcome receipt exists after a waiver, and no industry Pulse activity carries its eventId 1359ms
+ ❯ |core| tests/bridge-p14b2-trust.test.ts (22 tests | 20 failed) 50463ms
+   × P14B.2 group1 — projection46, unchanged Save29/intents, closed wire shapes > validates actual session profile, Market, Pulse and studio DTOs without stripping the new members 3243ms
+     → validateSaveV37: expected version 37
+   × P14B.2 group2 — evidence-backed Profile trust and top-three text > reads a real kept promise as Reliable, retaining the real ran-to-end driver 2213ms
+     → validateSaveV37: expected version 37
+   × P14B.2 group2 — evidence-backed Profile trust and top-three text > reads the real broken outcome and early termination without replacing their causes 1654ms
+     → validateSaveV37: expected version 37
+   × P14B.2 group2 — evidence-backed Profile trust and top-three text > uses studio fallback with exactly the latest three of five real drivers, and is pure 1459ms
+     → validateSaveV37: expected version 37
+   × P14B.2 group3 — one bound-only newest-first history DTO on both carriers > shows two real contracts newest-first, with contract identity, open/outcome fields and exact causes 1512ms
+     → validateSaveV37: expected version 37
+   × P14B.2 group3 — one bound-only newest-first history DTO on both carriers > never promotes an attached/withdrawn unbound draft into history 945ms
+     → validateSaveV37: expected version 37
+   × P14B.2 group3 — one bound-only newest-first history DTO on both carriers > does not publish another studio’s real bound history as the player’s own terms 5628ms
+     → validateSaveV37: expected version 37
+   × P14B.2 group4 — Pulse joins exact outcome receipts once > publishes both real same-week kept/broken receipts with exact identity and verbatim engine reason 1103ms
+     → validateSaveV37: expected version 37
+   × P14B.2 group4 — Pulse joins exact outcome receipts once > keeps one row for each receipt after the actual next tick, never re-emitting the event 1521ms
+     → validateSaveV37: expected version 37
+   × P14B.2 group5 — independent promise attention after cases close > raises due at minus8 but not minus9 for an actual player poaching winner with no proposals 4560ms
+     → expected 208 to be 52 // Object.is equality
+   × P14B.2 group5 — independent promise attention after cases close > raises the poaching winner’s actual outcome only in its recorded week, once per cause/person 4284ms
+     → expected 208 to be 52 // Object.is equality
+   × P14B.2 group5 — independent promise attention after cases close > shows kept and broken attention with own causes, removes due after a real take, then clears both outcomes 1389ms
+     → validateSaveV37: expected version 37
+   × P14B.2 group5 — independent promise attention after cases close > does not require any case entry to retain a real promise reminder (explicit read-only case-carrier probe) 2999ms
+     → expected 208 to be 52 // Object.is equality
+   × P14B.2 group5 — independent promise attention after cases close > ignores real withdrawn unbound drafts near due and never interrupts for rival-issued promises 936ms
+     → validateSaveV37: expected version 37
+   × P14B.2 group6 — the workspace has nonempty prior promise history > matches the Profile’s complete rows during the next real open case 819ms
+     → validateSaveV37: expected version 37
+   × P14B.2 group7 — rival terms stay private and rival outcomes stay public > keeps open rival proposal terms literal UNKNOWN across Profile and Market 4682ms
+     → validateSaveV37: expected version 37
+   × P14B.2 group7 — rival terms stay private and rival outcomes stay public > publishes the real rival kept outcome and aggregate label while withholding bound history terms 4422ms
+     → validateSaveV37: expected version 37
+   × P14B.2 group7 — rival terms stay private and rival outcomes stay public > is semantically unchanged when only hidden terminal terms vary, retaining real outcome/event identities 5022ms
+     → validateSaveV37: expected version 37
+   × P14B.2 group8 — Industry labels every entered studio from ALL drivers > publishes player and rivals’ aggregate labels without per-person driver lists 922ms
+     → validateSaveV37: expected version 37
+   × P14B.2 group9 — validated kept+broken V29 BridgeSession roundtrip > preserves Profile, Market, attention, Pulse and Industry DTO bytes after real save/load 938ms
+     → validateSaveV37: expected version 37
+ ✓ |core| tests/bridge-p14b4-cast-class.test.ts (28 tests) 58163ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > accepts explicit lead P2 through the actual closed quote-request validator 2717ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > accepts explicit leadOrAntagonist P2 through the actual closed quote-request validator 2029ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'P2 missing class' before session quote/commit authority is reached 1828ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class null' before session quote/commit authority is reached 1363ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class "support"' before session quote/commit authority is reached 1390ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class "leadOrSupport"' before session quote/commit authority is reached 1248ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class 1' before session quote/commit authority is reached 885ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class ["lead"]' before session quote/commit authority is reached 1413ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'extra wire kind' before session quote/commit authority is reached 1408ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'extra nested predicate' before session quote/commit authority is reached 1344ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'class inapplicable to APPEARANCE_COUNT' before session quote/commit authority is reached 1261ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'class inapplicable to DIRECTING_COUNT' before session quote/commit authority is reached 999ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'class inapplicable to PREFERRED_GENRE…' before session quote/commit authority is reached 1268ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'class inapplicable to SPECIFIC_PROJECT' before session quote/commit authority is reached 1436ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > keeps no-promise and count-only non-P2 wire shapes legal; P3-P5 remain engine-refused separately 922ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > class changes opaque intent identity; quote/conversion/pending values are nested immutable snapshots 2979ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > whole-quote refusal registers no intent and returns no partial proposal/root/cash/ledger/RNG state 1430ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > class revision replaces attachment, while remove/withdraw preserve every old root and create no outcome 9196ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > direct apply revalidates real CURRENT employment, not the earlier offerable conversion 594ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > session/revision/replay protections still permit only one class-bearing attachment 5946ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > exact cap16: after 16 distinct offerable class-bearing quotes 2798ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > exact cap16: after 17 distinct offerable class-bearing quotes 3383ms
+   ✓ P14B4 existing own/private/public carriers > both viewing directions retain whole competing promise UNKNOWN, with no class beside it 1968ms
+   ✓ P14B4 existing own/private/public carriers > own legacy classless P2 shows null/unknown, never a fabricated lead; P1 remains not-applicable 1732ms
+   ✓ P14B4 existing own/private/public carriers > shared profile/case/workspace preferences expose the existing age-edge at29 555ms
+   ✓ P14B4 existing own/private/public carriers > shared profile/case/workspace preferences expose the existing age-edge at30 580ms
+   ✓ P14B4 existing own/private/public carriers > actual lead quote→binding→termination exposes own class, not public/private leakage 2971ms
+   ✓ P14B4 existing own/private/public carriers > actual leadOrAntagonist quote→binding→termination exposes own class, not public/private leakage 2516ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 20 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group1 — projection46, unchanged Save29/intents, closed wire shapes > validates actual session profile, Market, Pulse and studio DTOs without stripping the new members
+Error: validateSaveV37: expected version 37
+ ❯ validateSaveV37WithProfession src/core/save.ts:10154:38
+    10152|   if (!isRecord(save)) throw new Error('validateSaveV37: object requir…
+    10153|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10154|   if (save.saveVersion !== 37) throw new Error('validateSaveV37: expec…
+       |                                      ^
+    10155|   // Existing obligations, evidenced by this invocation's original liv…
+    10156|   // They travel beside stripped fragments; public historical entry po…
+ ❯ Module.validateSaveV37 src/core/save.ts:10147:10
+ ❯ Module.retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ tests/bridge-p14b2-trust.test.ts:153:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/20]⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group2 — evidence-backed Profile trust and top-three text > reads a real kept promise as Reliable, retaining the real ran-to-end driver
+Error: validateSaveV37: expected version 37
+ ❯ validateSaveV37WithProfession src/core/save.ts:10154:38
+    10152|   if (!isRecord(save)) throw new Error('validateSaveV37: object requir…
+    10153|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10154|   if (save.saveVersion !== 37) throw new Error('validateSaveV37: expec…
+       |                                      ^
+    10155|   // Existing obligations, evidenced by this invocation's original liv…
+    10156|   // They travel beside stripped fragments; public historical entry po…
+ ❯ Module.validateSaveV37 src/core/save.ts:10147:10
+ ❯ Module.retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ tests/bridge-p14b2-trust.test.ts:170:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/20]⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group2 — evidence-backed Profile trust and top-three text > reads the real broken outcome and early termination without replacing their causes
+Error: validateSaveV37: expected version 37
+ ❯ validateSaveV37WithProfession src/core/save.ts:10154:38
+    10152|   if (!isRecord(save)) throw new Error('validateSaveV37: object requir…
+    10153|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10154|   if (save.saveVersion !== 37) throw new Error('validateSaveV37: expec…
+       |                                      ^
+    10155|   // Existing obligations, evidenced by this invocation's original liv…
+    10156|   // They travel beside stripped fragments; public historical entry po…
+ ❯ Module.validateSaveV37 src/core/save.ts:10147:10
+ ❯ Module.retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ tests/bridge-p14b2-trust.test.ts:183:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/20]⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group2 — evidence-backed Profile trust and top-three text > uses studio fallback with exactly the latest three of five real drivers, and is pure
+Error: validateSaveV37: expected version 37
+ ❯ validateSaveV37WithProfession src/core/save.ts:10154:38
+    10152|   if (!isRecord(save)) throw new Error('validateSaveV37: object requir…
+    10153|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10154|   if (save.saveVersion !== 37) throw new Error('validateSaveV37: expec…
+       |                                      ^
+    10155|   // Existing obligations, evidenced by this invocation's original liv…
+    10156|   // They travel beside stripped fragments; public historical entry po…
+ ❯ Module.validateSaveV37 src/core/save.ts:10147:10
+ ❯ Module.retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ tests/bridge-p14b2-trust.test.ts:194:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/20]⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group3 — one bound-only newest-first history DTO on both carriers > shows two real contracts newest-first, with contract identity, open/outcome fields and exact causes
+Error: validateSaveV37: expected version 37
+ ❯ validateSaveV37WithProfession src/core/save.ts:10154:38
+    10152|   if (!isRecord(save)) throw new Error('validateSaveV37: object requir…
+    10153|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10154|   if (save.saveVersion !== 37) throw new Error('validateSaveV37: expec…
+       |                                      ^
+    10155|   // Existing obligations, evidenced by this invocation's original liv…
+    10156|   // They travel beside stripped fragments; public historical entry po…
+ ❯ Module.validateSaveV37 src/core/save.ts:10147:10
+ ❯ retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ Module.historyFixture tests/helpers/p14b2-fixtures.ts:130:19
+ ❯ tests/bridge-p14b2-trust.test.ts:222:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/20]⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group3 — one bound-only newest-first history DTO on both carriers > never promotes an attached/withdrawn unbound draft into history
+Error: validateSaveV37: expected version 37
+ ❯ validateSaveV37WithProfession src/core/save.ts:10154:38
+    10152|   if (!isRecord(save)) throw new Error('validateSaveV37: object requir…
+    10153|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10154|   if (save.saveVersion !== 37) throw new Error('validateSaveV37: expec…
+       |                                      ^
+    10155|   // Existing obligations, evidenced by this invocation's original liv…
+    10156|   // They travel beside stripped fragments; public historical entry po…
+ ❯ Module.validateSaveV37 src/core/save.ts:10147:10
+ ❯ retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ Module.historyFixture tests/helpers/p14b2-fixtures.ts:130:19
+ ❯ tests/bridge-p14b2-trust.test.ts:240:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/20]⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group3 — one bound-only newest-first history DTO on both carriers > does not publish another studio’s real bound history as the player’s own terms
+Error: validateSaveV37: expected version 37
+ ❯ validateSaveV37WithProfession src/core/save.ts:10154:38
+    10152|   if (!isRecord(save)) throw new Error('validateSaveV37: object requir…
+    10153|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10154|   if (save.saveVersion !== 37) throw new Error('validateSaveV37: expec…
+       |                                      ^
+    10155|   // Existing obligations, evidenced by this invocation's original liv…
+    10156|   // They travel beside stripped fragments; public historical entry po…
+ ❯ Module.validateSaveV37 src/core/save.ts:10147:10
+ ❯ Module.rivalFixture tests/helpers/p14b2-fixtures.ts:259:7
+ ❯ tests/bridge-p14b2-trust.test.ts:249:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/20]⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group4 — Pulse joins exact outcome receipts once > publishes both real same-week kept/broken receipts with exact identity and verbatim engine reason
+Error: validateSaveV37: expected version 37
+ ❯ validateSaveV37WithProfession src/core/save.ts:10154:38
+    10152|   if (!isRecord(save)) throw new Error('validateSaveV37: object requir…
+    10153|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10154|   if (save.saveVersion !== 37) throw new Error('validateSaveV37: expec…
+       |                                      ^
+    10155|   // Existing obligations, evidenced by this invocation's original liv…
+    10156|   // They travel beside stripped fragments; public historical entry po…
+ ❯ Module.validateSaveV37 src/core/save.ts:10147:10
+ ❯ Module.retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ tests/bridge-p14b2-trust.test.ts:262:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/20]⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group4 — Pulse joins exact outcome receipts once > keeps one row for each receipt after the actual next tick, never re-emitting the event
+Error: validateSaveV37: expected version 37
+ ❯ validateSaveV37WithProfession src/core/save.ts:10154:38
+    10152|   if (!isRecord(save)) throw new Error('validateSaveV37: object requir…
+    10153|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10154|   if (save.saveVersion !== 37) throw new Error('validateSaveV37: expec…
+       |                                      ^
+    10155|   // Existing obligations, evidenced by this invocation's original liv…
+    10156|   // They travel beside stripped fragments; public historical entry po…
+ ❯ Module.validateSaveV37 src/core/save.ts:10147:10
+ ❯ Module.retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ tests/bridge-p14b2-trust.test.ts:278:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/20]⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group5 — independent promise attention after cases close > raises due at minus8 but not minus9 for an actual player poaching winner with no proposals
+AssertionError: expected 208 to be 52 // Object.is equality
+
+- Expected
++ Received
+
+- 52
++ 208
+
+ ❯ Module.poachingFixture tests/helpers/p14b2-fixtures.ts:198:48
+    196|   expect(trustDescriptor(state, talentId, player(state), state.market.…
+    197|   expect(state.hollywood!.businesses.find((b) => b.studioId === incumb…
+    198|   expect(publicPreferredTerm(state, talentId)).toBe(52)
+       |                                                ^
+    199|   expect(trustDrivers(state, talentId, player(state), state.market.tic…
+    200|   expect(caseForTalent(state, talentId)!.subjectStudioId).toBe(incumbe…
+ ❯ tests/bridge-p14b2-trust.test.ts:294:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/20]⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group5 — independent promise attention after cases close > raises the poaching winner’s actual outcome only in its recorded week, once per cause/person
+AssertionError: expected 208 to be 52 // Object.is equality
+
+- Expected
++ Received
+
+- 52
++ 208
+
+ ❯ Module.poachingFixture tests/helpers/p14b2-fixtures.ts:198:48
+    196|   expect(trustDescriptor(state, talentId, player(state), state.market.…
+    197|   expect(state.hollywood!.businesses.find((b) => b.studioId === incumb…
+    198|   expect(publicPreferredTerm(state, talentId)).toBe(52)
+       |                                                ^
+    199|   expect(trustDrivers(state, talentId, player(state), state.market.tic…
+    200|   expect(caseForTalent(state, talentId)!.subjectStudioId).toBe(incumbe…
+ ❯ tests/bridge-p14b2-trust.test.ts:313:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/20]⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group5 — independent promise attention after cases close > shows kept and broken attention with own causes, removes due after a real take, then clears both outcomes
+Error: validateSaveV37: expected version 37
+ ❯ validateSaveV37WithProfession src/core/save.ts:10154:38
+    10152|   if (!isRecord(save)) throw new Error('validateSaveV37: object requir…
+    10153|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10154|   if (save.saveVersion !== 37) throw new Error('validateSaveV37: expec…
+       |                                      ^
+    10155|   // Existing obligations, evidenced by this invocation's original liv…
+    10156|   // They travel beside stripped fragments; public historical entry po…
+ ❯ Module.validateSaveV37 src/core/save.ts:10147:10
+ ❯ Module.retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ tests/bridge-p14b2-trust.test.ts:325:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/20]⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group5 — independent promise attention after cases close > does not require any case entry to retain a real promise reminder (explicit read-only case-carrier probe)
+AssertionError: expected 208 to be 52 // Object.is equality
+
+- Expected
++ Received
+
+- 52
++ 208
+
+ ❯ Module.poachingFixture tests/helpers/p14b2-fixtures.ts:198:48
+    196|   expect(trustDescriptor(state, talentId, player(state), state.market.…
+    197|   expect(state.hollywood!.businesses.find((b) => b.studioId === incumb…
+    198|   expect(publicPreferredTerm(state, talentId)).toBe(52)
+       |                                                ^
+    199|   expect(trustDrivers(state, talentId, player(state), state.market.tic…
+    200|   expect(caseForTalent(state, talentId)!.subjectStudioId).toBe(incumbe…
+ ❯ tests/bridge-p14b2-trust.test.ts:341:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/20]⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group5 — independent promise attention after cases close > ignores real withdrawn unbound drafts near due and never interrupts for rival-issued promises
+Error: validateSaveV37: expected version 37
+ ❯ validateSaveV37WithProfession src/core/save.ts:10154:38
+    10152|   if (!isRecord(save)) throw new Error('validateSaveV37: object requir…
+    10153|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10154|   if (save.saveVersion !== 37) throw new Error('validateSaveV37: expec…
+       |                                      ^
+    10155|   // Existing obligations, evidenced by this invocation's original liv…
+    10156|   // They travel beside stripped fragments; public historical entry po…
+ ❯ Module.validateSaveV37 src/core/save.ts:10147:10
+ ❯ retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ Module.historyFixture tests/helpers/p14b2-fixtures.ts:130:19
+ ❯ tests/bridge-p14b2-trust.test.ts:353:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/20]⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group6 — the workspace has nonempty prior promise history > matches the Profile’s complete rows during the next real open case
+Error: validateSaveV37: expected version 37
+ ❯ validateSaveV37WithProfession src/core/save.ts:10154:38
+    10152|   if (!isRecord(save)) throw new Error('validateSaveV37: object requir…
+    10153|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10154|   if (save.saveVersion !== 37) throw new Error('validateSaveV37: expec…
+       |                                      ^
+    10155|   // Existing obligations, evidenced by this invocation's original liv…
+    10156|   // They travel beside stripped fragments; public historical entry po…
+ ❯ Module.validateSaveV37 src/core/save.ts:10147:10
+ ❯ retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ Module.historyFixture tests/helpers/p14b2-fixtures.ts:130:19
+ ❯ tests/bridge-p14b2-trust.test.ts:367:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/20]⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group7 — rival terms stay private and rival outcomes stay public > keeps open rival proposal terms literal UNKNOWN across Profile and Market
+Error: validateSaveV37: expected version 37
+ ❯ validateSaveV37WithProfession src/core/save.ts:10154:38
+    10152|   if (!isRecord(save)) throw new Error('validateSaveV37: object requir…
+    10153|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10154|   if (save.saveVersion !== 37) throw new Error('validateSaveV37: expec…
+       |                                      ^
+    10155|   // Existing obligations, evidenced by this invocation's original liv…
+    10156|   // They travel beside stripped fragments; public historical entry po…
+ ❯ Module.validateSaveV37 src/core/save.ts:10147:10
+ ❯ Module.rivalFixture tests/helpers/p14b2-fixtures.ts:259:7
+ ❯ tests/bridge-p14b2-trust.test.ts:382:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/20]⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group7 — rival terms stay private and rival outcomes stay public > publishes the real rival kept outcome and aggregate label while withholding bound history terms
+Error: validateSaveV37: expected version 37
+ ❯ validateSaveV37WithProfession src/core/save.ts:10154:38
+    10152|   if (!isRecord(save)) throw new Error('validateSaveV37: object requir…
+    10153|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10154|   if (save.saveVersion !== 37) throw new Error('validateSaveV37: expec…
+       |                                      ^
+    10155|   // Existing obligations, evidenced by this invocation's original liv…
+    10156|   // They travel beside stripped fragments; public historical entry po…
+ ❯ Module.validateSaveV37 src/core/save.ts:10147:10
+ ❯ Module.rivalFixture tests/helpers/p14b2-fixtures.ts:259:7
+ ❯ tests/bridge-p14b2-trust.test.ts:394:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/20]⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group7 — rival terms stay private and rival outcomes stay public > is semantically unchanged when only hidden terminal terms vary, retaining real outcome/event identities
+Error: validateSaveV37: expected version 37
+ ❯ validateSaveV37WithProfession src/core/save.ts:10154:38
+    10152|   if (!isRecord(save)) throw new Error('validateSaveV37: object requir…
+    10153|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10154|   if (save.saveVersion !== 37) throw new Error('validateSaveV37: expec…
+       |                                      ^
+    10155|   // Existing obligations, evidenced by this invocation's original liv…
+    10156|   // They travel beside stripped fragments; public historical entry po…
+ ❯ Module.validateSaveV37 src/core/save.ts:10147:10
+ ❯ Module.rivalFixture tests/helpers/p14b2-fixtures.ts:259:7
+ ❯ tests/bridge-p14b2-trust.test.ts:408:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/20]⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group8 — Industry labels every entered studio from ALL drivers > publishes player and rivals’ aggregate labels without per-person driver lists
+Error: validateSaveV37: expected version 37
+ ❯ validateSaveV37WithProfession src/core/save.ts:10154:38
+    10152|   if (!isRecord(save)) throw new Error('validateSaveV37: object requir…
+    10153|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10154|   if (save.saveVersion !== 37) throw new Error('validateSaveV37: expec…
+       |                                      ^
+    10155|   // Existing obligations, evidenced by this invocation's original liv…
+    10156|   // They travel beside stripped fragments; public historical entry po…
+ ❯ Module.validateSaveV37 src/core/save.ts:10147:10
+ ❯ Module.retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ tests/bridge-p14b2-trust.test.ts:436:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/20]⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group9 — validated kept+broken V29 BridgeSession roundtrip > preserves Profile, Market, attention, Pulse and Industry DTO bytes after real save/load
+Error: validateSaveV37: expected version 37
+ ❯ validateSaveV37WithProfession src/core/save.ts:10154:38
+    10152|   if (!isRecord(save)) throw new Error('validateSaveV37: object requir…
+    10153|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10154|   if (save.saveVersion !== 37) throw new Error('validateSaveV37: expec…
+       |                                      ^
+    10155|   // Existing obligations, evidenced by this invocation's original liv…
+    10156|   // They travel beside stripped fragments; public historical entry po…
+ ❯ Module.validateSaveV37 src/core/save.ts:10147:10
+ ❯ Module.retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ tests/bridge-p14b2-trust.test.ts:457:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/20]⎯
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  20 failed | 36 passed (56)
+   Start at  22:51:58
+   Duration  62.59s (transform 3.90s, setup 0ms, collect 10.67s, tests 114.21s, environment 1ms, prepare 956ms)
+

@@ -1,0 +1,60 @@
+{
+  "sourceSha": "c000479d6e888d3a02f5c2ff534f5dfcbb32af3f",
+  "testedDiffSha256": "3acb791a875fcce2403ebe2809e8e312e3318d41b7c2834ff45d964c33a5aa92",
+  "archiveRoot": "/private/tmp/studio-c3-validation-c000479d.q1z1_lrn",
+  "producerSha256": "5de47c19d3c665e79590126c3c7155d517ef65fc3285a69a751a539cc355e161",
+  "recorderSha256": "2f30e475d0825e8ff5ef16139443a7487fa4c7e7534a55f46d5fc224a7b2031a",
+  "command": [
+    "node_modules/.bin/vite-node",
+    "--script",
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/975-A-c3-historical-controls-producer.ts",
+    "--archive-root",
+    "/private/tmp/studio-c3-validation-c000479d.q1z1_lrn",
+    "--write"
+  ],
+  "declaredOutputs": [
+    "tests/fixtures/p14/genuine-pre38-validation-controls/MANIFEST.json",
+    "tests/fixtures/p14/genuine-pre38-validation-controls/reproduced-v35-c4-all-statuses-week312.json.gz",
+    "tests/fixtures/p14/genuine-pre38-validation-controls/reproduced-v35-c4-cohort-week-week156.json.gz",
+    "tests/fixtures/p14/genuine-pre38-validation-controls/reproduced-v35-c4-deep-deficit-week2652.json.gz",
+    "tests/fixtures/p14/genuine-pre38-validation-controls/reproduced-v37-writer-commissioned311-finishing312.json.gz"
+  ],
+  "sourceAccounting": "Existing consumed files and undeclared untracked inputs must remain fixed; only these newly generated outputs may appear.",
+  "start": "2026-09-26T20:21:42.408Z",
+  "end": "2026-09-26T20:21:57.923Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "c000479d6e888d3a02f5c2ff534f5dfcbb32af3f",
+  "testedDiffSha256AtEnd": "3acb791a875fcce2403ebe2809e8e312e3318d41b7c2834ff45d964c33a5aa92",
+  "untrackedInputsAtEnd": [],
+  "fixedExistingSource": true,
+  "exactDeclaredOutputs": true,
+  "outputFiles": [
+    {
+      "path": "tests/fixtures/p14/genuine-pre38-validation-controls/MANIFEST.json",
+      "bytes": 48338,
+      "sha256": "c9609b940ae77bf3d5c99c81463152d2c4b8782372da59249b942d1e51f1b101"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-pre38-validation-controls/reproduced-v35-c4-all-statuses-week312.json.gz",
+      "bytes": 221085,
+      "sha256": "4c53ede9e7b548b60f09385a7d0427bedcfca98654bb62d3619ed6b549121d18"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-pre38-validation-controls/reproduced-v35-c4-cohort-week-week156.json.gz",
+      "bytes": 146765,
+      "sha256": "4d7a46d08a456f01dfa561dfc57cdde4c93aa8fd42bb8ca7de148bd8c8380f41"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-pre38-validation-controls/reproduced-v35-c4-deep-deficit-week2652.json.gz",
+      "bytes": 112908,
+      "sha256": "b2c50a92a2c0f8d69169fc77b58fd4769d1d55ed2dddb70cd788192b1163e6ff"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-pre38-validation-controls/reproduced-v37-writer-commissioned311-finishing312.json.gz",
+      "bytes": 518401,
+      "sha256": "db162c4a2576a2b828bae198a57f56ed20cf05bfd431d6896d53894a18588b1d"
+    }
+  ]
+}

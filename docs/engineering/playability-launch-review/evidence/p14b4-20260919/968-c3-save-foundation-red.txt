@@ -1,0 +1,140 @@
+{"sourceSha":"c000479d6e888d3a02f5c2ff534f5dfcbb32af3f","testedDiffSha256":"06f8037b2b015cf22c50a54de65eb9263b4e33e3a7617c38f89b70290f1665e7","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c3-save-v38.test.ts"],"node":"v20.20.2","start":"2026-09-26T19:50:46.596Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14c3-save-v38.test.ts (9 tests | 9 failed) 1207ms
+   × C.3 A01/A02 exact Save38 opening > moves the existing live writer and fresh root together while preserving intent1 and promise4 89ms
+     → existing makeSave must write the governed new envelope: expected 37 to be 38 // Object.is equality
+   × C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-created-week0.json.gz losslessly except for explicit prospective38 scaffolding 89ms
+     → actual migration must change the current envelope: expected 37 to be 38 // Object.is equality
+   × C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-preretirement-week207.json.gz losslessly except for explicit prospective38 scaffolding 207ms
+     → actual migration must change the current envelope: expected 37 to be 38 // Object.is equality
+   × C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-retired-week208.json.gz losslessly except for explicit prospective38 scaffolding 181ms
+     → actual migration must change the current envelope: expected 37 to be 38 // Object.is equality
+   × C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-runtime-current208.json.gz losslessly except for explicit prospective38 scaffolding 147ms
+     → actual migration must change the current envelope: expected 37 to be 38 // Object.is equality
+   × C.3 A01/A02 exact Save38 opening > exposes matching strict38 conversion, validation and current migration over a genuine37 save 109ms
+     → 946 versioned save export convertV37ToV38: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A11 lossless empty-boundary downgrade and actual entrant authority > downgrades untouched genuine-v37-c3-preretirement-week207.json.gz exactly, including its unexecuted prospective queue 159ms
+     → existing live writer moves coherently to38: expected 37 to be 38 // Object.is equality
+   × C.3 A11 lossless empty-boundary downgrade and actual entrant authority > downgrades untouched genuine-v37-c3-retired-week208.json.gz exactly, including its unexecuted prospective queue 142ms
+     → existing live writer moves coherently to38: expected 37 to be 38 // Object.is equality
+   × C.3 A11 lossless empty-boundary downgrade and actual entrant authority > refuses loss of a genuine entrant created at the same week as the38 opening 81ms
+     → 946 exact current lifecycle root: expected [ Array(3) ] to deeply equal [ 'boundaryWeek', 'cohorts', …(7) ]
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 9 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14c3-save-v38.test.ts > C.3 A01/A02 exact Save38 opening > moves the existing live writer and fresh root together while preserving intent1 and promise4
+AssertionError: existing makeSave must write the governed new envelope: expected 37 to be 38 // Object.is equality
+
+- Expected
++ Received
+
+- 38
++ 37
+
+ ❯ tests/p14c3-save-v38.test.ts:15:89
+     13|   it('moves the existing live writer and fresh root together while pre…
+     14|     const world = generateWorld('967-fresh-root'), saved = makeSave(wo…
+     15|     expect(saved.saveVersion, 'existing makeSave must write the govern…
+       |                                                                                         ^
+     16|     expect(LIVE_SAVE_VERSION).toBe(38)
+     17|     expect(LIFECYCLE_INTENT_RULES_VERSION).toBe(1)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯
+
+ FAIL |core|  tests/p14c3-save-v38.test.ts > C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-created-week0.json.gz losslessly except for explicit prospective38 scaffolding
+ FAIL |core|  tests/p14c3-save-v38.test.ts > C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-preretirement-week207.json.gz losslessly except for explicit prospective38 scaffolding
+ FAIL |core|  tests/p14c3-save-v38.test.ts > C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-retired-week208.json.gz losslessly except for explicit prospective38 scaffolding
+ FAIL |core|  tests/p14c3-save-v38.test.ts > C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-runtime-current208.json.gz losslessly except for explicit prospective38 scaffolding
+AssertionError: actual migration must change the current envelope: expected 37 to be 38 // Object.is equality
+
+- Expected
++ Received
+
+- 38
++ 37
+
+ ❯ tests/p14c3-save-v38.test.ts:34:89
+     32|       const raw = c3Raw(filename), old = historical37(filename), befor…
+     33|       const upgraded = migrateToLive(old)
+     34|       expect(upgraded.saveVersion, 'actual migration must change the c…
+       |                                                                                         ^
+     35|       const root = root38(upgraded.state), week = old.state.market.tick
+     36|       expect(root.transitionBoundaryWeek).toBe(week)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯
+
+ FAIL |core|  tests/p14c3-save-v38.test.ts > C.3 A01/A02 exact Save38 opening > exposes matching strict38 conversion, validation and current migration over a genuine37 save
+AssertionError: 946 versioned save export convertV37ToV38: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ Module.saveApi tests/helpers/p14c3-fixtures.ts:58:58
+     56| export function saveApi<K extends keyof SaveAPI>(name: K): SaveAPI[K] {
+     57|   const fn = (save as unknown as Partial<SaveAPI>)[name]
+     58|   expect(typeof fn, `946 versioned save export ${name}`).toBe('functio…
+       |                                                          ^
+     59|   assert.ok(fn)
+     60|   return fn
+ ❯ tests/p14c3-save-v38.test.ts:58:23
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯
+
+ FAIL |core|  tests/p14c3-save-v38.test.ts > C.3 A11 lossless empty-boundary downgrade and actual entrant authority > downgrades untouched genuine-v37-c3-preretirement-week207.json.gz exactly, including its unexecuted prospective queue
+ FAIL |core|  tests/p14c3-save-v38.test.ts > C.3 A11 lossless empty-boundary downgrade and actual entrant authority > downgrades untouched genuine-v37-c3-retired-week208.json.gz exactly, including its unexecuted prospective queue
+AssertionError: existing live writer moves coherently to38: expected 37 to be 38 // Object.is equality
+
+- Expected
++ Received
+
+- 38
++ 37
+
+ ❯ Module.envelope38 tests/helpers/p14c3-fixtures.ts:125:76
+    123| export function envelope38(state: GameState): Save38 {
+    124|   const result = save.makeSave(state)
+    125|   expect(result.saveVersion, 'existing live writer moves coherently to…
+       |                                                                            ^
+    126|   root38(result.state)
+    127|   return result as unknown as Save38
+ ❯ tests/p14c3-save-v38.test.ts:69:44
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/9]⎯
+
+ FAIL |core|  tests/p14c3-save-v38.test.ts > C.3 A11 lossless empty-boundary downgrade and actual entrant authority > refuses loss of a genuine entrant created at the same week as the38 opening
+AssertionError: 946 exact current lifecycle root: expected [ Array(3) ] to deeply equal [ 'boundaryWeek', 'cohorts', …(7) ]
+
+- Expected
++ Received
+
+  Array [
+    "boundaryWeek",
+    "cohorts",
+-   "industryRetirements",
+-   "professionAnchors",
+-   "professionChanges",
+    "records",
+-   "transitionBoundaryWeek",
+-   "transitionDue",
+-   "transitionEvaluations",
+  ]
+
+ ❯ Module.root38 tests/helpers/p14c3-fixtures.ts:120:6
+    118|   const root = state.careerLifecycle as Root38
+    119|   expect(Object.keys(root).sort(), '946 exact current lifecycle root')
+    120|     .toEqual(['boundaryWeek', 'records', 'cohorts', ...FUTURE_ROOT_KEY…
+       |      ^
+    121|   return root
+    122| }
+ ❯ tests/p14c3-save-v38.test.ts:78:47
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/9]⎯
+
+ Test Files  1 failed (1)
+      Tests  9 failed (9)
+   Start at  21:50:47
+   Duration  4.12s (transform 1.69s, setup 0ms, collect 2.28s, tests 1.21s, environment 0ms, prepare 149ms)
+

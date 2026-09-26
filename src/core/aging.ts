@@ -256,7 +256,19 @@ export function withTalentProvenance(
   // `rows`, so this person comes after every existing member unconditionally — which
   // is why `comesAfter` is `true` here rather than a rank comparison.
   const due = insertDue(root.due, dueWeek, person.id, () => true)
-  return { ...state, talentProvenance: { ...root, rows: [...root.rows, row], due } }
+  let next = { ...state, talentProvenance: { ...root, rows: [...root.rows, row], due } }
+  // Every actual append already passes this owner. Frozen conversion roots have
+  // no profession anchors; they gain existing anchors only at the V37→38 boundary.
+  const career = state.careerLifecycle
+  if (career !== undefined && Array.isArray(career.professionAnchors)) {
+    const appended = state.talent.find(candidate => candidate.id === person.id)
+    if (appended === undefined || career.professionAnchors.some(anchor => anchor.personId === person.id)) {
+      throw new Error(`profession history: ${person.id} must be a newly appended person`)
+    }
+    next = { ...next, careerLifecycle: { ...career, professionAnchors: [...career.professionAnchors,
+      { personId: person.id, profession: appended.role, recordedWeek: week, kind: 'entrant' }] } }
+  }
+  return next
 }
 
 /**

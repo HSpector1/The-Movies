@@ -56,7 +56,9 @@ import { projectLegacyTerminations, projectTalentMarketPreV28, talentMarketTermi
 import { projectPromisesPreV29, projectPromisesPreV32, validatePromiseRoots, validatePromiseRootsV30, validateWaivedPromiseLinks } from './promises.js'
 import { projectRelationshipsPreV31, validateRelationshipsRoot } from './relationships.js'
 import { ageAt, anchorOf, buildTalentProvenance, recomputeDue } from './aging.js'
-import { COHORT_PROFESSIONS, deriveCohortRequest, isCohortWeek, retirementWindow } from './careerLifecycle.js'
+import { COHORT_PROFESSIONS, deriveCohortRequest, isCohortWeek, retirementWindow, initialCareerLifecycle } from './careerLifecycle.js'
+import type { ProfessionValidationContext } from './professionHistory.js'
+import { assertProfessionHistoryDowngrade, scheduleProfessionReconciliation, stripProfessionHistory, validateProfessionHistory } from './professionHistory.js'
 import { PRE_V28_TERMINATION_LAW } from './employment.js'
 import type { TerminationLaw } from './employment.js'
 import type {
@@ -97,6 +99,7 @@ import type {
   GameStateV35,
   GameStateV36,
   GameStateV37,
+  GameStateV38,
   CohortReceipt,
   FilmCreativeRole,
   RetirementRecord,
@@ -586,7 +589,14 @@ export type SaveFileV37 = {
 /** The envelope the live writer stamps. Every caller whose meaning is "lift to what
  * `makeSave` writes" names this and `migrateToLive`, so the next save step moves one
  * definition instead of every call site (record 776). */
-export type LiveSaveFile = SaveFileV37;
+export type SaveFileV38 = {
+  saveVersion: 38;
+  seed: string;
+  state: GameStateV38;
+  broadcastCache: BroadcastItem[];
+};
+
+export type LiveSaveFile = SaveFileV38;
 
 // Any envelope (the return of the version-dispatching validateSave/loadSave).
 export type SaveFile =
@@ -626,7 +636,8 @@ export type SaveFile =
   | SaveFileV34
   | SaveFileV35
   | SaveFileV36
-  | SaveFileV37;
+  | SaveFileV37
+  | SaveFileV38;
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -5386,8 +5397,9 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === 35) return validateSaveV35(save);
   if (s.saveVersion === 36) return validateSaveV36(save);
   if (s.saveVersion === 37) return validateSaveV37(save);
+  if (s.saveVersion === 38) return validateSaveV38(save);
   throw new Error(
-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 37 only)`,
+    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 38 only)`,
   );
 }
 
@@ -6124,6 +6136,10 @@ function projectTalentPreV20(person: Talent): Talent {
 }
 
 function assertFrozenBuilderRetainsHollywood(state: object, builder: string): void {
+  if (assertProfessionHistoryDowngrade(state, builder)) {
+    const raw = state as Record<string, unknown>;
+    validateSaveV38({ saveVersion: 38, seed: raw.seed, state, broadcastCache: raw.broadcastItems });
+  }
   assertFrozenBuilderRetainsTechnology(state, builder);
   if ('hollywood' in state && state.hollywood !== null && state.hollywood !== undefined) {
     throw new Error(`${builder}: cannot downgrade or discard authoritative V19 Hollywood`);
@@ -6499,15 +6515,15 @@ export function makeSaveV16(state: GameStateV16): SaveFileV16 {
 // Every caller that asks "is this envelope a migration?" compares against this
 // constant rather than a literal that goes stale the next time `makeSave` moves
 // (the bridge and the ui adapter both still compared against 23 at V25).
-export const LIVE_SAVE_VERSION = 37 as const;
+export const LIVE_SAVE_VERSION = 38 as const;
 
-// makeSave — the live V37 boundary (record 840). Frozen prior values migrate explicitly.
+// makeSave — the live V38 boundary (942/946). Frozen prior values migrate explicitly.
 // The plain-JSON state is detached once; only final serialization sorts it.
-export function makeSave(state: GameState): SaveFileV37 {
-  const save = validateSaveV37({ saveVersion: 37, seed: state.seed, state, broadcastCache: state.broadcastItems });
+export function makeSave(state: GameState): SaveFileV38 {
+  const save = validateSaveV38({ saveVersion: 38, seed: state.seed, state, broadcastCache: state.broadcastItems });
   // Validation precedes detachment, so undefined/non-JSON authority cannot be
   // silently repaired by stringify before the boundary sees it.
-  return JSON.parse(JSON.stringify(save)) as SaveFileV37;
+  return JSON.parse(JSON.stringify(save)) as SaveFileV38;
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────
@@ -7353,6 +7369,7 @@ export function importLegacyV1ToV4(json: string): SaveFileV4 {
 export function migrateToV4(
   save: SaveFile,
 ): SaveFileV4 {
+  if (save.saveVersion === 38) return migrateToV4(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV4(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion > 4) {
     throw new Error(
@@ -7375,6 +7392,7 @@ export function migrateToV4(
 export function migrateToV5(
   save: SaveFile,
 ): SaveFileV5 {
+  if (save.saveVersion === 38) return migrateToV5(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV5(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion > 5) {
     throw new Error(
@@ -7392,6 +7410,7 @@ export function migrateToV5(
 export function migrateToV6(
   save: SaveFile,
 ): SaveFileV6 {
+  if (save.saveVersion === 38) return migrateToV6(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV6(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion > 6) {
     throw new Error(
@@ -7410,6 +7429,7 @@ export function migrateToV6(
 export function migrateToV7(
   save: SaveFile,
 ): SaveFileV7 {
+  if (save.saveVersion === 38) return migrateToV7(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV7(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion > 7) {
     throw new Error(
@@ -7424,6 +7444,7 @@ export function migrateToV7(
 // V1–V7 migrate deterministically. Newer files are rejected loudly: this function
 // may never silently discard authoritative screenplay or casting state.
 export function migrateToV8(save: SaveFile): SaveFileV8 {
+  if (save.saveVersion === 38) return migrateToV8(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV8(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) throw new Error('migrateToV8: cannot downgrade SaveFileV36 or discard the retirement extension');
   if (save.saveVersion === 35) throw new Error('migrateToV8: cannot downgrade SaveFileV35 or discard the cohort receipts');
@@ -7456,6 +7477,7 @@ export function migrateToV8(save: SaveFile): SaveFileV8 {
 // identity; V1–V8 migrate forward. V10 is rejected rather than silently losing
 // authoritative casting history.
 export function migrateToV9(save: SaveFile): SaveFileV9 {
+  if (save.saveVersion === 38) return migrateToV9(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV9(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) throw new Error('migrateToV9: cannot downgrade SaveFileV36 or discard the retirement extension');
   if (save.saveVersion === 35) throw new Error('migrateToV9: cannot downgrade SaveFileV35 or discard the cohort receipts');
@@ -7487,6 +7509,7 @@ export function migrateToV9(save: SaveFile): SaveFileV9 {
 // identity; V1–V9 cross every frozen boundary and receive exactly legacy-empty
 // casting state only at the final V9→V10 step. V11 is rejected, never downgraded.
 export function migrateToV10(save: SaveFile): SaveFileV10 {
+  if (save.saveVersion === 38) return migrateToV10(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV10(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) throw new Error('migrateToV10: cannot downgrade SaveFileV36 or discard the retirement extension');
   if (save.saveVersion === 35) throw new Error('migrateToV10: cannot downgrade SaveFileV35 or discard the cohort receipts');
@@ -7519,6 +7542,7 @@ export function migrateToV10(save: SaveFile): SaveFileV10 {
 // mode. V12 is rejected, never downgraded: a placed facility, its land, its
 // debit, and its operating history have no V11 home.
 export function migrateToV11(save: SaveFile): SaveFileV11 {
+  if (save.saveVersion === 38) return migrateToV11(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV11(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) throw new Error('migrateToV11: cannot downgrade SaveFileV36 or discard the retirement extension');
   if (save.saveVersion === 35) throw new Error('migrateToV11: cannot downgrade SaveFileV35 or discard the cohort receipts');
@@ -7549,6 +7573,7 @@ export function migrateToV11(save: SaveFile): SaveFileV11 {
 // their own validated construction history implies at the final V11→V12 step.
 // V13 is rejected, never downgraded: a property that has grown has no V12 home.
 export function migrateToV12(save: SaveFile): SaveFileV12 {
+  if (save.saveVersion === 38) return migrateToV12(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV12(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) throw new Error('migrateToV12: cannot downgrade SaveFileV36 or discard the retirement extension');
   if (save.saveVersion === 35) throw new Error('migrateToV12: cannot downgrade SaveFileV35 or discard the cohort receipts');
@@ -7582,6 +7607,7 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
 // one widened leaf — the honest, un-guessed `subjectId: null` on any
 // pre-existing `queueIntentExpired` row — at the final V14→V15 step.
 export function migrateToV15(save: SaveFile): SaveFileV15 {
+  if (save.saveVersion === 38) return migrateToV15(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV15(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) throw new Error('migrateToV15: cannot downgrade SaveFileV36 or discard the retirement extension');
   if (save.saveVersion === 35) throw new Error('migrateToV15: cannot downgrade SaveFileV35 or discard the cohort receipts');
@@ -7667,6 +7693,7 @@ export function convertV17ToV18(v17: SaveFileV17): SaveFileV18 {
 // identity (after validation at the call boundary); V1–V17 cross every frozen
 // boundary, then receive `endowed` at the final V17→V18 step.
 export function migrateToV18(save: SaveFile): SaveFileV18 {
+  if (save.saveVersion === 38) return migrateToV18(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV18(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) throw new Error('migrateToV18: cannot downgrade SaveFileV36 or discard the retirement extension');
   if (save.saveVersion === 35) throw new Error('migrateToV18: cannot downgrade SaveFileV35 or discard the cohort receipts');
@@ -7693,6 +7720,7 @@ export function migrateToV18(save: SaveFile): SaveFileV18 {
 // migrateToV17 — the frozen V17-target migration (P08A). A V18 save can never
 // be downgraded: discarding the founding regime would erase exact history.
 export function migrateToV17(save: SaveFile): SaveFileV17 {
+  if (save.saveVersion === 38) return migrateToV17(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV17(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) throw new Error('migrateToV17: cannot downgrade SaveFileV36 or discard the retirement extension');
   if (save.saveVersion === 35) throw new Error('migrateToV17: cannot downgrade SaveFileV35 or discard the cohort receipts');
@@ -7724,6 +7752,7 @@ export function migrateToV17(save: SaveFile): SaveFileV17 {
 // migrateToV16 — the frozen V16-target migration (P06A). A V17 save can never
 // be downgraded: discarding the recorded history would silently erase provenance.
 export function migrateToV16(save: SaveFile): SaveFileV16 {
+  if (save.saveVersion === 38) return migrateToV16(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV16(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) throw new Error('migrateToV16: cannot downgrade SaveFileV36 or discard the retirement extension');
   if (save.saveVersion === 35) throw new Error('migrateToV16: cannot downgrade SaveFileV35 or discard the cohort receipts');
@@ -7758,6 +7787,7 @@ export function migrateToV16(save: SaveFile): SaveFileV16 {
 }
 
 export function migrateToV14(save: SaveFile): SaveFileV14 {
+  if (save.saveVersion === 38) return migrateToV14(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV14(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) throw new Error('migrateToV14: cannot downgrade SaveFileV36 or discard the retirement extension');
   if (save.saveVersion === 35) throw new Error('migrateToV14: cannot downgrade SaveFileV35 or discard the cohort receipts');
@@ -7802,6 +7832,7 @@ export function migrateToV14(save: SaveFile): SaveFileV14 {
 }
 
 export function migrateToV13(save: SaveFile): SaveFileV13 {
+  if (save.saveVersion === 38) return migrateToV13(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV13(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) throw new Error('migrateToV13: cannot downgrade SaveFileV36 or discard the retirement extension');
   if (save.saveVersion === 35) throw new Error('migrateToV13: cannot downgrade SaveFileV35 or discard the cohort receipts');
@@ -7863,6 +7894,7 @@ function validateSaveV19WithPolicy(
   // stripped before this chain ever sees the state.
   terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW,
   retirementWriting?: RetirementWritingAuthority,
+  professionContext?: ProfessionValidationContext,
 ): SaveFileV19 {
   if (!isRecord(save)) throw new Error('validateSaveV19: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
@@ -7887,7 +7919,7 @@ function validateSaveV19WithPolicy(
     // `validateHollywood` immediately afterwards.
     operations: (v, productions) => checkOperationsContext({ operations: v, activeProductions: productions, engaged: true, founding: null }, 'hollywood.operations', policy === 'research-v27' ? policy : 'sets-v14'),
     development: v => checkScriptDevelopmentShape(v, 'sets-v14'),
-  }, technology, policy === 'research-v27', plans ?? [], terminationLaw, retirementWriting);
+  }, technology, policy === 'research-v27', plans ?? [], terminationLaw, retirementWriting, professionContext);
   return save as SaveFileV19;
 }
 
@@ -7916,6 +7948,7 @@ export function convertV18ToV19(save: SaveFileV18): SaveFileV19 {
   return validateSaveV19({ saveVersion: 19, seed: save.seed, state, broadcastCache: state.broadcastItems });
 }
 export function migrateToV19(save: SaveFile): SaveFileV19 {
+  if (save.saveVersion === 38) return migrateToV19(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV19(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) throw new Error('migrateToV19: cannot downgrade SaveFileV36 or discard the retirement extension');
   if (save.saveVersion === 35) throw new Error('migrateToV19: cannot downgrade SaveFileV35 or discard the cohort receipts');
@@ -8004,6 +8037,7 @@ export function convertV20ToV21(save: SaveFileV20): SaveFileV21 {
 }
 
 export function migrateToV21(save: SaveFile): SaveFileV21 {
+  if (save.saveVersion === 38) return migrateToV21(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV21(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) throw new Error('migrateToV21: cannot downgrade SaveFileV36 or discard the retirement extension');
   if (save.saveVersion === 35) throw new Error('migrateToV21: cannot downgrade SaveFileV35 or discard the cohort receipts');
@@ -8038,6 +8072,7 @@ export function convertV21ToV22(save: SaveFileV21): SaveFileV22 {
 }
 
 export function migrateToV22(save: SaveFile): SaveFileV22 {
+  if (save.saveVersion === 38) return migrateToV22(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV22(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) throw new Error('migrateToV22: cannot downgrade SaveFileV36 or discard the retirement extension');
   if (save.saveVersion === 35) throw new Error('migrateToV22: cannot downgrade SaveFileV35 or discard the cohort receipts');
@@ -8097,6 +8132,7 @@ export function convertV22ToV23(save: SaveFileV22): SaveFileV23 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV23(save: SaveFile | { saveVersion: number }): SaveFileV23 {
+  if (save.saveVersion === 38) return migrateToV23(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV23(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) throw new Error('migrateToV23: cannot downgrade SaveFileV36 or discard the retirement extension');
   if (save.saveVersion === 35) throw new Error('migrateToV23: cannot downgrade SaveFileV35 or discard the cohort receipts');
@@ -8131,7 +8167,7 @@ export function validateSaveV24(save: unknown): SaveFileV24 {
  * and refund rows, while a genuine V24 or V25 file is still validated under
  * 'technology-v20' and still refuses both.
  */
-function validateSaveV24WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority): SaveFileV24 {
+function validateSaveV24WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): SaveFileV24 {
   if (!isRecord(save)) throw new Error('validateSaveV24: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 24) throw new Error('validateSaveV24: expected version 24');
@@ -8142,7 +8178,7 @@ function validateSaveV24WithPolicy(save: unknown, policy: 'technology-v20' | 'ca
   validateTechnology(typed.state as unknown as GameState);
   validatePhysicalPlans(typed.state as unknown as GameState);
   const { technology, physicalPlans: _physicalPlans, ...legacy } = raw;
-  validateSaveV19WithPolicy({ saveVersion: 19, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, policy, technology as StudioTechnology, typed.state.physicalPlans.plans, terminationLaw, retirementWriting);
+  validateSaveV19WithPolicy({ saveVersion: 19, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, policy, technology as StudioTechnology, typed.state.physicalPlans.plans, terminationLaw, retirementWriting, professionContext);
   assertNoDoubleBookedResourceSlots(typed.state as unknown as GameState);
   return typed;
 }
@@ -8166,6 +8202,7 @@ export function convertV23ToV24(save: SaveFileV23): SaveFileV24 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV24(save: SaveFile | { saveVersion: number }): SaveFileV24 {
+  if (save.saveVersion === 38) return migrateToV24(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV24(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) throw new Error('migrateToV24: cannot downgrade SaveFileV36 or discard the retirement extension');
   if (save.saveVersion === 35) throw new Error('migrateToV24: cannot downgrade SaveFileV35 or discard the cohort receipts');
@@ -8302,7 +8339,7 @@ export function validateSaveV25(save: unknown): SaveFileV25 {
 }
 
 /** See `validateSaveV24WithPolicy`: the V26 chain threads its own policy down. */
-function validateSaveV25WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority): SaveFileV25 {
+function validateSaveV25WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): SaveFileV25 {
   if (!isRecord(save)) throw new Error('validateSaveV25: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 25) throw new Error('validateSaveV25: expected version 25');
@@ -8350,7 +8387,7 @@ function validateSaveV25WithPolicy(save: unknown, policy: 'technology-v20' | 'ca
         studioEvents: strippedEvents,
       },
       broadcastCache: save.broadcastCache,
-    }, policy, terminationLaw, retirementWriting);
+    }, policy, terminationLaw, retirementWriting, professionContext);
   } catch (error) {
     throw new Error(`validateSaveV25: frozen V24 state is invalid — ${(error as Error).message}`);
   }
@@ -8396,6 +8433,7 @@ export function convertV24ToV25(save: SaveFileV24): SaveFileV25 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV25(save: SaveFile | { saveVersion: number }): SaveFileV25 {
+  if (save.saveVersion === 38) return migrateToV25(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV25(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) throw new Error('migrateToV25: cannot downgrade SaveFileV36 or discard the retirement extension');
   if (save.saveVersion === 35) throw new Error('migrateToV25: cannot downgrade SaveFileV35 or discard the cohort receipts');
@@ -8507,7 +8545,7 @@ export function validateSaveV26(save: unknown): SaveFileV26 {
 }
 
 /** See `validateSaveV25WithPolicy`: the V27 chain threads its own policy down. */
-function validateSaveV26WithPolicy(save: unknown, policy: 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority): SaveFileV26 {
+function validateSaveV26WithPolicy(save: unknown, policy: 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): SaveFileV26 {
   if (!isRecord(save)) throw new Error('validateSaveV26: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 26) throw new Error('validateSaveV26: expected version 26');
@@ -8528,7 +8566,7 @@ function validateSaveV26WithPolicy(save: unknown, policy: 'cancellation-v26' | '
         technology: { ...technologyRaw, adoptions: strippedAdoptions },
       },
       broadcastCache: save.broadcastCache,
-    }, policy, terminationLaw, retirementWriting);
+    }, policy, terminationLaw, retirementWriting, professionContext);
   } catch (error) {
     throw new Error(`validateSaveV26: frozen V25 state is invalid — ${(error as Error).message}`);
   }
@@ -8567,6 +8605,7 @@ export function convertV25ToV26(save: SaveFileV25): SaveFileV26 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV26(save: SaveFile | { saveVersion: number }): SaveFileV26 {
+  if (save.saveVersion === 38) return migrateToV26(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV26(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) return migrateToV26(convertV35ToV34(convertV36ToV35(save as SaveFileV36)));
   if (save.saveVersion === 35) return migrateToV26(convertV35ToV34(save as SaveFileV35));
@@ -8659,14 +8698,14 @@ export function validateSaveV27(save: unknown): SaveFileV27 {
 
 /** P14A.1/R4: V28 reads the same frozen V27 state under ITS OWN era's
  * termination law. Everything else about the chain is unchanged. */
-function validateSaveV27WithLaw(save: unknown, terminationLaw: TerminationLaw, retirementWriting?: RetirementWritingAuthority): SaveFileV27 {
+function validateSaveV27WithLaw(save: unknown, terminationLaw: TerminationLaw, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): SaveFileV27 {
   if (!isRecord(save)) throw new Error('validateSaveV27: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 27) throw new Error('validateSaveV27: expected version 27');
   const raw = v14Record(checkEnvelope(save, 'validateSaveV27'), 'state');
   v27Movements(raw);
   try {
-    validateSaveV26WithPolicy({ saveVersion: 26, seed: save.seed, state: raw, broadcastCache: save.broadcastCache }, 'research-v27', terminationLaw, retirementWriting);
+    validateSaveV26WithPolicy({ saveVersion: 26, seed: save.seed, state: raw, broadcastCache: save.broadcastCache }, 'research-v27', terminationLaw, retirementWriting, professionContext);
   } catch (error) {
     throw new Error(`validateSaveV27: frozen V26 state is invalid — ${(error as Error).message}`);
   }
@@ -8725,6 +8764,7 @@ export function convertV27ToV26(save: SaveFileV27): SaveFileV26 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV27(save: SaveFile | { saveVersion: number }): SaveFileV27 {
+  if (save.saveVersion === 38) return migrateToV27(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV27(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) return migrateToV27(convertV35ToV34(convertV36ToV35(save as SaveFileV36)));
   if (save.saveVersion === 35) return migrateToV27(convertV35ToV34(save as SaveFileV35));
@@ -8751,7 +8791,7 @@ export function validateSaveV28(save: unknown): SaveFileV28 {
   return validateSaveV28WithWriting(save);
 }
 
-function validateSaveV28WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority): SaveFileV28 {
+function validateSaveV28WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): SaveFileV28 {
   if (!isRecord(save)) throw new Error('validateSaveV28: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 28) throw new Error('validateSaveV28: expected version 28');
@@ -8760,7 +8800,7 @@ function validateSaveV28WithWriting(save: unknown, retirementWriting?: Retiremen
   validateTalentMarketRoot(raw.talentMarket, raw);
   const { talentMarket: _talentMarket, ...legacy } = raw;
   try {
-    validateSaveV27WithLaw({ saveVersion: 27, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, talentMarketTerminationLaw(raw.talentMarket), retirementWriting);
+    validateSaveV27WithLaw({ saveVersion: 27, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, talentMarketTerminationLaw(raw.talentMarket), retirementWriting, professionContext);
   } catch (error) {
     throw new Error(`validateSaveV28: frozen V27 state is invalid — ${(error as Error).message}`);
   }
@@ -8818,6 +8858,7 @@ export function convertV28ToV27(save: SaveFileV28): SaveFileV27 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV28(save: SaveFile | { saveVersion: number }): SaveFileV28 {
+  if (save.saveVersion === 38) return migrateToV28(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV28(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) return migrateToV28(convertV35ToV34(convertV36ToV35(save as SaveFileV36)));
   if (save.saveVersion === 35) return migrateToV28(convertV35ToV34(save as SaveFileV35));
@@ -8923,6 +8964,7 @@ export function convertV29ToV28(save: SaveFileV29): SaveFileV28 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV29(save: SaveFile | { saveVersion: number }): SaveFileV29 {
+  if (save.saveVersion === 38) return migrateToV29(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV29(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) return migrateToV29(convertV35ToV34(convertV36ToV35(save as SaveFileV36)));
   if (save.saveVersion === 35) return migrateToV29(convertV35ToV34(save as SaveFileV35));
@@ -8943,7 +8985,7 @@ export function validateSaveV30(save: unknown): SaveFileV30 {
   return validateSaveV30WithWriting(save);
 }
 
-function validateSaveV30WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority): SaveFileV30 {
+function validateSaveV30WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): SaveFileV30 {
   if (!isRecord(save)) throw new Error('validateSaveV30: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 30) throw new Error('validateSaveV30: expected version 30');
@@ -8952,7 +8994,7 @@ function validateSaveV30WithWriting(save: unknown, retirementWriting?: Retiremen
   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV30: promises root missing');
   validatePromiseRootsV30(raw);
   try {
-    validateSaveV28WithWriting({ saveVersion: 28, seed: save.seed, state: stripV29Roots(raw), broadcastCache: save.broadcastCache }, retirementWriting);
+    validateSaveV28WithWriting({ saveVersion: 28, seed: save.seed, state: stripV29Roots(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext);
   } catch (error) {
     throw new Error(`validateSaveV30: frozen V28 state is invalid — ${(error as Error).message}`);
   }
@@ -8979,6 +9021,7 @@ export function convertV30ToV29(save: SaveFileV30): SaveFileV29 {
 /** The V30 boundary (P14B.4, record 600); since P14B.5 a frozen prior shape
  * reached from the live V31 by the ONE lossless-when-empty downgrade. */
 export function migrateToV30(save: SaveFile | { saveVersion: number }): SaveFileV30 {
+  if (save.saveVersion === 38) return migrateToV30(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV30(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) return migrateToV30(convertV35ToV34(convertV36ToV35(save as SaveFileV36)));
   if (save.saveVersion === 35) return migrateToV30(convertV35ToV34(save as SaveFileV35));
@@ -9010,7 +9053,7 @@ export function validateSaveV31(save: unknown): SaveFileV31 {
   return validateSaveV31WithWriting(save);
 }
 
-function validateSaveV31WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority): SaveFileV31 {
+function validateSaveV31WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): SaveFileV31 {
   if (!isRecord(save)) throw new Error('validateSaveV31: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 31) throw new Error('validateSaveV31: expected version 31');
@@ -9018,7 +9061,7 @@ function validateSaveV31WithWriting(save: unknown, retirementWriting?: Retiremen
   if (!Object.hasOwn(raw, 'relationships')) throw new Error('validateSaveV31: relationships root missing');
   validateRelationshipsRoot(raw);
   try {
-    validateSaveV30WithWriting({ saveVersion: 30, seed: save.seed, state: stripV31Root(raw), broadcastCache: save.broadcastCache }, retirementWriting);
+    validateSaveV30WithWriting({ saveVersion: 30, seed: save.seed, state: stripV31Root(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext);
   } catch (error) {
     throw new Error(`validateSaveV31: frozen V30 state is invalid — ${(error as Error).message}`);
   }
@@ -9064,6 +9107,7 @@ export function convertV31ToV30(save: SaveFileV31): SaveFileV30 {
 /** The live load-to-play route (P14B.5): every prior envelope migrates to the
  * V31 boundary the live writer stamps. */
 export function migrateToV31(save: SaveFile | { saveVersion: number }): SaveFileV31 {
+  if (save.saveVersion === 38) return migrateToV31(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV31(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) return migrateToV31(convertV35ToV34(convertV36ToV35(save as SaveFileV36)));
   if (save.saveVersion === 35) return migrateToV31(convertV35ToV34(save as SaveFileV35));
@@ -9105,14 +9149,14 @@ export function validateSaveV32(save: unknown): SaveFileV32 {
   return validateSaveV32WithWriting(save);
 }
 
-function validateSaveV32WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority): SaveFileV32 {
+function validateSaveV32WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): SaveFileV32 {
   if (!isRecord(save)) throw new Error('validateSaveV32: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 32) throw new Error('validateSaveV32: expected version 32');
   const raw = v14Record(checkEnvelope(save, 'validateSaveV32'), 'state');
   validateWaivedPromiseLinks(raw);
   try {
-    validateSaveV31WithWriting({ saveVersion: 31, seed: save.seed, state: stripV32Field(raw), broadcastCache: save.broadcastCache }, retirementWriting);
+    validateSaveV31WithWriting({ saveVersion: 31, seed: save.seed, state: stripV32Field(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext);
   } catch (error) {
     throw new Error(`validateSaveV32: frozen V31 state is invalid — ${(error as Error).message}`);
   }
@@ -9159,6 +9203,7 @@ export function convertV32ToV31(save: SaveFileV32): SaveFileV31 {
 /** The live load-to-play route (P14B.7): every prior envelope migrates to the
  * V32 boundary the live writer stamps. */
 export function migrateToV32(save: SaveFile | { saveVersion: number }): SaveFileV32 {
+  if (save.saveVersion === 38) return migrateToV32(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV32(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) return convertV33ToV32(convertV34ToV33(convertV35ToV34(convertV36ToV35(save as SaveFileV36))));
   if (save.saveVersion === 35) return convertV33ToV32(convertV34ToV33(convertV35ToV34(save as SaveFileV35)));
@@ -9322,7 +9367,7 @@ export function validateSaveV33(save: unknown): SaveFileV33 {
   return validateSaveV33WithWriting(save);
 }
 
-function validateSaveV33WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority): SaveFileV33 {
+function validateSaveV33WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): SaveFileV33 {
   if (!isRecord(save)) throw new Error('validateSaveV33: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 33) throw new Error('validateSaveV33: expected version 33');
@@ -9330,7 +9375,7 @@ function validateSaveV33WithWriting(save: unknown, retirementWriting?: Retiremen
   if (!Object.hasOwn(raw, 'talentProvenance')) throw new Error('validateSaveV33: talentProvenance root missing');
   validateTalentProvenanceRoot(raw);
   try {
-    validateSaveV32WithWriting({ saveVersion: 32, seed: save.seed, state: stripV33Root(raw), broadcastCache: save.broadcastCache }, retirementWriting);
+    validateSaveV32WithWriting({ saveVersion: 32, seed: save.seed, state: stripV33Root(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext);
   } catch (error) {
     throw new Error(`validateSaveV33: frozen V32 state is invalid — ${(error as Error).message}`);
   }
@@ -9419,6 +9464,7 @@ export function convertV33ToV32(save: SaveFileV33): SaveFileV32 {
 /** The live load-to-play route (P14C.1): every prior envelope migrates to the
  * V33 boundary the live writer stamps. */
 export function migrateToV33(save: SaveFile | { saveVersion: number }): SaveFileV33 {
+  if (save.saveVersion === 38) return migrateToV33(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV33(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) return convertV34ToV33(convertV35ToV34(convertV36ToV35(save as SaveFileV36)));
   if (save.saveVersion === 35) return convertV34ToV33(convertV35ToV34(save as SaveFileV35));
@@ -9498,7 +9544,7 @@ export function validateCareerLifecycleRoot(raw: Record<string, unknown>): void 
 
 /** Internal delegation only: callers of the public frozen reader cannot select
  * a later law by adding state fields or supplying an optional flag. */
-function validateCareerLifecycleRootWithPolicy(raw: Record<string, unknown>, windowOf: LifecycleWindowPolicy): void {
+function validateCareerLifecycleRootWithPolicy(raw: Record<string, unknown>, windowOf: LifecycleWindowPolicy, professionContext?: ProfessionValidationContext): void {
   const root = raw.careerLifecycle;
   if (!isRecord(root)) v34Error('careerLifecycle root missing');
   if (Object.keys(root).sort().join(',') !== 'boundaryWeek,records') v34Error('careerLifecycle must carry exactly boundaryWeek and records');
@@ -9541,9 +9587,14 @@ function validateCareerLifecycleRootWithPolicy(raw: Record<string, unknown>, win
   for (const record of records) {
     const who = `retirement record for ${record.personId}`;
     if (!roleOf.has(record.personId)) v34Error(`${who} names a person who is not in this world`);
-    if (seen.has(record.personId)) v34Error(`careerLifecycle carries more than one record for ${record.personId}`);
-    seen.add(record.personId);
-    if (record.profession !== roleOf.get(record.personId)) {
+    const key = professionContext ? JSON.stringify([record.personId, record.profession]) : record.personId;
+    if (seen.has(key)) v34Error(`careerLifecycle carries more than one record for ${record.personId}'s profession episode`);
+    seen.add(key);
+    const recordedRole = professionContext ? professionContext.professionAtWeek(record.personId, record.announcedWeek) : roleOf.get(record.personId);
+    if (professionContext && (professionContext.entrantWeek(record.personId) ?? 0) > record.announcedWeek) {
+      v34Error(`${who} precedes this person's actual creation`);
+    }
+    if (record.profession !== recordedRole) {
       v34Error(`${who} names profession ${record.profession}, but the person's role is ${String(roleOf.get(record.personId))}`);
     }
     if (record.announcedWeek < previousWeek) v34Error(`${who} is out of announcement order (week ${record.announcedWeek} after week ${previousWeek})`);
@@ -9588,6 +9639,7 @@ function validateCareerLifecycleRootWithPolicy(raw: Record<string, unknown>, win
     // `end > max(start, A)`.
     for (const binding of bindingsOf.get(record.personId) ?? []) {
       if (typeof binding.start !== 'number' || typeof binding.end !== 'number') continue;
+      if (professionContext && professionContext.professionAtWeek(record.personId, binding.start) !== record.profession) continue;
       if (binding.end > Math.max(binding.start, record.announcedWeek) && binding.end > record.effectiveWeek) {
         v34Error(`${who}: a ${binding.label} active after the announcement ends at week ${binding.end}, past the effective week ${record.effectiveWeek}`);
       }
@@ -9603,15 +9655,15 @@ export function validateSaveV34(save: unknown): SaveFileV34 {
   return validateSaveV34WithPolicy(save, frozenLifecycleWindow);
 }
 
-function validateSaveV34WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority): SaveFileV34 {
+function validateSaveV34WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): SaveFileV34 {
   if (!isRecord(save)) throw new Error('validateSaveV34: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 34) throw new Error('validateSaveV34: expected version 34');
   const raw = v14Record(checkEnvelope(save, 'validateSaveV34'), 'state');
   if (!Object.hasOwn(raw, 'careerLifecycle')) throw new Error('validateSaveV34: careerLifecycle root missing');
-  validateCareerLifecycleRootWithPolicy(raw, windowOf);
+  validateCareerLifecycleRootWithPolicy(raw, windowOf, professionContext);
   try {
-    validateSaveV33WithWriting({ saveVersion: 33, seed: save.seed, state: stripV34Root(raw), broadcastCache: save.broadcastCache }, retirementWriting);
+    validateSaveV33WithWriting({ saveVersion: 33, seed: save.seed, state: stripV34Root(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext);
   } catch (error) {
     throw new Error(`validateSaveV34: frozen V33 state is invalid — ${(error as Error).message}`);
   }
@@ -9658,6 +9710,7 @@ export function convertV34ToV33(save: SaveFileV34): SaveFileV33 {
 /** Every prior envelope migrates to the V34 boundary; a V35 one downgrades losslessly
  * only while it holds no cohort receipt. */
 export function migrateToV34(save: SaveFile | { saveVersion: number }): SaveFileV34 {
+  if (save.saveVersion === 38) return migrateToV34(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV34(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) return convertV35ToV34(convertV36ToV35(save as SaveFileV36));
   if (save.saveVersion === 35) return convertV35ToV34(save as SaveFileV35);
@@ -9722,7 +9775,7 @@ function v35Receipt(value: unknown, index: number): CohortReceipt {
  * the live step uses. Completeness (a receipt at every request week) is deliberately
  * NOT validated (782 §7.4).
  */
-function validateCohortReceipts(raw: Record<string, unknown>): void {
+function validateCohortReceipts(raw: Record<string, unknown>, professionContext?: ProfessionValidationContext): void {
   const root = raw.careerLifecycle;
   if (!isRecord(root)) return v35Error('careerLifecycle root missing');
   if (Object.keys(root).sort().join(',') !== 'boundaryWeek,cohorts,records') v35Error('careerLifecycle must carry exactly boundaryWeek, cohorts and records');
@@ -9765,7 +9818,7 @@ function validateCohortReceipts(raw: Record<string, unknown>): void {
         const id = receipt.personIds[at - receipt.talentCountBefore]!;
         const person = people[at]!;
         if (person.id !== id) v35Error(`${who} names ${id} at talent index ${at}, which holds ${person.id}`);
-        if (person.role !== role) v35Error(`${who} names ${id} as a ${role} entrant, but the person's role is ${person.role}`);
+        if ((professionContext?.originalProfession(id) ?? person.role) !== role) v35Error(`${who} names ${id} as a ${role} entrant, but the person's original profession disagrees`);
         const row = rowOf.get(id);
         if (row?.kind !== 'authored_exact_week' || row.entryWeek !== receipt.week) {
           v35Error(`${who}: entrant ${id} has no authored_exact_week provenance row at week ${receipt.week}`);
@@ -9775,7 +9828,15 @@ function validateCohortReceipts(raw: Record<string, unknown>): void {
     }
     let derived: ReturnType<typeof deriveCohortRequest>;
     try {
-      derived = deriveCohortRequest(people.slice(0, receipt.talentCountBefore), records, rows, receipt.week);
+      const prefix = people.slice(0, receipt.talentCountBefore);
+      if (professionContext && prefix.some(person => (professionContext.entrantWeek(person.id) ?? 0) > receipt.week)) {
+        v35Error(`${who} includes a future entrant in its recorded talent prefix`);
+      }
+      const datedPrefix = professionContext ? prefix.map(person => ({ ...person,
+        role: professionContext.professionAtWeek(person.id, receipt.week)! })) : prefix;
+      const datedRecords = professionContext ? records.filter(record =>
+        record.profession === professionContext.professionAtWeek(record.personId, receipt.week)) : records;
+      derived = deriveCohortRequest(datedPrefix, datedRecords, rows, receipt.week);
     } catch (error) {
       return v35Error(`${who}: ${(error as Error).message}`);
     }
@@ -9796,15 +9857,15 @@ export function validateSaveV35(save: unknown): SaveFileV35 {
   return validateSaveV35WithPolicy(save, frozenLifecycleWindow);
 }
 
-function validateSaveV35WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority): SaveFileV35 {
+function validateSaveV35WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): SaveFileV35 {
   if (!isRecord(save)) throw new Error('validateSaveV35: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 35) throw new Error('validateSaveV35: expected version 35');
   const raw = v14Record(checkEnvelope(save, 'validateSaveV35'), 'state');
   if (!Object.hasOwn(raw, 'careerLifecycle')) throw new Error('validateSaveV35: careerLifecycle root missing');
-  validateCohortReceipts(raw);
+  validateCohortReceipts(raw, professionContext);
   try {
-    validateSaveV34WithPolicy({ saveVersion: 34, seed: save.seed, state: stripV35Cohorts(raw), broadcastCache: save.broadcastCache }, windowOf, retirementWriting);
+    validateSaveV34WithPolicy({ saveVersion: 34, seed: save.seed, state: stripV35Cohorts(raw), broadcastCache: save.broadcastCache }, windowOf, retirementWriting, professionContext);
   } catch (error) {
     throw new Error(`validateSaveV35: frozen V34 state is invalid — ${(error as Error).message}`);
   }
@@ -9848,6 +9909,7 @@ export function convertV35ToV34(save: SaveFileV35): SaveFileV34 {
 /** Every prior envelope migrates to the V35 boundary; a V36 one downgrades losslessly
  * only while it holds no retirement extension. */
 export function migrateToV35(save: SaveFile | { saveVersion: number }): SaveFileV35 {
+  if (save.saveVersion === 38) return migrateToV35(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV35(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) return convertV36ToV35(save as SaveFileV36);
   if (save.saveVersion === 35) return validateSaveV35(save);
@@ -9858,7 +9920,7 @@ export function migrateToV35(save: SaveFile | { saveVersion: number }): SaveFile
  * stamps. Callers whose meaning is "the live state" call this, never a numbered
  * step, so the next save bump moves this one definition. */
 export function migrateToLive(save: SaveFile | { saveVersion: number }): LiveSaveFile {
-  return migrateToV37(save);
+  return migrateToV38(save);
 }
 
 export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
@@ -9879,6 +9941,7 @@ export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
 }
 
 export function migrateToV20(save: SaveFile): SaveFileV20 {
+  if (save.saveVersion === 38) return migrateToV20(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV20(convertV37ToV36(save as SaveFileV37));
   if (save.saveVersion === 36) throw new Error('migrateToV20: cannot downgrade SaveFileV36 or discard the retirement extension');
   if (save.saveVersion === 35) throw new Error('migrateToV20: cannot downgrade SaveFileV35 or discard the cohort receipts');
@@ -9940,7 +10003,7 @@ function stripV36Extension(raw: Record<string, unknown>): Record<string, unknown
  * the effective week by exactly 52 onto exactly one employment row the settlement wrote,
  * from the case's closing week to the new effective week.
  */
-function validateRetirementExtensions(raw: Record<string, unknown>): void {
+function validateRetirementExtensions(raw: Record<string, unknown>, professionContext?: ProfessionValidationContext): void {
   const root = raw.careerLifecycle;
   if (!isRecord(root) || !Array.isArray(root.records)) return v36Error('careerLifecycle.records must be an array');
   const market = raw.talentMarket;
@@ -9964,9 +10027,11 @@ function validateRetirementExtensions(raw: Record<string, unknown>): void {
     if (kase.variant !== 'expiry' && kase.variant !== 'retirementExtension') return v36Error(`${label}.variant ${JSON.stringify(kase.variant)} is not a case variant`);
     if (kase.variant !== 'retirementExtension') return;
     const personId = String(kase.talentId);
-    if (extensionOf.has(personId)) v36Error(`${label} is a second retirementExtension case for ${personId}; there is at most one per person, ever`);
-    extensionOf.set(personId, kase);
-    const record = records.find((candidate) => candidate.personId === personId);
+    const role = professionContext?.professionAtWeek(personId, Number(kase.openedWeek));
+    const key = professionContext ? JSON.stringify([personId, role]) : personId;
+    if (extensionOf.has(key)) v36Error(`${label} is a second retirementExtension case for ${personId}'s profession episode`);
+    extensionOf.set(key, kase);
+    const record = records.find(candidate => candidate.personId === personId && (!professionContext || candidate.profession === role));
     if (record === undefined) return v36Error(`${label} is a retirementExtension case for ${personId}, who holds no retirement record`);
     const originalWeek = record.extensionUsed ? record.extendedFromWeek : record.effectiveWeek;
     if (typeof record.announcedWeek !== 'number' || typeof originalWeek !== 'number' || typeof kase.openedWeek !== 'number' ||
@@ -9978,7 +10043,7 @@ function validateRetirementExtensions(raw: Record<string, unknown>): void {
   const employment = isRecord(hollywood) && Array.isArray(hollywood.employment) ? hollywood.employment as readonly unknown[] : [];
   for (const record of records) {
     const personId = String(record.personId);
-    const kase = extensionOf.get(personId);
+    const kase = extensionOf.get(professionContext ? JSON.stringify([personId, record.profession]) : personId);
     const settled = kase?.outcome === 'settled';
     if (record.extensionUsed !== settled) {
       v36Error(`retirement record for ${personId} says extensionUsed ${String(record.extensionUsed)}, but it holds ${settled ? 'a' : 'no'} settled retirementExtension case`);
@@ -10003,16 +10068,16 @@ export function validateSaveV36(save: unknown): SaveFileV36 {
   return validateSaveV36WithPolicy(save, frozenLifecycleWindow);
 }
 
-function validateSaveV36WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority): SaveFileV36 {
+function validateSaveV36WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): SaveFileV36 {
   if (!isRecord(save)) throw new Error('validateSaveV36: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 36) throw new Error('validateSaveV36: expected version 36');
   const raw = v14Record(checkEnvelope(save, 'validateSaveV36'), 'state');
   if (!Object.hasOwn(raw, 'careerLifecycle')) throw new Error('validateSaveV36: careerLifecycle root missing');
   if (!Object.hasOwn(raw, 'talentMarket')) throw new Error('validateSaveV36: talentMarket root missing');
-  validateRetirementExtensions(raw);
+  validateRetirementExtensions(raw, professionContext);
   try {
-    validateSaveV35WithPolicy({ saveVersion: 35, seed: save.seed, state: stripV36Extension(raw), broadcastCache: save.broadcastCache }, windowOf, retirementWriting);
+    validateSaveV35WithPolicy({ saveVersion: 35, seed: save.seed, state: stripV36Extension(raw), broadcastCache: save.broadcastCache }, windowOf, retirementWriting, professionContext);
   } catch (error) {
     throw new Error(`validateSaveV36: frozen V35 state is invalid — ${(error as Error).message}`);
   }
@@ -10068,6 +10133,7 @@ export function convertV36ToV35(save: SaveFileV36): SaveFileV35 {
 
 /** Every prior envelope migrates to the V36 boundary. */
 export function migrateToV36(save: SaveFile | { saveVersion: number }): SaveFileV36 {
+  if (save.saveVersion === 38) return migrateToV36(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return convertV37ToV36(save as SaveFileV37);
   if (save.saveVersion === 36) return validateSaveV36(save);
   return convertV35ToV36(migrateToV35(save));
@@ -10078,14 +10144,19 @@ export function migrateToV36(save: SaveFile | { saveVersion: number }): SaveFile
 // The private policy follows V36's extension and V35's cohort validation into
 // V34's complete lifecycle validation. Public V34–V36 readers stay frozen.
 export function validateSaveV37(save: unknown): SaveFileV37 {
+  return validateSaveV37WithProfession(save);
+}
+
+function validateSaveV37WithProfession(save: unknown, professionContext?: ProfessionValidationContext,
+  writing?: RetirementWritingAuthority): SaveFileV37 {
   if (!isRecord(save)) throw new Error('validateSaveV37: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 37) throw new Error('validateSaveV37: expected version 37');
   // Existing obligations, evidenced by this invocation's original live roots.
   // They travel beside stripped fragments; public historical entry points omit them.
-  const retirementWriting = retirementWritingAuthority(save.state);
+  const retirementWriting = writing ?? retirementWritingAuthority(save.state);
   try {
-    validateSaveV36WithPolicy({ ...save, saveVersion: 36 }, retirementWindow, retirementWriting);
+    validateSaveV36WithPolicy({ ...save, saveVersion: 36 }, retirementWindow, retirementWriting, professionContext);
   } catch (error) {
     throw new Error(`validateSaveV37: state is invalid — ${(error as Error).message}`);
   }
@@ -10122,6 +10193,55 @@ export function convertV37ToV36(save: SaveFileV37): SaveFileV36 {
 
 /** Every prior envelope migrates to the explicit amended-law boundary. */
 export function migrateToV37(save: SaveFile | { saveVersion: number }): SaveFileV37 {
+  if (save.saveVersion === 38) return convertV38ToV37(save as SaveFileV38);
   if (save.saveVersion === 37) return validateSaveV37(save);
   return convertV36ToV37(migrateToV36(save));
+}
+
+
+// ── P14C.3 — prospective profession history, Save38 ────────────────────────
+export function validateSaveV38(save: unknown): SaveFileV38 {
+  if (!isRecord(save)) throw new Error('validateSaveV38: object required');
+  v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+  if (save.saveVersion !== 38) throw new Error('validateSaveV38: expected version 38');
+  const raw = v14Record(checkEnvelope(save, 'validateSaveV38'), 'state');
+  validateTalentProvenanceRoot(raw);
+  const professionContext = validateProfessionHistory(raw);
+  const writing = retirementWritingAuthority(raw, professionContext);
+  validateSaveV37WithProfession({ ...save, saveVersion: 37, state: stripProfessionHistory(raw) }, professionContext, writing);
+  return save as SaveFileV38;
+}
+
+export function convertV37ToV38(save: SaveFileV37): SaveFileV38 {
+  const validated = validateSaveV37(save);
+  const old = JSON.parse(JSON.stringify(validated.state)) as GameStateV37;
+  const opened = initialCareerLifecycle(old.market.tick, old.talent);
+  const state: GameStateV38 = {
+    ...old, careerLifecycle: {
+      // Preserve the older root's own insertion order as well as its values.
+      // A lossless downgrade must not reorder its retained historical fields.
+      ...old.careerLifecycle,
+      transitionBoundaryWeek: opened.transitionBoundaryWeek,
+      professionAnchors: opened.professionAnchors,
+      transitionEvaluations: opened.transitionEvaluations,
+      professionChanges: opened.professionChanges,
+      industryRetirements: opened.industryRetirements,
+      transitionDue: opened.transitionDue,
+    },
+  };
+  const reconciled = scheduleProfessionReconciliation(state);
+  return validateSaveV38({ saveVersion: 38, seed: reconciled.seed, state: reconciled, broadcastCache: reconciled.broadcastItems });
+}
+
+export function convertV38ToV37(save: SaveFileV38): SaveFileV37 {
+  if (!isRecord(save) || !isRecord(save.state)) throw new Error('migrateToV37: cannot downgrade a missing Save38 state');
+  assertProfessionHistoryDowngrade(save.state, 'migrateToV37');
+  const validated = validateSaveV38(save);
+  const state = stripProfessionHistory(JSON.parse(JSON.stringify(validated.state)) as Record<string, unknown>);
+  return validateSaveV37({ saveVersion: 37, seed: validated.seed, state, broadcastCache: state.broadcastItems });
+}
+
+export function migrateToV38(save: SaveFile | { saveVersion: number }): SaveFileV38 {
+  if (save.saveVersion === 38) return validateSaveV38(save);
+  return convertV37ToV38(migrateToV37(save));
 }

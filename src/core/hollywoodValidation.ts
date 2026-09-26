@@ -1,3 +1,4 @@
+import type { ProfessionValidationContext } from './professionHistory.js'
 import { flattenParticipants } from './starPower.js'
 import type { RetirementWritingAuthority } from './retirementWriting.js'
 import { sameContractTerms } from './industryEmployment.js'
@@ -62,7 +63,7 @@ export type HollywoodLeafValidators = {
 // explicitly by the caller that knows which era it is reading (never sniffed off
 // the state). It defaults to the FROZEN pre-V28 law, so every existing frozen
 // reader keeps reconciling under the law its own era wrote.
-export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>, research = false, plans: readonly PhysicalPlan[] = [], terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority): asserts value is HollywoodState | null {
+export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>, research = false, plans: readonly PhysicalPlan[] = [], terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): asserts value is HollywoodState | null {
   const researchKinds = new Set<string>(RIVAL_RESEARCH_MONEY_KINDS)
   const moneyKinds = RIVAL_MONEY_KINDS.filter(kind =>
     (technology !== undefined || kind !== 'technologyAdoption') && (research || !researchKinds.has(kind)))
@@ -142,7 +143,7 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
         JSON.stringify([f.title,f.released.year,f.genre,f.criticScore,f.audienceScore,f.openingGross,f.totalGross]) === JSON.stringify(authored),
         'authored film differs from canonical starting manifest')
       requireFact(f.credits.every((c,i) => c.role === RIVAL_CREDIT_ROLES[i] && c.name === template.names![i] &&
-        talent.get(c.talentId)?.role === RIVAL_TEAM_ROLES[i] && h.employment.some(e=>e.studioId===s.studioId&&e.reason==='entry'&&e.terms.talentId===c.talentId&&e.terms.startWeek===0)), 'authored credit differs from canonical starting manifest')
+        (professionContext?.originalProfession(c.talentId) ?? talent.get(c.talentId)?.role) === RIVAL_TEAM_ROLES[i] && h.employment.some(e=>e.studioId===s.studioId&&e.reason==='entry'&&e.terms.talentId===c.talentId&&e.terms.startWeek===0)), 'authored credit differs from canonical starting manifest')
       number(f.criticScore,0,100); number(f.audienceScore,0,100); number(f.openingGross,0); number(f.totalGross,f.openingGross)
     } else {
       exact(f,[...common,'scriptProjectId','result','directCommitment','studioRevenueReceived','settledWeek','releaseCommitmentId'])

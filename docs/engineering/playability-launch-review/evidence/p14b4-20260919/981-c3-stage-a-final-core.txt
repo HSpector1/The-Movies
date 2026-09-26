@@ -1,0 +1,53 @@
+{"sourceSha":"c000479d6e888d3a02f5c2ff534f5dfcbb32af3f","testedDiffSha256":"1a848ad7d483d3d1c9123a207523c14bc3b758add49dc1ebcff74e248c052c93","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c3-save-v38.test.ts","tests/p14c3-transitions.test.ts","tests/p14c3-promise-digest-continuity.test.ts"],"node":"v20.20.2","start":"2026-09-26T20:38:54.799Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14c3-promise-digest-continuity.test.ts (8 tests) 16420ms
+   ✓ 955 same logical inputs give the same promise feasibility receipt > ignores nested object insertion order with a real active player workflow (tagged P2=false) 3263ms
+   ✓ 955 same logical inputs give the same promise feasibility receipt > ignores nested object insertion order with a real active player workflow (tagged P2=true) 1061ms
+   ✓ 955 same logical inputs give the same promise feasibility receipt > keeps an exact refusal, its rules version and its digest invariant under the same key permutation 418ms
+   ✓ 955 genuine207 normal-development continuation > produces identical208 saves and all twelve actual affected receipts from value-identical key orders 5834ms
+   ✓ 955 historical preservation and interim projection52 journal authority > loads genuine-v37-c3-preretirement-week207.json.gz without rewriting its stored promises or other historical bytes 1908ms
+   ✓ 955 historical preservation and interim projection52 journal authority > loads genuine-v37-c3-retired-week208.json.gz without rewriting its stored promises or other historical bytes 2062ms
+   ✓ 955 historical preservation and interim projection52 journal authority > loads genuine-v37-c3-runtime-current208.json.gz without rewriting its stored promises or other historical bytes 1836ms
+ ✓ |core| tests/p14c3-transitions.test.ts (35 tests) 19147ms
+   ✓ C.3 A03/A04 genuine retirement choices through existing tick > retires the two genuine207 actors into director and writer at208 with real bounded evidence 2548ms
+   ✓ C.3 A03/A04 genuine retirement choices through existing tick > reconciles actual retired genuine-v37-c3-retired-week208.json.gz prospectively at209 without backdating or rewriting old receipts 2404ms
+   ✓ C.3 A03/A04 genuine retirement choices through existing tick > reconciles actual retired genuine-v37-c3-runtime-current208.json.gz prospectively at209 without backdating or rewriting old receipts 2720ms
+   ✓ C.3 A05/A06 public profession history, current evidence and repeat safety > derives the exact current public input without mutation and refuses past-week reconstruction 1313ms
+   ✓ C.3 A05/A06 public profession history, current evidence and repeat safety > uses inclusive change weeks and current-versus-explicit retirement lookup after save and reload 3455ms
+   ✓ C.3 A09/A10 genuine prospective finality and deferred reconciliation > records Scientist noCatalogue finality at671 once, preserving the actual670 profession retirement 1735ms
+   ✓ C.3 A09/A10 genuine prospective finality and deferred reconciliation > defers the real retired cohort actor at2601 and schedules the exact annual-or-age deadline, never the next week 4934ms
+ ✓ |core| tests/p14c3-save-v38.test.ts (47 tests) 33852ms
+   ✓ C.3 A01/A02 exact Save38 opening > moves the existing live writer and fresh root together while preserving intent1 and promise4 515ms
+   ✓ C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-created-week0.json.gz losslessly except for explicit prospective38 scaffolding 821ms
+   ✓ C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-preretirement-week207.json.gz losslessly except for explicit prospective38 scaffolding 2225ms
+   ✓ C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-retired-week208.json.gz losslessly except for explicit prospective38 scaffolding 1798ms
+   ✓ C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-runtime-current208.json.gz losslessly except for explicit prospective38 scaffolding 2537ms
+   ✓ C.3 A01/A02 exact Save38 opening > exposes matching strict38 conversion, validation and current migration over a genuine37 save 2357ms
+   ✓ C.3 A12 exact root, anchored identity and due authority > rejects every omitted new root field and an unrecognized root authority 2256ms
+   ✓ C.3 A12 exact root, anchored identity and due authority > requires a finite safe nonnegative boundary at or before the actual clock 2232ms
+   ✓ C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates 2135ms
+   ✓ C.3 A12 exact root, anchored identity and due authority > cannot relabel a genuinely later-created person as an existing person before their entry 1188ms
+   ✓ C.3 A12 exact root, anchored identity and due authority > requires the complete sorted prospective queue and strictly future exact due dates 1109ms
+   ✓ C.3 A12 actual chosen receipts and their dated joins > checks exact keys on evaluation, input, target, context, picture and source objects 681ms
+   ✓ C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology 628ms
+   ✓ C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth 755ms
+   ✓ C.3 A12 actual chosen receipts and their dated joins > recomputes the outcome separately from the unchanged question digest 376ms
+   ✓ C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person 624ms
+   ✓ C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation 1077ms
+   ✓ C.3 A11/A12 industry finality and frozen strict readers > keeps the genuine public37 reader strict even when a caller adds current authority or strips its evidence 433ms
+   ✓ C.3 979 retained dated obligations stay narrow > admits an actual later release but refuses a first-take date claiming completed work across the change 440ms
+   ✓ C.3 979 retained dated obligations stay narrow > admits actual later original drafting but refuses a claimed pre-change original commission 382ms
+   ✓ C.3 979 retained dated obligations stay narrow > admits actual secondary-writer pool joining after the change despite an earlier original commission 688ms
+   ✓ C.3 979 retained dated obligations stay narrow > admits a real post-change rewrite of a screenplay completed before acting retirement 2793ms
+   ✓ C.3 979 retained dated obligations stay narrow > admits an actual pre-change production whose permanent credited writer occupies no company seat 2542ms
+   ✓ C.3 A11 lossless empty-boundary downgrade and actual entrant authority > downgrades untouched genuine-v37-c3-preretirement-week207.json.gz exactly, including its unexecuted prospective queue 522ms
+   ✓ C.3 A11 lossless empty-boundary downgrade and actual entrant authority > downgrades untouched genuine-v37-c3-retired-week208.json.gz exactly, including its unexecuted prospective queue 497ms
+
+ Test Files  3 passed (3)
+      Tests  90 passed (90)
+   Start at  22:38:55
+   Duration  37.39s (transform 3.51s, setup 0ms, collect 7.96s, tests 69.42s, environment 1ms, prepare 723ms)
+

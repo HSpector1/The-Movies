@@ -11,7 +11,7 @@ import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { activeContract } from '../src/core/employment.js'
 import { promiseFeasibility, type PromiseDraft } from '../src/core/promises.js'
-import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV37 } from '../src/core/save.js'
+import { convertV38ToV37, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV37 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { CreativeRole, GameState } from '../src/core/types.js'
@@ -214,7 +214,16 @@ describe('955 historical preservation and interim projection52 journal authority
     expect(live.talentMarket.receipts).toEqual(original.state.talentMarket.receipts)
     expect(live.firstTakes).toEqual(original.state.firstTakes)
     expect(live.hollywood!.careerEvents).toEqual(original.state.hollywood!.careerEvents)
-    expect(bytes(live)).toBe(raw)
+    const current = makeSave(live)
+    expect(current.saveVersion).toBe(38)
+    expect(current.state.careerLifecycle.transitionBoundaryWeek).toBe(original.state.market.tick)
+    expect(current.state.careerLifecycle.professionAnchors).toEqual(original.state.talent.map(person => ({
+      personId: person.id, profession: person.role, recordedWeek: original.state.market.tick, kind: 'existing',
+    })))
+    expect(current.state.careerLifecycle.transitionEvaluations).toEqual([])
+    expect(current.state.careerLifecycle.professionChanges).toEqual([])
+    expect(current.state.careerLifecycle.industryRetirements).toEqual([])
+    expect(exportSave(convertV38ToV37(current))).toBe(raw)
     expect(artifact(filename)).toBe(raw)
   })
 })

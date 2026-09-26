@@ -1,0 +1,1318 @@
+diff --git a/src/core/aging.ts b/src/core/aging.ts
+index e0c82645..7730a41a 100644
+--- a/src/core/aging.ts
++++ b/src/core/aging.ts
+@@ -256,7 +256,19 @@ export function withTalentProvenance(
+   // `rows`, so this person comes after every existing member unconditionally — which
+   // is why `comesAfter` is `true` here rather than a rank comparison.
+   const due = insertDue(root.due, dueWeek, person.id, () => true)
+-  return { ...state, talentProvenance: { ...root, rows: [...root.rows, row], due } }
++  let next = { ...state, talentProvenance: { ...root, rows: [...root.rows, row], due } }
++  // Every actual append already passes this owner. Frozen conversion roots have
++  // no profession anchors; they gain existing anchors only at the V37→38 boundary.
++  const career = state.careerLifecycle
++  if (career !== undefined && Array.isArray(career.professionAnchors)) {
++    const appended = state.talent.find(candidate => candidate.id === person.id)
++    if (appended === undefined || career.professionAnchors.some(anchor => anchor.personId === person.id)) {
++      throw new Error(`profession history: ${person.id} must be a newly appended person`)
++    }
++    next = { ...next, careerLifecycle: { ...career, professionAnchors: [...career.professionAnchors,
++      { personId: person.id, profession: appended.role, recordedWeek: week, kind: 'entrant' }] } }
++  }
++  return next
+ }
+ 
+ /**
+diff --git a/src/core/careerLifecycle.ts b/src/core/careerLifecycle.ts
+index 36e77777..fe1f52bc 100644
+--- a/src/core/careerLifecycle.ts
++++ b/src/core/careerLifecycle.ts
+@@ -18,7 +18,7 @@ import { openMarketCaseFor } from './talentMarket.js'
+ import { TUNING } from './tuning.js'
+ import { generateIndustryTalent } from './worldgen.js'
+ import type {
+-  CareerLifecycleRootV36, CohortReceipt, CreativeRole, FilmCreativeRole, GameState, RetirementRecord, RetirementRecordV36, Talent,
++  CareerLifecycleRootV38, CohortReceipt, CreativeRole, FilmCreativeRole, GameState, RetirementRecord, RetirementRecordV36, Talent,
+   TalentProvenanceRow,
+ } from './types.js'
+ 
+@@ -37,11 +37,15 @@ export function retirementWindow(role: CreativeRole): { start: number; hard: num
+   return { start: window.start, hard: window.hard }
+ }
+ 
+-/** The LIVE opener (793 §5): the empty root a fresh world and the live lift open. An
+- * empty V36 root is the V35 root byte for byte (the V36 keys live on records). The frozen
+- * V33 → V34 conversion writes its own V34 literal and never calls this. */
+-export function initialCareerLifecycle(week: number): CareerLifecycleRootV36 {
+-  return { boundaryWeek: week, records: [], cohorts: [] }
++/** The live fresh-population opener. Save38 observes each original profession
++ * without inventing any choice or retirement. Frozen converters retain their own
++ * historical literals; V37→38 preserves old lifecycle fields around this scaffold. */
++export function initialCareerLifecycle(week: number, people: readonly Pick<Talent, 'id' | 'role'>[] = []): CareerLifecycleRootV38 {
++  return {
++    boundaryWeek: week, records: [], cohorts: [], transitionBoundaryWeek: week,
++    professionAnchors: people.map(person => ({ personId: person.id, profession: person.role, recordedWeek: week, kind: 'existing' })),
++    transitionEvaluations: [], professionChanges: [], industryRetirements: [], transitionDue: [],
++  }
+ }
+ 
+ /** The person's record, or `undefined`. A state with NO root is only ever a frozen
+@@ -155,7 +159,7 @@ function retire(state: GameState, record: RetirementRecordV36, week: number): Re
+ /** The root both halves of the step read, or `null` when the lifecycle does not engage
+  * (773 D6: it engages iff the market does). Loud, never silent: a live state MUST carry
+  * the V34 root (the market's own rule). */
+-function engagedRoot(state: GameState): CareerLifecycleRootV36 | null {
++function engagedRoot(state: GameState): CareerLifecycleRootV38 | null {
+   if (state.hollywood === null) return null
+   const root = state.careerLifecycle
+   if (root === undefined) {
+diff --git a/src/core/hollywood.ts b/src/core/hollywood.ts
+index 625e60de..64ea70a6 100644
+--- a/src/core/hollywood.ts
++++ b/src/core/hollywood.ts
+@@ -1,3 +1,4 @@
++import { scheduleProfessionReconciliation } from './professionHistory.js'
+ import { productionCompanyTalentIds } from './productionPeople.js'
+ import { boundedStableSort } from './boundedStableSort.js'
+ import { recordPlayerEmployment } from './industryEmployment.js'
+@@ -181,7 +182,7 @@ export function initializeHollywood(state: GameStateV18 & { hollywood?: Hollywoo
+   for (const identity of identities.slice(1)) if (identity.eligibleWeek <= state.market.tick) {
+     next = enterRival(next,identity.studioId,origin)
+   }
+-  return recordPlayerEmployment(next,origin==='migration')
++  return scheduleProfessionReconciliation(recordPlayerEmployment(next,origin==='migration'))
+ }
+ 
+ /** Atomic pure entry: no caller-owned object is modified, even if validation throws. */
+diff --git a/src/core/index.ts b/src/core/index.ts
+index 6600375a..b2581f5c 100644
+--- a/src/core/index.ts
++++ b/src/core/index.ts
+@@ -1344,6 +1344,10 @@ export {
+   convertV36ToV37,
+   convertV37ToV36,
+   migrateToV37,
++  validateSaveV38,
++  convertV37ToV38,
++  convertV38ToV37,
++  migrateToV38,
+   convertV27ToV28,
+   convertV28ToV27,
+   // P13B-S5-R07 — live V24 → NEW V25 + migrateToV25 (the widened production
+@@ -1390,6 +1394,7 @@ export type {
+   SaveFileV35,
+   SaveFileV36,
+   SaveFileV37,
++  SaveFileV38,
+   LiveSaveFile,
+   SaveFile,
+   TalentV1,
+@@ -1650,3 +1655,7 @@ export { adoptionQuote, equipmentAssets } from './technologyAdoption.js'
+ export type { AdoptionQuote, AdoptionRequest } from './technologyAdoption.js'
+ export { productionTechnologyView } from './technologyProduction.js'
+ export type { StudioTechnology, StudioTechnologyV2, StudioTechnologyV3, TechnologyAction, ResearchProject, ResearchWeekReceipt, ResearchLabContribution, TechnologyAdoption, TechnologyAdoptionComponent, TechnologyEquipmentAsset, ProductionTechnology } from './technologyTypes.js'
++
++export type { GameStateV38, CareerLifecycleRootV38, TransitionTarget, TransitionRoleTier, TransitionPotentialTier,
++  RetirementKey, ProfessionAnchor, TransitionPictureRef, TransitionContextWitness, TransitionTargetInput,
++  TransitionInputs, TransitionEvaluation, ProfessionChange, IndustryRetirement, TransitionDue } from './types.js'
+diff --git a/src/core/professionHistory.ts b/src/core/professionHistory.ts
+new file mode 100644
+index 00000000..67a980c1
+--- /dev/null
++++ b/src/core/professionHistory.ts
+@@ -0,0 +1,119 @@
++// Save38's prospective profession-history boundary (942/946). Historical
++// readers never infer this authority from extra fields on an older envelope.
++import type { CareerLifecycleRootV38, CreativeRole, GameState, TransitionDue } from './types.js'
++
++export const TRANSITION_ROOT_FIELDS = ['transitionBoundaryWeek', 'professionAnchors', 'transitionEvaluations',
++  'professionChanges', 'industryRetirements', 'transitionDue'] as const
++
++export const compareProfessionText = (a: string, b: string): number => a < b ? -1 : a > b ? 1 : 0
++export const compareTransitionDue = (a: TransitionDue, b: TransitionDue): number =>
++  a.week - b.week || compareProfessionText(a.personId, b.personId)
++
++export type ProfessionValidationContext = Readonly<{
++  originalProfession(personId: string): CreativeRole | undefined
++  professionAtWeek(personId: string, week: number): CreativeRole | undefined
++  entrantWeek(personId: string): number | undefined
++}>
++
++export function scheduleProfessionReconciliation(state: GameState): GameState {
++  const root = state.careerLifecycle
++  if (state.hollywood === null || root === undefined || root.transitionBoundaryWeek === undefined) return state
++  const opening = Math.max(root.transitionBoundaryWeek, state.hollywood.originWeek)
++  const seen = new Set([...root.transitionDue, ...root.transitionEvaluations, ...root.industryRetirements]
++    .map(row => row.personId))
++  const due = root.records.filter(record => record.status === 'retired' && record.retiredWeek !== null
++    && record.retiredWeek <= opening && !seen.has(record.personId))
++    .map(record => ({ personId: record.personId, week: opening + 1 }))
++  return due.length === 0 ? state : { ...state, careerLifecycle: { ...root,
++    transitionDue: [...root.transitionDue, ...due].sort(compareTransitionDue) } }
++}
++
++export function stripProfessionHistory(raw: Record<string, unknown>): Record<string, unknown> {
++  const root = raw.careerLifecycle as Record<string, unknown>
++  return { ...raw, careerLifecycle: Object.fromEntries(Object.entries(root)
++    .filter(([key]) => !TRANSITION_ROOT_FIELDS.includes(key as typeof TRANSITION_ROOT_FIELDS[number]))) }
++}
++
++function fail(message: string): never { throw new Error(`validateSaveV38: ${message}`) }
++function object(value: unknown, keys: readonly string[], label: string): Record<string, unknown> {
++  if (value === null || typeof value !== 'object' || Array.isArray(value)) return fail(`${label} must be an object`)
++  if (Object.keys(value).sort().join(',') !== [...keys].sort().join(',')) return fail(`${label} must carry exactly ${keys.join(', ')}`)
++  return value as Record<string, unknown>
++}
++function integer(value: unknown, label: string): number {
++  if (typeof value !== 'number' || !Number.isSafeInteger(value) || value < 0) return fail(`${label} must be a safe nonnegative integer`)
++  return value
++}
++function rows(value: unknown, label: string): readonly unknown[] {
++  if (!Array.isArray(value)) return fail(`${label} must be an array`)
++  return value
++}
++
++/** Loss is checked BEFORE an old builder projects fields away. Even a same-week
++ * entrant records actual creation; only existing boundary scaffolding may strip. */
++export function assertProfessionHistoryDowngrade(state: object, caller: string): boolean {
++  const root = (state as { careerLifecycle?: unknown }).careerLifecycle
++  if (root === null || typeof root !== 'object' || !TRANSITION_ROOT_FIELDS.some(key => Object.hasOwn(root, key))) return false
++  const value = root as Record<string, unknown>
++  if (!Array.isArray(value.professionAnchors) || ['transitionEvaluations', 'professionChanges', 'industryRetirements']
++    .some(key => !Array.isArray(value[key]) || (value[key] as unknown[]).length !== 0)
++    || value.professionAnchors.some(anchor => anchor === null || typeof anchor !== 'object'
++      || (anchor as { kind?: unknown }).kind !== 'existing')) {
++    throw new Error(`${caller}: cannot downgrade or discard profession transition, industry retirement or entrant authority`)
++  }
++  return true
++}
++
++/** Stage A foundation proof. The independent next slice owns event execution and
++ * its complete evidence proof; until then nonempty event history is refused. */
++export function validateProfessionHistory(raw: Record<string, unknown>): ProfessionValidationContext {
++  const root = object(raw.careerLifecycle, ['boundaryWeek', 'records', 'cohorts', ...TRANSITION_ROOT_FIELDS], 'careerLifecycle')
++  const tick = integer((raw.market as { tick?: unknown } | undefined)?.tick, 'market.tick')
++  const boundary = integer(root.transitionBoundaryWeek, 'careerLifecycle.transitionBoundaryWeek')
++  if (boundary > tick || boundary < integer(root.boundaryWeek, 'careerLifecycle.boundaryWeek')) fail('transition boundary is outside recorded campaign history')
++  const talent = rows(raw.talent, 'talent') as readonly { id: string; role: CreativeRole }[]
++  const anchors = rows(root.professionAnchors, 'professionAnchors')
++  if (anchors.length !== talent.length) fail('professionAnchors must name every person once in talent order')
++  const originals = new Map<string, CreativeRole>(), entrantWeeks = new Map<string, number>()
++  const provenance = (raw.talentProvenance as { rows?: readonly { personId: string; kind: string; entryWeek?: number; migrationWeek?: number }[] } | undefined)?.rows ?? []
++  const provenanceOf = new Map(provenance.map(row => [row.personId, row]))
++  for (const [index, value] of anchors.entries()) {
++    const anchor = object(value, ['personId', 'profession', 'recordedWeek', 'kind'], `professionAnchors[${index}]`)
++    const person = talent[index]!
++    if (typeof anchor.personId !== 'string' || anchor.personId !== person.id || originals.has(anchor.personId)) fail('professionAnchors identity or order mismatch')
++    if (!['actor', 'director', 'writer', 'craft', 'scientist'].includes(anchor.profession as string)) fail('unknown anchor profession')
++    const week = integer(anchor.recordedWeek, 'profession anchor recordedWeek')
++    const row = provenanceOf.get(person.id)
++    if (anchor.kind === 'existing') {
++      if (week !== boundary) fail('existing profession anchor must equal transition boundary')
++      if (row === undefined || integer(row.kind === 'authored_exact_week' ? row.entryWeek : row.migrationWeek,
++        'profession anchor presence') > boundary) fail('existing profession anchor predates the person’s observed presence')
++    } else if (anchor.kind === 'entrant') {
++      if (week < boundary || week > tick || row?.kind !== 'authored_exact_week' || row.entryWeek !== week) fail('entrant profession anchor must match actual entry provenance')
++      entrantWeeks.set(person.id, week)
++    } else fail('unknown profession anchor kind')
++    if (anchor.profession !== person.role) fail('current profession changed without a profession change')
++    originals.set(person.id, anchor.profession as CreativeRole)
++  }
++  for (const key of ['transitionEvaluations', 'professionChanges', 'industryRetirements']) {
++    if (rows(root[key], key).length !== 0) fail(`${key}: event validation awaits the next implementation slice`)
++  }
++  const due = rows(root.transitionDue, 'transitionDue').map((value, index) => {
++    const row = object(value, ['personId', 'week'], `transitionDue[${index}]`)
++    if (typeof row.personId !== 'string' || !originals.has(row.personId)) fail('transitionDue must name a known person')
++    const week = integer(row.week, 'transitionDue.week')
++    if (week <= tick) fail('transitionDue must be strictly after the current week')
++    return { personId: row.personId as string, week }
++  })
++  const h = raw.hollywood as { originWeek: number } | null
++  const records = rows(root.records, 'careerLifecycle.records') as CareerLifecycleRootV38['records']
++  const expected = h === null ? [] : records.filter(record => record.status === 'retired')
++    .map(record => ({ personId: record.personId, week: Math.max(boundary, integer(h.originWeek, 'hollywood.originWeek')) + 1 }))
++    .sort(compareTransitionDue)
++  if (JSON.stringify(due) !== JSON.stringify(expected)) fail('transitionDue differs from prospective reconciliation')
++  return Object.freeze({
++    originalProfession: (personId: string) => originals.get(personId),
++    professionAtWeek: (personId: string, _week: number) => originals.get(personId),
++    entrantWeek: (personId: string) => entrantWeeks.get(personId),
++  })
++}
+diff --git a/src/core/save.ts b/src/core/save.ts
+index 80e02017..20ed116c 100644
+--- a/src/core/save.ts
++++ b/src/core/save.ts
+@@ -56,7 +56,8 @@ import { projectLegacyTerminations, projectTalentMarketPreV28, talentMarketTermi
+ import { projectPromisesPreV29, projectPromisesPreV32, validatePromiseRoots, validatePromiseRootsV30, validateWaivedPromiseLinks } from './promises.js'
+ import { projectRelationshipsPreV31, validateRelationshipsRoot } from './relationships.js'
+ import { ageAt, anchorOf, buildTalentProvenance, recomputeDue } from './aging.js'
+-import { COHORT_PROFESSIONS, deriveCohortRequest, isCohortWeek, retirementWindow } from './careerLifecycle.js'
++import { COHORT_PROFESSIONS, deriveCohortRequest, isCohortWeek, retirementWindow, initialCareerLifecycle } from './careerLifecycle.js'
++import { assertProfessionHistoryDowngrade, scheduleProfessionReconciliation, stripProfessionHistory, validateProfessionHistory } from './professionHistory.js'
+ import { PRE_V28_TERMINATION_LAW } from './employment.js'
+ import type { TerminationLaw } from './employment.js'
+ import type {
+@@ -97,6 +98,7 @@ import type {
+   GameStateV35,
+   GameStateV36,
+   GameStateV37,
++  GameStateV38,
+   CohortReceipt,
+   FilmCreativeRole,
+   RetirementRecord,
+@@ -586,7 +588,14 @@ export type SaveFileV37 = {
+ /** The envelope the live writer stamps. Every caller whose meaning is "lift to what
+  * `makeSave` writes" names this and `migrateToLive`, so the next save step moves one
+  * definition instead of every call site (record 776). */
+-export type LiveSaveFile = SaveFileV37;
++export type SaveFileV38 = {
++  saveVersion: 38;
++  seed: string;
++  state: GameStateV38;
++  broadcastCache: BroadcastItem[];
++};
++
++export type LiveSaveFile = SaveFileV38;
+ 
+ // Any envelope (the return of the version-dispatching validateSave/loadSave).
+ export type SaveFile =
+@@ -626,7 +635,8 @@ export type SaveFile =
+   | SaveFileV34
+   | SaveFileV35
+   | SaveFileV36
+-  | SaveFileV37;
++  | SaveFileV37
++  | SaveFileV38;
+ 
+ // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
+ // Recursively serializes with object keys sorted lexicographically, so the same
+@@ -5386,8 +5396,9 @@ export function validateSave(save: unknown): SaveFile {
+   if (s.saveVersion === 35) return validateSaveV35(save);
+   if (s.saveVersion === 36) return validateSaveV36(save);
+   if (s.saveVersion === 37) return validateSaveV37(save);
++  if (s.saveVersion === 38) return validateSaveV38(save);
+   throw new Error(
+-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 37 only)`,
++    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 38 only)`,
+   );
+ }
+ 
+@@ -6124,6 +6135,10 @@ function projectTalentPreV20(person: Talent): Talent {
+ }
+ 
+ function assertFrozenBuilderRetainsHollywood(state: object, builder: string): void {
++  if (assertProfessionHistoryDowngrade(state, builder)) {
++    const raw = state as Record<string, unknown>;
++    validateSaveV38({ saveVersion: 38, seed: raw.seed, state, broadcastCache: raw.broadcastItems });
++  }
+   assertFrozenBuilderRetainsTechnology(state, builder);
+   if ('hollywood' in state && state.hollywood !== null && state.hollywood !== undefined) {
+     throw new Error(`${builder}: cannot downgrade or discard authoritative V19 Hollywood`);
+@@ -6499,15 +6514,15 @@ export function makeSaveV16(state: GameStateV16): SaveFileV16 {
+ // Every caller that asks "is this envelope a migration?" compares against this
+ // constant rather than a literal that goes stale the next time `makeSave` moves
+ // (the bridge and the ui adapter both still compared against 23 at V25).
+-export const LIVE_SAVE_VERSION = 37 as const;
++export const LIVE_SAVE_VERSION = 38 as const;
+ 
+-// makeSave — the live V37 boundary (record 840). Frozen prior values migrate explicitly.
++// makeSave — the live V38 boundary (942/946). Frozen prior values migrate explicitly.
+ // The plain-JSON state is detached once; only final serialization sorts it.
+-export function makeSave(state: GameState): SaveFileV37 {
+-  const save = validateSaveV37({ saveVersion: 37, seed: state.seed, state, broadcastCache: state.broadcastItems });
++export function makeSave(state: GameState): SaveFileV38 {
++  const save = validateSaveV38({ saveVersion: 38, seed: state.seed, state, broadcastCache: state.broadcastItems });
+   // Validation precedes detachment, so undefined/non-JSON authority cannot be
+   // silently repaired by stringify before the boundary sees it.
+-  return JSON.parse(JSON.stringify(save)) as SaveFileV37;
++  return JSON.parse(JSON.stringify(save)) as SaveFileV38;
+ }
+ 
+ // ── Load / export / import ───────────────────────────────────────────────────
+@@ -7353,6 +7368,7 @@ export function importLegacyV1ToV4(json: string): SaveFileV4 {
+ export function migrateToV4(
+   save: SaveFile,
+ ): SaveFileV4 {
++  if (save.saveVersion === 38) return migrateToV4(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV4(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion > 4) {
+     throw new Error(
+@@ -7375,6 +7391,7 @@ export function migrateToV4(
+ export function migrateToV5(
+   save: SaveFile,
+ ): SaveFileV5 {
++  if (save.saveVersion === 38) return migrateToV5(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV5(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion > 5) {
+     throw new Error(
+@@ -7392,6 +7409,7 @@ export function migrateToV5(
+ export function migrateToV6(
+   save: SaveFile,
+ ): SaveFileV6 {
++  if (save.saveVersion === 38) return migrateToV6(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV6(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion > 6) {
+     throw new Error(
+@@ -7410,6 +7428,7 @@ export function migrateToV6(
+ export function migrateToV7(
+   save: SaveFile,
+ ): SaveFileV7 {
++  if (save.saveVersion === 38) return migrateToV7(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV7(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion > 7) {
+     throw new Error(
+@@ -7424,6 +7443,7 @@ export function migrateToV7(
+ // V1–V7 migrate deterministically. Newer files are rejected loudly: this function
+ // may never silently discard authoritative screenplay or casting state.
+ export function migrateToV8(save: SaveFile): SaveFileV8 {
++  if (save.saveVersion === 38) return migrateToV8(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV8(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) throw new Error('migrateToV8: cannot downgrade SaveFileV36 or discard the retirement extension');
+   if (save.saveVersion === 35) throw new Error('migrateToV8: cannot downgrade SaveFileV35 or discard the cohort receipts');
+@@ -7456,6 +7476,7 @@ export function migrateToV8(save: SaveFile): SaveFileV8 {
+ // identity; V1–V8 migrate forward. V10 is rejected rather than silently losing
+ // authoritative casting history.
+ export function migrateToV9(save: SaveFile): SaveFileV9 {
++  if (save.saveVersion === 38) return migrateToV9(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV9(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) throw new Error('migrateToV9: cannot downgrade SaveFileV36 or discard the retirement extension');
+   if (save.saveVersion === 35) throw new Error('migrateToV9: cannot downgrade SaveFileV35 or discard the cohort receipts');
+@@ -7487,6 +7508,7 @@ export function migrateToV9(save: SaveFile): SaveFileV9 {
+ // identity; V1–V9 cross every frozen boundary and receive exactly legacy-empty
+ // casting state only at the final V9→V10 step. V11 is rejected, never downgraded.
+ export function migrateToV10(save: SaveFile): SaveFileV10 {
++  if (save.saveVersion === 38) return migrateToV10(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV10(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) throw new Error('migrateToV10: cannot downgrade SaveFileV36 or discard the retirement extension');
+   if (save.saveVersion === 35) throw new Error('migrateToV10: cannot downgrade SaveFileV35 or discard the cohort receipts');
+@@ -7519,6 +7541,7 @@ export function migrateToV10(save: SaveFile): SaveFileV10 {
+ // mode. V12 is rejected, never downgraded: a placed facility, its land, its
+ // debit, and its operating history have no V11 home.
+ export function migrateToV11(save: SaveFile): SaveFileV11 {
++  if (save.saveVersion === 38) return migrateToV11(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV11(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) throw new Error('migrateToV11: cannot downgrade SaveFileV36 or discard the retirement extension');
+   if (save.saveVersion === 35) throw new Error('migrateToV11: cannot downgrade SaveFileV35 or discard the cohort receipts');
+@@ -7549,6 +7572,7 @@ export function migrateToV11(save: SaveFile): SaveFileV11 {
+ // their own validated construction history implies at the final V11→V12 step.
+ // V13 is rejected, never downgraded: a property that has grown has no V12 home.
+ export function migrateToV12(save: SaveFile): SaveFileV12 {
++  if (save.saveVersion === 38) return migrateToV12(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV12(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) throw new Error('migrateToV12: cannot downgrade SaveFileV36 or discard the retirement extension');
+   if (save.saveVersion === 35) throw new Error('migrateToV12: cannot downgrade SaveFileV35 or discard the cohort receipts');
+@@ -7582,6 +7606,7 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
+ // one widened leaf — the honest, un-guessed `subjectId: null` on any
+ // pre-existing `queueIntentExpired` row — at the final V14→V15 step.
+ export function migrateToV15(save: SaveFile): SaveFileV15 {
++  if (save.saveVersion === 38) return migrateToV15(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV15(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) throw new Error('migrateToV15: cannot downgrade SaveFileV36 or discard the retirement extension');
+   if (save.saveVersion === 35) throw new Error('migrateToV15: cannot downgrade SaveFileV35 or discard the cohort receipts');
+@@ -7667,6 +7692,7 @@ export function convertV17ToV18(v17: SaveFileV17): SaveFileV18 {
+ // identity (after validation at the call boundary); V1–V17 cross every frozen
+ // boundary, then receive `endowed` at the final V17→V18 step.
+ export function migrateToV18(save: SaveFile): SaveFileV18 {
++  if (save.saveVersion === 38) return migrateToV18(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV18(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) throw new Error('migrateToV18: cannot downgrade SaveFileV36 or discard the retirement extension');
+   if (save.saveVersion === 35) throw new Error('migrateToV18: cannot downgrade SaveFileV35 or discard the cohort receipts');
+@@ -7693,6 +7719,7 @@ export function migrateToV18(save: SaveFile): SaveFileV18 {
+ // migrateToV17 — the frozen V17-target migration (P08A). A V18 save can never
+ // be downgraded: discarding the founding regime would erase exact history.
+ export function migrateToV17(save: SaveFile): SaveFileV17 {
++  if (save.saveVersion === 38) return migrateToV17(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV17(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) throw new Error('migrateToV17: cannot downgrade SaveFileV36 or discard the retirement extension');
+   if (save.saveVersion === 35) throw new Error('migrateToV17: cannot downgrade SaveFileV35 or discard the cohort receipts');
+@@ -7724,6 +7751,7 @@ export function migrateToV17(save: SaveFile): SaveFileV17 {
+ // migrateToV16 — the frozen V16-target migration (P06A). A V17 save can never
+ // be downgraded: discarding the recorded history would silently erase provenance.
+ export function migrateToV16(save: SaveFile): SaveFileV16 {
++  if (save.saveVersion === 38) return migrateToV16(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV16(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) throw new Error('migrateToV16: cannot downgrade SaveFileV36 or discard the retirement extension');
+   if (save.saveVersion === 35) throw new Error('migrateToV16: cannot downgrade SaveFileV35 or discard the cohort receipts');
+@@ -7758,6 +7786,7 @@ export function migrateToV16(save: SaveFile): SaveFileV16 {
+ }
+ 
+ export function migrateToV14(save: SaveFile): SaveFileV14 {
++  if (save.saveVersion === 38) return migrateToV14(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV14(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) throw new Error('migrateToV14: cannot downgrade SaveFileV36 or discard the retirement extension');
+   if (save.saveVersion === 35) throw new Error('migrateToV14: cannot downgrade SaveFileV35 or discard the cohort receipts');
+@@ -7802,6 +7831,7 @@ export function migrateToV14(save: SaveFile): SaveFileV14 {
+ }
+ 
+ export function migrateToV13(save: SaveFile): SaveFileV13 {
++  if (save.saveVersion === 38) return migrateToV13(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV13(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) throw new Error('migrateToV13: cannot downgrade SaveFileV36 or discard the retirement extension');
+   if (save.saveVersion === 35) throw new Error('migrateToV13: cannot downgrade SaveFileV35 or discard the cohort receipts');
+@@ -7916,6 +7946,7 @@ export function convertV18ToV19(save: SaveFileV18): SaveFileV19 {
+   return validateSaveV19({ saveVersion: 19, seed: save.seed, state, broadcastCache: state.broadcastItems });
+ }
+ export function migrateToV19(save: SaveFile): SaveFileV19 {
++  if (save.saveVersion === 38) return migrateToV19(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV19(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) throw new Error('migrateToV19: cannot downgrade SaveFileV36 or discard the retirement extension');
+   if (save.saveVersion === 35) throw new Error('migrateToV19: cannot downgrade SaveFileV35 or discard the cohort receipts');
+@@ -8004,6 +8035,7 @@ export function convertV20ToV21(save: SaveFileV20): SaveFileV21 {
+ }
+ 
+ export function migrateToV21(save: SaveFile): SaveFileV21 {
++  if (save.saveVersion === 38) return migrateToV21(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV21(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) throw new Error('migrateToV21: cannot downgrade SaveFileV36 or discard the retirement extension');
+   if (save.saveVersion === 35) throw new Error('migrateToV21: cannot downgrade SaveFileV35 or discard the cohort receipts');
+@@ -8038,6 +8070,7 @@ export function convertV21ToV22(save: SaveFileV21): SaveFileV22 {
+ }
+ 
+ export function migrateToV22(save: SaveFile): SaveFileV22 {
++  if (save.saveVersion === 38) return migrateToV22(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV22(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) throw new Error('migrateToV22: cannot downgrade SaveFileV36 or discard the retirement extension');
+   if (save.saveVersion === 35) throw new Error('migrateToV22: cannot downgrade SaveFileV35 or discard the cohort receipts');
+@@ -8097,6 +8130,7 @@ export function convertV22ToV23(save: SaveFileV22): SaveFileV23 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV23(save: SaveFile | { saveVersion: number }): SaveFileV23 {
++  if (save.saveVersion === 38) return migrateToV23(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV23(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) throw new Error('migrateToV23: cannot downgrade SaveFileV36 or discard the retirement extension');
+   if (save.saveVersion === 35) throw new Error('migrateToV23: cannot downgrade SaveFileV35 or discard the cohort receipts');
+@@ -8166,6 +8200,7 @@ export function convertV23ToV24(save: SaveFileV23): SaveFileV24 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV24(save: SaveFile | { saveVersion: number }): SaveFileV24 {
++  if (save.saveVersion === 38) return migrateToV24(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV24(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) throw new Error('migrateToV24: cannot downgrade SaveFileV36 or discard the retirement extension');
+   if (save.saveVersion === 35) throw new Error('migrateToV24: cannot downgrade SaveFileV35 or discard the cohort receipts');
+@@ -8396,6 +8431,7 @@ export function convertV24ToV25(save: SaveFileV24): SaveFileV25 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV25(save: SaveFile | { saveVersion: number }): SaveFileV25 {
++  if (save.saveVersion === 38) return migrateToV25(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV25(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) throw new Error('migrateToV25: cannot downgrade SaveFileV36 or discard the retirement extension');
+   if (save.saveVersion === 35) throw new Error('migrateToV25: cannot downgrade SaveFileV35 or discard the cohort receipts');
+@@ -8567,6 +8603,7 @@ export function convertV25ToV26(save: SaveFileV25): SaveFileV26 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV26(save: SaveFile | { saveVersion: number }): SaveFileV26 {
++  if (save.saveVersion === 38) return migrateToV26(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV26(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) return migrateToV26(convertV35ToV34(convertV36ToV35(save as SaveFileV36)));
+   if (save.saveVersion === 35) return migrateToV26(convertV35ToV34(save as SaveFileV35));
+@@ -8725,6 +8762,7 @@ export function convertV27ToV26(save: SaveFileV27): SaveFileV26 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV27(save: SaveFile | { saveVersion: number }): SaveFileV27 {
++  if (save.saveVersion === 38) return migrateToV27(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV27(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) return migrateToV27(convertV35ToV34(convertV36ToV35(save as SaveFileV36)));
+   if (save.saveVersion === 35) return migrateToV27(convertV35ToV34(save as SaveFileV35));
+@@ -8818,6 +8856,7 @@ export function convertV28ToV27(save: SaveFileV28): SaveFileV27 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV28(save: SaveFile | { saveVersion: number }): SaveFileV28 {
++  if (save.saveVersion === 38) return migrateToV28(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV28(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) return migrateToV28(convertV35ToV34(convertV36ToV35(save as SaveFileV36)));
+   if (save.saveVersion === 35) return migrateToV28(convertV35ToV34(save as SaveFileV35));
+@@ -8923,6 +8962,7 @@ export function convertV29ToV28(save: SaveFileV29): SaveFileV28 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV29(save: SaveFile | { saveVersion: number }): SaveFileV29 {
++  if (save.saveVersion === 38) return migrateToV29(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV29(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) return migrateToV29(convertV35ToV34(convertV36ToV35(save as SaveFileV36)));
+   if (save.saveVersion === 35) return migrateToV29(convertV35ToV34(save as SaveFileV35));
+@@ -8979,6 +9019,7 @@ export function convertV30ToV29(save: SaveFileV30): SaveFileV29 {
+ /** The V30 boundary (P14B.4, record 600); since P14B.5 a frozen prior shape
+  * reached from the live V31 by the ONE lossless-when-empty downgrade. */
+ export function migrateToV30(save: SaveFile | { saveVersion: number }): SaveFileV30 {
++  if (save.saveVersion === 38) return migrateToV30(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV30(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) return migrateToV30(convertV35ToV34(convertV36ToV35(save as SaveFileV36)));
+   if (save.saveVersion === 35) return migrateToV30(convertV35ToV34(save as SaveFileV35));
+@@ -9064,6 +9105,7 @@ export function convertV31ToV30(save: SaveFileV31): SaveFileV30 {
+ /** The live load-to-play route (P14B.5): every prior envelope migrates to the
+  * V31 boundary the live writer stamps. */
+ export function migrateToV31(save: SaveFile | { saveVersion: number }): SaveFileV31 {
++  if (save.saveVersion === 38) return migrateToV31(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV31(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) return migrateToV31(convertV35ToV34(convertV36ToV35(save as SaveFileV36)));
+   if (save.saveVersion === 35) return migrateToV31(convertV35ToV34(save as SaveFileV35));
+@@ -9159,6 +9201,7 @@ export function convertV32ToV31(save: SaveFileV32): SaveFileV31 {
+ /** The live load-to-play route (P14B.7): every prior envelope migrates to the
+  * V32 boundary the live writer stamps. */
+ export function migrateToV32(save: SaveFile | { saveVersion: number }): SaveFileV32 {
++  if (save.saveVersion === 38) return migrateToV32(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV32(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) return convertV33ToV32(convertV34ToV33(convertV35ToV34(convertV36ToV35(save as SaveFileV36))));
+   if (save.saveVersion === 35) return convertV33ToV32(convertV34ToV33(convertV35ToV34(save as SaveFileV35)));
+@@ -9419,6 +9462,7 @@ export function convertV33ToV32(save: SaveFileV33): SaveFileV32 {
+ /** The live load-to-play route (P14C.1): every prior envelope migrates to the
+  * V33 boundary the live writer stamps. */
+ export function migrateToV33(save: SaveFile | { saveVersion: number }): SaveFileV33 {
++  if (save.saveVersion === 38) return migrateToV33(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV33(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) return convertV34ToV33(convertV35ToV34(convertV36ToV35(save as SaveFileV36)));
+   if (save.saveVersion === 35) return convertV34ToV33(convertV35ToV34(save as SaveFileV35));
+@@ -9658,6 +9702,7 @@ export function convertV34ToV33(save: SaveFileV34): SaveFileV33 {
+ /** Every prior envelope migrates to the V34 boundary; a V35 one downgrades losslessly
+  * only while it holds no cohort receipt. */
+ export function migrateToV34(save: SaveFile | { saveVersion: number }): SaveFileV34 {
++  if (save.saveVersion === 38) return migrateToV34(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV34(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) return convertV35ToV34(convertV36ToV35(save as SaveFileV36));
+   if (save.saveVersion === 35) return convertV35ToV34(save as SaveFileV35);
+@@ -9848,6 +9893,7 @@ export function convertV35ToV34(save: SaveFileV35): SaveFileV34 {
+ /** Every prior envelope migrates to the V35 boundary; a V36 one downgrades losslessly
+  * only while it holds no retirement extension. */
+ export function migrateToV35(save: SaveFile | { saveVersion: number }): SaveFileV35 {
++  if (save.saveVersion === 38) return migrateToV35(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV35(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) return convertV36ToV35(save as SaveFileV36);
+   if (save.saveVersion === 35) return validateSaveV35(save);
+@@ -9858,7 +9904,7 @@ export function migrateToV35(save: SaveFile | { saveVersion: number }): SaveFile
+  * stamps. Callers whose meaning is "the live state" call this, never a numbered
+  * step, so the next save bump moves this one definition. */
+ export function migrateToLive(save: SaveFile | { saveVersion: number }): LiveSaveFile {
+-  return migrateToV37(save);
++  return migrateToV38(save);
+ }
+ 
+ export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
+@@ -9879,6 +9925,7 @@ export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
+ }
+ 
+ export function migrateToV20(save: SaveFile): SaveFileV20 {
++  if (save.saveVersion === 38) return migrateToV20(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return migrateToV20(convertV37ToV36(save as SaveFileV37));
+   if (save.saveVersion === 36) throw new Error('migrateToV20: cannot downgrade SaveFileV36 or discard the retirement extension');
+   if (save.saveVersion === 35) throw new Error('migrateToV20: cannot downgrade SaveFileV35 or discard the cohort receipts');
+@@ -10068,6 +10115,7 @@ export function convertV36ToV35(save: SaveFileV36): SaveFileV35 {
+ 
+ /** Every prior envelope migrates to the V36 boundary. */
+ export function migrateToV36(save: SaveFile | { saveVersion: number }): SaveFileV36 {
++  if (save.saveVersion === 38) return migrateToV36(convertV38ToV37(save as SaveFileV38));
+   if (save.saveVersion === 37) return convertV37ToV36(save as SaveFileV37);
+   if (save.saveVersion === 36) return validateSaveV36(save);
+   return convertV35ToV36(migrateToV35(save));
+@@ -10122,6 +10170,43 @@ export function convertV37ToV36(save: SaveFileV37): SaveFileV36 {
+ 
+ /** Every prior envelope migrates to the explicit amended-law boundary. */
+ export function migrateToV37(save: SaveFile | { saveVersion: number }): SaveFileV37 {
++  if (save.saveVersion === 38) return convertV38ToV37(save as SaveFileV38);
+   if (save.saveVersion === 37) return validateSaveV37(save);
+   return convertV36ToV37(migrateToV36(save));
+ }
++
++
++// ── P14C.3 — prospective profession history, Save38 ────────────────────────
++export function validateSaveV38(save: unknown): SaveFileV38 {
++  if (!isRecord(save)) throw new Error('validateSaveV38: object required');
++  v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
++  if (save.saveVersion !== 38) throw new Error('validateSaveV38: expected version 38');
++  const raw = v14Record(checkEnvelope(save, 'validateSaveV38'), 'state');
++  validateTalentProvenanceRoot(raw);
++  validateProfessionHistory(raw);
++  validateSaveV37({ ...save, saveVersion: 37, state: stripProfessionHistory(raw) });
++  return save as SaveFileV38;
++}
++
++export function convertV37ToV38(save: SaveFileV37): SaveFileV38 {
++  const validated = validateSaveV37(save);
++  const old = JSON.parse(JSON.stringify(validated.state)) as GameStateV37;
++  const state: GameStateV38 = {
++    ...old, careerLifecycle: { ...initialCareerLifecycle(old.market.tick, old.talent), ...old.careerLifecycle },
++  };
++  const reconciled = scheduleProfessionReconciliation(state);
++  return validateSaveV38({ saveVersion: 38, seed: reconciled.seed, state: reconciled, broadcastCache: reconciled.broadcastItems });
++}
++
++export function convertV38ToV37(save: SaveFileV38): SaveFileV37 {
++  if (!isRecord(save) || !isRecord(save.state)) throw new Error('migrateToV37: cannot downgrade a missing Save38 state');
++  assertProfessionHistoryDowngrade(save.state, 'migrateToV37');
++  const validated = validateSaveV38(save);
++  const state = stripProfessionHistory(JSON.parse(JSON.stringify(validated.state)) as Record<string, unknown>);
++  return validateSaveV37({ saveVersion: 37, seed: validated.seed, state, broadcastCache: state.broadcastItems });
++}
++
++export function migrateToV38(save: SaveFile | { saveVersion: number }): SaveFileV38 {
++  if (save.saveVersion === 38) return validateSaveV38(save);
++  return convertV37ToV38(migrateToV37(save));
++}
+diff --git a/src/core/tick.ts b/src/core/tick.ts
+index b800fe14..a9152e7a 100644
+--- a/src/core/tick.ts
++++ b/src/core/tick.ts
+@@ -1074,6 +1074,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
+     market: { ...state.market, tick: currentTick + 1 },
+     talent: materialized.talent,
+     talentProvenance: materialized.talentProvenance,
++    careerLifecycle: materialized.careerLifecycle,
+     studio: {
+       ...admitted.studio,
+       cash,
+diff --git a/src/core/types.ts b/src/core/types.ts
+index 47a4792e..56b3f7ab 100644
+--- a/src/core/types.ts
++++ b/src/core/types.ts
+@@ -2286,7 +2286,8 @@ export type GameStateV31 = GameStateV30 & {
+ // V34, P14C.4 the cohort receipts inside that root at V35. Since P14C.2b the live
+ // gameplay shape includes V36's single final extension. V37 configures Scientist
+ // retirement without adding fields; the save version distinguishes its semantic law.
+-export type GameState = GameStateV37
++// V38 adds prospective profession history and its one actor transition catalogue.
++export type GameState = GameStateV38
+ 
+ // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
+ 
+@@ -2413,6 +2414,60 @@ export type GameStateV36 = Omit<GameStateV35, 'careerLifecycle' | 'talentMarket'
+  * V37's validator selects the amended profession law; V34–V36 remain frozen. */
+ export type GameStateV37 = GameStateV36
+ 
++// P14C.3 (942/946): a profession episode ends before a possible single actor
++// transition. All prior shapes remain frozen; these facts open prospectively.
++export type TransitionTarget = 'director' | 'writer'
++export type TransitionRoleTier = 'Highly unproven' | 'Raw prospect' | 'Limited-or-developing'
++  | 'Strong' | 'Major-studio' | 'Elite' | 'Generational'
++export type TransitionPotentialTier = 'Limited' | 'Steady' | 'Promising' | 'High Upside'
++  | 'Exceptional Upside' | 'Generational Upside'
++export type RetirementKey = { personId: string; profession: CreativeRole }
++export type ProfessionAnchor = {
++  personId: string; profession: CreativeRole; recordedWeek: number; kind: 'existing' | 'entrant'
++}
++export type TransitionPictureRef = { studioId: string; pictureId: string }
++export type TransitionContextWitness = {
++  counterpartId: string | null; pictures: readonly TransitionPictureRef[]
++}
++export type TransitionTargetInput = {
++  profession: TransitionTarget; capability: number; roleTier: TransitionRoleTier
++  workHistory: number; proven: boolean; potentialTier: TransitionPotentialTier
++  contextCount: number; contextBand: 0 | 1 | 2; contextWitness: TransitionContextWitness
++}
++export type TransitionInputs = {
++  age: number; actingFirstTakes: number; leadFirstTakes: number
++  actingWitnesses: readonly string[]
++  targets: readonly [TransitionTargetInput, TransitionTargetInput]
++}
++export type TransitionEvaluation = {
++  id: string; ordinal: number; week: number; personId: string; source: RetirementKey
++  rulesVersion: 1; inputs: TransitionInputs; inputsDigest: string
++  outcome: 'deferred' | 'chosen' | 'declinedAll' | 'ageBoundary'
++  selected: TransitionTarget | null
++  reason: 'noEligibleTarget' | 'onlyEligibleTarget' | 'strongerPublicTuple'
++    | 'equalPublicTuples' | 'waitingAgeReached'
++}
++export type ProfessionChange = {
++  id: string; ordinal: number; week: number; personId: string
++  from: 'actor'; to: TransitionTarget; evaluationId: string
++}
++export type IndustryRetirement = {
++  personId: string; week: number; profession: CreativeRole; source: RetirementKey
++  cause: 'noCatalogue' | 'declinedAll' | 'ageBoundary'; evaluationId: string | null
++}
++export type TransitionDue = { personId: string; week: number }
++export type CareerLifecycleRootV38 = CareerLifecycleRootV36 & {
++  transitionBoundaryWeek: number
++  professionAnchors: readonly ProfessionAnchor[]
++  transitionEvaluations: readonly TransitionEvaluation[]
++  professionChanges: readonly ProfessionChange[]
++  industryRetirements: readonly IndustryRetirement[]
++  transitionDue: readonly TransitionDue[]
++}
++export type GameStateV38 = Omit<GameStateV37, 'careerLifecycle'> & {
++  careerLifecycle: CareerLifecycleRootV38
++}
++
+ // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
+ // The ONE canonical persisted record of a participant's outcome on one released film.
+ // Autopsy (film-centric) and Talent Profile (talent-centric) BOTH render from this —
+diff --git a/src/core/worldgen.ts b/src/core/worldgen.ts
+index ddb589f8..4816808e 100644
+--- a/src/core/worldgen.ts
++++ b/src/core/worldgen.ts
+@@ -820,6 +820,6 @@ export function generateWorld(seed: string, options?: GenerateWorldOptions): Gam
+     // EXACT drawn age at week 0; `talent` above stores each floor of it.
+     talentProvenance: buildTalentProvenance(drawn, 0, 'authored_exact_week'),
+     // P14C.2a: a fresh world has announced no retirement; the root records from week 0.
+-    careerLifecycle: initialCareerLifecycle(0),
++    careerLifecycle: initialCareerLifecycle(0, people),
+   }
+ }
+diff --git a/src/harness/roster-wall/historical-control.ts b/src/harness/roster-wall/historical-control.ts
+index b5035d37..9717e7dd 100644
+--- a/src/harness/roster-wall/historical-control.ts
++++ b/src/harness/roster-wall/historical-control.ts
+@@ -49,7 +49,7 @@ export function liftV18Control(state:GameStateV18):GameState { const cloned=stru
+   // P14C.2a (Save V34): a historical control has no industry, so the lifecycle never
+   // engages and nobody announces — the empty root, exactly what the real lift writes.
+   // P14C.4 (Save V35): nor does any cohort enter — the live opener carries `cohorts: []`.
+-  careerLifecycle:initialCareerLifecycle(state.market.tick)} }
++  careerLifecycle:initialCareerLifecycle(state.market.tick, people)} }
+ export function historicalHashState<T extends object>(state:T):object {
+   if(!('technology' in state) && !('hollywood' in state) && !('physicalPlans' in state) && !('talentMarket' in state)
+     && !('firstTakes' in state) && !('promises' in state) && !('relationships' in state) && !('talentProvenance' in state)
+diff --git a/tests/helpers/p14c3-fixtures.ts b/tests/helpers/p14c3-fixtures.ts
+new file mode 100644
+index 00000000..f211a201
+--- /dev/null
++++ b/tests/helpers/p14c3-fixtures.ts
+@@ -0,0 +1,215 @@
++// 963/967 independent Stage A fixtures. Core-only .js graph; no bridge imports.
++// Genuine historical bytes are immutable. Future shape views follow946; no
++// future module/export is imported before it exists and no receipt is invented.
++import assert from 'node:assert/strict'
++import { createHash } from 'node:crypto'
++import { readFileSync } from 'node:fs'
++import { gunzipSync } from 'node:zlib'
++import { expect } from 'vitest'
++import * as core from '../../src/core/index.js'
++import * as save from '../../src/core/save.js'
++import { tick } from '../../src/core/tick.js'
++import { careerIdentity, expectedPotentialTier, roleTier } from '../../src/core/talentSummary.js'
++import type { CreativeRole, GameState } from '../../src/core/types.js'
++import type { SaveFileV37 } from '../../src/core/save.js'
++
++export type Target = 'director' | 'writer'
++export type RoleTier = 'Highly unproven' | 'Raw prospect' | 'Limited-or-developing' | 'Strong' | 'Major-studio' | 'Elite' | 'Generational'
++export type PotentialTier = 'Limited' | 'Steady' | 'Promising' | 'High Upside' | 'Exceptional Upside' | 'Generational Upside'
++export type RetirementKey = { personId: string; profession: CreativeRole }
++export type PictureRef = { studioId: string; pictureId: string }
++export type TargetInput = { profession: Target; capability: number; roleTier: RoleTier; workHistory: number;
++  proven: boolean; potentialTier: PotentialTier; contextCount: number; contextBand: 0 | 1 | 2;
++  contextWitness: { counterpartId: string | null; pictures: PictureRef[] } }
++export type Inputs = { age: number; actingFirstTakes: number; leadFirstTakes: number; actingWitnesses: string[];
++  targets: [TargetInput, TargetInput] }
++export type Choice = { outcome: 'deferred' | 'chosen' | 'declinedAll' | 'ageBoundary'; selected: Target | null;
++  reason: 'noEligibleTarget' | 'onlyEligibleTarget' | 'strongerPublicTuple' | 'equalPublicTuples' | 'waitingAgeReached' }
++export type Evaluation = Choice & { id: string; ordinal: number; week: number; personId: string;
++  source: RetirementKey; rulesVersion: 1; inputs: Inputs; inputsDigest: string }
++export type Change = { id: string; ordinal: number; week: number; personId: string; from: 'actor'; to: Target; evaluationId: string }
++export type Finality = { personId: string; week: number; profession: CreativeRole; source: RetirementKey;
++  cause: 'noCatalogue' | 'declinedAll' | 'ageBoundary'; evaluationId: string | null }
++export type Root38 = Pick<GameState['careerLifecycle'], 'boundaryWeek' | 'records' | 'cohorts'> & {
++  transitionBoundaryWeek: number;
++  professionAnchors: { personId: string; profession: CreativeRole; recordedWeek: number; kind: 'existing' | 'entrant' }[];
++  transitionEvaluations: Evaluation[]; professionChanges: Change[]; industryRetirements: Finality[];
++  transitionDue: { personId: string; week: number }[];
++}
++export type State38 = GameState & { careerLifecycle: Root38 }
++export type Save38 = { saveVersion: 38; seed: string; state: State38; broadcastCache: GameState['broadcastItems'] }
++type PublicAPI = {
++  professionAtWeek: (state: GameState, personId: string, week: number) => CreativeRole;
++  transitionInputsFor: (state: GameState, personId: string, week: number) => Inputs;
++  chooseProfessionTransition: (inputs: Inputs) => Choice;
++  advanceProfessionTransitions: (state: GameState, newlyRetiredKeys: readonly RetirementKey[]) => GameState;
++}
++export function api<K extends keyof PublicAPI>(name: K): PublicAPI[K] {
++  const fn = (core as unknown as Partial<PublicAPI>)[name]
++  expect(typeof fn, `946 public core export ${name}`).toBe('function')
++  assert.ok(fn)
++  return fn
++}
++type SaveAPI = { validateSaveV38: (input: unknown) => Save38;
++  convertV37ToV38: (input: SaveFileV37) => Save38; convertV38ToV37: (input: Save38) => SaveFileV37;
++  migrateToV38: (input: unknown) => Save38 }
++export function saveApi<K extends keyof SaveAPI>(name: K): SaveAPI[K] {
++  const fn = (save as unknown as Partial<SaveAPI>)[name]
++  expect(typeof fn, `946 versioned save export ${name}`).toBe('function')
++  assert.ok(fn)
++  return fn
++}
++export const FUTURE_ROOT_KEYS = ['transitionBoundaryWeek', 'professionAnchors', 'transitionEvaluations',
++  'professionChanges', 'industryRetirements', 'transitionDue'] as const
++export const FOCUS = { director: 'authored-0000', writer: 'authored-0001' } as const
++export const PRE207 = 'genuine-v37-c3-preretirement-week207.json.gz'
++export const CONTINUOUS208 = 'genuine-v37-c3-retired-week208.json.gz'
++export const RUNTIME208 = 'genuine-v37-c3-runtime-current208.json.gz'
++export const DEFERRED_ACTOR = 'person-cohort-468-actor-0' // actual941:64, retired2433, writing67, zero takes
++export const SCIENTIST = 't-sci-00'
++export const sha = (value: string | Uint8Array) => createHash('sha256').update(value).digest('hex')
++export const bytes = (state: GameState) => save.exportSave(save.makeSave(state))
++export const clone = <T>(value: T): T => structuredClone(value)
++export const compareText = (a: string, b: string) => a < b ? -1 : a > b ? 1 : 0
++const C3_DIR = 'tests/fixtures/p14/genuine-v37-c3-corpus'
++type ArtifactRow = { filename: string; compressedSha256: string; uncompressedSha256: string }
++function readRecorded(directory: string, filename: string, list: 'artifacts' | 'fixtures' = 'artifacts'): string {
++  const manifest = JSON.parse(readFileSync(`${directory}/MANIFEST.json`, 'utf8')) as Record<string, unknown>
++  const row = (manifest[list] as ArtifactRow[]).find(item => item.filename === filename)
++  assert.ok(row, `historical manifest names ${filename}`)
++  const compressed = readFileSync(`${directory}/${filename}`), raw = gunzipSync(compressed).toString('utf8')
++  expect(sha(compressed)).toBe(row.compressedSha256)
++  expect(sha(raw)).toBe(row.uncompressedSha256)
++  return raw
++}
++export function c3Raw(filename: string = PRE207): string {
++  const manifest = JSON.parse(readFileSync(`${C3_DIR}/MANIFEST.json`, 'utf8'))
++  expect(manifest).toMatchObject({ sourceSha: '1f44aa505c0d677430451ab5fcacaf5e0ce205d6',
++    producerSha256: 'aba3b5c101a1982e2994ce69de0e78633a16d499ebe6cb26bdcc31875235bb4c',
++    saveVersion: 37, projectionVersion: 52, knownParityDefect: { status: 'FAIL' } })
++  return readRecorded(C3_DIR, filename)
++}
++export function historical37(filename: string = PRE207): SaveFileV37 {
++  return save.validateSaveV37(JSON.parse(c3Raw(filename)))
++}
++export function migrated(filename: string = PRE207): GameState {
++  // No future-root assertion here: tick tests must reach actual absent role-change
++  // behavior on the old implementation, not all stop at a version/API guard.
++  return save.migrateToLive(save.importSave(c3Raw(filename))).state
++}
++export function scientistRaw(): string {
++  return readRecorded('tests/fixtures/p14/genuine-projection51-runtime-c2rm', 'genuine-v37-scientist-week670.json.gz')
++}
++export function scientistBoundary(): GameState { return save.migrateToLive(save.importSave(scientistRaw())).state }
++export function deferredBoundary(): GameState {
++  const raw = readRecorded('tests/fixtures/p14/genuine-v35-c2b-corpus', 'genuine-v35-c2b-rival-incumbent-cohorts.json.gz', 'fixtures')
++  expect(sha(raw)).toBe('8b4c1934222bc28da2bd4517b3967350cc01e2517cb18044246a3a65323f2fa8')
++  const imported = save.importSave(raw)
++  expect(imported.saveVersion).toBe(35)
++  const state = save.migrateToLive(imported).state
++  expect(state.market.tick).toBe(2600)
++  expect(state.talent.find(person => person.id === DEFERRED_ACTOR)).toMatchObject({ role: 'actor', age: 64 })
++  expect(state.careerLifecycle.records.find(row => row.personId === DEFERRED_ACTOR))
++    .toMatchObject({ profession: 'actor', status: 'retired', retiredWeek: 2433 })
++  expect(state.firstTakes.filter(take => Object.values(take.cast).includes(DEFERRED_ACTOR))).toEqual([])
++  return state
++}
++export function root38(state: GameState): Root38 {
++  const root = state.careerLifecycle as Root38
++  expect(Object.keys(root).sort(), '946 exact current lifecycle root')
++    .toEqual(['boundaryWeek', 'records', 'cohorts', ...FUTURE_ROOT_KEYS].sort())
++  return root
++}
++export function envelope38(state: GameState): Save38 {
++  const result = save.makeSave(state)
++  expect(result.saveVersion, 'existing live writer moves coherently to38').toBe(38)
++  root38(result.state)
++  return result as unknown as Save38
++}
++export function person(state: GameState, id: string) {
++  const result = state.talent.find(row => row.id === id)
++  assert.ok(result, `actual person ${id}`)
++  return result
++}
++export function expectFocusChosen(state: GameState, week: number): Root38 {
++  expect(state.market.tick).toBe(week)
++  for (const [target, id] of Object.entries(FOCUS)) {
++    expect(person(state, id).role, `actual retirement must activate ${target}, not merely expose a new API`).toBe(target)
++  }
++  const root = root38(state)
++  for (const [target, id] of Object.entries(FOCUS)) {
++    const evaluations = root.transitionEvaluations.filter(row => row.personId === id)
++    const changes = root.professionChanges.filter(row => row.personId === id)
++    expect(evaluations).toHaveLength(1); expect(changes).toHaveLength(1)
++    expect(evaluations[0]).toMatchObject({ personId: id, week, source: { personId: id, profession: 'actor' },
++      rulesVersion: 1, outcome: 'chosen', selected: target, reason: 'onlyEligibleTarget' })
++    expect(changes[0]).toMatchObject({ personId: id, week, from: 'actor', to: target, evaluationId: evaluations[0]!.id })
++    expect(root.transitionDue.some(row => row.personId === id)).toBe(false)
++    expect(root.industryRetirements.some(row => row.personId === id)).toBe(false)
++    expect(state.freeAgents.filter(member => member === id)).toHaveLength(1)
++  }
++  return root
++}
++const chosenCache = new Map<string, GameState>()
++export function chosen(filename: string = PRE207): GameState {
++  if (!chosenCache.has(filename)) {
++    const before = migrated(filename), after = tick(before, { develop: true })
++    expectFocusChosen(after, before.market.tick + 1)
++    envelope38(after)
++    chosenCache.set(filename, after)
++  }
++  return clone(chosenCache.get(filename)!)
++}
++
++/** Independent expectation for the two genuine953 subjects. Assert the bounded
++ * fixture premises explicitly; Stage B owns the general cross-source algorithm. */
++export function expectedFocusInputs(state: GameState, id: string): Inputs {
++  const subject = person(state, id), owner = state.hollywood!.playerStudioId
++  const takes = state.firstTakes.filter(take => take.week <= state.market.tick && Object.values(take.cast).includes(id))
++    .sort((a, b) => a.week - b.week || compareText(a.studioId, b.studioId)
++      || compareText(a.productionId, b.productionId) || compareText(a.eventId, b.eventId))
++  expect(takes).toHaveLength(3)
++  expect(new Set(takes.map(take => JSON.stringify([take.studioId, take.productionId]))).size).toBe(3)
++  expect(takes.every(take => take.studioId === owner)).toBe(true)
++  const films = state.studio.releasedFilms.filter(film => film.releaseTick <= state.market.tick && film.participants
++    && Object.values(film.participants.cast).some(credit => credit.talentId === id))
++  expect(films).toHaveLength(3)
++  expect(new Set(films.map(film => film.participants!.writer.talentId))).toEqual(new Set(['authored-0003']))
++  expect((state.hollywood?.films ?? []).some(film => film.credits.some(credit => credit.talentId === id))).toBe(false)
++  const leads = takes.filter(take => take.cast.lead === id)
++  expect(leads).toHaveLength(id === FOCUS.director ? 3 : 0)
++  if (leads.length > 0) expect(new Set(leads.map(take => take.directorId))).toEqual(new Set(['authored-0002']))
++  const target = (profession: Target): TargetInput => {
++    const discipline = profession === 'director' ? 'directing' : 'writing'
++    const standing = careerIdentity(subject).disciplines.find(row => row.discipline === discipline)!
++    const pictures = (profession === 'director' ? leads.map(take => ({ studioId: take.studioId, pictureId: take.productionId }))
++      : films.map(film => ({ studioId: owner, pictureId: film.productionId })))
++      .sort((a, b) => compareText(a.studioId, b.studioId) || compareText(a.pictureId, b.pictureId))
++    return { profession, capability: standing.ovr, roleTier: roleTier(standing.ovr) as RoleTier,
++      workHistory: standing.workHistory, proven: standing.proven,
++      potentialTier: expectedPotentialTier(subject, discipline, state.seed) as PotentialTier,
++      contextCount: pictures.length, contextBand: Math.min(2, pictures.length) as 0 | 1 | 2,
++      contextWitness: { counterpartId: pictures.length === 0 ? null : profession === 'director' ? 'authored-0002' : 'authored-0003',
++        pictures: pictures.slice(0, 2) } }
++  }
++  return { age: subject.age, actingFirstTakes: takes.length, leadFirstTakes: leads.length,
++    actingWitnesses: takes.slice(0, 3).map(take => take.eventId), targets: [target('director'), target('writer')] }
++}
++
++/** Pure chooser units only: these synthetic inputs never enter a world/save. */
++export function syntheticTarget(profession: Target, patch: Partial<TargetInput> = {}): TargetInput {
++  const capability = patch.capability ?? 80, workHistory = patch.workHistory ?? 0, contextCount = patch.contextCount ?? 2
++  return { profession, capability, roleTier: roleTier(capability) as RoleTier, workHistory,
++    proven: capability >= 60 && workHistory > 0, potentialTier: 'Steady', contextCount,
++    contextBand: Math.min(2, contextCount) as 0 | 1 | 2,
++    contextWitness: { counterpartId: contextCount === 0 ? null : `synthetic-${profession}-counterpart`,
++      pictures: Array.from({ length: Math.min(contextCount, 2) }, (_, i) => ({ studioId: 'synthetic-studio', pictureId: `picture-${i}` })) },
++    ...patch }
++}
++export function syntheticInputs(director: Partial<TargetInput> = {}, writer: Partial<TargetInput> = { capability: 20 },
++  patch: Partial<Omit<Inputs, 'targets'>> = {}): Inputs {
++  const count = patch.actingFirstTakes ?? 3
++  return { age: 72, actingFirstTakes: count, leadFirstTakes: count,
++    actingWitnesses: Array.from({ length: Math.min(count, 3) }, (_, i) => `synthetic-take-${i}`),
++    targets: [syntheticTarget('director', director), syntheticTarget('writer', writer)], ...patch }
++}
+diff --git a/tests/p14c3-save-v38.test.ts b/tests/p14c3-save-v38.test.ts
+new file mode 100644
+index 00000000..a0ade1ad
+--- /dev/null
++++ b/tests/p14c3-save-v38.test.ts
+@@ -0,0 +1,91 @@
++// 963/967 Stage A foundations. Exact946 migration/downgrade law; independent
++// expectations use retained old facts, never a new production output/hash dump.
++import { describe, expect, it } from 'vitest'
++import { applyActions } from '../src/core/actions.js'
++import { generateWorld } from '../src/core/worldgen.js'
++import { LIFECYCLE_INTENT_RULES_VERSION } from '../src/core/careerLifecycle.js'
++import { PROMISE_RULES_VERSION } from '../src/core/promises.js'
++import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
++import { CONTINUOUS208, FUTURE_ROOT_KEYS, PRE207, RUNTIME208, c3Raw, compareText,
++  envelope38, historical37, migrated, person, root38, saveApi } from './helpers/p14c3-fixtures.js'
++
++describe('C.3 A01/A02 exact Save38 opening', () => {
++  it('moves the existing live writer and fresh root together while preserving intent1 and promise4', () => {
++    const world = generateWorld('967-fresh-root'), saved = makeSave(world)
++    expect(saved.saveVersion, 'existing makeSave must write the governed new envelope').toBe(38)
++    expect(LIVE_SAVE_VERSION).toBe(38)
++    expect(LIFECYCLE_INTENT_RULES_VERSION).toBe(1)
++    expect(PROMISE_RULES_VERSION).toBe(4)
++    const root = root38(saved.state)
++    expect(root.transitionBoundaryWeek).toBe(world.market.tick)
++    expect(root.professionAnchors).toEqual(world.talent.map(talent => ({ personId: talent.id,
++      profession: talent.role, recordedWeek: world.market.tick, kind: 'existing' })))
++    expect(root.transitionEvaluations).toEqual([])
++    expect(root.professionChanges).toEqual([])
++    expect(root.industryRetirements).toEqual([])
++    expect(root.transitionDue).toEqual([])
++    expect(exportSave(importSave(exportSave(saved)))).toBe(exportSave(saved))
++  })
++
++  it.each(['genuine-v37-c3-created-week0.json.gz', PRE207, CONTINUOUS208, RUNTIME208])(
++    'migrates genuine %s losslessly except for explicit prospective38 scaffolding', filename => {
++      const raw = c3Raw(filename), old = historical37(filename), before = stableStringify(old)
++      const upgraded = migrateToLive(old)
++      expect(upgraded.saveVersion, 'actual migration must change the current envelope').toBe(38)
++      const root = root38(upgraded.state), week = old.state.market.tick
++      expect(root.transitionBoundaryWeek).toBe(week)
++      expect(root.professionAnchors).toEqual(old.state.talent.map(talent => ({ personId: talent.id,
++        profession: talent.role, recordedWeek: week, kind: 'existing' })))
++      expect(root.transitionEvaluations).toEqual([])
++      expect(root.professionChanges).toEqual([])
++      expect(root.industryRetirements).toEqual([])
++      const expectedDue = old.state.hollywood === null ? [] : old.state.careerLifecycle.records
++        .filter(record => record.status === 'retired')
++        .map(record => ({ personId: record.personId, week: week + 1 }))
++        .sort((a, b) => a.week - b.week || compareText(a.personId, b.personId))
++      expect(root.transitionDue, 'actual completed retirements reconcile prospectively, not on load').toEqual(expectedDue)
++      const stripped = { ...upgraded.state, careerLifecycle: Object.fromEntries(
++        Object.entries(root).filter(([key]) => !FUTURE_ROOT_KEYS.includes(key as typeof FUTURE_ROOT_KEYS[number]))) }
++      expect(stableStringify(stripped), 'every old field, receipt, clock and RNG value survives migration').toBe(stableStringify(old.state))
++      expect(stableStringify(old), 'converter never mutates its genuine input').toBe(before)
++      expect(exportSave(importSave(raw))).toBe(raw)
++      expect(c3Raw(filename)).toBe(raw)
++      expect(exportSave(importSave(exportSave(upgraded)))).toBe(exportSave(upgraded))
++    })
++
++  it('exposes matching strict38 conversion, validation and current migration over a genuine37 save', () => {
++    const old = historical37(), original = stableStringify(old)
++    const converted = saveApi('convertV37ToV38')(old)
++    expect(converted.saveVersion).toBe(38)
++    expect(saveApi('validateSaveV38')(converted)).toBe(converted)
++    expect(stableStringify(saveApi('migrateToV38')(old))).toBe(stableStringify(converted))
++    expect(stableStringify(migrateToLive(old))).toBe(stableStringify(converted))
++    expect(stableStringify(old)).toBe(original)
++  })
++})
++
++describe('C.3 A11 lossless empty-boundary downgrade and actual entrant authority', () => {
++  it.each([PRE207, CONTINUOUS208])('downgrades untouched %s exactly, including its unexecuted prospective queue', filename => {
++    const raw = c3Raw(filename), current = envelope38(migrated(filename))
++    const before = stableStringify(current)
++    const downgraded = saveApi('convertV38ToV37')(current)
++    expect(downgraded.saveVersion).toBe(37)
++    expect(exportSave(downgraded)).toBe(raw)
++    expect(stableStringify(current)).toBe(before)
++  })
++
++  it('refuses loss of a genuine entrant created at the same week as the38 opening', () => {
++    const boundary = migrated(PRE207), root = root38(boundary), beforeCount = boundary.talent.length
++    const created = applyActions(boundary, [{ kind: 'createTalent', talent: { name: '967 Same-week entrant',
++      role: 'actor', age: 30, actual: { warmth: 0, gravity: 0, physicality: 0.2 },
++      potentialTier: 'Steady', workEthic: 55 } }])
++    expect(created.talent).toHaveLength(beforeCount + 1)
++    const entrant = created.talent.at(-1)!, current = envelope38(created)
++    expect(person(created, entrant.id).role).toBe('actor')
++    expect(current.state.careerLifecycle.professionAnchors.filter(anchor => anchor.personId === entrant.id))
++      .toEqual([{ personId: entrant.id, profession: 'actor', recordedWeek: root.transitionBoundaryWeek, kind: 'entrant' }])
++    expect(created.market.tick).toBe(root.transitionBoundaryWeek)
++    expect(() => saveApi('convertV38ToV37')(current)).toThrow(/downgrade|entrant|discard/i)
++    expect(boundary.talent).toHaveLength(beforeCount)
++  })
++})
+diff --git a/tests/p14c3-transitions.test.ts b/tests/p14c3-transitions.test.ts
+new file mode 100644
+index 00000000..dac2f8c7
+--- /dev/null
++++ b/tests/p14c3-transitions.test.ts
+@@ -0,0 +1,232 @@
++// 963/967 independent Stage A. Genuine history drives state-level assertions;
++// explicitly synthetic public snapshots exercise the pure comparison contract.
++import assert from 'node:assert/strict'
++import { describe, expect, it } from 'vitest'
++import * as core from '../src/core/index.js'
++import { ageAt, nextBirthdayWeek } from '../src/core/aging.js'
++import { retirementRecordFor } from '../src/core/careerLifecycle.js'
++import { exportSave, importSave, migrateToLive, stableStringify } from '../src/core/save.js'
++import { tick } from '../src/core/tick.js'
++import { TUNING } from '../src/core/tuning.js'
++import type { CreativeRole, GameState } from '../src/core/types.js'
++import { CONTINUOUS208, DEFERRED_ACTOR, FOCUS, PRE207, RUNTIME208, SCIENTIST,
++  api, bytes, chosen, clone, deferredBoundary, envelope38, expectFocusChosen,
++  expectedFocusInputs, migrated, person, root38, saveApi, scientistBoundary,
++  syntheticInputs } from './helpers/p14c3-fixtures.js'
++import type { Choice, Inputs, Root38, TargetInput } from './helpers/p14c3-fixtures.js'
++
++const chosenDirector: Choice = { outcome: 'chosen', selected: 'director', reason: 'onlyEligibleTarget' }
++const chosenWriter: Choice = { outcome: 'chosen', selected: 'writer', reason: 'onlyEligibleTarget' }
++const deferred: Choice = { outcome: 'deferred', selected: null, reason: 'noEligibleTarget' }
++const equal: Choice = { outcome: 'declinedAll', selected: null, reason: 'equalPublicTuples' }
++const ageBoundary: Choice = { outcome: 'ageBoundary', selected: null, reason: 'waitingAgeReached' }
++const stronger = (selected: 'director' | 'writer'): Choice => ({ outcome: 'chosen', selected, reason: 'strongerPublicTuple' })
++type ComparisonCase = { name: string; director?: Partial<TargetInput>; writer?: Partial<TargetInput>;
++  base?: Partial<Omit<Inputs, 'targets'>>; expected: Choice }
++const comparisons: ComparisonCase[] = [
++  { name: 'capability59 on both is insufficient', director: { capability: 59 }, writer: { capability: 59 }, expected: deferred },
++  { name: 'capability60 first makes director eligible', director: { capability: 60 }, expected: chosenDirector },
++  { name: 'capability60 first makes writer eligible', director: { capability: 59 }, writer: { capability: 60 }, expected: chosenWriter },
++  { name: 'two actual acting takes are insufficient', base: { actingFirstTakes: 2 }, expected: deferred },
++  { name: 'three actual acting takes suffice with qualifying context', expected: chosenDirector },
++  { name: 'one shared picture does not prove repeated context', director: { contextCount: 1 }, expected: deferred },
++  { name: 'two shared pictures prove repeated context', director: { contextCount: 2 }, expected: chosenDirector },
++  { name: 'a proven target needs no repeat context', director: { workHistory: 1, contextCount: 0 }, expected: chosenDirector },
++  { name: 'capable but unproven without context remains deferred', director: { workHistory: 0, contextCount: 0 }, expected: deferred },
++  { name: 'exact eligible tuples decline both without a target-order tie break', writer: {}, expected: equal },
++  { name: 'proven director beats a higher-tier unproven writer', director: { capability: 60, workHistory: 1, contextCount: 0 }, writer: { capability: 95 }, expected: stronger('director') },
++  { name: 'proven writer beats a higher-tier unproven director', director: { capability: 95 }, writer: { capability: 60, workHistory: 1, contextCount: 0 }, expected: stronger('writer') },
++  { name: 'director role tier precedes later tuple fields', director: { capability: 80, potentialTier: 'Limited' }, writer: { capability: 79, potentialTier: 'Generational Upside' }, expected: stronger('director') },
++  { name: 'writer role tier precedes later tuple fields', director: { capability: 79, potentialTier: 'Generational Upside' }, writer: { capability: 80, potentialTier: 'Limited' }, expected: stronger('writer') },
++  { name: 'director context band precedes public potential', director: { workHistory: 1, contextCount: 2, potentialTier: 'Limited' }, writer: { workHistory: 1, contextCount: 1, potentialTier: 'Generational Upside' }, expected: stronger('director') },
++  { name: 'writer context band precedes public potential', director: { workHistory: 1, contextCount: 1, potentialTier: 'Generational Upside' }, writer: { workHistory: 1, contextCount: 2, potentialTier: 'Limited' }, expected: stronger('writer') },
++  { name: 'director public potential resolves an otherwise equal tuple', director: { potentialTier: 'Steady' }, writer: { potentialTier: 'Limited' }, expected: stronger('director') },
++  { name: 'writer public potential resolves an otherwise equal tuple', director: { potentialTier: 'Limited' }, writer: { potentialTier: 'Steady' }, expected: stronger('writer') },
++  { name: 'raw OVR does not break a tie inside the same role tier', director: { capability: 70 }, writer: { capability: 79 }, expected: equal },
++  { name: 'raw context above two does not break a context-band tie', director: { contextCount: 2 }, writer: { contextCount: 7 }, expected: equal },
++  { name: 'raw work history does not rank two already-proven targets', director: { workHistory: 1 }, writer: { workHistory: 9 }, expected: equal },
++  { name: 'two Limited-upside targets are eligible and can tie', director: { potentialTier: 'Limited' }, writer: { potentialTier: 'Limited' }, expected: equal },
++  { name: 'Limited upside does not veto the sole eligible target', director: { potentialTier: 'Limited' }, expected: chosenDirector },
++  { name: 'age74 still allows a choice', base: { age: 74 }, expected: chosenDirector },
++  { name: 'age75 overrides an otherwise eligible winner', base: { age: 75 }, expected: ageBoundary },
++  { name: 'age75 overrides no-eligible deferral', director: { capability: 59 }, base: { age: 75 }, expected: ageBoundary },
++  { name: 'older actors cannot reopen target choice', base: { age: 76 }, expected: ageBoundary },
++]
++
++function assertEventIdentity(root: Root38): void {
++  root.transitionEvaluations.forEach((row, ordinal) => {
++    expect(row.ordinal).toBe(ordinal)
++    expect(row.id).toBe(`transition-evaluation-${ordinal}`)
++    expect(row.inputsDigest).toMatch(/^[0-9a-f]{16}$/)
++  })
++  root.professionChanges.forEach((row, ordinal) => {
++    expect(row.ordinal).toBe(ordinal)
++    expect(row.id).toBe(`profession-change-${ordinal}`)
++    expect(root.transitionEvaluations.find(evaluation => evaluation.id === row.evaluationId))
++      .toMatchObject({ week: row.week, personId: row.personId, outcome: 'chosen', selected: row.to })
++  })
++}
++
++describe('C.3 A07/A08 pure public choice law', () => {
++  it('publishes transition rule1 and its four delegated constants without changing existing rule versions', () => {
++    expect((core as unknown as Record<string, unknown>).TRANSITION_RULES_VERSION).toBe(1)
++    expect(TUNING).toMatchObject({ PROFESSION_TRANSITION_MIN_ACTING_TAKES: 3,
++      PROFESSION_TRANSITION_MIN_CONTEXT_PICTURES: 2, PROFESSION_TRANSITION_RECHECK_WEEKS: 52,
++      PROFESSION_TRANSITION_WAIT_AGE_MARGIN: 5 })
++  })
++
++  it.each(comparisons)('$name', row => {
++    const inputs = syntheticInputs(row.director ?? {}, row.writer ?? { capability: 20 }, row.base ?? {})
++    const before = stableStringify(inputs), choose = api('chooseProfessionTransition')
++    expect(choose(inputs)).toEqual(row.expected)
++    expect(choose(clone(inputs))).toEqual(row.expected)
++    expect(stableStringify(inputs), 'public choice is pure').toBe(before)
++  })
++})
++
++describe('C.3 A03/A04 genuine retirement choices through existing tick', () => {
++  it('retires the two genuine207 actors into director and writer at208 with real bounded evidence', () => {
++    const before = migrated(PRE207), immutable = stableStringify(before)
++    for (const id of Object.values(FOCUS)) {
++      expect(person(before, id)).toMatchObject({ role: 'actor', age: 71 })
++      expect(before.careerLifecycle.records.find(row => row.personId === id))
++        .toMatchObject({ profession: 'actor', status: 'announced', effectiveWeek: 208, retiredWeek: null })
++      const inputs = expectedFocusInputs(before, id)
++      expect(inputs.actingFirstTakes).toBe(3)
++      expect(inputs.targets.find(row => row.profession === (id === FOCUS.director ? 'director' : 'writer')))
++        .toMatchObject({ capability: 80, proven: false, contextCount: 3, contextBand: 2 })
++    }
++    const after = chosen(PRE207) // actual tick; first assertion is actual Talent.role
++    const root = expectFocusChosen(after, 208)
++    assertEventIdentity(root)
++    for (const id of Object.values(FOCUS)) {
++      expect(root.records.find(row => row.personId === id && row.profession === 'actor'))
++        .toMatchObject({ status: 'retired', retiredWeek: 208, effectiveWeek: 208 })
++      const evaluation = root.transitionEvaluations.find(row => row.personId === id)!
++      expect(evaluation.inputs).toEqual(expectedFocusInputs(after, id))
++      expect(evaluation.inputs.age).toBe(72)
++      expect(evaluation.inputs.actingWitnesses).toHaveLength(3)
++      expect(evaluation.inputs.targets.find(row => row.profession === evaluation.selected)!.contextWitness.pictures).toHaveLength(2)
++    }
++    expect(stableStringify(before)).toBe(immutable)
++  })
++
++  it.each([CONTINUOUS208, RUNTIME208])('reconciles actual retired %s prospectively at209 without backdating or rewriting old receipts', filename => {
++    const before = migrated(filename), immutable = stableStringify(before)
++    expect(before.market.tick).toBe(208)
++    for (const id of Object.values(FOCUS)) {
++      expect(person(before, id).role).toBe('actor')
++      expect(before.careerLifecycle.records.find(row => row.personId === id))
++        .toMatchObject({ profession: 'actor', status: 'retired', retiredWeek: 208 })
++    }
++    const after = chosen(filename), root = expectFocusChosen(after, 209)
++    expect(root38(before).transitionEvaluations).toEqual([])
++    expect(root38(before).professionChanges).toEqual([])
++    expect(root38(before).industryRetirements).toEqual([])
++    for (const id of Object.values(FOCUS)) {
++      expect(root38(before).transitionDue).toContainEqual({ personId: id, week: 209 })
++      expect(root.records.find(row => row.personId === id && row.profession === 'actor')?.retiredWeek).toBe(208)
++      expect(root.transitionEvaluations.find(row => row.personId === id)?.week).toBe(209)
++    }
++    assertEventIdentity(root)
++    expect(stableStringify(before), 'load and continuation leave the old input, including its own historical receipt digests, unchanged').toBe(immutable)
++    expect(exportSave(importSave(bytes(after)))).toBe(bytes(after))
++  })
++})
++
++describe('C.3 A05/A06 public profession history, current evidence and repeat safety', () => {
++  it('derives the exact current public input without mutation and refuses past-week reconstruction', () => {
++    const state = migrated(), immutable = stableStringify(state), read = api('transitionInputsFor')
++    for (const id of Object.values(FOCUS)) {
++      const expected = expectedFocusInputs(state, id)
++      expect(read(state, id, 207)).toEqual(expected)
++      expect(read(clone(state), id, 207)).toEqual(expected)
++      expect(() => read(state, id, 206)).toThrow()
++      expect(() => read(state, id, 208)).toThrow()
++    }
++    expect(stableStringify(state)).toBe(immutable)
++  })
++
++  it('uses inclusive change weeks and current-versus-explicit retirement lookup after save and reload', () => {
++    const state = chosen(), at = api('professionAtWeek')
++    const record = retirementRecordFor as (state: GameState, personId: string, profession?: CreativeRole) => ReturnType<typeof retirementRecordFor>
++    const reopened = migrateToLive(importSave(bytes(state))).state
++    for (const [target, id] of Object.entries(FOCUS)) {
++      expect(at(reopened, id, 0)).toBe('actor')
++      expect(at(reopened, id, 207)).toBe('actor')
++      expect(at(reopened, id, 208)).toBe(target)
++      expect(record(reopened, id)).toBeUndefined()
++      expect(record(reopened, id, 'actor')).toMatchObject({ profession: 'actor', status: 'retired', retiredWeek: 208 })
++    }
++    expect(bytes(reopened)).toBe(bytes(state))
++    const immutable = bytes(reopened), repeated = api('advanceProfessionTransitions')(reopened, [])
++    expect(bytes(repeated), 'repeat due processing adds no choice, finality, queue or other write').toBe(immutable)
++    expect(bytes(reopened)).toBe(immutable)
++    const next = tick(reopened, { develop: true })
++    expect(root38(next).transitionEvaluations).toEqual(root38(reopened).transitionEvaluations)
++    expect(root38(next).professionChanges).toEqual(root38(reopened).professionChanges)
++    for (const [target, id] of Object.entries(FOCUS)) expect(at(next, id, 209)).toBe(target)
++    expect(() => saveApi('convertV38ToV37')(envelope38(reopened))).toThrow(/downgrade|transition|discard|profession/i)
++  })
++})
++
++describe('C.3 A09/A10 genuine prospective finality and deferred reconciliation', () => {
++  it('records Scientist noCatalogue finality at671 once, preserving the actual670 profession retirement', () => {
++    const before = scientistBoundary()
++    expect(before.market.tick).toBe(670)
++    expect(person(before, SCIENTIST).role).toBe('scientist')
++    expect(before.careerLifecycle.records.find(row => row.personId === SCIENTIST))
++      .toMatchObject({ profession: 'scientist', status: 'retired', retiredWeek: 670 })
++    const after = tick(before, { develop: true })
++    // Existing public tick is the tested boundary, before any new-export call.
++    expect((after.careerLifecycle as Partial<Root38>).industryRetirements)
++      .toEqual(expect.arrayContaining([{ personId: SCIENTIST, week: 671, profession: 'scientist',
++        source: { personId: SCIENTIST, profession: 'scientist' }, cause: 'noCatalogue', evaluationId: null }]))
++    expect(root38(before).industryRetirements).toEqual([])
++    expect(root38(before).transitionDue).toContainEqual({ personId: SCIENTIST, week: 671 })
++    const root = root38(after)
++    expect(root.industryRetirements.filter(row => row.personId === SCIENTIST)).toHaveLength(1)
++    expect(root.transitionEvaluations.filter(row => row.personId === SCIENTIST)).toEqual([])
++    expect(root.professionChanges.filter(row => row.personId === SCIENTIST)).toEqual([])
++    expect(root.transitionDue.filter(row => row.personId === SCIENTIST)).toEqual([])
++    expect(root.records.find(row => row.personId === SCIENTIST)?.retiredWeek).toBe(670)
++    expect(after.freeAgents).not.toContain(SCIENTIST)
++    const reopened = migrateToLive(importSave(bytes(after))).state
++    const next = tick(reopened, { develop: true })
++    expect(root38(next).industryRetirements.filter(row => row.personId === SCIENTIST))
++      .toEqual(root.industryRetirements.filter(row => row.personId === SCIENTIST))
++    expect(() => saveApi('convertV38ToV37')(envelope38(reopened))).toThrow(/downgrade|retirement|discard|profession/i)
++  })
++
++  it('defers the real retired cohort actor at2601 and schedules the exact annual-or-age deadline, never the next week', () => {
++    const before = deferredBoundary(), immutable = stableStringify(before)
++    const after = tick(before, { develop: true }), week = 2601
++    expect(after.market.tick).toBe(week)
++    const evaluations = (after.careerLifecycle as Partial<Root38>).transitionEvaluations
++    expect(evaluations, 'existing tick must create the first prospective evaluation').toBeDefined()
++    const rows = evaluations!.filter(row => row.personId === DEFERRED_ACTOR)
++    expect(rows).toHaveLength(1)
++    const evaluation = rows[0]!
++    expect(evaluation).toMatchObject({ week, personId: DEFERRED_ACTOR, rulesVersion: 1,
++      source: { personId: DEFERRED_ACTOR, profession: 'actor' }, ...deferred })
++    expect(evaluation.inputs.actingFirstTakes).toBe(0)
++    expect(evaluation.inputs.actingWitnesses).toEqual([])
++    const provenance = after.talentProvenance.rows.find(row => row.personId === DEFERRED_ACTOR)
++    assert.ok(provenance)
++    expect(evaluation.inputs.age).toBe(ageAt(provenance, week))
++    const expectedDue = Math.min(week + 52, nextBirthdayWeek(provenance, 74))
++    expect(expectedDue).toBeGreaterThan(week + 1)
++    expect(root38(before).transitionDue).toContainEqual({ personId: DEFERRED_ACTOR, week })
++    expect(root38(after).transitionDue.filter(row => row.personId === DEFERRED_ACTOR))
++      .toEqual([{ personId: DEFERRED_ACTOR, week: expectedDue }])
++    expect(root38(after).professionChanges.filter(row => row.personId === DEFERRED_ACTOR)).toEqual([])
++    expect(root38(after).industryRetirements.filter(row => row.personId === DEFERRED_ACTOR)).toEqual([])
++    expect(after.freeAgents).not.toContain(DEFERRED_ACTOR)
++    expect(person(after, DEFERRED_ACTOR).role).toBe('actor')
++    const saved = envelope38(after), next = tick(migrateToLive(importSave(exportSave(saved))).state, { develop: true })
++    expect(root38(next).transitionEvaluations.filter(row => row.personId === DEFERRED_ACTOR)).toEqual(rows)
++    expect(root38(next).transitionDue.filter(row => row.personId === DEFERRED_ACTOR))
++      .toEqual([{ personId: DEFERRED_ACTOR, week: expectedDue }])
++    expect(stableStringify(before)).toBe(immutable)
++  })
++})

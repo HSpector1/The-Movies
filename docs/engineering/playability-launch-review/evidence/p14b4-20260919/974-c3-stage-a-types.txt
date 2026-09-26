@@ -1,0 +1,102 @@
+{"sourceSha":"c000479d6e888d3a02f5c2ff534f5dfcbb32af3f","testedDiffSha256":"f68162a2f6db85d8969990b7991f769714c1d24e37be429b4b6593023e17bedd","untrackedSource":[],"command":["npm","run","typecheck"],"node":"v20.20.2","start":"2026-09-26T20:08:37.276Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+tests/helpers/p14c2b-fixtures.ts(63,3): error TS2375: Type 'GameStateV36' is not assignable to type 'GameStateV38' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV36' is not assignable to type '{ careerLifecycle: CareerLifecycleRootV38; }'.
+    Types of property 'careerLifecycle' are incompatible.
+      Type 'CareerLifecycleRootV36' is not assignable to type 'CareerLifecycleRootV38'.
+        Type 'CareerLifecycleRootV36' is missing the following properties from type '{ transitionBoundaryWeek: number; professionAnchors: readonly ProfessionAnchor[]; transitionEvaluations: readonly TransitionEvaluation[]; professionChanges: readonly ProfessionChange[]; industryRetirements: readonly IndustryRetirement[]; transitionDue: readonly TransitionDue[]; }': transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, and 2 more.
+tests/helpers/p14c2c-fixtures.ts(29,3): error TS2375: Type 'GameStateV36' is not assignable to type 'GameStateV38' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV36' is not assignable to type '{ careerLifecycle: CareerLifecycleRootV38; }'.
+    Types of property 'careerLifecycle' are incompatible.
+      Type 'CareerLifecycleRootV36' is not assignable to type 'CareerLifecycleRootV38'.
+        Type 'CareerLifecycleRootV36' is missing the following properties from type '{ transitionBoundaryWeek: number; professionAnchors: readonly ProfessionAnchor[]; transitionEvaluations: readonly TransitionEvaluation[]; professionChanges: readonly ProfessionChange[]; industryRetirements: readonly IndustryRetirement[]; transitionDue: readonly TransitionDue[]; }': transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, and 2 more.
+tests/helpers/p14c2rm-fixtures.ts(23,3): error TS2375: Type 'GameStateV36' is not assignable to type 'GameStateV38' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV36' is not assignable to type '{ careerLifecycle: CareerLifecycleRootV38; }'.
+    Types of property 'careerLifecycle' are incompatible.
+      Type 'CareerLifecycleRootV36' is not assignable to type 'CareerLifecycleRootV38'.
+        Type 'CareerLifecycleRootV36' is missing the following properties from type '{ transitionBoundaryWeek: number; professionAnchors: readonly ProfessionAnchor[]; transitionEvaluations: readonly TransitionEvaluation[]; professionChanges: readonly ProfessionChange[]; industryRetirements: readonly IndustryRetirement[]; transitionDue: readonly TransitionDue[]; }': transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, and 2 more.
+tests/helpers/p14c2rm-fixtures.ts(62,3): error TS2375: Type 'GameStateV36' is not assignable to type 'GameStateV38' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV36' is not assignable to type '{ careerLifecycle: CareerLifecycleRootV38; }'.
+    Types of property 'careerLifecycle' are incompatible.
+      Type 'CareerLifecycleRootV36' is not assignable to type 'CareerLifecycleRootV38'.
+        Type 'CareerLifecycleRootV36' is missing the following properties from type '{ transitionBoundaryWeek: number; professionAnchors: readonly ProfessionAnchor[]; transitionEvaluations: readonly TransitionEvaluation[]; professionChanges: readonly ProfessionChange[]; industryRetirements: readonly IndustryRetirement[]; transitionDue: readonly TransitionDue[]; }': transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, and 2 more.
+tests/helpers/p14c4-fixtures.ts(67,9): error TS2322: Type 'SaveFileV37' is not assignable to type 'SaveFileV38'.
+  Types of property 'saveVersion' are incompatible.
+    Type '37' is not assignable to type '38'.
+tests/helpers/p14c4-fixtures.ts(70,42): error TS2345: Argument of type 'SaveFileV38' is not assignable to parameter of type 'SaveFileV37'.
+  Types of property 'saveVersion' are incompatible.
+    Type '38' is not assignable to type '37'.
+tests/p14b1-first-take.test.ts(301,36): error TS2379: Argument of type 'GameStateV36' is not assignable to parameter of type 'GameStateV38' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV36' is not assignable to type '{ careerLifecycle: CareerLifecycleRootV38; }'.
+    Types of property 'careerLifecycle' are incompatible.
+      Type 'CareerLifecycleRootV36' is not assignable to type 'CareerLifecycleRootV38'.
+        Type 'CareerLifecycleRootV36' is missing the following properties from type '{ transitionBoundaryWeek: number; professionAnchors: readonly ProfessionAnchor[]; transitionEvaluations: readonly TransitionEvaluation[]; professionChanges: readonly ProfessionChange[]; industryRetirements: readonly IndustryRetirement[]; transitionDue: readonly TransitionDue[]; }': transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, and 2 more.
+tests/p14b1-t4-regressions.test.ts(168,33): error TS2379: Argument of type 'GameStateV36' is not assignable to parameter of type 'GameStateV38' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV36' is not assignable to type '{ careerLifecycle: CareerLifecycleRootV38; }'.
+    Types of property 'careerLifecycle' are incompatible.
+      Type 'CareerLifecycleRootV36' is not assignable to type 'CareerLifecycleRootV38'.
+        Type 'CareerLifecycleRootV36' is missing the following properties from type '{ transitionBoundaryWeek: number; professionAnchors: readonly ProfessionAnchor[]; transitionEvaluations: readonly TransitionEvaluation[]; professionChanges: readonly ProfessionChange[]; industryRetirements: readonly IndustryRetirement[]; transitionDue: readonly TransitionDue[]; }': transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, and 2 more.
+tests/p14b3-reservations.test.ts(96,17): error TS2379: Argument of type 'GameStateV36' is not assignable to parameter of type 'GameStateV38' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV36' is not assignable to type '{ careerLifecycle: CareerLifecycleRootV38; }'.
+    Types of property 'careerLifecycle' are incompatible.
+      Type 'CareerLifecycleRootV36' is not assignable to type 'CareerLifecycleRootV38'.
+        Type 'CareerLifecycleRootV36' is missing the following properties from type '{ transitionBoundaryWeek: number; professionAnchors: readonly ProfessionAnchor[]; transitionEvaluations: readonly TransitionEvaluation[]; professionChanges: readonly ProfessionChange[]; industryRetirements: readonly IndustryRetirement[]; transitionDue: readonly TransitionDue[]; }': transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, and 2 more.
+tests/p14b4-material-evidence-core.test.ts(145,44): error TS2379: Argument of type '{ promises: ProfessionalPromiseV32[]; publicity: PublicityState; ledger: LedgerEntry[]; seed: string; ... 36 more ...; talentMarket: TalentMarketStateV36; }' is not assignable to parameter of type 'GameStateV38' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type '{ promises: ProfessionalPromiseV32[]; publicity: PublicityState; ledger: LedgerEntry[]; seed: string; ... 36 more ...; talentMarket: TalentMarketStateV36; }' is not assignable to type '{ careerLifecycle: CareerLifecycleRootV38; }'.
+    Types of property 'careerLifecycle' are incompatible.
+      Type 'CareerLifecycleRootV36' is not assignable to type 'CareerLifecycleRootV38'.
+        Type 'CareerLifecycleRootV36' is missing the following properties from type '{ transitionBoundaryWeek: number; professionAnchors: readonly ProfessionAnchor[]; transitionEvaluations: readonly TransitionEvaluation[]; professionChanges: readonly ProfessionChange[]; industryRetirements: readonly IndustryRetirement[]; transitionDue: readonly TransitionDue[]; }': transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, and 2 more.
+tests/p14b4-material-evidence-core.test.ts(291,7): error TS2375: Type 'GameStateV36' is not assignable to type 'GameStateV38' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV36' is not assignable to type '{ careerLifecycle: CareerLifecycleRootV38; }'.
+    Types of property 'careerLifecycle' are incompatible.
+      Type 'CareerLifecycleRootV36' is not assignable to type 'CareerLifecycleRootV38'.
+        Type 'CareerLifecycleRootV36' is missing the following properties from type '{ transitionBoundaryWeek: number; professionAnchors: readonly ProfessionAnchor[]; transitionEvaluations: readonly TransitionEvaluation[]; professionChanges: readonly ProfessionChange[]; industryRetirements: readonly IndustryRetirement[]; transitionDue: readonly TransitionDue[]; }': transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, and 2 more.
+tests/p14b4-material-evidence-core.test.ts(361,37): error TS2379: Argument of type 'GameStateV36' is not assignable to parameter of type 'GameStateV38' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV36' is not assignable to type '{ careerLifecycle: CareerLifecycleRootV38; }'.
+    Types of property 'careerLifecycle' are incompatible.
+      Type 'CareerLifecycleRootV36' is not assignable to type 'CareerLifecycleRootV38'.
+        Type 'CareerLifecycleRootV36' is missing the following properties from type '{ transitionBoundaryWeek: number; professionAnchors: readonly ProfessionAnchor[]; transitionEvaluations: readonly TransitionEvaluation[]; professionChanges: readonly ProfessionChange[]; industryRetirements: readonly IndustryRetirement[]; transitionDue: readonly TransitionDue[]; }': transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, and 2 more.
+tests/p14b4-material-evidence-core.test.ts(406,27): error TS2379: Argument of type 'GameStateV36' is not assignable to parameter of type 'GameStateV38' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV36' is not assignable to type '{ careerLifecycle: CareerLifecycleRootV38; }'.
+    Types of property 'careerLifecycle' are incompatible.
+      Type 'CareerLifecycleRootV36' is not assignable to type 'CareerLifecycleRootV38'.
+        Type 'CareerLifecycleRootV36' is missing the following properties from type '{ transitionBoundaryWeek: number; professionAnchors: readonly ProfessionAnchor[]; transitionEvaluations: readonly TransitionEvaluation[]; professionChanges: readonly ProfessionChange[]; industryRetirements: readonly IndustryRetirement[]; transitionDue: readonly TransitionDue[]; }': transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, and 2 more.
+tests/p14b4-material-evidence-core.test.ts(436,65): error TS2379: Argument of type 'GameStateV36' is not assignable to parameter of type 'GameStateV38' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV36' is not assignable to type '{ careerLifecycle: CareerLifecycleRootV38; }'.
+    Types of property 'careerLifecycle' are incompatible.
+      Type 'CareerLifecycleRootV36' is not assignable to type 'CareerLifecycleRootV38'.
+        Type 'CareerLifecycleRootV36' is missing the following properties from type '{ transitionBoundaryWeek: number; professionAnchors: readonly ProfessionAnchor[]; transitionEvaluations: readonly TransitionEvaluation[]; professionChanges: readonly ProfessionChange[]; industryRetirements: readonly IndustryRetirement[]; transitionDue: readonly TransitionDue[]; }': transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, and 2 more.
+tests/p14b5-save-v31.test.ts(179,19): error TS2379: Argument of type 'GameStateV36' is not assignable to parameter of type 'GameStateV38' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV36' is not assignable to type '{ careerLifecycle: CareerLifecycleRootV38; }'.
+    Types of property 'careerLifecycle' are incompatible.
+      Type 'CareerLifecycleRootV36' is not assignable to type 'CareerLifecycleRootV38'.
+        Type 'CareerLifecycleRootV36' is missing the following properties from type '{ transitionBoundaryWeek: number; professionAnchors: readonly ProfessionAnchor[]; transitionEvaluations: readonly TransitionEvaluation[]; professionChanges: readonly ProfessionChange[]; industryRetirements: readonly IndustryRetirement[]; transitionDue: readonly TransitionDue[]; }': transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, and 2 more.
+tests/p14c2a-save-and-settlement.test.ts(321,7): error TS2322: Type '{ boundaryWeek: number; cohorts: never[]; records: RetirementRecordV36[]; }' is not assignable to type 'CareerLifecycleRootV38'.
+  Type '{ boundaryWeek: number; cohorts: never[]; records: RetirementRecordV36[]; }' is missing the following properties from type '{ transitionBoundaryWeek: number; professionAnchors: readonly ProfessionAnchor[]; transitionEvaluations: readonly TransitionEvaluation[]; professionChanges: readonly ProfessionChange[]; industryRetirements: readonly IndustryRetirement[]; transitionDue: readonly TransitionDue[]; }': transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, and 2 more.
+tests/p14c2a-save-and-settlement.test.ts(330,35): error TS2379: Argument of type 'GameStateV36' is not assignable to parameter of type 'GameStateV38' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV36' is not assignable to type '{ careerLifecycle: CareerLifecycleRootV38; }'.
+    Types of property 'careerLifecycle' are incompatible.
+      Type 'CareerLifecycleRootV36' is not assignable to type 'CareerLifecycleRootV38'.
+        Type 'CareerLifecycleRootV36' is missing the following properties from type '{ transitionBoundaryWeek: number; professionAnchors: readonly ProfessionAnchor[]; transitionEvaluations: readonly TransitionEvaluation[]; professionChanges: readonly ProfessionChange[]; industryRetirements: readonly IndustryRetirement[]; transitionDue: readonly TransitionDue[]; }': transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, and 2 more.
+tests/p14c2rm-writer-continuation.test.ts(233,34): error TS2345: Argument of type 'SaveFileV38' is not assignable to parameter of type 'SaveFileV37'.
+  Types of property 'saveVersion' are incompatible.
+    Type '38' is not assignable to type '37'.
+tests/p14c3-save-v38.test.ts(89,3): error TS2322: Type 'TransitionEvaluation' is not assignable to type 'Evaluation'.
+  Type 'TransitionEvaluation' is not assignable to type '{ id: string; ordinal: number; week: number; personId: string; source: RetirementKey; rulesVersion: 1; inputs: Inputs; inputsDigest: string; }'.
+    The types of 'inputs.actingWitnesses' are incompatible between these types.
+      The type 'readonly string[]' is 'readonly' and cannot be assigned to the mutable type 'string[]'.
+tests/p14c3-save-v38.test.ts(247,68): error TS2322: Type 'TransitionEvaluation[]' is not assignable to type 'readonly TransitionEvaluation[] & Evaluation[]'.
+  Type 'TransitionEvaluation[]' is not assignable to type 'Evaluation[]'.
+    Type 'TransitionEvaluation' is not assignable to type 'Evaluation'.
+      Type 'TransitionEvaluation' is not assignable to type '{ id: string; ordinal: number; week: number; personId: string; source: RetirementKey; rulesVersion: 1; inputs: Inputs; inputsDigest: string; }'.
+        The types of 'inputs.actingWitnesses' are incompatible between these types.
+          The type 'readonly string[]' is 'readonly' and cannot be assigned to the mutable type 'string[]'.
+tests/p14c4-save-v35.test.ts(279,35): error TS2379: Argument of type 'GameStateV36' is not assignable to parameter of type 'GameStateV38' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV36' is not assignable to type '{ careerLifecycle: CareerLifecycleRootV38; }'.
+    Types of property 'careerLifecycle' are incompatible.
+      Type 'CareerLifecycleRootV36' is not assignable to type 'CareerLifecycleRootV38'.
+        Type 'CareerLifecycleRootV36' is missing the following properties from type '{ transitionBoundaryWeek: number; professionAnchors: readonly ProfessionAnchor[]; transitionEvaluations: readonly TransitionEvaluation[]; professionChanges: readonly ProfessionChange[]; industryRetirements: readonly IndustryRetirement[]; transitionDue: readonly TransitionDue[]; }': transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, and 2 more.

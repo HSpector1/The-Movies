@@ -1,0 +1,40 @@
+{"sourceSha":"c000479d6e888d3a02f5c2ff534f5dfcbb32af3f","testedDiffSha256":"1a848ad7d483d3d1c9123a207523c14bc3b758add49dc1ebcff74e248c052c93","untrackedSource":[],"command":["npm","run","typecheck:bridge"],"node":"v20.20.2","start":"2026-09-26T20:42:24.899Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+tests/bridge-p14b2-trust.test.ts(466,79): error TS2379: Argument of type 'GameStateV36' is not assignable to parameter of type 'GameStateV38' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV36' is not assignable to type '{ careerLifecycle: CareerLifecycleRootV38; }'.
+    Types of property 'careerLifecycle' are incompatible.
+      Type 'CareerLifecycleRootV36' is not assignable to type 'CareerLifecycleRootV38'.
+        Type 'CareerLifecycleRootV36' is missing the following properties from type '{ transitionBoundaryWeek: number; professionAnchors: readonly ProfessionAnchor[]; transitionEvaluations: readonly TransitionEvaluation[]; professionChanges: readonly ProfessionChange[]; industryRetirements: readonly IndustryRetirement[]; transitionDue: readonly TransitionDue[]; }': transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, and 2 more.
+tests/bridge-p14b4-cast-class.test.ts(114,7): error TS2375: Type 'GameStateV36' is not assignable to type 'GameStateV38' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV36' is not assignable to type '{ careerLifecycle: CareerLifecycleRootV38; }'.
+    Types of property 'careerLifecycle' are incompatible.
+      Type 'CareerLifecycleRootV36' is not assignable to type 'CareerLifecycleRootV38'.
+        Type 'CareerLifecycleRootV36' is missing the following properties from type '{ transitionBoundaryWeek: number; professionAnchors: readonly ProfessionAnchor[]; transitionEvaluations: readonly TransitionEvaluation[]; professionChanges: readonly ProfessionChange[]; industryRetirements: readonly IndustryRetirement[]; transitionDue: readonly TransitionDue[]; }': transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, and 2 more.
+tests/bridge-p14b4-cast-class.test.ts(421,38): error TS2379: Argument of type 'GameStateV36' is not assignable to parameter of type 'GameStateV38' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV36' is not assignable to type '{ careerLifecycle: CareerLifecycleRootV38; }'.
+    Types of property 'careerLifecycle' are incompatible.
+      Type 'CareerLifecycleRootV36' is not assignable to type 'CareerLifecycleRootV38'.
+        Type 'CareerLifecycleRootV36' is missing the following properties from type '{ transitionBoundaryWeek: number; professionAnchors: readonly ProfessionAnchor[]; transitionEvaluations: readonly TransitionEvaluation[]; professionChanges: readonly ProfessionChange[]; industryRetirements: readonly IndustryRetirement[]; transitionDue: readonly TransitionDue[]; }': transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, and 2 more.
+tests/bridge-p14b4-cast-class.test.ts(425,13): error TS2379: Argument of type 'GameStateV36' is not assignable to parameter of type 'GameStateV38' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV36' is not assignable to type '{ careerLifecycle: CareerLifecycleRootV38; }'.
+    Types of property 'careerLifecycle' are incompatible.
+      Type 'CareerLifecycleRootV36' is not assignable to type 'CareerLifecycleRootV38'.
+        Type 'CareerLifecycleRootV36' is missing the following properties from type '{ transitionBoundaryWeek: number; professionAnchors: readonly ProfessionAnchor[]; transitionEvaluations: readonly TransitionEvaluation[]; professionChanges: readonly ProfessionChange[]; industryRetirements: readonly IndustryRetirement[]; transitionDue: readonly TransitionDue[]; }': transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, and 2 more.
+tests/bridge-p14b4-cast-class.test.ts(443,36): error TS2379: Argument of type 'GameStateV36' is not assignable to parameter of type 'GameStateV38' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV36' is not assignable to type '{ careerLifecycle: CareerLifecycleRootV38; }'.
+    Types of property 'careerLifecycle' are incompatible.
+      Type 'CareerLifecycleRootV36' is not assignable to type 'CareerLifecycleRootV38'.
+        Type 'CareerLifecycleRootV36' is missing the following properties from type '{ transitionBoundaryWeek: number; professionAnchors: readonly ProfessionAnchor[]; transitionEvaluations: readonly TransitionEvaluation[]; professionChanges: readonly ProfessionChange[]; industryRetirements: readonly IndustryRetirement[]; transitionDue: readonly TransitionDue[]; }': transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, and 2 more.
+tests/bridge-p14b7-promise-waiver.test.ts(110,3): error TS2375: Type 'GameStateV36' is not assignable to type 'GameStateV38' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV36' is not assignable to type '{ careerLifecycle: CareerLifecycleRootV38; }'.
+    Types of property 'careerLifecycle' are incompatible.
+      Type 'CareerLifecycleRootV36' is not assignable to type 'CareerLifecycleRootV38'.
+        Type 'CareerLifecycleRootV36' is missing the following properties from type '{ transitionBoundaryWeek: number; professionAnchors: readonly ProfessionAnchor[]; transitionEvaluations: readonly TransitionEvaluation[]; professionChanges: readonly ProfessionChange[]; industryRetirements: readonly IndustryRetirement[]; transitionDue: readonly TransitionDue[]; }': transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, and 2 more.
+tests/bridge-p14c2rm-runtime.test.ts(39,34): error TS2345: Argument of type 'GameStateV36' is not assignable to parameter of type 'Pick<GameStateV38, "talent" | "careerLifecycle">'.
+  Types of property 'careerLifecycle' are incompatible.
+    Type 'CareerLifecycleRootV36' is not assignable to type 'CareerLifecycleRootV38'.
+      Type 'CareerLifecycleRootV36' is missing the following properties from type '{ transitionBoundaryWeek: number; professionAnchors: readonly ProfessionAnchor[]; transitionEvaluations: readonly TransitionEvaluation[]; professionChanges: readonly ProfessionChange[]; industryRetirements: readonly IndustryRetirement[]; transitionDue: readonly TransitionDue[]; }': transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, and 2 more.

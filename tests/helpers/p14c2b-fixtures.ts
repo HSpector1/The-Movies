@@ -20,7 +20,7 @@ import { createHash } from 'node:crypto'
 import { existsSync, readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { expect } from 'vitest'
-import { convertV35ToV36, validateSaveV35, validateSaveV36 } from '../../src/core/save.js'
+import { convertV37ToV36, convertV38ToV37, makeSave, migrateToLive, validateSaveV35 } from '../../src/core/save.js'
 import type { SaveFileV35, SaveFileV36 } from '../../src/core/save.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './p14b2-fixtures.js'
 export { advanceTo, fund, p13aGeneratedStudio, player }
@@ -56,18 +56,17 @@ export function liveEnvelope(state: GameStateV35): SaveFileV35 {
   return validateSaveV35({ saveVersion: 35, seed: state.seed, state, broadcastCache: state.broadcastItems })
 }
 
-/** F1: the genuine V36-migrated live state — ticks or saves under the NOW-LIVE V36
- * engine must start here, never from raw `c2bFixture` (which lacks `extensionUsed` and
- * throws loudly the moment discovery or settlement reads for it). */
+/** F1/975: actual current migration before live ticks or saves. The immutable
+ * V35 fixture stays at its own strict boundary; current authority is never injected. */
 export function c2bLiveFixture(name: C2bCorpusName): GameState {
-  return convertV35ToV36(liveEnvelope(c2bFixture(name))).state
+  return migrateToLive(liveEnvelope(c2bFixture(name))).state
 }
 
-/** A genuine live (V36) state wrapped in its own save envelope, validated for real
- * (no more disclosed "never validated" caveat — `validateSaveV36` is a real function
- * now). */
+/** Guarded historical projection. Since38 this MUST refuse any new profession
+ * authority; it cannot strip entrants/events to manufacture a frozen36 input.
+ * Frozen-only tests needing such a state require genuine older bytes (record975). */
 export function liveEnvelopeV36(state: GameState): SaveFileV36 {
-  return validateSaveV36({ saveVersion: 36, seed: state.seed, state, broadcastCache: state.broadcastItems })
+  return convertV37ToV36(convertV38ToV37(makeSave(state)))
 }
 
 /** MANIFEST.json's own `focus` block for one fixture, read fresh from disk (never

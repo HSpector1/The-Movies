@@ -1,0 +1,22 @@
+{
+  "source": "982 raw expected/received output; read-only analysis, no rerun",
+  "expectedBytes": 772493,
+  "receivedBytes": 772493,
+  "valueDifferences": [],
+  "objectKeyOrderDifferences": [
+    {
+      "path": "$.state.careerLifecycle",
+      "expected": [
+        "boundaryWeek",
+        "cohorts",
+        "records"
+      ],
+      "actual": [
+        "boundaryWeek",
+        "records",
+        "cohorts"
+      ]
+    }
+  ],
+  "rawLogSha256": "ae90304abdb7e37b44f85cf9853a0590517083009d27133a59970ff7247f480e"
+}

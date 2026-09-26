@@ -1,0 +1,276 @@
+{"sourceSha":"c000479d6e888d3a02f5c2ff534f5dfcbb32af3f","testedDiffSha256":"f664e0fe12c93fad6c377743c7867fb817925a4b5a592fa33cf23a3b460efbca","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c3-save-v38.test.ts","tests/p14c3-transitions.test.ts"],"node":"v20.20.2","start":"2026-09-26T19:56:43.612Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14c3-transitions.test.ts (35 tests | 35 failed) 6089ms
+   × C.3 A07/A08 pure public choice law > publishes transition rule1 and its four delegated constants without changing existing rule versions 16ms
+     → expected undefined to be 1 // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'capability59 on both is insufficient' 10ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'capability60 first makes director eli…' 2ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'capability60 first makes writer eligi…' 2ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'two actual acting takes are insuffici…' 2ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'three actual acting takes suffice wit…' 2ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'one shared picture does not prove rep…' 1ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'two shared pictures prove repeated co…' 1ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'a proven target needs no repeat conte…' 7ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'capable but unproven without context …' 2ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'exact eligible tuples decline both wi…' 6ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'proven director beats a higher-tier u…' 1ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'proven writer beats a higher-tier unp…' 1ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'director role tier precedes later tup…' 1ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'writer role tier precedes later tuple…' 1ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'director context band precedes public…' 1ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'writer context band precedes public p…' 1ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'director public potential resolves an…' 1ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'writer public potential resolves an o…' 1ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'raw OVR does not break a tie inside t…' 1ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'raw context above two does not break …' 1ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'raw work history does not rank two al…' 1ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'two Limited-upside targets are eligib…' 1ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'Limited upside does not veto the sole…' 1ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'age74 still allows a choice' 1ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'age75 overrides an otherwise eligible…' 1ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'age75 overrides no-eligible deferral' 11ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A07/A08 pure public choice law > 'older actors cannot reopen target cho…' 1ms
+     → 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A03/A04 genuine retirement choices through existing tick > retires the two genuine207 actors into director and writer at208 with real bounded evidence 998ms
+     → actual retirement must activate director, not merely expose a new API: expected 'actor' to be 'director' // Object.is equality
+   × C.3 A03/A04 genuine retirement choices through existing tick > reconciles actual retired genuine-v37-c3-retired-week208.json.gz prospectively at209 without backdating or rewriting old receipts 514ms
+     → actual retirement must activate director, not merely expose a new API: expected 'actor' to be 'director' // Object.is equality
+   × C.3 A03/A04 genuine retirement choices through existing tick > reconciles actual retired genuine-v37-c3-runtime-current208.json.gz prospectively at209 without backdating or rewriting old receipts 565ms
+     → actual retirement must activate director, not merely expose a new API: expected 'actor' to be 'director' // Object.is equality
+   × C.3 A05/A06 public profession history, current evidence and repeat safety > derives the exact current public input without mutation and refuses past-week reconstruction 418ms
+     → 946 public core export transitionInputsFor: expected 'undefined' to be 'function' // Object.is equality
+   × C.3 A05/A06 public profession history, current evidence and repeat safety > uses inclusive change weeks and current-versus-explicit retirement lookup after save and reload 487ms
+     → actual retirement must activate director, not merely expose a new API: expected 'actor' to be 'director' // Object.is equality
+   × C.3 A09/A10 genuine prospective finality and deferred reconciliation > records Scientist noCatalogue finality at671 once, preserving the actual670 profession retirement 333ms
+     → expected [] to deeply equal ArrayContaining{…}
+   × C.3 A09/A10 genuine prospective finality and deferred reconciliation > defers the real retired cohort actor at2601 and schedules the exact annual-or-age deadline, never the next week 2695ms
+     → expected [] to have a length of 1 but got +0
+ ✓ |core| tests/p14c3-save-v38.test.ts (9 tests) 7859ms
+   ✓ C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-created-week0.json.gz losslessly except for explicit prospective38 scaffolding 423ms
+   ✓ C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-preretirement-week207.json.gz losslessly except for explicit prospective38 scaffolding 1219ms
+   ✓ C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-retired-week208.json.gz losslessly except for explicit prospective38 scaffolding 1536ms
+   ✓ C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-runtime-current208.json.gz losslessly except for explicit prospective38 scaffolding 1724ms
+   ✓ C.3 A01/A02 exact Save38 opening > exposes matching strict38 conversion, validation and current migration over a genuine37 save 1269ms
+   ✓ C.3 A11 lossless empty-boundary downgrade and actual entrant authority > downgrades untouched genuine-v37-c3-preretirement-week207.json.gz exactly, including its unexecuted prospective queue 627ms
+   ✓ C.3 A11 lossless empty-boundary downgrade and actual entrant authority > downgrades untouched genuine-v37-c3-retired-week208.json.gz exactly, including its unexecuted prospective queue 554ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 35 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > publishes transition rule1 and its four delegated constants without changing existing rule versions
+AssertionError: expected undefined to be 1 // Object.is equality
+
+- Expected: 
+1
+
++ Received: 
+undefined
+
+ ❯ tests/p14c3-transitions.test.ts:72:83
+     70| describe('C.3 A07/A08 pure public choice law', () => {
+     71|   it('publishes transition rule1 and its four delegated constants with…
+     72|     expect((core as unknown as Record<string, unknown>).TRANSITION_RUL…
+       |                                                                                   ^
+     73|     expect(TUNING).toMatchObject({ PROFESSION_TRANSITION_MIN_ACTING_TA…
+     74|       PROFESSION_TRANSITION_MIN_CONTEXT_PICTURES: 2, PROFESSION_TRANSI…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/35]⎯
+
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'capability59 on both is insufficient'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'capability60 first makes director eli…'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'capability60 first makes writer eligi…'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'two actual acting takes are insuffici…'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'three actual acting takes suffice wit…'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'one shared picture does not prove rep…'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'two shared pictures prove repeated co…'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'a proven target needs no repeat conte…'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'capable but unproven without context …'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'exact eligible tuples decline both wi…'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'proven director beats a higher-tier u…'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'proven writer beats a higher-tier unp…'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'director role tier precedes later tup…'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'writer role tier precedes later tuple…'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'director context band precedes public…'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'writer context band precedes public p…'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'director public potential resolves an…'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'writer public potential resolves an o…'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'raw OVR does not break a tie inside t…'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'raw context above two does not break …'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'raw work history does not rank two al…'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'two Limited-upside targets are eligib…'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'Limited upside does not veto the sole…'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'age74 still allows a choice'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'age75 overrides an otherwise eligible…'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'age75 overrides no-eligible deferral'
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'older actors cannot reopen target cho…'
+AssertionError: 946 public core export chooseProfessionTransition: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ Module.api tests/helpers/p14c3-fixtures.ts:49:55
+     47| export function api<K extends keyof PublicAPI>(name: K): PublicAPI[K] {
+     48|   const fn = (core as unknown as Partial<PublicAPI>)[name]
+     49|   expect(typeof fn, `946 public core export ${name}`).toBe('function')
+       |                                                       ^
+     50|   assert.ok(fn)
+     51|   return fn
+ ❯ tests/p14c3-transitions.test.ts:80:54
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/35]⎯
+
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A03/A04 genuine retirement choices through existing tick > retires the two genuine207 actors into director and writer at208 with real bounded evidence
+AssertionError: actual retirement must activate director, not merely expose a new API: expected 'actor' to be 'director' // Object.is equality
+
+Expected: "director"
+Received: "actor"
+
+ ❯ expectFocusChosen tests/helpers/p14c3-fixtures.ts:137:110
+    135|   expect(state.market.tick).toBe(week)
+    136|   for (const [target, id] of Object.entries(FOCUS)) {
+    137|     expect(person(state, id).role, `actual retirement must activate ${…
+       |                                                                                                              ^
+    138|   }
+    139|   const root = root38(state)
+ ❯ Module.chosen tests/helpers/p14c3-fixtures.ts:157:5
+ ❯ tests/p14c3-transitions.test.ts:99:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/35]⎯
+
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A03/A04 genuine retirement choices through existing tick > reconciles actual retired genuine-v37-c3-retired-week208.json.gz prospectively at209 without backdating or rewriting old receipts
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A03/A04 genuine retirement choices through existing tick > reconciles actual retired genuine-v37-c3-runtime-current208.json.gz prospectively at209 without backdating or rewriting old receipts
+AssertionError: actual retirement must activate director, not merely expose a new API: expected 'actor' to be 'director' // Object.is equality
+
+Expected: "director"
+Received: "actor"
+
+ ❯ expectFocusChosen tests/helpers/p14c3-fixtures.ts:137:110
+    135|   expect(state.market.tick).toBe(week)
+    136|   for (const [target, id] of Object.entries(FOCUS)) {
+    137|     expect(person(state, id).role, `actual retirement must activate ${…
+       |                                                                                                              ^
+    138|   }
+    139|   const root = root38(state)
+ ❯ Module.chosen tests/helpers/p14c3-fixtures.ts:157:5
+ ❯ tests/p14c3-transitions.test.ts:122:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/35]⎯
+
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A05/A06 public profession history, current evidence and repeat safety > derives the exact current public input without mutation and refuses past-week reconstruction
+AssertionError: 946 public core export transitionInputsFor: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ Module.api tests/helpers/p14c3-fixtures.ts:49:55
+     47| export function api<K extends keyof PublicAPI>(name: K): PublicAPI[K] {
+     48|   const fn = (core as unknown as Partial<PublicAPI>)[name]
+     49|   expect(typeof fn, `946 public core export ${name}`).toBe('function')
+       |                                                       ^
+     50|   assert.ok(fn)
+     51|   return fn
+ ❯ tests/p14c3-transitions.test.ts:139:74
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/35]⎯
+
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A05/A06 public profession history, current evidence and repeat safety > uses inclusive change weeks and current-versus-explicit retirement lookup after save and reload
+AssertionError: actual retirement must activate director, not merely expose a new API: expected 'actor' to be 'director' // Object.is equality
+
+Expected: "director"
+Received: "actor"
+
+ ❯ expectFocusChosen tests/helpers/p14c3-fixtures.ts:137:110
+    135|   expect(state.market.tick).toBe(week)
+    136|   for (const [target, id] of Object.entries(FOCUS)) {
+    137|     expect(person(state, id).role, `actual retirement must activate ${…
+       |                                                                                                              ^
+    138|   }
+    139|   const root = root38(state)
+ ❯ Module.chosen tests/helpers/p14c3-fixtures.ts:157:5
+ ❯ tests/p14c3-transitions.test.ts:151:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/35]⎯
+
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A09/A10 genuine prospective finality and deferred reconciliation > records Scientist noCatalogue finality at671 once, preserving the actual670 profession retirement
+AssertionError: expected [] to deeply equal ArrayContaining{…}
+
+- Expected
++ Received
+
+- ArrayContaining [
+-   Object {
+-     "cause": "noCatalogue",
+-     "evaluationId": null,
+-     "personId": "t-sci-00",
+-     "profession": "scientist",
+-     "source": Object {
+-       "personId": "t-sci-00",
+-       "profession": "scientist",
+-     },
+-     "week": 671,
+-   },
+- ]
++ Array []
+
+ ❯ tests/p14c3-transitions.test.ts:183:8
+    181|     // Existing public tick is the tested boundary, before any new-exp…
+    182|     expect((after.careerLifecycle as Partial<Root38>).industryRetireme…
+    183|       .toEqual(expect.arrayContaining([{ personId: SCIENTIST, week: 67…
+       |        ^
+    184|         source: { personId: SCIENTIST, profession: 'scientist' }, caus…
+    185|     expect(root38(before).industryRetirements).toEqual([])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/35]⎯
+
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A09/A10 genuine prospective finality and deferred reconciliation > defers the real retired cohort actor at2601 and schedules the exact annual-or-age deadline, never the next week
+AssertionError: expected [] to have a length of 1 but got +0
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ tests/p14c3-transitions.test.ts:208:18
+    206|     expect(evaluations, 'existing tick must create the first prospecti…
+    207|     const rows = evaluations!.filter(row => row.personId === DEFERRED_…
+    208|     expect(rows).toHaveLength(1)
+       |                  ^
+    209|     const evaluation = rows[0]!
+    210|     expect(evaluation).toMatchObject({ week, personId: DEFERRED_ACTOR,…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/35]⎯
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  35 failed | 9 passed (44)
+   Start at  21:56:44
+   Duration  10.84s (transform 2.37s, setup 0ms, collect 4.54s, tests 13.95s, environment 1ms, prepare 366ms)
+

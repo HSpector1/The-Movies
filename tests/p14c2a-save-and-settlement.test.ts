@@ -18,23 +18,23 @@ import { freelancerMarketIds } from '../src/core/employment.js'
 import { assignableForFilm } from '../src/core/employment.js'
 import { marketEligibility } from '../src/core/talentMarket.js'
 import { lifecycleStatus, retirementRecordFor } from '../src/core/careerLifecycle.js'
-import { ageAt } from '../src/core/aging.js'
+import { ageAt, nextBirthdayWeek } from '../src/core/aging.js'
 import { TUNING } from '../src/core/tuning.js'
 import {
   LIVE_SAVE_VERSION, makeSave,
   // RED-by-design (776 S6): none of these five exist in src/core/save.ts today.
   validateSaveV34, convertV33ToV34, convertV34ToV33, migrateToV34, migrateToLive,
   // P14C.2b: the live validator now (G5 alone drives a real tick()/makeSave round trip).
-  validateSaveV37,
+  validateSaveV37, validateSaveV38,
 } from '../src/core/save.js'
-import type { GameState, GameStateV34 } from '../src/core/types.js'
+import type { GameState, GameStateV34, GameStateV37 } from '../src/core/types.js'
 import {
-  c2Fixture, fund, p13aGeneratedStudio, stepWeekWithLifecycle, syntheticRecord, withSyntheticCareerLifecycle,
+  c2Fixture, c2LiveFixture, fund, p13aGeneratedStudio, stepWeekWithLifecycle, syntheticRecord, withSyntheticCareerLifecycle,
 } from './helpers/p14c2a-fixtures.js'
 
 /** The real materialized age, straight from provenance — required for a LAWFUL
  * `ageAtAnnouncement` (validateSaveV34 cross-checks it against `ageAt`). */
-function realAge(state: GameState, id: string, week: number): number {
+function realAge(state: Pick<GameState, 'talentProvenance'>, id: string, week: number): number {
   const row = state.talentProvenance.rows.find((r) => r.personId === id)!
   return ageAt(row, week)
 }
@@ -74,7 +74,20 @@ describe('P14C.2a E1-E3, F1: settlement and the rival symmetry', () => {
     expect(record).toMatchObject({ status: 'retired', retiredWeek: 52, effectiveWeek: 52 })
     // the EXISTING P10 expiry wrote the end, not a second lifecycle-owned write
     expect(lifecycle.contracts.find((c) => c.talentId === id)).toBeUndefined() // expired off the active list
-    expect(lifecycle.freeAgents).toContain(id)
+    // 942/985: current C.3 evaluates the actual zero-take actor on settlement;
+    // waiting actors stay outside the free-agent pool. Expiry ownership above
+    // and all original talent/receipt/history assertions below remain unchanged.
+    expect(lifecycle.firstTakes.filter(take => Object.values(take.cast).includes(id))).toEqual([])
+    const evaluations = lifecycle.careerLifecycle.transitionEvaluations.filter(row => row.personId === id)
+    expect(evaluations).toHaveLength(1)
+    expect(evaluations[0]).toMatchObject({ week: 52, source: { personId: id, profession: 'actor' },
+      outcome: 'deferred', selected: null, reason: 'noEligibleTarget', inputs: { actingFirstTakes: 0 } })
+    const provenance = lifecycle.talentProvenance.rows.find(row => row.personId === id)!
+    expect(lifecycle.careerLifecycle.transitionDue.filter(row => row.personId === id))
+      .toEqual([{ personId: id, week: Math.min(104, nextBirthdayWeek(provenance, 74)) }])
+    expect(lifecycle.careerLifecycle.professionChanges.filter(row => row.personId === id)).toEqual([])
+    expect(lifecycle.careerLifecycle.industryRetirements.filter(row => row.personId === id)).toEqual([])
+    expect(lifecycle.freeAgents).not.toContain(id)
     // D12 preservation: nothing shortened, nothing reordered, nothing deleted.
     // 809 repair (approved_behavioral_change, record 804): this span crosses week 52, where C.4's
     // youth floor legitimately appends one cohort entrant per profession per campaign year (782
@@ -91,7 +104,7 @@ describe('P14C.2a E1-E3, F1: settlement and the rival symmetry', () => {
 
   // ── E2: seated at E -> finishing_commitments; still seated; retired the first week the seat clears, never earlier ──
   it('E2: the seated director (genuine-v33-c2-seated) settles to finishing_commitments while busy, and to retired the FIRST week (never earlier) the seat clears', () => {
-    const base = c2Fixture('genuine-v33-c2-seated') // week 0; authored-0000 (director) already greenlit
+    const base = c2LiveFixture('genuine-v33-c2-seated') // actual current lift before synthetic overlay; week0 seated director
     const directorId = 'authored-0000'
     expect(busyTalentIds(base).has(directorId)).toBe(true)
     const contractEnd = base.contracts.find((c) => c.talentId === directorId)!.endWeekExclusive // 208
@@ -143,7 +156,7 @@ describe('P14C.2a E1-E3, F1: settlement and the rival symmetry', () => {
     // safe instead the same way D2/B4a are: the interval end is SHORTENED directly to
     // match a near, chosen effectiveWeek, so only a short, controlled horizon (10
     // weeks) needs running — eliminating that whole class of risk.
-    const base = c2Fixture('genuine-v33-c2-rival-in-window') // used only for its real rival/hollywood shape
+    const base = c2LiveFixture('genuine-v33-c2-rival-in-window') // actual current lift BEFORE shortening the synthetic interval
     const week = base.market.tick
     // the CURRENTLY ACTIVE row, not merely the first historical row for this id — a
     // world built by 1040 real ticks (this fixture's own recipe) can carry an earlier,
@@ -316,7 +329,7 @@ describe('P14C.2a G1-G5: Save V34', () => {
     // P14C.2b: the round trip moves once more, to `validateSaveV37` — a live record
     // also owes `extensionUsed`/`extendedFromWeek` now, which `syntheticRecord`
     // supplies by default (helpers/p14c2a-fixtures.ts).
-    let state: GameState = {
+    const historical: GameStateV37 = {
       ...base,
       careerLifecycle: { boundaryWeek: week, cohorts: [], records: [syntheticRecord({ personId: id, profession: 'actor', cause: 'hardBoundary', announcedWeek: week, ageAtAnnouncement: realAge(base, id, week), effectiveWeek: week + 500 })] },
       // P14C.2b: `base` comes straight from the frozen V33 fixture, so its
@@ -325,15 +338,19 @@ describe('P14C.2a G1-G5: Save V34', () => {
       // check) below, though `tick()` alone never reads it.
       talentMarket: { ...base.talentMarket, cases: base.talentMarket.cases.map((kase) => ({ ...kase, variant: 'expiry' as const })) },
     }
+    // 975: keep the existing disclosed synthetic37 input explicit, validate it
+    // under its frozen reader, then open current authority through the real lift.
+    const state = migrateToLive(validateSaveV37({ saveVersion: 37, seed: historical.seed,
+      state: historical, broadcastCache: historical.broadcastItems })).state
     const continuous = tick(tick(state))
-    const reloaded = validateSaveV37(JSON.parse(JSON.stringify(makeSave(state))) as never).state
+    const reloaded = validateSaveV38(JSON.parse(JSON.stringify(makeSave(state)))).state
     const viaSaveLoad = tick(tick(reloaded))
     expect(JSON.stringify(viaSaveLoad)).toBe(JSON.stringify(continuous))
   })
 
   it('records LIVE_SAVE_VERSION and confirms migrateToV34/migrateToLive exist (RED premise only — not exercised further here)', () => {
     // P14C.4: LIVE_SAVE_VERSION is the live writer's own stamp — moves with the bump.
-    expect(LIVE_SAVE_VERSION).toBe(37)
+    expect(LIVE_SAVE_VERSION).toBe(38)
     expect(typeof migrateToV34, 'RED premise: migrateToV34 must exist as a named export of src/core/save.ts').toBe('function')
     expect(typeof migrateToLive, 'RED premise: migrateToLive must exist as a named export of src/core/save.ts').toBe('function')
   })
