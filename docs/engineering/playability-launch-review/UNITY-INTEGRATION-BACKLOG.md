@@ -6,6 +6,11 @@ verified in Unity. Generated C# produced by the TypeScript generator is text, no
 
 ## C.2c retirement promise disposition — 2026-09-26, native DEFERRED
 
+UPDATE843: logic qualified by full837,24new cases pass and no new failures against
+the qualified baseline. Native remains unverified. Scientist840 will separately
+move Save36→37/projection50→51; that move is NOT implemented yet. Preserve the
+genuine outgoing Scientist36/runtime50 corpus minted842 for future consumer tests.
+
 Producer remains Save36 / projection50 / protocol4 / promise rules4. The existing
 issuer-only promise history/attention now carries VOIDED and a retirement reason;
 no public breach or trust penalty is generated. Headless focused run 832 passes

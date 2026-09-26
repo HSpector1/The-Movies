@@ -1,5 +1,33 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — C.2c QUALIFIED, Scientist RED844 next
+
+837 CLOSED/fixedSource:true: source84f1d9a8, emptytestpatch,4311cases/4246PASS/
+54inheritedFAIL/11todo. Comparison822:NEW0,54identical detailed diagnostics, sole
+vanished intermittentFU-2 timeout. Record843 closes C.2c qualified, never all-green.
+842 genuine outgoing Scientist36/runtime50 artifacts are now minted and preserved.
+Scientist contract840 reviewedKEEP841; new test files frozen in isolated8f893e0e
+worktree for parentRED844. No Scientist production edits/test run yet; S11 pending.
+Read newest CODEX-START-HERE for exact paths, source and technical boundary.
+
+## Earlier run837 notes — CLOSED, superseded by843
+
+Latest production/evidence commit and verified remote:
+`84f1d9a8bf283ca06a3fe5235e475238a04f57e5` (839). Full core837 started
+2026-09-26T12:23:14.931Z with EMPTY tested patch and no untracked source; parent
+exec session71971. Read 837 JSON/process before launching another run. No commits
+or main consumed-input changes until it closes. Compare822's inherited55 by identity
+and cause, then publish qualification. Only docs have changed since the run started.
+
+Next Scientist contract840 reviewed KEEP in841. Test-author is drafting only new
+tests/helpers in `/private/tmp/codex-c2c-red.aWg2tP`, NOT the running worktree; no
+Scientist test has run and no Scientist production writer is released. Save37
+explicit private validation policy / frozenV34–36 readers / generic intent1 and
+projection51 are the selected bounded technical contract. 842 one-shot genuine
+outgoing Scientist36/runtime50 minter is READY BUT UNRUN and refuses while837 runs.
+After837: preserve842 artifacts before edits, record independent RED, writer, checks,
+supply measurement, publication; then C.2-RM. Do not rerun completed C.2c work.
+
 ## CURRENT — Codex C.2c verification, 2026-09-26 (supersedes handoff below)
 
 Same worktree and branch; published HEAD and actual remote verified at

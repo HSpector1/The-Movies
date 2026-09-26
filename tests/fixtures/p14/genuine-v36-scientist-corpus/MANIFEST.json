@@ -1,0 +1,45 @@
+{
+  "generatedAt": "2026-09-26T13:45:32.621Z",
+  "sourceSha": "84f1d9a8bf283ca06a3fe5235e475238a04f57e5",
+  "productionBaseSha": "84f1d9a8bf283ca06a3fe5235e475238a04f57e5",
+  "producer": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/842-mint-outgoing-scientist36.ts",
+  "producerSha256": "d2b872bd2feebb84e3da8d1e7502518370565a73a138093cbd949cb77899fe92",
+  "input": "tests/fixtures/p14/genuine-v33-c2-corpus/genuine-v33-c2-scientist.json.gz",
+  "inputCompressedSha256": "81a1136a90abc6b0c8ae88684ac379e9f3a6faeafe68b12acd26f3e8b0154714",
+  "inputUncompressedSha256": "fda192a00c71fa66284cc51a4e9e5e0a41b409e0919a1c0a050f79cb0904bd2f",
+  "saveVersion": 36,
+  "projectionVersion": 50,
+  "protocolVersion": 4,
+  "schemaId": "sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698",
+  "savedWeek": 520,
+  "currentWeek": 521,
+  "journalEntries": 0,
+  "runtimeStateRevision": 0,
+  "description": "Actual outgoing Save36 converter and tick, then projection50 create/encode/decode. Genuine V33 input and research history preserved; two independent current/saved slots. No Scientist amendment or relabeling.",
+  "artifacts": [
+    {
+      "filename": "genuine-v36-scientist-week520.json.gz",
+      "kind": "save",
+      "uncompressedSha256": "762560f9a3d9512cacfd162b1a7bd7b91571f9990b3009b14bc1b4a123e57f9e",
+      "compressedSha256": "dd87e667a1bc4a08a59f905e629b405190b55612a3706283a95f442afe004934",
+      "byteLength": 1378126,
+      "compressedByteLength": 139196
+    },
+    {
+      "filename": "genuine-v36-scientist-week521.json.gz",
+      "kind": "save",
+      "uncompressedSha256": "d40e00e4f7ea574ccab02380d48f37e569b6303412031ab4d19e4fa11a3e9c6e",
+      "compressedSha256": "6ad884314c28290b530e52289d3bd7c468e2d1f2783904266f86bb1a6f23e6eb",
+      "byteLength": 1382452,
+      "compressedByteLength": 139728
+    },
+    {
+      "filename": "runtime50-current521-saved520.json.gz",
+      "kind": "runtimeCheckpoint",
+      "uncompressedSha256": "9c5e414c2c9ca6672113984813a69ae2d041347e6d21b04550e26edc1a75e8d6",
+      "compressedSha256": "60c0d7c39a467923fc4a6305a5499e39f5ffa227871d63b62dc892fcb0aeb9cc",
+      "byteLength": 3071914,
+      "compressedByteLength": 283058
+    }
+  ]
+}

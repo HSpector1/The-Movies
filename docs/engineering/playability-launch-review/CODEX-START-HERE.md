@@ -1,6 +1,37 @@
 # CODEX continuation — Project Studio
 
-## CURRENT RESUME — Codex C.2c implementation continuation
+## CURRENT RESUME — C.2c closed qualified; Scientist RED next
+
+Read843-c2c-qualified-and-scientist-t0.md first. C.2c source84f1d9a8 is published
+and verified on actual remote. Full837 CLOSED/fixedSource:true on that exact source
+with empty patch:4311cases,4246PASS,54inheritedFAIL,11todo. Against822:NEW0,
+VANISHED1(intermittentFU-2 timeout passed),54samecause; all54 detailed diagnostic
+bodies also identical. No timeout/budget/test weakening. C.2c QUALIFIED LOGIC
+VERIFIED · UNITY NOT VERIFIED. Do not restart it or seek an Owner trigger week.
+
+NEXT: Scientist62/72, bounded840 reviewedKEEP841. Genuine outgoing Save36 at520/521
+and runtime50 current521/saved520 now preserved in
+tests/fixtures/p14/genuine-v36-scientist-corpus/MANIFEST.json by842 atsource84f1d9a8.
+No Scientist production edits yet. Independent test-author files are FROZEN in
+/private/tmp/codex-c2c-red.aWg2tP at8f893e0e: p14c2s-scientist-retirement.test.ts,
+helpers/p14c2s-fixtures.ts, bridge-p14c2s-scientist.test.ts. Record RED844 there,
+attribute any invalid premise, then sole sim-core writer. S11 runtime coverage is
+still outstanding; the genuine aged runtime fixture is also copied into that tree.
+
+Selected technical boundary: Save37 live policy with explicit private validation
+delegation; frozen publicV34–36 windows/version1 remain unchanged. Generic intent1
+remains the algorithm. Projection51 registers actual outgoing schema50 in the same
+cut. Preserve notice, research receipts, production finishing and final extension.
+Measure fixed-player-pool versus existing rival supply; invent no replacement law.
+Research test math is corrected BEFORE testing: begin565/pause567/resume716 yields
+14units at expiry728. No Scientist test has yet run. One heavy process maximum,
+two active specialists maximum; production writer idle until valid RED.
+
+After Scientist verification/publication continue C.2-RM(821), remainingP14 and
+authorized later packages. Unity/native deferred. Keep exact restart/evidence and
+actual remote verification; no commits during recorded runs.
+
+## Earlier C.2c in-flight notes — superseded by 843 above
 
 Owner's CODEX-ASTRA-CONTINUE packet is active. Source at entry and remote verified
 `9b170660398e605be149994400bf092415c78a07`; branch and worktree unchanged.
@@ -29,13 +60,23 @@ Save36 producer: current week53 and saved week52 independently preserved and dec
 No fixture relabeling. Save36 / projection50 / protocol4 / promise rules4 remain live.
 
 Last full test evidence remains 822: 55 inherited failures, qualified, not green.
-Current HEAD and verified remote: `8f893e0e9fd8623e79bfc30d673f0e0aaf502fab`.
+Current source HEAD and actual verified remote: `84f1d9a8bf283ca06a3fe5235e475238a04f57e5`
+(839). 837 full core is next/in flight on this fixed source: check its JSON/process
+before starting anything. No commits or consumed-source changes until completion.
 No C.2c full-boundary or all-green claim is made. Record 838 is the recoverable
-focused checkpoint. Publish it, verify actual remote, then recorded full core 837
+focused checkpoint, now published and remote verified. Recorded full core 837
 against 822, keeping source/HEAD fixed throughout. Continue Scientist62/72 and C.2-RM.
 The isolated RED worktree `/private/tmp/codex-c2c-red.aWg2tP` remains at 8f893e0e;
 830 artifacts are copied byte-for-byte into this worktree's evidence. No reset.
 Unity/native remains deferred. Continue through the authorized later packages.
+
+Scientist next is now expanded in840 and independently reviewed KEEP in841.
+Test-author drafts only in the isolated old-source worktree while837 runs; no
+Scientist production or test run yet. 842 outgoing Scientist36/runtime50 minter is
+ready but MUST wait for837 completion. Its guard pins actual production to84f1d9a8.
+Selected technical boundary: Save37 live-policy validation with frozenV34–36 public
+readers preserved; projection51 registers outgoing50 in the same cut. Measure the
+fixed player pool separately from existing rival deficit supply; invent no refill.
 
 ## CURRENT RESUME — Codex handoff from the Claude Opus coordinator (written 08:14 CEST 2026-09-26; supersedes every "Current …" section below)
 

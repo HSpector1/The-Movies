@@ -1,6 +1,14 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
-## CURRENT — Codex C.2c, 2026-09-26
+## CURRENT — C.2c closed qualified; Scientist next
+
+843: full837 fixed-source4311cases/4246PASS/54inheritedFAIL/11todo. NEW0 versus822,
+all54 detailed diagnostics identical, intermittentFU-2 passed (not a fix claim).
+C.2c QUALIFIED LOGIC VERIFIED · UNITY NOT VERIFIED. Scientist840/841 is approved
+for bounded implementation after independent RED844; genuine outgoing36/runtime50
+is preserved by842. Exact continuation: newest CODEX-START-HERE.
+
+## Earlier C.2c progress — superseded by843
 
 Implementation now exists: admission-cutoff VOIDED with committed-work protection,
 ordinary-impossibility exclusion, separate rival timing and issuer-only attention.

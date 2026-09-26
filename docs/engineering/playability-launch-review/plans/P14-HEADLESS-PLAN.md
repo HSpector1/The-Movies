@@ -2,6 +2,11 @@
 
 ## Active continuation — 2026-09-26 Codex C.2c
 
+UPDATE843: C.2c closed QUALIFIED LOGIC VERIFIED · UNITY NOT VERIFIED. Full837:
+4246PASS/54inheritedFAIL/11todo,4311cases; zero new failures, all retained detailed
+diagnostics identical to822. Scientist bounded840/KEEP841 is next; genuine outgoing
+Save36/runtime50 preserved842. Independent RED844 precedes the Scientist writer.
+
 C.2c implementation and 24 focused cases are now passing (832); full/type boundary
 verification remains in flight. Corrected operational trigger and authority are in
 823, independent review and inherited signed-zero attribution in 828/830, and the
