@@ -1,0 +1,18 @@
+{"sourceSha":"4dbca155295b6ff1e0ab968ed92417bf74ad6585","testedDiffSha256":"82414876bdb03e5566395515a95088d81a2a33ff7da5e36cc2ae4e39fc47e6ce","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c3-queued-writing-proof.test.ts"],"node":"v20.20.2","start":"2026-09-26T21:57:02.403Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14c3-queued-writing-proof.test.ts (6 tests) 22874ms
+   ✓ C.3 queued current-director writing and complete-proof boundary > Q1 grants the real queued original at469 while unrelated transitionDue469 remains pending in the queue phase 8821ms
+   ✓ C.3 queued current-director writing and complete-proof boundary > Q2 refuses permission when unrelated intent version passes new history alone but fails complete Save38 1491ms
+   ✓ C.3 queued current-director writing and complete-proof boundary > Q3 makes no recurring profession proof on idle/currently contracted work, with a positive spy control 821ms
+   ✓ C.3 queued current-writer writing and complete-proof boundary > Q1 grants the real queued original at469 while unrelated transitionDue469 remains pending in the queue phase 9180ms
+   ✓ C.3 queued current-writer writing and complete-proof boundary > Q2 refuses permission when unrelated intent version passes new history alone but fails complete Save38 1658ms
+   ✓ C.3 queued current-writer writing and complete-proof boundary > Q3 makes no recurring profession proof on idle/currently contracted work, with a positive spy control 902ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  23:57:02
+   Duration  25.93s (transform 1.78s, setup 0ms, collect 2.40s, tests 22.87s, environment 0ms, prepare 99ms)
+

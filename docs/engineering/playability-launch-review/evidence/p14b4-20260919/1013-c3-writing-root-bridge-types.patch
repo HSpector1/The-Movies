@@ -1,0 +1,350 @@
+diff --git a/tests/helpers/p14c3-queued-writing-fixtures.ts b/tests/helpers/p14c3-queued-writing-fixtures.ts
+new file mode 100644
+index 00000000..6aa45167
+--- /dev/null
++++ b/tests/helpers/p14c3-queued-writing-fixtures.ts
+@@ -0,0 +1,166 @@
++// Reviewed1008-A: genuine queued writing alongside a naturally deferred actor.
++// No fixture mint, timing/history edits, private permission helper or extra loop.
++import assert from 'node:assert/strict'
++import { expect } from 'vitest'
++import { applyActions } from '../../src/core/actions.js'
++import { retirementRecordFor } from '../../src/core/careerLifecycle.js'
++import { activeContract, busyTalentIds } from '../../src/core/employment.js'
++import { availableDevelopmentCastingSlots } from '../../src/core/scriptDevelopment.js'
++import { tick } from '../../src/core/tick.js'
++import { TUNING } from '../../src/core/tuning.js'
++import type { GameState } from '../../src/core/types.js'
++import { clone, person, type Target } from './p14c3-fixtures.js'
++import { accepted, originalCommission, preserveActorHistory, projectFor, renewedEpisode } from './p14c3-second-episode-fixtures.js'
++
++export type QueuedWritingFixture = { state: GameState; origin: GameState; focusId: string; unrelatedActorId: string;
++  originalProjectId: string; due: number; queuedWriterId: string; fillerWriterId: string }
++const cache = new Map<Target, QueuedWritingFixture>()
++const failed = new Map<Target, unknown>()
++
++function advance(state: GameState, end: number): GameState {
++  expect(Number.isInteger(end) && state.market.tick <= end && end <= 468,
++    '1008-A setup bound: stop at settled468; Q1 owns the single469 tick').toBe(true)
++  const count = end - state.market.tick
++  for (let i = 0; i < count; i++) state = tick(state, { develop: true })
++  expect(state.market.tick).toBe(end)
++  return state
++}
++export function addAndSign(state: GameState, role: 'actor' | 'writer', age: number, termWeeks: number, label: string) {
++  const count = state.talent.length
++  let next = applyActions(state, [{ kind: 'createTalent', talent: { name: label, role, age,
++    actual: { warmth: 0, gravity: 0, physicality: 0.2 }, potentialTier: 'Steady', workEthic: 55 } }])
++  expect(next.talent).toHaveLength(count + 1)
++  const id = next.talent.at(-1)!.id
++  next = applyActions(next, [{ kind: 'signContract', talentId: id, termWeeks }])
++  expect(activeContract(next, id)).toMatchObject({ startWeek: state.market.tick, endWeekExclusive: state.market.tick + termWeeks })
++  expect(next.talentProvenance.rows.find(row => row.personId === id))
++    .toMatchObject({ kind: 'authored_exact_week', ageAtEntry: age, entryWeek: state.market.tick })
++  return { state: next, id }
++}
++export function assertDeferredActor(state: GameState, id: string, weeks: readonly number[], nextDue: number): void {
++  expect(person(state, id).role).toBe('actor')
++  expect(retirementRecordFor(state, id)).toMatchObject({ profession: 'actor', announcedWeek: 313,
++    effectiveWeek: 365, retiredWeek: 365, status: 'retired', extensionUsed: false })
++  expect(state.firstTakes.filter(row => Object.values(row.cast).includes(id))).toEqual([])
++  expect(state.studio.releasedFilms.filter(row => row.participants
++    && Object.values(row.participants.cast).some(credit => credit.talentId === id))).toEqual([])
++  expect(state.hollywood!.films.filter(row => row.credits.some(credit => credit.talentId === id
++    && ['lead', 'antagonist', 'support'].includes(credit.role)))).toEqual([])
++  const evaluations = state.careerLifecycle.transitionEvaluations.filter(row => row.personId === id)
++  expect(evaluations.map(row => row.week)).toEqual(weeks)
++  for (const evaluation of evaluations) expect(evaluation).toMatchObject({ outcome: 'deferred', selected: null,
++    reason: 'noEligibleTarget', source: { personId: id, profession: 'actor' }, inputs: { actingFirstTakes: 0 } })
++  expect(state.careerLifecycle.transitionDue.filter(row => row.personId === id)).toEqual([{ personId: id, week: nextDue }])
++  expect(state.careerLifecycle.professionChanges.filter(row => row.personId === id)).toEqual([])
++  expect(state.careerLifecycle.industryRetirements.filter(row => row.personId === id)).toEqual([])
++  expect(state.freeAgents).not.toContain(id)
++}
++
++export function queuedWritingFixture(target: Target): QueuedWritingFixture {
++  const prior = cache.get(target)
++  if (prior !== undefined) return clone(prior)
++  // Failed deterministic setup is rethrown, not replayed by the other leaf.
++  if (failed.has(target)) throw failed.get(target)
++  try {
++    const old = renewedEpisode(target)
++    let state = advance(old.state, 261)
++    const actor = addAndSign(state, 'actor', 70, 104, `1012 ${target} unrelated deferred actor`)
++    state = actor.state
++    expect(retirementRecordFor(state, actor.id)).toBeUndefined()
++    accepted(state)
++    state = advance(state, 313)
++    expect(person(state, actor.id).age).toBe(71)
++    expect(retirementRecordFor(state, actor.id)).toMatchObject({ announcedWeek: 313, effectiveWeek: 365,
++      status: 'announced', cause: 'hardBoundary', ageAtAnnouncement: 71 })
++    expect(activeContract(state, actor.id)).toMatchObject({ startWeek: 261, endWeekExclusive: 365 })
++    accepted(state)
++    state = advance(state, 364)
++    const carrying = activeContract(state, old.id)
++    assert.ok(carrying)
++    const ends = state.hollywood!.employment.filter(row => row.terms.talentId === old.id
++      && row.terms.startWeek <= 364 && 364 < (row.endedWeek ?? row.terms.endWeekExclusive))
++      .map(row => row.terms.endWeekExclusive)
++    const effective = Math.max(364 + TUNING.RETIREMENT_NOTICE_WEEKS, carrying.endWeekExclusive, ...ends)
++    expect(effective).toBe(468)
++    expect(person(state, old.id)).toMatchObject({ role: target, age: 75 })
++    expect(retirementRecordFor(state, old.id)).toMatchObject({ announcedWeek: 364, effectiveWeek: effective,
++      profession: target, status: 'announced', cause: 'hardBoundary' })
++    state = advance(state, 365)
++    expect(activeContract(state, actor.id)).toBeUndefined()
++    expect(state.hollywood!.receipts.filter(row => row.kind === 'employment' && row.reason === 'expiry'
++      && row.talentId === actor.id && row.week === 365)).toHaveLength(1)
++    assertDeferredActor(state, actor.id, [365], 417)
++    accepted(state)
++    state = advance(state, 417)
++    expect(person(state, actor.id).age).toBe(73)
++    assertDeferredActor(state, actor.id, [365, 417], 469)
++    accepted(state)
++    state = advance(state, 467)
++    expect(state.studio.activeProductions).toEqual([])
++    if (state.scriptDevelopment.mode === 'legacy') state = applyActions(state, [{ kind: 'activateScriptDevelopment' }])
++    expect(state.scriptDevelopment.projects).toEqual([])
++    expect(state.castingSessions.sessions).toEqual([])
++    expect(state.operations.facilities.filter(row => row.capability === 'development-casting').reduce((sum, row) => sum + row.capacity, 0)).toBe(2)
++    const queued = addAndSign(state, 'writer', 30, 52, `1012 ${target} queued young writer`)
++    const filler = addAndSign(queued.state, 'writer', 30, 52, `1012 ${target} one-week pool writer`)
++    state = filler.state
++    expect(person(state, old.id).skills.writing).toBeDefined()
++    expect(busyTalentIds(state).has(old.id)).toBe(false)
++    expect(activeContract(state, old.id)).toMatchObject({ endWeekExclusive: 468 })
++    state = applyActions(state, [originalCommission(old.id)])
++    const project = state.scriptDevelopment.projects.at(-1)!
++    expect(project).toMatchObject({ writerId: old.id, writerIds: [old.id], commissionedWeek: 467, status: 'drafting' })
++    assert.ok(project.dueWeek !== null)
++    expect(project.dueWeek, 'real main draft must still need permission during469 queue admission').toBeGreaterThan(469)
++    expect(project.dueWeek).toBeLessThanOrEqual(494)
++    accepted(state)
++    state = advance(state, 468)
++    expect(projectFor(state, project.id)).toEqual(project)
++    expect(activeContract(state, old.id)).toBeUndefined()
++    expect(retirementRecordFor(state, old.id)).toMatchObject({ profession: target, effectiveWeek: 468,
++      status: 'finishing_commitments', finishingFromWeek: 468, retiredWeek: null })
++    expect(state.hollywood!.receipts.filter(row => row.kind === 'employment' && row.reason === 'expiry'
++      && row.talentId === old.id && row.week === 468)).toHaveLength(1)
++    for (const id of [queued.id, filler.id]) {
++      expect(person(state, id)).toMatchObject({ role: 'writer', age: 30 })
++      expect(activeContract(state, id)).toMatchObject({ startWeek: 467, endWeekExclusive: 519 })
++      expect(busyTalentIds(state).has(id)).toBe(false)
++    }
++    expect(availableDevelopmentCastingSlots(state.operations, state.scriptDevelopment, new Set())).toBe(1)
++    expect(state.productionQueue).toEqual([])
++    assertDeferredActor(state, actor.id, [365, 417], 469)
++    preserveActorHistory(state, old.origin, old.id)
++    accepted(state)
++    const result = { state, origin: old.origin, focusId: old.id, unrelatedActorId: actor.id,
++      originalProjectId: project.id, due: project.dueWeek, queuedWriterId: queued.id, fillerWriterId: filler.id }
++    cache.set(target, result)
++    return clone(result)
++  } catch (error) { failed.set(target, error); throw error }
++}
++
++export function fillAndQueue(f: QueuedWritingFixture): { state: GameState; poolId: string; ordinal: number } {
++  const unused = f.state.concepts.find(row => !f.state.scriptDevelopment.projects.some(project => project.conceptId === row.id)
++    && !f.state.studio.activeProductions.some(project => project.conceptId === row.id)
++    && !f.state.studio.releasedFilms.some(film => film.conceptId === row.id))
++  assert.ok(unused, 'actual unused pool concept, not an authored reservation')
++  let state = applyActions(f.state, [{ kind: 'commissionScript', project: { conceptId: unused.id, writerId: f.fillerWriterId,
++    shape: { opening: 'mysteryHook', midpoint: 'reversal', ending: 'bittersweet' },
++    promise: { genre: unused.genre, intendedSegments: ['adult'], ranges: {
++      intimacy: [-0.4, 0.6], tonalWeight: [0, 0.8], kineticEnergy: [-0.7, 0.2] } } } }])
++  expect(state.scriptDevelopment.projects).toHaveLength(2)
++  const pool = state.scriptDevelopment.projects.at(-1)!
++  expect(pool).toMatchObject({ writerId: f.fillerWriterId, commissionedWeek: 468, dueWeek: 469, status: 'drafting' })
++  expect(pool.reservation).not.toBeNull()
++  expect(availableDevelopmentCastingSlots(state.operations, state.scriptDevelopment, new Set())).toBe(0)
++  const before = state
++  state = applyActions(state, [originalCommission(f.queuedWriterId)])
++  expect(state.productionQueue).toHaveLength(1)
++  const entry = state.productionQueue[0]!
++  expect(entry).toMatchObject({ kind: 'commissionOriginalScreenplay', queuedWeek: 468, payload: { writerId: f.queuedWriterId } })
++  expect(state.concepts).toEqual(before.concepts)
++  expect(state.originalScreenplays).toEqual(before.originalScreenplays)
++  expect(state.scriptDevelopment).toEqual(before.scriptDevelopment)
++  expect(busyTalentIds(state).has(f.queuedWriterId)).toBe(false)
++  accepted(state)
++  return { state, poolId: pool.id, ordinal: entry.ordinal }
++}
+diff --git a/tests/p14c3-queued-writing-proof.test.ts b/tests/p14c3-queued-writing-proof.test.ts
+new file mode 100644
+index 00000000..9e442dbd
+--- /dev/null
++++ b/tests/p14c3-queued-writing-proof.test.ts
+@@ -0,0 +1,172 @@
++// Independent1008-A qualification on the implemented current proof/phase context.
++// No historical RED claim: parent records the first actual six-case result.
++import assert from 'node:assert/strict'
++import { describe, expect, it, vi } from 'vitest'
++import { applyActions } from '../src/core/actions.js'
++import { retirementRecordFor } from '../src/core/careerLifecycle.js'
++import { activeContract, busyTalentIds } from '../src/core/employment.js'
++import { studioConstructionView } from '../src/core/placement.js'
++import * as professionHistory from '../src/core/professionHistory.js'
++import * as queueAdmission from '../src/core/queueAdmission.js'
++import { stableStringify, validateSaveV38 } from '../src/core/save.js'
++import { availableDevelopmentCastingSlots } from '../src/core/scriptDevelopment.js'
++import { studioCalendar } from '../src/core/studioCalendar.js'
++import { tick } from '../src/core/tick.js'
++import type { GameState } from '../src/core/types.js'
++import { clone, person } from './helpers/p14c3-fixtures.js'
++import { addAndSign, assertDeferredActor, fillAndQueue, queuedWritingFixture } from './helpers/p14c3-queued-writing-fixtures.js'
++import { accepted, B4_TARGETS, originalCommission, preserveActorHistory, projectFor, renewedEpisode } from './helpers/p14c3-second-episode-fixtures.js'
++
++const envelope = (state: GameState) => ({ saveVersion: 38, seed: state.seed, state, broadcastCache: state.broadcastItems })
++
++/** Independent premise check across both actual task owners, not the new private
++ * permission/candidate helper. An idle-cost assertion must not hide a candidate. */
++function noExpiredWriting(state: GameState): void {
++  const week = state.market.tick
++  for (const project of state.scriptDevelopment.projects) {
++    if (project.status !== 'drafting' || project.dueWeek === null || project.dueWeek <= week) continue
++    for (const id of project.writerIds) expect(activeContract(state, id), 'player task writer is actually employed').toBeDefined()
++  }
++  for (const studio of state.hollywood!.businesses) {
++    for (const project of studio.development.projects) {
++      if (project.status !== 'drafting' || project.dueWeek === null || project.dueWeek <= week) continue
++      for (const id of project.writerIds) expect(state.hollywood!.employment.some(row => row.studioId === studio.studioId
++        && row.terms.talentId === id && row.terms.startWeek <= week && week < (row.endedWeek ?? row.terms.endWeekExclusive)),
++      'rival task writer is actually employed by that task owner').toBe(true)
++    }
++  }
++}
++
++describe.each(B4_TARGETS)('C.3 queued current-%s writing and complete-proof boundary', target => {
++  it('Q1 grants the real queued original at469 while unrelated transitionDue469 remains pending in the queue phase', () => {
++    const f = queuedWritingFixture(target), queued = fillAndQueue(f), state = queued.state
++    const before = stableStringify(state), oldDraft = clone(projectFor(state, f.originalProjectId))
++    const oldEvaluations = clone(state.careerLifecycle.transitionEvaluations.filter(row => row.personId === f.unrelatedActorId))
++    accepted(state)
++    expect(oldDraft.dueWeek).toBeGreaterThan(469)
++    expect(state.market.tick).toBe(468)
++    assertDeferredActor(state, f.unrelatedActorId, [365, 417], 469)
++    const historySpy = vi.spyOn(professionHistory, 'validateProfessionHistory')
++    const queueSpy = vi.spyOn(queueAdmission, 'admitQueuedIntents')
++    let after: GameState
++    try {
++      const control = envelope(state)
++      expect(validateSaveV38(control)).toBe(control)
++      expect(historySpy.mock.calls, 'mandatory real full-reader instrumentation control').toHaveLength(1)
++      expect(historySpy.mock.calls[0]![0].market).toMatchObject({ tick: 468 })
++      historySpy.mockClear()
++      after = tick(state, { develop: true })
++      expect(historySpy.mock.calls, 'one complete settled proof per tick invocation, with no transient re-proof').toHaveLength(1)
++      expect(historySpy.mock.calls[0]![0].market).toMatchObject({ tick: 468 })
++      expect(queueSpy.mock.calls, 'mandatory actual queue-dispatch instrumentation seam').toHaveLength(1)
++      const [arriving, week] = queueSpy.mock.calls[0]!
++      expect(week).toBe(469)
++      expect(arriving.market.tick).toBe(469)
++      expect(arriving.careerLifecycle.transitionDue.filter(row => row.personId === f.unrelatedActorId))
++        .toEqual([{ personId: f.unrelatedActorId, week: 469 }])
++      expect(arriving.careerLifecycle.transitionEvaluations.filter(row => row.personId === f.unrelatedActorId)).toEqual(oldEvaluations)
++      expect(projectFor(arriving, f.originalProjectId)).toEqual(oldDraft)
++      expect(projectFor(arriving, queued.poolId)).toMatchObject({ status: 'review', dueWeek: null, reservation: null })
++      expect(availableDevelopmentCastingSlots(arriving.operations, arriving.scriptDevelopment, new Set())).toBe(1)
++      const result = queueSpy.mock.results[0]!
++      expect(result.type).toBe('return')
++      if (result.type === 'return') {
++        expect(result.value.granted).toEqual([queued.ordinal])
++        expect(result.value.expired).toEqual([])
++      }
++    } finally { queueSpy.mockRestore(); historySpy.mockRestore() }
++    expect(after!.market.tick).toBe(469)
++    expect(after!.productionQueue).toEqual([])
++    expect(projectFor(after!, f.originalProjectId)).toEqual(oldDraft)
++    const newProjects = after!.scriptDevelopment.projects.filter(row => row.writerId === f.queuedWriterId)
++    expect(newProjects).toHaveLength(1)
++    const admittedProject = newProjects[0]!
++    expect(admittedProject).toMatchObject({ commissionedWeek: 469, status: 'drafting', writerIds: [f.queuedWriterId] })
++    expect(admittedProject.dueWeek).toBeGreaterThan(469)
++    expect(admittedProject.reservation).not.toBeNull()
++    expect(after!.scriptDevelopment.projects).toHaveLength(state.scriptDevelopment.projects.length + 1)
++    expect(after!.concepts).toHaveLength(state.concepts.length + 1)
++    expect(after!.originalScreenplays.nextOrdinal).toBe(state.originalScreenplays.nextOrdinal + 1)
++    expect(after!.originalScreenplays.blueprints).toHaveLength(state.originalScreenplays.blueprints.length + 1)
++    expect(after!.originalScreenplays.blueprints.filter(row => row.projectId === admittedProject.id))
++      .toEqual([expect.objectContaining({ mintedWeek: 469, writerId: f.queuedWriterId, conceptId: admittedProject.conceptId })])
++    expect(after!.studioEvents.rows.filter(row => row.kind === 'queueIntentExpired' && row.ordinal === queued.ordinal)).toEqual([])
++    expect(person(after!, f.unrelatedActorId).age).toBe(74)
++    assertDeferredActor(after!, f.unrelatedActorId, [365, 417, 469], 521)
++    expect(after!.careerLifecycle.transitionEvaluations.filter(row => row.personId === f.unrelatedActorId).slice(0, 2)).toEqual(oldEvaluations)
++    expect(retirementRecordFor(after!, f.focusId)).toMatchObject({ profession: target, status: 'finishing_commitments', effectiveWeek: 468 })
++    preserveActorHistory(after!, f.origin, f.focusId)
++    accepted(after!)
++    expect(stableStringify(state)).toBe(before)
++  })
++
++  it('Q2 refuses permission when unrelated intent version passes new history alone but fails complete Save38', () => {
++    const f = queuedWritingFixture(target), before = stableStringify(f.state)
++    accepted(f.state)
++    expect(availableDevelopmentCastingSlots(f.state.operations, f.state.scriptDevelopment, new Set())).toBe(1)
++    expect(activeContract(f.state, f.queuedWriterId)).toBeDefined()
++    expect(busyTalentIds(f.state).has(f.queuedWriterId)).toBe(false)
++    expect(() => studioConstructionView(f.state)).not.toThrow()
++    expect(() => studioCalendar(f.state)).not.toThrow()
++    const allowed = applyActions(f.state, [originalCommission(f.queuedWriterId)])
++    expect(allowed.scriptDevelopment.projects.at(-1)).toMatchObject({ writerId: f.queuedWriterId, commissionedWeek: 468, status: 'drafting' })
++    expect(projectFor(allowed, f.originalProjectId)).toEqual(projectFor(f.state, f.originalProjectId))
++    expect(allowed.productionQueue).toEqual([])
++    accepted(allowed)
++    const malformed = clone(f.state)
++    const row = retirementRecordFor(malformed, f.unrelatedActorId)
++    assert.ok(row)
++    expect(row).toMatchObject({ intentRulesVersion: 1, retiredWeek: 365, status: 'retired' })
++    // Explicit invalid-unknown boundary: alter only this frozen leaf. No claim
++    // that the copied object remains a valid GameState after the mutation.
++    Object.assign(row, { intentRulesVersion: 0 })
++    expect(malformed.careerLifecycle.records.filter(item => item.personId === f.focusId))
++      .toEqual(f.state.careerLifecycle.records.filter(item => item.personId === f.focusId))
++    const malformedBefore = stableStringify(malformed)
++    expect(() => professionHistory.validateProfessionHistory({ ...malformed }), 'narrow history-only discriminator is not whole-save admission').not.toThrow()
++    expect(() => validateSaveV38(envelope(malformed))).toThrow(/intentRulesVersion must be 1/)
++    const refusal = /intentRulesVersion must be 1|active project .*writer is not contracted/
++    expect(() => studioConstructionView(malformed)).toThrow(refusal)
++    expect(() => studioCalendar(malformed)).toThrow(refusal)
++    expect(() => applyActions(malformed, [originalCommission(f.queuedWriterId)])).toThrow(refusal)
++    expect(stableStringify(malformed)).toBe(malformedBefore)
++    expect(stableStringify(f.state)).toBe(before)
++  })
++
++  it('Q3 makes no recurring profession proof on idle/currently contracted work, with a positive spy control', () => {
++    const f = renewedEpisode(target)
++    let state = f.state
++    expect(state.market.tick).toBe(260)
++    expect(person(state, f.id).role).toBe(target)
++    expect(state.careerLifecycle.professionChanges.filter(row => row.personId === f.id)).toHaveLength(1)
++    expect(retirementRecordFor(state, f.id, 'actor')).toMatchObject({ retiredWeek: 208 })
++    if (state.scriptDevelopment.mode === 'legacy') state = applyActions(state, [{ kind: 'activateScriptDevelopment' }])
++    const young = addAndSign(state, 'writer', 30, 52, `1012 ${target} idle proof control`)
++    state = young.state
++    accepted(state)
++    noExpiredWriting(state)
++    const before = stableStringify(state), spy = vi.spyOn(professionHistory, 'validateProfessionHistory')
++    let after: GameState
++    try {
++      const control = envelope(state)
++      expect(validateSaveV38(control)).toBe(control)
++      expect(spy.mock.calls, 'positive full-reader control proves this spy observes the actual call graph').toHaveLength(1)
++      expect(spy.mock.calls[0]![0].market).toMatchObject({ tick: 260 })
++      spy.mockClear()
++      expect(() => studioConstructionView(state)).not.toThrow()
++      expect(() => studioCalendar(state)).not.toThrow()
++      const commissioned = applyActions(state, [originalCommission(young.id)])
++      expect(commissioned.scriptDevelopment.projects.at(-1)).toMatchObject({ writerId: young.id, commissionedWeek: 260, status: 'drafting' })
++      expect(commissioned.productionQueue).toEqual([])
++      noExpiredWriting(commissioned)
++      after = tick(commissioned, { develop: true })
++      expect(after.market.tick).toBe(261)
++      expect(after.scriptDevelopment.projects.filter(row => row.writerId === young.id)).toHaveLength(1)
++      expect(spy.mock.calls, 'candidate-free live actions, views and week must not prove accumulated profession history').toHaveLength(0)
++    } finally { spy.mockRestore() }
++    noExpiredWriting(after!)
++    preserveActorHistory(after!, f.origin, f.id)
++    accepted(after!)
++    expect(stableStringify(state)).toBe(before)
++  })
++})

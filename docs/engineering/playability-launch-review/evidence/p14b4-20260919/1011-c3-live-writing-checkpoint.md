@@ -76,3 +76,16 @@ C.3 verification remain. Historical failures, original captures and provenance
 remain intact. C.3 began18:26Z; elapsed near3h21m at this drafting point counts toward
 937's10–15h planning checkpoint, including protected final verification. It is not
 a stop quota or an all-green claim.
+
+## Publication receipt
+
+Normally pushed4dbca155295b6ff1e0ab968ed92417bf74ad6585 to the existing working
+branch. Independent ls-remote matched the exact local HEAD on2026-09-26 after
+push closure; the whole worktree was clean at that verification. No force push,
+protected-main promotion, hook or persistent configuration change. Newer records
+written after this receipt are pending for the next checkpoint.
+
+Next source ownership released to the same test specialist: exactly1008-A's two
+new files/six cases plus1012-A handback, no execution. Existing B4a files stay
+frozen. Reviewer owns1013-A docs-only review of the separate B4b dual-extension
+plan. Parent remains sole production writer/integrator/heavy executor.

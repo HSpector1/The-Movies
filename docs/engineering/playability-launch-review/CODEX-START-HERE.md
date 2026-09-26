@@ -1,5 +1,36 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — six queued-writing controls verified; dual-extension tests released
+
+1012 first result:6PASS,26.767s,fixedSource,closed21:57:29.170Z. Both real
+queued469 admissions and the unrelated actor's actual365/417/469 deferrals passed;
+one settled468 proof/no transient re-proof, full historical leaf refusal and
+zero idle proof calls were actually observed. 1013 root+bridge typesPASS69.595s,
+closed21:59:10.876Z. Both on4dbca155 plus82414876bdb03e5566395515a95088d81a2a33ff7da5e36cc2ae4e39fc47e6ce.
+All runs closed; no production change after1011. Reviewer1015-A source review
+pending; original6sourcefrozen. Parent soleproductionwriter/heavyexecutor.
+Existing test author now owns only NEW dual-extension test/helper and1014-B handback:
+1002-A/1013-A reviewed12cases, two actual extensions per person, max521/836ticks.
+Actualnaturalpremisesremainmandatory. OffmenuD<E is separate unexecuted planning,
+not released. Reviewer also owns docs-only1014-A remaininggenuineB1/B3 feasibility.
+Continue exactB4 work thenremaining971/938, projection53/readmodels/UI/runtime and
+full C.3 gates. Save38partial/projection52/native deferralunchanged; noacceptanceclaim.
+
+## CURRENT — 4dbca155 published; queued writing controls in development
+
+Local/GitHub refs matched4dbca155295b6ff1e0ab968ed92417bf74ad6585 and the whole
+worktree was clean at verification. 1011 records12 genuine B4aPASS,81 legacywriting/
+queue neighborsPASS, core/root/UI typesPASS, independentreviewKEEP. All heavy runs
+closed. No reset/recreation or completed work repeated. Parent soleproductionwriter.
+Existing test author now owns only1008-A's two NEW queued-writing test/helper files
+and1012-A handback:6cases,525maximum successful gameplayticks, maxworld469. Existing
+B4a files stay frozen. Reviewer owns1013-A docs-only review of the separate B4b
+12-case/two-used-extension plan (max521/836ticks), not its source release.
+Next freeze six controls and record1012 first result; preserve any genuine premise
+failure. Then matching fixes/qualification, dualextensions and remaining971/938,
+projection53/readmodels/UI/runtime and full C.3 verification. CurrentSave38 ispartial;
+projection52 remains. Unity/native deferred, no fullC.3 or launchacceptance claim.
+
 ## CURRENT — B4a writing verified; publishing1011 then queued controls
 
 1006 RED is preserved4PASS/8FAIL, with genuine setup and exact attribution.

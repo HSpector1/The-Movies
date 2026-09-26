@@ -1,0 +1,22 @@
+{
+  "sourceSha": "4dbca155295b6ff1e0ab968ed92417bf74ad6585",
+  "testedDiffSha256": "82414876bdb03e5566395515a95088d81a2a33ff7da5e36cc2ae4e39fc47e6ce",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14c3-queued-writing-proof.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-26T21:57:02.403Z",
+  "end": "2026-09-26T21:57:29.170Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "4dbca155295b6ff1e0ab968ed92417bf74ad6585",
+  "testedDiffSha256AtEnd": "82414876bdb03e5566395515a95088d81a2a33ff7da5e36cc2ae4e39fc47e6ce",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}
