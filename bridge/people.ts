@@ -914,6 +914,20 @@ function proposalWouldFailNow(state: GameState, proposal: { talentId: string; is
   }
 }
 
+/**
+ * P14C.2b (806 §6, 780 §5.3): true when the person's LATEST case — the one `caseForTalent`
+ * answers with — is the one-issuer `retirementExtension`. No existing listing presents it
+ * (it is not a contest; its player surface is C.2-RM's), so every case consumer here and in
+ * the workspace treats that person as holding no listable case.
+ */
+export function latestCaseIsExtension(state: GameState, talentId: string): boolean {
+  const cases = state.talentMarket.cases
+  for (let i = cases.length - 1; i >= 0; i--) {
+    if (cases[i]!.talentId === talentId) return cases[i]!.variant === 'retirementExtension'
+  }
+  return false
+}
+
 /** Exported for the P14A.2 workspace (`bridge/market.ts`), which gathers these same
  * rows across every case instead of re-deriving a second attention vocabulary. */
 export function marketAttentionRows(
@@ -923,6 +937,7 @@ export function marketAttentionRows(
   week: number,
 ): BridgeMarketAttentionRowSnapshot[] {
   const rows: BridgeMarketAttentionRowSnapshot[] = []
+  if (latestCaseIsExtension(state, view.talentId)) return rows
   const add = (cause: BridgeMarketAttentionRowSnapshot['cause'], reason: string): void => {
     rows.push({ cause, talentId: view.talentId, reason })
   }
@@ -967,7 +982,7 @@ export function marketCaseProjection(
 ): BridgeMarketCaseSnapshot | null {
   if (state.hollywood === null) return null
   const view = caseForTalent(state, talentId, week)
-  if (view === null) return null
+  if (view === null || latestCaseIsExtension(state, talentId)) return null
   const disclosure = caseDisclosure(state, talentId, viewerStudioId, week)
   const proposals: BridgeMarketProposalSnapshot[] = disclosure.proposals.map((row) => {
     const common = {

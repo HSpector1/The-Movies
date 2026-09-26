@@ -31,7 +31,7 @@
 import { rivalEmployment, rivalWeeklyOperatingCost, moveRivalMoney } from './hollywood.js'
 import { RIVAL_TEAM_ROLES } from './hollywoodStartingData.js'
 import { recordPlayerEmployment } from './industryEmployment.js'
-import { contractEndRefusal, lifecycleRefusal, retirementRecordFor } from './careerLifecycle.js'
+import { commitRetirementExtension, contractEndRefusal, extensionIssuer, lifecycleRefusal, retirementRecordFor } from './careerLifecycle.js'
 import { activeContract, canAfford, contractOffer, guaranteedComp, renewalWindowOpen, terminationCost } from './employment.js'
 import type { ContractOffer, TerminationLaw } from './employment.js'
 import { attachPromise, attachedPromiseDigest, promiseFeasibility, proposalDigest, trustDescriptor } from './promises.js'
@@ -41,13 +41,16 @@ import { careerIdentity } from './talentSummary.js'
 import { TUNING } from './tuning.js'
 import type { Contract, GameState, LedgerEntry, LegacyTermination, MarketCaseStatus, MarketEligibilityStatus,
   ProfessionalPromiseV30, PromiseClassification, PromiseFamily, PromiseFeasibilityReceipt,
-  Standing, TalentMarketCase, TalentMarketProposal, TalentMarketReceipt, TalentMarketState } from './types.js'
+  Standing, TalentMarketCase, TalentMarketCaseV36, TalentMarketProposal, TalentMarketReceipt,
+  TalentMarketStateV36 } from './types.js'
 import type { HollywoodState, IndustryEmployment, IndustryReceipt, RivalBusiness } from './hollywoodTypes.js'
 
 const iround = (x: number): number => Math.round(x)
 
-/** The empty root. A world that has held no case, no proposal and no receipt. */
-export function initialTalentMarket(): TalentMarketState {
+/** The empty root. A world that has held no case, no proposal and no receipt. The LIVE
+ * opener: an empty V36 root is the V28 root byte for byte (the V36 key lives on cases),
+ * and the frozen V27 → V28 conversion writes its own V28 literal and never calls this. */
+export function initialTalentMarket(): TalentMarketStateV36 {
   return { cases: [], proposals: [], receipts: [], legacyTerminations: [], representation: null }
 }
 
@@ -73,8 +76,8 @@ export type MarketEligibility = { status: MarketEligibilityStatus; proposers: st
  * `unavailable` both for rival-employed and for off-rotation people.
  *
  * P14C.2a (773 D8): the three lifecycle rows are read FIRST, off the person's
- * retirement record, and none of them admits a proposer — the extension's single
- * issuer is C.2b's, not this table's.
+ * retirement record. Only an announced person admits a proposer, and only one: the
+ * issuer of their open `retirementExtension` case (P14C.2b, 806 §4), else nobody.
  */
 export function marketEligibility(
   state: GameState,
@@ -82,7 +85,10 @@ export function marketEligibility(
   week: number = state.market.tick,
 ): MarketEligibility {
   const lifecycle = retirementRecordFor(state, talentId)?.status
-  if (lifecycle === 'announced') return { status: 'retirement_announced', proposers: [] }
+  if (lifecycle === 'announced') {
+    const issuer = extensionIssuer(state, talentId, week)
+    return { status: 'retirement_announced', proposers: issuer === null ? [] : [issuer] }
+  }
   if (lifecycle === 'finishing_commitments') return { status: 'finishing_commitments', proposers: [] }
   if (lifecycle === 'retired') return { status: 'retired_or_ineligible', proposers: [] }
   const entered = enteredStudioIds(state.hollywood)
@@ -145,7 +151,7 @@ function caseStatusAt(state: GameState, kase: TalentMarketCase, week: number): M
   return week <= kase.openedWeek ? 'discovered' : 'proposals_open'
 }
 
-function latestCase(state: GameState, talentId: string): TalentMarketCase | undefined {
+function latestCase(state: GameState, talentId: string): TalentMarketCaseV36 | undefined {
   const rows = state.talentMarket.cases.filter((c) => c.talentId === talentId)
   return rows[rows.length - 1]
 }
@@ -397,9 +403,9 @@ function requireOpenCase(state: GameState, talentId: string, week: number): Mark
 }
 
 function appendReceipt(
-  market: TalentMarketState,
+  market: TalentMarketStateV36,
   draft: Omit<TalentMarketReceipt, 'eventId' | 'dropped'> & { dropped?: readonly string[] },
-): TalentMarketState {
+): TalentMarketStateV36 {
   return {
     ...market,
     receipts: [...market.receipts, { ...draft, dropped: draft.dropped ?? [], eventId: `talent-market-event-${market.receipts.length}` }],
@@ -411,13 +417,25 @@ export function submitProposal(state: GameState, intent: ProposalIntent): GameSt
   // P14C.2a (773 D8): a person with a retirement record takes no proposal from anyone
   // (`marketEligibility` → no proposer), refused with the typed token first — their
   // case was invalidated at the announcement, so the generic "no open case" sentence
-  // would name the wrong cause.
+  // would name the wrong cause. P14C.2b (806 §8.3) NARROWS it by exactly one issuer:
+  // the announced person's own `extensionIssuer`, on their open extension case.
   const record = retirementRecordFor(state, intent.talentId)
-  if (record !== undefined) throw new Error(`talentMarket: proposal rejected — ${lifecycleRefusal(record, 'no proposal is taken after an announcement')}`)
-  requireOpenCase(state, intent.talentId, week)
+  const extension = record?.status === 'announced' && extensionIssuer(state, intent.talentId, week) === intent.issuerStudioId
+  if (record !== undefined && !extension) {
+    throw new Error(`talentMarket: proposal rejected — ${lifecycleRefusal(record, 'no proposal is taken after an announcement')}`)
+  }
+  const view = requireOpenCase(state, intent.talentId, week)
   const eligible = marketEligibility(state, intent.talentId, week)
   if (!eligible.proposers.includes(intent.issuerStudioId)) {
     throw new Error(`talentMarket: studio "${intent.issuerStudioId}" may not propose for "${intent.talentId}" — it has not entered, or the person is not in an approved window`)
+  }
+  // 806 §4: the extension ends at exactly `E + 52`, one year past today's effective week.
+  if (extension && view.decisionWeek + intent.termWeeks !== record.effectiveWeek + TUNING.RETIREMENT_NOTICE_WEEKS) {
+    throw new Error(
+      `talentMarket: proposal rejected — a retirementExtension for "${intent.talentId}" must end at exactly week ` +
+      `${record.effectiveWeek + TUNING.RETIREMENT_NOTICE_WEEKS} (one year past the effective week ${record.effectiveWeek}); ` +
+      `a ${intent.termWeeks}-week term from the decision week ${view.decisionWeek} ends at week ${view.decisionWeek + intent.termWeeks}`,
+    )
   }
   const draft = proposalDraft(state, intent.issuerStudioId, intent.talentId, intent.termWeeks, intent.premiumTier, week)
   const refusal = affordabilityRefusal(state, intent.issuerStudioId, draft.signingBonus, week)
@@ -930,7 +948,7 @@ function chooseProposal(
 
 function closeCase(
   state: GameState,
-  kase: TalentMarketCase,
+  kase: TalentMarketCaseV36,
   outcome: NonNullable<TalentMarketCase['outcome']>,
   week: number,
   reason: string,
@@ -1059,6 +1077,9 @@ export type FreezeDrop =
    * announcement invalidates the case in the same weekly pass — and kept as the
    * settlement re-check the contract names, so no refused winner is ever committed. */
   | 'retirementCap'
+  /** P14C.2b (780 X5, 806 §5b): the extension's re-derived annual is below the
+   * retirement-adjusted reservation, `ask × RETIREMENT_EXTENSION_RESERVATION_FACTOR`. */
+  | 'belowRetirementReservation'
 
 /** The studio as a person would name it; the id only if this world has no identity
  * for it (a state that could not have produced the proposal in the first place). */
@@ -1082,6 +1103,7 @@ const DROP_SENTENCE: Record<FreezeDrop, (studio: string) => string> = {
   issuerDistrusted: (studio) => `${studio} holds a record this person distrusts.`,
   nemesisOnRoster: (studio) => `${studio}'s roster holds someone this person will not work beside.`,
   retirementCap: (studio) => `${studio}'s offer would bind this person past their announced retirement.`,
+  belowRetirementReservation: (studio) => `${studio}'s offer fell short of what this person asks to postpone their retirement.`,
 }
 
 /**
@@ -1114,7 +1136,9 @@ function survivesFreeze(
   if (!enteredStudioIds(hollywood).includes(proposal.issuerStudioId)) return 'issuerNotEntered'
   // P14C.2a (777 §5): the term cap re-checked at settlement, on the term either commit
   // would write (`week + termWeeks`). A refused proposal is dropped, never committed.
-  if (contractEndRefusal(state, proposal.talentId, week + proposal.termWeeks) !== null) return 'retirementCap'
+  // P14C.2b (806 §5a): the ONE proposal the cap admits is the live extension.
+  const extension = extensionAdmitted(state, proposal, week)
+  if (!extension && contractEndRefusal(state, proposal.talentId, week + proposal.termWeeks) !== null) return 'retirementCap'
   // Reservation, P14B.1 (8): this person refuses a Distrusted issuer OUTRIGHT —
   // companion §2.1.7 lists reservation before legality and affordability, and
   // this predicate needs neither a price nor a seat to decide. It is checked
@@ -1140,6 +1164,9 @@ function survivesFreeze(
   // for that term at W — true by construction while the premium tier is ≥ 1.00
   // (companion §2.1.7), kept explicit because it is cheap and it is the law.
   if (priced.annualSalary < priced.askAnnual) return 'belowAsk'
+  // P14C.2b (806 §5b): the retirement-adjusted reservation, rounded to whole dollars
+  // exactly as every price is, so a tier equal to the factor clears it (equality accepts).
+  if (extension && priced.annualSalary < extensionReservation(priced.askAnnual)) return 'belowRetirementReservation'
   // The draft REFERENCE is re-derived; a MATERIAL-term mismatch invalidates the
   // version — and the attached promise is one of those material terms, so a
   // promise that DRIFTED after attachment is caught here, as a revision, before
@@ -1175,7 +1202,10 @@ function commitWinningPromise(
     ? { ...p, contractId: row.contractId, feasibilityReceipt } : p)) }
 }
 
-function settleCase(state: GameState, kase: TalentMarketCase, week: number): GameState {
+/** CANDIDATE WORDING: the settled extension's one ordering-only reason. */
+const EXTENSION_ACCEPTED = 'they accepted the one final extension before retiring'
+
+function settleCase(state: GameState, kase: TalentMarketCaseV36, week: number): GameState {
   const submitted = state.talentMarket.proposals.filter((p) => p.talentId === kase.talentId)
   if (submitted.length === 0) {
     return closeCase(state, kase, 'expired', week, 'no proposal was submitted', null, ['no studio proposed before the decision week'])
@@ -1196,6 +1226,17 @@ function settleCase(state: GameState, kase: TalentMarketCase, week: number): Gam
     // Every proposal failed a freeze predicate BEFORE ranking: one typed sentence
     // per dropped proposal, naming the studio and the predicate that dropped it.
     return closeCase(state, kase, 'declined', week, 'all proposals dropped', null, dropped, dropped)
+  }
+  // P14C.2b (806 §5): the one-issuer extension is not a contest, so the chooser and its
+  // single-survivor sentence never run for it. Its lone survivor is accepted, and the
+  // record moves FIRST, so the commit writes the contract to exactly the NEW effective week.
+  if (isExtensionCase(kase)) {
+    const winner = survivors[0]!
+    const extended = commitRetirementExtension(state, kase.talentId, week)
+    const committed = winner.issuerStudioId === state.hollywood!.playerStudioId
+      ? commitPlayerWinner(extended, winner, week)
+      : commitRivalWinner(extended, winner, week)
+    return closeCase(committed, kase, 'settled', week, 'settled at the decision week', winner.issuerStudioId, [EXTENSION_ACCEPTED], dropped)
   }
   const chosen = chooseProposal(state, kase, survivors, week)
   if (chosen.winner === null) {
@@ -1263,25 +1304,24 @@ export function advanceTalentMarketWeek(state: GameState): GameState {
     const row = hollywood.employment[ordinal]!
     if (row.endedWeek !== null) continue
     if (!renewalWindowOpen(row.terms, week)) continue
-    if (next.talentMarket.cases.some((c) => c.contractId === row.contractId)) continue
+    // P14C.2b (806 §7.2): dedupe on (contractId, variant).
+    if (next.talentMarket.cases.some((c) => c.contractId === row.contractId && !isExtensionCase(c))) continue
     // P14C.2a (773 D8): no case opens for anyone holding a retirement record.
     if (retirementRecordFor(next, row.terms.talentId) !== undefined) continue
-    const kase: TalentMarketCase = {
-      talentId: row.terms.talentId,
-      subjectStudioId: row.studioId,
-      contractId: row.contractId,
-      openedWeek: week,
-      outcome: null,
-      closedWeek: null,
-      reason: null,
-    }
-    next = {
-      ...next,
-      talentMarket: appendReceipt(
-        { ...next.talentMarket, cases: [...next.talentMarket.cases, kase] },
-        { kind: 'discovered', week, talentId: kase.talentId, studioId: kase.subjectStudioId, reasons: [] },
-      ),
-    }
+    next = discover(next, row, 'expiry', week)
+  }
+  // 2b. P14C.2b (806 §4): the extension discovery, a SEPARATE pass because the one above
+  // skips everyone with a record. An announced person, extension unused, whose employer
+  // holds them at exactly `E − 12` gets ONE case naming that employment row. C.2a
+  // invalidated the row's `expiry` case at the announcement; that must not block this.
+  for (const record of next.careerLifecycle.records) {
+    if (record.status !== 'announced' || record.extensionUsed !== false) continue
+    if (week !== record.effectiveWeek - TUNING.RETIREMENT_EXTENSION_WINDOW_WEEKS) continue
+    const row = next.hollywood!.employment.find((e) => e.terms.talentId === record.personId &&
+      e.terms.startWeek <= week && week < (e.endedWeek ?? e.terms.endWeekExclusive))
+    if (row === undefined) continue // a free agent in the window gets no case
+    if (next.talentMarket.cases.some((c) => c.contractId === row.contractId && isExtensionCase(c))) continue
+    next = discover(next, row, 'retirementExtension', week)
   }
 
   // 3. the rival trigger, inside the rival's own weekly decision cadence.
@@ -1291,16 +1331,24 @@ export function advanceTalentMarketWeek(state: GameState): GameState {
       subjectStudioId: kase.subjectStudioId,
       decisionWeek: decisionWeekOf(next, kase),
     }
+    const extension = isExtensionCase(kase)
     for (const business of next.hollywood!.businesses) {
       if (week < business.nextDecisionWeek) continue // it has not decided this week
       if (next.talentMarket.proposals.some((p) => p.talentId === kase.talentId && p.issuerStudioId === business.studioId)) continue
-      if (!rivalProposalTrigger(next, next.hollywood!, business, descriptor, week)) continue
+      // P14C.2b (780 X8, 806 §8.1): on an extension case only the incumbent evaluates, under
+      // X8 rather than the trigger: a term ending at exactly `E + 52`, at the lowest
+      // premium tier that clears the retirement factor, or no proposal when none does.
+      if (extension ? business.studioId !== kase.subjectStudioId : !rivalProposalTrigger(next, next.hollywood!, business, descriptor, week)) continue
+      const premiumTier = extension ? extensionTier() : rivalPremiumTier(business, descriptor)
+      if (premiumTier === undefined) continue
       try {
         next = submitProposal(next, {
           talentId: kase.talentId,
           issuerStudioId: business.studioId,
-          termWeeks: TUNING.HOLLYWOOD_CONTRACT_WEEKS,
-          premiumTier: rivalPremiumTier(business, descriptor),
+          termWeeks: extension
+            ? retirementRecordFor(next, kase.talentId)!.effectiveWeek + TUNING.RETIREMENT_NOTICE_WEEKS - descriptor.decisionWeek
+            : TUNING.HOLLYWOOD_CONTRACT_WEEKS,
+          premiumTier,
         })
       } catch {
         // A refused proposal (reserve, eligibility) writes nothing. The rival simply
@@ -1321,7 +1369,7 @@ export function advanceTalentMarketWeek(state: GameState): GameState {
   return next
 }
 
-function openCasesAt(state: GameState, week: number): TalentMarketCase[] {
+function openCasesAt(state: GameState, week: number): TalentMarketCaseV36[] {
   return state.talentMarket.cases.filter((c) => c.outcome === null && !TERMINAL.has(caseStatusAt(state, c, week)))
 }
 
@@ -1347,6 +1395,8 @@ function openCasesAt(state: GameState, week: number): TalentMarketCase[] {
 function authorRivalPromise(state: GameState, talentId: string, issuerStudioId: string): GameState {
   const proposal = state.talentMarket.proposals.find((p) => p.talentId === talentId && p.issuerStudioId === issuerStudioId)
   if (proposal === undefined || proposal.promises.length > 0) return state
+  // P14C.2b (806 §7.1): no promise rides an extension (promises × retirement is C.2c's).
+  if (openMarketCaseFor(state, talentId)?.variant === 'retirementExtension') return state
   const window = { windowStartWeek: proposal.startWeek, dueWeekExclusive: proposal.startWeek + proposal.termWeeks }
   const p1: PromiseAttachment = { family: 'APPEARANCE_COUNT', predicate: { count: 1 }, ...window }
   const flexible: PromiseAttachment = {
@@ -1556,9 +1606,58 @@ export function projectTalentMarketPreV28(talentMarket: unknown): void {
   }
 }
 
-// ── P14C.2b SCAFFOLD (record 806 §8.4) ──────────────────────────────────────────
+// ── P14C.2b — the single final extension (records 780 and 806) ──────────────────
 
-/** The person's OPEN market case, of either variant, else `undefined`. */
-export function openMarketCaseFor(_state: GameState, _talentId: string): TalentMarketCase | undefined {
-  throw new Error('not implemented (P14C.2b)')
+/** A case of the `retirementExtension` variant. A case without the V36 key predates the
+ * variant and is, by the V35 → V36 migration's own rule, an ordinary expiry. */
+function isExtensionCase(kase: Pick<TalentMarketCaseV36, 'variant'>): boolean {
+  return kase.variant === 'retirementExtension'
+}
+
+/** Discovery: open ONE case of `variant` on this employment row, with its public receipt. */
+function discover(state: GameState, row: IndustryEmployment, variant: TalentMarketCaseV36['variant'], week: number): GameState {
+  const kase: TalentMarketCaseV36 = {
+    talentId: row.terms.talentId,
+    subjectStudioId: row.studioId,
+    contractId: row.contractId,
+    openedWeek: week,
+    outcome: null,
+    closedWeek: null,
+    reason: null,
+    variant,
+  }
+  return {
+    ...state,
+    talentMarket: appendReceipt(
+      { ...state.talentMarket, cases: [...state.talentMarket.cases, kase] },
+      { kind: 'discovered', week, talentId: kase.talentId, studioId: kase.subjectStudioId, reasons: [] },
+    ),
+  }
+}
+
+/** 806 §5a: the one proposal the C.2a cap admits — the live extension issuer's, on the
+ * open extension case, ending at exactly `E + 52`. */
+function extensionAdmitted(state: GameState, proposal: TalentMarketProposal, week: number): boolean {
+  const record = retirementRecordFor(state, proposal.talentId)
+  return record?.status === 'announced' &&
+    extensionIssuer(state, proposal.talentId, week) === proposal.issuerStudioId &&
+    week + proposal.termWeeks === record.effectiveWeek + TUNING.RETIREMENT_NOTICE_WEEKS
+}
+
+/** 780 X5: the retirement-adjusted reservation for an ask, in whole dollars. */
+function extensionReservation(askAnnual: number): number {
+  return iround(askAnnual * TUNING.RETIREMENT_EXTENSION_RESERVATION_FACTOR)
+}
+
+/** 806 §8.1: the lowest premium tier at or above the retirement factor, or `undefined`
+ * (no proposal) when the catalogue holds none. */
+function extensionTier(): number | undefined {
+  const tiers = TUNING.MARKET_PREMIUM_TIERS.filter((tier) => tier >= TUNING.RETIREMENT_EXTENSION_RESERVATION_FACTOR)
+  return tiers.length === 0 ? undefined : Math.min(...tiers)
+}
+
+/** The person's OPEN market case at `week`, of either variant, else `undefined` (806 §8.4). */
+export function openMarketCaseFor(state: GameState, talentId: string, week: number = state.market.tick): TalentMarketCaseV36 | undefined {
+  const kase = latestCase(state, talentId)
+  return kase !== undefined && !TERMINAL.has(caseStatusAt(state, kase, week)) ? kase : undefined
 }

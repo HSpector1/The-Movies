@@ -1328,13 +1328,14 @@ export {
   convertV33ToV34,
   convertV34ToV33,
   migrateToLive,
-  // P14C.4 — live V34 → NEW V35 + migrateToV35 (the cohort receipts); migrateToLive
-  // lifts to V35 now (record 793 §5).
+  // P14C.4 — V34 → V35 + migrateToV35 (the cohort receipts), the live boundary until
+  // P14C.2b (record 793 §5).
   validateSaveV35,
   convertV34ToV35,
   convertV35ToV34,
   migrateToV35,
-  // P14C.2b SCAFFOLD (record 806): Save V36
+  // P14C.2b — live V35 → NEW V36 + migrateToV36 (the single final extension);
+  // migrateToLive lifts to V36 now (record 806 §2).
   validateSaveV36,
   convertV35ToV36,
   convertV36ToV35,
@@ -1626,7 +1627,7 @@ export {
   isCohortWeek,
   cohortRequest,
   cohortEntrantAge,
-  // P14C.2b SCAFFOLD (record 806 §3–§5)
+  // P14C.2b — the single final extension and the split step (record 806 §3–§5)
   extensionIssuer,
   commitRetirementExtension,
   advanceLifecycleIntent,
@@ -1635,7 +1636,7 @@ export {
 export type { LifecycleStatus } from './careerLifecycle.js'
 export type { RetirementCause, RetirementStatus, RetirementRecord, CareerLifecycleRoot, GameStateV34, CohortReceipt, CareerLifecycleRootV35, GameStateV35 } from './types.js'
 export type { RetirementRecordV36, CareerLifecycleRootV36, MarketCaseVariant, TalentMarketCaseV36, TalentMarketStateV36, GameStateV36 } from './types.js'
-// P14C.2b SCAFFOLD (record 806 §8.4)
+// P14C.2b (record 806 §8.4)
 export { openMarketCaseFor } from './talentMarket.js'
 export { campaignDate } from './calendar.js'
 export { SYNCHRONIZED_SOUND, researchWeekQuote, playerTechnologyAccess, technologyAccess, validateTechnologyV2, validateTechnologyV3, liftTechnologyV2, liftTechnologyV3 } from './technology.js'

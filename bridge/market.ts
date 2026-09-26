@@ -17,7 +17,7 @@ import {
 import { PERSON_DISCIPLINE_ORDER, ROLE_TO_DISCIPLINE, TUNING } from '../src/core/tuning.js'
 import type { GameState, TalentMarketCase } from '../src/core/types.js'
 import { castingDraftToEngine } from './casting.ts'
-import { marketAttentionRows, marketCaseProjection, peopleProjection } from './people.ts'
+import { latestCaseIsExtension, marketAttentionRows, marketCaseProjection, peopleProjection } from './people.ts'
 import { promiseAttentionRows, promiseRowsForPerson } from './trust.ts'
 import type {
   BridgeMarketAttentionRowSnapshot, BridgeMarketCaseDetail, BridgeMarketCaseRow,
@@ -71,12 +71,14 @@ type CaseEntry = { kase: TalentMarketCase; view: MarketCaseView; ordinal: number
  * case, so a person who has been through two cases contributes exactly one entry, at the
  * later one's ordinal; an earlier closed case of the same person is not separately
  * listed (recorded limit: the engine publishes no reader for a superseded case).
+ * P14C.2b (806 §6): a person whose latest case is a `retirementExtension` contributes
+ * nothing — the one-issuer extension is not listed as a contest.
  */
 function caseEntries(state: GameState, week: number): CaseEntry[] {
   const byTalent = new Map<string, CaseEntry>()
   state.talentMarket.cases.forEach((kase, ordinal) => {
     const view = caseForTalent(state, kase.talentId, week)
-    if (view !== null) byTalent.set(kase.talentId, { kase, view, ordinal })
+    if (view !== null && !latestCaseIsExtension(state, kase.talentId)) byTalent.set(kase.talentId, { kase, view, ordinal })
   })
   return [...byTalent.values()]
 }

@@ -8,15 +8,18 @@
 // Pure: no React/DOM/async/IO, no time, no module-level state, and no simulation RNG
 // (`rngState` never moves; P14C.4's entrants draw only their own derived streams).
 // Lifecycle facts live in `state.careerLifecycle` and nowhere else. The step reads the
-// week the tick has already produced (`state.market.tick`), like the market step after it.
+// week the tick has already produced (`state.market.tick`), like the market step that
+// runs between its intent and settlement halves (P14C.2b).
 import { ageAt, anchorOf, withTalentProvenance } from './aging.js'
 import { activeContract, busyTalentIds } from './employment.js'
 import { uniqueIdentity } from './hollywood.js'
 import { stream } from './rng.js'
+import { openMarketCaseFor } from './talentMarket.js'
 import { TUNING } from './tuning.js'
 import { generateIndustryTalent } from './worldgen.js'
 import type {
-  CareerLifecycleRootV35, CohortReceipt, CreativeRole, FilmCreativeRole, GameState, RetirementRecord, Talent, TalentProvenanceRow,
+  CareerLifecycleRootV36, CohortReceipt, CreativeRole, FilmCreativeRole, GameState, RetirementRecord, RetirementRecordV36, Talent,
+  TalentProvenanceRow,
 } from './types.js'
 
 export type LifecycleStatus = 'active' | 'announced' | 'finishing_commitments' | 'retired'
@@ -34,9 +37,10 @@ export function retirementWindow(role: CreativeRole): { start: number; hard: num
   return { start: window.start, hard: window.hard }
 }
 
-/** The LIVE opener (793 §5): the empty V35 root a fresh world and the live lift open.
- * The frozen V33 → V34 conversion writes its own V34 literal and never calls this. */
-export function initialCareerLifecycle(week: number): CareerLifecycleRootV35 {
+/** The LIVE opener (793 §5): the empty root a fresh world and the live lift open. An
+ * empty V36 root is the V35 root byte for byte (the V36 keys live on records). The frozen
+ * V33 → V34 conversion writes its own V34 literal and never calls this. */
+export function initialCareerLifecycle(week: number): CareerLifecycleRootV36 {
   return { boundaryWeek: week, records: [], cohorts: [] }
 }
 
@@ -44,7 +48,7 @@ export function initialCareerLifecycle(week: number): CareerLifecycleRootV35 {
  * conversion's intermediate (V18 → V19 reaches `enterRival` through
  * `initializeHollywood`): the root travels with the state, and a state that predates
  * it holds no announcement. Every live state carries the root (the V34 validator). */
-export function retirementRecordFor(state: Pick<GameState, 'careerLifecycle'>, personId: string): RetirementRecord | undefined {
+export function retirementRecordFor(state: Pick<GameState, 'careerLifecycle'>, personId: string): RetirementRecordV36 | undefined {
   return state.careerLifecycle?.records.find((record) => record.personId === personId)
 }
 
@@ -137,7 +141,7 @@ function idle(state: GameState, personId: string, week: number, busy: () => Read
 /** 773 D10: the lifecycle NEVER ends a contract. D7 guarantees every contract ends by
  * the effective week, so the P10 expiry and `finishHollywoodWeek` have already written
  * those ends with their receipts; a binding still active here is a broken cap. */
-function retire(state: GameState, record: RetirementRecord, week: number): RetirementRecord {
+function retire(state: GameState, record: RetirementRecordV36, week: number): RetirementRecordV36 {
   const ends = endsInForce(state, record.personId, week)
   if (ends.length > 0) {
     throw new Error(
@@ -148,31 +152,80 @@ function retire(state: GameState, record: RetirementRecord, week: number): Retir
   return { ...record, status: 'retired', retiredWeek: week }
 }
 
-/**
- * The weekly step (777 §4), on the week the tick has produced. `birthdays` are the ids
- * whose age materialized this advance, in due-bucket order (`aging.birthdaysDueAt`,
- * captured before `materializeAges` consumes the buckets). Settlement first, in record
- * order; then intent, for `birthdays` only — never a population scan; then, at a cohort
- * week, the cohort (P14C.4). Never touches `rngState`. Idempotent: a second call finds
- * every announcer already recorded, every settlement already written and the week's
- * cohort receipt already present.
- */
-export function advanceCareerLifecycleWeek(state: GameState, birthdays: readonly string[]): GameState {
-  // 773 D6: the lifecycle engages iff the market does.
-  if (state.hollywood === null) return state
+/** The root both halves of the step read, or `null` when the lifecycle does not engage
+ * (773 D6: it engages iff the market does). Loud, never silent: a live state MUST carry
+ * the V34 root (the market's own rule). */
+function engagedRoot(state: GameState): CareerLifecycleRootV36 | null {
+  if (state.hollywood === null) return null
   const root = state.careerLifecycle
-  // Loud, never silent: a live state MUST carry the V34 root (the market's own rule).
   if (root === undefined) {
     throw new Error('careerLifecycle: the Save V34 lifecycle root is missing — migrate this state to V34 before ticking it')
   }
+  return root
+}
+
+/**
+ * The intent half of the weekly step (777 §4; 806 §3), on the week the tick has produced,
+ * run BEFORE the market so it meets an announcement the week it happens. `birthdays` are
+ * the ids whose age materialized this advance, in due-bucket order
+ * (`aging.birthdaysDueAt`, captured before `materializeAges` consumes the buckets) —
+ * never a population scan. It writes only new records, each with `effectiveWeek >= w + 52`,
+ * which settlement at `w` never reads. Never touches `rngState`; a second call finds every
+ * announcer already recorded.
+ */
+export function advanceLifecycleIntent(state: GameState, birthdays: readonly string[]): GameState {
+  const root = engagedRoot(state)
+  if (root === null || birthdays.length === 0) return state
   const week = state.market.tick
   let busySet: Set<string> | undefined
   const busy = (): ReadonlySet<string> => (busySet ??= busyTalentIds(state))
+  const announced: RetirementRecordV36[] = []
+  const recorded = new Set(root.records.map((record) => record.personId))
+  for (const personId of birthdays) {
+    if (recorded.has(personId)) continue
+    const person = state.talent.find((candidate) => candidate.id === personId)
+    if (person === undefined) continue
+    const window = retirementWindow(person.role)
+    if (window === null) continue
+    const cause = person.age >= window.hard ? 'hardBoundary'
+      : person.age >= window.start && idle(state, personId, week, busy) ? 'idleInWindow'
+        : null
+    if (cause === null) continue
+    recorded.add(personId)
+    announced.push({
+      personId,
+      profession: person.role,
+      intentRulesVersion: LIFECYCLE_INTENT_RULES_VERSION,
+      cause,
+      announcedWeek: week,
+      ageAtAnnouncement: person.age,
+      effectiveWeek: Math.max(week + TUNING.RETIREMENT_NOTICE_WEEKS, ...endsInForce(state, personId, week)),
+      status: 'announced',
+      finishingFromWeek: null,
+      retiredWeek: null,
+      extensionUsed: false,
+      extendedFromWeek: null,
+    })
+  }
+  return announced.length === 0 ? state : { ...state, careerLifecycle: { ...root, records: [...root.records, ...announced] } }
+}
 
-  // 1. settlement
-  let records: RetirementRecord[] | null = null
+/**
+ * The settlement half (777 §4; 806 §3), run AFTER the market, so an extension the market
+ * accepted this week has already moved its record's effective week: settlement in record
+ * order, then, at a cohort week, the cohort (P14C.4). It reads only `effectiveWeek <= w`.
+ * Never touches `rngState`. Idempotent: a second call finds every settlement already
+ * written and the week's cohort receipt already present.
+ */
+export function advanceLifecycleSettlement(state: GameState): GameState {
+  const root = engagedRoot(state)
+  if (root === null) return state
+  const week = state.market.tick
+  let busySet: Set<string> | undefined
+  const busy = (): ReadonlySet<string> => (busySet ??= busyTalentIds(state))
+  let records: RetirementRecordV36[] | null = null
   for (const [index, record] of root.records.entries()) {
-    let settled: RetirementRecord | null = null
+    let settled: RetirementRecordV36 | null = null
     if (record.status === 'announced' && record.effectiveWeek <= week) {
       settled = busy().has(record.personId)
         ? { ...record, status: 'finishing_commitments', finishingFromWeek: record.effectiveWeek }
@@ -182,44 +235,20 @@ export function advanceCareerLifecycleWeek(state: GameState, birthdays: readonly
     }
     if (settled !== null) (records ??= [...root.records])[index] = settled
   }
+  const settledState = records === null ? state : { ...state, careerLifecycle: { ...root, records } }
+  // The cohort (793 §4), on the post-settlement state. Never skipped by the "nothing
+  // changed" case above: an unchanged world still requests at a cohort week.
+  return isCohortWeek(week) ? advanceCohort(settledState, week) : settledState
+}
 
-  // 2. intent
-  const announced: RetirementRecord[] = []
-  if (birthdays.length > 0) {
-    const recorded = new Set(root.records.map((record) => record.personId))
-    for (const personId of birthdays) {
-      if (recorded.has(personId)) continue
-      const person = state.talent.find((candidate) => candidate.id === personId)
-      if (person === undefined) continue
-      const window = retirementWindow(person.role)
-      if (window === null) continue
-      const cause = person.age >= window.hard ? 'hardBoundary'
-        : person.age >= window.start && idle(state, personId, week, busy) ? 'idleInWindow'
-          : null
-      if (cause === null) continue
-      recorded.add(personId)
-      announced.push({
-        personId,
-        profession: person.role,
-        intentRulesVersion: LIFECYCLE_INTENT_RULES_VERSION,
-        cause,
-        announcedWeek: week,
-        ageAtAnnouncement: person.age,
-        effectiveWeek: Math.max(week + TUNING.RETIREMENT_NOTICE_WEEKS, ...endsInForce(state, personId, week)),
-        status: 'announced',
-        finishingFromWeek: null,
-        retiredWeek: null,
-      })
-    }
-  }
-
-  const settled = records === null && announced.length === 0
-    ? state
-    : { ...state, careerLifecycle: { ...root, records: [...(records ?? root.records), ...announced] } }
-
-  // 3. cohort (793 §4), on the post-settlement, post-intent state. Never skipped by the
-  // "nothing changed" case above: an unchanged world still requests at a cohort week.
-  return isCohortWeek(week) ? advanceCohort(settled, week) : settled
+/**
+ * The whole weekly step, intent then settlement (806 §3), for every caller that runs it
+ * in one piece. The tick runs the halves around the market instead. The order is
+ * equivalent to C.4's settlement-then-intent: intent writes only records settlement at
+ * `w` cannot read, and settlement touches nothing intent reads.
+ */
+export function advanceCareerLifecycleWeek(state: GameState, birthdays: readonly string[]): GameState {
+  return advanceLifecycleSettlement(advanceLifecycleIntent(state, birthdays))
 }
 
 // ── P14C.4 — deterministic replenishment (records 782 §7-8 and 793 §4) ──────────
@@ -336,27 +365,41 @@ function advanceCohort(state: GameState, week: number): GameState {
   return next
 }
 
-// ── P14C.2b SCAFFOLD (record 806 §3–§5): every export throws until the writer lands ──
+// ── P14C.2b — the single final extension (records 780 X1–X11 and 806) ─────────
+//
+// An announced person whose employer holds them at `E − 12` gets exactly ONE chance of a
+// one-year extension from that employer (the market owns the case and the choice). This
+// module owns the record fields: nobody else writes `extensionUsed` / `extendedFromWeek`.
 
-const C2B_SCAFFOLD = 'not implemented (P14C.2b)'
-
-/** The subject studio of this person's OPEN `retirementExtension` case, else `null` (806 §4). */
-export function extensionIssuer(_state: GameState, _personId: string, _week: number): string | null {
-  throw new Error(C2B_SCAFFOLD)
+/** The subject studio of this person's OPEN `retirementExtension` case at `week`, else
+ * `null` (806 §4): the single issuer the market's one carve-out admits. */
+export function extensionIssuer(state: GameState, personId: string, week: number): string | null {
+  const kase = openMarketCaseFor(state, personId, week)
+  return kase?.variant === 'retirementExtension' ? kase.subjectStudioId : null
 }
 
-/** The ONE writer of the extension fields (806 §5): `extendedFromWeek = effectiveWeek`,
- * `effectiveWeek += 52`, `extensionUsed = true`; called BEFORE the contract commit. */
-export function commitRetirementExtension(_state: GameState, _personId: string, _week: number): GameState {
-  throw new Error(C2B_SCAFFOLD)
-}
-
-/** The intent half of the weekly step (806 §3), run before the market. */
-export function advanceLifecycleIntent(_state: GameState, _birthdays: readonly string[]): GameState {
-  throw new Error(C2B_SCAFFOLD)
-}
-
-/** The settlement half of the weekly step, cohort included (806 §3), run after the market. */
-export function advanceLifecycleSettlement(_state: GameState): GameState {
-  throw new Error(C2B_SCAFFOLD)
+/** The ONE writer of the extension fields (806 §5, step 1 of the accept), called BEFORE
+ * the contract commit so every cap reader inside it sees the moved week:
+ * `extendedFromWeek = effectiveWeek`, `effectiveWeek += 52`, `extensionUsed = true`.
+ * Loud on anything but a first extension of an announced record not yet due. */
+export function commitRetirementExtension(state: GameState, personId: string, week: number): GameState {
+  const root = state.careerLifecycle
+  const index = root.records.findIndex((record) => record.personId === personId)
+  const record = root.records[index]
+  if (record === undefined) throw new Error(`careerLifecycle: ${personId} holds no retirement record to extend`)
+  if (record.status !== 'announced') throw new Error(`careerLifecycle: ${personId} is ${record.status}, and only an announced retirement can be extended`)
+  if (record.extensionUsed) {
+    throw new Error(`careerLifecycle: ${personId} already took the one final extension (from week ${String(record.extendedFromWeek)}) — there is no second`)
+  }
+  if (week > record.effectiveWeek) {
+    throw new Error(`careerLifecycle: ${personId} cannot be extended at week ${week}, after the effective week ${record.effectiveWeek}`)
+  }
+  const records = [...root.records]
+  records[index] = {
+    ...record,
+    effectiveWeek: record.effectiveWeek + TUNING.RETIREMENT_NOTICE_WEEKS,
+    extensionUsed: true,
+    extendedFromWeek: record.effectiveWeek,
+  }
+  return { ...state, careerLifecycle: { ...root, records } }
 }

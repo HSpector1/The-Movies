@@ -2283,10 +2283,10 @@ export type GameStateV31 = GameStateV30 & {
 
 // P14B.5 added the `relationships` root at V31, P14B.7 the waived-promise link at
 // V32, P14C.1 the talent provenance root at V33, P14C.2a the career lifecycle root at
-// V34. Since P14C.4 the live gameplay boundary is V35 (the cohort receipts inside that
-// root); V34 remains the frozen prior save shape, and its one lossless-while-no-receipt
-// downgrade is the only way back.
-export type GameState = GameStateV35
+// V34, P14C.4 the cohort receipts inside that root at V35. Since P14C.2b the live
+// gameplay boundary is V36 (the single final extension); V35 remains the frozen prior
+// save shape, and its one lossless-while-no-extension downgrade is the only way back.
+export type GameState = GameStateV36
 
 // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
 
@@ -2394,7 +2394,8 @@ export type CareerLifecycleRootV35 = CareerLifecycleRoot & { cohorts: readonly C
 export type GameStateV35 = Omit<GameStateV34, 'careerLifecycle'> & { careerLifecycle: CareerLifecycleRootV35 }
 
 // ── P14C.2b — the single final extension (Save V36; records 780 and 806) ──────
-// SCAFFOLD: the types land first; `GameState` moves to V36 with the writer.
+// The live shape since P14C.2b (`GameState = GameStateV36`). `GameStateV35` keeps the V34
+// record and the V28 case, so the frozen V35 chain never learns the new keys.
 
 /** 780 X10: whether the one extension was taken, and the effective week it moved from. */
 export type RetirementRecordV36 = RetirementRecord & { extensionUsed: boolean; extendedFromWeek: number | null }

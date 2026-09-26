@@ -276,7 +276,10 @@ export function offerForTalent(
   week: number,
 ): ContractOffer {
   const term = clamp(termWeeks, TUNING.CONTRACT_MIN_WEEKS, TUNING.CONTRACT_MAX_WEEKS)
-  const lengthFactor = TUNING.CONTRACT_LENGTH_FACTOR[term] ?? 1.0
+  // P14C.2b (806 §8.5): the factor of the LARGEST catalogue term at or below `term`, so a
+  // 52–63-week retirement extension prices as the one-year contract it is. A catalogue
+  // term reads its own factor, exactly as before.
+  const lengthFactor = TUNING.CONTRACT_LENGTH_FACTOR[Math.max(...TUNING.CONTRACT_TERM_OPTIONS.filter((t) => t <= term))] ?? 1.0
   // Per-talent scarcity jitter (stable per person; not per week/term).
   const jitterS = stream(seed, 'hiring', `offer-${talent.id}`)
   const jitter = 1 + (jitterS.next() * 2 - 1) * TUNING.CONTRACT_SCARCITY_JITTER

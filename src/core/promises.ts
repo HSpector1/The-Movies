@@ -28,10 +28,11 @@
 
 import { fnv1a64 } from './math.js'
 import { occupiedResourceSlots } from './occupancy.js'
+import { openMarketCaseFor } from './talentMarket.js'
 import { TUNING } from './tuning.js'
 import type {
   CastRoleCountPredicate, CastSlot, FirstTakeReceipt, GameState, GameStateV30, ProfessionalPromise, ProfessionalPromiseV30, Production,
-  PromiseClassification, PromiseFamily, PromiseFeasibilityReceipt, TalentMarketState,
+  PromiseClassification, PromiseFamily, PromiseFeasibilityReceipt, TalentMarketStateV36,
 } from './types.js'
 
 const CAST_SLOTS: readonly CastSlot[] = ['lead', 'antagonist', 'support'] as const
@@ -480,9 +481,9 @@ export type PromiseAttachment = {
 }
 
 function appendMarketReceipt(
-  market: TalentMarketState,
+  market: TalentMarketStateV36,
   draft: { kind: 'promiseOutcome'; week: number; talentId: string; studioId: string | null; reasons: readonly string[] },
-): TalentMarketState {
+): TalentMarketStateV36 {
   return {
     ...market,
     receipts: [...market.receipts, { ...draft, dropped: [], eventId: `talent-market-event-${String(market.receipts.length)}` }],
@@ -507,6 +508,11 @@ export function attachPromise(
   draft: PromiseAttachment,
 ): GameState {
   const week = state.market.tick
+  // P14C.2b (806 §7.1 / §8.4): no promise rides a retirement extension. Promises ×
+  // retirement is the open Owner question C.2c waits on; attaching one would decide it.
+  if (openMarketCaseFor(state, talentId)?.variant === 'retirementExtension') {
+    throw new Error(`promises: "${talentId}"'s open case is a retirementExtension — no promise rides the one final extension (P14C.2b)`)
+  }
   const proposal = state.talentMarket.proposals.find((p) => p.talentId === talentId && p.issuerStudioId === issuerStudioId)
   if (proposal === undefined) {
     throw new Error(`promises: studio "${issuerStudioId}" has no current proposal for "${talentId}" to attach a promise to`)

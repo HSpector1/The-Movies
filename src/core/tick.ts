@@ -1,6 +1,6 @@
 import { advanceHollywoodWeek, finishHollywoodWeek } from './hollywoodTick.js'
 import { birthdaysDueAt, materializeAges, withTalentProvenance } from './aging.js'
-import { advanceCareerLifecycleWeek } from './careerLifecycle.js'
+import { advanceLifecycleIntent, advanceLifecycleSettlement } from './careerLifecycle.js'
 import { advancePromisesWeek, appendFirstTakes } from './promises.js'
 import { advanceRelationshipsWeek } from './relationships.js'
 import { advanceTalentMarketWeek } from './talentMarket.js'
@@ -1146,12 +1146,14 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     { takes: takeEntries, releases: [...records.map((r) => r.filmResult), ...industry.growth.map((r) => r.filmResult)] },
     finalized.market.tick,
   )
-  // P14C.2a (777 §4): the lifecycle step runs after the promise evaluation and BEFORE
-  // the market, on the week this advance produced, so the market meets an announcement
-  // the week it happens (an open case is invalidated, no case is discovered). By here
-  // the P10 expiry and `finishHollywoodWeek` have written every contract end at this
-  // week, which settlement asserts rather than repeats (773 D10). It draws no RNG.
-  return advanceTalentMarketWeek(advanceCareerLifecycleWeek(advancePromisesWeek(withBonds), birthdays))
+  // P14C.2a (777 §4), split by P14C.2b (806 §3): lifecycle INTENT runs after the promise
+  // evaluation and BEFORE the market, on the week this advance produced, so the market
+  // meets an announcement the week it happens (an open case is invalidated, no case is
+  // discovered). Lifecycle SETTLEMENT (with the P14C.4 cohort) runs AFTER the market, so
+  // an extension the market accepted this week has already moved the effective week it
+  // reads. By here the P10 expiry and `finishHollywoodWeek` have written every contract
+  // end at this week, which settlement asserts rather than repeats (773 D10). No RNG.
+  return advanceLifecycleSettlement(advanceTalentMarketWeek(advanceLifecycleIntent(advancePromisesWeek(withBonds), birthdays)))
 }
 
 /**
