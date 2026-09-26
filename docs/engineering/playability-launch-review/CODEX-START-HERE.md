@@ -1,5 +1,32 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — complete inventory; preparing the next history tests
+
+1023 completed all two immutable inputs and 128 fixed-seed worlds in32.634s,
+child0/fixedSource, zero ticks. Complete1035 JSON SHA867c021119470d2b9f1fd0eb369a1b4b430c3e562efc8f0cfc85c493945ca7d3;
+producer244ab7ed unchanged before/after. Two generated candidates; first is
+seed098 Clara Moss (Bellwether support, exact entry age62.3383, writing65,
+directing1). No continuation or transition is claimed.1043 records findings.
+All heavy processes closed. Parent remains sole production writer/executor.
+Existing test author owns docs-only1041 cohort route plan; reviewer owns1039
+result review and docs-only1042 selected canonical route plan. Accepted1040
+short history-boundary tests are next source release (14 leaves/max3 ticks).
+No long Stage C trajectory has been released. Stage D53/runtime/SaveAs,
+full/endurance verification and Unity/native deferral remain unchanged.
+
+## CURRENT — ca5405be published; Stage C inventory source released
+
+Local/GitHub refs independently matchedca5405be094c33f730f18faaa73d82d17124aa34;
+wholeworktreeclean atverification.1037 preserves1020's lookupfailure,1021fourPASS,
+1022roottypesPASS and1033KEEP. Allheavyprocessesclosed. Existingauthor now owns
+ONLY new1035zero-tickinventoryproducer and1038-A handback peraccepted1034-A:
+twoimmutableinputs/exact128fixedseeds/zero ticks/no furtheractions/noauto-continuation.
+Standalonecore/harness+nodeassert/localreader, noVitestdependency. Reviewer1039-A
+producerreview plusdocs-only1040-A remainingcorehistoryboundaryplan. Parent sole
+productionwriter/executor; freezeactualproducerSHA before/after recorded1023run
+(docsTSoutsideusualSOURCE), separate1035JSONoutput/refuseoverwrite. No selected
+longStageCroute isreleasedyet. StageD53/runtime/full/endurance/nativeboundariesretain.
+
 ## CURRENT — G4 tests/types/review complete; publishing1037
 
 1021 fourPASS24.184s,269calls;1022roottypesPASS47.825s,closed23:21:48.994Z.

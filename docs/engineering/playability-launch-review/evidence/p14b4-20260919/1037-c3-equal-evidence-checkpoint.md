@@ -65,3 +65,10 @@ append/dormant/private-history boundaries,1030 Stage D53/runtime/Save As and
 1029 matched full/endurance gates remain. Save38 is partial, projection52 remains;
 Unity/native and Owner acceptance are deferred. Parent remains sole production
 writer/heavy executor with the same two separate test/review specialists.
+
+## Publication receipt
+
+Normal commit/pushca5405be094c33f730f18faaa73d82d17124aa34 on existing
+`wip/headless-program-20260916-ts`. Independent remote ref matched local HEAD;
+wholeworktreeclean atverification. Hooks stayed disabled; no reset, force push,
+protected promotion or immutable fixture rewrite.
