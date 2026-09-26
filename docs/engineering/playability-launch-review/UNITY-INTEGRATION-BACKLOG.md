@@ -4,6 +4,21 @@ Every headless slice records here: producer/consumer versions, required UI actio
 changes, exact future compile/render/native tests, and unresolved product choices. Nothing in this file is
 verified in Unity. Generated C# produced by the TypeScript generator is text, not a compiled consumer.
 
+## C.2c retirement promise disposition — 2026-09-26, native DEFERRED
+
+Producer remains Save36 / projection50 / protocol4 / promise rules4. The existing
+issuer-only promise history/attention now carries VOIDED and a retirement reason;
+no public breach or trust penalty is generated. Headless focused run 832 passes
+24 cases; full qualification is pending and no Unity behavior is verified.
+
+Future native checks: render VOIDED neutrally with its existing progress/evidence;
+show no breach penalty; preserve terminal outcomes after reload/extension; ensure
+another studio's private promises never appear in profile or attention, including
+pagination; confirm the public industry feed does not fabricate a retirement breach.
+No C# shape change is required by this slice. C.2-RM will add the retirement profile,
+roster/calendar/market and extension surfaces separately. Genuine outgoing runtime50
+is preserved at tests/fixtures/p14/genuine-projection50-runtime-c2rm/MANIFEST.json.
+
 ## Standing obligations carried from the paused UI branch (unchanged by this window)
 
 - Paused TS UI branch `wip/playability-interaction-01-ts` @ `e2e409e80eccb6a7fd49fa16aa0f750faeb51253`; paused

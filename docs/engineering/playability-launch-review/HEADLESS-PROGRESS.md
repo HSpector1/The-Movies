@@ -1,5 +1,19 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — Codex C.2c, 2026-09-26
+
+Implementation now exists: admission-cutoff VOIDED with committed-work protection,
+ordinary-impossibility exclusion, separate rival timing and issuer-only attention.
+See 823 and 828. Independent RED and edge regression precede the writer's repairs;
+832 passes 24 focused cases with fixed source. New test-only type error in 833 is
+repaired without changing assertions; root/UI/bridge typechecks and generated
+contract/fixture checks pass (834–836a). Recoverable checkpoint: 838. Full core
+comparison against 822's
+55 inherited failures is next; C.2c is not yet declared fully qualified.
+Published recovery is 8f893e0e, including genuine outgoing runtime50 preservation.
+Scientist62/72, then C.2-RM remain the next bounded implementation slices. Unity
+unverified; no save/projection/rules bump in C.2c. Exact live state: CODEX-START-HERE.
+
 ## CURRENT RESUME — Codex handoff from the Claude Opus coordinator (written 08:14 CEST 2026-09-26; supersedes every "Current …" section below)
 
 - **Repository / branch / absolute working directory / remote:** HSpector1/The-Movies · `wip/headless-program-20260916-ts` · `/Users/zacheryspector/The-Movies-headless-program` · `origin` = https://github.com/HSpector1/The-Movies.git.

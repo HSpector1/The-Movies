@@ -1,0 +1,33 @@
+{"sourceSha":"8f893e0e9fd8623e79bfc30d673f0e0aaf502fab","testedDiffSha256":"ef423f5658ff81b071c348722f05bc7c98dbdd9b8f2b46dce546e0d46a79a3fb","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c2c-retirement-promises.test.ts","tests/bridge-p14c2c-retirement-promises.test.ts","tests/p14c2c-rival-promises.test.ts"],"node":"v20.20.2","start":"2026-09-26T11:59:15.228Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p14c2c-retirement-promises.test.ts (2 tests) 6706ms
+   ✓ P14C.2c VOIDED disclosure > C10: issuer sees VOIDED history and a retirement explanation without a breach or trust penalty 6174ms
+   ✓ P14C.2c VOIDED disclosure > C10: another studio gets no private promise history/attention and public activity invents no breach 521ms
+ ✓ |core| tests/p14c2c-rival-promises.test.ts (3 tests) 12349ms
+   ✓ P14C.2c rival retirement promises > R1: a genuine bound rival promise follows the same exact cutoff, with no new trust penalty 9879ms
+   ✓ P14C.2c rival retirement promises > R2: a rival count already impossible without retirement remains OPEN until ordinary due settlement 1224ms
+   ✓ P14C.2c rival retirement promises > R3: real rival VOIDED replay across save/load preserves the source campaign and its outcome identity 1244ms
+ ✓ |core| tests/p14c2c-retirement-promises.test.ts (19 tests) 16279ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C1: a real birthday announcement leaves a bound, still-fulfillable promise open 6870ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C2 control: remove only retirement and real greenlight/schedule/tick still fulfills before due 392ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C3: a real committed lead seat at admission equality survives the cutoff and satisfies 558ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C3 boundary: the actual greenlight command refuses the next week without changing any state 312ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C3 held work: an unscheduled real first take survives the cutoff and counts when its future window opens 1035ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C6 grandfathered work: a post-first-take countdown with no historical receipt is never a future take 1333ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C5 generic P1 control: the same real support seat does protect an appearance promise 305ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C6: a promise already beyond the uncapped physical count remains ordinary law, not VOIDED 368ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C1: reduced future capacity does not VOID a promise while new admission remains open 780ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C7: a genuinely withdrawn proposal never receives an automatic retirement outcome 1269ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C7: a real accepted waiver is terminal while its still-open substitute follows retirement law 443ms
+   ✓ P14C.2c feasibility, persistence, partial work and extension > C4: real partial first-take progress and its receipt survive VOIDED without extra trust damage 662ms
+   ✓ P14C.2c feasibility, persistence, partial work and extension > C9: live save/reload across the exact trigger matches continuous tick bytes and preserves identity 388ms
+   ✓ P14C.2c feasibility, persistence, partial work and extension > C8: a genuine final extension uses the moved E for future feasibility and cannot revive VOIDED 915ms
+
+ Test Files  3 passed (3)
+      Tests  24 passed (24)
+   Start at  13:59:15
+   Duration  19.96s (transform 4.90s, setup 0ms, collect 9.58s, tests 35.33s, environment 5ms, prepare 1.03s)
+

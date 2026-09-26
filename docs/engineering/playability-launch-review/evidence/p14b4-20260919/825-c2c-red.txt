@@ -1,0 +1,233 @@
+{"sourceSha":"8f893e0e9fd8623e79bfc30d673f0e0aaf502fab","testedDiffSha256":"b6241e3380a63fa15d28a3f5ecff4d2e7911ba54294889987cea6365169a4dbf","untrackedSource":[],"command":["node_modules/.bin/vitest","run","tests/p14c2c-retirement-promises.test.ts","tests/bridge-p14c2c-retirement-promises.test.ts","--maxWorkers=1","--minWorkers=1"],"node":"v20.20.2","start":"2026-09-26T11:34:06.813Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14c2c-retirement-promises.test.ts (17 tests | 7 failed) 7358ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C1: a real birthday announcement leaves a bound, still-fulfillable promise open 2585ms
+   × P14C.2c retirement causation and normal tick ownership > C2: the first lost fresh-admission week VOIDs once, before the legal promise deadline 76ms
+     → expected { promiseId: 'promise-0', …(16) } to match object { outcome: 'VOIDED', …(4) }
+(20 matching properties omitted from actual)
+   × P14C.2c retirement causation and normal tick ownership > C5: a committed support seat cannot protect a lead-only promise from retirement 74ms
+     → expected { promiseId: 'promise-0', …(16) } to match object { outcome: 'VOIDED', outcomeWeek: 148 }
+(23 matching properties omitted from actual)
+   ✓ P14C.2c retirement causation and normal tick ownership > C5 generic P1 control: the same real support seat does protect an appearance promise 357ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C1: reduced future capacity does not VOID a promise while new admission remains open 529ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C7: a genuinely withdrawn proposal never receives an automatic retirement outcome 1276ms
+   × P14C.2c retirement causation and normal tick ownership > C7: a real accepted waiver is terminal while its still-open substitute follows retirement law 612ms
+     → expected { promiseId: 'promise-1', …(16) } to match object { outcome: 'VOIDED', outcomeWeek: 148 }
+(23 matching properties omitted from actual)
+   × P14C.2c feasibility, persistence, partial work and extension > C11: new feasibility includes the actual cap, changes the digest, and consumes no RNG 83ms
+     → expected 'FRAGILE' to be 'IMPOSSIBLE' // Object.is equality
+   × P14C.2c feasibility, persistence, partial work and extension > C4: real partial first-take progress and its receipt survive VOIDED without extra trust damage 561ms
+     → expected { promiseId: 'promise-0', …(16) } to match object { Object (progress, outcome, ...) }
+(22 matching properties omitted from actual)
+   × P14C.2c feasibility, persistence, partial work and extension > C9: live save/reload across the exact trigger matches continuous tick bytes and preserves identity 243ms
+     → expected null to be 'VOIDED' // Object.is equality
+   × P14C.2c feasibility, persistence, partial work and extension > C8: a genuine final extension uses the moved E for future feasibility and cannot revive VOIDED 70ms
+     → expected null to be 'VOIDED' // Object.is equality
+ ❯ |core| tests/bridge-p14c2c-retirement-promises.test.ts (2 tests | 2 failed) 2571ms
+   × P14C.2c VOIDED disclosure > C10: issuer sees VOIDED history and a retirement explanation without a breach or trust penalty 2454ms
+     → expected null to be 'VOIDED' // Object.is equality
+   × P14C.2c VOIDED disclosure > C10: another studio gets no private promise history/attention and public activity invents no breach 115ms
+     → expected null to be 'VOIDED' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 9 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14c2c-retirement-promises.test.ts > P14C.2c VOIDED disclosure > C10: issuer sees VOIDED history and a retirement explanation without a breach or trust penalty
+AssertionError: expected null to be 'VOIDED' // Object.is equality
+
+- Expected: 
+"VOIDED"
+
++ Received: 
+null
+
+ ❯ tests/bridge-p14c2c-retirement-promises.test.ts:16:53
+     14|     const before = f.lastAdmission
+     15|     const after = tick(before)
+     16|     expect(promiseById(after, f.promiseId).outcome).toBe('VOIDED')
+       |                                                     ^
+     17|     const receipt = ownOutcomeReceipt(after, f.promiseId)
+     18|     const history = promiseHistoryFor(after, f.actorId, owner(after))
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯
+
+ FAIL |core|  tests/bridge-p14c2c-retirement-promises.test.ts > P14C.2c VOIDED disclosure > C10: another studio gets no private promise history/attention and public activity invents no breach
+AssertionError: expected null to be 'VOIDED' // Object.is equality
+
+- Expected: 
+"VOIDED"
+
++ Received: 
+null
+
+ ❯ tests/bridge-p14c2c-retirement-promises.test.ts:34:53
+     32|     const f = c2cFixture()
+     33|     const after = tick(f.lastAdmission)
+     34|     expect(promiseById(after, f.promiseId).outcome).toBe('VOIDED')
+       |                                                     ^
+     35|     const receipt = ownOutcomeReceipt(after, f.promiseId)
+     36|     const rival = after.hollywood!.identities.find((s) => s.role === '…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯
+
+ FAIL |core|  tests/p14c2c-retirement-promises.test.ts > P14C.2c retirement causation and normal tick ownership > C2: the first lost fresh-admission week VOIDs once, before the legal promise deadline
+AssertionError: expected { promiseId: 'promise-0', …(16) } to match object { outcome: 'VOIDED', …(4) }
+(20 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "contractId": "studio-94e1c63a-player:contract:authored-0000:52:player-30",
+    "dueWeekExclusive": 156,
+-   "outcome": "VOIDED",
+-   "outcomeWeek": 148,
++   "outcome": null,
++   "outcomeWeek": null,
+    "progress": 0,
+  }
+
+ ❯ tests/p14c2c-retirement-promises.test.ts:44:45
+     42|     expect(after.market.tick).toBe(148)
+     43|     expect(assignmentRefusal(after, f.actorId, 148)).toMatch(/retireme…
+     44|     expect(promiseById(after, f.promiseId)).toMatchObject({ outcome: '…
+       |                                             ^
+     45|       dueWeekExclusive: 156, contractId: promiseById(f.lastAdmission, …
+     46|     expect(promiseById(after, f.promiseId).outcomeCause).toMatch(/reti…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯
+
+ FAIL |core|  tests/p14c2c-retirement-promises.test.ts > P14C.2c retirement causation and normal tick ownership > C5: a committed support seat cannot protect a lead-only promise from retirement
+AssertionError: expected { promiseId: 'promise-0', …(16) } to match object { outcome: 'VOIDED', outcomeWeek: 148 }
+(23 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "outcome": "VOIDED",
+-   "outcomeWeek": 148,
++   "outcome": null,
++   "outcomeWeek": null,
+  }
+
+ ❯ tests/p14c2c-retirement-promises.test.ts:97:45
+     95|     const after = tick(seated)
+     96|     expect(after.studio.activeProductions.at(-1)!.cast.support).toBe(f…
+     97|     expect(promiseById(after, f.promiseId)).toMatchObject({ outcome: '…
+       |                                             ^
+     98|   })
+     99| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/9]⎯
+
+ FAIL |core|  tests/p14c2c-retirement-promises.test.ts > P14C.2c retirement causation and normal tick ownership > C7: a real accepted waiver is terminal while its still-open substitute follows retirement law
+AssertionError: expected { promiseId: 'promise-1', …(16) } to match object { outcome: 'VOIDED', outcomeWeek: 148 }
+(23 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "outcome": "VOIDED",
+-   "outcomeWeek": 148,
++   "outcome": null,
++   "outcomeWeek": null,
+  }
+
+ ❯ tests/p14c2c-retirement-promises.test.ts:162:65
+    160|     const after = advanceTo(waived, 148)
+    161|     expect(promiseById(after, f.promiseId)).toEqual(original)
+    162|     expect(promiseById(after, original.supersededByPromiseId!)).toMatc…
+       |                                                                 ^
+    163|   })
+    164| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/9]⎯
+
+ FAIL |core|  tests/p14c2c-retirement-promises.test.ts > P14C.2c feasibility, persistence, partial work and extension > C11: new feasibility includes the actual cap, changes the digest, and consumes no RNG
+AssertionError: expected 'FRAGILE' to be 'IMPOSSIBLE' // Object.is equality
+
+Expected: "IMPOSSIBLE"
+Received: "FRAGILE"
+
+ ❯ tests/p14c2c-retirement-promises.test.ts:174:35
+    172|     const capped = promiseFeasibility(state, draft, 148)
+    173|     const uncapped = promiseFeasibility(withoutRetirement(state, f.act…
+    174|     expect(capped.classification).toBe('IMPOSSIBLE')
+       |                                   ^
+    175|     expect(capped.bottleneck).toMatch(/retir/i)
+    176|     expect(uncapped.classification).toBe('FRAGILE')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/9]⎯
+
+ FAIL |core|  tests/p14c2c-retirement-promises.test.ts > P14C.2c feasibility, persistence, partial work and extension > C4: real partial first-take progress and its receipt survive VOIDED without extra trust damage
+AssertionError: expected { promiseId: 'promise-0', …(16) } to match object { Object (progress, outcome, ...) }
+(22 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "outcome": "VOIDED",
+-   "outcomeWeek": 148,
++   "outcome": null,
++   "outcomeWeek": null,
+    "progress": 1,
+  }
+
+ ❯ tests/p14c2c-retirement-promises.test.ts:208:45
+    206|     const evidenceBefore = promiseById(before, f.promiseId).evidenceRe…
+    207|     const after = tick(before)
+    208|     expect(promiseById(after, f.promiseId)).toMatchObject({ progress: …
+       |                                             ^
+    209|     expect(promiseById(after, f.promiseId).evidenceRefs).toEqual(expec…
+    210|     expect(qualifyingTakes(after, promiseById(after, f.promiseId))).to…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/9]⎯
+
+ FAIL |core|  tests/p14c2c-retirement-promises.test.ts > P14C.2c feasibility, persistence, partial work and extension > C9: live save/reload across the exact trigger matches continuous tick bytes and preserves identity
+AssertionError: expected null to be 'VOIDED' // Object.is equality
+
+- Expected: 
+"VOIDED"
+
++ Received: 
+null
+
+ ❯ tests/p14c2c-retirement-promises.test.ts:222:56
+    220|     const continuous = tick(f.lastAdmission)
+    221|     const replayed = tick(savedState(f.lastAdmission))
+    222|     expect(promiseById(replayed, f.promiseId).outcome).toBe('VOIDED')
+       |                                                        ^
+    223|     expect(JSON.stringify(replayed)).toBe(JSON.stringify(continuous))
+    224|     expect(savedState(continuous)).toEqual(continuous)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/9]⎯
+
+ FAIL |core|  tests/p14c2c-retirement-promises.test.ts > P14C.2c feasibility, persistence, partial work and extension > C8: a genuine final extension uses the moved E for future feasibility and cannot revive VOIDED
+AssertionError: expected null to be 'VOIDED' // Object.is equality
+
+- Expected: 
+"VOIDED"
+
++ Received: 
+null
+
+ ❯ tests/p14c2c-retirement-promises.test.ts:237:54
+    235|       termWeeks: 52, premiumTier: 1.1 })
+    236|     const voided = tick(offered)
+    237|     expect(promiseById(voided, f.promiseId).outcome).toBe('VOIDED')
+       |                                                      ^
+    238|     const extended = advanceTo(voided, 156)
+    239|     expect(retirementRecordFor(extended, f.actorId)).toMatchObject({
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/9]⎯
+
+ Test Files  2 failed (2)
+      Tests  9 failed | 10 passed (19)
+   Start at  13:34:07
+   Duration  14.33s (transform 2.49s, setup 0ms, collect 3.66s, tests 9.93s, environment 1ms, prepare 198ms)
+

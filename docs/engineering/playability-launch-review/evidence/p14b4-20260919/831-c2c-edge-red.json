@@ -1,0 +1,24 @@
+{
+  "sourceSha": "8f893e0e9fd8623e79bfc30d673f0e0aaf502fab",
+  "testedDiffSha256": "c1a14170c1a5fb79a113c066edb7715aa8f193c48e571ef1022842c22db271a6",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14c2c-retirement-promises.test.ts",
+    "-t",
+    "C3 held work|C6 grandfathered work"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-26T11:56:14.669Z",
+  "end": "2026-09-26T11:56:22.927Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "8f893e0e9fd8623e79bfc30d673f0e0aaf502fab",
+  "testedDiffSha256AtEnd": "c1a14170c1a5fb79a113c066edb7715aa8f193c48e571ef1022842c22db271a6",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

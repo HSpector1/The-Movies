@@ -1,0 +1,41 @@
+{"sourceSha":"8f893e0e9fd8623e79bfc30d673f0e0aaf502fab","testedDiffSha256":"c1a14170c1a5fb79a113c066edb7715aa8f193c48e571ef1022842c22db271a6","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c2c-retirement-promises.test.ts","-t","C3 held work|C6 grandfathered work"],"node":"v20.20.2","start":"2026-09-26T11:56:14.669Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14c2c-retirement-promises.test.ts (19 tests | 1 failed | 17 skipped) 3860ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C3 held work: an unscheduled real first take survives the cutoff and counts when its future window opens 3018ms
+   × P14C.2c retirement causation and normal tick ownership > C6 grandfathered work: a post-first-take countdown with no historical receipt is never a future take 840ms
+     → expected { promiseId: 'promise-0', …(16) } to match object { outcome: null, progress: +0 }
+(23 matching properties omitted from actual)
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14c2c-retirement-promises.test.ts > P14C.2c retirement causation and normal tick ownership > C6 grandfathered work: a post-first-take countdown with no historical receipt is never a future take
+AssertionError: expected { promiseId: 'promise-0', …(16) } to match object { outcome: null, progress: +0 }
+(23 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "outcome": null,
++   "outcome": "VOIDED",
+    "progress": 0,
+  }
+
+ ❯ tests/p14c2c-retirement-promises.test.ts:142:45
+    140|     expect(after.firstTakes.some((take) => take.productionId === sched…
+    141|     // Fresh filming cannot occur before 153, beyond due150 even witho…
+    142|     expect(promiseById(after, f.promiseId)).toMatchObject({ outcome: n…
+       |                                             ^
+    143|     const due = advanceTo(after, 150)
+    144|     expect(promiseById(due, f.promiseId)).toMatchObject({ outcome: 'BR…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed | 17 skipped (19)
+   Start at  13:56:15
+   Duration  7.28s (transform 2.00s, setup 0ms, collect 2.64s, tests 3.86s, environment 0ms, prepare 116ms)
+

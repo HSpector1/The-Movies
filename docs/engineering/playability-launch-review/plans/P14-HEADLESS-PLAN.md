@@ -1,5 +1,16 @@
 # P14 — Contested Talent Market, Bonds and Promises, Career Lifecycle — headless plan (logic-first)
 
+## Active continuation — 2026-09-26 Codex C.2c
+
+C.2c implementation and 24 focused cases are now passing (832); full/type boundary
+verification remains in flight. Corrected operational trigger and authority are in
+823, independent review and inherited signed-zero attribution in 828/830, and the
+grandfathered-countdown RED in 831. Preserve the 55-failure baseline qualification.
+Next: complete C.2c verification/publication, Scientist62/72 amendment with explicit
+frozen/live validator policy and measured supply, C.2-RM (821), then remaining P14
+and later authorized packages. No retirement trigger week is attributed to Owner.
+Outgoing projection50 runtime was genuinely preserved before edits (824).
+
 Current B4 checkpoint501 qualified (2026-09-20): original first-take + shared
 kernel test NOW GREEN495/500; ONE original stale-after-release234 workLimit remains.
 494–499 CLOSED/fixedSource:true; full raw/JSON/hash/nonoverlap verified: rootUI PASS;

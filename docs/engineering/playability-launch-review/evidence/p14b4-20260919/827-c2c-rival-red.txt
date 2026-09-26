@@ -1,0 +1,65 @@
+{"sourceSha":"8f893e0e9fd8623e79bfc30d673f0e0aaf502fab","testedDiffSha256":"8ed604dd91fe6569592461fb5c7c60be2ff8f8151c7da3cdb499c9b488409721","untrackedSource":[],"command":["node_modules/.bin/vitest","run","tests/p14c2c-rival-promises.test.ts","--maxWorkers=1","--minWorkers=1"],"node":"v20.20.2","start":"2026-09-26T11:46:31.106Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /private/tmp/codex-c2c-red.aWg2tP
+
+ ❯ |core| tests/p14c2c-rival-promises.test.ts (3 tests | 2 failed) 5094ms
+   × P14C.2c rival retirement promises > R1: a genuine bound rival promise follows the same exact cutoff, with no new trust penalty 3612ms
+     → expected { …(17) } to match object { outcome: 'VOIDED', …(3) }
+(19 matching properties omitted from actual)
+   ✓ P14C.2c rival retirement promises > R2: a rival count already impossible without retirement remains OPEN until ordinary due settlement 823ms
+   × P14C.2c rival retirement promises > R3: real rival VOIDED replay across save/load preserves the source campaign and its outcome identity 658ms
+     → expected null to be 'VOIDED' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14c2c-rival-promises.test.ts > P14C.2c rival retirement promises > R1: a genuine bound rival promise follows the same exact cutoff, with no new trust penalty
+AssertionError: expected { …(17) } to match object { outcome: 'VOIDED', …(3) }
+(19 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "dueWeekExclusive": 2704,
+-   "outcome": "VOIDED",
+-   "outcomeWeek": 2696,
++   "outcome": null,
++   "outcomeWeek": null,
+    "progress": 0,
+  }
+
+ ❯ tests/p14c2c-rival-promises.test.ts:40:41
+     38|     const trust = trustDrivers(before, PERSON, ISSUER, 2696)
+     39|     const after = tick(before)
+     40|     expect(promiseById(after, PROMISE)).toMatchObject({ outcome: 'VOID…
+       |                                         ^
+     41|       dueWeekExclusive: 2704, progress: 0 })
+     42|     ownOutcomeReceipt(after, PROMISE)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/p14c2c-rival-promises.test.ts > P14C.2c rival retirement promises > R3: real rival VOIDED replay across save/load preserves the source campaign and its outcome identity
+AssertionError: expected null to be 'VOIDED' // Object.is equality
+
+- Expected: 
+"VOIDED"
+
++ Received: 
+null
+
+ ❯ tests/p14c2c-rival-promises.test.ts:65:52
+     63|     const continuous = tick(before)
+     64|     const reloaded = tick(savedState(before))
+     65|     expect(promiseById(reloaded, PROMISE).outcome).toBe('VOIDED')
+       |                                                    ^
+     66|     expect(JSON.stringify(reloaded)).toBe(JSON.stringify(continuous))
+     67|     expect(before).toEqual(source)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 1 passed (3)
+   Start at  13:46:31
+   Duration  7.89s (transform 1.78s, setup 0ms, collect 2.36s, tests 5.09s, environment 0ms, prepare 113ms)
+

@@ -1,0 +1,8 @@
+{"sourceSha":"8f893e0e9fd8623e79bfc30d673f0e0aaf502fab","testedDiffSha256":"ef423f5658ff81b071c348722f05bc7c98dbdd9b8f2b46dce546e0d46a79a3fb","untrackedSource":[],"command":["npm","run","typecheck"],"node":"v20.20.2","start":"2026-09-26T11:59:58.563Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+tests/p14c2c-retirement-promises.test.ts(266,89): error TS2345: Argument of type 'readonly string[]' is not assignable to parameter of type 'string[]'.
+  The type 'readonly string[]' is 'readonly' and cannot be assigned to the mutable type 'string[]'.

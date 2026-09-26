@@ -8,12 +8,19 @@ No prior test/worker child jobs overlapped; prior Claude ownership is yielded.
 Codex carries the sim-core/test-author contracts with two specialists maximum,
 one production writer and parent-owned test/publication slots. No Claude invoked.
 
-**NEXT / in flight:** C.2c independent RED before production. Read
+**NEXT / in flight:** C.2c full-boundary verification after focused GREEN. Read
 `evidence/p14b4-20260919/823-c2c-retirement-promises-expansion.md` for the corrected
 admission-cutoff trigger and requirement-to-test map. VOIDED is Owner-selected;
 the exact timing is a delegated decision, not Owner-selected announcement timing.
 An early optimistic-capacity trigger was rejected during review before coding.
-Test author owns only new C.2c tests/helpers; production source is still unchanged.
+The frozen production candidate changes only promises.ts, tick.ts, and bridge/trust.ts.
+Independent source review 828 found a grandfathered-countdown edge: 831 reproduced it
+with a validated synthetic import shape; the narrow correction leaves cancellation
+law unchanged. Re-review KEEP. Focused 832 passes all 24 cases, fixedSource:true.
+829's signed-zero save-comparison failure was independently attributed on old source
+by 830 before C9 changed to full canonical JSON bytes. 833 found a new test-only
+readonly-array matcher type error; its same-meaning spread repair passes 834 root/UI
+and 835 bridge typechecks. 836/836a generated contract/fixture checks pass.
 
 Outgoing runtime preservation completed BEFORE source changes:
 `tests/fixtures/p14/genuine-projection50-runtime-c2rm/MANIFEST.json`, minted by
@@ -22,9 +29,12 @@ Save36 producer: current week53 and saved week52 independently preserved and dec
 No fixture relabeling. Save36 / projection50 / protocol4 / promise rules4 remain live.
 
 Last full test evidence remains 822: 55 inherited failures, qualified, not green.
-No new C.2c test pass or implementation checkpoint is claimed yet. No heavy run
-is active at this note. Next: run the independent RED, implement with sim-core,
-stable review and matched verification; then Scientist62/72 amendment and C.2-RM.
+Current HEAD and verified remote: `8f893e0e9fd8623e79bfc30d673f0e0aaf502fab`.
+No C.2c full-boundary or all-green claim is made. Record 838 is the recoverable
+focused checkpoint. Publish it, verify actual remote, then recorded full core 837
+against 822, keeping source/HEAD fixed throughout. Continue Scientist62/72 and C.2-RM.
+The isolated RED worktree `/private/tmp/codex-c2c-red.aWg2tP` remains at 8f893e0e;
+830 artifacts are copied byte-for-byte into this worktree's evidence. No reset.
 Unity/native remains deferred. Continue through the authorized later packages.
 
 ## CURRENT RESUME — Codex handoff from the Claude Opus coordinator (written 08:14 CEST 2026-09-26; supersedes every "Current …" section below)

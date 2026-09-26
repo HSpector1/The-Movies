@@ -27,6 +27,7 @@
 // both, and `migrateToV28` refuses to discard either.
 
 import { fnv1a64 } from './math.js'
+import { assignmentRefusal, retirementRecordFor } from './careerLifecycle.js'
 import { occupiedResourceSlots } from './occupancy.js'
 import { openMarketCaseFor } from './talentMarket.js'
 import { TUNING } from './tuning.js'
@@ -318,6 +319,7 @@ function feasibilityInputs(state: GameState, draft: PromiseDraft, week: number):
     : state)
   const from = Math.max(draft.windowStartWeek, week)
   const person = state.talent.find((t) => t.id === draft.beneficiaryPersonId)
+  const retirement = retirementRecordFor(state, draft.beneficiaryPersonId)
   return [
     draft.family, draft.issuerStudioId, draft.beneficiaryPersonId, draft.predicate.count,
     draft.windowStartWeek, draft.dueWeekExclusive, draft.startWeek, draft.termWeeks, week,
@@ -340,6 +342,9 @@ function feasibilityInputs(state: GameState, draft: PromiseDraft, week: number):
       .map((p) => [p.promiseId, p.family, p.issuerStudioId, p.windowStartWeek, p.dueWeekExclusive, p.predicate.count, p.progress]),
     // Appended only for a tagged draft so every count-only tuple stays byte-identical.
     ...('kind' in draft.predicate ? [[draft.predicate.kind, draft.predicate.seatClass]] : []),
+    // C.2c: append only an actual boundary. An unannounced person's historical
+    // input tuple remains byte-identical; an accepted extension changes this fact.
+    ...(retirement === undefined ? [] : [['retirement', retirement.status, retirement.effectiveWeek]]),
   ]
 }
 
@@ -370,6 +375,51 @@ function expectedFirstTakeWeek(
   return from + k * SEAT_CYCLE_WEEKS + WEEKS_TO_FIRST_TAKE
 }
 
+/** Earliest owner-clock boundaries, ignoring resource holds. A fresh picture
+ * skips its greenlight week's advance. A take can be held until the promise
+ * window opens; that also postpones its earliest release by the four remaining
+ * advances. These are timing bounds, never a funded production certificate. */
+function earliestTakeWeek(production: Production, week: number): number {
+  return week + Math.max(1, production.remainingTicks - 4) + (production.startTick >= week ? 1 : 0)
+}
+
+function earliestReleaseWeek(production: Production, week: number): number {
+  return week + Math.max(1, production.remainingTicks) + (production.startTick >= week ? 1 : 0)
+}
+
+function committedPromiseSeats(
+  state: GameState,
+  promise: Pick<PromiseDraft, 'issuerStudioId' | 'beneficiaryPersonId' | 'predicate'>,
+): readonly Production[] {
+  // A grandfathered picture already past 5 cannot mint another first take just
+  // because no historical receipt was backfilled for it.
+  return seatedPreFirstTake(state, promise.issuerStudioId, promise.beneficiaryPersonId, promiseCastSlots(promise))
+    .filter((production) => production.remainingTicks >= 5)
+}
+
+/** C.2c quote estimate for a person with a retirement record. The existing
+ * eight-week fresh-picture hypothesis stays a QUOTE input. Bound GREENLIGHTS,
+ * never first takes: a committed seat may film during finishing_commitments.
+ * A fresh path and each already-held qualifying path are alternatives; choose
+ * the earliest k-th event without inventing an extra simultaneous seat. */
+function retirementQuoteTakeWeek(state: GameState, draft: PromiseDraft, week: number, k: number, capped = true): number {
+  const admitted = (greenlightWeek: number): boolean => !capped
+    || assignmentRefusal(state, draft.beneficiaryPersonId, greenlightWeek) === null
+  const freshTake = Math.max(draft.windowStartWeek, week + WEEKS_TO_FIRST_TAKE)
+  const freshGreenlight = k === 0 ? week : freshTake + k * SEAT_CYCLE_WEEKS - WEEKS_TO_FIRST_TAKE
+  let earliest = admitted(freshGreenlight) ? freshTake + k * SEAT_CYCLE_WEEKS : Infinity
+  for (const production of committedPromiseSeats(state, draft)) {
+    const take = Math.max(draft.windowStartWeek, earliestTakeWeek(production, week))
+    if (k === 0) {
+      earliest = Math.min(earliest, take)
+      continue
+    }
+    const greenlight = Math.max(earliestReleaseWeek(production, week), take + 4) + (k - 1) * SEAT_CYCLE_WEEKS
+    if (admitted(greenlight)) earliest = Math.min(earliest, greenlight + WEEKS_TO_FIRST_TAKE)
+  }
+  return earliest
+}
+
 /**
  * §4.3: does this studio's own authoritative schedule show a reasonable path to
  * satisfy this promise? Pure, no RNG, committed state by reference.
@@ -382,9 +432,9 @@ function expectedFirstTakeWeek(
  * fails; IMPOSSIBLE iff `X > N_max`, the window lies outside the contract, or
  * active promises already exhaust the seats.
  *
- * THE RETIREMENT INPUT IS ABSENT, not assumed: §4.3.1's "announced retirement
- * effective week" has no engine fact before P14C, so it is read as absent and
- * stated here rather than silently defaulted.
+ * C.2c reads the actual retirement admission boundary when one exists. It
+ * restricts future greenlights, while already-committed qualifying seats keep
+ * their own clock. The quote is not the permanent retirement-outcome predicate.
  */
 export function promiseFeasibility(state: GameState, draft: PromiseDraft, week: number): PromiseFeasibilityReceipt {
   const X = draft.predicate.count
@@ -416,21 +466,30 @@ export function promiseFeasibility(state: GameState, draft: PromiseDraft, week: 
 
   const from = Math.max(draft.windowStartWeek, week)
   const reserved = reservedByActivePromises(state, draft, from)
+  const retirement = retirementRecordFor(state, draft.beneficiaryPersonId)
+  const expectedTake = (k: number): number => retirement === undefined
+    ? expectedFirstTakeWeek(state, draft, from, k)
+    : retirementQuoteTakeWeek(state, draft, week, k)
 
   // N_max: the events this person can reach inside the window, counted
   // sequentially (one seat at a time), each on the minimum lawful pipeline.
   let nMax = 0
-  while (expectedFirstTakeWeek(state, draft, from, nMax) < draft.dueWeekExclusive) {
+  while (expectedTake(nMax) < draft.dueWeekExclusive) {
     nMax += 1
     if (nMax > 1000) break // bounded: a window can never buy more than this
   }
-  if (X > nMax) return refuse('no filming week inside the window can reach that many pictures')
+  if (X > nMax) {
+    if (retirement !== undefined && retirementQuoteTakeWeek(state, draft, week, X - 1, false) < draft.dueWeekExclusive) {
+      return refuse('retirement leaves too few qualifying production seats inside the window')
+    }
+    return refuse('no filming week inside the window can reach that many pictures')
+  }
   if (reserved + X > nMax) return refuse('promises already made to this person exhaust the window')
 
   const existingPath = seatedPreFirstTake(state, draft.issuerStudioId, draft.beneficiaryPersonId, promiseCastSlots(draft)).length
     + unproducedScripts(state, draft.issuerStudioId)
     + (stockGreenlightAvailable(state, draft.issuerStudioId) ? 1 : 0)
-  const lastEventWeek = expectedFirstTakeWeek(state, draft, from, reserved + X - 1)
+  const lastEventWeek = expectedTake(reserved + X - 1)
 
   // Evaluator 4 (record 600): active reservations are subtracted before the
   // spare-event buffer is tested — shared residual capacity, for fresh P1 and
@@ -508,8 +567,8 @@ export function attachPromise(
   draft: PromiseAttachment,
 ): GameState {
   const week = state.market.tick
-  // P14C.2b (806 §7.1 / §8.4): no promise rides a retirement extension. Promises ×
-  // retirement is the open Owner question C.2c waits on; attaching one would decide it.
+  // P14C.2b (806 §7.1 / §8.4): no promise rides a retirement extension.
+  // C.2c disposes existing obligations without changing that attachment rule.
   if (openMarketCaseFor(state, talentId)?.variant === 'retirementExtension') {
     throw new Error(`promises: "${talentId}"'s open case is a retirementExtension — no promise rides the one final extension (P14C.2b)`)
   }
@@ -684,6 +743,69 @@ export function targetSpecificImpossibility(state: GameState, promise: Professio
   return remaining > nMax ? 'no filming week inside the window can reach that many pictures' : null
 }
 
+/** A rival cannot use the player's cancel-after-first-take shortcut. Its next
+ * seat waits for the actual owner's earliest release; every further fresh
+ * picture needs PRODUCTION_TICKS + 1 weeks including its skipped first advance.
+ * As in the existing physical check this ignores resource contention and rival
+ * decision cadence, so it can rule timing out, never certify a complete plan. */
+function rivalUncappedPromiseCapacity(state: GameState, promise: ProfessionalPromise, week: number): number {
+  const personId = promise.beneficiaryPersonId
+  const productions = [...state.studio.activeProductions,
+    ...(state.hollywood?.businesses.flatMap((business) => business.productions) ?? [])]
+  let released = week
+  for (const production of productions) {
+    if (production.directorId === personId || production.craftIds.includes(personId)
+      || CAST_SLOTS.some((slot) => production.cast[slot] === personId)) {
+      released = Math.max(released, earliestReleaseWeek(production, week))
+    }
+  }
+  const freshCapacity = (greenlight: number): number => {
+    const take = Math.max(promise.windowStartWeek, greenlight + WEEKS_TO_FIRST_TAKE)
+    return take < promise.dueWeekExclusive
+      ? Math.ceil((promise.dueWeekExclusive - take) / (TUNING.PRODUCTION_TICKS + 1)) : 0
+  }
+  // It may release a held picture whose take cannot count, then start another.
+  let capacity = freshCapacity(released)
+  for (const production of committedPromiseSeats(state, promise)) {
+    const take = Math.max(promise.windowStartWeek, earliestTakeWeek(production, week))
+    if (take >= promise.dueWeekExclusive) continue
+    // Alternatively hold this qualifying take to the window, which also delays
+    // release. One-seat exclusivity makes these alternatives, not extra seats.
+    capacity = Math.max(capacity, 1 + freshCapacity(Math.max(released, take + 4)))
+  }
+  return capacity
+}
+
+/** Record 823's delegated C.2c disposition: wait until retirement ACTUALLY
+ * closes new admission, protect committed qualifying work, and retain ordinary
+ * law when physical timing independently rules out the unmet target. This is
+ * not the quote classification or an executable counterfactual certificate.
+ * Future extensions do not postpone the check: they decide at the carrying
+ * contract's expiry, at or after this promise's unchanged exclusive deadline. */
+function retirementVoidsPromise(state: GameState, promise: ProfessionalPromise, week: number, remaining: number): boolean {
+  if (remaining === 0 || assignmentRefusal(state, promise.beneficiaryPersonId, week) === null) return false
+  const committed = committedPromiseSeats(state, promise).filter((production) =>
+    Math.max(promise.windowStartWeek, earliestTakeWeek(production, week)) < promise.dueWeekExclusive)
+  if (committed.length >= remaining) return false
+  if (state.hollywood !== null && promise.issuerStudioId !== state.hollywood.playerStudioId) {
+    return rivalUncappedPromiseCapacity(state, promise, week) >= remaining
+  }
+  // C.2c uses the SAME filtered future seats on both sides of its cutoff check.
+  // The older cancellation evaluator's unrecorded-picture read can include a
+  // grandfathered countdown already below 5; that is not another future take.
+  // Preserve its separate law, while bounding this player's remaining takes
+  // by a real fresh start or one of these still-ahead qualifying seats.
+  let first = Math.max(promise.windowStartWeek, week + WEEKS_TO_FIRST_TAKE)
+  for (const production of committed) {
+    first = Math.min(first, Math.max(promise.windowStartWeek, earliestTakeWeek(production, week)))
+  }
+  // The player's existing cancel-after-take route permits a fresh greenlight
+  // at that take, unlike the rival release-only route above.
+  const capacity = first < promise.dueWeekExclusive
+    ? Math.ceil((promise.dueWeekExclusive - first) / WEEKS_TO_FIRST_TAKE) : 0
+  return capacity >= remaining
+}
+
 /** The outcome fields a settlement may write; identical on both V30 members.
  * `supersededByPromiseId` (Save V32) joins them because the WAIVED branch is the
  * only settlement that names a successor, and it must be written in the SAME
@@ -721,9 +843,9 @@ function settle(
  * Outcomes are TERMINAL and emitted ONCE — a promise that already carries one is
  * never re-evaluated, so a replayed or repeated tick cannot duplicate it.
  *
- * WAIVED and VOIDED are enumerated members no B.1 path reaches: there is no
- * waiver acceptance rule and no P14C retirement or profession transition to
- * produce an external cause.
+ * C.2c: after satisfied work is counted, retirement may VOID the unmet
+ * remainder under its admission-cutoff rule. The existing waiver command
+ * remains a separate owner; neither path adds a negative trust driver.
  */
 export function advancePromisesWeek(state: GameState): GameState {
   requirePromiseRoots(state)
@@ -749,6 +871,16 @@ export function advancePromisesWeek(state: GameState): GameState {
         // validator refused the save: "records a second outcome".
         outcomeEventId: null,
       }, week, 'a promise to this person was kept')
+      continue
+    }
+    if (retirementVoidsPromise(next, promise, week, promise.predicate.count - progress)) {
+      next = settle(next, promise, {
+        progress,
+        evidenceRefs: takes.map((take) => take.eventId),
+        outcome: 'VOIDED',
+        outcomeCause: 'retirement closed new production assignments before the remaining promised pictures could begin filming',
+        outcomeEventId: null,
+      }, week, 'a promise to this person was voided by retirement')
       continue
     }
     if (week >= promise.dueWeekExclusive) {

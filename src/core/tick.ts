@@ -1146,14 +1146,13 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     { takes: takeEntries, releases: [...records.map((r) => r.filmResult), ...industry.growth.map((r) => r.filmResult)] },
     finalized.market.tick,
   )
-  // P14C.2a (777 §4), split by P14C.2b (806 §3): lifecycle INTENT runs after the promise
-  // evaluation and BEFORE the market, on the week this advance produced, so the market
-  // meets an announcement the week it happens (an open case is invalidated, no case is
-  // discovered). Lifecycle SETTLEMENT (with the P14C.4 cohort) runs AFTER the market, so
-  // an extension the market accepted this week has already moved the effective week it
+  // P14C.2c (823): lifecycle INTENT runs before promise evaluation on the produced week,
+  // so both promises and the market see this week's announcement. Promise outcomes
+  // still precede market ranking on trust. Lifecycle SETTLEMENT (with the P14C.4 cohort)
+  // runs AFTER the market, so an accepted extension has already moved the effective week it
   // reads. By here the P10 expiry and `finishHollywoodWeek` have written every contract
   // end at this week, which settlement asserts rather than repeats (773 D10). No RNG.
-  return advanceLifecycleSettlement(advanceTalentMarketWeek(advanceLifecycleIntent(advancePromisesWeek(withBonds), birthdays)))
+  return advanceLifecycleSettlement(advanceTalentMarketWeek(advancePromisesWeek(advanceLifecycleIntent(withBonds, birthdays))))
 }
 
 /**

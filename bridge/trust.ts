@@ -17,6 +17,7 @@ const PROMISE_OUTCOME_WORD: Partial<Record<PromiseOutcome, string>> = {
   SATISFIED: 'kept',
   BROKEN: 'broken',
   WAIVED: 'waived',
+  VOIDED: 'voided',
 }
 
 export function trustBlockFor(
@@ -78,8 +79,8 @@ export function promiseAttentionRows(
     // P14B.7: the gate and the WORD move together. This was a two-way ternary
     // with no third arm, so admitting WAIVED at the gate alone would have
     // published a settlement the person ACCEPTED as "broken" — a breach that did
-    // not happen. A table refuses to name an outcome it has no word for (VOIDED,
-    // P14C) instead of mislabelling it as the ternary's else branch.
+    // not happen. C.2c adds the issuer-only VOIDED word for retirement, with its
+    // own cause and no implication that the studio broke its promise.
     const word = promise.outcome === null ? undefined : PROMISE_OUTCOME_WORD[promise.outcome]
     if (promise.outcomeWeek === week && word !== undefined) {
       add('promiseOutcome', `Promise to ${name} ${word} — ${promise.outcomeCause}`)

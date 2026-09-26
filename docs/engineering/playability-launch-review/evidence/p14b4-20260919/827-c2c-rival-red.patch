@@ -1,0 +1,564 @@
+diff --git a/tests/bridge-p14c2c-retirement-promises.test.ts b/tests/bridge-p14c2c-retirement-promises.test.ts
+new file mode 100644
+index 00000000..20e649b6
+--- /dev/null
++++ b/tests/bridge-p14c2c-retirement-promises.test.ts
+@@ -0,0 +1,51 @@
++// C.2c private disclosure from a real automatic outcome. Kept separate because
++// root tsc excludes bridge*.test.ts and bridge modules use .ts import suffixes.
++import { describe, expect, it } from 'vitest'
++import { industryPage } from '../bridge/industry.ts'
++import { promiseHistoryFor } from '../bridge/promises.ts'
++import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
++import { promiseAttentionRows, trustBlockFor } from '../bridge/trust.ts'
++import type { IndustryQuery } from '../bridge/schema/industry-schema.ts'
++import { c2cFixture, owner, ownOutcomeReceipt, promiseById, tick } from './helpers/p14c2c-fixtures.js'
++
++describe('P14C.2c VOIDED disclosure', () => {
++  it('C10: issuer sees VOIDED history and a retirement explanation without a breach or trust penalty', () => {
++    const f = c2cFixture()
++    const before = f.lastAdmission
++    const after = tick(before)
++    expect(promiseById(after, f.promiseId).outcome).toBe('VOIDED')
++    const receipt = ownOutcomeReceipt(after, f.promiseId)
++    const history = promiseHistoryFor(after, f.actorId, owner(after))
++    expect(history.find((p) => p.promiseId === f.promiseId)).toMatchObject({ outcome: 'VOIDED', outcomeWeek: 148,
++      progress: 0, contractId: promiseById(before, f.promiseId).contractId })
++    const attention = promiseAttentionRows(after, owner(after), 148, f.actorId)
++      .filter((r) => r.cause === 'promiseOutcome')
++    expect(attention).toHaveLength(1)
++    expect(attention[0]!.reason).toMatch(/void/i)
++    expect(attention[0]!.reason).toMatch(/retir/i)
++    expect(attention[0]!.reason).not.toMatch(/\b(?:kept|broken|waived)\b/i)
++    expect(trustBlockFor(after, f.actorId, owner(after), 148)).toEqual(trustBlockFor(before, f.actorId, owner(before), 148))
++    expect(receipt.week).toBe(148)
++  })
++
++  it('C10: another studio gets no private promise history/attention and public activity invents no breach', () => {
++    const f = c2cFixture()
++    const after = tick(f.lastAdmission)
++    expect(promiseById(after, f.promiseId).outcome).toBe('VOIDED')
++    const receipt = ownOutcomeReceipt(after, f.promiseId)
++    const rival = after.hollywood!.identities.find((s) => s.role === 'rival' && s.enteredWeek !== null)!
++    expect(rival).toBeDefined()
++    expect(promiseHistoryFor(after, f.actorId, rival.studioId)).toEqual([])
++    expect(promiseAttentionRows(after, rival.studioId, 148, f.actorId)).toEqual([])
++    const sessionId = 'p14c2c-private-outcome'
++    const query = (page: number): IndustryQuery => ({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID,
++      sessionId, requestId: `c2c-${page}`, expectedStateRevision: 0, type: 'industryQuery', view: 'pulse',
++      targetId: null, page, pageSize: 50, lane: 'recent', period: 'all' })
++    const first = industryPage(after, sessionId, 0, query(0))
++    const rows = [...first.activities]
++    expect(first.pageCount).toBeLessThan(1000)
++    for (let page = 1; page < first.pageCount; page++) rows.push(...industryPage(after, sessionId, 0, query(page)).activities)
++    expect(rows).toHaveLength(first.totalRows)
++    expect(rows.some((row) => row.eventId === receipt.eventId)).toBe(false)
++  })
++})
+diff --git a/tests/helpers/p14c2c-fixtures.ts b/tests/helpers/p14c2c-fixtures.ts
+new file mode 100644
+index 00000000..40d0130e
+--- /dev/null
++++ b/tests/helpers/p14c2c-fixtures.ts
+@@ -0,0 +1,165 @@
++// C.2c independent fixtures (823, 773 §10). Every default dated fact below comes
++// from real create/sign/propose/attach/greenlight/tick routes. These are disposable
++// generated campaigns, never a rewrite or re-mint of the outgoing corpus.
++import { expect } from 'vitest'
++import { applyActions } from '../../src/core/actions.js'
++import { retirementRecordFor } from '../../src/core/careerLifecycle.js'
++import { attachPromise } from '../../src/core/promises.js'
++import { makeSave, validateSaveV36 } from '../../src/core/save.js'
++import { currentProposals, submitProposal } from '../../src/core/talentMarket.js'
++import { tick } from '../../src/core/tick.js'
++import { TUNING } from '../../src/core/tuning.js'
++import { advanceTo, p13aGeneratedStudio } from '../../src/harness/p13a/fixtures.js'
++import type { Action, CastSlot, CreativeRole, GameState, ProfessionalPromise } from '../../src/core/types.js'
++import { fund } from './p14b2-fixtures.js'
++
++export { advanceTo, tick }
++export const C2C = { announcement: 104, effective: 156, lastAdmission: 147, cutoff: 148, due: 156 } as const
++const STAGE = 'facility-soundstage-07'
++export const owner = (state: GameState): string => state.hollywood!.playerStudioId
++
++export function promiseById(state: GameState, id: string): ProfessionalPromise {
++  const rows = state.promises.filter((p) => p.promiseId === id)
++  expect(rows, `fixture premise: one promise ${id}`).toHaveLength(1)
++  return rows[0]!
++}
++
++export function savedState(state: GameState): GameState {
++  const written = makeSave(state)
++  return validateSaveV36(JSON.parse(JSON.stringify(written))).state
++}
++
++export type C2cFixture = {
++  submitted: GameState
++  bound: GameState
++  beforeAnnouncement: GameState
++  announced: GameState
++  lastAdmission: GameState
++  actorId: string
++  directorId: string
++  writerId: string
++  craftId: string
++  antagonistId: string
++  supportId: string
++  promiseId: string
++}
++let cached: C2cFixture | undefined
++
++/** One cached immutable source; each caller receives a detached campaign. The
++ * retiring actor starts at 68, binds the renewal at 52, and turns 70 at 104.
++ * An initial age 69 would announce at renewal week 52 and invalidate the offer,
++ * so it is deliberately NOT used. [52,156) is the REAL carrying interval. */
++export function c2cFixture(): C2cFixture {
++  if (cached !== undefined) return structuredClone(cached)
++  let state = fund(p13aGeneratedStudio('p14c2c-retirement-promises-01'))
++  const roster: readonly { name: string; role: CreativeRole; age: number; termWeeks: number }[] = [
++    { name: 'C2c Retiring Actor', role: 'actor', age: 68, termWeeks: 52 },
++    { name: 'C2c Director', role: 'director', age: 40, termWeeks: 208 },
++    { name: 'C2c Writer', role: 'writer', age: 40, termWeeks: 208 },
++    { name: 'C2c Craft', role: 'craft', age: 40, termWeeks: 208 },
++    { name: 'C2c Antagonist', role: 'actor', age: 30, termWeeks: 208 },
++    { name: 'C2c Support', role: 'actor', age: 30, termWeeks: 208 },
++  ]
++  const ids: string[] = []
++  for (const person of roster) {
++    state = applyActions(state, [{ kind: 'createTalent', talent: {
++      name: person.name, role: person.role, age: person.age,
++      actual: { warmth: 0, gravity: 0, physicality: 0.2 }, potentialTier: 'Steady', workEthic: 55,
++    } }])
++    const id = state.talent.find((p) => p.name === person.name)!.id
++    ids.push(id)
++    state = applyActions(state, [{ kind: 'signContract', talentId: id, termWeeks: person.termWeeks }])
++  }
++  const [actorId, directorId, writerId, craftId, antagonistId, supportId] = ids as [string, string, string, string, string, string]
++  const mounted = state.sets.find((s) => s.mountedOn === STAGE && s.status !== 'retired')
++  if (mounted !== undefined) state = applyActions(state, [{ kind: 'strikeSet', setId: mounted.id }])
++  state = applyActions(state, [{ kind: 'commissionSet', commission: { blueprintId: 'set-grand-ballroom', stageFacilityId: STAGE } }])
++  state = advanceTo(state, TUNING.SET_BUILD_WEEKS_BAND_HIGH)
++  state = advanceTo(state, 45)
++  state = submitProposal(state, { talentId: actorId, issuerStudioId: owner(state), termWeeks: 104, premiumTier: 1.25 })
++  expect(currentProposals(state, actorId).find((p) => p.issuerStudioId === owner(state))).toMatchObject({ startWeek: 52, termWeeks: 104 })
++  const submitted = attachPromise(state, actorId, owner(state), {
++    family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT', predicate: { kind: 'castRoleCount', count: 1, seatClass: 'lead' },
++    windowStartWeek: 52, dueWeekExclusive: 156,
++  })
++  const promiseId = submitted.promises.at(-1)!.promiseId
++  const bound = advanceTo(submitted, 52)
++  const promise = promiseById(bound, promiseId)
++  expect(promise.contractId, 'fixture premise: the real renewal must WIN, not merely carry an unaccepted promise').not.toBeNull()
++  expect(bound.hollywood!.employment.find((e) => e.contractId === promise.contractId)).toMatchObject({
++    studioId: owner(bound), terms: { talentId: actorId, startWeek: 52, endWeekExclusive: 156 },
++  })
++  expect(promise.outcome).toBeNull()
++  expect(retirementRecordFor(bound, actorId)).toBeUndefined()
++  const beforeAnnouncement = advanceTo(bound, 103)
++  const announced = tick(beforeAnnouncement)
++  expect(retirementRecordFor(announced, actorId)).toMatchObject({
++    announcedWeek: 104, ageAtAnnouncement: 70, effectiveWeek: 156, status: 'announced', cause: 'hardBoundary',
++  })
++  const lastAdmission = advanceTo(announced, 147)
++  savedState(lastAdmission)
++  cached = { submitted, bound, beforeAnnouncement, announced, lastAdmission, actorId, directorId, writerId, craftId,
++    antagonistId, supportId, promiseId }
++  return structuredClone(cached)
++}
++
++/** Clearly labelled SYNTHETIC predicate/window variant of a real bound record.
++ * No invented contract, first take, progress or outcome. The live writer must
++ * accept the WHOLE variant before it can be used as an isolated test premise. */
++export function withPromiseVariant(
++  state: GameState, promiseId: string,
++  changes: Partial<Pick<ProfessionalPromise, 'family' | 'predicate' | 'windowStartWeek' | 'dueWeekExclusive'>>,
++): GameState {
++  const base = promiseById(state, promiseId)
++  expect(base.outcome, 'only OPEN fixture records may receive a declared predicate variant').toBeNull()
++  return savedState({ ...state, promises: state.promises.map((p) => p.promiseId === promiseId
++    ? { ...p, ...changes } as ProfessionalPromise : p) })
++}
++
++export function greenlightAction(f: C2cFixture, state: GameState, actorSlot: CastSlot = 'lead'): Action {
++  const concept = state.concepts.find((c) => !state.studio.activeProductions.some((p) => p.conceptId === c.id)
++    && !state.studio.releasedFilms.some((film) => film.conceptId === c.id))!
++  const cast: Record<CastSlot, string> = { lead: f.actorId, antagonist: f.antagonistId, support: f.supportId }
++  if (actorSlot !== 'lead') [cast.lead, cast[actorSlot]] = [cast[actorSlot], cast.lead]
++  return { kind: 'greenlight', production: {
++    conceptId: concept.id, shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
++    promise: { genre: concept.genre, intendedSegments: ['adult'], ranges: {
++      intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5],
++    } },
++    writerId: f.writerId, directorId: f.directorId, cast, craftIds: [f.craftId],
++    budget: { negative: concept.baseNegativeCost, marketing: 0 },
++  } }
++}
++
++/** Real greenlight at the caller's current week, followed by managed production
++ * and shooting scheduling. The production keeps its real default setup:null;
++ * no optional multiweek setup recipe is commissioned. No clock/take is forged. */
++export function toScheduledTake(f: C2cFixture, start: GameState, actorSlot: CastSlot = 'lead') {
++  let state = applyActions(start, [greenlightAction(f, start, actorSlot)])
++  const productionId = state.studio.activeProductions.at(-1)!.id
++  state = tick(tick(tick(state)))
++  const rehearsal = state.operations.workflows.find((w) => w.productionId === productionId)!
++  expect(rehearsal.phase, 'fixture premise: the real picture must reach rehearsal').toBe('rehearsal')
++  expect(rehearsal.setup).toBeNull()
++  for (let steps = 0; state.studio.activeProductions.find((p) => p.id === productionId)!.remainingTicks !== 5; steps++) {
++    if (steps >= 40) throw new Error('C2c fixture: real production did not reach its first shooting boundary within 40 ticks')
++    state = tick(state)
++  }
++  expect(state.firstTakes.some((take) => take.productionId === productionId)).toBe(false)
++  state = applyActions(state, [
++    { kind: 'assignShootingDirector', productionId, directorId: f.directorId },
++    { kind: 'scheduleShootingTake', productionId },
++  ])
++  expect(state.operations.workflows.find((w) => w.productionId === productionId)!.shootingTask?.status).toBe('scheduled')
++  return { state, productionId }
++}
++
++export function ownOutcomeReceipt(state: GameState, promiseId: string) {
++  const promise = promiseById(state, promiseId)
++  expect(promise.outcomeEventId).not.toBeNull()
++  const receipts = state.talentMarket.receipts.filter((r) => r.eventId === promise.outcomeEventId)
++  expect(receipts).toHaveLength(1)
++  expect(receipts[0]).toMatchObject({ kind: 'promiseOutcome', week: promise.outcomeWeek,
++    talentId: promise.beneficiaryPersonId, studioId: promise.issuerStudioId })
++  return receipts[0]!
++}
+diff --git a/tests/p14c2c-retirement-promises.test.ts b/tests/p14c2c-retirement-promises.test.ts
+new file mode 100644
+index 00000000..76222ffc
+--- /dev/null
++++ b/tests/p14c2c-retirement-promises.test.ts
+@@ -0,0 +1,254 @@
++// C.2c independent behavioral RED. Authority: 773 §10 and 823. Tests use existing
++// public functions, so missing VOIDED behavior fails assertions, not imports.
++// The natural fixtures and the separately labelled lawful predicate variants are
++// distinct evidence. No stored historical fixture or production file is edited.
++import { describe, expect, it } from 'vitest'
++import { applyActions } from '../src/core/actions.js'
++import { assignmentRefusal, retirementRecordFor } from '../src/core/careerLifecycle.js'
++import { advancePromisesWeek, promiseFeasibility, qualifyingTakes, trustDescriptor, trustDrivers, waivePromise } from '../src/core/promises.js'
++import { submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
++import type { GameState, ProfessionalPromise } from '../src/core/types.js'
++import { advanceTo, c2cFixture, greenlightAction, owner, ownOutcomeReceipt, promiseById, savedState,
++  tick, toScheduledTake, withPromiseVariant } from './helpers/p14c2c-fixtures.js'
++
++function draftFor(p: ProfessionalPromise) {
++  return { family: p.family, issuerStudioId: p.issuerStudioId, beneficiaryPersonId: p.beneficiaryPersonId,
++    predicate: p.predicate, windowStartWeek: p.windowStartWeek, dueWeekExclusive: p.dueWeekExclusive,
++    startWeek: 52, termWeeks: 104, promiseId: p.promiseId }
++}
++
++/** Counterfactual ONLY: remove this person's retirement restriction. This is not
++ * a historical fixture or save; all other facts are identical to the source. */
++function withoutRetirement(state: GameState, actorId: string): GameState {
++  return { ...state, careerLifecycle: { ...state.careerLifecycle,
++    records: state.careerLifecycle.records.filter((r) => r.personId !== actorId) } }
++}
++
++describe('P14C.2c retirement causation and normal tick ownership', () => {
++  it('C1: a real birthday announcement leaves a bound, still-fulfillable promise open', () => {
++    const f = c2cFixture()
++    expect(retirementRecordFor(f.beforeAnnouncement, f.actorId)).toBeUndefined()
++    const after = tick(f.beforeAnnouncement)
++    expect(retirementRecordFor(after, f.actorId)).toMatchObject({ announcedWeek: 104, effectiveWeek: 156 })
++    expect(promiseById(after, f.promiseId)).toMatchObject({ outcome: null, outcomeWeek: null, progress: 0 })
++    expect(after.talentMarket.receipts.filter((r) => r.kind === 'promiseOutcome' && r.talentId === f.actorId)).toEqual([])
++  })
++
++  it('C2: the first lost fresh-admission week VOIDs once, before the legal promise deadline', () => {
++    const f = c2cFixture()
++    expect(promiseById(f.lastAdmission, f.promiseId).outcome).toBeNull()
++    expect(assignmentRefusal(f.lastAdmission, f.actorId, 147)).toBeNull()
++    const after = tick(f.lastAdmission)
++    expect(after.market.tick).toBe(148)
++    expect(assignmentRefusal(after, f.actorId, 148)).toMatch(/retirementAnnounced/)
++    expect(promiseById(after, f.promiseId)).toMatchObject({ outcome: 'VOIDED', outcomeWeek: 148, progress: 0,
++      dueWeekExclusive: 156, contractId: promiseById(f.lastAdmission, f.promiseId).contractId })
++    expect(promiseById(after, f.promiseId).outcomeCause).toMatch(/retir/i)
++    ownOutcomeReceipt(after, f.promiseId)
++    expect(advancePromisesWeek(after)).toEqual(after)
++    const again = tick(after)
++    expect(promiseById(again, f.promiseId)).toEqual(promiseById(after, f.promiseId))
++    expect(again.talentMarket.receipts.filter((r) => r.kind === 'promiseOutcome' && r.talentId === f.actorId)).toHaveLength(1)
++  })
++
++  it('C2 control: remove only retirement and real greenlight/schedule/tick still fulfills before due', () => {
++    const f = c2cFixture()
++    const uncapped = withoutRetirement(f.lastAdmission, f.actorId)
++    const after = tick(uncapped)
++    expect(promiseById(after, f.promiseId).outcome).toBeNull()
++    const scheduled = toScheduledTake(f, after)
++    const kept = tick(scheduled.state)
++    const takes = kept.firstTakes.filter((t) => t.productionId === scheduled.productionId)
++    expect(takes).toHaveLength(1)
++    expect(takes[0]!.week).toBe(153)
++    expect(promiseById(kept, f.promiseId)).toMatchObject({ outcome: 'SATISFIED', outcomeWeek: 153,
++      progress: 1, evidenceRefs: [takes[0]!.eventId] })
++  })
++
++  it('C3: a real committed lead seat at admission equality survives the cutoff and satisfies', () => {
++    const f = c2cFixture()
++    const scheduled = toScheduledTake(f, f.lastAdmission)
++    expect(promiseById(scheduled.state, f.promiseId).outcome).toBeNull()
++    expect(scheduled.state.market.tick).toBe(151)
++    const kept = tick(scheduled.state)
++    const take = kept.firstTakes.find((t) => t.productionId === scheduled.productionId)!
++    expect(take).toMatchObject({ week: 152, studioId: owner(kept), cast: { lead: f.actorId } })
++    expect(promiseById(kept, f.promiseId)).toMatchObject({ outcome: 'SATISFIED', outcomeWeek: 152,
++      progress: 1, evidenceRefs: [take.eventId] })
++    ownOutcomeReceipt(kept, f.promiseId)
++    const retiredOrFinishing = advanceTo(kept, 157)
++    expect(promiseById(retiredOrFinishing, f.promiseId)).toEqual(promiseById(kept, f.promiseId))
++    expect(retiredOrFinishing.firstTakes).toContainEqual(take)
++  })
++
++  it('C3 boundary: the actual greenlight command refuses the next week without changing any state', () => {
++    const f = c2cFixture()
++    const state = tick(f.lastAdmission)
++    const before = structuredClone(state)
++    expect(() => applyActions(state, [greenlightAction(f, state)])).toThrow(/retirementAnnounced/)
++    expect(state).toEqual(before)
++  })
++
++  it('C5: a committed support seat cannot protect a lead-only promise from retirement', () => {
++    const f = c2cFixture()
++    const seated = applyActions(f.lastAdmission, [greenlightAction(f, f.lastAdmission, 'support')])
++    const after = tick(seated)
++    expect(after.studio.activeProductions.at(-1)!.cast.support).toBe(f.actorId)
++    expect(promiseById(after, f.promiseId)).toMatchObject({ outcome: 'VOIDED', outcomeWeek: 148 })
++  })
++
++  it('C5 generic P1 control: the same real support seat does protect an appearance promise', () => {
++    const f = c2cFixture()
++    const generic = withPromiseVariant(f.lastAdmission, f.promiseId,
++      { family: 'APPEARANCE_COUNT', predicate: { count: 1 } }) // labelled lawful predicate variant
++    const scheduled = toScheduledTake(f, generic, 'support')
++    expect(promiseById(scheduled.state, f.promiseId).outcome).toBeNull()
++    const kept = tick(scheduled.state)
++    expect(promiseById(kept, f.promiseId)).toMatchObject({ outcome: 'SATISFIED', progress: 1 })
++  })
++
++  it('C6: a promise already beyond the uncapped physical count remains ordinary law, not VOIDED', () => {
++    const f = c2cFixture()
++    const impossibleAlready = withPromiseVariant(f.lastAdmission, f.promiseId,
++      { predicate: { kind: 'castRoleCount', count: 2, seatClass: 'lead' } })
++    // At 148 even the optimistic uncapped take weeks 153,158 cannot fit before 156.
++    const after = tick(impossibleAlready)
++    expect(promiseById(after, f.promiseId).outcome).toBeNull()
++    const due = advanceTo(after, 156)
++    expect(promiseById(due, f.promiseId)).toMatchObject({ outcome: 'BROKEN', outcomeWeek: 156 })
++  })
++
++  it('C1: reduced future capacity does not VOID a promise while new admission remains open', () => {
++    const f = c2cFixture()
++    const three = withPromiseVariant(f.announced, f.promiseId,
++      { predicate: { kind: 'castRoleCount', count: 3, seatClass: 'lead' } })
++    const state = advanceTo(three, 140)
++    expect(assignmentRefusal(state, f.actorId, 140)).toBeNull()
++    expect(promiseById(state, f.promiseId).outcome).toBeNull()
++  })
++
++  it('C6: actual early termination keeps its BROKEN cause and never gains a retirement outcome', () => {
++    const f = c2cFixture()
++    const terminated = applyActions(f.lastAdmission, [{ kind: 'releaseTalent', talentId: f.actorId }])
++    const original = promiseById(terminated, f.promiseId)
++    expect(original.outcome).toBe('BROKEN')
++    expect(original.outcomeCause).toMatch(/terminated/)
++    const after = tick(terminated)
++    expect(promiseById(after, f.promiseId)).toEqual(original)
++    expect(after.talentMarket.receipts.filter((r) => r.kind === 'promiseOutcome' && r.talentId === f.actorId)).toHaveLength(1)
++  })
++
++  it('C7: a genuinely withdrawn proposal never receives an automatic retirement outcome', () => {
++    const f = c2cFixture()
++    const withdrawn = withdrawProposal(f.submitted, f.actorId, owner(f.submitted))
++    expect(promiseById(withdrawn, f.promiseId).contractId).toBeNull()
++    const after = advanceTo(withdrawn, 157)
++    expect(retirementRecordFor(after, f.actorId)).toBeDefined()
++    expect(promiseById(after, f.promiseId)).toMatchObject({ contractId: null, outcome: null,
++      outcomeWeek: null, outcomeEventId: null })
++  })
++
++  it('C7: a real accepted waiver is terminal while its still-open substitute follows retirement law', () => {
++    const f = c2cFixture()
++    const waived = waivePromise(f.announced, { promiseId: f.promiseId, substitute: {
++      family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT', predicate: { kind: 'castRoleCount', count: 1, seatClass: 'lead' },
++      windowStartWeek: 105, dueWeekExclusive: 156,
++    } })
++    const original = promiseById(waived, f.promiseId)
++    expect(original.outcome).toBe('WAIVED')
++    expect(original.supersededByPromiseId).not.toBeNull()
++    const after = advanceTo(waived, 148)
++    expect(promiseById(after, f.promiseId)).toEqual(original)
++    expect(promiseById(after, original.supersededByPromiseId!)).toMatchObject({ outcome: 'VOIDED', outcomeWeek: 148 })
++  })
++})
++
++describe('P14C.2c feasibility, persistence, partial work and extension', () => {
++  it('C11: new feasibility includes the actual cap, changes the digest, and consumes no RNG', () => {
++    const f = c2cFixture()
++    const state = tick(f.lastAdmission)
++    const before = structuredClone(state)
++    const draft = draftFor(promiseById(state, f.promiseId))
++    const capped = promiseFeasibility(state, draft, 148)
++    const uncapped = promiseFeasibility(withoutRetirement(state, f.actorId), draft, 148)
++    expect(capped.classification).toBe('IMPOSSIBLE')
++    expect(capped.bottleneck).toMatch(/retir/i)
++    expect(uncapped.classification).toBe('FRAGILE')
++    expect(capped.inputsDigest).not.toBe(uncapped.inputsDigest)
++    expect(promiseFeasibility(state, draft, 148)).toEqual(capped)
++    expect(state).toEqual(before)
++  })
++
++  it('C11: a committed qualifying seat remains possible despite refusing every new greenlight', () => {
++    const f = c2cFixture()
++    const seated = applyActions(f.lastAdmission, [greenlightAction(f, f.lastAdmission)])
++    const state = tick(seated)
++    expect(assignmentRefusal(state, f.actorId, state.market.tick)).not.toBeNull()
++    const quote = promiseFeasibility(state, draftFor(promiseById(state, f.promiseId)), state.market.tick)
++    expect(quote.classification).not.toBe('IMPOSSIBLE')
++    expect(promiseById(state, f.promiseId).outcome).toBeNull()
++  })
++
++  it('C4: real partial first-take progress and its receipt survive VOIDED without extra trust damage', () => {
++    const f = c2cFixture()
++    const two = withPromiseVariant(f.announced, f.promiseId,
++      { predicate: { kind: 'castRoleCount', count: 2, seatClass: 'lead' } })
++    const scheduled = toScheduledTake(f, two)
++    const delivered = tick(scheduled.state)
++    const take = delivered.firstTakes.find((t) => t.productionId === scheduled.productionId)!
++    expect(promiseById(delivered, f.promiseId)).toMatchObject({ progress: 1, outcome: null })
++    // Cancel AFTER its real first take. That existing trust consequence is kept;
++    // retirement must add no new negative consequence for the remaining picture.
++    const cancelled = applyActions(delivered, [{ kind: 'cancel', productionId: scheduled.productionId }])
++    expect(promiseById(cancelled, f.promiseId).outcome).toBeNull()
++    const before = advanceTo(cancelled, 147)
++    const trust = trustDescriptor(before, f.actorId, owner(before), 148)
++    const evidenceBefore = promiseById(before, f.promiseId).evidenceRefs
++    const after = tick(before)
++    expect(promiseById(after, f.promiseId)).toMatchObject({ progress: 1, outcome: 'VOIDED', outcomeWeek: 148 })
++    expect(promiseById(after, f.promiseId).evidenceRefs).toEqual(expect.arrayContaining(evidenceBefore))
++    expect(qualifyingTakes(after, promiseById(after, f.promiseId))).toEqual([take])
++    expect(after.firstTakes).toContainEqual(take)
++    expect(trustDescriptor(after, f.actorId, owner(after), 148)).toEqual(trust)
++    expect(trustDrivers(after, f.actorId, owner(after), 148).some((d) => d.kind === 'promiseBroken')).toBe(false)
++    savedState(after)
++  })
++
++  it('C9: live save/reload across the exact trigger matches continuous tick bytes and preserves identity', () => {
++    const f = c2cFixture()
++    const before = structuredClone(f.lastAdmission)
++    const continuous = tick(f.lastAdmission)
++    const replayed = tick(savedState(f.lastAdmission))
++    expect(promiseById(replayed, f.promiseId).outcome).toBe('VOIDED')
++    expect(JSON.stringify(replayed)).toBe(JSON.stringify(continuous))
++    expect(savedState(continuous)).toEqual(continuous)
++    expect(f.lastAdmission).toEqual(before)
++    expect(continuous.talent.map((p) => p.id)).toEqual(before.talent.map((p) => p.id))
++    expect(continuous.talentProvenance.rows).toEqual(before.talentProvenance.rows)
++    expect(continuous.careerEvents.slice(0, before.careerEvents.length)).toEqual(before.careerEvents)
++    expect(continuous.firstTakes.slice(0, before.firstTakes.length)).toEqual(before.firstTakes)
++  })
++
++  it('C8: a genuine final extension uses the moved E for future feasibility and cannot revive VOIDED', () => {
++    const f = c2cFixture()
++    const offered = submitProposal(f.lastAdmission, { talentId: f.actorId, issuerStudioId: owner(f.lastAdmission),
++      termWeeks: 52, premiumTier: 1.1 })
++    const voided = tick(offered)
++    expect(promiseById(voided, f.promiseId).outcome).toBe('VOIDED')
++    const extended = advanceTo(voided, 156)
++    expect(retirementRecordFor(extended, f.actorId)).toMatchObject({
++      extensionUsed: true, extendedFromWeek: 156, effectiveWeek: 208, status: 'announced',
++    })
++    expect(promiseById(extended, f.promiseId)).toEqual(promiseById(voided, f.promiseId))
++    const old = promiseById(extended, f.promiseId)
++    const draft = { family: old.family, predicate: old.predicate, issuerStudioId: old.issuerStudioId,
++      beneficiaryPersonId: old.beneficiaryPersonId, windowStartWeek: 156, dueWeekExclusive: 208,
++      startWeek: 156, termWeeks: 52 }
++    const at180 = advanceTo(extended, 180)
++    expect(promiseFeasibility(at180, draft, 180).classification).not.toBe('IMPOSSIBLE')
++    const at200 = advanceTo(at180, 200)
++    expect(promiseFeasibility(at200, draft, 200).classification).toBe('IMPOSSIBLE')
++    expect(promiseById(at200, f.promiseId)).toEqual(promiseById(voided, f.promiseId))
++    savedState(at200)
++  })
++})
+diff --git a/tests/p14c2c-rival-promises.test.ts b/tests/p14c2c-rival-promises.test.ts
+new file mode 100644
+index 00000000..9e2da4d6
+--- /dev/null
++++ b/tests/p14c2c-rival-promises.test.ts
+@@ -0,0 +1,70 @@
++// C.2c rival symmetry from genuine V35 corpus bytes, migrated before live use.
++// The current OPEN promise is promise-148 on contract [2496,2704). Earlier
++// promise-132 is SATISFIED and promise-142 BROKEN; neither is ever reopened.
++// The count-two case alone is an explicitly labelled, whole-save-validated
++// predicate variant. No production, receipt or historical fixture is invented.
++import { describe, expect, it } from 'vitest'
++import { retirementRecordFor } from '../src/core/careerLifecycle.js'
++import { advancePromisesWeek, trustDrivers } from '../src/core/promises.js'
++import type { GameState } from '../src/core/types.js'
++import { c2bLiveFixture } from './helpers/p14c2b-fixtures.js'
++import { advanceTo, ownOutcomeReceipt, promiseById, savedState, tick, withPromiseVariant } from './helpers/p14c2c-fixtures.js'
++
++const PERSON = 'person-cohort-208-actor-1'
++const ISSUER = 'studio-25969b11-r01'
++const PROMISE = 'promise-148'
++let cached: GameState | undefined
++function beforeRivalCutoff(): GameState {
++  if (cached === undefined) {
++    const migrated = c2bLiveFixture('genuine-v35-c2b-rival-incumbent-cohorts')
++    expect(promiseById(migrated, PROMISE)).toMatchObject({ outcome: null, progress: 0,
++      beneficiaryPersonId: PERSON, issuerStudioId: ISSUER, windowStartWeek: 2496, dueWeekExclusive: 2704,
++      contractId: 'studio-25969b11-r01:contract:person-cohort-208-actor-1:2496' })
++    const at2695 = advanceTo(migrated, 2695)
++    expect(retirementRecordFor(at2695, PERSON)).toMatchObject({ announcedWeek: 2566, effectiveWeek: 2704, status: 'announced' })
++    expect(promiseById(at2695, PROMISE)).toMatchObject({ outcome: null, progress: 0 })
++    const business = at2695.hollywood!.businesses.find((b) => b.studioId === ISSUER)!
++    expect(business.productions, 'fixture premise: this genuine late-notice rival has no committed picture').toEqual([])
++    cached = savedState(at2695)
++  }
++  return structuredClone(cached)
++}
++
++describe('P14C.2c rival retirement promises', () => {
++  it('R1: a genuine bound rival promise follows the same exact cutoff, with no new trust penalty', () => {
++    const before = beforeRivalCutoff()
++    const terminals = before.promises.filter((p) => p.beneficiaryPersonId === PERSON && p.outcome !== null)
++    expect(terminals.map((p) => p.outcome)).toEqual(['SATISFIED', 'BROKEN'])
++    const trust = trustDrivers(before, PERSON, ISSUER, 2696)
++    const after = tick(before)
++    expect(promiseById(after, PROMISE)).toMatchObject({ outcome: 'VOIDED', outcomeWeek: 2696,
++      dueWeekExclusive: 2704, progress: 0 })
++    ownOutcomeReceipt(after, PROMISE)
++    for (const terminal of terminals) expect(promiseById(after, terminal.promiseId)).toEqual(terminal)
++    expect(trustDrivers(after, PERSON, ISSUER, 2696)).toEqual(trust)
++    expect(advancePromisesWeek(after)).toEqual(after)
++    savedState(after)
++  })
++
++  it('R2: a rival count already impossible without retirement remains OPEN until ordinary due settlement', () => {
++    const variant = withPromiseVariant(beforeRivalCutoff(), PROMISE, { predicate: { count: 2 } })
++    // No committed picture: even optimistic first takes 2701 and 2706 cannot
++    // both fit in [2496,2704). This is not retirement-caused failure.
++    const after = tick(variant)
++    expect(promiseById(after, PROMISE).outcome).toBeNull()
++    const due = advanceTo(after, 2704)
++    expect(promiseById(due, PROMISE)).toMatchObject({ outcome: 'BROKEN', outcomeWeek: 2704 })
++    ownOutcomeReceipt(due, PROMISE)
++  })
++
++  it('R3: real rival VOIDED replay across save/load preserves the source campaign and its outcome identity', () => {
++    const before = beforeRivalCutoff()
++    const source = structuredClone(before)
++    const continuous = tick(before)
++    const reloaded = tick(savedState(before))
++    expect(promiseById(reloaded, PROMISE).outcome).toBe('VOIDED')
++    expect(JSON.stringify(reloaded)).toBe(JSON.stringify(continuous))
++    expect(before).toEqual(source)
++    expect(promiseById(tick(reloaded), PROMISE)).toEqual(promiseById(reloaded, PROMISE))
++  })
++})

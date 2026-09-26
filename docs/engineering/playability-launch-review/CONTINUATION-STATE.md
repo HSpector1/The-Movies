@@ -1,5 +1,40 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — Codex C.2c verification, 2026-09-26 (supersedes handoff below)
+
+Same worktree and branch; published HEAD and actual remote verified at
+`8f893e0e9fd8623e79bfc30d673f0e0aaf502fab`. Record 823 defines the delegated
+admission-cutoff retirement VOIDED trigger; Owner selected the outcome, not the week.
+Genuine outgoing projection50/Save36 runtime preserved in record 824 before source
+changes. No old fixture, history, terminal promise, identity or receipt was rewritten.
+
+Candidate: promises.ts / tick.ts / bridge/trust.ts plus four new C.2c test/helper
+files. Independent RED 825 and rival RED 827 preceded production. Reviewer 828
+found a grandfathered pre-V29 receipt-shape edge; 831 reproduced it, then the
+writer corrected only C.2c's uncapped player capacity. Final source re-review KEEP.
+832: 24/24 focused passes, fixed source. 830 attributes the earlier C9 comparison
+failure to inherited signed-zero JSON normalization before the test-side repair.
+833: new readonly-array matcher type error; same-meaning spread repair passes
+834 root/UI and 835 bridge typechecks. 836/836a contract/fixture checks pass.
+Last full baseline is still 822's 55 inherited failures, not green. No full C.2c
+or native verification claim. Focused recoverable checkpoint 838. Next: publish,
+verify actual remote, recorded full core 837,
+failure-identity/cause comparison, publish; then bounded Scientist62/72 amendment
+and C.2-RM. Never commit or edit consumed inputs during a recorded run.
+
+Codex-native roles only: sim-core sole production writer; test-author separate;
+contract-auditor separate read-only reviewer. At most two active specialists, one
+parent-owned heavy test. Source writer and reviewer have yielded after corrections.
+The isolated pre-implementation proof worktree remains `/private/tmp/codex-c2c-red.aWg2tP`
+at 8f893e0e, linked to existing dependencies; no installation or cleanup occurred.
+Save36/projection50/protocol4/promise-rules4 remain unchanged. Unity remains deferred.
+
+Scientist next: explicit live-vs-frozen validation-policy separation is required
+before adding 62/72; historical V34–36 readers currently call live window/version
+helpers. Preserve old grammar and record bytes, notice/caps/extensions. Measure the
+eight fixed research identities and C.4's film-only replenishment; do not invent a
+Scientist replacement policy. Record 773 §10 remains controlling authority.
+
 ## CURRENT RESUME — Codex handoff from the Claude Opus coordinator (written 08:14 CEST 2026-09-26; supersedes every "Current …" section below)
 
 - **Repository / branch / absolute working directory / remote:** HSpector1/The-Movies · `wip/headless-program-20260916-ts` · `/Users/zacheryspector/The-Movies-headless-program` · `origin` = https://github.com/HSpector1/The-Movies.git.
