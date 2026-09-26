@@ -1,5 +1,55 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — C.2-RM qualified; publication then C.3 reconciliation
+
+936 records LOGIC VERIFIED · UNITY NOT VERIFIED.927 full4377PASS/58FAIL/11todo
+is retained exactly;932 attributes55 inherited failures and3 test-only omissions.
+934 final three repaired casesPASS;935 bridge typesPASS, both fixedSource:true.
+933 patch31d00f7c…e240 independently reviewedKEEP. All106 newC2RM core casesPASS
+in927;931 isolatedFU2PASS does not erase its full-run timeout. Production and
+fixtures remain17e65c36; publication checkpoint next from12485a3c. All runs closed.
+Parent publishes/reads actual remote, then begins C.3 expansion/source reconciliation.
+Same two specialists, one production writer, separate tests/review, one heavy lane.
+No C.3 implementation yet. Unity/native and Owner-campaign access remain deferred.
+
+## CURRENT — full attribution KEEP; final test maintenance frozen
+
+927 full core closed4377PASS/58FAIL/11todo;932 independently attributes55
+inherited failures plus3 current-boundary omissions. All106 newC2RM casesPASS.
+930 independent declaration measurementPASS;931 unchangedFU2 isolationPASS
+17392ms/original20s.933 three-file test-only patch31d00f7c…e240 is FROZEN;
+reviewer reviewing while parent runs934 three repaired leaves then935 bridge
+ types in the only lane. No source/HEAD edits until both close. Production and
+fixtures remain17e65c36; published branch12485a3c. C.2-RM qualification and
+publication next; only afterward C.3 expansion/source reconciliation. Unity deferred.
+
+## CURRENT — full927 CLOSED; producer930 and FU-2 isolation931 next
+
+927 fixedSource:true onpublished12485a3c/emptypatch, ended18:17:40.443Z:
+376files/4446cases,4377PASS58FAIL11todo. All106newC2RM casesPASS. Complete
+primary diagnostics vs861:54literal matches,1temporary exporter output pathonly,
+3new current-boundary omissions,31prior failures disappeared. Independent reviewer
+audits attribution/execution/titlealiases. No newproduction defect identified.
+Parent now runs930 independent929declaration producer, then931unchangedFU-2
+case in one lane. All source remainsFROZEN untilbothclose; producerSHA659c211…91b8.
+Only afterward release3testfilemaintenance (F10/F11bodyhashes, exactpriorroster51,
+C#header52), verify andpublishqualification. No C.3 work yet; Unity deferred.
+
+
+## CURRENT — 927 full core ACTIVE on published12485a3c
+
+Actual GitHub/local refs verified12485a3c491f52c817cf50e86ca86f6786fa396b,
+clean at publication.927-c2rm-full-core started2026-09-26T17:18:56.802Z, empty sourcepatch,
+no untrackedsource, same fullcore command as861. Parent shell session50497 is
+ACTIVE and owns the only heavy lane. ALL source/HEAD FROZEN: do not edit source,
+commit, or start another heavy process until927 JSON and process close. Docs-only
+status/read-only inspection allowed. Both existing specialists frozen/available.
+926 records all prior focused/types/generated/review gates. C.2-RM remains NOT
+QUALIFIED until full cause/complete-diagnostic comparison vs861 and publication.
+Next inspect everynew/changedfailure; preserve54inherited/knownFU-2 context and
+11todos. Only afterward begin C.3 expansion/source reconciliation. Unity deferred.
+
+
 ## CURRENT — focused gates CLOSED/PASS; pre-full checkpoint publication next
 
 926 records the reviewed pre-full candidate.924B2refinement1PASS and925bridge

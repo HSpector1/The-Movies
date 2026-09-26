@@ -1,5 +1,16 @@
 # P14 — Contested Talent Market, Bonds and Promises, Career Lifecycle — headless plan (logic-first)
 
+## NEXT936 — C.2-RM qualified (2026-09-26)
+
+See `../evidence/p14b4-20260919/936-c2rm-qualification.md`: LOGIC VERIFIED · UNITY
+NOT VERIFIED. Save37/projection52. Full927 on12485a3c:4377PASS/58FAIL/11todo;
+all106 newC2RM core casesPASS.55 inherited failures and3 test-only omissions
+attributed; final3 repairs934PASS and935typesPASS, independentKEEP. Production
+unchanged17e65c36. Exact run identities and limitations retained; no all-green claim.
+NEXT after verified checkpoint publication: C.3 profession-transition expansion and
+current-source reconciliation, then independent contract/test gates before writing.
+Unity/native remains deferred. Preserve all prior records below.
+
 ## Active continuation — 2026-09-26 Codex C.2c
 
 UPDATE843: C.2c closed QUALIFIED LOGIC VERIFIED · UNITY NOT VERIFIED. Full837:

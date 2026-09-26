@@ -1,0 +1,81 @@
+{"sourceSha":"12485a3c491f52c817cf50e86ca86f6786fa396b","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vite-node","docs/engineering/playability-launch-review/evidence/p14b4-20260919/929-c2rm-declaration-probe.ts"],"node":"v20.20.2","start":"2026-09-26T18:19:27.802Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+{
+  "probe": "929-c2rm-declaration-probe.ts",
+  "sourceHead": "12485a3c491f52c817cf50e86ca86f6786fa396b",
+  "producerSha256": "659c211f15390961c33bf58376e1a414b335528e4d930666ebea606e569b91b8",
+  "sourceSha256": {
+    "scripts/bridge-contract-csharp.ts": "9adf58d7350062e25fdb4fbed73b7bdf8d613b89f4e2841eb032d06e32294057",
+    "bridge/schema/canonical.ts": "b84768f3a565f7e027938fefd46960ffbbd55a35d44a51145e94b82a1529e340",
+    "bridge/schema/dsl.ts": "199880cc5ad275cdf4e277c7afba44823022d9e0e0b93bbee01e4fb8ad7cef8b",
+    "bridge/schema/bridge-schema.ts": "7a0a2640e1132e6540338aa3a9390ae7c0d756e52b1d4695753129c41bf6a80c",
+    "bridge/schema/industry-schema.ts": "bf0f91b2f7c0932d59c87ed90b6ac1758e83b40faf03d2bcd76227dce037831f",
+    "bridge/schema/intent-schema.ts": "6230f858a05da061f5934e85a93ba247e0483e50a4d2aee845b2e9b642ab366a",
+    "tests/fixtures/bridge-contract-union-fixtures.ts": "0689507dd4e5407ec9fdc5ba3834ab9304d29120040ccac2af254cb51b637e8f",
+    "tests/bridge-contract-generator.test.ts": "d84dbd136eca459ce00e40569352851c68f90bce4a719129946356c35a302318"
+  },
+  "projectionVersion": 52,
+  "environment": {
+    "node": "v20.20.2",
+    "platform": "darwin",
+    "arch": "x64"
+  },
+  "identities": {
+    "F01_STRING_OR_NULL": {
+      "sha256": "797f92b1f532d61f21dad93ba8fea8da02dd5104c4f744213c9832cb2c1f6bdd",
+      "bytes": 452,
+      "deterministic": true,
+      "priorSha256": "797f92b1f532d61f21dad93ba8fea8da02dd5104c4f744213c9832cb2c1f6bdd",
+      "matchesPrior": true
+    },
+    "F02_OBJECT_OR_NULL": {
+      "sha256": "0fef8c834b895f9cf185af8f421357c642dc71984f1b4618a79eba9c4dd60e1f",
+      "bytes": 648,
+      "deterministic": true,
+      "priorSha256": "0fef8c834b895f9cf185af8f421357c642dc71984f1b4618a79eba9c4dd60e1f",
+      "matchesPrior": true
+    },
+    "F03_COMPATIBLE_OBJECTS": {
+      "sha256": "99f44add260a66d0eab17a86d3f743110277292606dff073a90a354bad335c68",
+      "bytes": 1072,
+      "deterministic": true,
+      "priorSha256": "99f44add260a66d0eab17a86d3f743110277292606dff073a90a354bad335c68",
+      "matchesPrior": true
+    },
+    "F04_DISCRIMINATED_OBJECTS": {
+      "sha256": "d878443418291974137b9affddf066d3b65d8d09286febebcafec35561a2fc5b",
+      "bytes": 5462,
+      "deterministic": true,
+      "priorSha256": "d878443418291974137b9affddf066d3b65d8d09286febebcafec35561a2fc5b",
+      "matchesPrior": true
+    },
+    "F09_ARRAY_ITEM_UNION": {
+      "sha256": "7c1f83b70b0e82152821b0c4a5e59bdedcf901f639445b45ec7ef49010e2af1b",
+      "bytes": 5087,
+      "deterministic": true,
+      "priorSha256": "7c1f83b70b0e82152821b0c4a5e59bdedcf901f639445b45ec7ef49010e2af1b",
+      "matchesPrior": true
+    },
+    "F10_CURRENT_QUOTE_UNIONS": {
+      "sha256": "90a51d9518fb9e8a2d09cb096204a0f98b35ec481c638a8e4ff033c8ea56ad52",
+      "bytes": 396728,
+      "deterministic": true,
+      "priorSha256": "2f2fefaac16b113695e169f8c9cd4aba3ad453f3e78f20e3fdbaa602bbb2eb0e",
+      "matchesPrior": false
+    },
+    "F11_CURRENT_COMMAND_UNION": {
+      "sha256": "90a51d9518fb9e8a2d09cb096204a0f98b35ec481c638a8e4ff033c8ea56ad52",
+      "bytes": 396728,
+      "deterministic": true,
+      "priorSha256": "2f2fefaac16b113695e169f8c9cd4aba3ad453f3e78f20e3fdbaa602bbb2eb0e",
+      "matchesPrior": false
+    },
+    "F12_P05_PRODUCTION_SENTINEL": {
+      "sha256": "78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6",
+      "bytes": 15018,
+      "deterministic": true,
+      "priorSha256": "78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6",
+      "matchesPrior": true
+    }
+  }
+}

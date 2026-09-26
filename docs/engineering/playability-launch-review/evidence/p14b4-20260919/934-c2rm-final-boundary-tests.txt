@@ -1,0 +1,15 @@
+{"sourceSha":"12485a3c491f52c817cf50e86ca86f6786fa396b","testedDiffSha256":"31d00f7c4dfc5c15c061894f2901cce477d862c996f5e915fc12dd9b19f3e240","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-contract-generator.test.ts","tests/bridge-runtime-checkpoint.test.ts","tests/bridge-schema.test.ts","-t","pins exact positive output identities and deterministic rerendering|contains exactly the independently pinned historical protocol-4 identities|keeps checked-in JSON and generated C# byte-derived from the canonical schema"],"node":"v20.20.2","start":"2026-09-26T18:25:26.417Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-contract-generator.test.ts (31 tests | 30 skipped) 1028ms
+   ✓ CF-08 sound union-to-C# generation > current accepted contract and future sentinel > pins exact positive output identities and deterministic rerendering 1026ms
+ ✓ |core| tests/bridge-runtime-checkpoint.test.ts (67 tests | 66 skipped) 5ms
+ ✓ |core| tests/bridge-schema.test.ts (22 tests | 21 skipped) 34ms
+
+ Test Files  3 passed (3)
+      Tests  3 passed | 117 skipped (120)
+   Start at  20:25:27
+   Duration  4.87s (transform 4.70s, setup 0ms, collect 8.86s, tests 1.07s, environment 3ms, prepare 672ms)
+

@@ -38,3 +38,18 @@ All old fixtures, dirty RED worktree and prior checkpoints preserved.
 Only after full attribution/qualification/publication may C.3 expansion/source
 reconciliation begin. No C.3 implementation, native work, Owner-campaign access,
 destructive action, protected promotion, global config or hook change is active.
+
+Publication verified: actual GitHub and local branch refs both equal
+12485a3c491f52c817cf50e86ca86f6786fa396b; worktree clean immediately after push.
+927 full core STARTED at2026-09-26T17:18:56.802Z on that commit, empty testedpatch and no
+untracked source. Parent shell session50497 owns the only heavy lane. Do not edit
+consumedsource or commit/changeHEAD until927 closes; all specialists frozen.
+
+927 CLOSED18:17:40.443Z/fixedSource:true, exact12485a3c/empty patch:
+376files,4446cases,4377PASS58FAIL11todo. All106 newC2RM casesPASS. Preliminary
+complete comparison:55 inherited causes (54 literal diagnostic matches plus one
+scenery temporary-output-directory difference),3 additional current-boundary test
+maintenance omissions,31 previous failures disappeared.931 will independently
+recheck unchanged FU-2 timing;930 runs the separately hashed929 producer. Final
+attribution/review and post-full test maintenance remain pending. Do not relabel
+full927 as all-green or as a run on later repaired tests.

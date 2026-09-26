@@ -1,0 +1,13 @@
+{"sourceSha":"12485a3c491f52c817cf50e86ca86f6786fa396b","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-runtime-checkpoint-prepared-reuse.test.ts","-t","preserves live authority on failed Save and replays the exact successful receipt after later changes and restart"],"node":"v20.20.2","start":"2026-09-26T18:19:29.674Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-runtime-checkpoint-prepared-reuse.test.ts (21 tests | 20 skipped) 17394ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > preserves live authority on failed Save and replays the exact successful receipt after later changes and restart 17392ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 20 skipped (21)
+   Start at  20:19:30
+   Duration  21.75s (transform 2.73s, setup 0ms, collect 3.76s, tests 17.39s, environment 0ms, prepare 126ms)
+

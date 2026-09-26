@@ -1009,6 +1009,8 @@ describe('prior protocol-4 acceptance boundary pins', () => {
       'sha256:92317ec179456cdc5bd5cc7c4ca47dd066b768a9e2e45519f1263ef921a211a4',
       'sha256:97940e51e0566bed80231b223e5b7303a45d62db8d698f693e525eb244775211',
       'sha256:a481d14f3810ffbafcba2bbf509db7340263f3f0fd665a059507a1567d98923d',
+      // 875: genuine outgoing projection51, preserved in the pre-bump C.2-RM runtime corpus.
+      'sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f',
       'sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b',
       'sha256:b779faa92227bd1f2e623ad04d0899c87e7ddc60ce43f9ae9c39a7626c20a83d',
       'sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f',

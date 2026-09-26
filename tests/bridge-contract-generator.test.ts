@@ -697,8 +697,17 @@ describe('CF-08 sound union-to-C# generation', () => {
         // by this test against itself and never read off a failure message. F12 is the
         // frozen P05 subset and is INDEPENDENT of those $defs: the same probe measured it
         // UNCHANGED at 78d68a2d… / 15018 bytes, which is the evidence B.8 stayed in scope.
-        F10_CURRENT_QUOTE_UNIONS: '2f2fefaac16b113695e169f8c9cd4aba3ad453f3e78f20e3fdbaa602bbb2eb0e',
-        F11_CURRENT_COMMAND_UNION: '2f2fefaac16b113695e169f8c9cd4aba3ad453f3e78f20e3fdbaa602bbb2eb0e',
+        // P14C.2-RM (projection 52, contract 875): lifecycle/alumni/extension DTOs
+        // and Profile/Market/Roster/Industry/relationship members extend the WHOLE
+        // current schema rendered by both fixtures. Record 930 independently measured
+        // 90a51d95… / 396728 bytes each (previously 2f2fefaa… / 386222 bytes) on
+        // 12485a3c, using 929-c2rm-declaration-probe.ts (SHA256 659c211f…). Both
+        // renders were byte-identical; all six fixed positive fixtures, including
+        // F12 at 78d68a2d… / 15018 bytes, stayed unchanged. Source: recorded producer
+        // output 930-c2rm-declaration-measurement.txt, exit 0, fixedSource true;
+        // never a failure message or an expected value computed by this test itself.
+        F10_CURRENT_QUOTE_UNIONS: '90a51d9518fb9e8a2d09cb096204a0f98b35ec481c638a8e4ff033c8ea56ad52',
+        F11_CURRENT_COMMAND_UNION: '90a51d9518fb9e8a2d09cb096204a0f98b35ec481c638a8e4ff033c8ea56ad52',
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {
