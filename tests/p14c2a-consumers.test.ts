@@ -11,7 +11,7 @@
 import { describe, expect, it } from 'vitest'
 import { applyActions, freelancerMarketIds, hiringMarketIds, tick } from '../src/core/index.js'
 import { caseForTalent, currentProposals, marketEligibility, submitProposal, advanceTalentMarketWeek } from '../src/core/talentMarket.js'
-import { lifecycleStatus } from '../src/core/careerLifecycle.js'
+import { lifecycleStatus, readExtensionUsed, retirementRecordFor } from '../src/core/careerLifecycle.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { CastSlot, GameState, SegmentId } from '../src/core/types.js'
 import {
@@ -121,15 +121,27 @@ describe('P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, r
     expect(currentProposals(next, 'authored-0001')).toEqual([])
   })
 
-  // ── C2: no case discovered later for an announced person ──
-  it('C2: an announced person under an active contract never opens a market case, through its own real renewal window (natural route via tick)', () => {
+  // ── C2 (restated, 817 §4/806 §4/§5/§8.1, C.2b): no EXPIRY case ever opens for an
+  // announced person under an active contract, through its own real renewal window —
+  // but exactly ONE retirementExtension case does, at E - RETIREMENT_EXTENSION_WINDOW_
+  // WEEKS, and it expires at E with no proposal (the player studio here submits none
+  // through this synthetic overlay's natural tick route; 806 §8.1 lets only the
+  // incumbent evaluate an extension) ──
+  it('C2: no EXPIRY case ever opens for an announced person under an active contract, through its own real renewal window; exactly one retirementExtension case opens at E-12 and expires at E with no proposal (natural route via tick)', () => {
     const base = c2Fixture('genuine-v33-c2-contract-and-case') // week 48; authored-0000: 208wk contract (end 208)
     const state = withSyntheticCareerLifecycle(base, {
       boundaryWeek: 48, cohorts: [], records: [syntheticRecord({ personId: 'authored-0000', profession: 'actor', announcedWeek: 48, effectiveWeek: 208 })],
     })
     expect(caseForTalent(state, 'authored-0000')).toBeNull()
-    const ticked = advanceTo(state as unknown as GameState, 208) // real ticks through the renewal window (196-207)
-    expect(caseForTalent(ticked, 'authored-0000'), 'no case ever discovered for an announced person').toBeNull()
+    const ticked = advanceTo(state as unknown as GameState, 208) // real ticks through the renewal window (196-207) and the extension window (196) through E (208)
+    const cases = ticked.talentMarket.cases.filter((c) => c.talentId === 'authored-0000')
+    expect(cases.some((c) => c.variant === 'expiry'), 'no EXPIRY case ever opens for an announced person under an active contract through its renewal window').toBe(false)
+    expect(cases, 'exactly one case ever opens for this person through the window').toHaveLength(1)
+    expect(cases[0]).toMatchObject({ variant: 'retirementExtension', openedWeek: 196, outcome: 'expired', closedWeek: 208 })
+    expect(
+      ticked.talentMarket.receipts.some((r) => r.kind === 'proposalSubmitted' && r.talentId === 'authored-0000'),
+      'no proposal is ever submitted on this extension case',
+    ).toBe(false)
   })
 
   // ── C3: eligibility rows for finishing and retired ──
@@ -194,21 +206,24 @@ describe('P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, r
   })
 
   // ── B4: a rival neither renews nor hires an announced person (natural route through tick) ──
-  it('B4a (staff() fresh-hire re-hire after natural expiry): r01\'s only director, announced with E = its own (shortened) contract end, is never re-hired past E once that seat naturally opens', () => {
-    // MEASURED (probe against the scaffold, no retirement record at all): the existing
-    // P14A.1 case-aware admission (`caseOpenForTalent` in the renewal loop, unrelated
-    // to this feature) makes `staff()`'s RENEWAL branch structurally unreachable for
-    // a rival employee whose window has been open more than one week — a case opens
-    // the very week the window opens and pre-empts every later renewal attempt.
-    // trap 1 (773 §5) instead names `staff()`'s FRESH-HIRE branch — the one PROVEN
-    // reachable: once this contract expires NATURALLY (finishHollywoodWeek), the
-    // vacancy is filled by re-hiring the same still-qualifying person for a fresh
-    // 208-week term (measured: reason 'replacement', end = expiry + 208). The
-    // contract is shortened here only so that natural expiry is reached in a few
-    // ticks rather than 208, avoiding the unrelated long-run market churn a fresh
-    // world produces over hundreds of weeks.
+  it('B4a (restated, 817 §4/806 §4/§5/§8.1, C.2b — never re-hired by staff()\'s fresh hire): r01\'s only director, announced with E = its own (shortened) contract end, has its live row be exactly the settled retirementExtension, never a fresh staff() re-hire', () => {
+    // MEASURED (819, against C.2b HEAD): the extension discovery pass (talentMarket.ts
+    // §2b, 806 §4) now reaches this person before `staff()`'s own fresh-hire branch ever
+    // could. The extension case opens at E - RETIREMENT_EXTENSION_WINDOW_WEEKS (12) =
+    // week 1; only the incumbent (r01, the case's own subjectStudioId) evaluates it
+    // (806 §8.1), and — being the sole proposer — settles it at the contract's own
+    // natural end (week 13), via the SAME `commitRivalWinner` write path an ordinary
+    // rival win uses (talentMarket.ts :1008-1053; reason 'replacement'), for the one
+    // lawful term ending at E + RETIREMENT_NOTICE_WEEKS (52) = week 65. 773's original
+    // trap ("a staff() fresh hire would run to 221 = 13 + 208") can no longer reach
+    // `staff()` at all for an announced person once C.2b opens a lawful extension
+    // first — the requirement now names the NEW C.2b outcome directly, not merely an
+    // absence. The contract is shortened here only so that natural expiry (and the
+    // extension window) is reached in a few ticks rather than 208, avoiding the
+    // unrelated long-run market churn a fresh world produces over hundreds of weeks.
     const base = p13aGeneratedStudio() // default seed; r01's director person-studio-aca408ec-r01-1
     const directorId = 'person-studio-aca408ec-r01-1'
+    const r01 = 'studio-aca408ec-r01'
     const ordinal = base.hollywood!.employment.findIndex((e) => e.terms.talentId === directorId)
     expect(ordinal).toBeGreaterThanOrEqual(0)
     const contractEnd = 13
@@ -217,9 +232,21 @@ describe('P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, r
     let state: GameState = withSyntheticCareerLifecycle(shortened, {
       boundaryWeek: 0, cohorts: [], records: [syntheticRecord({ personId: directorId, profession: 'director', announcedWeek: 0, effectiveWeek: contractEnd })],
     }) as unknown as GameState
-    for (let w = 0; w < 16; w++) state = tick(state) // past the natural expiry at week 13
-    const stillActive = state.hollywood!.employment.some((e) => e.terms.talentId === directorId && e.endedWeek === null)
-    expect(stillActive, 'the ineligible director must never be re-hired into a fresh term').toBe(false)
+    for (let w = 0; w < 16; w++) state = tick(state) // past the natural expiry at week 13 and the extension's own settlement
+    const cases = state.talentMarket.cases.filter((c) => c.talentId === directorId)
+    expect(cases, 'exactly one case ever opens for this person').toHaveLength(1)
+    expect(cases[0]).toMatchObject({ variant: 'retirementExtension', subjectStudioId: r01, openedWeek: 1, outcome: 'settled', closedWeek: contractEnd })
+    const record = retirementRecordFor(state, directorId)
+    expect(record, 'the retirement record must still exist').toBeDefined()
+    expect(readExtensionUsed(record!)).toBe(true)
+    expect(record!.effectiveWeek).toBe(contractEnd + TUNING.RETIREMENT_NOTICE_WEEKS) // 13 + 52 = 65
+    const liveRows = state.hollywood!.employment.filter((e) => e.terms.talentId === directorId && e.endedWeek === null)
+    expect(liveRows, 'never re-hired by staff()\'s fresh hire: exactly one live row, the settled extension').toHaveLength(1)
+    expect(liveRows[0]!.terms).toMatchObject({ startWeek: contractEnd, endWeekExclusive: contractEnd + TUNING.RETIREMENT_NOTICE_WEEKS })
+    expect(
+      state.hollywood!.employment.some((e) => e.terms.talentId === directorId && e.terms.endWeekExclusive === contractEnd + 208),
+      'a staff() fresh hire would run to 13 + 208 = 221 — that row must never exist',
+    ).toBe(false)
   })
 
   it('B4b (staff() fresh hire): an announced free candidate, made the ONLY non-busy craft in the world, is never hired to fill r01\'s (synthetically vacated) craft seat', () => {

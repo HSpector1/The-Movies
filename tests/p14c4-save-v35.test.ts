@@ -88,13 +88,25 @@ describe('P14C.4 D3: V35 -> V34 downgrade', () => {
   })
 
   it('with two receipts, the downgrade refusal names the FIRST one\'s week, not the second\'s', () => {
-    // A second, independent genuine receipt (week 208) from the SAME world, appended
-    // after the first (156) — proves "first" is not vacuously true with only one
-    // receipt ever tried.
-    const state = advanceTo(c4LiveFixture('genuine-v34-c4-cohort-week'), 208)
-    expect(state.careerLifecycle.cohorts.map((r) => r.week)).toEqual([156, 208])
-    expect(() => convertV35ToV34(liveEnvelope(state))).toThrow(/week 156/)
-    expect(() => convertV35ToV34(liveEnvelope(state))).not.toThrow(/week 208/)
+    // MEASURED (819, against C.2b HEAD; 817 §3.3): `genuine-v34-c4-cohort-week` ticked
+    // to 208 now ALSO holds a settled retirementExtension case for
+    // person-studio-67adeee5-r01-2 (opened 196, closed 208 — the SAME week as this
+    // world's own second cohort receipt), so `liveEnvelope`'s V36 -> V35 step
+    // (`convertV36ToV35`, save.ts) refuses FIRST on that extension (it refuses on ANY
+    // retirementExtension case, open or settled — the two events coincide at week 208,
+    // so no week is ever "after the second receipt but before the extension settles" on
+    // this world). That masks this case's own C.4 premise (a lawful two-receipt V35
+    // state), so this rebuilds it on a DIFFERENT genuine C.4 corpus world instead:
+    // `genuine-v34-c4-all-statuses`, measured to carry NO retirementExtension case at
+    // all (open or settled) through its own second cohort receipt. Its own two cohort
+    // weeks (measured, natural ticks from its week-227 save) are 260 and 312 — proving
+    // "first" is not vacuously true with only one receipt ever tried, on a lawful
+    // (non-extension) world.
+    const state = advanceTo(c4LiveFixture('genuine-v34-c4-all-statuses'), 312)
+    expect(state.careerLifecycle.cohorts.map((r) => r.week)).toEqual([260, 312])
+    expect(state.talentMarket.cases.some((c) => c.variant === 'retirementExtension'), 'this world\'s own C.4 premise requires no extension by week 312').toBe(false)
+    expect(() => convertV35ToV34(liveEnvelope(state))).toThrow(/week 260/)
+    expect(() => convertV35ToV34(liveEnvelope(state))).not.toThrow(/week 312/)
   })
 })
 

@@ -108,6 +108,12 @@ const FROZEN_DROP_TEMPLATES: readonly RegExp[] = [
 ]
 const TIE_SENTENCE = 'this person could not separate 2 equally ranked proposals.'
 const POACHING_REASONS = ['their compensation band ranked above the others', 'their term matched what this person prefers'] // p14b2-fixtures.ts :200-201
+// P14C.2b (817 §2, approved_behavioral_change): the ONE seed-b extension row (above) carries
+// a real new sentence outside FROZEN_REASONS. Admitted here BY NAME — this exact seed, event
+// and sentence only — never added to FROZEN_REASONS and never loosened for any other row.
+const KNOWN_EXTENSION_ROW = {
+  seed: 'seed-b', eventId: 'talent-market-event-296', sentence: 'they accepted the one final extension before retiring',
+} as const
 
 // ── the ledger seeds and their frozen controls (654-T ledger §B; 416 ticks from p13aGeneratedStudio(seed)) ──
 const LEDGER_END_WEEK = 416
@@ -148,9 +154,27 @@ const LEDGER_SEEDS = {
   // UNMOVED (re-measured byte-identical to the pre-C.2a pins below) since the removed case never
   // touched casting or consumed any RNG draw; only the two digests that hash settlement/receipt/
   // employment rows move, and only because one row is now absent from each.
-  'seed-b': { role: 'seed-b (the seating/outcomes witness seed)', rows: 47, settled: 47, declined: 0, expired: 0,
-    settlement: '4b2e568a4c08713c14e6a7828dc0aaaef287f499d27d097bee26eea8dae3684a', receipts: 'f22a80e791d525b5a08b7ae95b3c269d382b3144d5271bc4e2df1f943e64063f',
-    employment: '51765b9e7c20535ab3be7bc368ebe34d8fe341f5bbf35810db122131d552e9b1', takes: '1d9395b7c8408fb73d1eaff037297661e95326bd3cb9e70711effb6abba3b2a1',
+  // P14C.2b (record 817, approved_behavioral_change): the ONE row 788/C.2a's D8 hard
+  // boundary dropped (416:settled:person-studio-bc14baf6-r02-3) returns under 806 §4/
+  // §8.1: this same person's own announced record reaches its own extension window at
+  // week 404 (E − 12 for its E = 416), and the incumbent studio-bc14baf6-r02 takes the
+  // one final retirementExtension (case [404, retirementExtension, settled, 416]; the
+  // record moves E 416 → 468, extendedFromWeek 416, extensionUsed true). rows/settled
+  // move 47 → 48 (declined/expired unmoved at 0). Every week-416 event id shifts by +2
+  // from the 788 pins (the extension's own discovery and proposal receipts at week 404
+  // draw from the shared event counter); the other 47 rows keep kind, week, person,
+  // winner, reasons and dropped, matching 788's own row-for-row account. The new row's
+  // reason, "they accepted the one final extension before retiring", is a REAL sentence
+  // outside FROZEN_REASONS — admitted below BY NAME as the one exempted extension row
+  // (event talent-market-event-296), never added to FROZEN_REASONS itself and never
+  // loosened for any other row on any seed. `takes` and `rngState` are CONFIRMED
+  // measured BYTE-IDENTICAL to the pre-C.2b (788) pins — the extension settled by the
+  // sole incumbent proposer, consuming no RNG draw and casting no one — so only
+  // `settlement`, `receipts` and `employment` move, and only because one row is now
+  // present that the 788 chain did not have.
+  'seed-b': { role: 'seed-b (the seating/outcomes witness seed)', rows: 48, settled: 48, declined: 0, expired: 0,
+    settlement: '417ee6240b548c753c4177338fbe336da7d50d062799af4557b0a3747ba0af1a', receipts: '21481d0f594d9bcabbd62ff475116dc0fdff55ea238c6c7c854629d6043256b7',
+    employment: '52789533ee8c67c922e8566dda63e0611432582d4a076c90e64a6f3ddc178c18', takes: '1d9395b7c8408fb73d1eaff037297661e95326bd3cb9e70711effb6abba3b2a1',
     rng: '1640490702,2161102015,891615888,2071390822' },
   'p13b-s8-bridge-probe-01': { role: 'the bridge seed (plain campaign; the s8 file adds a laboratory placement it does not share)', rows: 48, settled: 48, declined: 0, expired: 0,
     settlement: 'f8b0d3a7a9d15b30ce65b3b90c291d29189aabd5f445621c7996117b4fd178c2', receipts: 'b729a1f33fac085228697a52bb474400b26ca04dab8114f2cd3fa893861186c4',
@@ -492,7 +516,11 @@ describe('family 12 — the R-D5 natural-chain LEDGER (measured; the frozen cont
       }
     }
     expect(rows.filter((r) => r.exposed)).toEqual([]) // NOT EXPOSED: no survivor holds a roster member who shares a take with the subject
-    expect(rows.flatMap((r) => r.newSentences)).toEqual([]) // no D5 sentence can lawfully appear where no close tie can exist
+    // no D5 sentence can lawfully appear where no close tie can exist, except the one named
+    // C.2b extension row (817 §2, KNOWN_EXTENSION_ROW) — admitted by name, not by blanket drop.
+    const unexpectedNewSentences = rows.flatMap((r) => r.newSentences.map((s) => ({ eventId: r.eventId, s })))
+      .filter(({ eventId, s }) => !(seed === KNOWN_EXTENSION_ROW.seed && eventId === KNOWN_EXTENSION_ROW.eventId && s === KNOWN_EXTENSION_ROW.sentence))
+    expect(unexpectedNewSentences).toEqual([])
     if (rel !== null) expect(rows.every((r) => r.survivors.every((s) => s.band === 1))).toBe(true)
     // the frozen controls (CANNOT-MOVE class until a first moved settlement, of which this window has none)
     expect(settlementDigest(state)).toBe(control.settlement)
