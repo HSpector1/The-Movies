@@ -1,6 +1,47 @@
 # CODEX continuation — Project Studio
 
-## CURRENT RESUME — C.2c closed qualified; Scientist RED next
+## OWNER PAUSED — permission-mode restart; Scientist IN PROGRESS
+
+The Owner explicitly stopped implementation for a Codex permission-mode restart.
+Read evidence/p14b4-20260919/847a-permission-restart-parking.md FIRST. All three
+specialists have completed/yielded and no session-owned test, generator or shell
+job remains. Do not start work in the old session. Coordinator write ownership is
+yielded after publication; the next session must recheck state before resuming.
+
+Newest production/test candidate is committed IN PROGRESS at
+697a60398f531abcbd1d6c643a55546fa5cd65d9. This handoff commit is docs-only. Actual
+source constants are Save37/projection51/protocol4/intent1/promise4; schema is
+sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f.
+Migration, Scientist behavior and integration are NOT verified. Both generators
+reported exit0, union fixture unchanged; no candidate GREEN/typecheck/wider run.
+
+847 has ENDED and is preserved:1expectedRED/14unselected, fixedSource:true, old
+expiry case instead of retirementExtension. Independent S6 pause/payroll/replay
+refinements are in both trees. 848 HAS NOT STARTED. Next exact task after restart:
+inspect current state/final generated fixture, then parent-owned848-scientist-focused
+on the three new Scientist test files; full commands and remaining checks in847a.
+
+Last qualified production remains C.2c84f1d9a8/837:4246PASS,54inheritedFAIL,11todo,
+NEW0 versus822. Do not label the Scientist candidate qualified or all-green.
+Preserved old-source worktree /private/tmp/codex-c2c-red.aWg2tP is intentionally
+dirty; its complete source delta equals committed847.patch. Do not apply it twice.
+Ignored old out/p14b6 work, retained preparation README, old dist/studio build and
+installed dependencies remain local-only; inventory and limitations are in847a.
+No private saves/secrets/unrelated work are included. Final HEAD/actual remote are
+verified by the parking session after push and reported in its final response.
+
+## Earlier implementation status — superseded by OWNER PAUSE above
+
+Read846-scientist-runtime-red-and-review.md for the exact current restart. Main
+HEAD and actual remote verified0058a42b0bc096c30882f1d588656271f12e04b1. Scientist
+RED844:16expectedFAIL/1controlPASS; runtimeRED845:6expectedFAIL/4controlsPASS;
+both fixedSource:true on isolated8f893e0e. All failures attributed before writer.
+Four independent test/helper files are now in main. Same sim-core writer implements
+bounded840; independent test-author strengthens S6 pause/replay coverage after
+review846, then parent847 records refined old-source RED. No Scientist GREEN yet.
+No replacement supply policy and no C.2-RM fields are authorized in this slice.
+
+## Earlier Scientist T0 restart — superseded by846 above
 
 Read843-c2c-qualified-and-scientist-t0.md first. C.2c source84f1d9a8 is published
 and verified on actual remote. Full837 CLOSED/fixedSource:true on that exact source

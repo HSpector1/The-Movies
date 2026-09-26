@@ -1,6 +1,45 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
-## CURRENT — C.2c QUALIFIED, Scientist RED844 next
+## OWNER PAUSED — safely preserve, publish, yield; do not continue in this session
+
+Read evidence/p14b4-20260919/847a-permission-restart-parking.md. Newest candidate
+production/tests are committed IN PROGRESS at697a60398f531abcbd1d6c643a55546fa5cd65d9;
+parking handoff is docs-only. Save37/projection51 and registered outgoing50 exist
+in source, but candidate migration/behavior/integration remain UNVERIFIED. Schema:
+sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f.
+
+Production writer, independent test-author and reviewer all COMPLETED/yielded.
+No session-owned test/generator/background job remains; no unrelated process was
+terminated. Both generators reported exit0, union fixture byte-identical. No new
+test was launched for shutdown. 847 ended fixedSource:true:1expected failure,
+14unselected; its raw artifacts and complete baseline delta are committed.
+
+848 remains UNRUN. Exact restart: same worktree/branch, verify git/process state,
+inspect final generated-fixture status, then recorded848 focused new Scientist
+tests. All commands, reviewer limits, S6 handback, local-only inventory and remaining
+type/schema/behavior/supply/full checks are in847a. Do not reset, clone, reapply the
+already-applied baseline patch, or reinterpret this as restarting Project: Studio.
+
+Main candidate/source/evidence will be published and actual remote checked against
+final local HEAD before exit. Baseline /private/tmp/codex-c2c-red.aWg2tP deliberately
+remains dirty but its source delta exactly equals committed847.patch. Ignored old
+P14B.6 patches/probes, preparation README, old dist/studio artifacts and dependencies
+are preserved local-only. No unique unpublished Scientist work was found.
+All write ownership is yielded after publication. Owner pause overrides continuation.
+
+## Earlier writer release — superseded by OWNER PAUSE above
+
+Published/actual remote verified0058a42b0bc096c30882f1d588656271f12e04b1. Read846.
+Scientist844:16expectedFAIL/1controlPASS; runtime845:6expectedFAIL/4controlsPASS;
+both fixedSource:true on isolated8f893e0e, no invalid setup/import/timeout failures.
+Main has four independent Scientist test/helper files. Sim-core sole production
+writer implements840. Test-author owns review846's narrow S6 explicit-pause and
+extension-replay refinements in both trees; parent847 RED then focused candidate
+verification follows source freeze. No Scientist GREEN or wider claim yet.
+Auditor yielded KEEP with those acceptance refinements; max two active specialists.
+No old fixtures, validators, timeouts or budgets changed. C.2c qualified837 below.
+
+## Earlier T0 restart — superseded by846 above
 
 837 CLOSED/fixedSource:true: source84f1d9a8, emptytestpatch,4311cases/4246PASS/
 54inheritedFAIL/11todo. Comparison822:NEW0,54identical detailed diagnostics, sole
