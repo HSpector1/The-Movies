@@ -21,6 +21,7 @@ import { BridgeSession } from '../bridge/session.ts'
 import { exportSave, importSave, LIVE_SAVE_VERSION, migrateToLive, validateSaveV29 } from '../src/core/save.js'
 
 const OUTGOING_46 = 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c'
+const OUTGOING_51 = 'sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f' // 875/914: genuine outgoing51
 const PINS = {
   gzip: '3db0599c6e183140b79c83880eb967dde37aecc0d178a85d192283893ea0cc34',
   raw: 'e344be06db6794e9d1523c036befb4180595564ef8a3fb6e6062328e477e7699',
@@ -174,13 +175,14 @@ describe('P14B4 genuine outgoing46 runtime compatibility — future Save30/proje
     expect(current.state.talentMarket.proposals.filter((p) => p.promises.includes('promise-0'))).toEqual([])
   })
 
-  it('requires literal projection51/Save37 (840) and exact 39 prior IDs, excluding the running identity', () => {
+  it('requires literal projection52/Save37 (875) and exact 40 prior IDs, excluding the running identity', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(51)
+    expect(PROJECTION_VERSION).toBe(52)
     expect(LIVE_SAVE_VERSION).toBe(37)
     expect(SCHEMA_ID).not.toBe(OUTGOING_46)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual(EXPECTED_PRIOR_IDS)
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51].sort())
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
   })
 

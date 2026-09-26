@@ -330,7 +330,7 @@ describe('R3-N7-SIM-01 — operationsEventsProjection (projection 32)', () => {
     const response = new BridgeSession(state, 'r3n7-operations-events').snapshot()
     expect(() => parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse, response)).not.toThrow()
     expect(response.snapshotVersion).toBe(PROJECTION_VERSION)
-    expect(PROJECTION_VERSION).toBe(51)
+    expect(PROJECTION_VERSION).toBe(52)
     const served = response.snapshot.operationsEvents.operationsEvents
     // The served section is the projection itself — no re-derivation on the way out.
     expect(stableStringify(served)).toBe(stableStringify(operationsEventsProjection(state)))

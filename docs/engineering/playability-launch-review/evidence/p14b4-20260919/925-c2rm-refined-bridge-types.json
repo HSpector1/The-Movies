@@ -1,0 +1,20 @@
+{
+  "sourceSha": "17e65c36ddcb2d67f174bb413ec927245db1021a",
+  "testedDiffSha256": "2de90bb385dcf1ad82e8e08784e1523ae84845eca6d63fbafc2efc2813b782c4",
+  "untrackedSource": [],
+  "command": [
+    "npm",
+    "run",
+    "typecheck:bridge"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-26T17:16:56.969Z",
+  "end": "2026-09-26T17:17:24.286Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "17e65c36ddcb2d67f174bb413ec927245db1021a",
+  "testedDiffSha256AtEnd": "2de90bb385dcf1ad82e8e08784e1523ae84845eca6d63fbafc2efc2813b782c4",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

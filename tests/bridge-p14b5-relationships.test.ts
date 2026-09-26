@@ -61,6 +61,7 @@ const OUTGOING_47 = 'sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e
 const OUTGOING_48 = 'sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec'
 // P14B.8: the outgoing projection-49 identity, retired by the B.8 bump.
 const OUTGOING_49 = 'sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b'
+const OUTGOING_51 = 'sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f' // 875/914: genuine outgoing51
 const OUTGOING_PROJECTION = 47
 // The 35 accepted prior literals (tests/bridge-p14b4-runtime47-compatibility.test.ts :41-83); never derived from the registry.
 const EXPECTED_35_PRIOR_IDS = [
@@ -341,15 +342,16 @@ const wireEnum = (): string[] => {
 
 // ─────────────────────────────────────────────────────────────────────────────────────────────────────
 describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, re-expressed by 700-T2 after P14B.8 landed projection 50 / Save V32 unchanged)', () => {
-  it('live projection51/Save37 and literal current hash retain all39 independent prior identities (840)', () => {
+  it('live projection52/Save37 and literal current hash retain all40 independent prior identities (875)', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(51)
+    expect(PROJECTION_VERSION).toBe(52)
     expect(OUTGOING_PROJECTION).toBe(47)
-    // The checked-in contract-manifest schemaId at 697a6039, read independently of this test.
-    expect(SCHEMA_ID).toBe('sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f')
+    // 914 independently read the checked-in current52 manifest at 17e65c36.
+    expect(SCHEMA_ID).toBe('sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2')
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
     expect(LIVE_SAVE_VERSION).toBe(37)
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698'].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51].sort())
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
   })
@@ -396,7 +398,7 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698'].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51].sort())
     expect(LIVE_SAVE_VERSION).toBeGreaterThan(30) // the governed inner-save step rides the same wave (R22 :610)
   })
 

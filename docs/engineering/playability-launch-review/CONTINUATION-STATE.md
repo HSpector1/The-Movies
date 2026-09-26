@@ -1,5 +1,78 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — focused gates CLOSED/PASS; pre-full checkpoint publication next
+
+926 records the reviewed pre-full candidate.924B2refinement1PASS and925bridge
+typesPASS/fixedSource:true;919finalreviewKEEP. All47 legacy requirements covered
+by exact92046PASS plus9241PASS; separate runs retained. Production/fixtures remain
+published17e65c36, final32-file test patch2de90bb…82c4. No heavy process.
+Parent publishes this checkpoint, verifies actual remote, then starts927 fullcore
+using861's command. All writers FROZEN during927; do not edit/commit consumedsource
+until closure. C.2-RM qualification still PENDING; same two specialists, one testlane.
+Next full cause/diagnostic attribution, qualified publication, then C.3 expansion.
+
+
+## CURRENT — final enum refinement frozen; 924–925 ACTIVE
+
+920 closed46PASS/1testenumorderFAIL;921/922typesPASS.919 independent review
+KEEP except copied/sorted exactenum comparison. Author applied only that repair;
+final32-file patch923 SHA2de90bb385dcf1ad82e8e08784e1523ae84845eca6d63fbafc2efc2813b782c4.
+924 reruns the failed B2 case, then925bridge types in one active lane. All source
+FROZEN until both close; parent checked patchsha. Reviewer closing that one hunk.
+Production/fixtures unchanged from published17e65c36. Next publish reviewed
+pre-full checkpoint, run exact fullcore vs861. C.2-RM still NOT qualified.
+
+
+## CURRENT — legacy patch frozen; 920–922 verification ACTIVE
+
+918 independent32-file test patch SHA256
+8b4036ebeb4687777c4b7addcaa7fb812981c773648b80ee2c4efde2507ee7d7
+is frozen and under independent919 review. Production/fixtures remain exactly
+published17e65c36.920 runs the identical914 selector (47static cases), followed
+sequentially by921root/UItypes and922bridgetypes. One active shell/test lane;
+all source writers FROZEN until all three runs close. Inspect JSON child exitCode
+and fixedSource before edits/commit/another run.913 writer reviewKEEP and915
+Calendar2PASS remain; C.2-RM NOT qualified until full matched regression/publication.
+Next close/attribute920–922, publish reviewed checkpoint, run exact fullcore vs861.
+
+
+## CURRENT — legacy RED916 CLOSED; attributed test maintenance released
+
+916 fixedSource:true on published17e65c36, empty sourcepatch:47selected cases,
+45expectedFAIL/2controlPASS/405unselected.917 attributes all45 (37metadata,
+3prior-registry,1schemahash,4W10 exclusions). No production defect/premise/timeout.
+Same c2rm_tests owns only32 legacyfiles listed914 for bounded current52/prior40/
+extension-disclosure maintenance. Parent production FROZEN; reviewer read-only;
+no heavy process. No fixtures, frozen readers, savechains, timeouts or skip changes.
+Next freeze/review test diff, same focused GREEN and types, then matched fullcore.
+C.2-RM NOT yet qualified; Unity/native remains deferred.
+
+
+## CURRENT — 916 legacy current-boundary RED ACTIVE on published17e65c36
+
+914 independent selection frozen:32files/47static cases, actual execution owns
+counts. Parent verified global selector matches all47 recorded names.916 is ACTIVE
+on unchanged published17e65c36; no consumed-source changes. All writers frozen;
+inspect recorder closure before edits/commit/another heavy process.915 final React
+Calendar2PASS/fixedSource:true. After916, attribute every failure, then authorize
+only bounded legacy current52/prior40/extension-disclosure maintenance. Preserve
+all genuine historical constants/fixtures and non-version controls. C.2-RM remains
+unqualified pending final focused/types, matched full gate and recoverable publication.
+
+
+## CURRENT — published 17e65c36; legacy boundary RED next
+
+Actual local/GitHub refs verified17e65c36ddcb2d67f174bb413ec927245db1021a;
+clean worktree at publication.913 records the bounded writer correction and its
+64PASS/typechecks/reviewKEEP. 915 final Calendar UI CLOSED:2PASS/fixedSource:true on published17e65c36,
+empty sourcepatch. No heavy process. Same independent test author
+prepares914 selected legacy schema/registry and sixW10 checks, docs-only; no test
+maintenance yet. Parent will record legacyRED then release only attributed repairs,
+run final focused/types and matched full core qualification. C.2-RM is still NOT
+QUALIFIED. Parent sole production writer/test executor; same two specialists.
+No old work, fixtures or recorded failures removed. Unity/native deferred.
+
+
 ## CURRENT — writer correction verified; recoverable checkpoint publication next
 
 913 records closed910 writer64PASS,911root/UItypesPASS and912bridgetypesPASS,

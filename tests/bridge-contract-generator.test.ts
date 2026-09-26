@@ -559,14 +559,14 @@ describe('CF-08 sound union-to-C# generation', () => {
       // P14B.5 (record 662, projection 48): the `priorityOrder` wire enum gains
       // `relationships` (thin), moving the whole-schema identity again. The
       // literal below is the schemaId of the checked-in
-      // generated/unity/project-studio-bridge.contract-manifest.json at 697a6039 (840),
+      // generated/unity/project-studio-bridge.contract-manifest.json at 17e65c36 (875/914),
       // read independently of this test (never schemaIdentity(schema) itself).
-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 51 })
+      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 52 })
       expect(generated).toContain(
-        '// Schema identity: sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f',
+        '// Schema identity: sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f',
+        'sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')

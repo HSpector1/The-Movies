@@ -1,0 +1,6 @@
+{"sourceSha":"17e65c36ddcb2d67f174bb413ec927245db1021a","testedDiffSha256":"8b4036ebeb4687777c4b7addcaa7fb812981c773648b80ee2c4efde2507ee7d7","untrackedSource":[],"command":["npm","run","typecheck:bridge"],"node":"v20.20.2","start":"2026-09-26T17:14:52.675Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+

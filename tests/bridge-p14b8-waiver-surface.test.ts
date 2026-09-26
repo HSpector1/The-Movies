@@ -777,10 +777,10 @@ describe('P14B.8 group11 — A8: the waiver draft offers only what this surface 
 // ═══════════════════════════════════════════════════════════════════════════════════════════════
 // group12 — 744 §11 A3: the projection bump, complete and consistent, in ONE commit.
 describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing identity is registered as a prior', () => {
-  it('PROJECTION_VERSION is 51 and the schema document agrees', () => {
-    expect(PROJECTION_VERSION).toBe(51)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-51`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(51)
+  it('PROJECTION_VERSION is 52 and the schema document agrees', () => {
+    expect(PROJECTION_VERSION).toBe(52)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-52`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(52)
     expect(PROJECTION_VERSION).toBeGreaterThan(OUTGOING_PROJECTION)
   })
 
@@ -788,7 +788,7 @@ describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing iden
     expect(SCHEMA_ID, 'the new quote family and the two new row members alone mint a new content hash').not.toBe(OUTGOING_49)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_49), 'validateVersionedRecord strands every checkpoint written under an unregistered identity').toBe('projection-v49')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID), 'the RUNNING identity is never its own prior').toBe(false)
-    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size, '840 adds the genuine outgoing50 identity: 38 -> 39').toBe(39)
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size, '875 adds the genuine outgoing51 identity: 39 -> 40').toBe(40)
   })
 
   it('the checked-in JSON schema, the contract manifest and the C# header all equal the running identity', () => {

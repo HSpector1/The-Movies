@@ -1,0 +1,12 @@
+{"sourceSha":"17e65c36ddcb2d67f174bb413ec927245db1021a","testedDiffSha256":"2de90bb385dcf1ad82e8e08784e1523ae84845eca6d63fbafc2efc2813b782c4","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-p14b2-trust.test.ts","-t","pins the exact version"],"node":"v20.20.2","start":"2026-09-26T17:16:51.882Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p14b2-trust.test.ts (22 tests | 21 skipped) 48ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 21 skipped (22)
+   Start at  19:16:52
+   Duration  3.88s (transform 2.35s, setup 0ms, collect 3.26s, tests 48ms, environment 0ms, prepare 133ms)
+

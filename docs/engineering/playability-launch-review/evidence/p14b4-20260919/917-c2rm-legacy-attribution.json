@@ -1,0 +1,195 @@
+{
+  "run": "916",
+  "selected": 47,
+  "failed": 45,
+  "passed": 2,
+  "unselected": 405,
+  "counts": {
+    "current literal schema hash/projection52": 1,
+    "current projection metadata51 to52": 37,
+    "current prior roster adds genuine outgoing51": 3,
+    "875 supersedes W10 extension exclusion": 4
+  },
+  "failures": [
+    {
+      "id": "core :: tests/bridge-contract-generator.test.ts > CF-08 sound union-to-C# generation > current accepted contract and future sentinel > F10 emits sound request and response union shapes without changing schema identity",
+      "attribution": "current literal schema hash/projection52"
+    },
+    {
+      "id": "core :: tests/bridge-operations-events.test.ts > R3-N7-SIM-01 \u2014 operationsEventsProjection (projection 32) > L6 is pure, mutates nothing, and validates inside the served projection-50 envelope",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-owner-ux-projection20-migration.test.ts > Owner UX outgoing projection20 migration > pins genuine prior bytes, source identity, actual journal, and constructed-case provenance",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p11-capital-contributors.test.ts > P11 recorded facility capital contributors over the real bridge > hydrates genuine outgoing projection24 and joins four original payments to exact construction events",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p11-ready.test.ts > P11 ready Upcoming and discarded financial successors > migrates authentic core25 without relabeling its bytes; strict26 includes a nullable Week0 history",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p13b-s1b-seats.test.ts > P13B-S1b Laboratory seats read model (projection 46 after P14B.2) > bumps PROJECTION_VERSION to the S1b wire contract (33; 46 after the P14B.2 bump)",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p13b-s1b-seats.test.ts > P13B-S1b Laboratory seats read model (projection 46 after P14B.2) > a. fresh Laboratory with no project publishes empty seats/receipts, zero weekly and snapshotVersion 38",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p13b-s2-labs.test.ts > P13B-S2 T6 Laboratory bridge page: projection bump > bumps PROJECTION_VERSION to the S2 wire contract (34; 38 after the S5-R07-T3 bump)",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p13b-s2-labs.test.ts > case 1: a fresh Laboratory publishes snapshotVersion 38 and an empty projects array > a Laboratory with no research project at all reports laboratory.projects === []",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p13b-s3-plans.test.ts > P13B-S3-T4 plans bridge page: projection bump > bumps PROJECTION_VERSION to the S3-T4 wire contract (35; 38 after the S5-R07-T3 bump)",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p13b-s3-plans.test.ts > case 1: a fresh studio publishes an empty plans page; plans is null off the plans view > snapshotVersion 36; rows and actions are both empty arrays on a fresh studio; laboratory view carries plans: null",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p13b-s4-office.test.ts > P13B-S4-T3 office bridge page: projection bump > bumps PROJECTION_VERSION to the S4-T3 wire contract (36)",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p13b-s4-office.test.ts > case 1: the founding office at week 12 \u2014 full quote parity on the wire; office null off the laboratory view > standard I, highest I, offline false, capacity 2, baselineWeeklyOperatingCost 0 (endowed); both conversion rows match the authoritative quote",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p14b3-promise-command.test.ts > P14B.3: real settlement/outcome, V29 and B2 public/private carriers > quote\u2192commit\u2192real winning expiry binds; due-week BROKEN survives validated reload and exact public receipt join",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p14b4-runtime47-compatibility.test.ts > P14B4 genuine outgoing46 runtime compatibility \u2014 future Save30/projection47 > requires literal projection51/Save37 (840) and exact 39 prior IDs, excluding the running identity",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p14b5-relationships.test.ts > P14B.5 frozen side \u2014 the OUTGOING wire identities (R-VERSION class, re-expressed by 700-T2 after P14B.8 landed projection 50 / Save V32 unchanged) > live projection51/Save37 and literal current hash retain all39 independent prior identities (840)",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p14b5-relationships.test.ts > family 11 \u2014 projection 48 THIN (RED by value): the enum, the registry, the seven-member order, the D5 sentence on the wire > the running identity moves off the outgoing 47 and 47 is registered as projection-v47 beside the 35 accepted priors and the outgoing 48 (37)",
+      "attribution": "current prior roster adds genuine outgoing51"
+    },
+    {
+      "id": "core :: tests/bridge-p14b6-relationship-read-models.test.ts > family 8 \u2014 the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here) > projection 51, schema $id projection-51, LIVE_SAVE_VERSION now 37 (Scientist live boundary; B.6 itself has no save step), and the outgoing 48 identity is retired",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p14b6-relationship-read-models.test.ts > family 8 \u2014 the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here) > the outgoing 00c0075b\u2026 stays registered as projection-v48 and the prior roster contains39 identities through projection50",
+      "attribution": "current prior roster adds genuine outgoing51"
+    },
+    {
+      "id": "core :: tests/bridge-p14b7-promise-waiver.test.ts > P14B.7 group9b \u2014 PROJECTION_VERSION is the frozen value this slice must not move (bridge half of group9; relocated by 730-T finding 3) > PROJECTION_VERSION is still 49",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p14b8-waiver-surface.test.ts > P14B.8 group12 \u2014 the projection moves 49 -> 50 and the outgoing identity is registered as a prior > the running identity moves OFF sha256:60af24c5\u2026 and that identity is registered as projection-v49 in the SAME commit",
+      "attribution": "current prior roster adds genuine outgoing51"
+    },
+    {
+      "id": "core :: tests/bridge-p14c2b-extension.test.ts > P14C.2b W10: extension cases are excluded from every existing bridge consumer (806 \u00a76) > bridge/market.ts: marketPage never lists a retirementExtension case in any bucket",
+      "attribution": "875 supersedes W10 extension exclusion"
+    },
+    {
+      "id": "core :: tests/bridge-p14c2b-extension.test.ts > P14C.2b W10: extension cases are excluded from every existing bridge consumer (806 \u00a76) > bridge/people.ts: marketAttentionRows raises nothing for a retirementExtension case's view",
+      "attribution": "875 supersedes W10 extension exclusion"
+    },
+    {
+      "id": "core :: tests/bridge-p14c2b-extension.test.ts > P14C.2b W10: extension cases are excluded from every existing bridge consumer (806 \u00a76) > bridge/people.ts: marketCaseProjection answers null for a person whose latest case is a retirementExtension",
+      "attribution": "875 supersedes W10 extension exclusion"
+    },
+    {
+      "id": "core :: tests/bridge-p14c2b-extension.test.ts > P14C.2b W10: extension cases are excluded from every existing bridge consumer (806 \u00a76) > bridge/world.ts: personWorldRoute publishes no market caseRef for a retirementExtension case",
+      "attribution": "875 supersedes W10 extension exclusion"
+    },
+    {
+      "id": "core :: tests/bridge-p14c2s-scientist-runtime.test.ts > C.2 Scientist S11: genuine outgoing50 runtime compatibility > requires literal projection51/Save37, registers actual outgoing50, and excludes the running identity from prior schemas",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-r3n4-read-model-deltas.test.ts > R3-N4-SIM-20 \u2014 batched N4/N5/N6 read-model deltas (projection 31) > serves the whole bundle under the regenerated schema with the new fields present",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-schema.test.ts > canonical Unity bridge schema > closes every declared object recursively and publishes explicit protocol metadata",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-schema.test.ts > canonical Unity bridge schema > rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-owner-ux-projection21-schema.test.ts > Owner UX projection21 public field wire boundary > pins the intended version and required envelope/profile fields independently",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p10a-w0-people-projection.test.ts > P10A W0 \u2014 people projection > R9 the served section is projection 32 and the projection-17/18 identities stay accepted",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p13b-r07-setup.test.ts > P13B-S5-R07-T3 bridge projection bump (37 -> 38; 46 after the P14B.2 bump) > PROJECTION_VERSION is 40; schema $id and x-project-studio.projectionVersion move with it",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p13b-s5-adoption.test.ts > P13B-S5-T4 bridge adoption wire: projection bump (36 -> 37) > bumps PROJECTION_VERSION to 37 and its schema $id / x-project-studio.projectionVersion move with it",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p13b-s6-cancellation.test.ts > P13B-S6-T3 item 1: projection version bump (38 -> 39; 46 after the P14B.2 bump) and the cancellationAction intent kind > bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 1: projection version bump 39 -> 40; 46 after the P14B.2 bump > bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p14a1-market.test.ts > group 1: PROJECTION_VERSION > PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p14a2-market.test.ts > group 1: PROJECTION_VERSION 46 / schema / view market / converted law > PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p14a3-world.test.ts > group 1: PROJECTION_VERSION 46 / schema / converted law > PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p14b1-promises.test.ts > group 1: PROJECTION_VERSION / LIVE_SAVE_VERSION > LIVE_SAVE_VERSION is 35 (stale title corrected post-C.4) and the live promise surface carries projection 47 after the P14B.4 cutover (record 600 / 616)",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p14b2-trust.test.ts > P14B.2 group1 \u2014 projection46, unchanged Save29/intents, closed wire shapes > pins the exact version, old-five-plus-two attention enum and unchanged intent vocabulary",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p14b6-relationship-read-models.test.ts > family 8 \u2014 the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here) > the checked-in generator artifacts equal the running identity (`--check` clean), and priorityOrder keeps its seven members and its line",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-p14b8-waiver-surface.test.ts > P14B.8 group12 \u2014 the projection moves 49 -> 50 and the outgoing identity is registered as a prior > PROJECTION_VERSION is 51 and the schema document agrees",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge-r3n4-read-model-deltas.test.ts > R3-N4-SIM-20 \u2014 batched N4/N5/N6 read-model deltas (projection 31) > keeps the outgoing projection-30 identity registered after a later bump",
+      "attribution": "current projection metadata51 to52"
+    },
+    {
+      "id": "core :: tests/bridge.test.ts > Current-game Unity adoption bridge > pins protocol v4/projection v32 and fingerprints named projections and exact intent fields",
+      "attribution": "current projection metadata51 to52"
+    }
+  ]
+}

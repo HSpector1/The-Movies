@@ -1,0 +1,570 @@
+{
+  "manifestVersion": 1,
+  "record": "914",
+  "purpose": "Focused legacy RED/GREEN selection for 875 current bridge52 boundary and W10 disclosure.",
+  "source": {
+    "publishedCommit": "17e65c36ddcb2d67f174bb413ec927245db1021a",
+    "inspection": "Read-only source inspection; no Vitest collection or execution."
+  },
+  "authority": [
+    "875-c2rm-api-contract.md",
+    "874-c2rm-test-plan.md:133-140"
+  ],
+  "boundary": {
+    "protocolVersion": 4,
+    "saveVersion": 37,
+    "projectionFrom": 51,
+    "projectionTo": 52,
+    "priorCountFrom": 39,
+    "priorCountTo": 40,
+    "genuineOutgoing51": "sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f",
+    "currentSchemaId": "sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2",
+    "currentSchemaSource": "generated/unity/project-studio-bridge.contract-manifest.json (read directly)"
+  },
+  "project": "core",
+  "files": [
+    "tests/bridge-contract-generator.test.ts",
+    "tests/bridge-operations-events.test.ts",
+    "tests/bridge-owner-ux-projection20-migration.test.ts",
+    "tests/bridge-owner-ux-projection21-schema.test.ts",
+    "tests/bridge-p10a-w0-people-projection.test.ts",
+    "tests/bridge-p11-capital-contributors.test.ts",
+    "tests/bridge-p11-ready.test.ts",
+    "tests/bridge-p13b-r07-setup.test.ts",
+    "tests/bridge-p13b-s1b-seats.test.ts",
+    "tests/bridge-p13b-s2-labs.test.ts",
+    "tests/bridge-p13b-s3-plans.test.ts",
+    "tests/bridge-p13b-s4-office.test.ts",
+    "tests/bridge-p13b-s5-adoption.test.ts",
+    "tests/bridge-p13b-s6-cancellation.test.ts",
+    "tests/bridge-p13b-s7-disclosure.test.ts",
+    "tests/bridge-p13b-s8-rivals.test.ts",
+    "tests/bridge-p14a1-market.test.ts",
+    "tests/bridge-p14a2-market.test.ts",
+    "tests/bridge-p14a3-world.test.ts",
+    "tests/bridge-p14b1-promises.test.ts",
+    "tests/bridge-p14b2-trust.test.ts",
+    "tests/bridge-p14b3-promise-command.test.ts",
+    "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+    "tests/bridge-p14b5-relationships.test.ts",
+    "tests/bridge-p14b6-relationship-read-models.test.ts",
+    "tests/bridge-p14b7-promise-waiver.test.ts",
+    "tests/bridge-p14b8-waiver-surface.test.ts",
+    "tests/bridge-p14c2s-scientist-runtime.test.ts",
+    "tests/bridge-r3n4-read-model-deltas.test.ts",
+    "tests/bridge-schema.test.ts",
+    "tests/bridge.test.ts",
+    "tests/bridge-p14c2b-extension.test.ts"
+  ],
+  "testNamePattern": "(?:(?:^| )F\\d+ emits sound request and response union shapes without changing schema identity$)|(?:(?:^| )L\\d+ is pure, mutates nothing, and validates inside the served projection-\\d+ envelope$)|(?:(?:^| )pins genuine prior bytes, source identity, actual journal, and constructed-case provenance$)|(?:(?:^| )pins the intended version and required envelope/profile fields independently$)|(?:(?:^| )R\\d+ the served section is projection \\d+ and the projection-\\d+/\\d+ identities stay accepted$)|(?:(?:^| )hydrates genuine outgoing projection\\d+ and joins four original payments to exact construction events$)|(?:(?:^| )migrates authentic core\\d+ without relabeling its bytes; strict\\d+ includes a nullable Week\\d+ history$)|(?:(?:^| )PROJECTION_VERSION is \\d+; schema \\$id and x-project-studio\\.projectionVersion move with it$)|(?:(?:^| )bumps PROJECTION_VERSION to the S\\d+b wire contract \\(\\d+; \\d+ after the P\\d+B\\.\\d+ bump\\)$)|(?:(?:^| )a\\. fresh Laboratory with no project publishes empty seats/receipts, zero weekly and snapshotVersion \\d+$)|(?:(?:^| )bumps PROJECTION_VERSION to the S\\d+ wire contract \\(\\d+; \\d+ after the S\\d+-R\\d+-T\\d+ bump\\)$)|(?:(?:^| )a Laboratory with no research project at all reports laboratory\\.projects === \\[\\]$)|(?:(?:^| )bumps PROJECTION_VERSION to the S\\d+-T\\d+ wire contract \\(\\d+; \\d+ after the S\\d+-R\\d+-T\\d+ bump\\)$)|(?:(?:^| )snapshotVersion \\d+; rows and actions are both empty arrays on a fresh studio; laboratory view carries plans: null$)|(?:(?:^| )bumps PROJECTION_VERSION to the S\\d+-T\\d+ wire contract \\(\\d+\\)$)|(?:(?:^| )standard I, highest I, offline false, capacity \\d+, baselineWeeklyOperatingCost \\d+ \\(endowed\\); both conversion rows match the authoritative quote$)|(?:(?:^| )bumps PROJECTION_VERSION to \\d+ and its schema \\$id / x-project-studio\\.projectionVersion move with it$)|(?:(?:^| )PROJECTION_VERSION is \\d+; the schema \\$id and x-project-studio\\.projectionVersion move with it$)|(?:(?:^| )LIVE_SAVE_VERSION is \\d+ \\(stale title corrected post-C\\.\\d+\\) and the live promise surface carries projection \\d+ after the P\\d+B\\.\\d+ cutover \\(record \\d+ / \\d+\\)$)|(?:(?:^| )pins the exact version, old-five-plus-two attention enum and unchanged intent vocabulary$)|(?:(?:^| )quote→commit→real winning expiry binds; due-week BROKEN survives validated reload and exact public receipt join$)|(?:(?:^| )requires literal projection\\d+/Save\\d+ \\(\\d+\\) and exact \\d+ prior IDs, excluding the running identity$)|(?:(?:^| )live projection\\d+/Save\\d+ and literal current hash retain all\\d+ independent prior identities \\(\\d+\\)$)|(?:(?:^| )the running identity moves off the outgoing \\d+ and \\d+ is registered as projection-v\\d+ beside the \\d+ accepted priors and the outgoing \\d+ \\(\\d+\\)$)|(?:(?:^| )projection \\d+, schema \\$id projection-\\d+, LIVE_SAVE_VERSION now \\d+ \\(Scientist live boundary; B\\.\\d+ itself has no save step\\), and the outgoing \\d+ identity is retired$)|(?:(?:^| )the outgoing \\d+c\\d+b… stays registered as projection-v\\d+ and the prior roster contains\\d+ identities through projection\\d+$)|(?:(?:^| )the checked-in generator artifacts equal the running identity \\(`--check` clean\\), and priorityOrder keeps its seven members and its line$)|(?:(?:^| )PROJECTION_VERSION is still \\d+$)|(?:(?:^| )PROJECTION_VERSION is \\d+ and the schema document agrees$)|(?:(?:^| )the running identity moves OFF sha\\d+:\\d+af\\d+c\\d+… and that identity is registered as projection-v\\d+ in the SAME commit$)|(?:(?:^| )requires literal projection\\d+/Save\\d+, registers actual outgoing\\d+, and excludes the running identity from prior schemas$)|(?:(?:^| )keeps the outgoing projection-\\d+ identity registered after a later bump$)|(?:(?:^| )serves the whole bundle under the regenerated schema with the new fields present$)|(?:(?:^| )closes every declared object recursively and publishes explicit protocol metadata$)|(?:(?:^| )rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data$)|(?:(?:^| )pins protocol v\\d+/projection v\\d+ and fingerprints named projections and exact intent fields$)|(?:P14C\\.2b W10:)",
+  "declaredSelection": {
+    "currentBoundaryFiles": 31,
+    "w10Files": 1,
+    "totalFiles": 32,
+    "currentBoundaryCases": 41,
+    "w10Cases": 6,
+    "totalCases": 47,
+    "countsAre": "Static selected declarations, not observed runtime results."
+  },
+  "nameStability": "Leaf patterns preserve exact wording while allowing decimal-number title maintenance; W10 uses its stable suite prefix so the four superseded negative titles can become affirmative. Keep other title wording and the W10 suite prefix unchanged through paired RED/GREEN. No declarations, timeouts, setup budgets or scenario branches are changed by this selection.",
+  "executionPolicy": "Parent alone executes after all source owners freeze. Use exactly files plus testNamePattern with existing runner/resource/time budgets. No global skip/only/todo edits. Record observed selected names/counts and all failures before authorizing attributed maintenance.",
+  "exclusions": [
+    "tests/bridge-p14c2rm-runtime.test.ts: outgoing51 artifact/producer/slot/journal assertions are frozen and not stale current expectations.",
+    "tests/bridge-p14b4-cast-class.test.ts: the broad search hit is a hexadecimal substring inside genuine outgoing46 identity; no current51 literal.",
+    "Other historical fixture hashes, old source identities, saved/current runtime behavior cases, Save37 migration chains, schema-declaration behavior and test budgets remain untouched."
+  ],
+  "selections": [
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 1,
+      "rationale": "Current literal schema hash and generator projection argument; full union-shape assertions remain intact.",
+      "tests": [
+        {
+          "line": 513,
+          "name": "F10 emits sound request and response union shapes without changing schema identity",
+          "namePattern": "(?:^| )F\\d+ emits sound request and response union shapes without changing schema identity$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-operations-events.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 1,
+      "rationale": "Current projection literal inside served-envelope/purity case.",
+      "tests": [
+        {
+          "line": 323,
+          "name": "L6 is pure, mutates nothing, and validates inside the served projection-50 envelope",
+          "namePattern": "(?:^| )L\\d+ is pure, mutates nothing, and validates inside the served projection-\\d+ envelope$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-owner-ux-projection20-migration.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 1,
+      "rationale": "Current projection literal only is superseded; genuine projection20 hashes/journal remain frozen.",
+      "tests": [
+        {
+          "line": 62,
+          "name": "pins genuine prior bytes, source identity, actual journal, and constructed-case provenance",
+          "namePattern": "(?:^| )pins genuine prior bytes, source identity, actual journal, and constructed-case provenance$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-owner-ux-projection21-schema.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 1,
+      "rationale": "Current projection and schema id; public-field requirements remain intact.",
+      "tests": [
+        {
+          "line": 16,
+          "name": "pins the intended version and required envelope/profile fields independently",
+          "namePattern": "(?:^| )pins the intended version and required envelope/profile fields independently$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p10a-w0-people-projection.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 1,
+      "rationale": "Current projection/schema literals; historical17/18 identities and complete profile dictionary remain.",
+      "tests": [
+        {
+          "line": 318,
+          "name": "R9 the served section is projection 32 and the projection-17/18 identities stay accepted",
+          "namePattern": "(?:^| )R\\d+ the served section is projection \\d+ and the projection-\\d+/\\d+ identities stay accepted$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p11-capital-contributors.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 1,
+      "rationale": "Current projection literal inside genuine historical capital/payment test.",
+      "tests": [
+        {
+          "line": 23,
+          "name": "hydrates genuine outgoing projection24 and joins four original payments to exact construction events",
+          "namePattern": "(?:^| )hydrates genuine outgoing projection\\d+ and joins four original payments to exact construction events$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p11-ready.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 1,
+      "rationale": "Current projection literal; historical25/26 fixture bytes stay exact.",
+      "tests": [
+        {
+          "line": 51,
+          "name": "migrates authentic core25 without relabeling its bytes; strict26 includes a nullable Week0 history",
+          "namePattern": "(?:^| )migrates authentic core\\d+ without relabeling its bytes; strict\\d+ includes a nullable Week\\d+ history$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p13b-r07-setup.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 1,
+      "rationale": "Current projection/schema metadata.",
+      "tests": [
+        {
+          "line": 319,
+          "name": "PROJECTION_VERSION is 40; schema $id and x-project-studio.projectionVersion move with it",
+          "namePattern": "(?:^| )PROJECTION_VERSION is \\d+; schema \\$id and x-project-studio\\.projectionVersion move with it$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p13b-s1b-seats.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 2,
+      "rationale": "Current projection and actual response snapshot version; existing beforeAll budget/setup unchanged.",
+      "tests": [
+        {
+          "line": 75,
+          "name": "bumps PROJECTION_VERSION to the S1b wire contract (33; 46 after the P14B.2 bump)",
+          "namePattern": "(?:^| )bumps PROJECTION_VERSION to the S\\d+b wire contract \\(\\d+; \\d+ after the P\\d+B\\.\\d+ bump\\)$"
+        },
+        {
+          "line": 100,
+          "name": "a. fresh Laboratory with no project publishes empty seats/receipts, zero weekly and snapshotVersion 38",
+          "namePattern": "(?:^| )a\\. fresh Laboratory with no project publishes empty seats/receipts, zero weekly and snapshotVersion \\d+$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p13b-s2-labs.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 2,
+      "rationale": "Current projection and actual response snapshot version.",
+      "tests": [
+        {
+          "line": 114,
+          "name": "bumps PROJECTION_VERSION to the S2 wire contract (34; 38 after the S5-R07-T3 bump)",
+          "namePattern": "(?:^| )bumps PROJECTION_VERSION to the S\\d+ wire contract \\(\\d+; \\d+ after the S\\d+-R\\d+-T\\d+ bump\\)$"
+        },
+        {
+          "line": 120,
+          "name": "a Laboratory with no research project at all reports laboratory.projects === []",
+          "namePattern": "(?:^| )a Laboratory with no research project at all reports laboratory\\.projects === \\[\\]$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p13b-s3-plans.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 2,
+      "rationale": "Current projection and actual response snapshot version.",
+      "tests": [
+        {
+          "line": 201,
+          "name": "bumps PROJECTION_VERSION to the S3-T4 wire contract (35; 38 after the S5-R07-T3 bump)",
+          "namePattern": "(?:^| )bumps PROJECTION_VERSION to the S\\d+-T\\d+ wire contract \\(\\d+; \\d+ after the S\\d+-R\\d+-T\\d+ bump\\)$"
+        },
+        {
+          "line": 207,
+          "name": "snapshotVersion 36; rows and actions are both empty arrays on a fresh studio; laboratory view carries plans: null",
+          "namePattern": "(?:^| )snapshotVersion \\d+; rows and actions are both empty arrays on a fresh studio; laboratory view carries plans: null$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p13b-s4-office.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 2,
+      "rationale": "Current projection and actual response snapshot version; office quote behavior remains unchanged.",
+      "tests": [
+        {
+          "line": 223,
+          "name": "bumps PROJECTION_VERSION to the S4-T3 wire contract (36)",
+          "namePattern": "(?:^| )bumps PROJECTION_VERSION to the S\\d+-T\\d+ wire contract \\(\\d+\\)$"
+        },
+        {
+          "line": 229,
+          "name": "standard I, highest I, offline false, capacity 2, baselineWeeklyOperatingCost 0 (endowed); both conversion rows match the authoritative quote",
+          "namePattern": "(?:^| )standard I, highest I, offline false, capacity \\d+, baselineWeeklyOperatingCost \\d+ \\(endowed\\); both conversion rows match the authoritative quote$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p13b-s5-adoption.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 1,
+      "rationale": "Current projection/schema metadata.",
+      "tests": [
+        {
+          "line": 249,
+          "name": "bumps PROJECTION_VERSION to 37 and its schema $id / x-project-studio.projectionVersion move with it",
+          "namePattern": "(?:^| )bumps PROJECTION_VERSION to \\d+ and its schema \\$id / x-project-studio\\.projectionVersion move with it$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p13b-s6-cancellation.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 1,
+      "rationale": "Current projection/schema metadata.",
+      "tests": [
+        {
+          "line": 269,
+          "name": "bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it",
+          "namePattern": "(?:^| )bumps PROJECTION_VERSION to \\d+ and its schema \\$id / x-project-studio\\.projectionVersion move with it$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p13b-s7-disclosure.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 1,
+      "rationale": "Current projection/schema metadata.",
+      "tests": [
+        {
+          "line": 269,
+          "name": "bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it",
+          "namePattern": "(?:^| )bumps PROJECTION_VERSION to \\d+ and its schema \\$id / x-project-studio\\.projectionVersion move with it$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p13b-s8-rivals.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 1,
+      "rationale": "Current projection/schema metadata.",
+      "tests": [
+        {
+          "line": 222,
+          "name": "bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it",
+          "namePattern": "(?:^| )bumps PROJECTION_VERSION to \\d+ and its schema \\$id / x-project-studio\\.projectionVersion move with it$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p14a1-market.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 1,
+      "rationale": "Current projection/schema metadata.",
+      "tests": [
+        {
+          "line": 151,
+          "name": "PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it",
+          "namePattern": "(?:^| )PROJECTION_VERSION is \\d+; the schema \\$id and x-project-studio\\.projectionVersion move with it$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p14a2-market.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 1,
+      "rationale": "Current projection/schema metadata.",
+      "tests": [
+        {
+          "line": 216,
+          "name": "PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it",
+          "namePattern": "(?:^| )PROJECTION_VERSION is \\d+; the schema \\$id and x-project-studio\\.projectionVersion move with it$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p14a3-world.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 1,
+      "rationale": "Current projection/schema metadata.",
+      "tests": [
+        {
+          "line": 228,
+          "name": "PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it",
+          "namePattern": "(?:^| )PROJECTION_VERSION is \\d+; the schema \\$id and x-project-studio\\.projectionVersion move with it$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p14b1-promises.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 1,
+      "rationale": "Current projection/schema metadata; actual Save37 remains37.",
+      "tests": [
+        {
+          "line": 206,
+          "name": "LIVE_SAVE_VERSION is 35 (stale title corrected post-C.4) and the live promise surface carries projection 47 after the P14B.4 cutover (record 600 / 616)",
+          "namePattern": "(?:^| )LIVE_SAVE_VERSION is \\d+ \\(stale title corrected post-C\\.\\d+\\) and the live promise surface carries projection \\d+ after the P\\d+B\\.\\d+ cutover \\(record \\d+ / \\d+\\)$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p14b2-trust.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 1,
+      "rationale": "Mixed-purpose current projection/schema, exact Market attention enum and exact AVAILABLE_INTENT_KINDS. 875 adds retirementAnnounced, finishingCommitments, retirementExtensionOpen; old seven-member attention assertion needs its own attribution if reached. Intent vocabulary remains unchanged.",
+      "tests": [
+        {
+          "line": 134,
+          "name": "pins the exact version, old-five-plus-two attention enum and unchanged intent vocabulary",
+          "namePattern": "(?:^| )pins the exact version, old-five-plus-two attention enum and unchanged intent vocabulary$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p14b3-promise-command.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 1,
+      "rationale": "Current projection literal occurs after real quote/settlement/due-week work. Preserve the whole behavioral setup, Save37 reload and public receipt assertions.",
+      "tests": [
+        {
+          "line": 468,
+          "name": "quote→commit→real winning expiry binds; due-week BROKEN survives validated reload and exact public receipt join",
+          "namePattern": "(?:^| )quote→commit→real winning expiry binds; due-week BROKEN survives validated reload and exact public receipt join$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 1,
+      "rationale": "Current projection and full prior roster. Append outgoing51 to the current aggregate; preserve historical entries and Save37.",
+      "tests": [
+        {
+          "line": 177,
+          "name": "requires literal projection51/Save37 (840) and exact 39 prior IDs, excluding the running identity",
+          "namePattern": "(?:^| )requires literal projection\\d+/Save\\d+ \\(\\d+\\) and exact \\d+ prior IDs, excluding the running identity$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p14b5-relationships.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 2,
+      "rationale": "Current projection/hash and both complete current-registry assertions. Preserve EXPECTED_35_PRIOR_IDS and all historical outgoing constants.",
+      "tests": [
+        {
+          "line": 344,
+          "name": "live projection51/Save37 and literal current hash retain all39 independent prior identities (840)",
+          "namePattern": "(?:^| )live projection\\d+/Save\\d+ and literal current hash retain all\\d+ independent prior identities \\(\\d+\\)$"
+        },
+        {
+          "line": 394,
+          "name": "the running identity moves off the outgoing 47 and 47 is registered as projection-v47 beside the 35 accepted priors and the outgoing 48 (37)",
+          "namePattern": "(?:^| )the running identity moves off the outgoing \\d+ and \\d+ is registered as projection-v\\d+ beside the \\d+ accepted priors and the outgoing \\d+ \\(\\d+\\)$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p14b6-relationship-read-models.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 3,
+      "rationale": "INCOMING_PROJECTION current metadata and generated artifacts, complete current prior roster. Preserve EXPECTED_36_PRIOR_IDS, seven-member preference priorityOrder and genuine V30 case/fixture.",
+      "tests": [
+        {
+          "line": 754,
+          "name": "projection 51, schema $id projection-51, LIVE_SAVE_VERSION now 37 (Scientist live boundary; B.6 itself has no save step), and the outgoing 48 identity is retired",
+          "namePattern": "(?:^| )projection \\d+, schema \\$id projection-\\d+, LIVE_SAVE_VERSION now \\d+ \\(Scientist live boundary; B\\.\\d+ itself has no save step\\), and the outgoing \\d+ identity is retired$"
+        },
+        {
+          "line": 764,
+          "name": "the outgoing 00c0075b… stays registered as projection-v48 and the prior roster contains39 identities through projection50",
+          "namePattern": "(?:^| )the outgoing \\d+c\\d+b… stays registered as projection-v\\d+ and the prior roster contains\\d+ identities through projection\\d+$"
+        },
+        {
+          "line": 774,
+          "name": "the checked-in generator artifacts equal the running identity (`--check` clean), and priorityOrder keeps its seven members and its line",
+          "namePattern": "(?:^| )the checked-in generator artifacts equal the running identity \\(`--check` clean\\), and priorityOrder keeps its seven members and its line$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p14b7-promise-waiver.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 1,
+      "rationale": "Current projection literal; no waiver gameplay changes.",
+      "tests": [
+        {
+          "line": 135,
+          "name": "PROJECTION_VERSION is still 49",
+          "namePattern": "(?:^| )PROJECTION_VERSION is still \\d+$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p14b8-waiver-surface.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 2,
+      "rationale": "Current projection/schema and aggregate prior count; outgoing49 remains frozen.",
+      "tests": [
+        {
+          "line": 780,
+          "name": "PROJECTION_VERSION is 51 and the schema document agrees",
+          "namePattern": "(?:^| )PROJECTION_VERSION is \\d+ and the schema document agrees$"
+        },
+        {
+          "line": 787,
+          "name": "the running identity moves OFF sha256:60af24c5… and that identity is registered as projection-v49 in the SAME commit",
+          "namePattern": "(?:^| )the running identity moves OFF sha\\d+:\\d+af\\d+c\\d+… and that identity is registered as projection-v\\d+ in the SAME commit$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p14c2s-scientist-runtime.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 1,
+      "rationale": "Current projection only; Save37 and genuine outgoing50 constant/registration remain. Separate runtime behavior cases are not selected.",
+      "tests": [
+        {
+          "line": 80,
+          "name": "requires literal projection51/Save37, registers actual outgoing50, and excludes the running identity from prior schemas",
+          "namePattern": "(?:^| )requires literal projection\\d+/Save\\d+, registers actual outgoing\\d+, and excludes the running identity from prior schemas$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-r3n4-read-model-deltas.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 2,
+      "rationale": "Current projection/schema and actual snapshotVersion; keep outgoing30 registration and existing fields.",
+      "tests": [
+        {
+          "line": 139,
+          "name": "keeps the outgoing projection-30 identity registered after a later bump",
+          "namePattern": "(?:^| )keeps the outgoing projection-\\d+ identity registered after a later bump$"
+        },
+        {
+          "line": 344,
+          "name": "serves the whole bundle under the regenerated schema with the new fields present",
+          "namePattern": "(?:^| )serves the whole bundle under the regenerated schema with the new fields present$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 2,
+      "rationale": "Current metadata and exact expected-literal51 decoder diagnostic. Old-projection input24 remains intentionally invalid; all enum/nullability/shape controls remain.",
+      "tests": [
+        {
+          "line": 77,
+          "name": "closes every declared object recursively and publishes explicit protocol metadata",
+          "namePattern": "(?:^| )closes every declared object recursively and publishes explicit protocol metadata$"
+        },
+        {
+          "line": 305,
+          "name": "rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data",
+          "namePattern": "(?:^| )rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge.test.ts",
+      "category": "current-boundary",
+      "declaredCases": 1,
+      "rationale": "SNAPSHOT_VERSION current literal, exact projection section list and exact intent keys. This adds the file omitted by the initial30-file estimate.",
+      "tests": [
+        {
+          "line": 165,
+          "name": "pins protocol v4/projection v32 and fingerprints named projections and exact intent fields",
+          "namePattern": "(?:^| )pins protocol v\\d+/projection v\\d+ and fingerprints named projections and exact intent fields$"
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-p14c2b-extension.test.ts",
+      "category": "W10",
+      "declaredCases": 6,
+      "rationale": "875 supersedes four exclusion expectations; preserve no-promise and one-final-extension wording controls.",
+      "testNamePattern": "P14C\\.2b W10:",
+      "tests": [
+        {
+          "line": 36,
+          "name": "bridge/market.ts: marketPage never lists a retirementExtension case in any bucket",
+          "attribution": "superseded exclusion"
+        },
+        {
+          "line": 43,
+          "name": "bridge/people.ts: marketAttentionRows raises nothing for a retirementExtension case's view",
+          "attribution": "superseded exclusion"
+        },
+        {
+          "line": 51,
+          "name": "bridge/people.ts: marketCaseProjection answers null for a person whose latest case is a retirementExtension",
+          "attribution": "superseded exclusion"
+        },
+        {
+          "line": 56,
+          "name": "bridge/world.ts: personWorldRoute publishes no market caseRef for a retirementExtension case",
+          "attribution": "superseded exclusion"
+        },
+        {
+          "line": 63,
+          "name": "bridge/promises.ts: promiseRowsFor publishes nothing for a retirementExtension case",
+          "attribution": "unchanged no-promise control"
+        },
+        {
+          "line": 68,
+          "name": "bridge/contract.ts: renewalRefusal names the \"one final extension\", never presenting it as an ordinary contest",
+          "attribution": "unchanged one-final-extension wording control"
+        }
+      ]
+    }
+  ]
+}

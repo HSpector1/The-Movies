@@ -94,8 +94,9 @@ const OUTGOING_46 = 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f63
 // P14B.8: the outgoing projection-49 identity, retired by the B.8 bump.
 const OUTGOING_49 = 'sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b'
 const OUTGOING_50 = 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698'
+const OUTGOING_51 = 'sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f' // 875/914: genuine outgoing51
 const OUTGOING_PROJECTION = 48
-const INCOMING_PROJECTION = 51
+const INCOMING_PROJECTION = 52
 // The 36 accepted prior literals as they stand today (tests/bridge-p14b4-runtime47-compatibility.test.ts
 // :40-80, exact-count pin at :162). B.6 took this roster to 37 by adding OUTGOING_48;
 // B.8 takes it to 38 by adding OUTGOING_49.
@@ -751,7 +752,7 @@ describe('family 7 — the LEAK LAW over the NEW DTOs (RED BY RESOLUTION; the la
 
 // ═════════════════════════════════════════════════════════════════════════════════════════════════
 describe('family 8 — the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here)', () => {
-  it('projection 51, schema $id projection-51, LIVE_SAVE_VERSION now 37 (Scientist live boundary; B.6 itself has no save step), and the outgoing 48 identity is retired', () => {
+  it('projection 52, schema $id projection-52, LIVE_SAVE_VERSION now 37 (Scientist live boundary; B.6 itself has no save step), and the outgoing 48 identity is retired', () => {
     expect(PROTOCOL_VERSION).toBe(4)
     expect(PROJECTION_VERSION).toBe(INCOMING_PROJECTION)
     expect(OUTGOING_PROJECTION).toBe(48)
@@ -761,14 +762,15 @@ describe('family 8 — the WIRE (RED BY VALUE: version literals and a registry c
     expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-4:projection-${String(INCOMING_PROJECTION)}`)
   })
 
-  it('the outgoing 00c0075b… stays registered as projection-v48 and the prior roster contains39 identities through projection50', () => {
+  it('the outgoing 00c0075b… stays registered as projection-v48 and the prior roster contains40 identities through projection51', () => {
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_48)).toBe('projection-v48')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect(EXPECTED_36_PRIOR_IDS).toHaveLength(36)
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48, OUTGOING_49, OUTGOING_50].sort())
-    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(39)
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48, OUTGOING_49, OUTGOING_50, OUTGOING_51].sort())
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(40)
   })
 
   it('the checked-in generator artifacts equal the running identity (`--check` clean), and priorityOrder keeps its seven members and its line', () => {

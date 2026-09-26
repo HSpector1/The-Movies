@@ -34,3 +34,15 @@ Publish this recoverable checkpoint and verify the actual GitHub branch. Continu
 875 qualification; only afterward start C.3 expansion/source reconciliation under
 companion6.3, including its explicit revisit of retired relationship tiers. No C.3
 implementation, native/Unity, destructive action or Owner-campaign access is active.
+
+Publication confirmed: actual local and GitHub branch refs both equal
+17e65c36ddcb2d67f174bb413ec927245db1021a, normal push fromff7c9399; worktree
+was clean immediately afterward. No hook/config changes (hooks unset/inactive).
+The all-evidence whitespace check reported literal whitespace in retained .patch/
+.txt artifacts; the shell continued to commit. This does not count as that check
+passing. A separate committed-source and continuation-doc whitespace check passed.
+Raw evidence bytes were preserved, including recorded context lines and diagnostics.
+
+915 final Calendar UI CLOSED:2PASS/fixedSource:true on published17e65c36,
+empty source patch. Tests exercise retirement profile routing/focus return and
+no autosave. This is React/jsdom coverage, not native/Unity verification.

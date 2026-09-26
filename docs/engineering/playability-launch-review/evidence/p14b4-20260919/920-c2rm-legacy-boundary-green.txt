@@ -1,0 +1,95 @@
+{"sourceSha":"17e65c36ddcb2d67f174bb413ec927245db1021a","testedDiffSha256":"8b4036ebeb4687777c4b7addcaa7fb812981c773648b80ee2c4efde2507ee7d7","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-contract-generator.test.ts","tests/bridge-operations-events.test.ts","tests/bridge-owner-ux-projection20-migration.test.ts","tests/bridge-owner-ux-projection21-schema.test.ts","tests/bridge-p10a-w0-people-projection.test.ts","tests/bridge-p11-capital-contributors.test.ts","tests/bridge-p11-ready.test.ts","tests/bridge-p13b-r07-setup.test.ts","tests/bridge-p13b-s1b-seats.test.ts","tests/bridge-p13b-s2-labs.test.ts","tests/bridge-p13b-s3-plans.test.ts","tests/bridge-p13b-s4-office.test.ts","tests/bridge-p13b-s5-adoption.test.ts","tests/bridge-p13b-s6-cancellation.test.ts","tests/bridge-p13b-s7-disclosure.test.ts","tests/bridge-p13b-s8-rivals.test.ts","tests/bridge-p14a1-market.test.ts","tests/bridge-p14a2-market.test.ts","tests/bridge-p14a3-world.test.ts","tests/bridge-p14b1-promises.test.ts","tests/bridge-p14b2-trust.test.ts","tests/bridge-p14b3-promise-command.test.ts","tests/bridge-p14b4-runtime47-compatibility.test.ts","tests/bridge-p14b5-relationships.test.ts","tests/bridge-p14b6-relationship-read-models.test.ts","tests/bridge-p14b7-promise-waiver.test.ts","tests/bridge-p14b8-waiver-surface.test.ts","tests/bridge-p14c2s-scientist-runtime.test.ts","tests/bridge-r3n4-read-model-deltas.test.ts","tests/bridge-schema.test.ts","tests/bridge.test.ts","tests/bridge-p14c2b-extension.test.ts","-t","(?:(?:^| )F\\d+ emits sound request and response union shapes without changing schema identity$)|(?:(?:^| )L\\d+ is pure, mutates nothing, and validates inside the served projection-\\d+ envelope$)|(?:(?:^| )pins genuine prior bytes, source identity, actual journal, and constructed-case provenance$)|(?:(?:^| )pins the intended version and required envelope/profile fields independently$)|(?:(?:^| )R\\d+ the served section is projection \\d+ and the projection-\\d+/\\d+ identities stay accepted$)|(?:(?:^| )hydrates genuine outgoing projection\\d+ and joins four original payments to exact construction events$)|(?:(?:^| )migrates authentic core\\d+ without relabeling its bytes; strict\\d+ includes a nullable Week\\d+ history$)|(?:(?:^| )PROJECTION_VERSION is \\d+; schema \\$id and x-project-studio\\.projectionVersion move with it$)|(?:(?:^| )bumps PROJECTION_VERSION to the S\\d+b wire contract \\(\\d+; \\d+ after the P\\d+B\\.\\d+ bump\\)$)|(?:(?:^| )a\\. fresh Laboratory with no project publishes empty seats/receipts, zero weekly and snapshotVersion \\d+$)|(?:(?:^| )bumps PROJECTION_VERSION to the S\\d+ wire contract \\(\\d+; \\d+ after the S\\d+-R\\d+-T\\d+ bump\\)$)|(?:(?:^| )a Laboratory with no research project at all reports laboratory\\.projects === \\[\\]$)|(?:(?:^| )bumps PROJECTION_VERSION to the S\\d+-T\\d+ wire contract \\(\\d+; \\d+ after the S\\d+-R\\d+-T\\d+ bump\\)$)|(?:(?:^| )snapshotVersion \\d+; rows and actions are both empty arrays on a fresh studio; laboratory view carries plans: null$)|(?:(?:^| )bumps PROJECTION_VERSION to the S\\d+-T\\d+ wire contract \\(\\d+\\)$)|(?:(?:^| )standard I, highest I, offline false, capacity \\d+, baselineWeeklyOperatingCost \\d+ \\(endowed\\); both conversion rows match the authoritative quote$)|(?:(?:^| )bumps PROJECTION_VERSION to \\d+ and its schema \\$id / x-project-studio\\.projectionVersion move with it$)|(?:(?:^| )PROJECTION_VERSION is \\d+; the schema \\$id and x-project-studio\\.projectionVersion move with it$)|(?:(?:^| )LIVE_SAVE_VERSION is \\d+ \\(stale title corrected post-C\\.\\d+\\) and the live promise surface carries projection \\d+ after the P\\d+B\\.\\d+ cutover \\(record \\d+ / \\d+\\)$)|(?:(?:^| )pins the exact version, old-five-plus-two attention enum and unchanged intent vocabulary$)|(?:(?:^| )quote→commit→real winning expiry binds; due-week BROKEN survives validated reload and exact public receipt join$)|(?:(?:^| )requires literal projection\\d+/Save\\d+ \\(\\d+\\) and exact \\d+ prior IDs, excluding the running identity$)|(?:(?:^| )live projection\\d+/Save\\d+ and literal current hash retain all\\d+ independent prior identities \\(\\d+\\)$)|(?:(?:^| )the running identity moves off the outgoing \\d+ and \\d+ is registered as projection-v\\d+ beside the \\d+ accepted priors and the outgoing \\d+ \\(\\d+\\)$)|(?:(?:^| )projection \\d+, schema \\$id projection-\\d+, LIVE_SAVE_VERSION now \\d+ \\(Scientist live boundary; B\\.\\d+ itself has no save step\\), and the outgoing \\d+ identity is retired$)|(?:(?:^| )the outgoing \\d+c\\d+b… stays registered as projection-v\\d+ and the prior roster contains\\d+ identities through projection\\d+$)|(?:(?:^| )the checked-in generator artifacts equal the running identity \\(`--check` clean\\), and priorityOrder keeps its seven members and its line$)|(?:(?:^| )PROJECTION_VERSION is still \\d+$)|(?:(?:^| )PROJECTION_VERSION is \\d+ and the schema document agrees$)|(?:(?:^| )the running identity moves OFF sha\\d+:\\d+af\\d+c\\d+… and that identity is registered as projection-v\\d+ in the SAME commit$)|(?:(?:^| )requires literal projection\\d+/Save\\d+, registers actual outgoing\\d+, and excludes the running identity from prior schemas$)|(?:(?:^| )keeps the outgoing projection-\\d+ identity registered after a later bump$)|(?:(?:^| )serves the whole bundle under the regenerated schema with the new fields present$)|(?:(?:^| )closes every declared object recursively and publishes explicit protocol metadata$)|(?:(?:^| )rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data$)|(?:(?:^| )pins protocol v\\d+/projection v\\d+ and fingerprints named projections and exact intent fields$)|(?:P14C\\.2b W10:)"],"node":"v20.20.2","start":"2026-09-26T17:12:40.111Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p14b8-waiver-surface.test.ts (32 tests | 30 skipped) 6ms
+ ✓ |core| tests/bridge-p14a2-market.test.ts (16 tests | 15 skipped) 4ms
+ ✓ |core| tests/bridge-p14b6-relationship-read-models.test.ts (24 tests | 21 skipped) 297ms
+ ✓ |core| tests/bridge-contract-generator.test.ts (31 tests | 30 skipped) 841ms
+   ✓ CF-08 sound union-to-C# generation > current accepted contract and future sentinel > F10 emits sound request and response union shapes without changing schema identity 839ms
+ ✓ |core| tests/bridge-p14b5-relationships.test.ts (15 tests | 13 skipped) 7ms
+ ✓ |core| tests/bridge-p13b-s6-cancellation.test.ts (12 tests | 11 skipped) 5ms
+ ✓ |core| tests/bridge-p14a3-world.test.ts (16 tests | 15 skipped) 5ms
+ ✓ |core| tests/bridge.test.ts (18 tests | 17 skipped) 7234ms
+   ✓ Current-game Unity adoption bridge > pins protocol v4/projection v32 and fingerprints named projections and exact intent fields 7232ms
+ ✓ |core| tests/bridge-p14b1-promises.test.ts (11 tests | 10 skipped) 5ms
+ ✓ |core| tests/bridge-p14a1-market.test.ts (16 tests | 15 skipped) 4ms
+ ✓ |core| tests/bridge-schema.test.ts (22 tests | 20 skipped) 7124ms
+   ✓ canonical Unity bridge schema > rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data 7094ms
+ ✓ |core| tests/bridge-p13b-s4-office.test.ts (11 tests | 9 skipped) 1796ms
+   ✓ case 1: the founding office at week 12 — full quote parity on the wire; office null off the laboratory view > standard I, highest I, offline false, capacity 2, baselineWeeklyOperatingCost 0 (endowed); both conversion rows match the authoritative quote 1792ms
+ ✓ |core| tests/bridge-p13b-r07-setup.test.ts (13 tests | 12 skipped) 4ms
+ ✓ |core| tests/bridge-p13b-s3-plans.test.ts (11 tests | 9 skipped) 1962ms
+   ✓ case 1: a fresh studio publishes an empty plans page; plans is null off the plans view > snapshotVersion 36; rows and actions are both empty arrays on a fresh studio; laboratory view carries plans: null 1958ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts (17 tests | 16 skipped) 4ms
+ ✓ |core| tests/bridge-p14b3-promise-command.test.ts (19 tests | 18 skipped) 8411ms
+   ✓ P14B.3: real settlement/outcome, V29 and B2 public/private carriers > quote→commit→real winning expiry binds; due-week BROKEN survives validated reload and exact public receipt join 8399ms
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts (11 tests | 10 skipped) 4ms
+ ✓ |core| tests/bridge-p13b-s2-labs.test.ts (10 tests | 8 skipped) 1540ms
+   ✓ case 1: a fresh Laboratory publishes snapshotVersion 38 and an empty projects array > a Laboratory with no research project at all reports laboratory.projects === [] 1528ms
+ ❯ |core| tests/bridge-p14b2-trust.test.ts (22 tests | 1 failed | 21 skipped) 150ms
+   × P14B.2 group1 — projection46, unchanged Save29/intents, closed wire shapes > pins the exact version, old-five-plus-two attention enum and unchanged intent vocabulary 148ms
+     → expected [ 'decisionWeekNear', …(9) ] to deeply equal [ 'decisionWeekNear', …(9) ]
+ ✓ |core| tests/bridge-p10a-w0-people-projection.test.ts (10 tests | 9 skipped) 1074ms
+   ✓ P10A W0 — people projection > R9 the served section is projection 32 and the projection-17/18 identities stay accepted 1067ms
+ ✓ |core| tests/bridge-p11-ready.test.ts (17 tests | 16 skipped) 2275ms
+   ✓ P11 ready Upcoming and discarded financial successors > migrates authentic core25 without relabeling its bytes; strict26 includes a nullable Week0 history 2273ms
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts (22 tests | 21 skipped) 4ms
+ ✓ |core| tests/bridge-r3n4-read-model-deltas.test.ts (9 tests | 7 skipped) 1509ms
+   ✓ R3-N4-SIM-20 — batched N4/N5/N6 read-model deltas (projection 31) > serves the whole bundle under the regenerated schema with the new fields present 1504ms
+ ✓ |core| tests/bridge-p14b4-runtime47-compatibility.test.ts (6 tests | 5 skipped) 109ms
+ ✓ |core| tests/bridge-p14b7-promise-waiver.test.ts (6 tests | 5 skipped) 4ms
+ ✓ |core| tests/bridge-operations-events.test.ts (6 tests | 5 skipped) 2347ms
+   ✓ R3-N7-SIM-01 — operationsEventsProjection (projection 32) > L6 is pure, mutates nothing, and validates inside the served projection-50 envelope 2346ms
+ ✓ |core| tests/bridge-owner-ux-projection20-migration.test.ts (10 tests | 9 skipped) 65ms
+ ✓ |core| tests/bridge-p14c2s-scientist-runtime.test.ts (10 tests | 9 skipped) 6ms
+ ✓ |core| tests/bridge-p11-capital-contributors.test.ts (6 tests | 5 skipped) 3739ms
+   ✓ P11 recorded facility capital contributors over the real bridge > hydrates genuine outgoing projection24 and joins four original payments to exact construction events 3738ms
+ ✓ |core| tests/bridge-owner-ux-projection21-schema.test.ts (9 tests | 8 skipped) 12ms
+ ✓ |core| tests/bridge-p14c2b-extension.test.ts (6 tests) 6678ms
+   ✓ P14C.2b W10: extensions are discoverable through existing bridge consumers (875 §3–4) > bridge/market.ts: marketPage lists the exact open extension once with its sole issuer and fixed term 2210ms
+   ✓ P14C.2b W10: extensions are discoverable through existing bridge consumers (875 §3–4) > bridge/people.ts: marketAttentionRows raises the exact sole issuer’s extension decision without a competing-proposal alert 1152ms
+   ✓ P14C.2b W10: extensions are discoverable through existing bridge consumers (875 §3–4) > bridge/people.ts: marketCaseProjection exposes the exact person’s open extension and agrees with selected Market detail 1215ms
+   ✓ P14C.2b W10: extensions are discoverable through existing bridge consumers (875 §3–4) > bridge/world.ts: personWorldRoute links the exact open extension and names the final extension 885ms
+   ✓ P14C.2b W10: extensions are discoverable through existing bridge consumers (875 §3–4) > bridge/promises.ts: promiseRowsFor publishes nothing for a retirementExtension case 562ms
+   ✓ P14C.2b W10: extensions are discoverable through existing bridge consumers (875 §3–4) > bridge/contract.ts: renewalRefusal names the "one final extension", never presenting it as an ordinary contest 652ms
+ ✓ |core| tests/bridge-p13b-s1b-seats.test.ts (8 tests | 6 skipped) 12592ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14b2-trust.test.ts > P14B.2 group1 — projection46, unchanged Save29/intents, closed wire shapes > pins the exact version, old-five-plus-two attention enum and unchanged intent vocabulary
+AssertionError: expected [ 'decisionWeekNear', …(9) ] to deeply equal [ 'decisionWeekNear', …(9) ]
+
+- Expected
++ Received
+
+  Array [
+    "decisionWeekNear",
+    "newCompetingProposal",
+    "termsRevised",
+    "settlementCompleted",
+    "proposalWouldFail",
+    "promiseDue",
+    "promiseOutcome",
++   "retirementExtensionOpen",
+    "retirementAnnounced",
+    "finishingCommitments",
+-   "retirementExtensionOpen",
+  ]
+
+ ❯ tests/bridge-p14b2-trust.test.ts:142:51
+    140|     expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(5…
+    141|     const attentionSchema = schemaDefinition('StudioMarketAttentionRow…
+    142|     expect(attentionSchema.properties.cause.enum).toEqual(['decisionWe…
+       |                                                   ^
+    143|       'settlementCompleted', 'proposalWouldFail', 'promiseDue', 'promi…
+    144|       'retirementAnnounced', 'finishingCommitments', 'retirementExtens…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 31 passed (32)
+      Tests  1 failed | 46 passed | 405 skipped (452)
+   Start at  19:12:40
+   Duration  59.73s (transform 4.78s, setup 0ms, collect 89.28s, tests 59.82s, environment 17ms, prepare 6.37s)
+

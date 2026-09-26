@@ -1,9 +1,8 @@
-// P14C.2b T1 — INDEPENDENT RED closeout, family W10: extension cases are EXCLUDED from
-// every existing bridge consumer (780 §5.3, 806 §6) — no new read model is added, so a
-// person whose latest case is a `retirementExtension` contributes nothing to any
-// existing case listing, attention row, world route or promise row, and the one
-// renewal-refusal sentence that DOES still mention them names "one final extension",
-// never presenting a one-issuer offer as a contest.
+// P14C.2b family W10, maintained under875/917 after recorded916 RED. C.2-RM
+// supersedes806's exclusions: the actual open extension is discoverable in
+// Market, People and World, with one eligible issuer and an own decision alert.
+// Extension promises remain absent, and the ordinary renewal refusal still
+// names "one final extension", never an ordinary competing-studio contest.
 //
 // Closes 810 §5's disclosed W10 gap: exercising this needs `bridge/*.ts`, whose OWN
 // `.ts`-extension imports require `allowImportingTsExtensions` — a flag only
@@ -32,32 +31,41 @@ const AXIS_A = {
   eMinus12: 92,
 }
 
-describe('P14C.2b W10: extension cases are excluded from every existing bridge consumer (806 §6)', () => {
-  it('bridge/market.ts: marketPage never lists a retirementExtension case in any bucket', () => {
+describe('P14C.2b W10: extensions are discoverable through existing bridge consumers (875 §3–4)', () => {
+  it('bridge/market.ts: marketPage lists the exact open extension once with its sole issuer and fixed term', () => {
     const atWindow = advanceTo(c2bLiveFixture(AXIS_A.fixture), AXIS_A.eMinus12)
     const page = marketPage(atWindow, { view: 'market', targetId: null })
     const allRows = [...page.cases.renewalWindow, ...page.cases.settling, ...page.cases.closed.rows]
-    expect(allRows.some((r) => r.talentId === AXIS_A.personId), '806 §6: a retirementExtension case must never appear in any market page bucket').toBe(false)
+    expect(allRows.filter((r) => r.talentId === AXIS_A.personId)).toEqual([expect.objectContaining({
+      talentId: AXIS_A.personId, variant: 'retirementExtension', soleIssuerStudioId: AXIS_A.employerStudioId,
+      retirementExtension: { issuerStudioId: AXIS_A.employerStudioId, viewerCanOffer: true,
+        requiredTermWeeks: 58, startWeek: 98, endWeekExclusive: 156 },
+    })])
   })
 
-  it('bridge/people.ts: marketAttentionRows raises nothing for a retirementExtension case\'s view', () => {
+  it('bridge/people.ts: marketAttentionRows raises the exact sole issuer’s extension decision without a competing-proposal alert', () => {
     const atWindow = advanceTo(c2bLiveFixture(AXIS_A.fixture), AXIS_A.eMinus12)
     const view = caseForTalent(atWindow, AXIS_A.personId, AXIS_A.eMinus12)
     expect(view, 'caseForTalent must find the genuinely-discovered case (it is variant-agnostic)').not.toBeNull()
     const rows = marketAttentionRows(atWindow, view!, AXIS_A.employerStudioId, AXIS_A.eMinus12)
-    expect(rows, '806 §6: an extension case must raise no attention row at all').toEqual([])
+    expect(rows).toEqual([expect.objectContaining({ talentId: AXIS_A.personId, cause: 'retirementExtensionOpen' })])
+    expect(rows.some(row => row.cause === 'newCompetingProposal')).toBe(false)
   })
 
-  it('bridge/people.ts: marketCaseProjection answers null for a person whose latest case is a retirementExtension', () => {
+  it('bridge/people.ts: marketCaseProjection exposes the exact person’s open extension and agrees with selected Market detail', () => {
     const atWindow = advanceTo(c2bLiveFixture(AXIS_A.fixture), AXIS_A.eMinus12)
-    expect(marketCaseProjection(atWindow, AXIS_A.personId, AXIS_A.employerStudioId, AXIS_A.eMinus12)).toBeNull()
+    const detail = marketCaseProjection(atWindow, AXIS_A.personId, AXIS_A.employerStudioId, AXIS_A.eMinus12)
+    expect(detail).toMatchObject({ variant: 'retirementExtension', soleIssuerStudioId: AXIS_A.employerStudioId,
+      retirementExtension: { issuerStudioId: AXIS_A.employerStudioId, viewerCanOffer: true,
+        requiredTermWeeks: 58, startWeek: 98, endWeekExclusive: 156 } })
+    expect(marketPage(atWindow, { view: 'market', targetId: AXIS_A.personId }).selected?.marketCase).toEqual(detail)
   })
 
-  it('bridge/world.ts: personWorldRoute publishes no market caseRef for a retirementExtension case', () => {
+  it('bridge/world.ts: personWorldRoute links the exact open extension and names the final extension', () => {
     const atWindow = advanceTo(c2bLiveFixture(AXIS_A.fixture), AXIS_A.eMinus12)
     const route = personWorldRoute(atWindow, AXIS_A.personId, false)
-    expect(route.statusLine).toBeNull()
-    expect(route.caseRef).toBeNull()
+    expect(route.statusLine).toMatch(/final extension/i)
+    expect(route.caseRef).toEqual({ view: 'market', targetId: AXIS_A.personId })
   })
 
   it('bridge/promises.ts: promiseRowsFor publishes nothing for a retirementExtension case', () => {

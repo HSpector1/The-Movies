@@ -199,7 +199,7 @@ function ownPlans<T extends { studioId: string }>(state: { physicalPlans: { plan
 
 describe('P13B-S3-T4 plans bridge page: projection bump', () => {
   it('bumps PROJECTION_VERSION to the S3-T4 wire contract (35; 38 after the S5-R07-T3 bump)', () => {
-    expect(PROJECTION_VERSION).toBe(51)
+    expect(PROJECTION_VERSION).toBe(52)
   })
 })
 
@@ -211,7 +211,7 @@ describe('case 1: a fresh studio publishes an empty plans page; plans is null of
     const session = new BridgeSession(state, 'p13b-s3-plans-1-fresh')
 
     const plans = plansResponse(session, nextRequestId('fresh'))
-    expect(plans.snapshotVersion).toBe(51)
+    expect(plans.snapshotVersion).toBe(52)
     expect(plans.plans.rows).toEqual([])
     expect(plans.plans.actions).toEqual([])
 
