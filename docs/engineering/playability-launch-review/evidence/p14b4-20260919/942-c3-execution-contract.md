@@ -1,9 +1,12 @@
-# 942 — C.3 execution contract (draft for independent review)
+# 942 — C.3 execution contract (reviewed law frozen)
 
 2026-09-26. Controlling scope937, independent reviews938/939, measured inventory941
 and attribution943. Production remains the qualified9afae887 tree, now published
-with docs at1f44aa505c0d677430451ab5fcacaf5e0ce205d6. **DRAFT: no production release.**
-The sole producer944 is preparing genuine outgoing37/52 evidence, not C.3 behavior.
+with T0 at0fc34e9ec8b6ade9ff18485a215193cdbcbd4591. **Contract frozen; production
+remains gated on independent RED and the serialization prerequisite in952.**
+953 preserved genuine outgoing37/52, including its explicitly failed parity fact.
+942-A/946-A and the bounded event-surface follow-up KEEP are adopted.946 supplies
+exact field/API shapes and the actual validation/anchor propagation inventory.
 No selected constant below was lowered in response to941's absent positive witness.
 
 ## 1. Bounded law
@@ -195,8 +198,7 @@ no blanket transition VOIDED policy is added without a real reachable open case.
 Preserve terminal outcomes, committed-seat precedence, trust and half-open windows.
 
 Projection53 adds truthful current-career and prior-profession facts. Exact DTO
-names/field shapes are to be frozen in the reviewed API appendix before tests and
-generation: profile current lifecycle plus former-profession retirements, last
+names/field shapes are frozen in946: profile current lifecycle plus former-profession retirements, last
 transition/week/reasons, industry status (working/awaitingTransition/retired),
 industry-retired week and recording notice. Migrated retired non-actors awaiting
 prospective reconciliation must not be labeled awaiting an unavailable transition.
@@ -237,7 +239,8 @@ Keep full-suite failures and isolated results distinct. Unity/native stays NOT
 VERIFIED. Budget remains937's10–15h planning checkpoint with3–4h verification reserve;
 reconcile measured scope/cost rather than cutting obligations or repeating passed gates.
 
-Open before release: exact API/persistent field type declarations, input witness
-encoding/digest tuple, current-context propagation inventory, due-queue validation
-and historical-builder sweep. These are delegated implementation refinements, not
-routine permission questions. This draft alone does not authorize the writer.
+Closed contract gates:946 exact API/persistent types, witness encoding/digest tuple,
+due-queue validation and946-A current-context/anchor/historical-builder inventory;
+independent final event-surface review KEEP. Remaining execution gates are the
+952 serialization prerequisite and independent C.3 RED. The genuine T0 generation
+is completed953, with its known old-writer parity failure retained, not relabeled.

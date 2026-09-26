@@ -3,7 +3,7 @@
 2026-09-26. Read-only c2rm_contract_review on1f44aa50. No commands, tests, edits or
 nested agents. Parent persists the returned review and dispositions here.
 Verdict: KEEP revised evidence/scheduling design with the precise seams below;
-final new Calendar/Industry/Market paragraphs receive a bounded follow-up.
+final bounded Calendar/Industry/Market follow-up also KEEP, recorded at the end.
 
 ## Actual current validation route
 
@@ -111,3 +111,11 @@ reconstruction remain distinct. No Owner decision was identified.
 in952. Canonical digest identity is a determinism correction, with old stored
 receipts retained. Outgoing52→53 replay reset needs actual verification; same-schema
 interim compatibility is not assumed. The detached capacity kernel is not implicated.
+
+Final bounded follow-up: KEEP. Calendar's separate careerEvents preserves commitment
+counts/scheduling (studioCalendar190,871,889); existing profile route supports
+navigation (StudioCalendar.tsx24,98). Industry careerKind explicitly fixes the
+null-studio permanent-retention trap for new career news while preserving technology,
+sort and pagination (industry359). Market retention/order/public text fits current
+attention assembly (market283–307,lifecycle53–66). No remaining correction in this
+bounded review; no edits or tests performed.

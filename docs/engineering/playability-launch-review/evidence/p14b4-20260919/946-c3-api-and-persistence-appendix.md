@@ -1,7 +1,9 @@
-# 946 — C.3 exact API and persistence appendix (draft)
+# 946 — C.3 exact API and persistence appendix (reviewed and frozen)
 
-2026-09-26. Companion to942/942-A. No production release until independent review,
-outgoing T0 and independent RED. Source1f44aa50 is still Save37/projection52.
+2026-09-26. Companion to942/942-A. Independent946-A review and final event-surface
+follow-up KEEP complete.953 genuine outgoing T0 is published0fc34e9e. No C.3 production
+release until952 serialization prerequisite and independent RED. Live source remains
+Save37/projection52; the following38/53 contract is not yet implemented.
 This document selects implementation details under937's delegated authority;
 it creates no additional career path, promise family or Owner decision.
 
@@ -281,9 +283,14 @@ Register outgoing52 schema identity and generate53 through the existing generato
 handwritten Unity/native work stays deferred. Current/saved runtime slots remain
 distinct and prior incompatible journal authority resets by the accepted contract.
 
-## Remaining bounded release checks
+## Contract review closure and execution gates
 
-Reviewer supplies exact current-only validation delegation/anchor propagation map.
-Parent reconciles that inventory here, obtains independent final API review, and
-publishes the contract. T0 parity failure945/948 remains separately under diagnosis.
-No C.3 writer release until genuine outgoing evidence and independent behavior RED.
+946-A records the exact current-only delegation and actual anchor propagation map,
+including the finalized-tick trap and frozen-intermediate guards. Parent adopted all
+named refinements. The bounded final event-surface review returned KEEP: Calendar
+keeps separate careerEvents/commitment counts and existing profile navigation;
+Industry bounds career rows despite null studioId while preserving technology;
+Market uses actual-event retention, existing attention assembly and public text.
+No remaining contract correction or Owner decision is identified. No tests were
+executed by the reviewer. T0 parity failure is causally attributed952 and preserved
+in953; independent serialization RED/correction comes next, then C.3 behavior RED.

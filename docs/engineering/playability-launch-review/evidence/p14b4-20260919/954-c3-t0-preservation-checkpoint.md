@@ -36,3 +36,10 @@ separate author/reviewer. Unity/native and all existing limitations remain defer
 This file and the complete diagnostic/preservation chain are published together;
 the subsequent actual remote equality check is recorded after Git supplies the
 new checkpoint identity. No source qualification is inferred from publication.
+
+Publication verified: actual local and GitHub refs both
+0fc34e9ec8b6ade9ff18485a215193cdbcbd4591 after normal push; clean tree observed.
+No hooks ran (invocation-local hooksPath=/dev/null), no global configuration changed.
+942/946 final review closure follows in a separate records checkpoint before any
+production change. Independent955 regression authoring is now released; parent alone
+will record RED, implement the small digest repair and execute verification.

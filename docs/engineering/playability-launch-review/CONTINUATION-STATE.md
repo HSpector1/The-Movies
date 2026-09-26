@@ -1,5 +1,19 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — T0 published0fc34e9e; exact C.3 contract frozen; digest RED next
+
+Actual local/GitHub refs0fc34e9ec8b6ade9ff18485a215193cdbcbd4591 verified equal;
+clean observed after publication.953 genuine outgoing37/52 preserved10files;
+known12-digest parityFAIL retained with independent952attribution.942/946 law/API
+and946-A propagation map now finalKEEP, including Calendar/Industry/Market event
+surface follow-up. Save38/projection53 not implemented. Current source37/52 remains.
+Testauthor owns955doc and tests/p14c3-promise-digest-continuity.test.ts only, preparing
+independent regression. Parent soleproductionwriter/executor; revieweridle/reusable.
+Noheavyprocess. Next freeze955, recordedRED, canonical promise-input serialization
+repair without changing oldreceipts/classification/rules4; focused review/checks.
+Then independent C.3 RED and implementation. Interim52 replaycompatibility requires
+proof; final52→53 reset remains mandatory. Same2specialists/oneheavylane; native deferred.
+
 ## CURRENT — outgoing C.3 T0 preserved; serialization regression next
 
 953 child0/fixedExistingSource:true/exact10outputs, closed19:13:48.835Z. Genuine
