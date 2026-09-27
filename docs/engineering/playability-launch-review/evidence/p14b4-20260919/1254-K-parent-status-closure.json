@@ -1,0 +1,1053 @@
+{
+  "status": "BOUNDED_LOGIC_PASS",
+  "time": "2026-09-27T21:11:56.831361+00:00",
+  "sourceSha": "c5b457248dee0d6ddc846c539ed2cea72fe929c5",
+  "gates": [
+    {
+      "name": "1255-screenplay-status-types",
+      "start": "2026-09-27T21:07:52.771Z",
+      "end": "2026-09-27T21:08:26.808Z",
+      "advanceCap": 0,
+      "manualPins": 107,
+      "record": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1255-screenplay-status-types.json",
+        "bytes": 634,
+        "sha256": "6434e008963ba82173672826844bba2dfe562a8b7a651454da2b25d1fde40304"
+      },
+      "raw": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1255-screenplay-status-types.txt",
+        "bytes": 340,
+        "sha256": "a64de30672a31453f82c1bef3a4923bff6753b281f265d9da225ea68ae25755e"
+      },
+      "preflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1255-screenplay-status-types-preflight.json",
+        "bytes": 27328,
+        "sha256": "4cceae79bd58b011dfc6ce6ee32bf41b33c17f5649a9fa5863091e06341cf7f1"
+      },
+      "postflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1255-screenplay-status-types-postflight.json",
+        "bytes": 28015,
+        "sha256": "7ff28ff4e375e6feb41c64349706e617a514ed08dda26d8c1f75c83efa369368"
+      }
+    },
+    {
+      "name": "1256-screenplay-status-runtime",
+      "start": "2026-09-27T21:09:05.966Z",
+      "end": "2026-09-27T21:09:20.985Z",
+      "advanceCap": 3,
+      "manualPins": 107,
+      "record": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1256-screenplay-status-runtime.json",
+        "bytes": 699,
+        "sha256": "e7ccf2232960ba8180e8699d7b309519f14318f6f3f5743f5efd77e21c3251ec"
+      },
+      "raw": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1256-screenplay-status-runtime.txt",
+        "bytes": 133213,
+        "sha256": "62123ffa89aa9781d5a7fc6effe923932fd0231cc159d2ea05e6875ef5baea5d"
+      },
+      "preflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1256-screenplay-status-runtime-preflight.json",
+        "bytes": 27328,
+        "sha256": "dc4beefe7490e125151a28095efa1f50312d20e6a60c0721cb5d3174ce05d2d1"
+      },
+      "postflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1256-screenplay-status-runtime-postflight.json",
+        "bytes": 28024,
+        "sha256": "ac04019651eaf14c3df6139612360d6dd621bc885e299abf85d0e559066e0439"
+      }
+    }
+  ],
+  "testSource": {
+    "path": "tests/p14p4p5-screenplay-status.test.ts",
+    "bytes": 26435,
+    "sha256": "496ea58490a0695410ab88bf98ca41830594718061ad9051c3e011e86b6d0506"
+  },
+  "observed": {
+    "1254-P4P5-FACT-ONLY-PREMISE": {
+      "actualWeek": 48,
+      "predicates": [],
+      "materialTags": [],
+      "subjectRoot": {
+        "version": 1,
+        "cutoverOrdinal": 19,
+        "facts": [
+          {
+            "eventId": "first-take-event-19",
+            "conceptId": "studio-de11f27b-r04:concept:4",
+            "genre": "horror",
+            "scriptProjectId": "script-0004"
+          }
+        ]
+      },
+      "receiptSuffix": [
+        {
+          "eventId": "first-take-event-19",
+          "week": 48,
+          "productionId": "studio-de11f27b-r04:film:4",
+          "studioId": "studio-de11f27b-r04",
+          "directorId": "person-studio-de11f27b-r04-1",
+          "cast": {
+            "lead": "person-studio-de11f27b-r04-2",
+            "antagonist": "person-studio-de11f27b-r04-3",
+            "support": "person-studio-de11f27b-r04-4"
+          }
+        }
+      ]
+    },
+    "1254-P4P5-FACT-ONLY-REFUSAL": {
+      "actualWeek": 48,
+      "message": "migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject",
+      "facts": [
+        {
+          "eventId": "first-take-event-19",
+          "conceptId": "studio-de11f27b-r04:concept:4",
+          "genre": "horror",
+          "scriptProjectId": "script-0004"
+        }
+      ]
+    },
+    "1254-P4P5-COUNTERS": {
+      "attempted": 3,
+      "reserved": 3,
+      "invoked": 3,
+      "completed": 3,
+      "outside": 0,
+      "actionAttempts": 7,
+      "actionAccepted": 7,
+      "baselineQuotes": 3,
+      "statusQuotes": 24,
+      "downgradeAttempts": 1,
+      "hardAdvanceAttempts": 3,
+      "oldQ05Q06Imported": false,
+      "capturePrefixAdvances": 0,
+      "phases": [
+        {
+          "name": "genuine45",
+          "complete": true
+        },
+        {
+          "name": "drafting45",
+          "complete": true
+        },
+        {
+          "name": "review46",
+          "complete": true
+        },
+        {
+          "name": "detachedReady46",
+          "complete": true
+        },
+        {
+          "name": "rewriting46",
+          "complete": true
+        },
+        {
+          "name": "review47",
+          "complete": true
+        },
+        {
+          "name": "ready47",
+          "complete": true
+        },
+        {
+          "name": "managedCasting47",
+          "complete": true
+        },
+        {
+          "name": "auditioning47",
+          "complete": true
+        },
+        {
+          "name": "castingReview48",
+          "complete": true
+        },
+        {
+          "name": "castingComplete48",
+          "complete": true
+        }
+      ],
+      "operations": [
+        {
+          "week": 45,
+          "action": {
+            "kind": "commissionScript",
+            "project": {
+              "conceptId": "c-02",
+              "writerId": "authored-0003",
+              "shape": {
+                "opening": "slowSetup",
+                "midpoint": "revelation",
+                "ending": "bittersweet"
+              },
+              "promise": {
+                "genre": "comedy",
+                "intendedSegments": [
+                  "adult"
+                ],
+                "ranges": {
+                  "intimacy": [
+                    -0.5,
+                    0.5
+                  ],
+                  "kineticEnergy": [
+                    -0.5,
+                    0.5
+                  ],
+                  "tonalWeight": [
+                    -0.5,
+                    0.5
+                  ]
+                }
+              }
+            }
+          },
+          "accepted": true
+        },
+        {
+          "week": 46,
+          "action": {
+            "kind": "acceptScript",
+            "projectId": "script-0002"
+          },
+          "accepted": true
+        },
+        {
+          "week": 46,
+          "action": {
+            "kind": "requestScriptRewrite",
+            "projectId": "script-0002"
+          },
+          "accepted": true
+        },
+        {
+          "week": 47,
+          "action": {
+            "kind": "acceptScript",
+            "projectId": "script-0002"
+          },
+          "accepted": true
+        },
+        {
+          "week": 47,
+          "action": {
+            "kind": "activateCastingSessions"
+          },
+          "accepted": true
+        },
+        {
+          "week": 47,
+          "action": {
+            "kind": "startCastingSession",
+            "session": {
+              "projectId": "script-0002",
+              "slate": {
+                "lead": [
+                  "authored-0005",
+                  "authored-0000"
+                ],
+                "antagonist": [
+                  "authored-0000",
+                  "authored-0001"
+                ],
+                "support": [
+                  "authored-0005",
+                  "authored-0001"
+                ]
+              }
+            }
+          },
+          "accepted": true
+        },
+        {
+          "week": 48,
+          "action": {
+            "kind": "acknowledgeCastingSession",
+            "sessionId": "casting-0000"
+          },
+          "accepted": true
+        }
+      ]
+    },
+    "tickSummary": [
+      {
+        "from": 45,
+        "to": 46,
+        "added": [],
+        "productionId": "studio-de11f27b-r04:film:4",
+        "remainingTicks": 6,
+        "phase": "rehearsal",
+        "blocker": null,
+        "shootingTask": null
+      },
+      {
+        "from": 46,
+        "to": 47,
+        "added": [],
+        "productionId": "studio-de11f27b-r04:film:4",
+        "remainingTicks": 5,
+        "phase": "shooting",
+        "blocker": null,
+        "shootingTask": {
+          "id": "shooting:studio-de11f27b-r04:film:4",
+          "productionId": "studio-de11f27b-r04:film:4",
+          "directorId": "person-studio-de11f27b-r04-1",
+          "soundstageFacilityId": "studio-de11f27b-r04:stage",
+          "status": "unassigned"
+        }
+      },
+      {
+        "from": 47,
+        "to": 48,
+        "added": [
+          {
+            "receipt": {
+              "eventId": "first-take-event-19",
+              "week": 48,
+              "productionId": "studio-de11f27b-r04:film:4",
+              "studioId": "studio-de11f27b-r04",
+              "directorId": "person-studio-de11f27b-r04-1",
+              "cast": {
+                "lead": "person-studio-de11f27b-r04-2",
+                "antagonist": "person-studio-de11f27b-r04-3",
+                "support": "person-studio-de11f27b-r04-4"
+              }
+            },
+            "owner": {
+              "studioId": "studio-de11f27b-r04",
+              "productionId": "studio-de11f27b-r04:film:4",
+              "conceptId": "studio-de11f27b-r04:concept:4",
+              "genre": "horror",
+              "projects": [
+                {
+                  "id": "script-0004",
+                  "conceptId": "studio-de11f27b-r04:concept:4"
+                }
+              ],
+              "cast": {
+                "antagonist": "person-studio-de11f27b-r04-3",
+                "lead": "person-studio-de11f27b-r04-2",
+                "support": "person-studio-de11f27b-r04-4"
+              },
+              "directorId": "person-studio-de11f27b-r04-1",
+              "remainingTicks": 5
+            },
+            "expected": {
+              "eventId": "first-take-event-19",
+              "conceptId": "studio-de11f27b-r04:concept:4",
+              "genre": "horror",
+              "scriptProjectId": "script-0004"
+            }
+          }
+        ],
+        "productionId": "studio-de11f27b-r04:film:4",
+        "remainingTicks": 4,
+        "phase": "shooting",
+        "blocker": null,
+        "shootingTask": {
+          "id": "shooting:studio-de11f27b-r04:film:4",
+          "productionId": "studio-de11f27b-r04:film:4",
+          "directorId": "person-studio-de11f27b-r04-1",
+          "soundstageFacilityId": "studio-de11f27b-r04:stage",
+          "status": "completed"
+        }
+      }
+    ]
+  },
+  "quotes": [
+    {
+      "name": "Drafting45",
+      "actualWeek": 45,
+      "fresh": 46,
+      "takeWeek": 51,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 51,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "IMPOSSIBLE",
+        "bottleneck": "no filming week inside the window can reach this opportunity",
+        "inputsDigest": "4ac00402a6164868",
+        "rulesVersion": 7,
+        "week": 45
+      }
+    },
+    {
+      "name": "Drafting45",
+      "actualWeek": 45,
+      "fresh": 46,
+      "takeWeek": 51,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 58,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "FRAGILE",
+        "bottleneck": "the due week leaves too little slack before filming would start",
+        "inputsDigest": "41496fdadc879857",
+        "rulesVersion": 7,
+        "week": 45
+      }
+    },
+    {
+      "name": "Drafting45",
+      "actualWeek": 45,
+      "fresh": 46,
+      "takeWeek": 51,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 59,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "63247f5f3d196b60",
+        "rulesVersion": 7,
+        "week": 45
+      }
+    },
+    {
+      "name": "Review46",
+      "actualWeek": 46,
+      "fresh": 46,
+      "takeWeek": 51,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 51,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "IMPOSSIBLE",
+        "bottleneck": "no filming week inside the window can reach this opportunity",
+        "inputsDigest": "0694d818b1ae7ad4",
+        "rulesVersion": 7,
+        "week": 46
+      }
+    },
+    {
+      "name": "Review46",
+      "actualWeek": 46,
+      "fresh": 46,
+      "takeWeek": 51,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 58,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "FRAGILE",
+        "bottleneck": "the due week leaves too little slack before filming would start",
+        "inputsDigest": "02f84cf75c56836f",
+        "rulesVersion": 7,
+        "week": 46
+      }
+    },
+    {
+      "name": "Review46",
+      "actualWeek": 46,
+      "fresh": 46,
+      "takeWeek": 51,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 59,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "bae75c9f858c4a8c",
+        "rulesVersion": 7,
+        "week": 46
+      }
+    },
+    {
+      "name": "Ready46",
+      "actualWeek": 46,
+      "fresh": 46,
+      "takeWeek": 51,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 51,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "IMPOSSIBLE",
+        "bottleneck": "no filming week inside the window can reach this opportunity",
+        "inputsDigest": "6246cd081cc41efe",
+        "rulesVersion": 7,
+        "week": 46
+      }
+    },
+    {
+      "name": "Ready46",
+      "actualWeek": 46,
+      "fresh": 46,
+      "takeWeek": 51,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 58,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "FRAGILE",
+        "bottleneck": "the due week leaves too little slack before filming would start",
+        "inputsDigest": "946ac6c1e4b006f1",
+        "rulesVersion": 7,
+        "week": 46
+      }
+    },
+    {
+      "name": "Ready46",
+      "actualWeek": 46,
+      "fresh": 46,
+      "takeWeek": 51,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 59,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "c463cf48535d6696",
+        "rulesVersion": 7,
+        "week": 46
+      }
+    },
+    {
+      "name": "Rewriting46",
+      "actualWeek": 46,
+      "fresh": 47,
+      "takeWeek": 52,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 52,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "IMPOSSIBLE",
+        "bottleneck": "no filming week inside the window can reach this opportunity",
+        "inputsDigest": "3090d21fe508d4fe",
+        "rulesVersion": 7,
+        "week": 46
+      }
+    },
+    {
+      "name": "Rewriting46",
+      "actualWeek": 46,
+      "fresh": 47,
+      "takeWeek": 52,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 59,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "FRAGILE",
+        "bottleneck": "the due week leaves too little slack before filming would start",
+        "inputsDigest": "f98d1a6e6420a721",
+        "rulesVersion": 7,
+        "week": 46
+      }
+    },
+    {
+      "name": "Rewriting46",
+      "actualWeek": 46,
+      "fresh": 47,
+      "takeWeek": 52,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 60,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "14c3d33f22826c45",
+        "rulesVersion": 7,
+        "week": 46
+      }
+    },
+    {
+      "name": "Ready47",
+      "actualWeek": 47,
+      "fresh": 47,
+      "takeWeek": 52,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 52,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "IMPOSSIBLE",
+        "bottleneck": "no filming week inside the window can reach this opportunity",
+        "inputsDigest": "2c8861327e54ce94",
+        "rulesVersion": 7,
+        "week": 47
+      }
+    },
+    {
+      "name": "Ready47",
+      "actualWeek": 47,
+      "fresh": 47,
+      "takeWeek": 52,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 59,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "FRAGILE",
+        "bottleneck": "the due week leaves too little slack before filming would start",
+        "inputsDigest": "2a1c748bad13dfa5",
+        "rulesVersion": 7,
+        "week": 47
+      }
+    },
+    {
+      "name": "Ready47",
+      "actualWeek": 47,
+      "fresh": 47,
+      "takeWeek": 52,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 60,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "f65e4d41d3cae331",
+        "rulesVersion": 7,
+        "week": 47
+      }
+    },
+    {
+      "name": "Auditioning47",
+      "actualWeek": 47,
+      "fresh": 48,
+      "takeWeek": 53,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 53,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "IMPOSSIBLE",
+        "bottleneck": "no filming week inside the window can reach this opportunity",
+        "inputsDigest": "b25c29bc582b01a0",
+        "rulesVersion": 7,
+        "week": 47
+      }
+    },
+    {
+      "name": "Auditioning47",
+      "actualWeek": 47,
+      "fresh": 48,
+      "takeWeek": 53,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 60,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "FRAGILE",
+        "bottleneck": "the due week leaves too little slack before filming would start",
+        "inputsDigest": "dcdf4666216f7306",
+        "rulesVersion": 7,
+        "week": 47
+      }
+    },
+    {
+      "name": "Auditioning47",
+      "actualWeek": 47,
+      "fresh": 48,
+      "takeWeek": 53,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 61,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "0e4a26000bb25c75",
+        "rulesVersion": 7,
+        "week": 47
+      }
+    },
+    {
+      "name": "CastingReview48",
+      "actualWeek": 48,
+      "fresh": 48,
+      "takeWeek": 53,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 53,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "IMPOSSIBLE",
+        "bottleneck": "no filming week inside the window can reach this opportunity",
+        "inputsDigest": "77f53024fd0b2e09",
+        "rulesVersion": 7,
+        "week": 48
+      }
+    },
+    {
+      "name": "CastingReview48",
+      "actualWeek": 48,
+      "fresh": 48,
+      "takeWeek": 53,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 60,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "FRAGILE",
+        "bottleneck": "the due week leaves too little slack before filming would start",
+        "inputsDigest": "ce231edb201ddaab",
+        "rulesVersion": 7,
+        "week": 48
+      }
+    },
+    {
+      "name": "CastingReview48",
+      "actualWeek": 48,
+      "fresh": 48,
+      "takeWeek": 53,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 61,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "5f5041833df4386a",
+        "rulesVersion": 7,
+        "week": 48
+      }
+    },
+    {
+      "name": "CastingComplete48",
+      "actualWeek": 48,
+      "fresh": 48,
+      "takeWeek": 53,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 53,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "IMPOSSIBLE",
+        "bottleneck": "no filming week inside the window can reach this opportunity",
+        "inputsDigest": "c04a6ecff5e36f00",
+        "rulesVersion": 7,
+        "week": 48
+      }
+    },
+    {
+      "name": "CastingComplete48",
+      "actualWeek": 48,
+      "fresh": 48,
+      "takeWeek": 53,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 60,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "FRAGILE",
+        "bottleneck": "the due week leaves too little slack before filming would start",
+        "inputsDigest": "acce53b2c1d694d6",
+        "rulesVersion": 7,
+        "week": 48
+      }
+    },
+    {
+      "name": "CastingComplete48",
+      "actualWeek": 48,
+      "fresh": 48,
+      "takeWeek": 53,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 61,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        }
+      },
+      "receipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "31fead191a9fef4f",
+        "rulesVersion": 7,
+        "week": 48
+      }
+    }
+  ],
+  "markerSet": {
+    "lines": 62,
+    "bytes": 132126,
+    "sha256": "9db31ef66cbeee8778bf6e8ee923c3d304c6eb6e12fcae544ab2d1d362a936b9"
+  },
+  "legacy": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1230-legacy46-baseline.txt",
+    "bytes": 1226,
+    "sha256": "36921548246e8ec4cc2241353cf62fa1e9868cc037a62e2a8a1a0bf26cc35342",
+    "literalEqual": true
+  },
+  "timing": {
+    "compilerSeconds": 34.037,
+    "recorderRuntimeSeconds": 15.019,
+    "vitestSeconds": 13.95,
+    "fileMilliseconds": 10849,
+    "leafMilliseconds": 10846,
+    "declaredLeafMilliseconds": 60000
+  },
+  "qualified": "One selected standalone Q11 passed with three advances, seven accepted public actions, eight actual status snapshots and24pure P5 boundary/slack queries. Casting arrived and was acknowledged; genuine r04 take48 provides one managed-project subject with all promises empty, isolating actual fact-only40\u219239 refusal.",
+  "limits": "Not original10-case rerun, full1226/P14/suite, stock-null, grouped allocation, active-writer beneficiary, retirement/resource obstruction or general future staffing/cash. Actual spare capacity does not isolate own-reservation exemption. No broad timing/native claim.",
+  "next": "1257-A/B real original root6 plus current7 stored freeze receipt branch; source and bounded observations still require concrete review. Independent1254-I/J attribution follows closed raw; no rerun needed."
+}
