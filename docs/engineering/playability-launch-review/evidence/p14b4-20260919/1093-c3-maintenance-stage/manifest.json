@@ -1,0 +1,482 @@
+{
+  "status": "PREPARED_NOT_APPLIED_NOT_EXECUTED",
+  "files": [
+    {
+      "path": "tests/bridge-contract-generator.test.ts",
+      "baselineBytes": 53056,
+      "baselineSha256": "13428b167ce030c3118dcc8c9cf15244052b26107f128d282ddb3edc41cd60fb",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 53289,
+      "stagedSha256": "2493afbb76417fc3479f98e25a71e63ed901022568ef7d56c7af8ef4eb7f29b5",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-operations-events.test.ts",
+      "baselineBytes": 17322,
+      "baselineSha256": "a2f0931149877c1d126558f333798f5a50be1d6d73f9475c9e12bf5b9c9e7be9",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 17322,
+      "stagedSha256": "97792124793123986fbee89ed741f479e0864d53b8d15923fd005fe176b0b05f",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-owner-ux-projection20-migration.test.ts",
+      "baselineBytes": 16138,
+      "baselineSha256": "559f1950456b882d7885049ebd75a5e839d943d884048e27cf10d77a105fb046",
+      "groups": [
+        "metadata",
+        "runtime"
+      ],
+      "stagedBytes": 16460,
+      "stagedSha256": "50ed0ac058fc563c2b182d3840ec3a4e4d80575bd1d2c3c0ba26256ca544efed",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-owner-ux-projection21-schema.test.ts",
+      "baselineBytes": 5026,
+      "baselineSha256": "0b3cb75ebea88b564071d458e7b84644c1499acf36602e296943c7fba4a71a89",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 5026,
+      "stagedSha256": "70becdc9e9d924536c4cdcf96a6a9f0f2addedd70be91c5351692493f4655398",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p06-checkpoint-recovery.test.ts",
+      "baselineBytes": 15264,
+      "baselineSha256": "63f6dd69766e8eaab7e6316f475102c0febea3973113234871259c17efccd3ca",
+      "groups": [
+        "runtime"
+      ],
+      "stagedBytes": 15658,
+      "stagedSha256": "b2d3c703b5c4155a557753f9cb3de79f597efb325a0d7f600b6e3581e08bb996",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p10a-w0-people-projection.test.ts",
+      "baselineBytes": 18217,
+      "baselineSha256": "0db7ba988d2b5d5e8189d6acd8229d7e6e3e63c4bdfb9f35dae4673c286318a5",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 18217,
+      "stagedSha256": "6848d209c62d0f968e2b929168d41ab3795c153fce72ffa2961bb6816190f9fa",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p11-capital-contributors.test.ts",
+      "baselineBytes": 9715,
+      "baselineSha256": "4484c4c33195091b12cf55e1254c23182765a776b766196bb37b5ceba6696fe6",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 9715,
+      "stagedSha256": "643bc42c93a469d6685bea1a793783ca0dfe2343af3152022afe4ae252ca3c41",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p11-ready.test.ts",
+      "baselineBytes": 23497,
+      "baselineSha256": "913d27d2c6e96743b3c7e7a217c3f4a0e12d47c17bde8fb25fd7651f294b94a3",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 23497,
+      "stagedSha256": "7b449f1e9cd1c4c2fec2c464b5adaf0ad36eee0004fb11f8fc64103cf23616fd",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p13b-r07-setup.test.ts",
+      "baselineBytes": 35925,
+      "baselineSha256": "63ce3ebf2d4fece7e48fff7748a0b1923224e9bf53693708e2f9a9b81170e446",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 35925,
+      "stagedSha256": "f8852ecec7a077e5cdb54f9dcf8e26b0af059a0fe8a7b8eae0031e159a3da5c5",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p13b-s1b-seats.test.ts",
+      "baselineBytes": 11197,
+      "baselineSha256": "4ff2e3961a3f126667a133f16a75fc8b1bc25ddce252270680e8661ebce4fac2",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 11197,
+      "stagedSha256": "de6af5efca8e3acc0ae717727553860744d6e3b11d5e4effb0c9b29dd9d376a3",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p13b-s2-labs.test.ts",
+      "baselineBytes": 32713,
+      "baselineSha256": "5cb1734593b33e23367b7512fc6985fb18d3018889478cce67f96246b0961a48",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 32713,
+      "stagedSha256": "368d32666d274a0f53ef9b7eacfcdc532504a5beac7c97480a14fa591c15f2f5",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p13b-s3-plans.test.ts",
+      "baselineBytes": 35579,
+      "baselineSha256": "c8ac440a7376645fd9bdbfbcde17cc6ff53a11146b8a5e6e8a651dea4815ea9e",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 35579,
+      "stagedSha256": "8dd3f516e713b34e51ed803eaccdf83dfce4dec32fd4ffe19dd7c193afb2003f",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p13b-s4-office.test.ts",
+      "baselineBytes": 37203,
+      "baselineSha256": "2a606b5d957b684501252175cb61764cd31426669f551fa1aa3228e12ad9ac8a",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 37203,
+      "stagedSha256": "54d2aa5dc1e461c2fced881adb60e128c1fe5dd49f436b9ed2fbf13ec3a44be9",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p13b-s5-adoption.test.ts",
+      "baselineBytes": 33491,
+      "baselineSha256": "cddc609df0daa84ecb95ae8ce26364734cbdcba01d58b023ac86dc3ba11556cc",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 33491,
+      "stagedSha256": "886c51dce0319efbb0335e6df18402f96ca0e9173ff96eccd62656b3151fbf97",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p13b-s6-cancellation.test.ts",
+      "baselineBytes": 42938,
+      "baselineSha256": "f53588e0c42dcc8ad2bf27fc00e46f1f166c859a99c8fbd75a6d138365068092",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 42938,
+      "stagedSha256": "af33e82e7de7eabc5f3cfb679f8b61c7e7d7d257bab2e4390331850626141856",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p13b-s7-disclosure.test.ts",
+      "baselineBytes": 44739,
+      "baselineSha256": "acd0cea0e0fc3887162e0bed7d2b32778053154d0f638bf711260b7afcc68209",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 44739,
+      "stagedSha256": "cc92901957549dca40501b2ecd2d94cc6faebfee1b55b40c2ea87370cc086052",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p13b-s8-rivals.test.ts",
+      "baselineBytes": 35212,
+      "baselineSha256": "d031fabb9bd90575b00f47e4d986622f1c79847d462608202b22c7471cf87961",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 35212,
+      "stagedSha256": "20de90105b751be099d1a39472cb7e688bd364ac99ff4cb9d0c3288bb3eb1db1",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p14a1-market.test.ts",
+      "baselineBytes": 37520,
+      "baselineSha256": "90b3ebff9f982e25d703b3c3115f2f221b87d2f796bf2e93c60bc628d91d208f",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 37520,
+      "stagedSha256": "f3116e487d23190ff00c00b04563f4581cf5fadd64470008a75fb667181e7b09",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p14a2-market.test.ts",
+      "baselineBytes": 56043,
+      "baselineSha256": "503d90db5132f282a990e233f895862098534f13183ee167dde86a2fcdb01c1f",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 56043,
+      "stagedSha256": "daa6f243c4fbddc890f65f2c6b32a05db420c45e6622d0c375ab5a673a100a1c",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p14a3-world.test.ts",
+      "baselineBytes": 41214,
+      "baselineSha256": "2a26289db57a9b342f83e7df0148e065f668a8e7c530ea236a5e4d843e9ab4d7",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 41214,
+      "stagedSha256": "0fb24efbd40bb449c7d732399fa6667c7703e284ce60add1e4284d0fc59d3f41",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p14b1-promises.test.ts",
+      "baselineBytes": 37996,
+      "baselineSha256": "f7331db79a365d94355fd566cc678abcdda85f314e2beaf5cc52481ce21476df",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 37996,
+      "stagedSha256": "ea8e2dbaeaa41aac147fbe5ed7f07fe21796af0730126a4b441f337d522d4bc5",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p14b2-checkpoint.test.ts",
+      "baselineBytes": 5666,
+      "baselineSha256": "edd009a6c2da535c543c67fe6124e90c8756dad6fb86878bdd270b213416bbc2",
+      "groups": [
+        "runtime"
+      ],
+      "stagedBytes": 5961,
+      "stagedSha256": "bd05bb29a71aff646c066c50a3cff07501631d7cabdc5bada5987ea0d5bad2e7",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p14b2-trust.test.ts",
+      "baselineBytes": 31985,
+      "baselineSha256": "dbf933232a20dd73892eb7cf59aa6015a7cc34351f601c02ebc98bdff838d13a",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 32075,
+      "stagedSha256": "4f4d5f5b98678ed1fd936b12302edc321109ab9a7ff316e261be591410c438ad",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p14b3-promise-command.test.ts",
+      "baselineBytes": 34910,
+      "baselineSha256": "bdeb48428fd8b4fb50c5e430c81d3f960ed4747bc1e421ae1fc3fea2a3ed0fe8",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 34910,
+      "stagedSha256": "c86605cceba45f715cef016377645489832a02f745edb0abc5ebeae440cd997c",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+      "baselineBytes": 17166,
+      "baselineSha256": "8e53b5c2b52aacd6975a5d395683700e70b6277a778f428f35921fc9c7cc76c6",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 17406,
+      "stagedSha256": "421defa87e202163b04c7d61d03d97e2ae6e8c910ec1c70868af79d354c7975e",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p14b5-relationships.test.ts",
+      "baselineBytes": 46216,
+      "baselineSha256": "1f459d4f362bbd080d83147ffda0af94f93ffe2fb04030c9c45ce442de62a397",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 46460,
+      "stagedSha256": "abdeda6675f0e905e0580a48671a9582671bc9076ebfd89b7f00dcb490939e00",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p14b6-relationship-read-models.test.ts",
+      "baselineBytes": 61407,
+      "baselineSha256": "4d3a45915d01307337c895003c84e335264b1c9783c85073280333f8aa32d45d",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 61647,
+      "stagedSha256": "70e8ccc3a4fbe7ae4aaf3c872974df0ce23bb36ede358adb6b38b38722c66529",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p14b7-promise-waiver.test.ts",
+      "baselineBytes": 16891,
+      "baselineSha256": "e6730ac27de389019d0133c791717b4ed3ba96cbf28832b7ef676db908133fa1",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 16891,
+      "stagedSha256": "7b74e1d63fa175c70808a0f883b308d1808e1874ef64bc0caa1bcd6d0ab6516e",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p14c2rm-runtime.test.ts",
+      "baselineBytes": 9149,
+      "baselineSha256": "3ca24832660b2ba653d5b1e8c7819232fa0d13829af68157a4883cf9467e922d",
+      "groups": [
+        "runtime"
+      ],
+      "stagedBytes": 10726,
+      "stagedSha256": "785939bf289decc507567c79f441458427d3000d5adf9bbc82d878a794a9ff93",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p14c2s-scientist-runtime.test.ts",
+      "baselineBytes": 12337,
+      "baselineSha256": "4bbf31dbab9e30438b76b17fd08f0fa365faae3ee5c76a47298d2c04695194f0",
+      "groups": [
+        "metadata",
+        "runtime"
+      ],
+      "stagedBytes": 13313,
+      "stagedSha256": "bd21d8a1715c12eb081ce0ec0f6a4fbdff5157f2b7d48eb3fa9f5d7ee6937869",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-p14c3-promise-digest-continuity.test.ts",
+      "baselineBytes": 6500,
+      "baselineSha256": "05f5dba7c4fbec68502535e675f14aedc96d424d02ef617ffd1c5d54bbd1b144",
+      "groups": [
+        "runtime"
+      ],
+      "stagedBytes": 9801,
+      "stagedSha256": "382f2eda1c07cc478c55457739207f303790c2289a91597a88be65d11cb7b331",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-process-restart.test.ts",
+      "baselineBytes": 43186,
+      "baselineSha256": "afc358ea3b51dd86fa9f6fa4e57dd5c6ca39ad54091891b4c35e212fa029f6f0",
+      "groups": [
+        "runtime"
+      ],
+      "stagedBytes": 43186,
+      "stagedSha256": "c77e2cd32cd04262e54bcd97e538b9bd42a6a4c48104f0ca7c2f5e2a0c6c444c",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-r3n4-read-model-deltas.test.ts",
+      "baselineBytes": 17677,
+      "baselineSha256": "840da3cb44785e26242a9de0d5675b8a351ea6ff2b0d24cf3e4181104da6e647",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 17677,
+      "stagedSha256": "52589665f715361fb9fe759e7a09dd231081196b26d179294bb0d2bd85755e64",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-runtime-checkpoint.test.ts",
+      "baselineBytes": 48629,
+      "baselineSha256": "407c10f5e922800ae342e7409687e0756c4bd03a8b2bfa6bd88726b1f6955703",
+      "groups": [
+        "runtime"
+      ],
+      "stagedBytes": 48789,
+      "stagedSha256": "09dd5144d0635f216d535ef66ee4e542d38bbd43d830ece94787692f0795e057",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge-schema.test.ts",
+      "baselineBytes": 40989,
+      "baselineSha256": "a3ab6ad90f8e8a71a5e56e9f8e4df8bcd2df09a92e5e400d6577a477b3bb836f",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 40989,
+      "stagedSha256": "a9cd1f9fc90b36cb69e5bfa37884ffba5ca993bc303f0e2dd587833ffac433aa",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/bridge.test.ts",
+      "baselineBytes": 51296,
+      "baselineSha256": "205e50b5d5d0cfcaed601a71fc852a48fa6abfc22b36f4a0ca5074f3535725df",
+      "groups": [
+        "metadata"
+      ],
+      "stagedBytes": 51296,
+      "stagedSha256": "4f58a47ff15b57aa8ccec48600a74e092b3678d9937e902c763bcf47834f40c5",
+      "declarationsByteIdentical": true
+    },
+    {
+      "path": "tests/cash-ledger-checkpoint-v11.test.ts",
+      "baselineBytes": 22595,
+      "baselineSha256": "b49f475104c20c577cf649a6277d0baf81d1b7e608fc51cfa62fa0d12138af85",
+      "groups": [
+        "cash"
+      ],
+      "stagedBytes": 21272,
+      "stagedSha256": "0924214a8e95a03b5536440ed494b0d95789a40c8ad451f5900a3453060f6dfa",
+      "declarationsByteIdentical": true
+    }
+  ],
+  "baselineCommit": "8599ee2a2254bde7c2e6be61e712cdc4dc686eea",
+  "scope": [
+    "1086 cash historical-control correction",
+    "1079/1048 exact current metadata selection",
+    "1079/1049 seven current-runtime files",
+    "1051 process-restart current pins"
+  ],
+  "fileCount": 37,
+  "patch": {
+    "path": "maintenance.patch",
+    "bytes": 73024,
+    "sha256": "c1ee31f0059ca11b6c94b7bb72469683ee4193782e1f3f78bc9e840cd061f00b"
+  },
+  "preserved": [
+    "all leaf/suite declarations and timeout arguments",
+    "all historical fixture bytes and frozen source/producer/schema pins",
+    "all existing negative causes except explicit current canonical V37->V38 wording",
+    "B5 actual receipt digest and remaining-scope causes"
+  ],
+  "verificationGroups": [
+    {
+      "record": "1086/1052",
+      "command": [
+        "node_modules/.bin/vitest",
+        "run",
+        "--project",
+        "core",
+        "tests/cash-ledger-checkpoint-v11.test.ts",
+        "--testNamePattern",
+        "prevents every frozen builder from laundering an invalid checkpoint"
+      ]
+    },
+    {
+      "record": "1048",
+      "command": [
+        "node",
+        "--input-type=module",
+        "-e",
+        "\nimport assert from 'node:assert/strict'\nimport { createHash } from 'node:crypto'\nimport { readFileSync } from 'node:fs'\nimport { spawnSync } from 'node:child_process'\nconst path = 'docs/engineering/playability-launch-review/evidence/p14b4-20260919/914-c2rm-legacy-selection.json'\nconst raw = readFileSync(path)\nconst sha = value => createHash('sha256').update(value).digest('hex')\nassert.equal(sha(raw), 'aa0a45521227f87ae0251fa0c859504956a46a3bdaa0a5088cbd79e80bfc6bd5')\nconst original = JSON.parse(raw.toString('utf8'))\nconst excluded = ['tests/bridge-p14c2b-extension.test.ts', 'tests/bridge-p14b8-waiver-surface.test.ts']\nconst files = original.files.filter(path => !excluded.includes(path))\nassert.equal(files.length, 30)\nconst extra = [\n  'F11 preserves command member-only directorId and nullable base use',\n  'F12 emits six concrete Production-state fixture members without promoting conflicts',\n  'pins exact positive output identities and deterministic rerendering',\n  'keeps checked-in JSON and generated C# byte-derived from the canonical schema',\n]\nconst escape = value => value.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')\nconst pattern = original.testNamePattern + '|' + extra.map(name => '(?:^| )' + escape(name) + '$').join('|')\nconst args = ['run', '--project', 'core', ...files, '--testNamePattern', pattern]\nconsole.log(JSON.stringify({ files, testNamePattern: pattern, excluded, reuse: 'B8 whole-file unchanged observation1046; C2b W10 previously qualified', command: ['node_modules/.bin/vitest', ...args] }))\nconst child = spawnSync('node_modules/.bin/vitest', args, { stdio: 'inherit' })\nassert.equal(sha(readFileSync(path)), sha(raw), 'selector manifest changed')\nif (child.error) throw child.error\nif (child.signal) throw new Error('Vitest terminated by ' + child.signal)\nprocess.exitCode = child.status ?? 1\n"
+      ]
+    },
+    {
+      "record": "1049",
+      "command": [
+        "node_modules/.bin/vitest",
+        "run",
+        "--project",
+        "core",
+        "tests/bridge-p14c3-promise-digest-continuity.test.ts",
+        "tests/bridge-p14c2rm-runtime.test.ts",
+        "tests/bridge-p14c2s-scientist-runtime.test.ts",
+        "tests/bridge-p06-checkpoint-recovery.test.ts",
+        "tests/bridge-owner-ux-projection20-migration.test.ts",
+        "tests/bridge-p14b2-checkpoint.test.ts",
+        "tests/bridge-runtime-checkpoint.test.ts"
+      ]
+    },
+    {
+      "record": "1051",
+      "command": [
+        "node_modules/.bin/vitest",
+        "run",
+        "--project",
+        "core",
+        "tests/bridge-process-restart.test.ts"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "sourceSha": "aa9acec52f4e6a393358cedd2f72689f0476938e",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vite-node",
+    "--script",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1094-c3-b5-receipt-attribution.ts",
+    "--source-sha",
+    "aa9acec52f4e6a393358cedd2f72689f0476938e"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T03:35:01.766Z",
+  "end": "2026-09-27T03:35:12.331Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "aa9acec52f4e6a393358cedd2f72689f0476938e",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

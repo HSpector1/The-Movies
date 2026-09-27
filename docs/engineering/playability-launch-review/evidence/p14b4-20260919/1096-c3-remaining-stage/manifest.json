@@ -1,0 +1,1982 @@
+{
+  "status": "PREPARED_NOT_APPLIED_NOT_EXECUTED",
+  "observedHead": "aa9acec52f4e6a393358cedd2f72689f0476938e",
+  "files": [
+    {
+      "path": "tests/bridge-p13b-s8-rivals.test.ts",
+      "baseSource": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1093-c3-maintenance-stage/staged/tests/bridge-p13b-s8-rivals.test.ts",
+      "baselineBytes": 35212,
+      "baselineSha256": "20de90105b751be099d1a39472cb7e688bd364ac99ff4cb9d0c3288bb3eb1db1",
+      "liveSha256": "d031fabb9bd90575b00f47e4d986622f1c79847d462608202b22c7471cf87961",
+      "stagedBytes": 35212,
+      "stagedSha256": "d61dcab5ddf606568d008c145789fb7897621e0692b5ebcb952fa2928e72a94e",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "2ecfa57b2ad3dd4b1d48a4960946d0746728ae1aa774c3abea949af3d3b4b53f",
+      "baseKind": "FIRST_1093_STAGED_CANDIDATE"
+    },
+    {
+      "path": "tests/bridge-p14a1-market.test.ts",
+      "baseSource": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1093-c3-maintenance-stage/staged/tests/bridge-p14a1-market.test.ts",
+      "baselineBytes": 37520,
+      "baselineSha256": "f3116e487d23190ff00c00b04563f4581cf5fadd64470008a75fb667181e7b09",
+      "liveSha256": "90b3ebff9f982e25d703b3c3115f2f221b87d2f796bf2e93c60bc628d91d208f",
+      "stagedBytes": 37520,
+      "stagedSha256": "e3dbc76b1924e39dd17658650d1829d0b40652811a6d13530d4fbc687c30f34c",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "4b7fca4e65ee223b79ce1f9736bfe050dbaf9e4c1eba8017123a13528ba82911",
+      "baseKind": "FIRST_1093_STAGED_CANDIDATE"
+    },
+    {
+      "path": "tests/bridge-p14a2-market.test.ts",
+      "baseSource": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1093-c3-maintenance-stage/staged/tests/bridge-p14a2-market.test.ts",
+      "baselineBytes": 56043,
+      "baselineSha256": "daa6f243c4fbddc890f65f2c6b32a05db420c45e6622d0c375ab5a673a100a1c",
+      "liveSha256": "503d90db5132f282a990e233f895862098534f13183ee167dde86a2fcdb01c1f",
+      "stagedBytes": 56043,
+      "stagedSha256": "792bb1c98b71d20941d2e5415294e945a09911039ef859b557bbfe5fea64a8d1",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "80e568132d176536579081a56b8dfb38d38636c30f48351ff228d5ba50700a42",
+      "baseKind": "FIRST_1093_STAGED_CANDIDATE"
+    },
+    {
+      "path": "tests/bridge-p14a3-world.test.ts",
+      "baseSource": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1093-c3-maintenance-stage/staged/tests/bridge-p14a3-world.test.ts",
+      "baselineBytes": 41214,
+      "baselineSha256": "0fb24efbd40bb449c7d732399fa6667c7703e284ce60add1e4284d0fc59d3f41",
+      "liveSha256": "2a26289db57a9b342f83e7df0148e065f668a8e7c530ea236a5e4d843e9ab4d7",
+      "stagedBytes": 41214,
+      "stagedSha256": "48308bf92e23cd5457660986d3f53ba4201394f4cba5d854aa3f2ede7b3ad471",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "f47a704300c52874ba7f85d42627e99b248d85811cfd013f1a9df8d43a0343b7",
+      "baseKind": "FIRST_1093_STAGED_CANDIDATE"
+    },
+    {
+      "path": "tests/bridge-p14b1-promises.test.ts",
+      "baseSource": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1093-c3-maintenance-stage/staged/tests/bridge-p14b1-promises.test.ts",
+      "baselineBytes": 37996,
+      "baselineSha256": "ea8e2dbaeaa41aac147fbe5ed7f07fe21796af0730126a4b441f337d522d4bc5",
+      "liveSha256": "f7331db79a365d94355fd566cc678abcdda85f314e2beaf5cc52481ce21476df",
+      "stagedBytes": 37996,
+      "stagedSha256": "21b42f2ced4cab2c1fcb55ddc1db04ea3c3272c0d3c918c08746e7ab219f340d",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "5e007bf596bec6d31a9cb0e4595388f997ba72736157747a10504fbfdb78bf99",
+      "baseKind": "FIRST_1093_STAGED_CANDIDATE"
+    },
+    {
+      "path": "tests/bridge-p14b3-promise-command.test.ts",
+      "baseSource": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1093-c3-maintenance-stage/staged/tests/bridge-p14b3-promise-command.test.ts",
+      "baselineBytes": 34910,
+      "baselineSha256": "c86605cceba45f715cef016377645489832a02f745edb0abc5ebeae440cd997c",
+      "liveSha256": "bdeb48428fd8b4fb50c5e430c81d3f960ed4747bc1e421ae1fc3fea2a3ed0fe8",
+      "stagedBytes": 34910,
+      "stagedSha256": "c86605cceba45f715cef016377645489832a02f745edb0abc5ebeae440cd997c",
+      "changed": false,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "a1a1eff4fe3970daa25f6833224ba2c7ef658957cc5910ae258136ec9a3ef55c",
+      "baseKind": "FIRST_1093_STAGED_CANDIDATE"
+    },
+    {
+      "path": "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+      "baseSource": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1093-c3-maintenance-stage/staged/tests/bridge-p14b4-runtime47-compatibility.test.ts",
+      "baselineBytes": 17406,
+      "baselineSha256": "421defa87e202163b04c7d61d03d97e2ae6e8c910ec1c70868af79d354c7975e",
+      "liveSha256": "8e53b5c2b52aacd6975a5d395683700e70b6277a778f428f35921fc9c7cc76c6",
+      "stagedBytes": 17406,
+      "stagedSha256": "421defa87e202163b04c7d61d03d97e2ae6e8c910ec1c70868af79d354c7975e",
+      "changed": false,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "48f5e6e52c788030e45404b5cd0e813ad121343245eb85c74a79fe6b9208473a",
+      "baseKind": "FIRST_1093_STAGED_CANDIDATE"
+    },
+    {
+      "path": "tests/bridge-p14b5-relationships.test.ts",
+      "baseSource": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1093-c3-maintenance-stage/staged/tests/bridge-p14b5-relationships.test.ts",
+      "baselineBytes": 46460,
+      "baselineSha256": "abdeda6675f0e905e0580a48671a9582671bc9076ebfd89b7f00dcb490939e00",
+      "liveSha256": "1f459d4f362bbd080d83147ffda0af94f93ffe2fb04030c9c45ce442de62a397",
+      "stagedBytes": 46462,
+      "stagedSha256": "305b954085d047b452079a0f4aebbe69938f982d508a2e33be0dc02d732390dd",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "65b5f33bd954b1270c29ca7c4fbacf9b7d8cb7be53ae345fd30e7fe3105952a9",
+      "baseKind": "FIRST_1093_STAGED_CANDIDATE"
+    },
+    {
+      "path": "tests/bridge-p14b6-d2-withheld-employment-claim.test.ts",
+      "baseSource": "tests/bridge-p14b6-d2-withheld-employment-claim.test.ts",
+      "baselineBytes": 12521,
+      "baselineSha256": "b0a7e23864998cbc6b86f2943d43f60802488b6172e58ad8829cb0305d1352c7",
+      "liveSha256": "b0a7e23864998cbc6b86f2943d43f60802488b6172e58ad8829cb0305d1352c7",
+      "stagedBytes": 12521,
+      "stagedSha256": "748c938be3a0cdd7a57c1fa2d5bbf1de753d544335a731cec4887ef158d83bb4",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "ba1e85a1f5297271a51211661b4b4df26c6d845ebf038d74a0edb5f7253757e8",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/bridge-p14b6-e714-false-empty-absence-lines.test.ts",
+      "baseSource": "tests/bridge-p14b6-e714-false-empty-absence-lines.test.ts",
+      "baselineBytes": 22013,
+      "baselineSha256": "fcdaf4da4d7d46d08b4452c6fc513b020ce9b480d9b195078ebddf9de7afd084",
+      "liveSha256": "fcdaf4da4d7d46d08b4452c6fc513b020ce9b480d9b195078ebddf9de7afd084",
+      "stagedBytes": 22013,
+      "stagedSha256": "e25f2fe14155a44fc8a06ae82b26dcf39e6d7f2ffa50d5d33abd5f195ab2e5a9",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "c43d7d92b2997dea97e02fe13afa1bad9522fc6dbea5f5c74f50313b35d5f59b",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/bridge-p14b6-relationship-read-models.test.ts",
+      "baseSource": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1093-c3-maintenance-stage/staged/tests/bridge-p14b6-relationship-read-models.test.ts",
+      "baselineBytes": 61647,
+      "baselineSha256": "70e8ccc3a4fbe7ae4aaf3c872974df0ce23bb36ede358adb6b38b38722c66529",
+      "liveSha256": "4d3a45915d01307337c895003c84e335264b1c9783c85073280333f8aa32d45d",
+      "stagedBytes": 61647,
+      "stagedSha256": "58e79a72b5a3364ade7b4b71583141674e4d7c57f0250fcfe098d565c6161de1",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "ec380decf6aa253c3dac981cf6ad76605f27f34fbcc0662cc4587077c84427ca",
+      "baseKind": "FIRST_1093_STAGED_CANDIDATE"
+    },
+    {
+      "path": "tests/c2a-m3-rename-and-pooling.test.ts",
+      "baseSource": "tests/c2a-m3-rename-and-pooling.test.ts",
+      "baselineBytes": 14808,
+      "baselineSha256": "13161bb68b80b3446ec8c391f6def49a53bfdb61f778fdc16e22008b50af36d4",
+      "liveSha256": "13161bb68b80b3446ec8c391f6def49a53bfdb61f778fdc16e22008b50af36d4",
+      "stagedBytes": 14808,
+      "stagedSha256": "b3a128bbd223ad4aaab88e8407add35e077715a8e464d1beabada670338e580c",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "d802f618e0290b4b76fef594be3d25e585396a5ef7e4009b1546549e3404d1f6",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/c2a-m3-screenplay-mint.test.ts",
+      "baseSource": "tests/c2a-m3-screenplay-mint.test.ts",
+      "baselineBytes": 14992,
+      "baselineSha256": "e0e52596d668c3a6128c402405e796404ea8c8aca319695ebe971e573fe8176a",
+      "liveSha256": "e0e52596d668c3a6128c402405e796404ea8c8aca319695ebe971e573fe8176a",
+      "stagedBytes": 14992,
+      "stagedSha256": "6df8def2362901a77ecd18a905c1547cb0a1f51f69074160d6241a18f4795973",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "27055119536cbdf975ebe79a3957b5c3eef46813020d2b86a4a2f509aca38f32",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/construction-core.test.ts",
+      "baseSource": "tests/construction-core.test.ts",
+      "baselineBytes": 30316,
+      "baselineSha256": "8b35bc45670b404fdbc3f3fffcaf0a7bf9addde9c1d67a1e0e65a9cefed71ab7",
+      "liveSha256": "8b35bc45670b404fdbc3f3fffcaf0a7bf9addde9c1d67a1e0e65a9cefed71ab7",
+      "stagedBytes": 30316,
+      "stagedSha256": "ee072d90cd0b237b3d67bb9233cf3a4e86d79548275d35d25052a1cb9ccc6e9c",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "87483b013e0ca563207822edd3b4e45d6188b51f37fc3449169a223abf24d632",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/construction-save-v11.test.ts",
+      "baseSource": "tests/construction-save-v11.test.ts",
+      "baselineBytes": 19024,
+      "baselineSha256": "b4776405df9488ee269bffd521e2149e11b6581fa84f347cf72e2491f3c86077",
+      "liveSha256": "b4776405df9488ee269bffd521e2149e11b6581fa84f347cf72e2491f3c86077",
+      "stagedBytes": 19084,
+      "stagedSha256": "ff0e2da598f8d4d6b6af722f2762415f80b454809a2b8530812862789fd0a191",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "894ceac7b17504c13b11237b52fbc48048ecb603444ca01ebc25f415b5ee93be",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/contracts/_v14Contract.ts",
+      "baseSource": "tests/contracts/_v14Contract.ts",
+      "baselineBytes": 40340,
+      "baselineSha256": "ba273c008287f36cfc46e125ecd2e6ba35ca1b0fb020213a4e525ad91aa454bc",
+      "liveSha256": "ba273c008287f36cfc46e125ecd2e6ba35ca1b0fb020213a4e525ad91aa454bc",
+      "stagedBytes": 41365,
+      "stagedSha256": "03ac47888aad117bd7db790ae930fda96f1cec9854939029704c32fa7daa080e",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "5226b399daefd9311e9dce0a797ea83db5481259d1e3b0ea2d921488c1a841db",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/contracts/cross-owner-refusal.contract.test.ts",
+      "baseSource": "tests/contracts/cross-owner-refusal.contract.test.ts",
+      "baselineBytes": 7952,
+      "baselineSha256": "0c2e93eef77c678a2b0b6eaffa65610f884a04f3ef786cd8f19998ca830f6a53",
+      "liveSha256": "0c2e93eef77c678a2b0b6eaffa65610f884a04f3ef786cd8f19998ca830f6a53",
+      "stagedBytes": 7952,
+      "stagedSha256": "af948965eaf4937bab3dbdf27522ac7347ac6d230b68685b7ce19e0c519e0c82",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "4d34c74f47c33b981819e1252fb3f3995b7b6add45e5ebf89697f44b44d589b5",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/contracts/phase-table-agreement.contract.test.ts",
+      "baseSource": "tests/contracts/phase-table-agreement.contract.test.ts",
+      "baselineBytes": 11575,
+      "baselineSha256": "311c4700bb678ae4b8aac81fc77c1ccfdbb6b153bbcc7748e71d98d2afe29a61",
+      "liveSha256": "311c4700bb678ae4b8aac81fc77c1ccfdbb6b153bbcc7748e71d98d2afe29a61",
+      "stagedBytes": 11575,
+      "stagedSha256": "1b26562cae0e00be0bc8383229b39694d5a6573bae97fa958571ab0737e5d63f",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "c32c36a4aae086ca854b90a4043b57bb440683f0ac3d037eb4b5272ca6340a30",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/contracts/studio-events.contract.test.ts",
+      "baseSource": "tests/contracts/studio-events.contract.test.ts",
+      "baselineBytes": 18350,
+      "baselineSha256": "c6b8c415348c7e6d8ac012808bd5dd20c6b50254a5981c06e9d9c8ab13979aff",
+      "liveSha256": "c6b8c415348c7e6d8ac012808bd5dd20c6b50254a5981c06e9d9c8ab13979aff",
+      "stagedBytes": 18350,
+      "stagedSha256": "ee3ced279a9488290bcd8c9844bf446922a5e783d5ebb58db260ab0f26dabaf4",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "3acdb358407e7258a550387a67ca22831bcfacc5aeb099cf03ca720d70a1ca24",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/contracts/v14-boundary-guards.contract.test.ts",
+      "baseSource": "tests/contracts/v14-boundary-guards.contract.test.ts",
+      "baselineBytes": 21410,
+      "baselineSha256": "5ecdcc8a42632116a80f9d70538aebc8daae084e1e54b9a909fe2365161ef606",
+      "liveSha256": "5ecdcc8a42632116a80f9d70538aebc8daae084e1e54b9a909fe2365161ef606",
+      "stagedBytes": 21357,
+      "stagedSha256": "20cbf0a602f9833742466eaaaaa9013f73fc305f4d8e1f2f1a4de8aaf29a8f23",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "959344639374e5f18a066f7dbc747ef54e958be9631fa76c9a5e4ff9249eb349",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/contracts/v14-byte-parity.contract.test.ts",
+      "baseSource": "tests/contracts/v14-byte-parity.contract.test.ts",
+      "baselineBytes": 8772,
+      "baselineSha256": "6fc2984e9dda7416f0925779da7135b0d171a27cfa68a22d6c9dacf6b0d07673",
+      "liveSha256": "6fc2984e9dda7416f0925779da7135b0d171a27cfa68a22d6c9dacf6b0d07673",
+      "stagedBytes": 8772,
+      "stagedSha256": "4a7aea1519d4ce829c4fbc9b78329e02ad6e60616d9c33e9a752b1209f685148",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "c9516ddcc521eeabe65fc24f7dae348717a3b5d01dfd9740a51a66a63ad44e26",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/d11-employment.test.ts",
+      "baseSource": "tests/d11-employment.test.ts",
+      "baselineBytes": 30574,
+      "baselineSha256": "544c609558b2f70cd8006d34101a44ce664e1d8b50e94cd117ee5a3c10f4a345",
+      "liveSha256": "544c609558b2f70cd8006d34101a44ce664e1d8b50e94cd117ee5a3c10f4a345",
+      "stagedBytes": 30183,
+      "stagedSha256": "cb4c13f5228b489420f6b46c6632b470be5b04d262cf1376e83aa4ad50276477",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "28625e84cd7bc2e4b3de83528889a4f2800d4ae406b28c93e5de99d5ff26781c",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/d17-engagement-persistence.test.ts",
+      "baseSource": "tests/d17-engagement-persistence.test.ts",
+      "baselineBytes": 26704,
+      "baselineSha256": "083e3d985c7863a050b7697e1b6f4e148e54ae68a78b8d7b6043c6154a1ce827",
+      "liveSha256": "083e3d985c7863a050b7697e1b6f4e148e54ae68a78b8d7b6043c6154a1ce827",
+      "stagedBytes": 26985,
+      "stagedSha256": "7c216d5b19d942d2ab23d7864aafcaab9cbeab3676df213c2a6f02bcb76e32f0",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "bc7a3d5492f7edef00092d7a8a6f9d131d2b6cdff0bbb759ead9b4a586179ceb",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/d17a-adv-migration.test.ts",
+      "baseSource": "tests/d17a-adv-migration.test.ts",
+      "baselineBytes": 11686,
+      "baselineSha256": "a1708a44e646afb3c35bd452e0b9ff7d1d20fea783f839d203e48591090d4c22",
+      "liveSha256": "a1708a44e646afb3c35bd452e0b9ff7d1d20fea783f839d203e48591090d4c22",
+      "stagedBytes": 11686,
+      "stagedSha256": "76a1c3089ade0d23f341065d3072e08d43f716e64fc8e148ecb09b783e1951d2",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "5be569860ab49d5d6306f076d151d5edde9e9637e4e6c5c90643047524d9e7e2",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/d17a-adv-reconciliation.test.ts",
+      "baseSource": "tests/d17a-adv-reconciliation.test.ts",
+      "baselineBytes": 15958,
+      "baselineSha256": "7e914ed4a9d2190aee69cb2765d3db2f1e4102025cefbdf04cef978b5ef56136",
+      "liveSha256": "7e914ed4a9d2190aee69cb2765d3db2f1e4102025cefbdf04cef978b5ef56136",
+      "stagedBytes": 15958,
+      "stagedSha256": "3a8435c39b24eb3e5177836b9f3d7dc0d7cc11e8b35f7d25987f579dacb70daf",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "b717eb3fbe03f2acb6b499c7ce3173baa5a1f15512527fe40d6dc1365d6b0d70",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/d17b-save-v7.test.ts",
+      "baseSource": "tests/d17b-save-v7.test.ts",
+      "baselineBytes": 15527,
+      "baselineSha256": "6cc55362c824c7be371b03416bec1431d11e299f964f2d8cdcb313c96d41affa",
+      "liveSha256": "6cc55362c824c7be371b03416bec1431d11e299f964f2d8cdcb313c96d41affa",
+      "stagedBytes": 15527,
+      "stagedSha256": "7e585921a9e1a340bba32420dd0f6078c9e0e9cdd15e8d517d5eda98e8e54d24",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "0b4e0af37e6ae970325bfa1cb3a1af035ef373f4b2c18b1057ab06be28cfa12f",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/facility-move-demolish.test.ts",
+      "baseSource": "tests/facility-move-demolish.test.ts",
+      "baselineBytes": 40645,
+      "baselineSha256": "6b34570db9b9148e278cfa2ae8a38715788f23f04d58565ea1a2e5d6300d5ef0",
+      "liveSha256": "6b34570db9b9148e278cfa2ae8a38715788f23f04d58565ea1a2e5d6300d5ef0",
+      "stagedBytes": 40645,
+      "stagedSha256": "6f8d75948462f38e4220e4b7d4b03c0b948b7914bf6d05f8030a7e112c5d9cf1",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "d4671b9d477ab9e519f44f37bade7a414442d30dc15085a6e31362c8e3a226fd",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/film-chronicle.test.ts",
+      "baseSource": "tests/film-chronicle.test.ts",
+      "baselineBytes": 33266,
+      "baselineSha256": "42dca1b838fc7e85320ccd46c82ce02ec16e4179cac1ee2c6e8e23964bac0c07",
+      "liveSha256": "42dca1b838fc7e85320ccd46c82ce02ec16e4179cac1ee2c6e8e23964bac0c07",
+      "stagedBytes": 33266,
+      "stagedSha256": "98b5ffed9ec029f614852bfbd252329ab3f709acd5f869d41220f89f982516c6",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "95a564b2c17076717a6c88a9524c2f8626dd6f0c54b60426c93a379e44edcb4c",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/legacy-parcel-ground.test.ts",
+      "baseSource": "tests/legacy-parcel-ground.test.ts",
+      "baselineBytes": 19704,
+      "baselineSha256": "b7bee33ab0109a0bd55269f6f21d87a74f75886ddb6f8a488e8de59d55852501",
+      "liveSha256": "b7bee33ab0109a0bd55269f6f21d87a74f75886ddb6f8a488e8de59d55852501",
+      "stagedBytes": 19704,
+      "stagedSha256": "ced8d9fa5aa115f289264dfdc6fe7ce90d23f0f183b291456adc377535c507d3",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "6fc937d6615a7fc02af5ae214c871dd070d015471c08755b9a00104ccee62e68",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p04a2-writer-credit-law.test.ts",
+      "baseSource": "tests/p04a2-writer-credit-law.test.ts",
+      "baselineBytes": 42390,
+      "baselineSha256": "53e53aef7ff1647cd0c0d75db1049f81ff02f02f6a81a93d1bd9280341e16c18",
+      "liveSha256": "53e53aef7ff1647cd0c0d75db1049f81ff02f02f6a81a93d1bd9280341e16c18",
+      "stagedBytes": 42390,
+      "stagedSha256": "e91ff8d58f873a23f0169ff192037b935d31ab82726bad445310f838280477b2",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "eb35a3f8cafa483027883c74c6cd4f60b16624d85fa6e1725660e1225d2e7135",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p06a-w1-release-authority.test.ts",
+      "baseSource": "tests/p06a-w1-release-authority.test.ts",
+      "baselineBytes": 20411,
+      "baselineSha256": "b8fc0e746917221dc90458b6e2a1de1f02bd47e591e3214f56b3d461c910d4a1",
+      "liveSha256": "b8fc0e746917221dc90458b6e2a1de1f02bd47e591e3214f56b3d461c910d4a1",
+      "stagedBytes": 20576,
+      "stagedSha256": "08c4605e081b2328e2189c50e7734ef8a7f773ad44ba4f1fa4b1cacbc8873362",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "5c41461e4cf3428211b43407780a723750ebd2c51fa123450120ffba11e8cfd6",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p08a-w0-studio-history.test.ts",
+      "baseSource": "tests/p08a-w0-studio-history.test.ts",
+      "baselineBytes": 24503,
+      "baselineSha256": "6fff80a0452199db11103a679aed0820a5757f5f92bad38d61a4eaeaab29689f",
+      "liveSha256": "6fff80a0452199db11103a679aed0820a5757f5f92bad38d61a4eaeaab29689f",
+      "stagedBytes": 24503,
+      "stagedSha256": "44e64d5958abd07364ee3a21d9843bc3ebbf1735e4ce4882699d171c14af1150",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "99e734fae3b117c3084f6e878d20da3978c3a1ce8cd0dc5f79ecca7849e16a12",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p09a-w0-founding-regime.test.ts",
+      "baseSource": "tests/p09a-w0-founding-regime.test.ts",
+      "baselineBytes": 29658,
+      "baselineSha256": "31f3e57f79cdf3925748219c41c981ea75054400c3e570dad7f5c69f1853fd6e",
+      "liveSha256": "31f3e57f79cdf3925748219c41c981ea75054400c3e570dad7f5c69f1853fd6e",
+      "stagedBytes": 29658,
+      "stagedSha256": "5eb56fc84d6f3763b83cc7ad8951187380e65c9061ac537113c6c52c0352adf2",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "b31b2e9a361b98a3fe10be6a1902b89c3652044f39289cdef3dc9fad4d12c1a7",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p13a-causal-core.test.ts",
+      "baseSource": "tests/p13a-causal-core.test.ts",
+      "baselineBytes": 6466,
+      "baselineSha256": "0e87e2513f117b39b86264e436552b7a4a049e79f3fd8b5ad6a25e8145020c78",
+      "liveSha256": "0e87e2513f117b39b86264e436552b7a4a049e79f3fd8b5ad6a25e8145020c78",
+      "stagedBytes": 6466,
+      "stagedSha256": "ca7582f2e99a4310850c610a3cc179ded49660c833bf0a5745bd38421ea2fa3a",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "ded7642efd6a40776020b42edf5a7a2979edf7ae365d95aa12a34261f3f29aa8",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p13a-technology-milestones.test.ts",
+      "baseSource": "tests/p13a-technology-milestones.test.ts",
+      "baselineBytes": 5022,
+      "baselineSha256": "66978da6f12cead011dbe7a9c4dcf2bba6a93af269628a22c698da65c6a93634",
+      "liveSha256": "66978da6f12cead011dbe7a9c4dcf2bba6a93af269628a22c698da65c6a93634",
+      "stagedBytes": 5022,
+      "stagedSha256": "eb44510f64088b0ac19901a10760b1039671931bfe2afb5e14e900cd4dc197bc",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "0185c53e00ac5262b0e47a7934e89812a99f63f9740380a25092f5b979846454",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p13b-r07-save-v25.test.ts",
+      "baseSource": "tests/p13b-r07-save-v25.test.ts",
+      "baselineBytes": 20006,
+      "baselineSha256": "65abd8383a32c13f2fa5eb909f7bd1c91a39a5465f8bc430c055f2f73a475812",
+      "liveSha256": "65abd8383a32c13f2fa5eb909f7bd1c91a39a5465f8bc430c055f2f73a475812",
+      "stagedBytes": 20006,
+      "stagedSha256": "9c7c05df2f0beb0bbdbb69e92c6789e5f059d15348d8992a5bf4e0863d927be9",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "17fb5fc60fd8e256742a37af5d980f1fc831a6ea13a45aee244f0defa3989d97",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p13b-s2-access-identity.test.ts",
+      "baseSource": "tests/p13b-s2-access-identity.test.ts",
+      "baselineBytes": 23554,
+      "baselineSha256": "ba6f0217cb782208a4fdbfcd95e9af82c0bb0ebb1d2d82c4a77dab9e2bcfdf4e",
+      "liveSha256": "ba6f0217cb782208a4fdbfcd95e9af82c0bb0ebb1d2d82c4a77dab9e2bcfdf4e",
+      "stagedBytes": 23554,
+      "stagedSha256": "a3fd4659a57756df7c3ed5d7cb7d991f48090bb2e0f46457400b0f39aea1f741",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "6acce20508bae0f1cb80f105bd1f64dd810e75fb4b4882d93db9413920513180",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p13b-s2-save-v22.test.ts",
+      "baseSource": "tests/p13b-s2-save-v22.test.ts",
+      "baselineBytes": 13998,
+      "baselineSha256": "139d0b821fc1b2230702014e2ae7245f6b410c379a0839f22ff8dd0f576d0efc",
+      "liveSha256": "139d0b821fc1b2230702014e2ae7245f6b410c379a0839f22ff8dd0f576d0efc",
+      "stagedBytes": 13998,
+      "stagedSha256": "ee91965dfee31125d0e5cde296f8c4909394619af2e4dcec06b97ffb8f329cdb",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "2cc505502d3708165b6cdd1a6938bb26f83f6174e0d2af726f66cb8956858bb8",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p13b-s3-save-v23.test.ts",
+      "baseSource": "tests/p13b-s3-save-v23.test.ts",
+      "baselineBytes": 7832,
+      "baselineSha256": "79e55ebadd181e04ef29d8820e1937cf909b74b32911c0afb2dabe1f42ab8082",
+      "liveSha256": "79e55ebadd181e04ef29d8820e1937cf909b74b32911c0afb2dabe1f42ab8082",
+      "stagedBytes": 8069,
+      "stagedSha256": "f2bfd8a18b5382804bf7d71f715e3248fcb14a7ab05a38729074e7a880474334",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "ec35ffbcb37bbd087ebb1ed1cdc44c3b26f5c9d558d0bf2c98e363e0eaea0320",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p13b-s3-validation.test.ts",
+      "baseSource": "tests/p13b-s3-validation.test.ts",
+      "baselineBytes": 13622,
+      "baselineSha256": "2e3d64e868fe5aec5d7bb2d9528715bf917a4f6d177116f76654a50380064f39",
+      "liveSha256": "2e3d64e868fe5aec5d7bb2d9528715bf917a4f6d177116f76654a50380064f39",
+      "stagedBytes": 13622,
+      "stagedSha256": "e00683e8403632f4687c9e30084fe0afba9854432bd2506629007b126d25767e",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "28b9c5439100c6022a60c977f4a8351b0de0f4b5e8f9135c8412dc086839f37a",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p13b-s5-save-v24.test.ts",
+      "baseSource": "tests/p13b-s5-save-v24.test.ts",
+      "baselineBytes": 16042,
+      "baselineSha256": "0d328655a5913a1ed4de0af3dcc0c35d090a42b9a3864fcf0b553855e6956bc5",
+      "liveSha256": "0d328655a5913a1ed4de0af3dcc0c35d090a42b9a3864fcf0b553855e6956bc5",
+      "stagedBytes": 16042,
+      "stagedSha256": "6af392dd374dd202208067a29d5b2134ce8e68b44e2d6ecd1237772b3cd15e96",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "60ad205f541b55b6220aa542dbe6aba4631f44d2c51e409f48f450a424486b49",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p13b-s6-save-v26.test.ts",
+      "baseSource": "tests/p13b-s6-save-v26.test.ts",
+      "baselineBytes": 24039,
+      "baselineSha256": "e8578b03896429c9056b49b6990d53dacde9818f4126edcc26702d7f1ee554f5",
+      "liveSha256": "e8578b03896429c9056b49b6990d53dacde9818f4126edcc26702d7f1ee554f5",
+      "stagedBytes": 24039,
+      "stagedSha256": "46e9d7048a148b062bb4f95e09358c6c1aaf3c628a5074b9cb81e33d38e168a3",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "3ab02d6af61e0f400db18c879935b50eaf4ae61164827bbf8b52072afaf8fbfd",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p13b-s7-announcements.test.ts",
+      "baseSource": "tests/p13b-s7-announcements.test.ts",
+      "baselineBytes": 8216,
+      "baselineSha256": "85cd2e00c89de13d1616d4ff937a071278a8892f9c0c71f7f0b27fdd126c2d2d",
+      "liveSha256": "85cd2e00c89de13d1616d4ff937a071278a8892f9c0c71f7f0b27fdd126c2d2d",
+      "stagedBytes": 8216,
+      "stagedSha256": "da81b487276a039843495b3077302ba05385e690e800b0b49bc287eb665b962b",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "07daeb6ac2205eca1580464680e302e6917ff9aa8b9f9341d4ded5148eeaffd7",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p13b-s8-save-v27.test.ts",
+      "baseSource": "tests/p13b-s8-save-v27.test.ts",
+      "baselineBytes": 14877,
+      "baselineSha256": "f950a807de507b3c3bfbf1974366044b70d790cc4d331fecf9e3ce982d7f55f6",
+      "liveSha256": "f950a807de507b3c3bfbf1974366044b70d790cc4d331fecf9e3ce982d7f55f6",
+      "stagedBytes": 14877,
+      "stagedSha256": "acf21e24e037e05070f461e17b702f37f31d92806e2bcc465f79e1b69a506f26",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "389d74213a844beb4d65aadf1b72dcb74b17ac75db0de85979d67c0be39bffef",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p14a1-save-v28.test.ts",
+      "baseSource": "tests/p14a1-save-v28.test.ts",
+      "baselineBytes": 21551,
+      "baselineSha256": "4ee3815ec1dfb962ea1e1472739d624f5d4f2e2e02ebe72517f568a58bfb9499",
+      "liveSha256": "4ee3815ec1dfb962ea1e1472739d624f5d4f2e2e02ebe72517f568a58bfb9499",
+      "stagedBytes": 21551,
+      "stagedSha256": "55d11f4c2f6599c4de2d91a1bc81ea6b3126fe9c443a858e2567829278e6954a",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "ef9bfa38eb5eba28fa3b43842edab86ef8f2e724fec21c96cefebcf469908f98",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p14b1-promises.test.ts",
+      "baseSource": "tests/p14b1-promises.test.ts",
+      "baselineBytes": 51015,
+      "baselineSha256": "78003f8e986cfb6b1bb769f9b3e383124d8afdf2a77e73110158cfa420790cb7",
+      "liveSha256": "78003f8e986cfb6b1bb769f9b3e383124d8afdf2a77e73110158cfa420790cb7",
+      "stagedBytes": 51015,
+      "stagedSha256": "568a1711fb38782b65d7e39c409bec096e6b3051598d4e80b464d0b8897f0895",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "0c7d617be6f3e0a35baf2a019cb8890c08572043a0fa70387128e25fe6524b05",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p14b1-save-v29.test.ts",
+      "baseSource": "tests/p14b1-save-v29.test.ts",
+      "baselineBytes": 11807,
+      "baselineSha256": "fa039b7ce4bc432226732038e63d5ea28e67da0f9089caee12ce6b72fb3f0cf2",
+      "liveSha256": "fa039b7ce4bc432226732038e63d5ea28e67da0f9089caee12ce6b72fb3f0cf2",
+      "stagedBytes": 11807,
+      "stagedSha256": "f19e90e0121500375d1ad8b043daf2b245d895c55f6ead83c226a567ecbf5a82",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "833ead37f9d5a3461e5ce42e35d73bdfae9630dc03ffbe69e4c63185d6e0afdf",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p14b2-setup-wrap-regressions.test.ts",
+      "baseSource": "tests/p14b2-setup-wrap-regressions.test.ts",
+      "baselineBytes": 6790,
+      "baselineSha256": "14f0bd1696c7c869b892090600fb25c807a9501de81c6b03a8512a4f5dda8e4c",
+      "liveSha256": "14f0bd1696c7c869b892090600fb25c807a9501de81c6b03a8512a4f5dda8e4c",
+      "stagedBytes": 6790,
+      "stagedSha256": "b8c8ee8095b33a36b63ed2780b692b6c4acc65413f6f8eefb4960aac06273b02",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "a7ad46d789135352bfb66bd9b971972ab6b46fd797fa2bf93fae716528981afd",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p14b3-rule-revision.test.ts",
+      "baseSource": "tests/p14b3-rule-revision.test.ts",
+      "baselineBytes": 16989,
+      "baselineSha256": "e3755985a8ac971f4afac2722c52c3f663a6a93136c87b359e637687778604ab",
+      "liveSha256": "e3755985a8ac971f4afac2722c52c3f663a6a93136c87b359e637687778604ab",
+      "stagedBytes": 17589,
+      "stagedSha256": "14b308a2fbb6588ebc0db09fea38efd985036bfc34be56ed77a5d1fd699e7bb7",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "9576655391833671df8e43038602d1463535b5f87fc342c7ff24f239806dfb94",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p14b4-cancel-causal-proof.test.ts",
+      "baseSource": "tests/p14b4-cancel-causal-proof.test.ts",
+      "baselineBytes": 53697,
+      "baselineSha256": "ba5ca9975e51c0553b0c5b87d0e0bc65437bef8213a5854cb4f25b9ee6291d8c",
+      "liveSha256": "ba5ca9975e51c0553b0c5b87d0e0bc65437bef8213a5854cb4f25b9ee6291d8c",
+      "stagedBytes": 53697,
+      "stagedSha256": "1cb805aab03b2f0b81bf7eb3dc17ee3bd312cea6935261a22b2577f7211af8e5",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "ae1e12d89f114ff8e2b79a364be581d116723d0168cf2dbd1de31f82a2584640",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p14b4-cast-class-outcomes.test.ts",
+      "baseSource": "tests/p14b4-cast-class-outcomes.test.ts",
+      "baselineBytes": 32559,
+      "baselineSha256": "3eac56249fd2c05eced95d10e7b3cb752631a6b0308deddceb1c02accbc730b1",
+      "liveSha256": "3eac56249fd2c05eced95d10e7b3cb752631a6b0308deddceb1c02accbc730b1",
+      "stagedBytes": 32559,
+      "stagedSha256": "35bf57bca02334e7e7481e421260390f7135946b1ee28cb6a8ea14370605625d",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "31fd99437894f094e3cd87c99e07c6e872be12eafa1d0d89a99cc08a57581d23",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p14b4-rival-seating-preference.test.ts",
+      "baseSource": "tests/p14b4-rival-seating-preference.test.ts",
+      "baselineBytes": 73890,
+      "baselineSha256": "febe2ea06da766b4fdabd7786aa1c3bd1cfdcd2a34a69d5f73357c4c480afeac",
+      "liveSha256": "febe2ea06da766b4fdabd7786aa1c3bd1cfdcd2a34a69d5f73357c4c480afeac",
+      "stagedBytes": 73890,
+      "stagedSha256": "4cefab0d090dd9c9251233b42231617e679cccf338885a281cdce09f8b8f57a1",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "9e2e341f394169e73da5b7c4d9130a5ca75a5ad946583de07dc2798cfd53a6fc",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p14b4-save-v30-compatibility.test.ts",
+      "baseSource": "tests/p14b4-save-v30-compatibility.test.ts",
+      "baselineBytes": 24417,
+      "baselineSha256": "2e695447c78210edec8bea83f752c2b952d97583e36b6605ffdff099084038f4",
+      "liveSha256": "2e695447c78210edec8bea83f752c2b952d97583e36b6605ffdff099084038f4",
+      "stagedBytes": 24990,
+      "stagedSha256": "a4bf17af5e8da91355ab45520a31c0a235db08dc939aa9ff247f1f7181da76a7",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "5b462c2b699a6ebb281c10e377799319323dd6ebb6f11910d360d74c2b7b4e8d",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p14b5-relationships.test.ts",
+      "baseSource": "tests/p14b5-relationships.test.ts",
+      "baselineBytes": 86331,
+      "baselineSha256": "838bafee0ab4272b7ebf13c8ae9c554444e93a192d8143d8611211ba9f1d5feb",
+      "liveSha256": "838bafee0ab4272b7ebf13c8ae9c554444e93a192d8143d8611211ba9f1d5feb",
+      "stagedBytes": 86331,
+      "stagedSha256": "4897366d2c9679b02f1b1756ecbb33601d520c111a818a46385714e7b141d9cd",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "acb1d722211e05a4a7f0ad5ff236decfecff5fa509e60bb36284c525b5917f84",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p14b5-t-failure-tuning.test.ts",
+      "baseSource": "tests/p14b5-t-failure-tuning.test.ts",
+      "baselineBytes": 33042,
+      "baselineSha256": "0caee8008bd4d330856125725dd4116639a12294f411f86b28e2054c8289e2ed",
+      "liveSha256": "0caee8008bd4d330856125725dd4116639a12294f411f86b28e2054c8289e2ed",
+      "stagedBytes": 33042,
+      "stagedSha256": "32490f7cb9ce4c96a4ceae3bfa2472dfbf16f175135de2c6752c3d6bf962fa28",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "68ea778613e0f567bdeae590d25219394d9b05f4162ada42ecef2c8ff980c60d",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p14b7-promise-waiver.test.ts",
+      "baseSource": "tests/p14b7-promise-waiver.test.ts",
+      "baselineBytes": 65911,
+      "baselineSha256": "99bbaa8d6482e1e37cd57d27a7b58ff4695c52aad04c6ee6189117a0b8d21863",
+      "liveSha256": "99bbaa8d6482e1e37cd57d27a7b58ff4695c52aad04c6ee6189117a0b8d21863",
+      "stagedBytes": 65911,
+      "stagedSha256": "953b4b97efaa13a1d4a11968fb62ca412db312696ea7e5e2d73b35bcaa4df429",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "781815bf974a2803cb096a757f57144593b393602ccbf9499b858678a4ed37c8",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p14b8-waiver-surface-oracle.test.ts",
+      "baseSource": "tests/p14b8-waiver-surface-oracle.test.ts",
+      "baselineBytes": 22648,
+      "baselineSha256": "3974ca832309d5ddaf327e422a1869c1583c376e19d153387bfa070e1f49b66a",
+      "liveSha256": "3974ca832309d5ddaf327e422a1869c1583c376e19d153387bfa070e1f49b66a",
+      "stagedBytes": 22648,
+      "stagedSha256": "18048fdac0c2026036181381a4dc44dd7b2726798c9fc841dbae69fa29da408e",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "96a20b2d83e0b2a981891df593b55264f0f41a863a45359275bec6679bd46084",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p14bf2-acting-discipline.test.ts",
+      "baseSource": "tests/p14bf2-acting-discipline.test.ts",
+      "baselineBytes": 26798,
+      "baselineSha256": "e7f60a7fb08bea3663ee88a4b47a00030595fa3b12da154a7b2f374ddfdd54ee",
+      "liveSha256": "e7f60a7fb08bea3663ee88a4b47a00030595fa3b12da154a7b2f374ddfdd54ee",
+      "stagedBytes": 27398,
+      "stagedSha256": "29bb6eedbe760c3f155e5c2836142f1438a4b8d1279da5670b7ed82c5cb69670",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "03aa713e0da7bed6f3f70b92359e7a06c44b42538389c6511f7805715df30c4f",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/p14c2s-scientist-retirement.test.ts",
+      "baseSource": "tests/p14c2s-scientist-retirement.test.ts",
+      "baselineBytes": 21449,
+      "baselineSha256": "81f93454abd132df1b356c1605bac8c21d0c4d3a9ba5801550ce9e39620f7178",
+      "liveSha256": "81f93454abd132df1b356c1605bac8c21d0c4d3a9ba5801550ce9e39620f7178",
+      "stagedBytes": 22282,
+      "stagedSha256": "6b556a1ed615fd983fd176b9c543bfc8f50c396280527a1b4f6f0fa3da0273a5",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "ef6881fa40e7805c553ffb1a42e8cd8332387d044a9fe49ece115b0628a85c86",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/placement-save-v12.test.ts",
+      "baseSource": "tests/placement-save-v12.test.ts",
+      "baselineBytes": 26372,
+      "baselineSha256": "f23d4f5aa1144974f18c2f7f8315cf4ffc7fa0787cfe6881b011b5d415db13bd",
+      "liveSha256": "f23d4f5aa1144974f18c2f7f8315cf4ffc7fa0787cfe6881b011b5d415db13bd",
+      "stagedBytes": 26541,
+      "stagedSha256": "8f7b014243183bc1b473da3e54ff08a27a9a82e7e0fa7c79961cff777ebf43c4",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "6ede16999e13bc893d5ff282c31e0d1e4de8d1150311043ec47fb13b01d3f7e2",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/property-state-v13.test.ts",
+      "baseSource": "tests/property-state-v13.test.ts",
+      "baselineBytes": 42083,
+      "baselineSha256": "519f8c3aa55f587c65f1685e504a090c4bf8850e9a51b4fb8149d36e2381527b",
+      "liveSha256": "519f8c3aa55f587c65f1685e504a090c4bf8850e9a51b4fb8149d36e2381527b",
+      "stagedBytes": 42083,
+      "stagedSha256": "48b740e25eac42f4f893cfbc015c9dd694dca4e5ae18761be4fe05f01e6fe003",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "d9d476eb6ed9043d63ea66eda310a97841d56973b197fe8a314ecf2611f452dd",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    },
+    {
+      "path": "tests/script-projects-save-v9.test.ts",
+      "baseSource": "tests/script-projects-save-v9.test.ts",
+      "baselineBytes": 21892,
+      "baselineSha256": "d991de6b3a74a1d8eadb1143a13b0ab436758499c74788c0e4c9914c33d2bd92",
+      "liveSha256": "d991de6b3a74a1d8eadb1143a13b0ab436758499c74788c0e4c9914c33d2bd92",
+      "stagedBytes": 21892,
+      "stagedSha256": "db958b87a1b5f097626b813c76063286caf798ca24c2e8d12cd9b363b294d127",
+      "changed": true,
+      "declarationsAndTimeoutLinesByteIdentical": true,
+      "protectedLinesSha256": "9aa1777d176b1b55a0bf1de7cc040cf74ea0c327ebf8015a8337e34ae16edb62",
+      "baseKind": "UNCHANGED_LIVE_BYTES"
+    }
+  ],
+  "freezeObservedHead": "aa9acec52f4e6a393358cedd2f72689f0476938e",
+  "changedPathCount": 60,
+  "copiedPathCount": 62,
+  "baseKindCounts": {
+    "FIRST_1093_STAGED_CANDIDATE": 9,
+    "UNCHANGED_LIVE_BYTES": 53
+  },
+  "patch": {
+    "path": "maintenance.patch",
+    "bytes": 99034,
+    "sha256": "91307a13f624a797c1bfff4909bc73fd74f5928edc5b9fc668a754b5099cb17e"
+  },
+  "firstStage": {
+    "patchSha256": "c1ee31f0059ca11b6c94b7bb72469683ee4193782e1f3f78bc9e840cd061f00b",
+    "manifestSha256": "68a42bbae2a04d92f8778621e5e37efc7e891cf1ea62f5a738108c22497a57ea"
+  },
+  "attributionSource": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1088-A-c3-remaining-boundaries-attribution.json",
+    "sha256": "1685a8f3205a5ad4f661392120c40792e71b33c951068817df1d1114d0f2e8ba"
+  },
+  "authorizedNewFirstFailureIds": [
+    {
+      "id": "core :: tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it",
+      "diagnosticSha256": "61ee4648369d2a29d4900459926083021d2e5b42b9152a60c881d331a13ec396"
+    },
+    {
+      "id": "core :: tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: false for a genuine current live-version save, round-tripped through save()/load() on the SAME session (regression guard \u2014 matches tests/bridge-p13b-r07-setup.test.ts's own now-fixed case)",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a live-version save round-trips through the bridge byte-identically (week 288, real S8 facts: all five receipt kinds, nonzero researchCapacity/researchSpend)",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/bridge-p14a1-market.test.ts > group 1: PROJECTION_VERSION > PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it",
+      "diagnosticSha256": "61ee4648369d2a29d4900459926083021d2e5b42b9152a60c881d331a13ec396"
+    },
+    {
+      "id": "core :: tests/bridge-p14a1-market.test.ts > group 7: save/load > a V28 save round-trips through the bridge save/load path, carrying legacyTerminations, at projection 46",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/bridge-p14a2-market.test.ts > group 1: PROJECTION_VERSION 46 / schema / view market / converted law > PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it",
+      "diagnosticSha256": "61ee4648369d2a29d4900459926083021d2e5b42b9152a60c881d331a13ec396"
+    },
+    {
+      "id": "core :: tests/bridge-p14a2-market.test.ts > group 1: PROJECTION_VERSION 46 / schema / view market / converted law > LIVE_SAVE_VERSION is 35 (stale title corrected post-C.4) under projection 46 \u2014 no persisted fact of A.2\u2019s own, the converted law is unchanged",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/bridge-p14a2-market.test.ts > group 9: save/load > LIVE_SAVE_VERSION === 28; a genuine V27 fixture converts to an EMPTY workspace (no attention, no cases, no selected)",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/bridge-p14a2-market.test.ts > group 9: save/load > the three genuine V28 T0 fixtures load byte-stable and the market page reads them as T0 pins",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/bridge-p14a2-market.test.ts > group 9: save/load > a V28 save round-trips through the bridge save/load path, and the market page reads identically on both sides",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/bridge-p14a3-world.test.ts > group 1: PROJECTION_VERSION 46 / schema / converted law > PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it",
+      "diagnosticSha256": "61ee4648369d2a29d4900459926083021d2e5b42b9152a60c881d331a13ec396"
+    },
+    {
+      "id": "core :: tests/bridge-p14a3-world.test.ts > group 1: PROJECTION_VERSION 46 / schema / converted law > LIVE_SAVE_VERSION is 35 (stale title corrected post-C.4) under projection 46 \u2014 no persisted fact of A.3\u2019s own, the converted law is unchanged",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/bridge-p14a3-world.test.ts > group 7: save/load \u2014 V28 unchanged, the world route converts and round-trips > a genuine V27 fixture converts with statusLine null for every person (no case exists anywhere in a converted state)",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/bridge-p14a3-world.test.ts > group 7: save/load \u2014 V28 unchanged, the world route converts and round-trips > the three genuine V28 T0 fixtures read byte-stable and the world route reads identically across the bridge save/load path",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/bridge-p14a3-world.test.ts > group 7: save/load \u2014 V28 unchanged, the world route converts and round-trips > a fresh V28 state round-trips through the bridge save/load path and the world route reads identically on both sides",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/bridge-p14b1-promises.test.ts > group 1: PROJECTION_VERSION / LIVE_SAVE_VERSION > LIVE_SAVE_VERSION is 35 (stale title corrected post-C.4) and the live promise surface carries projection 47 after the P14B.4 cutover (record 600 / 616)",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/bridge-p14b1-promises.test.ts > group 6: save/load > a genuine V28 fixture (open-case-45) converts to V29 with empty firstTakes/promises, and the bridge reads it with no promise fact anywhere",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/bridge-p14b1-promises.test.ts > group 6: save/load > a live V30 state carrying a real promise round-trips through the bridge save/load path byte-stable, and the promise-row read is identical on both sides",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/bridge-p14b3-promise-command.test.ts > P14B.3: quote and atomic command attachment > commits exactly one real attachment at the live ordinal, one revision, no immediate cash movement",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b3-promise-command.test.ts > P14B.3: quote and atomic command attachment > pure repeated quotes retain exact state/RNG/receipt/cash/slot bytes and one opaque identity",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b3-promise-command.test.ts > P14B.3: quote and atomic command attachment > each material promise field participates in the opaque intent identity, including refused variants",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b3-promise-command.test.ts > P14B.3: quote and atomic command attachment > conversion retains canonical values, including nested promise, after the caller changes its object",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b3-promise-command.test.ts > P14B.3: quote and atomic command attachment > the session pending quote retains values rather than its caller-owned mutable draft",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b3-promise-command.test.ts > P14B.3: quote and atomic command attachment > base proposals without a promise still commit without appending any promise",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b3-promise-command.test.ts > P14B.3: whole-quote refusal and current-state atomicity > 'FRAGILE existing one-path capacity': accepted noncommittable answer retains nested verdict; no registered intent or partial commit",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b3-promise-command.test.ts > P14B.3: whole-quote refusal and current-state atomicity > 'IMPOSSIBLE count': accepted noncommittable answer retains nested verdict; no registered intent or partial commit",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b3-promise-command.test.ts > P14B.3: whole-quote refusal and current-state atomicity > 'lower contract-window edge': accepted noncommittable answer retains nested verdict; no registered intent or partial commit",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b3-promise-command.test.ts > P14B.3: whole-quote refusal and current-state atomicity > 'upper contract-window edge': accepted noncommittable answer retains nested verdict; no registered intent or partial commit",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b3-promise-command.test.ts > P14B.3: whole-quote refusal and current-state atomicity > direct apply rechecks CURRENT competing reservations, even if its prior quote was offerable",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b3-promise-command.test.ts > P14B.3: whole-quote refusal and current-state atomicity > malformed wire input and a forged issuer are rejected before any historical fact exists",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b3-promise-command.test.ts > P14B.3: revise, remove, withdraw retain abandoned evidence without phantom seats > replacement feasibility uses the real cleared intermediate proposal; removal/withdrawal mint no false outcome",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b3-promise-command.test.ts > P14B.3: session/revision/intent identity and isolation > wrong-session/stale envelopes, same-command replay and superseded intents never duplicate attachment",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b3-promise-command.test.ts > P14B.3: session/revision/intent identity and isolation > the oldest of exactly 16 distinct offerable quotes remains committable in a fresh session",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b3-promise-command.test.ts > P14B.3: session/revision/intent identity and isolation > the 17th distinct quote expires the oldest pending quote, while the newest still attaches once",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b3-promise-command.test.ts > P14B.3: session/revision/intent identity and isolation > same-seed/same-person sessions do not share quote authority, mutable drafts or committed state",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b3-promise-command.test.ts > P14B.3: session/revision/intent identity and isolation > load and process restart discard pending quote authorization without inventing promises",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b3-promise-command.test.ts > P14B.3: real settlement/outcome, V29 and B2 public/private carriers > quote\u2192commit\u2192real winning expiry binds; due-week BROKEN survives validated reload and exact public receipt join",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b4-runtime47-compatibility.test.ts > P14B4 genuine outgoing46 runtime compatibility \u2014 future Save30/projection47 > requires literal projection52/Save37 (875) and exact 40 prior IDs, excluding the running identity",
+      "diagnosticSha256": "61ee4648369d2a29d4900459926083021d2e5b42b9152a60c881d331a13ec396"
+    },
+    {
+      "id": "core :: tests/bridge-p14b5-relationships.test.ts > P14B.5 frozen side \u2014 the OUTGOING wire identities (R-VERSION class, re-expressed by 700-T2 after P14B.8 landed projection 50 / Save V32 unchanged) > live projection52/Save37 and literal current hash retain all40 independent prior identities (875)",
+      "diagnosticSha256": "61ee4648369d2a29d4900459926083021d2e5b42b9152a60c881d331a13ec396"
+    },
+    {
+      "id": "core :: tests/bridge-p14b5-relationships.test.ts > family 11 \u2014 projection 48 THIN (RED by value): the enum, the registry, the seven-member order, the D5 sentence on the wire > the running identity moves off the outgoing 47 and 47 is registered as projection-v47 beside the 35 accepted priors and the outgoing 48 (37)",
+      "diagnosticSha256": "f3dbbefd4164767b5afef5401b9f171978834a2b345520f28ee35400d5fd9983"
+    },
+    {
+      "id": "core :: tests/bridge-p14b5-relationships.test.ts > family 11 \u2014 projection 48 THIN (RED by value): the enum, the registry, the seven-member order, the D5 sentence on the wire > preferences.priorityOrder publishes SEVEN members on a genuine open case with the `line` unchanged, and the value parses against the widened enum",
+      "diagnosticSha256": "5ab6551d24fa90d901ae05a7f28d9224460deed5aa24a11214aa048914fc3a7f"
+    },
+    {
+      "id": "core :: tests/bridge-p14b6-d2-withheld-employment-claim.test.ts > 704-T D2 \u2014 the withheld line must not assert an employment fact it cannot know > CASE A (RED): hollywood===null, a real edge, and a LIVE state.contracts row for the counterpart \u2014 must not say \"you do not employ\", must equal the honest degraded copy",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b6-d2-withheld-employment-claim.test.ts > 704-T D2 \u2014 the withheld line must not assert an employment fact it cannot know > CASE B (CONTROL, must stay GREEN before and after the fix): hollywood present, employment empty for the VIEWER (rival rows may exist), subject holds an edge \u2014 the TRUE \"you do not employ\" claim must survive",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b6-e714-false-empty-absence-lines.test.ts > 714-T \u2014 \"no recorded relationship\" must not be published as \"never worked together\" > Case 4 (RED, must FAIL today): the sibling site castingChemistryRows \u2014 a shared-picture no-edge pair reads the corrected line, not the existing one",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b6-e714-false-empty-absence-lines.test.ts > 714-T \u2014 \"no recorded relationship\" must not be published as \"never worked together\" > Case 4 (CONTROL, must stay GREEN before AND after the fix): a neither pair in the SAME seating keeps the existing sentence",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b6-e714-false-empty-absence-lines.test.ts > 714-T \u2014 \"no recorded relationship\" must not be published as \"never worked together\" > the disclosure check (record 710): a subject whose ONLY shared work belongs to ANOTHER studio does not earn Case 2's sentence",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b6-relationship-read-models.test.ts > family 0 \u2014 PREMISES of the engine-built worlds (GREEN control; measured 2026-09-22 at HEAD 43817117) > S1/S2/S3 staged roots are VALIDATOR-ADMITTED, and Strained really is sign \u22121 under the live constants",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b6-relationship-read-models.test.ts > family 3 \u2014 DRIVERS TEXT and the 694-C Q2 FORWARD CONSTRAINT (RED BY RESOLUTION) > S1 STAGED: one edge holding BOTH a -4 and a -5 sharedFailure renders text IDENTICAL to an edge holding only the -5",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b6-relationship-read-models.test.ts > family 4 \u2014 CASTING CHEMISTRY ROWS (RED BY RESOLUTION) > the six seatPairs, in seat order, on a real greenlight draft \u2014 a pair with no edge reads as no-shared-work, never as a neutral score",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b6-relationship-read-models.test.ts > family 5 \u2014 the CASTING WARNING, Owner ruling 3 (iii) (RED BY RESOLUTION; the \u22121 edge is S2 STAGED) > exactly one sentence when a seated pair reads \u22121, none otherwise, and the quote bytes are otherwise identical",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b6-relationship-read-models.test.ts > family 6 \u2014 FACTUAL SHARED-CREDIT COUNTS, Owner ruling 3 (ii) (RED BY RESOLUTION) > S3 the Q3 resumed-campaign shape: a world holding player credits with an EMPTY V31 root shows COUNTS and NO tiers",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/bridge-p14b6-relationship-read-models.test.ts > family 8 \u2014 the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here) > projection 52, schema $id projection-52, LIVE_SAVE_VERSION now 37 (Scientist live boundary; B.6 itself has no save step), and the outgoing 48 identity is retired",
+      "diagnosticSha256": "61ee4648369d2a29d4900459926083021d2e5b42b9152a60c881d331a13ec396"
+    },
+    {
+      "id": "core :: tests/bridge-p14b6-relationship-read-models.test.ts > family 8 \u2014 the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here) > the outgoing 00c0075b\u2026 stays registered as projection-v48 and the prior roster contains40 identities through projection51",
+      "diagnosticSha256": "f3dbbefd4164767b5afef5401b9f171978834a2b345520f28ee35400d5fd9983"
+    },
+    {
+      "id": "core :: tests/bridge-p14b6-relationship-read-models.test.ts > family 8 \u2014 the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here) > the checked-in generator artifacts equal the running identity (`--check` clean), and priorityOrder keeps its seven members and its line",
+      "diagnosticSha256": "61ee4648369d2a29d4900459926083021d2e5b42b9152a60c881d331a13ec396"
+    },
+    {
+      "id": "core :: tests/c2a-m3-rename-and-pooling.test.ts > C2a-M3 \u2014 renaming a screenplay > trims, and can be done more than once",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/c2a-m3-rename-and-pooling.test.ts > C2a-M3 \u2014 the bounded writer pool (00E.9) > refuses the sixth writer \u2014 the corpus cap is five",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/c2a-m3-screenplay-mint.test.ts > C2a-M3 \u2014 a writer goes to work and hands the studio a new movie > saves and re-validates a minted world at the V16 boundary",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/construction-core.test.ts > Development & Casting Annex V1 core lifecycle > does not reallocate completing-advance productions into the Annex, then exposes it immediately",
+      "diagnosticSha256": "069c9914a0ccfe5c1c805f83fddb3fab5f1ffe71b4e3242c2907bb39620a1d19"
+    },
+    {
+      "id": "core :: tests/construction-core.test.ts > Development & Casting Annex V1 core lifecycle > uses the authoritative greenlight debit to reject skip-first start-clock laundering",
+      "diagnosticSha256": "172747d11ea954a39422a3d25c0bb589057a3a2fbe40bc020272d50f135d7f41"
+    },
+    {
+      "id": "core :: tests/construction-core.test.ts > Development & Casting Annex V1 core lifecycle > allows a production started after completion to claim the Annex under normal allocation",
+      "diagnosticSha256": "986030ec2b53e016c725d33c6542aaf0f1b415f14864ffa6d3bf1cc6a0a8cb25"
+    },
+    {
+      "id": "core :: tests/construction-save-v11.test.ts > Development & Casting Annex V1 \u2014 SaveFileV11 > writes V12 by default and round-trips legacy, vacant, building, and completed lifecycle states",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/construction-save-v11.test.ts > Development & Casting Annex V1 \u2014 SaveFileV11 > strictly rejects malformed parcel, project, ledger, cash, and facility truth",
+      "diagnosticSha256": "b05065393b747dba2bcdced29c7e0014af5596ad84c6c1feab09b7bf74acd0df"
+    },
+    {
+      "id": "core :: tests/construction-save-v11.test.ts > Development & Casting Annex V1 \u2014 SaveFileV11 > rejects every canonical Annex ID in persisted production history while building",
+      "diagnosticSha256": "b05065393b747dba2bcdced29c7e0014af5596ad84c6c1feab09b7bf74acd0df"
+    },
+    {
+      "id": "core :: tests/construction-save-v11.test.ts > Development & Casting Annex V1 \u2014 SaveFileV11 > rejects every canonical Annex ID in persisted production history while completed",
+      "diagnosticSha256": "b05065393b747dba2bcdced29c7e0014af5596ad84c6c1feab09b7bf74acd0df"
+    },
+    {
+      "id": "core :: tests/construction-save-v11.test.ts > Development & Casting Annex V1 \u2014 SaveFileV11 > validates original current input and rejects unknown future versions",
+      "diagnosticSha256": "8f089e6640c0e82dd69f75b7e88726c4c27fcf2caaa7494bdd0d7aed44f9c099"
+    },
+    {
+      "id": "core :: tests/d11-employment.test.ts > D-11 \u2014 determinism & live saves > new games save at the live version and round-trip byte-identically",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/d11-employment.test.ts > D-11 \u2014 determinism & live saves > V2 \u2192 V3 import is deterministic, idempotent, and non-destructive",
+      "diagnosticSha256": "74c5a74740a94d558c566d1b53e742cc6dc7a866d6734fac72b330ddde6c58dd"
+    },
+    {
+      "id": "core :: tests/d17-engagement-persistence.test.ts > D-17A/R2: convertV5ToV6 reconstructs the fact correctly for every save class > mid-founding (founding open, no contracts, empty ledger) \u2192 true",
+      "diagnosticSha256": "51d67e94052d8e4d30b810bbefc56361e637ddf6c80e7b9190b9578078cbafea"
+    },
+    {
+      "id": "core :: tests/d17-engagement-persistence.test.ts > D-17A/R2: convertV5ToV6 reconstructs the fact correctly for every save class > a D-12 theatrical run at economyModelVersion \u2265 1 \u2192 true",
+      "diagnosticSha256": "7d429ece6a074215fa796ee43df8bfd11428747eedfd08461f529ebfc21bdcdf"
+    },
+    {
+      "id": "core :: tests/d17-engagement-persistence.test.ts > D-17A/R2: a V6 save without an explicit engagement fact is rejected LOUDLY > new games save as V16 and carry the fact",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/d17a-adv-migration.test.ts > D-17A/D \u2014 validateSave still guards the version boundary loudly > rejects unknown V38 loudly (stale title corrected post-C.2b; the boundary moves on every save bump)",
+      "diagnosticSha256": "d8a17c232478714c23fa7e96fb69fffe98811f7b34b1e96f8a5a93b0ebca146d"
+    },
+    {
+      "id": "core :: tests/d17a-adv-reconciliation.test.ts > D-17A/B \u2014 odd dollars: whole-dollar determinism and a governed tie-break > is identical across two independent calls and across a save \u2192 validate \u2192 migrate \u2192 load trip",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/d17b-save-v7.test.ts > D-17B/E4 \u2014 the frozen V7 envelope remains valid and isolated > V7 through V36 are known, so the unknown-version boundary is now 37 (stale numbers corrected post-C.2b; the boundary moves on every save bump)",
+      "diagnosticSha256": "d8a17c232478714c23fa7e96fb69fffe98811f7b34b1e96f8a5a93b0ebca146d"
+    },
+    {
+      "id": "core :: tests/facility-move-demolish.test.ts > C1-M3a (F) \u2014 saves, boundaries, and determinism > round-trips a history containing both a move and a demolition",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/film-chronicle.test.ts > Film Chronicle V1 \u2014 SaveFileV11 durability > reconstructs a deep-equal Chronicle after an exact V11 export/import round-trip",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/legacy-parcel-ground.test.ts > C1-M8 (E) \u2014 a save that stands a generic building there fails CLOSED > is refused by the invariant and at the V13 load boundary, by name",
+      "diagnosticSha256": "927a078eac9209800977166283958679dfdf8c2526842cdf4842bc4dc435aef2"
+    },
+    {
+      "id": "core :: tests/legacy-parcel-ground.test.ts > C1-M8 (E) \u2014 a save that stands a generic building there fails CLOSED > accepts the standing legacy Annex on that same ground, so the law is not over-tight",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/legacy-parcel-ground.test.ts > C1-M8 (E) \u2014 a save that stands a generic building there fails CLOSED > refuses a forgery of any other catalog building on that ground",
+      "diagnosticSha256": "2ca2427435925c642bd4380c2793f37841e731690721cfb1f64bc75847dea80d"
+    },
+    {
+      "id": "core :: tests/p04a2-writer-credit-law.test.ts > P04A.2 \u00a719G \u2014 the split needs no save migration and survives reload > keeps saveVersion at 16 and round-trips film credit + live writing assignment together",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p06a-w1-release-authority.test.ts > P06A W1 \u2014 save law > imports a pre-P06 Release Ready save as UNCOMMITTED (holds until committed)",
+      "diagnosticSha256": "193567486b97ea1ffd9be6bf07296a5eb76215454af1d88db9b355ea514b0982"
+    },
+    {
+      "id": "core :: tests/p06a-w1-release-authority.test.ts > P06A W1 \u2014 save law > round-trips a committed live save byte-exactly and refuses downgrades",
+      "diagnosticSha256": "9b5e51066a8c25103a8b31390c5e6b12cbc116ed7c9503e3bd03a80f5b5d85ce"
+    },
+    {
+      "id": "core :: tests/p06a-w1-release-authority.test.ts > P06A W1 \u2014 save law > validateSaveV37 rejects forged authority at the save boundary (stale title said V32 before this sweep too)",
+      "diagnosticSha256": "cf24d77046bca80873c8db390897db2ddd2e041d39cd3ee67619d390fb8ec043"
+    },
+    {
+      "id": "core :: tests/p08a-w0-studio-history.test.ts > P08A H8 \u2014 the save boundary refuses forged history > refuses out-of-order ids, pre-boundary rows, lying deltas, and unknown kinds",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/p09a-w0-founding-regime.test.ts > P09 R1 \u2014 the founding regime is persisted, exact, and immutable > V18 round-trips the regime and refuses a forged or missing one",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p09a-w0-founding-regime.test.ts > P09 R3 \u2014 bare-lot activation mints nothing > carries only the two landmarks and empty authoritative operations roots",
+      "diagnosticSha256": "986030ec2b53e016c725d33c6542aaf0f1b415f14864ffa6d3bf1cc6a0a8cb25"
+    },
+    {
+      "id": "core :: tests/p13a-causal-core.test.ts > P13A causal Core through the real weekly engine > one Scientist completes 64 units in 43 funded weeks, then P09 completes the exact chain at315",
+      "diagnosticSha256": "986030ec2b53e016c725d33c6542aaf0f1b415f14864ffa6d3bf1cc6a0a8cb25"
+    },
+    {
+      "id": "core :: tests/p13a-causal-core.test.ts > P13A causal Core through the real weekly engine > waiting buys no capability; purchase opens416, takes12weeks, and forfeits113weeks of lead",
+      "diagnosticSha256": "986030ec2b53e016c725d33c6542aaf0f1b415f14864ffa6d3bf1cc6a0a8cb25"
+    },
+    {
+      "id": "core :: tests/p13a-technology-milestones.test.ts > P13A dated public technology history > rejects invented dates, unknown facts, wrong significance or subjects, duplicates, and pre-recording history",
+      "diagnosticSha256": "81d6417b6f2e40b6e8fc1ba2e1ec6ded37104ee164ad7c7278ab9c0fccefa5a4"
+    },
+    {
+      "id": "core :: tests/p13b-r07-save-v25.test.ts > P13B-S5-R07 Save V25 (test 5) > an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)",
+      "diagnosticSha256": "8f089e6640c0e82dd69f75b7e88726c4c27fcf2caaa7494bdd0d7aed44f9c099"
+    },
+    {
+      "id": "core :: tests/p13b-s2-access-identity.test.ts > P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 6. save/reload and later ticks: exactly two rows, no duplicates, no erasure; validateSaveV37 accepts (stale title said V32 before this sweep too)",
+      "diagnosticSha256": "986030ec2b53e016c725d33c6542aaf0f1b415f14864ffa6d3bf1cc6a0a8cb25"
+    },
+    {
+      "id": "core :: tests/p13b-s2-save-v22.test.ts > P13B-S2 envelope law at the live writer (test 8) > makeSave always writes the live saveVersion 37 (stale title corrected post-C.4)",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p13b-s2-save-v22.test.ts > P13B-S2 envelope law at the live writer (test 8) > refuses an unknown saveVersion 38 with the updated range (stale number corrected post-C.2b)",
+      "diagnosticSha256": "8f089e6640c0e82dd69f75b7e88726c4c27fcf2caaa7494bdd0d7aed44f9c099"
+    },
+    {
+      "id": "core :: tests/p13b-s3-save-v23.test.ts > P13B-S3 Save V23 (test 7) > migrateToV22 / migrateToV21 / migrateToV20 refuse a live save",
+      "diagnosticSha256": "9b5e51066a8c25103a8b31390c5e6b12cbc116ed7c9503e3bd03a80f5b5d85ce"
+    },
+    {
+      "id": "core :: tests/p13b-s3-save-v23.test.ts > P13B-S3 Save V23 (test 7) > makeSave writes the live saveVersion 37 (stale title corrected post-C.2b)",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p13b-s3-save-v23.test.ts > P13B-S3 Save V23 (test 7) > an unknown saveVersion 38 is refused, naming the handled range (stale number corrected post-C.2b)",
+      "diagnosticSha256": "8f089e6640c0e82dd69f75b7e88726c4c27fcf2caaa7494bdd0d7aed44f9c099"
+    },
+    {
+      "id": "core :: tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > accepts the unmutated hand-authored baseline directly through validateSaveV32",
+      "diagnosticSha256": "986030ec2b53e016c725d33c6542aaf0f1b415f14864ffa6d3bf1cc6a0a8cb25"
+    },
+    {
+      "id": "core :: tests/p13b-s5-save-v24.test.ts > P13B-S5 Save V24 (test 4) > makeSave writes the live saveVersion 37 (stale title corrected post-C.4)",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p13b-s5-save-v24.test.ts > P13B-S5 Save V24 (test 4) > an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (stale numbers corrected post-C.2b)",
+      "diagnosticSha256": "8f089e6640c0e82dd69f75b7e88726c4c27fcf2caaa7494bdd0d7aed44f9c099"
+    },
+    {
+      "id": "core :: tests/p13b-s6-save-v26.test.ts > P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)",
+      "diagnosticSha256": "89e47776631bdf2cfe8e38e3d0e6f771fdc8565b13f4fdaaf6f7700cde32c572"
+    },
+    {
+      "id": "core :: tests/p13b-s6-save-v26.test.ts > P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > VALID: a cancelled adoption with a passed original completesWeek is exempt from the v4 \"operational receipt differs\" clause",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p13b-s7-announcements.test.ts > P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > LIVE_SAVE_VERSION is 35 (stale title corrected post-C.4; P13B-S8 made it 27 at the time) \u2014 S7 itself changes no save",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p13b-s7-announcements.test.ts > P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > the announcement is derived-only: the exported live save carries no announcement record, and round-trips cleanly at the unchanged live version",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p13b-s8-save-v27.test.ts > P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade REFUSED: a NATURAL campaign whose rival genuinely admitted a Laboratory carries a nonzero researchCapacity movement, and save.migrateToV26 refuses it",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p13b-s8-save-v27.test.ts > P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)",
+      "diagnosticSha256": "89e47776631bdf2cfe8e38e3d0e6f771fdc8565b13f4fdaaf6f7700cde32c572"
+    },
+    {
+      "id": "core :: tests/p14a1-save-v28.test.ts > P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (stale numbers corrected post-C.2b)",
+      "diagnosticSha256": "89e47776631bdf2cfe8e38e3d0e6f771fdc8565b13f4fdaaf6f7700cde32c572"
+    },
+    {
+      "id": "core :: tests/p14b1-promises.test.ts > P14B.1 test 3: the feasibility service > Example B shape: an active promise consuming the person's only existing-path seat makes a SECOND, overlapping promise FRAGILE with the 'needs a picture not yet commissioned' bottleneck",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/p14b1-save-v29.test.ts > P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same digests, round trip, downgrade) > LIVE_SAVE_VERSION is 35 (stale title corrected post-C.4; the P14B.5 cutover, record 662, made it 31 at the time \u2014 the V29 lift this slice pins is the intermediate step)",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b1-save-v29.test.ts > P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same digests, round trip, downgrade) > an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (stale numbers corrected post-C.2b)",
+      "diagnosticSha256": "89e47776631bdf2cfe8e38e3d0e6f771fdc8565b13f4fdaaf6f7700cde32c572"
+    },
+    {
+      "id": "core :: tests/p14b2-setup-wrap-regressions.test.ts > P14B.2-F1 completed setup remains historical authority after real wrap > round-trips actual first take \u2192 wrap \u2192 Post with unchanged setup and released stage",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/p14b2-setup-wrap-regressions.test.ts > P14B.2-F1 completed setup remains historical authority after real wrap > does not require compacted windowed setup/phase events when the permanent exact wrap survives",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/p14b3-rule-revision.test.ts > P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history > preserves genuine evaluator1-current-p1 root/receipt/digest bytes through valid load, not a restamped current fixture",
+      "diagnosticSha256": "37e4f7be5202317b357345ed4db9a89ad7a09349a35481affda06f6f162b59e9"
+    },
+    {
+      "id": "core :: tests/p14b3-rule-revision.test.ts > P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history > preserves genuine evaluator1-withdrawn-p1 root/receipt/digest bytes through valid load, not a restamped current fixture",
+      "diagnosticSha256": "37e4f7be5202317b357345ed4db9a89ad7a09349a35481affda06f6f162b59e9"
+    },
+    {
+      "id": "core :: tests/p14b3-rule-revision.test.ts > P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history > preserves genuine evaluator1-role-label-refused-p1 root/receipt/digest bytes through valid load, not a restamped current fixture",
+      "diagnosticSha256": "37e4f7be5202317b357345ed4db9a89ad7a09349a35481affda06f6f162b59e9"
+    },
+    {
+      "id": "core :: tests/p14b3-rule-revision.test.ts > P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history > new actual attachment uses root.version4 and receipt.rulesVersion4 without rewriting old roots",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/p14b3-rule-revision.test.ts > P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history > actual later winning freeze keeps old root.version1 but stores genuine new rulesVersion4 receipt and binding",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/p14b4-cancel-causal-proof.test.ts > 629-T case 1: a joint reservation conflict is not causal proof (plan :249-256; 26 \u00a72 \"a joint reservation conflict ... is not target-specific physical impossibility\") > one person, two bound OPEN count-1 promises, seated LEAD on one greenlit picture, one event still reachable after the cancel: NEITHER is BROKEN at the cancel; the due-week owner decides",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cancel-causal-proof.test.ts > 629-T case 1: a joint reservation conflict is not causal proof (plan :249-256; 26 \u00a72 \"a joint reservation conflict ... is not target-specific physical impossibility\") > \"either lead claimant could still be kept when one film remains\": two beneficiaries each promised ONE lead, both seated on the cancelled picture (lead / antagonist), one film reachable \u2014 neither is BROKEN (plan :251-252)",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cancel-causal-proof.test.ts > 629-T case 2: a bound legacy P2 is never routed through fresh-offer refusal (26 \u00a72 last sentence; plan :257 \"legacy generic-cast compatibility\") > legacy count-only P2 (no kind), person seated SUPPORT (generic cast qualifies any seat), wide window: NOT broken at the cancel",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cancel-causal-proof.test.ts > 629-T case 2: a bound legacy P2 is never routed through fresh-offer refusal (26 \u00a72 last sentence; plan :257 \"legacy generic-cast compatibility\") > legacy count-only P2, person seated SUPPORT, window physically too tight after the cancel (due = week + 2): BROKEN at the cancel \u2014 target-specific physical impossibility applies to legacy roots too",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cancel-causal-proof.test.ts > 629-T case 3: an unsupported legacy family is not causal proof (26 \u00a72 \"unsupported legacy family ... is not target-specific physical impossibility\") > a bound OPEN DIRECTING_COUNT root is a lawful persisted record (validateSaveV32) and is NOT broken by a cancel with a wide window",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cancel-causal-proof.test.ts > 629-T case 4: the cancelled picture must be able to satisfy THIS class (26 \u00a72 \"check whether the cancelled picture could satisfy this class\"; plan :246 \"relevant ... seams\") > tagged 'lead' P2, person seated 'support' on the cancelled picture, due = week + 2: NOT broken at the cancel (no path was removed); the due-week owner breaks it at the due week",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cancel-causal-proof.test.ts > 629-T case 4: the cancelled picture must be able to satisfy THIS class (26 \u00a72 \"check whether the cancelled picture could satisfy this class\"; plan :246 \"relevant ... seams\") > tagged 'leadOrAntagonist' P2, person seated 'support' on the cancelled picture, due = week + 2: NOT broken at the cancel (no path was removed); the due-week owner breaks it at the due week",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cancel-causal-proof.test.ts > 629-T case 4: the cancelled picture must be able to satisfy THIS class (26 \u00a72 \"check whether the cancelled picture could satisfy this class\"; plan :246 \"relevant ... seams\") > tagged leadOrAntagonist P2, person seated ANTAGONIST (in class), due = week + 2: a relevant seam, judged physically -> BROKEN at the cancel",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cancel-causal-proof.test.ts > 629-T case 5: the remaining count uses ACTUAL class-qualified takes (plan :331-334) > count-2 tagged lead P2, ONE real qualifying take on A (progress 1), seated LEAD on pre-first-take B, one more event reachable: NOT broken when B is cancelled",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cancel-causal-proof.test.ts > 629-T case 5: the remaining count uses ACTUAL class-qualified takes (plan :331-334) > stale progress counter (0) while the real take exists: still NOT broken \u2014 the proof reads qualifyingTakes, not progress",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cancel-causal-proof.test.ts > 629-T case 6: target-specific physical impossibility still breaks at the cancel (plan :252-254) > 'tagged lead P2' count-1, person LEAD on the only pre-first-take picture, due = week + 2: BROKEN at the cancel with ONE own receipt, idempotent under a following owner pass and tick",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cancel-causal-proof.test.ts > 629-T case 6: target-specific physical impossibility still breaks at the cancel (plan :252-254) > 'P1 APPEARANCE_COUNT' count-1, person LEAD on the only pre-first-take picture, due = week + 2: BROKEN at the cancel with ONE own receipt, idempotent under a following owner pass and tick",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cancel-causal-proof.test.ts > 629-T case 6: target-specific physical impossibility still breaks at the cancel (plan :252-254) > differential shape: the picture at remainingTicks 5 COULD have served (take expected week + 1 < due = week + 3) and nothing else can after the cancel \u2014 BROKEN at the cancel",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cancel-causal-proof.test.ts > 629-T case 7: immunity and the other owners are unchanged (plan :244, :256-257) > first take THEN cancel never un-satisfies (re-pin of tests/p14b4-cast-class-outcomes :488): the real owner SATISFIES at the take; the cancel changes nothing",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cancel-causal-proof.test.ts > 629-T case 7: immunity and the other owners are unchanged (plan :244, :256-257) > early termination owner unchanged: releaseTalent breaks every open promise to that person immediately on the real route",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cancel-causal-proof.test.ts > 629-T case 8: no-change control > cancelling a picture whose cast holds nobody with a bound OPEN promise leaves state.promises and the receipts byte-identical",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cancel-causal-proof.test.ts > 629-T2 case 5N: the remaining count is CLASS-qualified \u2014 a SUPPORT take never serves a lead mask (plan :324-326, :331-334; R1 \"actual class-qualified distinct first takes\") > count-2 tagged lead P2, the ONE real take on A recorded with the person in SUPPORT, then seated LEAD on pre-first-take B at 30, window [21,38): BROKEN when B is cancelled (remaining 2 > nMax 1)",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cancel-causal-proof.test.ts > 629-T2 separator: the landed bound is the 5-week floor chain t0 + 5k, not the quote's SEAT_CYCLE_WEEKS cadence (record 630 R1; 629-B Q2 D2; plan :341-343, :350-351 \"a valid hard bound\") > count-2 tagged lead P2, person LEAD on the greenlit-this-week picture, window [21,33): the quote estimate refuses (its nMax 1 < 2) yet the cancel leaves the root untouched (hard nMax 2); the due-week owner breaks it at 33",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cancel-causal-proof.test.ts > 629-T2 D1: the window start clamps the TAKE week t0, not the greenlight week (record 630 R1 \"the window start is a floor because a picture can be held at ticks 5\"; 629-B Q2 D1) > count-1 tagged lead, person LEAD on the picture greenlit at 21, window [23,28): untouched at the cancel (t0 = max(23, 26) = 26 < 28 -> nMax 1); the due-week owner breaks it at 28",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cancel-causal-proof.test.ts > 629-T2 D1: the window start clamps the TAKE week t0, not the greenlight week (record 630 R1 \"the window start is a floor because a picture can be held at ticks 5\"; 629-B Q2 D1) > mirror, window [23,26): t0 = max(23, 26) = 26 >= 26 -> nMax 0 -> BROKEN at the cancel with the cancel cause and ONE own receipt",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cancel-causal-proof.test.ts > 629-T2 direct pins on the exported proof (record 630 R1 boundaries; promises.ts :667-673) > bound tagged lead roots, no running picture at week 21 (t0 = 26): the sentence iff remaining > ceil((due - 26) / 5)",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cancel-causal-proof.test.ts > 629-T2 direct pins on the exported proof (record 630 R1 boundaries; promises.ts :667-673) > remaining 0 (count 1 with the real qualifying lead take on A) -> null even with due = week + 1: a met predicate belongs to the weekly owner, not the proof",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 genuine submit/settle/take routes, no synthetic commitments > PLAYER: actual offered lead P2 settles and the real class-compatible take satisfies it",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 genuine submit/settle/take routes, no synthetic commitments > PLAYER: actual offered leadOrAntagonist P2 settles and the real class-compatible take satisfies it",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'lead' seat: qualification=true",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'antagonist' seat: qualification=false",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'support' seat: qualification=false",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'leadOrAntagonist' with actual 'lead' seat: qualification=true",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'leadOrAntagonist' with actual 'antagonist' seat: qualification=true",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'leadOrAntagonist' with actual 'support' seat: qualification=false",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > player support qualifies for P1 and shape-legacy count-only P2, not tagged P2",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > shooting entry/technology lock and an unscheduled tick produce no first take or tagged-P2 outcome",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > player half-open window counts start, excludes before-start and excludes due",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > count2 requires TWO real distinct productions; repeated owner passes/ticks on one picture never add another event",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > two genuinely bound beneficiaries share one completed take but receive DISTINCT own outcome receipts exactly once",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > first take THEN real player cancellation never un-satisfies or rewrites the evidence/outcome",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > CURRENT unaccepted offers never count: seed-b w202, three rivals decide while their own retention offers carry promises with contractId null; re-authored offers make the negative discriminating",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-save-v30-compatibility.test.ts > P14B4 Save30: genuine final V29 corpus, exact old-state preservation > pins LIVE_SAVE_VERSION to literal37 (stale number corrected post-C.2b) independently of the value under test (P14B.7, 735-T)",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b4-save-v30-compatibility.test.ts > P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine empty without rewriting roots, receipts, digests or history and downgrades losslessly",
+      "diagnosticSha256": "ac74d5ac857b9bd6c513e6460b14b1b8c3a93b42a587c6e0751432a8426fdd31"
+    },
+    {
+      "id": "core :: tests/p14b4-save-v30-compatibility.test.ts > P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine current-p1 without rewriting roots, receipts, digests or history and downgrades losslessly",
+      "diagnosticSha256": "ac74d5ac857b9bd6c513e6460b14b1b8c3a93b42a587c6e0751432a8426fdd31"
+    },
+    {
+      "id": "core :: tests/p14b4-save-v30-compatibility.test.ts > P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine replaced-p1 without rewriting roots, receipts, digests or history and downgrades losslessly",
+      "diagnosticSha256": "ac74d5ac857b9bd6c513e6460b14b1b8c3a93b42a587c6e0751432a8426fdd31"
+    },
+    {
+      "id": "core :: tests/p14b4-save-v30-compatibility.test.ts > P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine withdrawn-p1 without rewriting roots, receipts, digests or history and downgrades losslessly",
+      "diagnosticSha256": "ac74d5ac857b9bd6c513e6460b14b1b8c3a93b42a587c6e0751432a8426fdd31"
+    },
+    {
+      "id": "core :: tests/p14b4-save-v30-compatibility.test.ts > P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine bound-open-p1 without rewriting roots, receipts, digests or history and downgrades losslessly",
+      "diagnosticSha256": "ac74d5ac857b9bd6c513e6460b14b1b8c3a93b42a587c6e0751432a8426fdd31"
+    },
+    {
+      "id": "core :: tests/p14b4-save-v30-compatibility.test.ts > P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine kept-and-broken-p1 without rewriting roots, receipts, digests or history and downgrades losslessly",
+      "diagnosticSha256": "ac74d5ac857b9bd6c513e6460b14b1b8c3a93b42a587c6e0751432a8426fdd31"
+    },
+    {
+      "id": "core :: tests/p14b4-save-v30-compatibility.test.ts > P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine rival-current-p1 without rewriting roots, receipts, digests or history and downgrades losslessly",
+      "diagnosticSha256": "ac74d5ac857b9bd6c513e6460b14b1b8c3a93b42a587c6e0751432a8426fdd31"
+    },
+    {
+      "id": "core :: tests/p14b4-save-v30-compatibility.test.ts > P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine rival-shared-take-terminal-p1 without rewriting roots, receipts, digests or history and downgrades losslessly",
+      "diagnosticSha256": "ac74d5ac857b9bd6c513e6460b14b1b8c3a93b42a587c6e0751432a8426fdd31"
+    },
+    {
+      "id": "core :: tests/p14b4-save-v30-compatibility.test.ts > P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine refused-p2-count-only-current-draft without rewriting roots, receipts, digests or history and downgrades losslessly",
+      "diagnosticSha256": "ac74d5ac857b9bd6c513e6460b14b1b8c3a93b42a587c6e0751432a8426fdd31"
+    },
+    {
+      "id": "core :: tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants \u2014 never producer fixtures > keeps count-only CURRENT APPEARANCE_COUNT with arbitrary positive root/receipt versions",
+      "diagnosticSha256": "5f5cbb097d0752a4da7d3e9be530c1b6953e87108aff932a121964e8026dacf7"
+    },
+    {
+      "id": "core :: tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants \u2014 never producer fixtures > keeps count-only CURRENT LEAD_OR_SIGNIFICANT_ROLE_COUNT with arbitrary positive root/receipt versions",
+      "diagnosticSha256": "5f5cbb097d0752a4da7d3e9be530c1b6953e87108aff932a121964e8026dacf7"
+    },
+    {
+      "id": "core :: tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants \u2014 never producer fixtures > keeps count-only CURRENT DIRECTING_COUNT with arbitrary positive root/receipt versions",
+      "diagnosticSha256": "5f5cbb097d0752a4da7d3e9be530c1b6953e87108aff932a121964e8026dacf7"
+    },
+    {
+      "id": "core :: tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants \u2014 never producer fixtures > keeps count-only CURRENT PREFERRED_GENRE_OPPORTUNITY with arbitrary positive root/receipt versions",
+      "diagnosticSha256": "5f5cbb097d0752a4da7d3e9be530c1b6953e87108aff932a121964e8026dacf7"
+    },
+    {
+      "id": "core :: tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants \u2014 never producer fixtures > keeps count-only CURRENT SPECIFIC_PROJECT with arbitrary positive root/receipt versions",
+      "diagnosticSha256": "5f5cbb097d0752a4da7d3e9be530c1b6953e87108aff932a121964e8026dacf7"
+    },
+    {
+      "id": "core :: tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants \u2014 never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only APPEARANCE_COUNT variants",
+      "diagnosticSha256": "765ed6e21ee8e4c7ac32be159aafd55c9392e4c9859a332d013f87c6d0717894"
+    },
+    {
+      "id": "core :: tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants \u2014 never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only LEAD_OR_SIGNIFICANT_ROLE_COUNT variants",
+      "diagnosticSha256": "765ed6e21ee8e4c7ac32be159aafd55c9392e4c9859a332d013f87c6d0717894"
+    },
+    {
+      "id": "core :: tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants \u2014 never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only DIRECTING_COUNT variants",
+      "diagnosticSha256": "765ed6e21ee8e4c7ac32be159aafd55c9392e4c9859a332d013f87c6d0717894"
+    },
+    {
+      "id": "core :: tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants \u2014 never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only PREFERRED_GENRE_OPPORTUNITY variants",
+      "diagnosticSha256": "765ed6e21ee8e4c7ac32be159aafd55c9392e4c9859a332d013f87c6d0717894"
+    },
+    {
+      "id": "core :: tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants \u2014 never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only SPECIFIC_PROJECT variants",
+      "diagnosticSha256": "765ed6e21ee8e4c7ac32be159aafd55c9392e4c9859a332d013f87c6d0717894"
+    },
+    {
+      "id": "core :: tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants \u2014 never producer fixtures > keeps classless P2 terminal variants with an actual shared take and DISTINCT original outcome receipts",
+      "diagnosticSha256": "7fa761bc607ae4403b08cafaec23eb278442b746b71bf3bc1cd97c1bcb03476f"
+    },
+    {
+      "id": "core :: tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants \u2014 never producer fixtures > keeps a classless P2 SATISFIED by an ACTUAL support seat, without inventing a role class or take",
+      "diagnosticSha256": "72e3e443bf0879cb3e778ca7fe9cb18dbd22c0335f12e57b71b68cb86819e62a"
+    },
+    {
+      "id": "core :: tests/p14b5-relationships.test.ts > family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > validateSaveV32/validateRelationshipsRoot exist and admit the genuinely minted world round-trip",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/p14b5-relationships.test.ts > family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a missing root",
+      "diagnosticSha256": "9ce9981b1ca106e4ede984e744a5b2ae69e846d6063669816447fbbc32208c86"
+    },
+    {
+      "id": "core :: tests/p14b5-relationships.test.ts > family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a non-ordinal edgeId",
+      "diagnosticSha256": "1d8933321a87cb98615a7b01312b62f45f64fd2526a50217d1b322b5d3b3aa3c"
+    },
+    {
+      "id": "core :: tests/p14b5-relationships.test.ts > family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a duplicate pair",
+      "diagnosticSha256": "7b0aeefe12f9dee2d3620567a7345fe944302eca63daf787640f1af45bb8dffe"
+    },
+    {
+      "id": "core :: tests/p14b5-relationships.test.ts > family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a non-canonical key",
+      "diagnosticSha256": "e1f8994b75353936c872b354d05a5e0c59737244f497d217e67a90d376b341ac"
+    },
+    {
+      "id": "core :: tests/p14b5-relationships.test.ts > family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a person not in state.talent",
+      "diagnosticSha256": "cb72fe5e65f393eae50e7da598d8f8c8315acc7273d2a652237aaf63d0ff831f"
+    },
+    {
+      "id": "core :: tests/p14b5-relationships.test.ts > family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses firstSharedWeek > lastEventWeek",
+      "diagnosticSha256": "bf195621ce0b9b7ef3c7331f5f18b23f4fe579190b052f392cb87b169a013761"
+    },
+    {
+      "id": "core :: tests/p14b5-relationships.test.ts > family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a week outside the recording interval (before the boundary; after market.tick)",
+      "diagnosticSha256": "cb347f4720ccbd2e62e47f4abe666f347163e8a44499a8562d23d510ca38fdb0"
+    },
+    {
+      "id": "core :: tests/p14b5-relationships.test.ts > family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a driver week after lastEventWeek",
+      "diagnosticSha256": "7e796abeaec494c6f3d82e160f78a094ea26425aeaa27707c737acff747adc56"
+    },
+    {
+      "id": "core :: tests/p14b5-relationships.test.ts > family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses recent over the cap",
+      "diagnosticSha256": "6e39e1c76f1db2638f058325cbf2cdd6b4860a42505068cff79b20363e618fdf"
+    },
+    {
+      "id": "core :: tests/p14b5-relationships.test.ts > family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses peakTier outside the catalogue",
+      "diagnosticSha256": "2271548d33367706e52cfb62beffcffa1c8e442f0370a600dbe3071a72132735"
+    },
+    {
+      "id": "core :: tests/p14b5-relationships.test.ts > family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses closeness outside 0..100 or non-integer",
+      "diagnosticSha256": "ec76a94a91ee3189750e05324610f387f247455fa11e0050ebd59848835948b6"
+    },
+    {
+      "id": "core :: tests/p14b5-relationships.test.ts > family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses inconsistent counters",
+      "diagnosticSha256": "ce7278c4057bd8e0119886a699add9b9e6f27a93f503dcbafe1f36a713c602e9"
+    },
+    {
+      "id": "core :: tests/p14b5-relationships.test.ts > family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses an unknown driver kind, an empty ref and a non-integer delta",
+      "diagnosticSha256": "30842ee95892bdc38ba5ff784079f5a2764e286e48b1bf6b4dbabd27b188df3e"
+    },
+    {
+      "id": "core :: tests/p14b5-relationships.test.ts > family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses an extra key on an edge",
+      "diagnosticSha256": "d34bf9e00fc10363de7edcd871a37526ce91f28e1956dec1fba4c13223f4240c"
+    },
+    {
+      "id": "core :: tests/p14b5-relationships.test.ts > family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > a V31 world holding ONE edge, and the SAME world with relationships emptied, both refuse migrateToV30 \u2014 MEASURED: the nearest guard is now V33s own materialization gate, one week past its migration boundary, not the V31-specific message",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/p14b5-t-failure-tuning.test.ts > CONSTRUCTED group 6 \u2014 SAVE AND LOAD ACROSS THE CHANGE: historical deltas are carried, never restamped > a genuinely written root round-trips through makeSave / validateSaveV32 / migrateToV32 with every driver delta verbatim",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/p14b5-t-failure-tuning.test.ts > CONSTRUCTED group 6 \u2014 SAVE AND LOAD ACROSS THE CHANGE: historical deltas are carried, never restamped > a root whose stored failure deltas carry a value the CURRENT constant does not produce is admitted, carried verbatim and never restamped",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/p14b7-promise-waiver.test.ts > P14B.7 group9 \u2014 Save V31 -> V32: supersededByPromiseId opens null, downgrade refuses non-null > LIVE_SAVE_VERSION is the value this slice's own V31->V32 step must produce (720 item 11)",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14b8-waiver-surface-oracle.test.ts > P14B.8 group1 \u2014 the owes-two world is exactly what 744 \u00a711 A5 says it is (PASSES TODAY: fixture contract, not a RED) > 744 \u00a76: B.8 is a wire change, so LIVE_SAVE_VERSION stays 35 (stale title corrected post-C.4) and PROMISE_RULES_VERSION stays 4",
+      "diagnosticSha256": "4e416abb49394e497fcd637335473dc642b90afb98fbdbe6525147d6b049280b"
+    },
+    {
+      "id": "core :: tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > the real generated writer is lawfully cast as lead without relabeling or occupying two roles",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > a lawful non-primary actor receives an achievable P1 and the pure read changes no state or labels",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > unknown beneficiary refuses without treating a made-up identity as a cast participant",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > missing acting profile refuses and changes eligibility digest at identical week (INVALID PURE PROBE ONLY)",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > preserves unrelated nonwhole-count refusal for the newly eligible writer",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > preserves unrelated capacity refusal for the newly eligible writer",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > preserves unrelated early-window refusal for the newly eligible writer",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > preserves unrelated late-window refusal for the newly eligible writer",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > existing-path buffer and CURRENT reservations still constrain writer promises; withdrawal releases only the reservation",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > real winning writer P1 binds, then one completed scheduled cast take satisfies it with exact durable references",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/p14bf2-acting-discipline.test.ts > B-F2: genuine old role-refusal evidence survives, fresh evaluations use the live evaluator (4 after record 600) > valid load preserves the old erroneous receipt/root/digest bytes exactly without repairing history",
+      "diagnosticSha256": "c38f550638c8259012fa6bcd3d50c837956feff910d11a19342d36fbbf0de4b9"
+    },
+    {
+      "id": "core :: tests/p14bf2-acting-discipline.test.ts > B-F2: genuine old role-refusal evidence survives, fresh evaluations use the live evaluator (4 after record 600) > actual resubmit/attach evaluates afresh under4 but keeps the original version1 refusal untouched",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/p14c2s-scientist-retirement.test.ts > Scientist retirement persistence has an explicit semantic version boundary > S10 no Scientist record: live37 writes and V36 downgrade preserves exact state bytes without time, RNG or history changes",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14c2s-scientist-retirement.test.ts > Scientist retirement persistence has an explicit semantic version boundary > S10 actual Scientist record: live37 accepts, V36 and prior downgrade refuse without stripping obligations/history",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/p14c2s-scientist-retirement.test.ts > Scientist retirement persistence has an explicit semantic version boundary > S10 frozen public34/35/36 readers still refuse the Scientist law, independently of the live tuning table",
+      "diagnosticSha256": "051ce79246b6ef93d17dc8663699854b28ffbb391b7a74d47ff072bce2759526"
+    },
+    {
+      "id": "core :: tests/p14c2s-scientist-retirement.test.ts > Scientist retirement persistence has an explicit semantic version boundary > S10 amended live validator still refuses age, provenance, notice, cap, extension and exact-key corruption independently",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/placement-save-v12.test.ts > Placement Core V12 \u2014 the frozen envelope > projects the placement root positively, dropping unknown future fields",
+      "diagnosticSha256": "25ae21b6e99c7ab0502f1be9879b0717a071678de5d6c8c29e12f0adc7dbc2c1"
+    },
+    {
+      "id": "core :: tests/placement-save-v12.test.ts > Placement Core V12 \u2014 the frozen envelope > rejects overlapping placements and clearance-ring violations in a forged save",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/placement-save-v12.test.ts > Placement Core V12 \u2014 the frozen envelope > rejects a forged operating charge that disagrees with the operational facilities",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/placement-save-v12.test.ts > Placement Core V12 \u2014 historical boundary guards (law 19) > lets frozen builders project only an EMPTY placement root",
+      "diagnosticSha256": "6ef60e0b24da4e07d7bf9622686c784d998914a40f1465f8e5e2b3c55e504c5f"
+    },
+    {
+      "id": "core :: tests/placement-save-v12.test.ts > Placement Core V12 \u2014 historical boundary guards (law 19) > keeps the V11 validator rules exactly as they were",
+      "diagnosticSha256": "b05065393b747dba2bcdced29c7e0014af5596ad84c6c1feab09b7bf74acd0df"
+    },
+    {
+      "id": "core :: tests/placement-save-v12.test.ts > Placement Core V12 \u2014 the V11 \u2192 V12 migration > moves a BUILDING legacy Annex onto the legacy parcel with the same clock",
+      "diagnosticSha256": "b05065393b747dba2bcdced29c7e0014af5596ad84c6c1feab09b7bf74acd0df"
+    },
+    {
+      "id": "core :: tests/placement-save-v12.test.ts > Placement Core V12 \u2014 the V11 \u2192 V12 migration > moves a COMPLETED legacy Annex without disturbing its facility or reservations",
+      "diagnosticSha256": "b05065393b747dba2bcdced29c7e0014af5596ad84c6c1feab09b7bf74acd0df"
+    },
+    {
+      "id": "core :: tests/placement-save-v12.test.ts > Placement Core V12 \u2014 the V11 \u2192 V12 migration > is deterministic and idempotent",
+      "diagnosticSha256": "b05065393b747dba2bcdced29c7e0014af5596ad84c6c1feab09b7bf74acd0df"
+    },
+    {
+      "id": "core :: tests/property-state-v13.test.ts > C1-M1a (b) \u2014 nothing assumes eight structures or a small placement count > carries twelve-plus placed facilities through invariants, completion, opex, and save",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/property-state-v13.test.ts > C1-M1a (d) \u2014 SaveFileV13 > writes V13 by default and round-trips every lifecycle state byte-identically",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    },
+    {
+      "id": "core :: tests/property-state-v13.test.ts > C1-M1a (d) \u2014 SaveFileV13 > rejects a malformed property root structurally, before any domain rule",
+      "diagnosticSha256": "5a96980684ff22907826c11aae07ea1323d4c665d10bc4966fd100e28383981d"
+    },
+    {
+      "id": "core :: tests/property-state-v13.test.ts > C1-M1a (d) \u2014 SaveFileV13 > rejects a semantically forged property root",
+      "diagnosticSha256": "7b17d1310bb92680275f9f95e758efb2645061b8a70aa6196e98156eb9ffed3c"
+    },
+    {
+      "id": "core :: tests/property-state-v13.test.ts > C1-M1a (d) \u2014 SaveFileV13 > refuses a placement standing inside an authored structure",
+      "diagnosticSha256": "2accddb14856d068bb02221ef2e3a93281983729547c23eb6043c21bb8d36d5a"
+    },
+    {
+      "id": "core :: tests/property-state-v13.test.ts > C1-M1a (d) \u2014 SaveFileV13 > rejects unknown V38 beyond the current V37 reader boundary (stale numbers corrected post-C.2b)",
+      "diagnosticSha256": "8f089e6640c0e82dd69f75b7e88726c4c27fcf2caaa7494bdd0d7aed44f9c099"
+    },
+    {
+      "id": "core :: tests/script-projects-save-v9.test.ts > Script Projects V1 \u2014 SaveFileV9 > rejects unknown V38 and refuses to downgrade V9 through migrateToV8 (stale number corrected post-C.2b)",
+      "diagnosticSha256": "d8a17c232478714c23fa7e96fb69fffe98811f7b34b1e96f8a5a93b0ebca146d"
+    },
+    {
+      "id": "core :: tests/contracts/cross-owner-refusal.contract.test.ts > C2a-M0 \u00b7 \u00a712-M0 gate \u2014 a slot claimed by two owners is REFUSED > refuses a screenplay forged onto the slot a production holds",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/contracts/cross-owner-refusal.contract.test.ts > C2a-M0 \u00b7 \u00a712-M0 gate \u2014 a slot claimed by two owners is REFUSED > refuses a production forged onto the slot a screenplay holds",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/contracts/cross-owner-refusal.contract.test.ts > C2a-M0 \u00b7 \u00a712-M0 gate \u2014 a slot claimed by two owners is REFUSED > refuses an audition forged onto the slot a screenplay holds",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/contracts/phase-table-agreement.contract.test.ts > C2a-M0 \u00b7 G6 (C) \u2014 the SAVE BOUNDARY agrees, proved by refusal > refuses a falsified capability multiset, naming the shared module\u2019s own requirement",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/contracts/phase-table-agreement.contract.test.ts > C2a-M0 \u00b7 G6 (C) \u2014 the SAVE BOUNDARY agrees, proved by refusal > refuses a blocker whose targetPhase is not nextProductionPhase(phase)",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/contracts/phase-table-agreement.contract.test.ts > C2a-M0 \u00b7 G6 (C) \u2014 the SAVE BOUNDARY agrees, proved by refusal > refuses a blocker capability the shared module does not require of its target phase",
+      "diagnosticSha256": "f3655c5d3bb588c2cb5b8d7d74243d2ee74105785dffc5790ff46fd715524721"
+    },
+    {
+      "id": "core :: tests/contracts/studio-events.contract.test.ts > C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts a legal releaseCommitted row and refuses the same row plus a cursor field",
+      "diagnosticSha256": "cd849c92575a1c37c4f602d5c73712a5faa9e921fd7a3f09cc6e897726f7678a"
+    },
+    {
+      "id": "core :: tests/contracts/studio-events.contract.test.ts > C2a-M1 \u00b7 events (B) \u2014 every row carries exactly the keys \u00a78.1 gives it > accepts every kind in one log at its owning boundary, so no kind is legal only alone",
+      "diagnosticSha256": "986030ec2b53e016c725d33c6542aaf0f1b415f14864ffa6d3bf1cc6a0a8cb25"
+    },
+    {
+      "id": "core :: tests/contracts/studio-events.contract.test.ts > C2a-M1 \u00b7 events (D) \u2014 Tier W is windowed, Tier D is permanent > keeps every Tier-D row forever, however old",
+      "diagnosticSha256": "e3ffe965951dcaadbc50f1ad4974dc1e7f5fb79ce7276fe91d0914e116d034ab"
+    },
+    {
+      "id": "core :: tests/contracts/v14-boundary-guards.contract.test.ts > C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder",
+      "diagnosticSha256": "303ad46ce3864681af0a757461f2f0e8d3329e6116f826be796bf9861d785021"
+    },
+    {
+      "id": "core :: tests/contracts/v14-boundary-guards.contract.test.ts > C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > may write a V13 file only when the migrator can put every byte back",
+      "diagnosticSha256": "c5f8db98946178041bfb22a27cc8efcb4c9cea6f48dfe9398a64043b2c657295"
+    },
+    {
+      "id": "core :: tests/contracts/v14-boundary-guards.contract.test.ts > C2a-M1 \u00b7 guards (B) \u2014 the live boundary moves one way > keeps every historical version frozen and rejects unknown V22",
+      "diagnosticSha256": "d8a17c232478714c23fa7e96fb69fffe98811f7b34b1e96f8a5a93b0ebca146d"
+    },
+    {
+      "id": "core :: tests/contracts/v14-boundary-guards.contract.test.ts > C2a-M1 \u00b7 guards (C) \u2014 LEG 3: the widened leaves are version-aware > refuses a `bindings` leaf inside a V13-tagged workflow",
+      "diagnosticSha256": "193567486b97ea1ffd9be6bf07296a5eb76215454af1d88db9b355ea514b0982"
+    },
+    {
+      "id": "core :: tests/contracts/v14-boundary-guards.contract.test.ts > C2a-M1 \u00b7 guards (C) \u2014 LEG 3: the widened leaves are version-aware > refuses the `set-unavailable` blocker arm inside a V13-tagged workflow",
+      "diagnosticSha256": "193567486b97ea1ffd9be6bf07296a5eb76215454af1d88db9b355ea514b0982"
+    },
+    {
+      "id": "core :: tests/contracts/v14-boundary-guards.contract.test.ts > C2a-M1 \u00b7 guards (C) \u2014 LEG 3: the widened leaves are version-aware > REQUIRES `bindings` at V14, with exactly the \u00a78.1 key list",
+      "diagnosticSha256": "193567486b97ea1ffd9be6bf07296a5eb76215454af1d88db9b355ea514b0982"
+    },
+    {
+      "id": "core :: tests/contracts/v14-boundary-guards.contract.test.ts > C2a-M1 \u00b7 guards (C) \u2014 LEG 3: the widened leaves are version-aware > still ACCEPTS a genuine V13 workflow that carries no `bindings` leaf",
+      "diagnosticSha256": "193567486b97ea1ffd9be6bf07296a5eb76215454af1d88db9b355ea514b0982"
+    },
+    {
+      "id": "core :: tests/contracts/v14-byte-parity.contract.test.ts > C2a-M1 \u00b7 parity (C) \u2014 every exported row is inside the window or Tier D > re-validates what it wrote, at its own version",
+      "diagnosticSha256": "7c1257f2afc6c4b7942a2bfb1b63f3f4e1ddf9538fe8d3956d41f1abc18cf6a8"
+    }
+  ],
+  "heldActualReceiptFailure": [
+    {
+      "id": "core :: tests/bridge-p14b5-relationships.test.ts > family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > p13b-s8-bridge-probe-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+      "diagnosticSha256": "82089ea8ee34575cf89276dbd79a838e85875192fb265fca58d19ecf355a04af",
+      "expectedReceiptSha256": "b729a1f33fac085228697a52bb474400b26ca04dab8114f2cd3fa893861186c4"
+    }
+  ],
+  "heldFamily12BodySha256": "7a754f00a9d6a50d40e20f89c24ef01cd90ef30805313070ae69ea5a28592d4f",
+  "retainedInheritedFailures": [
+    {
+      "id": "core :: tests/bridge-p14b5-relationships.test.ts > family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > the MOST EXPOSED shared fixture, poachingFixture (p14b2-fixtures.ts :145-211; consumers bridge-p14b2-trust, p14b2-fixture-preconditions): the week-208 reasons pin and endedWeek 208 hold, and under D1 no survivor holds a shared-take counterpart",
+      "diagnosticSha256": "897726ee72b1bcc23f62eb1cbfed19fbcecc39b710a1aaeded7f076300da71d5"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 genuine submit/settle/take routes, no synthetic commitments > RIVAL: a genuinely naturally authored tagged commitment binds and qualifies through the real scheduled owner transition",
+      "diagnosticSha256": "9925f2fb02a01b203367a97bdb17f50bfb13b3da2a3fd71e51364a303cbb20a1"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'lead' seat: qualification=true",
+      "diagnosticSha256": "9925f2fb02a01b203367a97bdb17f50bfb13b3da2a3fd71e51364a303cbb20a1"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'antagonist' seat: qualification=false",
+      "diagnosticSha256": "9925f2fb02a01b203367a97bdb17f50bfb13b3da2a3fd71e51364a303cbb20a1"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'support' seat: qualification=false",
+      "diagnosticSha256": "9925f2fb02a01b203367a97bdb17f50bfb13b3da2a3fd71e51364a303cbb20a1"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'lead' seat: qualification=true",
+      "diagnosticSha256": "9925f2fb02a01b203367a97bdb17f50bfb13b3da2a3fd71e51364a303cbb20a1"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'antagonist' seat: qualification=true",
+      "diagnosticSha256": "9925f2fb02a01b203367a97bdb17f50bfb13b3da2a3fd71e51364a303cbb20a1"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'support' seat: qualification=false",
+      "diagnosticSha256": "9925f2fb02a01b203367a97bdb17f50bfb13b3da2a3fd71e51364a303cbb20a1"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival support qualifies for P1 and shape-legacy count-only P2, not tagged P2",
+      "diagnosticSha256": "9925f2fb02a01b203367a97bdb17f50bfb13b3da2a3fd71e51364a303cbb20a1"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival half-open window counts start, excludes before-start and excludes due",
+      "diagnosticSha256": "9925f2fb02a01b203367a97bdb17f50bfb13b3da2a3fd71e51364a303cbb20a1"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > search table: the first seed-b decision whose seating matters holds two tagged leadOrAntagonist beneficiaries and one P1 beneficiary in a three-actor pool",
+      "diagnosticSha256": "6657eee1d3516dbf53a1b3fbd63e911f3352f91737d8bf493d0ef16e739fc4af"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > RED: the real seating serves the maximal DISTINCT-beneficiary count (plan :215-218), the picture is viable and affordable (:223-225), and the real first take then satisfies all three through advancePromisesWeek/qualifyingTakes",
+      "diagnosticSha256": "6657eee1d3516dbf53a1b3fbd63e911f3352f91737d8bf493d0ef16e739fc4af"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > CONFLICT: the ordinary economic score prefers a two-beneficiary permutation; benefit count wins over score (:216-217) and the real take proves it",
+      "diagnosticSha256": "6657eee1d3516dbf53a1b3fbd63e911f3352f91737d8bf493d0ef16e739fc4af"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > TIE FALLBACK (labeled reception-input variant): two reception-identical tagged beneficiaries tie on score; the first strict-greater winner in the inherited BILLINGS order is seated \u2014 inherited tie behaviour, not fairness (:218-221)",
+      "diagnosticSha256": "6657eee1d3516dbf53a1b3fbd63e911f3352f91737d8bf493d0ef16e739fc4af"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > another issuer's promise never counts: r02's offers to r01's three actors are present at w202 and at the witness and never enter r01's member set; re-authored r02 offers make the negative discriminating",
+      "diagnosticSha256": "6657eee1d3516dbf53a1b3fbd63e911f3352f91737d8bf493d0ef16e739fc4af"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > a met promise never counts (control, r02 chain): after r02's w211 picture satisfies its three P1 roots at w216, its next real decision has no member and takes the ordinary pick",
+      "diagnosticSha256": "e8c076c464696333edd1196fa2f0b8c5e07ac0c1d95f2a251593c60eca28a52e"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > a met promise never counts (r01 chain, RED today only through the witness defect): after the witness take the SATISFIED roots leave r01's member set at its next real decision",
+      "diagnosticSha256": "6657eee1d3516dbf53a1b3fbd63e911f3352f91737d8bf493d0ef16e739fc4af"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts \u2014 'window starts after every plausible t\u2026'",
+      "diagnosticSha256": "6657eee1d3516dbf53a1b3fbd63e911f3352f91737d8bf493d0ef16e739fc4af"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts \u2014 'window ends before any take can land \u2026'",
+      "diagnosticSha256": "6657eee1d3516dbf53a1b3fbd63e911f3352f91737d8bf493d0ef16e739fc4af"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader \u2014 'tagged lead stays exact: r01-2 counts\u2026'",
+      "diagnosticSha256": "6657eee1d3516dbf53a1b3fbd63e911f3352f91737d8bf493d0ef16e739fc4af"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader \u2014 'legacy count-only LEAD_OR_SIGNIFICANT\u2026'",
+      "diagnosticSha256": "6657eee1d3516dbf53a1b3fbd63e911f3352f91737d8bf493d0ef16e739fc4af"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader \u2014 'APPEARANCE_COUNT is generic cast'",
+      "diagnosticSha256": "6657eee1d3516dbf53a1b3fbd63e911f3352f91737d8bf493d0ef16e739fc4af"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 the initial cast seam (plan :225-232) > promised non-primary-actor beneficiaries (the witness rival's writer, director and craft, each bound OPEN P1) are never seated: one person cannot double, and the sole holder of a role is a capacity constraint, not a forged package",
+      "diagnosticSha256": "6657eee1d3516dbf53a1b3fbd63e911f3352f91737d8bf493d0ef16e739fc4af"
+    }
+  ],
+  "verificationCommandForParent": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/bridge-p13b-s8-rivals.test.ts",
+    "tests/bridge-p14a1-market.test.ts",
+    "tests/bridge-p14a2-market.test.ts",
+    "tests/bridge-p14a3-world.test.ts",
+    "tests/bridge-p14b1-promises.test.ts",
+    "tests/bridge-p14b3-promise-command.test.ts",
+    "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+    "tests/bridge-p14b5-relationships.test.ts",
+    "tests/bridge-p14b6-d2-withheld-employment-claim.test.ts",
+    "tests/bridge-p14b6-e714-false-empty-absence-lines.test.ts",
+    "tests/bridge-p14b6-relationship-read-models.test.ts",
+    "tests/c2a-m3-rename-and-pooling.test.ts",
+    "tests/c2a-m3-screenplay-mint.test.ts",
+    "tests/construction-core.test.ts",
+    "tests/construction-save-v11.test.ts",
+    "tests/contracts/cross-owner-refusal.contract.test.ts",
+    "tests/contracts/phase-table-agreement.contract.test.ts",
+    "tests/contracts/studio-events.contract.test.ts",
+    "tests/contracts/v14-boundary-guards.contract.test.ts",
+    "tests/contracts/v14-byte-parity.contract.test.ts",
+    "tests/d11-employment.test.ts",
+    "tests/d17-engagement-persistence.test.ts",
+    "tests/d17a-adv-migration.test.ts",
+    "tests/d17a-adv-reconciliation.test.ts",
+    "tests/d17b-save-v7.test.ts",
+    "tests/facility-move-demolish.test.ts",
+    "tests/film-chronicle.test.ts",
+    "tests/legacy-parcel-ground.test.ts",
+    "tests/p04a2-writer-credit-law.test.ts",
+    "tests/p06a-w1-release-authority.test.ts",
+    "tests/p08a-w0-studio-history.test.ts",
+    "tests/p09a-w0-founding-regime.test.ts",
+    "tests/p13a-causal-core.test.ts",
+    "tests/p13a-technology-milestones.test.ts",
+    "tests/p13b-r07-save-v25.test.ts",
+    "tests/p13b-s2-access-identity.test.ts",
+    "tests/p13b-s2-save-v22.test.ts",
+    "tests/p13b-s3-save-v23.test.ts",
+    "tests/p13b-s3-validation.test.ts",
+    "tests/p13b-s5-save-v24.test.ts",
+    "tests/p13b-s6-save-v26.test.ts",
+    "tests/p13b-s7-announcements.test.ts",
+    "tests/p13b-s8-save-v27.test.ts",
+    "tests/p14a1-save-v28.test.ts",
+    "tests/p14b1-promises.test.ts",
+    "tests/p14b1-save-v29.test.ts",
+    "tests/p14b2-setup-wrap-regressions.test.ts",
+    "tests/p14b3-rule-revision.test.ts",
+    "tests/p14b4-cancel-causal-proof.test.ts",
+    "tests/p14b4-cast-class-outcomes.test.ts",
+    "tests/p14b4-rival-seating-preference.test.ts",
+    "tests/p14b4-save-v30-compatibility.test.ts",
+    "tests/p14b5-relationships.test.ts",
+    "tests/p14b5-t-failure-tuning.test.ts",
+    "tests/p14b7-promise-waiver.test.ts",
+    "tests/p14b8-waiver-surface-oracle.test.ts",
+    "tests/p14bf2-acting-discipline.test.ts",
+    "tests/p14c2s-scientist-retirement.test.ts",
+    "tests/placement-save-v12.test.ts",
+    "tests/property-state-v13.test.ts",
+    "tests/script-projects-save-v9.test.ts"
+  ],
+  "execution": {
+    "compiler": false,
+    "gameplay": false,
+    "tests": false,
+    "appliedToLive": false
+  },
+  "limits": [
+    "Apply only after1093, exact baseline match and parent source release; staged imports refer to eventual original paths.",
+    "No repaired result or downstream pass is inferred.",
+    "Original23 inherited failures and actual B5 receipt pin remain held."
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "sourceSha": "aa9acec52f4e6a393358cedd2f72689f0476938e",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1094-c3-b5-typecheck.mjs"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T03:25:59.701Z",
+  "end": "2026-09-27T03:26:29.364Z",
+  "exitCode": 2,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "aa9acec52f4e6a393358cedd2f72689f0476938e",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

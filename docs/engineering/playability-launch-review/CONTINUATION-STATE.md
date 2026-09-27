@@ -1,5 +1,66 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — A qualified; B5 collected with three differing hashes
+
+All heavy processes through1062 are CLOSED.1059 active6240 A passed with final
+independent1097-B KEEP.1097-A records its exact scope and all original failures.
+1061 corrected B5 compiler PASS;1062 sole416 default-tick diagnostic collected
+successfully, source aa9acec5/emptydiff. All48 terminal tuples, RNG and law checks
+match; receipts/employment/first-take hashes differ. Original B5 regression FAIL
+is retained;1099-A/B own attribution, no pin update authorized from collection.
+1093/1096 test-maintenance candidates remain reviewed and UNAPPLIED. Existing
+author now owns only separately named docs1098 recording/codec/provenance draft;
+original endurance producer and all A artifacts stay unchanged. Reviewer owns
+independent1098 protocol/source and1099 artifact review. Proposed lossless focus
+encoding preserves original16MiB cap, exact source reconstruction and unchanged
+Endurance policy; only exact completed original A is eligible as legacy baseline.
+After explicit independent protocol/source review and gates, run remaining
+B/C/D sequentially under the separate revised producer. No completed A rerun.
+Parent remains sole production writer/executor, max two specialists/one heavy
+process. Publish this closed evidence checkpoint; continue full/core/UI and
+remaining authorized program, retaining original R8/K-L/native/Owner limits.
+
+## CURRENT — A complete and independently reviewed; B5 compiler correction
+
+1059 A closed2026-09-27T03:25:02.236Z, child0/fixed aa9acec5/empty consumed diff,
+32m52.808s:6240 actual attempts/completions,122 releases,75 attachments,121 read
+groups and three real disk samples.1097-B final KEEP independently reconciles all
+ten artifact files, retained0/3120/6240 authority/all40 roots and actual packed
+runtime cells/journals/replays. Original1056 observer failure remains preserved.
+1093 and1096 are frozen, independently reviewed, UNAPPLIED test maintenance.
+1060 B5 compiler closed with only three TS7022 local inference errors; author
+added exactly GameState/string/number annotations, producer74805bb5. Parent1061
+compiler retry is the sole heavy process, session63400. No B5 gameplay yet.
+Existing author owns docs1098 D capacity/provenance proposal; reviewer separately
+reviews the narrow B5 correction and capacity amendment. D's likely16MiB log
+excess needs a lossless reviewed remedy; no cap increase or producer change is
+released. Parent remains sole production writer/executor. After B5 gate/one
+bounded diagnostic, publish closed artifacts, then original-producer B and C
+sequentially after predecessor PASS/review. Freeze consumed source/HEAD/index and
+original driverf7d19d39 during every command; no staged patches before parity.
+Full core/UI gates, B5 actual receipt attribution, original R8 timeouts and
+canonical098 passive Writer-work gap remain. Unity/native/Owner work deferred.
+
+## CURRENT — A beyond4680; maintenance staged and B5 diagnostic reviewed
+
+Published/local HEAD is aa9acec52f4e6a393358cedd2f72689f0476938e.1059 corrected A
+remains sole heavy process, session65498, exclusive1052-c3-endurance-A-observer-fixed.
+Latest observed qualified boundary4680. Source/index/HEAD, driverf7d19d39 and
+observera8685dc0 remain frozen; consumed diff empty. Closed0/3120 real disk samples
+pass;1097-B independently checks their retained cells/journals and all40 midpoint
+roots, explicitly provisional until A closes. No B/C/D release yet.
+1093 is an independently reviewed, UNAPPLIED37-file patch c1ee31f0 with per-file
+manifest68a42bba. Author now owns only new docs1096 remaining-boundary staging,
+based on1093 candidate for overlapping files; no live source change or execution.
+1094 B5 diagnostic is frozen877025e0 with source KEEP1094-D; compiler runnerab110c3d
+adds its exact root to unchanged Bridge options. Both await the sole run lane.
+After1059 closes, preserve exact result and verify all guards; parent can run the
+reviewed B5 type gate/one416-call diagnostic while independent final A review
+proceeds. B requires complete A PASS and review. Publish recoverable closed
+artifacts between commands; keep all four endurance variants' consumed source
+identical. Original1056/R8/K-L failures and full/native/Owner limits remain.
+
+
 ## CURRENT — measured snapshot correction reviewed; corrected A preparing
 
 1056 remains failed atweek0/0ticks.1057 two-read/no-tick diagnosis proves only

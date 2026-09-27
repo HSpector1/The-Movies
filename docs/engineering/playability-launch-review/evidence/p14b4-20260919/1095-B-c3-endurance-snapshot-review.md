@@ -41,3 +41,9 @@ Independently read1057 raw output and metadata: child0, fixed empty source patch
 Parent's observer-only correction is independently matched at29,949 bytes, SHA `a8685dc06b3ab0d9386420d762b017ac4198d7cb6f21305770dbcd499a763f4a`. The exact diff moves raw response recording before repeat comparison, requires finite/nonnegative timing, and compares a detached response view whose copied metrics omit only serializationMs. Strict schemas, payloadBytes, every other response field, per-group/full authority checks, query/call bounds and all runtime code stay intact. Driver remains66,372-byte `f7d19d39…` unchanged.
 
 **KEEP the measured cause and narrow source correction.** The original1056 FAIL remains. The two-read diagnosis does not qualify the previously unreached Calendar/Industry/Market/runtime/activity paths, and there is no B/C/D progression. Corrected full Bridge typing and a separately recorded exclusive A invocation remain required;1058 typing is pending at this source review.
+
+## Actual1058 type closure — KEEP
+
+Independent metadata and raw-log readback confirms1058 closed2026-09-27 02:49:04.488–02:49:33.580 UTC,29.092 seconds, child0, fixed source8599ee2a with patch `e8aac553cb278503044d8e8318b2d8031c2c51204c6bb060f63cf229abe3c245`. The full Bridge `tsc --listFiles` graph includes both the actual observer and evidence driver; no TypeScript diagnostics occurred. The reviewed observer `a8685dc0…` and unchanged driver `f7d19d39…` remain the source identities for this correction.
+
+**Final source/type disposition: KEEP.** The earlier pending statement is preserved as the earlier review state and superseded by this recorded closure. Original1056 remains failed,1057 remains a bounded two-snapshot diagnosis, and1058 establishes typing only. The separately published correction checkpoint and new exclusive1059 A attempt do not acquire an endurance or performance result from this review; any actual completion requires its own closed-run attribution.
