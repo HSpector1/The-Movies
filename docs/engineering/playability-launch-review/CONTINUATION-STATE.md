@@ -1,27 +1,29 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
-## CURRENT — forensic complete; independent C correction tests next
+## CURRENT — force-order correction qualified; publish and resume corrected endurance
 
-PublishedHEAD ad881c4b412a8fdb8ebe54a308c0627442bbaa1d; no consumed source changes.
-All1071–1075 gates CLOSED/fixedsource.1071 controls2positive/15refusal PASS;
-1072 prepared snapshotwEC2D1,1073 actual copied types384roots/725files PASS.
-1074 sole corrected forensic pass completed416defaultticks/12.520s, all9original
-comparisons recovered, gameplayValid:false with actual212strict refusal/collisions.
-Whole416 admission passes but does not repair the invalid212trajectory. Original
-failed212callattempt preserved; total628calls across two separate attempts.
-1075 finalguards passed2.329s; exact manifest/patch/result mirrored before changes.
-1105-E records actualscope; reviewer owns1105-F causal review before anypinchange.
-Keep both temporarysnapshots and original1100/1105 sources/artifacts unchanged.
+1107-G and independent 1107-F qualify the bounded four-file arithmetic correction.
+1077 passes all eight new cases with all five original output/RNG captures literally
+preserved. 1078 passes all 129 neighbors; 1079–1081 root/UI/Bridge types pass.
+All heavy processes are CLOSED. Tested source is 36896cb8 plus combined patch
+5ebcac14751d1f22a02882db72fe4e0f00ec952da4fe1a3cc0f1815d5c54237a. Parent now commits
+and publishes those exact five consumed paths and closed records, then verifies
+the remote ref. Original RED and failed long C remain immutable.
 
-Failed endurance C1070 remains failed at1352 after1300exactPASS.1106-A/B record
-11immutable scalar differences at release1311/returned1312.1107-A/B adopted narrow
-fixed FORCE_ORDER correction and explicit mixed-source lineage. Author owns
-staged independent permutation/24tick10action reconstructed-route tests; no live
-installation or production edit until frozenreview/RED. Parent soleproductionwriter
-and executor. Corrected C/D must match all originalA commands/checkpoints/roots;
-A/B retain their actual historicalsource scope and are not repeated or relabelled.
-1093/1096 remain unapplied. Allfinal1103gates and native/Owner limits remain.
-P15D2/D3/D4a answerspending. Continueauthorizedprogram, max2existing specialists.
+Author owns the separate1108 corrected-source lineage adapter, proof, verifier
+and compiler helper; reviewer owns its independent frozen-source review. These
+are preparation only. Run no corrected endurance until their explicit compiler/
+data-only gates pass. Fresh corrected C then D must match all original A commands,
+121 complete checkpoints/40 roots and retained0/3120/6240 authority. A/B retain
+their historical source scope; do not rerun them or claim four same-source runs.
+
+The original1098 producer and all A/B/failed C artifacts remain unchanged. Both
+forensic snapshots and original1100/1105 evidence remain preserved;1105 causal
+KEEP justifies a later separate three-pin maintenance stage using valid1062 values.
+1093/1096 and that new stage remain unapplied until endurance parity closes.
+Final1103 gates, inherited failures, canonical098/R8 limits and native/Owner
+boundaries remain. P15 D2/D3/D4a choices are still unanswered. Continue the
+program with the same two specialists, parent as sole production writer/executor.
 
 ## CURRENT — C failed at1352; preserve source for forensic and correction gates
 

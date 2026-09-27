@@ -1,0 +1,291 @@
+diff --git a/tests/p14c3-force-order.test.ts b/tests/p14c3-force-order.test.ts
+new file mode 100644
+index 00000000..c62bd269
+--- /dev/null
++++ b/tests/p14c3-force-order.test.ts
+@@ -0,0 +1,285 @@
++// Staged only. Install byte-for-byte as tests/p14c3-force-order.test.ts after review.
++// Pure-input canonical outputs are captured on unchanged source before the writer;
++// parent separately pins their full bytes/RNG for the matched GREEN comparison.
++import assert from 'node:assert/strict'
++import { createHash } from 'node:crypto'
++import { readFileSync } from 'node:fs'
++import { afterAll, describe, expect, it } from 'vitest'
++import { applyActions } from '../src/core/actions.js'
++import { computeForecast, forecastCenters } from '../src/core/forecast.js'
++import { resolveReception } from '../src/core/reception.js'
++import type { ReceptionInputs } from '../src/core/reception.js'
++import { RngStream } from '../src/core/rng.js'
++import { exportSave, importSave, makeSave, stableStringify, validateSaveV38 } from '../src/core/save.js'
++import { tick } from '../src/core/tick.js'
++import type { Action, CulturalForce, GameState } from '../src/core/types.js'
++import { FORCE_ORDER } from '../src/core/worldgen.js'
++import { makeMarket, makeReceptionInputs, makeShapeEffects, makeTalent } from './_fixtures.js'
++
++const ORDER = ['escapism', 'patriotism', 'realism', 'darkness', 'optimism', 'spectacle'] as const
++const SORTED = [...ORDER].sort(), REVERSED = [...ORDER].reverse()
++const RNG = '1,2,3,4'
++const sha = (value: string | Buffer) => createHash('sha256').update(value).digest('hex')
++const canonical = (value: unknown) => stableStringify(value)
++const identity = (value: unknown) => { const bytes = canonical(value); return { bytes: Buffer.byteLength(bytes), sha256: sha(bytes) } }
++const values = [
++  { label: 'ordinary-nonuniform', weights: [13, 29, 47, 61, 83, 97] },
++  // Legal [0,100] values. Five 1e-16 normalized weights straddle one full
++  // darkness weight, so floating denominator order is a genuine discriminator.
++  { label: 'small-weight-denominator', weights: [1e-14, 1e-14, 1e-14, 100, 1e-14, 1e-14] },
++] as const
++function forceRecord(weights: readonly number[], order: readonly CulturalForce[]) {
++  expect(weights).toHaveLength(6)
++  expect(weights.every(value => Number.isFinite(value) && value >= 0 && value <= 100)).toBe(true)
++  return Object.fromEntries(order.map(key => [key, weights[ORDER.indexOf(key)]])) as Record<CulturalForce, number>
++}
++function pureInput(weights: readonly number[]): ReceptionInputs {
++  // Existing analytic ReceptionInputs fixture builders, explicitly synthetic;
++  // no generated campaign, historical facts, assignment or save is claimed here.
++  return makeReceptionInputs({
++    market: makeMarket({ forces: forceRecord(weights, ORDER) }),
++    writer: makeTalent({ id: 'force-writer', name: 'Force writer', role: 'writer', skill: 51,
++      actual: { warmth: 0.83, gravity: -0.37, physicality: 0.29 } }),
++    director: makeTalent({ id: 'force-director', name: 'Force director', role: 'director', skill: 63,
++      actual: { warmth: -0.47, gravity: 0.71, physicality: 0.11 } }),
++    cast: {
++      lead: makeTalent({ id: 'force-lead', name: 'Force lead', role: 'actor', skill: 67,
++        actual: { warmth: 0.27, gravity: -0.59, physicality: 0.61 } }),
++      antagonist: makeTalent({ id: 'force-antagonist', name: 'Force antagonist', role: 'actor', skill: 59,
++        actual: { warmth: -0.73, gravity: 0.43, physicality: 0.19 } }),
++      support: makeTalent({ id: 'force-support', name: 'Force support', role: 'actor', skill: 57,
++        actual: { warmth: 0.31, gravity: 0.17, physicality: -0.41 } }),
++    },
++    shapeEffects: makeShapeEffects({ expression: { intimacy: 0.13, tonalWeight: -0.23, kineticEnergy: 0.37 } }),
++  })
++}
++function orderInput(input: ReceptionInputs, order: readonly CulturalForce[]): ReceptionInputs {
++  const copy = structuredClone(input)
++  copy.market.forces = Object.fromEntries(order.map(key => [key, copy.market.forces[key]])) as Record<CulturalForce, number>
++  expect(canonical(copy)).toBe(canonical(input))
++  expect(Object.keys(copy.market.forces)).toEqual(order)
++  return copy
++}
++function emit(name: string, value: unknown) {
++  const line = JSON.stringify({ marker: 'C3_FORCE_ORDER_CONTROL', name, value })
++  expect(Buffer.byteLength(line)).toBeLessThanOrEqual(64 * 1024)
++  console.info(line)
++}
++const pureCalls = { reception: 0, centers: 0, forecast: 0 }
++function reception(input: ReceptionInputs) {
++  const before = JSON.stringify(input), rng = RngStream.deserialize(RNG)
++  expect(++pureCalls.reception).toBeLessThanOrEqual(11)
++  const result = resolveReception(input, rng)
++  expect(JSON.stringify(input)).toBe(before)
++  const expectedDraws = RngStream.deserialize(RNG)
++  expectedDraws.next(); expectedDraws.next()
++  expect(rng.serialize()).toBe(expectedDraws.serialize())
++  return { result, rng: rng.serialize() }
++}
++function forecast(input: ReceptionInputs) {
++  const before = JSON.stringify(input)
++  const context = { seed: 'c3-force-order', productionId: 'force-film', directorId: input.director.id,
++    releasedFilms: [], concepts: [] }
++  const contextBefore = JSON.stringify(context)
++  expect(++pureCalls.centers).toBeLessThanOrEqual(11)
++  const centers = forecastCenters(input)
++  expect(++pureCalls.forecast).toBeLessThanOrEqual(11)
++  const full = computeForecast(input, context)
++  expect(JSON.stringify(input)).toBe(before); expect(JSON.stringify(context)).toBe(contextBefore)
++  return { centers, full }
++}
++
++describe('C3 exact cultural-force order — independent pure boundaries', () => {
++  it.each(values)('reception preserves exact values and RNG under $label force-key permutations', ({ label, weights }) => {
++    expect(FORCE_ORDER).toEqual(ORDER)
++    const input = pureInput(weights), untouched = JSON.stringify(input)
++    const expected = reception(input)
++    expect(expected.result.delivered.intimacy ** 2 + expected.result.delivered.tonalWeight ** 2
++      + expected.result.delivered.kineticEnergy ** 2).toBeGreaterThan(0)
++    expect(expected.result.forceAlignment).not.toBe(0)
++    const swap = structuredClone(input)
++    const old = swap.market.forces.darkness
++    swap.market.forces.darkness = swap.market.forces.realism; swap.market.forces.realism = old
++    const changed = reception(swap)
++    expect(changed.result.forceAlignment).not.toBe(expected.result.forceAlignment)
++    if (label === 'small-weight-denominator') {
++      const orderedWeight = ORDER.reduce((sum, key) => sum + input.market.forces[key] / 100, 0)
++      const sortedWeight = SORTED.reduce((sum, key) => sum + input.market.forces[key] / 100, 0)
++      expect(orderedWeight).not.toBe(sortedWeight)
++    }
++    emit(`reception/${label}`, { input: identity(input), forces: input.market.forces, initialRng: RNG, ...expected })
++    const sorted = reception(orderInput(input, SORTED)), reversed = reception(orderInput(input, REVERSED))
++    expect(JSON.stringify(input)).toBe(untouched)
++    expect(sorted).toEqual(expected); expect(reversed).toEqual(expected)
++  })
++
++  it.each(values)('forecast preserves its complete result under $label force-key permutations', ({ label, weights }) => {
++    const input = pureInput(weights), untouched = JSON.stringify(input), expected = forecast(input)
++    const swap = structuredClone(input), old = swap.market.forces.darkness
++    swap.market.forces.darkness = swap.market.forces.realism; swap.market.forces.realism = old
++    expect(forecast(swap).centers.core.timelinessContribution).not.toBe(expected.centers.core.timelinessContribution)
++    emit(`forecast/${label}`, { input: identity(input), forces: input.market.forces, ...expected })
++    const sorted = forecast(orderInput(input, SORTED)), reversed = forecast(orderInput(input, REVERSED))
++    expect(JSON.stringify(input)).toBe(untouched)
++    expect(sorted).toEqual(expected); expect(reversed).toEqual(expected)
++  })
++
++  it('zero force weight keeps the exact guarded result across all three orders', () => {
++    const input = pureInput([0, 0, 0, 0, 0, 0]), expectedReception = reception(input), expectedForecast = forecast(input)
++    expect(expectedReception.result.forceAlignment).toBe(0)
++    expect(expectedReception.result.timelinessContribution).toBe(0)
++    expect(expectedForecast.centers.core.timelinessContribution).toBe(0)
++    emit('zero-force', { input: identity(input), initialRng: RNG, reception: expectedReception, forecast: expectedForecast })
++    for (const order of [SORTED, REVERSED]) {
++      const variant = orderInput(input, order)
++      expect(reception(variant)).toEqual(expectedReception)
++      expect(forecast(variant)).toEqual(expectedForecast)
++    }
++  })
++})
++
++const E = '../docs/engineering/playability-launch-review/evidence/p14b4-20260919/'
++const INPUTS = {
++  failure: { path: '1052-c3-endurance-C-recording-v1/authority-failure.json', bytes: 3799064,
++    sha256: 'f1a7a70941b1d2804efd9173359a72d78330284c968afa53a9fbad26ecda085a' },
++  commands: { path: '1052-c3-endurance-A-observer-fixed/commands.jsonl', bytes: 352939,
++    sha256: 'd27e0ff3d1ed7132f0b68a2619b3b98123591f319a3a29fe3a3a4cb1f1c8e93c' },
++  authority: { path: '1052-c3-endurance-A-observer-fixed/authority-3120.json', bytes: 3644208,
++    sha256: '5fea7fc04ef6a16a636f376fcc4791f75f77926ead08ae0b598e566db9091050' },
++} as const
++type Trace = { week: number; ordinal: number; purpose: string; command: { kind: 'action'; action: Action };
++  status: string; reason: string | null; engineInvoked: boolean }
++function pinned(key: keyof typeof INPUTS): string {
++  const pin = INPUTS[key], raw = readFileSync(new URL(E + pin.path, import.meta.url))
++  expect(raw.length).toBe(pin.bytes); expect(sha(raw)).toBe(pin.sha256)
++  return raw.toString('utf8')
++}
++function authority(state: GameState) {
++  const save = makeSave(state)
++  expect(save.saveVersion).toBe(38)
++  return exportSave(save)
++}
++type Boundary = { phase: string; week: number; save: string; roots: Record<string, string> }
++function boundary(state: GameState, phase: string): Boundary {
++  const raw = authority(state)
++  return { phase, week: state.market.tick, save: sha(raw), roots: Object.fromEntries(
++    Object.entries(state).map(([key, value]) => [key, sha(canonical(value))])) }
++}
++let fixtureCache: ReturnType<typeof buildFixture> | undefined, fixtureFailure: unknown
++function buildFixture() {
++  const recorded = JSON.parse(pinned('failure')) as { lastQualifiedWeek: number; lastQualifiedSaveJson: string; observedWeek: number }
++  expect(recorded.lastQualifiedWeek).toBe(1300); expect(recorded.observedWeek).toBe(1352)
++  const raw = recorded.lastQualifiedSaveJson
++  expect(Buffer.byteLength(raw)).toBe(1658932)
++  expect(sha(raw)).toBe('da9b59ba6c453fa07c17560aa3001bbe9a9ce6ebb3d12695471b7fecbbd71d5d')
++  const accepted = validateSaveV38(importSave(raw))
++  expect(exportSave(accepted)).toBe(raw); expect(accepted.state.market.tick).toBe(1300)
++  expect(Object.keys(accepted.state.market.forces)).toEqual(SORTED)
++  expect(Object.values(accepted.state.market.forces)).toEqual([50, 50, 50, 50, 50, 50])
++  const allCommands = pinned('commands').trimEnd().split('\n').map(line => JSON.parse(line) as Trace)
++  const prior = allCommands.filter(row => row.ordinal === 240)
++  expect(prior).toHaveLength(1)
++  expect(prior[0]).toMatchObject({ week: 1300, purpose: 'slot-27-commission', status: 'ACCEPTED' })
++  expect(accepted.state.scriptDevelopment.projects.find(row => row.id === 'script-0027')).toMatchObject({
++    status: 'drafting', commissionedWeek: 1300,
++  })
++  const commands = allCommands.filter(row => row.ordinal >= 241 && row.ordinal <= 245)
++  expect(commands.map(row => [row.week, row.ordinal, row.command.kind, row.command.action.kind])).toEqual([
++    [1303, 241, 'action', 'acceptScript'], [1303, 242, 'action', 'greenlightScriptProject'],
++    [1307, 243, 'action', 'assignShootingDirector'], [1307, 244, 'action', 'scheduleShootingTake'],
++    [1311, 245, 'action', 'commitPictureToRelease'],
++  ])
++  expect(commands.every(row => row.status === 'ACCEPTED' && row.reason === null && row.engineInvoked)).toBe(true)
++  const old = validateSaveV38(importSave(pinned('authority'))).state
++  const films = old.studio.releasedFilms.filter(row => row.productionId === 'prod-1303')
++  expect(films).toHaveLength(1); expect(old.studio.releasedFilms[27]).toEqual(films[0])
++  expect(films[0]).toMatchObject({ releaseTick: 1311, criticMean: 66.97542585609143, criticScore: 52.82440066110527 })
++  const events = old.careerEvents.filter(row => row.filmId === 'prod-1303')
++  expect(events).toHaveLength(6); expect(old.careerEvents.slice(162, 168)).toEqual(events)
++  const history = old.studioHistory.rows.filter(row => row.kind === 'standingChanged'
++    && row.source.kind === 'releaseResult' && row.source.productionId === 'prod-1303')
++  expect(history).toHaveLength(1); expect(old.studioHistory.rows[87]).toEqual(history[0])
++  return { raw, commands, film: films[0]!, events, history: history[0]! }
++}
++function fixture() {
++  if (fixtureFailure !== undefined) throw fixtureFailure
++  if (fixtureCache !== undefined) return fixtureCache
++  try { return fixtureCache = buildFixture() } catch (error) { fixtureFailure = error; throw error }
++}
++type Route = { state: GameState; finalBytes: string; boundaries: Boundary[]; ticks: number; commands: number }
++const routes = new Map<string, Route>(), failures = new Map<string, unknown>()
++const routeCounts = { tickAttempts: 0, ticks: 0, commandAttempts: 0, commands: 0 }
++function route(kind: 'canonical-reconstruction' | 'actual-import'): Route {
++  if (failures.has(kind)) throw failures.get(kind)
++  const cached = routes.get(kind); if (cached !== undefined) return cached
++  try {
++    const f = fixture()
++    let state = validateSaveV38(importSave(f.raw)).state
++    if (kind === 'canonical-reconstruction') state = { ...state, market: { ...state.market,
++      forces: Object.fromEntries(ORDER.map(key => [key, state.market.forces[key]])) as Record<CulturalForce, number> } }
++    expect(Object.keys(state.market.forces)).toEqual(kind === 'actual-import' ? SORTED : ORDER)
++    expect(authority(state)).toBe(f.raw)
++    const boundaries = [boundary(state, 'initial1300')]
++    let ticks = 0, commands = 0
++    while (state.market.tick < 1312) {
++      for (const row of f.commands.filter(row => row.week === state.market.tick)) {
++        expect(commands).toBeLessThan(5); expect(routeCounts.commandAttempts).toBeLessThan(10)
++        routeCounts.commandAttempts++
++        state = applyActions(state, [structuredClone(row.command.action)])
++        commands++; routeCounts.commands++
++        expect(state.market.tick).toBe(row.week)
++        boundaries.push(boundary(state, `command${row.ordinal}`))
++      }
++      const from = state.market.tick
++      expect(ticks).toBeLessThan(12); expect(routeCounts.tickAttempts).toBeLessThan(24)
++      routeCounts.tickAttempts++
++      state = tick(state, { develop: true })
++      ticks++; routeCounts.ticks++
++      expect(state.market.tick).toBe(from + 1)
++      boundaries.push(boundary(state, `tick${from}->${state.market.tick}`))
++    }
++    expect(ticks).toBe(12); expect(commands).toBe(5)
++    const result = { state, finalBytes: authority(state), boundaries, ticks, commands }
++    routes.set(kind, result)
++    emit(`route/${kind}`, { ticks, commands, returnedWeek: state.market.tick, releaseWeek: state.studio.releasedFilms.at(-1)?.releaseTick,
++      final: { bytes: Buffer.byteLength(result.finalBytes), sha256: sha(result.finalBytes) }, rngState: state.rngState })
++    return result
++  } catch (error) { failures.set(kind, error); throw error }
++}
++function historicalWitness(state: GameState) {
++  const f = fixture(), film = state.studio.releasedFilms.filter(row => row.productionId === 'prod-1303')
++  expect(film).toHaveLength(1)
++  expect(state.studio.releasedFilms).toHaveLength(28)
++  expect(film[0]).toEqual(f.film)
++  expect(state.careerEvents.filter(row => row.filmId === 'prod-1303')).toEqual(f.events)
++  expect(state.studioHistory.rows.filter(row => row.kind === 'standingChanged'
++    && row.source.kind === 'releaseResult' && row.source.productionId === 'prod-1303')).toEqual([f.history])
++}
++
++describe('C3 genuine accepted1300 to release1311 — two reconstructed bounded branches', () => {
++  it('canonical insertion reconstruction preserves immutable A film27 and its actual six career events/history', () => {
++    historicalWitness(route('canonical-reconstruction').state)
++  })
++  it('actual canonical import produces exactly the same historical A release and development evidence', () => {
++    historicalWitness(route('actual-import').state)
++  })
++  it('both admitted branches agree at every complete-save boundary and in final bytes/RNG', () => {
++    const a = route('canonical-reconstruction'), b = route('actual-import')
++    expect(a.boundaries.map(row => [row.phase, row.week])).toEqual(b.boundaries.map(row => [row.phase, row.week]))
++    const differences = a.boundaries.flatMap((row, index) => {
++      const other = b.boundaries[index]!
++      return row.save === other.save ? [] : [{ phase: row.phase, week: row.week,
++        roots: Object.keys(row.roots).filter(key => row.roots[key] !== other.roots[key]), a: row.save, b: other.save }]
++    })
++    emit('paired-boundaries', { compared: a.boundaries.length, firstDifference: differences[0] ?? null,
++      differingBoundaries: differences.length, counts: routeCounts, rngEqual: a.state.rngState === b.state.rngState })
++    expect(differences).toEqual([])
++    expect(b.finalBytes).toBe(a.finalBytes); expect(b.state.rngState).toBe(a.state.rngState)
++  })
++})
++
++afterAll(() => {
++  for (const key of Object.keys(INPUTS) as (keyof typeof INPUTS)[]) pinned(key)
++  assert.ok(routeCounts.tickAttempts <= 24 && routeCounts.commandAttempts <= 10)
++  emit('bounded-counts', { pureCalls, routeCounts, succeededRoutes: [...routes.keys()], failedRoutes: [...failures.keys()] })
++})

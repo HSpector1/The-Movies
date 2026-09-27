@@ -8,8 +8,8 @@
 // Purity: no React/DOM/async/I/O; no unseeded RNG, no `Date`/time, no UUIDs, no
 // OS entropy, no filesystem enumeration. Word lists are static TS imports consumed
 // in declared array order (data/wordlists.ts). Every `Record` below is built in a
-// fixed declared field order so `Object.keys(...)` iteration (which reception /
-// forecast rely on) is stable.
+// fixed declared field order. Reception and forecast use the shared explicit
+// force order so their arithmetic also stays stable after save/load.
 //
 // ── Determinism scheme (delegated engineering choice — documented, not escalated)
 //
@@ -69,6 +69,7 @@ import { RngStream } from './rng.js'
 import {
   CONCEPT_DISTRIBUTIONS,
   DISCIPLINE_ORDER,
+  FORCE_ORDER,
   GEN_ADJACENCY,
   GEN_ARCHETYPE_MIX,
   GEN_SECONDARY_BANDS,
@@ -115,16 +116,8 @@ import {
 
 // ── Fixed declared orders (drive Record insertion + array iteration) ─────────
 
-// §5.3 / reception & forecast iterate Object.keys(forces); this insertion order
-// is the contract's canonical force order and MUST be this sequence.
-export const FORCE_ORDER: readonly CulturalForce[] = [
-  'escapism',
-  'patriotism',
-  'realism',
-  'darkness',
-  'optimism',
-  'spectacle',
-] as const
+// Preserve the world-generation API while sharing the arithmetic order.
+export { FORCE_ORDER } from './tuning.js'
 
 // M4 — the six genres, in fixed order, indexed uniformly.
 const GENRE_ORDER: readonly Genre[] = [

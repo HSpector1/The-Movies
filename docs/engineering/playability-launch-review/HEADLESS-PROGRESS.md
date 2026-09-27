@@ -1,5 +1,19 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — C.3 reload arithmetic correction verified (2026-09-27)
+
+1107-G/F qualify a narrow four-file force-order correction after C1070 failed at
+week1352. Independent short RED isolated the first complete-state divergence at
+1311→1312. Identical GREEN passes8/8 and preserves all five original complete
+calculation outputs/RNG byte-for-byte; neighbors pass129/129 and all three type
+checks pass. Shared reception/forecast now use the existing declared force order.
+Save38/projection53/schema are unchanged; old histories and all failures persist.
+Parent publishes the exact tested source;1108 separately prepares reviewed source
+lineage for corrected C/D against original A. No repeat or relabelling of A/B.
+C.3 still needs corrected endurance and final1103 maintenance/full qualification.
+Around10.5 hours have elapsed in the planning checkpoint; preserve the remaining
+verification reserve and report any actual overrun. No native/Owner claim.
+
 ## CURRENT — C.3 production complete; final verification in progress (2026-09-27)
 
 Production checkpoint e6475aca1ef3bdfd593d660743ebc311981836cc implements Save38,

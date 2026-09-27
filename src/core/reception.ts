@@ -18,10 +18,9 @@ import type { RngStream } from './rng.js'
 import { setNoveltyReceptionFactor } from './sets.js'
 import { specificity } from './shape.js'
 import { castSlotExecution, effectiveSkill } from './talentSummary.js'
-import { CAST_WEIGHT, FORCE_VECTORS, ROLE_WEIGHT, SLOT_TRANSFORM, TUNING } from './tuning.js'
+import { CAST_WEIGHT, FORCE_ORDER, FORCE_VECTORS, ROLE_WEIGHT, SLOT_TRANSFORM, TUNING } from './tuning.js'
 import type {
   CastSlot,
-  CulturalForce,
   EraConfig,
   Expression,
   FilmConcept,
@@ -390,7 +389,7 @@ function computeCritic(
   reviewVariance: number
 } {
   const forces = inp.market.forces
-  const forceKeys = Object.keys(forces) as CulturalForce[]
+  const forceKeys = FORCE_ORDER
 
   // forceWeight = Σ_f (forces[f]/100); forceAlignment guarded by EPSILON.
   let forceWeight = 0

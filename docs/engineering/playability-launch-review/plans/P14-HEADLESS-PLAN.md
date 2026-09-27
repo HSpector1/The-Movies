@@ -1,5 +1,17 @@
 # P14 — Contested Talent Market, Bonds and Promises, Career Lifecycle — headless plan (logic-first)
 
+## CURRENT — C.3 final qualification in progress
+
+1107-G/F verify the fixed cultural-force arithmetic exposed by actual C reload
+endurance:8 focused cases,129 neighbors and root/UI/Bridge types pass, with exact
+original output/RNG preservation. A/B remain qualified historical-source century
+runs; original C fails at1352 and is preserved. Separate1108 provenance must pass
+before corrected C/D can run against every original A command/save/root identity.
+Then apply frozen1093→1096 and separately reviewed B5 pin maintenance, execute the
+exact1103 paired/final gates and publish an honest C.3 qualification. Remaining
+P14 scope is reconciled by1102/1104; do not call all P14 complete or automatically
+reopen the designated evaluator5 deferral. Unity/native remains deferred.
+
 ## NEXT936 — C.2-RM qualified (2026-09-26)
 
 See `../evidence/p14b4-20260919/936-c2rm-qualification.md`: LOGIC VERIFIED · UNITY

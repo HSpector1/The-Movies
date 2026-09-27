@@ -22,11 +22,10 @@ import { clamp, mean, remap, smoothstep, lerp } from './math.js'
 import { computeSegmentAppeal, type ReceptionInputs, computeBoxOffice, budgetRealizationDelta } from './reception.js'
 import { specificity } from './shape.js'
 import { stream } from './rng.js'
-import { CAST_WEIGHT, FORCE_VECTORS, ROLE_WEIGHT, TUNING } from './tuning.js'
+import { CAST_WEIGHT, FORCE_ORDER, FORCE_VECTORS, ROLE_WEIGHT, TUNING } from './tuning.js'
 import type {
   CastSlot,
   Confidence,
-  CulturalForce,
   Expression,
   FilmConcept,
   FilmResult,
@@ -215,7 +214,7 @@ function computeDeterministicCore(inp: ForecastInputs, engaged = false): Determi
 
   // §5.3 up to criticMean — no sampled term.
   const forces = inp.market.forces
-  const forceKeys = Object.keys(forces) as CulturalForce[]
+  const forceKeys = FORCE_ORDER
   let forceWeight = 0
   for (const f of forceKeys) forceWeight += forces[f] / 100
   let forceAlignment: number

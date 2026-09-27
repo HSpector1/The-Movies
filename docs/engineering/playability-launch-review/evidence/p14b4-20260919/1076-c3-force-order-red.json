@@ -1,0 +1,22 @@
+{
+  "sourceSha": "36896cb8cb6875077f3ad55ff8eec2d015830910",
+  "testedDiffSha256": "1a722dbdd04a5ce4f2d27caa23d963019fd781658597628683872fe6e8bb912c",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14c3-force-order.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T04:52:34.248Z",
+  "end": "2026-09-27T04:52:49.876Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "36896cb8cb6875077f3ad55ff8eec2d015830910",
+  "testedDiffSha256AtEnd": "1a722dbdd04a5ce4f2d27caa23d963019fd781658597628683872fe6e8bb912c",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

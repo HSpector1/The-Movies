@@ -1,0 +1,115 @@
+diff --git a/src/core/forecast.ts b/src/core/forecast.ts
+index 9c031cf6..030f75b7 100644
+--- a/src/core/forecast.ts
++++ b/src/core/forecast.ts
+@@ -22,11 +22,10 @@ import { clamp, mean, remap, smoothstep, lerp } from './math.js'
+ import { computeSegmentAppeal, type ReceptionInputs, computeBoxOffice, budgetRealizationDelta } from './reception.js'
+ import { specificity } from './shape.js'
+ import { stream } from './rng.js'
+-import { CAST_WEIGHT, FORCE_VECTORS, ROLE_WEIGHT, TUNING } from './tuning.js'
++import { CAST_WEIGHT, FORCE_ORDER, FORCE_VECTORS, ROLE_WEIGHT, TUNING } from './tuning.js'
+ import type {
+   CastSlot,
+   Confidence,
+-  CulturalForce,
+   Expression,
+   FilmConcept,
+   FilmResult,
+@@ -215,7 +214,7 @@ function computeDeterministicCore(inp: ForecastInputs, engaged = false): Determi
+ 
+   // §5.3 up to criticMean — no sampled term.
+   const forces = inp.market.forces
+-  const forceKeys = Object.keys(forces) as CulturalForce[]
++  const forceKeys = FORCE_ORDER
+   let forceWeight = 0
+   for (const f of forceKeys) forceWeight += forces[f] / 100
+   let forceAlignment: number
+diff --git a/src/core/reception.ts b/src/core/reception.ts
+index b084d46e..068847b2 100644
+--- a/src/core/reception.ts
++++ b/src/core/reception.ts
+@@ -18,10 +18,9 @@ import type { RngStream } from './rng.js'
+ import { setNoveltyReceptionFactor } from './sets.js'
+ import { specificity } from './shape.js'
+ import { castSlotExecution, effectiveSkill } from './talentSummary.js'
+-import { CAST_WEIGHT, FORCE_VECTORS, ROLE_WEIGHT, SLOT_TRANSFORM, TUNING } from './tuning.js'
++import { CAST_WEIGHT, FORCE_ORDER, FORCE_VECTORS, ROLE_WEIGHT, SLOT_TRANSFORM, TUNING } from './tuning.js'
+ import type {
+   CastSlot,
+-  CulturalForce,
+   EraConfig,
+   Expression,
+   FilmConcept,
+@@ -390,7 +389,7 @@ function computeCritic(
+   reviewVariance: number
+ } {
+   const forces = inp.market.forces
+-  const forceKeys = Object.keys(forces) as CulturalForce[]
++  const forceKeys = FORCE_ORDER
+ 
+   // forceWeight = Σ_f (forces[f]/100); forceAlignment guarded by EPSILON.
+   let forceWeight = 0
+diff --git a/src/core/tuning.ts b/src/core/tuning.ts
+index cba2308c..020e4baa 100644
+--- a/src/core/tuning.ts
++++ b/src/core/tuning.ts
+@@ -1990,6 +1990,17 @@ export const ROLE_WEIGHT = {
+ } as const
+ 
+ // ── §5.3 cultural-force tuning vectors ───────────────────────────────────────
++// Canonical accumulation order, shared with world generation. Save/load may
++// reorder record keys; floating-point arithmetic must retain this sequence.
++export const FORCE_ORDER: readonly CulturalForce[] = [
++  'escapism',
++  'patriotism',
++  'realism',
++  'darkness',
++  'optimism',
++  'spectacle',
++] as const
++
+ export const FORCE_VECTORS: Record<CulturalForce, Expression> = {
+   escapism: { intimacy: 0.2, tonalWeight: -0.6, kineticEnergy: 0.4 },
+   patriotism: { intimacy: 0.1, tonalWeight: 0.5, kineticEnergy: 0.4 },
+diff --git a/src/core/worldgen.ts b/src/core/worldgen.ts
+index 4816808e..dbd0d4dd 100644
+--- a/src/core/worldgen.ts
++++ b/src/core/worldgen.ts
+@@ -8,8 +8,8 @@
+ // Purity: no React/DOM/async/I/O; no unseeded RNG, no `Date`/time, no UUIDs, no
+ // OS entropy, no filesystem enumeration. Word lists are static TS imports consumed
+ // in declared array order (data/wordlists.ts). Every `Record` below is built in a
+-// fixed declared field order so `Object.keys(...)` iteration (which reception /
+-// forecast rely on) is stable.
++// fixed declared field order. Reception and forecast use the shared explicit
++// force order so their arithmetic also stays stable after save/load.
+ //
+ // ── Determinism scheme (delegated engineering choice — documented, not escalated)
+ //
+@@ -69,6 +69,7 @@ import { RngStream } from './rng.js'
+ import {
+   CONCEPT_DISTRIBUTIONS,
+   DISCIPLINE_ORDER,
++  FORCE_ORDER,
+   GEN_ADJACENCY,
+   GEN_ARCHETYPE_MIX,
+   GEN_SECONDARY_BANDS,
+@@ -115,16 +116,8 @@ import {
+ 
+ // ── Fixed declared orders (drive Record insertion + array iteration) ─────────
+ 
+-// §5.3 / reception & forecast iterate Object.keys(forces); this insertion order
+-// is the contract's canonical force order and MUST be this sequence.
+-export const FORCE_ORDER: readonly CulturalForce[] = [
+-  'escapism',
+-  'patriotism',
+-  'realism',
+-  'darkness',
+-  'optimism',
+-  'spectacle',
+-] as const
++// Preserve the world-generation API while sharing the arithmetic order.
++export { FORCE_ORDER } from './tuning.js'
+ 
+ // M4 — the six genres, in fixed order, indexed uniformly.
+ const GENRE_ORDER: readonly Genre[] = [

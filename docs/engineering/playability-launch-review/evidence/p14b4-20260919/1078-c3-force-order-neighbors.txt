@@ -1,0 +1,38 @@
+{"sourceSha":"36896cb8cb6875077f3ad55ff8eec2d015830910","testedDiffSha256":"5ebcac14751d1f22a02882db72fe4e0f00ec952da4fe1a3cc0f1815d5c54237a","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/reception-formulas.test.ts","tests/reception-bounds.test.ts","tests/forecast.test.ts","tests/forecast-independence.test.ts","tests/rng.test.ts","tests/replay.test.ts","tests/save.test.ts"],"node":"v20.20.2","start":"2026-09-27T05:00:36.202Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/forecast.test.ts (20 tests) 48ms
+ ✓ |core| tests/reception-formulas.test.ts (28 tests) 54ms
+ ✓ |core| tests/save.test.ts (10 tests) 848ms
+   ✓ P04A §2.5 — SaveFileV15 identity-bearing queue expiry > validateSaveV15 requires subjectId (string or null) on every queueIntentExpired row, and rejects it missing 399ms
+ ✓ |core| tests/reception-bounds.test.ts (29 tests) 61ms
+ ✓ |core| tests/forecast-independence.test.ts (10 tests) 93ms
+ ✓ |core| tests/rng.test.ts (17 tests) 3045ms
+   ✓ §9 distributions — uniform stays in [lo, hi) > uniform(lo, hi) never returns lo>x or x>=hi across many draws 505ms
+   ✓ §9 distributions — uniform stays in [lo, hi) > uniform over a positive interval respects the same half-open bound 497ms
+   ✓ §9 distributions — truncatedNormal NEVER leaves [lo, hi] > skill (60,15,20,95) stays within [lo,hi] over 10_000 draws 454ms
+   ✓ §9 distributions — truncatedNormal NEVER leaves [lo, hi] > fame (40,22,0,95) stays within [lo,hi] over 10_000 draws 376ms
+   ✓ §9 distributions — truncatedNormal NEVER leaves [lo, hi] > age (38,10,20,70) stays within [lo,hi] over 10_000 draws 446ms
+   ✓ §9 distributions — truncatedNormal NEVER leaves [lo, hi] > baselineStrength (60,15,20,95) stays within [lo,hi] over 10_000 draws 369ms
+   ✓ §9 distributions — truncatedNormal NEVER leaves [lo, hi] > originalityRaw (55,20,5,100) stays within [lo,hi] over 10_000 draws 377ms
+ ✓ |core| tests/replay.test.ts (15 tests) 9561ms
+   ✓ §15.7 full-run replay — byte-identical SaveFileV1 (M14) > OracleAgent: two full-year runs with the same seed produce byte-identical exportSave 2362ms
+   ✓ §15.7 full-run replay — byte-identical SaveFileV1 (M14) > OracleAgent: broadcastItems stays [] (broadcast presentation is a phase-6 no-op) 672ms
+   ✓ §15.7 full-run replay — byte-identical SaveFileV1 (M14) > RandomAgent: two full-year runs with the same seed produce byte-identical exportSave 543ms
+   ✓ §15.7/M9 — sim stream advances IFF a release is received that tick > rngState changes exactly on releasing ticks, and the count equals the release count 437ms
+   ✓ §15.7/M9 — candidate/agent draws never advance the sim stream > generateCandidates and both agents leave state.rngState frozen across many calls 653ms
+   ✓ §15.7/D-9.8 — develop:true full-run replay is byte-identical > OracleAgent: two develop:true full-year runs with the same seed are byte-identical 910ms
+   ✓ §15.7/D-9.8 — develop:true full-run replay is byte-identical > OracleAgent: development actually changed some talent (the flag is not a no-op here) 866ms
+   ✓ §15.7/D-9.8 — develop:true full-run replay is byte-identical > RandomAgent: two develop:true full-year runs with the same seed are byte-identical 443ms
+   ✓ §15.7/D-9.8 — develop:true full-run replay is byte-identical > RandomAgent: development actually changed some talent (the flag is not a no-op here) 493ms
+   ✓ §15.7/D-9.15 — a run resumed from a converted V2 replays byte-identically > OracleAgent/develop-off: two resumes of the same converted V2 are byte-identical 759ms
+   ✓ §15.7/D-9.15 — a run resumed from a converted V2 replays byte-identically > OracleAgent/develop-on: two resumes of the same converted V2 are byte-identical 587ms
+   ✓ §15.7/D-9.15 — a run resumed from a converted V2 replays byte-identically > RandomAgent/develop-on: two resumes of the same converted V2 are byte-identical 525ms
+
+ Test Files  7 passed (7)
+      Tests  129 passed (129)
+   Start at  07:00:36
+   Duration  14.46s (transform 2.92s, setup 0ms, collect 11.19s, tests 13.71s, environment 2ms, prepare 1.64s)
+

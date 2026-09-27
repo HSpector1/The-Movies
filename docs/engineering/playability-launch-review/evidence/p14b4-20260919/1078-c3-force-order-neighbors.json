@@ -1,0 +1,28 @@
+{
+  "sourceSha": "36896cb8cb6875077f3ad55ff8eec2d015830910",
+  "testedDiffSha256": "5ebcac14751d1f22a02882db72fe4e0f00ec952da4fe1a3cc0f1815d5c54237a",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/reception-formulas.test.ts",
+    "tests/reception-bounds.test.ts",
+    "tests/forecast.test.ts",
+    "tests/forecast-independence.test.ts",
+    "tests/rng.test.ts",
+    "tests/replay.test.ts",
+    "tests/save.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T05:00:36.202Z",
+  "end": "2026-09-27T05:00:51.491Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "36896cb8cb6875077f3ad55ff8eec2d015830910",
+  "testedDiffSha256AtEnd": "5ebcac14751d1f22a02882db72fe4e0f00ec952da4fe1a3cc0f1815d5c54237a",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

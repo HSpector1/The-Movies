@@ -1990,6 +1990,17 @@ export const ROLE_WEIGHT = {
 } as const
 
 // ── §5.3 cultural-force tuning vectors ───────────────────────────────────────
+// Canonical accumulation order, shared with world generation. Save/load may
+// reorder record keys; floating-point arithmetic must retain this sequence.
+export const FORCE_ORDER: readonly CulturalForce[] = [
+  'escapism',
+  'patriotism',
+  'realism',
+  'darkness',
+  'optimism',
+  'spectacle',
+] as const
+
 export const FORCE_VECTORS: Record<CulturalForce, Expression> = {
   escapism: { intimacy: 0.2, tonalWeight: -0.6, kineticEnergy: 0.4 },
   patriotism: { intimacy: 0.1, tonalWeight: 0.5, kineticEnergy: 0.4 },
