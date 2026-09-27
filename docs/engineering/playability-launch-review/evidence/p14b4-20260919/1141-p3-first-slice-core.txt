@@ -1,0 +1,29 @@
+{"sourceSha":"7abaa6e00b1d7d98a143017c17f41f5b4bb8ee60","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14p3-directing-promises.test.ts"],"node":"v20.20.2","start":"2026-09-27T12:03:11.542Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D01 offers fresh directing work to lawful Actors and Directors
+1133-P3-LEGACY4 {"week":8,"rngState":"1557239868,672280863,464522958,2878174094","receipts":[{"draft":{"family":"APPEARANCE_COUNT","predicate":{"count":1},"issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":112},"receipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"9a5006d1107172a3","rulesVersion":4,"week":8}},{"draft":{"family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"lead"},"issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":112},"receipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"3dbf55ccb67dfa2c","rulesVersion":4,"week":8}}]}
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D06 fulfills directing once from two real distinct first takes
+1133-P3-FILMS {"first":{"take":61,"release":65,"ticks":13},"second":{"take":74,"release":78,"ticks":13},"terminalWeek":208}
+
+stdout | tests/p14p3-directing-promises.test.ts
+1133-P3-COUNTERS {"actualTicks":208,"cap":208,"cachedPhases":[{"name":"created0","completed":true},{"name":"managedEmpty8","completed":true},{"name":"ready10","completed":true},{"name":"cases45","completed":true},{"name":"attached45","completed":true},{"name":"bound52","completed":true},{"name":"firstFilm","completed":true},{"name":"secondFilm","completed":true},{"name":"terminal208","completed":true}]}
+
+ ✓ |core| tests/p14p3-directing-promises.test.ts (8 tests) 36651ms
+   ✓ P3 first slice: public Director promises and historical meaning > D01 offers fresh directing work to lawful Actors and Directors 5469ms
+   ✓ P3 first slice: public Director promises and historical meaning > D02 counts only actual unrecorded Director seats through the first take 6196ms
+   ✓ P3 first slice: public Director promises and historical meaning > D03 preserves conservative clocks and names each unavailable resource 628ms
+   ✓ P3 first slice: public Director promises and historical meaning > D04 selects revision6 only for the explicit relevant domain and preserves pure history 2487ms
+   ✓ P3 first slice: public Director promises and historical meaning > D05 binds only the actual accepted material proposal 839ms
+   ✓ P3 first slice: public Director promises and historical meaning > D06 fulfills directing once from two real distinct first takes 8965ms
+   ✓ P3 first slice: public Director promises and historical meaning > D13 admits exact new promise authority and rejects malformed current saves 7508ms
+   ✓ P3 first slice: public Director promises and historical meaning > D14 preserves old meaning and refuses lossy reverse conversion 4556ms
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  14:03:12
+   Duration  40.97s (transform 2.64s, setup 0ms, collect 3.41s, tests 36.65s, environment 0ms, prepare 223ms)
+

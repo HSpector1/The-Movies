@@ -1,5 +1,20 @@
 # UNITY-INTEGRATION-BACKLOG — work reserved for the replacement laptop
 
+## CURRENT — P3 Save39 core is partial; consumer cutover remains deferred
+
+The first P3 core slice passes8/8 at7abaa6e0 (1141), with actual Director takes,
+strict Save39 validation and scoped evaluator6. Projection remains53/protocol4;
+projection54 declarations, public commands/disclosures, historical runtime migration
+and all compiled/rendered Unity adoption remain future work. This intermediate
+engine result does not qualify the existing projection53 consumer for P3 saves.
+
+The future consumer must distinguish explicit Director work from historical
+count-only P3 cast work, preserve UNKNOWN competing terms and use the actual
+published54 schema once generated. Keep native save/restart/Save As/replay,
+rendered navigation, latency and Owner acceptance gates from the C.3 record below.
+Genuine outgoing38/53 fixtures are already preserved atcc62af7b; no native work or
+Owner campaign access was performed. Existing C.3 limitations remain unchanged.
+
 ## CURRENT — C.3 headless qualification closed with limits; native duties remain
 
 1128-A/B qualify the bounded component on consumed sourcec1461a62; production

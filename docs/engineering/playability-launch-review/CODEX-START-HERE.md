@@ -1,5 +1,35 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — first P3 core slice passes; remaining core obligations next (2026-09-27)
+
+1141 closed on published `7abaa6e00b1d7d98a143017c17f41f5b4bb8ee60`:
+8 PASS / 0 FAIL in one file, 12:03:11.542–12:03:53.832 UTC (42.290s).
+Child0, fixedSource:true, empty consumed diff, no untracked consumed source,
+signal or error. The real player route completed all208 reserved ticks, including
+first take61/release65 and second take74/release78 (13 calls each), terminal208.
+The complete851-byte legacy casting marker is literally equal to1135, SHA256
+182cf54d3a2fbb8bb2fc55cf74e97e220923d634ef454b816d3770d12dcb055e.
+1141 publication preflight passed before the separate dependent execution call.
+1139's failed whole-worktree preflight remains accurately preserved; the final
+1138-B compiler addendum and reviewed1140 correction are published at7abaa6e0.
+
+The eight unchanged first-slice tests cover D01–D06/D13–D14 within their recorded
+limits. This is not whole P3 completion. D08–D12, D07/D18's fixed rival attempt,
+remaining scoped reservation/receipt and waived-save controls, public projection54/
+Bridge/UI/runtime, affected-consumer and final program verification remain.
+Save39 and scoped rules6 exist; projection remains53/protocol4. No Unity/native
+consumer was changed or qualified. Prior C.3/full-suite/Writer/R8/FU1/FU2 limits
+remain in1128 and the integration backlog. P15's three selected choices stay1122-A.
+
+1141-A attribution and independent1141-B KEEP are final and frozen. Existing
+author owns the next docs-only bounded core plan; the existing reviewer owns
+its independent review. Parent alone owns
+production integration and heavy execution. No heavy process is active. No new
+consumed test slice is released before that concrete plan and source review.
+Preserve and publish closed evidence, then begin the next reviewed test slice and
+record its actual first failures before matching production. Continue P14 onward
+without routine approval pauses; retain two-specialist/one-heavy limits.
+
 ## CURRENT — P3 seven leaves pass; linked-script revision6 correction typed
 
 1139 closed on published594a42b9ec5d047047c8430c24f7665d33f67d54:7PASS/1FAIL,

@@ -1,5 +1,23 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — first P3 Director-promise slice passes (2026-09-27)
+
+Published production7abaa6e0 adds explicit Director promises, actual Director
+first-take progress and strict Save39 boundaries, using scoped receipt revision6
+while preserving revision4 casting behavior. 1141 passes all8 first-slice tests
+on that exact source: 208 actual ticks, two real films (takes61/74, releases65/78),
+terminal208, whole-save negatives and frozen older-reader controls. Literal851B
+pre-change casting receipts remain exact. 1140 root types passed the correction.
+Final1141-A attribution and independent1141-B KEEP qualify this bounded result.
+The next bounded core plan is in progress.
+
+P3 is partial: cancellation/waiver/retirement, fuller reservation controls, rival
+policy and actual rival work, projection54/Bridge/UI/runtime and broader consumer
+verification remain. Projection is still53/protocol4; twelve older test/helper
+changes only passed compiler verification, not blanket runtime qualification.
+Outgoing38/53 capture is already published atcc62af7b; never repeat or remint it.
+C.3's bounded qualification and all recorded inherited/native/Owner limits remain.
+
 ## CURRENT — genuine outgoing Save38/projection53 preserved (2026-09-27)
 
 1117 capture passes on published C.3 checkpoint00efc086 with exactlytwo ticks,
