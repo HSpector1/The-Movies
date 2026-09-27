@@ -1,0 +1,2503 @@
+{
+  "record": "1169-p3-five-script-rival-core",
+  "run": {
+    "sourceSha": "a394bb85fb09486dd0e7d9b9bbfaf471c17ee5de",
+    "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSource": [],
+    "command": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p3-directing-promises.test.ts",
+      "--testNamePattern",
+      "D(?:07|18) "
+    ],
+    "node": "v20.20.2",
+    "start": "2026-09-27T14:48:58.880Z",
+    "end": "2026-09-27T14:49:15.813Z",
+    "exitCode": 1,
+    "signal": null,
+    "error": null,
+    "sourceShaAtEnd": "a394bb85fb09486dd0e7d9b9bbfaf471c17ee5de",
+    "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSourceAtEnd": [],
+    "fixedSource": true
+  },
+  "publicationGate": {
+    "sourceSha": "a394bb85fb09486dd0e7d9b9bbfaf471c17ee5de",
+    "remoteSha": "a394bb85fb09486dd0e7d9b9bbfaf471c17ee5de",
+    "observedAt": "2026-09-27T14:48:50.545360+00:00",
+    "consumedSourceClean": true,
+    "wholeWorktreeClean": false,
+    "wholeWorktreeStatus": "?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1168-p3-five-script-root-types.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1168-p3-five-script-root-types.patch\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1168-p3-five-script-root-types.txt\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1168-p3-publication-gate.json\n",
+    "rootTypes": "1168 PASS child0 fixedSource empty patch",
+    "sourceReview": "1167-B final KEEP",
+    "result": "PASS",
+    "nextRun": "1169-p3-five-script-rival-core"
+  },
+  "types": {
+    "sourceSha": "a394bb85fb09486dd0e7d9b9bbfaf471c17ee5de",
+    "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSource": [],
+    "command": [
+      "node_modules/.bin/tsc",
+      "--noEmit"
+    ],
+    "node": "v20.20.2",
+    "start": "2026-09-27T14:48:00.205Z",
+    "end": "2026-09-27T14:48:34.263Z",
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "sourceShaAtEnd": "a394bb85fb09486dd0e7d9b9bbfaf471c17ee5de",
+    "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSourceAtEnd": [],
+    "fixedSource": true
+  },
+  "result": {
+    "files": 1,
+    "failedFiles": 1,
+    "cases": 16,
+    "passed": 0,
+    "failed": 2,
+    "filtered": 14,
+    "wrapperSeconds": 16.933,
+    "vitestSeconds": 15.83,
+    "testMilliseconds": 12509,
+    "todo": 0,
+    "unhandledErrorDiagnostic": false
+  },
+  "diagnosticGroups": [
+    {
+      "ids": [
+        "tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D07 authors and fulfills a real rival promise to a credited primary Actor",
+        "tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D18 uses the declared rival strategy and legal distinct staffing"
+      ],
+      "sharedFailHeader": true,
+      "primary": "AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{\u2026} ]\n\n- Expected\n+ Received\n\n  Array [\n-   ObjectContaining {\n-     \"studioId\": \"studio-de11f27b-r01\",\n+   Object {\n+     \"dropped\": Array [\n+       \"Bellwether Pictures had no seat open for this person's role at the decision week.\",\n+       \"Rose Lantern Films had no seat open for this person's role at the decision week.\",\n+       \"Night Orchard Productions had no seat open for this person's role at the decision week.\",\n+     ],\n+     \"eventId\": \"talent-market-event-178\",\n+     \"kind\": \"settled\",\n+     \"reasons\": Array [\n+       \"theirs was the only proposal on the table\",\n+     ],\n+     \"studioId\": \"studio-de11f27b-r04\",\n+     \"talentId\": \"authored-0006\",\n+     \"week\": 208,\n    },\n  ]",
+      "primaryBytes": 842,
+      "primarySha256": "ac38b6bfebab05776a533daeb0f72ce024e56fc4e8020c0821e5006264557337",
+      "fullDiagnosticTail": "AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{\u2026} ]\n\n- Expected\n+ Received\n\n  Array [\n-   ObjectContaining {\n-     \"studioId\": \"studio-de11f27b-r01\",\n+   Object {\n+     \"dropped\": Array [\n+       \"Bellwether Pictures had no seat open for this person's role at the decision week.\",\n+       \"Rose Lantern Films had no seat open for this person's role at the decision week.\",\n+       \"Night Orchard Productions had no seat open for this person's role at the decision week.\",\n+     ],\n+     \"eventId\": \"talent-market-event-178\",\n+     \"kind\": \"settled\",\n+     \"reasons\": Array [\n+       \"theirs was the only proposal on the table\",\n+     ],\n+     \"studioId\": \"studio-de11f27b-r04\",\n+     \"talentId\": \"authored-0006\",\n+     \"week\": 208,\n    },\n  ]\n\n \u276f tests/helpers/p14p3-fixtures.ts:1059:99\n    1057|     expect(state.promises.find(p => p.promiseId === vacancyPromiseId)?\u2026\n    1058|     const focusWinner = state.talentMarket.receipts.filter(r => r.kind\u2026\n    1059|     expect(focusWinner, 'fixture premise: the same fixed rival really \u2026\n       |                                                                                                   ^\n    1060|       expect.objectContaining({ studioId: RIVAL.studio }),\n    1061|     ])\n \u276f memo tests/helpers/p14p3-fixtures.ts:111:23\n \u276f Module.rivalWinner208 tests/helpers/p14p3-fixtures.ts:1033:10\n \u276f tests/p14p3-directing-promises.test.ts:894:20",
+      "fullDiagnosticTailBytes": 1502,
+      "fullDiagnosticTailSha256": "b6a9bd7a9a53ebe4266a4e34df3e606e86226a8c75850e2da81c65b3f377412c",
+      "printedFrames": [
+        "tests/helpers/p14p3-fixtures.ts:1059:99",
+        "memo tests/helpers/p14p3-fixtures.ts:111:23",
+        "Module.rivalWinner208 tests/helpers/p14p3-fixtures.ts:1033:10",
+        "tests/p14p3-directing-promises.test.ts:894:20"
+      ],
+      "stackLimit": "Shared cached failure preserves original D07 caller; no separate D18 stack inferred."
+    }
+  ],
+  "comparisonAgainst1166": {
+    "new": [],
+    "vanished": [],
+    "retainedIdenticalPrimary": [],
+    "changedPrimary": [
+      "tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D07 authors and fulfills a real rival promise to a credited primary Actor",
+      "tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D18 uses the declared rival strategy and legal distinct staffing"
+    ],
+    "fullTailLiteralEqual": false,
+    "markerComparison": [
+      {
+        "name": "1164-P3-RIVAL-QUOTE",
+        "oldCount": 2,
+        "newCount": 2,
+        "literalEqual": true,
+        "dataEqual": true
+      },
+      {
+        "name": "1164-P3-PLAYER-QUOTE",
+        "oldCount": 1,
+        "newCount": 1,
+        "literalEqual": false,
+        "dataEqual": false
+      },
+      {
+        "name": "1155-P3-RIVAL-AUTHORING",
+        "oldCount": 1,
+        "newCount": 1,
+        "literalEqual": true,
+        "dataEqual": true
+      },
+      {
+        "name": "1155-P3-RIVAL-COUNTERS",
+        "oldCount": 1,
+        "newCount": 1,
+        "literalEqual": false,
+        "dataEqual": false
+      },
+      {
+        "name": "1149-P3-CONTINUITY-COUNTERS",
+        "oldCount": 1,
+        "newCount": 1,
+        "literalEqual": true,
+        "dataEqual": true
+      },
+      {
+        "name": "1143-P3-OUTCOME-COUNTERS",
+        "oldCount": 1,
+        "newCount": 1,
+        "literalEqual": true,
+        "dataEqual": true
+      },
+      {
+        "name": "1133-P3-COUNTERS",
+        "oldCount": 1,
+        "newCount": 1,
+        "literalEqual": true,
+        "dataEqual": true
+      }
+    ]
+  },
+  "markers": {
+    "1164-P3-RIVAL-QUOTE": [
+      {
+        "inputFacts": {
+          "gameWeek": 196,
+          "quoteWeek": 196,
+          "from": 208,
+          "draft": {
+            "family": "DIRECTING_COUNT",
+            "predicate": {
+              "kind": "directorCount",
+              "count": 1
+            },
+            "windowStartWeek": 208,
+            "dueWeekExclusive": 416,
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "authored-0006",
+            "startWeek": 208,
+            "termWeeks": 208
+          },
+          "currentProfession": "actor",
+          "selectedSamePersonIds": [],
+          "selectedUnionIds": [
+            "promise-0",
+            "promise-2"
+          ],
+          "taggedUnionScope": true,
+          "selectedByDeclaredScopeIds": [
+            "promise-0",
+            "promise-2"
+          ],
+          "rawLinkedRows": [
+            {
+              "row": {
+                "promiseId": "promise-0",
+                "version": 4,
+                "issuerStudioId": "studio-de11f27b-r01",
+                "beneficiaryPersonId": "person-studio-de11f27b-r01-0",
+                "windowStartWeek": 208,
+                "dueWeekExclusive": 416,
+                "feasibilityReceipt": {
+                  "classification": "REASONABLY_ACHIEVABLE",
+                  "bottleneck": null,
+                  "inputsDigest": "ca6f5535c70d9d43",
+                  "rulesVersion": 4,
+                  "week": 196
+                },
+                "progress": 0,
+                "evidenceRefs": [],
+                "outcome": null,
+                "outcomeWeek": null,
+                "outcomeCause": null,
+                "outcomeEventId": null,
+                "contractId": null,
+                "supersededByPromiseId": null,
+                "family": "APPEARANCE_COUNT",
+                "predicate": {
+                  "count": 1
+                }
+              },
+              "samePerson": false,
+              "sameIssuer": true,
+              "open": true,
+              "bound": false,
+              "attached": true,
+              "notSelf": true,
+              "overlaps": true,
+              "attachedBy": [
+                {
+                  "talentId": "person-studio-de11f27b-r01-0",
+                  "issuerStudioId": "studio-de11f27b-r01",
+                  "startWeek": 208,
+                  "termWeeks": 208,
+                  "submittedWeek": 196
+                }
+              ]
+            },
+            {
+              "row": {
+                "promiseId": "promise-2",
+                "version": 6,
+                "issuerStudioId": "studio-de11f27b-r01",
+                "beneficiaryPersonId": "person-studio-de11f27b-r01-1",
+                "windowStartWeek": 208,
+                "dueWeekExclusive": 416,
+                "feasibilityReceipt": {
+                  "classification": "REASONABLY_ACHIEVABLE",
+                  "bottleneck": null,
+                  "inputsDigest": "e5903bba81acf7a5",
+                  "rulesVersion": 6,
+                  "week": 196
+                },
+                "progress": 0,
+                "evidenceRefs": [],
+                "outcome": null,
+                "outcomeWeek": null,
+                "outcomeCause": null,
+                "outcomeEventId": null,
+                "contractId": null,
+                "supersededByPromiseId": null,
+                "family": "DIRECTING_COUNT",
+                "predicate": {
+                  "kind": "directorCount",
+                  "count": 1
+                }
+              },
+              "samePerson": false,
+              "sameIssuer": true,
+              "open": true,
+              "bound": false,
+              "attached": true,
+              "notSelf": true,
+              "overlaps": true,
+              "attachedBy": [
+                {
+                  "talentId": "person-studio-de11f27b-r01-1",
+                  "issuerStudioId": "studio-de11f27b-r01",
+                  "startWeek": 208,
+                  "termWeeks": 208,
+                  "submittedWeek": 196
+                }
+              ]
+            }
+          ],
+          "actualProposals": [
+            {
+              "talentId": "person-studio-de11f27b-r01-0",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1,
+              "startWeek": 208,
+              "annualSalary": 465570,
+              "signingBonus": 83803,
+              "submittedWeek": 196,
+              "digest": "998d3c095cf10d97",
+              "promises": [
+                "promise-0"
+              ],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r01-1",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1,
+              "startWeek": 208,
+              "annualSalary": 611598,
+              "signingBonus": 110088,
+              "submittedWeek": 196,
+              "digest": "1af9d6fff4d29ba6",
+              "promises": [
+                "promise-2"
+              ],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r01-2",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1,
+              "startWeek": 208,
+              "annualSalary": 583244,
+              "signingBonus": 104984,
+              "submittedWeek": 196,
+              "digest": "a24069d48247b07b",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r01-3",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1,
+              "startWeek": 208,
+              "annualSalary": 1040640,
+              "signingBonus": 187315,
+              "submittedWeek": 196,
+              "digest": "9a2a79e3385706bc",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r01-4",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1,
+              "startWeek": 208,
+              "annualSalary": 1587962,
+              "signingBonus": 285833,
+              "submittedWeek": 196,
+              "digest": "188da59f71871a11",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r01-5",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1,
+              "startWeek": 208,
+              "annualSalary": 410538,
+              "signingBonus": 73897,
+              "submittedWeek": 196,
+              "digest": "825a9c013dffba3a",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r02-0",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 497909,
+              "signingBonus": 89624,
+              "submittedWeek": 196,
+              "digest": "1fe9f319d8a97361",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r02-1",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 920950,
+              "signingBonus": 165771,
+              "submittedWeek": 196,
+              "digest": "84b10fa86d047ea8",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r02-2",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 1271146,
+              "signingBonus": 228806,
+              "submittedWeek": 196,
+              "digest": "e24fcb681bb84b53",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r02-3",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 1245643,
+              "signingBonus": 224216,
+              "submittedWeek": 196,
+              "digest": "fd98c9255e3f5b9a",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r02-4",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 590959,
+              "signingBonus": 106373,
+              "submittedWeek": 196,
+              "digest": "8338a135a4a2de2d",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r02-5",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 808849,
+              "signingBonus": 145593,
+              "submittedWeek": 196,
+              "digest": "56e806caaabf08d4",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r03-0",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 990668,
+              "signingBonus": 178320,
+              "submittedWeek": 196,
+              "digest": "308d9c0e6aca23d4",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r03-1",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 1013273,
+              "signingBonus": 182389,
+              "submittedWeek": 196,
+              "digest": "5cde367964adf92d",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r03-2",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 762896,
+              "signingBonus": 137321,
+              "submittedWeek": 196,
+              "digest": "bbe0a027967b4f46",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r03-3",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 1308413,
+              "signingBonus": 235514,
+              "submittedWeek": 196,
+              "digest": "efe2361d0b438b2f",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r03-4",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 989808,
+              "signingBonus": 178165,
+              "submittedWeek": 196,
+              "digest": "5e56a4ec2d0f99a8",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r03-5",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 606194,
+              "signingBonus": 109115,
+              "submittedWeek": 196,
+              "digest": "f98f885d98b48e61",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r04-0",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 583382,
+              "signingBonus": 105009,
+              "submittedWeek": 196,
+              "digest": "bf7d5bbeb20555d3",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r04-1",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 332599,
+              "signingBonus": 59868,
+              "submittedWeek": 196,
+              "digest": "dac6597bf48c661a",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r04-2",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 402416,
+              "signingBonus": 72435,
+              "submittedWeek": 196,
+              "digest": "fd1783706ef67de1",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r04-3",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 223572,
+              "signingBonus": 40243,
+              "submittedWeek": 196,
+              "digest": "61de9fff03518928",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r04-4",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 103348,
+              "signingBonus": 18603,
+              "submittedWeek": 196,
+              "digest": "f36a312fe1857aaf",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r04-5",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 642998,
+              "signingBonus": 115740,
+              "submittedWeek": 196,
+              "digest": "bf689b3a6cbd3ec6",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "authored-0002",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 417128,
+              "signingBonus": 75083,
+              "submittedWeek": 196,
+              "digest": "adc823dbcac523f7",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "authored-0003",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 370078,
+              "signingBonus": 66614,
+              "submittedWeek": 196,
+              "digest": "a52884b7d912196e",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "authored-0004",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 402341,
+              "signingBonus": 72421,
+              "submittedWeek": 196,
+              "digest": "602de4af73770b89",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "authored-0005",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 398511,
+              "signingBonus": 71732,
+              "submittedWeek": 196,
+              "digest": "789be2832445a890",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "authored-0006",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 443592,
+              "signingBonus": 79847,
+              "submittedWeek": 196,
+              "digest": "0c75f6f9b59d741b",
+              "promises": [],
+              "representation": null
+            }
+          ],
+          "owner": "rival",
+          "developmentMode": "managed",
+          "scripts": [
+            {
+              "id": "script-0000",
+              "conceptId": "studio-de11f27b-r01:concept:0",
+              "status": "produced",
+              "commissionedWeek": 1,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:0"
+            },
+            {
+              "id": "script-0001",
+              "conceptId": "studio-de11f27b-r01:concept:1",
+              "status": "produced",
+              "commissionedWeek": 4,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:1"
+            },
+            {
+              "id": "script-0002",
+              "conceptId": "studio-de11f27b-r01:concept:2",
+              "status": "produced",
+              "commissionedWeek": 13,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:2"
+            },
+            {
+              "id": "script-0003",
+              "conceptId": "studio-de11f27b-r01:concept:3",
+              "status": "produced",
+              "commissionedWeek": 22,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:3"
+            },
+            {
+              "id": "script-0004",
+              "conceptId": "studio-de11f27b-r01:concept:4",
+              "status": "produced",
+              "commissionedWeek": 31,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:4"
+            },
+            {
+              "id": "script-0005",
+              "conceptId": "studio-de11f27b-r01:concept:5",
+              "status": "produced",
+              "commissionedWeek": 40,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:5"
+            },
+            {
+              "id": "script-0006",
+              "conceptId": "studio-de11f27b-r01:concept:6",
+              "status": "produced",
+              "commissionedWeek": 49,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:6"
+            },
+            {
+              "id": "script-0007",
+              "conceptId": "studio-de11f27b-r01:concept:7",
+              "status": "produced",
+              "commissionedWeek": 58,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:7"
+            },
+            {
+              "id": "script-0008",
+              "conceptId": "studio-de11f27b-r01:concept:8",
+              "status": "produced",
+              "commissionedWeek": 67,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:8"
+            },
+            {
+              "id": "script-0009",
+              "conceptId": "studio-de11f27b-r01:concept:9",
+              "status": "produced",
+              "commissionedWeek": 76,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:9"
+            },
+            {
+              "id": "script-0010",
+              "conceptId": "studio-de11f27b-r01:concept:10",
+              "status": "produced",
+              "commissionedWeek": 85,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:10"
+            },
+            {
+              "id": "script-0011",
+              "conceptId": "studio-de11f27b-r01:concept:11",
+              "status": "produced",
+              "commissionedWeek": 94,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:11"
+            },
+            {
+              "id": "script-0012",
+              "conceptId": "studio-de11f27b-r01:concept:12",
+              "status": "produced",
+              "commissionedWeek": 103,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:12"
+            },
+            {
+              "id": "script-0013",
+              "conceptId": "studio-de11f27b-r01:concept:13",
+              "status": "produced",
+              "commissionedWeek": 112,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:13"
+            },
+            {
+              "id": "script-0014",
+              "conceptId": "studio-de11f27b-r01:concept:14",
+              "status": "produced",
+              "commissionedWeek": 121,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:14"
+            },
+            {
+              "id": "script-0015",
+              "conceptId": "studio-de11f27b-r01:concept:15",
+              "status": "produced",
+              "commissionedWeek": 130,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:15"
+            },
+            {
+              "id": "script-0016",
+              "conceptId": "studio-de11f27b-r01:concept:16",
+              "status": "produced",
+              "commissionedWeek": 139,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:16"
+            },
+            {
+              "id": "script-0017",
+              "conceptId": "studio-de11f27b-r01:concept:17",
+              "status": "produced",
+              "commissionedWeek": 148,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:17"
+            },
+            {
+              "id": "script-0018",
+              "conceptId": "studio-de11f27b-r01:concept:18",
+              "status": "produced",
+              "commissionedWeek": 157,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:18"
+            },
+            {
+              "id": "script-0019",
+              "conceptId": "studio-de11f27b-r01:concept:19",
+              "status": "produced",
+              "commissionedWeek": 166,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:19"
+            },
+            {
+              "id": "script-0020",
+              "conceptId": "studio-de11f27b-r01:concept:20",
+              "status": "produced",
+              "commissionedWeek": 175,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:20"
+            },
+            {
+              "id": "script-0021",
+              "conceptId": "studio-de11f27b-r01:concept:21",
+              "status": "inProduction",
+              "commissionedWeek": 184,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:21"
+            },
+            {
+              "id": "script-0022",
+              "conceptId": "studio-de11f27b-r01:concept:22",
+              "status": "ready",
+              "commissionedWeek": 193,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": null
+            }
+          ],
+          "productions": [
+            {
+              "id": "studio-de11f27b-r01:film:21",
+              "conceptId": "studio-de11f27b-r01:concept:21",
+              "startTick": 193,
+              "remainingTicks": 6,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "directorId": "person-studio-de11f27b-r01-1",
+              "craftIds": [
+                "person-studio-de11f27b-r01-5"
+              ],
+              "cast": {
+                "lead": "person-studio-de11f27b-r01-4",
+                "antagonist": "person-studio-de11f27b-r01-3",
+                "support": "person-studio-de11f27b-r01-2"
+              }
+            }
+          ],
+          "recordedTakes": [],
+          "facilities": [
+            {
+              "id": "studio-de11f27b-r01:development",
+              "capability": "development-casting",
+              "capacity": 2
+            },
+            {
+              "id": "studio-de11f27b-r01:stage",
+              "capability": "soundstage",
+              "capacity": 1
+            },
+            {
+              "id": "studio-de11f27b-r01:scenery",
+              "capability": "set-scenery",
+              "capacity": 2
+            },
+            {
+              "id": "studio-de11f27b-r01:post",
+              "capability": "post",
+              "capacity": 2
+            },
+            {
+              "id": "studio-de11f27b-r01:laboratory:0",
+              "capability": "laboratory",
+              "capacity": 4
+            }
+          ],
+          "workflows": [
+            {
+              "productionId": "studio-de11f27b-r01:film:21",
+              "phase": "rehearsal",
+              "blocker": null,
+              "shootingTask": null
+            }
+          ],
+          "unusedPlayerConceptIds": null
+        },
+        "receipt": {
+          "classification": "FRAGILE",
+          "bottleneck": "needs a picture not yet commissioned",
+          "inputsDigest": "0a00a54e732e75ea",
+          "rulesVersion": 6,
+          "week": 196
+        }
+      },
+      {
+        "inputFacts": {
+          "gameWeek": 196,
+          "quoteWeek": 196,
+          "from": 208,
+          "draft": {
+            "family": "APPEARANCE_COUNT",
+            "predicate": {
+              "count": 1
+            },
+            "windowStartWeek": 208,
+            "dueWeekExclusive": 416,
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "authored-0006",
+            "startWeek": 208,
+            "termWeeks": 208
+          },
+          "currentProfession": "actor",
+          "selectedSamePersonIds": [],
+          "selectedUnionIds": [
+            "promise-0",
+            "promise-2"
+          ],
+          "taggedUnionScope": true,
+          "selectedByDeclaredScopeIds": [
+            "promise-0",
+            "promise-2"
+          ],
+          "rawLinkedRows": [
+            {
+              "row": {
+                "promiseId": "promise-0",
+                "version": 4,
+                "issuerStudioId": "studio-de11f27b-r01",
+                "beneficiaryPersonId": "person-studio-de11f27b-r01-0",
+                "windowStartWeek": 208,
+                "dueWeekExclusive": 416,
+                "feasibilityReceipt": {
+                  "classification": "REASONABLY_ACHIEVABLE",
+                  "bottleneck": null,
+                  "inputsDigest": "ca6f5535c70d9d43",
+                  "rulesVersion": 4,
+                  "week": 196
+                },
+                "progress": 0,
+                "evidenceRefs": [],
+                "outcome": null,
+                "outcomeWeek": null,
+                "outcomeCause": null,
+                "outcomeEventId": null,
+                "contractId": null,
+                "supersededByPromiseId": null,
+                "family": "APPEARANCE_COUNT",
+                "predicate": {
+                  "count": 1
+                }
+              },
+              "samePerson": false,
+              "sameIssuer": true,
+              "open": true,
+              "bound": false,
+              "attached": true,
+              "notSelf": true,
+              "overlaps": true,
+              "attachedBy": [
+                {
+                  "talentId": "person-studio-de11f27b-r01-0",
+                  "issuerStudioId": "studio-de11f27b-r01",
+                  "startWeek": 208,
+                  "termWeeks": 208,
+                  "submittedWeek": 196
+                }
+              ]
+            },
+            {
+              "row": {
+                "promiseId": "promise-2",
+                "version": 6,
+                "issuerStudioId": "studio-de11f27b-r01",
+                "beneficiaryPersonId": "person-studio-de11f27b-r01-1",
+                "windowStartWeek": 208,
+                "dueWeekExclusive": 416,
+                "feasibilityReceipt": {
+                  "classification": "REASONABLY_ACHIEVABLE",
+                  "bottleneck": null,
+                  "inputsDigest": "e5903bba81acf7a5",
+                  "rulesVersion": 6,
+                  "week": 196
+                },
+                "progress": 0,
+                "evidenceRefs": [],
+                "outcome": null,
+                "outcomeWeek": null,
+                "outcomeCause": null,
+                "outcomeEventId": null,
+                "contractId": null,
+                "supersededByPromiseId": null,
+                "family": "DIRECTING_COUNT",
+                "predicate": {
+                  "kind": "directorCount",
+                  "count": 1
+                }
+              },
+              "samePerson": false,
+              "sameIssuer": true,
+              "open": true,
+              "bound": false,
+              "attached": true,
+              "notSelf": true,
+              "overlaps": true,
+              "attachedBy": [
+                {
+                  "talentId": "person-studio-de11f27b-r01-1",
+                  "issuerStudioId": "studio-de11f27b-r01",
+                  "startWeek": 208,
+                  "termWeeks": 208,
+                  "submittedWeek": 196
+                }
+              ]
+            }
+          ],
+          "actualProposals": [
+            {
+              "talentId": "person-studio-de11f27b-r01-0",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1,
+              "startWeek": 208,
+              "annualSalary": 465570,
+              "signingBonus": 83803,
+              "submittedWeek": 196,
+              "digest": "998d3c095cf10d97",
+              "promises": [
+                "promise-0"
+              ],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r01-1",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1,
+              "startWeek": 208,
+              "annualSalary": 611598,
+              "signingBonus": 110088,
+              "submittedWeek": 196,
+              "digest": "1af9d6fff4d29ba6",
+              "promises": [
+                "promise-2"
+              ],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r01-2",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1,
+              "startWeek": 208,
+              "annualSalary": 583244,
+              "signingBonus": 104984,
+              "submittedWeek": 196,
+              "digest": "a24069d48247b07b",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r01-3",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1,
+              "startWeek": 208,
+              "annualSalary": 1040640,
+              "signingBonus": 187315,
+              "submittedWeek": 196,
+              "digest": "9a2a79e3385706bc",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r01-4",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1,
+              "startWeek": 208,
+              "annualSalary": 1587962,
+              "signingBonus": 285833,
+              "submittedWeek": 196,
+              "digest": "188da59f71871a11",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r01-5",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1,
+              "startWeek": 208,
+              "annualSalary": 410538,
+              "signingBonus": 73897,
+              "submittedWeek": 196,
+              "digest": "825a9c013dffba3a",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r02-0",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 497909,
+              "signingBonus": 89624,
+              "submittedWeek": 196,
+              "digest": "1fe9f319d8a97361",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r02-1",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 920950,
+              "signingBonus": 165771,
+              "submittedWeek": 196,
+              "digest": "84b10fa86d047ea8",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r02-2",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 1271146,
+              "signingBonus": 228806,
+              "submittedWeek": 196,
+              "digest": "e24fcb681bb84b53",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r02-3",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 1245643,
+              "signingBonus": 224216,
+              "submittedWeek": 196,
+              "digest": "fd98c9255e3f5b9a",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r02-4",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 590959,
+              "signingBonus": 106373,
+              "submittedWeek": 196,
+              "digest": "8338a135a4a2de2d",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r02-5",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 808849,
+              "signingBonus": 145593,
+              "submittedWeek": 196,
+              "digest": "56e806caaabf08d4",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r03-0",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 990668,
+              "signingBonus": 178320,
+              "submittedWeek": 196,
+              "digest": "308d9c0e6aca23d4",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r03-1",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 1013273,
+              "signingBonus": 182389,
+              "submittedWeek": 196,
+              "digest": "5cde367964adf92d",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r03-2",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 762896,
+              "signingBonus": 137321,
+              "submittedWeek": 196,
+              "digest": "bbe0a027967b4f46",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r03-3",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 1308413,
+              "signingBonus": 235514,
+              "submittedWeek": 196,
+              "digest": "efe2361d0b438b2f",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r03-4",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 989808,
+              "signingBonus": 178165,
+              "submittedWeek": 196,
+              "digest": "5e56a4ec2d0f99a8",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r03-5",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 606194,
+              "signingBonus": 109115,
+              "submittedWeek": 196,
+              "digest": "f98f885d98b48e61",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r04-0",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 583382,
+              "signingBonus": 105009,
+              "submittedWeek": 196,
+              "digest": "bf7d5bbeb20555d3",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r04-1",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 332599,
+              "signingBonus": 59868,
+              "submittedWeek": 196,
+              "digest": "dac6597bf48c661a",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r04-2",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 402416,
+              "signingBonus": 72435,
+              "submittedWeek": 196,
+              "digest": "fd1783706ef67de1",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r04-3",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 223572,
+              "signingBonus": 40243,
+              "submittedWeek": 196,
+              "digest": "61de9fff03518928",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r04-4",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 103348,
+              "signingBonus": 18603,
+              "submittedWeek": 196,
+              "digest": "f36a312fe1857aaf",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r04-5",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 642998,
+              "signingBonus": 115740,
+              "submittedWeek": 196,
+              "digest": "bf689b3a6cbd3ec6",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "authored-0002",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 417128,
+              "signingBonus": 75083,
+              "submittedWeek": 196,
+              "digest": "adc823dbcac523f7",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "authored-0003",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 370078,
+              "signingBonus": 66614,
+              "submittedWeek": 196,
+              "digest": "a52884b7d912196e",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "authored-0004",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 402341,
+              "signingBonus": 72421,
+              "submittedWeek": 196,
+              "digest": "602de4af73770b89",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "authored-0005",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 398511,
+              "signingBonus": 71732,
+              "submittedWeek": 196,
+              "digest": "789be2832445a890",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "authored-0006",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 443592,
+              "signingBonus": 79847,
+              "submittedWeek": 196,
+              "digest": "0c75f6f9b59d741b",
+              "promises": [],
+              "representation": null
+            }
+          ],
+          "owner": "rival",
+          "developmentMode": "managed",
+          "scripts": [
+            {
+              "id": "script-0000",
+              "conceptId": "studio-de11f27b-r01:concept:0",
+              "status": "produced",
+              "commissionedWeek": 1,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:0"
+            },
+            {
+              "id": "script-0001",
+              "conceptId": "studio-de11f27b-r01:concept:1",
+              "status": "produced",
+              "commissionedWeek": 4,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:1"
+            },
+            {
+              "id": "script-0002",
+              "conceptId": "studio-de11f27b-r01:concept:2",
+              "status": "produced",
+              "commissionedWeek": 13,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:2"
+            },
+            {
+              "id": "script-0003",
+              "conceptId": "studio-de11f27b-r01:concept:3",
+              "status": "produced",
+              "commissionedWeek": 22,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:3"
+            },
+            {
+              "id": "script-0004",
+              "conceptId": "studio-de11f27b-r01:concept:4",
+              "status": "produced",
+              "commissionedWeek": 31,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:4"
+            },
+            {
+              "id": "script-0005",
+              "conceptId": "studio-de11f27b-r01:concept:5",
+              "status": "produced",
+              "commissionedWeek": 40,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:5"
+            },
+            {
+              "id": "script-0006",
+              "conceptId": "studio-de11f27b-r01:concept:6",
+              "status": "produced",
+              "commissionedWeek": 49,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:6"
+            },
+            {
+              "id": "script-0007",
+              "conceptId": "studio-de11f27b-r01:concept:7",
+              "status": "produced",
+              "commissionedWeek": 58,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:7"
+            },
+            {
+              "id": "script-0008",
+              "conceptId": "studio-de11f27b-r01:concept:8",
+              "status": "produced",
+              "commissionedWeek": 67,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:8"
+            },
+            {
+              "id": "script-0009",
+              "conceptId": "studio-de11f27b-r01:concept:9",
+              "status": "produced",
+              "commissionedWeek": 76,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:9"
+            },
+            {
+              "id": "script-0010",
+              "conceptId": "studio-de11f27b-r01:concept:10",
+              "status": "produced",
+              "commissionedWeek": 85,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:10"
+            },
+            {
+              "id": "script-0011",
+              "conceptId": "studio-de11f27b-r01:concept:11",
+              "status": "produced",
+              "commissionedWeek": 94,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:11"
+            },
+            {
+              "id": "script-0012",
+              "conceptId": "studio-de11f27b-r01:concept:12",
+              "status": "produced",
+              "commissionedWeek": 103,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:12"
+            },
+            {
+              "id": "script-0013",
+              "conceptId": "studio-de11f27b-r01:concept:13",
+              "status": "produced",
+              "commissionedWeek": 112,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:13"
+            },
+            {
+              "id": "script-0014",
+              "conceptId": "studio-de11f27b-r01:concept:14",
+              "status": "produced",
+              "commissionedWeek": 121,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:14"
+            },
+            {
+              "id": "script-0015",
+              "conceptId": "studio-de11f27b-r01:concept:15",
+              "status": "produced",
+              "commissionedWeek": 130,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:15"
+            },
+            {
+              "id": "script-0016",
+              "conceptId": "studio-de11f27b-r01:concept:16",
+              "status": "produced",
+              "commissionedWeek": 139,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:16"
+            },
+            {
+              "id": "script-0017",
+              "conceptId": "studio-de11f27b-r01:concept:17",
+              "status": "produced",
+              "commissionedWeek": 148,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:17"
+            },
+            {
+              "id": "script-0018",
+              "conceptId": "studio-de11f27b-r01:concept:18",
+              "status": "produced",
+              "commissionedWeek": 157,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:18"
+            },
+            {
+              "id": "script-0019",
+              "conceptId": "studio-de11f27b-r01:concept:19",
+              "status": "produced",
+              "commissionedWeek": 166,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:19"
+            },
+            {
+              "id": "script-0020",
+              "conceptId": "studio-de11f27b-r01:concept:20",
+              "status": "produced",
+              "commissionedWeek": 175,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:20"
+            },
+            {
+              "id": "script-0021",
+              "conceptId": "studio-de11f27b-r01:concept:21",
+              "status": "inProduction",
+              "commissionedWeek": 184,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": "studio-de11f27b-r01:film:21"
+            },
+            {
+              "id": "script-0022",
+              "conceptId": "studio-de11f27b-r01:concept:22",
+              "status": "ready",
+              "commissionedWeek": 193,
+              "dueWeek": null,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "writerIds": [
+                "person-studio-de11f27b-r01-0"
+              ],
+              "reservation": null,
+              "productionId": null
+            }
+          ],
+          "productions": [
+            {
+              "id": "studio-de11f27b-r01:film:21",
+              "conceptId": "studio-de11f27b-r01:concept:21",
+              "startTick": 193,
+              "remainingTicks": 6,
+              "writerId": "person-studio-de11f27b-r01-0",
+              "directorId": "person-studio-de11f27b-r01-1",
+              "craftIds": [
+                "person-studio-de11f27b-r01-5"
+              ],
+              "cast": {
+                "lead": "person-studio-de11f27b-r01-4",
+                "antagonist": "person-studio-de11f27b-r01-3",
+                "support": "person-studio-de11f27b-r01-2"
+              }
+            }
+          ],
+          "recordedTakes": [],
+          "facilities": [
+            {
+              "id": "studio-de11f27b-r01:development",
+              "capability": "development-casting",
+              "capacity": 2
+            },
+            {
+              "id": "studio-de11f27b-r01:stage",
+              "capability": "soundstage",
+              "capacity": 1
+            },
+            {
+              "id": "studio-de11f27b-r01:scenery",
+              "capability": "set-scenery",
+              "capacity": 2
+            },
+            {
+              "id": "studio-de11f27b-r01:post",
+              "capability": "post",
+              "capacity": 2
+            },
+            {
+              "id": "studio-de11f27b-r01:laboratory:0",
+              "capability": "laboratory",
+              "capacity": 4
+            }
+          ],
+          "workflows": [
+            {
+              "productionId": "studio-de11f27b-r01:film:21",
+              "phase": "rehearsal",
+              "blocker": null,
+              "shootingTask": null
+            }
+          ],
+          "unusedPlayerConceptIds": null
+        },
+        "receipt": {
+          "classification": "FRAGILE",
+          "bottleneck": "needs a picture not yet commissioned",
+          "inputsDigest": "c06390b87e5fb17b",
+          "rulesVersion": 6,
+          "week": 196
+        }
+      }
+    ],
+    "1164-P3-PLAYER-QUOTE": [
+      {
+        "inputFacts": {
+          "gameWeek": 196,
+          "quoteWeek": 196,
+          "from": 208,
+          "draft": {
+            "family": "APPEARANCE_COUNT",
+            "predicate": {
+              "count": 1
+            },
+            "issuerStudioId": "studio-de11f27b-player",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-2",
+            "startWeek": 208,
+            "termWeeks": 208,
+            "windowStartWeek": 208,
+            "dueWeekExclusive": 416
+          },
+          "currentProfession": "actor",
+          "selectedSamePersonIds": [
+            "promise-4",
+            "promise-5"
+          ],
+          "selectedUnionIds": [
+            "promise-4",
+            "promise-5"
+          ],
+          "taggedUnionScope": false,
+          "selectedByDeclaredScopeIds": [
+            "promise-4",
+            "promise-5"
+          ],
+          "rawLinkedRows": [
+            {
+              "row": {
+                "promiseId": "promise-4",
+                "version": 4,
+                "issuerStudioId": "studio-de11f27b-r02",
+                "beneficiaryPersonId": "person-studio-de11f27b-r01-2",
+                "windowStartWeek": 208,
+                "dueWeekExclusive": 416,
+                "feasibilityReceipt": {
+                  "classification": "REASONABLY_ACHIEVABLE",
+                  "bottleneck": null,
+                  "inputsDigest": "68f77b16f7af90da",
+                  "rulesVersion": 4,
+                  "week": 196
+                },
+                "progress": 0,
+                "evidenceRefs": [],
+                "outcome": null,
+                "outcomeWeek": null,
+                "outcomeCause": null,
+                "outcomeEventId": null,
+                "contractId": null,
+                "supersededByPromiseId": null,
+                "family": "APPEARANCE_COUNT",
+                "predicate": {
+                  "count": 1
+                }
+              },
+              "samePerson": true,
+              "sameIssuer": false,
+              "open": true,
+              "bound": false,
+              "attached": true,
+              "notSelf": true,
+              "overlaps": true,
+              "attachedBy": [
+                {
+                  "talentId": "person-studio-de11f27b-r01-2",
+                  "issuerStudioId": "studio-de11f27b-r02",
+                  "startWeek": 208,
+                  "termWeeks": 208,
+                  "submittedWeek": 196
+                }
+              ]
+            },
+            {
+              "row": {
+                "promiseId": "promise-5",
+                "version": 4,
+                "issuerStudioId": "studio-de11f27b-r03",
+                "beneficiaryPersonId": "person-studio-de11f27b-r01-2",
+                "windowStartWeek": 208,
+                "dueWeekExclusive": 416,
+                "feasibilityReceipt": {
+                  "classification": "REASONABLY_ACHIEVABLE",
+                  "bottleneck": null,
+                  "inputsDigest": "08399a45ebc17ba7",
+                  "rulesVersion": 4,
+                  "week": 196
+                },
+                "progress": 0,
+                "evidenceRefs": [],
+                "outcome": null,
+                "outcomeWeek": null,
+                "outcomeCause": null,
+                "outcomeEventId": null,
+                "contractId": null,
+                "supersededByPromiseId": null,
+                "family": "APPEARANCE_COUNT",
+                "predicate": {
+                  "count": 1
+                }
+              },
+              "samePerson": true,
+              "sameIssuer": false,
+              "open": true,
+              "bound": false,
+              "attached": true,
+              "notSelf": true,
+              "overlaps": true,
+              "attachedBy": [
+                {
+                  "talentId": "person-studio-de11f27b-r01-2",
+                  "issuerStudioId": "studio-de11f27b-r03",
+                  "startWeek": 208,
+                  "termWeeks": 208,
+                  "submittedWeek": 196
+                }
+              ]
+            }
+          ],
+          "actualProposals": [
+            {
+              "talentId": "person-studio-de11f27b-r01-2",
+              "issuerStudioId": "studio-de11f27b-r01",
+              "termWeeks": 208,
+              "premiumTier": 1,
+              "startWeek": 208,
+              "annualSalary": 583244,
+              "signingBonus": 104984,
+              "submittedWeek": 196,
+              "digest": "a24069d48247b07b",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r01-2",
+              "issuerStudioId": "studio-de11f27b-r02",
+              "termWeeks": 208,
+              "premiumTier": 1.1,
+              "startWeek": 208,
+              "annualSalary": 641568,
+              "signingBonus": 115482,
+              "submittedWeek": 196,
+              "digest": "04c2bf4e34d2abcf",
+              "promises": [
+                "promise-4"
+              ],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r01-2",
+              "issuerStudioId": "studio-de11f27b-r03",
+              "termWeeks": 208,
+              "premiumTier": 1.1,
+              "startWeek": 208,
+              "annualSalary": 641568,
+              "signingBonus": 115482,
+              "submittedWeek": 196,
+              "digest": "55b57810a2c40386",
+              "promises": [
+                "promise-5"
+              ],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r01-2",
+              "issuerStudioId": "studio-de11f27b-r04",
+              "termWeeks": 208,
+              "premiumTier": 1.05,
+              "startWeek": 208,
+              "annualSalary": 612406,
+              "signingBonus": 110233,
+              "submittedWeek": 196,
+              "digest": "e833c0d814327c41",
+              "promises": [],
+              "representation": null
+            },
+            {
+              "talentId": "person-studio-de11f27b-r01-2",
+              "issuerStudioId": "studio-de11f27b-player",
+              "termWeeks": 208,
+              "premiumTier": 1.25,
+              "startWeek": 208,
+              "annualSalary": 729055,
+              "signingBonus": 131230,
+              "submittedWeek": 196,
+              "digest": "85783ec830b3fef2",
+              "promises": [],
+              "representation": null
+            }
+          ],
+          "owner": "player",
+          "developmentMode": "managed",
+          "scripts": [
+            {
+              "id": "script-0000",
+              "conceptId": "c-00",
+              "status": "produced",
+              "commissionedWeek": 8,
+              "dueWeek": null,
+              "writerId": "authored-0003",
+              "writerIds": [
+                "authored-0003"
+              ],
+              "reservation": null,
+              "productionId": "prod-0009"
+            },
+            {
+              "id": "script-0001",
+              "conceptId": "c-01",
+              "status": "ready",
+              "commissionedWeek": 191,
+              "dueWeek": null,
+              "writerId": "authored-0003",
+              "writerIds": [
+                "authored-0003"
+              ],
+              "reservation": null,
+              "productionId": null
+            },
+            {
+              "id": "script-0002",
+              "conceptId": "c-02",
+              "status": "ready",
+              "commissionedWeek": 192,
+              "dueWeek": null,
+              "writerId": "authored-0003",
+              "writerIds": [
+                "authored-0003"
+              ],
+              "reservation": null,
+              "productionId": null
+            },
+            {
+              "id": "script-0003",
+              "conceptId": "c-03",
+              "status": "ready",
+              "commissionedWeek": 193,
+              "dueWeek": null,
+              "writerId": "authored-0003",
+              "writerIds": [
+                "authored-0003"
+              ],
+              "reservation": null,
+              "productionId": null
+            },
+            {
+              "id": "script-0004",
+              "conceptId": "c-04",
+              "status": "ready",
+              "commissionedWeek": 194,
+              "dueWeek": null,
+              "writerId": "authored-0003",
+              "writerIds": [
+                "authored-0003"
+              ],
+              "reservation": null,
+              "productionId": null
+            },
+            {
+              "id": "script-0005",
+              "conceptId": "c-05",
+              "status": "ready",
+              "commissionedWeek": 195,
+              "dueWeek": null,
+              "writerId": "authored-0003",
+              "writerIds": [
+                "authored-0003"
+              ],
+              "reservation": null,
+              "productionId": null
+            }
+          ],
+          "productions": [],
+          "recordedTakes": [],
+          "facilities": [
+            {
+              "id": "facility-development-casting",
+              "capability": "development-casting",
+              "capacity": 2
+            },
+            {
+              "id": "facility-post-building",
+              "capability": "post",
+              "capacity": 2
+            },
+            {
+              "id": "facility-scenery-shop",
+              "capability": "set-scenery",
+              "capacity": 2
+            },
+            {
+              "id": "facility-soundstage-07",
+              "capability": "soundstage",
+              "capacity": 1
+            },
+            {
+              "id": "facility-soundstage-12",
+              "capability": "soundstage",
+              "capacity": 1
+            }
+          ],
+          "workflows": [],
+          "unusedPlayerConceptIds": [
+            "c-06",
+            "c-07",
+            "c-08",
+            "c-09",
+            "c-10",
+            "c-11",
+            "c-12",
+            "c-13",
+            "c-14",
+            "c-15",
+            "c-16",
+            "c-17",
+            "c-18",
+            "c-19",
+            "c-20",
+            "c-21",
+            "c-22",
+            "c-23",
+            "c-24",
+            "c-25",
+            "c-26",
+            "c-27",
+            "c-28",
+            "c-29"
+          ]
+        },
+        "receipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "c0a998a612f729ce",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      }
+    ],
+    "1155-P3-RIVAL-AUTHORING": [
+      {
+        "week": 196,
+        "calls": [
+          {
+            "personId": "person-studio-de11f27b-r01-2",
+            "family": "APPEARANCE_COUNT",
+            "predicate": {
+              "count": 1
+            },
+            "classification": "FRAGILE"
+          },
+          {
+            "personId": "person-studio-de11f27b-r01-2",
+            "family": "DIRECTING_COUNT",
+            "predicate": {
+              "kind": "directorCount",
+              "count": 1
+            },
+            "classification": "FRAGILE"
+          },
+          {
+            "personId": "authored-0002",
+            "family": "DIRECTING_COUNT",
+            "predicate": {
+              "kind": "directorCount",
+              "count": 1
+            },
+            "classification": "FRAGILE"
+          },
+          {
+            "personId": "authored-0002",
+            "family": "APPEARANCE_COUNT",
+            "predicate": {
+              "count": 1
+            },
+            "classification": "FRAGILE"
+          },
+          {
+            "personId": "authored-0006",
+            "family": "DIRECTING_COUNT",
+            "predicate": {
+              "kind": "directorCount",
+              "count": 1
+            },
+            "classification": "FRAGILE"
+          },
+          {
+            "personId": "authored-0006",
+            "family": "APPEARANCE_COUNT",
+            "predicate": {
+              "count": 1
+            },
+            "classification": "FRAGILE"
+          }
+        ],
+        "bootstrapTake": 18
+      }
+    ],
+    "1155-P3-RIVAL-COUNTERS": [
+      {
+        "rivalCalls": 208,
+        "rivalCap": 260,
+        "otherCoreCalls": 0,
+        "total": 208,
+        "cap": 816
+      }
+    ],
+    "1149-P3-CONTINUITY-COUNTERS": [
+      {
+        "playerCalls": 0,
+        "playerCap": 208,
+        "branches": [
+          {
+            "name": "cancelBefore",
+            "actualTicks": 0,
+            "cap": 64,
+            "startWeek": null
+          },
+          {
+            "name": "cancelAfter",
+            "actualTicks": 0,
+            "cap": 64,
+            "startWeek": null
+          },
+          {
+            "name": "waiver",
+            "actualTicks": 0,
+            "cap": 64,
+            "startWeek": null
+          }
+        ],
+        "total": 0,
+        "cap": 556,
+        "lifecycleCalls": 0,
+        "lifecycleCap": 156,
+        "selectedCap": 364
+      }
+    ],
+    "1143-P3-OUTCOME-COUNTERS": [
+      {
+        "playerCalls": 0,
+        "playerCap": 208,
+        "branches": [
+          {
+            "name": "cancelBefore",
+            "actualTicks": 0,
+            "cap": 64,
+            "startWeek": null
+          },
+          {
+            "name": "cancelAfter",
+            "actualTicks": 0,
+            "cap": 64,
+            "startWeek": null
+          },
+          {
+            "name": "waiver",
+            "actualTicks": 0,
+            "cap": 64,
+            "startWeek": null
+          }
+        ],
+        "total": 0,
+        "cap": 400
+      }
+    ],
+    "1133-P3-COUNTERS": [
+      {
+        "actualTicks": 0,
+        "cap": 208,
+        "cachedPhases": [
+          {
+            "name": "rivalCreated0",
+            "completed": true
+          },
+          {
+            "name": "rivalCredit",
+            "completed": true
+          },
+          {
+            "name": "rivalAuthoring196",
+            "completed": true
+          },
+          {
+            "name": "rivalWinner208",
+            "completed": false
+          }
+        ]
+      }
+    ]
+  },
+  "literalMarkers": [
+    {
+      "name": "1164-P3-RIVAL-QUOTE",
+      "literal": "1164-P3-RIVAL-QUOTE {\"inputFacts\":{\"gameWeek\":196,\"quoteWeek\":196,\"from\":208,\"draft\":{\"family\":\"DIRECTING_COUNT\",\"predicate\":{\"kind\":\"directorCount\",\"count\":1},\"windowStartWeek\":208,\"dueWeekExclusive\":416,\"issuerStudioId\":\"studio-de11f27b-r01\",\"beneficiaryPersonId\":\"authored-0006\",\"startWeek\":208,\"termWeeks\":208},\"currentProfession\":\"actor\",\"selectedSamePersonIds\":[],\"selectedUnionIds\":[\"promise-0\",\"promise-2\"],\"taggedUnionScope\":true,\"selectedByDeclaredScopeIds\":[\"promise-0\",\"promise-2\"],\"rawLinkedRows\":[{\"row\":{\"promiseId\":\"promise-0\",\"version\":4,\"issuerStudioId\":\"studio-de11f27b-r01\",\"beneficiaryPersonId\":\"person-studio-de11f27b-r01-0\",\"windowStartWeek\":208,\"dueWeekExclusive\":416,\"feasibilityReceipt\":{\"classification\":\"REASONABLY_ACHIEVABLE\",\"bottleneck\":null,\"inputsDigest\":\"ca6f5535c70d9d43\",\"rulesVersion\":4,\"week\":196},\"progress\":0,\"evidenceRefs\":[],\"outcome\":null,\"outcomeWeek\":null,\"outcomeCause\":null,\"outcomeEventId\":null,\"contractId\":null,\"supersededByPromiseId\":null,\"family\":\"APPEARANCE_COUNT\",\"predicate\":{\"count\":1}},\"samePerson\":false,\"sameIssuer\":true,\"open\":true,\"bound\":false,\"attached\":true,\"notSelf\":true,\"overlaps\":true,\"attachedBy\":[{\"talentId\":\"person-studio-de11f27b-r01-0\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"startWeek\":208,\"termWeeks\":208,\"submittedWeek\":196}]},{\"row\":{\"promiseId\":\"promise-2\",\"version\":6,\"issuerStudioId\":\"studio-de11f27b-r01\",\"beneficiaryPersonId\":\"person-studio-de11f27b-r01-1\",\"windowStartWeek\":208,\"dueWeekExclusive\":416,\"feasibilityReceipt\":{\"classification\":\"REASONABLY_ACHIEVABLE\",\"bottleneck\":null,\"inputsDigest\":\"e5903bba81acf7a5\",\"rulesVersion\":6,\"week\":196},\"progress\":0,\"evidenceRefs\":[],\"outcome\":null,\"outcomeWeek\":null,\"outcomeCause\":null,\"outcomeEventId\":null,\"contractId\":null,\"supersededByPromiseId\":null,\"family\":\"DIRECTING_COUNT\",\"predicate\":{\"kind\":\"directorCount\",\"count\":1}},\"samePerson\":false,\"sameIssuer\":true,\"open\":true,\"bound\":false,\"attached\":true,\"notSelf\":true,\"overlaps\":true,\"attachedBy\":[{\"talentId\":\"person-studio-de11f27b-r01-1\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"startWeek\":208,\"termWeeks\":208,\"submittedWeek\":196}]}],\"actualProposals\":[{\"talentId\":\"person-studio-de11f27b-r01-0\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1,\"startWeek\":208,\"annualSalary\":465570,\"signingBonus\":83803,\"submittedWeek\":196,\"digest\":\"998d3c095cf10d97\",\"promises\":[\"promise-0\"],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r01-1\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1,\"startWeek\":208,\"annualSalary\":611598,\"signingBonus\":110088,\"submittedWeek\":196,\"digest\":\"1af9d6fff4d29ba6\",\"promises\":[\"promise-2\"],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r01-2\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1,\"startWeek\":208,\"annualSalary\":583244,\"signingBonus\":104984,\"submittedWeek\":196,\"digest\":\"a24069d48247b07b\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r01-3\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1,\"startWeek\":208,\"annualSalary\":1040640,\"signingBonus\":187315,\"submittedWeek\":196,\"digest\":\"9a2a79e3385706bc\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r01-4\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1,\"startWeek\":208,\"annualSalary\":1587962,\"signingBonus\":285833,\"submittedWeek\":196,\"digest\":\"188da59f71871a11\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r01-5\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1,\"startWeek\":208,\"annualSalary\":410538,\"signingBonus\":73897,\"submittedWeek\":196,\"digest\":\"825a9c013dffba3a\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r02-0\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":497909,\"signingBonus\":89624,\"submittedWeek\":196,\"digest\":\"1fe9f319d8a97361\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r02-1\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":920950,\"signingBonus\":165771,\"submittedWeek\":196,\"digest\":\"84b10fa86d047ea8\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r02-2\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":1271146,\"signingBonus\":228806,\"submittedWeek\":196,\"digest\":\"e24fcb681bb84b53\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r02-3\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":1245643,\"signingBonus\":224216,\"submittedWeek\":196,\"digest\":\"fd98c9255e3f5b9a\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r02-4\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":590959,\"signingBonus\":106373,\"submittedWeek\":196,\"digest\":\"8338a135a4a2de2d\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r02-5\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":808849,\"signingBonus\":145593,\"submittedWeek\":196,\"digest\":\"56e806caaabf08d4\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r03-0\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":990668,\"signingBonus\":178320,\"submittedWeek\":196,\"digest\":\"308d9c0e6aca23d4\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r03-1\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":1013273,\"signingBonus\":182389,\"submittedWeek\":196,\"digest\":\"5cde367964adf92d\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r03-2\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":762896,\"signingBonus\":137321,\"submittedWeek\":196,\"digest\":\"bbe0a027967b4f46\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r03-3\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":1308413,\"signingBonus\":235514,\"submittedWeek\":196,\"digest\":\"efe2361d0b438b2f\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r03-4\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":989808,\"signingBonus\":178165,\"submittedWeek\":196,\"digest\":\"5e56a4ec2d0f99a8\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r03-5\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":606194,\"signingBonus\":109115,\"submittedWeek\":196,\"digest\":\"f98f885d98b48e61\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r04-0\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":583382,\"signingBonus\":105009,\"submittedWeek\":196,\"digest\":\"bf7d5bbeb20555d3\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r04-1\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":332599,\"signingBonus\":59868,\"submittedWeek\":196,\"digest\":\"dac6597bf48c661a\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r04-2\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":402416,\"signingBonus\":72435,\"submittedWeek\":196,\"digest\":\"fd1783706ef67de1\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r04-3\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":223572,\"signingBonus\":40243,\"submittedWeek\":196,\"digest\":\"61de9fff03518928\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r04-4\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":103348,\"signingBonus\":18603,\"submittedWeek\":196,\"digest\":\"f36a312fe1857aaf\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r04-5\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":642998,\"signingBonus\":115740,\"submittedWeek\":196,\"digest\":\"bf689b3a6cbd3ec6\",\"promises\":[],\"representation\":null},{\"talentId\":\"authored-0002\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":417128,\"signingBonus\":75083,\"submittedWeek\":196,\"digest\":\"adc823dbcac523f7\",\"promises\":[],\"representation\":null},{\"talentId\":\"authored-0003\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":370078,\"signingBonus\":66614,\"submittedWeek\":196,\"digest\":\"a52884b7d912196e\",\"promises\":[],\"representation\":null},{\"talentId\":\"authored-0004\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":402341,\"signingBonus\":72421,\"submittedWeek\":196,\"digest\":\"602de4af73770b89\",\"promises\":[],\"representation\":null},{\"talentId\":\"authored-0005\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":398511,\"signingBonus\":71732,\"submittedWeek\":196,\"digest\":\"789be2832445a890\",\"promises\":[],\"representation\":null},{\"talentId\":\"authored-0006\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":443592,\"signingBonus\":79847,\"submittedWeek\":196,\"digest\":\"0c75f6f9b59d741b\",\"promises\":[],\"representation\":null}],\"owner\":\"rival\",\"developmentMode\":\"managed\",\"scripts\":[{\"id\":\"script-0000\",\"conceptId\":\"studio-de11f27b-r01:concept:0\",\"status\":\"produced\",\"commissionedWeek\":1,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:0\"},{\"id\":\"script-0001\",\"conceptId\":\"studio-de11f27b-r01:concept:1\",\"status\":\"produced\",\"commissionedWeek\":4,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:1\"},{\"id\":\"script-0002\",\"conceptId\":\"studio-de11f27b-r01:concept:2\",\"status\":\"produced\",\"commissionedWeek\":13,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:2\"},{\"id\":\"script-0003\",\"conceptId\":\"studio-de11f27b-r01:concept:3\",\"status\":\"produced\",\"commissionedWeek\":22,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:3\"},{\"id\":\"script-0004\",\"conceptId\":\"studio-de11f27b-r01:concept:4\",\"status\":\"produced\",\"commissionedWeek\":31,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:4\"},{\"id\":\"script-0005\",\"conceptId\":\"studio-de11f27b-r01:concept:5\",\"status\":\"produced\",\"commissionedWeek\":40,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:5\"},{\"id\":\"script-0006\",\"conceptId\":\"studio-de11f27b-r01:concept:6\",\"status\":\"produced\",\"commissionedWeek\":49,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:6\"},{\"id\":\"script-0007\",\"conceptId\":\"studio-de11f27b-r01:concept:7\",\"status\":\"produced\",\"commissionedWeek\":58,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:7\"},{\"id\":\"script-0008\",\"conceptId\":\"studio-de11f27b-r01:concept:8\",\"status\":\"produced\",\"commissionedWeek\":67,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:8\"},{\"id\":\"script-0009\",\"conceptId\":\"studio-de11f27b-r01:concept:9\",\"status\":\"produced\",\"commissionedWeek\":76,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:9\"},{\"id\":\"script-0010\",\"conceptId\":\"studio-de11f27b-r01:concept:10\",\"status\":\"produced\",\"commissionedWeek\":85,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:10\"},{\"id\":\"script-0011\",\"conceptId\":\"studio-de11f27b-r01:concept:11\",\"status\":\"produced\",\"commissionedWeek\":94,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:11\"},{\"id\":\"script-0012\",\"conceptId\":\"studio-de11f27b-r01:concept:12\",\"status\":\"produced\",\"commissionedWeek\":103,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:12\"},{\"id\":\"script-0013\",\"conceptId\":\"studio-de11f27b-r01:concept:13\",\"status\":\"produced\",\"commissionedWeek\":112,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:13\"},{\"id\":\"script-0014\",\"conceptId\":\"studio-de11f27b-r01:concept:14\",\"status\":\"produced\",\"commissionedWeek\":121,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:14\"},{\"id\":\"script-0015\",\"conceptId\":\"studio-de11f27b-r01:concept:15\",\"status\":\"produced\",\"commissionedWeek\":130,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:15\"},{\"id\":\"script-0016\",\"conceptId\":\"studio-de11f27b-r01:concept:16\",\"status\":\"produced\",\"commissionedWeek\":139,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:16\"},{\"id\":\"script-0017\",\"conceptId\":\"studio-de11f27b-r01:concept:17\",\"status\":\"produced\",\"commissionedWeek\":148,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:17\"},{\"id\":\"script-0018\",\"conceptId\":\"studio-de11f27b-r01:concept:18\",\"status\":\"produced\",\"commissionedWeek\":157,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:18\"},{\"id\":\"script-0019\",\"conceptId\":\"studio-de11f27b-r01:concept:19\",\"status\":\"produced\",\"commissionedWeek\":166,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:19\"},{\"id\":\"script-0020\",\"conceptId\":\"studio-de11f27b-r01:concept:20\",\"status\":\"produced\",\"commissionedWeek\":175,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:20\"},{\"id\":\"script-0021\",\"conceptId\":\"studio-de11f27b-r01:concept:21\",\"status\":\"inProduction\",\"commissionedWeek\":184,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:21\"},{\"id\":\"script-0022\",\"conceptId\":\"studio-de11f27b-r01:concept:22\",\"status\":\"ready\",\"commissionedWeek\":193,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":null}],\"productions\":[{\"id\":\"studio-de11f27b-r01:film:21\",\"conceptId\":\"studio-de11f27b-r01:concept:21\",\"startTick\":193,\"remainingTicks\":6,\"writerId\":\"person-studio-de11f27b-r01-0\",\"directorId\":\"person-studio-de11f27b-r01-1\",\"craftIds\":[\"person-studio-de11f27b-r01-5\"],\"cast\":{\"lead\":\"person-studio-de11f27b-r01-4\",\"antagonist\":\"person-studio-de11f27b-r01-3\",\"support\":\"person-studio-de11f27b-r01-2\"}}],\"recordedTakes\":[],\"facilities\":[{\"id\":\"studio-de11f27b-r01:development\",\"capability\":\"development-casting\",\"capacity\":2},{\"id\":\"studio-de11f27b-r01:stage\",\"capability\":\"soundstage\",\"capacity\":1},{\"id\":\"studio-de11f27b-r01:scenery\",\"capability\":\"set-scenery\",\"capacity\":2},{\"id\":\"studio-de11f27b-r01:post\",\"capability\":\"post\",\"capacity\":2},{\"id\":\"studio-de11f27b-r01:laboratory:0\",\"capability\":\"laboratory\",\"capacity\":4}],\"workflows\":[{\"productionId\":\"studio-de11f27b-r01:film:21\",\"phase\":\"rehearsal\",\"blocker\":null,\"shootingTask\":null}],\"unusedPlayerConceptIds\":null},\"receipt\":{\"classification\":\"FRAGILE\",\"bottleneck\":\"needs a picture not yet commissioned\",\"inputsDigest\":\"0a00a54e732e75ea\",\"rulesVersion\":6,\"week\":196}}",
+      "bytes": 17101,
+      "sha256": "58bc88d4ba6618de46acfaed6ab38a1096ace78205e539179c484f97eabf0e99"
+    },
+    {
+      "name": "1164-P3-RIVAL-QUOTE",
+      "literal": "1164-P3-RIVAL-QUOTE {\"inputFacts\":{\"gameWeek\":196,\"quoteWeek\":196,\"from\":208,\"draft\":{\"family\":\"APPEARANCE_COUNT\",\"predicate\":{\"count\":1},\"windowStartWeek\":208,\"dueWeekExclusive\":416,\"issuerStudioId\":\"studio-de11f27b-r01\",\"beneficiaryPersonId\":\"authored-0006\",\"startWeek\":208,\"termWeeks\":208},\"currentProfession\":\"actor\",\"selectedSamePersonIds\":[],\"selectedUnionIds\":[\"promise-0\",\"promise-2\"],\"taggedUnionScope\":true,\"selectedByDeclaredScopeIds\":[\"promise-0\",\"promise-2\"],\"rawLinkedRows\":[{\"row\":{\"promiseId\":\"promise-0\",\"version\":4,\"issuerStudioId\":\"studio-de11f27b-r01\",\"beneficiaryPersonId\":\"person-studio-de11f27b-r01-0\",\"windowStartWeek\":208,\"dueWeekExclusive\":416,\"feasibilityReceipt\":{\"classification\":\"REASONABLY_ACHIEVABLE\",\"bottleneck\":null,\"inputsDigest\":\"ca6f5535c70d9d43\",\"rulesVersion\":4,\"week\":196},\"progress\":0,\"evidenceRefs\":[],\"outcome\":null,\"outcomeWeek\":null,\"outcomeCause\":null,\"outcomeEventId\":null,\"contractId\":null,\"supersededByPromiseId\":null,\"family\":\"APPEARANCE_COUNT\",\"predicate\":{\"count\":1}},\"samePerson\":false,\"sameIssuer\":true,\"open\":true,\"bound\":false,\"attached\":true,\"notSelf\":true,\"overlaps\":true,\"attachedBy\":[{\"talentId\":\"person-studio-de11f27b-r01-0\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"startWeek\":208,\"termWeeks\":208,\"submittedWeek\":196}]},{\"row\":{\"promiseId\":\"promise-2\",\"version\":6,\"issuerStudioId\":\"studio-de11f27b-r01\",\"beneficiaryPersonId\":\"person-studio-de11f27b-r01-1\",\"windowStartWeek\":208,\"dueWeekExclusive\":416,\"feasibilityReceipt\":{\"classification\":\"REASONABLY_ACHIEVABLE\",\"bottleneck\":null,\"inputsDigest\":\"e5903bba81acf7a5\",\"rulesVersion\":6,\"week\":196},\"progress\":0,\"evidenceRefs\":[],\"outcome\":null,\"outcomeWeek\":null,\"outcomeCause\":null,\"outcomeEventId\":null,\"contractId\":null,\"supersededByPromiseId\":null,\"family\":\"DIRECTING_COUNT\",\"predicate\":{\"kind\":\"directorCount\",\"count\":1}},\"samePerson\":false,\"sameIssuer\":true,\"open\":true,\"bound\":false,\"attached\":true,\"notSelf\":true,\"overlaps\":true,\"attachedBy\":[{\"talentId\":\"person-studio-de11f27b-r01-1\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"startWeek\":208,\"termWeeks\":208,\"submittedWeek\":196}]}],\"actualProposals\":[{\"talentId\":\"person-studio-de11f27b-r01-0\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1,\"startWeek\":208,\"annualSalary\":465570,\"signingBonus\":83803,\"submittedWeek\":196,\"digest\":\"998d3c095cf10d97\",\"promises\":[\"promise-0\"],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r01-1\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1,\"startWeek\":208,\"annualSalary\":611598,\"signingBonus\":110088,\"submittedWeek\":196,\"digest\":\"1af9d6fff4d29ba6\",\"promises\":[\"promise-2\"],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r01-2\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1,\"startWeek\":208,\"annualSalary\":583244,\"signingBonus\":104984,\"submittedWeek\":196,\"digest\":\"a24069d48247b07b\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r01-3\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1,\"startWeek\":208,\"annualSalary\":1040640,\"signingBonus\":187315,\"submittedWeek\":196,\"digest\":\"9a2a79e3385706bc\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r01-4\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1,\"startWeek\":208,\"annualSalary\":1587962,\"signingBonus\":285833,\"submittedWeek\":196,\"digest\":\"188da59f71871a11\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r01-5\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1,\"startWeek\":208,\"annualSalary\":410538,\"signingBonus\":73897,\"submittedWeek\":196,\"digest\":\"825a9c013dffba3a\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r02-0\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":497909,\"signingBonus\":89624,\"submittedWeek\":196,\"digest\":\"1fe9f319d8a97361\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r02-1\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":920950,\"signingBonus\":165771,\"submittedWeek\":196,\"digest\":\"84b10fa86d047ea8\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r02-2\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":1271146,\"signingBonus\":228806,\"submittedWeek\":196,\"digest\":\"e24fcb681bb84b53\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r02-3\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":1245643,\"signingBonus\":224216,\"submittedWeek\":196,\"digest\":\"fd98c9255e3f5b9a\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r02-4\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":590959,\"signingBonus\":106373,\"submittedWeek\":196,\"digest\":\"8338a135a4a2de2d\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r02-5\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":808849,\"signingBonus\":145593,\"submittedWeek\":196,\"digest\":\"56e806caaabf08d4\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r03-0\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":990668,\"signingBonus\":178320,\"submittedWeek\":196,\"digest\":\"308d9c0e6aca23d4\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r03-1\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":1013273,\"signingBonus\":182389,\"submittedWeek\":196,\"digest\":\"5cde367964adf92d\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r03-2\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":762896,\"signingBonus\":137321,\"submittedWeek\":196,\"digest\":\"bbe0a027967b4f46\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r03-3\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":1308413,\"signingBonus\":235514,\"submittedWeek\":196,\"digest\":\"efe2361d0b438b2f\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r03-4\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":989808,\"signingBonus\":178165,\"submittedWeek\":196,\"digest\":\"5e56a4ec2d0f99a8\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r03-5\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":606194,\"signingBonus\":109115,\"submittedWeek\":196,\"digest\":\"f98f885d98b48e61\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r04-0\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":583382,\"signingBonus\":105009,\"submittedWeek\":196,\"digest\":\"bf7d5bbeb20555d3\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r04-1\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":332599,\"signingBonus\":59868,\"submittedWeek\":196,\"digest\":\"dac6597bf48c661a\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r04-2\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":402416,\"signingBonus\":72435,\"submittedWeek\":196,\"digest\":\"fd1783706ef67de1\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r04-3\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":223572,\"signingBonus\":40243,\"submittedWeek\":196,\"digest\":\"61de9fff03518928\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r04-4\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":103348,\"signingBonus\":18603,\"submittedWeek\":196,\"digest\":\"f36a312fe1857aaf\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r04-5\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":642998,\"signingBonus\":115740,\"submittedWeek\":196,\"digest\":\"bf689b3a6cbd3ec6\",\"promises\":[],\"representation\":null},{\"talentId\":\"authored-0002\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":417128,\"signingBonus\":75083,\"submittedWeek\":196,\"digest\":\"adc823dbcac523f7\",\"promises\":[],\"representation\":null},{\"talentId\":\"authored-0003\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":370078,\"signingBonus\":66614,\"submittedWeek\":196,\"digest\":\"a52884b7d912196e\",\"promises\":[],\"representation\":null},{\"talentId\":\"authored-0004\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":402341,\"signingBonus\":72421,\"submittedWeek\":196,\"digest\":\"602de4af73770b89\",\"promises\":[],\"representation\":null},{\"talentId\":\"authored-0005\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":398511,\"signingBonus\":71732,\"submittedWeek\":196,\"digest\":\"789be2832445a890\",\"promises\":[],\"representation\":null},{\"talentId\":\"authored-0006\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":443592,\"signingBonus\":79847,\"submittedWeek\":196,\"digest\":\"0c75f6f9b59d741b\",\"promises\":[],\"representation\":null}],\"owner\":\"rival\",\"developmentMode\":\"managed\",\"scripts\":[{\"id\":\"script-0000\",\"conceptId\":\"studio-de11f27b-r01:concept:0\",\"status\":\"produced\",\"commissionedWeek\":1,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:0\"},{\"id\":\"script-0001\",\"conceptId\":\"studio-de11f27b-r01:concept:1\",\"status\":\"produced\",\"commissionedWeek\":4,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:1\"},{\"id\":\"script-0002\",\"conceptId\":\"studio-de11f27b-r01:concept:2\",\"status\":\"produced\",\"commissionedWeek\":13,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:2\"},{\"id\":\"script-0003\",\"conceptId\":\"studio-de11f27b-r01:concept:3\",\"status\":\"produced\",\"commissionedWeek\":22,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:3\"},{\"id\":\"script-0004\",\"conceptId\":\"studio-de11f27b-r01:concept:4\",\"status\":\"produced\",\"commissionedWeek\":31,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:4\"},{\"id\":\"script-0005\",\"conceptId\":\"studio-de11f27b-r01:concept:5\",\"status\":\"produced\",\"commissionedWeek\":40,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:5\"},{\"id\":\"script-0006\",\"conceptId\":\"studio-de11f27b-r01:concept:6\",\"status\":\"produced\",\"commissionedWeek\":49,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:6\"},{\"id\":\"script-0007\",\"conceptId\":\"studio-de11f27b-r01:concept:7\",\"status\":\"produced\",\"commissionedWeek\":58,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:7\"},{\"id\":\"script-0008\",\"conceptId\":\"studio-de11f27b-r01:concept:8\",\"status\":\"produced\",\"commissionedWeek\":67,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:8\"},{\"id\":\"script-0009\",\"conceptId\":\"studio-de11f27b-r01:concept:9\",\"status\":\"produced\",\"commissionedWeek\":76,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:9\"},{\"id\":\"script-0010\",\"conceptId\":\"studio-de11f27b-r01:concept:10\",\"status\":\"produced\",\"commissionedWeek\":85,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:10\"},{\"id\":\"script-0011\",\"conceptId\":\"studio-de11f27b-r01:concept:11\",\"status\":\"produced\",\"commissionedWeek\":94,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:11\"},{\"id\":\"script-0012\",\"conceptId\":\"studio-de11f27b-r01:concept:12\",\"status\":\"produced\",\"commissionedWeek\":103,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:12\"},{\"id\":\"script-0013\",\"conceptId\":\"studio-de11f27b-r01:concept:13\",\"status\":\"produced\",\"commissionedWeek\":112,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:13\"},{\"id\":\"script-0014\",\"conceptId\":\"studio-de11f27b-r01:concept:14\",\"status\":\"produced\",\"commissionedWeek\":121,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:14\"},{\"id\":\"script-0015\",\"conceptId\":\"studio-de11f27b-r01:concept:15\",\"status\":\"produced\",\"commissionedWeek\":130,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:15\"},{\"id\":\"script-0016\",\"conceptId\":\"studio-de11f27b-r01:concept:16\",\"status\":\"produced\",\"commissionedWeek\":139,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:16\"},{\"id\":\"script-0017\",\"conceptId\":\"studio-de11f27b-r01:concept:17\",\"status\":\"produced\",\"commissionedWeek\":148,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:17\"},{\"id\":\"script-0018\",\"conceptId\":\"studio-de11f27b-r01:concept:18\",\"status\":\"produced\",\"commissionedWeek\":157,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:18\"},{\"id\":\"script-0019\",\"conceptId\":\"studio-de11f27b-r01:concept:19\",\"status\":\"produced\",\"commissionedWeek\":166,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:19\"},{\"id\":\"script-0020\",\"conceptId\":\"studio-de11f27b-r01:concept:20\",\"status\":\"produced\",\"commissionedWeek\":175,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:20\"},{\"id\":\"script-0021\",\"conceptId\":\"studio-de11f27b-r01:concept:21\",\"status\":\"inProduction\",\"commissionedWeek\":184,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":\"studio-de11f27b-r01:film:21\"},{\"id\":\"script-0022\",\"conceptId\":\"studio-de11f27b-r01:concept:22\",\"status\":\"ready\",\"commissionedWeek\":193,\"dueWeek\":null,\"writerId\":\"person-studio-de11f27b-r01-0\",\"writerIds\":[\"person-studio-de11f27b-r01-0\"],\"reservation\":null,\"productionId\":null}],\"productions\":[{\"id\":\"studio-de11f27b-r01:film:21\",\"conceptId\":\"studio-de11f27b-r01:concept:21\",\"startTick\":193,\"remainingTicks\":6,\"writerId\":\"person-studio-de11f27b-r01-0\",\"directorId\":\"person-studio-de11f27b-r01-1\",\"craftIds\":[\"person-studio-de11f27b-r01-5\"],\"cast\":{\"lead\":\"person-studio-de11f27b-r01-4\",\"antagonist\":\"person-studio-de11f27b-r01-3\",\"support\":\"person-studio-de11f27b-r01-2\"}}],\"recordedTakes\":[],\"facilities\":[{\"id\":\"studio-de11f27b-r01:development\",\"capability\":\"development-casting\",\"capacity\":2},{\"id\":\"studio-de11f27b-r01:stage\",\"capability\":\"soundstage\",\"capacity\":1},{\"id\":\"studio-de11f27b-r01:scenery\",\"capability\":\"set-scenery\",\"capacity\":2},{\"id\":\"studio-de11f27b-r01:post\",\"capability\":\"post\",\"capacity\":2},{\"id\":\"studio-de11f27b-r01:laboratory:0\",\"capability\":\"laboratory\",\"capacity\":4}],\"workflows\":[{\"productionId\":\"studio-de11f27b-r01:film:21\",\"phase\":\"rehearsal\",\"blocker\":null,\"shootingTask\":null}],\"unusedPlayerConceptIds\":null},\"receipt\":{\"classification\":\"FRAGILE\",\"bottleneck\":\"needs a picture not yet commissioned\",\"inputsDigest\":\"c06390b87e5fb17b\",\"rulesVersion\":6,\"week\":196}}",
+      "bytes": 17079,
+      "sha256": "3edf9bd32360e68118b0ed597a3389af2ad919511d5a39cb13665b49cdad54a5"
+    },
+    {
+      "name": "1164-P3-PLAYER-QUOTE",
+      "literal": "1164-P3-PLAYER-QUOTE {\"inputFacts\":{\"gameWeek\":196,\"quoteWeek\":196,\"from\":208,\"draft\":{\"family\":\"APPEARANCE_COUNT\",\"predicate\":{\"count\":1},\"issuerStudioId\":\"studio-de11f27b-player\",\"beneficiaryPersonId\":\"person-studio-de11f27b-r01-2\",\"startWeek\":208,\"termWeeks\":208,\"windowStartWeek\":208,\"dueWeekExclusive\":416},\"currentProfession\":\"actor\",\"selectedSamePersonIds\":[\"promise-4\",\"promise-5\"],\"selectedUnionIds\":[\"promise-4\",\"promise-5\"],\"taggedUnionScope\":false,\"selectedByDeclaredScopeIds\":[\"promise-4\",\"promise-5\"],\"rawLinkedRows\":[{\"row\":{\"promiseId\":\"promise-4\",\"version\":4,\"issuerStudioId\":\"studio-de11f27b-r02\",\"beneficiaryPersonId\":\"person-studio-de11f27b-r01-2\",\"windowStartWeek\":208,\"dueWeekExclusive\":416,\"feasibilityReceipt\":{\"classification\":\"REASONABLY_ACHIEVABLE\",\"bottleneck\":null,\"inputsDigest\":\"68f77b16f7af90da\",\"rulesVersion\":4,\"week\":196},\"progress\":0,\"evidenceRefs\":[],\"outcome\":null,\"outcomeWeek\":null,\"outcomeCause\":null,\"outcomeEventId\":null,\"contractId\":null,\"supersededByPromiseId\":null,\"family\":\"APPEARANCE_COUNT\",\"predicate\":{\"count\":1}},\"samePerson\":true,\"sameIssuer\":false,\"open\":true,\"bound\":false,\"attached\":true,\"notSelf\":true,\"overlaps\":true,\"attachedBy\":[{\"talentId\":\"person-studio-de11f27b-r01-2\",\"issuerStudioId\":\"studio-de11f27b-r02\",\"startWeek\":208,\"termWeeks\":208,\"submittedWeek\":196}]},{\"row\":{\"promiseId\":\"promise-5\",\"version\":4,\"issuerStudioId\":\"studio-de11f27b-r03\",\"beneficiaryPersonId\":\"person-studio-de11f27b-r01-2\",\"windowStartWeek\":208,\"dueWeekExclusive\":416,\"feasibilityReceipt\":{\"classification\":\"REASONABLY_ACHIEVABLE\",\"bottleneck\":null,\"inputsDigest\":\"08399a45ebc17ba7\",\"rulesVersion\":4,\"week\":196},\"progress\":0,\"evidenceRefs\":[],\"outcome\":null,\"outcomeWeek\":null,\"outcomeCause\":null,\"outcomeEventId\":null,\"contractId\":null,\"supersededByPromiseId\":null,\"family\":\"APPEARANCE_COUNT\",\"predicate\":{\"count\":1}},\"samePerson\":true,\"sameIssuer\":false,\"open\":true,\"bound\":false,\"attached\":true,\"notSelf\":true,\"overlaps\":true,\"attachedBy\":[{\"talentId\":\"person-studio-de11f27b-r01-2\",\"issuerStudioId\":\"studio-de11f27b-r03\",\"startWeek\":208,\"termWeeks\":208,\"submittedWeek\":196}]}],\"actualProposals\":[{\"talentId\":\"person-studio-de11f27b-r01-2\",\"issuerStudioId\":\"studio-de11f27b-r01\",\"termWeeks\":208,\"premiumTier\":1,\"startWeek\":208,\"annualSalary\":583244,\"signingBonus\":104984,\"submittedWeek\":196,\"digest\":\"a24069d48247b07b\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r01-2\",\"issuerStudioId\":\"studio-de11f27b-r02\",\"termWeeks\":208,\"premiumTier\":1.1,\"startWeek\":208,\"annualSalary\":641568,\"signingBonus\":115482,\"submittedWeek\":196,\"digest\":\"04c2bf4e34d2abcf\",\"promises\":[\"promise-4\"],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r01-2\",\"issuerStudioId\":\"studio-de11f27b-r03\",\"termWeeks\":208,\"premiumTier\":1.1,\"startWeek\":208,\"annualSalary\":641568,\"signingBonus\":115482,\"submittedWeek\":196,\"digest\":\"55b57810a2c40386\",\"promises\":[\"promise-5\"],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r01-2\",\"issuerStudioId\":\"studio-de11f27b-r04\",\"termWeeks\":208,\"premiumTier\":1.05,\"startWeek\":208,\"annualSalary\":612406,\"signingBonus\":110233,\"submittedWeek\":196,\"digest\":\"e833c0d814327c41\",\"promises\":[],\"representation\":null},{\"talentId\":\"person-studio-de11f27b-r01-2\",\"issuerStudioId\":\"studio-de11f27b-player\",\"termWeeks\":208,\"premiumTier\":1.25,\"startWeek\":208,\"annualSalary\":729055,\"signingBonus\":131230,\"submittedWeek\":196,\"digest\":\"85783ec830b3fef2\",\"promises\":[],\"representation\":null}],\"owner\":\"player\",\"developmentMode\":\"managed\",\"scripts\":[{\"id\":\"script-0000\",\"conceptId\":\"c-00\",\"status\":\"produced\",\"commissionedWeek\":8,\"dueWeek\":null,\"writerId\":\"authored-0003\",\"writerIds\":[\"authored-0003\"],\"reservation\":null,\"productionId\":\"prod-0009\"},{\"id\":\"script-0001\",\"conceptId\":\"c-01\",\"status\":\"ready\",\"commissionedWeek\":191,\"dueWeek\":null,\"writerId\":\"authored-0003\",\"writerIds\":[\"authored-0003\"],\"reservation\":null,\"productionId\":null},{\"id\":\"script-0002\",\"conceptId\":\"c-02\",\"status\":\"ready\",\"commissionedWeek\":192,\"dueWeek\":null,\"writerId\":\"authored-0003\",\"writerIds\":[\"authored-0003\"],\"reservation\":null,\"productionId\":null},{\"id\":\"script-0003\",\"conceptId\":\"c-03\",\"status\":\"ready\",\"commissionedWeek\":193,\"dueWeek\":null,\"writerId\":\"authored-0003\",\"writerIds\":[\"authored-0003\"],\"reservation\":null,\"productionId\":null},{\"id\":\"script-0004\",\"conceptId\":\"c-04\",\"status\":\"ready\",\"commissionedWeek\":194,\"dueWeek\":null,\"writerId\":\"authored-0003\",\"writerIds\":[\"authored-0003\"],\"reservation\":null,\"productionId\":null},{\"id\":\"script-0005\",\"conceptId\":\"c-05\",\"status\":\"ready\",\"commissionedWeek\":195,\"dueWeek\":null,\"writerId\":\"authored-0003\",\"writerIds\":[\"authored-0003\"],\"reservation\":null,\"productionId\":null}],\"productions\":[],\"recordedTakes\":[],\"facilities\":[{\"id\":\"facility-development-casting\",\"capability\":\"development-casting\",\"capacity\":2},{\"id\":\"facility-post-building\",\"capability\":\"post\",\"capacity\":2},{\"id\":\"facility-scenery-shop\",\"capability\":\"set-scenery\",\"capacity\":2},{\"id\":\"facility-soundstage-07\",\"capability\":\"soundstage\",\"capacity\":1},{\"id\":\"facility-soundstage-12\",\"capability\":\"soundstage\",\"capacity\":1}],\"workflows\":[],\"unusedPlayerConceptIds\":[\"c-06\",\"c-07\",\"c-08\",\"c-09\",\"c-10\",\"c-11\",\"c-12\",\"c-13\",\"c-14\",\"c-15\",\"c-16\",\"c-17\",\"c-18\",\"c-19\",\"c-20\",\"c-21\",\"c-22\",\"c-23\",\"c-24\",\"c-25\",\"c-26\",\"c-27\",\"c-28\",\"c-29\"]},\"receipt\":{\"classification\":\"REASONABLY_ACHIEVABLE\",\"bottleneck\":null,\"inputsDigest\":\"c0a998a612f729ce\",\"rulesVersion\":4,\"week\":196}}",
+      "bytes": 5439,
+      "sha256": "ffab6f1d5c9dd10f2a7ab4f8c3febc9c3fe3e0f21bafc4482d2d120eb89867ba"
+    },
+    {
+      "name": "1155-P3-RIVAL-AUTHORING",
+      "literal": "1155-P3-RIVAL-AUTHORING {\"week\":196,\"calls\":[{\"personId\":\"person-studio-de11f27b-r01-2\",\"family\":\"APPEARANCE_COUNT\",\"predicate\":{\"count\":1},\"classification\":\"FRAGILE\"},{\"personId\":\"person-studio-de11f27b-r01-2\",\"family\":\"DIRECTING_COUNT\",\"predicate\":{\"kind\":\"directorCount\",\"count\":1},\"classification\":\"FRAGILE\"},{\"personId\":\"authored-0002\",\"family\":\"DIRECTING_COUNT\",\"predicate\":{\"kind\":\"directorCount\",\"count\":1},\"classification\":\"FRAGILE\"},{\"personId\":\"authored-0002\",\"family\":\"APPEARANCE_COUNT\",\"predicate\":{\"count\":1},\"classification\":\"FRAGILE\"},{\"personId\":\"authored-0006\",\"family\":\"DIRECTING_COUNT\",\"predicate\":{\"kind\":\"directorCount\",\"count\":1},\"classification\":\"FRAGILE\"},{\"personId\":\"authored-0006\",\"family\":\"APPEARANCE_COUNT\",\"predicate\":{\"count\":1},\"classification\":\"FRAGILE\"}],\"bootstrapTake\":18}",
+      "bytes": 809,
+      "sha256": "0c8b3540e2f4b664cd879e4adb695203b721cebdf2a56c43cead2e3df0f63479"
+    },
+    {
+      "name": "1155-P3-RIVAL-COUNTERS",
+      "literal": "1155-P3-RIVAL-COUNTERS {\"rivalCalls\":208,\"rivalCap\":260,\"otherCoreCalls\":0,\"total\":208,\"cap\":816}",
+      "bytes": 97,
+      "sha256": "141885232dc90e0705412880ce10118f38a194ac45c1b8d5bac8ac6e35c239fc"
+    },
+    {
+      "name": "1149-P3-CONTINUITY-COUNTERS",
+      "literal": "1149-P3-CONTINUITY-COUNTERS {\"playerCalls\":0,\"playerCap\":208,\"branches\":[{\"name\":\"cancelBefore\",\"actualTicks\":0,\"cap\":64,\"startWeek\":null},{\"name\":\"cancelAfter\",\"actualTicks\":0,\"cap\":64,\"startWeek\":null},{\"name\":\"waiver\",\"actualTicks\":0,\"cap\":64,\"startWeek\":null}],\"total\":0,\"cap\":556,\"lifecycleCalls\":0,\"lifecycleCap\":156,\"selectedCap\":364}",
+      "bytes": 341,
+      "sha256": "b3a9c8f17f93d55d17a287ef62d35ac553fbd21ee06fee50babb422f692bdc76"
+    },
+    {
+      "name": "1143-P3-OUTCOME-COUNTERS",
+      "literal": "1143-P3-OUTCOME-COUNTERS {\"playerCalls\":0,\"playerCap\":208,\"branches\":[{\"name\":\"cancelBefore\",\"actualTicks\":0,\"cap\":64,\"startWeek\":null},{\"name\":\"cancelAfter\",\"actualTicks\":0,\"cap\":64,\"startWeek\":null},{\"name\":\"waiver\",\"actualTicks\":0,\"cap\":64,\"startWeek\":null}],\"total\":0,\"cap\":400}",
+      "bytes": 282,
+      "sha256": "562a2d9fc7e9ed66d1bafdbff70a997ca3a3b78c330c0a5fecd1f6b9f9303cd3"
+    },
+    {
+      "name": "1133-P3-COUNTERS",
+      "literal": "1133-P3-COUNTERS {\"actualTicks\":0,\"cap\":208,\"cachedPhases\":[{\"name\":\"rivalCreated0\",\"completed\":true},{\"name\":\"rivalCredit\",\"completed\":true},{\"name\":\"rivalAuthoring196\",\"completed\":true},{\"name\":\"rivalWinner208\",\"completed\":false}]}",
+      "bytes": 233,
+      "sha256": "3b6d729e1d9322ff2c7d5a14b2fd8b67e3e672cf5ce1b3affaeeada892bc0022"
+    }
+  ],
+  "legacyMarkerPresent": false,
+  "reachedBeforeFirstFailure": [
+    "fixed five real scripts and whole admitted196",
+    "player actualRA quote, proposal and P1 attachment",
+    "whole admitted208",
+    "player vacancy settled receipt, active208..416 contract, exact signing ledger and bound P1",
+    "D18 earlier196 strategy/purity/no-staging subcontrols"
+  ],
+  "maskedAfterFirstFailure": [
+    "required r01 focus win",
+    "relative vacancy/focus receipt order assertion",
+    "r01 focus employment/payment aggregate joins",
+    "two-held-Actor freeze assertion",
+    "focus taggedP3 binding leaf assertions",
+    "final260 staffing/take/release/fulfillment"
+  ],
+  "sourceOnlyLimits": [
+    "Existing proposal guard skips later automatic authoring, including empty attached lists; no retry or mint at settlement.",
+    "Rival active screenplay count<=2 includes linked projects; revision6 excludes linked projects and counts only actual requested held seats.",
+    "The earlier hire that filled r01 seats is not printed; no identity or chronology is inferred."
+  ],
+  "inputs": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1169-p3-five-script-rival-core.txt",
+      "bytes": 45231,
+      "sha256": "8a95954bbf3bb2e2ba7c627aa51e8fc4727de4152c06436adae85f87ffc43b6b"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1169-p3-five-script-rival-core.json",
+      "bytes": 720,
+      "sha256": "a6ee3ca9a658c26e86e4fd108f1eb9bddca1e6d62af04156bcb8513d7bb34e01"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1169-p3-five-script-rival-core.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1169-p3-publication-gate.json",
+      "bytes": 851,
+      "sha256": "3540133867e21d4a05de621f456661a818475b9fd75615f52a2f6aaca10fc263"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1168-p3-five-script-root-types.json",
+      "bytes": 603,
+      "sha256": "5632f7aa5b3ad68a463b62a2e3bd1d757594c70c21893d09a2d17a1e560bbf1d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1168-p3-five-script-root-types.txt",
+      "bytes": 319,
+      "sha256": "4a2bdaf8d10b31fbaa549ba903d91220417d1d807fffd3b2a9b36b4d95446d48"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1166-p3-rival-quote-observations.json",
+      "bytes": 128868,
+      "sha256": "143647343c142bb00b67dccd8119bf0e53a008b21bfdd518be1bd21fec1f5e9b"
+    }
+  ]
+}

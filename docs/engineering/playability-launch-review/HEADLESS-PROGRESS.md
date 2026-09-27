@@ -1,5 +1,38 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — fixed rival attempt reaches 208; Bridge preparation continues
+
+1168 root types PASS in 34.058s. On published
+`a394bb85fb09486dd0e7d9b9bbfaf471c17ee5de`, 1169 closes
+14:48:58.880–14:49:15.813 UTC in 16.933s, child1/fixedSource, empty consumed
+diff, no untracked consumed source/signal/error. Two FAIL, fourteen filtered;
+208 actual rival calls and zero other routes. No heavy process remains active.
+
+All five public scripts become Ready. The player's actual P1 quote is
+REASONABLY_ACHIEVABLE, rules4/digest `c0a998a612f729ce`. Its fixed vacancy bid
+wins at208 with the required contract, signing payment and bound player promise.
+The next shared failure is the focus contest at helper1059:99: r04 wins; the
+actual receipt drops r01/r02/r03 because they have no role seat open. No specific
+earlier hire is inferred from that sentence. The intended r01 win, subsequent
+accounting/freeze/tagged binding and final260 staffing/work are not qualified.
+
+Both r01/focus196 quote lines remain literally equal to1166 and FRAGILE. The
+existing empty automatic proposal is not retried: source skips existing offers,
+and settlement only commits attached roots. The separate rival pipeline and
+seat premises therefore remain failures. No new bid, seed, roster/capacity/order
+change, automatic retry or staffing implementation is released as a rescue.
+Early D18 ordering/preferences/purity remain bounded evidence, not a passing leaf.
+
+1169-A/B are final and parent-verified, with complete raw failures and markers
+preserved. Parent continues the next independent authorized task:1170-A/B concrete
+Bridge D15–D17 preparation against
+1121 and genuine1117 outgoing bytes. Save39/projection54/protocol4, closed P3
+wire/role disclosures, independent prior53 slots and twelve aggregate Bridge
+advances remain the contract. No Bridge source is released before exact plan
+review. Preserve1155-C matrix gaps, all failed evidence and older qualifications;
+P3 is incomplete. Parent sole production writer/integrator/heavy executor,
+production969fb459 unchanged. Unity/native/Owner remain deferred.
+
 ## CURRENT — actual quote facts captured; fixed public-script amendment released
 
 1165 types PASS33.935s.1166 on publishedc6b5db42905eaaee5efe04405476d87540134ef8

@@ -1,0 +1,12 @@
+{
+  "sourceSha": "a394bb85fb09486dd0e7d9b9bbfaf471c17ee5de",
+  "remoteSha": "a394bb85fb09486dd0e7d9b9bbfaf471c17ee5de",
+  "observedAt": "2026-09-27T14:48:50.545360+00:00",
+  "consumedSourceClean": true,
+  "wholeWorktreeClean": false,
+  "wholeWorktreeStatus": "?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1168-p3-five-script-root-types.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1168-p3-five-script-root-types.patch\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1168-p3-five-script-root-types.txt\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1168-p3-publication-gate.json\n",
+  "rootTypes": "1168 PASS child0 fixedSource empty patch",
+  "sourceReview": "1167-B final KEEP",
+  "result": "PASS",
+  "nextRun": "1169-p3-five-script-rival-core"
+}

@@ -1,0 +1,11 @@
+{
+  "sourceSha": "a394bb85fb09486dd0e7d9b9bbfaf471c17ee5de",
+  "remoteSha": "a394bb85fb09486dd0e7d9b9bbfaf471c17ee5de",
+  "observedAt": "2026-09-27T14:47:55.704608+00:00",
+  "consumedSourceClean": true,
+  "wholeWorktreeClean": true,
+  "wholeWorktreeStatus": "",
+  "sourceReview": "1167-B final KEEP",
+  "result": "PASS",
+  "nextRun": "1168-p3-five-script-root-types"
+}
