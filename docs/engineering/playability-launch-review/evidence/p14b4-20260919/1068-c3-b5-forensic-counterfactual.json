@@ -1,0 +1,23 @@
+{
+  "sourceSha": "1f4b8429fef335e1fb25bede0b5d2c6014901ba8",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node",
+    "--input-type=module",
+    "-e",
+    "import { spawnSync } from 'node:child_process';\nimport { resolve } from 'node:path';\nconst [snapshotRoot, manifestSha] = process.argv.slice(1);\nconst r = spawnSync(resolve(snapshotRoot, 'node_modules/.bin/vite-node'),\n ['--script', 'docs/engineering/playability-launch-review/evidence/p14b4-20260919/1100-c3-b5-forensic.ts', '--manifest-sha', manifestSha],\n {cwd:snapshotRoot, stdio:'inherit'});\nif (r.error) throw r.error;\nprocess.exitCode = r.status ?? 1;\n",
+    "/private/var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/studio-c3-b5-forensic-dmxMOt",
+    "659e49d1818a98a8e748f25a0507060ae12fc50050eb0198d859399463c7053e"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T04:28:56.270Z",
+  "end": "2026-09-27T04:29:05.832Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "1f4b8429fef335e1fb25bede0b5d2c6014901ba8",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

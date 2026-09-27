@@ -1,5 +1,64 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — B independently qualified; first forensic attempt preserved; C next
+
+All heavy processes through1069 are CLOSED.1065 B passed6240 weeks and final
+independent1101-B KEEP (d1d1660d) verifies all1072 commands,121 complete saves/
+40 roots, literal0/3120/6240 authority equality, actual read purity and bounds.
+1066 snapshot preparation and1067 copied types passed.1068 forensic STOPPED at212
+because the bare collision-message matcher rejected the real nested validator
+wrapper. Original0/208/211 authority/prefixes match and the expected collision
+census is retained; no416 pins or allowed invalid continuation were attained.
+1069 final host/copy guards passed; manifest/patch/result were mirrored exactly
+before HEAD/index changed.1100-E records actual limits. Keep original snapshot,
+frozen1100 sources and failed output; no automatic rerun or regression pin update.
+Author owns separate1105-A correction proposal only; reviewer owns1100-F actual
+stopped-result review. Neither may edit consumed production/tests or run heavy work.
+Parent publishes this recovery checkpoint then launches only C with qualified
+1098 revised recording producer, original A baseline and completed B predecessor,
+in exclusive1052-c3-endurance-C-recording-v1. D requires actual C PASS and review.
+1093/1096 remain unapplied;1103 final sequence reviewed;1104 P3 outline preparation
+only. P15 D2/D3/D4a answers remain pending without blocking C3. Continue authorized
+program, max two existing specialists, parent sole production writer/executor.
+
+## CURRENT — B complete; isolated B5 copy prepared and types running
+
+1065 B closed PASS29m43.507s on fixed1f4b8429/empty consumed diff:6240 ticks,
+1072 commands,122 releases,75 attachments,121 reads. Retained3120/6240 saves
+are literally equal to A.1101-A records result; independent1101-B final review
+is pending, so C is not released yet. Seven B files total16,330,598 bytes.
+1066 prepared reviewed1100 snapshot with no gameplay: retained
+/private/var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/studio-c3-b5-forensic-dmxMOt.
+Manifest584119B SHA659e49d1818a98a8e748f25a0507060ae12fc50050eb0198d859399463c7053e;
+1660 sources/1659 exact originals/eight extras, sole29900B transformed module
+056f90c9.1067 copied Bridge-plus-forensic types is sole heavy process,session69909.
+No forensic gameplay yet. Preserve hostHEAD/index/source and all copied/host
+inputs through1068 one bounded forensic pass and1069 final verification/mirroring.
+No cleanup or ordinary gameplay qualification of the counterfactual is allowed.
+1103-A/B final verification sequence reviewed;1104-A P3 outline is preparation
+only.1093/1096 remain unapplied. P15 D2/D3/D4a questions remain pending, not a C3
+block. Parent sole production writer/executor, two existing specialists only.
+Continue authorized program after actual gates; preserve all original limits.
+
+## CURRENT — published recording revision; B replay active
+
+Local/GitHub branch exactly1f4b8429fef335e1fb25bede0b5d2c6014901ba8.
+1065 B is the sole heavy process, session52331, exclusive output
+1052-c3-endurance-B-recording-v1. Baseline and predecessor are exact original
+A-observer-fixed. Revised909e822e/codec/proof/verifier, original producer/A,
+consumed source/HEAD/index remain frozen; no test patch is applied.
+1098-E and independent1098-D retain actual type/codec/provenance gates. Existing
+author owns only new docs1100 forensic sources; reviewer owns1101-B B artifact
+review and later1100 source review. 1100 sources are now frozen with independent1100-D KEEP; no forensic
+snapshot/compiler/gameplay while B runs. After B closes, keep HEAD/index fixed
+through1066 preparation,1067 copied types,1068 one forensic pass and1069 final
+snapshot verification/mirroring. Each follows its actual successful prior gate. C/D require complete predecessor PASS plus independent review; progress
+is not qualification. Preserve all original failures and remaining full gates.
+1102-A records three genuinely open P15 presentation choices (D2/D3/D4a).
+Parent asked them asynchronously; answers remain pending and do not block C3.
+Do not assume recommended defaults were selected or ask them again.
+Parent remains sole production writer/executor; continue authorized program.
+
 ## CURRENT — recording gates passed; publish readiness then B
 
 1063 types and1064 codec/provenance verification both PASS on fixed d88d8ed6,
