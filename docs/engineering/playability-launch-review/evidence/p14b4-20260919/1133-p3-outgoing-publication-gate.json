@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "utc": "2026-09-27T11:01:02.716841+00:00",
+  "localHead": "cc62af7b87cbabdb88023188fe55655e5a44440c",
+  "remoteHead": "cc62af7b87cbabdb88023188fe55655e5a44440c",
+  "consumedSourceClean": true,
+  "fixtureManifestSha256": "87db7cc4885f5e9a9464d8e2c3e586be84078550aebf1155a672fa2782a2c987",
+  "reviewSha256": "6199ebbaabc4449d0767d1da979b4b86dd18047dad5b8bad7b41bb31d94d0eee"
+}

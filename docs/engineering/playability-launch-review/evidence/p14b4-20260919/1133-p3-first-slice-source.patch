@@ -1,0 +1,755 @@
+diff --git a/tests/helpers/p14p3-fixtures.ts b/tests/helpers/p14p3-fixtures.ts
+new file mode 100644
+index 00000000..c1ba6ea9
+--- /dev/null
++++ b/tests/helpers/p14p3-fixtures.ts
+@@ -0,0 +1,361 @@
++// Independent 1121/1132 P3 fixtures. One cached monotone player route, <=208
++// actual develop:true ticks. No public-API failure is rescued by state mutation.
++import assert from 'node:assert/strict'
++import { createHash } from 'node:crypto'
++import { readFileSync } from 'node:fs'
++import { gunzipSync } from 'node:zlib'
++import { expect, vi } from 'vitest'
++import * as core from '../../src/core/index.js'
++import * as promiseOwner from '../../src/core/promises.js'
++import * as saves from '../../src/core/save.js'
++import { activeContract, busyTalentIds } from '../../src/core/employment.js'
++import type { Action, GameState, ProfessionalPromise, PromiseFeasibilityReceipt, FirstTakeReceipt,
++  FilmShape, Promise as CreativePromise, CreativeRole } from '../../src/core/types.js'
++import type { PromiseDraft, PromiseAttachment } from '../../src/core/promises.js'
++import type { SaveFileV38 } from '../../src/core/save.js'
++
++export const clone = <T>(value: T): T => structuredClone(value)
++export const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
++export const bytes = (state: GameState): string => saves.exportSave(saves.makeSave(state))
++export const act = (state: GameState, action: Action): GameState => core.applyActions(state, [action])
++export const person = (state: GameState, id: string) => {
++  const found = state.talent.find(row => row.id === id); assert.ok(found, `actual person ${id}`); return found
++}
++export const issuer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }
++export const STAGE = 'facility-soundstage-07'
++export const WRITER = 'authored-0003'
++export const CAST = { lead: 'authored-0000', antagonist: 'authored-0001', support: 'authored-0005' }
++export const SHAPE: FilmShape = { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' }
++
++// Narrow boundary shape, deliberately independent of a nonexistent new module.
++// Only these public calls receive the forward predicate. All fixture state is
++// produced by real actions; a cast here does not admit or invent any authority.
++export type DirectorDraft = Omit<PromiseDraft, 'family' | 'predicate'> & {
++  family: 'DIRECTING_COUNT'; predicate: { kind: 'directorCount'; count: number }
++}
++export type DirectorPromise = Omit<ProfessionalPromise, 'family' | 'predicate'> & {
++  family: 'DIRECTING_COUNT'; predicate: { kind: 'directorCount'; count: number }
++}
++export const directorDraft = (state: GameState, id: string, count = 2): DirectorDraft => ({
++  family: 'DIRECTING_COUNT', predicate: { kind: 'directorCount', count },
++  issuerStudioId: issuer(state), beneficiaryPersonId: id,
++  startWeek: 52, termWeeks: 104, windowStartWeek: 52, dueWeekExclusive: 112,
++})
++export const quote = (state: GameState, draft: DirectorDraft | PromiseDraft): PromiseFeasibilityReceipt =>
++  core.promiseFeasibility(state, draft as PromiseDraft, state.market.tick)
++export const attach = (state: GameState, id: string, draft: DirectorDraft): GameState =>
++  core.attachPromise(state, id, draft.issuerStudioId, draft as unknown as PromiseAttachment)
++export const castDraft = (state: GameState, id: string, count = 1): PromiseDraft => ({
++  ...directorDraft(state, id, count), family: 'APPEARANCE_COUNT', predicate: { count },
++})
++export function actualPromise(state: GameState, id: string): DirectorPromise {
++  const row = state.promises.find(p => p.promiseId === id)
++  assert.ok(row, 'actual retained promise')
++  expect(row.family).toBe('DIRECTING_COUNT')
++  expect(row.predicate).toEqual({ kind: 'directorCount', count: 2 })
++  return row as unknown as DirectorPromise
++}
++export function admitted(state: GameState): void {
++  const before = saves.stableStringify(state), save = saves.makeSave(state)
++  // Current 38 setup is allowed during RED; D13/D14 own the new 39 assertion.
++  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION)
++  const raw = saves.exportSave(save)
++  expect(saves.exportSave(saves.importSave(raw))).toBe(raw)
++  expect(saves.stableStringify(state)).toBe(before)
++}
++export function reopen(state: GameState): GameState {
++  const raw = bytes(state), next = saves.migrateToLive(saves.importSave(raw)).state
++  expect(bytes(next)).toBe(raw); return next
++}
++export type FutureSaveAPI = {
++  validateSaveV39: (input: unknown) => unknown
++  convertV39ToV38: (input: unknown) => SaveFileV38
++}
++export function futureSave(): FutureSaveAPI {
++  const candidate = core as unknown as Partial<FutureSaveAPI>
++  assert.equal(typeof candidate.validateSaveV39, 'function', 'public index exposes the new strict reader')
++  assert.equal(typeof candidate.convertV39ToV38, 'function', 'public index exposes the guarded reverse conversion')
++  return candidate as FutureSaveAPI
++}
++
++const outgoingPins = {
++  'bound-p2-lead-week52': ['7872b26db5909f787d7c58ab37600bbd4499eb0f54f646cb480d1655afeab922', 'b79730a445d85155ef54f9497cd851d77d23388dfeeb9686f6e8399f5984af25'],
++  'kept-broken-week61': ['803ed4415cc6cc1b34749a595f3b52a2d5fd0376e965c15defc06be6022d44fc', 'a689ee51581ebbf6cf5534e4fb961b27d90b5a5204f279da2d279e15af91ead0'],
++  'migrated-week207': ['5d9e980e616b4b51502a24c160ca8ac89d863b22710ed5fdf2b19c8ec7cf4119', '248070431a492773e1887946bffa7bdaf6be8cbc5fba8694a778df32b7b2c1a1'],
++  'natural-week208': ['a7418eb0f90fa2d10ae65e78e3c3b9e75ec19346970c677c1cfdeefce42b2960', 'ebb00ca54328ef3340d959d830045d28c73dc493b8f069220256183e718fc4bb'],
++  'before-waiver-week104': ['077eec0343307983266868aa8bb242375874f7738cbe06c94e5787baa7dc098e', '5defd3aeffea645c670beccfe5ca0edd3d75cde7ddec5ef26406ff7639e39648'],
++  'after-waiver-week104': ['129b8d5d6993d97f9b5aa5929b2ab4a607c506c58b942cf7c4a38133fa113181', 'ac2c9ef66c0bc7cd43448cde7d0c9aabc6474730e750d8ed72becb862c08ce95'],
++} as const
++export type OutgoingName = keyof typeof outgoingPins
++export const outgoingNames = Object.keys(outgoingPins) as OutgoingName[]
++export function outgoing(name: OutgoingName): { raw: string; save: SaveFileV38 } {
++  const base = new URL('../fixtures/p14/genuine-v38-pre-p3/', import.meta.url)
++  const manifest = readFileSync(new URL('MANIFEST.json', base))
++  expect(sha(manifest)).toBe('87db7cc4885f5e9a9464d8e2c3e586be84078550aebf1155a672fa2782a2c987')
++  const zipped = readFileSync(new URL(`genuine-v38-p3-${name}.json.gz`, base))
++  const raw = gunzipSync(zipped).toString('utf8'), [gzipPin, rawPin] = outgoingPins[name]
++  expect(sha(zipped)).toBe(gzipPin); expect(sha(raw)).toBe(rawPin)
++  const parsed: unknown = JSON.parse(raw), save = saves.validateSaveV38(parsed)
++  expect(save).toBe(parsed); expect(saves.exportSave(save)).toBe(raw)
++  return { raw, save }
++}
++
++type Cached<T> = { ok: true; value: T } | { ok: false; error: unknown }
++const cache = new Map<string, Cached<unknown>>()
++function memo<T>(name: string, build: () => T): T {
++  const old = cache.get(name) as Cached<T> | undefined
++  if (old) { if (!old.ok) throw old.error; return clone(old.value) }
++  try { const value = build(); cache.set(name, { ok: true, value }); return clone(value) }
++  catch (error) { cache.set(name, { ok: false, error }); throw error }
++}
++let calls = 0
++export function counters() { return { actualTicks: calls, cap: 208,
++  cachedPhases: [...cache].map(([name, result]) => ({ name, completed: result.ok })) } }
++function step(state: GameState): GameState {
++  assert.ok(calls < 208 && state.market.tick < 208, 'one player route: <=208 reserved actual ticks / week208')
++  calls++
++  const next = core.tick(state, { develop: true })
++  expect(next.market.tick).toBe(state.market.tick + 1); return next
++}
++function toWeek(state: GameState, week: number): GameState {
++  assert.ok(week >= state.market.tick && week <= 208)
++  while (state.market.tick < week) state = step(state)
++  return state
++}
++export type Setup = { state: GameState; actorId: string; directorId: string; concepts: string[] }
++function create(state: GameState, role: CreativeRole, age: number): { state: GameState; id: string } {
++  const six = (value: number) => [value, value, value, value, value, value]
++  const oldIds = new Set(state.talent.map(row => row.id))
++  let next = act(state, { kind: 'createCustomTalent', talent: { name: `P3 ${role}`, role, age,
++    actual: { warmth: 0, gravity: 0, physicality: 0.2 }, workEthic: 55, fame: 25,
++    skills: { acting: six(80), directing: six(80), writing: six(20), craft: six(20), research: six(1) } } })
++  const added = next.talent.filter(row => !oldIds.has(row.id)); expect(added).toHaveLength(1)
++  const id = added[0]!.id
++  expect(Object.values(person(next, id).workHistory).every(value => value === 0)).toBe(true)
++  expect(next.careerLifecycle.professionAnchors.find(row => row.personId === id))
++    .toEqual({ personId: id, profession: role, kind: 'entrant', recordedWeek: 0 })
++  const offer = core.playerOffer(next, id, 52)
++  expect(next.studio.cash).toBeGreaterThanOrEqual(offer.signingBonus)
++  next = act(next, { kind: 'signContract', talentId: id, termWeeks: 52 })
++  expect(activeContract(next, id)).toMatchObject({ startWeek: 0, endWeekExclusive: 52, termWeeks: 52 })
++  return { state: next, id }
++}
++export function created(): Setup {
++  return memo('created0', () => {
++    const base = new URL('../fixtures/p14/genuine-v37-c3-corpus/', import.meta.url)
++    expect(sha(readFileSync(new URL('MANIFEST.json', base))))
++      .toBe('b3a3251ae7b3df96a1e2a615991744c5d1e5966a095424693f086a1581244294')
++    const gzip = readFileSync(new URL('genuine-v37-c3-created-week0.json.gz', base))
++    expect(sha(gzip)).toBe('0ce43de9abe897631f415f94ac79e584b87d6001c8bb4b5c37fccf3dcb8204a2')
++    const raw = gunzipSync(gzip).toString('utf8')
++    expect(sha(raw)).toBe('215b61730393abc8bc28b747d7d79bf9dcb65d2b03f17aa97b96880bc720fa23')
++    const old = saves.validateSaveV37(JSON.parse(raw))
++    let state = saves.migrateToLive(old).state
++    expect(state.market.tick).toBe(0); expect(state.studio.cash).toBe(29_611_837)
++    expect(state.studio.activeProductions).toEqual([]); expect(state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] })
++    for (const id of [WRITER, 'authored-0002', 'authored-0004', ...Object.values(CAST)]) {
++      expect(activeContract(state, id)).toMatchObject({ startWeek: 0, endWeekExclusive: 208 })
++    }
++    admitted(state)
++    const actor = create(state, 'actor', 68); state = actor.state
++    const director = create(state, 'director', 30); state = director.state
++    const concepts = state.concepts.filter(row => !state.scriptDevelopment.projects.some(p => p.conceptId === row.id)
++      && !state.studio.activeProductions.some(p => p.conceptId === row.id)
++      && !state.studio.releasedFilms.some(p => p.conceptId === row.id)).slice(0, 3).map(row => row.id)
++    expect(concepts).toEqual(['c-00', 'c-01', 'c-02'])
++    admitted(state); return { state, actorId: actor.id, directorId: director.id, concepts }
++  })
++}
++export function managedEmpty(): Setup {
++  return memo('managedEmpty8', () => {
++    const input = created(); let state = input.state
++    const mounted = state.sets.filter(row => row.mountedOn === STAGE && row.status !== 'retired')
++    expect(mounted.length).toBeLessThanOrEqual(1)
++    if (mounted[0]) state = act(state, { kind: 'strikeSet', setId: mounted[0].id })
++    state = act(state, { kind: 'commissionSet', commission: { blueprintId: 'set-grand-ballroom', stageFacilityId: STAGE } })
++    state = toWeek(state, 8)
++    expect(state.sets.some(row => row.mountedOn === STAGE && row.status === 'standing')).toBe(true)
++    expect(state.studio.activeProductions).toEqual([])
++    state = act(state, { kind: 'activateScriptDevelopment' })
++    expect(state.scriptDevelopment).toEqual({ mode: 'managed', projects: [] })
++    admitted(state)
++    // Independently reached before every P3 assertion, on unchanged production
++    // during RED. Parent retains these complete compact outputs for a literal
++    // RED/GREEN comparison; no expected digest is learned from a failure.
++    const plain = castDraft(state, input.actorId)
++    const lead: PromiseDraft = { ...plain, family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT',
++      predicate: { kind: 'castRoleCount', count: 1, seatClass: 'lead' } }
++    const before = bytes(state), rng = clone(state.rngState)
++    const receipts = [plain, lead].map(draft => ({ draft, receipt: core.promiseFeasibility(state, draft, 8) }))
++    expect(receipts.every(row => row.receipt.rulesVersion === 4)).toBe(true)
++    expect(bytes(state)).toBe(before); expect(state.rngState).toEqual(rng)
++    console.info('1133-P3-LEGACY4 ' + JSON.stringify({ week: 8, rngState: rng, receipts }))
++    return { ...input, state }
++  })
++}
++export function creative(state: GameState, conceptId: string): CreativePromise {
++  const concept = state.concepts.find(row => row.id === conceptId); assert.ok(concept)
++  return { genre: concept.genre, intendedSegments: ['adult'], ranges: {
++    intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } }
++}
++export type Pipeline = Setup & { projectIds: string[] }
++export function pipeline(): Pipeline {
++  return memo('ready10', () => {
++    const input = managedEmpty(); let state = input.state; const projectIds: string[] = []
++    for (const [index, conceptId] of input.concepts.slice(0, 2).entries()) {
++      expect(state.market.tick).toBe(8 + index)
++      expect(busyTalentIds(state).has(WRITER)).toBe(false)
++      const oldIds = new Set(state.scriptDevelopment.projects.map(row => row.id))
++      state = act(state, { kind: 'commissionScript', project: { conceptId, writerId: WRITER,
++        shape: SHAPE, promise: creative(state, conceptId) } })
++      const added = state.scriptDevelopment.projects.filter(row => !oldIds.has(row.id))
++      expect(added).toHaveLength(1); const project = added[0]!
++      expect(project).toMatchObject({ status: 'drafting', commissionedWeek: 8 + index,
++        dueWeek: 9 + index, writerId: WRITER, writerIds: [WRITER], conceptId })
++      expect(project.reservation).not.toBeNull(); projectIds.push(project.id)
++      admitted(state); state = step(state)
++      expect(state.scriptDevelopment.projects.find(row => row.id === project.id))
++        .toMatchObject({ status: 'review', dueWeek: null, reservation: null })
++      state = act(state, { kind: 'acceptScript', projectId: project.id })
++      expect(state.scriptDevelopment.projects.find(row => row.id === project.id))
++        .toMatchObject({ status: 'ready', productionId: null })
++      admitted(state)
++    }
++    expect(new Set(projectIds).size).toBe(2)
++    return { ...input, state, projectIds }
++  })
++}
++export function at45(): Pipeline {
++  return memo('cases45', () => {
++    const input = pipeline(), state = toWeek(input.state, 45)
++    for (const id of [input.actorId, input.directorId]) {
++      expect(core.caseForTalent(state, id)).toMatchObject({ openedWeek: 40, decisionWeek: 52 })
++      expect(core.retirementRecordFor(state, id)).toBeUndefined()
++      expect(activeContract(state, id)).toMatchObject({ startWeek: 0, endWeekExclusive: 52 })
++    }
++    expect(state.scriptDevelopment.projects.filter(row => input.projectIds.includes(row.id) && row.status === 'ready')).toHaveLength(2)
++    admitted(state); return { ...input, state }
++  })
++}
++export function proposal(state: GameState, id: string, premium = 1.25): GameState {
++  const priced = core.proposalDraft(state, issuer(state), id, 104, premium, state.market.tick)
++  expect(state.studio.cash).toBeGreaterThanOrEqual(priced.signingBonus)
++  const next = core.submitProposal(state, { talentId: id, issuerStudioId: issuer(state), termWeeks: 104, premiumTier: premium })
++  expect(next.talentMarket.proposals.find(row => row.talentId === id && row.issuerStudioId === issuer(state)))
++    .toMatchObject({ startWeek: 52, termWeeks: 104, premiumTier: premium })
++  admitted(next); return next
++}
++export type Attached = Pipeline & { promiseId: string }
++export function attached(): Attached {
++  return memo('attached45', () => {
++    const input = at45(), state = proposal(input.state, input.actorId), draft = directorDraft(state, input.actorId)
++    expect(quote(state, draft)).toMatchObject({ classification: 'REASONABLY_ACHIEVABLE', bottleneck: null, rulesVersion: 6 })
++    const next = attach(state, input.actorId, draft), own = next.promises.at(-1)!
++    expect(own).toMatchObject({ family: 'DIRECTING_COUNT', predicate: draft.predicate, version: 6,
++      contractId: null, progress: 0, evidenceRefs: [], outcome: null })
++    admitted(next); return { ...input, state: next, promiseId: own.promiseId }
++  })
++}
++export type FreezeCall = { promiseId: string | null; rootVersion: number | null; week: number; result: PromiseFeasibilityReceipt }
++export type Bound = Attached & { freezeCalls: FreezeCall[] }
++export function bound(): Bound {
++  return memo('bound52', () => {
++    const input = attached(), actual = promiseOwner.promiseFeasibility, freezeCalls: FreezeCall[] = []
++    const spy = vi.spyOn(promiseOwner, 'promiseFeasibility').mockImplementation((state, draft, week) => {
++      const result = actual(state, draft, week)
++      if (week === 52) freezeCalls.push({ promiseId: draft.promiseId ?? null,
++        rootVersion: state.promises.find(row => row.promiseId === draft.promiseId)?.version ?? null, week, result: clone(result) })
++      return result
++    })
++    let state: GameState
++    try { state = toWeek(input.state, 52) } finally { spy.mockRestore() }
++    const promise = actualPromise(state, input.promiseId)
++    assert.ok(promise.contractId, 'fixture premise: player must actually win/bind at52')
++    const employment = state.hollywood!.employment.find(row => row.contractId === promise.contractId)
++    expect(employment).toMatchObject({ studioId: issuer(state), terms: { talentId: input.actorId, startWeek: 52, endWeekExclusive: 156 } })
++    expect(state.talentMarket.receipts.filter(row => row.kind === 'settled' && row.week === 52
++      && row.talentId === input.actorId && row.studioId === issuer(state))).toHaveLength(1)
++    const contract = activeContract(state, input.actorId); assert.ok(contract)
++    expect(state.ledger.filter(row => row.kind === 'signingBonus' && row.week === 52 && row.talentId === input.actorId))
++      .toEqual([expect.objectContaining({ amount: -contract.signingBonus })])
++    expect(freezeCalls.some(row => row.promiseId === input.promiseId)).toBe(true)
++    admitted(state); return { ...input, state, freezeCalls }
++  })
++}
++export function greenlight(state: GameState, projectId: string, directorId: string,
++  cast = CAST): { state: GameState; productionId: string } {
++  const project = state.scriptDevelopment.projects.find(row => row.id === projectId); assert.ok(project)
++  expect(project.status).toBe('ready')
++  const concept = state.concepts.find(row => row.id === project.conceptId); assert.ok(concept)
++  const old = new Set(state.studio.activeProductions.map(row => row.id))
++  const next = act(state, { kind: 'greenlightScriptProject', production: { projectId, directorId,
++    craftIds: ['authored-0004'], cast, budget: { negative: concept.baseNegativeCost, marketing: 0 } } })
++  const added = next.studio.activeProductions.filter(row => !old.has(row.id)); expect(added).toHaveLength(1)
++  expect(added[0]).toMatchObject({ directorId, writerId: WRITER, cast, conceptId: project.conceptId })
++  admitted(next); return { state: next, productionId: added[0]!.id }
++}
++export type FilmEvidence = { greenlit: GameState; held: GameState; scheduled: GameState; afterTake: GameState;
++  released: GameState; productionId: string; take: FirstTakeReceipt; calls: number }
++function film(input: Bound, state: GameState, projectId: string): FilmEvidence {
++  const made = greenlight(state, projectId, input.actorId), startCalls = calls
++  state = made.state
++  let held: GameState | undefined, scheduled: GameState | undefined, afterTake: GameState | undefined
++  let selectedRecipe = false
++  for (let i = 0; i < 40; i++) {
++    let workflow = state.operations.workflows.find(row => row.productionId === made.productionId)
++    if (workflow?.phase === 'rehearsal' && !selectedRecipe) {
++      state = act(state, { kind: 'setProductionSetupRecipe', productionId: made.productionId,
++        recipeId: 'ballroom-reveal-lighting-01', expectedPlanRevision: workflow.planRevision })
++      selectedRecipe = true
++    }
++    const production = state.studio.activeProductions.find(row => row.id === made.productionId); assert.ok(production)
++    if (production.remainingTicks === 5 && held === undefined) {
++      held = clone(state); expect(state.firstTakes.filter(row => row.productionId === made.productionId)).toEqual([])
++      admitted(held)
++    }
++    workflow = state.operations.workflows.find(row => row.productionId === made.productionId)
++    if (workflow?.shootingTask?.status === 'unassigned')
++      state = act(state, { kind: 'assignShootingDirector', productionId: made.productionId, directorId: input.actorId })
++    if (state.operations.workflows.find(row => row.productionId === made.productionId)?.shootingTask?.status === 'ready') {
++      state = act(state, { kind: 'scheduleShootingTake', productionId: made.productionId })
++      expect(state.operations.workflows.find(row => row.productionId === made.productionId)?.shootingTask?.status).toBe('scheduled')
++      if (production.remainingTicks === 5 && scheduled === undefined) { scheduled = clone(state); admitted(scheduled) }
++    }
++    if (production.remainingTicks === 1) state = act(state, { kind: 'commitPictureToRelease', productionId: made.productionId })
++    const previous = state; state = step(state)
++    const takes = state.firstTakes.filter(row => row.productionId === made.productionId && row.studioId === issuer(state))
++    if (takes.length && afterTake === undefined) {
++      expect(previous.studio.activeProductions.find(row => row.id === made.productionId)?.remainingTicks).toBe(5)
++      expect(state.studio.activeProductions.find(row => row.id === made.productionId)?.remainingTicks).toBe(4)
++      expect(takes).toHaveLength(1); expect(takes[0]).toMatchObject({ directorId: input.actorId, week: state.market.tick })
++      expect(takes[0]!.week).toBeGreaterThanOrEqual(52); expect(takes[0]!.week).toBeLessThan(112)
++      afterTake = clone(state); admitted(afterTake)
++    }
++    const released = state.studio.releasedFilms.find(row => row.productionId === made.productionId)
++    if (released) {
++      assert.ok(held && scheduled && afterTake, 'actual held/scheduled/take boundaries before release')
++      expect(released.participants).toMatchObject({ director: { talentId: input.actorId }, writer: { talentId: WRITER } })
++      expect(takes).toHaveLength(1); admitted(state)
++      return { greenlit: made.state, held, scheduled, afterTake, released: state,
++        productionId: made.productionId, take: takes[0]!, calls: calls - startCalls }
++    }
++  }
++  throw new Error('fixture premise: actual film did not release within40 calls; no rescue permitted')
++}
++export function firstFilm(): Bound & { first: FilmEvidence } {
++  return memo('firstFilm', () => { const input = bound(), first = film(input, input.state, input.projectIds[0]!)
++    return { ...input, first, state: first.released } })
++}
++export function secondFilm(): Bound & { first: FilmEvidence; second: FilmEvidence } {
++  return memo('secondFilm', () => { const input = firstFilm(), second = film(input, input.state, input.projectIds[1]!)
++    return { ...input, second, state: second.released } })
++}
++export function terminal208(): ReturnType<typeof secondFilm> & { at104: GameState; at156: GameState } {
++  return memo('terminal208', () => {
++    const input = secondFilm(); assert.ok(input.state.market.tick <= 104, 'both real pictures before natural notice104')
++    const at104 = toWeek(input.state, 104); admitted(at104)
++    const at156 = toWeek(at104, 156); admitted(at156)
++    const state = toWeek(at156, 208); admitted(state)
++    return { ...input, state, at104, at156 }
++  })
++}
+diff --git a/tests/p14p3-directing-promises.test.ts b/tests/p14p3-directing-promises.test.ts
+new file mode 100644
+index 00000000..75e71b17
+--- /dev/null
++++ b/tests/p14p3-directing-promises.test.ts
+@@ -0,0 +1,382 @@
++// Independent 1112-A/C/D/E, 1121-A/B and 1132-A/B requirements.
++// Eight first-slice leaves only. Parent owns execution; no generated expectations.
++import assert from 'node:assert/strict'
++import { afterAll, describe, expect, it } from 'vitest'
++import * as core from '../src/core/index.js'
++import * as saves from '../src/core/save.js'
++import { qualifyingTakes } from '../src/core/promises.js'
++import type { GameState, FirstTakeReceipt, ProfessionalPromiseV30 } from '../src/core/types.js'
++import type { PromiseDraft, PromiseAttachment } from '../src/core/promises.js'
++import { act, actualPromise, admitted, at45, attach, attached, bound, bytes, CAST, castDraft, clone,
++  counters, creative, directorDraft, firstFilm, futureSave, greenlight, issuer, managedEmpty,
++  outgoing, outgoingNames, person, proposal, quote, reopen, secondFilm, SHAPE, terminal208, WRITER,
++  type DirectorDraft, type DirectorPromise } from './helpers/p14p3-fixtures.js'
++
++// Set before any execution. A single <=208-tick cached trajectory plus whole-save
++// negative families needs more than the runner's 5s default; this does not alter
++// existing/global timeouts or grant extra route calls.
++const LEAF_TIMEOUT_MS = 60_000
++const PIPELINE = 'needs a picture not yet commissioned'
++const STOCK_REFUSAL = 'applyActions: greenlight rejected — managed studios must greenlight an authoritative Ready script project'
++function ownProposal(state: GameState, id: string) {
++  const row = state.talentMarket.proposals.find(p => p.talentId === id && p.issuerStudioId === issuer(state))
++  assert.ok(row, 'actual current own proposal'); return row
++}
++function ownTakes(state: Pick<GameState, 'firstTakes'>, promise: DirectorPromise): FirstTakeReceipt[] {
++  const seen = new Set<string>()
++  return state.firstTakes.filter(row => {
++    if (row.studioId !== promise.issuerStudioId || row.directorId !== promise.beneficiaryPersonId
++      || row.week < promise.windowStartWeek || row.week >= promise.dueWeekExclusive || seen.has(row.productionId)) return false
++    seen.add(row.productionId); return true
++  })
++}
++const publicTakes = (state: Pick<GameState, 'firstTakes'>, promise: DirectorPromise) =>
++  qualifyingTakes(state, promise as unknown as ProfessionalPromiseV30)
++function reverseKeys<T>(value: T): T {
++  if (Array.isArray(value)) return value.map(reverseKeys) as T
++  if (value !== null && typeof value === 'object') return Object.fromEntries(
++    Object.entries(value).reverse().map(([key, child]) => [key, reverseKeys(child)]),
++  ) as T
++  return value
++}
++type MutablePromiseSave = { saveVersion: number; state: {
++  promises: Record<string, unknown>[]; hollywood: unknown; market: { tick: number }
++} }
++function malformed(state: GameState, promiseId: string,
++  change: (row: Record<string, unknown>, save: MutablePromiseSave) => void, cause: RegExp): void {
++  const api = futureSave(), valid: unknown = JSON.parse(bytes(state))
++  expect(api.validateSaveV39(valid)).toBe(valid)
++  const variant = clone(valid) as MutablePromiseSave
++  const row = variant.state.promises.find(p => p.promiseId === promiseId); assert.ok(row)
++  change(row, variant)
++  expect(() => api.validateSaveV39(variant)).toThrow(cause)
++}
++afterAll(() => console.info('1133-P3-COUNTERS ' + JSON.stringify(counters())))
++
++describe('P3 first slice: public Director promises and historical meaning', () => {
++  it('D01 offers fresh directing work to lawful Actors and Directors', () => {
++    const input = at45()
++    for (const [id, count, primary] of [[input.actorId, 2, 'actor'], [input.directorId, 1, 'director']] as const) {
++      const state = proposal(input.state, id), draft = directorDraft(state, id, count)
++      expect(person(state, id).role).toBe(primary)
++      expect(person(state, id).skills.directing).toBeDefined()
++      admitted(state)
++      const before = bytes(state), rng = clone(state.rngState), receipt = quote(state, draft)
++      expect(bytes(state)).toBe(before); expect(state.rngState).toEqual(rng)
++
++      // Fresh classless P3 is refused through the existing direct attachment
++      // boundary. A readable old classless row is a separate D14 construction.
++      // This independent public refusal precedes the positive tagged assertion
++      // so its actual unsupported behavior is visible in the first RED record.
++      const classless: PromiseAttachment = { family: 'DIRECTING_COUNT', predicate: { count: 1 },
++        windowStartWeek: 52, dueWeekExclusive: 112 }
++      expect(core.promiseFeasibility(state, { ...draft, predicate: { count: 1 } } as PromiseDraft, 45))
++        .toMatchObject({ classification: 'IMPOSSIBLE' })
++      expect(() => core.attachPromise(state, id, issuer(state), classless)).toThrow(/director|predicate|select|tag/i)
++      expect(bytes(state)).toBe(before)
++      expect(receipt).toMatchObject({ classification: 'REASONABLY_ACHIEVABLE', bottleneck: null, rulesVersion: 6, week: 45 })
++      expect((core as unknown as { DIRECTING_PROMISE_RULES_VERSION?: number }).DIRECTING_PROMISE_RULES_VERSION).toBe(6)
++      expect(core.PROMISE_RULES_VERSION).toBe(4)
++      const promised = attach(state, id, draft), row = promised.promises.at(-1)!
++      expect(row).toMatchObject({ family: 'DIRECTING_COUNT', predicate: draft.predicate,
++        version: 6, contractId: null, progress: 0, evidenceRefs: [], outcome: null, feasibilityReceipt: receipt })
++      expect(Object.keys(row.predicate).sort()).toEqual(['count', 'kind'])
++      expect(ownProposal(promised, id).promises).toEqual([row.promiseId]); admitted(promised)
++      expect(() => attach(state, id, { ...draft, family: 'APPEARANCE_COUNT' } as unknown as DirectorDraft))
++        .toThrow(/director|DIRECTING_COUNT|predicate/i)
++    }
++    // Existing admitted low-directing Actor: no skill/work-history threshold.
++    const low = person(input.state, 'authored-0001')
++    const standing = core.careerIdentity(low).disciplines.find(row => row.discipline === 'directing')!
++    expect(standing.ovr).toBeLessThan(60); expect(low.skills.directing).toBeDefined()
++    expect(quote(input.state, directorDraft(input.state, low.id, 1)))
++      .toMatchObject({ classification: 'REASONABLY_ACHIEVABLE', rulesVersion: 6 })
++    // Explicit malformed-request discriminator, never saved or continued.
++    const absent = clone(input.state)
++    delete (person(absent, input.actorId).skills as Partial<typeof low.skills>).directing
++    expect(quote(absent, directorDraft(absent, input.actorId, 1)))
++      .toMatchObject({ classification: 'IMPOSSIBLE', bottleneck: expect.stringMatching(/directing.*profile/i) })
++  }, LEAF_TIMEOUT_MS)
++
++  it('D02 counts only actual unrecorded Director seats through the first take', () => {
++    const input = firstFilm(), promise = actualPromise(input.first.afterTake, input.promiseId)
++    for (const before of [input.first.greenlit, input.first.held, input.first.scheduled]) {
++      admitted(before)
++      expect(before.firstTakes.filter(row => row.productionId === input.first.productionId)).toEqual([])
++      expect(actualPromise(before, input.promiseId)).toMatchObject({ progress: 0, evidenceRefs: [], outcome: null })
++      expect(publicTakes(before, actualPromise(before, input.promiseId))).toEqual([])
++    }
++    expect(input.first.held.studio.activeProductions.find(row => row.id === input.first.productionId)?.remainingTicks).toBe(5)
++    expect(input.first.scheduled.operations.workflows.find(row => row.productionId === input.first.productionId)?.shootingTask?.status)
++      .toBe('scheduled')
++    expect(input.first.afterTake.studio.activeProductions.find(row => row.id === input.first.productionId)?.remainingTicks).toBe(4)
++    expect(promise).toMatchObject({ progress: 1, evidenceRefs: [input.first.take.eventId], outcome: null })
++    expect(ownTakes(input.first.afterTake, promise)).toEqual([input.first.take])
++    expect(publicTakes(input.first.afterTake, promise)).toEqual([input.first.take])
++    const heldDraft = { ...directorDraft(input.first.held, input.actorId), promiseId: input.promiseId }
++    expect(quote(input.first.held, heldDraft)).toMatchObject({ classification: 'REASONABLY_ACHIEVABLE', rulesVersion: 6 })
++    expect(quote(input.first.afterTake, { ...heldDraft, predicate: { kind: 'directorCount', count: 2 } }))
++      .toMatchObject({ classification: 'FRAGILE', bottleneck: PIPELINE, rulesVersion: 6 })
++
++    // Actual zero-tick public cast-only package on an admitted detached bound
++    // branch. It does not create a Director seat for this beneficiary.
++    const start = bound(), other = greenlight(start.state, start.projectIds[0]!, 'authored-0002', {
++      lead: start.actorId, antagonist: CAST.antagonist, support: CAST.support,
++    })
++    expect(other.state.studio.activeProductions.find(row => row.id === other.productionId))
++      .toMatchObject({ directorId: 'authored-0002', cast: { lead: start.actorId } })
++    admitted(other.state)
++    expect(quote(other.state, { ...directorDraft(other.state, start.actorId), promiseId: start.promiseId }))
++      .toMatchObject({ classification: 'FRAGILE', bottleneck: PIPELINE, rulesVersion: 6 })
++    expect(publicTakes(other.state, actualPromise(other.state, start.promiseId))).toEqual([])
++  }, LEAF_TIMEOUT_MS)
++
++  it('D03 preserves conservative clocks and names each unavailable resource', () => {
++    const empty = managedEmpty(), state = empty.state, before = bytes(state)
++    expect(state.scriptDevelopment).toEqual({ mode: 'managed', projects: [] })
++    expect(state.studio.activeProductions).toEqual([])
++    expect(state.operations.facilities.some(row => row.capability === 'soundstage')).toBe(true)
++    expect(state.promises.filter(row => row.beneficiaryPersonId === empty.actorId)).toEqual([])
++    const concept = state.concepts.find(row => row.id === empty.concepts[0])!
++    expect(() => act(state, { kind: 'greenlight', production: { conceptId: concept.id,
++      directorId: empty.actorId, writerId: WRITER, craftIds: ['authored-0004'], cast: CAST,
++      shape: SHAPE, promise: creative(state, concept.id), budget: { negative: concept.baseNegativeCost, marketing: 0 } } }))
++      .toThrow(STOCK_REFUSAL)
++    expect(bytes(state)).toBe(before)
++    const legacy = castDraft(state, empty.actorId)
++    const legacyReceipt = quote(state, legacy)
++    expect(legacyReceipt).toMatchObject({ classification: 'REASONABLY_ACHIEVABLE', bottleneck: null, rulesVersion: 4 })
++    expect(quote(reopen(state), legacy)).toEqual(legacyReceipt)
++    // Seven literal candidate weeks in this specified window, buffer2; this
++    // count1 has55 weeks of slack. Only the real pipeline is missing.
++    expect([57, 65, 73, 81, 89, 97, 105].every(week => week >= 52 && week < 112)).toBe(true)
++    expect(quote(state, directorDraft(state, empty.actorId, 1)))
++      .toMatchObject({ classification: 'FRAGILE', bottleneck: PIPELINE, rulesVersion: 6 })
++    expect(bytes(state)).toBe(before)
++
++    const prepared = at45(), draft = directorDraft(prepared.state, prepared.actorId)
++    expect(prepared.state.scriptDevelopment.projects.filter(row => row.status === 'ready')).toHaveLength(2)
++    expect(quote(prepared.state, draft)).toMatchObject({ classification: 'REASONABLY_ACHIEVABLE', rulesVersion: 6 })
++    const cases: { change: Partial<DirectorDraft>; classification: string; reason: string }[] = [
++      { change: { predicate: { kind: 'directorCount', count: 0 } }, classification: 'IMPOSSIBLE', reason: 'the promised count must be a whole picture' },
++      { change: { windowStartWeek: 51 }, classification: 'IMPOSSIBLE', reason: 'the window starts before the proposed contract' },
++      { change: { dueWeekExclusive: 157 }, classification: 'IMPOSSIBLE', reason: 'the due week falls outside the proposed contract' },
++      { change: { dueWeekExclusive: 52 }, classification: 'IMPOSSIBLE', reason: 'the window closes before it opens' },
++      { change: { predicate: { kind: 'directorCount', count: 8 } }, classification: 'IMPOSSIBLE', reason: 'no filming week inside the window can reach that many pictures' },
++      { change: { predicate: { kind: 'directorCount', count: 6 } }, classification: 'FRAGILE', reason: 'the schedule leaves no spare picture inside the window' },
++      { change: { predicate: { kind: 'directorCount', count: 3 } }, classification: 'FRAGILE', reason: PIPELINE },
++    ]
++    const stable = bytes(prepared.state)
++    for (const row of cases) expect(quote(prepared.state, { ...draft, ...row.change }))
++      .toMatchObject({ classification: row.classification, bottleneck: row.reason, rulesVersion: 6 })
++    expect(bytes(prepared.state)).toBe(stable)
++    // The spare-event guard precedes slack under the uniform8-week clock. Do
++    // not mislabel an earlier buffer refusal as an independently reached slack
++    // refusal; D02 observes actual held clocks and D09 owns further reservations.
++  }, LEAF_TIMEOUT_MS)
++
++  it('D04 selects revision6 only for the explicit relevant domain and preserves pure history', () => {
++    const input = at45(), plain = proposal(input.state, input.directorId)
++    const cast = castDraft(plain, input.directorId), oldReceipt = quote(plain, cast)
++    expect(oldReceipt.rulesVersion).toBe(4)
++    let state = core.attachPromise(plain, input.directorId, issuer(plain), cast)
++    const oldId = state.promises.at(-1)!.promiseId
++    expect(state.promises.at(-1)).toMatchObject({ version: 4, feasibilityReceipt: oldReceipt }); admitted(state)
++    const castOwn = { ...cast, promiseId: oldId }
++    const original = quote(state, castOwn)
++    state = proposal(state, input.actorId)
++    const directing = directorDraft(state, input.actorId, 1)
++    expect(quote(state, directing)).toMatchObject({ classification: 'REASONABLY_ACHIEVABLE', rulesVersion: 6 })
++    state = attach(state, input.actorId, directing); admitted(state)
++    const newId = state.promises.at(-1)!.promiseId, before = bytes(state), rng = clone(state.rngState)
++    const scoped = quote(state, castOwn)
++    expect(scoped).toMatchObject({ classification: 'REASONABLY_ACHIEVABLE', rulesVersion: 6 })
++    expect(scoped.inputsDigest).not.toBe(original.inputsDigest)
++    // Same issuer/different beneficiary activates6 before the old person filter.
++    expect(state.promises.find(row => row.promiseId === oldId)).toMatchObject({ version: 4, feasibilityReceipt: oldReceipt })
++    expect(quote(reverseKeys(state), castOwn)).toEqual(scoped)
++    expect(quote(reopen(state), castOwn)).toEqual(scoped)
++    expect(bytes(state)).toBe(before); expect(state.rngState).toEqual(rng)
++    const abandoned = core.withdrawProposal(state, input.actorId, issuer(state)); admitted(abandoned)
++    expect(abandoned.promises).toEqual(state.promises)
++    expect(quote(abandoned, castOwn)).toEqual(original)
++
++    // Labelled reservation-service discriminators only. Each changes one copied
++    // real row; these variants are never saved, ticked, or claimed as history.
++    const isolated = (change: (row: Record<string, unknown>) => void) => {
++      const variant = clone(state), row = variant.promises.find(p => p.promiseId === newId)!
++      change(row as unknown as Record<string, unknown>); return variant
++    }
++    for (const variant of [isolated(row => { row.outcome = 'SATISFIED' }),
++      isolated(row => { row.dueWeekExclusive = 52 }), isolated(row => { row.windowStartWeek = 112 })]) {
++      expect(quote(variant, castOwn)).toEqual(original)
++    }
++    const otherStudio = state.hollywood!.identities.find(row => row.studioId !== issuer(state) && row.enteredWeek !== null)
++    assert.ok(otherStudio)
++    const neither = isolated(row => { row.issuerStudioId = otherStudio.studioId })
++    expect(quote(neither, castOwn)).toEqual(original)
++    // Same beneficiary/different issuer still activates6 in this labelled
++    // service-only discriminator; the altered proposal link is not saved.
++    const actorCast = castDraft(state, input.actorId)
++    expect(quote(neither, actorCast)).toMatchObject({ rulesVersion: 6,
++      classification: 'FRAGILE', bottleneck: PIPELINE })
++    const ownOnly = { ...directing, promiseId: newId }
++    expect(quote(state, ownOnly)).toMatchObject({ rulesVersion: 6, classification: 'REASONABLY_ACHIEVABLE' })
++    // A cast reclassification excluding that same own ID has no remaining
++    // tagged relevant row; merely retaining the tag in history cannot select6.
++    expect(quote(state, { ...actorCast, promiseId: newId }).rulesVersion).toBe(4)
++    expect(bytes(state)).toBe(before)
++
++    // Real winner freeze, not a fabricated replacement receipt. A root's
++    // attachment stamp is retained; current scope picks the returned receipt.
++    const winner = bound(), promised = actualPromise(winner.state, winner.promiseId)
++    expect(promised.version).toBe(actualPromise(attached().state, winner.promiseId).version)
++    expect(winner.freezeCalls.filter(row => row.promiseId === winner.promiseId).map(row => row.result))
++      .toContainEqual(promised.feasibilityReceipt)
++    expect(promised.feasibilityReceipt).toMatchObject({ rulesVersion: 6, week: 52 })
++  }, LEAF_TIMEOUT_MS)
++
++  it('D05 binds only the actual accepted material proposal', () => {
++    const input = attached(), original = actualPromise(input.state, input.promiseId)
++    const material = ownProposal(input.state, input.actorId), frozenBytes = bytes(input.state)
++    const revised = proposal(input.state, input.actorId, 1.2)
++    expect(ownProposal(revised, input.actorId).promises).toEqual([])
++    expect(ownProposal(revised, input.actorId).digest).not.toBe(material.digest)
++    expect(revised.promises).toEqual(input.state.promises)
++    const draft = directorDraft(revised, input.actorId, 1), replacement = attach(revised, input.actorId, draft)
++    admitted(replacement)
++    expect(replacement.promises.at(-1)?.promiseId).not.toBe(input.promiseId)
++    expect(ownProposal(replacement, input.actorId).digest).not.toBe(ownProposal(revised, input.actorId).digest)
++    expect(replacement.promises.find(row => row.promiseId === input.promiseId)).toEqual(original)
++    const withdrawn = core.withdrawProposal(replacement, input.actorId, issuer(replacement)); admitted(withdrawn)
++    expect(withdrawn.talentMarket.proposals.some(row => row.talentId === input.actorId && row.issuerStudioId === issuer(withdrawn))).toBe(false)
++    expect(withdrawn.promises).toEqual(replacement.promises)
++    expect(withdrawn.promises.filter(row => [input.promiseId, replacement.promises.at(-1)!.promiseId].includes(row.promiseId))
++      .every(row => row.contractId === null && row.outcome === null)).toBe(true)
++    expect(bytes(input.state)).toBe(frozenBytes)
++    const winner = bound(), row = actualPromise(winner.state, winner.promiseId)
++    expect(row.contractId).not.toBeNull()
++    expect(row.version).toBe(original.version)
++    expect(row.feasibilityReceipt.week).toBe(52)
++    expect(row.feasibilityReceipt.inputsDigest).not.toBe(original.feasibilityReceipt.inputsDigest)
++    expect(winner.state.talentMarket.proposals.filter(p => p.talentId === winner.actorId)).toEqual([])
++    expect(winner.state.promises.filter(p => p.beneficiaryPersonId === winner.actorId && p.contractId === row.contractId))
++      .toHaveLength(1)
++  }, LEAF_TIMEOUT_MS)
++
++  it('D06 fulfills directing once from two real distinct first takes', () => {
++    const input = secondFilm(), row = actualPromise(input.second.afterTake, input.promiseId)
++    const real = ownTakes(input.second.afterTake, row)
++    expect(real).toEqual([input.first.take, input.second.take])
++    expect(new Set(real.map(t => t.productionId)).size).toBe(2)
++    expect(row).toMatchObject({ progress: 2, evidenceRefs: real.map(t => t.eventId), outcome: 'SATISFIED',
++      outcomeWeek: input.second.take.week, supersededByPromiseId: null })
++    expect(input.second.afterTake.talentMarket.receipts.filter(r => r.eventId === row.outcomeEventId))
++      .toEqual([expect.objectContaining({ kind: 'promiseOutcome', week: row.outcomeWeek, talentId: input.actorId, studioId: issuer(input.state) })])
++    expect(publicTakes(input.second.afterTake, row)).toEqual(real)
++    // Argument-only adversarial collection: not a saved campaign. Distinct
++    // productions at exact lower edge count; duplicate IDs, upper edge, another
++    // issuer and cast-only membership do not. Production order stays original.
++    const first = input.first.take
++    const synthetic: FirstTakeReceipt[] = [first, { ...first, eventId: 'duplicate' },
++      { ...first, eventId: 'before', productionId: 'before', week: 51 },
++      { ...first, eventId: 'lower', productionId: 'lower', week: 52 },
++      { ...first, eventId: 'upper', productionId: 'upper', week: 112 },
++      { ...first, eventId: 'otherIssuer', productionId: 'otherIssuer', studioId: 'not-the-issuer' },
++      { ...first, eventId: 'castOnly', productionId: 'castOnly', directorId: WRITER, cast: { ...first.cast, lead: input.actorId } },
++      input.second.take]
++    expect(publicTakes({ firstTakes: synthetic }, row)).toEqual(ownTakes({ firstTakes: synthetic }, row))
++    expect(publicTakes({ firstTakes: synthetic }, row).map(t => t.eventId))
++      .toEqual([first.eventId, 'lower', input.second.take.eventId])
++    const end = terminal208(), terminal = actualPromise(end.state, end.promiseId)
++    expect(terminal).toEqual(row)
++    expect(actualPromise(reopen(end.state), end.promiseId)).toEqual(row)
++    const stable = bytes(end.state), repeated = core.advancePromisesWeek(end.state)
++    expect(bytes(repeated)).toBe(stable)
++    expect(end.state.firstTakes.filter(t => Object.values(t.cast).includes(input.actorId))).toEqual([])
++    expect(core.retirementRecordFor(end.at104, input.actorId, 'actor')).toMatchObject({ announcedWeek: 104, effectiveWeek: 156 })
++    expect(core.retirementRecordFor(end.at156, input.actorId, 'actor')).toMatchObject({ effectiveWeek: 156 })
++    expect(counters().actualTicks).toBe(208)
++    console.info('1133-P3-FILMS ' + JSON.stringify({ first: { take: input.first.take.week, release: input.first.released.market.tick,
++      ticks: input.first.calls }, second: { take: input.second.take.week, release: input.second.released.market.tick,
++      ticks: input.second.calls }, terminalWeek: end.state.market.tick }))
++  }, LEAF_TIMEOUT_MS)
++
++  it('D13 admits exact new promise authority and rejects malformed current saves', () => {
++    const a = attached(), b = bound(), first = firstFilm(), second = secondFilm(), api = futureSave()
++    const positives = [a.state, b.state, first.first.afterTake, second.second.afterTake]
++    for (const state of positives) {
++      admitted(state)
++      const save = saves.makeSave(state); expect(save.saveVersion).toBe(39)
++      expect(api.validateSaveV39(save)).toBe(save)
++      expect(bytes(reopen(state))).toBe(bytes(state))
++      expect(() => saves.validateSaveV38({ ...clone(save), saveVersion: 38 })).toThrow(/predicate|promise/i)
++      expect(() => api.convertV39ToV38(save)).toThrow(/director|predicate|promise|discard/i)
++    }
++    const id = a.promiseId
++    malformed(a.state, id, row => { (row.predicate as Record<string, unknown>).extra = true }, /predicate.*extra/i)
++    malformed(a.state, id, row => { (row.predicate as Record<string, unknown>).seatClass = 'lead' }, /predicate.*seatClass/i)
++    malformed(a.state, id, row => { (row.predicate as Record<string, unknown>).kind = 'writerCount' }, /predicate.*kind/i)
++    malformed(a.state, id, row => { (row.predicate as Record<string, unknown>).count = 1.5 }, /predicate.*count/i)
++    malformed(a.state, id, row => { row.family = 'APPEARANCE_COUNT' }, /DIRECTING_COUNT|directorCount|family/i)
++    malformed(a.state, id, row => { row.version = 4 }, /version|revision/i)
++    malformed(a.state, id, row => { (row.feasibilityReceipt as Record<string, unknown>).rulesVersion = 4 }, /rulesVersion|revision/i)
++    malformed(a.state, id, row => { row.progress = 3 }, /progress/i)
++    malformed(a.state, id, row => { row.evidenceRefs = ['missing-first-take'] }, /evidenceRefs/i)
++    malformed(a.state, id, row => { row.supersededByPromiseId = id }, /supersededByPromiseId/i)
++    malformed(b.state, id, row => { row.contractId = 'not-actual-employment' }, /contractId/i)
++    malformed(b.state, id, row => { row.dueWeekExclusive = 157 }, /contractId|window|due/i)
++    malformed(first.first.afterTake, id, row => { row.evidenceRefs = [first.first.take.eventId, first.first.take.eventId] }, /evidenceRefs/i)
++    malformed(second.second.afterTake, id, row => { row.outcomeWeek = first.first.take.week }, /evidenceRefs|outcome/i)
++    malformed(second.second.afterTake, id, row => { row.outcomeEventId = 'missing-outcome' }, /outcomeEventId/i)
++    // The parent-approved guard order is whole39 proof, then explicit P3 loss
++    // refusal before any older profession projection. Entrant authority cannot
++    // satisfy this precise predicate cause. Never strip those real anchors.
++    for (const builder of [saves.makeSaveV1, saves.makeSaveV13, saves.makeSaveV18]) {
++      expect(() => builder(a.state)).toThrow(/director|promise|predicate/i)
++      expect(() => builder({ ...clone(a.state), hollywood: null })).toThrow()
++    }
++    // Genuine P3 WAIVED authority belongs to D12's separately authorized route.
++  }, LEAF_TIMEOUT_MS)
++
++  it('D14 preserves old meaning and refuses lossy reverse conversion', () => {
++    for (const name of outgoingNames) {
++      const old = outgoing(name), oldState = saves.stableStringify(old.save.state)
++      const current = saves.migrateToLive(old.save)
++      // Existing semantic boundary: fails as37/38 rather than a missing import.
++      expect(current.saveVersion).toBe(39)
++      expect(saves.stableStringify(current.state)).toBe(oldState)
++      expect(current.state.promises).toEqual(old.save.state.promises)
++      expect(current.state.firstTakes).toEqual(old.save.state.firstTakes)
++      expect(current.state.careerLifecycle).toEqual(old.save.state.careerLifecycle)
++      expect(current.state.rngState).toEqual(old.save.state.rngState)
++      expect(saves.exportSave(futureSave().convertV39ToV38(current))).toBe(old.raw)
++      expect(saves.exportSave(saves.validateSaveV38(JSON.parse(old.raw)))).toBe(old.raw)
++    }
++    // Explicit old-reader compatibility construction, not a naturally accepted
++    // P3 history: reinterpret an actual generic-cast P1 row as old classless P3.
++    // Scalar6 alone carries no new predicate meaning and must not be restamped.
++    const raw = outgoing('kept-broken-week61').save
++    const index = raw.state.promises.findIndex(p => p.family === 'APPEARANCE_COUNT' && p.outcome === 'SATISFIED')
++    expect(index).toBeGreaterThanOrEqual(0)
++    for (const version of [4, 6]) {
++      const old = clone(raw), target = old.state.promises[index]!
++      const replacement = { ...target, family: 'DIRECTING_COUNT' as const, predicate: { count: target.predicate.count },
++        version, feasibilityReceipt: { ...target.feasibilityReceipt, rulesVersion: version } }
++      old.state.promises = old.state.promises.map((row, i) => i === index ? replacement : row)
++      expect(saves.validateSaveV38(old)).toBe(old)
++      const oldTakes = qualifyingTakes(old.state, replacement)
++      expect(oldTakes.length).toBeGreaterThanOrEqual(replacement.predicate.count)
++      expect(oldTakes.every(take => Object.values(take.cast).includes(replacement.beneficiaryPersonId))).toBe(true)
++      const rawBefore = saves.exportSave(old), current = saves.migrateToLive(old)
++      expect(current.saveVersion).toBe(39)
++      expect(current.state.promises[index]).toEqual(replacement)
++      expect(qualifyingTakes(current.state, current.state.promises[index]!)).toEqual(oldTakes)
++      expect(saves.exportSave(futureSave().convertV39ToV38(current))).toBe(rawBefore)
++    }
++    const tagged = attached(), abandoned = core.withdrawProposal(tagged.state, tagged.actorId, issuer(tagged.state))
++    admitted(abandoned)
++    expect(abandoned.promises).toEqual(tagged.state.promises)
++    expect(() => futureSave().convertV39ToV38(saves.makeSave(abandoned))).toThrow(/director|promise|predicate|discard/i)
++  }, LEAF_TIMEOUT_MS)
++})

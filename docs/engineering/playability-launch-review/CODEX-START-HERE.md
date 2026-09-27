@@ -1,29 +1,26 @@
 # CODEX continuation — Project Studio
 
-## CURRENT — genuine outgoing38/53 capture passed; independent KEEP; publish capture next
+## CURRENT — P3 first test slice frozen; compiler and semantic RED next
 
-C.3 bounded qualification1128-A/B is published/exactremoteverified at
-00efc08607857c479a603efd43899e06ff805be7. Consumed production/test source remains
-c1461a62.1130 producer compiler PASS35.959s/fixedSource:true/empty,384roots724files
-zero diagnostics, with original1052 and1116/1117 explicit input guards.
+Outgoing Save38/projection53 authority is published at cc62af7b87cbabdb88023188fe55655e5a44440c,
+exactly verified against GitHub. 1131-A/B capture, 1128 bounded C.3 disposition,
+all immutable fixtures and 1122 P15 choices remain preserved.
 
-Actual1117 capture CLOSED PASS/complete, two completed ticks, six routes(four new/
-two duplicate), one quote and two owned store closes. Runner1131 child0/37.743s;
-producer10:54:53.181–10:55:27.818Z. Manifest345615bytes/SHA256
-87db7cc4885f5e9a9464d8e2c3e586be84078550aebf1155a672fa2782a2c987. All1661existing
-consumed files/HEAD/index/diff remain exact; only nine declared new fixture paths.
-Parent1131-A rechecks allgzip/rawidentities; independent1131-B KEEP is frozen
-7806bytes/SHA6199ebbaabc4449d0767d1da979b4b86dd18047dad5b8bad7b41bb31d94d0eee.
-Publish capture and exactremoteverify; no heavy process remains. P3 source still
-awaits1132 first-slice amendment review and explicit separate test ownership.
+1133-A freezes exactly two new files: tests/helpers/p14p3-fixtures.ts (23,664B,
+c46c50b8) and tests/p14p3-directing-promises.test.ts (27,772B, acacfbba).
+1133-B independently reviews source; 1132-A/B correct the real two-script managed
+pipeline. No production change or gameplay execution occurred. Eight D01–D06/
+D13–D14 leaves use one cached <=208-call route and predeclared60s local ceilings.
+D13 waived-state and broader reservation/lifecycle/Bridge coverage remain pending.
 
-Same reviewer now owns1132-B source-only review. Frozen docs-only1132-A defines
-first-slice amendment: managed production forbids the assumed unused-concept stock
-door; use two real commissioned/accepted scripts within original208calls, and
-exclude that nonexistent path from newrevision6 capacity/digest while preserving
-out-of-scope revision4. Actual premises still unproved; no test/source execution.
-P3 source remains held until capture review/publication and1132 review. All1128
-limitations and1122 P15 selections remain. Parent sole production/heavy executor.
+Publish this test candidate and verify exact remote equality, then parent runs
+1134-p3-first-slice-root-types followed by 1135-p3-first-slice-red using frozen
+1133 argv. Parent alone owns production integration and heavy execution. Both
+existing specialists have yielded consumed source; no additional agent is needed.
+Freeze HEAD/index/consumed inputs throughout each run. Preserve actual first causes,
+complete old4 receipt observations and fixed-source raw evidence. Fixture failures
+do not release unreachable behavior; only actual semantic RED releases matching
+production. Continue the authorized program without routine approval pauses.
 
 ## CURRENT — reviewed 25-file fixture repair applied; publish and verify
 
