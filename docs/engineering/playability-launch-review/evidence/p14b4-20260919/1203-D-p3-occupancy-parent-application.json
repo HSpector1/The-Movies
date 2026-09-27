@@ -1,0 +1,24 @@
+{
+  "at": "2026-09-27T17:08:38.395539+00:00",
+  "applicationHead": "972836d552864c926cf1a8848e6234519ecbd0e6",
+  "appliedReviewedPatch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1203-p3-occupancy-unapplied.patch",
+    "bytes": 8425,
+    "sha256": "bebbb58cae26b3324d3992d97f5f611e6218eb09e3b920a8df1e1732dd4f3bb7"
+  },
+  "actualPostimage": {
+    "path": "tests/p14p3-directing-promises.test.ts",
+    "bytes": 85257,
+    "sha256": "6e0f49573038e68472485462941cd671e9d579a91eb1654ad568d84530231121"
+  },
+  "originalCompletePrefixRetained": true,
+  "changedConsumedPaths": [
+    "tests/p14p3-directing-promises.test.ts"
+  ],
+  "precedingVerification": "1202-p3-neighbor-maintenance-closure.json; parent and independent reviewer confirm all39PASS; finalA/B documentation pending beforepublication",
+  "qualification": "Source-only; no rootcompiler or occupancy execution yet",
+  "next": [
+    "1204 root tsc --noEmit",
+    "1205 exact isolatedD03O selector after successfulcompiler"
+  ]
+}

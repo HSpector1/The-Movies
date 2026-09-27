@@ -1012,3 +1012,118 @@ describe('P3 fixed rival: public credit, ordinary contest and distinct staffing'
       offeredCast: selected.offeredCast, chosenCast: selected.chosenCast, final: done.state.market.tick }))
   }, LEAF_TIMEOUT_MS)
 })
+
+
+// 1203: one zero-advance occupancy branch on the existing cached bound52 state.
+// A fresh isolated D03O selection still pays the unchanged 52-call player prefix.
+describe('P3 bounded occupancy admission', () => {
+  it('D03O refuses a Director window blocked by the actual exclusive cast seat', () => {
+    const setupBefore = counters(), routesBefore = rivalCounters()
+    const branchesBefore = outcomeCounters().branches
+    const lifecycleBefore = continuityCounters().lifecycleCalls
+    const wasBound = setupBefore.cachedPhases.some(row => row.name === 'bound52' && row.completed)
+    const input = bound(), setupAfter = counters()
+    const setupDelta = wasBound ? 0 : 52 - setupBefore.actualTicks
+    expect(setupDelta).toBeGreaterThanOrEqual(0)
+    expect(setupAfter.actualTicks - setupBefore.actualTicks).toBe(setupDelta)
+    expect(setupAfter.actualTicks).toBeLessThanOrEqual(setupAfter.cap)
+    expect(outcomeCounters().branches).toEqual(branchesBefore)
+    expect(continuityCounters().lifecycleCalls).toBe(lifecycleBefore)
+    expect(rivalCounters().rivalCalls).toBe(routesBefore.rivalCalls)
+    expect(input.state.market.tick).toBe(52)
+    expect(input.actorId).toBe('authored-0006')
+    admitted(input.state)
+    expect(saves.makeSave(input.state).saveVersion).toBe(39)
+    const root = actualPromise(input.state, input.promiseId)
+    expect(root).toMatchObject({ contractId: expect.any(String), progress: 0, outcome: null })
+    const contract = activeContract(input.state, input.actorId); assert.ok(contract)
+    expect(contract).toMatchObject({ talentId: input.actorId, startWeek: 52, endWeekExclusive: 156 })
+    expect(input.state.hollywood!.employment.find(row => row.contractId === root.contractId))
+      .toMatchObject({ studioId: issuer(input.state), terms: contract })
+    const draft: DirectorDraft = { ...directorDraft(input.state, input.actorId, 1),
+      promiseId: input.promiseId, windowStartWeek: 52, dueWeekExclusive: 66 }
+    // Independent membership-first person/issuer union. Retained abandoned or
+    // terminal roots do not reserve; the actual bound root excludes itself.
+    const reservations = (state: GameState) => {
+      const attachedIds = new Set(state.talentMarket.proposals.flatMap(row => row.promises))
+      const selected = new Map<string, ProfessionalPromise>()
+      for (const row of state.promises) {
+        const member = row.outcome === null && (row.contractId !== null || attachedIds.has(row.promiseId))
+        const overlaps = row.windowStartWeek < 66 && row.dueWeekExclusive > 52
+        const shares = row.beneficiaryPersonId === input.actorId || row.issuerStudioId === draft.issuerStudioId
+        if (member && overlaps && shares && row.promiseId !== input.promiseId) selected.set(row.promiseId, row)
+      }
+      return [...selected.values()].map(row => ({ promiseId: row.promiseId, contractId: row.contractId,
+        currentlyAttached: attachedIds.has(row.promiseId), personId: row.beneficiaryPersonId,
+        issuerStudioId: row.issuerStudioId, count: row.predicate.count, progress: row.progress }))
+    }
+    expect(input.state.studio.activeProductions).toEqual([])
+    for (const projectId of input.projectIds) expect(input.state.scriptDevelopment.projects.find(row => row.id === projectId))
+      .toMatchObject({ status: 'ready', productionId: null })
+    const vacantReservations = reservations(input.state)
+    expect(vacantReservations).toEqual([])
+    const vacantBytes = bytes(input.state), vacantRng = clone(input.state.rngState)
+    const vacantQuote = quote(input.state, draft)
+    expect(bytes(input.state)).toBe(vacantBytes); expect(input.state.rngState).toEqual(vacantRng)
+    expect(vacantQuote).toMatchObject({ classification: 'REASONABLY_ACHIEVABLE', rulesVersion: 6, bottleneck: null })
+
+    const made = greenlight(clone(input.state), input.projectIds[0]!, 'authored-0002', {
+      lead: input.actorId, antagonist: CAST.antagonist, support: CAST.support,
+    })
+    const occupied = made.state
+    admitted(occupied)
+    expect(occupied.market.tick).toBe(52)
+    expect(saves.makeSave(occupied).saveVersion).toBe(39)
+    const production = occupied.studio.activeProductions.find(row => row.id === made.productionId)
+    assert.ok(production)
+    expect(production).toMatchObject({ startTick: 52, remainingTicks: 8,
+      directorId: 'authored-0002', cast: { lead: input.actorId } })
+    expect(occupied.scriptDevelopment.projects.find(row => row.id === input.projectIds[0]))
+      .toMatchObject({ productionId: made.productionId })
+    const ready = occupied.scriptDevelopment.projects.find(row => row.id === input.projectIds[1])
+    assert.ok(ready)
+    expect(ready).toMatchObject({ status: 'ready', productionId: null })
+    expect([...occupied.studio.activeProductions,
+      ...(occupied.hollywood?.businesses.flatMap(row => row.productions) ?? [])]
+      .filter(row => row.directorId === input.actorId)).toEqual([])
+    expect(occupied.firstTakes.filter(row => row.productionId === made.productionId || row.directorId === input.actorId)).toEqual([])
+    expect(actualPromise(occupied, input.promiseId)).toEqual(root)
+    const occupiedReservations = reservations(occupied)
+    expect(occupiedReservations).toEqual([])
+    // Existing owner's earliest clock only: skip greenlight's start week,
+    // then eight remaining advances. Holds can delay this lower bound further.
+    const earliestRelease = occupied.market.tick + production.remainingTicks + 1
+    const earliestFreshDirectorTake = earliestRelease + 5
+    expect(earliestRelease).toBe(61)
+    expect(earliestFreshDirectorTake).toBe(66)
+    expect(earliestFreshDirectorTake).toBeGreaterThanOrEqual(draft.dueWeekExclusive)
+    const occupiedBytes = bytes(occupied), occupiedRng = clone(occupied.rngState)
+    const occupiedQuote = quote(occupied, draft)
+    expect(bytes(occupied)).toBe(occupiedBytes); expect(occupied.rngState).toEqual(occupiedRng)
+
+    const refusedInput = clone(occupied), refusalBefore = bytes(refusedInput), refusalRng = clone(refusedInput.rngState)
+    let refusal: unknown
+    try { greenlight(refusedInput, ready.id, input.actorId) } catch (error) { refusal = error }
+    assert.ok(refusal instanceof Error, 'the actual second public greenlight must reach its exclusivity refusal')
+    const expectedRefusal = 'applyActions: greenlight talent "authored-0006" is already engaged in an active production (exclusivity, M16)'
+    expect(refusal.message).toBe(expectedRefusal)
+    expect(bytes(refusedInput)).toBe(refusalBefore); expect(refusedInput.rngState).toEqual(refusalRng)
+    expect(bytes(occupied)).toBe(occupiedBytes); expect(bytes(input.state)).toBe(vacantBytes)
+    expect(counters()).toEqual(setupAfter)
+    expect(outcomeCounters().branches).toEqual(branchesBefore)
+    expect(continuityCounters().lifecycleCalls).toBe(lifecycleBefore)
+    expect(rivalCounters().rivalCalls).toBe(routesBefore.rivalCalls)
+    expect(rivalCounters().total).toBeLessThanOrEqual(rivalCounters().cap)
+    // Print reached physical/quote facts before the disputed classification.
+    console.info('1203-P3-OCCUPANCY ' + JSON.stringify({ week: occupied.market.tick, personId: input.actorId,
+      promiseId: input.promiseId, draft, vacantQuote, occupiedQuote, vacantReservations, occupiedReservations,
+      production: { id: production.id, startTick: production.startTick, remainingTicks: production.remainingTicks,
+        directorId: production.directorId, cast: production.cast },
+      readyProject: { id: ready.id, status: ready.status, productionId: ready.productionId },
+      earliestReleaseLowerBound: earliestRelease, earliestFreshDirectorTakeLowerBound: earliestFreshDirectorTake,
+      actualSecondGreenlightRefusal: refusal.message,
+      counters: { setupBefore, setupAfter, setupDelta, branchAdvanceDelta: counters().actualTicks - setupAfter.actualTicks,
+        outcome: outcomeCounters(), continuity: continuityCounters(), rival: rivalCounters() } }))
+    expect(occupiedQuote).toMatchObject({ classification: 'IMPOSSIBLE', rulesVersion: 6 })
+  }, LEAF_TIMEOUT_MS)
+})

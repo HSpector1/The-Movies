@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "status": "DOCS_ONLY_UNAPPLIED",
+  "preparationHead": "972836d552864c926cf1a8848e6234519ecbd0e6",
+  "preimage": {
+    "path": "tests/p14p3-directing-promises.test.ts",
+    "bytes": 77197,
+    "sha256": "3371570a015bcc3723ec7d6f4d85f8207bbb5cba9458e0036e538037736b455d"
+  },
+  "candidatePostimage": {
+    "path": "tests/p14p3-directing-promises.test.ts",
+    "bytes": 85257,
+    "sha256": "6e0f49573038e68472485462941cd671e9d579a91eb1654ad568d84530231121"
+  },
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1203-p3-occupancy-unapplied.patch",
+    "bytes": 8425,
+    "sha256": "bebbb58cae26b3324d3992d97f5f611e6218eb09e3b920a8df1e1732dd4f3bb7"
+  },
+  "originalCompleteTestPrefixUnchanged": true,
+  "helperUnchanged": {
+    "path": "tests/helpers/p14p3-fixtures.ts",
+    "bytes": 78674,
+    "sha256": "389112bde75ccaab9e2d155a1df6e6dc279b78c7d6d531a582b04f27be5fba83"
+  },
+  "appendedLeaf": "D03O refuses a Director window blocked by the actual exclusive cast seat",
+  "timeout": "existing LEAF_TIMEOUT_MS = 60_000",
+  "newImports": 0,
+  "existingBodiesPreserved": 16,
+  "expectedTotalBodiesAfterApplication": 17,
+  "newAdvanceCalls": 0,
+  "isolatedSelectionExpectedPlayerCalls": 52,
+  "isolatedSelectionExpectedOtherRouteCalls": 0,
+  "counterMeaning": "Existing bound52 prefix is charged; branch counters must remain unchanged. Whole-file cache reuse does not reset or require unrelated global counters to be zero.",
+  "argv": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14p3-directing-promises.test.ts",
+    "-t",
+    "D03O refuses a Director window blocked by the actual exclusive cast seat$"
+  ],
+  "authority": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1203-C-p3-occupancy-control-release.md",
+      "bytes": 3174,
+      "sha256": "47049f6b86b979de03fb500933c3569d2fb1ce15b31e2a4e5db8be803df89c15"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1174-C-p3-next-occupancy-control.md",
+      "bytes": 1644,
+      "sha256": "9e68b1a5cc4ea235d35000f7cfddb51fa070d1f25abb53e53d0041297038feef"
+    }
+  ],
+  "noExecution": true,
+  "noLiveSourceEdits": true
+}

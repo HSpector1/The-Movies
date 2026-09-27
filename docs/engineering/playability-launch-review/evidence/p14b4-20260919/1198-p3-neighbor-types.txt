@@ -1,0 +1,2 @@
+{"sourceSha":"972836d552864c926cf1a8848e6234519ecbd0e6","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/tsc","--noEmit","-p","tsconfig.bridge.json"],"node":"v20.20.2","start":"2026-09-27T17:04:01.533Z","end":null,"exitCode":null,"signal":null,"error":null}
+

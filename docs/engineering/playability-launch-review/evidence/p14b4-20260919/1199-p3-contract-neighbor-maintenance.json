@@ -1,0 +1,27 @@
+{
+  "sourceSha": "972836d552864c926cf1a8848e6234519ecbd0e6",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "--no-file-parallelism",
+    "tests/bridge-schema.test.ts",
+    "tests/bridge-contract-generator.test.ts",
+    "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+    "-t",
+    "(?:closes every declared object recursively and publishes explicit protocol metadata|rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data|keeps checked-in JSON and generated C# byte-derived from the canonical schema|F10 emits sound request and response union shapes without changing schema identity|pins exact positive output identities and deterministic rerendering|requires literal projection54/Save39 and exact 42 prior IDs, excluding the running identity)$"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T17:05:17.134Z",
+  "end": "2026-09-27T17:05:28.153Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "972836d552864c926cf1a8848e6234519ecbd0e6",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

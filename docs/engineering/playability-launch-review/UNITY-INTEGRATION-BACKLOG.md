@@ -1,5 +1,30 @@
 # UNITY-INTEGRATION-BACKLOG — work reserved for the replacement laptop
 
+## CURRENT — Neighbor maintenance verified; occupancy control applied for its first observation
+
+Published972836d552864c926cf1a8848e6234519ecbd0e6 remains the exact source of all
+four closed gates:1198 Bridge typesPASS29.396s;1199 contract selections6PASS and
+53filtered in11.019s;1200 waiver5PASS and27filtered in6.733s;1201 fullclassless
+28PASS in47.640s. All39 selected cases passed with fixed source, empty consumed
+diffs, no untracked source/signal/error. All12 earlier failed identities are now
+covered, with explicit renamed-title mappings. Fullclassless reached both actual
+P2settlement/termination/save/reload paths: source-accounted7+7 advances, no numeric
+counter emitted. Preserve7.177s synchronousclass-revision PASS without a timing
+claim.1202 closure/A/B retain actual source attribution; no heavy process is active.
+
+Parent verified final1203-A/B source KEEP and applied its exact append after the
+closed-gate attribution.1203-D records application: the complete77197-byte old core
+test remains a literal prefix, all16 bodies/helper unchanged, one newD03O leaf with
+existing60s timeout. Source postimage85257 bytes/6e0f49573038e68472485462941cd671e9d579a91eb1654ad568d84530231121.
+
+Publish this checkpoint, then1204 rootcompiler and1205 isolatedD03O. The new leaf
+uses52 counted existing setup advances and zero additional branch advances; it
+must reach actualadmission/reservation0/publicfocus-exclusivity refusal before its
+occupiedquote expectation. No occupancy result or production correction is claimed.
+Production stays8ede2aef; remaining rival/slack/P14program gaps and native deferrals
+remain. Existing specialists retain separate test/review ownership; parent alone
+owns production/integration and the only heavy process.
+
 ## CURRENT — Independent declaration measurement passed; neighbor tests under maintenance
 
 Checkpoint96d84212edf5580edcdbe5f900b70253ec7ff53f is published with exact GitHub

@@ -1,0 +1,57 @@
+{
+  "at": "2026-09-27T17:08:02.758782+00:00",
+  "sourceHead": "972836d552864c926cf1a8848e6234519ecbd0e6",
+  "results": [
+    {
+      "name": "1198-p3-neighbor-types",
+      "seconds": 29.396,
+      "passed": null,
+      "filtered": null,
+      "rawBytes": 347,
+      "rawSha256": "b35a31b4715d32f39809ed9632bace762eb295379699f289e27847d1d28c3db2",
+      "recordSha256": "914ef58e767b6d6fabbcb4c0fbe7256065b8864ae4930ed7a10cd312c7f3c956",
+      "fixedSource": true,
+      "childExit": 0
+    },
+    {
+      "name": "1199-p3-contract-neighbor-maintenance",
+      "seconds": 11.019,
+      "passed": 6,
+      "filtered": 53,
+      "rawBytes": 1967,
+      "rawSha256": "557c15dc67599d611d3d855e497c5c14bdd077aa74ae5a4eb660f087464a9a6b",
+      "recordSha256": "d127fced1e199d70fa910f464f997671e952799f6a39f90548a51d80403fbd2d",
+      "fixedSource": true,
+      "childExit": 0
+    },
+    {
+      "name": "1200-p3-waiver-neighbor-maintenance",
+      "seconds": 6.733,
+      "passed": 5,
+      "filtered": 27,
+      "rawBytes": 1864,
+      "rawSha256": "4fb071550834741b4d4c00f3d377148eb3afed3b5aacdb0af45ec869b970a596",
+      "recordSha256": "ddf6987a3423bbbc2fa086d41b77dd3541a32a0072346bd5a9462af791c9d84a",
+      "fixedSource": true,
+      "childExit": 0
+    },
+    {
+      "name": "1201-p3-classless-neighbor-maintenance",
+      "seconds": 47.64,
+      "passed": 28,
+      "filtered": 0,
+      "rawBytes": 5298,
+      "rawSha256": "fea0aa7b75f5aca1adb55504d8ddabda247ad712d4e6fb9d6a0b1b394b40eaaf",
+      "recordSha256": "29848870a62127312547829742db257d033f281cf0488115c7058f205cf42450",
+      "fixedSource": true,
+      "childExit": 0
+    }
+  ],
+  "passed": 39,
+  "filtered": 80,
+  "allFivePostimagesAnd23ProtectedPinsMatch": true,
+  "sourceAccountedExistingClasslessAdvances": 14,
+  "numericGameplayCounterEmitted": false,
+  "heavyProcessClosed": true,
+  "limits": "Targeted groups plus whole classless file; no broad-suite/native/disk/latency claim; raw synchronous7.177s class-revision PASS retained."
+}

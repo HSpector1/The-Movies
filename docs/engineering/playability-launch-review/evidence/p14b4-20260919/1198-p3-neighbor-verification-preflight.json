@@ -1,0 +1,90 @@
+{
+  "at": "2026-09-27T17:03:45.825522+00:00",
+  "head": "972836d552864c926cf1a8848e6234519ecbd0e6",
+  "remote": "972836d552864c926cf1a8848e6234519ecbd0e6",
+  "wholeWorktreeStatus": "?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1203-p3-occupancy-source-manifest.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1203-p3-occupancy-unapplied.patch\n",
+  "consumedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedConsumed": [],
+  "allFiveTestsAnd23ProtectedPinsMatch": true,
+  "manifestSha256": "f12abfddefc1c92721b316a6b4c942f3ac243b4b56783b612405cd59f944774d",
+  "compilerCommand": [
+    "node_modules/.bin/tsc",
+    "--noEmit",
+    "-p",
+    "tsconfig.bridge.json"
+  ],
+  "groups": [
+    {
+      "record": "1199",
+      "argv": [
+        "node_modules/.bin/vitest",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "tests/bridge-schema.test.ts",
+        "tests/bridge-contract-generator.test.ts",
+        "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+        "-t",
+        "(?:closes every declared object recursively and publishes explicit protocol metadata|rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data|keeps checked-in JSON and generated C# byte-derived from the canonical schema|F10 emits sound request and response union shapes without changing schema identity|pins exact positive output identities and deterministic rerendering|requires literal projection54/Save39 and exact 42 prior IDs, excluding the running identity)$"
+      ],
+      "selectedTitles": [
+        "closes every declared object recursively and publishes explicit protocol metadata",
+        "rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data",
+        "keeps checked-in JSON and generated C# byte-derived from the canonical schema",
+        "F10 emits sound request and response union shapes without changing schema identity",
+        "pins exact positive output identities and deterministic rerendering",
+        "requires literal projection54/Save39 and exact 42 prior IDs, excluding the running identity"
+      ],
+      "selectedCases": 6,
+      "wholeFileCases": 59,
+      "expectedFiltered": 53,
+      "addedTicks": 0,
+      "existingAdvanceCalls": 0
+    },
+    {
+      "record": "1200",
+      "argv": [
+        "node_modules/.bin/vitest",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "tests/bridge-p14b8-waiver-surface.test.ts",
+        "-t",
+        "(?:the three OFFERED families validate and the two unoffered ones are refused at the wire|a seat-class substitute REQUIRES its explicit class, so the engine's \"needs its seat class selected\" sentence is unreachable too|PROJECTION_VERSION is 54 and the schema document agrees|the running identity moves OFF sha256:60af24c5\u2026 and that identity is registered as projection-v49 in the SAME commit|the genuine projection-49 checkpoint is no longer the CURRENT identity: it takes the governed prior path exactly once, with both slots on the live Save V35 \\(stale title corrected post-C\\.4, was post-C\\.2a\\))$"
+      ],
+      "selectedTitles": [
+        "the three OFFERED families validate and the two unoffered ones are refused at the wire",
+        "a seat-class substitute REQUIRES its explicit class, so the engine's \"needs its seat class selected\" sentence is unreachable too",
+        "PROJECTION_VERSION is 54 and the schema document agrees",
+        "the running identity moves OFF sha256:60af24c5\u2026 and that identity is registered as projection-v49 in the SAME commit",
+        "the genuine projection-49 checkpoint is no longer the CURRENT identity: it takes the governed prior path exactly once, with both slots on the live Save V35 (stale title corrected post-C.4, was post-C.2a)"
+      ],
+      "selectedCases": 5,
+      "wholeFileCases": 32,
+      "expectedFiltered": 27,
+      "addedTicks": 0,
+      "existingAdvanceCalls": 0
+    },
+    {
+      "record": "1201",
+      "argv": [
+        "node_modules/.bin/vitest",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "tests/bridge-p14b4-cast-class.test.ts"
+      ],
+      "selectedCases": 28,
+      "wholeFileCases": 28,
+      "expectedFiltered": 0,
+      "addedTicks": 0,
+      "existingAdvanceCallsIfBothBindingPremisesReached": 14,
+      "existingAdvanceDetails": "Two unchanged it.each seat classes each call advanceTo on actual week45 state to52. No counter instrumentation or route amendment."
+    }
+  ],
+  "execution": "parent only; one heavy process;1198 compiler must pass first;1199\u20131201 sequential, continue independent test failures for attribution, abort on source drift/signal/recorder error",
+  "priorPassesNotRepeated": "P3 D15,D16,D17,UI;root/UI types;generated checks/captures"
+}
