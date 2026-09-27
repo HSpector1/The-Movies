@@ -1,0 +1,76 @@
+{"sourceSha":"e6475aca1ef3bdfd593d660743ebc311981836cc","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-process-restart.test.ts"],"node":"v20.20.2","start":"2026-09-27T02:05:17.656Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-process-restart.test.ts (10 tests | 1 failed) 65718ms
+   ✓ rejects the post-commit response gate outside a test process before opening runtime state 1783ms
+   × restores one durable logical bridge session and exact HTTP replay after SIGKILL 11981ms
+     → expected 38 to be 37 // Object.is equality
+
+first bridge: pid=30833 exitCode=null signal=null
+first bridge stdout:
+[bridge] live http://127.0.0.1:56698 protocol=4 snapshot=53 schema=sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d
+[bridge] session=4b1c106f-8252-4bef-be5f-8547ced0ae6b revision=0 week=0 digest=4e2d4c07f1f14db387f524b1d64f7532cca5c4bebfec884a0681c0872fce909e checkpoint=durable
+[bridge] snapshotBytes=557132 serializationMs=457.176
+[bridge] 2026-09-27T02:05:28.606Z commandId=process-restart-command-1 expectedRevision=0 operation=submitIntent result=accepted revision=1 disposition=first-seen durationMs=467.782
+[bridge] 2026-09-27T02:05:29.522Z commandId=process-restart-save expectedRevision=1 operation=save result=accepted revision=1 disposition=first-seen durationMs=28.472
+[bridge] 2026-09-27T02:05:31.171Z commandId=process-restart-command-2 expectedRevision=1 operation=submitIntent result=accepted revision=2 disposition=first-seen durationMs=471.979
+[bridge] 2026-09-27T02:05:33.029Z commandId=process-restart-load expectedRevision=2 operation=load result=accepted revision=3 disposition=first-seen durationMs=438.930
+
+first bridge stderr:
+<empty>
+
+restarted bridge: process was not started.
+   ✓ withholds a durably committed command response until SIGKILL and replays it byte-identically after restart 8928ms
+   ✓ withholds a durably committed save response until SIGKILL and replays it byte-identically after restart 7270ms
+   ✓ withholds a durably committed load response until SIGKILL and replays it byte-identically after restart 12184ms
+   ✓ observes a byte-different semantic replay instead of falsely proving an exact request retry 5004ms
+   ✓ drops a durably committed command response and replays it byte-identically in the same process 6039ms
+   ✓ drops a durably committed save response and replays it byte-identically in the same process 4321ms
+   ✓ drops a durably committed load response and replays it byte-identically in the same process 8201ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-process-restart.test.ts > restores one durable logical bridge session and exact HTTP replay after SIGKILL
+Error: expected 38 to be 37 // Object.is equality
+
+first bridge: pid=30833 exitCode=null signal=null
+first bridge stdout:
+[bridge] live http://127.0.0.1:56698 protocol=4 snapshot=53 schema=sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d
+[bridge] session=4b1c106f-8252-4bef-be5f-8547ced0ae6b revision=0 week=0 digest=4e2d4c07f1f14db387f524b1d64f7532cca5c4bebfec884a0681c0872fce909e checkpoint=durable
+[bridge] snapshotBytes=557132 serializationMs=457.176
+[bridge] 2026-09-27T02:05:28.606Z commandId=process-restart-command-1 expectedRevision=0 operation=submitIntent result=accepted revision=1 disposition=first-seen durationMs=467.782
+[bridge] 2026-09-27T02:05:29.522Z commandId=process-restart-save expectedRevision=1 operation=save result=accepted revision=1 disposition=first-seen durationMs=28.472
+[bridge] 2026-09-27T02:05:31.171Z commandId=process-restart-command-2 expectedRevision=1 operation=submitIntent result=accepted revision=2 disposition=first-seen durationMs=471.979
+[bridge] 2026-09-27T02:05:33.029Z commandId=process-restart-load expectedRevision=2 operation=load result=accepted revision=3 disposition=first-seen durationMs=438.930
+
+first bridge stderr:
+<empty>
+
+restarted bridge: process was not started.
+ ❯ tests/bridge-process-restart.test.ts:897:11
+    895|     expect(fs.existsSync(lockPath)).toBe(false)
+    896|   } catch (error) {
+    897|     throw new Error(
+       |           ^
+    898|       `${(error as Error).message}\n\n${diagnostics('first bridge', fi…
+    899|         diagnostics('restarted bridge', restarted),
+
+Caused by: AssertionError: expected 38 to be 37 // Object.is equality
+
+- Expected
++ Received
+
+- 37
++ 38
+
+ ❯ tests/bridge-process-restart.test.ts:797:46
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 9 passed (10)
+   Start at  04:05:18
+   Duration  69.74s (transform 2.51s, setup 0ms, collect 3.43s, tests 65.72s, environment 0ms, prepare 95ms)
+

@@ -108,7 +108,7 @@ import { marketPage } from '../bridge/market.ts'
 import { industryPage } from '../bridge/industry.ts'
 import { promiseRowsForPerson } from '../bridge/trust.ts'
 import { waivePromise } from '../src/core/promises.js'
-import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, validateSaveV31, validateSaveV32 } from '../src/core/save.js'
+import { migrateToLive, validateSaveV31, validateSaveV32 } from '../src/core/save.js'
 import type { IndustryPage, IndustryQuery } from '../bridge/schema/industry-schema.ts'
 import type { GameState } from '../src/core/types.js'
 
@@ -167,13 +167,11 @@ let owesTwoCache: GameState | undefined
 function owesTwoState(): GameState {
   if (owesTwoCache === undefined) {
     // `validateSaveV32` STAYS: this is a genuine V32 artifact and is admitted by the
-    // validator of its own version. Only the LIFT to the live GameState moves (P14C.1,
-    // then P14C.2a: the lift now runs one step further, through convertV33ToV34;
-    // P14C.4: one step further still, through convertV34ToV35; P14C.2b: one step
-    // further still, through convertV35ToV36).
+    // validator of its own version. The actual live migration continues through
+    // every governed step, including Scientist37 and C.3 profession-authority38.
     const save = validateSaveV32(JSON.parse(pinned('genuine-v32-pre-b8/genuine-v32-owes-two-p1.json.gz', OWES_TWO)))
     expect(save.state.market.tick).toBe(OWES_TWO.week)
-    owesTwoCache = convertV35ToV36(convertV34ToV35(convertV33ToV34(convertV32ToV33(save)))).state as unknown as GameState
+    owesTwoCache = migrateToLive(save).state
   }
   return structuredClone(owesTwoCache)
 }
@@ -182,20 +180,16 @@ function withEdgesState(): GameState {
   if (withEdgesCache === undefined) {
     const save = validateSaveV31(JSON.parse(pinned('genuine-v31-pre-b7/genuine-v31-with-edges.json.gz', WITH_EDGES)))
     expect(save.state.market.tick).toBe(WITH_EDGES.week)
-    // P14C.2a: the lift now runs one step further, through convertV33ToV34.
-    // P14C.4: one step further still, through convertV34ToV35.
-    // P14C.2b: one step further still, through convertV35ToV36.
-    withEdgesCache = convertV35ToV36(convertV34ToV35(convertV33ToV34(convertV32ToV33(convertV31ToV32(save))))).state as unknown as GameState
+    // Preserve genuine31 admission, then perform the complete current migration.
+    withEdgesCache = migrateToLive(save).state
   }
   return structuredClone(withEdgesCache)
 }
 function keptAndBrokenState(): GameState {
   const save = validateSaveV31(JSON.parse(pinned('genuine-v31-pre-b7/genuine-v31-kept-and-broken.json.gz', KEPT_AND_BROKEN)))
   expect(save.state.market.tick).toBe(KEPT_AND_BROKEN.week)
-  // P14C.2a: the lift now runs one step further, through convertV33ToV34.
-  // P14C.4: one step further still, through convertV34ToV35.
-  // P14C.2b: one step further still, through convertV35ToV36.
-  return convertV35ToV36(convertV34ToV35(convertV33ToV34(convertV32ToV33(convertV31ToV32(save))))).state as unknown as GameState
+  // Preserve genuine31 admission, then perform the complete current migration.
+  return migrateToLive(save).state
 }
 
 // ── The wire draft (I2) and the envelope helpers, in the exact idiom of the four landed families ──
@@ -778,9 +772,9 @@ describe('P14B.8 group11 — A8: the waiver draft offers only what this surface 
 // group12 — 744 §11 A3: the projection bump, complete and consistent, in ONE commit.
 describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing identity is registered as a prior', () => {
   it('PROJECTION_VERSION is 52 and the schema document agrees', () => {
-    expect(PROJECTION_VERSION).toBe(52)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-52`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(52)
+    expect(PROJECTION_VERSION).toBe(53)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-53`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(53)
     expect(PROJECTION_VERSION).toBeGreaterThan(OUTGOING_PROJECTION)
   })
 
@@ -788,7 +782,8 @@ describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing iden
     expect(SCHEMA_ID, 'the new quote family and the two new row members alone mint a new content hash').not.toBe(OUTGOING_49)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_49), 'validateVersionedRecord strands every checkpoint written under an unregistered identity').toBe('projection-v49')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID), 'the RUNNING identity is never its own prior').toBe(false)
-    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size, '875 adds the genuine outgoing51 identity: 39 -> 40').toBe(40)
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get('sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2')).toBe('projection-v52')
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size, '946 adds the genuine outgoing52 identity: 40 -> 41').toBe(41)
   })
 
   it('the checked-in JSON schema, the contract manifest and the C# header all equal the running identity', () => {
@@ -817,8 +812,8 @@ describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing iden
     expect(loaded.migratedFromProtocolVersion, 'handled exactly as its projection-47 and -48 siblings are').toBe(4)
     expect(minted, 'the governed prior path mints one fresh session id').toBe(1)
     const hydrated = loaded.hydrated as unknown as { currentSave: { saveVersion: number; state: { market: { tick: number } } }; savedSave: { saveVersion: number } }
-    expect(hydrated.currentSave.saveVersion, '744 §6: B.8 is a wire change, so both slots migrate as identity').toBe(37)
-    expect(hydrated.savedSave.saveVersion).toBe(37)
+    expect(hydrated.currentSave.saveVersion, '946: each historical slot reaches actual live Save38').toBe(38)
+    expect(hydrated.savedSave.saveVersion).toBe(38)
     expect(hydrated.currentSave.state.market.tick).toBe(PROJECTION49_CHECKPOINT.week)
   })
 })

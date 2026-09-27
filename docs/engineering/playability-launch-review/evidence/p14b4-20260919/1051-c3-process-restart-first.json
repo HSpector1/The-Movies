@@ -1,0 +1,22 @@
+{
+  "sourceSha": "e6475aca1ef3bdfd593d660743ebc311981836cc",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/bridge-process-restart.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T02:05:17.656Z",
+  "end": "2026-09-27T02:06:28.372Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "e6475aca1ef3bdfd593d660743ebc311981836cc",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

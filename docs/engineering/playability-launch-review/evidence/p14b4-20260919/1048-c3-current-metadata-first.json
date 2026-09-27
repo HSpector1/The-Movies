@@ -1,0 +1,21 @@
+{
+  "sourceSha": "e6475aca1ef3bdfd593d660743ebc311981836cc",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node",
+    "--input-type=module",
+    "-e",
+    "\nimport assert from 'node:assert/strict'\nimport { createHash } from 'node:crypto'\nimport { readFileSync } from 'node:fs'\nimport { spawnSync } from 'node:child_process'\nconst path = 'docs/engineering/playability-launch-review/evidence/p14b4-20260919/914-c2rm-legacy-selection.json'\nconst raw = readFileSync(path)\nconst sha = value => createHash('sha256').update(value).digest('hex')\nassert.equal(sha(raw), 'aa0a45521227f87ae0251fa0c859504956a46a3bdaa0a5088cbd79e80bfc6bd5')\nconst original = JSON.parse(raw.toString('utf8'))\nconst excluded = ['tests/bridge-p14c2b-extension.test.ts', 'tests/bridge-p14b8-waiver-surface.test.ts']\nconst files = original.files.filter(path => !excluded.includes(path))\nassert.equal(files.length, 30)\nconst extra = [\n  'F11 preserves command member-only directorId and nullable base use',\n  'F12 emits six concrete Production-state fixture members without promoting conflicts',\n  'pins exact positive output identities and deterministic rerendering',\n  'keeps checked-in JSON and generated C# byte-derived from the canonical schema',\n]\nconst escape = value => value.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')\nconst pattern = original.testNamePattern + '|' + extra.map(name => '(?:^| )' + escape(name) + '$').join('|')\nconst args = ['run', '--project', 'core', ...files, '--testNamePattern', pattern]\nconsole.log(JSON.stringify({ files, testNamePattern: pattern, excluded, reuse: 'B8 whole-file unchanged observation1046; C2b W10 previously qualified', command: ['node_modules/.bin/vitest', ...args] }))\nconst child = spawnSync('node_modules/.bin/vitest', args, { stdio: 'inherit' })\nassert.equal(sha(readFileSync(path)), sha(raw), 'selector manifest changed')\nif (child.error) throw child.error\nif (child.signal) throw new Error('Vitest terminated by ' + child.signal)\nprocess.exitCode = child.status ?? 1\n"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T01:54:26.250Z",
+  "end": "2026-09-27T01:55:20.217Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "e6475aca1ef3bdfd593d660743ebc311981836cc",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

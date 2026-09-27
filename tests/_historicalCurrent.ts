@@ -24,7 +24,8 @@ export function liftHistoricalState(state:GameStateV18):GameState {
     talentProvenance:buildTalentProvenance(people,state.market.tick,'legacy_age_anchor'),
     // P14C.2a (Save V34): the same lift the real V33->V34 migration writes — a
     // historical campaign tracked no retirement, so the lifecycle root opens empty.
-    careerLifecycle:initialCareerLifecycle(state.market.tick),
+    // Save38 observes the actual ordered original professions at this boundary.
+    careerLifecycle:initialCareerLifecycle(state.market.tick,people),
     // P14A.1 (Save V28): the same lift the real V27->V28 migration writes — a
     // historical campaign fought no contested expiry, so the market root opens empty.
     talentMarket:initialTalentMarket(),

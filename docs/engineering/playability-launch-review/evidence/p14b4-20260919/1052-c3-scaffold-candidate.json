@@ -1,0 +1,26 @@
+{
+  "sourceSha": "e6475aca1ef3bdfd593d660743ebc311981836cc",
+  "testedDiffSha256": "5fa1b1729a8422108d87ad20be27bb454eeb19fd08c57c53ec5b85f9933548e0",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/save.test.ts",
+    "tests/c2a-m2-sets-save.test.ts",
+    "tests/cash-ledger-checkpoint-v11.test.ts",
+    "tests/p14c1-materialized-aging.test.ts",
+    "tests/bridge-p14b8-waiver-surface.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T02:12:52.396Z",
+  "end": "2026-09-27T02:13:42.426Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "e6475aca1ef3bdfd593d660743ebc311981836cc",
+  "testedDiffSha256AtEnd": "5fa1b1729a8422108d87ad20be27bb454eeb19fd08c57c53ec5b85f9933548e0",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

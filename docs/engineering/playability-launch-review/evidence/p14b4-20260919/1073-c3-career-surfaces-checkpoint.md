@@ -100,3 +100,9 @@ retry. It can qualify completed behavior but cannot erase1033/1043's unchanged
 F10/F11 double-render measurement. Only observed first causes permit test maintenance.
 Current53 active6240 endurance and matched fullcore/fullUI gates remain required;
 this checkpoint is neither all-green nor final program completion.
+
+Publication receipt: normal push succeeded to
+refs/heads/wip/headless-program-20260916-ts at
+e6475aca1ef3bdfd593d660743ebc311981836cc. Independent subsequent ls-remote
+matched exact local HEAD; whole worktree was clean at that verification.
+No force, main promotion, hook, global configuration or native action occurred.

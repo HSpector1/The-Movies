@@ -1,0 +1,907 @@
+diff --git a/bridge/testing/c3-active-endurance-observer.ts b/bridge/testing/c3-active-endurance-observer.ts
+new file mode 100644
+index 00000000..23c26469
+--- /dev/null
++++ b/bridge/testing/c3-active-endurance-observer.ts
+@@ -0,0 +1,475 @@
++// Current53 endurance observations. No gameplay; caller owns policy and output.
++import assert from 'node:assert/strict'
++import { createHash, randomUUID } from 'node:crypto'
++import { existsSync } from 'node:fs'
++import { isAbsolute, relative, resolve } from 'node:path'
++import { performance } from 'node:perf_hooks'
++import type {
++  ByteIdentity, ObservationTiming, ObservationFailure,
++  ReadObservationRequest, ReadObservationResult,
++  RuntimeObservationRequest, RuntimeObservationResult,
++} from '../../docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-active-endurance-driver.ts'
++import { BridgeSession } from '../session.ts'
++import { PROTOCOL_VERSION, PROJECTION_VERSION, SCHEMA_ID, type ControlEnvelope } from '../protocol.ts'
++import { BRIDGE_SCHEMA, type CampaignRequest, type BridgeMarketPage } from '../schema/bridge-schema.ts'
++import { parseWireValue } from '../schema/runtime.ts'
++import { canonicalJson } from '../schema/canonical.ts'
++import { peopleProjection } from '../people.ts'
++import { marketPage, MARKET_CLOSED_PAGE_SIZE, MARKET_HISTORY_PAGE_SIZE } from '../market.ts'
++import type { IndustryQuery, IndustryPage } from '../schema/industry-schema.ts'
++import { studioCalendar } from '../../src/core/studioCalendar.ts'
++import { exportSave, makeSave, validateSaveV38 } from '../../src/core/save.ts'
++import {
++  DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS as DEFAULT_LIMITS,
++  loadBridgeRuntimeCheckpoint, type BridgeRuntimeJournalEntryV1,
++} from '../runtime-checkpoint.ts'
++import { openBridgeCheckpointStore, type BridgeCheckpointStore } from '../runtime/checkpoint-store.ts'
++import { CAMPAIGN_LIBRARY_MAX_BYTES, CAMPAIGN_LIBRARY_MAX_RECORDS,
++  loadCampaignLibrary, encodeCampaignLibrary } from '../runtime/campaign-library.ts'
++import { createBridgeRuntimeCoordinator, type BridgeRuntimeCoordinator,
++  type BridgeRuntimeDispatchResult } from '../runtime/runtime-coordinator.ts'
++
++const CURRENT_SCHEMA = 'sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d'
++const COMPACT_LIMIT = 256 * 1024
++const textIdentity = (text: string): ByteIdentity => ({
++  bytes: Buffer.byteLength(text, 'utf8'), sha256: createHash('sha256').update(text).digest('hex'),
++})
++const jsonIdentity = (value: unknown): ByteIdentity => textIdentity(canonicalJson(value))
++const shortError = (error: unknown) => (error instanceof Error ? error.message : String(error)).split('\n')[0]!.slice(0, 1000)
++const cmp = (a: string, b: string) => a < b ? -1 : a > b ? 1 : 0
++function assertInput(saveJson: string, saveSha256: string, week: number): void {
++  assert.equal(PROTOCOL_VERSION, 4); assert.equal(PROJECTION_VERSION, 53); assert.equal(SCHEMA_ID, CURRENT_SCHEMA)
++  assert.equal(textIdentity(saveJson).sha256, saveSha256, 'captured complete-save SHA')
++  const admitted = validateSaveV38(JSON.parse(saveJson))
++  assert.equal(admitted.state.market.tick, week)
++  assert.ok(exportSave(admitted) === saveJson, 'observer requires canonical current38 bytes')
++  assert.ok(admitted.state.hollywood, 'endurance requires actual Hollywood authority')
++}
++function assertCompact(value: unknown): void {
++  assert.ok(Buffer.byteLength(JSON.stringify(value), 'utf8') <= COMPACT_LIMIT, 'observer compact result exceeds256KiB')
++}
++function noPrivateCareer(value: unknown): void {
++  const keys = new Set(['inputs', 'inputsDigest', 'actingWitnesses', 'contextWitness', 'witnesses',
++    'ceilings', 'magnitude', 'annualSalary', 'signingBonus'])
++  const walk = (part: unknown): void => {
++    if (!part || typeof part !== 'object') return
++    if (Array.isArray(part)) { part.forEach(walk); return }
++    for (const [key, child] of Object.entries(part)) {
++      assert.ok(!keys.has(key), 'private career key: ' + key); walk(child)
++    }
++  }
++  walk(value)
++}
++function marketPrivacy(value: BridgeMarketPage, viewerStudioId: string): void {
++  if (!value.selected) return
++  for (const proposal of value.selected.comparison) {
++    if (proposal.issuerStudioId !== viewerStudioId) {
++      assert.equal(proposal.disclosure, 'undisclosed')
++      assert.equal(proposal.annualSalary, 'UNKNOWN'); assert.equal(proposal.signingBonus, 'UNKNOWN')
++      assert.equal(proposal.premiumTier, 'UNKNOWN'); assert.equal(proposal.promise, 'UNKNOWN')
++    }
++  }
++  for (const employer of value.selected.history.employers) if (employer.studioId !== viewerStudioId) {
++    assert.equal(employer.own, false)
++    assert.equal(Object.hasOwn(employer, 'annualSalary'), false)
++    assert.equal(Object.hasOwn(employer, 'signingBonus'), false)
++  }
++}
++
++export function observeC3EnduranceReads(request: ReadObservationRequest): ReadObservationResult {
++  const input = textIdentity(request.saveJson)
++  const counts = { snapshots: 0, people: 0, calendars: 0, industry: 0, market: 0, profilesChecked: 0 }
++  const reads: Array<ReadObservationResult['reads'][number]> = []
++  const timings: ObservationTiming[] = []
++  let failure: ObservationFailure | null = null, phase = 'input', isolatedAfter: ByteIdentity | null = null
++  let privacyChecks = 0, schemaChecks = 0
++  const measured = <T>(name: string, fn: () => T): T => {
++    phase = name; assert.ok(timings.length < 64)
++    const began = performance.now()
++    try { return fn() } finally { timings.push({ phase: name, kind: 'inspection', elapsedMs: performance.now() - began }) }
++  }
++  const reserve = (key: keyof typeof counts, cap: number) => { assert.ok(counts[key] < cap, key + ' bound'); counts[key]++ }
++  const record = (key: string, surface: string, value: unknown, elapsedMs: number,
++    extra: Partial<ReadObservationResult['reads'][number]> = {}) => {
++    assert.ok(reads.length < 28, 'projection-call record bound')
++    reads.push({ key, surface, targetId: null, page: null, pageSize: null, totalRows: null,
++      pageCount: null, rows: 0, repeated: false, identity: jsonIdentity(value), elapsedMs, ...extra })
++  }
++  try {
++    measured('strict-input', () => assertInput(request.saveJson, request.saveSha256, request.week))
++    assert.ok(request.focusPersonIds.length <= 2)
++    assert.equal(new Set(request.focusPersonIds).size, request.focusPersonIds.length)
++    const session = measured('isolated-import', () => BridgeSession.fromSaveJson(request.saveJson))
++    const state = session.gameState
++    assert.ok(measured('isolated-before', () => exportSave(makeSave(state))) === request.saveJson)
++    const assertReadBoundary = (name: string): void => {
++      const after = measured('isolated-after/' + name, () => exportSave(makeSave(state)))
++      isolatedAfter = textIdentity(after)
++      assert.ok(after === request.saveJson, 'complete isolated state unchanged after ' + name)
++    }
++    // One public discovery read establishes the finite query subjects in both orders.
++    reserve('people', 1)
++    const peopleAt = performance.now()
++    const people = measured('public-people', () => peopleProjection(state))
++    record('people', 'people', people, performance.now() - peopleAt, { rows: people.profiles.length })
++    assertReadBoundary('public-discovery')
++    const selected = [...request.focusPersonIds]
++    for (const id of selected) assert.ok(people.profiles.some(p => p.talentId === id), 'supplied focus has a public profile')
++    const ordered = [...people.profiles].sort((a, b) => cmp(a.talentId, b.talentId))
++    for (const predicate of [
++      (p: typeof ordered[number]) => p.professionCareer.professionRetirements.length > 0,
++      (p: typeof ordered[number]) => p.employment.contract !== null,
++    ]) {
++      const next = ordered.find(p => !selected.includes(p.talentId) && predicate(p))
++      if (next) selected.push(next.talentId)
++    }
++    assert.ok(selected.length <= 4)
++    for (const id of selected) {
++      reserve('profilesChecked', 4)
++      const profile = people.profiles.find(p => p.talentId === id)!
++      schemaChecks++; parseWireValue(BRIDGE_SCHEMA.$defs.StudioPersonProfileSnapshot, profile)
++      noPrivateCareer(profile.professionCareer); privacyChecks++
++    }
++    const parity = request.ordinal % 2 === 0
++    const query = (view: IndustryQuery['view'], key: string, targetId: string | null = null,
++      extra: Partial<IndustryQuery> = {}): IndustryQuery => ({
++      protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId,
++      requestId: 'c3-read-' + request.ordinal + '-' + key, expectedStateRevision: session.stateRevision,
++      type: 'industryQuery', view, targetId, page: 0, pageSize: 25, lane: 'recent', period: 'all', ...extra,
++    })
++    const base = [
++      query('studios', 'studios', null, { lane: parity ? 'audienceAwareness' : 'output' }),
++      query('alumni', 'alumni'),
++      query('films', 'films', null, { lane: parity ? 'recent' : 'critics', period: parity ? 'all' : 'live' }),
++      query('pulse', 'pulse'),
++      query('history', 'history', state.hollywood!.playerStudioId, { period: parity ? 'all' : 'recent' }),
++    ]
++    const publicQueries = selected.slice(0, 2).flatMap((id, i) => [
++      query('person', 'person-' + i, id), query('employment', 'employment-' + i, id),
++    ])
++    const industryRead = (q: IndustryQuery, repeated = false): IndustryPage => {
++      reserve('industry', 18)
++      const at = performance.now()
++      const page = measured('industry/' + q.view + '/' + q.page + (repeated ? '/repeat' : ''), () => session.industry(q))
++      assert.equal(page.type, 'industryPage')
++      assert.ok(page.type === 'industryPage')
++      schemaChecks++; parseWireValue(BRIDGE_SCHEMA.$defs.StudioIndustryResponse, page)
++      const rows = q.view === 'studios' ? page.studios : q.view === 'alumni' ? page.people
++        : q.view === 'films' || q.view === 'person' ? page.films : page.activities
++      assert.ok(rows.length <= 25, 'sampled primary page bound')
++      for (const row of page.activities) if (row.careerKind !== undefined) {
++        noPrivateCareer(row); privacyChecks++
++        assert.ok(row.week <= request.week && request.week - row.week < 13)
++      }
++      record(q.requestId + '/page' + q.page + (repeated ? '/repeat' : ''), 'industry/' + q.view, page,
++        performance.now() - at, { targetId: q.targetId, page: q.page, pageSize: q.pageSize,
++          pageCount: page.pageCount, totalRows: page.totalRows, rows: rows.length, repeated })
++      return page
++    }
++    const marketRead = (id: string | null, page: number, historyPage: number): BridgeMarketPage => {
++      reserve('market', 6)
++      const at = performance.now()
++      const value = measured('market/' + (id ?? 'closed') + '/' + page + '/' + historyPage,
++        () => marketPage(state, { view: 'market', targetId: id, page, historyPage }))
++      schemaChecks++; parseWireValue(BRIDGE_SCHEMA.$defs.StudioMarketPage, value)
++      marketPrivacy(value, state.hollywood!.playerStudioId); privacyChecks++
++      assert.equal(value.cases.closed.pageSize, MARKET_CLOSED_PAGE_SIZE)
++      assert.ok(value.cases.closed.rows.length <= 20)
++      if (value.selected) {
++        assert.equal(value.selected.history.pageSize, MARKET_HISTORY_PAGE_SIZE)
++        assert.ok(value.selected.history.employers.length <= 10)
++      }
++      const total = id === null ? value.cases.closed.total : value.selected?.history.total ?? 0
++      const size = id === null ? 20 : 10
++      record('market/' + (id ?? 'closed') + '/' + page + '/' + historyPage, 'market', value,
++        performance.now() - at, { targetId: id, page: id === null ? page : historyPage,
++          pageSize: size, pageCount: Math.ceil(total / size), totalRows: total,
++          rows: id === null ? value.cases.closed.rows.length : value.selected?.history.employers.length ?? 0 })
++      return value
++    }
++    const groups = [
++      () => {
++        let first: string | null = null
++        for (let n = 0; n < 2; n++) {
++          reserve('snapshots', 2); const at = performance.now()
++          const value = measured('snapshot/' + n, () => session.snapshot())
++          schemaChecks++; parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse, value)
++          const text = canonicalJson(value)
++          if (first === null) first = text
++          else assert.ok(text === first, 'same-authority repeated snapshot exact response')
++          record('snapshot/' + n, 'snapshot', value, performance.now() - at, { repeated: n === 1 })
++        }
++      },
++      () => {
++        reserve('calendars', 1); const at = performance.now()
++        const value = measured('calendar', () => studioCalendar(state))
++        const expected = [
++          ...state.careerLifecycle.professionChanges.map(r => ({ id: r.id, week: r.week })),
++          ...state.careerLifecycle.industryRetirements.map(r => ({ id: 'industry-retirement:' + JSON.stringify(r.personId), week: r.week })),
++        ].filter(r => r.week <= request.week && request.week - r.week < 13)
++          .sort((a, b) => b.week - a.week || cmp(a.id, b.id))
++        assert.deepEqual(value.careerEvents.map(r => ({ id: r.eventId, week: r.week })), expected)
++        value.careerEvents.forEach(row => { noPrivateCareer(row); privacyChecks++ })
++        record('calendar', 'calendar', value, performance.now() - at, { rows: value.careerEvents.length })
++      },
++      () => {
++        const descriptors = request.order === 'forward' ? base : [...base].reverse()
++        for (const q of descriptors) {
++          const first = industryRead(q)
++          if (first.pageCount > 1) industryRead({ ...q, page: 1 })
++          if (q.view !== 'studios') {
++            const again = industryRead(q, true)
++            assert.ok(canonicalJson(again) === canonicalJson(first), 'same Industry query exact repeat')
++          }
++        }
++        for (const q of request.order === 'forward' ? publicQueries : [...publicQueries].reverse()) industryRead(q)
++      },
++      () => {
++        const main = marketRead(null, 0, 0)
++        if (main.cases.closed.total > 20) marketRead(null, 1, 0)
++        const ids = selected.slice(0, 2)
++        for (const id of request.order === 'forward' ? ids : [...ids].reverse()) {
++          const first = marketRead(id, 0, 0)
++          if (first.selected && first.selected.history.total > 10) marketRead(id, 0, 1)
++        }
++      },
++    ]
++    for (const [index, group] of (request.order === 'forward' ? groups : [...groups].reverse()).entries()) {
++      group()
++      assertReadBoundary('group-' + index)
++    }
++    const after = measured('isolated-after', () => exportSave(makeSave(state)))
++    isolatedAfter = textIdentity(after)
++    assert.ok(after === request.saveJson, 'complete isolated state unchanged by public reads')
++  } catch (error) { failure = { phase, message: shortError(error) } }
++  const result: ReadObservationResult = { status: failure === null ? 'PASS' : 'FAIL', failure,
++    week: request.week, input, isolatedAfter, counts, reads, privacyChecks, schemaChecks, timings }
++  try { assertCompact(result) } catch (error) {
++    result.status = 'FAIL'; result.failure = { phase: 'compact-result', message: shortError(error) }
++  }
++  return result
++}
++
++export async function observeC3EnduranceRuntime(request: RuntimeObservationRequest): Promise<RuntimeObservationResult> {
++  const input = textIdentity(request.saveJson), timings: ObservationTiming[] = []
++  const boundaries: Array<RuntimeObservationResult['boundaries'][number]> = []
++  const requests: Array<RuntimeObservationResult['requests'][number]> = []
++  const storeCounts = { reads: 0, writes: 0, closes: 0, readMs: 0, writeMs: 0, closeMs: 0 }
++  let phase = 'input', failure: ObservationFailure | null = null, cleanupFailure: string | null = null
++  let dispatchAttempts = 0, firstSeen = 0, replayed = 0, campaignAttempts = 0, reopenCount = 0
++  let rolloverCount = 0, freshSessionCalls = 0
++  let runtime: BridgeRuntimeCoordinator | null = null, store: BridgeCheckpointStore | null = null
++  let storeOpen = false
++  const activeRuntime = (): BridgeRuntimeCoordinator => { assert.ok(runtime); return runtime }
++  const activeStore = (): BridgeCheckpointStore => { assert.ok(store); return store }
++  let expectedJournal: BridgeRuntimeJournalEntryV1[] = []
++  const fatalErrors: string[] = []
++  const decoded = new Map<string, ReturnType<typeof loadCampaignLibrary>>()
++  const checkpoints = new Map<string, ReturnType<typeof loadBridgeRuntimeCheckpoint>>()
++  const checkpoint = (raw: string) => {
++    const old = checkpoints.get(raw)
++    if (old) return old
++    const value = loadBridgeRuntimeCheckpoint(raw, DEFAULT_LIMITS)
++    checkpoints.set(raw, value); return value
++  }
++  const measured = async <T>(name: string, kind: ObservationTiming['kind'], fn: () => T | Promise<T>): Promise<T> => {
++    phase = name; assert.ok(timings.length < 64, 'runtime timing bound')
++    const began = performance.now()
++    try { return await fn() } finally { timings.push({ phase: name, kind, elapsedMs: performance.now() - began }) }
++  }
++  const wrappedStore = (real: BridgeCheckpointStore): BridgeCheckpointStore => ({
++    checkpointPath: real.checkpointPath,
++    async read() {
++      storeCounts.reads++; const began = performance.now()
++      try { return await real.read() } finally { storeCounts.readMs += performance.now() - began }
++    },
++    async writeAtomic(text) {
++      assert.ok(Buffer.byteLength(text, 'utf8') <= CAMPAIGN_LIBRARY_MAX_BYTES)
++      storeCounts.writes++; const began = performance.now()
++      try { await real.writeAtomic(text) } finally { storeCounts.writeMs += performance.now() - began }
++    },
++    async close() {
++      storeCounts.closes++; const began = performance.now()
++      try { await real.close(); storeOpen = false } finally { storeCounts.closeMs += performance.now() - began }
++    },
++  })
++  const open = async () => {
++    const real = await openBridgeCheckpointStore(request.checkpointPath,
++      { runtimeRoot: request.runtimeRoot, maxBytes: CAMPAIGN_LIBRARY_MAX_BYTES })
++    storeOpen = true; store = wrappedStore(real)
++    runtime = await createBridgeRuntimeCoordinator({
++      store, campaigns: { durable: true, regime: 'endowed' },
++      fatal: error => { fatalErrors.push(shortError(error)) },
++      createFreshSession: limits => {
++        freshSessionCalls++; assert.equal(freshSessionCalls, 1, 'restart cannot fall back to fresh campaign')
++        assert.deepEqual(limits, DEFAULT_LIMITS)
++        return BridgeSession.fromSaveJson(request.saveJson, undefined, limits)
++      },
++    })
++  }
++  const boundary = async (label: string) => {
++    assert.ok(store); assert.ok(boundaries.length < 12, 'runtime boundary bound')
++    const raw = await store.read(); assert.ok(raw, 'actual stored library required')
++    let loaded = decoded.get(raw)
++    if (!loaded) {
++      loaded = await measured(label + '/decode-library', 'inspection', () => loadCampaignLibrary(raw, DEFAULT_LIMITS))
++      assert.equal(loaded.changed, false, 'current sample must reopen without migration')
++      const reencoded = await measured(label + '/actual-encode-library', 'inspection',
++        () => encodeCampaignLibrary(loaded!.library))
++      assert.ok(reencoded === raw, 'actual compressed library round trip is exact')
++      decoded.set(raw, loaded)
++    }
++    const library = loaded.library
++    const cells = [library.workingCheckpointJson, ...library.records.map(r => r.checkpointJson),
++      ...(library.legacyCheckpointJson === null ? [] : [library.legacyCheckpointJson])]
++    const packed = JSON.parse(raw) as { libraryVersion: number; workingCheckpointJson: { decodedBytes: number; sha256: string };
++      records: Array<{ checkpointJson: { decodedBytes: number; sha256: string } }>;
++      legacyCheckpointJson: { decodedBytes: number; sha256: string } | null }
++    assert.equal(packed.libraryVersion, 2)
++    const packedCells = [packed.workingCheckpointJson, ...packed.records.map(r => r.checkpointJson),
++      ...(packed.legacyCheckpointJson === null ? [] : [packed.legacyCheckpointJson])]
++    assert.equal(cells.length, packedCells.length)
++    let decodedCellsBytes = 0
++    for (let i = 0; i < cells.length; i++) {
++      const id = textIdentity(cells[i]!); decodedCellsBytes += id.bytes
++      assert.equal(packedCells[i]!.decodedBytes, id.bytes)
++      assert.equal(packedCells[i]!.sha256, id.sha256)
++      const accepted = checkpoint(cells[i]!)
++      assert.equal(accepted.migratedFromProtocolVersion, null)
++      assert.ok(accepted.hydrated.checkpoint.currentSaveJson === request.saveJson, 'complete sampled current bytes')
++      assert.ok(accepted.hydrated.checkpoint.savedSaveJson === request.saveJson, 'complete sampled explicit-save bytes')
++      assert.equal(accepted.hydrated.currentSave.state.market.tick, request.week)
++      assert.equal(accepted.hydrated.savedSave?.state.market.tick, request.week)
++    }
++    assert.ok(decodedCellsBytes <= 1024 * 1024 * 1024)
++    const working = checkpoint(library.workingCheckpointJson).hydrated.checkpoint
++    assert.deepEqual(working.journal, expectedJournal, 'actual journal ordered request/response text')
++    const journalBytes = working.journal.reduce((n, row) => n + Buffer.byteLength(canonicalJson(row), 'utf8'), 0)
++    assert.ok(journalBytes <= DEFAULT_LIMITS.maxJournalBytes)
++    assert.ok(working.journal.length <= DEFAULT_LIMITS.maxJournalEntries)
++    assert.equal(fatalErrors.length, 0, 'runtime fatal callback')
++    boundaries.push({ phase: label, encodedLibrary: textIdentity(raw), decodedCellsBytes,
++      workingCheckpoint: textIdentity(library.workingCheckpointJson),
++      currentSave: textIdentity(working.currentSaveJson),
++      savedSave: working.savedSaveJson === null ? null : textIdentity(working.savedSaveJson),
++      journalEntries: working.journal.length, journalBytes, recordCount: library.records.length,
++      receiptCount: library.receipts.length, sessionId: working.sessionId, revision: working.stateRevision })
++    return { raw, library, working }
++  }
++  const control = async (): Promise<ControlEnvelope> => {
++    assert.ok(runtime)
++    return runtime.read(session => ({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID,
++      sessionId: session.sessionId, expectedStateRevision: session.stateRevision, commandId: randomUUID() }))
++  }
++  const oneDispatch = async (route: 'save' | 'load', envelope: ControlEnvelope, label: string) => {
++    assert.ok(runtime); assert.ok(dispatchAttempts < 8, 'eight actual runtime attempts maximum'); dispatchAttempts++
++    const reply = await measured<BridgeRuntimeDispatchResult>(label, 'operation', () => route === 'save'
++      ? runtime!.dispatch('save', envelope) : runtime!.dispatch('load', envelope))
++    if (reply.firstSeen) firstSeen++
++    else if (!reply.sessionRolledOver && reply.response.accepted) replayed++
++    requests.push({ phase: label, route, commandId: envelope.commandId, accepted: reply.response.accepted,
++      firstSeen: reply.firstSeen, rolledOver: reply.sessionRolledOver === true,
++      request: jsonIdentity(envelope), response: textIdentity(reply.responseJson) })
++    if (reply.sessionRolledOver) {
++      rolloverCount++; assert.ok(rolloverCount <= 1, 'at most one actual rollover/retry')
++      assert.equal(reply.response.accepted, false); assert.equal(reply.firstSeen, false)
++      expectedJournal = []
++      const after = await boundary(label + '/rollover')
++      assert.notEqual(after.working.sessionId, envelope.sessionId)
++      assert.equal(after.working.stateRevision, 0)
++      assert.equal(after.working.journal.length, 0)
++    } else if (reply.response.accepted && reply.firstSeen) {
++      expectedJournal.push({ route, commandId: envelope.commandId,
++        requestJson: canonicalJson(envelope), responseJson: reply.responseJson })
++    }
++    return reply
++  }
++  const freshDispatch = async (route: 'save' | 'load', label: string) => {
++    let envelope = await control()
++    let reply = await oneDispatch(route, envelope, label)
++    if (reply.sessionRolledOver) {
++      envelope = await control(); reply = await oneDispatch(route, envelope, label + '/one-retry')
++      assert.equal(reply.sessionRolledOver, undefined, 'second rollover is outside sampled bound')
++    }
++    assert.equal(reply.response.accepted, true, label + ' accepted'); assert.equal(reply.firstSeen, true)
++    return { envelope, reply }
++  }
++  try {
++    await measured('strict-input', 'inspection', () => assertInput(request.saveJson, request.saveSha256, request.week))
++    assert.equal(request.variant, 'A'); assert.ok([0, 3120, 6240].includes(request.week))
++    assert.ok(isAbsolute(request.runtimeRoot) && isAbsolute(request.checkpointPath), 'absolute isolated paths required')
++    const local = relative(resolve(request.runtimeRoot), resolve(request.checkpointPath))
++    assert.ok(local.length > 0 && !local.startsWith('..') && !isAbsolute(local), 'sample below its exclusive root')
++    assert.equal(existsSync(request.checkpointPath), false, 'refuse an existing sample artifact')
++    await measured('coordinator-initialize', 'operation', open)
++    await boundary('initialized')
++    const catalogue = await activeRuntime().campaignLibrary(); assert.ok(catalogue)
++    const saveAs: CampaignRequest = { protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, type: 'campaign',
++      commandId: randomUUID(), sessionId: catalogue.sessionId, expectedStateRevision: catalogue.stateRevision,
++      expectedCatalogueRevision: catalogue.catalogueRevision, expectedActiveCampaignId: catalogue.activeCampaignId,
++      operation: 'saveAs', campaignId: null, label: 'C3 endurance sample ' + request.week,
++      overwriteCampaignId: null, confirmDestructive: false, unsavedDisposition: 'requireClean' }
++    assert.equal(campaignAttempts, 0); campaignAttempts++
++    const created = await measured('save-As-sample', 'operation', () => activeRuntime().campaign(saveAs))
++    assert.equal(created.accepted, true)
++    const saved = await boundary('sample-saved')
++    assert.equal(saved.library.records.length, 1); assert.equal(saved.library.receipts.length, 1)
++    assert.equal(saved.library.receipts[0]!.commandId, saveAs.commandId)
++    assert.equal(saved.library.receipts[0]!.requestJson, canonicalJson(saveAs))
++    assert.equal(canonicalJson(saved.library.receipts[0]!.response), canonicalJson(created))
++    const recordId = saved.library.records[0]!.id
++    assert.equal(saved.library.activeCampaignId, recordId)
++    const s1 = await freshDispatch('save', 'Save-S1')
++    const beforeReplay = await boundary('after-S1'), writes = storeCounts.writes
++    const repeated = await oneDispatch('save', s1.envelope, 'Save-S1-exact-retry')
++    assert.equal(repeated.response.accepted, true); assert.equal(repeated.firstSeen, false)
++    assert.equal(repeated.sessionRolledOver, undefined)
++    assert.ok(repeated.responseJson === s1.reply.responseJson, 'original exact response replay')
++    assert.equal(storeCounts.writes, writes); assert.ok(await activeStore().read() === beforeReplay.raw)
++    await freshDispatch('save', 'Save-S2')
++    await boundary('after-S2')
++    const l1 = await freshDispatch('load', 'Load-L1')
++    const beforeClose = await boundary('before-close')
++    assert.equal(beforeClose.library.records[0]!.id, recordId)
++    await measured('close-before-reopen', 'operation', () => activeRuntime().close()); runtime = null
++    assert.equal(storeOpen, false)
++    assert.equal(reopenCount, 0); reopenCount++
++    await measured('actual-disk-reopen', 'operation', open)
++    const reopened = await boundary('reopened')
++    assert.ok(reopened.raw === beforeClose.raw, 'current disk reopen preserves exact library bytes')
++    assert.equal(reopened.working.sessionId, beforeClose.working.sessionId)
++    assert.equal(reopened.library.activeCampaignId, recordId)
++    assert.ok(reopened.library.records[0]!.checkpointJson === beforeClose.library.records[0]!.checkpointJson)
++    const reopenedWrites = storeCounts.writes
++    const replay = await oneDispatch('load', l1.envelope, 'Load-L1-replay-after-reopen')
++    assert.equal(replay.response.accepted, true); assert.equal(replay.firstSeen, false)
++    assert.equal(replay.sessionRolledOver, undefined)
++    assert.ok(replay.responseJson === l1.reply.responseJson, 'reopened exact Load response')
++    assert.equal(storeCounts.writes, reopenedWrites)
++    const final = await boundary('final')
++    assert.ok(final.raw === reopened.raw, 'replay leaves persisted library bytes exact')
++    assert.equal(freshSessionCalls, 1); assert.equal(fatalErrors.length, 0)
++    assert.equal(campaignAttempts, 1); assert.equal(reopenCount, 1)
++    assert.ok(dispatchAttempts <= 8); assert.ok(boundaries.length <= 12)
++    assert.equal(textIdentity(request.saveJson).sha256, request.saveSha256)
++  } catch (error) { failure = { phase, message: shortError(error) } }
++  finally {
++    try {
++      if (runtime) await measured('finally-close', 'operation', () => runtime!.close())
++      else if (storeOpen && store) await measured('finally-store-close', 'operation', () => store!.close())
++      assert.equal(storeOpen, false, 'actual store closed')
++    } catch (error) { cleanupFailure = shortError(error) }
++  }
++  const result: RuntimeObservationResult = { status: failure === null && cleanupFailure === null ? 'PASS' : 'FAIL',
++    failure, cleanupFailure, week: request.week, input, checkpointPath: request.checkpointPath,
++    dispatchAttempts, firstSeen, replayed, campaignAttempts, reopenCount, rolloverCount, freshSessionCalls,
++    actualTicks: 0, limits: { maxCheckpointBytes: DEFAULT_LIMITS.maxCheckpointBytes,
++      maxJournalBytes: DEFAULT_LIMITS.maxJournalBytes, maxJournalEntries: DEFAULT_LIMITS.maxJournalEntries,
++      maxLibraryBytes: CAMPAIGN_LIBRARY_MAX_BYTES, maxRecords: CAMPAIGN_LIBRARY_MAX_RECORDS,
++      maxDecodedLibraryBytes: 1024 * 1024 * 1024 },
++    boundaries, requests, store: storeCounts, timings }
++  try { assertCompact(result) } catch (error) {
++    result.status = 'FAIL'; result.failure = { phase: 'compact-result', message: shortError(error) }
++  }
++  return result
++}
+diff --git a/tests/_historicalCurrent.ts b/tests/_historicalCurrent.ts
+index 2fd20070..37e74130 100644
+--- a/tests/_historicalCurrent.ts
++++ b/tests/_historicalCurrent.ts
+@@ -24,7 +24,8 @@ export function liftHistoricalState(state:GameStateV18):GameState {
+     talentProvenance:buildTalentProvenance(people,state.market.tick,'legacy_age_anchor'),
+     // P14C.2a (Save V34): the same lift the real V33->V34 migration writes — a
+     // historical campaign tracked no retirement, so the lifecycle root opens empty.
+-    careerLifecycle:initialCareerLifecycle(state.market.tick),
++    // Save38 observes the actual ordered original professions at this boundary.
++    careerLifecycle:initialCareerLifecycle(state.market.tick,people),
+     // P14A.1 (Save V28): the same lift the real V27->V28 migration writes — a
+     // historical campaign fought no contested expiry, so the market root opens empty.
+     talentMarket:initialTalentMarket(),
+diff --git a/tests/bridge-p14b8-waiver-surface.test.ts b/tests/bridge-p14b8-waiver-surface.test.ts
+index 0a1de5c7..38478a0d 100644
+--- a/tests/bridge-p14b8-waiver-surface.test.ts
++++ b/tests/bridge-p14b8-waiver-surface.test.ts
+@@ -108,7 +108,7 @@ import { marketPage } from '../bridge/market.ts'
+ import { industryPage } from '../bridge/industry.ts'
+ import { promiseRowsForPerson } from '../bridge/trust.ts'
+ import { waivePromise } from '../src/core/promises.js'
+-import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, validateSaveV31, validateSaveV32 } from '../src/core/save.js'
++import { migrateToLive, validateSaveV31, validateSaveV32 } from '../src/core/save.js'
+ import type { IndustryPage, IndustryQuery } from '../bridge/schema/industry-schema.ts'
+ import type { GameState } from '../src/core/types.js'
+ 
+@@ -167,13 +167,11 @@ let owesTwoCache: GameState | undefined
+ function owesTwoState(): GameState {
+   if (owesTwoCache === undefined) {
+     // `validateSaveV32` STAYS: this is a genuine V32 artifact and is admitted by the
+-    // validator of its own version. Only the LIFT to the live GameState moves (P14C.1,
+-    // then P14C.2a: the lift now runs one step further, through convertV33ToV34;
+-    // P14C.4: one step further still, through convertV34ToV35; P14C.2b: one step
+-    // further still, through convertV35ToV36).
++    // validator of its own version. The actual live migration continues through
++    // every governed step, including Scientist37 and C.3 profession-authority38.
+     const save = validateSaveV32(JSON.parse(pinned('genuine-v32-pre-b8/genuine-v32-owes-two-p1.json.gz', OWES_TWO)))
+     expect(save.state.market.tick).toBe(OWES_TWO.week)
+-    owesTwoCache = convertV35ToV36(convertV34ToV35(convertV33ToV34(convertV32ToV33(save)))).state as unknown as GameState
++    owesTwoCache = migrateToLive(save).state
+   }
+   return structuredClone(owesTwoCache)
+ }
+@@ -182,20 +180,16 @@ function withEdgesState(): GameState {
+   if (withEdgesCache === undefined) {
+     const save = validateSaveV31(JSON.parse(pinned('genuine-v31-pre-b7/genuine-v31-with-edges.json.gz', WITH_EDGES)))
+     expect(save.state.market.tick).toBe(WITH_EDGES.week)
+-    // P14C.2a: the lift now runs one step further, through convertV33ToV34.
+-    // P14C.4: one step further still, through convertV34ToV35.
+-    // P14C.2b: one step further still, through convertV35ToV36.
+-    withEdgesCache = convertV35ToV36(convertV34ToV35(convertV33ToV34(convertV32ToV33(convertV31ToV32(save))))).state as unknown as GameState
++    // Preserve genuine31 admission, then perform the complete current migration.
++    withEdgesCache = migrateToLive(save).state
+   }
+   return structuredClone(withEdgesCache)
+ }
+ function keptAndBrokenState(): GameState {
+   const save = validateSaveV31(JSON.parse(pinned('genuine-v31-pre-b7/genuine-v31-kept-and-broken.json.gz', KEPT_AND_BROKEN)))
+   expect(save.state.market.tick).toBe(KEPT_AND_BROKEN.week)
+-  // P14C.2a: the lift now runs one step further, through convertV33ToV34.
+-  // P14C.4: one step further still, through convertV34ToV35.
+-  // P14C.2b: one step further still, through convertV35ToV36.
+-  return convertV35ToV36(convertV34ToV35(convertV33ToV34(convertV32ToV33(convertV31ToV32(save))))).state as unknown as GameState
++  // Preserve genuine31 admission, then perform the complete current migration.
++  return migrateToLive(save).state
+ }
+ 
+ // ── The wire draft (I2) and the envelope helpers, in the exact idiom of the four landed families ──
+@@ -778,9 +772,9 @@ describe('P14B.8 group11 — A8: the waiver draft offers only what this surface
+ // group12 — 744 §11 A3: the projection bump, complete and consistent, in ONE commit.
+ describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing identity is registered as a prior', () => {
+   it('PROJECTION_VERSION is 52 and the schema document agrees', () => {
+-    expect(PROJECTION_VERSION).toBe(52)
+-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-52`)
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(52)
++    expect(PROJECTION_VERSION).toBe(53)
++    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-53`)
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(53)
+     expect(PROJECTION_VERSION).toBeGreaterThan(OUTGOING_PROJECTION)
+   })
+ 
+@@ -788,7 +782,8 @@ describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing iden
+     expect(SCHEMA_ID, 'the new quote family and the two new row members alone mint a new content hash').not.toBe(OUTGOING_49)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_49), 'validateVersionedRecord strands every checkpoint written under an unregistered identity').toBe('projection-v49')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID), 'the RUNNING identity is never its own prior').toBe(false)
+-    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size, '875 adds the genuine outgoing51 identity: 39 -> 40').toBe(40)
++    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get('sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2')).toBe('projection-v52')
++    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size, '946 adds the genuine outgoing52 identity: 40 -> 41').toBe(41)
+   })
+ 
+   it('the checked-in JSON schema, the contract manifest and the C# header all equal the running identity', () => {
+@@ -817,8 +812,8 @@ describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing iden
+     expect(loaded.migratedFromProtocolVersion, 'handled exactly as its projection-47 and -48 siblings are').toBe(4)
+     expect(minted, 'the governed prior path mints one fresh session id').toBe(1)
+     const hydrated = loaded.hydrated as unknown as { currentSave: { saveVersion: number; state: { market: { tick: number } } }; savedSave: { saveVersion: number } }
+-    expect(hydrated.currentSave.saveVersion, '744 §6: B.8 is a wire change, so both slots migrate as identity').toBe(37)
+-    expect(hydrated.savedSave.saveVersion).toBe(37)
++    expect(hydrated.currentSave.saveVersion, '946: each historical slot reaches actual live Save38').toBe(38)
++    expect(hydrated.savedSave.saveVersion).toBe(38)
+     expect(hydrated.currentSave.state.market.tick).toBe(PROJECTION49_CHECKPOINT.week)
+   })
+ })
+diff --git a/tests/c2a-m2-sets-save.test.ts b/tests/c2a-m2-sets-save.test.ts
+index 1b1fb7f2..23a5f1c7 100644
+--- a/tests/c2a-m2-sets-save.test.ts
++++ b/tests/c2a-m2-sets-save.test.ts
+@@ -36,7 +36,7 @@ import {
+   setMountedOn,
+   stableStringify,
+   tick,
+-  validateSaveV37,
++  validateSaveV38,
+ } from '../src/core/index.js'
+ import type { CastSlot, CreativeRole, GameState, SegmentId, Talent } from '../src/core/index.js'
+ import { grandfatheredBindings, v13TwinOf } from './contracts/_v14Contract.js'
+@@ -171,7 +171,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
+     const envelope = JSON.parse(exportSave(makeSave(state))) as {
+       state: { sets: Record<string, unknown>[]; nextSetId: number }
+     }
+-    expect(() => validateSaveV37(envelope)).not.toThrow()
++    expect(() => validateSaveV38(envelope)).not.toThrow()
+ 
+     const forge = (mutate: (sets: Record<string, unknown>[]) => void): unknown => {
+       const copy = JSON.parse(JSON.stringify(envelope)) as typeof envelope
+@@ -181,7 +181,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
+ 
+     // Two sets on one stage.
+     expect(() =>
+-      validateSaveV37(
++      validateSaveV38(
+         forge((sets) => {
+           sets[2]!.mountedOn = STAGE_7
+         }),
+@@ -190,7 +190,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
+ 
+     // A standing set with no condition — the build/repair discriminator broken.
+     expect(() =>
+-      validateSaveV37(
++      validateSaveV38(
+         forge((sets) => {
+           sets[0]!.condition = 0
+         }),
+@@ -199,7 +199,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
+ 
+     // A set under work that no scenery crew is on.
+     expect(() =>
+-      validateSaveV37(
++      validateSaveV38(
+         forge((sets) => {
+           sets[0]!.status = 'under-construction'
+           sets[0]!.completesWeek = 400
+@@ -263,7 +263,7 @@ describe('C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW
+           relationships: [],
+           // P14C.2a (Save V34): a hand-built LIVE state tracks no retirement,
+           // so the lifecycle root opens empty at the migration week.
+-          careerLifecycle: initialCareerLifecycle(migrated.market.tick),
++          careerLifecycle: initialCareerLifecycle(migrated.market.tick, migrated.talent),
+       // P13B-S5-R07: `setup`/`planRevision` are V25-only (younger than every
+       // other synthesised root above) — the same `setup: null, planRevision: 0`
+       // lift the real V24->V25 migration writes for every legacy workflow.
+@@ -301,7 +301,7 @@ describe('C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW
+     }
+ 
+     // And the whole thing is a legal V15 file at every step.
+-    expect(() => validateSaveV37(JSON.parse(exportSave(makeSave(played))))).not.toThrow()
++    expect(() => validateSaveV38(JSON.parse(exportSave(makeSave(played))))).not.toThrow()
+   })
+ 
+   it('lets a migrated studio BUILD a set on the stage it just cleared', () => {
+@@ -333,7 +333,7 @@ describe('C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW
+           relationships: [],
+           // P14C.2a (Save V34): a hand-built LIVE state tracks no retirement,
+           // so the lifecycle root opens empty at the migration week.
+-          careerLifecycle: initialCareerLifecycle(migrated.market.tick),
++          careerLifecycle: initialCareerLifecycle(migrated.market.tick, migrated.talent),
+       // P13B-S5-R07: `setup`/`planRevision` are V25-only — same lift as above.
+       operations: {
+         ...migrated.operations,
+diff --git a/tests/cash-ledger-checkpoint-v11.test.ts b/tests/cash-ledger-checkpoint-v11.test.ts
+index 5c7edbbf..5c647ed2 100644
+--- a/tests/cash-ledger-checkpoint-v11.test.ts
++++ b/tests/cash-ledger-checkpoint-v11.test.ts
+@@ -51,7 +51,7 @@ import {
+   makeSaveV10,
+   migrateToV11,
+   migrateToV14,
+-  validateSaveV37,
++  validateSaveV38,
+   stableStringify,
+   validateSaveV1,
+   validateSaveV2,
+@@ -230,7 +230,7 @@ describe("SaveFileV11 cash/ledger checkpoint — historical migration", () => {
+     const nativeWorld = generateWorld("checkpoint-native-omission");
+     const native = makeSave(nativeWorld);
+     expect("cashLedgerCheckpoint" in native.state).toBe(false);
+-    expect(validateSaveV37(native)).toBe(native);
++    expect(validateSaveV38(native)).toBe(native);
+     expect(migrateToCurrentControl(native)).toBe(native);
+ 
+     const played = applyActions(
+@@ -240,7 +240,7 @@ describe("SaveFileV11 cash/ledger checkpoint — historical migration", () => {
+     const reconciled = makeSave(played);
+     expect(reconciled.state.ledger).toHaveLength(1);
+     expect("cashLedgerCheckpoint" in reconciled.state).toBe(false);
+-    expect(validateSaveV37(reconciled)).toBe(reconciled);
++    expect(validateSaveV38(reconciled)).toBe(reconciled);
+ 
+     const json = exportSave(reconciled);
+     const imported = importSave(json);
+@@ -292,7 +292,7 @@ describe("SaveFileV11 cash/ledger checkpoint — historical migration", () => {
+       cash: redundant.state.studio.cash,
+       ledgerLength: redundant.state.ledger.length,
+     };
+-    expect(() => validateSaveV37(redundant)).toThrow(
++    expect(() => validateSaveV38(redundant)).toThrow(
+       /checkpoint must encode a genuine historical reconciliation boundary/,
+     );
+   });
+@@ -398,7 +398,7 @@ describe("SaveFileV11 cash/ledger checkpoint — post-migration authority", () =
+           talentProvenance: buildTalentProvenance(invalid.state.talent, invalid.state.market.tick, 'legacy_age_anchor'),
+           // P14C.2a (Save V34): the live root, carried for the same reason —
+           // this case tracks no retirement, so it opens empty.
+-          careerLifecycle: initialCareerLifecycle(invalid.state.market.tick),
++          careerLifecycle: initialCareerLifecycle(invalid.state.market.tick, invalid.state.talent),
+         }),
+       ).toThrow(
+         /cannot downgrade or repair a semantically invalid V11 cash-ledger checkpoint/,
+@@ -491,25 +491,25 @@ describe("SaveFileV11 cash/ledger checkpoint — post-migration authority", () =
+ 
+     const changedAnchor = clone(valid);
+     changedAnchor.state.cashLedgerCheckpoint!.cash += 1;
+-    expect(() => validateSaveV37(changedAnchor)).toThrow(
++    expect(() => validateSaveV38(changedAnchor)).toThrow(
+       /studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger/,
+     );
+ 
+     const changedCash = clone(valid);
+     changedCash.state.studio.cash += 1;
+-    expect(() => validateSaveV37(changedCash)).toThrow(
++    expect(() => validateSaveV38(changedCash)).toThrow(
+       /studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger/,
+     );
+ 
+     const movedBoundary = clone(valid);
+     movedBoundary.state.cashLedgerCheckpoint!.ledgerLength += 1;
+-    expect(() => validateSaveV37(movedBoundary)).toThrow(
++    expect(() => validateSaveV38(movedBoundary)).toThrow(
+       /construction capex cannot predate the V11 cash-ledger checkpoint/,
+     );
+ 
+     const changedSuffix = clone(valid);
+     changedSuffix.state.ledger[overheadIndex]!.amount -= 1;
+-    expect(() => validateSaveV37(changedSuffix)).toThrow(
++    expect(() => validateSaveV38(changedSuffix)).toThrow(
+       /studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger/,
+     );
+   });
+diff --git a/tests/p14c1-materialized-aging.test.ts b/tests/p14c1-materialized-aging.test.ts
+index 90481321..c3ebc642 100644
+--- a/tests/p14c1-materialized-aging.test.ts
++++ b/tests/p14c1-materialized-aging.test.ts
+@@ -73,10 +73,10 @@ const convertV33ToV34 = SaveModule.convertV33ToV34
+ // P14C.4: same reasoning, one bump on — `tick()` now also requires `cohorts`
+ // inside that root once a state reaches a cohort week (week 52); `validateSaveV34`
+ // (frozen, unused for a genuinely live envelope now) is not aliased here — every
+-// LIVE check below moves straight to `validateSaveV37`.
++// LIVE check below moves straight to `validateSaveV38`.
+ const convertV34ToV35 = SaveModule.convertV34ToV35
+ const convertV35ToV36 = SaveModule.convertV35ToV36
+-const validateSaveV37 = SaveModule.validateSaveV37
++const validateSaveV38 = SaveModule.validateSaveV38
+ 
+ const p14 = (relative: string): URL => new URL('./fixtures/' + relative, import.meta.url)
+ 
+@@ -148,7 +148,10 @@ function liftForTick(migrated: { envelope: Envelope; state: ProvenanceState }):
+   // P14C.2b: one further governed step to the true live boundary — `tick()`
+   // now throws on a record missing `extensionUsed` (`readExtensionUsed`,
+   // `careerLifecycle.ts`), so every lifted state needs the V36 keys too.
+-  const live = convertV35ToV36(v35 as Parameters<typeof convertV35ToV36>[0])
++  const v36 = convertV35ToV36(v35 as Parameters<typeof convertV35ToV36>[0])
++  // C.3: real frozen33 controls stay above; only inputs for the live engine
++  // proceed through Scientist37 and current profession-authority38.
++  const live = SaveModule.convertV37ToV38(SaveModule.convertV36ToV37(v36))
+   return { envelope: live, state: withProvenance(live.state as object) }
+ }
+ 
+@@ -627,7 +630,7 @@ describe('8. save and reload at week 12 and week 13', () => {
+       const envelope: Envelope = { saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems }
+ 
+       const reloaded = JSON.parse(JSON.stringify(envelope))
+-      const validated = validateSaveV37(reloaded)
++      const validated = validateSaveV38(reloaded)
+       const reloadedState = withProvenance(validated.state as object)
+       expect(reloadedState.talent.find((t) => t.id === 'authored-0001')!.age).toBe(week === 12 ? 29 : 30)
+     })
+@@ -722,7 +725,7 @@ describe('11. the validator refuses four tampered states, each attributably', ()
+     // everything this test tampers with, so the four causes stay distinguishable
+     // (each inner message survives inside the wrapping "frozen V33 state is
+     // invalid —" prefix).
+-    // P14C.4: `baseState()` now ticks a live (V35) state; `validateSaveV37`
++    // C.3: `baseState()` now ticks a live (V38) state; `validateSaveV38`
+     // delegates to `validateSaveV34`, which delegates to the frozen V33 chain —
+     // the four causes below still stay distinguishable, each inner message
+     // surviving through both wrapping prefixes (checked by substring, not
+@@ -730,7 +733,7 @@ describe('11. the validator refuses four tampered states, each attributably', ()
+     const envelope: Envelope = { saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems }
+     const json = JSON.parse(JSON.stringify(envelope))
+     try {
+-      validateSaveV37(json)
++      validateSaveV38(json)
+       return ''
+     } catch (error) {
+       return (error as Error).message
+@@ -1002,6 +1005,6 @@ describe('13. provenance is written at the append, not the mint call', () => {
+ // P14C.2a (776 S10): C.1 landed at 33 as this test predicted, then C.2a bumped once more.
+ describe('save version bump (contract §6)', () => {
+   it('LIVE_SAVE_VERSION is 37 once C.2b lands (was 35 after C.4, was 34 after C.2a)', () => {
+-    expect(LIVE_SAVE_VERSION).toBe(37)
++    expect(LIVE_SAVE_VERSION).toBe(38)
+   })
+ })
+diff --git a/tests/save.test.ts b/tests/save.test.ts
+index aff594ac..36c2c52e 100644
+--- a/tests/save.test.ts
++++ b/tests/save.test.ts
+@@ -31,6 +31,7 @@ import {
+   migrateToV14,
+   migrateToV15,
+   convertV14ToV15,
++  convertV38ToV37,
+   initialReleaseAuthority,
+   initialStudioHistory,
+ } from "../src/core/index.js";
+@@ -232,7 +233,7 @@ function makeState(broadcastItems: BroadcastItem[]): GameState {
+           // lifecycle root — nobody retired in this fixture.
+           // P14C.4 (Save V35): the same root now also owes empty `cohorts` —
+           // nobody entered either; `initialCareerLifecycle` opens both empty.
+-          careerLifecycle: initialCareerLifecycle(8),
++          careerLifecycle: initialCareerLifecycle(8, [talent]),
+   };
+ }
+ 
+@@ -279,10 +280,10 @@ describe("§17 / §15.7 — export→import→export round-trips byte-identicall
+ describe("§17 — loud rejection of an unknown saveVersion", () => {
+   it("throws on an unknown saveVersion (e.g. 38; Scientist amendment 840 makes 37 live and valid)", () => {
+     // Source: §17 "loud rejection of unknown versions". B5's additive reader
+-    // recognizes versions 1–37 before the live writer cutover; the unsupported
++    // recognizes versions 1–38 after the C.3 cutover; the unsupported
+     // sentinel remains one version past that CURRENT dispatch ceiling.
+     const save = wellFormedSave();
+-    const bad = { ...save, saveVersion: 38 } as unknown as SaveFileV14;
++    const bad = { ...save, saveVersion: 39 } as unknown as SaveFileV14;
+     expect(() => loadSave(bad)).toThrow();
+   });
+ });
+@@ -362,14 +363,19 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
+     // its workflows carry those V25 fields and must have them stripped before
+     // reaching the frozen V15 boundary (the same technique
+     // tests/contracts/_v14Contract.ts's `projectToV13State` already uses).
++    // C.3: the real guarded downgrade proves no profession history is lost
++    // BEFORE this explicitly historical fixture omits V25 workflow fields.
++    const historical = convertV38ToV37(makeSave(cancelled)).state;
+     const strippedForV15 = {
+-      ...cancelled,
++      ...historical,
+       operations: {
+-        ...cancelled.operations,
+-        workflows: cancelled.operations.workflows.map(({ setup: _setup, planRevision: _planRevision, ...workflow }) => workflow),
++        ...historical.operations,
++        workflows: historical.operations.workflows.map(({ setup: _setup, planRevision: _planRevision, ...workflow }) => workflow),
+       },
+-    } as unknown as GameState;
+-    const validSave = makeSaveV15(strippedForV15);
++    };
++    // The shared workflow type includes later V25 fields; the frozen V15
++    // reader, not that widened type, governs this deliberate historical shape.
++    const validSave = makeSaveV15(strippedForV15 as unknown as Parameters<typeof makeSaveV15>[0]);
+     expect(() => validateSaveV15(validSave)).not.toThrow();
+ 
+     // Forge the row back to the pre-P04A shape (no subjectId key at all) and
+@@ -406,22 +412,27 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
+     );
+     expect(liveRow).toMatchObject({ subjectId: projectId });
+ 
+-    const v14Rows = cancelled.studioEvents.rows.map((row) => {
++    // Validate and genuinely downgrade before making the historical omission;
++    // malformed Save38 must never bypass its complete-state guard.
++    const historical = convertV38ToV37(makeSave(cancelled)).state;
++    const v14Rows = historical.studioEvents.rows.map((row) => {
+       if (row.kind !== "queueIntentExpired") return row;
+       const { subjectId: _subjectId, ...rest } = row;
+       return rest;
+     });
+     const v14State = {
+-      ...cancelled,
+-      studioEvents: { ...cancelled.studioEvents, rows: v14Rows },
++      ...historical,
++      studioEvents: { ...historical.studioEvents, rows: v14Rows },
+       // AMENDED (P13B-S5-R07 live-version sweep, 2026-09-17): strip the V25-only
+       // `setup`/`planRevision` leaves the same way — see the note above.
+       operations: {
+-        ...cancelled.operations,
+-        workflows: cancelled.operations.workflows.map(({ setup: _setup, planRevision: _planRevision, ...workflow }) => workflow),
++        ...historical.operations,
++        workflows: historical.operations.workflows.map(({ setup: _setup, planRevision: _planRevision, ...workflow }) => workflow),
+       },
+     };
+-    const v14Save = makeSaveV14(v14State as unknown as GameState);
++    // Shared StudioEvent/Workflow types include later required fields. This
++    // cast is confined to the old reader after the validated real downgrade.
++    const v14Save = makeSaveV14(v14State as unknown as Parameters<typeof makeSaveV14>[0]);
+     expect(v14Save.saveVersion).toBe(14);
+ 
+     const migrated = migrateToV15(v14Save);
+@@ -439,8 +450,8 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
+ 
+   it("rejects an unknown saveVersion 38 with the updated range, and rejects downgrading V15 to V14 (stale number corrected post-C.2b)", () => {
+     const save = wellFormedV15Save();
+-    expect(() => validateSave({ ...save, saveVersion: 38 })).toThrow(
+-      /versions 1 through 37 only/,
++    expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(
++      /versions 1 through 38 only/,
+     );
+     expect(() => migrateToV14(save)).toThrow(/cannot downgrade SaveFileV15/);
+   });

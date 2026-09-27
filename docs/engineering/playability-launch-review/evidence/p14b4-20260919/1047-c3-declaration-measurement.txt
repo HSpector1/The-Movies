@@ -1,0 +1,104 @@
+{"sourceSha":"e6475aca1ef3bdfd593d660743ebc311981836cc","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vite-node","--script","docs/engineering/playability-launch-review/evidence/p14b4-20260919/1075-c3-declaration-measurement.ts"],"node":"v20.20.2","start":"2026-09-27T01:53:27.878Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+{
+  "producer": "1075-c3-declaration-measurement.ts",
+  "producerSha256": "21188b750289ad4e51e337b2346cdfff706fbb817b79c2526a49f7b24c85c54b",
+  "source": {
+    "head": "e6475aca1ef3bdfd593d660743ebc311981836cc",
+    "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untracked": ""
+  },
+  "sourceAndInputsUnchanged": true,
+  "inputsSha256": {
+    "scripts/bridge-contract-csharp.ts": "9adf58d7350062e25fdb4fbed73b7bdf8d613b89f4e2841eb032d06e32294057",
+    "scripts/generate-bridge-contract.ts": "2e032f3b53b03591631c3dbab773368ff1aff8ba74217efd5d45388f5182dd56",
+    "bridge/schema/canonical.ts": "b84768f3a565f7e027938fefd46960ffbbd55a35d44a51145e94b82a1529e340",
+    "bridge/schema/dsl.ts": "199880cc5ad275cdf4e277c7afba44823022d9e0e0b93bbee01e4fb8ad7cef8b",
+    "bridge/schema/bridge-schema.ts": "db0944c3597550517d21e99f9efbbee7ac55fe21295d722b0439612018e022be",
+    "bridge/schema/industry-schema.ts": "794ef431e62a5f44674f874f9144ed0a667965781e587d23fc0e71eb65c58453",
+    "bridge/schema/intent-schema.ts": "6230f858a05da061f5934e85a93ba247e0483e50a4d2aee845b2e9b642ab366a",
+    "tests/fixtures/bridge-contract-union-fixtures.ts": "0689507dd4e5407ec9fdc5ba3834ab9304d29120040ccac2af254cb51b637e8f",
+    "tests/bridge-contract-generator.test.ts": "13428b167ce030c3118dcc8c9cf15244052b26107f128d282ddb3edc41cd60fb",
+    "generated/unity/StudioBridgeDtos.Generated.cs": "c727219216f5f71cb35e9b6116b7288da0d0343810e9cee447c5216988ce48b7",
+    "generated/unity/project-studio-bridge.contract-manifest.json": "2fd375c17b183e12c714f0f6a4ee438c4cd4c890084ca33207d0c56582f4321e",
+    "bridge/schema/project-studio-bridge.schema.json": "31d58dbbbf09992703dc221d7a3c3d235cb0e9b185e0212599e334d8c7219fde",
+    "package.json": "031dadd99741140dae256481de76d98502bfb5855dee6f8eb46d043baa6fac9f",
+    "package-lock.json": "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de"
+  },
+  "protocolVersion": 4,
+  "projectionVersion": 53,
+  "schemaId": "sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d",
+  "generatedCsharp": {
+    "bytes": 860452,
+    "sha256": "c727219216f5f71cb35e9b6116b7288da0d0343810e9cee447c5216988ce48b7",
+    "isDeclarationBodyHash": false
+  },
+  "identities": {
+    "F01_STRING_OR_NULL": {
+      "sha256": "797f92b1f532d61f21dad93ba8fea8da02dd5104c4f744213c9832cb2c1f6bdd",
+      "bytes": 452,
+      "deterministic": true,
+      "priorSha256": "797f92b1f532d61f21dad93ba8fea8da02dd5104c4f744213c9832cb2c1f6bdd",
+      "matchesPrior": true
+    },
+    "F02_OBJECT_OR_NULL": {
+      "sha256": "0fef8c834b895f9cf185af8f421357c642dc71984f1b4618a79eba9c4dd60e1f",
+      "bytes": 648,
+      "deterministic": true,
+      "priorSha256": "0fef8c834b895f9cf185af8f421357c642dc71984f1b4618a79eba9c4dd60e1f",
+      "matchesPrior": true
+    },
+    "F03_COMPATIBLE_OBJECTS": {
+      "sha256": "99f44add260a66d0eab17a86d3f743110277292606dff073a90a354bad335c68",
+      "bytes": 1072,
+      "deterministic": true,
+      "priorSha256": "99f44add260a66d0eab17a86d3f743110277292606dff073a90a354bad335c68",
+      "matchesPrior": true
+    },
+    "F04_DISCRIMINATED_OBJECTS": {
+      "sha256": "d878443418291974137b9affddf066d3b65d8d09286febebcafec35561a2fc5b",
+      "bytes": 5462,
+      "deterministic": true,
+      "priorSha256": "d878443418291974137b9affddf066d3b65d8d09286febebcafec35561a2fc5b",
+      "matchesPrior": true
+    },
+    "F09_ARRAY_ITEM_UNION": {
+      "sha256": "7c1f83b70b0e82152821b0c4a5e59bdedcf901f639445b45ec7ef49010e2af1b",
+      "bytes": 5087,
+      "deterministic": true,
+      "priorSha256": "7c1f83b70b0e82152821b0c4a5e59bdedcf901f639445b45ec7ef49010e2af1b",
+      "matchesPrior": true
+    },
+    "F10_CURRENT_QUOTE_UNIONS": {
+      "sha256": "4ab4141390d2d17c35da0d1bf64cce841f1608103146b2cbca6212ab114a8cec",
+      "bytes": 401842,
+      "deterministic": true,
+      "priorSha256": "90a51d9518fb9e8a2d09cb096204a0f98b35ec481c638a8e4ff033c8ea56ad52",
+      "matchesPrior": false
+    },
+    "F11_CURRENT_COMMAND_UNION": {
+      "sha256": "4ab4141390d2d17c35da0d1bf64cce841f1608103146b2cbca6212ab114a8cec",
+      "bytes": 401842,
+      "deterministic": true,
+      "priorSha256": "90a51d9518fb9e8a2d09cb096204a0f98b35ec481c638a8e4ff033c8ea56ad52",
+      "matchesPrior": false
+    },
+    "F12_P05_PRODUCTION_SENTINEL": {
+      "sha256": "78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6",
+      "bytes": 15018,
+      "deterministic": true,
+      "priorSha256": "78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6",
+      "matchesPrior": true
+    }
+  },
+  "positiveFixtures": 8,
+  "fixedPositiveFixtures": 6,
+  "renders": 16,
+  "actualTicks": 0,
+  "completion": "ALL_EIGHT_POSITIVES_MEASURED_TWICE_SIX_FIXED_UNCHANGED",
+  "environment": {
+    "node": "v20.20.2",
+    "platform": "darwin",
+    "arch": "x64"
+  }
+}

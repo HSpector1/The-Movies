@@ -31,6 +31,7 @@ import {
   migrateToV14,
   migrateToV15,
   convertV14ToV15,
+  convertV38ToV37,
   initialReleaseAuthority,
   initialStudioHistory,
 } from "../src/core/index.js";
@@ -232,7 +233,7 @@ function makeState(broadcastItems: BroadcastItem[]): GameState {
           // lifecycle root — nobody retired in this fixture.
           // P14C.4 (Save V35): the same root now also owes empty `cohorts` —
           // nobody entered either; `initialCareerLifecycle` opens both empty.
-          careerLifecycle: initialCareerLifecycle(8),
+          careerLifecycle: initialCareerLifecycle(8, [talent]),
   };
 }
 
@@ -279,10 +280,10 @@ describe("§17 / §15.7 — export→import→export round-trips byte-identicall
 describe("§17 — loud rejection of an unknown saveVersion", () => {
   it("throws on an unknown saveVersion (e.g. 38; Scientist amendment 840 makes 37 live and valid)", () => {
     // Source: §17 "loud rejection of unknown versions". B5's additive reader
-    // recognizes versions 1–37 before the live writer cutover; the unsupported
+    // recognizes versions 1–38 after the C.3 cutover; the unsupported
     // sentinel remains one version past that CURRENT dispatch ceiling.
     const save = wellFormedSave();
-    const bad = { ...save, saveVersion: 38 } as unknown as SaveFileV14;
+    const bad = { ...save, saveVersion: 39 } as unknown as SaveFileV14;
     expect(() => loadSave(bad)).toThrow();
   });
 });
@@ -362,14 +363,19 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
     // its workflows carry those V25 fields and must have them stripped before
     // reaching the frozen V15 boundary (the same technique
     // tests/contracts/_v14Contract.ts's `projectToV13State` already uses).
+    // C.3: the real guarded downgrade proves no profession history is lost
+    // BEFORE this explicitly historical fixture omits V25 workflow fields.
+    const historical = convertV38ToV37(makeSave(cancelled)).state;
     const strippedForV15 = {
-      ...cancelled,
+      ...historical,
       operations: {
-        ...cancelled.operations,
-        workflows: cancelled.operations.workflows.map(({ setup: _setup, planRevision: _planRevision, ...workflow }) => workflow),
+        ...historical.operations,
+        workflows: historical.operations.workflows.map(({ setup: _setup, planRevision: _planRevision, ...workflow }) => workflow),
       },
-    } as unknown as GameState;
-    const validSave = makeSaveV15(strippedForV15);
+    };
+    // The shared workflow type includes later V25 fields; the frozen V15
+    // reader, not that widened type, governs this deliberate historical shape.
+    const validSave = makeSaveV15(strippedForV15 as unknown as Parameters<typeof makeSaveV15>[0]);
     expect(() => validateSaveV15(validSave)).not.toThrow();
 
     // Forge the row back to the pre-P04A shape (no subjectId key at all) and
@@ -406,22 +412,27 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
     );
     expect(liveRow).toMatchObject({ subjectId: projectId });
 
-    const v14Rows = cancelled.studioEvents.rows.map((row) => {
+    // Validate and genuinely downgrade before making the historical omission;
+    // malformed Save38 must never bypass its complete-state guard.
+    const historical = convertV38ToV37(makeSave(cancelled)).state;
+    const v14Rows = historical.studioEvents.rows.map((row) => {
       if (row.kind !== "queueIntentExpired") return row;
       const { subjectId: _subjectId, ...rest } = row;
       return rest;
     });
     const v14State = {
-      ...cancelled,
-      studioEvents: { ...cancelled.studioEvents, rows: v14Rows },
+      ...historical,
+      studioEvents: { ...historical.studioEvents, rows: v14Rows },
       // AMENDED (P13B-S5-R07 live-version sweep, 2026-09-17): strip the V25-only
       // `setup`/`planRevision` leaves the same way — see the note above.
       operations: {
-        ...cancelled.operations,
-        workflows: cancelled.operations.workflows.map(({ setup: _setup, planRevision: _planRevision, ...workflow }) => workflow),
+        ...historical.operations,
+        workflows: historical.operations.workflows.map(({ setup: _setup, planRevision: _planRevision, ...workflow }) => workflow),
       },
     };
-    const v14Save = makeSaveV14(v14State as unknown as GameState);
+    // Shared StudioEvent/Workflow types include later required fields. This
+    // cast is confined to the old reader after the validated real downgrade.
+    const v14Save = makeSaveV14(v14State as unknown as Parameters<typeof makeSaveV14>[0]);
     expect(v14Save.saveVersion).toBe(14);
 
     const migrated = migrateToV15(v14Save);
@@ -439,8 +450,8 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
 
   it("rejects an unknown saveVersion 38 with the updated range, and rejects downgrading V15 to V14 (stale number corrected post-C.2b)", () => {
     const save = wellFormedV15Save();
-    expect(() => validateSave({ ...save, saveVersion: 38 })).toThrow(
-      /versions 1 through 37 only/,
+    expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(
+      /versions 1 through 38 only/,
     );
     expect(() => migrateToV14(save)).toThrow(/cannot downgrade SaveFileV15/);
   });
