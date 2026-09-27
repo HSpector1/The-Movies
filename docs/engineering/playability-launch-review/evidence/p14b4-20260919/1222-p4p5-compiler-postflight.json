@@ -1,0 +1,31 @@
+{
+  "record": {
+    "sourceSha": "e49e9931e55b79673a59d5db8c8de6cf00da97b5",
+    "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSource": [],
+    "command": [
+      "node_modules/.bin/tsc",
+      "--noEmit",
+      "--listFiles",
+      "-p",
+      "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture.tsconfig.json"
+    ],
+    "node": "v20.20.2",
+    "start": "2026-09-27T18:14:33.187Z",
+    "end": "2026-09-27T18:14:48.383Z",
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "sourceShaAtEnd": "e49e9931e55b79673a59d5db8c8de6cf00da97b5",
+    "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSourceAtEnd": [],
+    "fixedSource": true
+  },
+  "raw": {
+    "bytes": 37472,
+    "sha256": "638310a7989d6a78ef85dbc36eb676e2cb47677a8880e8fec159c723275057c5"
+  },
+  "graphFiles": 418,
+  "diagnostics": [],
+  "manualSourceIndex": "unchanged"
+}

@@ -1,5 +1,32 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — Genuine outgoing39/54 preservation verified; P4/P5 test source next
+
+Published sourcee49e9931e55b79673a59d5db8c8de6cf00da97b5 matched GitHub.
+1222 dedicated compilerPASS15.196s,418 imported files/no diagnostics.1223 single
+capturePASS33.390s, one leaf28.565s, actual78 helper advances and zero other/runtime
+advances. All nine caches completed. Real SAVE/partial-waiver/two duplicates/one
+restart retain saved-earned61 versus current-waived61, both stores closed once.
+The complete851-byte legacy4 marker matches the earlier qualified runs.
+
+All seven exclusive outputs are preserved under1221-p4p5-outgoing-capture:
+900,926B on disk,8,643,326B decompressed; manifest21,306B/SHA256
+02115df5d6e7d4c33284b9a439a7c79601e1b2e807f4fa96c20149f5c84186f3.
+1224 parent closure/A and independentB KEEP verify every raw/gzip identity,
+actual journal/slot joins, fixed recorder source, manual inputs and raw index.
+No heavy remains; no repeat mint, old corpus change or native/disk claim.
+
+1225-A/B/C now specifies the next P4/P5 contract and concrete refinements, under
+final review: exact cast masks, immutable take subjects, singular timing and
+conservative reservation witnesses, target-aware outcomes/waivers, bounded rival
+fallback and unchanged public preference descriptors.1226-A test requirements
+are frozen.1227 initial source is being prepared separately under evidence:
+zero-advance Ready quotes/material/strict-migration controls with complete4/6
+baselines, before a matched RED. Parent alone owns production and execution.
+No40/55/7 activation yet. Production2af37179 remains unchanged; existing P3 and
+whole-program limits persist. Continue P14/P15/P16/specified P17/P18 with settled
+P15 decisions; Unity/native and Owner-campaign work remain deferred.
+
 ## CURRENT — Outgoing39/54 producer reviewed; dedicated compiler and capture next
 
 Current checkpoint3d0b05ea7b797b3a83a797834f593667ce2e823d matched GitHub in

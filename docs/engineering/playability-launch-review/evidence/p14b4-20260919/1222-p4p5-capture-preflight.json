@@ -1,0 +1,67 @@
+{
+  "time": "2026-09-27T18:14:28.126638+00:00",
+  "head": "e49e9931e55b79673a59d5db8c8de6cf00da97b5",
+  "remote": "e49e9931e55b79673a59d5db8c8de6cf00da97b5",
+  "sourceManifest": {
+    "bytes": 304668,
+    "sha256": "2beef0d2551eb1f935ec528951df7f3912f42cac3f2c58b7c7dad143ffe62cee"
+  },
+  "sourceFiles": 1675,
+  "sourceManifestPinsVerified": true,
+  "manual": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1218-A-p4p5-source-boundary-preparation.md",
+      "bytes": 5708,
+      "sha256": "a3683a2cea8c7a1e28ec0e598996ccb7e5bb28500dc01989bf687555db8dae90"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1218-B-p4p5-source-boundary-review.md",
+      "bytes": 3067,
+      "sha256": "b5c28cc4592bcdc746ebfc5e44a1e4bc36e021c2d2ebf29a030ab14bdd8872f2"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1219-A-p4p5-preservation-test-proposal.md",
+      "bytes": 11359,
+      "sha256": "969e89d91e75d91f2a72fff6e14260af8fa9bf7119bccf6b4e40975b028f1e03"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1219-B-p4p5-preservation-plan-review.md",
+      "bytes": 4209,
+      "sha256": "e2e833e23afd149b8ddb2a79f37bce09f4c81ae069ad826ab20a2524178cffea"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1220-C-p4p5-preservation-release.md",
+      "bytes": 2531,
+      "sha256": "3aca45654b186b2c305e5bfe192335e10c643eccd9839a934acdd545f51a90ee"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture.config.ts",
+      "bytes": 495,
+      "sha256": "39df0295bafb3cacf72d9ac5b38b5cd1e18dbd049dde337c1d7ca40ad2d9556a"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture.test.ts",
+      "bytes": 37512,
+      "sha256": "6d747118982df8bee6fcdbdfa83dd5239e1154a2fda6d9f23493f9fca37f14e1"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture.tsconfig.json",
+      "bytes": 262,
+      "sha256": "b4a29e98de2b979e4c3b7aa3fbd5633977fdc182b0fcb086d5247e8bdd15a60d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-source-manifest.json",
+      "bytes": 304668,
+      "sha256": "2beef0d2551eb1f935ec528951df7f3912f42cac3f2c58b7c7dad143ffe62cee"
+    }
+  ],
+  "index": {
+    "bytes": 1045511,
+    "sha256": "c85406e8b7cef857d0e00f1f4c42e0607e4763105acff7c32ef4e3fa4cbabd47"
+  },
+  "stageEntries": {
+    "bytes": 928392,
+    "sha256": "46e3d6461a9eecb2b7e55b6e31a50fe78852e056efe2786cf0bca23a21e4a9ab"
+  },
+  "outputAbsent": true
+}

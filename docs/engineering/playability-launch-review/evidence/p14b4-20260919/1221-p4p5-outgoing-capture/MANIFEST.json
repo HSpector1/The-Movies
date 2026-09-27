@@ -1,0 +1,654 @@
+{
+  "kind": "genuine-outgoing39-director-and-runtime54",
+  "version": 1,
+  "status": "COMPLETE",
+  "started": "2026-09-27T18:16:04.781Z",
+  "completed": "2026-09-27T18:16:33.337Z",
+  "actualExecutionHead": "e49e9931e55b79673a59d5db8c8de6cf00da97b5",
+  "preparationHead": "3d0b05ea7b797b3a83a797834f593667ce2e823d",
+  "node": "v20.20.2",
+  "sourceManifest": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-source-manifest.json",
+    "bytes": 304668,
+    "sha256": "2beef0d2551eb1f935ec528951df7f3912f42cac3f2c58b7c7dad143ffe62cee"
+  },
+  "sourceBefore": {
+    "head": "e49e9931e55b79673a59d5db8c8de6cf00da97b5",
+    "index": {
+      "bytes": 1045511,
+      "sha256": "c85406e8b7cef857d0e00f1f4c42e0607e4763105acff7c32ef4e3fa4cbabd47"
+    },
+    "stagedEntries": {
+      "bytes": 928392,
+      "sha256": "46e3d6461a9eecb2b7e55b6e31a50fe78852e056efe2786cf0bca23a21e4a9ab"
+    },
+    "diff": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "untracked": [],
+    "fileCount": 1675,
+    "files": {
+      "bytes": 284503,
+      "sha256": "d3c50cdd921dc13171a657e2ac340e62a1b50661bc20efde2029113b0b34b25a"
+    },
+    "docs": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1218-A-p4p5-source-boundary-preparation.md",
+        "bytes": 5708,
+        "sha256": "a3683a2cea8c7a1e28ec0e598996ccb7e5bb28500dc01989bf687555db8dae90"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1218-B-p4p5-source-boundary-review.md",
+        "bytes": 3067,
+        "sha256": "b5c28cc4592bcdc746ebfc5e44a1e4bc36e021c2d2ebf29a030ab14bdd8872f2"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1219-A-p4p5-preservation-test-proposal.md",
+        "bytes": 11359,
+        "sha256": "969e89d91e75d91f2a72fff6e14260af8fa9bf7119bccf6b4e40975b028f1e03"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1219-B-p4p5-preservation-plan-review.md",
+        "bytes": 4209,
+        "sha256": "e2e833e23afd149b8ddb2a79f37bce09f4c81ae069ad826ab20a2524178cffea"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1220-C-p4p5-preservation-release.md",
+        "bytes": 2531,
+        "sha256": "3aca45654b186b2c305e5bfe192335e10c643eccd9839a934acdd545f51a90ee"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture.config.ts",
+        "bytes": 495,
+        "sha256": "39df0295bafb3cacf72d9ac5b38b5cd1e18dbd049dde337c1d7ca40ad2d9556a"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture.test.ts",
+        "bytes": 37512,
+        "sha256": "6d747118982df8bee6fcdbdfa83dd5239e1154a2fda6d9f23493f9fca37f14e1"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture.tsconfig.json",
+        "bytes": 262,
+        "sha256": "b4a29e98de2b979e4c3b7aa3fbd5633977fdc182b0fcb086d5247e8bdd15a60d"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-source-manifest.json",
+        "bytes": 304668,
+        "sha256": "2beef0d2551eb1f935ec528951df7f3912f42cac3f2c58b7c7dad143ffe62cee"
+      }
+    ]
+  },
+  "sourceAfter": {
+    "head": "e49e9931e55b79673a59d5db8c8de6cf00da97b5",
+    "index": {
+      "bytes": 1045511,
+      "sha256": "c85406e8b7cef857d0e00f1f4c42e0607e4763105acff7c32ef4e3fa4cbabd47"
+    },
+    "stagedEntries": {
+      "bytes": 928392,
+      "sha256": "46e3d6461a9eecb2b7e55b6e31a50fe78852e056efe2786cf0bca23a21e4a9ab"
+    },
+    "diff": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "untracked": [],
+    "fileCount": 1675,
+    "files": {
+      "bytes": 284503,
+      "sha256": "d3c50cdd921dc13171a657e2ac340e62a1b50661bc20efde2029113b0b34b25a"
+    },
+    "docs": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1218-A-p4p5-source-boundary-preparation.md",
+        "bytes": 5708,
+        "sha256": "a3683a2cea8c7a1e28ec0e598996ccb7e5bb28500dc01989bf687555db8dae90"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1218-B-p4p5-source-boundary-review.md",
+        "bytes": 3067,
+        "sha256": "b5c28cc4592bcdc746ebfc5e44a1e4bc36e021c2d2ebf29a030ab14bdd8872f2"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1219-A-p4p5-preservation-test-proposal.md",
+        "bytes": 11359,
+        "sha256": "969e89d91e75d91f2a72fff6e14260af8fa9bf7119bccf6b4e40975b028f1e03"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1219-B-p4p5-preservation-plan-review.md",
+        "bytes": 4209,
+        "sha256": "e2e833e23afd149b8ddb2a79f37bce09f4c81ae069ad826ab20a2524178cffea"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1220-C-p4p5-preservation-release.md",
+        "bytes": 2531,
+        "sha256": "3aca45654b186b2c305e5bfe192335e10c643eccd9839a934acdd545f51a90ee"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture.config.ts",
+        "bytes": 495,
+        "sha256": "39df0295bafb3cacf72d9ac5b38b5cd1e18dbd049dde337c1d7ca40ad2d9556a"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture.test.ts",
+        "bytes": 37512,
+        "sha256": "6d747118982df8bee6fcdbdfa83dd5239e1154a2fda6d9f23493f9fca37f14e1"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture.tsconfig.json",
+        "bytes": 262,
+        "sha256": "b4a29e98de2b979e4c3b7aa3fbd5633977fdc182b0fcb086d5247e8bdd15a60d"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-source-manifest.json",
+        "bytes": 304668,
+        "sha256": "2beef0d2551eb1f935ec528951df7f3912f42cac3f2c58b7c7dad143ffe62cee"
+      }
+    ]
+  },
+  "sourceGuardPassed": true,
+  "immutableInputs": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json",
+      "bytes": 11550,
+      "sha256": "a261fc3177527d05d5a8daf624de7af015df8c9a8fedd3e11b37fe1597a2f4b6"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/genuine-v39-p3-market-week45.json.gz",
+      "bytes": 86995,
+      "sha256": "12799a849b0b4aff49cd9707ea8c1b87c64b4e787ff261b2e9cf4b109a953117"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v37-c3-corpus/MANIFEST.json",
+      "bytes": 32532,
+      "sha256": "b3a3251ae7b3df96a1e2a615991744c5d1e5966a095424693f086a1581244294"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-created-week0.json.gz",
+      "bytes": 49887,
+      "sha256": "0ce43de9abe897631f415f94ac79e584b87d6001c8bb4b5c37fccf3dcb8204a2"
+    }
+  ],
+  "rawInput": {
+    "bytes": 422221,
+    "sha256": "215b61730393abc8bc28b747d7d79bf9dcb65d2b03f17aa97b96880bc720fa23"
+  },
+  "schema": {
+    "saveVersion": 39,
+    "protocolVersion": 4,
+    "projectionVersion": 54,
+    "schemaId": "sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302"
+  },
+  "declaredOutputNames": [
+    "director-bound-week52.json.gz",
+    "director-earned-week61.json.gz",
+    "director-satisfied-week78.json.gz",
+    "director-canceled-work-week61.json.gz",
+    "director-waived-week61.json.gz",
+    "runtime54-waiver-current61-saved61.json.gz",
+    "MANIFEST.json"
+  ],
+  "outputs": [
+    {
+      "filename": "director-bound-week52.json.gz",
+      "raw": {
+        "bytes": 811917,
+        "sha256": "eae34cd10d457ad551028f3d0a160a55a74d5153b73653b257dc89a4338b040b"
+      },
+      "gzip": {
+        "bytes": 93047,
+        "sha256": "b894a85ffad37378f93dc8a8e83bad926ab7a1bb857dd76e9b9926b520fec6e1"
+      }
+    },
+    {
+      "filename": "director-earned-week61.json.gz",
+      "raw": {
+        "bytes": 881829,
+        "sha256": "94558001e85aef5f46d709c07397dedda296416fe86e4f7482caeee88470cace"
+      },
+      "gzip": {
+        "bytes": 101049,
+        "sha256": "97a1a96c32f0abe290a798734b322611e0be1f5a1c29461753c1d0b50feeceeb"
+      }
+    },
+    {
+      "filename": "director-satisfied-week78.json.gz",
+      "raw": {
+        "bytes": 1007748,
+        "sha256": "d0ce6b5427f2ca880214024019798e3372123e8148f542a6e22578b11c18ee80"
+      },
+      "gzip": {
+        "bytes": 114159,
+        "sha256": "788fdd550d240751c0ca4d89991b7dfd925495341f19b6e09c30d6efd8520e29"
+      }
+    },
+    {
+      "filename": "director-canceled-work-week61.json.gz",
+      "raw": {
+        "bytes": 877528,
+        "sha256": "8ebb7ca8758c79c8ada73889d24ecc4038e1e3b0edf5bd77c56c723cffee290d"
+      },
+      "gzip": {
+        "bytes": 99923,
+        "sha256": "c6492f5660b2e8fb20d48c6f054566b25f47500512d2b9ff87a8a6ebb46788b6"
+      }
+    },
+    {
+      "filename": "director-waived-week61.json.gz",
+      "raw": {
+        "bytes": 882749,
+        "sha256": "ad25e44bde2ec18bef17a37a252de4ee9323dd0d7b50dbdaf424be50a5d9abce"
+      },
+      "gzip": {
+        "bytes": 101260,
+        "sha256": "95ca93ba0a0f16b1c11ad34960a9617217685a681e8ad27ebf896e75f1debb0e"
+      }
+    },
+    {
+      "filename": "runtime54-waiver-current61-saved61.json.gz",
+      "raw": {
+        "bytes": 4181555,
+        "sha256": "8b139ebac88d27a1350dc41825d8aefb53b1c72414cf9be1cd173a6c4bf83239"
+      },
+      "gzip": {
+        "bytes": 370182,
+        "sha256": "f329404212db51462182fea9e9291cc01fe3054437119f04ba9d9900353b6240"
+      }
+    }
+  ],
+  "counters": {
+    "ticks": {
+      "attempted": 78,
+      "reserved": 78,
+      "invoked": 78,
+      "verified": 78,
+      "cap": 78
+    },
+    "helper": {
+      "player": {
+        "actualTicks": 78,
+        "cap": 208,
+        "cachedPhases": [
+          {
+            "name": "created0",
+            "completed": true
+          },
+          {
+            "name": "managedEmpty8",
+            "completed": true
+          },
+          {
+            "name": "ready10",
+            "completed": true
+          },
+          {
+            "name": "cases45",
+            "completed": true
+          },
+          {
+            "name": "attached45",
+            "completed": true
+          },
+          {
+            "name": "bound52",
+            "completed": true
+          },
+          {
+            "name": "firstFilm",
+            "completed": true
+          },
+          {
+            "name": "secondFilm",
+            "completed": true
+          },
+          {
+            "name": "cancelAfterTake",
+            "completed": true
+          }
+        ]
+      },
+      "outcomes": {
+        "playerCalls": 78,
+        "playerCap": 208,
+        "branches": [
+          {
+            "name": "cancelBefore",
+            "actualTicks": 0,
+            "cap": 64,
+            "startWeek": null
+          },
+          {
+            "name": "cancelAfter",
+            "actualTicks": 0,
+            "cap": 64,
+            "startWeek": 61
+          },
+          {
+            "name": "waiver",
+            "actualTicks": 0,
+            "cap": 64,
+            "startWeek": null
+          }
+        ],
+        "total": 78,
+        "cap": 400
+      },
+      "continuity": {
+        "playerCalls": 78,
+        "playerCap": 208,
+        "branches": [
+          {
+            "name": "cancelBefore",
+            "actualTicks": 0,
+            "cap": 64,
+            "startWeek": null
+          },
+          {
+            "name": "cancelAfter",
+            "actualTicks": 0,
+            "cap": 64,
+            "startWeek": 61
+          },
+          {
+            "name": "waiver",
+            "actualTicks": 0,
+            "cap": 64,
+            "startWeek": null
+          }
+        ],
+        "total": 78,
+        "cap": 556,
+        "lifecycleCalls": 0,
+        "lifecycleCap": 156,
+        "selectedCap": 364
+      },
+      "rival": {
+        "rivalCalls": 0,
+        "rivalCap": 260,
+        "otherCoreCalls": 78,
+        "total": 78,
+        "cap": 816
+      }
+    },
+    "runtime": {
+      "quotes": 1,
+      "dispatchInvocations": 4,
+      "firstSeen": 2,
+      "duplicates": 2,
+      "restarts": 1,
+      "freshFactories": 1,
+      "advanceInvocations": 0
+    }
+  },
+  "runtime": {
+    "originalId": "promise-0",
+    "successorId": "promise-1",
+    "contractId": "studio-de11f27b-player:contract:authored-0006:52:player-32",
+    "original": {
+      "beneficiaryPersonId": "authored-0006",
+      "contractId": "studio-de11f27b-player:contract:authored-0006:52:player-32",
+      "dueWeekExclusive": 112,
+      "evidenceRefs": [
+        "first-take-event-24"
+      ],
+      "family": "DIRECTING_COUNT",
+      "feasibilityReceipt": {
+        "bottleneck": null,
+        "classification": "REASONABLY_ACHIEVABLE",
+        "inputsDigest": "1be2d1700e723144",
+        "rulesVersion": 6,
+        "week": 52
+      },
+      "issuerStudioId": "studio-de11f27b-player",
+      "outcome": "WAIVED",
+      "outcomeCause": "this person accepted the substitute promise \"promise-1\" in place of it",
+      "outcomeEventId": "talent-market-event-5",
+      "outcomeWeek": 61,
+      "predicate": {
+        "count": 2,
+        "kind": "directorCount"
+      },
+      "progress": 1,
+      "promiseId": "promise-0",
+      "supersededByPromiseId": "promise-1",
+      "version": 6,
+      "windowStartWeek": 52
+    },
+    "successor": {
+      "beneficiaryPersonId": "authored-0006",
+      "contractId": "studio-de11f27b-player:contract:authored-0006:52:player-32",
+      "dueWeekExclusive": 104,
+      "evidenceRefs": [],
+      "family": "DIRECTING_COUNT",
+      "feasibilityReceipt": {
+        "bottleneck": null,
+        "classification": "REASONABLY_ACHIEVABLE",
+        "inputsDigest": "1144cf821a13bdf5",
+        "rulesVersion": 6,
+        "week": 61
+      },
+      "issuerStudioId": "studio-de11f27b-player",
+      "outcome": null,
+      "outcomeCause": null,
+      "outcomeEventId": null,
+      "outcomeWeek": null,
+      "predicate": {
+        "count": 1,
+        "kind": "directorCount"
+      },
+      "progress": 0,
+      "promiseId": "promise-1",
+      "supersededByPromiseId": null,
+      "version": 6,
+      "windowStartWeek": 62
+    },
+    "actualWeek": 61,
+    "savedRaw": {
+      "bytes": 881829,
+      "sha256": "94558001e85aef5f46d709c07397dedda296416fe86e4f7482caeee88470cace"
+    },
+    "currentRaw": {
+      "bytes": 882749,
+      "sha256": "ad25e44bde2ec18bef17a37a252de4ee9323dd0d7b50dbdaf424be50a5d9abce"
+    },
+    "stateRevision": 1,
+    "sessionId": "1221-p4p5-outgoing",
+    "journalDigest": "1188a03e42c5b50be35d22dac1a437ad3b086d927ad97ed0359a643c5f132f09",
+    "journal": [
+      {
+        "artifact": "runtime54-waiver-current61-saved61.json.gz",
+        "index": 0,
+        "route": "save",
+        "commandId": "1221-save-earned61",
+        "request": {
+          "bytes": 198,
+          "sha256": "1c524565168b32cb2e926669bb77f7bed86307f8552a111187ce753036c4b36f"
+        },
+        "response": {
+          "bytes": 986327,
+          "sha256": "2d166c4968325cd14ea6da0ecbfc43c35e1743cb91f5dc4167639e2ef9f68904"
+        }
+      },
+      {
+        "artifact": "runtime54-waiver-current61-saved61.json.gz",
+        "index": 1,
+        "route": "command",
+        "commandId": "1221-commit-waiver61",
+        "request": {
+          "bytes": 322,
+          "sha256": "13a1e9e546c64b03bcc5b4519888c81a069faddeab8951ecc872a488e562f392"
+        },
+        "response": {
+          "bytes": 895490,
+          "sha256": "80164a8ed8e9fb24c9fd50a55f44a5704e8471fa74b738b77f92454aca2a6fb7"
+        }
+      }
+    ],
+    "duplicateSaveResponseEqual": true,
+    "duplicateWaiverResponseEqual": true,
+    "duplicateWrites": 0,
+    "checkpointSource": "Actual coordinator store bytes; full canonical request/response authority remains in its journal.",
+    "storeOwners": [
+      {
+        "index": 0,
+        "writes": 3,
+        "closed": true,
+        "closes": 1
+      },
+      {
+        "index": 1,
+        "writes": 0,
+        "closed": true,
+        "closes": 1
+      }
+    ]
+  },
+  "core": {
+    "personId": "authored-0006",
+    "promiseId": "promise-0",
+    "contractId": "studio-de11f27b-player:contract:authored-0006:52:player-32",
+    "projectIds": [
+      "script-0000",
+      "script-0001"
+    ],
+    "bound": {
+      "promiseId": "promise-0",
+      "version": 6,
+      "issuerStudioId": "studio-de11f27b-player",
+      "beneficiaryPersonId": "authored-0006",
+      "windowStartWeek": 52,
+      "dueWeekExclusive": 112,
+      "feasibilityReceipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "1be2d1700e723144",
+        "rulesVersion": 6,
+        "week": 52
+      },
+      "progress": 0,
+      "evidenceRefs": [],
+      "outcome": null,
+      "outcomeWeek": null,
+      "outcomeCause": null,
+      "outcomeEventId": null,
+      "contractId": "studio-de11f27b-player:contract:authored-0006:52:player-32",
+      "supersededByPromiseId": null,
+      "family": "DIRECTING_COUNT",
+      "predicate": {
+        "kind": "directorCount",
+        "count": 2
+      }
+    },
+    "earned": {
+      "promiseId": "promise-0",
+      "version": 6,
+      "issuerStudioId": "studio-de11f27b-player",
+      "beneficiaryPersonId": "authored-0006",
+      "windowStartWeek": 52,
+      "dueWeekExclusive": 112,
+      "feasibilityReceipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "1be2d1700e723144",
+        "rulesVersion": 6,
+        "week": 52
+      },
+      "progress": 1,
+      "evidenceRefs": [
+        "first-take-event-24"
+      ],
+      "outcome": null,
+      "outcomeWeek": null,
+      "outcomeCause": null,
+      "outcomeEventId": null,
+      "contractId": "studio-de11f27b-player:contract:authored-0006:52:player-32",
+      "supersededByPromiseId": null,
+      "family": "DIRECTING_COUNT",
+      "predicate": {
+        "kind": "directorCount",
+        "count": 2
+      }
+    },
+    "satisfied": {
+      "promiseId": "promise-0",
+      "version": 6,
+      "issuerStudioId": "studio-de11f27b-player",
+      "beneficiaryPersonId": "authored-0006",
+      "windowStartWeek": 52,
+      "dueWeekExclusive": 112,
+      "feasibilityReceipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "1be2d1700e723144",
+        "rulesVersion": 6,
+        "week": 52
+      },
+      "progress": 2,
+      "evidenceRefs": [
+        "first-take-event-24",
+        "first-take-event-32"
+      ],
+      "outcome": "SATISFIED",
+      "outcomeWeek": 74,
+      "outcomeCause": "the promised pictures began filming inside the window",
+      "outcomeEventId": "talent-market-event-5",
+      "contractId": "studio-de11f27b-player:contract:authored-0006:52:player-32",
+      "supersededByPromiseId": null,
+      "family": "DIRECTING_COUNT",
+      "predicate": {
+        "kind": "directorCount",
+        "count": 2
+      }
+    },
+    "firstTake": {
+      "eventId": "first-take-event-24",
+      "week": 61,
+      "productionId": "prod-0052",
+      "studioId": "studio-de11f27b-player",
+      "directorId": "authored-0006",
+      "cast": {
+        "lead": "authored-0000",
+        "antagonist": "authored-0001",
+        "support": "authored-0005"
+      }
+    },
+    "secondTake": {
+      "eventId": "first-take-event-32",
+      "week": 74,
+      "productionId": "prod-0065",
+      "studioId": "studio-de11f27b-player",
+      "directorId": "authored-0006",
+      "cast": {
+        "lead": "authored-0000",
+        "antagonist": "authored-0001",
+        "support": "authored-0005"
+      }
+    },
+    "firstReleaseWeek": 65,
+    "secondReleaseWeek": 78,
+    "cancellationWeek": 61,
+    "returnedProject": {
+      "id": "script-0000",
+      "status": "ready",
+      "productionId": null
+    }
+  },
+  "bounds": {
+    "actualTickCap": 78,
+    "runtimeAdvanceCap": 0,
+    "rawArtifactBytes": 16777216,
+    "outputManifestBytes": 1048576,
+    "directoryBytes": 134217728,
+    "runtimeLimits": {
+      "maxCheckpointBytes": 201326592,
+      "maxJournalEntries": 512,
+      "maxJournalBytes": 67108864
+    }
+  },
+  "scope": "New current39/54 capture from unchanged helper. Ordinary automatic effects retained. No P4/P5 activation, fact backfill, alternate seed, funding, added crew or runtime advance.",
+  "journalAuthority": "Full canonical request/response strings live once in the actual runtime checkpoint journal; manifest index/route/commandId/byte/hash joins preserve exact authority without duplication.",
+  "qualification": "Requires successful parent-recorded capture/fixed-source closure, these exact outputs and independent review. Incomplete outputs remain failed and are never reused.",
+  "guardBoundary": "All work, both store closes and six artifact checks precede this final manifest write; parent recorder guards through process closure."
+}
