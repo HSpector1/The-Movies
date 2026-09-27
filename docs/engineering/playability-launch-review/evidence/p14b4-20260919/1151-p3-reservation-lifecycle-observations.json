@@ -1,0 +1,420 @@
+{
+  "record": "1151-p3-reservation-lifecycle-core",
+  "run": {
+    "sourceSha": "2f8cae9d1b285a642e49c90e367f89b163cb5c4f",
+    "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSource": [],
+    "command": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p3-directing-promises.test.ts",
+      "--testNamePattern",
+      "D(?:09|10|11|13W) "
+    ],
+    "node": "v20.20.2",
+    "start": "2026-09-27T13:30:44.462Z",
+    "end": "2026-09-27T13:31:31.669Z",
+    "exitCode": 1,
+    "signal": null,
+    "error": null,
+    "sourceShaAtEnd": "2f8cae9d1b285a642e49c90e367f89b163cb5c4f",
+    "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSourceAtEnd": [],
+    "fixedSource": true
+  },
+  "types": {
+    "sourceSha": "2f8cae9d1b285a642e49c90e367f89b163cb5c4f",
+    "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSource": [],
+    "command": [
+      "node_modules/.bin/tsc",
+      "--noEmit"
+    ],
+    "node": "v20.20.2",
+    "start": "2026-09-27T13:29:22.637Z",
+    "end": "2026-09-27T13:30:17.692Z",
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "sourceShaAtEnd": "2f8cae9d1b285a642e49c90e367f89b163cb5c4f",
+    "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSourceAtEnd": [],
+    "fixedSource": true
+  },
+  "publicationGates": [
+    {
+      "sourceSha": "2f8cae9d1b285a642e49c90e367f89b163cb5c4f",
+      "remoteSha": "2f8cae9d1b285a642e49c90e367f89b163cb5c4f",
+      "observedAt": "2026-09-27T13:29:17.309354+00:00",
+      "consumedSourceClean": true,
+      "wholeWorktreeClean": true,
+      "wholeWorktreeStatus": "",
+      "result": "PASS",
+      "nextRun": "1150-p3-reservation-lifecycle-root-types"
+    },
+    {
+      "sourceSha": "2f8cae9d1b285a642e49c90e367f89b163cb5c4f",
+      "remoteSha": "2f8cae9d1b285a642e49c90e367f89b163cb5c4f",
+      "observedAt": "2026-09-27T13:30:34.350700+00:00",
+      "consumedSourceClean": true,
+      "wholeWorktreeClean": false,
+      "wholeWorktreeStatus": "?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1150-p3-publication-gate.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1150-p3-reservation-lifecycle-root-types.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1150-p3-reservation-lifecycle-root-types.patch\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1150-p3-reservation-lifecycle-root-types.txt\n",
+      "rootTypes": "1150 PASS child0 fixedSource",
+      "result": "PASS",
+      "nextRun": "1151-p3-reservation-lifecycle-core"
+    }
+  ],
+  "result": {
+    "files": 1,
+    "failedFiles": 1,
+    "cases": 14,
+    "passed": 2,
+    "failed": 2,
+    "filtered": 10,
+    "todo": 0,
+    "unhandledErrorDiagnostic": false,
+    "wrapperSeconds": 47.207,
+    "vitestSeconds": 45.78,
+    "testMilliseconds": 41537
+  },
+  "passedLeaves": [
+    {
+      "id": "D09 reserves the actual union and freezes a changed receipt without restamping its root",
+      "milliseconds": 16453
+    },
+    {
+      "id": "D13W refuses a nonaccepted receipt on an actual Director waiver successor",
+      "milliseconds": 4139
+    }
+  ],
+  "failures": [
+    {
+      "id": "tests/p14p3-directing-promises.test.ts > P3 third slice: reservations, profession chronology and successor proof > D10 keeps a newly bound Director obligation lawful after its completed Actor episode",
+      "primary": "AssertionError: expected { promiseId: 'promise-60', …(16) } to deeply equal { promiseId: 'promise-60', …(16) }\n\n- Expected\n+ Received\n\n  Object {\n    \"beneficiaryPersonId\": \"authored-0000\",\n    \"contractId\": \"studio-de11f27b-player:contract:authored-0000:260:player-57\",\n    \"dueWeekExclusive\": 300,\n    \"evidenceRefs\": Array [],\n    \"family\": \"DIRECTING_COUNT\",\n    \"feasibilityReceipt\": Object {\n      \"bottleneck\": null,\n      \"classification\": \"REASONABLY_ACHIEVABLE\",\n      \"inputsDigest\": \"bbc588b3db0602a8\",\n      \"rulesVersion\": 6,\n      \"week\": 260,\n    },\n    \"issuerStudioId\": \"studio-de11f27b-player\",\n-   \"outcome\": null,\n-   \"outcomeCause\": null,\n-   \"outcomeEventId\": null,\n-   \"outcomeWeek\": null,\n+   \"outcome\": \"VOIDED\",\n+   \"outcomeCause\": \"retirement closed new production assignments before the remaining promised pictures could begin filming\",\n+   \"outcomeEventId\": \"talent-market-event-188\",\n+   \"outcomeWeek\": 261,\n    \"predicate\": Object {\n      \"count\": 1,\n      \"kind\": \"directorCount\",\n    },\n    \"progress\": 0,\n    \"promiseId\": \"promise-60\",\n    \"supersededByPromiseId\": null,\n    \"version\": 6,\n    \"windowStartWeek\": 260,\n  }",
+      "primaryBytes": 1159,
+      "primarySha256": "e0356d27ef5ad912f343eadb51680e51d11da62e95c62d99a6e9b977fd6eb1d5",
+      "fullDiagnosticTail": "AssertionError: expected { promiseId: 'promise-60', …(16) } to deeply equal { promiseId: 'promise-60', …(16) }\n\n- Expected\n+ Received\n\n  Object {\n    \"beneficiaryPersonId\": \"authored-0000\",\n    \"contractId\": \"studio-de11f27b-player:contract:authored-0000:260:player-57\",\n    \"dueWeekExclusive\": 300,\n    \"evidenceRefs\": Array [],\n    \"family\": \"DIRECTING_COUNT\",\n    \"feasibilityReceipt\": Object {\n      \"bottleneck\": null,\n      \"classification\": \"REASONABLY_ACHIEVABLE\",\n      \"inputsDigest\": \"bbc588b3db0602a8\",\n      \"rulesVersion\": 6,\n      \"week\": 260,\n    },\n    \"issuerStudioId\": \"studio-de11f27b-player\",\n-   \"outcome\": null,\n-   \"outcomeCause\": null,\n-   \"outcomeEventId\": null,\n-   \"outcomeWeek\": null,\n+   \"outcome\": \"VOIDED\",\n+   \"outcomeCause\": \"retirement closed new production assignments before the remaining promised pictures could begin filming\",\n+   \"outcomeEventId\": \"talent-market-event-188\",\n+   \"outcomeWeek\": 261,\n    \"predicate\": Object {\n      \"count\": 1,\n      \"kind\": \"directorCount\",\n    },\n    \"progress\": 0,\n    \"promiseId\": \"promise-60\",\n    \"supersededByPromiseId\": null,\n    \"version\": 6,\n    \"windowStartWeek\": 260,\n  }\n\n ❯ tests/p14p3-directing-promises.test.ts:769:17\n    767|     const after = lifecycle261(), row = currentRow(after.state, after.…\n    768|     expect(after.state.market.tick).toBe(261)\n    769|     expect(row).toEqual(boundRow)\n       |                 ^\n    770|     expect(outcomesFor(after.state, row)).toEqual(outcomesFor(boundNow…\n    771|     expect(after.state.contracts.find(c => c.talentId === LIFE.directo…",
+      "fullDiagnosticTailBytes": 1585,
+      "fullDiagnosticTailSha256": "56e815ee86ab010b45698309e63dc2465d04ebdb0ea9ad062952a0698aa15a80",
+      "printedFrames": [
+        "tests/p14p3-directing-promises.test.ts:769:17"
+      ]
+    },
+    {
+      "id": "tests/p14p3-directing-promises.test.ts > P3 third slice: reservations, profession chronology and successor proof > D11 preserves promise outcomes through actual current-profession retirement",
+      "primary": "AssertionError: expected { promiseId: 'promise-60', …(16) } to deeply equal { promiseId: 'promise-60', …(16) }\n\n- Expected\n+ Received\n\n  Object {\n    \"beneficiaryPersonId\": \"authored-0000\",\n    \"contractId\": \"studio-de11f27b-player:contract:authored-0000:260:player-57\",\n    \"dueWeekExclusive\": 300,\n    \"evidenceRefs\": Array [],\n    \"family\": \"DIRECTING_COUNT\",\n    \"feasibilityReceipt\": Object {\n      \"bottleneck\": null,\n      \"classification\": \"REASONABLY_ACHIEVABLE\",\n      \"inputsDigest\": \"bbc588b3db0602a8\",\n      \"rulesVersion\": 6,\n      \"week\": 260,\n    },\n    \"issuerStudioId\": \"studio-de11f27b-player\",\n-   \"outcome\": null,\n-   \"outcomeCause\": null,\n-   \"outcomeEventId\": null,\n-   \"outcomeWeek\": null,\n+   \"outcome\": \"VOIDED\",\n+   \"outcomeCause\": \"retirement closed new production assignments before the remaining promised pictures could begin filming\",\n+   \"outcomeEventId\": \"talent-market-event-188\",\n+   \"outcomeWeek\": 261,\n    \"predicate\": Object {\n      \"count\": 1,\n      \"kind\": \"directorCount\",\n    },\n    \"progress\": 0,\n    \"promiseId\": \"promise-60\",\n    \"supersededByPromiseId\": null,\n    \"version\": 6,\n    \"windowStartWeek\": 260,\n  }",
+      "primaryBytes": 1159,
+      "primarySha256": "e0356d27ef5ad912f343eadb51680e51d11da62e95c62d99a6e9b977fd6eb1d5",
+      "fullDiagnosticTail": "AssertionError: expected { promiseId: 'promise-60', …(16) } to deeply equal { promiseId: 'promise-60', …(16) }\n\n- Expected\n+ Received\n\n  Object {\n    \"beneficiaryPersonId\": \"authored-0000\",\n    \"contractId\": \"studio-de11f27b-player:contract:authored-0000:260:player-57\",\n    \"dueWeekExclusive\": 300,\n    \"evidenceRefs\": Array [],\n    \"family\": \"DIRECTING_COUNT\",\n    \"feasibilityReceipt\": Object {\n      \"bottleneck\": null,\n      \"classification\": \"REASONABLY_ACHIEVABLE\",\n      \"inputsDigest\": \"bbc588b3db0602a8\",\n      \"rulesVersion\": 6,\n      \"week\": 260,\n    },\n    \"issuerStudioId\": \"studio-de11f27b-player\",\n-   \"outcome\": null,\n-   \"outcomeCause\": null,\n-   \"outcomeEventId\": null,\n-   \"outcomeWeek\": null,\n+   \"outcome\": \"VOIDED\",\n+   \"outcomeCause\": \"retirement closed new production assignments before the remaining promised pictures could begin filming\",\n+   \"outcomeEventId\": \"talent-market-event-188\",\n+   \"outcomeWeek\": 261,\n    \"predicate\": Object {\n      \"count\": 1,\n      \"kind\": \"directorCount\",\n    },\n    \"progress\": 0,\n    \"promiseId\": \"promise-60\",\n    \"supersededByPromiseId\": null,\n    \"version\": 6,\n    \"windowStartWeek\": 260,\n  }\n\n ❯ tests/p14p3-directing-promises.test.ts:821:62\n    819|     const at260 = lifecycle260(), at261 = lifecycle261(), end = lifecy…\n    820|     const original = currentRow(at260.state, at260.directorPromiseId)\n    821|     expect(currentRow(at261.state, at261.directorPromiseId)).toEqual(o…\n       |                                                              ^\n    822|     const due = currentRow(end.at300, end.directorPromiseId)\n    823|     expect(due).toMatchObject({ outcome: 'BROKEN', outcomeWeek: 300, p…",
+      "fullDiagnosticTailBytes": 1681,
+      "fullDiagnosticTailSha256": "babdf1e467461f12c105bf5c3657ddc85f6c3872a5828c170c2f829125be4056",
+      "printedFrames": [
+        "tests/p14p3-directing-promises.test.ts:821:62"
+      ]
+    }
+  ],
+  "comparison": {
+    "failurePrimariesLiteralEqual": true,
+    "sharedFailHeader": false,
+    "fullTailsEqual": false,
+    "stackScope": "Only the frames and excerpts actually printed by Vitest; no complete runtime stack inferred."
+  },
+  "markers": {
+    "1133-P3-LEGACY4": {
+      "week": 8,
+      "rngState": "1557239868,672280863,464522958,2878174094",
+      "receipts": [
+        {
+          "draft": {
+            "family": "APPEARANCE_COUNT",
+            "predicate": {
+              "count": 1
+            },
+            "issuerStudioId": "studio-de11f27b-player",
+            "beneficiaryPersonId": "authored-0006",
+            "startWeek": 52,
+            "termWeeks": 104,
+            "windowStartWeek": 52,
+            "dueWeekExclusive": 112
+          },
+          "receipt": {
+            "classification": "REASONABLY_ACHIEVABLE",
+            "bottleneck": null,
+            "inputsDigest": "9a5006d1107172a3",
+            "rulesVersion": 4,
+            "week": 8
+          }
+        },
+        {
+          "draft": {
+            "family": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+            "predicate": {
+              "kind": "castRoleCount",
+              "count": 1,
+              "seatClass": "lead"
+            },
+            "issuerStudioId": "studio-de11f27b-player",
+            "beneficiaryPersonId": "authored-0006",
+            "startWeek": 52,
+            "termWeeks": 104,
+            "windowStartWeek": 52,
+            "dueWeekExclusive": 112
+          },
+          "receipt": {
+            "classification": "REASONABLY_ACHIEVABLE",
+            "bottleneck": null,
+            "inputsDigest": "3dbf55ccb67dfa2c",
+            "rulesVersion": 4,
+            "week": 8
+          }
+        }
+      ]
+    },
+    "1149-P3-RESERVATIONS": {
+      "rivalClassification": "FRAGILE",
+      "scriptIds": [
+        "script-0000",
+        "script-0001"
+      ],
+      "boundWeek": 260,
+      "castId": "promise-59",
+      "directorId": "promise-60",
+      "prices": {
+        "authored-0000": {
+          "annualSalary": 562930,
+          "signingBonus": 101327
+        },
+        "authored-0002": {
+          "annualSalary": 588320,
+          "signingBonus": 105898
+        }
+      }
+    },
+    "1149-P3-WAIVER-CHAIN": {
+      "week": 61,
+      "ids": [
+        "promise-0",
+        "promise-1",
+        "promise-2"
+      ],
+      "windows": [
+        62,
+        63
+      ],
+      "due": 104
+    },
+    "1149-P3-CONTINUITY-COUNTERS": {
+      "playerCalls": 208,
+      "playerCap": 208,
+      "branches": [
+        {
+          "name": "cancelBefore",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": null
+        },
+        {
+          "name": "cancelAfter",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": null
+        },
+        {
+          "name": "waiver",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": 61
+        }
+      ],
+      "total": 364,
+      "cap": 556,
+      "lifecycleCalls": 156,
+      "lifecycleCap": 156,
+      "selectedCap": 364
+    },
+    "1143-P3-OUTCOME-COUNTERS": {
+      "playerCalls": 208,
+      "playerCap": 208,
+      "branches": [
+        {
+          "name": "cancelBefore",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": null
+        },
+        {
+          "name": "cancelAfter",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": null
+        },
+        {
+          "name": "waiver",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": 61
+        }
+      ],
+      "total": 208,
+      "cap": 400
+    },
+    "1133-P3-COUNTERS": {
+      "actualTicks": 208,
+      "cap": 208,
+      "cachedPhases": [
+        {
+          "name": "created0",
+          "completed": true
+        },
+        {
+          "name": "managedEmpty8",
+          "completed": true
+        },
+        {
+          "name": "ready10",
+          "completed": true
+        },
+        {
+          "name": "cases45",
+          "completed": true
+        },
+        {
+          "name": "lifecycle208",
+          "completed": true
+        },
+        {
+          "name": "lifecycle248",
+          "completed": true
+        },
+        {
+          "name": "lifecycleAttached248",
+          "completed": true
+        },
+        {
+          "name": "lifecycle260",
+          "completed": true
+        },
+        {
+          "name": "lifecycle261",
+          "completed": true
+        },
+        {
+          "name": "attached45",
+          "completed": true
+        },
+        {
+          "name": "bound52",
+          "completed": true
+        },
+        {
+          "name": "firstFilm",
+          "completed": true
+        },
+        {
+          "name": "secondFilm",
+          "completed": true
+        },
+        {
+          "name": "terminal208",
+          "completed": true
+        },
+        {
+          "name": "lifecycle364",
+          "completed": true
+        },
+        {
+          "name": "waiverInput",
+          "completed": true
+        },
+        {
+          "name": "waived61",
+          "completed": true
+        }
+      ]
+    }
+  },
+  "legacyMarker": {
+    "current": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1151-p3-legacy4-markers.txt",
+      "bytes": 851,
+      "sha256": "182cf54d3a2fbb8bb2fc55cf74e97e220923d634ef454b816d3770d12dcb055e"
+    },
+    "literalEqualReferences": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1135-p3-legacy4-markers.txt",
+        "bytes": 851,
+        "sha256": "182cf54d3a2fbb8bb2fc55cf74e97e220923d634ef454b816d3770d12dcb055e"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1141-p3-legacy4-markers.txt",
+        "bytes": 851,
+        "sha256": "182cf54d3a2fbb8bb2fc55cf74e97e220923d634ef454b816d3770d12dcb055e"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1145-p3-legacy4-markers.txt",
+        "bytes": 851,
+        "sha256": "182cf54d3a2fbb8bb2fc55cf74e97e220923d634ef454b816d3770d12dcb055e"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1147-p3-legacy4-markers.txt",
+        "bytes": 851,
+        "sha256": "182cf54d3a2fbb8bb2fc55cf74e97e220923d634ef454b816d3770d12dcb055e"
+      }
+    ]
+  },
+  "inputs": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1150-p3-reservation-lifecycle-root-types.json",
+      "bytes": 603,
+      "sha256": "198499f1f3664b3ab52ede21a2f700c9a58c66484abb65604fe65f37536bdaa8"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1150-p3-reservation-lifecycle-root-types.txt",
+      "bytes": 319,
+      "sha256": "57d49185197cba4c8c6996351809443629c91faa5b1d24d7ba1868cd7212451c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1150-p3-reservation-lifecycle-root-types.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1150-p3-publication-gate.json",
+      "bytes": 340,
+      "sha256": "f9ca414ab1e1c5042e175cefe8e57ceae8d45957391dc75604de29f05d941049"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1151-p3-reservation-lifecycle-core.json",
+      "bytes": 727,
+      "sha256": "3300b2225cfb33d8ed58fd01ca9d34f5b1c44384afffd4446a85ed0befdd96d5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1151-p3-reservation-lifecycle-core.txt",
+      "bytes": 8674,
+      "sha256": "3d34ecd4fdbb80f4b0aaaaed32a368dfd2d92658d668c1e3a73826426ee6b30a"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1151-p3-reservation-lifecycle-core.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1151-p3-publication-gate.json",
+      "bytes": 834,
+      "sha256": "92c414f1096823001b6d4536b0df1e0da8afd3c990b95879aac1ef04e41eb39a"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1149-p3-reservation-lifecycle.manifest.json",
+      "bytes": 2305,
+      "sha256": "690ddb43d411736bcc5ba79229f1b1c5900cb22d8642c4b6e234cffbb05649a7"
+    }
+  ],
+  "limits": [
+    "Ten existing leaves are filtered, not requalified by this selection.",
+    "D10 fails before requested-profession dispatch assertions, retirement-window quote/digest controls and held/post-take controls.",
+    "D11 constructs actual lifecycle364 before failing at261; due300 and final364 outcome/trust/idempotence assertions remain unreached.",
+    "Actual rival attachment in D09 is core-public FRAGILE authority; automatic rival authorship, recruitment or work is not proved."
+  ]
+}

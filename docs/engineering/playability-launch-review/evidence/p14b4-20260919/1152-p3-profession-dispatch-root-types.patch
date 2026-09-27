@@ -1,0 +1,16 @@
+diff --git a/src/core/promises.ts b/src/core/promises.ts
+index 6c3c0261..36ce25a0 100644
+--- a/src/core/promises.ts
++++ b/src/core/promises.ts
+@@ -867,7 +867,10 @@ function rivalUncappedPromiseCapacity(state: GameState, promise: ProfessionalPro
+  * Future extensions do not postpone the check: they decide at the carrying
+  * contract's expiry, at or after this promise's unchanged exclusive deadline. */
+ function retirementVoidsPromise(state: GameState, promise: ProfessionalPromise, week: number, remaining: number): boolean {
+-  if (remaining === 0 || assignmentRefusal(state, promise.beneficiaryPersonId, week, 'actor') === null) return false
++  // Admission reads the current profession and the work this promise requests.
++  // A completed Actor episode does not close an otherwise lawful Director seat.
++  const requestedRole = isDirectorPromise(promise) ? 'director' : 'actor'
++  if (remaining === 0 || assignmentRefusal(state, promise.beneficiaryPersonId, week, requestedRole) === null) return false
+   const committed = committedPromiseSeats(state, promise).filter((production) =>
+     Math.max(promise.windowStartWeek, earliestTakeWeek(production, week)) < promise.dueWeekExclusive)
+   if (committed.length >= remaining) return false

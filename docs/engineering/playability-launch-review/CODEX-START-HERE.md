@@ -1,5 +1,23 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — profession dispatch correction typed; unchanged four-leaf run next
+
+1152 rootcompilerPASS on published7ae721ab29314ee7592ef1a55fd3db3a1324013e
+plus1246B/21b132f05456260812c4f7f3789a12973f55e2365dd0fa43e00ef1abe2587073.
+Actual13:33:54.476–13:34:44.579UTC,50.103s, child0/fixedSource:true, no
+untracked consumed source/signal/error. The one-file correction requests Director
+for explicit directing promises in retirement disposition. Existing admission still
+checks both current and requested professions; older casting behavior is unchanged.
+
+1151's observed erroneous VOIDED261, two PASS/two FAIL,364 calls and masked later
+assertions remain preserved. Raw records are published at7ae721ab; final1151-A/B
+and1152-B KEEP reviews are frozen and verified. Frozen1149 test/helper source is unchanged.
+Publish only final frozen attribution/review/correction, exactremoteverify, then
+1153's identical `D(?:09|10|11|13W) ` argv after successful dependent preflight.
+No corrected behavior result is claimed. Parent alone owns production/heavy work;
+none active now. Existing author has docs-only1154 rival plan; no source released.
+All remaining P3, consumer and P14 onward work remains authorized with prior limits.
+
 ## CURRENT — actual retirement-dispatch failure preserved; matching one-file correction
 
 1150 root compiler PASS on published2f8cae9d1b285a642e49c90e367f89b163cb5c4f,
