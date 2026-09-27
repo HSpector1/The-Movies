@@ -7,6 +7,7 @@ import { withResearchFoundation } from '../../core/researchPeople.js'
 import { buildTalentProvenance } from '../../core/aging.js'
 import { initialCareerLifecycle } from '../../core/careerLifecycle.js'
 import { stableStringify, validateTalentProvenanceRoot } from '../../core/save.js'
+import { validateFirstTakeSubjects } from '../../core/firstTakeSubjects.js'
 import { SKILL_ORDER, GENRE_ORDER } from '../../core/tuning.js'
 import type { GameState, GameStateV18 } from '../../core/types.js'
 export { beginFoundingHistoricalControl as beginFounding } from '../../core/employment.js'
@@ -41,6 +42,7 @@ export function liftV18Control(state:GameStateV18):GameState { const cloned=stru
   // promise — the two empty roots, exactly what the real lift writes.
   // P14B.5 (Save V31): it shares no work — the empty relationship root.
   firstTakes:[],promises:[],relationships:[],
+  firstTakeSubjects:{version:1,cutoverOrdinal:0,facts:[]},
   // P14C.1 (Save V33): one `legacy_age_anchor` per person, anchored on the control's
   // OWN EXISTING age UNROUNDED at `boundaryWeek = market.tick`. The anchor is where the
   // pre-C.1 fact is preserved; `talent` above stores each floor of it, so the lifted
@@ -53,12 +55,17 @@ export function liftV18Control(state:GameStateV18):GameState { const cloned=stru
 export function historicalHashState<T extends object>(state:T):object {
   if(!('technology' in state) && !('hollywood' in state) && !('physicalPlans' in state) && !('talentMarket' in state)
     && !('firstTakes' in state) && !('promises' in state) && !('relationships' in state) && !('talentProvenance' in state)
-    && !('careerLifecycle' in state))return state
+    && !('careerLifecycle' in state) && !('firstTakeSubjects' in state))return state
   if('hollywood' in state && state.hollywood!==null)throw new Error('Historical hash cannot discard a living industry')
   // P14B.1: the control records no qualifying event and no commitment; an empty
   // pair of roots is the only lawful shape to discard. P14B.5: nor any edge.
   for(const key of ['firstTakes','promises','relationships'] as const) {
     if(key in state && (state as Partial<GameState>)[key]?.length!==0)throw new Error(`Historical hash cannot discard ${key} authority`)
+  }
+  if ('firstTakeSubjects' in state) {
+    // Prove the complete suffix before dropping this necessarily empty control root.
+    validateFirstTakeSubjects(state as Record<string, unknown>)
+    if ((state as Partial<GameState>).firstTakeSubjects?.facts.length !== 0) throw new Error('Historical hash cannot discard first-take subject authority')
   }
   if ('technology' in state) {
     const technology = state.technology as GameState['technology']
@@ -101,7 +108,7 @@ export function historicalHashState<T extends object>(state:T):object {
     if (((state as Partial<GameState>).careerLifecycle?.cohorts?.length ?? 0) !== 0) throw new Error('Historical hash cannot discard cohort receipt authority')
   }
   const {hollywood: _control, technology: _research, physicalPlans: _plans, talentMarket: _market,
-    firstTakes: _takes, promises: _promises, relationships: _relationships, talentProvenance: _provenance,
+    firstTakes: _takes, firstTakeSubjects: _subjects, promises: _promises, relationships: _relationships, talentProvenance: _provenance,
     careerLifecycle: _lifecycle, ...frozen}=state as Partial<GameState>
   if (frozen.operations) {
     // P13B S5-R07: the live workflow carries `setup`/`planRevision`; a historical control never selected a recipe, so the only lawful

@@ -68,11 +68,15 @@ export function opportunityFeasibilityInputs(state: GameState, draft: PromiseDra
   const player = draft.issuerStudioId === state.hollywood?.playerStudioId
   const business = state.hollywood?.businesses.find(row => row.studioId === draft.issuerStudioId)
   return ['opportunityScope', draft.predicate,
-    owners(state).map(owner => [owner.studioId, owner.development, owner.productions]),
+    owners(state).map(owner => [owner.studioId, owner.development.mode,
+      owner.development.projects.map(row => [row.id, row.conceptId, row.status, row.writerId, row.writerIds,
+        row.dueWeek, row.assessment !== null, row.reservation, row.productionId]),
+      owner.productions.map(row => [row.id, row.conceptId, row.startTick, row.remainingTicks, row.directorId, row.cast, row.craftIds])]),
     state.concepts.map(row => [row.id, row.genre]), state.hollywood?.concepts.map(row => [row.id, row.genre]) ?? [],
     player ? state.castingSessions : null,
     player ? state.operations : business?.operations ?? null,
-    resourceClaimsOf(occupiedResourceSlots(player ? state : { operations: business?.operations, scriptDevelopment: business?.development }))
+    resourceClaimsOf(occupiedResourceSlots(player ? state : business === undefined ? {}
+      : { operations: business.operations, scriptDevelopment: business.development }))
       .map(row => [row.kind, row.facilityId, row.slot, row.capability, row.owner, row.ownerId]),
     // Rival staffing's actual busyTalentIds owner has no supported research release clock.
     player ? [] : state.technology.projects.filter(row => row.status === 'active')
@@ -105,7 +109,8 @@ function resourceUncertainty(state: GameState, issuer: string, project: ScriptPr
   const player = issuer === state.hollywood?.playerStudioId
   const business = state.hollywood?.businesses.find(row => row.studioId === issuer)
   const operations = player ? state.operations : business?.operations
-  const claims = resourceClaimsOf(occupiedResourceSlots(player ? state : { operations, scriptDevelopment: business?.development }))
+  const claims = resourceClaimsOf(occupiedResourceSlots(player ? state : business === undefined ? {}
+    : { operations: business.operations, scriptDevelopment: business.development }))
   const session = player && project !== null ? state.castingSessions.sessions.find(row => row.projectId === project.id) : undefined
   for (const capability of ['development-casting', 'soundstage', 'set-scenery', 'post'] as const) {
     const available = operations?.facilities.filter(row => row.capability === capability).some(facility =>

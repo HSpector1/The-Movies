@@ -1,0 +1,36 @@
+{
+  "time": "2026-09-27T19:15:13.326563+00:00",
+  "base": "ef38cf9a24b56dc9b462eeecdab05e4c4a4a0730",
+  "status": "Uncompiled followup corrections after actual1233 failure; no behavioral qualification.",
+  "compiler": "1233 child2/fixed source33.826s,43 diagnostics:4 core/harness and39 tests across25 paths.",
+  "changes": [
+    "Omit absent optional occupancy sources instead of passing undefined under exactOptionalPropertyTypes.",
+    "Profession reconciliation preserves its input shape generically and reads only lifecycle/industry; genuine38 migration does not require40 subject authority.",
+    "Historical roster control opens an empty cutover0 suffix and validates it before historical hash projection; real facts may not be discarded.",
+    "Fresh P5 attachment and strict40 retained rows require the exact issuer-owned screenplay; quote missing-target IMPOSSIBLE behavior remains.",
+    "Evaluator7 input identity reads relevant production/project authority rather than unrelated forecasts and budgets."
+  ],
+  "next": "Separate1235 historical test-caller fixes and review, then fresh root compiler. Initial P4/P5 test and full legacy baseline remain unchanged. Bridge55 and all behavioral qualification pending.",
+  "pins": [
+    {
+      "path": "src/core/opportunityPromises.ts",
+      "bytes": 21281,
+      "sha256": "423dfe9614cfa6ea68b3fa404c1d098a43d8ef50dba69ebc7e1ec294caddc7ad"
+    },
+    {
+      "path": "src/core/professionHistory.ts",
+      "bytes": 24313,
+      "sha256": "aa28b6283f9738726bc649d840e5a25e744671d614a04a804534992c6204fccf"
+    },
+    {
+      "path": "src/core/promises.ts",
+      "bytes": 110100,
+      "sha256": "4489e9ad16faad47d0f7cd8ab36b4a039c24151be8075b7cc35836aacfd670c2"
+    },
+    {
+      "path": "src/harness/roster-wall/historical-control.ts",
+      "bytes": 11061,
+      "sha256": "abd517c11c369cf160d28a57169f67b35f0632a5b2e7d2dbfb92cb28e5175046"
+    }
+  ]
+}

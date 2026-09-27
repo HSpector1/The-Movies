@@ -711,6 +711,12 @@ export function attachPromise(
   const director = isDirectorPredicate(draft.predicate)
   const opportunityRefusal = opportunityPredicateRefusal(draft.family, draft.predicate)
   if (opportunityRefusal !== null) throw new Error(`promises: ${opportunityRefusal}`)
+  if (isOpportunityPredicate(draft.predicate) && draft.predicate.kind === 'projectOpportunity') {
+    const projectId = draft.predicate.scriptProjectId
+    if (!takeSubjectOwner(state, issuerStudioId)?.development.projects.some(row => row.id === projectId)) {
+      throw new Error('promises: a named opportunity requires an existing script project of the issuing studio')
+    }
+  }
   if (draft.family === 'DIRECTING_COUNT' && !director) {
     throw new Error('promises: a fresh directing promise requires the explicit directorCount predicate')
   }
@@ -1654,6 +1660,10 @@ function validatePromiseRootsForVersion(state: unknown, saveVersion: 29 | 30 | 3
       if (refusal !== null) return fail(`${at}.predicate ${refusal}`)
       if (row.version !== OPPORTUNITY_PROMISE_RULES_VERSION) return fail(`${at}.version must be opportunity revision7`)
       qualifyingSlots = opportunitySlots(predicate as unknown as OpportunityPredicate)
+      if (predicate.kind === 'projectOpportunity' && !takeSubjectOwner(state as unknown as GameState, String(row.issuerStudioId))
+        ?.development.projects.some(project => project.id === predicate.scriptProjectId)) {
+        return fail(`${at}.predicate.scriptProjectId does not name a retained project of its issuing studio`)
+      }
     } else if (director) {
       exact(predicate, ['kind', 'count'], `${at}.predicate`)
       if (row.family !== 'DIRECTING_COUNT') return fail(`${at}.predicate.directorCount is only valid for DIRECTING_COUNT`)

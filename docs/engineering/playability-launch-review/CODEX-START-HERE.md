@@ -1,5 +1,26 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — First core compiler diagnosed; integration fixes staged
+
+Core draft ef38cf9a24b56dc9b462eeecdab05e4c4a4a0730 is published with exact GitHub
+identity.1233 root compiler failed child2/fixed source in33.826s:43 diagnostics,
+4 production/harness and39 tests across25 historical callers. Complete raw and
+exact source/manual/raw/index postflight are preserved. No runtime was released.
+
+Parent1231-B fixes the four production typing boundaries and tightens retained
+issuer/project authority; these corrections are not yet recompiled. The test
+specialist prepares separately reviewed1235 compatibility changes, preserving
+strict old-save proofs and real live migration. Any newer subject fact masking an
+old downgrade-refusal cause remains unqualified, never stripped for a test.
+The initial four P4/P5 bodies and1,226-byte legacy baseline are unchanged.
+
+1232 later binding/cast source is frozen under evidence, not installed or run;
+its exact47+47/94 cap and unchanged initial-body proof await final source review.
+No heavy is active. Parent alone owns production/integration/heavy execution.
+Bridge remains54;55 wire/generated/runtime/UI work and full1226 qualification
+are pending. Current40/54 is explicitly unqualified WIP. Continue the authorized
+program with settled P15 decisions and inherited limits; Unity/native deferred.
+
 ## CURRENT — Core P4/P5 draft checkpoint; compiler integration next
 
 1230 initial RED and baseline are published46122f5d53d977ad249d17ead1f4d881779f91b0,

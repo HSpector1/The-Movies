@@ -20,7 +20,7 @@ export type ProfessionValidationContext = Readonly<{
   entrantWeek(personId: string): number | undefined
 }>
 
-export function scheduleProfessionReconciliation(state: GameState): GameState {
+export function scheduleProfessionReconciliation<S extends Pick<GameState, 'careerLifecycle' | 'hollywood'>>(state: S): S {
   const root = state.careerLifecycle
   if (state.hollywood === null || root === undefined || root.transitionBoundaryWeek === undefined) return state
   const opening = Math.max(root.transitionBoundaryWeek, state.hollywood.originWeek)
