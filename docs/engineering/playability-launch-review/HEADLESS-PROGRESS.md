@@ -1,5 +1,31 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — P3 reservation and profession-continuity slice passes (2026-09-27)
+
+1153 passes all four selected D09/D10/D11/D13W leaves on published production
+75d70e18c6e0c05d8a64144b91b96025138d95a7. Actual13:39:47.041–13:40:45.652UTC,
+58.611s, child0/fixedSource:true/empty consumed diff, no untracked source/signal/error.
+Successful separate preflight records exactremote/cleanconsumed; wholeworktreefalse
+is only the docs-only1154 plan. Ten prior declarations were filtered and retain
+qualification at their own earlier sources, not a new all-fourteen result here.
+
+All364 calls=208player+156life and17 caches complete. D09 proves actual same-person/
+shared-issuer reservations and real P1root4→acceptedreceipt6 settlement at260.
+D10 now keeps genuine new Director work open261 after old Actor retirement208,
+checks actual requested-Director dispatch and current notice364/E416 quote/digest
+boundaries. D11 reaches genuine missed due300/BROKEN and preserves it at364,
+plus earlier player SATISFIED history through actual Actor notice/retirement.
+D13W passes accepted-receipt negatives and real A→B→C/duplicate-target proof.
+Literal851B old4 marker stays1135-equal. No natural open-at-current-E VOIDED
+witness or tick beyond364 is claimed. Earlier1151 failures remain preserved.
+
+1153-A and direct-evidence1153-B KEEP are final and frozen; B explicitly predates
+A handback and is not labelled an A cross-review. Existing author/reviewer prepare1154's exact fixed rivalD07/D18 plan, then reviewed source release. No rival
+trajectory has run. Parent remains sole production writer/integrator/heavy executor;
+none active now. Preserve unchanged1149 bodies, source identities and all limits.
+Projection54/Bridge/UI/runtime, broader consumer/final qualification and P14 onward
+remain pending. Projection remains53/protocol4; Unity/native and Owner remain deferred.
+
 ## CURRENT — P3 cancellation and forward waiver slice passes (2026-09-27)
 
 1147 passes both D08/D12 leaves on published7fed8f51359c1243ed6cdc4b6f70e3ecdde8935e.

@@ -1,0 +1,12 @@
+{
+  "sourceSha": "75d70e18c6e0c05d8a64144b91b96025138d95a7",
+  "remoteSha": "75d70e18c6e0c05d8a64144b91b96025138d95a7",
+  "observedAt": "2026-09-27T13:39:33.964719+00:00",
+  "consumedSourceClean": true,
+  "wholeWorktreeClean": false,
+  "wholeWorktreeStatus": "?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1154-A-p3-fixed-rival-next-slice-plan.md\n",
+  "rootTypes": "1152 PASS on prepublication exact patch",
+  "sourceReview": "1152-B final KEEP",
+  "result": "PASS",
+  "nextRun": "1153-p3-reservation-lifecycle-core"
+}

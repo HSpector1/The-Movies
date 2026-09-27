@@ -1,0 +1,425 @@
+{
+  "record": "1153-p3-reservation-lifecycle-core",
+  "run": {
+    "sourceSha": "75d70e18c6e0c05d8a64144b91b96025138d95a7",
+    "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSource": [],
+    "command": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p3-directing-promises.test.ts",
+      "--testNamePattern",
+      "D(?:09|10|11|13W) "
+    ],
+    "node": "v20.20.2",
+    "start": "2026-09-27T13:39:47.041Z",
+    "end": "2026-09-27T13:40:45.652Z",
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "sourceShaAtEnd": "75d70e18c6e0c05d8a64144b91b96025138d95a7",
+    "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSourceAtEnd": [],
+    "fixedSource": true
+  },
+  "types": {
+    "sourceSha": "7ae721ab29314ee7592ef1a55fd3db3a1324013e",
+    "testedDiffSha256": "21b132f05456260812c4f7f3789a12973f55e2365dd0fa43e00ef1abe2587073",
+    "untrackedSource": [],
+    "command": [
+      "node_modules/.bin/tsc",
+      "--noEmit"
+    ],
+    "node": "v20.20.2",
+    "start": "2026-09-27T13:33:54.476Z",
+    "end": "2026-09-27T13:34:44.579Z",
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "sourceShaAtEnd": "7ae721ab29314ee7592ef1a55fd3db3a1324013e",
+    "testedDiffSha256AtEnd": "21b132f05456260812c4f7f3789a12973f55e2365dd0fa43e00ef1abe2587073",
+    "untrackedSourceAtEnd": [],
+    "fixedSource": true
+  },
+  "publicationGate": {
+    "sourceSha": "75d70e18c6e0c05d8a64144b91b96025138d95a7",
+    "remoteSha": "75d70e18c6e0c05d8a64144b91b96025138d95a7",
+    "observedAt": "2026-09-27T13:39:33.964719+00:00",
+    "consumedSourceClean": true,
+    "wholeWorktreeClean": false,
+    "wholeWorktreeStatus": "?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1154-A-p3-fixed-rival-next-slice-plan.md\n",
+    "rootTypes": "1152 PASS on prepublication exact patch",
+    "sourceReview": "1152-B final KEEP",
+    "result": "PASS",
+    "nextRun": "1153-p3-reservation-lifecycle-core"
+  },
+  "result": {
+    "files": 1,
+    "passedFiles": 1,
+    "cases": 14,
+    "passed": 4,
+    "failed": 0,
+    "filtered": 10,
+    "todo": 0,
+    "unhandledErrorDiagnostic": false,
+    "wrapperSeconds": 58.611,
+    "vitestSeconds": 57.37,
+    "testMilliseconds": 53239
+  },
+  "passedLeaves": [
+    {
+      "id": "P3 third slice: reservations, profession chronology and successor proof > D09 reserves the actual union and freezes a changed receipt without restamping its root",
+      "milliseconds": 17314
+    },
+    {
+      "id": "P3 third slice: reservations, profession chronology and successor proof > D10 keeps a newly bound Director obligation lawful after its completed Actor episode",
+      "milliseconds": 11658
+    },
+    {
+      "id": "P3 third slice: reservations, profession chronology and successor proof > D11 preserves promise outcomes through actual current-profession retirement",
+      "milliseconds": 18683
+    },
+    {
+      "id": "P3 third slice: reservations, profession chronology and successor proof > D13W refuses a nonaccepted receipt on an actual Director waiver successor",
+      "milliseconds": 5581
+    }
+  ],
+  "failureComparisonAgainst1151": {
+    "new": [],
+    "retained": [],
+    "changed": [],
+    "vanished": [
+      "tests/p14p3-directing-promises.test.ts > P3 third slice: reservations, profession chronology and successor proof > D10 keeps a newly bound Director obligation lawful after its completed Actor episode",
+      "tests/p14p3-directing-promises.test.ts > P3 third slice: reservations, profession chronology and successor proof > D11 preserves promise outcomes through actual current-profession retirement"
+    ],
+    "scope": "Exact same four selected leaf identities; each former failure is explicitly printed PASS. No diagnostic body or stack exists to compare on this run."
+  },
+  "markers": {
+    "1133-P3-LEGACY4": {
+      "week": 8,
+      "rngState": "1557239868,672280863,464522958,2878174094",
+      "receipts": [
+        {
+          "draft": {
+            "family": "APPEARANCE_COUNT",
+            "predicate": {
+              "count": 1
+            },
+            "issuerStudioId": "studio-de11f27b-player",
+            "beneficiaryPersonId": "authored-0006",
+            "startWeek": 52,
+            "termWeeks": 104,
+            "windowStartWeek": 52,
+            "dueWeekExclusive": 112
+          },
+          "receipt": {
+            "classification": "REASONABLY_ACHIEVABLE",
+            "bottleneck": null,
+            "inputsDigest": "9a5006d1107172a3",
+            "rulesVersion": 4,
+            "week": 8
+          }
+        },
+        {
+          "draft": {
+            "family": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+            "predicate": {
+              "kind": "castRoleCount",
+              "count": 1,
+              "seatClass": "lead"
+            },
+            "issuerStudioId": "studio-de11f27b-player",
+            "beneficiaryPersonId": "authored-0006",
+            "startWeek": 52,
+            "termWeeks": 104,
+            "windowStartWeek": 52,
+            "dueWeekExclusive": 112
+          },
+          "receipt": {
+            "classification": "REASONABLY_ACHIEVABLE",
+            "bottleneck": null,
+            "inputsDigest": "3dbf55ccb67dfa2c",
+            "rulesVersion": 4,
+            "week": 8
+          }
+        }
+      ]
+    },
+    "1149-P3-RESERVATIONS": {
+      "rivalClassification": "FRAGILE",
+      "scriptIds": [
+        "script-0000",
+        "script-0001"
+      ],
+      "boundWeek": 260,
+      "castId": "promise-59",
+      "directorId": "promise-60",
+      "prices": {
+        "authored-0000": {
+          "annualSalary": 562930,
+          "signingBonus": 101327
+        },
+        "authored-0002": {
+          "annualSalary": 588320,
+          "signingBonus": 105898
+        }
+      }
+    },
+    "1149-P3-LIFECYCLE": {
+      "bound": 260,
+      "firstDisposition": 261,
+      "announced": 364,
+      "effective": 416,
+      "actorRetired": 208
+    },
+    "1149-P3-OUTCOME-HISTORY": {
+      "playerTerminal": 208,
+      "directorDue": 300,
+      "directorAnnouncement": 364,
+      "final": 364
+    },
+    "1149-P3-WAIVER-CHAIN": {
+      "week": 61,
+      "ids": [
+        "promise-0",
+        "promise-1",
+        "promise-2"
+      ],
+      "windows": [
+        62,
+        63
+      ],
+      "due": 104
+    },
+    "1149-P3-CONTINUITY-COUNTERS": {
+      "playerCalls": 208,
+      "playerCap": 208,
+      "branches": [
+        {
+          "name": "cancelBefore",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": null
+        },
+        {
+          "name": "cancelAfter",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": null
+        },
+        {
+          "name": "waiver",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": 61
+        }
+      ],
+      "total": 364,
+      "cap": 556,
+      "lifecycleCalls": 156,
+      "lifecycleCap": 156,
+      "selectedCap": 364
+    },
+    "1143-P3-OUTCOME-COUNTERS": {
+      "playerCalls": 208,
+      "playerCap": 208,
+      "branches": [
+        {
+          "name": "cancelBefore",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": null
+        },
+        {
+          "name": "cancelAfter",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": null
+        },
+        {
+          "name": "waiver",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": 61
+        }
+      ],
+      "total": 208,
+      "cap": 400
+    },
+    "1133-P3-COUNTERS": {
+      "actualTicks": 208,
+      "cap": 208,
+      "cachedPhases": [
+        {
+          "name": "created0",
+          "completed": true
+        },
+        {
+          "name": "managedEmpty8",
+          "completed": true
+        },
+        {
+          "name": "ready10",
+          "completed": true
+        },
+        {
+          "name": "cases45",
+          "completed": true
+        },
+        {
+          "name": "lifecycle208",
+          "completed": true
+        },
+        {
+          "name": "lifecycle248",
+          "completed": true
+        },
+        {
+          "name": "lifecycleAttached248",
+          "completed": true
+        },
+        {
+          "name": "lifecycle260",
+          "completed": true
+        },
+        {
+          "name": "lifecycle261",
+          "completed": true
+        },
+        {
+          "name": "lifecycle364",
+          "completed": true
+        },
+        {
+          "name": "attached45",
+          "completed": true
+        },
+        {
+          "name": "bound52",
+          "completed": true
+        },
+        {
+          "name": "firstFilm",
+          "completed": true
+        },
+        {
+          "name": "secondFilm",
+          "completed": true
+        },
+        {
+          "name": "terminal208",
+          "completed": true
+        },
+        {
+          "name": "waiverInput",
+          "completed": true
+        },
+        {
+          "name": "waived61",
+          "completed": true
+        }
+      ]
+    }
+  },
+  "legacyMarker": {
+    "current": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1153-p3-legacy4-markers.txt",
+      "bytes": 851,
+      "sha256": "182cf54d3a2fbb8bb2fc55cf74e97e220923d634ef454b816d3770d12dcb055e"
+    },
+    "literalEqualReferences": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1135-p3-legacy4-markers.txt",
+        "bytes": 851,
+        "sha256": "182cf54d3a2fbb8bb2fc55cf74e97e220923d634ef454b816d3770d12dcb055e"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1141-p3-legacy4-markers.txt",
+        "bytes": 851,
+        "sha256": "182cf54d3a2fbb8bb2fc55cf74e97e220923d634ef454b816d3770d12dcb055e"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1145-p3-legacy4-markers.txt",
+        "bytes": 851,
+        "sha256": "182cf54d3a2fbb8bb2fc55cf74e97e220923d634ef454b816d3770d12dcb055e"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1147-p3-legacy4-markers.txt",
+        "bytes": 851,
+        "sha256": "182cf54d3a2fbb8bb2fc55cf74e97e220923d634ef454b816d3770d12dcb055e"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1151-p3-legacy4-markers.txt",
+        "bytes": 851,
+        "sha256": "182cf54d3a2fbb8bb2fc55cf74e97e220923d634ef454b816d3770d12dcb055e"
+      }
+    ]
+  },
+  "frozenTestSource": [
+    {
+      "path": "tests/helpers/p14p3-fixtures.ts",
+      "bytes": 46128,
+      "sha256": "5808cb308dbd4b8f0eb236aeebd23ca0d30e8331f96da79d43c0e50e380cd504"
+    },
+    {
+      "path": "tests/p14p3-directing-promises.test.ts",
+      "bytes": 66863,
+      "sha256": "b2e309a795a0fe19f351bc983367da2803c46c8844a434f976c0d91030faffd1"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1153-p3-reservation-lifecycle-core.txt",
+      "bytes": 5147,
+      "sha256": "d0ee9a4f063d77ac02995223c6c535c2e88bbfd67518a5f224486dac2a5207a9"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1153-p3-reservation-lifecycle-core.json",
+      "bytes": 727,
+      "sha256": "7e7e362f438b9446a0e70cb4acac0e7f7a32e8372eff76e72e7b4023d5521562"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1153-p3-reservation-lifecycle-core.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1153-p3-publication-gate.json",
+      "bytes": 544,
+      "sha256": "6b97eb176bf37f6f5132e0409bb2506c6d2d01d629f277537ba31f887cd374e4"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1152-p3-profession-dispatch-root-types.json",
+      "bytes": 603,
+      "sha256": "587b67ad7f8b7f04b75e7561ec7ab5ae1cd9508445f3aaba59b9ddef256a05bb"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1152-p3-profession-dispatch-root-types.txt",
+      "bytes": 319,
+      "sha256": "bb753144d87ea6b905ce382376bed2b6cefdceee33366e740d1f3bfe073cde37"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1152-p3-profession-dispatch-root-types.patch",
+      "bytes": 1246,
+      "sha256": "21b132f05456260812c4f7f3789a12973f55e2365dd0fa43e00ef1abe2587073"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1152-p3-candidate-gate.json",
+      "bytes": 601,
+      "sha256": "a2c94cd4bba32726b0a4c19ffa03123995c192d73a649465f2014af7b2a446c7"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1151-p3-reservation-lifecycle-observations.json",
+      "bytes": 19688,
+      "sha256": "49c758a8d8103e460e8d4b6ef2f198f0a66a24281ca53dce4e9493d052629427"
+    }
+  ],
+  "limits": [
+    "Ten existing leaves remain filtered, not requalified by this selection.",
+    "Current Director notice364/E416 is observed; trajectory does not reach E416 or a natural post-E open promise.",
+    "D09 rival core-public FRAGILE attachment does not qualify automatic rival authorship, recruitment or work.",
+    "No full P3 matrix, Bridge/runtime/UI or broad current-consumer gate is inferred."
+  ]
+}

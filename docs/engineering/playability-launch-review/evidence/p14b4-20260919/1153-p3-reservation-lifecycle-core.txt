@@ -1,0 +1,34 @@
+{"sourceSha":"75d70e18c6e0c05d8a64144b91b96025138d95a7","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14p3-directing-promises.test.ts","--testNamePattern","D(?:09|10|11|13W) "],"node":"v20.20.2","start":"2026-09-27T13:39:47.041Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 third slice: reservations, profession chronology and successor proof > D09 reserves the actual union and freezes a changed receipt without restamping its root
+1133-P3-LEGACY4 {"week":8,"rngState":"1557239868,672280863,464522958,2878174094","receipts":[{"draft":{"family":"APPEARANCE_COUNT","predicate":{"count":1},"issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":112},"receipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"9a5006d1107172a3","rulesVersion":4,"week":8}},{"draft":{"family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"lead"},"issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":112},"receipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"3dbf55ccb67dfa2c","rulesVersion":4,"week":8}}]}
+1149-P3-RESERVATIONS {"rivalClassification":"FRAGILE","scriptIds":["script-0000","script-0001"],"boundWeek":260,"castId":"promise-59","directorId":"promise-60","prices":{"authored-0000":{"annualSalary":562930,"signingBonus":101327},"authored-0002":{"annualSalary":588320,"signingBonus":105898}}}
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 third slice: reservations, profession chronology and successor proof > D10 keeps a newly bound Director obligation lawful after its completed Actor episode
+1149-P3-LIFECYCLE {"bound":260,"firstDisposition":261,"announced":364,"effective":416,"actorRetired":208}
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 third slice: reservations, profession chronology and successor proof > D11 preserves promise outcomes through actual current-profession retirement
+1149-P3-OUTCOME-HISTORY {"playerTerminal":208,"directorDue":300,"directorAnnouncement":364,"final":364}
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 third slice: reservations, profession chronology and successor proof > D13W refuses a nonaccepted receipt on an actual Director waiver successor
+1149-P3-WAIVER-CHAIN {"week":61,"ids":["promise-0","promise-1","promise-2"],"windows":[62,63],"due":104}
+
+stdout | tests/p14p3-directing-promises.test.ts
+1149-P3-CONTINUITY-COUNTERS {"playerCalls":208,"playerCap":208,"branches":[{"name":"cancelBefore","actualTicks":0,"cap":64,"startWeek":null},{"name":"cancelAfter","actualTicks":0,"cap":64,"startWeek":null},{"name":"waiver","actualTicks":0,"cap":64,"startWeek":61}],"total":364,"cap":556,"lifecycleCalls":156,"lifecycleCap":156,"selectedCap":364}
+1143-P3-OUTCOME-COUNTERS {"playerCalls":208,"playerCap":208,"branches":[{"name":"cancelBefore","actualTicks":0,"cap":64,"startWeek":null},{"name":"cancelAfter","actualTicks":0,"cap":64,"startWeek":null},{"name":"waiver","actualTicks":0,"cap":64,"startWeek":61}],"total":208,"cap":400}
+1133-P3-COUNTERS {"actualTicks":208,"cap":208,"cachedPhases":[{"name":"created0","completed":true},{"name":"managedEmpty8","completed":true},{"name":"ready10","completed":true},{"name":"cases45","completed":true},{"name":"lifecycle208","completed":true},{"name":"lifecycle248","completed":true},{"name":"lifecycleAttached248","completed":true},{"name":"lifecycle260","completed":true},{"name":"lifecycle261","completed":true},{"name":"lifecycle364","completed":true},{"name":"attached45","completed":true},{"name":"bound52","completed":true},{"name":"firstFilm","completed":true},{"name":"secondFilm","completed":true},{"name":"terminal208","completed":true},{"name":"waiverInput","completed":true},{"name":"waived61","completed":true}]}
+
+ ✓ |core| tests/p14p3-directing-promises.test.ts (14 tests | 10 skipped) 53239ms
+   ✓ P3 third slice: reservations, profession chronology and successor proof > D09 reserves the actual union and freezes a changed receipt without restamping its root 17314ms
+   ✓ P3 third slice: reservations, profession chronology and successor proof > D10 keeps a newly bound Director obligation lawful after its completed Actor episode 11658ms
+   ✓ P3 third slice: reservations, profession chronology and successor proof > D11 preserves promise outcomes through actual current-profession retirement 18683ms
+   ✓ P3 third slice: reservations, profession chronology and successor proof > D13W refuses a nonaccepted receipt on an actual Director waiver successor 5581ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed | 10 skipped (14)
+   Start at  15:39:47
+   Duration  57.37s (transform 2.56s, setup 0ms, collect 3.42s, tests 53.24s, environment 0ms, prepare 136ms)
+
