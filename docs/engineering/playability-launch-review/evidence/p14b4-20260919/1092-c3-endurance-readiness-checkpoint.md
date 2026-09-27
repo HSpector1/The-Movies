@@ -39,3 +39,29 @@ and candidate file hashes. Reviewer separately owns source/result review and a
 docs-only B5 diagnostic plan. Parent remains sole production writer/integrator
 and executor; max two specialists, one heavy process. Continue the authorized
 program after bounded observations; Unity/native and Owner campaigns stay deferred.
+
+## Publication and first execution release
+
+Normal checkpoint `8599ee2a2254bde7c2e6be61e712cdc4dc686eea` is pushed. Independent
+`git ls-remote` matches that exact branch SHA; consumed source diff is empty.
+Only docs1093 staging is concurrently being prepared. Parent releases the single
+1056 recorded A invocation at this source and frozen producer f7d19d39, exclusive
+`1052-c3-endurance-A-first`. Source/HEAD/index/producer stay frozen throughout.
+The four variants remain sequential and conditional; no B/C/D release follows
+from this initial launch. Actual result belongs to1056 and its output artifacts.
+
+## First-result follow-up
+
+1056 stopped atweek0/zero ticks on the observer's overstrict repeated snapshot
+comparison.1057 independently measures only serializationMs changing;1095-A/B
+retain exact failed/result scopes. The parent observer correctiona8685dc0 excludes
+only that measured leaf while recording both raw identities and retaining exact
+payload/state equality.1058 full Bridge type gate passes29.092s/fixed source,
+both exact paths included. Parent will publish this narrow correction and all
+failed-attempt evidence before the new exclusive A-observer-fixed invocation.
+All commands/policy/funding/driver bytes are unchanged. B/C/D remain conditional.
+
+Parent adopts1094-A's exact one-current-seed416 B5 diagnostic for later independent
+authoring, not old-source execution or a receipt re-pin. Its known missing old
+nonterminal receipt array remains an explicit evidentiary limit. No heavy process
+or overlapping consumed writer is active at this checkpoint preparation.

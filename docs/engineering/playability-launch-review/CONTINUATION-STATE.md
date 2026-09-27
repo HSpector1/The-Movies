@@ -1,5 +1,47 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — measured snapshot correction reviewed; corrected A preparing
+
+1056 remains failed atweek0/0ticks.1057 two-read/no-tick diagnosis proves only
+serializationMs differs; all other response fields and complete authority match.
+Parent's narrow observer correctiona8685dc0 records raw responses and excludes
+only measured serializationMs from repeat equality.1095-A/B preserve cause and
+review.1058 full Bridge types PASS29.092s/no diagnostics, both paths included;
+driverf7d19d39 unchanged. No heavy process active. Parent publishes this correction
+and failed-attempt evidence, then launches new exclusive A-observer-fixed with
+frozen source/index/HEAD/driver. No B/C/D before actual predecessor PASS/review.
+Existing author prepares only docs1093 maintenance; reviewer retains independent
+review.1094-A's onecurrent416 B5 diagnostic is adopted for later independent
+source authoring, with original receipt pin and historical-row limits preserved.
+
+
+## CURRENT — A stopped at week0 snapshot comparison; bounded diagnosis
+
+1056 A closed6.184s child1/fixed8599ee2a emptydiff. Zero ticks,16accepted startup
+commands,1attempted read group,0runtime samples. Exact repeated snapshot comparison
+includes intentionally measured serializationMs; source indicates an observer
+premise, not a demonstrated gameplay defect.1095-A preserves original failure,
+full output and unreached scopes. Parent prepares only reviewed two-read/no-tick
+1095 diagnostic on retained week0 bytes; no B/C/D and no adaptive gameplay restart.
+Driver/observer remain unchanged. Author still owns only docs1093 staging and
+reviewer separate1094/1095 docs. All heavy processes closed. Resume bounded cause
+confirmation, narrow observation correction if supported, then authorized gates.
+
+
+## CURRENT — published8599ee2a; endurance A first running
+
+Local/GitHub refs independently match8599ee2a2254bde7c2e6be61e712cdc4dc686eea;
+consumed source diff empty. Parent1056 A first is the sole heavy process,
+session42757, exclusive1052-c3-endurance-A-first. Producerf7d19d39 and observer
+ddcb9e27 have final source KEEP and1055 full Bridge type PASS. Freeze all consumed
+source/index/HEAD and docs1052 producer until command closes. Stop on first failure;
+B/C/D remain unreleased until preceding complete PASS plus independent review.
+Existing author prepares only new docs1093 compatibility staging; reviewer owns
+separate review and1094 B5 diagnostic plan. No staged patch is applied/executed.
+1092 records publication and scope; earlier compatibility/R8/K-L/full/native/Owner
+qualifications remain. Continue authorized program after bounded result review.
+
+
 ## CURRENT — endurance source reviewed and typed; readiness publication
 
 1055 Bridge --listFiles passes27.439s/no diagnostics, both actual driver/observer

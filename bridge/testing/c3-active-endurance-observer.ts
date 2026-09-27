@@ -193,10 +193,14 @@ export function observeC3EnduranceReads(request: ReadObservationRequest): ReadOb
           reserve('snapshots', 2); const at = performance.now()
           const value = measured('snapshot/' + n, () => session.snapshot())
           schemaChecks++; parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse, value)
-          const text = canonicalJson(value)
-          if (first === null) first = text
-          else assert.ok(text === first, 'same-authority repeated snapshot exact response')
           record('snapshot/' + n, 'snapshot', value, performance.now() - at, { repeated: n === 1 })
+          const { serializationMs, ...metrics } = value.metrics
+          assert.ok(Number.isFinite(serializationMs) && serializationMs >= 0, 'actual snapshot serialization timing')
+          // Each invocation measures fresh telemetry; all other response fields
+          // remain exact, including payloadBytes. Preserve raw identities above.
+          const text = canonicalJson({ ...value, metrics })
+          if (first === null) first = text
+          else assert.ok(text === first, 'same-authority repeated snapshot exact fields except serializationMs')
         }
       },
       () => {
