@@ -16,18 +16,18 @@ returned RA7 `da57c0d934f00390`, which the winning root6 retained. Employment
 round-trip retained the row. Both separately observed52 receipts have identical
 values: this is not a differing-receipt discrimination test. The later player's
 P4 offer was FRAGILE, declined and unbound; no rival/material-win claim follows.
-1257-K closes parent verification; I/J author and independent attribution follow.
+1257-I/J/K close author, independent and parent verification. Coverage and open
+limits are indexed in [P4P5-VERIFICATION-STATUS.md](P4P5-VERIFICATION-STATUS.md).
 The original1258 TS2345/exit2/33.677s remains recorded; L/M/N only narrowed the
 strict-reader return. Live test25,498B/`c1ee22de`; production remains unchanged.
 
-Parent has released staged1260-C under A/F/B after author I: Q13 active-writing
+Author is staging1260-C under accepted A/F/B: Q13 active-writing
 availability/credit and Q14 development congestion/own-reservation exemption.
 Shared setup, exactly two public commissions, nine pure quotes, hard0 advances.
 Independent D precedes parent application/publication, then1261 root types and
 1262 isolated Q13/Q14, both cap0. Preserve every existing test and input.
 Parent is sole live production/integration/heavy owner; the same two specialists
-retain test/review ownership. 1263-A/F remain a future stock-null plan requiring
-review: five public actions including release commitment64, hard13 advances52→65.
+retain test/review ownership. 1263-A/F/B approve a future stock-null plan, not source release: five public actions including release commitment64, hard13 advances52→65.
 No new fixture or prefix replay. Continue the authorized program; full1226/P14
 still needs remaining retirement/grouped/rival controls. Unity/native and Owner
 campaign access remain deferred. Prior failures and timing limits stay recorded.
