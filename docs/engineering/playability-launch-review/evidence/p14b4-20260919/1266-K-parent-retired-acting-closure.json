@@ -1,0 +1,1089 @@
+{
+  "record": "1266-K parent requested-Actor retirement closure",
+  "timeUtc": "2026-09-27T23:02:54.686249+00:00",
+  "executedPublishedSource": "cce5f998fb59d929f18a0545100b9987a4793a1b",
+  "result": "Q16 PASS1/zero filtered; root types PASS",
+  "parentRead": "Read all INPUT/COMMON/PERSON/request/receipt/counter fields and complete raw tail. Parsed complete raw; compared all repeated common/person objects and each full59-root union to immutable input; independently reconstructed all177 membership decisions. Read full207-line source and A/F/B/C/D/I/J. Rehashed all174manual pins/all1685source files/exact index and stage before closure. No rerun for attribution.",
+  "gates": [
+    {
+      "stem": "1267-retired-acting-types",
+      "record": {
+        "sourceSha": "cce5f998fb59d929f18a0545100b9987a4793a1b",
+        "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "untrackedSource": [],
+        "command": [
+          "node_modules/.bin/tsc",
+          "--noEmit",
+          "-p",
+          "tsconfig.json"
+        ],
+        "node": "v20.20.2",
+        "start": "2026-09-27T22:57:08.034Z",
+        "end": "2026-09-27T22:57:43.844Z",
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "sourceShaAtEnd": "cce5f998fb59d929f18a0545100b9987a4793a1b",
+        "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "untrackedSourceAtEnd": [],
+        "fixedSource": true
+      },
+      "evidence": [
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1267-retired-acting-types.json",
+          "bytes": 634,
+          "sha256": "0d9843c4b4ba22de511f099df334d171a2d05402c3a595e62a52ac8f8e49b734"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1267-retired-acting-types.txt",
+          "bytes": 340,
+          "sha256": "6b3ee05f2e46666e362e237d2e9b6cbc66a1f2ae5f233d21190f06739c3faca9"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1267-retired-acting-types.patch",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1267-retired-acting-types-preflight.json",
+          "bytes": 43608,
+          "sha256": "19fc88b5f09ccb25fd99020aa02b242c79cd9a2305a4598c781e34210600c14c"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1267-retired-acting-types-postflight.json",
+          "bytes": 44286,
+          "sha256": "782cf075ccb57684b86b89cd0cd191ac9e0670cc1dcde4110c12939a56d3bf7a"
+        }
+      ]
+    },
+    {
+      "stem": "1268-retired-acting-runtime",
+      "record": {
+        "sourceSha": "cce5f998fb59d929f18a0545100b9987a4793a1b",
+        "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "untrackedSource": [],
+        "command": [
+          "node_modules/.bin/vitest",
+          "run",
+          "--project",
+          "core",
+          "tests/p14p4p5-retired-acting.test.ts",
+          "-t",
+          "Q16 "
+        ],
+        "node": "v20.20.2",
+        "start": "2026-09-27T22:58:10.344Z",
+        "end": "2026-09-27T22:58:16.965Z",
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "sourceShaAtEnd": "cce5f998fb59d929f18a0545100b9987a4793a1b",
+        "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "untrackedSourceAtEnd": [],
+        "fixedSource": true
+      },
+      "evidence": [
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1268-retired-acting-runtime.json",
+          "bytes": 696,
+          "sha256": "2dc32b0c6409619de84a9c8e1ebbcf760114f945fbd209d875aad3082fa065f3"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1268-retired-acting-runtime.txt",
+          "bytes": 160986,
+          "sha256": "366db9d51a71510a43e46ede0d26c557329247632eeec86f007917ee73a04b42"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1268-retired-acting-runtime.patch",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1268-retired-acting-runtime-preflight.json",
+          "bytes": 43608,
+          "sha256": "e845dc08f7de31137534fcebc24e58aa4e6ee8ebd54b0b047d38a4a7c80dbb5a"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1268-retired-acting-runtime-postflight.json",
+          "bytes": 44295,
+          "sha256": "8d160f5ec9c6e0cc00540038a516760d11d9f928c6da1a7fa3c16736be516a79"
+        }
+      ]
+    }
+  ],
+  "verifiedCurrentGuards": {
+    "sourceFiles": 1685,
+    "sourceInventory": {
+      "bytes": 255797,
+      "sha256": "e2f2c15d8f4b4f9dcfde7e45faecde01671535a14b69f58b2bc272b99929386e"
+    },
+    "index": {
+      "bytes": 1116448,
+      "sha256": "c90cf8b5f56627cb97b9fe8cd79bf953a572e2cb2ffea044394712bf23d28c38"
+    },
+    "stageEntries": {
+      "bytes": 991501,
+      "sha256": "dadc38453ae7c01c2a84dca7f87ad4856e5a1257dc13d1d4836405ddcee75258"
+    }
+  },
+  "manualPinCount": 174,
+  "source": {
+    "path": "tests/p14p4p5-retired-acting.test.ts",
+    "bytes": 15682,
+    "sha256": "1ce0b6e6247226b2d513cf7b12cab494e4247e190f87ad6c8a0093c39d8a4ffd"
+  },
+  "reviews": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1266-I-retired-acting-verification-attribution.md",
+      "bytes": 5977,
+      "sha256": "f6dbc4278fad04caa424161ce9d7e253f406365394120f19be8f10b9cdeffab1"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1266-J-retired-acting-verification-review.md",
+      "bytes": 5834,
+      "sha256": "cc16489c12d7fe2c2a863652aab71fbb10798de7857ee7881099c82408e24c74"
+    }
+  ],
+  "markers": {
+    "lines": 9,
+    "bytes": 159875,
+    "sha256": "5e17e44c2b40fa4b479dc4e55d0ef322c7d600c14e1c91df92a14ab6c89991bc"
+  },
+  "input": {
+    "lineage": {
+      "filename": "genuine-v38-p3-natural-week208.json.gz",
+      "lineage": "actual current Bridge advance207->208; independent develop:true tick matches",
+      "rawIdentity": {
+        "bytes": 1705876,
+        "sha256": "ebb00ca54328ef3340d959d830045d28c73dc493b8f069220256183e718fc4bb"
+      },
+      "gzipIdentity": {
+        "bytes": 174916,
+        "sha256": "a7418eb0f90fa2d10ae65e78e3c3b9e75ec19346970c677c1cfdeefce42b2960"
+      }
+    },
+    "sourceHead": "00efc08607857c479a603efd43899e06ff805be7",
+    "captureStatus": "CAPTURED_OUTGOING_AUTHORITY_NOT_P3_QUALIFICATION",
+    "historicalLimit": "Original V37 development provenance and twelve-digest parity FAIL remain immutable; no old P3 or old waiver link fabricated.",
+    "generatedTestCapture": true,
+    "naturalFundingClaim": false,
+    "actualWeek": 208,
+    "oldReceiptCount": 85,
+    "oldReceiptsSha256": "3e9fde2d819c4c998a06944e963fbfd5cebae56260cb45716e36226195f4837c",
+    "promiseCount": 59,
+    "promisesSha256": "1460b4b1e65e184feea6f117ae085bcaba45c3adec52cb0843080de5e350a2ff",
+    "firstTakeSubjects": {
+      "version": 1,
+      "cutoverOrdinal": 85,
+      "facts": []
+    },
+    "migratedBytes": 1705941,
+    "migratedSha256": "238dad00caf0860a5552877ab07c0a033684849ec90768a2cf2537b6515030a9"
+  },
+  "common": {
+    "actualWeek": 208,
+    "resources": {
+      "claims": [
+        {
+          "key": "mount:facility-soundstage-12",
+          "facilitySlotKey": null,
+          "kind": "mount",
+          "facilityId": "facility-soundstage-12",
+          "slot": null,
+          "capability": null,
+          "owner": "set",
+          "ownerId": "set-1",
+          "set": {
+            "blueprintId": "set-house-generic",
+            "completesWeek": null,
+            "condition": 100,
+            "genreWeights": {
+              "adventure": 0.5,
+              "comedy": 0.5,
+              "crime": 0.5,
+              "drama": 0.5,
+              "horror": 0.5,
+              "romance": 0.5
+            },
+            "id": "set-1",
+            "mountedOn": "facility-soundstage-12",
+            "name": "Stage 12 House Set",
+            "novelty": 1,
+            "priorityGenre": "drama",
+            "quality": 45,
+            "setType": "generic-interior",
+            "status": "standing"
+          }
+        },
+        {
+          "key": "mount:facility-soundstage-07",
+          "facilitySlotKey": null,
+          "kind": "mount",
+          "facilityId": "facility-soundstage-07",
+          "slot": null,
+          "capability": null,
+          "owner": "set",
+          "ownerId": "set-2",
+          "set": {
+            "blueprintId": "set-grand-ballroom",
+            "completesWeek": null,
+            "condition": 73,
+            "genreWeights": {
+              "adventure": 0.25,
+              "comedy": 0.7,
+              "crime": 0.5,
+              "drama": 0.7,
+              "horror": 0.25,
+              "romance": 0.9
+            },
+            "id": "set-2",
+            "mountedOn": "facility-soundstage-07",
+            "name": "Grand Ballroom",
+            "novelty": 0.5499999999999999,
+            "priorityGenre": "romance",
+            "quality": 85,
+            "setType": "grand-ballroom",
+            "status": "standing"
+          }
+        }
+      ],
+      "available": [
+        {
+          "capability": "development-casting",
+          "facilities": [
+            {
+              "capability": "development-casting",
+              "capacity": 2,
+              "id": "facility-development-casting",
+              "name": "Development & Casting"
+            }
+          ],
+          "free": [
+            {
+              "facilityId": "facility-development-casting",
+              "slot": 0
+            },
+            {
+              "facilityId": "facility-development-casting",
+              "slot": 1
+            }
+          ]
+        },
+        {
+          "capability": "soundstage",
+          "facilities": [
+            {
+              "capability": "soundstage",
+              "capacity": 1,
+              "id": "facility-soundstage-07",
+              "name": "Soundstage 7"
+            },
+            {
+              "capability": "soundstage",
+              "capacity": 1,
+              "id": "facility-soundstage-12",
+              "name": "Soundstage 12"
+            }
+          ],
+          "free": [
+            {
+              "facilityId": "facility-soundstage-07",
+              "slot": 0
+            },
+            {
+              "facilityId": "facility-soundstage-12",
+              "slot": 0
+            }
+          ]
+        },
+        {
+          "capability": "set-scenery",
+          "facilities": [
+            {
+              "capability": "set-scenery",
+              "capacity": 2,
+              "id": "facility-scenery-shop",
+              "name": "Scenery Shop"
+            }
+          ],
+          "free": [
+            {
+              "facilityId": "facility-scenery-shop",
+              "slot": 0
+            },
+            {
+              "facilityId": "facility-scenery-shop",
+              "slot": 1
+            }
+          ]
+        },
+        {
+          "capability": "post",
+          "facilities": [
+            {
+              "capability": "post",
+              "capacity": 2,
+              "id": "facility-post-building",
+              "name": "Post Building"
+            }
+          ],
+          "free": [
+            {
+              "facilityId": "facility-post-building",
+              "slot": 0
+            },
+            {
+              "facilityId": "facility-post-building",
+              "slot": 1
+            }
+          ]
+        }
+      ]
+    },
+    "stock": {
+      "usedConceptIds": [
+        "c-00",
+        "c-01",
+        "c-02"
+      ],
+      "unusedDramaConcepts": [
+        {
+          "baseNegativeCost": 5210820.333368554,
+          "baselineStrength": 75.97053912231763,
+          "genre": "drama",
+          "id": "c-04",
+          "originalityRaw": 60.577565523245745,
+          "requiredSlots": [
+            "lead",
+            "antagonist",
+            "support"
+          ],
+          "roleRequirements": {
+            "antagonist": {
+              "target": {
+                "gravity": -0.06815239321440458,
+                "physicality": -0.3983174264431,
+                "warmth": -0.8563917404972017
+              },
+              "tolerance": 0.9534944823943079
+            },
+            "lead": {
+              "target": {
+                "gravity": 0.9592325906269252,
+                "physicality": -0.31970867421478033,
+                "warmth": 0.8365401392802596
+              },
+              "tolerance": 1.02784017235972
+            },
+            "support": {
+              "target": {
+                "gravity": 0.6155386110767722,
+                "physicality": -0.38542366633191705,
+                "warmth": -0.12255082558840513
+              },
+              "tolerance": 0.949647414451465
+            }
+          },
+          "title": "The Restless Cornerstone"
+        },
+        {
+          "baseNegativeCost": 3971570.3495653085,
+          "baselineStrength": 56.478761967300485,
+          "genre": "drama",
+          "id": "c-12",
+          "originalityRaw": 51.59479367707362,
+          "requiredSlots": [
+            "lead",
+            "antagonist",
+            "support"
+          ],
+          "roleRequirements": {
+            "antagonist": {
+              "target": {
+                "gravity": -0.87038254737854,
+                "physicality": -0.19696474354714155,
+                "warmth": -0.34997793193906546
+              },
+              "tolerance": 1.5976080847438425
+            },
+            "lead": {
+              "target": {
+                "gravity": -0.9196264641359448,
+                "physicality": -0.6593350544571877,
+                "warmth": 0.007321200333535671
+              },
+              "tolerance": 0.893023844761774
+            },
+            "support": {
+              "target": {
+                "gravity": 0.378547259606421,
+                "physicality": 0.44316916121169925,
+                "warmth": -0.3105119005776942
+              },
+              "tolerance": 0.8826788225676865
+            }
+          },
+          "title": "Whispers of Estuary"
+        },
+        {
+          "baseNegativeCost": 5744789.454843097,
+          "baselineStrength": 48.24217556602531,
+          "genre": "drama",
+          "id": "c-18",
+          "originalityRaw": 56.50447947950427,
+          "requiredSlots": [
+            "lead",
+            "antagonist",
+            "support"
+          ],
+          "roleRequirements": {
+            "antagonist": {
+              "target": {
+                "gravity": -0.48814971931278706,
+                "physicality": -0.4717266410589218,
+                "warmth": 0.22647802205756307
+              },
+              "tolerance": 0.8167282519396395
+            },
+            "lead": {
+              "target": {
+                "gravity": 0.8568854690529406,
+                "physicality": -0.06891792546957731,
+                "warmth": 0.45950735080987215
+              },
+              "tolerance": 0.9456318516284228
+            },
+            "support": {
+              "target": {
+                "gravity": 0.8742979257367551,
+                "physicality": 0.04565566126257181,
+                "warmth": -0.9980962760746479
+              },
+              "tolerance": 1.06556386356242
+            }
+          },
+          "title": "The Last Cartel"
+        },
+        {
+          "baseNegativeCost": 6236274.335207983,
+          "baselineStrength": 76.5903152655576,
+          "genre": "drama",
+          "id": "c-20",
+          "originalityRaw": 30.195588203279495,
+          "requiredSlots": [
+            "lead",
+            "antagonist",
+            "support"
+          ],
+          "roleRequirements": {
+            "antagonist": {
+              "target": {
+                "gravity": 0.6185776465572417,
+                "physicality": 0.20436226949095726,
+                "warmth": 0.48492328776046634
+              },
+              "tolerance": 0.8068765785545111
+            },
+            "lead": {
+              "target": {
+                "gravity": -0.2074673161841929,
+                "physicality": 0.05556424707174301,
+                "warmth": -0.4220006191171706
+              },
+              "tolerance": 0.9886682868935168
+            },
+            "support": {
+              "target": {
+                "gravity": 0.03721995931118727,
+                "physicality": 0.7397097460925579,
+                "warmth": 0.3086759792640805
+              },
+              "tolerance": 1.7386054065544159
+            }
+          },
+          "title": "A Study in Serpent"
+        },
+        {
+          "baseNegativeCost": 5793792.6297875205,
+          "baselineStrength": 61.54595646179308,
+          "genre": "drama",
+          "id": "c-22",
+          "originalityRaw": 36.18157761901216,
+          "requiredSlots": [
+            "lead",
+            "antagonist",
+            "support"
+          ],
+          "roleRequirements": {
+            "antagonist": {
+              "target": {
+                "gravity": 0.1630232990719378,
+                "physicality": -0.024941584561020136,
+                "warmth": -0.15485092904418707
+              },
+              "tolerance": 1.407256225310266
+            },
+            "lead": {
+              "target": {
+                "gravity": 0.024502047803252935,
+                "physicality": -0.3666015798225999,
+                "warmth": 0.06565572787076235
+              },
+              "tolerance": 1.2405284756794572
+            },
+            "support": {
+              "target": {
+                "gravity": 0.3829414127394557,
+                "physicality": 0.9005150711163878,
+                "warmth": -0.36249076994135976
+              },
+              "tolerance": 1.3537011630367488
+            }
+          },
+          "title": "The Broken Undertaker"
+        },
+        {
+          "baseNegativeCost": 5587608.7716680635,
+          "baselineStrength": 73.813735585802,
+          "genre": "drama",
+          "id": "c-23",
+          "originalityRaw": 26.372483734932537,
+          "requiredSlots": [
+            "lead",
+            "antagonist",
+            "support"
+          ],
+          "roleRequirements": {
+            "antagonist": {
+              "target": {
+                "gravity": 0.8095664004795253,
+                "physicality": -0.7802121732383966,
+                "warmth": 0.052947450429201126
+              },
+              "tolerance": 1.6531733811832965
+            },
+            "lead": {
+              "target": {
+                "gravity": -0.7313729729503393,
+                "physicality": -0.6017063362523913,
+                "warmth": 0.20911586191505194
+              },
+              "tolerance": 1.0120166725944728
+            },
+            "support": {
+              "target": {
+                "gravity": 0.6364613161422312,
+                "physicality": -0.7485283417627215,
+                "warmth": -0.36850525019690394
+              },
+              "tolerance": 1.7011405054479838
+            }
+          },
+          "title": "Portrait of a Revolt"
+        },
+        {
+          "baseNegativeCost": 2819938.3667510613,
+          "baselineStrength": 77.52281052577482,
+          "genre": "drama",
+          "id": "c-25",
+          "originalityRaw": 58.88154166081229,
+          "requiredSlots": [
+            "lead",
+            "antagonist",
+            "support"
+          ],
+          "roleRequirements": {
+            "antagonist": {
+              "target": {
+                "gravity": -0.31268042884767056,
+                "physicality": 0.8754778788425028,
+                "warmth": 0.9810003316961229
+              },
+              "tolerance": 0.9025461032986641
+            },
+            "lead": {
+              "target": {
+                "gravity": 0.8056165841408074,
+                "physicality": 0.4306114539504051,
+                "warmth": -0.21116371033713222
+              },
+              "tolerance": 1.0729858544189483
+            },
+            "support": {
+              "target": {
+                "gravity": -0.1307637016288936,
+                "physicality": 0.9640430505387485,
+                "warmth": 0.5608542636036873
+              },
+              "tolerance": 1.059341673925519
+            }
+          },
+          "title": "Song of the Masquerade"
+        }
+      ],
+      "freshWeek": 208,
+      "earliestTakeWeek": 213,
+      "dueWeekExclusive": 221,
+      "slackWeeks": 8
+    },
+    "historicalLimit": "Original V37 development provenance and twelve-digest parity FAIL remain immutable; no old P3 or old waiver link fabricated."
+  },
+  "people": [
+    {
+      "personId": "authored-0005",
+      "primaryRole": "actor",
+      "age": 34,
+      "actingProfile": {
+        "actingTechnique": {
+          "actual": 75,
+          "perceived": 75
+        },
+        "comicTiming": {
+          "actual": 75,
+          "perceived": 75
+        },
+        "dialogueDelivery": {
+          "actual": 75,
+          "perceived": 75
+        },
+        "emotionalRange": {
+          "actual": 75,
+          "perceived": 75
+        },
+        "physicalPerformance": {
+          "actual": 75,
+          "perceived": 75
+        },
+        "screenPresence": {
+          "actual": 75,
+          "perceived": 75
+        }
+      },
+      "provenance": {
+        "ageAtEntry": 30,
+        "entryWeek": 0,
+        "kind": "authored_exact_week",
+        "personId": "authored-0005"
+      },
+      "employmentHistory": [
+        {
+          "contractId": "studio-de11f27b-player:contract:authored-0005:0:player-29",
+          "endedWeek": 208,
+          "reason": "player-contract",
+          "studioId": "studio-de11f27b-player",
+          "terms": {
+            "annualSalary": 370212,
+            "endWeekExclusive": 208,
+            "signingBonus": 66638,
+            "startWeek": 0,
+            "talentId": "authored-0005",
+            "termWeeks": 208
+          }
+        }
+      ],
+      "active": [],
+      "engagements": {
+        "productions": [],
+        "writing": [],
+        "research": []
+      },
+      "records": [],
+      "changes": [],
+      "current": null,
+      "requested": null,
+      "currentAdmission": null,
+      "requestedAdmission": null
+    },
+    {
+      "personId": "authored-0000",
+      "primaryRole": "director",
+      "age": 72,
+      "actingProfile": {
+        "actingTechnique": {
+          "actual": 75,
+          "perceived": 75
+        },
+        "comicTiming": {
+          "actual": 75,
+          "perceived": 75
+        },
+        "dialogueDelivery": {
+          "actual": 75,
+          "perceived": 75
+        },
+        "emotionalRange": {
+          "actual": 75,
+          "perceived": 75
+        },
+        "physicalPerformance": {
+          "actual": 75,
+          "perceived": 75
+        },
+        "screenPresence": {
+          "actual": 75,
+          "perceived": 75
+        }
+      },
+      "provenance": {
+        "ageAtEntry": 68,
+        "entryWeek": 0,
+        "kind": "authored_exact_week",
+        "personId": "authored-0000"
+      },
+      "employmentHistory": [
+        {
+          "contractId": "studio-de11f27b-player:contract:authored-0000:0:player-24",
+          "endedWeek": 208,
+          "reason": "player-contract",
+          "studioId": "studio-de11f27b-player",
+          "terms": {
+            "annualSalary": 332099,
+            "endWeekExclusive": 208,
+            "signingBonus": 59778,
+            "startWeek": 0,
+            "talentId": "authored-0000",
+            "termWeeks": 208
+          }
+        }
+      ],
+      "active": [],
+      "engagements": {
+        "productions": [],
+        "writing": [],
+        "research": []
+      },
+      "records": [
+        {
+          "ageAtAnnouncement": 70,
+          "announcedWeek": 104,
+          "cause": "hardBoundary",
+          "effectiveWeek": 208,
+          "extendedFromWeek": null,
+          "extensionUsed": false,
+          "finishingFromWeek": null,
+          "intentRulesVersion": 1,
+          "personId": "authored-0000",
+          "profession": "actor",
+          "retiredWeek": 208,
+          "status": "retired"
+        }
+      ],
+      "changes": [
+        {
+          "evaluationId": "transition-evaluation-0",
+          "from": "actor",
+          "id": "profession-change-0",
+          "ordinal": 0,
+          "personId": "authored-0000",
+          "to": "director",
+          "week": 208
+        }
+      ],
+      "current": null,
+      "requested": {
+        "ageAtAnnouncement": 70,
+        "announcedWeek": 104,
+        "cause": "hardBoundary",
+        "effectiveWeek": 208,
+        "extendedFromWeek": null,
+        "extensionUsed": false,
+        "finishingFromWeek": null,
+        "intentRulesVersion": 1,
+        "personId": "authored-0000",
+        "profession": "actor",
+        "retiredWeek": 208,
+        "status": "retired"
+      },
+      "currentAdmission": null,
+      "requestedAdmission": "talent \"authored-0000\" is retiredFromProfession \u2014 retired at week 208 (effective week 208) (P14C.2a)"
+    },
+    {
+      "personId": "authored-0001",
+      "primaryRole": "writer",
+      "age": 72,
+      "actingProfile": {
+        "actingTechnique": {
+          "actual": 75,
+          "perceived": 75
+        },
+        "comicTiming": {
+          "actual": 75,
+          "perceived": 75
+        },
+        "dialogueDelivery": {
+          "actual": 75,
+          "perceived": 75
+        },
+        "emotionalRange": {
+          "actual": 75,
+          "perceived": 75
+        },
+        "physicalPerformance": {
+          "actual": 75,
+          "perceived": 75
+        },
+        "screenPresence": {
+          "actual": 75,
+          "perceived": 75
+        }
+      },
+      "provenance": {
+        "ageAtEntry": 68,
+        "entryWeek": 0,
+        "kind": "authored_exact_week",
+        "personId": "authored-0001"
+      },
+      "employmentHistory": [
+        {
+          "contractId": "studio-de11f27b-player:contract:authored-0001:0:player-25",
+          "endedWeek": 208,
+          "reason": "player-contract",
+          "studioId": "studio-de11f27b-player",
+          "terms": {
+            "annualSalary": 314062,
+            "endWeekExclusive": 208,
+            "signingBonus": 56531,
+            "startWeek": 0,
+            "talentId": "authored-0001",
+            "termWeeks": 208
+          }
+        }
+      ],
+      "active": [],
+      "engagements": {
+        "productions": [],
+        "writing": [],
+        "research": []
+      },
+      "records": [
+        {
+          "ageAtAnnouncement": 70,
+          "announcedWeek": 104,
+          "cause": "hardBoundary",
+          "effectiveWeek": 208,
+          "extendedFromWeek": null,
+          "extensionUsed": false,
+          "finishingFromWeek": null,
+          "intentRulesVersion": 1,
+          "personId": "authored-0001",
+          "profession": "actor",
+          "retiredWeek": 208,
+          "status": "retired"
+        }
+      ],
+      "changes": [
+        {
+          "evaluationId": "transition-evaluation-1",
+          "from": "actor",
+          "id": "profession-change-1",
+          "ordinal": 1,
+          "personId": "authored-0001",
+          "to": "writer",
+          "week": 208
+        }
+      ],
+      "current": null,
+      "requested": {
+        "ageAtAnnouncement": 70,
+        "announcedWeek": 104,
+        "cause": "hardBoundary",
+        "effectiveWeek": 208,
+        "extendedFromWeek": null,
+        "extensionUsed": false,
+        "finishingFromWeek": null,
+        "intentRulesVersion": 1,
+        "personId": "authored-0001",
+        "profession": "actor",
+        "retiredWeek": 208,
+        "status": "retired"
+      },
+      "currentAdmission": null,
+      "requestedAdmission": "talent \"authored-0001\" is retiredFromProfession \u2014 retired at week 208 (effective week 208) (P14C.2a)"
+    }
+  ],
+  "completeQuotes": [
+    {
+      "actualWeek": 208,
+      "request": {
+        "family": "PREFERRED_GENRE_OPPORTUNITY",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "predicate": {
+          "kind": "genreOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "genre": "drama"
+        },
+        "startWeek": 208,
+        "termWeeks": 52,
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 221
+      },
+      "receipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "2ef46fbc08895485",
+        "rulesVersion": 7,
+        "week": 208
+      },
+      "inputBytes": 1705941,
+      "inputSha256": "238dad00caf0860a5552877ab07c0a033684849ec90768a2cf2537b6515030a9",
+      "prospectiveContractOnly": true
+    },
+    {
+      "actualWeek": 208,
+      "request": {
+        "family": "PREFERRED_GENRE_OPPORTUNITY",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0000",
+        "predicate": {
+          "kind": "genreOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "genre": "drama"
+        },
+        "startWeek": 208,
+        "termWeeks": 52,
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 221
+      },
+      "receipt": {
+        "classification": "IMPOSSIBLE",
+        "bottleneck": "retirement closes fresh cast admission",
+        "inputsDigest": "d2d934b2e9611a59",
+        "rulesVersion": 7,
+        "week": 208
+      },
+      "inputBytes": 1705941,
+      "inputSha256": "238dad00caf0860a5552877ab07c0a033684849ec90768a2cf2537b6515030a9",
+      "prospectiveContractOnly": true
+    },
+    {
+      "actualWeek": 208,
+      "request": {
+        "family": "PREFERRED_GENRE_OPPORTUNITY",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0001",
+        "predicate": {
+          "kind": "genreOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "genre": "drama"
+        },
+        "startWeek": 208,
+        "termWeeks": 52,
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 221
+      },
+      "receipt": {
+        "classification": "IMPOSSIBLE",
+        "bottleneck": "retirement closes fresh cast admission",
+        "inputsDigest": "e79c2bd2e05569f2",
+        "rulesVersion": 7,
+        "week": 208
+      },
+      "inputBytes": 1705941,
+      "inputSha256": "238dad00caf0860a5552877ab07c0a033684849ec90768a2cf2537b6515030a9",
+      "prospectiveContractOnly": true
+    }
+  ],
+  "samePersonUnboundExcluded": [
+    {
+      "beneficiaryPersonId": "authored-0005",
+      "contractId": null,
+      "dueWeekExclusive": 416,
+      "evidenceRefs": [],
+      "family": "APPEARANCE_COUNT",
+      "feasibilityReceipt": {
+        "bottleneck": null,
+        "classification": "REASONABLY_ACHIEVABLE",
+        "inputsDigest": "ffeeb3b2d82d9f41",
+        "rulesVersion": 4,
+        "week": 196
+      },
+      "issuerStudioId": "studio-de11f27b-r01",
+      "outcome": null,
+      "outcomeCause": null,
+      "outcomeEventId": null,
+      "outcomeWeek": null,
+      "predicate": {
+        "count": 1
+      },
+      "progress": 0,
+      "promiseId": "promise-57",
+      "supersededByPromiseId": null,
+      "version": 4,
+      "windowStartWeek": 208
+    },
+    {
+      "beneficiaryPersonId": "authored-0005",
+      "contractId": null,
+      "dueWeekExclusive": 416,
+      "evidenceRefs": [],
+      "family": "APPEARANCE_COUNT",
+      "feasibilityReceipt": {
+        "bottleneck": null,
+        "classification": "REASONABLY_ACHIEVABLE",
+        "inputsDigest": "5f79098999019f43",
+        "rulesVersion": 4,
+        "week": 196
+      },
+      "issuerStudioId": "studio-de11f27b-r02",
+      "outcome": null,
+      "outcomeCause": null,
+      "outcomeEventId": null,
+      "outcomeWeek": null,
+      "predicate": {
+        "count": 1
+      },
+      "progress": 0,
+      "promiseId": "promise-58",
+      "supersededByPromiseId": null,
+      "version": 4,
+      "windowStartWeek": 208
+    }
+  ],
+  "counters": {
+    "advanceAttempts": 0,
+    "advanceInvoked": 0,
+    "advanceCompleted": 0,
+    "quotes": 3,
+    "hardAdvanceAttempts": 0,
+    "hardQuotes": 3,
+    "publicMutationAttempts": 0,
+    "historicalPrefixAdvances": 0,
+    "captureReplay": false,
+    "simulationHelperImported": false,
+    "quoteOrder": [
+      "authored-0005",
+      "authored-0000",
+      "authored-0001"
+    ],
+    "inputCache": "complete"
+  },
+  "timingsSeconds": {
+    "rootRecorder": 35.81,
+    "runtimeRecorder": 6.621,
+    "runtimeVitest": 5.54,
+    "file": 2.451,
+    "leaf": 2.448
+  },
+  "interpretation": [
+    "Three pure P4 queries/zero advances or public actions, actual208 unchanged; full state/request/RNG purity and current40 admission passed.",
+    "Actor0005 RA7/2ef46fbc08895485 on real stock drama; current Director0000 IMP7/d2d934b2e9611a59 and Writer0001 IMP7/e79c2bd2e05569f2 from actual requested Actor terminal records. Current-profession admission remains allowed.",
+    "All59 old promises/lifecycle retained; all85old takes exact with cutover85/empty facts. Real Actor0005 same-person roots57/58 are unbound/unattached and excluded; other-person issuer rows also excluded by actual membership.",
+    "Sixteen core leaves qualified across eight separate selections, not a combined suite."
+  ],
+  "limits": [
+    "Original V37 development provenance and twelve-digest parity FAIL remain immutable; no old P3 or old waiver link fabricated.",
+    "Generated-test capture and funding provenance remain distinct from natural economic success or Owner campaigns.",
+    "Proposed208to260 contract/potentialtake213 are hypothetical API facts, not actual hire/transition/new employment/gameplay/take.",
+    "No finishing/current-profession retirement-only boundary, cross-owner runtime, group/delayed-release retirement, material rival offer, native or full-suite claim."
+  ],
+  "futurePlan": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1275-B-grouped-witness-plan-review.md",
+    "bytes": 7426,
+    "sha256": "859b6a0a5f56f797310f0f705d9caf645a4f37231f47fcdd81bba681c29fd51e"
+  },
+  "next": "Release1269-C under acceptedA/B: six pure P5 cross-owner queries on existing1171actual45,zero actions/advances. IndependentD then parent integration/publication and1270types0/1271runtime0. Then1272finishing and1275grouping accepted plans."
+}

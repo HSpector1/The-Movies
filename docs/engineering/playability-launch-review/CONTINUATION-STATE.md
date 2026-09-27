@@ -1,5 +1,29 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — Requested-Actor retirement qualified; cross-owner source next
+
+Executed/published cce5f998fb59d929f18a0545100b9987a4793a1b matched GitHub.
+1267 root types PASS35.810s;1268 Q16 PASS1/zero filtered6.621s recorder,
+2.448s leaf. All1,685 consumed files,174 manual pins,index/stage and fixed-source
+checks stayed exact.1266-I/J/K close all three pure P4 receipts: Actor0005 RA7,
+Director0000 and Writer0001 IMP7 from their actual terminal Actor records despite
+allowed current-profession admission. Zero actions/advances; actual208 unchanged.
+All59 roots/85 old takes/lifecycle persist; real same-person promise57/58 remain
+unbound/unattached and excluded. Preserve the original V37 provenance/parity FAIL.
+Sixteen core leaves passed across eight separate selections, not one full suite.
+No production source changed; Save40/projection55/evaluator7 remain current.
+
+Begin1269-C under acceptedA/B: six pure P5 queries on exact1171actual45, one rival
+Actor's company release floor and one rival Writer's actual drafting due boundary.
+Zero actions/advances; hypothetical API terms do not hire or transfer either person.
+IndependentD precedes parent integration/publication and1270 root types(cap0),
+1271 runtime(cap0).1269 migration/receipts remain unexecuted. Then accepted1272
+finishing and1275-A/B grouped-witness plans; no source release for them yet.
+1275B explicitly preserves separate old4 count clocks and current7 common clocks.
+Parent sole live production/integration writer and heavy-process owner; same two
+specialists retain staged-test/review ownership. Continue authorized program.
+Unity/native and Owner campaign access deferred; all earlier failures/limits retained.
+
 ## CURRENT — Requested-Actor retirement source applied; Q16 gates next
 
 Parent applied exact1266-C/D on publishedb8ff2c7d.1266-E records the sole new

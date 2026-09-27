@@ -1,0 +1,24 @@
+{
+  "sourceSha": "cce5f998fb59d929f18a0545100b9987a4793a1b",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14p4p5-retired-acting.test.ts",
+    "-t",
+    "Q16 "
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T22:58:10.344Z",
+  "end": "2026-09-27T22:58:16.965Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "cce5f998fb59d929f18a0545100b9987a4793a1b",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}
