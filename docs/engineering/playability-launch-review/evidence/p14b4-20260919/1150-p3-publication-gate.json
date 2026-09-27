@@ -1,0 +1,10 @@
+{
+  "sourceSha": "2f8cae9d1b285a642e49c90e367f89b163cb5c4f",
+  "remoteSha": "2f8cae9d1b285a642e49c90e367f89b163cb5c4f",
+  "observedAt": "2026-09-27T13:29:17.309354+00:00",
+  "consumedSourceClean": true,
+  "wholeWorktreeClean": true,
+  "wholeWorktreeStatus": "",
+  "result": "PASS",
+  "nextRun": "1150-p3-reservation-lifecycle-root-types"
+}

@@ -1,5 +1,32 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — actual retirement-dispatch failure preserved; matching one-file correction
+
+1150 root compiler PASS on published2f8cae9d1b285a642e49c90e367f89b163cb5c4f,
+55.055s. 1151 closes13:30:44.462–13:31:31.669UTC,47.207s, child1/fixedSource:true/
+empty consumed diff, no untracked source/signal/error. Actual2PASS(D09/D13W),
+2FAIL(D10/D11),10 intentionally filtered. All364 reserved calls=208player+156life
+and17 caches complete. D09 genuinely wins both260 contracts and preserves root4
+with accepted freeze receipt6; D13W genuine A→B→C and new save guards PASS.
+
+Both failures are the same semantic defect: genuine Director promise60, bound/open
+at260, is incorrectly VOIDED261 by the already completed Actor retirement208.
+D10's later dispatch/current-E/digest assertions and D11's due300/terminal assertions
+remain masked, although setup actually reaches364. Complete851B old4 marker stays
+literal1135-equal. Raw1150/1151 records are checkpointed now; author1151-A and
+independent1151-B attribution remain in progress. No corrected behavior claim.
+
+Parent has one matching uncommitted promises.ts correction: explicit Director
+promises request Director admission; older casting predicates still request Actor.
+Existing current-plus-requested admission and all physical/settlement laws remain.
+Patch1246B/21b132f05456260812c4f7f3789a12973f55e2365dd0fa43e00ef1abe2587073.
+Frozen1149 test/helper bytes remain unchanged. Next1152 compiler and independent
+source review, publish exact correction/reviews, then1153 unchanged four-leaf run.
+
+Parent alone owns production/integration/heavy execution; none active now. Existing
+author also prepares docs-only1154 fixed-rival plan; no rival source released.
+Remaining P3/consumer/P14 onward scope and all native/Owner limits remain intact.
+
 ## CURRENT — four reservation/lifecycle tests frozen; first execution next
 
 1149-A final61d199c0 freezes only the two existing P3 helper/test paths against

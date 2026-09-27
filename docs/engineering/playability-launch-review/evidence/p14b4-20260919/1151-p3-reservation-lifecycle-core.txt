@@ -1,0 +1,130 @@
+{"sourceSha":"2f8cae9d1b285a642e49c90e367f89b163cb5c4f","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14p3-directing-promises.test.ts","--testNamePattern","D(?:09|10|11|13W) "],"node":"v20.20.2","start":"2026-09-27T13:30:44.462Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 third slice: reservations, profession chronology and successor proof > D09 reserves the actual union and freezes a changed receipt without restamping its root
+1133-P3-LEGACY4 {"week":8,"rngState":"1557239868,672280863,464522958,2878174094","receipts":[{"draft":{"family":"APPEARANCE_COUNT","predicate":{"count":1},"issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":112},"receipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"9a5006d1107172a3","rulesVersion":4,"week":8}},{"draft":{"family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"lead"},"issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":112},"receipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"3dbf55ccb67dfa2c","rulesVersion":4,"week":8}}]}
+1149-P3-RESERVATIONS {"rivalClassification":"FRAGILE","scriptIds":["script-0000","script-0001"],"boundWeek":260,"castId":"promise-59","directorId":"promise-60","prices":{"authored-0000":{"annualSalary":562930,"signingBonus":101327},"authored-0002":{"annualSalary":588320,"signingBonus":105898}}}
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 third slice: reservations, profession chronology and successor proof > D13W refuses a nonaccepted receipt on an actual Director waiver successor
+1149-P3-WAIVER-CHAIN {"week":61,"ids":["promise-0","promise-1","promise-2"],"windows":[62,63],"due":104}
+
+stdout | tests/p14p3-directing-promises.test.ts
+1149-P3-CONTINUITY-COUNTERS {"playerCalls":208,"playerCap":208,"branches":[{"name":"cancelBefore","actualTicks":0,"cap":64,"startWeek":null},{"name":"cancelAfter","actualTicks":0,"cap":64,"startWeek":null},{"name":"waiver","actualTicks":0,"cap":64,"startWeek":61}],"total":364,"cap":556,"lifecycleCalls":156,"lifecycleCap":156,"selectedCap":364}
+1143-P3-OUTCOME-COUNTERS {"playerCalls":208,"playerCap":208,"branches":[{"name":"cancelBefore","actualTicks":0,"cap":64,"startWeek":null},{"name":"cancelAfter","actualTicks":0,"cap":64,"startWeek":null},{"name":"waiver","actualTicks":0,"cap":64,"startWeek":61}],"total":208,"cap":400}
+1133-P3-COUNTERS {"actualTicks":208,"cap":208,"cachedPhases":[{"name":"created0","completed":true},{"name":"managedEmpty8","completed":true},{"name":"ready10","completed":true},{"name":"cases45","completed":true},{"name":"lifecycle208","completed":true},{"name":"lifecycle248","completed":true},{"name":"lifecycleAttached248","completed":true},{"name":"lifecycle260","completed":true},{"name":"lifecycle261","completed":true},{"name":"attached45","completed":true},{"name":"bound52","completed":true},{"name":"firstFilm","completed":true},{"name":"secondFilm","completed":true},{"name":"terminal208","completed":true},{"name":"lifecycle364","completed":true},{"name":"waiverInput","completed":true},{"name":"waived61","completed":true}]}
+
+ ❯ |core| tests/p14p3-directing-promises.test.ts (14 tests | 2 failed | 10 skipped) 41537ms
+   ✓ P3 third slice: reservations, profession chronology and successor proof > D09 reserves the actual union and freezes a changed receipt without restamping its root 16453ms
+   × P3 third slice: reservations, profession chronology and successor proof > D10 keeps a newly bound Director obligation lawful after its completed Actor episode 1696ms
+     → expected { promiseId: 'promise-60', …(16) } to deeply equal { promiseId: 'promise-60', …(16) }
+   × P3 third slice: reservations, profession chronology and successor proof > D11 preserves promise outcomes through actual current-profession retirement 19246ms
+     → expected { promiseId: 'promise-60', …(16) } to deeply equal { promiseId: 'promise-60', …(16) }
+   ✓ P3 third slice: reservations, profession chronology and successor proof > D13W refuses a nonaccepted receipt on an actual Director waiver successor 4139ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 third slice: reservations, profession chronology and successor proof > D10 keeps a newly bound Director obligation lawful after its completed Actor episode
+AssertionError: expected { promiseId: 'promise-60', …(16) } to deeply equal { promiseId: 'promise-60', …(16) }
+
+- Expected
++ Received
+
+  Object {
+    "beneficiaryPersonId": "authored-0000",
+    "contractId": "studio-de11f27b-player:contract:authored-0000:260:player-57",
+    "dueWeekExclusive": 300,
+    "evidenceRefs": Array [],
+    "family": "DIRECTING_COUNT",
+    "feasibilityReceipt": Object {
+      "bottleneck": null,
+      "classification": "REASONABLY_ACHIEVABLE",
+      "inputsDigest": "bbc588b3db0602a8",
+      "rulesVersion": 6,
+      "week": 260,
+    },
+    "issuerStudioId": "studio-de11f27b-player",
+-   "outcome": null,
+-   "outcomeCause": null,
+-   "outcomeEventId": null,
+-   "outcomeWeek": null,
++   "outcome": "VOIDED",
++   "outcomeCause": "retirement closed new production assignments before the remaining promised pictures could begin filming",
++   "outcomeEventId": "talent-market-event-188",
++   "outcomeWeek": 261,
+    "predicate": Object {
+      "count": 1,
+      "kind": "directorCount",
+    },
+    "progress": 0,
+    "promiseId": "promise-60",
+    "supersededByPromiseId": null,
+    "version": 6,
+    "windowStartWeek": 260,
+  }
+
+ ❯ tests/p14p3-directing-promises.test.ts:769:17
+    767|     const after = lifecycle261(), row = currentRow(after.state, after.…
+    768|     expect(after.state.market.tick).toBe(261)
+    769|     expect(row).toEqual(boundRow)
+       |                 ^
+    770|     expect(outcomesFor(after.state, row)).toEqual(outcomesFor(boundNow…
+    771|     expect(after.state.contracts.find(c => c.talentId === LIFE.directo…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 third slice: reservations, profession chronology and successor proof > D11 preserves promise outcomes through actual current-profession retirement
+AssertionError: expected { promiseId: 'promise-60', …(16) } to deeply equal { promiseId: 'promise-60', …(16) }
+
+- Expected
++ Received
+
+  Object {
+    "beneficiaryPersonId": "authored-0000",
+    "contractId": "studio-de11f27b-player:contract:authored-0000:260:player-57",
+    "dueWeekExclusive": 300,
+    "evidenceRefs": Array [],
+    "family": "DIRECTING_COUNT",
+    "feasibilityReceipt": Object {
+      "bottleneck": null,
+      "classification": "REASONABLY_ACHIEVABLE",
+      "inputsDigest": "bbc588b3db0602a8",
+      "rulesVersion": 6,
+      "week": 260,
+    },
+    "issuerStudioId": "studio-de11f27b-player",
+-   "outcome": null,
+-   "outcomeCause": null,
+-   "outcomeEventId": null,
+-   "outcomeWeek": null,
++   "outcome": "VOIDED",
++   "outcomeCause": "retirement closed new production assignments before the remaining promised pictures could begin filming",
++   "outcomeEventId": "talent-market-event-188",
++   "outcomeWeek": 261,
+    "predicate": Object {
+      "count": 1,
+      "kind": "directorCount",
+    },
+    "progress": 0,
+    "promiseId": "promise-60",
+    "supersededByPromiseId": null,
+    "version": 6,
+    "windowStartWeek": 260,
+  }
+
+ ❯ tests/p14p3-directing-promises.test.ts:821:62
+    819|     const at260 = lifecycle260(), at261 = lifecycle261(), end = lifecy…
+    820|     const original = currentRow(at260.state, at260.directorPromiseId)
+    821|     expect(currentRow(at261.state, at261.directorPromiseId)).toEqual(o…
+       |                                                              ^
+    822|     const due = currentRow(end.at300, end.directorPromiseId)
+    823|     expect(due).toMatchObject({ outcome: 'BROKEN', outcomeWeek: 300, p…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 2 passed | 10 skipped (14)
+   Start at  15:30:45
+   Duration  45.78s (transform 2.59s, setup 0ms, collect 3.43s, tests 41.54s, environment 0ms, prepare 161ms)
+

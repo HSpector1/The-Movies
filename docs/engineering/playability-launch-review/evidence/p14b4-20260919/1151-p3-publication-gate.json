@@ -1,0 +1,11 @@
+{
+  "sourceSha": "2f8cae9d1b285a642e49c90e367f89b163cb5c4f",
+  "remoteSha": "2f8cae9d1b285a642e49c90e367f89b163cb5c4f",
+  "observedAt": "2026-09-27T13:30:34.350700+00:00",
+  "consumedSourceClean": true,
+  "wholeWorktreeClean": false,
+  "wholeWorktreeStatus": "?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1150-p3-publication-gate.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1150-p3-reservation-lifecycle-root-types.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1150-p3-reservation-lifecycle-root-types.patch\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1150-p3-reservation-lifecycle-root-types.txt\n",
+  "rootTypes": "1150 PASS child0 fixedSource",
+  "result": "PASS",
+  "nextRun": "1151-p3-reservation-lifecycle-core"
+}
