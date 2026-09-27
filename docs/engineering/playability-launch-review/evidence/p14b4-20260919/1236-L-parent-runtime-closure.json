@@ -1,0 +1,224 @@
+{
+  "status": "BOUNDED_LOGIC_PASS_WITH_ELAPSED_LIMITATION",
+  "time": "2026-09-27T20:17:55.499419+00:00",
+  "head": "4d1fdec8ad8b73e7db01281bef5ed84147d3c63c",
+  "gates": [
+    {
+      "name": "1247b-bridge55-test-types",
+      "start": "2026-09-27T20:11:28.769Z",
+      "end": "2026-09-27T20:12:02.169Z",
+      "advanceCap": 0,
+      "manualPins": 78,
+      "record": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1247b-bridge55-test-types.json",
+        "bytes": 641,
+        "sha256": "74612ac1024e4aa88c0e8e6a1d7b3d642848d0f268e3756bc39c67fc4c11e3a8"
+      },
+      "raw": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1247b-bridge55-test-types.txt",
+        "bytes": 347,
+        "sha256": "6b48062b9dab38a48362341b2424a7d4159238aa25c542fee9c1235a6560a539"
+      },
+      "postflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1247b-bridge55-test-types-postflight.json",
+        "bytes": 21012,
+        "sha256": "d106945661d48677a9b17e626db4eae22641c332b54eed83bbffadaec852f8c2"
+      }
+    },
+    {
+      "name": "1250-bridge55-material-runtime",
+      "start": "2026-09-27T20:12:14.729Z",
+      "end": "2026-09-27T20:16:29.911Z",
+      "advanceCap": 7,
+      "manualPins": 78,
+      "record": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1250-bridge55-material-runtime.json",
+        "bytes": 680,
+        "sha256": "20863510dcd504bb4a30fb6cee3a923a005874891a8f041f8fb422d638f30730"
+      },
+      "raw": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1250-bridge55-material-runtime.txt",
+        "bytes": 9304,
+        "sha256": "b9ca36b276dca20521279875f4cf7ade2aa8aa8d86efa2e12be9bb7eb707ce40"
+      },
+      "postflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1250-bridge55-material-runtime-postflight.json",
+        "bytes": 21028,
+        "sha256": "d7bf5d2af40611213f495bf62415f1d75a9cad86c8d11c914d36976c3acf9ab2"
+      }
+    }
+  ],
+  "observed": {
+    "1236-P4P5-BRIDGE-COUNTERS": {
+      "attempted": 7,
+      "reserved": 7,
+      "invoked": 7,
+      "completed": 7,
+      "quoteInvocations": 10,
+      "duplicateInvocations": 5,
+      "mutationInvocations": 12,
+      "priorCommandInvocations": 1,
+      "hardAdvanceCap": 7,
+      "phases": [
+        {
+          "name": "genuine45",
+          "complete": true
+        },
+        {
+          "name": "attached:PREFERRED_GENRE_OPPORTUNITY",
+          "complete": true
+        },
+        {
+          "name": "attached:SPECIFIC_PROJECT",
+          "complete": true
+        },
+        {
+          "name": "bound52",
+          "complete": true
+        },
+        {
+          "name": "waiverChain52",
+          "complete": true
+        }
+      ]
+    },
+    "1236-P4P5-PRIOR54": {
+      "oldSchema": "sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302",
+      "currentSchema": "sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158",
+      "oldJournalDigest": "1188a03e42c5b50be35d22dac1a437ad3b086d927ad97ed0359a643c5f132f09",
+      "migratedJournalEntries": 0,
+      "currentDigest": "0764275cf918f0700c6903e615c7a47eb25b5d383a19c12381af833805552cdd",
+      "savedDigest": "e5277ef685162b3111f420f629042afa1fb47ac9703d31cfad609260e6daf052",
+      "additionalAdvances": 0,
+      "currentSaveReplayEqual": true,
+      "independentInnerSlotRefusals": 2
+    },
+    "1236-P4P5-HISTORY": {
+      "actualWeek": 52,
+      "reminderQueryWeek": 104,
+      "chain": [
+        "promise-0",
+        "promise-1",
+        "promise-2"
+      ],
+      "history": [
+        {
+          "promiseId": "promise-2",
+          "family": "SPECIFIC_PROJECT",
+          "count": 1,
+          "qualifyingRole": "cast",
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0000",
+          "scriptProjectTitle": "A Season of Constellation",
+          "windowStartWeek": 54,
+          "dueWeekExclusive": 112,
+          "contractId": "studio-de11f27b-player:contract:authored-0006:52:player-32",
+          "outcome": null,
+          "outcomeWeek": null,
+          "outcomeCause": null,
+          "supersededByPromiseId": null,
+          "progress": 0
+        },
+        {
+          "promiseId": "promise-1",
+          "family": "PREFERRED_GENRE_OPPORTUNITY",
+          "count": 1,
+          "qualifyingRole": "cast",
+          "seatClass": "allCast",
+          "genre": "drama",
+          "windowStartWeek": 53,
+          "dueWeekExclusive": 112,
+          "contractId": "studio-de11f27b-player:contract:authored-0006:52:player-32",
+          "outcome": "WAIVED",
+          "outcomeWeek": 52,
+          "outcomeCause": "this person accepted the substitute promise \"promise-2\" in place of it",
+          "supersededByPromiseId": "promise-2",
+          "progress": 0
+        },
+        {
+          "promiseId": "promise-0",
+          "family": "PREFERRED_GENRE_OPPORTUNITY",
+          "count": 1,
+          "qualifyingRole": "cast",
+          "seatClass": "allCast",
+          "genre": "drama",
+          "windowStartWeek": 52,
+          "dueWeekExclusive": 112,
+          "contractId": "studio-de11f27b-player:contract:authored-0006:52:player-32",
+          "outcome": "WAIVED",
+          "outcomeWeek": 52,
+          "outcomeCause": "this person accepted the substitute promise \"promise-1\" in place of it",
+          "supersededByPromiseId": "promise-1",
+          "progress": 0
+        }
+      ],
+      "advances": 7
+    },
+    "1236-P4P5-BOUND": {
+      "week": 52,
+      "contract": {
+        "talentId": "authored-0006",
+        "annualSalary": 488081,
+        "signingBonus": 87855,
+        "startWeek": 52,
+        "endWeekExclusive": 156,
+        "termWeeks": 104
+      },
+      "promise": {
+        "beneficiaryPersonId": "authored-0006",
+        "contractId": "studio-de11f27b-player:contract:authored-0006:52:player-32",
+        "dueWeekExclusive": 112,
+        "evidenceRefs": [],
+        "family": "PREFERRED_GENRE_OPPORTUNITY",
+        "feasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "3160c5ca761b98dd",
+          "rulesVersion": 7,
+          "week": 52
+        },
+        "issuerStudioId": "studio-de11f27b-player",
+        "outcome": null,
+        "outcomeCause": null,
+        "outcomeEventId": null,
+        "outcomeWeek": null,
+        "predicate": {
+          "count": 1,
+          "genre": "drama",
+          "kind": "genreOpportunity",
+          "seatClass": "allCast"
+        },
+        "progress": 0,
+        "promiseId": "promise-0",
+        "supersededByPromiseId": null,
+        "version": 7,
+        "windowStartWeek": 52
+      },
+      "counts": {
+        "attempted": 7,
+        "reserved": 7,
+        "invoked": 7,
+        "completed": 7,
+        "quoteInvocations": 3,
+        "duplicateInvocations": 2,
+        "mutationInvocations": 9,
+        "priorCommandInvocations": 0
+      }
+    }
+  },
+  "timing": {
+    "compilerSeconds": 33.4,
+    "runtimeRecorderSeconds": 255.182,
+    "vitestSeconds": 254.12,
+    "fileMilliseconds": 249751,
+    "leavesMilliseconds": {
+      "B55-1": 14820,
+      "B55-2": 228867,
+      "B55-3": 6062
+    },
+    "declaredLeafMilliseconds": 60000,
+    "limitation": "Vitest reported all three PASS; synchronous B55-2 exceeded its declared timeout. No 60-second performance/latency guarantee, enforcement claim or timing repair is inferred."
+  },
+  "qualified": "Closed singular input grammar; actual separate P4/P5 attachment with duplicates/own-UNKNOWN privacy; actual P4 player bind52 and same-contract genre\u2192genre\u2192project waiver chain; own history and query104 reminder at actual52; genuine prior54 two-slot migration/reset; current replay/duplicate SAVE and inner-slot refusal. Standalone UI is separately1248/1251 on1fb18085.",
+  "remaining": "Not full1226/P14; no independent P5 Bridge settlement/filming, new narrower mask chain, committed reservations/status-clock coverage, rival opportunity contracts/staffing, hosted App workflow, disk/native or endurance rerun."
+}
