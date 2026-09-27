@@ -1,0 +1,6 @@
+{
+  "extends": "../../../../../tsconfig.bridge.json",
+  "compilerOptions": { "noEmit": true },
+  "include": ["./1221-p4p5-outgoing-capture.config.ts", "./1221-p4p5-outgoing-capture.test.ts"],
+  "exclude": ["../../../../../node_modules", "../../../../../dist"]
+}

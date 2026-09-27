@@ -1,5 +1,27 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — Outgoing39/54 producer reviewed; dedicated compiler and capture next
+
+Current checkpoint3d0b05ea7b797b3a83a797834f593667ce2e823d matched GitHub in
+recovery. Production2af37179 and all consumed source remain unchanged; no heavy
+process is active. Existing test/review specialists retain separate ownership.
+
+1221 producer/config/local tsconfig/source manifest andA/B are frozen and reviewed
+KEEP. Parent independently checked all1,675 consumed/eight manual/four immutable
+pins. The exclusive output directory is absent. Parent1221-C releases publication,
+then1222 dedicated compiler and1223 single capture:78 actual helper ticks, zero
+runtime advances, real SAVE/waiver/restart/two duplicates and seven exclusive
+bounded outputs. Actual child exit, manual source/index guards and1224 independent
+attribution are required. No output or successful capture is claimed yet.
+
+1225-A now states the concrete P4/P5 contract candidate: explicit cast masks,
+immutable first-take subjects, singular feasibility and a conservative reservation
+witness, material/waiver semantics and candidate40/55/7 boundary. It is under
+review and releases no production edit or version activation.1226-A separately
+prepares test requirements without execution. Existing P3 rival/slack/historical
+limits and the selected P15 decisions stand. Continue the authorized P14/P15/P16/
+specified P17/P18 program; Unity/native and Owner-campaign access stay deferred.
+
 ## CURRENT — Occupancy boundaries verified; current39/54 preservation is next
 
 Published e3b7e4afe9871f4d042073ff5f09dad326141913 has exact GitHub equality.

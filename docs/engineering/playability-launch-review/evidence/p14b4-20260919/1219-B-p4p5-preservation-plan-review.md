@@ -1,0 +1,21 @@
+# 1219-B — Current39/54 outgoing-preservation plan review
+
+Disposition: **KEEP for the separately reviewed preservation producer**, with the two adopted refinements below. This is a plan disposition, not a compiler/capture result, P4/P5 activation, version allocation or final predicate/feasibility contract.
+
+Reviewed frozen1219-A is 11,359 bytes / SHA256 `969e89d91e75d91f2a72fff6e14260af8fa9bf7119bccf6b4e40975b028f1e03`. Its current Save39/projection54 scope correctly distinguishes the immutable1171 week45 and1117 Save38/projection53 corpora. Neither old capture is repeated, overwritten or relabelled.
+
+The unchanged helper supplies a concrete, bounded route: actual bound52, earned61, second take74/release78, plus the existing zero-advance post-take cancellation from earned61. Its memoized route and first-failure caches support one78-call prefix; cancellation does not require the later cancelAfter continuation. A real Vitest harness may import that helper, never the whole test module. The producer must reserve before every actual core.tick call, refuse invocation79, preserve exact call arguments/results and restore observation in finally. Success requires78 reserved/invoked/verified/helper calls and zero outcome/lifecycle/rival advances; failure counters remain distinct. No terminal208, completed-waiver, lifecycle, rival or alternative setup route is included.
+
+Full public39 admission and exact byte round-trips must precede output. The five save states must retain real contract/root/take/outcome joins, including the canceled-production receipt witness; incidental historical families are preserved without inventing their presence. These are appropriate outgoing witnesses for later cutover/no-backfill tests, not evidence that a future sidecar or predicate already works.
+
+The runtime proposal uses actual raw-checkpoint coordinator operations: SAVE earned61, one pure validated waiver quote, one validated Director waiver command, exact SAVE replay after waiver, close/restart from persisted bytes, then exact waiver replay. Current-waived61 and saved-earned61 remain distinct actual slots. Require two first-seen journal entries, two duplicates, one quote, one fresh factory plus restart, no runtime advances, and exact no-write/no-rollback replay checks. Both acquired store owners must close on all applicable paths; a construction or cleanup failure prevents success. The source must make that ownership and failure audit concrete. This qualifies in-memory semantic authority only.
+
+Parent adopted two integration refinements, recorded in1220-C while1219-A remains frozen:
+
+- Write exactly the seven planned files exclusively under E/1221-p4p5-outgoing-capture, outside consumed source roots. Keep the16MiB per-raw,1MiB manifest and128MiB directory bounds and unchanged runtime defaults. Retain partial own outputs/failure evidence; never overwrite old corpora. The success manifest is the last authoritative write, after cleanup and source/manual guards. Any later fixture installation is separate.
+- Keep full canonical request/response strings in the actual runtime checkpoint journal. The manifest carries exact artifact/journal-index/route/commandId/byte-length/hash joins and duplicate equality. SAVE responses contain whole save bytes and command responses contain snapshots; duplicating these complete bodies in the capped manifest is an avoidable capacity risk, not an observed overflow. This refinement loses no authority and adds no operation, file or cap relaxation.
+
+Concrete1221 source review must verify exclusive output handling, actual tick/runtime counters, success/failure cleanup, journal joins and all input/consumed-source/HEAD/raw-index/manual producer/config/manifest guards. Parent's compiler and fixed-source recorder plus manual postflight remain required, including failures. No producer or project module was executed in this review.
+
+The later durable-fact tests and P4/P5 class, reservation, window, outcome, waiver and disclosure contract remain separate work. Existing rival/slack/historical and native/whole-suite limits stay explicit. This review releases no gameplay or production writer. Final and frozen; no delayed appendix is planned.
+
