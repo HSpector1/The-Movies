@@ -1,5 +1,16 @@
 # P14 — Contested Talent Market, Bonds and Promises, Career Lifecycle — headless plan (logic-first)
 
+## CURRENT — corrected C/D complete; final maintenance and regression remain
+
+D1085 and independent 1114-B KEEP complete the 6,240-week continuous/read-stress
+route with 600 passing read groups and exact original-A command/save/root authority.
+Corrected C already qualifies 280 reloads. Retain historical A/B and failed C with
+their actual sources; only A supports its three separate real-disk samples.
+Next apply guarded reviewed 1093→1096→1110 via 1115 and execute every exact 1103
+paired/final gate before C.3 qualification. P3 1112-A/B/C/D/E and outgoing-preservation
+1116/1117 remain preparation. Actual rival Actor positive route is unproved.
+Native/Owner acceptance stays deferred; do not call all P14 complete.
+
 ## CURRENT — corrected C complete; D and final gates remain
 
 Corrected C1084 and independent 1111-B KEEP establish all 6,240 weeks, 1,072

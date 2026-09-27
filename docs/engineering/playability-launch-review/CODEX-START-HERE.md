@@ -1,5 +1,52 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — corrected D passed; guarded maintenance is next
+
+1085 corrected D is CLOSED PASS on published c1a6654a859e528bd719cd39c62d850a51f59eee.
+Actual 05:57:39.652–07:55:49.437Z (7,089.785s): 6,240 ticks, 1,072 commands,
+122 releases and 600 read groups. All 121 complete checkpoints/40 roots, command
+values and retained 0/3,120/6,240 authority match A and corrected C exactly.
+1114-A records the result; independent final 1114-B KEEP (57e922c0, 13,084 bytes)
+confirms full source/reference/codec/cadence/read guards. No heavy process remains.
+Original failed C and historical A/B retain their actual source and result scopes.
+
+Publish this checkpoint and verify GitHub, then run 1115 preflight and apply the
+exact reviewed 1093→1096→1110 stages. Apply modes run directly with their mutation
+audits; keep consumed changes unstaged through verify-final. Independently review
+the 90-file applied diff, retain a recoverable candidate, then run the focused B5
+leaf and all exact 1103 paired/final gates using 1113's failure reference index.
+Final C.3 current-source qualification remains outstanding. Parent is sole
+production writer/integrator/heavy executor; existing test and review specialists
+retain separate ownership. No other source writer or heavy process is active.
+
+1112-D/E resolves the proposed rival Actor P3 strategy/crew bootstrap at source-plan
+level only; actual public credit, market win, pay, lawful crew and ≤260-tick route
+remain unproved. 1112-A/B/C remain frozen. 1116/1117 outgoing preservation has
+source KEEP only and cannot execute before actual final C.3 qualification.
+P15 D2/D3/D4a remain pending; native and Owner-campaign acceptance remain deferred.
+
+## CURRENT — corrected D executing on published c1a6654a
+
+GitHub exactly matches c1a6654a859e528bd719cd39c62d850a51f59eee. Completed C1084,
+independent 1111-B KEEP and all retained artifacts are published. 1085 corrected D
+is the sole heavy process, session62605, exclusive 1052-c3-endurance-D-force-order-v1.
+It uses the frozen 1108 producer, original A baseline and corrected C predecessor.
+Freeze this HEAD/index, consumed source, all producer dependencies and all A/C
+reference artifacts until closure. D has no result yet; no maintenance is applied.
+
+Parent owns execution and 1114-A result; reviewer owns 1114-B D artifact review.
+1115 guarded maintenance helper is frozen with independent 1115-B source KEEP
+(4c439916). Apply modes use its exclusive mutation audits directly; read-only
+modes may use the fixed-source recorder. No mode has executed. Later P3 preservation
+plan 1116-B and producer 1117-B both have frozen source KEEP; no compiler/capture
+has executed. Both specialists are available for the next assigned task, with no
+live source or test ownership. Parent retains the sole heavy process. After D
+PASS and independent KEEP, publish, apply exact guarded 1093→1096→1110 stages,
+run the B5 leaf and all exact 1103 paired/final gates with 1113 failure references.
+P3 1112-A/B/C remains reviewed preparation for after actual C.3 qualification.
+Original failed C, all historical A/B evidence, both forensic copies and native/
+Owner limitations remain unchanged. P15 D2/D3/D4a answers remain pending.
+
 ## CURRENT — corrected C passed; publish closed qualification before D
 
 1084 corrected C is CLOSED PASS, session11745, on fixed published

@@ -1,5 +1,16 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — corrected C/D endurance qualified; final regression next (2026-09-27)
+
+D1085 completed all 6,240 weeks, 1,072 commands, 122 releases and 600 read groups.
+1114-A and independent 1114-B KEEP qualify exact original-A authority parity and
+all source/read/codec guards. Together with corrected C's 280 reload replacements,
+this closes the corrected endurance route; original A/B and failed C remain at
+their actual historical sources. Only A has the separate three real-disk samples.
+Apply reviewed 1093→1096→1110 through 1115, then complete all exact 1103 final gates.
+About 13.6 hours have elapsed in C.3's planning window; final verification remains
+required. No all-green, native or Owner acceptance claim. Later P3 stays held.
+
 ## CURRENT — corrected C reload endurance passed (2026-09-27)
 
 1084 closed PASS on published 81a96b7a: 6,240 ticks, 1,072 commands, 122 releases,
