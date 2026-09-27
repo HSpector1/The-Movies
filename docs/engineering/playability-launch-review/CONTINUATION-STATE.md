@@ -1,5 +1,31 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — Existing finishing work qualified; grouped-witness source next
+
+Executed/publishedfb8f4a2210bb56803c851e133ac61075b34bb041 matched GitHub.
+1273 root types PASS33.573s;1274 Q18 PASS1/zero filtered11.280s recorder,
+7.006s leaf. All1,687 source files,205 manual pins,index/stage and fixed-source
+checks stayed exact.1272-I/J/K close five pure P4 quotes, two accepted existing-task
+actions and exactly one default-false312→313 advance. Actor0000 held drama remains
+available despite retirement closing fresh cast work; Director0003's current
+profession finishing record closes fresh cast admission with no Actor record.
+Actual scenery arrival/ready/scheduled/taskcompletion occurred; prod0000 took at313
+and moved5→4. Sole new fact is event111/c00/drama/null screenplay, no new rival take.
+All111 old receipts and69 old promises persist; both finishing records remain.
+Eighteen core leaves passed across ten separate selections, not one full suite.
+No production change; historical funded/reproduced provenance and limits retained.
+
+Begin1275-C under acceptedA/B: genuine31bound52, hard8advances52→60,
+four production actions plus two actual P1 waivers, eight explicit pure quotes.
+Require shared production/common-window and delayed-release evidence; no later
+simulated81/85/90 and no retirement claim. IndependentD precedes integration,
+publication,1276types(cap0) and1277runtime(cap8). Then accepted1278 casting and
+1281 delayed-retirement plans; no source release for those yet. Parent owns live
+integration/production and the only heavy lane; same two specialists retain test
+and independent review. Continue authorized program with recoverable checkpoints.
+P17 recovered specification/two unanswered product questions remain separately
+recorded; settled P15 choices stand. Unity/native and Owner access remain deferred.
+
 ## CURRENT — Finishing source applied; Q18 gates next
 
 Parent applied exact1272-C/D on publishedbb40a99a.1272-E records the sole new

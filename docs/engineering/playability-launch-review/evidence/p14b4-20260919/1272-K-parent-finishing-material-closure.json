@@ -1,0 +1,4197 @@
+{
+  "record": "1272-K parent existing finishing material closure",
+  "timeUtc": "2026-09-27T23:56:15.965023+00:00",
+  "executedPublishedSource": "fb8f4a2210bb56803c851e133ac61075b34bb041",
+  "result": "Q18 PASS1/zero filtered; root types PASS",
+  "parentRead": "Complete349-line final source via full337-line provisional and exact sole12-line resource correction; A/F/B/C/D/I/J. Complete nonmarker tail and all unique INPUT/HELD/request/receipt/action/ADVANCE/counter fields read. Parsed complete raw and independently compared historical manifest/978/provenance,97 lawful anchors/old lifecycle projection, both3-production owner censuses, all345 union membership decisions/all69raw roots, repeated person/held payloads, every embedded resource owner, all actual actions and entire one-take suffix against immutable35 input. All69old promises actually unchanged. All205manual pins/all1687source files/index/stage rehashed before closure. No project code rerun for attribution.",
+  "gates": [
+    {
+      "stem": "1273-finishing-material-types",
+      "record": {
+        "sourceSha": "fb8f4a2210bb56803c851e133ac61075b34bb041",
+        "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "untrackedSource": [],
+        "command": [
+          "node_modules/.bin/tsc",
+          "--noEmit",
+          "-p",
+          "tsconfig.json"
+        ],
+        "node": "v20.20.2",
+        "start": "2026-09-27T23:45:37.725Z",
+        "end": "2026-09-27T23:46:11.298Z",
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "sourceShaAtEnd": "fb8f4a2210bb56803c851e133ac61075b34bb041",
+        "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "untrackedSourceAtEnd": [],
+        "fixedSource": true
+      },
+      "evidence": [
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1273-finishing-material-types.json",
+          "bytes": 634,
+          "sha256": "e483137fae3872120146b04fe47c9cf9808c3c74faca835080944cd5166dc662"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1273-finishing-material-types.txt",
+          "bytes": 340,
+          "sha256": "de0fe033654232e313a626497624a6960a8f88d9f0d28a298fca76564017b283"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1273-finishing-material-types.patch",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1273-finishing-material-types-preflight.json",
+          "bytes": 51187,
+          "sha256": "dccee5f035624bfc83b0bb3ca2483860005d35a76c3fc9805fd411261c778a1c"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1273-finishing-material-types-postflight.json",
+          "bytes": 51877,
+          "sha256": "8f0cdf5e1de95329ac6cd00e3982351f12068474dcbbef187724802fc5330a8f"
+        }
+      ]
+    },
+    {
+      "stem": "1274-finishing-material-runtime",
+      "record": {
+        "sourceSha": "fb8f4a2210bb56803c851e133ac61075b34bb041",
+        "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "untrackedSource": [],
+        "command": [
+          "node_modules/.bin/vitest",
+          "run",
+          "--project",
+          "core",
+          "tests/p14p4p5-finishing-material.test.ts",
+          "-t",
+          "Q18 "
+        ],
+        "node": "v20.20.2",
+        "start": "2026-09-27T23:46:34.582Z",
+        "end": "2026-09-27T23:46:45.862Z",
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "sourceShaAtEnd": "fb8f4a2210bb56803c851e133ac61075b34bb041",
+        "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "untrackedSourceAtEnd": [],
+        "fixedSource": true
+      },
+      "evidence": [
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1274-finishing-material-runtime.json",
+          "bytes": 700,
+          "sha256": "7c136620e2dc323d70ba15e543d62ad16582fb6dc97b80f40224fe0573a2c13e"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1274-finishing-material-runtime.txt",
+          "bytes": 496075,
+          "sha256": "814ae7456af85198ab222653f5acbda212b9f52c3b2760d3d0db0a867a3652d7"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1274-finishing-material-runtime.patch",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1274-finishing-material-runtime-preflight.json",
+          "bytes": 51187,
+          "sha256": "d7170275dafbaae897ad7cbf8532815f2ba6867cee7b7e6c989320585050b5c8"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1274-finishing-material-runtime-postflight.json",
+          "bytes": 51886,
+          "sha256": "c675bd039bdb06ded8ff48c08dbb838f7c996dcb8c738190476c712061fe38d6"
+        }
+      ]
+    }
+  ],
+  "verifiedCurrentGuards": {
+    "sourceFiles": 1687,
+    "sourceInventory": {
+      "bytes": 256086,
+      "sha256": "7aaf1499fca98eb26446cc3d3b2954ea0855cf754e9a3a6c416e031c378a4ba8"
+    },
+    "index": {
+      "bytes": 1124449,
+      "sha256": "6d95508079b1f56eb2c21557774c908704131f9aa4f904aee365b9040e1e9b7f"
+    },
+    "stageEntries": {
+      "bytes": 998647,
+      "sha256": "02a929ce047c4a38c3ac4075642e7049811f04043b5437e66060c1fb129777f5"
+    }
+  },
+  "manualPinCount": 205,
+  "source": {
+    "path": "tests/p14p4p5-finishing-material.test.ts",
+    "bytes": 30044,
+    "sha256": "6ac099679b6f5e0b0bf04a37db3608fa9e7b56a8d6bf513996fb268aa3350fa5"
+  },
+  "reviews": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1272-I-finishing-material-verification-attribution.md",
+      "bytes": 5960,
+      "sha256": "1199ba4116b3349a4dc9a23441a5a4bda28f76d0586e9bc74149e029efb13aca"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1272-J-finishing-material-verification-review.md",
+      "bytes": 6090,
+      "sha256": "82ee5475bbdcbe9a96f058a9ae492b6747c9b7fe921079ce6340c7ad52d43006"
+    }
+  ],
+  "markers": {
+    "lines": 13,
+    "bytes": 494929,
+    "sha256": "799dfb641603359ece542ccc27c075fdef3196a5b1dd5d4460c2720ab25ae1bc"
+  },
+  "input": {
+    "actualWeek": 312,
+    "cash": -3959669.2663676403,
+    "noCurrentFunding": true,
+    "oldReceiptCount": 111,
+    "oldReceiptsSha256": "bccfa30243baa19d55759ff69bba2ddec2f7c23e5ef218c0bf6a30fd7bdaf9b1",
+    "oldPromiseCount": 69,
+    "oldPromisesSha256": "371574313db32610fa042941af8b53a8f754d32be2b4e21704db92e1b2b0a708",
+    "migratedLifecycle": {
+      "boundaryWeek": 0,
+      "cohorts": [
+        {
+          "clipped": 0,
+          "personIds": [
+            "person-cohort-260-actor-0",
+            "person-cohort-260-craft-0"
+          ],
+          "requested": {
+            "actor": 1,
+            "craft": 1,
+            "director": 0,
+            "writer": 0
+          },
+          "talentCountBefore": 89,
+          "week": 260
+        },
+        {
+          "clipped": 0,
+          "personIds": [
+            "person-cohort-312-director-0",
+            "person-cohort-312-writer-0"
+          ],
+          "requested": {
+            "actor": 0,
+            "craft": 0,
+            "director": 1,
+            "writer": 1
+          },
+          "talentCountBefore": 95,
+          "week": 312
+        }
+      ],
+      "records": [
+        {
+          "ageAtAnnouncement": 71,
+          "announcedWeek": 52,
+          "cause": "hardBoundary",
+          "effectiveWeek": 208,
+          "finishingFromWeek": 208,
+          "intentRulesVersion": 1,
+          "personId": "authored-0000",
+          "profession": "actor",
+          "retiredWeek": null,
+          "status": "finishing_commitments",
+          "extensionUsed": false,
+          "extendedFromWeek": null
+        },
+        {
+          "ageAtAnnouncement": 71,
+          "announcedWeek": 52,
+          "cause": "hardBoundary",
+          "effectiveWeek": 208,
+          "finishingFromWeek": 208,
+          "intentRulesVersion": 1,
+          "personId": "authored-0004",
+          "profession": "actor",
+          "retiredWeek": null,
+          "status": "finishing_commitments",
+          "extensionUsed": false,
+          "extendedFromWeek": null
+        },
+        {
+          "ageAtAnnouncement": 72,
+          "announcedWeek": 104,
+          "cause": "hardBoundary",
+          "effectiveWeek": 208,
+          "finishingFromWeek": 208,
+          "intentRulesVersion": 1,
+          "personId": "authored-0002",
+          "profession": "craft",
+          "retiredWeek": null,
+          "status": "finishing_commitments",
+          "extensionUsed": false,
+          "extendedFromWeek": null
+        },
+        {
+          "ageAtAnnouncement": 60,
+          "announcedWeek": 152,
+          "cause": "idleInWindow",
+          "effectiveWeek": 204,
+          "finishingFromWeek": null,
+          "intentRulesVersion": 1,
+          "personId": "t-act-15",
+          "profession": "actor",
+          "retiredWeek": 204,
+          "status": "retired",
+          "extensionUsed": false,
+          "extendedFromWeek": null
+        },
+        {
+          "ageAtAnnouncement": 65,
+          "announcedWeek": 227,
+          "cause": "idleInWindow",
+          "effectiveWeek": 279,
+          "finishingFromWeek": null,
+          "intentRulesVersion": 1,
+          "personId": "t-wri-10",
+          "profession": "writer",
+          "retiredWeek": 279,
+          "status": "retired",
+          "extensionUsed": false,
+          "extendedFromWeek": null
+        },
+        {
+          "ageAtAnnouncement": 60,
+          "announcedWeek": 244,
+          "cause": "idleInWindow",
+          "effectiveWeek": 296,
+          "finishingFromWeek": null,
+          "intentRulesVersion": 1,
+          "personId": "t-act-27",
+          "profession": "actor",
+          "retiredWeek": 296,
+          "status": "retired",
+          "extensionUsed": false,
+          "extendedFromWeek": null
+        },
+        {
+          "ageAtAnnouncement": 75,
+          "announcedWeek": 260,
+          "cause": "hardBoundary",
+          "effectiveWeek": 312,
+          "finishingFromWeek": null,
+          "intentRulesVersion": 1,
+          "personId": "authored-0001",
+          "profession": "writer",
+          "retiredWeek": 312,
+          "status": "retired",
+          "extensionUsed": false,
+          "extendedFromWeek": null
+        },
+        {
+          "ageAtAnnouncement": 75,
+          "announcedWeek": 260,
+          "cause": "hardBoundary",
+          "effectiveWeek": 312,
+          "finishingFromWeek": 312,
+          "intentRulesVersion": 1,
+          "personId": "authored-0003",
+          "profession": "director",
+          "retiredWeek": null,
+          "status": "finishing_commitments",
+          "extensionUsed": false,
+          "extendedFromWeek": null
+        },
+        {
+          "ageAtAnnouncement": 65,
+          "announcedWeek": 297,
+          "cause": "idleInWindow",
+          "effectiveWeek": 349,
+          "finishingFromWeek": null,
+          "intentRulesVersion": 1,
+          "personId": "t-wri-08",
+          "profession": "writer",
+          "retiredWeek": null,
+          "status": "announced",
+          "extensionUsed": false,
+          "extendedFromWeek": null
+        }
+      ],
+      "transitionBoundaryWeek": 312,
+      "professionAnchors": [
+        {
+          "personId": "t-wri-00",
+          "profession": "writer",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-wri-01",
+          "profession": "writer",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-wri-02",
+          "profession": "writer",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-wri-03",
+          "profession": "writer",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-wri-04",
+          "profession": "writer",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-wri-05",
+          "profession": "writer",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-wri-06",
+          "profession": "writer",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-wri-07",
+          "profession": "writer",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-wri-08",
+          "profession": "writer",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-wri-09",
+          "profession": "writer",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-wri-10",
+          "profession": "writer",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-wri-11",
+          "profession": "writer",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-dir-00",
+          "profession": "director",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-dir-01",
+          "profession": "director",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-dir-02",
+          "profession": "director",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-dir-03",
+          "profession": "director",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-dir-04",
+          "profession": "director",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-dir-05",
+          "profession": "director",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-dir-06",
+          "profession": "director",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-dir-07",
+          "profession": "director",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-dir-08",
+          "profession": "director",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-dir-09",
+          "profession": "director",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-00",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-01",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-02",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-03",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-04",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-05",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-06",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-07",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-08",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-09",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-10",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-11",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-12",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-13",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-14",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-15",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-16",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-17",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-18",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-19",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-20",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-21",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-22",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-23",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-24",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-25",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-26",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-act-27",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-cra-00",
+          "profession": "craft",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-cra-01",
+          "profession": "craft",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-cra-02",
+          "profession": "craft",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-cra-03",
+          "profession": "craft",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-cra-04",
+          "profession": "craft",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-cra-05",
+          "profession": "craft",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-cra-06",
+          "profession": "craft",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-cra-07",
+          "profession": "craft",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-cra-08",
+          "profession": "craft",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "t-cra-09",
+          "profession": "craft",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r01-0",
+          "profession": "writer",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r01-1",
+          "profession": "director",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r01-2",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r01-3",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r01-4",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r01-5",
+          "profession": "craft",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r02-0",
+          "profession": "writer",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r02-1",
+          "profession": "director",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r02-2",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r02-3",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r02-4",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r02-5",
+          "profession": "craft",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r03-0",
+          "profession": "writer",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r03-1",
+          "profession": "director",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r03-2",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r03-3",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r03-4",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r03-5",
+          "profession": "craft",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r04-0",
+          "profession": "writer",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r04-1",
+          "profession": "director",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r04-2",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r04-3",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r04-4",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r04-5",
+          "profession": "craft",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "authored-0000",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "authored-0001",
+          "profession": "writer",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "authored-0002",
+          "profession": "craft",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "authored-0003",
+          "profession": "director",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "authored-0004",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-cohort-260-actor-0",
+          "profession": "actor",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-cohort-260-craft-0",
+          "profession": "craft",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r01-supply-265-6",
+          "profession": "scientist",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r01-supply-265-7",
+          "profession": "scientist",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r01-supply-265-8",
+          "profession": "scientist",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-studio-88c92bc3-r01-supply-265-9",
+          "profession": "scientist",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-cohort-312-director-0",
+          "profession": "director",
+          "recordedWeek": 312,
+          "kind": "existing"
+        },
+        {
+          "personId": "person-cohort-312-writer-0",
+          "profession": "writer",
+          "recordedWeek": 312,
+          "kind": "existing"
+        }
+      ],
+      "transitionEvaluations": [],
+      "professionChanges": [],
+      "industryRetirements": [],
+      "transitionDue": [
+        {
+          "personId": "authored-0001",
+          "week": 313
+        },
+        {
+          "personId": "t-act-15",
+          "week": 313
+        },
+        {
+          "personId": "t-act-27",
+          "week": 313
+        },
+        {
+          "personId": "t-wri-10",
+          "week": 313
+        }
+      ]
+    },
+    "firstTakeSubjects": {
+      "version": 1,
+      "cutoverOrdinal": 111,
+      "facts": []
+    },
+    "migratedBytes": 2195779,
+    "migratedSha256": "fbf4ca9626f02559e2d8d7d109bda2486ed98825efc7f53d91363a70757c552d"
+  },
+  "historicalProvenanceSummary": {
+    "generatedAt": "2026-09-26T20:21:57.565Z",
+    "sourceSha": "c000479d6e888d3a02f5c2ff534f5dfcbb32af3f",
+    "originalCampaign": "generated test campaign (world 5: migrated from the repository's own held V33 fixture); never an Owner save",
+    "originalBuilder": "fund(p13aGeneratedStudio(\"p14c4-corpus-01-y3\")) -> createTalent x5 (age 70 each) -> signContract + sign supporting cast x2 -> greenlight x2 (both left unreleased) -> advanceTo(227)",
+    "currentWorktree": {
+      "head": "c000479d6e888d3a02f5c2ff534f5dfcbb32af3f",
+      "patchSha256": "3acb791a875fcce2403ebe2809e8e312e3318d41b7c2834ff45d964c33a5aa92",
+      "untracked": []
+    },
+    "bounds": {
+      "totalTicks": 501,
+      "stages": [
+        {
+          "name": "C4 cohort-week",
+          "startWeek": 104,
+          "endWeek": 156,
+          "ticks": 52
+        },
+        {
+          "name": "C4 all-statuses",
+          "startWeek": 227,
+          "endWeek": 312,
+          "ticks": 85
+        },
+        {
+          "name": "C4 deep-deficit",
+          "startWeek": 2600,
+          "endWeek": 2652,
+          "ticks": 52
+        },
+        {
+          "name": "writer pre-renewal",
+          "startWeek": 0,
+          "endWeek": 201,
+          "ticks": 201
+        },
+        {
+          "name": "writer carrying renewal",
+          "startWeek": 201,
+          "endWeek": 208,
+          "ticks": 7
+        },
+        {
+          "name": "writer hard75 announcement",
+          "startWeek": 208,
+          "endWeek": 260,
+          "ticks": 52
+        },
+        {
+          "name": "writer pre-E commission",
+          "startWeek": 260,
+          "endWeek": 311,
+          "ticks": 51
+        },
+        {
+          "name": "writer actual finishing",
+          "startWeek": 311,
+          "endWeek": 312,
+          "ticks": 1
+        }
+      ]
+    },
+    "selected": {
+      "filename": "reproduced-v35-c4-all-statuses-week312.json.gz",
+      "kind": "save35",
+      "week": 312,
+      "facts": {
+        "origin": "genuine-v34-c4-all-statuses.json.gz",
+        "receiptWeeks": [
+          260,
+          312
+        ],
+        "cohortReceipts": [
+          {
+            "week": 260,
+            "talentCountBefore": 89,
+            "requested": {
+              "actor": 1,
+              "director": 0,
+              "writer": 0,
+              "craft": 1
+            },
+            "clipped": 0,
+            "personIds": [
+              "person-cohort-260-actor-0",
+              "person-cohort-260-craft-0"
+            ]
+          },
+          {
+            "week": 312,
+            "talentCountBefore": 95,
+            "requested": {
+              "actor": 0,
+              "director": 1,
+              "writer": 1,
+              "craft": 0
+            },
+            "clipped": 0,
+            "personIds": [
+              "person-cohort-312-director-0",
+              "person-cohort-312-writer-0"
+            ]
+          }
+        ]
+      },
+      "uncompressedSha256": "f0316e4966e2bd4ce092accc0abe2b0c2e83b6f2a047827d866e08102ca6ff33",
+      "compressedSha256": "4c53ede9e7b548b60f09385a7d0427bedcfca98654bb62d3619ed6b549121d18",
+      "byteLength": 2185646,
+      "compressedByteLength": 221085
+    }
+  },
+  "held": {
+    "actualWeek": 312,
+    "held": {
+      "production": {
+        "budget": {
+          "marketing": 0,
+          "negative": 4253323.100929685
+        },
+        "cast": {
+          "antagonist": "t-act-12",
+          "lead": "authored-0000",
+          "support": "t-act-11"
+        },
+        "conceptId": "c-00",
+        "craftIds": [
+          "authored-0002"
+        ],
+        "directorId": "authored-0003",
+        "forecastSnapshot": {
+          "expectedCriticScore": 45.745230013494826,
+          "expectedOpening": 2078790.5283873773,
+          "expectedTotal": 4494469.893565131,
+          "segments": [
+            {
+              "causalFactors": [
+                "segmentTaste",
+                "shapeAffinity"
+              ],
+              "center": 36.1526496873476,
+              "confidence": "low",
+              "estimate": 36.1526496873476,
+              "expectedBand": "weak",
+              "high": 50.1526496873476,
+              "low": 6.152649687347598,
+              "opening": {
+                "center": 36.556478133740704,
+                "estimate": 36.556478133740704,
+                "high": 50.556478133740704,
+                "low": 22.556478133740704
+              },
+              "segmentId": "youngAdult",
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ]
+            },
+            {
+              "causalFactors": [
+                "segmentTaste",
+                "shapeAffinity"
+              ],
+              "center": 42.78063648664705,
+              "confidence": "low",
+              "estimate": 42.78063648664705,
+              "expectedBand": "mixed",
+              "high": 56.78063648664705,
+              "low": 12.780636486647047,
+              "opening": {
+                "center": 43.184464933040154,
+                "estimate": 43.184464933040154,
+                "high": 57.184464933040154,
+                "low": 29.184464933040154
+              },
+              "segmentId": "family",
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ]
+            },
+            {
+              "causalFactors": [
+                "segmentTaste",
+                "shapeAffinity"
+              ],
+              "center": 54.146285220910684,
+              "confidence": "low",
+              "estimate": 54.146285220910684,
+              "expectedBand": "mixed",
+              "high": 68.14628522091068,
+              "low": 24.146285220910684,
+              "opening": {
+                "center": 54.55011366730379,
+                "estimate": 54.55011366730379,
+                "high": 68.55011366730379,
+                "low": 40.55011366730379
+              },
+              "segmentId": "adult",
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ]
+            },
+            {
+              "causalFactors": [
+                "segmentTaste",
+                "shapeAffinity"
+              ],
+              "center": 58.92302990721545,
+              "confidence": "low",
+              "estimate": 58.92302990721545,
+              "expectedBand": "mixed",
+              "high": 72.92302990721545,
+              "low": 28.92302990721545,
+              "opening": {
+                "center": 59.32685835360856,
+                "estimate": 59.32685835360856,
+                "high": 73.32685835360856,
+                "low": 45.32685835360856
+              },
+              "segmentId": "prestige",
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ]
+            }
+          ]
+        },
+        "id": "prod-0000",
+        "participants": {
+          "cast": {
+            "antagonist": {
+              "discipline": "acting",
+              "freelancer": false,
+              "greenlightEP": {
+                "expected": 78.73455695257904,
+                "high": 94.53272895257905,
+                "low": 62.93638495257904
+              },
+              "greenlightFit": 45,
+              "greenlightOVR": 72,
+              "name": "Miriam Sable",
+              "role": "antagonist",
+              "talentId": "t-act-12"
+            },
+            "lead": {
+              "discipline": "acting",
+              "freelancer": false,
+              "greenlightEP": {
+                "expected": 35,
+                "high": 51,
+                "low": 19
+              },
+              "greenlightFit": 28,
+              "greenlightOVR": 6,
+              "name": "Authored Y3 Actor",
+              "role": "lead",
+              "talentId": "authored-0000"
+            },
+            "support": {
+              "discipline": "acting",
+              "freelancer": false,
+              "greenlightEP": {
+                "expected": 65.16687957461751,
+                "high": 81.10467157461751,
+                "low": 49.22908757461751
+              },
+              "greenlightFit": 55,
+              "greenlightOVR": 50,
+              "name": "Jean Halberstam",
+              "role": "support",
+              "talentId": "t-act-11"
+            }
+          },
+          "craft": [
+            {
+              "discipline": "craft",
+              "freelancer": false,
+              "greenlightEP": {
+                "expected": 35,
+                "high": 51,
+                "low": 19
+              },
+              "greenlightFit": 30,
+              "greenlightOVR": 6,
+              "name": "Authored Y3 Craft",
+              "role": "craft",
+              "talentId": "authored-0002"
+            }
+          ],
+          "director": {
+            "discipline": "directing",
+            "freelancer": false,
+            "greenlightEP": {
+              "expected": 34.99999999999999,
+              "high": 50.99999999999999,
+              "low": 18.999999999999993
+            },
+            "greenlightFit": 38,
+            "greenlightOVR": 6,
+            "name": "Authored Y3 Director",
+            "role": "director",
+            "talentId": "authored-0003"
+          },
+          "writer": {
+            "discipline": "writing",
+            "freelancer": false,
+            "greenlightEP": {
+              "expected": 35,
+              "high": 51,
+              "low": 19
+            },
+            "greenlightFit": 40,
+            "greenlightOVR": 6,
+            "name": "Authored Y3 Writer",
+            "role": "writer",
+            "talentId": "authored-0001"
+          }
+        },
+        "promise": {
+          "genre": "drama",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "remainingTicks": 5,
+        "shape": {
+          "ending": "bittersweet",
+          "midpoint": "revelation",
+          "opening": "slowSetup"
+        },
+        "startTick": 0,
+        "writerId": "authored-0001"
+      },
+      "otherProduction": {
+        "budget": {
+          "marketing": 0,
+          "negative": 3604250.1654379563
+        },
+        "cast": {
+          "antagonist": "t-act-13",
+          "lead": "authored-0004",
+          "support": "t-act-14"
+        },
+        "conceptId": "c-01",
+        "craftIds": [
+          "t-cra-02"
+        ],
+        "directorId": "t-dir-08",
+        "forecastSnapshot": {
+          "expectedCriticScore": 50.52420075205019,
+          "expectedOpening": 2699548.1784805167,
+          "expectedTotal": 6582476.400051792,
+          "segments": [
+            {
+              "causalFactors": [
+                "segmentTaste",
+                "shapeAffinity"
+              ],
+              "center": 45.68700731435125,
+              "confidence": "low",
+              "estimate": 45.68700731435125,
+              "expectedBand": "mixed",
+              "high": 59.68700731435125,
+              "low": 15.687007314351249,
+              "opening": {
+                "center": 44.46835442683112,
+                "estimate": 44.46835442683112,
+                "high": 58.46835442683112,
+                "low": 30.46835442683112
+              },
+              "segmentId": "youngAdult",
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ]
+            },
+            {
+              "causalFactors": [
+                "segmentTaste",
+                "shapeAffinity"
+              ],
+              "center": 52.71253671403714,
+              "confidence": "low",
+              "estimate": 52.71253671403714,
+              "expectedBand": "mixed",
+              "high": 66.71253671403714,
+              "low": 22.712536714037142,
+              "opening": {
+                "center": 51.49388382651701,
+                "estimate": 51.49388382651701,
+                "high": 65.49388382651702,
+                "low": 37.49388382651701
+              },
+              "segmentId": "family",
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ]
+            },
+            {
+              "causalFactors": [
+                "segmentTaste",
+                "shapeAffinity"
+              ],
+              "center": 62.54531403362892,
+              "confidence": "low",
+              "estimate": 62.54531403362892,
+              "expectedBand": "mixed",
+              "high": 76.54531403362893,
+              "low": 32.54531403362892,
+              "opening": {
+                "center": 61.32666114610879,
+                "estimate": 61.32666114610879,
+                "high": 75.32666114610879,
+                "low": 47.32666114610879
+              },
+              "segmentId": "adult",
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ]
+            },
+            {
+              "causalFactors": [
+                "segmentTaste",
+                "shapeAffinity"
+              ],
+              "center": 67.92704301854639,
+              "confidence": "low",
+              "estimate": 67.92704301854639,
+              "expectedBand": "mixed",
+              "high": 81.92704301854639,
+              "low": 37.927043018546385,
+              "opening": {
+                "center": 66.70839013102625,
+                "estimate": 66.70839013102625,
+                "high": 80.70839013102625,
+                "low": 52.70839013102625
+              },
+              "segmentId": "prestige",
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ]
+            }
+          ]
+        },
+        "id": "prod-0000-1",
+        "participants": {
+          "cast": {
+            "antagonist": {
+              "discipline": "acting",
+              "freelancer": false,
+              "greenlightEP": {
+                "expected": 24.19139072019346,
+                "high": 40.17551472019346,
+                "low": 8.207266720193461
+              },
+              "greenlightFit": 14,
+              "greenlightOVR": 1,
+              "name": "Ava Lindqvist",
+              "role": "antagonist",
+              "talentId": "t-act-13"
+            },
+            "lead": {
+              "discipline": "acting",
+              "freelancer": false,
+              "greenlightEP": {
+                "expected": 34.99999999999999,
+                "high": 50.99999999999999,
+                "low": 18.999999999999993
+              },
+              "greenlightFit": 35,
+              "greenlightOVR": 6,
+              "name": "Authored Y3 Lead",
+              "role": "lead",
+              "talentId": "authored-0004"
+            },
+            "support": {
+              "discipline": "acting",
+              "freelancer": false,
+              "greenlightEP": {
+                "expected": 44.57429488896224,
+                "high": 59.353162888962245,
+                "low": 29.795426888962243
+              },
+              "greenlightFit": 42,
+              "greenlightOVR": 21,
+              "name": "Leslie Winslow",
+              "role": "support",
+              "talentId": "t-act-14"
+            }
+          },
+          "craft": [
+            {
+              "discipline": "craft",
+              "freelancer": false,
+              "greenlightEP": {
+                "expected": 55.67547733333333,
+                "high": 71.16226133333333,
+                "low": 40.18869333333333
+              },
+              "greenlightFit": 50,
+              "greenlightOVR": 37,
+              "name": "Vivien Lasky",
+              "role": "craft",
+              "talentId": "t-cra-02"
+            }
+          ],
+          "director": {
+            "discipline": "directing",
+            "freelancer": false,
+            "greenlightEP": {
+              "expected": 63.417550084910104,
+              "high": 79.13971408491011,
+              "low": 47.695386084910105
+            },
+            "greenlightFit": 53,
+            "greenlightOVR": 46,
+            "name": "Adolphe Cabral",
+            "role": "director",
+            "talentId": "t-dir-08"
+          },
+          "writer": {
+            "discipline": "writing",
+            "freelancer": false,
+            "greenlightEP": {
+              "expected": 69.24347983545545,
+              "high": 85.18127183545545,
+              "low": 53.305687835455444
+            },
+            "greenlightFit": 58,
+            "greenlightOVR": 56,
+            "name": "Irene Emerson",
+            "role": "writer",
+            "talentId": "t-wri-02"
+          }
+        },
+        "promise": {
+          "genre": "comedy",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "remainingTicks": 5,
+        "shape": {
+          "ending": "bittersweet",
+          "midpoint": "revelation",
+          "opening": "slowSetup"
+        },
+        "startTick": 0,
+        "writerId": "t-wri-02"
+      },
+      "workflow": {
+        "bindings": {
+          "heldSinceWeek": 2,
+          "lockedNovelty": 1,
+          "lockedUplift": 5.7,
+          "requiresSetBinding": true,
+          "setId": "set-0",
+          "stageFacilityId": "facility-soundstage-07"
+        },
+        "blocker": null,
+        "phase": "shooting",
+        "planRevision": 0,
+        "productionId": "prod-0000",
+        "reservations": [
+          {
+            "capability": "soundstage",
+            "facilityId": "facility-soundstage-07",
+            "phase": "shooting",
+            "productionId": "prod-0000",
+            "slot": 0
+          },
+          {
+            "capability": "set-scenery",
+            "facilityId": "facility-scenery-shop",
+            "phase": "shooting",
+            "productionId": "prod-0000",
+            "slot": 0
+          }
+        ],
+        "setup": null,
+        "shootingTask": {
+          "directorId": "authored-0003",
+          "id": "shooting:prod-0000",
+          "productionId": "prod-0000",
+          "soundstageFacilityId": "facility-soundstage-07",
+          "status": "unassigned"
+        }
+      },
+      "set": {
+        "blueprintId": "set-house-generic",
+        "completesWeek": null,
+        "condition": 100,
+        "genreWeights": {
+          "adventure": 0.5,
+          "comedy": 0.5,
+          "crime": 0.5,
+          "drama": 0.5,
+          "horror": 0.5,
+          "romance": 0.5
+        },
+        "id": "set-0",
+        "mountedOn": "facility-soundstage-07",
+        "name": "Stage 7 House Set",
+        "novelty": 1,
+        "priorityGenre": "drama",
+        "quality": 45,
+        "setType": "generic-interior",
+        "status": "standing"
+      },
+      "claims": [
+        {
+          "key": "facility:studio-88c92bc3-r01:laboratory:0",
+          "facilitySlotKey": null,
+          "kind": "facility",
+          "facilityId": "studio-88c92bc3-r01:laboratory:0",
+          "slot": null,
+          "capability": null,
+          "owner": "research",
+          "ownerId": "studio-88c92bc3-r01:research:synchronized-sound",
+          "research": {
+            "budgetPerWeek": 40000,
+            "completedWeek": 276,
+            "expenditure": 440000,
+            "id": "studio-88c92bc3-r01:research:synchronized-sound",
+            "laboratoryFacilityId": "studio-88c92bc3-r01:laboratory:0",
+            "legacy": null,
+            "seats": [
+              {
+                "assignedWeek": 265,
+                "laboratoryFacilityId": "studio-88c92bc3-r01:laboratory:0",
+                "releasedWeek": null,
+                "talentId": "person-studio-88c92bc3-r01-supply-265-6"
+              },
+              {
+                "assignedWeek": 265,
+                "laboratoryFacilityId": "studio-88c92bc3-r01:laboratory:0",
+                "releasedWeek": null,
+                "talentId": "person-studio-88c92bc3-r01-supply-265-7"
+              },
+              {
+                "assignedWeek": 265,
+                "laboratoryFacilityId": "studio-88c92bc3-r01:laboratory:0",
+                "releasedWeek": null,
+                "talentId": "person-studio-88c92bc3-r01-supply-265-8"
+              },
+              {
+                "assignedWeek": 265,
+                "laboratoryFacilityId": "studio-88c92bc3-r01:laboratory:0",
+                "releasedWeek": null,
+                "talentId": "person-studio-88c92bc3-r01-supply-265-9"
+              }
+            ],
+            "startedWeek": 265,
+            "status": "completed",
+            "studioId": "studio-88c92bc3-r01",
+            "technologyId": "synchronized-sound",
+            "verifiedWork": 64,
+            "weeks": [
+              {
+                "labs": [
+                  {
+                    "laboratoryFacilityId": "studio-88c92bc3-r01:laboratory:0",
+                    "rawUnits": 120000,
+                    "seatTalentIds": [
+                      "person-studio-88c92bc3-r01-supply-265-6",
+                      "person-studio-88c92bc3-r01-supply-265-7",
+                      "person-studio-88c92bc3-r01-supply-265-8",
+                      "person-studio-88c92bc3-r01-supply-265-9"
+                    ],
+                    "spend": 40000
+                  }
+                ],
+                "seatTalentIds": [
+                  "person-studio-88c92bc3-r01-supply-265-6",
+                  "person-studio-88c92bc3-r01-supply-265-7",
+                  "person-studio-88c92bc3-r01-supply-265-8",
+                  "person-studio-88c92bc3-r01-supply-265-9"
+                ],
+                "spend": 40000,
+                "units": 960000,
+                "week": 265
+              },
+              {
+                "labs": [
+                  {
+                    "laboratoryFacilityId": "studio-88c92bc3-r01:laboratory:0",
+                    "rawUnits": 120000,
+                    "seatTalentIds": [
+                      "person-studio-88c92bc3-r01-supply-265-6",
+                      "person-studio-88c92bc3-r01-supply-265-7",
+                      "person-studio-88c92bc3-r01-supply-265-8",
+                      "person-studio-88c92bc3-r01-supply-265-9"
+                    ],
+                    "spend": 40000
+                  }
+                ],
+                "seatTalentIds": [
+                  "person-studio-88c92bc3-r01-supply-265-6",
+                  "person-studio-88c92bc3-r01-supply-265-7",
+                  "person-studio-88c92bc3-r01-supply-265-8",
+                  "person-studio-88c92bc3-r01-supply-265-9"
+                ],
+                "spend": 40000,
+                "units": 960000,
+                "week": 266
+              },
+              {
+                "labs": [
+                  {
+                    "laboratoryFacilityId": "studio-88c92bc3-r01:laboratory:0",
+                    "rawUnits": 120000,
+                    "seatTalentIds": [
+                      "person-studio-88c92bc3-r01-supply-265-6",
+                      "person-studio-88c92bc3-r01-supply-265-7",
+                      "person-studio-88c92bc3-r01-supply-265-8",
+                      "person-studio-88c92bc3-r01-supply-265-9"
+                    ],
+                    "spend": 40000
+                  }
+                ],
+                "seatTalentIds": [
+                  "person-studio-88c92bc3-r01-supply-265-6",
+                  "person-studio-88c92bc3-r01-supply-265-7",
+                  "person-studio-88c92bc3-r01-supply-265-8",
+                  "person-studio-88c92bc3-r01-supply-265-9"
+                ],
+                "spend": 40000,
+                "units": 960000,
+                "week": 267
+              },
+              {
+                "labs": [
+                  {
+                    "laboratoryFacilityId": "studio-88c92bc3-r01:laboratory:0",
+                    "rawUnits": 120000,
+                    "seatTalentIds": [
+                      "person-studio-88c92bc3-r01-supply-265-6",
+                      "person-studio-88c92bc3-r01-supply-265-7",
+                      "person-studio-88c92bc3-r01-supply-265-8",
+                      "person-studio-88c92bc3-r01-supply-265-9"
+                    ],
+                    "spend": 40000
+                  }
+                ],
+                "seatTalentIds": [
+                  "person-studio-88c92bc3-r01-supply-265-6",
+                  "person-studio-88c92bc3-r01-supply-265-7",
+                  "person-studio-88c92bc3-r01-supply-265-8",
+                  "person-studio-88c92bc3-r01-supply-265-9"
+                ],
+                "spend": 40000,
+                "units": 960000,
+                "week": 268
+              },
+              {
+                "labs": [
+                  {
+                    "laboratoryFacilityId": "studio-88c92bc3-r01:laboratory:0",
+                    "rawUnits": 120000,
+                    "seatTalentIds": [
+                      "person-studio-88c92bc3-r01-supply-265-6",
+                      "person-studio-88c92bc3-r01-supply-265-7",
+                      "person-studio-88c92bc3-r01-supply-265-8",
+                      "person-studio-88c92bc3-r01-supply-265-9"
+                    ],
+                    "spend": 40000
+                  }
+                ],
+                "seatTalentIds": [
+                  "person-studio-88c92bc3-r01-supply-265-6",
+                  "person-studio-88c92bc3-r01-supply-265-7",
+                  "person-studio-88c92bc3-r01-supply-265-8",
+                  "person-studio-88c92bc3-r01-supply-265-9"
+                ],
+                "spend": 40000,
+                "units": 960000,
+                "week": 269
+              },
+              {
+                "labs": [
+                  {
+                    "laboratoryFacilityId": "studio-88c92bc3-r01:laboratory:0",
+                    "rawUnits": 120000,
+                    "seatTalentIds": [
+                      "person-studio-88c92bc3-r01-supply-265-6",
+                      "person-studio-88c92bc3-r01-supply-265-7",
+                      "person-studio-88c92bc3-r01-supply-265-8",
+                      "person-studio-88c92bc3-r01-supply-265-9"
+                    ],
+                    "spend": 40000
+                  }
+                ],
+                "seatTalentIds": [
+                  "person-studio-88c92bc3-r01-supply-265-6",
+                  "person-studio-88c92bc3-r01-supply-265-7",
+                  "person-studio-88c92bc3-r01-supply-265-8",
+                  "person-studio-88c92bc3-r01-supply-265-9"
+                ],
+                "spend": 40000,
+                "units": 960000,
+                "week": 270
+              },
+              {
+                "labs": [
+                  {
+                    "laboratoryFacilityId": "studio-88c92bc3-r01:laboratory:0",
+                    "rawUnits": 120000,
+                    "seatTalentIds": [
+                      "person-studio-88c92bc3-r01-supply-265-6",
+                      "person-studio-88c92bc3-r01-supply-265-7",
+                      "person-studio-88c92bc3-r01-supply-265-8",
+                      "person-studio-88c92bc3-r01-supply-265-9"
+                    ],
+                    "spend": 40000
+                  }
+                ],
+                "seatTalentIds": [
+                  "person-studio-88c92bc3-r01-supply-265-6",
+                  "person-studio-88c92bc3-r01-supply-265-7",
+                  "person-studio-88c92bc3-r01-supply-265-8",
+                  "person-studio-88c92bc3-r01-supply-265-9"
+                ],
+                "spend": 40000,
+                "units": 960000,
+                "week": 271
+              },
+              {
+                "labs": [
+                  {
+                    "laboratoryFacilityId": "studio-88c92bc3-r01:laboratory:0",
+                    "rawUnits": 120000,
+                    "seatTalentIds": [
+                      "person-studio-88c92bc3-r01-supply-265-6",
+                      "person-studio-88c92bc3-r01-supply-265-7",
+                      "person-studio-88c92bc3-r01-supply-265-8",
+                      "person-studio-88c92bc3-r01-supply-265-9"
+                    ],
+                    "spend": 40000
+                  }
+                ],
+                "seatTalentIds": [
+                  "person-studio-88c92bc3-r01-supply-265-6",
+                  "person-studio-88c92bc3-r01-supply-265-7",
+                  "person-studio-88c92bc3-r01-supply-265-8",
+                  "person-studio-88c92bc3-r01-supply-265-9"
+                ],
+                "spend": 40000,
+                "units": 960000,
+                "week": 272
+              },
+              {
+                "labs": [
+                  {
+                    "laboratoryFacilityId": "studio-88c92bc3-r01:laboratory:0",
+                    "rawUnits": 120000,
+                    "seatTalentIds": [
+                      "person-studio-88c92bc3-r01-supply-265-6",
+                      "person-studio-88c92bc3-r01-supply-265-7",
+                      "person-studio-88c92bc3-r01-supply-265-8",
+                      "person-studio-88c92bc3-r01-supply-265-9"
+                    ],
+                    "spend": 40000
+                  }
+                ],
+                "seatTalentIds": [
+                  "person-studio-88c92bc3-r01-supply-265-6",
+                  "person-studio-88c92bc3-r01-supply-265-7",
+                  "person-studio-88c92bc3-r01-supply-265-8",
+                  "person-studio-88c92bc3-r01-supply-265-9"
+                ],
+                "spend": 40000,
+                "units": 960000,
+                "week": 273
+              },
+              {
+                "labs": [
+                  {
+                    "laboratoryFacilityId": "studio-88c92bc3-r01:laboratory:0",
+                    "rawUnits": 120000,
+                    "seatTalentIds": [
+                      "person-studio-88c92bc3-r01-supply-265-6",
+                      "person-studio-88c92bc3-r01-supply-265-7",
+                      "person-studio-88c92bc3-r01-supply-265-8",
+                      "person-studio-88c92bc3-r01-supply-265-9"
+                    ],
+                    "spend": 40000
+                  }
+                ],
+                "seatTalentIds": [
+                  "person-studio-88c92bc3-r01-supply-265-6",
+                  "person-studio-88c92bc3-r01-supply-265-7",
+                  "person-studio-88c92bc3-r01-supply-265-8",
+                  "person-studio-88c92bc3-r01-supply-265-9"
+                ],
+                "spend": 40000,
+                "units": 960000,
+                "week": 274
+              },
+              {
+                "labs": [
+                  {
+                    "laboratoryFacilityId": "studio-88c92bc3-r01:laboratory:0",
+                    "rawUnits": 120000,
+                    "seatTalentIds": [
+                      "person-studio-88c92bc3-r01-supply-265-6",
+                      "person-studio-88c92bc3-r01-supply-265-7",
+                      "person-studio-88c92bc3-r01-supply-265-8",
+                      "person-studio-88c92bc3-r01-supply-265-9"
+                    ],
+                    "spend": 40000
+                  }
+                ],
+                "seatTalentIds": [
+                  "person-studio-88c92bc3-r01-supply-265-6",
+                  "person-studio-88c92bc3-r01-supply-265-7",
+                  "person-studio-88c92bc3-r01-supply-265-8",
+                  "person-studio-88c92bc3-r01-supply-265-9"
+                ],
+                "spend": 40000,
+                "units": 640000,
+                "week": 275
+              }
+            ]
+          }
+        },
+        {
+          "key": "facility:facility-soundstage-07:0",
+          "facilitySlotKey": "facility-soundstage-07:0",
+          "kind": "facility",
+          "facilityId": "facility-soundstage-07",
+          "slot": 0,
+          "capability": "soundstage",
+          "owner": "production",
+          "ownerId": "prod-0000",
+          "phase": "shooting",
+          "reservation": {
+            "capability": "soundstage",
+            "facilityId": "facility-soundstage-07",
+            "phase": "shooting",
+            "productionId": "prod-0000",
+            "slot": 0
+          }
+        },
+        {
+          "key": "facility:facility-scenery-shop:0",
+          "facilitySlotKey": "facility-scenery-shop:0",
+          "kind": "facility",
+          "facilityId": "facility-scenery-shop",
+          "slot": 0,
+          "capability": "set-scenery",
+          "owner": "production",
+          "ownerId": "prod-0000",
+          "phase": "shooting",
+          "reservation": {
+            "capability": "set-scenery",
+            "facilityId": "facility-scenery-shop",
+            "phase": "shooting",
+            "productionId": "prod-0000",
+            "slot": 0
+          }
+        },
+        {
+          "key": "facility:facility-soundstage-07",
+          "facilitySlotKey": null,
+          "kind": "facility",
+          "facilityId": "facility-soundstage-07",
+          "slot": null,
+          "capability": null,
+          "owner": "shootingTask",
+          "ownerId": "prod-0000",
+          "task": {
+            "directorId": "authored-0003",
+            "id": "shooting:prod-0000",
+            "productionId": "prod-0000",
+            "soundstageFacilityId": "facility-soundstage-07",
+            "status": "unassigned"
+          }
+        },
+        {
+          "key": "facility:facility-soundstage-12:0",
+          "facilitySlotKey": "facility-soundstage-12:0",
+          "kind": "facility",
+          "facilityId": "facility-soundstage-12",
+          "slot": 0,
+          "capability": "soundstage",
+          "owner": "production",
+          "ownerId": "prod-0000-1",
+          "phase": "shooting",
+          "reservation": {
+            "capability": "soundstage",
+            "facilityId": "facility-soundstage-12",
+            "phase": "shooting",
+            "productionId": "prod-0000-1",
+            "slot": 0
+          }
+        },
+        {
+          "key": "facility:facility-scenery-shop:1",
+          "facilitySlotKey": "facility-scenery-shop:1",
+          "kind": "facility",
+          "facilityId": "facility-scenery-shop",
+          "slot": 1,
+          "capability": "set-scenery",
+          "owner": "production",
+          "ownerId": "prod-0000-1",
+          "phase": "shooting",
+          "reservation": {
+            "capability": "set-scenery",
+            "facilityId": "facility-scenery-shop",
+            "phase": "shooting",
+            "productionId": "prod-0000-1",
+            "slot": 1
+          }
+        },
+        {
+          "key": "facility:facility-soundstage-12",
+          "facilitySlotKey": null,
+          "kind": "facility",
+          "facilityId": "facility-soundstage-12",
+          "slot": null,
+          "capability": null,
+          "owner": "shootingTask",
+          "ownerId": "prod-0000-1",
+          "task": {
+            "directorId": "t-dir-08",
+            "id": "shooting:prod-0000-1",
+            "productionId": "prod-0000-1",
+            "soundstageFacilityId": "facility-soundstage-12",
+            "status": "unassigned"
+          }
+        },
+        {
+          "key": "mount:facility-soundstage-07",
+          "facilitySlotKey": null,
+          "kind": "mount",
+          "facilityId": "facility-soundstage-07",
+          "slot": null,
+          "capability": null,
+          "owner": "set",
+          "ownerId": "set-0",
+          "set": {
+            "blueprintId": "set-house-generic",
+            "completesWeek": null,
+            "condition": 100,
+            "genreWeights": {
+              "adventure": 0.5,
+              "comedy": 0.5,
+              "crime": 0.5,
+              "drama": 0.5,
+              "horror": 0.5,
+              "romance": 0.5
+            },
+            "id": "set-0",
+            "mountedOn": "facility-soundstage-07",
+            "name": "Stage 7 House Set",
+            "novelty": 1,
+            "priorityGenre": "drama",
+            "quality": 45,
+            "setType": "generic-interior",
+            "status": "standing"
+          }
+        },
+        {
+          "key": "mount:facility-soundstage-12",
+          "facilitySlotKey": null,
+          "kind": "mount",
+          "facilityId": "facility-soundstage-12",
+          "slot": null,
+          "capability": null,
+          "owner": "set",
+          "ownerId": "set-1",
+          "set": {
+            "blueprintId": "set-house-generic",
+            "completesWeek": null,
+            "condition": 100,
+            "genreWeights": {
+              "adventure": 0.5,
+              "comedy": 0.5,
+              "crime": 0.5,
+              "drama": 0.5,
+              "horror": 0.5,
+              "romance": 0.5
+            },
+            "id": "set-1",
+            "mountedOn": "facility-soundstage-12",
+            "name": "Stage 12 House Set",
+            "novelty": 1,
+            "priorityGenre": "drama",
+            "quality": 45,
+            "setType": "generic-interior",
+            "status": "standing"
+          }
+        },
+        {
+          "key": "set:set-0",
+          "facilitySlotKey": null,
+          "kind": "set",
+          "facilityId": "facility-soundstage-07",
+          "slot": null,
+          "capability": null,
+          "owner": "production",
+          "ownerId": "prod-0000",
+          "setId": "set-0"
+        },
+        {
+          "key": "set:set-1",
+          "facilitySlotKey": null,
+          "kind": "set",
+          "facilityId": "facility-soundstage-12",
+          "slot": null,
+          "capability": null,
+          "owner": "production",
+          "ownerId": "prod-0000-1",
+          "setId": "set-1"
+        }
+      ],
+      "property": {
+        "bounds": {
+          "depth": 26,
+          "width": 28
+        },
+        "parcels": [
+          {
+            "id": "backlot-apron",
+            "label": "Back-Lot Apron",
+            "ownedFromStart": true,
+            "rect": {
+              "x0": 23,
+              "x1": 26,
+              "y0": 20,
+              "y1": 24
+            },
+            "terrain": "buildable"
+          },
+          {
+            "id": "courtyard",
+            "label": "Central Courtyard",
+            "ownedFromStart": true,
+            "rect": {
+              "x0": 7,
+              "x1": 11,
+              "y0": 10,
+              "y1": 14
+            },
+            "terrain": "blocked"
+          },
+          {
+            "id": "expansion",
+            "label": "Annex Expansion Parcel",
+            "ownedFromStart": true,
+            "rect": {
+              "x0": 7,
+              "x1": 10,
+              "y0": 15,
+              "y1": 18
+            },
+            "terrain": "buildable"
+          },
+          {
+            "id": "north-back-lot",
+            "label": "North Back Lot",
+            "ownedFromStart": true,
+            "rect": {
+              "x0": 21,
+              "x1": 27,
+              "y0": 0,
+              "y1": 5
+            },
+            "terrain": "buildable"
+          },
+          {
+            "id": "north-court",
+            "label": "North Court",
+            "ownedFromStart": true,
+            "rect": {
+              "x0": 6,
+              "x1": 8,
+              "y0": 2,
+              "y1": 6
+            },
+            "terrain": "buildable"
+          },
+          {
+            "id": "north-lawn",
+            "label": "North Lawn",
+            "ownedFromStart": true,
+            "rect": {
+              "x0": 0,
+              "x1": 2,
+              "y0": 2,
+              "y1": 6
+            },
+            "terrain": "buildable"
+          },
+          {
+            "id": "service-yard",
+            "label": "Scenery & Service Yard",
+            "ownedFromStart": true,
+            "rect": {
+              "x0": 21,
+              "x1": 26,
+              "y0": 16,
+              "y1": 18
+            },
+            "terrain": "blocked"
+          },
+          {
+            "id": "south-lawn",
+            "label": "South Lawn",
+            "ownedFromStart": true,
+            "rect": {
+              "x0": 3,
+              "x1": 8,
+              "y0": 19,
+              "y1": 22
+            },
+            "terrain": "buildable"
+          },
+          {
+            "id": "stage-south",
+            "label": "Stage South Pad",
+            "ownedFromStart": true,
+            "rect": {
+              "x0": 15,
+              "x1": 17,
+              "y0": 16,
+              "y1": 20
+            },
+            "terrain": "buildable"
+          },
+          {
+            "id": "west-lawn",
+            "label": "West Lawn",
+            "ownedFromStart": true,
+            "rect": {
+              "x0": 0,
+              "x1": 2,
+              "y0": 9,
+              "y1": 14
+            },
+            "terrain": "buildable"
+          }
+        ],
+        "roads": [
+          {
+            "x0": 13,
+            "x1": 14,
+            "y0": 0,
+            "y1": 25
+          },
+          {
+            "x0": 0,
+            "x1": 27,
+            "y0": 7,
+            "y1": 8
+          },
+          {
+            "x0": 9,
+            "x1": 10,
+            "y0": 19,
+            "y1": 25
+          },
+          {
+            "x0": 15,
+            "x1": 22,
+            "y0": 14,
+            "y1": 15
+          },
+          {
+            "x0": 14,
+            "x1": 22,
+            "y0": 21,
+            "y1": 22
+          }
+        ],
+        "structures": [
+          {
+            "footprint": {
+              "depth": 1,
+              "width": 3
+            },
+            "id": "gate",
+            "label": "Studio Gate",
+            "origin": {
+              "gx": 8,
+              "gy": 23
+            },
+            "providesFacilityIds": [],
+            "role": "landmark"
+          },
+          {
+            "footprint": {
+              "depth": 3,
+              "width": 3
+            },
+            "id": "admin",
+            "label": "Administration",
+            "origin": {
+              "gx": 9,
+              "gy": 2
+            },
+            "providesFacilityIds": [],
+            "role": "landmark"
+          },
+          {
+            "footprint": {
+              "depth": 2,
+              "width": 3
+            },
+            "id": "theater",
+            "label": "Theater",
+            "origin": {
+              "gx": 3,
+              "gy": 16
+            },
+            "providesFacilityIds": [],
+            "role": "landmark"
+          },
+          {
+            "footprint": {
+              "depth": 2,
+              "width": 3
+            },
+            "id": "writers",
+            "label": "Development",
+            "origin": {
+              "gx": 3,
+              "gy": 2
+            },
+            "providesFacilityIds": [
+              "facility-development-casting"
+            ],
+            "role": "founding"
+          },
+          {
+            "footprint": {
+              "depth": 2,
+              "width": 3
+            },
+            "id": "casting",
+            "label": "Casting / Talent",
+            "origin": {
+              "gx": 3,
+              "gy": 9
+            },
+            "providesFacilityIds": [],
+            "role": "founding"
+          },
+          {
+            "footprint": {
+              "depth": 4,
+              "width": 4
+            },
+            "id": "stage-a",
+            "label": "Stage A",
+            "origin": {
+              "gx": 17,
+              "gy": 2
+            },
+            "providesFacilityIds": [
+              "facility-soundstage-07"
+            ],
+            "role": "founding"
+          },
+          {
+            "footprint": {
+              "depth": 4,
+              "width": 4
+            },
+            "id": "stage-b",
+            "label": "Stage B",
+            "origin": {
+              "gx": 17,
+              "gy": 9
+            },
+            "providesFacilityIds": [
+              "facility-soundstage-12"
+            ],
+            "role": "founding"
+          },
+          {
+            "footprint": {
+              "depth": 2,
+              "width": 3
+            },
+            "id": "post",
+            "label": "Production / Post",
+            "origin": {
+              "gx": 18,
+              "gy": 18
+            },
+            "providesFacilityIds": [
+              "facility-post-building",
+              "facility-scenery-shop"
+            ],
+            "role": "founding"
+          }
+        ]
+      },
+      "placement": {
+        "facilities": [],
+        "mode": "managed",
+        "nextPlacementId": 1
+      },
+      "geometry": {
+        "from": {
+          "gx": 19,
+          "gy": 18
+        },
+        "to": {
+          "gx": 18,
+          "gy": 3
+        },
+        "distance": 16,
+        "travelWeeks": 2,
+        "calledWeek": 2
+      },
+      "heldTakeLowerBound": 313
+    },
+    "actor": {
+      "personId": "authored-0000",
+      "role": "actor",
+      "age": 76,
+      "acting": {
+        "actingTechnique": {
+          "actual": 35,
+          "perceived": 35
+        },
+        "comicTiming": {
+          "actual": 35,
+          "perceived": 35
+        },
+        "dialogueDelivery": {
+          "actual": 35,
+          "perceived": 35
+        },
+        "emotionalRange": {
+          "actual": 35,
+          "perceived": 35
+        },
+        "physicalPerformance": {
+          "actual": 35,
+          "perceived": 35
+        },
+        "screenPresence": {
+          "actual": 35,
+          "perceived": 35
+        }
+      },
+      "provenance": {
+        "ageAtEntry": 70,
+        "entryWeek": 0,
+        "kind": "authored_exact_week",
+        "personId": "authored-0000"
+      },
+      "employment": [
+        {
+          "contractId": "studio-88c92bc3-player:contract:authored-0000:0:player-26",
+          "endedWeek": 208,
+          "reason": "player-contract",
+          "studioId": "studio-88c92bc3-player",
+          "terms": {
+            "annualSalary": 62205,
+            "endWeekExclusive": 208,
+            "signingBonus": 11197,
+            "startWeek": 0,
+            "talentId": "authored-0000",
+            "termWeeks": 208
+          }
+        }
+      ],
+      "current": {
+        "ageAtAnnouncement": 71,
+        "announcedWeek": 52,
+        "cause": "hardBoundary",
+        "effectiveWeek": 208,
+        "finishingFromWeek": 208,
+        "intentRulesVersion": 1,
+        "personId": "authored-0000",
+        "profession": "actor",
+        "retiredWeek": null,
+        "status": "finishing_commitments",
+        "extensionUsed": false,
+        "extendedFromWeek": null
+      },
+      "requestedActor": {
+        "ageAtAnnouncement": 71,
+        "announcedWeek": 52,
+        "cause": "hardBoundary",
+        "effectiveWeek": 208,
+        "finishingFromWeek": 208,
+        "intentRulesVersion": 1,
+        "personId": "authored-0000",
+        "profession": "actor",
+        "retiredWeek": null,
+        "status": "finishing_commitments",
+        "extensionUsed": false,
+        "extendedFromWeek": null
+      },
+      "currentRefusal": "talent \"authored-0000\" is finishingCommitments \u2014 they finish the work they hold and take no new contract, proposal, case or assignment (effective week 208) (P14C.2a)",
+      "requestedRefusal": "talent \"authored-0000\" is finishingCommitments \u2014 they finish the work they hold and take no new contract, proposal, case or assignment (effective week 208) (P14C.2a)",
+      "companyCensus": [
+        {
+          "studioId": "studio-88c92bc3-player",
+          "productionId": "prod-0000",
+          "conceptId": "c-00",
+          "directorId": "authored-0003",
+          "cast": {
+            "antagonist": "t-act-12",
+            "lead": "authored-0000",
+            "support": "t-act-11"
+          },
+          "craftIds": [
+            "authored-0002"
+          ],
+          "writerId": "authored-0001",
+          "companyMember": true,
+          "castMember": true
+        },
+        {
+          "studioId": "studio-88c92bc3-player",
+          "productionId": "prod-0000-1",
+          "conceptId": "c-01",
+          "directorId": "t-dir-08",
+          "cast": {
+            "antagonist": "t-act-13",
+            "lead": "authored-0004",
+            "support": "t-act-14"
+          },
+          "craftIds": [
+            "t-cra-02"
+          ],
+          "writerId": "t-wri-02",
+          "companyMember": false,
+          "castMember": false
+        },
+        {
+          "studioId": "studio-88c92bc3-r01",
+          "productionId": "studio-88c92bc3-r01:film:32",
+          "conceptId": "studio-88c92bc3-r01:concept:32",
+          "directorId": "person-studio-88c92bc3-r01-1",
+          "cast": {
+            "antagonist": "person-studio-88c92bc3-r01-4",
+            "lead": "person-studio-88c92bc3-r01-3",
+            "support": "person-studio-88c92bc3-r01-2"
+          },
+          "craftIds": [
+            "person-studio-88c92bc3-r01-5"
+          ],
+          "writerId": "person-studio-88c92bc3-r01-0",
+          "companyMember": false,
+          "castMember": false
+        }
+      ],
+      "activeWriting": [],
+      "research": []
+    },
+    "director": {
+      "personId": "authored-0003",
+      "role": "director",
+      "age": 76,
+      "acting": {
+        "actingTechnique": {
+          "actual": 30,
+          "perceived": 30
+        },
+        "comicTiming": {
+          "actual": 30,
+          "perceived": 30
+        },
+        "dialogueDelivery": {
+          "actual": 30,
+          "perceived": 30
+        },
+        "emotionalRange": {
+          "actual": 30,
+          "perceived": 30
+        },
+        "physicalPerformance": {
+          "actual": 30,
+          "perceived": 30
+        },
+        "screenPresence": {
+          "actual": 30,
+          "perceived": 30
+        }
+      },
+      "provenance": {
+        "ageAtEntry": 70,
+        "entryWeek": 0,
+        "kind": "authored_exact_week",
+        "personId": "authored-0003"
+      },
+      "employment": [
+        {
+          "contractId": "studio-88c92bc3-player:contract:authored-0003:0:player-24",
+          "endedWeek": 208,
+          "reason": "player-contract",
+          "studioId": "studio-88c92bc3-player",
+          "terms": {
+            "annualSalary": 65538,
+            "endWeekExclusive": 208,
+            "signingBonus": 11797,
+            "startWeek": 0,
+            "talentId": "authored-0003",
+            "termWeeks": 208
+          }
+        }
+      ],
+      "current": {
+        "ageAtAnnouncement": 75,
+        "announcedWeek": 260,
+        "cause": "hardBoundary",
+        "effectiveWeek": 312,
+        "finishingFromWeek": 312,
+        "intentRulesVersion": 1,
+        "personId": "authored-0003",
+        "profession": "director",
+        "retiredWeek": null,
+        "status": "finishing_commitments",
+        "extensionUsed": false,
+        "extendedFromWeek": null
+      },
+      "requestedActor": null,
+      "currentRefusal": "talent \"authored-0003\" is finishingCommitments \u2014 they finish the work they hold and take no new contract, proposal, case or assignment (effective week 312) (P14C.2a)",
+      "requestedRefusal": "talent \"authored-0003\" is finishingCommitments \u2014 they finish the work they hold and take no new contract, proposal, case or assignment (effective week 312) (P14C.2a)",
+      "companyCensus": [
+        {
+          "studioId": "studio-88c92bc3-player",
+          "productionId": "prod-0000",
+          "conceptId": "c-00",
+          "directorId": "authored-0003",
+          "cast": {
+            "antagonist": "t-act-12",
+            "lead": "authored-0000",
+            "support": "t-act-11"
+          },
+          "craftIds": [
+            "authored-0002"
+          ],
+          "writerId": "authored-0001",
+          "companyMember": true,
+          "castMember": false
+        },
+        {
+          "studioId": "studio-88c92bc3-player",
+          "productionId": "prod-0000-1",
+          "conceptId": "c-01",
+          "directorId": "t-dir-08",
+          "cast": {
+            "antagonist": "t-act-13",
+            "lead": "authored-0004",
+            "support": "t-act-14"
+          },
+          "craftIds": [
+            "t-cra-02"
+          ],
+          "writerId": "t-wri-02",
+          "companyMember": false,
+          "castMember": false
+        },
+        {
+          "studioId": "studio-88c92bc3-r01",
+          "productionId": "studio-88c92bc3-r01:film:32",
+          "conceptId": "studio-88c92bc3-r01:concept:32",
+          "directorId": "person-studio-88c92bc3-r01-1",
+          "cast": {
+            "antagonist": "person-studio-88c92bc3-r01-4",
+            "lead": "person-studio-88c92bc3-r01-3",
+            "support": "person-studio-88c92bc3-r01-2"
+          },
+          "craftIds": [
+            "person-studio-88c92bc3-r01-5"
+          ],
+          "writerId": "person-studio-88c92bc3-r01-0",
+          "companyMember": false,
+          "castMember": false
+        }
+      ],
+      "activeWriting": [],
+      "research": []
+    }
+  },
+  "completeQuotes": [
+    {
+      "ordinal": 1,
+      "actualWeek": 312,
+      "request": {
+        "family": "PREFERRED_GENRE_OPPORTUNITY",
+        "issuerStudioId": "studio-88c92bc3-player",
+        "beneficiaryPersonId": "authored-0000",
+        "predicate": {
+          "kind": "genreOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "genre": "drama"
+        },
+        "startWeek": 312,
+        "termWeeks": 52,
+        "windowStartWeek": 312,
+        "dueWeekExclusive": 313
+      },
+      "receipt": {
+        "classification": "IMPOSSIBLE",
+        "bottleneck": "no filming week inside the window can reach this opportunity",
+        "inputsDigest": "49c35bfc948429eb",
+        "rulesVersion": 7,
+        "week": 312
+      },
+      "inputBytes": 2195779,
+      "inputSha256": "fbf4ca9626f02559e2d8d7d109bda2486ed98825efc7f53d91363a70757c552d",
+      "hypotheticalContractOnly": true
+    },
+    {
+      "ordinal": 2,
+      "actualWeek": 312,
+      "request": {
+        "family": "PREFERRED_GENRE_OPPORTUNITY",
+        "issuerStudioId": "studio-88c92bc3-player",
+        "beneficiaryPersonId": "authored-0000",
+        "predicate": {
+          "kind": "genreOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "genre": "drama"
+        },
+        "startWeek": 312,
+        "termWeeks": 52,
+        "windowStartWeek": 312,
+        "dueWeekExclusive": 320
+      },
+      "receipt": {
+        "classification": "FRAGILE",
+        "bottleneck": "the due week leaves too little slack before filming would start",
+        "inputsDigest": "9b5b6d4c8197052d",
+        "rulesVersion": 7,
+        "week": 312
+      },
+      "inputBytes": 2195779,
+      "inputSha256": "fbf4ca9626f02559e2d8d7d109bda2486ed98825efc7f53d91363a70757c552d",
+      "hypotheticalContractOnly": true
+    },
+    {
+      "ordinal": 3,
+      "actualWeek": 312,
+      "request": {
+        "family": "PREFERRED_GENRE_OPPORTUNITY",
+        "issuerStudioId": "studio-88c92bc3-player",
+        "beneficiaryPersonId": "authored-0000",
+        "predicate": {
+          "kind": "genreOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "genre": "drama"
+        },
+        "startWeek": 312,
+        "termWeeks": 52,
+        "windowStartWeek": 312,
+        "dueWeekExclusive": 321
+      },
+      "receipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "143470754000d7f6",
+        "rulesVersion": 7,
+        "week": 312
+      },
+      "inputBytes": 2195779,
+      "inputSha256": "fbf4ca9626f02559e2d8d7d109bda2486ed98825efc7f53d91363a70757c552d",
+      "hypotheticalContractOnly": true
+    },
+    {
+      "ordinal": 4,
+      "actualWeek": 312,
+      "request": {
+        "family": "PREFERRED_GENRE_OPPORTUNITY",
+        "issuerStudioId": "studio-88c92bc3-player",
+        "beneficiaryPersonId": "authored-0000",
+        "predicate": {
+          "kind": "genreOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "genre": "comedy"
+        },
+        "startWeek": 312,
+        "termWeeks": 52,
+        "windowStartWeek": 312,
+        "dueWeekExclusive": 325
+      },
+      "receipt": {
+        "classification": "IMPOSSIBLE",
+        "bottleneck": "retirement closes fresh cast admission",
+        "inputsDigest": "bb73e9f5c317817b",
+        "rulesVersion": 7,
+        "week": 312
+      },
+      "inputBytes": 2195779,
+      "inputSha256": "fbf4ca9626f02559e2d8d7d109bda2486ed98825efc7f53d91363a70757c552d",
+      "hypotheticalContractOnly": true
+    },
+    {
+      "ordinal": 5,
+      "actualWeek": 312,
+      "request": {
+        "family": "PREFERRED_GENRE_OPPORTUNITY",
+        "issuerStudioId": "studio-88c92bc3-player",
+        "beneficiaryPersonId": "authored-0003",
+        "predicate": {
+          "kind": "genreOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "genre": "drama"
+        },
+        "startWeek": 312,
+        "termWeeks": 52,
+        "windowStartWeek": 312,
+        "dueWeekExclusive": 325
+      },
+      "receipt": {
+        "classification": "IMPOSSIBLE",
+        "bottleneck": "retirement closes fresh cast admission",
+        "inputsDigest": "9f252ef7a10ba530",
+        "rulesVersion": 7,
+        "week": 312
+      },
+      "inputBytes": 2195779,
+      "inputSha256": "fbf4ca9626f02559e2d8d7d109bda2486ed98825efc7f53d91363a70757c552d",
+      "hypotheticalContractOnly": true
+    }
+  ],
+  "unionAudit": {
+    "rawRootsEach": 69,
+    "membershipDecisions": 345,
+    "selectedEach": [],
+    "repeatedRootsExact": true
+  },
+  "actions": [
+    {
+      "action": {
+        "kind": "assignShootingDirector",
+        "productionId": "prod-0000",
+        "directorId": "authored-0003"
+      },
+      "week": 312,
+      "accepted": true,
+      "production": {
+        "budget": {
+          "marketing": 0,
+          "negative": 4253323.100929685
+        },
+        "cast": {
+          "antagonist": "t-act-12",
+          "lead": "authored-0000",
+          "support": "t-act-11"
+        },
+        "conceptId": "c-00",
+        "craftIds": [
+          "authored-0002"
+        ],
+        "directorId": "authored-0003",
+        "forecastSnapshot": {
+          "expectedCriticScore": 45.745230013494826,
+          "expectedOpening": 2078790.5283873773,
+          "expectedTotal": 4494469.893565131,
+          "segments": [
+            {
+              "causalFactors": [
+                "segmentTaste",
+                "shapeAffinity"
+              ],
+              "center": 36.1526496873476,
+              "confidence": "low",
+              "estimate": 36.1526496873476,
+              "expectedBand": "weak",
+              "high": 50.1526496873476,
+              "low": 6.152649687347598,
+              "opening": {
+                "center": 36.556478133740704,
+                "estimate": 36.556478133740704,
+                "high": 50.556478133740704,
+                "low": 22.556478133740704
+              },
+              "segmentId": "youngAdult",
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ]
+            },
+            {
+              "causalFactors": [
+                "segmentTaste",
+                "shapeAffinity"
+              ],
+              "center": 42.78063648664705,
+              "confidence": "low",
+              "estimate": 42.78063648664705,
+              "expectedBand": "mixed",
+              "high": 56.78063648664705,
+              "low": 12.780636486647047,
+              "opening": {
+                "center": 43.184464933040154,
+                "estimate": 43.184464933040154,
+                "high": 57.184464933040154,
+                "low": 29.184464933040154
+              },
+              "segmentId": "family",
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ]
+            },
+            {
+              "causalFactors": [
+                "segmentTaste",
+                "shapeAffinity"
+              ],
+              "center": 54.146285220910684,
+              "confidence": "low",
+              "estimate": 54.146285220910684,
+              "expectedBand": "mixed",
+              "high": 68.14628522091068,
+              "low": 24.146285220910684,
+              "opening": {
+                "center": 54.55011366730379,
+                "estimate": 54.55011366730379,
+                "high": 68.55011366730379,
+                "low": 40.55011366730379
+              },
+              "segmentId": "adult",
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ]
+            },
+            {
+              "causalFactors": [
+                "segmentTaste",
+                "shapeAffinity"
+              ],
+              "center": 58.92302990721545,
+              "confidence": "low",
+              "estimate": 58.92302990721545,
+              "expectedBand": "mixed",
+              "high": 72.92302990721545,
+              "low": 28.92302990721545,
+              "opening": {
+                "center": 59.32685835360856,
+                "estimate": 59.32685835360856,
+                "high": 73.32685835360856,
+                "low": 45.32685835360856
+              },
+              "segmentId": "prestige",
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ]
+            }
+          ]
+        },
+        "id": "prod-0000",
+        "participants": {
+          "cast": {
+            "antagonist": {
+              "discipline": "acting",
+              "freelancer": false,
+              "greenlightEP": {
+                "expected": 78.73455695257904,
+                "high": 94.53272895257905,
+                "low": 62.93638495257904
+              },
+              "greenlightFit": 45,
+              "greenlightOVR": 72,
+              "name": "Miriam Sable",
+              "role": "antagonist",
+              "talentId": "t-act-12"
+            },
+            "lead": {
+              "discipline": "acting",
+              "freelancer": false,
+              "greenlightEP": {
+                "expected": 35,
+                "high": 51,
+                "low": 19
+              },
+              "greenlightFit": 28,
+              "greenlightOVR": 6,
+              "name": "Authored Y3 Actor",
+              "role": "lead",
+              "talentId": "authored-0000"
+            },
+            "support": {
+              "discipline": "acting",
+              "freelancer": false,
+              "greenlightEP": {
+                "expected": 65.16687957461751,
+                "high": 81.10467157461751,
+                "low": 49.22908757461751
+              },
+              "greenlightFit": 55,
+              "greenlightOVR": 50,
+              "name": "Jean Halberstam",
+              "role": "support",
+              "talentId": "t-act-11"
+            }
+          },
+          "craft": [
+            {
+              "discipline": "craft",
+              "freelancer": false,
+              "greenlightEP": {
+                "expected": 35,
+                "high": 51,
+                "low": 19
+              },
+              "greenlightFit": 30,
+              "greenlightOVR": 6,
+              "name": "Authored Y3 Craft",
+              "role": "craft",
+              "talentId": "authored-0002"
+            }
+          ],
+          "director": {
+            "discipline": "directing",
+            "freelancer": false,
+            "greenlightEP": {
+              "expected": 34.99999999999999,
+              "high": 50.99999999999999,
+              "low": 18.999999999999993
+            },
+            "greenlightFit": 38,
+            "greenlightOVR": 6,
+            "name": "Authored Y3 Director",
+            "role": "director",
+            "talentId": "authored-0003"
+          },
+          "writer": {
+            "discipline": "writing",
+            "freelancer": false,
+            "greenlightEP": {
+              "expected": 35,
+              "high": 51,
+              "low": 19
+            },
+            "greenlightFit": 40,
+            "greenlightOVR": 6,
+            "name": "Authored Y3 Writer",
+            "role": "writer",
+            "talentId": "authored-0001"
+          }
+        },
+        "promise": {
+          "genre": "drama",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "remainingTicks": 5,
+        "shape": {
+          "ending": "bittersweet",
+          "midpoint": "revelation",
+          "opening": "slowSetup"
+        },
+        "startTick": 0,
+        "writerId": "authored-0001"
+      },
+      "workflow": {
+        "bindings": {
+          "heldSinceWeek": 2,
+          "lockedNovelty": 1,
+          "lockedUplift": 5.7,
+          "requiresSetBinding": true,
+          "setId": "set-0",
+          "stageFacilityId": "facility-soundstage-07"
+        },
+        "blocker": null,
+        "phase": "shooting",
+        "planRevision": 0,
+        "productionId": "prod-0000",
+        "reservations": [
+          {
+            "capability": "soundstage",
+            "facilityId": "facility-soundstage-07",
+            "phase": "shooting",
+            "productionId": "prod-0000",
+            "slot": 0
+          },
+          {
+            "capability": "set-scenery",
+            "facilityId": "facility-scenery-shop",
+            "phase": "shooting",
+            "productionId": "prod-0000",
+            "slot": 0
+          }
+        ],
+        "setup": null,
+        "shootingTask": {
+          "directorId": "authored-0003",
+          "id": "shooting:prod-0000",
+          "productionId": "prod-0000",
+          "soundstageFacilityId": "facility-soundstage-07",
+          "status": "ready"
+        }
+      },
+      "studioEvents": {
+        "nextSeq": 17,
+        "rows": [
+          {
+            "seq": 16,
+            "week": 312,
+            "kind": "sceneryArrived",
+            "productionId": "prod-0000"
+          }
+        ]
+      },
+      "firstTakeSubjects": {
+        "version": 1,
+        "cutoverOrdinal": 111,
+        "facts": []
+      }
+    },
+    {
+      "action": {
+        "kind": "scheduleShootingTake",
+        "productionId": "prod-0000"
+      },
+      "week": 312,
+      "accepted": true,
+      "production": {
+        "budget": {
+          "marketing": 0,
+          "negative": 4253323.100929685
+        },
+        "cast": {
+          "antagonist": "t-act-12",
+          "lead": "authored-0000",
+          "support": "t-act-11"
+        },
+        "conceptId": "c-00",
+        "craftIds": [
+          "authored-0002"
+        ],
+        "directorId": "authored-0003",
+        "forecastSnapshot": {
+          "expectedCriticScore": 45.745230013494826,
+          "expectedOpening": 2078790.5283873773,
+          "expectedTotal": 4494469.893565131,
+          "segments": [
+            {
+              "causalFactors": [
+                "segmentTaste",
+                "shapeAffinity"
+              ],
+              "center": 36.1526496873476,
+              "confidence": "low",
+              "estimate": 36.1526496873476,
+              "expectedBand": "weak",
+              "high": 50.1526496873476,
+              "low": 6.152649687347598,
+              "opening": {
+                "center": 36.556478133740704,
+                "estimate": 36.556478133740704,
+                "high": 50.556478133740704,
+                "low": 22.556478133740704
+              },
+              "segmentId": "youngAdult",
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ]
+            },
+            {
+              "causalFactors": [
+                "segmentTaste",
+                "shapeAffinity"
+              ],
+              "center": 42.78063648664705,
+              "confidence": "low",
+              "estimate": 42.78063648664705,
+              "expectedBand": "mixed",
+              "high": 56.78063648664705,
+              "low": 12.780636486647047,
+              "opening": {
+                "center": 43.184464933040154,
+                "estimate": 43.184464933040154,
+                "high": 57.184464933040154,
+                "low": 29.184464933040154
+              },
+              "segmentId": "family",
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ]
+            },
+            {
+              "causalFactors": [
+                "segmentTaste",
+                "shapeAffinity"
+              ],
+              "center": 54.146285220910684,
+              "confidence": "low",
+              "estimate": 54.146285220910684,
+              "expectedBand": "mixed",
+              "high": 68.14628522091068,
+              "low": 24.146285220910684,
+              "opening": {
+                "center": 54.55011366730379,
+                "estimate": 54.55011366730379,
+                "high": 68.55011366730379,
+                "low": 40.55011366730379
+              },
+              "segmentId": "adult",
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ]
+            },
+            {
+              "causalFactors": [
+                "segmentTaste",
+                "shapeAffinity"
+              ],
+              "center": 58.92302990721545,
+              "confidence": "low",
+              "estimate": 58.92302990721545,
+              "expectedBand": "mixed",
+              "high": 72.92302990721545,
+              "low": 28.92302990721545,
+              "opening": {
+                "center": 59.32685835360856,
+                "estimate": 59.32685835360856,
+                "high": 73.32685835360856,
+                "low": 45.32685835360856
+              },
+              "segmentId": "prestige",
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ]
+            }
+          ]
+        },
+        "id": "prod-0000",
+        "participants": {
+          "cast": {
+            "antagonist": {
+              "discipline": "acting",
+              "freelancer": false,
+              "greenlightEP": {
+                "expected": 78.73455695257904,
+                "high": 94.53272895257905,
+                "low": 62.93638495257904
+              },
+              "greenlightFit": 45,
+              "greenlightOVR": 72,
+              "name": "Miriam Sable",
+              "role": "antagonist",
+              "talentId": "t-act-12"
+            },
+            "lead": {
+              "discipline": "acting",
+              "freelancer": false,
+              "greenlightEP": {
+                "expected": 35,
+                "high": 51,
+                "low": 19
+              },
+              "greenlightFit": 28,
+              "greenlightOVR": 6,
+              "name": "Authored Y3 Actor",
+              "role": "lead",
+              "talentId": "authored-0000"
+            },
+            "support": {
+              "discipline": "acting",
+              "freelancer": false,
+              "greenlightEP": {
+                "expected": 65.16687957461751,
+                "high": 81.10467157461751,
+                "low": 49.22908757461751
+              },
+              "greenlightFit": 55,
+              "greenlightOVR": 50,
+              "name": "Jean Halberstam",
+              "role": "support",
+              "talentId": "t-act-11"
+            }
+          },
+          "craft": [
+            {
+              "discipline": "craft",
+              "freelancer": false,
+              "greenlightEP": {
+                "expected": 35,
+                "high": 51,
+                "low": 19
+              },
+              "greenlightFit": 30,
+              "greenlightOVR": 6,
+              "name": "Authored Y3 Craft",
+              "role": "craft",
+              "talentId": "authored-0002"
+            }
+          ],
+          "director": {
+            "discipline": "directing",
+            "freelancer": false,
+            "greenlightEP": {
+              "expected": 34.99999999999999,
+              "high": 50.99999999999999,
+              "low": 18.999999999999993
+            },
+            "greenlightFit": 38,
+            "greenlightOVR": 6,
+            "name": "Authored Y3 Director",
+            "role": "director",
+            "talentId": "authored-0003"
+          },
+          "writer": {
+            "discipline": "writing",
+            "freelancer": false,
+            "greenlightEP": {
+              "expected": 35,
+              "high": 51,
+              "low": 19
+            },
+            "greenlightFit": 40,
+            "greenlightOVR": 6,
+            "name": "Authored Y3 Writer",
+            "role": "writer",
+            "talentId": "authored-0001"
+          }
+        },
+        "promise": {
+          "genre": "drama",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "remainingTicks": 5,
+        "shape": {
+          "ending": "bittersweet",
+          "midpoint": "revelation",
+          "opening": "slowSetup"
+        },
+        "startTick": 0,
+        "writerId": "authored-0001"
+      },
+      "workflow": {
+        "bindings": {
+          "heldSinceWeek": 2,
+          "lockedNovelty": 1,
+          "lockedUplift": 5.7,
+          "requiresSetBinding": true,
+          "setId": "set-0",
+          "stageFacilityId": "facility-soundstage-07"
+        },
+        "blocker": null,
+        "phase": "shooting",
+        "planRevision": 0,
+        "productionId": "prod-0000",
+        "reservations": [
+          {
+            "capability": "soundstage",
+            "facilityId": "facility-soundstage-07",
+            "phase": "shooting",
+            "productionId": "prod-0000",
+            "slot": 0
+          },
+          {
+            "capability": "set-scenery",
+            "facilityId": "facility-scenery-shop",
+            "phase": "shooting",
+            "productionId": "prod-0000",
+            "slot": 0
+          }
+        ],
+        "setup": null,
+        "shootingTask": {
+          "directorId": "authored-0003",
+          "id": "shooting:prod-0000",
+          "productionId": "prod-0000",
+          "soundstageFacilityId": "facility-soundstage-07",
+          "status": "scheduled"
+        }
+      },
+      "studioEvents": {
+        "nextSeq": 17,
+        "rows": [
+          {
+            "seq": 16,
+            "week": 312,
+            "kind": "sceneryArrived",
+            "productionId": "prod-0000"
+          }
+        ]
+      },
+      "firstTakeSubjects": {
+        "version": 1,
+        "cutoverOrdinal": 111,
+        "facts": []
+      }
+    }
+  ],
+  "advance": {
+    "from": 312,
+    "to": 313,
+    "added": [
+      {
+        "receipt": {
+          "eventId": "first-take-event-111",
+          "week": 313,
+          "productionId": "prod-0000",
+          "studioId": "studio-88c92bc3-player",
+          "directorId": "authored-0003",
+          "cast": {
+            "lead": "authored-0000",
+            "antagonist": "t-act-12",
+            "support": "t-act-11"
+          }
+        },
+        "subject": {
+          "eventId": "first-take-event-111",
+          "conceptId": "c-00",
+          "genre": "drama",
+          "scriptProjectId": null
+        },
+        "owner": {
+          "studioId": "studio-88c92bc3-player",
+          "production": {
+            "budget": {
+              "marketing": 0,
+              "negative": 4253323.100929685
+            },
+            "cast": {
+              "antagonist": "t-act-12",
+              "lead": "authored-0000",
+              "support": "t-act-11"
+            },
+            "conceptId": "c-00",
+            "craftIds": [
+              "authored-0002"
+            ],
+            "directorId": "authored-0003",
+            "forecastSnapshot": {
+              "expectedCriticScore": 45.745230013494826,
+              "expectedOpening": 2078790.5283873773,
+              "expectedTotal": 4494469.893565131,
+              "segments": [
+                {
+                  "causalFactors": [
+                    "segmentTaste",
+                    "shapeAffinity"
+                  ],
+                  "center": 36.1526496873476,
+                  "confidence": "low",
+                  "estimate": 36.1526496873476,
+                  "expectedBand": "weak",
+                  "high": 50.1526496873476,
+                  "low": 6.152649687347598,
+                  "opening": {
+                    "center": 36.556478133740704,
+                    "estimate": 36.556478133740704,
+                    "high": 50.556478133740704,
+                    "low": 22.556478133740704
+                  },
+                  "segmentId": "youngAdult",
+                  "uncertaintyFactors": [
+                    "unknownLead",
+                    "untestedDirectorGenre",
+                    "noSegmentHistory"
+                  ]
+                },
+                {
+                  "causalFactors": [
+                    "segmentTaste",
+                    "shapeAffinity"
+                  ],
+                  "center": 42.78063648664705,
+                  "confidence": "low",
+                  "estimate": 42.78063648664705,
+                  "expectedBand": "mixed",
+                  "high": 56.78063648664705,
+                  "low": 12.780636486647047,
+                  "opening": {
+                    "center": 43.184464933040154,
+                    "estimate": 43.184464933040154,
+                    "high": 57.184464933040154,
+                    "low": 29.184464933040154
+                  },
+                  "segmentId": "family",
+                  "uncertaintyFactors": [
+                    "unknownLead",
+                    "untestedDirectorGenre",
+                    "noSegmentHistory"
+                  ]
+                },
+                {
+                  "causalFactors": [
+                    "segmentTaste",
+                    "shapeAffinity"
+                  ],
+                  "center": 54.146285220910684,
+                  "confidence": "low",
+                  "estimate": 54.146285220910684,
+                  "expectedBand": "mixed",
+                  "high": 68.14628522091068,
+                  "low": 24.146285220910684,
+                  "opening": {
+                    "center": 54.55011366730379,
+                    "estimate": 54.55011366730379,
+                    "high": 68.55011366730379,
+                    "low": 40.55011366730379
+                  },
+                  "segmentId": "adult",
+                  "uncertaintyFactors": [
+                    "unknownLead",
+                    "untestedDirectorGenre",
+                    "noSegmentHistory"
+                  ]
+                },
+                {
+                  "causalFactors": [
+                    "segmentTaste",
+                    "shapeAffinity"
+                  ],
+                  "center": 58.92302990721545,
+                  "confidence": "low",
+                  "estimate": 58.92302990721545,
+                  "expectedBand": "mixed",
+                  "high": 72.92302990721545,
+                  "low": 28.92302990721545,
+                  "opening": {
+                    "center": 59.32685835360856,
+                    "estimate": 59.32685835360856,
+                    "high": 73.32685835360856,
+                    "low": 45.32685835360856
+                  },
+                  "segmentId": "prestige",
+                  "uncertaintyFactors": [
+                    "unknownLead",
+                    "untestedDirectorGenre",
+                    "noSegmentHistory"
+                  ]
+                }
+              ]
+            },
+            "id": "prod-0000",
+            "participants": {
+              "cast": {
+                "antagonist": {
+                  "discipline": "acting",
+                  "freelancer": false,
+                  "greenlightEP": {
+                    "expected": 78.73455695257904,
+                    "high": 94.53272895257905,
+                    "low": 62.93638495257904
+                  },
+                  "greenlightFit": 45,
+                  "greenlightOVR": 72,
+                  "name": "Miriam Sable",
+                  "role": "antagonist",
+                  "talentId": "t-act-12"
+                },
+                "lead": {
+                  "discipline": "acting",
+                  "freelancer": false,
+                  "greenlightEP": {
+                    "expected": 35,
+                    "high": 51,
+                    "low": 19
+                  },
+                  "greenlightFit": 28,
+                  "greenlightOVR": 6,
+                  "name": "Authored Y3 Actor",
+                  "role": "lead",
+                  "talentId": "authored-0000"
+                },
+                "support": {
+                  "discipline": "acting",
+                  "freelancer": false,
+                  "greenlightEP": {
+                    "expected": 65.16687957461751,
+                    "high": 81.10467157461751,
+                    "low": 49.22908757461751
+                  },
+                  "greenlightFit": 55,
+                  "greenlightOVR": 50,
+                  "name": "Jean Halberstam",
+                  "role": "support",
+                  "talentId": "t-act-11"
+                }
+              },
+              "craft": [
+                {
+                  "discipline": "craft",
+                  "freelancer": false,
+                  "greenlightEP": {
+                    "expected": 35,
+                    "high": 51,
+                    "low": 19
+                  },
+                  "greenlightFit": 30,
+                  "greenlightOVR": 6,
+                  "name": "Authored Y3 Craft",
+                  "role": "craft",
+                  "talentId": "authored-0002"
+                }
+              ],
+              "director": {
+                "discipline": "directing",
+                "freelancer": false,
+                "greenlightEP": {
+                  "expected": 34.99999999999999,
+                  "high": 50.99999999999999,
+                  "low": 18.999999999999993
+                },
+                "greenlightFit": 38,
+                "greenlightOVR": 6,
+                "name": "Authored Y3 Director",
+                "role": "director",
+                "talentId": "authored-0003"
+              },
+              "writer": {
+                "discipline": "writing",
+                "freelancer": false,
+                "greenlightEP": {
+                  "expected": 35,
+                  "high": 51,
+                  "low": 19
+                },
+                "greenlightFit": 40,
+                "greenlightOVR": 6,
+                "name": "Authored Y3 Writer",
+                "role": "writer",
+                "talentId": "authored-0001"
+              }
+            },
+            "promise": {
+              "genre": "drama",
+              "intendedSegments": [
+                "adult"
+              ],
+              "ranges": {
+                "intimacy": [
+                  -0.5,
+                  0.5
+                ],
+                "kineticEnergy": [
+                  -0.5,
+                  0.5
+                ],
+                "tonalWeight": [
+                  -0.5,
+                  0.5
+                ]
+              }
+            },
+            "remainingTicks": 5,
+            "shape": {
+              "ending": "bittersweet",
+              "midpoint": "revelation",
+              "opening": "slowSetup"
+            },
+            "startTick": 0,
+            "writerId": "authored-0001"
+          },
+          "concept": {
+            "baseNegativeCost": 4253323.100929685,
+            "baselineStrength": 43.189026833852225,
+            "genre": "drama",
+            "id": "c-00",
+            "originalityRaw": 89.95295265927737,
+            "requiredSlots": [
+              "lead",
+              "antagonist",
+              "support"
+            ],
+            "roleRequirements": {
+              "antagonist": {
+                "target": {
+                  "gravity": -0.29954860266298056,
+                  "physicality": -0.26797488424926996,
+                  "warmth": -0.5150724858976901
+                },
+                "tolerance": 1.0727961440104992
+              },
+              "lead": {
+                "target": {
+                  "gravity": -0.33767279144376516,
+                  "physicality": -0.3492789217270911,
+                  "warmth": 0.5741634299047291
+                },
+                "tolerance": 1.1925494982395322
+              },
+              "support": {
+                "target": {
+                  "gravity": -0.4277558894827962,
+                  "physicality": -0.6797671616077423,
+                  "warmth": 0.9993545049801469
+                },
+                "tolerance": 0.9870028977282346
+              }
+            },
+            "title": "The Painted Pilgrimage"
+          },
+          "mode": "legacy",
+          "linked": []
+        }
+      }
+    ],
+    "actualSubjectRoot": {
+      "version": 1,
+      "cutoverOrdinal": 111,
+      "facts": [
+        {
+          "eventId": "first-take-event-111",
+          "conceptId": "c-00",
+          "genre": "drama",
+          "scriptProjectId": null
+        }
+      ]
+    },
+    "production": {
+      "budget": {
+        "marketing": 0,
+        "negative": 4253323.100929685
+      },
+      "cast": {
+        "antagonist": "t-act-12",
+        "lead": "authored-0000",
+        "support": "t-act-11"
+      },
+      "conceptId": "c-00",
+      "craftIds": [
+        "authored-0002"
+      ],
+      "directorId": "authored-0003",
+      "forecastSnapshot": {
+        "expectedCriticScore": 45.745230013494826,
+        "expectedOpening": 2078790.5283873773,
+        "expectedTotal": 4494469.893565131,
+        "segments": [
+          {
+            "causalFactors": [
+              "segmentTaste",
+              "shapeAffinity"
+            ],
+            "center": 36.1526496873476,
+            "confidence": "low",
+            "estimate": 36.1526496873476,
+            "expectedBand": "weak",
+            "high": 50.1526496873476,
+            "low": 6.152649687347598,
+            "opening": {
+              "center": 36.556478133740704,
+              "estimate": 36.556478133740704,
+              "high": 50.556478133740704,
+              "low": 22.556478133740704
+            },
+            "segmentId": "youngAdult",
+            "uncertaintyFactors": [
+              "unknownLead",
+              "untestedDirectorGenre",
+              "noSegmentHistory"
+            ]
+          },
+          {
+            "causalFactors": [
+              "segmentTaste",
+              "shapeAffinity"
+            ],
+            "center": 42.78063648664705,
+            "confidence": "low",
+            "estimate": 42.78063648664705,
+            "expectedBand": "mixed",
+            "high": 56.78063648664705,
+            "low": 12.780636486647047,
+            "opening": {
+              "center": 43.184464933040154,
+              "estimate": 43.184464933040154,
+              "high": 57.184464933040154,
+              "low": 29.184464933040154
+            },
+            "segmentId": "family",
+            "uncertaintyFactors": [
+              "unknownLead",
+              "untestedDirectorGenre",
+              "noSegmentHistory"
+            ]
+          },
+          {
+            "causalFactors": [
+              "segmentTaste",
+              "shapeAffinity"
+            ],
+            "center": 54.146285220910684,
+            "confidence": "low",
+            "estimate": 54.146285220910684,
+            "expectedBand": "mixed",
+            "high": 68.14628522091068,
+            "low": 24.146285220910684,
+            "opening": {
+              "center": 54.55011366730379,
+              "estimate": 54.55011366730379,
+              "high": 68.55011366730379,
+              "low": 40.55011366730379
+            },
+            "segmentId": "adult",
+            "uncertaintyFactors": [
+              "unknownLead",
+              "untestedDirectorGenre",
+              "noSegmentHistory"
+            ]
+          },
+          {
+            "causalFactors": [
+              "segmentTaste",
+              "shapeAffinity"
+            ],
+            "center": 58.92302990721545,
+            "confidence": "low",
+            "estimate": 58.92302990721545,
+            "expectedBand": "mixed",
+            "high": 72.92302990721545,
+            "low": 28.92302990721545,
+            "opening": {
+              "center": 59.32685835360856,
+              "estimate": 59.32685835360856,
+              "high": 73.32685835360856,
+              "low": 45.32685835360856
+            },
+            "segmentId": "prestige",
+            "uncertaintyFactors": [
+              "unknownLead",
+              "untestedDirectorGenre",
+              "noSegmentHistory"
+            ]
+          }
+        ]
+      },
+      "id": "prod-0000",
+      "participants": {
+        "cast": {
+          "antagonist": {
+            "discipline": "acting",
+            "freelancer": false,
+            "greenlightEP": {
+              "expected": 78.73455695257904,
+              "high": 94.53272895257905,
+              "low": 62.93638495257904
+            },
+            "greenlightFit": 45,
+            "greenlightOVR": 72,
+            "name": "Miriam Sable",
+            "role": "antagonist",
+            "talentId": "t-act-12"
+          },
+          "lead": {
+            "discipline": "acting",
+            "freelancer": false,
+            "greenlightEP": {
+              "expected": 35,
+              "high": 51,
+              "low": 19
+            },
+            "greenlightFit": 28,
+            "greenlightOVR": 6,
+            "name": "Authored Y3 Actor",
+            "role": "lead",
+            "talentId": "authored-0000"
+          },
+          "support": {
+            "discipline": "acting",
+            "freelancer": false,
+            "greenlightEP": {
+              "expected": 65.16687957461751,
+              "high": 81.10467157461751,
+              "low": 49.22908757461751
+            },
+            "greenlightFit": 55,
+            "greenlightOVR": 50,
+            "name": "Jean Halberstam",
+            "role": "support",
+            "talentId": "t-act-11"
+          }
+        },
+        "craft": [
+          {
+            "discipline": "craft",
+            "freelancer": false,
+            "greenlightEP": {
+              "expected": 35,
+              "high": 51,
+              "low": 19
+            },
+            "greenlightFit": 30,
+            "greenlightOVR": 6,
+            "name": "Authored Y3 Craft",
+            "role": "craft",
+            "talentId": "authored-0002"
+          }
+        ],
+        "director": {
+          "discipline": "directing",
+          "freelancer": false,
+          "greenlightEP": {
+            "expected": 34.99999999999999,
+            "high": 50.99999999999999,
+            "low": 18.999999999999993
+          },
+          "greenlightFit": 38,
+          "greenlightOVR": 6,
+          "name": "Authored Y3 Director",
+          "role": "director",
+          "talentId": "authored-0003"
+        },
+        "writer": {
+          "discipline": "writing",
+          "freelancer": false,
+          "greenlightEP": {
+            "expected": 35,
+            "high": 51,
+            "low": 19
+          },
+          "greenlightFit": 40,
+          "greenlightOVR": 6,
+          "name": "Authored Y3 Writer",
+          "role": "writer",
+          "talentId": "authored-0001"
+        }
+      },
+      "promise": {
+        "genre": "drama",
+        "intendedSegments": [
+          "adult"
+        ],
+        "ranges": {
+          "intimacy": [
+            -0.5,
+            0.5
+          ],
+          "kineticEnergy": [
+            -0.5,
+            0.5
+          ],
+          "tonalWeight": [
+            -0.5,
+            0.5
+          ]
+        }
+      },
+      "remainingTicks": 4,
+      "shape": {
+        "ending": "bittersweet",
+        "midpoint": "revelation",
+        "opening": "slowSetup"
+      },
+      "startTick": 0,
+      "writerId": "authored-0001"
+    },
+    "workflow": {
+      "bindings": {
+        "heldSinceWeek": 2,
+        "lockedNovelty": 1,
+        "lockedUplift": 5.7,
+        "requiresSetBinding": true,
+        "setId": "set-0",
+        "stageFacilityId": "facility-soundstage-07"
+      },
+      "blocker": null,
+      "phase": "shooting",
+      "planRevision": 0,
+      "productionId": "prod-0000",
+      "reservations": [
+        {
+          "capability": "soundstage",
+          "facilityId": "facility-soundstage-07",
+          "phase": "shooting",
+          "productionId": "prod-0000",
+          "slot": 0
+        },
+        {
+          "capability": "set-scenery",
+          "facilityId": "facility-scenery-shop",
+          "phase": "shooting",
+          "productionId": "prod-0000",
+          "slot": 0
+        }
+      ],
+      "setup": null,
+      "shootingTask": {
+        "directorId": "authored-0003",
+        "id": "shooting:prod-0000",
+        "productionId": "prod-0000",
+        "soundstageFacilityId": "facility-soundstage-07",
+        "status": "completed"
+      }
+    },
+    "actorRecord": {
+      "ageAtAnnouncement": 71,
+      "announcedWeek": 52,
+      "cause": "hardBoundary",
+      "effectiveWeek": 208,
+      "finishingFromWeek": 208,
+      "intentRulesVersion": 1,
+      "personId": "authored-0000",
+      "profession": "actor",
+      "retiredWeek": null,
+      "status": "finishing_commitments",
+      "extensionUsed": false,
+      "extendedFromWeek": null
+    },
+    "directorRecord": {
+      "ageAtAnnouncement": 75,
+      "announcedWeek": 260,
+      "cause": "hardBoundary",
+      "effectiveWeek": 312,
+      "finishingFromWeek": 312,
+      "intentRulesVersion": 1,
+      "personId": "authored-0003",
+      "profession": "director",
+      "retiredWeek": null,
+      "status": "finishing_commitments",
+      "extensionUsed": false,
+      "extendedFromWeek": null
+    }
+  },
+  "oldPromiseActualChanges": [],
+  "counters": {
+    "attempted": 1,
+    "reserved": 1,
+    "invoked": 1,
+    "completed": 1,
+    "outside": 0,
+    "actionAttempts": 2,
+    "actionsAccepted": 2,
+    "quotes": 5,
+    "hardAdvanceAttempts": 1,
+    "hardActions": 2,
+    "hardQuotes": 5,
+    "tickDevelopmentOption": "default false",
+    "historicalPrefixAdvances": 0,
+    "producerOrHelperImported": false,
+    "operations": [
+      {
+        "action": {
+          "kind": "assignShootingDirector",
+          "productionId": "prod-0000",
+          "directorId": "authored-0003"
+        },
+        "week": 312,
+        "accepted": true
+      },
+      {
+        "action": {
+          "kind": "scheduleShootingTake",
+          "productionId": "prod-0000"
+        },
+        "week": 312,
+        "accepted": true
+      }
+    ],
+    "quoteOrder": [
+      {
+        "family": "PREFERRED_GENRE_OPPORTUNITY",
+        "issuerStudioId": "studio-88c92bc3-player",
+        "beneficiaryPersonId": "authored-0000",
+        "predicate": {
+          "kind": "genreOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "genre": "drama"
+        },
+        "startWeek": 312,
+        "termWeeks": 52,
+        "windowStartWeek": 312,
+        "dueWeekExclusive": 313
+      },
+      {
+        "family": "PREFERRED_GENRE_OPPORTUNITY",
+        "issuerStudioId": "studio-88c92bc3-player",
+        "beneficiaryPersonId": "authored-0000",
+        "predicate": {
+          "kind": "genreOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "genre": "drama"
+        },
+        "startWeek": 312,
+        "termWeeks": 52,
+        "windowStartWeek": 312,
+        "dueWeekExclusive": 320
+      },
+      {
+        "family": "PREFERRED_GENRE_OPPORTUNITY",
+        "issuerStudioId": "studio-88c92bc3-player",
+        "beneficiaryPersonId": "authored-0000",
+        "predicate": {
+          "kind": "genreOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "genre": "drama"
+        },
+        "startWeek": 312,
+        "termWeeks": 52,
+        "windowStartWeek": 312,
+        "dueWeekExclusive": 321
+      },
+      {
+        "family": "PREFERRED_GENRE_OPPORTUNITY",
+        "issuerStudioId": "studio-88c92bc3-player",
+        "beneficiaryPersonId": "authored-0000",
+        "predicate": {
+          "kind": "genreOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "genre": "comedy"
+        },
+        "startWeek": 312,
+        "termWeeks": 52,
+        "windowStartWeek": 312,
+        "dueWeekExclusive": 325
+      },
+      {
+        "family": "PREFERRED_GENRE_OPPORTUNITY",
+        "issuerStudioId": "studio-88c92bc3-player",
+        "beneficiaryPersonId": "authored-0003",
+        "predicate": {
+          "kind": "genreOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "genre": "drama"
+        },
+        "startWeek": 312,
+        "termWeeks": 52,
+        "windowStartWeek": 312,
+        "dueWeekExclusive": 325
+      }
+    ],
+    "phases": [
+      {
+        "name": "literal35-to40:312",
+        "complete": true
+      },
+      {
+        "name": "five-material-quotes312",
+        "complete": true
+      },
+      {
+        "name": "director-ready312",
+        "complete": true
+      },
+      {
+        "name": "scheduled312",
+        "complete": true
+      },
+      {
+        "name": "actual-take313",
+        "complete": true
+      }
+    ]
+  },
+  "timingsSeconds": {
+    "rootRecorder": 33.573,
+    "runtimeRecorder": 11.28,
+    "runtimeVitest": 10.27,
+    "file": 7.009,
+    "leaf": 7.006
+  },
+  "interpretation": [
+    "Five pure P4 quotes at312 distinguish held matching cast work from fresh-work retirement refusal; complete state/request/RNG purity passed.",
+    "Actor0000 drama due313 IMP49c35bfc948429eb; due320 FRAGILE9b5b6d4c8197052d; due321 RA143470754000d7f6. Wrong-genre comedy due325 IMPbb73e9f5c317817b. Director0003 drama due325 IMP9f252ef7a10ba530 from current Director finishing record despite absent Actor record. All receipts7/week312.",
+    "Actual Director assignment and scheduling accepted at312; ordinary owner emitted sceneryArrived seq16/week312, task ready then scheduled, without new employment or production seat.",
+    "Hard one default-false advance312to313, actual prod0000 remaining5to4/taskcompleted, player first-take-event111/c00/drama/null screenplay. Whole observed suffix is exactly this one player take; no new rival take occurred.",
+    "All111old receipts/cutover111 persist, both real finishing records/expired208employment retained, all69old promises actually unchanged. No release or retirement completion.",
+    "Eighteen core leaves qualified across ten separate selections, not a combined suite."
+  ],
+  "limits": [
+    "Original funded generated world5/held33 Save34 provenance and2026Sep26 archived37 reproduction remain literal.501historical producer ticks/85selected branch ticks were not rerun; negativecash preserved.",
+    "Hypothetical312to364 terms are pure quote arguments, not new contract, proposal or extension.",
+    "Bounded actual existing-task work does not establish general scheduling, future picture completion, natural profitability, grouped reservations, delayed-release readmission, rival material policy, full-suite or native behavior."
+  ],
+  "next": "Release1275-C under acceptedA/B: standalone grouped committed-witness case from existing31bound52, hard8advances52to60,6publicactions,8explicitquotes. IndependentD then parent integration/publication and1276types0/1277runtime8. Then1278casting and1281delayed-retirement accepted plans. P17 recovered product questions remain pending separately."
+}
