@@ -1,0 +1,51 @@
+{
+  "record": "1272-E parent application",
+  "timeUtc": "2026-09-27T23:44:44.911823+00:00",
+  "basePublishedSource": "bb40a99afd099f246f5d236ec5ca3b19c83be306",
+  "parentRead": "Complete staged source and A/F/B/C/D; reviewed final independent resource census correction including retained completed research reference, production slots and task shadows. All manifest pins/decoded input/protected source rehashed; exact checked patch applied. No current validator, game code, compiler or runtime execution in this application.",
+  "operation": "add one standalone Q18 file only",
+  "source": {
+    "path": "tests/p14p4p5-finishing-material.test.ts",
+    "bytes": 30044,
+    "sha256": "6ac099679b6f5e0b0bf04a37db3608fa9e7b56a8d6bf513996fb268aa3350fa5"
+  },
+  "author": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1272-C-finishing-material-source-handback.md",
+    "bytes": 5922,
+    "sha256": "6db3e95be91c9c9cb7e1b56536daf07343867a0639522e3ceff7184b07c83d11"
+  },
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1272-D-finishing-material-source-review.md",
+    "bytes": 5775,
+    "sha256": "c70afae6795314722b25d88ae307745616ecf214ab165876e346857aff71f476"
+  },
+  "manifest": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1272-finishing-material-source-manifest.json",
+    "bytes": 13487,
+    "sha256": "97d733da4a6b1242df61cc01c186fdd9b78b7a0d02ba45d56dc1e4da7a938961"
+  },
+  "verifiedManifestPins": 52,
+  "protectedFilesUnchanged": 39,
+  "runtimeExecuted": false,
+  "next": {
+    "1273-finishing-material-types": [
+      "node_modules/.bin/tsc",
+      "--noEmit",
+      "-p",
+      "tsconfig.json"
+    ],
+    "1274-finishing-material-runtime": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p4p5-finishing-material.test.ts",
+      "-t",
+      "Q18 "
+    ]
+  },
+  "advanceCaps": {
+    "types": 0,
+    "runtime": 1
+  }
+}

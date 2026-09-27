@@ -1,5 +1,30 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — Finishing source applied; Q18 gates next
+
+Parent applied exact1272-C/D on publishedbb40a99a.1272-E records the sole new
+30,044-byte test6ac09967,52 verified manifest pins and39 unchanged protected files.
+The complete seven-facility census was corrected during source review; original
+provisional source is retained, with no runtime failure claimed. Publish then1273
+root types(cap0),1274 isolatedQ18(cap1): five pure P4 quotes, two existing-task
+public actions and one default-false312→313 advance. Actual finishing/current-role
+refusal, task admission and take outcomes remain unexecuted. Original historical
+funding/reproduction provenance, negative cash and111 old receipts stay protected.
+
+Seventeen core leaves are qualified across nine earlier separate selections;
+1269-I/J/K closedQ17. After1272 closure begin accepted1275 grouping source, then
+1278 casting-reservation source, then newly reviewed1281-A/B delayed-release
+retirement plan.1281 proposes59 real advances/five actions/four explicit previews;
+no source/execution release yet. One production/integration writer, same two
+staged-test/review specialists, one parent-owned heavy process remain in force.
+
+Published P17 revision02 f2eff6356fca3e6d5287e690bf2404867d638906 was recovered
+by object-only fetch without changing branch/worktree. Parent read§19; see
+P17-RECOVERED-SPECIFICATION-STATE.md. Healthy-reboot legality and Recognition-floor
+product questions are pending user answers; P14 continues independently. Settled
+P15 choices stand. Continue authorized program; Unity/native and Owner access
+remain deferred, with all prior failures and qualification limits preserved.
+
 ## CURRENT — Cross-owner availability qualified; finishing source next
 
 Executed/published8873cb28c8721b441c014e3fa43d3cc091840688 matched GitHub.
