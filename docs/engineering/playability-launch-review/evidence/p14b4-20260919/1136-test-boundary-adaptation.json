@@ -1,0 +1,224 @@
+{
+  "sourceSha": "95a9abc2c5c5ffc53dc1639da19da510304ac2da",
+  "originalTestedDiffSha256": "c9c7af77c4dbead9f347ff6cccc258fe4479e5456b20b2f6ece9d4d6549d724e",
+  "originalResult": {
+    "sourceSha": "95a9abc2c5c5ffc53dc1639da19da510304ac2da",
+    "testedDiffSha256": "c9c7af77c4dbead9f347ff6cccc258fe4479e5456b20b2f6ece9d4d6549d724e",
+    "untrackedSource": [],
+    "command": [
+      "node_modules/.bin/tsc",
+      "--noEmit",
+      "-p",
+      "tsconfig.json"
+    ],
+    "node": "v20.20.2",
+    "start": "2026-09-27T11:41:32.246Z",
+    "end": "2026-09-27T11:42:05.072Z",
+    "exitCode": 2,
+    "signal": null,
+    "error": null,
+    "sourceShaAtEnd": "95a9abc2c5c5ffc53dc1639da19da510304ac2da",
+    "testedDiffSha256AtEnd": "c9c7af77c4dbead9f347ff6cccc258fe4479e5456b20b2f6ece9d4d6549d724e",
+    "untrackedSourceAtEnd": [],
+    "fixedSource": true
+  },
+  "originalRaw": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1136-p3-front-door-root-types.txt",
+    "bytes": 3778,
+    "sha256": "106e04252975cda0611f5151babb9a772de3ce3bebedb55dfc4fc12abd883472"
+  },
+  "diagnosticCount": 14,
+  "fileCount": 12,
+  "diagnostics": [
+    {
+      "path": "tests/contracts/v14-boundary-guards.contract.test.ts",
+      "line": 63,
+      "column": 36,
+      "code": "TS2345",
+      "message": "Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'."
+    },
+    {
+      "path": "tests/helpers/p14c2b-fixtures.ts",
+      "line": 69,
+      "column": 42,
+      "code": "TS2345",
+      "message": "Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'."
+    },
+    {
+      "path": "tests/helpers/p14c4-fixtures.ts",
+      "line": 71,
+      "column": 9,
+      "code": "TS2322",
+      "message": "Type 'SaveFileV38' is not assignable to type 'SaveFileV39'."
+    },
+    {
+      "path": "tests/helpers/p14c4-fixtures.ts",
+      "line": 74,
+      "column": 58,
+      "code": "TS2345",
+      "message": "Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'."
+    },
+    {
+      "path": "tests/p06a-w1-release-authority.test.ts",
+      "line": 405,
+      "column": 40,
+      "code": "TS2345",
+      "message": "Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'."
+    },
+    {
+      "path": "tests/p14b7-promise-waiver.test.ts",
+      "line": 484,
+      "column": 102,
+      "code": "TS2339",
+      "message": "Property 'seatClass' does not exist on type 'CastRoleCountPredicate | DirectorCountPredicate'."
+    },
+    {
+      "path": "tests/p14c2rm-writer-continuation.test.ts",
+      "line": 236,
+      "column": 50,
+      "code": "TS2345",
+      "message": "Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'."
+    },
+    {
+      "path": "tests/p14c3-cohort-transition.test.ts",
+      "line": 281,
+      "column": 34,
+      "code": "TS2345",
+      "message": "Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'."
+    },
+    {
+      "path": "tests/p14c3-dual-extensions.test.ts",
+      "line": 172,
+      "column": 34,
+      "code": "TS2345",
+      "message": "Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'."
+    },
+    {
+      "path": "tests/p14c3-offmenu-extensions.test.ts",
+      "line": 229,
+      "column": 34,
+      "code": "TS2345",
+      "message": "Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'."
+    },
+    {
+      "path": "tests/p14c3-profession-history.test.ts",
+      "line": 112,
+      "column": 39,
+      "code": "TS2345",
+      "message": "Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'."
+    },
+    {
+      "path": "tests/p14c3-promise-digest-continuity.test.ts",
+      "line": 226,
+      "column": 39,
+      "code": "TS2345",
+      "message": "Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'."
+    },
+    {
+      "path": "tests/save.test.ts",
+      "line": 368,
+      "column": 40,
+      "code": "TS2345",
+      "message": "Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'."
+    },
+    {
+      "path": "tests/save.test.ts",
+      "line": 417,
+      "column": 40,
+      "code": "TS2345",
+      "message": "Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'."
+    }
+  ],
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1136-test-boundary-adaptation.patch",
+    "bytes": 17928,
+    "sha256": "19e048841390d413ac3f84770f6f85f6d0f4664c2e63f66ac0f73828becc5ac5"
+  },
+  "files": [
+    {
+      "path": "tests/contracts/v14-boundary-guards.contract.test.ts",
+      "beforeBytes": 21357,
+      "beforeSha256": "20cbf0a602f9833742466eaaaaa9013f73fc305f4d8e1f2f1a4de8aaf29a8f23",
+      "afterBytes": 21391,
+      "afterSha256": "39f99d2c15dad49996b7d2d3570ff3cd43052a62a65a766f87ed2a7ff6c6af0f"
+    },
+    {
+      "path": "tests/helpers/p14c2b-fixtures.ts",
+      "beforeBytes": 5279,
+      "beforeSha256": "e42f789ff749ef67edae5292995b010f3d857bb5991f1431ab679c01c8b49c6e",
+      "afterBytes": 5313,
+      "afterSha256": "42595c028a8ae6eb7d851200e5f3ca3a31ed1079a5666163f37f5cefbe6ae029"
+    },
+    {
+      "path": "tests/helpers/p14c4-fixtures.ts",
+      "beforeBytes": 15845,
+      "beforeSha256": "850357bd40d7b86419323ca41e3c6cf70c0afba5de8b6fec0c3802cf36fb48e5",
+      "afterBytes": 15735,
+      "afterSha256": "376cfce189eb9b5bb711a11ba447bc4ad20bc886e1ebcf4b2d15171afd134cb1"
+    },
+    {
+      "path": "tests/p06a-w1-release-authority.test.ts",
+      "beforeBytes": 20576,
+      "beforeSha256": "08c4605e081b2328e2189c50e7734ef8a7f773ad44ba4f1fa4b1cacbc8873362",
+      "afterBytes": 20612,
+      "afterSha256": "6d8491c52e2470e500c527956975f1e55ba827e7310211c980624ad173a79b92"
+    },
+    {
+      "path": "tests/p14b7-promise-waiver.test.ts",
+      "beforeBytes": 65911,
+      "beforeSha256": "953b4b97efaa13a1d4a11968fb62ca412db312696ea7e5e2d73b35bcaa4df429",
+      "afterBytes": 65957,
+      "afterSha256": "684bac7c2dc83d0633805d83d965fb6db3a567610914a770715b0d4b58c5e2dc"
+    },
+    {
+      "path": "tests/p14c2rm-writer-continuation.test.ts",
+      "beforeBytes": 23119,
+      "beforeSha256": "281e3e0cd8d78b7509c8677798f4443d79a8ccd9e5b94d6bc7b381d80d376888",
+      "afterBytes": 23153,
+      "afterSha256": "ceb3a39baf6ccffddc87319d287356d360bda10a4fbfa0a36f96dfa3fcf7c510"
+    },
+    {
+      "path": "tests/p14c3-cohort-transition.test.ts",
+      "beforeBytes": 27064,
+      "beforeSha256": "6eb360074eeda2af33ee59a68ff724b421f493468c9e56dc8fbfbec2653c17f5",
+      "afterBytes": 27098,
+      "afterSha256": "898075cdd5ad1e612f751fdabe76e1610b42b8b1547ba011baa42522680ad3d2"
+    },
+    {
+      "path": "tests/p14c3-dual-extensions.test.ts",
+      "beforeBytes": 14979,
+      "beforeSha256": "688760574920d82e35445a8682a5554f35e10b484583ad9931d8ac32b88257c7",
+      "afterBytes": 15013,
+      "afterSha256": "6f7a1b963bbf0f7992c6720ea8dc9f6ba6ddf16863596ca4da5ae8c55cfba0cf"
+    },
+    {
+      "path": "tests/p14c3-offmenu-extensions.test.ts",
+      "beforeBytes": 20561,
+      "beforeSha256": "760c019cf59e559ef550a08a01550cdbd4ae40d4c3aac0205ea696b0c3288ffb",
+      "afterBytes": 20595,
+      "afterSha256": "482a2f1cdc43e945c042d86461631a633c8a146ebfe910ed7c1609cc134ee7db"
+    },
+    {
+      "path": "tests/p14c3-profession-history.test.ts",
+      "beforeBytes": 30171,
+      "beforeSha256": "c57b827d31ca2fd93742e0eec1b386e9ecd6a49a36289de56b8fa74025430a42",
+      "afterBytes": 30193,
+      "afterSha256": "19e563e40ec3f42f62969435b9fd1c0fbbbfd26c77c33ce59f5508d8ec82b476"
+    },
+    {
+      "path": "tests/p14c3-promise-digest-continuity.test.ts",
+      "beforeBytes": 13949,
+      "beforeSha256": "ec00c10a04f1807cff7ad648d65c5bebe46791b963b612652e8d9f778e12beec",
+      "afterBytes": 13983,
+      "afterSha256": "e1218b2f8e45c4ab8190ea910c7426388db9ab7b88a2a8598d89c405c9c6a542"
+    },
+    {
+      "path": "tests/save.test.ts",
+      "beforeBytes": 18816,
+      "beforeSha256": "3dab1e65e9c3b6de8d8d3a5858fef7bb13287621b735c64de056414048ab05f4",
+      "afterBytes": 18869,
+      "afterSha256": "69fff2f4a4eb20172d4a59e0f2b504393d378a7dc65bbb045f562ab4037dba00"
+    }
+  ],
+  "executionByAuthor": false
+}

@@ -2232,7 +2232,7 @@ export type GameStateV30 = Omit<GameStateV29, 'promises'> & {
 // prior save shape; a tagged predicate exists only on the V30 union. Since P14B.7
 // the LIVE promise row is `ProfessionalPromiseV32` (the waived-promise link);
 // V30 remains the frozen shape both later versions are built on.
-export type ProfessionalPromise = ProfessionalPromiseV32
+export type ProfessionalPromise = ProfessionalPromiseV39
 
 // ── P14B.5 — the first shared-work bond (Save V31) ──────────────────────────
 
@@ -2287,7 +2287,7 @@ export type GameStateV31 = GameStateV30 & {
 // gameplay shape includes V36's single final extension. V37 configures Scientist
 // retirement without adding fields; the save version distinguishes its semantic law.
 // V38 adds prospective profession history and its one actor transition catalogue.
-export type GameState = GameStateV38
+export type GameState = GameStateV39
 
 // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
 
@@ -2466,6 +2466,19 @@ export type CareerLifecycleRootV38 = CareerLifecycleRootV36 & {
 }
 export type GameStateV38 = Omit<GameStateV37, 'careerLifecycle'> & {
   careerLifecycle: CareerLifecycleRootV38
+}
+
+/** Save39 adds an explicit Director domain. Frozen count-only promises,
+ * including old DIRECTING_COUNT rows, retain their original cast meaning. */
+export type DirectorCountPredicate = { kind: 'directorCount'; count: number }
+export type ProfessionalPromiseV39 = ProfessionalPromiseV32 | (
+  Omit<ProfessionalPromiseV32, 'family' | 'predicate'> & {
+    family: 'DIRECTING_COUNT'
+    predicate: DirectorCountPredicate
+  }
+)
+export type GameStateV39 = Omit<GameStateV38, 'promises'> & {
+  promises: readonly ProfessionalPromiseV39[]
 }
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────

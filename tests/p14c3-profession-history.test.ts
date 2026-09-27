@@ -109,7 +109,7 @@ describe('C.3 current append and strict historical authority boundaries', () => 
     expect(f.state.hollywood!.employment.filter(row => row.terms.talentId === f.id)).toEqual([])
     expect(f.state.talentProvenance.rows.find(row => row.personId === f.id)).toMatchObject({ ageAtEntry: 30 })
     expect(save.exportSave(save.makeSave(f.loaded))).toBe(save.exportSave(save.makeSave(f.state)))
-    expect(() => save.convertV38ToV37(save.makeSave(f.state))).toThrow(/entrant authority|profession transition/)
+    expect(() => save.convertV38ToV37(save.convertV39ToV38(save.makeSave(f.state)))).toThrow(/entrant authority|profession transition/)
     expect(save.stableStringify(f.before)).toBe(beforeBytes)
   })
 

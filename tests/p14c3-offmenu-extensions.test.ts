@@ -7,7 +7,7 @@ import { activeContract, canAfford, contractOffer, hiringMarketIds } from '../sr
 import { professionAtWeek } from '../src/core/index.js'
 import { trustDescriptor, trustDrivers } from '../src/core/promises.js'
 import { tiersOnRoster } from '../src/core/relationships.js'
-import { convertV38ToV37, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
+import { convertV38ToV37, convertV39ToV38, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
 import { caseForTalent, marketEligibility, openMarketCaseFor, playerOffer, proposalDraft, releaseFloor, studioOffer, submitProposal } from '../src/core/talentMarket.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
@@ -226,7 +226,7 @@ describe.each(OFFMENU_TARGETS)('C.3 actor→%s genuine off-menu58-week extension
     expect(carryingEmployment(loaded, id, 410, 468)).toEqual(employment)
     expect(professionAtWeek(loaded, id, extensionCase(loaded, id, 196).openedWeek)).toBe('actor')
     expect(professionAtWeek(loaded, id, extensionCase(loaded, id, 404).openedWeek)).toBe(target)
-    expect(() => convertV38ToV37(saved)).toThrow(/cannot downgrade or discard profession transition, industry retirement or entrant authority/)
+    expect(() => convertV38ToV37(convertV39ToV38(saved))).toThrow(/cannot downgrade or discard profession transition, industry retirement or entrant authority/)
     accepted(loaded)
     observed[target] = { ...observed[target], term: contract.termWeeks, decision: contract.startWeek, end: contract.endWeekExclusive }
   })

@@ -42,7 +42,7 @@ import type { PromiseAttachment } from './promises.js'
 import { careerIdentity } from './talentSummary.js'
 import { TUNING } from './tuning.js'
 import type { Contract, GameState, LedgerEntry, LegacyTermination, MarketCaseStatus, MarketEligibilityStatus,
-  ProfessionalPromiseV30, PromiseClassification, PromiseFamily, PromiseFeasibilityReceipt,
+  ProfessionalPromise, PromiseClassification, PromiseFamily, PromiseFeasibilityReceipt,
   Standing, TalentMarketCase, TalentMarketCaseV36, TalentMarketProposal, TalentMarketReceipt,
   TalentMarketStateV36 } from './types.js'
 import type { HollywoodState, IndustryEmployment, IndustryReceipt, RivalBusiness } from './hollywoodTypes.js'
@@ -575,7 +575,7 @@ function disclosedPromise(state: GameState, proposal: TalentMarketProposal): Dis
   return {
     family: promise.family,
     count: promise.predicate.count,
-    seatClass: 'kind' in promise.predicate ? promise.predicate.seatClass : null,
+    seatClass: 'kind' in promise.predicate && promise.predicate.kind === 'castRoleCount' ? promise.predicate.seatClass : null,
     windowStartWeek: promise.windowStartWeek,
     dueWeekExclusive: promise.dueWeekExclusive,
     classification: promise.feasibilityReceipt.classification,
@@ -767,7 +767,7 @@ export function publicPreferredOpportunity(state: GameState, talentId: string): 
 export function promiseMatchesPreferredOpportunity(
   state: GameState,
   talentId: string,
-  promise: Pick<ProfessionalPromiseV30, 'family' | 'predicate'>,
+  promise: Pick<ProfessionalPromise, 'family' | 'predicate'>,
 ): boolean {
   if (promise.family === 'APPEARANCE_COUNT') {
     return publicPreferredOpportunity(state, talentId) === 'anyCastAppearance'

@@ -480,7 +480,7 @@ describe('P14B.7 group6 — identical-substitute refusal, progress/evidenceRefs 
     const state = fixture('bound-open-p1')
     const promise = promiseZero(state)
     const today = state.market.tick
-    const identical: WaiverSubstituteDraft = { family: promise.family, predicate: 'kind' in promise.predicate
+    const identical: WaiverSubstituteDraft = { family: promise.family, predicate: 'kind' in promise.predicate && promise.predicate.kind === 'castRoleCount'
       ? { kind: promise.predicate.kind, count: promise.predicate.count, seatClass: promise.predicate.seatClass } : { count: promise.predicate.count },
       windowStartWeek: promise.windowStartWeek, dueWeekExclusive: promise.dueWeekExclusive }
     expect(realFeasibility(state, promise, identical, today).classification).toBe('REASONABLY_ACHIEVABLE')

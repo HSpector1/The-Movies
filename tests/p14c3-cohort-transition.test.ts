@@ -6,7 +6,7 @@ import { assignmentRefusal, contractEndRefusal, retirementRecordFor } from '../s
 import { activeContract, busyTalentIds } from '../src/core/employment.js'
 import { professionAtWeek, transitionInputsFor } from '../src/core/index.js'
 import { validateProfessionHistory } from '../src/core/professionHistory.js'
-import { convertV38ToV37, exportSave, makeSave, stableStringify, validateSaveV35, validateSaveV37, validateSaveV38 } from '../src/core/save.js'
+import { convertV38ToV37, convertV39ToV38, exportSave, makeSave, stableStringify, validateSaveV35, validateSaveV37, validateSaveV38 } from '../src/core/save.js'
 import { caseForTalent, playerOffer, proposalDraft } from '../src/core/talentMarket.js'
 import { careerIdentity, expectedPotentialTier, roleTier } from '../src/core/talentSummary.js'
 import { TUNING } from '../src/core/tuning.js'
@@ -278,7 +278,7 @@ describe('C.3 genuine cohort-born Actor enters a new profession with origin auth
     expect(() => validateSaveV38(malformed)).toThrow(/cohort receipt.*week 832.*as a director entrant.*original profession disagrees/)
     expect(stableStringify(control)).toBe(controlBytes)
     expect(validateSaveV38(control)).toBe(control)
-    expect(() => convertV38ToV37(control)).toThrow(/cannot downgrade or discard profession transition, industry retirement or entrant authority/)
+    expect(() => convertV38ToV37(convertV39ToV38(control))).toThrow(/cannot downgrade or discard profession transition, industry retirement or entrant authority/)
     const origin = cohortSetup()
     expect(validateSaveV35(origin.old)).toBe(origin.old); expect(validateSaveV37(origin.old37)).toBe(origin.old37)
   })

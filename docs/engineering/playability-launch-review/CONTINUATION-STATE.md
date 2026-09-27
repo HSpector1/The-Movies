@@ -1,26 +1,28 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
-## CURRENT — P3 bounded semantic RED complete; first core/save candidate in progress
+## CURRENT — P3 initial core/save candidate reviewed and typed; behavior next
 
-1134b root typing PASS and1135 eight-leaf RED are closed on published3a61b1b26e57a80822436616c7c9613c01996634,
-empty consumed diff/fixedSource:true. 1135-A/B independently retain8FAIL/five
-primary groups, actual45 calls and passed created0/managed8/Ready10/cases45.
-Fresh classless attachment did not refuse; tagged quotes stayed unoffered4;
-actual migration returned38. Bound52/films/outcomes/new39 negatives remain
-unreached. Exact pre-writer old4 marker851B/182cf54d is retained for comparison.
+1135-A/B semantic RED is preserved at95a9abc2c5c5ffc53dc1639da19da510304ac2da,
+including exact pre-writer old4 marker851B/182cf54d and successful45-call setup.
+1136-B KEEP reviews the corrected five production files;1136-D KEEP reviews
+12 exact compiler-named test adaptations. 1136-C records deliberately limited
+initial offer/attachment/scoped6/strictSave39 scope; no Director outcomes or
+rival/waiver/preference/Bridge behavior is claimed. Frozen historical readers,
+assertions, fixtures, timeouts and original failure records remain preserved.
 
-Parent alone is implementing the matching initial offer/attachment/scoped6 and
-strictSave39/migration path. Production candidate is not verified or qualified.
-Existing reviewer owns1136-B; tests remain frozen. No rival policy, preference,
-waiver support, projection54 or Director outcome implementation is released by
-this initial RED. New Director substitutions remain closed pendingD12. Actual
-next failures will expose and gate subsequent behavior; no fixture rescue.
+1136 original compiler FAIL14 test/helper diagnostics is retained. Corrected
+1136b root compiler PASS:95a9abc2 plus tracked17-file patch8a2200f33ee1307971e71107eea82d043d281bd9d39060a0a27e314d52035ef3,
+fixedSource:true/no untracked source,11:49:53.042–11:50:40.911UTC,47.869s.
+No behavior result exists for this candidate yet. Publish candidate and exact-
+remote-verify, then parent1137-p3-front-door-behavior using unchanged1133 argv.
+Compare the complete old4 marker literally and attribute every newly reached
+first cause; bound52/films/outcomes/new39 negatives were not reached in1135.
 
-Next parent checks the frozen candidate with1136-p3-front-door-root-types then
-1137-p3-front-door-behavior, using the same eight-leaf argv and208-call cap.
-Keep one heavy process and freeze HEAD/index/consumed source throughout each run.
-Publish closed evidence and recoverable checkpoints. Outgoing38/53 atcc62,
-bounded1128 C.3,1122 P15 selections and prior limitations remain unchanged.
+Parent alone owns production integration/heavy execution. Both existing specialists
+have frozen consumed source; keep HEAD/index/inputs fixed during the one run.
+All eight declarations,60s local ceilings and cached208-call cap stay unchanged.
+D13 waived-state and broader P3/lifecycle/wire work remain pending. Outgoing38/53,
+bounded1128 C.3,1122 P15 selections and earlier limitations remain intact.
 Continue the authorized program without routine approval pauses.
 
 ## CURRENT — reviewed 25-file fixture repair applied; publish and verify

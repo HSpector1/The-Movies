@@ -29,6 +29,7 @@ import {
   makeSave,
   makeSaveV15,
   convertV38ToV37,
+  convertV39ToV38,
   migrateToV15,
   migrateToLive,
   mintReleaseCommitmentId,
@@ -402,7 +403,7 @@ describe('P06A W1 — save law', () => {
     // predates `setup`/`planRevision` (added at V25, P13B-S5-R07) exactly as it
     // predates `releaseAuthority` (added at V16, P06A) — strip both leaves the
     // same way, or `makeSaveV15` refuses the workflow's own unknown field.
-    const admitted37 = convertV38ToV37(makeSave(ready))
+    const admitted37 = convertV38ToV37(convertV39ToV38(makeSave(ready)))
     const { releaseAuthority: _drop, ...v15State } = admitted37.state
     const v15 = makeSaveV15({
       ...v15State,

@@ -9,7 +9,7 @@ import { studioConstructionView } from '../src/core/placement.js'
 import { availableDevelopmentCastingSlots } from '../src/core/scriptDevelopment.js'
 import { studioCalendar } from '../src/core/studioCalendar.js'
 import { tick } from '../src/core/tick.js'
-import { convertV37ToV36, convertV38ToV37, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,
+import { convertV37ToV36, convertV38ToV37, convertV39ToV38, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,
   validateSaveV36, validateSaveV38 } from '../src/core/save.js'
 import type { GameState, RetirementRecordV36, ScriptProject } from '../src/core/types.js'
 import { c2Fixture } from './helpers/p14c2a-fixtures.js'
@@ -233,7 +233,7 @@ describe('880-B live allowance stays narrowly scoped', () => {
     expect(convertV37ToV36(old.commissioned).saveVersion).toBe(36)
     expect(() => convertV37ToV36(old.finishing)).toThrow(/not contracted/i)
     const current = makeSave(f.finishing), before = stableStringify(current)
-    expect(() => convertV37ToV36(convertV38ToV37(current))).toThrow()
+    expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(current)))).toThrow()
     expect(stableStringify(current)).toBe(before)
   })
 

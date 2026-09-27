@@ -31,7 +31,7 @@
 
 import { beforeAll, describe, expect, it } from 'vitest'
 
-import { applyActions, convertV38ToV37, makeSave, stableStringify, tick } from '../../src/core/index.js'
+import { applyActions, convertV38ToV37, convertV39ToV38, makeSave, stableStringify, tick } from '../../src/core/index.js'
 import type { GameState } from '../../src/core/index.js'
 
 import { clone, operationsStudio, productionPayload, withCash } from './_contractFixtures.js'
@@ -60,7 +60,7 @@ let legacy: GameState
 let inFlight: ReturnType<typeof historicalWorkflowCarrier>
 
 function historicalWorkflowCarrier(state: GameState) {
-  const admitted = convertV38ToV37(makeSave(state)).state
+  const admitted = convertV38ToV37(convertV39ToV38(makeSave(state))).state
   return { ...admitted, operations: { ...admitted.operations,
     workflows: admitted.operations.workflows.map(({ setup: _setup, planRevision: _planRevision, ...workflow }) => workflow) } }
 }

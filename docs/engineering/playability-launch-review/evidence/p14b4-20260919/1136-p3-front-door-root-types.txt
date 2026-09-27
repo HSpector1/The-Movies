@@ -1,0 +1,44 @@
+{"sourceSha":"95a9abc2c5c5ffc53dc1639da19da510304ac2da","testedDiffSha256":"c9c7af77c4dbead9f347ff6cccc258fe4479e5456b20b2f6ece9d4d6549d724e","untrackedSource":[],"command":["node_modules/.bin/tsc","--noEmit","-p","tsconfig.json"],"node":"v20.20.2","start":"2026-09-27T11:41:32.246Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+tests/contracts/v14-boundary-guards.contract.test.ts(63,36): error TS2345: Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'.
+  Types of property 'saveVersion' are incompatible.
+    Type '39' is not assignable to type '38'.
+tests/helpers/p14c2b-fixtures.ts(69,42): error TS2345: Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'.
+  Types of property 'saveVersion' are incompatible.
+    Type '39' is not assignable to type '38'.
+tests/helpers/p14c4-fixtures.ts(71,9): error TS2322: Type 'SaveFileV38' is not assignable to type 'SaveFileV39'.
+  Type 'SaveFileV38' is not assignable to type '{ saveVersion: 39; state: GameStateV39; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '38' is not assignable to type '39'.
+tests/helpers/p14c4-fixtures.ts(74,58): error TS2345: Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'.
+  Types of property 'saveVersion' are incompatible.
+    Type '39' is not assignable to type '38'.
+tests/p06a-w1-release-authority.test.ts(405,40): error TS2345: Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'.
+  Types of property 'saveVersion' are incompatible.
+    Type '39' is not assignable to type '38'.
+tests/p14b7-promise-waiver.test.ts(484,102): error TS2339: Property 'seatClass' does not exist on type 'CastRoleCountPredicate | DirectorCountPredicate'.
+  Property 'seatClass' does not exist on type 'DirectorCountPredicate'.
+tests/p14c2rm-writer-continuation.test.ts(236,50): error TS2345: Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'.
+  Types of property 'saveVersion' are incompatible.
+    Type '39' is not assignable to type '38'.
+tests/p14c3-cohort-transition.test.ts(281,34): error TS2345: Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'.
+  Types of property 'saveVersion' are incompatible.
+    Type '39' is not assignable to type '38'.
+tests/p14c3-dual-extensions.test.ts(172,34): error TS2345: Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'.
+  Types of property 'saveVersion' are incompatible.
+    Type '39' is not assignable to type '38'.
+tests/p14c3-offmenu-extensions.test.ts(229,34): error TS2345: Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'.
+  Types of property 'saveVersion' are incompatible.
+    Type '39' is not assignable to type '38'.
+tests/p14c3-profession-history.test.ts(112,39): error TS2345: Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'.
+  Types of property 'saveVersion' are incompatible.
+    Type '39' is not assignable to type '38'.
+tests/p14c3-promise-digest-continuity.test.ts(226,39): error TS2345: Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'.
+  Types of property 'saveVersion' are incompatible.
+    Type '39' is not assignable to type '38'.
+tests/save.test.ts(368,40): error TS2345: Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'.
+  Types of property 'saveVersion' are incompatible.
+    Type '39' is not assignable to type '38'.
+tests/save.test.ts(417,40): error TS2345: Argument of type 'SaveFileV39' is not assignable to parameter of type 'SaveFileV38'.
+  Types of property 'saveVersion' are incompatible.
+    Type '39' is not assignable to type '38'.

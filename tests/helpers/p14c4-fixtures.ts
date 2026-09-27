@@ -9,10 +9,10 @@ import { existsSync, readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { expect } from 'vitest'
 import {
-  convertV35ToV36, convertV36ToV37, convertV36ToV35, convertV37ToV36, convertV38ToV37,
-  LIVE_SAVE_VERSION, migrateToLive, validateSaveV34, validateSaveV35, validateSaveV37, validateSaveV38,
+  convertV35ToV36, convertV36ToV37, convertV36ToV35, convertV37ToV36, convertV38ToV37, convertV39ToV38,
+  makeSave, migrateToLive, validateSaveV34, validateSaveV35, validateSaveV37,
 } from '../../src/core/save.js'
-import type { SaveFileV34, SaveFileV35, LiveSaveFile } from '../../src/core/save.js'
+import type { SaveFileV34, SaveFileV35 } from '../../src/core/save.js'
 import { ageAt } from '../../src/core/aging.js'
 import { stream } from '../../src/core/rng.js'
 import { TUNING } from '../../src/core/tuning.js'
@@ -68,10 +68,8 @@ export function envelopeV34(state: GameStateV34): SaveFileV34 {
  * projection refuse; older cohort assertions then need genuine historical inputs,
  * never a manually stripped current root. */
 export function liveEnvelope(state: GameState): SaveFileV35 {
-  const live: LiveSaveFile = validateSaveV38({
-    saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems,
-  })
-  return convertV36ToV35(convertV37ToV36(convertV38ToV37(live)))
+  const historical38 = convertV39ToV38(makeSave(state))
+  return convertV36ToV35(convertV37ToV36(convertV38ToV37(historical38)))
 }
 
 /** 978 newly reproduced under archived outgoing c000479d code. Immutable old

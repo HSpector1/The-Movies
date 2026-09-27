@@ -32,6 +32,7 @@ import {
   migrateToV15,
   convertV14ToV15,
   convertV38ToV37,
+  convertV39ToV38,
   initialReleaseAuthority,
   initialStudioHistory,
 } from "../src/core/index.js";
@@ -365,7 +366,7 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
     // tests/contracts/_v14Contract.ts's `projectToV13State` already uses).
     // C.3: the real guarded downgrade proves no profession history is lost
     // BEFORE this explicitly historical fixture omits V25 workflow fields.
-    const historical = convertV38ToV37(makeSave(cancelled)).state;
+    const historical = convertV38ToV37(convertV39ToV38(makeSave(cancelled))).state;
     const strippedForV15 = {
       ...historical,
       operations: {
@@ -414,7 +415,7 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
 
     // Validate and genuinely downgrade before making the historical omission;
     // malformed Save38 must never bypass its complete-state guard.
-    const historical = convertV38ToV37(makeSave(cancelled)).state;
+    const historical = convertV38ToV37(convertV39ToV38(makeSave(cancelled))).state;
     const v14Rows = historical.studioEvents.rows.map((row) => {
       if (row.kind !== "queueIntentExpired") return row;
       const { subjectId: _subjectId, ...rest } = row;
