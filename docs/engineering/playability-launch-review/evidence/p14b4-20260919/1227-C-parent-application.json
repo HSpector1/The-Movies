@@ -1,0 +1,23 @@
+{
+  "appliedAt": "2026-09-27T18:35:45.789738+00:00",
+  "preparationHead": "ee8ee353fe3037a8e6d89d1889d5ec303d7ea374",
+  "sourceReview": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-B-p4p5-initial-source-review.md",
+    "bytes": 4817,
+    "sha256": "612c6e03516eae2d97409b6a2e8dd9413cd4e748e8d033567eb8673ca6bd01c0"
+  },
+  "target": "tests/p14p4p5-opportunities.test.ts",
+  "postimage": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-p4p5-stage/tests/p14p4p5-opportunities.test.ts",
+    "bytes": 21701,
+    "sha256": "d4ddf8823f951aa7aaf806da40e57d98da6e105e80138b35ee7d3d673181df89"
+  },
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-p4p5-initial-tests.patch",
+    "bytes": 22208,
+    "sha256": "1280605d37280c444da5cd421233d3947985c427a73c1921a5d925e920a48bdd"
+  },
+  "protectedUnchanged": true,
+  "existingConsumedDiffEmpty": true,
+  "next": "Publish exact source, then1228 root compiler and1229 four-leaf initial RED, zero advances."
+}

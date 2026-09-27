@@ -1,5 +1,27 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — P4/P5 initial tests installed; compiler and first RED next
+
+The genuine outgoing39/54 capture and independent1224 verification are published
+at ee8ee353fe3037a8e6d89d1889d5ec303d7ea374 with exact GitHub equality. Do not
+repeat the78-call capture. Production2af37179 remains unchanged; no heavy is active.
+
+1225-D/E/F closes the bounded contract and assignment-owner clarifications.
+1227-A/B is final KEEP; parent applied its exact new21,701-byte test postimage,
+SHA256 d4ddf8823f951aa7aaf806da40e57d98da6e105e80138b35ee7d3d673181df89.
+All existing production/tests/helpers are unchanged.1227-C records application.
+Publish this checkpoint, then parent alone runs1228 root compiler and1229 the
+four new Q01–Q04 leaves, no filters or timeout changes, hard advancing-call cap0.
+Actual first causes and complete legacy4/6 baseline belong in1230 attribution;
+no compiler, semantic RED or future40 result is claimed before those runs.
+
+1232-A prepares later independently counted public binding/cast routes, without
+execution or fixture rescue. Existing separate test/review specialists remain;
+parent alone owns production and heavy execution. Save40/projection55/evaluator7
+is the adopted next design, not yet activated. Continue P14/P15/P16/specified
+P17/P18 with settled P15 decisions and inherited qualification limits. Unity/
+native and Owner-campaign work stay deferred.
+
 ## CURRENT — Genuine outgoing39/54 preservation verified; P4/P5 test source next
 
 Published sourcee49e9931e55b79673a59d5db8c8de6cf00da97b5 matched GitHub.

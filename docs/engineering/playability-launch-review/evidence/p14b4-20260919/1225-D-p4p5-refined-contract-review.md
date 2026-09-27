@@ -1,0 +1,22 @@
+# 1225-D — Refined P4/P5 contract review
+
+Disposition: **KEEP the bounded contract for independently owned initial test preparation**, with the clarified witness wording below. No production change, gameplay, family activation or positive market/crew result is released. Reviewed1225-C is9,541B / SHA256 `7cdb5961901f8185ffeca096732c38c51c5a2b7875a65b65249c5094992624c2`, read with frozen1225-A/B. The separate1224 review has now qualified the outgoing39/54 capture; its evidence does not itself prove this new contract.
+
+C resolves the material source findings inB:
+
+- Committed witnesses are grouped by actual production, with one take time in every witnessed window. A delayed held take also delays the same beneficiary's release floor and requested-role admission. The parent clarified line24: **the candidate production is excluded from the witness set; compatible other obligations may share one actual production**, subject to the common-clock and fixed-slot checks. Pairwise-distinct witness productions are not required. An unproved allocation remains FRAGILE/reservation uncertainty unless an independent target fact proves impossibility.
+- The status table distinguishes real assessed Ready/Review, drafting/rewriting dueWeek, and actual linked inProduction clocks; produced targets supply no new path. Contract start, occupied-company release and window floors apply in the specified order. Casting completion/acknowledgement follows the actual header admission law; queued requests do not manufacture reservations or events.
+- Fresh RA requires existing owner capacity through the shared occupancy authority. Finite target-owned draft/audition reservations may release at their declared boundary; unrelated unknown release, unfinished construction and unresolved target blockers remain uncertainty. This conservative check does not certify cash, a complete crew or a future resource schedule.
+- Wrong-seat P5 outcomes require new callbacks after successful fixed assignment/project linkage in player and rival owners. Rival callback settlement must reach the committed outer state. Queue insertion and refusal are not successful greenlights. This closes the missing source-dispatch detail without inferring permanent outcomes from quote FRAGILE.
+- A canceled production cannot take twice, while its genuinely returned Ready screenplay can support a new production. Old earned subjects remain retained; no permanent project-history ban is introduced.
+
+The deterministic rival fallback and preference treatment are now explicit delegated policy. Existing P1/P2/P3 order remains first; only after their unchanged-state failures are up to four opportunities considered from the first two issuer-owned not-produced projects in stable ID order. Proven uses allCast/genre-first; unproven uses flexible significant class/project-first. Deduplicated actual genres and exact project IDs carry count1/the existing proposal window. No commission, new RNG, staging during failed reads or rescue of1169 is implied.
+
+Public descriptors stay unchanged. New tagged restrictions match the existing cast preference by their class mask and never the Director descriptor; specificity adds no ranking weight. Rival seating reads the actual project/concept context before contributing a promised mask. These choices are source-compatible bounded strategy, not evidence that a natural rival proposal or fulfilled production has occurred.
+
+The old-shape, durable suffix/cutover, subset-waiver, full-current-before-frozen validation and downgrade-loss requirements fromA/B remain necessary. Candidate40/55/7 is coordinated design only; evaluator5 and exact old4/6 behavior outside the new scope remain protected.
+
+Initial zero-advance tests may exercise genuine admitted Ready projects, public quote/attachment/material controls and migration/downgrade boundaries. Successful nonempty reservation clearance, grouped-clock conflicts, per-status/resource cases, actual new first-take facts, cancellation/reuse, player/rival action dispatch, later outcome/waiver, privacy and runtime/component behavior still require their own concrete evidence. No unproved fixture is converted into a premise or automatic implementation release.
+
+Read-only source/contract review; no project evaluation or consumed edit. Parent will record this exact clarification/adoption separately. Final and frozen; no delayed appendix is planned.
+
