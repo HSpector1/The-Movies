@@ -1,0 +1,57 @@
+{"sourceSha":"abaf0aa633e654c2d17ff1be4c6405eb43ee2dc0","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14p3-directing-promises.test.ts","--testNamePattern","D(?:07|18) "],"node":"v20.20.2","start":"2026-09-27T14:07:20.843Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14p3-directing-promises.test.ts
+1155-P3-RIVAL-COUNTERS {"rivalCalls":196,"rivalCap":260,"otherCoreCalls":0,"total":196,"cap":816}
+1149-P3-CONTINUITY-COUNTERS {"playerCalls":0,"playerCap":208,"branches":[{"name":"cancelBefore","actualTicks":0,"cap":64,"startWeek":null},{"name":"cancelAfter","actualTicks":0,"cap":64,"startWeek":null},{"name":"waiver","actualTicks":0,"cap":64,"startWeek":null}],"total":0,"cap":556,"lifecycleCalls":0,"lifecycleCap":156,"selectedCap":364}
+1143-P3-OUTCOME-COUNTERS {"playerCalls":0,"playerCap":208,"branches":[{"name":"cancelBefore","actualTicks":0,"cap":64,"startWeek":null},{"name":"cancelAfter","actualTicks":0,"cap":64,"startWeek":null},{"name":"waiver","actualTicks":0,"cap":64,"startWeek":null}],"total":0,"cap":400}
+1133-P3-COUNTERS {"actualTicks":0,"cap":208,"cachedPhases":[{"name":"rivalCreated0","completed":true},{"name":"rivalCredit","completed":true},{"name":"rivalAuthoring196","completed":false},{"name":"rivalWinner208","completed":false}]}
+
+ ❯ |core| tests/p14p3-directing-promises.test.ts (16 tests | 2 failed | 14 skipped) 6111ms
+   × P3 fixed rival: public credit, ordinary contest and distinct staffing > D07 authors and fulfills a real rival promise to a credited primary Actor 6105ms
+     → expected { …(7) } to match object { variant: 'expiry', …(3) }
+(4 matching properties omitted from actual)
+   × P3 fixed rival: public credit, ordinary contest and distinct staffing > D18 uses the declared rival strategy and legal distinct staffing 3ms
+     → expected { …(7) } to match object { variant: 'expiry', …(3) }
+(4 matching properties omitted from actual)
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D07 authors and fulfills a real rival promise to a credited primary Actor
+ FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D18 uses the declared rival strategy and legal distinct staffing
+AssertionError: expected { …(7) } to match object { variant: 'expiry', …(3) }
+(4 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "decisionWeek": 208,
+    "openedWeek": 196,
+    "status": "discovered",
+-   "variant": "expiry",
+  }
+
+ ❯ tests/helpers/p14p3-fixtures.ts:935:45
+    933|     const script = rivalScript(state, 'c-01', 195); state = script.sta…
+    934|     for (const id of [RIVAL.vacancy, RIVAL.focus]) {
+    935|       expect(core.caseForTalent(state, id)).toMatchObject({ variant: '…
+       |                                             ^
+    936|       expect(core.retirementRecordFor(state, id)).toBeUndefined()
+    937|     }
+ ❯ memo tests/helpers/p14p3-fixtures.ts:111:23
+ ❯ rivalAuthoring196 tests/helpers/p14p3-fixtures.ts:930:10
+ ❯ tests/helpers/p14p3-fixtures.ts:964:19
+ ❯ memo tests/helpers/p14p3-fixtures.ts:111:23
+ ❯ Module.rivalWinner208 tests/helpers/p14p3-fixtures.ts:963:10
+ ❯ tests/p14p3-directing-promises.test.ts:894:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 14 skipped (16)
+   Start at  16:07:21
+   Duration  9.30s (transform 1.99s, setup 0ms, collect 2.58s, tests 6.11s, environment 0ms, prepare 129ms)
+

@@ -1,0 +1,40 @@
+{
+  "sourceHead": "abaf0aa633e654c2d17ff1be4c6405eb43ee2dc0",
+  "file": {
+    "path": "tests/helpers/p14p3-fixtures.ts",
+    "before": {
+      "bytes": 73077,
+      "sha256": "94c1c5352d910ab797c77e73dfc1a87f045f4004bab34e730a889641294a1533"
+    },
+    "after": {
+      "path": "tests/helpers/p14p3-fixtures.ts",
+      "bytes": 73429,
+      "sha256": "a1de7787c0309b2b56cdc8ccf77a237169bb80a4e4253d8ba2c899219936f179"
+    }
+  },
+  "orderedPatch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1158-p3-case-view-correction.patch",
+    "bytes": 1176,
+    "sha256": "fa7da4f191778cf0e8ad80c8fe182cf0bc5805a6e74dabf80f7f9619c5d1f17f"
+  },
+  "unchangedTest": {
+    "path": "tests/p14p3-directing-promises.test.ts",
+    "bytes": 77197,
+    "sha256": "3371570a015bcc3723ec7d6f4d85f8207bbb5cba9458e0036e538037736b455d"
+  },
+  "exactInverseReconstruction": true,
+  "old1155Handback": "Preserved unchanged; original compiler/pass and actual1157 fixture failure retained.",
+  "scope": "Only public-view assertion and exact stored-case join; zero gameplay or policy changes.",
+  "argv": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14p3-directing-promises.test.ts",
+    "--testNamePattern",
+    "D(?:07|18) "
+  ],
+  "leafTimeoutMs": 60000,
+  "selectedTickCap": 260,
+  "allCoreTickCap": 816
+}

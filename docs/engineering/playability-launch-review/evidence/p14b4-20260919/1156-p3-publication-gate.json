@@ -1,0 +1,11 @@
+{
+  "sourceSha": "abaf0aa633e654c2d17ff1be4c6405eb43ee2dc0",
+  "remoteSha": "abaf0aa633e654c2d17ff1be4c6405eb43ee2dc0",
+  "observedAt": "2026-09-27T14:06:07.852469+00:00",
+  "consumedSourceClean": true,
+  "wholeWorktreeClean": true,
+  "wholeWorktreeStatus": "",
+  "sourceReview": "1155-B final KEEP; source and fourteen-body guards verified",
+  "result": "PASS",
+  "nextRun": "1156-p3-fixed-rival-root-types"
+}

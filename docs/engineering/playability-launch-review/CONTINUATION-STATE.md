@@ -1,5 +1,31 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — first rival execution exposes a fixture API error
+
+1156 compiler PASS on publishedabaf0aa633e654c2d17ff1be4c6405eb43ee2dc0,
+38.269s.1157 closes14:07:20.843–14:07:31.229UTC,10.386s, child1/fixedSource:true,
+empty consumed patch, no untracked consumed source/signal/error. Two FAIL,
+fourteen filtered; one shared primary/stack at helper935. Actual196 rival calls,
+all other routes0. Both public creations/hires and real player Director film/credit
+completed, as did the second screenplay195→196; no unprinted release date inferred.
+
+The test incorrectly expects stored `variant` on public caseForTalent, whose seven
+fields omit it. Actual discovered/opened196/decision208 match. The first vacancy
+subject fails before a successful authoring196 cache, so neither rival strategy
+nor fixed bid/wins/payment/work has a result. D18 rethrows the cached helper error.
+No production defect or new rival P3 semantic RED is established.1157 raw evidence
+and independent direct-primary1157-B are frozen; B explicitly predates A handback.
+
+1158 helper correction is frozen: retain public fields and join exactly one
+real stored case for expiry/outcome-null. Patch1176B/fa7da4f1; helper73429B/
+a1de7787. Final1158-B KEEP2478B/d3237cb5 and1157-A/B are parent-verified.
+The entire16-leaf file, fixed route/pins/timeouts and production stay unchanged.
+Publish and exactremoteverify before separate1159 root types and1160 identical
+two-leaf run. No heavy process remains active.
+Parent alone owns production/integration/execution; two existing specialists retain
+separate test/review ownership. All1155-C retained matrix gaps and later P3/P14
+onward work remain pending and authorized; Unity/native/Owner remain deferred.
+
 ## CURRENT — fixed rival D07/D18 source frozen; first execution next
 
 1155-A freezes exactly two new leaves and the independent rival helper append on

@@ -932,7 +932,12 @@ export function rivalAuthoring196() {
     admitted(state)
     const script = rivalScript(state, 'c-01', 195); state = script.state
     for (const id of [RIVAL.vacancy, RIVAL.focus]) {
-      expect(core.caseForTalent(state, id)).toMatchObject({ variant: 'expiry', status: 'discovered', openedWeek: 196, decisionWeek: 208 })
+      const view = core.caseForTalent(state, id); assert.ok(view)
+      expect(view).toMatchObject({ talentId: id, status: 'discovered', openedWeek: 196, decisionWeek: 208 })
+      const stored = state.talentMarket.cases.filter(c => c.talentId === id && c.contractId === view.contractId
+        && c.openedWeek === view.openedWeek && c.subjectStudioId === view.subjectStudioId)
+      expect(stored).toHaveLength(1)
+      expect(stored[0]).toMatchObject({ variant: 'expiry', outcome: null })
       expect(core.retirementRecordFor(state, id)).toBeUndefined()
     }
     expect(core.publicPreferredTerm(state, RIVAL.vacancy)).toBe(208)

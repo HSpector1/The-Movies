@@ -1,0 +1,12 @@
+{
+  "sourceSha": "abaf0aa633e654c2d17ff1be4c6405eb43ee2dc0",
+  "remoteSha": "abaf0aa633e654c2d17ff1be4c6405eb43ee2dc0",
+  "observedAt": "2026-09-27T14:07:13.366268+00:00",
+  "consumedSourceClean": true,
+  "wholeWorktreeClean": false,
+  "wholeWorktreeStatus": "?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1156-p3-fixed-rival-root-types.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1156-p3-fixed-rival-root-types.patch\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1156-p3-fixed-rival-root-types.txt\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1156-p3-publication-gate.json\n",
+  "rootTypes": "1156 PASS child0 fixedSource empty consumed patch",
+  "sourceReview": "1155-B final KEEP",
+  "result": "PASS",
+  "nextRun": "1157-p3-fixed-rival-core"
+}
