@@ -1,0 +1,38 @@
+{
+  "coreWholeFiles": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/bridge-p12-campaign-library.test.ts",
+    "tests/bridge-p13b-r07-setup.test.ts",
+    "tests/bridge-p14c2rm-retirement.test.ts",
+    "tests/c2a-m2-sets-save.test.ts",
+    "tests/casting-sessions-save-v10.test.ts",
+    "tests/d12-economy.test.ts",
+    "tests/d14-star-power.test.ts",
+    "tests/frozen-save-builder-projection.test.ts",
+    "tests/p11-finance-report.test.ts",
+    "tests/p12-starting-world.test.ts",
+    "tests/p13b-s1-validation.test.ts",
+    "tests/p13b-s2-validation.test.ts",
+    "tests/p13b-s8-finance.test.ts",
+    "tests/p14b4-cast-class-policy.test.ts",
+    "tests/production-operations-save-v8.test.ts",
+    "tests/roster-wall-artifacts.test.ts",
+    "tests/ruling-a-development-in-play.test.ts"
+  ],
+  "uiWholeFiles": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "ui",
+    "ui/src/engine/d17-save-migration.test.ts",
+    "ui/src/engine/film-chronicle-adapter.test.ts",
+    "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx",
+    "ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx",
+    "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts",
+    "ui/src/saves.test.tsx",
+    "ui/src/session.test.tsx"
+  ]
+}

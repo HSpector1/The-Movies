@@ -1,0 +1,277 @@
+{
+  "baselineHead": "6e63f4c82a286dc67271cce0d53a0e586a6b523b",
+  "status": "FROZEN_UNEXECUTED",
+  "files": [
+    {
+      "path": "tests/bridge-p12-campaign-library.test.ts",
+      "baselineBytes": 21068,
+      "baselineSha256": "bb59f6b48326dfafc9a6590c38640b0b4fddb89e924a1dec8ab41e6876e892da",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/tests/bridge-p12-campaign-library.test.ts",
+      "stagedBytes": 21193,
+      "stagedSha256": "eb859a672a5f031af22814888cf1d8b530deab326ad98b3a5db127e1e0ced711"
+    },
+    {
+      "path": "tests/bridge-p13b-r07-setup.test.ts",
+      "baselineBytes": 35925,
+      "baselineSha256": "f8852ecec7a077e5cdb54f9dcf8e26b0af059a0fe8a7b8eae0031e159a3da5c5",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/tests/bridge-p13b-r07-setup.test.ts",
+      "stagedBytes": 35925,
+      "stagedSha256": "ac79267facf37c7361be7324b2d75f062d1c51a2420d2d3297e8b35a0e9e7ac8"
+    },
+    {
+      "path": "tests/bridge-p14c2rm-retirement.test.ts",
+      "baselineBytes": 28053,
+      "baselineSha256": "f943cd0a0816409c2f8bf87e2cde95a628838510df9813e4ea95cfe18a61482c",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/tests/bridge-p14c2rm-retirement.test.ts",
+      "stagedBytes": 28075,
+      "stagedSha256": "23358d040fc7dfee398faab5e8cc9477dcbf788d089f5c518c38016db0c996ca"
+    },
+    {
+      "path": "tests/c2a-m2-sets-save.test.ts",
+      "baselineBytes": 15902,
+      "baselineSha256": "be54b1852440b2e309f4899d5169d98411a21c0a253ec283c7cd56c2d418080c",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/tests/c2a-m2-sets-save.test.ts",
+      "stagedBytes": 13002,
+      "stagedSha256": "9dc028bd0db60dc1ead881616cd65380a53797fe6638954b89337a0743b3479b"
+    },
+    {
+      "path": "tests/casting-sessions-save-v10.test.ts",
+      "baselineBytes": 11764,
+      "baselineSha256": "e642152552da6a680fc7a137a0eac81b318a35e7611fc48667c2f81b119d2c6d",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/tests/casting-sessions-save-v10.test.ts",
+      "stagedBytes": 11872,
+      "stagedSha256": "8251dc249980306d9b1bff54370d1db3dcff716cdac001272a0135df165c1b32"
+    },
+    {
+      "path": "tests/d12-economy.test.ts",
+      "baselineBytes": 16249,
+      "baselineSha256": "0e17f999388c021dc5b75f12238625008d04be75131b9d1f318f64443131b33c",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/tests/d12-economy.test.ts",
+      "stagedBytes": 16065,
+      "stagedSha256": "f3ce946b94d07e6ce7ff864791ddb9fe961c9ee365eb58bc309305cddf07e0db"
+    },
+    {
+      "path": "tests/d14-star-power.test.ts",
+      "baselineBytes": 13155,
+      "baselineSha256": "bb80d7dc7288f34a2d7bd7ae3ec18d98f4965a4bec8a13c5d74bab87cf2a7e68",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/tests/d14-star-power.test.ts",
+      "stagedBytes": 12929,
+      "stagedSha256": "67c59d0586750c9a2693ffb3942e912ba9b1cc6cd8bfb4407f82b8e162c67419"
+    },
+    {
+      "path": "tests/frozen-save-builder-projection.test.ts",
+      "baselineBytes": 3492,
+      "baselineSha256": "4c9c462fcf3964e1b07dd223e3095193d88bdd70e18c25cd748bc979c4a81465",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/tests/frozen-save-builder-projection.test.ts",
+      "stagedBytes": 3615,
+      "stagedSha256": "ea1d004dd3b510d0ae5e550363d55231f9efe2eca9690e8fc2ddcb9a4c099f85"
+    },
+    {
+      "path": "tests/helpers/p14c2rm-fixtures.ts",
+      "baselineBytes": 17195,
+      "baselineSha256": "d3b22fdac83c79d9f503b7d77ae71c88bf8047969fb75fae005c8736600e984a",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/tests/helpers/p14c2rm-fixtures.ts",
+      "stagedBytes": 19149,
+      "stagedSha256": "aa7f583d553e6c48497da6ee20ae2a27b06a6790cbf7c7c332cf5a0f08833b3e"
+    },
+    {
+      "path": "tests/p11-finance-report.test.ts",
+      "baselineBytes": 9703,
+      "baselineSha256": "b8966edbe3880ddcb79d58e1033e8c5387b9e2041fa552f390046cf0221de5f0",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/tests/p11-finance-report.test.ts",
+      "stagedBytes": 9829,
+      "stagedSha256": "31bbe42101d3632eaa6fc0e55ee426a3e4ca643a3ae8f765ce4a02c018bcb457"
+    },
+    {
+      "path": "tests/p12-starting-world.test.ts",
+      "baselineBytes": 3455,
+      "baselineSha256": "70748e766fb35cbb8c884e4c46b2390fe071e899447887a9f59a831f1c364ca6",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/tests/p12-starting-world.test.ts",
+      "stagedBytes": 3530,
+      "stagedSha256": "8b68d10d0db363fb2cd0474604fbd25b11e7f1d936a594080f610ec7e05033c3"
+    },
+    {
+      "path": "tests/p13b-s1-validation.test.ts",
+      "baselineBytes": 4906,
+      "baselineSha256": "6416234bec91190f04f08881610807439e85afe97506afb0cb19fa746ee70393",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/tests/p13b-s1-validation.test.ts",
+      "stagedBytes": 5044,
+      "stagedSha256": "0342b8ca128e395159dbbdd09ebc38fd06d18398a0a112f04cfa16d2d250aeba"
+    },
+    {
+      "path": "tests/p13b-s2-validation.test.ts",
+      "baselineBytes": 14660,
+      "baselineSha256": "0ea74dec8909c3d774170ef7d39dd1082ffb37f7a8d41301802211c1e2608ba5",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/tests/p13b-s2-validation.test.ts",
+      "stagedBytes": 14729,
+      "stagedSha256": "da1985f61254fd19b48faedad74c9db706b6f6d348e9b7ca2b7b0806a2b31367"
+    },
+    {
+      "path": "tests/p13b-s8-finance.test.ts",
+      "baselineBytes": 13939,
+      "baselineSha256": "4dd3f226aa2c8a051fdf65a7a5579a9241364b5a23eda9b5bf710d41c281cad5",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/tests/p13b-s8-finance.test.ts",
+      "stagedBytes": 13225,
+      "stagedSha256": "22cccdca5e445d48b3a78b9584e0d9010afacbb9ca4a5d24ab8f8f702e5f6937"
+    },
+    {
+      "path": "tests/p14b4-cast-class-policy.test.ts",
+      "baselineBytes": 39596,
+      "baselineSha256": "1a87d969a4b9ee2b5fa6f858e163751f46100129e7761ce806b0ee54173a41ab",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/tests/p14b4-cast-class-policy.test.ts",
+      "stagedBytes": 39949,
+      "stagedSha256": "f317c7d4fcc75379eb94929ee7532de002c225f70402062c57fbcf1132ea900f"
+    },
+    {
+      "path": "tests/production-operations-save-v8.test.ts",
+      "baselineBytes": 27999,
+      "baselineSha256": "3fbeb7d00207de949aeb9a8e6f3c4d81920a42642fa23fb2f87575f8ba6625df",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/tests/production-operations-save-v8.test.ts",
+      "stagedBytes": 27857,
+      "stagedSha256": "79d55d2227b67148d84611f9a1f95ca5914ca915d0276a39f899eb0c159d291e"
+    },
+    {
+      "path": "tests/roster-wall-artifacts.test.ts",
+      "baselineBytes": 31220,
+      "baselineSha256": "0fd9a9f07dbdd26805d255a109a9a99d0223a098e93effb453ead21d87421bed",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/tests/roster-wall-artifacts.test.ts",
+      "stagedBytes": 31325,
+      "stagedSha256": "1b772aecb9ab743557cdba842d4e8fb29b52c7ce1f38b6ef5e3f00a73d92b85f"
+    },
+    {
+      "path": "tests/ruling-a-development-in-play.test.ts",
+      "baselineBytes": 26726,
+      "baselineSha256": "742c82da9a80d8e9d19a121a4f02b0f5c64e33bdc105b9ace142075264111b96",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/tests/ruling-a-development-in-play.test.ts",
+      "stagedBytes": 26439,
+      "stagedSha256": "149382c170d86ba8245a19ee0ed5b91b4419feb9dedf370a1924e7224941408e"
+    },
+    {
+      "path": "ui/src/engine/d17-save-migration.test.ts",
+      "baselineBytes": 7032,
+      "baselineSha256": "d12fa57b677fe0300e1b4b5863c31084cb73121066fb7fae83820c5e5557aa19",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/ui/src/engine/d17-save-migration.test.ts",
+      "stagedBytes": 7025,
+      "stagedSha256": "bd51c8e7bf1e11ed46b955899e79fed121341bf72c52ddc5c072235f673b12b8"
+    },
+    {
+      "path": "ui/src/engine/film-chronicle-adapter.test.ts",
+      "baselineBytes": 11754,
+      "baselineSha256": "1c43f2dc96115b236e6bd5614c28642b1a57d7c9edd27b7de3f256a9162c072e",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/ui/src/engine/film-chronicle-adapter.test.ts",
+      "stagedBytes": 11752,
+      "stagedSha256": "1ecb8abe92e5e1cd8127252cf9bb462d09855f7834c8a1ad7d7a200e80a3d9af"
+    },
+    {
+      "path": "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx",
+      "baselineBytes": 33799,
+      "baselineSha256": "a3cb42261408c0f826b57abd712c90a1d707886590c43a8b8e9262866160148d",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx",
+      "stagedBytes": 34647,
+      "stagedSha256": "2c0a3a17e47fc6f8c6e16c60924658b3a9a2efb6f3dbf3382f4c5150de6b04c6"
+    },
+    {
+      "path": "ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx",
+      "baselineBytes": 44875,
+      "baselineSha256": "02140f510916161994eb7aad15b3e7995fbbbf1b47062ca201e975eccc5e846f",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx",
+      "stagedBytes": 45718,
+      "stagedSha256": "af0ae510689095b4676264df2313e7babde32f6f3532badbffc97d867ec0e16f"
+    },
+    {
+      "path": "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts",
+      "baselineBytes": 5291,
+      "baselineSha256": "78edb0bbffebeac5ca0427e6fc3eb73299296309ed28efb40b962e1c940f656f",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/ui/src/lot/snapshot/v14SetHolderBoundary.test.ts",
+      "stagedBytes": 5289,
+      "stagedSha256": "5ebbe1f456155cf2984068afd6b65ed7b1b96a5dd32e5a86cc7c7bd180d74950"
+    },
+    {
+      "path": "ui/src/saves.test.tsx",
+      "baselineBytes": 16141,
+      "baselineSha256": "8ace54677a312c96f995da242e332d6c590ecb2fc3540222da014ba9c4600a18",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/ui/src/saves.test.tsx",
+      "stagedBytes": 16216,
+      "stagedSha256": "8132a6a7ed50264a414dc7dbab2ccd09c064dfbabfeed6cc01dd05e5357648d6"
+    },
+    {
+      "path": "ui/src/session.test.tsx",
+      "baselineBytes": 18330,
+      "baselineSha256": "49dbac7a4f53557682d556db8cfe2b3967a53caae4c428eedac33c0dfb4e685c",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance-stage/ui/src/session.test.tsx",
+      "stagedBytes": 18321,
+      "stagedSha256": "665807eb59579a2cbd1575092db1c0664b57a1c7ee6e9075fa6b6b9557157d2a"
+    }
+  ],
+  "stagedAtHead": "ddf92d8771f028e9df4ed70e2542d1b301c9fc22",
+  "pathCount": 25,
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance.patch",
+    "bytes": 56783,
+    "sha256": "a8d1e7de3b92d3ed00d6d8d87b9345aeaac3d3bac5f7fffd679ea4a513277498"
+  },
+  "verificationArgv": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1123-c3-maintenance.argv.json",
+    "bytes": 1277,
+    "sha256": "cdba17626d1c5e013a45bb0c178d17b6e11b87dac85bfd4d0ab3db97b476aa6a"
+  },
+  "baselineWholeFileCounts": {
+    "coreWholeFiles": {
+      "files": 17,
+      "baselineCases": 187,
+      "perFile": {
+        "tests/bridge-p12-campaign-library.test.ts": 13,
+        "tests/bridge-p13b-r07-setup.test.ts": 13,
+        "tests/bridge-p14c2rm-retirement.test.ts": 21,
+        "tests/c2a-m2-sets-save.test.ts": 4,
+        "tests/casting-sessions-save-v10.test.ts": 6,
+        "tests/d12-economy.test.ts": 17,
+        "tests/d14-star-power.test.ts": 15,
+        "tests/frozen-save-builder-projection.test.ts": 2,
+        "tests/p11-finance-report.test.ts": 5,
+        "tests/p12-starting-world.test.ts": 3,
+        "tests/p13b-s1-validation.test.ts": 7,
+        "tests/p13b-s2-validation.test.ts": 15,
+        "tests/p13b-s8-finance.test.ts": 5,
+        "tests/p14b4-cast-class-policy.test.ts": 7,
+        "tests/production-operations-save-v8.test.ts": 20,
+        "tests/roster-wall-artifacts.test.ts": 16,
+        "tests/ruling-a-development-in-play.test.ts": 18
+      }
+    },
+    "uiWholeFiles": {
+      "files": 7,
+      "baselineCases": 70,
+      "perFile": {
+        "ui/src/engine/d17-save-migration.test.ts": 6,
+        "ui/src/engine/film-chronicle-adapter.test.ts": 2,
+        "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx": 10,
+        "ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx": 15,
+        "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts": 5,
+        "ui/src/saves.test.tsx": 15,
+        "ui/src/session.test.tsx": 17
+      }
+    }
+  },
+  "additionalActualTickCap": 1,
+  "directBehaviorConsumers": {
+    "tests/helpers/p14c2rm-fixtures.ts": [
+      "tests/bridge-p14c2rm-retirement.test.ts"
+    ]
+  },
+  "excludedUnchangedHelperExports": [
+    "admitted",
+    "advanceTo",
+    "addPerson",
+    "finishingWriter",
+    "freshWorld",
+    "historicalWriterPair",
+    "readRuntime51",
+    "extensionWorld",
+    "scientistSnapshot",
+    "frozenTies",
+    "retirementCrowd"
+  ],
+  "sourceExecutionPerformed": false,
+  "liveFilesApplied": false
+}

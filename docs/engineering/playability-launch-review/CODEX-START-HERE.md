@@ -1,5 +1,30 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — reviewed 25-file fixture repair applied; publish and verify
+
+1123-A/B source KEEP and1125-B actual application KEEP are complete. Exact25
+reviewed test/helper postimages are installed; all1,636 other consumed files remain
+byte-identical. Total inventory1,661. Actual unstaged patch60,506bytes SHA256
+7cecd7a5411f25c37c7cf75ebc67192abe7d32f66aab98676ed4b1dfbefbcefc.
+No production, generated, immutable fixture or configuration change. Independent
+1125-B is2,951bytes/ab404fce. Behavior is unverified on this candidate.
+
+Publish the candidate and exact-remote-verify, then parent serially executes:
+1104-c3-boundary-root-types,1105-c3-boundary-ui-types,1106-c3-boundary-bridge-types
+(explicit original1052 docs producer guard), followed by1107-c3-boundary-core and
+1108-c3-boundary-ui using exact arrays from1123-c3-maintenance.argv.json. Freeze
+actual HEAD/index/consumed source per run. Existing author1126-A owns full-cause
+attribution; reviewer1126-B independently reviews. Parent is sole production
+integrator/heavy executor. No heavy process is active at this checkpoint.
+
+Selected baseline:17corefiles187cases/37FAIL;7UI files70cases/17FAIL. These include
+inherited causes beyond26core and15UI repair targets. Preserve actual subsequent
+failures/newly reached premises; do not predict all-green or widen timeouts.
+Original full1100/1101 and1124 diagnostics are published atddf92d8771f028e9df4ed70e2542d1b301c9fc22.
+Final bounded C.3 qualification and1117 preservation remain before P3. Retain
+canonicalL/R8/FU1/FU2/new-navigation/endurance/native/Owner limits; P15 choices
+are all selected in1122-A. Continue the authorized program after actual gates.
+
 ## CURRENT — exact full attribution reviewed; staged fixture maintenance next
 
 Published checkpointbc2492be0c6b4a0e32c1496c5bdff1344fb0c9d2 exactly matches GitHub;

@@ -1,0 +1,1052 @@
+diff --git a/tests/bridge-p12-campaign-library.test.ts b/tests/bridge-p12-campaign-library.test.ts
+--- a/tests/bridge-p12-campaign-library.test.ts
++++ b/tests/bridge-p12-campaign-library.test.ts
+@@ -214,7 +214,8 @@
+     const digest=(s:string)=>createHash('sha256').update(s).digest('hex')
+     for(const hasSaved of [true,false]) {
+       const old=JSON.parse(gunzipSync(readFileSync(new URL('./fixtures/p06-recovery.checkpoint.json.gz',import.meta.url))).toString('utf8'))
+-      const a=generateWorld('r05-prior-current'),b=generateWorld('r05-prior-saved');a.market.tick=53;b.market.tick=520
++      // Admit intact current inputs before constructing explicitly historical clocks.
++      const a=makeSaveV18(generateWorld('r05-prior-current')).state,b=makeSaveV18(generateWorld('r05-prior-saved')).state;a.market.tick=53;b.market.tick=520
+       old.schemaId='sha256:97940e51e0566bed80231b223e5b7303a45d62db8d698f693e525eb244775211'
+       old.currentSaveJson=exportSave(makeSaveV18(a));old.currentStateDigest=digest(old.currentSaveJson)
+       old.savedSaveJson=hasSaved?exportSave(makeSaveV18(b)):null;old.savedStateDigest=hasSaved?digest(old.savedSaveJson):null
+diff --git a/tests/bridge-p13b-r07-setup.test.ts b/tests/bridge-p13b-r07-setup.test.ts
+--- a/tests/bridge-p13b-r07-setup.test.ts
++++ b/tests/bridge-p13b-r07-setup.test.ts
+@@ -584,7 +584,7 @@
+     expect(saved.accepted).toBe(true)
+     if (!saved.accepted) throw new Error(`save refused: ${JSON.stringify(saved)}`)
+     const parsedSaveVersion = (JSON.parse(saved.saveJson) as { saveVersion: number }).saveVersion
+-    expect(parsedSaveVersion).toBe(37) // the CURRENT live version — confirms this is not genuinely a migration
++    expect(parsedSaveVersion).toBe(38) // the CURRENT live version — confirms this is not genuinely a migration
+ 
+     const loaded = session.load(control(session, nextCommandId('load')))
+     expect(loaded.accepted).toBe(true)
+diff --git a/tests/bridge-p14c2rm-retirement.test.ts b/tests/bridge-p14c2rm-retirement.test.ts
+--- a/tests/bridge-p14c2rm-retirement.test.ts
++++ b/tests/bridge-p14c2rm-retirement.test.ts
+@@ -23,7 +23,7 @@
+ import { c2Fixture } from './helpers/p14c2a-fixtures.js'
+ import { scientistFilm, scientistWorld } from './helpers/p14c2s-fixtures.js'
+ import { AXES, SCI, addPerson, admitted, advanceTo, bytes, extensionWorld, finishingWriter, freshWorld,
+-  frozenTies, multiRoleAlumnus, owner, retirementCrowd, scientistSnapshot } from './helpers/p14c2rm-fixtures.js'
++  frozenTies, multiRoleAlumnus, naturalRoleAlumnus, owner, retirementCrowd, scientistSnapshot } from './helpers/p14c2rm-fixtures.js'
+ 
+ type Lifecycle = { status: 'active' | RetirementStatus; profession: CreativeRole; eligibleAge: number; hardAge: number;
+   eligible: boolean; line: string; planningLine: string; announcedWeek: number | null; effectiveWeek: number | null;
+@@ -286,7 +286,7 @@
+ 
+ describe('C.2-RM alumni evidence and disclosure', () => {
+   it('an actual release and real retirement preserve credit/promise/employer routes and invent no honors', () => {
+-    const f = multiRoleAlumnus(), original = bytes(f.state), row = profile(f.state, f.personId)
++    const f = naturalRoleAlumnus(), original = bytes(f.state), row = profile(f.state, f.personId)
+     const expected = credits(f.state, f.personId)
+     expect(expected.campaignCredits, 'actual lead credit').toBeGreaterThanOrEqual(1)
+     expect(row.alumni).toMatchObject({ ...expected, profession: 'actor', retiredWeek: 156,
+diff --git a/tests/c2a-m2-sets-save.test.ts b/tests/c2a-m2-sets-save.test.ts
+--- a/tests/c2a-m2-sets-save.test.ts
++++ b/tests/c2a-m2-sets-save.test.ts
+@@ -1,9 +1,4 @@
+-import { withResearchFoundation } from '../src/core/researchPeople.js'
+-import { buildTalentProvenance } from '../src/core/aging.js'
+-import { initialTechnology } from '../src/core/technology.js'
+-import { initialPhysicalPlans } from '../src/core/physicalPlans.js'
+-import { initialTalentMarket } from '../src/core/talentMarket.js'
+-import { initialCareerLifecycle } from '../src/core/careerLifecycle.js'
++import { beginFoundingHistoricalControl } from '../src/core/employment.js'
+ import {migrateToCurrentControl} from './_historicalCurrent.js'
+ // ── C2a-M2 — sets across the save boundary, and the milestone's own gate ─────
+ //
+@@ -28,8 +23,6 @@
+   exportSave,
+   generateWorld,
+   importSave,
+-  initialReleaseAuthority,
+-  migratedStudioHistory,
+   makeSave,
+   migrateToV14,
+   setById,
+@@ -52,8 +45,13 @@
+   return talent.filter((person) => person.role === role)
+ }
+ 
+-function foundedStudio(seed: string): GameState {
+-  let state = beginFounding(generateWorld(seed))
++function foundedStudio(seed: string, historical = false): GameState {
++  const generated = generateWorld(seed)
++  if (historical) {
++    expect(generated.hollywood).toBeNull()
++    expect(() => validateSaveV38(makeSave(generated))).not.toThrow()
++  }
++  let state = historical ? beginFoundingHistoricalControl(generated) : beginFounding(generated)
+   const pool = applicants(state)
+   const hires = [
+     ...byRole(pool, 'actor').slice(0, Math.max(FOUNDING_MINIMUMS.actor, 6)),
+@@ -117,8 +115,8 @@
+   }
+ }
+ 
+-function operationsStudio(seed: string): GameState {
+-  return withCash(applyActions(foundedStudio(seed), [{ kind: 'activateStudioOperations' }]), 60_000_000)
++function operationsStudio(seed: string, historical = false): GameState {
++  return withCash(applyActions(foundedStudio(seed, historical), [{ kind: 'activateStudioOperations' }]), 60_000_000)
+ }
+ 
+ function advance(state: GameState, weeks: number): GameState {
+@@ -217,15 +215,21 @@
+   it('greenlights, binds a set, and shoots — while the picture it migrated with never does', () => {
+     // A managed studio with a picture already in flight, written as the V13 file
+     // a player would actually have on disk.
+-    let native = operationsStudio('m2-gate-migrated')
++    let native = operationsStudio('m2-gate-migrated', true)
+     native = applyActions(native, [
+       { kind: 'greenlight', production: productionPayload(native, 0) },
+     ])
+     native = advance(native, 3)
+     expect(native.operations.workflows[0]!.phase).toBe('rehearsal')
+ 
++    // This branch starts with the admitted pre-industry founding control. It
++    // carries no entrant authority; the shared V13 loss guards stay intact.
++    expect(native.hollywood).toBeNull()
++    expect(native.careerLifecycle.professionAnchors.every(row => row.kind === 'existing')).toBe(true)
++    expect(() => validateSaveV38(makeSave(native))).not.toThrow()
+     const twin = v13TwinOf(grandfatheredBindings(native))
+-    const migrated = migrateToV14(twin as unknown as Parameters<typeof migrateToV14>[0]).state
++    const migratedSave = migrateToV14(twin as unknown as Parameters<typeof migrateToV14>[0])
++    const migrated = migratedSave.state
+ 
+     // §8.3: the endowment is synthesised, and the in-flight picture is
+     // GRANDFATHERED — it keeps its scenery-shop reservation and never acquires a
+@@ -239,39 +243,9 @@
+     // pinned at the frozen GameStateV14 shape for the endowment assertions above;
+     // only this live boundary call gains P06A's release authority — empty, since
+     // nothing in this migrated save was ever a committed release.
+-    const liveMigrated: GameState = {
+-      ...migrated,
+-      talent: migrated.talent.map(withResearchFoundation).map(person => ({ ...person, age: Math.floor(person.age) })),
+-      // P14C.1 (Save V33): the same lift the real V32->V33 migration writes — one
+-      // `legacy_age_anchor` per person holding the ORIGINAL UNROUNDED age at the
+-      // migration week, with each stored age then FLOORED. A hand-built LIVE state
+-      // owes the live shape, flooring included.
+-      talentProvenance: buildTalentProvenance(migrated.talent, migrated.market.tick, 'legacy_age_anchor'),
+-      releaseAuthority: initialReleaseAuthority(),
+-      // P08A: recording begins at the migration week; nothing earlier is invented.
+-      studioHistory: migratedStudioHistory(migrated.market.tick),
+-      foundingRegime: 'endowed',
+-          hollywood: null,
+-          technology: initialTechnology(0),
+-          physicalPlans: initialPhysicalPlans(),
+-          // P14A.1 (Save V28): a migrated world holds no contested expiry.
+-          talentMarket: initialTalentMarket(),
+-          // P14B.1 (Save V29): a hand-built state films no first take and promises nothing.
+-          firstTakes: [],
+-          promises: [],
+-          // P14B.5 (Save V31): a hand-built state shares no work, so it holds no relationship edge.
+-          relationships: [],
+-          // P14C.2a (Save V34): a hand-built LIVE state tracks no retirement,
+-          // so the lifecycle root opens empty at the migration week.
+-          careerLifecycle: initialCareerLifecycle(migrated.market.tick, migrated.talent),
+-      // P13B-S5-R07: `setup`/`planRevision` are V25-only (younger than every
+-      // other synthesised root above) — the same `setup: null, planRevision: 0`
+-      // lift the real V24->V25 migration writes for every legacy workflow.
+-      operations: {
+-        ...migrated.operations,
+-        workflows: migrated.operations.workflows.map((workflow) => ({ ...workflow, setup: null, planRevision: 0 })),
+-      },
+-    }
++    const liveMigrated = migrateToCurrentControl(migratedSave).state
++    expect(liveMigrated.hollywood).toBeNull()
++    expect(() => validateSaveV38(makeSave(liveMigrated))).not.toThrow()
+     let played = applyActions(liveMigrated, [
+       { kind: 'greenlight', production: productionPayload(liveMigrated, 1) },
+     ])
+@@ -305,41 +279,17 @@
+   })
+ 
+   it('lets a migrated studio BUILD a set on the stage it just cleared', () => {
+-    const native = operationsStudio('m2-gate-build')
+-    const migrated = migrateToV14(v13TwinOf(grandfatheredBindings(native)) as unknown as Parameters<typeof migrateToV14>[0]).state
++    const native = operationsStudio('m2-gate-build', true)
++    expect(native.hollywood).toBeNull()
++    expect(native.careerLifecycle.professionAnchors.every(row => row.kind === 'existing')).toBe(true)
++    expect(() => validateSaveV38(makeSave(native))).not.toThrow()
++    const migratedSave = migrateToV14(v13TwinOf(grandfatheredBindings(native)) as unknown as Parameters<typeof migrateToV14>[0])
++    const migrated = migratedSave.state
+     // `migrated` (frozen GameStateV14) gains P06A's release authority — empty,
+     // since nothing in this migrated save was ever a committed release.
+-    const liveMigrated: GameState = {
+-      ...migrated,
+-      talent: migrated.talent.map(withResearchFoundation).map(person => ({ ...person, age: Math.floor(person.age) })),
+-      // P14C.1 (Save V33): the same lift the real V32->V33 migration writes — one
+-      // `legacy_age_anchor` per person holding the ORIGINAL UNROUNDED age at the
+-      // migration week, with each stored age then FLOORED. A hand-built LIVE state
+-      // owes the live shape, flooring included.
+-      talentProvenance: buildTalentProvenance(migrated.talent, migrated.market.tick, 'legacy_age_anchor'),
+-      releaseAuthority: initialReleaseAuthority(),
+-      // P08A: recording begins at the migration week; nothing earlier is invented.
+-      studioHistory: migratedStudioHistory(migrated.market.tick),
+-      foundingRegime: 'endowed',
+-          hollywood: null,
+-          technology: initialTechnology(0),
+-          physicalPlans: initialPhysicalPlans(),
+-          // P14A.1 (Save V28): a migrated world holds no contested expiry.
+-          talentMarket: initialTalentMarket(),
+-          // P14B.1 (Save V29): a hand-built state films no first take and promises nothing.
+-          firstTakes: [],
+-          promises: [],
+-          // P14B.5 (Save V31): a hand-built state shares no work, so it holds no relationship edge.
+-          relationships: [],
+-          // P14C.2a (Save V34): a hand-built LIVE state tracks no retirement,
+-          // so the lifecycle root opens empty at the migration week.
+-          careerLifecycle: initialCareerLifecycle(migrated.market.tick, migrated.talent),
+-      // P13B-S5-R07: `setup`/`planRevision` are V25-only — same lift as above.
+-      operations: {
+-        ...migrated.operations,
+-        workflows: migrated.operations.workflows.map((workflow) => ({ ...workflow, setup: null, planRevision: 0 })),
+-      },
+-    }
++    const liveMigrated = migrateToCurrentControl(migratedSave).state
++    expect(liveMigrated.hollywood).toBeNull()
++    expect(() => validateSaveV38(makeSave(liveMigrated))).not.toThrow()
+     let played = applyActions(liveMigrated, [{ kind: 'strikeSet', setId: 'set-1' }])
+     expect(setMountedOn(played.sets, STAGE_12)).toBeNull()
+     played = applyActions(played, [
+diff --git a/tests/casting-sessions-save-v10.test.ts b/tests/casting-sessions-save-v10.test.ts
+--- a/tests/casting-sessions-save-v10.test.ts
++++ b/tests/casting-sessions-save-v10.test.ts
+@@ -29,9 +29,8 @@
+ import type { SaveFile } from "../src/core/save.js";
+ import type {
+   CastingSession,
+-  GameState,
++  GameStateV10,
+   ScriptProject,
+-  Talent,
+ } from "../src/core/index.js";
+ import {
+   makeLegacyCorpus,
+@@ -43,7 +42,7 @@
+ }
+ 
+ function readyProject(
+-  state: GameState,
++  state: GameStateV10,
+   overrides: Partial<ScriptProject> = {},
+ ): ScriptProject {
+   const concept = state.concepts[0]!;
+@@ -88,7 +87,7 @@
+ }
+ 
+ function castingSession(
+-  state: GameState,
++  state: GameStateV10,
+   project: ScriptProject,
+   status: CastingSession["status"],
+ ): CastingSession {
+@@ -130,8 +129,9 @@
+ function managedState(
+   seed: string,
+   status: CastingSession["status"] = "complete",
+-): GameState {
+-  const generated = generateWorld(seed);
++): GameStateV10 {
++  // Historical V10 carrier first; its subsequent old clock/managed mutations carry no38 roots.
++  const generated = makeSaveV10(generateWorld(seed)).state;
+   const state =
+     status === "auditioning"
+       ? generated
+@@ -169,7 +169,7 @@
+   });
+ 
+   it("positively projects frozen V9, then deep-clones it into legacy-empty V10", () => {
+-    const live = managedState("save-v10-frozen-v9", "complete") as GameState & {
++    const live = managedState("save-v10-frozen-v9", "complete") as GameStateV10 & {
+       futureV11?: unknown;
+     };
+     live.futureV11 = { mustNotLeak: true };
+@@ -303,7 +303,7 @@
+     expect(() => validateSaveV10(wrongResult)).toThrow(/result.*slate|slate.*result/i);
+ 
+     const base = managedState("save-v10-slot-collision", "auditioning");
+-    const writers = base.talent.filter((person) => person.role === "writer") as Talent[];
++    const writers = base.talent.filter((person) => person.role === "writer");
+     const second = readyProject(base, {
+       id: "script-0001",
+       conceptId: base.concepts[1]!.id,
+diff --git a/tests/d12-economy.test.ts b/tests/d12-economy.test.ts
+--- a/tests/d12-economy.test.ts
++++ b/tests/d12-economy.test.ts
+@@ -235,16 +235,8 @@
+     const withFilm = advance(greenlightOneFilmSafe(founded), TUNING.PRODUCTION_TICKS + 1)
+     expect(withFilm.studio.releasedFilms.length).toBeGreaterThan(0)
+     const released = withFilm.studio.releasedFilms
+-    const {
+-      theatricalRuns: _theatricalRuns,
+-      careerEvents: _careerEvents,
+-      economyEngagedEver: _economyEngagedEver,
+-      publicity: _publicity,
+-      operations: _operations,
+-      scriptDevelopment: _scriptDevelopment,
+-      ...v3state
+-    } = withFilm
+-    const v4 = convertV3ToV4(makeSaveV3(v3state))
++    // Project the admitted intact source; do not remove current required roots first.
++    const v4 = convertV3ToV4(makeSaveV3(withFilm))
+ 
+     // Each released film became a legacyCompleted run at its FULL gross.
+     expect(v4.state.theatricalRuns.length).toBe(released.length)
+diff --git a/tests/d14-star-power.test.ts b/tests/d14-star-power.test.ts
+--- a/tests/d14-star-power.test.ts
++++ b/tests/d14-star-power.test.ts
+@@ -244,16 +244,8 @@
+     const { s } = releaseOneFilm(s0, actors[0]!.id)
+     const famesBefore = s.talent.map((t) => ({ id: t.id, fame: t.fame }))
+ 
+-    // Synthesize the exact frozen V4 shape: drop D-14 and every later field.
+-    const {
+-      careerEvents: _careerEvents,
+-      economyEngagedEver: _economyEngagedEver,
+-      publicity: _publicity,
+-      operations: _operations,
+-      scriptDevelopment: _scriptDevelopment,
+-      ...v4State
+-    } = s
+-    const v4 = makeSaveV4(v4State)
++    // The frozen builder projects only after the intact current state is admitted.
++    const v4 = makeSaveV4(s)
+     expect(v4.saveVersion).toBe(4)
+ 
+     const v5 = convertV4ToV5(v4)
+diff --git a/tests/frozen-save-builder-projection.test.ts b/tests/frozen-save-builder-projection.test.ts
+--- a/tests/frozen-save-builder-projection.test.ts
++++ b/tests/frozen-save-builder-projection.test.ts
+@@ -13,6 +13,7 @@
+   makeSaveV7,
+   makeSaveV8,
+   makeSaveV9,
++  makeSaveV10,
+   migrateToV9,
+   stableStringify,
+   validateSaveV6,
+@@ -51,7 +52,8 @@
+ describe("frozen save builders project exact historical roots", () => {
+   it("makeSaveV1 through makeSaveV9 omit every later and unknown live-state root", () => {
+     const live = {
+-      ...generateWorld("frozen-builder-projection"),
++      // Admit the intact current source before adding an old-builder-only unknown root.
++      ...makeSaveV10(generateWorld("frozen-builder-projection")).state,
+       futureV11State: { mustNotLeak: true },
+     };
+     const before = stableStringify(live);
+diff --git a/tests/helpers/p14c2rm-fixtures.ts b/tests/helpers/p14c2rm-fixtures.ts
+--- a/tests/helpers/p14c2rm-fixtures.ts
++++ b/tests/helpers/p14c2rm-fixtures.ts
+@@ -181,52 +181,97 @@
+   return structuredClone(crowdCache)
+ }
+ 
+-type MultiRole = { state: GameState; multiRole: GameState; personId: string; filmId: string; promiseId: string }
++type NaturalAlumnus = { state: GameState; beforeRetirement: GameState; personId: string; filmId: string; promiseId: string }
++type MultiRole = NaturalAlumnus & { multiRole: GameState }
++let naturalAlumnusCache: NaturalAlumnus | undefined
++let naturalAlumnusAttempted = false
++let naturalAlumnusFailure: unknown
+ let multiRoleCache: MultiRole | undefined
+-/** One real release, plus an explicitly SYNTHETIC imported credit-only variant.
+- * M16 refuses two roles for one person at greenlight; this is NOT a natural
+- * multirole producer. The player-film persisted participant validator can admit
+- * the adversarial historical role-credit shape; prove that whole-save premise. */
++let multiRoleAttempted = false
++let multiRoleFailure: unknown
++let multiRoleAdditionalTicks = 0
++
++/** Actual release/retirement, independent of the labelled credit mutant below.
++ * Preserve the original <=40 release drive and final week156. Cache failures
++ * too, so an unmet setup cannot silently repeat gameplay in a dependent leaf. */
++export function naturalRoleAlumnus(): NaturalAlumnus {
++  if (!naturalAlumnusAttempted) {
++    naturalAlumnusAttempted = true
++    try {
++      const f = c2cFixture(), action = greenlightAction(f, f.beforeAnnouncement)
++      if (action.kind !== 'greenlight') throw new Error('Expected actual greenlight action')
++      let state = applyActions(f.beforeAnnouncement, [action])
++      const filmId = state.studio.activeProductions.at(-1)!.id
++      let released = false
++      for (let step = 0; step < 40; step++) {
++        const workflow = state.operations.workflows.find(row => row.productionId === filmId)
++        if (workflow?.phase === 'shooting' && workflow.shootingTask?.status === 'unassigned') {
++          state = applyActions(state, [{ kind: 'assignShootingDirector', productionId: filmId, directorId: f.directorId }])
++        }
++        const task = state.operations.workflows.find(row => row.productionId === filmId)?.shootingTask
++        if (task?.status === 'ready') state = applyActions(state, [{ kind: 'scheduleShootingTake', productionId: filmId }])
++        if (state.studio.activeProductions.find(row => row.id === filmId)?.remainingTicks === 1) {
++          state = applyActions(state, [{ kind: 'commitPictureToRelease', productionId: filmId }])
++        }
++        state = tick(state)
++        if (state.studio.releasedFilms.some(row => row.productionId === filmId)) { released = true; break }
++      }
++      expect(released, 'multi-role premise: real picture must release within bounded drive').toBe(true)
++      const film = state.studio.releasedFilms.find(row => row.productionId === filmId)!
++      expect(film.participants?.writer.talentId).toBe(f.writerId)
++      expect(film.participants?.cast.lead.talentId).toBe(f.actorId)
++      const beforeRetirement = admitted(advanceTo(state, 155))
++      expect(beforeRetirement.market.tick).toBe(155)
++      state = admitted(tick(beforeRetirement))
++      expect(state.market.tick).toBe(156)
++      expect(retirementRecordFor(state, f.actorId)).toMatchObject({ status: 'retired', retiredWeek: 156 })
++      naturalAlumnusCache = { state, beforeRetirement, personId: f.actorId, filmId, promiseId: f.promiseId }
++    } catch (error) {
++      naturalAlumnusFailure = error
++      throw error
++    }
++  }
++  if (naturalAlumnusCache === undefined) throw naturalAlumnusFailure
++  return structuredClone(naturalAlumnusCache)
++}
++
++/** Explicitly SYNTHETIC historical role-credit discriminator. M16 refuses the
++ * two-role natural greenlight. Change only an admitted155 captured Writer
++ * identity, then let one actual155→156 tick derive its own C.3 evidence. No
++ * retained evaluation is edited, stripped or recomputed by this helper. */
+ export function multiRoleAlumnus(): MultiRole {
+-  if (multiRoleCache === undefined) {
+-    const f = c2cFixture(), action = greenlightAction(f, f.beforeAnnouncement)
+-    if (action.kind !== 'greenlight') throw new Error('Expected actual greenlight action')
+-    let state = applyActions(f.beforeAnnouncement, [action])
+-    const filmId = state.studio.activeProductions.at(-1)!.id
+-    let released = false
+-    for (let step = 0; step < 40; step++) {
+-      const workflow = state.operations.workflows.find(row => row.productionId === filmId)
+-      if (workflow?.phase === 'shooting' && workflow.shootingTask?.status === 'unassigned') {
+-        state = applyActions(state, [{ kind: 'assignShootingDirector', productionId: filmId, directorId: f.directorId }])
+-      }
+-      const task = state.operations.workflows.find(row => row.productionId === filmId)?.shootingTask
+-      if (task?.status === 'ready') state = applyActions(state, [{ kind: 'scheduleShootingTake', productionId: filmId }])
+-      if (state.studio.activeProductions.find(row => row.id === filmId)?.remainingTicks === 1) {
+-        state = applyActions(state, [{ kind: 'commitPictureToRelease', productionId: filmId }])
+-      }
+-      state = tick(state)
+-      if (state.studio.releasedFilms.some(row => row.productionId === filmId)) { released = true; break }
++  if (!multiRoleAttempted) {
++    multiRoleAttempted = true
++    try {
++      const natural = naturalRoleAlumnus()
++      const before = admitted(natural.beforeRetirement)
++      const person = before.talent.find(row => row.id === natural.personId)!
++      const mutant = admitted({ ...before, studio: { ...before.studio,
++        releasedFilms: before.studio.releasedFilms.map(row => row.productionId !== natural.filmId ? row : {
++          ...row, participants: { ...row.participants!, writer: { ...row.participants!.writer,
++            talentId: person.id, name: person.name } },
++        }),
++      } })
++      expect(mutant.careerLifecycle).toEqual(before.careerLifecycle)
++      expect(mutant.careerEvents).toEqual(before.careerEvents)
++      expect(mutant.firstTakes).toEqual(before.firstTakes)
++      expect(mutant.promises).toEqual(before.promises)
++      // One additional actual call, authorized in1123. Reserve before calling;
++      // the independent failed/successful cache prevents a hidden second run.
++      expect(++multiRoleAdditionalTicks).toBe(1)
++      const multiRole = admitted(tick(mutant))
++      expect(multiRole.market.tick).toBe(156)
++      expect(retirementRecordFor(multiRole, person.id)).toMatchObject({ status: 'retired', retiredWeek: 156 })
++      expect(multiRole.careerEvents).toEqual(natural.state.careerEvents)
++      expect(multiRole.firstTakes).toEqual(natural.state.firstTakes)
++      expect(multiRole.promises).toEqual(natural.state.promises)
++      multiRoleCache = { ...natural, multiRole }
++    } catch (error) {
++      multiRoleFailure = error
++      throw error
+     }
+-    expect(released, 'multi-role premise: real picture must release within bounded drive').toBe(true)
+-    const film = state.studio.releasedFilms.find(row => row.productionId === filmId)!
+-    expect(film.participants?.writer.talentId).toBe(f.writerId)
+-    expect(film.participants?.cast.lead.talentId).toBe(f.actorId)
+-    state = admitted(advanceTo(state, 156))
+-    expect(retirementRecordFor(state, f.actorId)).toMatchObject({ status: 'retired', retiredWeek: 156 })
+-    const person = state.talent.find(row => row.id === f.actorId)!
+-    const multiRole = admitted({ ...state, studio: { ...state.studio,
+-      releasedFilms: state.studio.releasedFilms.map(row => row.productionId !== filmId ? row : {
+-        ...row, participants: { ...row.participants!, writer: { ...row.participants!.writer,
+-          talentId: person.id, name: person.name } },
+-      }),
+-    } })
+-    // Only two fields of one captured role-credit row differ. No new film,
+-    //release, employment, career event, promise or relationship is invented.
+-    expect(multiRole.careerEvents).toEqual(state.careerEvents)
+-    expect(multiRole.firstTakes).toEqual(state.firstTakes)
+-    expect(multiRole.promises).toEqual(state.promises)
+-    multiRoleCache = { state, multiRole, personId: f.actorId, filmId, promiseId: f.promiseId }
+-  }
++  }
++  if (multiRoleCache === undefined) throw multiRoleFailure
+   return structuredClone(multiRoleCache)
+ }
+ 
+diff --git a/tests/p11-finance-report.test.ts b/tests/p11-finance-report.test.ts
+--- a/tests/p11-finance-report.test.ts
++++ b/tests/p11-finance-report.test.ts
+@@ -57,7 +57,9 @@
+   })
+   it('refuses invented pre-checkpoint balances and marks the first recorded week partial', () => {
+     const native = studio()
+-    const legacy = makeSaveV10({ ...native, market: { ...native.market, tick: 20 } })
++    // The old20-week carrier is built only after intact current admission.
++    const legacy = makeSaveV10(native)
++    legacy.state.market.tick = 20
+     legacy.state.studio.cash = 17_654_321 // legal pre-checkpoint cash; migration must preserve it without invented rows
+     let state = migrateToCurrentControl(legacy).state
+     expect(financeOverview(state).firstCompleteWeek).toBeNull()
+@@ -77,7 +79,9 @@
+   })
+   it('does not infer old complete weeks from the absence of a cash checkpoint', () => {
+     const native = studio()
+-    const legacy = makeSaveV10({ ...native, market: { ...native.market, tick: 20 } })
++    // The old20-week carrier is built only after intact current admission.
++    const legacy = makeSaveV10(native)
++    legacy.state.market.tick = 20
+     let state = migrateToCurrentControl(legacy).state
+     expect(state.cashLedgerCheckpoint).toBeUndefined() // reconciled old cash does not imply recorded history
+     expect(state.studioHistory.recordingStartedWeek).toBe(20)
+diff --git a/tests/p12-starting-world.test.ts b/tests/p12-starting-world.test.ts
+--- a/tests/p12-starting-world.test.ts
++++ b/tests/p12-starting-world.test.ts
+@@ -29,9 +29,9 @@
+   })
+   it('migrates at each old state own week with empty company histories and exact player state', () => {
+     for(const week of [0,519,520,987,988,1560,1872,2548]) {
+-      const old=generateWorld('r05-legacy')
++      const frozen=makeSaveV18(generateWorld('r05-legacy'))
++      const old=frozen.state // admitted historical substrate before its old clock is selected
+       old.market.tick=week
+-      const frozen=makeSaveV18(old)
+       const original=exportSave(frozen)
+       const migrated=migrateToV25(frozen)
+       expect(migrated.state.hollywood!.films).toEqual([])
+diff --git a/tests/p13b-s1-validation.test.ts b/tests/p13b-s1-validation.test.ts
+--- a/tests/p13b-s1-validation.test.ts
++++ b/tests/p13b-s1-validation.test.ts
+@@ -52,7 +52,8 @@
+       // test (an unemployed Scientist), not the unrelated provenance-root check.
+       const outsider = generateScientist(state.seed, 't-sci-04')
+       state.talent.push({ ...outsider, age: Math.floor(outsider.age) })
+-      state.talentProvenance = withTalentProvenance(state, outsider).talentProvenance
++      // Preserve both provenance and profession authority from the actual append owner.
++      Object.assign(state, withTalentProvenance(state, outsider))
+       project.seats.push({ talentId: outsider.id, laboratoryFacilityId: project.laboratoryFacilityId, assignedWeek: project.weeks[0]!.week, releasedWeek: null })
+       project.weeks[0]!.seatTalentIds = [...project.weeks[0]!.seatTalentIds, outsider.id]
+     }, /unemployed Scientist/)
+@@ -65,7 +66,8 @@
+       // as the case above — floor the stored age, anchor via `withTalentProvenance`.
+       const outsider = generateScientist(state.seed, 't-sci-04')
+       state.talent.push({ ...outsider, age: Math.floor(outsider.age) })
+-      state.talentProvenance = withTalentProvenance(state, outsider).talentProvenance
++      // Preserve both provenance and profession authority from the actual append owner.
++      Object.assign(state, withTalentProvenance(state, outsider))
+       project.seats.push({ talentId: outsider.id, laboratoryFacilityId: project.laboratoryFacilityId, assignedWeek: state.market.tick, releasedWeek: null })
+     }, /exceed capacity/)
+   })
+diff --git a/tests/p13b-s2-validation.test.ts b/tests/p13b-s2-validation.test.ts
+--- a/tests/p13b-s2-validation.test.ts
++++ b/tests/p13b-s2-validation.test.ts
+@@ -95,7 +95,8 @@
+       // test (capacity), not an unrelated missing-provenance-row refusal.
+       const outsider = generateScientist(state.seed, 't-sci-outsider')
+       state.talent.push({ ...outsider, age: Math.floor(outsider.age) })
+-      state.talentProvenance = withTalentProvenance(state, outsider).talentProvenance
++      // Preserve both provenance and profession authority from the actual append owner.
++      Object.assign(state, withTalentProvenance(state, outsider))
+       const own = state.hollywood!.playerStudioId
+       state.technology.projects.push({
+         id: `${own}:research:lighting-control-01`, studioId: own, technologyId: 'lighting-control-01',
+diff --git a/tests/p13b-s8-finance.test.ts b/tests/p13b-s8-finance.test.ts
+--- a/tests/p13b-s8-finance.test.ts
++++ b/tests/p13b-s8-finance.test.ts
+@@ -1,3 +1,6 @@
++import { createHash } from 'node:crypto'
++import { readFileSync } from 'node:fs'
++import { gunzipSync } from 'node:zlib'
+ // ── P13B-S8 test 4: typed rival ledger kinds and interval Opex reconcile;
+ // migration basis frozen; legacy zero-Opex grandfathered ───────────────────
+ //
+@@ -157,44 +160,27 @@
+   }, 30_000)
+ 
+   it('migration basis frozen: a GENUINE V26 period (ten keys), lifted through the real migrateToV31, carries the four new keys at zero and its nine original movements byte-identical (coordinator ruling: a LIVE period already carries all 14 keys — this compares the lifted period against its OWN V26 source, never a live period against itself)', () => {
+-    const base = p13aGeneratedStudio(SEED) // week 0: no rival research fact exists yet, so the downgrade below is lossless
+-    const { business } = bellwether(base)
+-    const v27Envelope = save.makeSave(base)
+-    // P14C.1 (record 771, inconsistent_fixture): a freshly-generated V33 world's
+-    // provenance rows are `authored_exact_week` (worldgen, contract 762 §12 F3),
+-    // and the downgrade predicate admits only `legacy_age_anchor` rows — "a
+-    // fresh V33 campaign is therefore NOT downgradable ... there is nothing to
+-    // be lossless about." At week 0 (this fixture never ticks before here),
+-    // `authored_exact_week {ageAtEntry, entryWeek:0}` and `legacy_age_anchor
+-    // {ageAtMigration, migrationWeek:0}` name the exact same anchor (same age,
+-    // same week), so recasting the row kind describes a genuinely equivalent
+-    // world — one that instead entered by a migration at week 0 — not a
+-    // different fact, and lets the REAL migrateToV26 downgrade run rather than
+-    // being hand-forged around.
+-    const v27AsLegacyEntry = {
+-      ...v27Envelope,
+-      state: {
+-        ...v27Envelope.state,
+-        talentProvenance: {
+-          ...v27Envelope.state.talentProvenance,
+-          rows: v27Envelope.state.talentProvenance.rows.map((row) =>
+-            row.kind === 'authored_exact_week'
+-              ? { personId: row.personId, kind: 'legacy_age_anchor' as const, ageAtMigration: row.ageAtEntry, migrationWeek: row.entryWeek }
+-              : row,
+-          ),
+-        },
+-      },
+-    }
+-    const v26Envelope = save.migrateToV26(v27AsLegacyEntry) // genuine, lossless V26 envelope — ten-key periods
+-    const v26Hollywood = v26Envelope.state.hollywood as unknown as HollywoodState
+-    const v26Business = v26Hollywood.businesses.find(b => b.studioId === business.studioId)!
++    // Immutable, actually captured V26 substrate; no current entrant or
++    // provenance authority is recast or erased to manufacture a downgrade.
++    const compressed = readFileSync('tests/fixtures/p13b/legacy-v26-sound-mid-deployment-309.json.gz')
++    expect(createHash('sha256').update(compressed).digest('hex')).toBe(
++      '4b99361166c2503b80ede0dfe3a3cafc7521db235bbf6a2a411212a3257bb288')
++    const raw = gunzipSync(compressed).toString('utf8')
++    expect(createHash('sha256').update(raw).digest('hex')).toBe(
++      '11ef05be4131d3d3c4a19484f31e79cb50fa1936868f96ace7d0d18ea86e2d72')
++    const v26Envelope = save.validateSaveV26(JSON.parse(raw))
++    expect(v26Envelope.state.market.tick).toBe(309)
++    const v26Hollywood = v26Envelope.state.hollywood!
++    const identity = v26Hollywood.identities.find(row => row.row === 1)!
++    expect(identity.studioId).toBe('studio-aca408ec-r01')
++    const v26Business = v26Hollywood.businesses.find(b => b.studioId === identity.studioId)!
+     const v26Period = v26Business.account.periods[0]!
+     expect(Object.keys(v26Period.movements)).toHaveLength(10) // the genuine pre-S8 shape: ten kinds, none of the four research ones
+     for (const kind of RIVAL_RESEARCH_MONEY_KINDS) expect(Object.hasOwn(v26Period.movements, kind)).toBe(false)
+ 
+     const lifted = withV27.migrateToV31(v26Envelope)
+     const liftedHollywood = lifted.state.hollywood as unknown as HollywoodState
+-    const liftedBusiness = liftedHollywood.businesses.find(b => b.studioId === business.studioId)!
++    const liftedBusiness = liftedHollywood.businesses.find(b => b.studioId === identity.studioId)!
+     const liftedPeriod = liftedBusiness.account.periods[0]!
+     const liftedMovements = { ...liftedPeriod.movements } as unknown as Record<string, number>
+     for (const kind of RIVAL_RESEARCH_MONEY_KINDS) {
+diff --git a/tests/p14b4-cast-class-policy.test.ts b/tests/p14b4-cast-class-policy.test.ts
+--- a/tests/p14b4-cast-class-policy.test.ts
++++ b/tests/p14b4-cast-class-policy.test.ts
+@@ -21,7 +21,7 @@
+ import * as promiseModule from '../src/core/promises.js'
+ import { publicPreferredOpportunity, publicPreferredTerm, publicPriorityOrder, submitProposal } from '../src/core/talentMarket.js'
+ import { attachPromise, promiseFeasibility, trustDescriptor } from '../src/core/promises.js'
+-import { provenanceRowFor, recomputeDue } from '../src/core/aging.js'
++import { ageAt, anchorOf, provenanceRowFor, recomputeDue } from '../src/core/aging.js'
+ 
+ const clone = <T>(value: T): T => structuredClone(value)
+ 
+@@ -29,14 +29,19 @@
+  * that disagrees with its own provenance row (measured: it is silently
+  * OVERWRITTEN by the next real `materializeAges`/`tick()` instead of throwing
+  * immediately, if that tick runs before anything validates — a more dangerous
+- * failure than a loud refusal). This rewrites the person's own anchor to the
+- * CURRENT tick instead, so the law itself derives the desired age — same
++ * failure than a loud refusal). This adjusts only the person's anchored age at its
++ * ORIGINAL entry tick, so the law itself derives the desired age — same
+  * explicit synthetic pure-read age input as before, now expressed legally and
+  * durable across further ticking. `due` is rebuilt so condition 3 stays honest. */
+ function withSyntheticAge(state: GameState, personId: string, age: number): GameState {
+   const oldRow = state.talentProvenance.rows.find((r) => r.personId === personId)
+   if (oldRow === undefined) throw new Error(`withSyntheticAge: no provenance row for ${personId}`)
+-  const newRow = provenanceRowFor(personId, age, state.market.tick, oldRow.kind)
++  const anchor = anchorOf(oldRow)
++  // Labelled age input: preserve actual entry date/kind and fractional birthday.
++  // Only its age coordinate changes; never create a new entry at196.
++  const newRow = provenanceRowFor(personId, anchor.age + age - ageAt(oldRow, state.market.tick), anchor.week, oldRow.kind)
++  expect(ageAt(newRow, state.market.tick)).toBe(age)
++  expect(anchorOf(newRow).week).toBe(anchor.week)
+   const rows = state.talentProvenance.rows.map((r) => (r.personId === personId ? newRow : r))
+   const talent = state.talent.map((t) => (t.id === personId ? { ...t, age } : t))
+   const storedAge = new Map(talent.map((t) => [t.id, t.age]))
+diff --git a/tests/production-operations-save-v8.test.ts b/tests/production-operations-save-v8.test.ts
+--- a/tests/production-operations-save-v8.test.ts
++++ b/tests/production-operations-save-v8.test.ts
+@@ -52,6 +52,7 @@
+   CastSlot,
+   CreativeRole,
+   GameState,
++  GameStateV4,
+   GameStateV7,
+   SaveFile,
+   SaveFileV7,
+@@ -207,7 +208,7 @@
+ function preOpeningBandSaves() {
+   const world = generateWorld("save-v8-pre-opening-band");
+   const greenlit = applyActions(world, OracleAgent.chooseActions(world));
+-  const historical = JSON.parse(stableStringify(greenlit)) as GameState;
++  const historical = JSON.parse(stableStringify(makeSaveV4(greenlit).state)) as GameStateV4;
+   for (const production of historical.studio.activeProductions) {
+     for (const segment of production.forecastSnapshot.segments) {
+       delete (
+@@ -221,11 +222,6 @@
+     ledger,
+     freeAgents,
+     theatricalRuns,
+-    careerEvents: _careerEvents,
+-    economyEngagedEver: _economyEngagedEver,
+-    publicity: _publicity,
+-    operations: _operations,
+-    scriptDevelopment: _scriptDevelopment,
+     ...v2State
+   } = historical;
+   const v3State = {
+diff --git a/tests/roster-wall-artifacts.test.ts b/tests/roster-wall-artifacts.test.ts
+--- a/tests/roster-wall-artifacts.test.ts
++++ b/tests/roster-wall-artifacts.test.ts
+@@ -251,7 +251,8 @@
+   const matrix = rosterWallAcceptedArtifactMatrix('smoke')
+   const writer = new RosterWallArtifactWriter(fixture.root, runName)
+   const entryIndex: RosterWallAcceptedArtifactManifest['entryIndex'] = []
+-  const state = generateWorld('accepted-smoke-entry')
++  // This remains a deliberately skeletal old smoke artifact, not a malformed38 carrier.
++  const state = makeSave(generateWorld('accepted-smoke-entry')).state
+   state.market.tick = 196
+   const saveJson = exportSave(makeSave(state))
+   const imported = importSave(saveJson)
+diff --git a/tests/ruling-a-development-in-play.test.ts b/tests/ruling-a-development-in-play.test.ts
+--- a/tests/ruling-a-development-in-play.test.ts
++++ b/tests/ruling-a-development-in-play.test.ts
+@@ -31,6 +31,7 @@
+   exportSave,
+   importSave,
+   makeSaveV1,
++  makeSaveV2,
+   convertV1ToV2,
+   roleOVR,
+   stream,
+@@ -407,7 +408,7 @@
+     // Build a legacy V1 state (old scalar-skill talent) and convert it. Conversion
+     // derives D-9 fields but must NOT run the development step (no film released
+     // during a load). Idempotent conversion proves no repeated growth.
+-    const gen = generateWorld('A-v1-1')
++    const gen = makeSaveV2(generateWorld('A-v1-1')).state // actual admitted old substrate
+     const v1Talent: TalentV1[] = gen.talent.map((t) => ({
+       id: t.id,
+       name: t.name,
+@@ -420,20 +421,7 @@
+       salary: t.salary,
+       authored: t.authored,
+     }))
+-    const {
+-      talent: _liveTalent,
+-      founding: _founding,
+-      contracts: _contracts,
+-      ledger: _ledger,
+-      freeAgents: _freeAgents,
+-      theatricalRuns: _theatricalRuns,
+-      careerEvents: _careerEvents,
+-      economyEngagedEver: _economyEngagedEver,
+-      publicity: _publicity,
+-      operations: _operations,
+-      scriptDevelopment: _scriptDevelopment,
+-      ...v1Base
+-    } = gen
++    const { talent: _liveTalent, ...v1Base } = gen
+     const v1State: GameStateV1 = { ...v1Base, talent: v1Talent }
+     const v1Save: SaveFileV1 = makeSaveV1(v1State)
+ 
+diff --git a/ui/src/engine/d17-save-migration.test.ts b/ui/src/engine/d17-save-migration.test.ts
+--- a/ui/src/engine/d17-save-migration.test.ts
++++ b/ui/src/engine/d17-save-migration.test.ts
+@@ -128,7 +128,7 @@
+   it('a CURRENT-version save round-trips through the adapter as NOT converted', () => {
+     const state = newFoundedGame('d17-adapter-v10')
+     const json = exportSaveJson(state)
+-    expect(JSON.parse(json).saveVersion).toBe(31) // Current writer (P14B.5): SaveFileV31.
++    expect(JSON.parse(json).saveVersion).toBe(38) // Current C.3 writer: SaveFileV38.
+ 
+     const r = importSaveJson(json)
+     expect(r.ok).toBe(true)
+@@ -152,7 +152,7 @@
+     expect(r.state.operations).toEqual(state.operations)
+     expect(r.state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] })
+     expect(r.state.castingSessions).toEqual({ mode: 'legacy', sessions: [] })
+-    expect(JSON.parse(exportSaveJson(r.state)).saveVersion).toBe(31) // live writer (P14B.5): SaveFileV31.
++    expect(JSON.parse(exportSaveJson(r.state)).saveVersion).toBe(38) // current C.3 writer: SaveFileV38.
+   })
+ 
+   it('a V5 file with a hand-added economyEngagedEver is still read as V5 (the flag is recomputed)', () => {
+diff --git a/ui/src/engine/film-chronicle-adapter.test.ts b/ui/src/engine/film-chronicle-adapter.test.ts
+--- a/ui/src/engine/film-chronicle-adapter.test.ts
++++ b/ui/src/engine/film-chronicle-adapter.test.ts
+@@ -286,7 +286,7 @@
+     const before = releaseNewspaper(state, film)
+     expect(before).not.toBeNull()
+     const json = exportSaveJson(state)
+-    expect((JSON.parse(json) as { saveVersion: number }).saveVersion).toBe(31) // live writer (P14B.5): SaveFileV31.
++    expect((JSON.parse(json) as { saveVersion: number }).saveVersion).toBe(38) // current C.3 writer: SaveFileV38.
+     const imported = importSaveJson(json)
+     expect(imported.ok).toBe(true)
+     if (!imported.ok) return
+diff --git a/ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx b/ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx
+--- a/ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx
++++ b/ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx
+@@ -1,3 +1,4 @@
++import { exportSave, validateSaveV13 } from '../../../src/core/save.ts'
+ import { readFileSync } from 'node:fs'
+ import { join } from 'node:path'
+ import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
+@@ -100,47 +101,56 @@
+   ending: 'bittersweet',
+ } as const
+ 
+-function fixtureState(): GameState {
++function fixtureState(blockDirectors = false): GameState {
+   const bytes = readFileSync(
+     join(process.cwd(), 'ui/e2e/lot-native-next-event-v1/casting-review.save.json'),
+     'utf8',
+   )
++  const historical = validateSaveV13(JSON.parse(bytes))
+   const imported = importSaveJson(bytes)
+   if (!imported.ok) throw new Error(imported.error)
+-  return imported.state
++  if (!blockDirectors) return imported.state
++  // Labelled old-shaped discriminator: admit the actual V13 source first,
++  // alter only its primary roles, prove that old shape, then migrate it. This
++  // creates no fictional current profession change or replacement anchor.
++  expect(() => exportSaveJson(imported.state)).not.toThrow()
++  const originalPackage = scriptProjectsBoard(imported.state).packages[0]
++  expect(originalPackage).toBeDefined()
++  expect(originalPackage!.availability.staffingAvailable).toBe(true)
++  expect(Object.hasOwn(historical.state, 'hollywood')).toBe(false)
++  expect(historical.state.talent.some(person => person.role === 'director')).toBe(true)
++  const oldBlocked = validateSaveV13({ ...historical, state: { ...historical.state,
++    talent: historical.state.talent.map(person =>
++      person.role === 'director' ? { ...person, role: 'actor' as const } : person),
++  } })
++  expect(oldBlocked.state.talent.some(person => person.role === 'director')).toBe(false)
++  const blocked = importSaveJson(exportSave(oldBlocked))
++  if (!blocked.ok) throw new Error(blocked.error)
++  expect(() => exportSaveJson(blocked.state)).not.toThrow()
++  // Real industry migration may add employed rival Directors. Prove the
++  // player's actual staffing shortage, not a false zero-world population.
++  expect(scriptProjectsBoard(blocked.state).packages[0]!.availability.staffingAvailable).toBe(false)
++  expect(blocked.state.market.tick).toBe(1)
++  return blocked.state
+ }
+ 
+-function reviewState(): GameState {
+-  const stopped = advanceToNextEvent(fixtureState())
++function reviewState(blockDirectors = false): GameState {
++  const stopped = advanceToNextEvent(fixtureState(blockDirectors))
+   if (stopped.stopReason !== 'castingReview') {
+     throw new Error('setup: expected the Casting review stop')
+   }
+   return stopped.next
+ }
+ 
+-// P04A.3 (Owner ruling) — a completed screenplay's credited Writer holds a
+-// permanent CREDIT, not an active assignment, so a lapsed/released writer
+-// contract no longer publishes any blocker on a Ready package (`writerBlockers`
+-// is now `[]` for `purpose: 'package'`). Releasing the writer's contract — the
+-// old route to this fixture — no longer reaches a blocked review at all.
+-// Dropping a SEAT's studio contract doesn't reliably reach `package-staffing`
+-// either: `packageAvailability` counts every talent WORLD-WIDE (contracted or
+-// freelancer-market), so one dropped contract is routinely covered by an
+-// unrelated freelancer. The deterministic way in — already used for the same
+-// blocker in `ui/src/lot/snapshot/castingReview.test.ts` (`blockedReviewStudio`)
+-// and `tests/script-read-model.test.ts` — is to remove the required role from
+-// the WORLD entirely: reassign every Director-role talent to Actor, so the
+-// studio has zero available Directors anywhere, contracted or freelance.
++// P04A.3: a completed Writer's credit is not active occupancy. The
++// blocked control therefore removes Director primary roles from the admitted
++// old V13 source before migration. Newly entered rival employees remain real;
++// the public package view must prove the actual player staffing shortage.
++// Current roles/anchors/history are never rewritten after the migration.
+ function blockedReviewState(): GameState {
+-  const review = reviewState()
+-  const clear = currentLotCastingReviewContext(review)
+-  if (clear === null) throw new Error('setup: expected the clear review context')
+-  const blocked: GameState = {
+-    ...review,
+-    talent: review.talent.map((talent) =>
+-      talent.role === 'director' ? { ...talent, role: 'actor' } : talent,
+-    ),
+-  }
++  const blocked = reviewState(true)
++  expect(blocked.market.tick).toBe(2) // same single1→2 review step, no extra setup tick
++  expect(() => exportSaveJson(blocked)).not.toThrow()
+   const context = currentLotCastingReviewContext(blocked)
+   if (context === null || context.action.opensPackage) {
+     throw new Error('setup: expected an ordinary Package blocker')
+@@ -235,7 +245,7 @@
+ }
+ 
+ async function renderStudio(state: GameState) {
+-  saveActiveSession(state)
++  expect(saveActiveSession(state)).toBe(true)
+   render(<App />)
+   const lot = await screen.findByTestId('studio-lot-screen')
+   await waitFor(() => expect(renderer.instances).toHaveLength(1))
+diff --git a/ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx b/ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx
+--- a/ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx
++++ b/ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx
+@@ -1,3 +1,4 @@
++import { exportSave, validateSaveV13 } from '../../../src/core/save.ts'
+ import { readFileSync } from 'node:fs'
+ import { join } from 'node:path'
+ import type { ComponentProps } from 'react'
+@@ -158,47 +159,56 @@
+   }
+ })
+ 
+-function fixtureState(): GameState {
++function fixtureState(blockDirectors = false): GameState {
+   const bytes = readFileSync(
+     join(process.cwd(), 'ui/e2e/lot-native-next-event-v1/casting-review.save.json'),
+     'utf8',
+   )
++  const historical = validateSaveV13(JSON.parse(bytes))
+   const imported = importSaveJson(bytes)
+   if (!imported.ok) throw new Error(imported.error)
+-  return imported.state
++  if (!blockDirectors) return imported.state
++  // Labelled old-shaped discriminator: admit the actual V13 source first,
++  // alter only its primary roles, prove that old shape, then migrate it. This
++  // creates no fictional current profession change or replacement anchor.
++  expect(() => exportSaveJson(imported.state)).not.toThrow()
++  const originalPackage = scriptProjectsBoard(imported.state).packages[0]
++  expect(originalPackage).toBeDefined()
++  expect(originalPackage!.availability.staffingAvailable).toBe(true)
++  expect(Object.hasOwn(historical.state, 'hollywood')).toBe(false)
++  expect(historical.state.talent.some(person => person.role === 'director')).toBe(true)
++  const oldBlocked = validateSaveV13({ ...historical, state: { ...historical.state,
++    talent: historical.state.talent.map(person =>
++      person.role === 'director' ? { ...person, role: 'actor' as const } : person),
++  } })
++  expect(oldBlocked.state.talent.some(person => person.role === 'director')).toBe(false)
++  const blocked = importSaveJson(exportSave(oldBlocked))
++  if (!blocked.ok) throw new Error(blocked.error)
++  expect(() => exportSaveJson(blocked.state)).not.toThrow()
++  // Real industry migration may add employed rival Directors. Prove the
++  // player's actual staffing shortage, not a false zero-world population.
++  expect(scriptProjectsBoard(blocked.state).packages[0]!.availability.staffingAvailable).toBe(false)
++  expect(blocked.state.market.tick).toBe(1)
++  return blocked.state
+ }
+ 
+-function reviewState(): GameState {
+-  const stopped = advanceToNextEvent(fixtureState())
++function reviewState(blockDirectors = false): GameState {
++  const stopped = advanceToNextEvent(fixtureState(blockDirectors))
+   if (stopped.stopReason !== 'castingReview') {
+     throw new Error('setup: expected the Casting review stop')
+   }
+   return stopped.next
+ }
+ 
+-// P04A.3 (Owner ruling) — a completed screenplay's credited Writer holds a
+-// permanent CREDIT, not an active assignment, so a released writer contract no
+-// longer publishes any blocker on a Ready package (`writerBlockers` is now `[]`
+-// for `purpose: 'package'`). Releasing the writer's contract — the old route to
+-// this fixture — no longer reaches a blocked review at all. Dropping a SEAT's
+-// studio contract doesn't reliably reach `package-staffing` either:
+-// `packageAvailability` counts every talent WORLD-WIDE (contracted or
+-// freelancer-market), so one dropped contract is routinely covered by an
+-// unrelated freelancer. The deterministic way in — already used for the same
+-// blocker in `ui/src/lot/snapshot/castingReview.test.ts` (`blockedReviewStudio`)
+-// and `tests/script-read-model.test.ts` — is to remove the required role from
+-// the WORLD entirely: reassign every Director-role talent to Actor, so the
+-// studio has zero available Directors anywhere, contracted or freelance.
++// P04A.3: a completed Writer's credit is not active occupancy. The
++// blocked control therefore removes Director primary roles from the admitted
++// old V13 source before migration. Newly entered rival employees remain real;
++// the public package view must prove the actual player staffing shortage.
++// Current roles/anchors/history are never rewritten after the migration.
+ function blockedReviewState(): GameState {
+-  const review = reviewState()
+-  const clearContext = currentLotCastingReviewContext(review)
+-  if (clearContext === null) throw new Error('setup: expected a clear Casting review')
+-  const blocked: GameState = {
+-    ...review,
+-    talent: review.talent.map((talent) =>
+-      talent.role === 'director' ? { ...talent, role: 'actor' } : talent,
+-    ),
+-  }
++  const blocked = reviewState(true)
++  expect(blocked.market.tick).toBe(2) // same single1→2 review step, no extra setup tick
++  expect(() => exportSaveJson(blocked)).not.toThrow()
+   const context = currentLotCastingReviewContext(blocked)
+   if (context === null || context.action.opensPackage) {
+     throw new Error('setup: expected the world-wide Director shortage to block Package Assembly')
+@@ -319,7 +329,7 @@
+ }
+ 
+ async function mountStudio(state: GameState) {
+-  saveActiveSession(state)
++  expect(saveActiveSession(state)).toBe(true)
+   authorityProbe.trace.length = 0
+   authorityProbe.acknowledgeCalls.length = 0
+   const mounted = render(<App />)
+diff --git a/ui/src/lot/snapshot/v14SetHolderBoundary.test.ts b/ui/src/lot/snapshot/v14SetHolderBoundary.test.ts
+--- a/ui/src/lot/snapshot/v14SetHolderBoundary.test.ts
++++ b/ui/src/lot/snapshot/v14SetHolderBoundary.test.ts
+@@ -43,7 +43,7 @@
+     const json = exportSaveJson(state)
+     // This exercises the current writer, including the governed P13 root.
+     // Frozen historical validators retain their separate versioned tests.
+-    expect(JSON.parse(json).saveVersion).toBe(31) // live writer (P14B.5): SaveFileV31.
++    expect(JSON.parse(json).saveVersion).toBe(38) // current C.3 writer: SaveFileV38.
+ 
+     const outcome = importSaveJson(json)
+     expect(outcome.ok).toBe(true)
+diff --git a/ui/src/saves.test.tsx b/ui/src/saves.test.tsx
+--- a/ui/src/saves.test.tsx
++++ b/ui/src/saves.test.tsx
+@@ -69,8 +69,9 @@
+ // an automatic import must say only that an older save was upgraded, never call it V1.
+ function legacyV8SaveJson(seed: string): string {
+   const live = newHistoricalFoundedGame(seed)
+-  const { scriptDevelopment: _scriptDevelopment, ...stateV8 } = live
+-  return exportSave(makeSaveV8(stateV8))
++  // Admit the intact historical-founded current control before the real
++  // frozen builder projects V8. Never remove required current roots first.
++  return exportSave(makeSaveV8(live))
+ }
+ 
+ function openCurrentStudioThroughStart(seed: string): void {
+@@ -122,7 +123,7 @@
+     state = advanceWeek(state).next
+ 
+     const json = exportSaveJson(state)
+-    expect(JSON.parse(json).saveVersion).toBe(31) // live writer (P14B.5): SaveFileV31.
++    expect(JSON.parse(json).saveVersion).toBe(38) // current C.3 writer: SaveFileV38.
+     const r = importSaveJson(json)
+     expect(r.ok).toBe(true)
+     if (!r.ok) return
+diff --git a/ui/src/session.test.tsx b/ui/src/session.test.tsx
+--- a/ui/src/session.test.tsx
++++ b/ui/src/session.test.tsx
+@@ -329,7 +329,7 @@
+ 
+     // …and re-saving it writes a V14 envelope that loads back UNCONVERTED.
+     saveActiveSession(loaded.state)
+-    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(31) // P14B.5: live saves are SaveFileV31.
++    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(38) // C.3: live saves are SaveFileV38.
+     const again = loadActiveSession()
+     expect(again.ok).toBe(true)
+     if (!again.ok) return
+@@ -357,7 +357,7 @@
+ 
+     // Round-trip: saved as V14, reloaded unconverted, still not engaged.
+     saveActiveSession(loaded.state)
+-    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(31) // P14B.5: live saves are SaveFileV31.
++    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(38) // C.3: live saves are SaveFileV38.
+     const again = loadActiveSession()
+     expect(again.ok).toBe(true)
+     if (!again.ok) return
+@@ -384,7 +384,7 @@
+ 
+     saveActiveSession(loaded.state)
+     const parsedV11 = JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!)
+-    expect(parsedV11.saveVersion).toBe(31) // P14B.5: live saves are SaveFileV31.
++    expect(parsedV11.saveVersion).toBe(38) // C.3: live saves are SaveFileV38.
+     expect(parsedV11.state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] })
+     expect(parsedV11.state.castingSessions).toEqual({ mode: 'legacy', sessions: [] })
+     expect(parsedV11.state.construction).toEqual({ mode: 'legacy', parcels: [], projects: [] })
