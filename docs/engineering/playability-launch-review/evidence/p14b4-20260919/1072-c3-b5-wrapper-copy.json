@@ -1,0 +1,21 @@
+{
+  "sourceSha": "ad881c4b412a8fdb8ebe54a308c0627442bbaa1d",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1105-c3-b5-forensic-prepare.mjs",
+    "--source-sha",
+    "ad881c4b412a8fdb8ebe54a308c0627442bbaa1d"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T04:43:09.192Z",
+  "end": "2026-09-27T04:43:15.800Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "ad881c4b412a8fdb8ebe54a308c0627442bbaa1d",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

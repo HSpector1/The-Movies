@@ -1,0 +1,23 @@
+{
+  "sourceSha": "ad881c4b412a8fdb8ebe54a308c0627442bbaa1d",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1105-c3-b5-forensic-typecheck.mjs",
+    "--snapshot-root",
+    "/private/var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/studio-c3-b5-forensic-wrapper-wEC2D1",
+    "--manifest-sha",
+    "3900d631fa79f6e014bd8859a2972a98d7b70ab8bd7256c9ee4859958326534a"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T04:43:24.086Z",
+  "end": "2026-09-27T04:43:58.495Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "ad881c4b412a8fdb8ebe54a308c0627442bbaa1d",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

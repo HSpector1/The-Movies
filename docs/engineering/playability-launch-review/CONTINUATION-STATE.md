@@ -1,5 +1,28 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — forensic complete; independent C correction tests next
+
+PublishedHEAD ad881c4b412a8fdb8ebe54a308c0627442bbaa1d; no consumed source changes.
+All1071–1075 gates CLOSED/fixedsource.1071 controls2positive/15refusal PASS;
+1072 prepared snapshotwEC2D1,1073 actual copied types384roots/725files PASS.
+1074 sole corrected forensic pass completed416defaultticks/12.520s, all9original
+comparisons recovered, gameplayValid:false with actual212strict refusal/collisions.
+Whole416 admission passes but does not repair the invalid212trajectory. Original
+failed212callattempt preserved; total628calls across two separate attempts.
+1075 finalguards passed2.329s; exact manifest/patch/result mirrored before changes.
+1105-E records actualscope; reviewer owns1105-F causal review before anypinchange.
+Keep both temporarysnapshots and original1100/1105 sources/artifacts unchanged.
+
+Failed endurance C1070 remains failed at1352 after1300exactPASS.1106-A/B record
+11immutable scalar differences at release1311/returned1312.1107-A/B adopted narrow
+fixed FORCE_ORDER correction and explicit mixed-source lineage. Author owns
+staged independent permutation/24tick10action reconstructed-route tests; no live
+installation or production edit until frozenreview/RED. Parent soleproductionwriter
+and executor. Corrected C/D must match all originalA commands/checkpoints/roots;
+A/B retain their actual historicalsource scope and are not repeated or relabelled.
+1093/1096 remain unapplied. Allfinal1103gates and native/Owner limits remain.
+P15D2/D3/D4a answerspending. Continueauthorizedprogram, max2existing specialists.
+
 ## CURRENT — C failed at1352; preserve source for forensic and correction gates
 
 1070 C is CLOSED child1/fixedc362bab9/empty diff,04:31:47.568–04:34:35.092Z,
