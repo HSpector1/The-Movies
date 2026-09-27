@@ -1,0 +1,83 @@
+{
+  "at": "2026-09-27T17:36:45.583573+00:00",
+  "sourceHead": "2af37179eb2d33b2a295c0e20fdd87e5318ad3cf",
+  "gates": [
+    {
+      "record": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1208-p3-occupancy-root-types.json",
+        "bytes": 603,
+        "sha256": "b23e50d68119e1b468e9f59f406fb0b92fc4973ab80cf4e4554709e4fcb868dc"
+      },
+      "raw": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1208-p3-occupancy-root-types.txt",
+        "bytes": 319,
+        "sha256": "b3b20e221758e8aea42f3fb3727329f10a51bc6281c7eddab5dbf2bf81c8bd74"
+      },
+      "elapsedSeconds": 35.103
+    },
+    {
+      "record": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1209-p3-occupancy-bridge-types.json",
+        "bytes": 641,
+        "sha256": "ddec8e862837ddfe7a1568ac4d908c0108178ffa96abc03b135661bc350959ee"
+      },
+      "raw": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1209-p3-occupancy-bridge-types.txt",
+        "bytes": 347,
+        "sha256": "ff3466b0f2cb2e07442268cd63b8c2ec264cf5c87482a10297f090ff6ebc9314"
+      },
+      "elapsedSeconds": 28.216
+    },
+    {
+      "record": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1210-p3-occupancy-core.json",
+        "bytes": 727,
+        "sha256": "6142c584d90000732b0efae15cdfd437ab26479fb0d9abd16c54ddb6734e5116"
+      },
+      "raw": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1210-p3-occupancy-core.txt",
+        "bytes": 12091,
+        "sha256": "59cd0f15affdffca62fd74e34aa49e3e18f886be1e7ac5d37c40afe1723e426f"
+      },
+      "elapsedSeconds": 77.888
+    }
+  ],
+  "coreCases": {
+    "passed": 15,
+    "filtered": 2,
+    "excluded": [
+      "D07",
+      "D18"
+    ]
+  },
+  "actualAdvances": {
+    "player": 208,
+    "cancelBefore": 60,
+    "cancelAfter": 51,
+    "waiver": 43,
+    "lifecycle": 156,
+    "rival": 0,
+    "total": 518,
+    "ceiling": 556,
+    "addedOccupancyBranch": 0
+  },
+  "legacy4": {
+    "bytes": 851,
+    "sha256": "182cf54d3a2fbb8bb2fc55cf74e97e220923d634ef454b816d3770d12dcb055e",
+    "literalEqualTo1135And1205": true
+  },
+  "occupancyReceipt": {
+    "classification": "IMPOSSIBLE",
+    "bottleneck": "no filming week inside the window can reach that many pictures",
+    "inputsDigest": "36949cf9519e98fb",
+    "rulesVersion": 6,
+    "week": 52
+  },
+  "sourceAndProtectedTestsUnchanged": true,
+  "limitations": [
+    "Cross-owner, Writer-credit, retirement-floor and historical post-take controls not independently runtime-isolated yet.",
+    "Rival D07/D18 were filtered; no rerun or new qualification.",
+    "Earliest release/take bounds do not certify resource clearance.",
+    "No full suite or Unity/native claim."
+  ]
+}

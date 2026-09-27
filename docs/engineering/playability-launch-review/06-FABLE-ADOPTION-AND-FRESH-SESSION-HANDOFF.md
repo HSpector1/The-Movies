@@ -1,5 +1,29 @@
 # R3-N1 native correction record — 2026-09-15 · OPS-R3-N1-NATIVE-CORRECTION-20260915-01
 
+## CURRENT — Occupancy correction verified on published2af37179; boundary controls next
+
+Source2af37179eb2d33b2a295c0e20fdd87e5318ad3cf is published with exact remote
+equality.1208 roottypesPASS35.103s;1209 BridgetypesPASS28.216s;1210 selected
+nonrival core15PASS/2filtered in77.888s. Every gate retained fixed source, empty
+consumed diff/untracked list and no signal/error. The unchanged D03O now passes
+with occupied IMPOSSIBLE6/no-filming receipt digest36949cf9519e98fb; its actual
+cast-admission/refusal/empty-reservation/purity premises remain true. Its branch
+adds zero advances. Actual whole-run518 calls=208player+60cancelBefore+51cancelAfter
++43waiver+156lifecycle; rival0, below the unchanged556 ceiling. All22 caches
+completed. The complete851-byte legacy4 marker is byte-identical to1135/1205.
+
+1211 closure pins raw results and protected source. Separate1211-B review follows
+the closed records before evidence publication. No heavy process remains.
+Next1212-A designs only narrow zero-advance cross-owner, Writer-credit and
+retirement-floor controls on existing branches; any hypothetical query-time
+control must remain explicitly distinct from a campaign advanced to that week.
+Historical post-take, isolated slack and failed D07/D18 rival requirements retain
+their limits. No new rival route, seed, staffing extension or full-suite claim.
+
+Parent remains sole production writer/integrator/heavy executor, with existing
+separate test and review specialists. Continue remaining P14/P15/P16/specified
+P17/P18. Selected P15 decisions persist; Unity/native/Owner access stays deferred.
+
 ## CURRENT — Actual occupancy defect reproduced; bounded correction ready for verification
 
 Published7e901a8ab85ff9b46f08abefd212820fe1ad88fe is the exact source of1204

@@ -1,0 +1,60 @@
+{"sourceSha":"2af37179eb2d33b2a295c0e20fdd87e5318ad3cf","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14p3-directing-promises.test.ts","-t","D(?:0[1-6]|0[89]|1[0-4]|13W|03O) "],"node":"v20.20.2","start":"2026-09-27T17:34:21.747Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D01 offers fresh directing work to lawful Actors and Directors
+1133-P3-LEGACY4 {"week":8,"rngState":"1557239868,672280863,464522958,2878174094","receipts":[{"draft":{"family":"APPEARANCE_COUNT","predicate":{"count":1},"issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":112},"receipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"9a5006d1107172a3","rulesVersion":4,"week":8}},{"draft":{"family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"lead"},"issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":112},"receipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"3dbf55ccb67dfa2c","rulesVersion":4,"week":8}}]}
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D06 fulfills directing once from two real distinct first takes
+1133-P3-FILMS {"first":{"take":61,"release":65,"ticks":13},"second":{"take":74,"release":78,"ticks":13},"terminalWeek":208}
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 second slice: cancellation and same-domain waiver > D08 keeps earned work and attributes cancellation, due and termination outcomes
+1143-P3-CANCELLATION {"late":{"cancelled":108,"due":112,"firstTake":61},"afterTake":{"cancelled":61,"due":112},"terminated":61}
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 second slice: cancellation and same-domain waiver > D12 waives only forward same-domain remaining work on the same contract
+1143-P3-WAIVER {"waived":61,"windowStart":62,"originalTake":61,"substituteTake":74,"due":104}
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 third slice: reservations, profession chronology and successor proof > D09 reserves the actual union and freezes a changed receipt without restamping its root
+1149-P3-RESERVATIONS {"rivalClassification":"FRAGILE","scriptIds":["script-0000","script-0001"],"boundWeek":260,"castId":"promise-59","directorId":"promise-60","prices":{"authored-0000":{"annualSalary":562930,"signingBonus":101327},"authored-0002":{"annualSalary":588320,"signingBonus":105898}}}
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 third slice: reservations, profession chronology and successor proof > D10 keeps a newly bound Director obligation lawful after its completed Actor episode
+1149-P3-LIFECYCLE {"bound":260,"firstDisposition":261,"announced":364,"effective":416,"actorRetired":208}
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 third slice: reservations, profession chronology and successor proof > D11 preserves promise outcomes through actual current-profession retirement
+1149-P3-OUTCOME-HISTORY {"playerTerminal":208,"directorDue":300,"directorAnnouncement":364,"final":364}
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 third slice: reservations, profession chronology and successor proof > D13W refuses a nonaccepted receipt on an actual Director waiver successor
+1149-P3-WAIVER-CHAIN {"week":61,"ids":["promise-0","promise-1","promise-2"],"windows":[62,63],"due":104}
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 bounded occupancy admission > D03O refuses a Director window blocked by the actual exclusive cast seat
+1203-P3-OCCUPANCY {"week":52,"personId":"authored-0006","promiseId":"promise-0","draft":{"family":"DIRECTING_COUNT","predicate":{"kind":"directorCount","count":1},"issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":66,"promiseId":"promise-0"},"vacantQuote":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"7073d8f6dbafa83c","rulesVersion":6,"week":52},"occupiedQuote":{"classification":"IMPOSSIBLE","bottleneck":"no filming week inside the window can reach that many pictures","inputsDigest":"36949cf9519e98fb","rulesVersion":6,"week":52},"vacantReservations":[],"occupiedReservations":[],"production":{"id":"prod-0052","startTick":52,"remainingTicks":8,"directorId":"authored-0002","cast":{"lead":"authored-0006","antagonist":"authored-0001","support":"authored-0005"}},"readyProject":{"id":"script-0001","status":"ready","productionId":null},"earliestReleaseLowerBound":61,"earliestFreshDirectorTakeLowerBound":66,"actualSecondGreenlightRefusal":"applyActions: greenlight talent \"authored-0006\" is already engaged in an active production (exclusivity, M16)","counters":{"setupBefore":{"actualTicks":208,"cap":208,"cachedPhases":[{"name":"created0","completed":true},{"name":"managedEmpty8","completed":true},{"name":"ready10","completed":true},{"name":"cases45","completed":true},{"name":"attached45","completed":true},{"name":"bound52","completed":true},{"name":"firstFilm","completed":true},{"name":"secondFilm","completed":true},{"name":"terminal208","completed":true},{"name":"cancelBefore108","completed":true},{"name":"cancelBefore112","completed":true},{"name":"cancelAfterTake","completed":true},{"name":"cancelAfter112","completed":true},{"name":"waiverInput","completed":true},{"name":"waived61","completed":true},{"name":"waiver104","completed":true},{"name":"lifecycle208","completed":true},{"name":"lifecycle248","completed":true},{"name":"lifecycleAttached248","completed":true},{"name":"lifecycle260","completed":true},{"name":"lifecycle261","completed":true},{"name":"lifecycle364","completed":true}]},"setupAfter":{"actualTicks":208,"cap":208,"cachedPhases":[{"name":"created0","completed":true},{"name":"managedEmpty8","completed":true},{"name":"ready10","completed":true},{"name":"cases45","completed":true},{"name":"attached45","completed":true},{"name":"bound52","completed":true},{"name":"firstFilm","completed":true},{"name":"secondFilm","completed":true},{"name":"terminal208","completed":true},{"name":"cancelBefore108","completed":true},{"name":"cancelBefore112","completed":true},{"name":"cancelAfterTake","completed":true},{"name":"cancelAfter112","completed":true},{"name":"waiverInput","completed":true},{"name":"waived61","completed":true},{"name":"waiver104","completed":true},{"name":"lifecycle208","completed":true},{"name":"lifecycle248","completed":true},{"name":"lifecycleAttached248","completed":true},{"name":"lifecycle260","completed":true},{"name":"lifecycle261","completed":true},{"name":"lifecycle364","completed":true}]},"setupDelta":0,"branchAdvanceDelta":0,"outcome":{"playerCalls":208,"playerCap":208,"branches":[{"name":"cancelBefore","actualTicks":60,"cap":64,"startWeek":52},{"name":"cancelAfter","actualTicks":51,"cap":64,"startWeek":61},{"name":"waiver","actualTicks":43,"cap":64,"startWeek":61}],"total":362,"cap":400},"continuity":{"playerCalls":208,"playerCap":208,"branches":[{"name":"cancelBefore","actualTicks":60,"cap":64,"startWeek":52},{"name":"cancelAfter","actualTicks":51,"cap":64,"startWeek":61},{"name":"waiver","actualTicks":43,"cap":64,"startWeek":61}],"total":518,"cap":556,"lifecycleCalls":156,"lifecycleCap":156,"selectedCap":364},"rival":{"rivalCalls":0,"rivalCap":260,"otherCoreCalls":518,"total":518,"cap":816}}}
+
+stdout | tests/p14p3-directing-promises.test.ts
+1155-P3-RIVAL-COUNTERS {"rivalCalls":0,"rivalCap":260,"otherCoreCalls":518,"total":518,"cap":816}
+1149-P3-CONTINUITY-COUNTERS {"playerCalls":208,"playerCap":208,"branches":[{"name":"cancelBefore","actualTicks":60,"cap":64,"startWeek":52},{"name":"cancelAfter","actualTicks":51,"cap":64,"startWeek":61},{"name":"waiver","actualTicks":43,"cap":64,"startWeek":61}],"total":518,"cap":556,"lifecycleCalls":156,"lifecycleCap":156,"selectedCap":364}
+1143-P3-OUTCOME-COUNTERS {"playerCalls":208,"playerCap":208,"branches":[{"name":"cancelBefore","actualTicks":60,"cap":64,"startWeek":52},{"name":"cancelAfter","actualTicks":51,"cap":64,"startWeek":61},{"name":"waiver","actualTicks":43,"cap":64,"startWeek":61}],"total":362,"cap":400}
+1133-P3-COUNTERS {"actualTicks":208,"cap":208,"cachedPhases":[{"name":"created0","completed":true},{"name":"managedEmpty8","completed":true},{"name":"ready10","completed":true},{"name":"cases45","completed":true},{"name":"attached45","completed":true},{"name":"bound52","completed":true},{"name":"firstFilm","completed":true},{"name":"secondFilm","completed":true},{"name":"terminal208","completed":true},{"name":"cancelBefore108","completed":true},{"name":"cancelBefore112","completed":true},{"name":"cancelAfterTake","completed":true},{"name":"cancelAfter112","completed":true},{"name":"waiverInput","completed":true},{"name":"waived61","completed":true},{"name":"waiver104","completed":true},{"name":"lifecycle208","completed":true},{"name":"lifecycle248","completed":true},{"name":"lifecycleAttached248","completed":true},{"name":"lifecycle260","completed":true},{"name":"lifecycle261","completed":true},{"name":"lifecycle364","completed":true}]}
+
+ ✓ |core| tests/p14p3-directing-promises.test.ts (17 tests | 2 skipped) 73736ms
+   ✓ P3 first slice: public Director promises and historical meaning > D01 offers fresh directing work to lawful Actors and Directors 4188ms
+   ✓ P3 first slice: public Director promises and historical meaning > D02 counts only actual unrecorded Director seats through the first take 3617ms
+   ✓ P3 first slice: public Director promises and historical meaning > D03 preserves conservative clocks and names each unavailable resource 524ms
+   ✓ P3 first slice: public Director promises and historical meaning > D04 selects revision6 only for the explicit relevant domain and preserves pure history 1469ms
+   ✓ P3 first slice: public Director promises and historical meaning > D05 binds only the actual accepted material proposal 708ms
+   ✓ P3 first slice: public Director promises and historical meaning > D06 fulfills directing once from two real distinct first takes 6694ms
+   ✓ P3 first slice: public Director promises and historical meaning > D13 admits exact new promise authority and rejects malformed current saves 4943ms
+   ✓ P3 first slice: public Director promises and historical meaning > D14 preserves old meaning and refuses lossy reverse conversion 3900ms
+   ✓ P3 second slice: cancellation and same-domain waiver > D08 keeps earned work and attributes cancellation, due and termination outcomes 8005ms
+   ✓ P3 second slice: cancellation and same-domain waiver > D12 waives only forward same-domain remaining work on the same contract 12397ms
+   ✓ P3 third slice: reservations, profession chronology and successor proof > D09 reserves the actual union and freezes a changed receipt without restamping its root 9515ms
+   ✓ P3 third slice: reservations, profession chronology and successor proof > D10 keeps a newly bound Director obligation lawful after its completed Actor episode 5900ms
+   ✓ P3 third slice: reservations, profession chronology and successor proof > D11 preserves promise outcomes through actual current-profession retirement 8462ms
+   ✓ P3 third slice: reservations, profession chronology and successor proof > D13W refuses a nonaccepted receipt on an actual Director waiver successor 2032ms
+   ✓ P3 bounded occupancy admission > D03O refuses a Director window blocked by the actual exclusive cast seat 1378ms
+
+ Test Files  1 passed (1)
+      Tests  15 passed | 2 skipped (17)
+   Start at  19:34:22
+   Duration  76.87s (transform 1.83s, setup 0ms, collect 2.46s, tests 73.74s, environment 0ms, prepare 125ms)
+

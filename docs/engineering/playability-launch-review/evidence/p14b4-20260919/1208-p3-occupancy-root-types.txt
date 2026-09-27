@@ -1,0 +1,2 @@
+{"sourceSha":"2af37179eb2d33b2a295c0e20fdd87e5318ad3cf","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/tsc","--noEmit"],"node":"v20.20.2","start":"2026-09-27T17:32:54.779Z","end":null,"exitCode":null,"signal":null,"error":null}
+
