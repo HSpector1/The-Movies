@@ -53,7 +53,7 @@ import { assertReleaseAuthorityInvariants } from './releaseAuthority.js'
 import { assertStudioHistoryInvariants, migratedStudioHistory } from './studioHistory.js'
 import { initialPhysicalPlans, validatePhysicalPlans } from './physicalPlans.js'
 import { projectLegacyTerminations, projectTalentMarketPreV28, talentMarketTerminationLaw, validateTalentMarketRoot } from './talentMarket.js'
-import { projectPromisesPreV29, projectPromisesPreV32, validatePromiseRoots, validatePromiseRootsV30, validatePromiseRootsV39, validateWaivedPromiseLinks } from './promises.js'
+import { projectPromisesPreV29, projectPromisesPreV32, validatePromiseRoots, validatePromiseRootsV30, validatePromiseRootsV39, validateWaivedPromiseLinks, validateDirectorWaiverLinks } from './promises.js'
 import { projectRelationshipsPreV31, validateRelationshipsRoot } from './relationships.js'
 import { ageAt, anchorOf, buildTalentProvenance, recomputeDue } from './aging.js'
 import { COHORT_PROFESSIONS, deriveCohortRequest, isCohortWeek, retirementWindow, initialCareerLifecycle } from './careerLifecycle.js'
@@ -10254,6 +10254,7 @@ function proveProfessionSave(save: unknown, version: 38 | 39): { save: SaveFileV
   const professionContext = validateProfessionHistory(raw);
   const writing = retirementWritingAuthority(raw, professionContext);
   validateSaveV37WithProfession({ ...save, saveVersion: 37, state: stripProfessionHistory(raw) }, professionContext, writing, version === 39);
+  if (version === 39) validateDirectorWaiverLinks((save as SaveFileV39).state.promises);
   return { save: save as SaveFileV38 | SaveFileV39, professionContext };
 }
 

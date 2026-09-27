@@ -1,5 +1,27 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — D08/D12 correction reviewed and typed; unchanged behavior run next
+
+1146 root compiler PASS on32e5016537baabdbe2d84cc484369c9ecf0850fc plus
+final10441B patch5fb6330594229322c7f1266a3cc62e3f4027d45e86e4d5bebb4983cbe1b58177.
+Actual12:52:22.253–12:53:05.003UTC,42.750s, child0/fixedSource:true, no
+untracked consumed source/signal/error. Final1146-B KEEP is frozen at6917853c;
+1146-A records matched changes and remaining limits. No corrected behavior claim.
+
+Correction covers Director cancellation dispatch/conduct, same-domain forward
+waiver/mint and current39-only successor relations. Review added the accepted
+receipt guard; its dedicated negative remains pending. Historical Director conduct
+reads may change; frozen V32/V38 readers remain unchanged. The1143 test/helper
+bytes and exact two-leaf selection remain frozen. Prior1145 semantic failures and
+masked controls are preserved. Publish and exact-remote-verify this candidate,
+then successful dependent preflight and1147 unchanged D08/D12 execution.
+
+Parent remains sole production writer/integrator/heavy executor. Existing author
+owns1147 attribution and docs-only next lifecycle plan; existing reviewer owns
+independent review. No heavy process currently active. All remaining D09–D11,
+rival, persistence, projection54/Bridge/UI/consumer and broader P14 onward work
+remains authorized; two-specialist/one-heavy and native/Owner limits remain.
+
 ## CURRENT — D08/D12 semantic failures preserved; matching correction under review
 
 1144 root types PASS on published5750b00fbe32c74bc145f07cc2f49200c11762f3,

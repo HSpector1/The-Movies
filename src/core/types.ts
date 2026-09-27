@@ -2633,7 +2633,7 @@ export type Action =
       promiseId: string
       substitute: {
         family: PromiseFamily
-        predicate: { count: number } | CastRoleCountPredicate
+        predicate: { count: number } | CastRoleCountPredicate | DirectorCountPredicate
         windowStartWeek: number
         dueWeekExclusive: number
       }

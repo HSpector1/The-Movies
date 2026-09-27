@@ -1,0 +1,177 @@
+diff --git a/src/core/promises.ts b/src/core/promises.ts
+index 087e1e8d..6c3c0261 100644
+--- a/src/core/promises.ts
++++ b/src/core/promises.ts
+@@ -1008,7 +1008,7 @@ export function breakPromisesOnTermination(state: GameState, issuerStudioId: str
+ 
+ /**
+  * §4.4's "any studio-caused event that makes the predicate unsatisfiable": the
+- * studio cancelled a picture the beneficiary held a CLASS seat on BEFORE its
++ * studio cancelled a picture the beneficiary held a qualifying seat on BEFORE its
+  * first take. BROKEN iff the separate target-specific proof finds no physical
+  * path for the REMAINING count on the post-cancel state (plan :243-252, :331-336;
+  * record 26 §2). A cancellation the schedule can still absorb costs the studio
+@@ -1024,11 +1024,15 @@ export function breakPromisesOnCancel(state: GameState, issuerStudioId: string,
+   for (const promise of state.promises) {
+     if (!evaluable(promise)) continue
+     if (promise.issuerStudioId !== issuerStudioId) continue
+-    if (!promiseCastSlots(promise).some((slot) => cancelled.cast[slot] === promise.beneficiaryPersonId)) continue
++    const directing = isDirectorPromise(promise)
++    if (!(directing ? cancelled.directorId === promise.beneficiaryPersonId
++      : promiseCastSlots(promise).some((slot) => cancelled.cast[slot] === promise.beneficiaryPersonId))) continue
+     if (targetSpecificImpossibility(state, promise, week) === null) continue
+     next = settle(next, promise, {
+       outcome: 'BROKEN',
+-      outcomeCause: 'the studio cancelled the picture this person was cast in, and no path was left',
++      outcomeCause: directing
++        ? 'the studio cancelled the picture this person was directing, and no path was left'
++        : 'the studio cancelled the picture this person was cast in, and no path was left',
+       outcomeEventId: null,
+     }, week, 'a promise to this person was broken by a cancelled picture')
+   }
+@@ -1144,9 +1148,11 @@ export function waiverAccepted(
+   substitute: PromiseAttachment,
+   week: number,
+ ): string | null {
+-  // P3 substitution remains closed until its separately tested waiver route.
+-  if (isDirectorPredicate(promise.predicate) || isDirectorPredicate(substitute.predicate)) {
+-    return 'a directing promise cannot be substituted'
++  // Predicate shape selects the work domain; historical count-only P3 remains
++  // cast work. Neither domain has a defined exchange rate for the other.
++  const directing = isDirectorPredicate(promise.predicate)
++  if (directing !== isDirectorPredicate(substitute.predicate)) {
++    return 'directing and cast work cannot substitute for one another'
+   }
+   // `evaluable()`, both halves, for their two separate reasons. A terminal
+   // promise must not be waived because `settle()` would overwrite an outcome the
+@@ -1169,7 +1175,7 @@ export function waiverAccepted(
+     return 'a substitute is a forward obligation, and this window opens no later than the week of the waiver'
+   }
+   const promised = promiseCastSlots(promise)
+-  if (!promiseCastSlots({ predicate: substitute.predicate }).every((slot) => promised.includes(slot))) {
++  if (!directing && !promiseCastSlots({ predicate: substitute.predicate }).every((slot) => promised.includes(slot))) {
+     return 'the part offered is weaker than the part promised'
+   }
+   const remaining = promise.predicate.count - promise.progress
+@@ -1239,7 +1245,7 @@ export function waivePromise(
+   }, week, 'a promise to this person was waived for a substitute the person accepted')
+   const base = {
+     promiseId: substituteId,
+-    version: PROMISE_RULES_VERSION,
++    version: feasibilityReceipt.rulesVersion,
+     issuerStudioId: promise.issuerStudioId,
+     beneficiaryPersonId: promise.beneficiaryPersonId,
+     windowStartWeek: draft.substitute.windowStartWeek,
+@@ -1255,7 +1261,9 @@ export function waivePromise(
+     // The link points backwards only: the substitute supersedes nothing.
+     supersededByPromiseId: null,
+   }
+-  const substitute: ProfessionalPromise = 'kind' in draft.substitute.predicate && draft.substitute.predicate.kind === 'castRoleCount'
++  const substitute: ProfessionalPromise = isDirectorPredicate(draft.substitute.predicate)
++    ? { ...base, family: 'DIRECTING_COUNT', predicate: { kind: 'directorCount', count: draft.substitute.predicate.count } }
++    : 'kind' in draft.substitute.predicate && draft.substitute.predicate.kind === 'castRoleCount'
+     ? {
+         ...base,
+         family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT',
+@@ -1338,7 +1346,9 @@ export function trustDrivers(
+   for (const f of hollywood?.films ?? []) live.add(f.filmId)
+   for (const take of state.firstTakes) {
+     if (take.studioId !== studioId || live.has(take.productionId) || !keep(take.week)) continue
+-    if (personId !== null && !CAST_SLOTS.some((slot) => take.cast[slot] === personId)) continue
++    // The recorded Director and cast seats are both professional conduct.
++    if (personId !== null && take.directorId !== personId
++      && !CAST_SLOTS.some((slot) => take.cast[slot] === personId)) continue
+     drivers.push({ kind: 'cancelledAfterFirstTake', week: take.week, positive: false, reason: 'cancelled a picture after filming began' })
+   }
+   return drivers.sort((a, b) => (a.week === b.week ? a.kind.localeCompare(b.kind) : b.week - a.week))
+@@ -1683,6 +1693,56 @@ export function validateWaivedPromiseLinks(state: unknown): void {
+   }
+ }
+ 
++/** Current39-only relations, after complete row/contract/evidence admission.
++ * The frozen V32 reader still admits its historical links, including WAIVED
++ * rows lifted with no successor. Explicit Director work can only be exchanged
++ * for a new forward obligation in that same domain and employment contract. */
++export function validateDirectorWaiverLinks(promises: readonly ProfessionalPromise[]): void {
++  if (!promises.some(isDirectorPromise)) return
++  const indices = new Map(promises.map((row, index) => [row.promiseId, index] as const))
++  const incoming = new Set<string>()
++  const fail = (index: number, reason: string): never => {
++    throw new Error(`validateSaveV39: state.promises[${String(index)}].supersededByPromiseId ${reason}`)
++  }
++  for (let i = 0; i < promises.length; i++) {
++    const original = promises[i]!
++    const id = original.supersededByPromiseId
++    if (id === null) {
++      if (isDirectorPromise(original) && original.outcome === 'WAIVED') {
++        fail(i, 'must name the successor of a waived Director promise')
++      }
++      continue
++    }
++    const successorIndex = indices.get(id) ?? -1
++    const successor = promises[successorIndex]
++    // The complete frozen link proof already requires an existing target.
++    if (successor === undefined) return fail(i, 'does not name an existing successor')
++    if (!isDirectorPromise(original) && !isDirectorPromise(successor)) continue
++    if (!isDirectorPromise(original) || !isDirectorPromise(successor)) {
++      fail(i, 'cannot exchange Director and cast predicate domains')
++    }
++    if (successorIndex <= i || incoming.has(id)) {
++      fail(i, 'must name a later successor belonging to exactly one waiver')
++    }
++    incoming.add(id)
++    if (successor.contractId !== original.contractId
++      || successor.beneficiaryPersonId !== original.beneficiaryPersonId
++      || successor.issuerStudioId !== original.issuerStudioId) {
++      fail(i, 'successor must preserve the same contract, beneficiary and issuer')
++    }
++    if (original.outcomeWeek === null || successor.feasibilityReceipt.week !== original.outcomeWeek
++      || successor.windowStartWeek <= original.outcomeWeek) {
++      fail(i, 'successor must be agreed at the waiver and carry a forward window')
++    }
++    if (successor.feasibilityReceipt.classification !== 'REASONABLY_ACHIEVABLE') {
++      fail(i, 'successor must carry an accepted reasonably achievable receipt')
++    }
++    if (successor.predicate.count < original.predicate.count - original.progress) {
++      fail(i, 'successor does not cover the remaining pictures owed')
++    }
++  }
++}
++
+ /**
+  * The POSITIVE projection to every version before V32, the device
+  * `projectPromisesPreV29` and `projectRelationshipsPreV31` both use: a waiver
+diff --git a/src/core/save.ts b/src/core/save.ts
+index f57d4200..3fa80d49 100644
+--- a/src/core/save.ts
++++ b/src/core/save.ts
+@@ -53,7 +53,7 @@ import { assertReleaseAuthorityInvariants } from './releaseAuthority.js'
+ import { assertStudioHistoryInvariants, migratedStudioHistory } from './studioHistory.js'
+ import { initialPhysicalPlans, validatePhysicalPlans } from './physicalPlans.js'
+ import { projectLegacyTerminations, projectTalentMarketPreV28, talentMarketTerminationLaw, validateTalentMarketRoot } from './talentMarket.js'
+-import { projectPromisesPreV29, projectPromisesPreV32, validatePromiseRoots, validatePromiseRootsV30, validatePromiseRootsV39, validateWaivedPromiseLinks } from './promises.js'
++import { projectPromisesPreV29, projectPromisesPreV32, validatePromiseRoots, validatePromiseRootsV30, validatePromiseRootsV39, validateWaivedPromiseLinks, validateDirectorWaiverLinks } from './promises.js'
+ import { projectRelationshipsPreV31, validateRelationshipsRoot } from './relationships.js'
+ import { ageAt, anchorOf, buildTalentProvenance, recomputeDue } from './aging.js'
+ import { COHORT_PROFESSIONS, deriveCohortRequest, isCohortWeek, retirementWindow, initialCareerLifecycle } from './careerLifecycle.js'
+@@ -10254,6 +10254,7 @@ function proveProfessionSave(save: unknown, version: 38 | 39): { save: SaveFileV
+   const professionContext = validateProfessionHistory(raw);
+   const writing = retirementWritingAuthority(raw, professionContext);
+   validateSaveV37WithProfession({ ...save, saveVersion: 37, state: stripProfessionHistory(raw) }, professionContext, writing, version === 39);
++  if (version === 39) validateDirectorWaiverLinks((save as SaveFileV39).state.promises);
+   return { save: save as SaveFileV38 | SaveFileV39, professionContext };
+ }
+ 
+diff --git a/src/core/types.ts b/src/core/types.ts
+index 883573bb..725bbdd9 100644
+--- a/src/core/types.ts
++++ b/src/core/types.ts
+@@ -2633,7 +2633,7 @@ export type Action =
+       promiseId: string
+       substitute: {
+         family: PromiseFamily
+-        predicate: { count: number } | CastRoleCountPredicate
++        predicate: { count: number } | CastRoleCountPredicate | DirectorCountPredicate
+         windowStartWeek: number
+         dueWeekExclusive: number
+       }
