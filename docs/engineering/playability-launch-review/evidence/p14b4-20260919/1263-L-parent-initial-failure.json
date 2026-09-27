@@ -1,0 +1,910 @@
+{
+  "record": "1263-L parent initial Q15 failure attribution",
+  "timeUtc": "2026-09-27T22:27:20.876309+00:00",
+  "executedPublishedSource": "9f33653d6d177752267d7244ff03de9cfff1fea3",
+  "compiler": "1264 PASS,35.725s,child0/no diagnostics",
+  "runtime": "1265 FAIL1/zero filtered,13.578s recorder,9.115s leaf,9.119s file,12.50s Vitest",
+  "firstCause": {
+    "path": "tests/p14p4p5-stock-subject.test.ts",
+    "line": 322,
+    "expectedReleaseTick": 65,
+    "actualReleaseTick": 64,
+    "returnedStateWeek": 65,
+    "attribution": "Test oracle confuses existing completed-week release stamp with arrived market week. tick.ts197 reads currentTick from input;629 builds releaseTick:currentTick;1005/1077 advance returned market to currentTick+1. No production defect inferred."
+  },
+  "parentRead": "Complete raw semantic contents: full input, all five actions,13 advance records/full mixed suffix, full release/old roots/counters/tail. Independently compared17 repeated production objects excluding only remainingTicks, read all14 unique workflows, complete first-take and released-film objects. No project rerun for attribution.",
+  "guards": {
+    "sourceFiles": 1684,
+    "sourceInventory": {
+      "bytes": 255653,
+      "sha256": "2d355a07067f37494085d2a8233bc1334bdead7f50bac00da5f0d70ef257dc87"
+    },
+    "index": {
+      "bytes": 1109681,
+      "sha256": "2aef09dc3d7fb2ae8004e3a7e10f6c27486282e712de4933d7279f8078653ef8"
+    },
+    "stageEntries": {
+      "bytes": 985519,
+      "sha256": "78301aeea68736cba4e8cd5255d9c2324cf069783e23496133bd296be2502e6c"
+    }
+  },
+  "manualPinCount": 153,
+  "counters": {
+    "attempted": 13,
+    "reserved": 13,
+    "invoked": 13,
+    "completed": 13,
+    "outside": 0,
+    "actionAttempts": 5,
+    "actionsAccepted": 5,
+    "explicitQuotes": 0,
+    "hardAdvanceAttempts": 13,
+    "hardActions": 5,
+    "historicalPrefixAdvances": 0,
+    "simulationHelperImported": false,
+    "tickDevelopmentOption": "default false",
+    "phases": [
+      {
+        "name": "genuine31-to40:52",
+        "complete": true
+      },
+      {
+        "name": "stock-greenlit52",
+        "complete": true
+      },
+      {
+        "name": "recipe55",
+        "complete": true
+      },
+      {
+        "name": "scheduled60",
+        "complete": true
+      },
+      {
+        "name": "take61",
+        "complete": true
+      },
+      {
+        "name": "release-commit64",
+        "complete": true
+      },
+      {
+        "name": "released65",
+        "complete": true
+      }
+    ],
+    "operations": [
+      {
+        "week": 52,
+        "action": {
+          "kind": "greenlight",
+          "production": {
+            "conceptId": "c-00",
+            "writerId": "t-wri-03",
+            "directorId": "t-dir-01",
+            "cast": {
+              "lead": "t-act-09",
+              "antagonist": "t-act-12",
+              "support": "t-act-13"
+            },
+            "craftIds": [
+              "t-cra-01"
+            ],
+            "shape": {
+              "opening": "slowSetup",
+              "midpoint": "revelation",
+              "ending": "bittersweet"
+            },
+            "promise": {
+              "genre": "comedy",
+              "intendedSegments": [
+                "adult"
+              ],
+              "ranges": {
+                "intimacy": [
+                  -0.5,
+                  0.5
+                ],
+                "tonalWeight": [
+                  -0.5,
+                  0.5
+                ],
+                "kineticEnergy": [
+                  -0.5,
+                  0.5
+                ]
+              }
+            },
+            "budget": {
+              "negative": 4164354.4863039134,
+              "marketing": 0
+            }
+          }
+        },
+        "accepted": true
+      },
+      {
+        "week": 55,
+        "action": {
+          "kind": "setProductionSetupRecipe",
+          "productionId": "prod-0052",
+          "recipeId": "ballroom-reveal-lighting-01",
+          "expectedPlanRevision": 0
+        },
+        "accepted": true
+      },
+      {
+        "week": 60,
+        "action": {
+          "kind": "assignShootingDirector",
+          "productionId": "prod-0052",
+          "directorId": "t-dir-01"
+        },
+        "accepted": true
+      },
+      {
+        "week": 60,
+        "action": {
+          "kind": "scheduleShootingTake",
+          "productionId": "prod-0052"
+        },
+        "accepted": true
+      },
+      {
+        "week": 64,
+        "action": {
+          "kind": "commitPictureToRelease",
+          "productionId": "prod-0052"
+        },
+        "accepted": true
+      }
+    ],
+    "tickTrace": [
+      {
+        "from": 52,
+        "to": 53,
+        "added": [
+          {
+            "receipt": {
+              "eventId": "first-take-event-20",
+              "week": 53,
+              "productionId": "studio-aca408ec-r01:film:5",
+              "studioId": "studio-aca408ec-r01",
+              "directorId": "person-studio-aca408ec-r01-1",
+              "cast": {
+                "lead": "person-studio-aca408ec-r01-4",
+                "antagonist": "person-studio-aca408ec-r01-3",
+                "support": "person-studio-aca408ec-r01-2"
+              }
+            },
+            "subject": {
+              "eventId": "first-take-event-20",
+              "conceptId": "studio-aca408ec-r01:concept:5",
+              "genre": "comedy",
+              "scriptProjectId": "script-0005"
+            }
+          },
+          {
+            "receipt": {
+              "eventId": "first-take-event-21",
+              "week": 53,
+              "productionId": "studio-aca408ec-r03:film:5",
+              "studioId": "studio-aca408ec-r03",
+              "directorId": "person-studio-aca408ec-r03-1",
+              "cast": {
+                "lead": "person-studio-aca408ec-r03-3",
+                "antagonist": "person-studio-aca408ec-r03-2",
+                "support": "person-studio-aca408ec-r03-4"
+              }
+            },
+            "subject": {
+              "eventId": "first-take-event-21",
+              "conceptId": "studio-aca408ec-r03:concept:5",
+              "genre": "crime",
+              "scriptProjectId": "script-0005"
+            }
+          }
+        ]
+      },
+      {
+        "from": 53,
+        "to": 54,
+        "added": [
+          {
+            "receipt": {
+              "eventId": "first-take-event-22",
+              "week": 54,
+              "productionId": "studio-aca408ec-r02:film:5",
+              "studioId": "studio-aca408ec-r02",
+              "directorId": "person-studio-aca408ec-r02-1",
+              "cast": {
+                "lead": "person-studio-aca408ec-r02-4",
+                "antagonist": "person-studio-aca408ec-r02-3",
+                "support": "person-studio-aca408ec-r02-2"
+              }
+            },
+            "subject": {
+              "eventId": "first-take-event-22",
+              "conceptId": "studio-aca408ec-r02:concept:5",
+              "genre": "comedy",
+              "scriptProjectId": "script-0005"
+            }
+          }
+        ]
+      },
+      {
+        "from": 54,
+        "to": 55,
+        "added": []
+      },
+      {
+        "from": 55,
+        "to": 56,
+        "added": []
+      },
+      {
+        "from": 56,
+        "to": 57,
+        "added": [
+          {
+            "receipt": {
+              "eventId": "first-take-event-23",
+              "week": 57,
+              "productionId": "studio-aca408ec-r04:film:6",
+              "studioId": "studio-aca408ec-r04",
+              "directorId": "person-studio-aca408ec-r04-1",
+              "cast": {
+                "lead": "person-studio-aca408ec-r04-3",
+                "antagonist": "person-studio-aca408ec-r04-2",
+                "support": "person-studio-aca408ec-r04-4"
+              }
+            },
+            "subject": {
+              "eventId": "first-take-event-23",
+              "conceptId": "studio-aca408ec-r04:concept:6",
+              "genre": "romance",
+              "scriptProjectId": "script-0006"
+            }
+          }
+        ]
+      },
+      {
+        "from": 57,
+        "to": 58,
+        "added": []
+      },
+      {
+        "from": 58,
+        "to": 59,
+        "added": []
+      },
+      {
+        "from": 59,
+        "to": 60,
+        "added": []
+      },
+      {
+        "from": 60,
+        "to": 61,
+        "added": [
+          {
+            "receipt": {
+              "eventId": "first-take-event-24",
+              "week": 61,
+              "productionId": "prod-0052",
+              "studioId": "studio-aca408ec-player",
+              "directorId": "t-dir-01",
+              "cast": {
+                "lead": "t-act-09",
+                "antagonist": "t-act-12",
+                "support": "t-act-13"
+              }
+            },
+            "subject": {
+              "eventId": "first-take-event-24",
+              "conceptId": "c-00",
+              "genre": "comedy",
+              "scriptProjectId": null
+            }
+          }
+        ]
+      },
+      {
+        "from": 61,
+        "to": 62,
+        "added": [
+          {
+            "receipt": {
+              "eventId": "first-take-event-25",
+              "week": 62,
+              "productionId": "studio-aca408ec-r03:film:6",
+              "studioId": "studio-aca408ec-r03",
+              "directorId": "person-studio-aca408ec-r03-1",
+              "cast": {
+                "lead": "person-studio-aca408ec-r03-2",
+                "antagonist": "person-studio-aca408ec-r03-3",
+                "support": "person-studio-aca408ec-r03-4"
+              }
+            },
+            "subject": {
+              "eventId": "first-take-event-25",
+              "conceptId": "studio-aca408ec-r03:concept:6",
+              "genre": "horror",
+              "scriptProjectId": "script-0006"
+            }
+          }
+        ]
+      },
+      {
+        "from": 62,
+        "to": 63,
+        "added": [
+          {
+            "receipt": {
+              "eventId": "first-take-event-26",
+              "week": 63,
+              "productionId": "studio-aca408ec-r02:film:6",
+              "studioId": "studio-aca408ec-r02",
+              "directorId": "person-studio-aca408ec-r02-1",
+              "cast": {
+                "lead": "person-studio-aca408ec-r02-4",
+                "antagonist": "person-studio-aca408ec-r02-3",
+                "support": "person-studio-aca408ec-r02-2"
+              }
+            },
+            "subject": {
+              "eventId": "first-take-event-26",
+              "conceptId": "studio-aca408ec-r02:concept:6",
+              "genre": "romance",
+              "scriptProjectId": "script-0006"
+            }
+          }
+        ]
+      },
+      {
+        "from": 63,
+        "to": 64,
+        "added": []
+      },
+      {
+        "from": 64,
+        "to": 65,
+        "added": [
+          {
+            "receipt": {
+              "eventId": "first-take-event-27",
+              "week": 65,
+              "productionId": "studio-aca408ec-r01:film:7",
+              "studioId": "studio-aca408ec-r01",
+              "directorId": "person-studio-aca408ec-r01-1",
+              "cast": {
+                "lead": "person-studio-aca408ec-r01-4",
+                "antagonist": "person-studio-aca408ec-r01-3",
+                "support": "person-studio-aca408ec-r01-2"
+              }
+            },
+            "subject": {
+              "eventId": "first-take-event-27",
+              "conceptId": "studio-aca408ec-r01:concept:7",
+              "genre": "comedy",
+              "scriptProjectId": "script-0007"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "releaseObservation": {
+    "actualWeek": 65,
+    "productionId": "prod-0052",
+    "films": [
+      {
+        "productionId": "prod-0052",
+        "releaseTick": 64,
+        "delivered": {
+          "intimacy": -0.17917683564957518,
+          "tonalWeight": 0.2969610392290813,
+          "kineticEnergy": -0.09724685079403796
+        },
+        "cohesion": 0.3489820861992237,
+        "craft": 79.87367396656826,
+        "criticMean": 55.935599147499666,
+        "criticSigma": 5.953053741402329,
+        "criticScore": 50.174912656705956,
+        "reviewVariance": -5.760686490793709,
+        "segmentScores": {
+          "youngAdult": 54.4979295346857,
+          "family": 57.88284578052842,
+          "adult": 75.05100521454625,
+          "prestige": 76.68761537944194
+        },
+        "boxOffice": {
+          "opening": 1745465.6063529905,
+          "total": 4759181.838375902
+        },
+        "conceptId": "c-00",
+        "directorId": "t-dir-01",
+        "participants": {
+          "writer": {
+            "talentId": "t-wri-03",
+            "name": "Vivien Chandra",
+            "role": "writer",
+            "discipline": "writing",
+            "greenlightOVR": 7,
+            "greenlightFit": 36,
+            "greenlightEP": {
+              "low": 22.096055396669925,
+              "high": 53.069623396669925,
+              "expected": 37.582839396669925
+            },
+            "freelancer": false
+          },
+          "director": {
+            "talentId": "t-dir-01",
+            "name": "Spencer Merrick",
+            "role": "director",
+            "discipline": "directing",
+            "greenlightOVR": 67,
+            "greenlightFit": 59,
+            "greenlightEP": {
+              "low": 60.53822709027582,
+              "high": 91.98255509027581,
+              "expected": 76.26039109027582
+            },
+            "freelancer": false
+          },
+          "cast": {
+            "lead": {
+              "talentId": "t-act-09",
+              "name": "Conrad Novak",
+              "role": "lead",
+              "discipline": "acting",
+              "greenlightOVR": 3,
+              "greenlightFit": 40,
+              "greenlightEP": {
+                "low": 16.97407333333333,
+                "high": 48.05158533333333,
+                "expected": 32.51282933333333
+              },
+              "freelancer": false
+            },
+            "antagonist": {
+              "talentId": "t-act-12",
+              "name": "Ramon Nakamura",
+              "role": "antagonist",
+              "discipline": "acting",
+              "greenlightOVR": 30,
+              "greenlightFit": 33,
+              "greenlightEP": {
+                "low": 37.28255862902114,
+                "high": 67.13055062902114,
+                "expected": 52.20655462902114
+              },
+              "freelancer": false
+            },
+            "support": {
+              "talentId": "t-act-13",
+              "name": "Joan Winters",
+              "role": "support",
+              "discipline": "acting",
+              "greenlightOVR": 30,
+              "greenlightFit": 29,
+              "greenlightEP": {
+                "low": 33.50111725982171,
+                "high": 65.22701325982172,
+                "expected": 49.364065259821714
+              },
+              "freelancer": false
+            }
+          },
+          "craft": [
+            {
+              "talentId": "t-cra-01",
+              "name": "Bette Fenwick",
+              "role": "craft",
+              "discipline": "craft",
+              "greenlightOVR": 29,
+              "greenlightFit": 46,
+              "greenlightEP": {
+                "low": 36.022026666666655,
+                "high": 66.99559466666665,
+                "expected": 51.508810666666655
+              },
+              "freelancer": false
+            }
+          ]
+        },
+        "forecast": {
+          "expectedCriticScore": 50.771480006726286,
+          "expectedTotal": 4255111.646771341,
+          "expectedOpening": 1616412.655435318
+        }
+      }
+    ],
+    "actualSubjectRoot": {
+      "version": 1,
+      "cutoverOrdinal": 20,
+      "facts": [
+        {
+          "eventId": "first-take-event-20",
+          "conceptId": "studio-aca408ec-r01:concept:5",
+          "genre": "comedy",
+          "scriptProjectId": "script-0005"
+        },
+        {
+          "eventId": "first-take-event-21",
+          "conceptId": "studio-aca408ec-r03:concept:5",
+          "genre": "crime",
+          "scriptProjectId": "script-0005"
+        },
+        {
+          "eventId": "first-take-event-22",
+          "conceptId": "studio-aca408ec-r02:concept:5",
+          "genre": "comedy",
+          "scriptProjectId": "script-0005"
+        },
+        {
+          "eventId": "first-take-event-23",
+          "conceptId": "studio-aca408ec-r04:concept:6",
+          "genre": "romance",
+          "scriptProjectId": "script-0006"
+        },
+        {
+          "eventId": "first-take-event-24",
+          "conceptId": "c-00",
+          "genre": "comedy",
+          "scriptProjectId": null
+        },
+        {
+          "eventId": "first-take-event-25",
+          "conceptId": "studio-aca408ec-r03:concept:6",
+          "genre": "horror",
+          "scriptProjectId": "script-0006"
+        },
+        {
+          "eventId": "first-take-event-26",
+          "conceptId": "studio-aca408ec-r02:concept:6",
+          "genre": "romance",
+          "scriptProjectId": "script-0006"
+        },
+        {
+          "eventId": "first-take-event-27",
+          "conceptId": "studio-aca408ec-r01:concept:7",
+          "genre": "comedy",
+          "scriptProjectId": "script-0007"
+        }
+      ]
+    },
+    "expectedMixedSuffix": [
+      {
+        "receipt": {
+          "eventId": "first-take-event-20",
+          "week": 53,
+          "productionId": "studio-aca408ec-r01:film:5",
+          "studioId": "studio-aca408ec-r01",
+          "directorId": "person-studio-aca408ec-r01-1",
+          "cast": {
+            "lead": "person-studio-aca408ec-r01-4",
+            "antagonist": "person-studio-aca408ec-r01-3",
+            "support": "person-studio-aca408ec-r01-2"
+          }
+        },
+        "subject": {
+          "eventId": "first-take-event-20",
+          "conceptId": "studio-aca408ec-r01:concept:5",
+          "genre": "comedy",
+          "scriptProjectId": "script-0005"
+        }
+      },
+      {
+        "receipt": {
+          "eventId": "first-take-event-21",
+          "week": 53,
+          "productionId": "studio-aca408ec-r03:film:5",
+          "studioId": "studio-aca408ec-r03",
+          "directorId": "person-studio-aca408ec-r03-1",
+          "cast": {
+            "lead": "person-studio-aca408ec-r03-3",
+            "antagonist": "person-studio-aca408ec-r03-2",
+            "support": "person-studio-aca408ec-r03-4"
+          }
+        },
+        "subject": {
+          "eventId": "first-take-event-21",
+          "conceptId": "studio-aca408ec-r03:concept:5",
+          "genre": "crime",
+          "scriptProjectId": "script-0005"
+        }
+      },
+      {
+        "receipt": {
+          "eventId": "first-take-event-22",
+          "week": 54,
+          "productionId": "studio-aca408ec-r02:film:5",
+          "studioId": "studio-aca408ec-r02",
+          "directorId": "person-studio-aca408ec-r02-1",
+          "cast": {
+            "lead": "person-studio-aca408ec-r02-4",
+            "antagonist": "person-studio-aca408ec-r02-3",
+            "support": "person-studio-aca408ec-r02-2"
+          }
+        },
+        "subject": {
+          "eventId": "first-take-event-22",
+          "conceptId": "studio-aca408ec-r02:concept:5",
+          "genre": "comedy",
+          "scriptProjectId": "script-0005"
+        }
+      },
+      {
+        "receipt": {
+          "eventId": "first-take-event-23",
+          "week": 57,
+          "productionId": "studio-aca408ec-r04:film:6",
+          "studioId": "studio-aca408ec-r04",
+          "directorId": "person-studio-aca408ec-r04-1",
+          "cast": {
+            "lead": "person-studio-aca408ec-r04-3",
+            "antagonist": "person-studio-aca408ec-r04-2",
+            "support": "person-studio-aca408ec-r04-4"
+          }
+        },
+        "subject": {
+          "eventId": "first-take-event-23",
+          "conceptId": "studio-aca408ec-r04:concept:6",
+          "genre": "romance",
+          "scriptProjectId": "script-0006"
+        }
+      },
+      {
+        "receipt": {
+          "eventId": "first-take-event-24",
+          "week": 61,
+          "productionId": "prod-0052",
+          "studioId": "studio-aca408ec-player",
+          "directorId": "t-dir-01",
+          "cast": {
+            "lead": "t-act-09",
+            "antagonist": "t-act-12",
+            "support": "t-act-13"
+          }
+        },
+        "subject": {
+          "eventId": "first-take-event-24",
+          "conceptId": "c-00",
+          "genre": "comedy",
+          "scriptProjectId": null
+        }
+      },
+      {
+        "receipt": {
+          "eventId": "first-take-event-25",
+          "week": 62,
+          "productionId": "studio-aca408ec-r03:film:6",
+          "studioId": "studio-aca408ec-r03",
+          "directorId": "person-studio-aca408ec-r03-1",
+          "cast": {
+            "lead": "person-studio-aca408ec-r03-2",
+            "antagonist": "person-studio-aca408ec-r03-3",
+            "support": "person-studio-aca408ec-r03-4"
+          }
+        },
+        "subject": {
+          "eventId": "first-take-event-25",
+          "conceptId": "studio-aca408ec-r03:concept:6",
+          "genre": "horror",
+          "scriptProjectId": "script-0006"
+        }
+      },
+      {
+        "receipt": {
+          "eventId": "first-take-event-26",
+          "week": 63,
+          "productionId": "studio-aca408ec-r02:film:6",
+          "studioId": "studio-aca408ec-r02",
+          "directorId": "person-studio-aca408ec-r02-1",
+          "cast": {
+            "lead": "person-studio-aca408ec-r02-4",
+            "antagonist": "person-studio-aca408ec-r02-3",
+            "support": "person-studio-aca408ec-r02-2"
+          }
+        },
+        "subject": {
+          "eventId": "first-take-event-26",
+          "conceptId": "studio-aca408ec-r02:concept:6",
+          "genre": "romance",
+          "scriptProjectId": "script-0006"
+        }
+      },
+      {
+        "receipt": {
+          "eventId": "first-take-event-27",
+          "week": 65,
+          "productionId": "studio-aca408ec-r01:film:7",
+          "studioId": "studio-aca408ec-r01",
+          "directorId": "person-studio-aca408ec-r01-1",
+          "cast": {
+            "lead": "person-studio-aca408ec-r01-4",
+            "antagonist": "person-studio-aca408ec-r01-3",
+            "support": "person-studio-aca408ec-r01-2"
+          }
+        },
+        "subject": {
+          "eventId": "first-take-event-27",
+          "conceptId": "studio-aca408ec-r01:concept:7",
+          "genre": "comedy",
+          "scriptProjectId": "script-0007"
+        }
+      }
+    ],
+    "take61Suffix": [
+      {
+        "eventId": "first-take-event-20",
+        "conceptId": "studio-aca408ec-r01:concept:5",
+        "genre": "comedy",
+        "scriptProjectId": "script-0005"
+      },
+      {
+        "eventId": "first-take-event-21",
+        "conceptId": "studio-aca408ec-r03:concept:5",
+        "genre": "crime",
+        "scriptProjectId": "script-0005"
+      },
+      {
+        "eventId": "first-take-event-22",
+        "conceptId": "studio-aca408ec-r02:concept:5",
+        "genre": "comedy",
+        "scriptProjectId": "script-0005"
+      },
+      {
+        "eventId": "first-take-event-23",
+        "conceptId": "studio-aca408ec-r04:concept:6",
+        "genre": "romance",
+        "scriptProjectId": "script-0006"
+      },
+      {
+        "eventId": "first-take-event-24",
+        "conceptId": "c-00",
+        "genre": "comedy",
+        "scriptProjectId": null
+      }
+    ],
+    "oldPromises": [
+      {
+        "beneficiaryPersonId": "t-act-09",
+        "contractId": "studio-aca408ec-player:contract:t-act-09:52:player-31",
+        "dueWeekExclusive": 92,
+        "evidenceRefs": [
+          "first-take-event-24"
+        ],
+        "family": "APPEARANCE_COUNT",
+        "feasibilityReceipt": {
+          "bottleneck": null,
+          "classification": "REASONABLY_ACHIEVABLE",
+          "inputsDigest": "dffb435ac41a7bf8",
+          "rulesVersion": 4,
+          "week": 52
+        },
+        "issuerStudioId": "studio-aca408ec-player",
+        "outcome": "SATISFIED",
+        "outcomeCause": "the promised pictures began filming inside the window",
+        "outcomeEventId": "talent-market-event-6",
+        "outcomeWeek": 61,
+        "predicate": {
+          "count": 1
+        },
+        "progress": 1,
+        "promiseId": "promise-0",
+        "version": 4,
+        "windowStartWeek": 52,
+        "supersededByPromiseId": null
+      },
+      {
+        "beneficiaryPersonId": "t-act-08",
+        "contractId": "studio-aca408ec-player:contract:t-act-08:52:player-32",
+        "dueWeekExclusive": 92,
+        "evidenceRefs": [],
+        "family": "APPEARANCE_COUNT",
+        "feasibilityReceipt": {
+          "bottleneck": null,
+          "classification": "REASONABLY_ACHIEVABLE",
+          "inputsDigest": "57ac45bb5049984b",
+          "rulesVersion": 4,
+          "week": 52
+        },
+        "issuerStudioId": "studio-aca408ec-player",
+        "outcome": null,
+        "outcomeCause": null,
+        "outcomeEventId": null,
+        "outcomeWeek": null,
+        "predicate": {
+          "count": 1
+        },
+        "progress": 0,
+        "promiseId": "promise-1",
+        "version": 4,
+        "windowStartWeek": 52,
+        "supersededByPromiseId": null
+      }
+    ],
+    "counters": {
+      "attempted": 13,
+      "reserved": 13,
+      "invoked": 13,
+      "completed": 13,
+      "outside": 0,
+      "actionAttempts": 5,
+      "actionsAccepted": 5,
+      "explicitQuotes": 0
+    }
+  },
+  "markers": {
+    "lines": 27,
+    "bytes": 118066,
+    "sha256": "43a9aefbfc2cabca9cde6e612a36d2936584ee8f4117260d605fe7110288f422"
+  },
+  "evidence": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1264-stock-subject-types.json",
+      "bytes": 634,
+      "sha256": "22ca150380ea03f0972dfc5dbdaae74ce8e719fa2fe773b8e848f715b676869c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1264-stock-subject-types.txt",
+      "bytes": 340,
+      "sha256": "b929834813b51e8ffd440b9a97e4a579dbb0ae56aad9d947356a6e7c35e37f75"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1264-stock-subject-types.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1264-stock-subject-types-preflight.json",
+      "bytes": 38460,
+      "sha256": "5e2659c4d3eac9b7ae995a2c3b4a55223a7725851ddc29488a0b7d43dc518fff"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1264-stock-subject-types-postflight.json",
+      "bytes": 39135,
+      "sha256": "8dc414f201a072298901a24a5b405d5a83d6b8751b276c3dff09193fd69fadba"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1265-stock-subject-runtime.json",
+      "bytes": 695,
+      "sha256": "51b598a1d6394e72c125a1d6fdcfb6e1cfbe07a0cd6bedd1133cee38582d65a7"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1265-stock-subject-runtime.txt",
+      "bytes": 120421,
+      "sha256": "0f3bb6492419946b52318952f5dd0f564011a02a8fd51997a0748a1c4e8f027f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1265-stock-subject-runtime.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1265-stock-subject-runtime-preflight.json",
+      "bytes": 38461,
+      "sha256": "539f235a21ebeda1710d5d5f08fefd61aabd6676125de5eefe2d6b79f1f14f39"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1265-stock-subject-runtime-postflight.json",
+      "bytes": 39144,
+      "sha256": "a23fd026ef997d856e4b47ecf21f2358879e0852c2d8527861456c418b768bdd"
+    }
+  ],
+  "maskedAfterFailure": [
+    "Final participants equality and released concept/retained-null join assertions at323 onward.",
+    "Final take61 prefix comparisons and repeated full65 admission/suffix assertions. Earlier per-advance65 full admission/suffix already reached.",
+    "Final exact-success13/5 operation/chronology assertions; actual full counts printed and afterAll cap checks executed."
+  ],
+  "reached": [
+    "Both literal31 and current40 admission; all six real employed crew/current ages/availability/resources; real stock greenlight and correct debit.",
+    "All13 ticks/five actions completed within bounds; full per-tick mixed suffix/full40 admission through returned65.",
+    "Actual stocktake61 event24 c00/comedy/null; old P1 lead SATISFIED61, other old P1 OPEN; original root4/receipt4 authority retained.",
+    "All7 route caches complete; sole final releaseTick oracle failed; no hidden retry, alternate crew/recipe or prefix replay."
+  ],
+  "next": "Author1263-G and independentH review narrow test-only release-stamp correction. Preserve originalA/C/D/stage and1265FAIL; publish corrected source before1264b types cap0 and1265b same isolatedQ15 cap13/5actions/0quotes. This is failed-selected-case requalification, not a new route or repair to production."
+}

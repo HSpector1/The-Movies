@@ -1,5 +1,30 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — Stock route reached65; release-stamp test correction pending
+
+Executed source9f33653d6d177752267d7244ff03de9cfff1fea3 matched GitHub.
+1264 compiler PASS35.725s.1265 Q15 FAIL1/zero filtered13.578s recorder,
+9.115s leaf. All fixed-source/pre/post guards closed exact. Actual13 advances,
+five accepted public actions,seven completed caches reached the full admitted65
+state. Real stocktake61/event24 retained c00/comedy/null; release state has eight
+mixed facts after the exact20 old receipts. Existing old P1 lead satisfied61;
+other old P1 remains open. No new material obligation was created.
+
+The sole assertion failure is test322: expected film.releaseTick65, actual64.
+Existing tick owner stamps its completed input week64 and returns market65.
+Parent1263-L records the full failed run and masked final323+ assertions;
+this is not a Q15 PASS. Original source/stage/C/D and raw remain immutable.
+Author1263-G and independentH are preparing/reviewing the narrow test-only
+stamp correction. Parent then applies/publishes and runs1264b types(cap0),
+1265b same isolatedQ15(cap13), with no changed route,crew,recipe or added week.
+
+No production change. Fourteen earlier core leaves stay qualified across six
+separate selections.1266-A/F/B,1269-A/B and1272-A/F/B are accepted future plans,
+not source releases. Existing two specialists retain test/review ownership;
+parent owns live integration/production and the single heavy lane. Continue the
+authorized program, preserving original failures and historical/timing limits.
+Unity/native and Owner campaign access deferred.
+
 ## CURRENT — Stock-film test applied; compiler and Q15 next
 
 Parent applied exact1263-C/D on published7be8f67c.1263-E records the new
