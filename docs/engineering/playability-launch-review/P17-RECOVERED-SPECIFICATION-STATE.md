@@ -1,5 +1,23 @@
 # P17 recovered specification and pending product decisions
 
+## Adopted user decisions
+
+The user selected both recommended answers in this session:
+
+- “Allow healthy-franchise reboots (recommended)”: rebooting a still-healthy
+  franchise is legal; the existing property-wide audience fatigue still applies.
+- “Keep a lasting recognition floor (recommended)”: Recognition retains a durable
+  floor at35% of the franchise's quality-qualified peak, as stated in the question.
+
+These resolve revision02 §19.2 choices1 and2. They are user decisions, not an
+inferred acceptance of researcher recommendations. Do not ask them again. This
+does not select optional hype/cast/crossover features or resolve remaining scope
+questions. P14 work continues in its existing order.
+
+Recorded UTC: 2026-09-27T23:58:40.864721+00:00.
+
+## Recovery history
+
 2026-09-27 UTC. Recovered the already-published revision02 object
 `f2eff6356fca3e6d5287e690bf2404867d638906` from origin with an object-only fetch
 (no tags or FETCH_HEAD write). The current worktree and branch were preserved.
@@ -9,11 +27,9 @@ Canonical report at that immutable commit:
 Parent read §19 in full; this does not claim full-spec implementation review.
 The prior missing-object dependency is resolved. Its research scripts were not run.
 
-Two genuine §19.2 product questions have been sent asynchronously and remain
-PENDING until the user answers: healthy-franchise reboot legality (recommend
+At recovery, two genuine §19.2 product questions were sent asynchronously: healthy-franchise reboot legality (recommend
 legal with property-wide fatigue retained), and a lasting Recognition floor
-(recommend0.35 of quality-gated peak). Neither elapsed time nor the researcher's
-recommendation adopts an unanswered choice. P14 work continues independently.
+(recommend0.35 of quality-gated peak). The answers above now resolve both. Elapsed time and the researcher's recommendation alone did not adopt them. P14 work continues independently.
 
 The remaining §19.2 items are recorded for later scope reconciliation: an explicit
 inflated-expectation lever is not recommended for the first checkpoint; legacy

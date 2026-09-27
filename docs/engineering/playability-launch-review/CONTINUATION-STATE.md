@@ -23,8 +23,9 @@ publication,1276types(cap0) and1277runtime(cap8). Then accepted1278 casting and
 1281 delayed-retirement plans; no source release for those yet. Parent owns live
 integration/production and the only heavy lane; same two specialists retain test
 and independent review. Continue authorized program with recoverable checkpoints.
-P17 recovered specification/two unanswered product questions remain separately
-recorded; settled P15 choices stand. Unity/native and Owner access remain deferred.
+P17 user choices are now adopted: healthy-franchise reboots remain legal with
+property-wide fatigue, and Recognition keeps35% of its quality-qualified peak.
+See P17-RECOVERED-SPECIFICATION-STATE.md; settled P15 choices stand. Unity/native and Owner access remain deferred.
 
 ## CURRENT — Finishing source applied; Q18 gates next
 
