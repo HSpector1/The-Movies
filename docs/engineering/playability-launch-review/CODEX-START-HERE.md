@@ -1,5 +1,89 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — both complete suites closed; final attribution and fixture repairs
+
+1100 core and1101 UI are CLOSED on published6e63f4c82a286dc67271cce0d53a0e586a6b523b,
+both child1/fixedSource:true/empty consumed diff/no untracked source. Core:
+4,591PASS/83FAIL/11TODO across399files,4,233.575s. UI:2,651PASS/39FAIL/5SKIP
+across203files,880.285s; one actual unhandled hollywoodPerformance TypeError.
+1120-A records actual intervals, hashes, source and limitations. No heavy process
+remains; sessions6352/98092 are closed. Preserve full raw logs without rerunning.
+
+Author1119-A/reviewer1119-B are finishing exact full UI attribution. Core independently
+reconciles53same/2changed/28new/3vanished;25 newly observed fixture/boundary failures
+and the changed campaign-library carrier need narrow corrections. Author owns
+docs-staged1123 candidate; reviewer owns separate1123-B review. No live correction
+or verification of that candidate yet. Parent remains sole production integrator
+and heavy executor. Preserve strict guards, intended assertions and timeouts.
+
+Publish exact closed evidence, apply only independently reviewed maintenance,
+then verify affected whole files/consumers and record an honest composite if
+test-only. Final C.3 qualification and1117 genuine outgoing preservation remain
+pending before P3. All prior Writer/R8/FU1/FU2/endurance/native/Owner limits remain.
+P15 D2/D3/D4a are explicitly selected in1122-A; do not re-ask. Continue the program.
+
+## CURRENT — full core closed with83 failures; full UI executing
+
+1100-c3-final-core is CLOSED on published6e63f4c82a286dc67271cce0d53a0e586a6b523b:
+08:30:52.885–09:41:26.460Z (4,233.575s), child1/fixedSource:true, empty consumed
+diff, no untracked source, signal or error. Actual399files:365PASS/34FAIL;
+4,685cases:4,591PASS/83FAIL/11TODO. Raw683,789bytes SHA256
+5e2e00ea5278d420b318ec0f0c1635f2cb067998acbf9ba7fa1512de54469ac6.
+Preserve this complete result; do not rerun or call it all-green.
+
+1101-c3-final-ui is now the sole heavy process, session98092, exact `npm run test:ui`
+on the same HEAD. No UI result yet. Freeze HEAD/index/consumed source and all
+reference inputs until it closes. Parent owns execution/production integration;
+existing author1119-A and reviewer1119-B independently attribute the closed core.
+Their first exact927 comparison agrees:53 unchanged-primary,2 changed,28 new,
+3 vanished. Three new are already-recorded C.3 L1/L2 andR8;25 newly observed
+identities and the changed campaign-library age/provenance cause need attribution.
+The other changed primary is the specifically known exporter temp-output suffix.
+No unhandled markers were found in core. These are preliminary classifications,
+not repair or final qualification. No source edits while UI is active.
+
+P15 D2/D3/D4a are now explicitly selected in1122-A: financial-strength band beside
+creative rank; rival public distress stage plus band; Honors NOT RECORDED until
+Awards. Do not re-ask these choices. Held1121-A/B P3 fixture-plan KEEP and1119-C
+type/check KEEP remain unexecuted preparation/closed check evidence respectively.
+Final bounded C.3 qualification,1117 outgoing preservation and P3 source release
+remain pending actual full attribution and necessary corrections. Keep all prior
+endurance/Writer/R8/FU1/FU2/native/Owner limitations and continue authorized work.
+
+## CURRENT — complete core suite executing on published6e63f4c8
+
+GitHub exactly matches6e63f4c82a286dc67271cce0d53a0e586a6b523b. Closed paired
+regression, independent1118-A/B KEEP and all final type/generator records are
+published. This checkpoint changes documentation/evidence only; consumed source
+is identical to d8552a0b. 1100-c3-final-core is the sole heavy process, session6352,
+using exactly `node_modules/.bin/vitest run --project core`. No result yet.
+Freeze this actual HEAD/index/consumed source and reference inputs until closure.
+
+P15 decisions are now explicit (1122-A): D2 financial-strength band beside the
+creative rank; D3 rival public distress stage plus financial-strength band;
+D4a Honors NOT RECORDED until Awards exists. All three pending presentation
+choices are resolved; do not re-ask or override them.
+
+Completed while full core runs: independent1119-C type/check KEEP is frozen
+(7c402eeb,6,173bytes). Future1121-A exact P3 fixture plan and1121-B source-planKEEP
+are frozen (8cfeaf7f/09868ba0), with816core+12Bridge calls and separate2preservation
+calls. Actual rival208 vacancy/recruitment/crew/release remains unproved. This is
+held preparation, not execution or P3 writer release. Both existing specialists
+are available for actual full-suite attribution/review at closure.
+
+After core closes and its real exit/raw/source fields are inspected, run only
+1101-c3-final-ui with exactly `npm run test:ui`, then complete1119-A attribution
+and1119-B independent review. Current child status/counts are never inferred from
+partial output. Author owns exact full-case/primary-diagnostic/frame/unhandled
+attribution; reviewer also verifies actual final type/check records separately.
+Parent remains sole production writer and heavy executor; no other source writer.
+
+Do not rerun completed endurance or paired/type gates without a new actual cause.
+Retain every historical/current failure and scope limit, including canonical098
+Writer positive gap, R8, FU1/FU2, mixed-source endurance and native/Owner deferral.
+P3 source/1117 capture remains held until actual final bounded C.3 qualification.
+P15 D2/D3/D4a are selected in1122-A. Continue the authorized program after qualification.
+
 ## CURRENT — paired regression and final types/checks complete; full core/UI next
 
 All completed gates ran at published d8552a0b7caa9a02da17320a203a923134e093b8
