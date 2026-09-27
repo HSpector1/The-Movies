@@ -1,5 +1,44 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — C.3 production complete; final verification in progress (2026-09-27)
+
+Production checkpoint e6475aca1ef3bdfd593d660743ebc311981836cc implements Save38,
+projection53/protocol4 and schema d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d.
+Completed C.3 routes include actual profession changes and second retirement,
+post-transition work/writing and extension, cohort/lifecycle history, public
+career/alumni/Calendar surfaces, runtime migration and UI component routing.
+1073 retains26/27 public/runtime/component cases: the unchanged R8 timeout is
+not a pass.1050 separately completed the actual two-advance coordinator workflow
+with an in-memory store; no performance/filesystem claim follows.
+
+Funded active-century A1059 and B1065 each completed6240 weeks/122 releases,
+with independent1097-B and1101-B KEEP. B matches all1072 commands and121 complete
+checkpoint identities, all40 roots and retained0/3120/6240 bytes. A additionally
+completed three real-disk store samples at0/3120/6240 under original defaults.
+Current published checkpoint c362bab94678a21b8d9ecb98bed5d6635a664d27 is exact on
+GitHub.1070 C closed FAIL after1352 ticks: exact checkpoint parity first fails
+at1352 after1300 PASS.1106 retains its original failure and observed1311 critic/
+growth epsilon differences;1107 freezes a narrow existing-force-order correction
+and explicit corrected C/D lineage proposal. D awaits actual C PASS and review.
+Parent is the only heavy executor and production writer; all processes are closed.
+
+1062 exposed three B5 gameplay hash differences.1068's single isolated forensic
+attempt stopped at212 on a harness error-wrapper mismatch, preserving expected
+collision evidence and exact0/208/211 prefixes.1069 final guards/mirrors passed.
+1100-E/F retain STOPPED/INCOMPLETE; separate1105 proposal is under review, with
+no automatic retry or pin changes.1093/1096 maintenance remains unapplied until
+source-sensitive endurance closes.1103 lists required exact paired checks,
+root/UI/Bridge types, generator checks and matched full core/UI attribution.
+
+Canonical098 passive new-Writer hire/work positive premises, R8 timeouts,
+inherited full-suite failures and FU-1/FU-2 remain explicit. No all-green, final
+C.3 qualification or Owner/native acceptance claim. Around ten hours of the
+10–15h C.3 planning checkpoint have elapsed; preserve3–4h final-verification
+reserve and disclose an overrun if actual gates require it. Next implementation
+after C.3 qualification is a bounded remaining-P14 expansion;1102/1104 preserve
+P3 as the next candidate. P15's three presentation choices remain unanswered and
+block only dependent later features. Unity/native remains deferred.
+
 ## CURRENT — C.3 admission and promise boundaries verified; genuine B4 next
 
 1005 records the next partial checkpoint. 1001 recorded8PASS/2expected dispatch

@@ -1,5 +1,39 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — C failed at1352; preserve source for forensic and correction gates
+
+1070 C is CLOSED child1/fixedc362bab9/empty diff,04:31:47.568–04:34:35.092Z,
+167.524s. It completed1352 ticks,247 matching commands,28 releases and26 reads.
+Complete checkpoints0–1300 match A; at1352 four roots differ. Actual immutable
+release1311/prod-1303 criticMean/score differ by floating-point epsilon, copied
+into career/history and two genre-experience outcomes.1106-B independent review
+is in progress; no claim the stale phase string slot28commission is the cause.
+Source points to reception/forecast summing Object.keys(market.forces), whereas
+worldgen defines explicit FORCE_ORDER and rivals already canonicalize it. Parent
+is preparing a narrow1107 correction contract; no production/test edit yet.
+D remains gated. Preserve failed C and completed A/B untouched; lineage changes
+or a corrected C run require separate explicit review, not a silent baseline reset.
+1105-A/B wrapper protocol is adopted; author owns separately named1105 sources
+and data-only controls, reviewer source review. No heavy process currently active.
+Complete forensic gates on unchanged consumed source before any C fix. Keep
+HEAD/index stable across each recorded command.1093/1096 remain unapplied.
+P15 product answers remain pending; continue authorized program with two existing
+specialists, parent sole production writer/executor and one heavy lane.
+
+## CURRENT — C executing on published c362bab9
+
+GitHub exact c362bab94678a21b8d9ecb98bed5d6635a664d27 preserves completed B,
+independent1101-B KEEP and stopped1100 forensic evidence.1070 C is the sole
+heavy process, session42951, exclusive1052-c3-endurance-C-recording-v1, revised
+909e822e producer with original A baseline and completed B predecessor. Keep
+HEAD/index/consumed source and all producer/baseline artifacts frozen until closure.
+No1093/1096 maintenance is applied. Author owns1105-A narrow matcher-correction
+proposal; reviewer owns1100-F stopped result,1105 proposal review and then1106-B
+C artifact review. Parent owns1106-A result and serialized execution. The failed
+1068/copy remain unchanged; no forensic rerun is released. D follows only actual
+C PASS and independent KEEP. Continue authorized program with original limits.
+P15 D2/D3/D4a questions remain pending; no default answer was selected.
+
 ## CURRENT — B independently qualified; first forensic attempt preserved; C next
 
 All heavy processes through1069 are CLOSED.1065 B passed6240 weeks and final

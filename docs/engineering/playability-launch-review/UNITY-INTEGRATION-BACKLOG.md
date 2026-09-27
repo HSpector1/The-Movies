@@ -1,5 +1,36 @@
 # UNITY-INTEGRATION-BACKLOG — work reserved for the replacement laptop
 
+## CURRENT — C.3 Save38 / projection53 integration remains deferred
+
+Engine production e6475aca1ef3bdfd593d660743ebc311981836cc now publishes protocol4,
+projection53 and schema sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d.
+Save38 retains the six C.3 authority fields, strict historical readers and honest
+migration; promise rules remain4 and lifecycle/C.3 rules remain1. Generated DTO
+and fixture checks1036/1037 passed their recorded source; generated C# text is
+not a compiled Unity consumer. Full final candidate qualification is in progress.
+
+On the replacement laptop, pair the exact new consumer before loading generated
+Save38 campaigns. Implement/compile the professionCareer profile and alumni
+history fields, both completed professions and active work after retirement,
+new-role/former-Actor wording, two attention causes, and13-week Calendar retention
+with real names/dates and correct profile navigation. Preserve UNKNOWN/NOT RECORDED
+history and private-field boundaries. Verify off-roster profile focus restoration
+and existing stop/reason flows in the real player;1044's three jsdom cases are
+component evidence only. Keep paused native F26/layout issues in their own lane.
+
+Verify real saved/current projection52→53 migration independently, prior journal
+reset and preserved old journal, corruption refusal, Save As isolation, duplicate
+replay, clean load/reopen and process restart using the actual compiled consumer.
+1073 R1–R7 passed headlessly; its R8 timed out at the original5s, and1050 completed
+the workflow separately with an in-memory store. A1059 adds three genuine disk
+samples at0/3120/6240 under original store limits; it does not establish Unity
+behavior, century-long journaling, crash/cap exhaustion or matched native latency.
+
+Retain matched native save/load/acknowledgement performance, rendered navigation,
+whole-player playability and Owner acceptance as future gates. Do not promote a
+protected branch or connect old executables to new live saves. Current A/B funded
+century results and ongoing C/D headless parity cannot close these native duties.
+
 ## CURRENT — C.3 admission and promise boundaries verified; genuine B4 next
 
 1005 records the next partial checkpoint. 1001 recorded8PASS/2expected dispatch
