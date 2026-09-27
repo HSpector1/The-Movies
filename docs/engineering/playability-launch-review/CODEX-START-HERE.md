@@ -1,5 +1,29 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — initial Bridge semantic RED closed
+
+Reviewed1176 source is published atd2f615b015bfb673b8b69d188d592b710bb9aecb,
+with exact GitHub equality.1177 Bridge compiler closed16:03:31.415–16:03:59.999
+UTC,28.584s, child2: only the two known production diagnostics remain; both test
+corrections cleared. This is not a compiler PASS.
+
+1178 exact three-leaf runtime closed16:04:24.556–16:04:33.392 UTC,8.836s,
+child1/3FAIL. Both records have fixed source, empty consumed diff, no untracked
+source/signal/error. Captured45 completed; actualAttached45 failed at the public
+quote: IMPOSSIBLE/okfalse instead of RA/oktrue. D16 reports the same cached failure.
+D17 independently reaches the genuine outgoing53 loader and fails because the
+current decoder demands Save39 and receives Save38. All printed advance reservation,
+dispatch, verified-week, session/coordinator and duplicate counters are zero.
+Submission, settlement, disclosure, waiver and later runtime controls are unreached.
+No heavy process is active. Preserve complete raw failures and independent A/B.
+
+Next parent-only production slice is the adopted coherent Bridge54 boundary:
+fresh P3 conversion, stored-predicate role disclosure and wording, disjoint closed
+wire members, prior53 migration registry and generated declarations. Core Save39
+law remains authoritative. The approved pure presentation component follows with
+separate test ownership. No staffing rescue, new trajectory or scope expansion.
+Other matrix gaps and Unity/native/Owner deferrals remain unchanged.
+
 ## CURRENT — reviewed Bridge test typing amendment frozen
 
 1176-A/B are final, independently reviewed KEEP. The exact two-hunk patch fixes

@@ -1,0 +1,16 @@
+{
+  "at": "2026-09-27T16:04:18.239984+00:00",
+  "sourceSha": "d2f615b015bfb673b8b69d188d592b710bb9aecb",
+  "remoteSha": "d2f615b015bfb673b8b69d188d592b710bb9aecb",
+  "consumedSourceClean": true,
+  "wholeWorktreeStatus": "?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1177-p3-bridge-types-preflight.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1177-p3-bridge-types.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1177-p3-bridge-types.patch\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1177-p3-bridge-types.txt\n",
+  "precedingCompiler": "1177: child2, only two known production diagnostics; no test diagnostic; not a compiler PASS",
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/bridge-p14p3-directing-promises.test.ts"
+  ],
+  "scope": "Three frozen leaves, expected nine and hard twelve advance attempts; actual first causes preserved"
+}

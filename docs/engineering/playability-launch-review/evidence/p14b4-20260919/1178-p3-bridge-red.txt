@@ -1,0 +1,75 @@
+{"sourceSha":"d2f615b015bfb673b8b69d188d592b710bb9aecb","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-p14p3-directing-promises.test.ts"],"node":"v20.20.2","start":"2026-09-27T16:04:24.556Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/bridge-p14p3-directing-promises.test.ts
+1174-P3-BRIDGE-COUNTERS {"reservedAdvanceCommands":0,"verifiedOneWeekAdvances":0,"actualAdvanceDispatchInvocations":0,"sessionAdvanceAttempts":0,"coordinatorAdvanceAttempts":0,"duplicateInvocations":0,"cap":12,"phases":[{"name":"captured45","complete":true},{"name":"actualAttached45","complete":false}]}
+
+ ❯ |core| tests/bridge-p14p3-directing-promises.test.ts (3 tests | 3 failed) 3468ms
+   × P3 public Bridge authority, truthful terms and durable runtime > D15 commits genuine public directing commands with closed private authority 2774ms
+     → expected { …(24) } to match object { ok: true, …(1) }
+(23 matching properties omitted from actual)
+   × P3 public Bridge authority, truthful terms and durable runtime > D16 discloses Director and legacy cast terms truthfully without private inputs 4ms
+     → expected { …(24) } to match object { ok: true, …(1) }
+(23 matching properties omitted from actual)
+   × P3 public Bridge authority, truthful terms and durable runtime > D17 migrates outgoing53 independently and isolates current54 campaigns 687ms
+     → checkpoint.currentSaveJson: must be a current V39 save, received V38
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14p3-directing-promises.test.ts > P3 public Bridge authority, truthful terms and durable runtime > D15 commits genuine public directing commands with closed private authority
+ FAIL |core|  tests/bridge-p14p3-directing-promises.test.ts > P3 public Bridge authority, truthful terms and durable runtime > D16 discloses Director and legacy cast terms truthfully without private inputs
+AssertionError: expected { …(24) } to match object { ok: true, …(1) }
+(23 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "ok": true,
++   "ok": false,
+    "promise": Object {
+-     "classification": "REASONABLY_ACHIEVABLE",
+-     "ok": true,
++     "classification": "IMPOSSIBLE",
++     "ok": false,
+    },
+  }
+
+ ❯ tests/bridge-p14p3-directing-promises.test.ts:153:21
+    151|     const beforeRoots = clone(session.gameState.promises)
+    152|     const q = quoteMarket(session, proposal(), '1174-proposal-quote')
+    153|     expect(q.quote).toMatchObject({ ok: true, promise: { ok: true, cla…
+       |                     ^
+    154|     const committed = submit(session, q.quote.intentId, '1174-proposal…
+    155|     const own = session.gameState.talentMarket.proposals.filter(row =>…
+ ❯ memo tests/bridge-p14p3-directing-promises.test.ts:76:23
+ ❯ attached45 tests/bridge-p14p3-directing-promises.test.ts:149:10
+ ❯ tests/bridge-p14p3-directing-promises.test.ts:442:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL |core|  tests/bridge-p14p3-directing-promises.test.ts > P3 public Bridge authority, truthful terms and durable runtime > D17 migrates outgoing53 independently and isolates current54 campaigns
+BridgeRuntimeCheckpointError: checkpoint.currentSaveJson: must be a current V39 save, received V38
+ ❯ fail bridge/runtime-checkpoint.ts:366:9
+    364| 
+    365| function fail(path: string, message: string): never {
+    366|   throw new BridgeRuntimeCheckpointError(path, message)
+       |         ^
+    367| }
+    368| 
+ ❯ validateCanonicalCurrentSave bridge/runtime-checkpoint.ts:489:5
+ ❯ hydrateAndEncodeBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1111:23
+ ❯ decodeBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1264:20
+ ❯ Module.loadBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1315:15
+ ❯ qualifyPrior53 tests/bridge-p14p3-directing-promises.test.ts:318:20
+ ❯ tests/bridge-p14p3-directing-promises.test.ts:565:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  18:04:25
+   Duration  7.68s (transform 2.82s, setup 0ms, collect 3.72s, tests 3.47s, environment 0ms, prepare 166ms)
+

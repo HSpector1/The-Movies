@@ -1,0 +1,6 @@
+{"sourceSha":"d2f615b015bfb673b8b69d188d592b710bb9aecb","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/tsc","--noEmit","-p","tsconfig.bridge.json"],"node":"v20.20.2","start":"2026-09-27T16:03:31.415Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+bridge/people.ts(1048,7): error TS2322: Type '"significantCastRole" | "anyCastAppearance" | "directingOpportunity"' is not assignable to type '"significantCastRole" | "anyCastAppearance"'.
+  Type '"directingOpportunity"' is not assignable to type '"significantCastRole" | "anyCastAppearance"'.
+bridge/promises.ts(111,68): error TS2339: Property 'seatClass' does not exist on type 'CastRoleCountPredicate | DirectorCountPredicate'.
+  Property 'seatClass' does not exist on type 'DirectorCountPredicate'.
