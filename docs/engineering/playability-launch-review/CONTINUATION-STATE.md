@@ -1,5 +1,58 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — canonical transition qualified; passive Writer work gap recorded
+
+1031 closed00:55:10.218Z,26.753s, child1/fixed `ff127eca`: K1–K4 PASS,
+L1–L2 FAIL on one cached no-hire terminal premise. Actual K451+L156=607 calls;
+Clara Moss became Writer451, then remained unhired and retired from Writer607.
+No alternate seed, intervention or rerun follows.1064 records the exact qualified
+history/negative controls, four actual Scientist staff appends, seven cohort
+appends, scheduled row5 reuse and all unmet L assertions.1032 root types PASS,
+no diagnostics,33.495s, closed00:56:07.764Z. All heavy processes are closed.
+Author is idle after Stage D read-only preparation; reviewer owns1062 results.
+Parent will publish this bounded checkpoint, verify GitHub, then release only
+1030/1048/1063's27 Stage D leaves/six paths/max486 calls. Projection53 production
+still follows independent recorded RED; full/endurance/native limits remain.
+
+## CURRENT — canonical rival first observation active
+
+1031-c3-canonical-rival-first started `2026-09-27T00:54:43.465Z` (session79456), sole
+heavy process on `fe9dbd47` plus fixed patch `ff127eca9da08b8bdfebe96d92dab188b7c1dc75cfd5402abfeb41ff9c72a003`.
+All six leaves share K≤832 and loaded L≤156, aggregate≤988. Source and HEAD remain
+frozen until recorded closure.1061-A handback is frozen at
+`e98d99c8df34433ab82b174b96f6056623f2e66a0e21ac7d7b89d2671f168360`;
+1062 independently rehashed the final source and gave static KEEP. Author is idle;
+reviewer owns only1062 docs/results. No route outcome is claimed yet. Parent next
+attributes actual results, runs root types and publishes the bounded checkpoint,
+then releases independent Stage D tests under1030/1048/1063.
+
+## CURRENT — canonical rival source frozen; bounded observation next
+
+On published `fe9dbd47`, the two new canonical-rival files are frozen at
+helper `827b59fd367d3329380de1093cd03f337ccfa3fab36ef153c63c6b837283806c`
+and test `d9ef480a237dad35a13fc57317f911d14ca4f254d8c60ff911043e01263d722c`.
+Parent independently matched ordered patch
+`ff127eca9da08b8bdfebe96d92dab188b7c1dc75cfd5402abfeb41ff9c72a003` (47,596 bytes)
+and marked both files intent-to-add. Six leaves share one selected098 route,
+K≤832 and loaded L≤156, aggregate≤988; no funding, player action or alternate seed.
+Author owns only1061-A handback; reviewer1062 final source/results. No heavy process
+is active. Next independent freeze review, then1031 exact six-case run and root
+types, first-cause attribution and recoverable checkpoint. Stage D remains ready
+under1030/1048/1063 with486 calls; projection53 production follows independent RED.
+
+## CURRENT — cohort transition published; canonical rival source released
+
+Local/GitHub refs independently matchfe9dbd47f350e5f417e88bcef4e027e1d3187136;
+wholeworktreeclean atverification.1060 records1030all9PASS/exact729calls and
+1057-B finalKEEP, preservingoriginal1028failure. Allheavyprocessesclosed.
+Existingauthor owns only NEW tests/helpers/p14c3-canonical-rival-fixtures.ts,
+tests/p14c3-canonical-rival-history.test.ts and1061-A under1042/1055: sixleaves,
+exact098 world/hash, Kmax832 thenloadedLmax156, aggregate988, nofunding/actions/
+alternateseed. Narrowcallthrough owner/review spies preserveactualphases/dates.
+Reviewer owns1062 source/results anddocs-only1063 StageD release recheck; parent
+soleproductionwriter/executor. Nextfreeze/review/1031boundedrun, thenattribution/
+types/checkpoint. Stage D53/runtime/SaveAs/full/endurance andnative deferralretain.
+
 ## CURRENT — all nine cohort cases pass; preparing qualified checkpoint
 
 1030 closed00:36:07.733Z,99.481s, child0/fixed4c97ceb1,all9PASS/exact729calls.
