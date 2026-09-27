@@ -1,0 +1,18 @@
+{
+  "at": "2026-09-27T16:39:41.501778+00:00",
+  "sourceSha": "b3061980bc8f5d128085e86dd67f31f26a310421",
+  "remoteSha": "b3061980bc8f5d128085e86dd67f31f26a310421",
+  "consumedSourceClean": true,
+  "wholeWorktreeStatus": " M docs/engineering/playability-launch-review/CODEX-START-HERE.md\n M docs/engineering/playability-launch-review/CONTINUATION-STATE.md\n M docs/engineering/playability-launch-review/HEADLESS-PROGRESS.md\n M docs/engineering/playability-launch-review/UNITY-INTEGRATION-BACKLOG.md\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1188-p3-bridge-types-preflight.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1188-p3-bridge-types.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1188-p3-bridge-types.patch\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1188-p3-bridge-types.txt\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1189-p3-d17-candidate.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1189-p3-d17-candidate.patch\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1189-p3-d17-candidate.txt\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1189-p3-d17-neighbors-preflight.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1190-p3-contract-neighbors.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1190-p3-contract-neighbors.patch\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1190-p3-contract-neighbors.txt\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1191-p3-waiver-neighbors.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1191-p3-waiver-neighbors.patch\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1191-p3-waiver-neighbors.txt\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1192-A-p3-targeted-neighbor-attribution.md\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1192-p3-classless-neighbors.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1192-p3-classless-neighbors.patch\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1192-p3-classless-neighbors.txt\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1192-p3-neighbor-complete-diagnostics.json\n",
+  "testSha256": "f4b933e4ed8a29f5a336294201565907c0d8d5d42044dab89935f4aec1b04c4b",
+  "scope": "Two existing zero-advance current metadata/registry guards omitted by1191; observe before coherent file maintenance. No test/source/timeout changes.",
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/bridge-p14b8-waiver-surface.test.ts",
+    "-t",
+    "PROJECTION_VERSION is|the running identity moves OFF"
+  ]
+}

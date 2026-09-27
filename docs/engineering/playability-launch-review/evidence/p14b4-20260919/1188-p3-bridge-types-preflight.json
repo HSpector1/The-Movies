@@ -1,0 +1,17 @@
+{
+  "at": "2026-09-27T16:29:45.727841+00:00",
+  "sourceSha": "b3061980bc8f5d128085e86dd67f31f26a310421",
+  "remoteSha": "b3061980bc8f5d128085e86dd67f31f26a310421",
+  "wholeWorktreeCleanBeforeRecord": true,
+  "productionPinsVerified": 10,
+  "testPostimageVerified": {
+    "bytes": 45878,
+    "sha256": "dbc4800046353a25d75261604e944b77c05e26c43d79ae4e856e23fb4aabf86d"
+  },
+  "command": [
+    "node_modules/.bin/tsc",
+    "--noEmit",
+    "-p",
+    "tsconfig.bridge.json"
+  ]
+}

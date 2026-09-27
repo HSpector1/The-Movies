@@ -1,0 +1,22 @@
+{"sourceSha":"b3061980bc8f5d128085e86dd67f31f26a310421","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-p14p3-directing-promises.test.ts","-t","D17"],"node":"v20.20.2","start":"2026-09-27T16:31:14.165Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/bridge-p14p3-directing-promises.test.ts > P3 public Bridge authority, truthful terms and durable runtime > D17 migrates outgoing53 independently and isolates current54 campaigns
+1174-P3-PRIOR53 {"slots":["208/207","104-after/104-before"],"ticks":0,"qualified":true}
+
+stdout | tests/bridge-p14p3-directing-promises.test.ts > P3 public Bridge authority, truthful terms and durable runtime > D17 migrates outgoing53 independently and isolates current54 campaigns
+1174-P3-RUNTIME {"originalWeek":52,"branchWeek":54,"freshFactories":1,"coordinatorAdvances":2,"aggregateVerifiedAdvances":9}
+
+stdout | tests/bridge-p14p3-directing-promises.test.ts
+1174-P3-BRIDGE-COUNTERS {"reservedAdvanceCommands":9,"verifiedOneWeekAdvances":9,"actualAdvanceDispatchInvocations":9,"sessionAdvanceAttempts":7,"coordinatorAdvanceAttempts":2,"duplicateInvocations":3,"cap":12,"phases":[{"name":"captured45","complete":true},{"name":"actualAttached45","complete":true},{"name":"actualBound52","complete":true}]}
+
+ ✓ |core| tests/bridge-p14p3-directing-promises.test.ts (3 tests | 2 skipped) 92314ms
+   ✓ P3 public Bridge authority, truthful terms and durable runtime > D17 migrates outgoing53 independently and isolates current54 campaigns 92312ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 2 skipped (3)
+   Start at  18:31:14
+   Duration  96.59s (transform 2.64s, setup 0ms, collect 3.66s, tests 92.31s, environment 0ms, prepare 133ms)
+

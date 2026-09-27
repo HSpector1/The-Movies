@@ -1,0 +1,68 @@
+{"sourceSha":"b3061980bc8f5d128085e86dd67f31f26a310421","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-p14b4-cast-class.test.ts","-t","both viewing directions|own legacy classless"],"node":"v20.20.2","start":"2026-09-27T16:34:00.210Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p14b4-cast-class.test.ts (28 tests | 2 failed | 26 skipped) 1916ms
+   × P14B4 existing own/private/public carriers > both viewing directions retain whole competing promise UNKNOWN, with no class beside it 734ms
+     → validateSaveV38: expected version 38
+   × P14B4 existing own/private/public carriers > own legacy classless P2 shows null/unknown, never a fabricated lead; P1 remains not-applicable 1180ms
+     → expected [ { promiseId: 'promise-0', …(12) } ] to deeply equal [ { promiseId: 'promise-0', …(11) } ]
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14b4-cast-class.test.ts > P14B4 existing own/private/public carriers > both viewing directions retain whole competing promise UNKNOWN, with no class beside it
+Error: validateSaveV38: expected version 38
+ ❯ proveProfessionSave src/core/save.ts:10251:43
+    10249|   if (!isRecord(save)) throw new Error(`validateSaveV${version}: objec…
+    10250|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10251|   if (save.saveVersion !== version) throw new Error(`validateSaveV${ve…
+       |                                           ^
+    10252|   const raw = v14Record(checkEnvelope(save, `validateSaveV${version}`)…
+    10253|   validateTalentProvenanceRoot(raw);
+ ❯ Module.validateSaveV38 src/core/save.ts:10262:10
+ ❯ base tests/bridge-p14b4-cast-class.test.ts:127:3
+ ❯ tests/bridge-p14b4-cast-class.test.ts:392:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/bridge-p14b4-cast-class.test.ts > P14B4 existing own/private/public carriers > own legacy classless P2 shows null/unknown, never a fabricated lead; P1 remains not-applicable
+AssertionError: expected [ { promiseId: 'promise-0', …(12) } ] to deeply equal [ { promiseId: 'promise-0', …(11) } ]
+
+- Expected
++ Received
+
+  Array [
+    Object {
+      "contractId": "studio-aca408ec-player:contract:t-act-09:52:player-31",
+      "count": 1,
+      "dueWeekExclusive": 92,
+      "family": "APPEARANCE_COUNT",
+      "outcome": null,
+      "outcomeCause": null,
+      "outcomeWeek": null,
+      "progress": 0,
+      "promiseId": "promise-0",
++     "qualifyingRole": "cast",
+      "seatClass": null,
+      "supersededByPromiseId": null,
+      "windowStartWeek": 52,
+    },
+  ]
+
+ ❯ history tests/bridge-p14b4-cast-class.test.ts:367:65
+    365|     supersededByPromiseId: live.supersededByPromiseId, progress: live.…
+    366|   const own = promiseRowsForPerson(state, root.beneficiaryPersonId, ro…
+    367|   expect(own.filter((row) => row.promiseId === root.promiseId)).toEqua…
+       |                                                                 ^
+    368|   expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioMarketPromiseHistory…
+    369|   const profile = peopleProjection(state).profiles.find((p) => p.talen…
+ ❯ tests/bridge-p14b4-cast-class.test.ts:426:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 26 skipped (28)
+   Start at  18:34:00
+   Duration  5.77s (transform 2.45s, setup 0ms, collect 3.33s, tests 1.92s, environment 0ms, prepare 93ms)
+

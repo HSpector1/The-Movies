@@ -1,0 +1,112 @@
+{
+  "manifestVersion": 1,
+  "preparationHead": "b3061980bc8f5d128085e86dd67f31f26a310421",
+  "runHeadPolicy": "Actual published HEAD must be supplied by parent in P3_DECLARATION_EXPECTED_HEAD; preparation HEAD/index are not an execution eligibility pin.",
+  "producer": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1193-p3-declaration-measurement.ts",
+    "bytes": 9210,
+    "sha256": "e722091ae8d0cd511b167181bf18387d4a935befcfad9087eadda56443ae37cb"
+  },
+  "compilerConfig": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1193-p3-declaration-measurement.tsconfig.json",
+    "bytes": 179,
+    "sha256": "f27e9f6718abcdeaae1b244b4ea5b0aa8142a2ecfbd17e2cf17a372b17d2a2f5"
+  },
+  "inputs": [
+    {
+      "path": "scripts/bridge-contract-csharp.ts",
+      "bytes": 65692,
+      "sha256": "9adf58d7350062e25fdb4fbed73b7bdf8d613b89f4e2841eb032d06e32294057"
+    },
+    {
+      "path": "scripts/generate-bridge-contract.ts",
+      "bytes": 7091,
+      "sha256": "2e032f3b53b03591631c3dbab773368ff1aff8ba74217efd5d45388f5182dd56"
+    },
+    {
+      "path": "bridge/schema/canonical.ts",
+      "bytes": 870,
+      "sha256": "b84768f3a565f7e027938fefd46960ffbbd55a35d44a51145e94b82a1529e340"
+    },
+    {
+      "path": "bridge/schema/dsl.ts",
+      "bytes": 3946,
+      "sha256": "199880cc5ad275cdf4e277c7afba44823022d9e0e0b93bbee01e4fb8ad7cef8b"
+    },
+    {
+      "path": "bridge/schema/bridge-schema.ts",
+      "bytes": 187261,
+      "sha256": "810328848c813b5b8a84e776c924335998b4541c1681d2b15299fd6f5fa777cc"
+    },
+    {
+      "path": "bridge/schema/industry-schema.ts",
+      "bytes": 24682,
+      "sha256": "794ef431e62a5f44674f874f9144ed0a667965781e587d23fc0e71eb65c58453"
+    },
+    {
+      "path": "bridge/schema/intent-schema.ts",
+      "bytes": 3616,
+      "sha256": "6230f858a05da061f5934e85a93ba247e0483e50a4d2aee845b2e9b642ab366a"
+    },
+    {
+      "path": "tests/fixtures/bridge-contract-union-fixtures.ts",
+      "bytes": 10210,
+      "sha256": "0689507dd4e5407ec9fdc5ba3834ab9304d29120040ccac2af254cb51b637e8f"
+    },
+    {
+      "path": "tests/bridge-contract-generator.test.ts",
+      "bytes": 53289,
+      "sha256": "2493afbb76417fc3479f98e25a71e63ed901022568ef7d56c7af8ef4eb7f29b5"
+    },
+    {
+      "path": "generated/unity/StudioBridgeDtos.Generated.cs",
+      "bytes": 867401,
+      "sha256": "891b8f971dfcc474d6c083f2f0db54ff972e50ad0664b0a4e15d65e949de422a"
+    },
+    {
+      "path": "generated/unity/project-studio-bridge.contract-manifest.json",
+      "bytes": 820,
+      "sha256": "ecf51c7755bb54dc3a79f809dd7022bb3c3c875138887756d634fd655c4958d3"
+    },
+    {
+      "path": "bridge/schema/project-studio-bridge.schema.json",
+      "bytes": 396058,
+      "sha256": "745d9f0c02f40b5f67a0882e3bf29133da21e1d9917f5a57a9ee73b4cb5a7723"
+    },
+    {
+      "path": "package.json",
+      "bytes": 2726,
+      "sha256": "031dadd99741140dae256481de76d98502bfb5855dee6f8eb46d043baa6fac9f"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 149287,
+      "sha256": "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1075-c3-declaration-measurement.ts",
+      "bytes": 6877,
+      "sha256": "21188b750289ad4e51e337b2346cdfff706fbb817b79c2526a49f7b24c85c54b"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1047-c3-declaration-measurement.txt",
+      "bytes": 5257,
+      "sha256": "f4c3ebe25248af2a48622900f0bbcb0850ec831e52855fb55ed388dad36b069e"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1047-c3-declaration-measurement.json",
+      "bytes": 718,
+      "sha256": "40c85d11bb3edeceb4cec7ad72ee40cfc621d0eac9649168e24437718f3c3f6d"
+    }
+  ],
+  "measurement": {
+    "positiveFixtures": 8,
+    "renders": 16,
+    "fixedPositiveFixtures": 6,
+    "expectedCurrentDeclarationOutputHashes": null,
+    "priorCurrentDeclarationSource": "1047-c3-declaration-measurement, frozen before P3",
+    "actualGameTicks": 0,
+    "maxOutputBytes": 1048576
+  },
+  "output": "Success-only JSON stdout after every fixed-input/source/HEAD/raw-index/producer/manifest postguard; no artifact file writes."
+}

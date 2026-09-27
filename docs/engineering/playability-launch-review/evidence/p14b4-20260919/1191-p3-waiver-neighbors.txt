@@ -1,0 +1,63 @@
+{"sourceSha":"b3061980bc8f5d128085e86dd67f31f26a310421","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-p14b8-waiver-surface.test.ts","-t","a count-2 substitute answers|one accepted command settles|PROJECTION ONLY|the two OFFERED families|the genuine projection-49 checkpoint"],"node":"v20.20.2","start":"2026-09-27T16:33:51.577Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p14b8-waiver-surface.test.ts (32 tests | 2 failed | 27 skipped) 3518ms
+   ✓ P14B.8 group3 — CC3: the acceptance, and Trap 3 > a count-2 substitute answers ok:true with null refusal, echoed terms and one digest-bound intent, mutating nothing 995ms
+   ✓ P14B.8 group4 — CC4: confirm > one accepted command settles the original WAIVED and binds the substitute to the SAME contract, advancing the revision by exactly 1 1214ms
+   × P14B.8 group11 — A8: the waiver draft offers only what this surface has > the two OFFERED families validate and the three unoffered ones are refused at the wire 44ms
+     → DIRECTING_COUNT must be unreachable BY CONSTRUCTION; its engine refusal publishes "not offered in this slice" to a player: expected { ok: true, quote: { …(7) } } to match object { ok: false, …(1) }
+(8 matching properties omitted from actual)
+   × P14B.8 group12 — the projection moves 49 -> 50 and the outgoing identity is registered as a prior > the genuine projection-49 checkpoint is no longer the CURRENT identity: it takes the governed prior path exactly once, with both slots on the live Save V35 (stale title corrected post-C.4, was post-C.2a) 1173ms
+     → 946: each historical slot reaches actual live Save38: expected 39 to be 38 // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14b8-waiver-surface.test.ts > P14B.8 group11 — A8: the waiver draft offers only what this surface has > the two OFFERED families validate and the three unoffered ones are refused at the wire
+AssertionError: DIRECTING_COUNT must be unreachable BY CONSTRUCTION; its engine refusal publishes "not offered in this slice" to a player: expected { ok: true, quote: { …(7) } } to match object { ok: false, …(1) }
+(8 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "ok": false,
+-   "reasonCode": "INVALID_COMMAND",
++   "ok": true,
+  }
+
+ ❯ tests/bridge-p14b8-waiver-surface.test.ts:751:10
+    749|       const wire = waiverRequest(session, { promiseId: OWES_TWO.promis…
+    750|       expect(validateQuote(wire), `${family} must be unreachable BY CO…
+    751|         .toMatchObject({ ok: false, reasonCode: 'INVALID_COMMAND' })
+       |          ^
+    752|     }
+    753|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/bridge-p14b8-waiver-surface.test.ts > P14B.8 group12 — the projection moves 49 -> 50 and the outgoing identity is registered as a prior > the genuine projection-49 checkpoint is no longer the CURRENT identity: it takes the governed prior path exactly once, with both slots on the live Save V35 (stale title corrected post-C.4, was post-C.2a)
+AssertionError: 946: each historical slot reaches actual live Save38: expected 39 to be 38 // Object.is equality
+
+- Expected
++ Received
+
+- 38
++ 39
+
+ ❯ tests/bridge-p14b8-waiver-surface.test.ts:815:102
+    813|     expect(minted, 'the governed prior path mints one fresh session id…
+    814|     const hydrated = loaded.hydrated as unknown as { currentSave: { sa…
+    815|     expect(hydrated.currentSave.saveVersion, '946: each historical slo…
+       |                                                                                                      ^
+    816|     expect(hydrated.savedSave.saveVersion).toBe(38)
+    817|     expect(hydrated.currentSave.state.market.tick).toBe(PROJECTION49_C…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 3 passed | 27 skipped (32)
+   Start at  18:33:52
+   Duration  7.58s (transform 2.54s, setup 0ms, collect 3.53s, tests 3.52s, environment 0ms, prepare 114ms)
+

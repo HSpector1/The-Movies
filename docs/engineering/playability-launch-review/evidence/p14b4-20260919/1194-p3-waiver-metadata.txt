@@ -1,0 +1,56 @@
+{"sourceSha":"b3061980bc8f5d128085e86dd67f31f26a310421","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-p14b8-waiver-surface.test.ts","-t","PROJECTION_VERSION is|the running identity moves OFF"],"node":"v20.20.2","start":"2026-09-27T16:39:49.384Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p14b8-waiver-surface.test.ts (32 tests | 2 failed | 30 skipped) 20ms
+   × P14B.8 group12 — the projection moves 49 -> 50 and the outgoing identity is registered as a prior > PROJECTION_VERSION is 52 and the schema document agrees 16ms
+     → expected 54 to be 53 // Object.is equality
+   × P14B.8 group12 — the projection moves 49 -> 50 and the outgoing identity is registered as a prior > the running identity moves OFF sha256:60af24c5… and that identity is registered as projection-v49 in the SAME commit 3ms
+     → 946 adds the genuine outgoing52 identity: 40 -> 41: expected 42 to be 41 // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14b8-waiver-surface.test.ts > P14B.8 group12 — the projection moves 49 -> 50 and the outgoing identity is registered as a prior > PROJECTION_VERSION is 52 and the schema document agrees
+AssertionError: expected 54 to be 53 // Object.is equality
+
+- Expected
++ Received
+
+- 53
++ 54
+
+ ❯ tests/bridge-p14b8-waiver-surface.test.ts:775:32
+    773| describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgo…
+    774|   it('PROJECTION_VERSION is 52 and the schema document agrees', () => {
+    775|     expect(PROJECTION_VERSION).toBe(53)
+       |                                ^
+    776|     expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol…
+    777|     expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(5…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/bridge-p14b8-waiver-surface.test.ts > P14B.8 group12 — the projection moves 49 -> 50 and the outgoing identity is registered as a prior > the running identity moves OFF sha256:60af24c5… and that identity is registered as projection-v49 in the SAME commit
+AssertionError: 946 adds the genuine outgoing52 identity: 40 -> 41: expected 42 to be 41 // Object.is equality
+
+- Expected
++ Received
+
+- 41
++ 42
+
+ ❯ tests/bridge-p14b8-waiver-surface.test.ts:786:110
+    784|     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID), 'the …
+    785|     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get('sha256:f036ccdd6…
+    786|     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size, '946 adds the g…
+       |                                                                                                              ^
+    787|   })
+    788| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 30 skipped (32)
+   Start at  18:39:49
+   Duration  4.12s (transform 2.55s, setup 0ms, collect 3.54s, tests 20ms, environment 0ms, prepare 130ms)
+

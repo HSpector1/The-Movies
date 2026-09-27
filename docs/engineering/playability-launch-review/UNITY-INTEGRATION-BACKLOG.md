@@ -1,5 +1,51 @@
 # UNITY-INTEGRATION-BACKLOG — work reserved for the replacement laptop
 
+## CURRENT — Frozen neighbor attribution and independent measurement released
+
+1192-A/B and1193-A/B are final and parent-pin-verified.1194 separately observed two
+additional stale waiver metadata expectations (54 versus53;42 prior IDs versus41),
+with2FAIL/30filtered on fixedb306 in5.026s. Existing specialists yielded all edits;
+parent owns integration and the only heavy process.1194-C records recovery and scope.
+
+Publish this evidence and the reviewed1193 producer, then run1195's explicit local
+compiler followed by1196's independent16-render measurement. Preserve all6 fixed
+hashes and original failure evidence. New F10/F11 pins require the independent
+measurement; five-path1197 test maintenance and separate review follow. No production,
+fixture, timeout or staffing change is released. D15/D16/UI/D17 qualification retains
+its actual source and timing limits. Core/rival/program gaps and native deferrals remain.
+
+## CURRENT — D17 passed; bounded neighbor maintenance observed
+
+Publishedb3061980bc8f5d128085e86dd67f31f26a310421 has exact remote equality.
+1188 Bridge compiler passed29.885s.1189 D17-only run passed16:31:14.165–16:32:51.734
+UTC,97.569s: one PASS/two filtered. Both prior53 variants and the complete in-memory
+SAVE/SaveAs/branch/load/restart/replay route passed. Actual counters9 reserved,
+invoked and verified advances (7 session+2 coordinator),3 duplicates,1 freshfactory;
+captured45/attached45/bound52 complete, no waiver phase. D17 reported92.312s despite
+its unchanged60s declaration; retain logic qualification without a timing guarantee.
+D15/D16 and UI remain attributed to1185/1186, not repeated here.
+
+Sequential neighbors then closed:1190 schema/generator/prior46 group59.476s,
+53PASS/6FAIL (59 cases);1191 selected waiver8.461s,3PASS/2FAIL/27filtered;
+1192 selected classless6.689s,2FAIL/26filtered. Every gate stayed fixed-source,
+empty consumed diff, no untracked source/signal/error; no heavy process is active.
+All ten failure identities are preserved with complete diagnostics/tails. Actual
+causes: stale53 schema/header/current metadata and declaration-body hashes;
+old P3 waiver-wire refusal; old38 migration expectations; a live39 state sent to
+strict38 fixture admission; and expected history missing qualifyingRole:'cast'.
+Do not treat masked later assertions as passed. Both enormous C# diffs were fully
+reconstructed: one exactly equals generated54, the other differs only in the
+test's explicit53 header argument. No generated production defect is indicated.
+
+Existing author/reviewer freeze1192 attribution. Next1193 is a new independent
+read-only declaration measurement producer, adapted from preserved1075 without
+editing it: known54 source/output pins, explicit expected publishedHEAD, all8
+positive fixtures rendered twice and6 fixed controls unchanged. Parent executes
+only after review/publication/manual-pin preflight. Do not copy expected hashes
+from the failure log. Test maintenance stays blocked on its concrete evidence
+and separate review; no production, fixture, staffing or timeout changes are
+released. Other core/rival/matrix gaps and Unity/native/Owner deferrals remain.
+
 ## CURRENT — D17 test-only amendment frozen and reviewed
 
 1186 A/B preserve all seven actual gates on8ede2aef; corrected A retains its full
