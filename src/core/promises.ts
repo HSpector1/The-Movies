@@ -783,12 +783,14 @@ export function qualifyingTakes(
   promise: ReadablePromise,
 ): readonly FirstTakeReceipt[] {
   const slots = promiseCastSlots(promise)
+  const director = isDirectorPromise(promise)
   const productions = new Set<string>()
   return state.firstTakes.filter((take) => {
     if (productions.has(take.productionId)
       || take.studioId !== promise.issuerStudioId
       || take.week < promise.windowStartWeek || take.week >= promise.dueWeekExclusive
-      || !slots.some((slot) => take.cast[slot] === promise.beneficiaryPersonId)) return false
+      || !(director ? take.directorId === promise.beneficiaryPersonId
+        : slots.some((slot) => take.cast[slot] === promise.beneficiaryPersonId))) return false
     productions.add(take.productionId)
     return true
   })
@@ -972,7 +974,9 @@ export function advancePromisesWeek(state: GameState): GameState {
       continue
     }
     if (progress !== promise.progress) {
-      next = { ...next, promises: next.promises.map((p) => (p.promiseId === promise.promiseId ? { ...p, progress } : p)) }
+      next = { ...next, promises: next.promises.map((p) => (p.promiseId === promise.promiseId
+        ? { ...p, progress, ...(isDirectorPromise(promise) ? { evidenceRefs: takes.map(take => take.eventId) } : {}) }
+        : p)) }
     }
   }
   return next

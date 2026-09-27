@@ -1,0 +1,112 @@
+{"sourceSha":"5b58e064bba0fb3cd08c6d0abf749c30a18bbbf6","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14p3-directing-promises.test.ts"],"node":"v20.20.2","start":"2026-09-27T11:51:58.140Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D01 offers fresh directing work to lawful Actors and Directors
+1133-P3-LEGACY4 {"week":8,"rngState":"1557239868,672280863,464522958,2878174094","receipts":[{"draft":{"family":"APPEARANCE_COUNT","predicate":{"count":1},"issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":112},"receipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"9a5006d1107172a3","rulesVersion":4,"week":8}},{"draft":{"family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"lead"},"issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":112},"receipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"3dbf55ccb67dfa2c","rulesVersion":4,"week":8}}]}
+
+stdout | tests/p14p3-directing-promises.test.ts
+1133-P3-COUNTERS {"actualTicks":78,"cap":208,"cachedPhases":[{"name":"created0","completed":true},{"name":"managedEmpty8","completed":true},{"name":"ready10","completed":true},{"name":"cases45","completed":true},{"name":"attached45","completed":true},{"name":"bound52","completed":true},{"name":"firstFilm","completed":true},{"name":"secondFilm","completed":true}]}
+
+ ❯ |core| tests/p14p3-directing-promises.test.ts (8 tests | 3 failed) 34857ms
+   ✓ P3 first slice: public Director promises and historical meaning > D01 offers fresh directing work to lawful Actors and Directors 5929ms
+   × P3 first slice: public Director promises and historical meaning > D02 counts only actual unrecorded Director seats through the first take 5118ms
+     → expected { promiseId: 'promise-0', …(16) } to match object { progress: 1, …(2) }
+(21 matching properties omitted from actual)
+   ✓ P3 first slice: public Director promises and historical meaning > D03 preserves conservative clocks and names each unavailable resource 613ms
+   ✓ P3 first slice: public Director promises and historical meaning > D04 selects revision6 only for the explicit relevant domain and preserves pure history 2246ms
+   ✓ P3 first slice: public Director promises and historical meaning > D05 binds only the actual accepted material proposal 1038ms
+   × P3 first slice: public Director promises and historical meaning > D06 fulfills directing once from two real distinct first takes 2499ms
+     → expected { promiseId: 'promise-0', …(16) } to match object { progress: 2, …(4) }
+(19 matching properties omitted from actual)
+   × P3 first slice: public Director promises and historical meaning > D13 admits exact new promise authority and rejects malformed current saves 10301ms
+     → expected [Function] to throw error matching /outcomeEventId/i but got 'validateSaveV37: state is invalid — v…'
+   ✓ P3 first slice: public Director promises and historical meaning > D14 preserves old meaning and refuses lossy reverse conversion 7110ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D02 counts only actual unrecorded Director seats through the first take
+AssertionError: expected { promiseId: 'promise-0', …(16) } to match object { progress: 1, …(2) }
+(21 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "evidenceRefs": Array [
+-     "first-take-event-24",
+-   ],
++   "evidenceRefs": Array [],
+    "outcome": null,
+-   "progress": 1,
++   "progress": 0,
+  }
+
+ ❯ tests/p14p3-directing-promises.test.ts:113:21
+    111|       .toBe('scheduled')
+    112|     expect(input.first.afterTake.studio.activeProductions.find(row => …
+    113|     expect(promise).toMatchObject({ progress: 1, evidenceRefs: [input.…
+       |                     ^
+    114|     expect(ownTakes(input.first.afterTake, promise)).toEqual([input.fi…
+    115|     expect(publicTakes(input.first.afterTake, promise)).toEqual([input…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D06 fulfills directing once from two real distinct first takes
+AssertionError: expected { promiseId: 'promise-0', …(16) } to match object { progress: 2, …(4) }
+(19 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "evidenceRefs": Array [
+-     "first-take-event-24",
+-     "first-take-event-32",
+-   ],
+-   "outcome": "SATISFIED",
+-   "outcomeWeek": 74,
+-   "progress": 2,
++   "evidenceRefs": Array [],
++   "outcome": null,
++   "outcomeWeek": null,
++   "progress": 0,
+    "supersededByPromiseId": null,
+  }
+
+ ❯ tests/p14p3-directing-promises.test.ts:272:17
+    270|     expect(real).toEqual([input.first.take, input.second.take])
+    271|     expect(new Set(real.map(t => t.productionId)).size).toBe(2)
+    272|     expect(row).toMatchObject({ progress: 2, evidenceRefs: real.map(t …
+       |                 ^
+    273|       outcomeWeek: input.second.take.week, supersededByPromiseId: null…
+    274|     expect(input.second.afterTake.talentMarket.receipts.filter(r => r.…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D13 admits exact new promise authority and rejects malformed current saves
+AssertionError: expected [Function] to throw error matching /outcomeEventId/i but got 'validateSaveV37: state is invalid — v…'
+
+- Expected: 
+/outcomeEventId/i
+
++ Received: 
+"validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV39: state.promises[0] has outcome evidence but no outcome"
+
+ ❯ malformed tests/p14p3-directing-promises.test.ts:52:46
+     50|   const row = variant.state.promises.find(p => p.promiseId === promise…
+     51|   change(row, variant)
+     52|   expect(() => api.validateSaveV39(variant)).toThrow(cause)
+       |                                              ^
+     53| }
+     54| afterAll(() => console.info('1133-P3-COUNTERS ' + JSON.stringify(count…
+ ❯ tests/p14p3-directing-promises.test.ts:331:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 5 passed (8)
+   Start at  13:51:58
+   Duration  38.92s (transform 2.45s, setup 0ms, collect 3.20s, tests 34.86s, environment 0ms, prepare 208ms)
+

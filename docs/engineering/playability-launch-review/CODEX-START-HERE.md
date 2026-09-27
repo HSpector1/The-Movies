@@ -1,29 +1,30 @@
 # CODEX continuation — Project Studio
 
-## CURRENT — P3 initial core/save candidate reviewed and typed; behavior next
+## CURRENT — real P3 binding/two films observed; Director outcome correction typed
 
-1135-A/B semantic RED is preserved at95a9abc2c5c5ffc53dc1639da19da510304ac2da,
-including exact pre-writer old4 marker851B/182cf54d and successful45-call setup.
-1136-B KEEP reviews the corrected five production files;1136-D KEEP reviews
-12 exact compiler-named test adaptations. 1136-C records deliberately limited
-initial offer/attachment/scoped6/strictSave39 scope; no Director outcomes or
-rival/waiver/preference/Bridge behavior is claimed. Frozen historical readers,
-assertions, fixtures, timeouts and original failure records remain preserved.
+1137 closed on published5b58e064bba0fb3cd08c6d0abf749c30a18bbbf6 with5PASS/3FAIL,
+78 actualcalls, child1/fixedSource:true/empty consumed diff in40.450s. Actual
+bound52 and both released-film helpers complete. D01/03/04/05/14PASS; old4 marker
+851B/182cf54d matches1135 literally. 1137-A/B preserve full new first causes.
+D02/D06 realDirector takes24/32 (second74) remain uncounted; D13 missing-outcome
+negative correctly refused against the still-open row. No assertion was relaxed.
+Terminal208 and old-builder controls remain unreached in that run.
 
-1136 original compiler FAIL14 test/helper diagnostics is retained. Corrected
-1136b root compiler PASS:95a9abc2 plus tracked17-file patch8a2200f33ee1307971e71107eea82d043d281bd9d39060a0a27e314d52035ef3,
-fixedSource:true/no untracked source,11:49:53.042–11:50:40.911UTC,47.869s.
-No behavior result exists for this candidate yet. Publish candidate and exact-
-remote-verify, then parent1137-p3-front-door-behavior using unchanged1133 argv.
-Compare the complete old4 marker literally and attribute every newly reached
-first cause; bound52/films/outcomes/new39 negatives were not reached in1135.
+Matched correction changes ONLY promises.ts: Director-id qualification in the
+shared first-take reader and Director-only partial evidenceRefs. Old cast paths
+and terminal settler remain unchanged; no retirement/rival/waiver/wire changes.
+1138-B independently reviews the tiny source patch. 1138 rootcompilerPASS on
+5b58e064 plus f598d4aaea66a1cebaa0bd7b7c6b476825e95c857e826fdac61495a31adde8fb,
+fixedSource:true/no untracked,11:54:26.496–11:55:20.675UTC,54.179s.
 
-Parent alone owns production integration/heavy execution. Both existing specialists
-have frozen consumed source; keep HEAD/index/inputs fixed during the one run.
-All eight declarations,60s local ceilings and cached208-call cap stay unchanged.
-D13 waived-state and broader P3/lifecycle/wire work remain pending. Outgoing38/53,
-bounded1128 C.3,1122 P15 selections and earlier limitations remain intact.
-Continue the authorized program without routine approval pauses.
+Publish the correction and closed evidence, verify exact remote, then parent
+runs1139-p3-first-slice-outcomes using unchanged1133 eight-leaf argv/60s ceilings
+and cached208-call cap. No behavioral result for this correction yet. Freeze
+HEAD/index/consumed source during the one heavy run; classify actual first causes
+and compare complete pre-writer old4 marker. Parent remains sole production writer
+and heavy executor; two existing specialists own separate test/review evidence.
+Remaining P3, broad affected-consumer verification, P14 onward and Unity/native
+limitations remain pending. Continue the authorized program without routine approval.
 
 ## CURRENT — reviewed 25-file fixture repair applied; publish and verify
 

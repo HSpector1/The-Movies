@@ -1,0 +1,200 @@
+{
+  "raw": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1137-p3-front-door-behavior.txt",
+    "bytes": 7398,
+    "sha256": "dad7dc89d622018674f32cf44f0f985b401bd51e8210ff159fc408e3b97cf90d"
+  },
+  "source": {
+    "sourceSha": "5b58e064bba0fb3cd08c6d0abf749c30a18bbbf6",
+    "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSource": [],
+    "command": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p3-directing-promises.test.ts"
+    ],
+    "node": "v20.20.2",
+    "start": "2026-09-27T11:51:58.140Z",
+    "end": "2026-09-27T11:52:38.590Z",
+    "exitCode": 1,
+    "signal": null,
+    "error": null,
+    "sourceShaAtEnd": "5b58e064bba0fb3cd08c6d0abf749c30a18bbbf6",
+    "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSourceAtEnd": [],
+    "fixedSource": true
+  },
+  "observed": {
+    "files": 1,
+    "passedCases": 5,
+    "failedCases": 3,
+    "diagnosticGroups": 3,
+    "sharedGroups": 0,
+    "timeouts": 0,
+    "actualTickCounters": {
+      "actualTicks": 78,
+      "cap": 208,
+      "cachedPhases": [
+        {
+          "name": "created0",
+          "completed": true
+        },
+        {
+          "name": "managedEmpty8",
+          "completed": true
+        },
+        {
+          "name": "ready10",
+          "completed": true
+        },
+        {
+          "name": "cases45",
+          "completed": true
+        },
+        {
+          "name": "attached45",
+          "completed": true
+        },
+        {
+          "name": "bound52",
+          "completed": true
+        },
+        {
+          "name": "firstFilm",
+          "completed": true
+        },
+        {
+          "name": "secondFilm",
+          "completed": true
+        }
+      ]
+    },
+    "filmMarkerCount": 0,
+    "passedLeafNames": [
+      "D01 offers fresh directing work to lawful Actors and Directors",
+      "D03 preserves conservative clocks and names each unavailable resource",
+      "D04 selects revision6 only for the explicit relevant domain and preserves pure history",
+      "D05 binds only the actual accepted material proposal",
+      "D14 preserves old meaning and refuses lossy reverse conversion"
+    ]
+  },
+  "extraction": "Complete printed primary/body/tail; outer whitespace trimmed only. No omitted stack frames are inferred.",
+  "groups": [
+    {
+      "headers": [
+        " FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D02 counts only actual unrecorded Director seats through the first take"
+      ],
+      "ids": [
+        "p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D02 counts only actual unrecorded Director seats through the first take"
+      ],
+      "primary": "AssertionError: expected { promiseId: 'promise-0', …(16) } to match object { progress: 1, …(2) }\n(21 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  Object {\n-   \"evidenceRefs\": Array [\n-     \"first-take-event-24\",\n-   ],\n+   \"evidenceRefs\": Array [],\n    \"outcome\": null,\n-   \"progress\": 1,\n+   \"progress\": 0,\n  }",
+      "primarySha256": "9a28686d2ade0b832d2dfc24f0c097e8a726994165ab4190fc4fe47fcaa86675",
+      "printedTail": "❯ tests/p14p3-directing-promises.test.ts:113:21\n    111|       .toBe('scheduled')\n    112|     expect(input.first.afterTake.studio.activeProductions.find(row => …\n    113|     expect(promise).toMatchObject({ progress: 1, evidenceRefs: [input.…\n       |                     ^\n    114|     expect(ownTakes(input.first.afterTake, promise)).toEqual([input.fi…\n    115|     expect(publicTakes(input.first.afterTake, promise)).toEqual([input…",
+      "printedTailSha256": "20794c77aa567644e6146babd6c57bad087809a5406bbfb416eb4b9724f9dca1",
+      "completeBody": "AssertionError: expected { promiseId: 'promise-0', …(16) } to match object { progress: 1, …(2) }\n(21 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  Object {\n-   \"evidenceRefs\": Array [\n-     \"first-take-event-24\",\n-   ],\n+   \"evidenceRefs\": Array [],\n    \"outcome\": null,\n-   \"progress\": 1,\n+   \"progress\": 0,\n  }\n\n ❯ tests/p14p3-directing-promises.test.ts:113:21\n    111|       .toBe('scheduled')\n    112|     expect(input.first.afterTake.studio.activeProductions.find(row => …\n    113|     expect(promise).toMatchObject({ progress: 1, evidenceRefs: [input.…\n       |                     ^\n    114|     expect(ownTakes(input.first.afterTake, promise)).toEqual([input.fi…\n    115|     expect(publicTakes(input.first.afterTake, promise)).toEqual([input…",
+      "completeBodySha256": "d1e7ad9aeccb2686206c7f5482305111995d9a91ca3cca03689a84ad64f215a0"
+    },
+    {
+      "headers": [
+        " FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D06 fulfills directing once from two real distinct first takes"
+      ],
+      "ids": [
+        "p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D06 fulfills directing once from two real distinct first takes"
+      ],
+      "primary": "AssertionError: expected { promiseId: 'promise-0', …(16) } to match object { progress: 2, …(4) }\n(19 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  Object {\n-   \"evidenceRefs\": Array [\n-     \"first-take-event-24\",\n-     \"first-take-event-32\",\n-   ],\n-   \"outcome\": \"SATISFIED\",\n-   \"outcomeWeek\": 74,\n-   \"progress\": 2,\n+   \"evidenceRefs\": Array [],\n+   \"outcome\": null,\n+   \"outcomeWeek\": null,\n+   \"progress\": 0,\n    \"supersededByPromiseId\": null,\n  }",
+      "primarySha256": "3a04904febe372b88599da2fc5535459b34eeeac1ada7d1a0513d36eed47a093",
+      "printedTail": "❯ tests/p14p3-directing-promises.test.ts:272:17\n    270|     expect(real).toEqual([input.first.take, input.second.take])\n    271|     expect(new Set(real.map(t => t.productionId)).size).toBe(2)\n    272|     expect(row).toMatchObject({ progress: 2, evidenceRefs: real.map(t …\n       |                 ^\n    273|       outcomeWeek: input.second.take.week, supersededByPromiseId: null…\n    274|     expect(input.second.afterTake.talentMarket.receipts.filter(r => r.…",
+      "printedTailSha256": "72a96c82991418c1b679cbc8727c123d1157457e3f6b1deaccf1b4780456a56d",
+      "completeBody": "AssertionError: expected { promiseId: 'promise-0', …(16) } to match object { progress: 2, …(4) }\n(19 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  Object {\n-   \"evidenceRefs\": Array [\n-     \"first-take-event-24\",\n-     \"first-take-event-32\",\n-   ],\n-   \"outcome\": \"SATISFIED\",\n-   \"outcomeWeek\": 74,\n-   \"progress\": 2,\n+   \"evidenceRefs\": Array [],\n+   \"outcome\": null,\n+   \"outcomeWeek\": null,\n+   \"progress\": 0,\n    \"supersededByPromiseId\": null,\n  }\n\n ❯ tests/p14p3-directing-promises.test.ts:272:17\n    270|     expect(real).toEqual([input.first.take, input.second.take])\n    271|     expect(new Set(real.map(t => t.productionId)).size).toBe(2)\n    272|     expect(row).toMatchObject({ progress: 2, evidenceRefs: real.map(t …\n       |                 ^\n    273|       outcomeWeek: input.second.take.week, supersededByPromiseId: null…\n    274|     expect(input.second.afterTake.talentMarket.receipts.filter(r => r.…",
+      "completeBodySha256": "7da3a3af717018e9240bed4dc07f3025b69b93abb0a309cf757f53e063be027c"
+    },
+    {
+      "headers": [
+        " FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D13 admits exact new promise authority and rejects malformed current saves"
+      ],
+      "ids": [
+        "p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D13 admits exact new promise authority and rejects malformed current saves"
+      ],
+      "primary": "AssertionError: expected [Function] to throw error matching /outcomeEventId/i but got 'validateSaveV37: state is invalid — v…'\n\n- Expected: \n/outcomeEventId/i\n\n+ Received: \n\"validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV39: state.promises[0] has outcome evidence but no outcome\"",
+      "primarySha256": "43b170602d57badbdba00c014dbdec2c3c399e6da2d4b216ca1aabf57f8ad22e",
+      "printedTail": "❯ malformed tests/p14p3-directing-promises.test.ts:52:46\n     50|   const row = variant.state.promises.find(p => p.promiseId === promise…\n     51|   change(row, variant)\n     52|   expect(() => api.validateSaveV39(variant)).toThrow(cause)\n       |                                              ^\n     53| }\n     54| afterAll(() => console.info('1133-P3-COUNTERS ' + JSON.stringify(count…\n ❯ tests/p14p3-directing-promises.test.ts:331:5",
+      "printedTailSha256": "d7d471e0a0bf4b1726e1727b2fae51808c735cd26a9807fe8daafc58bdeb22b4",
+      "completeBody": "AssertionError: expected [Function] to throw error matching /outcomeEventId/i but got 'validateSaveV37: state is invalid — v…'\n\n- Expected: \n/outcomeEventId/i\n\n+ Received: \n\"validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV39: state.promises[0] has outcome evidence but no outcome\"\n\n ❯ malformed tests/p14p3-directing-promises.test.ts:52:46\n     50|   const row = variant.state.promises.find(p => p.promiseId === promise…\n     51|   change(row, variant)\n     52|   expect(() => api.validateSaveV39(variant)).toThrow(cause)\n       |                                              ^\n     53| }\n     54| afterAll(() => console.info('1133-P3-COUNTERS ' + JSON.stringify(count…\n ❯ tests/p14p3-directing-promises.test.ts:331:5",
+      "completeBodySha256": "f23d436ce454d3826f532914d2a1b34a328ae1b4beda9ab3455bd1d97f15c142"
+    }
+  ],
+  "comparisonTo1135": {
+    "new": [],
+    "vanished": [
+      "p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D01 offers fresh directing work to lawful Actors and Directors",
+      "p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D03 preserves conservative clocks and names each unavailable resource",
+      "p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D04 selects revision6 only for the explicit relevant domain and preserves pure history",
+      "p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D05 binds only the actual accepted material proposal",
+      "p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D14 preserves old meaning and refuses lossy reverse conversion"
+    ],
+    "retainedIdenticalPrimary": [],
+    "retainedChangedPrimary": [
+      "p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D02 counts only actual unrecorded Director seats through the first take",
+      "p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D06 fulfills directing once from two real distinct first takes",
+      "p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D13 admits exact new promise authority and rejects malformed current saves"
+    ]
+  },
+  "legacyMarker": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1137-p3-legacy4-markers.txt",
+    "bytes": 851,
+    "sha256": "182cf54d3a2fbb8bb2fc55cf74e97e220923d634ef454b816d3770d12dcb055e",
+    "exactLiteralEqualityTo1135": true,
+    "value": {
+      "week": 8,
+      "rngState": "1557239868,672280863,464522958,2878174094",
+      "receipts": [
+        {
+          "draft": {
+            "family": "APPEARANCE_COUNT",
+            "predicate": {
+              "count": 1
+            },
+            "issuerStudioId": "studio-de11f27b-player",
+            "beneficiaryPersonId": "authored-0006",
+            "startWeek": 52,
+            "termWeeks": 104,
+            "windowStartWeek": 52,
+            "dueWeekExclusive": 112
+          },
+          "receipt": {
+            "classification": "REASONABLY_ACHIEVABLE",
+            "bottleneck": null,
+            "inputsDigest": "9a5006d1107172a3",
+            "rulesVersion": 4,
+            "week": 8
+          }
+        },
+        {
+          "draft": {
+            "family": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+            "predicate": {
+              "kind": "castRoleCount",
+              "count": 1,
+              "seatClass": "lead"
+            },
+            "issuerStudioId": "studio-de11f27b-player",
+            "beneficiaryPersonId": "authored-0006",
+            "startWeek": 52,
+            "termWeeks": 104,
+            "windowStartWeek": 52,
+            "dueWeekExclusive": 112
+          },
+          "receipt": {
+            "classification": "REASONABLY_ACHIEVABLE",
+            "bottleneck": null,
+            "inputsDigest": "3dbf55ccb67dfa2c",
+            "rulesVersion": 4,
+            "week": 8
+          }
+        }
+      ]
+    }
+  }
+}
