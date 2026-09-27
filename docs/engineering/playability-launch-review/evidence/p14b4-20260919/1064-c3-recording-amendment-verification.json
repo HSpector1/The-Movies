@@ -1,0 +1,22 @@
+{
+  "sourceSha": "d88d8ed63fe83528a45f79f71308856544d27cc5",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vite-node",
+    "--script",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1098-c3-recording-verification.ts",
+    "--source-sha",
+    "d88d8ed63fe83528a45f79f71308856544d27cc5"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T03:49:10.412Z",
+  "end": "2026-09-27T03:49:13.467Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "d88d8ed63fe83528a45f79f71308856544d27cc5",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

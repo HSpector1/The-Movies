@@ -1,5 +1,45 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — recording gates passed; publish readiness then B
+
+1063 types and1064 codec/provenance verification both PASS on fixed d88d8ed6,
+empty consumed diff; all heavy processes closed.1064 reconstructs every original
+A observation byte,9240 rows/121 definitions, and passes27 refusal controls plus
+combined-cap control with zero gameplay/artifact writes.1098-D source KEEP and
+1098-E record qualification. Parent publishes exact frozen909e822e producer,
+b5c2489b codec,47e05786 proof anddd841255 verifier, verifies remote, then launches
+only1065 B in exclusive1052-c3-endurance-B-recording-v1 using original A as both
+baseline/predecessor. Revised source refuses A and records distinct lineage;
+all game policy/caps/source guards remain unchanged. C/D await predecessors.
+Existing author owns only new1100 forensic sources; reviewer owns independent
+result/source review. No forensic copy/run exists yet. Tests1093/1096 remain
+reviewed but unapplied. Preserve B5 FAIL, original1056/R8/K-L failures and all
+full/core/UI/native/Owner limits. Parent remains sole production writer/executor;
+max two specialists, one heavy process, no routine approval pause.
+
+## CURRENT — recording amendment typed; codec gate and B next
+
+Closed A, B5 observations and reviewed unapplied maintenance are published at
+ d88d8ed63fe83528a45f79f71308856544d27cc5; exact GitHub branch SHA verified.
+1098-A/B's lossless evidence-format amendment is parent-adopted. Separate revised
+producer909e822e, codecb5c2489b, proof47e05786 and verifierdd841255 are frozen.
+The complete43293-byte Endurance segment remains exactly3c356493, original
+producerf7d19d39 and all original A artifacts unchanged. Revised preflight refuses
+A; only exact completed original A is eligible as legacy reference. Original caps,
+game policy, replay/cadence/read schedules and source identity requirements remain.
+1063 actual Bridge-plus-recording types PASS33.908s,386 roots/726 files, zero
+diagnostics, fixed d88d8ed6/empty consumed diff. All heavy processes are closed.
+Parent awaits independent source review, then runs1064 zero-gameplay codec and
+provenance verification, publishes the readiness checkpoint and starts only B.
+C/D remain predecessor-gated. Parent is sole production writer/heavy executor.
+Existing author now owns separate docs1100 forensic sources under adopted
+1100-A/B; reviewer remains independent. No forensic snapshot/execution yet.
+That single-hunk counterfactual must match actual1062 through211, retain212's
+strict rejection/collision and label any later continuation invalid forensic
+state.1099-B confirms current B5 collection while preserving original FAIL;
+no gameplay pin maintenance is released.1093/1096 remain unapplied pending
+endurance source parity. Full suites and original R8/K-L/native/Owner limits remain.
+
 ## CURRENT — A qualified; B5 collected with three differing hashes
 
 All heavy processes through1062 are CLOSED.1059 active6240 A passed with final

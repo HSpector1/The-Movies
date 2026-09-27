@@ -1,0 +1,104 @@
+{
+  "format": "c3-observations-focus-dictionary-v1",
+  "original": {
+    "path": "1052-c3-active-endurance-driver.ts",
+    "identity": {
+      "bytes": 66372,
+      "sha256": "f7d19d39218b9570b3be65a14a0e3cd0a346dd06be1beb283a9bdcc830dfff4d"
+    },
+    "endurance": {
+      "bytes": 43293,
+      "sha256": "3c356493a0515e88a75ca945d0ed2d0b0daed1a4b2414aeee811a531fc96ae8d"
+    }
+  },
+  "revised": {
+    "path": "1098-c3-active-endurance-driver.ts",
+    "identity": {
+      "bytes": 69157,
+      "sha256": "909e822e1847dc6752eb1af6b56c0ebb8e5e338127e99476709454c9de2d2eba"
+    }
+  },
+  "codec": {
+    "path": "1098-c3-observation-codec.ts",
+    "identity": {
+      "bytes": 11491,
+      "sha256": "b5c2489bbdefc26242cbd6a98aa450d98cc99407a196d7ef608a0d14e3845187"
+    }
+  },
+  "verification": {
+    "path": "1098-c3-recording-verification.ts",
+    "identity": {
+      "bytes": 14131,
+      "sha256": "dd8412556e06673f3c745b3db1f977d3ff559ec6aea65d31aa4778ec00c21b71"
+    }
+  },
+  "eligibleOriginalA": {
+    "directory": "1052-c3-endurance-A-observer-fixed",
+    "metadata": {
+      "bytes": 1129358,
+      "sha256": "3762178bb4a542b5f10014a55c78fead6bbfbbf2e4cecd70659cb69becc6163d"
+    },
+    "producer": {
+      "bytes": 66372,
+      "sha256": "f7d19d39218b9570b3be65a14a0e3cd0a346dd06be1beb283a9bdcc830dfff4d"
+    }
+  },
+  "edits": [
+    {
+      "label": "codec-import",
+      "originalStart": 524,
+      "originalEnd": 565,
+      "oldText": "import { fileURLToPath } from 'node:url'\n",
+      "newText": "import { fileURLToPath } from 'node:url'\nimport { ObservationEncoder, OBSERVATION_FORMAT, ORIGINAL_PRODUCER, ORIGINAL_A_METADATA, ORIGINAL_A_DIRECTORY,\n  decodeObservations, assertRecordingReference, verifyRecordingProvenance, type RecordingProvenance } from './1098-c3-observation-codec.ts'\n"
+    },
+    {
+      "label": "recording-metadata-type",
+      "originalStart": 7865,
+      "originalEnd": 8210,
+      "oldText": "type RunMetadata = { status: 'PASS' | 'FAIL'; variant: EnduranceVariant; seed: string; source: ReturnType<typeof sourceIdentity>\n  producer: ByteIdentity; initial: { generated: string; funded: string; sourceCash: number; delta: number }\n  initialCheckpoint: string | null; counters: Counters; files: { path: string; identity: ByteIdentity }[] }\n",
+      "newText": "type RecordingLineage = { format: typeof OBSERVATION_FORMAT; codec: ByteIdentity; provenance: ByteIdentity\n  originalProducer: ByteIdentity; baseline: { directory: string; metadata: ByteIdentity; producer: ByteIdentity }\n  equivalence: ReturnType<typeof verifyRecordingProvenance> }\ntype RunMetadata = { status: 'PASS' | 'FAIL'; variant: EnduranceVariant; seed: string; source: ReturnType<typeof sourceIdentity>\n  producer: ByteIdentity; initial: { generated: string; funded: string; sourceCash: number; delta: number }\n  initialCheckpoint: string | null; counters: Counters; files: { path: string; identity: ByteIdentity }[]; recording?: RecordingLineage }\n"
+    },
+    {
+      "label": "artifact-encoder",
+      "originalStart": 10157,
+      "originalEnd": 10175,
+      "oldText": "class Artifacts {\n",
+      "newText": "class Artifacts {\n  private readonly observationEncoder = new ObservationEncoder(COMPACT_CAP)\n"
+    },
+    {
+      "label": "artifact-append",
+      "originalStart": 11217,
+      "originalEnd": 11566,
+      "oldText": "  append(name: 'commands.jsonl' | 'observations.jsonl' | 'checkpoints.jsonl', value: unknown) {\n    const text = JSON.stringify(value) + '\\n', path = resolve(this.directory, name), bytes = Buffer.byteLength(text)\n    assert.ok(lstatSync(path).size + bytes <= COMPACT_CAP, `${name}16MiB cap`)\n    this.capacity(bytes); appendFileSync(path, text)\n  }\n",
+      "newText": "  append(name: 'commands.jsonl' | 'observations.jsonl' | 'checkpoints.jsonl', value: unknown) {\n    const original = JSON.stringify(value) + '\\n'\n    const prepared = name === 'observations.jsonl' ? this.observationEncoder.prepare(original) : { text: original, commit: () => {} }\n    const text = prepared.text, path = resolve(this.directory, name), bytes = Buffer.byteLength(text)\n    // Definition plus reference is one preflighted append; no partial format write.\n    assert.ok(lstatSync(path).size + bytes <= COMPACT_CAP, `${name}16MiB cap`)\n    this.capacity(bytes); appendFileSync(path, text); prepared.commit()\n  }\n"
+    },
+    {
+      "label": "reference-compatibility",
+      "originalStart": 56657,
+      "originalEnd": 58540,
+      "oldText": "function loadReference(directory: string, variant: EnduranceVariant, producer: ByteIdentity,\n  source: ReturnType<typeof sourceIdentity>): RunMetadata {\n  const metadata = JSON.parse(readFileSync(resolve(directory, 'metadata.json'), 'utf8')) as RunMetadata\n  assert.equal(metadata.status, 'PASS', 'a failed predecessor cannot authorize any following variant')\n  assert.equal(metadata.variant, variant); assert.equal(metadata.seed, SEED)\n  equal(metadata.producer, producer, 'same frozen producer across variants')\n  equal(metadata.source.diff, source.diff, 'same consumed patch across variants')\n  equal(metadata.source.tracked, source.tracked, 'same consumed tracked source across variants')\n  assert.equal(metadata.source.untracked, '')\n  assert.equal(metadata.counters.ticks, HORIZON); assert.equal(metadata.counters.tickAttempts, HORIZON)\n  const failure = JSON.parse(readFileSync(resolve(directory, 'failure.json'), 'utf8'))\n  assert.equal(failure.status, 'PASS'); assert.equal(failure.failure, null); assert.equal(failure.guardFailure, null)\n  const inventory = artifactInventory(directory)\n  equal(inventory.filter(file => file.path !== 'metadata.json'), metadata.files, 'complete pinned reference inventory; no omitted file')\n  const required = [...COMPACT_FILES, 'authority-3120.json', 'authority-6240.json',\n    ...(variant === 'A' ? [0, 3120, 6240].map(week => `runtime/week-${week}.library.json`) : [])].sort(codePoint)\n  equal(inventory.map(file => file.path).sort(codePoint), required, 'exact completed-variant file set')\n  for (const file of metadata.files) {\n    const path = resolve(directory, file.path), sub = relative(directory, path)\n    assert.ok(sub && !sub.startsWith('..') && !lstatSync(path).isSymbolicLink(), 'reference-owned regular file only')\n    equal(identity(readFileSync(path)), file.identity, 'reference artifact byte pin')\n  }\n  return metadata\n}\n",
+      "newText": "function loadReference(directory: string, variant: EnduranceVariant, producer: ByteIdentity,\n  source: ReturnType<typeof sourceIdentity>, recording: RecordingLineage): RunMetadata {\n  const metadataText = readFileSync(resolve(directory, 'metadata.json'), 'utf8')\n  const metadata = JSON.parse(metadataText) as RunMetadata\n  assert.equal(metadata.status, 'PASS', 'a failed predecessor cannot authorize any following variant')\n  assert.equal(metadata.variant, variant); assert.equal(metadata.seed, SEED)\n  assertRecordingReference(metadataText, basename(directory), variant, producer, recording)\n  equal(metadata.source.diff, source.diff, 'same consumed patch across variants')\n  equal(metadata.source.tracked, source.tracked, 'same consumed tracked source across variants')\n  assert.equal(metadata.source.untracked, '')\n  assert.equal(metadata.counters.ticks, HORIZON); assert.equal(metadata.counters.tickAttempts, HORIZON)\n  const failure = JSON.parse(readFileSync(resolve(directory, 'failure.json'), 'utf8'))\n  assert.equal(failure.status, 'PASS'); assert.equal(failure.failure, null); assert.equal(failure.guardFailure, null)\n  const inventory = artifactInventory(directory)\n  equal(inventory.filter(file => file.path !== 'metadata.json'), metadata.files, 'complete pinned reference inventory; no omitted file')\n  const required = [...COMPACT_FILES, 'authority-3120.json', 'authority-6240.json',\n    ...(variant === 'A' ? [0, 3120, 6240].map(week => `runtime/week-${week}.library.json`) : [])].sort(codePoint)\n  equal(inventory.map(file => file.path).sort(codePoint), required, 'exact completed-variant file set')\n  for (const file of metadata.files) {\n    const path = resolve(directory, file.path), sub = relative(directory, path)\n    assert.ok(sub && !sub.startsWith('..') && !lstatSync(path).isSymbolicLink(), 'reference-owned regular file only')\n    equal(identity(readFileSync(path)), file.identity, 'reference artifact byte pin')\n  }\n  if (variant !== 'A') decodeObservations(readFileSync(resolve(directory, 'observations.jsonl'), 'utf8'), () => {}, COMPACT_CAP)\n  return metadata\n}\n"
+    },
+    {
+      "label": "recording-preflight",
+      "originalStart": 59316,
+      "originalEnd": 59450,
+      "oldText": "  const source = sourceIdentity(root), producerPath = fileURLToPath(import.meta.url), producer = identity(readFileSync(producerPath))\n",
+      "newText": "  const source = sourceIdentity(root), producerPath = fileURLToPath(import.meta.url), producer = identity(readFileSync(producerPath))\n  assert.notEqual(options.variant, 'A', 'recording amendment runs only remaining B/C/D; completed A stays immutable')\n  const evidence = dirname(producerPath), codecPath = resolve(evidence, '1098-c3-observation-codec.ts')\n  const proofPath = resolve(evidence, '1098-c3-recording-provenance.json')\n  const originalPath = resolve(evidence, '1052-c3-active-endurance-driver.ts')\n  const verificationPath = resolve(evidence, '1098-c3-recording-verification.ts')\n  const proofText = readFileSync(proofPath, 'utf8'), proof = JSON.parse(proofText) as RecordingProvenance\n  assert.equal(proof.original.path, basename(originalPath)); assert.equal(proof.revised.path, basename(producerPath))\n  assert.equal(proof.codec.path, basename(codecPath)); assert.equal(proof.verification.path, basename(verificationPath))\n  const equivalence = verifyRecordingProvenance(proof, readFileSync(originalPath, 'utf8'),\n    readFileSync(producerPath, 'utf8'), readFileSync(codecPath, 'utf8'))\n  equal(identity(readFileSync(verificationPath)), proof.verification.identity, 'frozen independent verification source')\n  const recording: RecordingLineage = { format: OBSERVATION_FORMAT, codec: proof.codec.identity,\n    provenance: identity(proofText), originalProducer: ORIGINAL_PRODUCER,\n    baseline: { directory: ORIGINAL_A_DIRECTORY, metadata: ORIGINAL_A_METADATA, producer: ORIGINAL_PRODUCER }, equivalence }\n"
+    },
+    {
+      "label": "recording-input-guards",
+      "originalStart": 59798,
+      "originalEnd": 60601,
+      "oldText": "  const pin = (path: string) => priorPins.push({ path, identity: identity(readFileSync(path)) })\n  let baseline: RunMetadata | null = null, trace: Trace[] = [], checkpoints: Checkpoint[] = []\n  if (options.variant !== 'A') {\n    assert.ok(options.baseline && options.predecessor)\n    const evidence = dirname(options.output)\n    for (const directory of [options.baseline, options.predecessor]) {\n      assert.equal(dirname(directory), evidence); assert.notEqual(directory, options.output)\n      assert.equal(lstatSync(directory).isSymbolicLink(), false)\n      pin(resolve(directory, 'metadata.json'))\n    }\n    baseline = loadReference(options.baseline, 'A', producer, source)\n    loadReference(options.predecessor, options.variant === 'B' ? 'A' : options.variant === 'C' ? 'B' : 'C', producer, source)\n",
+      "newText": "  const pin = (path: string) => priorPins.push({ path, identity: identity(readFileSync(path)) })\n  for (const path of [originalPath, codecPath, proofPath, verificationPath]) pin(path)\n  let baseline: RunMetadata | null = null, trace: Trace[] = [], checkpoints: Checkpoint[] = []\n  if (options.variant !== 'A') {\n    assert.ok(options.baseline && options.predecessor)\n    const evidence = dirname(options.output)\n    for (const directory of [options.baseline, options.predecessor]) {\n      assert.equal(dirname(directory), evidence); assert.notEqual(directory, options.output)\n      assert.equal(lstatSync(directory).isSymbolicLink(), false)\n      pin(resolve(directory, 'metadata.json'))\n    }\n    baseline = loadReference(options.baseline, 'A', producer, source, recording)\n    loadReference(options.predecessor, options.variant === 'B' ? 'A' : options.variant === 'C' ? 'B' : 'C', producer, source, recording)\n    for (const directory of [options.baseline, options.predecessor])\n      for (const file of artifactInventory(directory)) pin(resolve(directory, file.path))\n"
+    },
+    {
+      "label": "recording-metadata",
+      "originalStart": 63582,
+      "originalEnd": 63695,
+      "oldText": "      source, producer, startedAt, finishedAt: new Date().toISOString(), elapsedMs: performance.now() - started,\n",
+      "newText": "      source, producer, recording, startedAt, finishedAt: new Date().toISOString(), elapsedMs: performance.now() - started,\n"
+    }
+  ]
+}
