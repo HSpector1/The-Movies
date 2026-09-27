@@ -1,5 +1,39 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — Bridge fixture amendment under review
+
+Checkpoint `704f169063bf138d420fa8c75d9a23f16afb6f7b` is published and exact
+remote equality was verified. It preserves closed1168/1169 and both independent
+attributions. Production remains969fb459; no heavy process is active.
+
+Read-only review of genuine1117 week207 exposes a concrete prerequisite gap in
+1121's proposed Bridge setup. Director authored-0002 already has two overlapping
+attached count1 promises (51/r01 and52/r02), with no progress. Its new P3 needs
+three existing paths. The empty legacy pipeline supplies only one stock path;
+managed development has two slots. Adding Writers alone cannot create three
+simultaneous projects at207, and an active legacy film prevents managed-script
+activation. No attempted gameplay or fixture failure is claimed from these reads.
+
+Parent proposes1170's separately reviewed fixture amendment: capture the exact
+existing core at45() prefix as new immutable current Save39 authority, using the
+unchanged helper in a dedicated Vitest harness. Count45 actual capture calls
+explicitly; never repeat or overwrite outgoing1117. The Actor0006 ordinary case,
+two Ready scripts and term104/premium1.25/P3count2/[52,112) request are the known
+core D01/D05 route, to be measured again for this new capture purpose. No alternate
+seed, extra funding, new roster, capacity law or extra production is proposed.
+
+Bridge D15 would consume seven calls45→52; D17's proposed two campaign-branch
+advances leave the existing twelve-call aggregate intact. The separate new45-call
+capture raises the declared combined preparation/test ceiling830→875; it is not
+hidden setup. Capture must use a real Vitest context, exclusive outputs and
+before/after source guards.1170-A/B/C are final and parent-verified; B gives capture-
+only KEEP, and C requires retaining incomplete outputs and deferring cross-repository
+Unity verification. Parent releases1171 capture source to the existing test owner.
+Freeze/review/publication precede1172 compiler and1173 actual capture. Bridge source
+remains unreleased. Reviewer owns independent review; parent remains the only
+production writer and heavy executor. Rival and
+1155-C gaps remain open. Unity/native/Owner remain deferred.
+
 ## CURRENT — fixed rival attempt reaches 208; Bridge preparation continues
 
 1168 root types PASS in 34.058s. On published
