@@ -1,5 +1,25 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — Core types pass; initial attempt3PASS/1FAIL; narrow cause fix
+
+Published2c9b67fc39ca2598f55eecdb640c53e75a668b64 matched GitHub.
+1233b root compilerPASS33.608s, child0/fixed.1234 initial run child1/fixed15.220s:
+Q02/Q03/Q04 PASS, Q01 fails after its allCast RA7 quote because due64 is correctly
+FRAGILE7 but a synthetic future path sorts ahead of the real screenplay at the same
+takeWeek57. It reports uncommissioned work instead of the actual slack cause.
+Remaining Q01 classes/digest checks were not reached. Both caches complete; actual
+advance attempts0/cap0. All source/manual/raw/index guards are exact. The complete
+1,226-byte legacy4/6 line is literally unchanged. Failed evidence remains frozen.
+
+Parent applied a separately source-reviewed tie correction: earliest time remains
+primary; real paths precede the hypothetical fallback on equal time, then stableID.
+Tests remain unchanged. Publish and run1233c root compiler before1234b matched
+initial four.1232 later binding/filming source is reviewed but still staged, not
+installed or executed. Bridge remains54 and full1226 qualification is pending.
+Current40/54 remains unqualified WIP. Parent alone owns production/heavy execution;
+existing specialists retain test/review ownership. Continue the authorized program
+with settled P15 decisions and inherited limits; Unity/native deferred.
+
 ## CURRENT — Reviewed compatibility integrated; initial core checks next
 
 Published source before this checkpoint was df4f22bb0acc88679bbd7f005a08e174e5065cab,

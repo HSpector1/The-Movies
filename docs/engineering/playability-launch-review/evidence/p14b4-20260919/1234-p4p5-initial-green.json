@@ -1,0 +1,22 @@
+{
+  "sourceSha": "2c9b67fc39ca2598f55eecdb640c53e75a668b64",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14p4p5-opportunities.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T19:28:23.017Z",
+  "end": "2026-09-27T19:28:38.237Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "2c9b67fc39ca2598f55eecdb640c53e75a668b64",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

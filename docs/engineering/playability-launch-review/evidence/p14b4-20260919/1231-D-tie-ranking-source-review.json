@@ -1,0 +1,11 @@
+{
+  "reviewer": "/root/c2rm_contract_review",
+  "disposition": "KEEP",
+  "source": {
+    "path": "src/core/opportunityPromises.ts",
+    "bytes": 21851,
+    "sha256": "22883a39e5ea2c5925da38878f613383a9c846f2ea06d1d7b3ff3427ac2d0e3c"
+  },
+  "scope": "At equal take time, real existing paths precede synthetic future fallback. Earliest take remains primary; ID order retained otherwise. Exhaustive classifications and physical/capped/uncapped results unchanged.",
+  "qualification": "Source only; corrected run pending"
+}

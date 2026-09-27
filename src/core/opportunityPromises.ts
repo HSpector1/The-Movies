@@ -206,7 +206,10 @@ function paths(state: GameState, draft: PromiseDraft & { predicate: OpportunityP
       : { id: 'future', production: null, freshWeek, takeWeek: Math.max(draft.windowStartWeek, freshWeek + 5), physical: null,
         uncertainty: 'needs a matching picture not yet commissioned' })
   }
-  return rows.sort((a, b) => a.takeWeek - b.takeWeek || compareId(a.id, b.id))
+  // At the same take boundary, explain a real path before the hypothetical
+  // commission fallback. Otherwise its synthetic ID hides the real slack cause.
+  return rows.sort((a, b) => a.takeWeek - b.takeWeek
+    || Number(a.id === 'future') - Number(b.id === 'future') || compareId(a.id, b.id))
 }
 
 function qualifyingCommitted(state: GameState, promise: ProfessionalPromise, week: number): Production[] {

@@ -1,0 +1,57 @@
+{
+  "time": "2026-09-27T19:30:26.088579+00:00",
+  "source": "2c9b67fc39ca2598f55eecdb640c53e75a668b64",
+  "compiler": {
+    "status": "PASS",
+    "seconds": 33.608,
+    "childExit": 0,
+    "fixedSource": true,
+    "postflight": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1233b-core-integrated-root-types-postflight.json",
+      "bytes": 12310,
+      "sha256": "100f0980467be009842067fd13f41f9828158a2d2b54af556717554a9ff9f6b8"
+    }
+  },
+  "runtime": {
+    "status": "FAIL",
+    "pass": 3,
+    "fail": 1,
+    "filtered": 0,
+    "seconds": 15.22,
+    "childExit": 1,
+    "fixedSource": true,
+    "leafMilliseconds": {
+      "Q01": 1207,
+      "Q02": 1183,
+      "Q03": 5241,
+      "Q04": 3483
+    },
+    "raw": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1234-p4p5-initial-green.txt",
+      "bytes": 6434,
+      "sha256": "169561fd0f8d8779d7c895d845358e249666d884c5fb1d826e60c77b3ad298f1"
+    },
+    "postflight": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1234-p4p5-initial-green-postflight.json",
+      "bytes": 12284,
+      "sha256": "a42ecf07768f0f31d788d24e4d85c63b1d7d1535df67874a1538a2f098e0202d"
+    },
+    "actualFailure": "Q01 allCast ready quote is RA7, then due64 correctly FRAGILE7 but synthetic future path ranks first at equal earliest57 and supplies uncommissioned cause before the Ready slack cause. No overwrite: existing ??= retains the first cause.",
+    "unreached": "Remaining Q01 classes/digest comparisons; no binding/filming or later runtime coverage."
+  },
+  "actualTickAttempts": 0,
+  "hardCap": 0,
+  "bothCachesComplete": true,
+  "legacyWholeLine": {
+    "literalMatch": true,
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1230-legacy46-baseline.txt",
+    "bytes": 1226,
+    "sha256": "36921548246e8ec4cc2241353cf62fa1e9868cc037a62e2a8a1a0bf26cc35342"
+  },
+  "pendingCorrection": {
+    "path": "src/core/opportunityPromises.ts",
+    "bytes": 21851,
+    "sha256": "22883a39e5ea2c5925da38878f613383a9c846f2ea06d1d7b3ff3427ac2d0e3c"
+  },
+  "correctionScope": "At equal take time, concrete candidates sort before synthetic future; earliest-time primary ordering, path viability and exhaustive RA logic unchanged. Tests unchanged. Retry not yet executed."
+}
