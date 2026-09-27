@@ -1,0 +1,4 @@
+{"sourceSha":"ab9f4923c40c6b9d93da5831b03b128aa83b4efe","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/tsc","--noEmit"],"node":"v20.20.2","start":"2026-09-27T10:24:00.959Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+tests/c2a-m2-sets-save.test.ts(287,11): error TS6133: 'migrated' is declared but its value is never read.
+tests/casting-sessions-save-v10.test.ts(325,22): error TS2552: Cannot find name 'GameState'. Did you mean 'GameStateV10'?

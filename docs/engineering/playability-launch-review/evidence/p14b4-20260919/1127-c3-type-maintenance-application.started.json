@@ -1,0 +1,43 @@
+{
+  "status": "PREFLIGHT_PASS",
+  "head": "ab9f4923c40c6b9d93da5831b03b128aa83b4efe",
+  "at": "2026-09-27T10:28:11.956694+00:00",
+  "baselineInventory": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1125-c3-maintenance-application.json",
+    "bytes": 277230,
+    "sha256": "e27b86f1c378a8238613a987f192c644d9d39a5bc62e538b4a3e0f95e75670c4"
+  },
+  "sourceFileCount": 1661,
+  "index": {
+    "bytes": 963478,
+    "sha256": "cd8d12d73a8442d91117a25411a9086593a4d38b0e7405d72c0fe1bfbb559d2b"
+  },
+  "pins": {
+    "1127-c3-type-maintenance-stage/manifest.json": "de1c103caa349b75774e2a3368c137a17dd1fec4685e6722dacab916af82b8e5",
+    "1127-c3-type-maintenance.patch": "92779d40a431b9d7afd76a067f7fee002e315c79bd0575c1fb4286f53a6550f8",
+    "1127-A-c3-type-maintenance-handback.md": "18962ad72929f2cfa13612353ea4e639564817c4287511fab92732359bbc1b5d"
+  },
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1127-B-c3-type-maintenance-review.md",
+    "bytes": 2596,
+    "sha256": "10d231e0e2c74f5fc878af2e968ee7f887eec29055563e01e3861e0a5f36f071"
+  },
+  "files": [
+    {
+      "path": "tests/c2a-m2-sets-save.test.ts",
+      "baselineBytes": 13002,
+      "baselineSha256": "9dc028bd0db60dc1ead881616cd65380a53797fe6638954b89337a0743b3479b",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1127-c3-type-maintenance-stage/tests/c2a-m2-sets-save.test.ts",
+      "stagedBytes": 12962,
+      "stagedSha256": "d4f64a69f5445afee21c9901d468400d582db4a8aa073652a9e6efb6960b3841"
+    },
+    {
+      "path": "tests/casting-sessions-save-v10.test.ts",
+      "baselineBytes": 11872,
+      "baselineSha256": "8251dc249980306d9b1bff54370d1db3dcff716cdac001272a0135df165c1b32",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1127-c3-type-maintenance-stage/tests/casting-sessions-save-v10.test.ts",
+      "stagedBytes": 11875,
+      "stagedSha256": "3382a3c74b4a16b6d3e705a39323cb2871c6b79e926f469d36ae8d1bc442acb3"
+    }
+  ]
+}

@@ -1,5 +1,26 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — UI/Bridge types passed; two root-test typing corrections applied
+
+Published ab9f4923c40c6b9d93da5831b03b128aa83b4efe contains the reviewed25-file
+fixture maintenance.1104 root types closed with exactly two test-only diagnostics;
+1105 UI types PASS41.367s and1106 Bridge types PASS31.660s, fixedSource:true/empty.
+The original1052 docs producer guard also passes before/after Bridge compilation.
+
+Independent1127-B KEEP approves only an unused local removal and GameStateV10
+annotation. Parent applied both exact postimages;1,659 other consumed files remain
+unchanged, with unchanged HEAD/index through application.1127 application audits
+preserve the original1123 stage and failed1104. No production/runtime change.
+
+Publish this correction/evidence checkpoint, exact-remote-verify, then run
+1109-c3-boundary-root-types-corrected. UI/Bridge compiler inputs are unchanged by
+these two root leaves; independent review confirms no repeat is needed. After
+root passes, execute exact1123 argv as1107-c3-boundary-core then1108-c3-boundary-ui.
+Parent alone executes; freeze HEAD/index/source per run.1126-A/B own actual
+attribution and review. No heavy process remains at this checkpoint; no behavior
+result is claimed. Preserve all inherited and new-navigation limits. Final C.3
+qualification and1117 preservation precede P3; all P15 choices remain selected.
+
 ## CURRENT — reviewed 25-file fixture repair applied; publish and verify
 
 1123-A/B source KEEP and1125-B actual application KEEP are complete. Exact25

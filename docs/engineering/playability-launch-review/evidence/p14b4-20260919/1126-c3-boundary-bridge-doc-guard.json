@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "beforeRecord": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1126-c3-boundary-bridge-doc-guard.started.json",
+    "bytes": 459,
+    "sha256": "5b8dcc568f304905a913728db54841a54c54f75c23196f0401755211d2b0d1ef"
+  },
+  "afterIdentity": {
+    "bytes": 66372,
+    "sha256": "f7d19d39218b9570b3be65a14a0e3cd0a346dd06be1beb283a9bdcc830dfff4d"
+  },
+  "head": "ab9f4923c40c6b9d93da5831b03b128aa83b4efe",
+  "recorder": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1106-c3-boundary-bridge-types.json",
+    "bytes": 625,
+    "sha256": "9ea23a7e8dabc739e0496251eabaafab1a1b0e64649f793aad8506bef9855bc2"
+  },
+  "timestamp": "2026-09-27T10:26:50.682235+00:00"
+}

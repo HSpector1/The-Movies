@@ -1,0 +1,15 @@
+{
+  "phase": "before",
+  "guardedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-active-endurance-driver.ts",
+  "identity": {
+    "bytes": 66372,
+    "sha256": "f7d19d39218b9570b3be65a14a0e3cd0a346dd06be1beb283a9bdcc830dfff4d"
+  },
+  "head": "ab9f4923c40c6b9d93da5831b03b128aa83b4efe",
+  "timestamp": "2026-09-27T10:25:53.872676+00:00",
+  "command": [
+    "node_modules/.bin/tsc",
+    "-p",
+    "tsconfig.bridge.json"
+  ]
+}

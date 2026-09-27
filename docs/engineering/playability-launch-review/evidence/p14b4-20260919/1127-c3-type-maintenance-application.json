@@ -1,0 +1,34 @@
+{
+  "status": "PASS_EXACT_TWO_FILE_TYPE_CORRECTION",
+  "head": "ab9f4923c40c6b9d93da5831b03b128aa83b4efe",
+  "at": "2026-09-27T10:28:12.509405+00:00",
+  "started": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1127-c3-type-maintenance-application.started.json",
+    "bytes": 2062,
+    "sha256": "a6a660199731f8a55f473b1f65b0500615e0ebbdf55d43f949f356333ea3a7eb"
+  },
+  "changedPaths": [
+    "tests/c2a-m2-sets-save.test.ts",
+    "tests/casting-sessions-save-v10.test.ts"
+  ],
+  "protectedUnchangedCount": 1659,
+  "postimages": {
+    "tests/c2a-m2-sets-save.test.ts": {
+      "bytes": 12962,
+      "sha256": "d4f64a69f5445afee21c9901d468400d582db4a8aa073652a9e6efb6960b3841"
+    },
+    "tests/casting-sessions-save-v10.test.ts": {
+      "bytes": 11875,
+      "sha256": "3382a3c74b4a16b6d3e705a39323cb2871c6b79e926f469d36ae8d1bc442acb3"
+    }
+  },
+  "actualDiff": {
+    "bytes": 1306,
+    "sha256": "281f18f84e305a80de26df20da9e11c32ec47d3c2b6550bab0a9bba3a4044580"
+  },
+  "index": {
+    "bytes": 963478,
+    "sha256": "cd8d12d73a8442d91117a25411a9086593a4d38b0e7405d72c0fe1bfbb559d2b"
+  },
+  "sourceExecutionPerformed": false
+}

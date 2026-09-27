@@ -1,0 +1,30 @@
+{
+  "status": "FROZEN_UNEXECUTED",
+  "baselineHead": "ab9f4923c40c6b9d93da5831b03b128aa83b4efe",
+  "observedRecord": "1104-c3-boundary-root-types",
+  "files": [
+    {
+      "path": "tests/c2a-m2-sets-save.test.ts",
+      "baselineBytes": 13002,
+      "baselineSha256": "9dc028bd0db60dc1ead881616cd65380a53797fe6638954b89337a0743b3479b",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1127-c3-type-maintenance-stage/tests/c2a-m2-sets-save.test.ts",
+      "stagedBytes": 12962,
+      "stagedSha256": "d4f64a69f5445afee21c9901d468400d582db4a8aa073652a9e6efb6960b3841"
+    },
+    {
+      "path": "tests/casting-sessions-save-v10.test.ts",
+      "baselineBytes": 11872,
+      "baselineSha256": "8251dc249980306d9b1bff54370d1db3dcff716cdac001272a0135df165c1b32",
+      "stagedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1127-c3-type-maintenance-stage/tests/casting-sessions-save-v10.test.ts",
+      "stagedBytes": 11875,
+      "stagedSha256": "3382a3c74b4a16b6d3e705a39323cb2871c6b79e926f469d36ae8d1bc442acb3"
+    }
+  ],
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1127-c3-type-maintenance.patch",
+    "bytes": 1105,
+    "sha256": "92779d40a431b9d7afd76a067f7fee002e315c79bd0575c1fb4286f53a6550f8"
+  },
+  "sourceExecutionPerformed": false,
+  "liveFilesApplied": false
+}

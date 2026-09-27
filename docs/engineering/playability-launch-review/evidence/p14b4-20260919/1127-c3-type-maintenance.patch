@@ -1,0 +1,23 @@
+diff --git a/tests/c2a-m2-sets-save.test.ts b/tests/c2a-m2-sets-save.test.ts
+--- a/tests/c2a-m2-sets-save.test.ts
++++ b/tests/c2a-m2-sets-save.test.ts
+@@ -284,7 +284,6 @@
+     expect(native.careerLifecycle.professionAnchors.every(row => row.kind === 'existing')).toBe(true)
+     expect(() => validateSaveV38(makeSave(native))).not.toThrow()
+     const migratedSave = migrateToV14(v13TwinOf(grandfatheredBindings(native)) as unknown as Parameters<typeof migrateToV14>[0])
+-    const migrated = migratedSave.state
+     // `migrated` (frozen GameStateV14) gains P06A's release authority — empty,
+     // since nothing in this migrated save was ever a committed release.
+     const liveMigrated = migrateToCurrentControl(migratedSave).state
+diff --git a/tests/casting-sessions-save-v10.test.ts b/tests/casting-sessions-save-v10.test.ts
+--- a/tests/casting-sessions-save-v10.test.ts
++++ b/tests/casting-sessions-save-v10.test.ts
+@@ -322,7 +322,7 @@
+         slot: 0,
+       },
+     });
+-    const colliding: GameState = {
++    const colliding: GameStateV10 = {
+       ...base,
+       contracts: [
+         {
