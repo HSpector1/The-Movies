@@ -1,0 +1,26 @@
+{
+  "start": "2026-09-27T10:54:50.220604+00:00",
+  "end": "2026-09-27T10:55:27.965535+00:00",
+  "sourceSha": "00efc08607857c479a603efd43899e06ff805be7",
+  "command": [
+    "node_modules/.bin/vite-node",
+    "--script",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1117-p3-outgoing-preservation.ts",
+    "--expected-head",
+    "00efc08607857c479a603efd43899e06ff805be7",
+    "--qualification",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1128-A-c3-bounded-qualification.md",
+    "--qualification-sha256",
+    "5dbd8157352c51aaabce6a7467756ce93faef1a4fe6bbd744060a98a7c76aee9",
+    "--audit-prefix",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1117-capture-01"
+  ],
+  "exitCode": 0,
+  "interpretation": "Existing source fixed; only nine declared new fixture outputs admitted by producer, not empty whole-source delta.",
+  "elapsedSeconds": 37.743,
+  "sourceShaAtEnd": "00efc08607857c479a603efd43899e06ff805be7",
+  "raw": {
+    "bytes": 2145,
+    "sha256": "fd366044f5a1064f37dfe8f16cd6997468b7a045cfda12f9c9931a90327d05b6"
+  }
+}

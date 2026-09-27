@@ -1,5 +1,17 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — genuine outgoing Save38/projection53 preserved (2026-09-27)
+
+1117 capture passes on published C.3 checkpoint00efc086 with exactlytwo ticks,
+six mutation routes(fournew/twoduplicate),onequote andtwo ownedstorecloses.
+1131-A/B independently qualify allnine new immutable fixture paths, original input
+and1661existing-source guards, full saved/current/journal parity, actual career
+changes and newly produced same-contract waiver. Manifest345615B/87db7cc4.
+Default runtime limits remain; store is in-memory. No P3/native/latency claim.
+Publish and exactremoteverify before P3.1132 separately corrects the future test
+plan's managed-stock premise usingtwo real screenplay projects within208calls;
+newrevision6 excludes the nonexistent stock path while out-of-scope4 stays exact.
+
 ## CURRENT — C.3 bounded qualification complete (2026-09-27)
 
 1128-A/B qualify C.3 logic with explicit limitations at consumed sourcec1461a62.

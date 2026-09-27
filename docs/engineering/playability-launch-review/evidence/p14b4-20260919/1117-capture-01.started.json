@@ -1,0 +1,14 @@
+{
+  "status": "STARTED",
+  "producer": {
+    "bytes": 35254,
+    "sha256": "4c20d4ab26e55d283f17b91a518feac429063b60852931a429b589907a7f034d"
+  },
+  "run": {
+    "expectedHead": "00efc08607857c479a603efd43899e06ff805be7",
+    "qualification": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1128-A-c3-bounded-qualification.md",
+    "qualificationSha256": "5dbd8157352c51aaabce6a7467756ce93faef1a4fe6bbd744060a98a7c76aee9",
+    "auditPrefix": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1117-capture-01"
+  },
+  "startedAt": "2026-09-27T10:54:53.181Z"
+}
