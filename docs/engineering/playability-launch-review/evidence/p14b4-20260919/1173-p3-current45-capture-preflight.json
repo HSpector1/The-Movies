@@ -1,0 +1,37 @@
+{
+  "at": "2026-09-27T15:26:23.710614+00:00",
+  "sourceSha": "272401eb36dc49563d306de39503e306b6c9dc2d",
+  "remoteSha": "272401eb36dc49563d306de39503e306b6c9dc2d",
+  "compilerPass": true,
+  "compilerGraphIncludes": [
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture.config.ts",
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture.test.ts",
+    "/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14p3-fixtures.ts"
+  ],
+  "manualArtifactsUnchanged": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture.config.ts",
+      "bytes": 509,
+      "sha256": "c0b42578cfd6056514bc225e4eb58eaf08b1a6d2f7f030f9807634e85aa8fac9"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture.test.ts",
+      "bytes": 18576,
+      "sha256": "561f18ccaf6764ae0fafbe4f1f1357789dc6f690cf6a72835dc6251dcf2eb08d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture.tsconfig.json",
+      "bytes": 202,
+      "sha256": "d5e0548368ada03baa5bf760ff2d5f505dd26639f840b6c98dfec7e8d2117cd2"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-source-manifest.json",
+      "bytes": 303117,
+      "sha256": "25cf7c6b98ca157916c81545d9057e9d427e93a932660eb00dbdfaaf0d4801be"
+    }
+  ],
+  "outputAbsent": true,
+  "wholeWorktreeClean": false,
+  "status": "?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1172-p3-current45-capture-types.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1172-p3-current45-capture-types.patch\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1172-p3-current45-capture-types.txt\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1172-p3-current45-types-preflight.json\n",
+  "next": "1173 capture only; no concurrent index/source mutation"
+}

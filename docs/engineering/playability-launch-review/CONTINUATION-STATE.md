@@ -1,5 +1,35 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — current-week45 capture passed; Bridge source next
+
+On published272401eb36dc49563d306de39503e306b6c9dc2d,1172's isolated compiler
+passed in12.999s and included the actual config/test/helper graph.1173 closed
+15:26:30.845–15:26:43.352 UTC,12.507s, child0/fixedSource/empty consumed diff,
+no untracked consumed source/signal/error. One test passed with exactly45 actual
+player advances, zero other routes and four completed setup caches. All manual
+source pins remained exact through closure; no heavy process is active.
+
+The complete new capture has exactly two outputs: manifest11,550B/SHA256
+a261fc3177527d05d5a8daf624de7af015df8c9a8fedd3e11b37fe1597a2f4b6 and
+gzip86,995B/12799a849b0b4aff49cd9707ea8c1b87c64b4e787ff261b2e9cf4b109a953117.
+Raw full Save39 is751,294B/e7401f2578a7ad151383ca905df4253c2bbd82d6823c406c28b7e76aa809c5af.
+Actual week45 has the two subjects' open cases and two Ready/unlinked scripts;
+strict/public roundtrips and source/index guards passed. The legacy4 marker is
+literally equal to1135. Existing1117 outgoing artifacts remain untouched.
+
+1173-A/B and parent closure record preserve the qualification. After their final
+review and publication, parent releases1174 Bridge test source to the existing
+author under1170-A/C: exactly D15/D16/D17,60s each, expected9 actual advances
+with hard aggregate12, pinned current45 and independent genuine prior53 controls.
+No old simulation helper import, new setup trajectory or capture is needed.
+Freeze/review/publication precede compiler and actual RED execution. Production
+remains969fb459 and is released only against reached semantic failures.
+
+The combined preparation/test ceiling remains875. Rival and1155-C matrix gaps
+remain open; this capture does not qualify Bridge submission/settlement/waiver,
+projection54, runtime migration or UI presentation. Parent retains sole production
+and heavy execution ownership. Unity/native/Owner access remains deferred.
+
 ## CURRENT — current-week45 capture source frozen and reviewed
 
 1171-A/B are final. Independent source review KEEP and parent inspection match

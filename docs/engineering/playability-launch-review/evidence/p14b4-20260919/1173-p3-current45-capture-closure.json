@@ -1,0 +1,49 @@
+{
+  "at": "2026-09-27T15:27:59.622051+00:00",
+  "sourceSha": "272401eb36dc49563d306de39503e306b6c9dc2d",
+  "childPassed": true,
+  "fixedSource": true,
+  "emptyConsumedPatch": true,
+  "manualPinsUnchanged": true,
+  "sourceIndexGuardPassed": true,
+  "exactTwoOutputs": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json",
+      "bytes": 11550,
+      "sha256": "a261fc3177527d05d5a8daf624de7af015df8c9a8fedd3e11b37fe1597a2f4b6"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/genuine-v39-p3-market-week45.json.gz",
+      "bytes": 86995,
+      "sha256": "12799a849b0b4aff49cd9707ea8c1b87c64b4e787ff261b2e9cf4b109a953117"
+    }
+  ],
+  "raw": {
+    "bytes": 751294,
+    "sha256": "e7401f2578a7ad151383ca905df4253c2bbd82d6823c406c28b7e76aa809c5af"
+  },
+  "legacy4LiteralEqual": {
+    "bytes": 851,
+    "sha256": "182cf54d3a2fbb8bb2fc55cf74e97e220923d634ef454b816d3770d12dcb055e"
+  },
+  "actualTicks": 45,
+  "cachePhases": [
+    {
+      "name": "created0",
+      "completed": true
+    },
+    {
+      "name": "managedEmpty8",
+      "completed": true
+    },
+    {
+      "name": "ready10",
+      "completed": true
+    },
+    {
+      "name": "cases45",
+      "completed": true
+    }
+  ],
+  "scope": "current-week45 Save39 capture; no new Bridge acceptance/waiver/runtime qualification"
+}
