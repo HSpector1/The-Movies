@@ -1,5 +1,28 @@
 # UNITY-INTEGRATION-BACKLOG — work reserved for the replacement laptop
 
+## CURRENT — current-week45 capture source frozen and reviewed
+
+1171-A/B are final. Independent source review KEEP and parent inspection match
+all 1,672 consumed files (114,805,157 bytes), six manual inputs and genuine
+created-week0 input. Production remains969fb459. The dedicated Vitest harness
+calls the unchanged at45() prefix exactly once, asserts 45 advances and four
+completed setup caches, validates full Save39 and writes only a new exclusive
+gzip plus completion manifest. Incomplete outputs are retained on failure.
+
+Parent publishes this frozen source after checkpoint b5de9f9e, then runs1172
+with the explicit local tsconfig and --listFiles. Only compiler success permits
+1173 with both published-HEAD and source-manifest environment pins. The manifest
+SHA256 is25cf7c6b98ca157916c81545d9057e9d427e93a932660eb00dbdfaaf0d4801be.
+Manual docs/config/test hashes must match across both process closures; avoid
+index-refreshing commands during capture. No compiler or capture success is
+claimed yet. Bridge test source remains gated on actual capture qualification.
+
+The separate 45-call capture is included in the875 aggregate ceiling. The core
+rival failures and1155-C matrix gaps remain open. Parent owns production and
+heavy execution; existing specialists retain test author and independent review
+ownership. Unity/native/Owner access remains deferred, including the separate
+cross-repository contract-consumer command per1170-C.
+
 ## CURRENT — Bridge fixture amendment under review
 
 Checkpoint `704f169063bf138d420fa8c75d9a23f16afb6f7b` is published and exact
