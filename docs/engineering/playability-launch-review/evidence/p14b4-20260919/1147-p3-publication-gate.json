@@ -1,0 +1,10 @@
+{
+  "sourceSha": "7fed8f51359c1243ed6cdc4b6f70e3ecdde8935e",
+  "remoteSha": "7fed8f51359c1243ed6cdc4b6f70e3ecdde8935e",
+  "observedAt": "2026-09-27T13:00:18.634581+00:00",
+  "consumedSourceClean": true,
+  "wholeWorktreeClean": true,
+  "wholeWorktreeStatus": "",
+  "result": "PASS",
+  "nextRun": "1147-p3-outcome-waiver-core"
+}

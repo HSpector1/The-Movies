@@ -1,5 +1,32 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — P3 cancellation and forward waiver slice passes (2026-09-27)
+
+1147 passes both D08/D12 leaves on published7fed8f51359c1243ed6cdc4b6f70e3ecdde8935e.
+Actual13:00:24.281–13:00:59.377UTC,35.096s, child0/fixedSource:true/empty
+consumed diff, no untracked source/signal/error. Separate publication preflight
+succeeded with exact GitHub equality and a clean worktree. Eight prior declarations
+were intentionally filtered; their earlier1141 result remains source-qualified.
+
+Actual219 calls=65player+60cancelBefore+51cancelAfter+43waiver, all14 caches complete.
+The formerly masked controls now reach late cancellation108/one BROKEN through112,
+post-take cancellation61 preserving work/conduct, termination61 and missed due112.
+Actual waiver61 mints a forward62 successor on the same contract, preserves earned
+work, then satisfies only from the distinct take74 through104. Current39 genuine
+WAIVED positives and released malformed-link/old-reader guards pass. Complete851B
+old4 marker remains literally equal to1135. Final1147-A/B record bounded coverage.
+
+Receipt-classification and genuine wrong-existing-third-target negatives remain
+pending, alongside D09–D11, rival policy/work, projection54/Bridge/UI/runtime and
+broader consumer verification. Projection remains53/protocol4. No full-P3 or native
+qualification is claimed. Prior C.3/full-suite/Writer/R8/FU1/FU2 limits persist.
+
+Parent owns production/integration and sole heavy execution; no heavy process
+is active. Existing author prepares docs-only1148 next reservation/lifecycle plan;
+existing reviewer owns independent plan/source review. Retain all original caps,
+immutable outgoing38/53 evidence, two-specialist ownership and authorized P14
+onward continuation without routine approval pauses. Unity/native remains deferred.
+
 ## CURRENT — D08/D12 correction reviewed and typed; unchanged behavior run next
 
 1146 root compiler PASS on32e5016537baabdbe2d84cc484369c9ecf0850fc plus

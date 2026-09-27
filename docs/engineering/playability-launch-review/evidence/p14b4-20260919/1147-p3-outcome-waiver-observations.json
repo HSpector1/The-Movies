@@ -1,0 +1,174 @@
+{
+  "source": "7fed8f51359c1243ed6cdc4b6f70e3ecdde8935e",
+  "files": 1,
+  "passed": 2,
+  "failed": 0,
+  "filtered": 8,
+  "todo": 0,
+  "unhandledErrorDiagnostic": false,
+  "diagnosticGroups": 0,
+  "against1145": {
+    "new": [],
+    "retained": [],
+    "vanished": [
+      "D08 keeps earned work and attributes cancellation, due and termination outcomes",
+      "D12 waives only forward same-domain remaining work on the same contract"
+    ]
+  },
+  "markers": {
+    "1143-P3-CANCELLATION": {
+      "late": {
+        "cancelled": 108,
+        "due": 112,
+        "firstTake": 61
+      },
+      "afterTake": {
+        "cancelled": 61,
+        "due": 112
+      },
+      "terminated": 61
+    },
+    "1143-P3-WAIVER": {
+      "waived": 61,
+      "windowStart": 62,
+      "originalTake": 61,
+      "substituteTake": 74,
+      "due": 104
+    },
+    "1143-P3-OUTCOME-COUNTERS": {
+      "playerCalls": 65,
+      "playerCap": 208,
+      "branches": [
+        {
+          "name": "cancelBefore",
+          "actualTicks": 60,
+          "cap": 64,
+          "startWeek": 52
+        },
+        {
+          "name": "cancelAfter",
+          "actualTicks": 51,
+          "cap": 64,
+          "startWeek": 61
+        },
+        {
+          "name": "waiver",
+          "actualTicks": 43,
+          "cap": 64,
+          "startWeek": 61
+        }
+      ],
+      "total": 219,
+      "cap": 400
+    },
+    "1133-P3-COUNTERS": {
+      "actualTicks": 65,
+      "cap": 208,
+      "cachedPhases": [
+        {
+          "name": "created0",
+          "completed": true
+        },
+        {
+          "name": "managedEmpty8",
+          "completed": true
+        },
+        {
+          "name": "ready10",
+          "completed": true
+        },
+        {
+          "name": "cases45",
+          "completed": true
+        },
+        {
+          "name": "attached45",
+          "completed": true
+        },
+        {
+          "name": "bound52",
+          "completed": true
+        },
+        {
+          "name": "cancelBefore108",
+          "completed": true
+        },
+        {
+          "name": "cancelBefore112",
+          "completed": true
+        },
+        {
+          "name": "firstFilm",
+          "completed": true
+        },
+        {
+          "name": "cancelAfterTake",
+          "completed": true
+        },
+        {
+          "name": "cancelAfter112",
+          "completed": true
+        },
+        {
+          "name": "waiverInput",
+          "completed": true
+        },
+        {
+          "name": "waived61",
+          "completed": true
+        },
+        {
+          "name": "waiver104",
+          "completed": true
+        }
+      ]
+    }
+  },
+  "legacy4": {
+    "bytes": 851,
+    "sha256": "182cf54d3a2fbb8bb2fc55cf74e97e220923d634ef454b816d3770d12dcb055e",
+    "literalEquals": [
+      "1135",
+      "1141",
+      "1145"
+    ]
+  },
+  "frozenTestSourcesMatch1143": true,
+  "inputs": [
+    {
+      "file": "1147-p3-outcome-waiver-core.txt",
+      "bytes": 3435,
+      "sha256": "47010ebd991285ee02324042b2f5fc1cd85bb54aca39916a89940a54978396fd"
+    },
+    {
+      "file": "1147-p3-outcome-waiver-core.json",
+      "bytes": 720,
+      "sha256": "340a3fb1464103b1f1b98014cde8465a0ba1b87c5b029b19524e0be5b319a350"
+    },
+    {
+      "file": "1147-p3-outcome-waiver-core.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "1147-p3-publication-gate.json",
+      "bytes": 327,
+      "sha256": "2f517e9e9b825e75a91503c24ff722938264ea9f345c577046bbb730dae295e9"
+    },
+    {
+      "file": "1146-p3-outcome-waiver-root-types.json",
+      "bytes": 603,
+      "sha256": "9ace7e9d62058f9518d61a68a51ea02d79f85faff262cdd9e9e43bea39108573"
+    },
+    {
+      "file": "1146-p3-outcome-waiver-root-types.txt",
+      "bytes": 319,
+      "sha256": "853ad7c2823a910eb077e26202929a3e83beac5d5edbd825faabfb9c054a8d4c"
+    },
+    {
+      "file": "1147-p3-legacy4-markers.txt",
+      "bytes": 851,
+      "sha256": "182cf54d3a2fbb8bb2fc55cf74e97e220923d634ef454b816d3770d12dcb055e"
+    }
+  ]
+}

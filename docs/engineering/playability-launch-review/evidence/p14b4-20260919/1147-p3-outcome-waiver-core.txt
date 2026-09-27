@@ -1,0 +1,25 @@
+{"sourceSha":"7fed8f51359c1243ed6cdc4b6f70e3ecdde8935e","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14p3-directing-promises.test.ts","--testNamePattern","D(?:08|12) "],"node":"v20.20.2","start":"2026-09-27T13:00:24.281Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 second slice: cancellation and same-domain waiver > D08 keeps earned work and attributes cancellation, due and termination outcomes
+1133-P3-LEGACY4 {"week":8,"rngState":"1557239868,672280863,464522958,2878174094","receipts":[{"draft":{"family":"APPEARANCE_COUNT","predicate":{"count":1},"issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":112},"receipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"9a5006d1107172a3","rulesVersion":4,"week":8}},{"draft":{"family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"lead"},"issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":112},"receipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"3dbf55ccb67dfa2c","rulesVersion":4,"week":8}}]}
+1143-P3-CANCELLATION {"late":{"cancelled":108,"due":112,"firstTake":61},"afterTake":{"cancelled":61,"due":112},"terminated":61}
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 second slice: cancellation and same-domain waiver > D12 waives only forward same-domain remaining work on the same contract
+1143-P3-WAIVER {"waived":61,"windowStart":62,"originalTake":61,"substituteTake":74,"due":104}
+
+stdout | tests/p14p3-directing-promises.test.ts
+1143-P3-OUTCOME-COUNTERS {"playerCalls":65,"playerCap":208,"branches":[{"name":"cancelBefore","actualTicks":60,"cap":64,"startWeek":52},{"name":"cancelAfter","actualTicks":51,"cap":64,"startWeek":61},{"name":"waiver","actualTicks":43,"cap":64,"startWeek":61}],"total":219,"cap":400}
+1133-P3-COUNTERS {"actualTicks":65,"cap":208,"cachedPhases":[{"name":"created0","completed":true},{"name":"managedEmpty8","completed":true},{"name":"ready10","completed":true},{"name":"cases45","completed":true},{"name":"attached45","completed":true},{"name":"bound52","completed":true},{"name":"cancelBefore108","completed":true},{"name":"cancelBefore112","completed":true},{"name":"firstFilm","completed":true},{"name":"cancelAfterTake","completed":true},{"name":"cancelAfter112","completed":true},{"name":"waiverInput","completed":true},{"name":"waived61","completed":true},{"name":"waiver104","completed":true}]}
+
+ ✓ |core| tests/p14p3-directing-promises.test.ts (10 tests | 8 skipped) 29985ms
+   ✓ P3 second slice: cancellation and same-domain waiver > D08 keeps earned work and attributes cancellation, due and termination outcomes 14820ms
+   ✓ P3 second slice: cancellation and same-domain waiver > D12 waives only forward same-domain remaining work on the same contract 15163ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed | 8 skipped (10)
+   Start at  15:00:25
+   Duration  33.89s (transform 2.35s, setup 0ms, collect 3.08s, tests 29.99s, environment 0ms, prepare 309ms)
+
