@@ -1,0 +1,11 @@
+diff --git a/tests/p14p4p5-opportunities.test.ts b/tests/p14p4p5-opportunities.test.ts
+--- a/tests/p14p4p5-opportunities.test.ts
++++ b/tests/p14p4p5-opportunities.test.ts
+@@ -145,6 +145,7 @@
+       .toMatchObject({ startWeek: 52, termWeeks: 104, premiumTier: 1.25, promises: [] })
+     admitted(next); return next
+   })
++}
+ function attach(state: GameState, request: unknown): GameState {
+   return core.attachPromise(state, FOCUS, issuer(state), request as PromiseAttachment)
+ }

@@ -1,0 +1,10 @@
+{
+  "time": "2026-09-27T18:48:24.022149+00:00",
+  "sourceHead": "9aae8d850576851973420d94db9ceee5d388ad6d",
+  "target": "tests/p14p4p5-opportunities.test.ts",
+  "bytes": 21703,
+  "sha256": "73a358bafa523282e24abbac64748877eda4a4cdc934a40783a665c791e26005",
+  "change": "Exactly two bytes: closing function brace and LF after proposed45 callback.",
+  "review": "1227-E-p4p5-syntax-correction-review.md",
+  "next": "Publish then1228b root compiler;1229 remains gated."
+}

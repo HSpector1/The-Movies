@@ -1,0 +1,42 @@
+{
+  "time": "2026-09-27T18:46:21.461522+00:00",
+  "head": "9aae8d850576851973420d94db9ceee5d388ad6d",
+  "sourceFiles": 1676,
+  "sourceInventory": {
+    "bytes": 254494,
+    "sha256": "da78c9143f0519f0d137c85bffb34a9f652af60d64b4b9faca164a8dbdbffcde"
+  },
+  "index": {
+    "bytes": 1051120,
+    "sha256": "08a08d4315c29e437fb3be57d8e8386b64c9de758b0e5576d23efee35a28321e"
+  },
+  "protectedUnchanged": true,
+  "manualAndRawInputsUnchanged": true,
+  "stageEntriesUnchanged": true,
+  "consumedDiffEmpty": true,
+  "untrackedConsumed": [],
+  "compiler": {
+    "sourceSha": "9aae8d850576851973420d94db9ceee5d388ad6d",
+    "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSource": [],
+    "command": [
+      "node_modules/.bin/tsc",
+      "--noEmit",
+      "-p",
+      "tsconfig.json"
+    ],
+    "node": "v20.20.2",
+    "start": "2026-09-27T18:36:58.662Z",
+    "end": "2026-09-27T18:37:05.342Z",
+    "exitCode": 2,
+    "signal": null,
+    "error": null,
+    "sourceShaAtEnd": "9aae8d850576851973420d94db9ceee5d388ad6d",
+    "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSourceAtEnd": [],
+    "fixedSource": true
+  },
+  "classification": "Test syntax failure TS1005 at tests/p14p4p5-opportunities.test.ts(326,1). No semantic RED executed. Missing function brace after proposed45 callback.",
+  "auditNote": "Two initial read-only parent comparisons stopped without mutations: first included raw metadata in filesystem pin equality, second omitted NUL serialization for stage entries. Corrected independent file/raw comparisons and original -z serialization all pass.",
+  "next": "Separately authored and reviewed minimal correction, publish, new compiler record before 1229."
+}

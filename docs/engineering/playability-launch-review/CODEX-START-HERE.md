@@ -1,5 +1,25 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — Initial compiler syntax failure preserved; narrow correction installed
+
+1228 on published9aae8d85 failed child2/fixed source in6.680s with one TS1005
+missing-brace diagnostic. No runtime leaves or semantic RED ran. Exact manual,
+raw input, consumed source and index guards pass in1228 postflight.
+
+1227-D/E independently identifies and reviews the sole two-byte correction after
+proposed45(). Parent applied it exactly; corrected test21,703B/SHA256
+73a358bafa523282e24abbac64748877eda4a4cdc934a40783a665c791e26005.
+All four bodies, timeout declarations and hard tick cap0 are unchanged. Original
+failed source and evidence remain frozen. Publish this correction then run1228b
+root compiler before1229's four initial leaves; attribute actual causes in1230.
+Production2af37179 is unchanged;40/55/7 remains design only.
+
+1232-A/B is KEEP as a later two-route plan:47 calls each/94 total, with named-route
+tick authorization and all original leaves still forbidden to advance. No later
+source or gameplay qualification is claimed. Parent alone owns production and
+heavy execution; existing specialists own separate tests/review. Continue the
+authorized program with settled P15 decisions and all inherited limits.
+
 ## CURRENT — P4/P5 initial tests installed; compiler and first RED next
 
 The genuine outgoing39/54 capture and independent1224 verification are published
