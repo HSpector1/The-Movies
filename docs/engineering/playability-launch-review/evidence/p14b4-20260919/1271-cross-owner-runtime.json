@@ -1,0 +1,24 @@
+{
+  "sourceSha": "8873cb28c8721b441c014e3fa43d3cc091840688",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14p4p5-cross-owner.test.ts",
+    "-t",
+    "Q17 "
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T23:19:09.497Z",
+  "end": "2026-09-27T23:19:15.486Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "8873cb28c8721b441c014e3fa43d3cc091840688",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

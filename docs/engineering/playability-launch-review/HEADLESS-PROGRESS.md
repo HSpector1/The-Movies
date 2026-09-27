@@ -1,5 +1,28 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — Cross-owner availability qualified; finishing source next
+
+Executed/published8873cb28c8721b441c014e3fa43d3cc091840688 matched GitHub.
+1270 root types PASS35.248s;1271 Q17 PASS1/zero filtered5.989s recorder,
+1.723s leaf. All1,686 source files,185 manual pins,index/stage and fixed-source
+checks stayed exact.1269-I/J/K close six pure P5 quotes at actual45, zero actions
+or advances: rival Actor company release52 gives take57, while rival Writer's
+actual draft due46 gives take51. Both exclusive deadlines and seven/eight-week
+slack boundaries passed with complete owner censuses. Writer credit is not a
+company seat; real rival contracts and all19 old takes remain unchanged.
+Seventeen core leaves passed across nine separate selections, not one full suite.
+No production change; Save40/projection55/evaluator7 remain current.
+
+Begin1272-C under acceptedA/F/B: existing reproduced Save35 actual312, five pure
+P4 quotes, two public existing-task actions, hard one default-false tick to313.
+Qualify actual finishing cast work and current Director retirement refusal; no
+new contract, funding, historical replay or extra action/tick. IndependentD before
+parent integration/publication,1273types(cap0),1274runtime(cap1). All new outcomes
+remain unexecuted. Then accepted1275 grouping and1278 casting-reservation plans.
+Parent remains sole live integration/production writer and heavy-process owner;
+same two specialists retain staged-test/review ownership. Continue authorized
+program. Unity/native and Owner campaigns deferred; all earlier limits retained.
+
 ## CURRENT — Cross-owner availability source applied; Q17 gates next
 
 Parent applied exact1269-C/D on published1ec31c4b.1269-E records the sole new

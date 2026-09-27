@@ -1,0 +1,28 @@
+# 1269-J — independent actual cross-owner verification
+
+**KEEP the bounded Q17 qualification.** Independently read the complete 1270/1271 raw output, closed records and both pre/postflight pairs, reconstructed all owner facts against the pinned decoded1171 input, and cross-read final [1269-I](1269-I-cross-owner-verification-attribution.md), **5,973 bytes / `11ef6f1e2dfa86cb17e0ebb99ba39843c7ac11fb183d3f40e169ed75e1e453f3`**. No discrepancy was found. This reviewer executed no project code, compiler, tests, validator or simulation and changed only this review.
+
+Both gates executed published `8873cb28c8721b441c014e3fa43d3cc091840688`, with child0, fixedSource true, empty consumed diff/untracked source and null signal/error. UTC2026-09-27: root compiler1270 ran23:17:53.863→23:18:29.111, **35.248s**, with no diagnostics; Q17 runtime1271 ran23:19:09.497→23:19:15.486, **5.989s recorder**. The exact selected leaf, `Q17 distinguishes an occupied rival Actor from a credited Writer with an earlier active-draft boundary`, passed: **1 PASS, 0 filtered**, leaf1.723s/file1.726s/Vitest5.00s. All prerequisite, semantic, final admission and teardown assertions completed; there is no remaining masked tail. The unchanged60,000ms declaration supplies no general latency guarantee.
+
+The actual counter marker reports **0 attempted/invoked/completed advances, 0 public mutations, 6 quotes**, in fixed Actor-then-Writer order, and one complete input cache. Both preflights set cap0. There was no historical prefix, simulation helper or capture replay. Strict39 identity/literal export, real40 migration and full40 lossless admission passed; all prior-state fields remain equal outside the additive sidecar, with actual45, cash24,701,506,19 old takes, empty promises/proposals and sidecar1/cutover19/facts[]. Every quote passed full state/request/RNG purity against the same **751,359-byte** current envelope, SHA256 `1b6810c616e6f513ea6246ff824bfee02c15f5760e6cafd2ca45f78d05d36bc0`.
+
+All requests are player SPECIFIC_PROJECT/projectOpportunity/count1/allCast targeting Ready script0000, windowStart45, hypothetical start45/term104/end149, without a promiseId. Every receipt has rulesVersion7/week45. The remaining complete receipt fields, in actual order, are:
+
+|Beneficiary|Exclusive due|Classification|Cause|inputsDigest|
+|---|---:|---|---|---|
+|r04 Actor2|57|IMPOSSIBLE|window|`d37981e9acb07608`|
+|r04 Actor2|64|FRAGILE|slack|`dc80f1d11471582a`|
+|r04 Actor2|65|REASONABLY_ACHIEVABLE|null|`e758858502ac9ecb`|
+|r04 Writer0|51|IMPOSSIBLE|window|`4d07e438df5009a5`|
+|r04 Writer0|58|FRAGILE|slack|`f988d64eb2e3ccb4`|
+|r04 Writer0|59|REASONABLY_ACHIEVABLE|null|`6275e6480a72516d`|
+
+Window means exactly `no filming week inside the window can reach this opportunity`; slack means exactly `the due week leaves too little slack before filming would start`. Thus the actual due-minus-take boundaries are0/7/8 in each triple.
+
+Independently compared both complete **four-production/26-project** owner censuses, every company/writer-credit/active-writing membership, and all repeated person/target payloads to immutable1171. Actor `person-studio-de11f27b-r04-2`, age42, has the sole rival film4 lead company seat, start43/remaining7, and no writing/research assignment: fresh45+7=52, take57. Writer `person-studio-de11f27b-r04-0`, age32, has no Director/cast/Craft company seat. Its film4 credit remains separate from its sole actual active script0005 drafting assignment, commissioned43/due46/development slot1, giving fresh46/take51. The retained script0004→film4/concept4/horror joins agree. Both actual rival contracts remain unended0→208, with annual salary/bonus275079/49514 and488850/87993 respectively; provenance, six-attribute Acting profiles and absent lifecycle records remain intact. Current/requested Actor admission reads at45 and prospective52/46 passed without attaining those weeks.
+
+The issuer-local target is assessed Ready script0000/c00/drama, commissioned8, actual/perceived strength60.24468148832871, Writer0003, and null due/reservation/production. Full resource evidence contains two set mounts and no facility claims, with free development/stage/scenery/post slots. All six independent reservation censuses contain genuinely empty raw roots/proposals and selected union. No same-picture Writer collision, retirement refusal or resource bottleneck masks the measured physical/slack causes.
+
+Independently rehashed all **185 manual pins** and record/raw/patch outputs; compared every shared pre/postguard field and both gates; reconstructed the current **1,686-file inventory** (255,938 bytes / `18a6be0bd9cdf97c26fea55ae344f0d653bf431f28f44cf900de0142e958b811`) and matched raw index/stage identities. The executed18,482-byte source remains the reviewed `301acd4a…130ca3c` postimage. Exact eight record/raw/pre/postflight identities are cross-checked in I; [1271 raw](1271-cross-owner-runtime.txt) is **157,083 bytes / `76afa9e27f75a84a08d74af8d4ccaa0c6da0c83d63c0fd37661a3f66a010c2ad`**. All **11 original LF-preserved semantic lines** concatenate to **155,966 bytes / `d31c159b814e9306386562637a9b9fbfa91c31d7661ed67a163fbbd44038509d`**. Both tested patches are empty.
+
+This qualifies pure cross-owner availability queries on the generated actual45 authority. The prospective player intervals do not prove hire, transfer, attachment, staffing, affordability, a complete crew or actual future completion. Grouped witnesses, rival offer policy, Bridge/UI and full-suite qualification remain separate. Historical corpus/funding limitations and prior failures are preserved. Final review; no delayed appendix.
