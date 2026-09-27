@@ -1,0 +1,20 @@
+{
+  "sourceSha": "8ede2aefbcc6c423daf9c9d6316a5b0579bbc0e4",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "npm",
+    "run",
+    "check:bridge-contract"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T16:18:09.236Z",
+  "end": "2026-09-27T16:18:11.006Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "8ede2aefbcc6c423daf9c9d6316a5b0579bbc0e4",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

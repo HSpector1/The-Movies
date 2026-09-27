@@ -1,0 +1,13 @@
+{
+  "at": "2026-09-27T16:15:28.547769+00:00",
+  "sourceSha": "8ede2aefbcc6c423daf9c9d6316a5b0579bbc0e4",
+  "remoteSha": "8ede2aefbcc6c423daf9c9d6316a5b0579bbc0e4",
+  "wholeWorktreeCleanBeforeRecord": true,
+  "productionPinsVerified": 10,
+  "command": [
+    "node_modules/.bin/tsc",
+    "--noEmit",
+    "-p",
+    "tsconfig.bridge.json"
+  ]
+}

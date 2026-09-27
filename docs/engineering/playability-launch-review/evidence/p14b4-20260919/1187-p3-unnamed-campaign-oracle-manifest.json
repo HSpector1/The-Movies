@@ -1,0 +1,52 @@
+{
+  "baselineHead": "8ede2aefbcc6c423daf9c9d6316a5b0579bbc0e4",
+  "file": "tests/bridge-p14p3-directing-promises.test.ts",
+  "before": {
+    "bytes": 45268,
+    "sha256": "8f086d16818dd3449604f2da2b91ed575b1c5c04e5a656020867d5b140f6872d"
+  },
+  "after": {
+    "bytes": 45878,
+    "sha256": "dbc4800046353a25d75261604e944b77c05e26c43d79ae4e856e23fb4aabf86d"
+  },
+  "exactReplacement": {
+    "before": "      await runtimeSave(runtime)\n      expect((await runtime.campaignLibrary())!.dirty).toBe(false)\n      expect((await runtime.campaign(await campaignRequest(runtime, 'saveAs', { label: 'P3 original52' }))).accepted).toBe(true)\n      const a = library(store).records.find(row => row.label === 'P3 original52'); assert.ok(a)\n",
+    "after": "      await runtimeSave(runtime)\n      const unnamed = await runtime.campaignLibrary(); assert.ok(unnamed)\n      expect(unnamed).toMatchObject({ dirty: true, activeCampaignId: null, campaigns: [] })\n      const unnamedSaved = stored(library(store).workingCheckpointJson)\n      expect(unnamedSaved.currentSave.state.market.tick).toBe(52)\n      expect(unnamedSaved.savedSave?.state.market.tick).toBe(52)\n      expect(unnamedSaved.checkpoint.currentSaveJson).toBe(unnamedSaved.checkpoint.savedSaveJson)\n      expect(root(unnamedSaved.currentSave.state, bound.promiseId)).toEqual(root(initial, bound.promiseId))\n      expect((await runtime.campaign(await campaignRequest(runtime, 'saveAs', { label: 'P3 original52' }))).accepted).toBe(true)\n      const a = library(store).records.find(row => row.label === 'P3 original52'); assert.ok(a)\n      expect(await runtime.campaignLibrary()).toMatchObject({ dirty: false, activeCampaignId: a.id })\n"
+  },
+  "completeInverseEqualsBaseline": true,
+  "completePrefixBeforeD17Unchanged": {
+    "bytes": 39644,
+    "sha256": "e4b76e740f7f4953c6142cb3607c070973d3fc4657003dfcea377a2008717037"
+  },
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1187-p3-unnamed-campaign-oracle.patch",
+    "bytes": 1622,
+    "sha256": "5b85ea88a7cc9ac1bb5b3c1f2e7894a3f147779194cabbf8261fabe2a20175cd"
+  },
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/bridge-p14p3-directing-promises.test.ts",
+    "-t",
+    "D17"
+  ],
+  "compiler": [
+    "node_modules/.bin/tsc",
+    "--noEmit",
+    "-p",
+    "tsconfig.bridge.json"
+  ],
+  "filteredCounters": {
+    "expectedSessionAdvances": 7,
+    "expectedCoordinatorAdvances": 2,
+    "expectedTotalAdvances": 9,
+    "hardAggregateCap": 12,
+    "unusedHeadroom": 3,
+    "expectedDuplicateInvocations": 3,
+    "waiverPhaseInvoked": false
+  },
+  "preserved": "All command operations/order/IDs, game actions, counters, inputs, three60s declarations and D15/D16 bodies; no production changes.",
+  "noExecution": true
+}

@@ -1,0 +1,49 @@
+{"sourceSha":"8ede2aefbcc6c423daf9c9d6316a5b0579bbc0e4","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-p14p3-directing-promises.test.ts"],"node":"v20.20.2","start":"2026-09-27T16:18:59.567Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/bridge-p14p3-directing-promises.test.ts > P3 public Bridge authority, truthful terms and durable runtime > D15 commits genuine public directing commands with closed private authority
+1174-P3-WIRE {"week":52,"promiseId":"promise-0","contractId":"studio-de11f27b-player:contract:authored-0006:52:player-32","advancingCommands":7}
+
+stdout | tests/bridge-p14p3-directing-promises.test.ts > P3 public Bridge authority, truthful terms and durable runtime > D16 discloses Director and legacy cast terms truthfully without private inputs
+1174-P3-DISCLOSURE {"boundWeek":52,"reminderQueryWeek":104,"waiverWeek":52,"original":"promise-0","successor":"promise-1","extraTicks":0}
+
+stdout | tests/bridge-p14p3-directing-promises.test.ts > P3 public Bridge authority, truthful terms and durable runtime > D17 migrates outgoing53 independently and isolates current54 campaigns
+1174-P3-PRIOR53 {"slots":["208/207","104-after/104-before"],"ticks":0,"qualified":true}
+
+stdout | tests/bridge-p14p3-directing-promises.test.ts
+1174-P3-BRIDGE-COUNTERS {"reservedAdvanceCommands":7,"verifiedOneWeekAdvances":7,"actualAdvanceDispatchInvocations":7,"sessionAdvanceAttempts":7,"coordinatorAdvanceAttempts":0,"duplicateInvocations":2,"cap":12,"phases":[{"name":"captured45","complete":true},{"name":"actualAttached45","complete":true},{"name":"actualBound52","complete":true},{"name":"actualWaived52","complete":true}]}
+
+ ❯ |core| tests/bridge-p14p3-directing-promises.test.ts (3 tests | 1 failed) 126920ms
+   ✓ P3 public Bridge authority, truthful terms and durable runtime > D15 commits genuine public directing commands with closed private authority 63631ms
+   ✓ P3 public Bridge authority, truthful terms and durable runtime > D16 discloses Director and legacy cast terms truthfully without private inputs 49537ms
+   × P3 public Bridge authority, truthful terms and durable runtime > D17 migrates outgoing53 independently and isolates current54 campaigns 13750ms
+     → expected true to be false // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14p3-directing-promises.test.ts > P3 public Bridge authority, truthful terms and durable runtime > D17 migrates outgoing53 independently and isolates current54 campaigns
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/bridge-p14p3-directing-promises.test.ts:577:56
+    575|     try {
+    576|       await runtimeSave(runtime)
+    577|       expect((await runtime.campaignLibrary())!.dirty).toBe(false)
+       |                                                        ^
+    578|       expect((await runtime.campaign(await campaignRequest(runtime, 's…
+    579|       const a = library(store).records.find(row => row.label === 'P3 o…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  18:19:00
+   Duration  131.59s (transform 2.84s, setup 0ms, collect 3.87s, tests 126.92s, environment 0ms, prepare 182ms)
+

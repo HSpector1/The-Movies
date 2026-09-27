@@ -1,0 +1,12 @@
+{"sourceSha":"8ede2aefbcc6c423daf9c9d6316a5b0579bbc0e4","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","ui","ui/src/components/ProfessionalPromiseTerms.test.tsx"],"node":"v20.20.2","start":"2026-09-27T16:21:12.434Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |ui| ui/src/components/ProfessionalPromiseTerms.test.tsx (1 test) 214ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  18:21:12
+   Duration  3.67s (transform 84ms, setup 382ms, collect 326ms, tests 214ms, environment 2.23s, prepare 140ms)
+

@@ -574,9 +574,16 @@ describe('P3 public Bridge authority, truthful terms and durable runtime', () =>
     const closedStores: Store[] = []
     try {
       await runtimeSave(runtime)
-      expect((await runtime.campaignLibrary())!.dirty).toBe(false)
+      const unnamed = await runtime.campaignLibrary(); assert.ok(unnamed)
+      expect(unnamed).toMatchObject({ dirty: true, activeCampaignId: null, campaigns: [] })
+      const unnamedSaved = stored(library(store).workingCheckpointJson)
+      expect(unnamedSaved.currentSave.state.market.tick).toBe(52)
+      expect(unnamedSaved.savedSave?.state.market.tick).toBe(52)
+      expect(unnamedSaved.checkpoint.currentSaveJson).toBe(unnamedSaved.checkpoint.savedSaveJson)
+      expect(root(unnamedSaved.currentSave.state, bound.promiseId)).toEqual(root(initial, bound.promiseId))
       expect((await runtime.campaign(await campaignRequest(runtime, 'saveAs', { label: 'P3 original52' }))).accepted).toBe(true)
       const a = library(store).records.find(row => row.label === 'P3 original52'); assert.ok(a)
+      expect(await runtime.campaignLibrary()).toMatchObject({ dirty: false, activeCampaignId: a.id })
       const a52 = a.checkpointJson, aDecoded = stored(a52)
       expect(aDecoded.currentSave.state.market.tick).toBe(52)
       expect(aDecoded.checkpoint.currentSaveJson).toBe(aDecoded.checkpoint.savedSaveJson)

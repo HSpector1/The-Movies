@@ -1,5 +1,58 @@
 # UNITY-INTEGRATION-BACKLOG — work reserved for the replacement laptop
 
+## CURRENT — D17 test-only amendment frozen and reviewed
+
+1186 A/B preserve all seven actual gates on8ede2aef; corrected A retains its full
+superseded preimage and explains the narrow budget-wording correction. Actual
+counts remain7 used,2 planned coordinator advances, expected9/hard12 with3 headroom.
+1187 A/B/C are final, parent-verified, source-only KEEP. The sole D17 block now
+checks unnamed dirtytrue, exact working current/saved52 and the same P3 root, then
+named cleanliness after real SaveAs. Full inverse proves every other test byte
+unchanged; all ten production/generated pins still match8ede2aef. No heavy active.
+
+Publish this checkpoint;1188 is the relevant Bridge compiler, then1189 selects
+only D17, followed by separately recorded zero-tick schema/generator/runtime,
+waiver and classless-disclosure neighbors in1187-C. No result is presumed. Retain
+1185's D15/D16 passes and1186's component pass at their actual source; do not claim
+a new all-three-case run, latency bound or hosted/native qualification. All other
+matrix/rival/program limits remain as recorded below. Same production/test/review
+ownership and one-heavy-process rule continue.
+
+## CURRENT — Bridge54 behavior reached; D17 unnamed-library oracle correction
+
+Published8ede2aefbcc6c423daf9c9d6316a5b0579bbc0e4 has exact remote equality.
+1180 Bridge/1181 root/1182 UI typechecks all passed (30.303/32.743/40.598s);
+1183 contract and1184 fixture checks passed (1.770/1.195s).1185 ran all three
+Bridge leaves16:18:59.567–16:21:12.259 UTC,132.692s, child1: D15/D16 PASS,
+D17 FAIL.1186 pure UI leaf passed16:21:12.434–16:21:16.984,4.550s (214ms test).
+All seven records have fixed source, empty consumed diffs, no untracked consumed
+source/signal/error. No heavy process is active.
+
+D15 qualifies actual public P3 quote/attachment/duplicate, seven advances to52,
+settlement/payment and stale-intent refusal. D16 qualifies stored-role disclosure,
+own/privacy/history carriers, query-time reminder, actual zero-tick waiver and
+labelled legacy cast controls. D17 separately completes both genuine prior53
+checkpoint migrations and all their corrupted-slot/current-reload controls, then
+fails at577: after initial low-level SAVE, unnamed campaign library dirty is true
+instead of the test's false expectation. No coordinator advance/SaveAs/load/restart
+was reached. Actual totals:7 reserved/invoked/verified advances, session7,
+coordinator0, duplicates2; all four shared phases completed.
+
+D15's synchronous case reports63.631s despite its retained60s declaration; D16
+49.537s and D17 failed13.750s. Preserve those actual timings without a latency or
+enforced-time-bound claim. UI is component-only; no hosted/native qualification.
+
+Parent and independent reviewer confirmed existing campaign law: no named active
+record means dirtytrue even after SAVE; only working checkpoint bytes update.
+SaveAs creates the named record and may then be clean.1187 is released only to the
+existing test owner, after frozen1186 attribution: correct that initial oracle,
+verify exact saved/current working slots52 and the same bound root, and assert
+named cleanliness after real SaveAs. Preserve every operation/cap/timeout and both
+completed leaf bodies. No production correction or repeat capture is authorized
+by this cause. Freeze/review/publication precede the next targeted D17 observation.
+Bounded zero-tick neighbors remain separate. All earlier rival/matrix and
+Unity/native/Owner deferrals remain unchanged.
+
 ## CURRENT — Bridge54 production candidate prepared after actual RED
 
 The initial1177/1178 failures are published atf4c631c29244b3f78bc5a30bbd31a7db370649b1,

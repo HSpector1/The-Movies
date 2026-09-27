@@ -1,0 +1,59 @@
+{
+  "at": "2026-09-27T16:18:49.799667+00:00",
+  "sourceSha": "8ede2aefbcc6c423daf9c9d6316a5b0579bbc0e4",
+  "remoteSha": "8ede2aefbcc6c423daf9c9d6316a5b0579bbc0e4",
+  "consumedSourceClean": true,
+  "wholeWorktreeStatus": "?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1180-p3-bridge-types-preflight.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1180-p3-bridge-types.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1180-p3-bridge-types.patch\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1180-p3-bridge-types.txt\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1181-p3-root-types.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1181-p3-root-types.patch\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1181-p3-root-types.txt\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1181-p3-static-gates-preflight.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1182-p3-ui-types.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1182-p3-ui-types.patch\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1182-p3-ui-types.txt\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1183-p3-contract-check.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1183-p3-contract-check.patch\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1183-p3-contract-check.txt\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1184-p3-fixture-check.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1184-p3-fixture-check.patch\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1184-p3-fixture-check.txt\n",
+  "prerequisites": [
+    {
+      "stem": "1180-p3-bridge-types",
+      "start": "2026-09-27T16:15:33.021Z",
+      "end": "2026-09-27T16:16:03.324Z",
+      "exitCode": 0
+    },
+    {
+      "stem": "1181-p3-root-types",
+      "start": "2026-09-27T16:16:55.504Z",
+      "end": "2026-09-27T16:17:28.247Z",
+      "exitCode": 0
+    },
+    {
+      "stem": "1182-p3-ui-types",
+      "start": "2026-09-27T16:17:28.441Z",
+      "end": "2026-09-27T16:18:09.039Z",
+      "exitCode": 0
+    },
+    {
+      "stem": "1183-p3-contract-check",
+      "start": "2026-09-27T16:18:09.236Z",
+      "end": "2026-09-27T16:18:11.006Z",
+      "exitCode": 0
+    },
+    {
+      "stem": "1184-p3-fixture-check",
+      "start": "2026-09-27T16:18:11.177Z",
+      "end": "2026-09-27T16:18:12.372Z",
+      "exitCode": 0
+    }
+  ],
+  "gates": [
+    [
+      "1185-p3-bridge-candidate",
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/bridge-p14p3-directing-promises.test.ts"
+    ],
+    [
+      "1186-p3-ui-terms",
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "ui",
+      "ui/src/components/ProfessionalPromiseTerms.test.tsx"
+    ]
+  ],
+  "execution": "Sequential one heavy test process; preserve independent UI observation even if Bridge child fails, but abort on recorder/source failure",
+  "budget": "Bridge three60s leaves/hard12 advancing commands; UI one default-timeout leaf/zero ticks"
+}

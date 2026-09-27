@@ -1,0 +1,35 @@
+{
+  "at": "2026-09-27T16:16:44.580158+00:00",
+  "sourceSha": "8ede2aefbcc6c423daf9c9d6316a5b0579bbc0e4",
+  "remoteSha": "8ede2aefbcc6c423daf9c9d6316a5b0579bbc0e4",
+  "consumedSourceClean": true,
+  "wholeWorktreeStatus": "?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1180-p3-bridge-types-preflight.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1180-p3-bridge-types.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1180-p3-bridge-types.patch\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1180-p3-bridge-types.txt\n",
+  "prerequisite": "1180 Bridge types PASS,30.303s",
+  "gates": [
+    [
+      "1181-p3-root-types",
+      "node_modules/.bin/tsc",
+      "--noEmit"
+    ],
+    [
+      "1182-p3-ui-types",
+      "node_modules/.bin/tsc",
+      "--noEmit",
+      "-p",
+      "ui/tsconfig.json"
+    ],
+    [
+      "1183-p3-contract-check",
+      "npm",
+      "run",
+      "check:bridge-contract"
+    ],
+    [
+      "1184-p3-fixture-check",
+      "npm",
+      "run",
+      "check:bridge-contract:fixtures"
+    ]
+  ],
+  "execution": "Sequential; one heavy child; stop on first failed/changed-source record"
+}
