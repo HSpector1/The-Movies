@@ -1,5 +1,24 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — Cross-owner availability source applied; Q17 gates next
+
+Parent applied exact1269-C/D on published1ec31c4b.1269-E records the sole new
+18,482-byte test301acd4a and37 unchanged protected files. Publish then1270 root
+types and1271 isolatedQ17, both cap0: six pure P5 quotes on exact1171actual45.
+The rival Actor's actual company seat and rival Writer's separate drafting due
+supply distinct availability floors; permanent writer credit is not a company seat.
+Both real rival contracts remain intact; query terms do not hire/transfer either.
+All current migration/owner/receipt premises remain unexecuted for this selection.
+
+1266-I/J/K closed requested-Actor retirement with historical V37 FAIL preserved;
+sixteen core leaves passed across eight separate selections. After1269 closure,
+begin accepted1272 finishing source, then1275 grouping and1278 casting-reservation
+plans.1278A/B accept four pure P5 quotes/three public actions/zero advances to
+isolate an actual casting reservation's known-due exemption; no source release yet.
+Parent owns live integration/production and the only heavy lane; same two
+specialists retain separate staged-test/review roles. Continue authorized program.
+Unity/native and Owner campaign access deferred; earlier failures/limits retained.
+
 ## CURRENT — Requested-Actor retirement qualified; cross-owner source next
 
 Executed/published cce5f998fb59d929f18a0545100b9987a4793a1b matched GitHub.

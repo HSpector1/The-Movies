@@ -1,0 +1,47 @@
+{
+  "record": "1269-E parent application",
+  "timeUtc": "2026-09-27T23:17:11.765482+00:00",
+  "basePublishedSource": "1ec31c4b3cafb258e697500d8642a3d61ee4f89f",
+  "parentRead": "Complete224-line source and A/B/C/D; exact immutable manifest, age provenance/rival contracts/active draft, current availability/migration owners;43filepins/rawinput/completepatch reconstruction verified.",
+  "operation": "add one standalone Q17 file only",
+  "source": {
+    "path": "tests/p14p4p5-cross-owner.test.ts",
+    "bytes": 18482,
+    "sha256": "301acd4a82ee48c71da6002c095c296c0c8fe306d0866848141f7ac2d130ca3c"
+  },
+  "author": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1269-C-cross-owner-source-handback.md",
+    "bytes": 4833,
+    "sha256": "ae03d783d1ff059417147ad423928a24e21e0baacd5eb47adc1df8ddbd0952c2"
+  },
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1269-D-cross-owner-source-review.md",
+    "bytes": 3990,
+    "sha256": "fa0518a27d7fcb4be6c54e4885b5734adc418ae550050a9ef592792efe8c8117"
+  },
+  "manifest": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1269-cross-owner-source-manifest.json",
+    "bytes": 9844,
+    "sha256": "769ceb5c84bf068720fb695acf8143f9697a3d2b4f786ecf12fab66869ea9aa0"
+  },
+  "protectedFilesUnchanged": 37,
+  "runtimeExecuted": false,
+  "next": {
+    "1270-cross-owner-types": [
+      "node_modules/.bin/tsc",
+      "--noEmit",
+      "-p",
+      "tsconfig.json"
+    ],
+    "1271-cross-owner-runtime": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p4p5-cross-owner.test.ts",
+      "-t",
+      "Q17 "
+    ]
+  },
+  "advanceCapBothGates": 0
+}
