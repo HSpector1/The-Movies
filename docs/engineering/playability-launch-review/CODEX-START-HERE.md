@@ -1,5 +1,29 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — next reservation/lifecycle slice planned and source ownership bounded
+
+1147 cancellation/waiver qualification is published at exact GitHub checkpoint
+db207075822746f988315e58cb0f6360577e1532. The existing ten tests remain frozen.
+1148-A final6cc930d8 and independent1148-B review the next four-leaf plan:
+D09 reservations/actual stored4→freeze6 receipt, D10 profession-scoped settlement,
+D11 natural retirement chronology and D13W accepted successor/real third-link guards.
+No new behavioral result is claimed; all actual hiring/script/case/winner premises
+must succeed before feature assertions. Production remains unchanged pending RED.
+
+Existing test author alone may append the reviewed source to the two existing
+P3 helper/test paths after plan publication. Parent owns production/integration
+and sole heavy execution; existing reviewer owns independent source review.
+New selector is `D(?:09|10|11|13W) `, four60s leaves excluding old D13. One existing
+208-call player cache plus one156-call natural208→364 lifecycle route caps this
+selection at364; all current core leaves cap556. Rival260/Bridge12 stay deferred.
+Extra public hires/two scripts occur inside156; genuine A→B→C waiver is zero-tick.
+No prefix replay, alternate seed/issuer, funding, retry or cap extension.
+
+Next freeze/review the exact additions, publish/exactremoteverify, root types then
+first actual four-leaf observation. Preserve all first causes and masked assertions.
+Remaining P3/rival/projection54/Bridge/UI/consumer and P14 onward work remains
+within the authorized program. All prior C.3/native/Owner limits remain explicit.
+
 ## CURRENT — P3 cancellation and forward waiver slice passes (2026-09-27)
 
 1147 passes both D08/D12 leaves on published7fed8f51359c1243ed6cdc4b6f70e3ecdde8935e.
