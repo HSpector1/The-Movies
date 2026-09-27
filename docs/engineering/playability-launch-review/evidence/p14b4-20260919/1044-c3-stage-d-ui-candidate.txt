@@ -1,0 +1,18 @@
+{"sourceSha":"b71d4599b071bbe7258e992141acdb6056831cd1","testedDiffSha256":"d53f44922946ff459d69af9a3f41d1e2fba5b151f84bbc66265cf89189bcf33b","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","ui","ui/src/screens/StudioCalendar.career.test.tsx"],"node":"v20.20.2","start":"2026-09-27T01:43:52.578Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | ui/src/screens/StudioCalendar.career.test.tsx
+{"phase":"1065-ui-career","calls":{"changed":14,"scientist":1,"deferred":0,"dormant":0,"film":0},"total":15,"cap":15,"failedSetups":[]}
+
+ ✓ |ui| ui/src/screens/StudioCalendar.career.test.tsx (3 tests) 7835ms
+   ✓ C.3 recent career facts use existing Calendar identity routes > U1 renders genuine change/finality names and dates, retains age12, and removes age13 news 7018ms
+   ✓ C.3 recent career facts use existing Calendar identity routes > U2 App opens the exact off-roster career profile and restores focus without post-hydration writes 457ms
+   ✓ C.3 recent career facts use existing Calendar identity routes > U3 actual208 expiry explains its stop while Scientist finality alone adds no automatic stop 357ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  03:43:53
+   Duration  15.89s (transform 3.63s, setup 377ms, collect 4.93s, tests 7.84s, environment 1.99s, prepare 106ms)
+

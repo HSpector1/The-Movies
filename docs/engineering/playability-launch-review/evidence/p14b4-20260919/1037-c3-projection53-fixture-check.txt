@@ -1,0 +1,3 @@
+{"sourceSha":"b71d4599b071bbe7258e992141acdb6056831cd1","testedDiffSha256":"17c0b11392bb130ffc4622d6d8e44f6cca441a4bdf45810e7be6f5337230796e","untrackedSource":[],"command":["node_modules/.bin/vite-node","scripts/generate-bridge-contract-fixtures.ts","--check"],"node":"v20.20.2","start":"2026-09-27T01:32:37.599Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs

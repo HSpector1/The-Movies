@@ -1,0 +1,63 @@
+{"sourceSha":"b71d4599b071bbe7258e992141acdb6056831cd1","testedDiffSha256":"d53f44922946ff459d69af9a3f41d1e2fba5b151f84bbc66265cf89189bcf33b","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-p14c3-read-models.test.ts","tests/bridge-p14c3-dual-career-surfaces.test.ts","tests/p14c3-calendar-career.test.ts","tests/bridge-p14c3-runtime.test.ts"],"node":"v20.20.2","start":"2026-09-27T01:41:18.704Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/bridge-p14c3-dual-career-surfaces.test.ts
+{"phase":"1065-dual-surface","actualTickCalls":378,"cap":378,"prefix":{"prefixRouteWeeks":157,"completedPrefixes":["director"],"directTickCalls":{"director":209,"writer":0},"completedPrefixWeeksPlusDirectCalls":366},"failed":false}
+
+ ✓ |core| tests/bridge-p14c3-dual-career-surfaces.test.ts (3 tests) 79971ms
+   ✓ C.3 both genuinely completed profession episodes remain public > B1 retains actual Actor260 and Director468 history with both extensions and one latest alumnus identity 64133ms
+   ✓ C.3 both genuinely completed profession episodes remain public > B2 retains actual finality at468/480 and expires it at481 in all three news surfaces 4778ms
+   ✓ C.3 both genuinely completed profession episodes remain public > B3 freezes final relationships at actual468, preserves both meanings and keeps reopened reads pure 11057ms
+stdout | tests/bridge-p14c3-read-models.test.ts > C.3 exact public career read models and retained history > M6 classifies labelled strict34 dormant-retired compatibility before actual activation and due210
+{"phase":"1065-bridge-read-models","classification":"1048-synthetic-old34-compatibility","originalSha":"5028930968193ac6cfe7e0d67ae5239139c6a843b54f44432dd814039406d2be","arrangedSha":"71d74ebed72b102e5acf10427a3858b843876f899bf28b3103e0fc64feeb4cd3","changedPath":"state.careerLifecycle.records","personId":"t-act-18","noticeIsNotNaturalBirthdayEvidence":true}
+
+stdout | tests/bridge-p14c3-read-models.test.ts
+{"phase":"1065-bridge-read-models","calls":{"changed":14,"scientist":14,"deferred":1,"dormant":2,"film":9},"total":40,"cap":71,"failedSetups":[]}
+
+ ✓ |core| tests/bridge-p14c3-read-models.test.ts (10 tests) 81624ms
+   ✓ C.3 exact public career read models and retained history > M1 requires additive exact public career DTOs while preserving existing credited development history 5665ms
+   ✓ C.3 exact public career read models and retained history > M2 distinguishes working Director/Writer from completed acting retirement even when newly employed 1939ms
+   ✓ C.3 exact public career read models and retained history > M3 uses current disclosed relationships after genuine new-role work instead of freezing at old Actor retirement 6083ms
+   ✓ C.3 exact public career read models and retained history > M4 distinguishes retired670 profession from pending670 and actual final671 career without moving relationship asOf 2422ms
+   ✓ C.3 exact public career read models and retained history > M5 distinguishes prospective old208 acting retirement and real zero-take deferred2601 from work or finality 12197ms
+   ✓ C.3 exact public career read models and retained history > M6 classifies labelled strict34 dormant-retired compatibility before actual activation and due210 1464ms
+   ✓ C.3 exact public career read models and retained history > M7 pages all genuine alumni by latest completed profession and counts complete role credits, including working former actors 7786ms
+   ✓ C.3 exact public career read models and retained history > M8 retains actual change/finality attention for0/12 weeks only, with safe payloads and no Finance charge 34039ms
+   ✓ C.3 exact public career read models and retained history > M9 expires null-studio career news and separately retains actual old technology in genuine2600 8036ms
+   ✓ C.3 exact public career read models and retained history > M10 refuses private/unknown DTO members and invalid dates while repeated public reads preserve whole state 1987ms
+stdout | tests/p14c3-calendar-career.test.ts
+{"phase":"1065-core-calendar","calls":{"changed":14,"scientist":1,"deferred":0,"dormant":0,"film":0},"total":15,"cap":15,"failedSetups":[]}
+
+ ✓ |core| tests/p14c3-calendar-career.test.ts (3 tests) 11030ms
+   ✓ C.3 Calendar career facts remain separate from committed operating work > C1 publishes exact actual changes and finality with public identities, dates and ordered event keys 2923ms
+   ✓ C.3 Calendar career facts remain separate from committed operating work > C2 adds no commitment, reservation, cost, next boundary or decision and remains read-only 1296ms
+   ✓ C.3 Calendar career facts remain separate from committed operating work > C3 retains actual age0/12 news, drops age13, and filters a labelled future-event negative 6807ms
+stdout | tests/bridge-p14c3-runtime.test.ts
+{"phase":"1065-runtime","reservedAdvances":6,"completedAdvances":6,"cap":7}
+
+ ❯ |core| tests/bridge-p14c3-runtime.test.ts (8 tests | 1 failed) 121827ms
+   ✓ C.3 projection53 current/save/journal and durable campaign authority > R1 preserves genuine outgoing52 bytes, real old journal and the recorded twelve-digest parity defect 1951ms
+   ✓ C.3 projection53 current/save/journal and durable campaign authority > R2 opens53/Save38 once, registers exact52 and independently migrates208/207 while resetting prior session authority 7194ms
+   ✓ C.3 projection53 current/save/journal and durable campaign authority > R3 actual new commands date current208 reconciliation209 separately from saved207 natural208 and replay without extra work 76908ms
+   ✓ C.3 projection53 current/save/journal and durable campaign authority > R4 real prior51 Scientist current670 finalizes671 while its saved669 branch retires/finalizes670 24894ms
+   ✓ C.3 projection53 current/save/journal and durable campaign authority > R5 refuses unknown schema, bad outer/journal digests and reused prior session without changing historical artifacts 1192ms
+   ✓ C.3 projection53 current/save/journal and durable campaign authority > R6 rejects independently malformed currentSaveJson through strict inner authority before session creation 504ms
+   ✓ C.3 projection53 current/save/journal and durable campaign authority > R7 rejects independently malformed savedSaveJson through strict inner authority before session creation 793ms
+   × C.3 projection53 current/save/journal and durable campaign authority > R8 durable coordinator Save As branches208, saves B209, then clean-loads A207 and restarts with isolated records/journals 8387ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14c3-runtime.test.ts > C.3 projection53 current/save/journal and durable campaign authority > R8 durable coordinator Save As branches208, saves B209, then clean-loads A207 and restarts with isolated records/journals
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  1 failed | 23 passed (24)
+   Start at  03:41:19
+   Duration  126.40s (transform 4.81s, setup 0ms, collect 12.23s, tests 294.45s, environment 1ms, prepare 1.05s)
+

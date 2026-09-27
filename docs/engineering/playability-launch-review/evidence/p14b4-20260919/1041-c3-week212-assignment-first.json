@@ -1,0 +1,20 @@
+{
+  "sourceSha": "b71d4599b071bbe7258e992141acdb6056831cd1",
+  "testedDiffSha256": "3a795c68b0883bff50771551dcafe51ea19e367384d4ef85a31771196d79c42b",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vite-node",
+    "--script",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1071-c3-week212-assignment-diagnostic.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T01:39:16.405Z",
+  "end": "2026-09-27T01:39:20.539Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "b71d4599b071bbe7258e992141acdb6056831cd1",
+  "testedDiffSha256AtEnd": "3a795c68b0883bff50771551dcafe51ea19e367384d4ef85a31771196d79c42b",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

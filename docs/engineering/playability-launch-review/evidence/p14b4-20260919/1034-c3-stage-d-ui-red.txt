@@ -1,0 +1,62 @@
+{"sourceSha":"b71d4599b071bbe7258e992141acdb6056831cd1","testedDiffSha256":"1b6a1179604d1d37fa5ed44a05c2e8e6a5178a981b37577f2bbe06a626a73c59","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","ui","ui/src/screens/StudioCalendar.career.test.tsx"],"node":"v20.20.2","start":"2026-09-27T01:27:23.297Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | ui/src/screens/StudioCalendar.career.test.tsx
+{"phase":"1065-ui-career","calls":{"changed":5,"scientist":1,"deferred":0,"dormant":0,"film":0},"total":6,"cap":15,"failedSetups":["changed/212"]}
+
+ ❯ |ui| ui/src/screens/StudioCalendar.career.test.tsx (3 tests | 2 failed) 3714ms
+   × C.3 recent career facts use existing Calendar identity routes > U1 renders genuine change/finality names and dates, retains age12, and removes age13 news 2127ms
+     → validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — Hollywood save: person person-studio-de11f27b-r03-0 has simultaneous active assignments
+   × C.3 recent career facts use existing Calendar identity routes > U2 App opens the exact off-roster career profile and restores focus without post-hydration writes 539ms
+     → expected [] to have a length of 1 but got +0
+   ✓ C.3 recent career facts use existing Calendar identity routes > U3 actual208 expiry explains its stop while Scientist finality alone adds no automatic stop 1045ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |ui|  ui/src/screens/StudioCalendar.career.test.tsx > C.3 recent career facts use existing Calendar identity routes > U1 renders genuine change/finality names and dates, retains age12, and removes age13 news
+Error: validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — Hollywood save: person person-studio-de11f27b-r03-0 has simultaneous active assignments
+ ❯ validateSaveV37WithProfession src/core/save.ts:10161:11
+    10159|     validateSaveV36WithPolicy({ ...save, saveVersion: 36 }, retirement…
+    10160|   } catch (error) {
+    10161|     throw new Error(`validateSaveV37: state is invalid — ${(error as E…
+       |           ^
+    10162|   }
+    10163|   return save as SaveFileV37;
+ ❯ proveSaveV38 src/core/save.ts:10211:3
+ ❯ validateSaveV38 src/core/save.ts:10216:10
+ ❯ Module.makeSave src/core/save.ts:6523:16
+ ❯ Module.acceptedEvidence tests/helpers/p14c3-genuine-evidence-fixtures.ts:16:50
+ ❯ tests/helpers/p14c3-surface-fixtures.ts:59:9
+ ❯ memo tests/helpers/p14c3-surface-fixtures.ts:34:25
+ ❯ route tests/helpers/p14c3-surface-fixtures.ts:57:21
+ ❯ Object.changed tests/helpers/p14c3-surface-fixtures.ts:66:35
+ ❯ ui/src/screens/StudioCalendar.career.test.tsx:29:39
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |ui|  ui/src/screens/StudioCalendar.career.test.tsx > C.3 recent career facts use existing Calendar identity routes > U2 App opens the exact off-roster career profile and restores focus without post-hydration writes
+AssertionError: expected [] to have a length of 1 but got +0
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ ui/src/screens/StudioCalendar.career.test.tsx:59:59
+     57|     fireEvent.click(screen.getByTestId('open-studio-calendar'))
+     58|     await waitFor(() => expect(document.activeElement).toBe(screen.get…
+     59|     const buttons = profileButtons(name); expect(buttons).toHaveLength…
+       |                                                           ^
+     60|     const open = buttons[0]!; open.focus(); fireEvent.click(open)
+     61|     const close = screen.getByTestId('talent-profile-close')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 1 passed (3)
+   Start at  03:27:23
+   Duration  12.15s (transform 3.82s, setup 408ms, collect 5.21s, tests 3.71s, environment 2.16s, prepare 143ms)
+

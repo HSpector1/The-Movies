@@ -10,7 +10,7 @@ import type {
   StudioCalendarDecisionView,
   StudioCalendarView,
 } from '../engine/adapter.ts'
-import { studioCalendarBoard, studioQueueBoard, studioQueueHolderPlaces } from '../engine/adapter.ts'
+import { campaignDate, studioCalendarBoard, studioQueueBoard, studioQueueHolderPlaces } from '../engine/adapter.ts'
 import { moneyExact } from '../format.ts'
 import { StudioQueuePanel } from '../components/StudioQueuePanel.tsx'
 import { StudioDevelopmentPreview } from './StudioDevelopment.tsx'
@@ -463,6 +463,27 @@ export function StudioCalendar({
         state={state}
         onOpen={() => onNavigate({ kind: 'studioDevelopment' })}
       />
+
+      {calendar.careerEvents.length > 0 && (
+        <section className="card stack" aria-labelledby="calendar-career-heading">
+          <h2 id="calendar-career-heading">Recent career news</h2>
+          <ol className="calendar-event-list">
+            {calendar.careerEvents.map(event => (
+              <li className="panel calendar-event" key={event.eventId}>
+                <div className="calendar-week">{campaignDate(event.week).label}</div>
+                <div className="calendar-event-copy">
+                  <strong>{event.talentName}</strong>
+                  <span className="hint">{event.line}</span>
+                </div>
+                <button type="button" className="ghost"
+                  onClick={() => onNavigate({ kind: 'profile', talentId: event.talentId })}>
+                  Open profile
+                </button>
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
 
       <section className="card stack" aria-labelledby="calendar-commitments-heading">
         <div className="spread">

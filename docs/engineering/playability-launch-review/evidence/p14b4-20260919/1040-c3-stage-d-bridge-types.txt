@@ -1,0 +1,17 @@
+{"sourceSha":"b71d4599b071bbe7258e992141acdb6056831cd1","testedDiffSha256":"17c0b11392bb130ffc4622d6d8e44f6cca441a4bdf45810e7be6f5337230796e","untrackedSource":[],"command":["node_modules/.bin/tsc","-p","tsconfig.bridge.json"],"node":"v20.20.2","start":"2026-09-27T01:34:44.245Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+tests/bridge-p14c3-read-models.test.ts(129,12): error TS2790: The operand of a 'delete' operator must be optional.
+tests/bridge-p14c3-runtime.test.ts(255,56): error TS2345: Argument of type '{ store: Store; fatal: (error: unknown) => never; campaigns: { durable: boolean; regime: "endowed"; }; createFreshSession: (limits: typeof DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS) => BridgeSession; }' is not assignable to parameter of type 'BridgeRuntimeCoordinatorOptions'.
+  Types of property 'createFreshSession' are incompatible.
+    Type '(limits: typeof DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS) => BridgeSession' is not assignable to type '(limits: BridgeRuntimeCheckpointLimits) => BridgeSession'.
+      Types of parameters 'limits' and 'limits' are incompatible.
+        Type 'BridgeRuntimeCheckpointLimits' is not assignable to type 'Readonly<{ maxCheckpointBytes: number; maxJournalEntries: 512; maxJournalBytes: number; }>'.
+          Types of property 'maxJournalEntries' are incompatible.
+            Type 'number' is not assignable to type '512'.
+tests/bridge-p14c3-runtime.test.ts(294,82): error TS2345: Argument of type '{ store: Store; fatal: (error: unknown) => never; campaigns: { durable: boolean; regime: "endowed"; }; createFreshSession: (limits: typeof DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS) => BridgeSession; }' is not assignable to parameter of type 'BridgeRuntimeCoordinatorOptions'.
+  Types of property 'createFreshSession' are incompatible.
+    Type '(limits: typeof DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS) => BridgeSession' is not assignable to type '(limits: BridgeRuntimeCheckpointLimits) => BridgeSession'.
+      Types of parameters 'limits' and 'limits' are incompatible.
+        Type 'BridgeRuntimeCheckpointLimits' is not assignable to type 'Readonly<{ maxCheckpointBytes: number; maxJournalEntries: 512; maxJournalBytes: number; }>'.
+          Types of property 'maxJournalEntries' are incompatible.
+            Type 'number' is not assignable to type '512'.

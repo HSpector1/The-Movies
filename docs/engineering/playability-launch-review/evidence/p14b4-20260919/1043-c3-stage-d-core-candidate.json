@@ -1,0 +1,25 @@
+{
+  "sourceSha": "b71d4599b071bbe7258e992141acdb6056831cd1",
+  "testedDiffSha256": "d53f44922946ff459d69af9a3f41d1e2fba5b151f84bbc66265cf89189bcf33b",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/bridge-p14c3-read-models.test.ts",
+    "tests/bridge-p14c3-dual-career-surfaces.test.ts",
+    "tests/p14c3-calendar-career.test.ts",
+    "tests/bridge-p14c3-runtime.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T01:41:18.704Z",
+  "end": "2026-09-27T01:43:26.314Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "b71d4599b071bbe7258e992141acdb6056831cd1",
+  "testedDiffSha256AtEnd": "d53f44922946ff459d69af9a3f41d1e2fba5b151f84bbc66265cf89189bcf33b",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

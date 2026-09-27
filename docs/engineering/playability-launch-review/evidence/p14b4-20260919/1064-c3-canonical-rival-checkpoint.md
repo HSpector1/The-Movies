@@ -111,3 +111,11 @@ Independent1062 final source/result/types KEEP is frozen at
 `98bc29a9f7ef2ff6917f4e44e74170118b1c0e494c0d7ec5c72ce4755a49e861`.
 The reviewer separately parsed the full recorded diagnostic/raw output, confirmed
 47 market/one staff reuse contracts, and checked this checkpoint’s claim limits.
+
+## Publication receipt
+
+Normal commit/push completed at `b71d4599b071bbe7258e992141acdb6056831cd1`.
+Independent `git ls-remote` matched the local tip; whole worktree was clean at
+verification. All heavy processes closed. Stage D source is released to the same
+author under1030/1048/1063; the same reviewer owns1066. No new agents or source
+reset were used.

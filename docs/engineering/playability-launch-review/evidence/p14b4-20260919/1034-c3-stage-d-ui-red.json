@@ -1,0 +1,22 @@
+{
+  "sourceSha": "b71d4599b071bbe7258e992141acdb6056831cd1",
+  "testedDiffSha256": "1b6a1179604d1d37fa5ed44a05c2e8e6a5178a981b37577f2bbe06a626a73c59",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "ui",
+    "ui/src/screens/StudioCalendar.career.test.tsx"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T01:27:23.297Z",
+  "end": "2026-09-27T01:27:36.388Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "b71d4599b071bbe7258e992141acdb6056831cd1",
+  "testedDiffSha256AtEnd": "1b6a1179604d1d37fa5ed44a05c2e8e6a5178a981b37577f2bbe06a626a73c59",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

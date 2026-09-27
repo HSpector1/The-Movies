@@ -1,5 +1,84 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — projection53 qualified26/27; bounded checkpoint preparing
+
+1043 core23PASS/1R8timeout and1044 UI3PASS close on fixedb71d4599+d53f4492.
+All public career/Calendar/Industry, current53 prior-slot migration/replay/refusal
+and UI routing/stop cases pass; the actual Save As async case still hits the
+unchanged5s limit. No completion or latency claim is inferred for that case.
+1045 Bridge types PASS/no diagnostics27.739s; root/UI/generated scopes in1070.
+1073 records454 actual candidate advances and the independent207→212 occupancy
+cause/fix with unchanged207–211 bytes. All heavy processes closed. Parent prepares
+normal checkpoint/push, preserving originalRED/type/timeout evidence. Then existing
+author owns independent declaration measurement and separately bounded exact R8
+observation, plus cause-based1074 existing-test gates. Tests/source currently frozen;
+reviewer finalizes result docs. Fullcore/fullUI, active6240 current53 endurance,
+canonical K/L limits and native/Owner deferrals remain; program is not complete.
+
+
+## CURRENT — actual week212 occupancy corrected; Stage D candidate running
+
+Independent1071 diagnostic1041 confirmed two same-decision production-seat/new-draft
+collisions at returned212. Parent added only committed production-company IDs to
+local busy before writer selection; strict validators are unchanged.1042 same
+five ticks now accept207–212, no collisions; canonical207–211 saves are byte-identical.
+1073 records exact IDs, hashes and limits. Nine-file projection53 review1069 KEEP;
+actual generation/checks/root/UI types in1070;1072 type-only Bridge test repairs
+have independent KEEP.1043 core24 is the sole heavy process onb71d4599 plusd53f4492;
+all consumed source/HEAD and1071 driver frozen. Author owns1074 docs-only remaining
+gate plan, reviewer owns1071-B/1066 results. UI3/corrected Bridge types then bounded
+checkpoint follow. Full/endurance/K-L limitations and launch prohibitions remain.
+
+
+## CURRENT — Stage D first observations closed; projection53 implementation
+
+1033 core20FAIL/4PASS and1034 UI2FAIL/1PASS both closed with fixed source on
+b71d4599 plus1b6a1179.1067 attributes missing surfaces separately from M1's false
+nonempty development-row premise, actual212 simultaneous assignments, and R8's
+unchanged5s timeout. Counters424 reservations/423 completed; no masked assertion
+is qualified. Parent now solely edits1022/946 projection53 production. Tests stay
+frozen; author investigates M1/R8/current metadata read-only, reviewer owns1066
+results and212 cause analysis. No heavy process. Generation and focused GREEN
+follow source review; full/endurance/native and all launch limits remain.
+
+
+## CURRENT — Stage D source frozen; first core and UI observations next
+
+The existing author froze all six Stage D files and 1065-A; independent 1066-A
+review gives static KEEP. Parent independently matched every file hash and ordered
+patch a7485a16 (74,995 bytes). The recorder's Git-order source diff is
+1b6a1179604d1d37fa5ed44a05c2e8e6a5178a981b37577f2bbe06a626a73c59 on
+b71d4599. All consumed source and HEAD are frozen across sequential 1033 core24
+and 1034 UI3 observations, aggregate cap 486 actual advances. Parent owns the
+only heavy lane; author idle and reviewer owns 1066 docs/results only. No matching
+projection53 production exists yet. Technology884 and M7 static refinements are
+recorded in 1065/1066. Actual first causes, not masked assertions, will govern the
+implementation. K/L limits, historical fixtures and launch prohibitions remain.
+
+
+## CURRENT — canonical checkpoint published; Stage D source released
+
+Local/GitHub refs independently match `b71d4599b071bbe7258e992141acdb6056831cd1`;
+whole worktree clean at verification.1064 preserves1031 K4PASS/L2cachedFAIL and
+1032 typesPASS with independent1062 final KEEP. All heavy processes are closed.
+The existing author now owns only1030's six NEW Stage D paths and1065-A handback:
+27 leaves, actual486-call aggregate under1048/1063. Existing reviewer owns1066
+source/results. Parent remains sole production writer and heavy executor.
+Independent source/freeze/review and recorded core/UI RED precede matching1022
+projection53 production. M6's explicit strict34 compatibility input and actual
+R8 SAVE B209→clean LOAD A remain required. Historical52/51 bytes and K/L's failed
+passive hire premise stay intact. Full regression, current53 active endurance,
+Unity/native deferral and all launch prohibitions remain unchanged.
+
+The parent found one concrete readiness-premise correction during source review:
+synchronized sound’s416 window is degenerate and emits no technology announcement;
+lighting control first announces884. M9/B2 cannot claim an earlier permanent news
+row at684/468. The author will retain actual career0/12/13 checks, state that no
+technology announcement exists in those worlds, and use the already planned
+genuine2600 input for a separate permanent884 announcement check. This adds no
+tick, synthetic clock or product change;1066 records the correction to1030/1063.
+
+
 ## CURRENT — canonical transition qualified; passive Writer work gap recorded
 
 1031 closed00:55:10.218Z,26.753s, child1/fixed `ff127eca`: K1–K4 PASS,

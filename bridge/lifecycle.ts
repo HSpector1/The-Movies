@@ -1,9 +1,46 @@
 // C.2-RM: public retirement facts only; no intent prediction or game-state writes.
 import { campaignDate } from '../src/core/calendar.ts'
-import { retirementRecordFor, retirementWindow } from '../src/core/careerLifecycle.ts'
+import { latestCompletedRetirement, retirementRecordFor, retirementWindow } from '../src/core/careerLifecycle.ts'
+import { recentCareerEvents } from '../src/core/studioCalendar.ts'
 import type { GameState, Talent } from '../src/core/types.ts'
 import type { IndustryEmployment } from '../src/core/hollywoodTypes.ts'
-import type { BridgePersonAlumni, BridgePersonLifecycle, BridgeMarketAttentionRowSnapshot } from './schema/bridge-schema.ts'
+import type { BridgePersonAlumni, BridgePersonCareer, BridgePersonLifecycle, BridgeMarketAttentionRowSnapshot } from './schema/bridge-schema.ts'
+
+/** Completed professions and final industry departure are distinct public facts. */
+export function personCareer(state: GameState, person: Talent): BridgePersonCareer {
+  const root = state.careerLifecycle
+  const current = retirementRecordFor(state, person.id)
+  const final = root.industryRetirements.find(row => row.personId === person.id)
+  const change = root.professionChanges.find(row => row.personId === person.id)
+  const evaluation = change ? root.transitionEvaluations.find(row => row.id === change.evaluationId) : undefined
+  const status = final ? 'retired' : current?.status !== 'retired' ? 'working'
+    : person.role === 'actor' && state.hollywood !== null
+      && root.transitionDue.some(row => row.personId === person.id && row.week > state.market.tick)
+      ? 'awaitingTransition' : 'pendingReconciliation'
+  const line = status === 'working' ? `Working in ${person.role}.`
+    : status === 'awaitingTransition' ? 'Retired from acting; a possible next profession is awaiting review.'
+      : status === 'pendingReconciliation' ? 'Profession retirement is recorded; industry departure has not yet been determined.'
+        : `Retired from the industry in Week ${final!.week}.`
+  const anchor = root.professionAnchors.find(row => row.personId === person.id)
+  return {
+    status, line,
+    recordingNotice: anchor?.kind === 'existing' && root.transitionBoundaryWeek > 0
+      ? `Profession changes and industry departure are recorded prospectively from Week ${root.transitionBoundaryWeek}; earlier decisions are not reconstructed.` : null,
+    professionRetirements: root.records
+      .filter(row => row.personId === person.id && row.status === 'retired' && row.retiredWeek !== null)
+      .sort((a, b) => a.retiredWeek! - b.retiredWeek! || (a.profession < b.profession ? -1 : a.profession > b.profession ? 1 : 0))
+      .map(row => ({ profession: row.profession, announcedWeek: row.announcedWeek, effectiveWeek: row.effectiveWeek,
+        retiredWeek: row.retiredWeek!, retiredLabel: campaignDate(row.retiredWeek!).label, extensionUsed: row.extensionUsed })),
+    lastChange: change ? {
+      fromProfession: change.from, toProfession: change.to, week: change.week, dateLabel: campaignDate(change.week).label,
+      reason: evaluation?.reason === 'onlyEligibleTarget' ? `Chose ${change.to} as the eligible next profession.`
+        : evaluation?.reason === 'strongerPublicTuple' ? `Chose ${change.to} on the stronger public professional record.`
+          : `Recorded a change from acting to ${change.to}.`,
+    } : null,
+    industryRetiredWeek: final?.week ?? null,
+    industryRetiredLabel: final ? campaignDate(final.week).label : null,
+  }
+}
 
 export function personLifecycle(state: GameState, person: Talent): BridgePersonLifecycle {
   const record = retirementRecordFor(state, person.id)
@@ -38,7 +75,7 @@ export function latestEmployers(state: GameState): ReadonlyMap<string, IndustryE
 }
 
 export function personAlumni(state: GameState, person: Talent, campaignCredits: number, authoredCredits: number, uncapturedFilms: number, last: IndustryEmployment | undefined): BridgePersonAlumni | null {
-  const record = retirementRecordFor(state, person.id)
+  const record = latestCompletedRetirement(state, person.id)
   if (record?.status !== 'retired' || record.retiredWeek === null) return null
   return {
     profession: record.profession, retiredWeek: record.retiredWeek, retiredLabel: campaignDate(record.retiredWeek).label,
@@ -61,5 +98,9 @@ export function retirementAttentionRows(state: GameState, week = state.market.ti
     if (record.status !== 'retired' && week >= record.announcedWeek && week - record.announcedWeek < 13) rows.push({ order: 1, week: record.announcedWeek, row: {
       cause: 'retirementAnnounced', talentId: record.personId, reason: `Retirement from ${record.profession} announced in Week ${record.announcedWeek}; recorded boundary Week ${record.effectiveWeek}.` } })
   }
+  for (const event of recentCareerEvents(state, week)) rows.push({
+    order: event.kind === 'professionChanged' ? 2 : 3, week: event.week,
+    row: { cause: event.kind, talentId: event.talentId, reason: event.line },
+  })
   return rows.sort((a, b) => a.order - b.order || a.week - b.week || (a.row.talentId < b.row.talentId ? -1 : a.row.talentId > b.row.talentId ? 1 : 0)).map(item => item.row)
 }

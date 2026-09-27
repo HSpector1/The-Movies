@@ -272,7 +272,9 @@ export const PROTOCOL_VERSION = 4 as const
 // C.2-RM875: lifecycle/alumni, retirement Calendar/Finance facts, one-issuer
 // extension routes and retirement-dated collaborators. Save37 remains current;
 // exact outgoing51 is registered before any52 checkpoint is minted.
-export const PROJECTION_VERSION = 52 as const
+// C.3: separate profession history and industry finality; exact outgoing52
+// checkpoints take the registered prior-schema path into independent Save38 slots.
+export const PROJECTION_VERSION = 53 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -2475,6 +2477,8 @@ const MARKET_ATTENTION_CAUSES = [
   'retirementExtensionOpen',
   'retirementAnnounced',
   'finishingCommitments',
+  'professionChanged',
+  'industryRetired',
 ] as const
 const StudioMarketAttentionRowSnapshot = object('StudioMarketAttentionRowSnapshot', {
   cause: enumeration(MARKET_ATTENTION_CAUSES),
@@ -2742,6 +2746,21 @@ const StudioRelationshipBlock = object('StudioRelationshipBlock', {
 })
 
 const lifecycleStatusEnum = () => enumeration(['active', 'announced', 'finishing_commitments', 'retired'])
+const StudioProfessionRetirement = object('StudioProfessionRetirement', {
+  profession: professionEnum(), announcedWeek: nonNegativeInteger(), effectiveWeek: nonNegativeInteger(),
+  retiredWeek: nonNegativeInteger(), retiredLabel: nonEmptyText(), extensionUsed: bool(),
+})
+const StudioProfessionChange = object('StudioProfessionChange', {
+  fromProfession: literal('actor'), toProfession: enumeration(['director', 'writer']), week: nonNegativeInteger(),
+  dateLabel: nonEmptyText(), reason: nonEmptyText(),
+})
+const StudioPersonCareer = object('StudioPersonCareer', {
+  status: enumeration(['working', 'awaitingTransition', 'pendingReconciliation', 'retired']),
+  line: nonEmptyText(), recordingNotice: nullable(nonEmptyText()),
+  professionRetirements: array(reference('StudioProfessionRetirement', StudioProfessionRetirement)),
+  lastChange: nullable(reference('StudioProfessionChange', StudioProfessionChange)),
+  industryRetiredWeek: nullable(nonNegativeInteger()), industryRetiredLabel: nullable(nonEmptyText()),
+})
 const StudioPersonLifecycle = object('StudioPersonLifecycle', {
   status: lifecycleStatusEnum(), profession: professionEnum(), eligibleAge: nonNegativeInteger(), hardAge: nonNegativeInteger(), eligible: bool(),
   line: nonEmptyText(), planningLine: nonEmptyText(), announcedWeek: nullable(nonNegativeInteger()), effectiveWeek: nullable(nonNegativeInteger()),
@@ -2762,6 +2781,7 @@ const StudioPersonAlumni = object('StudioPersonAlumni', {
 })
 const StudioPersonProfileSnapshot = object('StudioPersonProfileSnapshot', {
   lifecycle: reference('StudioPersonLifecycle', StudioPersonLifecycle),
+  professionCareer: reference('StudioPersonCareer', StudioPersonCareer),
   alumni: nullable(reference('StudioPersonAlumni', StudioPersonAlumni)),
   talentId: nonEmptyText(),
   name: nonEmptyText(),
@@ -3622,6 +3642,9 @@ const definitions = {
   StudioTrustBlock,
   StudioRelationshipRow,
   StudioRelationshipBlock,
+  StudioProfessionRetirement,
+  StudioProfessionChange,
+  StudioPersonCareer,
   StudioPersonLifecycle,
   StudioPersonAlumni,
   StudioAlumniEmployer,
@@ -3800,6 +3823,9 @@ export const AVAILABLE_INTENT_KEYS = Object.keys(
 
 export type CampaignRequest=InferSchema<typeof StudioCampaignRequest>
 export type BridgePersonLifecycle = InferSchema<typeof StudioPersonLifecycle>
+export type BridgeProfessionRetirement = InferSchema<typeof StudioProfessionRetirement>
+export type BridgeProfessionChange = InferSchema<typeof StudioProfessionChange>
+export type BridgePersonCareer = InferSchema<typeof StudioPersonCareer>
 export type BridgePersonAlumni = InferSchema<typeof StudioPersonAlumni>
 export type CampaignSummary=InferSchema<typeof StudioCampaignSummary>
 export type CampaignLibraryResponse=InferSchema<typeof StudioCampaignLibraryResponse>

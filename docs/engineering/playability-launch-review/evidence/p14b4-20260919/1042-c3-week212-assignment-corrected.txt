@@ -1,0 +1,222 @@
+{"sourceSha":"b71d4599b071bbe7258e992141acdb6056831cd1","testedDiffSha256":"d53f44922946ff459d69af9a3f41d1e2fba5b151f84bbc66265cf89189bcf33b","untrackedSource":[],"command":["node_modules/.bin/vite-node","--script","docs/engineering/playability-launch-review/evidence/p14b4-20260919/1071-c3-week212-assignment-diagnostic.ts"],"node":"v20.20.2","start":"2026-09-27T01:40:38.341Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+{
+  "producer": "1071-c3-week212-assignment-diagnostic.ts",
+  "producerSha256": "42345c2b125aff11427bfd7144d4949563125a28d1950a1595e0a3d1c76e401a",
+  "source": {
+    "head": "b71d4599b071bbe7258e992141acdb6056831cd1",
+    "diffSha256": "d53f44922946ff459d69af9a3f41d1e2fba5b151f84bbc66265cf89189bcf33b",
+    "untracked": ""
+  },
+  "input": {
+    "filename": "genuine-v37-c3-preretirement-week207.json.gz",
+    "pins": {
+      "manifest": "b3a3251ae7b3df96a1e2a615991744c5d1e5966a095424693f086a1581244294",
+      "compressed": "926de1b20fa0cba9b822c05f542f0a3949c7e4b21560c2fa508b6fa3168af5a0",
+      "raw": "d6ad88d432b3ec75fbf6a2843493240d4007892c8230aea1f9a2350adc8c1045"
+    },
+    "strict37Accepted": true,
+    "migratedWeek": 207
+  },
+  "initialProof": {
+    "accepted": true,
+    "saveSha256": "248070431a492773e1887946bffa7bdaf6be8cbc5fba8694a778df32b7b2c1a1",
+    "refusal": null
+  },
+  "actualReservedTicks": 5,
+  "actualCompletedTicks": 5,
+  "maxTicks": 5,
+  "lastReturnedWeek": 212,
+  "stoppedAt": "bound",
+  "focusPersonId": "person-studio-de11f27b-r03-0",
+  "observations": [
+    {
+      "sourceWeek": 207,
+      "returnedWeek": 208,
+      "tickReturned": true,
+      "beforeAssignmentCount": 15,
+      "afterAssignmentCount": 15,
+      "beforeCollisions": [],
+      "afterCollisions": [],
+      "beforeFocus": [],
+      "afterFocus": [],
+      "beforeWriterCredits": [
+        {
+          "studioId": "studio-de11f27b-r03",
+          "workId": "studio-de11f27b-r03:film:22",
+          "personId": "person-studio-de11f27b-r03-0"
+        }
+      ],
+      "afterWriterCredits": [
+        {
+          "studioId": "studio-de11f27b-r03",
+          "workId": "studio-de11f27b-r03:film:22",
+          "personId": "person-studio-de11f27b-r03-0"
+        }
+      ],
+      "addedWork": [],
+      "validation": {
+        "accepted": true,
+        "saveSha256": "ebb00ca54328ef3340d959d830045d28c73dc493b8f069220256183e718fc4bb",
+        "refusal": null
+      }
+    },
+    {
+      "sourceWeek": 208,
+      "returnedWeek": 209,
+      "tickReturned": true,
+      "beforeAssignmentCount": 15,
+      "afterAssignmentCount": 15,
+      "beforeCollisions": [],
+      "afterCollisions": [],
+      "beforeFocus": [],
+      "afterFocus": [],
+      "beforeWriterCredits": [
+        {
+          "studioId": "studio-de11f27b-r03",
+          "workId": "studio-de11f27b-r03:film:22",
+          "personId": "person-studio-de11f27b-r03-0"
+        }
+      ],
+      "afterWriterCredits": [
+        {
+          "studioId": "studio-de11f27b-r03",
+          "workId": "studio-de11f27b-r03:film:22",
+          "personId": "person-studio-de11f27b-r03-0"
+        }
+      ],
+      "addedWork": [],
+      "validation": {
+        "accepted": true,
+        "saveSha256": "e0cce8e6ca513ef735b09ce55e33e8d56f7c6cf6b61475e5c1370936ec03c692",
+        "refusal": null
+      }
+    },
+    {
+      "sourceWeek": 209,
+      "returnedWeek": 210,
+      "tickReturned": true,
+      "beforeAssignmentCount": 15,
+      "afterAssignmentCount": 15,
+      "beforeCollisions": [],
+      "afterCollisions": [],
+      "beforeFocus": [],
+      "afterFocus": [],
+      "beforeWriterCredits": [
+        {
+          "studioId": "studio-de11f27b-r03",
+          "workId": "studio-de11f27b-r03:film:22",
+          "personId": "person-studio-de11f27b-r03-0"
+        }
+      ],
+      "afterWriterCredits": [
+        {
+          "studioId": "studio-de11f27b-r03",
+          "workId": "studio-de11f27b-r03:film:22",
+          "personId": "person-studio-de11f27b-r03-0"
+        }
+      ],
+      "addedWork": [],
+      "validation": {
+        "accepted": true,
+        "saveSha256": "846a1e50da1950c069a62fca5b9b45e46538e643a0c8f4612de1249918dcc536",
+        "refusal": null
+      }
+    },
+    {
+      "sourceWeek": 210,
+      "returnedWeek": 211,
+      "tickReturned": true,
+      "beforeAssignmentCount": 15,
+      "afterAssignmentCount": 5,
+      "beforeCollisions": [],
+      "afterCollisions": [],
+      "beforeFocus": [],
+      "afterFocus": [],
+      "beforeWriterCredits": [
+        {
+          "studioId": "studio-de11f27b-r03",
+          "workId": "studio-de11f27b-r03:film:22",
+          "personId": "person-studio-de11f27b-r03-0"
+        }
+      ],
+      "afterWriterCredits": [],
+      "addedWork": [
+        {
+          "studioId": "studio-de11f27b-r04",
+          "workId": "studio-de11f27b-r04:film:11",
+          "kind": "production"
+        }
+      ],
+      "validation": {
+        "accepted": true,
+        "saveSha256": "216de63a526c9972d7590884510fb58ff04351c33b6a59b2c4de74e6fce15973",
+        "refusal": null
+      }
+    },
+    {
+      "sourceWeek": 211,
+      "returnedWeek": 212,
+      "tickReturned": true,
+      "beforeAssignmentCount": 5,
+      "afterAssignmentCount": 21,
+      "beforeCollisions": [],
+      "afterCollisions": [],
+      "beforeFocus": [],
+      "afterFocus": [
+        {
+          "personId": "person-studio-de11f27b-r03-0",
+          "studioId": "studio-de11f27b-r01",
+          "workId": "studio-de11f27b-r01:film:23",
+          "kind": "production",
+          "role": "lead",
+          "status": "active",
+          "startWeek": 211,
+          "dueWeek": null
+        }
+      ],
+      "beforeWriterCredits": [],
+      "afterWriterCredits": [
+        {
+          "studioId": "studio-de11f27b-r03",
+          "workId": "studio-de11f27b-r03:film:23",
+          "personId": "person-studio-de11f27b-r03-0"
+        }
+      ],
+      "addedWork": [
+        {
+          "studioId": "studio-de11f27b-r01",
+          "workId": "studio-de11f27b-r01:film:23",
+          "kind": "production"
+        },
+        {
+          "studioId": "studio-de11f27b-r02",
+          "workId": "studio-de11f27b-r02:film:23",
+          "kind": "production"
+        },
+        {
+          "studioId": "studio-de11f27b-r03",
+          "workId": "studio-de11f27b-r03:film:23",
+          "kind": "production"
+        },
+        {
+          "studioId": "studio-de11f27b-r03",
+          "workId": "script-0024",
+          "kind": "screenplay"
+        }
+      ],
+      "validation": {
+        "accepted": true,
+        "saveSha256": "6ba0105c6d56580ff9c2cd1428d44f957b4af8cd280054e5d9bccf352bf30273",
+        "refusal": null
+      }
+    }
+  ],
+  "sourceAndInputUnchanged": true,
+  "interpretation": "Assignment IDs and full-save first cause only; no causal fix or qualification inferred.",
+  "environment": {
+    "node": "v20.20.2",
+    "platform": "darwin",
+    "arch": "x64"
+  }
+}

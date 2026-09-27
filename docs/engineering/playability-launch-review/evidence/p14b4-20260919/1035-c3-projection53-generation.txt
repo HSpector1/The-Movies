@@ -1,0 +1,5 @@
+{"sourceSha":"b71d4599b071bbe7258e992141acdb6056831cd1","testedDiffSha256":"c7df21d68115a660a7d604b4091067a1d1301f311ddec520ff1b7a580212c293","untrackedSource":[],"command":["node_modules/.bin/vite-node","scripts/generate-bridge-contract.ts"],"node":"v20.20.2","start":"2026-09-27T01:32:05.374Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+generated /Users/zacheryspector/The-Movies-headless-program/bridge/schema/project-studio-bridge.schema.json
+generated /Users/zacheryspector/The-Movies-headless-program/generated/unity/StudioBridgeDtos.Generated.cs
+generated /Users/zacheryspector/The-Movies-headless-program/generated/unity/project-studio-bridge.contract-manifest.json

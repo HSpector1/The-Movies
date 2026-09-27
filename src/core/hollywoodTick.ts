@@ -2,6 +2,7 @@ import {chooseIndustryPackage} from './hollywoodPolicy.js'
 import { considerRivalSoundPurchase, selectRivalSoundProduction, rivalInstallationSlots } from './technologyRival.js'
 import { createProductionTechnologyPolicy } from './technologyProduction.js'
 import { busyTalentIds, offerForTalent, weeklySalary, renewalWindowOpen } from './employment.js'
+import { productionCompanyTalentIds } from './productionPeople.js'
 import { caseOpenForTalent } from './talentMarket.js'
 import { assignmentRefusal, contractEndRefusal } from './careerLifecycle.js'
 import { promisedCastMasks, WEEKS_TO_FIRST_TAKE } from './promises.js'
@@ -212,6 +213,9 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
         const operations=addManagedProductionWorkflow(b.operations,production,scriptOccupiedFacilitySlots(hotDevelopment(b)))
         const development=linkScriptProjectToProduction(hotDevelopment(b),ready.id,id)
         b.operations=operations;b.productions=[...b.productions,production];storeHotDevelopment(b,development)
+        // A newly seated person cannot also start writing in this decision.
+        // Permanent screenplay credit alone does not occupy a production seat.
+        for(const personId of productionCompanyTalentIds([production]))busy.add(personId)
         moveRivalMoney(b.account,'production',-negative,week);moveRivalMoney(b.account,'marketing',-marketing,week)
         b.projects=[...b.projects];b.projects[Number(ready.id.slice(7))]={...cost,productionId:id,production:negative,marketing,announcedWeek:week}
         appendReceipt(h,{week,studioId:b.studioId,kind:'filmAnnounced',productionId:id,conceptId:concept.id})

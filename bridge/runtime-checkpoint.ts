@@ -58,6 +58,9 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
 // that window would carry the earlier hash, and this map is keyed on the
 // hash, not the label.
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // C.3: genuine953 preserves outgoing52 current208/saved207 and its journal.
+  // Both Save37 slots lift separately; prior journal/session authority resets.
+  ['sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2', 'projection-v52'],
   // C.2-RM875: genuine outgoing51 current670/saved669 and its actual nonempty
   // journal were preserved by872 before this projection-only boundary. Save37
   // slots stay exact; old session/revision/journal authority follows the prior path.

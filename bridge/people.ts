@@ -35,7 +35,7 @@ import type { GameState, TalentProfile } from '../ui/src/engine/adapter.ts'
 import { studioPresence } from '../src/core/presence.ts'
 import { campaignDate } from '../src/core/calendar.ts'
 import { ordinaryRenewalWindow } from '../src/core/studioCalendar.ts'
-import { latestEmployers, personAlumni, personLifecycle } from './lifecycle.ts'
+import { latestEmployers, personAlumni, personCareer, personLifecycle } from './lifecycle.ts'
 import type { IndustryEmployment } from '../src/core/hollywoodTypes.ts'
 import { rivalEmployment } from '../src/core/hollywood.ts'
 import { DISCIPLINE_ORDER, PERSON_DISCIPLINE_ORDER, ROLE_TO_DISCIPLINE } from '../src/core/tuning.ts'
@@ -55,7 +55,7 @@ import { personWorldRoute } from './world.ts'
 import type {
   BridgeMarketAttentionRowSnapshot, BridgeMarketCaseSnapshot, BridgeMarketProposalSnapshot,
   BridgeMarketPromiseHistoryRow, BridgePersonContractActionsSnapshot, BridgeRelationshipBlock, BridgeTrustBlock,
-  BridgeWorldRouteSnapshot, BridgePersonLifecycle, BridgePersonAlumni,
+  BridgeWorldRouteSnapshot, BridgePersonLifecycle, BridgePersonAlumni, BridgePersonCareer,
 } from './schema/bridge-schema.ts'
 import type {
   CreativeRole,
@@ -191,6 +191,7 @@ export type BridgePersonCareerSnapshot = {
 
 export type BridgePersonProfileSnapshot = {
   lifecycle: BridgePersonLifecycle
+  professionCareer: BridgePersonCareer
   alumni: BridgePersonAlumni | null
   talentId: string
   name: string
@@ -508,6 +509,7 @@ function buildProfile(
   const attention = decideAttention(employment, work, presence, input.week, lifecycle, marketCase)
   return {
     lifecycle,
+    professionCareer: personCareer(state, talent),
     alumni: personAlumni(state, talent, input.credits, input.authoredCredits, input.uncapturedFilms, input.lastEmployer),
     talentId: talent.id,
     name: talent.name,

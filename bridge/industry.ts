@@ -17,7 +17,8 @@ import {officePage,type OfficeIntent} from './office.ts'
 import {contractTermLabel} from './contract.ts'
 import {marketPage,MARKET_CLOSED_PAGE_SIZE} from './market.ts'
 import {personWorldRoute} from './world.ts'
-import {personLifecycle} from './lifecycle.ts'
+import {personCareer,personLifecycle} from './lifecycle.ts'
+import {recentCareerEvents} from '../src/core/studioCalendar.ts'
 import {studioTrustDescriptor} from '../src/core/promises.ts'
 
 type Film=IndustryPage['films'][number]
@@ -80,7 +81,7 @@ function indexFor(state:GameState):Index {
   // P14A.3: the PUBLIC world-route case facts join the row — the open-case status line and
   // the reference that opens that exact case, both null unless a case is open, and neither
   // carrying a figure of any kind. The presence set is reused, never rebuilt per person.
-  for(const t of state.talent){const owner=employer.get(t.id)??null;const route=personWorldRoute(state,t.id,onLot.has(t.id));const lifecycle=personLifecycle(state,t);const person:Person={lifecycleStatus:lifecycle.status,lifecycleLine:lifecycle.line,retiredWeek:lifecycle.retiredWeek,talentId:t.id,name:t.name,roleLabel:t.role==='craft'?'Crew':t.role[0]!.toUpperCase()+t.role.slice(1),employerStudioId:owner,employerName:owner?names.get(owner)??null:null,
+  for(const t of state.talent){const owner=employer.get(t.id)??null;const route=personWorldRoute(state,t.id,onLot.has(t.id));const lifecycle=personLifecycle(state,t),career=personCareer(state,t);const person:Person={careerStatus:career.status,careerLine:career.line,professionRetiredWeek:career.professionRetirements.at(-1)?.retiredWeek??null,industryRetiredWeek:career.industryRetiredWeek,lastProfessionChangeWeek:career.lastChange?.week??null,lifecycleStatus:lifecycle.status,lifecycleLine:lifecycle.line,retiredWeek:lifecycle.retiredWeek,talentId:t.id,name:t.name,roleLabel:t.role==='craft'?'Crew':t.role[0]!.toUpperCase()+t.role.slice(1),employerStudioId:owner,employerName:owner?names.get(owner)??null:null,
     employmentLabel:owner?`Studio: ${names.get(owner)}`:'No exclusive studio contract',creditCount:filmsByPerson.get(t.id)?.length??0,onPlayerLot:onLot.has(t.id),
     caseStatusLine:route.statusLine,caseRef:route.caseRef,
     notice:'Credits establish work on a film. They do not establish historical employment. Current employer is read from the present contract.'};people.set(t.id,person);if(owner)append(roster,owner,person)}
@@ -159,6 +160,13 @@ function indexFor(state:GameState):Index {
       headline:`${names.get(promise.issuerStudioId)??promise.issuerStudioId} ${kept?'kept':'broke'} its promise to ${people.get(promise.beneficiaryPersonId)?.name??promise.beneficiaryPersonId}`,
       detail:receipt.reasons.join(' ')})
   }
+  // Career events are public facts with no employer; they retain only 13 weeks.
+  for(const event of recentCareerEvents(state)) activities.push({
+    eventId:event.eventId,week:event.week,dateLabel:campaignDate(event.week).label,
+    group:'people',studioId:null,filmId:null,talentId:event.talentId,careerKind:event.kind,
+    headline:event.kind==='professionChanged'?`${event.talentName} becomes a ${event.profession}`:`${event.talentName} retires from the industry`,
+    detail:event.line,
+  })
   // P13B-S7: the public technology announcements. A DERIVED CLOCK FACT — the catalogue's
   // milestone data plus this campaign's week, nothing else: no receipt is minted, read or
   // needed, so a Save As copy, a reloaded save and two campaigns differing only in rival
@@ -237,9 +245,9 @@ export function industryPage(state:GameState,sessionId:string,stateRevision:numb
   if(q.view==='alumni') {
     if(q.targetId!==null)throw new Error('The alumni list requires a null targetId; open a person for detail.')
     result.title='Alumni'
-    result.notice='Retired professionals remain in the public record. Recorded credits count roles on released films; honors are not recorded.'
-    result.people=page([...index.people.values()].filter(person=>person.lifecycleStatus==='retired')
-      .sort((a,b)=>b.retiredWeek!-a.retiredWeek!||byText(a.talentId,b.talentId)))
+    result.notice='People who completed a profession remain in the public record, including those working in a new profession. Recorded credits count roles on released films; honors are not recorded.'
+    result.people=page([...index.people.values()].filter(person=>person.professionRetiredWeek!==null)
+      .sort((a,b)=>b.professionRetiredWeek!-a.professionRetiredWeek!||byText(a.talentId,b.talentId)))
   } else if(q.view==='office') {
     // P13B-S4: one Development & Casting building's standard and its in-place
     // conversions. `officePage` resolves this studio's own bodies alone; a rival
@@ -350,13 +358,12 @@ export function industryPage(state:GameState,sessionId:string,stateRevision:numb
   } else {
     result.title='Industry Pulse';result.notice='Grouped material activity for the last 13 campaign weeks, and every public technology milestone already announced. Routine phase changes and ordinary renewals are omitted.'
     const groupOrder={releases:0,people:1,studios:2,announcements:3}
-    // P13B-S7: the 13-week window retires RECEIPTS. A derived public milestone (studioId null)
-    // is not an event that happened once: it is a standing public fact about a week still to
-    // come, so it stays listed after its own announcement week.
+    // Only technology announcements are permanent. Null-studio career events
+    // retain the same nonfuture 13-week window as ordinary recent news.
     // P14A.2: each settlement's two P12 rows fold into the ONE public row above.
     const fold=pulseSettlementFold(state,index.people)
     const rows=index.activities.flatMap(r=>fold.drop.has(r.eventId)?[]:[fold.replace.get(r.eventId)??r])
-    result.activities=page(rows.filter(r=>r.studioId===null||r.week>=Math.max(0,state.market.tick-12)).sort((a,b)=>groupOrder[a.group]-groupOrder[b.group]||b.week-a.week||byText(a.eventId,b.eventId)))
+    result.activities=page(rows.filter(r=>(r.studioId===null&&r.group==='announcements'&&r.eventId.startsWith('technology-announcement-'))||(r.week<=state.market.tick&&state.market.tick-r.week<13)).sort((a,b)=>groupOrder[a.group]-groupOrder[b.group]||b.week-a.week||byText(a.eventId,b.eventId)))
   }
   return structuredClone(result)
 }

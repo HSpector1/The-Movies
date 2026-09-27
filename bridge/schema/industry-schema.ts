@@ -132,7 +132,7 @@ const StudioIndustryFilm=object('StudioIndustryFilm',{filmId:id(),studioId:id(),
 // figure-free: a rival's tier, salary and bonus remain behind A.1's disclosure and appear
 // on no Industry row. The row's own `onPlayerLot` still states where the person is; a
 // rival's person is never on the player's lot and no rival lot exists on this wire.
-const StudioIndustryPerson=object('StudioIndustryPerson',{lifecycleStatus:enumeration(['active','announced','finishing_commitments','retired']),lifecycleLine:id(),retiredWeek:nullable(count()),talentId:id(),name:id(),roleLabel:id(),employerStudioId:nullable(id()),employerName:nullable(id()),employmentLabel:id(),creditCount:count(),onPlayerLot:bool(),notice:id(),caseStatusLine:nullable(id()),caseRef:nullable(worldCaseRefRef())})
+const StudioIndustryPerson=object('StudioIndustryPerson',{careerStatus:enumeration(['working','awaitingTransition','pendingReconciliation','retired']),careerLine:id(),professionRetiredWeek:nullable(count()),industryRetiredWeek:nullable(count()),lastProfessionChangeWeek:nullable(count()),lifecycleStatus:enumeration(['active','announced','finishing_commitments','retired']),lifecycleLine:id(),retiredWeek:nullable(count()),talentId:id(),name:id(),roleLabel:id(),employerStudioId:nullable(id()),employerName:nullable(id()),employmentLabel:id(),creditCount:count(),onPlayerLot:bool(),notice:id(),caseStatusLine:nullable(id()),caseRef:nullable(worldCaseRefRef())})
 const StudioIndustryCredit=object('StudioIndustryCredit',{talentId:id(),name:id(),role:id(),employerStudioId:nullable(id()),employerName:nullable(id())})
 // P13B-S7: `studioId` is NULLABLE. Every receipt-derived row still names the studio whose
 // receipt it is; a DERIVED public milestone row (the technology announcement) is minted by
@@ -144,7 +144,7 @@ const StudioIndustryCredit=object('StudioIndustryCredit',{talentId:id(),name:id(
 // ABSENT on every other activity row, including the unfolded employment rows the
 // per-person Employment route still publishes. No figure is ever carried by the fold.
 // P14B.2: outcomeKind is present only on an exact promise-outcome receipt row.
-const StudioIndustryActivity=object('StudioIndustryActivity',{eventId:id(),week:count(),dateLabel:id(),group:enumeration(['releases','people','studios','announcements']),headline:id(),detail:id(),studioId:nullable(id()),filmId:nullable(id()),talentId:nullable(id()),settlementKind:optional(enumeration(['retained','moved'])),outcomeKind:optional(enumeration(['promiseKept','promiseBroken']))})
+const StudioIndustryActivity=object('StudioIndustryActivity',{eventId:id(),week:count(),dateLabel:id(),group:enumeration(['releases','people','studios','announcements']),headline:id(),detail:id(),studioId:nullable(id()),filmId:nullable(id()),talentId:nullable(id()),settlementKind:optional(enumeration(['retained','moved'])),outcomeKind:optional(enumeration(['promiseKept','promiseBroken'])),careerKind:optional(enumeration(['professionChanged','industryRetired']))})
 const StudioIndustryProject=object('StudioIndustryProject',{productionId:id(),studioId:id(),title:id(),genre:id(),announcedWeek:count(),dateLabel:id(),stageLabel:id(),notice:id()})
 const StudioIndustryTendency=object('StudioIndustryTendency',{label:id(),detail:id(),sampleCount:count(),fromLabel:id(),throughLabel:id(),basis:id()})
 export const StudioIndustrySummary=object('StudioIndustrySummary',{calendar:reference('StudioCampaignDate',StudioCampaignDate),available:bool(),playerStudioId:nullable(id()),activeStudioCount:count(),notice:id()})

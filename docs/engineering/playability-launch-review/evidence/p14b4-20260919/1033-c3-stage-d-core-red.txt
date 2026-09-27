@@ -1,0 +1,389 @@
+{"sourceSha":"b71d4599b071bbe7258e992141acdb6056831cd1","testedDiffSha256":"1b6a1179604d1d37fa5ed44a05c2e8e6a5178a981b37577f2bbe06a626a73c59","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-p14c3-read-models.test.ts","tests/bridge-p14c3-dual-career-surfaces.test.ts","tests/p14c3-calendar-career.test.ts","tests/bridge-p14c3-runtime.test.ts"],"node":"v20.20.2","start":"2026-09-27T01:25:54.867Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/bridge-p14c3-read-models.test.ts > C.3 exact public career read models and retained history > M6 classifies labelled strict34 dormant-retired compatibility before actual activation and due210
+{"phase":"1065-bridge-read-models","classification":"1048-synthetic-old34-compatibility","originalSha":"5028930968193ac6cfe7e0d67ae5239139c6a843b54f44432dd814039406d2be","arrangedSha":"71d74ebed72b102e5acf10427a3858b843876f899bf28b3103e0fc64feeb4cd3","changedPath":"state.careerLifecycle.records","personId":"t-act-18","noticeIsNotNaturalBirthdayEvidence":true}
+
+stdout | tests/bridge-p14c3-read-models.test.ts
+{"phase":"1065-bridge-read-models","calls":{"changed":5,"scientist":14,"deferred":1,"dormant":2,"film":9},"total":31,"cap":71,"failedSetups":["changed/212"]}
+
+ ❯ |core| tests/bridge-p14c3-read-models.test.ts (10 tests | 9 failed) 49828ms
+   × C.3 exact public career read models and retained history > M1 requires additive exact public career DTOs while preserving existing credited development history 3195ms
+     → expected 0 to be greater than 0
+   × C.3 exact public career read models and retained history > M2 distinguishes working Director/Writer from completed acting retirement even when newly employed 798ms
+     → 946 required additive professionCareer: expected undefined to be defined
+   ✓ C.3 exact public career read models and retained history > M3 uses current disclosed relationships after genuine new-role work instead of freezing at old Actor retirement 6151ms
+   × C.3 exact public career read models and retained history > M4 distinguishes retired670 profession from pending670 and actual final671 career without moving relationship asOf 3081ms
+     → 946 required additive professionCareer: expected undefined to be defined
+   × C.3 exact public career read models and retained history > M5 distinguishes prospective old208 acting retirement and real zero-take deferred2601 from work or finality 9651ms
+     → 946 required additive professionCareer: expected undefined to be defined
+   × C.3 exact public career read models and retained history > M6 classifies labelled strict34 dormant-retired compatibility before actual activation and due210 1000ms
+     → 946 required additive professionCareer: expected undefined to be defined
+   × C.3 exact public career read models and retained history > M7 pages all genuine alumni by latest completed profession and counts complete role credits, including working former actors 6733ms
+     → expected [] to have a length of 1 but got +0
+   × C.3 exact public career read models and retained history > M8 retains actual change/finality attention for0/12 weeks only, with safe payloads and no Finance charge 2580ms
+     → validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — Hollywood save: person person-studio-de11f27b-r03-0 has simultaneous active assignments
+   × C.3 exact public career read models and retained history > M9 expires null-studio career news and separately retains actual old technology in genuine2600 15997ms
+     → expected [] to deeply equal [ 'profession-change-0', …(1) ]
+   × C.3 exact public career read models and retained history > M10 refuses private/unknown DTO members and invalid dates while repeated public reads preserve whole state 636ms
+     → 946 required additive professionCareer: expected undefined to be defined
+stdout | tests/bridge-p14c3-dual-career-surfaces.test.ts
+{"phase":"1065-dual-surface","actualTickCalls":378,"cap":378,"prefix":{"prefixRouteWeeks":157,"completedPrefixes":["director"],"directTickCalls":{"director":209,"writer":0},"completedPrefixWeeksPlusDirectCalls":366},"failed":false}
+
+ ❯ |core| tests/bridge-p14c3-dual-career-surfaces.test.ts (3 tests | 3 failed) 58179ms
+   × C.3 both genuinely completed profession episodes remain public > B1 retains actual Actor260 and Director468 history with both extensions and one latest alumnus identity 54738ms
+     → expected undefined to be defined
+   × C.3 both genuinely completed profession episodes remain public > B2 retains actual finality at468/480 and expires it at481 in all three news surfaces 968ms
+     → 946 required separate Calendar career events: expected undefined to be defined
+   × C.3 both genuinely completed profession episodes remain public > B3 freezes final relationships at actual468, preserves both meanings and keeps reopened reads pure 2470ms
+     → expected undefined to match object { status: 'retired', …(1) }
+stdout | tests/p14c3-calendar-career.test.ts
+{"phase":"1065-core-calendar","calls":{"changed":5,"scientist":1,"deferred":0,"dormant":0,"film":0},"total":6,"cap":15,"failedSetups":["changed/212"]}
+
+ ❯ |core| tests/p14c3-calendar-career.test.ts (3 tests | 3 failed) 8498ms
+   × C.3 Calendar career facts remain separate from committed operating work > C1 publishes exact actual changes and finality with public identities, dates and ordered event keys 4751ms
+     → 946 required separate Calendar career events: expected undefined to be defined
+   × C.3 Calendar career facts remain separate from committed operating work > C2 adds no commitment, reservation, cost, next boundary or decision and remains read-only 556ms
+     → 946 required separate Calendar career events: expected undefined to be defined
+   × C.3 Calendar career facts remain separate from committed operating work > C3 retains actual age0/12 news, drops age13, and filters a labelled future-event negative 3188ms
+     → validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — Hollywood save: person person-studio-de11f27b-r03-0 has simultaneous active assignments
+stdout | tests/bridge-p14c3-runtime.test.ts
+{"phase":"1065-runtime","reservedAdvances":3,"completedAdvances":2,"cap":7}
+
+ ❯ |core| tests/bridge-p14c3-runtime.test.ts (8 tests | 5 failed) 68370ms
+   ✓ C.3 projection53 current/save/journal and durable campaign authority > R1 preserves genuine outgoing52 bytes, real old journal and the recorded twelve-digest parity defect 2410ms
+   × C.3 projection53 current/save/journal and durable campaign authority > R2 opens53/Save38 once, registers exact52 and independently migrates208/207 while resetting prior session authority 627ms
+     → checkpoint.currentSaveJson: must be a current V38 save, received V37
+   × C.3 projection53 current/save/journal and durable campaign authority > R3 actual new commands date current208 reconciliation209 separately from saved207 natural208 and replay without extra work 436ms
+     → checkpoint.currentSaveJson: must be a current V38 save, received V37
+   ✓ C.3 projection53 current/save/journal and durable campaign authority > R4 real prior51 Scientist current670 finalizes671 while its saved669 branch retires/finalizes670 57994ms
+   × C.3 projection53 current/save/journal and durable campaign authority > R5 refuses unknown schema, bad outer/journal digests and reused prior session without changing historical artifacts 302ms
+     → expected [Function] to throw error matching /schema|digest/i but got 'checkpoint.currentSaveJson: must be a…'
+   ✓ C.3 projection53 current/save/journal and durable campaign authority > R6 rejects independently malformed currentSaveJson through strict inner authority before session creation 409ms
+   × C.3 projection53 current/save/journal and durable campaign authority > R7 rejects independently malformed savedSaveJson through strict inner authority before session creation 311ms
+     → expected [Function] to throw error matching /age|provenance/i but got 'checkpoint.currentSaveJson: must be a…'
+   × C.3 projection53 current/save/journal and durable campaign authority > R8 durable coordinator Save As branches208, saves B209, then clean-loads A207 and restarts with isolated records/journals 5879ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 20 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14c3-dual-career-surfaces.test.ts > C.3 both genuinely completed profession episodes remain public > B1 retains actual Actor260 and Director468 history with both extensions and one latest alumnus identity
+AssertionError: expected undefined to be defined
+ ❯ tests/bridge-p14c3-dual-career-surfaces.test.ts:80:22
+     78|       expect(state.careerLifecycle.industryRetirements.find(row => row…
+     79|       const p = profile(state), career = p.professionCareer
+     80|       expect(career).toBeDefined(); assert.ok(career)
+       |                      ^
+     81|       expect(career).toMatchObject({ status: 'retired', industryRetire…
+     82|         lastChange: { week: 260, fromProfession: 'actor', toProfession…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/20]⎯
+
+ FAIL |core|  tests/bridge-p14c3-dual-career-surfaces.test.ts > C.3 both genuinely completed profession episodes remain public > B2 retains actual finality at468/480 and expires it at481 in all three news surfaces
+AssertionError: 946 required separate Calendar career events: expected undefined to be defined
+ ❯ Module.calendarCareer tests/helpers/p14c3-surface-fixtures.ts:19:78
+     17| export function calendarCareer(state: GameState): CareerEvent[] {
+     18|   const value = studioCalendar(state) as ReturnType<typeof studioCalen…
+     19|   expect(value.careerEvents, '946 required separate Calendar career ev…
+       |                                                                              ^
+     20|   assert.ok(Array.isArray(value.careerEvents))
+     21|   return value.careerEvents
+ ❯ tests/bridge-p14c3-dual-career-surfaces.test.ts:99:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/20]⎯
+
+ FAIL |core|  tests/bridge-p14c3-dual-career-surfaces.test.ts > C.3 both genuinely completed profession episodes remain public > B3 freezes final relationships at actual468, preserves both meanings and keeps reopened reads pure
+AssertionError: expected undefined to match object { status: 'retired', …(1) }
+
+- Expected: 
+Object {
+  "industryRetiredWeek": 468,
+  "status": "retired",
+}
+
++ Received: 
+undefined
+
+ ❯ tests/bridge-p14c3-dual-career-surfaces.test.ts:118:34
+    116|         .toMatchObject({ asOfWeek: 468, asOfLabel: campaignDate(468).l…
+    117|       expect(p.lifecycle).toMatchObject({ profession: 'director', reti…
+    118|       expect(p.professionCareer).toMatchObject({ status: 'retired', in…
+       |                                  ^
+    119|       parseWireValue(BRIDGE_SCHEMA.$defs.StudioPersonProfileSnapshot, …
+    120|       pages(state, 'person', id); pages(state, 'employment', id)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/20]⎯
+
+ FAIL |core|  tests/bridge-p14c3-read-models.test.ts > C.3 exact public career read models and retained history > M1 requires additive exact public career DTOs while preserving existing credited development history
+AssertionError: expected 0 to be greater than 0
+ ❯ tests/bridge-p14c3-read-models.test.ts:84:34
+     82|   it('M1 requires additive exact public career DTOs while preserving e…
+     83|     const state = f.changed(), existing = profile(state, FOCUS.directo…
+     84|     expect(existing.rows.length).toBeGreaterThan(0)
+       |                                  ^
+     85|     const expected = {
+     86|       StudioProfessionRetirement: ['profession', 'announcedWeek', 'eff…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/20]⎯
+
+ FAIL |core|  tests/bridge-p14c3-read-models.test.ts > C.3 exact public career read models and retained history > M2 distinguishes working Director/Writer from completed acting retirement even when newly employed
+AssertionError: 946 required additive professionCareer: expected undefined to be defined
+ ❯ career tests/bridge-p14c3-read-models.test.ts:41:59
+     39| function career(state: GameState, id: string): Career {
+     40|   const value = profile(state, id).professionCareer
+     41|   expect(value, '946 required additive professionCareer').toBeDefined(…
+       |                                                           ^
+     42|   return value
+     43| }
+ ❯ tests/bridge-p14c3-read-models.test.ts:128:65
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/20]⎯
+
+ FAIL |core|  tests/bridge-p14c3-read-models.test.ts > C.3 exact public career read models and retained history > M4 distinguishes retired670 profession from pending670 and actual final671 career without moving relationship asOf
+AssertionError: 946 required additive professionCareer: expected undefined to be defined
+ ❯ career tests/bridge-p14c3-read-models.test.ts:41:59
+     39| function career(state: GameState, id: string): Career {
+     40|   const value = profile(state, id).professionCareer
+     41|   expect(value, '946 required additive professionCareer').toBeDefined(…
+       |                                                           ^
+     42|   return value
+     43| }
+ ❯ tests/bridge-p14c3-read-models.test.ts:161:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/20]⎯
+
+ FAIL |core|  tests/bridge-p14c3-read-models.test.ts > C.3 exact public career read models and retained history > M5 distinguishes prospective old208 acting retirement and real zero-take deferred2601 from work or finality
+AssertionError: 946 required additive professionCareer: expected undefined to be defined
+ ❯ career tests/bridge-p14c3-read-models.test.ts:41:59
+     39| function career(state: GameState, id: string): Career {
+     40|   const value = profile(state, id).professionCareer
+     41|   expect(value, '946 required additive professionCareer').toBeDefined(…
+       |                                                           ^
+     42|   return value
+     43| }
+ ❯ tests/bridge-p14c3-read-models.test.ts:180:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/20]⎯
+
+ FAIL |core|  tests/bridge-p14c3-read-models.test.ts > C.3 exact public career read models and retained history > M6 classifies labelled strict34 dormant-retired compatibility before actual activation and due210
+AssertionError: 946 required additive professionCareer: expected undefined to be defined
+ ❯ career tests/bridge-p14c3-read-models.test.ts:41:59
+     39| function career(state: GameState, id: string): Career {
+     40|   const value = profile(state, id).professionCareer
+     41|   expect(value, '946 required additive professionCareer').toBeDefined(…
+       |                                                           ^
+     42|   return value
+     43| }
+ ❯ tests/bridge-p14c3-read-models.test.ts:189:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/20]⎯
+
+ FAIL |core|  tests/bridge-p14c3-read-models.test.ts > C.3 exact public career read models and retained history > M7 pages all genuine alumni by latest completed profession and counts complete role credits, including working former actors
+AssertionError: expected [] to have a length of 1 but got +0
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ tests/bridge-p14c3-read-models.test.ts:217:20
+    215|     const state = applyActions(f.changed(), [{ kind: 'signContract', t…
+    216|     const actual = allPages(state, 'alumni').flatMap(row => row.people…
+    217|     expect(actual).toHaveLength(1)
+       |                    ^
+    218|     expect(actual[0] as typeof actual[number] & IndustryCareer).toMatc…
+    219|       careerStatus: 'working', professionRetiredWeek: 208, industryRet…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/20]⎯
+
+ FAIL |core|  tests/bridge-p14c3-read-models.test.ts > C.3 exact public career read models and retained history > M8 retains actual change/finality attention for0/12 weeks only, with safe payloads and no Finance charge
+Error: validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — Hollywood save: person person-studio-de11f27b-r03-0 has simultaneous active assignments
+ ❯ validateSaveV37WithProfession src/core/save.ts:10161:11
+    10159|     validateSaveV36WithPolicy({ ...save, saveVersion: 36 }, retirement…
+    10160|   } catch (error) {
+    10161|     throw new Error(`validateSaveV37: state is invalid — ${(error as E…
+       |           ^
+    10162|   }
+    10163|   return save as SaveFileV37;
+ ❯ proveSaveV38 src/core/save.ts:10211:3
+ ❯ validateSaveV38 src/core/save.ts:10216:10
+ ❯ Module.makeSave src/core/save.ts:6523:16
+ ❯ Module.acceptedEvidence tests/helpers/p14c3-genuine-evidence-fixtures.ts:16:50
+ ❯ tests/helpers/p14c3-surface-fixtures.ts:59:9
+ ❯ memo tests/helpers/p14c3-surface-fixtures.ts:34:25
+ ❯ route tests/helpers/p14c3-surface-fixtures.ts:57:21
+ ❯ Object.changed tests/helpers/p14c3-surface-fixtures.ts:66:35
+ ❯ tests/bridge-p14c3-read-models.test.ts:224:39
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/20]⎯
+
+ FAIL |core|  tests/bridge-p14c3-read-models.test.ts > C.3 exact public career read models and retained history > M9 expires null-studio career news and separately retains actual old technology in genuine2600
+AssertionError: expected [] to deeply equal [ 'profession-change-0', …(1) ]
+
+- Expected
++ Received
+
+- Array [
+-   "profession-change-0",
+-   "profession-change-1",
+- ]
++ Array []
+
+ ❯ tests/bridge-p14c3-read-models.test.ts:269:53
+    267|       const actual = activities.filter(row => 'careerKind' in row)
+    268|       const expected = expectedCareerEvents(state)
+    269|       expect(actual.map(row => row.eventId).sort()).toEqual(expected.m…
+       |                                                     ^
+    270|       for (const event of expected) {
+    271|         expect(actual.find(row => row.eventId === event.eventId)).toMa…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/20]⎯
+
+ FAIL |core|  tests/bridge-p14c3-read-models.test.ts > C.3 exact public career read models and retained history > M10 refuses private/unknown DTO members and invalid dates while repeated public reads preserve whole state
+AssertionError: 946 required additive professionCareer: expected undefined to be defined
+ ❯ career tests/bridge-p14c3-read-models.test.ts:41:59
+     39| function career(state: GameState, id: string): Career {
+     40|   const value = profile(state, id).professionCareer
+     41|   expect(value, '946 required additive professionCareer').toBeDefined(…
+       |                                                           ^
+     42|   return value
+     43| }
+ ❯ tests/bridge-p14c3-read-models.test.ts:286:78
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/20]⎯
+
+ FAIL |core|  tests/bridge-p14c3-runtime.test.ts > C.3 projection53 current/save/journal and durable campaign authority > R2 opens53/Save38 once, registers exact52 and independently migrates208/207 while resetting prior session authority
+BridgeRuntimeCheckpointError: checkpoint.currentSaveJson: must be a current V38 save, received V37
+ ❯ fail bridge/runtime-checkpoint.ts:363:9
+    361| 
+    362| function fail(path: string, message: string): never {
+    363|   throw new BridgeRuntimeCheckpointError(path, message)
+       |         ^
+    364| }
+    365| 
+ ❯ validateCanonicalCurrentSave bridge/runtime-checkpoint.ts:486:5
+ ❯ hydrateAndEncodeBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1108:23
+ ❯ decodeBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1261:20
+ ❯ Module.loadBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1312:15
+ ❯ recovered52 tests/bridge-p14c3-runtime.test.ts:56:18
+ ❯ tests/bridge-p14c3-runtime.test.ts:142:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/20]⎯
+
+ FAIL |core|  tests/bridge-p14c3-runtime.test.ts > C.3 projection53 current/save/journal and durable campaign authority > R3 actual new commands date current208 reconciliation209 separately from saved207 natural208 and replay without extra work
+BridgeRuntimeCheckpointError: checkpoint.currentSaveJson: must be a current V38 save, received V37
+ ❯ fail bridge/runtime-checkpoint.ts:363:9
+    361| 
+    362| function fail(path: string, message: string): never {
+    363|   throw new BridgeRuntimeCheckpointError(path, message)
+       |         ^
+    364| }
+    365| 
+ ❯ validateCanonicalCurrentSave bridge/runtime-checkpoint.ts:486:5
+ ❯ hydrateAndEncodeBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1108:23
+ ❯ decodeBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1261:20
+ ❯ Module.loadBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1312:15
+ ❯ recovered52 tests/bridge-p14c3-runtime.test.ts:56:18
+ ❯ tests/bridge-p14c3-runtime.test.ts:169:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/20]⎯
+
+ FAIL |core|  tests/bridge-p14c3-runtime.test.ts > C.3 projection53 current/save/journal and durable campaign authority > R5 refuses unknown schema, bad outer/journal digests and reused prior session without changing historical artifacts
+AssertionError: expected [Function] to throw error matching /schema|digest/i but got 'checkpoint.currentSaveJson: must be a…'
+
+- Expected: 
+/schema|digest/i
+
++ Received: 
+"checkpoint.currentSaveJson: must be a current V38 save, received V37"
+
+ ❯ tests/bridge-p14c3-runtime.test.ts:214:96
+    212|       { ...value, savedStateDigest: '0'.repeat(64) }, { ...value, jour…
+    213|       const factory = vi.fn(() => '1065-invalid-envelope')
+    214|       expect(() => loadBridgeRuntimeCheckpoint(canonicalJson(bad) + '\…
+       |                                                                                                ^
+    215|       expect(factory).not.toHaveBeenCalled()
+    216|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/20]⎯
+
+ FAIL |core|  tests/bridge-p14c3-runtime.test.ts > C.3 projection53 current/save/journal and durable campaign authority > R7 rejects independently malformed savedSaveJson through strict inner authority before session creation
+AssertionError: expected [Function] to throw error matching /age|provenance/i but got 'checkpoint.currentSaveJson: must be a…'
+
+- Expected: 
+/age|provenance/i
+
++ Received: 
+"checkpoint.currentSaveJson: must be a current V38 save, received V37"
+
+ ❯ tests/bridge-p14c3-runtime.test.ts:229:94
+    227|     else bad.savedStateDigest = sha(bad[slot])
+    228|     const factory = vi.fn(() => '1065-invalid-inner')
+    229|     expect(() => loadBridgeRuntimeCheckpoint(canonicalJson(bad) + '\n'…
+       |                                                                                              ^
+    230|     expect(factory).not.toHaveBeenCalled()
+    231|     expect(prior52().raw).toBe(raw)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/20]⎯
+
+ FAIL |core|  tests/bridge-p14c3-runtime.test.ts > C.3 projection53 current/save/journal and durable campaign authority > R8 durable coordinator Save As branches208, saves B209, then clean-loads A207 and restarts with isolated records/journals
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/20]⎯
+
+ FAIL |core|  tests/p14c3-calendar-career.test.ts > C.3 Calendar career facts remain separate from committed operating work > C1 publishes exact actual changes and finality with public identities, dates and ordered event keys
+AssertionError: 946 required separate Calendar career events: expected undefined to be defined
+ ❯ Module.calendarCareer tests/helpers/p14c3-surface-fixtures.ts:19:78
+     17| export function calendarCareer(state: GameState): CareerEvent[] {
+     18|   const value = studioCalendar(state) as ReturnType<typeof studioCalen…
+     19|   expect(value.careerEvents, '946 required separate Calendar career ev…
+       |                                                                              ^
+     20|   assert.ok(Array.isArray(value.careerEvents))
+     21|   return value.careerEvents
+ ❯ tests/p14c3-calendar-career.test.ts:15:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/20]⎯
+
+ FAIL |core|  tests/p14c3-calendar-career.test.ts > C.3 Calendar career facts remain separate from committed operating work > C2 adds no commitment, reservation, cost, next boundary or decision and remains read-only
+AssertionError: 946 required separate Calendar career events: expected undefined to be defined
+ ❯ Module.calendarCareer tests/helpers/p14c3-surface-fixtures.ts:19:78
+     17| export function calendarCareer(state: GameState): CareerEvent[] {
+     18|   const value = studioCalendar(state) as ReturnType<typeof studioCalen…
+     19|   expect(value.careerEvents, '946 required separate Calendar career ev…
+       |                                                                              ^
+     20|   assert.ok(Array.isArray(value.careerEvents))
+     21|   return value.careerEvents
+ ❯ tests/p14c3-calendar-career.test.ts:27:90
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/20]⎯
+
+ FAIL |core|  tests/p14c3-calendar-career.test.ts > C.3 Calendar career facts remain separate from committed operating work > C3 retains actual age0/12 news, drops age13, and filters a labelled future-event negative
+Error: validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — Hollywood save: person person-studio-de11f27b-r03-0 has simultaneous active assignments
+ ❯ validateSaveV37WithProfession src/core/save.ts:10161:11
+    10159|     validateSaveV36WithPolicy({ ...save, saveVersion: 36 }, retirement…
+    10160|   } catch (error) {
+    10161|     throw new Error(`validateSaveV37: state is invalid — ${(error as E…
+       |           ^
+    10162|   }
+    10163|   return save as SaveFileV37;
+ ❯ proveSaveV38 src/core/save.ts:10211:3
+ ❯ validateSaveV38 src/core/save.ts:10216:10
+ ❯ Module.makeSave src/core/save.ts:6523:16
+ ❯ Module.acceptedEvidence tests/helpers/p14c3-genuine-evidence-fixtures.ts:16:50
+ ❯ tests/helpers/p14c3-surface-fixtures.ts:59:9
+ ❯ memo tests/helpers/p14c3-surface-fixtures.ts:34:25
+ ❯ route tests/helpers/p14c3-surface-fixtures.ts:57:21
+ ❯ Object.changed tests/helpers/p14c3-surface-fixtures.ts:66:35
+ ❯ tests/p14c3-calendar-career.test.ts:39:39
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/20]⎯
+
+ Test Files  4 failed (4)
+      Tests  20 failed | 4 passed (24)
+   Start at  03:25:55
+   Duration  73.45s (transform 5.31s, setup 0ms, collect 13.16s, tests 184.88s, environment 1ms, prepare 911ms)
+

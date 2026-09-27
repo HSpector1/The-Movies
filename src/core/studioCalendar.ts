@@ -193,6 +193,7 @@ export type StudioCalendarView = {
   nextDecision: StudioCalendarDecisionView | null
   facilities: StudioCalendarFacilityView[]
   commitments: StudioCalendarCommitmentView[]
+  careerEvents: StudioCalendarCareerEvent[]
   productionOutlook: StudioCalendarProductionView[]
   staffingHorizon: {
     contracts: StudioCalendarContractView[]
@@ -200,6 +201,38 @@ export type StudioCalendarView = {
   }
   studioDevelopment: StudioConstructionView
   summary: StudioCalendarSummaryView
+}
+
+export type StudioCalendarCareerEvent = {
+  eventId: string
+  kind: 'professionChanged' | 'industryRetired'
+  week: number
+  talentId: string
+  talentName: string
+  profession: CreativeRole
+  fromProfession: 'actor' | null
+  line: string
+}
+
+/** Recent actual news, independent of capacity, commitments and advance stops. */
+export function recentCareerEvents(state: GameState, week = state.market.tick): StudioCalendarCareerEvent[] {
+  const names = new Map(state.talent.map(person => [person.id, person.name]))
+  const rows: StudioCalendarCareerEvent[] = [
+    ...state.careerLifecycle.professionChanges.map(row => ({
+      eventId: row.id, kind: 'professionChanged' as const, week: row.week,
+      talentId: row.personId, talentName: names.get(row.personId) ?? row.personId,
+      profession: row.to, fromProfession: row.from,
+      line: `Changed from actor to ${row.to} in Week ${row.week}.`,
+    })),
+    ...state.careerLifecycle.industryRetirements.map(row => ({
+      eventId: `industry-retirement:${JSON.stringify(row.personId)}`, kind: 'industryRetired' as const,
+      week: row.week, talentId: row.personId, talentName: names.get(row.personId) ?? row.personId,
+      profession: row.profession, fromProfession: null,
+      line: `Retired from the industry as a ${row.profession} in Week ${row.week}.`,
+    })),
+  ]
+  return rows.filter(row => week >= row.week && week - row.week < 13)
+    .sort((a, b) => b.week - a.week || (a.eventId < b.eventId ? -1 : a.eventId > b.eventId ? 1 : 0))
 }
 
 const PHASE_LABEL: Record<ProductionPhase, string> = {
@@ -878,6 +911,7 @@ export function studioCalendar(state: GameState): StudioCalendarView {
     nextDecision: decisionView(nextStudioDecision(state)),
     facilities,
     commitments,
+    careerEvents: recentCareerEvents(state),
     productionOutlook,
     staffingHorizon,
     studioDevelopment,
