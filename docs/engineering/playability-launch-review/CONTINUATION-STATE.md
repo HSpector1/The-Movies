@@ -1,5 +1,39 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — Bridge test source ready for compiler inspection
+
+The qualified current-week45 capture and closed verification records are published
+at b81aa7eb75ceb0f4b03d1341d09c1cfb42a04249, with exact GitHub equality verified.
+1174 adds one Bridge test file: 45,261 bytes, SHA256
+24ea206728b22f2916b68959ea3060448d65c3ab919ea24c05330aa12d4bb12d.
+Parent and independent reviewer have read all three cases and source/input pins.
+Final A/B handbacks are frozen and parent-verified; B gives source-only KEEP.
+Publication precedes the parent-owned compiler/runtime gates.
+Production remains 969fb459; no heavy process is active.
+
+D15/D16/D17 each retain 60 seconds, one shared success/first-failure cache and a
+hard 12-command advance cap; the only declared routes need 7 + 2 advances. Counters
+distinguish reservations, advancing dispatch invocations and verified one-week
+movement. Tests directly read the pinned current45 and genuine outgoing53 bytes;
+no earlier simulation helper, setup trajectory or capture is repeated. Independent
+prior53 migration and corrupted-slot controls run before the bound52 dependency.
+The explicit-week reminder check uses an unchanged admitted world and is labelled
+query-time presentation. Legacy classless controls remain labelled synthetic
+reader compatibility; the UI component/test is still deferred.
+
+Next is 1175 compiler inspection with `tsc --noEmit -p tsconfig.bridge.json`,
+which includes the actual Bridge test; root-only types would miss it. Attribute
+any existing Bridge diagnostics separately. Then run only the three new cases
+through the fixed-source recorder, preserving each reached first cause. No new
+Bridge behavior is qualified by source inspection. Parent remains the sole
+production writer and heavy executor; specialists retain author/review ownership.
+
+1174-C preserves a source-supported, zero-tick candidate for the retained D03
+occupancy gap, using the existing core bound52 cache and cast-only public action.
+It is a later test proposal, not a measured failure or production release. Rival,
+slack, staffing and other matrix limits remain open. The declared combined ceiling
+stays 875. Unity/native/Owner access remains deferred under the existing directive.
+
 ## CURRENT — current-week45 capture passed; Bridge source next
 
 On published272401eb36dc49563d306de39503e306b6c9dc2d,1172's isolated compiler
@@ -17,13 +51,17 @@ Actual week45 has the two subjects' open cases and two Ready/unlinked scripts;
 strict/public roundtrips and source/index guards passed. The legacy4 marker is
 literally equal to1135. Existing1117 outgoing artifacts remain untouched.
 
-1173-A/B and parent closure record preserve the qualification. After their final
-review and publication, parent releases1174 Bridge test source to the existing
-author under1170-A/C: exactly D15/D16/D17,60s each, expected9 actual advances
-with hard aggregate12, pinned current45 and independent genuine prior53 controls.
-No old simulation helper import, new setup trajectory or capture is needed.
-Freeze/review/publication precede compiler and actual RED execution. Production
-remains969fb459 and is released only against reached semantic failures.
+1173-A/B and parent closure are published atb81aa7eb75ceb0f4b03d1341d09c1cfb42a04249;
+exact remote equality and clean worktree were verified before1174 source release.
+The existing author now owns new Bridge tests under1170-A/C: exactly D15/D16/D17,
+60s each, expected9 actual advances with hard aggregate12, pinned current45 and
+independent genuine prior53 controls. No old simulation helper import, new setup
+trajectory or capture is needed. D16 additionally uses the existing explicit-week
+promiseAttentionRows reader on unchanged actual bound52 state at query week104;
+this is labelled query-time wording/privacy/purity, never a naturally attained104
+world. The reviewer owns independent source review. Freeze/review/publication
+precede compiler and actual RED execution. Production remains969fb459 and is
+released only against reached semantic failures.
 
 The combined preparation/test ceiling remains875. Rival and1155-C matrix gaps
 remain open; this capture does not qualify Bridge submission/settlement/waiver,

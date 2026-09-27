@@ -1,0 +1,166 @@
+{
+  "kind": "1174-p3-bridge-source-handback",
+  "version": 1,
+  "preparationHead": "b81aa7eb75ceb0f4b03d1341d09c1cfb42a04249",
+  "source": {
+    "path": "tests/bridge-p14p3-directing-promises.test.ts",
+    "bytes": 45261,
+    "sha256": "24ea206728b22f2916b68959ea3060448d65c3ab919ea24c05330aa12d4bb12d"
+  },
+  "orderedPatch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1174-p3-bridge-source.patch",
+    "bytes": 46139,
+    "sha256": "84bcc4fc5edcc75752fb772e6264b7414ea369ea248a1f67fe5f8c8f079b523d"
+  },
+  "declarations": [
+    "D15 commits genuine public directing commands with closed private authority",
+    "D16 discloses Director and legacy cast terms truthfully without private inputs",
+    "D17 migrates outgoing53 independently and isolates current54 campaigns"
+  ],
+  "leafTimeoutMs": 60000,
+  "aggregateAdvanceCap": 12,
+  "expectedAdvances": {
+    "session45to52": 7,
+    "coordinator52to54": 2,
+    "total": 9
+  },
+  "counterSemantics": [
+    "reserve before actual advancing dispatch",
+    "actual advance dispatch invocation",
+    "verified returned one-week advance",
+    "duplicate invocation without advance"
+  ],
+  "protectedExisting": [
+    {
+      "path": "tests/helpers/p14p3-fixtures.ts",
+      "bytes": 78674,
+      "sha256": "389112bde75ccaab9e2d155a1df6e6dc279b78c7d6d531a582b04f27be5fba83"
+    },
+    {
+      "path": "tests/p14p3-directing-promises.test.ts",
+      "bytes": 77197,
+      "sha256": "3371570a015bcc3723ec7d6f4d85f8207bbb5cba9458e0036e538037736b455d"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json",
+      "bytes": 11550,
+      "sha256": "a261fc3177527d05d5a8daf624de7af015df8c9a8fedd3e11b37fe1597a2f4b6"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/genuine-v39-p3-market-week45.json.gz",
+      "bytes": 86995,
+      "sha256": "12799a849b0b4aff49cd9707ea8c1b87c64b4e787ff261b2e9cf4b109a953117"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v38-pre-p3/MANIFEST.json",
+      "bytes": 345615,
+      "sha256": "87db7cc4885f5e9a9464d8e2c3e586be84078550aebf1155a672fa2782a2c987"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v38-pre-p3/genuine-v38-p3-after-waiver-week104.json.gz",
+      "bytes": 116427,
+      "sha256": "129b8d5d6993d97f9b5aa5929b2ab4a607c506c58b942cf7c4a38133fa113181"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v38-pre-p3/genuine-v38-p3-before-waiver-week104.json.gz",
+      "bytes": 116235,
+      "sha256": "077eec0343307983266868aa8bb242375874f7738cbe06c94e5787baa7dc098e"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v38-pre-p3/genuine-v38-p3-bound-p2-lead-week52.json.gz",
+      "bytes": 90323,
+      "sha256": "7872b26db5909f787d7c58ab37600bbd4499eb0f54f646cb480d1655afeab922"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v38-pre-p3/genuine-v38-p3-kept-broken-week61.json.gz",
+      "bytes": 98521,
+      "sha256": "803ed4415cc6cc1b34749a595f3b52a2d5fd0376e965c15defc06be6022d44fc"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v38-pre-p3/genuine-v38-p3-migrated-week207.json.gz",
+      "bytes": 175123,
+      "sha256": "5d9e980e616b4b51502a24c160ca8ac89d863b22710ed5fdf2b19c8ec7cf4119"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v38-pre-p3/genuine-v38-p3-natural-week208.json.gz",
+      "bytes": 174916,
+      "sha256": "a7418eb0f90fa2d10ae65e78e3c3b9e75ec19346970c677c1cfdeefce42b2960"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v38-pre-p3/runtime53-current208-saved207.json.gz",
+      "bytes": 618455,
+      "sha256": "49aeafba1c66a16eb3a4c23eb8b57dd5af186d127f27ae5fe53b725ee8a7c175"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v38-pre-p3/runtime53-waiver-current104-saved104.json.gz",
+      "bytes": 420354,
+      "sha256": "7ace654b880e768ddb75da5c5e34cbc56443ee5ad513f2b38cc8f94c73ec02a5"
+    }
+  ],
+  "rawInputs": [
+    {
+      "gzipPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/genuine-v39-p3-market-week45.json.gz",
+      "rawBytes": 751294,
+      "rawSha256": "e7401f2578a7ad151383ca905df4253c2bbd82d6823c406c28b7e76aa809c5af"
+    },
+    {
+      "gzipPath": "tests/fixtures/p14/genuine-v38-pre-p3/genuine-v38-p3-after-waiver-week104.json.gz",
+      "rawBytes": 1026654,
+      "rawSha256": "ac2c9ef66c0bc7cd43448cde7d0c9aabc6474730e750d8ed72becb862c08ce95"
+    },
+    {
+      "gzipPath": "tests/fixtures/p14/genuine-v38-pre-p3/genuine-v38-p3-before-waiver-week104.json.gz",
+      "rawBytes": 1025766,
+      "rawSha256": "5defd3aeffea645c670beccfe5ca0edd3d75cde7ddec5ef26406ff7639e39648"
+    },
+    {
+      "gzipPath": "tests/fixtures/p14/genuine-v38-pre-p3/genuine-v38-p3-bound-p2-lead-week52.json.gz",
+      "rawBytes": 768569,
+      "rawSha256": "b79730a445d85155ef54f9497cd851d77d23388dfeeb9686f6e8399f5984af25"
+    },
+    {
+      "gzipPath": "tests/fixtures/p14/genuine-v38-pre-p3/genuine-v38-p3-kept-broken-week61.json.gz",
+      "rawBytes": 839926,
+      "rawSha256": "a689ee51581ebbf6cf5534e4fb961b27d90b5a5204f279da2d279e15af91ead0"
+    },
+    {
+      "gzipPath": "tests/fixtures/p14/genuine-v38-pre-p3/genuine-v38-p3-migrated-week207.json.gz",
+      "rawBytes": 1695995,
+      "rawSha256": "248070431a492773e1887946bffa7bdaf6be8cbc5fba8694a778df32b7b2c1a1"
+    },
+    {
+      "gzipPath": "tests/fixtures/p14/genuine-v38-pre-p3/genuine-v38-p3-natural-week208.json.gz",
+      "rawBytes": 1705876,
+      "rawSha256": "ebb00ca54328ef3340d959d830045d28c73dc493b8f069220256183e718fc4bb"
+    },
+    {
+      "gzipPath": "tests/fixtures/p14/genuine-v38-pre-p3/runtime53-current208-saved207.json.gz",
+      "rawBytes": 7225067,
+      "rawSha256": "968c211a79c2497646e4ef00dd705aebe90455d00af997e767fc107334233f3b"
+    },
+    {
+      "gzipPath": "tests/fixtures/p14/genuine-v38-pre-p3/runtime53-waiver-current104-saved104.json.gz",
+      "rawBytes": 4625947,
+      "rawSha256": "943de3c02b7218a18c4d0c08862d2cd91f87c3af23db7d712e976118df950877"
+    }
+  ],
+  "commands": {
+    "compiler": [
+      "node_modules/.bin/tsc",
+      "--noEmit",
+      "-p",
+      "tsconfig.bridge.json"
+    ],
+    "runtime": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/bridge-p14p3-directing-promises.test.ts"
+    ]
+  },
+  "noExecution": true,
+  "uiSourceDeferred": true
+}
