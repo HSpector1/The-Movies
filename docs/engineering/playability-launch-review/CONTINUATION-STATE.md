@@ -1,5 +1,33 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — fixed rival D07/D18 plan reviewed; next test-source slice
+
+1153 four-leaf qualification and final records are published at exact GitHub
+79623bf8701d3ed454b76820b8652961193f7f36. Production remains75d70e18.
+1154-A final06d16929 and independent1154-B KEEP8cb35741 freeze the next two
+rival leaves. Existing author may prepare1155 in the two existing P3 test/helper
+paths after plan publication; all14 earlier bodies/pins/timeouts stay unchanged.
+Parent alone owns production/integration and heavy execution; reviewer is separate.
+No heavy process or rival source/run is active at this plan checkpoint.
+
+Exact next selector is `D(?:07|18) `, two60s leaves. One separate fixed0→260
+rival route shares its own260-call counter; allcore816/Bridge12 limits remain.
+Only the preserved created-week0 input, fixed public hires/scripts/real directing
+film and exact r01-subject196 bid/208 vacancy attempt are permitted. No newseed,
+funding, alternate subject/issuer, fourth Actor, private extra phase or rescue.
+Actual wins, scripts, crew and work are unproved and remain explicit premises.
+
+Separate authoring196, winner208 and final260 caches preserve an actual early
+strategy observation if a later market prerequisite fails. D18 checks that actual
+authoring before depending on a winner/film; missing real automatic proposal or
+trace is a premise gap. Future pure internal selector controls may resolve required
+fallback negatives after a genuine positive/matching writer, without extra ticks
+or a new public API. No current automatic rival P3 qualification is claimed.
+
+Next source handback/review, publish/exactremoteverify,1156 root types
+and first exact selected behavior with actual first-cause attribution. 1157 is the first selected runtime record. Remaining public projection54/Bridge/UI/runtime,
+consumer verification and P14 onward remain authorized; all prior limits persist.
+
 ## CURRENT — P3 reservation and profession-continuity slice passes (2026-09-27)
 
 1153 passes all four selected D09/D10/D11/D13W leaves on published production
