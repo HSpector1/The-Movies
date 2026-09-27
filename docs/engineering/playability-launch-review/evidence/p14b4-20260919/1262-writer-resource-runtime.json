@@ -1,0 +1,24 @@
+{
+  "sourceSha": "9290240721d8817b3d422d81d41f85ed5e34bd46",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14p4p5-writer-resources.test.ts",
+    "-t",
+    "Q1[34] "
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T22:00:53.677Z",
+  "end": "2026-09-27T22:01:00.471Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "9290240721d8817b3d422d81d41f85ed5e34bd46",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

@@ -1,0 +1,2072 @@
+{
+  "record": "1260-K parent writer/resource closure",
+  "timeUtc": "2026-09-27T22:10:51.911187+00:00",
+  "executedPublishedSource": "9290240721d8817b3d422d81d41f85ed5e34bd46",
+  "result": "1261 compiler PASS; 1262 Q13/Q14 2 PASS, zero filtered; no selected masked assertion or runtime failure",
+  "parentRead": "Full runtime raw, all nine complete requests/receipts, four unique complete fact objects, both accepted actions and resource censuses, full input/counters/tail, records and pre/postflights; final I/J cross-read. No re-execution for attribution.",
+  "gates": [
+    {
+      "stem": "1261-writer-resource-types",
+      "record": {
+        "sourceSha": "9290240721d8817b3d422d81d41f85ed5e34bd46",
+        "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "untrackedSource": [],
+        "command": [
+          "node_modules/.bin/tsc",
+          "--noEmit",
+          "-p",
+          "tsconfig.json"
+        ],
+        "node": "v20.20.2",
+        "start": "2026-09-27T21:59:40.069Z",
+        "end": "2026-09-27T22:00:13.537Z",
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "sourceShaAtEnd": "9290240721d8817b3d422d81d41f85ed5e34bd46",
+        "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "untrackedSourceAtEnd": [],
+        "fixedSource": true
+      },
+      "evidence": [
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1261-writer-resource-types.json",
+          "bytes": 634,
+          "sha256": "43d6d3a7d3a1dda6d8a8932fa69811af27316f0013458c12442d2d8b97490752"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1261-writer-resource-types.txt",
+          "bytes": 340,
+          "sha256": "802a0c2b9455a00f9afbf8e8a50a42e5b61958a374b55da77b8f9217134b01b1"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1261-writer-resource-types.patch",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1261-writer-resource-types-preflight.json",
+          "bytes": 34823,
+          "sha256": "97365cb8998e3167020df3adab0c9b59f4e5c9555a367e1abdbec4cf0b22260c"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1261-writer-resource-types-postflight.json",
+          "bytes": 35504,
+          "sha256": "697822bf13364dcd53debb178ca18108cf46714c852550c0a42327cd9412cda0"
+        }
+      ]
+    },
+    {
+      "stem": "1262-writer-resource-runtime",
+      "record": {
+        "sourceSha": "9290240721d8817b3d422d81d41f85ed5e34bd46",
+        "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "untrackedSource": [],
+        "command": [
+          "node_modules/.bin/vitest",
+          "run",
+          "--project",
+          "core",
+          "tests/p14p4p5-writer-resources.test.ts",
+          "-t",
+          "Q1[34] "
+        ],
+        "node": "v20.20.2",
+        "start": "2026-09-27T22:00:53.677Z",
+        "end": "2026-09-27T22:01:00.471Z",
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "sourceShaAtEnd": "9290240721d8817b3d422d81d41f85ed5e34bd46",
+        "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "untrackedSourceAtEnd": [],
+        "fixedSource": true
+      },
+      "evidence": [
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1262-writer-resource-runtime.json",
+          "bytes": 701,
+          "sha256": "805d6c375bb4bd6750c49a259c454c24e97ee158fc31957c71f5e05edb7c7700"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1262-writer-resource-runtime.txt",
+          "bytes": 53197,
+          "sha256": "709d32355e30b131b9f2460b600a478eb49efa35b90bb812267fd78a7873dac1"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1262-writer-resource-runtime.patch",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1262-writer-resource-runtime-preflight.json",
+          "bytes": 34823,
+          "sha256": "2f8498304f13a10463eb0c7f66c5faf2802504098a5b2f3996db96e07b11bc59"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1262-writer-resource-runtime-postflight.json",
+          "bytes": 35512,
+          "sha256": "941304e6c9e7c255d45f9ec0475dd378bc3832e1015cc10de8f25489058fe884"
+        }
+      ]
+    }
+  ],
+  "verifiedCurrentGuards": {
+    "sourceFiles": 1683,
+    "sourceInventory": {
+      "bytes": 255510,
+      "sha256": "629e8ca651a6b789e306bf9bdc9ea7b3a689fe01419c1ff81ef86805b3bb2be9"
+    },
+    "index": {
+      "bytes": 1105210,
+      "sha256": "851451d3d58c08095b4da7aeef6eb08a60c0001e00ddc4add6b3a4a6c12c8621"
+    },
+    "stageEntries": {
+      "bytes": 981518,
+      "sha256": "187c8616da647e038bd9d00f387b60099ce40f15411554893657e2f697303887"
+    }
+  },
+  "manualPinCount": 138,
+  "source": {
+    "path": "tests/p14p4p5-writer-resources.test.ts",
+    "bytes": 23883,
+    "sha256": "4e2f660b54501150e016ec757e675163b1de972f804be3457f23444b45b6aed0"
+  },
+  "reviews": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1260-I-writer-resource-verification-attribution.md",
+      "bytes": 10630,
+      "sha256": "6b69d42bcd8bbea47a3d15da4e0df3f108089e3f486c77384df1e1ec56d84071"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1260-J-writer-resource-verification-review.md",
+      "bytes": 8865,
+      "sha256": "9c557d3e0dcd69afa91d6c83491ede0551b8c5503d1dd285c2eb21d9959d4351"
+    }
+  ],
+  "markers": {
+    "count": 15,
+    "bytes": 51699,
+    "sha256": "d4eca5a941f780514d721b81206f62b63568a018aa4618cb4b38e8b566de9ff3",
+    "reconstruction": "Original byte lines starting 1260-, with original LF/order, no JSON reserialization"
+  },
+  "completeQuotes": [
+    {
+      "leaf": "Q13",
+      "label": "idle Ready target, fresh45/take50/slack8",
+      "actualWeek": 45,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0001",
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0000"
+        },
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 58
+      },
+      "receipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "9f67715b11d4e4ad",
+        "rulesVersion": 7,
+        "week": 45
+      },
+      "union": {
+        "from": 45,
+        "rawRoots": [],
+        "attachedIds": [],
+        "selected": []
+      },
+      "inputBytes": 751359,
+      "inputSha256": "1b6810c616e6f513ea6246ff824bfee02c15f5760e6cafd2ca45f78d05d36bc0",
+      "factObjectIndex": 0
+    },
+    {
+      "leaf": "Q13",
+      "label": "writing due46 / exclusive51",
+      "actualWeek": 45,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0001",
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0000"
+        },
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 51
+      },
+      "receipt": {
+        "classification": "IMPOSSIBLE",
+        "bottleneck": "no filming week inside the window can reach this opportunity",
+        "inputsDigest": "d1d4bc3fd60f66a0",
+        "rulesVersion": 7,
+        "week": 45
+      },
+      "union": {
+        "from": 45,
+        "rawRoots": [],
+        "attachedIds": [],
+        "selected": []
+      },
+      "inputBytes": 752503,
+      "inputSha256": "f4418f04b78fef5ed2e775409ec04298a60e50a175ed62dc1ec094df248ae660",
+      "factObjectIndex": 1
+    },
+    {
+      "leaf": "Q13",
+      "label": "writing due46 / exclusive58",
+      "actualWeek": 45,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0001",
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0000"
+        },
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 58
+      },
+      "receipt": {
+        "classification": "FRAGILE",
+        "bottleneck": "the due week leaves too little slack before filming would start",
+        "inputsDigest": "bb9486f6459699cb",
+        "rulesVersion": 7,
+        "week": 45
+      },
+      "union": {
+        "from": 45,
+        "rawRoots": [],
+        "attachedIds": [],
+        "selected": []
+      },
+      "inputBytes": 752503,
+      "inputSha256": "f4418f04b78fef5ed2e775409ec04298a60e50a175ed62dc1ec094df248ae660",
+      "factObjectIndex": 1
+    },
+    {
+      "leaf": "Q13",
+      "label": "writing due46 / exclusive59",
+      "actualWeek": 45,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0001",
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0000"
+        },
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 59
+      },
+      "receipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "a8e5a7ace3dfbc18",
+        "rulesVersion": 7,
+        "week": 45
+      },
+      "union": {
+        "from": 45,
+        "rawRoots": [],
+        "attachedIds": [],
+        "selected": []
+      },
+      "inputBytes": 752503,
+      "inputSha256": "f4418f04b78fef5ed2e775409ec04298a60e50a175ed62dc1ec094df248ae660",
+      "factObjectIndex": 1
+    },
+    {
+      "leaf": "Q13",
+      "label": "actual target writer cannot be same-picture cast",
+      "actualWeek": 45,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0001",
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        },
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 112
+      },
+      "receipt": {
+        "classification": "IMPOSSIBLE",
+        "bottleneck": "the credited writer cannot hold a cast seat in the same picture",
+        "inputsDigest": "37df5380fdc3c88a",
+        "rulesVersion": 7,
+        "week": 45
+      },
+      "union": {
+        "from": 45,
+        "rawRoots": [],
+        "attachedIds": [],
+        "selected": []
+      },
+      "inputBytes": 752503,
+      "inputSha256": "f4418f04b78fef5ed2e775409ec04298a60e50a175ed62dc1ec094df248ae660",
+      "factObjectIndex": 1
+    },
+    {
+      "leaf": "Q14",
+      "label": "Ready with one raw free slot",
+      "actualWeek": 45,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0000"
+        },
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 112
+      },
+      "receipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "af7858f8780a3978",
+        "rulesVersion": 7,
+        "week": 45
+      },
+      "union": {
+        "from": 45,
+        "rawRoots": [],
+        "attachedIds": [],
+        "selected": []
+      },
+      "inputBytes": 752503,
+      "inputSha256": "f4418f04b78fef5ed2e775409ec04298a60e50a175ed62dc1ec094df248ae660",
+      "factObjectIndex": 2
+    },
+    {
+      "leaf": "Q14",
+      "label": "drafting with one raw free slot",
+      "actualWeek": 45,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        },
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 112
+      },
+      "receipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "0de5756e4cee2c1e",
+        "rulesVersion": 7,
+        "week": 45
+      },
+      "union": {
+        "from": 45,
+        "rawRoots": [],
+        "attachedIds": [],
+        "selected": []
+      },
+      "inputBytes": 752503,
+      "inputSha256": "f4418f04b78fef5ed2e775409ec04298a60e50a175ed62dc1ec094df248ae660",
+      "factObjectIndex": 2
+    },
+    {
+      "leaf": "Q14",
+      "label": "Ready retains both unrelated development holds",
+      "actualWeek": 45,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0000"
+        },
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 112
+      },
+      "receipt": {
+        "classification": "FRAGILE",
+        "bottleneck": "existing development-casting capacity is not available for this opportunity",
+        "inputsDigest": "279073c7d114b56d",
+        "rulesVersion": 7,
+        "week": 45
+      },
+      "union": {
+        "from": 45,
+        "rawRoots": [],
+        "attachedIds": [],
+        "selected": []
+      },
+      "inputBytes": 753650,
+      "inputSha256": "7b3d3663925bf9999a48311b44b92caf8718f299d2f832759e34239b3964c5de",
+      "factObjectIndex": 3
+    },
+    {
+      "leaf": "Q14",
+      "label": "own due reservation exempt, other screenplay remains held",
+      "actualWeek": 45,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0005",
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0002"
+        },
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 45,
+        "dueWeekExclusive": 112
+      },
+      "receipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "8c4a2f88a5b51843",
+        "rulesVersion": 7,
+        "week": 45
+      },
+      "union": {
+        "from": 45,
+        "rawRoots": [],
+        "attachedIds": [],
+        "selected": []
+      },
+      "inputBytes": 753650,
+      "inputSha256": "7b3d3663925bf9999a48311b44b92caf8718f299d2f832759e34239b3964c5de",
+      "factObjectIndex": 3
+    }
+  ],
+  "completeUniqueFactObjects": [
+    {
+      "contract": {
+        "annualSalary": 314062,
+        "endWeekExclusive": 208,
+        "signingBonus": 56531,
+        "startWeek": 0,
+        "talentId": "authored-0001",
+        "termWeeks": 208
+      },
+      "employmentId": "studio-de11f27b-player:contract:authored-0001:0:player-25",
+      "writerCredit": "authored-0003",
+      "engagements": {
+        "productions": [],
+        "writing": [],
+        "research": []
+      },
+      "freshWeek": 45,
+      "earliestTakeWeek": 50,
+      "resources": {
+        "claims": [
+          {
+            "key": "mount:facility-soundstage-12",
+            "facilitySlotKey": null,
+            "kind": "mount",
+            "facilityId": "facility-soundstage-12",
+            "slot": null,
+            "capability": null,
+            "owner": "set",
+            "ownerId": "set-1",
+            "set": {
+              "blueprintId": "set-house-generic",
+              "completesWeek": null,
+              "condition": 100,
+              "genreWeights": {
+                "adventure": 0.5,
+                "comedy": 0.5,
+                "crime": 0.5,
+                "drama": 0.5,
+                "horror": 0.5,
+                "romance": 0.5
+              },
+              "id": "set-1",
+              "mountedOn": "facility-soundstage-12",
+              "name": "Stage 12 House Set",
+              "novelty": 1,
+              "priorityGenre": "drama",
+              "quality": 45,
+              "setType": "generic-interior",
+              "status": "standing"
+            }
+          },
+          {
+            "key": "mount:facility-soundstage-07",
+            "facilitySlotKey": null,
+            "kind": "mount",
+            "facilityId": "facility-soundstage-07",
+            "slot": null,
+            "capability": null,
+            "owner": "set",
+            "ownerId": "set-2",
+            "set": {
+              "blueprintId": "set-grand-ballroom",
+              "completesWeek": null,
+              "condition": 100,
+              "genreWeights": {
+                "adventure": 0.25,
+                "comedy": 0.7,
+                "crime": 0.5,
+                "drama": 0.7,
+                "horror": 0.25,
+                "romance": 0.9
+              },
+              "id": "set-2",
+              "mountedOn": "facility-soundstage-07",
+              "name": "Grand Ballroom",
+              "novelty": 1,
+              "priorityGenre": "romance",
+              "quality": 85,
+              "setType": "grand-ballroom",
+              "status": "standing"
+            }
+          }
+        ],
+        "screenplay": [],
+        "actualDev": [],
+        "freeDev": [
+          0,
+          1
+        ],
+        "others": [
+          {
+            "capability": "soundstage",
+            "available": [
+              {
+                "facilityId": "facility-soundstage-07",
+                "slot": 0
+              },
+              {
+                "facilityId": "facility-soundstage-12",
+                "slot": 0
+              }
+            ]
+          },
+          {
+            "capability": "set-scenery",
+            "available": [
+              {
+                "facilityId": "facility-scenery-shop",
+                "slot": 0
+              },
+              {
+                "facilityId": "facility-scenery-shop",
+                "slot": 1
+              }
+            ]
+          },
+          {
+            "capability": "post",
+            "available": [
+              {
+                "facilityId": "facility-post-building",
+                "slot": 0
+              },
+              {
+                "facilityId": "facility-post-building",
+                "slot": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "actualWeek": 45,
+      "assignment": {
+        "id": "script-0002",
+        "conceptId": "c-02",
+        "writerId": "authored-0001",
+        "writerIds": [
+          "authored-0001"
+        ],
+        "shape": {
+          "opening": "slowSetup",
+          "midpoint": "revelation",
+          "ending": "bittersweet"
+        },
+        "promise": {
+          "genre": "comedy",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "status": "drafting",
+        "rewriteCount": 0,
+        "commissionedWeek": 45,
+        "dueWeek": 46,
+        "assessment": null,
+        "reservation": {
+          "projectId": "script-0002",
+          "facilityId": "facility-development-casting",
+          "capability": "development-casting",
+          "slot": 0
+        },
+        "productionId": null
+      },
+      "engagements": {
+        "productions": [],
+        "writing": [
+          {
+            "studioId": "studio-de11f27b-player",
+            "projectId": "script-0002",
+            "dueWeek": 46,
+            "writerIds": [
+              "authored-0001"
+            ]
+          }
+        ],
+        "research": []
+      },
+      "target": {
+        "assessment": {
+          "actualStrength": 60.24468148832871,
+          "perceivedStrength": 60.24468148832871
+        },
+        "commissionedWeek": 8,
+        "conceptId": "c-00",
+        "dueWeek": null,
+        "id": "script-0000",
+        "productionId": null,
+        "promise": {
+          "genre": "drama",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "reservation": null,
+        "rewriteCount": 0,
+        "shape": {
+          "ending": "bittersweet",
+          "midpoint": "revelation",
+          "opening": "slowSetup"
+        },
+        "status": "ready",
+        "writerId": "authored-0003",
+        "writerIds": [
+          "authored-0003"
+        ]
+      },
+      "freshWeek": 46,
+      "earliestTakeWeek": 51,
+      "resources": {
+        "claims": [
+          {
+            "key": "facility:facility-development-casting:0",
+            "facilitySlotKey": "facility-development-casting:0",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "slot": 0,
+            "capability": "development-casting",
+            "owner": "screenplay",
+            "ownerId": "script-0002",
+            "status": "drafting",
+            "reservation": {
+              "projectId": "script-0002",
+              "facilityId": "facility-development-casting",
+              "capability": "development-casting",
+              "slot": 0
+            }
+          },
+          {
+            "key": "mount:facility-soundstage-12",
+            "facilitySlotKey": null,
+            "kind": "mount",
+            "facilityId": "facility-soundstage-12",
+            "slot": null,
+            "capability": null,
+            "owner": "set",
+            "ownerId": "set-1",
+            "set": {
+              "blueprintId": "set-house-generic",
+              "completesWeek": null,
+              "condition": 100,
+              "genreWeights": {
+                "adventure": 0.5,
+                "comedy": 0.5,
+                "crime": 0.5,
+                "drama": 0.5,
+                "horror": 0.5,
+                "romance": 0.5
+              },
+              "id": "set-1",
+              "mountedOn": "facility-soundstage-12",
+              "name": "Stage 12 House Set",
+              "novelty": 1,
+              "priorityGenre": "drama",
+              "quality": 45,
+              "setType": "generic-interior",
+              "status": "standing"
+            }
+          },
+          {
+            "key": "mount:facility-soundstage-07",
+            "facilitySlotKey": null,
+            "kind": "mount",
+            "facilityId": "facility-soundstage-07",
+            "slot": null,
+            "capability": null,
+            "owner": "set",
+            "ownerId": "set-2",
+            "set": {
+              "blueprintId": "set-grand-ballroom",
+              "completesWeek": null,
+              "condition": 100,
+              "genreWeights": {
+                "adventure": 0.25,
+                "comedy": 0.7,
+                "crime": 0.5,
+                "drama": 0.7,
+                "horror": 0.25,
+                "romance": 0.9
+              },
+              "id": "set-2",
+              "mountedOn": "facility-soundstage-07",
+              "name": "Grand Ballroom",
+              "novelty": 1,
+              "priorityGenre": "romance",
+              "quality": 85,
+              "setType": "grand-ballroom",
+              "status": "standing"
+            }
+          }
+        ],
+        "screenplay": [
+          {
+            "owner": "screenplay",
+            "ownerId": "script-0002",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "capability": "development-casting",
+            "slot": 0
+          }
+        ],
+        "actualDev": [
+          {
+            "owner": "screenplay",
+            "ownerId": "script-0002",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "capability": "development-casting",
+            "slot": 0
+          }
+        ],
+        "freeDev": [
+          1
+        ],
+        "others": [
+          {
+            "capability": "soundstage",
+            "available": [
+              {
+                "facilityId": "facility-soundstage-07",
+                "slot": 0
+              },
+              {
+                "facilityId": "facility-soundstage-12",
+                "slot": 0
+              }
+            ]
+          },
+          {
+            "capability": "set-scenery",
+            "available": [
+              {
+                "facilityId": "facility-scenery-shop",
+                "slot": 0
+              },
+              {
+                "facilityId": "facility-scenery-shop",
+                "slot": 1
+              }
+            ]
+          },
+          {
+            "capability": "post",
+            "available": [
+              {
+                "facilityId": "facility-post-building",
+                "slot": 0
+              },
+              {
+                "facilityId": "facility-post-building",
+                "slot": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "actualWeek": 45,
+      "contract": {
+        "annualSalary": 370212,
+        "endWeekExclusive": 208,
+        "signingBonus": 66638,
+        "startWeek": 0,
+        "talentId": "authored-0005",
+        "termWeeks": 208
+      },
+      "engagements": {
+        "productions": [],
+        "writing": [],
+        "research": []
+      },
+      "targetReady": {
+        "assessment": {
+          "actualStrength": 60.24468148832871,
+          "perceivedStrength": 60.24468148832871
+        },
+        "commissionedWeek": 8,
+        "conceptId": "c-00",
+        "dueWeek": null,
+        "id": "script-0000",
+        "productionId": null,
+        "promise": {
+          "genre": "drama",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "reservation": null,
+        "rewriteCount": 0,
+        "shape": {
+          "ending": "bittersweet",
+          "midpoint": "revelation",
+          "opening": "slowSetup"
+        },
+        "status": "ready",
+        "writerId": "authored-0003",
+        "writerIds": [
+          "authored-0003"
+        ]
+      },
+      "targetDraft": {
+        "id": "script-0002",
+        "conceptId": "c-02",
+        "writerId": "authored-0001",
+        "writerIds": [
+          "authored-0001"
+        ],
+        "shape": {
+          "opening": "slowSetup",
+          "midpoint": "revelation",
+          "ending": "bittersweet"
+        },
+        "promise": {
+          "genre": "comedy",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "status": "drafting",
+        "rewriteCount": 0,
+        "commissionedWeek": 45,
+        "dueWeek": 46,
+        "assessment": null,
+        "reservation": {
+          "projectId": "script-0002",
+          "facilityId": "facility-development-casting",
+          "capability": "development-casting",
+          "slot": 0
+        },
+        "productionId": null
+      },
+      "readyFresh": 45,
+      "readyTake": 50,
+      "draftingFresh": 46,
+      "draftingTake": 51,
+      "resources": {
+        "claims": [
+          {
+            "key": "facility:facility-development-casting:0",
+            "facilitySlotKey": "facility-development-casting:0",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "slot": 0,
+            "capability": "development-casting",
+            "owner": "screenplay",
+            "ownerId": "script-0002",
+            "status": "drafting",
+            "reservation": {
+              "projectId": "script-0002",
+              "facilityId": "facility-development-casting",
+              "capability": "development-casting",
+              "slot": 0
+            }
+          },
+          {
+            "key": "mount:facility-soundstage-12",
+            "facilitySlotKey": null,
+            "kind": "mount",
+            "facilityId": "facility-soundstage-12",
+            "slot": null,
+            "capability": null,
+            "owner": "set",
+            "ownerId": "set-1",
+            "set": {
+              "blueprintId": "set-house-generic",
+              "completesWeek": null,
+              "condition": 100,
+              "genreWeights": {
+                "adventure": 0.5,
+                "comedy": 0.5,
+                "crime": 0.5,
+                "drama": 0.5,
+                "horror": 0.5,
+                "romance": 0.5
+              },
+              "id": "set-1",
+              "mountedOn": "facility-soundstage-12",
+              "name": "Stage 12 House Set",
+              "novelty": 1,
+              "priorityGenre": "drama",
+              "quality": 45,
+              "setType": "generic-interior",
+              "status": "standing"
+            }
+          },
+          {
+            "key": "mount:facility-soundstage-07",
+            "facilitySlotKey": null,
+            "kind": "mount",
+            "facilityId": "facility-soundstage-07",
+            "slot": null,
+            "capability": null,
+            "owner": "set",
+            "ownerId": "set-2",
+            "set": {
+              "blueprintId": "set-grand-ballroom",
+              "completesWeek": null,
+              "condition": 100,
+              "genreWeights": {
+                "adventure": 0.25,
+                "comedy": 0.7,
+                "crime": 0.5,
+                "drama": 0.7,
+                "horror": 0.25,
+                "romance": 0.9
+              },
+              "id": "set-2",
+              "mountedOn": "facility-soundstage-07",
+              "name": "Grand Ballroom",
+              "novelty": 1,
+              "priorityGenre": "romance",
+              "quality": 85,
+              "setType": "grand-ballroom",
+              "status": "standing"
+            }
+          }
+        ],
+        "screenplay": [
+          {
+            "owner": "screenplay",
+            "ownerId": "script-0002",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "capability": "development-casting",
+            "slot": 0
+          }
+        ],
+        "actualDev": [
+          {
+            "owner": "screenplay",
+            "ownerId": "script-0002",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "capability": "development-casting",
+            "slot": 0
+          }
+        ],
+        "freeDev": [
+          1
+        ],
+        "others": [
+          {
+            "capability": "soundstage",
+            "available": [
+              {
+                "facilityId": "facility-soundstage-07",
+                "slot": 0
+              },
+              {
+                "facilityId": "facility-soundstage-12",
+                "slot": 0
+              }
+            ]
+          },
+          {
+            "capability": "set-scenery",
+            "available": [
+              {
+                "facilityId": "facility-scenery-shop",
+                "slot": 0
+              },
+              {
+                "facilityId": "facility-scenery-shop",
+                "slot": 1
+              }
+            ]
+          },
+          {
+            "capability": "post",
+            "available": [
+              {
+                "facilityId": "facility-post-building",
+                "slot": 0
+              },
+              {
+                "facilityId": "facility-post-building",
+                "slot": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "actualWeek": 45,
+      "engagements": {
+        "productions": [],
+        "writing": [],
+        "research": []
+      },
+      "targetReady": {
+        "assessment": {
+          "actualStrength": 60.24468148832871,
+          "perceivedStrength": 60.24468148832871
+        },
+        "commissionedWeek": 8,
+        "conceptId": "c-00",
+        "dueWeek": null,
+        "id": "script-0000",
+        "productionId": null,
+        "promise": {
+          "genre": "drama",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "reservation": null,
+        "rewriteCount": 0,
+        "shape": {
+          "ending": "bittersweet",
+          "midpoint": "revelation",
+          "opening": "slowSetup"
+        },
+        "status": "ready",
+        "writerId": "authored-0003",
+        "writerIds": [
+          "authored-0003"
+        ]
+      },
+      "targetDraft": {
+        "id": "script-0002",
+        "conceptId": "c-02",
+        "writerId": "authored-0001",
+        "writerIds": [
+          "authored-0001"
+        ],
+        "shape": {
+          "opening": "slowSetup",
+          "midpoint": "revelation",
+          "ending": "bittersweet"
+        },
+        "promise": {
+          "genre": "comedy",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "status": "drafting",
+        "rewriteCount": 0,
+        "commissionedWeek": 45,
+        "dueWeek": 46,
+        "assessment": null,
+        "reservation": {
+          "projectId": "script-0002",
+          "facilityId": "facility-development-casting",
+          "capability": "development-casting",
+          "slot": 0
+        },
+        "productionId": null
+      },
+      "other": {
+        "id": "script-0003",
+        "conceptId": "c-03",
+        "writerId": "authored-0003",
+        "writerIds": [
+          "authored-0003"
+        ],
+        "shape": {
+          "opening": "slowSetup",
+          "midpoint": "revelation",
+          "ending": "bittersweet"
+        },
+        "promise": {
+          "genre": "romance",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "status": "drafting",
+        "rewriteCount": 0,
+        "commissionedWeek": 45,
+        "dueWeek": 46,
+        "assessment": null,
+        "reservation": {
+          "projectId": "script-0003",
+          "facilityId": "facility-development-casting",
+          "capability": "development-casting",
+          "slot": 1
+        },
+        "productionId": null
+      },
+      "readyFresh": 45,
+      "readyTake": 50,
+      "draftingFresh": 46,
+      "draftingTake": 51,
+      "resources": {
+        "claims": [
+          {
+            "key": "facility:facility-development-casting:0",
+            "facilitySlotKey": "facility-development-casting:0",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "slot": 0,
+            "capability": "development-casting",
+            "owner": "screenplay",
+            "ownerId": "script-0002",
+            "status": "drafting",
+            "reservation": {
+              "projectId": "script-0002",
+              "facilityId": "facility-development-casting",
+              "capability": "development-casting",
+              "slot": 0
+            }
+          },
+          {
+            "key": "facility:facility-development-casting:1",
+            "facilitySlotKey": "facility-development-casting:1",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "slot": 1,
+            "capability": "development-casting",
+            "owner": "screenplay",
+            "ownerId": "script-0003",
+            "status": "drafting",
+            "reservation": {
+              "projectId": "script-0003",
+              "facilityId": "facility-development-casting",
+              "capability": "development-casting",
+              "slot": 1
+            }
+          },
+          {
+            "key": "mount:facility-soundstage-12",
+            "facilitySlotKey": null,
+            "kind": "mount",
+            "facilityId": "facility-soundstage-12",
+            "slot": null,
+            "capability": null,
+            "owner": "set",
+            "ownerId": "set-1",
+            "set": {
+              "blueprintId": "set-house-generic",
+              "completesWeek": null,
+              "condition": 100,
+              "genreWeights": {
+                "adventure": 0.5,
+                "comedy": 0.5,
+                "crime": 0.5,
+                "drama": 0.5,
+                "horror": 0.5,
+                "romance": 0.5
+              },
+              "id": "set-1",
+              "mountedOn": "facility-soundstage-12",
+              "name": "Stage 12 House Set",
+              "novelty": 1,
+              "priorityGenre": "drama",
+              "quality": 45,
+              "setType": "generic-interior",
+              "status": "standing"
+            }
+          },
+          {
+            "key": "mount:facility-soundstage-07",
+            "facilitySlotKey": null,
+            "kind": "mount",
+            "facilityId": "facility-soundstage-07",
+            "slot": null,
+            "capability": null,
+            "owner": "set",
+            "ownerId": "set-2",
+            "set": {
+              "blueprintId": "set-grand-ballroom",
+              "completesWeek": null,
+              "condition": 100,
+              "genreWeights": {
+                "adventure": 0.25,
+                "comedy": 0.7,
+                "crime": 0.5,
+                "drama": 0.7,
+                "horror": 0.25,
+                "romance": 0.9
+              },
+              "id": "set-2",
+              "mountedOn": "facility-soundstage-07",
+              "name": "Grand Ballroom",
+              "novelty": 1,
+              "priorityGenre": "romance",
+              "quality": 85,
+              "setType": "grand-ballroom",
+              "status": "standing"
+            }
+          }
+        ],
+        "screenplay": [
+          {
+            "owner": "screenplay",
+            "ownerId": "script-0002",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "capability": "development-casting",
+            "slot": 0
+          },
+          {
+            "owner": "screenplay",
+            "ownerId": "script-0003",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "capability": "development-casting",
+            "slot": 1
+          }
+        ],
+        "actualDev": [
+          {
+            "owner": "screenplay",
+            "ownerId": "script-0002",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "capability": "development-casting",
+            "slot": 0
+          },
+          {
+            "owner": "screenplay",
+            "ownerId": "script-0003",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "capability": "development-casting",
+            "slot": 1
+          }
+        ],
+        "freeDev": [],
+        "others": [
+          {
+            "capability": "soundstage",
+            "available": [
+              {
+                "facilityId": "facility-soundstage-07",
+                "slot": 0
+              },
+              {
+                "facilityId": "facility-soundstage-12",
+                "slot": 0
+              }
+            ]
+          },
+          {
+            "capability": "set-scenery",
+            "available": [
+              {
+                "facilityId": "facility-scenery-shop",
+                "slot": 0
+              },
+              {
+                "facilityId": "facility-scenery-shop",
+                "slot": 1
+              }
+            ]
+          },
+          {
+            "capability": "post",
+            "available": [
+              {
+                "facilityId": "facility-post-building",
+                "slot": 0
+              },
+              {
+                "facilityId": "facility-post-building",
+                "slot": 1
+              }
+            ]
+          }
+        ]
+      },
+      "retainedForTarget": [
+        {
+          "owner": "screenplay",
+          "ownerId": "script-0003",
+          "kind": "facility",
+          "facilityId": "facility-development-casting",
+          "capability": "development-casting",
+          "slot": 1
+        }
+      ],
+      "usableAtTargetDue": [
+        0
+      ]
+    }
+  ],
+  "acceptedActions": [
+    {
+      "action": {
+        "kind": "commissionScript",
+        "project": {
+          "conceptId": "c-02",
+          "writerId": "authored-0001",
+          "shape": {
+            "opening": "slowSetup",
+            "midpoint": "revelation",
+            "ending": "bittersweet"
+          },
+          "promise": {
+            "genre": "comedy",
+            "intendedSegments": [
+              "adult"
+            ],
+            "ranges": {
+              "intimacy": [
+                -0.5,
+                0.5
+              ],
+              "kineticEnergy": [
+                -0.5,
+                0.5
+              ],
+              "tonalWeight": [
+                -0.5,
+                0.5
+              ]
+            }
+          }
+        }
+      },
+      "accepted": true,
+      "beforeCash": 24701506,
+      "afterCash": 24701506,
+      "project": {
+        "id": "script-0002",
+        "conceptId": "c-02",
+        "writerId": "authored-0001",
+        "writerIds": [
+          "authored-0001"
+        ],
+        "shape": {
+          "opening": "slowSetup",
+          "midpoint": "revelation",
+          "ending": "bittersweet"
+        },
+        "promise": {
+          "genre": "comedy",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "status": "drafting",
+        "rewriteCount": 0,
+        "commissionedWeek": 45,
+        "dueWeek": 46,
+        "assessment": null,
+        "reservation": {
+          "projectId": "script-0002",
+          "facilityId": "facility-development-casting",
+          "capability": "development-casting",
+          "slot": 0
+        },
+        "productionId": null
+      },
+      "resources": {
+        "claims": [
+          {
+            "key": "facility:facility-development-casting:0",
+            "facilitySlotKey": "facility-development-casting:0",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "slot": 0,
+            "capability": "development-casting",
+            "owner": "screenplay",
+            "ownerId": "script-0002",
+            "status": "drafting",
+            "reservation": {
+              "projectId": "script-0002",
+              "facilityId": "facility-development-casting",
+              "capability": "development-casting",
+              "slot": 0
+            }
+          },
+          {
+            "key": "mount:facility-soundstage-12",
+            "facilitySlotKey": null,
+            "kind": "mount",
+            "facilityId": "facility-soundstage-12",
+            "slot": null,
+            "capability": null,
+            "owner": "set",
+            "ownerId": "set-1",
+            "set": {
+              "blueprintId": "set-house-generic",
+              "completesWeek": null,
+              "condition": 100,
+              "genreWeights": {
+                "adventure": 0.5,
+                "comedy": 0.5,
+                "crime": 0.5,
+                "drama": 0.5,
+                "horror": 0.5,
+                "romance": 0.5
+              },
+              "id": "set-1",
+              "mountedOn": "facility-soundstage-12",
+              "name": "Stage 12 House Set",
+              "novelty": 1,
+              "priorityGenre": "drama",
+              "quality": 45,
+              "setType": "generic-interior",
+              "status": "standing"
+            }
+          },
+          {
+            "key": "mount:facility-soundstage-07",
+            "facilitySlotKey": null,
+            "kind": "mount",
+            "facilityId": "facility-soundstage-07",
+            "slot": null,
+            "capability": null,
+            "owner": "set",
+            "ownerId": "set-2",
+            "set": {
+              "blueprintId": "set-grand-ballroom",
+              "completesWeek": null,
+              "condition": 100,
+              "genreWeights": {
+                "adventure": 0.25,
+                "comedy": 0.7,
+                "crime": 0.5,
+                "drama": 0.7,
+                "horror": 0.25,
+                "romance": 0.9
+              },
+              "id": "set-2",
+              "mountedOn": "facility-soundstage-07",
+              "name": "Grand Ballroom",
+              "novelty": 1,
+              "priorityGenre": "romance",
+              "quality": 85,
+              "setType": "grand-ballroom",
+              "status": "standing"
+            }
+          }
+        ],
+        "screenplay": [
+          {
+            "owner": "screenplay",
+            "ownerId": "script-0002",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "capability": "development-casting",
+            "slot": 0
+          }
+        ],
+        "actualDev": [
+          {
+            "owner": "screenplay",
+            "ownerId": "script-0002",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "capability": "development-casting",
+            "slot": 0
+          }
+        ],
+        "freeDev": [
+          1
+        ],
+        "others": [
+          {
+            "capability": "soundstage",
+            "available": [
+              {
+                "facilityId": "facility-soundstage-07",
+                "slot": 0
+              },
+              {
+                "facilityId": "facility-soundstage-12",
+                "slot": 0
+              }
+            ]
+          },
+          {
+            "capability": "set-scenery",
+            "available": [
+              {
+                "facilityId": "facility-scenery-shop",
+                "slot": 0
+              },
+              {
+                "facilityId": "facility-scenery-shop",
+                "slot": 1
+              }
+            ]
+          },
+          {
+            "capability": "post",
+            "available": [
+              {
+                "facilityId": "facility-post-building",
+                "slot": 0
+              },
+              {
+                "facilityId": "facility-post-building",
+                "slot": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "action": {
+        "kind": "commissionScript",
+        "project": {
+          "conceptId": "c-03",
+          "writerId": "authored-0003",
+          "shape": {
+            "opening": "slowSetup",
+            "midpoint": "revelation",
+            "ending": "bittersweet"
+          },
+          "promise": {
+            "genre": "romance",
+            "intendedSegments": [
+              "adult"
+            ],
+            "ranges": {
+              "intimacy": [
+                -0.5,
+                0.5
+              ],
+              "kineticEnergy": [
+                -0.5,
+                0.5
+              ],
+              "tonalWeight": [
+                -0.5,
+                0.5
+              ]
+            }
+          }
+        }
+      },
+      "accepted": true,
+      "beforeCash": 24701506,
+      "afterCash": 24701506,
+      "project": {
+        "id": "script-0003",
+        "conceptId": "c-03",
+        "writerId": "authored-0003",
+        "writerIds": [
+          "authored-0003"
+        ],
+        "shape": {
+          "opening": "slowSetup",
+          "midpoint": "revelation",
+          "ending": "bittersweet"
+        },
+        "promise": {
+          "genre": "romance",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "status": "drafting",
+        "rewriteCount": 0,
+        "commissionedWeek": 45,
+        "dueWeek": 46,
+        "assessment": null,
+        "reservation": {
+          "projectId": "script-0003",
+          "facilityId": "facility-development-casting",
+          "capability": "development-casting",
+          "slot": 1
+        },
+        "productionId": null
+      },
+      "resources": {
+        "claims": [
+          {
+            "key": "facility:facility-development-casting:0",
+            "facilitySlotKey": "facility-development-casting:0",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "slot": 0,
+            "capability": "development-casting",
+            "owner": "screenplay",
+            "ownerId": "script-0002",
+            "status": "drafting",
+            "reservation": {
+              "projectId": "script-0002",
+              "facilityId": "facility-development-casting",
+              "capability": "development-casting",
+              "slot": 0
+            }
+          },
+          {
+            "key": "facility:facility-development-casting:1",
+            "facilitySlotKey": "facility-development-casting:1",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "slot": 1,
+            "capability": "development-casting",
+            "owner": "screenplay",
+            "ownerId": "script-0003",
+            "status": "drafting",
+            "reservation": {
+              "projectId": "script-0003",
+              "facilityId": "facility-development-casting",
+              "capability": "development-casting",
+              "slot": 1
+            }
+          },
+          {
+            "key": "mount:facility-soundstage-12",
+            "facilitySlotKey": null,
+            "kind": "mount",
+            "facilityId": "facility-soundstage-12",
+            "slot": null,
+            "capability": null,
+            "owner": "set",
+            "ownerId": "set-1",
+            "set": {
+              "blueprintId": "set-house-generic",
+              "completesWeek": null,
+              "condition": 100,
+              "genreWeights": {
+                "adventure": 0.5,
+                "comedy": 0.5,
+                "crime": 0.5,
+                "drama": 0.5,
+                "horror": 0.5,
+                "romance": 0.5
+              },
+              "id": "set-1",
+              "mountedOn": "facility-soundstage-12",
+              "name": "Stage 12 House Set",
+              "novelty": 1,
+              "priorityGenre": "drama",
+              "quality": 45,
+              "setType": "generic-interior",
+              "status": "standing"
+            }
+          },
+          {
+            "key": "mount:facility-soundstage-07",
+            "facilitySlotKey": null,
+            "kind": "mount",
+            "facilityId": "facility-soundstage-07",
+            "slot": null,
+            "capability": null,
+            "owner": "set",
+            "ownerId": "set-2",
+            "set": {
+              "blueprintId": "set-grand-ballroom",
+              "completesWeek": null,
+              "condition": 100,
+              "genreWeights": {
+                "adventure": 0.25,
+                "comedy": 0.7,
+                "crime": 0.5,
+                "drama": 0.7,
+                "horror": 0.25,
+                "romance": 0.9
+              },
+              "id": "set-2",
+              "mountedOn": "facility-soundstage-07",
+              "name": "Grand Ballroom",
+              "novelty": 1,
+              "priorityGenre": "romance",
+              "quality": 85,
+              "setType": "grand-ballroom",
+              "status": "standing"
+            }
+          }
+        ],
+        "screenplay": [
+          {
+            "owner": "screenplay",
+            "ownerId": "script-0002",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "capability": "development-casting",
+            "slot": 0
+          },
+          {
+            "owner": "screenplay",
+            "ownerId": "script-0003",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "capability": "development-casting",
+            "slot": 1
+          }
+        ],
+        "actualDev": [
+          {
+            "owner": "screenplay",
+            "ownerId": "script-0002",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "capability": "development-casting",
+            "slot": 0
+          },
+          {
+            "owner": "screenplay",
+            "ownerId": "script-0003",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "capability": "development-casting",
+            "slot": 1
+          }
+        ],
+        "freeDev": [],
+        "others": [
+          {
+            "capability": "soundstage",
+            "available": [
+              {
+                "facilityId": "facility-soundstage-07",
+                "slot": 0
+              },
+              {
+                "facilityId": "facility-soundstage-12",
+                "slot": 0
+              }
+            ]
+          },
+          {
+            "capability": "set-scenery",
+            "available": [
+              {
+                "facilityId": "facility-scenery-shop",
+                "slot": 0
+              },
+              {
+                "facilityId": "facility-scenery-shop",
+                "slot": 1
+              }
+            ]
+          },
+          {
+            "capability": "post",
+            "available": [
+              {
+                "facilityId": "facility-post-building",
+                "slot": 0
+              },
+              {
+                "facilityId": "facility-post-building",
+                "slot": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "counters": {
+    "advanceAttempts": 0,
+    "advanceInvoked": 0,
+    "advanceCompleted": 0,
+    "actionAttempts": 2,
+    "actionsAccepted": 2,
+    "quotes": {
+      "Q13": 5,
+      "Q14": 4
+    },
+    "hardAdvanceAttempts": 0,
+    "hardActions": 2,
+    "hardQuotes": {
+      "Q13": 5,
+      "Q14": 4
+    },
+    "capturePrefixAdvances": 0,
+    "oldTestHelpersImported": false,
+    "operations": [
+      {
+        "action": {
+          "kind": "commissionScript",
+          "project": {
+            "conceptId": "c-02",
+            "writerId": "authored-0001",
+            "shape": {
+              "opening": "slowSetup",
+              "midpoint": "revelation",
+              "ending": "bittersweet"
+            },
+            "promise": {
+              "genre": "comedy",
+              "intendedSegments": [
+                "adult"
+              ],
+              "ranges": {
+                "intimacy": [
+                  -0.5,
+                  0.5
+                ],
+                "kineticEnergy": [
+                  -0.5,
+                  0.5
+                ],
+                "tonalWeight": [
+                  -0.5,
+                  0.5
+                ]
+              }
+            }
+          }
+        },
+        "accepted": true,
+        "beforeCash": 24701506,
+        "afterCash": 24701506
+      },
+      {
+        "action": {
+          "kind": "commissionScript",
+          "project": {
+            "conceptId": "c-03",
+            "writerId": "authored-0003",
+            "shape": {
+              "opening": "slowSetup",
+              "midpoint": "revelation",
+              "ending": "bittersweet"
+            },
+            "promise": {
+              "genre": "romance",
+              "intendedSegments": [
+                "adult"
+              ],
+              "ranges": {
+                "intimacy": [
+                  -0.5,
+                  0.5
+                ],
+                "kineticEnergy": [
+                  -0.5,
+                  0.5
+                ],
+                "tonalWeight": [
+                  -0.5,
+                  0.5
+                ]
+              }
+            }
+          }
+        },
+        "accepted": true,
+        "beforeCash": 24701506,
+        "afterCash": 24701506
+      }
+    ],
+    "phases": [
+      {
+        "name": "genuine45",
+        "complete": true
+      },
+      {
+        "name": "firstCommission45",
+        "complete": true
+      },
+      {
+        "name": "secondCommission45",
+        "complete": true
+      }
+    ]
+  },
+  "interpretation": [
+    "Actor0001 real drafting engagement moves other-Ready earliest fresh45/take50 to fresh46/take51; identical due58 changes RA to FRAGILE, due51 impossible and due59 RA.",
+    "Own script0002 remains permanently unavailable to its credited writer as a cast beneficiary despite wide due112.",
+    "Second public commission fills development slots0/1. Identical Ready request changes RA to FRAGILE for actual capacity; identical drafting target remains RA because only its own due46 slot0 is exempted, while unrelated script0003/slot1 remains held.",
+    "Actual state stays45. The query at46 is prospective admission, not observed arrival or completion.",
+    "No new legacy46 comparison is performed in this standalone slice; prior evidence remains unchanged."
+  ],
+  "limits": [
+    "No actual46 completion, casting-session reservation exemption, other-resource congestion, current-profession retirement or cross-owner runtime case.",
+    "No new promise attachment, fulfillment, stock production, rival policy or full-suite qualification.",
+    "In-memory save identities are observations, not newly retained fixtures.",
+    "No production change: Save40/projection55/evaluator7."
+  ],
+  "next": "1263-C source may now be prepared under frozen A/F/B. Separate independent D, parent integration/publication and1264 types cap0 /1265 Q15 cap13 remain required."
+}

@@ -1,5 +1,34 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — Writer/resource checks passed; stock-film source next
+
+Executed/published `9290240721d8817b3d422d81d41f85ed5e34bd46` matched GitHub.
+1261 root compiler PASS33.468s;1262 Q13/Q14 both PASS, zero filtered,6.794s
+recorder. All1,683 consumed files,138 manual pins,index/stage and fixed-source
+guards stayed exact. Actual zero advances,two accepted public commissions,nine
+complete quotes,three completed caches.1260-I/J/K close author,reviewer,parent
+attribution. Q13 separates finite writing delay from same-picture writer credit;
+Q14 fills both development slots and exempts only the target screenplay's own
+known-due reservation. Actual state remains45; query46 is not an attained state.
+No production change: Save40/projection55/evaluator7. Fourteen core leaves have
+passed across six separate selections; see [coverage](P4P5-VERIFICATION-STATUS.md).
+
+The existing test specialist is now preparing1263-C under accepted A/F/B:
+standalone Q15 from existing generated Save31 bound52, exactly five public actions
+including release commitment64 and hard13 advances52→65. Preserve the old20 takes
+and every actual new mixed-owner fact; qualify the real stock target's null script
+reference through release65. No input builder,prefix replay,new fixture or rescue.
+Independent1263-D precedes parent application/publication,1264 root types(cap0),
+then1265 Q15(cap13). No1263 runtime result exists yet.
+
+1266-A/F/B separately accept a later three-query/zero-action/zero-advance plan for
+requested Actor retirement after real profession transitions in genuine Save38
+natural208. Preserve its manifest's historical V37 provenance/parity FAIL. No1266
+source or runtime release yet. Parent remains sole live production/integration/
+heavy owner; the same two specialists retain staged-test and independent-review
+ownership. Continue authorized P14/P15/P16/specified program. Earlier failures and
+scope/timing limits stay recorded. Unity/native and Owner campaign access deferred.
+
 ## CURRENT — Writer/resource test source applied; qualification next
 
 Published checkpoint `fed0cf0f3f1b0dce24e59efdba17bdb0eb6d036b` matched GitHub.
