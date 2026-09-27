@@ -1,0 +1,620 @@
+{
+  "status": "BOUNDED_LOGIC_PASS",
+  "time": "2026-09-27T20:47:37.231791+00:00",
+  "sourceSha": "c49cff82112421883d9b5cf5d4cbb023baddf7ec",
+  "gates": [
+    {
+      "name": "1252-retained-controls-types",
+      "start": "2026-09-27T20:37:42.654Z",
+      "end": "2026-09-27T20:38:16.920Z",
+      "advanceCap": 0,
+      "manualPins": 93,
+      "record": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1252-retained-controls-types.json",
+        "bytes": 634,
+        "sha256": "8411e7eedb79bd5f5006c80f4ee0c6b674288fccf5af42be8b7c870b6f034a6c"
+      },
+      "raw": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1252-retained-controls-types.txt",
+        "bytes": 340,
+        "sha256": "6280c18255c4626e8563710e3410373efa25003994f21b2c422688316d043ece"
+      },
+      "preflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1252-retained-controls-types-preflight.json",
+        "bytes": 23931,
+        "sha256": "988e8c66a5556790507d51bd49da40912ae18a64fea06529559ee90500954294"
+      },
+      "postflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1252-retained-controls-types-postflight.json",
+        "bytes": 24618,
+        "sha256": "17c69cca9522c198401a4e682d1fbf66d04d9a574e1969a905c6b0d274d4121b"
+      }
+    },
+    {
+      "name": "1253-retained-controls-runtime",
+      "start": "2026-09-27T20:38:31.030Z",
+      "end": "2026-09-27T20:38:57.890Z",
+      "advanceCap": 47,
+      "manualPins": 93,
+      "record": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1253-retained-controls-runtime.json",
+        "bytes": 706,
+        "sha256": "e9db70c1aa4fec80db221a5c2f0d8d852898934762db035e0b0ce7b06bf890b8"
+      },
+      "raw": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1253-retained-controls-runtime.txt",
+        "bytes": 36862,
+        "sha256": "72d0c24b458b7bd0781f4ca128e9968c5731e073cd20b27ece817aa446b19616"
+      },
+      "preflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1253-retained-controls-runtime-preflight.json",
+        "bytes": 23932,
+        "sha256": "3daea3f127e4518c1020eebc10a6f51b7aece41ece41cf943ea722e324c4c34d"
+      },
+      "postflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1253-retained-controls-runtime-postflight.json",
+        "bytes": 24626,
+        "sha256": "c858a2644e85f7f1e93de455a32dad97af6159201707f62608a478667b2af0d1"
+      }
+    }
+  ],
+  "testSource": {
+    "path": "tests/p14p4p5-opportunities.test.ts",
+    "bytes": 78825,
+    "sha256": "205bf41b2ee5e0f9c0f0dd9b772f07174c117cbc79ad55e0309ca54cefa52422"
+  },
+  "author": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-I-retained-authority-verification-attribution.md",
+    "bytes": 10745,
+    "sha256": "e3f2cd27af72a3d6c079b770e34c46d454d6dbc612246311f307d0fafbd795f8"
+  },
+  "markers": {
+    "lines": 78,
+    "bytes": 34775,
+    "sha256": "9c47169fd64f27c81afff5605fdea06566562f489aefdab34796fcc91a2d55c8"
+  },
+  "legacy": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1230-legacy46-baseline.txt",
+    "bytes": 1226,
+    "sha256": "36921548246e8ec4cc2241353cf62fa1e9868cc037a62e2a8a1a0bf26cc35342",
+    "literalEqual": true
+  },
+  "observed": {
+    "1249-P4P5-WAIVER-CHAIN": {
+      "actualWeek": 52,
+      "chain": [
+        {
+          "promiseId": "promise-0",
+          "version": 7,
+          "issuerStudioId": "studio-de11f27b-player",
+          "beneficiaryPersonId": "authored-0006",
+          "windowStartWeek": 52,
+          "dueWeekExclusive": 112,
+          "feasibilityReceipt": {
+            "classification": "REASONABLY_ACHIEVABLE",
+            "bottleneck": null,
+            "inputsDigest": "3160c5ca761b98dd",
+            "rulesVersion": 7,
+            "week": 52
+          },
+          "progress": 0,
+          "evidenceRefs": [],
+          "outcome": "WAIVED",
+          "outcomeWeek": 52,
+          "outcomeCause": "this person accepted the substitute promise \"promise-1\" in place of it",
+          "outcomeEventId": "talent-market-event-5",
+          "contractId": "studio-de11f27b-player:contract:authored-0006:52:player-32",
+          "supersededByPromiseId": "promise-1",
+          "family": "PREFERRED_GENRE_OPPORTUNITY",
+          "predicate": {
+            "kind": "genreOpportunity",
+            "count": 1,
+            "seatClass": "allCast",
+            "genre": "drama"
+          }
+        },
+        {
+          "promiseId": "promise-1",
+          "version": 7,
+          "issuerStudioId": "studio-de11f27b-player",
+          "beneficiaryPersonId": "authored-0006",
+          "windowStartWeek": 53,
+          "dueWeekExclusive": 112,
+          "feasibilityReceipt": {
+            "classification": "REASONABLY_ACHIEVABLE",
+            "bottleneck": null,
+            "inputsDigest": "10ff1b4390668161",
+            "rulesVersion": 7,
+            "week": 52
+          },
+          "progress": 0,
+          "evidenceRefs": [],
+          "outcome": "WAIVED",
+          "outcomeWeek": 52,
+          "outcomeCause": "this person accepted the substitute promise \"promise-2\" in place of it",
+          "outcomeEventId": "talent-market-event-6",
+          "contractId": "studio-de11f27b-player:contract:authored-0006:52:player-32",
+          "supersededByPromiseId": "promise-2",
+          "family": "PREFERRED_GENRE_OPPORTUNITY",
+          "predicate": {
+            "kind": "genreOpportunity",
+            "count": 1,
+            "seatClass": "lead",
+            "genre": "drama"
+          }
+        },
+        {
+          "promiseId": "promise-2",
+          "version": 7,
+          "issuerStudioId": "studio-de11f27b-player",
+          "beneficiaryPersonId": "authored-0006",
+          "windowStartWeek": 54,
+          "dueWeekExclusive": 112,
+          "feasibilityReceipt": {
+            "classification": "REASONABLY_ACHIEVABLE",
+            "bottleneck": null,
+            "inputsDigest": "08094cc08430e208",
+            "rulesVersion": 7,
+            "week": 52
+          },
+          "progress": 0,
+          "evidenceRefs": [],
+          "outcome": "WAIVED",
+          "outcomeWeek": 52,
+          "outcomeCause": "this person accepted the substitute promise \"promise-3\" in place of it",
+          "outcomeEventId": "talent-market-event-7",
+          "contractId": "studio-de11f27b-player:contract:authored-0006:52:player-32",
+          "supersededByPromiseId": "promise-3",
+          "family": "SPECIFIC_PROJECT",
+          "predicate": {
+            "kind": "projectOpportunity",
+            "count": 1,
+            "seatClass": "lead",
+            "scriptProjectId": "script-0000"
+          }
+        },
+        {
+          "promiseId": "promise-3",
+          "version": 7,
+          "issuerStudioId": "studio-de11f27b-player",
+          "beneficiaryPersonId": "authored-0006",
+          "windowStartWeek": 55,
+          "dueWeekExclusive": 112,
+          "feasibilityReceipt": {
+            "classification": "REASONABLY_ACHIEVABLE",
+            "bottleneck": null,
+            "inputsDigest": "6c91b82d00109929",
+            "rulesVersion": 7,
+            "week": 52
+          },
+          "progress": 0,
+          "evidenceRefs": [],
+          "outcome": null,
+          "outcomeWeek": null,
+          "outcomeCause": null,
+          "outcomeEventId": null,
+          "contractId": "studio-de11f27b-player:contract:authored-0006:52:player-32",
+          "supersededByPromiseId": null,
+          "family": "SPECIFIC_PROJECT",
+          "predicate": {
+            "kind": "projectOpportunity",
+            "count": 1,
+            "seatClass": "lead",
+            "scriptProjectId": "script-0000"
+          }
+        }
+      ],
+      "additionalAdvances": 0,
+      "counters": {
+        "Q05": {
+          "binding": {
+            "attempted": 7,
+            "reserved": 7,
+            "invoked": 7,
+            "completed": 7
+          },
+          "workflow": {
+            "attempted": 13,
+            "reserved": 13,
+            "invoked": 13,
+            "completed": 13
+          }
+        },
+        "Q06": {
+          "binding": {
+            "attempted": 0,
+            "reserved": 0,
+            "invoked": 0,
+            "completed": 0
+          },
+          "workflow": {
+            "attempted": 0,
+            "reserved": 0,
+            "invoked": 0,
+            "completed": 0
+          }
+        }
+      }
+    },
+    "1249-P4P5-COMMITTED-WITNESS": {
+      "actualWeek": 60,
+      "request": {
+        "family": "SPECIFIC_PROJECT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0001",
+        "startWeek": 0,
+        "termWeeks": 208,
+        "windowStartWeek": 60,
+        "dueWeekExclusive": 112,
+        "predicate": {
+          "kind": "projectOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "scriptProjectId": "script-0001"
+        }
+      },
+      "contract": {
+        "annualSalary": 314062,
+        "endWeekExclusive": 208,
+        "signingBonus": 56531,
+        "startWeek": 0,
+        "talentId": "authored-0001",
+        "termWeeks": 208
+      },
+      "employmentId": "studio-de11f27b-player:contract:authored-0001:0:player-25",
+      "target": {
+        "id": "script-0001",
+        "conceptId": "c-01",
+        "writerId": "authored-0003",
+        "status": "ready"
+      },
+      "independentUnion": [
+        {
+          "promiseId": "promise-0",
+          "version": 7,
+          "issuerStudioId": "studio-de11f27b-player",
+          "beneficiaryPersonId": "authored-0006",
+          "windowStartWeek": 52,
+          "dueWeekExclusive": 112,
+          "feasibilityReceipt": {
+            "classification": "REASONABLY_ACHIEVABLE",
+            "bottleneck": null,
+            "inputsDigest": "3160c5ca761b98dd",
+            "rulesVersion": 7,
+            "week": 52
+          },
+          "progress": 0,
+          "evidenceRefs": [],
+          "outcome": null,
+          "outcomeWeek": null,
+          "outcomeCause": null,
+          "outcomeEventId": null,
+          "contractId": "studio-de11f27b-player:contract:authored-0006:52:player-32",
+          "supersededByPromiseId": null,
+          "family": "PREFERRED_GENRE_OPPORTUNITY",
+          "predicate": {
+            "kind": "genreOpportunity",
+            "count": 1,
+            "seatClass": "allCast",
+            "genre": "drama"
+          }
+        }
+      ],
+      "actualQuoteSelections": [
+        {
+          "sameState": true,
+          "sameRequest": true,
+          "stateUnchanged": true,
+          "requestUnchanged": true,
+          "from": 60,
+          "rows": [
+            {
+              "promiseId": "promise-0",
+              "version": 7,
+              "issuerStudioId": "studio-de11f27b-player",
+              "beneficiaryPersonId": "authored-0006",
+              "windowStartWeek": 52,
+              "dueWeekExclusive": 112,
+              "feasibilityReceipt": {
+                "classification": "REASONABLY_ACHIEVABLE",
+                "bottleneck": null,
+                "inputsDigest": "3160c5ca761b98dd",
+                "rulesVersion": 7,
+                "week": 52
+              },
+              "progress": 0,
+              "evidenceRefs": [],
+              "outcome": null,
+              "outcomeWeek": null,
+              "outcomeCause": null,
+              "outcomeEventId": null,
+              "contractId": "studio-de11f27b-player:contract:authored-0006:52:player-32",
+              "supersededByPromiseId": null,
+              "family": "PREFERRED_GENRE_OPPORTUNITY",
+              "predicate": {
+                "kind": "genreOpportunity",
+                "count": 1,
+                "seatClass": "allCast",
+                "genre": "drama"
+              }
+            }
+          ]
+        }
+      ],
+      "witness": {
+        "productionId": "prod-0052",
+        "remainingTicks": 5,
+        "startTick": 52,
+        "cast": {
+          "lead": "authored-0006",
+          "antagonist": "authored-0001",
+          "support": "authored-0005"
+        },
+        "directorId": "authored-0002",
+        "shootingStatus": "scheduled",
+        "blocker": null
+      },
+      "heldTake": 61,
+      "commonTake": 61,
+      "directRelease": 65,
+      "releaseFloor": 65,
+      "fresh": 65,
+      "newTake": 70,
+      "claims": [
+        {
+          "kind": "facility",
+          "facilityId": "facility-soundstage-07",
+          "slot": 0,
+          "owner": "production",
+          "ownerId": "prod-0052"
+        },
+        {
+          "kind": "facility",
+          "facilityId": "facility-scenery-shop",
+          "slot": 0,
+          "owner": "production",
+          "ownerId": "prod-0052"
+        },
+        {
+          "kind": "facility",
+          "facilityId": "facility-soundstage-07",
+          "slot": null,
+          "owner": "shootingTask",
+          "ownerId": "prod-0052"
+        },
+        {
+          "kind": "mount",
+          "facilityId": "facility-soundstage-12",
+          "slot": null,
+          "owner": "set",
+          "ownerId": "set-1"
+        },
+        {
+          "kind": "mount",
+          "facilityId": "facility-soundstage-07",
+          "slot": null,
+          "owner": "set",
+          "ownerId": "set-2"
+        },
+        {
+          "kind": "set",
+          "facilityId": "facility-soundstage-07",
+          "slot": null,
+          "owner": "production",
+          "ownerId": "prod-0052"
+        }
+      ],
+      "capacity": [
+        {
+          "capability": "development-casting",
+          "available": [
+            {
+              "facilityId": "facility-development-casting",
+              "slot": 0
+            },
+            {
+              "facilityId": "facility-development-casting",
+              "slot": 1
+            }
+          ]
+        },
+        {
+          "capability": "soundstage",
+          "available": [
+            {
+              "facilityId": "facility-soundstage-12",
+              "slot": 0
+            }
+          ]
+        },
+        {
+          "capability": "set-scenery",
+          "available": [
+            {
+              "facilityId": "facility-scenery-shop",
+              "slot": 1
+            }
+          ]
+        },
+        {
+          "capability": "post",
+          "available": [
+            {
+              "facilityId": "facility-post-building",
+              "slot": 0
+            },
+            {
+              "facilityId": "facility-post-building",
+              "slot": 1
+            }
+          ]
+        }
+      ],
+      "receipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "b738bc8a947041fa",
+        "rulesVersion": 7,
+        "week": 60
+      },
+      "counters": {
+        "Q05": {
+          "binding": {
+            "attempted": 7,
+            "reserved": 7,
+            "invoked": 7,
+            "completed": 7
+          },
+          "workflow": {
+            "attempted": 13,
+            "reserved": 13,
+            "invoked": 13,
+            "completed": 13
+          }
+        },
+        "Q06": {
+          "binding": {
+            "attempted": 0,
+            "reserved": 0,
+            "invoked": 0,
+            "completed": 0
+          },
+          "workflow": {
+            "attempted": 0,
+            "reserved": 0,
+            "invoked": 0,
+            "completed": 0
+          }
+        }
+      }
+    },
+    "1227-P4P5-COUNTERS": {
+      "tickAttempts": 20,
+      "outsideRouteAttempts": 0,
+      "outsideNamedRoutesHardCap": 0,
+      "hardTickCap": 94,
+      "routeCounts": {
+        "Q05": {
+          "binding": {
+            "attempted": 7,
+            "reserved": 7,
+            "invoked": 7,
+            "completed": 7
+          },
+          "workflow": {
+            "attempted": 13,
+            "reserved": 13,
+            "invoked": 13,
+            "completed": 13
+          }
+        },
+        "Q06": {
+          "binding": {
+            "attempted": 0,
+            "reserved": 0,
+            "invoked": 0,
+            "completed": 0
+          },
+          "workflow": {
+            "attempted": 0,
+            "reserved": 0,
+            "invoked": 0,
+            "completed": 0
+          }
+        }
+      },
+      "cachedPhases": [
+        {
+          "name": "genuine45",
+          "completed": true
+        }
+      ],
+      "routeCachedPhases": [
+        {
+          "name": "Q05:attached45",
+          "completed": true
+        },
+        {
+          "name": "Q05:bound52",
+          "completed": true
+        },
+        {
+          "name": "Q05:released",
+          "completed": true
+        }
+      ],
+      "publicOperations": [
+        {
+          "route": "Q05",
+          "week": 45,
+          "kind": "submitProposal"
+        },
+        {
+          "route": "Q05",
+          "week": 45,
+          "kind": "attachPromise"
+        },
+        {
+          "route": "Q05",
+          "week": 52,
+          "kind": "greenlightScriptProject"
+        },
+        {
+          "route": "Q05",
+          "week": 55,
+          "kind": "setProductionSetupRecipe",
+          "productionId": "prod-0052"
+        },
+        {
+          "route": "Q05",
+          "week": 60,
+          "kind": "assignShootingDirector",
+          "productionId": "prod-0052"
+        },
+        {
+          "route": "Q05",
+          "week": 60,
+          "kind": "scheduleShootingTake",
+          "productionId": "prod-0052"
+        },
+        {
+          "route": "Q05",
+          "week": 64,
+          "kind": "commitPictureToRelease",
+          "productionId": "prod-0052"
+        },
+        {
+          "route": "Q05",
+          "week": 52,
+          "kind": "waivePromise"
+        },
+        {
+          "route": "Q05",
+          "week": 52,
+          "kind": "waivePromise"
+        },
+        {
+          "route": "Q05",
+          "week": 52,
+          "kind": "waivePromise"
+        }
+      ]
+    }
+  },
+  "timing": {
+    "compilerSeconds": 34.266,
+    "runtimeRecorderSeconds": 26.86,
+    "vitestSeconds": 25.86,
+    "fileMilliseconds": 22698,
+    "leavesMilliseconds": {
+      "Q07": 9881,
+      "Q08": 4652,
+      "Q09": 7352,
+      "Q10": 809
+    },
+    "declaredLeafMilliseconds": 60000
+  },
+  "qualified": "Four selected Q07/Q08/Q09/Q10 controls passed; six original filtered. Nonempty strict subject suffix negatives, pure mask/material/window matching, actual narrowing waiver chain, one real nonempty committed-reservation witness. Actual20 advances; selected hard47. All gates/source/index/manual guards exact.",
+  "limits": "Not same-run ten-case or full1226/P14/suite qualification. Released-material negative reaches surviving screenplay-link guard; downgrade is combined new-tag/facts, not isolated fact-only. Q10 pure singular quote has one independent committed reservation, not grouped/common-clock allocation or new production/outcome. No current-source broad latency guarantee. Prior Bridge synchronous overrun retained.",
+  "next": "1254 separately reviewed two-advance real screenplay drafting/review/rewrite status route from immutable45; parent integration/heavy owner, existing separate test/review specialists."
+}

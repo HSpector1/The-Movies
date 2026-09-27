@@ -1,5 +1,27 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — Four retained-authority controls passed; real status clocks next
+
+Published c49cff82112421883d9b5cf5d4cbb023baddf7ec matched GitHub. 1252 root
+compiler PASS34.266s; 1253 Q07/Q08/Q09/Q10 all4 PASS, six filtered,26.860s.
+All source/index/manual guards exact; actual20 advances (Q05 binding7/workflow13),
+within selected47; Q06/outside0. 1249-I/K retain attribution and parent closure.
+The complete 1,226-byte legacy line is literally unchanged. Actual narrowing
+waivers and one independent nonempty committed-reservation witness now pass.
+Q10 remains one pure singular quote, not grouped allocation or a new production.
+Combined-authority downgrade is not isolated fact-only proof. Full1226 stays open.
+
+Begin1254: separately reviewed screenplay-status route from immutable week45,
+fixed c-02/Writer0003/Actor0005, two advances only; real commission, Review,
+rewrite, Review and acceptance. New standalone test preserves the entire78,825-byte
+existing file and its completed bodies. No execution before reviewed source is
+published. No capture/prefix/Bridge/UI rerun, seed or alternate-person rescue.
+
+Continue the authorized P14/P15/P16/specified program. Parent alone owns live
+production/integration and heavy execution; the same two specialists own test
+source and independent review. Prior Bridge B55-2 synchronous228.867s overrun
+remains recorded; Unity/native and Owner campaign remain deferred.
+
 ## CURRENT — Four retained-authority controls applied; qualification next
 
 Published5189f7ff2028dd93b49f7a0744f5e1091224b75f matched GitHub. Parent applied
