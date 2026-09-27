@@ -1,5 +1,23 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — Stock-film test applied; compiler and Q15 next
+
+Parent applied exact1263-C/D on published7be8f67c.1263-E records the new
+25,170-byte test9222330c and34 unchanged protected files; production unchanged.
+Publish then1264 root types(cap0) and1265 isolatedQ15(cap13): fixed generated31
+bound52 input, five public actions including release commitment64, actual stock
+null-project subject through release65. All runtime premises remain unexecuted;
+no old body/prefix replay, new fixture or rescue branch. Parent sole live writer
+and heavy owner; existing specialists retain separate test/review ownership.
+
+1260-I/J/K closed both Q13/Q14 with zero advances,two commissions,nine quotes.
+Fourteen core leaves passed across six separate selections, not a combined suite.
+Future1266-A/F/B and1269-A/B accept bounded retirement/cross-owner pure-query
+plans; no source release yet.1272-A/F is an unreviewed future historical finishing
+proposal with five queries,two existing-task actions and one advance312→313.
+Preserve all historical provenance, original failures and timeout limitations.
+Continue authorized program; Unity/native and Owner campaign access deferred.
+
 ## CURRENT — Writer/resource checks passed; stock-film source next
 
 Executed/published `9290240721d8817b3d422d81d41f85ed5e34bd46` matched GitHub.

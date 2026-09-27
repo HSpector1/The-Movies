@@ -1,0 +1,33 @@
+{
+  "timeUtc": "2026-09-27T22:22:38.613510+00:00",
+  "parentHeadBeforeApplication": "7be8f67c8df5d592c76b8141349e2ecc39a533de",
+  "operation": "Apply exactly one reviewed standalone Q15 new-file patch; all34 protected files unchanged",
+  "manifest": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-stock-subject-source-manifest.json",
+    "bytes": 9136,
+    "sha256": "9dbe98eae36de4ddd46feddc9b2eeddb6dd3ece60a9075f636d7dd1e779ff767"
+  },
+  "handback": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-C-stock-subject-source-handback.md",
+    "bytes": 9991,
+    "sha256": "42b126a829dceaad1b2908961430899a3d03c012730c111ac5b5559ac15ae831"
+  },
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-D-stock-subject-source-review.md",
+    "bytes": 8203,
+    "sha256": "78f35aca12f6752dd3e81b7465ca214a820b093265f80b3cbccf5ace6b6fccc5"
+  },
+  "applied": {
+    "path": "tests/p14p4p5-stock-subject.test.ts",
+    "bytes": 25170,
+    "sha256": "9222330c3734325fb934c2d98c684cb3b71eaa3611c4748c5accbeb963e6ebd3"
+  },
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-stock-subject.patch",
+    "bytes": 25690,
+    "sha256": "4c1df6ee29042f3c29de7781786afef1846cb24f6a1b5c228240f79a9d9656d1"
+  },
+  "all42FilePinsAndDecodedInputExact": true,
+  "gates": "Publish first;1264 types cap0 then1265 isolatedQ15 cap13/5actions/0quotes, one heavy process",
+  "runtimeStatus": "unexecuted"
+}
