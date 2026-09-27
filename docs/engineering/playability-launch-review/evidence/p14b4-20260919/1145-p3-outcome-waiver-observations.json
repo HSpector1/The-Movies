@@ -1,0 +1,159 @@
+{
+  "scope": "actual closed1144 root types and1145 selected D08/D12 only; author performed no project evaluation",
+  "source": "5750b00fbe32c74bc145f07cc2f49200c11762f3",
+  "files": 1,
+  "selected": 2,
+  "failed": 2,
+  "filtered": 8,
+  "todo": 0,
+  "unhandledErrorDiagnostic": false,
+  "diagnosticGroups": 2,
+  "sharedHeaderGroups": 0,
+  "diagnostics": [
+    {
+      "id": "tests/p14p3-directing-promises.test.ts > P3 second slice: cancellation and same-domain waiver > D08 keeps earned work and attributes cancellation, due and termination outcomes",
+      "primary": "AssertionError: expected { promiseId: 'promise-0', \u2026(16) } to match object { progress: 1, \u2026(3) }\n(20 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  Object {\n    \"evidenceRefs\": Array [\n      \"first-take-event-24\",\n    ],\n-   \"outcome\": \"BROKEN\",\n-   \"outcomeWeek\": 108,\n+   \"outcome\": null,\n+   \"outcomeWeek\": null,\n    \"progress\": 1,\n  }",
+      "primarySha256": "e7ffbe09cd6e071c934228699d261375925a66d653ed299a014e40c8a94e67fd",
+      "completeTail": "AssertionError: expected { promiseId: 'promise-0', \u2026(16) } to match object { progress: 1, \u2026(3) }\n(20 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  Object {\n    \"evidenceRefs\": Array [\n      \"first-take-event-24\",\n    ],\n-   \"outcome\": \"BROKEN\",\n-   \"outcomeWeek\": 108,\n+   \"outcome\": null,\n+   \"outcomeWeek\": null,\n    \"progress\": 1,\n  }\n\n \u276f tests/p14p3-directing-promises.test.ts:451:20\n    449|       .toEqual(promiseOwner.trustDrivers(late.before, null, issuer(lat\u2026\n    450|     const broken = actualPromise(late.after, late.promiseId)\n    451|     expect(broken).toMatchObject({ progress: 1, evidenceRefs: [late.fi\u2026\n       |                    ^\n    452|     expect(broken.outcomeCause).toMatch(/cancel/i); outcomeReceipt(lat\u2026\n    453|     expect(outcomesFor(late.after, broken)).toHaveLength(outcomesFor(l\u2026",
+      "tailSha256": "8a141a733e89bf7ec1ecef423bdff38a533264193c73ba4292fb0560f03e13da",
+      "printedFrames": [
+        "\u276f tests/p14p3-directing-promises.test.ts:451:20"
+      ]
+    },
+    {
+      "id": "tests/p14p3-directing-promises.test.ts > P3 second slice: cancellation and same-domain waiver > D12 waives only forward same-domain remaining work on the same contract",
+      "primary": "AssertionError: expected 'a directing promise cannot be substit\u2026' to be null\n\n- Expected: \nnull\n\n+ Received: \n\"a directing promise cannot be substituted\"",
+      "primarySha256": "214af2b91f3889da68c7b7dbc1f61efac843870eb9fab02aefa37953684e292e",
+      "completeTail": "AssertionError: expected 'a directing promise cannot be substit\u2026' to be null\n\n- Expected: \nnull\n\n+ Received: \n\"a directing promise cannot be substituted\"\n\n \u276f tests/p14p3-directing-promises.test.ts:515:113\n    513|     expect(input.original.predicate.count - input.original.progress).t\u2026\n    514|     expect(input.receipt).toMatchObject({ classification: 'REASONABLY_\u2026\n    515|     expect(promiseOwner.waiverAccepted(input.state, input.original, in\u2026\n       |                                                                                                                 ^\n    516|     expect(bytes(input.state)).toBe(before); expect(input.state.rngSta\u2026\n    517|     const change = waived(), original = actualPromise(change.state, ch\u2026",
+      "tailSha256": "cb1e04dadb4e95424276f369436d02c9b62a39c9472421efe34642d3f84f9d70",
+      "printedFrames": [
+        "\u276f tests/p14p3-directing-promises.test.ts:515:113"
+      ]
+    }
+  ],
+  "markers": {
+    "1143-P3-OUTCOME-COUNTERS": {
+      "playerCalls": 65,
+      "playerCap": 208,
+      "branches": [
+        {
+          "name": "cancelBefore",
+          "actualTicks": 56,
+          "cap": 64,
+          "startWeek": 52
+        },
+        {
+          "name": "cancelAfter",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": null
+        },
+        {
+          "name": "waiver",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": null
+        }
+      ],
+      "total": 121,
+      "cap": 400
+    },
+    "1133-P3-COUNTERS": {
+      "actualTicks": 65,
+      "cap": 208,
+      "cachedPhases": [
+        {
+          "name": "created0",
+          "completed": true
+        },
+        {
+          "name": "managedEmpty8",
+          "completed": true
+        },
+        {
+          "name": "ready10",
+          "completed": true
+        },
+        {
+          "name": "cases45",
+          "completed": true
+        },
+        {
+          "name": "attached45",
+          "completed": true
+        },
+        {
+          "name": "bound52",
+          "completed": true
+        },
+        {
+          "name": "cancelBefore108",
+          "completed": true
+        },
+        {
+          "name": "firstFilm",
+          "completed": true
+        },
+        {
+          "name": "waiverInput",
+          "completed": true
+        }
+      ]
+    }
+  },
+  "legacy4": {
+    "bytes": 851,
+    "sha256": "182cf54d3a2fbb8bb2fc55cf74e97e220923d634ef454b816d3770d12dcb055e",
+    "literalEquals": [
+      "1135-p3-legacy4-markers.txt",
+      "1141-p3-legacy4-markers.txt"
+    ]
+  },
+  "inputs": [
+    {
+      "file": "1144-p3-outcome-waiver-root-types.json",
+      "bytes": 603,
+      "sha256": "fdc168db470ad80ff701600dcc387591a123836582a0f017fe86c5c84bcdec9e"
+    },
+    {
+      "file": "1144-p3-outcome-waiver-root-types.txt",
+      "bytes": 319,
+      "sha256": "a0e9709a3b98c78b319fa3eacf9680c07c57b17a9c1ccc1bbb23dfb5d542f215"
+    },
+    {
+      "file": "1144-p3-outcome-waiver-root-types.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "1144-p3-publication-gate.json",
+      "bytes": 304,
+      "sha256": "a76c4934a6b3219fe0c9bb2b84061a635945de09276648c58af5ccec3acaf82f"
+    },
+    {
+      "file": "1145-p3-outcome-waiver-core.json",
+      "bytes": 720,
+      "sha256": "d19f69c83145cf37593a667e1f0e23f20b8b77aceb50d1191938151fc576a722"
+    },
+    {
+      "file": "1145-p3-outcome-waiver-core.txt",
+      "bytes": 5239,
+      "sha256": "2346500441f3663657c4e8a4793a63de684c2457ed6a105ab4059754d1c8640e"
+    },
+    {
+      "file": "1145-p3-outcome-waiver-core.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "1145-p3-publication-gate.json",
+      "bytes": 915,
+      "sha256": "4fdbe8dc60e1c722f91a6df875332b0b8229d603beabb64244a00d8b8c343e52"
+    },
+    {
+      "file": "1145-p3-legacy4-markers.txt",
+      "bytes": 851,
+      "sha256": "182cf54d3a2fbb8bb2fc55cf74e97e220923d634ef454b816d3770d12dcb055e"
+    }
+  ]
+}

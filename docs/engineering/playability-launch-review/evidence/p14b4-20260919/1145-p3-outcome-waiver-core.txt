@@ -1,0 +1,73 @@
+{"sourceSha":"5750b00fbe32c74bc145f07cc2f49200c11762f3","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14p3-directing-promises.test.ts","--testNamePattern","D(?:08|12) "],"node":"v20.20.2","start":"2026-09-27T12:44:50.794Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 second slice: cancellation and same-domain waiver > D08 keeps earned work and attributes cancellation, due and termination outcomes
+1133-P3-LEGACY4 {"week":8,"rngState":"1557239868,672280863,464522958,2878174094","receipts":[{"draft":{"family":"APPEARANCE_COUNT","predicate":{"count":1},"issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":112},"receipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"9a5006d1107172a3","rulesVersion":4,"week":8}},{"draft":{"family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"lead"},"issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":112},"receipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"3dbf55ccb67dfa2c","rulesVersion":4,"week":8}}]}
+
+stdout | tests/p14p3-directing-promises.test.ts
+1143-P3-OUTCOME-COUNTERS {"playerCalls":65,"playerCap":208,"branches":[{"name":"cancelBefore","actualTicks":56,"cap":64,"startWeek":52},{"name":"cancelAfter","actualTicks":0,"cap":64,"startWeek":null},{"name":"waiver","actualTicks":0,"cap":64,"startWeek":null}],"total":121,"cap":400}
+1133-P3-COUNTERS {"actualTicks":65,"cap":208,"cachedPhases":[{"name":"created0","completed":true},{"name":"managedEmpty8","completed":true},{"name":"ready10","completed":true},{"name":"cases45","completed":true},{"name":"attached45","completed":true},{"name":"bound52","completed":true},{"name":"cancelBefore108","completed":true},{"name":"firstFilm","completed":true},{"name":"waiverInput","completed":true}]}
+
+ ❯ |core| tests/p14p3-directing-promises.test.ts (10 tests | 2 failed | 8 skipped) 9670ms
+   × P3 second slice: cancellation and same-domain waiver > D08 keeps earned work and attributes cancellation, due and termination outcomes 7755ms
+     → expected { promiseId: 'promise-0', …(16) } to match object { progress: 1, …(3) }
+(20 matching properties omitted from actual)
+   × P3 second slice: cancellation and same-domain waiver > D12 waives only forward same-domain remaining work on the same contract 1912ms
+     → expected 'a directing promise cannot be substit…' to be null
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 second slice: cancellation and same-domain waiver > D08 keeps earned work and attributes cancellation, due and termination outcomes
+AssertionError: expected { promiseId: 'promise-0', …(16) } to match object { progress: 1, …(3) }
+(20 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "evidenceRefs": Array [
+      "first-take-event-24",
+    ],
+-   "outcome": "BROKEN",
+-   "outcomeWeek": 108,
++   "outcome": null,
++   "outcomeWeek": null,
+    "progress": 1,
+  }
+
+ ❯ tests/p14p3-directing-promises.test.ts:451:20
+    449|       .toEqual(promiseOwner.trustDrivers(late.before, null, issuer(lat…
+    450|     const broken = actualPromise(late.after, late.promiseId)
+    451|     expect(broken).toMatchObject({ progress: 1, evidenceRefs: [late.fi…
+       |                    ^
+    452|     expect(broken.outcomeCause).toMatch(/cancel/i); outcomeReceipt(lat…
+    453|     expect(outcomesFor(late.after, broken)).toHaveLength(outcomesFor(l…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 second slice: cancellation and same-domain waiver > D12 waives only forward same-domain remaining work on the same contract
+AssertionError: expected 'a directing promise cannot be substit…' to be null
+
+- Expected: 
+null
+
++ Received: 
+"a directing promise cannot be substituted"
+
+ ❯ tests/p14p3-directing-promises.test.ts:515:113
+    513|     expect(input.original.predicate.count - input.original.progress).t…
+    514|     expect(input.receipt).toMatchObject({ classification: 'REASONABLY_…
+    515|     expect(promiseOwner.waiverAccepted(input.state, input.original, in…
+       |                                                                                                                 ^
+    516|     expect(bytes(input.state)).toBe(before); expect(input.state.rngSta…
+    517|     const change = waived(), original = actualPromise(change.state, ch…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 8 skipped (10)
+   Start at  14:44:51
+   Duration  12.84s (transform 1.91s, setup 0ms, collect 2.56s, tests 9.67s, environment 0ms, prepare 142ms)
+

@@ -1,5 +1,31 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — D08/D12 semantic failures preserved; matching correction under review
+
+1144 root types PASS on published5750b00fbe32c74bc145f07cc2f49200c11762f3,
+35.660s. 1145 exact D08/D12 run closed child1/fixedSource:true/empty consumed diff,
+12:44:50.794–12:45:04.728UTC (13.934s):2FAIL,8 intentionally filtered declarations.
+All reached setup succeeds. Actual121 ticks=65player+56cancelBefore; other branches0.
+D08 reaches lawful scheduled cancellation108 and independent before/after physical
+bounds, then incorrectly retains outcome:null instead of BROKEN108. D12 reaches
+partial61/RA6/non-Distrusted premises, then explicitly refuses the pure waiver
+acceptance call. The actual waiver action and later controls are not yet reached.
+Final1145-A/B qualify these first semantic failures; exact851B old4 marker remains.
+
+Parent has a matching three-file production candidate, still unverified and
+uncommitted: Director cancellation dispatch/conduct, same-domain waiver/mint and
+Action typing, current39-only successor relations after whole-state admission.
+Frozen38/32 readers and old count-only semantics are preserved. Candidate patch
+10,269B/3e5c428b490b4f33abde8322ac0f57aa2230afbf82068cf0710ba09255fe7c4f.
+Existing reviewer owns1146 source review; test author has yielded consumed paths.
+Parent alone owns production/integration and the next1146 root compiler, then
+publication/exactremoteverification and1147's unchanged two-leaf argv.
+
+No corrected behavior PASS is claimed. Preserve observed failures, not just the
+anticipated ones; post-take conduct/due/termination and waiver success/persistence
+remain unexecuted. All1143 limits, pending D09–D11/rival/Bridge/UI/consumer work
+and the broader authorized P14 onward program remain. One heavy process at a time.
+
 ## CURRENT — D08/D12 tests frozen; first compiler and behavior runs next
 
 1143-A handback freezes only the two existing P3 test/helper paths against

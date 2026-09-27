@@ -1,0 +1,12 @@
+{
+  "time": "2026-09-27T12:44:42.446964+00:00",
+  "local": "5750b00fbe32c74bc145f07cc2f49200c11762f3",
+  "remote": "5750b00fbe32c74bc145f07cc2f49200c11762f3",
+  "consumedDiff": "empty",
+  "untrackedConsumedSource": [],
+  "statusBefore": "?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1144-p3-outcome-waiver-root-types.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1144-p3-outcome-waiver-root-types.patch\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1144-p3-outcome-waiver-root-types.txt\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1144-p3-publication-gate.json",
+  "wholeWorktreeClean": false,
+  "allowedDocumentationOutputs": "closed1144 compiler records and successful1144 publication gate",
+  "rootTypes": "1144 PASS",
+  "launchCondition": "Separate test execution only after successful preflight exit"
+}
