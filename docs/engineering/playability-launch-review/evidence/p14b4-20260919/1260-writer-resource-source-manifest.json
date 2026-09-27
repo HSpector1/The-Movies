@@ -1,0 +1,253 @@
+{
+  "kind": "1260-writer-resource-test-source",
+  "sourceOnly": true,
+  "preparationHead": "fed0cf0f3f1b0dce24e59efdba17bdb0eb6d036b",
+  "application": {
+    "target": "tests/p14p4p5-writer-resources.test.ts",
+    "preimage": null,
+    "liveTargetAbsent": true,
+    "postimage": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1260-writer-stage/tests/p14p4p5-writer-resources.test.ts",
+      "bytes": 23883,
+      "sha256": "4e2f660b54501150e016ec757e675163b1de972f804be3457f23444b45b6aed0"
+    },
+    "patch": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1260-writer-resource.patch",
+      "bytes": 24393,
+      "sha256": "53111943f78f7642bf09dac1e71667cf844e8c8618860a8b310341ac2edef498"
+    },
+    "operation": "add exactly one reviewed standalone file"
+  },
+  "authorities": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1260-A-active-writer-availability-proposal.md",
+      "bytes": 4741,
+      "sha256": "3e9deaca5756fde0f391d9485be8fa81ae113952cb44da066cd1bc2028606807"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1260-F-development-capacity-proposal.md",
+      "bytes": 4696,
+      "sha256": "06387d3fa533df088be5d3f5d20e0c5b211349381d58725194b53564e9d3aa8b"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1260-B-writer-and-development-plan-review.md",
+      "bytes": 5788,
+      "sha256": "ba141376c166035b1e24cb0ca75a526a72af4a79bfe4214294e1cb7358f13a0c"
+    }
+  ],
+  "protected": [
+    {
+      "path": "tests/p14p4p5-opportunities.test.ts",
+      "bytes": 78825,
+      "sha256": "205bf41b2ee5e0f9c0f0dd9b772f07174c117cbc79ad55e0309ca54cefa52422"
+    },
+    {
+      "path": "tests/helpers/p14p3-fixtures.ts",
+      "bytes": 78674,
+      "sha256": "389112bde75ccaab9e2d155a1df6e6dc279b78c7d6d531a582b04f27be5fba83"
+    },
+    {
+      "path": "tests/p14p3-directing-promises.test.ts",
+      "bytes": 98958,
+      "sha256": "1bcbbe03552f5815c3e88fc1f0937ef51f37d7b84ca0f3bd8fd693f5058e2e16"
+    },
+    {
+      "path": "src/core/index.ts",
+      "bytes": 48927,
+      "sha256": "211f99177eed29ba9a79ba7fc3f771c489f2e359d0e4115d3e61b99a2655ef3f"
+    },
+    {
+      "path": "src/core/types.ts",
+      "bytes": 121905,
+      "sha256": "ef3251ab81c56193bacc5ed9a52e6fd55e50f9d3800b76b7c1e39df1eefc2f9b"
+    },
+    {
+      "path": "src/core/save.ts",
+      "bytes": 474474,
+      "sha256": "88d1bab0db6c1b96c0895af9cdf09a353d8c16993791024bedbebd97cf3d0984"
+    },
+    {
+      "path": "src/core/tick.ts",
+      "bytes": 62182,
+      "sha256": "cd487a1b68f1b95582895ae73a9d9fb0c1d0300a2e1a212b0d83ae6bce30dcb9"
+    },
+    {
+      "path": "src/core/promises.ts",
+      "bytes": 110100,
+      "sha256": "4489e9ad16faad47d0f7cd8ab36b4a039c24151be8075b7cc35836aacfd670c2"
+    },
+    {
+      "path": "src/core/opportunityPromises.ts",
+      "bytes": 21851,
+      "sha256": "22883a39e5ea2c5925da38878f613383a9c846f2ea06d1d7b3ff3427ac2d0e3c"
+    },
+    {
+      "path": "src/core/firstTakeSubjects.ts",
+      "bytes": 6350,
+      "sha256": "2525b7e04a2449fbb91f8fb73765448eacf791f1854f5c054c093641f388993a"
+    },
+    {
+      "path": "src/core/actions.ts",
+      "bytes": 129205,
+      "sha256": "287e52ae7f3763a869c6ae75e49717a02ab20029b9a715aa85ae45bd7cd1e4c4"
+    },
+    {
+      "path": "src/core/scriptDevelopment.ts",
+      "bytes": 46802,
+      "sha256": "88ab848828a7eadad1a818a61d37cf0ab7d962ef06858c58d923ab50a56181b0"
+    },
+    {
+      "path": "src/core/castingSessions.ts",
+      "bytes": 24255,
+      "sha256": "497a8a32152e556378db96d8363be6de9a0719f2eed1fbec4a4fcfe222cf3a3b"
+    },
+    {
+      "path": "src/core/screenplay.ts",
+      "bytes": 26479,
+      "sha256": "1cb32a9ccd23dd7dc51d11cf080370feeb985de66fd36d4670c936ca6d1f929f"
+    },
+    {
+      "path": "src/core/tuning.ts",
+      "bytes": 136827,
+      "sha256": "bd6da50cf43ad7ec56ca1891ead4d6850ed2b03ecbdd853a06be5e3fbb70a541"
+    },
+    {
+      "path": "src/core/employment.ts",
+      "bytes": 27743,
+      "sha256": "7b0ffe9795014664dfee6e6ea57500cd5f28ac0e0fbb711e00ff964bca2d5c9d"
+    },
+    {
+      "path": "src/core/occupancy.ts",
+      "bytes": 31596,
+      "sha256": "e9f66c3d225d8fe9f47d52ce18fc1ca00c587d24ec84f4dc70e9b0ab29a85122"
+    },
+    {
+      "path": "src/core/aging.ts",
+      "bytes": 15022,
+      "sha256": "f0fa2af61d7b8cfaff9923be46c07c21134f899ec2321dccc618a1160aa75c34"
+    },
+    {
+      "path": "src/core/careerLifecycle.ts",
+      "bytes": 24706,
+      "sha256": "338510e570d2ace8bdeaa24b989fe7783c2d4e4250e1929eb56fc8f149c5d1f6"
+    },
+    {
+      "path": "src/core/hollywoodTick.ts",
+      "bytes": 30644,
+      "sha256": "4f5156c4cf47991936f2dd5b4a6ade9bf81609e27161fe40eb3d07d968614436"
+    },
+    {
+      "path": "src/core/operations.ts",
+      "bytes": 81366,
+      "sha256": "9935b09495df1d11f39bf3b1a37b244c3d7bf7d0994cd4c8ce286571b3be3411"
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 706,
+      "sha256": "f855dfc9191a0d63240d447bccac5e029530a74b83e12f467083f1393bbe6d4f"
+    },
+    {
+      "path": "vitest.config.ts",
+      "bytes": 176,
+      "sha256": "2939ba611a5c025c2974043c98c06af10aadd3065925103d3f506bd1f1d07faa"
+    },
+    {
+      "path": "vitest.workspace.ts",
+      "bytes": 1228,
+      "sha256": "2bb01ef4b7f9f02877e42b425e43f40e3905be769cd6f091cf61a3275563b446"
+    },
+    {
+      "path": "package.json",
+      "bytes": 2726,
+      "sha256": "031dadd99741140dae256481de76d98502bfb5855dee6f8eb46d043baa6fac9f"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 149287,
+      "sha256": "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de"
+    },
+    {
+      "path": "tests/p14p4p5-screenplay-status.test.ts",
+      "bytes": 26435,
+      "sha256": "496ea58490a0695410ab88bf98ca41830594718061ad9051c3e011e86b6d0506"
+    },
+    {
+      "path": "src/core/talentMarket.ts",
+      "bytes": 90843,
+      "sha256": "96dd8be9e682e5f614095968dee010ffe99dfc06dfd2de778cde7963667ada1e"
+    },
+    {
+      "path": "src/core/industryEmployment.ts",
+      "bytes": 2560,
+      "sha256": "51a4128847d310a735ae72ad9fa1ef3fc5fa698db2a6c195879abdcc0b6e0c39"
+    },
+    {
+      "path": "tests/p14p4p5-receipt-freeze.test.ts",
+      "bytes": 25498,
+      "sha256": "c1ee22dec887614a2b1489ca4c1578f670841e11fc0157a67921967674c913d3"
+    }
+  ],
+  "immutableInputs": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json",
+      "bytes": 11550,
+      "sha256": "a261fc3177527d05d5a8daf624de7af015df8c9a8fedd3e11b37fe1597a2f4b6"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/genuine-v39-p3-market-week45.json.gz",
+      "bytes": 86995,
+      "sha256": "12799a849b0b4aff49cd9707ea8c1b87c64b4e787ff261b2e9cf4b109a953117"
+    }
+  ],
+  "immutableRaw": {
+    "gzipPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/genuine-v39-p3-market-week45.json.gz",
+    "bytes": 751294,
+    "sha256": "e7401f2578a7ad151383ca905df4253c2bbd82d6823c406c28b7e76aa809c5af"
+  },
+  "commands": {
+    "types": [
+      "node_modules/.bin/tsc",
+      "--noEmit",
+      "-p",
+      "tsconfig.json"
+    ],
+    "runtime": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p4p5-writer-resources.test.ts",
+      "-t",
+      "Q1[34] "
+    ]
+  },
+  "selection": {
+    "selectedLeaves": 2,
+    "filteredLeaves": 0,
+    "declarations": [
+      "Q13 separates finite active-writing delay from permanent same-picture writer credit",
+      "Q14 retains unrelated development holds and exempts only the target screenplay reservation"
+    ],
+    "timeoutMs": 60000
+  },
+  "limits": {
+    "advanceAttemptsHard": 0,
+    "publicActionAttemptsExpectedAndHard": 2,
+    "quotesExpectedAndHard": {
+      "Q13": 5,
+      "Q14": 4
+    },
+    "totalQuotesExpected": 9,
+    "sharedFirstCommission": true,
+    "actualWeekForAllStates": 45,
+    "capturePrefixAdvances": 0,
+    "oldRouteImports": false,
+    "countsProspectiveUntilParentRuntime": true
+  },
+  "authorVerification": [
+    "full new-file patch reconstructed exactly in memory",
+    "text-only balanced delimiters and two declarations checked",
+    "all protected/immutable/authority pins rehashed",
+    "no compiler, tests, gameplay, project evaluation, live source/index or old artifact changes"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "status": "EXACT_REVIEWED_NEW_FILE_APPLIED",
+  "time": "2026-09-27T21:59:26.464778+00:00",
+  "preparationHead": "fed0cf0f3f1b0dce24e59efdba17bdb0eb6d036b",
+  "postimage": {
+    "path": "tests/p14p4p5-writer-resources.test.ts",
+    "bytes": 23883,
+    "sha256": "4e2f660b54501150e016ec757e675163b1de972f804be3457f23444b45b6aed0"
+  },
+  "protectedPinsExact": 30,
+  "authorities": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1260-C-writer-resource-source-handback.md",
+      "bytes": 7211,
+      "sha256": "54238ca8506bee328b6af60ad98032a2859441c5461684ebf7802cd6103d9f75"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1260-D-writer-resource-source-review.md",
+      "bytes": 6994,
+      "sha256": "2aa9a50ce005923cc904f27753386edbb743b73c873273eed98e1ba232f27d3c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1260-writer-resource-source-manifest.json",
+      "bytes": 8512,
+      "sha256": "53969597117d24f6d1b05f03f2413ec784d1bd8b387466ff210228c2e7780c84"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1260-writer-resource.patch",
+      "bytes": 24393,
+      "sha256": "53111943f78f7642bf09dac1e71667cf844e8c8618860a8b310341ac2edef498"
+    }
+  ],
+  "gateOrder": [
+    "1261-writer-resource-types",
+    "1262-writer-resource-runtime"
+  ],
+  "runtimeAdvanceCap": 0,
+  "executionYet": false
+}

@@ -1,5 +1,32 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — Writer/resource test source applied; qualification next
+
+Published checkpoint `fed0cf0f3f1b0dce24e59efdba17bdb0eb6d036b` matched GitHub.
+Parent applied exact1260-C/D; E records the23,883-byte new test `4e2f660b` and
+30 unchanged protected files. No production source changed. Publish, then1261
+root types and1262 isolated Q13/Q14; both hard0 advance caps. The new selection
+owns exactly two public commissions and nine pure quotes, with shared cached
+setup. Actual writing delay/credit refusal and full development-slot congestion/
+own-reservation exemption remain unexecuted prerequisites. No old test replay.
+
+Q12 is closed by1257-I/J/K on executed63a83558: corrected typesPASS36.660s,
+Q12 PASS1/zero filtered10.562s,seven advances. Actual root6 retains first freeze
+RA7 and real employment/price/payment. Equal-valued freeze/ranking limitation and
+original1258 compiler failure remain recorded. Twelve core leaves are qualified
+across five separate selections, not one combined run. See
+[P4P5-VERIFICATION-STATUS.md](P4P5-VERIFICATION-STATUS.md) for coverage and gaps.
+
+After1260 closure,1263-A/F/B approve source preparation for a stock-null route:
+existing generated Save31 input, five public actions including release commitment64,
+hard13 advances52→65, no prefix replay or fixture minting. No1263 source yet.
+1266-A is only a future three-query/zero-advance retirement proposal using genuine
+Save38 natural208 profession transitions; no execution or source release.
+Parent remains sole live production/integration/heavy owner, with the same two
+specialists owning staged tests and independent review. Continue authorized
+P14/P15/P16/specified program; retain earlier failures and timing limits.
+Unity/native and Owner campaign access remain deferred.
+
 ## CURRENT — Q12 passed; zero-advance writer/resource source next
 
 Executed source `63a83558574813e84e66b8909c7ffe308c8bf9f4` matched GitHub.
