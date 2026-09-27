@@ -1,5 +1,29 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — Independent declaration measurement passed; neighbor tests under maintenance
+
+Checkpoint96d84212edf5580edcdbe5f900b70253ec7ff53f is published with exact GitHub
+equality.1195 compiled the reviewed producer and its actual imported graph in4.441s,
+child0/no diagnostics, with the producer among193 listed files.1196 then completed
+16 renders in1.660s:8 positive fixtures twice,6 fixed outputs unchanged. F10/F11
+each measure406091 bytes with SHA256
+a9708ee36cb26c7a5fd48662c0bf705c364a42feeb796ade78a36432add3c092.
+Both gates retained fixed source, empty consumed diffs and unchanged manual
+producer/config/manifest pins and raw Git index. No heavy process is active.
+
+1197-A/B are final and independently reviewed KEEP in exactly five neighbor files.
+Publication precedes1198 Bridge types,1199 six targeted contract cases,
+1200 five waiver cases and1201 all28 classless cases.1197-C records parent adoption. Classless helpers reach the
+whole28-case file; its existing binding leaves advance gameplay and must not be
+called a zero-tick run. All actual current39 carriers use strict39 admission while
+historical readers remain strict. Keep source-attributed masked corrections distinct
+from the12 observed failure identities across1190–1192/1194. Production stays8ede2aef.
+
+Next1203-C prepares the remaining occupancy control on the existing bound52 branch:
+52 counted setup advances in a fresh process, zero added branch advances, no new
+route or capture. It remains unexecuted and releases no production correction.
+Remaining rival/slack/program limits and Unity/native/Owner deferrals still apply.
+
 ## CURRENT — Frozen neighbor attribution and independent measurement released
 
 1192-A/B and1193-A/B are final and parent-pin-verified.1194 separately observed two

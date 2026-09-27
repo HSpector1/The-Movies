@@ -1,0 +1,19 @@
+{
+  "sourceSha": "96d84212edf5580edcdbe5f900b70253ec7ff53f",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vite-node",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1193-p3-declaration-measurement.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T16:49:28.743Z",
+  "end": "2026-09-27T16:49:30.403Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "96d84212edf5580edcdbe5f900b70253ec7ff53f",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

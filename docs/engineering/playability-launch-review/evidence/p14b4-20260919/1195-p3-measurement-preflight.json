@@ -1,0 +1,41 @@
+{
+  "at": "2026-09-27T16:48:49.106554+00:00",
+  "head": "96d84212edf5580edcdbe5f900b70253ec7ff53f",
+  "remote": "96d84212edf5580edcdbe5f900b70253ec7ff53f",
+  "status": "",
+  "manualPins": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1193-p3-declaration-measurement.ts",
+      "bytes": 9210,
+      "sha256": "e722091ae8d0cd511b167181bf18387d4a935befcfad9087eadda56443ae37cb"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1193-p3-declaration-measurement.tsconfig.json",
+      "bytes": 179,
+      "sha256": "f27e9f6718abcdeaae1b244b4ea5b0aa8142a2ecfbd17e2cf17a372b17d2a2f5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1193-p3-declaration-source-manifest.json",
+      "bytes": 4291,
+      "sha256": "1d8a36b05ed40ebc59d2a4b86c83816e85244db59a2424876a0eb7d9a8e0d97b"
+    }
+  ],
+  "all19PinsVerified": true,
+  "rawIndexSha256": "432f31107d98efbeb38981b9566c65a66677dd737b0b5ae6a70faea6fff9e8f4",
+  "singleHeavyOwner": "parent",
+  "compilerCommand": [
+    "node_modules/.bin/tsc",
+    "--noEmit",
+    "-p",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1193-p3-declaration-measurement.tsconfig.json",
+    "--listFiles"
+  ],
+  "measurementEnv": {
+    "P3_DECLARATION_EXPECTED_HEAD": "96d84212edf5580edcdbe5f900b70253ec7ff53f",
+    "P3_DECLARATION_SOURCE_MANIFEST_SHA256": "1d8a36b05ed40ebc59d2a4b86c83816e85244db59a2424876a0eb7d9a8e0d97b"
+  },
+  "measurementCommand": [
+    "node_modules/.bin/vite-node",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1193-p3-declaration-measurement.ts"
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "at": "2026-09-27T16:49:54.051825+00:00",
+  "manualPinsBefore": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1193-p3-declaration-measurement.ts",
+      "bytes": 9210,
+      "sha256": "e722091ae8d0cd511b167181bf18387d4a935befcfad9087eadda56443ae37cb"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1193-p3-declaration-measurement.tsconfig.json",
+      "bytes": 179,
+      "sha256": "f27e9f6718abcdeaae1b244b4ea5b0aa8142a2ecfbd17e2cf17a372b17d2a2f5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1193-p3-declaration-source-manifest.json",
+      "bytes": 4291,
+      "sha256": "1d8a36b05ed40ebc59d2a4b86c83816e85244db59a2424876a0eb7d9a8e0d97b"
+    }
+  ],
+  "manualPinsAfter": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1193-p3-declaration-measurement.ts",
+      "bytes": 9210,
+      "sha256": "e722091ae8d0cd511b167181bf18387d4a935befcfad9087eadda56443ae37cb"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1193-p3-declaration-measurement.tsconfig.json",
+      "bytes": 179,
+      "sha256": "f27e9f6718abcdeaae1b244b4ea5b0aa8142a2ecfbd17e2cf17a372b17d2a2f5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1193-p3-declaration-source-manifest.json",
+      "bytes": 4291,
+      "sha256": "1d8a36b05ed40ebc59d2a4b86c83816e85244db59a2424876a0eb7d9a8e0d97b"
+    }
+  ],
+  "rawIndexSha256Before": "432f31107d98efbeb38981b9566c65a66677dd737b0b5ae6a70faea6fff9e8f4",
+  "rawIndexSha256After": "432f31107d98efbeb38981b9566c65a66677dd737b0b5ae6a70faea6fff9e8f4",
+  "guardsMatch": true,
+  "completion": "ALL_EIGHT_POSITIVES_MEASURED_TWICE_SIX_FIXED_UNCHANGED",
+  "identities": {
+    "F01_STRING_OR_NULL": {
+      "sha256": "797f92b1f532d61f21dad93ba8fea8da02dd5104c4f744213c9832cb2c1f6bdd",
+      "bytes": 452,
+      "deterministic": true,
+      "priorSha256": "797f92b1f532d61f21dad93ba8fea8da02dd5104c4f744213c9832cb2c1f6bdd",
+      "matchesPrior": true
+    },
+    "F02_OBJECT_OR_NULL": {
+      "sha256": "0fef8c834b895f9cf185af8f421357c642dc71984f1b4618a79eba9c4dd60e1f",
+      "bytes": 648,
+      "deterministic": true,
+      "priorSha256": "0fef8c834b895f9cf185af8f421357c642dc71984f1b4618a79eba9c4dd60e1f",
+      "matchesPrior": true
+    },
+    "F03_COMPATIBLE_OBJECTS": {
+      "sha256": "99f44add260a66d0eab17a86d3f743110277292606dff073a90a354bad335c68",
+      "bytes": 1072,
+      "deterministic": true,
+      "priorSha256": "99f44add260a66d0eab17a86d3f743110277292606dff073a90a354bad335c68",
+      "matchesPrior": true
+    },
+    "F04_DISCRIMINATED_OBJECTS": {
+      "sha256": "d878443418291974137b9affddf066d3b65d8d09286febebcafec35561a2fc5b",
+      "bytes": 5462,
+      "deterministic": true,
+      "priorSha256": "d878443418291974137b9affddf066d3b65d8d09286febebcafec35561a2fc5b",
+      "matchesPrior": true
+    },
+    "F09_ARRAY_ITEM_UNION": {
+      "sha256": "7c1f83b70b0e82152821b0c4a5e59bdedcf901f639445b45ec7ef49010e2af1b",
+      "bytes": 5087,
+      "deterministic": true,
+      "priorSha256": "7c1f83b70b0e82152821b0c4a5e59bdedcf901f639445b45ec7ef49010e2af1b",
+      "matchesPrior": true
+    },
+    "F10_CURRENT_QUOTE_UNIONS": {
+      "sha256": "a9708ee36cb26c7a5fd48662c0bf705c364a42feeb796ade78a36432add3c092",
+      "bytes": 406091,
+      "deterministic": true,
+      "priorSha256": "4ab4141390d2d17c35da0d1bf64cce841f1608103146b2cbca6212ab114a8cec",
+      "matchesPrior": false
+    },
+    "F11_CURRENT_COMMAND_UNION": {
+      "sha256": "a9708ee36cb26c7a5fd48662c0bf705c364a42feeb796ade78a36432add3c092",
+      "bytes": 406091,
+      "deterministic": true,
+      "priorSha256": "4ab4141390d2d17c35da0d1bf64cce841f1608103146b2cbca6212ab114a8cec",
+      "matchesPrior": false
+    },
+    "F12_P05_PRODUCTION_SENTINEL": {
+      "sha256": "78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6",
+      "bytes": 15018,
+      "deterministic": true,
+      "priorSha256": "78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6",
+      "matchesPrior": true
+    }
+  },
+  "actualTicks": 0,
+  "fixedSource": true,
+  "exitCode": 0
+}

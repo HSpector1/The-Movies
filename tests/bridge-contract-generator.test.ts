@@ -559,14 +559,14 @@ describe('CF-08 sound union-to-C# generation', () => {
       // P14B.5 (record 662, projection 48): the `priorityOrder` wire enum gains
       // `relationships` (thin), moving the whole-schema identity again. The
       // literal below is the schemaId of the checked-in
-      // generated/unity/project-studio-bridge.contract-manifest.json at e6475aca (946/1047),
+      // generated/unity/project-studio-bridge.contract-manifest.json at 96d84212 (1193/1196),
       // read independently of this test (never schemaIdentity(schema) itself).
-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 53 })
+      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 54 })
       expect(generated).toContain(
-        '// Schema identity: sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d',
+        '// Schema identity: sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d',
+        'sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -709,8 +709,12 @@ describe('CF-08 sound union-to-C# generation', () => {
         // C.3 projection53: independent1075 double renders, recorded1047 on
         // e6475aca, measure401842 bytes and4ab41413… for both whole-current
         // fixtures. All six fixed bodies, including F12, remain unchanged.
-        F10_CURRENT_QUOTE_UNIONS: '4ab4141390d2d17c35da0d1bf64cce841f1608103146b2cbca6212ab114a8cec',
-        F11_CURRENT_COMMAND_UNION: '4ab4141390d2d17c35da0d1bf64cce841f1608103146b2cbca6212ab114a8cec',
+        // P3 projection54: independent 1193 producer, recorded 1196 on
+        // 96d84212, renders all eight positives twice. Both current bodies are
+        // 406091 bytes / a9708ee3…; all six fixed bodies remain unchanged.
+        // This measurement precedes these pins and is not failure-derived.
+        F10_CURRENT_QUOTE_UNIONS: 'a9708ee36cb26c7a5fd48662c0bf705c364a42feeb796ade78a36432add3c092',
+        F11_CURRENT_COMMAND_UNION: 'a9708ee36cb26c7a5fd48662c0bf705c364a42feeb796ade78a36432add3c092',
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

@@ -1,0 +1,253 @@
+diff --git a/tests/bridge-contract-generator.test.ts b/tests/bridge-contract-generator.test.ts
+index b6d9ada6..ba99d82d 100644
+--- a/tests/bridge-contract-generator.test.ts
++++ b/tests/bridge-contract-generator.test.ts
+@@ -559,14 +559,14 @@ describe('CF-08 sound union-to-C# generation', () => {
+       // P14B.5 (record 662, projection 48): the `priorityOrder` wire enum gains
+       // `relationships` (thin), moving the whole-schema identity again. The
+       // literal below is the schemaId of the checked-in
+-      // generated/unity/project-studio-bridge.contract-manifest.json at e6475aca (946/1047),
++      // generated/unity/project-studio-bridge.contract-manifest.json at 96d84212 (1193/1196),
+       // read independently of this test (never schemaIdentity(schema) itself).
+-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 53 })
++      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 54 })
+       expect(generated).toContain(
+-        '// Schema identity: sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d',
++        '// Schema identity: sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302',
+       )
+       expect(schemaIdentity(schema)).toBe(
+-        'sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d',
++        'sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302',
+       )
+       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
+       expect(generated).toContain('public StudioCastingDraftPayload draft;')
+@@ -709,8 +709,12 @@ describe('CF-08 sound union-to-C# generation', () => {
+         // C.3 projection53: independent1075 double renders, recorded1047 on
+         // e6475aca, measure401842 bytes and4ab41413… for both whole-current
+         // fixtures. All six fixed bodies, including F12, remain unchanged.
+-        F10_CURRENT_QUOTE_UNIONS: '4ab4141390d2d17c35da0d1bf64cce841f1608103146b2cbca6212ab114a8cec',
+-        F11_CURRENT_COMMAND_UNION: '4ab4141390d2d17c35da0d1bf64cce841f1608103146b2cbca6212ab114a8cec',
++        // P3 projection54: independent 1193 producer, recorded 1196 on
++        // 96d84212, renders all eight positives twice. Both current bodies are
++        // 406091 bytes / a9708ee3…; all six fixed bodies remain unchanged.
++        // This measurement precedes these pins and is not failure-derived.
++        F10_CURRENT_QUOTE_UNIONS: 'a9708ee36cb26c7a5fd48662c0bf705c364a42feeb796ade78a36432add3c092',
++        F11_CURRENT_COMMAND_UNION: 'a9708ee36cb26c7a5fd48662c0bf705c364a42feeb796ade78a36432add3c092',
+         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
+       } as const
+       for (const [name, expectedHash] of Object.entries(expected)) {
+diff --git a/tests/bridge-p14b4-cast-class.test.ts b/tests/bridge-p14b4-cast-class.test.ts
+index 1c2aa05c..47dab44c 100644
+--- a/tests/bridge-p14b4-cast-class.test.ts
++++ b/tests/bridge-p14b4-cast-class.test.ts
+@@ -22,7 +22,7 @@ import { attachPromise } from '../src/core/promises.js'
+ import * as promiseModule from '../src/core/promises.js'
+ import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
+ import { careerIdentity } from '../src/core/talentSummary.js'
+-import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV38 } from '../src/core/save.js'
++import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV39 } from '../src/core/save.js'
+ import { advanceTo } from '../src/harness/p13a/fixtures.js'
+ import { provenanceRowFor, recomputeDue } from '../src/core/aging.js'
+ import type { GameState, ProfessionalPromiseV30 } from '../src/core/types.js'
+@@ -110,7 +110,7 @@ function base() {
+   // P14C.2b: the live alias is now GameStateV36, one further governed step --
+   // `convertV35ToV36`, adding every record's unused extension and every case's
+   // `expiry` variant.
+-  // 985: actual current38 lift before live reads/actions or synthetic age edits.
++  // 1197: actual current39 lift before live reads/actions or synthetic age edits.
+   const live = migrateToLive(convertV35ToV36(convertV34ToV35(convertV33ToV34(convertV32ToV33(convertV31ToV32(save))))))
+   let state: GameState = clone(live.state)
+   const originalRoots = clone(state.promises)
+@@ -124,7 +124,7 @@ function base() {
+   expect(state.operations.mode).toBe('managed')
+   expect(state.scriptDevelopment.mode).toBe('legacy')
+   expect(currentProposals(state, focus.beneficiaryPersonId)).toEqual([])
+-  validateSaveV38({ ...live, state, broadcastCache: state.broadcastItems })
++  validateSaveV39({ ...live, state, broadcastCache: state.broadcastItems })
+   return { state, talentId: focus.beneficiaryPersonId }
+ }
+ function p2(talentId: string, seatClass: SeatClass = 'lead'): P2Payload {
+@@ -360,7 +360,7 @@ function history(state: GameState, root: ProfessionalPromiseV30, seatClass: Seat
+   // carried the link at all, and reading it from there would pin `undefined`.
+   const live = state.promises.find((p) => p.promiseId === root.promiseId)!
+   const expected = { promiseId: root.promiseId, family: root.family, count: root.predicate.count,
+-    seatClass, windowStartWeek: root.windowStartWeek, dueWeekExclusive: root.dueWeekExclusive,
++    qualifyingRole: 'cast', seatClass, windowStartWeek: root.windowStartWeek, dueWeekExclusive: root.dueWeekExclusive,
+     contractId: root.contractId, outcome: root.outcome, outcomeWeek: root.outcomeWeek, outcomeCause: root.outcomeCause,
+     supersededByPromiseId: live.supersededByPromiseId, progress: live.progress }
+   const own = promiseRowsForPerson(state, root.beneficiaryPersonId, root.issuerStudioId)
+@@ -442,7 +442,7 @@ describe('P14B4 existing own/private/public carriers', () => {
+     // hand-written `talent[i].age` disagreeing with it is now refused), not a
+     // fabricated credit — same disclosed synthetic pure-read age input as before.
+     const state = withSyntheticAge(live.state, person.id, age)
+-    validateSaveV38({ ...live, state }) // disclosed synthetic pure-read age input, no fake credit
++    validateSaveV39({ ...live, state }) // disclosed synthetic pure-read age input, no fake credit
+     const before = clone(state)
+     const block = marketCaseProjection(state, person.id, player(state))!
+     const profile = peopleProjection(state).profiles.find((p) => p.talentId === person.id)!
+@@ -500,7 +500,7 @@ describe('P14B4 existing own/private/public carriers', () => {
+     const savedSession = new BridgeSession(brokenState, 'b4-saved-' + seatClass)
+     const saved = savedSession.save(control(savedSession, 'save-real-outcome'))
+     if (!saved.accepted) throw new Error(saved.message)
+-    expect(validateSaveV38(JSON.parse(saved.saveJson)).state.promises).toEqual(brokenState.promises)
++    expect(validateSaveV39(JSON.parse(saved.saveJson)).state.promises).toEqual(brokenState.promises)
+     const loaded = BridgeSession.fromSaveJson(saved.saveJson, 'b4-loaded-' + seatClass)
+     expect(loaded.gameState.promises).toEqual(brokenState.promises)
+     history(loaded.gameState, loaded.gameState.promises.find((p) => p.promiseId === broken.promiseId)!, seatClass)
+diff --git a/tests/bridge-p14b4-runtime47-compatibility.test.ts b/tests/bridge-p14b4-runtime47-compatibility.test.ts
+index 471002c9..c607d34e 100644
+--- a/tests/bridge-p14b4-runtime47-compatibility.test.ts
++++ b/tests/bridge-p14b4-runtime47-compatibility.test.ts
+@@ -23,6 +23,7 @@ import { exportSave, importSave, LIVE_SAVE_VERSION, migrateToLive, validateSaveV
+ const OUTGOING_46 = 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c'
+ const OUTGOING_51 = 'sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f' // 875/914: genuine outgoing51
+ const OUTGOING_52 = 'sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2' // genuine953 outgoing52; C.3 projection53
++const OUTGOING_53 = 'sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d' // genuine1117 outgoing53; P3 projection54
+ const PINS = {
+   gzip: '3db0599c6e183140b79c83880eb967dde37aecc0d178a85d192283893ea0cc34',
+   raw: 'e344be06db6794e9d1523c036befb4180595564ef8a3fb6e6062328e477e7699',
+@@ -116,7 +117,7 @@ beforeAll(() => {
+   expect(canonicalJson(prior) + '\n').toBe(raw)
+ })
+ 
+-describe('P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47', () => {
++describe('P14B4 genuine outgoing46 runtime compatibility — current Save39/projection54', () => {
+   it('pins genuine original46 artifact, producer authority, and two SAME-week DIFFERENT slots', () => {
+     const provenance = JSON.parse(readFileSync(artifact('genuine-projection46-runtime.provenance.json'), 'utf8'))
+     const manifest = JSON.parse(readFileSync(artifact('MANIFEST.json'), 'utf8'))
+@@ -176,15 +177,16 @@ describe('P14B4 genuine outgoing46 runtime compatibility — future Save30/proje
+     expect(current.state.talentMarket.proposals.filter((p) => p.promises.includes('promise-0'))).toEqual([])
+   })
+ 
+-  it('requires literal projection52/Save37 (875) and exact 40 prior IDs, excluding the running identity', () => {
++  it('requires literal projection54/Save39 and exact 42 prior IDs, excluding the running identity', () => {
+     expect(PROTOCOL_VERSION).toBe(4)
+-    expect(PROJECTION_VERSION).toBe(53)
+-    expect(LIVE_SAVE_VERSION).toBe(38)
++    expect(PROJECTION_VERSION).toBe(54)
++    expect(LIVE_SAVE_VERSION).toBe(39)
+     expect(SCHEMA_ID).not.toBe(OUTGOING_46)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51, OUTGOING_52].sort())
++    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51, OUTGOING_52, OUTGOING_53].sort())
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
++    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_53)).toBe('projection-v53')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
+   })
+ 
+diff --git a/tests/bridge-p14b8-waiver-surface.test.ts b/tests/bridge-p14b8-waiver-surface.test.ts
+index 38478a0d..2b7b5dcb 100644
+--- a/tests/bridge-p14b8-waiver-surface.test.ts
++++ b/tests/bridge-p14b8-waiver-surface.test.ts
+@@ -194,7 +194,7 @@ function keptAndBrokenState(): GameState {
+ 
+ // ── The wire draft (I2) and the envelope helpers, in the exact idiom of the four landed families ──
+ type WaiverSubstituteWire =
+-  | { family: 'APPEARANCE_COUNT'; count: number; windowStartWeek: number; dueWeekExclusive: number }
++  | { family: 'APPEARANCE_COUNT' | 'DIRECTING_COUNT'; count: number; windowStartWeek: number; dueWeekExclusive: number }
+   | { family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT'; count: number; windowStartWeek: number; dueWeekExclusive: number; seatClass: 'lead' | 'leadOrAntagonist' }
+ type WaiverDraftWire = { promiseId: string; substitute: WaiverSubstituteWire }
+ 
+@@ -730,22 +730,23 @@ describe('P14B.8 group10 — A6: the copy a player reads', () => {
+ })
+ 
+ // ═══════════════════════════════════════════════════════════════════════════════════════════════
+-// group11 — 744 §11 A8: the unoffered families are UNEXPRESSIBLE, so "not offered in this slice"
+-// can never reach a player through this surface. Measured on the law (oracle group2): a
+-// DIRECTING_COUNT substitute really does publish that phrase through rule 9.
++// group11 — current P3 extends the historical A8 wire domain with DIRECTING_COUNT.
++// These are wire-shape controls only; same-domain waiver acceptance remains engine law.
++// Record 1197 maps the two changed numeric leaf titles to their historical identities.
+ describe('P14B.8 group11 — A8: the waiver draft offers only what this surface has', () => {
+-  it('the two OFFERED families validate and the three unoffered ones are refused at the wire', () => {
++  it('the three OFFERED families validate and the two unoffered ones are refused at the wire', () => {
+     const session = sessionOn(owesTwoState(), 'a8-domain')
+     const week = OWES_TWO.week
+     const offered: WaiverSubstituteWire[] = [
+       { family: 'APPEARANCE_COUNT', count: 2, windowStartWeek: week + 1, dueWeekExclusive: week + 61 },
++      { family: 'DIRECTING_COUNT', count: 2, windowStartWeek: week + 1, dueWeekExclusive: week + 61 },
+       { family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT', count: 2, windowStartWeek: week + 1, dueWeekExclusive: week + 61, seatClass: 'lead' },
+     ]
+     for (const substitute of offered) {
+       expect(validateQuote(waiverRequest(session, draftFor(OWES_TWO.promiseId, substitute), `a8-ok-${substitute.family}`)).ok,
+         `${substitute.family} is offered by the engine and must be expressible on this surface`).toBe(true)
+     }
+-    for (const family of ['DIRECTING_COUNT', 'PREFERRED_GENRE_OPPORTUNITY', 'SPECIFIC_PROJECT']) {
++    for (const family of ['PREFERRED_GENRE_OPPORTUNITY', 'SPECIFIC_PROJECT']) {
+       const wire = waiverRequest(session, { promiseId: OWES_TWO.promiseId, substitute: { family, count: 2, windowStartWeek: week + 1, dueWeekExclusive: week + 61 } }, `a8-no-${family}`)
+       expect(validateQuote(wire), `${family} must be unreachable BY CONSTRUCTION; its engine refusal publishes "not offered in this slice" to a player`)
+         .toMatchObject({ ok: false, reasonCode: 'INVALID_COMMAND' })
+@@ -771,10 +772,10 @@ describe('P14B.8 group11 — A8: the waiver draft offers only what this surface
+ // ═══════════════════════════════════════════════════════════════════════════════════════════════
+ // group12 — 744 §11 A3: the projection bump, complete and consistent, in ONE commit.
+ describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing identity is registered as a prior', () => {
+-  it('PROJECTION_VERSION is 52 and the schema document agrees', () => {
+-    expect(PROJECTION_VERSION).toBe(53)
+-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-53`)
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(53)
++  it('PROJECTION_VERSION is 54 and the schema document agrees', () => {
++    expect(PROJECTION_VERSION).toBe(54)
++    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-54`)
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(54)
+     expect(PROJECTION_VERSION).toBeGreaterThan(OUTGOING_PROJECTION)
+   })
+ 
+@@ -783,7 +784,8 @@ describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing iden
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_49), 'validateVersionedRecord strands every checkpoint written under an unregistered identity').toBe('projection-v49')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID), 'the RUNNING identity is never its own prior').toBe(false)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get('sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2')).toBe('projection-v52')
+-    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size, '946 adds the genuine outgoing52 identity: 40 -> 41').toBe(41)
++    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get('sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d')).toBe('projection-v53')
++    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size, 'P3 adds the genuine outgoing53 identity: 41 -> 42').toBe(42)
+   })
+ 
+   it('the checked-in JSON schema, the contract manifest and the C# header all equal the running identity', () => {
+@@ -812,8 +814,8 @@ describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing iden
+     expect(loaded.migratedFromProtocolVersion, 'handled exactly as its projection-47 and -48 siblings are').toBe(4)
+     expect(minted, 'the governed prior path mints one fresh session id').toBe(1)
+     const hydrated = loaded.hydrated as unknown as { currentSave: { saveVersion: number; state: { market: { tick: number } } }; savedSave: { saveVersion: number } }
+-    expect(hydrated.currentSave.saveVersion, '946: each historical slot reaches actual live Save38').toBe(38)
+-    expect(hydrated.savedSave.saveVersion).toBe(38)
++    expect(hydrated.currentSave.saveVersion, 'P3: each historical slot reaches actual live Save39').toBe(39)
++    expect(hydrated.savedSave.saveVersion).toBe(39)
+     expect(hydrated.currentSave.state.market.tick).toBe(PROJECTION49_CHECKPOINT.week)
+   })
+ })
+diff --git a/tests/bridge-schema.test.ts b/tests/bridge-schema.test.ts
+index 65715028..b347699d 100644
+--- a/tests/bridge-schema.test.ts
++++ b/tests/bridge-schema.test.ts
+@@ -78,10 +78,10 @@ describe('canonical Unity bridge schema', () => {
+     assertEveryObjectIsClosed(BRIDGE_SCHEMA)
+     expect(BRIDGE_SCHEMA['x-project-studio']).toMatchObject({
+       protocolVersion: 4,
+-      projectionVersion: 53,
++      projectionVersion: 54,
+       transport: 'http-json-localhost',
+     })
+-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-53')
++    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-54')
+   })
+ 
+   it('projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope', () => {
+@@ -337,8 +337,8 @@ describe('canonical Unity bridge schema', () => {
+     expect(() => parseWireValue(definition, int32Overflow)).toThrow(/<= 2147483647/)
+ 
+     const oldProjection = { ...clone(envelope), snapshotVersion: 24 }
+-    expect(PROJECTION_VERSION).toBe(53)
+-    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 53/)
++    expect(PROJECTION_VERSION).toBe(54)
++    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 54/)
+ 
+     const missingSection = clone(envelope)
+     delete (missingSection.snapshot as Partial<typeof missingSection.snapshot>).releaseResults
+@@ -573,7 +573,7 @@ describe('canonical Unity bridge schema', () => {
+     expect(checkedInSchema).toBe(canonicalJsonPretty(BRIDGE_SCHEMA))
+     expect(generatedCsharp).toContain(`public const string SchemaId = "${SCHEMA_ID}";`)
+     expect(generatedCsharp).toContain('public const int ProtocolVersion = 4;')
+-    expect(generatedCsharp).toContain('public const int ProjectionVersion = 53;')
++    expect(generatedCsharp).toContain('public const int ProjectionVersion = 54;')
+     expect(generatedCsharp).toContain('public int protocolVersion;')
+     expect(generatedCsharp).toContain('public int snapshotVersion;')
+     expect(generatedCsharp.match(/public string runtimeInstanceId;/g)).toHaveLength(2)

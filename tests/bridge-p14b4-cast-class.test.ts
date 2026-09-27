@@ -22,7 +22,7 @@ import { attachPromise } from '../src/core/promises.js'
 import * as promiseModule from '../src/core/promises.js'
 import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
-import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV38 } from '../src/core/save.js'
+import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV39 } from '../src/core/save.js'
 import { advanceTo } from '../src/harness/p13a/fixtures.js'
 import { provenanceRowFor, recomputeDue } from '../src/core/aging.js'
 import type { GameState, ProfessionalPromiseV30 } from '../src/core/types.js'
@@ -110,7 +110,7 @@ function base() {
   // P14C.2b: the live alias is now GameStateV36, one further governed step --
   // `convertV35ToV36`, adding every record's unused extension and every case's
   // `expiry` variant.
-  // 985: actual current38 lift before live reads/actions or synthetic age edits.
+  // 1197: actual current39 lift before live reads/actions or synthetic age edits.
   const live = migrateToLive(convertV35ToV36(convertV34ToV35(convertV33ToV34(convertV32ToV33(convertV31ToV32(save))))))
   let state: GameState = clone(live.state)
   const originalRoots = clone(state.promises)
@@ -124,7 +124,7 @@ function base() {
   expect(state.operations.mode).toBe('managed')
   expect(state.scriptDevelopment.mode).toBe('legacy')
   expect(currentProposals(state, focus.beneficiaryPersonId)).toEqual([])
-  validateSaveV38({ ...live, state, broadcastCache: state.broadcastItems })
+  validateSaveV39({ ...live, state, broadcastCache: state.broadcastItems })
   return { state, talentId: focus.beneficiaryPersonId }
 }
 function p2(talentId: string, seatClass: SeatClass = 'lead'): P2Payload {
@@ -360,7 +360,7 @@ function history(state: GameState, root: ProfessionalPromiseV30, seatClass: Seat
   // carried the link at all, and reading it from there would pin `undefined`.
   const live = state.promises.find((p) => p.promiseId === root.promiseId)!
   const expected = { promiseId: root.promiseId, family: root.family, count: root.predicate.count,
-    seatClass, windowStartWeek: root.windowStartWeek, dueWeekExclusive: root.dueWeekExclusive,
+    qualifyingRole: 'cast', seatClass, windowStartWeek: root.windowStartWeek, dueWeekExclusive: root.dueWeekExclusive,
     contractId: root.contractId, outcome: root.outcome, outcomeWeek: root.outcomeWeek, outcomeCause: root.outcomeCause,
     supersededByPromiseId: live.supersededByPromiseId, progress: live.progress }
   const own = promiseRowsForPerson(state, root.beneficiaryPersonId, root.issuerStudioId)
@@ -442,7 +442,7 @@ describe('P14B4 existing own/private/public carriers', () => {
     // hand-written `talent[i].age` disagreeing with it is now refused), not a
     // fabricated credit — same disclosed synthetic pure-read age input as before.
     const state = withSyntheticAge(live.state, person.id, age)
-    validateSaveV38({ ...live, state }) // disclosed synthetic pure-read age input, no fake credit
+    validateSaveV39({ ...live, state }) // disclosed synthetic pure-read age input, no fake credit
     const before = clone(state)
     const block = marketCaseProjection(state, person.id, player(state))!
     const profile = peopleProjection(state).profiles.find((p) => p.talentId === person.id)!
@@ -500,7 +500,7 @@ describe('P14B4 existing own/private/public carriers', () => {
     const savedSession = new BridgeSession(brokenState, 'b4-saved-' + seatClass)
     const saved = savedSession.save(control(savedSession, 'save-real-outcome'))
     if (!saved.accepted) throw new Error(saved.message)
-    expect(validateSaveV38(JSON.parse(saved.saveJson)).state.promises).toEqual(brokenState.promises)
+    expect(validateSaveV39(JSON.parse(saved.saveJson)).state.promises).toEqual(brokenState.promises)
     const loaded = BridgeSession.fromSaveJson(saved.saveJson, 'b4-loaded-' + seatClass)
     expect(loaded.gameState.promises).toEqual(brokenState.promises)
     history(loaded.gameState, loaded.gameState.promises.find((p) => p.promiseId === broken.promiseId)!, seatClass)

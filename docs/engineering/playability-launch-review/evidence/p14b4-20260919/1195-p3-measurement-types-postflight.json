@@ -1,0 +1,27 @@
+{
+  "at": "2026-09-27T16:49:19.839621+00:00",
+  "compilerExitCode": 0,
+  "producerIncluded": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1193-p3-declaration-measurement.ts",
+  "listedFiles": 193,
+  "diagnostics": [],
+  "manualPinsAfter": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1193-p3-declaration-measurement.ts",
+      "bytes": 9210,
+      "sha256": "e722091ae8d0cd511b167181bf18387d4a935befcfad9087eadda56443ae37cb"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1193-p3-declaration-measurement.tsconfig.json",
+      "bytes": 179,
+      "sha256": "f27e9f6718abcdeaae1b244b4ea5b0aa8142a2ecfbd17e2cf17a372b17d2a2f5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1193-p3-declaration-source-manifest.json",
+      "bytes": 4291,
+      "sha256": "1d8a36b05ed40ebc59d2a4b86c83816e85244db59a2424876a0eb7d9a8e0d97b"
+    }
+  ],
+  "rawIndexSha256After": "432f31107d98efbeb38981b9566c65a66677dd737b0b5ae6a70faea6fff9e8f4",
+  "guardsMatch": true,
+  "next": "1196 measurement with preflight env and same manual pins"
+}

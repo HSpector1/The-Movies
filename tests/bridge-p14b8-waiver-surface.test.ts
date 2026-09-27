@@ -194,7 +194,7 @@ function keptAndBrokenState(): GameState {
 
 // ── The wire draft (I2) and the envelope helpers, in the exact idiom of the four landed families ──
 type WaiverSubstituteWire =
-  | { family: 'APPEARANCE_COUNT'; count: number; windowStartWeek: number; dueWeekExclusive: number }
+  | { family: 'APPEARANCE_COUNT' | 'DIRECTING_COUNT'; count: number; windowStartWeek: number; dueWeekExclusive: number }
   | { family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT'; count: number; windowStartWeek: number; dueWeekExclusive: number; seatClass: 'lead' | 'leadOrAntagonist' }
 type WaiverDraftWire = { promiseId: string; substitute: WaiverSubstituteWire }
 
@@ -730,22 +730,23 @@ describe('P14B.8 group10 — A6: the copy a player reads', () => {
 })
 
 // ═══════════════════════════════════════════════════════════════════════════════════════════════
-// group11 — 744 §11 A8: the unoffered families are UNEXPRESSIBLE, so "not offered in this slice"
-// can never reach a player through this surface. Measured on the law (oracle group2): a
-// DIRECTING_COUNT substitute really does publish that phrase through rule 9.
+// group11 — current P3 extends the historical A8 wire domain with DIRECTING_COUNT.
+// These are wire-shape controls only; same-domain waiver acceptance remains engine law.
+// Record 1197 maps the two changed numeric leaf titles to their historical identities.
 describe('P14B.8 group11 — A8: the waiver draft offers only what this surface has', () => {
-  it('the two OFFERED families validate and the three unoffered ones are refused at the wire', () => {
+  it('the three OFFERED families validate and the two unoffered ones are refused at the wire', () => {
     const session = sessionOn(owesTwoState(), 'a8-domain')
     const week = OWES_TWO.week
     const offered: WaiverSubstituteWire[] = [
       { family: 'APPEARANCE_COUNT', count: 2, windowStartWeek: week + 1, dueWeekExclusive: week + 61 },
+      { family: 'DIRECTING_COUNT', count: 2, windowStartWeek: week + 1, dueWeekExclusive: week + 61 },
       { family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT', count: 2, windowStartWeek: week + 1, dueWeekExclusive: week + 61, seatClass: 'lead' },
     ]
     for (const substitute of offered) {
       expect(validateQuote(waiverRequest(session, draftFor(OWES_TWO.promiseId, substitute), `a8-ok-${substitute.family}`)).ok,
         `${substitute.family} is offered by the engine and must be expressible on this surface`).toBe(true)
     }
-    for (const family of ['DIRECTING_COUNT', 'PREFERRED_GENRE_OPPORTUNITY', 'SPECIFIC_PROJECT']) {
+    for (const family of ['PREFERRED_GENRE_OPPORTUNITY', 'SPECIFIC_PROJECT']) {
       const wire = waiverRequest(session, { promiseId: OWES_TWO.promiseId, substitute: { family, count: 2, windowStartWeek: week + 1, dueWeekExclusive: week + 61 } }, `a8-no-${family}`)
       expect(validateQuote(wire), `${family} must be unreachable BY CONSTRUCTION; its engine refusal publishes "not offered in this slice" to a player`)
         .toMatchObject({ ok: false, reasonCode: 'INVALID_COMMAND' })
@@ -771,10 +772,10 @@ describe('P14B.8 group11 — A8: the waiver draft offers only what this surface 
 // ═══════════════════════════════════════════════════════════════════════════════════════════════
 // group12 — 744 §11 A3: the projection bump, complete and consistent, in ONE commit.
 describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing identity is registered as a prior', () => {
-  it('PROJECTION_VERSION is 52 and the schema document agrees', () => {
-    expect(PROJECTION_VERSION).toBe(53)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-53`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(53)
+  it('PROJECTION_VERSION is 54 and the schema document agrees', () => {
+    expect(PROJECTION_VERSION).toBe(54)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-54`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(54)
     expect(PROJECTION_VERSION).toBeGreaterThan(OUTGOING_PROJECTION)
   })
 
@@ -783,7 +784,8 @@ describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing iden
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_49), 'validateVersionedRecord strands every checkpoint written under an unregistered identity').toBe('projection-v49')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID), 'the RUNNING identity is never its own prior').toBe(false)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get('sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2')).toBe('projection-v52')
-    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size, '946 adds the genuine outgoing52 identity: 40 -> 41').toBe(41)
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get('sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d')).toBe('projection-v53')
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size, 'P3 adds the genuine outgoing53 identity: 41 -> 42').toBe(42)
   })
 
   it('the checked-in JSON schema, the contract manifest and the C# header all equal the running identity', () => {
@@ -812,8 +814,8 @@ describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing iden
     expect(loaded.migratedFromProtocolVersion, 'handled exactly as its projection-47 and -48 siblings are').toBe(4)
     expect(minted, 'the governed prior path mints one fresh session id').toBe(1)
     const hydrated = loaded.hydrated as unknown as { currentSave: { saveVersion: number; state: { market: { tick: number } } }; savedSave: { saveVersion: number } }
-    expect(hydrated.currentSave.saveVersion, '946: each historical slot reaches actual live Save38').toBe(38)
-    expect(hydrated.savedSave.saveVersion).toBe(38)
+    expect(hydrated.currentSave.saveVersion, 'P3: each historical slot reaches actual live Save39').toBe(39)
+    expect(hydrated.savedSave.saveVersion).toBe(39)
     expect(hydrated.currentSave.state.market.tick).toBe(PROJECTION49_CHECKPOINT.week)
   })
 })

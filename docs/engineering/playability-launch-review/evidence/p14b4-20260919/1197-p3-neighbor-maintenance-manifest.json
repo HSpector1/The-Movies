@@ -1,0 +1,404 @@
+{
+  "version": 1,
+  "preparationHead": "96d84212edf5580edcdbe5f900b70253ec7ff53f",
+  "scope": "Five test files only; no execution, compiler, project evaluation, index, commit or production/fixture edits by author.",
+  "files": [
+    {
+      "path": "tests/bridge-contract-generator.test.ts",
+      "before": {
+        "path": "tests/bridge-contract-generator.test.ts",
+        "bytes": 53289,
+        "sha256": "2493afbb76417fc3479f98e25a71e63ed901022568ef7d56c7af8ef4eb7f29b5"
+      },
+      "after": {
+        "path": "tests/bridge-contract-generator.test.ts",
+        "bytes": 53596,
+        "sha256": "6efb4de714e6b6f1944a54ab07ea3a8cf0633aa71e9f8d49ee3d1a30c4f70691"
+      },
+      "declarationBytesAfterInverseTitles": 3226,
+      "declarationSha256AfterInverseTitles": "f2036ffbaf705497bd39df1327f06a480ad1578efcd85c1cf0be1201482eb74d",
+      "allOtherDeclarationsAndTimeoutLinesUnchanged": true
+    },
+    {
+      "path": "tests/bridge-p14b4-cast-class.test.ts",
+      "before": {
+        "path": "tests/bridge-p14b4-cast-class.test.ts",
+        "bytes": 34128,
+        "sha256": "fa831029eed48046aba132d194eedae9e8ca5f09cb29c66f8755cb9848a040f8"
+      },
+      "after": {
+        "path": "tests/bridge-p14b4-cast-class.test.ts",
+        "bytes": 34153,
+        "sha256": "cc15f2bd95b9f8ae114ec0b02f18a8258f41d1d98e0bbc56f0b599fdcc5a4b4e"
+      },
+      "declarationBytesAfterInverseTitles": 1741,
+      "declarationSha256AfterInverseTitles": "57264e4ec11ed24a198e1f1c6a43fc745b9f584d600597941b0c098ee29b3401",
+      "allOtherDeclarationsAndTimeoutLinesUnchanged": true
+    },
+    {
+      "path": "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+      "before": {
+        "path": "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+        "bytes": 17406,
+        "sha256": "421defa87e202163b04c7d61d03d97e2ae6e8c910ec1c70868af79d354c7975e"
+      },
+      "after": {
+        "path": "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+        "bytes": 17641,
+        "sha256": "7c645b9c96c9592352b9ca3cfe0cb05c53e22a029b64b6de26588da5c625034d"
+      },
+      "declarationBytesAfterInverseTitles": 667,
+      "declarationSha256AfterInverseTitles": "fc305da6552fa573afffcacc535f1d7d7c1041eb81d1033db8294ef5f2c8bab4",
+      "allOtherDeclarationsAndTimeoutLinesUnchanged": true
+    },
+    {
+      "path": "tests/bridge-p14b8-waiver-surface.test.ts",
+      "before": {
+        "path": "tests/bridge-p14b8-waiver-surface.test.ts",
+        "bytes": 62349,
+        "sha256": "f4b933e4ed8a29f5a336294201565907c0d8d5d42044dab89935f4aec1b04c4b"
+      },
+      "after": {
+        "path": "tests/bridge-p14b8-waiver-surface.test.ts",
+        "bytes": 62598,
+        "sha256": "478b0f07da3209a3f483c893fbab84fef64ccbbe79f51e9675337b6291cbc2de"
+      },
+      "declarationBytesAfterInverseTitles": 5445,
+      "declarationSha256AfterInverseTitles": "f59a351e3573a162685a372c3bddd4a4216df844a026549a195181eb6429345c",
+      "allOtherDeclarationsAndTimeoutLinesUnchanged": true
+    },
+    {
+      "path": "tests/bridge-schema.test.ts",
+      "before": {
+        "path": "tests/bridge-schema.test.ts",
+        "bytes": 40989,
+        "sha256": "a9cd1f9fc90b36cb69e5bfa37884ffba5ca993bc303f0e2dd587833ffac433aa"
+      },
+      "after": {
+        "path": "tests/bridge-schema.test.ts",
+        "bytes": 40989,
+        "sha256": "6db6a763808d3f1e8401c63e8579a41ccea83daf78d2f09ddf082869e8b59369"
+      },
+      "declarationBytesAfterInverseTitles": 2348,
+      "declarationSha256AfterInverseTitles": "a1711e6f59ccf0ad2e88bc2d9e49700aa8a15dc64976b575ce55fb562e29ed3c",
+      "allOtherDeclarationsAndTimeoutLinesUnchanged": true
+    }
+  ],
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1197-p3-neighbor-maintenance.patch",
+    "bytes": 19383,
+    "sha256": "c14ffa4477d02b08e441a868e3a630f7528f0baf4bc43f0ced3faeb84ea9f49f"
+  },
+  "exactPatchPostimagesReconstructed": true,
+  "changedConsumedPaths": [
+    "tests/bridge-contract-generator.test.ts",
+    "tests/bridge-p14b4-cast-class.test.ts",
+    "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+    "tests/bridge-p14b8-waiver-surface.test.ts",
+    "tests/bridge-schema.test.ts"
+  ],
+  "titleMappings": [
+    {
+      "path": "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+      "kind": "describe",
+      "old": "P14B4 genuine outgoing46 runtime compatibility \u2014 future Save30/projection47",
+      "new": "P14B4 genuine outgoing46 runtime compatibility \u2014 current Save39/projection54"
+    },
+    {
+      "path": "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+      "kind": "it",
+      "old": "requires literal projection52/Save37 (875) and exact 40 prior IDs, excluding the running identity",
+      "new": "requires literal projection54/Save39 and exact 42 prior IDs, excluding the running identity"
+    },
+    {
+      "path": "tests/bridge-p14b8-waiver-surface.test.ts",
+      "kind": "it",
+      "old": "the two OFFERED families validate and the three unoffered ones are refused at the wire",
+      "new": "the three OFFERED families validate and the two unoffered ones are refused at the wire"
+    },
+    {
+      "path": "tests/bridge-p14b8-waiver-surface.test.ts",
+      "kind": "it",
+      "old": "PROJECTION_VERSION is 52 and the schema document agrees",
+      "new": "PROJECTION_VERSION is 54 and the schema document agrees"
+    }
+  ],
+  "titleAttribution": "Map exact old and new names explicitly; the describe rename prefixes all six runtime47 cases. All other declaration lines and timeouts remain byte-exact.",
+  "protectedPins": [
+    {
+      "path": "scripts/bridge-contract-csharp.ts",
+      "bytes": 65692,
+      "sha256": "9adf58d7350062e25fdb4fbed73b7bdf8d613b89f4e2841eb032d06e32294057"
+    },
+    {
+      "path": "scripts/generate-bridge-contract.ts",
+      "bytes": 7091,
+      "sha256": "2e032f3b53b03591631c3dbab773368ff1aff8ba74217efd5d45388f5182dd56"
+    },
+    {
+      "path": "bridge/schema/canonical.ts",
+      "bytes": 870,
+      "sha256": "b84768f3a565f7e027938fefd46960ffbbd55a35d44a51145e94b82a1529e340"
+    },
+    {
+      "path": "bridge/schema/dsl.ts",
+      "bytes": 3946,
+      "sha256": "199880cc5ad275cdf4e277c7afba44823022d9e0e0b93bbee01e4fb8ad7cef8b"
+    },
+    {
+      "path": "bridge/schema/bridge-schema.ts",
+      "bytes": 187261,
+      "sha256": "810328848c813b5b8a84e776c924335998b4541c1681d2b15299fd6f5fa777cc"
+    },
+    {
+      "path": "bridge/schema/industry-schema.ts",
+      "bytes": 24682,
+      "sha256": "794ef431e62a5f44674f874f9144ed0a667965781e587d23fc0e71eb65c58453"
+    },
+    {
+      "path": "bridge/schema/intent-schema.ts",
+      "bytes": 3616,
+      "sha256": "6230f858a05da061f5934e85a93ba247e0483e50a4d2aee845b2e9b642ab366a"
+    },
+    {
+      "path": "tests/fixtures/bridge-contract-union-fixtures.ts",
+      "bytes": 10210,
+      "sha256": "0689507dd4e5407ec9fdc5ba3834ab9304d29120040ccac2af254cb51b637e8f"
+    },
+    {
+      "path": "generated/unity/StudioBridgeDtos.Generated.cs",
+      "bytes": 867401,
+      "sha256": "891b8f971dfcc474d6c083f2f0db54ff972e50ad0664b0a4e15d65e949de422a"
+    },
+    {
+      "path": "generated/unity/project-studio-bridge.contract-manifest.json",
+      "bytes": 820,
+      "sha256": "ecf51c7755bb54dc3a79f809dd7022bb3c3c875138887756d634fd655c4958d3"
+    },
+    {
+      "path": "bridge/schema/project-studio-bridge.schema.json",
+      "bytes": 396058,
+      "sha256": "745d9f0c02f40b5f67a0882e3bf29133da21e1d9917f5a57a9ee73b4cb5a7723"
+    },
+    {
+      "path": "package.json",
+      "bytes": 2726,
+      "sha256": "031dadd99741140dae256481de76d98502bfb5855dee6f8eb46d043baa6fac9f"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 149287,
+      "sha256": "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1075-c3-declaration-measurement.ts",
+      "bytes": 6877,
+      "sha256": "21188b750289ad4e51e337b2346cdfff706fbb817b79c2526a49f7b24c85c54b"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1047-c3-declaration-measurement.txt",
+      "bytes": 5257,
+      "sha256": "f4c3ebe25248af2a48622900f0bbcb0850ec831e52855fb55ed388dad36b069e"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1047-c3-declaration-measurement.json",
+      "bytes": 718,
+      "sha256": "40c85d11bb3edeceb4cec7ad72ee40cfc621d0eac9649168e24437718f3c3f6d"
+    },
+    {
+      "path": "tests/helpers/p14p3-fixtures.ts",
+      "bytes": 78674,
+      "sha256": "389112bde75ccaab9e2d155a1df6e6dc279b78c7d6d531a582b04f27be5fba83"
+    },
+    {
+      "path": "tests/p14p3-directing-promises.test.ts",
+      "bytes": 77197,
+      "sha256": "3371570a015bcc3723ec7d6f4d85f8207bbb5cba9458e0036e538037736b455d"
+    },
+    {
+      "path": "tests/bridge-p14p3-directing-promises.test.ts",
+      "bytes": 45878,
+      "sha256": "dbc4800046353a25d75261604e944b77c05e26c43d79ae4e856e23fb4aabf86d"
+    },
+    {
+      "path": "ui/src/components/ProfessionalPromiseTerms.test.tsx",
+      "bytes": 4931,
+      "sha256": "9e3f3bb1b077972cfc4310582f2cd0635eb5c3b1893ea1236bedfa43180b0b06"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1193-p3-declaration-measurement.ts",
+      "bytes": 9210,
+      "sha256": "e722091ae8d0cd511b167181bf18387d4a935befcfad9087eadda56443ae37cb"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1193-p3-declaration-measurement.tsconfig.json",
+      "bytes": 179,
+      "sha256": "f27e9f6718abcdeaae1b244b4ea5b0aa8142a2ecfbd17e2cf17a372b17d2a2f5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1193-p3-declaration-source-manifest.json",
+      "bytes": 4291,
+      "sha256": "1d8a36b05ed40ebc59d2a4b86c83816e85244db59a2424876a0eb7d9a8e0d97b"
+    }
+  ],
+  "measurementEvidence": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1195-p3-measurement-types.txt",
+      "bytes": 18706,
+      "sha256": "57f6df32a25c49e61e6b63b324aece889f47f4f7c920cd5177aed2cd9c4360ab"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1195-p3-measurement-types.json",
+      "bytes": 752,
+      "sha256": "81649b58d800f22848200126dbe64bdeb27a300b05d4588969a86aaabec99e22"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1195-p3-measurement-preflight.json",
+      "bytes": 1682,
+      "sha256": "2d2778e3233d6184c557fb7ad6994f70ca368a4a27464cf088a220ead89b2624"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1195-p3-measurement-types-postflight.json",
+      "bytes": 1229,
+      "sha256": "e487c705e1d8512b6a274e91cf4b60a1689cca3a244e8279c01818a8b1bac260"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1196-p3-declaration-measurement.txt",
+      "bytes": 6018,
+      "sha256": "ba0038670d6f69d0787c1ec093c54214e4aef0e5d090c089ebd673fdf13203d1"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1196-p3-declaration-measurement.json",
+      "bytes": 702,
+      "sha256": "8a538a7e4d50ec4f99635a51e3250f543b1e1d4f5339ec0e32b6bfd311ae40fb"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1196-p3-declaration-measurement-postflight.json",
+      "bytes": 4236,
+      "sha256": "fbf2eed8f260f78f8d1773e512d31e734e0537cb4d6fe8545948ba19f680dc1e"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1192-A-p3-targeted-neighbor-attribution.md",
+      "bytes": 14149,
+      "sha256": "fe26cf2dba5b82987780049791cb8db323a5e227d8214748e84eceb36542d9db"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1192-p3-neighbor-complete-diagnostics.json",
+      "bytes": 2002054,
+      "sha256": "d6f06c8b6f951de7e79710e7bb1fd2c5d3344ddfda17b4906d84e9cd36d53608"
+    }
+  ],
+  "measurement": {
+    "compilerFiles": 193,
+    "compilerSeconds": 4.441,
+    "measurementSeconds": 1.66,
+    "renders": 16,
+    "positiveFixtures": 8,
+    "fixedPositiveUnchanged": 6,
+    "currentBodies": {
+      "F10_CURRENT_QUOTE_UNIONS": {
+        "sha256": "a9708ee36cb26c7a5fd48662c0bf705c364a42feeb796ade78a36432add3c092",
+        "bytes": 406091,
+        "deterministic": true,
+        "priorSha256": "4ab4141390d2d17c35da0d1bf64cce841f1608103146b2cbca6212ab114a8cec",
+        "matchesPrior": false
+      },
+      "F11_CURRENT_COMMAND_UNION": {
+        "sha256": "a9708ee36cb26c7a5fd48662c0bf705c364a42feeb796ade78a36432add3c092",
+        "bytes": 406091,
+        "deterministic": true,
+        "priorSha256": "4ab4141390d2d17c35da0d1bf64cce841f1608103146b2cbca6212ab114a8cec",
+        "matchesPrior": false
+      }
+    },
+    "actualTicks": 0
+  },
+  "verification": {
+    "compiler": [
+      "node_modules/.bin/tsc",
+      "--noEmit",
+      "-p",
+      "tsconfig.bridge.json"
+    ],
+    "groups": [
+      {
+        "record": "1199",
+        "argv": [
+          "node_modules/.bin/vitest",
+          "run",
+          "--project",
+          "core",
+          "--no-file-parallelism",
+          "tests/bridge-schema.test.ts",
+          "tests/bridge-contract-generator.test.ts",
+          "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+          "-t",
+          "(?:closes every declared object recursively and publishes explicit protocol metadata|rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data|keeps checked-in JSON and generated C# byte-derived from the canonical schema|F10 emits sound request and response union shapes without changing schema identity|pins exact positive output identities and deterministic rerendering|requires literal projection54/Save39 and exact 42 prior IDs, excluding the running identity)$"
+        ],
+        "selectedTitles": [
+          "closes every declared object recursively and publishes explicit protocol metadata",
+          "rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data",
+          "keeps checked-in JSON and generated C# byte-derived from the canonical schema",
+          "F10 emits sound request and response union shapes without changing schema identity",
+          "pins exact positive output identities and deterministic rerendering",
+          "requires literal projection54/Save39 and exact 42 prior IDs, excluding the running identity"
+        ],
+        "selectedCases": 6,
+        "wholeFileCases": 59,
+        "expectedFiltered": 53,
+        "addedTicks": 0,
+        "existingAdvanceCalls": 0
+      },
+      {
+        "record": "1200",
+        "argv": [
+          "node_modules/.bin/vitest",
+          "run",
+          "--project",
+          "core",
+          "--no-file-parallelism",
+          "tests/bridge-p14b8-waiver-surface.test.ts",
+          "-t",
+          "(?:the three OFFERED families validate and the two unoffered ones are refused at the wire|a seat-class substitute REQUIRES its explicit class, so the engine's \"needs its seat class selected\" sentence is unreachable too|PROJECTION_VERSION is 54 and the schema document agrees|the running identity moves OFF sha256:60af24c5\u2026 and that identity is registered as projection-v49 in the SAME commit|the genuine projection-49 checkpoint is no longer the CURRENT identity: it takes the governed prior path exactly once, with both slots on the live Save V35 \\(stale title corrected post-C\\.4, was post-C\\.2a\\))$"
+        ],
+        "selectedTitles": [
+          "the three OFFERED families validate and the two unoffered ones are refused at the wire",
+          "a seat-class substitute REQUIRES its explicit class, so the engine's \"needs its seat class selected\" sentence is unreachable too",
+          "PROJECTION_VERSION is 54 and the schema document agrees",
+          "the running identity moves OFF sha256:60af24c5\u2026 and that identity is registered as projection-v49 in the SAME commit",
+          "the genuine projection-49 checkpoint is no longer the CURRENT identity: it takes the governed prior path exactly once, with both slots on the live Save V35 (stale title corrected post-C.4, was post-C.2a)"
+        ],
+        "selectedCases": 5,
+        "wholeFileCases": 32,
+        "expectedFiltered": 27,
+        "addedTicks": 0,
+        "existingAdvanceCalls": 0
+      },
+      {
+        "record": "1201",
+        "argv": [
+          "node_modules/.bin/vitest",
+          "run",
+          "--project",
+          "core",
+          "--no-file-parallelism",
+          "tests/bridge-p14b4-cast-class.test.ts"
+        ],
+        "selectedCases": 28,
+        "wholeFileCases": 28,
+        "expectedFiltered": 0,
+        "addedTicks": 0,
+        "existingAdvanceCallsIfBothBindingPremisesReached": 14,
+        "existingAdvanceDetails": "Two unchanged it.each seat classes each call advanceTo on actual week45 state to52. No counter instrumentation or route amendment."
+      }
+    ],
+    "selectedTotal": 39,
+    "expectedFilteredTotal": 80,
+    "status": "Proposed parent execution only; no result prediction."
+  },
+  "limits": [
+    "Only base()/history() failures were observed in the selected classless leaves. Synthetic-age and saved-session reader corrections are source-attributed masked current-carrier seams.",
+    "Whole classless file may expose unrelated existing prerequisites; no speculative repair.",
+    "All old fixtures, declaration measurement artifacts, six fixed declaration hashes and P3 target tests remain unchanged."
+  ]
+}
