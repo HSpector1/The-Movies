@@ -1,5 +1,5 @@
-// Independent 1121/1132 P3 fixtures. One cached monotone player route, <=208
-// actual develop:true ticks. No public-API failure is rescued by state mutation.
+// Independent 1121/1132/1142 P3 fixtures. Cached player route <=208 actual
+// develop:true ticks plus three <=64-call branches, aggregate <=400. No rescue.
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
@@ -296,8 +296,9 @@ export function greenlight(state: GameState, projectId: string, directorId: stri
 }
 export type FilmEvidence = { greenlit: GameState; held: GameState; scheduled: GameState; afterTake: GameState;
   released: GameState; productionId: string; take: FirstTakeReceipt; calls: number }
-function film(input: Bound, state: GameState, projectId: string): FilmEvidence {
-  const made = greenlight(state, projectId, input.actorId), startCalls = calls
+function film(input: Bound, state: GameState, projectId: string,
+  advance: (state: GameState) => GameState = step, count: () => number = () => calls): FilmEvidence {
+  const made = greenlight(state, projectId, input.actorId), startCalls = count()
   state = made.state
   let held: GameState | undefined, scheduled: GameState | undefined, afterTake: GameState | undefined
   let selectedRecipe = false
@@ -322,7 +323,7 @@ function film(input: Bound, state: GameState, projectId: string): FilmEvidence {
       if (production.remainingTicks === 5 && scheduled === undefined) { scheduled = clone(state); admitted(scheduled) }
     }
     if (production.remainingTicks === 1) state = act(state, { kind: 'commitPictureToRelease', productionId: made.productionId })
-    const previous = state; state = step(state)
+    const previous = state; state = advance(state)
     const takes = state.firstTakes.filter(row => row.productionId === made.productionId && row.studioId === issuer(state))
     if (takes.length && afterTake === undefined) {
       expect(previous.studio.activeProductions.find(row => row.id === made.productionId)?.remainingTicks).toBe(5)
@@ -337,7 +338,7 @@ function film(input: Bound, state: GameState, projectId: string): FilmEvidence {
       expect(released.participants).toMatchObject({ director: { talentId: input.actorId }, writer: { talentId: WRITER } })
       expect(takes).toHaveLength(1); admitted(state)
       return { greenlit: made.state, held, scheduled, afterTake, released: state,
-        productionId: made.productionId, take: takes[0]!, calls: calls - startCalls }
+        productionId: made.productionId, take: takes[0]!, calls: count() - startCalls }
     }
   }
   throw new Error('fixture premise: actual film did not release within40 calls; no rescue permitted')
@@ -357,5 +358,168 @@ export function terminal208(): ReturnType<typeof secondFilm> & { at104: GameStat
     const at156 = toWeek(at104, 156); admitted(at156)
     const state = toWeek(at156, 208); admitted(state)
     return { ...input, state, at104, at156 }
+  })
+}
+
+// 1142: three explicitly charged branches; the original player path is shared,
+// never recreated by a branch. Defaults in film() preserve its original route.
+type Branch = 'cancelBefore' | 'cancelAfter' | 'waiver'
+const branchCalls: Record<Branch, number> = { cancelBefore: 0, cancelAfter: 0, waiver: 0 }
+const branchStarts: Partial<Record<Branch, number>> = {}
+export function outcomeCounters() {
+  return { playerCalls: calls, playerCap: 208, branches: Object.entries(branchCalls).map(([name, actualTicks]) => ({
+    name, actualTicks, cap: 64, startWeek: branchStarts[name as Branch] ?? null,
+  })), total: calls + Object.values(branchCalls).reduce((a, b) => a + b, 0), cap: 400 }
+}
+function startBranch(name: Branch, state: GameState): void {
+  assert.equal(branchStarts[name], undefined, `${name}: only one actual trajectory`)
+  assert.equal(branchCalls[name], 0); branchStarts[name] = state.market.tick; admitted(state)
+}
+function branchStep(name: Branch, state: GameState): GameState {
+  const start = branchStarts[name]; assert.notEqual(start, undefined)
+  assert.equal(state.market.tick, start! + branchCalls[name], `${name}: no hidden or repeated prefix`)
+  assert.ok(branchCalls[name] < 64 && outcomeCounters().total < 400, `${name}: fixed branch/aggregate caps`)
+  branchCalls[name]++
+  const next = core.tick(state, { develop: true })
+  expect(next.market.tick).toBe(state.market.tick + 1); return next
+}
+function branchTo(name: Branch, state: GameState, week: number): GameState {
+  const start = branchStarts[name]; assert.notEqual(start, undefined)
+  assert.ok(week >= state.market.tick && week <= start! + 64)
+  while (state.market.tick < week) state = branchStep(name, state)
+  admitted(state); return state
+}
+
+export function lateCancellation() {
+  return memo('cancelBefore108', () => {
+    const input = bound(); let state = input.state
+    expect(state.market.tick).toBe(52); startBranch('cancelBefore', state)
+    // This repeated real film is inside cancelBefore64, not free fixture work.
+    const first = film(input, state, input.projectIds[0]!, s => branchStep('cancelBefore', s), () => branchCalls.cancelBefore)
+    state = first.released
+    expect(actualPromise(state, input.promiseId)).toMatchObject({ progress: 1,
+      evidenceRefs: [first.take.eventId], outcome: null })
+    const made = greenlight(state, input.projectIds[1]!, input.actorId); state = made.state
+    let recipeSet = false
+    while (state.market.tick < 108) {
+      let workflow = state.operations.workflows.find(row => row.productionId === made.productionId); assert.ok(workflow)
+      if (workflow.phase === 'rehearsal' && !recipeSet) {
+        state = act(state, { kind: 'setProductionSetupRecipe', productionId: made.productionId,
+          recipeId: 'ballroom-reveal-lighting-01', expectedPlanRevision: workflow.planRevision })
+        recipeSet = true
+      }
+      workflow = state.operations.workflows.find(row => row.productionId === made.productionId); assert.ok(workflow)
+      if (workflow.shootingTask?.status === 'unassigned')
+        state = act(state, { kind: 'assignShootingDirector', productionId: made.productionId, directorId: input.actorId })
+      const production = state.studio.activeProductions.find(row => row.id === made.productionId); assert.ok(production)
+      expect(production.remainingTicks).toBeGreaterThanOrEqual(5)
+      expect(state.firstTakes.filter(row => row.productionId === made.productionId)).toEqual([])
+      expect(state.operations.workflows.find(row => row.productionId === made.productionId)?.shootingTask?.status)
+        .not.toBe('scheduled')
+      // Deliberately no schedule action: actual ready work waits at remaining5.
+      state = branchStep('cancelBefore', state)
+    }
+    expect(recipeSet).toBe(true); expect(state.market.tick).toBe(108)
+    const production = state.studio.activeProductions.find(row => row.id === made.productionId); assert.ok(production)
+    const workflow = state.operations.workflows.find(row => row.productionId === made.productionId); assert.ok(workflow)
+    expect(production).toMatchObject({ directorId: input.actorId, remainingTicks: 5 })
+    expect(workflow.shootingTask).toMatchObject({ directorId: input.actorId, status: 'ready' })
+    expect(workflow.blocker).toBeNull(); admitted(state)
+    const held = clone(state)
+    state = act(state, { kind: 'scheduleShootingTake', productionId: made.productionId })
+    expect(state.operations.workflows.find(row => row.productionId === made.productionId)?.shootingTask?.status)
+      .toBe('scheduled')
+    expect(state.firstTakes.filter(row => row.productionId === made.productionId)).toEqual([])
+    admitted(state); const before = clone(state)
+    const after = act(state, { kind: 'cancel', productionId: made.productionId })
+    admitted(after)
+    return { ...input, first, held, before, after, cancelled: clone(production), productionId: made.productionId }
+  })
+}
+export function lateCancellationDue() {
+  return memo('cancelBefore112', () => {
+    const input = lateCancellation(), state = branchTo('cancelBefore', input.after, 112)
+    return { ...input, state }
+  })
+}
+export function afterTakeCancellation() {
+  return memo('cancelAfterTake', () => {
+    const input = firstFilm(), before = clone(input.first.afterTake)
+    expect(before.market.tick).toBe(input.first.take.week); startBranch('cancelAfter', before)
+    expect(actualPromise(before, input.promiseId)).toMatchObject({ progress: 1,
+      evidenceRefs: [input.first.take.eventId], outcome: null })
+    const after = act(before, { kind: 'cancel', productionId: input.first.productionId })
+    admitted(after); return { ...input, before, after }
+  })
+}
+export function afterTakeCancellationDue() {
+  return memo('cancelAfter112', () => {
+    const input = afterTakeCancellation(), state = branchTo('cancelAfter', input.after, 112)
+    return { ...input, state }
+  })
+}
+export type DirectorSubstitute = {
+  family: 'DIRECTING_COUNT'; predicate: { kind: 'directorCount'; count: number }
+  windowStartWeek: number; dueWeekExclusive: number
+}
+export function waiverInput() {
+  return memo('waiverInput', () => {
+    const input = firstFilm(), state = clone(input.first.afterTake)
+    expect(state.market.tick).toBe(input.first.take.week); expect(state.market.tick).toBe(61)
+    const original = actualPromise(state, input.promiseId)
+    expect(original).toMatchObject({ progress: 1, evidenceRefs: [input.first.take.eventId], outcome: null })
+    const contract = activeContract(state, input.actorId); assert.ok(contract)
+    expect(contract).toMatchObject({ startWeek: 52, endWeekExclusive: 156, termWeeks: 104 })
+    expect(state.scriptDevelopment.projects.find(row => row.id === input.projectIds[1]))
+      .toMatchObject({ status: 'ready', productionId: null })
+    const substitute: DirectorSubstitute = { family: 'DIRECTING_COUNT', predicate: { kind: 'directorCount', count: 1 },
+      windowStartWeek: state.market.tick + 1, dueWeekExclusive: 104 }
+    expect(substitute.windowStartWeek).toBe(62)
+    const receipt = core.promiseFeasibility(state, { ...substitute,
+      issuerStudioId: original.issuerStudioId, beneficiaryPersonId: input.actorId,
+      startWeek: contract.startWeek, termWeeks: contract.termWeeks, promiseId: original.promiseId }, state.market.tick)
+    expect(receipt).toMatchObject({ classification: 'REASONABLY_ACHIEVABLE', bottleneck: null, rulesVersion: 6 })
+    expect(promiseOwner.trustDescriptor(state, input.actorId, original.issuerStudioId, state.market.tick).label)
+      .not.toBe('Distrusted')
+    admitted(state); return { ...input, state, original, substitute, receipt }
+  })
+}
+export function waived() {
+  return memo('waived61', () => {
+    const input = waiverInput(), before = clone(input.state); startBranch('waiver', before)
+    // The public action remains the boundary even while its old type lacks P3.
+    const state = act(clone(before), { kind: 'waivePromise', promiseId: input.promiseId,
+      substitute: input.substitute } as unknown as Action)
+    admitted(state)
+    const added = state.promises.filter(row => !before.promises.some(old => old.promiseId === row.promiseId))
+    expect(added).toHaveLength(1); const successor = added[0]!
+    expect(successor).toMatchObject({ family: 'DIRECTING_COUNT', predicate: input.substitute.predicate,
+      version: 6, contractId: input.original.contractId, beneficiaryPersonId: input.actorId,
+      issuerStudioId: input.original.issuerStudioId, progress: 0, evidenceRefs: [], outcome: null,
+      windowStartWeek: 62, dueWeekExclusive: 104, feasibilityReceipt: input.receipt })
+    expect(actualPromise(state, input.promiseId)).toMatchObject({ outcome: 'WAIVED', progress: 1,
+      evidenceRefs: [input.first.take.eventId], supersededByPromiseId: successor.promiseId, outcomeWeek: before.market.tick })
+    return { ...input, before, state, successorId: successor.promiseId }
+  })
+}
+export function waiverCompleted() {
+  return memo('waiver104', () => {
+    const input = waived(); let state = input.state
+    // Finish the already-filmed first picture without minting or replaying a take.
+    while (state.studio.activeProductions.some(row => row.id === input.first.productionId)) {
+      const production = state.studio.activeProductions.find(row => row.id === input.first.productionId)!
+      expect(production.remainingTicks).toBeLessThan(5)
+      if (production.remainingTicks === 1)
+        state = act(state, { kind: 'commitPictureToRelease', productionId: production.id })
+      state = branchStep('waiver', state)
+    }
+    expect(state.studio.releasedFilms.filter(row => row.productionId === input.first.productionId)).toHaveLength(1)
+    expect(state.firstTakes.filter(row => row.productionId === input.first.productionId)).toEqual([input.first.take])
+    admitted(state)
+    const second = film(input, state, input.projectIds[1]!, s => branchStep('waiver', s), () => branchCalls.waiver)
+    expect(second.take.week).toBeGreaterThanOrEqual(input.substitute.windowStartWeek)
+    expect(second.take.week).toBeLessThan(input.substitute.dueWeekExclusive)
+    state = branchTo('waiver', second.released, 104)
+    return { ...input, second, state }
   })
 }

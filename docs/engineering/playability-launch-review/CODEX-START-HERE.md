@@ -1,5 +1,31 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — D08/D12 tests frozen; first compiler and behavior runs next
+
+1143-A handback freezes only the two existing P3 test/helper paths against
+published ecc0a2627ccbb3802f3cff467facc21925ae5326. Ordered patch34,940B,
+SHA256 ffd93d52a53442cbdc64ae7b1198535cb94e3d181000d0c623b8aa1efc6ccba8.
+All eight original test bodies are byte-exact; their1141 PASS remains the earlier
+qualified result. New D08/D12 have not run. Each declares60s before first execution;
+exact argv is1143-p3-outcome-waiver.argv.json, filtered `D(?:08|12) `.
+
+The existing author has yielded both consumed paths. Independent1143-B reviews
+source and1142-C's data-only erratum. No production change or heavy process is
+active. Parent remains sole production writer/integrator and serial heavy executor.
+Publish/exactremoteverify the final frozen source/reviews, then run1144 root types
+and1145's exact two-leaf selection. Inspect actual child status/source/counters;
+a compiler failure is not semantic RED, and an unmet setup premise is not feature
+qualification. Preserve all first causes before matching implementation.
+
+Player208 plus three64 branches cap this selection at400 actual calls. The new
+wrong-existing-third-target save-link negative is explicitly pending a genuine
+third root; null/missing/self/domain/forward/invalid-contract negatives remain.
+Distrust mutations are labelled pure-service arguments, never saved campaigns.
+1142-C corrects the later lifecycle note: pinned natural208 already contains both
+profession changes at208. It introduces no209 prerequisite or extra tick.
+D09–D11, rival260, projection54/Bridge/UI/runtime, broader consumers and P14 onward
+remain authorized and pending, with all earlier native/Owner limits retained.
+
 ## CURRENT — reviewed D08/D12 test slice is being authored
 
 1141 first-slice8PASS and its final independent reviews are published at exact

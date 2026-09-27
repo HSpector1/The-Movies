@@ -1,12 +1,17 @@
 // Independent 1112-A/C/D/E, 1121-A/B and 1132-A/B requirements.
-// Eight first-slice leaves only. Parent owns execution; no generated expectations.
+// Eight qualified first-slice leaves plus two 1142 leaves. Parent owns execution.
 import assert from 'node:assert/strict'
 import { afterAll, describe, expect, it } from 'vitest'
 import * as core from '../src/core/index.js'
 import * as saves from '../src/core/save.js'
 import { qualifyingTakes } from '../src/core/promises.js'
+import * as promiseOwner from '../src/core/promises.js'
+import { activeContract } from '../src/core/employment.js'
 import type { GameState, FirstTakeReceipt, ProfessionalPromiseV30 } from '../src/core/types.js'
 import type { PromiseDraft, PromiseAttachment } from '../src/core/promises.js'
+import type { Action, ProfessionalPromise } from '../src/core/types.js'
+import { afterTakeCancellation, afterTakeCancellationDue, lateCancellation, lateCancellationDue,
+  outcomeCounters, waiverInput, waived, waiverCompleted, type DirectorSubstitute } from './helpers/p14p3-fixtures.js'
 import { act, actualPromise, admitted, at45, attach, attached, bound, bytes, CAST, castDraft, clone,
   counters, creative, directorDraft, firstFilm, futureSave, greenlight, issuer, managedEmpty,
   outgoing, outgoingNames, person, proposal, quote, reopen, secondFilm, SHAPE, terminal208, WRITER,
@@ -379,5 +384,254 @@ describe('P3 first slice: public Director promises and historical meaning', () =
     admitted(abandoned)
     expect(abandoned.promises).toEqual(tagged.state.promises)
     expect(() => futureSave().convertV39ToV38(saves.makeSave(abandoned))).toThrow(/director|promise|predicate|discard/i)
+  }, LEAF_TIMEOUT_MS)
+})
+
+// 1142: two additional leaves; the eight qualified declarations above are intact.
+const PHYSICAL_REFUSAL = 'no filming week inside the window can reach that many pictures'
+function promiseRow(state: GameState, id: string): ProfessionalPromise {
+  const row = state.promises.find(p => p.promiseId === id); assert.ok(row); return row
+}
+function outcomeReceipt(state: GameState, row: ProfessionalPromise): void {
+  expect(row.outcomeEventId).not.toBeNull()
+  expect(state.talentMarket.receipts.filter(r => r.eventId === row.outcomeEventId)).toEqual([
+    expect.objectContaining({ kind: 'promiseOutcome', week: row.outcomeWeek,
+      talentId: row.beneficiaryPersonId, studioId: row.issuerStudioId }),
+  ])
+}
+function outcomesFor(state: GameState, row: ProfessionalPromise) {
+  return state.talentMarket.receipts.filter(r => r.kind === 'promiseOutcome'
+    && r.talentId === row.beneficiaryPersonId && r.studioId === row.issuerStudioId)
+}
+function stableOutcome(state: GameState, id: string): void {
+  admitted(state); const row = clone(promiseRow(state, id)), receipts = outcomesFor(state, row)
+  expect(promiseRow(reopen(state), id)).toEqual(row)
+  const again = core.advancePromisesWeek(state)
+  expect(promiseRow(again, id)).toEqual(row); expect(outcomesFor(again, row)).toEqual(receipts)
+}
+function pureWaiverRefusal(state: GameState, id: string,
+  substitute: DirectorSubstitute | PromiseAttachment, cause: RegExp): void {
+  admitted(state); const before = bytes(state), row = promiseRow(state, id), draftBefore = saves.stableStringify(substitute)
+  const reason = promiseOwner.waiverAccepted(state, row, substitute as PromiseAttachment, state.market.tick)
+  expect(reason).toMatch(cause)
+  expect(() => act(state, { kind: 'waivePromise', promiseId: id, substitute } as unknown as Action)).toThrow(cause)
+  expect(bytes(state)).toBe(before); expect(saves.stableStringify(substitute)).toBe(draftBefore)
+}
+afterAll(() => console.info('1143-P3-OUTCOME-COUNTERS ' + JSON.stringify(outcomeCounters())))
+
+describe('P3 second slice: cancellation and same-domain waiver', () => {
+  it('D08 keeps earned work and attributes cancellation, due and termination outcomes', () => {
+    const late = lateCancellation(), before = actualPromise(late.before, late.promiseId)
+    expect(late.before.market.tick).toBe(108); expect(late.after.market.tick).toBe(108)
+    expect(before).toMatchObject({ predicate: { kind: 'directorCount', count: 2 }, progress: 1,
+      evidenceRefs: [late.first.take.eventId], outcome: null, dueWeekExclusive: 112 })
+    expect(ownTakes(late.before, before)).toEqual([late.first.take])
+    expect(late.cancelled).toMatchObject({ directorId: late.actorId, remainingTicks: 5 })
+    expect(Object.values(late.cancelled.cast)).not.toContain(late.actorId)
+    expect(late.before.operations.workflows.find(w => w.productionId === late.productionId))
+      .toMatchObject({ blocker: null, shootingTask: { status: 'scheduled' } })
+    expect(late.before.firstTakes.filter(t => t.productionId === late.productionId)).toEqual([])
+    // Independent owner's one remaining advance vs a fresh picture's five.
+    expect(108 + (late.cancelled.remainingTicks - 4)).toBe(109)
+    expect(109).toBeLessThan(before.dueWeekExclusive); expect(108 + 5).toBeGreaterThanOrEqual(before.dueWeekExclusive)
+    const beforeBytes = bytes(late.before), afterBytes = bytes(late.after)
+    expect(promiseOwner.targetSpecificImpossibility(late.before, before, 108)).toBeNull()
+    expect(promiseOwner.targetSpecificImpossibility(late.after, before, 108)).toBe(PHYSICAL_REFUSAL)
+    expect(bytes(late.before)).toBe(beforeBytes); expect(bytes(late.after)).toBe(afterBytes)
+    expect(late.after.studio.activeProductions.some(p => p.id === late.productionId)).toBe(false)
+    expect(late.after.operations.workflows.some(w => w.productionId === late.productionId)).toBe(false)
+    expect(late.after.scriptDevelopment.projects.find(p => p.id === late.projectIds[1]))
+      .toMatchObject({ status: 'ready', productionId: null })
+    expect(late.after.firstTakes).toEqual(late.before.firstTakes)
+    expect(late.after.studio.cash).toBe(late.before.studio.cash); expect(late.after.ledger).toEqual(late.before.ledger)
+    expect(late.after.relationships).toEqual(late.before.relationships)
+    expect(promiseOwner.trustDrivers(late.after, null, issuer(late.after), 108).filter(d => d.kind === 'cancelledAfterFirstTake'))
+      .toEqual(promiseOwner.trustDrivers(late.before, null, issuer(late.before), 108).filter(d => d.kind === 'cancelledAfterFirstTake'))
+    const broken = actualPromise(late.after, late.promiseId)
+    expect(broken).toMatchObject({ progress: 1, evidenceRefs: [late.first.take.eventId], outcome: 'BROKEN', outcomeWeek: 108 })
+    expect(broken.outcomeCause).toMatch(/cancel/i); outcomeReceipt(late.after, broken)
+    expect(outcomesFor(late.after, broken)).toHaveLength(outcomesFor(late.before, before).length + 1)
+    const lateDue = lateCancellationDue()
+    expect(lateDue.state.market.tick).toBe(112); expect(actualPromise(lateDue.state, late.promiseId)).toEqual(broken)
+    stableOutcome(lateDue.state, late.promiseId)
+
+    const post = afterTakeCancellation(), original = actualPromise(post.before, post.promiseId)
+    expect(original).toMatchObject({ progress: 1, evidenceRefs: [post.first.take.eventId], outcome: null })
+    expect(post.after.market.tick).toBe(post.before.market.tick)
+    expect(actualPromise(post.after, post.promiseId)).toEqual(original)
+    expect(post.after.firstTakes).toEqual(post.before.firstTakes)
+    expect(ownTakes(post.after, original)).toEqual([post.first.take])
+    expect(outcomesFor(post.after, original)).toEqual(outcomesFor(post.before, original))
+    const conduct = post.after.relationships.flatMap(edge => edge.recent)
+      .filter(d => d.kind === 'cancelledAfterFirstTake' && d.ref === post.first.productionId)
+    expect(conduct.length).toBeGreaterThan(0)
+    expect(conduct.every(d => d.week === post.after.market.tick && d.delta < 0)).toBe(true)
+    for (const personId of [post.actorId, CAST.lead, null]) {
+      const old = promiseOwner.trustDrivers(post.before, personId, issuer(post.before), post.before.market.tick)
+        .filter(d => d.kind === 'cancelledAfterFirstTake')
+      const now = promiseOwner.trustDrivers(post.after, personId, issuer(post.after), post.after.market.tick)
+        .filter(d => d.kind === 'cancelledAfterFirstTake')
+      expect(now).toHaveLength(old.length + 1)
+      for (const driver of old) expect(now).toContainEqual(driver)
+      expect(now).toContainEqual(expect.objectContaining({ kind: 'cancelledAfterFirstTake',
+        week: post.first.take.week, positive: false }))
+    }
+    // A zero-tick real termination is distinct from waiting for the missed due.
+    const contract = activeContract(post.after, post.actorId); assert.ok(contract)
+    const cost = Math.round(contract.annualSalary / 52) * Math.min(contract.endWeekExclusive - post.after.market.tick, 26)
+    expect(post.after.studio.cash).toBeGreaterThanOrEqual(cost)
+    const terminated = act(clone(post.after), { kind: 'releaseTalent', talentId: post.actorId })
+    admitted(terminated)
+    expect(terminated.market.tick).toBe(post.after.market.tick)
+    expect(terminated.studio.cash).toBe(post.after.studio.cash - cost)
+    expect(terminated.ledger.slice(post.after.ledger.length)).toEqual([
+      expect.objectContaining({ kind: 'termination', week: post.after.market.tick, amount: -cost, talentId: post.actorId }),
+    ])
+    expect(activeContract(terminated, post.actorId)).toBeUndefined()
+    expect(terminated.hollywood!.employment.find(e => e.contractId === original.contractId))
+      .toMatchObject({ endedWeek: post.after.market.tick })
+    const terminationRow = actualPromise(terminated, post.promiseId)
+    expect(terminationRow).toMatchObject({ outcome: 'BROKEN', outcomeWeek: post.after.market.tick,
+      progress: 1, evidenceRefs: [post.first.take.eventId] })
+    expect(terminationRow.outcomeCause).toMatch(/terminated.*early/i)
+    outcomeReceipt(terminated, terminationRow); stableOutcome(terminated, post.promiseId)
+    const due = afterTakeCancellationDue(), dueRow = actualPromise(due.state, due.promiseId)
+    expect(due.state.market.tick).toBe(112)
+    expect(dueRow).toMatchObject({ outcome: 'BROKEN', outcomeWeek: 112, progress: 1,
+      evidenceRefs: [post.first.take.eventId] })
+    expect(dueRow.outcomeCause).toMatch(/window closed/i); outcomeReceipt(due.state, dueRow)
+    expect(outcomesFor(due.state, dueRow)).toHaveLength(outcomesFor(post.before, original).length + 1)
+    stableOutcome(due.state, due.promiseId)
+    console.info('1143-P3-CANCELLATION ' + JSON.stringify({ late: { cancelled: 108, due: lateDue.state.market.tick,
+      firstTake: late.first.take.week }, afterTake: { cancelled: post.after.market.tick, due: due.state.market.tick },
+      terminated: terminated.market.tick }))
+  }, LEAF_TIMEOUT_MS)
+
+  it('D12 waives only forward same-domain remaining work on the same contract', () => {
+    const input = waiverInput(), before = bytes(input.state), rng = clone(input.state.rngState)
+    expect(input.state.market.tick).toBe(61); expect(input.substitute.windowStartWeek).toBe(62)
+    expect(input.original.predicate.count - input.original.progress).toBe(1)
+    expect(input.receipt).toMatchObject({ classification: 'REASONABLY_ACHIEVABLE', rulesVersion: 6 })
+    expect(promiseOwner.waiverAccepted(input.state, input.original, input.substitute, input.state.market.tick)).toBeNull()
+    expect(bytes(input.state)).toBe(before); expect(input.state.rngState).toEqual(rng)
+    const change = waived(), original = actualPromise(change.state, change.promiseId)
+    const successor = promiseRow(change.state, change.successorId)
+    expect(original).toEqual({ ...input.original, outcome: 'WAIVED', outcomeWeek: 61,
+      outcomeCause: expect.stringMatching(/substitute/i), outcomeEventId: expect.any(String),
+      supersededByPromiseId: successor.promiseId })
+    expect(successor).toMatchObject({ version: 6, family: 'DIRECTING_COUNT', predicate: { kind: 'directorCount', count: 1 },
+      contractId: input.original.contractId, issuerStudioId: input.original.issuerStudioId,
+      beneficiaryPersonId: input.original.beneficiaryPersonId, progress: 0, evidenceRefs: [], outcome: null,
+      windowStartWeek: 62, dueWeekExclusive: 104, supersededByPromiseId: null, feasibilityReceipt: input.receipt })
+    expect(change.state.promises.filter(p => p.promiseId !== original.promiseId && p.promiseId !== successor.promiseId))
+      .toEqual(change.before.promises.filter(p => p.promiseId !== original.promiseId))
+    const except = (value: object, excluded: readonly string[]) => Object.fromEntries(
+      Object.entries(clone(value)).filter(([key]) => !excluded.includes(key)))
+    expect(except(change.state, ['promises', 'talentMarket']))
+      .toEqual(except(change.before, ['promises', 'talentMarket']))
+    expect(except(change.state.talentMarket, ['receipts']))
+      .toEqual(except(change.before.talentMarket, ['receipts']))
+    expect(change.state.firstTakes).toEqual(change.before.firstTakes)
+    expect(change.state.market).toEqual(change.before.market); expect(change.state.rngState).toEqual(change.before.rngState)
+    expect(change.state.studio.cash).toBe(change.before.studio.cash); expect(change.state.ledger).toEqual(change.before.ledger)
+    expect(change.state.contracts).toEqual(change.before.contracts)
+    expect(change.state.talentMarket.receipts.slice(0, change.before.talentMarket.receipts.length))
+      .toEqual(change.before.talentMarket.receipts)
+    expect(change.state.talentMarket.receipts).toHaveLength(change.before.talentMarket.receipts.length + 1)
+    outcomeReceipt(change.state, original)
+    for (const who of [input.actorId, null]) {
+      expect(promiseOwner.trustDrivers(change.state, who, issuer(change.state), 61))
+        .toEqual(promiseOwner.trustDrivers(change.before, who, issuer(change.before), 61))
+    }
+    expect(promiseOwner.trustDescriptor(change.state, input.actorId, issuer(change.state), 61))
+      .toEqual(promiseOwner.trustDescriptor(change.before, input.actorId, issuer(change.before), 61))
+    expect(qualifyingTakes(change.state, successor)).toEqual([])
+    stableOutcome(change.state, original.promiseId)
+
+    // All command refusals use complete admitted positive campaigns.
+    pureWaiverRefusal(change.state, original.promiseId, input.substitute, /already settled|terminal/i)
+    const unbound = attached()
+    pureWaiverRefusal(unbound.state, unbound.promiseId, { ...input.substitute, windowStartWeek: 62 }, /nobody took|commitment|unbound/i)
+    pureWaiverRefusal(input.state, input.promiseId, { family: 'DIRECTING_COUNT',
+      predicate: { kind: 'directorCount', count: 2 }, windowStartWeek: 52, dueWeekExclusive: 112 }, /identical/i)
+    pureWaiverRefusal(input.state, input.promiseId, { ...input.substitute, windowStartWeek: 61 }, /forward|waiver/i)
+    const nothingDelivered = bound(), owed = actualPromise(nothingDelivered.state, nothingDelivered.promiseId)
+    expect(owed).toMatchObject({ predicate: { kind: 'directorCount', count: 2 }, progress: 0, evidenceRefs: [] })
+    const short: DirectorSubstitute = { ...input.substitute, windowStartWeek: 53 }
+    expect(quote(nothingDelivered.state, { ...directorDraft(nothingDelivered.state, nothingDelivered.actorId, 1),
+      windowStartWeek: 53, dueWeekExclusive: 104, promiseId: owed.promiseId }))
+      .toMatchObject({ classification: 'REASONABLY_ACHIEVABLE', rulesVersion: 6 })
+    pureWaiverRefusal(nothingDelivered.state, owed.promiseId, short, /only 1 of the 2 pictures still owed/i)
+    pureWaiverRefusal(input.state, input.promiseId, { ...input.substitute, predicate: { kind: 'directorCount', count: 0 } },
+      /count|whole|only 0|pictures still owed/i)
+    pureWaiverRefusal(input.state, input.promiseId, { ...input.substitute, dueWeekExclusive: 157 }, /contract|due|window/i)
+    pureWaiverRefusal(input.state, input.promiseId, { ...input.substitute, family: 'APPEARANCE_COUNT', predicate: { count: 1 } },
+      /domain|directing|Director/i)
+    const old = outgoing('before-waiver-week104'), oldLive = saves.migrateToLive(old.save).state
+    admitted(oldLive)
+    const oldOpen = oldLive.promises.filter(p => p.outcome === null && p.contractId !== null && p.family === 'APPEARANCE_COUNT')
+    expect(oldOpen).toHaveLength(1)
+    const oldRow = oldOpen[0]!
+    pureWaiverRefusal(oldLive, oldRow.promiseId, { family: 'DIRECTING_COUNT', predicate: { kind: 'directorCount', count: 2 },
+      windowStartWeek: 105, dueWeekExclusive: 194 }, /domain|directing|Director/i)
+    // Reader/service-only old P3 is still generic cast; no naturally offered old P3 is invented.
+    const compatibility = clone(old.save)
+    compatibility.state.promises = compatibility.state.promises.map(p => p.promiseId === oldRow.promiseId
+      ? { ...p, family: 'DIRECTING_COUNT' as const, predicate: { count: p.predicate.count } } : p)
+    expect(saves.validateSaveV38(compatibility)).toBe(compatibility)
+    const compatibleLive = saves.migrateToLive(compatibility).state; admitted(compatibleLive)
+    const legacyRow = promiseRow(compatibleLive, oldRow.promiseId)
+    const legacyDraft: PromiseAttachment = { family: 'APPEARANCE_COUNT', predicate: { count: 2 },
+      windowStartWeek: 105, dueWeekExclusive: 194 }
+    expect(promiseOwner.waiverAccepted(compatibleLive, legacyRow, legacyDraft, 104))
+      .toBe(promiseOwner.waiverAccepted(oldLive, oldRow, legacyDraft, 104))
+
+    // Explicit pure-argument trust discriminator. These two synthetic terminal
+    // rows are not recorded campaign authority: never saved, acted on or ticked.
+    // The genuine accepted original/request remain unchanged, and the terminal
+    // rows must not consume schedule reservations before trust alone refuses.
+    const distrust = clone(input.state)
+    distrust.promises = [...distrust.promises, ...[0, 1].map(i => ({ ...clone(input.original),
+      promiseId: `read-only-distrust-${i}`, outcome: 'BROKEN' as const, outcomeWeek: 60 - i,
+      outcomeCause: 'synthetic argument-only trust discriminator', outcomeEventId: `read-only-outcome-${i}` }))]
+    const distrustBefore = saves.stableStringify(distrust)
+    expect(promiseOwner.trustDescriptor(distrust, input.actorId, issuer(distrust), 61).label).toBe('Distrusted')
+    expect(quote(distrust, { ...directorDraft(distrust, input.actorId, 1),
+      windowStartWeek: 62, dueWeekExclusive: 104, promiseId: input.promiseId }))
+      .toMatchObject({ classification: 'REASONABLY_ACHIEVABLE', rulesVersion: 6 })
+    expect(promiseOwner.waiverAccepted(distrust, input.original, input.substitute, 61))
+      .toBe('this person no longer trusts this studio enough to accept a substitute for what was promised')
+    expect(saves.stableStringify(distrust)).toBe(distrustBefore)
+
+    // 1142's pending D13 WAIVED authority: whole-current positives FIRST.
+    admitted(change.state)
+    malformed(change.state, original.promiseId, p => { p.supersededByPromiseId = null }, /substitut|successor/i)
+    malformed(change.state, original.promiseId, p => { p.supersededByPromiseId = 'missing-promise' }, /supersededByPromiseId|substitut/i)
+    malformed(change.state, original.promiseId, p => { p.supersededByPromiseId = original.promiseId }, /supersededByPromiseId|itself/i)
+    // A wrong-existing-third-target control is pending a genuine third root;
+    // neither its presence nor a fabricated compatible promise is assumed.
+    malformed(change.state, successor.promiseId, p => { p.contractId = 'not-an-employment-contract' }, /contractId|contract/i)
+    malformed(change.state, successor.promiseId, p => { p.family = 'APPEARANCE_COUNT'; p.predicate = { count: 1 } },
+      /domain|Director|directing|substitut|successor/i)
+    malformed(change.state, successor.promiseId, p => { p.windowStartWeek = 61 }, /forward|window|waiv/i)
+    const done = waiverCompleted(), finalOriginal = actualPromise(done.state, done.promiseId)
+    const finalSuccessor = promiseRow(done.state, done.successorId)
+    expect(done.state.market.tick).toBe(104); expect(finalOriginal).toEqual(original)
+    expect(finalSuccessor).toMatchObject({ outcome: 'SATISFIED', outcomeWeek: done.second.take.week, progress: 1,
+      evidenceRefs: [done.second.take.eventId], supersededByPromiseId: null })
+    expect(done.second.take.eventId).not.toBe(done.first.take.eventId)
+    expect(qualifyingTakes(done.state, finalSuccessor)).toEqual([done.second.take])
+    outcomeReceipt(done.state, finalSuccessor)
+    stableOutcome(done.state, original.promiseId); stableOutcome(done.state, finalSuccessor.promiseId)
+    for (const state of [change.state, done.state]) {
+      admitted(state); const save = saves.makeSave(state)
+      expect(futureSave().validateSaveV39(save)).toBe(save)
+      expect(() => saves.validateSaveV38({ ...clone(save), saveVersion: 38 })).toThrow(/predicate|promise/i)
+      expect(() => futureSave().convertV39ToV38(save)).toThrow(/director|predicate|promise/i)
+      for (const builder of [saves.makeSaveV1, saves.makeSaveV13, saves.makeSaveV18])
+        expect(() => builder(state)).toThrow(/director|promise|predicate/i)
+    }
+    console.info('1143-P3-WAIVER ' + JSON.stringify({ waived: change.state.market.tick, windowStart: input.substitute.windowStartWeek,
+      originalTake: done.first.take.week, substituteTake: done.second.take.week, due: done.state.market.tick }))
   }, LEAF_TIMEOUT_MS)
 })

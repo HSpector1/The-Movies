@@ -1,0 +1,55 @@
+{
+  "status": "source frozen; unexecuted",
+  "baselineHead": "ecc0a2627ccbb3802f3cff467facc21925ae5326",
+  "files": [
+    {
+      "path": "tests/helpers/p14p3-fixtures.ts",
+      "baselineBytes": 23664,
+      "baselineSha256": "c46c50b8940787a7e76b9f7522f98dec8caa96dedbb4e29cc5c1c5e373eb4f7a",
+      "finalBytes": 33916,
+      "finalSha256": "e35b1475a62c9933409d01dd7b7c21e30960227c056bbe3ab79b1cbe95d73d7f"
+    },
+    {
+      "path": "tests/p14p3-directing-promises.test.ts",
+      "baselineBytes": 27813,
+      "baselineSha256": "f76990d20a0b7eeef223e2638be98509aaa3e4adbcc08dc3f60bb9153cdc96b1",
+      "finalBytes": 47650,
+      "finalSha256": "fb96519aa277d19bb2d7a4d7f7859dbcb2cea9d058221269f455eccf7a5f08a7"
+    }
+  ],
+  "orderedPatch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1143-p3-outcome-waiver.patch",
+    "bytes": 34940,
+    "sha256": "ffd93d52a53442cbdc64ae7b1198535cb94e3d181000d0c623b8aa1efc6ccba8"
+  },
+  "argv": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1143-p3-outcome-waiver.argv.json",
+    "bytes": 151,
+    "sha256": "5d2e4a8e456c31ee80bf410ae79fcccc0f9a29dceee22958afce8de50c3d9d7b"
+  },
+  "declarations": {
+    "original": 8,
+    "total": 10,
+    "selected": 2,
+    "selectedNames": [
+      "D08 keeps earned work and attributes cancellation, due and termination outcomes",
+      "D12 waives only forward same-domain remaining work on the same contract"
+    ],
+    "leafTimeoutMs": 60000,
+    "oldDescribeBytes": 24568,
+    "oldDescribeSha256": "36be22b40803358ee03ef5c5c13dd74db40f0e60482a09d8d4427ddc2e65ecff",
+    "oldDescribeExact": true,
+    "oldHelperReconstructionExact": true,
+    "oldHelperReconstruction": "Reverse only the header clarification and film advance/count parameterization; remove appended branches."
+  },
+  "counterPlan": {
+    "mainPlayerCap": 208,
+    "branchCaps": {
+      "cancelBefore": 64,
+      "cancelAfter": 64,
+      "waiver": 64
+    },
+    "aggregateCap": 400,
+    "actualTicks": "unexecuted"
+  }
+}

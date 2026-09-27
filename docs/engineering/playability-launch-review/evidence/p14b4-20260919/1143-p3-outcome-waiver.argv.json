@@ -1,0 +1,9 @@
+[
+  "node_modules/.bin/vitest",
+  "run",
+  "--project",
+  "core",
+  "tests/p14p3-directing-promises.test.ts",
+  "--testNamePattern",
+  "D(?:08|12) "
+]
