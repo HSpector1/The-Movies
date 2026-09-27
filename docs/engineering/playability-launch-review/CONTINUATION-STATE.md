@@ -1,26 +1,31 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
-## CURRENT — Four retained-authority controls passed; real status clocks next
+## CURRENT — Retained controls closed; three-advance status route staging
 
-Published c49cff82112421883d9b5cf5d4cbb023baddf7ec matched GitHub. 1252 root
-compiler PASS34.266s; 1253 Q07/Q08/Q09/Q10 all4 PASS, six filtered,26.860s.
-All source/index/manual guards exact; actual20 advances (Q05 binding7/workflow13),
-within selected47; Q06/outside0. 1249-I/K retain attribution and parent closure.
-The complete 1,226-byte legacy line is literally unchanged. Actual narrowing
-waivers and one independent nonempty committed-reservation witness now pass.
-Q10 remains one pure singular quote, not grouped allocation or a new production.
-Combined-authority downgrade is not isolated fact-only proof. Full1226 stays open.
+Published97bfb0630fdba86ce91ed1644be9795c1839f78f matched GitHub.1252 root
+compiler PASS34.266s;1253 Q07/Q08/Q09/Q10 all4 PASS, six filtered,26.860s.
+All source/index/manual guards exact; actual20 advances under selected47.
+1249-I/J/K now retain author, independent and parent closure. Full1,226-byte
+legacy line is literal. Q10 qualifies one real nonempty committed witness;
+grouped allocations and full1226 remain open. The downgrade in1253 is combined
+tag/facts, not isolated fact-only proof. No completed gate needs repeating.
 
-Begin1254: separately reviewed screenplay-status route from immutable week45,
-fixed c-02/Writer0003/Actor0005, two advances only; real commission, Review,
-rewrite, Review and acceptance. New standalone test preserves the entire78,825-byte
-existing file and its completed bodies. No execution before reviewed source is
-published. No capture/prefix/Bridge/UI rerun, seed or alternate-person rescue.
+1254-A/F/B adopt a new standalone Q11 for real screenplay and audition clocks.
+Parent G separately extends the unexecuted route to expected/hard3 advances
+45→46→47→48: fixed c-02, Writer0003, Actor0005; actual public commission,
+review/rewrite/accept, casting start/completion/acknowledgement. G requires
+independent H before final source. It additionally attempts genuine r04 take48
+with no material tags for isolated fact-only downgrade; any missing premise
+masks the claim with no retry. Frozen A/F/B retain their prior hard2 scope.
+Final totals planned3 advances,7 action attempts,24 status+3 legacy quotes,
+1 downgrade refusal. Preserve the entire78,825-byte original test. Concrete
+1254-C/D source package, parent application/publication precede1255 root types
+and1256 isolated Q11 runtime. No old prefix/capture/Bridge/UI replay.
 
-Continue the authorized P14/P15/P16/specified program. Parent alone owns live
-production/integration and heavy execution; the same two specialists own test
-source and independent review. Prior Bridge B55-2 synchronous228.867s overrun
-remains recorded; Unity/native and Owner campaign remain deferred.
+Continue authorized P14/P15/P16/specified program. Parent alone owns production,
+integration and heavy execution; the same two specialists own tests and review.
+Prior Bridge synchronous228.867s overrun remains recorded. Unity/native and
+Owner campaign remain deferred.
 
 ## CURRENT — Four retained-authority controls applied; qualification next
 
