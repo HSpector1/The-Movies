@@ -45,3 +45,11 @@ Next work is the accepted1040 short core history-boundary test set, with separat
 has execution authority merely from this inventory. Stage D projection53,
 readmodels/runtime/SaveAs, full verification/endurance and deferred Unity/native
 boundaries remain unchanged. This checkpoint makes no full launch acceptance claim.
+
+## Publication receipt
+
+Normal push completed to `wip/headless-program-20260916-ts` at
+`07ffd2f72ca2a916254dd31111fa3d87012b410b`; an independent `ls-remote` matched
+local HEAD. Consumed source was clean. The only pending file at verification was
+the specialist's new docs-only1041 cohort source plan. The next source release is
+the accepted1040 two-path history tests, with1044 author handback and1045 review.

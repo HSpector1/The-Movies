@@ -1,0 +1,17 @@
+{"sourceSha":"07ffd2f72ca2a916254dd31111fa3d87012b410b","testedDiffSha256":"558e92d906aeb36eb48b89be7410b6e70829075bd802594f90b0d305cd98e92e","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c3-profession-history.test.ts","-t","H6|H15"],"node":"v20.20.2","start":"2026-09-26T23:59:08.801Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14c3-profession-history.test.ts
+C3_HISTORY_BOUNDARY_ACTUAL {"calls":53,"routeCalls":{"actual":1,"dormant":0,"cohort":52},"observations":{"cohort208":{"entrants":0,"requested":{"actor":0,"director":0,"writer":0,"craft":0},"counts":{"actor":41,"director":17,"writer":18,"craft":16},"clipped":0},"cohort2652":{"entrants":32,"requested":{"actor":32,"director":0,"writer":0,"craft":0},"counts":{"actor":3,"director":1,"writer":1,"craft":1},"clipped":46},"deepDeficit2652":{"inputPeople":93,"previousPeople":93,"talentCountBefore":93,"cohortEntrants":32,"otherEntrants":0,"finalWeekStaff":0,"finalPeople":125}}}
+
+ ✓ |core| tests/p14c3-profession-history.test.ts (15 tests | 13 skipped) 9394ms
+   ✓ C.3 current append and strict historical authority boundaries > H6 actual208 tick preserves the zero-request formula after the two real role changes 1326ms
+   ✓ C.3 current append and strict historical authority boundaries > H15 actual deep-deficit2600→2652 tick appends a nonempty cohort with current entrant authority 8056ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed | 13 skipped (15)
+   Start at  01:59:09
+   Duration  12.90s (transform 2.09s, setup 0ms, collect 2.80s, tests 9.39s, environment 0ms, prepare 127ms)
+

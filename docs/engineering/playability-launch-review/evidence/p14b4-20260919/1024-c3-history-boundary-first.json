@@ -1,0 +1,22 @@
+{
+  "sourceSha": "07ffd2f72ca2a916254dd31111fa3d87012b410b",
+  "testedDiffSha256": "05d3f2eb56fecdbfa473b9ec19f8d9ef18e7c06e98fed593a68aea1f683bec10",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14c3-profession-history.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-26T23:46:06.706Z",
+  "end": "2026-09-26T23:46:29.955Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "07ffd2f72ca2a916254dd31111fa3d87012b410b",
+  "testedDiffSha256AtEnd": "05d3f2eb56fecdbfa473b9ec19f8d9ef18e7c06e98fed593a68aea1f683bec10",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

@@ -1,0 +1,36 @@
+# 1050-A — retain the zero request; qualify a separate genuine cohort append
+
+Status: docs-only correction proposal. No source edit, gameplay, test, or producer execution was performed for this document. The frozen 1044 source and failed 1024 record remain intact. This explicitly proposes expanding the original three-call file scope to at most 55 calls; it does not revise the historical 1040/1044 budget or claim an observed current nonempty result.
+
+## Observed failure and retained evidence
+
+1024 completed with 13 PASS and one H6 premise failure. The actual 207→208 route completed both profession changes. Its independent dated-role cohort calculation passed: active counts Actor 41, Director 17, Writer 18, Craft 16; all four requested counts zero; clipped zero; actual entrants zero. H6 then failed its mandatory nonempty assertion at line 183. The old-prefix/new-anchor assertions below that point were not reached and are not qualified by that run. The separate late-founding route returned 24 reused hires and zero new people. Total observed calls were three: two actual-route calls and one dormant-route call. No production defect is established by this result.
+
+Proposed H6 name: **actual208 tick preserves the zero-request formula after the two real role changes**. Retain the independently derived formula, exact actual zero request/clipping/empty IDs, both real profession changes, old cohort prefix, old identity/anchor/provenance preservation, and full Save38 acceptance. An empty entrant loop will no longer be presented as append coverage. The nonempty obligation moves to a separately named H15 and remains mandatory there. H1–H5 and H7–H14 keep their existing assertions.
+
+## One exact additional route
+
+Use only `tests/fixtures/p14/genuine-v34-c4-corpus/genuine-v34-c4-deep-deficit.json.gz` through the existing strict `c4Fixture`/`envelopeV34` reader and actual `migrateToLive` chain.
+
+- Gzip SHA-256: `314b8152c0e108f51b0abb3885b7ec06dee520f29deef3bdb0845ed514c1ab5a`.
+- Raw SHA-256: `9d4d7df0f9ce7af8b1c958db82a774a2a34ba2f69c2c3054b17a69bf16433e72`.
+- Immutable input: week 2600, 93 people, 87 retirement records, all 87 already retired. Original provenance records 2600 actual ticks and no player actions or funding.
+- Feasibility evidence only: archived outgoing pre38 reproduction 978 continued this same input to 2652 and recorded 32 actual Actor entrants, requested `{actor:32,director:0,writer:0,craft:0}`, clipped 46. Its archived engine and default development setting differ from the proposed current route. These numbers are not the new test oracle or a claim that current Save38 has already produced them.
+
+The new route performs exactly 52 ordinary `tick(state, { develop: true })` calls from 2600 to 2652. It has no player actions, funding, population editing, role deletion, date editing, alternative input, seed search, rescue, or continuation beyond 2652. The source-true nonempty hypothesis may still fail and must be reported as such.
+
+## H15 assertions and independent oracle
+
+Proposed H15 name: **actual deep-deficit2600→2652 tick appends a nonempty cohort with current entrant authority**.
+
+1. Strict-read the immutable V34 input; assert its week, population, and retired-record premises. Migrate normally and require full Save38 acceptance before any tick. Preserve the original historical input bytes/value. Retain snapshots of the migration baseline, first real reconciliation at 2601, pre-cohort 2651, final 2652, and the actual serialized/reopened 2652 state.
+2. Require full Save38 at 2600, 2601, 2651, 2652 and reopened 2652. Intermediate calls need clock/counter checks, not 52 redundant full-save proofs. Every tick still uses normal current execution. Do not predict or fabricate reconciliation results: any actual C3 evaluations/finality/due rows remain part of the genuine state and validator proof.
+3. At 2652 require exactly one receipt for that week and a strictly positive `personIds.length`. Independently recalculate its requested counts and clipping from its actual recorded talent prefix: anchored profession plus actual changes effective by 2652; retirement exclusion only for the matching dated profession retired by 2652; young coverage from actual provenance at 2704. Retain the fixed law Actor/Director/Writer/Craft floors 40/14/16/14, youth threshold 30, cap 32 and role allocation order. Parameterize the existing H6 independent oracle by receipt week; do not call the production request helper or the older person-only retirement helper as the oracle.
+4. Check actual cohort IDs against the exact contiguous block starting at the receipt's own `talentCountBefore`, role counts and deterministic cohort ID ordering. Do not equate that recorded prefix length with the 2651 snapshot population: pre-increment rival staffing can append before the cohort. Every cohort ID must be genuinely absent at 2651; separately classify any other actual new person using their genuine creation provenance/entry receipt and matching anchor (potentially week 2651 for earlier staffing). Preserve the old talent **ID** prefix, anchors and provenance; do not compare whole old Talent objects across ticking, because age, skills and other lawful state can change. Each cohort entrant must have exactly one entrant anchor and one authored exact-week provenance row at 2652, with matching profession/role. Require full population/anchor uniqueness and aligned counts; no unaccounted appended identities.
+5. Preserve every retained old cohort receipt, original retired record and original anchor/provenance row; preserve old Hollywood receipt history as a prefix while allowing genuine new receipts. Check preservation at the appropriate 2600→2652 and 2651→2652 boundaries. Later C3 facts are assessed as actual additions, not replaced with an expectation that history stayed empty. Reopen the actual 2652 Save38 bytes and repeat the authority/receipt assertions on the accepted reopened state, with canonical byte equality.
+
+## Prospective source and run boundaries
+
+After explicit parent release, edit only the existing `tests/helpers/p14c3-history-boundary-fixtures.ts` and `tests/p14c3-profession-history.test.ts`, plus the eventual handback document. Add one cached deep-deficit route and H15; preserve the current three-call route behavior. Cache deterministic setup failures as well as success. Count before every tick, require exact source week `2600 + cohortCalls`, cap that route at 52, and cap the entire file at 55 (actual route 2 + dormant route 1 + deep-deficit route 52). No hidden tick in acceptance, reload or metadata. Report separate route counts and actual final cohort request/entrants/clipping; metadata must not build a route merely to print it.
+
+The parent can first run only `H6|H15` in `tests/p14c3-profession-history.test.ts`, retaining the prior 13 PASS without repeating them. This selection consumes at most 53 calls: one cached 207→208 call plus 52 deep-deficit calls. A later whole-file run remains capped at 55 and has 15 leaves. No timeout, skip, expectation weakening, production adjustment or fixture mint is proposed. A current nonempty premise failure stays visible and does not authorize another route automatically.

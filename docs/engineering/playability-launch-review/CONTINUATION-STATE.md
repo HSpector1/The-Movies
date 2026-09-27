@@ -1,5 +1,125 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — history correction verified; publishing checkpoint
+
+1027 root types passed with no diagnostics, child0/fixedSource,32.625s,
+closed2026-09-27T00:03:23.689Z. Final two-file patchc67b03ba retains all behavior;
+the only change after1025 was optional first-element typing.1050-B final KEEP
+7b9ebd72 and1050-C final697835ff are frozen.1051 preserves1024's failed premise,
+1025's two selected PASS/53 calls and1026's type diagnostic separately.
+All heavy processes are closed; both existing specialists are idle. Parent is
+sole production writer/executor and is publishing this checkpoint before releasing
+1041's nine-leaf/729-call cohort route.1052 endurance feasibility is docs-only,
+not an execution release. Stage D53/runtime/SaveAs/full/endurance/native limits
+remain unchanged. Current worktree/branch verified; no owners were recreated.
+
+## CURRENT — one test type diagnostic; optional lookup correction released
+
+1026 closed2026-09-27T00:00:14.125Z, child2/fixedSource,33.189s. Only diagnostic:
+new testline75 TS2367 from indexed-array inference narrowing away original-role
+fallback. Author owns ONLY changes[0]?.to→changes.at(0)?.to in independentcohort
+oracle plus1050-C attribution; helper/behavior/assertions unchanged. Reviewer
+1050-B checks the narrow correction. No heavyprocess active.1025 bothbehavior
+cases PASS/53ticks remain;1024 thirteenPASS and failedpremise remain separately.
+Next refreeze,1027 roottypes,1051 checkpoint/publication then1041 J source release.
+All later Stage C/D/full/endurance/native boundaries remain unchanged.
+
+## CURRENT — genuine cohort append passes; history types active
+
+1025 closed23:59:23.105Z, child0/fixedSource,14.304s on07ffd2f7 plus558e92d9.
+Focused H6/H15 both PASS;13 cases unselected, prior1024 thirteenPASS preserved.
+Exactly53 actual calls: one207→208 plus52 deep-deficit2600→2652. Actual2652
+cohort minted32 Actors, clipped46, independent active counts3/1/1/1, prefix93,
+final125. No other entrants/staff append occurred. Whole38/reload pass; actual208
+stillzero request.1024's original premise failure remains in1049.
+1026-c3-history-boundary-types started2026-09-26T23:59:40.936Z (session32878), sole heavy
+lane on same frozen source. Author idle; reviewer1050-B results and docs-only
+1052 endurance feasibility. Next types/finalreview/1051 checkpoint publication,
+then release1041 cohort route.1042 canonical route, Stage D53/runtime/SaveAs,
+full/endurance and native deferral remain separate; no full C.3 claim.
+
+## CURRENT — corrected cohort-witness focused run active
+
+1025-c3-history-append-correction started2026-09-26T23:59:08.801Z (session82053),
+sole heavy lane on07ffd2f7 plus558e92d906aeb36eb48b89be7410b6e70829075bd802594f90b0d305cd98e92e
+(38,958 bytes). Selects H6|H15 only, max53 actual calls; all consumed source/HEAD
+frozen through closure. Prior13 PASS and1024's failed nonempty premise remain.
+Helper eac16471/test1d0cacd9 independently hashed; parent read changed source and
+reviewer's static behavior KEEP. Author writes only1050-C handback; reviewer
+1050-B final source/results plus docs-only1052 future endurance feasibility.
+Next actual result/first-cause attribution,1026 roottypes,1051 checkpoint, then
+1041 cohort and1042 canonical routes. No production change or full C.3 claim.
+Stage D53/runtime/SaveAs/full/endurance/native boundaries remain unchanged.
+
+## CURRENT — reviewed cohort-witness correction released
+
+1050-A bb1ff09683dac8d1899c4f85dc75c94fe16b4e06050f492c5b23bcf78dc98f00
+and independent1050-B KEEP0d9dda316803928a5ff8b3c78dcf83e54a0f114ae3aafc4875a2689dbd99f558
+are accepted. Existing author owns only the two1044 test/helper paths and1050-C
+handback: retain honest H6 actual208 zero request, add H15 genuine34 deep-deficit
+2600→2652 current-migration append witness, exactly52 additional normal ticks.
+File cap55/15 leaves; parent focused H6|H15 cap53. Original13 passing cases are
+reused and1024's failed premise remains in1049. No production change is released.
+All heavy processes closed. Next freeze/review correction, record1025 focused
+run and1026 roottypes, then parent checkpoint before1041/1042 longroutes.
+Stage D53/runtime/SaveAs (1048 M6 cap486), full/endurance and deferrednative remain.
+
+## CURRENT — history first run13 PASS; nonempty cohort premise failed
+
+1024 closed23:46:29.955Z, child1/fixedSource,23.249s on07ffd2f7+05d3f2eb.
+Actual3 calls.13 cases passed; H6's actual208 cohort requestedzero entrants
+(independent counts41/17/18/16), so its explicit nonempty premise failed before
+later H6 prefix assertions. Late209 entry reused24/minted0.1049 preserves the
+failure and qualification limits; no production defect or append claim inferred.
+All heavy processes closed. Source remains frozen. Author owns docs-only1050
+correction plan: honest208 zero-request proof plus separate genuine deep-deficit
+2600→2652 current route,52 additional calls/55 total/15 leaves ifreviewed/released.
+Reviewer owns1045 result review and1050 review; parent owns integration/execution.
+No test expectation has yet changed. Later1041/1042 routes and Stage D/full/
+endurance/native boundaries remain unchanged.
+
+## CURRENT — short history first run active
+
+1024-c3-history-boundary-first started2026-09-26T23:46:06.706Z (session12835),
+sole heavy lane, on07ffd2f7 plus05d3f2eb56fecdbfa473b9ec19f8d9ef18e7c06e98fed593a68aea1f683bec10.
+All consumed source and HEAD remain frozen until recorded closure.14 leaves,
+max3 actual ticks; no result claim yet.1045 independent behavioral KEEP preceded
+execution; parent confirmed frozen hashes, both brace corrections and H4 preview.
+Reviewer may append only1045 docs; author source/1044 handback are frozen and idle.
+Next inspect actual raw/JSON, attribute any first failure, types/review/checkpoint,
+then1041 genuine cohort and1042 selected canonical routes.1048 adopted Stage D
+compatibility remains separate; projection53/full/endurance/native limits retain.
+
+## CURRENT — short history source frozen; first recorded run next
+
+1044 source is frozen on07ffd2f7: helper66adca5ea6e550aa7ba08dab36985fea8ee4bde4b6a3dcb6067937fc6c9b2a14;
+testc03ce188b21d57ba9ff34751b1b07ec3950fb30e4f2e10dbd97e6e55fa050a8f;
+ordered patch05d3f2eb56fecdbfa473b9ec19f8d9ef18e7c06e98fed593a68aea1f683bec10
+(31,987 bytes). Both new paths are intent-to-add.14 leaves/max3 actual calls.
+Parent reviewed all source;1045 independent final freeze affirmation follows.
+Author writes only1044 handback; reviewer only1045 docs. No heavy process active;
+parent next records1024-c3-history-boundary-first, then attribution/types/review.
+1041 cohort and1042 canonical route plans remain separate, with1047 cohort KEEP.
+Parent adopted1048 explicit dormant compatibility for future Stage D M6 only:
+strict old/current acceptance first, two additional ticks, file71/aggregate486.
+1040's scope remains unchanged.1046 records future endurance-driver requirements;
+no endurance source or execution released. Native remains deferred.
+
+## CURRENT — inventory published; short history tests released
+
+Local and GitHub refs independently match07ffd2f72ca2a916254dd31111fa3d87012b410b.
+1043 records the complete successful inventory and1039 final KEEP. Consumed source
+was clean at publication; only the new docs-only1041 plan was pending.
+All heavy processes are closed. Existing test author now owns only NEW
+`tests/helpers/p14c3-history-boundary-fixtures.ts`,
+`tests/p14c3-profession-history.test.ts` and1044-A handback under1040:
+14 leaves, at most3 actual ticks, genuine controls before exact-cause negatives.
+Reviewer owns1045-A review plus docs-only1042 selected canonical route plan.
+Parent remains sole production writer and executor.1041 cohort plan is frozen,
+not released for source or execution;1042 likewise needs its concrete review.
+Next freeze/review/run the short history tests, then genuine Stage C continuations,
+Stage D53/runtime/SaveAs and full/endurance gates. Unity/native remains deferred.
+
 ## CURRENT — complete inventory; preparing the next history tests
 
 1023 completed all two immutable inputs and 128 fixed-seed worlds in32.634s,

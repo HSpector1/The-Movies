@@ -1,0 +1,3 @@
+{"sourceSha":"07ffd2f72ca2a916254dd31111fa3d87012b410b","testedDiffSha256":"558e92d906aeb36eb48b89be7410b6e70829075bd802594f90b0d305cd98e92e","untrackedSource":[],"command":["node_modules/.bin/tsc","--noEmit"],"node":"v20.20.2","start":"2026-09-26T23:59:40.936Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+tests/p14c3-profession-history.test.ts(75,9): error TS2367: This comparison appears to be unintentional because the types 'TransitionTarget' and '"scientist"' have no overlap.

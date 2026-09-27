@@ -1,0 +1,43 @@
+{"sourceSha":"07ffd2f72ca2a916254dd31111fa3d87012b410b","testedDiffSha256":"05d3f2eb56fecdbfa473b9ec19f8d9ef18e7c06e98fed593a68aea1f683bec10","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c3-profession-history.test.ts"],"node":"v20.20.2","start":"2026-09-26T23:46:06.706Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14c3-profession-history.test.ts
+C3_HISTORY_BOUNDARY_ACTUAL {"calls":3,"routeCalls":{"actual":2,"dormant":1},"observations":{"cohort208":{"entrants":0,"requested":{"actor":0,"director":0,"writer":0,"craft":0},"counts":{"actor":41,"director":17,"writer":18,"craft":16},"clipped":0},"late209":{"minted":0,"reused":24,"employment":24}}}
+
+ ❯ |core| tests/p14c3-profession-history.test.ts (14 tests | 1 failed) 18303ms
+   ✓ C.3 current append and strict historical authority boundaries > H1–H3 createTalent appends one real209 entrant and survives reload 6412ms
+   ✓ C.3 current append and strict historical authority boundaries > H1–H3 createCustomTalent appends one real209 entrant and survives reload 2255ms
+   ✓ C.3 current append and strict historical authority boundaries > H1–H3 createBalancedTalent appends one real209 entrant and survives reload 2300ms
+   ✓ C.3 current append and strict historical authority boundaries > H4 recruits the actual new Scientist01 with one670 anchor and preserves retained00 2158ms
+   ✓ C.3 current append and strict historical authority boundaries > H5 fresh public founding appends the actual24 canonical people once 338ms
+   × C.3 current append and strict historical authority boundaries > H6 actual208 tick carries nonempty cohort anchors after the two real role changes 120ms
+     → a zero request cannot claim this actual append witness: expected 0 to be greater than 0
+   ✓ C.3 current append and strict historical authority boundaries > H7 genuine empty dormant34→38 control remains null through209 without invented retirement 466ms
+   ✓ C.3 current append and strict historical authority boundaries > H9 every actual frozen18→37 intermediate stays free of current profession fields 771ms
+   ✓ C.3 current append and strict historical authority boundaries > H10 actual whole38 delegates copied original/date/entrant authority to the real19 endpoint 597ms
+   ✓ C.3 current append and strict historical authority boundaries > H11 A/B/A validation and copied closure facts remain independent of caller mutations 1040ms
+   ✓ C.3 current append and strict historical authority boundaries > H12 a future209 entrant cannot be smuggled into an earlier208 cohort prefix 524ms
+   ✓ C.3 current append and strict historical authority boundaries > H13 private34 refuses an otherwise shaped retirement predating actual creation 558ms
+   ✓ C.3 current append and strict historical authority boundaries > H14 frozen public37 never borrows current authority from root fields or earlier invocations 599ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14c3-profession-history.test.ts > C.3 current append and strict historical authority boundaries > H6 actual208 tick carries nonempty cohort anchors after the two real role changes
+AssertionError: a zero request cannot claim this actual append witness: expected 0 to be greater than 0
+ ❯ tests/p14c3-profession-history.test.ts:183:96
+    181|       .toHaveLength(2)
+    182|     const receipt = expected208Cohort(state)
+    183|     expect(receipt.personIds.length, 'a zero request cannot claim this…
+       |                                                                                                ^
+    184|     expect(state.careerLifecycle.cohorts.slice(0, before.careerLifecyc…
+    185|     expect(state.careerLifecycle.professionAnchors.slice(0, before.tal…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 13 passed (14)
+   Start at  01:46:07
+   Duration  22.03s (transform 2.21s, setup 0ms, collect 2.97s, tests 18.30s, environment 0ms, prepare 125ms)
+
