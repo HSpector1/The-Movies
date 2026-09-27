@@ -2,7 +2,8 @@
 
 ## CURRENT — Q11 passed: real status clocks and isolated fact-only refusal
 
-Publishedc5b457248dee0d6ddc846c539ed2cea72fe929c5 matched GitHub.1255 root
+Publishedc35926eb2a0e089fb1466d76030921c73114657d matched GitHub. Executed
+sourcec5b45724 remains exact.1255 root
 compiler PASS34.037s;1256 isolated Q11 PASS1/zero filtered15.019s recorder,
 10.846s leaf. All1,681 consumed source files,107 manual pins,index/stage guards
 exact. Actual3 attempted/reserved/invoked/completed advances45→48,outside0;
@@ -14,19 +15,21 @@ week slack FRAGILE and eight-week slack RA. Actual auditioning47 arrived Review4
 and public acknowledgement completed it. Actual r04 film4 take48 emitted event19,
 concept4/horror/script0004,one complete new subject; all promises remained empty.
 Full40 admission and exact40→39 refusal now isolate nonempty facts without new
-material tags. Full1,226-byte legacy marker stays literal.1254-K pins parent
-closure; independent author/reviewer I/J follow the closed raw, with no rerun.
+material tags. Full1,226-byte legacy marker stays literal.1254-I/J/K now close author,
+independent reviewer and parent attribution of the full raw, with no rerun.
 Actual spare capacity does not isolate the own-reservation exemption. Full1226
 remains open: retirement/resources,grouped witnesses,stock-null,stored6→7/rivals.
 
 Next1257-A/B: separate real root6/frozen receipt7 branch from immutable45;
 P3 on earlier case0006,then P4 on later case0007 so scope remains at first freeze.
-Hard7 prospective advances,four explicit mutations,exact observation bounds in
-source addendum before C/D/application/publication. No seed,bid,window,order or
+F/G now freeze hard7 advances,four mutations,one joined45 quote,two price
+previews (45/actual precommit52),two matching final-tick freeze/ranking calls.
+Author stages C for D before application/publication and1258 types/1259 Q12. No seed,bid,window,order or
 person rescue. Parent sole production/integration/heavy owner; existing two
 specialists retain test/review ownership. Continue authorized P14/P15/P16/specified
 program; preserve prior failures/Bridge timing limits. Unity/native and Owner
-campaign remain deferred.
+campaign remain deferred.1260-A is only a later zero-advance active-writer
+availability proposal; it adds no work to1257.
 
 ## CURRENT — Q11 status and fact-only source applied; qualification next
 
