@@ -1,0 +1,11 @@
+--- a/tests/bridge-p14p4p5-opportunities.test.ts
++++ b/tests/bridge-p14p4p5-opportunities.test.ts
+@@ -494,7 +494,7 @@
+     counts.mutationInvocations++
+     const saved = clean.dispatchWithRuntimeCheckpoint('save', parsed.control)
+     expect(saved.response.accepted).toBe(true); assert.ok(saved.response.accepted && 'saveJson' in saved.response)
+-    expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeAcceptedSaveResponse, saved.response)).toEqual(saved.response)
++    expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeSaveResponse, saved.response)).toEqual(saved.response)
+     assert.ok(saved.prepared)
+     expect(saved.prepared.checkpoint.currentSaveJson).toBe(beforeSave.raw)
+     expect(saved.prepared.checkpoint.savedSaveJson).toBe(beforeSave.raw)

@@ -1,0 +1,13 @@
+{"sourceSha":"1fb180850ea7985bee9100b76dbb80d0c3356da2","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","ui","ui/src/components/ProfessionalPromiseTerms.test.tsx","-t","B55-UI "],"node":"v20.20.2","start":"2026-09-27T20:05:16.810Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |ui| ui/src/components/ProfessionalPromiseTerms.test.tsx (2 tests | 1 skipped) 345ms
+   ✓ ProfessionalPromiseTerms disclosed opportunity material > B55-UI renders singular genre and named screenplay terms while UNKNOWN hides all material 343ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 1 skipped (2)
+   Start at  22:05:17
+   Duration  3.90s (transform 86ms, setup 388ms, collect 353ms, tests 345ms, environment 2.21s, prepare 186ms)
+

@@ -1,0 +1,2 @@
+{"sourceSha":"1fb180850ea7985bee9100b76dbb80d0c3356da2","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/tsc","--noEmit","-p","ui/tsconfig.json"],"node":"v20.20.2","start":"2026-09-27T20:04:21.814Z","end":null,"exitCode":null,"signal":null,"error":null}
+

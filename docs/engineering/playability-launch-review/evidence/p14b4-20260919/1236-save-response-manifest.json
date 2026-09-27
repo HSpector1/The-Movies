@@ -1,0 +1,74 @@
+{
+  "preparationSource": "1fb180850ea7985bee9100b76dbb80d0c3356da2",
+  "scope": "One schema definition identifier; staged only; no execution",
+  "target": {
+    "path": "tests/bridge-p14p4p5-opportunities.test.ts",
+    "bytes": 38927,
+    "sha256": "190da60b88054d566e2fca7cfe024515ec2ea1f5f043e37c3f3f5fd6ecb69004"
+  },
+  "postimage": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-save-response-stage/tests/bridge-p14p4p5-opportunities.test.ts",
+    "bytes": 38919,
+    "sha256": "288fd844a598c1591be7a7eb079f8dd8be160469e381d5dba1eb78fea2eaeefb"
+  },
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-save-response.patch",
+    "bytes": 764,
+    "sha256": "b9d0e9c4d52e7ca740db5860c4fa4ec541957d001b61edf13e79dad39cc324d5"
+  },
+  "inverse": "Replace the sole BRIDGE_SCHEMA.$defs.StudioBridgeSaveResponse with BRIDGE_SCHEMA.$defs.StudioBridgeAcceptedSaveResponse to recover the complete target preimage",
+  "evidence": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1247-bridge55-test-types.txt",
+      "bytes": 725,
+      "sha256": "f3c44304be6105b713ac29f9342690379ff885c75c0cd32dd74bbff13b3ec9c0"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1247-bridge55-test-types.json",
+      "bytes": 641,
+      "sha256": "71f29537c038f672f4ec3ef54724223290f5ade11777a393323e6fac66e37921"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1247-bridge55-test-types-preflight.json",
+      "bytes": 18682,
+      "sha256": "69c660e563bb11baa7d90816cca88329b2ab8b691ba8484887f40edfc8b92503"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1247-bridge55-test-types-postflight.json",
+      "bytes": 19357,
+      "sha256": "fb6752082f5f8e83a6085151294457d029a01d11618731bdf2a48f0e407578d9"
+    }
+  ],
+  "protected": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-C-bridge55-source-handback.md",
+      "bytes": 10977,
+      "sha256": "de6124779601e5ea89f465e290afa14c169eb01f037d4a6918ddaa62919148af"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-D-bridge55-source-review.md",
+      "bytes": 7462,
+      "sha256": "140846ced0209ba098a5574ccfe21651bcebc5ed373803e9c6392a01a3f43a61"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-bridge-source-manifest.json",
+      "bytes": 13153,
+      "sha256": "d6ccaf192f0074e5f2cb5f82a90f66fc8515327b3cb385968bb4f9e66aca3f93"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-bridge-tests.patch",
+      "bytes": 43966,
+      "sha256": "989aad5097989aacb14ef672082c390bd53ed56884e9e5e0d5ecd7d50690a22c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-bridge-stage/tests/bridge-p14p4p5-opportunities.test.ts",
+      "bytes": 38927,
+      "sha256": "190da60b88054d566e2fca7cfe024515ec2ea1f5f043e37c3f3f5fd6ecb69004"
+    }
+  ],
+  "schema": {
+    "path": "bridge/schema/bridge-schema.ts",
+    "bytes": 189370,
+    "sha256": "c6e3bc663894f95a01c5d049cb633305870593ef0e9c49a53bb9e9a399575548"
+  }
+}

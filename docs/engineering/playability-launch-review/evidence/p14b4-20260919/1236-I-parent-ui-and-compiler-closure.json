@@ -1,0 +1,62 @@
+{
+  "time": "2026-09-27T20:06:10.153718+00:00",
+  "gates": [
+    {
+      "name": "1247-bridge55-test-types",
+      "head": "1fb180850ea7985bee9100b76dbb80d0c3356da2",
+      "start": "2026-09-27T20:03:19.863Z",
+      "end": "2026-09-27T20:03:47.862Z",
+      "exitCode": 2,
+      "raw": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1247-bridge55-test-types.txt",
+        "bytes": 725,
+        "sha256": "f3c44304be6105b713ac29f9342690379ff885c75c0cd32dd74bbff13b3ec9c0"
+      },
+      "postflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1247-bridge55-test-types-postflight.json",
+        "bytes": 19357,
+        "sha256": "fb6752082f5f8e83a6085151294457d029a01d11618731bdf2a48f0e407578d9"
+      }
+    },
+    {
+      "name": "1248-bridge55-component-types",
+      "head": "1fb180850ea7985bee9100b76dbb80d0c3356da2",
+      "start": "2026-09-27T20:04:21.814Z",
+      "end": "2026-09-27T20:05:04.756Z",
+      "exitCode": 0,
+      "raw": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1248-bridge55-component-types.txt",
+        "bytes": 343,
+        "sha256": "45beadb7c4d76ce61d994787387a3596ef212cc3f1f703b90711f6e368a4fc57"
+      },
+      "postflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1248-bridge55-component-types-postflight.json",
+        "bytes": 19372,
+        "sha256": "158195ab557c4d75d90c9b2ffbaa252e12aaa05144aea6c5dbf52e092f185f43"
+      }
+    },
+    {
+      "name": "1251-bridge55-component",
+      "head": "1fb180850ea7985bee9100b76dbb80d0c3356da2",
+      "start": "2026-09-27T20:05:16.810Z",
+      "end": "2026-09-27T20:05:21.696Z",
+      "exitCode": 0,
+      "raw": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1251-bridge55-component.txt",
+        "bytes": 918,
+        "sha256": "62c60d71a345722e1fbad4ccbc5e01915c50a47d4e49f1cf8be97b59e0779459"
+      },
+      "postflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1251-bridge55-component-postflight.json",
+        "bytes": 19354,
+        "sha256": "70a080fbe4042dc47ec140bc97d1dda88ed82db6d8f45a48ca299fc6eb0d5ce7"
+      }
+    }
+  ],
+  "attribution": {
+    "1247": "FAIL one TS2551: new test references nonexistent StudioBridgeAcceptedSaveResponse. Exported StudioBridgeSaveResponse is itself accepted-literal-true; correction keeps intended contract. Prior compatibility diagnostics absent; no full compile PASS.",
+    "1248": "PASS UI types; no diagnostics.",
+    "1251": "PASS new B55-UI leaf343ms; oldD16 filtered. Whole recorder4.886s/Vitest3.90s. Zero engine advances; standalone closed-prop material/privacy only."
+  },
+  "limits": "Failed Bridge compile retained. No new Bridge runtime, full1226, App workflow, native or endurance qualification."
+}

@@ -1,5 +1,25 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — Standalone material UI PASS; Bridge correction applied
+
+Published1fb180850ea7985bee9100b76dbb80d0c3356da2 matched GitHub.1248 UI
+compilerPASS42.942s and1251 B55-UI PASS1/oldD16 filtered4.886s recorder/343ms
+leaf; source/manual/index guards exact.1236-H independently verifies the actual
+nine-example standalone component scope.1236-I retains parent closure.
+
+1247 Bridge compiler failed one TS2551 (nonexistent SAVE schema member),
+child2/fixed27.999s.1236-F/G independently stage/review the one-name correction
+to the actual true-only StudioBridgeSaveResponse schema; parent applied exact
+38919-byte postimage. Original test/source reviews and failed raw remain intact.
+Publish, run1247b Bridge compiler, then1250 all three B55 leaves with shared hard7.
+UI gates need no repeat for this Bridge-test-only correction.
+
+Initialfour and two core-work leaves remain separately qualified; full1226 is
+open.1249 prepares new remaining controls with honest setup accounting. Continue
+the authorized P14/P15/P16/specified program. Parent owns production/integration
+and the sole heavy process; existing specialists own tests and review.
+Unity/native and Owner campaign remain deferred.
+
 ## CURRENT — New Bridge55 tests installed; bounded qualification next
 
 Published99b80bc50ecb45fa3804406416425434769d7c7f matched GitHub.1241b Bridge
