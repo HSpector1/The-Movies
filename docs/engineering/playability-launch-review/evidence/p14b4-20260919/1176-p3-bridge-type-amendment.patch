@@ -1,0 +1,26 @@
+diff --git a/tests/bridge-p14b2-trust.test.ts b/tests/bridge-p14b2-trust.test.ts
+index 0bd35971..40b4d9bc 100644
+--- a/tests/bridge-p14b2-trust.test.ts
++++ b/tests/bridge-p14b2-trust.test.ts
+@@ -52,7 +52,7 @@ function expectedHistory(state: GameState, talentId: string, viewer = player(sta
+     .slice().reverse().map((p) => ({ promiseId: p.promiseId, family: p.family, count: p.predicate.count,
+       // P14B.4 (projection 47): the nullable class rides every history row; the
+       // stored predicate shape alone selects it (a count-only root reads null).
+-      seatClass: 'kind' in p.predicate ? p.predicate.seatClass : null,
++      seatClass: 'kind' in p.predicate && p.predicate.kind === 'castRoleCount' ? p.predicate.seatClass : null,
+       windowStartWeek: p.windowStartWeek, dueWeekExclusive: p.dueWeekExclusive, contractId: p.contractId!,
+       outcome: p.outcome, outcomeWeek: p.outcomeWeek, outcomeCause: p.outcomeCause,
+       // P14B.8 (projection 50): the typed successor link and the delivered part of
+diff --git a/tests/bridge-p14p3-directing-promises.test.ts b/tests/bridge-p14p3-directing-promises.test.ts
+index e1e7dc51..6551746b 100644
+--- a/tests/bridge-p14p3-directing-promises.test.ts
++++ b/tests/bridge-p14p3-directing-promises.test.ts
+@@ -513,7 +513,7 @@ describe('P3 public Bridge authority, truthful terms and durable runtime', () =>
+     expect(profiles.profiles.find(profile => profile.talentId === ACTOR)?.promises).toEqual(history)
+     const snapshot = resume(bound.checkpoint).snapshot()
+     expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse, snapshot)).toEqual(snapshot)
+-    expect(snapshot.snapshot.talent.profiles.find(profile => profile.talentId === ACTOR)?.promises).toEqual(history)
++    expect(snapshot.snapshot.talent.talent.profiles.find(profile => profile.talentId === ACTOR)?.promises).toEqual(history)
+     expect(marketCaseProjection(bound.state, ACTOR, player)?.promiseHistory).toEqual(history)
+     privateAbsent(history, [boundRoot])
+     const reminders = dueControl(bound.state, boundRoot, 'director')

@@ -1,0 +1,63 @@
+{
+  "baselineHead": "817d9e52a997a0d532f878602f4a8029e602ba80",
+  "scope": "Two test typing corrections only; no execution or production change.",
+  "files": [
+    {
+      "path": "tests/bridge-p14b2-trust.test.ts",
+      "before": {
+        "bytes": 32075,
+        "sha256": "4f4d5f5b98678ed1fd936b12302edc321109ab9a7ff316e261be591410c438ad"
+      },
+      "after": {
+        "bytes": 32115,
+        "sha256": "7c9535be07f532d1d424525e8e1dd14ea9be2a3bd148773bb8b394772da197e8"
+      },
+      "exactSingleReplacement": {
+        "before": "seatClass: 'kind' in p.predicate ? p.predicate.seatClass : null,",
+        "after": "seatClass: 'kind' in p.predicate && p.predicate.kind === 'castRoleCount' ? p.predicate.seatClass : null,"
+      },
+      "fullInverseEqualsBaseline": true
+    },
+    {
+      "path": "tests/bridge-p14p3-directing-promises.test.ts",
+      "before": {
+        "bytes": 45261,
+        "sha256": "24ea206728b22f2916b68959ea3060448d65c3ab919ea24c05330aa12d4bb12d"
+      },
+      "after": {
+        "bytes": 45268,
+        "sha256": "8f086d16818dd3449604f2da2b91ed575b1c5c04e5a656020867d5b140f6872d"
+      },
+      "exactSingleReplacement": {
+        "before": "expect(snapshot.snapshot.talent.profiles.find(profile => profile.talentId === ACTOR)?.promises).toEqual(history)",
+        "after": "expect(snapshot.snapshot.talent.talent.profiles.find(profile => profile.talentId === ACTOR)?.promises).toEqual(history)"
+      },
+      "fullInverseEqualsBaseline": true
+    }
+  ],
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1176-p3-bridge-type-amendment.patch",
+    "bytes": 2081,
+    "sha256": "1f32cecce693793dd945073dec7efe147d3cdecdd236b701367f8b353303de62"
+  },
+  "observedCompilerRecords": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1175-p3-bridge-types.txt",
+      "bytes": 1627,
+      "sha256": "3c2c84de14056dae843a862d09660fbd7f6004e470070f3edddc22021de10ea5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1175-p3-bridge-types.json",
+      "bytes": 641,
+      "sha256": "b5d781a269171a4a2928125dfdc4fd6afb03694ae8da59e3fafee2bde9423343"
+    }
+  ],
+  "diagnostics": {
+    "total": 5,
+    "production": 2,
+    "oldTrustTest": 1,
+    "newP3Test": 2
+  },
+  "preserved": "Every other byte of both tests, all three P3 declarations, assertions, fixture pins, route/counter logic and 60000ms timeouts. No future disclosure field or semantic expectation added.",
+  "noExecution": true
+}

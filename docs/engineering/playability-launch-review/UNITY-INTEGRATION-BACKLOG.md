@@ -1,5 +1,46 @@
 # UNITY-INTEGRATION-BACKLOG — work reserved for the replacement laptop
 
+## CURRENT — reviewed Bridge test typing amendment frozen
+
+1176-A/B are final, independently reviewed KEEP. The exact two-hunk patch fixes
+only the snapshot wrapper path and the old trust oracle's cast predicate guard;
+every other byte of both tests is preserved. Parent verified both complete inverse
+comparisons and all amendment pins. The original1175 compiler FAIL is retained.
+Production remains969fb459; no runtime has yet executed these three Bridge cases.
+
+Publish this checkpoint, then1177 repeats the Bridge compiler inspection. Any
+remaining test diagnostic blocks runtime until corrected. If only the two known
+production discrepancies remain,1178 runs the exact three-case file on frozen
+source to record actual semantic failures before the scoped Bridge implementation.
+Parent retains sole production and heavy-process ownership; the two existing
+specialists retain test/review ownership. Other limits and deferrals remain.
+
+## CURRENT — Bridge compiler observed; narrow test correction next
+
+Reviewed1174 source is published at817d9e52a997a0d532f878602f4a8029e602ba80;
+exact remote equality and clean preflight were verified.1175 Bridge compiler
+closed 15:54:04.542–15:54:32.171 UTC,27.629s, child2/fixedSource, empty consumed
+diff and no untracked source/signal/error. It reports five diagnostics, not PASS.
+No runtime or gameplay has executed from the new Bridge test.
+
+Two diagnostics are existing production discrepancies: people.ts1048 lacks the
+already-core directingOpportunity enum member in the Bridge schema, and
+promises.ts111 accesses seatClass on either tagged predicate. One older Bridge
+trust test repeats the unsafe tag check. The new test's516 snapshot lookup omits
+one wrapper: the actual path is snapshot.snapshot.talent.talent.profiles. That
+causes the property and implicit-any errors. Direct peopleProjection at513
+correctly uses profiles.profiles and stays unchanged; independent review caught
+the initial attribution error before publication. Preserve all five diagnostics.
+
+Parent releases1176 to the existing test owner only: correct the new projection
+path and narrow the older trust test's class access to castRoleCount. No future
+fields, gameplay, production or other test changes. Independent review and
+publication precede the next Bridge compiler inspection, then the initial
+three-case runtime observation. The two production discrepancies remain explicit;
+compiler errors do not qualify masked behavior. Parent is sole production writer
+and heavy executor; no heavy process is active. Prior capture, source reviews,
+rival/matrix limits and Unity/native/Owner deferrals remain unchanged.
+
 ## CURRENT — Bridge test source ready for compiler inspection
 
 The qualified current-week45 capture and closed verification records are published

@@ -52,7 +52,7 @@ function expectedHistory(state: GameState, talentId: string, viewer = player(sta
     .slice().reverse().map((p) => ({ promiseId: p.promiseId, family: p.family, count: p.predicate.count,
       // P14B.4 (projection 47): the nullable class rides every history row; the
       // stored predicate shape alone selects it (a count-only root reads null).
-      seatClass: 'kind' in p.predicate ? p.predicate.seatClass : null,
+      seatClass: 'kind' in p.predicate && p.predicate.kind === 'castRoleCount' ? p.predicate.seatClass : null,
       windowStartWeek: p.windowStartWeek, dueWeekExclusive: p.dueWeekExclusive, contractId: p.contractId!,
       outcome: p.outcome, outcomeWeek: p.outcomeWeek, outcomeCause: p.outcomeCause,
       // P14B.8 (projection 50): the typed successor link and the delivered part of

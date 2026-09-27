@@ -1,0 +1,10 @@
+{"sourceSha":"817d9e52a997a0d532f878602f4a8029e602ba80","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/tsc","--noEmit","-p","tsconfig.bridge.json"],"node":"v20.20.2","start":"2026-09-27T15:54:04.542Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+bridge/people.ts(1048,7): error TS2322: Type '"significantCastRole" | "anyCastAppearance" | "directingOpportunity"' is not assignable to type '"significantCastRole" | "anyCastAppearance"'.
+  Type '"directingOpportunity"' is not assignable to type '"significantCastRole" | "anyCastAppearance"'.
+bridge/promises.ts(111,68): error TS2339: Property 'seatClass' does not exist on type 'CastRoleCountPredicate | DirectorCountPredicate'.
+  Property 'seatClass' does not exist on type 'DirectorCountPredicate'.
+tests/bridge-p14b2-trust.test.ts(55,54): error TS2339: Property 'seatClass' does not exist on type 'CastRoleCountPredicate | DirectorCountPredicate'.
+  Property 'seatClass' does not exist on type 'DirectorCountPredicate'.
+tests/bridge-p14p3-directing-promises.test.ts(516,37): error TS2339: Property 'profiles' does not exist on type 'ObjectValue<{ readonly talent: JsonSchema<ObjectValue<{ readonly profiles: JsonSchema<ObjectValue<{ readonly lifecycle: JsonSchema<ObjectValue<{ readonly status: JsonSchema<"active" | "retired" | "finishing_commitments" | "announced">; readonly profession: JsonSchema<"writer" | "director" | "craft" | "actor" | "scie...'.
+tests/bridge-p14p3-directing-promises.test.ts(516,51): error TS7006: Parameter 'profile' implicitly has an 'any' type.

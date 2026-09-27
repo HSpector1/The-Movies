@@ -1,0 +1,15 @@
+{
+  "at": "2026-09-27T15:53:55.072094+00:00",
+  "sourceSha": "817d9e52a997a0d532f878602f4a8029e602ba80",
+  "remoteSha": "817d9e52a997a0d532f878602f4a8029e602ba80",
+  "wholeWorktreeCleanBeforeRecord": true,
+  "sourceManifestSha256": "357e86e0f4b7dfd64d6eca8951976040e540f5d85471e90e770def4cc3d2d5ec",
+  "manifestFilePinsVerified": 15,
+  "command": [
+    "node_modules/.bin/tsc",
+    "--noEmit",
+    "-p",
+    "tsconfig.bridge.json"
+  ],
+  "next": "1175 Bridge compiler inspection; runtime result not assumed"
+}

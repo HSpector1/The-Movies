@@ -513,7 +513,7 @@ describe('P3 public Bridge authority, truthful terms and durable runtime', () =>
     expect(profiles.profiles.find(profile => profile.talentId === ACTOR)?.promises).toEqual(history)
     const snapshot = resume(bound.checkpoint).snapshot()
     expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse, snapshot)).toEqual(snapshot)
-    expect(snapshot.snapshot.talent.profiles.find(profile => profile.talentId === ACTOR)?.promises).toEqual(history)
+    expect(snapshot.snapshot.talent.talent.profiles.find(profile => profile.talentId === ACTOR)?.promises).toEqual(history)
     expect(marketCaseProjection(bound.state, ACTOR, player)?.promiseHistory).toEqual(history)
     privateAbsent(history, [boundRoot])
     const reminders = dueControl(bound.state, boundRoot, 'director')
