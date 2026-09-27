@@ -1,26 +1,25 @@
 # CODEX continuation — Project Studio
 
-## CURRENT — P3 first test slice frozen; compiler and semantic RED next
+## CURRENT — P3 test typing correction frozen; first behavior run next
 
-Outgoing Save38/projection53 authority is published at cc62af7b87cbabdb88023188fe55655e5a44440c,
-exactly verified against GitHub. 1131-A/B capture, 1128 bounded C.3 disposition,
-all immutable fixtures and 1122 P15 choices remain preserved.
+Published initial test checkpoint ea237c2015386bf8551216c86d0d747bea7a4bdb exactly
+matched GitHub. 1134 root typing closed child2/fixedSource:true/empty consumed diff
+in33.427s with one new-test TS2353. Original raw failure remains preserved.
+1134-A/B record the named GameState-local correction: exact same null-Hollywood
+input/assertion, no behavior, timeout or route change. Re-frozen test is27,813B /
+f76990d2; helper remains23,664B / c46c50b8. 1133 originals remain immutable.
 
-1133-A freezes exactly two new files: tests/helpers/p14p3-fixtures.ts (23,664B,
-c46c50b8) and tests/p14p3-directing-promises.test.ts (27,772B, acacfbba).
-1133-B independently reviews source; 1132-A/B correct the real two-script managed
-pipeline. No production change or gameplay execution occurred. Eight D01–D06/
-D13–D14 leaves use one cached <=208-call route and predeclared60s local ceilings.
-D13 waived-state and broader reservation/lifecycle/Bridge coverage remain pending.
+Publish the correction/evidence, then parent runs1134b-p3-first-slice-root-types
+and the first1135-p3-first-slice-red using unchanged1133 argv. No production edit
+or gameplay run has occurred. Eight D01–D06/D13–D14 leaves retain one cached
+<=208-call route and declared60s local ceilings. Preserve actual first causes
+and pre-writer LEGACY4 bytes; fixture failure is not feature qualification.
 
-Publish this test candidate and verify exact remote equality, then parent runs
-1134-p3-first-slice-root-types followed by 1135-p3-first-slice-red using frozen
-1133 argv. Parent alone owns production integration and heavy execution. Both
-existing specialists have yielded consumed source; no additional agent is needed.
-Freeze HEAD/index/consumed inputs throughout each run. Preserve actual first causes,
-complete old4 receipt observations and fixed-source raw evidence. Fixture failures
-do not release unreachable behavior; only actual semantic RED releases matching
-production. Continue the authorized program without routine approval pauses.
+Parent remains sole production integrator/heavy executor. Existing test/review
+specialists own separate evidence, with consumed source frozen during runs.
+Outgoing38/53 atcc62, bounded1128 C.3,1122 P15 choices and all limitations stand.
+D13 waived-state and broader P3/lifecycle/Bridge work remain pending. Continue
+the authorized program after actual semantic RED, without routine approval pauses.
 
 ## CURRENT — reviewed 25-file fixture repair applied; publish and verify
 

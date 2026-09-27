@@ -334,7 +334,8 @@ describe('P3 first slice: public Director promises and historical meaning', () =
     // satisfy this precise predicate cause. Never strip those real anchors.
     for (const builder of [saves.makeSaveV1, saves.makeSaveV13, saves.makeSaveV18]) {
       expect(() => builder(a.state)).toThrow(/director|promise|predicate/i)
-      expect(() => builder({ ...clone(a.state), hollywood: null })).toThrow()
+      const invalid: GameState = { ...clone(a.state), hollywood: null }
+      expect(() => builder(invalid)).toThrow()
     }
     // Genuine P3 WAIVED authority belongs to D12's separately authorized route.
   }, LEAF_TIMEOUT_MS)
