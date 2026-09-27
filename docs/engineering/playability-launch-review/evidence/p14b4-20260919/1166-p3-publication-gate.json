@@ -1,0 +1,12 @@
+{
+  "sourceSha": "c6b5db42905eaaee5efe04405476d87540134ef8",
+  "remoteSha": "c6b5db42905eaaee5efe04405476d87540134ef8",
+  "observedAt": "2026-09-27T14:35:20.442296+00:00",
+  "consumedSourceClean": true,
+  "wholeWorktreeClean": false,
+  "wholeWorktreeStatus": "?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1165-p3-publication-gate.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1165-p3-rival-observation-root-types.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1165-p3-rival-observation-root-types.patch\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1165-p3-rival-observation-root-types.txt\n",
+  "rootTypes": "1165 PASS child0 fixedSource empty patch",
+  "sourceReview": "1164-B final KEEP",
+  "result": "PASS",
+  "nextRun": "1166-p3-rival-quote-observation-core"
+}

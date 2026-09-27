@@ -1,5 +1,39 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — actual quote facts captured; fixed public-script amendment released
+
+1165 types PASS33.935s.1166 on publishedc6b5db42905eaaee5efe04405476d87540134ef8
+closes14:35:28.914–14:35:40.630UTC,11.716s, child1/fixedSource/empty diff,
+no untracked source/signal/error. Actual196 rival calls/other0; two FAIL/fourteen
+filtered share the unchanged player pipeline cause, now helper1035. The three
+complete quote markers record actual pre-call facts without an added quote/tick.
+
+Player P1 revision4/digest4b52b8a3243e5e3e selects exactly promise4/5 fromr02/r03,
+unbound/currently attached/count1/progress0. Its one Ready script plus the actual
+legacy stock contribution yields two counted paths for two reservations plus
+count1: FRAGILE/needs-uncommissioned-picture. r01 focus P3 and P1 both use
+revision6, digests0a00a54e732e75ea/c06390b87e5fb17b, selecting promise0 WriterP1
+and promise2 DirectorP3. Only script0022 is unlinked Ready; linked0021/film21 has
+remaining6 with r01's incumbent Director and no focus-held seat. Two reservations
+plus new count1 therefore exceed that one existing path. No208/work is reached.
+
+The observed player membership satisfies1163's conditional bound. Parent releases
+1167's exact five-script amendment: public c01..c05 commissions191..195, actual
+reviews/acceptances192..196, replacing four idle advances and the old commission.
+Eight additional actions/real costs, no funding or extra tick. Preserve fixed
+bid/target/route, all16 test bodies/timeouts, quote observations and260/816 limits.
+This does not repair or waive the separate r01 constraint or guarantee a win.
+No sixth script, alternate bid, production change or hidden replay is authorized.
+
+1166-A/B attribution and1167-A/B source review are final and parent-verified.
+1167 helper78674B/389112bd, patch1966B/923498be, entire16-leaf test unchanged;
+independent review KEEP confirms the exact inverse and eight-action/zero-tick delta.
+Publication and exactremoteverify precede1168 root types and1169 unchanged D07/D18.
+Parent remains sole production writer/integrator/executor; production969fb459,
+no heavy process active. Retain
+bounded1162 policy evidence and all1155-C matrix/consumer gaps. Remaining P3/P14
+onward work continues; Unity/native/Owner remain deferred.
+
 ## CURRENT — rival order verified within failed route; factual observations next
 
 1162 on published969fb4592abc358a39c717b5bf9dd47a4b2f781b closes

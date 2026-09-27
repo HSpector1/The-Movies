@@ -984,9 +984,18 @@ export function rivalCredit() {
 }
 export function rivalAuthoring196() {
   return memo('rivalAuthoring196', () => {
-    const credit = rivalCredit(); let state = rivalTo(credit.state, 195)
+    const credit = rivalCredit(); let state = rivalTo(credit.state, 191)
     admitted(state)
-    const script = rivalScript(state, 'c-01', 195); state = script.state
+    // 1167: fixed five-script arrangement replaces four idle weeks and the old
+    // single commission. These ten public actions pay their real costs; no rescue.
+    const projectIds: string[] = []
+    for (const [index, conceptId] of ['c-01', 'c-02', 'c-03', 'c-04', 'c-05'].entries()) {
+      const script = rivalScript(state, conceptId, 191 + index)
+      state = script.state; projectIds.push(script.projectId)
+    }
+    expect(new Set(projectIds).size).toBe(5)
+    for (const id of projectIds) expect(state.scriptDevelopment.projects.find(p => p.id === id))
+      .toMatchObject({ status: 'ready', productionId: null, writerId: WRITER })
     for (const id of [RIVAL.vacancy, RIVAL.focus]) {
       const view = core.caseForTalent(state, id); assert.ok(view)
       expect(view).toMatchObject({ talentId: id, status: 'discovered', openedWeek: 196, decisionWeek: 208 })
@@ -1016,7 +1025,7 @@ export function rivalAuthoring196() {
     expect(order.indexOf(RIVAL.vacancy)).toBeGreaterThanOrEqual(0)
     expect(order.indexOf(RIVAL.focus)).toBeGreaterThan(order.indexOf(RIVAL.vacancy))
     admitted(state)
-    return { state, credit, projectId: script.projectId, automatic: clone(automatic),
+    return { state, credit, projectIds, automatic: clone(automatic),
       calls: clone(rivalCandidateCalls), ordinaryPackage: clone(rivalPackageCalls.find(p => p.week < 208)) }
   })
 }

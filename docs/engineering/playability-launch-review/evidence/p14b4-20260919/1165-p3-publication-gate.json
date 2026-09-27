@@ -1,0 +1,11 @@
+{
+  "sourceSha": "c6b5db42905eaaee5efe04405476d87540134ef8",
+  "remoteSha": "c6b5db42905eaaee5efe04405476d87540134ef8",
+  "observedAt": "2026-09-27T14:34:15.121811+00:00",
+  "consumedSourceClean": true,
+  "wholeWorktreeClean": true,
+  "wholeWorktreeStatus": "",
+  "sourceReview": "1164-B final KEEP; helper and unchanged full test verified",
+  "result": "PASS",
+  "nextRun": "1165-p3-rival-observation-root-types"
+}

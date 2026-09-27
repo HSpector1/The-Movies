@@ -1,0 +1,110 @@
+{
+  "sourceHead": "c6b5db42905eaaee5efe04405476d87540134ef8",
+  "file": {
+    "before": {
+      "path": "tests/helpers/p14p3-fixtures.ts",
+      "bytes": 78119,
+      "sha256": "10b170593398965cc7662ab61a309bfce9e4cf3dff77d47d60259c43a195362c"
+    },
+    "after": {
+      "path": "tests/helpers/p14p3-fixtures.ts",
+      "bytes": 78674,
+      "sha256": "389112bde75ccaab9e2d155a1df6e6dc279b78c7d6d531a582b04f27be5fba83"
+    }
+  },
+  "orderedPatch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1167-p3-fixed-five-script.patch",
+    "bytes": 1966,
+    "sha256": "923498beffa89c665336289fbcd1b6507cdefe2695e9946380136e112c240355"
+  },
+  "unchangedTest": {
+    "path": "tests/p14p3-directing-promises.test.ts",
+    "bytes": 77197,
+    "sha256": "3371570a015bcc3723ec7d6f4d85f8207bbb5cba9458e0036e538037736b455d"
+  },
+  "exactFullHelperInverse": true,
+  "surroundingHelperRangesExact": true,
+  "rivalScriptFunctionExact": {
+    "bytes": 1185,
+    "sha256": "ad5004c62621097618eaa9ef12eb921df716c8bc0c3120d6a2f37e33f5d5d131"
+  },
+  "schedule": [
+    {
+      "conceptId": "c-01",
+      "commissionWeek": 191,
+      "reviewAndAcceptWeek": 192,
+      "writerId": "authored-0003"
+    },
+    {
+      "conceptId": "c-02",
+      "commissionWeek": 192,
+      "reviewAndAcceptWeek": 193,
+      "writerId": "authored-0003"
+    },
+    {
+      "conceptId": "c-03",
+      "commissionWeek": 193,
+      "reviewAndAcceptWeek": 194,
+      "writerId": "authored-0003"
+    },
+    {
+      "conceptId": "c-04",
+      "commissionWeek": 194,
+      "reviewAndAcceptWeek": 195,
+      "writerId": "authored-0003"
+    },
+    {
+      "conceptId": "c-05",
+      "commissionWeek": 195,
+      "reviewAndAcceptWeek": 196,
+      "writerId": "authored-0003"
+    }
+  ],
+  "staticActionAccounting": {
+    "oldFinalWindow": {
+      "idleTickCalls": 4,
+      "rivalScriptCalls": 1,
+      "publicCommissionActions": 1,
+      "publicAcceptActions": 1,
+      "tickCalls": 5
+    },
+    "newFinalWindow": {
+      "idleTickCalls": 0,
+      "rivalScriptCalls": 5,
+      "publicCommissionActions": 5,
+      "publicAcceptActions": 5,
+      "tickCalls": 5
+    },
+    "additionalPublicActions": 8,
+    "additionalTickCalls": 0,
+    "qualification": "Source accounting only; no runtime execution or claim that the new prerequisites pass."
+  },
+  "returnShapeChange": "Unused singular projectId becomes projectIds:string[] containing all five actual new public project IDs. No leaf uses the old singular field. All downstream spreads preserve this array without selecting a new route.",
+  "preserved": [
+    "entire16-leaf test file and all60s timeouts",
+    "fixed input/seed/IDs/funding and bid208/1.25",
+    "all1164 actual quote observations and quote counts",
+    "all other actions and helper phases",
+    "independent196 cache before208 failure",
+    "fullSave admission in unchanged rivalScript at each commission/accept",
+    "firstfailure memo and no rescue or sixthscript",
+    "selected260/fullcore816 counters"
+  ],
+  "argv": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14p3-directing-promises.test.ts",
+    "--testNamePattern",
+    "D(?:07|18) "
+  ],
+  "typeArgv": [
+    "node_modules/.bin/tsc",
+    "--noEmit"
+  ],
+  "selectedTickCap": 260,
+  "allCoreTickCap": 816,
+  "leafTimeoutMs": 60000,
+  "authorExecution": false
+}
