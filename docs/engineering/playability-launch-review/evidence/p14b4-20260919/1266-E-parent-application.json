@@ -1,0 +1,47 @@
+{
+  "record": "1266-E parent application",
+  "timeUtc": "2026-09-27T22:56:30.172310+00:00",
+  "basePublishedSource": "b8ff2c7d64a12b72d71f5b61a7aacf720fd2e28c",
+  "parentRead": "Complete207-line frozen source, A/F/B/C/D, exact manifest selected entry and current lifecycle/opportunity/migration owner;42filepins/rawinput/wholepatch reconstruction checked.",
+  "operation": "add one standalone Q16 file only",
+  "source": {
+    "path": "tests/p14p4p5-retired-acting.test.ts",
+    "bytes": 15682,
+    "sha256": "1ce0b6e6247226b2d513cf7b12cab494e4247e190f87ad6c8a0093c39d8a4ffd"
+  },
+  "author": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1266-C-retired-acting-source-handback.md",
+    "bytes": 5727,
+    "sha256": "9f448b1e4d246451084256104eb4cf080edcb9108c55170572f34c16070ceb56"
+  },
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1266-D-retired-acting-source-review.md",
+    "bytes": 4653,
+    "sha256": "933df9d621a7d069a459ba8015788b3baf8f0d2d00ccc1889a6ef838cab658c2"
+  },
+  "manifest": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1266-retired-acting-source-manifest.json",
+    "bytes": 9085,
+    "sha256": "20a84158da19b55cd89f886c95d076547855b6e377dee330a6979f04522132f8"
+  },
+  "protectedFilesUnchanged": 35,
+  "runtimeExecuted": false,
+  "next": {
+    "1267-retired-acting-types": [
+      "node_modules/.bin/tsc",
+      "--noEmit",
+      "-p",
+      "tsconfig.json"
+    ],
+    "1268-retired-acting-runtime": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p4p5-retired-acting.test.ts",
+      "-t",
+      "Q16 "
+    ]
+  },
+  "advanceCapBothGates": 0
+}

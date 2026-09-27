@@ -1,5 +1,22 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — Requested-Actor retirement source applied; Q16 gates next
+
+Parent applied exact1266-C/D on publishedb8ff2c7d.1266-E records the sole new
+15,682-byte test1ce0b6e6 and35 unchanged protected files. Publish then1267 root
+types and1268 isolatedQ16, both cap0: three pure quotes on exact existing Save38
+natural208, actual Actor retirement after real Director/Writer transitions.
+Current migration, all owner premises and receipt expectations remain unexecuted.
+Preserve the corpus historical V37 parity FAIL; no old producer/prefix replay.
+Parent owns live integration and the sole heavy lane; same test/review specialists.
+
+1263-I/J/K closed correctedQ15 on d787d92c with original1265FAIL preserved;
+fifteen leaves passed in seven separate selections. Next after1266 closure is
+accepted1269 cross-owner source, then1272 finishing.1275-A is an unreviewed future
+proposal for real shared-production P1 waivers/common windows and delayed release;
+no source or execution release. Continue authorized program and retained limits.
+Unity/native and Owner campaign access deferred.
+
 ## CURRENT — Stock-null release qualified; requested Actor retirement source next
 
 Executed/published d787d92cbe6653916b8ca977b798f3b92c7d72b5 matched GitHub.
