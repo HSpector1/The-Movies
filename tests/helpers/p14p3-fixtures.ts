@@ -1,5 +1,5 @@
-// Independent 1121/1132/1142 P3 fixtures. Cached player route <=208 actual
-// develop:true ticks plus three <=64-call branches, aggregate <=400. No rescue.
+// Independent 1121/1132/1142/1148 P3 fixtures. Player208 + three64 branches
+// + lifecycle156 = <=556 actual develop:true ticks. No rescue or extra route.
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
@@ -7,6 +7,7 @@ import { gunzipSync } from 'node:zlib'
 import { expect, vi } from 'vitest'
 import * as core from '../../src/core/index.js'
 import * as promiseOwner from '../../src/core/promises.js'
+import * as lifecycleOwner from '../../src/core/careerLifecycle.js'
 import * as saves from '../../src/core/save.js'
 import { activeContract, busyTalentIds } from '../../src/core/employment.js'
 import type { Action, GameState, ProfessionalPromise, PromiseFeasibilityReceipt, FirstTakeReceipt,
@@ -521,5 +522,193 @@ export function waiverCompleted() {
     expect(second.take.week).toBeLessThan(input.substitute.dueWeekExclusive)
     state = branchTo('waiver', second.released, 104)
     return { ...input, second, state }
+  })
+}
+
+// 1148: one additional genuine208→364 trajectory; no player-prefix replay.
+export const LIFE = { director: 'authored-0000', other: 'authored-0002', writer: WRITER } as const
+let lifecycleCalls = 0
+export function continuityCounters() {
+  return { ...outcomeCounters(), lifecycleCalls, lifecycleCap: 156,
+    total: outcomeCounters().total + lifecycleCalls, cap: 556, selectedCap: 364 }
+}
+function lifeStep(state: GameState): GameState {
+  assert.equal(state.market.tick, 208 + lifecycleCalls, 'one monotone lifecycle route')
+  assert.ok(lifecycleCalls < 156 && continuityCounters().total < 556)
+  lifecycleCalls++
+  const next = core.tick(state, { develop: true })
+  expect(next.market.tick).toBe(state.market.tick + 1); return next
+}
+function lifeTo(state: GameState, week: number): GameState {
+  assert.ok(week >= state.market.tick && week <= 364)
+  while (state.market.tick < week) state = lifeStep(state)
+  admitted(state); return state
+}
+export const lifeDraft = (state: GameState, id: string, directing: boolean): PromiseDraft => ({
+  family: directing ? 'DIRECTING_COUNT' : 'APPEARANCE_COUNT',
+  predicate: directing ? { kind: 'directorCount', count: 1 } : { count: 1 },
+  issuerStudioId: issuer(state), beneficiaryPersonId: id, startWeek: 260, termWeeks: 52,
+  windowStartWeek: 260, dueWeekExclusive: 300,
+})
+export function lifecycle208() {
+  return memo('lifecycle208', () => {
+    const old = outgoing('natural-week208'), loaded = saves.migrateToLive(old.save).state
+    expect(loaded.market.tick).toBe(208); expect(loaded.studio.cash).toBe(18_715_197.00408718)
+    expect(loaded.contracts).toEqual([]); expect(loaded.studio.activeProductions).toEqual([])
+    expect(loaded.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] }); admitted(loaded)
+    expect(person(loaded, LIFE.director)).toMatchObject({ role: 'director', age: 72 })
+    expect(person(loaded, LIFE.other)).toMatchObject({ role: 'director', age: 44 })
+    expect(person(loaded, LIFE.writer)).toMatchObject({ role: 'writer', age: 44 })
+    const actorRecord = clone(core.retirementRecordFor(loaded, LIFE.director, 'actor'))
+    expect(actorRecord).toMatchObject({ profession: 'actor', status: 'retired', retiredWeek: 208 })
+    const changes = clone(loaded.careerLifecycle.professionChanges.filter(row => row.personId === LIFE.director))
+    expect(changes).toEqual([expect.objectContaining({ from: 'actor', to: 'director', week: 208 })])
+    let state = loaded
+    for (const id of [LIFE.director, LIFE.other, LIFE.writer]) {
+      expect(state.hollywood!.employment.filter(e => e.terms.talentId === id && e.terms.startWeek <= 208
+        && 208 < (e.endedWeek ?? e.terms.endWeekExclusive))).toEqual([])
+      const offer = core.playerOffer(state, id, 52)
+      expect(state.studio.cash).toBeGreaterThanOrEqual(offer.signingBonus)
+      const cash = state.studio.cash, ledgerCount = state.ledger.length
+      state = act(state, { kind: 'signContract', talentId: id, termWeeks: 52 })
+      expect(activeContract(state, id)).toMatchObject({ startWeek: 208, endWeekExclusive: 260,
+        termWeeks: 52, annualSalary: offer.annualSalary, signingBonus: offer.signingBonus })
+      expect(state.studio.cash).toBe(cash - offer.signingBonus)
+      expect(state.ledger.slice(ledgerCount)).toEqual([expect.objectContaining({ kind: 'signingBonus',
+        talentId: id, week: 208, amount: -offer.signingBonus })]); admitted(state)
+    }
+    expect(core.retirementRecordFor(state, LIFE.director, 'actor')).toEqual(actorRecord)
+    expect(state.careerLifecycle.professionChanges.filter(row => row.personId === LIFE.director)).toEqual(changes)
+    return { loaded, state, actorRecord, changes }
+  })
+}
+export function lifecycle248() {
+  return memo('lifecycle248', () => {
+    const input = lifecycle208(); let state = act(input.state, { kind: 'activateScriptDevelopment' })
+    const used = new Set([...state.studio.releasedFilms.map(f => f.conceptId),
+      ...state.studio.activeProductions.map(p => p.conceptId)])
+    expect(state.concepts.filter(c => !used.has(c.id)).slice(0, 2).map(c => c.id)).toEqual(['c-03', 'c-04'])
+    const projectIds: string[] = []
+    for (const [index, conceptId] of ['c-03', 'c-04'].entries()) {
+      expect(state.market.tick).toBe(208 + index); expect(busyTalentIds(state).has(LIFE.writer)).toBe(false)
+      const before = new Set(state.scriptDevelopment.projects.map(p => p.id))
+      state = act(state, { kind: 'commissionScript', project: { conceptId, writerId: LIFE.writer,
+        shape: SHAPE, promise: creative(state, conceptId) } })
+      const added = state.scriptDevelopment.projects.filter(p => !before.has(p.id)); expect(added).toHaveLength(1)
+      const project = added[0]!; projectIds.push(project.id)
+      expect(project).toMatchObject({ status: 'drafting', writerId: LIFE.writer, writerIds: [LIFE.writer],
+        commissionedWeek: 208 + index, dueWeek: 209 + index, conceptId })
+      expect(project.reservation).not.toBeNull(); admitted(state)
+      state = lifeStep(state)
+      expect(state.scriptDevelopment.projects.find(p => p.id === project.id))
+        .toMatchObject({ status: 'review', dueWeek: null, reservation: null })
+      state = act(state, { kind: 'acceptScript', projectId: project.id }); admitted(state)
+      expect(state.scriptDevelopment.projects.find(p => p.id === project.id)).toMatchObject({ status: 'ready', productionId: null })
+    }
+    state = lifeTo(state, 248)
+    for (const id of [LIFE.other, LIFE.director]) {
+      const view = core.caseForTalent(state, id); assert.ok(view)
+      expect(view).toMatchObject({ openedWeek: 248, decisionWeek: 260, status: 'discovered' })
+      expect(state.talentMarket.cases.find(c => c.contractId === view.contractId && c.openedWeek === 248))
+        .toMatchObject({ variant: 'expiry' })
+      expect(core.retirementRecordFor(state, id)).toBeUndefined()
+    }
+    for (const id of projectIds) expect(state.scriptDevelopment.projects.find(p => p.id === id))
+      .toMatchObject({ status: 'ready', productionId: null })
+    return { ...input, state, projectIds }
+  })
+}
+export function lifecycleAttached() {
+  return memo('lifecycleAttached248', () => {
+    const input = lifecycle248(); let state = input.state
+    const promiseIds: string[] = [], before = clone(state)
+    let castBefore: ProfessionalPromise | undefined
+    for (const [id, directing] of [[LIFE.other, false], [LIFE.director, true]] as const) {
+      const offer = core.proposalDraft(state, issuer(state), id, 52, 1.25, 248)
+      expect(state.studio.cash).toBeGreaterThanOrEqual(offer.signingBonus)
+      state = core.submitProposal(state, { talentId: id, issuerStudioId: issuer(state), termWeeks: 52, premiumTier: 1.25 })
+      const draft = lifeDraft(state, id, directing)
+      expect(quote(state, draft)).toMatchObject({ classification: 'REASONABLY_ACHIEVABLE', bottleneck: null })
+      const old = new Set(state.promises.map(p => p.promiseId))
+      state = core.attachPromise(state, id, issuer(state), draft)
+      const added = state.promises.filter(p => !old.has(p.promiseId)); expect(added).toHaveLength(1)
+      promiseIds.push(added[0]!.promiseId)
+      if (!directing) castBefore = clone(added[0]!)
+      admitted(state)
+    }
+    assert.ok(castBefore)
+    return { ...input, before, state, castId: promiseIds[0]!, directorPromiseId: promiseIds[1]!, castBefore }
+  })
+}
+export function lifecycle260() {
+  return memo('lifecycle260', () => {
+    const input = lifecycleAttached(), actual = promiseOwner.promiseFeasibility, freezeCalls: FreezeCall[] = []
+    const prices: Record<string, { annualSalary: number; signingBonus: number }> = {}
+    const spy = vi.spyOn(promiseOwner, 'promiseFeasibility').mockImplementation((state, draft, week) => {
+      if (week === 260 && draft.issuerStudioId === issuer(state)
+        && [input.castId, input.directorPromiseId].includes(draft.promiseId ?? '')) {
+        const price = core.proposalDraft(state, draft.issuerStudioId, draft.beneficiaryPersonId, 52, 1.25, week)
+        prices[draft.beneficiaryPersonId] = { annualSalary: price.annualSalary, signingBonus: price.signingBonus }
+      }
+      const result = actual(state, draft, week)
+      if (week === 260) freezeCalls.push({ promiseId: draft.promiseId ?? null,
+        rootVersion: state.promises.find(p => p.promiseId === draft.promiseId)?.version ?? null,
+        week, result: clone(result) })
+      return result
+    })
+    let state: GameState
+    try { state = lifeTo(input.state, 260) } finally { spy.mockRestore() }
+    for (const [id, promiseId] of [[LIFE.other, input.castId], [LIFE.director, input.directorPromiseId]] as const) {
+      const row = state.promises.find(p => p.promiseId === promiseId); assert.ok(row)
+      assert.ok(row.contractId, 'fixture premise: actual own winner and bound root')
+      expect(row).toMatchObject({ beneficiaryPersonId: id, issuerStudioId: issuer(state) })
+      const employment = state.hollywood!.employment.find(e => e.contractId === row.contractId); assert.ok(employment)
+      expect(employment).toMatchObject({ studioId: issuer(state), terms: { talentId: id, startWeek: 260,
+        endWeekExclusive: 312, termWeeks: 52 } })
+      const price = prices[id]; assert.ok(price, 'actual decision-week pre-freeze public price observed')
+      expect(price.signingBonus).toBe(Math.round(price.annualSalary * 0.18))
+      expect(employment.terms).toMatchObject(price)
+      expect(state.ledger.filter(r => r.kind === 'signingBonus' && r.week === 260 && r.talentId === id))
+        .toEqual([expect.objectContaining({ amount: -employment.terms.signingBonus })])
+      expect(state.talentMarket.receipts.filter(r => r.kind === 'settled' && r.week === 260
+        && r.talentId === id && r.studioId === issuer(state))).toHaveLength(1)
+      expect(state.talentMarket.proposals.filter(p => p.talentId === id)).toEqual([])
+    }
+    for (const id of input.projectIds) expect(state.scriptDevelopment.projects.find(p => p.id === id))
+      .toMatchObject({ status: 'ready', productionId: null })
+    admitted(state); return { ...input, state, freezeCalls, prices }
+  })
+}
+export function lifecycle261() {
+  return memo('lifecycle261', () => {
+    const input = lifecycle260(), actual = lifecycleOwner.assignmentRefusal
+    const advance = promiseOwner.advancePromisesWeek
+    let inPromiseOwner = false
+    const admissionCalls: { personId: string; week: number; requested: string | null }[] = []
+    const spy = vi.spyOn(lifecycleOwner, 'assignmentRefusal').mockImplementation((state, id, week, requested) => {
+      if (inPromiseOwner) admissionCalls.push({ personId: id, week, requested: requested ?? null })
+      return actual(state, id, week, requested)
+    })
+    const ownerSpy = vi.spyOn(promiseOwner, 'advancePromisesWeek').mockImplementation(state => {
+      inPromiseOwner = true
+      try { return advance(state) } finally { inPromiseOwner = false }
+    })
+    let state: GameState
+    try { state = lifeStep(input.state) } finally { ownerSpy.mockRestore(); spy.mockRestore() }
+    admitted(state); return { ...input, before261: input.state, state, admissionCalls }
+  })
+}
+export function lifecycle364() {
+  return memo('lifecycle364', () => {
+    const input = lifecycle261(), at300 = lifeTo(input.state, 300), state = lifeTo(at300, 364)
+    expect(person(state, LIFE.director)).toMatchObject({ role: 'director', age: 75 })
+    const current = core.retirementRecordFor(state, LIFE.director); assert.ok(current, 'actual hard75 announcement')
+    const ends = state.hollywood!.employment.filter(e => e.terms.talentId === LIFE.director
+      && e.terms.startWeek <= 364 && 364 < (e.endedWeek ?? e.terms.endWeekExclusive)).map(e => e.terms.endWeekExclusive)
+    expect(current).toMatchObject({ profession: 'director', status: 'announced', cause: 'hardBoundary',
+      announcedWeek: 364, effectiveWeek: Math.max(416, ...ends) })
+    expect(core.retirementRecordFor(state, LIFE.director, 'actor')).toEqual(input.actorRecord)
+    expect(state.careerLifecycle.professionChanges.filter(row => row.personId === LIFE.director)).toEqual(input.changes)
+    admitted(state); return { ...input, at300, state, current }
   })
 }

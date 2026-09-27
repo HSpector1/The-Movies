@@ -1,0 +1,60 @@
+{
+  "status": "frozen source, unexecuted",
+  "baselineHead": "79d45ff56d7dd96ec5d8f905f6b00532e80543e4",
+  "files": [
+    {
+      "path": "tests/helpers/p14p3-fixtures.ts",
+      "baselineBytes": 33916,
+      "baselineSha256": "e35b1475a62c9933409d01dd7b7c21e30960227c056bbe3ab79b1cbe95d73d7f",
+      "finalBytes": 46128,
+      "finalSha256": "5808cb308dbd4b8f0eb236aeebd23ca0d30e8331f96da79d43c0e50e380cd504"
+    },
+    {
+      "path": "tests/p14p3-directing-promises.test.ts",
+      "baselineBytes": 47650,
+      "baselineSha256": "fb96519aa277d19bb2d7a4d7f7859dbcb2cea9d058221269f455eccf7a5f08a7",
+      "finalBytes": 66863,
+      "finalSha256": "b2e309a795a0fe19f351bc983367da2803c46c8844a434f976c0d91030faffd1"
+    }
+  ],
+  "orderedPatch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1149-p3-reservation-lifecycle.patch",
+    "bytes": 34933,
+    "sha256": "cb966acbeeb80ef40986cc859fa642ba76548779d93686e4197fec656c08d88f"
+  },
+  "argv": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1149-p3-reservation-lifecycle.argv.json",
+    "bytes": 158,
+    "sha256": "42f1ec38415c89c7ab50fc0b7c31377999658f2c1840389b500b48bf8ca1a155"
+  },
+  "declarations": {
+    "original": 10,
+    "total": 14,
+    "selected": 4,
+    "selectedNames": [
+      "D09 reserves the actual union and freezes a changed receipt without restamping its root",
+      "D10 keeps a newly bound Director obligation lawful after its completed Actor episode",
+      "D11 preserves promise outcomes through actual current-profession retirement",
+      "D13W refuses a nonaccepted receipt on an actual Director waiver successor"
+    ],
+    "timeoutMs": 60000,
+    "oldTenBodyBytes": 44004,
+    "oldTenBodySha256": "33fbbbd44261bc98b4da6764d17aac4dc4dc4d19ec89ccfcb1e11cd397323d34",
+    "oldTenBodiesExact": true,
+    "helperOriginalReconstruction": "Remove appended lifecycle route; reverse only header and added lifecycleOwner import; exact original full helper bytes."
+  },
+  "counters": {
+    "selectedCap": 364,
+    "allCurrentCoreCap": 556,
+    "playerCap": 208,
+    "existingBranchCaps": [
+      64,
+      64,
+      64
+    ],
+    "lifecycleCap": 156,
+    "lifecycleMaxWeek": 364,
+    "rival260": "not executed or released",
+    "actualCalls": "unexecuted"
+  }
+}

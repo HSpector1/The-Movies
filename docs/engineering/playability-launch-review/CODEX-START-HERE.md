@@ -1,5 +1,27 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — four reservation/lifecycle tests frozen; first execution next
+
+1149-A final61d199c0 freezes only the two existing P3 helper/test paths against
+published79d45ff56d7dd96ec5d8f905f6b00532e80543e4. Ordered patch34933B,
+SHA256 cb966acbeeb80ef40986cc859fa642ba76548779d93686e4197fec656c08d88f.
+All ten earlier bodies remain exact. Four new60s leaves D09/D10/D11/D13W have
+not run. Final review includes explicit real Actor notice/retirement premises,
+pre-freeze price observations, promise-owner-only261 admission calls and genuine
+zero-tick third-successor authority. Parent has verified final source/patch bytes.
+
+Existing author has yielded both consumed files; independent reviewer owns1149-B.
+Publish the final frozen source/review, exactremoteverify, then1150 root compiler
+and1151's exact `D(?:09|10|11|13W) ` selection via separate successful dependent
+preflights. Distinguish compiler/setup failures from semantic failures. Keep actual
+first causes/counters and unchanged legacy marker; no new behavior PASS claimed.
+
+Production remains unchanged at7fed8f51. Parent is sole production writer/integrator
+and heavy executor; no heavy process active. Selected cap364, all-current556,
+original156 lifecycle route and other1148 limits remain. D07/D18 rival260,
+projection54/Bridge/UI/runtime, broader consumers and authorized P14 onward work
+remain pending. No routine approval pause; all native/Owner/destructive limits stand.
+
 ## CURRENT — next reservation/lifecycle slice planned and source ownership bounded
 
 1147 cancellation/waiver qualification is published at exact GitHub checkpoint
