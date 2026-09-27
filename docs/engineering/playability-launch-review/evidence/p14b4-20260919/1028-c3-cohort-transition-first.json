@@ -1,0 +1,22 @@
+{
+  "sourceSha": "7b50494cddb5380c6a78e7a807229d3b8037713e",
+  "testedDiffSha256": "739e1f0d8237353406ffa4dd208214dee349faf4095a459711e529205ac276e3",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14c3-cohort-transition.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T00:25:18.405Z",
+  "end": "2026-09-27T00:26:07.256Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "7b50494cddb5380c6a78e7a807229d3b8037713e",
+  "testedDiffSha256AtEnd": "739e1f0d8237353406ffa4dd208214dee349faf4095a459711e529205ac276e3",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

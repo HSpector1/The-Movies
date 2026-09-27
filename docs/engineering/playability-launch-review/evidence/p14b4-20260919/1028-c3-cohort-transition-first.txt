@@ -1,0 +1,52 @@
+{"sourceSha":"7b50494cddb5380c6a78e7a807229d3b8037713e","testedDiffSha256":"739e1f0d8237353406ffa4dd208214dee349faf4095a459711e529205ac276e3","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c3-cohort-transition.test.ts"],"node":"v20.20.2","start":"2026-09-27T00:25:18.405Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14c3-cohort-transition.test.ts
+C3_COHORT_ROUTE_ACTUAL {"calls":612,"maximumCalls":729,"maximumWeek":3329,"observations":{"funding":{"untouchedCanonicalSha256":"24b0919406932bde690558b775d568a20eb477d51604984bde5915f829994d92","fundedCanonicalSha256":"01ca9eb2f6fa006c7170d9ba150febe69c1168141e9991312a0d86b9d731b250","oldCash":-19000000,"cash":30000000,"delta":49000000},"film1":{"productionId":"prod-2608","take":2613,"release":2616,"returnedWeek":2617,"calls":9,"directorId":"authored-0000","writerId":"authored-0001"},"film2":{"productionId":"prod-2617","take":2622,"release":2625,"returnedWeek":2626,"calls":9,"directorId":"authored-0000","writerId":"authored-0001"},"film3":{"productionId":"prod-2626","take":2631,"release":2634,"returnedWeek":2635,"calls":9,"directorId":"authored-0000","writerId":"authored-0001"},"renewal2808":{"open":2796,"decision":2808,"term":208,"end":3016,"salary":702780,"signingBonus":126500,"cash":10012806.848364267},"renewal3016":{"open":3004,"decision":3016,"term":208,"end":3224,"salary":702780,"signingBonus":126500,"cash":3643186.8483642675}}}
+
+ ❯ |core| tests/p14c3-cohort-transition.test.ts (9 tests | 5 failed) 44142ms
+   ✓ C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J1 accepts genuine35/37/current input and discloses only the initial49M before real public hires 14289ms
+   ✓ C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J2 actually releases three lead pictures with repeated Director and credited Writer context 8978ms
+   ✓ C.3 genuine cohort-born Actor enters a new profession with origin authority intact > 'J3' genuinely retains the incumbent through its ordinary proposal and decision-week payment 8135ms
+   ✓ C.3 genuine cohort-born Actor enters a new profession with origin authority intact > 'J4' genuinely retains the incumbent through its ordinary proposal and decision-week payment 8001ms
+   × C.3 genuine cohort-born Actor enters a new profession with origin authority intact > 'J5' genuinely retains the incumbent through its ordinary proposal and decision-week payment 4730ms
+     → talentMarket: proposal rejected — Insufficient cash — this 151800 commitment would leave cash at -2391553. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+   × C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J6 records actual hard70 notice, unoffered59-week descriptor and seven-week expiry gap 2ms
+     → talentMarket: proposal rejected — Insufficient cash — this 151800 commitment would leave cash at -2391553. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+   × C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J7 makes the real3283 Director choice while preserving the original832 Actor receipt and strict cause 1ms
+     → talentMarket: proposal rejected — Insufficient cash — this 151800 commitment would leave cash at -2391553. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+   × C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J8 reloads and hires a new crew for genuine Director work while retired acting stays refused 1ms
+     → talentMarket: proposal rejected — Insufficient cash — this 151800 commitment would leave cash at -2391553. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+   × C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J9 counts the active Director at actual3328 and survives loaded3329 with all origin and choice facts 1ms
+     → talentMarket: proposal rejected — Insufficient cash — this 151800 commitment would leave cash at -2391553. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14c3-cohort-transition.test.ts > C.3 genuine cohort-born Actor enters a new profession with origin authority intact > 'J5' genuinely retains the incumbent through its ordinary proposal and decision-week payment
+ FAIL |core|  tests/p14c3-cohort-transition.test.ts > C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J6 records actual hard70 notice, unoffered59-week descriptor and seven-week expiry gap
+ FAIL |core|  tests/p14c3-cohort-transition.test.ts > C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J7 makes the real3283 Director choice while preserving the original832 Actor receipt and strict cause
+ FAIL |core|  tests/p14c3-cohort-transition.test.ts > C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J8 reloads and hires a new crew for genuine Director work while retired acting stays refused
+ FAIL |core|  tests/p14c3-cohort-transition.test.ts > C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J9 counts the active Director at actual3328 and survives loaded3329 with all origin and choice facts
+Error: talentMarket: proposal rejected — Insufficient cash — this 151800 commitment would leave cash at -2391553. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+ ❯ Module.submitProposal src/core/talentMarket.ts:444:31
+    442|   const draft = proposalDraft(state, intent.issuerStudioId, intent.tal…
+    443|   const refusal = affordabilityRefusal(state, intent.issuerStudioId, d…
+    444|   if (refusal !== null) throw new Error(`talentMarket: proposal reject…
+       |                               ^
+    445|   const proposal: TalentMarketProposal = {
+    446|     talentId: draft.talentId,
+ ❯ renew tests/helpers/p14c3-cohort-transition-fixtures.ts:244:11
+ ❯ tests/helpers/p14c3-cohort-transition-fixtures.ts:268:73
+ ❯ memo tests/helpers/p14c3-cohort-transition-fixtures.ts:33:23
+ ❯ cohortRenewalThree tests/helpers/p14c3-cohort-transition-fixtures.ts:268:47
+ ❯ tests/p14c3-cohort-transition.test.ts:185:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ Test Files  1 failed (1)
+      Tests  5 failed | 4 passed (9)
+   Start at  02:25:19
+   Duration  47.59s (transform 2.11s, setup 0ms, collect 2.79s, tests 44.14s, environment 0ms, prepare 113ms)
+

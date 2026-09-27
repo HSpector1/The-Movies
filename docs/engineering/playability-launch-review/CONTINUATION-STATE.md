@@ -1,5 +1,69 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — original cohort attempt typed; publishing failed-scenario checkpoint
+
+1029 root types PASS/no diagnostics, child0/fixed739e1f0d,33.823s, closed
+00:27:26.791Z.1058 preserves1028 fourPASS/fivecachedFAIL at3212/612calls and
+all unreached retirement/change/work/cohort boundaries.1059 checkpoints this
+original source and failure before any changed funding arrangement. No production
+source changed. All heavy processes are closed; no corrected test is released.
+Author/reviewer own docs-only1057-A/B fresh-initial funding review. Parent remains
+sole production writer/executor and will publish only finished records/source.
+K/L, Stage D53/runtime/SaveAs/full/endurance/native boundaries remain unchanged.
+
+## CURRENT — cohort funding premise failed; original-source types active
+
+1028 closed00:26:07.256Z,48.851s, child1/fixedSource739e1f0d. Four cases PASS;
+five share one cached funding failure at3212/612 actual calls. Three films and
+first two renewals passed; third proposal's151800 commitment was unaffordable.
+Later retirement/change/work/cohort boundaries were not reached.1058 records
+actual results and limits. No production defect or successful J route is claimed.
+1029 root types started2026-09-27T00:26:52.968Z (session11025), sole heavy lane on unchanged
+source/HEAD. Author owns docs-only1057-A revised INITIAL funding plan; reviewer
+1054 results and1057-B plan review. No source correction or rerun is released.
+Preserve the original30M/+49M attempt; no midway rescue or adaptive funding loop.
+K/L, Stage D53/runtime/SaveAs/full/endurance and native boundaries remain.
+
+## CURRENT — cohort-transition first run active
+
+1028-c3-cohort-transition-first started2026-09-27T00:25:18.405Z (session78817), sole heavy
+lane on7b50494c plus739e1f0d8237353406ffa4dd208214dee349faf4095a459711e529205ac276e3.
+Nine leaves/max729 actual calls; source and HEAD frozen through recorded closure.
+1054 independently rehashed final files and gave static KEEP.1053-A handback is
+frozenf2c9f1ef114fa95b61232f69065f349ee5fba1c4973791cd86669c4fd1e3a09e.
+Author is idle; reviewer may append only1054 results. No gameplay outcome is
+claimed yet. Parent next reads raw/JSON, attributes first failures, then types/
+review/checkpoint.1042 K/L source remains unreleased; Stage D53/runtime/SaveAs,
+full/endurance and native boundaries remain unchanged.
+
+## CURRENT — cohort source frozen; first recorded trajectory next
+
+1053 source is frozen on7b50494c: helper8977f474ae81b9bce482fd5b3606c9e59bdd0ccb300d2ded3c2150593cb5a5ac;
+testf4d2700e429e7f118baea5468d5a51765c1164276509ab19d35a9100f517bed2.
+Parent independently matched ordered patch739e1f0d8237353406ffa4dd208214dee349faf4095a459711e529205ac276e3
+(52,172 bytes); both new files are intent-to-add. Nine leaves/max729 actual calls,
+one2600→3329 world with the disclosed initial49M arrangement only. Parent read
+both complete files; provisional1054 review has no blocker. Author writes only
+1053-A handback; reviewer final1054 source/results. No heavy process active yet.
+Next final freeze affirmation then1028-c3-cohort-transition-first.1055 accepted
+K/L plan refinements remain for later release.1056 adopts future endurance policy
+and sampled persistence scope; no endurance source/execution is released.
+Stage D53/runtime/SaveAs/full verification and native deferral remain separate.
+
+## CURRENT — history checkpoint published; cohort-transition source released
+
+Local and GitHub refs independently match7b50494cddb5380c6a78e7a807229d3b8037713e;
+whole worktree clean at verification.1051 records the bounded history results,
+original failed premise, corrected focused passes, root types and independent KEEP.
+All heavy processes are closed. Existing author owns only NEW
+`tests/helpers/p14c3-cohort-transition-fixtures.ts`,
+`tests/p14c3-cohort-transition.test.ts` and1053-A under1041/1047:
+nine leaves, one2600→3329 trajectory/max729 calls, disclosed initial funding only.
+Reviewer owns1054 source/results plus docs-only1055 review of1042 canonical plan.
+Parent is sole production writer/executor; no agents were recreated. Next freeze,
+review and recorded1028 cohort run;1042 remains separate.1052 endurance is still
+proposal-only. Stage D53/runtime/SaveAs/full/endurance/native boundaries remain.
+
 ## CURRENT — history correction verified; publishing checkpoint
 
 1027 root types passed with no diagnostics, child0/fixedSource,32.625s,
