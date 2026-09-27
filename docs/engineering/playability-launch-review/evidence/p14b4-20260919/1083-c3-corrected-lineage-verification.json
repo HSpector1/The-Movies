@@ -1,0 +1,22 @@
+{
+  "sourceSha": "d41a337b7bd6cadb0824abd9818f686879c34608",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vite-node",
+    "--script",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1108-c3-lineage-verification.ts",
+    "--source-sha",
+    "d41a337b7bd6cadb0824abd9818f686879c34608"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T05:15:03.836Z",
+  "end": "2026-09-27T05:15:12.477Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "d41a337b7bd6cadb0824abd9818f686879c34608",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

@@ -1,5 +1,15 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — corrected C/D lineage ready (2026-09-27)
+
+Published correction d41a337b is exact on GitHub. 1108-A/B freeze and review the
+new adapter; 1082 compiler and 1083 data-only lineage verification both pass
+on fixed source. Complete reconstruction admits only the four-file correction
+and its one test; original A/B authority and the entire game policy remain exact.
+1108-C/D qualify readiness only. Corrected C is next, followed by reviewed D;
+all staged maintenance remains held. About 10.8 hours of the C.3 planning window
+have elapsed; final 1103 verification remains required. No native acceptance.
+
 ## CURRENT — C.3 reload arithmetic correction verified (2026-09-27)
 
 1107-G/F qualify a narrow four-file force-order correction after C1070 failed at

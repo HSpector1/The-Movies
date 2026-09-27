@@ -1,5 +1,30 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — corrected endurance lineage gates passed; C next
+
+Correction checkpoint d41a337b7bd6cadb0824abd9818f686879c34608 is published and
+exactly verified on GitHub. Frozen 1108 source has independent 1108-B KEEP.
+Actual 1082 compiler gate passes with zero diagnostics; actual 1083 data-only
+verifier passes complete source/producer reconstruction, original A/B inventories
+and 36 refusal controls, with zero gameplay or artifact writes. Both processes
+are CLOSED on fixed d41a337b, empty consumed diff and no untracked source.
+1108-C reviews their actual closures; 1108-D records parent readiness.
+
+Publish this readiness checkpoint, verify the remote, then execute only corrected
+C in exclusive 1052-c3-endurance-C-force-order-v1 using original A baseline and
+original B predecessor. Use the actual new full HEAD, hold it and all consumed
+inputs fixed for the run, and preserve every original artifact. D requires actual
+C PASS and independent review. Docs-only publication between C and D is allowed;
+exact consumed source and lineage must remain equal. This is mixed-source
+qualification, never four same-source runs or a relabelling of failed C.
+
+Author prepares a separate held 1110 B5 three-pin stage; reviewer owns independent
+readiness/C artifact review. Neither owns live production edits or heavy execution.
+Parent remains sole production writer and executor, with two existing specialists.
+1093/1096 and B5 maintenance remain unapplied until corrected C/D parity closes.
+Then execute the exact 1103 final sequence and continue remaining P14/program.
+P15 D2/D3/D4a answers remain pending. Unity/native and Owner acceptance are deferred.
+
 ## CURRENT — force-order correction qualified; publish and resume corrected endurance
 
 1107-G and independent 1107-F qualify the bounded four-file arithmetic correction.
