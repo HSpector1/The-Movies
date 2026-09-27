@@ -1,0 +1,40 @@
+{
+  "timeUtc": "2026-09-27T22:33:27.622390+00:00",
+  "parentHeadBeforeApplication": "c3a06a77decad192452eedffc1263c629ae71cf1",
+  "operation": "One test expectation literal releaseTick65\u219264; full inverse exact; returned state65 and every subsequent assertion unchanged",
+  "manifest": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-release-stamp-source-manifest.json",
+    "bytes": 13229,
+    "sha256": "aecf5919d946eed14862e9dab876a18084046235fe986e43f63b58bf904f7f12"
+  },
+  "author": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-G-release-stamp-correction-handback.md",
+    "bytes": 11322,
+    "sha256": "920f02d64a9fcfb00797ee3ad60f3dcb6932e85b4b33e96e69995f9480559fd4"
+  },
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-H-release-stamp-correction-review.md",
+    "bytes": 3914,
+    "sha256": "29ee9912f9dc09c064ee381885218686c9431f37d35d75a1c7a77e22be65c009"
+  },
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1263-release-stamp.patch",
+    "bytes": 1140,
+    "sha256": "91846140da9ba1f0ec75a2f881ebf08030a127740c1ee8c3d1adb8d39892dcbc"
+  },
+  "preimage": {
+    "path": "tests/p14p4p5-stock-subject.test.ts",
+    "bytes": 25170,
+    "sha256": "9222330c3734325fb934c2d98c684cb3b71eaa3611c4748c5accbeb963e6ebd3"
+  },
+  "applied": {
+    "path": "tests/p14p4p5-stock-subject.test.ts",
+    "bytes": 25170,
+    "sha256": "060ac12b20b2cce1310d940589c2a9e886a8be0dbbbd904036fe6d5e848ebed8"
+  },
+  "protectedFileRows": 45,
+  "closedEvidenceRows": 10,
+  "productionChanged": false,
+  "originalFailedEvidencePreserved": true,
+  "next": "Publish then1264b root cap0 /1265b isolatedQ15 cap13. Not yet rerun."
+}

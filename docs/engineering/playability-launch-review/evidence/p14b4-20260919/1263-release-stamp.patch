@@ -1,0 +1,12 @@
+diff --git a/tests/p14p4p5-stock-subject.test.ts b/tests/p14p4p5-stock-subject.test.ts
+--- a/tests/p14p4p5-stock-subject.test.ts
++++ b/tests/p14p4p5-stock-subject.test.ts
+@@ -319,7 +319,7 @@
+     emit('RELEASE', { actualWeek: released.market.tick, productionId: stockId, films, actualSubjectRoot: released.firstTakeSubjects,
+       expectedMixedSuffix: expectedSuffix, take61Suffix: taking.firstTakeSubjects.facts,
+       oldPromises: originalRoots.map(old => released.promises.find(row => row.promiseId === old.promiseId)), counters: count })
+-    expect(films).toHaveLength(1); expect(films[0]).toMatchObject({ conceptId: 'c-00', directorId: DIRECTOR, releaseTick: 65 })
++    expect(films).toHaveLength(1); expect(films[0]).toMatchObject({ conceptId: 'c-00', directorId: DIRECTOR, releaseTick: 64 })
+     expect(films[0]!.participants).toEqual(production(scheduled).participants)
+     expect(released.concepts.find(row => row.id === films[0]!.conceptId)).toMatchObject({ id: 'c-00', genre: 'comedy' })
+     const ownTake = taking.firstTakes.find(row => row.studioId === issuer(taking) && row.productionId === stockId); assert.ok(ownTake)

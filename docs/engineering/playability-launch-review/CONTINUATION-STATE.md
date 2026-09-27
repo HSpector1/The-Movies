@@ -1,5 +1,17 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — Release-stamp correction applied; Q15 requalification next
+
+Parent applied exact1263-G/H over publishedc3a06a77.1263-M records the only
+change: expected film.releaseTick65→64. Test25,170B/060ac12b; production unchanged.
+The actual returned65 check and every later retention assertion stay intact.
+Publish then1264b root types(cap0),1265b same isolatedQ15(cap13/five actions).
+Original1265 FAIL on9f33653d remains in G/H/L with all raw and masked assertions.
+Do not count Q15 as passing before the corrected run. No altered route or prefix.
+After Q15 closure, resume1266-A/F/B source, then1269 and1272 accepted future plans.
+Same two specialists/test-review split,parent sole live writer and heavy owner.
+Continue authorized program; Unity/native and Owner campaign access deferred.
+
 ## CURRENT — Stock route reached65; release-stamp test correction pending
 
 Executed source9f33653d6d177752267d7244ff03de9cfff1fea3 matched GitHub.
