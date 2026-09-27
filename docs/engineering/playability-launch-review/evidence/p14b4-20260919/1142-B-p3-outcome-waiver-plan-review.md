@@ -1,0 +1,23 @@
+# 1142-B — Bounded D08/D12 source-plan review
+
+**KEEP the corrected two-leaf plan for the parent's source-author release.** This is source feasibility and data-only review, not implementation, test execution, a predicted PASS or a production release.
+
+Reviewed final `1142-A-p3-outcome-waiver-next-slice-plan.md`:10,645 bytes / SHA256 `fb74408330c13a4b5a4788a5543f0ca4ce6aea70ee52ced91009d93cd25b5491`. The sole correction to the first frozen draft is D12's numeric example[63,104)→[62,104). In-memory reversal of that exact text reconstructs the original10,645-byte hash `2f4bf3ff3d8af89b8b1cb6fd1a40c5ebefadaaac7586965347843f1c07552b73`. The dynamic `actualWeek + 1` rule is unchanged. Actual first-take61 equals the helper's captured `afterTake.market.tick`; it is not a62 state with an earlier61 event.
+
+## Source-ready scope and accounting
+
+Only the existing P3 helper/test may be extended, preserving the eight qualified bodies, input pins and timeouts. The exact `--testNamePattern "D(?:08|12) "` selects the two new declarations. Required inputs are actually rebuilt in this isolated process and charged: the shared player route retains its208 cap; cancelBefore/cancelAfter/waiver each has64, for a hard400 aggregate ceiling. The new60-second leaf declarations precede their first result; no old/global timeout changes. Counters reserve before each actual develop:true tick and cache both success and first failure. No eager terminal208 or secondFilm call is needed by this selection.
+
+D08's revised cancelBefore branch openly repeats the first film from bound52 inside its own allowance, then holds the second actual picture. Source `operations.ts:1680` advances remaining5 only for a scheduled, unblocked task; leaving it ready and unscheduled cannot automatically take. The no-auto-schedule second-film driver and whole-save premises are necessary. At108, actual schedule followed by immediate cancel uses no intervening tick. One earned event leaves one owed; the committed next take109 is before due112, whereas a fresh post-cancel take113 is outside. The52→112 continuation spends60 calls within64, including the repeated first-film work. This isolates the current missing Director cancellation dispatch only if real readiness, employment, retained work and timing premises succeed.
+
+The cancelAfter branch starts at the real61 partial state, preserves the actual take, and reaches due112 in51 calls within64. Its action-only early release clone has no tick trajectory, requires actual contract/cost/employment history and follows removal of the production assignment. Cancellation conduct and promise outcomes have separate actual receipts. No synthetic dates, vanished takes or guessed cash delta is allowed.
+
+D12's real partial61 state supplies one earned event and a Ready second script. The proposed successor window[62,104) is forward and inside the actual[52,156) contract. Original-ID exclusion, RA6 and non-Distrusted trust are required actual premises before waiver. Completing the remaining first film, producing the second through public actions and reaching104 uses at most43 subsequent weeks from61, within64; no copied event can satisfy the forward successor. A failed feasibility/trust/work premise stops that dependent route rather than releasing an unrelated implementation.
+
+## Exact authority and limits
+
+The waived original must preserve delivered progress/evidence and link one actual same-contract/person/issuer/domain successor. Zero initial successor progress, one outcome receipt, unchanged time/RNG/payment and no waiver-only trust driver are concrete assertions. Immediate-waiver and fulfilled-successor whole39 positives precede the new D13 link/domain negatives. Cross-domain successor and strengthened relational checks belong to current39 authority; public frozen32/default link semantics remain unchanged. A wrong-contract mutant must report its actual first refusal and cannot claim to isolate only the link relation.
+
+Terminal/unbound/identical/nonforward/count/date and cross-domain action refusals preserve input bytes. Labelled distrust/service or old-count-only compatibility variants are not natural saved histories. Retained tagged WAIVED authority still refuses frozen38 and guarded39→38; numeric6 alone is not rewritten or blanket-refused.
+
+D09–D11, lifecycle156, the single rival260 attempt, Bridge12/UI, standalone slack isolation and broader P3 qualification remain pending. No hidden209 reconciliation, repeated207 setup, additional funding or fabricated post-retirement open promise is introduced. Parent must record actual first causes and source before any matching production work. This review is final and frozen; source/result reviews follow as separate records.

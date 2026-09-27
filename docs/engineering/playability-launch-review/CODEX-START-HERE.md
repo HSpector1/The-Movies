@@ -1,5 +1,28 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — reviewed D08/D12 test slice is being authored
+
+1141 first-slice8PASS and its final independent reviews are published at exact
+GitHub checkpoint5f45a3bee49b14f177740381bda970d8e245cf8b. Consumed production
+remains7abaa6e0. 1142-A/B now freeze/KEEP the next two-leaf plan: D08 cancellation,
+due/termination; D12 same-domain waiver plus genuine tagged WAIVED-save controls.
+The existing author alone edits the two P3 test/helper files; all eight prior leaf
+bodies/pins/timeouts stay frozen. Parent remains sole production writer/heavy
+executor, with production held until actual semantic failure. Reviewer separately
+reviews the completed test source. No heavy process is active.
+
+First runtime argv is the existing core file filtered by `D(?:08|12) `, so the
+previous eight test declarations are not rerun. Shared player208 plus three64-call
+branches cap this selection at400 actual ticks; setup calls are counted anew and
+first failures cached. D08 publicly holds an actual second picture until108,
+schedules then immediately cancels before its take. D12 uses actual partial61
+with forward window[62,104). No extra seeds/funding/probes or branch rescue.
+D09–D11/lifecycle156, rival260, Bridge12/UI and broader consumers remain pending.
+
+Next: freeze and independently review1143 test handback, publish/exactremoteverify,
+run root types then the exact new-leaf selection, preserve first causes/counters,
+and release only matching production changes. Continue the authorized program.
+
 ## CURRENT — first P3 core slice passes; remaining core obligations next (2026-09-27)
 
 1141 closed on published `7abaa6e00b1d7d98a143017c17f41f5b4bb8ee60`:
