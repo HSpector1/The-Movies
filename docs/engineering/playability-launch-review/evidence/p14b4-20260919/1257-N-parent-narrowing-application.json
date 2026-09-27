@@ -1,0 +1,45 @@
+{
+  "status": "EXACT_REVIEWED_TWO_LINE_CORRECTION_APPLIED",
+  "time": "2026-09-27T21:40:29.851426+00:00",
+  "preparationHead": "8571238853da110d398323509edae394e048fa85",
+  "preimage": {
+    "path": "tests/p14p4p5-receipt-freeze.test.ts",
+    "bytes": 25474,
+    "sha256": "548cd0c48e0a30b923c20d9ab6acc962c12537ca439235cc98be197d0f37583e"
+  },
+  "postimage": {
+    "path": "tests/p14p4p5-receipt-freeze.test.ts",
+    "bytes": 25498,
+    "sha256": "c1ee22dec887614a2b1489ca4c1578f670841e11fc0157a67921967674c913d3"
+  },
+  "protectedPinsExact": 29,
+  "authorities": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1257-L-type-narrowing-handback.md",
+      "bytes": 2319,
+      "sha256": "8c5bf64f36cb27332346c0709fc81ce2044a19c859c814313611f4a54df1d226"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1257-M-type-narrowing-review.md",
+      "bytes": 2965,
+      "sha256": "0c91b3459985f8792c4fb1cab985bbf94075aace4dba0428e29dd3910da6f1e5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1257-type-narrowing.patch",
+      "bytes": 970,
+      "sha256": "4cde95b42163d3a9dc1eb3b4978dbd3318acff08857e7865d56cc1a4d1b7b39d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1257-type-narrowing-source-manifest.json",
+      "bytes": 10464,
+      "sha256": "565a01652e442be2f171836e209c9829ac1e070f80b2cd8d43ec3b57c733b34d"
+    }
+  ],
+  "originalCompilerFailurePreserved": true,
+  "gateOrder": [
+    "1258b-root6-receipt7-types",
+    "1259-root6-receipt7-runtime"
+  ],
+  "runtimeAdvanceCap": 7,
+  "executionYet": false
+}

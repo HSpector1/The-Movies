@@ -1,0 +1,14 @@
+diff --git a/tests/p14p4p5-receipt-freeze.test.ts b/tests/p14p4p5-receipt-freeze.test.ts
+--- a/tests/p14p4p5-receipt-freeze.test.ts
++++ b/tests/p14p4p5-receipt-freeze.test.ts
+@@ -358,8 +358,8 @@
+     expect(committed).toEqual({ ...joined.focusRoot, contractId: employment[0]!.contractId, feasibilityReceipt: frozen.receipt })
+     expect(stable(committed.feasibilityReceipt)).toBe(stable(frozen.receipt))
+     expect(committed.version).toBe(6); expect(joined.focusRoot.feasibilityReceipt.rulesVersion).toBe(6)
+-    const raw = bytes(state), round = saves.importSave(raw)
+-    expect(saves.validateSaveV40(round)).toBe(round)
++    const raw = bytes(state), imported = saves.importSave(raw), round = saves.validateSaveV40(imported)
++    expect(round).toBe(imported)
+     expect(root(round.state, committed.promiseId)).toEqual(committed)
+     expect(saves.exportSave(round)).toBe(raw)
+     emit('ROOT6-RECEIPT7', { originalRoot: joined.focusRoot, committedRoot: committed,

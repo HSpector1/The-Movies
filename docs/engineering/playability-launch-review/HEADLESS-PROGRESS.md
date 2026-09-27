@@ -1,6 +1,6 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
-## CURRENT — Q12 compiler correction pending; simulation unexecuted
+## CURRENT — Q12 typing correction applied; qualification next
 
 Published source `a96d69bab49cf84b3e87e22a35aa202ba5cebc5e` matched GitHub.
 1257-C/D/E added the exact 25,474-byte standalone settlement test, preserving all
@@ -10,9 +10,9 @@ The raw 821-byte diagnostic (`9a198b64`) and fixed-source pre/post records are
 retained: 33.677s, exit2, all1,682 source files,120 manual pins and index/stage exact.
 No simulation or advance ran, and no production source changed.
 
-Author prepares separate 1257-L minimal narrowing correction for independent M;
-frozen C/D and the failed gate remain unchanged. Parent applies/publishes the
-reviewed correction, then runs 1258b root types (cap0) before the still-unexecuted
+Parent applied the exact 1257-L/M two-line narrowing correction; N records the
+25,498-byte postimage `c1ee22de` and protected-file identity. Frozen C/D and the
+failed gate remain unchanged. Publish, then run 1258b root types (cap0) before the still-unexecuted
 1259 isolated Q12 (hard7). Runtime bounds remain four mutations, one joined45
 quote, two price previews and two matching final-tick receipt observations.
 Actual win, price/payment and saved root6/first frozen receipt7 remain prospective.
