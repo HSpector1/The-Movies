@@ -1,5 +1,15 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — C.3 paired repairs verified; complete suites pending (2026-09-27)
+
+Reviewed 90-file maintenance is published at d8552a0b. Six exact paired gates have
+independent1118-A/B KEEP: the final61-file group has944PASS/23 unchanged inherited
+FAIL/2TODO, NEW0/CHANGED0 and all243 former new causes now passing. Final root/UI/
+Bridge types and both generated --checks pass at the same source (1118-C).
+Full core/UI and complete attribution remain required before C.3 qualification.
+No production change followed qualified corrected C/D endurance. About14hours
+have elapsed; retain verification reserve and all historical/native/Owner limits.
+
 ## CURRENT — corrected C/D endurance qualified; final regression next (2026-09-27)
 
 D1085 completed all 6,240 weeks, 1,072 commands, 122 releases and 600 read groups.

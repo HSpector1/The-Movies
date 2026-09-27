@@ -1,5 +1,72 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — paired regression and final types/checks complete; full core/UI next
+
+All completed gates ran at published d8552a0b7caa9a02da17320a203a923134e093b8
+with empty consumed diff. 1118-A/B final paired KEEP (ba0635ee/f266ac4c) records
+all six exact selections. Remaining61:944 PASS/23 unchanged inherited FAIL/2TODO;
+NEW0/CHANGED0 and all243 former new causes now pass. Primary/first-frame equality
+is exact; B5's downstream caller line538→540 is separately preserved.
+1095 root,1096 UI,1097 Bridge types and1098 contract/1099 fixture --checks allPASS.
+Original imported1052 docs producer passes explicit before/after guards. No
+regeneration or consumed source change followed the maintenance candidate.
+1118-C records these actual gates; independent final review of types/checks remains.
+
+Publish this docs-only evidence checkpoint and verify the exact remote. Next run
+1100-c3-final-core with `node_modules/.bin/vitest run --project core`, then
+1101-c3-final-ui with `npm run test:ui`, sequentially on the actual new HEAD.
+No heavy process is active at this checkpoint; no full result is claimed yet.
+Freeze each run's HEAD/index/consumed source and inputs. Parent alone executes;
+author owns1119-A complete case-level attribution, reviewer owns1119-B independent
+final review. Consult recorder JSON end/child/source fields for actual closure.
+
+Full core baseline927/932/934/936 and UI713/719 references are pinned in1113.
+Preserve unhandled errors separately, new/vanished/retained/changed exact causes,
+canonical098 L1/L2, R8 and FU1/FU2 limitations. About14hours of C.3 planning have
+elapsed; required final verification continues. P3 writer/1117 preservation remain
+held until actual bounded C.3 qualification. P15 D2/D3/D4a remain unanswered;
+native and Owner-campaign acceptance remain deferred.
+
+## CURRENT — paired gates closed; types and final full suites underway
+
+Published candidate d8552a0b7caa9a02da17320a203a923134e093b8 remains the current
+HEAD with empty consumed diff. 1089 B5, 1090 cash, 1091 metadata (43), 1092 runtime
+(111) and 1093 process-restart (10) all PASS. 1094 remaining closed child1/fixed
+with 944 PASS / 23 FAIL / 2 TODO across the identical 61-file selection. Author
+and reviewer independently measured NEW 0, CHANGED 0, 23 retained-identical and
+243 vanished, exactly the former new-cause set. All 23 first printed frames also
+match. Final 1118-A/B records are being frozen; preserve original raw failures.
+
+1095-c3-final-root-types is CLOSED PASS (32.711s). Next gates are 1096-c3-final-ui-types,
+1097-c3-final-bridge-types (explicit original1052 producer guard), 1098-c3-final-contract-check,
+1099-c3-final-fixture-check, then exact complete 1100-c3-final-core and 1101-c3-final-ui.
+Consult each recorder JSON for actual end/child/source status; only one heavy
+process may run. Parent alone executes, with HEAD/index/consumed source held per
+run. Do not treat scheduled gates or full-suite attribution as completed.
+
+No source correction is indicated by the closed paired comparison. Final C.3
+qualification still requires all remaining gates and matched complete diagnostic
+attribution; inherited failures, canonical098 L1/L2, R8, FU1/FU2 and all native/
+Owner limits stay explicit. P3 writer and1117 preservation remain held until that
+qualification. Existing two specialists retain separate test and review ownership.
+
+## CURRENT — published maintenance candidate; final regression executing
+
+GitHub exactly matches d8552a0b7caa9a02da17320a203a923134e093b8. Reviewed 90-file
+maintenance and complete application audits are published. No production delta
+was introduced. 1089 B5 and 1090 cash are CLOSED PASS (one selected case each).
+The exact remaining 1103 groups execute sequentially under the parent: 1091
+metadata, 1092 runtime, 1093 process-restart, 1094 remaining. Consult each full
+c3-maintained recorder JSON for actual running/closed status; null end is pending,
+not a result. All commands use the exact arrays from frozen 1115-application-01.argv.json.
+Freeze actual HEAD/index/consumed source and selected inputs while each command
+runs. Parent alone executes; no other source writer is active. Preserve actual
+child exits/raw logs and newly reached failures. Test author owns 1118-A attribution;
+reviewer remains independent. Then complete required root/UI/Bridge types,
+contract/fixture checks and full core/UI gates. Final C.3 qualification remains
+pending. No rerun of A/B/C/D or unreviewed P3 source is authorized by these gates.
+P3 preservation remains held until final C.3 qualification. P15 choices pending.
+
 ## CURRENT — reviewed maintenance applied; publish candidate and run final gates
 
 D qualification checkpoint 4def0f4f8234aa48eaae86c682aaf4bfab58188b is exactly

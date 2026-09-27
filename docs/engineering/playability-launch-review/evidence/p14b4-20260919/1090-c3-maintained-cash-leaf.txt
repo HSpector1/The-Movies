@@ -1,0 +1,13 @@
+{"sourceSha":"d8552a0b7caa9a02da17320a203a923134e093b8","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/cash-ledger-checkpoint-v11.test.ts","--testNamePattern","prevents every frozen builder from laundering an invalid checkpoint"],"node":"v20.20.2","start":"2026-09-27T08:08:23.740Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/cash-ledger-checkpoint-v11.test.ts (10 tests | 9 skipped) 453ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > prevents every frozen builder from laundering an invalid checkpoint 451ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 9 skipped (10)
+   Start at  10:08:24
+   Duration  3.37s (transform 1.73s, setup 0ms, collect 2.32s, tests 453ms, environment 0ms, prepare 146ms)
+

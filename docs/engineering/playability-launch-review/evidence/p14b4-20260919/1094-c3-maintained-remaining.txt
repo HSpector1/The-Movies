@@ -1,0 +1,1158 @@
+{"sourceSha":"d8552a0b7caa9a02da17320a203a923134e093b8","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-p13b-s8-rivals.test.ts","tests/bridge-p14a1-market.test.ts","tests/bridge-p14a2-market.test.ts","tests/bridge-p14a3-world.test.ts","tests/bridge-p14b1-promises.test.ts","tests/bridge-p14b3-promise-command.test.ts","tests/bridge-p14b4-runtime47-compatibility.test.ts","tests/bridge-p14b5-relationships.test.ts","tests/bridge-p14b6-d2-withheld-employment-claim.test.ts","tests/bridge-p14b6-e714-false-empty-absence-lines.test.ts","tests/bridge-p14b6-relationship-read-models.test.ts","tests/c2a-m3-rename-and-pooling.test.ts","tests/c2a-m3-screenplay-mint.test.ts","tests/construction-core.test.ts","tests/construction-save-v11.test.ts","tests/contracts/cross-owner-refusal.contract.test.ts","tests/contracts/phase-table-agreement.contract.test.ts","tests/contracts/studio-events.contract.test.ts","tests/contracts/v14-boundary-guards.contract.test.ts","tests/contracts/v14-byte-parity.contract.test.ts","tests/d11-employment.test.ts","tests/d17-engagement-persistence.test.ts","tests/d17a-adv-migration.test.ts","tests/d17a-adv-reconciliation.test.ts","tests/d17b-save-v7.test.ts","tests/facility-move-demolish.test.ts","tests/film-chronicle.test.ts","tests/legacy-parcel-ground.test.ts","tests/p04a2-writer-credit-law.test.ts","tests/p06a-w1-release-authority.test.ts","tests/p08a-w0-studio-history.test.ts","tests/p09a-w0-founding-regime.test.ts","tests/p13a-causal-core.test.ts","tests/p13a-technology-milestones.test.ts","tests/p13b-r07-save-v25.test.ts","tests/p13b-s2-access-identity.test.ts","tests/p13b-s2-save-v22.test.ts","tests/p13b-s3-save-v23.test.ts","tests/p13b-s3-validation.test.ts","tests/p13b-s5-save-v24.test.ts","tests/p13b-s6-save-v26.test.ts","tests/p13b-s7-announcements.test.ts","tests/p13b-s8-save-v27.test.ts","tests/p14a1-save-v28.test.ts","tests/p14b1-promises.test.ts","tests/p14b1-save-v29.test.ts","tests/p14b2-setup-wrap-regressions.test.ts","tests/p14b3-rule-revision.test.ts","tests/p14b4-cancel-causal-proof.test.ts","tests/p14b4-cast-class-outcomes.test.ts","tests/p14b4-rival-seating-preference.test.ts","tests/p14b4-save-v30-compatibility.test.ts","tests/p14b5-relationships.test.ts","tests/p14b5-t-failure-tuning.test.ts","tests/p14b7-promise-waiver.test.ts","tests/p14b8-waiver-surface-oracle.test.ts","tests/p14bf2-acting-discipline.test.ts","tests/p14c2s-scientist-retirement.test.ts","tests/placement-save-v12.test.ts","tests/property-state-v13.test.ts","tests/script-projects-save-v9.test.ts"],"node":"v20.20.2","start":"2026-09-27T08:16:36.835Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b7-promise-waiver.test.ts (32 tests) 7957ms
+   ✓ P14B.7 group0 — the two verbs exist, are pure, and dispatch (720 §2 items 1-2) > opens with requirePromiseRoots exactly like every other state-mutating export in this file 334ms
+   ✓ P14B.7 group3 — refuses waiving a promise that is not evaluable() (both halves) > REFUSES waiving an UNBOUND promise (B.1: "mints no outcome for an offer nobody took") 4840ms
+ ✓ |core| tests/p14b5-relationships.test.ts (46 tests) 32164ms
+   ✓ P14B.5 T1 — the module and its named exports exist (RED at import; never a spurious pass) > the hypothesis constants carry the companion values named in the expansion and the ONE pinned relation 1983ms
+   ✓ family 1 — EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) > a second advance from the same pre-take state mints byte-identical edges (replay); re-ticking the post-take state leaves the six untouched (idempotent) and mints only from THAT week's delta 553ms
+   ✓ family 1 — EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) > a headless world (legacy-v28-shooting-5: hollywood null) lifted through migrateToV32 keeps relationships empty across a tick 565ms
+   ✓ family 2 — CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) > the first post-migration RIVAL take mints six edges under the same law; the 45 pre-migration takes mint none (Q3) 2826ms
+   ✓ family 3 — DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); §5.5 :467-468) > past the grace window the value drifts toward the baseline by the plan formula (independent oracle), from either side, never past it, and is fully returned at GRACE + RETURN 546ms
+   ✓ family 3 — DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); §5.5 :467-468) > a WRITE after dormancy materialises the drifted value first, then applies the delta; counters, firstSharedWeek and the peak survive; recent folds by count at the cap 372ms
+   ✓ family 4 — TIER RULE under RELATIONSHIP_RULES_VERSION 1 and the D2 reachability (scope (3)-(4)) > a staged pair at the Acquaintances floor reads Strained after one flop and pairChemistry reads sign −1; Enemies/Nemeses never read on any B.5-minted edge 342ms
+   ✓ family 5 — RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) > a rival release (hollywood.films / industry.growth) mints under the same law; a release whose take predates every edge mints nothing (I2) 1354ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > the base (no edge) declines by the tie order: every landed band ties between the two survivors (measured premise) 8243ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > a CloseFriends counterpart on the player's OFF-CYCLE row (startWeek < W, active at W) settles the case for the player with the D5 sentence as the ONLY reason 721ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > the same case at a W where that edge has DRIFTED below Close Friends declines by the tie order 352ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > a row CLOSED AT W (the actor signed at 0 for 208 weeks) never counts — the predicate's strict upper end 387ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > a row COMMITTED AT W (startWeek === W) never counts — the predicate's strict lower end; the same row one week earlier does 755ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > `enemies here` is never read: without a Close Friends counterpart no D5 sentence appears, whatever the value on the record 366ms
+   ✓ family 8 — RESERVATION enumerated and CHEMISTRY read-only (scope (6)-(7); §5.6 :476, :482) > pairChemistry returns {null, 0, []} without an edge, sign +1 for Colleagues and above, −1 for Strained and below, no digit in any reason, and reads nothing but the record 995ms
+   ✓ family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > validateSaveV32/validateRelationshipsRoot exist and admit the genuinely minted world round-trip 301ms
+   ✓ family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a week outside the recording interval (before the boundary; after market.tick) 459ms
+   ✓ family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a driver week after lastEventWeek 364ms
+   ✓ family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses closeness outside 0..100 or non-integer 749ms
+   ✓ family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses inconsistent counters 752ms
+   ✓ family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses an unknown driver kind, an empty ref and a non-integer delta 706ms
+   ✓ family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > a V31 world holding ONE edge, and the SAME world with relationships emptied, both refuse migrateToV30 — MEASURED: the nearest guard is now V33s own materialization gate, one week past its migration boundary, not the V31-specific message 4839ms
+ ✓ |core| tests/bridge-p14b6-relationship-read-models.test.ts (24 tests) 25681ms
+   ✓ family 0 — PREMISES of the engine-built worlds (GREEN control; measured 2026-09-22 at HEAD 43817117) > W1: the real player take at week 61 mints six player edges beside 24 RIVAL-INTERNAL ones on the standard seed 3475ms
+   ✓ family 0 — PREMISES of the engine-built worlds (GREEN control; measured 2026-09-22 at HEAD 43817117) > W2: the market re-settlement puts BOTH predicate boundaries on week 104 with the week-61 edge standing 1047ms
+   ✓ family 0 — PREMISES of the engine-built worlds (GREEN control; measured 2026-09-22 at HEAD 43817117) > S1/S2/S3 staged roots are VALIDATOR-ADMITTED, and Strained really is sign −1 under the live constants 358ms
+   ✓ family 1 — the PROFILE BLOCK (RED BY RESOLUTION: bridge/relationships.ts is absent) > a block hangs beside `trust` on EVERY profile, with deterministic rows, ladder labels and a sign that agrees with pairChemistry 331ms
+   ✓ family 3 — DRIVERS TEXT and the 694-C Q2 FORWARD CONSTRAINT (RED BY RESOLUTION) > S1 STAGED: one edge holding BOTH a -4 and a -5 sharedFailure renders text IDENTICAL to an edge holding only the -5 594ms
+   ✓ family 4 — CASTING CHEMISTRY ROWS (RED BY RESOLUTION) > the six seatPairs, in seat order, on a real greenlight draft — a pair with no edge reads as no-shared-work, never as a neutral score 341ms
+   ✓ family 6 — FACTUAL SHARED-CREDIT COUNTS, Owner ruling 3 (ii) (RED BY RESOLUTION) > the GENUINE pre-V31 artifact (projection-47 savedSaveJson through migrateToV32) publishes no tier at all 1223ms
+   ✓ family 9 — COMPATIBILITY (RED BY VALUE: the T0 fixture identity is the RUNNING identity today) > the genuine projection-48 checkpoint takes the governed PRIOR path exactly once and both slots land on the live Save (V32, via the governed V31->V32 lift) 5659ms
+   ✓ family 9 — COMPATIBILITY (RED BY VALUE: the T0 fixture identity is the RUNNING identity today) > the 45 / 46 / 47 fixtures keep migrating exactly as they do today 10368ms
+ ✓ |core| tests/p14b4-cancel-causal-proof.test.ts (22 tests) 7620ms
+   ✓ 629-T case 1: a joint reservation conflict is not causal proof (plan :249-256; 26 §2 "a joint reservation conflict ... is not target-specific physical impossibility") > one person, two bound OPEN count-1 promises, seated LEAD on one greenlit picture, one event still reachable after the cancel: NEITHER is BROKEN at the cancel; the due-week owner decides 2199ms
+   ✓ 629-T case 1: a joint reservation conflict is not causal proof (plan :249-256; 26 §2 "a joint reservation conflict ... is not target-specific physical impossibility") > "either lead claimant could still be kept when one film remains": two beneficiaries each promised ONE lead, both seated on the cancelled picture (lead / antagonist), one film reachable — neither is BROKEN (plan :251-252) 324ms
+   ✓ 629-T case 4: the cancelled picture must be able to satisfy THIS class (26 §2 "check whether the cancelled picture could satisfy this class"; plan :246 "relevant ... seams") > tagged 'lead' P2, person seated 'support' on the cancelled picture, due = week + 2: NOT broken at the cancel (no path was removed); the due-week owner breaks it at the due week 321ms
+   ✓ 629-T case 5: the remaining count uses ACTUAL class-qualified takes (plan :331-334) > count-2 tagged lead P2, ONE real qualifying take on A (progress 1), seated LEAD on pre-first-take B, one more event reachable: NOT broken when B is cancelled 424ms
+   ✓ 629-T case 6: target-specific physical impossibility still breaks at the cancel (plan :252-254) > 'tagged lead P2' count-1, person LEAD on the only pre-first-take picture, due = week + 2: BROKEN at the cancel with ONE own receipt, idempotent under a following owner pass and tick 343ms
+   ✓ 629-T case 6: target-specific physical impossibility still breaks at the cancel (plan :252-254) > 'P1 APPEARANCE_COUNT' count-1, person LEAD on the only pre-first-take picture, due = week + 2: BROKEN at the cancel with ONE own receipt, idempotent under a following owner pass and tick 304ms
+   ✓ 629-T case 6: target-specific physical impossibility still breaks at the cancel (plan :252-254) > differential shape: the picture at remainingTicks 5 COULD have served (take expected week + 1 < due = week + 3) and nothing else can after the cancel — BROKEN at the cancel 396ms
+   ✓ 629-T2 case 5N: the remaining count is CLASS-qualified — a SUPPORT take never serves a lead mask (plan :324-326, :331-334; R1 "actual class-qualified distinct first takes") > count-2 tagged lead P2, the ONE real take on A recorded with the person in SUPPORT, then seated LEAD on pre-first-take B at 30, window [21,38): BROKEN when B is cancelled (remaining 2 > nMax 1) 530ms
+   ✓ 629-T2 separator: the landed bound is the 5-week floor chain t0 + 5k, not the quote's SEAT_CYCLE_WEEKS cadence (record 630 R1; 629-B Q2 D2; plan :341-343, :350-351 "a valid hard bound") > count-2 tagged lead P2, person LEAD on the greenlit-this-week picture, window [21,33): the quote estimate refuses (its nMax 1 < 2) yet the cancel leaves the root untouched (hard nMax 2); the due-week owner breaks it at 33 655ms
+   ✓ 629-T2 D1: the window start clamps the TAKE week t0, not the greenlight week (record 630 R1 "the window start is a floor because a picture can be held at ticks 5"; 629-B Q2 D1) > count-1 tagged lead, person LEAD on the picture greenlit at 21, window [23,28): untouched at the cancel (t0 = max(23, 26) = 26 < 28 -> nMax 1); the due-week owner breaks it at 28 583ms
+ ✓ |core| tests/p14b1-promises.test.ts (15 tests) 14155ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > attaching a promise changes the digest; a second attach on an already-promised proposal is refused (enforced at most one); revising (re-submit, then attach a different promise) and removing (re-submit with no attach) both change the digest again — removing restores the exact original 2731ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a window outside the proposed contract is IMPOSSIBLE by construction 1553ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a promise DRIFTED after attachment (its own definition changed through some other channel) drops materialTermsChanged at freeze 1568ms
+   ✓ P14B.1 test 3: the feasibility service > Example B shape: an active promise consuming the person's only existing-path seat makes a SECOND, overlapping promise FRAGILE with the 'needs a picture not yet commissioned' bottleneck 1448ms
+   ✓ P14B.1 test 4: settlement freeze re-classification > a feasible promise becomes FRAGILE after two lawful greenlights consume the existing stages; freeze drops it with a promise-naming sentence 1526ms
+   ✓ P14B.1 test 5: outcomes > SATISFIED once the X-th qualifying first take occurs, with evidence refs naming the causing eventId; idempotent on a later tick 1321ms
+   ✓ P14B.1 test 5: outcomes > BROKEN at dueWeekExclusive when the window passes unsatisfied, through a BOUND promise: on genuine legacy-v28-open-case-45, attach a P1 promise to the player's own proposal, settle at 52 (retained -> bound, contractId set), then walk to dueWeekExclusive with no qualifying first take 1745ms
+   ✓ P14B.1 test 5: outcomes > RED (T2b closes this): a promise attached to a proposal that then LOSES stays UNBOUND (contractId null) and is never evaluated — on genuine legacy-v28-open-case-45, withdrawing the player's own proposal leaves the promise attached to a proposal that vanishes at settlement (declined, "all proposals dropped"); past its own dueWeekExclusive the record must keep outcome: null and contractId: null, mint no promiseOutcome receipt, and leave the issuer's trust descriptor without a promiseBroken driver 1601ms
+   ✓ P14B.1 test 5: outcomes > BROKEN on capacity collapse: cancelling the promised person's ONLY production before its first take, with a due week too close for any other path, fails the target-specific proof (remaining 1 > nMax 0) and the promise is BROKEN at the cancel 447ms
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > p13a-core-causal-01: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable
+p13a-core-causal-01: 1015 real film decisions (51 pictures), 724 without members; chain digest over 1015 rows = 699435479e1ce81358b3ed65447fb7662f5e2fa14f507360e96da71898edd46b
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable
+seed-b: 1083 real film decisions (98 pictures), 669 without members; chain digest over 134 rows = f9cd2a86368b222882e84776b30f8a8d3f5b26cf38b25d5881480a910d112cc4
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > RED: every real film decision on seed-b with members seats the law pick (benefit, then ordinary score, then BILLINGS); the violation table names each miss
+SEED-B MEMBER DECISIONS 414 (8 pictures); MISSES 0
+
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > CURRENT unaccepted offers never count: seed-b w202, three rivals decide while their own retention offers carry promises with contractId null; re-authored offers make the negative discriminating
+PENDING-OFFER w202 strict=bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2#0@-1392376 asIfBound=bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2#3@-1460938
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=2 NOT VIABLE
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=3 NOT VIABLE
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=3 score=-1460938 budget=2626575+435629
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=2 NOT VIABLE
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=2 score=-1392376 budget=2626575+439440
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the initial cast seam (plan :225-232) > capacity constraint: a rival with a ready screenplay and no lawful complementary staffing decides nothing (natural weeks logged; zero is a fixture finding)
+NO-STAFFING WEEKS 286
+p13a-core-causal-01 w208 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w208 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w209 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w209 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w210 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w210 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w211 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w211 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w212 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w212 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w213 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w213 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w214 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w214 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w215 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w215 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w216 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w216 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w217 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w217 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w218 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w218 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w219 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w219 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w220 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w220 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w221 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w221 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w222 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w222 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w223 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w223 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w224 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w224 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w225 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w225 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w226 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w226 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w227 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w227 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w228 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w228 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w229 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w229 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w230 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w230 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w231 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w231 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w232 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w232 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w233 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w233 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w234 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w234 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w235 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w235 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w236 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w236 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w237 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w237 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w238 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w238 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w239 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w239 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w240 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w240 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w241 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w241 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w242 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w242 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w243 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w243 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w244 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w244 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w245 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w245 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w246 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w246 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w247 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w247 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w248 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w248 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w249 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w249 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w250 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w250 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w251 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w251 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w252 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w252 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w253 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w253 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w254 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w254 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w255 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w255 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w256 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w256 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w257 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w257 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w258 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w258 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w259 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w259 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w260 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w260 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w261 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w261 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w262 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w262 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w263 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w263 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w264 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w264 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w265 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w265 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w266 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w266 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w267 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w267 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w268 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w268 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w269 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w269 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w270 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w270 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w271 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w271 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w272 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w272 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w273 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w273 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w274 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w274 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w275 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w275 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w276 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w276 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w277 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w277 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w278 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w278 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w279 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w279 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w280 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w280 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w281 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w281 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w282 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w282 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w283 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w283 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w284 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w284 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w285 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w285 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w286 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w286 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w287 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w287 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w288 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w288 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w289 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w289 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w290 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w290 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w291 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w291 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w292 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w292 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w293 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w293 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w294 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w294 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w295 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w295 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w296 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w296 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w297 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w297 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w298 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w298 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w299 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w299 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w300 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w300 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w301 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w301 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w302 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w302 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w303 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w303 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w304 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w304 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w305 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w305 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w306 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w306 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w307 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w307 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w308 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w308 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w309 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w309 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w310 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w310 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w311 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w311 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w312 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w312 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w313 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w313 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w314 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w314 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w315 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w315 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w316 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w316 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w317 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w317 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w318 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w318 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w319 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w319 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w320 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w320 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w321 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w321 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w322 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w322 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w323 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w323 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w324 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w324 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w325 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w325 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w326 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w326 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w327 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w327 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w328 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w328 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w329 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w329 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w330 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w330 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w331 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w331 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w332 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w332 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w333 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w333 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w334 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w334 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w335 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w335 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w336 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w336 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w337 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w337 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w338 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w338 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w339 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w339 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w340 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w340 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w341 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w341 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w342 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w342 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w343 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w343 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w344 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w344 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w345 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w345 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w346 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w346 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w347 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w347 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w348 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w348 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w349 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w349 studio-aca408ec-r04 deficit=true
+seed-b w208 studio-bc14baf6-r04 deficit=true
+seed-b w209 studio-bc14baf6-r04 deficit=true
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the initial cast seam (plan :225-232) > the positive seam witness (plan :225-227, :233; record 621 R2 / G10-b): the first default-seed picture whose pool seats a promised person outside the historical first three admits r01's sole WRITER — a non-primary-actor beneficiary — and the real package and first take serve his promise
+SEAM WITNESS w208 studio-aca408ec-r01 studio-aca408ec-r01:package:script-0011 cashAvailable=8716950.262935068
+[012] aca408ec-r02-0/aca408ec-r02-2/aca408ec-r02-3 benefit=3 NOT VIABLE
+[021] aca408ec-r02-0/aca408ec-r02-3/aca408ec-r02-2 benefit=3 NOT VIABLE
+[102] aca408ec-r02-2/aca408ec-r02-0/aca408ec-r02-3 benefit=3 NOT VIABLE
+[120] aca408ec-r02-2/aca408ec-r02-3/aca408ec-r02-0 benefit=3 NOT VIABLE
+[201] aca408ec-r02-3/aca408ec-r02-0/aca408ec-r02-2 benefit=3 NOT VIABLE
+[210] aca408ec-r02-3/aca408ec-r02-2/aca408ec-r02-0 benefit=3 score=-1344278 budget=3033668+594737
+law aca408ec-r02-3/aca408ec-r02-2/aca408ec-r02-0#3@-1344278 ordinary aca408ec-r02-3/aca408ec-r02-2/aca408ec-r02-0#3@-1344278
+
+ ❯ |core| tests/p14b4-rival-seating-preference.test.ts (22 tests | 13 failed | 1 skipped) 61693ms
+   ✓ P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > default seed: the first screenplay-planning call and first film decision are byte-identical to the accepted values; the transcribed ordinary score reproduces the real no-preference choice 27101ms
+   ✓ P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > p13a-core-causal-01: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable 475ms
+   ✓ P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable 32991ms
+   × P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > search table: the first seed-b decision whose seating matters holds two tagged leadOrAntagonist beneficiaries and one P1 beneficiary in a three-actor pool 22ms
+     → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+   × P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > RED: the real seating serves the maximal DISTINCT-beneficiary count (plan :215-218), the picture is viable and affordable (:223-225), and the real first take then satisfies all three through advancePromisesWeek/qualifyingTakes 3ms
+     → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+   × P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > CONFLICT: the ordinary economic score prefers a two-beneficiary permutation; benefit count wins over score (:216-217) and the real take proves it 2ms
+     → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+   × P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > TIE FALLBACK (labeled reception-input variant): two reception-identical tagged beneficiaries tie on score; the first strict-greater winner in the inherited BILLINGS order is seated — inherited tie behaviour, not fairness (:218-221) 1ms
+     → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > CURRENT unaccepted offers never count: seed-b w202, three rivals decide while their own retention offers carry promises with contractId null; re-authored offers make the negative discriminating 813ms
+   × P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > another issuer's promise never counts: r02's offers to r01's three actors are present at w202 and at the witness and never enter r01's member set; re-authored r02 offers make the negative discriminating 1ms
+     → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+   × P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a met promise never counts (control, r02 chain): after r02's w211 picture satisfies its three P1 roots at w216, its next real decision has no member and takes the ordinary pick 60ms
+     → The expression evaluated to a falsy value:
+
+  expect(first.cast).toEqual({ lead: WITNESS.a2, antagonist: WITNESS.a4, support: WITNESS.a3 })
+
+   × P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a met promise never counts (r01 chain, RED today only through the witness defect): after the witness take the SATISFIED roots leave r01's member set at its next real decision 1ms
+     → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+   × P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts — 'window starts after every plausible t…' 1ms
+     → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+   × P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts — 'window ends before any take can land …' 1ms
+     → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+   × P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'tagged lead stays exact: r01-2 counts…' 1ms
+     → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+   × P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'legacy count-only LEAD_OR_SIGNIFICANT…' 1ms
+     → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+   × P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'APPEARANCE_COUNT is generic cast' 0ms
+     → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+   × P14B4 final seating preference — the initial cast seam (plan :225-232) > promised non-primary-actor beneficiaries (the witness rival's writer, director and craft, each bound OPEN P1) are never seated: one person cannot double, and the sole holder of a role is a capacity constraint, not a forged package 1ms
+     → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19A — the one-writer pipeline never deadlocks > greenlights Ready screenplay A while its credited writer is actively drafting B
+[P04A.2 WITNESS] §19A quote availability (A ready, writer drafting B): {
+  "writerAvailable": true,
+  "knownGatesClear": true,
+  "canSubmitGreenlightIntent": true,
+  "blockers": []
+}
+[P04A.2 WITNESS] §19A single writing assignment after greenlight: {"talentId":"t-wri-02","projectId":"script-0001","status":"drafting","title":"The Restless Sanctuary","label":"Drafting The Restless Sanctuary"}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19A — the one-writer pipeline never deadlocks > HOSTILE REVIEWER: the credited writer is NOT busy after greenlight, all five seats ARE
+[P04A.2 WITNESS] §19A busy set after greenlight: {"busy":["t-act-01","t-act-09","t-act-21","t-cra-06","t-dir-02"],"creditedWriter":"t-wri-02","writerBusy":false}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19A — the one-writer pipeline never deadlocks > HOSTILE REVIEWER: the released film record still carries the exact writer talentId
+[P04A.2 WITNESS] §19A released-film writer credit: {"talentId":"t-wri-02","name":"Roland Ashcombe","role":"writer","discipline":"writing","greenlightOVR":77,"greenlightFit":72,"greenlightEP":{"low":67.7800661551918,"high":97.7682901551918,"expected":82.7741781551918},"freelancer":false}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19B — writing exclusivity is unchanged > the same writer CANNOT draft A and B simultaneously
+[P04A.2 WITNESS] §19B draft-while-drafting refusal: applyActions: commissionScript rejected — writer "t-wri-02" already has an active assignment
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19B — writing exclusivity is unchanged > the same writer CANNOT draft one screenplay and rewrite another
+[P04A.2 WITNESS] §19B rewrite-while-drafting refusal: applyActions: requestScriptRewrite rejected — writer "t-wri-08" already has an active assignment
+[P04A.2 WITNESS] §19B rewrite blockers (writer drafting elsewhere): {"kinds":["writer-assignment"],"legalActions":["acceptScript"]}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19B — writing exclusivity is unchanged > the same writer CANNOT rewrite two screenplays simultaneously
+[P04A.2 WITNESS] §19B rewrite-while-rewriting refusal: applyActions: requestScriptRewrite rejected — writer "t-wri-08" already has an active assignment
+[P04A.2 WITNESS] §19B draft-while-rewriting refusal: applyActions: commissionScript rejected — writer "t-wri-08" already has an active assignment
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's director
+[P04A.2 WITNESS] §19C director exclusivity refusal: applyActions: greenlight talent "t-dir-02" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's cast.lead
+[P04A.2 WITNESS] §19C cast.lead exclusivity refusal: applyActions: greenlight talent "t-act-01" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's cast.antagonist
+[P04A.2 WITNESS] §19C cast.antagonist exclusivity refusal: applyActions: greenlight talent "t-act-09" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's cast.support
+[P04A.2 WITNESS] §19C cast.support exclusivity refusal: applyActions: greenlight talent "t-act-14" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's craft
+[P04A.2 WITNESS] §19C craft exclusivity refusal: applyActions: greenlight talent "t-cra-07" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > CONTROL: the fully disjoint second package IS legal (the five refusals are about the seats, not the world)
+[P04A.2 WITNESS] §19C one writer credited on two live pictures, busy on neither: {"writerId":"t-wri-07","credited":["t-wri-07"],"busy":false}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19D — the credited writer holds no production presence claim > projects the writer at Development for the screenplay they are DRAFTING, never into the picture they merely wrote
+[P04A.2 WITNESS] §19D presence (A in production, writer drafting B): {"talentId":"t-wri-02","name":"Roland Ashcombe","role":"writer","engagement":"script","credit":"writer","ownerId":"script-0001","site":"facility-development-casting","slot":0,"beats":["home","home","travel","at-site","at-site","at-site","at-site","at-site","at-site","home"],"blockedReason":null}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19D — the credited writer holds no production presence claim > never puts the credited writer on the soundstage in rehearsal or shooting
+[P04A.2 WITNESS] §19D writer presence across every phase of the picture they wrote: [{"phase":"development","engagement":"script","site":"facility-development-casting"},{"phase":"preProduction","engagement":"roster","site":"facility-development-casting"},{"phase":"rehearsal","engagement":"roster","site":"facility-development-casting"},{"phase":"shooting","engagement":"roster","site":"facility-development-casting"},{"phase":"postProduction","engagement":"roster","site":"facility-development-casting"}]
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19E — the quote projections publish no writer-busy blocker for a CREDIT > both greenlight readiness projections are clear, and name the exact writer id
+[P04A.2 WITNESS] §19E scriptReadModel package availability: {
+  "writerId": "t-wri-02",
+  "writerAvailable": true,
+  "knownGatesClear": true,
+  "canSubmitGreenlightIntent": true,
+  "blockers": []
+}
+[P04A.2 WITNESS] §19E castingPackageReadModel readiness: {"knownGatesClear":true,"willQueue":false,"blockers":[]}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19E — the quote projections publish no writer-busy blocker for a CREDIT > a REFUSED greenlight command mutates nothing at all
+[P04A.2 WITNESS] §19E refused greenlight (no partial mutation): applyActions: greenlight assigns the same actor to more than one cast slot (t-act-01, t-act-01, t-act-21)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19F — the queued greenlight path is unchanged and still truthful > a capacity refusal still QUEUES a greenlight whose credited writer is mid-draft
+[P04A.2 WITNESS] §19F queue admission while the credited writer drafts: {"kind":"greenlightScriptProject","ordinal":0,"queuedWeek":2,"writerDrafting":true}
+[P04A.2 WITNESS] §19F dequeue while still slot-starved: {"outcome":"waiting","capacity":0,"namedRefusal":"QueueableCapacityRefusal"}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19F — the queued greenlight path is unchanged and still truthful > the queued greenlight later executes correctly, preserving the exact writer credit
+[P04A.2 WITNESS] §19F queue drained: {"remaining":0,"productions":[{"projectId":"prod-0002","writerId":"t-wri-06"},{"projectId":"prod-0005","writerId":"t-wri-06"}]}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19G — the split needs no save migration and survives reload > keeps saveVersion at 16 and round-trips film credit + live writing assignment together
+[P04A.2 WITNESS] §19G saveVersion: {"saveVersion":38}
+[P04A.2 WITNESS] §19G both facts after reload: {"creditedOn":"prod-0001","draftingProject":"script-0001","busy":true}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19H — an out-of-contract credited writer: the exact current limitation > publishes no writer blocker, and the greenlight succeeds at the ENGINE layer too
+[P04A.3 WITNESS] §19H projection blockers for an out-of-contract credited writer: []
+[P04A.3 WITNESS] §19H out-of-contract greenlight now succeeds at the engine layer: {"activeProductions":1}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19H — an out-of-contract credited writer: the exact current limitation > the CREDIT itself survives the contract ending mid-production
+[P04A.2 WITNESS] §19H credit survives contract expiry: {"writerId":"t-wri-02","contracted":false,"creditedOn":"prod-0001"}
+[P04A.2 WITNESS] §19H released-film credit for an off-lot writer: {"talentId":"t-wri-02","name":"Roland Ashcombe","role":"writer","discipline":"writing","greenlightOVR":77,"greenlightFit":72,"greenlightEP":{"low":67.7800661551918,"high":97.7682901551918,"expected":82.7741781551918},"freelancer":false}
+
+ ✓ |core| tests/p04a2-writer-credit-law.test.ts (22 tests) 1515ms
+   ✓ P04A.2 §19E — the quote projections publish no writer-busy blocker for a CREDIT > a REFUSED greenlight command mutates nothing at all 314ms
+   ✓ P04A.2 §19G — the split needs no save migration and survives reload > keeps saveVersion at 16 and round-trips film credit + live writing assignment together 405ms
+ ✓ |core| tests/bridge-p14a2-market.test.ts (16 tests) 44660ms
+   ✓ group 2: buckets — one bucket per case, fixed order, paged closed > two open cases sharing a decision week sort renewalWindow by discovery order; a settling case one week before its decision reads under settling, not renewalWindow 5415ms
+   ✓ group 2: buckets — one bucket per case, fixed order, paged closed > every closed case in the settled-208 fixture is bounded by MARKET_CLOSED_PAGE_SIZE and pages deterministically across two reads; no case appears in a live bucket 2332ms
+   ✓ group 3: workspace attention rows > deduplicated per (cause, talentId), including termsRevised (a rival revision after the player proposed) and decisionWeekNear (one week before the decision) 2115ms
+   ✓ group 4: selected — candidate rail, offer comparison, settlement reasons/dropped > the rail's case block is byte-equal to marketCaseProjection; the own row equals proposalDraft; every competing figure is UNKNOWN 1231ms
+   ✓ group 4: selected — candidate rail, offer comparison, settlement reasons/dropped > after settlement (settled-208): the receipt's order-only reasons show; no dropped sentence shows for a case where the player never proposed 2766ms
+   ✓ group 5: paged employer/career history > employer intervals from the P12 rows, rival salaries private, credits by reference, bounded by MARKET_HISTORY_PAGE_SIZE 3643ms
+   ✓ group 6: workspace intents (Review & Submit / Revise / Withdraw) > the same quote -> commit -> STALE_REVISION -> revise -> withdraw -> INTENT_NOT_AVAILABLE sequence as A.1 group 8, from a session whose current page is the market page 14346ms
+   ✓ group 7: Pulse fold on view:"pulse" > one activity row per settlement, naming the person/studio/term length, salary absent, correlated by (talentId, week) against the two P12 receipts — never doubled 2261ms
+   ✓ group 8: disclosure leak check — workspace and pulse JSON > the rival's real figures at a non-1.00 tier appear nowhere in the workspace or pulse JSON 1704ms
+   ✓ group 9: save/load > LIVE_SAVE_VERSION === 28; a genuine V27 fixture converts to an EMPTY workspace (no attention, no cases, no selected) 2233ms
+   ✓ group 9: save/load > the three genuine V28 T0 fixtures load byte-stable and the market page reads them as T0 pins 6028ms
+   ✓ group 9: save/load > a V28 save round-trips through the bridge save/load path, and the market page reads identically on both sides 483ms
+ ✓ |core| tests/property-state-v13.test.ts (24 tests) 13813ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > decides every query verdict from state exactly as the constants decided it 1803ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > keeps the severance walk verdict-identical with structures in the obstacle set 2409ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > plays a migrated V12 world byte-identically to a native V13 world for 30+ weeks 839ms
+   ✓ C1-M1a (b) — nothing assumes eight structures or a small placement count > carries twelve-plus placed facilities through invariants, completion, opex, and save 1420ms
+   ✓ C1-M1a (b) — nothing assumes eight structures or a small placement count > carries far more than twelve when the property has room for them 4210ms
+   ✓ C1-M1a (d) — SaveFileV13 > writes V13 by default and round-trips every lifecycle state byte-identically 1345ms
+ ✓ |core| tests/facility-move-demolish.test.ts (30 tests) 5755ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > finds a screenplay reservation, on the RESERVATION and not the status 1623ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > finds a casting-session reservation 628ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > reports an idle facility as engaged by nothing, and is deterministic 661ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > REFUSES both verbs while the facility is engaged, and changes nothing 458ms
+   ✓ C1-M3a (F) — saves, boundaries, and determinism > round-trips a history containing both a move and a demolition 648ms
+ ✓ |core| tests/bridge-p14a3-world.test.ts (16 tests | 1 skipped) 24196ms
+   ✓ group 2: the player's own open case — statusLine exact, caseRef, reach, presence, a person without a case > legacy-v28-open-case-45: statusLine exact, caseRef.targetId, reach playerLot, presence.onLot true; the market page is byte-equal to the Profile; the roster row carries the same line; a person without a case reads null/null 2359ms
+   ✓ group 3: the settling line — decisionWeek <= week + 1 while open, null after close > legacy-v28-open-case-45 walked from 45 to 51 (the settling text) and past 52 (null, closed) 2079ms
+   ✓ group 4: a rival's person — off the player's lot, reach industry, the Industry row carries the line, no leak > the first week a rival-subject case is open (never a magic week): onLot false, canLocate false, reach industry; the Industry roster row of that studio carries caseStatusLine/caseRef; the rival's tier/salary (non-1.00) appear nowhere 6385ms
+   ✓ group 5: the effective-week law from receipts (settled-208 carries no player contract — never used for a player-lot fact; the stayed/moved-away/won-over sets are built through the engine, never read off an empty fixture) > the retained clause: genuine legacy-v28-open-case-45 (player 1.25 vs rival 1.00, decided 52) stays on the player's lot at 51, 52 and 53; the stayed set is asserted non-empty 1837ms
+   ✓ group 5: the effective-week law from receipts (settled-208 carries no player contract — never used for a player-lot fact; the stayed/moved-away/won-over sets are built through the engine, never read off an empty fixture) > the departure clause, re-expressed through the declined outcome: on genuine legacy-v28-open-case-45, WITHDRAWING the player's own proposal leaves only the rival's uncontested 1.00 bid, which the seat law itself drops (noSeatForRole) — onLot stays true through week 51 (no early presence change), the case settles declined/"all proposals dropped" at week 52 exactly, and the person is off the lot at 52 1933ms
+   ✓ group 7: save/load — V28 unchanged, the world route converts and round-trips > a genuine V27 fixture converts with statusLine null for every person (no case exists anywhere in a converted state) 2715ms
+   ✓ group 7: save/load — V28 unchanged, the world route converts and round-trips > the three genuine V28 T0 fixtures read byte-stable and the world route reads identically across the bridge save/load path 6290ms
+   ✓ group 7: save/load — V28 unchanged, the world route converts and round-trips > a fresh V28 state round-trips through the bridge save/load path and the world route reads identically on both sides 440ms
+ ✓ |core| tests/bridge-p14b1-promises.test.ts (11 tests) 20566ms
+   ✓ group 2: case block and market page promise rows > the Profile case block's proposal rows carry promise — own row real (family, count, window, classification), competing row the UNKNOWN marker, never the rival's family/count/window 2107ms
+   ✓ group 2: case block and market page promise rows > the Market page comparison row carries the SAME own/UNKNOWN promise facts (bridge/market.ts reuses the case block's own `proposals` array by reference) 1339ms
+   ✓ group 3: trust descriptor label and promise history, open then settled with an outcome > open right after settlement, then BROKEN once the window passes unsatisfied — both read through the engine's own trustDescriptor / state.promises as the oracle 4699ms
+   ✓ group 4: the promise draft on marketProposalAction's quote family > refuses a promise window beginning before the proposed contract, although its due week is inside the contract (T4 lower-edge regression) 1844ms
+   ✓ group 4: the promise draft on marketProposalAction's quote family > promiseQuoteSnapshot returns the engine's own promiseFeasibility classification, ok true only when REASONABLY_ACHIEVABLE, and the same fact rides the EXISTING quoteMarketProposal session intent (no new intent kind) 1977ms
+   ✓ group 4: the promise draft on marketProposalAction's quote family > a window outside the proposed contract is IMPOSSIBLE, refused "not offerable: <bottleneck>" 1377ms
+   ✓ group 4: the promise draft on marketProposalAction's quote family > a non-P1 family is refused with its own typed reason, deterministically, before any pipeline check runs 1166ms
+   ✓ group 5: disclosure narrowing — the rival's promise leaks nowhere > a world where the RIVAL proposal carries a real promise: the profile, the market page, a player-requested quote and pulse all serialize with no trace of the rival's family/window 1438ms
+   ✓ group 6: save/load > a genuine V28 fixture (open-case-45) converts to V29 with empty firstTakes/promises, and the bridge reads it with no promise fact anywhere 1467ms
+   ✓ group 6: save/load > a live V30 state carrying a real promise round-trips through the bridge save/load path byte-stable, and the promise-row read is identical on both sides 3142ms
+ ✓ |core| tests/bridge-p14a1-market.test.ts (16 tests) 33157ms
+   ✓ group 3: marketProposalAction (propose/revise/withdraw) > drafts propose/revise/withdraw through the draft-to-engine conversion, with affordability via canAfford 2453ms
+   ✓ group 3: marketProposalAction (propose/revise/withdraw) > the profile's renew row does not yet surface underMarketCase once a case is open — the gap the case block must close 1270ms
+   ✓ group 2: profile Contract case block > publishes status, the DERIVED decision-week label, and one row per proposal — the player's own re-derived at the read week, the rival's premium/salary/bonus an explicit UNKNOWN marker 1599ms
+   ✓ group 2: profile Contract case block > no case block outside a case 1063ms
+   ✓ group 4: attention rows > a new competing proposal on a case the player has a proposal in 821ms
+   ✓ group 4: attention rows > settlement completed 1305ms
+   ✓ group 4: attention rows > a player proposal that would currently fail 1075ms
+   ✓ group 4: attention rows > restricted to exactly the five named causes, and nothing else on the profile route (two causes not independently exercised — see header premises) 1498ms
+   ✓ group 5: disclosure narrowing > the case block's disclosed fields never leak the rival's real figures, from every serialization surface — a rival tier that is not otherwise a public figure 1471ms
+   ✓ group 5: disclosure narrowing > bridge/industry.ts's private-contract-terms rows and bridge/people.ts's contract:null for rival-employed people are UNCHANGED for a person outside any case 1192ms
+   ✓ group 6: settlement on the wire > after the decision week the case reads settled with order-only reasons; the winner's employer/contract updates; the two industry receipts stay separate rows (no folded row — A.2's Pulse projection, not A.1) 1459ms
+   ✓ group 7: save/load > a genuine V27 fixture loads through the bridge converted, with an empty market root and no case block for its in-window subject 2368ms
+   ✓ group 7: save/load > a V28 save round-trips through the bridge save/load path, carrying legacyTerminations, at projection 46 720ms
+   ✓ group 8: session-level marketProposalAction > quote -> commit -> stale revision -> revise -> withdraw -> a superseded intent after the state moved -> an unknown quote type, all through BridgeSession 14856ms
+ ❯ |core| tests/bridge-p14b5-relationships.test.ts (15 tests | 1 failed) 84421ms
+   ✓ P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, re-expressed by 700-T2 after P14B.8 landed projection 50 / Save V32 unchanged) > the genuine projection-47 checkpoint is no longer the CURRENT identity: it takes the governed prior path exactly once (family 11 pins the slot bytes) 3099ms
+   ✓ P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, re-expressed by 700-T2 after P14B.8 landed projection 50 / Save V32 unchanged) > the `line` on a genuine open case reads [0]/[1] only and the six landed members parse against the wire enum today 1028ms
+   ✓ family 11 — projection 48 THIN (RED by value): the enum, the registry, the seven-member order, the D5 sentence on the wire > the genuine projection-47 checkpoint takes the governed prior path and currentSaveJson lands on the live save through migrateToV32 4212ms
+   ✓ family 11 — projection 48 THIN (RED by value): the enum, the registry, the seven-member order, the D5 sentence on the wire > the genuine projection-47 checkpoint takes the governed prior path and savedSaveJson lands on the live save through migrateToV32 3869ms
+   ✓ family 11 — projection 48 THIN (RED by value): the enum, the registry, the seven-member order, the D5 sentence on the wire > preferences.priorityOrder publishes SEVEN members on a genuine open case with the `line` unchanged, and the value parses against the widened enum 1029ms
+   ✓ family 11 — projection 48 THIN (RED by value): the enum, the registry, the seven-member order, the D5 sentence on the wire > the D5 settlement sentence reaches settlementReasons VERBATIM on the family-6 world, and no closeness, edge or driver leaks onto any serialized DTO 10455ms
+   ✓ family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > p13a-core-causal-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only 10578ms
+   ✓ family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > seed-b: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only 19050ms
+   ✓ family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > p13b-s8-bridge-probe-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only 10977ms
+   ✓ family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > p13-public-commercial-adoption: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only 12948ms
+   × family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > the MOST EXPOSED shared fixture, poachingFixture (p14b2-fixtures.ts :145-211; consumers bridge-p14b2-trust, p14b2-fixture-preconditions): the week-208 reasons pin and endedWeek 208 hold, and under D1 no survivor holds a shared-take counterpart 7080ms
+     → expected 208 to be 52 // Object.is equality
+ ✓ |core| tests/film-chronicle.test.ts (28 tests) 1121ms
+   ✓ Film Chronicle V1 — SaveFileV11 durability > reconstructs a deep-equal Chronicle after an exact V11 export/import round-trip 808ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts (17 tests) 32377ms
+   ✓ P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: false for a genuine current live-version save, round-tripped through save()/load() on the SAME session (regression guard — matches tests/bridge-p13b-r07-setup.test.ts's own now-fixed case) 2253ms
+   ✓ P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: true BY CONSTRUCTION for a genuine V26 fixture load (legacy-v26-lighting-restored-795, saveVersion 26 !== LIVE_SAVE_VERSION) — see header for why this cannot be a directly observed wire boolean through the current session API 2851ms
+   ✓ P13B-S8-T3 item 2: Industry page rival technology facts — laboratoryOperational publishes; the other four kinds do not; existing kinds unchanged > laboratoryCommitted, instrumentOperational, researchSeatAssigned and researchCompleted receipts yield NO activity row (regression guard — already true today; natural week 277, all four kinds genuinely present and within the 13-week pulse window) 482ms
+   ✓ P13B-S8-T3 item 2: Industry page rival technology facts — laboratoryOperational publishes; the other four kinds do not; existing kinds unchanged > technologyAdopted rows are unchanged (regression guard; natural week 288, rival r01's real synchronized-sound adoption) 425ms
+   ✓ P13B-S8-T3 item 3: rival finance exposed only through existing public standings > researchCapacity, technologyRestoration and technologyRefund never appear on the industry pulse page, the Laboratory page, or session.snapshot() (week 13: researchCapacity is genuinely nonzero from real rival Lab admission) 1136ms
+   ✓ P13B-S8-T3 item 3: rival finance exposed only through existing public standings > the player's own finance researchSpend channel reads $0 in every window even while the rival's real researchSpend is nonzero elsewhere in the same state (week 288) 1687ms
+   ✓ P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > session.snapshot() does not throw on a naturally-reached state carrying all five S8 receipt kinds and genuinely nonzero researchCapacity/researchSpend (week 288) 1209ms
+   ✓ P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > the player's own History (historyProjection, a disjoint root from IndustryReceipt) is untouched: session.snapshot() does not throw and its history section mentions none of the five kinds (week 288) 906ms
+   ✓ P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a live-version save round-trips through the bridge byte-identically (week 288, real S8 facts: all five receipt kinds, nonzero researchCapacity/researchSpend) 6372ms
+   ✓ P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a Save As world keeps the same rival receipts and publishes identical industry rows (week 13, natural rival Lab facts) 6178ms
+   ✓ P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > the three genuine V26 fixtures load through the bridge (sha256 verified) and their industry pulse page carries no S8-kind text anywhere (V26 predates S8; converted true by construction as item 1 documents) 8647ms
+ ✓ |core| tests/p14b5-t-failure-tuning.test.ts (12 tests) 2903ms
+   ✓ CONSTRUCTED group 5 — REPLAY AND IDEMPOTENCY on the real carrier world > the same advance from the same pre-state writes a byte-identical root, and a second advance over the same production id mints nothing twice 1344ms
+   ✓ CONSTRUCTED group 6 — SAVE AND LOAD ACROSS THE CHANGE: historical deltas are carried, never restamped > a genuinely written root round-trips through makeSave / validateSaveV32 / migrateToV32 with every driver delta verbatim 364ms
+   ✓ NATURAL WORLD group 7 — one standard seed, what is TRUE and nothing more > the first natural shared failure stores exactly −RELATIONSHIP_FAILURE_DELTA and moves closeness by exactly that 942ms
+ ✓ |core| tests/construction-core.test.ts (12 tests) 7357ms
+   ✓ Development & Casting Annex V1 core lifecycle > activates a vacant parcel with managed operations and keeps legacy worlds empty 471ms
+   ✓ Development & Casting Annex V1 core lifecycle > completes on exactly the thirteenth advance from a nonzero start with no recurring charge or RNG draw 2076ms
+   ✓ Development & Casting Annex V1 core lifecycle > does not reallocate completing-advance productions into the Annex, then exposes it immediately 983ms
+   ✓ Development & Casting Annex V1 core lifecycle > uses the authoritative greenlight debit to reject skip-first start-clock laundering 719ms
+   ✓ Development & Casting Annex V1 core lifecycle > allows a production started after completion to claim the Annex under normal allocation 697ms
+   ✓ Development & Casting Annex V1 core lifecycle > accepts only the exact Annex V1 facility set and detects cross-owner collisions 1462ms
+ ✓ |core| tests/d11-employment.test.ts (36 tests) 13077ms
+   ✓ D-11.2 — starting applicant draft > no guaranteed superstar: across many seeds, some drafts have no 90+ OVR actor 724ms
+   ✓ D-11 — contracts & offers > payroll accrues each week; the ledger reconciles after several weeks 1192ms
+   ✓ D-11.8 — expiration > a contract expires at term end and the talent becomes a free agent 4216ms
+   ✓ D-11.7 — renewals > renewing inside the window is refused as underMarketCase and redirected to the proposal path (P14A §2.1.3 / R6) 2512ms
+   ✓ D-11.14 — deterministic markets > the market rotates across epochs (different listings over a full rotation) 513ms
+   ✓ D-11 — determinism & live saves > new games save at the live version and round-trip byte-identically 475ms
+   ✓ D-11 — determinism & live saves > no duplicate payroll after reload (reload ≡ continuous run) 1423ms
+   ✓ D-11 — determinism & live saves > two same-seed founded+advanced runs are byte-identical (deterministic offers/markets) 1076ms
+stdout | tests/p09a-w0-founding-regime.test.ts > P09 R5/R6 — the ordinary bare-lot studio releases a picture on its own money > HARD-STOP GATE: sparse start → four builds → screenplay → set → picture → release → receipts, cash never below zero
+[p09 gate] release week 37; cash floor 7888617; final cash 9778086.025328362; weeks 42
+
+ ✓ |core| tests/p09a-w0-founding-regime.test.ts (13 tests) 12263ms
+   ✓ P09 R1 — the founding regime is persisted, exact, and immutable > V18 round-trips the regime and refuses a forged or missing one 1300ms
+   ✓ P09 R1 — the founding regime is persisted, exact, and immutable > the regime is never inferred from what stands on the lot 2324ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > P09 §10.3: on the sparse lot only the founding office is quotable first; every other row says exactly why 1073ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > four committed sites complete on their own weeks, become operational, and start paying opex only then 1223ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > save/load mid-construction continues byte-identically; same-week sites complete together in id order 2326ms
+   ✓ P09 R5/R6 — the ordinary bare-lot studio releases a picture on its own money > a screenplay commission with no capacity queues, and admits itself when the office opens 595ms
+   ✓ P09 R5/R6 — the ordinary bare-lot studio releases a picture on its own money > HARD-STOP GATE: sparse start → four builds → screenplay → set → picture → release → receipts, cash never below zero 1588ms
+   ✓ P09A W1 R9 — a picture may hold a stage that completed after its greenlight, from the stamped week only > holds from bindings.heldSinceWeek; a stamp forged before completion is refused 1102ms
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts (13 tests) 10387ms
+   ✓ B-F2: settled has-acting-discipline law, not primary-role eligibility > the real generated writer is lawfully cast as lead without relabeling or occupying two roles 3765ms
+   ✓ B-F2: settled has-acting-discipline law, not primary-role eligibility > real winning writer P1 binds, then one completed scheduled cast take satisfies it with exact durable references 1148ms
+   ✓ B-F2: genuine old role-refusal evidence survives, fresh evaluations use the live evaluator (4 after record 600) > valid load preserves the old erroneous receipt/root/digest bytes exactly without repairing history 2925ms
+   ✓ B-F2: genuine old role-refusal evidence survives, fresh evaluations use the live evaluator (4 after record 600) > actual resubmit/attach evaluates afresh under4 but keeps the original version1 refusal untouched 2018ms
+ ✓ |core| tests/d17-engagement-persistence.test.ts (30 tests) 5207ms
+   ✓ D-17A/R2: economyEngagedEver is seeded false and set only by founding / signing > a headless run NEVER engages, however many films it releases 1403ms
+   ✓ D-17A/R2: convertV5ToV6 reconstructs the fact correctly for every save class > never-engaged headless WITH releases → false (production/boxOffice are excluded) 1258ms
+   ✓ D-17A/R2: convertV5ToV6 reconstructs the fact correctly for every save class > legacy V3-migrated never-engaged (economyModelVersion 0 runs) → false 913ms
+ ✓ |core| tests/placement-save-v12.test.ts (20 tests) 6295ms
+   ✓ Placement Core V12 — the frozen envelope > writes V12 explicitly and round-trips every lifecycle state byte-identically 1913ms
+   ✓ Placement Core V12 — the frozen envelope > rejects a malformed placement root structurally, before any domain rule 432ms
+   ✓ Placement Core V12 — the frozen envelope > rejects a semantically forged placement root 476ms
+   ✓ Placement Core V12 — historical boundary guards (law 19) > keeps the V11 validator rules exactly as they were 549ms
+   ✓ Placement Core V12 — the V11 → V12 migration > gives a managed VACANT world the empty managed root and a free parcel 300ms
+   ✓ Placement Core V12 — the V11 → V12 migration > moves a BUILDING legacy Annex onto the legacy parcel with the same clock 340ms
+   ✓ Placement Core V12 — the V11 → V12 migration > moves a COMPLETED legacy Annex without disturbing its facility or reservations 326ms
+   ✓ Placement Core V12 — the V11 → V12 migration > is deterministic and idempotent 409ms
+   ✓ Placement Core V12 — the V11 → V12 migration > lifts every historical version through the whole frozen chain 318ms
+ ✓ |core| tests/bridge-p14b3-promise-command.test.ts (19 tests) 92914ms
+   ✓ P14B.3: quote and atomic command attachment > commits exactly one real attachment at the live ordinal, one revision, no immediate cash movement 9171ms
+   ✓ P14B.3: quote and atomic command attachment > pure repeated quotes retain exact state/RNG/receipt/cash/slot bytes and one opaque identity 1427ms
+   ✓ P14B.3: quote and atomic command attachment > each material promise field participates in the opaque intent identity, including refused variants 606ms
+   ✓ P14B.3: quote and atomic command attachment > the session pending quote retains values rather than its caller-owned mutable draft 3236ms
+   ✓ P14B.3: quote and atomic command attachment > base proposals without a promise still commit without appending any promise 2497ms
+   ✓ P14B.3: whole-quote refusal and current-state atomicity > 'FRAGILE existing one-path capacity': accepted noncommittable answer retains nested verdict; no registered intent or partial commit 1603ms
+   ✓ P14B.3: whole-quote refusal and current-state atomicity > 'IMPOSSIBLE count': accepted noncommittable answer retains nested verdict; no registered intent or partial commit 1954ms
+   ✓ P14B.3: whole-quote refusal and current-state atomicity > 'lower contract-window edge': accepted noncommittable answer retains nested verdict; no registered intent or partial commit 2065ms
+   ✓ P14B.3: whole-quote refusal and current-state atomicity > 'upper contract-window edge': accepted noncommittable answer retains nested verdict; no registered intent or partial commit 2235ms
+   ✓ P14B.3: whole-quote refusal and current-state atomicity > malformed wire input and a forged issuer are rejected before any historical fact exists 932ms
+   ✓ P14B.3: revise, remove, withdraw retain abandoned evidence without phantom seats > replacement feasibility uses the real cleared intermediate proposal; removal/withdrawal mint no false outcome 27874ms
+   ✓ P14B.3: session/revision/intent identity and isolation > wrong-session/stale envelopes, same-command replay and superseded intents never duplicate attachment 10383ms
+   ✓ P14B.3: session/revision/intent identity and isolation > the oldest of exactly 16 distinct offerable quotes remains committable in a fresh session 4140ms
+   ✓ P14B.3: session/revision/intent identity and isolation > the 17th distinct quote expires the oldest pending quote, while the newest still attaches once 3600ms
+   ✓ P14B.3: session/revision/intent identity and isolation > same-seed/same-person sessions do not share quote authority, mutable drafts or committed state 7754ms
+   ✓ P14B.3: session/revision/intent identity and isolation > load and process restart discard pending quote authorization without inventing promises 7358ms
+   ✓ P14B.3: real settlement/outcome, V29 and B2 public/private carriers > quote→commit→real winning expiry binds; due-week BROKEN survives validated reload and exact public receipt join 5945ms
+ ✓ |core| tests/p08a-w0-studio-history.test.ts (13 tests) 14819ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > freezes before/after/deltas equal to the actual Standing change, with the source id and drivers 1160ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > records filmReleased as a LANDMARK for the first film and MAJOR afterwards, by exact id 885ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > records theatricalRunCompleted exactly once when the run settles 1340ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > release drivers reproduce the exact update (consistency of the frozen facts) 362ms
+   ✓ P08A H3/H5 — weekly settling receipts are exact, bounded, and folded deterministically > records a routine settling receipt only when awareness actually moves, then folds past the window 6603ms
+   ✓ P08A H6 — V16→V17 migration invents nothing and every downgrade is refused > begins recording at the migration week, keeps every other root and the current Standing 618ms
+   ✓ P08A H7 — save/load mid-run continues with identical history > reloaded branch equals the unbroken branch byte-for-byte after more releases 2618ms
+   ✓ P08A H8 — the save boundary refuses forged history > refuses out-of-order ids, pre-boundary rows, lying deltas, and unknown kinds 802ms
+ ✓ |core| tests/p13b-s6-save-v26.test.ts (11 tests) 6140ms
+   ✓ P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > genuine V25 sound-mid-deployment fixture: sha256 matches, migrates to V26 with cancellation:null / cancelledWeek:null and no constructionRefund rows, otherwise byte-identical 798ms
+   ✓ P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > genuine V25 lighting-mid-deployment fixture: sha256 matches, migrates to V26 honestly (cancellation:null / cancelledWeek:null) 367ms
+   ✓ P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > VALID: a cancelled adoption with a passed original completesWeek is exempt from the v4 "operational receipt differs" clause 2604ms
+   ✓ P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > REFUSED: restoration present when no site work ever began (contradicts "restoration project present iff site work began") 354ms
+   ✓ P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > REFUSED: a negative component figure 304ms
+   ✓ P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > REFUSED: the refund ledger row is written twice for one project ("once-only" reconciliation) 373ms
+   ✓ P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > REFUSED: the equipment asset stays held while its adoption is cancelled ("asset unheld iff its adoption is cancelled") 336ms
+ ✓ |core| tests/p13b-s2-access-identity.test.ts (14 tests) 37222ms
+   ✓ P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 6. save/reload and later ticks: exactly two rows, no duplicates, no erasure; validateSaveV37 accepts (stale title said V32 before this sweep too) 1578ms
+   ✓ P13B-S2 access identity: forward validator invariant "completed research without its access grant" > accepts the unmutated two-technology-completed save (forging baseline control) 626ms
+   ✓ P13B-S2 access identity: forward validator invariant "completed research without its access grant" > (a) rejects a two-technology completed state with the lighting access row deleted — the exact shape the old engine produced 483ms
+   ✓ P13B-S2 access identity: forward validator invariant "completed research without its access grant" > (b) rejects the lighting research row when its researchProjectId points at the sound project instead of its own 385ms
+   ✓ P13B-S2 access identity: forward validator invariant "completed research without its access grant" > (c) rejects the lighting row when its route is changed to wait with acquiredWeek null 401ms
+   ✓ P13B-S2 access identity: forward validator invariant "completed research without its access grant" > (d) rejects the lighting row when its acquiredWeek is moved one week off the project completedWeek 357ms
+   ✓ P13B-S2 access identity: forward validator invariant "completed research without its access grant" > confirms a purchase row for the same technology (case 8 shape) still validates once its research also completes 690ms
+ ✓ |core| tests/p14b8-waiver-surface-oracle.test.ts (12 tests) 3814ms
+   ✓ P14B.8 group1 — the owes-two world is exactly what 744 §11 A5 says it is (PASSES TODAY: fixture contract, not a RED) > holds ONE bound open player-issued APPEARANCE_COUNT promise at count 2, progress 0, remaining 2, with no link and no evidence 552ms
+   ✓ P14B.8 group2 — waiverAccepted's verdict table on the owes-two world at week 104 (PASSES TODAY: the oracle the bridge must publish verbatim) > asking is a READ: waiverAccepted mutates nothing, on the refusal and on the acceptance alike 438ms
+   ✓ P14B.8 group4 — the engine applies NO ownership test to a waiver (PASSES TODAY: the exposure the bridge gate must close) > with-edges holds a genuine RIVAL-ISSUED bound OPEN promise, and the player's studio is not its issuer 415ms
+   ✓ P14B.8 group4 — the engine applies NO ownership test to a waiver (PASSES TODAY: the exposure the bridge gate must close) > waiverAccepted ACCEPTS a substitute against the rival's promise: it returns null, so there is no engine sentence for the bridge to publish as an ok:false verdict 431ms
+   ✓ P14B.8 group4 — the engine applies NO ownership test to a waiver (PASSES TODAY: the exposure the bridge gate must close) > waivePromise CARRIES IT OUT: the rival's promise settles WAIVED and a substitute binds to the RIVAL's own employment contract, with the player never named 381ms
+ ❯ |core| tests/p14b4-cast-class-outcomes.test.ts (23 tests | 9 failed) 161569ms
+   ✓ P14B4 genuine submit/settle/take routes, no synthetic commitments > PLAYER: actual offered lead P2 settles and the real class-compatible take satisfies it 4628ms
+   ✓ P14B4 genuine submit/settle/take routes, no synthetic commitments > PLAYER: actual offered leadOrAntagonist P2 settles and the real class-compatible take satisfies it 2188ms
+   × P14B4 genuine submit/settle/take routes, no synthetic commitments > RIVAL: a genuinely naturally authored tagged commitment binds and qualifies through the real scheduled owner transition 15728ms
+     → UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'lead' seat: qualification=true 2093ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'antagonist' seat: qualification=false 880ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'support' seat: qualification=false 1011ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'leadOrAntagonist' with actual 'lead' seat: qualification=true 486ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'leadOrAntagonist' with actual 'antagonist' seat: qualification=true 421ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'leadOrAntagonist' with actual 'support' seat: qualification=false 331ms
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'lead' seat: qualification=true 16134ms
+     → UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'antagonist' seat: qualification=false 17902ms
+     → UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'support' seat: qualification=false 16289ms
+     → UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'lead' seat: qualification=true 16030ms
+     → UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'antagonist' seat: qualification=true 16332ms
+     → UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'support' seat: qualification=false 15225ms
+     → UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > player support qualifies for P1 and shape-legacy count-only P2, not tagged P2 677ms
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival support qualifies for P1 and shape-legacy count-only P2, not tagged P2 14743ms
+     → UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > shooting entry/technology lock and an unscheduled tick produce no first take or tagged-P2 outcome 468ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > player half-open window counts start, excludes before-start and excludes due 735ms
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival half-open window counts start, excludes before-start and excludes due 16993ms
+     → UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > count2 requires TWO real distinct productions; repeated owner passes/ticks on one picture never add another event 805ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > two genuinely bound beneficiaries share one completed take but receive DISTINCT own outcome receipts exactly once 937ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > first take THEN real player cancellation never un-satisfies or rewrites the evidence/outcome 504ms
+ ✓ |core| tests/bridge-p14b6-e714-false-empty-absence-lines.test.ts (7 tests) 6579ms
+   ✓ 714-T — "no recorded relationship" must not be published as "never worked together" > Case 1 (CONTROL, must stay GREEN before AND after the fix): an existing edge with an OFF-ROSTER counterpart keeps the preserved sentence 3647ms
+   ✓ 714-T — "no recorded relationship" must not be published as "never worked together" > Case 2 (RED, must FAIL today): viewer-commissioned shared work, zero edges, no disclosable counterpart — 'No shared work recorded yet.' is false here 2266ms
+ ✓ |core| tests/script-projects-save-v9.test.ts (8 tests) 3689ms
+   ✓ Script Projects V1 — SaveFileV9 > makes V9 by default and round-trips legacy and every managed lifecycle class byte-identically 1849ms
+   ✓ Script Projects V1 — SaveFileV9 > rejects noncanonical order, duplicate concepts, dangling references, and lifecycle correlations 378ms
+   ✓ Script Projects V1 — SaveFileV9 > rejects a managed production without its matching writer snapshot and stays saveable through release 526ms
+ ✓ |core| tests/p14a1-save-v28.test.ts (10 tests) 2371ms
+   ✓ P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > genuine V27 natural-rival-labs fixture: sha256 matches, migrates to V28 with an EMPTY talentMarket root and no P14 receipts, otherwise byte-identical 513ms
+   ✓ P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > genuine V27 renewal-window-456 fixture (a player Scientist already inside its 12-week renewal window): still migrates to V28 with an EMPTY talentMarket root — migration invents no case 329ms
+   ✓ P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > downgrade LOSSLESS: a freshly-lifted V28 state (empty talentMarket root) downgrades through save.migrateToV27 directly, byte-identical to the source 301ms
+   ✓ P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > R4 legacy terminations: a V27 termination priced under the OLD 50% law still validates through the frozen chain, and lifts to V28 recorded as legacy with no invented back-charge 416ms
+ ✓ |core| tests/contracts/v14-boundary-guards.contract.test.ts (36 tests) 3773ms
+   ✓ C2a-M1 · guards (B) — the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder 434ms
+ ✓ |core| tests/p14b4-save-v30-compatibility.test.ts (36 tests) 124946ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine empty without rewriting roots, receipts, digests or history and downgrades losslessly 2450ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine current-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 2419ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine replaced-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 2400ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine withdrawn-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 2372ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine bound-open-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 2451ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine kept-and-broken-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 2698ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine rival-current-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 3550ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine rival-shared-take-terminal-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 3700ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine refused-p2-count-only-current-draft without rewriting roots, receipts, digests or history and downgrades losslessly 2374ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT APPEARANCE_COUNT with arbitrary positive root/receipt versions 11589ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT LEAD_OR_SIGNIFICANT_ROLE_COUNT with arbitrary positive root/receipt versions 11838ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT DIRECTING_COUNT with arbitrary positive root/receipt versions 11325ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT PREFERRED_GENRE_OPPORTUNITY with arbitrary positive root/receipt versions 10698ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT SPECIFIC_PROJECT with arbitrary positive root/receipt versions 11285ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only APPEARANCE_COUNT variants 6846ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only LEAD_OR_SIGNIFICANT_ROLE_COUNT variants 7156ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only DIRECTING_COUNT variants 6989ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only PREFERRED_GENRE_OPPORTUNITY variants 6728ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only SPECIFIC_PROJECT variants 6410ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps classless P2 terminal variants with an actual shared take and DISTINCT original outcome receipts 2945ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps a classless P2 SATISFIED by an ACTUAL support seat, without inventing a role class or take 2896ms
+   ✓ P14B4 tagged P2 V30 shape is not lossy-downgradable > accepts explicit lead P2 shape at30, never at29, and refuses downgrade without stripping 610ms
+   ✓ P14B4 tagged P2 V30 shape is not lossy-downgradable > accepts explicit leadOrAntagonist P2 shape at30, never at29, and refuses downgrade without stripping 626ms
+   ✓ P14B4 tagged P2 V30 shape is not lossy-downgradable > rejects malformed tagged P2 missing-kind rather than defaulting class 397ms
+   ✓ P14B4 tagged P2 V30 shape is not lossy-downgradable > rejects malformed tagged P2 missing-class rather than defaulting class 345ms
+   ✓ P14B4 tagged P2 V30 shape is not lossy-downgradable > rejects malformed tagged P2 extra-key rather than defaulting class 327ms
+ ✓ |core| tests/p06a-w1-release-authority.test.ts (14 tests) 4636ms
+   ✓ P06A W1 — save law > imports a pre-P06 Release Ready save as UNCOMMITTED (holds until committed) 1632ms
+   ✓ P06A W1 — save law > round-trips a committed live save byte-exactly and refuses downgrades 1367ms
+   ✓ P06A W1 — save law > validateSaveV37 rejects forged authority at the save boundary (stale title said V32 before this sweep too) 893ms
+ ✓ |core| tests/p13b-r07-save-v25.test.ts (8 tests) 2509ms
+   ✓ P13B-S5-R07 Save V25 (test 5) > validates the genuine V24 fixtures directly (sha256-pinned, week-pinned) before migration 603ms
+   ✓ P13B-S5-R07 Save V25 (test 5) > migrates both genuine V24 fixtures to V25: saveVersion 25, technology state byte-identical aside from the version bump, setup: null lift (vacuous — both carry zero workflows) 835ms
+   ✓ P13B-S5-R07 Save V25 (test 5) > mid-setup save/reload round-trips byte-identically (export/import codec only) — INTERPRETATION 3: hand-authored setup, no genuine producer exists yet 423ms
+stdout | tests/p14c2s-scientist-retirement.test.ts > Scientist supply is measured; no replacement policy is invented > S9 retired identity is retained/refused; default recruit skips it to next legal fixed-pool identity
+C2s bounded Scientist supply (latent ids have no historical age) [{"week":520,"rawIds":["t-sci-00","t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"materializedIds":["t-sci-00"],"latentIds":["t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"statuses":[{"personId":"t-sci-00","status":"active"}],"lifecycleTermHireableIds":["t-sci-00","t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"recruitableIds":["t-sci-00","t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"playerEmployedIds":[],"rivalEmployedIds":[],"occupiedSeatIds":["t-sci-00"],"eligibleSeatIds":[],"verifiedWork":0,"scientistIds":["t-sci-00"]},{"week":566,"rawIds":["t-sci-00","t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"materializedIds":["t-sci-00"],"latentIds":["t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"statuses":[{"personId":"t-sci-00","status":"announced"}],"lifecycleTermHireableIds":["t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"recruitableIds":["t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"playerEmployedIds":[],"rivalEmployedIds":[],"occupiedSeatIds":["t-sci-00"],"eligibleSeatIds":[],"verifiedWork":0,"scientistIds":["t-sci-00"]},{"week":618,"rawIds":["t-sci-00","t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"materializedIds":["t-sci-00"],"latentIds":["t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"statuses":[{"personId":"t-sci-00","status":"retired"}],"lifecycleTermHireableIds":["t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"recruitableIds":["t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"playerEmployedIds":[],"rivalEmployedIds":[],"occupiedSeatIds":["t-sci-00"],"eligibleSeatIds":[],"verifiedWork":0,"scientistIds":["t-sci-00"]},{"week":618,"rawIds":["t-sci-00","t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"materializedIds":["t-sci-00","t-sci-01"],"latentIds":["t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"statuses":[{"personId":"t-sci-00","status":"retired"},{"personId":"t-sci-01","status":"active"}],"lifecycleTermHireableIds":["t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"recruitableIds":["t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"playerEmployedIds":["t-sci-01"],"rivalEmployedIds":[],"occupiedSeatIds":["t-sci-00"],"eligibleSeatIds":[],"verifiedWork":0,"scientistIds":["t-sci-00","t-sci-01"]}]
+C2s new Scientist identities, fixed-pool versus pre-existing rival deficit path [{"personId":"t-sci-01","fixedPlayerPool":true,"provenance":{"personId":"t-sci-01","kind":"authored_exact_week","ageAtEntry":34.151846673476086,"entryWeek":618},"employmentStudios":["studio-aca408ec-player"]}]
+
+stdout | tests/p14c2s-scientist-retirement.test.ts > Scientist supply is measured; no replacement policy is invented > S9b SYNTHETIC materialized age71 pool, real8 contracts: all retired at728 means zero supply, not eight employed or a ninth person
+C2s bounded exhausted materialized pool; no replacement decision {"week":728,"rawIds":["t-sci-00","t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"materializedIds":["t-sci-00","t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"latentIds":[],"statuses":[{"personId":"t-sci-00","status":"retired"},{"personId":"t-sci-01","status":"retired"},{"personId":"t-sci-02","status":"retired"},{"personId":"t-sci-03","status":"retired"},{"personId":"t-sci-04","status":"retired"},{"personId":"t-sci-05","status":"retired"},{"personId":"t-sci-06","status":"retired"},{"personId":"t-sci-07","status":"retired"}],"lifecycleTermHireableIds":[],"recruitableIds":[],"playerEmployedIds":[],"rivalEmployedIds":[],"occupiedSeatIds":["t-sci-00"],"eligibleSeatIds":[],"verifiedWork":0,"scientistIds":["t-sci-00","t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"]}
+
+ ✓ |core| tests/p14c2s-scientist-retirement.test.ts (15 tests) 42703ms
+   ✓ C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S1 genuine V33 continuation: recent employment prevents age62 announcement566, idle age63 announces618 5499ms
+   ✓ C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S2 SYNTHETIC age/provenance -1 year only: 61 is ineligible; literal62 announces with full notice 3531ms
+   ✓ C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S3 SYNTHETIC +10 years, real rehire/research: busy72 forces announcement, not removal; current binding determines E 2233ms
+   ✓ C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S4 SYNTHETIC +10 years, no rehire: hard announcement566 gives full52-week notice to618 and retains identity 2699ms
+   ✓ C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S5 real pause567/resume716 leaves unfinished work at728: expiry retires and pauses without deleting or charging retained work 3130ms
+   ✓ C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S6 incumbent-only final extension settles728 to780 once; retained research stays paused until explicit resume 2819ms
+   ✓ C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S7 real Scientist craft seat admitted at E-9 remains finishing across held take; actual cancel frees obligations then retirement 6679ms
+   ✓ C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S8 real save/import/replay is identical across announcement and expiry, without mutating the source 3263ms
+   ✓ Scientist supply is measured; no replacement policy is invented > S9 retired identity is retained/refused; default recruit skips it to next legal fixed-pool identity 1757ms
+   ✓ Scientist supply is measured; no replacement policy is invented > S9b SYNTHETIC materialized age71 pool, real8 contracts: all retired at728 means zero supply, not eight employed or a ninth person 5453ms
+   ✓ Scientist retirement persistence has an explicit semantic version boundary > S10 no Scientist record: live37 writes and V36 downgrade preserves exact state bytes without time, RNG or history changes 1954ms
+   ✓ Scientist retirement persistence has an explicit semantic version boundary > S10 actual Scientist record: live37 accepts, V36 and prior downgrade refuse without stripping obligations/history 1077ms
+   ✓ Scientist retirement persistence has an explicit semantic version boundary > S10 frozen public34/35/36 readers still refuse the Scientist law, independently of the live tuning table 1472ms
+   ✓ Scientist retirement persistence has an explicit semantic version boundary > S10 amended live validator still refuses age, provenance, notice, cap, extension and exact-key corruption independently 1131ms
+ ✓ |core| tests/contracts/studio-events.contract.test.ts (25 tests) 1884ms
+ ✓ |core| tests/construction-save-v11.test.ts (12 tests) 4300ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > writes V12 by default and round-trips legacy, vacant, building, and completed lifecycle states 1042ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > round-trips and continues byte-identically at start, S+12, and S+13 740ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > converts V10 deterministically from validated operations mode without inventing history 360ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > migrates V1–V10, passes V11 by identity, and rejects every historical downgrade 364ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > strictly rejects malformed parcel, project, ledger, cash, and facility truth 515ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > rejects every canonical Annex ID in persisted production history while building 434ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > rejects every canonical Annex ID in persisted production history while completed 383ms
+ ✓ |core| tests/legacy-parcel-ground.test.ts (14 tests) 9760ms
+   ✓ C1-M8 (B) — a generic building may not be BUILT there > accepts nothing anywhere on the property whose body the world would not show 8136ms
+   ✓ C1-M8 (C) — a building the studio owns may not be CARRIED there > refuses the move from every cell of the reserved ground, byte-neutrally 385ms
+ ✓ |core| tests/p14b3-rule-revision.test.ts (6 tests) 11192ms
+   ✓ P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history > preserves genuine evaluator1-current-p1 root/receipt/digest bytes through valid load, not a restamped current fixture 2059ms
+   ✓ P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history > preserves genuine evaluator1-withdrawn-p1 root/receipt/digest bytes through valid load, not a restamped current fixture 1795ms
+   ✓ P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history > preserves genuine evaluator1-role-label-refused-p1 root/receipt/digest bytes through valid load, not a restamped current fixture 3016ms
+   ✓ P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history > new actual attachment uses root.version4 and receipt.rulesVersion4 without rewriting old roots 1613ms
+   ✓ P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history > actual later winning freeze keeps old root.version1 but stores genuine new rulesVersion4 receipt and binding 2704ms
+ ✓ |core| tests/bridge-p14b4-runtime47-compatibility.test.ts (6 tests) 22490ms
+   ✓ P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > pins genuine original46 artifact, producer authority, and two SAME-week DIFFERENT slots 560ms
+   ✓ P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > migrates currentSaveJson from its OWN genuine V29 state, preserving exact material/history 5270ms
+   ✓ P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > migrates savedSaveJson from its OWN genuine V29 state, preserving exact material/history 6876ms
+   ✓ P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > resets ONLY prior runtime authority, then reopens current47 without a second migration 9464ms
+ ✓ |core| tests/d17b-save-v7.test.ts (22 tests) 2120ms
+   ✓ D-17B/E4 — the empty publicity state is the seeded default everywhere > ticking a headless world never creates campaign state (the action is engaged-only) 588ms
+   ✓ D-17B/E4 — migrateToV7 lifts every known version, and the chain still holds > a V7 save reloads and continues identically to an uninterrupted run 773ms
+ ✓ |core| tests/c2a-m3-screenplay-mint.test.ts (8 tests) 1682ms
+   ✓ C2a-M3 — a writer goes to work and hands the studio a new movie > mints a concept, a title and a blueprint at COMMISSION-COMMIT, and drafts it 618ms
+   ✓ C2a-M3 — a writer goes to work and hands the studio a new movie > NEVER re-prices the pool — correlateConceptCost is a founding-only permutation 476ms
+ ✓ |core| tests/p13b-s5-save-v24.test.ts (15 tests) 29565ms
+   ✓ P13B-S5 Save V24 (test 4) > validates the genuine V23 fixture legacy-v23-sound-operational-315 directly (sha256-pinned, week-pinned) before it is migrated in the chain test below 350ms
+   ✓ P13B-S5 Save V24 (test 4) > migrates legacy-v23-sound-operational-315 and its identical V20 ancestor to V24 with an honest first-prototype lift, byte-identical otherwise 1297ms
+   ✓ P13B-S5 Save V24 (test 4) > migrates the genuine V23 fixture legacy-v23-lighting-complete-plan-queued: rival EMPTY-physicalProjectIds adoption lifts to ONE aggregated installation row (placementId null), one held commercial asset, the queued physical plan survives byte-identically 438ms
+   ✓ P13B-S5 Save V24 (test 4) > chains the genuine V22 fixture './fixtures/p13b/legacy-v22-staffed-4-…' through V23 to V24 with the same honest lift 455ms
+   ✓ P13B-S5 Save V24 (test 4) > chains the genuine V22 fixture './fixtures/p13b/legacy-v22-two-labs-c…' through V23 to V24 with the same honest lift 577ms
+   ✓ P13B-S5 Save V24 (test 4) > chains the genuine V21 fixture './fixtures/p13b/legacy-v21-staffed-4-…' through V22, V23 to V24 556ms
+   ✓ P13B-S5 Save V24 (test 4) > chains the genuine V21 fixture './fixtures/p13b/legacy-v21-released-p…' through V22, V23 to V24 634ms
+   ✓ P13B-S5 Save V24 (test 4) > chains the genuine V21 fixture './fixtures/p13b/legacy-v21-two-labs-t…' through V22, V23 to V24 965ms
+   ✓ P13B-S5 Save V24 (test 4) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-a…' through V21, V22, V23 to V24 970ms
+   ✓ P13B-S5 Save V24 (test 4) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-p…' through V21, V22, V23 to V24 777ms
+   ✓ P13B-S5 Save V24 (test 4) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-c…' through V21, V22, V23 to V24 724ms
+   ✓ P13B-S5 Save V24 (test 4) > migrateToV23 / migrateToV22 / migrateToV21 / migrateToV20 refuse a V24 save 2188ms
+   ✓ P13B-S5 Save V24 (test 4) > makeSave writes the live saveVersion 37 (stale title corrected post-C.4) 1010ms
+   ✓ P13B-S5 Save V24 (test 4) > an unknown saveVersion 38 is refused, naming the handled range "1 through 36 only" (stale numbers corrected post-C.2b) 537ms
+   ✓ P13B-S5 Save V24 (test 4) > save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational 18084ms
+ ✓ |core| tests/c2a-m3-rename-and-pooling.test.ts (9 tests) 1161ms
+   ✓ C2a-M3 — the bounded writer pool (00E.9) > is refused on a screenplay that is not being drafted 470ms
+ ✓ |core| tests/p13b-s8-save-v27.test.ts (8 tests) 5323ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > genuine V26 sound-mid-deployment fixture: sha256 matches, migrates to V27 with the four new RivalMoneyKind movement keys at 0 on every period and NO new receipts, otherwise byte-identical 618ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > genuine V26 lighting-cancelled and lighting-restored fixtures: sha256 matches, migrate to V27 honestly (four zero keys, no new receipts) 675ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade LOSSLESS: a freshly-lifted V27 state (genuine V26 fixture, every new key still zero) downgrades through save.migrateToV26 directly, byte-identical to the source 445ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade REFUSED: a NATURAL campaign whose rival genuinely admitted a Laboratory carries a nonzero researchCapacity movement, and save.migrateToV26 refuses it 1833ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade REFUSED: the same natural campaign also carries a new receipt kind (laboratoryCommitted/laboratoryOperational), independently sufficient to refuse V27->V26 989ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > VALIDATOR REFUSED: "no rival authority without a receipt" — a rival Laboratory facility with no laboratoryCommitted/laboratoryOperational receipt is refused 437ms
+ ✓ |core| tests/d17a-adv-reconciliation.test.ts (14 tests) 29284ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over the default window with a founding prefix of 0 weeks 5776ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over the default window with a founding prefix of 3 weeks 3011ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over the default window with a founding prefix of 11 weeks 3441ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over EVERY prefix window [from, k] of the run (a sliding reconciliation sweep) 1766ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds when a release sits at week 0 of engagement (occupancy reaching before the ledger) 988ms
+   ✓ D-17A/B — conservation holds mid-flight, not only on tidy finished slates > holds while a theatrical run is still ACTIVE (window ends mid-run) 329ms
+   ✓ D-17A/B — conservation holds mid-flight, not only on tidy finished slates > holds on a rosterless post-cliff studio still paying overhead 1768ms
+   ✓ D-17A/B — a film is charged only for the weeks it actually occupied the studio > allocates 0 to every film over a window disjoint from its occupancy 2455ms
+   ✓ D-17A/B — a film is charged only for the weeks it actually occupied the studio > charges each film 0 in every window that ends before it starts or starts after it ends 1768ms
+   ✓ D-17A/B — window additivity (the partition is per WEEK, so splits are exact) > alloc[a,k] + alloc[k+1,b] === alloc[a,b] per film, per idle, per total — 24 seeded splits 2352ms
+   ✓ D-17A/B — odd dollars: whole-dollar determinism and a governed tie-break > conserves exactly even when the weekly cost is indivisible by the occupant count 936ms
+   ✓ D-17A/B — odd dollars: whole-dollar determinism and a governed tie-break > gives the odd dollar to the lower productionId (largest remainder, ascending plain-<) 972ms
+   ✓ D-17A/B — odd dollars: whole-dollar determinism and a governed tie-break > is identical across two independent calls and across a save → validate → migrate → load trip 3565ms
+ ✓ |core| tests/bridge-p14b6-d2-withheld-employment-claim.test.ts (2 tests) 679ms
+   ✓ 704-T D2 — the withheld line must not assert an employment fact it cannot know > CASE A (RED): hollywood===null, a real edge, and a LIVE state.contracts row for the counterpart — must not say "you do not employ", must equal the honest degraded copy 406ms
+ ✓ |core| tests/p14b1-save-v29.test.ts (6 tests) 1492ms
+   ✓ P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same digests, round trip, downgrade) > genuine V28 open-case-45 fixture: sha256 matches, still validates as V28 through the frozen chain, migrates to V29 with EMPTY firstTakes and promises roots and promises: [] on every existing proposal, otherwise byte-identical 604ms
+   ✓ P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same digests, round trip, downgrade) > a fresh V29 lift (nothing forged) downgrades LOSSLESS through save.migrateToV28, byte-identical to the pre-lift V28 state 303ms
+ ✓ |core| tests/d17a-adv-migration.test.ts (17 tests) 54ms
+ ✓ |core| tests/contracts/phase-table-agreement.contract.test.ts (10 tests) 2678ms
+   ✓ C2a-M0 · G6 (C) — the SAVE BOUNDARY agrees, proved by refusal > refuses a falsified capability multiset, naming the shared module’s own requirement 1726ms
+   ✓ C2a-M0 · G6 (C) — the SAVE BOUNDARY agrees, proved by refusal > refuses a blocker whose targetPhase is not nextProductionPhase(phase) 601ms
+ ✓ |core| tests/p13b-s3-validation.test.ts (12 tests) 15978ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > accepts the unmutated hand-authored baseline directly through validateSaveV32 812ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (a) rejects a dependency cycle 438ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (b) rejects a dependency naming an unknown plan id 439ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (c) rejects two plans sharing one ordinal 356ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (d) rejects a started plan whose placement does not exist 470ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (e) rejects a started plan whose placement carries a different blueprint 341ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (f) rejects two started plans naming the SAME placement (duplicate commitReceipt) 391ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (g) rejects a plan naming another studio's target (campaign isolation — the same FINDING/limitation tests/p13b-s2-validation.test.ts records: no public action path grows a genuine rival plan, so the rival side of this law is proven by structural injection) 365ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (h) rejects a non-integer approvedMaximumDebit 390ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (i) rejects nextPlanId that is not above every existing plan id 382ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (j) rejects a queued plan carrying a pendingQuote 367ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (k) rejects a held plan with no pendingQuote 341ms
+ ✓ |core| tests/contracts/v14-byte-parity.contract.test.ts (6 tests) 2129ms
+   ✓ C2a-M1 · parity (A) — the same seeded script exports the same bytes > produces a byte-identical export from two independent runs 893ms
+   ✓ C2a-M1 · parity (A) — the same seeded script exports the same bytes > does NOT produce those bytes from a different seed 361ms
+   ✓ C2a-M1 · parity (B) — the ledger survives a reload > exports the same bytes whether or not the run was saved and loaded midway 447ms
+ ✓ |core| tests/p13b-s3-save-v23.test.ts (13 tests) 10051ms
+   ✓ P13B-S3 Save V23 (test 7) > migrates the genuine V22 fixture './fixtures/p13b/legacy-v22-staffed-4-…' to V23 with an empty physicalPlans root, byte-identical otherwise 643ms
+   ✓ P13B-S3 Save V23 (test 7) > migrates the genuine V22 fixture './fixtures/p13b/legacy-v22-two-labs-c…' to V23 with an empty physicalPlans root, byte-identical otherwise 498ms
+   ✓ P13B-S3 Save V23 (test 7) > convertV22ToV23 adds the empty root directly from a validated V22 envelope (the named export the contract pins) 316ms
+   ✓ P13B-S3 Save V23 (test 7) > chains the genuine V21 fixture './fixtures/p13b/legacy-v21-staffed-4-…' through V22 to V23 356ms
+   ✓ P13B-S3 Save V23 (test 7) > chains the genuine V21 fixture './fixtures/p13b/legacy-v21-released-p…' through V22 to V23 371ms
+   ✓ P13B-S3 Save V23 (test 7) > chains the genuine V21 fixture './fixtures/p13b/legacy-v21-two-labs-t…' through V22 to V23 601ms
+   ✓ P13B-S3 Save V23 (test 7) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-a…' through V21, V22 to V23 679ms
+   ✓ P13B-S3 Save V23 (test 7) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-p…' through V21, V22 to V23 571ms
+   ✓ P13B-S3 Save V23 (test 7) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-c…' through V21, V22 to V23 713ms
+   ✓ P13B-S3 Save V23 (test 7) > migrateToV22 / migrateToV21 / migrateToV20 refuse a live save 1908ms
+   ✓ P13B-S3 Save V23 (test 7) > makeSave writes the live saveVersion 37 (stale title corrected post-C.2b) 1028ms
+   ✓ P13B-S3 Save V23 (test 7) > an unknown saveVersion 38 is refused, naming the handled range (stale number corrected post-C.2b) 682ms
+   ✓ P13B-S3 Save V23 (test 7) > save/reload mid-queue continues identically (byte for byte) 1684ms
+ ✓ |core| tests/contracts/cross-owner-refusal.contract.test.ts (3 tests) 1936ms
+   ✓ C2a-M0 · §12-M0 gate — a slot claimed by two owners is REFUSED > refuses a screenplay forged onto the slot a production holds 1029ms
+   ✓ C2a-M0 · §12-M0 gate — a slot claimed by two owners is REFUSED > refuses a production forged onto the slot a screenplay holds 429ms
+   ✓ C2a-M0 · §12-M0 gate — a slot claimed by two owners is REFUSED > refuses an audition forged onto the slot a screenplay holds 476ms
+ ✓ |core| tests/p14b2-setup-wrap-regressions.test.ts (13 tests) 7517ms
+   ✓ P14B.2-F1 completed setup remains historical authority after real wrap > round-trips actual first take → wrap → Post with unchanged setup and released stage 4633ms
+   ✓ P14B.2-F1 completed setup remains historical authority after real wrap > does not require compacted windowed setup/phase events when the permanent exact wrap survives 1337ms
+ ✓ |core| tests/p13b-s7-announcements.test.ts (6 tests) 26044ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > genuine V26 fixture at week 795 (before lighting announces at 884): sha256 matches, loads through the live path, no lighting announcement row 3082ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > advanced to week 884: exactly one lighting announcement row, week 884; still no sound row 5840ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > advanced further to week 900: still exactly one lighting row, unchanged content (row week stays 884, not 900) 3825ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > the announcement is derived-only: the exported live save carries no announcement record, and round-trips cleanly at the unchanged live version 4733ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > Save As proxy: two independently-loaded copies of the same genuine save publish byte-identical announcement rows at 884 8561ms
+ ✓ |core| tests/p13b-s2-save-v22.test.ts (12 tests) 45443ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 3939ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-released-paused-266.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 3575ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-two-labs-two-briefs-783.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 4212ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > continues the migrated active staffed-4-seats-263 project for one more funded week (now carrying its own labs row) and re-saves byte-identically 3596ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-active-280.json.gz: the S1 legacy prefix survives intact, weeks stays empty 3253ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-paused-expired-468.json.gz: the S1 legacy prefix survives intact, weeks stays empty 4160ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-complete-operational-315.json.gz: the S1 legacy prefix survives intact, weeks stays empty 4804ms
+   ✓ P13B-S2 envelope law at the live writer (test 8) > makeSave always writes the live saveVersion 37 (stale title corrected post-C.4) 2737ms
+   ✓ P13B-S2 envelope law at the live writer (test 8) > refuses an unknown saveVersion 38 with the updated range (stale number corrected post-C.2b) 3153ms
+   ✓ P13B-S2 envelope law at the live writer (test 8) > round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV32 byte-identically 5023ms
+   ✓ P13B-S2 campaign isolation across the migrated copies (mirrors the S1 case) > produces independent migrated copies from the same V21 fixture; advancing one never touches the other 6694ms
+ ✓ |core| tests/p13a-technology-milestones.test.ts (4 tests) 9519ms
+   ✓ P13A dated public technology history > round-trips both boundaries exactly and resumes without duplicating the permanent events 1312ms
+   ✓ P13A dated public technology history > rejects invented dates, unknown facts, wrong significance or subjects, duplicates, and pre-recording history 419ms
+ ✓ |core| tests/p13a-causal-core.test.ts (8 tests) 18006ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $1 weekly budget 953ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $3 weekly budget 1089ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $2499 weekly budget 830ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $5600 weekly budget 903ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $9999 weekly budget 800ms
+   ✓ P13A causal Core through the real weekly engine > one Scientist completes 64 units in 43 funded weeks, then P09 completes the exact chain at315 873ms
+   ✓ P13A causal Core through the real weekly engine > waiting buys no capability; purchase opens416, takes12weeks, and forfeits113weeks of lead 4128ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 23 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14b5-relationships.test.ts > family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > the MOST EXPOSED shared fixture, poachingFixture (p14b2-fixtures.ts :145-211; consumers bridge-p14b2-trust, p14b2-fixture-preconditions): the week-208 reasons pin and endedWeek 208 hold, and under D1 no survivor holds a shared-take counterpart
+AssertionError: expected 208 to be 52 // Object.is equality
+
+- Expected
++ Received
+
+- 52
++ 208
+
+ ❯ Module.poachingFixture tests/helpers/p14b2-fixtures.ts:198:48
+    196|   expect(trustDescriptor(state, talentId, player(state), state.market.…
+    197|   expect(state.hollywood!.businesses.find((b) => b.studioId === incumb…
+    198|   expect(publicPreferredTerm(state, talentId)).toBe(52)
+       |                                                ^
+    199|   expect(trustDrivers(state, talentId, player(state), state.market.tic…
+    200|   expect(caseForTalent(state, talentId)!.subjectStudioId).toBe(incumbe…
+ ❯ tests/bridge-p14b5-relationships.test.ts:540:46
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/23]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 genuine submit/settle/take routes, no synthetic commitments > RIVAL: a genuinely naturally authored tagged commitment binds and qualifies through the real scheduled owner transition
+Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+ ❯ rivalWorlds tests/p14b4-cast-class-outcomes.test.ts:247:9
+    245|     if (steps < 350) state = tick(state)
+    246|   }
+    247|   throw new Error('UNEXECUTED natural rival prerequisites absent by350…
+       |         ^
+    248| }
+    249| function atFive(issuer: 'player' | 'rival', slot: CastSlot): Prepared {
+ ❯ tests/p14b4-cast-class-outcomes.test.ts:360:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/23]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'lead' seat: qualification=true
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'antagonist' seat: qualification=false
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'support' seat: qualification=false
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'lead' seat: qualification=true
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'antagonist' seat: qualification=true
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'support' seat: qualification=false
+Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+ ❯ rivalWorlds tests/p14b4-cast-class-outcomes.test.ts:247:9
+    245|     if (steps < 350) state = tick(state)
+    246|   }
+    247|   throw new Error('UNEXECUTED natural rival prerequisites absent by350…
+       |         ^
+    248| }
+    249| function atFive(issuer: 'player' | 'rival', slot: CastSlot): Prepared {
+ ❯ atFive tests/p14b4-cast-class-outcomes.test.ts:250:53
+ ❯ tests/p14b4-cast-class-outcomes.test.ts:378:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/23]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival support qualifies for P1 and shape-legacy count-only P2, not tagged P2
+Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+ ❯ rivalWorlds tests/p14b4-cast-class-outcomes.test.ts:247:9
+    245|     if (steps < 350) state = tick(state)
+    246|   }
+    247|   throw new Error('UNEXECUTED natural rival prerequisites absent by350…
+       |         ^
+    248| }
+    249| function atFive(issuer: 'player' | 'rival', slot: CastSlot): Prepared {
+ ❯ atFive tests/p14b4-cast-class-outcomes.test.ts:250:53
+ ❯ tests/p14b4-cast-class-outcomes.test.ts:388:32
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/23]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival half-open window counts start, excludes before-start and excludes due
+Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+ ❯ rivalWorlds tests/p14b4-cast-class-outcomes.test.ts:247:9
+    245|     if (steps < 350) state = tick(state)
+    246|   }
+    247|   throw new Error('UNEXECUTED natural rival prerequisites absent by350…
+       |         ^
+    248| }
+    249| function atFive(issuer: 'player' | 'rival', slot: CastSlot): Prepared {
+ ❯ atFive tests/p14b4-cast-class-outcomes.test.ts:250:53
+ ❯ tests/p14b4-cast-class-outcomes.test.ts:409:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/23]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > search table: the first seed-b decision whose seating matters holds two tagged leadOrAntagonist beneficiaries and one P1 beneficiary in a three-actor pool
+AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ ❯ witness tests/p14b4-rival-seating-preference.test.ts:343:10
+    341| function witness(): { before: GameState; decision: Decision } {
+    342|   const found = scan(WITNESS.seed).witness
+    343|   assert.ok(found, `UNEXECUTED natural premise: no rival film decision…
+       |          ^
+    344|   expect({ week: found.decision.week, studioId: found.decision.studioI…
+    345|     .toEqual({ week: WITNESS.week, studioId: WITNESS.studioId, key: WI…
+ ❯ tests/p14b4-rival-seating-preference.test.ts:504:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/23]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > RED: the real seating serves the maximal DISTINCT-beneficiary count (plan :215-218), the picture is viable and affordable (:223-225), and the real first take then satisfies all three through advancePromisesWeek/qualifyingTakes
+AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ ❯ witness tests/p14b4-rival-seating-preference.test.ts:343:10
+    341| function witness(): { before: GameState; decision: Decision } {
+    342|   const found = scan(WITNESS.seed).witness
+    343|   assert.ok(found, `UNEXECUTED natural premise: no rival film decision…
+       |          ^
+    344|   expect({ week: found.decision.week, studioId: found.decision.studioI…
+    345|     .toEqual({ week: WITNESS.week, studioId: WITNESS.studioId, key: WI…
+ ❯ tests/p14b4-rival-seating-preference.test.ts:528:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/23]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > CONFLICT: the ordinary economic score prefers a two-beneficiary permutation; benefit count wins over score (:216-217) and the real take proves it
+AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ ❯ witness tests/p14b4-rival-seating-preference.test.ts:343:10
+    341| function witness(): { before: GameState; decision: Decision } {
+    342|   const found = scan(WITNESS.seed).witness
+    343|   assert.ok(found, `UNEXECUTED natural premise: no rival film decision…
+       |          ^
+    344|   expect({ week: found.decision.week, studioId: found.decision.studioI…
+    345|     .toEqual({ week: WITNESS.week, studioId: WITNESS.studioId, key: WI…
+ ❯ tests/p14b4-rival-seating-preference.test.ts:554:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/23]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > TIE FALLBACK (labeled reception-input variant): two reception-identical tagged beneficiaries tie on score; the first strict-greater winner in the inherited BILLINGS order is seated — inherited tie behaviour, not fairness (:218-221)
+AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ ❯ witness tests/p14b4-rival-seating-preference.test.ts:343:10
+    341| function witness(): { before: GameState; decision: Decision } {
+    342|   const found = scan(WITNESS.seed).witness
+    343|   assert.ok(found, `UNEXECUTED natural premise: no rival film decision…
+       |          ^
+    344|   expect({ week: found.decision.week, studioId: found.decision.studioI…
+    345|     .toEqual({ week: WITNESS.week, studioId: WITNESS.studioId, key: WI…
+ ❯ tests/p14b4-rival-seating-preference.test.ts:587:24
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/23]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > another issuer's promise never counts: r02's offers to r01's three actors are present at w202 and at the witness and never enter r01's member set; re-authored r02 offers make the negative discriminating
+AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ ❯ witness tests/p14b4-rival-seating-preference.test.ts:343:10
+    341| function witness(): { before: GameState; decision: Decision } {
+    342|   const found = scan(WITNESS.seed).witness
+    343|   assert.ok(found, `UNEXECUTED natural premise: no rival film decision…
+       |          ^
+    344|   expect({ week: found.decision.week, studioId: found.decision.studioI…
+    345|     .toEqual({ week: WITNESS.week, studioId: WITNESS.studioId, key: WI…
+ ❯ tests/p14b4-rival-seating-preference.test.ts:668:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/23]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a met promise never counts (control, r02 chain): after r02's w211 picture satisfies its three P1 roots at w216, its next real decision has no member and takes the ordinary pick
+AssertionError: The expression evaluated to a falsy value:
+
+  expect(first.cast).toEqual({ lead: WITNESS.a2, antagonist: WITNESS.a4, support: WITNESS.a3 })
+
+ ❯ tests/p14b4-rival-seating-preference.test.ts:690:12
+    688|   it('a met promise never counts (control, r02 chain): after r02\'s w2…
+    689|     const s = scan('seed-b')
+    690|     assert.ok(s.witness)
+       |            ^
+    691|     const studioId = 'studio-bc14baf6-r02'
+    692|     const { taken, take } = produce(clone(s.witness.before), studioId)…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/23]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a met promise never counts (r01 chain, RED today only through the witness defect): after the witness take the SATISFIED roots leave r01's member set at its next real decision
+AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ ❯ witness tests/p14b4-rival-seating-preference.test.ts:343:10
+    341| function witness(): { before: GameState; decision: Decision } {
+    342|   const found = scan(WITNESS.seed).witness
+    343|   assert.ok(found, `UNEXECUTED natural premise: no rival film decision…
+       |          ^
+    344|   expect({ week: found.decision.week, studioId: found.decision.studioI…
+    345|     .toEqual({ week: WITNESS.week, studioId: WITNESS.studioId, key: WI…
+ ❯ tests/p14b4-rival-seating-preference.test.ts:708:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/23]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts — 'window starts after every plausible t…'
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts — 'window ends before any take can land …'
+AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ ❯ witness tests/p14b4-rival-seating-preference.test.ts:343:10
+    341| function witness(): { before: GameState; decision: Decision } {
+    342|   const found = scan(WITNESS.seed).witness
+    343|   assert.ok(found, `UNEXECUTED natural premise: no rival film decision…
+       |          ^
+    344|   expect({ week: found.decision.week, studioId: found.decision.studioI…
+    345|     .toEqual({ week: WITNESS.week, studioId: WITNESS.studioId, key: WI…
+ ❯ tests/p14b4-rival-seating-preference.test.ts:730:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/23]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'tagged lead stays exact: r01-2 counts…'
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'legacy count-only LEAD_OR_SIGNIFICANT…'
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'APPEARANCE_COUNT is generic cast'
+AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ ❯ witness tests/p14b4-rival-seating-preference.test.ts:343:10
+    341| function witness(): { before: GameState; decision: Decision } {
+    342|   const found = scan(WITNESS.seed).witness
+    343|   assert.ok(found, `UNEXECUTED natural premise: no rival film decision…
+       |          ^
+    344|   expect({ week: found.decision.week, studioId: found.decision.studioI…
+    345|     .toEqual({ week: WITNESS.week, studioId: WITNESS.studioId, key: WI…
+ ❯ tests/p14b4-rival-seating-preference.test.ts:754:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/23]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the initial cast seam (plan :225-232) > promised non-primary-actor beneficiaries (the witness rival's writer, director and craft, each bound OPEN P1) are never seated: one person cannot double, and the sole holder of a role is a capacity constraint, not a forged package
+AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ ❯ witness tests/p14b4-rival-seating-preference.test.ts:343:10
+    341| function witness(): { before: GameState; decision: Decision } {
+    342|   const found = scan(WITNESS.seed).witness
+    343|   assert.ok(found, `UNEXECUTED natural premise: no rival film decision…
+       |          ^
+    344|   expect({ week: found.decision.week, studioId: found.decision.studioI…
+    345|     .toEqual({ week: WITNESS.week, studioId: WITNESS.studioId, key: WI…
+ ❯ tests/p14b4-rival-seating-preference.test.ts:775:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/23]⎯
+
+ Test Files  3 failed | 58 passed (61)
+      Tests  23 failed | 944 passed | 2 todo (969)
+   Start at  10:16:37
+   Duration  452.47s (transform 6.36s, setup 0ms, collect 63.55s, tests 1236.31s, environment 19ms, prepare 12.20s)
+

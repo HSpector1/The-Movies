@@ -1,5 +1,14 @@
 # P14 — Contested Talent Market, Bonds and Promises, Career Lifecycle — headless plan (logic-first)
 
+## CURRENT — C.3 paired repairs and final types/checks passed; full suites remain
+
+1118-A/B qualify the six exact maintenance gates, including243 repaired cases
+and23 unchanged inherited failures in the61-file group. 1118-C retains actual
+root/UI/Bridge type and contract/fixture --check passes on d8552a0b. Complete
+core/UI attribution and final bounded C.3 publication remain. Preserve canonical
+Writer/R8 and inherited reliability limits; later P3/1117 remains held until
+qualification. No claim of all P14 or native/Owner completion.
+
 ## CURRENT — corrected C/D complete; final maintenance and regression remain
 
 D1085 and independent 1114-B KEEP complete the 6,240-week continuous/read-stress

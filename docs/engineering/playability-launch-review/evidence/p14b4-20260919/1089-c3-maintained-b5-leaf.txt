@@ -1,0 +1,13 @@
+{"sourceSha":"d8552a0b7caa9a02da17320a203a923134e093b8","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-p14b5-relationships.test.ts","--testNamePattern","p13b-s8-bridge-probe-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only"],"node":"v20.20.2","start":"2026-09-27T08:07:50.543Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p14b5-relationships.test.ts (15 tests | 14 skipped) 5872ms
+   ✓ family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > p13b-s8-bridge-probe-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only 5870ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 14 skipped (15)
+   Start at  10:07:51
+   Duration  9.52s (transform 2.24s, setup 0ms, collect 3.08s, tests 5.87s, environment 0ms, prepare 136ms)
+

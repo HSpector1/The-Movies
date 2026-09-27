@@ -1,0 +1,28 @@
+{
+  "sourceSha": "d8552a0b7caa9a02da17320a203a923134e093b8",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/bridge-p14c3-promise-digest-continuity.test.ts",
+    "tests/bridge-p14c2rm-runtime.test.ts",
+    "tests/bridge-p14c2s-scientist-runtime.test.ts",
+    "tests/bridge-p06-checkpoint-recovery.test.ts",
+    "tests/bridge-owner-ux-projection20-migration.test.ts",
+    "tests/bridge-p14b2-checkpoint.test.ts",
+    "tests/bridge-runtime-checkpoint.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T08:10:40.348Z",
+  "end": "2026-09-27T08:13:20.901Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "d8552a0b7caa9a02da17320a203a923134e093b8",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

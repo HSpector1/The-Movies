@@ -1,0 +1,21 @@
+{"sourceSha":"d8552a0b7caa9a02da17320a203a923134e093b8","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-process-restart.test.ts"],"node":"v20.20.2","start":"2026-09-27T08:14:15.836Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-process-restart.test.ts (10 tests) 75112ms
+   ✓ rejects the post-commit response gate outside a test process before opening runtime state 2121ms
+   ✓ restores one durable logical bridge session and exact HTTP replay after SIGKILL 19858ms
+   ✓ withholds a durably committed command response until SIGKILL and replays it byte-identically after restart 10062ms
+   ✓ withholds a durably committed save response until SIGKILL and replays it byte-identically after restart 7032ms
+   ✓ withholds a durably committed load response until SIGKILL and replays it byte-identically after restart 12435ms
+   ✓ observes a byte-different semantic replay instead of falsely proving an exact request retry 5346ms
+   ✓ drops a durably committed command response and replays it byte-identically in the same process 5628ms
+   ✓ drops a durably committed save response and replays it byte-identically in the same process 4256ms
+   ✓ drops a durably committed load response and replays it byte-identically in the same process 8367ms
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+   Start at  10:14:16
+   Duration  79.65s (transform 2.85s, setup 0ms, collect 3.89s, tests 75.11s, environment 0ms, prepare 111ms)
+

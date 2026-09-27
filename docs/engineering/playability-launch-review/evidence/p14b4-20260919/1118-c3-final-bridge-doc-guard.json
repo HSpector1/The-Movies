@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "beforeRecord": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1118-c3-final-bridge-doc-guard.started.json",
+    "bytes": 459,
+    "sha256": "017b58c82469551e150ab4ec19ff0035e50ca3c3276c0eae7864233decb8ffa1"
+  },
+  "afterIdentity": {
+    "bytes": 66372,
+    "sha256": "f7d19d39218b9570b3be65a14a0e3cd0a346dd06be1beb283a9bdcc830dfff4d"
+  },
+  "head": "d8552a0b7caa9a02da17320a203a923134e093b8",
+  "recorder": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1097-c3-final-bridge-types.json",
+    "bytes": 625,
+    "sha256": "a5f8d892ee65a7fb2735db97cfe7671a15ba54501a2a4806d9f8f40855e08dda"
+  },
+  "timestamp": "2026-09-27T08:27:34.824281+00:00"
+}

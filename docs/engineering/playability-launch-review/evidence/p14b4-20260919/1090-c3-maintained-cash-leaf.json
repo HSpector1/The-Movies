@@ -1,0 +1,24 @@
+{
+  "sourceSha": "d8552a0b7caa9a02da17320a203a923134e093b8",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/cash-ledger-checkpoint-v11.test.ts",
+    "--testNamePattern",
+    "prevents every frozen builder from laundering an invalid checkpoint"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T08:08:23.740Z",
+  "end": "2026-09-27T08:08:27.990Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "d8552a0b7caa9a02da17320a203a923134e093b8",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}
