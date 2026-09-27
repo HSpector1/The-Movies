@@ -1,25 +1,30 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
-## CURRENT — Receipt settlement source applied; qualification next
+## CURRENT — Q12 compiler correction pending; simulation unexecuted
 
-Checkpoint `4b89246f6978c83c82a684a2aac3bfe0c0aaf74e` matched GitHub.
-Parent applied the exact reviewed 1257-C/D standalone Q12 source; 1257-E records
-its 25,474-byte postimage `548cd0c4` and 29 unchanged protected files. The prior
-opportunity and screenplay-status tests remain literal. No production change.
+Published source `a96d69bab49cf84b3e87e22a35aa202ba5cebc5e` matched GitHub.
+1257-C/D/E added the exact 25,474-byte standalone settlement test, preserving all
+29 protected files. The 1258 root compiler failed with one TS2345 at line363:
+the imported save retains its union type because the validator return is not used.
+The raw 821-byte diagnostic (`9a198b64`) and fixed-source pre/post records are
+retained: 33.677s, exit2, all1,682 source files,120 manual pins and index/stage exact.
+No simulation or advance ran, and no production source changed.
 
-Publish this source, then run 1258 root types (cap 0), followed by isolated 1259
-Q12 (hard 7 advances) with fixed-source and pre/post guards. Four public mutations,
-one joined-week45 quote, two price previews and at most two final-tick feasibility
-observations are frozen in A/B/F/G. The actual player win, precommit price/payment
-and saved version6 / first frozen receipt7 join remain unexecuted prerequisites.
-No failed premise permits a new bid, person, issuer, case order or extra advance.
+Author prepares separate 1257-L minimal narrowing correction for independent M;
+frozen C/D and the failed gate remain unchanged. Parent applies/publishes the
+reviewed correction, then runs 1258b root types (cap0) before the still-unexecuted
+1259 isolated Q12 (hard7). Runtime bounds remain four mutations, one joined45
+quote, two price previews and two matching final-tick receipt observations.
+Actual win, price/payment and saved root6/first frozen receipt7 remain prospective.
 
-Q11 and its author/reviewer/parent verification records are closed; no repeat is
-needed. Parent remains sole integration/production/heavy executor, with the same
-two specialists owning test source and independent review. Continue the authorized
-program. 1260-A/F are prospective zero-advance writer and development-slot controls,
-awaiting plan review and later source release. Prior failures and timing limits
-remain recorded. Unity/native and Owner campaign access remain deferred.
+Q11 and its author/reviewer/parent records are closed. Parent remains sole live
+production/integration/heavy executor; the same two specialists own staged test
+source and independent review. 1260-A/F/B now approve the later zero-advance
+writer/resource plan (two actions, nine quotes), with source release still after
+1257 closure. 1263-A is only a future stock-null route proposal from existing
+generated Save31 evidence; no prefix replay or fixture minting. Continue the
+authorized program, retaining prior failures/timing limits. Unity/native and
+Owner campaign access remain deferred.
 
 ## CURRENT — Q11 passed: real status clocks and isolated fact-only refusal
 

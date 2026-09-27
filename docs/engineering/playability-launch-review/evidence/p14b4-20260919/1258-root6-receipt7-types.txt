@@ -1,0 +1,5 @@
+{"sourceSha":"a96d69bab49cf84b3e87e22a35aa202ba5cebc5e","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/tsc","--noEmit","-p","tsconfig.json"],"node":"v20.20.2","start":"2026-09-27T21:35:58.207Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+tests/p14p4p5-receipt-freeze.test.ts(363,17): error TS2345: Argument of type 'GameStateV2 | GameStateV3 | GameStateV4 | GameStateV5 | GameStateV6 | GameStateV7 | GameStateV8 | ... 27 more ... | GameStateV1' is not assignable to parameter of type 'GameStateV40'.
+  Type 'GameStateV2' is not assignable to type 'GameStateV40'.
+    Type 'GameStateV2' is missing the following properties from type 'Omit<GameStateV39, "promises">': publicity, ledger, founding, contracts, and 26 more.
