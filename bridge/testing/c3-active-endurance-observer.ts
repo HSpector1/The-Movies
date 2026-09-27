@@ -8,7 +8,7 @@ import type {
   ByteIdentity, ObservationTiming, ObservationFailure,
   ReadObservationRequest, ReadObservationResult,
   RuntimeObservationRequest, RuntimeObservationResult,
-} from '../../docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-active-endurance-driver.ts'
+} from './c3-active-endurance-contract.ts'
 import { BridgeSession } from '../session.ts'
 import { PROTOCOL_VERSION, PROJECTION_VERSION, SCHEMA_ID, type ControlEnvelope } from '../protocol.ts'
 import { BRIDGE_SCHEMA, type CampaignRequest, type BridgeMarketPage } from '../schema/bridge-schema.ts'

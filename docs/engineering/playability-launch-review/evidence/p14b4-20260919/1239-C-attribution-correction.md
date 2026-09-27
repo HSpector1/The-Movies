@@ -1,0 +1,3 @@
+# 1239-C — Preflight cap clarification
+
+Frozen 1239-A is 9,448 bytes / SHA256 `290d7a49a166736749d3da0729afb328893d575bcc8cd6bb53bb48f65f7072ac` and remains unchanged. Its sentence saying both preflights record advance cap94 is incorrect: **1237 compiler preflight records advanceCap0; 1238 runtime preflight records advanceCap94**. Both correctly record the same published source. The compiler executed no gameplay; runtime observed40 calls under94. All result, source, input, marker and postflight identities and the rest of the attribution are unchanged. This corrects documentation only; no execution or source change occurred.

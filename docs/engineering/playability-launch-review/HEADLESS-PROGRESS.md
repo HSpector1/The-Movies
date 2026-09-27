@@ -1,5 +1,27 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — Bridge compiler diagnosed; historical type dependency isolated
+
+Published354db2a168cf2b5d6af37845acb3ff5aacdb3a54 matched GitHub.1241 Bridge
+compiler failed child2/fixed28.439s with7 diagnostics:6 in3 old test callers and1
+inside frozen1052 reached through a type-only observer import. All guards pass;
+full raw is preserved. No new Bridge production diagnostic was printed, and no
+Bridge runtime qualification is claimed. Test owner stages1242 exact current/
+frozen-boundary repairs; unrelated unobserved behavior expectations stay intact.
+
+Parent copied1052's literal observation type protocol into a current type-only
+module and retargeted the sole observer type import. Frozen driver bytes, version
+checks and completed endurance results remain unchanged; no rerun is proposed.
+1240-C records this isolation. Publish; root/UI types may run separately while
+1242 is staged/reviewed, then integrate/publish before fresh Bridge compilation.
+1236 new Bridge tests remain staged, hard7 advances, no current runtime run.
+
+1239-A/B/C now preserve the two core-work PASS results with corrected compiler0/
+runtime94 cap wording. InitialfourPASS remains separately qualified; full1226,
+Bridge55 consumers and broader program remain active. Parent alone owns production
+and heavy execution; two existing specialists retain separate test/review roles.
+Unity/native and Owner campaign remain deferred.
+
 ## CURRENT — Core binding/filming PASS; Bridge55 draft generated
 
 Published8d6d5a23118602c795ee4c7a03b85ee240d75c48 matched GitHub.

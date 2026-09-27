@@ -1,0 +1,15 @@
+{
+  "observedCompiler": "1241-bridge55-types",
+  "cause": "Observer type-only import causes current compiler to check frozen1052 implementation using actual strict38 reader.",
+  "correction": "Copy complete literal observation protocol to current type-only module and retarget sole observer type import; do not modernize or rerun old driver/observer.",
+  "frozenDriver": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-active-endurance-driver.ts",
+    "bytes": 66372,
+    "sha256": "f7d19d39218b9570b3be65a14a0e3cd0a346dd06be1beb283a9bdcc830dfff4d"
+  },
+  "literalCopiedBody": {
+    "bytes": 2521,
+    "sha256": "5ec73d040fd09d0390ab991cd97a6402a851842581bf720d0b3b683fcf1f45bf"
+  },
+  "qualification": "No runtime or historical endurance requalification; compiler pending."
+}
