@@ -1,0 +1,32 @@
+{
+  "time": "2026-09-27T19:34:23.883409+00:00",
+  "headBefore": "029dae8aea5f4c1674f7272cb55408a02454218f",
+  "sourceManifest": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1232-p4p5-binding-source-manifest.json",
+    "bytes": 10462,
+    "sha256": "d355ffa68c376ab0d2c97cac6912a2f9e2bae95643d3360f55401144e12b8f4b"
+  },
+  "sourceReview": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1232-D-p4p5-binding-source-review.md",
+    "bytes": 5243,
+    "sha256": "121f50c7366b6251f01386f4c7a7d54aa08250f4e62bfe6c80dc87c204b86bfa"
+  },
+  "appliedPostimage": {
+    "path": "tests/p14p4p5-opportunities.test.ts",
+    "bytes": 46682,
+    "sha256": "067915dc62457a5b3554cedeb2f58ce31c968c0402688ac92dbf16605e55a3c7"
+  },
+  "initialMatchedGreen": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1234b-p4p5-initial-green.json",
+    "bytes": 673,
+    "sha256": "fa6748b19410df25c36fcfb1e577c8378d21cc1f6d4cd0dfb5ecb94b9ca54b9a"
+  },
+  "allInitialSourceGuardsExact": true,
+  "literalLegacyMatch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1230-legacy46-baseline.txt",
+    "bytes": 1226,
+    "sha256": "36921548246e8ec4cc2241353cf62fa1e9868cc037a62e2a8a1a0bf26cc35342"
+  },
+  "reviewerResult": "Independent initial compiler/runtime review complete, no blocker to source-reviewed1232 application; final result records forthcoming.",
+  "laterQualification": "Not compiled or executed; two selected leaves/four filtered; capped47+47=94 advance attempts."
+}

@@ -1,5 +1,26 @@
 # R3-N1 native correction record — 2026-09-15 · OPS-R3-N1-NATIVE-CORRECTION-20260915-01
 
+## CURRENT — Initial four P4/P5 checks PASS; binding/filming source installed
+
+Published029dae8aea5f4c1674f7272cb55408a02454218f matched GitHub.1233c root
+compilerPASS34.080s.1234b unchanged initial fourPASS19.397s, child0/fixed source;
+actual0 advancing attempts/cap0, both caches complete. All source/manual/raw/index
+guards exact. Complete1,226-byte legacy4/6 output matches1230 and the prior failed
+attempt literally. Independent result review finds no blocker; parent closure
+preserves the narrow scope and the original1234 threePASS/oneFAIL separately.
+
+Parent verified/applied reviewed1232 exact46,682-byte postimage (SHA256
+067915dc62457a5b3554cedeb2f58ce31c968c0402688ac92dbf16605e55a3c7), retaining
+all initial four test bodies.1232-E records application. Later source has not run.
+Publish, run1237 root compiler, then1238 onlyQ05/Q06 (four filtered): at most47
+advances per route/94 total, no retry/rescue or hidden setup. Observe actual player
+binding, cast work, subject suffix, release/cancellation and P5 wrong-seat outcome.
+
+Bridge55 source/generation/runtime/UI and full1226 remain pending. Existing
+specialists separately own test/review; parent alone owns production/integration
+and the single heavy process. Current40/54 is still unqualified WIP. Continue the
+authorized program and settled P15 decisions; Unity/native/Owner campaign deferred.
+
 ## CURRENT — Core types pass; initial attempt3PASS/1FAIL; narrow cause fix
 
 Published2c9b67fc39ca2598f55eecdb640c53e75a668b64 matched GitHub.

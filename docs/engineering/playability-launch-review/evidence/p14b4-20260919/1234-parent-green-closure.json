@@ -1,0 +1,45 @@
+{
+  "time": "2026-09-27T19:35:11.235038+00:00",
+  "source": "029dae8aea5f4c1674f7272cb55408a02454218f",
+  "compiler": {
+    "status": "PASS",
+    "seconds": 34.08,
+    "record": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1233c-core-tie-root-types.json",
+      "bytes": 634,
+      "sha256": "06ea707e14ec7fda3ec57bfe575867733d4f3bd71647e55a8a8af75bd3ce41f3"
+    }
+  },
+  "runtime": {
+    "status": "PASS",
+    "seconds": 19.397,
+    "pass": 4,
+    "fail": 0,
+    "filtered": 0,
+    "record": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1234b-p4p5-initial-green.json",
+      "bytes": 673,
+      "sha256": "fa6748b19410df25c36fcfb1e577c8378d21cc1f6d4cd0dfb5ecb94b9ca54b9a"
+    },
+    "raw": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1234b-p4p5-initial-green.txt",
+      "bytes": 6205,
+      "sha256": "ae222729f3cdf882b97340e037411ddce100d55255390f12aa828a65d373b49e"
+    },
+    "postflight": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1234b-p4p5-initial-green-postflight.json",
+      "bytes": 12287,
+      "sha256": "acff383f8546317a0d3e3ad8d731402fcdb3f1101b5012d9f3c6dbdfa9ec16b6"
+    }
+  },
+  "actualTicks": 0,
+  "hardCap": 0,
+  "bothCachesComplete": true,
+  "legacyLiteralMatch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1230-legacy46-baseline.txt",
+    "bytes": 1226,
+    "sha256": "36921548246e8ec4cc2241353cf62fa1e9868cc037a62e2a8a1a0bf26cc35342"
+  },
+  "independentReview": "c2rm_contract_review read full raw, verified47 nested identities and exact source/manual/index guards; no blocker to reviewed1232 application. Final attribution/review documents forthcoming.",
+  "limits": "Initial Ready quotes/material attachments/genuine39 migration only; later binding/work/outcomes/Bridge55 and full1226 pending."
+}
