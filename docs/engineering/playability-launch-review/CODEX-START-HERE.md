@@ -1,30 +1,35 @@
 # CODEX continuation — Project Studio
 
-## CURRENT — real P3 binding/two films observed; Director outcome correction typed
+## CURRENT — P3 seven leaves pass; linked-script revision6 correction typed
 
-1137 closed on published5b58e064bba0fb3cd08c6d0abf749c30a18bbbf6 with5PASS/3FAIL,
-78 actualcalls, child1/fixedSource:true/empty consumed diff in40.450s. Actual
-bound52 and both released-film helpers complete. D01/03/04/05/14PASS; old4 marker
-851B/182cf54d matches1135 literally. 1137-A/B preserve full new first causes.
-D02/D06 realDirector takes24/32 (second74) remain uncounted; D13 missing-outcome
-negative correctly refused against the still-open row. No assertion was relaxed.
-Terminal208 and old-builder controls remain unreached in that run.
+1139 closed on published594a42b9ec5d047047c8430c24f7665d33f67d54:7PASS/1FAIL,
+208 actualcalls, child1/fixedSource:true/empty consumed diff in35.793s. Actual
+first take61/release65 and second take74/release78 each used13 calls. D06/D13
+nowPASS with genuine SATISFIED history, terminal208 and old-builder controls.
+D02 progresses through actualtake proof but newly fails its post-take quote:
+RA6/null instead of FRAGILE6/pipeline. Its latercast-only branch is unreached.
+1139-A/B preserve causes and literal851B old4 marker equality.
 
-Matched correction changes ONLY promises.ts: Director-id qualification in the
-shared first-take reader and Director-only partial evidenceRefs. Old cast paths
-and terminal settler remain unchanged; no retirement/rival/waiver/wire changes.
-1138-B independently reviews the tiny source patch. 1138 rootcompilerPASS on
-5b58e064 plus f598d4aaea66a1cebaa0bd7b7c6b476825e95c857e826fdac61495a31adde8fb,
-fixedSource:true/no untracked,11:54:26.496–11:55:20.675UTC,54.179s.
+1139 whole-worktree publication preflight FAILED because1138-B's final compiler
+addendum arrived after parent prematurely committed the review. The shell then
+continued into the run. 1139-p3-publication-observation.json preserves this actual
+launcher defect; no clean-preflight PASS is claimed. Consumed source remained
+exactly published594a42b9/emptydiff throughout. Publish the preserved final1138-B
+addendum with this evidence. Future preflight and launch use dependent calls.
 
-Publish the correction and closed evidence, verify exact remote, then parent
-runs1139-p3-first-slice-outcomes using unchanged1133 eight-leaf argv/60s ceilings
-and cached208-call cap. No behavioral result for this correction yet. Freeze
-HEAD/index/consumed source during the one heavy run; classify actual first causes
-and compare complete pre-writer old4 marker. Parent remains sole production writer
-and heavy executor; two existing specialists own separate test/review evidence.
-Remaining P3, broad affected-consumer verification, P14 onward and Unity/native
-limitations remain pending. Continue the authorized program without routine approval.
+Matched fix in promises.ts excludes production-linked scripts from revision6
+future-path count AND matching digest membership; old4 stays exact. A running
+picture's actual pre-take seat is separate; cancellation really restores Ready/
+null productionId via its unchanged owner. 1140-B reviews this bounded fix.
+1140 rootcompilerPASS:594a42b9 +15da954aa75fe7390afe9ad6acae523e9e5b1ea7a205fb3fccb59d495942bdae,
+fixedSource:true/no untracked,12:00:07.355–12:01:01.375UTC,54.020s.
+
+Publish correction and frozen evidence, exact-remote-verify, then parent runs
+1141-p3-first-slice-core using unchanged1133 eight-leaf argv/60s local limits and
+cached208-call cap. No behavior result for this correction yet. One heavy process,
+parent sole production writer, two existing specialists/test-review ownership.
+Remaining P3, affected-consumer verification and P14 onward remain authorized;
+Unity/native and prior limitations stay deferred. Continue without routine approvals.
 
 ## CURRENT — reviewed 25-file fixture repair applied; publish and verify
 

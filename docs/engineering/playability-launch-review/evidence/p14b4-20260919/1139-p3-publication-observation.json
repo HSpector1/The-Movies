@@ -1,0 +1,14 @@
+{
+  "observedAt": "2026-09-27T11:57:57.264182+00:00",
+  "local": "594a42b9ec5d047047c8430c24f7665d33f67d54",
+  "remote": "594a42b9ec5d047047c8430c24f7665d33f67d54",
+  "sourceDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedConsumedSource": [],
+  "preflightCleanWorktreeAssertion": "FAILED",
+  "cause": "1138-B compiler-closure documentation addendum arrived after candidate commit; only that tracked document was modified",
+  "launcherDefect": "The shell continued to node after the preceding Python assertion failed. No publication gate file was written before the run.",
+  "runActuallyStarted": "2026-09-27T11:57:10.948Z",
+  "reviewFinalSha256": "cd110c2995a9fa7da7cb2bcbfc387d86db539400d9e515d2bec205e06f6a3fdf",
+  "reviewDiffSha256": "6b2a32b6291c8a16eaae4b7f269c9a10d740c7b31b9ae2fd6f19d506423b5a91",
+  "disposition": "Preserve actual run on exact published clean consumed source; hold HEAD/index/source until closure; publish final addendum afterward. Future launch commands use a success-dependent guard."
+}

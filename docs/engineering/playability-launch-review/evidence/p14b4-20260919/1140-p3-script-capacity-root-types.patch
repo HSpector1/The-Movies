@@ -1,0 +1,40 @@
+diff --git a/src/core/promises.ts b/src/core/promises.ts
+index 384648c3..087e1e8d 100644
+--- a/src/core/promises.ts
++++ b/src/core/promises.ts
+@@ -259,12 +259,15 @@ function studioProductions(state: GameState, studioId: string): readonly Product
+ /** The studio's committed, not-yet-produced screenplays — each one a picture that
+  * ALREADY EXISTS and needs no new commission (companion §4.3.2's existing-path
+  * test; Example A's "one script ready … one script drafting"). */
+-function unproducedScripts(state: GameState, studioId: string): number {
++function unproducedScripts(state: GameState, studioId: string, directingScope = false): number {
+   const development = state.hollywood !== null && studioId !== state.hollywood.playerStudioId
+     ? state.hollywood.businesses.find((b) => b.studioId === studioId)?.development
+     : state.scriptDevelopment
+   if (development === undefined || development.mode !== 'managed') return 0
+-  return development.projects.filter((p) => p.status !== 'produced').length
++  // A linked script is the running picture, not another future picture. Its
++  // actual qualifying seat is counted separately until that picture's take.
++  return development.projects.filter((p) => p.status !== 'produced'
++    && (!directingScope || p.productionId === null)).length
+ }
+ 
+ /**
+@@ -372,7 +375,7 @@ function feasibilityInputs(state: GameState, draft: PromiseDraft, week: number,
+     productions.map((p) => [p.id, p.conceptId, p.startTick, p.remainingTicks, p.directorId, p.cast]),
+     operations?.facilities.map((f) => [f.id, f.capability, f.capacity]) ?? [],
+     operations?.workflows ?? [],
+-    development?.projects.filter((p) => p.status !== 'produced')
++    development?.projects.filter((p) => p.status !== 'produced' && (!directingScope || p.productionId === null))
+       .map((p) => [p.id, p.conceptId, p.status, p.writerIds, p.dueWeek, p.reservation, p.productionId]) ?? [],
+     [...occupancy].map(([key, claims]) => [key, claims.map((c) => [c.owner, c.ownerId, c.capability, c.slot])]),
+     rival ? [] : state.productionQueue,
+@@ -556,7 +559,7 @@ export function promiseFeasibility(state: GameState, draft: PromiseDraft, week:
+   if (reserved + X > nMax) return refuse('promises already made to this person exhaust the window')
+ 
+   const existingPath = seatedPreFirstTake(state, draft.issuerStudioId, draft.beneficiaryPersonId, promiseCastSlots(draft), director).length
+-    + unproducedScripts(state, draft.issuerStudioId)
++    + unproducedScripts(state, draft.issuerStudioId, directingScope)
+     + (stockGreenlightAvailable(state, draft.issuerStudioId, directingScope) ? 1 : 0)
+   const lastEventWeek = expectedTake(reserved + X - 1)
+ 

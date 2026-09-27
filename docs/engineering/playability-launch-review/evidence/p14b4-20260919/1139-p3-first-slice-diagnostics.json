@@ -1,0 +1,145 @@
+{
+  "raw": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1139-p3-first-slice-outcomes.txt",
+    "bytes": 4925,
+    "sha256": "3839820cf181a3e4de5d7404ae957ffd855209d6c93cdd6474616d5e397a4ba6"
+  },
+  "source": {
+    "sourceSha": "594a42b9ec5d047047c8430c24f7665d33f67d54",
+    "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSource": [],
+    "command": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p3-directing-promises.test.ts"
+    ],
+    "node": "v20.20.2",
+    "start": "2026-09-27T11:57:10.948Z",
+    "end": "2026-09-27T11:57:46.741Z",
+    "exitCode": 1,
+    "signal": null,
+    "error": null,
+    "sourceShaAtEnd": "594a42b9ec5d047047c8430c24f7665d33f67d54",
+    "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSourceAtEnd": [],
+    "fixedSource": true
+  },
+  "publicationObservation": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1139-p3-publication-observation.json",
+    "bytes": 1059,
+    "sha256": "e7f276d5508e24c347dfd439576eeaa334af05a5bb37c2e910ef6f5090659ad2",
+    "value": {
+      "observedAt": "2026-09-27T11:57:57.264182+00:00",
+      "local": "594a42b9ec5d047047c8430c24f7665d33f67d54",
+      "remote": "594a42b9ec5d047047c8430c24f7665d33f67d54",
+      "sourceDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untrackedConsumedSource": [],
+      "preflightCleanWorktreeAssertion": "FAILED",
+      "cause": "1138-B compiler-closure documentation addendum arrived after candidate commit; only that tracked document was modified",
+      "launcherDefect": "The shell continued to node after the preceding Python assertion failed. No publication gate file was written before the run.",
+      "runActuallyStarted": "2026-09-27T11:57:10.948Z",
+      "reviewFinalSha256": "cd110c2995a9fa7da7cb2bcbfc387d86db539400d9e515d2bec205e06f6a3fdf",
+      "reviewDiffSha256": "6b2a32b6291c8a16eaae4b7f269c9a10d740c7b31b9ae2fd6f19d506423b5a91",
+      "disposition": "Preserve actual run on exact published clean consumed source; hold HEAD/index/source until closure; publish final addendum afterward. Future launch commands use a success-dependent guard."
+    }
+  },
+  "observed": {
+    "files": 1,
+    "passedCases": 7,
+    "failedCases": 1,
+    "diagnosticGroups": 1,
+    "sharedGroups": 0,
+    "timeouts": 0,
+    "actualTickCounters": {
+      "actualTicks": 208,
+      "cap": 208,
+      "cachedPhases": [
+        {
+          "name": "created0",
+          "completed": true
+        },
+        {
+          "name": "managedEmpty8",
+          "completed": true
+        },
+        {
+          "name": "ready10",
+          "completed": true
+        },
+        {
+          "name": "cases45",
+          "completed": true
+        },
+        {
+          "name": "attached45",
+          "completed": true
+        },
+        {
+          "name": "bound52",
+          "completed": true
+        },
+        {
+          "name": "firstFilm",
+          "completed": true
+        },
+        {
+          "name": "secondFilm",
+          "completed": true
+        },
+        {
+          "name": "terminal208",
+          "completed": true
+        }
+      ]
+    },
+    "actualFilms": {
+      "first": {
+        "take": 61,
+        "release": 65,
+        "ticks": 13
+      },
+      "second": {
+        "take": 74,
+        "release": 78,
+        "ticks": 13
+      },
+      "terminalWeek": 208
+    }
+  },
+  "extraction": "Full printed primary, frame/context tail and complete body, outer whitespace trimmed only; no inferred unprinted frames.",
+  "groups": [
+    {
+      "headers": [
+        " FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D02 counts only actual unrecorded Director seats through the first take"
+      ],
+      "ids": [
+        "p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D02 counts only actual unrecorded Director seats through the first take"
+      ],
+      "primary": "AssertionError: expected { …(5) } to match object { classification: 'FRAGILE', …(2) }\n(2 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  Object {\n-   \"bottleneck\": \"needs a picture not yet commissioned\",\n-   \"classification\": \"FRAGILE\",\n+   \"bottleneck\": null,\n+   \"classification\": \"REASONABLY_ACHIEVABLE\",\n    \"rulesVersion\": 6,\n  }",
+      "primarySha256": "9f761c5fbf7f844453db70d7a6e1b211e639b336e414915381e875c08d6739b4",
+      "printedTail": "❯ tests/p14p3-directing-promises.test.ts:119:8\n    117|     expect(quote(input.first.held, heldDraft)).toMatchObject({ classif…\n    118|     expect(quote(input.first.afterTake, { ...heldDraft, predicate: { k…\n    119|       .toMatchObject({ classification: 'FRAGILE', bottleneck: PIPELINE…\n       |        ^\n    120| \n    121|     // Actual zero-tick public cast-only package on an admitted detach…",
+      "printedTailSha256": "e20b352edcfaaacb94c484ce62d3ffb273cb2ad722ab5ceeabdb46001235010a",
+      "completeBody": "AssertionError: expected { …(5) } to match object { classification: 'FRAGILE', …(2) }\n(2 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  Object {\n-   \"bottleneck\": \"needs a picture not yet commissioned\",\n-   \"classification\": \"FRAGILE\",\n+   \"bottleneck\": null,\n+   \"classification\": \"REASONABLY_ACHIEVABLE\",\n    \"rulesVersion\": 6,\n  }\n\n ❯ tests/p14p3-directing-promises.test.ts:119:8\n    117|     expect(quote(input.first.held, heldDraft)).toMatchObject({ classif…\n    118|     expect(quote(input.first.afterTake, { ...heldDraft, predicate: { k…\n    119|       .toMatchObject({ classification: 'FRAGILE', bottleneck: PIPELINE…\n       |        ^\n    120| \n    121|     // Actual zero-tick public cast-only package on an admitted detach…",
+      "completeBodySha256": "27b1ba27c653a7e9dea7a2daa32ae239985e54a14cd946dcab06ab4ee9bfe757"
+    }
+  ],
+  "comparisonTo1137": {
+    "new": [],
+    "vanished": [
+      "p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D06 fulfills directing once from two real distinct first takes",
+      "p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D13 admits exact new promise authority and rejects malformed current saves"
+    ],
+    "retainedIdenticalPrimary": [],
+    "retainedChangedPrimary": [
+      "p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D02 counts only actual unrecorded Director seats through the first take"
+    ]
+  },
+  "legacyMarker": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1139-p3-legacy4-markers.txt",
+    "bytes": 851,
+    "sha256": "182cf54d3a2fbb8bb2fc55cf74e97e220923d634ef454b816d3770d12dcb055e",
+    "literalEqualityTo1135And1137": true
+  }
+}
