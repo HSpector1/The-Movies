@@ -1,5 +1,45 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — corrected C passed; publish closed qualification before D
+
+1084 corrected C is CLOSED PASS, session11745, on fixed published
+81a96b7a53330ed1335fa54daf6bacc750d572a9 with empty consumed diff. Actual
+05:16:56.011–05:48:29.029Z (1,893.018s): 6,240 ticks, 1,072 commands, 122 releases,
+121 reads and 280 actual reload replacements. Parent 1111-A verifies all commands,
+121 complete checkpoints/40 roots and literal retained 0/3,120/6,240 equality to A.
+Failure/source/input/artifact guards pass. Final independent 1111-B KEEP
+(53f6ae30, 10,737 bytes) confirms all artifacts, cadence, reads and source pins.
+Original failed C and historical A/B remain immutable with their actual sources.
+
+Publish the closed C result after KEEP, verify the exact remote, then run only D
+in 1052-c3-endurance-D-force-order-v1 with frozen 1108 producer, original A baseline
+and corrected C predecessor. Record the actual docs-only publication HEAD; consumed
+source index 7c48ac7a and all dependencies stay exact. Freeze each run's HEAD/index.
+No active heavy process remains while review/publication is underway.
+
+1093, 1096 and separately reviewed 1110 three-pin maintenance remain held. After
+D closes, apply guarded 1093→1096→1110, run the affected B5 leaf and exact 1103
+paired/final sequence, and use 1113's cause-based reference index. P3 1112-A/B/C is
+reviewed preparation only; source work follows actual C.3 qualification. Parent
+remains sole production writer/heavy executor with the same two specialists.
+P15 D2/D3/D4a choices remain unanswered. Native and Owner acceptance stay deferred.
+
+## CURRENT — corrected C executing on published 81a96b7a
+
+GitHub exactly matches 81a96b7a53330ed1335fa54daf6bacc750d572a9. Reviewed 1108
+source and actual 1082/1083 gates are published; 1108-C readiness KEEP is complete.
+1084 corrected C is the sole heavy process, session11745, exclusive directory
+1052-c3-endurance-C-force-order-v1, producer eaeb7c07, original A baseline and
+original B predecessor. Freeze HEAD/index, consumed source, producer dependencies
+and all reference artifacts until closure. No corrected C result is claimed yet.
+
+Parent owns execution and 1111-A result. Reviewer owns 1111-B artifact review;
+author prepares separate held 1110 B5 three-pin maintenance. No live test or
+production edits, no maintenance application and no extra heavy process. Corrected
+D requires actual C PASS and independent KEEP. Preserve original failed C/A/B,
+forensic copies, all raw records and native/Owner limits. Continue final 1103
+verification and remaining authorized program after corrected C/D parity.
+
 ## CURRENT — corrected endurance lineage gates passed; C next
 
 Correction checkpoint d41a337b7bd6cadb0824abd9818f686879c34608 is published and

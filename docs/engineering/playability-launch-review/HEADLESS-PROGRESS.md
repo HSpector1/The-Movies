@@ -1,5 +1,17 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — corrected C reload endurance passed (2026-09-27)
+
+1084 closed PASS on published 81a96b7a: 6,240 ticks, 1,072 commands, 122 releases,
+121 full checkpoint comparisons and 280 actual reload replacements. All A command
+values, complete saves/40 roots and retained 0/3,120/6,240 raw authority are exact.
+1111-A records the result; final independent 1111-B KEEP qualifies it for D
+after recoverable publication. This
+closes the corrected reload path only. Historical A/B and failed C retain their
+actual source scopes; corrected continuous/read-stress D and final 1103 gates
+remain. Reviewed maintenance and the later P3 contract stay unapplied.
+About 11.4 hours have elapsed in the C.3 planning window; preserve final verification.
+
 ## CURRENT — corrected C/D lineage ready (2026-09-27)
 
 Published correction d41a337b is exact on GitHub. 1108-A/B freeze and review the

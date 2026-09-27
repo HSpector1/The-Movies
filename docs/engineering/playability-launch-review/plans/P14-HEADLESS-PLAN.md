@@ -1,5 +1,15 @@
 # P14 — Contested Talent Market, Bonds and Promises, Career Lifecycle — headless plan (logic-first)
 
+## CURRENT — corrected C complete; D and final gates remain
+
+Corrected C1084 and independent 1111-B KEEP establish all 6,240 weeks, 1,072
+commands, 121 complete checkpoints/40 roots and literal retained authority equal
+to original A, with 280 actual reloads. Original A/B and failed C retain their
+historical source/results. Corrected continuous/read-stress D is next under
+1108, after publication. Held 1093→1096→1110 maintenance and exact 1103 final
+qualification follow. Reviewed 1112-A/B/C prepares P3 only; no P3 activation
+before C.3 qualification. Native/Owner acceptance remains deferred.
+
 ## CURRENT — C.3 final qualification in progress
 
 1107-G/F verify the fixed cultural-force arithmetic exposed by actual C reload

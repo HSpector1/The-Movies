@@ -1,0 +1,13 @@
+--- a/tests/bridge-p14b5-relationships.test.ts
++++ b/tests/bridge-p14b5-relationships.test.ts
+@@ -179,8 +179,8 @@
+     employment: '52789533ee8c67c922e8566dda63e0611432582d4a076c90e64a6f3ddc178c18', takes: '1d9395b7c8408fb73d1eaff037297661e95326bd3cb9e70711effb6abba3b2a1',
+     rng: '1640490702,2161102015,891615888,2071390822' },
+   'p13b-s8-bridge-probe-01': { role: 'the bridge seed (plain campaign; the s8 file adds a laboratory placement it does not share)', rows: 48, settled: 48, declined: 0, expired: 0,
+-    settlement: 'f8b0d3a7a9d15b30ce65b3b90c291d29189aabd5f445621c7996117b4fd178c2', receipts: 'b729a1f33fac085228697a52bb474400b26ca04dab8114f2cd3fa893861186c4',
+-    employment: 'd4f19ea4618c680f60d9b7f4ea395ddc6813291ed261f939e06c4178a86fe8b1', takes: 'e9a1b08f794a9a8aa6645428ce5fbfe60401ed0700424902ee92a5aaa562b9e2',
++    settlement: 'f8b0d3a7a9d15b30ce65b3b90c291d29189aabd5f445621c7996117b4fd178c2', receipts: '4aa12d2b3e68a02ad2bdd663c668f59cd041139d8b86b3071d13858ea4d3c024',
++    employment: '33623e8e79bcafd89ea08a93dbb7c8c6aef9cd27b8294370bd78c2cfb43a9cc2', takes: 'a4a704cb90dc3af612aaf2eb9cc92f13c9018734f72a25161cd4f92cfbe8debc',
+     rng: '2343039306,887634093,2940629248,1402597496' },
+   'p13-public-commercial-adoption': { role: 'the adoption seed (B.1 T1 ruling (v); the D3/poaching seed)', rows: 48, settled: 36, declined: 12, expired: 0,
+     settlement: 'c034f2fb5a8e5f454a475020cec9de1ac764d742ce121a6cd8d2bc3b641eb544', receipts: 'be7310b6d73124dab34723644f7cf16c52a4b193e67a4b85d9c20e7f60e47850',

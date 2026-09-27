@@ -1,0 +1,162 @@
+{
+  "status": "PREPARED_ONLY_NOT_APPLIED_NOT_EXECUTED",
+  "observedHead": "81a96b7a53330ed1335fa54daf6bacc750d572a9",
+  "applicationOrder": [
+    "1093-c3-maintenance-stage",
+    "1096-c3-remaining-stage",
+    "1110-c3-b5-three-pin-stage"
+  ],
+  "applyGate": "Only after corrected C/D close and parent authorizes application; require exact final layered baseline before write.",
+  "files": [
+    {
+      "path": "tests/bridge-p14b5-relationships.test.ts",
+      "baseSource": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1096-c3-remaining-stage/staged/tests/bridge-p14b5-relationships.test.ts",
+      "liveIdentity": {
+        "bytes": 46216,
+        "sha256": "1f459d4f362bbd080d83147ffda0af94f93ffe2fb04030c9c45ce442de62a397"
+      },
+      "first1093Identity": {
+        "bytes": 46460,
+        "sha256": "abdeda6675f0e905e0580a48671a9582671bc9076ebfd89b7f00dcb490939e00"
+      },
+      "baselineIdentity": {
+        "bytes": 46462,
+        "sha256": "305b954085d047b452079a0f4aebbe69938f982d508a2e33be0dc02d732390dd"
+      },
+      "stagedIdentity": {
+        "bytes": 46462,
+        "sha256": "dd0422e47aa4dbc42fb38b56757f6b05f055f9683c02761fbf0c069e2276cca2"
+      },
+      "literalChanges": [
+        {
+          "field": "receipts",
+          "old": "b729a1f33fac085228697a52bb474400b26ca04dab8114f2cd3fa893861186c4",
+          "new": "4aa12d2b3e68a02ad2bdd663c668f59cd041139d8b86b3071d13858ea4d3c024",
+          "baselineByteOffset": 17022,
+          "occurrences": 1
+        },
+        {
+          "field": "employment",
+          "old": "d4f19ea4618c680f60d9b7f4ea395ddc6813291ed261f939e06c4178a86fe8b1",
+          "new": "33623e8e79bcafd89ea08a93dbb7c8c6aef9cd27b8294370bd78c2cfb43a9cc2",
+          "baselineByteOffset": 17106,
+          "occurrences": 1
+        },
+        {
+          "field": "takes",
+          "old": "e9a1b08f794a9a8aa6645428ce5fbfe60401ed0700424902ee92a5aaa562b9e2",
+          "new": "a4a704cb90dc3af612aaf2eb9cc92f13c9018734f72a25161cd4f92cfbe8debc",
+          "baselineByteOffset": 17181,
+          "occurrences": 1
+        }
+      ],
+      "reverseReconstruction": {
+        "bytes": 46462,
+        "sha256": "305b954085d047b452079a0f4aebbe69938f982d508a2e33be0dc02d732390dd"
+      },
+      "allOtherBytesIdentical": true,
+      "family12BodyIdentity": {
+        "bytes": 4540,
+        "sha256": "7eb8c7e40aadd40c1b5d36437c4f158d0e2128b7366779fbc5d6bf6fc45e8752"
+      }
+    }
+  ],
+  "fileCount": 1,
+  "changedLiterals": 3,
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1110-c3-b5-three-pin-stage/maintenance.patch",
+    "identity": {
+      "bytes": 1537,
+      "sha256": "223f9dd43767b4d592160118b68901a231773339acc283a56c720dd9a690efa8"
+    }
+  },
+  "authority": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1093-c3-maintenance-stage/manifest.json",
+      "identity": {
+        "bytes": 18545,
+        "sha256": "68a42bbae2a04d92f8778621e5e37efc7e891cf1ea62f5a738108c22497a57ea"
+      }
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1093-c3-maintenance-stage/maintenance.patch",
+      "identity": {
+        "bytes": 73024,
+        "sha256": "c1ee31f0059ca11b6c94b7bb72469683ee4193782e1f3f78bc9e840cd061f00b"
+      }
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1096-c3-remaining-stage/manifest.json",
+      "identity": {
+        "bytes": 142004,
+        "sha256": "b8bb99baaa1a904059850f4778bce112affdfff9e0b6f2c8c54021013116f78a"
+      }
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1096-c3-remaining-stage/maintenance.patch",
+      "identity": {
+        "bytes": 99034,
+        "sha256": "91307a13f624a797c1bfff4909bc73fd74f5928edc5b9fc668a754b5099cb17e"
+      }
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1094-c3-b5-receipt-attribution.json",
+      "identity": {
+        "bytes": 748010,
+        "sha256": "10620ee9105e1ef2b01c31a576de4dc6a860da4ffff761187431ed9e50abad8a"
+      }
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1105-E-c3-b5-wrapper-actual-result.md",
+      "identity": {
+        "bytes": 5300,
+        "sha256": "f2e4f8d801c755609177264cf0cb8aa6b40704c525f55fe9a8100b6c23daea6d"
+      }
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1105-F-c3-b5-forensic-causal-review.md",
+      "identity": {
+        "bytes": 8361,
+        "sha256": "c3f2d36846c454d64e71748c1311647300e349614bbe70f775a40ed257bc8289"
+      }
+    }
+  ],
+  "valid1062Arrays": {
+    "receipts": {
+      "rows": 300,
+      "sha256": "4aa12d2b3e68a02ad2bdd663c668f59cd041139d8b86b3071d13858ea4d3c024"
+    },
+    "employment": {
+      "rows": 76,
+      "sha256": "33623e8e79bcafd89ea08a93dbb7c8c6aef9cd27b8294370bd78c2cfb43a9cc2"
+    },
+    "firstTakes": {
+      "rows": 181,
+      "sha256": "a4a704cb90dc3af612aaf2eb9cc92f13c9018734f72a25161cd4f92cfbe8debc"
+    }
+  },
+  "preserved": {
+    "terminalRows": 48,
+    "settled": 48,
+    "declined": 0,
+    "expired": 0,
+    "settlementDigest": "f8b0d3a7a9d15b30ce65b3b90c291d29189aabd5f445621c7996117b4fd178c2",
+    "rngState": "2343039306,887634093,2940629248,1402597496",
+    "allOtherBytes": "Exact, including comments, other seeds, D1/D5 reasoning/rosters/vocabulary, declaration/case names, timeout and entire family12 body."
+  },
+  "verificationCommandForParent": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/bridge-p14b5-relationships.test.ts",
+    "--testNamePattern",
+    "p13b-s8-bridge-probe-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only"
+  ],
+  "limits": [
+    "No code evaluated by author; Node standard-library data-only rehash of actual1062 JSON arrays confirmed the three authorized values.",
+    "No counterfactual row is adopted as gameplay fixture;1074 remains invalid from212.",
+    "No current-source PASS claimed; later force-order correction is separate and actual selected regression remains required.",
+    "No changes to live tests,1093/1096,1108,source,HEAD,index or fixtures."
+  ]
+}

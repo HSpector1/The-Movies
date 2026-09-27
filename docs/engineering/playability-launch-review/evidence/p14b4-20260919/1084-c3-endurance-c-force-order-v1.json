@@ -1,0 +1,30 @@
+{
+  "sourceSha": "81a96b7a53330ed1335fa54daf6bacc750d572a9",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vite-node",
+    "--script",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1108-c3-active-endurance-driver.ts",
+    "--variant",
+    "C",
+    "--output",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-C-force-order-v1",
+    "--source-sha",
+    "81a96b7a53330ed1335fa54daf6bacc750d572a9",
+    "--baseline",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed",
+    "--predecessor",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-B-recording-v1"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T05:16:56.011Z",
+  "end": "2026-09-27T05:48:29.029Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "81a96b7a53330ed1335fa54daf6bacc750d572a9",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}
