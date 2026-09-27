@@ -1,0 +1,89 @@
+{
+  "status": "Frozen staged-only source-type correction; no compiler observation",
+  "applicationOrder": [
+    "1249-retained-controls.patch",
+    "1249-readonly-facts.patch"
+  ],
+  "target": "tests/p14p4p5-opportunities.test.ts",
+  "originalLivePrefix": {
+    "path": "tests/p14p4p5-opportunities.test.ts",
+    "bytes": 46682,
+    "sha256": "067915dc62457a5b3554cedeb2f58ce31c968c0402688ac92dbf16605e55a3c7"
+  },
+  "amendmentPreimage": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-controls-stage/tests/p14p4p5-opportunities.test.ts",
+    "bytes": 78716,
+    "sha256": "5ae434a8cdd16d2682bbf70c6c3b11667c694a7bc037495dfdacd6beb50cb9ce"
+  },
+  "amendmentPostimage": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-readonly-stage/tests/p14p4p5-opportunities.test.ts",
+    "bytes": 78825,
+    "sha256": "205bf41b2ee5e0f9c0f0dd9b772f07174c117cbc79ad55e0309ca54cefa52422"
+  },
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-readonly-facts.patch",
+    "bytes": 1710,
+    "sha256": "2ff0341545efd4892a26606572edc9a9e970a09aafbfcc3ee38c211edc3f2c61"
+  },
+  "replacements": [
+    {
+      "before": "s.state.firstTakeSubjects.facts.pop()",
+      "after": "s.state.firstTakeSubjects.facts = s.state.firstTakeSubjects.facts.slice(0, -1)"
+    },
+    {
+      "before": "s.state.firstTakeSubjects.facts.push(clone(s.state.firstTakeSubjects.facts[0]!))",
+      "after": "s.state.firstTakeSubjects.facts = [...s.state.firstTakeSubjects.facts, clone(s.state.firstTakeSubjects.facts[0]!)]"
+    },
+    {
+      "before": "const f = s.state.firstTakeSubjects.facts; [f[0], f[1]] = [f[1]!, f[0]!]",
+      "after": "const f = s.state.firstTakeSubjects.facts; s.state.firstTakeSubjects.facts = [f[1]!, f[0]!, ...f.slice(2)]"
+    }
+  ],
+  "inverse": "Reverse only the three listed expressions to recreate entire frozen78716-byte stage",
+  "protected": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-C-retained-authority-source-handback.md",
+      "bytes": 7852,
+      "sha256": "f74dcdd387bc2217e9545e0206784b6c01fae2b7c1b57c18468f8bdf87b44257"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-D-retained-authority-source-review.md",
+      "bytes": 5417,
+      "sha256": "8d09191f1e9c4c9b5c82b80a6b8240759b2404da4c8751188f51964344f60f53"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-retained-controls.patch",
+      "bytes": 32674,
+      "sha256": "9b8678e824c0fea3ed66052f433e9cae0c50407f8fd026e4773e91c6ff352e71"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-retained-controls-manifest.json",
+      "bytes": 9767,
+      "sha256": "3e9e6a59c1305f1d1794e673f0a94cb1e20eb7e4f853f5df1278ef2de3d23894"
+    },
+    {
+      "path": "src/core/types.ts",
+      "bytes": 121905,
+      "sha256": "ef3251ab81c56193bacc5ed9a52e6fd55e50f9d3800b76b7c1e39df1eefc2f9b"
+    }
+  ],
+  "guards": {
+    "wholeOriginalPrefixBytes": 46682,
+    "tenDeclarationsAndTimeoutsUnchanged": true,
+    "selectedLeaves": 4,
+    "filteredLeaves": 6,
+    "expectedSelectedCalls": 20,
+    "hardSelectedCalls": 47,
+    "Q06Calls": 0,
+    "additionalCalls": 0
+  },
+  "selectedArgv": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14p4p5-opportunities.test.ts",
+    "-t",
+    "Q(?:0[789]|10) "
+  ]
+}

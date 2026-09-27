@@ -1,0 +1,242 @@
+{
+  "status": "Frozen unapplied evidence-stage append; no execution",
+  "preparationHead": "5189f7ff2028dd93b49f7a0744f5e1091224b75f",
+  "targetPreimage": {
+    "path": "tests/p14p4p5-opportunities.test.ts",
+    "bytes": 46682,
+    "sha256": "067915dc62457a5b3554cedeb2f58ce31c968c0402688ac92dbf16605e55a3c7"
+  },
+  "postimage": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-controls-stage/tests/p14p4p5-opportunities.test.ts",
+    "bytes": 78716,
+    "sha256": "5ae434a8cdd16d2682bbf70c6c3b11667c694a7bc037495dfdacd6beb50cb9ce"
+  },
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-retained-controls.patch",
+    "bytes": 32674,
+    "sha256": "9b8678e824c0fea3ed66052f433e9cae0c50407f8fd026e4773e91c6ff352e71"
+  },
+  "preservation": {
+    "literalPrefixBytes": 46682,
+    "literalPrefixSha256": "067915dc62457a5b3554cedeb2f58ce31c968c0402688ac92dbf16605e55a3c7",
+    "inverse": "Remove the exact suffix beginning immediately after byte46682; the whole original test, all six bodies/imports/helpers/guards/timeouts/pins are recovered",
+    "oldDeclarations": [
+      "Q01 quotes one Ready genre opportunity with explicit cast class and no spare-event buffer",
+      "Q02 quotes only the exact existing Ready project and retains singular physical versus slack causes",
+      "Q03 attaches exact selected material terms and refuses classless or cross-family fresh authority",
+      "Q04 migrates genuine39 to an exact empty subject suffix and preserves outgoing Director authority",
+      "Q05 binds the selected genre and records one actual cast take through release and cancellation",
+      "Q06 binds the exact screenplay and distinguishes its cast take from a real wrong-seat greenlight"
+    ],
+    "newDeclarations": [
+      "Q07 rejects nonempty suffix and owner contradictions after actual cast work",
+      "Q08 selects actual cast classes and half-open material windows without inventing history",
+      "Q09 narrows cast and material through a genuine forward waiver chain",
+      "Q10 admits a distinct Ready project behind one actual qualifying committed seat"
+    ],
+    "allTenTimeouts": "LEAF_TIMEOUT_MS = 60000; original prefix unchanged"
+  },
+  "commands": {
+    "types": [
+      "node_modules/.bin/tsc",
+      "--noEmit",
+      "-p",
+      "tsconfig.json"
+    ],
+    "selected": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p4p5-opportunities.test.ts",
+      "-t",
+      "Q(?:0[789]|10) "
+    ]
+  },
+  "counts": {
+    "selectedLeaves": 4,
+    "filteredOriginalLeaves": 6,
+    "expectedQ05SetupAdvances": 20,
+    "hardSelectedQ05Advances": 47,
+    "bindingCap": 7,
+    "workflowCap": 40,
+    "Q06Advances": 0,
+    "extraBranchAdvances": 0,
+    "unchangedWholeFileAggregateCap": 94,
+    "expectedSetupMutationAttempts": 7,
+    "additionalWaiverMutationAttempts": 3,
+    "additionalQ10PureQuote": 1,
+    "noRootFromLogs": true,
+    "pureMatchingCalls": 44,
+    "waiverRefusalCalls": 7,
+    "waiverLinkMutants": 5,
+    "subjectMutants": 13
+  },
+  "authority": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-A-p4p5-retained-authority-controls-plan.md",
+      "bytes": 12313,
+      "sha256": "43b07070d8ba50c7a7a0e52bf57a0f9012478b8539b58379f25f19a443774e17"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-B-retained-authority-controls-plan-review.md",
+      "bytes": 3134,
+      "sha256": "198d8bcda6dfacb99342bc06d3a466c936143ecb9aabe14576ec6716260fe8a1"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-F-nonempty-reservation-witness-addendum.md",
+      "bytes": 3374,
+      "sha256": "3114aa4a2ac6e4484d20f7ab9c3a690fed6ead1bbd00f3a3c1fff6b61c373cfb"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1225-C-p4p5-contract-refinements.md",
+      "bytes": 9541,
+      "sha256": "7cdb5961901f8185ffeca096732c38c51c5a2b7875a65b65249c5094992624c2"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1225-F-assignment-owner-clarifications.md",
+      "bytes": 2460,
+      "sha256": "242a780dc92ee428b29bb62a56bc36dc83c80329b021804692b7828c9f1e0940"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1226-A-p4p5-initial-test-requirements.md",
+      "bytes": 13965,
+      "sha256": "b402b10beb7f31cc01bc866e7fa1aae680fca48abe1f96c1e2801f18dd024fa9"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1232-C-p4p5-binding-source-handback.md",
+      "bytes": 7993,
+      "sha256": "ca97ab7d25d01ce4908442644cc2cd13662f87a3661f80f3225959a7508e8406"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1232-D-p4p5-binding-source-review.md",
+      "bytes": 5243,
+      "sha256": "121f50c7366b6251f01386f4c7a7d54aa08250f4e62bfe6c80dc87c204b86bfa"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1234-A-p4p5-initial-candidate-attribution.md",
+      "bytes": 11500,
+      "sha256": "c8e66783d787f70f7742953c1347ab39b9c0976d78a55e0b4ce20c2ff62fc33f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1239-A-p4p5-binding-cast-attribution.md",
+      "bytes": 9448,
+      "sha256": "290d7a49a166736749d3da0729afb328893d575bcc8cd6bb53bb48f65f7072ac"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1239-C-attribution-correction.md",
+      "bytes": 634,
+      "sha256": "2ce34d6ac60b3cc27f13dbeb6151df1c2662b0cb1d29c583f3cb4d2c31132cbc"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1230-legacy46-baseline.txt",
+      "bytes": 1226,
+      "sha256": "36921548246e8ec4cc2241353cf62fa1e9868cc037a62e2a8a1a0bf26cc35342"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json",
+      "bytes": 11550,
+      "sha256": "a261fc3177527d05d5a8daf624de7af015df8c9a8fedd3e11b37fe1597a2f4b6"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/genuine-v39-p3-market-week45.json.gz",
+      "bytes": 86995,
+      "sha256": "12799a849b0b4aff49cd9707ea8c1b87c64b4e787ff261b2e9cf4b109a953117"
+    }
+  ],
+  "protected": [
+    {
+      "path": "src/core/promises.ts",
+      "bytes": 110100,
+      "sha256": "4489e9ad16faad47d0f7cd8ab36b4a039c24151be8075b7cc35836aacfd670c2"
+    },
+    {
+      "path": "src/core/firstTakeSubjects.ts",
+      "bytes": 6350,
+      "sha256": "2525b7e04a2449fbb91f8fb73765448eacf791f1854f5c054c093641f388993a"
+    },
+    {
+      "path": "src/core/opportunityPromises.ts",
+      "bytes": 21851,
+      "sha256": "22883a39e5ea2c5925da38878f613383a9c846f2ea06d1d7b3ff3427ac2d0e3c"
+    },
+    {
+      "path": "src/core/save.ts",
+      "bytes": 474474,
+      "sha256": "88d1bab0db6c1b96c0895af9cdf09a353d8c16993791024bedbebd97cf3d0984"
+    },
+    {
+      "path": "src/core/types.ts",
+      "bytes": 121905,
+      "sha256": "ef3251ab81c56193bacc5ed9a52e6fd55e50f9d3800b76b7c1e39df1eefc2f9b"
+    },
+    {
+      "path": "src/core/index.ts",
+      "bytes": 48927,
+      "sha256": "211f99177eed29ba9a79ba7fc3f771c489f2e359d0e4115d3e61b99a2655ef3f"
+    },
+    {
+      "path": "src/core/tick.ts",
+      "bytes": 62182,
+      "sha256": "cd487a1b68f1b95582895ae73a9d9fb0c1d0300a2e1a212b0d83ae6bce30dcb9"
+    },
+    {
+      "path": "src/core/actions.ts",
+      "bytes": 129205,
+      "sha256": "287e52ae7f3763a869c6ae75e49717a02ab20029b9a715aa85ae45bd7cd1e4c4"
+    },
+    {
+      "path": "src/core/occupancy.ts",
+      "bytes": 31596,
+      "sha256": "e9f66c3d225d8fe9f47d52ce18fc1ca00c587d24ec84f4dc70e9b0ab29a85122"
+    },
+    {
+      "path": "src/core/productionPeople.ts",
+      "bytes": 505,
+      "sha256": "2c6ea9affd6811d25cd36d85808d9470441f579153a7f0a2fb5b6a2c8a118d58"
+    },
+    {
+      "path": "src/core/employment.ts",
+      "bytes": 27743,
+      "sha256": "7b0ffe9795014664dfee6e6ea57500cd5f28ac0e0fbb711e00ff964bca2d5c9d"
+    },
+    {
+      "path": "src/core/careerLifecycle.ts",
+      "bytes": 24706,
+      "sha256": "338510e570d2ace8bdeaa24b989fe7783c2d4e4250e1929eb56fc8f149c5d1f6"
+    },
+    {
+      "path": "src/core/scriptDevelopment.ts",
+      "bytes": 46802,
+      "sha256": "88ab848828a7eadad1a818a61d37cf0ab7d962ef06858c58d923ab50a56181b0"
+    },
+    {
+      "path": "tests/helpers/p14p3-fixtures.ts",
+      "bytes": 78674,
+      "sha256": "389112bde75ccaab9e2d155a1df6e6dc279b78c7d6d531a582b04f27be5fba83"
+    },
+    {
+      "path": "tests/p14p3-directing-promises.test.ts",
+      "bytes": 98958,
+      "sha256": "1bcbbe03552f5815c3e88fc1f0937ef51f37d7b84ca0f3bd8fd693f5058e2e16"
+    },
+    {
+      "path": "tests/bridge-p14p4p5-opportunities.test.ts",
+      "bytes": 38919,
+      "sha256": "288fd844a598c1591be7a7eb079f8dd8be160469e381d5dba1eb78fea2eaeefb"
+    },
+    {
+      "path": "ui/src/components/ProfessionalPromiseTerms.test.tsx",
+      "bytes": 9152,
+      "sha256": "daff12cc88f6ae54c9c337015ecccaeb462aaf3b22d094c25f99c288e4d03427"
+    }
+  ],
+  "scopeRefinements": [
+    "1249-F Q10 actual quote selector observed through default call-through spy; independent raw union is oracle",
+    "Q08 actual issuer-local retained film/project/genre join before no-subject legacy controls",
+    "Q09 same-mask P2 lead isolates material erasure; P1 would hit weaker mask first",
+    "Q10 local week60 receipt expectation, actual skills.acting, actual cached take/release clock joins"
+  ]
+}

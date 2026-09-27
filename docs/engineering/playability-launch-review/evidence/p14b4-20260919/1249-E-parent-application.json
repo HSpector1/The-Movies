@@ -1,0 +1,59 @@
+{
+  "status": "APPLIED_UNEXECUTED",
+  "time": "2026-09-27T20:37:29.264466+00:00",
+  "baselineHead": "5189f7ff2028dd93b49f7a0744f5e1091224b75f",
+  "postimage": {
+    "path": "tests/p14p4p5-opportunities.test.ts",
+    "bytes": 78825,
+    "sha256": "205bf41b2ee5e0f9c0f0dd9b772f07174c117cbc79ad55e0309ca54cefa52422"
+  },
+  "authority": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-C-retained-authority-source-handback.md",
+      "bytes": 7852,
+      "sha256": "f74dcdd387bc2217e9545e0206784b6c01fae2b7c1b57c18468f8bdf87b44257"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-D-retained-authority-source-review.md",
+      "bytes": 5417,
+      "sha256": "8d09191f1e9c4c9b5c82b80a6b8240759b2404da4c8751188f51964344f60f53"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-G-readonly-facts-correction.md",
+      "bytes": 2119,
+      "sha256": "436b27f98ef6809a8ad3dbf4d907a602e28acb058c44b66185e0a0680390b1f5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-H-readonly-facts-correction-review.md",
+      "bytes": 2252,
+      "sha256": "9a22b2910b76c539c1dcf5c3c4e686fb77ce49dd96a1cd0c9d4c043c87194fb9"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-retained-controls-manifest.json",
+      "bytes": 9767,
+      "sha256": "3e9e6a59c1305f1d1794e673f0a94cb1e20eb7e4f853f5df1278ef2de3d23894"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-readonly-facts-manifest.json",
+      "bytes": 3514,
+      "sha256": "bf6c3247d30bf064a19dd1f06465b3d2c59e7eb5cdcafe8226f6014858131175"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-retained-controls.patch",
+      "bytes": 32674,
+      "sha256": "9b8678e824c0fea3ed66052f433e9cae0c50407f8fd026e4773e91c6ff352e71"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1249-readonly-facts.patch",
+      "bytes": 1710,
+      "sha256": "2ff0341545efd4892a26606572edc9a9e970a09aafbfcc3ee38c211edc3f2c61"
+    }
+  ],
+  "originalPrefixBytes": 46682,
+  "selected": "Q(?:0[789]|10) ",
+  "newLeaves": 4,
+  "originalFiltered": 6,
+  "expectedAdvances": 20,
+  "hardAdvances": 47,
+  "scope": "Q05 only, zero Q06/outside/additional branch advances; three extra zero-tick waiver calls; Q10 one pure quote."
+}

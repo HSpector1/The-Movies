@@ -1,0 +1,11 @@
+# 1249-H — Readonly facts construction correction
+
+**KEEP the exact G amendment, applied after the original append and before compilation.** This supersedes D's readiness disposition for its three readonly-array mutations; D and every original artifact remain unchanged. I missed this type constraint in D. Parent identified it by source inspection: `FirstTakeSubjects.facts` is a readonly array, while the containing `facts` property is assignable. **1252 has not run**; there is no compiler failure or corrected compiler PASS to report.
+
+Reviewed [1249-G](1249-G-readonly-facts-correction.md), 2,119 bytes / `436b27f98ef6809a8ad3dbf4d907a602e28acb058c44b66185e0a0680390b1f5`. Exactly three expressions change: remove the last fact with `slice(0, -1)`, append a cloned fact in a new spread array, and replace the first-two swap with a new reordered array. Each changes the same detached negative payload and reaches the same intended omitted/extra/ordered-suffix invariant. No cast, production edit, reader relaxation or expected-cause change is introduced.
+
+The amendment patch is1,710 bytes / `2ff0341545efd4892a26606572edc9a9e970a09aafbfcc3ee38c211edc3f2c61`; manifest3,514 / `bf6c3247d30bf064a19dd1f06465b3d2c59e7eb5cdcafe8226f6014858131175`. Its postimage at `1249-readonly-stage/tests/p14p4p5-opportunities.test.ts` is78,825 bytes / `205bf41b2ee5e0f9c0f0dd9b772f07174c117cbc79ad55e0309ca54cefa52422`.
+
+Independently verified all nine manifest pins, complete unified-hunk reconstruction and all three full-file forward/reverse substitutions. Reversal reproduces the frozen78,716-byte C stage exactly. The complete46,682-byte live original remains a literal prefix; all ten declarations/timeouts, precise refusal expressions, remaining source and selector are unchanged. Apply original `1249-retained-controls.patch` first, then `1249-readonly-facts.patch`, against their pinned preimages.
+
+The amended selection remains four new leaves/six filtered, expected20 actual Q05 calls/hard47, Q06 zero and no added branch calls; whole-file94 remains separate. D's other bounded source findings and limitations continue to apply. Parent alone integrates and executes1252/1253; this review performed only source/data reads and wrote this review record.

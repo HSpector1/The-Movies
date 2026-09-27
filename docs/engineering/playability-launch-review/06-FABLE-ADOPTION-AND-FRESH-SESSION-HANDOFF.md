@@ -1,5 +1,25 @@
 # R3-N1 native correction record — 2026-09-15 · OPS-R3-N1-NATIVE-CORRECTION-20260915-01
 
+## CURRENT — Four retained-authority controls applied; qualification next
+
+Published5189f7ff2028dd93b49f7a0744f5e1091224b75f matched GitHub. Parent applied
+reviewed1249-C/D append then1249-G/H readonly-array construction amendment.
+1249-E records exact final78,825-byte postimage/205bf41b and all source authority.
+The entire46,682-byte original test remains exact. G/H correct three negative
+array constructions caught by source inspection; no1252 failure is invented.
+
+Publish, run1252 root types, then1253 selector Q(?:0[789]|10): four new leaves,
+six original filtered. Only Q05 setup,20 expected/hard47 actual advances;
+zeroQ06/outside/additional branches. Q09 adds three zero-tick waiver actions;
+Q10 observes one real selector call through the unchanged quote, on scheduled60.
+No completed Bridge/UI/capture or old six bodies are rerun.
+
+1236-J/K/L retain the actual three Bridge PASS results and B55-2's228.867s
+synchronous overrun; no60s timing claim. Full1226 and broader P14 remain open.
+Continue the authorized P14/P15/P16/specified program. Parent alone owns live
+production/integration and heavy execution; two existing specialists own tests
+and review. Unity/native and Owner campaign remain deferred.
+
 ## CURRENT — Bridge evidence closed; four new core controls staging
 
 Published7e9055b0fc9342203e2498a73d1d61e69a5b6558 matched GitHub.1236-J/K

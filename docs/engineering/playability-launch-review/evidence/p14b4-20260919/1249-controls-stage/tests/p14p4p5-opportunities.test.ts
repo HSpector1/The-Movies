@@ -736,10 +736,10 @@ describe('P4/P5 retained subject and waiver authority controls', () => {
       releaseWeek: work.released.market.tick, ownTake: work.take, taking: taking.state.firstTakeSubjects,
       released: released.state.firstTakeSubjects, foreignConcept, otherProject: { id: other.id, conceptId: other.conceptId },
       counters: routeCounts }))
-    subjectNegative(taking, 'missing suffix fact', s => { s.state.firstTakeSubjects.facts = s.state.firstTakeSubjects.facts.slice(0, -1) }, /firstTakeSubjects facts must be the complete ordered receipt suffix/)
-    subjectNegative(taking, 'extra suffix fact', s => { s.state.firstTakeSubjects.facts = [...s.state.firstTakeSubjects.facts, clone(s.state.firstTakeSubjects.facts[0]!)] }, /firstTakeSubjects facts must be the complete ordered receipt suffix/)
+    subjectNegative(taking, 'missing suffix fact', s => { s.state.firstTakeSubjects.facts.pop() }, /firstTakeSubjects facts must be the complete ordered receipt suffix/)
+    subjectNegative(taking, 'extra suffix fact', s => { s.state.firstTakeSubjects.facts.push(clone(s.state.firstTakeSubjects.facts[0]!)) }, /firstTakeSubjects facts must be the complete ordered receipt suffix/)
     subjectNegative(taking, 'reordered facts', s => {
-      const f = s.state.firstTakeSubjects.facts; s.state.firstTakeSubjects.facts = [f[1]!, f[0]!, ...f.slice(2)]
+      const f = s.state.firstTakeSubjects.facts; [f[0], f[1]] = [f[1]!, f[0]!]
     }, /firstTakeSubjects facts\[0\] must name its ordered first take/)
     subjectNegative(taking, 'duplicate event with unchanged length', s => {
       s.state.firstTakeSubjects.facts[1]!.eventId = s.state.firstTakeSubjects.facts[0]!.eventId

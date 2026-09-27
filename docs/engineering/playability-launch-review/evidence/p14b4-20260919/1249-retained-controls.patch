@@ -1,0 +1,405 @@
+--- a/tests/p14p4p5-opportunities.test.ts
++++ b/tests/p14p4p5-opportunities.test.ts
+@@ -668,3 +668,402 @@
+     expect(routeCounts.Q06.binding.completed + routeCounts.Q06.workflow.completed).toBeLessThanOrEqual(47)
+   }, LEAF_TIMEOUT_MS)
+ })
++
++// 1249-A: retained-authority controls. The only setup is the unchanged Q05 route.
++import * as opportunityOwner from '../src/core/opportunityPromises.js'
++type ControlSave = ReturnType<typeof saves.makeSave>
++function controlsStart() {
++  return { q06: clone(routeCounts.Q06), outside: outsideRouteAttempts }
++}
++function controlsEnd(before: ReturnType<typeof controlsStart>): void {
++  expect(routeCounts.Q06).toEqual(before.q06)
++  expect(outsideRouteAttempts).toBe(before.outside)
++  expect(routeCounts.Q05.binding.invoked).toBeLessThanOrEqual(7)
++  expect(routeCounts.Q05.workflow.invoked).toBeLessThanOrEqual(40)
++  expect(routeCounts.Q05.binding.invoked + routeCounts.Q05.workflow.invoked).toBeLessThanOrEqual(47)
++}
++function controlSave(state: GameState): ControlSave {
++  admitted(state)
++  const save = saves.makeSave(state), before = stable(save)
++  expect(saves.validateSaveV40(save)).toBe(save)
++  expect(stable(save)).toBe(before)
++  return save
++}
++function subjectNegative(base: ControlSave, name: string, change: (save: ControlSave) => void, cause: RegExp): void {
++  const before = stable(base), bad = clone(base)
++  change(bad)
++  let error: unknown
++  try { saves.validateSaveV40(bad) } catch (caught) { error = caught }
++  const message = error instanceof Error ? error.message : String(error)
++  console.info('1249-P4P5-SUBJECT-REFUSAL ' + JSON.stringify({ name, message }))
++  expect(error).toBeInstanceOf(Error); expect(message).toMatch(cause)
++  expect(stable(base)).toBe(before)
++}
++function genreTerms(seatClass: SeatClass, windowStartWeek: number, genre: 'drama' | 'crime' = 'drama'): PromiseAttachment {
++  return { family: 'PREFERRED_GENRE_OPPORTUNITY', predicate: { kind: 'genreOpportunity', count: 1, seatClass, genre },
++    windowStartWeek, dueWeekExclusive: 112 }
++}
++function projectTerms(seatClass: SeatClass, windowStartWeek: number, scriptProjectId = 'script-0000'): PromiseAttachment {
++  return { family: 'SPECIFIC_PROJECT', predicate: { kind: 'projectOpportunity', count: 1, seatClass, scriptProjectId },
++    windowStartWeek, dueWeekExclusive: 112 }
++}
++
++describe('P4/P5 retained subject and waiver authority controls', () => {
++  it('Q07 rejects nonempty suffix and owner contradictions after actual cast work', () => {
++    const counters = controlsStart(), work = routeFilm('Q05')
++    const taking = controlSave(work.afterTake), released = controlSave(work.released)
++    const ownIndex = taking.state.firstTakeSubjects.facts.findIndex(f => f.eventId === work.take.eventId)
++    assert.ok(ownIndex >= 0)
++    const own = taking.state.firstTakeSubjects.facts[ownIndex]!
++    expect(own).toEqual({ eventId: work.take.eventId, conceptId: 'c-00', genre: 'drama', scriptProjectId: 'script-0000' })
++    expect(taking.state.studio.activeProductions.find(p => p.id === work.productionId)?.remainingTicks).toBe(4)
++    expect(released.state.studio.releasedFilms.find(f => f.productionId === work.productionId)?.conceptId).toBe('c-00')
++    const other = taking.state.scriptDevelopment.projects.find(p => p.id === 'script-0001'); assert.ok(other)
++    expect(other.conceptId).toBe('c-01')
++    expect(taking.state.concepts.find(c => c.id === other.conceptId)?.genre).toBe('crime')
++    const rivalIndex = taking.state.firstTakeSubjects.facts.findIndex(f => taking.state.firstTakes
++      .some(t => t.eventId === f.eventId && t.studioId !== issuer(taking.state)))
++    assert.ok(rivalIndex >= 0, 'actual rival suffix fact prerequisite')
++    const foreignConcept = taking.state.firstTakeSubjects.facts[rivalIndex]!.conceptId
++    expect(taking.state.concepts.some(c => c.id === foreignConcept)).toBe(false)
++    expect(taking.state.firstTakeSubjects.facts.length).toBeGreaterThan(1)
++    const old = input45().firstTakes
++    expect(taking.state.firstTakes.slice(0, old.length)).toEqual(old)
++    expect(released.state.firstTakes.slice(0, old.length)).toEqual(old)
++    expect(taking.state.firstTakeSubjects.cutoverOrdinal).toBe(old.length)
++    expect(released.state.firstTakeSubjects.cutoverOrdinal).toBe(old.length)
++    console.info('1249-P4P5-NONEMPTY ' + JSON.stringify({ actualWeek: work.afterTake.market.tick,
++      releaseWeek: work.released.market.tick, ownTake: work.take, taking: taking.state.firstTakeSubjects,
++      released: released.state.firstTakeSubjects, foreignConcept, otherProject: { id: other.id, conceptId: other.conceptId },
++      counters: routeCounts }))
++    subjectNegative(taking, 'missing suffix fact', s => { s.state.firstTakeSubjects.facts.pop() }, /firstTakeSubjects facts must be the complete ordered receipt suffix/)
++    subjectNegative(taking, 'extra suffix fact', s => { s.state.firstTakeSubjects.facts.push(clone(s.state.firstTakeSubjects.facts[0]!)) }, /firstTakeSubjects facts must be the complete ordered receipt suffix/)
++    subjectNegative(taking, 'reordered facts', s => {
++      const f = s.state.firstTakeSubjects.facts; [f[0], f[1]] = [f[1]!, f[0]!]
++    }, /firstTakeSubjects facts\[0\] must name its ordered first take/)
++    subjectNegative(taking, 'duplicate event with unchanged length', s => {
++      s.state.firstTakeSubjects.facts[1]!.eventId = s.state.firstTakeSubjects.facts[0]!.eventId
++    }, /firstTakeSubjects facts\[1\] must name its ordered first take/)
++    subjectNegative(taking, 'missing fact field', s => {
++      delete (s.state.firstTakeSubjects.facts[ownIndex] as unknown as Record<string, unknown>).genre
++    }, /firstTakeSubjects facts\[\d+\] must contain exactly/)
++    subjectNegative(taking, 'extra fact field', s => {
++      Object.assign(s.state.firstTakeSubjects.facts[ownIndex]!, { privateAuthority: 'labelled negative only' })
++    }, /firstTakeSubjects facts\[\d+\] must contain exactly/)
++    subjectNegative(taking, 'wrong catalogue genre', s => { s.state.firstTakeSubjects.facts[ownIndex]!.genre = 'crime' }, /firstTakeSubjects facts\[\d+\] disagrees with its owner's concept/)
++    subjectNegative(taking, 'other issuer concept', s => { s.state.firstTakeSubjects.facts[ownIndex]!.conceptId = foreignConcept }, /firstTakeSubjects facts\[\d+\] disagrees with its owner's concept/)
++    subjectNegative(taking, 'own other screenplay wrong concept', s => { s.state.firstTakeSubjects.facts[ownIndex]!.scriptProjectId = other.id }, /firstTakeSubjects facts\[\d+\] does not name its owner's screenplay and concept/)
++    subjectNegative(taking, 'managed own link is not stock', s => { s.state.firstTakeSubjects.facts[ownIndex]!.scriptProjectId = null }, /firstTakeSubjects facts\[\d+\] disagrees with the surviving screenplay link/)
++    subjectNegative(taking, 'rival managed link is not stock', s => { s.state.firstTakeSubjects.facts[rivalIndex]!.scriptProjectId = null }, /firstTakeSubjects facts\[\d+\] cannot name a stock picture for a rival managed production/)
++    const replaceTuple = (s: ControlSave) => {
++      const fact = s.state.firstTakeSubjects.facts.find(f => f.eventId === work.take.eventId); assert.ok(fact)
++      Object.assign(fact, { conceptId: 'c-01', genre: 'crime', scriptProjectId: 'script-0001' })
++    }
++    subjectNegative(taking, 'coherent other tuple vs surviving production', replaceTuple, /firstTakeSubjects facts\[\d+\] disagrees with the surviving production/)
++    // The retained screenplay link legitimately precedes the film-only join.
++    subjectNegative(released, 'coherent other tuple vs released authority', replaceTuple, /firstTakeSubjects facts\[\d+\] disagrees with the surviving screenplay link/)
++    const before = stable(released)
++    expect(() => saves.convertV40ToV39(released)).toThrow(/cannot downgrade or discard an opportunity predicate or recorded first-take subject/)
++    expect(stable(released)).toBe(before) // Combined tag+fact refusal; not isolated fact-only proof.
++    controlsEnd(counters)
++  }, LEAF_TIMEOUT_MS)
++
++  it('Q08 selects actual cast classes and half-open material windows without inventing history', () => {
++    const counters = controlsStart(), work = routeFilm('Q05'), state = work.afterTake
++    controlSave(state)
++    const before = bytes(state), rng = clone(state.rngState), root = retained(state, work.promiseId)
++    const observations: { name: string; events: string[] }[] = []
++    const query = (name: string, terms: PromiseAttachment, person: string, expected: string[],
++      options: { issuer?: string; start?: number; due?: number } = {}) => {
++      // Pure selector arguments only. These alternate terms are never inserted into a campaign.
++      const selected = { ...clone(root), ...clone(terms), beneficiaryPersonId: person,
++        issuerStudioId: options.issuer ?? issuer(state), windowStartWeek: options.start ?? work.take.week,
++        dueWeekExclusive: options.due ?? work.take.week + 1 } as ProfessionalPromise
++      const arg = stable(selected), result = promiseOwner.qualifyingTakes(state, selected).map(t => t.eventId)
++      observations.push({ name, events: result })
++      console.info('1249-P4P5-MATCH-QUERY ' + JSON.stringify({ name, events: result }))
++      expect(result).toEqual(expected); expect(stable(selected)).toBe(arg)
++      expect(bytes(state)).toBe(before); expect(state.rngState).toEqual(rng)
++      return selected
++    }
++    expect(work.take.cast).toEqual(ROUTE_CAST)
++    const ownEvents = [work.take.eventId]
++    for (const family of ['genre', 'project'] as const) for (const seatClass of CLASSES) {
++      const terms = family === 'genre' ? genreTerms(seatClass, work.take.week) : projectTerms(seatClass, work.take.week)
++      for (const [slot, person] of Object.entries(work.take.cast)) {
++        const allowed = seatClass === 'allCast' || slot === 'lead' || (seatClass === 'leadOrAntagonist' && slot === 'antagonist')
++        query(`${family}/${seatClass}/${slot}`, terms, person, allowed ? ownEvents : [])
++      }
++      for (const person of [work.take.directorId, 'authored-0003']) {
++        expect(Object.values(work.take.cast)).not.toContain(person)
++        query(`${family}/${seatClass}/credit-only/${person}`, terms, person, [])
++      }
++    }
++    const g = genreTerms('allCast', work.take.week), p = projectTerms('allCast', work.take.week)
++    query('wrong genre', genreTerms('allCast', work.take.week, 'crime'), FOCUS, [])
++    query('wrong project', projectTerms('allCast', work.take.week, 'script-0001'), FOCUS, [])
++    const otherIssuer = state.hollywood!.businesses.find(b => b.studioId !== issuer(state))?.studioId; assert.ok(otherIssuer)
++    for (const [name, terms] of [['genre', g], ['project', p]] as const) {
++      query(`${name}/other issuer`, terms, FOCUS, [], { issuer: otherIssuer })
++      query(`${name}/start inclusive`, terms, FOCUS, ownEvents)
++      query(`${name}/start after take`, terms, FOCUS, [], { start: work.take.week + 1, due: work.take.week + 2 })
++      query(`${name}/due exclusive`, terms, FOCUS, [], { start: work.take.week - 1, due: work.take.week })
++    }
++    const selected = { ...clone(root), ...g, windowStartWeek: work.take.week, dueWeekExclusive: work.take.week + 1 } as ProfessionalPromise
++    const repeatedReceipts = { firstTakes: [clone(work.take), clone(work.take)],
++      firstTakeSubjects: clone(state.firstTakeSubjects) }
++    const repeatBefore = stable(repeatedReceipts), selectedBefore = stable(selected)
++    expect(promiseOwner.qualifyingTakes(repeatedReceipts, selected).map(t => t.eventId)).toEqual(ownEvents)
++    expect(stable(selected)).toBe(selectedBefore)
++    expect(stable(repeatedReceipts)).toBe(repeatBefore) // Component input, deliberately not a whole-save positive.
++    const old = input45(), oldTake = old.firstTakes[0]; assert.ok(oldTake)
++    controlSave(old); expect(old.firstTakeSubjects.facts).toEqual([])
++    const oldBefore = bytes(old)
++    const oldFilm = old.hollywood!.films.find(f => f.provenance === 'simulation/v1'
++      && f.studioId === oldTake.studioId && f.result.productionId === oldTake.productionId)
++    assert.ok(oldFilm?.provenance === 'simulation/v1')
++    expect(oldFilm).toMatchObject({ genre: 'drama', scriptProjectId: 'script-0000' })
++    const oldOwner = old.hollywood!.businesses.find(b => b.studioId === oldTake.studioId); assert.ok(oldOwner)
++    const oldProject = oldOwner.development.projects.find(p => p.id === oldFilm.scriptProjectId); assert.ok(oldProject)
++    expect(oldProject).toMatchObject({ status: 'produced', conceptId: oldFilm.conceptId, productionId: oldTake.productionId })
++    expect(old.hollywood!.concepts.find(c => c.id === oldProject.conceptId)?.genre).toBe('drama')
++    console.info('1249-P4P5-PRECUTOVER-MATERIAL ' + JSON.stringify({ actualWeek: old.market.tick, take: oldTake,
++      retainedFilm: { studioId: oldFilm.studioId, conceptId: oldFilm.conceptId, genre: oldFilm.genre, scriptProjectId: oldFilm.scriptProjectId },
++      project: { id: oldProject.id, conceptId: oldProject.conceptId, productionId: oldProject.productionId },
++      cutover: old.firstTakeSubjects.cutoverOrdinal, facts: old.firstTakeSubjects.facts }))
++    const oldQuery = { ...clone(root), family: 'APPEARANCE_COUNT' as const, predicate: { count: 1 },
++      issuerStudioId: oldTake.studioId, beneficiaryPersonId: oldTake.cast.lead,
++      windowStartWeek: oldTake.week, dueWeekExclusive: oldTake.week + 1 } as ProfessionalPromise
++    const oldQueryBefore = stable(oldQuery)
++    expect(promiseOwner.qualifyingTakes(old, oldQuery).map(t => t.eventId)).toContain(oldTake.eventId)
++    expect(stable(oldQuery)).toBe(oldQueryBefore)
++    for (const terms of [g, p]) {
++      const argument = { ...oldQuery, ...clone(terms), windowStartWeek: oldTake.week,
++        dueWeekExclusive: oldTake.week + 1 } as ProfessionalPromise
++      const argumentBefore = stable(argument)
++      expect(promiseOwner.qualifyingTakes(old, argument)).toEqual([])
++      expect(stable(argument)).toBe(argumentBefore)
++    }
++    expect(stable(oldQuery)).toBe(oldQueryBefore)
++    expect(bytes(old)).toBe(oldBefore); expect(bytes(state)).toBe(before)
++    console.info('1249-P4P5-MATCHING ' + JSON.stringify({ actualWeek: state.market.tick,
++      take: work.take, observations, duplicateProductionEvents: ownEvents,
++      oldTake: oldTake.eventId, oldCutover: old.firstTakeSubjects.cutoverOrdinal, oldFacts: 0, counters: routeCounts }))
++    controlsEnd(counters)
++  }, LEAF_TIMEOUT_MS)
++})
++
++function waiverRefusal(state: GameState, promiseId: string, terms: PromiseAttachment, name: string, cause: RegExp): void {
++  controlSave(state)
++  const before = bytes(state), arg = stable(terms), row = retained(state, promiseId)
++  const reason = promiseOwner.waiverAccepted(state, row, terms, state.market.tick)
++  console.info('1249-P4P5-WAIVER-REFUSAL ' + JSON.stringify({ name, actualWeek: state.market.tick, reason }))
++  expect(reason).toMatch(cause); expect(bytes(state)).toBe(before); expect(stable(terms)).toBe(arg)
++}
++function narrowingWaiver(state: GameState, promiseId: string, terms: PromiseAttachment): { state: GameState; successorId: string } {
++  controlSave(state)
++  const before = clone(state), original = clone(retained(before, promiseId)), oldBytes = bytes(before)
++  const termsBefore = stable(terms), oldCalls = totalInvoked()
++  expect(before.market.tick).toBe(52)
++  expect(original).toMatchObject({ progress: 0, evidenceRefs: [], outcome: null, beneficiaryPersonId: FOCUS })
++  const employment = before.hollywood!.employment.find(e => e.contractId === original.contractId); assert.ok(employment)
++  expect(employment).toMatchObject({ studioId: issuer(before), endedWeek: null,
++    terms: { talentId: FOCUS, startWeek: 52, endWeekExclusive: 156 } })
++  const trust = promiseOwner.trustDescriptor(before, FOCUS, issuer(before), before.market.tick)
++  const refusal = promiseOwner.waiverAccepted(before, original, terms, before.market.tick)
++  console.info('1249-P4P5-WAIVER-PREMISE ' + JSON.stringify({ actualWeek: before.market.tick,
++    original: { promiseId, contractId: original.contractId, predicate: original.predicate,
++      progress: original.progress, outcome: original.outcome }, substitute: terms, trust, refusal }))
++  expect(trust.label).not.toBe('Distrusted'); expect(refusal).toBeNull()
++  expect(bytes(before)).toBe(oldBytes); expect(stable(terms)).toBe(termsBefore)
++  publicOperations.push({ route: 'Q05', week: before.market.tick, kind: 'waivePromise' })
++  const next = core.waivePromise(clone(before), { promiseId, substitute: clone(terms) })
++  controlSave(next)
++  const old = retained(next, promiseId); assert.ok(old.supersededByPromiseId)
++  const successor = retained(next, old.supersededByPromiseId)
++  console.info('1249-P4P5-WAIVER-ACTUAL ' + JSON.stringify({ actualWeek: next.market.tick,
++    previous: old, successor, counters: routeCounts }))
++  expect(old).toEqual({ ...original, outcome: 'WAIVED', outcomeWeek: 52,
++    outcomeCause: old.outcomeCause, outcomeEventId: old.outcomeEventId, supersededByPromiseId: successor.promiseId })
++  assert.ok(old.outcomeCause); assert.ok(old.outcomeEventId)
++  expect(successor).toMatchObject({ ...terms, version: 7,
++    contractId: original.contractId, issuerStudioId: original.issuerStudioId, beneficiaryPersonId: original.beneficiaryPersonId,
++    progress: 0, evidenceRefs: [], outcome: null, outcomeWeek: null, outcomeCause: null, outcomeEventId: null,
++    supersededByPromiseId: null, feasibilityReceipt: { classification: 'REASONABLY_ACHIEVABLE', bottleneck: null, rulesVersion: 7, week: 52 } })
++  expect(next.promises).toHaveLength(before.promises.length + 1)
++  expect(next.promises.filter(p => p.promiseId !== promiseId && p.promiseId !== successor.promiseId))
++    .toEqual(before.promises.filter(p => p.promiseId !== promiseId))
++  const { promises: _beforePromises, talentMarket: beforeMarket, ...beforeOther } = before
++  const { promises: _nextPromises, talentMarket: nextMarket, ...nextOther } = next
++  expect(nextOther).toEqual(beforeOther)
++  const { receipts: beforeReceipts, ...beforeMarketOther } = beforeMarket
++  const { receipts: nextReceipts, ...nextMarketOther } = nextMarket
++  expect(nextMarketOther).toEqual(beforeMarketOther)
++  expect(nextReceipts.slice(0, beforeReceipts.length)).toEqual(beforeReceipts)
++  expect(nextReceipts.slice(beforeReceipts.length)).toEqual([expect.objectContaining({
++    eventId: old.outcomeEventId, kind: 'promiseOutcome', week: 52, talentId: FOCUS, studioId: issuer(before) })])
++  expect(bytes(before)).toBe(oldBytes); expect(bytes(state)).toBe(oldBytes)
++  expect(stable(terms)).toBe(termsBefore); expect(totalInvoked()).toBe(oldCalls)
++  return { state: next, successorId: successor.promiseId }
++}
++function waiverLinkNegative(base: ControlSave, name: string, change: (state: GameState) => void, cause: RegExp): void {
++  const before = stable(base), bad = clone(base)
++  change(bad.state)
++  let error: unknown
++  try { saves.validateSaveV40(bad) } catch (caught) { error = caught }
++  const message = error instanceof Error ? error.message : String(error)
++  console.info('1249-P4P5-WAIVER-LINK-REFUSAL ' + JSON.stringify({ name, message }))
++  expect(error).toBeInstanceOf(Error); expect(message).toMatch(cause); expect(stable(base)).toBe(before)
++}
++
++describe('P4/P5 actual narrowing on the retained bound contract', () => {
++  it('Q09 narrows cast and material through a genuine forward waiver chain', () => {
++    const counters = controlsStart(), bound = routeBound('Q05'), input = clone(bound.state)
++    controlSave(input)
++    const original = retained(input, bound.promiseId)
++    expect(original).toMatchObject({ family: 'PREFERRED_GENRE_OPPORTUNITY', predicate: {
++      kind: 'genreOpportunity', count: 1, genre: 'drama', seatClass: 'allCast' }, contractId: bound.contractId })
++    expect(input.scriptDevelopment.projects.find(p => p.id === 'script-0000'))
++      .toMatchObject({ conceptId: 'c-00', status: 'ready', productionId: null })
++    expect(input.concepts.find(c => c.id === 'c-00')?.genre).toBe('drama')
++    expect(input.scriptDevelopment.projects.find(p => p.id === 'script-0001')?.conceptId).toBe('c-01')
++    expect(input.concepts.find(c => c.id === 'c-01')?.genre).toBe('crime')
++    expect(core.assignmentRefusal(input, FOCUS, 52, 'actor')).toBeNull()
++    const one = narrowingWaiver(input, original.promiseId, genreTerms('lead', 53))
++    for (const seatClass of ['allCast', 'leadOrAntagonist'] as const) {
++      waiverRefusal(one.state, one.successorId, genreTerms(seatClass, 54), `lead to ${seatClass}`, /the part offered is weaker than the part promised/)
++    }
++    waiverRefusal(one.state, one.successorId, genreTerms('lead', 54, 'crime'), 'different genre', /a substitute must retain the same promised genre/)
++    // Keep the original lead mask so loss of material is the first semantic cause.
++    waiverRefusal(one.state, one.successorId, { family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT',
++      predicate: { kind: 'castRoleCount', count: 1, seatClass: 'lead' }, windowStartWeek: 54, dueWeekExclusive: 112 },
++    'erase genre without weakening the selected cast mask', /a substitute cannot erase the promised genre or project restriction/)
++    waiverRefusal(one.state, one.successorId, { family: 'DIRECTING_COUNT', predicate: { kind: 'directorCount', count: 1 },
++      windowStartWeek: 54, dueWeekExclusive: 112 }, 'cast to Director', /directing and cast work cannot substitute for one another/)
++    const two = narrowingWaiver(one.state, one.successorId, projectTerms('lead', 54))
++    waiverRefusal(two.state, two.successorId, projectTerms('lead', 55, 'script-0001'), 'different named project', /a substitute must retain the same named script project/)
++    waiverRefusal(two.state, two.successorId, genreTerms('lead', 55), 'project to genre', /a substitute must retain the same named script project/)
++    const three = narrowingWaiver(two.state, two.successorId, projectTerms('lead', 55))
++    const final = controlSave(three.state), ids = [original.promiseId, one.successorId, two.successorId, three.successorId]
++    expect(new Set(ids).size).toBe(4)
++    console.info('1249-P4P5-WAIVER-CHAIN ' + JSON.stringify({ actualWeek: three.state.market.tick,
++      chain: ids.map(id => retained(three.state, id)), additionalAdvances: 0, counters: routeCounts }))
++    waiverLinkNegative(final, 'two incoming links to genuine compatible target', state => {
++      retained(state, original.promiseId).supersededByPromiseId = two.successorId
++    }, /validateSaveV40: opportunity waiver .* must have one later successor/)
++    waiverLinkNegative(final, 'waived opportunity missing successor', state => {
++      retained(state, original.promiseId).supersededByPromiseId = null
++    }, /validateSaveV40: opportunity waiver .* must name its successor/)
++    waiverLinkNegative(final, 'otherwise admitted opening at waiver week', state => {
++      retained(state, two.successorId).windowStartWeek = 52
++    }, /validateSaveV40: opportunity waiver .* must carry a forward obligation agreed at the waiver/)
++    waiverLinkNegative(final, 'well-shaped but unaccepted successor receipt', state => {
++      const successor = retained(state, two.successorId)
++      successor.feasibilityReceipt = { ...successor.feasibilityReceipt, classification: 'FRAGILE',
++        bottleneck: 'labelled accepted-receipt relation negative' }
++    }, /validateSaveV40: opportunity waiver .* must have an accepted achievable receipt/)
++    waiverLinkNegative(final, 'successor widens its predecessor lead mask', state => {
++      const successor = retained(state, two.successorId)
++      assert.ok('kind' in successor.predicate && successor.predicate.kind === 'projectOpportunity')
++      successor.predicate.seatClass = 'allCast'
++    }, /validateSaveV40: opportunity waiver .* cannot weaken the work domain or cast class/)
++    controlsEnd(counters)
++  }, LEAF_TIMEOUT_MS)
++})
++
++
++// 1249-F: one nonempty committed witness, on actual scheduled60; no new offer.
++describe('P4/P5 existing committed reservation witness', () => {
++  it('Q10 admits a distinct Ready project behind one actual qualifying committed seat', () => {
++    const counters = controlsStart(), work = routeFilm('Q05'), state = work.scheduled
++    controlSave(state)
++    expect(state.market.tick).toBe(60)
++    const person = 'authored-0001', player = issuer(state), contract = activeContract(state, person); assert.ok(contract)
++    expect(contract).toMatchObject({ talentId: person, startWeek: 0, endWeekExclusive: 208, termWeeks: 208 })
++    const employee = state.hollywood!.employment.find(e => e.studioId === player && e.terms.talentId === person
++      && e.terms.startWeek === 0 && e.terms.endWeekExclusive === 208 && e.endedWeek === null); assert.ok(employee)
++    const talent = state.talent.find(t => t.id === person); assert.ok(talent)
++    expect(talent.role).toBe('actor'); assert.ok(talent.skills.acting)
++    const target = state.scriptDevelopment.projects.find(p => p.id === 'script-0001'); assert.ok(target)
++    expect(target).toMatchObject({ status: 'ready', productionId: null, conceptId: 'c-01', writerId: 'authored-0003' })
++    expect(target.assessment).not.toBeNull(); expect(target.writerId).not.toBe(person)
++    const production = state.studio.activeProductions.find(p => p.id === work.productionId); assert.ok(production)
++    expect(production).toMatchObject({ conceptId: 'c-00', remainingTicks: 5, cast: { lead: FOCUS, antagonist: person } })
++    expect(state.firstTakes.some(t => t.productionId === production.id)).toBe(false)
++    const currentProject = state.scriptDevelopment.projects.find(p => p.productionId === production.id); assert.ok(currentProject)
++    expect(currentProject).toMatchObject({ id: 'script-0000', conceptId: 'c-00', status: 'inProduction' })
++    expect(target.id).not.toBe(currentProject.id)
++    const workflow = state.operations.workflows.find(w => w.productionId === production.id); assert.ok(workflow)
++    expect(workflow.blocker).toBeNull(); expect(workflow.shootingTask?.status).toBe('scheduled')
++    const request: OpportunityDraft = { family: 'SPECIFIC_PROJECT', issuerStudioId: player, beneficiaryPersonId: person,
++      startWeek: contract.startWeek, termWeeks: contract.termWeeks, windowStartWeek: 60, dueWeekExclusive: 112,
++      predicate: { kind: 'projectOpportunity', count: 1, seatClass: 'allCast', scriptProjectId: target.id } }
++    expect(Object.hasOwn(request, 'promiseId')).toBe(false)
++    const attached = new Set(state.talentMarket.proposals.flatMap(p => p.promises))
++    const from = Math.max(state.market.tick, request.startWeek, request.windowStartWeek)
++    const union = state.promises.filter(row => row.outcome === null && row.progress < row.predicate.count
++      && (row.contractId !== null || attached.has(row.promiseId))
++      && row.dueWeekExclusive > from && row.windowStartWeek < request.dueWeekExclusive
++      && (row.beneficiaryPersonId === person || row.issuerStudioId === player))
++    expect(union.map(p => p.promiseId)).toEqual([work.promiseId])
++    const witness = union[0]!
++    expect(witness).toMatchObject({ issuerStudioId: player, beneficiaryPersonId: FOCUS, contractId: work.contractId,
++      family: 'PREFERRED_GENRE_OPPORTUNITY', predicate: { kind: 'genreOpportunity', count: 1, seatClass: 'allCast', genre: 'drama' },
++      outcome: null, progress: 0, evidenceRefs: [] })
++    expect(state.concepts.find(c => c.id === production.conceptId)?.genre).toBe('drama')
++    const owners = [{ studioId: player, productions: state.studio.activeProductions, development: state.scriptDevelopment },
++      ...state.hollywood!.businesses.map(b => ({ studioId: b.studioId, productions: b.productions, development: b.development }))]
++    const seats = owners.flatMap(owner => owner.productions.filter(p => p.directorId === person
++      || Object.values(p.cast).includes(person) || p.craftIds.includes(person))
++      .map(p => ({ studioId: owner.studioId, production: p })))
++    expect(seats.map(s => [s.studioId, s.production.id])).toEqual([[player, production.id]])
++    const writing = owners.flatMap(owner => owner.development.projects.filter(p => ['drafting', 'rewriting'].includes(p.status)
++      && p.writerIds.includes(person)).map(p => ({ studioId: owner.studioId, projectId: p.id, dueWeek: p.dueWeek })))
++    expect(writing).toEqual([])
++    const heldTake = state.market.tick + Math.max(1, production.remainingTicks - 4) + (production.startTick >= state.market.tick ? 1 : 0)
++    const directRelease = state.market.tick + Math.max(1, production.remainingTicks) + (production.startTick >= state.market.tick ? 1 : 0)
++    const commonTake = Math.max(heldTake, witness.windowStartWeek)
++    const releaseFloor = Math.max(directRelease, commonTake + 4)
++    const fresh = Math.max(state.market.tick, contract.startWeek, releaseFloor), newTake = Math.max(request.windowStartWeek, fresh + 5)
++    expect({ heldTake, commonTake, directRelease, releaseFloor, fresh, newTake }).toEqual({
++      heldTake: 61, commonTake: 61, directRelease: 65, releaseFloor: 65, fresh: 65, newTake: 70 })
++    expect(heldTake).toBe(work.take.week)
++    expect(directRelease).toBe(work.released.market.tick)
++    expect(commonTake).toBeLessThan(witness.dueWeekExclusive)
++    expect(request.dueWeekExclusive - newTake).toBe(42)
++    expect(core.assignmentRefusal(state, person, fresh, 'actor')).toBeNull() // Query-time65, unchanged actual60.
++    const claims = resourceClaimsOf(occupiedResourceSlots(state))
++    const capacity = (['development-casting', 'soundstage', 'set-scenery', 'post'] as const).map(capability => ({ capability,
++      available: state.operations.facilities.filter(f => f.capability === capability).flatMap(f =>
++        Array.from({ length: f.capacity }, (_, slot) => ({ facilityId: f.id, slot })).filter(row => !claims.some(c =>
++          c.kind === 'facility' && c.facilityId === row.facilityId && (c.slot === null || c.slot === row.slot)))) }))
++    for (const row of capacity) expect(row.available.length, `${row.capability} actual current slot`).toBeGreaterThan(0)
++    const beforeCalls = totalInvoked(), before = bytes(state), requestBefore = stable(request), rng = clone(state.rngState)
++    const selections: { sameState: boolean; sameRequest: boolean; stateUnchanged: boolean; requestUnchanged: boolean;
++      from: number; rows: readonly ProfessionalPromise[] | undefined }[] = []
++    const selectionSpy = vi.spyOn(opportunityOwner, 'opportunityReservations') // Default call-through; actual quote only.
++    let receipt: PromiseFeasibilityReceipt
++    try {
++      receipt = quote(state, request)
++      for (let i = 0; i < selectionSpy.mock.calls.length; i++) {
++        const [actualState, actualRequest, actualFrom] = selectionSpy.mock.calls[i]!
++        const result = selectionSpy.mock.results[i]; assert.ok(result?.type === 'return')
++        selections.push({ sameState: actualState === state, sameRequest: actualRequest === request,
++          stateUnchanged: bytes(actualState) === before, requestUnchanged: stable(actualRequest) === requestBefore,
++          from: actualFrom, rows: clone(result.value) })
++      }
++    } finally { selectionSpy.mockRestore() } // Preserve the independent named-route tick guard.
++    console.info('1249-P4P5-COMMITTED-WITNESS ' + JSON.stringify({ actualWeek: state.market.tick, request, contract,
++      employmentId: employee.contractId, target: { id: target.id, conceptId: target.conceptId, writerId: target.writerId, status: target.status },
++      independentUnion: union, actualQuoteSelections: selections, witness: { productionId: production.id, remainingTicks: production.remainingTicks,
++        startTick: production.startTick, cast: production.cast, directorId: production.directorId, shootingStatus: workflow.shootingTask?.status,
++        blocker: workflow.blocker }, heldTake, commonTake, directRelease, releaseFloor, fresh, newTake,
++      claims: claims.map(c => ({ kind: c.kind, facilityId: c.facilityId, slot: c.slot, owner: c.owner, ownerId: c.ownerId })),
++      capacity, receipt, counters: routeCounts }))
++    expect(selections).toEqual([{ sameState: true, sameRequest: true, stateUnchanged: true, requestUnchanged: true, from, rows: union }])
++    expect(receipt).toMatchObject({ classification: 'REASONABLY_ACHIEVABLE', bottleneck: null, rulesVersion: 7, week: 60 })
++    expect(bytes(state)).toBe(before); expect(stable(request)).toBe(requestBefore); expect(state.rngState).toEqual(rng)
++    expect(totalInvoked()).toBe(beforeCalls)
++    controlsEnd(counters)
++  }, LEAF_TIMEOUT_MS)
++})
