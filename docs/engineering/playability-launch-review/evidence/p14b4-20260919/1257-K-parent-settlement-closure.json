@@ -1,0 +1,1328 @@
+{
+  "kind": "1257-parent-settlement-verification-closure",
+  "time": "2026-09-27T21:44:42.649770+00:00",
+  "status": "PARENT_VERIFIED_BOUNDED_Q12_PASS",
+  "gates": [
+    {
+      "stem": "1258-root6-receipt7-types",
+      "source": "a96d69bab49cf84b3e87e22a35aa202ba5cebc5e",
+      "start": "2026-09-27T21:35:58.207Z",
+      "end": "2026-09-27T21:36:31.884Z",
+      "elapsedSeconds": 33.677,
+      "childExit": 2,
+      "advanceCap": 0,
+      "fixedSource": true,
+      "allGuardsExact": true,
+      "sourceFiles": 1682,
+      "sourceInventory": {
+        "bytes": 255364,
+        "sha256": "b5a6f7e5f68a3a930273fb725ecc7c6b3ac9434fe6cf5f677f64536cc565201b"
+      },
+      "manualPins": 120,
+      "index": {
+        "bytes": 1098828,
+        "sha256": "0ad72e48bc65bcc6069505a1304363f8e24fe9f832574e02970667fe56650237"
+      },
+      "stageEntries": {
+        "bytes": 975871,
+        "sha256": "463e788ea1c4af3f23f7f7e080c9c3e364c9ffeeceeecf0515d7f2501effc1ac"
+      },
+      "files": [
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1258-root6-receipt7-types.json",
+          "bytes": 634,
+          "sha256": "3ea1aa856cf1105c62ab6be8c33098c5dd71684b2dfa91b5d8e3a8b2577b88a3"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1258-root6-receipt7-types.txt",
+          "bytes": 821,
+          "sha256": "9a198b64e80f7e60b77ff100cfecd0f2f6c4222835f1b4c12f7752930e3e2758"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1258-root6-receipt7-types.patch",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1258-root6-receipt7-types-preflight.json",
+          "bytes": 30470,
+          "sha256": "511a235bf692366e85e6a09ab7ede9287c65613ba5215b67eaa4ab5ee5b4a8ba"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1258-root6-receipt7-types-postflight.json",
+          "bytes": 31148,
+          "sha256": "b5bbcb16adac05846b53dd9905322ef1364d5bf8a9af2c862697d8fcd7783ae9"
+        }
+      ]
+    },
+    {
+      "stem": "1258b-root6-receipt7-types",
+      "source": "63a83558574813e84e66b8909c7ffe308c8bf9f4",
+      "start": "2026-09-27T21:40:42.439Z",
+      "end": "2026-09-27T21:41:19.099Z",
+      "elapsedSeconds": 36.66,
+      "childExit": 0,
+      "advanceCap": 0,
+      "fixedSource": true,
+      "allGuardsExact": true,
+      "sourceFiles": 1682,
+      "sourceInventory": {
+        "bytes": 255364,
+        "sha256": "6e8b24104add08f27df5de54c3b1e8b35892720f3c8f32c1f9319aed0c230775"
+      },
+      "manualPins": 126,
+      "index": {
+        "bytes": 1101114,
+        "sha256": "7a94b37af4f0b1cd45aee2e8546c045208a2d1c4062da98ba98153795e209e22"
+      },
+      "stageEntries": {
+        "bytes": 977879,
+        "sha256": "cf34ab0a690f79752b5a83997084d116e2e069588a964ea1d2d6b65e3c4b3397"
+      },
+      "files": [
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1258b-root6-receipt7-types.json",
+          "bytes": 634,
+          "sha256": "c0d4be787d5dec7dd7f26adc8e4c46fc58f476b5b400debbdd5714b0d8ec2d47"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1258b-root6-receipt7-types.txt",
+          "bytes": 340,
+          "sha256": "8ca36ca8a9c5d92ca87bcf6452f4327b53493ff89309c61670570c5a9d421d12"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1258b-root6-receipt7-types.patch",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1258b-root6-receipt7-types-preflight.json",
+          "bytes": 31904,
+          "sha256": "b9afb50bcf314e2d2aafc9447304a598d3b7989605f3624511e8d5dda5105ecd"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1258b-root6-receipt7-types-postflight.json",
+          "bytes": 32585,
+          "sha256": "136dc2ebcb41b989e6f9743ec53fa820773f3a642a1cac10f677fe49f0631f5a"
+        }
+      ]
+    },
+    {
+      "stem": "1259-root6-receipt7-runtime",
+      "source": "63a83558574813e84e66b8909c7ffe308c8bf9f4",
+      "start": "2026-09-27T21:41:45.790Z",
+      "end": "2026-09-27T21:41:56.352Z",
+      "elapsedSeconds": 10.562,
+      "childExit": 0,
+      "advanceCap": 7,
+      "fixedSource": true,
+      "allGuardsExact": true,
+      "sourceFiles": 1682,
+      "sourceInventory": {
+        "bytes": 255364,
+        "sha256": "6e8b24104add08f27df5de54c3b1e8b35892720f3c8f32c1f9319aed0c230775"
+      },
+      "manualPins": 126,
+      "index": {
+        "bytes": 1101114,
+        "sha256": "7a94b37af4f0b1cd45aee2e8546c045208a2d1c4062da98ba98153795e209e22"
+      },
+      "stageEntries": {
+        "bytes": 977879,
+        "sha256": "cf34ab0a690f79752b5a83997084d116e2e069588a964ea1d2d6b65e3c4b3397"
+      },
+      "files": [
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1259-root6-receipt7-runtime.json",
+          "bytes": 696,
+          "sha256": "b3fb5b237f7f3546b5fc129f28741ff8736cd12bef0bf9f6a2e39689b2d1fa51"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1259-root6-receipt7-runtime.txt",
+          "bytes": 55472,
+          "sha256": "47307405b9b32e6bf2982855e648075caa0b932f5cf4ca13ddf0eb630e938a05"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1259-root6-receipt7-runtime.patch",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1259-root6-receipt7-runtime-preflight.json",
+          "bytes": 31904,
+          "sha256": "6f09cb74f90472c8f01b33a54599db111d4894b5855ac7adbbf91463fab7f4b0"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1259-root6-receipt7-runtime-postflight.json",
+          "bytes": 32590,
+          "sha256": "1e293b8f0d7470f9612880a7103c4d7d2eefce6fe87941aa79568dd33ebb9e5f"
+        }
+      ]
+    }
+  ],
+  "liveTest": {
+    "path": "tests/p14p4p5-receipt-freeze.test.ts",
+    "bytes": 25498,
+    "sha256": "c1ee22dec887614a2b1489ca4c1578f670841e11fc0157a67921967674c913d3"
+  },
+  "originalSourceReviewAndFailedCompilerPreserved": true,
+  "runtime": {
+    "selected": 1,
+    "passed": 1,
+    "filtered": 0,
+    "failed": 0,
+    "unhandled": 0,
+    "leafSeconds": 6.609,
+    "vitestSeconds": 9.59,
+    "declaredLeafTimeoutSeconds": 60,
+    "timeoutIsNotPerformanceGuarantee": true,
+    "markers": {
+      "count": 31,
+      "bytes": 54367,
+      "sha256": "60baa788d45939d62275a8ba80822d0270ad5f40996fe3a7611b3c6e68b9e2aa",
+      "byKind": {
+        "1257-P4P5-INPUT": 1,
+        "1257-P4P5-PREVIEW": 2,
+        "1257-P4P5-MUTATION-ATTEMPT": 4,
+        "1257-P4P5-MUTATION-ACCEPTED": 4,
+        "1257-P4P5-ORIGINAL-ROOT6": 1,
+        "1257-P4P5-JOINED45": 1,
+        "1257-P4P5-JOINED45-QUOTE": 1,
+        "1257-P4P5-ADVANCE": 7,
+        "1257-P4P5-PRECOMMIT-INPUT": 2,
+        "1257-P4P5-ACTUAL-SELECTION": 2,
+        "1257-P4P5-PRECOMMIT-RESULT": 2,
+        "1257-P4P5-COMPLETED52": 1,
+        "1257-P4P5-CASE-DISPOSITIONS": 1,
+        "1257-P4P5-ROOT6-RECEIPT7": 1,
+        "1257-P4P5-COUNTERS": 1
+      }
+    },
+    "counters": {
+      "attempted": 7,
+      "reserved": 7,
+      "invoked": 7,
+      "completed": 7,
+      "outside": 0,
+      "mutationAttempts": 4,
+      "mutationsAccepted": 4,
+      "previews": 2,
+      "explicitQuotes": 1,
+      "matchingAttempts": 2,
+      "matchingCompleted": 2,
+      "selectorAttempts": 2,
+      "selectorCompleted": 2,
+      "hardAdvanceAttempts": 7,
+      "hardMutations": 4,
+      "hardPreviews": 2,
+      "hardExplicitQuotes": 1,
+      "hardMatchingCalls": 2,
+      "hardSelectorsPerMatchingCall": 1,
+      "oldRoutesImported": false,
+      "capturePrefixAdvances": 0,
+      "phases": [
+        {
+          "name": "genuine45",
+          "complete": true
+        },
+        {
+          "name": "joined45",
+          "complete": true
+        },
+        {
+          "name": "quoted45",
+          "complete": true
+        },
+        {
+          "name": "settled52",
+          "complete": true
+        }
+      ],
+      "operations": [
+        {
+          "week": 45,
+          "kind": "submitProposal",
+          "personId": "authored-0006",
+          "accepted": true
+        },
+        {
+          "week": 45,
+          "kind": "attachPromise",
+          "personId": "authored-0006",
+          "accepted": true
+        },
+        {
+          "week": 45,
+          "kind": "submitProposal",
+          "personId": "authored-0007",
+          "accepted": true
+        },
+        {
+          "week": 45,
+          "kind": "attachPromise",
+          "personId": "authored-0007",
+          "accepted": true
+        }
+      ],
+      "trace": [
+        {
+          "from": 45,
+          "to": 46,
+          "addedReceipts": [],
+          "subjects": {
+            "version": 1,
+            "cutoverOrdinal": 19,
+            "facts": []
+          }
+        },
+        {
+          "from": 46,
+          "to": 47,
+          "addedReceipts": [],
+          "subjects": {
+            "version": 1,
+            "cutoverOrdinal": 19,
+            "facts": []
+          }
+        },
+        {
+          "from": 47,
+          "to": 48,
+          "addedReceipts": [
+            {
+              "eventId": "first-take-event-19",
+              "week": 48,
+              "productionId": "studio-de11f27b-r04:film:4",
+              "studioId": "studio-de11f27b-r04",
+              "directorId": "person-studio-de11f27b-r04-1",
+              "cast": {
+                "lead": "person-studio-de11f27b-r04-2",
+                "antagonist": "person-studio-de11f27b-r04-3",
+                "support": "person-studio-de11f27b-r04-4"
+              }
+            }
+          ],
+          "subjects": {
+            "version": 1,
+            "cutoverOrdinal": 19,
+            "facts": [
+              {
+                "eventId": "first-take-event-19",
+                "conceptId": "studio-de11f27b-r04:concept:4",
+                "genre": "horror",
+                "scriptProjectId": "script-0004"
+              }
+            ]
+          }
+        },
+        {
+          "from": 48,
+          "to": 49,
+          "addedReceipts": [],
+          "subjects": {
+            "version": 1,
+            "cutoverOrdinal": 19,
+            "facts": [
+              {
+                "eventId": "first-take-event-19",
+                "conceptId": "studio-de11f27b-r04:concept:4",
+                "genre": "horror",
+                "scriptProjectId": "script-0004"
+              }
+            ]
+          }
+        },
+        {
+          "from": 49,
+          "to": 50,
+          "addedReceipts": [],
+          "subjects": {
+            "version": 1,
+            "cutoverOrdinal": 19,
+            "facts": [
+              {
+                "eventId": "first-take-event-19",
+                "conceptId": "studio-de11f27b-r04:concept:4",
+                "genre": "horror",
+                "scriptProjectId": "script-0004"
+              }
+            ]
+          }
+        },
+        {
+          "from": 50,
+          "to": 51,
+          "addedReceipts": [],
+          "subjects": {
+            "version": 1,
+            "cutoverOrdinal": 19,
+            "facts": [
+              {
+                "eventId": "first-take-event-19",
+                "conceptId": "studio-de11f27b-r04:concept:4",
+                "genre": "horror",
+                "scriptProjectId": "script-0004"
+              }
+            ]
+          }
+        },
+        {
+          "from": 51,
+          "to": 52,
+          "addedReceipts": [],
+          "subjects": {
+            "version": 1,
+            "cutoverOrdinal": 19,
+            "facts": [
+              {
+                "eventId": "first-take-event-19",
+                "conceptId": "studio-de11f27b-r04:concept:4",
+                "genre": "horror",
+                "scriptProjectId": "script-0004"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "explicitJoined45Quote": {
+      "request": {
+        "family": "DIRECTING_COUNT",
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0006",
+        "predicate": {
+          "kind": "directorCount",
+          "count": 1
+        },
+        "startWeek": 52,
+        "termWeeks": 104,
+        "windowStartWeek": 52,
+        "dueWeekExclusive": 112,
+        "promiseId": "promise-0"
+      },
+      "receipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "31b847a07baffa70",
+        "rulesVersion": 7,
+        "week": 45
+      },
+      "union": {
+        "from": 52,
+        "rows": [
+          {
+            "row": {
+              "promiseId": "promise-0",
+              "version": 6,
+              "issuerStudioId": "studio-de11f27b-player",
+              "beneficiaryPersonId": "authored-0006",
+              "windowStartWeek": 52,
+              "dueWeekExclusive": 112,
+              "feasibilityReceipt": {
+                "classification": "REASONABLY_ACHIEVABLE",
+                "bottleneck": null,
+                "inputsDigest": "d3405a249ab5d143",
+                "rulesVersion": 6,
+                "week": 45
+              },
+              "progress": 0,
+              "evidenceRefs": [],
+              "outcome": null,
+              "outcomeWeek": null,
+              "outcomeCause": null,
+              "outcomeEventId": null,
+              "contractId": null,
+              "supersededByPromiseId": null,
+              "family": "DIRECTING_COUNT",
+              "predicate": {
+                "kind": "directorCount",
+                "count": 1
+              }
+            },
+            "open": true,
+            "remaining": 1,
+            "bound": false,
+            "attached": true,
+            "notSelf": false,
+            "overlaps": true,
+            "samePerson": true,
+            "sameIssuer": true
+          },
+          {
+            "row": {
+              "promiseId": "promise-1",
+              "version": 7,
+              "issuerStudioId": "studio-de11f27b-player",
+              "beneficiaryPersonId": "authored-0007",
+              "windowStartWeek": 52,
+              "dueWeekExclusive": 112,
+              "feasibilityReceipt": {
+                "classification": "FRAGILE",
+                "bottleneck": "other promises lack compatible committed-seat reservation witnesses",
+                "inputsDigest": "a0b1028f5ab66e81",
+                "rulesVersion": 7,
+                "week": 45
+              },
+              "progress": 0,
+              "evidenceRefs": [],
+              "outcome": null,
+              "outcomeWeek": null,
+              "outcomeCause": null,
+              "outcomeEventId": null,
+              "contractId": null,
+              "supersededByPromiseId": null,
+              "family": "PREFERRED_GENRE_OPPORTUNITY",
+              "predicate": {
+                "kind": "genreOpportunity",
+                "count": 1,
+                "seatClass": "allCast",
+                "genre": "drama"
+              }
+            },
+            "open": true,
+            "remaining": 1,
+            "bound": false,
+            "attached": true,
+            "notSelf": true,
+            "overlaps": true,
+            "samePerson": false,
+            "sameIssuer": true
+          }
+        ],
+        "selected": [
+          {
+            "promiseId": "promise-1",
+            "version": 7,
+            "issuerStudioId": "studio-de11f27b-player",
+            "beneficiaryPersonId": "authored-0007",
+            "windowStartWeek": 52,
+            "dueWeekExclusive": 112,
+            "feasibilityReceipt": {
+              "classification": "FRAGILE",
+              "bottleneck": "other promises lack compatible committed-seat reservation witnesses",
+              "inputsDigest": "a0b1028f5ab66e81",
+              "rulesVersion": 7,
+              "week": 45
+            },
+            "progress": 0,
+            "evidenceRefs": [],
+            "outcome": null,
+            "outcomeWeek": null,
+            "outcomeCause": null,
+            "outcomeEventId": null,
+            "contractId": null,
+            "supersededByPromiseId": null,
+            "family": "PREFERRED_GENRE_OPPORTUNITY",
+            "predicate": {
+              "kind": "genreOpportunity",
+              "count": 1,
+              "seatClass": "allCast",
+              "genre": "drama"
+            }
+          }
+        ],
+        "proposals": [
+          {
+            "talentId": "authored-0006",
+            "issuerStudioId": "studio-de11f27b-player",
+            "termWeeks": 104,
+            "premiumTier": 1.25,
+            "startWeek": 52,
+            "annualSalary": 488081,
+            "signingBonus": 87855,
+            "submittedWeek": 45,
+            "digest": "1b8137fd5d672dd8",
+            "promises": [
+              "promise-0"
+            ],
+            "representation": null
+          },
+          {
+            "talentId": "authored-0007",
+            "issuerStudioId": "studio-de11f27b-player",
+            "termWeeks": 104,
+            "premiumTier": 1.25,
+            "startWeek": 52,
+            "annualSalary": 620885,
+            "signingBonus": 111759,
+            "submittedWeek": 45,
+            "digest": "c04f6c7ef4f72177",
+            "promises": [
+              "promise-1"
+            ],
+            "representation": null
+          }
+        ]
+      },
+      "originalRoot": {
+        "promiseId": "promise-0",
+        "version": 6,
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0006",
+        "windowStartWeek": 52,
+        "dueWeekExclusive": 112,
+        "feasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "d3405a249ab5d143",
+          "rulesVersion": 6,
+          "week": 45
+        },
+        "progress": 0,
+        "evidenceRefs": [],
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeCause": null,
+        "outcomeEventId": null,
+        "contractId": null,
+        "supersededByPromiseId": null,
+        "family": "DIRECTING_COUNT",
+        "predicate": {
+          "kind": "directorCount",
+          "count": 1
+        }
+      }
+    },
+    "observations": [
+      {
+        "index": 0,
+        "week": 52,
+        "actualStateWeek": 52,
+        "request": {
+          "family": "DIRECTING_COUNT",
+          "issuerStudioId": "studio-de11f27b-player",
+          "beneficiaryPersonId": "authored-0006",
+          "predicate": {
+            "kind": "directorCount",
+            "count": 1
+          },
+          "windowStartWeek": 52,
+          "dueWeekExclusive": 112,
+          "startWeek": 52,
+          "termWeeks": 104,
+          "promiseId": "promise-0"
+        },
+        "originalRoot": {
+          "promiseId": "promise-0",
+          "version": 6,
+          "issuerStudioId": "studio-de11f27b-player",
+          "beneficiaryPersonId": "authored-0006",
+          "windowStartWeek": 52,
+          "dueWeekExclusive": 112,
+          "feasibilityReceipt": {
+            "classification": "REASONABLY_ACHIEVABLE",
+            "bottleneck": null,
+            "inputsDigest": "d3405a249ab5d143",
+            "rulesVersion": 6,
+            "week": 45
+          },
+          "progress": 0,
+          "evidenceRefs": [],
+          "outcome": null,
+          "outcomeWeek": null,
+          "outcomeCause": null,
+          "outcomeEventId": null,
+          "contractId": null,
+          "supersededByPromiseId": null,
+          "family": "DIRECTING_COUNT",
+          "predicate": {
+            "kind": "directorCount",
+            "count": 1
+          }
+        },
+        "proposal": {
+          "talentId": "authored-0006",
+          "issuerStudioId": "studio-de11f27b-player",
+          "termWeeks": 104,
+          "premiumTier": 1.25,
+          "startWeek": 52,
+          "annualSalary": 488081,
+          "signingBonus": 87855,
+          "submittedWeek": 45,
+          "digest": "1b8137fd5d672dd8",
+          "promises": [
+            "promise-0"
+          ],
+          "representation": null
+        },
+        "beforeStateBytes": 803566,
+        "beforeStateSha256": "4566fcdd9888f6e0f24df4aeda8b112f04b4d52b2538169d68241bcbbc07b5e8",
+        "beforeRng": "1557239868,672280863,464522958,2878174094",
+        "selections": [
+          {
+            "from": 52,
+            "census": {
+              "from": 52,
+              "rows": [
+                {
+                  "row": {
+                    "promiseId": "promise-0",
+                    "version": 6,
+                    "issuerStudioId": "studio-de11f27b-player",
+                    "beneficiaryPersonId": "authored-0006",
+                    "windowStartWeek": 52,
+                    "dueWeekExclusive": 112,
+                    "feasibilityReceipt": {
+                      "classification": "REASONABLY_ACHIEVABLE",
+                      "bottleneck": null,
+                      "inputsDigest": "d3405a249ab5d143",
+                      "rulesVersion": 6,
+                      "week": 45
+                    },
+                    "progress": 0,
+                    "evidenceRefs": [],
+                    "outcome": null,
+                    "outcomeWeek": null,
+                    "outcomeCause": null,
+                    "outcomeEventId": null,
+                    "contractId": null,
+                    "supersededByPromiseId": null,
+                    "family": "DIRECTING_COUNT",
+                    "predicate": {
+                      "kind": "directorCount",
+                      "count": 1
+                    }
+                  },
+                  "open": true,
+                  "remaining": 1,
+                  "bound": false,
+                  "attached": true,
+                  "notSelf": false,
+                  "overlaps": true,
+                  "samePerson": true,
+                  "sameIssuer": true
+                },
+                {
+                  "row": {
+                    "promiseId": "promise-1",
+                    "version": 7,
+                    "issuerStudioId": "studio-de11f27b-player",
+                    "beneficiaryPersonId": "authored-0007",
+                    "windowStartWeek": 52,
+                    "dueWeekExclusive": 112,
+                    "feasibilityReceipt": {
+                      "classification": "FRAGILE",
+                      "bottleneck": "other promises lack compatible committed-seat reservation witnesses",
+                      "inputsDigest": "a0b1028f5ab66e81",
+                      "rulesVersion": 7,
+                      "week": 45
+                    },
+                    "progress": 0,
+                    "evidenceRefs": [],
+                    "outcome": null,
+                    "outcomeWeek": null,
+                    "outcomeCause": null,
+                    "outcomeEventId": null,
+                    "contractId": null,
+                    "supersededByPromiseId": null,
+                    "family": "PREFERRED_GENRE_OPPORTUNITY",
+                    "predicate": {
+                      "kind": "genreOpportunity",
+                      "count": 1,
+                      "seatClass": "allCast",
+                      "genre": "drama"
+                    }
+                  },
+                  "open": true,
+                  "remaining": 1,
+                  "bound": false,
+                  "attached": true,
+                  "notSelf": true,
+                  "overlaps": true,
+                  "samePerson": false,
+                  "sameIssuer": true
+                }
+              ],
+              "selected": [
+                {
+                  "promiseId": "promise-1",
+                  "version": 7,
+                  "issuerStudioId": "studio-de11f27b-player",
+                  "beneficiaryPersonId": "authored-0007",
+                  "windowStartWeek": 52,
+                  "dueWeekExclusive": 112,
+                  "feasibilityReceipt": {
+                    "classification": "FRAGILE",
+                    "bottleneck": "other promises lack compatible committed-seat reservation witnesses",
+                    "inputsDigest": "a0b1028f5ab66e81",
+                    "rulesVersion": 7,
+                    "week": 45
+                  },
+                  "progress": 0,
+                  "evidenceRefs": [],
+                  "outcome": null,
+                  "outcomeWeek": null,
+                  "outcomeCause": null,
+                  "outcomeEventId": null,
+                  "contractId": null,
+                  "supersededByPromiseId": null,
+                  "family": "PREFERRED_GENRE_OPPORTUNITY",
+                  "predicate": {
+                    "kind": "genreOpportunity",
+                    "count": 1,
+                    "seatClass": "allCast",
+                    "genre": "drama"
+                  }
+                }
+              ],
+              "proposals": [
+                {
+                  "talentId": "authored-0006",
+                  "issuerStudioId": "studio-de11f27b-player",
+                  "termWeeks": 104,
+                  "premiumTier": 1.25,
+                  "startWeek": 52,
+                  "annualSalary": 488081,
+                  "signingBonus": 87855,
+                  "submittedWeek": 45,
+                  "digest": "1b8137fd5d672dd8",
+                  "promises": [
+                    "promise-0"
+                  ],
+                  "representation": null
+                },
+                {
+                  "talentId": "authored-0007",
+                  "issuerStudioId": "studio-de11f27b-player",
+                  "termWeeks": 104,
+                  "premiumTier": 1.25,
+                  "startWeek": 52,
+                  "annualSalary": 620885,
+                  "signingBonus": 111759,
+                  "submittedWeek": 45,
+                  "digest": "c04f6c7ef4f72177",
+                  "promises": [
+                    "promise-1"
+                  ],
+                  "representation": null
+                }
+              ]
+            },
+            "actual": [
+              {
+                "promiseId": "promise-1",
+                "version": 7,
+                "issuerStudioId": "studio-de11f27b-player",
+                "beneficiaryPersonId": "authored-0007",
+                "windowStartWeek": 52,
+                "dueWeekExclusive": 112,
+                "feasibilityReceipt": {
+                  "classification": "FRAGILE",
+                  "bottleneck": "other promises lack compatible committed-seat reservation witnesses",
+                  "inputsDigest": "a0b1028f5ab66e81",
+                  "rulesVersion": 7,
+                  "week": 45
+                },
+                "progress": 0,
+                "evidenceRefs": [],
+                "outcome": null,
+                "outcomeWeek": null,
+                "outcomeCause": null,
+                "outcomeEventId": null,
+                "contractId": null,
+                "supersededByPromiseId": null,
+                "family": "PREFERRED_GENRE_OPPORTUNITY",
+                "predicate": {
+                  "kind": "genreOpportunity",
+                  "count": 1,
+                  "seatClass": "allCast",
+                  "genre": "drama"
+                }
+              }
+            ],
+            "beforeStateSha256": "4566fcdd9888f6e0f24df4aeda8b112f04b4d52b2538169d68241bcbbc07b5e8",
+            "afterStateSha256": "4566fcdd9888f6e0f24df4aeda8b112f04b4d52b2538169d68241bcbbc07b5e8",
+            "requestBefore": "{\"beneficiaryPersonId\":\"authored-0006\",\"dueWeekExclusive\":112,\"family\":\"DIRECTING_COUNT\",\"issuerStudioId\":\"studio-de11f27b-player\",\"predicate\":{\"count\":1,\"kind\":\"directorCount\"},\"promiseId\":\"promise-0\",\"startWeek\":52,\"termWeeks\":104,\"windowStartWeek\":52}",
+            "requestAfter": "{\"beneficiaryPersonId\":\"authored-0006\",\"dueWeekExclusive\":112,\"family\":\"DIRECTING_COUNT\",\"issuerStudioId\":\"studio-de11f27b-player\",\"predicate\":{\"count\":1,\"kind\":\"directorCount\"},\"promiseId\":\"promise-0\",\"startWeek\":52,\"termWeeks\":104,\"windowStartWeek\":52}"
+          }
+        ],
+        "receipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "da57c0d934f00390",
+          "rulesVersion": 7,
+          "week": 52
+        },
+        "price": {
+          "talentId": "authored-0006",
+          "issuerStudioId": "studio-de11f27b-player",
+          "termWeeks": 104,
+          "premiumTier": 1.25,
+          "annualSalary": 488081,
+          "signingBonus": 87855,
+          "startWeek": 52,
+          "endWeekExclusive": 156,
+          "digest": "1b8137fd5d672dd8"
+        },
+        "completed": true,
+        "afterStateSha256": "4566fcdd9888f6e0f24df4aeda8b112f04b4d52b2538169d68241bcbbc07b5e8"
+      },
+      {
+        "index": 1,
+        "week": 52,
+        "actualStateWeek": 52,
+        "request": {
+          "family": "DIRECTING_COUNT",
+          "issuerStudioId": "studio-de11f27b-player",
+          "beneficiaryPersonId": "authored-0006",
+          "predicate": {
+            "kind": "directorCount",
+            "count": 1
+          },
+          "windowStartWeek": 52,
+          "dueWeekExclusive": 112,
+          "startWeek": 52,
+          "termWeeks": 104,
+          "promiseId": "promise-0"
+        },
+        "originalRoot": {
+          "promiseId": "promise-0",
+          "version": 6,
+          "issuerStudioId": "studio-de11f27b-player",
+          "beneficiaryPersonId": "authored-0006",
+          "windowStartWeek": 52,
+          "dueWeekExclusive": 112,
+          "feasibilityReceipt": {
+            "classification": "REASONABLY_ACHIEVABLE",
+            "bottleneck": null,
+            "inputsDigest": "d3405a249ab5d143",
+            "rulesVersion": 6,
+            "week": 45
+          },
+          "progress": 0,
+          "evidenceRefs": [],
+          "outcome": null,
+          "outcomeWeek": null,
+          "outcomeCause": null,
+          "outcomeEventId": null,
+          "contractId": null,
+          "supersededByPromiseId": null,
+          "family": "DIRECTING_COUNT",
+          "predicate": {
+            "kind": "directorCount",
+            "count": 1
+          }
+        },
+        "proposal": {
+          "talentId": "authored-0006",
+          "issuerStudioId": "studio-de11f27b-player",
+          "termWeeks": 104,
+          "premiumTier": 1.25,
+          "startWeek": 52,
+          "annualSalary": 488081,
+          "signingBonus": 87855,
+          "submittedWeek": 45,
+          "digest": "1b8137fd5d672dd8",
+          "promises": [
+            "promise-0"
+          ],
+          "representation": null
+        },
+        "beforeStateBytes": 803566,
+        "beforeStateSha256": "4566fcdd9888f6e0f24df4aeda8b112f04b4d52b2538169d68241bcbbc07b5e8",
+        "beforeRng": "1557239868,672280863,464522958,2878174094",
+        "selections": [
+          {
+            "from": 52,
+            "census": {
+              "from": 52,
+              "rows": [
+                {
+                  "row": {
+                    "promiseId": "promise-0",
+                    "version": 6,
+                    "issuerStudioId": "studio-de11f27b-player",
+                    "beneficiaryPersonId": "authored-0006",
+                    "windowStartWeek": 52,
+                    "dueWeekExclusive": 112,
+                    "feasibilityReceipt": {
+                      "classification": "REASONABLY_ACHIEVABLE",
+                      "bottleneck": null,
+                      "inputsDigest": "d3405a249ab5d143",
+                      "rulesVersion": 6,
+                      "week": 45
+                    },
+                    "progress": 0,
+                    "evidenceRefs": [],
+                    "outcome": null,
+                    "outcomeWeek": null,
+                    "outcomeCause": null,
+                    "outcomeEventId": null,
+                    "contractId": null,
+                    "supersededByPromiseId": null,
+                    "family": "DIRECTING_COUNT",
+                    "predicate": {
+                      "kind": "directorCount",
+                      "count": 1
+                    }
+                  },
+                  "open": true,
+                  "remaining": 1,
+                  "bound": false,
+                  "attached": true,
+                  "notSelf": false,
+                  "overlaps": true,
+                  "samePerson": true,
+                  "sameIssuer": true
+                },
+                {
+                  "row": {
+                    "promiseId": "promise-1",
+                    "version": 7,
+                    "issuerStudioId": "studio-de11f27b-player",
+                    "beneficiaryPersonId": "authored-0007",
+                    "windowStartWeek": 52,
+                    "dueWeekExclusive": 112,
+                    "feasibilityReceipt": {
+                      "classification": "FRAGILE",
+                      "bottleneck": "other promises lack compatible committed-seat reservation witnesses",
+                      "inputsDigest": "a0b1028f5ab66e81",
+                      "rulesVersion": 7,
+                      "week": 45
+                    },
+                    "progress": 0,
+                    "evidenceRefs": [],
+                    "outcome": null,
+                    "outcomeWeek": null,
+                    "outcomeCause": null,
+                    "outcomeEventId": null,
+                    "contractId": null,
+                    "supersededByPromiseId": null,
+                    "family": "PREFERRED_GENRE_OPPORTUNITY",
+                    "predicate": {
+                      "kind": "genreOpportunity",
+                      "count": 1,
+                      "seatClass": "allCast",
+                      "genre": "drama"
+                    }
+                  },
+                  "open": true,
+                  "remaining": 1,
+                  "bound": false,
+                  "attached": true,
+                  "notSelf": true,
+                  "overlaps": true,
+                  "samePerson": false,
+                  "sameIssuer": true
+                }
+              ],
+              "selected": [
+                {
+                  "promiseId": "promise-1",
+                  "version": 7,
+                  "issuerStudioId": "studio-de11f27b-player",
+                  "beneficiaryPersonId": "authored-0007",
+                  "windowStartWeek": 52,
+                  "dueWeekExclusive": 112,
+                  "feasibilityReceipt": {
+                    "classification": "FRAGILE",
+                    "bottleneck": "other promises lack compatible committed-seat reservation witnesses",
+                    "inputsDigest": "a0b1028f5ab66e81",
+                    "rulesVersion": 7,
+                    "week": 45
+                  },
+                  "progress": 0,
+                  "evidenceRefs": [],
+                  "outcome": null,
+                  "outcomeWeek": null,
+                  "outcomeCause": null,
+                  "outcomeEventId": null,
+                  "contractId": null,
+                  "supersededByPromiseId": null,
+                  "family": "PREFERRED_GENRE_OPPORTUNITY",
+                  "predicate": {
+                    "kind": "genreOpportunity",
+                    "count": 1,
+                    "seatClass": "allCast",
+                    "genre": "drama"
+                  }
+                }
+              ],
+              "proposals": [
+                {
+                  "talentId": "authored-0006",
+                  "issuerStudioId": "studio-de11f27b-player",
+                  "termWeeks": 104,
+                  "premiumTier": 1.25,
+                  "startWeek": 52,
+                  "annualSalary": 488081,
+                  "signingBonus": 87855,
+                  "submittedWeek": 45,
+                  "digest": "1b8137fd5d672dd8",
+                  "promises": [
+                    "promise-0"
+                  ],
+                  "representation": null
+                },
+                {
+                  "talentId": "authored-0007",
+                  "issuerStudioId": "studio-de11f27b-player",
+                  "termWeeks": 104,
+                  "premiumTier": 1.25,
+                  "startWeek": 52,
+                  "annualSalary": 620885,
+                  "signingBonus": 111759,
+                  "submittedWeek": 45,
+                  "digest": "c04f6c7ef4f72177",
+                  "promises": [
+                    "promise-1"
+                  ],
+                  "representation": null
+                }
+              ]
+            },
+            "actual": [
+              {
+                "promiseId": "promise-1",
+                "version": 7,
+                "issuerStudioId": "studio-de11f27b-player",
+                "beneficiaryPersonId": "authored-0007",
+                "windowStartWeek": 52,
+                "dueWeekExclusive": 112,
+                "feasibilityReceipt": {
+                  "classification": "FRAGILE",
+                  "bottleneck": "other promises lack compatible committed-seat reservation witnesses",
+                  "inputsDigest": "a0b1028f5ab66e81",
+                  "rulesVersion": 7,
+                  "week": 45
+                },
+                "progress": 0,
+                "evidenceRefs": [],
+                "outcome": null,
+                "outcomeWeek": null,
+                "outcomeCause": null,
+                "outcomeEventId": null,
+                "contractId": null,
+                "supersededByPromiseId": null,
+                "family": "PREFERRED_GENRE_OPPORTUNITY",
+                "predicate": {
+                  "kind": "genreOpportunity",
+                  "count": 1,
+                  "seatClass": "allCast",
+                  "genre": "drama"
+                }
+              }
+            ],
+            "beforeStateSha256": "4566fcdd9888f6e0f24df4aeda8b112f04b4d52b2538169d68241bcbbc07b5e8",
+            "afterStateSha256": "4566fcdd9888f6e0f24df4aeda8b112f04b4d52b2538169d68241bcbbc07b5e8",
+            "requestBefore": "{\"beneficiaryPersonId\":\"authored-0006\",\"dueWeekExclusive\":112,\"family\":\"DIRECTING_COUNT\",\"issuerStudioId\":\"studio-de11f27b-player\",\"predicate\":{\"count\":1,\"kind\":\"directorCount\"},\"promiseId\":\"promise-0\",\"startWeek\":52,\"termWeeks\":104,\"windowStartWeek\":52}",
+            "requestAfter": "{\"beneficiaryPersonId\":\"authored-0006\",\"dueWeekExclusive\":112,\"family\":\"DIRECTING_COUNT\",\"issuerStudioId\":\"studio-de11f27b-player\",\"predicate\":{\"count\":1,\"kind\":\"directorCount\"},\"promiseId\":\"promise-0\",\"startWeek\":52,\"termWeeks\":104,\"windowStartWeek\":52}"
+          }
+        ],
+        "receipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "da57c0d934f00390",
+          "rulesVersion": 7,
+          "week": 52
+        },
+        "price": null,
+        "completed": true,
+        "afterStateSha256": "4566fcdd9888f6e0f24df4aeda8b112f04b4d52b2538169d68241bcbbc07b5e8"
+      }
+    ],
+    "dispositions": {
+      "focusCase": {
+        "closedWeek": 52,
+        "contractId": "studio-de11f27b-player:contract:authored-0006:0:player-30",
+        "openedWeek": 40,
+        "outcome": "settled",
+        "reason": "settled at the decision week",
+        "subjectStudioId": "studio-de11f27b-player",
+        "talentId": "authored-0006",
+        "variant": "expiry"
+      },
+      "laterCase": {
+        "closedWeek": 52,
+        "contractId": "studio-de11f27b-player:contract:authored-0007:0:player-31",
+        "openedWeek": 40,
+        "outcome": "declined",
+        "reason": "all proposals dropped",
+        "subjectStudioId": "studio-de11f27b-player",
+        "talentId": "authored-0007",
+        "variant": "expiry"
+      }
+    },
+    "marketReceipts": [
+      {
+        "kind": "settled",
+        "week": 52,
+        "talentId": "authored-0006",
+        "studioId": "studio-de11f27b-player",
+        "reasons": [
+          "theirs was the only proposal on the table"
+        ],
+        "dropped": [],
+        "eventId": "talent-market-event-4"
+      },
+      {
+        "kind": "declined",
+        "week": 52,
+        "talentId": "authored-0007",
+        "studioId": null,
+        "reasons": [
+          "Your Studio's attached promise no longer had a feasible path by the decision week."
+        ],
+        "dropped": [
+          "Your Studio's attached promise no longer had a feasible path by the decision week."
+        ],
+        "eventId": "talent-market-event-5"
+      }
+    ],
+    "laterUnboundRoot": {
+      "promiseId": "promise-1",
+      "version": 7,
+      "issuerStudioId": "studio-de11f27b-player",
+      "beneficiaryPersonId": "authored-0007",
+      "windowStartWeek": 52,
+      "dueWeekExclusive": 112,
+      "feasibilityReceipt": {
+        "classification": "FRAGILE",
+        "bottleneck": "other promises lack compatible committed-seat reservation witnesses",
+        "inputsDigest": "a0b1028f5ab66e81",
+        "rulesVersion": 7,
+        "week": 45
+      },
+      "progress": 0,
+      "evidenceRefs": [],
+      "outcome": null,
+      "outcomeWeek": null,
+      "outcomeCause": null,
+      "outcomeEventId": null,
+      "contractId": null,
+      "supersededByPromiseId": null,
+      "family": "PREFERRED_GENRE_OPPORTUNITY",
+      "predicate": {
+        "kind": "genreOpportunity",
+        "count": 1,
+        "seatClass": "allCast",
+        "genre": "drama"
+      }
+    },
+    "signing": [
+      {
+        "week": 52,
+        "kind": "signingBonus",
+        "amount": -87855,
+        "talentId": "authored-0006",
+        "note": "market settlement signing bonus"
+      }
+    ],
+    "actualCommittedAuthority": {
+      "originalRoot": {
+        "promiseId": "promise-0",
+        "version": 6,
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0006",
+        "windowStartWeek": 52,
+        "dueWeekExclusive": 112,
+        "feasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "d3405a249ab5d143",
+          "rulesVersion": 6,
+          "week": 45
+        },
+        "progress": 0,
+        "evidenceRefs": [],
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeCause": null,
+        "outcomeEventId": null,
+        "contractId": null,
+        "supersededByPromiseId": null,
+        "family": "DIRECTING_COUNT",
+        "predicate": {
+          "kind": "directorCount",
+          "count": 1
+        }
+      },
+      "committedRoot": {
+        "promiseId": "promise-0",
+        "version": 6,
+        "issuerStudioId": "studio-de11f27b-player",
+        "beneficiaryPersonId": "authored-0006",
+        "windowStartWeek": 52,
+        "dueWeekExclusive": 112,
+        "feasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "da57c0d934f00390",
+          "rulesVersion": 7,
+          "week": 52
+        },
+        "progress": 0,
+        "evidenceRefs": [],
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeCause": null,
+        "outcomeEventId": null,
+        "contractId": "studio-de11f27b-player:contract:authored-0006:52:player-32",
+        "supersededByPromiseId": null,
+        "family": "DIRECTING_COUNT",
+        "predicate": {
+          "kind": "directorCount",
+          "count": 1
+        }
+      },
+      "frozenReceipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "da57c0d934f00390",
+        "rulesVersion": 7,
+        "week": 52
+      },
+      "rankingReceipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "da57c0d934f00390",
+        "rulesVersion": 7,
+        "week": 52
+      },
+      "actualPrice": {
+        "talentId": "authored-0006",
+        "issuerStudioId": "studio-de11f27b-player",
+        "termWeeks": 104,
+        "premiumTier": 1.25,
+        "annualSalary": 488081,
+        "signingBonus": 87855,
+        "startWeek": 52,
+        "endWeekExclusive": 156,
+        "digest": "1b8137fd5d672dd8"
+      },
+      "contract": {
+        "talentId": "authored-0006",
+        "annualSalary": 488081,
+        "signingBonus": 87855,
+        "startWeek": 52,
+        "endWeekExclusive": 156,
+        "termWeeks": 104
+      },
+      "employment": {
+        "contractId": "studio-de11f27b-player:contract:authored-0006:52:player-32",
+        "studioId": "studio-de11f27b-player",
+        "terms": {
+          "talentId": "authored-0006",
+          "annualSalary": 488081,
+          "signingBonus": 87855,
+          "startWeek": 52,
+          "endWeekExclusive": 156,
+          "termWeeks": 104
+        },
+        "endedWeek": null,
+        "reason": "player-contract"
+      },
+      "completedSaveBytes": 813028,
+      "completedSaveSha256": "d2ffcec4e2c234bde4fad61cf2024ce689a1aa645b609de68e2d47b5df5b779e"
+    }
+  },
+  "limits": [
+    "Only the isolated new Q12 ran; no old test body,45-week prefix,fixture producer,Bridge/UI/native or full-suite run.",
+    "No new production change; Save40/projection55/evaluator7 remain unchanged.",
+    "Freeze and survivor-ranking receipts were separately observed but have identical values in this case. Stored equality plus reviewed settlement owner supports the first frozen receipt; this run does not distinguish two unequal alternatives.",
+    "The later material offer is a player offer for the second person; it was FRAGILE and declined. No material-offer win or rival-policy qualification.",
+    "No general grouped allocation,stock-null,retirement or resource-congestion qualification from this slice.",
+    "No full legacy baseline rerun was added: the actual original Director receipt6 is the old authority here."
+  ],
+  "next": "1260 A/F/B zero-advance active-writer and development-capacity source; author/reviewer1257 I/J close separately."
+}

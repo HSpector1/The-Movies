@@ -1,30 +1,36 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
-## CURRENT — Q12 typing correction applied; qualification next
+## CURRENT — Q12 passed; zero-advance writer/resource source next
 
-Published source `a96d69bab49cf84b3e87e22a35aa202ba5cebc5e` matched GitHub.
-1257-C/D/E added the exact 25,474-byte standalone settlement test, preserving all
-29 protected files. The 1258 root compiler failed with one TS2345 at line363:
-the imported save retains its union type because the validator return is not used.
-The raw 821-byte diagnostic (`9a198b64`) and fixed-source pre/post records are
-retained: 33.677s, exit2, all1,682 source files,120 manual pins and index/stage exact.
-No simulation or advance ran, and no production source changed.
+Executed source `63a83558574813e84e66b8909c7ffe308c8bf9f4` matched GitHub.
+1258b root compiler PASS36.660s and 1259 isolated Q12 PASS1/zero filtered10.562s
+recorder,6.609s leaf. All1,682 source files,126 manual pins,index/stage and
+fixed-source guards stayed exact. Actual seven advances45→52, four accepted
+mutations, two previews, one explicit quote, two matching feasibility calls and
+two actual selectors; all four caches completed. No old body or prefix replay.
 
-Parent applied the exact 1257-L/M two-line narrowing correction; N records the
-25,498-byte postimage `c1ee22de` and protected-file identity. Frozen C/D and the
-failed gate remain unchanged. Publish, then run 1258b root types (cap0) before the still-unexecuted
-1259 isolated Q12 (hard7). Runtime bounds remain four mutations, one joined45
-quote, two price previews and two matching final-tick receipt observations.
-Actual win, price/payment and saved root6/first frozen receipt7 remain prospective.
+Actual Director root6/RA6 remained literal when the second person's player P4
+offer entered the union. The joined45 quote used7; the actual first freeze52
+returned RA7 `da57c0d934f00390`, which the winning root6 retained. Employment
+52→156, salary488081 and signing debit87855 match the precommit price. Full40
+round-trip retained the row. Both separately observed52 receipts have identical
+values: this is not a differing-receipt discrimination test. The later player's
+P4 offer was FRAGILE, declined and unbound; no rival/material-win claim follows.
+1257-K closes parent verification; I/J author and independent attribution follow.
+The original1258 TS2345/exit2/33.677s remains recorded; L/M/N only narrowed the
+strict-reader return. Live test25,498B/`c1ee22de`; production remains unchanged.
 
-Q11 and its author/reviewer/parent records are closed. Parent remains sole live
-production/integration/heavy executor; the same two specialists own staged test
-source and independent review. 1260-A/F/B now approve the later zero-advance
-writer/resource plan (two actions, nine quotes), with source release still after
-1257 closure. 1263-A is only a future stock-null route proposal from existing
-generated Save31 evidence; no prefix replay or fixture minting. Continue the
-authorized program, retaining prior failures/timing limits. Unity/native and
-Owner campaign access remain deferred.
+Parent has released staged1260-C under A/F/B after author I: Q13 active-writing
+availability/credit and Q14 development congestion/own-reservation exemption.
+Shared setup, exactly two public commissions, nine pure quotes, hard0 advances.
+Independent D precedes parent application/publication, then1261 root types and
+1262 isolated Q13/Q14, both cap0. Preserve every existing test and input.
+Parent is sole live production/integration/heavy owner; the same two specialists
+retain test/review ownership. 1263-A/F remain a future stock-null plan requiring
+review: five public actions including release commitment64, hard13 advances52→65.
+No new fixture or prefix replay. Continue the authorized program; full1226/P14
+still needs remaining retirement/grouped/rival controls. Unity/native and Owner
+campaign access remain deferred. Prior failures and timing limits stay recorded.
 
 ## CURRENT — Q11 passed: real status clocks and isolated fact-only refusal
 
