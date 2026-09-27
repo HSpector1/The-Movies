@@ -173,7 +173,8 @@ function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],
   return next
 }
 
-function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],week:number) {
+function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],week:number,
+  greenlights:{studioId:string;production:Production}[]) {
   if(week<b.nextDecisionWeek)return
   b.nextDecisionWeek=week+TUNING.HOLLYWOOD_DECISION_WEEKS
   const busy=busyTalentIds({...state,hollywood:h,talent})
@@ -189,7 +190,9 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
     // P14B.4 seating preference (plan :215-236): eligible PROMISED people enter the triple first, in employment
     // order; the writer of this screenplay and the chosen director/craft cannot double as cast; with no member
     // the expression below is the historical first-three rule unchanged.
-    const masks=promisedCastMasks(state,b.studioId,week+WEEKS_TO_FIRST_TAKE)
+    const projectConcept=h.concepts[b.projects[Number(ready.id.slice(7))]!.conceptOrdinal]!
+    const masks=promisedCastMasks(state,b.studioId,week+WEEKS_TO_FIRST_TAKE,
+      {genre:projectConcept.genre,scriptProjectId:ready.id})
     const taken=new Set([ready.writerId,director?.id,craft?.id])
     const promised=employees.filter(t=>masks.has(t.id)&&seatable(t)&&!taken.has(t.id)&&t.skills.acting!==undefined)
     const actors=[...promised,...employees.filter(t=>t.role==='actor'&&seatable(t)&&!promised.includes(t))].slice(0,3)
@@ -213,6 +216,7 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
         const operations=addManagedProductionWorkflow(b.operations,production,scriptOccupiedFacilitySlots(hotDevelopment(b)))
         const development=linkScriptProjectToProduction(hotDevelopment(b),ready.id,id)
         b.operations=operations;b.productions=[...b.productions,production];storeHotDevelopment(b,development)
+        greenlights.push({studioId:b.studioId,production})
         // A newly seated person cannot also start writing in this decision.
         // Permanent screenplay credit alone does not occupy a production seat.
         for(const personId of productionCompanyTalentIds([production]))busy.add(personId)
@@ -264,12 +268,13 @@ export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|
   /** P14B.1 (1): this week's rival first takes (the 5 -> 4 advance), handed to
    * the outer tick so the ONE first-take root is appended in one place. */
   firstTakes:{studioId:string;production:Production}[];
+  greenlights:{studioId:string;production:Production}[];
   /** P14C.1: the people `staff()` actually APPENDED this week (a mint the rival could
    * not afford is discarded and is not here), each carrying its EXACT entry age, handed
    * to the outer tick so provenance is written with the same commit that carries them. */
   suppliedTalent:{id:string;age:number}[]} {
   const source=state.hollywood
-  if(!source)return {hollywood:null,talent:state.talent,growth:[],technology:state.technology,physicalPlans:state.physicalPlans,firstTakes:[],suppliedTalent:[]}
+  if(!source)return {hollywood:null,talent:state.talent,growth:[],technology:state.technology,physicalPlans:state.physicalPlans,firstTakes:[],greenlights:[],suppliedTalent:[]}
   const week=state.market.tick
   const h:HollywoodState={...source,businesses:source.businesses.map(b=>({...b,account:{...b.account,
     periods:b.account.periods.map((p,i)=>i===b.account.periods.length-1?{...p,movements:{...p.movements}}:p)}}))}
@@ -278,6 +283,7 @@ export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|
   let physicalPlans=state.physicalPlans
   const growth:ReleaseGrowthRecord[]=[]
   const firstTakes:{studioId:string;production:Production}[]=[]
+  const greenlights:{studioId:string;production:Production}[]=[]
   const suppliedTalent:{id:string;age:number}[]=[]
   for(const b of h.businesses) {
     technology=considerRivalSoundPurchase({...state,technology,hollywood:h},h,b)
@@ -288,7 +294,7 @@ export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|
     // its research bill are spent from the same account the film draws on.
     physicalPlans=admitRivalPlansInWeek({...state,technology,physicalPlans,hollywood:h,talent},h,b,physicalPlans,week)
     technology=advanceRivalResearch({...state,technology,physicalPlans,hollywood:h,talent},h,b,talent,week)
-    decide(state,h,b,talent,week)
+    decide(state,h,b,talent,week,greenlights)
     operateStage(b)
     for(const p of b.productions) if(releaseCommitmentRefusal({productions:b.productions,operations:b.operations,releaseAuthority:b.releaseAuthority,concepts:[]},p.id)===null) {
       b.releaseAuthority=withReleaseCommitment(b.releaseAuthority,p.id,week)
@@ -358,7 +364,7 @@ export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|
     for(const project of complete.projects)if(project.status==='review')complete=acceptScriptProject(complete,project.id)
     storeHotDevelopment(b,complete)
   }
-  return {hollywood:h,talent,growth,technology,physicalPlans,firstTakes,suppliedTalent}
+  return {hollywood:h,talent,growth,technology,physicalPlans,firstTakes,greenlights,suppliedTalent}
 }
 
 /** End-of-week expiry follows payroll; future entrants are attached by the outer tick. */

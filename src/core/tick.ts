@@ -2,7 +2,7 @@ import { prepareLiveWritingContext } from './liveRetirementWriting.js'
 import { advanceHollywoodWeek, finishHollywoodWeek } from './hollywoodTick.js'
 import { birthdaysDueAt, materializeAges, withTalentProvenance } from './aging.js'
 import { advanceLifecycleIntent, advanceLifecycleSettlement } from './careerLifecycle.js'
-import { advancePromisesWeek, appendFirstTakes } from './promises.js'
+import { advancePromisesWeek, appendFirstTakes, breakPromisesOnGreenlight } from './promises.js'
 import { advanceRelationshipsWeek } from './relationships.js'
 import { advanceTalentMarketWeek } from './talentMarket.js'
 import { advanceResearchWeek, finishTechnologyWeek, weeklyResearchPayroll } from './technology.js'
@@ -1136,7 +1136,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     ...industry.firstTakes,
   ]
   const withTakes = appendFirstTakes(
-    finishHollywoodWeek(finishTechnologyWeek(finalized)),
+    finishHollywoodWeek(finishTechnologyWeek(industry.greenlights.reduce((committed, entry) =>
+      breakPromisesOnGreenlight(committed, entry.studioId, entry.production, currentTick), finalized))),
     takeEntries,
     finalized.market.tick,
   )

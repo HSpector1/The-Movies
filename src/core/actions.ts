@@ -61,7 +61,7 @@ import {
 import { computeForecast, type ForecastContext } from './forecast.js'
 import { forecastHistoryForOwner } from './industryCareer.js'
 import { recordPlayerEmployment } from './industryEmployment.js'
-import { breakPromisesOnCancel, breakPromisesOnTermination, waivePromise } from './promises.js'
+import { breakPromisesOnCancel, breakPromisesOnGreenlight, breakPromisesOnTermination, waivePromise } from './promises.js'
 import { recordCancelledAfterFirstTake } from './relationships.js'
 import { caseOpenForTalent, playerOffer } from './talentMarket.js'
 import { cancelAdoption, cancelInstallation, cancellationQuote } from './installationCancellation.js'
@@ -569,7 +569,7 @@ function applyGreenlight(
               : state.studioEvents,
         }
       : next
-  return scriptProject === undefined
+  const linked = scriptProject === undefined
     ? withOperations
     : {
         ...withOperations,
@@ -579,6 +579,7 @@ function applyGreenlight(
           production.id,
         ),
       }
+  return breakPromisesOnGreenlight(linked, linked.hollywood?.playerStudioId ?? '', production)
 }
 
 // ── cancel (M15) ─────────────────────────────────────────────────────────────

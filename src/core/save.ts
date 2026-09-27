@@ -53,7 +53,7 @@ import { assertReleaseAuthorityInvariants } from './releaseAuthority.js'
 import { assertStudioHistoryInvariants, migratedStudioHistory } from './studioHistory.js'
 import { initialPhysicalPlans, validatePhysicalPlans } from './physicalPlans.js'
 import { projectLegacyTerminations, projectTalentMarketPreV28, talentMarketTerminationLaw, validateTalentMarketRoot } from './talentMarket.js'
-import { projectPromisesPreV29, projectPromisesPreV32, validatePromiseRoots, validatePromiseRootsV30, validatePromiseRootsV39, validateWaivedPromiseLinks, validateDirectorWaiverLinks } from './promises.js'
+import { projectPromisesPreV29, projectPromisesPreV32, validatePromiseRoots, validatePromiseRootsV30, validatePromiseRootsV39, validatePromiseRootsV40, validateWaivedPromiseLinks, validateDirectorWaiverLinks, validateOpportunityWaiverLinks } from './promises.js'
 import { projectRelationshipsPreV31, validateRelationshipsRoot } from './relationships.js'
 import { ageAt, anchorOf, buildTalentProvenance, recomputeDue } from './aging.js'
 import { COHORT_PROFESSIONS, deriveCohortRequest, isCohortWeek, retirementWindow, initialCareerLifecycle } from './careerLifecycle.js'
@@ -101,6 +101,7 @@ import type {
   GameStateV37,
   GameStateV38,
   GameStateV39,
+  GameStateV40,
   CohortReceipt,
   FilmCreativeRole,
   RetirementRecord,
@@ -601,7 +602,11 @@ export type SaveFileV39 = Omit<SaveFileV38, 'saveVersion' | 'state'> & {
   saveVersion: 39;
   state: GameStateV39;
 };
-export type LiveSaveFile = SaveFileV39;
+export type SaveFileV40 = Omit<SaveFileV39, 'saveVersion' | 'state'> & {
+  saveVersion: 40;
+  state: GameStateV40;
+};
+export type LiveSaveFile = SaveFileV40;
 
 // Any envelope (the return of the version-dispatching validateSave/loadSave).
 export type SaveFile =
@@ -643,7 +648,8 @@ export type SaveFile =
   | SaveFileV36
   | SaveFileV37
   | SaveFileV38
-  | SaveFileV39;
+  | SaveFileV39
+  | SaveFileV40;
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -5405,8 +5411,9 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === 37) return validateSaveV37(save);
   if (s.saveVersion === 38) return validateSaveV38(save);
   if (s.saveVersion === 39) return validateSaveV39(save);
+  if (s.saveVersion === 40) return validateSaveV40(save);
   throw new Error(
-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 39 only)`,
+    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 40 only)`,
   );
 }
 
@@ -6143,10 +6150,13 @@ function projectTalentPreV20(person: Talent): Talent {
 }
 
 function assertFrozenBuilderRetainsHollywood(state: object, builder: string): void {
-  const raw = state as Record<string, unknown>;
+  const original = state as Record<string, unknown>;
+  const raw = Object.hasOwn(original, 'firstTakeSubjects')
+    ? convertV40ToV39({ saveVersion: 40, seed: original.seed, state, broadcastCache: original.broadcastItems } as SaveFileV40).state as unknown as Record<string, unknown>
+    : original;
   const lifecycle = raw.careerLifecycle;
   if (lifecycle !== null && typeof lifecycle === 'object' && TRANSITION_ROOT_FIELDS.some(key => Object.hasOwn(lifecycle, key))) {
-    const current = validateSaveV39({ saveVersion: 39, seed: raw.seed, state, broadcastCache: raw.broadcastItems });
+    const current = validateSaveV39({ saveVersion: 39, seed: raw.seed, state: raw, broadcastCache: raw.broadcastItems });
     assertNoDirectorPromises(current, builder);
   }
   assertProfessionHistoryDowngrade(state, builder);
@@ -6525,15 +6535,15 @@ export function makeSaveV16(state: GameStateV16): SaveFileV16 {
 // Every caller that asks "is this envelope a migration?" compares against this
 // constant rather than a literal that goes stale the next time `makeSave` moves
 // (the bridge and the ui adapter both still compared against 23 at V25).
-export const LIVE_SAVE_VERSION = 39 as const;
+export const LIVE_SAVE_VERSION = 40 as const;
 
 // makeSave — the live V39 boundary. Frozen prior values migrate explicitly.
 // The plain-JSON state is detached once; only final serialization sorts it.
-export function makeSave(state: GameState): SaveFileV39 {
-  const save = validateSaveV39({ saveVersion: 39, seed: state.seed, state, broadcastCache: state.broadcastItems });
+export function makeSave(state: GameState): SaveFileV40 {
+  const save = validateSaveV40({ saveVersion: 40, seed: state.seed, state, broadcastCache: state.broadcastItems });
   // Validation precedes detachment, so undefined/non-JSON authority cannot be
   // silently repaired by stringify before the boundary sees it.
-  return JSON.parse(JSON.stringify(save)) as SaveFileV39;
+  return JSON.parse(JSON.stringify(save)) as SaveFileV40;
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────
@@ -7379,6 +7389,7 @@ export function importLegacyV1ToV4(json: string): SaveFileV4 {
 export function migrateToV4(
   save: SaveFile,
 ): SaveFileV4 {
+  if (save.saveVersion === 40) return migrateToV4(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV4(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV4(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV4(convertV37ToV36(save as SaveFileV37));
@@ -7403,6 +7414,7 @@ export function migrateToV4(
 export function migrateToV5(
   save: SaveFile,
 ): SaveFileV5 {
+  if (save.saveVersion === 40) return migrateToV5(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV5(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV5(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV5(convertV37ToV36(save as SaveFileV37));
@@ -7422,6 +7434,7 @@ export function migrateToV5(
 export function migrateToV6(
   save: SaveFile,
 ): SaveFileV6 {
+  if (save.saveVersion === 40) return migrateToV6(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV6(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV6(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV6(convertV37ToV36(save as SaveFileV37));
@@ -7442,6 +7455,7 @@ export function migrateToV6(
 export function migrateToV7(
   save: SaveFile,
 ): SaveFileV7 {
+  if (save.saveVersion === 40) return migrateToV7(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV7(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV7(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV7(convertV37ToV36(save as SaveFileV37));
@@ -7458,6 +7472,7 @@ export function migrateToV7(
 // V1–V7 migrate deterministically. Newer files are rejected loudly: this function
 // may never silently discard authoritative screenplay or casting state.
 export function migrateToV8(save: SaveFile): SaveFileV8 {
+  if (save.saveVersion === 40) return migrateToV8(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV8(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV8(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV8(convertV37ToV36(save as SaveFileV37));
@@ -7492,6 +7507,7 @@ export function migrateToV8(save: SaveFile): SaveFileV8 {
 // identity; V1–V8 migrate forward. V10 is rejected rather than silently losing
 // authoritative casting history.
 export function migrateToV9(save: SaveFile): SaveFileV9 {
+  if (save.saveVersion === 40) return migrateToV9(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV9(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV9(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV9(convertV37ToV36(save as SaveFileV37));
@@ -7525,6 +7541,7 @@ export function migrateToV9(save: SaveFile): SaveFileV9 {
 // identity; V1–V9 cross every frozen boundary and receive exactly legacy-empty
 // casting state only at the final V9→V10 step. V11 is rejected, never downgraded.
 export function migrateToV10(save: SaveFile): SaveFileV10 {
+  if (save.saveVersion === 40) return migrateToV10(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV10(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV10(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV10(convertV37ToV36(save as SaveFileV37));
@@ -7559,6 +7576,7 @@ export function migrateToV10(save: SaveFile): SaveFileV10 {
 // mode. V12 is rejected, never downgraded: a placed facility, its land, its
 // debit, and its operating history have no V11 home.
 export function migrateToV11(save: SaveFile): SaveFileV11 {
+  if (save.saveVersion === 40) return migrateToV11(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV11(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV11(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV11(convertV37ToV36(save as SaveFileV37));
@@ -7591,6 +7609,7 @@ export function migrateToV11(save: SaveFile): SaveFileV11 {
 // their own validated construction history implies at the final V11→V12 step.
 // V13 is rejected, never downgraded: a property that has grown has no V12 home.
 export function migrateToV12(save: SaveFile): SaveFileV12 {
+  if (save.saveVersion === 40) return migrateToV12(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV12(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV12(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV12(convertV37ToV36(save as SaveFileV37));
@@ -7626,6 +7645,7 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
 // one widened leaf — the honest, un-guessed `subjectId: null` on any
 // pre-existing `queueIntentExpired` row — at the final V14→V15 step.
 export function migrateToV15(save: SaveFile): SaveFileV15 {
+  if (save.saveVersion === 40) return migrateToV15(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV15(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV15(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV15(convertV37ToV36(save as SaveFileV37));
@@ -7713,6 +7733,7 @@ export function convertV17ToV18(v17: SaveFileV17): SaveFileV18 {
 // identity (after validation at the call boundary); V1–V17 cross every frozen
 // boundary, then receive `endowed` at the final V17→V18 step.
 export function migrateToV18(save: SaveFile): SaveFileV18 {
+  if (save.saveVersion === 40) return migrateToV18(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV18(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV18(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV18(convertV37ToV36(save as SaveFileV37));
@@ -7741,6 +7762,7 @@ export function migrateToV18(save: SaveFile): SaveFileV18 {
 // migrateToV17 — the frozen V17-target migration (P08A). A V18 save can never
 // be downgraded: discarding the founding regime would erase exact history.
 export function migrateToV17(save: SaveFile): SaveFileV17 {
+  if (save.saveVersion === 40) return migrateToV17(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV17(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV17(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV17(convertV37ToV36(save as SaveFileV37));
@@ -7774,6 +7796,7 @@ export function migrateToV17(save: SaveFile): SaveFileV17 {
 // migrateToV16 — the frozen V16-target migration (P06A). A V17 save can never
 // be downgraded: discarding the recorded history would silently erase provenance.
 export function migrateToV16(save: SaveFile): SaveFileV16 {
+  if (save.saveVersion === 40) return migrateToV16(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV16(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV16(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV16(convertV37ToV36(save as SaveFileV37));
@@ -7810,6 +7833,7 @@ export function migrateToV16(save: SaveFile): SaveFileV16 {
 }
 
 export function migrateToV14(save: SaveFile): SaveFileV14 {
+  if (save.saveVersion === 40) return migrateToV14(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV14(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV14(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV14(convertV37ToV36(save as SaveFileV37));
@@ -7856,6 +7880,7 @@ export function migrateToV14(save: SaveFile): SaveFileV14 {
 }
 
 export function migrateToV13(save: SaveFile): SaveFileV13 {
+  if (save.saveVersion === 40) return migrateToV13(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV13(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV13(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV13(convertV37ToV36(save as SaveFileV37));
@@ -7973,6 +7998,7 @@ export function convertV18ToV19(save: SaveFileV18): SaveFileV19 {
   return validateSaveV19({ saveVersion: 19, seed: save.seed, state, broadcastCache: state.broadcastItems });
 }
 export function migrateToV19(save: SaveFile): SaveFileV19 {
+  if (save.saveVersion === 40) return migrateToV19(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV19(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV19(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV19(convertV37ToV36(save as SaveFileV37));
@@ -8063,6 +8089,7 @@ export function convertV20ToV21(save: SaveFileV20): SaveFileV21 {
 }
 
 export function migrateToV21(save: SaveFile): SaveFileV21 {
+  if (save.saveVersion === 40) return migrateToV21(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV21(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV21(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV21(convertV37ToV36(save as SaveFileV37));
@@ -8099,6 +8126,7 @@ export function convertV21ToV22(save: SaveFileV21): SaveFileV22 {
 }
 
 export function migrateToV22(save: SaveFile): SaveFileV22 {
+  if (save.saveVersion === 40) return migrateToV22(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV22(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV22(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV22(convertV37ToV36(save as SaveFileV37));
@@ -8160,6 +8188,7 @@ export function convertV22ToV23(save: SaveFileV22): SaveFileV23 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV23(save: SaveFile | { saveVersion: number }): SaveFileV23 {
+  if (save.saveVersion === 40) return migrateToV23(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV23(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV23(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV23(convertV37ToV36(save as SaveFileV37));
@@ -8231,6 +8260,7 @@ export function convertV23ToV24(save: SaveFileV23): SaveFileV24 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV24(save: SaveFile | { saveVersion: number }): SaveFileV24 {
+  if (save.saveVersion === 40) return migrateToV24(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV24(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV24(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV24(convertV37ToV36(save as SaveFileV37));
@@ -8463,6 +8493,7 @@ export function convertV24ToV25(save: SaveFileV24): SaveFileV25 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV25(save: SaveFile | { saveVersion: number }): SaveFileV25 {
+  if (save.saveVersion === 40) return migrateToV25(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV25(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV25(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV25(convertV37ToV36(save as SaveFileV37));
@@ -8636,6 +8667,7 @@ export function convertV25ToV26(save: SaveFileV25): SaveFileV26 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV26(save: SaveFile | { saveVersion: number }): SaveFileV26 {
+  if (save.saveVersion === 40) return migrateToV26(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV26(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV26(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV26(convertV37ToV36(save as SaveFileV37));
@@ -8796,6 +8828,7 @@ export function convertV27ToV26(save: SaveFileV27): SaveFileV26 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV27(save: SaveFile | { saveVersion: number }): SaveFileV27 {
+  if (save.saveVersion === 40) return migrateToV27(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV27(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV27(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV27(convertV37ToV36(save as SaveFileV37));
@@ -8891,6 +8924,7 @@ export function convertV28ToV27(save: SaveFileV28): SaveFileV27 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV28(save: SaveFile | { saveVersion: number }): SaveFileV28 {
+  if (save.saveVersion === 40) return migrateToV28(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV28(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV28(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV28(convertV37ToV36(save as SaveFileV37));
@@ -8998,6 +9032,7 @@ export function convertV29ToV28(save: SaveFileV29): SaveFileV28 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV29(save: SaveFile | { saveVersion: number }): SaveFileV29 {
+  if (save.saveVersion === 40) return migrateToV29(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV29(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV29(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV29(convertV37ToV36(save as SaveFileV37));
@@ -9020,17 +9055,19 @@ export function validateSaveV30(save: unknown): SaveFileV30 {
   return validateSaveV30WithWriting(save);
 }
 
-function validateSaveV30WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises = false): SaveFileV30 {
+function validateSaveV30WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false): SaveFileV30 {
   if (!isRecord(save)) throw new Error('validateSaveV30: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 30) throw new Error('validateSaveV30: expected version 30');
   const raw = v14Record(checkEnvelope(save, 'validateSaveV30'), 'state');
   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSaveV30: firstTakes root missing');
   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV30: promises root missing');
-  if (directingPromises) validatePromiseRootsV39(raw);
+  if (directingPromises === 40) validatePromiseRootsV40(raw);
+  else if (directingPromises === 39) validatePromiseRootsV39(raw);
   else validatePromiseRootsV30(raw);
   try {
-    validateSaveV28WithWriting({ saveVersion: 28, seed: save.seed, state: stripV29Roots(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext);
+    validateSaveV28WithWriting({ saveVersion: 28, seed: save.seed, state: directingPromises === 40
+      ? stripFirstTakeSubjects(stripV29Roots(raw)) : stripV29Roots(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext);
   } catch (error) {
     throw new Error(`validateSaveV30: frozen V28 state is invalid — ${(error as Error).message}`);
   }
@@ -9057,6 +9094,7 @@ export function convertV30ToV29(save: SaveFileV30): SaveFileV29 {
 /** The V30 boundary (P14B.4, record 600); since P14B.5 a frozen prior shape
  * reached from the live V31 by the ONE lossless-when-empty downgrade. */
 export function migrateToV30(save: SaveFile | { saveVersion: number }): SaveFileV30 {
+  if (save.saveVersion === 40) return migrateToV30(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV30(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV30(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV30(convertV37ToV36(save as SaveFileV37));
@@ -9090,7 +9128,7 @@ export function validateSaveV31(save: unknown): SaveFileV31 {
   return validateSaveV31WithWriting(save);
 }
 
-function validateSaveV31WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises = false): SaveFileV31 {
+function validateSaveV31WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false): SaveFileV31 {
   if (!isRecord(save)) throw new Error('validateSaveV31: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 31) throw new Error('validateSaveV31: expected version 31');
@@ -9144,6 +9182,7 @@ export function convertV31ToV30(save: SaveFileV31): SaveFileV30 {
 /** The live load-to-play route (P14B.5): every prior envelope migrates to the
  * V31 boundary the live writer stamps. */
 export function migrateToV31(save: SaveFile | { saveVersion: number }): SaveFileV31 {
+  if (save.saveVersion === 40) return migrateToV31(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV31(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV31(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV31(convertV37ToV36(save as SaveFileV37));
@@ -9187,7 +9226,7 @@ export function validateSaveV32(save: unknown): SaveFileV32 {
   return validateSaveV32WithWriting(save);
 }
 
-function validateSaveV32WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises = false): SaveFileV32 {
+function validateSaveV32WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false): SaveFileV32 {
   if (!isRecord(save)) throw new Error('validateSaveV32: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 32) throw new Error('validateSaveV32: expected version 32');
@@ -9241,6 +9280,7 @@ export function convertV32ToV31(save: SaveFileV32): SaveFileV31 {
 /** The live load-to-play route (P14B.7): every prior envelope migrates to the
  * V32 boundary the live writer stamps. */
 export function migrateToV32(save: SaveFile | { saveVersion: number }): SaveFileV32 {
+  if (save.saveVersion === 40) return migrateToV32(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV32(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV32(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV32(convertV37ToV36(save as SaveFileV37));
@@ -9406,7 +9446,7 @@ export function validateSaveV33(save: unknown): SaveFileV33 {
   return validateSaveV33WithWriting(save);
 }
 
-function validateSaveV33WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises = false): SaveFileV33 {
+function validateSaveV33WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false): SaveFileV33 {
   if (!isRecord(save)) throw new Error('validateSaveV33: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 33) throw new Error('validateSaveV33: expected version 33');
@@ -9503,6 +9543,7 @@ export function convertV33ToV32(save: SaveFileV33): SaveFileV32 {
 /** The live load-to-play route (P14C.1): every prior envelope migrates to the
  * V33 boundary the live writer stamps. */
 export function migrateToV33(save: SaveFile | { saveVersion: number }): SaveFileV33 {
+  if (save.saveVersion === 40) return migrateToV33(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV33(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV33(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV33(convertV37ToV36(save as SaveFileV37));
@@ -9695,7 +9736,7 @@ export function validateSaveV34(save: unknown): SaveFileV34 {
   return validateSaveV34WithPolicy(save, frozenLifecycleWindow);
 }
 
-function validateSaveV34WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises = false): SaveFileV34 {
+function validateSaveV34WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false): SaveFileV34 {
   if (!isRecord(save)) throw new Error('validateSaveV34: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 34) throw new Error('validateSaveV34: expected version 34');
@@ -9750,6 +9791,7 @@ export function convertV34ToV33(save: SaveFileV34): SaveFileV33 {
 /** Every prior envelope migrates to the V34 boundary; a V35 one downgrades losslessly
  * only while it holds no cohort receipt. */
 export function migrateToV34(save: SaveFile | { saveVersion: number }): SaveFileV34 {
+  if (save.saveVersion === 40) return migrateToV34(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV34(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV34(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV34(convertV37ToV36(save as SaveFileV37));
@@ -9898,7 +9940,7 @@ export function validateSaveV35(save: unknown): SaveFileV35 {
   return validateSaveV35WithPolicy(save, frozenLifecycleWindow);
 }
 
-function validateSaveV35WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises = false): SaveFileV35 {
+function validateSaveV35WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false): SaveFileV35 {
   if (!isRecord(save)) throw new Error('validateSaveV35: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 35) throw new Error('validateSaveV35: expected version 35');
@@ -9950,6 +9992,7 @@ export function convertV35ToV34(save: SaveFileV35): SaveFileV34 {
 /** Every prior envelope migrates to the V35 boundary; a V36 one downgrades losslessly
  * only while it holds no retirement extension. */
 export function migrateToV35(save: SaveFile | { saveVersion: number }): SaveFileV35 {
+  if (save.saveVersion === 40) return migrateToV35(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV35(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV35(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV35(convertV37ToV36(save as SaveFileV37));
@@ -9962,7 +10005,7 @@ export function migrateToV35(save: SaveFile | { saveVersion: number }): SaveFile
  * stamps. Callers whose meaning is "the live state" call this, never a numbered
  * step, so the next save bump moves this one definition. */
 export function migrateToLive(save: SaveFile | { saveVersion: number }): LiveSaveFile {
-  return migrateToV39(save);
+  return migrateToV40(save);
 }
 
 export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
@@ -9983,6 +10026,7 @@ export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
 }
 
 export function migrateToV20(save: SaveFile): SaveFileV20 {
+  if (save.saveVersion === 40) return migrateToV20(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV20(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV20(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return migrateToV20(convertV37ToV36(save as SaveFileV37));
@@ -10111,7 +10155,7 @@ export function validateSaveV36(save: unknown): SaveFileV36 {
   return validateSaveV36WithPolicy(save, frozenLifecycleWindow);
 }
 
-function validateSaveV36WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises = false): SaveFileV36 {
+function validateSaveV36WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false): SaveFileV36 {
   if (!isRecord(save)) throw new Error('validateSaveV36: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 36) throw new Error('validateSaveV36: expected version 36');
@@ -10176,6 +10220,7 @@ export function convertV36ToV35(save: SaveFileV36): SaveFileV35 {
 
 /** Every prior envelope migrates to the V36 boundary. */
 export function migrateToV36(save: SaveFile | { saveVersion: number }): SaveFileV36 {
+  if (save.saveVersion === 40) return migrateToV36(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV36(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return migrateToV36(convertV38ToV37(save as SaveFileV38));
   if (save.saveVersion === 37) return convertV37ToV36(save as SaveFileV37);
@@ -10192,7 +10237,7 @@ export function validateSaveV37(save: unknown): SaveFileV37 {
 }
 
 function validateSaveV37WithProfession(save: unknown, professionContext?: ProfessionValidationContext,
-  writing?: RetirementWritingAuthority, directingPromises = false): SaveFileV37 {
+  writing?: RetirementWritingAuthority, directingPromises: false | 39 | 40 = false): SaveFileV37 {
   if (!isRecord(save)) throw new Error('validateSaveV37: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 37) throw new Error('validateSaveV37: expected version 37');
@@ -10237,6 +10282,7 @@ export function convertV37ToV36(save: SaveFileV37): SaveFileV36 {
 
 /** Every prior envelope migrates to the explicit amended-law boundary. */
 export function migrateToV37(save: SaveFile | { saveVersion: number }): SaveFileV37 {
+  if (save.saveVersion === 40) return migrateToV37(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV37(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return convertV38ToV37(save as SaveFileV38);
   if (save.saveVersion === 37) return validateSaveV37(save);
@@ -10245,7 +10291,7 @@ export function migrateToV37(save: SaveFile | { saveVersion: number }): SaveFile
 
 
 // ── P14C.3 — prospective profession history, Save38 ────────────────────────
-function proveProfessionSave(save: unknown, version: 38 | 39): { save: SaveFileV38 | SaveFileV39; professionContext: ProfessionValidationContext } {
+function proveProfessionSave(save: unknown, version: 38 | 39 | 40): { save: SaveFileV38 | SaveFileV39 | SaveFileV40; professionContext: ProfessionValidationContext } {
   if (!isRecord(save)) throw new Error(`validateSaveV${version}: object required`);
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== version) throw new Error(`validateSaveV${version}: expected version ${version}`);
@@ -10253,9 +10299,10 @@ function proveProfessionSave(save: unknown, version: 38 | 39): { save: SaveFileV
   validateTalentProvenanceRoot(raw);
   const professionContext = validateProfessionHistory(raw);
   const writing = retirementWritingAuthority(raw, professionContext);
-  validateSaveV37WithProfession({ ...save, saveVersion: 37, state: stripProfessionHistory(raw) }, professionContext, writing, version === 39);
-  if (version === 39) validateDirectorWaiverLinks((save as SaveFileV39).state.promises);
-  return { save: save as SaveFileV38 | SaveFileV39, professionContext };
+  validateSaveV37WithProfession({ ...save, saveVersion: 37, state: stripProfessionHistory(raw) }, professionContext, writing, version === 38 ? false : version);
+  if (version >= 39) validateDirectorWaiverLinks((save as SaveFileV39 | SaveFileV40).state.promises);
+  if (version === 40) validateOpportunityWaiverLinks((save as SaveFileV40).state);
+  return { save: save as SaveFileV38 | SaveFileV39 | SaveFileV40, professionContext };
 }
 
 export function validateSaveV38(save: unknown): SaveFileV38 {
@@ -10265,7 +10312,7 @@ export function validateSaveV38(save: unknown): SaveFileV38 {
 /** Internal live-entry proof. Context escapes only after the complete current
  * save chain succeeds; no serialization or historical projection repairs input. */
 export function validatedLiveProfessionContext(state: GameState): ProfessionValidationContext {
-  return proveProfessionSave({ saveVersion: 39, seed: state.seed, state, broadcastCache: state.broadcastItems }, 39).professionContext;
+  return proveProfessionSave({ saveVersion: 40, seed: state.seed, state, broadcastCache: state.broadcastItems }, 40).professionContext;
 }
 
 export function convertV37ToV38(save: SaveFileV37): SaveFileV38 {
@@ -10298,6 +10345,7 @@ export function convertV38ToV37(save: SaveFileV38): SaveFileV37 {
 }
 
 export function migrateToV38(save: SaveFile | { saveVersion: number }): SaveFileV38 {
+  if (save.saveVersion === 40) return migrateToV38(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return migrateToV38(convertV39ToV38(save as SaveFileV39));
   if (save.saveVersion === 38) return validateSaveV38(save);
   return convertV37ToV38(migrateToV37(save));
@@ -10329,6 +10377,41 @@ export function convertV39ToV38(save: SaveFileV39): SaveFileV38 {
 }
 
 export function migrateToV39(save: SaveFile | { saveVersion: number }): SaveFileV39 {
+  if (save.saveVersion === 40) return migrateToV39(convertV40ToV39(save as SaveFileV40));
   if (save.saveVersion === 39) return validateSaveV39(save);
   return convertV38ToV39(migrateToV38(save));
+}
+
+
+// P14 P4/P5: explicit opportunity terms and prospective immutable take subjects.
+function stripFirstTakeSubjects(raw: Record<string, unknown>): Record<string, unknown> {
+  const { firstTakeSubjects: _subjects, ...legacy } = raw;
+  return legacy;
+}
+
+export function validateSaveV40(save: unknown): SaveFileV40 {
+  return proveProfessionSave(save, 40).save as SaveFileV40;
+}
+
+export function convertV39ToV40(save: SaveFileV39): SaveFileV40 {
+  const validated = validateSaveV39(save);
+  const old = JSON.parse(JSON.stringify(validated)) as SaveFileV39;
+  return validateSaveV40({ ...old, saveVersion: 40, state: { ...old.state,
+    firstTakeSubjects: { version: 1, cutoverOrdinal: old.state.firstTakes.length, facts: [] } } });
+}
+
+export function convertV40ToV39(save: SaveFileV40): SaveFileV39 {
+  const validated = validateSaveV40(save);
+  if (validated.state.firstTakeSubjects.facts.length > 0 || validated.state.promises.some(promise =>
+    'kind' in promise.predicate && (promise.predicate.kind === 'genreOpportunity' || promise.predicate.kind === 'projectOpportunity'))) {
+    throw new Error('migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject');
+  }
+  const detached = JSON.parse(JSON.stringify(validated)) as SaveFileV40;
+  return validateSaveV39({ ...detached, saveVersion: 39,
+    state: stripFirstTakeSubjects(detached.state as unknown as Record<string, unknown>) });
+}
+
+export function migrateToV40(save: SaveFile | { saveVersion: number }): SaveFileV40 {
+  if (save.saveVersion === 40) return validateSaveV40(save);
+  return convertV39ToV40(migrateToV39(save));
 }

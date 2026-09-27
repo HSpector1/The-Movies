@@ -1,0 +1,71 @@
+{
+  "time": "2026-09-27T19:07:22.390990+00:00",
+  "base": "46122f5d53d977ad249d17ead1f4d881779f91b0",
+  "status": "Uncompiled core implementation draft; not a qualified feature or coordinated consumer boundary.",
+  "pins": [
+    {
+      "path": "src/core/actions.ts",
+      "bytes": 129205,
+      "sha256": "287e52ae7f3763a869c6ae75e49717a02ab20029b9a715aa85ae45bd7cd1e4c4"
+    },
+    {
+      "path": "src/core/hollywoodTick.ts",
+      "bytes": 30644,
+      "sha256": "4f5156c4cf47991936f2dd5b4a6ade9bf81609e27161fe40eb3d07d968614436"
+    },
+    {
+      "path": "src/core/index.ts",
+      "bytes": 48927,
+      "sha256": "211f99177eed29ba9a79ba7fc3f771c489f2e359d0e4115d3e61b99a2655ef3f"
+    },
+    {
+      "path": "src/core/promises.ts",
+      "bytes": 109377,
+      "sha256": "5dd220a2daf6b28d9de2dd0d982e81beb73c91461583b13a55473162438f4516"
+    },
+    {
+      "path": "src/core/save.ts",
+      "bytes": 474474,
+      "sha256": "88d1bab0db6c1b96c0895af9cdf09a353d8c16993791024bedbebd97cf3d0984"
+    },
+    {
+      "path": "src/core/talentMarket.ts",
+      "bytes": 89851,
+      "sha256": "53f328e0a4a27dab5e4d70b694e2c2a8bef1d66f9486025c0b7bb2ee3d3f52da"
+    },
+    {
+      "path": "src/core/tick.ts",
+      "bytes": 62182,
+      "sha256": "cd487a1b68f1b95582895ae73a9d9fb0c1d0300a2e1a212b0d83ae6bce30dcb9"
+    },
+    {
+      "path": "src/core/types.ts",
+      "bytes": 121905,
+      "sha256": "ef3251ab81c56193bacc5ed9a52e6fd55e50f9d3800b76b7c1e39df1eefc2f9b"
+    },
+    {
+      "path": "src/core/worldgen.ts",
+      "bytes": 35851,
+      "sha256": "fb84c9a4bc97963a655e88d6395abaad6d2e167c68fe59af1f06cbf0614ffabf"
+    },
+    {
+      "path": "src/core/firstTakeSubjects.ts",
+      "bytes": 6350,
+      "sha256": "2525b7e04a2449fbb91f8fb73765448eacf791f1854f5c054c093641f388993a"
+    },
+    {
+      "path": "src/core/opportunityPromises.ts",
+      "bytes": 20879,
+      "sha256": "fa7288d80c03a10d6a507e61f265a8a8a5e322ad7a8d0761f5dcfe286ceec26b"
+    }
+  ],
+  "scope": "Save40 types, prospective first-take subjects, singular opportunity policy and reservation witnesses, material attachment, subject outcomes, target-aware physical dispositions, waiver restrictions, successful player/rival greenlight callbacks, bounded rival fallback.",
+  "remaining": "Compiler integration, independent final source review, matched initial GREEN, later1232 and full1226 controls, Bridge55/generated contracts/runtime54 migration and standalone UI. No current40/54 interoperability claim.",
+  "originalTestsUnchanged": true,
+  "execution": "Parent alone next1233 root compiler. No simulation or producer repeat.",
+  "notes": [
+    "Initial save patch script stopped on an incorrect expected regex count before writing; corrected matching covers all36 migrateToV4..V39 entry points.",
+    "Director root and receipt revisions independently admitted under40, preserving existing freeze stamps and strict39.",
+    "Other reservation witnesses exclude persisted blocked workflows; absence stays FRAGILE, never terminal proof."
+  ]
+}

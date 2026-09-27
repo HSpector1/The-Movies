@@ -2232,7 +2232,7 @@ export type GameStateV30 = Omit<GameStateV29, 'promises'> & {
 // prior save shape; a tagged predicate exists only on the V30 union. Since P14B.7
 // the LIVE promise row is `ProfessionalPromiseV32` (the waived-promise link);
 // V30 remains the frozen shape both later versions are built on.
-export type ProfessionalPromise = ProfessionalPromiseV39
+export type ProfessionalPromise = ProfessionalPromiseV40
 
 // ── P14B.5 — the first shared-work bond (Save V31) ──────────────────────────
 
@@ -2287,7 +2287,7 @@ export type GameStateV31 = GameStateV30 & {
 // gameplay shape includes V36's single final extension. V37 configures Scientist
 // retirement without adding fields; the save version distinguishes its semantic law.
 // V38 adds prospective profession history and its one actor transition catalogue.
-export type GameState = GameStateV39
+export type GameState = GameStateV40
 
 // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
 
@@ -2479,6 +2479,33 @@ export type ProfessionalPromiseV39 = ProfessionalPromiseV32 | (
 )
 export type GameStateV39 = Omit<GameStateV38, 'promises'> & {
   promises: readonly ProfessionalPromiseV39[]
+}
+
+/** Save40 records the subject of new takes without rewriting older receipts. */
+export type OpportunitySeatClass = 'allCast' | 'lead' | 'leadOrAntagonist'
+export type GenreOpportunityPredicate = {
+  kind: 'genreOpportunity'; count: 1; seatClass: OpportunitySeatClass; genre: Genre
+}
+export type ProjectOpportunityPredicate = {
+  kind: 'projectOpportunity'; count: 1; seatClass: OpportunitySeatClass; scriptProjectId: string
+}
+export type OpportunityPredicate = GenreOpportunityPredicate | ProjectOpportunityPredicate
+export type FirstTakeSubject = {
+  eventId: string; conceptId: string; genre: Genre; scriptProjectId: string | null
+}
+export type FirstTakeSubjects = {
+  version: 1; cutoverOrdinal: number; facts: readonly FirstTakeSubject[]
+}
+export type ProfessionalPromiseV40 = ProfessionalPromiseV39
+  | (Omit<ProfessionalPromiseV32, 'family' | 'predicate'> & {
+      family: 'PREFERRED_GENRE_OPPORTUNITY'; predicate: GenreOpportunityPredicate
+    })
+  | (Omit<ProfessionalPromiseV32, 'family' | 'predicate'> & {
+      family: 'SPECIFIC_PROJECT'; predicate: ProjectOpportunityPredicate
+    })
+export type GameStateV40 = Omit<GameStateV39, 'promises'> & {
+  promises: readonly ProfessionalPromiseV40[]
+  firstTakeSubjects: FirstTakeSubjects
 }
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────

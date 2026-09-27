@@ -37,6 +37,7 @@ import {
 import { activeContract, canAfford, contractOffer, guaranteedComp, renewalWindowOpen, terminationCost } from './employment.js'
 import type { ContractOffer, TerminationLaw } from './employment.js'
 import { attachPromise, attachedPromiseDigest, promiseFeasibility, proposalDigest, trustDescriptor } from './promises.js'
+import { isOpportunityPredicate } from './opportunityPromises.js'
 import { tiersOnRoster } from './relationships.js'
 import type { PromiseAttachment } from './promises.js'
 import { careerIdentity } from './talentSummary.js'
@@ -777,6 +778,8 @@ export function promiseMatchesPreferredOpportunity(
     return promise.family === 'DIRECTING_COUNT'
       && 'kind' in promise.predicate && promise.predicate.kind === 'directorCount'
   }
+  if (isOpportunityPredicate(promise.predicate)) return publicPreferredOpportunity(state, talentId) === 'anyCastAppearance'
+    || promise.predicate.seatClass === 'lead' || promise.predicate.seatClass === 'leadOrAntagonist'
   if (promise.family === 'APPEARANCE_COUNT') {
     return publicPreferredOpportunity(state, talentId) === 'anyCastAppearance'
   }
@@ -1424,6 +1427,21 @@ function authorRivalPromise(state: GameState, talentId: string, issuerStudioId: 
       || state.hollywood?.films.some(film => film.credits.some(credit => credit.talentId === talentId && credit.role === 'director')) === true))
   const cast = isProven(state, talentId) ? [p1] : [flexible, p1]
   const candidates = directingFirst ? [directing, ...cast] : [...cast, directing]
+  // Existing count candidates keep their exact priority. Only their failure
+  // reaches the bounded, unchanged-state opportunity fallback below.
+  const business = state.hollywood?.businesses.find(row => row.studioId === issuerStudioId)
+  const projects = [...(business?.development.projects ?? [])].filter(row => row.status !== 'produced')
+    .sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0).slice(0, 2)
+  const seatClass = isProven(state, talentId) ? 'allCast' as const : 'leadOrAntagonist' as const
+  const projectCandidates: PromiseAttachment[] = projects.map(project => ({ family: 'SPECIFIC_PROJECT',
+    predicate: { kind: 'projectOpportunity', count: 1, seatClass, scriptProjectId: project.id }, ...window }))
+  const genres = [...new Set(projects.flatMap(project => {
+    const genre = state.hollywood?.concepts.find(row => row.id === project.conceptId)?.genre
+    return genre === undefined ? [] : [genre]
+  }))]
+  const genreCandidates: PromiseAttachment[] = genres.map(genre => ({ family: 'PREFERRED_GENRE_OPPORTUNITY',
+    predicate: { kind: 'genreOpportunity', count: 1, seatClass, genre }, ...window }))
+  candidates.push(...(isProven(state, talentId) ? [...genreCandidates, ...projectCandidates] : [...projectCandidates, ...genreCandidates]))
   for (const attachment of candidates) {
     const classification = promiseFeasibility(state, {
       ...attachment,

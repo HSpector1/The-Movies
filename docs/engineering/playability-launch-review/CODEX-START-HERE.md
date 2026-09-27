@@ -1,5 +1,22 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — Core P4/P5 draft checkpoint; compiler integration next
+
+1230 initial RED and baseline are published46122f5d53d977ad249d17ead1f4d881779f91b0,
+exact GitHub. Parent1231 now contains an uncompiled core draft: Save40 subjects,
+new material predicates/evaluator7, assignment/resource/committed-witness reads,
+subject-qualified outcomes and waiver restrictions, player/rival successful
+assignment callbacks and bounded rival fallback.1231-A pins the actual draft.
+
+This is recoverable WIP, not a qualified feature or coordinated consumer release.
+Bridge remains54; its55 contract/generation/runtime migration/UI work is pending.
+Parent next runs1233 root compiler and fixes actual integration diagnostics before
+matched initial GREEN. Current four tests and1,226-byte baseline stay unchanged.
+The separately staged1232 later routes are not installed or executed. No heavy
+is active at checkpoint creation; parent alone owns production/heavy execution,
+existing specialists separately own tests/review. Full1226 qualification and all
+inherited P3/program limits remain. Continue the authorized program.
+
 ## CURRENT — Initial P4/P5 RED verified; parent implementation begins
 
 Published correctionfd641e8be6aabc308902bbf80d8e95e13b20e1b6 matched GitHub.
