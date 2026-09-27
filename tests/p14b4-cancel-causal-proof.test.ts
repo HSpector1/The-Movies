@@ -268,7 +268,7 @@ function bind(state: GameState, spec: BindSpec): GameState {
 }
 /** The live writer validates the whole state (P14C.2a: validateSaveV37, was validateSaveV35, was validateSaveV34); a refusal fails the case with its text. */
 function lawful(state: GameState): void {
-  expect(makeSave(state).saveVersion).toBe(37)
+  expect(makeSave(state).saveVersion).toBe(38)
 }
 function root(state: GameState, promiseId: string): ProfessionalPromise {
   const rows = state.promises.filter((p) => p.promiseId === promiseId)

@@ -1,0 +1,23 @@
+{
+  "sourceSha": "4def0f4f8234aa48eaae86c682aaf4bfab58188b",
+  "testedDiffSha256": "92f3a9d795aea5cd286023bed53a165b6e830b3f681ff7b62c37fcbc6244a987",
+  "untrackedSource": [],
+  "command": [
+    "node",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1115-c3-guarded-maintenance.mjs",
+    "--mode",
+    "argv",
+    "--output-prefix",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1115-application-01"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T08:04:20.697Z",
+  "end": "2026-09-27T08:04:23.619Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "4def0f4f8234aa48eaae86c682aaf4bfab58188b",
+  "testedDiffSha256AtEnd": "92f3a9d795aea5cd286023bed53a165b6e830b3f681ff7b62c37fcbc6244a987",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

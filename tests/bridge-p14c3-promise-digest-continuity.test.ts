@@ -6,13 +6,13 @@ import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
-import { describe, expect, it } from 'vitest'
-import { exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
+import { describe, expect, it, vi } from 'vitest'
+import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV37 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import type { GameState } from '../src/core/types.js'
 import { PROJECTION_VERSION, PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
 import { canonicalJson } from '../bridge/schema/canonical.ts'
-import { decodeBridgeRuntimeCheckpoint, encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint } from '../bridge/runtime-checkpoint.ts'
+import { decodeBridgeRuntimeCheckpoint, encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint, SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS } from '../bridge/runtime-checkpoint.ts'
 import { BridgeSession } from '../bridge/session.ts'
 
 const CORPUS = 'tests/fixtures/p14/genuine-v37-c3-corpus'
@@ -85,25 +85,72 @@ describe('955 genuine207 normal-development continuation', () => {
 
 describe('955 historical preservation and interim projection52 journal authority', () => {
   it('preserves the current52 historical command journal and exact duplicate response without replaying gameplay', () => {
-    // Interim-only identity: C.3 projection53 must instead register52 as prior
-    // and reset incompatible journal authority. That separate requirement must
-    // replace this current-identity control at the explicit53 cutover.
-    expect(PROJECTION_VERSION).toBe(52)
-    const raw = artifact(RUNTIME52), original = decodeBridgeRuntimeCheckpoint(raw).checkpoint
+    // Stable historical leaf title is retained for the paired selector. Under
+    // the explicit53 cutover this actual52 journal is preserved as old evidence;
+    // it must lose replay authority when both genuine37 slots migrate to38.
+    expect(PROJECTION_VERSION).toBe(53)
+    const outgoing52 = 'sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2'
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(outgoing52)).toBe('projection-v52')
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+    const raw = artifact(RUNTIME52), original = JSON.parse(raw) as {
+      protocolVersion: number; schemaId: string; sessionId: string; stateRevision: number;
+      currentSaveJson: string; savedSaveJson: string; currentStateDigest: string; savedStateDigest: string;
+      journalDigest: string; journal: { commandId: string; requestJson: string; responseJson: string }[];
+    }
+    expect(canonicalJson(original) + '\n').toBe(raw)
+    expect(original).toMatchObject({ protocolVersion: 4, schemaId: outgoing52 })
     expect(original.journal).toHaveLength(1)
     expect(original.stateRevision).toBe(1)
+    expect(sha(canonicalJson(original.journal))).toBe(original.journalDigest)
+    expect(JSON.parse(original.journal[0]!.responseJson)).toMatchObject({ accepted: true })
     expect(original.currentSaveJson).toBe(artifact(RUNTIME208))
     expect(original.savedSaveJson).toBe(artifact(PRE207))
     expect(original.currentSaveJson).not.toBe(artifact(CONTINUOUS208))
-    const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, () => { throw new Error('current52 must not migrate') })
-    expect(loaded.migratedFromProtocolVersion).toBeNull()
+    expect(() => decodeBridgeRuntimeCheckpoint(raw)).toThrow(/schemaId/)
+    const factory = vi.fn(() => '955-governed-current53')
+    const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, factory)
+    expect(loaded.migratedFromProtocolVersion).toBe(4)
+    expect(factory).toHaveBeenCalledTimes(1)
+    const next = loaded.hydrated.checkpoint
+    expect(next.sessionId).toBe('955-governed-current53')
+    expect(next.sessionId).not.toBe(original.sessionId)
+    expect(next.schemaId).toBe(SCHEMA_ID)
+    expect(next.stateRevision).toBe(0)
+    expect(next.journal).toEqual([])
+    expect(next.journalDigest).toBe(sha('[]'))
+    for (const [slot, week, digest] of [['currentSaveJson', 208, 'currentStateDigest'],
+      ['savedSaveJson', 207, 'savedStateDigest']] as const) {
+      const old = validateSaveV37(JSON.parse(original[slot]))
+      expect(old.state.market.tick).toBe(week)
+      expect(exportSave(old)).toBe(original[slot])
+      expect(sha(original[slot])).toBe(original[digest])
+      const current = migrateToLive(old)
+      const { transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
+        industryRetirements, transitionDue, ...oldLifecycle } = current.state.careerLifecycle
+      expect(canonicalJson({ ...current.state, careerLifecycle: oldLifecycle })).toBe(canonicalJson(old.state))
+      expect({ transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
+        industryRetirements, transitionDue }).toEqual({ transitionBoundaryWeek: week,
+        professionAnchors: old.state.talent.map(person => ({ personId: person.id, profession: person.role,
+          kind: 'existing', recordedWeek: week })),
+        transitionEvaluations: [], professionChanges: [], industryRetirements: [],
+        transitionDue: old.state.hollywood === null ? [] : old.state.careerLifecycle.records
+          .filter(row => row.status === 'retired').map(row => ({ personId: row.personId, week: week + 1 }))
+          .sort((a, b) => a.personId < b.personId ? -1 : a.personId > b.personId ? 1 : 0) })
+      expect(current.saveVersion).toBe(38)
+      expect(next[slot]).toBe(exportSave(current))
+      expect(next[digest]).toBe(sha(exportSave(current)))
+    }
     const session = BridgeSession.fromRuntimeCheckpoint(loaded.hydrated), entry = original.journal[0]!
-    expect(encodeBridgeRuntimeCheckpoint(session.exportRuntimeCheckpoint())).toBe(raw)
-    const before = bytes(session.gameState), response = session.command(JSON.parse(entry.requestJson))
-    expect(canonicalJson(response)).toBe(entry.responseJson)
+    const before = bytes(session.gameState), encoded = encodeBridgeRuntimeCheckpoint(session.exportRuntimeCheckpoint())
+    expect(session.command(JSON.parse(entry.requestJson))).toMatchObject({ accepted: false })
     expect(bytes(session.gameState)).toBe(before)
-    expect(session.stateRevision).toBe(1)
-    expect(encodeBridgeRuntimeCheckpoint(session.exportRuntimeCheckpoint())).toBe(raw)
+    expect(session.stateRevision).toBe(0)
+    expect(encodeBridgeRuntimeCheckpoint(session.exportRuntimeCheckpoint())).toBe(encoded)
+    const noRemigration = vi.fn(() => { throw new Error('current53 must not migrate again') })
+    const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, noRemigration)
+    expect(reopened.migratedFromProtocolVersion).toBeNull()
+    expect(noRemigration).not.toHaveBeenCalled()
+    expect(encodeBridgeRuntimeCheckpoint(reopened.hydrated.checkpoint)).toBe(encoded)
     expect(artifact(RUNTIME52)).toBe(raw)
   })
 })

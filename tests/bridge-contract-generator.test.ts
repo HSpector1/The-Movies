@@ -559,14 +559,14 @@ describe('CF-08 sound union-to-C# generation', () => {
       // P14B.5 (record 662, projection 48): the `priorityOrder` wire enum gains
       // `relationships` (thin), moving the whole-schema identity again. The
       // literal below is the schemaId of the checked-in
-      // generated/unity/project-studio-bridge.contract-manifest.json at 17e65c36 (875/914),
+      // generated/unity/project-studio-bridge.contract-manifest.json at e6475aca (946/1047),
       // read independently of this test (never schemaIdentity(schema) itself).
-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 52 })
+      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 53 })
       expect(generated).toContain(
-        '// Schema identity: sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2',
+        '// Schema identity: sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2',
+        'sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -706,8 +706,11 @@ describe('CF-08 sound union-to-C# generation', () => {
         // F12 at 78d68a2d… / 15018 bytes, stayed unchanged. Source: recorded producer
         // output 930-c2rm-declaration-measurement.txt, exit 0, fixedSource true;
         // never a failure message or an expected value computed by this test itself.
-        F10_CURRENT_QUOTE_UNIONS: '90a51d9518fb9e8a2d09cb096204a0f98b35ec481c638a8e4ff033c8ea56ad52',
-        F11_CURRENT_COMMAND_UNION: '90a51d9518fb9e8a2d09cb096204a0f98b35ec481c638a8e4ff033c8ea56ad52',
+        // C.3 projection53: independent1075 double renders, recorded1047 on
+        // e6475aca, measure401842 bytes and4ab41413… for both whole-current
+        // fixtures. All six fixed bodies, including F12, remain unchanged.
+        F10_CURRENT_QUOTE_UNIONS: '4ab4141390d2d17c35da0d1bf64cce841f1608103146b2cbca6212ab114a8cec',
+        F11_CURRENT_COMMAND_UNION: '4ab4141390d2d17c35da0d1bf64cce841f1608103146b2cbca6212ab114a8cec',
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

@@ -134,15 +134,16 @@ describe('P14B.2 group1 — projection46, unchanged Save29/intents, closed wire 
   it('pins the exact version, old-five-plus-two attention enum and unchanged intent vocabulary', () => {
     const state = p13aGeneratedStudio()
     readModels(state, state.talent[0]!.id)
-    expect(PROJECTION_VERSION).toBe(52)
+    expect(PROJECTION_VERSION).toBe(53)
     expect(LIVE_SAVE_VERSION).toBe(38)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-52`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(52)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-53`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(53)
     const attentionSchema = schemaDefinition('StudioMarketAttentionRowSnapshot') as unknown as { properties: { cause: { enum: string[] } } }
     // Schema enum order is not gameplay row order; copies retain exact membership/count without mutating the schema.
     expect([...attentionSchema.properties.cause.enum].sort()).toEqual(['decisionWeekNear', 'newCompetingProposal', 'termsRevised',
       'settlementCompleted', 'proposalWouldFail', 'promiseDue', 'promiseOutcome',
-      'retirementAnnounced', 'finishingCommitments', 'retirementExtensionOpen'].sort()) // 875 §4; attributed by917/920
+      'retirementAnnounced', 'finishingCommitments', 'retirementExtensionOpen',
+      'professionChanged', 'industryRetired'].sort()) // 946: exact current attention members; gameplay ordering tested separately
     expect(AVAILABLE_INTENT_KINDS).toEqual(['signFoundingContract', 'foundStudio', 'commissionScreenplay', 'advanceWeek',
       'acceptScreenplay', 'requestRewrite', 'startAuditions', 'acknowledgeAuditions', 'greenlightPicture', 'resolveProductionBlocker',
       'startConstruction', 'commissionOriginalScreenplay', 'signContract', 'commitPictureToRelease', 'placeFacility', 'commissionSet',

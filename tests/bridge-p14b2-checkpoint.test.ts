@@ -7,7 +7,6 @@ import { loadBridgeRuntimeCheckpoint, SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS } fr
 import { BridgeSession } from '../bridge/session.ts'
 import { exportSave, importSave, migrateToLive } from '../src/core/save.js'
 import { buildTalentProvenance } from '../src/core/aging.js'
-import { initialCareerLifecycle } from '../src/core/careerLifecycle.js'
 
 // Genuine e37cd23 projection45 export, not a current checkpoint with restamped ID.
 const OUTGOING_45 = 'sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d'
@@ -51,7 +50,7 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
     const addedFields = (promise: Record<string, unknown>) => ({ ...promise, supersededByPromiseId: null })
     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
       const governed = migrateToLive(importSave(before[slot]))
-      expect(governed.saveVersion).toBe(37)
+      expect(governed.saveVersion).toBe(38)
       const source = JSON.parse(before[slot])
       // 763-R8 (P14C.1, R-VERSION): the governed lift now also writes C.1's provenance
       // root and FLOORS every stored age against it — the first step in this chain that
@@ -61,13 +60,17 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
       // P14C.2b (R-VERSION): the governed lift now also writes every record's unused
       // extension and every case's `expiry` variant — additive again, like V34's own
       // root, so the expected shape below carries it transparently.
-      const sourcePeople = source.state.talent as { id: string; age: number }[]
+      const sourcePeople = source.state.talent as { id: string; age: number; role: string }[]
       const sourceCases = (source.state.talentMarket.cases as Record<string, unknown>[]).map((kase) => ({ ...kase, variant: 'expiry' }))
-      expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 37, state: { ...source.state,
+      expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 38, state: { ...source.state,
         relationships: [], promises: (source.state.promises as Record<string, unknown>[]).map(addedFields),
         talent: sourcePeople.map((person) => ({ ...person, age: Math.floor(person.age) })),
         talentProvenance: buildTalentProvenance(sourcePeople, source.state.market.tick as number, 'legacy_age_anchor'),
-        careerLifecycle: initialCareerLifecycle(source.state.market.tick as number),
+        careerLifecycle: { boundaryWeek: source.state.market.tick, records: [], cohorts: [],
+          transitionBoundaryWeek: source.state.market.tick,
+          professionAnchors: sourcePeople.map(person => ({ personId: person.id, profession: person.role,
+            kind: 'existing', recordedWeek: source.state.market.tick })),
+          transitionEvaluations: [], professionChanges: [], industryRetirements: [], transitionDue: [] },
         talentMarket: { ...source.state.talentMarket, cases: sourceCases } } })
       expect(after[slot]).toBe(exportSave(governed))
     }

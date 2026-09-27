@@ -149,9 +149,9 @@ function employmentQuery(sessionId: string, targetId: string): IndustryQuery {
 
 describe('group 1: PROJECTION_VERSION', () => {
   it('PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it', () => {
-    expect(PROJECTION_VERSION).toBe(52)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-52`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(52)
+    expect(PROJECTION_VERSION).toBe(53)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-53`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(53)
   })
 })
 
@@ -405,7 +405,7 @@ describe('group 7: save/load', () => {
     expect(saved.accepted).toBe(true)
     if (!saved.accepted) throw new Error(`save refused: ${JSON.stringify(saved)}`)
     const parsed = JSON.parse(saved.saveJson) as { saveVersion: number; state: { talentMarket: { legacyTerminations: unknown[]; representation: null } } }
-    expect(parsed.saveVersion).toBe(37)
+    expect(parsed.saveVersion).toBe(38)
     expect(parsed.state.talentMarket.legacyTerminations).toEqual([])
     expect(parsed.state.talentMarket.representation).toBeNull()
 

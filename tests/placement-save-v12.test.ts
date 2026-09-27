@@ -50,7 +50,7 @@ import {
   validateSave,
   validateSaveV11,
   validateSaveV12,
-  validateSaveV37,
+  validateSaveV38,
 } from '../src/core/index.js'
 import type {
   GameState,
@@ -129,14 +129,15 @@ function legacyV11Save(
   // right week and then substituting the V11 construction root, its debit, and
   // (when operational) the facility the V11 tick would have appended.
   const weeks = status === 'completed' ? ANNEX_DURATION_WEEKS : 4
-  const advanced = advance(vacant, weeks)
-  const source: GameState = {
+  const advanced = makeSaveV11(advance(vacant, weeks)).state
+  // The old-only arrangement starts after complete frozen11 admission.
+  const source = {
     ...advanced,
     studio: { ...advanced.studio, cash: advanced.studio.cash - ANNEX_CAPEX },
     ledger: [
       {
         week: startedWeek,
-        kind: 'constructionCapex',
+        kind: 'constructionCapex' as const,
         amount: -ANNEX_CAPEX,
         constructionProjectId: ANNEX_PROJECT_ID,
         note: ANNEX_LEDGER_NOTE,
@@ -152,7 +153,7 @@ function legacyV11Save(
               {
                 id: ANNEX_FACILITY_ID,
                 name: 'Development & Casting Annex',
-                capability: 'development-casting',
+                capability: 'development-casting' as const,
                 capacity: 1,
               },
             ],
@@ -191,7 +192,7 @@ describe('Placement Core V12 — the frozen envelope', () => {
 
   it('projects the placement root positively, dropping unknown future fields', () => {
     const withFuture = {
-      ...managedVacant('save-v12-projection'),
+      ...makeSaveV12(managedVacant('save-v12-projection')).state,
       futureV13: { mustNotLeak: true },
     }
     const save = makeSaveV12(withFuture)
@@ -408,13 +409,13 @@ describe('Placement Core V12 — the frozen envelope', () => {
       { blueprintId: ANNEX, origin: { gx: 0, gy: 12 } },
     )
     const valid = makeSave(twoPlacements)
-    expect(validateSaveV37(valid)).toBe(valid)
+    expect(validateSaveV38(valid)).toBe(valid)
 
     const overlapped = clone(valid)
     overlapped.state.placement.facilities[1]!.origin = { gx: 0, gy: 9 }
     overlapped.state.placement.facilities[1]!.cells =
       overlapped.state.placement.facilities[0]!.cells.map((cell) => ({ ...cell }))
-    expect(() => validateSaveV37(overlapped)).toThrow(/overlaps placed facility 1/)
+    expect(() => validateSaveV38(overlapped)).toThrow(/overlaps placed facility 1/)
 
     const tooClose = clone(valid)
     tooClose.state.placement.facilities[1]!.origin = { gx: 0, gy: 11 }
@@ -426,27 +427,27 @@ describe('Placement Core V12 — the frozen envelope', () => {
       { gx: 1, gy: 12 },
       { gx: 2, gy: 12 },
     ]
-    expect(() => validateSaveV37(tooClose)).toThrow(/violates its clearance ring/)
+    expect(() => validateSaveV38(tooClose)).toThrow(/violates its clearance ring/)
   })
 
   it('rejects a forged operating charge that disagrees with the operational facilities', () => {
     const operational = advance(building('save-v12-opex'), ANNEX_DURATION_WEEKS + 2)
     const valid = makeSave(operational)
-    expect(validateSaveV37(valid)).toBe(valid)
+    expect(validateSaveV38(valid)).toBe(valid)
 
     const doubled = clone(valid)
     const row = doubled.state.ledger.find((entry) => entry.kind === 'facilityOpex')!
     const before = row.amount
     row.amount = before * 2
     doubled.state.studio.cash += before
-    expect(() => validateSaveV37(doubled)).toThrow(
+    expect(() => validateSaveV38(doubled)).toThrow(
       /facility operating cost at week .* disagrees/,
     )
 
     const early = clone(valid)
     const earliest = early.state.ledger.find((entry) => entry.kind === 'facilityOpex')!
     earliest.week = 1 // before the facility existed
-    expect(() => validateSaveV37(early)).toThrow(
+    expect(() => validateSaveV38(early)).toThrow(
       /facility operating cost at week 1 disagrees/,
     )
   })
@@ -562,11 +563,12 @@ describe('Placement Core V12 — historical boundary guards (law 19)', () => {
     expect(() => makeSaveV11(operational)).toThrow(/cannot downgrade or discard/i)
 
     // …and a forged operating row alone is enough to stop the projection.
-    const forged: GameState = {
-      ...vacant,
+    const substrate = makeSaveV12(vacant).state
+    const forged = {
+      ...substrate,
       ledger: [
-        ...vacant.ledger,
-        { week: 0, kind: 'facilityOpex', amount: -1, note: 'weekly facility operating cost' },
+        ...substrate.ledger,
+        { week: 0, kind: 'facilityOpex' as const, amount: -1, note: 'weekly facility operating cost' },
       ],
     }
     expect(() => makeSaveV11(forged)).toThrow(

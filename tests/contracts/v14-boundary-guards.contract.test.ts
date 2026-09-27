@@ -31,7 +31,7 @@
 
 import { beforeAll, describe, expect, it } from 'vitest'
 
-import { applyActions, stableStringify, tick } from '../../src/core/index.js'
+import { applyActions, convertV38ToV37, makeSave, stableStringify, tick } from '../../src/core/index.js'
 import type { GameState } from '../../src/core/index.js'
 
 import { clone, operationsStudio, productionPayload, withCash } from './_contractFixtures.js'
@@ -57,7 +57,13 @@ let loadFailure: unknown = null
 /** A legacy world carries no V14 authority, so every frozen builder can write it. */
 let legacy: GameState
 /** One managed picture actually in flight — the only state with a workflow to forge on. */
-let inFlight: GameState
+let inFlight: ReturnType<typeof historicalWorkflowCarrier>
+
+function historicalWorkflowCarrier(state: GameState) {
+  const admitted = convertV38ToV37(makeSave(state)).state
+  return { ...admitted, operations: { ...admitted.operations,
+    workflows: admitted.operations.workflows.map(({ setup: _setup, planRevision: _planRevision, ...workflow }) => workflow) } }
+}
 
 /** Genuine, validated envelopes of the legacy world at every version 1…14. */
 const genuine = new Map<number, Envelope>()
@@ -72,18 +78,8 @@ beforeAll(async () => {
   legacy = legacyWorld('c2a-m1-guards-legacy', 8)
   let state = withCash(operationsStudio('c2a-m1-guards-managed'), 50_000_000)
   state = applyActions(state, [{ kind: 'greenlight', production: productionPayload(state) }])
-  const ticked = tick(tick(state))
-  // P13B-S5-R07: every historical frozen builder this file targets (V1-V14)
-  // predates `setup`/`planRevision` (added at V25) — this fixture never
-  // reviewed a recipe, so both are at their neutral default and are stripped
-  // the same way tests/contracts/_v14Contract.ts's own projections do.
-  inFlight = {
-    ...ticked,
-    operations: {
-      ...ticked.operations,
-      workflows: ticked.operations.workflows.map(({ setup: _setup, planRevision: _planRevision, ...workflow }) => workflow),
-    },
-  } as unknown as GameState
+  // Admit the intact38 state and cross its semantic guard before old-only workflow omission.
+  inFlight = historicalWorkflowCarrier(tick(tick(state)))
 
   for (const version of CHARTER_SAVE_VERSIONS) {
     const builder = core[`makeSaveV${String(version)}`]
@@ -321,7 +317,7 @@ describe('C2a-M1 · guards (B) — the live boundary moves one way', () => {
   // version now is. 15 is no longer unknown (validateSaveV15 exists); 16 is.
   it('keeps every historical version frozen and rejects unknown V22', () => {
     const save = envelopeAt(14)
-    expect(() => validateSave({ ...save, saveVersion: 38 })).toThrow(/unknown saveVersion 38/)
+    expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(/unknown saveVersion 39/)
   })
 })
 

@@ -1,8 +1,3 @@
-import { initialTechnology } from '../src/core/technology.js'
-import { initialPhysicalPlans } from '../src/core/physicalPlans.js'
-import { initialTalentMarket } from '../src/core/talentMarket.js'
-import { buildTalentProvenance } from '../src/core/aging.js'
-import { initialCareerLifecycle } from '../src/core/careerLifecycle.js'
 import { beginFoundingHistoricalControl as beginFounding } from '../src/core/employment.js'
 import {migrateToCurrentControl} from './_historicalCurrent.js'
 // SaveFileV11 historical cash/ledger checkpoint regressions.
@@ -13,8 +8,6 @@ import {migrateToCurrentControl} from './_historicalCurrent.js'
 // a ledger row, then reconciles every later cash movement from that checkpoint.
 
 import { describe, expect, it } from "vitest";
-import { emptyStudioPlacement } from "../src/core/placement.js";
-import { initialProperty } from "../src/core/lot.js";
 import { applyActions } from "../src/core/actions.js";
 import { OracleAgent } from "../src/core/agents.js";
 import { financeTotals } from "../src/core/economyView.js";
@@ -49,6 +42,7 @@ import {
   makeSaveV8,
   makeSaveV9,
   makeSaveV10,
+  makeSaveV11,
   migrateToV11,
   migrateToV14,
   validateSaveV38,
@@ -63,8 +57,6 @@ import {
 } from "../src/core/save.js";
 import { tick } from "../src/core/tick.js";
 import { studioRunRecap } from "../src/core/studioRunRecap.js";
-import { initialReleaseAuthority } from "../src/core/releaseAuthority.js";
-import { initialStudioHistory } from "../src/core/studioHistory.js";
 import type { CreativeRole, GameState } from "../src/core/types.js";
 import { generateWorld } from "../src/core/worldgen.js";
 import {
@@ -346,74 +338,49 @@ describe("SaveFileV11 cash/ledger checkpoint — post-migration authority", () =
   });
 
   it("prevents every frozen builder from laundering an invalid checkpoint", () => {
-    const valid = checkpointedLegacyV11("checkpoint-frozen-laundering");
+    const valid = validateSaveV11(checkpointedLegacyV11("checkpoint-frozen-laundering"));
+    const validBytes = stableStringify(valid);
     const invalid = clone(valid);
     invalid.state.cashLedgerCheckpoint!.cash += 1;
+    const invalidBytes = stableStringify(invalid);
     expect(() => validateSaveV11(invalid)).toThrow(
       /studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger/,
     );
 
-    const builders: ReadonlyArray<(state: GameState) => SaveFile> = [
-      makeSaveV1,
-      makeSaveV2,
-      makeSaveV3,
-      makeSaveV4,
-      makeSaveV5,
-      makeSaveV6,
-      makeSaveV7,
-      makeSaveV8,
-      makeSaveV9,
-      makeSaveV10,
+    // The strict11 reader, not fabricated current roots, governs these inputs.
+    const builders: ReadonlyArray<(state: SaveFileV11['state']) => SaveFile> = [
+      makeSaveV1, makeSaveV2, makeSaveV3, makeSaveV4, makeSaveV5,
+      makeSaveV6, makeSaveV7, makeSaveV8, makeSaveV9, makeSaveV10,
     ];
     for (const builder of builders) {
-      // Deliberately NOT migrated: the point is an invalid checkpoint reaching a
-      // frozen builder unvalidated. The empty placement root is the V12 shape a
-      // placement-free history carries.
-      expect(() =>
-        builder({
-          ...invalid.state,
-          placement: emptyStudioPlacement(),
-          property: initialProperty(),
-          sets: [],
-          nextSetId: 0,
-          productionQueue: [],
-          originalScreenplays: { nextOrdinal: 0, blueprints: [] },
-          studioEvents: { nextSeq: 0, rows: [] },
-          releaseAuthority: initialReleaseAuthority(),
-          studioHistory: initialStudioHistory(),
-          foundingRegime: 'endowed',
-          hollywood: null,
-          technology: initialTechnology(0),
-          physicalPlans: initialPhysicalPlans(),
-          // P14A.1 (Save V28): the empty market root a market-free history carries.
-          talentMarket: initialTalentMarket(),
-          // P14B.1 (Save V29): a hand-built state films no first take and promises nothing.
-          firstTakes: [],
-          promises: [],
-          // P14B.5 (Save V31): a hand-built state shares no work, so it holds no relationship edge.
-          relationships: [],
-          // P14C.1 (Save V33): the live root, carried so the LIVE type is satisfied.
-          // Every frozen builder below projects it away, exactly as it projects away
-          // `relationships` and `talentMarket`, so nothing this case asserts moves.
-          talentProvenance: buildTalentProvenance(invalid.state.talent, invalid.state.market.tick, 'legacy_age_anchor'),
-          // P14C.2a (Save V34): the live root, carried for the same reason —
-          // this case tracks no retirement, so it opens empty.
-          careerLifecycle: initialCareerLifecycle(invalid.state.market.tick, invalid.state.talent),
-        }),
-      ).toThrow(
+      expect(() => builder(valid.state)).not.toThrow();
+      expect(stableStringify(valid)).toBe(validBytes);
+      expect(() => builder(invalid.state)).toThrow(
         /cannot downgrade or repair a semantically invalid V11 cash-ledger checkpoint/,
       );
+      expect(stableStringify(invalid)).toBe(invalidBytes);
     }
 
-    const redundant = clone(makeSave(generateWorld("checkpoint-frozen-redundant")));
+    const current = validateSaveV38(makeSave(generateWorld("checkpoint-frozen-redundant")));
+    const currentBytes = stableStringify(current);
+    const historical = validateSaveV11(makeSaveV11(current.state));
+    expect(stableStringify(current)).toBe(currentBytes);
+    expect(historical.state).not.toHaveProperty('cashLedgerCheckpoint');
+    const historicalBytes = stableStringify(historical);
+    const redundant = clone(historical);
     redundant.state.cashLedgerCheckpoint = {
       cash: redundant.state.studio.cash,
       ledgerLength: redundant.state.ledger.length,
     };
+    const redundantBytes = stableStringify(redundant);
+    expect(() => validateSaveV11(redundant)).toThrow(/cash-ledger checkpoint must encode a genuine historical reconciliation boundary/);
     for (const builder of builders) {
+      expect(() => builder(historical.state)).not.toThrow();
+      expect(stableStringify(historical)).toBe(historicalBytes);
       expect(() => builder(redundant.state)).toThrow(
         /cannot downgrade or repair a semantically invalid V11 cash-ledger checkpoint/,
       );
+      expect(stableStringify(redundant)).toBe(redundantBytes);
     }
   });
 

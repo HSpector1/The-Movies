@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { retirementRecordFor, retirementWindow } from '../src/core/careerLifecycle.js'
 import { activeContract, busyTalentIds } from '../src/core/employment.js'
-import { importSave, makeSave, migrateToLive, migrateToV35, migrateToV36 } from '../src/core/save.js'
+import { importSave, makeSave, migrateToLive, migrateToV35, migrateToV36, migrateToV37 } from '../src/core/save.js'
 import { openMarketCaseFor, submitProposal } from '../src/core/talentMarket.js'
 import { eligibleSeatIds, researchCandidates } from '../src/core/technology.js'
 import { tick } from '../src/core/tick.js'
@@ -252,13 +252,20 @@ describe('Scientist retirement persistence has an explicit semantic version boun
     const state = scientistWorld()
     const before = bytes(state)
     const live = makeSave(state)
-    expect(live.saveVersion).toBe(37)
-    const old = migrateToV36(live)
+    expect(live.saveVersion).toBe(38)
+    const outgoing37 = migrateToV37(live) // governed lossless C.3 boundary, preserving every older root
+    expect(live.state.careerLifecycle).toEqual({ ...outgoing37.state.careerLifecycle,
+      transitionBoundaryWeek: state.market.tick,
+      professionAnchors: state.talent.map(person => ({ personId: person.id, profession: person.role,
+        recordedWeek: state.market.tick, kind: 'existing' })),
+      transitionEvaluations: [], professionChanges: [], industryRetirements: [], transitionDue: [] })
+    const old = migrateToV36(outgoing37)
     expect(old.saveVersion).toBe(36)
-    expect(JSON.stringify(old.state)).toBe(JSON.stringify(live.state))
+    expect(JSON.stringify(old.state)).toBe(JSON.stringify(outgoing37.state))
     const lifted = migrateToLive(old)
-    expect(lifted.saveVersion).toBe(37)
+    expect(lifted.saveVersion).toBe(38)
     expect(JSON.stringify(lifted.state)).toBe(JSON.stringify(live.state))
+    expect(JSON.stringify(migrateToV37(lifted).state)).toBe(JSON.stringify(old.state))
     expect(bytes(state)).toBe(before)
   })
 
@@ -266,7 +273,7 @@ describe('Scientist retirement persistence has an explicit semantic version boun
     const state = scientistAt('hardResearch', 566)
     expect(record(state)?.profession).toBe('scientist')
     const live = makeSave(state)
-    expect(live.saveVersion).toBe(37)
+    expect(live.saveVersion).toBe(38)
     const before = JSON.stringify(live)
     expect(importSave(before)).toEqual(live)
     expect(() => migrateToV36(live)).toThrow(/Scientist|scientist|downgrade/)
@@ -285,6 +292,8 @@ describe('Scientist retirement persistence has an explicit semantic version boun
       // first validates the WHOLE old-shaped envelope without the Scientist row.
       const envelope = JSON.parse(before)
       envelope.saveVersion = version
+      for (const field of ['transitionBoundaryWeek', 'professionAnchors', 'transitionEvaluations',
+        'professionChanges', 'industryRetirements', 'transitionDue']) delete envelope.state.careerLifecycle[field]
       if (version < 36) {
         for (const row of envelope.state.careerLifecycle.records) {
           delete row.extensionUsed
@@ -306,7 +315,7 @@ describe('Scientist retirement persistence has an explicit semantic version boun
     const state = scientistAt('hardResearch', 566)
     expect(record(state)?.profession).toBe('scientist')
     const live = makeSave(state)
-    expect(live.saveVersion).toBe(37)
+    expect(live.saveVersion).toBe(38)
     const before = JSON.stringify(live)
     type MutableEnvelope = { state: { talentProvenance: { rows: Record<string, unknown>[] },
       careerLifecycle: { records: Record<string, unknown>[] } } }

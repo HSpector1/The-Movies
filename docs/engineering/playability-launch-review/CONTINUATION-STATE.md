@@ -1,5 +1,30 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — reviewed maintenance applied; publish candidate and run final gates
+
+D qualification checkpoint 4def0f4f8234aa48eaae86c682aaf4bfab58188b is exactly
+verified on GitHub. 1115 preflight and sequential 1093→1096→1110 application all
+PASS. Final unstaged 90-test-file patch is 195,198 bytes / SHA256 92f3a9d795aea5cd286023bed53a165b6e830b3f681ff7b62c37fcbc6244a987.
+1087 verify-final and 1088 exact-argv extraction are CLOSED PASS/fixedSource:true.
+Independent 1115-C application KEEP (955743db, 8,920 bytes) confirms all live
+postimages, 1,571 protected non-targets, unchanged declaration/timeout lines and
+exact three B5 causal pin replacements. 1115-D records actual application.
+
+Publish this recoverable candidate and verify the remote before tests. Behavior
+is still unverified on this candidate. Run 1089-c3-maintained-b5-leaf, then exact
+1103 five groups as 1090 cash, 1091 metadata, 1092 runtime, 1093 process-restart,
+1094 remaining (full stems recorded per execution). Consume the frozen arrays
+from 1115-application-01.argv.json directly, retaining original selectors. Then
+root/UI/Bridge types, contract/fixture checks, complete core and complete UI,
+serially with source/HEAD held per run and full failure attribution from 1113.
+No tests have run since maintenance. No heavy process is active at this checkpoint.
+
+Parent remains sole production writer/integrator/heavy executor. Existing test
+author owns 1118-A case attribution; reviewer remains independent. Later P3 and
+1117 preservation remain held until actual final C.3 qualification. P15 D2/D3/D4a
+are unanswered. Retain historical failures, mixed-source endurance, native and
+Owner-campaign limits; no all-green claim.
+
 ## CURRENT — corrected D passed; guarded maintenance is next
 
 1085 corrected D is CLOSED PASS on published c1a6654a859e528bd719cd39c62d850a51f59eee.

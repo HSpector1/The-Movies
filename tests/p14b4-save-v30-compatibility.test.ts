@@ -18,7 +18,14 @@ import {
   validateSaveV29, validateSaveV30, migrateToV30, migrateToLive, convertV30ToV29,
 } from '../src/core/save.js'
 import { buildTalentProvenance } from '../src/core/aging.js'
-import { initialCareerLifecycle } from '../src/core/careerLifecycle.js'
+import type { CareerLifecycleRootV38, CreativeRole } from '../src/core/types.js'
+
+// C.3 additive opening oracle, independently derived from the historical input order.
+function expectedCareerLifecycle(week: number, people: readonly { id: string; role: CreativeRole }[]): CareerLifecycleRootV38 {
+  return { boundaryWeek: week, records: [], cohorts: [], transitionBoundaryWeek: week,
+    professionAnchors: people.map(person => ({ personId: person.id, profession: person.role, recordedWeek: week, kind: 'existing' })),
+    transitionEvaluations: [], professionChanges: [], industryRetirements: [], transitionDue: [] }
+}
 
 const NAMES = [
   'empty', 'current-p1', 'replaced-p1', 'withdrawn-p1', 'bound-open-p1',
@@ -173,12 +180,12 @@ function preservesExactly(admitted: OldSave) {
   // migration writes).
   // P14C.4 (R-VERSION): the live writer now stamps Save35, so the invariant
   // extends one more governed step — `cohorts: []` inside the same root;
-  // `initialCareerLifecycle` below already opens both empty.
+  // `expectedCareerLifecycle` below already opens both empty.
   const lifted = migrateToLive(migrated)
   const addedFields = (promise: typeof migrated.state.promises[number]) => ({ ...promise, supersededByPromiseId: null })
   const floored = migrated.state.talent.map((person) => ({ ...person, age: Math.floor(person.age) }))
   const provenance = buildTalentProvenance(migrated.state.talent, migrated.state.market.tick, 'legacy_age_anchor')
-  const lifecycle = initialCareerLifecycle(migrated.state.market.tick)
+  const lifecycle = expectedCareerLifecycle(migrated.state.market.tick, migrated.state.talent)
   // P14C.2b: every pre-V36 case defaults to `variant: 'expiry'` (convertV35ToV36's
   // own rule) — this corpus predates the retirement-extension market entirely, so
   // every case here always was one, and `lifted` below defaulted it the same way.
@@ -216,7 +223,7 @@ function assertActualBacking(save: OldSave, root: OldPromise): void {
 
 describe('P14B4 Save30: genuine final V29 corpus, exact old-state preservation', () => {
   it('pins LIVE_SAVE_VERSION to literal37 (stale number corrected post-C.2b) independently of the value under test (P14B.7, 735-T)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(37)
+    expect(LIVE_SAVE_VERSION).toBe(38)
   })
 
   it.each(NAMES)('migrates genuine %s without rewriting roots, receipts, digests or history and downgrades losslessly', (name) => {

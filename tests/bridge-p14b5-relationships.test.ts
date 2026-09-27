@@ -62,6 +62,7 @@ const OUTGOING_48 = 'sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156
 // P14B.8: the outgoing projection-49 identity, retired by the B.8 bump.
 const OUTGOING_49 = 'sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b'
 const OUTGOING_51 = 'sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f' // 875/914: genuine outgoing51
+const OUTGOING_52 = 'sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2' // genuine953 outgoing52; C.3 projection53
 const OUTGOING_PROJECTION = 47
 // The 35 accepted prior literals (tests/bridge-p14b4-runtime47-compatibility.test.ts :41-83); never derived from the registry.
 const EXPECTED_35_PRIOR_IDS = [
@@ -178,8 +179,8 @@ const LEDGER_SEEDS = {
     employment: '52789533ee8c67c922e8566dda63e0611432582d4a076c90e64a6f3ddc178c18', takes: '1d9395b7c8408fb73d1eaff037297661e95326bd3cb9e70711effb6abba3b2a1',
     rng: '1640490702,2161102015,891615888,2071390822' },
   'p13b-s8-bridge-probe-01': { role: 'the bridge seed (plain campaign; the s8 file adds a laboratory placement it does not share)', rows: 48, settled: 48, declined: 0, expired: 0,
-    settlement: 'f8b0d3a7a9d15b30ce65b3b90c291d29189aabd5f445621c7996117b4fd178c2', receipts: 'b729a1f33fac085228697a52bb474400b26ca04dab8114f2cd3fa893861186c4',
-    employment: 'd4f19ea4618c680f60d9b7f4ea395ddc6813291ed261f939e06c4178a86fe8b1', takes: 'e9a1b08f794a9a8aa6645428ce5fbfe60401ed0700424902ee92a5aaa562b9e2',
+    settlement: 'f8b0d3a7a9d15b30ce65b3b90c291d29189aabd5f445621c7996117b4fd178c2', receipts: '4aa12d2b3e68a02ad2bdd663c668f59cd041139d8b86b3071d13858ea4d3c024',
+    employment: '33623e8e79bcafd89ea08a93dbb7c8c6aef9cd27b8294370bd78c2cfb43a9cc2', takes: 'a4a704cb90dc3af612aaf2eb9cc92f13c9018734f72a25161cd4f92cfbe8debc',
     rng: '2343039306,887634093,2940629248,1402597496' },
   'p13-public-commercial-adoption': { role: 'the adoption seed (B.1 T1 ruling (v); the D3/poaching seed)', rows: 48, settled: 36, declined: 12, expired: 0,
     settlement: 'c034f2fb5a8e5f454a475020cec9de1ac764d742ce121a6cd8d2bc3b641eb544', receipts: 'be7310b6d73124dab34723644f7cf16c52a4b193e67a4b85d9c20e7f60e47850',
@@ -320,7 +321,7 @@ function currentP1(): GameState {
   expect(sha(compressed)).toBe(CURRENT_P1.gz)
   const raw = gunzipSync(compressed).toString('utf8')
   expect(sha(raw)).toBe(CURRENT_P1.raw)
-  return validateSaveV30(JSON.parse(raw)).state as GameState
+  return migrateToLive(validateSaveV30(JSON.parse(raw))).state
 }
 type HistoricalCheckpoint = { format: string; protocolVersion: number; schemaId: string; sessionId: string; currentSaveJson: string; savedSaveJson: string; journalDigest: string }
 function checkpoint(): { raw: string; prior: HistoricalCheckpoint } {
@@ -344,14 +345,15 @@ const wireEnum = (): string[] => {
 describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, re-expressed by 700-T2 after P14B.8 landed projection 50 / Save V32 unchanged)', () => {
   it('live projection52/Save37 and literal current hash retain all40 independent prior identities (875)', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(52)
+    expect(PROJECTION_VERSION).toBe(53)
     expect(OUTGOING_PROJECTION).toBe(47)
-    // 914 independently read the checked-in current52 manifest at 17e65c36.
-    expect(SCHEMA_ID).toBe('sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2')
+    // 1047 independently checked the current53 schema at e6475aca.
+    expect(SCHEMA_ID).toBe('sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d')
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
-    expect(LIVE_SAVE_VERSION).toBe(37)
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51].sort())
+    expect(LIVE_SAVE_VERSION).toBe(38)
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
   })
@@ -398,7 +400,7 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52].sort())
     expect(LIVE_SAVE_VERSION).toBeGreaterThan(30) // the governed inner-save step rides the same wave (R22 :610)
   })
 

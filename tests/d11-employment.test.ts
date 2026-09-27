@@ -548,7 +548,7 @@ describe('D-11 — determinism & live saves', () => {
   it('new games save at the live version and round-trip byte-identically', () => {
     const s = foundStudio('save-v4')
     const save = makeSave(s)
-    expect(save.saveVersion).toBe(37) // P13B-S8: new games save as V27.
+    expect(save.saveVersion).toBe(38) // P13B-S8: new games save as V27.
     const a = exportSave(save)
     const b = exportSave(importSave(a))
     expect(b).toBe(a)
@@ -575,22 +575,8 @@ describe('D-11 — determinism & live saves', () => {
 
   it('V2 → V3 import is deterministic, idempotent, and non-destructive', () => {
     // A legacy V2 save = a headless world wrapped as V2 (no employment fields).
-    const v2state = generateWorld('legacy-v2')
-    // Strip to the frozen V2 shape (drop employment fields) to model a real V2 save.
-    const {
-      founding: _founding,
-      contracts: _contracts,
-      ledger: _ledger,
-      freeAgents: _freeAgents,
-      theatricalRuns: _theatricalRuns,
-      careerEvents: _careerEvents,
-      economyEngagedEver: _economyEngagedEver,
-      publicity: _publicity,
-      operations: _operations,
-      scriptDevelopment: _scriptDevelopment,
-      ...v2
-    } = v2state
-    const v2save = makeSaveV2(v2)
+    const v2save = makeSaveV2(generateWorld('legacy-v2'))
+    const v2 = v2save.state // actual frozen admission; no current roots are manually removed
     const before = exportSave(v2save)
     const a = convertV2ToV3(v2save)
     const b = convertV2ToV3(v2save)

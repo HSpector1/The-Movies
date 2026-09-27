@@ -9,7 +9,7 @@ import { canonicalJson } from '../bridge/schema/canonical.ts'
 import { decodeBridgeRuntimeCheckpoint, encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint,
   SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS } from '../bridge/runtime-checkpoint.ts'
 import { BridgeSession } from '../bridge/session.ts'
-import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV36 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV36, validateSaveV38 } from '../src/core/save.js'
 
 const OUTGOING_50 = 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698'
 const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
@@ -79,8 +79,8 @@ describe('C.2 Scientist S11: genuine outgoing50 runtime compatibility', () => {
 
   it('requires literal projection52/Save37, registers actual outgoing50, and excludes the running identity from prior schemas', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(52)
-    expect(LIVE_SAVE_VERSION).toBe(37)
+    expect(PROJECTION_VERSION).toBe(53)
+    expect(LIVE_SAVE_VERSION).toBe(38)
     expect(SCHEMA_ID).not.toBe(OUTGOING_50)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_50)).toBe('projection-v50')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
@@ -96,12 +96,22 @@ describe('C.2 Scientist S11: genuine outgoing50 runtime compatibility', () => {
       const old = validateSaveV36(JSON.parse(prior[slot]))
       const actualJson = loaded.hydrated.checkpoint[slot]
       expect(typeof actualJson).toBe('string')
-      const actual = importSave(actualJson!)
-      expect(actual.saveVersion).toBe(37)
+      const actual = validateSaveV38(importSave(actualJson!))
+      expect(actual.saveVersion).toBe(38)
       expect(actual.state.market.tick).toBe(week)
-      // Independent preservation oracle: semantic version changes NO state bytes,
-      // not merely selected fields that could hide lost research or extension work.
-      expect(canonicalJson(actual.state)).toBe(canonicalJson(old.state))
+      // C.3 adds only six dated profession-authority fields; every old root,
+      // retirement, skill, employment and receipt remains independently exact.
+      const { transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
+        industryRetirements, transitionDue, ...oldLifecycle } = actual.state.careerLifecycle
+      expect(canonicalJson({ ...actual.state, careerLifecycle: oldLifecycle })).toBe(canonicalJson(old.state))
+      expect({ transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
+        industryRetirements, transitionDue }).toEqual({ transitionBoundaryWeek: week,
+        professionAnchors: old.state.talent.map(person => ({ personId: person.id, profession: person.role,
+          kind: 'existing', recordedWeek: week })),
+        transitionEvaluations: [], professionChanges: [], industryRetirements: [],
+        transitionDue: old.state.hollywood === null ? [] : old.state.careerLifecycle.records
+          .filter(row => row.status === 'retired').map(row => ({ personId: row.personId, week: week + 1 }))
+          .sort((a, b) => a.personId < b.personId ? -1 : a.personId > b.personId ? 1 : 0) })
       expect(actualJson).toBe(exportSave(migrateToLive(importSave(prior[slot]))))
       expect(exportSave(old)).toBe(prior[slot])
     }

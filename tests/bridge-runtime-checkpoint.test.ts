@@ -229,8 +229,8 @@ describe('BridgeRuntimeCheckpointV1', () => {
     })
     expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(sha256(source.currentSaveJson))
     expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(sha256(source.savedSaveJson))
-    expect(loaded.hydrated.currentSave.saveVersion).toBe(37)
-    expect(loaded.hydrated.savedSave?.saveVersion).toBe(37)
+    expect(loaded.hydrated.currentSave.saveVersion).toBe(38)
+    expect(loaded.hydrated.savedSave?.saveVersion).toBe(38)
     expect(() => decodeBridgeRuntimeCheckpoint(
       encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint),
     )).not.toThrow()
@@ -266,8 +266,8 @@ describe('BridgeRuntimeCheckpointV1', () => {
       savedStateDigest: sha256(source.savedSaveJson),
       journal: [],
     })
-    expect(loaded.hydrated.currentSave.saveVersion).toBe(37)
-    expect(loaded.hydrated.savedSave?.saveVersion).toBe(37)
+    expect(loaded.hydrated.currentSave.saveVersion).toBe(38)
+    expect(loaded.hydrated.savedSave?.saveVersion).toBe(38)
 
     const corrupted = JSON.parse(priorBytes) as Record<string, unknown>
     corrupted.journalDigest = '0'.repeat(64)
@@ -328,8 +328,8 @@ describe('BridgeRuntimeCheckpointV1', () => {
     const hydrated = decodeBridgeRuntimeCheckpoint(encoded)
     expect(hydrated.checkpoint).toEqual(source.checkpoint)
     expect(encodeBridgeRuntimeCheckpoint(hydrated.checkpoint)).toBe(encoded)
-    expect(hydrated.currentSave.saveVersion).toBe(37)
-    expect(hydrated.savedSave?.saveVersion).toBe(37)
+    expect(hydrated.currentSave.saveVersion).toBe(38)
+    expect(hydrated.savedSave?.saveVersion).toBe(38)
     expect(hydrated.checkpoint.currentSaveJson).toBe(source.currentSaveJson)
     expect(hydrated.checkpoint.savedSaveJson).toBe(source.savedSaveJson)
     expect(hydrated.checkpoint.currentStateDigest).toBe(sha256(source.currentSaveJson))
@@ -428,7 +428,7 @@ describe('BridgeRuntimeCheckpointV1', () => {
       currentSaveJson: nonCanonicalSave,
       savedSaveJson: checkpoint.savedSaveJson,
       journal: checkpoint.journal,
-    })).toThrow(/canonical V37 save bytes exactly/)
+    })).toThrow(/canonical V38 save bytes exactly/)
 
     const forgedSave = JSON.parse(checkpoint.currentSaveJson) as Record<string, unknown>
     forgedSave['bridgeJournal'] = []
@@ -718,7 +718,7 @@ describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => 
 
     // save now V16, digests recomputed correctly.
     expect(loaded.hydrated.checkpoint.schemaId).toBe(SCHEMA_ID)
-    expect(loaded.hydrated.currentSave.saveVersion).toBe(37)
+    expect(loaded.hydrated.currentSave.saveVersion).toBe(38)
     expect(loaded.hydrated.checkpoint.currentStateDigest)
       .toBe(sha256(loaded.hydrated.checkpoint.currentSaveJson))
 
@@ -746,7 +746,7 @@ describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => 
 
     expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
     expect(loaded.hydrated.checkpoint.savedSaveJson).not.toBeNull()
-    expect(loaded.hydrated.savedSave?.saveVersion).toBe(37)
+    expect(loaded.hydrated.savedSave?.saveVersion).toBe(38)
     expect(loaded.hydrated.savedSave?.state.market.tick).toBe(savedState.market.tick)
     expect(loaded.hydrated.savedSave?.state.studio.cash).toBe(savedState.studio.cash)
     expect(loaded.hydrated.checkpoint.savedStateDigest)
@@ -774,7 +774,7 @@ describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => 
       expect(loaded.hydrated.checkpoint.schemaId).toBe(SCHEMA_ID)
       expect(loaded.hydrated.checkpoint.stateRevision).toBe(0)
       expect(loaded.hydrated.checkpoint.journal).toEqual([])
-      expect(loaded.hydrated.currentSave.saveVersion).toBe(37)
+      expect(loaded.hydrated.currentSave.saveVersion).toBe(38)
     },
   )
 
@@ -1029,6 +1029,8 @@ describe('prior protocol-4 acceptance boundary pins', () => {
       'sha256:e64a3b659e4247b98631f1caa1f0e9eb0b6016aac92b0f46be590360ff9cee48',
       'sha256:ea5d645f34a472f4710b9273b225d6f15433d6d17ae8ed1af3c03686a225c8c4',
       'sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25',
+      // C.3: genuine outgoing52 preserved in953 before the current53 cutover.
+      'sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2',
       'sha256:f84ae77ec59a0d7ca7cdd89115456504ddecbde2c6e3839936e4951bd65bce61',
       // Authentic P11 core25, preserved in the v2 public corpus and copied core control.
       'sha256:fe9bf4558dc12abc5f258ba8b8f581242e06361cfbae8ae31d8c676f6c7a6460',

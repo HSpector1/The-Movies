@@ -1,0 +1,11 @@
+{
+  "protocol": "c3-reviewed-maintenance-1093-1096-1110-v1",
+  "mode": "argv",
+  "prefix": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1115-application-01",
+  "startedAt": "2026-09-27T08:04:20.781Z",
+  "producer": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1115-c3-guarded-maintenance.mjs",
+    "bytes": 18400,
+    "sha256": "5e6ecf38bfbbda091d5d43d9534ed42edd893e08c5f0e4a0d159bcafd84bbbf1"
+  }
+}

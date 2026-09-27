@@ -42,11 +42,12 @@ import {
   migrateToV9,
   migrateToV10,
   makeSaveV11,
+  makeSaveV12,
   migrateToV11,
   stableStringify,
   validateSave,
   validateSaveV11,
-  validateSaveV37,
+  validateSaveV38,
   type SaveFile,
   type SaveFileV11,
 } from "../src/core/save.js";
@@ -104,10 +105,11 @@ function advance(state: GameState, count: number): GameState {
 // Only used at weeks where no facility-operating row exists (the charge begins the
 // week AFTER completion), so nothing about the ledger has to be rewritten.
 function asV11Save(state: GameState): SaveFileV11 {
-  const placed = state.placement.facilities[0];
+  const historical = makeSaveV12(historicalWorld(state)).state;
+  const placed = historical.placement.facilities[0];
   const construction =
     placed === undefined
-      ? state.construction
+      ? historical.construction
       : {
           mode: "managed" as const,
           parcels: [{ id: ANNEX_PARCEL_ID, projectId: ANNEX_PROJECT_ID }],
@@ -129,13 +131,11 @@ function asV11Save(state: GameState): SaveFileV11 {
             },
           ],
         };
-  return makeSaveV11(
-    historicalWorld({
-      ...state,
-      construction,
-      placement: emptyStudioPlacement(),
-    }),
-  );
+  return makeSaveV11({
+    ...historical,
+    construction,
+    placement: emptyStudioPlacement(),
+  });
 }
 
 function ledgerIdentityCash(ledger: readonly { amount: number }[]): number {
@@ -186,9 +186,9 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
 
     for (const state of states) {
       const save = makeSave(state);
-      expect(save.saveVersion).toBe(37);
+      expect(save.saveVersion).toBe(38);
       expect(validateSave(save)).toBe(save);
-      expect(validateSaveV37(save)).toBe(save);
+      expect(validateSaveV38(save)).toBe(save);
       const json = exportSave(save);
       expect(exportSave(importSave(json))).toBe(json);
     }
@@ -511,7 +511,7 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
           productionId: reservedId,
           note: "forged persisted production identity",
         });
-        expect(() => validateSaveV37(forgedV13)).toThrow(
+        expect(() => validateSaveV38(forgedV13)).toThrow(
           /canonical Annex id .*collides with persisted production history/,
         );
       }
@@ -550,8 +550,8 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
     };
     expect(() => makeSave(withFuture)).toThrow(/unknown field "futureV13"/);
     const save = makeSave(managedVacant("save-v11-projection"));
-    expect(() => validateSave({ ...save, saveVersion: 38 })).toThrow(
-      /unknown saveVersion 38.*versions 1 through 37 only/,
+    expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(
+      /unknown saveVersion 39.*versions 1 through 38 only/,
     );
   });
 });

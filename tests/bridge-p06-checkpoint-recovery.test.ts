@@ -20,7 +20,6 @@ import { initialTechnology } from '../src/core/technology.js'
 import { initialPhysicalPlans } from '../src/core/physicalPlans.js'
 import { initialTalentMarket } from '../src/core/talentMarket.js'
 import { withResearchFoundation } from '../src/core/researchPeople.js'
-import { initialCareerLifecycle } from '../src/core/careerLifecycle.js'
 
 // Independent historical authority, not taken from the implementation allowlist:
 // P07-OWNER-ACCEPTANCE-RECEIPT.md at 2753e18ba8fb5f65b936c22cde9531646fecc6cd,
@@ -94,8 +93,13 @@ function expectPreservedGameplay(beforeJson: string, after: LiveSaveFile): void 
   // V33->V34 migration writes).
   // P14C.4: `initialCareerLifecycle` is the LIVE V35 opener now (`cohorts: []`
   // too), and `after` genuinely migrates all the way to V35 — this equality is
-  // unchanged, both sides moved together.
-  expect(careerLifecycle).toEqual(initialCareerLifecycle(before.state.market.tick))
+  // unchanged, both sides moved together. C.3 adds the independently enumerated
+  // ordered existing-person anchors below; no retirement/event is reconstructed.
+  expect(careerLifecycle).toEqual({ boundaryWeek: before.state.market.tick, records: [], cohorts: [],
+    transitionBoundaryWeek: before.state.market.tick,
+    professionAnchors: before.state.talent.map(person => ({ personId: person.id, profession: person.role,
+      kind: 'existing', recordedWeek: before.state.market.tick })),
+    transitionEvaluations: [], professionChanges: [], industryRetirements: [], transitionDue: [] })
   const flooredBefore = before.state.talent.map(withResearchFoundation).map(person=>({...person,age:Math.floor(person.age)}))
   expect(after.state.talent.filter(t=>oldIds.has(t.id))).toEqual(flooredBefore)
   const oldPeople = after.state.talent.filter(t=>oldIds.has(t.id)).map(person => {

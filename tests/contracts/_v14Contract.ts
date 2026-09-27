@@ -455,6 +455,19 @@ export function projectToV13State(state: GameState): Record<string, unknown> {
   if ((state.careerLifecycle?.records ?? []).some((record) => (record as unknown as { extensionUsed?: boolean }).extensionUsed === true)) {
     throw new Error('V13 twin cannot discard career-lifecycle authority')
   }
+  // C.3: only existing boundary scaffolding is reconstructible. Same-week
+  // entrants, decisions, changes, finality and due work are real authority.
+  const career = state.careerLifecycle
+  const transitionFields = ['transitionBoundaryWeek', 'professionAnchors', 'transitionEvaluations',
+    'professionChanges', 'industryRetirements', 'transitionDue']
+  if (career && transitionFields.some(field => Object.hasOwn(career, field)) && (
+    !Array.isArray(career.professionAnchors) || career.professionAnchors.some(anchor => anchor.kind !== 'existing')
+    || !Array.isArray(career.transitionEvaluations) || career.transitionEvaluations.length > 0
+    || !Array.isArray(career.professionChanges) || career.professionChanges.length > 0
+    || !Array.isArray(career.industryRetirements) || career.industryRetirements.length > 0
+    || !Array.isArray(career.transitionDue) || career.transitionDue.length > 0)) {
+    throw new Error('V13 twin cannot discard profession transition, industry retirement or entrant authority')
+  }
   delete raw.careerLifecycle
   for (const person of raw.talent as Record<string, unknown>[]) {
     for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {

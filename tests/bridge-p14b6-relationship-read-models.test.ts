@@ -76,7 +76,7 @@ import { castingDraftToEngine, castingProjection, castingQuoteSnapshot } from '.
 import type { BridgeCastingDraftPayload } from '../bridge/schema/bridge-schema.ts'
 import { applyActions } from '../src/core/actions.js'
 import { tick } from '../src/core/tick.js'
-import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV30, validateSaveV37 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV30, validateSaveV38 } from '../src/core/save.js'
 import { pairChemistry, RELATIONSHIP_TIERS } from '../src/core/relationships.js'
 import type { GameState, RelationshipDriver, RelationshipTier } from '../src/core/types.js'
 import { historyFixture, player, retentionFixture } from './helpers/p14b2-fixtures.js'
@@ -95,8 +95,9 @@ const OUTGOING_46 = 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f63
 const OUTGOING_49 = 'sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b'
 const OUTGOING_50 = 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698'
 const OUTGOING_51 = 'sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f' // 875/914: genuine outgoing51
+const OUTGOING_52 = 'sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2' // genuine953 outgoing52; C.3 projection53
 const OUTGOING_PROJECTION = 48
-const INCOMING_PROJECTION = 52
+const INCOMING_PROJECTION = 53
 // The 36 accepted prior literals as they stand today (tests/bridge-p14b4-runtime47-compatibility.test.ts
 // :40-80, exact-count pin at :162). B.6 took this roster to 37 by adding OUTGOING_48;
 // B.8 takes it to 38 by adding OUTGOING_49.
@@ -220,7 +221,7 @@ function everyBlock(state: GameState): { talentId: string; block: Block }[] {
 function admitted(state: GameState, label: string): GameState {
   const save = makeSave(state)
   expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
-  validateSaveV37(JSON.parse(JSON.stringify(save)))
+  validateSaveV38(JSON.parse(JSON.stringify(save)))
   expect(label.length).toBeGreaterThan(0)
   return save.state as GameState
 }
@@ -756,7 +757,7 @@ describe('family 8 — the WIRE (RED BY VALUE: version literals and a registry c
     expect(PROTOCOL_VERSION).toBe(4)
     expect(PROJECTION_VERSION).toBe(INCOMING_PROJECTION)
     expect(OUTGOING_PROJECTION).toBe(48)
-    expect(LIVE_SAVE_VERSION).toBe(37) // B.6 has NO save step
+    expect(LIVE_SAVE_VERSION).toBe(38) // B.6 has NO save step
     expect(SCHEMA_ID).not.toBe(OUTGOING_48)
     expect(schemaIdentity(BRIDGE_SCHEMA)).toBe(SCHEMA_ID)
     expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-4:projection-${String(INCOMING_PROJECTION)}`)
@@ -768,9 +769,10 @@ describe('family 8 — the WIRE (RED BY VALUE: version literals and a registry c
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect(EXPECTED_36_PRIOR_IDS).toHaveLength(36)
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48, OUTGOING_49, OUTGOING_50, OUTGOING_51].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48, OUTGOING_49, OUTGOING_50, OUTGOING_51, OUTGOING_52].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
-    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(40)
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(41)
   })
 
   it('the checked-in generator artifacts equal the running identity (`--check` clean), and priorityOrder keeps its seven members and its line', () => {

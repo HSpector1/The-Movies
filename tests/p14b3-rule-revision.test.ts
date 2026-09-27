@@ -10,10 +10,17 @@ import { beforeAll, describe, expect, it, vi } from 'vitest'
 import * as promiseModule from '../src/core/promises.js'
 import { attachPromise, PROMISE_RULES_VERSION } from '../src/core/promises.js'
 import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
-import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV37 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38 } from '../src/core/save.js'
 import type { GameState, PromiseFeasibilityReceipt } from '../src/core/types.js'
 import { buildTalentProvenance } from '../src/core/aging.js'
-import { initialCareerLifecycle } from '../src/core/careerLifecycle.js'
+import type { CareerLifecycleRootV38, CreativeRole } from '../src/core/types.js'
+
+// C.3 additive opening oracle, independently derived from the historical input order.
+function expectedCareerLifecycle(week: number, people: readonly { id: string; role: CreativeRole }[]): CareerLifecycleRootV38 {
+  return { boundaryWeek: week, records: [], cohorts: [], transitionBoundaryWeek: week,
+    professionAnchors: people.map(person => ({ personId: person.id, profession: person.role, recordedWeek: week, kind: 'existing' })),
+    transitionEvaluations: [], professionChanges: [], industryRetirements: [], transitionDue: [] }
+}
 import { advanceTo } from '../src/harness/p13a/fixtures.js'
 
 const CORPUS = './fixtures/p14/genuine-v29-pre-b3-evaluator1/'
@@ -132,13 +139,13 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
     // tick — an additive field, like V31's and V32's, not a value change.
     // P14C.4 (R-VERSION): the live writer now stamps Save35. The governed lift
     // adds `cohorts: []` inside the same root — additive again, like V34's own
-    // root; `initialCareerLifecycle` below already opens it, so both
+    // root; `expectedCareerLifecycle` below already opens it, so both
     // comparisons below carry it transparently.
     const governed = migrateToLive(importSave(raw))
     expect(governed.saveVersion).toBe(LIVE_SAVE_VERSION)
     const parsedRaw = JSON.parse(raw)
     const addedFieldsRaw = (promise: Record<string, unknown>) => ({ ...promise, supersededByPromiseId: null })
-    const rawPeople = parsedRaw.state.talent as { id: string; age: number }[]
+    const rawPeople = parsedRaw.state.talent as { id: string; age: number; role: CreativeRole }[]
     // P14C.2b: every pre-V36 case in the raw fixture defaults to `variant: 'expiry'`
     // (convertV35ToV36's own rule), same reasoning as the `careerLifecycle` root.
     const rawCases = (parsedRaw.state.talentMarket.cases as Record<string, unknown>[]).map((kase) => ({ ...kase, variant: 'expiry' }))
@@ -146,7 +153,7 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
       relationships: [], promises: (parsedRaw.state.promises as Record<string, unknown>[]).map(addedFieldsRaw),
       talent: rawPeople.map((person) => ({ ...person, age: Math.floor(person.age) })),
       talentProvenance: buildTalentProvenance(rawPeople, parsedRaw.state.market.tick as number, 'legacy_age_anchor'),
-      careerLifecycle: initialCareerLifecycle(parsedRaw.state.market.tick as number),
+      careerLifecycle: expectedCareerLifecycle(parsedRaw.state.market.tick as number, rawPeople),
       talentMarket: { ...parsedRaw.state.talentMarket, cases: rawCases } } })
     const addedFieldsReloaded = (promise: typeof reloaded.state.promises[number]) => ({ ...promise, supersededByPromiseId: null })
     const liftedV32 = { ...reloaded.state, relationships: [], promises: reloaded.state.promises.map(addedFieldsReloaded) }
@@ -154,7 +161,7 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
       talent: liftedV32.talent.map((person) => ({ ...person, age: Math.floor(person.age) })),
       talentProvenance: buildTalentProvenance(liftedV32.talent, liftedV32.market.tick, 'legacy_age_anchor'),
       // P14C.2a (776 S9): the same additive step `governed` above also carries.
-      careerLifecycle: initialCareerLifecycle(liftedV32.market.tick),
+      careerLifecycle: expectedCareerLifecycle(liftedV32.market.tick, liftedV32.talent),
       // P14C.2b: every pre-V36 case defaults to `variant: 'expiry'` (convertV35ToV36's
       // own rule) — this corpus predates the retirement-extension market entirely, so
       // every case here always was one, and `governed` above defaulted it the same way.
@@ -201,7 +208,7 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
     expect(JSON.stringify(attached.promises.slice(0, state.promises.length))).toBe(priorRoots)
     expect(currentProposals(attached, proposal.talentId).find((p) => p.issuerStudioId === proposal.issuerStudioId)!.promises)
       .toEqual([fresh.promiseId])
-    const reloaded = validateSaveV37(importSave(exportSave(makeSave(attached)))).state
+    const reloaded = validateSaveV38(importSave(exportSave(makeSave(attached)))).state
     expect(reloaded.promises).toEqual(attached.promises)
   })
 
@@ -243,7 +250,7 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
       talentId: old.beneficiaryPersonId, studioId: old.issuerStudioId, week: proposal.startWeek }))
     expect(currentProposals(settled, old.beneficiaryPersonId)).toEqual([])
     expect(JSON.stringify(state.promises)).toBe(priorRoots)
-    const reloaded = validateSaveV37(importSave(exportSave(makeSave(settled)))).state
+    const reloaded = validateSaveV38(importSave(exportSave(makeSave(settled)))).state
     expect(reloaded.promises.find((p) => p.promiseId === old.promiseId)).toEqual(bound)
     expect(old.version).toBe(1)
     expect(old.feasibilityReceipt.rulesVersion).toBe(1)

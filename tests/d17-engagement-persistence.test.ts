@@ -348,10 +348,13 @@ describe('D-17A/R2: convertV5ToV6 reconstructs the fact correctly for every save
   })
 
   it('mid-founding (founding open, no contracts, empty ledger) → true', () => {
-    const f = beginFounding(generateWorld('d17-mig-founding'))
+    const base = generateWorld('d17-mig-founding')
+    const substrate = makeSaveV5(toV5(base))
+    const f = beginFounding(base) // explicit historical draft control, no industry initialization
     expect(f.contracts.length).toBe(0)
     expect(f.ledger.length).toBe(0)
-    expect(convertV5ToV6(makeSaveV5(toV5(f))).state.economyEngagedEver).toBe(true)
+    const oldDraft = makeSaveV5({ ...substrate.state, founding: f.founding, concepts: f.concepts })
+    expect(convertV5ToV6(oldDraft).state.economyEngagedEver).toBe(true)
   })
 
   it('an engaged (founded, contracted) studio → true', () => {
@@ -364,13 +367,14 @@ describe('D-17A/R2: convertV5ToV6 reconstructs the fact correctly for every save
     const s = advance(greenlightOneFilm(foundStudio('d17-mig-run')), TUNING.PRODUCTION_TICKS + 1)
     expect(s.theatricalRuns.some((r) => r.economyModelVersion >= 1)).toBe(true)
     // isolate the run clause: no founding, no contracts, no engaged ledger kinds
-    const runOnly: GameState = {
-      ...s,
+    const substrate = makeSaveV5(toV5(s)).state
+    const runOnly: GameStateV5 = {
+      ...substrate,
       founding: null,
       contracts: [],
-      ledger: s.ledger.filter((e) => !isEngagedKind(e.kind)),
+      ledger: substrate.ledger.filter((e) => !isEngagedKind(e.kind)),
     }
-    expect(convertV5ToV6(makeSaveV5(toV5(runOnly))).state.economyEngagedEver).toBe(true)
+    expect(convertV5ToV6(makeSaveV5(runOnly)).state.economyEngagedEver).toBe(true)
   })
 
   it('post-cliff (engaged ledger kinds, ZERO contracts, no runs) → true', () => {
@@ -459,7 +463,7 @@ describe('D-17A/R2: a V6 save without an explicit engagement fact is rejected LO
   it('new games save as V16 and carry the fact', () => {
     // P06A (W1): makeSave now writes the live V16; the R2 fact is still carried.
     const save = makeSave(foundStudio('d17-newgame'))
-    expect(save.saveVersion).toBe(37)
+    expect(save.saveVersion).toBe(38)
     expect(save.state.economyEngagedEver).toBe(true)
   })
 })

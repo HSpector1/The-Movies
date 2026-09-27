@@ -6,7 +6,7 @@ import { canonicalJson } from '../bridge/schema/canonical.ts'
 import { decodeBridgeRuntimeCheckpoint, encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint,
   SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS } from '../bridge/runtime-checkpoint.ts'
 import { BridgeSession } from '../bridge/session.ts'
-import { exportSave, LIVE_SAVE_VERSION, makeSave, validateSaveV37 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV37 } from '../src/core/save.js'
 import { retirementRecordFor } from '../src/core/careerLifecycle.js'
 import { OUTGOING_51, RUNTIME_51, SCI, readRuntime51, runtime51Artifact, sha } from './helpers/p14c2rm-fixtures.js'
 
@@ -18,6 +18,24 @@ function artifact(): { raw: string; prior: Historical } {
   const raw = readRuntime51(), prior: Historical = JSON.parse(raw)
   expect(canonicalJson(prior) + '\n').toBe(raw)
   return { raw, prior }
+}
+// Independent old-state preservation alongside the actual governed slot bytes.
+function currentSlot(json: string): string {
+  const old = validateSaveV37(JSON.parse(json)), current = migrateToLive(importSave(json)), week = old.state.market.tick
+  expect(current.saveVersion).toBe(38)
+  const { transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
+    industryRetirements, transitionDue, ...oldLifecycle } = current.state.careerLifecycle
+  expect(canonicalJson({ ...current.state, careerLifecycle: oldLifecycle })).toBe(canonicalJson(old.state))
+  expect({ transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
+    industryRetirements, transitionDue }).toEqual({ transitionBoundaryWeek: week,
+    professionAnchors: old.state.talent.map(person => ({ personId: person.id, profession: person.role,
+      kind: 'existing', recordedWeek: week })),
+    transitionEvaluations: [], professionChanges: [], industryRetirements: [],
+    transitionDue: old.state.hollywood === null ? [] : old.state.careerLifecycle.records
+      .filter(row => row.status === 'retired').map(row => ({ personId: row.personId, week: week + 1 }))
+      .sort((a, b) => a.personId < b.personId ? -1 : a.personId > b.personId ? 1 : 0) })
+  expect(exportSave(old)).toBe(json)
+  return exportSave(current)
 }
 describe('C.2-RM genuine projection51 recovery', () => {
   it('preserves the real producer, actual nonempty journal and independent announced669/retired670 slots', () => {
@@ -44,9 +62,9 @@ describe('C.2-RM genuine projection51 recovery', () => {
   })
 
   it('steps projection once to52 while retaining Save37/protocol4 and enumerating actual outgoing51 exactly once', () => {
-    expect(PROJECTION_VERSION).toBe(52)
+    expect(PROJECTION_VERSION).toBe(53)
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(LIVE_SAVE_VERSION).toBe(37)
+    expect(LIVE_SAVE_VERSION).toBe(38)
     expect(SCHEMA_ID).not.toBe(OUTGOING_51)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
@@ -58,15 +76,17 @@ describe('C.2-RM genuine projection51 recovery', () => {
     expect(loaded.migratedFromProtocolVersion).toBe(4)
     expect(factory).toHaveBeenCalledTimes(1)
     const checkpoint = loaded.hydrated.checkpoint
+    const current = currentSlot(prior.currentSaveJson), saved = currentSlot(prior.savedSaveJson)
     expect(checkpoint).toEqual({ ...prior, schemaId: SCHEMA_ID, sessionId: 'c2rm-current52', stateRevision: 0,
+      currentSaveJson: current, currentStateDigest: sha(current), savedSaveJson: saved, savedStateDigest: sha(saved),
       journal: [], journalDigest: sha('[]') })
     expect(loaded.hydrated.journal).toEqual([])
     const session = BridgeSession.fromRuntimeCheckpoint(loaded.hydrated)
     expect(session.gameState.market.tick).toBe(670)
     expect(session.snapshot().savedSlot?.gameWeek).toBe(669)
-    expect(exportSave(makeSave(session.gameState))).toBe(prior.currentSaveJson)
+    expect(exportSave(makeSave(session.gameState))).toBe(current)
     const encoded = encodeBridgeRuntimeCheckpoint(session.exportRuntimeCheckpoint())
-    const noSecondMigration = vi.fn(() => { throw new Error('Current52 must not migrate twice') })
+    const noSecondMigration = vi.fn(() => { throw new Error('Current53 must not migrate twice') })
     const reopened = loadBridgeRuntimeCheckpoint(encoded, undefined, noSecondMigration)
     expect(reopened.migratedFromProtocolVersion).toBeNull()
     expect(noSecondMigration).not.toHaveBeenCalled()
@@ -88,7 +108,7 @@ describe('C.2-RM genuine projection51 recovery', () => {
     expect(receipt.accepted).toBe(true)
     expect(session.gameState.market.tick).toBe(669)
     expect(retirementRecordFor(session.gameState, SCI)?.status).toBe('announced')
-    expect(exportSave(makeSave(session.gameState))).toBe(prior.savedSaveJson)
+    expect(exportSave(makeSave(session.gameState))).toBe(currentSlot(prior.savedSaveJson))
     const recovered = BridgeSession.fromRuntimeCheckpoint(decodeBridgeRuntimeCheckpoint(
       encodeBridgeRuntimeCheckpoint(session.exportRuntimeCheckpoint())))
     expect(canonicalJson(recovered.load(request))).toBe(canonicalJson(receipt))
