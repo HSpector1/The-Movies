@@ -1,5 +1,27 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — exact full attribution reviewed; staged fixture maintenance next
+
+Published checkpointbc2492be0c6b4a0e32c1496c5bdff1344fb0c9d2 exactly matches GitHub;
+it preserves both full raw runs and all three selected P15 decisions. Final1119-A
+48f4823c/27,157bytes and independent1119-B KEEP3e293203/24,566bytes are now frozen.
+UI strict comparison:16new/7vanished/15same/8changed. Fifteen new UI leaves have
+source-attributed fixture/boundary causes; one new NextEvent navigation issue
+remains unresolved. Core25new fixture/boundary causes plus one changed carrier
+also require repair. Full counts remain core83FAIL/UI39FAIL plus one UI unhandled.
+
+1124-A records unmodified1102 navigation FAIL and instrumented1103 PASS; logging
+may alter timing and no failing guard/fix was established. Exact original App/Rail
+bytes are restored and independently checked; consumed source is clean. No heavy
+process or production correction remains. Do not rerun to obtain a preferred result.
+
+Author owns docs-staged1123 test repairs; reviewer owns independent source review;
+parent alone integrates and executes. Publish completed attribution/diagnostics,
+apply reviewed candidate, then verify whole affected files/consumers. A bounded
+C.3 composite may retain explicit canonicalL/R8/FU1/FU2/new-navigation limitations;
+it must not claim all-green, UI reliability, native or Owner acceptance.1117 capture
+and P3 remain held until actual final qualification/publication. Continue the program.
+
 ## CURRENT — both complete suites closed; final attribution and fixture repairs
 
 1100 core and1101 UI are CLOSED on published6e63f4c82a286dc67271cce0d53a0e586a6b523b,

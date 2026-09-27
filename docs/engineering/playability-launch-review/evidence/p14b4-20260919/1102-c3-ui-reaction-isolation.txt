@@ -1,0 +1,707 @@
+{"sourceSha":"bc2492be0c6b4a0e32c1496c5bdff1344fb0c9d2","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","ui","ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx","-t","preserves the exact live-world reaction after a rejected import or declined restart"],"node":"v20.20.2","start":"2026-09-27T10:01:01.122Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |ui| ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx (36 tests | 1 failed | 35 skipped) 4194ms
+   × World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > preserves the exact live-world reaction after a rejected import or declined restart 4192ms
+     → Unable to find an element by: [data-testid="dashboard-releases-heading"]
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"card"[39m
+      [33mdata-recovery[39m=[32m"continuing"[39m
+      [33mdata-testid[39m=[32m"recovery-notice"[39m
+      [33mrole[39m=[32m"status"[39m
+      [33mstyle[39m=[32m"margin-bottom: 12px;"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"spread"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0mContinuing your studio — Week 13.[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"ghost"[39m
+          [33mdata-testid[39m=[32m"recovery-dismiss"[39m
+        [36m>[39m
+          [0mDismiss[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"lot-screen lot-hollywood"[39m
+      [33mdata-entry-focus[39m=[32m"next-event-reaction"[39m
+      [33mdata-testid[39m=[32m"studio-lot-screen"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-casting-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-production-formation-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-script-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"lot-topbar"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-brand"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"mark lot-studio-heading"[39m
+            [33mdata-testid[39m=[32m"lot-studio-heading"[39m
+            [33mtabindex[39m=[32m"-1"[39m
+          [36m>[39m
+            [0mPROJECT: STUDIO[0m
+          [36m</h1>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-sub"[39m
+          [36m>[39m
+            [0mStudio Chronicle · Hollywood, 1920 · Week 19[0m
+          [36m</span>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-topbar-actions"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-cash-slot"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-cash"[39m
+              [33mdata-testid[39m=[32m"lot-cash"[39m
+            [36m>[39m
+              [0m$18,127,000[0m
+            [36m</span>[39m
+          [36m</span>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"lot-transport"[39m
+            [33mdata-mode[39m=[32m"paused"[39m
+            [33mdata-paused-by[39m=[32m"none"[39m
+            [33mdata-speed[39m=[32m"1"[39m
+            [33mdata-testid[39m=[32m"lot-transport"[39m
+            [33mdata-week[39m=[32m"18"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"Let the studio work — the weeks run on their own"[39m
+              [33maria-pressed[39m=[32m"false"[39m
+              [33mclass[39m=[32m"lot-transport-run lot-topbar-compactable"[39m
+              [33mdata-testid[39m=[32m"lot-transport-toggle"[39m
+              [33mtitle[39m=[32m"Let the studio work — the weeks run on their own"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-topbar-mark"[39m
+              [36m>[39m
+                [0m▶[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"lot-topbar-label"[39m
+              [36m>[39m
+                [0mRoll[0m
+              [36m</span>[39m
+            [36m</button>[39m
+            [36m<div[39m
+              [33maria-label[39m=[32m"Pace"[39m
+              [33mclass[39m=[32m"lot-transport-speeds"[39m
+              [33mrole[39m=[32m"group"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Ordinary pace — one week plays in full"[39m
+                [33maria-pressed[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-transport-speed is-current"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-1"[39m
+                [33mtitle[39m=[32m"Ordinary pace — one week plays in full"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m1[0m
+                [0m×[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Brisk pace — twice as fast"[39m
+                [33maria-pressed[39m=[32m"false"[39m
+                [33mclass[39m=[32m"lot-transport-speed"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-2"[39m
+                [33mtitle[39m=[32m"Brisk pace — twice as fast"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m2[0m
+                [0m×[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Fastest pace — the week settles as it lands"[39m
+                [33maria-pressed[39m=[32m"false"[39m
+                [33mclass[39m=[32m"lot-transport-speed"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-4"[39m
+                [33mtitle[39m=[32m"Fastest pace — the week settles as it lands"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m4[0m
+                [0m×[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-label[39m=[32m"Advance one week"[39m
+            [33mclass[39m=[32m"primary lot-advance-week lot-topbar-compactable"[39m
+            [33mdata-testid[39m=[32m"lot-advance-week"[39m
+            [33mtitle[39m=[32m"Advance one week"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-topbar-mark"[39m
+            [36m>[39m
+              [0m▸[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-topbar-label"[39m
+            [36m>[39m
+              [0mAdvance one week[0m
+            [36m</span>[3...
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"card"[39m
+      [33mdata-recovery[39m=[32m"continuing"[39m
+      [33mdata-testid[39m=[32m"recovery-notice"[39m
+      [33mrole[39m=[32m"status"[39m
+      [33mstyle[39m=[32m"margin-bottom: 12px;"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"spread"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0mContinuing your studio — Week 13.[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"ghost"[39m
+          [33mdata-testid[39m=[32m"recovery-dismiss"[39m
+        [36m>[39m
+          [0mDismiss[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"lot-screen lot-hollywood"[39m
+      [33mdata-entry-focus[39m=[32m"next-event-reaction"[39m
+      [33mdata-testid[39m=[32m"studio-lot-screen"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-casting-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-production-formation-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-script-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"lot-topbar"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-brand"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"mark lot-studio-heading"[39m
+            [33mdata-testid[39m=[32m"lot-studio-heading"[39m
+            [33mtabindex[39m=[32m"-1"[39m
+          [36m>[39m
+            [0mPROJECT: STUDIO[0m
+          [36m</h1>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-sub"[39m
+          [36m>[39m
+            [0mStudio Chronicle · Hollywood, 1920 · Week 19[0m
+          [36m</span>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-topbar-actions"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-cash-slot"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-cash"[39m
+              [33mdata-testid[39m=[32m"lot-cash"[39m
+            [36m>[39m
+              [0m$18,127,000[0m
+            [36m</span>[39m
+          [36m</span>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"lot-transport"[39m
+            [33mdata-mode[39m=[32m"paused"[39m
+            [33mdata-paused-by[39m=[32m"none"[39m
+            [33mdata-speed[39m=[32m"1"[39m
+            [33mdata-testid[39m=[32m"lot-transport"[39m
+            [33mdata-week[39m=[32m"18"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"Let the studio work — the weeks run on their own"[39m
+              [33maria-pressed[39m=[32m"false"[39m
+              [33mclass[39m=[32m"lot-transport-run lot-topbar-compactable"[39m
+              [33mdata-testid[39m=[32m"lot-transport-toggle"[39m
+              [33mtitle[39m=[32m"Let the studio work — the weeks run on their own"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-topbar-mark"[39m
+              [36m>[39m
+                [0m▶[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"lot-topbar-label"[39m
+              [36m>[39m
+                [0mRoll[0m
+              [36m</span>[39m
+            [36m</button>[39m
+            [36m<div[39m
+              [33maria-label[39m=[32m"Pace"[39m
+              [33mclass[39m=[32m"lot-transport-speeds"[39m
+              [33mrole[39m=[32m"group"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Ordinary pace — one week plays in full"[39m
+                [33maria-pressed[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-transport-speed is-current"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-1"[39m
+                [33mtitle[39m=[32m"Ordinary pace — one week plays in full"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m1[0m
+                [0m×[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Brisk pace — twice as fast"[39m
+                [33maria-pressed[39m=[32m"false"[39m
+                [33mclass[39m=[32m"lot-transport-speed"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-2"[39m
+                [33mtitle[39m=[32m"Brisk pace — twice as fast"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m2[0m
+                [0m×[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Fastest pace — the week settles as it lands"[39m
+                [33maria-pressed[39m=[32m"false"[39m
+                [33mclass[39m=[32m"lot-transport-speed"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-4"[39m
+                [33mtitle[39m=[32m"Fastest pace — the week settles as it lands"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m4[0m
+                [0m×[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-label[39m=[32m"Advance one week"[39m
+            [33mclass[39m=[32m"primary lot-advance-week lot-topbar-compactable"[39m
+            [33mdata-testid[39m=[32m"lot-advance-week"[39m
+            [33mtitle[39m=[32m"Advance one week"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-topbar-mark"[39m
+            [36m>[39m
+              [0m▸[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-topbar-label"[39m
+            [36m>[39m
+              [0mAdvance one week[0m
+            [36m</span>[3...
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |ui|  ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > preserves the exact live-world reaction after a rejected import or declined restart
+TestingLibraryElementError: Unable to find an element by: [data-testid="dashboard-releases-heading"]
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"card"[39m
+      [33mdata-recovery[39m=[32m"continuing"[39m
+      [33mdata-testid[39m=[32m"recovery-notice"[39m
+      [33mrole[39m=[32m"status"[39m
+      [33mstyle[39m=[32m"margin-bottom: 12px;"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"spread"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0mContinuing your studio — Week 13.[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"ghost"[39m
+          [33mdata-testid[39m=[32m"recovery-dismiss"[39m
+        [36m>[39m
+          [0mDismiss[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"lot-screen lot-hollywood"[39m
+      [33mdata-entry-focus[39m=[32m"next-event-reaction"[39m
+      [33mdata-testid[39m=[32m"studio-lot-screen"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-casting-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-production-formation-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-script-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"lot-topbar"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-brand"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"mark lot-studio-heading"[39m
+            [33mdata-testid[39m=[32m"lot-studio-heading"[39m
+            [33mtabindex[39m=[32m"-1"[39m
+          [36m>[39m
+            [0mPROJECT: STUDIO[0m
+          [36m</h1>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-sub"[39m
+          [36m>[39m
+            [0mStudio Chronicle · Hollywood, 1920 · Week 19[0m
+          [36m</span>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-topbar-actions"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-cash-slot"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-cash"[39m
+              [33mdata-testid[39m=[32m"lot-cash"[39m
+            [36m>[39m
+              [0m$18,127,000[0m
+            [36m</span>[39m
+          [36m</span>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"lot-transport"[39m
+            [33mdata-mode[39m=[32m"paused"[39m
+            [33mdata-paused-by[39m=[32m"none"[39m
+            [33mdata-speed[39m=[32m"1"[39m
+            [33mdata-testid[39m=[32m"lot-transport"[39m
+            [33mdata-week[39m=[32m"18"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"Let the studio work — the weeks run on their own"[39m
+              [33maria-pressed[39m=[32m"false"[39m
+              [33mclass[39m=[32m"lot-transport-run lot-topbar-compactable"[39m
+              [33mdata-testid[39m=[32m"lot-transport-toggle"[39m
+              [33mtitle[39m=[32m"Let the studio work — the weeks run on their own"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-topbar-mark"[39m
+              [36m>[39m
+                [0m▶[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"lot-topbar-label"[39m
+              [36m>[39m
+                [0mRoll[0m
+              [36m</span>[39m
+            [36m</button>[39m
+            [36m<div[39m
+              [33maria-label[39m=[32m"Pace"[39m
+              [33mclass[39m=[32m"lot-transport-speeds"[39m
+              [33mrole[39m=[32m"group"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Ordinary pace — one week plays in full"[39m
+                [33maria-pressed[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-transport-speed is-current"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-1"[39m
+                [33mtitle[39m=[32m"Ordinary pace — one week plays in full"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m1[0m
+                [0m×[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Brisk pace — twice as fast"[39m
+                [33maria-pressed[39m=[32m"false"[39m
+                [33mclass[39m=[32m"lot-transport-speed"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-2"[39m
+                [33mtitle[39m=[32m"Brisk pace — twice as fast"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m2[0m
+                [0m×[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Fastest pace — the week settles as it lands"[39m
+                [33maria-pressed[39m=[32m"false"[39m
+                [33mclass[39m=[32m"lot-transport-speed"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-4"[39m
+                [33mtitle[39m=[32m"Fastest pace — the week settles as it lands"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m4[0m
+                [0m×[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-label[39m=[32m"Advance one week"[39m
+            [33mclass[39m=[32m"primary lot-advance-week lot-topbar-compactable"[39m
+            [33mdata-testid[39m=[32m"lot-advance-week"[39m
+            [33mtitle[39m=[32m"Advance one week"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-topbar-mark"[39m
+            [36m>[39m
+              [0m▸[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-topbar-label"[39m
+            [36m>[39m
+              [0mAdvance one week[0m
+            [36m</span>[3...
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"card"[39m
+      [33mdata-recovery[39m=[32m"continuing"[39m
+      [33mdata-testid[39m=[32m"recovery-notice"[39m
+      [33mrole[39m=[32m"status"[39m
+      [33mstyle[39m=[32m"margin-bottom: 12px;"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"spread"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0mContinuing your studio — Week 13.[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"ghost"[39m
+          [33mdata-testid[39m=[32m"recovery-dismiss"[39m
+        [36m>[39m
+          [0mDismiss[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"lot-screen lot-hollywood"[39m
+      [33mdata-entry-focus[39m=[32m"next-event-reaction"[39m
+      [33mdata-testid[39m=[32m"studio-lot-screen"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-casting-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-production-formation-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-script-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"lot-topbar"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-brand"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"mark lot-studio-heading"[39m
+            [33mdata-testid[39m=[32m"lot-studio-heading"[39m
+            [33mtabindex[39m=[32m"-1"[39m
+          [36m>[39m
+            [0mPROJECT: STUDIO[0m
+          [36m</h1>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-sub"[39m
+          [36m>[39m
+            [0mStudio Chronicle · Hollywood, 1920 · Week 19[0m
+          [36m</span>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-topbar-actions"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-cash-slot"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-cash"[39m
+              [33mdata-testid[39m=[32m"lot-cash"[39m
+            [36m>[39m
+              [0m$18,127,000[0m
+            [36m</span>[39m
+          [36m</span>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"lot-transport"[39m
+            [33mdata-mode[39m=[32m"paused"[39m
+            [33mdata-paused-by[39m=[32m"none"[39m
+            [33mdata-speed[39m=[32m"1"[39m
+            [33mdata-testid[39m=[32m"lot-transport"[39m
+            [33mdata-week[39m=[32m"18"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"Let the studio work — the weeks run on their own"[39m
+              [33maria-pressed[39m=[32m"false"[39m
+              [33mclass[39m=[32m"lot-transport-run lot-topbar-compactable"[39m
+              [33mdata-testid[39m=[32m"lot-transport-toggle"[39m
+              [33mtitle[39m=[32m"Let the studio work — the weeks run on their own"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-topbar-mark"[39m
+              [36m>[39m
+                [0m▶[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"lot-topbar-label"[39m
+              [36m>[39m
+                [0mRoll[0m
+              [36m</span>[39m
+            [36m</button>[39m
+            [36m<div[39m
+              [33maria-label[39m=[32m"Pace"[39m
+              [33mclass[39m=[32m"lot-transport-speeds"[39m
+              [33mrole[39m=[32m"group"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Ordinary pace — one week plays in full"[39m
+                [33maria-pressed[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-transport-speed is-current"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-1"[39m
+                [33mtitle[39m=[32m"Ordinary pace — one week plays in full"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m1[0m
+                [0m×[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Brisk pace — twice as fast"[39m
+                [33maria-pressed[39m=[32m"false"[39m
+                [33mclass[39m=[32m"lot-transport-speed"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-2"[39m
+                [33mtitle[39m=[32m"Brisk pace — twice as fast"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m2[0m
+                [0m×[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Fastest pace — the week settles as it lands"[39m
+                [33maria-pressed[39m=[32m"false"[39m
+                [33mclass[39m=[32m"lot-transport-speed"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-4"[39m
+                [33mtitle[39m=[32m"Fastest pace — the week settles as it lands"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m4[0m
+                [0m×[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-label[39m=[32m"Advance one week"[39m
+            [33mclass[39m=[32m"primary lot-advance-week lot-topbar-compactable"[39m
+            [33mdata-testid[39m=[32m"lot-advance-week"[39m
+            [33mtitle[39m=[32m"Advance one week"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-topbar-mark"[39m
+            [36m>[39m
+              [0m▸[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-topbar-label"[39m
+            [36m>[39m
+              [0mAdvance one week[0m
+            [36m</span>[3...
+ ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ openSavesFromExactReaction ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx:1929:44
+    1927|     async function openSavesFromExactReaction() {
+    1928|       fireEvent.click(screen.getByTestId('lot-next-event-open-details'…
+    1929|       const releasesHeading = await screen.findByTestId(
+       |                                            ^
+    1930|         'dashboard-releases-heading',
+    1931|       )
+ ❯ ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx:1971:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 35 skipped (36)
+   Start at  12:01:01
+   Duration  10.49s (transform 4.23s, setup 119ms, collect 4.93s, tests 4.19s, environment 648ms, prepare 139ms)
+

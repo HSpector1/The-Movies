@@ -1,0 +1,63 @@
+{"sourceSha":"bc2492be0c6b4a0e32c1496c5bdff1344fb0c9d2","testedDiffSha256":"f5f843afc211c9abf246982c553b21756f3acc9dd071db07d62cbaffac4771df","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","ui","ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx","-t","preserves the exact live-world reaction after a rejected import or declined restart"],"node":"v20.20.2","start":"2026-09-27T10:05:03.231Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > preserves the exact live-world reaction after a rejected import or declined restart
+1124 rail click {
+  slot: 'deep',
+  detail: 0,
+  suspended: false,
+  hidden: false,
+  disabled: false,
+  claimed: false,
+  captured: null,
+  heldKey: null,
+  virtualTailSealed: false
+}
+1124 rail activate { slot: 'deep' }
+1124 app details {
+  owner: true,
+  currentIsRendered: true,
+  hasSession: true,
+  currentIsAccepted: true,
+  receiptMatches: true,
+  kind: 'run-completed'
+}
+
+stdout | ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > preserves the exact live-world reaction after a rejected import or declined restart
+1124 rail reset { before: 0, after: 1 }
+
+stdout | ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > preserves the exact live-world reaction after a rejected import or declined restart
+1124 rail click {
+  slot: 'deep',
+  detail: 0,
+  suspended: false,
+  hidden: false,
+  disabled: false,
+  claimed: false,
+  captured: null,
+  heldKey: null,
+  virtualTailSealed: false
+}
+1124 rail activate { slot: 'deep' }
+1124 app details {
+  owner: true,
+  currentIsRendered: true,
+  hasSession: true,
+  currentIsAccepted: true,
+  receiptMatches: true,
+  kind: 'run-completed'
+}
+
+stdout | ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > preserves the exact live-world reaction after a rejected import or declined restart
+1124 rail reset { before: 0, after: 1 }
+
+ ✓ |ui| ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx (36 tests | 35 skipped) 3949ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > preserves the exact live-world reaction after a rejected import or declined restart 3946ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 35 skipped (36)
+   Start at  12:05:03
+   Duration  10.18s (transform 4.26s, setup 114ms, collect 4.85s, tests 3.95s, environment 632ms, prepare 113ms)
+

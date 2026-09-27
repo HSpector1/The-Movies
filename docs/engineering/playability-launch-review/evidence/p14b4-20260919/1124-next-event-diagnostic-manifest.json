@@ -1,0 +1,20 @@
+{
+  "head": "bc2492be0c6b4a0e32c1496c5bdff1344fb0c9d2",
+  "purpose": "Temporary observational instrumentation; no branch, state, timer, test or receipt modification. One original isolated leaf. Restore exact preimages after actual closure.",
+  "files": [
+    {
+      "path": "ui/src/lot/LotNextEventRail.tsx",
+      "beforeBytes": 35569,
+      "beforeSha256": "8ed9f372c14aeb359782ca4bc9b0405c43566c938c4cd4634c3c1b6c04195379",
+      "afterBytes": 36126,
+      "afterSha256": "5b3bb957f3eec1420ccdfbd9f216f9b338eac0596a45f62a6a7d32c645c9b10f"
+    },
+    {
+      "path": "ui/src/App.tsx",
+      "beforeBytes": 208747,
+      "beforeSha256": "f33655b5af305834052e5dc092c2dbad96bb85e77d0dab538a0fc733e207d940",
+      "afterBytes": 209088,
+      "afterSha256": "97993fec78de550ff80031b046659fa6b49d4f7b3a9adab92cdff1171fa6a6af"
+    }
+  ]
+}

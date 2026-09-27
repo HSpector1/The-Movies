@@ -71,3 +71,34 @@ Writer, R8, FU1/FU2, mixed-source endurance, native and Owner-acceptance limits
 remain. Final C.3 qualification and published1117 outgoing preservation must
 precede P3 implementation. P15's three presentation choices are resolved
 in1122-A and must not be asked again.
+
+## Completed independent attribution and diagnostic follow-up
+
+Final1119-A is27,157 bytes / SHA256
+`48f4823c31af5215921a4fad1b78a5249ecccc436303d7706f975976587c1d91`.
+Independent1119-B KEEP is24,566 bytes /
+`3e293203b9b112c39e048be45519c75e0c9bdb17a4a51ce23da216b355a2ceea`.
+KEEP applies to accurate observations and attribution, not all-green qualification.
+
+The completed UI comparison is16 NEW, seven VANISHED,15 retained-identical
+complete primaries and eight CHANGED. Fifteen new cases have source-attributed
+fixture/current-boundary causes; the remaining new NextEvent navigation case
+is unresolved. Five changed Inspector bodies remain strict changes within the
+open FU1 family; the other three have individually identified temporary PNG
+path differences with the same missing-PIL cause. The full unhandled block
+matches713 literally and remains an actual separate error. Two added UI files
+account for all five additional cases. Exact data belong to1119-A/B and their
+comparison artifacts, not count-based allowances.
+
+1124-A records one original isolated reproduction and one instrumented pass of
+the new navigation case. The latter did not observe the failing guard and cannot
+establish a fix. Only four diagnostic logs were applied, then reversed after
+closure; both original production files and the complete empty consumed diff
+were independently verified. No production correction remains. The complete
+suite observations, unchanged-source failure and instrumented pass keep their
+separate actual source scopes. No automatic retry or UI reliability claim follows.
+
+The independent reviewer allows a bounded C.3 component disposition after
+qualified fixture repairs while explicitly retaining canonicalL/R8/FU1/FU2 and
+the new navigation limit.1123 maintenance is still staged and unexecuted at this
+addition. Final repair verification, qualification and1117 capture remain next.

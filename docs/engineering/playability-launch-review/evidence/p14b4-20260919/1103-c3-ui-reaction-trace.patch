@@ -1,0 +1,40 @@
+diff --git a/ui/src/App.tsx b/ui/src/App.tsx
+index 0feaa5de..832609e7 100644
+--- a/ui/src/App.tsx
++++ b/ui/src/App.tsx
+@@ -3416,6 +3416,7 @@ export function App() {
+     const session = lotNextEventSessionRef.current
+     const expected = { acceptedState: renderedState, receipt }
+     const demoteRendered = () => demoteLotNextEventReceipt(expected)
++    console.info("1124 app details", { owner: currentLotWorldInputOwner(), currentIsRendered: current === renderedState, hasSession: session !== null, currentIsAccepted: session !== null && current === session.acceptedState, receiptMatches: session !== null && sameLotNextEventReceipt(receipt, session.receipt), kind: receipt.target.kind })
+     if (
+       !currentLotWorldInputOwner() ||
+       current === null ||
+diff --git a/ui/src/lot/LotNextEventRail.tsx b/ui/src/lot/LotNextEventRail.tsx
+index 27e30e18..a2f035cf 100644
+--- a/ui/src/lot/LotNextEventRail.tsx
++++ b/ui/src/lot/LotNextEventRail.tsx
+@@ -714,6 +714,7 @@ export const LotNextEventRail = forwardRef<
+ 
+   useLayoutEffect(() => {
+     if (previousInputResetEpochRef.current === inputResetEpoch) return;
++    console.info("1124 rail reset", { before: previousInputResetEpochRef.current, after: inputResetEpoch });
+     previousInputResetEpochRef.current = inputResetEpoch;
+     physicalPrimaryBoundaryRequiredRef.current = true;
+     clearAllInput(true);
+@@ -908,6 +909,7 @@ export const LotNextEventRail = forwardRef<
+     currentAction: CapturedRailAction,
+   ) => {
+     containWorldInput(event);
++    console.info("1124 rail click", { slot: currentAction.slot, detail: event.detail, suspended: inputSuspendedRef.current, hidden: document.hidden, disabled: currentAction.disabled, claimed: presentationClaimedRef.current, captured: capturedPresentationRef.current?.family ?? null, heldKey: heldKeyRef.current?.key ?? null, virtualTailSealed: virtualTailSealedRef.current });
+     if (
+       inputSuspendedRef.current ||
+       document.hidden ||
+@@ -950,6 +952,7 @@ export const LotNextEventRail = forwardRef<
+     }
+ 
+     if (!claimPresentationTurn()) return;
++    console.info("1124 rail activate", { slot: acceptedAction.slot });
+     acceptedAction.activate();
+   };
+ 
