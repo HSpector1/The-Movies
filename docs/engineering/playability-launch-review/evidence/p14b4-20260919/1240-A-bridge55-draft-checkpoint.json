@@ -1,0 +1,61 @@
+{
+  "time": "2026-09-27T19:43:37.119409+00:00",
+  "baseHead": "8d6d5a23118602c795ee4c7a03b85ee240d75c48",
+  "source": [
+    {
+      "path": "bridge/schema/bridge-schema.ts",
+      "bytes": 189370,
+      "sha256": "c6e3bc663894f95a01c5d049cb633305870593ef0e9c49a53bb9e9a399575548"
+    },
+    {
+      "path": "bridge/promises.ts",
+      "bytes": 15788,
+      "sha256": "c206b985ea238a3f4352bc32544bd5e6476d069c4d46cbdee7973f588476e564"
+    },
+    {
+      "path": "bridge/trust.ts",
+      "bytes": 4854,
+      "sha256": "2b8add3bf3698d9094f5bb2155fa5fa4d00473689e06cabf6bf94e57cf6ae3cc"
+    },
+    {
+      "path": "bridge/runtime-checkpoint.ts",
+      "bytes": 63513,
+      "sha256": "ae8999583059b5b9da8230ea8aeecc64a5ba0809abb01855000a3fbd747108a3"
+    },
+    {
+      "path": "src/core/talentMarket.ts",
+      "bytes": 90843,
+      "sha256": "96dd8be9e682e5f614095968dee010ffe99dfc06dfd2de778cde7963667ada1e"
+    },
+    {
+      "path": "ui/src/components/ProfessionalPromiseTerms.tsx",
+      "bytes": 1940,
+      "sha256": "d534940a34fc717d15a8445fe97bdac40e896332113d9ce374f0d58942275e9b"
+    }
+  ],
+  "generated": [
+    {
+      "path": "bridge/schema/project-studio-bridge.schema.json",
+      "bytes": 402270,
+      "sha256": "ac05a5fd790b7405174198fbd63e7b69958a43f0f641cc3c47ecb7808ac49311"
+    },
+    {
+      "path": "generated/unity/StudioBridgeDtos.Generated.cs",
+      "bytes": 887221,
+      "sha256": "39798385cab8570341e4a8c446aedcc1ce6564afdca8386b495eaedbefca5864"
+    },
+    {
+      "path": "generated/unity/project-studio-bridge.contract-manifest.json",
+      "bytes": 820,
+      "sha256": "27b44b16d0fae9726f83cb4087762076d3a67cca49beba6a468b7dbf50e7d809"
+    }
+  ],
+  "generation": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1240-bridge55-generation.json",
+    "bytes": 3475,
+    "sha256": "d4dcbadfea96173a4ac91553cd86e178188442168784e49eaa06802e2584ef65"
+  },
+  "status": "Explicit uncompiled Bridge55 draft; independent source review and actual compilers/contract/runtime/component checks pending.",
+  "scope": "Closed material P4/P5 input/waiver members; P2inputclass unchanged; single wire conversion; core-owned optional material/title disclosures; own-only history/waiver/reminder/UI text; exact prior54 registry.",
+  "native": "Deferred; generated files only."
+}

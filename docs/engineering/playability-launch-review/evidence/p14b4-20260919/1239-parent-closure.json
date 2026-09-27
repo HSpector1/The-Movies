@@ -1,0 +1,44 @@
+{
+  "time": "2026-09-27T19:43:37.116363+00:00",
+  "source": "8d6d5a23118602c795ee4c7a03b85ee240d75c48",
+  "compiler": {
+    "child": 0,
+    "seconds": 34.913,
+    "advanceCap": 0
+  },
+  "runtime": {
+    "child": 0,
+    "seconds": 20.76,
+    "pass": 2,
+    "filtered": 4,
+    "advanceCap": 94,
+    "actualAdvances": 40,
+    "raw": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1238-p4p5-binding-cast.txt",
+      "bytes": 23871,
+      "sha256": "fabc3d2905e9532198cfce2e68503e1ce18a5c77ddaa2dc9f45db5a5891f1157"
+    },
+    "postflight": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1238-p4p5-binding-cast-postflight.json",
+      "bytes": 12282,
+      "sha256": "6e6fc40edc65e63c60f0ac17d5577d22e436ce7843ed30c54186f5b27931d8bd"
+    }
+  },
+  "literalLegacyMatch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1230-legacy46-baseline.txt",
+    "bytes": 1226,
+    "sha256": "36921548246e8ec4cc2241353cf62fa1e9868cc037a62e2a8a1a0bf26cc35342"
+  },
+  "subjectJoinsExact": true,
+  "perRoute": {
+    "bindingCalls": 7,
+    "workflowCalls": 13,
+    "actualHeldScheduledWeek": 60,
+    "takeWeek": 61,
+    "releaseWeek": 65,
+    "newSubjectFacts": 9,
+    "rivalFacts": 8,
+    "playerFacts": 1
+  },
+  "qualification": "Two actual player routes plus observed ordinary rival subject append; no rival opportunity-policy or broad1226 qualification. Initial4passed separately; notsame-run6."
+}

@@ -1,0 +1,425 @@
+diff --git a/bridge/promises.ts b/bridge/promises.ts
+index 5305e918..9bd60752 100644
+--- a/bridge/promises.ts
++++ b/bridge/promises.ts
+@@ -21,8 +21,8 @@
+ 
+ import { allPromises, promiseFeasibility, waiverAccepted, waivePromise } from '../src/core/promises.ts'
+ import type { PromiseAttachment } from '../src/core/promises.ts'
+-import { caseDisclosure, caseForTalent, latestCaseIsExtension, UNKNOWN } from '../src/core/talentMarket.ts'
+-import type { Disclosed, DisclosedPromise } from '../src/core/talentMarket.ts'
++import { caseDisclosure, caseForTalent, disclosedPromiseTerms, latestCaseIsExtension, UNKNOWN } from '../src/core/talentMarket.ts'
++import type { Disclosed, DisclosedPromise, DisclosedPromiseTerms } from '../src/core/talentMarket.ts'
+ import type { GameState, PromiseClassification } from '../src/core/types.ts'
+ import type { ActionOutcome } from '../ui/src/engine/adapter.ts'
+ import type {
+@@ -40,22 +40,23 @@ export type MarketPromiseRow = {
+ 
+ export type MarketPromiseHistoryRow = BridgeMarketPromiseHistoryRow
+ 
+-/** The closed family-discriminated wire draft. Only P2 carries a seat class;
+- * fresh P3 selects Director work without exposing the private predicate. */
++/** Closed drafts select explicit cast/Director work and any material restriction. */
+ export type WirePromiseDraft = BridgeMarketProposalPromiseDraftPayload
+ 
+ /** The ONE wire→core conversion shared by quote, attachment and waiver. */
+ export function corePredicateOf(draft: WirePromiseDraft): PromiseAttachment['predicate'] {
+   if (draft.family === 'DIRECTING_COUNT') return { kind: 'directorCount', count: draft.count }
++  if (draft.family === 'PREFERRED_GENRE_OPPORTUNITY') return {
++    kind: 'genreOpportunity', count: draft.count, seatClass: draft.seatClass, genre: draft.genre,
++  }
++  if (draft.family === 'SPECIFIC_PROJECT') return {
++    kind: 'projectOpportunity', count: draft.count, seatClass: draft.seatClass, scriptProjectId: draft.scriptProjectId,
++  }
+   return 'seatClass' in draft
+     ? { kind: 'castRoleCount', count: draft.count, seatClass: draft.seatClass }
+     : { count: draft.count }
+ }
+ 
+-function qualifyingRoleOf(predicate: PromiseAttachment['predicate']): 'cast' | 'director' {
+-  return 'kind' in predicate && predicate.kind === 'directorCount' ? 'director' : 'cast'
+-}
+-
+ /** The quote-time draft. The window is checked against the PROPOSED contract, so
+  * the proposal's own `startWeek` and `termWeeks` ride along. */
+ export type PromiseQuoteDraft = WirePromiseDraft & {
+@@ -110,9 +111,7 @@ export function promiseHistoryFor(
+         promiseId: promise.promiseId,
+         family: promise.family,
+         count: promise.predicate.count,
+-        qualifyingRole: qualifyingRoleOf(promise.predicate),
+-        // The stored shape alone selects a class; a legacy classless P2 reads null.
+-        seatClass: 'kind' in promise.predicate && promise.predicate.kind === 'castRoleCount' ? promise.predicate.seatClass : null,
++        ...disclosedPromiseTerms(state, promise.issuerStudioId, promise.predicate),
+         windowStartWeek: promise.windowStartWeek,
+         dueWeekExclusive: promise.dueWeekExclusive,
+         contractId: promise.contractId,
+@@ -201,6 +200,7 @@ export type PromiseWaiverConversionOk = {
+   talentName: string
+   substitute: PromiseAttachment
+   seatClass: BridgePromiseWaiverQuoteSnapshot['seatClass']
++  disclosedTerms: DisclosedPromiseTerms
+   commitLabel: string
+   /** `waiverAccepted`'s BARE sentence, or `null` when this person accepts. */
+   refusal: string | null
+@@ -214,8 +214,15 @@ function noSuchPromiseOfYours(promiseId: string): string {
+   return `This studio has no promise ${JSON.stringify(promiseId)} on its record.`
+ }
+ 
+-function substituteTerms(count: number, seatClass: string | null, qualifyingRole: 'cast' | 'director'): string {
++function substituteTerms(count: number, terms: DisclosedPromiseTerms): string {
++  const { seatClass, qualifyingRole } = terms
+   if (qualifyingRole === 'director') return `begin directing ${String(count)} production${count === 1 ? '' : 's'}`
++  if (terms.genre !== undefined || terms.scriptProjectId !== undefined) {
++    const picture = terms.genre !== undefined ? `${terms.genre} production`
++      : terms.scriptProjectTitle === undefined ? 'production of the selected screenplay' : `production of “${terms.scriptProjectTitle}”`
++    const role = seatClass === 'allCast' ? 'lead, antagonist or support' : seatClass === 'lead' ? 'lead' : 'lead or antagonist'
++    return `begin filming on ${String(count)} ${picture} in a ${role} role`
++  }
+   const noun = seatClass === null
+     ? 'appearance'
+     : seatClass === 'lead' ? 'lead role' : 'lead or antagonist role'
+@@ -255,8 +262,9 @@ export function promiseWaiverDraftToEngine(state: GameState, draft: WireWaiverDr
+     windowStartWeek: draft.substitute.windowStartWeek,
+     dueWeekExclusive: draft.substitute.dueWeekExclusive,
+   }
+-  const seatClass = 'seatClass' in draft.substitute ? draft.substitute.seatClass : null
+-  const terms = substituteTerms(draft.substitute.count, seatClass, qualifyingRoleOf(substitute.predicate))
++  const disclosedTerms = disclosedPromiseTerms(state, promise.issuerStudioId, substitute.predicate)
++  const seatClass = disclosedTerms.seatClass
++  const terms = substituteTerms(draft.substitute.count, disclosedTerms)
+   return {
+     ok: true,
+     kind: 'waivePromise',
+@@ -265,6 +273,7 @@ export function promiseWaiverDraftToEngine(state: GameState, draft: WireWaiverDr
+     talentName: talent.name,
+     substitute,
+     seatClass,
++    disclosedTerms,
+     commitLabel: `WAIVE PROMISE — ${talent.name.toUpperCase()} · SUBSTITUTE ${terms.toUpperCase()} BEFORE WEEK ${String(draft.substitute.dueWeekExclusive)}`,
+     // Rule 9 reads the substitute against the REAL employment interval inside the
+     // engine (`substituteDraft`), so the bridge re-derives no contract window of its
+@@ -281,9 +290,8 @@ export function promiseWaiverQuoteSnapshot(
+   conversion: PromiseWaiverConversionOk,
+   intentId: string,
+ ): BridgePromiseWaiverQuoteSnapshot {
+-  const { substitute, seatClass, refusal, talentName } = conversion
+-  const qualifyingRole = qualifyingRoleOf(substitute.predicate)
+-  const terms = substituteTerms(substitute.predicate.count, seatClass, qualifyingRole)
++  const { substitute, disclosedTerms, refusal, talentName } = conversion
++  const terms = substituteTerms(substitute.predicate.count, disclosedTerms)
+   return {
+     intentId,
+     kind: 'waivePromise',
+@@ -298,8 +306,7 @@ export function promiseWaiverQuoteSnapshot(
+     talentId: conversion.talentId,
+     family: substitute.family,
+     count: substitute.predicate.count,
+-    qualifyingRole,
+-    seatClass,
++    ...disclosedTerms,
+     windowStartWeek: substitute.windowStartWeek,
+     dueWeekExclusive: substitute.dueWeekExclusive,
+     consequence: refusal === null
+diff --git a/bridge/runtime-checkpoint.ts b/bridge/runtime-checkpoint.ts
+index c3329664..50e86418 100644
+--- a/bridge/runtime-checkpoint.ts
++++ b/bridge/runtime-checkpoint.ts
+@@ -58,6 +58,9 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
+ // that window would carry the earlier hash, and this map is keyed on the
+ // hash, not the label.
+ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
++  // P4/P5: genuine1221 preserves outgoing54 current-waived/saved-earned slots.
++  // Independently migrate Save39; prior session/revision/journal authority resets.
++  ['sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302', 'projection-v54'],
+   // P3: genuine1117 preserves outgoing53 natural and waiver checkpoints.
+   // Each Save38 slot lifts independently; prior session/journal authority resets.
+   ['sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d', 'projection-v53'],
+diff --git a/bridge/schema/bridge-schema.ts b/bridge/schema/bridge-schema.ts
+index a0f762d5..56d31230 100644
+--- a/bridge/schema/bridge-schema.ts
++++ b/bridge/schema/bridge-schema.ts
+@@ -276,7 +276,9 @@ export const PROTOCOL_VERSION = 4 as const
+ // checkpoints take the registered prior-schema path into independent Save38 slots.
+ // P3: explicit Director drafts and truthful stored-role disclosures. Genuine
+ // outgoing53 checkpoints are registered before this Save39 runtime boundary.
+-export const PROJECTION_VERSION = 54 as const
++// P4/P5: closed material drafts and issuer-only genre/project/class disclosures.
++// Genuine outgoing54 checkpoints retain distinct slots through Save40 migration.
++export const PROJECTION_VERSION = 55 as const
+ 
+ const nonEmptyText = () => text({ minLength: 1 })
+ const nonNegativeInteger = () => integer({ minimum: 0 })
+@@ -1813,9 +1815,8 @@ const MARKET_PROPOSAL_REFUSAL_KINDS = [
+ // A CLOSED union discriminated by `family`. The members'
+ // `family` domains are disjoint, so the first-match `anyOf` is order-independent.
+ const PROMISE_SEAT_CLASSES = ['lead', 'leadOrAntagonist'] as const
+-const COUNT_ONLY_PROMISE_FAMILIES = [
+-  'APPEARANCE_COUNT', 'PREFERRED_GENRE_OPPORTUNITY', 'SPECIFIC_PROJECT',
+-] as const
++const OPPORTUNITY_SEAT_CLASSES = ['allCast', 'lead', 'leadOrAntagonist'] as const
++const COUNT_ONLY_PROMISE_FAMILIES = ['APPEARANCE_COUNT'] as const
+ const promiseDraftTerms = {
+   count: integer({ minimum: 1 }),
+   windowStartWeek: nonNegativeInteger(),
+@@ -1832,7 +1833,22 @@ const StudioMarketProposalDirectorPromiseDraftPayload = object('StudioMarketProp
+   family: literal('DIRECTING_COUNT'),
+   ...promiseDraftTerms,
+ })
+-/** Other catalogue families stay count-only; P4/P5 remain engine-refused. */
++const opportunityDraftTerms = {
++  ...promiseDraftTerms,
++  count: literal(1),
++  seatClass: enumeration(OPPORTUNITY_SEAT_CLASSES),
++}
++const StudioMarketProposalGenrePromiseDraftPayload = object('StudioMarketProposalGenrePromiseDraftPayload', {
++  family: literal('PREFERRED_GENRE_OPPORTUNITY'),
++  ...opportunityDraftTerms,
++  genre: developmentGenre(),
++})
++const StudioMarketProposalProjectPromiseDraftPayload = object('StudioMarketProposalProjectPromiseDraftPayload', {
++  family: literal('SPECIFIC_PROJECT'),
++  ...opportunityDraftTerms,
++  scriptProjectId: nonEmptyText(),
++})
++/** Historical classless P4/P5 remain readable; fresh drafts require material terms. */
+ const StudioMarketProposalCountPromiseDraftPayload = object('StudioMarketProposalCountPromiseDraftPayload', {
+   family: enumeration(COUNT_ONLY_PROMISE_FAMILIES),
+   ...promiseDraftTerms,
+@@ -1840,6 +1856,8 @@ const StudioMarketProposalCountPromiseDraftPayload = object('StudioMarketProposa
+ const StudioMarketProposalPromiseDraftPayload = union('StudioMarketProposalPromiseDraftPayload', [
+   reference('StudioMarketProposalCastClassPromiseDraftPayload', StudioMarketProposalCastClassPromiseDraftPayload),
+   reference('StudioMarketProposalDirectorPromiseDraftPayload', StudioMarketProposalDirectorPromiseDraftPayload),
++  reference('StudioMarketProposalGenrePromiseDraftPayload', StudioMarketProposalGenrePromiseDraftPayload),
++  reference('StudioMarketProposalProjectPromiseDraftPayload', StudioMarketProposalProjectPromiseDraftPayload),
+   reference('StudioMarketProposalCountPromiseDraftPayload', StudioMarketProposalCountPromiseDraftPayload),
+ ] as const)
+ const StudioMarketProposalDraftPayload = object('StudioMarketProposalDraftPayload', {
+@@ -1866,7 +1884,7 @@ const StudioQuoteMarketProposalRequest = object('StudioQuoteMarketProposalReques
+ 
+ // ── P14B.8 (projection 50) — the waiver's propose leg ────────────────────────
+ // ITS OWN DRAFT PAYLOAD, not the market proposal's reused. The `family` domain
+-// enumerates only the offered P1/P2/P3 families. P4/P5 remain unexpressible here.
++// enumerates the offered families with the same explicit material requirements.
+ // P2 requires its explicit class; P3 carries only count/window and derives its
+ // Director predicate at the single wire conversion boundary.
+ // The draft NAMES NO STUDIO. The issuer arrives implicitly through the promise id,
+@@ -1884,9 +1902,21 @@ const StudioPromiseWaiverDirectorSubstituteDraftPayload = object('StudioPromiseW
+   family: literal('DIRECTING_COUNT'),
+   ...promiseDraftTerms,
+ })
++const StudioPromiseWaiverGenreSubstituteDraftPayload = object('StudioPromiseWaiverGenreSubstituteDraftPayload', {
++  family: literal('PREFERRED_GENRE_OPPORTUNITY'),
++  ...opportunityDraftTerms,
++  genre: developmentGenre(),
++})
++const StudioPromiseWaiverProjectSubstituteDraftPayload = object('StudioPromiseWaiverProjectSubstituteDraftPayload', {
++  family: literal('SPECIFIC_PROJECT'),
++  ...opportunityDraftTerms,
++  scriptProjectId: nonEmptyText(),
++})
+ const StudioPromiseWaiverSubstituteDraftPayload = union('StudioPromiseWaiverSubstituteDraftPayload', [
+   reference('StudioPromiseWaiverCastClassSubstituteDraftPayload', StudioPromiseWaiverCastClassSubstituteDraftPayload),
+   reference('StudioPromiseWaiverDirectorSubstituteDraftPayload', StudioPromiseWaiverDirectorSubstituteDraftPayload),
++  reference('StudioPromiseWaiverGenreSubstituteDraftPayload', StudioPromiseWaiverGenreSubstituteDraftPayload),
++  reference('StudioPromiseWaiverProjectSubstituteDraftPayload', StudioPromiseWaiverProjectSubstituteDraftPayload),
+   reference('StudioPromiseWaiverCountSubstituteDraftPayload', StudioPromiseWaiverCountSubstituteDraftPayload),
+ ] as const)
+ const StudioPromiseWaiverDraftPayload = object('StudioPromiseWaiverDraftPayload', {
+@@ -2168,6 +2198,12 @@ const StudioMarketProposalQuoteSnapshot = object('StudioMarketProposalQuoteSnaps
+ // substitute's own promise id is deliberately absent, because it is minted at commit
+ // as `promise-${promises.length}` and any quote naming it is wrong the moment another
+ // promise lands first. Nothing is charged by a waiver, so there is no money sheet.
++// Present only for actual material predicates; historical classless rows omit them.
++const opportunityReadTerms = {
++  genre: optional(developmentGenre()),
++  scriptProjectId: optional(nonEmptyText()),
++  scriptProjectTitle: optional(nonEmptyText()),
++}
+ const StudioPromiseWaiverQuoteSnapshot = object('StudioPromiseWaiverQuoteSnapshot', {
+   /** The union's shared identity slot; REGISTERED for commit only when `ok`. */
+   intentId: nonEmptyText(),
+@@ -2193,7 +2229,8 @@ const StudioPromiseWaiverQuoteSnapshot = object('StudioPromiseWaiverQuoteSnapsho
+   family: enumeration(PROMISE_FAMILIES),
+   count: integer({ minimum: 1 }),
+   qualifyingRole: enumeration(['cast', 'director']),
+-  seatClass: nullable(enumeration(PROMISE_SEAT_CLASSES)),
++  seatClass: nullable(enumeration(OPPORTUNITY_SEAT_CLASSES)),
++  ...opportunityReadTerms,
+   windowStartWeek: nonNegativeInteger(),
+   dueWeekExclusive: nonNegativeInteger(),
+   consequence: nonEmptyText(),
+@@ -2418,9 +2455,9 @@ const StudioMarketPromiseSnapshot = object('StudioMarketPromiseSnapshot', {
+   count: integer({ minimum: 1 }),
+   /** Stored predicate semantics, including cast semantics for historical P3. */
+   qualifyingRole: enumeration(['cast', 'director']),
+-  /** P14B.4: the explicitly selected P2 seat class; `null` for a count family or a
+-   * legacy classless P2 (read from the stored shape, never inferred from a version). */
+-  seatClass: nullable(enumeration(PROMISE_SEAT_CLASSES)),
++  /** Actual stored cast class; historical classless predicates remain null. */
++  seatClass: nullable(enumeration(OPPORTUNITY_SEAT_CLASSES)),
++  ...opportunityReadTerms,
+   windowStartWeek: nonNegativeInteger(),
+   dueWeekExclusive: nonNegativeInteger(),
+   classification: enumeration(PROMISE_CLASSIFICATIONS),
+@@ -2433,7 +2470,8 @@ const StudioMarketPromiseHistoryRow = object('StudioMarketPromiseHistoryRow', {
+   count: integer({ minimum: 1 }),
+   qualifyingRole: enumeration(['cast', 'director']),
+   /** P14B.4: as on `StudioMarketPromiseSnapshot` — real class or `null`. */
+-  seatClass: nullable(enumeration(PROMISE_SEAT_CLASSES)),
++  seatClass: nullable(enumeration(OPPORTUNITY_SEAT_CLASSES)),
++  ...opportunityReadTerms,
+   windowStartWeek: nonNegativeInteger(),
+   dueWeekExclusive: nonNegativeInteger(),
+   /** Bound history always names the actual employment contract. */
+@@ -3571,12 +3609,16 @@ const definitions = {
+   StudioQuoteContractRequest,
+   StudioMarketProposalCastClassPromiseDraftPayload,
+   StudioMarketProposalDirectorPromiseDraftPayload,
++  StudioMarketProposalGenrePromiseDraftPayload,
++  StudioMarketProposalProjectPromiseDraftPayload,
+   StudioMarketProposalCountPromiseDraftPayload,
+   StudioMarketProposalPromiseDraftPayload,
+   StudioMarketProposalDraftPayload,
+   StudioQuoteMarketProposalRequest,
+   StudioPromiseWaiverCastClassSubstituteDraftPayload,
+   StudioPromiseWaiverDirectorSubstituteDraftPayload,
++  StudioPromiseWaiverGenreSubstituteDraftPayload,
++  StudioPromiseWaiverProjectSubstituteDraftPayload,
+   StudioPromiseWaiverCountSubstituteDraftPayload,
+   StudioPromiseWaiverSubstituteDraftPayload,
+   StudioPromiseWaiverDraftPayload,
+diff --git a/bridge/trust.ts b/bridge/trust.ts
+index 9124de07..69eea570 100644
+--- a/bridge/trust.ts
++++ b/bridge/trust.ts
+@@ -2,6 +2,7 @@
+ // No new promise law or durable facts: the engine owns the descriptor and progress.
+ import { campaignDate } from '../src/core/calendar.ts'
+ import { PROMISE_SLACK_WEEKS, trustDescriptor } from '../src/core/promises.ts'
++import { disclosedPromiseTerms } from '../src/core/talentMarket.ts'
+ import type { GameState, PromiseOutcome } from '../src/core/types.ts'
+ import { promiseHistoryFor, type MarketPromiseHistoryRow } from './promises.ts'
+ import type { BridgeMarketAttentionRowSnapshot, BridgeTrustBlock } from './schema/bridge-schema.ts'
+@@ -75,7 +76,13 @@ export function promiseAttentionRows(
+     if (promise.outcome === null && promise.progress === 0
+       && promise.dueWeekExclusive - week <= PROMISE_ATTENTION_WEEKS) {
+       const work = 'kind' in promise.predicate && promise.predicate.kind === 'directorCount' ? 'directing' : 'filming'
+-      add('promiseDue', `Promise to ${name} due Week ${String(promise.dueWeekExclusive)} — ${work} has not begun`)
++      const terms = disclosedPromiseTerms(state, promise.issuerStudioId, promise.predicate)
++      const target = terms.genre !== undefined ? ` on a ${terms.genre} picture`
++        : terms.scriptProjectTitle !== undefined ? ` on “${terms.scriptProjectTitle}”` : ''
++      const role = terms.genre === undefined && terms.scriptProjectId === undefined ? ''
++        : terms.seatClass === 'allCast' ? ' in a lead, antagonist or support role'
++          : terms.seatClass === 'lead' ? ' in a lead role' : ' in a lead or antagonist role'
++      add('promiseDue', `Promise to ${name} due Week ${String(promise.dueWeekExclusive)} — ${work}${target}${role} has not begun`)
+     }
+     // P14B.7: the gate and the WORD move together. This was a two-way ternary
+     // with no third arm, so admitting WAIVED at the gate alone would have
+diff --git a/src/core/talentMarket.ts b/src/core/talentMarket.ts
+index 3b735eaa..44091c52 100644
+--- a/src/core/talentMarket.ts
++++ b/src/core/talentMarket.ts
+@@ -38,11 +38,12 @@ import { activeContract, canAfford, contractOffer, guaranteedComp, renewalWindow
+ import type { ContractOffer, TerminationLaw } from './employment.js'
+ import { attachPromise, attachedPromiseDigest, promiseFeasibility, proposalDigest, trustDescriptor } from './promises.js'
+ import { isOpportunityPredicate } from './opportunityPromises.js'
++import { takeSubjectOwner } from './firstTakeSubjects.js'
+ import { tiersOnRoster } from './relationships.js'
+ import type { PromiseAttachment } from './promises.js'
+ import { careerIdentity } from './talentSummary.js'
+ import { TUNING } from './tuning.js'
+-import type { Contract, GameState, LedgerEntry, LegacyTermination, MarketCaseStatus, MarketEligibilityStatus,
++import type { Contract, GameState, Genre, LedgerEntry, LegacyTermination, MarketCaseStatus, MarketEligibilityStatus, OpportunitySeatClass,
+   ProfessionalPromise, PromiseClassification, PromiseFamily, PromiseFeasibilityReceipt,
+   Standing, TalentMarketCase, TalentMarketCaseV36, TalentMarketProposal, TalentMarketReceipt,
+   TalentMarketStateV36 } from './types.js'
+@@ -488,19 +489,41 @@ export type Disclosed<T> = T | typeof UNKNOWN
+ 
+ /** P14B.1: what an attached promise says to its OWN issuer. Ordering-only facts
+  * (family, count, window, classification) — never a salary term, never free text. */
+-export type DisclosedPromise = {
+-  family: PromiseFamily
+-  count: number
++export type DisclosedPromiseTerms = {
+   /** Stored predicate semantics; historical classless P3 remains cast work. */
+   qualifyingRole: 'cast' | 'director'
+-  /** P14B.4: the explicitly selected P2 seat class, or null (count family or a
+-   * legacy classless P2) — read from the stored shape, never from a version. */
+-  seatClass: 'lead' | 'leadOrAntagonist' | null
++  /** Read from the stored predicate; historical classless work remains null. */
++  seatClass: OpportunitySeatClass | null
++  genre?: Genre
++  scriptProjectId?: string
++  scriptProjectTitle?: string
++}
++export type DisclosedPromise = DisclosedPromiseTerms & {
++  family: PromiseFamily
++  count: number
+   windowStartWeek: number
+   dueWeekExclusive: number
+   classification: PromiseClassification
+ }
+ 
++/** Call only after the viewer/issuer ownership gate. A missing draft target has
++ * no title; its ordinary feasibility refusal remains the authority. */
++export function disclosedPromiseTerms(state: GameState, issuerStudioId: string,
++  predicate: PromiseAttachment['predicate']): DisclosedPromiseTerms {
++  const terms: DisclosedPromiseTerms = {
++    qualifyingRole: 'kind' in predicate && predicate.kind === 'directorCount' ? 'director' : 'cast',
++    seatClass: 'kind' in predicate && (predicate.kind === 'castRoleCount' || isOpportunityPredicate(predicate))
++      ? predicate.seatClass : null,
++  }
++  if (!isOpportunityPredicate(predicate)) return terms
++  if (predicate.kind === 'genreOpportunity') return { ...terms, genre: predicate.genre }
++  const owner = takeSubjectOwner(state, issuerStudioId)
++  const project = owner?.development.projects.find(row => row.id === predicate.scriptProjectId)
++  const title = owner?.concepts.find(row => row.id === project?.conceptId)?.title
++  return { ...terms, scriptProjectId: predicate.scriptProjectId,
++    ...(title === undefined ? {} : { scriptProjectTitle: title }) }
++}
++
+ export type DisclosedProposal = {
+   issuerStudioId: string
+   submittedWeek: number
+@@ -578,8 +601,7 @@ function disclosedPromise(state: GameState, proposal: TalentMarketProposal): Dis
+   return {
+     family: promise.family,
+     count: promise.predicate.count,
+-    qualifyingRole: 'kind' in promise.predicate && promise.predicate.kind === 'directorCount' ? 'director' : 'cast',
+-    seatClass: 'kind' in promise.predicate && promise.predicate.kind === 'castRoleCount' ? promise.predicate.seatClass : null,
++    ...disclosedPromiseTerms(state, promise.issuerStudioId, promise.predicate),
+     windowStartWeek: promise.windowStartWeek,
+     dueWeekExclusive: promise.dueWeekExclusive,
+     classification: promise.feasibilityReceipt.classification,
+diff --git a/ui/src/components/ProfessionalPromiseTerms.tsx b/ui/src/components/ProfessionalPromiseTerms.tsx
+index 52fd54ed..2aba2c0f 100644
+--- a/ui/src/components/ProfessionalPromiseTerms.tsx
++++ b/ui/src/components/ProfessionalPromiseTerms.tsx
+@@ -1,7 +1,7 @@
+ import type { BridgeMarketPromiseHistoryRow } from '../../../bridge/schema/bridge-schema.ts'
+ 
+ type PromiseTerms = Pick<BridgeMarketPromiseHistoryRow,
+-  'family' | 'count' | 'qualifyingRole' | 'seatClass' | 'windowStartWeek' | 'dueWeekExclusive'>
++  'family' | 'count' | 'qualifyingRole' | 'seatClass' | 'genre' | 'scriptProjectId' | 'scriptProjectTitle' | 'windowStartWeek' | 'dueWeekExclusive'>
+ 
+ export type ProfessionalPromiseTermsProps =
+   | { disclosure: 'UNKNOWN' }
+@@ -14,11 +14,15 @@ export function ProfessionalPromiseTerms(props: ProfessionalPromiseTermsProps) {
+   const { terms } = props
+   const work = terms.qualifyingRole === 'director' ? 'directing' : 'filming'
+   const role = terms.qualifyingRole === 'director' || terms.seatClass === null ? ''
+-    : terms.seatClass === 'lead' ? ' in a lead role' : ' in a lead or antagonist role'
++    : terms.seatClass === 'allCast' ? ' in a lead, antagonist or support role'
++      : terms.seatClass === 'lead' ? ' in a lead role' : ' in a lead or antagonist role'
++  const genre = terms.genre === undefined ? '' : `${terms.genre} `
++  const project = terms.scriptProjectId === undefined ? ''
++    : terms.scriptProjectTitle === undefined ? ' of the selected screenplay' : ` of “${terms.scriptProjectTitle}”`
+   const title = props.disclosure === 'waiver' ? 'Substitute promise'
+     : props.disclosure === 'history' ? 'Promise record' : 'Promise'
+   return <section aria-label={title}>
+-    <p>Begin {work} on {terms.count} production{terms.count === 1 ? '' : 's'}{role}.</p>
++    <p>Begin {work} on {terms.count} {genre}production{terms.count === 1 ? '' : 's'}{project}{role}.</p>
+     <p>From Week {terms.windowStartWeek} through Week {terms.dueWeekExclusive - 1}
+       {' '}(before Week {terms.dueWeekExclusive}).</p>
+     {props.disclosure === 'history' && <p>{props.progress} of {terms.count} begun · {props.outcome ?? 'Open'}</p>}

@@ -38,11 +38,12 @@ import { activeContract, canAfford, contractOffer, guaranteedComp, renewalWindow
 import type { ContractOffer, TerminationLaw } from './employment.js'
 import { attachPromise, attachedPromiseDigest, promiseFeasibility, proposalDigest, trustDescriptor } from './promises.js'
 import { isOpportunityPredicate } from './opportunityPromises.js'
+import { takeSubjectOwner } from './firstTakeSubjects.js'
 import { tiersOnRoster } from './relationships.js'
 import type { PromiseAttachment } from './promises.js'
 import { careerIdentity } from './talentSummary.js'
 import { TUNING } from './tuning.js'
-import type { Contract, GameState, LedgerEntry, LegacyTermination, MarketCaseStatus, MarketEligibilityStatus,
+import type { Contract, GameState, Genre, LedgerEntry, LegacyTermination, MarketCaseStatus, MarketEligibilityStatus, OpportunitySeatClass,
   ProfessionalPromise, PromiseClassification, PromiseFamily, PromiseFeasibilityReceipt,
   Standing, TalentMarketCase, TalentMarketCaseV36, TalentMarketProposal, TalentMarketReceipt,
   TalentMarketStateV36 } from './types.js'
@@ -486,19 +487,40 @@ export function currentProposals(state: GameState, talentId: string): readonly T
 export const UNKNOWN = 'UNKNOWN' as const
 export type Disclosed<T> = T | typeof UNKNOWN
 
-/** P14B.1: what an attached promise says to its OWN issuer. Ordering-only facts
- * (family, count, window, classification) — never a salary term, never free text. */
-export type DisclosedPromise = {
-  family: PromiseFamily
-  count: number
+/** Structured promise terms for the issuer, with its own screenplay title. */
+export type DisclosedPromiseTerms = {
   /** Stored predicate semantics; historical classless P3 remains cast work. */
   qualifyingRole: 'cast' | 'director'
-  /** P14B.4: the explicitly selected P2 seat class, or null (count family or a
-   * legacy classless P2) — read from the stored shape, never from a version. */
-  seatClass: 'lead' | 'leadOrAntagonist' | null
+  /** Read from the stored predicate; historical classless work remains null. */
+  seatClass: OpportunitySeatClass | null
+  genre?: Genre
+  scriptProjectId?: string
+  scriptProjectTitle?: string
+}
+export type DisclosedPromise = DisclosedPromiseTerms & {
+  family: PromiseFamily
+  count: number
   windowStartWeek: number
   dueWeekExclusive: number
   classification: PromiseClassification
+}
+
+/** Call only after the viewer/issuer ownership gate. A missing draft target has
+ * no title; its ordinary feasibility refusal remains the authority. */
+export function disclosedPromiseTerms(state: GameState, issuerStudioId: string,
+  predicate: PromiseAttachment['predicate']): DisclosedPromiseTerms {
+  const terms: DisclosedPromiseTerms = {
+    qualifyingRole: 'kind' in predicate && predicate.kind === 'directorCount' ? 'director' : 'cast',
+    seatClass: 'kind' in predicate && (predicate.kind === 'castRoleCount' || isOpportunityPredicate(predicate))
+      ? predicate.seatClass : null,
+  }
+  if (!isOpportunityPredicate(predicate)) return terms
+  if (predicate.kind === 'genreOpportunity') return { ...terms, genre: predicate.genre }
+  const owner = takeSubjectOwner(state, issuerStudioId)
+  const project = owner?.development.projects.find(row => row.id === predicate.scriptProjectId)
+  const title = owner?.concepts.find(row => row.id === project?.conceptId)?.title
+  return { ...terms, scriptProjectId: predicate.scriptProjectId,
+    ...(title === undefined ? {} : { scriptProjectTitle: title }) }
 }
 
 export type DisclosedProposal = {
@@ -578,8 +600,7 @@ function disclosedPromise(state: GameState, proposal: TalentMarketProposal): Dis
   return {
     family: promise.family,
     count: promise.predicate.count,
-    qualifyingRole: 'kind' in promise.predicate && promise.predicate.kind === 'directorCount' ? 'director' : 'cast',
-    seatClass: 'kind' in promise.predicate && promise.predicate.kind === 'castRoleCount' ? promise.predicate.seatClass : null,
+    ...disclosedPromiseTerms(state, promise.issuerStudioId, promise.predicate),
     windowStartWeek: promise.windowStartWeek,
     dueWeekExclusive: promise.dueWeekExclusive,
     classification: promise.feasibilityReceipt.classification,

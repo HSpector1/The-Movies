@@ -21,8 +21,8 @@
 
 import { allPromises, promiseFeasibility, waiverAccepted, waivePromise } from '../src/core/promises.ts'
 import type { PromiseAttachment } from '../src/core/promises.ts'
-import { caseDisclosure, caseForTalent, latestCaseIsExtension, UNKNOWN } from '../src/core/talentMarket.ts'
-import type { Disclosed, DisclosedPromise } from '../src/core/talentMarket.ts'
+import { caseDisclosure, caseForTalent, disclosedPromiseTerms, latestCaseIsExtension, UNKNOWN } from '../src/core/talentMarket.ts'
+import type { Disclosed, DisclosedPromise, DisclosedPromiseTerms } from '../src/core/talentMarket.ts'
 import type { GameState, PromiseClassification } from '../src/core/types.ts'
 import type { ActionOutcome } from '../ui/src/engine/adapter.ts'
 import type {
@@ -40,20 +40,21 @@ export type MarketPromiseRow = {
 
 export type MarketPromiseHistoryRow = BridgeMarketPromiseHistoryRow
 
-/** The closed family-discriminated wire draft. Only P2 carries a seat class;
- * fresh P3 selects Director work without exposing the private predicate. */
+/** Closed drafts select explicit cast/Director work and any material restriction. */
 export type WirePromiseDraft = BridgeMarketProposalPromiseDraftPayload
 
 /** The ONE wire→core conversion shared by quote, attachment and waiver. */
 export function corePredicateOf(draft: WirePromiseDraft): PromiseAttachment['predicate'] {
   if (draft.family === 'DIRECTING_COUNT') return { kind: 'directorCount', count: draft.count }
+  if (draft.family === 'PREFERRED_GENRE_OPPORTUNITY') return {
+    kind: 'genreOpportunity', count: draft.count, seatClass: draft.seatClass, genre: draft.genre,
+  }
+  if (draft.family === 'SPECIFIC_PROJECT') return {
+    kind: 'projectOpportunity', count: draft.count, seatClass: draft.seatClass, scriptProjectId: draft.scriptProjectId,
+  }
   return 'seatClass' in draft
     ? { kind: 'castRoleCount', count: draft.count, seatClass: draft.seatClass }
     : { count: draft.count }
-}
-
-function qualifyingRoleOf(predicate: PromiseAttachment['predicate']): 'cast' | 'director' {
-  return 'kind' in predicate && predicate.kind === 'directorCount' ? 'director' : 'cast'
 }
 
 /** The quote-time draft. The window is checked against the PROPOSED contract, so
@@ -110,9 +111,7 @@ export function promiseHistoryFor(
         promiseId: promise.promiseId,
         family: promise.family,
         count: promise.predicate.count,
-        qualifyingRole: qualifyingRoleOf(promise.predicate),
-        // The stored shape alone selects a class; a legacy classless P2 reads null.
-        seatClass: 'kind' in promise.predicate && promise.predicate.kind === 'castRoleCount' ? promise.predicate.seatClass : null,
+        ...disclosedPromiseTerms(state, promise.issuerStudioId, promise.predicate),
         windowStartWeek: promise.windowStartWeek,
         dueWeekExclusive: promise.dueWeekExclusive,
         contractId: promise.contractId,
@@ -201,6 +200,7 @@ export type PromiseWaiverConversionOk = {
   talentName: string
   substitute: PromiseAttachment
   seatClass: BridgePromiseWaiverQuoteSnapshot['seatClass']
+  disclosedTerms: DisclosedPromiseTerms
   commitLabel: string
   /** `waiverAccepted`'s BARE sentence, or `null` when this person accepts. */
   refusal: string | null
@@ -214,8 +214,15 @@ function noSuchPromiseOfYours(promiseId: string): string {
   return `This studio has no promise ${JSON.stringify(promiseId)} on its record.`
 }
 
-function substituteTerms(count: number, seatClass: string | null, qualifyingRole: 'cast' | 'director'): string {
+function substituteTerms(count: number, terms: DisclosedPromiseTerms): string {
+  const { seatClass, qualifyingRole } = terms
   if (qualifyingRole === 'director') return `begin directing ${String(count)} production${count === 1 ? '' : 's'}`
+  if (terms.genre !== undefined || terms.scriptProjectId !== undefined) {
+    const picture = terms.genre !== undefined ? `${terms.genre} production`
+      : terms.scriptProjectTitle === undefined ? 'production of the selected screenplay' : `production of “${terms.scriptProjectTitle}”`
+    const role = seatClass === 'allCast' ? 'lead, antagonist or support' : seatClass === 'lead' ? 'lead' : 'lead or antagonist'
+    return `begin filming on ${String(count)} ${picture} in a ${role} role`
+  }
   const noun = seatClass === null
     ? 'appearance'
     : seatClass === 'lead' ? 'lead role' : 'lead or antagonist role'
@@ -255,8 +262,9 @@ export function promiseWaiverDraftToEngine(state: GameState, draft: WireWaiverDr
     windowStartWeek: draft.substitute.windowStartWeek,
     dueWeekExclusive: draft.substitute.dueWeekExclusive,
   }
-  const seatClass = 'seatClass' in draft.substitute ? draft.substitute.seatClass : null
-  const terms = substituteTerms(draft.substitute.count, seatClass, qualifyingRoleOf(substitute.predicate))
+  const disclosedTerms = disclosedPromiseTerms(state, promise.issuerStudioId, substitute.predicate)
+  const seatClass = disclosedTerms.seatClass
+  const terms = substituteTerms(draft.substitute.count, disclosedTerms)
   return {
     ok: true,
     kind: 'waivePromise',
@@ -265,6 +273,7 @@ export function promiseWaiverDraftToEngine(state: GameState, draft: WireWaiverDr
     talentName: talent.name,
     substitute,
     seatClass,
+    disclosedTerms,
     commitLabel: `WAIVE PROMISE — ${talent.name.toUpperCase()} · SUBSTITUTE ${terms.toUpperCase()} BEFORE WEEK ${String(draft.substitute.dueWeekExclusive)}`,
     // Rule 9 reads the substitute against the REAL employment interval inside the
     // engine (`substituteDraft`), so the bridge re-derives no contract window of its
@@ -281,9 +290,8 @@ export function promiseWaiverQuoteSnapshot(
   conversion: PromiseWaiverConversionOk,
   intentId: string,
 ): BridgePromiseWaiverQuoteSnapshot {
-  const { substitute, seatClass, refusal, talentName } = conversion
-  const qualifyingRole = qualifyingRoleOf(substitute.predicate)
-  const terms = substituteTerms(substitute.predicate.count, seatClass, qualifyingRole)
+  const { substitute, disclosedTerms, refusal, talentName } = conversion
+  const terms = substituteTerms(substitute.predicate.count, disclosedTerms)
   return {
     intentId,
     kind: 'waivePromise',
@@ -298,8 +306,7 @@ export function promiseWaiverQuoteSnapshot(
     talentId: conversion.talentId,
     family: substitute.family,
     count: substitute.predicate.count,
-    qualifyingRole,
-    seatClass,
+    ...disclosedTerms,
     windowStartWeek: substitute.windowStartWeek,
     dueWeekExclusive: substitute.dueWeekExclusive,
     consequence: refusal === null

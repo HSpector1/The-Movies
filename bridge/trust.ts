@@ -2,6 +2,7 @@
 // No new promise law or durable facts: the engine owns the descriptor and progress.
 import { campaignDate } from '../src/core/calendar.ts'
 import { PROMISE_SLACK_WEEKS, trustDescriptor } from '../src/core/promises.ts'
+import { disclosedPromiseTerms } from '../src/core/talentMarket.ts'
 import type { GameState, PromiseOutcome } from '../src/core/types.ts'
 import { promiseHistoryFor, type MarketPromiseHistoryRow } from './promises.ts'
 import type { BridgeMarketAttentionRowSnapshot, BridgeTrustBlock } from './schema/bridge-schema.ts'
@@ -75,7 +76,13 @@ export function promiseAttentionRows(
     if (promise.outcome === null && promise.progress === 0
       && promise.dueWeekExclusive - week <= PROMISE_ATTENTION_WEEKS) {
       const work = 'kind' in promise.predicate && promise.predicate.kind === 'directorCount' ? 'directing' : 'filming'
-      add('promiseDue', `Promise to ${name} due Week ${String(promise.dueWeekExclusive)} — ${work} has not begun`)
+      const terms = disclosedPromiseTerms(state, promise.issuerStudioId, promise.predicate)
+      const target = terms.genre !== undefined ? ` on a ${terms.genre} picture`
+        : terms.scriptProjectTitle !== undefined ? ` on “${terms.scriptProjectTitle}”` : ''
+      const role = terms.genre === undefined && terms.scriptProjectId === undefined ? ''
+        : terms.seatClass === 'allCast' ? ' in a lead, antagonist or support role'
+          : terms.seatClass === 'lead' ? ' in a lead role' : ' in a lead or antagonist role'
+      add('promiseDue', `Promise to ${name} due Week ${String(promise.dueWeekExclusive)} — ${work}${target}${role} has not begun`)
     }
     // P14B.7: the gate and the WORD move together. This was a two-way ternary
     // with no third arm, so admitting WAIVED at the gate alone would have

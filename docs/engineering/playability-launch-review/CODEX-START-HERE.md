@@ -1,5 +1,30 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — Core binding/filming PASS; Bridge55 draft generated
+
+Published8d6d5a23118602c795ee4c7a03b85ee240d75c48 matched GitHub.
+1237 root compilerPASS34.913s/cap0.1238 Q05/Q06 bothPASS20.760s with four filtered,
+actual40 advances (7 binding+13 workflow per route)/cap94. Both actual player wins
+bind52, take61/SATISFIED, release65. Each exact new suffix has9facts (8rival+1player).
+Cancellation/idempotence and detachedP5wrong-seat BROKEN52 assertions pass. All
+source/manual/raw/index guards and complete1,226-byte legacy line remain exact.
+InitialfourPASS is separate1234b; no same-run6 or full1226 claim.1239 records retain
+limits; itsA cap typo is corrected separately (compiler0, runtime94).
+
+Parent1240 drafts coordinated Bridge55: explicit material drafts/waivers, own-only
+optional genre/project/title, truthful classes/copy and exact prior54 registration.
+Generation succeeded; actual schema identity is
+sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158.
+1240-A pins the6source/3generated files. This is uncompiled, unqualified WIP;
+independent source review and Bridge/root/UI compilation/contract checks follow.
+1236-A/B adopts a separately staged three-leaf Bridge route with hard7 advances;
+it is not installed or run. Native execution remains deferred.
+
+No heavy is active at checkpoint creation. Parent remains sole production writer
+and heavy executor; existing specialists retain separate test/review ownership.
+Continue the authorized program, remaining1226 matrix and settled P15 decisions.
+No completed captures or unrelated broad suites should be replayed.
+
 ## CURRENT — Initial four P4/P5 checks PASS; binding/filming source installed
 
 Published029dae8aea5f4c1674f7272cb55408a02454218f matched GitHub.1233c root
