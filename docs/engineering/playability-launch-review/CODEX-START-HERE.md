@@ -1,5 +1,30 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — Stock-null release qualified; requested Actor retirement source next
+
+Executed/published d787d92cbe6653916b8ca977b798f3b92c7d72b5 matched GitHub.
+1264b root types PASS34.933s;1265b Q15 PASS1/zero filtered13.474s recorder,
+9.349s leaf. All1,684 source files,160 manual pins,index/stage and fixed-source
+checks stayed exact.1263-I/J/K close independent author/reviewer/parent records.
+The same13 advances and five public actions produce actual stock c00/comedy/null
+at61/event24 and retain all old20 receipts plus all eight mixed new facts through
+returned65. Film releaseTick64 is the existing completed-week stamp. All final
+participant/concept/null-fact/prefix/current-admission assertions now pass.
+Original1265 FAIL, missed65→64 test oracle and original preimage remain immutable;
+all27 factual marker lines match between the two runs. Fifteen core leaves passed
+across seven separate selections, not a combined suite. No production change.
+
+Begin1266-C under accepted1266-A/F/B: three pure P4 quotes on existing genuine
+Save38 natural208,zero actions/zero advances. Check requested Actor retirement
+after actual Director/Writer transitions against the actual active Actor control.
+Preserve85 old takes/all59 promises and original V37 provenance/parity FAIL.
+Independent1266-D precedes parent integration/publication and1267 types(cap0),
+1268 runtime(cap0). No1266 execution exists yet. Then1269 cross-owner and1272
+finishing accepted plans; no source release for those later tasks yet.
+Parent remains sole live production/integration writer and heavy-process owner;
+the same two specialists retain separate staged-test and review ownership.
+Continue authorized program. Unity/native and Owner campaign access deferred.
+
 ## CURRENT — Release-stamp correction applied; Q15 requalification next
 
 Parent applied exact1263-G/H over publishedc3a06a77.1263-M records the only
