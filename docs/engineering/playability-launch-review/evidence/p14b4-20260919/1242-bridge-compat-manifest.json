@@ -1,0 +1,97 @@
+{
+  "status": "STAGED_ONLY_UNEXECUTED",
+  "baselineHead": "354db2a168cf2b5d6af37845acb3ff5aacdb3a54",
+  "files": [
+    {
+      "path": "tests/bridge-p14b2-trust.test.ts",
+      "staged": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1242-bridge-compat-stage/tests/bridge-p14b2-trust.test.ts",
+      "before": {
+        "bytes": 32115,
+        "sha256": "7c9535be07f532d1d424525e8e1dd14ea9be2a3bd148773bb8b394772da197e8"
+      },
+      "after": {
+        "bytes": 32115,
+        "sha256": "d63ce48b4ab83b6c45a3bf4f58e4ff0959d68dd0922b5a039d12db0338d97e00"
+      }
+    },
+    {
+      "path": "tests/bridge-p14b3-promise-command.test.ts",
+      "staged": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1242-bridge-compat-stage/tests/bridge-p14b3-promise-command.test.ts",
+      "before": {
+        "bytes": 34910,
+        "sha256": "c86605cceba45f715cef016377645489832a02f745edb0abc5ebeae440cd997c"
+      },
+      "after": {
+        "bytes": 35044,
+        "sha256": "ef4d2356f78173a0685dd23f3d1c6b2408a8f9330003931982c39dfa83e4ce8d"
+      }
+    },
+    {
+      "path": "tests/bridge-p14p3-directing-promises.test.ts",
+      "staged": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1242-bridge-compat-stage/tests/bridge-p14p3-directing-promises.test.ts",
+      "before": {
+        "bytes": 45878,
+        "sha256": "dbc4800046353a25d75261604e944b77c05e26c43d79ae4e856e23fb4aabf86d"
+      },
+      "after": {
+        "bytes": 46230,
+        "sha256": "dee28fa9b6f314015f86d27d709f51b92ab8cd3c1f1d57c7a01c746602faedfe"
+      }
+    }
+  ],
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1242-bridge-compat.patch",
+    "bytes": 12851,
+    "sha256": "0a1d1cb7b1b9da7b10e807a0e449b6d32a35043e39d61720f524497f63d1a94a"
+  },
+  "evidence": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1241-bridge55-types.txt",
+      "bytes": 8425,
+      "sha256": "68f99afc5c883cca4edf9d32b6243092e3914fd9edcaa3710efd3f9c02e13dbe"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1241-bridge55-types.json",
+      "bytes": 641,
+      "sha256": "cae091933c9535cc7cd226a997a3426c5b1957ba3001c89e9a4f67cec474e63b"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1241-bridge55-types-preflight.json",
+      "bytes": 11611,
+      "sha256": "4b58ba0bb50ed1e9868e5eeb762cf0e8cf69ad52ee0ab0272c0e5be27f6aee1c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1241-bridge55-types-postflight.json",
+      "bytes": 12272,
+      "sha256": "f4002ecac4f634cb73d259346b097044a2e3864a213013ff87946478dd8320f4"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-A-bridge55-test-plan.md",
+      "bytes": 11658,
+      "sha256": "6f29b6a056c935f3e5a842f29a05c176b0b65c00d9a2d7b0c88c5c9212c114cb"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1236-B-bridge55-plan-review.md",
+      "bytes": 5418,
+      "sha256": "5caf5bf36c636282c3fd88d7f78fb66721a352acbcc00dfbf0d1168f6944fe62"
+    }
+  ],
+  "titleMapping": [
+    {
+      "before": "D17 migrates outgoing53 independently and isolates current54 campaigns",
+      "after": "D17 migrates outgoing53 independently and isolates current55 campaigns"
+    }
+  ],
+  "untouchedFrozenReaders": [
+    "validateSaveV38 for historical P3 inputs/mutants",
+    "validateSaveV39 for genuine1171 capture"
+  ],
+  "commands": [
+    [
+      "node_modules/.bin/tsc",
+      "--noEmit",
+      "-p",
+      "tsconfig.bridge.json"
+    ]
+  ]
+}

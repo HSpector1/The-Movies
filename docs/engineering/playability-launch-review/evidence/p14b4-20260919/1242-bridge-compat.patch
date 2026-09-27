@@ -1,0 +1,209 @@
+--- a/tests/bridge-p14b2-trust.test.ts
++++ b/tests/bridge-p14b2-trust.test.ts
+@@ -21,7 +21,7 @@
+ import { campaignDate } from '../src/core/calendar.js'
+ import { trustDescriptor, trustDrivers, type TrustDriver, type TrustLabel } from '../src/core/promises.js'
+ import { caseForTalent, currentProposals, UNKNOWN } from '../src/core/talentMarket.js'
+-import { LIVE_SAVE_VERSION, makeSave, validateSaveV38 } from '../src/core/save.js'
++import { LIVE_SAVE_VERSION, makeSave, validateSaveV40 } from '../src/core/save.js'
+ import { tick } from '../src/core/tick.js'
+ import type { GameState, ProfessionalPromise, PromiseFamily, PromiseOutcome } from '../src/core/types.js'
+ import { advanceTo, clone, historyFixture, p13aGeneratedStudio, player, poachingFixture, promiseFor,
+@@ -134,10 +134,10 @@
+   it('pins the exact version, old-five-plus-two attention enum and unchanged intent vocabulary', () => {
+     const state = p13aGeneratedStudio()
+     readModels(state, state.talent[0]!.id)
+-    expect(PROJECTION_VERSION).toBe(53)
+-    expect(LIVE_SAVE_VERSION).toBe(38)
+-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-53`)
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(53)
++    expect(PROJECTION_VERSION).toBe(55)
++    expect(LIVE_SAVE_VERSION).toBe(40)
++    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-55`)
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(55)
+     const attentionSchema = schemaDefinition('StudioMarketAttentionRowSnapshot') as unknown as { properties: { cause: { enum: string[] } } }
+     // Schema enum order is not gameplay row order; copies retain exact membership/count without mutating the schema.
+     expect([...attentionSchema.properties.cause.enum].sort()).toEqual(['decisionWeekNear', 'newCompetingProposal', 'termsRevised',
+@@ -281,7 +281,7 @@
+     readModels(next, f.keptId)
+     expect(next.market.tick).toBe(f.outcomes.market.tick + 1)
+     // This deliberately crosses the F1 real wrap boundary; no save bypass.
+-    expect(() => validateSaveV38(JSON.parse(JSON.stringify(makeSave(next))))).not.toThrow()
++    expect(() => validateSaveV40(JSON.parse(JSON.stringify(makeSave(next))))).not.toThrow()
+     for (const talentId of [f.keptId, f.brokenId]) {
+       const promise = promiseFor(f.outcomes, talentId)
+       expect(next.talentMarket.receipts.filter((r) => r.eventId === promise.outcomeEventId)).toHaveLength(1)
+@@ -418,7 +418,7 @@
+       feasibilityReceipt: { ...p.feasibilityReceipt, classification: 'FRAGILE', bottleneck: 'private disclosure probe' } })
+     expect(variant.promises.find((p) => p.promiseId === f.promise.promiseId)!.outcomeEventId).toBe(f.promise.outcomeEventId)
+     expect(variant.talentMarket.receipts).toEqual(f.terminal.talentMarket.receipts)
+-    expect(() => validateSaveV38(JSON.parse(JSON.stringify(makeSave(variant))))).not.toThrow()
++    expect(() => validateSaveV40(JSON.parse(JSON.stringify(makeSave(variant))))).not.toThrow()
+     expect(publicSurfaces(variant, f.promise.beneficiaryPersonId)).toEqual(publicSurfaces(f.terminal, f.promise.beneficiaryPersonId))
+   })
+ })
+@@ -462,8 +462,8 @@
+       commandId: 'b2-save-kept-and-broken', expectedStateRevision: 0 })
+     expect(saved.accepted).toBe(true)
+     if (!saved.accepted) throw new Error(saved.message)
+-    const validated = validateSaveV38(JSON.parse(saved.saveJson))
+-    expect(validated.saveVersion).toBe(38)
++    const validated = validateSaveV40(JSON.parse(saved.saveJson))
++    expect(validated.saveVersion).toBe(40)
+     expect(validated.state.promises.filter((p) => p.issuerStudioId === player(validated.state)).map((p) => p.outcome).sort()).toEqual(['BROKEN', 'SATISFIED'])
+     const after = BridgeSession.fromSaveJson(saved.saveJson, SESSION_ID)
+     expect(after.stateRevision).toBe(before.stateRevision)
+--- a/tests/bridge-p14b3-promise-command.test.ts
++++ b/tests/bridge-p14b3-promise-command.test.ts
+@@ -16,11 +16,14 @@
+ import { applyActions, hiringMarketIds } from '../src/core/index.js'
+ import { attachPromise, promiseFeasibility, trustDrivers } from '../src/core/promises.js'
+ import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
+-import { LIVE_SAVE_VERSION, makeSave, validateSaveV38 } from '../src/core/save.js'
++import { LIVE_SAVE_VERSION, makeSave, validateSaveV40 } from '../src/core/save.js'
+ import type { GameState } from '../src/core/types.js'
+ import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
+ 
+ type Payload = BridgeMarketProposalDraftPayload
++type P1Payload = Omit<Payload, 'promise'> & {
++  promise: Extract<NonNullable<Payload['promise']>, { family: 'APPEARANCE_COUNT' }>
++}
+ let cached: { state: GameState; talentId: string } | undefined
+ function fixture() {
+   if (cached === undefined) {
+@@ -32,12 +35,12 @@
+     state = advanceTo(state, 45)
+     expect(currentProposals(state, talentId).filter((p) => p.issuerStudioId === player(state))).toEqual([])
+     expect(state.promises.filter((p) => p.beneficiaryPersonId === talentId)).toEqual([])
+-    validateSaveV38(JSON.parse(JSON.stringify(makeSave(state))))
++    validateSaveV40(JSON.parse(JSON.stringify(makeSave(state))))
+     cached = { state, talentId }
+   }
+   return structuredClone(cached)
+ }
+-function payload(talentId: string): Payload {
++function payload(talentId: string): P1Payload {
+   return { verb: 'propose', talentId, termWeeks: 52, premiumTier: 1.25,
+     promise: { family: 'APPEARANCE_COUNT', count: 1, windowStartWeek: 52, dueWeekExclusive: 92 } }
+ }
+@@ -80,7 +83,7 @@
+ function saveSlot(session: BridgeSession, commandId = 'save-fixture') {
+   const result = session.save(control(session, commandId))
+   if (!result.accepted) throw new Error(result.message)
+-  validateSaveV38(JSON.parse(result.saveJson))
++  validateSaveV40(JSON.parse(result.saveJson))
+   return result.saveJson
+ }
+ function feasibilityAfterRealBaseRevision(state: GameState, wire: Payload) {
+@@ -130,7 +133,7 @@
+     expect(session.exportRuntimeCheckpoint().savedSaveJson).toBe(slot)
+     const plain = submitProposal(before, { talentId, issuerStudioId: player(before), termWeeks: 52, premiumTier: 1.25 })
+     expect(currentOwn(session.gameState, talentId).digest).not.toBe(currentOwn(plain, talentId).digest)
+-    validateSaveV38(JSON.parse(JSON.stringify(makeSave(session.gameState))))
++    validateSaveV40(JSON.parse(JSON.stringify(makeSave(session.gameState))))
+   })
+ 
+   it('pure repeated quotes retain exact state/RNG/receipt/cash/slot bytes and one opaque identity', () => {
+@@ -352,7 +355,7 @@
+     expect(session.gameState.ledger).toEqual(beforeMoney.ledger)
+     expect(session.gameState.rngState).toBe(beforeMoney.rng)
+     const saved = saveSlot(session, 'save-abandoned-evidence')
+-    expect(validateSaveV38(JSON.parse(saved)).state.promises).toEqual(session.gameState.promises)
++    expect(validateSaveV40(JSON.parse(saved)).state.promises).toEqual(session.gameState.promises)
+   })
+ })
+ 
+@@ -497,10 +500,10 @@
+     expect(receipt).toMatchObject({ kind: 'promiseOutcome', week: 92, talentId, studioId: player(outcome) })
+     const completed = new BridgeSession(outcome, 'b3-outcome-save')
+     const saved = saveSlot(completed)
+-    const validated = validateSaveV38(JSON.parse(saved))
+-    expect(LIVE_SAVE_VERSION).toBe(38)
+-    expect(PROJECTION_VERSION).toBe(53)
+-    expect(validated.saveVersion).toBe(38)
++    const validated = validateSaveV40(JSON.parse(saved))
++    expect(LIVE_SAVE_VERSION).toBe(40)
++    expect(PROJECTION_VERSION).toBe(55)
++    expect(validated.saveVersion).toBe(40)
+     const reloaded = BridgeSession.fromSaveJson(saved, 'b3-outcome-reloaded')
+     const read = (world: GameState) => ({ trust: trustBlockFor(world, talentId, player(world)),
+       own: promiseRowsForPerson(world, talentId, player(world)), foreign: promiseRowsForPerson(world, talentId, rival),
+--- a/tests/bridge-p14p3-directing-promises.test.ts
++++ b/tests/bridge-p14p3-directing-promises.test.ts
+@@ -24,7 +24,7 @@
+ import { caseDisclosure } from '../src/core/talentMarket.js'
+ import { activeContract } from '../src/core/employment.js'
+ import { exportSave, importSave, makeSave, migrateToLive, stableStringify,
+-  validateSaveV38, validateSaveV39 } from '../src/core/save.js'
++  validateSaveV38, validateSaveV39, validateSaveV40 } from '../src/core/save.js'
+ import type { GameState, ProfessionalPromise } from '../src/core/types.js'
+ 
+ const TIMEOUT = 60_000
+@@ -38,7 +38,7 @@
+ const bytes = (state: GameState): string => exportSave(makeSave(state))
+ function full(state: GameState): string {
+   const before = stableStringify(state), save = makeSave(state)
+-  expect(save.saveVersion).toBe(39); expect(validateSaveV39(save)).toBe(save)
++  expect(save.saveVersion).toBe(40); expect(validateSaveV40(save)).toBe(save)
+   const raw = exportSave(save)
+   expect(exportSave(importSave(raw))).toBe(raw)
+   expect(stableStringify(state)).toBe(before)
+@@ -94,7 +94,10 @@
+       .toEqual([['script-0000', 'ready', null], ['script-0001', 'ready', null]])
+     expect(save.state.talent.find(row => row.id === ACTOR)?.role).toBe('actor')
+     expect(save.state.talent.find(row => row.id === DIRECTOR)?.role).toBe('director')
+-    full(save.state); return save.state
++    const current = migrateToLive(save)
++    expect(current.saveVersion).toBe(40)
++    expect(current.state).toEqual({ ...save.state, firstTakeSubjects: { version: 1, cutoverOrdinal: save.state.firstTakes.length, facts: [] } })
++    full(current.state); return current.state
+   })
+ }
+ const calls = { reserved: 0, advanceInvocations: 0, completed: 0, session: 0, coordinator: 0, duplicateInvocations: 0 }
+@@ -242,7 +245,7 @@
+     feasibilityReceipt: { ...target.feasibilityReceipt, rulesVersion: version } }
+   variant.state.promises = variant.state.promises.map(row => row.promiseId === target.promiseId ? replacement : row)
+   expect(validateSaveV38(variant)).toBe(variant)
+-  const current = migrateToLive(variant); expect(current.saveVersion).toBe(39)
++  const current = migrateToLive(variant); expect(current.saveVersion).toBe(40)
+   expect(current.state.promises.find(row => row.promiseId === target.promiseId)).toEqual(replacement)
+   full(current.state)
+   return { state: current.state, promise: root(current.state, target.promiseId) }
+@@ -317,7 +320,7 @@
+     const factory = vi.fn(() => `1174-prior53-${name}`)
+     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
+     expect(loaded.migratedFromProtocolVersion).toBe(4); expect(factory).toHaveBeenCalledTimes(1)
+-    expect(PROJECTION_VERSION).toBe(54); expect(PROTOCOL_VERSION).toBe(4)
++    expect(PROJECTION_VERSION).toBe(55); expect(PROTOCOL_VERSION).toBe(4)
+     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v53']])
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+     const current = loaded.hydrated.checkpoint
+@@ -327,8 +330,8 @@
+     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
+       assert.ok(current[slot])
+       const previous = validateSaveV38(JSON.parse(old.value[slot]))
+-      const now = validateSaveV39(JSON.parse(current[slot]!))
+-      expect(now.state).toEqual(previous.state)
++      const now = validateSaveV40(JSON.parse(current[slot]!))
++      expect(now.state).toEqual({ ...previous.state, firstTakeSubjects: { version: 1, cutoverOrdinal: previous.state.firstTakes.length, facts: [] } })
+       expect(current[slot]).toBe(exportSave(migrateToLive(previous)))
+       full(now.state)
+     }
+@@ -341,7 +344,7 @@
+     expect(session.gameState.rngState).toEqual(authorityBefore.rng)
+     expect(session.stateRevision).toBe(authorityBefore.revision)
+     const currentRaw = encodeBridgeRuntimeCheckpoint(current)
+-    const again = vi.fn(() => { throw new Error('current54 must not migrate again') })
++    const again = vi.fn(() => { throw new Error('current55 must not migrate again') })
+     const reloaded = loadBridgeRuntimeCheckpoint(currentRaw, undefined, again)
+     expect(reloaded.migratedFromProtocolVersion).toBeNull(); expect(again).not.toHaveBeenCalled()
+     expect(encodeBridgeRuntimeCheckpoint(reloaded.hydrated.checkpoint)).toBe(currentRaw)
+@@ -561,7 +564,7 @@
+       waiverWeek: 52, original: waived.oldId, successor: waived.successorId, extraTicks: 0 }))
+   }, TIMEOUT)
+ 
+-  it('D17 migrates outgoing53 independently and isolates current54 campaigns', async () => {
++  it('D17 migrates outgoing53 independently and isolates current55 campaigns', async () => {
+     qualifyPrior53() // Independent zero-tick migration controls before any bound52 dependency.
+     const bound = bound52(), initial = clone(bound.state); full(initial)
+     let store = new Store(), freshFactories = 0

@@ -1,5 +1,26 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — Root/UI and generated checks PASS; Bridge compatibility applied
+
+Published39d9546256ae542eb1b4a42c4d38df27207fa865 matched GitHub.1243 root
+typesPASS34.344s,1244 UItypesPASS44.591s,1245 contractcheckPASS1.735s and1246
+fixturecheckPASS1.178s: child0/fixed, all source/manual/raw/index guards exact.
+These preserve the actual generated55 source; no native qualification is claimed.
+1240-B independently reviews the six production paths and literal type isolation.
+
+Parent applied1242 exact three reviewed test postimages;1242-C records all pins.
+They resolve current/frozen save callers and narrow the actual P1 helper without
+runtime value changes. Historical readers/pins and unobserved behavior controls
+stay intact. Publish, then1241b fresh Bridge compiler. Original1241 failed7
+errors remains separately preserved. New1236 Bridge and standalone UI source is
+still staged, not installed/run; its Bridge route has hard7 advancing calls.
+
+Earlier core qualification is four initial leaves plus two work leaves on separate
+recorded sources; full1226 remains incomplete. Continue Bridge runtime/component
+qualification and the authorized P14/P15/P16/specified program. Parent alone owns
+production/integration/heavy execution, existing two specialists own tests/review.
+Unity/native and Owner campaign remain deferred.
+
 ## CURRENT — Bridge compiler diagnosed; historical type dependency isolated
 
 Published354db2a168cf2b5d6af37845acb3ff5aacdb3a54 matched GitHub.1241 Bridge

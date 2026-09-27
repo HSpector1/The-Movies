@@ -1,0 +1,20 @@
+{
+  "time": "2026-09-27T19:51:47.545742+00:00",
+  "headBefore": "39d9546256ae542eb1b4a42c4d38df27207fa865",
+  "manifest": {
+    "bytes": 3706,
+    "sha256": "af79cb8374cc23498ae50e8f1e9cc88840aeb054f34b5d6b0345db38fc14cb2c"
+  },
+  "review": {
+    "bytes": 4186,
+    "sha256": "abc8c69e70e418aacc40e9928784ab10dfab8f661d50a780d3afd6d7dd781ee4"
+  },
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1242-bridge-compat.patch",
+    "bytes": 12851,
+    "sha256": "0a1d1cb7b1b9da7b10e807a0e449b6d32a35043e39d61720f524497f63d1a94a"
+  },
+  "allPrePostimagesExact": true,
+  "fileCount": 3,
+  "qualification": "Applied source only; freshBridgecompiler pending; no behavior or historicalendurance replay."
+}
