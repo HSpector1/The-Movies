@@ -1,5 +1,27 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — Initial P4/P5 RED verified; parent implementation begins
+
+Published correctionfd641e8be6aabc308902bbf80d8e95e13b20e1b6 matched GitHub.
+1228b root compilerPASS33.240s, no diagnostics.1229 exact four leaves failed
+as expected in6.016s: actual genre/project refusals and LIVE39 instead of40.
+Both real setup caches complete, zero attempted advances/cap0. Q03 stops at its
+quote before attachment; Q04 stops before migration.1230-A/B and parent closure
+verify all actual first causes and exact source/manual/raw/index guards. Original
+1228 syntax failure remains separately preserved.
+
+The complete week45 legacy4/6 baseline is1230-legacy46-baseline.txt,1,226B/SHA256
+36921548246e8ec4cc2241353cf62fa1e9868cc037a62e2a8a1a0bf26cc35342.
+Keep its full line and unchanged initial test bodies for matched GREEN. No later
+assertion or outcome is qualified yet. Outgoing production2af37179 is unchanged
+at this checkpoint. Parent now begins1231 implementation of adopted1225 under the
+selected40/55/7 boundary; all version/consumer work remains unqualified until its
+own checks. Existing test specialist stages1232's bounded public binding/cast
+source, reviewer remains separate, parent alone executes heavy processes.
+
+Continue P14/P15/P16/specified P17/P18 with settled P15 decisions, recoverable
+checkpoints and inherited qualification gaps. Unity/native/Owner campaign deferred.
+
 ## CURRENT — Initial compiler syntax failure preserved; narrow correction installed
 
 1228 on published9aae8d85 failed child2/fixed source in6.680s with one TS1005

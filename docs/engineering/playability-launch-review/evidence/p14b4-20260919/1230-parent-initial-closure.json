@@ -1,0 +1,110 @@
+{
+  "time": "2026-09-27T18:51:26.360234+00:00",
+  "head": "fd641e8be6aabc308902bbf80d8e95e13b20e1b6",
+  "compiler": {
+    "sourceSha": "fd641e8be6aabc308902bbf80d8e95e13b20e1b6",
+    "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSource": [],
+    "command": [
+      "node_modules/.bin/tsc",
+      "--noEmit",
+      "-p",
+      "tsconfig.json"
+    ],
+    "node": "v20.20.2",
+    "start": "2026-09-27T18:49:04.884Z",
+    "end": "2026-09-27T18:49:38.124Z",
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "sourceShaAtEnd": "fd641e8be6aabc308902bbf80d8e95e13b20e1b6",
+    "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSourceAtEnd": [],
+    "fixedSource": true
+  },
+  "runtime": {
+    "sourceSha": "fd641e8be6aabc308902bbf80d8e95e13b20e1b6",
+    "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSource": [],
+    "command": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p4p5-opportunities.test.ts"
+    ],
+    "node": "v20.20.2",
+    "start": "2026-09-27T18:50:13.453Z",
+    "end": "2026-09-27T18:50:19.469Z",
+    "exitCode": 1,
+    "signal": null,
+    "error": null,
+    "sourceShaAtEnd": "fd641e8be6aabc308902bbf80d8e95e13b20e1b6",
+    "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSourceAtEnd": [],
+    "fixedSource": true
+  },
+  "guards": {
+    "sourceInventoryUnchanged": true,
+    "manualAndRawInputsUnchanged": true,
+    "indexAndStageEntriesUnchanged": true,
+    "consumedDiffEmpty": true,
+    "untrackedConsumed": []
+  },
+  "actualTests": {
+    "passed": 0,
+    "failed": 4,
+    "filtered": 0,
+    "vitestDurationSeconds": 4.9,
+    "fileMilliseconds": 1953,
+    "leafMilliseconds": [
+      1212,
+      285,
+      437,
+      16
+    ]
+  },
+  "counters": {
+    "tickAttempts": 0,
+    "hardTickCap": 0,
+    "cachedPhases": [
+      {
+        "name": "genuine45",
+        "completed": true
+      },
+      {
+        "name": "publicProposal45",
+        "completed": true
+      }
+    ]
+  },
+  "legacy46Baseline": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1230-legacy46-baseline.txt",
+    "bytes": 1226,
+    "sha256": "36921548246e8ec4cc2241353cf62fa1e9868cc037a62e2a8a1a0bf26cc35342"
+  },
+  "firstCauses": [
+    {
+      "case": "Q01",
+      "firstCause": "Genre allCast quote still IMPOSSIBLE/not offered, evaluator4, expected RA7. Later masks/slack/digest checks not reached."
+    },
+    {
+      "case": "Q02",
+      "firstCause": "Named-project allCast quote still IMPOSSIBLE/not offered, evaluator4, expected RA7. Writer collision/absent target and later controls not reached."
+    },
+    {
+      "case": "Q03",
+      "firstCause": "Actual proposal45 completes; first genre quote fails RA7 prerequisite before attachment. No attachment or negative material authority exercised."
+    },
+    {
+      "case": "Q04",
+      "firstCause": "Actual LIVE_SAVE_VERSION39 instead of40. Future API, capture migrations and malformed sidecar checks not reached."
+    }
+  ],
+  "raw": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1229-p4p5-initial-core.txt",
+    "bytes": 8581,
+    "sha256": "5334f3104b6d252c35e8b6142c470d69e305c7b81b6957b077b01f6de170ca5e"
+  },
+  "retainedFailure": "1228 original syntax failure unchanged; corrected source required1228b PASS before runtime."
+}

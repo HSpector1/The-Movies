@@ -1,0 +1,277 @@
+{
+  "time": "2026-09-27T18:49:04.560070+00:00",
+  "head": "fd641e8be6aabc308902bbf80d8e95e13b20e1b6",
+  "remote": "fd641e8be6aabc308902bbf80d8e95e13b20e1b6",
+  "sourcePaths": [
+    "src",
+    "bridge",
+    "tests",
+    "ui",
+    "generated",
+    "scripts",
+    "package.json",
+    "package-lock.json",
+    "vitest.config.ts",
+    "vitest.workspace.ts",
+    "tsconfig.json",
+    "tsconfig.bridge.json",
+    "tsconfig.src.json"
+  ],
+  "sourceFiles": 1676,
+  "sourceInventory": {
+    "bytes": 254494,
+    "sha256": "bc7acb6f745007a5c6861923fba13c5fcb310993baef5274f2f4051859b84b98"
+  },
+  "target": {
+    "path": "tests/p14p4p5-opportunities.test.ts",
+    "bytes": 21703,
+    "sha256": "73a358bafa523282e24abbac64748877eda4a4cdc934a40783a665c791e26005"
+  },
+  "protected": [
+    {
+      "path": "tests/p14p3-directing-promises.test.ts",
+      "bytes": 98958,
+      "sha256": "1bcbbe03552f5815c3e88fc1f0937ef51f37d7b84ca0f3bd8fd693f5058e2e16"
+    },
+    {
+      "path": "tests/helpers/p14p3-fixtures.ts",
+      "bytes": 78674,
+      "sha256": "389112bde75ccaab9e2d155a1df6e6dc279b78c7d6d531a582b04f27be5fba83"
+    },
+    {
+      "path": "tests/bridge-p14p3-directing-promises.test.ts",
+      "bytes": 45878,
+      "sha256": "dbc4800046353a25d75261604e944b77c05e26c43d79ae4e856e23fb4aabf86d"
+    },
+    {
+      "path": "src/core/promises.ts",
+      "bytes": 97928,
+      "sha256": "ca7a6edb1a16f30de5ed8090a49822b501922388504502c662778a44d8635b19"
+    },
+    {
+      "path": "src/core/talentMarket.ts",
+      "bytes": 88293,
+      "sha256": "f51346f62b4a6a788db4ed99bdc76fe1aa3943204384ac7a4c2e945da641a337"
+    },
+    {
+      "path": "src/core/tick.ts",
+      "bytes": 62013,
+      "sha256": "003b2196545e16241581d1de1f986177fd6873bdf373e7a11be6c0de879cdc71"
+    },
+    {
+      "path": "src/core/save.ts",
+      "bytes": 468658,
+      "sha256": "52f6e172e11ae0ae4a54324196c6f7e48d6cc506afc3316706278835f000e540"
+    },
+    {
+      "path": "src/core/actions.ts",
+      "bytes": 129075,
+      "sha256": "52d88fe62ec41e6063c2d5928c54ca2dfdbb612cb31c5b5f7ad3d3cbc801cf1d"
+    },
+    {
+      "path": "src/core/occupancy.ts",
+      "bytes": 31596,
+      "sha256": "e9f66c3d225d8fe9f47d52ce18fc1ca00c587d24ec84f4dc70e9b0ab29a85122"
+    },
+    {
+      "path": "src/core/types.ts",
+      "bytes": 120657,
+      "sha256": "2455daf51965c3d300b3130f53ed1134e6f704934578e7776fc938d7894f4fa2"
+    },
+    {
+      "path": "src/core/index.ts",
+      "bytes": 48662,
+      "sha256": "946a3608d62cc43d81510ab2a2174435f16b6ccaabe90ac3b61f3381aadbe8d2"
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 706,
+      "sha256": "f855dfc9191a0d63240d447bccac5e029530a74b83e12f467083f1393bbe6d4f"
+    },
+    {
+      "path": "vitest.config.ts",
+      "bytes": 176,
+      "sha256": "2939ba611a5c025c2974043c98c06af10aadd3065925103d3f506bd1f1d07faa"
+    },
+    {
+      "path": "vitest.workspace.ts",
+      "bytes": 1228,
+      "sha256": "2bb01ef4b7f9f02877e42b425e43f40e3905be769cd6f091cf61a3275563b446"
+    }
+  ],
+  "manual": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-A-p4p5-initial-source-handback.md",
+      "bytes": 6555,
+      "sha256": "f664bbee7b60cf98b873d9e1306aa7098d461639d66d17e8321725c7e7d8bb61"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-B-p4p5-initial-source-review.md",
+      "bytes": 4817,
+      "sha256": "612c6e03516eae2d97409b6a2e8dd9413cd4e748e8d033567eb8673ca6bd01c0"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-C-parent-application.json",
+      "bytes": 1073,
+      "sha256": "e9e4def058bdd0d83042ff1080e8d8457a56f56db3218e637f5b0f669e93aab8"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-p4p5-initial-source-manifest.json",
+      "bytes": 9292,
+      "sha256": "f9b5a1aa719f6dbae60bb4771408c1e27c2d89c5f71e5552e92b27cbb1d99d23"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-p4p5-initial-tests.patch",
+      "bytes": 22208,
+      "sha256": "1280605d37280c444da5cd421233d3947985c427a73c1921a5d925e920a48bdd"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1225-A-p4p5-concrete-contract-candidate.md",
+      "bytes": 11137,
+      "sha256": "13e09d9650970c50590fcacba05380fedeaad474c78e8cf0236fbb69b6773c93"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1225-B-p4p5-concrete-contract-review.md",
+      "bytes": 6254,
+      "sha256": "99cd64b99cefbadb9c81faa06240526490788fbd5654592d14c21edcbd8dd7bb"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1225-C-p4p5-contract-refinements.md",
+      "bytes": 9541,
+      "sha256": "7cdb5961901f8185ffeca096732c38c51c5a2b7875a65b65249c5094992624c2"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1225-D-p4p5-refined-contract-review.md",
+      "bytes": 4408,
+      "sha256": "ba78d2a66a485fd5dffe3f2c7e04628db8d506db5ce55e4102f25ad00468906b"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1225-E-parent-contract-adoption.md",
+      "bytes": 2421,
+      "sha256": "4831b2daaaef568576d3f54d3d602146715bbfe53fbc4240c88ba583f4026cb5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1225-F-assignment-owner-clarifications.md",
+      "bytes": 2460,
+      "sha256": "242a780dc92ee428b29bb62a56bc36dc83c80329b021804692b7828c9f1e0940"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1226-A-p4p5-initial-test-requirements.md",
+      "bytes": 13965,
+      "sha256": "b402b10beb7f31cc01bc866e7fa1aae680fca48abe1f96c1e2801f18dd024fa9"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1224-A-p4p5-preservation-attribution.md",
+      "bytes": 3699,
+      "sha256": "7c331be57ec964367f38511fc7ce2e4905314ada5489ffaabfdba0d2f4b062ab"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1224-B-p4p5-preservation-review.md",
+      "bytes": 6291,
+      "sha256": "b660ce5ac2b03ea04a0edcd9595b67af411f8227c3b3703ab60d9314db9ba0d3"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json",
+      "bytes": 11550,
+      "sha256": "a261fc3177527d05d5a8daf624de7af015df8c9a8fedd3e11b37fe1597a2f4b6"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/genuine-v39-p3-market-week45.json.gz",
+      "bytes": 86995,
+      "sha256": "12799a849b0b4aff49cd9707ea8c1b87c64b4e787ff261b2e9cf4b109a953117",
+      "raw": {
+        "bytes": 751294,
+        "sha256": "e7401f2578a7ad151383ca905df4253c2bbd82d6823c406c28b7e76aa809c5af"
+      }
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/MANIFEST.json",
+      "bytes": 21306,
+      "sha256": "02115df5d6e7d4c33284b9a439a7c79601e1b2e807f4fa96c20149f5c84186f3"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/director-bound-week52.json.gz",
+      "bytes": 93047,
+      "sha256": "b894a85ffad37378f93dc8a8e83bad926ab7a1bb857dd76e9b9926b520fec6e1",
+      "raw": {
+        "bytes": 811917,
+        "sha256": "eae34cd10d457ad551028f3d0a160a55a74d5153b73653b257dc89a4338b040b"
+      }
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/director-earned-week61.json.gz",
+      "bytes": 101049,
+      "sha256": "97a1a96c32f0abe290a798734b322611e0be1f5a1c29461753c1d0b50feeceeb",
+      "raw": {
+        "bytes": 881829,
+        "sha256": "94558001e85aef5f46d709c07397dedda296416fe86e4f7482caeee88470cace"
+      }
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/director-satisfied-week78.json.gz",
+      "bytes": 114159,
+      "sha256": "788fdd550d240751c0ca4d89991b7dfd925495341f19b6e09c30d6efd8520e29",
+      "raw": {
+        "bytes": 1007748,
+        "sha256": "d0ce6b5427f2ca880214024019798e3372123e8148f542a6e22578b11c18ee80"
+      }
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/director-canceled-work-week61.json.gz",
+      "bytes": 99923,
+      "sha256": "c6492f5660b2e8fb20d48c6f054566b25f47500512d2b9ff87a8a6ebb46788b6",
+      "raw": {
+        "bytes": 877528,
+        "sha256": "8ebb7ca8758c79c8ada73889d24ecc4038e1e3b0edf5bd77c56c723cffee290d"
+      }
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/director-waived-week61.json.gz",
+      "bytes": 101260,
+      "sha256": "95ca93ba0a0f16b1c11ad34960a9617217685a681e8ad27ebf896e75f1debb0e",
+      "raw": {
+        "bytes": 882749,
+        "sha256": "ad25e44bde2ec18bef17a37a252de4ee9323dd0d7b50dbdaf424be50a5d9abce"
+      }
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-D-p4p5-test-syntax-correction.md",
+      "bytes": 2646,
+      "sha256": "84626eb03dd948156558a6c713fdcc55057585c8858719c06643cc2ea837db7f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-E-p4p5-syntax-correction-review.md",
+      "bytes": 2822,
+      "sha256": "e010f0b50400fd4a2897f9bf93b014b85a19d230c1221b01c6312cd89ba7d13c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-F-parent-correction-application.json",
+      "bytes": 469,
+      "sha256": "c774736a2738be3fe0bd46f8c7c926d22f89fa85a5288f4d077c860d5347bc5c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-d-syntax-correction-manifest.json",
+      "bytes": 11807,
+      "sha256": "1549a654de1e776304a546605ca8f014d4a44d8b35fe741fd3acfc9be70c6687"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-d-syntax-correction.patch",
+      "bytes": 480,
+      "sha256": "a3843bd68c16cf410d9cb0eff61d467d6fd9d46c73ecc493b74df58740c6773f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-d-syntax-stage/tests/p14p4p5-opportunities.test.ts",
+      "bytes": 21703,
+      "sha256": "73a358bafa523282e24abbac64748877eda4a4cdc934a40783a665c791e26005"
+    }
+  ],
+  "index": {
+    "bytes": 1053426,
+    "sha256": "274995352e2e82b3cd949760e061d387b70cc406f7be3b7317ce90a448befffb"
+  },
+  "stageEntries": {
+    "bytes": 935397,
+    "sha256": "1b27643fb00d5615bf60fd0321f90eedfbc6835d1bd39014401c3d925ee2cfa2"
+  },
+  "declaredAdvanceCap": 0
+}

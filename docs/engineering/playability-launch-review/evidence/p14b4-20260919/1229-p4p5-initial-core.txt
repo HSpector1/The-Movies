@@ -1,0 +1,138 @@
+{"sourceSha":"fd641e8be6aabc308902bbf80d8e95e13b20e1b6","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14p4p5-opportunities.test.ts"],"node":"v20.20.2","start":"2026-09-27T18:50:13.453Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14p4p5-opportunities.test.ts > P4/P5 initial Ready paths and genuine39 boundary > Q01 quotes one Ready genre opportunity with explicit cast class and no spare-event buffer
+1227-P4P5-LEGACY46 {"controls":[{"request":{"family":"APPEARANCE_COUNT","issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":112,"predicate":{"count":1}},"receipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"748f8950944b06b0","rulesVersion":4,"week":45}},{"request":{"family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":112,"predicate":{"kind":"castRoleCount","count":1,"seatClass":"lead"}},"receipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"749c296c5ddea135","rulesVersion":4,"week":45}},{"request":{"family":"DIRECTING_COUNT","issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":112,"predicate":{"kind":"directorCount","count":1}},"receipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"d3405a249ab5d143","rulesVersion":6,"week":45}}],"rngState":"1557239868,672280863,464522958,2878174094"}
+1227-P4P5-GENRE {"request":{"family":"PREFERRED_GENRE_OPPORTUNITY","issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":65,"predicate":{"kind":"genreOpportunity","count":1,"seatClass":"allCast","genre":"drama"}},"receipt":{"classification":"IMPOSSIBLE","bottleneck":"a genre promise is not offered in this slice","inputsDigest":"b203aa889f23da6a","rulesVersion":4,"week":45},"actualWeek":45,"expectedEarliestTake":57,"expectedSlack":8}
+
+stdout | tests/p14p4p5-opportunities.test.ts > P4/P5 initial Ready paths and genuine39 boundary > Q02 quotes only the exact existing Ready project and retains singular physical versus slack causes
+1227-P4P5-PROJECT {"request":{"family":"SPECIFIC_PROJECT","issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":65,"predicate":{"kind":"projectOpportunity","count":1,"seatClass":"allCast","scriptProjectId":"script-0000"}},"receipt":{"classification":"IMPOSSIBLE","bottleneck":"a named-project promise is not offered in this slice","inputsDigest":"4459f9c76bde1b29","rulesVersion":4,"week":45},"actualWeek":45,"expectedEarliestTake":57,"expectedSlack":8}
+
+stdout | tests/p14p4p5-opportunities.test.ts
+1227-P4P5-COUNTERS {"tickAttempts":0,"hardTickCap":0,"cachedPhases":[{"name":"genuine45","completed":true},{"name":"publicProposal45","completed":true}]}
+
+ ❯ |core| tests/p14p4p5-opportunities.test.ts (4 tests | 4 failed) 1953ms
+   × P4/P5 initial Ready paths and genuine39 boundary > Q01 quotes one Ready genre opportunity with explicit cast class and no spare-event buffer 1212ms
+     → expected { classification: 'IMPOSSIBLE', …(4) } to match object { …(4) }
+(1 matching property omitted from actual)
+   × P4/P5 initial Ready paths and genuine39 boundary > Q02 quotes only the exact existing Ready project and retains singular physical versus slack causes 285ms
+     → expected { classification: 'IMPOSSIBLE', …(4) } to match object { …(4) }
+(1 matching property omitted from actual)
+   × P4/P5 initial Ready paths and genuine39 boundary > Q03 attaches exact selected material terms and refuses classless or cross-family fresh authority 437ms
+     → expected { classification: 'IMPOSSIBLE', …(4) } to match object { …(4) }
+(1 matching property omitted from actual)
+   × P4/P5 initial Ready paths and genuine39 boundary > Q04 migrates genuine39 to an exact empty subject suffix and preserves outgoing Director authority 16ms
+     → expected 39 to be 40 // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14p4p5-opportunities.test.ts > P4/P5 initial Ready paths and genuine39 boundary > Q01 quotes one Ready genre opportunity with explicit cast class and no spare-event buffer
+AssertionError: expected { classification: 'IMPOSSIBLE', …(4) } to match object { …(4) }
+(1 matching property omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "bottleneck": null,
+-   "classification": "REASONABLY_ACHIEVABLE",
+-   "rulesVersion": 7,
++   "bottleneck": "a genre promise is not offered in this slice",
++   "classification": "IMPOSSIBLE",
++   "rulesVersion": 4,
+    "week": 45,
+  }
+
+ ❯ expectRA tests/p14p4p5-opportunities.test.ts:153:19
+    151| }
+    152| function expectRA(receipt: PromiseFeasibilityReceipt): void {
+    153|   expect(receipt).toMatchObject({ classification: 'REASONABLY_ACHIEVAB…
+       |                   ^
+    154| }
+    155| 
+ ❯ tests/p14p4p5-opportunities.test.ts:166:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL |core|  tests/p14p4p5-opportunities.test.ts > P4/P5 initial Ready paths and genuine39 boundary > Q02 quotes only the exact existing Ready project and retains singular physical versus slack causes
+AssertionError: expected { classification: 'IMPOSSIBLE', …(4) } to match object { …(4) }
+(1 matching property omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "bottleneck": null,
+-   "classification": "REASONABLY_ACHIEVABLE",
+-   "rulesVersion": 7,
++   "bottleneck": "a named-project promise is not offered in this slice",
++   "classification": "IMPOSSIBLE",
++   "rulesVersion": 4,
+    "week": 45,
+  }
+
+ ❯ expectRA tests/p14p4p5-opportunities.test.ts:153:19
+    151| }
+    152| function expectRA(receipt: PromiseFeasibilityReceipt): void {
+    153|   expect(receipt).toMatchObject({ classification: 'REASONABLY_ACHIEVAB…
+       |                   ^
+    154| }
+    155| 
+ ❯ tests/p14p4p5-opportunities.test.ts:184:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL |core|  tests/p14p4p5-opportunities.test.ts > P4/P5 initial Ready paths and genuine39 boundary > Q03 attaches exact selected material terms and refuses classless or cross-family fresh authority
+AssertionError: expected { classification: 'IMPOSSIBLE', …(4) } to match object { …(4) }
+(1 matching property omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "bottleneck": null,
+-   "classification": "REASONABLY_ACHIEVABLE",
+-   "rulesVersion": 7,
++   "bottleneck": "a genre promise is not offered in this slice",
++   "classification": "IMPOSSIBLE",
++   "rulesVersion": 4,
+    "week": 45,
+  }
+
+ ❯ expectRA tests/p14p4p5-opportunities.test.ts:153:19
+    151| }
+    152| function expectRA(receipt: PromiseFeasibilityReceipt): void {
+    153|   expect(receipt).toMatchObject({ classification: 'REASONABLY_ACHIEVAB…
+       |                   ^
+    154| }
+    155| 
+ ❯ tests/p14p4p5-opportunities.test.ts:211:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL |core|  tests/p14p4p5-opportunities.test.ts > P4/P5 initial Ready paths and genuine39 boundary > Q04 migrates genuine39 to an exact empty subject suffix and preserves outgoing Director authority
+AssertionError: expected 39 to be 40 // Object.is equality
+
+- Expected
++ Received
+
+- 40
++ 39
+
+ ❯ tests/p14p4p5-opportunities.test.ts:273:37
+    271|   it('Q04 migrates genuine39 to an exact empty subject suffix and pres…
+    272|     input45() // Independent old4/6 marker is reached before the versi…
+    273|     expect(saves.LIVE_SAVE_VERSION).toBe(40)
+       |                                     ^
+    274|     const api = futureAPI()
+    275|     const captureManifest = readFileSync(new URL('1221-p4p5-outgoing-c…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+ Test Files  1 failed (1)
+      Tests  4 failed (4)
+   Start at  20:50:14
+   Duration  4.90s (transform 1.76s, setup 0ms, collect 2.37s, tests 1.95s, environment 0ms, prepare 118ms)
+
