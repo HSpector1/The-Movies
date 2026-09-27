@@ -135,12 +135,12 @@ function actual3328Request(state: GameState) {
 afterAll(() => console.info('C3_COHORT_ROUTE_ACTUAL', JSON.stringify(cohortRouteAccounting())))
 
 describe('C.3 genuine cohort-born Actor enters a new profession with origin authority intact', () => {
-  it('J1 accepts genuine35/37/current input and discloses only the initial49M before real public hires', () => {
+  it('J1 accepts genuine35/37/current input and discloses only the initial79M before real public hires', () => {
     const f = cohortSetup()
     expect(validateSaveV35(f.old)).toBe(f.old); expect(validateSaveV37(f.old37)).toBe(f.old37)
     for (const state of [f.untouched, f.funded, f.state]) { acceptedEvidence(state); preserveOrigin(state) }
-    expect(f.funded.studio.cash - f.untouched.studio.cash).toBe(49_000_000)
-    expect(f.funded.ledger.slice(f.untouched.ledger.length)).toEqual([{ week: 2600, kind: 'studioRevenue', amount: 49_000_000,
+    expect(f.funded.studio.cash - f.untouched.studio.cash).toBe(79_000_000)
+    expect(f.funded.ledger.slice(f.untouched.ledger.length)).toEqual([{ week: 2600, kind: 'studioRevenue', amount: 79_000_000,
       note: '1053 disclosed test bootstrap; not earned revenue; one initial funding arrangement only' }])
     expect(stableStringify({ ...f.funded, studio: { ...f.funded.studio, cash: f.untouched.studio.cash }, ledger: f.untouched.ledger }))
       .toBe(stableStringify(f.untouched))

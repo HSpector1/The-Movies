@@ -30,3 +30,12 @@ stay separate. No corrected source or successful J route is claimed here.
 preserved. K/L source, Stage D53/runtime/SaveAs, complete gates and actual active
 endurance remain pending. Existing C.2-RM qualifications, historical failures,
 Unity/native deferral and prohibition on Owner-campaign access are unchanged.
+
+## Publication receipt
+
+Normal commit/push completed at `a3c50a384dd0f686eee4d1e3ae6c78f8e82351c2`.
+Independent GitHub `ls-remote` matched the local tip; whole worktree clean at
+verification.1054 final review SHA256 is
+`02edade3d483cf176217cdcd69fb52f97c07a4ded3c619f8b6686f12b8b04d20`.
+All heavy processes closed. Next1057-A/B remains documentation-only; no amended
+source or new gameplay observation has been released.

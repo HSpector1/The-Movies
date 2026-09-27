@@ -1,0 +1,42 @@
+diff --git a/tests/helpers/p14c3-cohort-transition-fixtures.ts b/tests/helpers/p14c3-cohort-transition-fixtures.ts
+index d8434faa..a5012673 100644
+--- a/tests/helpers/p14c3-cohort-transition-fixtures.ts
++++ b/tests/helpers/p14c3-cohort-transition-fixtures.ts
+@@ -190,13 +190,14 @@ export function cohortSetup() {
+     expect(untouched.concepts.filter(row => !untouched.studio.activeProductions.some(film => film.conceptId === row.id)
+       && !untouched.studio.releasedFilms.some(film => film.conceptId === row.id)
+       && !untouched.scriptDevelopment.projects.some(project => project.conceptId === row.id)).length).toBeGreaterThanOrEqual(4)
+-    const funded: GameState = { ...clone(untouched), studio: { ...untouched.studio, cash: 30_000_000 },
+-      ledger: [...untouched.ledger, { week: 2600, kind: 'studioRevenue', amount: 49_000_000,
++    // 1057: fresh fixed60M/+79M scenario; original1028's30M/+49M failure is retained.
++    const funded: GameState = { ...clone(untouched), studio: { ...untouched.studio, cash: 60_000_000 },
++      ledger: [...untouched.ledger, { week: 2600, kind: 'studioRevenue', amount: 79_000_000,
+         note: '1053 disclosed test bootstrap; not earned revenue; one initial funding arrangement only' }] }
+     expect(stableStringify({ ...funded, studio: { ...funded.studio, cash: untouched.studio.cash }, ledger: untouched.ledger })).toBe(stableStringify(untouched))
+     acceptedEvidence(funded)
+     recordCohortRoute('funding', { untouchedCanonicalSha256: sha(stableStringify(untouched)),
+-      fundedCanonicalSha256: sha(stableStringify(funded)), oldCash: -19_000_000, cash: 30_000_000, delta: 49_000_000 })
++      fundedCanonicalSha256: sha(stableStringify(funded)), oldCash: -19_000_000, cash: 60_000_000, delta: 79_000_000 })
+     let state = hire(funded, id, 208)
+     const director = addYoung(state, 'director', 208, 'initial Director'); state = director.state
+     const writer = addYoung(state, 'writer', 208, 'initial Writer'); state = writer.state
+diff --git a/tests/p14c3-cohort-transition.test.ts b/tests/p14c3-cohort-transition.test.ts
+index 7faf076b..e73b96af 100644
+--- a/tests/p14c3-cohort-transition.test.ts
++++ b/tests/p14c3-cohort-transition.test.ts
+@@ -135,12 +135,12 @@ function actual3328Request(state: GameState) {
+ afterAll(() => console.info('C3_COHORT_ROUTE_ACTUAL', JSON.stringify(cohortRouteAccounting())))
+ 
+ describe('C.3 genuine cohort-born Actor enters a new profession with origin authority intact', () => {
+-  it('J1 accepts genuine35/37/current input and discloses only the initial49M before real public hires', () => {
++  it('J1 accepts genuine35/37/current input and discloses only the initial79M before real public hires', () => {
+     const f = cohortSetup()
+     expect(validateSaveV35(f.old)).toBe(f.old); expect(validateSaveV37(f.old37)).toBe(f.old37)
+     for (const state of [f.untouched, f.funded, f.state]) { acceptedEvidence(state); preserveOrigin(state) }
+-    expect(f.funded.studio.cash - f.untouched.studio.cash).toBe(49_000_000)
+-    expect(f.funded.ledger.slice(f.untouched.ledger.length)).toEqual([{ week: 2600, kind: 'studioRevenue', amount: 49_000_000,
++    expect(f.funded.studio.cash - f.untouched.studio.cash).toBe(79_000_000)
++    expect(f.funded.ledger.slice(f.untouched.ledger.length)).toEqual([{ week: 2600, kind: 'studioRevenue', amount: 79_000_000,
+       note: '1053 disclosed test bootstrap; not earned revenue; one initial funding arrangement only' }])
+     expect(stableStringify({ ...f.funded, studio: { ...f.funded.studio, cash: f.untouched.studio.cash }, ledger: f.untouched.ledger }))
+       .toBe(stableStringify(f.untouched))

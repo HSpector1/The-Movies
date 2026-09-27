@@ -1,0 +1,24 @@
+{"sourceSha":"a3c50a384dd0f686eee4d1e3ae6c78f8e82351c2","testedDiffSha256":"4c97ceb120f6e381269cf257b79350fa78d1a8cee6e690f616cb93b1086a4516","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c3-cohort-transition.test.ts"],"node":"v20.20.2","start":"2026-09-27T00:34:28.252Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14c3-cohort-transition.test.ts
+C3_COHORT_ROUTE_ACTUAL {"calls":729,"maximumCalls":729,"maximumWeek":3329,"observations":{"funding":{"untouchedCanonicalSha256":"24b0919406932bde690558b775d568a20eb477d51604984bde5915f829994d92","fundedCanonicalSha256":"4df53fcc8db61efbc9f7a11e9c5891ca150c18b48632e7cca94b6694418c18d2","oldCash":-19000000,"cash":60000000,"delta":79000000},"film1":{"productionId":"prod-2608","take":2613,"release":2616,"returnedWeek":2617,"calls":9,"directorId":"authored-0000","writerId":"authored-0001"},"film2":{"productionId":"prod-2617","take":2622,"release":2625,"returnedWeek":2626,"calls":9,"directorId":"authored-0000","writerId":"authored-0001"},"film3":{"productionId":"prod-2626","take":2631,"release":2634,"returnedWeek":2635,"calls":9,"directorId":"authored-0000","writerId":"authored-0001"},"renewal2808":{"open":2796,"decision":2808,"term":208,"end":3016,"salary":702780,"signingBonus":126500,"cash":40012806.848364264},"renewal3016":{"open":3004,"decision":3016,"term":208,"end":3224,"salary":702780,"signingBonus":126500,"cash":33643186.848364264},"renewal3224":{"open":3212,"decision":3224,"term":52,"end":3276,"salary":843336,"signingBonus":151800,"cash":27248266.848364264},"retirementNotice":{"announced":3231,"age":70,"effective":3283,"window":3271,"decision":3276,"offered":false,"expired":3276,"gap":7},"chosen":{"week":3283,"age":71,"profession":"director","calls":683},"film4":{"productionId":"prod-3291","take":3296,"release":3299,"returnedWeek":3300,"calls":9,"directorId":"person-cohort-832-actor-0","writerId":"authored-0005"},"final":{"cohort":3328,"loaded":3328,"final":3329,"calls":729},"cohort3328":{"requested":{"actor":0,"director":1,"writer":0,"craft":0},"clipped":0,"entrants":1,"active":{"actor":41,"director":16,"writer":18,"craft":14},"focusRole":"director","focusContribution":1}}}
+
+ ✓ |core| tests/p14c3-cohort-transition.test.ts (9 tests) 95028ms
+   ✓ C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J1 accepts genuine35/37/current input and discloses only the initial79M before real public hires 14020ms
+   ✓ C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J2 actually releases three lead pictures with repeated Director and credited Writer context 9167ms
+   ✓ C.3 genuine cohort-born Actor enters a new profession with origin authority intact > 'J3' genuinely retains the incumbent through its ordinary proposal and decision-week payment 8082ms
+   ✓ C.3 genuine cohort-born Actor enters a new profession with origin authority intact > 'J4' genuinely retains the incumbent through its ordinary proposal and decision-week payment 7734ms
+   ✓ C.3 genuine cohort-born Actor enters a new profession with origin authority intact > 'J5' genuinely retains the incumbent through its ordinary proposal and decision-week payment 8932ms
+   ✓ C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J6 records actual hard70 notice, unoffered59-week descriptor and seven-week expiry gap 9524ms
+   ✓ C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J7 makes the real3283 Director choice while preserving the original832 Actor receipt and strict cause 5359ms
+   ✓ C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J8 reloads and hires a new crew for genuine Director work while retired acting stays refused 18652ms
+   ✓ C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J9 counts the active Director at actual3328 and survives loaded3329 with all origin and choice facts 13555ms
+
+ Test Files  1 passed (1)
+      Tests  9 passed (9)
+   Start at  02:34:28
+   Duration  98.40s (transform 1.99s, setup 0ms, collect 2.71s, tests 95.03s, environment 0ms, prepare 140ms)
+

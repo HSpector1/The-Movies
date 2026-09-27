@@ -1,5 +1,65 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — all nine cohort cases pass; preparing qualified checkpoint
+
+1030 closed00:36:07.733Z,99.481s, child0/fixed4c97ceb1,all9PASS/exact729calls.
+Actual3283 Director choice, film release3299,3328 Director1 cohort and loaded3329
+allqualified with original832 Actor authority intact.1060 records full scope and
+original1028 funding failure separately. No production change. Allheavyclosed;
+authoridle, reviewer1057-B finalresults. Parent willpublish1060 thenrelease1042
+six-leaf K/L source(max988) with1055 precisions.1029typesPASS retainsoldscope;
+no redundanttypecheck forliteral-onlycorrection. Stage D53/runtime/SaveAs/full/
+endurance/native boundaries remain unchanged.
+
+## CURRENT — fresh funded cohort observation active
+
+1030-c3-cohort-funding-correction started2026-09-27T00:34:28.252Z (session41707), soleheavy
+lane ona3c50a38 plus4c97ceb120f6e381269cf257b79350fa78d1a8cee6e690f616cb93b1086a4516.
+Allnine cases, freshinitial60M/+79M arrangement, max729actualcalls. Source and
+HEAD frozen throughclosure.1057-B independently rehashed/read tinyfinaldelta and
+gaveKEEP;1057-C a60e8e5e1f6eee857cfe679d7e1865af2e5b60ab31969e9449918f8c824c2bd5
+isfrozen. Authoridle; reviewer1057-B results only. Original1028's612-call failure
+and1029typesPASS remain separatelypublished. No corrected behavioral outcome yet.
+Next actualresult/attribution/independentreview/checkpoint, then1042 K/L release.
+Stage D53/runtime/SaveAs/full/endurance/native boundaries remain unchanged.
+
+## CURRENT — corrected cohort source frozen; fresh nine-case run next
+
+Final narrow delta onpublisheda3c50a38 is4c97ceb120f6e381269cf257b79350fa78d1a8cee6e690f616cb93b1086a4516
+(3,642bytes). Parent independently rehashed helperd725ef1e/test6eb36007 and read
+entire delta: only initial60M/+79M, matchingmetadata/J1literals/title and one
+attributioncomment changed. All route/assertion/timing behavior otherwise exact.
+Author owns1057-C docs-only; reviewer1057-B finaldelta/results. No heavyprocess
+active yet. Next independentfreeze affirmation then1030allnine/max729 onfresh
+initialinput. Original1028 failure612calls and1029typesPASS remain published;
+no repeated compiler is needed for this literal/comment-only correction. K/L,
+Stage D53/runtime/SaveAs/full/endurance/native boundaries remain unchanged.
+
+## CURRENT — reviewed fixed initial funding correction released
+
+Parent accepted1057-A3ef81dffe0be8acdf0bdee79b117188bd3eacd611bb7db1f434e4e563f898741
+and independent1057-B KEEP. Author owns only two existing1053 files' initialcash
+30M→60M, sole ledger49M→79M, matchingmetadata/J1financial literals/title and
+an attribution comment. Original1053 remains frozen; new1057-C owns correction
+handback. All route/assertion/action/timing constraints stay intact. No heavy
+process active. After staticdelta review/freeze, parent1030 runs allnine fresh,
+max729calls; original1028's612calls/failure stays separate inpublisheda3c50a38.
+No extra types run is needed for a solely literal/comment change;1029 original
+PASS and the final candidate's full type gates retain their actual scopes.
+K/L, Stage D53/runtime/SaveAs/full/endurance/native boundaries remain unchanged.
+
+## CURRENT — original cohort failure published; funding correction review next
+
+Local/GitHub refs independently matcha3c50a384dd0f686eee4d1e3ae6c78f8e82351c2;
+whole worktree clean at verification.1059 preserves original source,1028 four
+PASS/fivecachedFAIL at3212/612calls,1029 roottypes PASS and1054 bounded review.
+All heavy processes are closed. Author owns docs-only1057-A fixed fresh-initial
+funding correction; reviewer1057-B. No amended source or rerun is released.
+Parent remains sole production writer/executor, two existing specialists reused.
+Next review/disposition of one initial arrangement, then corresponding narrow
+source change and a new bounded nine-case observation if accepted. K/L, Stage D53/
+runtime/SaveAs/full/endurance and deferred native boundaries remain unchanged.
+
 ## CURRENT — original cohort attempt typed; publishing failed-scenario checkpoint
 
 1029 root types PASS/no diagnostics, child0/fixed739e1f0d,33.823s, closed

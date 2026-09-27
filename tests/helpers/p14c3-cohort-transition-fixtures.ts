@@ -190,13 +190,14 @@ export function cohortSetup() {
     expect(untouched.concepts.filter(row => !untouched.studio.activeProductions.some(film => film.conceptId === row.id)
       && !untouched.studio.releasedFilms.some(film => film.conceptId === row.id)
       && !untouched.scriptDevelopment.projects.some(project => project.conceptId === row.id)).length).toBeGreaterThanOrEqual(4)
-    const funded: GameState = { ...clone(untouched), studio: { ...untouched.studio, cash: 30_000_000 },
-      ledger: [...untouched.ledger, { week: 2600, kind: 'studioRevenue', amount: 49_000_000,
+    // 1057: fresh fixed60M/+79M scenario; original1028's30M/+49M failure is retained.
+    const funded: GameState = { ...clone(untouched), studio: { ...untouched.studio, cash: 60_000_000 },
+      ledger: [...untouched.ledger, { week: 2600, kind: 'studioRevenue', amount: 79_000_000,
         note: '1053 disclosed test bootstrap; not earned revenue; one initial funding arrangement only' }] }
     expect(stableStringify({ ...funded, studio: { ...funded.studio, cash: untouched.studio.cash }, ledger: untouched.ledger })).toBe(stableStringify(untouched))
     acceptedEvidence(funded)
     recordCohortRoute('funding', { untouchedCanonicalSha256: sha(stableStringify(untouched)),
-      fundedCanonicalSha256: sha(stableStringify(funded)), oldCash: -19_000_000, cash: 30_000_000, delta: 49_000_000 })
+      fundedCanonicalSha256: sha(stableStringify(funded)), oldCash: -19_000_000, cash: 60_000_000, delta: 79_000_000 })
     let state = hire(funded, id, 208)
     const director = addYoung(state, 'director', 208, 'initial Director'); state = director.state
     const writer = addYoung(state, 'writer', 208, 'initial Writer'); state = writer.state
