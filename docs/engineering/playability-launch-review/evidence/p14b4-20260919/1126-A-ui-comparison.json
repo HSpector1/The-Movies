@@ -1,0 +1,161 @@
+{
+  "record": "1108-c3-boundary-ui",
+  "baseline": "1126-A-scoped-baseline.json",
+  "candidateRaw": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1108-c3-boundary-ui.txt",
+    "bytes": 17423,
+    "sha256": "dae4e78313e3ef791e87ce2703f66ccd3719b8500dc36b5cc77cf40eef1d3669"
+  },
+  "recorder": {
+    "sourceSha": "c1461a62bd0c307094ae63ff28b66e7aa9716b78",
+    "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSource": [],
+    "command": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "ui",
+      "ui/src/engine/d17-save-migration.test.ts",
+      "ui/src/engine/film-chronicle-adapter.test.ts",
+      "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx",
+      "ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx",
+      "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts",
+      "ui/src/saves.test.tsx",
+      "ui/src/session.test.tsx"
+    ],
+    "node": "v20.20.2",
+    "start": "2026-09-27T10:40:03.264Z",
+    "end": "2026-09-27T10:41:00.178Z",
+    "exitCode": 1,
+    "signal": null,
+    "error": null,
+    "sourceShaAtEnd": "c1461a62bd0c307094ae63ff28b66e7aa9716b78",
+    "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSourceAtEnd": [],
+    "fixedSource": true
+  },
+  "wholeFiles": {
+    "ui/src/session.test.tsx": {
+      "tests": 17,
+      "detail": null,
+      "rawLine": " ✓ |ui| ui/src/session.test.tsx (17 tests) 13794ms"
+    },
+    "ui/src/saves.test.tsx": {
+      "tests": 15,
+      "detail": null,
+      "rawLine": " ✓ |ui| ui/src/saves.test.tsx (15 tests) 13736ms"
+    },
+    "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx": {
+      "tests": 10,
+      "detail": "2 failed",
+      "rawLine": " ❯ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx (10 tests | 2 failed) 38498ms"
+    },
+    "ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx": {
+      "tests": 15,
+      "detail": "1 failed",
+      "rawLine": " ❯ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx (15 tests | 1 failed) 40803ms"
+    },
+    "ui/src/engine/film-chronicle-adapter.test.ts": {
+      "tests": 2,
+      "detail": null,
+      "rawLine": " ✓ |ui| ui/src/engine/film-chronicle-adapter.test.ts (2 tests) 4753ms"
+    },
+    "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts": {
+      "tests": 5,
+      "detail": null,
+      "rawLine": " ✓ |ui| ui/src/lot/snapshot/v14SetHolderBoundary.test.ts (5 tests) 465ms"
+    },
+    "ui/src/engine/d17-save-migration.test.ts": {
+      "tests": 6,
+      "detail": null,
+      "rawLine": " ✓ |ui| ui/src/engine/d17-save-migration.test.ts (6 tests) 5103ms"
+    }
+  },
+  "summaryLines": [
+    " Test Files  2 failed | 5 passed (7)",
+    "      Tests  3 failed | 67 passed (70)",
+    "   Start at  12:40:03",
+    "   Duration  55.88s (transform 7.12s, setup 2.89s, collect 20.12s, tests 117.15s, environment 14.30s, prepare 1.57s)"
+  ],
+  "groups": [
+    [
+      "ui :: ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > reviews all six event-owned observations in the Lot, keeps deep detail optional, then hands the clear successor to Package"
+    ],
+    [
+      "ui :: ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > greenlights the canonical Package into exact formation without replacing the Lot, canvas, or renderer",
+      "ui :: ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx > Lot-native Casting review — App commit and handoff authority > never lets stale Casting review closures demote or mutate a newer exact event"
+    ]
+  ],
+  "failures": {
+    "ui :: ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > reviews all six event-owned observations in the Lot, keeps deep detail optional, then hands the clear successor to Package": {
+      "diagnostic": "TestingLibraryElementError: Unable to find an element by: [data-testid=\"studio-lot-screen\"]\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div>\u001b[39m\n    \u001b[36m<div\u001b[39m\n      \u001b[33mclass\u001b[39m=\u001b[32m\"card\"\u001b[39m\n      \u001b[33mdata-recovery\u001b[39m=\u001b[32m\"continuing\"\u001b[39m\n      \u001b[33mdata-testid\u001b[39m=\u001b[32m\"recovery-notice\"\u001b[39m\n      \u001b[33mrole\u001b[39m=\u001b[32m\"status\"\u001b[39m\n      \u001b[33mstyle\u001b[39m=\u001b[32m\"margin-bottom: 12px;\"\u001b[39m\n    \u001b[36m>\u001b[39m\n      \u001b[36m<div\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"spread\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<span>\u001b[39m\n          \u001b[0mContinuing your studio — Week 1.\u001b[0m\n        \u001b[36m</span>\u001b[39m\n        \u001b[36m<button\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"ghost\"\u001b[39m\n          \u001b[33mdata-testid\u001b[39m=\u001b[32m\"recovery-dismiss\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[0mDismiss\u001b[0m\n        \u001b[36m</button>\u001b[39m\n      \u001b[36m</div>\u001b[39m\n    \u001b[36m</div>\u001b[39m\n    \u001b[36m<div\u001b[39m\n      \u001b[33mclass\u001b[39m=\u001b[32m\"app-shell\"\u001b[39m\n    \u001b[36m>\u001b[39m\n      \u001b[36m<p\u001b[39m\n        \u001b[33maria-atomic\u001b[39m=\u001b[32m\"true\"\u001b[39m\n        \u001b[33maria-live\u001b[39m=\u001b[32m\"polite\"\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"hint\"\u001b[39m\n        \u001b[33mdata-testid\u001b[39m=\u001b[32m\"studio-lot-lazy-loading\"\u001b[39m\n        \u001b[33mrole\u001b[39m=\u001b[32m\"status\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[0mOpening the Studio Lot…\u001b[0m\n      \u001b[36m</p>\u001b[39m\n    \u001b[36m</div>\u001b[39m\n  \u001b[36m</div>\u001b[39m\n\u001b[36m</body>\u001b[39m\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div>\u001b[39m\n    \u001b[36m<div\u001b[39m\n      \u001b[33mclass\u001b[39m=\u001b[32m\"card\"\u001b[39m\n      \u001b[33mdata-recovery\u001b[39m=\u001b[32m\"continuing\"\u001b[39m\n      \u001b[33mdata-testid\u001b[39m=\u001b[32m\"recovery-notice\"\u001b[39m\n      \u001b[33mrole\u001b[39m=\u001b[32m\"status\"\u001b[39m\n      \u001b[33mstyle\u001b[39m=\u001b[32m\"margin-bottom: 12px;\"\u001b[39m\n    \u001b[36m>\u001b[39m\n      \u001b[36m<div\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"spread\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<span>\u001b[39m\n          \u001b[0mContinuing your studio — Week 1.\u001b[0m\n        \u001b[36m</span>\u001b[39m\n        \u001b[36m<button\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"ghost\"\u001b[39m\n          \u001b[33mdata-testid\u001b[39m=\u001b[32m\"recovery-dismiss\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[0mDismiss\u001b[0m\n        \u001b[36m</button>\u001b[39m\n      \u001b[36m</div>\u001b[39m\n    \u001b[36m</div>\u001b[39m\n    \u001b[36m<div\u001b[39m\n      \u001b[33mclass\u001b[39m=\u001b[32m\"app-shell\"\u001b[39m\n    \u001b[36m>\u001b[39m\n      \u001b[36m<p\u001b[39m\n        \u001b[33maria-atomic\u001b[39m=\u001b[32m\"true\"\u001b[39m\n        \u001b[33maria-live\u001b[39m=\u001b[32m\"polite\"\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"hint\"\u001b[39m\n        \u001b[33mdata-testid\u001b[39m=\u001b[32m\"studio-lot-lazy-loading\"\u001b[39m\n        \u001b[33mrole\u001b[39m=\u001b[32m\"status\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[0mOpening the Studio Lot…\u001b[0m\n      \u001b[36m</p>\u001b[39m\n    \u001b[36m</div>\u001b[39m\n  \u001b[36m</div>\u001b[39m\n\u001b[36m</body>\u001b[39m",
+      "diagnosticSha256": "0fab2490ffa9f9cc5989762402d0cf806311bcadac7b9f8cf635b0621495a515",
+      "firstPrintedFrame": "❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27",
+      "completePostHeaderTail": "TestingLibraryElementError: Unable to find an element by: [data-testid=\"studio-lot-screen\"]\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div>\u001b[39m\n    \u001b[36m<div\u001b[39m\n      \u001b[33mclass\u001b[39m=\u001b[32m\"card\"\u001b[39m\n      \u001b[33mdata-recovery\u001b[39m=\u001b[32m\"continuing\"\u001b[39m\n      \u001b[33mdata-testid\u001b[39m=\u001b[32m\"recovery-notice\"\u001b[39m\n      \u001b[33mrole\u001b[39m=\u001b[32m\"status\"\u001b[39m\n      \u001b[33mstyle\u001b[39m=\u001b[32m\"margin-bottom: 12px;\"\u001b[39m\n    \u001b[36m>\u001b[39m\n      \u001b[36m<div\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"spread\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<span>\u001b[39m\n          \u001b[0mContinuing your studio — Week 1.\u001b[0m\n        \u001b[36m</span>\u001b[39m\n        \u001b[36m<button\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"ghost\"\u001b[39m\n          \u001b[33mdata-testid\u001b[39m=\u001b[32m\"recovery-dismiss\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[0mDismiss\u001b[0m\n        \u001b[36m</button>\u001b[39m\n      \u001b[36m</div>\u001b[39m\n    \u001b[36m</div>\u001b[39m\n    \u001b[36m<div\u001b[39m\n      \u001b[33mclass\u001b[39m=\u001b[32m\"app-shell\"\u001b[39m\n    \u001b[36m>\u001b[39m\n      \u001b[36m<p\u001b[39m\n        \u001b[33maria-atomic\u001b[39m=\u001b[32m\"true\"\u001b[39m\n        \u001b[33maria-live\u001b[39m=\u001b[32m\"polite\"\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"hint\"\u001b[39m\n        \u001b[33mdata-testid\u001b[39m=\u001b[32m\"studio-lot-lazy-loading\"\u001b[39m\n        \u001b[33mrole\u001b[39m=\u001b[32m\"status\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[0mOpening the Studio Lot…\u001b[0m\n      \u001b[36m</p>\u001b[39m\n    \u001b[36m</div>\u001b[39m\n  \u001b[36m</div>\u001b[39m\n\u001b[36m</body>\u001b[39m\n\nIgnored nodes: comments, script, style\n\u001b[36m<body>\u001b[39m\n  \u001b[36m<div>\u001b[39m\n    \u001b[36m<div\u001b[39m\n      \u001b[33mclass\u001b[39m=\u001b[32m\"card\"\u001b[39m\n      \u001b[33mdata-recovery\u001b[39m=\u001b[32m\"continuing\"\u001b[39m\n      \u001b[33mdata-testid\u001b[39m=\u001b[32m\"recovery-notice\"\u001b[39m\n      \u001b[33mrole\u001b[39m=\u001b[32m\"status\"\u001b[39m\n      \u001b[33mstyle\u001b[39m=\u001b[32m\"margin-bottom: 12px;\"\u001b[39m\n    \u001b[36m>\u001b[39m\n      \u001b[36m<div\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"spread\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<span>\u001b[39m\n          \u001b[0mContinuing your studio — Week 1.\u001b[0m\n        \u001b[36m</span>\u001b[39m\n        \u001b[36m<button\u001b[39m\n          \u001b[33mclass\u001b[39m=\u001b[32m\"ghost\"\u001b[39m\n          \u001b[33mdata-testid\u001b[39m=\u001b[32m\"recovery-dismiss\"\u001b[39m\n        \u001b[36m>\u001b[39m\n          \u001b[0mDismiss\u001b[0m\n        \u001b[36m</button>\u001b[39m\n      \u001b[36m</div>\u001b[39m\n    \u001b[36m</div>\u001b[39m\n    \u001b[36m<div\u001b[39m\n      \u001b[33mclass\u001b[39m=\u001b[32m\"app-shell\"\u001b[39m\n    \u001b[36m>\u001b[39m\n      \u001b[36m<p\u001b[39m\n        \u001b[33maria-atomic\u001b[39m=\u001b[32m\"true\"\u001b[39m\n        \u001b[33maria-live\u001b[39m=\u001b[32m\"polite\"\u001b[39m\n        \u001b[33mclass\u001b[39m=\u001b[32m\"hint\"\u001b[39m\n        \u001b[33mdata-testid\u001b[39m=\u001b[32m\"studio-lot-lazy-loading\"\u001b[39m\n        \u001b[33mrole\u001b[39m=\u001b[32m\"status\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[0mOpening the Studio Lot…\u001b[0m\n      \u001b[36m</p>\u001b[39m\n    \u001b[36m</div>\u001b[39m\n  \u001b[36m</div>\u001b[39m\n\u001b[36m</body>\u001b[39m\n ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27\n ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33\n ❯ renderStudio ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx:250:28\n    248|   expect(saveActiveSession(state)).toBe(true)\n    249|   render(<App />)\n    250|   const lot = await screen.findByTestId('studio-lot-screen')\n       |                            ^\n    251|   await waitFor(() => expect(renderer.instances).toHaveLength(1))\n    252|   return {\n ❯ ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx:311:11",
+      "completePostHeaderTailSha256": "75b1fa35934708ac6ba391630cd2b987b0ca718b2556e6b66200dd0e439e3231",
+      "group": 0
+    },
+    "ui :: ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > greenlights the canonical Package into exact formation without replacing the Lot, canvas, or renderer": {
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "firstPrintedFrame": null,
+      "completePostHeaderTail": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "completePostHeaderTailSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "group": 1
+    },
+    "ui :: ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx > Lot-native Casting review — App commit and handoff authority > never lets stale Casting review closures demote or mutate a newer exact event": {
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "firstPrintedFrame": null,
+      "completePostHeaderTail": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "completePostHeaderTailSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "group": 1
+    }
+  },
+  "sets": {
+    "new": [
+      "ui :: ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > reviews all six event-owned observations in the Lot, keeps deep detail optional, then hands the clear successor to Package"
+    ],
+    "vanished": [
+      "ui :: ui/src/engine/d17-save-migration.test.ts > D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a CURRENT-version save round-trips through the adapter as NOT converted",
+      "ui :: ui/src/engine/d17-save-migration.test.ts > D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a literal V8 save upgrades to V16 with legacy screenplay, casting, construction, placement, and property state",
+      "ui :: ui/src/engine/film-chronicle-adapter.test.ts > Film Chronicle V1 — real adapter wiring > uses current market week as the chronology gate and reconstructs deeply after V13 reload",
+      "ui :: ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > keeps a blocked acknowledgement and every current remedy on the same mounted fallback Lot",
+      "ui :: ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > keeps the complete blocked world action available in the Classic physical fallback",
+      "ui :: ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > rebuilds an imported pending review only after Casting is selected in the replacement Lot",
+      "ui :: ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx > Lot-native Casting review — App commit and handoff authority > keeps a blocked accepted successor in the same mounted Lot and autosaves exact parity",
+      "ui :: ui/src/lot/snapshot/v14SetHolderBoundary.test.ts > C2a-M2 — a save round-trips as V15, roots and all > exports V15 and imports it back with the four C2a roots intact",
+      "ui :: ui/src/saves.test.tsx > saves: export → import round-trips the EXACT state > importSaveJson(exportSaveJson(state)) has a serialized form equal to the original",
+      "ui :: ui/src/saves.test.tsx > saves: migration disclosure through real App navigation > carries the same version-neutral notice through a Start-screen V8 import",
+      "ui :: ui/src/saves.test.tsx > saves: migration disclosure through real App navigation > discloses migration when App restores an older active-session envelope",
+      "ui :: ui/src/saves.test.tsx > saves: migration disclosure through real App navigation > shows a one-shot, version-neutral notice after an accepted V8 load leaves Saves",
+      "ui :: ui/src/session.test.tsx > D-17A fix-pass — a stored V5 autosave migrates on load > a NEVER-ENGAGED headless V5 session restores with the flag false",
+      "ui :: ui/src/session.test.tsx > D-17A fix-pass — a stored V5 autosave migrates on load > an ENGAGED V5 session restores with the flag true and the converted banner",
+      "ui :: ui/src/session.test.tsx > Script Projects V1 — a stored V8 autosave migrates on load > preserves operations, seeds legacy screenplay and casting state, then re-saves as V15"
+    ],
+    "retainedIdenticalPrimary": [
+      "ui :: ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > greenlights the canonical Package into exact formation without replacing the Lot, canvas, or renderer",
+      "ui :: ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx > Lot-native Casting review — App commit and handoff authority > never lets stale Casting review closures demote or mutate a newer exact event"
+    ],
+    "changedPrimary": []
+  },
+  "counts": {
+    "new": 1,
+    "vanished": 15,
+    "retainedIdenticalPrimary": 2,
+    "changedPrimary": 0
+  },
+  "frames": {
+    "sameFirstFrame": [
+      "ui :: ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > greenlights the canonical Package into exact formation without replacing the Lot, canvas, or renderer",
+      "ui :: ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx > Lot-native Casting review — App commit and handoff authority > never lets stale Casting review closures demote or mutate a newer exact event"
+    ],
+    "changedFirstFrame": [],
+    "sameCompleteTail": [
+      "ui :: ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > greenlights the canonical Package into exact formation without replacing the Lot, canvas, or renderer",
+      "ui :: ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx > Lot-native Casting review — App commit and handoff authority > never lets stale Casting review closures demote or mutate a newer exact event"
+    ],
+    "changedCompleteTail": []
+  },
+  "unhandledMarkerPresent": false
+}

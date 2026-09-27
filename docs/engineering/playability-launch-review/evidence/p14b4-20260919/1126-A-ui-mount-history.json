@@ -1,0 +1,49 @@
+{
+  "identity": "ui :: ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > reviews all six event-owned observations in the Lot, keeps deep detail optional, then hands the clear successor to Package",
+  "candidateRecord": "1108-c3-boundary-ui",
+  "records": [
+    {
+      "record": "673-b5-full-ui-final.txt",
+      "bytes": 366373,
+      "sha256": "b1d2053298854bdbbd882d56b2b00fe08f0c0eff808a3ddbc8278ffcd7e7e145",
+      "detailedFailIdentityPresent": false,
+      "fileSummaryLines": [
+        " ❯ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx (10 tests | 1 failed) 32616ms"
+      ]
+    },
+    {
+      "record": "713-X-ui-baseline-source-rerun.txt",
+      "bytes": 402270,
+      "sha256": "4648b7b59daf8e486dfe4164eb21c2f02cf0d68806dcd7b25e7da5b671562ac5",
+      "detailedFailIdentityPresent": false,
+      "fileSummaryLines": [
+        " ❯ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx (10 tests | 1 failed) 32341ms"
+      ]
+    },
+    {
+      "record": "713-d2-full-ui.txt",
+      "bytes": 350073,
+      "sha256": "3e94533ca03dacda12c427ca1cd87b37c78640776cd5a68da86dc6c2bd5bbd31",
+      "detailedFailIdentityPresent": true,
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "firstPrintedFrame": null,
+      "completePostHeaderTail": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "completePostHeaderTailSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "matches1108Primary": false,
+      "fileSummaryLines": [
+        " ❯ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx (10 tests | 2 failed) 41234ms"
+      ]
+    },
+    {
+      "record": "1101-c3-final-ui.txt",
+      "bytes": 423106,
+      "sha256": "40e4eec4bceea1850c78cb31686ec8fcaf385a4dec68dc7c2c93bdcd611fb645",
+      "detailedFailIdentityPresent": false,
+      "fileSummaryLines": [
+        " ❯ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx (10 tests | 4 failed) 36406ms"
+      ]
+    }
+  ],
+  "scope": "exact identity history, no generic FU-1 or diagnostic normalization"
+}

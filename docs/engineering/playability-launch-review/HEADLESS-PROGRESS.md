@@ -1,5 +1,21 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — C.3 bounded qualification complete (2026-09-27)
+
+1128-A/B qualify C.3 logic with explicit limitations at consumed sourcec1461a62.
+Both required full suites completed and were independently attributed: core4591P/
+83F/11TODO; UI2651P/39F/5skip plus one unhandled error. Reviewed fixture repairs
+then pass all40 targets in exact affected whole-file selections; those selections
+remain175P/12F and67P/3F. Compiler/generator inputs are qualified at their recorded
+sources. No all-green or UI reliability claim. Canonical passive Writer-work,
+R8/FU1/FU2, new lazy-mount/NextEvent and native/Owner limits stay explicit.
+Corrected C/D endurance retains exact historical A parity and mixed-source limits.
+
+About16.4hours have elapsed since C.3 planning began; this includes the completed
+full verification/attribution and narrow repairs. Next: publish/exactremoteverify,
+1117 genuine outgoing38/53 preservation, then1129/1121's bounded P3 RED sequence.
+No feature writer is released before that preservation is reviewed and published.
+
 ## CURRENT — C.3 paired repairs verified; complete suites pending (2026-09-27)
 
 Reviewed 90-file maintenance is published at d8552a0b. Six exact paired gates have

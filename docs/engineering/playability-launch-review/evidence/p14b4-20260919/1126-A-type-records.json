@@ -1,0 +1,135 @@
+[
+  {
+    "stem": "1104-c3-boundary-root-types",
+    "recorder": {
+      "sourceSha": "ab9f4923c40c6b9d93da5831b03b128aa83b4efe",
+      "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untrackedSource": [],
+      "command": [
+        "node_modules/.bin/tsc",
+        "--noEmit"
+      ],
+      "node": "v20.20.2",
+      "start": "2026-09-27T10:24:00.959Z",
+      "end": "2026-09-27T10:24:34.739Z",
+      "exitCode": 2,
+      "signal": null,
+      "error": null,
+      "sourceShaAtEnd": "ab9f4923c40c6b9d93da5831b03b128aa83b4efe",
+      "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untrackedSourceAtEnd": [],
+      "fixedSource": true
+    },
+    "jsonSha256": "b99ee4c43a41de67067570e97924f80ada3302c99201518e5631957c2ef8e589",
+    "rawBytes": 547,
+    "rawSha256": "ef5432187f8a460ff2df19d651cd9af0debcdd66c55ef957df0c08a390310ccf",
+    "diagnosticLines": [
+      "tests/c2a-m2-sets-save.test.ts(287,11): error TS6133: 'migrated' is declared but its value is never read.",
+      "tests/casting-sessions-save-v10.test.ts(325,22): error TS2552: Cannot find name 'GameState'. Did you mean 'GameStateV10'?"
+    ]
+  },
+  {
+    "stem": "1105-c3-boundary-ui-types",
+    "recorder": {
+      "sourceSha": "ab9f4923c40c6b9d93da5831b03b128aa83b4efe",
+      "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untrackedSource": [],
+      "command": [
+        "node_modules/.bin/tsc",
+        "-p",
+        "ui/tsconfig.json",
+        "--noEmit"
+      ],
+      "node": "v20.20.2",
+      "start": "2026-09-27T10:24:42.446Z",
+      "end": "2026-09-27T10:25:23.813Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "sourceShaAtEnd": "ab9f4923c40c6b9d93da5831b03b128aa83b4efe",
+      "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untrackedSourceAtEnd": [],
+      "fixedSource": true
+    },
+    "jsonSha256": "224dcf7f5175194df0e4e6572d5b7d1ed031580057c99fcd532dc009ad7c2de4",
+    "rawBytes": 343,
+    "rawSha256": "10c0761331e0ca8714ff2a3a98d7a6a3092b9f939097c09950656b34dc6a58fd",
+    "diagnosticLines": []
+  },
+  {
+    "stem": "1106-c3-boundary-bridge-types",
+    "recorder": {
+      "sourceSha": "ab9f4923c40c6b9d93da5831b03b128aa83b4efe",
+      "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untrackedSource": [],
+      "command": [
+        "node_modules/.bin/tsc",
+        "-p",
+        "tsconfig.bridge.json"
+      ],
+      "node": "v20.20.2",
+      "start": "2026-09-27T10:25:54.052Z",
+      "end": "2026-09-27T10:26:25.712Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "sourceShaAtEnd": "ab9f4923c40c6b9d93da5831b03b128aa83b4efe",
+      "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untrackedSourceAtEnd": [],
+      "fixedSource": true
+    },
+    "jsonSha256": "9ea23a7e8dabc739e0496251eabaafab1a1b0e64649f793aad8506bef9855bc2",
+    "rawBytes": 336,
+    "rawSha256": "2f9b164ec7660ec639cc6105341836a973a2af67b25e81652de3507cc7749a0a",
+    "diagnosticLines": [],
+    "originalDriverGuard": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1126-c3-boundary-bridge-doc-guard.json",
+      "sha256": "e5efb2ec0a2083fea3956d3a05315d15462a02e6cecb859e3b5c922f3aa463e1",
+      "value": {
+        "status": "PASS",
+        "beforeRecord": {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1126-c3-boundary-bridge-doc-guard.started.json",
+          "bytes": 459,
+          "sha256": "5b8dcc568f304905a913728db54841a54c54f75c23196f0401755211d2b0d1ef"
+        },
+        "afterIdentity": {
+          "bytes": 66372,
+          "sha256": "f7d19d39218b9570b3be65a14a0e3cd0a346dd06be1beb283a9bdcc830dfff4d"
+        },
+        "head": "ab9f4923c40c6b9d93da5831b03b128aa83b4efe",
+        "recorder": {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1106-c3-boundary-bridge-types.json",
+          "bytes": 625,
+          "sha256": "9ea23a7e8dabc739e0496251eabaafab1a1b0e64649f793aad8506bef9855bc2"
+        },
+        "timestamp": "2026-09-27T10:26:50.682235+00:00"
+      }
+    }
+  },
+  {
+    "stem": "1109-c3-boundary-root-types-corrected",
+    "recorder": {
+      "sourceSha": "c1461a62bd0c307094ae63ff28b66e7aa9716b78",
+      "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untrackedSource": [],
+      "command": [
+        "node_modules/.bin/tsc",
+        "--noEmit"
+      ],
+      "node": "v20.20.2",
+      "start": "2026-09-27T10:29:03.538Z",
+      "end": "2026-09-27T10:29:34.858Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "sourceShaAtEnd": "c1461a62bd0c307094ae63ff28b66e7aa9716b78",
+      "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untrackedSourceAtEnd": [],
+      "fixedSource": true
+    },
+    "jsonSha256": "7192be790fa04b3f81e1ce4bb6e2d295d98e065180517e4263e6aac501690c5b",
+    "rawBytes": 319,
+    "rawSha256": "073f4499a661504625bcb571b928fa4263d7ef22442581b5dd82b024a75ac9ff",
+    "diagnosticLines": []
+  }
+]

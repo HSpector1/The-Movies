@@ -1,0 +1,192 @@
+{"sourceSha":"c1461a62bd0c307094ae63ff28b66e7aa9716b78","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-p12-campaign-library.test.ts","tests/bridge-p13b-r07-setup.test.ts","tests/bridge-p14c2rm-retirement.test.ts","tests/c2a-m2-sets-save.test.ts","tests/casting-sessions-save-v10.test.ts","tests/d12-economy.test.ts","tests/d14-star-power.test.ts","tests/frozen-save-builder-projection.test.ts","tests/p11-finance-report.test.ts","tests/p12-starting-world.test.ts","tests/p13b-s1-validation.test.ts","tests/p13b-s2-validation.test.ts","tests/p13b-s8-finance.test.ts","tests/p14b4-cast-class-policy.test.ts","tests/production-operations-save-v8.test.ts","tests/roster-wall-artifacts.test.ts","tests/ruling-a-development-in-play.test.ts"],"node":"v20.20.2","start":"2026-09-27T10:30:35.012Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13b-r07-setup.test.ts (13 tests) 56728ms
+   ✓ requirement 2: each production snapshot gains setup: StudioProductionSetup | null > conventional ballroom: null pre-selection; admission at week 12 with 0 credited; a held rehearsal names the setup wait and a weeksRemaining consistent with the forecast; walked week-by-week to Shooting entry 16 13602ms
+   ✓ requirement 3: setup-recipe-<productionId>-<recipeId> rows, offered pre-Shooting with a bound stage whose Set type matches the recipe — PREMISE: published as setupRecipeActions on the same productionOperations row > the eligible ballroom recipe row is enabled, carries productionId/recipeId/planRevision, intent kind productionSetupAction, no rejections 2109ms
+   ✓ requirement 3: setup-recipe-<productionId>-<recipeId> rows, offered pre-Shooting with a bound stage whose Set type matches the recipe — PREMISE: published as setupRecipeActions on the same productionOperations row > a wrong-Set-type row (ordinary recipe on a ballroom-bound production) is disabled, names its own refusal, and enabled agrees with the refusal 2067ms
+   ✓ requirement 3: setup-recipe-<productionId>-<recipeId> rows, offered pre-Shooting with a bound stage whose Set type matches the recipe — PREMISE: published as setupRecipeActions on the same productionOperations row > rows are absent once the production enters Shooting (legacy path: no recipe ever selected) 2010ms
+   ✓ requirement 4: committing a recipe row through the bridge > writes exactly one setup record, advances stateRevision, refuses the same intent at the old revision, and the forecast matches setupForecast once the sweep visit admits it 7718ms
+   ✓ requirement 5: ticking through the bridge credits one unit per week and enters Shooting at the forecast week, on all three measured fixtures; the four setup history kinds appear on the history view > conventional ballroom: admission 12 -> Shooting entry 16, history rows setupAdmitted/setupUnitCredited x4/setupCompleted, production-scoped 2543ms
+   ✓ requirement 5: ticking through the bridge credits one unit per week and enters Shooting at the forecast week, on all three measured fixtures; the four setup history kinds appear on the history view > lighting ballroom: admission 807 -> Shooting entry 809, route "lighting" 18485ms
+   ✓ requirement 5: ticking through the bridge credits one unit per week and enters Shooting at the forecast week, on all three measured fixtures; the four setup history kinds appear on the history view > ordinary interior: admission 4 -> Shooting entry 5, both routes agree at 1 unit 1922ms
+   ✓ requirement 6: player-safe; a legacy production publishes setup: null with its schedule unchanged > every productionOperations row belongs to this studio's own activeProductions — MEASURED: the engine has no rival production model to leak (operations/placement are single, player-scoped roots, the same fact tests/bridge-p13b-s4-office.test.ts case 7 and tests/bridge-p13b-s5-adoption.test.ts requirement 6 both rely on for their own rival-injection idiom) 2092ms
+   ✓ requirement 6: player-safe; a legacy production publishes setup: null with its schedule unchanged > legacy timeline byte-identical through the bridge: a production that never selects a recipe publishes setup: null and today's exact (unheld) schedule 2414ms
+   ✓ extra pin (parent instruction): the bridge's save/load "converted" report against the CURRENT save version, not a stale literal 23 (bridge/session.ts:123) > RED: a genuine CURRENT (live-version) checkpoint saved and reloaded through the SAME bridge session reports converted: false 1758ms
+stdout | tests/p14b4-cast-class-policy.test.ts > P14B4: natural rival policy uses the real shared service, never staged failed candidates > observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG
+default seed w196 provenP1: studio-aca408ec-r01 -> person-studio-aca408ec-r01-0 reads APPEARANCE_COUNT=REASONABLY_ACHIEVABLE root promise-0
+
+ ❯ |core| tests/p14b4-cast-class-policy.test.ts (7 tests | 1 failed) 73434ms
+   ✓ P14B4: one shared public archetype; no new personality or priority-position inference > uses the existing age edge at 29 without inventing a career credit 375ms
+   ✓ P14B4: one shared public archetype; no new personality or priority-position inference > a real under-30 release credit supplies the proven branch independently of the age edge 1400ms
+   ✓ P14B4: all six D3 class matches through real two-survivor settlements > age 29: mismatch changes only D3, never proposal legality 8700ms
+   ✓ P14B4: all six D3 class matches through real two-survivor settlements > age 30: mismatch changes only D3, never proposal legality 7429ms
+   × P14B4: natural rival policy uses the real shared service, never staged failed candidates > observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG 55171ms
+     → expected [ 'provenP1' ] to deeply equal ArrayContaining{…}
+ ✓ |core| tests/production-operations-save-v8.test.ts (20 tests) 6491ms
+   ✓ Production Operations V1 — the V8 envelope > makeSaveV8 writes frozen V8, validates it, and exports/imports byte-identically 392ms
+   ✓ Production Operations V1 — frozen V7 to live V8 migration > backfills the additive opening band in legitimate pre-a104970 V1–V4 active forecasts 913ms
+   ✓ Production Operations V1 — frozen V7 to live V8 migration > preserves an active V7 production countdown and continuation exactly 1259ms
+   ✓ Production Operations V1 — managed state validation and continuation > round-trips a blocked shooting task with its real director and reservations 960ms
+   ✓ Production Operations V1 — managed state validation and continuation > rejects facility truth drift plus orphaned, missing, and phase-mismatched workflows 515ms
+   ✓ Production Operations V1 — managed state validation and continuation > validates every active production field and authoritative reference 569ms
+ ✓ |core| tests/ruling-a-development-in-play.test.ts (18 tests) 2302ms
+   ✓ RULING A — deterministic, RNG-isolated, replay-exact > full-run replay is byte-identical with development ON (export→import→export) 454ms
+   ✓ RULING A — development survives save round-trips without duplication > export→import preserves the developed talent exactly (no re-development on load) 439ms
+ ✓ |core| tests/roster-wall-artifacts.test.ts (16 tests) 94891ms
+   ✓ roster-wall provenance gates > accepts a clean harness/docs/tests-only descendant and stamps exact source identity 1056ms
+   ✓ roster-wall provenance gates > rejects untracked executable state, a wrong branch, and production-source drift 2259ms
+   ✓ roster-wall provenance gates > rejects an ignored executable/source shadow 720ms
+   ✓ roster-wall provenance gates > rejects accepted attestation of a repository other than the executing checkout 443ms
+   ✓ roster-wall artifact infrastructure > writes, inventories, verifies, and exactly replays a complete artifact 760ms
+   ✓ roster-wall artifact infrastructure > does not expose an accepted-finalization authority override 994ms
+   ✓ roster-wall artifact infrastructure > rejects the former skeletal smoke counterfeit before semantic acceptance 36187ms
+   ✓ roster-wall artifact infrastructure > reports a valid deterministic replay difference without conflating file sets 519ms
+   ✓ roster-wall artifact infrastructure > rejects rebuilt mechanics semantics against the canonical fixture oracle 50058ms
+   ✓ roster-wall artifact infrastructure > rejects digest tampering and any extra generated file 1038ms
+   ✓ roster-wall artifact infrastructure > refuses traversal, symlink escape, stale output, duplicate entries, and hash mismatch 341ms
+ ✓ |core| tests/d12-economy.test.ts (17 tests) 1903ms
+   ✓ D-12: V3→V4 migration records released films as legacyCompleted (no double-pay) > migrated releases carry their full-gross V3 payout and are never credited again 963ms
+   ✓ D-12: reload equals continuous play with an active run straddling the save > export at mid-run → import → advance is byte-identical to an uninterrupted run 448ms
+ ✓ |core| tests/bridge-p14c2rm-retirement.test.ts (21 tests) 115900ms
+   ✓ C.2-RM planning and actual retirement announcements > actor profile states literal eligibility 60/hard70 without inventing intent 1253ms
+   ✓ C.2-RM planning and actual retirement announcements > director profile states literal eligibility 65/hard75 without inventing intent 979ms
+   ✓ C.2-RM planning and actual retirement announcements > writer profile states literal eligibility 65/hard75 without inventing intent 702ms
+   ✓ C.2-RM planning and actual retirement announcements > craft profile states literal eligibility 62/hard72 without inventing intent 876ms
+   ✓ C.2-RM planning and actual retirement announcements > scientist profile states literal eligibility 62/hard72 without inventing intent 3657ms
+   ✓ C.2-RM planning and actual retirement announcements > a genuine old save lifted past hard age stays active until an actual recorded announcement 1816ms
+   ✓ C.2-RM planning and actual retirement announcements > natural Scientist announcement is immediate on real Calendar, with honest finite Finance exclusion 3547ms
+   ✓ C.2-RM planning and actual retirement announcements > announcement news lasts exactly13 weeks even without a case; profiles and Calendar persist afterward 5000ms
+   ✓ C.2-RM obligations, retired discovery and public boundaries > actual held Scientist work stays finishing through overdue E, then real cancel/tick retires without deleting identity 9743ms
+   ✓ C.2-RM obligations, retired discovery and public boundaries > a naturally announced contracted writer can start genuine writing at E−1 and finishes it after E 18071ms
+   ✓ C.2-RM obligations, retired discovery and public boundaries > a lawful original screenplay crossing E remains a saveable whole live campaign while its writer finishes 1056ms
+   ✓ C.2-RM obligations, retired discovery and public boundaries > unavailable ordinary windows disappear before/open/after the final extension while actual expiry stays 4294ms
+   ✓ C.2-RM obligations, retired discovery and public boundaries > a naturally announced actor retains an exactly capped lawful ordinary renewal, then loses it one week later 4387ms
+   ✓ C.2-RM obligations, retired discovery and public boundaries > 65 actual retirement boundaries remain in Calendar, bounded Finance rows count exact overflow, and alumni paginate deterministically 6893ms
+   ✓ C.2-RM alumni evidence and disclosure > an actual release and real retirement preserve credit/promise/employer routes and invent no honors 7035ms
+   ✓ C.2-RM alumni evidence and disclosure > SYNTHETIC validated imported role-credit variant counts two roles on one actual film, not one distinct film 1758ms
+   ✓ C.2-RM alumni evidence and disclosure > a genuine long-career alumnus counts the complete >24 credit record, not the bounded profile rows 6871ms
+   ✓ C.2-RM alumni evidence and disclosure > natural retired tiers stay fixed across real drift while lawful current employment changes disclosure 14141ms
+   ✓ C.2-RM alumni evidence and disclosure > SYNTHETIC imported newer edge withholds unreconstructible retirement tier, with no hidden-counterpart notice leak 1251ms
+   ✓ C.2-RM alumni evidence and disclosure > whole snapshots validate and campaign-local people with identical ids never share lifecycle data 22370ms
+ ✓ |core| tests/p13b-s8-finance.test.ts (5 tests) 2360ms
+   ✓ P13B-S8 rival finance: typed kinds and interval Opex reconcile, migration frozen, legacy grandfathered (test 4) > interval Opex: no back-charges — a Laboratory adds its weekly cost only from its own operational week, never retroactively 946ms
+   ✓ P13B-S8 rival finance: typed kinds and interval Opex reconcile, migration frozen, legacy grandfathered (test 4) > migration basis frozen: a GENUINE V26 period (ten keys), lifted through the real migrateToV31, carries the four new keys at zero and its nine original movements byte-identical (coordinator ruling: a LIVE period already carries all 14 keys — this compares the lifted period against its OWN V26 source, never a live period against itself) 1225ms
+ ✓ |core| tests/c2a-m2-sets-save.test.ts (4 tests) 3456ms
+   ✓ C2a-M2 — sets across the save boundary > round-trips a studio that has built, repaired and struck, byte for byte 1741ms
+   ✓ C2a-M2 — sets across the save boundary > refuses, at the V16 boundary, every state the sets authority forbids 705ms
+   ✓ C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW greenlight > greenlights, binds a set, and shoots — while the picture it migrated with never does 693ms
+   ✓ C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW greenlight > lets a migrated studio BUILD a set on the stage it just cleared 315ms
+ ✓ |core| tests/d14-star-power.test.ts (15 tests) 6411ms
+   ✓ D-14 Star Power lifecycle (real engine) > 1 + 12. fame changes only at release, and the career event matches the transition 1379ms
+   ✓ D-14 Star Power lifecycle (real engine) > 2. the update occurs exactly once — one career event per participant per film 876ms
+   ✓ D-14 Star Power lifecycle (real engine) > 3. the released film economics are NOT retroactively changed by its own fame update 622ms
+   ✓ D-14 Star Power lifecycle (real engine) > 4. a future film reads the UPDATED fame (progression compounds) 853ms
+   ✓ D-14 Star Power lifecycle (real engine) > 16 + 17. reload cannot apply progression twice, and round-trip preserves career events 1296ms
+   ✓ D-14 Star Power lifecycle (real engine) > 18. determinism — two identical runs produce identical career events 1276ms
+ ✓ |core| tests/casting-sessions-save-v10.test.ts (6 tests) 1592ms
+   ✓ Casting Sessions V1 — SaveFileV10 > writes frozen V10 explicitly and round-trips every session lifecycle byte-identically 717ms
+ ✓ |core| tests/p11-finance-report.test.ts (5 tests) 3358ms
+   ✓ P11 recorded cash and current-pace report > refuses invented pre-checkpoint balances and marks the first recorded week partial 460ms
+   ✓ P11 recorded cash and current-pace report > does not infer old complete weeks from the absence of a cash checkpoint 333ms
+   ✓ P11 recorded cash and current-pace report > preserves literal ordered closing Cash over real fractional film receipt intervals 2382ms
+ ✓ |core| tests/p13b-s2-validation.test.ts (15 tests) 104290ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > conservation: reconciles receipts, expenditure, ledger and cash over a funded cooperate interval 13460ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > determinism: two independent builds from the same seed give byte-identical exportSave, both fresh and after identical further actions 26784ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > save/reload mid-project: a reloaded cooperate project continues identically to the uninterrupted run over further weeks 17220ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > campaign isolation: every project a public action can create carries studioId === the player, by construction 13685ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > campaign isolation: a rival two-Laboratory project never surfaces through the player-scoped read filter, and forging the player’s own project never touches its bytes 12501ms
+ ✓ |core| tests/frozen-save-builder-projection.test.ts (2 tests) 381ms
+   ✓ frozen save builders project exact historical roots > makeSaveV1 through makeSaveV9 omit every later and unknown live-state root 359ms
+ ✓ |core| tests/p13b-s1-validation.test.ts (7 tests) 9848ms
+ ✓ |core| tests/p12-starting-world.test.ts (3 tests) 3938ms
+   ✓ R05 canonical starting history and genuine migration > opens four established distinct businesses with settled canonical history and protected applicants 474ms
+   ✓ R05 canonical starting history and genuine migration > migrates at each old state own week with empty company histories and exact player state 3271ms
+ ❯ |core| tests/bridge-p12-campaign-library.test.ts (13 tests | 11 failed) 133898ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only rename 18243ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only delete 12426ms
+   × R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record 5526ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit 5451ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session 7641ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart 6262ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact 9393ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record 5828ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes 5676ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals 6634ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart 6614ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority 20981ms
+     → Test timed out in 20000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority 23224ms
+     → Test timed out in 20000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 12 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/12]⎯
+
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority
+Error: Test timed out in 20000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/12]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-policy.test.ts > P14B4: natural rival policy uses the real shared service, never staged failed candidates > observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG
+AssertionError: expected [ 'provenP1' ] to deeply equal ArrayContaining{…}
+
+- Expected
++ Received
+
+- ArrayContaining [
+-   "flexibleP2",
+-   "neither",
++ Array [
+    "provenP1",
+  ]
+
+ ❯ tests/p14b4-cast-class-policy.test.ts:568:32
+    566|     try {
+    567|       scan() // the default seed: every witness it carried before 600-…
+    568|       expect([...seen].sort()).toEqual(expect.arrayContaining(['flexib…
+       |                                ^
+    569|       // 600-T4 (record 616 R-6; F-G9-1): the P1-fallback branch (FLEX…
+    570|       // unproven person) has no natural witness on the default seed w…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/12]⎯
+
+ Test Files  2 failed | 15 passed (17)
+      Tests  12 failed | 175 passed (187)
+   Start at  12:30:35
+   Duration  226.91s (transform 6.52s, setup 0ms, collect 22.34s, tests 621.18s, environment 7ms, prepare 3.34s)
+

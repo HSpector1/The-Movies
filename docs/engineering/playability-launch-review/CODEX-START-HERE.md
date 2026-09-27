@@ -1,25 +1,27 @@
 # CODEX continuation — Project Studio
 
-## CURRENT — UI/Bridge types passed; two root-test typing corrections applied
+## CURRENT — C.3 bounded qualification complete; publish then outgoing38/53 capture
 
-Published ab9f4923c40c6b9d93da5831b03b128aa83b4efe contains the reviewed25-file
-fixture maintenance.1104 root types closed with exactly two test-only diagnostics;
-1105 UI types PASS41.367s and1106 Bridge types PASS31.660s, fixedSource:true/empty.
-The original1052 docs producer guard also passes before/after Bridge compilation.
+1128-A final bounded C.3 qualification and1128-B independent KEEP are complete.
+Final consumed source is published c1461a62bd0c307094ae63ff28b66e7aa9716b78;
+this checkpoint adds evidence/docs only. All40 targeted fixture/boundary repairs
+pass in1107/1108, whose actual whole-file results remain175PASS/12FAIL and67PASS/
+3FAIL. Full1100/1101 remain failed observations; no clean-full-suite claim.
+Canonical passive Writer-work absence, R8/FU1/FU2, new lazy-mount and NextEvent
+navigation failures, mixed-source endurance, native and Owner limits remain.
 
-Independent1127-B KEEP approves only an unused local removal and GameStateV10
-annotation. Parent applied both exact postimages;1,659 other consumed files remain
-unchanged, with unchanged HEAD/index through application.1127 application audits
-preserve the original1123 stage and failed1104. No production/runtime change.
+Publish this checkpoint and exact-remote-verify. Then parent alone runs1130-p3-
+outgoing-types via the fixed-source recorder and, after actual compiler success,
+reviewed1117-p3-outgoing-preservation.ts with actual published HEAD and1128-A's
+SHA2565dbd8157352c51aaabce6a7467756ce93faef1a4fe6bbd744060a98a7c76aee9.
+Exclusive audit prefix1117-capture-01; exact nine declared new fixtures. Capture is
+unexecuted at this checkpoint. Hold HEAD/index/consumed inputs during execution.
 
-Publish this correction/evidence checkpoint, exact-remote-verify, then run
-1109-c3-boundary-root-types-corrected. UI/Bridge compiler inputs are unchanged by
-these two root leaves; independent review confirms no repeat is needed. After
-root passes, execute exact1123 argv as1107-c3-boundary-core then1108-c3-boundary-ui.
-Parent alone executes; freeze HEAD/index/source per run.1126-A/B own actual
-attribution and review. No heavy process remains at this checkpoint; no behavior
-result is claimed. Preserve all inherited and new-navigation limits. Final C.3
-qualification and1117 preservation precede P3; all P15 choices remain selected.
+1129 records the short P14 reconciliation and next sequence. P3 first test slice
+stays held until actual capture is independently reviewed and published. Existing
+same two specialists retain separate test/review ownership; parent sole production
+writer/heavy executor. No heavy process is active. All1122 P15 choices are selected.
+Continue the authorized program; no routine approval or repeated completed run.
 
 ## CURRENT — reviewed 25-file fixture repair applied; publish and verify
 

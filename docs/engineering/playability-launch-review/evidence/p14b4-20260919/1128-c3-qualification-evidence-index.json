@@ -1,0 +1,232 @@
+{
+  "status": "EVIDENCE_INDEX_NOT_QUALIFICATION",
+  "head": "c1461a62bd0c307094ae63ff28b66e7aa9716b78",
+  "productionBase": "d41a337b7bd6cadb0824abd9818f686879c34608",
+  "productionDiffPaths": [],
+  "uiChangedTestPaths": [
+    "ui/src/engine/d17-save-migration.test.ts",
+    "ui/src/engine/film-chronicle-adapter.test.ts",
+    "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx",
+    "ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx",
+    "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts",
+    "ui/src/saves.test.tsx",
+    "ui/src/session.test.tsx"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1118-A-c3-final-paired-attribution.md",
+      "bytes": 23120,
+      "sha256": "ba0635ee14f3002f7a8a28afa1512e22ca0d38a8f76e0984182d5c7e0e83b923"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1118-B-c3-final-paired-review.md",
+      "bytes": 11800,
+      "sha256": "f266ac4ce82ebc5fbe57ce52f6ee3e90add62a41341b94c5aaf31b33dabb9668"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1118-C-c3-paired-types-checkpoint.md",
+      "bytes": 4458,
+      "sha256": "d2eac11317e2fafc9d07199ee5ef59f72208930b51bdd88c3b91ec8aaffe9e3c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1119-A-c3-final-full-attribution.md",
+      "bytes": 27157,
+      "sha256": "48f4823c31af5215921a4fad1b78a5249ecccc436303d7706f975976587c1d91"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1119-B-c3-final-full-review.md",
+      "bytes": 24566,
+      "sha256": "3e293203b9b112c39e048be45519c75e0c9bdb17a4a51ce23da216b355a2ceea"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1119-C-c3-final-type-check-review.md",
+      "bytes": 6173,
+      "sha256": "7c402eeb2f2ba77712111f6b63ca0de01340fe0840a3b24f8a38b6580f22d8a6"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1120-A-c3-complete-suite-observations.md",
+      "bytes": 6624,
+      "sha256": "5af595262a3e6482aa11ab139a69aece1c9e6e0da0f61362aa65546fb9afcad6"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1125-B-c3-maintenance-application-review.md",
+      "bytes": 2951,
+      "sha256": "ab404fcebf16a40b3086f922423d284244252dae3b59042f699b51bf2728a2a5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1127-A-c3-type-maintenance-handback.md",
+      "bytes": 1999,
+      "sha256": "18962ad72929f2cfa13612353ea4e639564817c4287511fab92732359bbc1b5d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1127-B-c3-type-maintenance-review.md",
+      "bytes": 2596,
+      "sha256": "10d231e0e2c74f5fc878af2e968ee7f887eec29055563e01e3861e0a5f36f071"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1097-B-c3-endurance-a-artifact-review.md",
+      "bytes": 10162,
+      "sha256": "4eeeac44ba1ca9759ca715f8105569ba9bb70505d7ab229a660718d3dcda5b99"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1111-B-c3-corrected-c-artifact-review.md",
+      "bytes": 10737,
+      "sha256": "53f6ae30dc57a21f432e0b6ee895e2511ae91298833027ec0e3f02ac5e8ab9e5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1114-B-c3-corrected-d-artifact-review.md",
+      "bytes": 13084,
+      "sha256": "57e922c00650a31c6da489259406c6143edc9ba01293481b80673b1434ff4b50"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1107-c3-boundary-core.json",
+      "bytes": 1361,
+      "sha256": "66af3dcc13715671c3f2a5c4a010e5a35969fddc0ef314ed4d97d6581dff478d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1107-c3-boundary-core.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1107-c3-boundary-core.txt",
+      "bytes": 25102,
+      "sha256": "2603221fee7ac407ef4951ba443989db5c06dcfafe878f21428c5136be8c6005"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1108-c3-boundary-ui.json",
+      "bytes": 979,
+      "sha256": "2a272b520516b14c032ab3b85269d80136faca45e2567110c91063d7064ba051"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1108-c3-boundary-ui.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1108-c3-boundary-ui.txt",
+      "bytes": 17423,
+      "sha256": "dae4e78313e3ef791e87ce2703f66ccd3719b8500dc36b5cc77cf40eef1d3669"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1109-c3-boundary-root-types-corrected.json",
+      "bytes": 603,
+      "sha256": "7192be790fa04b3f81e1ce4bb6e2d295d98e065180517e4263e6aac501690c5b"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1109-c3-boundary-root-types-corrected.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1109-c3-boundary-root-types-corrected.txt",
+      "bytes": 319,
+      "sha256": "073f4499a661504625bcb571b928fa4263d7ef22442581b5dd82b024a75ac9ff"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1105-c3-boundary-ui-types.json",
+      "bytes": 637,
+      "sha256": "224dcf7f5175194df0e4e6572d5b7d1ed031580057c99fcd532dc009ad7c2de4"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1105-c3-boundary-ui-types.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1105-c3-boundary-ui-types.txt",
+      "bytes": 343,
+      "sha256": "10c0761331e0ca8714ff2a3a98d7a6a3092b9f939097c09950656b34dc6a58fd"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1106-c3-boundary-bridge-types.json",
+      "bytes": 625,
+      "sha256": "9ea23a7e8dabc739e0496251eabaafab1a1b0e64649f793aad8506bef9855bc2"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1106-c3-boundary-bridge-types.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1106-c3-boundary-bridge-types.txt",
+      "bytes": 336,
+      "sha256": "2f9b164ec7660ec639cc6105341836a973a2af67b25e81652de3507cc7749a0a"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1098-c3-final-contract-check.json",
+      "bytes": 651,
+      "sha256": "711a725f83646f71740b8bbfa32e3095d479a066d4a6947d6a0b6b7d844ab0b3"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1098-c3-final-contract-check.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1098-c3-final-contract-check.txt",
+      "bytes": 694,
+      "sha256": "543391f02c221f105e22924b6496375efa1ebfab0560f678303e274fa14149c2"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1099-c3-final-fixture-check.json",
+      "bytes": 660,
+      "sha256": "307e307a2511d59e87e344635be5b85f6e7de0c0bdbe3a4f8f467d3dc9552630"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1099-c3-final-fixture-check.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1099-c3-final-fixture-check.txt",
+      "bytes": 491,
+      "sha256": "3417a8977f05081b1f6475e341b4189f633e27c4069eca6625671794af3d21fd"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1126-A-c3-final-maintenance-attribution.md",
+      "bytes": 17695,
+      "sha256": "2f651a23868f0a2a57fdc25372f967266e781f1b093533bfd2c3f0f602c02bd8"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1126-A-core-comparison.json",
+      "bytes": 31255,
+      "sha256": "f6e971e27a1d734d1eff66d4eb0af941bd7772468a1cbbd60487a9c349391fab"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1126-A-scoped-baseline.json",
+      "bytes": 175659,
+      "sha256": "4c14223e7878c4df8ea62c9250227c0531cf21cb0d14bb28406bb72fcf868c19"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1126-A-type-records.json",
+      "bytes": 5290,
+      "sha256": "84c534f9735c8ee9e2dafb0e5107771eaa8c6281e40b2b345dd3b8e8f5ed168a"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1126-A-ui-comparison.json",
+      "bytes": 19560,
+      "sha256": "f2e0c3b44d31de590fbfe63cd61141721411566785d6321dcd75247510bab35f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1126-A-ui-mount-history.json",
+      "bytes": 2467,
+      "sha256": "1710e385cb6a7d567bcdce33202fb31a6b64e0a578bace5565c6a8c1a30e35e8"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1126-B-c3-final-maintenance-result-review.md",
+      "bytes": 11816,
+      "sha256": "36b4bf70d4b5c9d1f0816006bed7987d3ed62a7655c6a57e7de85b381153b8d1"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1126-c3-boundary-bridge-doc-guard.json",
+      "bytes": 745,
+      "sha256": "e5efb2ec0a2083fea3956d3a05315d15462a02e6cecb859e3b5c922f3aa463e1"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1126-c3-boundary-bridge-doc-guard.started.json",
+      "bytes": 459,
+      "sha256": "5b8dcc568f304905a913728db54841a54c54f75c23196f0401755211d2b0d1ef"
+    }
+  ]
+}

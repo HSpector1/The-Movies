@@ -1,5 +1,20 @@
 # UNITY-INTEGRATION-BACKLOG — work reserved for the replacement laptop
 
+## CURRENT — C.3 headless qualification closed with limits; native duties remain
+
+1128-A/B qualify the bounded component on consumed sourcec1461a62; production
+remainsd41a337b. Save38/projection53/protocol4 and the existing schema below are
+unchanged. Corrected C/D endurance and final full observations/fixture repairs
+are complete at their recorded sources. Only A has three separate real-disk samples.
+Full core/UI observations remain failed; jsdom is not rendered/native acceptance.
+
+Retain the exact consumer pairing, profile/alumni/Calendar, old/current runtime,
+Save As/replay/restart, matched latency, rendered navigation and Owner gates below.
+The new NextEvent second-open failure and initial Lot lazy-mount failure remain
+unresolved alongside FU1/FU2 and the unhandled Hollywood-performance error. No
+Unity consumer or native code was changed or executed. Genuine outgoing38/53
+preservation and later P3 Save39/projection54 work must retain these distinctions.
+
 ## CURRENT — C.3 Save38 / projection53 integration remains deferred
 
 Engine production e6475aca1ef3bdfd593d660743ebc311981836cc now publishes protocol4,

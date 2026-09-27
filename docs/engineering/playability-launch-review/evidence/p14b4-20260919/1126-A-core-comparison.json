@@ -1,0 +1,345 @@
+{
+  "record": "1107-c3-boundary-core",
+  "baseline": "1126-A-scoped-baseline.json",
+  "candidateRaw": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1107-c3-boundary-core.txt",
+    "bytes": 25102,
+    "sha256": "2603221fee7ac407ef4951ba443989db5c06dcfafe878f21428c5136be8c6005"
+  },
+  "recorder": {
+    "sourceSha": "c1461a62bd0c307094ae63ff28b66e7aa9716b78",
+    "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSource": [],
+    "command": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/bridge-p12-campaign-library.test.ts",
+      "tests/bridge-p13b-r07-setup.test.ts",
+      "tests/bridge-p14c2rm-retirement.test.ts",
+      "tests/c2a-m2-sets-save.test.ts",
+      "tests/casting-sessions-save-v10.test.ts",
+      "tests/d12-economy.test.ts",
+      "tests/d14-star-power.test.ts",
+      "tests/frozen-save-builder-projection.test.ts",
+      "tests/p11-finance-report.test.ts",
+      "tests/p12-starting-world.test.ts",
+      "tests/p13b-s1-validation.test.ts",
+      "tests/p13b-s2-validation.test.ts",
+      "tests/p13b-s8-finance.test.ts",
+      "tests/p14b4-cast-class-policy.test.ts",
+      "tests/production-operations-save-v8.test.ts",
+      "tests/roster-wall-artifacts.test.ts",
+      "tests/ruling-a-development-in-play.test.ts"
+    ],
+    "node": "v20.20.2",
+    "start": "2026-09-27T10:30:35.012Z",
+    "end": "2026-09-27T10:34:23.166Z",
+    "exitCode": 1,
+    "signal": null,
+    "error": null,
+    "sourceShaAtEnd": "c1461a62bd0c307094ae63ff28b66e7aa9716b78",
+    "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSourceAtEnd": [],
+    "fixedSource": true
+  },
+  "wholeFiles": {
+    "tests/bridge-p13b-r07-setup.test.ts": {
+      "tests": 13,
+      "detail": null,
+      "rawLine": " ✓ |core| tests/bridge-p13b-r07-setup.test.ts (13 tests) 56728ms"
+    },
+    "tests/p14b4-cast-class-policy.test.ts": {
+      "tests": 7,
+      "detail": "1 failed",
+      "rawLine": " ❯ |core| tests/p14b4-cast-class-policy.test.ts (7 tests | 1 failed) 73434ms"
+    },
+    "tests/production-operations-save-v8.test.ts": {
+      "tests": 20,
+      "detail": null,
+      "rawLine": " ✓ |core| tests/production-operations-save-v8.test.ts (20 tests) 6491ms"
+    },
+    "tests/ruling-a-development-in-play.test.ts": {
+      "tests": 18,
+      "detail": null,
+      "rawLine": " ✓ |core| tests/ruling-a-development-in-play.test.ts (18 tests) 2302ms"
+    },
+    "tests/roster-wall-artifacts.test.ts": {
+      "tests": 16,
+      "detail": null,
+      "rawLine": " ✓ |core| tests/roster-wall-artifacts.test.ts (16 tests) 94891ms"
+    },
+    "tests/d12-economy.test.ts": {
+      "tests": 17,
+      "detail": null,
+      "rawLine": " ✓ |core| tests/d12-economy.test.ts (17 tests) 1903ms"
+    },
+    "tests/bridge-p14c2rm-retirement.test.ts": {
+      "tests": 21,
+      "detail": null,
+      "rawLine": " ✓ |core| tests/bridge-p14c2rm-retirement.test.ts (21 tests) 115900ms"
+    },
+    "tests/p13b-s8-finance.test.ts": {
+      "tests": 5,
+      "detail": null,
+      "rawLine": " ✓ |core| tests/p13b-s8-finance.test.ts (5 tests) 2360ms"
+    },
+    "tests/c2a-m2-sets-save.test.ts": {
+      "tests": 4,
+      "detail": null,
+      "rawLine": " ✓ |core| tests/c2a-m2-sets-save.test.ts (4 tests) 3456ms"
+    },
+    "tests/d14-star-power.test.ts": {
+      "tests": 15,
+      "detail": null,
+      "rawLine": " ✓ |core| tests/d14-star-power.test.ts (15 tests) 6411ms"
+    },
+    "tests/casting-sessions-save-v10.test.ts": {
+      "tests": 6,
+      "detail": null,
+      "rawLine": " ✓ |core| tests/casting-sessions-save-v10.test.ts (6 tests) 1592ms"
+    },
+    "tests/p11-finance-report.test.ts": {
+      "tests": 5,
+      "detail": null,
+      "rawLine": " ✓ |core| tests/p11-finance-report.test.ts (5 tests) 3358ms"
+    },
+    "tests/p13b-s2-validation.test.ts": {
+      "tests": 15,
+      "detail": null,
+      "rawLine": " ✓ |core| tests/p13b-s2-validation.test.ts (15 tests) 104290ms"
+    },
+    "tests/frozen-save-builder-projection.test.ts": {
+      "tests": 2,
+      "detail": null,
+      "rawLine": " ✓ |core| tests/frozen-save-builder-projection.test.ts (2 tests) 381ms"
+    },
+    "tests/p13b-s1-validation.test.ts": {
+      "tests": 7,
+      "detail": null,
+      "rawLine": " ✓ |core| tests/p13b-s1-validation.test.ts (7 tests) 9848ms"
+    },
+    "tests/p12-starting-world.test.ts": {
+      "tests": 3,
+      "detail": null,
+      "rawLine": " ✓ |core| tests/p12-starting-world.test.ts (3 tests) 3938ms"
+    },
+    "tests/bridge-p12-campaign-library.test.ts": {
+      "tests": 13,
+      "detail": "11 failed",
+      "rawLine": " ❯ |core| tests/bridge-p12-campaign-library.test.ts (13 tests | 11 failed) 133898ms"
+    }
+  },
+  "summaryLines": [
+    " Test Files  2 failed | 15 passed (17)",
+    "      Tests  12 failed | 175 passed (187)",
+    "   Start at  12:30:35",
+    "   Duration  226.91s (transform 6.52s, setup 0ms, collect 22.34s, tests 621.18s, environment 7ms, prepare 3.34s)"
+  ],
+  "groups": [
+    [
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart"
+    ],
+    [
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority"
+    ],
+    [
+      "core :: tests/p14b4-cast-class-policy.test.ts > P14B4: natural rival policy uses the real shared service, never staged failed candidates > observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG"
+    ]
+  ],
+  "failures": {
+    "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record": {
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "firstPrintedFrame": null,
+      "completePostHeaderTail": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "completePostHeaderTailSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "group": 0
+    },
+    "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit": {
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "firstPrintedFrame": null,
+      "completePostHeaderTail": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "completePostHeaderTailSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "group": 0
+    },
+    "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session": {
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "firstPrintedFrame": null,
+      "completePostHeaderTail": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "completePostHeaderTailSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "group": 0
+    },
+    "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart": {
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "firstPrintedFrame": null,
+      "completePostHeaderTail": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "completePostHeaderTailSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "group": 0
+    },
+    "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact": {
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "firstPrintedFrame": null,
+      "completePostHeaderTail": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "completePostHeaderTailSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "group": 0
+    },
+    "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record": {
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "firstPrintedFrame": null,
+      "completePostHeaderTail": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "completePostHeaderTailSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "group": 0
+    },
+    "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes": {
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "firstPrintedFrame": null,
+      "completePostHeaderTail": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "completePostHeaderTailSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "group": 0
+    },
+    "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals": {
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "firstPrintedFrame": null,
+      "completePostHeaderTail": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "completePostHeaderTailSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "group": 0
+    },
+    "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart": {
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "firstPrintedFrame": null,
+      "completePostHeaderTail": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "completePostHeaderTailSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "group": 0
+    },
+    "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority": {
+      "diagnostic": "Error: Test timed out in 20000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "38eac0010f80838ceea50dccc8c7176b09119a0de74496b19efee1ee3cceb00c",
+      "firstPrintedFrame": null,
+      "completePostHeaderTail": "Error: Test timed out in 20000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "completePostHeaderTailSha256": "38eac0010f80838ceea50dccc8c7176b09119a0de74496b19efee1ee3cceb00c",
+      "group": 1
+    },
+    "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority": {
+      "diagnostic": "Error: Test timed out in 20000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "38eac0010f80838ceea50dccc8c7176b09119a0de74496b19efee1ee3cceb00c",
+      "firstPrintedFrame": null,
+      "completePostHeaderTail": "Error: Test timed out in 20000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "completePostHeaderTailSha256": "38eac0010f80838ceea50dccc8c7176b09119a0de74496b19efee1ee3cceb00c",
+      "group": 1
+    },
+    "core :: tests/p14b4-cast-class-policy.test.ts > P14B4: natural rival policy uses the real shared service, never staged failed candidates > observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG": {
+      "diagnostic": "AssertionError: expected [ 'provenP1' ] to deeply equal ArrayContaining{…}\n\n- Expected\n+ Received\n\n- ArrayContaining [\n-   \"flexibleP2\",\n-   \"neither\",\n+ Array [\n    \"provenP1\",\n  ]",
+      "diagnosticSha256": "e1c705e731cdd97d681601cd8fc17985c6d2c12e80ea3b2aa7a3b58f43f3cf7a",
+      "firstPrintedFrame": "❯ tests/p14b4-cast-class-policy.test.ts:568:32",
+      "completePostHeaderTail": "AssertionError: expected [ 'provenP1' ] to deeply equal ArrayContaining{…}\n\n- Expected\n+ Received\n\n- ArrayContaining [\n-   \"flexibleP2\",\n-   \"neither\",\n+ Array [\n    \"provenP1\",\n  ]\n\n ❯ tests/p14b4-cast-class-policy.test.ts:568:32\n    566|     try {\n    567|       scan() // the default seed: every witness it carried before 600-…\n    568|       expect([...seen].sort()).toEqual(expect.arrayContaining(['flexib…\n       |                                ^\n    569|       // 600-T4 (record 616 R-6; F-G9-1): the P1-fallback branch (FLEX…\n    570|       // unproven person) has no natural witness on the default seed w…",
+      "completePostHeaderTailSha256": "0253e81958f44bc9b6d166932e5b327d76c106654cb8eb95f841b79e4a5fad83",
+      "group": 2
+    }
+  },
+  "sets": {
+    "new": [],
+    "vanished": [
+      "core :: tests/bridge-p13b-r07-setup.test.ts > extra pin (parent instruction): the bridge's save/load \"converted\" report against the CURRENT save version, not a stale literal 23 (bridge/session.ts:123) > RED: a genuine CURRENT (live-version) checkpoint saved and reloaded through the SAME bridge session reports converted: false",
+      "core :: tests/bridge-p14c2rm-retirement.test.ts > C.2-RM alumni evidence and disclosure > SYNTHETIC validated imported role-credit variant counts two roles on one actual film, not one distinct film",
+      "core :: tests/bridge-p14c2rm-retirement.test.ts > C.2-RM alumni evidence and disclosure > an actual release and real retirement preserve credit/promise/employer routes and invent no honors",
+      "core :: tests/c2a-m2-sets-save.test.ts > C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW greenlight > greenlights, binds a set, and shoots — while the picture it migrated with never does",
+      "core :: tests/c2a-m2-sets-save.test.ts > C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW greenlight > lets a migrated studio BUILD a set on the stage it just cleared",
+      "core :: tests/casting-sessions-save-v10.test.ts > Casting Sessions V1 — SaveFileV10 > positively projects frozen V9, then deep-clones it into legacy-empty V10",
+      "core :: tests/casting-sessions-save-v10.test.ts > Casting Sessions V1 — SaveFileV10 > rejects lifecycle divergence, slate/result disagreement, and script-casting slot collisions",
+      "core :: tests/casting-sessions-save-v10.test.ts > Casting Sessions V1 — SaveFileV10 > rejects missing, extra, malformed, and non-exact evidence fields",
+      "core :: tests/casting-sessions-save-v10.test.ts > Casting Sessions V1 — SaveFileV10 > rejects noncanonical IDs, duplicate project sessions, dangling or non-Actor candidates, and writer slates",
+      "core :: tests/casting-sessions-save-v10.test.ts > Casting Sessions V1 — SaveFileV10 > writes frozen V10 explicitly and round-trips every session lifecycle byte-identically",
+      "core :: tests/d12-economy.test.ts > D-12: V3→V4 migration records released films as legacyCompleted (no double-pay) > migrated releases carry their full-gross V3 payout and are never credited again",
+      "core :: tests/d14-star-power.test.ts > D-14 SaveFileV5 migration > 15. V4→V5 preserves fame + all talent state exactly and creates NO fictional history",
+      "core :: tests/frozen-save-builder-projection.test.ts > frozen save builders project exact historical roots > makeSaveV1 through makeSaveV9 omit every later and unknown live-state root",
+      "core :: tests/p11-finance-report.test.ts > P11 recorded cash and current-pace report > does not infer old complete weeks from the absence of a cash checkpoint",
+      "core :: tests/p11-finance-report.test.ts > P11 recorded cash and current-pace report > refuses invented pre-checkpoint balances and marks the first recorded week partial",
+      "core :: tests/p12-starting-world.test.ts > R05 canonical starting history and genuine migration > migrates at each old state own week with empty company histories and exact player state",
+      "core :: tests/p13b-s1-validation.test.ts > P13B-S1 validator refusals on the live save (test 9) > rejects a fifth unreleased seat on a four-seat Laboratory",
+      "core :: tests/p13b-s1-validation.test.ts > P13B-S1 validator refusals on the live save (test 9) > rejects a receipt naming a Scientist who was never employed that week, even with a seat forged to cover it",
+      "core :: tests/p13b-s2-validation.test.ts > P13B-S2 validator refusals for the per-Laboratory facts (test 7) > (d) rejects a fifth unreleased seat on one Laboratory when it is spread ACROSS two different technology projects",
+      "core :: tests/p13b-s8-finance.test.ts > P13B-S8 rival finance: typed kinds and interval Opex reconcile, migration frozen, legacy grandfathered (test 4) > migration basis frozen: a GENUINE V26 period (ten keys), lifted through the real migrateToV31, carries the four new keys at zero and its nine original movements byte-identical (coordinator ruling: a LIVE period already carries all 14 keys — this compares the lifted period against its OWN V26 source, never a live period against itself)",
+      "core :: tests/p14b4-cast-class-policy.test.ts > P14B4: all six D3 class matches through real two-survivor settlements > age 29: mismatch changes only D3, never proposal legality",
+      "core :: tests/p14b4-cast-class-policy.test.ts > P14B4: all six D3 class matches through real two-survivor settlements > age 30: mismatch changes only D3, never proposal legality",
+      "core :: tests/production-operations-save-v8.test.ts > Production Operations V1 — frozen V7 to live V8 migration > backfills the additive opening band in legitimate pre-a104970 V1–V4 active forecasts",
+      "core :: tests/roster-wall-artifacts.test.ts > roster-wall artifact infrastructure > rejects the former skeletal smoke counterfeit before semantic acceptance",
+      "core :: tests/ruling-a-development-in-play.test.ts > RULING A — development survives save round-trips without duplication > a legacy V1 save converts to V2 without applying any development (migration ≠ development)"
+    ],
+    "retainedIdenticalPrimary": [
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session",
+      "core :: tests/p14b4-cast-class-policy.test.ts > P14B4: natural rival policy uses the real shared service, never staged failed candidates > observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG"
+    ],
+    "changedPrimary": [
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals"
+    ]
+  },
+  "counts": {
+    "new": 0,
+    "vanished": 25,
+    "retainedIdenticalPrimary": 11,
+    "changedPrimary": 1
+  },
+  "frames": {
+    "sameFirstFrame": [
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session"
+    ],
+    "changedFirstFrame": [
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals",
+      "core :: tests/p14b4-cast-class-policy.test.ts > P14B4: natural rival policy uses the real shared service, never staged failed candidates > observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG"
+    ],
+    "sameCompleteTail": [
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record",
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session"
+    ],
+    "changedCompleteTail": [
+      "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals",
+      "core :: tests/p14b4-cast-class-policy.test.ts > P14B4: natural rival policy uses the real shared service, never staged failed candidates > observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG"
+    ]
+  },
+  "unhandledMarkerPresent": false
+}
