@@ -1,0 +1,42 @@
+{
+  "at": "2026-09-27T17:52:08.630723+00:00",
+  "head": "e3b7e4afe9871f4d042073ff5f09dad326141913",
+  "remote": "e3b7e4afe9871f4d042073ff5f09dad326141913",
+  "consumedStatus": "",
+  "wholeStatus": "",
+  "sourcePinsVerified": true,
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14p3-directing-promises.test.ts",
+    "-t",
+    "D03(?:X|W|R) "
+  ],
+  "selection": {
+    "selected": [
+      "D03X keeps an actual player cast seat visible to a rival Director quote",
+      "D03W excludes Writer credit alone from actual production occupancy",
+      "D03R distinguishes the retirement cap from physical time at an explicit future query week"
+    ],
+    "filteredExisting": 17,
+    "leafTimeoutMs": 60000
+  },
+  "calls": {
+    "freshExpected": 116,
+    "playerExpected": 65,
+    "cancelAfterExpected": 51,
+    "firstTwoLeavesFreshSharedPrefix": 52,
+    "addedAdvancesAfterCaches": 0,
+    "otherBranchesExpected": 0,
+    "lifecycleExpected": 0,
+    "rivalExpected": 0,
+    "unchangedPlayerCap": 208,
+    "unchangedCancelAfterCap": 64,
+    "selectedSubsetExistingGuardCeiling": 272,
+    "unchangedWholeCoreCap": 816,
+    "cacheReuse": "Assert setup deltas and unchanged branch counters; no global reset."
+  },
+  "soleHeavyOwner": "parent"
+}

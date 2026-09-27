@@ -1,5 +1,36 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — Occupancy boundaries verified; current39/54 preservation is next
+
+Published e3b7e4afe9871f4d042073ff5f09dad326141913 has exact GitHub equality.
+1214 rootcompilerPASS33.760s;1215 newD03X/W/R3PASS/17filtered in15.115s, fixed
+source/empty consumed diffs/no untracked source/signal/error. Actual116 advances
+=65player+51cancelAfter, all other routes0 and9 complete caches; no added branch
+advances. The full851-byte legacy4 marker is byte-identical to1135/1205/1210.
+
+D03X preserves the actual player count2 reservation and sees real player cast
+occupancy from a rival query issuer: reservation refusal becomes physical refusal
+and the digest names the player-owned seat. D03W retains the reservation cause
+and no occupancy tuple for credit-only Writer0003. D03R holds the actual world at
+112 and explicitly queries147: vacant due162 is spare-buffer FRAGILE, occupied
+due162 is retirement IMPOSSIBLE, occupied due160 is physical IMPOSSIBLE. No
+future-world/contract-extension claim.1216 closure and independent review retain
+all source pins and limits. Production2af37179 remains unchanged; no heavy active.
+
+Next1219-A/B freezes a distinct current Save39/projection54 outgoing capture for
+P4/P5, separate from immutable1171 and1117. Proposed existing route78player advances,
+zero runtime advances, real SAVE/partial-waiver/current-saved/restart/duplicate
+authority.1221 producer/config/source review precedes1222 compiler and1223 capture;
+output remains under evidence outside consumed source. No capture result or version
+activation is claimed. Parent owns the only heavy process/production integration.
+
+1218 P4/P5 source preparation is reviewed; explicit cast masks, singular residual
+reservation proof and durable immutable first-take facts need the concrete next
+contract. Current family refusals remain. Historical post-take, isolated slack and
+failed fixed-rival1169 limits persist; no complete P3/P14 claim or automatic retry.
+Continue P14/P15/P16/specified P17/P18; P15 choices stand, native/Unity/Owner access
+remains deferred. Existing specialists retain separate test/review ownership.
+
 ## CURRENT — Three occupancy boundary controls applied; P4/P5 preparation underway
 
 Production2af37179 remains unchanged and qualified by1208–1211: both compilers
