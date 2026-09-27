@@ -1,0 +1,39 @@
+{
+  "status": "EXACT_REVIEWED_NEW_FILE_APPLIED",
+  "time": "2026-09-27T21:07:03.190492+00:00",
+  "preparationHead": "63daa077d06d0d0ff7d93a8c314132885015d0f9",
+  "postimage": {
+    "path": "tests/p14p4p5-screenplay-status.test.ts",
+    "bytes": 26435,
+    "sha256": "496ea58490a0695410ab88bf98ca41830594718061ad9051c3e011e86b6d0506"
+  },
+  "protectedPinsExact": 26,
+  "authorities": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1254-C-screenplay-status-source-handback.md",
+      "bytes": 7047,
+      "sha256": "c742e7817b98d80b5d3f15aa1e733a7267dbfa48db516013c5df1ef62420bd9d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1254-D-screenplay-status-source-review.md",
+      "bytes": 5676,
+      "sha256": "c75d9c872615ee6284c225a1806184d767adaf608074e7d0ddea25bb5f5be7f5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1254-screenplay-status-source-manifest.json",
+      "bytes": 9559,
+      "sha256": "4f6445ff9229525b3b6bf9183734bc8e49d1aaeba9dd80c7e3814ae97b720d70"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1254-screenplay-status.patch",
+      "bytes": 27033,
+      "sha256": "5b5973b9ee8c76daadff5a75cd6f9dc065008cbea9b27e0d8b5aecd4241f8738"
+    }
+  ],
+  "gateOrder": [
+    "1255-screenplay-status-types",
+    "1256-screenplay-status-runtime"
+  ],
+  "runtimeAdvanceCap": 3,
+  "executionYet": false
+}
