@@ -1,0 +1,24 @@
+{
+  "sourceSha": "7e901a8ab85ff9b46f08abefd212820fe1ad88fe",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14p3-directing-promises.test.ts",
+    "-t",
+    "D03O refuses a Director window blocked by the actual exclusive cast seat$"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T17:16:00.260Z",
+  "end": "2026-09-27T17:16:09.419Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "7e901a8ab85ff9b46f08abefd212820fe1ad88fe",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

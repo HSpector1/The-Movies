@@ -1,0 +1,50 @@
+{"sourceSha":"7e901a8ab85ff9b46f08abefd212820fe1ad88fe","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14p3-directing-promises.test.ts","-t","D03O refuses a Director window blocked by the actual exclusive cast seat$"],"node":"v20.20.2","start":"2026-09-27T17:16:00.260Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 bounded occupancy admission > D03O refuses a Director window blocked by the actual exclusive cast seat
+1133-P3-LEGACY4 {"week":8,"rngState":"1557239868,672280863,464522958,2878174094","receipts":[{"draft":{"family":"APPEARANCE_COUNT","predicate":{"count":1},"issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":112},"receipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"9a5006d1107172a3","rulesVersion":4,"week":8}},{"draft":{"family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"lead"},"issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":112},"receipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"3dbf55ccb67dfa2c","rulesVersion":4,"week":8}}]}
+1203-P3-OCCUPANCY {"week":52,"personId":"authored-0006","promiseId":"promise-0","draft":{"family":"DIRECTING_COUNT","predicate":{"kind":"directorCount","count":1},"issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":66,"promiseId":"promise-0"},"vacantQuote":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"7073d8f6dbafa83c","rulesVersion":6,"week":52},"occupiedQuote":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"88c64a97f821a245","rulesVersion":6,"week":52},"vacantReservations":[],"occupiedReservations":[],"production":{"id":"prod-0052","startTick":52,"remainingTicks":8,"directorId":"authored-0002","cast":{"lead":"authored-0006","antagonist":"authored-0001","support":"authored-0005"}},"readyProject":{"id":"script-0001","status":"ready","productionId":null},"earliestReleaseLowerBound":61,"earliestFreshDirectorTakeLowerBound":66,"actualSecondGreenlightRefusal":"applyActions: greenlight talent \"authored-0006\" is already engaged in an active production (exclusivity, M16)","counters":{"setupBefore":{"actualTicks":0,"cap":208,"cachedPhases":[]},"setupAfter":{"actualTicks":52,"cap":208,"cachedPhases":[{"name":"created0","completed":true},{"name":"managedEmpty8","completed":true},{"name":"ready10","completed":true},{"name":"cases45","completed":true},{"name":"attached45","completed":true},{"name":"bound52","completed":true}]},"setupDelta":52,"branchAdvanceDelta":0,"outcome":{"playerCalls":52,"playerCap":208,"branches":[{"name":"cancelBefore","actualTicks":0,"cap":64,"startWeek":null},{"name":"cancelAfter","actualTicks":0,"cap":64,"startWeek":null},{"name":"waiver","actualTicks":0,"cap":64,"startWeek":null}],"total":52,"cap":400},"continuity":{"playerCalls":52,"playerCap":208,"branches":[{"name":"cancelBefore","actualTicks":0,"cap":64,"startWeek":null},{"name":"cancelAfter","actualTicks":0,"cap":64,"startWeek":null},{"name":"waiver","actualTicks":0,"cap":64,"startWeek":null}],"total":52,"cap":556,"lifecycleCalls":0,"lifecycleCap":156,"selectedCap":364},"rival":{"rivalCalls":0,"rivalCap":260,"otherCoreCalls":52,"total":52,"cap":816}}}
+
+stdout | tests/p14p3-directing-promises.test.ts
+1155-P3-RIVAL-COUNTERS {"rivalCalls":0,"rivalCap":260,"otherCoreCalls":52,"total":52,"cap":816}
+1149-P3-CONTINUITY-COUNTERS {"playerCalls":52,"playerCap":208,"branches":[{"name":"cancelBefore","actualTicks":0,"cap":64,"startWeek":null},{"name":"cancelAfter","actualTicks":0,"cap":64,"startWeek":null},{"name":"waiver","actualTicks":0,"cap":64,"startWeek":null}],"total":52,"cap":556,"lifecycleCalls":0,"lifecycleCap":156,"selectedCap":364}
+1143-P3-OUTCOME-COUNTERS {"playerCalls":52,"playerCap":208,"branches":[{"name":"cancelBefore","actualTicks":0,"cap":64,"startWeek":null},{"name":"cancelAfter","actualTicks":0,"cap":64,"startWeek":null},{"name":"waiver","actualTicks":0,"cap":64,"startWeek":null}],"total":52,"cap":400}
+1133-P3-COUNTERS {"actualTicks":52,"cap":208,"cachedPhases":[{"name":"created0","completed":true},{"name":"managedEmpty8","completed":true},{"name":"ready10","completed":true},{"name":"cases45","completed":true},{"name":"attached45","completed":true},{"name":"bound52","completed":true}]}
+
+ ❯ |core| tests/p14p3-directing-promises.test.ts (17 tests | 1 failed | 16 skipped) 4843ms
+   × P3 bounded occupancy admission > D03O refuses a Director window blocked by the actual exclusive cast seat 4841ms
+     → expected { …(5) } to match object { classification: 'IMPOSSIBLE', …(1) }
+(3 matching properties omitted from actual)
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 bounded occupancy admission > D03O refuses a Director window blocked by the actual exclusive cast seat
+AssertionError: expected { …(5) } to match object { classification: 'IMPOSSIBLE', …(1) }
+(3 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "classification": "IMPOSSIBLE",
++   "classification": "REASONABLY_ACHIEVABLE",
+    "rulesVersion": 6,
+  }
+
+ ❯ tests/p14p3-directing-promises.test.ts:1127:27
+    1125|       counters: { setupBefore, setupAfter, setupDelta, branchAdvanceDe…
+    1126|         outcome: outcomeCounters(), continuity: continuityCounters(), …
+    1127|     expect(occupiedQuote).toMatchObject({ classification: 'IMPOSSIBLE'…
+       |                           ^
+    1128|   }, LEAF_TIMEOUT_MS)
+    1129| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 16 skipped (17)
+   Start at  19:16:00
+   Duration  8.03s (transform 1.98s, setup 0ms, collect 2.61s, tests 4.84s, environment 0ms, prepare 132ms)
+

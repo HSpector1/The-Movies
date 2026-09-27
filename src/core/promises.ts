@@ -29,6 +29,7 @@
 import { fnv1a64 } from './math.js'
 import { assignmentRefusal, retirementRecordFor } from './careerLifecycle.js'
 import { occupiedResourceSlots } from './occupancy.js'
+import { productionCompanyTalentIds } from './productionPeople.js'
 import { openMarketCaseFor } from './talentMarket.js'
 import { TUNING } from './tuning.js'
 import type {
@@ -311,6 +312,25 @@ function seatedPreFirstTake(
   )
 }
 
+type PromiseProductionOccupancy = { studioId: string; production: Production }
+
+/** Revision6 cannot start fresh work while this person holds another production
+ * seat. An actual qualifying seat keeps its own first-take clock; a credited
+ * writer alone holds no seat. Read every owner so changing issuer cannot make
+ * an existing assignment disappear. These are earliest release bounds, not a
+ * certificate that resource holds will clear. */
+function promiseProductionOccupancy(state: GameState, draft: PromiseDraft): readonly PromiseProductionOccupancy[] {
+  const qualifying = new Set(committedPromiseSeats(state, draft))
+  const playerStudioId = state.hollywood?.playerStudioId ?? draft.issuerStudioId
+  const owners = [{ studioId: playerStudioId, productions: state.studio.activeProductions },
+    ...(state.hollywood?.businesses.filter(business => business.studioId !== playerStudioId)
+      .map(business => ({ studioId: business.studioId, productions: business.productions })) ?? [])]
+  return owners.flatMap(owner => owner.productions
+    .filter(production => !qualifying.has(production)
+      && productionCompanyTalentIds([production]).has(draft.beneficiaryPersonId))
+    .map(production => ({ studioId: owner.studioId, production })))
+}
+
 /** Companion §4.3.1's "already-active promises … seats those promises reserve
  * inside the same window". Bound commitments and CURRENT attached drafts reserve;
  * abandoned unbound roots remain history without claiming a future seat. Both the
@@ -352,7 +372,8 @@ function reservedByActivePromises(state: GameState, draft: PromiseDraft, from: n
  * Keep this bounded to current pipeline/availability facts from their owners:
  * no account balances, RNG, outcome history or whole-campaign serialization. */
 function feasibilityInputs(state: GameState, draft: PromiseDraft, week: number,
-  directingReservations?: readonly ProfessionalPromise[]): readonly unknown[] {
+  directingReservations?: readonly ProfessionalPromise[],
+  productionOccupancy: readonly PromiseProductionOccupancy[] = []): readonly unknown[] {
   const directingScope = directingReservations !== undefined
   const requestedRole = isDirectorPredicate(draft.predicate) ? 'director' : 'actor'
   const rival = state.hollywood !== null && draft.issuerStudioId !== state.hollywood.playerStudioId
@@ -402,6 +423,9 @@ function feasibilityInputs(state: GameState, draft: PromiseDraft, week: number,
       : [['requestedRetirement', requestedRole, actingRetirement.status, actingRetirement.effectiveWeek]]),
     ...(directingScope ? [['directingScope', requestedRole, draft.issuerStudioId,
       person === undefined ? null : person.skills.directing !== undefined]] : []),
+    ...(directingScope && productionOccupancy.length > 0 ? [['occupiedProductionSeats',
+      productionOccupancy.map(({ studioId, production }) =>
+        [studioId, production.id, production.startTick, production.remainingTicks])]] : []),
   ]
 }
 
@@ -417,9 +441,12 @@ function expectedFirstTakeWeek(
   draft: Pick<PromiseDraft, 'issuerStudioId' | 'beneficiaryPersonId' | 'predicate'>,
   from: number,
   k: number,
+  freshFrom = from,
+  committedSeatsOnly = false,
 ): number {
   if (k === 0) {
-    const running = seatedPreFirstTake(state, draft.issuerStudioId, draft.beneficiaryPersonId, promiseCastSlots(draft), isDirectorPredicate(draft.predicate))
+    const running = committedSeatsOnly ? committedPromiseSeats(state, draft)
+      : seatedPreFirstTake(state, draft.issuerStudioId, draft.beneficiaryPersonId, promiseCastSlots(draft), isDirectorPredicate(draft.predicate))
     let earliest: number | null = null
     for (const production of running) {
       // `remainingTicks` 5 is the week BEFORE the take; the first advance is
@@ -429,7 +456,7 @@ function expectedFirstTakeWeek(
     }
     if (earliest !== null) return earliest
   }
-  return from + k * SEAT_CYCLE_WEEKS + WEEKS_TO_FIRST_TAKE
+  return freshFrom + k * SEAT_CYCLE_WEEKS + WEEKS_TO_FIRST_TAKE
 }
 
 /** Earliest owner-clock boundaries, ignoring resource holds. A fresh picture
@@ -459,11 +486,12 @@ function committedPromiseSeats(
  * never first takes: a committed seat may film during finishing_commitments.
  * A fresh path and each already-held qualifying path are alternatives; choose
  * the earliest k-th event without inventing an extra simultaneous seat. */
-function retirementQuoteTakeWeek(state: GameState, draft: PromiseDraft, week: number, k: number, capped = true): number {
+function retirementQuoteTakeWeek(state: GameState, draft: PromiseDraft, week: number, k: number,
+  capped = true, freshNotBefore = week): number {
   const admitted = (greenlightWeek: number): boolean => !capped
     || assignmentRefusal(state, draft.beneficiaryPersonId, greenlightWeek, isDirectorPredicate(draft.predicate) ? 'director' : 'actor') === null
-  const freshTake = Math.max(draft.windowStartWeek, week + WEEKS_TO_FIRST_TAKE)
-  const freshGreenlight = k === 0 ? week : freshTake + k * SEAT_CYCLE_WEEKS - WEEKS_TO_FIRST_TAKE
+  const freshTake = Math.max(draft.windowStartWeek, freshNotBefore + WEEKS_TO_FIRST_TAKE)
+  const freshGreenlight = k === 0 ? freshNotBefore : freshTake + k * SEAT_CYCLE_WEEKS - WEEKS_TO_FIRST_TAKE
   let earliest = admitted(freshGreenlight) ? freshTake + k * SEAT_CYCLE_WEEKS : Infinity
   for (const production of committedPromiseSeats(state, draft)) {
     const take = Math.max(draft.windowStartWeek, earliestTakeWeek(production, week))
@@ -471,7 +499,8 @@ function retirementQuoteTakeWeek(state: GameState, draft: PromiseDraft, week: nu
       earliest = Math.min(earliest, take)
       continue
     }
-    const greenlight = Math.max(earliestReleaseWeek(production, week), take + 4) + (k - 1) * SEAT_CYCLE_WEEKS
+    const greenlight = Math.max(earliestReleaseWeek(production, week), take + 4, freshNotBefore)
+      + (k - 1) * SEAT_CYCLE_WEEKS
     if (admitted(greenlight)) earliest = Math.min(earliest, greenlight + WEEKS_TO_FIRST_TAKE)
   }
   return earliest
@@ -500,7 +529,8 @@ export function promiseFeasibility(state: GameState, draft: PromiseDraft, week: 
   const directingScope = reservations !== undefined
   const director = isDirectorPredicate(draft.predicate)
   const requestedRole = director ? 'director' : 'actor'
-  const inputs = feasibilityInputs(state, draft, week, reservations)
+  const productionOccupancy = directingScope ? promiseProductionOccupancy(state, draft) : []
+  const inputs = feasibilityInputs(state, draft, week, reservations, productionOccupancy)
   const answer = (classification: PromiseClassification, bottleneck: string | null): PromiseFeasibilityReceipt =>
     receipt(classification, bottleneck, inputs, week, directingScope ? DIRECTING_PROMISE_RULES_VERSION : PROMISE_RULES_VERSION)
   const refuse = (bottleneck: string): PromiseFeasibilityReceipt => answer('IMPOSSIBLE', bottleneck)
@@ -539,9 +569,11 @@ export function promiseFeasibility(state: GameState, draft: PromiseDraft, week: 
     : reservations.reduce((sum, promise) => sum + Math.max(0, promise.predicate.count - promise.progress), 0)
   const hasRetirement = retirementRecordFor(state, draft.beneficiaryPersonId) !== undefined
     || retirementRecordFor(state, draft.beneficiaryPersonId, requestedRole) !== undefined
+  const freshNotBefore = productionOccupancy.reduce((earliest, { production }) =>
+    Math.max(earliest, earliestReleaseWeek(production, week)), week)
   const expectedTake = (k: number): number => !hasRetirement
-    ? expectedFirstTakeWeek(state, draft, from, k)
-    : retirementQuoteTakeWeek(state, draft, week, k)
+    ? expectedFirstTakeWeek(state, draft, from, k, Math.max(from, freshNotBefore), directingScope)
+    : retirementQuoteTakeWeek(state, draft, week, k, true, freshNotBefore)
 
   // N_max: the events this person can reach inside the window, counted
   // sequentially (one seat at a time), each on the minimum lawful pipeline.
@@ -551,14 +583,15 @@ export function promiseFeasibility(state: GameState, draft: PromiseDraft, week: 
     if (nMax > 1000) break // bounded: a window can never buy more than this
   }
   if (X > nMax) {
-    if (hasRetirement && retirementQuoteTakeWeek(state, draft, week, X - 1, false) < draft.dueWeekExclusive) {
+    if (hasRetirement && retirementQuoteTakeWeek(state, draft, week, X - 1, false, freshNotBefore) < draft.dueWeekExclusive) {
       return refuse('retirement leaves too few qualifying production seats inside the window')
     }
     return refuse('no filming week inside the window can reach that many pictures')
   }
   if (reserved + X > nMax) return refuse('promises already made to this person exhaust the window')
 
-  const existingPath = seatedPreFirstTake(state, draft.issuerStudioId, draft.beneficiaryPersonId, promiseCastSlots(draft), director).length
+  const existingPath = (directingScope ? committedPromiseSeats(state, draft)
+    : seatedPreFirstTake(state, draft.issuerStudioId, draft.beneficiaryPersonId, promiseCastSlots(draft), director)).length
     + unproducedScripts(state, draft.issuerStudioId, directingScope)
     + (stockGreenlightAvailable(state, draft.issuerStudioId, directingScope) ? 1 : 0)
   const lastEventWeek = expectedTake(reserved + X - 1)

@@ -1,0 +1,40 @@
+{
+  "at": "2026-09-27T17:15:54.839442+00:00",
+  "sourceHead": "7e901a8ab85ff9b46f08abefd212820fe1ad88fe",
+  "compilerPassed": true,
+  "compilerSeconds": 35.475,
+  "compilerRecord": {
+    "sourceSha": "7e901a8ab85ff9b46f08abefd212820fe1ad88fe",
+    "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSource": [],
+    "command": [
+      "node_modules/.bin/tsc",
+      "--noEmit"
+    ],
+    "node": "v20.20.2",
+    "start": "2026-09-27T17:14:59.314Z",
+    "end": "2026-09-27T17:15:34.789Z",
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "sourceShaAtEnd": "7e901a8ab85ff9b46f08abefd212820fe1ad88fe",
+    "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSourceAtEnd": [],
+    "fixedSource": true
+  },
+  "testAndHelperPinsStillExact": true,
+  "argv": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14p3-directing-promises.test.ts",
+    "-t",
+    "D03O refuses a Director window blocked by the actual exclusive cast seat$"
+  ],
+  "selected": 1,
+  "filtered": 16,
+  "setupCalls": 52,
+  "newBranchCalls": 0,
+  "heavyOwner": "parent"
+}

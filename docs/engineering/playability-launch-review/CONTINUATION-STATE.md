@@ -1,5 +1,30 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — Actual occupancy defect reproduced; bounded correction ready for verification
+
+Published7e901a8ab85ff9b46f08abefd212820fe1ad88fe is the exact source of1204
+root typesPASS35.475s and1205 D03O semanticRED9.159s (1FAIL/16filtered). The
+actualbound52 branch had zero competing reservations, real cast production
+prod-0052 and an unchanged-state/RNG public refusal to employ its occupied actor
+as Director. The quote nevertheless remained REASONABLY_ACHIEVABLE inside[52,66),
+whose earliest fresh take66 is outside the exclusive boundary. All premises
+passed;52 setup advances and zero branch advances.1206-A/B preserve full matched
+attribution, including the exact legacy4 marker and earliest-clock limitation.
+
+Parent's sole production edit is1207 promises.ts: revision6 fresh work waits for
+nonqualifying production seats across owners; screenplay credit alone is excluded.
+The same actual committed qualifying seats determine exemption, first-event clock
+and existing-path count. Retirement comparisons share the same actual-week floor.
+Legacy4/history/schema/staffing remain unchanged.1207 manifest/C freeze source and
+verification scope; independent1207-B review precedes publication.
+
+After publication/exact GitHub verification, parent alone runs1208 root types,
+1209 Bridge types and1210 the15 nonrival core leaves, unchanged timeouts and shared
+556-call ceiling. No new route or rival retry. Narrow cross-owner/Writer/retirement
+controls remain separate pending work. Existing test/review specialists retain
+separate ownership; no heavy process currently active. Continue P14/P15/P16/
+specified P17/P18 with selected P15 decisions; Unity/native/Owner work deferred.
+
 ## CURRENT — Neighbor maintenance verified; occupancy control applied for its first observation
 
 Published972836d552864c926cf1a8848e6234519ecbd0e6 remains the exact source of all

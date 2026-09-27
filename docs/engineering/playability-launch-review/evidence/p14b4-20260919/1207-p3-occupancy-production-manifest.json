@@ -1,0 +1,94 @@
+{
+  "at": "2026-09-27T17:30:24.944258+00:00",
+  "baseHead": "7e901a8ab85ff9b46f08abefd212820fe1ad88fe",
+  "productionBefore": {
+    "path": "src/core/promises.ts",
+    "bytes": 95700,
+    "sha256": "696566ff1cd189b486358f1da4aa24abc6585c13e5ca32094ae141beaed99045"
+  },
+  "productionAfter": {
+    "path": "src/core/promises.ts",
+    "bytes": 97928,
+    "sha256": "ca7a6edb1a16f30de5ed8090a49822b501922388504502c662778a44d8635b19"
+  },
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1207-p3-occupancy-production.patch",
+    "bytes": 9797,
+    "sha256": "8d936b31d60051148a99a1bf3a900a444ac594c343202b03080f0052c149ecf2"
+  },
+  "unchangedTests": [
+    {
+      "path": "tests/p14p3-directing-promises.test.ts",
+      "bytes": 85257,
+      "sha256": "6e0f49573038e68472485462941cd671e9d579a91eb1654ad568d84530231121"
+    },
+    {
+      "path": "tests/helpers/p14p3-fixtures.ts",
+      "bytes": 78674,
+      "sha256": "389112bde75ccaab9e2d155a1df6e6dc279b78c7d6d531a582b04f27be5fba83"
+    }
+  ],
+  "matchedRedEvidence": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1206-A-p3-occupancy-red-attribution.md",
+      "bytes": 6090,
+      "sha256": "232859165ab0203d0903abec41cb615cc5bdd45319dad8b9d40e1d24b4f2b350"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1206-B-p3-occupancy-red-review.md",
+      "bytes": 4959,
+      "sha256": "a535b580c1dd9b9a7cdb9a8df2c60fb8679191c4ad1a22a5cdfcc9aa989933de"
+    }
+  ],
+  "verification": [
+    {
+      "id": "1208",
+      "argv": [
+        "node_modules/.bin/tsc",
+        "--noEmit"
+      ]
+    },
+    {
+      "id": "1209",
+      "argv": [
+        "node_modules/.bin/tsc",
+        "--noEmit",
+        "-p",
+        "tsconfig.bridge.json"
+      ]
+    },
+    {
+      "id": "1210",
+      "argv": [
+        "node_modules/.bin/vitest",
+        "run",
+        "--project",
+        "core",
+        "tests/p14p3-directing-promises.test.ts",
+        "-t",
+        "D(?:0[1-6]|0[89]|1[0-4]|13W|03O) "
+      ]
+    }
+  ],
+  "coreSelection": {
+    "selected": 15,
+    "filtered": 2,
+    "excluded": [
+      "D07",
+      "D18"
+    ],
+    "unchangedLeafTimeoutMs": 60000,
+    "existingRouteCeilings": {
+      "player": 208,
+      "cancelBefore": 64,
+      "cancelAfter": 64,
+      "waiver": 64,
+      "lifecycle": 156,
+      "rival": 0
+    },
+    "totalAdvanceCeiling": 556,
+    "newRoutes": 0,
+    "additionalOccupancyBranchAdvances": 0
+  },
+  "scope": "Revision6 production occupancy timing and bounded digest only; actual qualifying committed seats retain their clock. Legacy4 unchanged. No resource clearance certificate."
+}

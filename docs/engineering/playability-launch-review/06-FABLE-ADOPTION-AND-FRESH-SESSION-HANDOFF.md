@@ -1,5 +1,30 @@
 # R3-N1 native correction record — 2026-09-15 · OPS-R3-N1-NATIVE-CORRECTION-20260915-01
 
+## CURRENT — Actual occupancy defect reproduced; bounded correction ready for verification
+
+Published7e901a8ab85ff9b46f08abefd212820fe1ad88fe is the exact source of1204
+root typesPASS35.475s and1205 D03O semanticRED9.159s (1FAIL/16filtered). The
+actualbound52 branch had zero competing reservations, real cast production
+prod-0052 and an unchanged-state/RNG public refusal to employ its occupied actor
+as Director. The quote nevertheless remained REASONABLY_ACHIEVABLE inside[52,66),
+whose earliest fresh take66 is outside the exclusive boundary. All premises
+passed;52 setup advances and zero branch advances.1206-A/B preserve full matched
+attribution, including the exact legacy4 marker and earliest-clock limitation.
+
+Parent's sole production edit is1207 promises.ts: revision6 fresh work waits for
+nonqualifying production seats across owners; screenplay credit alone is excluded.
+The same actual committed qualifying seats determine exemption, first-event clock
+and existing-path count. Retirement comparisons share the same actual-week floor.
+Legacy4/history/schema/staffing remain unchanged.1207 manifest/C freeze source and
+verification scope; independent1207-B review precedes publication.
+
+After publication/exact GitHub verification, parent alone runs1208 root types,
+1209 Bridge types and1210 the15 nonrival core leaves, unchanged timeouts and shared
+556-call ceiling. No new route or rival retry. Narrow cross-owner/Writer/retirement
+controls remain separate pending work. Existing test/review specialists retain
+separate ownership; no heavy process currently active. Continue P14/P15/P16/
+specified P17/P18 with selected P15 decisions; Unity/native/Owner work deferred.
+
 Status: **N1 NATIVE CORRECTION — SOURCE-CORRECTED AND RENDERED-VERIFIED (209/209 on Unity 74c2141 / Build50), NATIVE PROOF NOT EXERCISED (four guarded attempts blocked by an unacknowledged HID injection / owner activity on this desktop session) — STILL A LABELLED PARTIAL; NOT OWNER-ACCEPTED; N1 RESERVE EXHAUSTED AT THIS RECORD**
 This section sits above the continuation record (C1–C7), the execution record (R1–R8) and the successor record (S1–S7), all unchanged.
 It is the one evidence-linked record of the correction's acceptance, the F7–F15 before/fix/test/native-result matrix, the exact new
