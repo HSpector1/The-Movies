@@ -1,5 +1,26 @@
 # R3-N1 native correction record — 2026-09-15 · OPS-R3-N1-NATIVE-CORRECTION-20260915-01
 
+## CURRENT — Receipt settlement source applied; qualification next
+
+Checkpoint `4b89246f6978c83c82a684a2aac3bfe0c0aaf74e` matched GitHub.
+Parent applied the exact reviewed 1257-C/D standalone Q12 source; 1257-E records
+its 25,474-byte postimage `548cd0c4` and 29 unchanged protected files. The prior
+opportunity and screenplay-status tests remain literal. No production change.
+
+Publish this source, then run 1258 root types (cap 0), followed by isolated 1259
+Q12 (hard 7 advances) with fixed-source and pre/post guards. Four public mutations,
+one joined-week45 quote, two price previews and at most two final-tick feasibility
+observations are frozen in A/B/F/G. The actual player win, precommit price/payment
+and saved version6 / first frozen receipt7 join remain unexecuted prerequisites.
+No failed premise permits a new bid, person, issuer, case order or extra advance.
+
+Q11 and its author/reviewer/parent verification records are closed; no repeat is
+needed. Parent remains sole integration/production/heavy executor, with the same
+two specialists owning test source and independent review. Continue the authorized
+program. 1260-A/F are prospective zero-advance writer and development-slot controls,
+awaiting plan review and later source release. Prior failures and timing limits
+remain recorded. Unity/native and Owner campaign access remain deferred.
+
 ## CURRENT — Q11 passed: real status clocks and isolated fact-only refusal
 
 Publishedc35926eb2a0e089fb1466d76030921c73114657d matched GitHub. Executed
