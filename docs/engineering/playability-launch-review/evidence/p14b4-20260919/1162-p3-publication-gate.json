@@ -1,0 +1,12 @@
+{
+  "sourceSha": "969fb4592abc358a39c717b5bf9dd47a4b2f781b",
+  "remoteSha": "969fb4592abc358a39c717b5bf9dd47a4b2f781b",
+  "observedAt": "2026-09-27T14:22:19.215612+00:00",
+  "consumedSourceClean": true,
+  "wholeWorktreeClean": false,
+  "wholeWorktreeStatus": "?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1163-A-p3-fixed-vacancy-pipeline-disposition.md\n",
+  "rootTypes": "1161 PASS on exact prepublication patch",
+  "sourceReview": "1161-B final KEEP",
+  "result": "PASS",
+  "nextRun": "1162-p3-fixed-rival-core"
+}

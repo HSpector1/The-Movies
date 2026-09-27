@@ -1,0 +1,37 @@
+# 1163-A — Fixed vacancy pipeline disposition
+
+Docs-only source assessment after 1160. No consumed edit, project evaluation, quote, replay or gameplay. The unchanged candidate-order comparison planned as 1162 remains parent-owned; this document neither changes that run nor adds a route. The original 1154/1155 arrangement and both failed observations remain recoverable.
+
+## What the actual failure establishes
+
+1160 D07 reaches the public P1 quote at week 196 after the real fixed player proposal and successful independent authoring cache. Its actual result is FRAGILE, `needs a picture not yet commissioned`. In the recorded source, `promiseFeasibility` reaches that sentence only when `reserved + count > existingPath`, after its window, total-capacity and spare-buffer gates. The exact reservation count/IDs, receipt version and individual pipeline components are not printed. D18 separately reaches the actual credited-Actor candidate-order RED; that production correction is not a repair of this fixture premise.
+
+The source route has released its only player production and retains one real unproduced screenplay, c-01. `activePromiseReservations` includes other currently attached, overlapping offers to the same person, as well as bound commitments; a competing bid is not optimized away. The legacy revision-4 scalar can add at most one unused-stock path. The revision-6 managed path excludes that stock contribution. Neither law permits a test to withdraw somebody else's real offers, waive away reservations or relabel FRAGILE as RA to create a win.
+
+This explains the resource inequality but does not supply the omitted numbers. The literal 1160 diagnostic alone cannot distinguish two, three or four selected competing reservations. Its receipt version must likewise not be reported as an observed scalar merely because the source route suggests it.
+
+## Smallest factual observation, with honest accounting
+
+An authorized future source run can expose the missing facts at the existing helper quote, without a second trajectory or additional quote/tick inside that run. Bind the result of the existing single `quote(state,draft)` to a local, emit one compact line immediately before the unchanged RA assertion, then use that same result in the assertion. Read only the actual post-submit/pre-attachment state. Record:
+
+- Week, subject/issuer/window/count and the complete actual receipt, including its revision and input digest.
+- The actual current proposals naming the subject and their attached IDs; the open/bound-or-attached overlapping reservation rows with IDs, issuer, family/predicate, progress, dates and contract ID. If a tagged row activates the wider shared-issuer scope, report the actual union separately instead of assuming revision 4.
+- Actual player productions, their selected seats and existing take IDs; player script IDs/status/production links; unused concept count and soundstage/active-production counts. Keep real managed admission distinct from the legacy stock scalar.
+
+These are bounded source facts, not a copied hash implementation or a recomputed expected receipt. No full world/private profile dump is needed. A labelled independent selection of rows can document the declared membership rule; it must retain the raw rows/proposal links necessary to check that selection. The actual quote remains the assertion's authority.
+
+There is no persisted week-196 save in 1160 and its process has closed. The successful Vitest cache is not a durable input. This cannot be retroactively described as a zero-tick standalone measurement. If a fresh isolated command is needed, its actual prefix calls count again in its own recorded run. Prefer putting the observation into the next separately authorized required source comparison; do not modify the currently frozen 1162 candidate or launch a hidden diagnostic replay.
+
+## One fixed route amendment for review, not application
+
+If the actual membership confirms the bounded competing-offer premise below, replace the single late c-01 commission with **five sequential real pool commissions**, using c-01 through c-05 at weeks 191, 192, 193, 194 and 195, accepting each actual review at 192 through 196. Retain the exact Writer authored-0003, shape/promise construction, fixed target, 208/1.25 bid and [208,416) P1 count 1. The same public commission/accept functions already implement a one-week pool draft; ready projects no longer occupy the writer's active drafting task. Each action still must pass actual employment, idle/capacity, concept uniqueness, affordability, review and full-save admission. No copied script or direct project/history edit is permitted.
+
+This replaces four idle advances plus the old one-week commission with five one-week commissions. The route still arrives at 196 after exactly 196 calls and retains max260/all-core816. It adds eight public actions and their real costs, with no funding, extra film, seed, fallback or timing extension. This is a disclosed change to the fixed fixture construction, not an adaptive number of scripts after observing a quote. A fresh run must requalify all affected authoring, finances, contests and work; earlier state/market outcomes cannot be transplanted into it.
+
+Why five is a defensible fixed candidate: a standard-library read of the pinned immutable created0 bytes confirms zero initial promises, four entered rivals r01–r04, r05 first eligible at520, concepts c-00 through c-29 and two soundstages. The declared route adds no prior player promise for this subject; its real first ordinary case and original expiry are already observed at196/208. The current rival authoring rule attaches at most one count-1 promise per actual issuer proposal. If the factual snapshot confirms no additional bound/selected authority, four competing offers reserve at most four pictures, and five real scripts cover those reservations plus the new count1 without relying on managed stock. This is a source-bound design argument, not a claim that 1160 printed four reservations.
+
+The long [208,416) window has ample scalar time for five fresh sequential events under the existing five-week first-take/eight-week cycle, but a scalar quote is still not an executable whole-crew certificate. Actual RA remains mandatory. There is no guarantee that the fixed seven-band contest is won, that r01 retains a vacancy, that the subsequent r01 offer survives its own reservation/pipeline checks, or that its actual screenplay and legal crew perform the work. Each first unmet premise remains loud; the five-script candidate is not permission for a sixth script or another bid. Known staffing/resource and private-selector-negative gaps remain separately unqualified.
+
+## Preserved boundaries
+
+The one fixed target, both actual market wins, aggregate signing-account joins, automatic authoring and complete real work remain required. The independent successful authoring196 cache must remain available after any later failure. D18's intended authoring assertions stay in the leaf, and missing intended Director work remains a policy assertion after tagged binding rather than a cached setup error. The fourteen earlier leaf bodies, all timeouts, input pins and original failed sources are unchanged by this proposal. Parent/reviewer decide the next observation or bounded fixture amendment before any source release; no new product law or routine user approval is implied.

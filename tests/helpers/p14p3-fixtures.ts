@@ -747,6 +747,58 @@ function accountTotals(b: RivalBusiness) {
   return { cash: b.account.cash, signing: b.account.periods.reduce((sum, p) => sum + p.movements.signing, 0),
     movements: b.account.periods.reduce((sum, p) => sum + Object.values(p.movements).reduce((a, n) => a + n, 0), 0) }
 }
+// 1164: factual pre-call observations only. Keep raw linked rows alongside the
+// independently labelled membership sets; do not calculate a classification,
+// capacity total, expected receipt or replacement digest.
+function rivalQuoteFacts(state: GameState, draft: PromiseDraft, week: number) {
+  const from = Math.max(week, draft.windowStartWeek)
+  const linked = state.talentMarket.proposals.flatMap(p => p.promises)
+  const rows = state.promises.filter(p => p.beneficiaryPersonId === draft.beneficiaryPersonId
+    || p.issuerStudioId === draft.issuerStudioId).map(p => {
+    const samePerson = p.beneficiaryPersonId === draft.beneficiaryPersonId
+    const sameIssuer = p.issuerStudioId === draft.issuerStudioId
+    const open = p.outcome === null, bound = p.contractId !== null, attached = linked.includes(p.promiseId)
+    const notSelf = p.promiseId !== draft.promiseId
+    const overlaps = p.dueWeekExclusive > from && p.windowStartWeek < draft.dueWeekExclusive
+    return { row: clone(p), samePerson, sameIssuer, open, bound, attached, notSelf, overlaps,
+      attachedBy: state.talentMarket.proposals.filter(proposal => proposal.promises.includes(p.promiseId))
+        .map(proposal => ({ talentId: proposal.talentId, issuerStudioId: proposal.issuerStudioId,
+          startWeek: proposal.startWeek, termWeeks: proposal.termWeeks, submittedWeek: proposal.submittedWeek })) }
+  })
+  const active = rows.filter(r => r.open && (r.bound || r.attached) && r.notSelf && r.overlaps)
+  const union = active.filter(r => r.samePerson || r.sameIssuer)
+  const hasDirectorTag = (p: { predicate: PromiseDraft['predicate'] }) =>
+    'kind' in p.predicate && p.predicate.kind === 'directorCount'
+  const taggedUnionScope = hasDirectorTag(draft) || union.some(r => hasDirectorTag(r.row))
+  const player = state.hollywood === null || draft.issuerStudioId === state.hollywood.playerStudioId
+  const business = player ? undefined : state.hollywood?.businesses.find(b => b.studioId === draft.issuerStudioId)
+  const development = player ? state.scriptDevelopment : business?.development
+  const productions = player ? state.studio.activeProductions : business?.productions ?? []
+  const operations = player ? state.operations : business?.operations
+  const productionIds = new Set(productions.map(p => p.id))
+  const used = new Set([...state.studio.activeProductions.map(p => p.conceptId),
+    ...state.studio.releasedFilms.map(f => f.conceptId), ...state.scriptDevelopment.projects.map(p => p.conceptId)])
+  return { gameWeek: state.market.tick, quoteWeek: week, from, draft: clone(draft),
+    currentProfession: person(state, draft.beneficiaryPersonId).role,
+    selectedSamePersonIds: active.filter(r => r.samePerson).map(r => r.row.promiseId),
+    selectedUnionIds: union.map(r => r.row.promiseId), taggedUnionScope,
+    selectedByDeclaredScopeIds: (taggedUnionScope ? union : active.filter(r => r.samePerson)).map(r => r.row.promiseId),
+    rawLinkedRows: rows,
+    actualProposals: clone(state.talentMarket.proposals.filter(p => p.talentId === draft.beneficiaryPersonId
+      || p.issuerStudioId === draft.issuerStudioId)),
+    owner: player ? 'player' : 'rival', developmentMode: development?.mode ?? null,
+    scripts: development?.projects.map(p => ({ id: p.id, conceptId: p.conceptId, status: p.status,
+      commissionedWeek: p.commissionedWeek, dueWeek: p.dueWeek, writerId: p.writerId,
+      writerIds: [...p.writerIds], reservation: clone(p.reservation), productionId: p.productionId })) ?? [],
+    productions: productions.map(p => ({ id: p.id, conceptId: p.conceptId, startTick: p.startTick,
+      remainingTicks: p.remainingTicks, writerId: p.writerId, directorId: p.directorId,
+      craftIds: [...p.craftIds], cast: clone(p.cast) })),
+    recordedTakes: clone(state.firstTakes.filter(t => productionIds.has(t.productionId))),
+    facilities: operations?.facilities.map(f => ({ id: f.id, capability: f.capability, capacity: f.capacity })) ?? [],
+    workflows: operations?.workflows.map(w => ({ productionId: w.productionId, phase: w.phase,
+      blocker: clone(w.blocker), shootingTask: clone(w.shootingTask) })) ?? [],
+    unusedPlayerConceptIds: player ? state.concepts.filter(c => !used.has(c.id)).map(c => c.id) : null }
+}
 function rivalStep(state: GameState): GameState {
   assert.equal(state.market.tick, rivalCalls, 'rival route has no replayed or hidden prefix')
   assert.ok(rivalCalls < 260 && rivalCounters().total < 816, 'fixed rival260 / all-core816 caps')
@@ -764,7 +816,11 @@ function rivalStep(state: GameState): GameState {
         && proposal.promises.length === 0
       const beforeHash = authoring ? sha(saves.stableStringify(current)) : ''
       const rngBefore = authoring ? current.rngState : ''
+      const inputFacts = authoring && draft.beneficiaryPersonId === RIVAL.focus
+        ? rivalQuoteFacts(current, draft, week) : undefined
       const result = originalQuote(current, draft, week)
+      if (inputFacts !== undefined)
+        console.info('1164-P3-RIVAL-QUOTE ' + JSON.stringify({ inputFacts, receipt: result }))
       if (authoring) rivalCandidateCalls.push({ week, personId: draft.beneficiaryPersonId,
         role: person(current, draft.beneficiaryPersonId).role, draft: clone(draft), result: clone(result),
         beforeHash, afterHash: sha(saves.stableStringify(current)), rngBefore, rngAfter: current.rngState,
@@ -973,7 +1029,10 @@ export function rivalWinner208() {
     const draft: PromiseDraft = { family: 'APPEARANCE_COUNT', predicate: { count: 1 },
       issuerStudioId: issuer(state), beneficiaryPersonId: RIVAL.vacancy, startWeek: 208, termWeeks: 208,
       windowStartWeek: 208, dueWeekExclusive: 416 }
-    expect(quote(state, draft)).toMatchObject({ classification: 'REASONABLY_ACHIEVABLE', bottleneck: null })
+    const inputFacts = rivalQuoteFacts(state, draft, state.market.tick)
+    const receipt = quote(state, draft)
+    console.info('1164-P3-PLAYER-QUOTE ' + JSON.stringify({ inputFacts, receipt }))
+    expect(receipt).toMatchObject({ classification: 'REASONABLY_ACHIEVABLE', bottleneck: null })
     state = core.attachPromise(state, RIVAL.vacancy, issuer(state), draft)
     const vacancyPromiseId = state.promises.at(-1)!.promiseId
     expect(state.talentMarket.proposals.find(p => p.talentId === RIVAL.focus && p.issuerStudioId === issuer(state))).toBeUndefined()

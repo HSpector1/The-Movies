@@ -1,0 +1,262 @@
+{
+  "record": "1162-p3-fixed-rival-core",
+  "run": {
+    "sourceSha": "969fb4592abc358a39c717b5bf9dd47a4b2f781b",
+    "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSource": [],
+    "command": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p3-directing-promises.test.ts",
+      "--testNamePattern",
+      "D(?:07|18) "
+    ],
+    "node": "v20.20.2",
+    "start": "2026-09-27T14:22:26.925Z",
+    "end": "2026-09-27T14:22:38.664Z",
+    "exitCode": 1,
+    "signal": null,
+    "error": null,
+    "sourceShaAtEnd": "969fb4592abc358a39c717b5bf9dd47a4b2f781b",
+    "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSourceAtEnd": [],
+    "fixedSource": true
+  },
+  "publicationGate": {
+    "sourceSha": "969fb4592abc358a39c717b5bf9dd47a4b2f781b",
+    "remoteSha": "969fb4592abc358a39c717b5bf9dd47a4b2f781b",
+    "observedAt": "2026-09-27T14:22:19.215612+00:00",
+    "consumedSourceClean": true,
+    "wholeWorktreeClean": false,
+    "wholeWorktreeStatus": "?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1163-A-p3-fixed-vacancy-pipeline-disposition.md\n",
+    "rootTypes": "1161 PASS on exact prepublication patch",
+    "sourceReview": "1161-B final KEEP",
+    "result": "PASS",
+    "nextRun": "1162-p3-fixed-rival-core"
+  },
+  "result": {
+    "files": 1,
+    "failedFiles": 1,
+    "cases": 16,
+    "passed": 0,
+    "failed": 2,
+    "filtered": 14,
+    "wrapperSeconds": 11.739,
+    "vitestSeconds": 10.66,
+    "testMilliseconds": 7463,
+    "todo": 0,
+    "unhandledErrorDiagnostic": false
+  },
+  "diagnosticGroups": [
+    {
+      "ids": [
+        "tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D07 authors and fulfills a real rival promise to a credited primary Actor",
+        "tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D18 uses the declared rival strategy and legal distinct staffing"
+      ],
+      "sharedFailHeader": true,
+      "primary": "AssertionError: expected { classification: 'FRAGILE', …(4) } to match object { …(2) }\n(3 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  Object {\n-   \"bottleneck\": null,\n-   \"classification\": \"REASONABLY_ACHIEVABLE\",\n+   \"bottleneck\": \"needs a picture not yet commissioned\",\n+   \"classification\": \"FRAGILE\",\n  }",
+      "primaryBytes": 334,
+      "primarySha256": "0e02e673fb7c08069d96d25b86bae65e8e5e0a4593697f4fbd3189f62be15bd2",
+      "fullDiagnosticTail": "AssertionError: expected { classification: 'FRAGILE', …(4) } to match object { …(2) }\n(3 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  Object {\n-   \"bottleneck\": null,\n-   \"classification\": \"REASONABLY_ACHIEVABLE\",\n+   \"bottleneck\": \"needs a picture not yet commissioned\",\n+   \"classification\": \"FRAGILE\",\n  }\n\n ❯ tests/helpers/p14p3-fixtures.ts:976:33\n    974|       issuerStudioId: issuer(state), beneficiaryPersonId: RIVAL.vacanc…\n    975|       windowStartWeek: 208, dueWeekExclusive: 416 }\n    976|     expect(quote(state, draft)).toMatchObject({ classification: 'REASO…\n       |                                 ^\n    977|     state = core.attachPromise(state, RIVAL.vacancy, issuer(state), dr…\n    978|     const vacancyPromiseId = state.promises.at(-1)!.promiseId\n ❯ memo tests/helpers/p14p3-fixtures.ts:111:23\n ❯ Module.rivalWinner208 tests/helpers/p14p3-fixtures.ts:968:10\n ❯ tests/p14p3-directing-promises.test.ts:894:20",
+      "fullDiagnosticTailBytes": 969,
+      "fullDiagnosticTailSha256": "56a89cf5579effd90303f5703e180c47b7c142fdfca95c400b09e23dec5f7d72",
+      "printedFrames": [
+        "tests/helpers/p14p3-fixtures.ts:976:33",
+        "memo tests/helpers/p14p3-fixtures.ts:111:23",
+        "Module.rivalWinner208 tests/helpers/p14p3-fixtures.ts:968:10",
+        "tests/p14p3-directing-promises.test.ts:894:20"
+      ],
+      "stackLimit": "Shared cached failure retains D07 original caller; no separate D18 stack inferred."
+    }
+  ],
+  "comparisonAgainst1160": {
+    "new": [],
+    "vanished": [],
+    "retainedIdentical": [
+      "tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D07 authors and fulfills a real rival promise to a credited primary Actor"
+    ],
+    "changed": [
+      "tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D18 uses the declared rival strategy and legal distinct staffing"
+    ],
+    "D07FullTailLiteralEqual": true
+  },
+  "markers": {
+    "1155-P3-RIVAL-AUTHORING": {
+      "week": 196,
+      "calls": [
+        {
+          "personId": "person-studio-de11f27b-r01-2",
+          "family": "APPEARANCE_COUNT",
+          "predicate": {
+            "count": 1
+          },
+          "classification": "FRAGILE"
+        },
+        {
+          "personId": "person-studio-de11f27b-r01-2",
+          "family": "DIRECTING_COUNT",
+          "predicate": {
+            "kind": "directorCount",
+            "count": 1
+          },
+          "classification": "FRAGILE"
+        },
+        {
+          "personId": "authored-0002",
+          "family": "DIRECTING_COUNT",
+          "predicate": {
+            "kind": "directorCount",
+            "count": 1
+          },
+          "classification": "FRAGILE"
+        },
+        {
+          "personId": "authored-0002",
+          "family": "APPEARANCE_COUNT",
+          "predicate": {
+            "count": 1
+          },
+          "classification": "FRAGILE"
+        },
+        {
+          "personId": "authored-0006",
+          "family": "DIRECTING_COUNT",
+          "predicate": {
+            "kind": "directorCount",
+            "count": 1
+          },
+          "classification": "FRAGILE"
+        },
+        {
+          "personId": "authored-0006",
+          "family": "APPEARANCE_COUNT",
+          "predicate": {
+            "count": 1
+          },
+          "classification": "FRAGILE"
+        }
+      ],
+      "bootstrapTake": 18
+    },
+    "1155-P3-RIVAL-COUNTERS": {
+      "rivalCalls": 196,
+      "rivalCap": 260,
+      "otherCoreCalls": 0,
+      "total": 196,
+      "cap": 816
+    },
+    "1149-P3-CONTINUITY-COUNTERS": {
+      "playerCalls": 0,
+      "playerCap": 208,
+      "branches": [
+        {
+          "name": "cancelBefore",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": null
+        },
+        {
+          "name": "cancelAfter",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": null
+        },
+        {
+          "name": "waiver",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": null
+        }
+      ],
+      "total": 0,
+      "cap": 556,
+      "lifecycleCalls": 0,
+      "lifecycleCap": 156,
+      "selectedCap": 364
+    },
+    "1143-P3-OUTCOME-COUNTERS": {
+      "playerCalls": 0,
+      "playerCap": 208,
+      "branches": [
+        {
+          "name": "cancelBefore",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": null
+        },
+        {
+          "name": "cancelAfter",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": null
+        },
+        {
+          "name": "waiver",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": null
+        }
+      ],
+      "total": 0,
+      "cap": 400
+    },
+    "1133-P3-COUNTERS": {
+      "actualTicks": 0,
+      "cap": 208,
+      "cachedPhases": [
+        {
+          "name": "rivalCreated0",
+          "completed": true
+        },
+        {
+          "name": "rivalCredit",
+          "completed": true
+        },
+        {
+          "name": "rivalAuthoring196",
+          "completed": true
+        },
+        {
+          "name": "rivalWinner208",
+          "completed": false
+        }
+      ]
+    }
+  },
+  "legacyMarkerPresent": false,
+  "limits": [
+    "The two whole leaves still FAIL; only early196 subcontrols qualify.",
+    "All six observed rival candidates are FRAGILE; successful first-RA attachment is not witnessed.",
+    "D07 still stops before promise attachment,208 settlement and260 work.",
+    "Exact quote-state reservation/pipeline data remains unprinted pending separately reviewed1164 observation."
+  ],
+  "inputs": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1162-p3-fixed-rival-core.txt",
+      "bytes": 4840,
+      "sha256": "a6d9d065b95fee36f765db1cceaf7ed96c90251360cae8c4df5006dc4806b939"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1162-p3-fixed-rival-core.json",
+      "bytes": 720,
+      "sha256": "1ed61d230d444eb2a3e4d3b91028aa2d7b58e887a705f38085921302d4d447cc"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1162-p3-fixed-rival-core.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1162-p3-publication-gate.json",
+      "bytes": 541,
+      "sha256": "fbf85bafe6c8f340575068f53dc2756890033b80835b64cde3945e04bac5c4b0"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1160-p3-fixed-rival-observations.json",
+      "bytes": 11844,
+      "sha256": "665ec495158ccd5a0aa3d96a59f11c028ca31b93671634113ab739d833939f1f"
+    }
+  ]
+}

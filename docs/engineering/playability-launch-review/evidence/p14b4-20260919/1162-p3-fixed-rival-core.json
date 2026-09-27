@@ -1,0 +1,24 @@
+{
+  "sourceSha": "969fb4592abc358a39c717b5bf9dd47a4b2f781b",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14p3-directing-promises.test.ts",
+    "--testNamePattern",
+    "D(?:07|18) "
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-27T14:22:26.925Z",
+  "end": "2026-09-27T14:22:38.664Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "969fb4592abc358a39c717b5bf9dd47a4b2f781b",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

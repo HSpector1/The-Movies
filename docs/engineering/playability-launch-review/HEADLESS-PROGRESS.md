@@ -1,5 +1,36 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — rival order verified within failed route; factual observations next
+
+1162 on published969fb4592abc358a39c717b5bf9dd47a4b2f781b closes
+14:22:26.925–14:22:38.664UTC,11.739s, child1/fixedSource/empty consumed diff,
+no untracked source/signal/error. Actual196 rival calls, other routes0; two FAIL,
+fourteen filtered. The early D18 marker is reached: credited Actor and primary
+Director try P3 first, uncredited Actor P1 first; public preferences, unchanged
+input/RNG and failed-candidate no-staging assertions pass. All six actual calls
+are FRAGILE, so the accepted-first-RA branch is unexercised. Bootstrap take18 is
+now actually logged. Direct Director D3 matching is not asserted by this marker.
+
+Both leaves then stop on the same cached player P1 pipeline FRAGILE at helper976,
+sharing one printed primary/stack. No208 continuation, attachment/win/payment or
+rival work occurs. This is bounded policy evidence, not a passing D18/full slice.
+1162-B direct-primary review is final; raw evidence remains unchanged.
+
+1163-A/B conditionally review a fixed five-script proposal, not its application.
+Parent releases1164 helper-only factual observations first: reuse the existing
+player quote and observe the real focus/r01 candidate call state, including full
+receipts and bounded actual proposal/reservation/pipeline facts. No added quote,
+tick, state/action/script/bid change or test-leaf edit; production stays969fb459.
+Both rival/player facts are needed because their actual candidates are FRAGILE.
+
+1164 source is frozen: helper78119B/10b17059, patch6893B/c92de7cb, entire
+16-leaf test unchanged. Final1164-B KEEP3906B/74d41578 and1162-A/B records
+are parent-verified. Publish/exactremoteverify, then1165 root types and1166
+same selected run. A fresh process must count its actual prefix; no durable196
+save or zero-tick replay is claimed. Parent sole production writer/integrator/
+executor, no heavy process active. Keep all1155-C gaps and remaining P3/consumer/
+P14 onward scope; Unity/native/Owner remain deferred.
+
 ## CURRENT — real rival candidate-order RED; narrow policy correction typed
 
 1160 actual11.396s on published6267566033f907fff0ed180eec89231d8b76e1f8

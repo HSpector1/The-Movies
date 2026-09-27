@@ -1,0 +1,70 @@
+{
+  "sourceHead": "969fb4592abc358a39c717b5bf9dd47a4b2f781b",
+  "file": {
+    "path": "tests/helpers/p14p3-fixtures.ts",
+    "before": {
+      "path": "tests/helpers/p14p3-fixtures.ts",
+      "bytes": 73429,
+      "sha256": "a1de7787c0309b2b56cdc8ccf77a237169bb80a4e4253d8ba2c899219936f179"
+    },
+    "after": {
+      "path": "tests/helpers/p14p3-fixtures.ts",
+      "bytes": 78119,
+      "sha256": "10b170593398965cc7662ab61a309bfce9e4cf3dff77d47d60259c43a195362c"
+    }
+  },
+  "orderedPatch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1164-p3-rival-quote-observation.patch",
+    "bytes": 6893,
+    "sha256": "c92de7cb06cb22e9683e2ee148c1ea929e4634480243d726017db6c64af7bf3e"
+  },
+  "unchangedTest": {
+    "path": "tests/p14p3-directing-promises.test.ts",
+    "bytes": 77197,
+    "sha256": "3371570a015bcc3723ec7d6f4d85f8207bbb5cba9458e0036e538037736b455d"
+  },
+  "exactInverseReconstruction": true,
+  "unchangedTestEqualsHead": true,
+  "scope": "Observation only: pre-call factual snapshots plus complete returned receipts at existing quotes; no classification, capacity or digest recomputation.",
+  "preserved": [
+    "all 16 leaf bodies and 60000ms timeouts",
+    "all original 14 body and input/output pins",
+    "single existing player quote and original RA/bottleneck assertion",
+    "existing automatic quote invocation count, forwarded arguments/results and finally restoration",
+    "all actions, phases, failure caches, fixed bids, pipeline, source inputs and 260/816 counters"
+  ],
+  "observations": {
+    "rival": "Actual external r01/focus authoring196 quote calls only; detached input before originalQuote, complete returned receipt.",
+    "player": "One existing player-vacancy quote at196; detached input before quote, complete receipt before unchanged assertion.",
+    "facts": [
+      "complete draft and game/quote weeks",
+      "selected same-person and membership-first issuer union IDs",
+      "raw related promise rows and attachment links",
+      "actual relevant market proposals",
+      "owner-specific managed projects, productions, takes, facilities and workflows",
+      "player unused concept IDs where applicable"
+    ],
+    "notImplemented": [
+      "five-script route proposal from frozen1163",
+      "additional preferred-opportunity matcher/first-RA/fallback assertions",
+      "any extra quote/tick/replay or standalone196 checkpoint"
+    ]
+  },
+  "argv": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14p3-directing-promises.test.ts",
+    "--testNamePattern",
+    "D(?:07|18) "
+  ],
+  "typeArgv": [
+    "node_modules/.bin/tsc",
+    "--noEmit"
+  ],
+  "leafTimeoutMs": 60000,
+  "selectedTickCap": 260,
+  "allCoreTickCap": 816,
+  "authorExecution": false
+}
