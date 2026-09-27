@@ -244,6 +244,15 @@ function reservationWitness(state: GameState, draft: PromiseDraft, rows: readonl
   return floor
 }
 
+function physicalReason(candidates: readonly Path[]): string {
+  // A rejected old genre project does not explain why every future genre path
+  // misses the window. Preserve the actual timing or retirement first cause.
+  if (candidates.some(row => row.physical === null)) return 'no filming week inside the window can reach this opportunity'
+  return candidates.find(row => row.id === 'future')?.physical
+    ?? candidates.find(row => row.physical !== null)?.physical
+    ?? 'no filming week inside the window can reach this opportunity'
+}
+
 export function opportunityAssessment(state: GameState, draft: PromiseDraft & { predicate: OpportunityPredicate }, week: number,
   reservations: readonly ProfessionalPromise[]): { classification: PromiseClassification; bottleneck: string | null } {
   const candidates = paths(state, draft, week, true)
@@ -262,7 +271,7 @@ export function opportunityAssessment(state: GameState, draft: PromiseDraft & { 
     return { classification: 'REASONABLY_ACHIEVABLE', bottleneck: null }
   }
   return fragile !== null ? { classification: 'FRAGILE', bottleneck: fragile }
-    : { classification: 'IMPOSSIBLE', bottleneck: candidates.find(row => row.physical !== null)?.physical ?? 'no filming week inside the window can reach this opportunity' }
+    : { classification: 'IMPOSSIBLE', bottleneck: physicalReason(candidates) }
 }
 
 /** Deliberately ignores resources, reservations and slack: those cannot settle an outcome. */
@@ -271,5 +280,5 @@ export function opportunityPhysicalImpossibility(state: GameState, promise: Prof
   const draft = { ...promise, startWeek: week, termWeeks: Math.max(0, promise.dueWeekExclusive - week) }
   const candidates = paths(state, draft, week, capped)
   return candidates.some(row => row.physical === null && row.takeWeek < promise.dueWeekExclusive) ? null
-    : candidates.find(row => row.physical !== null)?.physical ?? 'no filming week inside the window can reach this opportunity'
+    : physicalReason(candidates)
 }

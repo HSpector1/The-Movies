@@ -1,0 +1,825 @@
+diff --git a/tests/_historicalCurrent.ts b/tests/_historicalCurrent.ts
+--- a/tests/_historicalCurrent.ts
++++ b/tests/_historicalCurrent.ts
+@@ -1,4 +1,5 @@
+-import {migrateToV18,migrateToLive,LIVE_SAVE_VERSION,type SaveFile,type LiveSaveFile,type GameStateV18,type GameState} from '../src/core/index.js'
++import {migrateToV18,migrateToLive,LIVE_SAVE_VERSION,type SaveFile,type LiveSaveFile,type GameStateV18,type GameStateV38,type GameState} from '../src/core/index.js'
++import {validateSaveV38} from '../src/core/save.js'
+ import {buildTalentProvenance} from '../src/core/aging.js'
+ import {withResearchFoundation} from '../src/core/researchPeople.js'
+ import {initialTechnology} from '../src/core/technology.js'
+@@ -16,11 +17,11 @@
+ export function liftHistoricalState(state:GameStateV18):GameState {
+   if ('hollywood' in state && state.hollywood!==null && state.hollywood!==undefined)throw new Error('Cannot erase living industry from a historical fixture')
+   const people=state.talent.map(withResearchFoundation)
+-  return {...state,hollywood:null,talent:people.map(person=>({...person,age:Math.floor(person.age)})),technology:initialTechnology(state.market.tick),physicalPlans:initialPhysicalPlans(),
++  const historical:GameStateV38 = {...state,hollywood:null,talent:people.map(person=>({...person,age:Math.floor(person.age)})),technology:initialTechnology(state.market.tick),physicalPlans:initialPhysicalPlans(),
+     // P14C.1 (Save V33): the same lift the real V32->V33 migration writes — one
+     // `legacy_age_anchor` per person holding the ORIGINAL UNROUNDED age at
+     // `market.tick`, with each stored age then FLOORED. This helper hand-builds a
+-    // LIVE envelope, so it owes the live shape, flooring included.
++    // historical38 substrate, then uses the real current migration below.
+     talentProvenance:buildTalentProvenance(people,state.market.tick,'legacy_age_anchor'),
+     // P14C.2a (Save V34): the same lift the real V33->V34 migration writes — a
+     // historical campaign tracked no retirement, so the lifecycle root opens empty.
+@@ -44,4 +45,5 @@
+     // historical campaign cancelled nothing, so every placement carries a null
+     // cancellation receipt and no refund row is reconstructed from its history.
+     placement:{...state.placement,facilities:state.placement.facilities.map(facility=>({...facility,cancellation:null}))}}
++  return migrateToLive(validateSaveV38({saveVersion:38,seed:historical.seed,state:historical,broadcastCache:historical.broadcastItems})).state
+ }
+diff --git a/tests/contracts/v14-boundary-guards.contract.test.ts b/tests/contracts/v14-boundary-guards.contract.test.ts
+--- a/tests/contracts/v14-boundary-guards.contract.test.ts
++++ b/tests/contracts/v14-boundary-guards.contract.test.ts
+@@ -31,7 +31,7 @@
+ 
+ import { beforeAll, describe, expect, it } from 'vitest'
+ 
+-import { applyActions, convertV38ToV37, convertV39ToV38, makeSave, stableStringify, tick } from '../../src/core/index.js'
++import { applyActions, convertV38ToV37, convertV39ToV38, convertV40ToV39, makeSave, stableStringify, tick } from '../../src/core/index.js'
+ import type { GameState } from '../../src/core/index.js'
+ 
+ import { clone, operationsStudio, productionPayload, withCash } from './_contractFixtures.js'
+@@ -60,7 +60,7 @@
+ let inFlight: ReturnType<typeof historicalWorkflowCarrier>
+ 
+ function historicalWorkflowCarrier(state: GameState) {
+-  const admitted = convertV38ToV37(convertV39ToV38(makeSave(state))).state
++  const admitted = convertV38ToV37(convertV39ToV38(convertV40ToV39(makeSave(state)))).state
+   return { ...admitted, operations: { ...admitted.operations,
+     workflows: admitted.operations.workflows.map(({ setup: _setup, planRevision: _planRevision, ...workflow }) => workflow) } }
+ }
+diff --git a/tests/helpers/p14c2b-fixtures.ts b/tests/helpers/p14c2b-fixtures.ts
+--- a/tests/helpers/p14c2b-fixtures.ts
++++ b/tests/helpers/p14c2b-fixtures.ts
+@@ -20,7 +20,7 @@
+ import { existsSync, readFileSync } from 'node:fs'
+ import { gunzipSync } from 'node:zlib'
+ import { expect } from 'vitest'
+-import { convertV37ToV36, convertV38ToV37, convertV39ToV38, makeSave, migrateToLive, validateSaveV35 } from '../../src/core/save.js'
++import { convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, makeSave, migrateToLive, validateSaveV35 } from '../../src/core/save.js'
+ import type { SaveFileV35, SaveFileV36 } from '../../src/core/save.js'
+ import { advanceTo, fund, p13aGeneratedStudio, player } from './p14b2-fixtures.js'
+ export { advanceTo, fund, p13aGeneratedStudio, player }
+@@ -66,7 +66,7 @@
+  * authority; it cannot strip entrants/events to manufacture a frozen36 input.
+  * Frozen-only tests needing such a state require genuine older bytes (record975). */
+ export function liveEnvelopeV36(state: GameState): SaveFileV36 {
+-  return convertV37ToV36(convertV38ToV37(convertV39ToV38(makeSave(state))))
++  return convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(makeSave(state)))))
+ }
+ 
+ /** MANIFEST.json's own `focus` block for one fixture, read fresh from disk (never
+diff --git a/tests/helpers/p14c2c-fixtures.ts b/tests/helpers/p14c2c-fixtures.ts
+--- a/tests/helpers/p14c2c-fixtures.ts
++++ b/tests/helpers/p14c2c-fixtures.ts
+@@ -5,7 +5,7 @@
+ import { applyActions } from '../../src/core/actions.js'
+ import { retirementRecordFor } from '../../src/core/careerLifecycle.js'
+ import { attachPromise } from '../../src/core/promises.js'
+-import { makeSave, validateSaveV38 } from '../../src/core/save.js'
++import { makeSave, validateSaveV40 } from '../../src/core/save.js'
+ import { currentProposals, submitProposal } from '../../src/core/talentMarket.js'
+ import { tick } from '../../src/core/tick.js'
+ import { TUNING } from '../../src/core/tuning.js'
+@@ -26,7 +26,7 @@
+ 
+ export function savedState(state: GameState): GameState {
+   const written = makeSave(state)
+-  return validateSaveV38(JSON.parse(JSON.stringify(written))).state
++  return validateSaveV40(JSON.parse(JSON.stringify(written))).state
+ }
+ 
+ export type C2cFixture = {
+diff --git a/tests/helpers/p14c2rm-fixtures.ts b/tests/helpers/p14c2rm-fixtures.ts
+--- a/tests/helpers/p14c2rm-fixtures.ts
++++ b/tests/helpers/p14c2rm-fixtures.ts
+@@ -3,7 +3,7 @@
+ import { readFileSync } from 'node:fs'
+ import { gunzipSync } from 'node:zlib'
+ import { expect } from 'vitest'
+-import { exportSave, importSave, makeSave, migrateToLive, validateSaveV37, validateSaveV38 } from '../../src/core/save.js'
++import { exportSave, importSave, makeSave, migrateToLive, validateSaveV37, validateSaveV40 } from '../../src/core/save.js'
+ import type { SaveFileV37 } from '../../src/core/save.js'
+ import { retirementRecordFor } from '../../src/core/careerLifecycle.js'
+ import { applyActions } from '../../src/core/actions.js'
+@@ -21,7 +21,7 @@
+ export const bytes = (state: GameState) => exportSave(makeSave(state))
+ export const owner = (state: GameState) => state.hollywood!.playerStudioId
+ export function admitted(state: GameState): GameState {
+-  return validateSaveV38(JSON.parse(bytes(state))).state
++  return validateSaveV40(JSON.parse(bytes(state))).state
+ }
+ export const OUTGOING_51 = 'sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f'
+ export const SCI = 't-sci-00'
+diff --git a/tests/helpers/p14c4-fixtures.ts b/tests/helpers/p14c4-fixtures.ts
+--- a/tests/helpers/p14c4-fixtures.ts
++++ b/tests/helpers/p14c4-fixtures.ts
+@@ -9,7 +9,7 @@
+ import { gunzipSync } from 'node:zlib'
+ import { expect } from 'vitest'
+ import {
+-  convertV35ToV36, convertV36ToV37, convertV36ToV35, convertV37ToV36, convertV38ToV37, convertV39ToV38,
++  convertV35ToV36, convertV36ToV37, convertV36ToV35, convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39,
+   makeSave, migrateToLive, validateSaveV34, validateSaveV35, validateSaveV37,
+ } from '../../src/core/save.js'
+ import type { SaveFileV34, SaveFileV35 } from '../../src/core/save.js'
+@@ -68,7 +68,7 @@
+  * projection refuse; older cohort assertions then need genuine historical inputs,
+  * never a manually stripped current root. */
+ export function liveEnvelope(state: GameState): SaveFileV35 {
+-  const historical38 = convertV39ToV38(makeSave(state))
++  const historical38 = convertV39ToV38(convertV40ToV39(makeSave(state)))
+   return convertV36ToV35(convertV37ToV36(convertV38ToV37(historical38)))
+ }
+ 
+diff --git a/tests/p06a-w1-release-authority.test.ts b/tests/p06a-w1-release-authority.test.ts
+--- a/tests/p06a-w1-release-authority.test.ts
++++ b/tests/p06a-w1-release-authority.test.ts
+@@ -29,7 +29,7 @@
+   makeSave,
+   makeSaveV15,
+   convertV38ToV37,
+-  convertV39ToV38,
++  convertV39ToV38, convertV40ToV39,
+   migrateToV15,
+   migrateToLive,
+   mintReleaseCommitmentId,
+@@ -403,7 +403,7 @@
+     // predates `setup`/`planRevision` (added at V25, P13B-S5-R07) exactly as it
+     // predates `releaseAuthority` (added at V16, P06A) — strip both leaves the
+     // same way, or `makeSaveV15` refuses the workflow's own unknown field.
+-    const admitted37 = convertV38ToV37(convertV39ToV38(makeSave(ready)))
++    const admitted37 = convertV38ToV37(convertV39ToV38(convertV40ToV39(makeSave(ready))))
+     const { releaseAuthority: _drop, ...v15State } = admitted37.state
+     const v15 = makeSaveV15({
+       ...v15State,
+diff --git a/tests/p14b1-first-take.test.ts b/tests/p14b1-first-take.test.ts
+--- a/tests/p14b1-first-take.test.ts
++++ b/tests/p14b1-first-take.test.ts
+@@ -291,7 +291,7 @@
+     // 33 -> 34 and the validator with it, same reasoning one step further.
+     expect(afterFirstWeek.relationships.length).toBeGreaterThan(0)
+     const envelope = { saveVersion: save.LIVE_SAVE_VERSION, seed: afterFirstWeek.seed, state: afterFirstWeek, broadcastCache: afterFirstWeek.broadcastItems }
+-    const roundTripped = save.validateSaveV38(JSON.parse(JSON.stringify(envelope)))
++    const roundTripped = save.validateSaveV40(JSON.parse(JSON.stringify(envelope)))
+     // Filtered by productionId, exactly like `takes` above: an industry
+     // world's `firstTakes` root also carries every rival's own first takes
+     // (unlike the V28-fixture's isolated operations-only world), so the
+diff --git a/tests/p14b1-t4-regressions.test.ts b/tests/p14b1-t4-regressions.test.ts
+--- a/tests/p14b1-t4-regressions.test.ts
++++ b/tests/p14b1-t4-regressions.test.ts
+@@ -9,7 +9,7 @@
+ import { describe, expect, it, vi } from 'vitest'
+ import * as promiseModule from '../src/core/promises.js'
+ import { attachPromise, promiseFeasibility } from '../src/core/promises.js'
+-import { LIVE_SAVE_VERSION, migrateToLive, validateSaveV38 } from '../src/core/save.js'
++import { LIVE_SAVE_VERSION, migrateToLive, validateSaveV40 } from '../src/core/save.js'
+ import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+ import { tick } from '../src/core/tick.js'
+ import { fnv1a64 } from '../src/core/math.js'
+@@ -81,9 +81,9 @@
+ }
+ function rejects(state: GameState, mutate: (raw: Raw) => void): void {
+   const valid = JSON.parse(JSON.stringify(envelope(state))) as Raw
+-  expect(() => validateSaveV38(valid)).not.toThrow()
++  expect(() => validateSaveV40(valid)).not.toThrow()
+   mutate(valid)
+-  expect(() => validateSaveV38(valid)).toThrow()
++  expect(() => validateSaveV40(valid)).toThrow()
+ }
+ 
+ describe('P14B.1 T4: feasibility evidence and lawful contract windows', () => {
+@@ -163,7 +163,7 @@
+     const historicalVariant: GameState = { ...state, promises: state.promises.map((p) => p.promiseId === target.promiseId
+       ? { ...p, windowStartWeek: oldWindowStart, feasibilityReceipt: oldReceipt } : p) }
+     const json = JSON.stringify(envelope(historicalVariant))
+-    const loaded = validateSaveV38(JSON.parse(json))
++    const loaded = validateSaveV40(JSON.parse(json))
+     expect(JSON.stringify(loaded)).toBe(json)
+     const retained = ownPromise(loaded.state)
+     expect(retained.contractId).toBe(target.contractId)
+@@ -303,7 +303,7 @@
+       expect(outcome.week).toBe(promise.outcomeWeek)
+     }
+     const json = JSON.stringify(envelope(state))
+-    expect(JSON.stringify(validateSaveV38(JSON.parse(json)))).toBe(json)
++    expect(JSON.stringify(validateSaveV40(JSON.parse(json)))).toBe(json)
+   }, 120_000)
+ 
+   it.each(['missing', 'null', 'unknown', 'wrong receipt kind', 'another beneficiary', 'wrong outcome week'])('rejects %s outcome receipt references', (fault) => {
+diff --git a/tests/p14b3-reservations.test.ts b/tests/p14b3-reservations.test.ts
+--- a/tests/p14b3-reservations.test.ts
++++ b/tests/p14b3-reservations.test.ts
+@@ -9,7 +9,7 @@
+ import { applyActions, hiringMarketIds } from '../src/core/index.js'
+ import { attachPromise, promiseFeasibility, trustDrivers, type PromiseDraft } from '../src/core/promises.js'
+ import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
+-import { makeSave, validateSaveV38 } from '../src/core/save.js'
++import { makeSave, validateSaveV40 } from '../src/core/save.js'
+ import type { GameState, ProfessionalPromise } from '../src/core/types.js'
+ import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
+ 
+@@ -91,7 +91,7 @@
+     expect(trustDrivers(next, talentId, player(next), next.market.tick))
+       .toEqual(trustDrivers(state, talentId, player(state), state.market.tick))
+     expect(next.talentMarket.receipts.some((r) => r.kind === 'promiseOutcome' && r.talentId === talentId)).toBe(false)
+-    const reloaded = validateSaveV38(JSON.parse(JSON.stringify(makeSave(next)))).state
++    const reloaded = validateSaveV40(JSON.parse(JSON.stringify(makeSave(next)))).state
+     expect(reloaded.promises).toEqual(next.promises) // loading never recomputes historical receipts
+     expect(read(reloaded, talentId)).toEqual(before)
+   })
+@@ -131,7 +131,7 @@
+     expect(read(settled, talentId).classification).toBe('FRAGILE')
+     expect(read(settled, talentId).bottleneck).toMatch(/not.*commission/i)
+     expect(read(settled, talentId, { promiseId: bound.promiseId }).classification).toBe('REASONABLY_ACHIEVABLE')
+-    validateSaveV38(JSON.parse(JSON.stringify(makeSave(settled))))
++    validateSaveV40(JSON.parse(JSON.stringify(makeSave(settled))))
+   })
+ 
+   it('preserves the existing competing CURRENT cross-issuer reservation policy, without choosing a new alternatives policy', () => {
+@@ -174,7 +174,7 @@
+       .toMatchObject({ kind: 'promiseOutcome', week: 52, talentId, studioId: player(released) })
+     expect(read(released, talentId).classification).toBe('REASONABLY_ACHIEVABLE')
+     expect(read(released, talentId)).toEqual(read(released, talentId, { promiseId: id }))
+-    validateSaveV38(JSON.parse(JSON.stringify(makeSave(released))))
++    validateSaveV40(JSON.parse(JSON.stringify(makeSave(released))))
+   })
+ 
+   it('an actually dropped losing draft stays in evidence after settlement but cannot reserve a later overlapping read', () => {
+@@ -198,6 +198,6 @@
+     const later = { windowStartWeek: 100, dueWeekExclusive: 204, startWeek: 52, termWeeks: 208 }
+     expect(read(settled, talentId, later).classification).toBe('REASONABLY_ACHIEVABLE')
+     expect(read(settled, talentId, later)).toEqual(read(settled, talentId, { ...later, promiseId: losing.promiseId }))
+-    validateSaveV38(JSON.parse(JSON.stringify(makeSave(settled))))
++    validateSaveV40(JSON.parse(JSON.stringify(makeSave(settled))))
+   })
+ })
+diff --git a/tests/p14b3-rule-revision.test.ts b/tests/p14b3-rule-revision.test.ts
+--- a/tests/p14b3-rule-revision.test.ts
++++ b/tests/p14b3-rule-revision.test.ts
+@@ -10,7 +10,7 @@
+ import * as promiseModule from '../src/core/promises.js'
+ import { attachPromise, PROMISE_RULES_VERSION } from '../src/core/promises.js'
+ import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
+-import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38 } from '../src/core/save.js'
++import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV40 } from '../src/core/save.js'
+ import type { GameState, PromiseFeasibilityReceipt } from '../src/core/types.js'
+ import { buildTalentProvenance } from '../src/core/aging.js'
+ import type { CareerLifecycleRootV38, CreativeRole } from '../src/core/types.js'
+@@ -154,10 +154,12 @@
+       talent: rawPeople.map((person) => ({ ...person, age: Math.floor(person.age) })),
+       talentProvenance: buildTalentProvenance(rawPeople, parsedRaw.state.market.tick as number, 'legacy_age_anchor'),
+       careerLifecycle: expectedCareerLifecycle(parsedRaw.state.market.tick as number, rawPeople),
+-      talentMarket: { ...parsedRaw.state.talentMarket, cases: rawCases } } })
++      talentMarket: { ...parsedRaw.state.talentMarket, cases: rawCases },
++      firstTakeSubjects: { version: 1, cutoverOrdinal: parsedRaw.state.firstTakes.length, facts: [] } } })
+     const addedFieldsReloaded = (promise: typeof reloaded.state.promises[number]) => ({ ...promise, supersededByPromiseId: null })
+     const liftedV32 = { ...reloaded.state, relationships: [], promises: reloaded.state.promises.map(addedFieldsReloaded) }
+-    expect(exportSave(makeSave({ ...liftedV32,
++    const expected38 = validateSaveV38({ saveVersion: 38, seed: liftedV32.seed,
++      state: { ...liftedV32,
+       talent: liftedV32.talent.map((person) => ({ ...person, age: Math.floor(person.age) })),
+       talentProvenance: buildTalentProvenance(liftedV32.talent, liftedV32.market.tick, 'legacy_age_anchor'),
+       // P14C.2a (776 S9): the same additive step `governed` above also carries.
+@@ -165,8 +167,8 @@
+       // P14C.2b: every pre-V36 case defaults to `variant: 'expiry'` (convertV35ToV36's
+       // own rule) — this corpus predates the retirement-extension market entirely, so
+       // every case here always was one, and `governed` above defaulted it the same way.
+-      talentMarket: { ...liftedV32.talentMarket, cases: liftedV32.talentMarket.cases.map((kase) => ({ ...kase, variant: 'expiry' as const })) } })))
+-      .toBe(exportSave(governed))
++      talentMarket: { ...liftedV32.talentMarket, cases: liftedV32.talentMarket.cases.map((kase) => ({ ...kase, variant: 'expiry' as const })) } }, broadcastCache: liftedV32.broadcastItems })
++    expect(exportSave(makeSave(migrateToLive(expected38).state))).toBe(exportSave(governed))
+     expect(JSON.stringify(reloaded.state.promises)).toBe(promiseBytes)
+     expect(JSON.stringify(reloaded.state.talentMarket)).toBe(marketBytes)
+     expect(focused.version).toBe(1)
+@@ -208,7 +210,7 @@
+     expect(JSON.stringify(attached.promises.slice(0, state.promises.length))).toBe(priorRoots)
+     expect(currentProposals(attached, proposal.talentId).find((p) => p.issuerStudioId === proposal.issuerStudioId)!.promises)
+       .toEqual([fresh.promiseId])
+-    const reloaded = validateSaveV38(importSave(exportSave(makeSave(attached)))).state
++    const reloaded = validateSaveV40(importSave(exportSave(makeSave(attached)))).state
+     expect(reloaded.promises).toEqual(attached.promises)
+   })
+ 
+@@ -250,7 +252,7 @@
+       talentId: old.beneficiaryPersonId, studioId: old.issuerStudioId, week: proposal.startWeek }))
+     expect(currentProposals(settled, old.beneficiaryPersonId)).toEqual([])
+     expect(JSON.stringify(state.promises)).toBe(priorRoots)
+-    const reloaded = validateSaveV38(importSave(exportSave(makeSave(settled)))).state
++    const reloaded = validateSaveV40(importSave(exportSave(makeSave(settled)))).state
+     expect(reloaded.promises.find((p) => p.promiseId === old.promiseId)).toEqual(bound)
+     expect(old.version).toBe(1)
+     expect(old.feasibilityReceipt.rulesVersion).toBe(1)
+diff --git a/tests/p14b4-material-evidence-core.test.ts b/tests/p14b4-material-evidence-core.test.ts
+--- a/tests/p14b4-material-evidence-core.test.ts
++++ b/tests/p14b4-material-evidence-core.test.ts
+@@ -14,7 +14,7 @@
+ import { advancePromisesWeek, attachedPromiseDigest, promiseDigest } from '../src/core/promises.js'
+ import * as promisesModule from '../src/core/promises.js'
+ import * as operationsModule from '../src/core/operations.js'
+-import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, convertV36ToV37, convertV37ToV38, exportSave, migrateToV31, validateSaveV29, validateSaveV31, validateSaveV38 } from '../src/core/save.js'
++import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, convertV36ToV37, convertV37ToV38, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV31, validateSaveV40 } from '../src/core/save.js'
+ import { tick } from '../src/core/tick.js'
+ import type { Action, CastSlot, GameState, GameStateV31, ProfessionalPromiseV30 } from '../src/core/types.js'
+ 
+@@ -37,7 +37,7 @@
+ // envelope (every record's `extensionUsed`/`extendedFromWeek`, every case's `variant`).
+ // 975: only this live carrier reaches38. The independent frozen31 carrier below
+ // retains its original reader, assertions and immutable fixture bytes.
+-type EnvelopeV33 = ReturnType<typeof validateSaveV38>
++type EnvelopeV33 = ReturnType<typeof validateSaveV40>
+ const SLOTS = ['lead', 'antagonist', 'support'] as const
+ const CLASSES = ['lead', 'leadOrAntagonist'] as const
+ type SeatClass = typeof CLASSES[number]
+@@ -106,7 +106,7 @@
+   // The live-boundary twin of validateState above, for the second describe
+   // block's real-gameplay states (genuinely live-shaped once applyActions/tick
+   // have touched them) -- same device, the frozen V31 reader untouched.
+-  return validateSaveV38({ ...carrier, state, broadcastCache: state.broadcastItems })
++  return validateSaveV40({ ...carrier, state, broadcastCache: state.broadcastItems })
+ }
+ function binding(state: GameStateV31, promise: ProfessionalPromiseV30): void {
+   assert.notEqual(promise.contractId, null)
+@@ -290,7 +290,7 @@
+   // `convertV35ToV36`, adding every record's unused extension and every case's
+   // `expiry` variant.
+   // 975: complete the same real chain through37 and38 before any live action.
+-  const migratedLive: EnvelopeV33 = convertV37ToV38(convertV36ToV37(convertV35ToV36(convertV34ToV35(convertV33ToV34(convertV32ToV33(convertV31ToV32({ saveVersion: 31, seed: frozenState.seed, state: frozenState, broadcastCache: frozenState.broadcastItems })))))))
++  const migratedLive: EnvelopeV33 = migrateToLive(convertV37ToV38(convertV36ToV37(convertV35ToV36(convertV34ToV35(convertV33ToV34(convertV32ToV33(convertV31ToV32({ saveVersion: 31, seed: frozenState.seed, state: frozenState, broadcastCache: frozenState.broadcastItems }))))))))
+   let state: GameState = migratedLive.state
+   state = applyActions(state, [{ kind: 'greenlight', production }])
+   const filmId = state.studio.activeProductions.at(-1)!.id
+@@ -359,7 +359,7 @@
+ }
+ function outcomes(state: GameState) { return state.talentMarket.receipts.filter((r) => r.kind === 'promiseOutcome') }
+ function evaluate(input: EnvelopeV33): GameState {
+-  validateSaveV38(input)
++  validateSaveV40(input)
+   const before = clone(input)
+   const after = advancePromisesWeek(input.state) // existing structurally compatible public owner, no cast
+   expect(input).toEqual(before)
+diff --git a/tests/p14b4-save-v30-compatibility.test.ts b/tests/p14b4-save-v30-compatibility.test.ts
+--- a/tests/p14b4-save-v30-compatibility.test.ts
++++ b/tests/p14b4-save-v30-compatibility.test.ts
+@@ -15,7 +15,7 @@
+ import { attachedPromiseDigest, promiseDigest, proposalDigest } from '../src/core/promises.js'
+ import {
+   LIVE_SAVE_VERSION, convertV29ToV28, exportSave, importSave, loadSave, makeSave,
+-  validateSaveV29, validateSaveV30, migrateToV30, migrateToLive, convertV30ToV29,
++  validateSaveV29, validateSaveV30, validateSaveV38, migrateToV30, migrateToLive, convertV30ToV29,
+ } from '../src/core/save.js'
+ import { buildTalentProvenance } from '../src/core/aging.js'
+ import type { CareerLifecycleRootV38, CreativeRole } from '../src/core/types.js'
+@@ -192,9 +192,12 @@
+   const marketV36 = { ...migrated.state.talentMarket, cases: migrated.state.talentMarket.cases.map((kase) => ({ ...kase, variant: 'expiry' as const })) }
+   expect(lifted).toEqual({ ...migrated, saveVersion: LIVE_SAVE_VERSION, state: { ...migrated.state, relationships: [],
+     promises: migrated.state.promises.map(addedFields), talent: floored, talentProvenance: provenance, careerLifecycle: lifecycle,
+-    talentMarket: marketV36 } })
+-  expect(makeSave({ ...migrated.state, relationships: [], promises: migrated.state.promises.map(addedFields),
+-    talent: floored, talentProvenance: provenance, careerLifecycle: lifecycle, talentMarket: marketV36 })).toEqual(lifted)
++    talentMarket: marketV36,
++    firstTakeSubjects: { version: 1, cutoverOrdinal: migrated.state.firstTakes.length, facts: [] } } })
++  const expected38 = validateSaveV38({ saveVersion: 38, seed: migrated.seed, state: { ...migrated.state,
++    relationships: [], promises: migrated.state.promises.map(addedFields), talent: floored, talentProvenance: provenance,
++    careerLifecycle: lifecycle, talentMarket: marketV36 }, broadcastCache: migrated.state.broadcastItems })
++  expect(makeSave(migrateToLive(expected38).state)).toEqual(lifted)
+   const downgraded = convertV30ToV29(migrated)
+   expect(validateSaveV29(downgraded)).toEqual(admitted)
+   expect(exportSave(downgraded)).toBe(raw)
+diff --git a/tests/p14b5-save-v31.test.ts b/tests/p14b5-save-v31.test.ts
+--- a/tests/p14b5-save-v31.test.ts
++++ b/tests/p14b5-save-v31.test.ts
+@@ -26,7 +26,7 @@
+ import { describe, expect, it } from 'vitest'
+ import {
+   LIVE_SAVE_VERSION, convertV30ToV29, convertV30ToV31, convertV31ToV30, convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, convertV36ToV37, convertV37ToV38, exportSave, importSave, loadSave, makeSave,
+-  migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSave, validateSaveV29,
++  migrateToLive, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSave, validateSaveV29,
+   validateSaveV30, validateSaveV31,
+ } from '../src/core/save.js'
+ 
+@@ -177,7 +177,7 @@
+   // Scientist: one state-preserving semantic step from36 to the live37 boundary.
+   // 975: the next governed lift opens38 authority before the live writer; frozen
+   // V30/V31 migration and downgrade assertions below remain at their own boundary.
+-  const liveEnvelope = convertV37ToV38(convertV36ToV37(convertV35ToV36(convertV34ToV35(convertV33ToV34(convertV32ToV33(convertV31ToV32(lifted)))))))
++  const liveEnvelope = migrateToLive(convertV37ToV38(convertV36ToV37(convertV35ToV36(convertV34ToV35(convertV33ToV34(convertV32ToV33(convertV31ToV32(lifted))))))))
+   expect(makeSave(liveEnvelope.state)).toEqual(liveEnvelope)
+   expect(convertV30ToV31(save)).toEqual(lifted)
+   // lossless when empty: both downgrade routes reproduce the V30 bytes
+diff --git a/tests/p14bf2-acting-discipline.test.ts b/tests/p14bf2-acting-discipline.test.ts
+--- a/tests/p14bf2-acting-discipline.test.ts
++++ b/tests/p14bf2-acting-discipline.test.ts
+@@ -17,7 +17,7 @@
+ import { applyActions, hiringMarketIds, SKILL_ORDER, tick } from '../src/core/index.js'
+ import { attachPromise, promiseFeasibility, PROMISE_RULES_VERSION, type PromiseDraft } from '../src/core/promises.js'
+ import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
+-import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38 } from '../src/core/save.js'
++import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV40 } from '../src/core/save.js'
+ import { TUNING } from '../src/core/tuning.js'
+ import type { Action, CastSlot, GameState } from '../src/core/types.js'
+ import { buildTalentProvenance } from '../src/core/aging.js'
+@@ -75,7 +75,7 @@
+     state = submitProposal(state, { talentId: lead.id, issuerStudioId: player(state), termWeeks: 52, premiumTier: 1.25 })
+     expect(state.studio.activeProductions).toEqual([])
+     expect(state.promises.filter((p) => p.beneficiaryPersonId === lead.id)).toEqual([])
+-    validateSaveV38(makeSave(state))
++    validateSaveV40(makeSave(state))
+     cached = { castable, state, crew }
+   }
+   return structuredClone(cached)
+@@ -115,7 +115,7 @@
+     expect(legal.studio.activeProductions.at(-1)!.cast.lead).toBe(crew.leadId)
+     expect(legal.studio.activeProductions.at(-1)!.writerId).toBe(crew.writerId)
+     expect(legal.talent.find((p) => p.id === crew.leadId)!.role).toBe('writer')
+-    validateSaveV38(makeSave(legal))
++    validateSaveV40(makeSave(legal))
+     const doubleRole = payload(castable, crew)
+     doubleRole.writerId = crew.leadId
+     expect(() => applyActions(castable, [{ kind: 'greenlight', production: doubleRole }]))
+@@ -247,7 +247,7 @@
+     expect(receipts[0]).toMatchObject({ kind: 'promiseOutcome', week: take.week,
+       talentId: crew.leadId, studioId: player(state) })
+     expect(state.talent.find((p) => p.id === crew.leadId)!.role).toBe('writer')
+-    const loaded = validateSaveV38(importSave(exportSave(makeSave(state)))).state
++    const loaded = validateSaveV40(importSave(exportSave(makeSave(state)))).state
+     expect(loaded.promises).toEqual(state.promises)
+     expect(loaded.firstTakes).toEqual(state.firstTakes)
+   })
+@@ -349,10 +349,12 @@
+       talent: rawPeople.map((person) => ({ ...person, age: Math.floor(person.age) })),
+       talentProvenance: buildTalentProvenance(rawPeople, parsedRaw.state.market.tick as number, 'legacy_age_anchor'),
+       careerLifecycle: expectedCareerLifecycle(parsedRaw.state.market.tick as number, rawPeople),
+-      talentMarket: { ...parsedRaw.state.talentMarket, cases: rawCases } } })
++      talentMarket: { ...parsedRaw.state.talentMarket, cases: rawCases },
++      firstTakeSubjects: { version: 1, cutoverOrdinal: parsedRaw.state.firstTakes.length, facts: [] } } })
+     const addedFieldsLoaded = (promise: typeof loaded.state.promises[number]) => ({ ...promise, supersededByPromiseId: null })
+     const liftedV32 = { ...loaded.state, relationships: [], promises: loaded.state.promises.map(addedFieldsLoaded) }
+-    expect(exportSave(makeSave({ ...liftedV32,
++    const expected38 = validateSaveV38({ saveVersion: 38, seed: liftedV32.seed,
++      state: { ...liftedV32,
+       talent: liftedV32.talent.map((person) => ({ ...person, age: Math.floor(person.age) })),
+       talentProvenance: buildTalentProvenance(liftedV32.talent, liftedV32.market.tick, 'legacy_age_anchor'),
+       // P14C.2a (776 S9): the same additive step `governed` above also carries.
+@@ -360,8 +362,8 @@
+       // P14C.2b: every pre-V36 case defaults to `variant: 'expiry'` (convertV35ToV36's
+       // own rule) — this corpus predates the retirement-extension market entirely, so
+       // every case here always was one, and `governed` above defaulted it the same way.
+-      talentMarket: { ...liftedV32.talentMarket, cases: liftedV32.talentMarket.cases.map((kase) => ({ ...kase, variant: 'expiry' as const })) } })))
+-      .toBe(exportSave(governed))
++      talentMarket: { ...liftedV32.talentMarket, cases: liftedV32.talentMarket.cases.map((kase) => ({ ...kase, variant: 'expiry' as const })) } }, broadcastCache: liftedV32.broadcastItems })
++    expect(exportSave(makeSave(migrateToLive(expected38).state))).toBe(exportSave(governed))
+     expect(loaded.state.promises).toEqual(save.state.promises)
+     expect(loaded.state.talentMarket).toEqual(save.state.talentMarket)
+     const writer = loaded.state.talent.find((p) => p.id === focused.beneficiaryPersonId)!
+@@ -394,6 +396,6 @@
+       contractId: null, outcome: null, feasibilityReceipt: fresh })
+     expect(JSON.stringify(attached.promises.slice(0, state.promises.length))).toBe(originalRoots)
+     expect(attached.talent.find((p) => p.id === old.beneficiaryPersonId)!.role).toBe('writer')
+-    expect(validateSaveV38(importSave(exportSave(makeSave(attached)))).state.promises).toEqual(attached.promises)
++    expect(validateSaveV40(importSave(exportSave(makeSave(attached)))).state.promises).toEqual(attached.promises)
+   })
+ })
+diff --git a/tests/p14c2a-save-and-settlement.test.ts b/tests/p14c2a-save-and-settlement.test.ts
+--- a/tests/p14c2a-save-and-settlement.test.ts
++++ b/tests/p14c2a-save-and-settlement.test.ts
+@@ -25,7 +25,7 @@
+   // RED-by-design (776 S6): none of these five exist in src/core/save.ts today.
+   validateSaveV34, convertV33ToV34, convertV34ToV33, migrateToV34, migrateToLive,
+   // P14C.2b: the live validator now (G5 alone drives a real tick()/makeSave round trip).
+-  validateSaveV37, validateSaveV38,
++  validateSaveV37, validateSaveV40,
+ } from '../src/core/save.js'
+ import type { GameState, GameStateV34, GameStateV37 } from '../src/core/types.js'
+ import {
+@@ -343,7 +343,7 @@
+     const state = migrateToLive(validateSaveV37({ saveVersion: 37, seed: historical.seed,
+       state: historical, broadcastCache: historical.broadcastItems })).state
+     const continuous = tick(tick(state))
+-    const reloaded = validateSaveV38(JSON.parse(JSON.stringify(makeSave(state)))).state
++    const reloaded = validateSaveV40(JSON.parse(JSON.stringify(makeSave(state)))).state
+     const viaSaveLoad = tick(tick(reloaded))
+     expect(JSON.stringify(viaSaveLoad)).toBe(JSON.stringify(continuous))
+   })
+diff --git a/tests/p14c2rm-writer-continuation.test.ts b/tests/p14c2rm-writer-continuation.test.ts
+--- a/tests/p14c2rm-writer-continuation.test.ts
++++ b/tests/p14c2rm-writer-continuation.test.ts
+@@ -9,8 +9,8 @@
+ import { availableDevelopmentCastingSlots } from '../src/core/scriptDevelopment.js'
+ import { studioCalendar } from '../src/core/studioCalendar.js'
+ import { tick } from '../src/core/tick.js'
+-import { convertV37ToV36, convertV38ToV37, convertV39ToV38, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,
+-  validateSaveV36, validateSaveV38 } from '../src/core/save.js'
++import { convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,
++  validateSaveV36, validateSaveV40 } from '../src/core/save.js'
+ import type { GameState, RetirementRecordV36, ScriptProject } from '../src/core/types.js'
+ import { c2Fixture } from './helpers/p14c2a-fixtures.js'
+ import { addPerson, admitted, advanceTo, bytes, finishingWriter, historicalWriterPair, owner } from './helpers/p14c2rm-fixtures.js'
+@@ -60,7 +60,7 @@
+     const reopened = readBack(f.finishing)
+     // Persistence has always canonicalized JSON -0 to 0. Validate the actual
+     // reopened object and compare authoritative canonical bytes across storage.
+-    expect(validateSaveV38(envelope(reopened)).state).toBe(reopened)
++    expect(validateSaveV40(envelope(reopened)).state).toBe(reopened)
+     expect(stableStringify(reopened)).toBe(before)
+     expect(stableStringify(f.finishing)).toBe(before)
+   })
+@@ -197,7 +197,7 @@
+ describe('880-B live allowance stays narrowly scoped', () => {
+   it.each(invalidCases)('refuses $name without altering caller bytes', ({ corrupt }) => {
+     const f = finishingWriter(), state = corrupt(f.finishing, f.writerId), input = envelope(state), before = stableStringify(input)
+-    expect(() => validateSaveV38(input)).toThrow()
++    expect(() => validateSaveV40(input)).toThrow()
+     expect(stableStringify(input)).toBe(before)
+   })
+ 
+@@ -211,7 +211,7 @@
+     // branch, so it cannot borrow retirement to become lawful here.
+     const illegal = { ...terminated, concepts: f.commissioned.concepts, scriptDevelopment: f.commissioned.scriptDevelopment,
+       originalScreenplays: f.commissioned.originalScreenplays }
+-    expect(() => validateSaveV38(envelope(illegal))).toThrow()
++    expect(() => validateSaveV40(envelope(illegal))).toThrow()
+     expect(() => applyActions(terminated, [originalCommission(f.writerId)])).toThrow()
+   })
+ 
+@@ -220,8 +220,8 @@
+     const input = envelope({ ...f.finishing, scriptDevelopment: { ...f.finishing.scriptDevelopment,
+       projects: f.finishing.scriptDevelopment.projects.map(row => ({ ...row, retirementBypass: true })),
+     } })
+-    expect(() => validateSaveV38(input)).toThrow()
+-    expect(() => validateSaveV38({ ...envelope(f.finishing), retirementBypass: true })).toThrow()
++    expect(() => validateSaveV40(input)).toThrow()
++    expect(() => validateSaveV40({ ...envelope(f.finishing), retirementBypass: true })).toThrow()
+   })
+ 
+   it('frozen public V36 stays strict, and an exceptional current save cannot silently downgrade', () => {
+@@ -233,7 +233,7 @@
+     expect(convertV37ToV36(old.commissioned).saveVersion).toBe(36)
+     expect(() => convertV37ToV36(old.finishing)).toThrow(/not contracted/i)
+     const current = makeSave(f.finishing), before = stableStringify(current)
+-    expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(current)))).toThrow()
++    expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(current))))).toThrow()
+     expect(stableStringify(current)).toBe(before)
+   })
+ 
+@@ -256,8 +256,8 @@
+       records: f.finishing.careerLifecycle.records.filter(row => row.personId !== f.writerId) } })
+     const legalBefore = stableStringify(legal), illegalBefore = stableStringify(illegal)
+     for (let round = 0; round < 2; round++) {
+-      expect(() => validateSaveV38(legal)).not.toThrow()
+-      expect(() => validateSaveV38(illegal)).toThrow()
++      expect(() => validateSaveV40(legal)).not.toThrow()
++      expect(() => validateSaveV40(illegal)).toThrow()
+       expect(() => validateSaveV36({ ...historicalWriterPair().finishing, saveVersion: 36 })).toThrow(/not contracted/i)
+     }
+     expect(stableStringify(legal)).toBe(legalBefore)
+@@ -323,7 +323,7 @@
+       // The unmodified real state and this same live entrypoint are admissible.
+       expect(() => caller.run(f.state, f.youngId)).not.toThrow()
+       const invalid = corrupt(f.state, f.retiringId), before = structuredClone(invalid)
+-      expect(() => validateSaveV38(envelope(invalid)), 'existing full-save refusal is a control').toThrow()
++      expect(() => validateSaveV40(envelope(invalid)), 'existing full-save refusal is a control').toThrow()
+       expect(() => caller.run(invalid, f.youngId), 'live permission must also reject malformed authority').toThrow()
+       // Compare in memory so NaN and signed zero are not hidden by JSON encoding.
+       expect(invalid).toEqual(before)
+diff --git a/tests/p14c3-cohort-transition.test.ts b/tests/p14c3-cohort-transition.test.ts
+--- a/tests/p14c3-cohort-transition.test.ts
++++ b/tests/p14c3-cohort-transition.test.ts
+@@ -6,7 +6,7 @@
+ import { activeContract, busyTalentIds } from '../src/core/employment.js'
+ import { professionAtWeek, transitionInputsFor } from '../src/core/index.js'
+ import { validateProfessionHistory } from '../src/core/professionHistory.js'
+-import { convertV38ToV37, convertV39ToV38, exportSave, makeSave, stableStringify, validateSaveV35, validateSaveV37, validateSaveV38 } from '../src/core/save.js'
++import { convertV38ToV37, convertV39ToV38, convertV40ToV39, exportSave, makeSave, stableStringify, validateSaveV35, validateSaveV37, validateSaveV40 } from '../src/core/save.js'
+ import { caseForTalent, playerOffer, proposalDraft } from '../src/core/talentMarket.js'
+ import { careerIdentity, expectedPotentialTier, roleTier } from '../src/core/talentSummary.js'
+ import { TUNING } from '../src/core/tuning.js'
+@@ -270,15 +270,15 @@
+     expect(professionAtWeek(state, id, 3283)).toBe('director')
+     preserveOrigin(state)
+     const control = makeSave(state), controlBytes = stableStringify(control), malformed = clone(control)
+-    expect(validateSaveV38(control)).toBe(control)
++    expect(validateSaveV40(control)).toBe(control)
+     const amended = malformed.state.careerLifecycle.cohorts.map(row => row.week !== 832 ? row
+       : { ...row, requested: { actor: 0, director: 1, writer: 0, craft: 0 } })
+     Object.defineProperty(malformed.state.careerLifecycle, 'cohorts', { value: amended, enumerable: true, configurable: true, writable: true })
+     expect(validateProfessionHistory({ ...malformed.state }).originalProfession(id)).toBe('actor')
+-    expect(() => validateSaveV38(malformed)).toThrow(/cohort receipt.*week 832.*as a director entrant.*original profession disagrees/)
++    expect(() => validateSaveV40(malformed)).toThrow(/cohort receipt.*week 832.*as a director entrant.*original profession disagrees/)
+     expect(stableStringify(control)).toBe(controlBytes)
+-    expect(validateSaveV38(control)).toBe(control)
+-    expect(() => convertV38ToV37(convertV39ToV38(control))).toThrow(/cannot downgrade or discard profession transition, industry retirement or entrant authority/)
++    expect(validateSaveV40(control)).toBe(control)
++    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(control)))).toThrow(/cannot downgrade or discard profession transition, industry retirement or entrant authority/)
+     const origin = cohortSetup()
+     expect(validateSaveV35(origin.old)).toBe(origin.old); expect(validateSaveV37(origin.old37)).toBe(origin.old37)
+   })
+diff --git a/tests/p14c3-dual-extensions.test.ts b/tests/p14c3-dual-extensions.test.ts
+--- a/tests/p14c3-dual-extensions.test.ts
++++ b/tests/p14c3-dual-extensions.test.ts
+@@ -5,7 +5,7 @@
+ import { extensionIssuer, retirementRecordFor } from '../src/core/careerLifecycle.js'
+ import { activeContract } from '../src/core/employment.js'
+ import { professionAtWeek } from '../src/core/index.js'
+-import { convertV38ToV37, convertV39ToV38, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
++import { convertV38ToV37, convertV39ToV38, convertV40ToV39, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
+ import { marketEligibility, openMarketCaseFor, playerOffer, submitProposal } from '../src/core/talentMarket.js'
+ import { careerIdentity } from '../src/core/talentSummary.js'
+ import { TUNING } from '../src/core/tuning.js'
+@@ -169,7 +169,7 @@
+     expect(exportSave(makeSave(loaded))).toBe(raw)
+     expect(loaded.talentMarket.cases.filter(row => row.talentId === id)).toEqual(state.talentMarket.cases.filter(row => row.talentId === id))
+     expect(loaded.careerLifecycle).toEqual(state.careerLifecycle)
+-    expect(() => convertV38ToV37(convertV39ToV38(saved))).toThrow(/cannot downgrade or discard profession transition, industry retirement or entrant authority/)
++    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(saved)))).toThrow(/cannot downgrade or discard profession transition, industry retirement or entrant authority/)
+     accepted(loaded)
+   })
+ 
+diff --git a/tests/p14c3-force-order.test.ts b/tests/p14c3-force-order.test.ts
+--- a/tests/p14c3-force-order.test.ts
++++ b/tests/p14c3-force-order.test.ts
+@@ -10,7 +10,7 @@
+ import { resolveReception } from '../src/core/reception.js'
+ import type { ReceptionInputs } from '../src/core/reception.js'
+ import { RngStream } from '../src/core/rng.js'
+-import { exportSave, importSave, makeSave, stableStringify, validateSaveV38 } from '../src/core/save.js'
++import { exportSave, importSave, makeSave, migrateToLive, LIVE_SAVE_VERSION, stableStringify, validateSaveV38 } from '../src/core/save.js'
+ import { tick } from '../src/core/tick.js'
+ import type { Action, CulturalForce, GameState } from '../src/core/types.js'
+ import { FORCE_ORDER } from '../src/core/worldgen.js'
+@@ -156,7 +156,7 @@
+ }
+ function authority(state: GameState) {
+   const save = makeSave(state)
+-  expect(save.saveVersion).toBe(38)
++  expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
+   return exportSave(save)
+ }
+ type Boundary = { phase: string; week: number; save: string; roots: Record<string, string> }
+@@ -214,11 +214,15 @@
+   const cached = routes.get(kind); if (cached !== undefined) return cached
+   try {
+     const f = fixture()
+-    let state = validateSaveV38(importSave(f.raw)).state
++    const historical = validateSaveV38(importSave(f.raw))
++    expect(exportSave(historical)).toBe(f.raw)
++    const migrated = migrateToLive(historical)
++    const initialCurrentBytes = exportSave(migrated)
++    let state = migrated.state
+     if (kind === 'canonical-reconstruction') state = { ...state, market: { ...state.market,
+       forces: Object.fromEntries(ORDER.map(key => [key, state.market.forces[key]])) as Record<CulturalForce, number> } }
+     expect(Object.keys(state.market.forces)).toEqual(kind === 'actual-import' ? SORTED : ORDER)
+-    expect(authority(state)).toBe(f.raw)
++    expect(authority(state)).toBe(initialCurrentBytes)
+     const boundaries = [boundary(state, 'initial1300')]
+     let ticks = 0, commands = 0
+     while (state.market.tick < 1312) {
+diff --git a/tests/p14c3-offmenu-extensions.test.ts b/tests/p14c3-offmenu-extensions.test.ts
+--- a/tests/p14c3-offmenu-extensions.test.ts
++++ b/tests/p14c3-offmenu-extensions.test.ts
+@@ -7,7 +7,7 @@
+ import { professionAtWeek } from '../src/core/index.js'
+ import { trustDescriptor, trustDrivers } from '../src/core/promises.js'
+ import { tiersOnRoster } from '../src/core/relationships.js'
+-import { convertV38ToV37, convertV39ToV38, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
++import { convertV38ToV37, convertV39ToV38, convertV40ToV39, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
+ import { caseForTalent, marketEligibility, openMarketCaseFor, playerOffer, proposalDraft, releaseFloor, studioOffer, submitProposal } from '../src/core/talentMarket.js'
+ import { TUNING } from '../src/core/tuning.js'
+ import type { GameState } from '../src/core/types.js'
+@@ -226,7 +226,7 @@
+     expect(carryingEmployment(loaded, id, 410, 468)).toEqual(employment)
+     expect(professionAtWeek(loaded, id, extensionCase(loaded, id, 196).openedWeek)).toBe('actor')
+     expect(professionAtWeek(loaded, id, extensionCase(loaded, id, 404).openedWeek)).toBe(target)
+-    expect(() => convertV38ToV37(convertV39ToV38(saved))).toThrow(/cannot downgrade or discard profession transition, industry retirement or entrant authority/)
++    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(saved)))).toThrow(/cannot downgrade or discard profession transition, industry retirement or entrant authority/)
+     accepted(loaded)
+     observed[target] = { ...observed[target], term: contract.termWeeks, decision: contract.startWeek, end: contract.endWeekExclusive }
+   })
+diff --git a/tests/p14c3-profession-history.test.ts b/tests/p14c3-profession-history.test.ts
+--- a/tests/p14c3-profession-history.test.ts
++++ b/tests/p14c3-profession-history.test.ts
+@@ -109,7 +109,7 @@
+     expect(f.state.hollywood!.employment.filter(row => row.terms.talentId === f.id)).toEqual([])
+     expect(f.state.talentProvenance.rows.find(row => row.personId === f.id)).toMatchObject({ ageAtEntry: 30 })
+     expect(save.exportSave(save.makeSave(f.loaded))).toBe(save.exportSave(save.makeSave(f.state)))
+-    expect(() => save.convertV38ToV37(save.convertV39ToV38(save.makeSave(f.state)))).toThrow(/entrant authority|profession transition/)
++    expect(() => save.convertV38ToV37(save.convertV39ToV38(save.convertV40ToV39(save.makeSave(f.state))))).toThrow(/entrant authority|profession transition/)
+     expect(save.stableStringify(f.before)).toBe(beforeBytes)
+   })
+ 
+diff --git a/tests/p14c3-promise-digest-continuity.test.ts b/tests/p14c3-promise-digest-continuity.test.ts
+--- a/tests/p14c3-promise-digest-continuity.test.ts
++++ b/tests/p14c3-promise-digest-continuity.test.ts
+@@ -11,7 +11,7 @@
+ import { applyActions } from '../src/core/actions.js'
+ import { activeContract } from '../src/core/employment.js'
+ import { promiseFeasibility, type PromiseDraft } from '../src/core/promises.js'
+-import { convertV38ToV37, convertV39ToV38, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV37 } from '../src/core/save.js'
++import { convertV38ToV37, convertV39ToV38, convertV40ToV39, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify, validateSaveV37 } from '../src/core/save.js'
+ import { tick } from '../src/core/tick.js'
+ import { TUNING } from '../src/core/tuning.js'
+ import type { CreativeRole, GameState } from '../src/core/types.js'
+@@ -215,7 +215,7 @@
+     expect(live.firstTakes).toEqual(original.state.firstTakes)
+     expect(live.hollywood!.careerEvents).toEqual(original.state.hollywood!.careerEvents)
+     const current = makeSave(live)
+-    expect(current.saveVersion).toBe(38)
++    expect(current.saveVersion).toBe(LIVE_SAVE_VERSION)
+     expect(current.state.careerLifecycle.transitionBoundaryWeek).toBe(original.state.market.tick)
+     expect(current.state.careerLifecycle.professionAnchors).toEqual(original.state.talent.map(person => ({
+       personId: person.id, profession: person.role, recordedWeek: original.state.market.tick, kind: 'existing',
+@@ -223,7 +223,7 @@
+     expect(current.state.careerLifecycle.transitionEvaluations).toEqual([])
+     expect(current.state.careerLifecycle.professionChanges).toEqual([])
+     expect(current.state.careerLifecycle.industryRetirements).toEqual([])
+-    expect(exportSave(convertV38ToV37(convertV39ToV38(current)))).toBe(raw)
++    expect(exportSave(convertV38ToV37(convertV39ToV38(convertV40ToV39(current))))).toBe(raw)
+     expect(artifact(filename)).toBe(raw)
+   })
+ })
+diff --git a/tests/p14c4-save-v35.test.ts b/tests/p14c4-save-v35.test.ts
+--- a/tests/p14c4-save-v35.test.ts
++++ b/tests/p14c4-save-v35.test.ts
+@@ -30,7 +30,7 @@
+ //    merely that it says "downgrade".
+ import { describe, expect, it } from 'vitest'
+ import {
+-  LIVE_SAVE_VERSION, convertV34ToV35, convertV35ToV34, makeSave, migrateToV35, validateSaveV35, validateSaveV38,
++  LIVE_SAVE_VERSION, convertV34ToV35, convertV35ToV34, makeSave, migrateToV35, validateSaveV35, validateSaveV40,
+ } from '../src/core/save.js'
+ import type { CohortReceipt, GameStateV37 } from '../src/core/types.js'
+ import { recomputeDue } from '../src/core/aging.js'
+@@ -274,8 +274,8 @@
+     // P14C.2b: reload at the LIVE (V36) boundary, not the frozen V35 one `liveEnvelope`
+     // now targets (helpers/p14c4-fixtures.ts) — continuing to tick needs every V36 key
+     // `readExtensionUsed` requires, which the V35-stripped shape no longer carries.
+-    const savedLive = validateSaveV38({ saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems })
+-    const reloaded = validateSaveV38(JSON.parse(JSON.stringify(savedLive)))
++    const savedLive = validateSaveV40({ saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems })
++    const reloaded = validateSaveV40(JSON.parse(JSON.stringify(savedLive)))
+     const viaSaveLoad = advanceTo(reloaded.state, 156)
+     expect(JSON.stringify(viaSaveLoad)).toBe(JSON.stringify(continuous))
+   })
+diff --git a/tests/save.test.ts b/tests/save.test.ts
+--- a/tests/save.test.ts
++++ b/tests/save.test.ts
+@@ -18,7 +18,7 @@
+ 
+ import { describe, it, expect } from "vitest";
+ import {
+-  makeSave,
++  makeSave, migrateToLive, validateSaveV38,
+   makeSaveV14,
+   makeSaveV15,
+   loadSave,
+@@ -32,12 +32,12 @@
+   migrateToV15,
+   convertV14ToV15,
+   convertV38ToV37,
+-  convertV39ToV38,
++  convertV39ToV38, convertV40ToV39,
+   initialReleaseAuthority,
+   initialStudioHistory,
+ } from "../src/core/index.js";
+ import type {
+-  GameState,
++  GameState, GameStateV38,
+   BroadcastItem,
+   Talent,
+   FilmConcept,
+@@ -138,7 +138,7 @@
+ // Build a fresh, well-formed GameState. `broadcastItems` and `broadcastCache`
+ // must be equal (M14), so both draw from the same source array.
+ function makeState(broadcastItems: BroadcastItem[]): GameState {
+-  return {
++  const historical: GameStateV38 = {
+     seed: SEED,
+     rngState: "123456789,2345678901,3456789012,987654321",
+     market: {
+@@ -236,6 +236,7 @@
+           // nobody entered either; `initialCareerLifecycle` opens both empty.
+           careerLifecycle: initialCareerLifecycle(8, [talent]),
+   };
++  return migrateToLive(validateSaveV38({ saveVersion: 38, seed: historical.seed, state: historical, broadcastCache: historical.broadcastItems })).state;
+ }
+ 
+ // A well-formed save: envelope seed === state.seed, broadcastCache === broadcastItems.
+@@ -366,7 +367,7 @@
+     // tests/contracts/_v14Contract.ts's `projectToV13State` already uses).
+     // C.3: the real guarded downgrade proves no profession history is lost
+     // BEFORE this explicitly historical fixture omits V25 workflow fields.
+-    const historical = convertV38ToV37(convertV39ToV38(makeSave(cancelled))).state;
++    const historical = convertV38ToV37(convertV39ToV38(convertV40ToV39(makeSave(cancelled)))).state;
+     const strippedForV15 = {
+       ...historical,
+       operations: {
+@@ -415,7 +416,7 @@
+ 
+     // Validate and genuinely downgrade before making the historical omission;
+     // malformed Save38 must never bypass its complete-state guard.
+-    const historical = convertV38ToV37(convertV39ToV38(makeSave(cancelled))).state;
++    const historical = convertV38ToV37(convertV39ToV38(convertV40ToV39(makeSave(cancelled)))).state;
+     const v14Rows = historical.studioEvents.rows.map((row) => {
+       if (row.kind !== "queueIntentExpired") return row;
+       const { subjectId: _subjectId, ...rest } = row;

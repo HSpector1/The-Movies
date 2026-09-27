@@ -1,0 +1,254 @@
+{
+  "kind": "1232-p4p5-binding-cast-source-stage",
+  "version": 1,
+  "status": "unapplied-source-only",
+  "preparationHead": "46122f5d53d977ad249d17ead1f4d881779f91b0",
+  "target": "tests/p14p4p5-opportunities.test.ts",
+  "preimage": {
+    "path": "tests/p14p4p5-opportunities.test.ts",
+    "bytes": 21703,
+    "sha256": "73a358bafa523282e24abbac64748877eda4a4cdc934a40783a665c791e26005"
+  },
+  "immutableBase": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-d-syntax-stage/tests/p14p4p5-opportunities.test.ts",
+    "bytes": 21703,
+    "sha256": "73a358bafa523282e24abbac64748877eda4a4cdc934a40783a665c791e26005"
+  },
+  "postimage": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1232-p4p5-stage/tests/p14p4p5-opportunities.test.ts",
+    "bytes": 46682,
+    "sha256": "067915dc62457a5b3554cedeb2f58ce31c968c0402688ac92dbf16605e55a3c7"
+  },
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1232-p4p5-binding-tests.patch",
+    "bytes": 27707,
+    "sha256": "3d76aeca932195de5907dde292f265f05b81e33464bc101aefbe3bc798d48a35"
+  },
+  "sourceOwnership": "Only this staged test postimage; parent production candidate is independently owned and moving. Execution must record its own final consumed-source identity.",
+  "guards": {
+    "oldFourBodies": {
+      "bytes": 12303,
+      "sha256": "9b620f60b2f88d99227cf9b60f5b694b464dbb441548d5a3ce2bb9dc3d911327"
+    },
+    "bodySlice": "from original describe declaration through original final LF inclusive",
+    "allFourBodiesExact": true,
+    "completeOriginalSourceReconstruction": true,
+    "mechanicalChanges": [
+      "integration header",
+      "one existing public promise-owner namespace import and existing type imports",
+      "reviewed named-route tick guard/marker",
+      "append after original final LF"
+    ],
+    "helperImported": false,
+    "fixtureOrExistingHelperEdits": false
+  },
+  "declarations": [
+    "Q01 quotes one Ready genre opportunity with explicit cast class and no spare-event buffer",
+    "Q02 quotes only the exact existing Ready project and retains singular physical versus slack causes",
+    "Q03 attaches exact selected material terms and refuses classless or cross-family fresh authority",
+    "Q04 migrates genuine39 to an exact empty subject suffix and preserves outgoing Director authority",
+    "Q05 binds the selected genre and records one actual cast take through release and cancellation",
+    "Q06 binds the exact screenplay and distinguishes its cast take from a real wrong-seat greenlight"
+  ],
+  "leafTimeoutMs": 60000,
+  "selection": {
+    "runtime": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p4p5-opportunities.test.ts",
+      "-t",
+      "Q0[56] "
+    ],
+    "selected": 2,
+    "filtered": 4,
+    "compiler": [
+      "node_modules/.bin/tsc",
+      "--noEmit",
+      "-p",
+      "tsconfig.json"
+    ]
+  },
+  "counterPlan": {
+    "outsideNamedRoutesHardCap": 0,
+    "routes": {
+      "Q05": {
+        "binding": 7,
+        "workflowMaximum": 40,
+        "maximum": 47
+      },
+      "Q06": {
+        "binding": 7,
+        "workflowMaximum": 40,
+        "maximum": 47
+      }
+    },
+    "aggregateMaximum": 94,
+    "reserveBeforeInvoke": true,
+    "attemptedInvokedCompletedSeparate": true,
+    "successAndFirstFailureCaches": true,
+    "additionalDetachedAdvances": 0,
+    "publicMutationCallsOnCompleteRoutes": {
+      "Q05": 9,
+      "Q06": 10
+    },
+    "additionalIdempotentAppendOwnerInvocations": {
+      "Q05": 1,
+      "Q06": 1
+    },
+    "mutations": [
+      "submitProposal",
+      "attachPromise",
+      "greenlightScriptProject",
+      "setProductionSetupRecipe",
+      "assignShootingDirector",
+      "scheduleShootingTake",
+      "commitPictureToRelease",
+      "cancel pre-take",
+      "cancel post-take",
+      "Q06 only: detached wrong-seat greenlightScriptProject"
+    ],
+    "allCallsLogged": "publicOperations includes direct append-owner calls separately by kind; pure quotes/pricing and ordinary engine effects are not counted as public mutation calls"
+  },
+  "authority": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1232-A-p4p5-binding-cast-route-proposal.md",
+      "bytes": 8837,
+      "sha256": "b18f7b347879e59a599bc73469be5e72999a67e4e12e4bee1d8fc4adfdb8dd00"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1232-B-p4p5-binding-cast-plan-review.md",
+      "bytes": 4563,
+      "sha256": "ce3ac90d63deea5b2e283440d1b40c18f301c18ab8a0544b4936efc0eeafdda4"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1225-A-p4p5-concrete-contract-candidate.md",
+      "bytes": 11137,
+      "sha256": "13e09d9650970c50590fcacba05380fedeaad474c78e8cf0236fbb69b6773c93"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1225-B-p4p5-concrete-contract-review.md",
+      "bytes": 6254,
+      "sha256": "99cd64b99cefbadb9c81faa06240526490788fbd5654592d14c21edcbd8dd7bb"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1225-C-p4p5-contract-refinements.md",
+      "bytes": 9541,
+      "sha256": "7cdb5961901f8185ffeca096732c38c51c5a2b7875a65b65249c5094992624c2"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1225-D-p4p5-refined-contract-review.md",
+      "bytes": 4408,
+      "sha256": "ba78d2a66a485fd5dffe3f2c7e04628db8d506db5ce55e4102f25ad00468906b"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1225-E-parent-contract-adoption.md",
+      "bytes": 2421,
+      "sha256": "4831b2daaaef568576d3f54d3d602146715bbfe53fbc4240c88ba583f4026cb5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1225-F-assignment-owner-clarifications.md",
+      "bytes": 2460,
+      "sha256": "242a780dc92ee428b29bb62a56bc36dc83c80329b021804692b7828c9f1e0940"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1226-A-p4p5-initial-test-requirements.md",
+      "bytes": 13965,
+      "sha256": "b402b10beb7f31cc01bc866e7fa1aae680fca48abe1f96c1e2801f18dd024fa9"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-D-p4p5-test-syntax-correction.md",
+      "bytes": 2646,
+      "sha256": "84626eb03dd948156558a6c713fdcc55057585c8858719c06643cc2ea837db7f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1227-E-p4p5-syntax-correction-review.md",
+      "bytes": 2822,
+      "sha256": "e010f0b50400fd4a2897f9bf93b014b85a19d230c1221b01c6312cd89ba7d13c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1230-A-p4p5-initial-attribution.md",
+      "bytes": 2018,
+      "sha256": "1493e74676b8ed940c0496930fcbe02d5b67a9320a406e2e31ec1f47f026f18f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1230-B-p4p5-initial-result-review.md",
+      "bytes": 4854,
+      "sha256": "12956deeec77cc16d26eacb00a48869f4b26c5d4168a9fcdfc9428064583b9ef"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1230-legacy46-baseline.txt",
+      "bytes": 1226,
+      "sha256": "36921548246e8ec4cc2241353cf62fa1e9868cc037a62e2a8a1a0bf26cc35342"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json",
+      "bytes": 11550,
+      "sha256": "a261fc3177527d05d5a8daf624de7af015df8c9a8fedd3e11b37fe1597a2f4b6"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/genuine-v39-p3-market-week45.json.gz",
+      "bytes": 86995,
+      "sha256": "12799a849b0b4aff49cd9707ea8c1b87c64b4e787ff261b2e9cf4b109a953117",
+      "raw": {
+        "bytes": 751294,
+        "sha256": "e7401f2578a7ad151383ca905df4253c2bbd82d6823c406c28b7e76aa809c5af"
+      }
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/MANIFEST.json",
+      "bytes": 21306,
+      "sha256": "02115df5d6e7d4c33284b9a439a7c79601e1b2e807f4fa96c20149f5c84186f3"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/director-bound-week52.json.gz",
+      "bytes": 93047,
+      "sha256": "b894a85ffad37378f93dc8a8e83bad926ab7a1bb857dd76e9b9926b520fec6e1",
+      "raw": {
+        "bytes": 811917,
+        "sha256": "eae34cd10d457ad551028f3d0a160a55a74d5153b73653b257dc89a4338b040b"
+      }
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/director-earned-week61.json.gz",
+      "bytes": 101049,
+      "sha256": "97a1a96c32f0abe290a798734b322611e0be1f5a1c29461753c1d0b50feeceeb",
+      "raw": {
+        "bytes": 881829,
+        "sha256": "94558001e85aef5f46d709c07397dedda296416fe86e4f7482caeee88470cace"
+      }
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/director-satisfied-week78.json.gz",
+      "bytes": 114159,
+      "sha256": "788fdd550d240751c0ca4d89991b7dfd925495341f19b6e09c30d6efd8520e29",
+      "raw": {
+        "bytes": 1007748,
+        "sha256": "d0ce6b5427f2ca880214024019798e3372123e8148f542a6e22578b11c18ee80"
+      }
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/director-canceled-work-week61.json.gz",
+      "bytes": 99923,
+      "sha256": "c6492f5660b2e8fb20d48c6f054566b25f47500512d2b9ff87a8a6ebb46788b6",
+      "raw": {
+        "bytes": 877528,
+        "sha256": "8ebb7ca8758c79c8ada73889d24ecc4038e1e3b0edf5bd77c56c723cffee290d"
+      }
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/director-waived-week61.json.gz",
+      "bytes": 101260,
+      "sha256": "95ca93ba0a0f16b1c11ad34960a9617217685a681e8ad27ebf896e75f1debb0e",
+      "raw": {
+        "bytes": 882749,
+        "sha256": "ad25e44bde2ec18bef17a37a252de4ee9323dd0d7b50dbdaf424be50a5d9abce"
+      }
+    }
+  ],
+  "runtimeExecuted": false,
+  "compilerExecuted": false
+}

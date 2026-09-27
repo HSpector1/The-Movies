@@ -1,0 +1,12 @@
+{
+  "time": "2026-09-27T19:26:49.572726+00:00",
+  "source": {
+    "path": "src/core/opportunityPromises.ts",
+    "bytes": 21633,
+    "sha256": "08962558766b595fdfca4dcb631fbfde4ce9e3509f89a75c33f2a97d313154ea"
+  },
+  "reviewer": "/root/c2rm_contract_review",
+  "disposition": "source KEEP",
+  "scope": "Failed-path cause attribution only; null/non-null and capped/uncapped outcomes unchanged. Future genre retirement outranks unrelated rejected old project; physically possible but late candidate reports timing.",
+  "qualification": "No runtime claim"
+}

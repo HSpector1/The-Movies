@@ -1,0 +1,649 @@
+{
+  "kind": "1235-observed-test-compatibility-stage",
+  "status": "unapplied-source-only",
+  "preparationHead": "df4f22bb0acc88679bbd7f005a08e174e5065cab",
+  "actualCompiler": {
+    "record": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1233-core-draft-root-types.json",
+      "bytes": 634,
+      "sha256": "e82091a1d94c3ef4eea3739d079e5a68ebce1d73c68ac7654962cec9f30d6b3e"
+    },
+    "raw": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1233-core-draft-root-types.txt",
+      "bytes": 22049,
+      "sha256": "d599790622466cbf9f40c5e7b6d788c500ead78998817c5187c8bd4f2bfd4ac2"
+    },
+    "postflight": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1233-core-draft-postflight.json",
+      "bytes": 12505,
+      "sha256": "8cc58371fa2057efad71bc61b7fbc22a4d826cf5ac6e03393d0b2991f6bafb65"
+    },
+    "sourceSha": "ef38cf9a24b56dc9b462eeecdab05e4c4a4a0730",
+    "fixedSource": true,
+    "exitCode": 2,
+    "allDiagnosticCount": 43,
+    "testDiagnosticCount": 39,
+    "testPathCount": 25,
+    "parentOwnedDiagnostics": {
+      "src/core/opportunityPromises.ts": [
+        {
+          "line": 75,
+          "column": 44,
+          "code": "TS2379"
+        },
+        {
+          "line": 108,
+          "column": 57,
+          "code": "TS2379"
+        }
+      ],
+      "src/core/save.ts": [
+        {
+          "line": 10335,
+          "column": 55,
+          "code": "TS2379"
+        }
+      ],
+      "src/harness/roster-wall/historical-control.ts": [
+        {
+          "line": 32,
+          "column": 3,
+          "code": "TS2375"
+        }
+      ]
+    }
+  },
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility.patch",
+    "bytes": 53344,
+    "sha256": "31e4a909be8e224d8edfbca789cdfc67d9d6c2aa9422d21106f7bab41c72210b"
+  },
+  "files": [
+    {
+      "preimage": {
+        "path": "tests/_historicalCurrent.ts",
+        "bytes": 3551,
+        "sha256": "8b9fb38df5a7ca5ad1c6be7ba45f13adcd157e15a3bdfa62cf353750c38fe448"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/_historicalCurrent.ts",
+        "bytes": 3796,
+        "sha256": "57ee191a677fe4635700d88f3f04ab37121be5c0f953d6a5620778a9fb4140ca"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 19,
+          "column": 3,
+          "code": "TS2375"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/contracts/v14-boundary-guards.contract.test.ts",
+        "bytes": 21391,
+        "sha256": "39f99d2c15dad49996b7d2d3570ff3cd43052a62a65a766f87ed2a7ff6c6af0f"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/contracts/v14-boundary-guards.contract.test.ts",
+        "bytes": 21425,
+        "sha256": "7ee859f97c543f09d41b03dda6decaca5af05a5de6a84f681f5b840b35c7519f"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 63,
+          "column": 52,
+          "code": "TS2345"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/helpers/p14c2b-fixtures.ts",
+        "bytes": 5313,
+        "sha256": "42595c028a8ae6eb7d851200e5f3ca3a31ed1079a5666163f37f5cefbe6ae029"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/helpers/p14c2b-fixtures.ts",
+        "bytes": 5347,
+        "sha256": "6d90d28e940a3c175dd6f7c54c6f680393b07eb9f5ff56fe23a0ab156f562d9b"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 69,
+          "column": 58,
+          "code": "TS2345"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/helpers/p14c2c-fixtures.ts",
+        "bytes": 9259,
+        "sha256": "63975501975b1cd298ac8e3b33d3e40a905ced18cd9ec7c1fe67e24dbf6ff7b5"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/helpers/p14c2c-fixtures.ts",
+        "bytes": 9259,
+        "sha256": "ad3419d2b53188dba6a38d54bdeb626c21230d62b652838452ee23507ba750ec"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 29,
+          "column": 3,
+          "code": "TS2375"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/helpers/p14c2rm-fixtures.ts",
+        "bytes": 19149,
+        "sha256": "aa7f583d553e6c48497da6ee20ae2a27b06a6790cbf7c7c332cf5a0f08833b3e"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/helpers/p14c2rm-fixtures.ts",
+        "bytes": 19149,
+        "sha256": "d031f384ccbdca5aedf445b467e17274201dbf227edbb8cac500157380b8de74"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 24,
+          "column": 3,
+          "code": "TS2375"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/helpers/p14c4-fixtures.ts",
+        "bytes": 15735,
+        "sha256": "376cfce189eb9b5bb711a11ba447bc4ad20bc886e1ebcf4b2d15171afd134cb1"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/helpers/p14c4-fixtures.ts",
+        "bytes": 15769,
+        "sha256": "d7287b315388bd6b7cf1c0e0ad43b5ce57b1ba611cd1fcf7452cadab2ef8a2ef"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 71,
+          "column": 40,
+          "code": "TS2345"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/p06a-w1-release-authority.test.ts",
+        "bytes": 20612,
+        "sha256": "6d8491c52e2470e500c527956975f1e55ba827e7310211c980624ad173a79b92"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/p06a-w1-release-authority.test.ts",
+        "bytes": 20646,
+        "sha256": "bf5760aea07b3a01fd6e4467f8f0c0b5b13d33bf1baa07aa9c9bd60becf14882"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 406,
+          "column": 56,
+          "code": "TS2345"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/p14b1-first-take.test.ts",
+        "bytes": 19720,
+        "sha256": "4d14f80404c3a5aa9330b48026366333430b6a9b0243f56d8e293b3b25a523c9"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/p14b1-first-take.test.ts",
+        "bytes": 19720,
+        "sha256": "0ec9ba7033cc22a3631d252cf30ed824f29f8f91debb57b9facddae1cb6ab8b2"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 301,
+          "column": 36,
+          "code": "TS2379"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/p14b1-t4-regressions.test.ts",
+        "bytes": 19279,
+        "sha256": "daff149fd1e4bcb69d6ba0b2074d182da39050a0642a738b59ba81a076395faf"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/p14b1-t4-regressions.test.ts",
+        "bytes": 19279,
+        "sha256": "84cf701b281ee86f1fac3ab11936d150173e6f63b4a5d4ed44901d7964a873d0"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 168,
+          "column": 33,
+          "code": "TS2379"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/p14b3-reservations.test.ts",
+        "bytes": 12745,
+        "sha256": "500c0a94c43ddaafe22fc390d55d0a88d8fab85cdd72ce0c10db448a3697d994"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/p14b3-reservations.test.ts",
+        "bytes": 12745,
+        "sha256": "c486e9c04211f31ae5990d56242ccbebd7bca6b3cc6bd6a01d86aa9d859c467e"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 96,
+          "column": 17,
+          "code": "TS2379"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/p14b3-rule-revision.test.ts",
+        "bytes": 17589,
+        "sha256": "14b308a2fbb6588ebc0db09fea38efd985036bfc34be56ed77a5d1fd699e7bb7"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/p14b3-rule-revision.test.ts",
+        "bytes": 17872,
+        "sha256": "fec9711ce1dd11467905cb421d59bb10495d40d0b183b9fa9aad353f0e752699"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 160,
+          "column": 32,
+          "code": "TS2379"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/p14b4-material-evidence-core.test.ts",
+        "bytes": 28803,
+        "sha256": "f7f18a25eb01b4be76fe9a24444cc51a9d0fb4c252e439cecb8da42eab8e8c39"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/p14b4-material-evidence-core.test.ts",
+        "bytes": 28833,
+        "sha256": "961b7c0de461394256f24bbc07ff4ad561e56f27baac09b96687d50a85f35dfb"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 147,
+          "column": 44,
+          "code": "TS2379"
+        },
+        {
+          "line": 294,
+          "column": 7,
+          "code": "TS2375"
+        },
+        {
+          "line": 364,
+          "column": 37,
+          "code": "TS2379"
+        },
+        {
+          "line": 409,
+          "column": 27,
+          "code": "TS2379"
+        },
+        {
+          "line": 439,
+          "column": 65,
+          "code": "TS2379"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/p14b4-save-v30-compatibility.test.ts",
+        "bytes": 24990,
+        "sha256": "a4bf17af5e8da91355ab45520a31c0a235db08dc939aa9ff247f1f7181da76a7"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/p14b4-save-v30-compatibility.test.ts",
+        "bytes": 25277,
+        "sha256": "9da53d5d64e9015d9dca158c112232e8229872b98d39d1ce9d55b7ddb028e48a"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 196,
+          "column": 19,
+          "code": "TS2379"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/p14b5-save-v31.test.ts",
+        "bytes": 22983,
+        "sha256": "6bda3bf1ded00eb059f589706410b7cbc17e5dd9d9d5cec36ccf5db96b50201b"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/p14b5-save-v31.test.ts",
+        "bytes": 23013,
+        "sha256": "ee45f64f19282f57da86a408274884f5b5bd1aabc51a59d1b4fd213ac2d34e0d"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 181,
+          "column": 19,
+          "code": "TS2379"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/p14bf2-acting-discipline.test.ts",
+        "bytes": 27398,
+        "sha256": "29bb6eedbe760c3f155e5c2836142f1438a4b8d1279da5670b7ed82c5cb69670"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/p14bf2-acting-discipline.test.ts",
+        "bytes": 27681,
+        "sha256": "9096207e6d2d9d677c4cd73578ed2a25b1c46ea9ff4e48e4e64c05d4e3a7e58b"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 355,
+          "column": 32,
+          "code": "TS2379"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/p14c2a-save-and-settlement.test.ts",
+        "bytes": 25978,
+        "sha256": "5d1ab3ad51af5da0efb6d7dd0228b2933ff25ddea58e4e4786771ce6d9afc6f0"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/p14c2a-save-and-settlement.test.ts",
+        "bytes": 25978,
+        "sha256": "c372e5132eaa4f76f474ae5f5737ca9c3d9133f676552aea631f2de32c2e6bbe"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 347,
+          "column": 35,
+          "code": "TS2379"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/p14c2rm-writer-continuation.test.ts",
+        "bytes": 23153,
+        "sha256": "ceb3a39baf6ccffddc87319d287356d360bda10a4fbfa0a36f96dfa3fcf7c510"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/p14c2rm-writer-continuation.test.ts",
+        "bytes": 23187,
+        "sha256": "04638c5dd1b803ec9325c1c485fe598b1bb2415cc1e61a434449c99c68710d49"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 236,
+          "column": 66,
+          "code": "TS2345"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/p14c3-cohort-transition.test.ts",
+        "bytes": 27098,
+        "sha256": "898075cdd5ad1e612f751fdabe76e1610b42b8b1547ba011baa42522680ad3d2"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/p14c3-cohort-transition.test.ts",
+        "bytes": 27132,
+        "sha256": "0d2110cb662b7a4557a7c7ca3f67698cbf5c7fe4ae8a7be02cc36b79d5328f7c"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 281,
+          "column": 50,
+          "code": "TS2345"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/p14c3-dual-extensions.test.ts",
+        "bytes": 15013,
+        "sha256": "6f7a1b963bbf0f7992c6720ea8dc9f6ba6ddf16863596ca4da5ae8c55cfba0cf"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/p14c3-dual-extensions.test.ts",
+        "bytes": 15047,
+        "sha256": "bc210a62991cec1768465bbc87c5ec3e6ce7e4ee989dd6cf54169487c0462c87"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 172,
+          "column": 50,
+          "code": "TS2345"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/p14c3-force-order.test.ts",
+        "bytes": 17550,
+        "sha256": "baff4328fec99d7ed5c59072ea01172e733b6a46bb56be30d1952999e11b63c6"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/p14c3-force-order.test.ts",
+        "bytes": 17792,
+        "sha256": "74c6d458d11ebf7f12fca91c76dfcb1af181122654112150e2cf5962e5a65d54"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 221,
+          "column": 22,
+          "code": "TS2379"
+        },
+        {
+          "line": 222,
+          "column": 34,
+          "code": "TS2379"
+        },
+        {
+          "line": 228,
+          "column": 30,
+          "code": "TS2379"
+        },
+        {
+          "line": 231,
+          "column": 34,
+          "code": "TS2379"
+        },
+        {
+          "line": 236,
+          "column": 20,
+          "code": "TS2379"
+        },
+        {
+          "line": 239,
+          "column": 32,
+          "code": "TS2379"
+        },
+        {
+          "line": 242,
+          "column": 51,
+          "code": "TS2379"
+        },
+        {
+          "line": 243,
+          "column": 22,
+          "code": "TS2345"
+        },
+        {
+          "line": 246,
+          "column": 5,
+          "code": "TS2322"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/p14c3-offmenu-extensions.test.ts",
+        "bytes": 20595,
+        "sha256": "482a2f1cdc43e945c042d86461631a633c8a146ebfe910ed7c1609cc134ee7db"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/p14c3-offmenu-extensions.test.ts",
+        "bytes": 20629,
+        "sha256": "144c3dafb10ad8c645e3a2c20d4943b935ea7dfc52d9794501c1435d1db96213"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 229,
+          "column": 50,
+          "code": "TS2345"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/p14c3-profession-history.test.ts",
+        "bytes": 30193,
+        "sha256": "19e563e40ec3f42f62969435b9fd1c0fbbbfd26c77c33ce59f5508d8ec82b476"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/p14c3-profession-history.test.ts",
+        "bytes": 30215,
+        "sha256": "addb07ba724167ea69cf526fd5f7bbaba10febe2cb1105aa24bbc23e821c51ce"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 112,
+          "column": 60,
+          "code": "TS2345"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/p14c3-promise-digest-continuity.test.ts",
+        "bytes": 13983,
+        "sha256": "e1218b2f8e45c4ab8190ea910c7426388db9ab7b88a2a8598d89c405c9c6a542"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/p14c3-promise-digest-continuity.test.ts",
+        "bytes": 14051,
+        "sha256": "b3e5ab7d7de53190faefc6510c670a2314a983b8c77166fe9dc9b7da9cdfb5e7"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 226,
+          "column": 55,
+          "code": "TS2345"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/p14c4-save-v35.test.ts",
+        "bytes": 18793,
+        "sha256": "eb3002809d779be433b951beae925ae5f4995928c3ff44a54200c66ae2be3e72"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/p14c4-save-v35.test.ts",
+        "bytes": 18793,
+        "sha256": "c66a99fc9f749e4d1b48361b4ad651c8a73229a257ce13bcb3bb4e21369ecf79"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 279,
+          "column": 35,
+          "code": "TS2379"
+        }
+      ]
+    },
+    {
+      "preimage": {
+        "path": "tests/save.test.ts",
+        "bytes": 18869,
+        "sha256": "69fff2f4a4eb20172d4a59e0f2b504393d378a7dc65bbb045f562ab4037dba00"
+      },
+      "postimage": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-stage/tests/save.test.ts",
+        "bytes": 19145,
+        "sha256": "bf292d456673e1ebb29aee276a263e5236ebddbc25897e41b5605081cbd49eac"
+      },
+      "actualCompilerDiagnostics": [
+        {
+          "line": 141,
+          "column": 3,
+          "code": "TS2322"
+        },
+        {
+          "line": 369,
+          "column": 56,
+          "code": "TS2345"
+        },
+        {
+          "line": 418,
+          "column": 56,
+          "code": "TS2345"
+        }
+      ]
+    }
+  ],
+  "guards": {
+    "samePathSetAsActualTestDiagnostics": true,
+    "originalDeclarationLinesExact": true,
+    "existingTimeoutAndSkipTokensExact": true,
+    "fixed64HexPinsExact": true,
+    "explicitNegativeCauseRegexesExact": true,
+    "noLiveFileWrites": true,
+    "noProjectEvaluation": true,
+    "noFixtureMutation": true,
+    "noAuthorityStripping": true
+  },
+  "relatedSourceAttributedGuards": [
+    "Strict40 also replaces frozen38 only in source-proven live roundtrip/positive/negative calls inside the same named files; historical38 inputs retain strict38.",
+    "Parent expressly adopted cohort-transition makeSave control/tamper guards, writer-continuation current envelope guards and digest-continuity current version assertion in addition to their compiler-reported downgrade sites.",
+    "Independent historical migration oracles derive empty firstTakeSubjects facts with cutoverOrdinal equal to old firstTakes.length; executable writer inputs first admit the existing38 substrate then use real migrateToLive."
+  ],
+  "qualificationLimits": [
+    "No compiler or behavior result is inferred from this source preparation.",
+    "New subject facts or explicit opportunity/Director predicates may block guarded downgrades before retained old semantic regexes. No root deletion, guard bypass or regex weakening is provided.",
+    "Strict admission of existing historical fixture constructions and all direct helper consumers requires future actual verification.",
+    "Force-order continuation is now a genuine migrated-current replay. Original strict38 bytes/film/career/history oracles remain pinned; no unchanged whole38 versus40 claim.",
+    "Unrelated stale version expectations outside the named cause seams remain outside this patch."
+  ],
+  "protectedInitialTestAtPreparation": {
+    "path": "tests/p14p4p5-opportunities.test.ts",
+    "bytes": 21703,
+    "sha256": "73a358bafa523282e24abbac64748877eda4a4cdc934a40783a665c791e26005"
+  },
+  "independent1232StageManifest": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1232-p4p5-binding-source-manifest.json",
+    "bytes": 10462,
+    "sha256": "d355ffa68c376ab0d2c97cac6912a2f9e2bae95643d3360f55401144e12b8f4b"
+  },
+  "compilerArgv": [
+    "node_modules/.bin/tsc",
+    "--noEmit",
+    "-p",
+    "tsconfig.json"
+  ],
+  "behaviorArgv": null,
+  "behaviorScope": "Parent chooses observed qualification separately; helper changes can affect direct consumers and existing simulation costs. No automatic full-suite or new trajectory is authorized by this handback."
+}

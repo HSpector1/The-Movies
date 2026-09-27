@@ -1,5 +1,26 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — Reviewed compatibility integrated; initial core checks next
+
+Published source before this checkpoint was df4f22bb0acc88679bbd7f005a08e174e5065cab,
+verified against GitHub. Parent applied all25 exact1235 reviewed postimages for39
+observed test diagnostics; frozen historical admission and negative-cause guards
+remain.1235-C records manifest/review/application pins. The narrow physicalReason
+attribution correction has separate source review1231-C. Neither is yet compiled.
+
+The initial four P4/P5 tests remain21,703B/SHA256
+73a358bafa523282e24abbac64748877eda4a4cdc934a40783a665c791e26005.
+Publish, then parent alone runs1233b root compiler; only after PASS run1234 initial
+four leaves with cap0 and exact1,226-byte1230 legacy comparison. Preserve1233's
+43-diagnostic failure.1232-C/D source is final KEEP but still staged, not installed;
+its two later binding/filming routes remain unexecuted. Bridge54→55 and full1226
+qualification are pending; current40/54 remains unqualified WIP.
+
+No heavy is active at checkpoint creation. Existing specialists retain separate
+test/review ownership; parent alone owns production/integration/heavy execution.
+Continue the authorized program with settled P15 decisions and inherited limits.
+Unity/native and Owner campaign remain deferred.
+
 ## CURRENT — First core compiler diagnosed; integration fixes staged
 
 Core draft ef38cf9a24b56dc9b462eeecdab05e4c4a4a0730 is published with exact GitHub

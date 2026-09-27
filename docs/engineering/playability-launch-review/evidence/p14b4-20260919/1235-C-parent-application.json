@@ -1,0 +1,26 @@
+{
+  "time": "2026-09-27T19:26:19.099189+00:00",
+  "headBefore": "df4f22bb0acc88679bbd7f005a08e174e5065cab",
+  "verifiedManifest": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility-manifest.json",
+    "bytes": 21695,
+    "sha256": "f3518aac7bd692dbf00421b3d8e6101c5f5f99e60b8e2eb8aeaf43268ea2dc10"
+  },
+  "verifiedReview": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-B-test-compatibility-source-review.md",
+    "bytes": 4299,
+    "sha256": "9dfb75f01411d9c55461ff01de17bd3133854ad681f548efd9aa1da64840d7cd"
+  },
+  "appliedPatch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1235-test-compatibility.patch",
+    "bytes": 53344,
+    "sha256": "31e4a909be8e224d8edfbca789cdfc67d9d6c2aa9422d21106f7bab41c72210b"
+  },
+  "exactPostimages": 25,
+  "initialTest": {
+    "path": "tests/p14p4p5-opportunities.test.ts",
+    "bytes": 21703,
+    "sha256": "73a358bafa523282e24abbac64748877eda4a4cdc934a40783a665c791e26005"
+  },
+  "qualification": "source-only; compiler and behavior pending"
+}
