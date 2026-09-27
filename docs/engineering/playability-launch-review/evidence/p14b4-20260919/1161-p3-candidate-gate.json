@@ -1,0 +1,13 @@
+{
+  "sourceSha": "6267566033f907fff0ed180eec89231d8b76e1f8",
+  "remoteSha": "6267566033f907fff0ed180eec89231d8b76e1f8",
+  "observedAt": "2026-09-27T14:16:58.500077+00:00",
+  "consumedSourceClean": false,
+  "candidateDiffBytes": 4783,
+  "candidateDiffSha256": "835d74b1f939b9ffc46aabc208380e0df3d3191e32a197630a198ec120ad6aeb",
+  "untrackedConsumedSource": [],
+  "wholeWorktreeClean": false,
+  "wholeWorktreeStatus": " M src/core/talentMarket.ts\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1159-p3-case-view-root-types.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1159-p3-case-view-root-types.patch\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1159-p3-case-view-root-types.txt\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1159-p3-publication-gate.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1160-A-p3-fixed-rival-split-attribution.md\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1160-B-p3-fixed-rival-separated-causes-review.md\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1160-p3-fixed-rival-core.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1160-p3-fixed-rival-core.patch\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1160-p3-fixed-rival-core.txt\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1160-p3-fixed-rival-observations.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1160-p3-publication-gate.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1161-A-p3-rival-candidate-policy-correction.md\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1161-p3-rival-candidate-policy.patch\n",
+  "result": "PASS_EXACT_UNPUBLISHED_CANDIDATE_ON_PUBLISHED_BASE",
+  "nextRun": "1161-p3-rival-candidate-root-types"
+}

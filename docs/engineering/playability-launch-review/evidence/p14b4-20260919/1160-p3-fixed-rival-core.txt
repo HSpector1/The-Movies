@@ -1,0 +1,83 @@
+{"sourceSha":"6267566033f907fff0ed180eec89231d8b76e1f8","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14p3-directing-promises.test.ts","--testNamePattern","D(?:07|18) "],"node":"v20.20.2","start":"2026-09-27T14:13:47.439Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14p3-directing-promises.test.ts
+1155-P3-RIVAL-COUNTERS {"rivalCalls":196,"rivalCap":260,"otherCoreCalls":0,"total":196,"cap":816}
+1149-P3-CONTINUITY-COUNTERS {"playerCalls":0,"playerCap":208,"branches":[{"name":"cancelBefore","actualTicks":0,"cap":64,"startWeek":null},{"name":"cancelAfter","actualTicks":0,"cap":64,"startWeek":null},{"name":"waiver","actualTicks":0,"cap":64,"startWeek":null}],"total":0,"cap":556,"lifecycleCalls":0,"lifecycleCap":156,"selectedCap":364}
+1143-P3-OUTCOME-COUNTERS {"playerCalls":0,"playerCap":208,"branches":[{"name":"cancelBefore","actualTicks":0,"cap":64,"startWeek":null},{"name":"cancelAfter","actualTicks":0,"cap":64,"startWeek":null},{"name":"waiver","actualTicks":0,"cap":64,"startWeek":null}],"total":0,"cap":400}
+1133-P3-COUNTERS {"actualTicks":0,"cap":208,"cachedPhases":[{"name":"rivalCreated0","completed":true},{"name":"rivalCredit","completed":true},{"name":"rivalAuthoring196","completed":true},{"name":"rivalWinner208","completed":false}]}
+
+ ❯ |core| tests/p14p3-directing-promises.test.ts (16 tests | 2 failed | 14 skipped) 6997ms
+   × P3 fixed rival: public credit, ordinary contest and distinct staffing > D07 authors and fulfills a real rival promise to a credited primary Actor 6562ms
+     → expected { classification: 'FRAGILE', …(4) } to match object { …(2) }
+(3 matching properties omitted from actual)
+   × P3 fixed rival: public credit, ordinary contest and distinct staffing > D18 uses the declared rival strategy and legal distinct staffing 431ms
+     → expected { family: 'APPEARANCE_COUNT', …(7) } to match object { family: 'DIRECTING_COUNT', …(7) }
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D07 authors and fulfills a real rival promise to a credited primary Actor
+AssertionError: expected { classification: 'FRAGILE', …(4) } to match object { …(2) }
+(3 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "bottleneck": null,
+-   "classification": "REASONABLY_ACHIEVABLE",
++   "bottleneck": "needs a picture not yet commissioned",
++   "classification": "FRAGILE",
+  }
+
+ ❯ tests/helpers/p14p3-fixtures.ts:976:33
+    974|       issuerStudioId: issuer(state), beneficiaryPersonId: RIVAL.vacanc…
+    975|       windowStartWeek: 208, dueWeekExclusive: 416 }
+    976|     expect(quote(state, draft)).toMatchObject({ classification: 'REASO…
+       |                                 ^
+    977|     state = core.attachPromise(state, RIVAL.vacancy, issuer(state), dr…
+    978|     const vacancyPromiseId = state.promises.at(-1)!.promiseId
+ ❯ memo tests/helpers/p14p3-fixtures.ts:111:23
+ ❯ Module.rivalWinner208 tests/helpers/p14p3-fixtures.ts:968:10
+ ❯ tests/p14p3-directing-promises.test.ts:894:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D18 uses the declared rival strategy and legal distinct staffing
+AssertionError: expected { family: 'APPEARANCE_COUNT', …(7) } to match object { family: 'DIRECTING_COUNT', …(7) }
+
+- Expected
++ Received
+
+  Object {
+    "beneficiaryPersonId": "authored-0006",
+    "dueWeekExclusive": 416,
+-   "family": "DIRECTING_COUNT",
++   "family": "APPEARANCE_COUNT",
+    "issuerStudioId": "studio-de11f27b-r01",
+    "predicate": Object {
+      "count": 1,
+-     "kind": "directorCount",
+    },
+    "startWeek": 208,
+    "termWeeks": 208,
+    "windowStartWeek": 208,
+  }
+
+ ❯ tests/p14p3-directing-promises.test.ts:945:34
+    943|     const focusCalls = early.calls.filter(c => c.personId === RIVAL.fo…
+    944|     expect(focusCalls.length).toBeGreaterThan(0)
+    945|     expect(focusCalls[0]!.draft).toMatchObject({ family: 'DIRECTING_CO…
+       |                                  ^
+    946|       issuerStudioId: RIVAL.studio, beneficiaryPersonId: RIVAL.focus, …
+    947|       termWeeks: 208, windowStartWeek: 208, dueWeekExclusive: 416 })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 14 skipped (16)
+   Start at  16:13:48
+   Duration  10.27s (transform 2.00s, setup 0ms, collect 2.63s, tests 7.00s, environment 0ms, prepare 108ms)
+

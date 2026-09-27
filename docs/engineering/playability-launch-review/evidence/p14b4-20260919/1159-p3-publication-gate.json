@@ -1,0 +1,11 @@
+{
+  "sourceSha": "6267566033f907fff0ed180eec89231d8b76e1f8",
+  "remoteSha": "6267566033f907fff0ed180eec89231d8b76e1f8",
+  "observedAt": "2026-09-27T14:12:39.862117+00:00",
+  "consumedSourceClean": true,
+  "wholeWorktreeClean": true,
+  "wholeWorktreeStatus": "",
+  "sourceReview": "1158-B final KEEP; helper correction and unchanged whole test verified",
+  "result": "PASS",
+  "nextRun": "1159-p3-case-view-root-types"
+}

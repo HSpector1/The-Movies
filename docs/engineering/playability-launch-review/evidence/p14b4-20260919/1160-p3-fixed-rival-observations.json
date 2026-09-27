@@ -1,0 +1,250 @@
+{
+  "record": "1160-p3-fixed-rival-core",
+  "run": {
+    "sourceSha": "6267566033f907fff0ed180eec89231d8b76e1f8",
+    "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSource": [],
+    "command": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p3-directing-promises.test.ts",
+      "--testNamePattern",
+      "D(?:07|18) "
+    ],
+    "node": "v20.20.2",
+    "start": "2026-09-27T14:13:47.439Z",
+    "end": "2026-09-27T14:13:58.835Z",
+    "exitCode": 1,
+    "signal": null,
+    "error": null,
+    "sourceShaAtEnd": "6267566033f907fff0ed180eec89231d8b76e1f8",
+    "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSourceAtEnd": [],
+    "fixedSource": true
+  },
+  "types": {
+    "sourceSha": "6267566033f907fff0ed180eec89231d8b76e1f8",
+    "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSource": [],
+    "command": [
+      "node_modules/.bin/tsc",
+      "--noEmit"
+    ],
+    "node": "v20.20.2",
+    "start": "2026-09-27T14:12:44.991Z",
+    "end": "2026-09-27T14:13:17.418Z",
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "sourceShaAtEnd": "6267566033f907fff0ed180eec89231d8b76e1f8",
+    "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSourceAtEnd": [],
+    "fixedSource": true
+  },
+  "publicationGate": {
+    "sourceSha": "6267566033f907fff0ed180eec89231d8b76e1f8",
+    "remoteSha": "6267566033f907fff0ed180eec89231d8b76e1f8",
+    "observedAt": "2026-09-27T14:13:36.760887+00:00",
+    "consumedSourceClean": true,
+    "wholeWorktreeClean": false,
+    "wholeWorktreeStatus": "?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1159-p3-case-view-root-types.json\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1159-p3-case-view-root-types.patch\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1159-p3-case-view-root-types.txt\n?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1159-p3-publication-gate.json\n",
+    "rootTypes": "1159 PASS child0 fixedSource empty patch",
+    "sourceReview": "1158-B final KEEP",
+    "result": "PASS",
+    "nextRun": "1160-p3-fixed-rival-core"
+  },
+  "result": {
+    "files": 1,
+    "failedFiles": 1,
+    "cases": 16,
+    "passed": 0,
+    "failed": 2,
+    "filtered": 14,
+    "wrapperSeconds": 11.396,
+    "vitestSeconds": 10.27,
+    "testMilliseconds": 6997,
+    "todo": 0,
+    "unhandledErrorDiagnostic": false
+  },
+  "failures": [
+    {
+      "id": "tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D07 authors and fulfills a real rival promise to a credited primary Actor",
+      "primary": "AssertionError: expected { classification: 'FRAGILE', …(4) } to match object { …(2) }\n(3 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  Object {\n-   \"bottleneck\": null,\n-   \"classification\": \"REASONABLY_ACHIEVABLE\",\n+   \"bottleneck\": \"needs a picture not yet commissioned\",\n+   \"classification\": \"FRAGILE\",\n  }",
+      "primaryBytes": 334,
+      "primarySha256": "0e02e673fb7c08069d96d25b86bae65e8e5e0a4593697f4fbd3189f62be15bd2",
+      "fullDiagnosticTail": "AssertionError: expected { classification: 'FRAGILE', …(4) } to match object { …(2) }\n(3 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  Object {\n-   \"bottleneck\": null,\n-   \"classification\": \"REASONABLY_ACHIEVABLE\",\n+   \"bottleneck\": \"needs a picture not yet commissioned\",\n+   \"classification\": \"FRAGILE\",\n  }\n\n ❯ tests/helpers/p14p3-fixtures.ts:976:33\n    974|       issuerStudioId: issuer(state), beneficiaryPersonId: RIVAL.vacanc…\n    975|       windowStartWeek: 208, dueWeekExclusive: 416 }\n    976|     expect(quote(state, draft)).toMatchObject({ classification: 'REASO…\n       |                                 ^\n    977|     state = core.attachPromise(state, RIVAL.vacancy, issuer(state), dr…\n    978|     const vacancyPromiseId = state.promises.at(-1)!.promiseId\n ❯ memo tests/helpers/p14p3-fixtures.ts:111:23\n ❯ Module.rivalWinner208 tests/helpers/p14p3-fixtures.ts:968:10\n ❯ tests/p14p3-directing-promises.test.ts:894:20",
+      "fullDiagnosticTailBytes": 969,
+      "fullDiagnosticTailSha256": "56a89cf5579effd90303f5703e180c47b7c142fdfca95c400b09e23dec5f7d72",
+      "printedFrames": [
+        "tests/helpers/p14p3-fixtures.ts:976:33",
+        "memo tests/helpers/p14p3-fixtures.ts:111:23",
+        "Module.rivalWinner208 tests/helpers/p14p3-fixtures.ts:968:10",
+        "tests/p14p3-directing-promises.test.ts:894:20"
+      ]
+    },
+    {
+      "id": "tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D18 uses the declared rival strategy and legal distinct staffing",
+      "primary": "AssertionError: expected { family: 'APPEARANCE_COUNT', …(7) } to match object { family: 'DIRECTING_COUNT', …(7) }\n\n- Expected\n+ Received\n\n  Object {\n    \"beneficiaryPersonId\": \"authored-0006\",\n    \"dueWeekExclusive\": 416,\n-   \"family\": \"DIRECTING_COUNT\",\n+   \"family\": \"APPEARANCE_COUNT\",\n    \"issuerStudioId\": \"studio-de11f27b-r01\",\n    \"predicate\": Object {\n      \"count\": 1,\n-     \"kind\": \"directorCount\",\n    },\n    \"startWeek\": 208,\n    \"termWeeks\": 208,\n    \"windowStartWeek\": 208,\n  }",
+      "primaryBytes": 495,
+      "primarySha256": "b58a233181096c8b336446a1b0053292b8e24028f863dc7447faea1435c09ada",
+      "fullDiagnosticTail": "AssertionError: expected { family: 'APPEARANCE_COUNT', …(7) } to match object { family: 'DIRECTING_COUNT', …(7) }\n\n- Expected\n+ Received\n\n  Object {\n    \"beneficiaryPersonId\": \"authored-0006\",\n    \"dueWeekExclusive\": 416,\n-   \"family\": \"DIRECTING_COUNT\",\n+   \"family\": \"APPEARANCE_COUNT\",\n    \"issuerStudioId\": \"studio-de11f27b-r01\",\n    \"predicate\": Object {\n      \"count\": 1,\n-     \"kind\": \"directorCount\",\n    },\n    \"startWeek\": 208,\n    \"termWeeks\": 208,\n    \"windowStartWeek\": 208,\n  }\n\n ❯ tests/p14p3-directing-promises.test.ts:945:34\n    943|     const focusCalls = early.calls.filter(c => c.personId === RIVAL.fo…\n    944|     expect(focusCalls.length).toBeGreaterThan(0)\n    945|     expect(focusCalls[0]!.draft).toMatchObject({ family: 'DIRECTING_CO…\n       |                                  ^\n    946|       issuerStudioId: RIVAL.studio, beneficiaryPersonId: RIVAL.focus, …\n    947|       termWeeks: 208, windowStartWeek: 208, dueWeekExclusive: 416 })",
+      "fullDiagnosticTailBytes": 976,
+      "fullDiagnosticTailSha256": "2e44a829c38b2f92d80f92dfdfc5fcfa1a6b68c5a98fb22c5d1d02bc839d62bc",
+      "printedFrames": [
+        "tests/p14p3-directing-promises.test.ts:945:34"
+      ]
+    }
+  ],
+  "comparisonTo1157": {
+    "new": [],
+    "vanished": [],
+    "retainedIdentical": [],
+    "changed": [
+      "tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D07 authors and fulfills a real rival promise to a credited primary Actor",
+      "tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D18 uses the declared rival strategy and legal distinct staffing"
+    ],
+    "oldSharedGroups": 1,
+    "currentSeparateGroups": 2
+  },
+  "markers": {
+    "1155-P3-RIVAL-COUNTERS": {
+      "rivalCalls": 196,
+      "rivalCap": 260,
+      "otherCoreCalls": 0,
+      "total": 196,
+      "cap": 816
+    },
+    "1149-P3-CONTINUITY-COUNTERS": {
+      "playerCalls": 0,
+      "playerCap": 208,
+      "branches": [
+        {
+          "name": "cancelBefore",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": null
+        },
+        {
+          "name": "cancelAfter",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": null
+        },
+        {
+          "name": "waiver",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": null
+        }
+      ],
+      "total": 0,
+      "cap": 556,
+      "lifecycleCalls": 0,
+      "lifecycleCap": 156,
+      "selectedCap": 364
+    },
+    "1143-P3-OUTCOME-COUNTERS": {
+      "playerCalls": 0,
+      "playerCap": 208,
+      "branches": [
+        {
+          "name": "cancelBefore",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": null
+        },
+        {
+          "name": "cancelAfter",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": null
+        },
+        {
+          "name": "waiver",
+          "actualTicks": 0,
+          "cap": 64,
+          "startWeek": null
+        }
+      ],
+      "total": 0,
+      "cap": 400
+    },
+    "1133-P3-COUNTERS": {
+      "actualTicks": 0,
+      "cap": 208,
+      "cachedPhases": [
+        {
+          "name": "rivalCreated0",
+          "completed": true
+        },
+        {
+          "name": "rivalCredit",
+          "completed": true
+        },
+        {
+          "name": "rivalAuthoring196",
+          "completed": true
+        },
+        {
+          "name": "rivalWinner208",
+          "completed": false
+        }
+      ]
+    }
+  },
+  "legacyMarkerPresent": false,
+  "classification": {
+    "D07": "Actual fixed-route pipeline feasibility premise failure before promise attachment or settlement.",
+    "D18": "Actual automatic candidate-order semantic RED after successful independent authoring196 prerequisites."
+  },
+  "limits": [
+    "Exact D07 reservation membership/count and receipt version are not printed by this record.",
+    "No208 contest, payment, tagged binding, Director selection, take or release executed.",
+    "D18 later preference/other-candidate/first-RA/staffing assertions are masked.",
+    "No legacy marker because all other core routes remain uncalled."
+  ],
+  "inputs": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1160-p3-fixed-rival-core.json",
+      "bytes": 720,
+      "sha256": "73631cceb04144cdff795dab635d428575a084f8b187d5d7ff85b9be1245e59b"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1160-p3-fixed-rival-core.txt",
+      "bytes": 4886,
+      "sha256": "a5cabcda5a6bdaa7ff312e19c6a5468ad4f35f45d984d8d3dc78e5965f577122"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1160-p3-fixed-rival-core.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1159-p3-case-view-root-types.json",
+      "bytes": 603,
+      "sha256": "b755bb8e2283f404fb80d500d3cb6455c29a877c2a8542b0dfb1bb895f913ccd"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1159-p3-case-view-root-types.txt",
+      "bytes": 319,
+      "sha256": "67cc58545f15fc7d618e780960eede85255955fe021d3785384ad63c426d35a2"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1159-p3-publication-gate.json",
+      "bytes": 420,
+      "sha256": "36a30bfeae21d562227081e6e9b52e317892608b2ccc8954cb7ad03fa99bb6c1"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1160-p3-publication-gate.json",
+      "bytes": 839,
+      "sha256": "2e8550bf6bda7e5fe2ba733fd35d79a24ac9ba2b3c9952299de6db3cef0b603c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1157-p3-fixed-rival-observations.json",
+      "bytes": 9403,
+      "sha256": "ce3034b469547836133e37e7ee508ad6c6691b0c45d468e679fb6226b876c060"
+    }
+  ]
+}

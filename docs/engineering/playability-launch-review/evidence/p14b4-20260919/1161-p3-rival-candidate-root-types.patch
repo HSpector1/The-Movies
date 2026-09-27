@@ -1,0 +1,76 @@
+diff --git a/src/core/talentMarket.ts b/src/core/talentMarket.ts
+index e53ff522..0240abcc 100644
+--- a/src/core/talentMarket.ts
++++ b/src/core/talentMarket.ts
+@@ -756,9 +756,10 @@ export function publicPreferredTerm(state: GameState, talentId: string): number
+   return preferredTerm(state, talentId)
+ }
+ 
+-/** B4's public opportunity preference uses the same existing archetype as the
+- * priority and term readers; it creates no personality or promise record. */
+-export function publicPreferredOpportunity(state: GameState, talentId: string): 'significantCastRole' | 'anyCastAppearance' {
++/** Primary Directors prefer directing work. Everyone else keeps B4's public
++ * archetype-derived cast preference, regardless of aptitude or directing credits. */
++export function publicPreferredOpportunity(state: GameState, talentId: string): 'significantCastRole' | 'anyCastAppearance' | 'directingOpportunity' {
++  if (state.talent.find(t => t.id === talentId)?.role === 'director') return 'directingOpportunity'
+   return isProven(state, talentId) ? 'anyCastAppearance' : 'significantCastRole'
+ }
+ 
+@@ -769,6 +770,10 @@ export function promiseMatchesPreferredOpportunity(
+   talentId: string,
+   promise: Pick<ProfessionalPromise, 'family' | 'predicate'>,
+ ): boolean {
++  if (publicPreferredOpportunity(state, talentId) === 'directingOpportunity') {
++    return promise.family === 'DIRECTING_COUNT'
++      && 'kind' in promise.predicate && promise.predicate.kind === 'directorCount'
++  }
+   if (promise.family === 'APPEARANCE_COUNT') {
+     return publicPreferredOpportunity(state, talentId) === 'anyCastAppearance'
+   }
+@@ -1383,17 +1388,17 @@ function openCasesAt(state: GameState, week: number): TalentMarketCaseV36[] {
+  * its own proposed term, attached IFF that rival's OWN feasibility reads
+  * REASONABLY ACHIEVABLE at submission; otherwise none.
+  *
+- * P14B.4 (record 600 / plan "Delegated public preference and strategy
+- * hypothesis"): the candidate order follows the existing shared proven/unproven
+- * archetype (`isProven`). An UNPROVEN person is offered the flexible
+- * `LEAD_OR_SIGNIFICANT_ROLE_COUNT` class (`leadOrAntagonist`, count 1) over the
+- * full proposed term first, then the existing `APPEARANCE_COUNT` fallback; a
+- * PROVEN person keeps `APPEARANCE_COUNT`. The first REASONABLY ACHIEVABLE
+- * candidate is attached; a failed candidate leaves no staged root or reservation
+- * (both reads see the same unchanged state); neither achievable means no
+- * attachment. No lead-only selection, count escalation, role gate or RNG. Pure
+- * and deterministic; the record is the same V30 promise. A losing rival's promise
+- * is simply never bound (ruling (i)).
++ * P3 (1112-A/D): primary Directors and primary Actors with a recorded released
++ * Directing credit try P3 before B4's unchanged cast list. Other people try that
++ * cast list first, then P3. The cast list remains P1 for proven people, flexible
++ * P2 then P1 for unproven people. Credits come from released-film authority, not
++ * skill values or a bare work-history counter. This is the rival's strategy;
++ * it does not change a non-Director's public opportunity preference.
++ *
++ * Each candidate reads the same unchanged state. Only the first REASONABLY
++ * ACHIEVABLE candidate is attached; failed reads stage no root or reservation.
++ * No candidate adds RNG, changes count/window, or bypasses shared feasibility.
++ * A losing rival's promise is never bound (ruling (i)).
+  */
+ function authorRivalPromise(state: GameState, talentId: string, issuerStudioId: string): GameState {
+   const proposal = state.talentMarket.proposals.find((p) => p.talentId === talentId && p.issuerStudioId === issuerStudioId)
+@@ -1407,7 +1412,16 @@ function authorRivalPromise(state: GameState, talentId: string, issuerStudioId:
+     predicate: { kind: 'castRoleCount', count: 1, seatClass: 'leadOrAntagonist' },
+     ...window,
+   }
+-  for (const attachment of isProven(state, talentId) ? [p1] : [flexible, p1]) {
++  const directing: PromiseAttachment = {
++    family: 'DIRECTING_COUNT', predicate: { kind: 'directorCount', count: 1 }, ...window,
++  }
++  const person = state.talent.find(t => t.id === talentId)
++  const directingFirst = person?.role === 'director' || (person?.role === 'actor'
++    && (state.studio.releasedFilms.some(film => film.directorId === talentId)
++      || state.hollywood?.films.some(film => film.credits.some(credit => credit.talentId === talentId && credit.role === 'director')) === true))
++  const cast = isProven(state, talentId) ? [p1] : [flexible, p1]
++  const candidates = directingFirst ? [directing, ...cast] : [...cast, directing]
++  for (const attachment of candidates) {
+     const classification = promiseFeasibility(state, {
+       ...attachment,
+       issuerStudioId,

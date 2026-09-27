@@ -1,5 +1,40 @@
 # UNITY-INTEGRATION-BACKLOG — work reserved for the replacement laptop
 
+## CURRENT — real rival candidate-order RED; narrow policy correction typed
+
+1160 actual11.396s on published6267566033f907fff0ed180eec89231d8b76e1f8
+has two FAIL/fourteen filtered, child1/fixedSource/empty diff,196 rival calls and
+other routes0. Corrected case joins and the independent authoring196 cache pass.
+D18 observes r01's real first offer to credited Actor authored-0006 as P1 instead
+of tagged P3. D07 separately submits its fixed bid but stops at the actual P1
+quote FRAGILE/needs-uncommissioned-picture, before attachment or208. No exact
+unprinted reservation totals, wins, signing or rival work are inferred.1159 types
+PASS32.427s;1160-A/B attribution is frozen, B direct-primary before A handback.
+
+Parent's1161 one-file talentMarket correction implements the declared candidate
+order: primary Directors and Actors with actual released Directing credit try
+P3 first, others retain the cast list then P3. Primary Director public preference/
+D3 matching selects explicit directing work; non-Director public cast preference
+stays unchanged. Common feasibility/first-RA/unchanged-state semantics remain;
+no staffing, pipeline arithmetic, fixture, funding or bid amendment is included.
+
+1161 root types PASS14:17:03.168–14:17:37.977UTC,34.809s, child0/fixedSource,
+base62675660 plus4783B/835d74b1 exact candidate, no untracked source/signal/error.
+Source88058B/dab4c6cf. Successful separate preflight truthfully records an
+unpublished candidate, not clean consumed source. Independent1161-B is final
+KEEP4196B/ccb730d5, verified by parent. Publish/exactremoteverify, then1162
+identical D07/D18 selection; no corrected behavior claim yet. Both test paths
+stay frozen.
+
+1163-A is docs-only: factual observation and a proposed fixed-script amendment
+for the separate D07 prerequisite, neither released nor executed. Parent first
+inspects1162's actual result because changed automatic offers may affect the
+reservation membership. No rescue/extra quote/tick or new fixture source is active.
+Retain all1155-C matrix gaps, current53 consumer/54 cutover and remaining P3/P14
+onward work. Unity/native/Owner remain deferred. Parent sole production writer/
+integrator/executor; existing two specialists retain separate test/review roles.
+No heavy process remains active at this checkpoint.
+
 ## CURRENT — P3 reservation and profession-continuity slice passes (2026-09-27)
 
 1153 passes all four selected D09/D10/D11/D13W leaves on published production
