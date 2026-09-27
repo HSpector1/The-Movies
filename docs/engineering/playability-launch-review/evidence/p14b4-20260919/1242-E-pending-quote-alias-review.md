@@ -1,0 +1,11 @@
+# 1242-E — Independent pending-quote alias correction
+
+Disposition: **KEEP the exact one-line annotation correction.** I read complete1241b raw/record/preflight/postflight, frozen1242-D, its patch/manifest and the affected pending-values leaf. No compiler, test, project code, source application or index change occurred in this review.
+
+1241b actually failed child2 in27.966s on99b80bc50ecb45fa3804406416425434769d7c7f,19:52:49.160–19:53:17.126 UTC. The only diagnostic is TS2322 at promise-command222:5: assigning DIRECTING_COUNT to a local inferred APPEARANCE_COUNT. Fixed source, empty consumed diff, no untracked source and null signal/error are preserved. Pre/post HEAD,1679-file inventory, source paths,all62 manual entries,raw index and stage entries compare exactly; all62 manual identities were reread. Compiler cap0. Raw485 bytes /7de54c4532cecd7191731fe68a821967cb377026c4f6d83f9bd68b3bdbd14997; JSON641 /759af03e2e877813742e7175b92b74112fb563a93089235d150426ef8696ef26.
+
+The always-P1 helper narrowing remains appropriate at numeric-count controls. This particular existing leaf deliberately mutates its caller-owned draft after quotation. Adding only `: Payload` to its local wire declaration restores the declared broad input boundary at that site. It retains the same object and direct property mutations, quoted-value snapshot, original intent commit and complete retention assertions. Replacing the object or changing the family mutation would weaken the aliasing control; neither occurs. No cast bypass or runtime value changes.
+
+Removing precisely that nine-byte annotation independently reconstructs the complete live35044-byte preimage /ef4d2356f78173a0685dd23f3d1c6b2408a8f9330003931982c39dfa83e4ce8d. The staged35053-byte postimage is d5213c0fe39c24e4f9fa216dbebd141ff0be0e2c278643df3b850b8f0258ea3b. Everything else, including leaf title, assertions, timeout and routes, is byte-identical.
+
+Frozen1242-D:1779 bytes /3e246c1618fc0698b9a178ac32da238dee133c6648f4adf05916b652b49ee13c. Patch575 /e84f477cae631a5a22b4a9be10008d5d71d7a4f3ac43e74ede28bcbda730e692; manifest1820 /dc937018a582e874688e64e79be41da30c41660790ada44e5af5e20f9ce26cd9. These are separate from immutable1242-A/B and its original patch. Parent-owned exact application/publication and the next compiler remain necessary; no corrected compiler or behavioral PASS is predicted.

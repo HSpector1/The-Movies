@@ -1,0 +1,37 @@
+# 1236-D — Independent staged Bridge55 and component source review
+
+Disposition: **KEEP the exact staged source for parent-owned application and qualification.** I read all three new Bridge bodies/helpers, the complete UI append, frozen1236-C and its manifest/ordered patch against adopted1236-A/B. No project import, compiler, tests, gameplay, fixture mint, source application or index operation occurred in this review. The provisional waiverChain closing-brace defect was corrected before this final freeze.
+
+| Artifact | Bytes | SHA256 |
+| --- | ---: | --- |
+| New Bridge postimage | 38927 | 190da60b88054d566e2fca7cfe024515ec2ea1f5f043e37c3f3f5fd6ecb69004 |
+| UI postimage | 9152 | daff12cc88f6ae54c9c337015ecccaeb462aaf3b22d094c25f99c288e4d03427 |
+| Ordered patch | 43966 | 989aad5097989aacb14ef672082c390bd53ed56884e9e5e0d5ecd7d50690a22c |
+| Manifest | 13153 | d6ccaf192f0074e5f2cb5f82a90f66fc8515327b3cb385968bb4f9e66aca3f93 |
+| 1236-C handback | 10977 | de6124779601e5ea89f465e290afa14c169eb01f037d4a6918ddaa62919148af |
+
+Standard-library checks independently reconstructed both complete postimages from the two exact ordered hunks. The Bridge live target is absent. The entire existing4931-byte UI file, including final LF, is the literal prefix of the staged9152-byte file; its old D16 body/imports/default timeout are unchanged. All20 listed input/authority/current-production entries match, as do both postimages and all five decompressed raw identities. Production pins are a preparation snapshot, not a claim about the later executed source. Parent must guard that actual source separately.
+
+## Route and authority review
+
+B55-1 strictly admits and re-exports genuine1171 Save39 at45 before real40 migration. The independent expected addition is only version1/cutover19/emptyfacts. Its title, two Ready projects and actual person derive the pinned input. Closed grammar checks cover P4/P5’s three masks, literal count1, required material, disjoint family fields and private/title/issuer injection; existing P1/Director and P2’s narrower mask vocabulary are distinct. The unknown but syntactically valid target exercises a pure core refusal instead of a grammar refusal.
+
+Independent P4 and P5 clones use real quote/submitIntent routes and actual prepared checkpoints, explicit current predicates, retained original roots and exact duplicates. Request and whole-save/RNG/revision/checkpoint preimages surround each quote. Own engine/Bridge projections are joined; a genuinely entered other studio views that same retained player proposal as UNKNOWN. The competing row excludes material and private receipt fields. This does not claim a rival-owned P4/P5 offer was naturally created.
+
+Only the P4 cached attachment advances45→52. The seven-call reservation is immediately before actual dispatch; attempted/reserved/invoked and independently verified one-week completion counters are separate. Failed cache entries rethrow without rerunning or refunding calls. Actual settled-player receipt, active contract, employment and bonus payment precede the new bound-root assertions. There is no simulation-helper import, prefix replay, second settlement route, direct core tick/action, funding or rescue.
+
+B55-2’s two same-week commands retain drama/allCast/count1 with [53,112), then narrow to the named same-drama project with [54,112). Actual acceptance/non-Distrusted authority precedes the commits. Complete old-root preservation, successor identity/same contract/current receipt, outcome-event join, receipt-prefix/+one, unrelated promise/world roots and all other market fields are tested. Exact duplicates do not introduce another settlement. History must agree across direct reader, people projection, nested session snapshot and market case. P5 accepted copy uses the owned screenplay title rather than displaying its canonical ID.
+
+The reminder uses admitted actual52 at explicit query104; no natural104 trajectory is implied. Historical Director authority is genuine outgoing39. Detached count-only P4/P5 variants are explicitly synthetic old-reader compatibility controls, strictly admitted before public migration, not newly authored historical evidence. Missing/foreign targets must omit title and give equal refusal; actual foreign-only project IDs already exist in the pinned45 corpus and projects are retained. Project→genre/another-project and cast→Director refusals are covered. As correctly refined in C, allCast supplies no widening witness, and an earlier window still forward of actual52 is not automatically unlawful. Those absent controls are not conditionally passed or invented.
+
+B55-3 independently proves both exact historical39 slots and their full canonical journal in genuine1221 runtime54, before loading. Current40 preserves every old field plus empty version1/cutover25 subjects. Waived-current and earned-saved61 stay distinct. Prior-schema load must allocate one new session/reset revision and journal, while current55 encode/reload must allocate none and preserve bytes. An old-schema command refusal is separate from a clean current SAVE and its exact duplicate/one-entry journal; SAVE replaces the saved slot only after the independent two-slot proof. Slot-age mutants repair outer digests only and require inner admission refusal before factory allocation. Actual t-wri-00 age is52 in both pinned slots and is constrained by frozen provenance validation.
+
+The historical registry control is independently grounded: literal data extraction from published8d6d5a23 reconstructs all42 old key/label pairs and3931 canonical bytes /882c5273de957a30e222b91e435be11c2ae98986c0a63271bb5413b53bdacb95. Adding outgoing54 once and excluding current55 is tested without importing a historical runtime implementation. No prior request becomes current replay authority.
+
+## Selection and limits
+
+The expected complete invocation totals are source-accounted, not measured: seven advances; twelve nonduplicate mutations including those advances, two attachments/two waivers/one SAVE; five duplicate dispatches; one refused old-schema command; ten actual session quotes. Grammar-only parsing is not counted as a quote invocation. B55-3 requires no advancing-counter delta. The shared hard7 is unchanged; three Bridge leaves retain60000ms declarations without any latency guarantee. Individual filters may reach fewer caches. No persistent store, coordinator, disk process or restart-reliability claim follows this in-memory decoder/session route.
+
+The UI append is one pure closed-prop leaf with nine material/legacy/unresolved DTO examples, all three masks, own/waiver/history/UNKNOWN, exclusive windows, readable titles and private-field/input-purity checks. Its synthetic presentation states are not admitted saves. It uses no engine/session/actions. It is a standalone component control, not an App-hosted market workflow.
+
+The exact manifest selections are Bridge and UI compilers, all three leaves in tests/bridge-p14p4p5-opportunities.test.ts, and only `B55-UI ` in the component test. Existing D16 is filtered by that UI selection. Separate1242 compatibility and its subsequent compiler diagnosis are not included in this patch. No execution result is predicted. Independent P5 settlement/work, nonempty reservation witnesses, other availability/status clocks, mask widening, active receipt6→7 overlap, rival opportunity contracts/staffing, full regression and native behavior remain open beyond this slice.

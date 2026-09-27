@@ -1,5 +1,26 @@
 # R3-N1 native correction record — 2026-09-15 · OPS-R3-N1-NATIVE-CORRECTION-20260915-01
 
+## CURRENT — New Bridge55 tests installed; bounded qualification next
+
+Published99b80bc50ecb45fa3804406416425434769d7c7f matched GitHub.1241b Bridge
+compiler failed with one TS2322 caller-mutation annotation error, child2/fixed
+27.966s; all guards pass.1241-C and1242-D/E retain the actual diagnosis and
+independently reviewed one-line Payload annotation; parent applied it exactly.
+The prior failed compiler remains evidence and no runtime values changed.
+
+1236-C/D reviewed three new Bridge leaves and one standalone component leaf.
+Parent applied exact postimages;1236-E pins them, including the unchanged old
+4931-byte UI prefix. Publish this candidate, then1247 Bridge types/1248 UI types,
+1250 three Bridge leaves with shared hard7 advances, and1251 new-only B55-UI.
+Source readiness is not runtime qualification. Existing captures are immutable.
+
+1240-D independently closes1243–46 root/UI/generated checks on39d95462.
+Earlier initialfour and two work leaves remain separately qualified; full1226
+and the authorized P14/P15/P16/specified program continue.1249 prepares the next
+small remaining control slice, with setup calls accounted honestly. Parent is
+sole production/integration/heavy owner; two existing specialists retain tests
+and review. Unity/native and Owner campaign remain deferred.
+
 ## CURRENT — Root/UI and generated checks PASS; Bridge compatibility applied
 
 Published39d9546256ae542eb1b4a42c4d38df27207fa865 matched GitHub.1243 root

@@ -1,0 +1,42 @@
+{
+  "status": "STAGED_ONLY_UNEXECUTED",
+  "baselineHead": "99b80bc50ecb45fa3804406416425434769d7c7f",
+  "path": "tests/bridge-p14b3-promise-command.test.ts",
+  "preimage": {
+    "bytes": 35044,
+    "sha256": "ef4d2356f78173a0685dd23f3d1c6b2408a8f9330003931982c39dfa83e4ce8d"
+  },
+  "postimage": {
+    "bytes": 35053,
+    "sha256": "d5213c0fe39c24e4f9fa216dbebd141ff0be0e2c278643df3b850b8f0258ea3b"
+  },
+  "staged": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1242-pending-alias-stage/tests/bridge-p14b3-promise-command.test.ts",
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1242-pending-alias.patch",
+    "bytes": 575,
+    "sha256": "e84f477cae631a5a22b4a9be10008d5d71d7a4f3ac43e74ede28bcbda730e692"
+  },
+  "evidence": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1241b-bridge55-types.txt",
+      "bytes": 485,
+      "sha256": "7de54c4532cecd7191731fe68a821967cb377026c4f6d83f9bd68b3bdbd14997"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1241b-bridge55-types.json",
+      "bytes": 641,
+      "sha256": "759af03e2e877813742e7175b92b74112fb563a93089235d150426ef8696ef26"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1241b-bridge55-types-preflight.json",
+      "bytes": 16572,
+      "sha256": "f69258525a47aef6cfcc1cfc240d9ce9f50d84d9e0a82b25020065cf5e0fc7d6"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1241b-bridge55-types-postflight.json",
+      "bytes": 17235,
+      "sha256": "5d43abe4c238654fbbdb27ca3832a57492ba71a3d3776fb8556642b8dca946cc"
+    }
+  ],
+  "exactInverse": "Remove only : Payload from the b3-pending-values local wire declaration."
+}

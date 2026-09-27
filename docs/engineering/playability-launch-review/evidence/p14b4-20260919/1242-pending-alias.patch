@@ -1,0 +1,11 @@
+--- a/tests/bridge-p14b3-promise-command.test.ts
++++ b/tests/bridge-p14b3-promise-command.test.ts
+@@ -212,7 +212,7 @@
+   it('the session pending quote retains values rather than its caller-owned mutable draft', () => {
+     const { state, talentId } = fixture()
+     const session = new BridgeSession(state, 'b3-pending-values')
+-    const wire = payload(talentId)
++    const wire: Payload = payload(talentId)
+     const quoted = quote(session, wire, 'quote-before-caller-edit')
+     expect(quoted.quote.ok).toBe(true)
+     const quotedValues = structuredClone(quoted.quote)
