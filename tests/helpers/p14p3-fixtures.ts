@@ -1,5 +1,5 @@
-// Independent 1121/1132/1142/1148 P3 fixtures. Player208 + three64 branches
-// + lifecycle156 = <=556 actual develop:true ticks. No rescue or extra route.
+// Independent 1121/1132/1142/1148/1154 P3 fixtures. Player208 + three64
+// + lifecycle156 + separate rival260 = <=816 actual ticks. No rescue.
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
@@ -8,6 +8,8 @@ import { expect, vi } from 'vitest'
 import * as core from '../../src/core/index.js'
 import * as promiseOwner from '../../src/core/promises.js'
 import * as lifecycleOwner from '../../src/core/careerLifecycle.js'
+import * as marketOwner from '../../src/core/talentMarket.js'
+import * as packageOwner from '../../src/core/hollywoodPolicy.js'
 import * as saves from '../../src/core/save.js'
 import { activeContract, busyTalentIds } from '../../src/core/employment.js'
 import type { Action, GameState, ProfessionalPromise, PromiseFeasibilityReceipt, FirstTakeReceipt,
@@ -710,5 +712,368 @@ export function lifecycle364() {
     expect(core.retirementRecordFor(state, LIFE.director, 'actor')).toEqual(input.actorRecord)
     expect(state.careerLifecycle.professionChanges.filter(row => row.personId === LIFE.director)).toEqual(input.changes)
     admitted(state); return { ...input, at300, state, current }
+  })
+}
+
+// 1154: one independently loaded fixed rival attempt. Earlier successful phase
+// caches survive a later failed market/work premise; never replay the prefix.
+export const RIVAL = { studio: 'studio-de11f27b-r01', vacancy: 'person-studio-de11f27b-r01-2',
+  focus: 'authored-0006', trust: 'authored-0007', primaryDirector: 'authored-0002' } as const
+let rivalCalls = 0
+export function rivalCounters() {
+  return { rivalCalls, rivalCap: 260, otherCoreCalls: continuityCounters().total,
+    total: continuityCounters().total + rivalCalls, cap: 816 }
+}
+export type RivalCandidateCall = { week: number; personId: string; role: string; draft: PromiseDraft;
+  result: PromiseFeasibilityReceipt; beforeHash: string; afterHash: string; rngBefore: string; rngAfter: string;
+  promiseIds: string[]; automaticProposal: { submittedWeek: number; termWeeks: number; startWeek: number; promises: string[] } }
+export type RivalPackageCall = { week: number; key: string; director: string; directorRole: string; writer: string;
+  craft: string[]; offeredCast: string[]; chosenCast: string[] | null; conceptId: string }
+const rivalCandidateCalls: RivalCandidateCall[] = []
+const rivalPackageCalls: RivalPackageCall[] = []
+type Industry = NonNullable<GameState['hollywood']>
+type RivalBusiness = Industry['businesses'][number]
+type MarketPass = { week: number; beforeSigning: number; afterSigning: number;
+  beforeCash: number; afterCash: number; beforeMovements: number; afterMovements: number;
+  addedEmployment: Industry['employment']; addedReceipts: Industry['receipts'];
+  marketReceipts: GameState['talentMarket']['receipts'] }
+let rivalMarketPass: MarketPass | undefined
+const rivalFreezeSeats: { week: number; heldActors: string[]; receipt: PromiseFeasibilityReceipt }[] = []
+function rivalBusiness(state: GameState): RivalBusiness {
+  const b = state.hollywood?.businesses.find(row => row.studioId === RIVAL.studio)
+  assert.ok(b, 'fixed entered rival business'); return b
+}
+function accountTotals(b: RivalBusiness) {
+  return { cash: b.account.cash, signing: b.account.periods.reduce((sum, p) => sum + p.movements.signing, 0),
+    movements: b.account.periods.reduce((sum, p) => sum + Object.values(p.movements).reduce((a, n) => a + n, 0), 0) }
+}
+function rivalStep(state: GameState): GameState {
+  assert.equal(state.market.tick, rivalCalls, 'rival route has no replayed or hidden prefix')
+  assert.ok(rivalCalls < 260 && rivalCounters().total < 816, 'fixed rival260 / all-core816 caps')
+  const returnedWeek = state.market.tick + 1, workWeek = state.market.tick
+  const originalMarket = marketOwner.advanceTalentMarketWeek, originalQuote = promiseOwner.promiseFeasibility
+  const originalPackage = packageOwner.chooseIndustryPackage
+  let insideMarket = false
+  const watched = new Set<string>([RIVAL.focus, RIVAL.vacancy, RIVAL.primaryDirector])
+  const quoteSpy = (returnedWeek === 196 || returnedWeek === 208)
+    ? vi.spyOn(promiseOwner, 'promiseFeasibility').mockImplementation((current, draft, week) => {
+      const relevant = insideMarket && draft.issuerStudioId === RIVAL.studio && watched.has(draft.beneficiaryPersonId)
+      const proposal = relevant ? current.talentMarket.proposals.find(p => p.talentId === draft.beneficiaryPersonId
+        && p.issuerStudioId === RIVAL.studio) : undefined
+      const authoring = relevant && week === 196 && draft.promiseId === undefined && proposal !== undefined
+        && proposal.promises.length === 0
+      const beforeHash = authoring ? sha(saves.stableStringify(current)) : ''
+      const rngBefore = authoring ? current.rngState : ''
+      const result = originalQuote(current, draft, week)
+      if (authoring) rivalCandidateCalls.push({ week, personId: draft.beneficiaryPersonId,
+        role: person(current, draft.beneficiaryPersonId).role, draft: clone(draft), result: clone(result),
+        beforeHash, afterHash: sha(saves.stableStringify(current)), rngBefore, rngAfter: current.rngState,
+        promiseIds: current.promises.map(p => p.promiseId), automaticProposal: {
+          submittedWeek: proposal!.submittedWeek, termWeeks: proposal!.termWeeks,
+          startWeek: proposal!.startWeek, promises: [...proposal!.promises] } })
+      if (relevant && week === 208 && draft.beneficiaryPersonId === RIVAL.focus) {
+        const heldActors = current.hollywood!.activeEmploymentOrdinals.map(i => current.hollywood!.employment[i]!)
+          .filter(e => e.studioId === RIVAL.studio && e.endedWeek === null && e.terms.endWeekExclusive > week
+            && person(current, e.terms.talentId).role === 'actor').map(e => e.terms.talentId)
+        rivalFreezeSeats.push({ week, heldActors, receipt: clone(result) })
+      }
+      return result
+    }) : undefined
+  const marketSpy = (returnedWeek === 196 || returnedWeek === 208)
+    ? vi.spyOn(marketOwner, 'advanceTalentMarketWeek').mockImplementation(current => {
+      const before = returnedWeek === 208 ? accountTotals(rivalBusiness(current)) : undefined
+      const contracts = new Set(current.hollywood!.employment.map(e => e.contractId))
+      const receiptCount = current.hollywood!.receipts.length, marketReceiptCount = current.talentMarket.receipts.length
+      insideMarket = true
+      try {
+        const next = originalMarket(current)
+        if (before) {
+          const after = accountTotals(rivalBusiness(next))
+          rivalMarketPass = { week: current.market.tick, beforeSigning: before.signing, afterSigning: after.signing,
+            beforeCash: before.cash, afterCash: after.cash, beforeMovements: before.movements, afterMovements: after.movements,
+            addedEmployment: clone(next.hollywood!.employment.filter(e => !contracts.has(e.contractId) && e.studioId === RIVAL.studio)),
+            addedReceipts: clone(next.hollywood!.receipts.slice(receiptCount).filter(r => r.studioId === RIVAL.studio)),
+            marketReceipts: clone(next.talentMarket.receipts.slice(marketReceiptCount)) }
+        }
+        return next
+      } finally { insideMarket = false }
+    }) : undefined
+  // Retain one ordinary pre208 package and actual post208 candidates only.
+  // This observes the existing pure package boundary, not the private staffing
+  // selector. No callback clones a world or invokes a second simulation phase.
+  const packageSpy = (workWeek >= 208 || !rivalPackageCalls.some(p => p.week < 208 && p.chosenCast !== null))
+    ? vi.spyOn(packageOwner, 'chooseIndustryPackage').mockImplementation((input, policy, options) => {
+      const result = originalPackage(input, policy, options)
+      if (options.key.startsWith(`${RIVAL.studio}:package:`) && options.lockScreenplay
+        && (workWeek >= 208 || (result !== null && !rivalPackageCalls.some(p => p.week < 208 && p.chosenCast !== null))))
+        rivalPackageCalls.push({ week: workWeek, key: options.key, director: input.director.id,
+          directorRole: input.director.role, writer: input.writer.id, craft: input.craftHires.map(p => p.id),
+          offeredCast: [input.cast.lead.id, input.cast.antagonist.id, input.cast.support.id],
+          chosenCast: result ? [result.cast.lead, result.cast.antagonist, result.cast.support] : null, conceptId: input.concept.id })
+      return result
+    }) : undefined
+  rivalCalls++
+  try {
+    const next = core.tick(state, { develop: true })
+    expect(next.market.tick).toBe(returnedWeek); return next
+  } finally { packageSpy?.mockRestore(); marketSpy?.mockRestore(); quoteSpy?.mockRestore() }
+}
+function rivalTo(state: GameState, week: number): GameState {
+  assert.ok(week >= state.market.tick && week <= 260)
+  while (state.market.tick < week) state = rivalStep(state)
+  return state
+}
+function createRivalActor(state: GameState, termWeeks: 52 | 208, expectedId: string): GameState {
+  const six = (n: number) => [n, n, n, n, n, n], ids = new Set(state.talent.map(t => t.id))
+  let next = act(state, { kind: 'createCustomTalent', talent: { name: `P3 rival ${termWeeks}`, role: 'actor', age: 30,
+    actual: { warmth: 0, gravity: 0, physicality: 0.2 }, workEthic: 55, fame: 25,
+    skills: { acting: six(80), directing: six(80), writing: six(20), craft: six(20), research: six(1) } } })
+  expect(next.talent.filter(t => !ids.has(t.id)).map(t => t.id)).toEqual([expectedId])
+  expect(Object.values(person(next, expectedId).workHistory).every(n => n === 0)).toBe(true)
+  expect(next.careerLifecycle.professionAnchors.find(a => a.personId === expectedId))
+    .toEqual({ personId: expectedId, profession: 'actor', kind: 'entrant', recordedWeek: 0 })
+  const price = core.playerOffer(next, expectedId, termWeeks)
+  expect(next.studio.cash).toBeGreaterThanOrEqual(price.signingBonus)
+  next = act(next, { kind: 'signContract', talentId: expectedId, termWeeks })
+  expect(activeContract(next, expectedId)).toMatchObject({ startWeek: 0, endWeekExclusive: termWeeks, termWeeks })
+  admitted(next); return next
+}
+function rivalScript(state: GameState, conceptId: string, week: number) {
+  expect(state.market.tick).toBe(week); expect(busyTalentIds(state).has(WRITER)).toBe(false)
+  expect(activeContract(state, WRITER)).toMatchObject({ startWeek: 0, endWeekExclusive: 208 })
+  const old = new Set(state.scriptDevelopment.projects.map(p => p.id))
+  let next = act(state, { kind: 'commissionScript', project: { conceptId, writerId: WRITER,
+    shape: SHAPE, promise: creative(state, conceptId) } })
+  const added = next.scriptDevelopment.projects.filter(p => !old.has(p.id)); expect(added).toHaveLength(1)
+  const id = added[0]!.id
+  expect(added[0]).toMatchObject({ status: 'drafting', commissionedWeek: week, dueWeek: week + 1,
+    writerId: WRITER, writerIds: [WRITER], conceptId })
+  admitted(next); next = rivalStep(next)
+  expect(next.scriptDevelopment.projects.find(p => p.id === id)).toMatchObject({ status: 'review', dueWeek: null, reservation: null })
+  next = act(next, { kind: 'acceptScript', projectId: id })
+  expect(next.scriptDevelopment.projects.find(p => p.id === id)).toMatchObject({ status: 'ready', productionId: null })
+  admitted(next); return { state: next, projectId: id }
+}
+export function rivalCreated0() {
+  return memo('rivalCreated0', () => {
+    const base = new URL('../fixtures/p14/genuine-v37-c3-corpus/', import.meta.url)
+    expect(sha(readFileSync(new URL('MANIFEST.json', base)))).toBe('b3a3251ae7b3df96a1e2a615991744c5d1e5966a095424693f086a1581244294')
+    const gzip = readFileSync(new URL('genuine-v37-c3-created-week0.json.gz', base))
+    expect(sha(gzip)).toBe('0ce43de9abe897631f415f94ac79e584b87d6001c8bb4b5c37fccf3dcb8204a2')
+    const raw = gunzipSync(gzip).toString('utf8')
+    expect(sha(raw)).toBe('215b61730393abc8bc28b747d7d79bf9dcb65d2b03f17aa97b96880bc720fa23')
+    let state = saves.migrateToLive(saves.validateSaveV37(JSON.parse(raw))).state
+    expect(state.market.tick).toBe(0); expect(state.studio.cash).toBe(29_611_837)
+    expect(state.studio.activeProductions).toEqual([]); expect(state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] })
+    for (const id of [WRITER, RIVAL.primaryDirector, 'authored-0004', ...Object.values(CAST)])
+      expect(activeContract(state, id)).toMatchObject({ startWeek: 0, endWeekExclusive: 208 })
+    expect(person(state, RIVAL.vacancy)).toMatchObject({ role: 'actor', age: 35 })
+    admitted(state)
+    state = createRivalActor(state, 208, RIVAL.focus)
+    state = createRivalActor(state, 52, RIVAL.trust)
+    return { state }
+  })
+}
+export function rivalCredit() {
+  return memo('rivalCredit', () => {
+    let state = rivalCreated0().state
+    const mounted = state.sets.filter(s => s.mountedOn === STAGE && s.status !== 'retired')
+    expect(mounted.length).toBeLessThanOrEqual(1)
+    if (mounted[0]) state = act(state, { kind: 'strikeSet', setId: mounted[0].id })
+    state = act(state, { kind: 'commissionSet', commission: { blueprintId: 'set-grand-ballroom', stageFacilityId: STAGE } })
+    state = rivalTo(state, 8)
+    expect(state.sets.some(s => s.mountedOn === STAGE && s.status === 'standing')).toBe(true)
+    state = act(state, { kind: 'activateScriptDevelopment' })
+    const script = rivalScript(state, 'c-00', 8); state = script.state
+    const made = greenlight(state, script.projectId, RIVAL.focus); state = made.state
+    const start = rivalCalls, history = person(state, RIVAL.focus).workHistory.directing
+    let recipe = false, take: FirstTakeReceipt | undefined
+    for (let n = 0; n < 40; n++) {
+      let workflow = state.operations.workflows.find(w => w.productionId === made.productionId)
+      if (workflow?.phase === 'rehearsal' && !recipe) {
+        state = act(state, { kind: 'setProductionSetupRecipe', productionId: made.productionId,
+          recipeId: 'ballroom-reveal-lighting-01', expectedPlanRevision: workflow.planRevision }); recipe = true
+      }
+      const production = state.studio.activeProductions.find(p => p.id === made.productionId); assert.ok(production)
+      workflow = state.operations.workflows.find(w => w.productionId === made.productionId)
+      if (workflow?.shootingTask?.status === 'unassigned')
+        state = act(state, { kind: 'assignShootingDirector', productionId: made.productionId, directorId: RIVAL.focus })
+      if (state.operations.workflows.find(w => w.productionId === made.productionId)?.shootingTask?.status === 'ready')
+        state = act(state, { kind: 'scheduleShootingTake', productionId: made.productionId })
+      if (production.remainingTicks === 1) state = act(state, { kind: 'commitPictureToRelease', productionId: made.productionId })
+      const before = state; state = rivalStep(state)
+      const takes = state.firstTakes.filter(t => t.productionId === made.productionId && t.studioId === issuer(state))
+      if (!take && takes.length) {
+        expect(takes).toHaveLength(1); take = takes[0]!
+        expect(before.studio.activeProductions.find(p => p.id === made.productionId)?.remainingTicks).toBe(5)
+        expect(state.studio.activeProductions.find(p => p.id === made.productionId)?.remainingTicks).toBe(4)
+        expect(take).toMatchObject({ directorId: RIVAL.focus, week: state.market.tick }); admitted(state)
+      }
+      const released = state.studio.releasedFilms.find(f => f.productionId === made.productionId)
+      if (released) {
+        assert.ok(take, 'actual player directing take before real release')
+        expect(released.participants).toMatchObject({ director: { talentId: RIVAL.focus }, writer: { talentId: WRITER } })
+        expect(person(state, RIVAL.focus).role).toBe('actor')
+        expect(person(state, RIVAL.focus).workHistory.directing).toBe(history + 1)
+        // Player films retain their authoritative participants in releasedFilms;
+        // Hollywood.films is the separate rival film corpus, not a second mirror.
+        expect(released.productionId).toBe(take.productionId)
+        admitted(state)
+        return { state, productionId: made.productionId, take, filmCalls: rivalCalls - start,
+          releaseWeek: released.releaseTick, returnedReleaseWeek: state.market.tick }
+      }
+    }
+    throw new Error('fixture premise: rival bootstrap film failed its fixed40-call release bound')
+  })
+}
+export function rivalAuthoring196() {
+  return memo('rivalAuthoring196', () => {
+    const credit = rivalCredit(); let state = rivalTo(credit.state, 195)
+    admitted(state)
+    const script = rivalScript(state, 'c-01', 195); state = script.state
+    for (const id of [RIVAL.vacancy, RIVAL.focus]) {
+      expect(core.caseForTalent(state, id)).toMatchObject({ variant: 'expiry', status: 'discovered', openedWeek: 196, decisionWeek: 208 })
+      expect(core.retirementRecordFor(state, id)).toBeUndefined()
+    }
+    expect(core.publicPreferredTerm(state, RIVAL.vacancy)).toBe(208)
+    expect(marketOwner.publicPreferredOpportunity(state, RIVAL.vacancy)).toBe('anyCastAppearance')
+    expect(marketOwner.publicPreferredOpportunity(state, RIVAL.focus)).toBe('anyCastAppearance')
+    const targetEmployment = state.hollywood!.employment.find(e => e.terms.talentId === RIVAL.vacancy
+      && e.studioId === RIVAL.studio && e.endedWeek === null)
+    expect(targetEmployment?.terms.endWeekExclusive).toBe(208)
+    const trust = state.hollywood!.employment.find(e => e.terms.talentId === RIVAL.trust && e.studioId === issuer(state))
+    expect(trust).toMatchObject({ endedWeek: 52, terms: { startWeek: 0, endWeekExclusive: 52 } })
+    expect(promiseOwner.trustDrivers(state, RIVAL.trust, issuer(state), 196))
+      .toContainEqual(expect.objectContaining({ kind: 'ranToEnd', week: 52, positive: true }))
+    expect(promiseOwner.trustDescriptor(state, RIVAL.vacancy, issuer(state), 196).label).toBe('Reliable')
+    const automatic = state.talentMarket.proposals.find(p => p.talentId === RIVAL.focus && p.issuerStudioId === RIVAL.studio)
+    assert.ok(automatic, 'fixture premise: real automatic r01 proposal for focus exists at196')
+    expect(automatic).toMatchObject({ submittedWeek: 196, startWeek: 208, termWeeks: 208 })
+    const authoring = rivalCandidateCalls.filter(c => c.personId === RIVAL.focus)
+    assert.ok(authoring.length > 0, 'fixture premise: actual automatic candidate calls observed at196')
+    const order = state.talentMarket.cases.filter(c => c.openedWeek === 196 && c.outcome === null).map(c => c.talentId)
+    expect(order.indexOf(RIVAL.vacancy)).toBeGreaterThanOrEqual(0)
+    expect(order.indexOf(RIVAL.focus)).toBeGreaterThan(order.indexOf(RIVAL.vacancy))
+    admitted(state)
+    return { state, credit, projectId: script.projectId, automatic: clone(automatic),
+      calls: clone(rivalCandidateCalls), ordinaryPackage: clone(rivalPackageCalls.find(p => p.week < 208)) }
+  })
+}
+export function rivalWinner208() {
+  return memo('rivalWinner208', () => {
+    const input = rivalAuthoring196(); let state = input.state
+    const price = core.proposalDraft(state, issuer(state), RIVAL.vacancy, 208, 1.25, 196)
+    expect(price.startWeek).toBe(208); expect(state.studio.cash).toBeGreaterThanOrEqual(price.signingBonus)
+    state = core.submitProposal(state, { talentId: RIVAL.vacancy, issuerStudioId: issuer(state), termWeeks: 208, premiumTier: 1.25 })
+    const draft: PromiseDraft = { family: 'APPEARANCE_COUNT', predicate: { count: 1 },
+      issuerStudioId: issuer(state), beneficiaryPersonId: RIVAL.vacancy, startWeek: 208, termWeeks: 208,
+      windowStartWeek: 208, dueWeekExclusive: 416 }
+    expect(quote(state, draft)).toMatchObject({ classification: 'REASONABLY_ACHIEVABLE', bottleneck: null })
+    state = core.attachPromise(state, RIVAL.vacancy, issuer(state), draft)
+    const vacancyPromiseId = state.promises.at(-1)!.promiseId
+    expect(state.talentMarket.proposals.find(p => p.talentId === RIVAL.focus && p.issuerStudioId === issuer(state))).toBeUndefined()
+    admitted(state); state = rivalTo(state, 208); admitted(state)
+    const vacantWinner = state.talentMarket.receipts.filter(r => r.kind === 'settled' && r.week === 208 && r.talentId === RIVAL.vacancy)
+    expect(vacantWinner, 'fixture premise: fixed vacancy bid really wins for the player').toEqual([
+      expect.objectContaining({ studioId: issuer(state) }),
+    ])
+    const playerContract = activeContract(state, RIVAL.vacancy); assert.ok(playerContract)
+    expect(playerContract).toMatchObject({ startWeek: 208, endWeekExclusive: 416, termWeeks: 208 })
+    expect(state.ledger.filter(r => r.kind === 'signingBonus' && r.week === 208 && r.talentId === RIVAL.vacancy))
+      .toEqual([expect.objectContaining({ amount: -playerContract.signingBonus })])
+    expect(state.promises.find(p => p.promiseId === vacancyPromiseId)?.contractId).not.toBeNull()
+    const focusWinner = state.talentMarket.receipts.filter(r => r.kind === 'settled' && r.week === 208 && r.talentId === RIVAL.focus)
+    expect(focusWinner, 'fixture premise: the same fixed rival really wins the later focus case').toEqual([
+      expect.objectContaining({ studioId: RIVAL.studio }),
+    ])
+    expect(state.talentMarket.receipts.indexOf(vacantWinner[0]!)).toBeLessThan(state.talentMarket.receipts.indexOf(focusWinner[0]!))
+    const employment = state.hollywood!.employment.filter(e => e.studioId === RIVAL.studio && e.terms.talentId === RIVAL.focus
+      && e.terms.startWeek === 208)
+    expect(employment).toHaveLength(1)
+    expect(employment[0]).toMatchObject({ endedWeek: null, reason: 'replacement', terms: { termWeeks: 208, endWeekExclusive: 416 } })
+    expect(employment[0]!.terms.signingBonus).toBe(Math.round(employment[0]!.terms.annualSalary * 0.18))
+    assert.ok(rivalMarketPass, 'actual market owner208 before/after accounting observation')
+    expect(rivalMarketPass.week).toBe(208)
+    expect(rivalMarketPass.addedEmployment).toContainEqual(employment[0])
+    const totalBonuses = rivalMarketPass.addedEmployment.reduce((sum, e) => sum + e.terms.signingBonus, 0)
+    expect(rivalMarketPass.afterSigning - rivalMarketPass.beforeSigning).toBeCloseTo(-totalBonuses, 7)
+    expect(rivalMarketPass.afterCash - rivalMarketPass.beforeCash)
+      .toBeCloseTo(rivalMarketPass.afterMovements - rivalMarketPass.beforeMovements, 7)
+    for (const e of rivalMarketPass.addedEmployment)
+      expect(rivalMarketPass.addedReceipts.filter(r => r.kind === 'employment' && r.contractId === e.contractId
+        && r.toStudioId === RIVAL.studio)).toEqual([expect.objectContaining({ week: 208, talentId: e.terms.talentId })])
+    expect(rivalFreezeSeats.length, 'real subject freeze state before the rival commit').toBeGreaterThan(0)
+    for (const snapshot of rivalFreezeSeats) {
+      expect(snapshot.week).toBe(208); expect(snapshot.heldActors).toHaveLength(2)
+      expect(snapshot.heldActors).not.toContain(RIVAL.focus); expect(snapshot.heldActors).not.toContain(RIVAL.vacancy)
+    }
+    const bound = state.promises.filter(p => p.beneficiaryPersonId === RIVAL.focus && p.issuerStudioId === RIVAL.studio
+      && p.contractId === employment[0]!.contractId)
+    expect(bound, 'fixture premise: actual automatic promise binds with the winning employment').toHaveLength(1)
+    expect(input.automatic.promises).toContain(bound[0]!.promiseId)
+    expect(state.talentMarket.proposals.filter(p => p.talentId === RIVAL.focus || p.talentId === RIVAL.vacancy)).toEqual([])
+    // Expected Director predicate/outcome is deliberately left to the leaves.
+    return { ...input, state, promiseId: bound[0]!.promiseId, employment: employment[0]!, vacancyPromiseId,
+      marketPass: clone(rivalMarketPass), freezeSeats: clone(rivalFreezeSeats) }
+  })
+}
+export function rivalFinal260() {
+  return memo('rivalFinal260', () => {
+    const input = rivalWinner208(); let state = input.state
+    let seated: { state: GameState; productionId: string; workWeek: number; crew: string[];
+      ordinaryDirector: string; eligibleActors: string[]; castPrefix: string[]; packageCall: RivalPackageCall } | undefined
+    while (state.market.tick < 260) {
+      const before = state, old = new Set(rivalBusiness(before).productions.map(p => p.id))
+      state = rivalStep(state)
+      const newFocused = rivalBusiness(state).productions.find(p => !old.has(p.id) && p.directorId === RIVAL.focus)
+      if (newFocused && !seated) {
+        const week = newFocused.startTick
+        expect(week).toBe(before.market.tick)
+        const employees = before.hollywood!.activeEmploymentOrdinals.map(i => before.hollywood!.employment[i]!)
+          .filter(e => e.studioId === RIVAL.studio && e.terms.startWeek <= week
+            && week < (e.endedWeek ?? e.terms.endWeekExclusive))
+        const busy = busyTalentIds(before)
+        const ordinaryDirector = employees.map(e => person(before, e.terms.talentId))
+          .find(t => t.role === 'director' && !busy.has(t.id)
+            && lifecycleOwner.assignmentRefusal(before, t.id, week, 'director') === null)
+        assert.ok(ordinaryDirector, 'actual displaced ordinary Director exists at work week')
+        const slots = [newFocused.cast.lead, newFocused.cast.antagonist, newFocused.cast.support]
+        const crew = [newFocused.writerId, newFocused.directorId, ...newFocused.craftIds, ...slots]
+        expect(new Set(crew).size).toBe(crew.length)
+        for (const id of crew) expect(employees.some(e => e.terms.talentId === id)).toBe(true)
+        // Writer credit itself is not an occupied production seat.
+        for (const id of [newFocused.directorId, ...newFocused.craftIds, ...slots]) expect(busy.has(id)).toBe(false)
+        expect(lifecycleOwner.assignmentRefusal(before, RIVAL.focus, week, 'director')).toBeNull()
+        for (const id of slots) {
+          expect(person(before, id).skills.acting).toBeDefined()
+          expect(lifecycleOwner.assignmentRefusal(before, id, week, 'actor')).toBeNull()
+        }
+        const eligibleActors = employees.map(e => person(before, e.terms.talentId))
+          .filter(t => t.role === 'actor' && t.id !== RIVAL.focus && !busy.has(t.id)
+            && ![newFocused.writerId, ...newFocused.craftIds].includes(t.id)
+            && lifecycleOwner.assignmentRefusal(before, t.id, week, 'actor') === null).map(t => t.id)
+        const masks = promiseOwner.promisedCastMasks(before, RIVAL.studio, week + promiseOwner.WEEKS_TO_FIRST_TAKE)
+        const excluded = new Set([newFocused.writerId, newFocused.directorId, ...newFocused.craftIds])
+        const promised = employees.map(e => person(before, e.terms.talentId)).filter(t => masks.has(t.id)
+          && !excluded.has(t.id) && !busy.has(t.id) && t.skills.acting !== undefined
+          && lifecycleOwner.assignmentRefusal(before, t.id, week, 'actor') === null).map(t => t.id)
+        const castPrefix = [...promised, ...eligibleActors.filter(id => !promised.includes(id))].slice(0, 3)
+        const packageCall = rivalPackageCalls.find(p => p.week === week && p.director === RIVAL.focus
+          && p.conceptId === newFocused.conceptId && p.chosenCast !== null)
+        assert.ok(packageCall, 'actual public package call observed before chosen rival work')
+        const project = rivalBusiness(state).development.projects.find(p => p.productionId === newFocused.id)
+        assert.ok(project, 'actual managed rival screenplay linked to production')
+        expect(project.writerId).toBe(newFocused.writerId)
+        admitted(state)
+        seated = { state: clone(state), productionId: newFocused.id, workWeek: week, crew,
+          ordinaryDirector: ordinaryDirector.id, eligibleActors, castPrefix, packageCall: clone(packageCall) }
+      }
+    }
+    admitted(state)
+    const takes = state.firstTakes.filter(t => t.productionId === seated?.productionId && t.studioId === RIVAL.studio)
+    const released = state.hollywood!.films.find(f => f.filmId === seated?.productionId && f.studioId === RIVAL.studio)
+    // Absence of intended Director work is observable policy behavior, not a
+    // failed cache prerequisite. Leaves own the seat/take/release expectations.
+    return { ...input, state, seated, takes, released, packages: clone(rivalPackageCalls) }
   })
 }

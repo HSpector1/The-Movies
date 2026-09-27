@@ -1,0 +1,95 @@
+{
+  "sourceHead": "20b93427ffbf943748484e3f2f916cddde269891",
+  "scope": "Two existing P3 test/helper files only; no project execution, index or production change.",
+  "files": [
+    {
+      "path": "tests/helpers/p14p3-fixtures.ts",
+      "before": {
+        "bytes": 46128,
+        "sha256": "5808cb308dbd4b8f0eb236aeebd23ca0d30e8331f96da79d43c0e50e380cd504"
+      },
+      "after": {
+        "bytes": 73077,
+        "sha256": "94c1c5352d910ab797c77e73dfc1a87f045f4004bab34e730a889641294a1533"
+      }
+    },
+    {
+      "path": "tests/p14p3-directing-promises.test.ts",
+      "before": {
+        "bytes": 66863,
+        "sha256": "b2e309a795a0fe19f351bc983367da2803c46c8844a434f976c0d91030faffd1"
+      },
+      "after": {
+        "bytes": 77197,
+        "sha256": "3371570a015bcc3723ec7d6f4d85f8207bbb5cba9458e0036e538037736b455d"
+      }
+    }
+  ],
+  "orderedPatch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1155-p3-fixed-rival.patch",
+    "bytes": 40997,
+    "sha256": "3b9d9b7f012181d2565fa7b590357234ddea1bb8834e4ba492741ed20d52c5f8"
+  },
+  "argv": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1155-p3-fixed-rival.argv.json",
+    "bytes": 151,
+    "sha256": "7af14ef1a57a691ba8e4f39f277c97f86d3403ee605ae6f7795c6cfcbab7d71b",
+    "value": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p3-directing-promises.test.ts",
+      "--testNamePattern",
+      "D(?:07|18) "
+    ]
+  },
+  "preservation": {
+    "entireOldHelperExactAfterNamedHeaderAndTwoImportReversal": true,
+    "entireOldTestExactAfterNamedHeaderAndTwoImportReversal": true,
+    "oldFourteenBodies": {
+      "bytes": 62946,
+      "sha256": "6782ea4678b7c032cfb31ca359fea4a61b668a4e437167e9ed40bbecdd17fa2d"
+    },
+    "oldTitles": [
+      "D01 offers fresh directing work to lawful Actors and Directors",
+      "D02 counts only actual unrecorded Director seats through the first take",
+      "D03 preserves conservative clocks and names each unavailable resource",
+      "D04 selects revision6 only for the explicit relevant domain and preserves pure history",
+      "D05 binds only the actual accepted material proposal",
+      "D06 fulfills directing once from two real distinct first takes",
+      "D13 admits exact new promise authority and rejects malformed current saves",
+      "D14 preserves old meaning and refuses lossy reverse conversion",
+      "D08 keeps earned work and attributes cancellation, due and termination outcomes",
+      "D12 waives only forward same-domain remaining work on the same contract",
+      "D09 reserves the actual union and freezes a changed receipt without restamping its root",
+      "D10 keeps a newly bound Director obligation lawful after its completed Actor episode",
+      "D11 preserves promise outcomes through actual current-profession retirement",
+      "D13W refuses a nonaccepted receipt on an actual Director waiver successor"
+    ],
+    "oldTimeoutExpression": "LEAF_TIMEOUT_MS = 60_000",
+    "oldTimeoutUses": 14,
+    "newTimeoutUses": 2,
+    "newTitles": [
+      "D07 authors and fulfills a real rival promise to a credited primary Actor",
+      "D18 uses the declared rival strategy and legal distinct staffing"
+    ]
+  },
+  "counters": {
+    "rivalSingleRoute": 260,
+    "maxWorldWeek": 260,
+    "sharedOldCurrentCore": 556,
+    "allCore": 816,
+    "earlyPlayerFilmWithinRival": 40,
+    "extraPrefixTicks": 0,
+    "bridgeFutureSeparate": 12,
+    "outgoingPreservationSeparateAlreadyCaptured": 2
+  },
+  "limits": [
+    "Fixed r01-2 vacancy bid/player win and subsequent r01 focus recruitment remain unproved; no rescue or alternate allowed.",
+    "Separate successful authoring196 cache precedes and survives later winner208/final260 failure.",
+    "Expected tagged binding and Director seating/take/release stay in leaves.",
+    "Private selector busy/missing/closed-Actor policy negatives remain pending; public service or save refusal is not substituted.",
+    "Only compact actual subject/candidate/package/payment facts are recorded; no per-callback whole-state clone."
+  ]
+}

@@ -1,5 +1,5 @@
 // Independent 1112-A/C/D/E, 1121-A/B and 1132-A/B requirements.
-// Ten qualified leaves plus four 1148 leaves. Parent owns all execution.
+// Fourteen existing leaves plus two fixed-rival leaves. Parent owns execution.
 import assert from 'node:assert/strict'
 import { afterAll, describe, expect, it, vi } from 'vitest'
 import * as core from '../src/core/index.js'
@@ -8,6 +8,7 @@ import { qualifyingTakes } from '../src/core/promises.js'
 import * as promiseOwner from '../src/core/promises.js'
 import * as math from '../src/core/math.js'
 import * as lifecycle from '../src/core/careerLifecycle.js'
+import { publicPreferredOpportunity } from '../src/core/talentMarket.js'
 import { activeContract } from '../src/core/employment.js'
 import type { GameState, FirstTakeReceipt, ProfessionalPromiseV30 } from '../src/core/types.js'
 import type { PromiseDraft, PromiseAttachment } from '../src/core/promises.js'
@@ -16,6 +17,7 @@ import { afterTakeCancellation, afterTakeCancellationDue, lateCancellation, late
   outcomeCounters, waiverInput, waived, waiverCompleted, type DirectorSubstitute } from './helpers/p14p3-fixtures.js'
 import { continuityCounters, LIFE, lifeDraft, lifecycle208, lifecycle248, lifecycleAttached,
   lifecycle260, lifecycle261, lifecycle364 } from './helpers/p14p3-fixtures.js'
+import { RIVAL, rivalAuthoring196, rivalWinner208, rivalFinal260, rivalCounters } from './helpers/p14p3-fixtures.js'
 import { act, actualPromise, admitted, at45, attach, attached, bound, bytes, CAST, castDraft, clone,
   counters, creative, directorDraft, firstFilm, futureSave, greenlight, issuer, managedEmpty,
   outgoing, outgoingNames, person, proposal, quote, reopen, secondFilm, SHAPE, terminal208, WRITER,
@@ -882,5 +884,131 @@ describe('P3 third slice: reservations, profession chronology and successor proo
       /later successor belonging to exactly one waiver/i)
     console.info('1149-P3-WAIVER-CHAIN ' + JSON.stringify({ week: chain.market.tick,
       ids: [original.promiseId, successor.promiseId, last.promiseId], windows: [62, 63], due: 104 }))
+  }, LEAF_TIMEOUT_MS)
+})
+
+// 1154: one fixed rival attempt; no edits to the fourteen bodies above.
+afterAll(() => console.info('1155-P3-RIVAL-COUNTERS ' + JSON.stringify(rivalCounters())))
+describe('P3 fixed rival: public credit, ordinary contest and distinct staffing', () => {
+  it('D07 authors and fulfills a real rival promise to a credited primary Actor', () => {
+    const winner = rivalWinner208(), row = currentRow(winner.state, winner.promiseId)
+    admitted(winner.state)
+    expect(person(winner.state, RIVAL.focus).role).toBe('actor')
+    expect(winner.credit.state.studio.releasedFilms.find(f => f.productionId === winner.credit.productionId)?.participants?.director.talentId)
+      .toBe(RIVAL.focus)
+    expect(row).toMatchObject({ family: 'DIRECTING_COUNT', predicate: { kind: 'directorCount', count: 1 }, version: 6,
+      issuerStudioId: RIVAL.studio, beneficiaryPersonId: RIVAL.focus, contractId: winner.employment.contractId,
+      windowStartWeek: 208, dueWeekExclusive: 416, outcome: null, progress: 0, evidenceRefs: [],
+      feasibilityReceipt: { classification: 'REASONABLY_ACHIEVABLE', rulesVersion: 6, week: 208 } })
+    expect(currentRow(reopen(winner.state), row.promiseId)).toEqual(row)
+    // Expected policy work is asserted only after actual winning tagged authority.
+    const done = rivalFinal260()
+    expect(done.state.market.tick).toBe(260)
+    assert.ok(done.packages.some(p => p.week >= 208), 'actual Ready screenplay reaches the rival package boundary within the fixed route')
+    expect(done.seated, 'bound promised primary Actor is actually selected as Director').toBeDefined()
+    assert.ok(done.seated)
+    expect(done.seated.state.hollywood!.businesses.find(b => b.studioId === RIVAL.studio)!.productions
+      .find(p => p.id === done.seated!.productionId)?.directorId).toBe(RIVAL.focus)
+    expect(currentRow(done.seated.state, row.promiseId)).toMatchObject({ outcome: null, progress: 0, evidenceRefs: [] })
+    expect(done.takes, 'real rival first take fulfills the promised Director seat').toHaveLength(1)
+    const take = done.takes[0]!
+    expect(take).toMatchObject({ studioId: RIVAL.studio, directorId: RIVAL.focus, productionId: done.seated.productionId })
+    expect(take.week).toBeGreaterThanOrEqual(row.windowStartWeek); expect(take.week).toBeLessThan(row.dueWeekExclusive)
+    expect(done.released, 'same genuine production releases by260').toBeDefined()
+    assert.ok(done.released && done.released.provenance === 'simulation/v1')
+    expect(done.released.credits).toContainEqual(expect.objectContaining({ talentId: RIVAL.focus, role: 'director' }))
+    expect(done.released.result.productionId).toBe(take.productionId)
+    const terminal = currentRow(done.state, row.promiseId)
+    expect(terminal).toMatchObject({ outcome: 'SATISFIED', outcomeWeek: take.week, progress: 1,
+      evidenceRefs: [take.eventId], feasibilityReceipt: row.feasibilityReceipt })
+    const independent = done.state.firstTakes.filter(t => t.studioId === RIVAL.studio && t.directorId === RIVAL.focus
+      && t.week >= row.windowStartWeek && t.week < row.dueWeekExclusive)
+    expect(independent).toContainEqual(take)
+    expect(qualifyingTakes(done.state, terminal)).toEqual(independent)
+    outcomeReceipt(done.state, terminal); stableOutcome(done.state, terminal.promiseId)
+    expect(promiseOwner.trustDrivers(done.state, RIVAL.focus, RIVAL.studio, 260))
+      .toContainEqual(expect.objectContaining({ kind: 'promiseKept', week: take.week, positive: true }))
+    expect(currentRow(reopen(done.state), row.promiseId)).toEqual(terminal)
+    console.info('1155-P3-RIVAL-WORK ' + JSON.stringify({ bootstrapTake: winner.credit.take.week,
+      bootstrapRelease: winner.credit.releaseWeek, bootstrapReturned: winner.credit.returnedReleaseWeek,
+      bootstrapCalls: winner.credit.filmCalls, vacancy: RIVAL.vacancy, bound: 208, promiseId: row.promiseId,
+      workWeek: done.seated.workWeek, firstTake: take.week, releaseWeek: done.released.result.releaseTick, final: 260 }))
+  }, LEAF_TIMEOUT_MS)
+
+  it('D18 uses the declared rival strategy and legal distinct staffing', () => {
+    // This successful196 cache is independent of a failed later208 contest.
+    const early = rivalAuthoring196(); admitted(early.state)
+    expect(early.state.market.tick).toBe(196)
+    expect(person(early.state, RIVAL.focus).role).toBe('actor')
+    const focusCalls = early.calls.filter(c => c.personId === RIVAL.focus)
+    expect(focusCalls.length).toBeGreaterThan(0)
+    expect(focusCalls[0]!.draft).toMatchObject({ family: 'DIRECTING_COUNT', predicate: { kind: 'directorCount', count: 1 },
+      issuerStudioId: RIVAL.studio, beneficiaryPersonId: RIVAL.focus, startWeek: 208,
+      termWeeks: 208, windowStartWeek: 208, dueWeekExclusive: 416 })
+    expect(publicPreferredOpportunity(early.state, RIVAL.focus)).toBe('anyCastAppearance')
+    // This is r01's real offer to the player's primary Director, not a claim
+    // that authored0002 is r01's incumbent Director.
+    const directorCalls = early.calls.filter(c => c.personId === RIVAL.primaryDirector)
+    expect(directorCalls.length, 'actual automatic r01 offer to the original player Director').toBeGreaterThan(0)
+    expect(person(early.state, RIVAL.primaryDirector).role).toBe('director')
+    expect(directorCalls[0]!.draft).toMatchObject({ family: 'DIRECTING_COUNT', predicate: { kind: 'directorCount', count: 1 } })
+    expect(publicPreferredOpportunity(early.state, RIVAL.primaryDirector)).toBe('directingOpportunity')
+    const uncredited = early.calls.filter(c => c.personId === RIVAL.vacancy)
+    expect(uncredited.length, 'actual automatic incumbent cast offer').toBeGreaterThan(0)
+    expect(early.state.studio.releasedFilms.some(f => f.participants?.director.talentId === RIVAL.vacancy)).toBe(false)
+    expect(early.state.hollywood!.films.some(f => f.credits.some(c => c.talentId === RIVAL.vacancy && c.role === 'director'))).toBe(false)
+    expect(uncredited[0]!.draft).toMatchObject({ family: 'APPEARANCE_COUNT', predicate: { count: 1 } })
+    for (const id of [RIVAL.focus, RIVAL.primaryDirector, RIVAL.vacancy]) {
+      const calls = early.calls.filter(c => c.personId === id)
+      expect(calls.every(c => c.week === 196 && c.beforeHash === c.afterHash && c.rngBefore === c.rngAfter)).toBe(true)
+      expect(new Set(calls.map(c => c.beforeHash)).size).toBe(1)
+      expect(calls.every(c => c.automaticProposal.promises.length === 0 && c.automaticProposal.startWeek === 208
+        && c.automaticProposal.termWeeks === 208)).toBe(true)
+      const firstAccepted = calls.findIndex(c => c.result.classification === 'REASONABLY_ACHIEVABLE')
+      const proposal = early.state.talentMarket.proposals.find(p => p.talentId === id && p.issuerStudioId === RIVAL.studio)
+      assert.ok(proposal)
+      if (firstAccepted < 0) {
+        expect(proposal.promises).toEqual([])
+        expect(early.state.promises.filter(p => p.beneficiaryPersonId === id && p.issuerStudioId === RIVAL.studio)).toEqual([])
+      } else {
+        expect(firstAccepted).toBe(calls.length - 1)
+        expect(proposal.promises).toHaveLength(1)
+        const offered = currentRow(early.state, proposal.promises[0]!)
+        expect(offered).toMatchObject({ family: calls[firstAccepted]!.draft.family, predicate: calls[firstAccepted]!.draft.predicate,
+          contractId: null, outcome: null, progress: 0, evidenceRefs: [], feasibilityReceipt: calls[firstAccepted]!.result })
+        expect(calls[0]!.promiseIds).not.toContain(offered.promiseId)
+        expect(early.state.promises.filter(p => p.beneficiaryPersonId === id && p.issuerStudioId === RIVAL.studio))
+          .toEqual([offered])
+      }
+    }
+    console.info('1155-P3-RIVAL-AUTHORING ' + JSON.stringify({ week: 196,
+      calls: early.calls.map(c => ({ personId: c.personId, family: c.draft.family, predicate: c.draft.predicate,
+        classification: c.result.classification })), bootstrapTake: early.credit.take.week }))
+    const winner = rivalWinner208(), bound = currentRow(winner.state, winner.promiseId)
+    expect(bound).toMatchObject({ family: 'DIRECTING_COUNT', predicate: { kind: 'directorCount', count: 1 }, outcome: null })
+    const done = rivalFinal260()
+    expect(done.seated, 'real bound-P3 staffing is a leaf policy assertion').toBeDefined(); assert.ok(done.seated)
+    const selected = done.seated.packageCall
+    expect(selected.director).toBe(RIVAL.focus); expect(selected.directorRole).toBe('actor')
+    expect(selected.offeredCast).not.toContain(RIVAL.focus); expect(selected.chosenCast).not.toContain(RIVAL.focus)
+    expect(done.seated.eligibleActors).toHaveLength(2)
+    expect(done.seated.castPrefix).toHaveLength(2)
+    expect(done.seated.castPrefix).not.toContain(done.seated.ordinaryDirector)
+    expect(selected.offeredCast).toEqual([...done.seated.castPrefix, done.seated.ordinaryDirector])
+    expect(selected.chosenCast?.slice().sort()).toEqual(selected.offeredCast.slice().sort())
+    expect(new Set(done.seated.crew).size).toBe(done.seated.crew.length)
+    const displaced = person(done.seated.state, done.seated.ordinaryDirector)
+    expect(displaced.role).toBe('director'); expect(displaced.skills.acting).toBeDefined()
+    expect(lifecycle.assignmentRefusal(done.seated.state, displaced.id, done.seated.workWeek, 'actor')).toBeNull()
+    const ordinary = early.ordinaryPackage
+    assert.ok(ordinary && ordinary.chosenCast, 'actual ordinary unpromised package in this same fixed route')
+    expect(ordinary.week).toBeLessThan(208); expect(ordinary.directorRole).toBe('director')
+    expect(ordinary.offeredCast).not.toContain(ordinary.director)
+    expect(ordinary.chosenCast.slice().sort()).toEqual(ordinary.offeredCast.slice().sort())
+    // Private selector busy/missing/closed-Actor negative arguments remain the
+    // explicit1154 pending seam, not substituted by a generic save refusal.
+    console.info('1155-P3-RIVAL-STAFFING ' + JSON.stringify({ week: done.seated.workWeek,
+      director: selected.director, ordinaryDirector: done.seated.ordinaryDirector,
+      offeredCast: selected.offeredCast, chosenCast: selected.chosenCast, final: done.state.market.tick }))
   }, LEAF_TIMEOUT_MS)
 })

@@ -1,5 +1,33 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — fixed rival D07/D18 source frozen; first execution next
+
+1155-A freezes exactly two new leaves and the independent rival helper append on
+published20b93427ffbf943748484e3f2f916cddde269891. Parent verified exact source,
+ordered40997B patch3b9d9b7f, manifest17b9386c and argv7af14ef1. All fourteen
+original bodies/pins/timeouts are literal; body62946B/6782ea46 includes final LF.
+The two new leaves use the same predeclared60s limit and exact `D(?:07|18) ` selector.
+No new compiler, runtime, market victory or promised rival work is yet qualified.
+
+Existing author has yielded both consumed files; independent1155-B is final
+KEEP7161B/a3a63113, verified by parent. Publish, verify exact GitHub SHA, then
+parent alone runs1156 root types and1157 first behavior through separate successful publication
+preflights. Do not edit consumed source or HEAD while either process is active.
+Production remains75d70e18; matching implementation requires actual attributed RED.
+
+Separate successful authoring196, winner208 and optional observed-work260 caches
+preserve early strategy evidence if later fixed market premises fail. Expected
+P3 binding and Director seating/take/release are leaf assertions. One independent
+created0 route,260 calls maximum; no old route invocation, rescue bid or extra
+prefix. Existing core total816, future Bridge12 and captured preservation2 remain
+separately bounded.1155-C records remaining slack/occupancy/fallback/presentation
+and public runtime controls without claiming completion or releasing another route.
+
+No heavy process is active at this source checkpoint. Existing two specialists
+are retained with separate test/review ownership; parent is sole production writer,
+integrator and executor. Continue remaining P3/consumer/P14 onward under existing
+scope. Unity/native, Owner campaigns and protected-main promotion remain deferred.
+
 ## CURRENT — fixed rival D07/D18 plan reviewed; next test-source slice
 
 1153 four-leaf qualification and final records are published at exact GitHub
