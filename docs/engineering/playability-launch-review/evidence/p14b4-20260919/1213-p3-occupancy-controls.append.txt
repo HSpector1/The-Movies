@@ -1,0 +1,190 @@
+
+// 1213: three independent quote controls; all simulation belongs to old caches.
+function occupancyControlCounts() {
+  return { player: counters(), outcome: outcomeCounters(), continuity: continuityCounters(), rival: rivalCounters() }
+}
+function occupancyBound52() {
+  const before = occupancyControlCounts(), input = bound(), after = occupancyControlCounts()
+  const cached = before.player.cachedPhases.some(row => row.name === 'bound52' && row.completed)
+  expect(after.player.actualTicks - before.player.actualTicks).toBe(cached ? 0 : 52 - before.player.actualTicks)
+  expect(after.outcome.branches).toEqual(before.outcome.branches)
+  expect(after.continuity.lifecycleCalls).toBe(before.continuity.lifecycleCalls)
+  expect(after.rival.rivalCalls).toBe(before.rival.rivalCalls)
+  expect(after.player.actualTicks).toBeLessThanOrEqual(after.player.cap)
+  expect(input.state.market.tick).toBe(52); admitted(input.state)
+  expect(actualPromise(input.state, input.promiseId)).toMatchObject({ contractId: expect.any(String),
+    predicate: { kind: 'directorCount', count: 2 }, progress: 0, outcome: null })
+  return input
+}
+function occupancyCompanyClaims(state: GameState, personId: string) {
+  const player = issuer(state)
+  const owners = [{ studioId: player, productions: state.studio.activeProductions },
+    ...state.hollywood!.businesses.filter(row => row.studioId !== player)
+      .map(row => ({ studioId: row.studioId, productions: row.productions }))]
+  return owners.flatMap(owner => owner.productions.flatMap(production => {
+    const seats = [production.directorId === personId ? 'director' : null,
+      ...Object.entries(production.cast).filter(([, id]) => id === personId).map(([slot]) => `cast:${slot}`),
+      ...production.craftIds.filter(id => id === personId).map(() => 'craft')].filter(seat => seat !== null)
+    return seats.length ? [{ studioId: owner.studioId, productionId: production.id,
+      startTick: production.startTick, remainingTicks: production.remainingTicks, seats }] : []
+  }))
+}
+function occupancyPicture(input: { state: GameState; actorId: string; projectIds: string[] }, projectIndex: number) {
+  const before = bytes(input.state)
+  expect(occupancyCompanyClaims(input.state, input.actorId)).toEqual([])
+  expect(input.state.studio.activeProductions).toEqual([])
+  const made = greenlight(clone(input.state), input.projectIds[projectIndex]!, 'authored-0002', {
+    lead: input.actorId, antagonist: CAST.antagonist, support: CAST.support,
+  })
+  const production = made.state.studio.activeProductions.find(row => row.id === made.productionId); assert.ok(production)
+  expect(production).toMatchObject({ startTick: input.state.market.tick, remainingTicks: 8,
+    directorId: 'authored-0002', writerId: WRITER, cast: { lead: input.actorId } })
+  expect(occupancyCompanyClaims(made.state, input.actorId)).toEqual([{ studioId: issuer(made.state),
+    productionId: production.id, startTick: production.startTick, remainingTicks: 8, seats: ['cast:lead'] }])
+  expect(made.state.firstTakes.filter(row => row.productionId === production.id)).toEqual([])
+  expect(bytes(input.state)).toBe(before); admitted(made.state)
+  return { ...made, production }
+}
+function occupancyTuple(material: unknown) {
+  assert.ok(Array.isArray(material))
+  return material.filter((item: unknown) => Array.isArray(item) && item[0] === 'occupiedProductionSeats')
+}
+function occupancyReservationFacts(state: GameState, draft: PromiseDraft) {
+  const selected = selectedReservations(state, draft)
+  const attached = new Set(state.talentMarket.proposals.flatMap(row => row.promises))
+  return { selected, remaining: selected.reduce((sum, row) => sum + Math.max(0, row.predicate.count - row.progress), 0),
+    rows: selected.map(row => ({ promiseId: row.promiseId, beneficiaryPersonId: row.beneficiaryPersonId,
+      issuerStudioId: row.issuerStudioId, contractId: row.contractId, currentlyAttached: attached.has(row.promiseId),
+      predicate: row.predicate, progress: row.progress, outcome: row.outcome,
+      windowStartWeek: row.windowStartWeek, dueWeekExclusive: row.dueWeekExclusive })) }
+}
+function occupancyQueryAt(state: GameState, draft: DirectorDraft, queryWeek: number) {
+  const before = bytes(state), draftBefore = saves.stableStringify(draft), rng = clone(state.rngState)
+  const result = core.promiseFeasibility(state, draft, queryWeek)
+  expect(bytes(state)).toBe(before); expect(state.rngState).toEqual(rng)
+  expect(saves.stableStringify(draft)).toBe(draftBefore)
+  return result
+}
+
+describe('P3 occupancy ownership and retirement query controls', () => {
+  it('D03X keeps an actual player cast seat visible to a rival Director quote', () => {
+    const input = occupancyBound52(), setup = occupancyControlCounts(), rival = 'studio-de11f27b-r01'
+    const identity = input.state.hollywood!.identities.find(row => row.studioId === rival); assert.ok(identity)
+    assert.ok(identity.enteredWeek !== null && identity.enteredWeek <= 52)
+    expect(rival).not.toBe(issuer(input.state))
+    for (const id of input.projectIds) expect(input.state.scriptDevelopment.projects.find(row => row.id === id))
+      .toMatchObject({ status: 'ready', productionId: null })
+    // Fresh argument-only rival query: the real player's count2 root remains reserved.
+    const draft = { ...directorDraft(input.state, input.actorId, 1), issuerStudioId: rival, dueWeekExclusive: 66 }
+    const reservations = occupancyReservationFacts(input.state, draft)
+    expect(reservations.selected).toContainEqual(actualPromise(input.state, input.promiseId))
+    expect(reservations.remaining).toBeGreaterThanOrEqual(2)
+    const vacant = quoteMaterial(input.state, draft), made = occupancyPicture(input, 0)
+    const occupiedReservations = occupancyReservationFacts(made.state, draft)
+    expect(occupiedReservations).toEqual(reservations)
+    expect(made.state.scriptDevelopment.projects.find(row => row.id === input.projectIds[1]))
+      .toMatchObject({ status: 'ready', productionId: null })
+    const occupied = quoteMaterial(made.state, draft)
+    const releaseLowerBound = 52 + made.production.remainingTicks + 1
+    expect(releaseLowerBound).toBe(61); expect(releaseLowerBound + 5).toBe(draft.dueWeekExclusive)
+    expect(occupancyControlCounts()).toEqual(setup)
+    console.info('1213-P3-CROSS-ISSUER ' + JSON.stringify({ worldWeek: 52, queryIssuer: rival,
+      personId: input.actorId, draft, reservations: reservations.rows,
+      claims: occupancyCompanyClaims(made.state, input.actorId), releaseLowerBound, freshTakeLowerBound: 66,
+      vacant: vacant.result, occupied: occupied.result, occupiedInput: occupancyTuple(occupied.material), counters: setup }))
+    expect(vacant.result).toMatchObject({ classification: 'IMPOSSIBLE', rulesVersion: 6,
+      bottleneck: 'promises already made to this person exhaust the window' })
+    expect(occupied.result).toMatchObject({ classification: 'IMPOSSIBLE', rulesVersion: 6,
+      bottleneck: 'no filming week inside the window can reach that many pictures' })
+    expect(occupancyTuple(vacant.material)).toEqual([])
+    expect(occupancyTuple(occupied.material)).toEqual([['occupiedProductionSeats',
+      [[issuer(made.state), made.productionId, 52, 8]]]])
+  }, LEAF_TIMEOUT_MS)
+
+  it('D03W excludes Writer credit alone from actual production occupancy', () => {
+    const input = occupancyBound52(), setup = occupancyControlCounts()
+    expect(person(input.state, WRITER).skills.directing).toBeDefined()
+    expect(occupancyCompanyClaims(input.state, WRITER)).toEqual([])
+    const draft = { ...directorDraft(input.state, WRITER, 1), dueWeekExclusive: 66 }
+    const reservations = occupancyReservationFacts(input.state, draft)
+    expect(reservations.selected).toEqual([actualPromise(input.state, input.promiseId)])
+    expect(reservations.remaining).toBe(2)
+    const vacant = quoteMaterial(input.state, draft), made = occupancyPicture(input, 0)
+    expect(made.production.writerId).toBe(WRITER)
+    expect(occupancyCompanyClaims(made.state, WRITER)).toEqual([])
+    expect(occupancyReservationFacts(made.state, draft)).toEqual(reservations)
+    const occupied = quoteMaterial(made.state, draft)
+    expect(occupancyControlCounts()).toEqual(setup)
+    console.info('1213-P3-WRITER-CREDIT ' + JSON.stringify({ worldWeek: 52, personId: WRITER, draft,
+      reservations: reservations.rows, creditedProductionId: made.productionId,
+      companyClaims: occupancyCompanyClaims(made.state, WRITER), freshEventWeeks: [57, 65],
+      vacant: vacant.result, credited: occupied.result, occupiedInput: occupancyTuple(occupied.material), counters: setup }))
+    for (const observed of [vacant, occupied]) {
+      expect(observed.result).toMatchObject({ classification: 'IMPOSSIBLE', rulesVersion: 6,
+        bottleneck: 'promises already made to this person exhaust the window' })
+      expect(occupancyTuple(observed.material)).toEqual([])
+    }
+  }, LEAF_TIMEOUT_MS)
+
+  it('D03R distinguishes the retirement cap from physical time at an explicit future query week', () => {
+    const before = occupancyControlCounts(), input = afterTakeCancellationDue(), setup = occupancyControlCounts()
+    const hadFilm = before.player.cachedPhases.some(row => row.name === 'firstFilm' && row.completed)
+    expect(setup.player.actualTicks - before.player.actualTicks).toBe(hadFilm ? 0 : 65 - before.player.actualTicks)
+    const priorBranch = before.outcome.branches.find(row => row.name === 'cancelAfter'); assert.ok(priorBranch)
+    const branch = setup.outcome.branches.find(row => row.name === 'cancelAfter'); assert.ok(branch)
+    expect(branch).toMatchObject({ actualTicks: 51, startWeek: 61, cap: 64 })
+    expect(branch.actualTicks - priorBranch.actualTicks).toBe(51 - priorBranch.actualTicks)
+    expect(setup.outcome.branches.filter(row => row.name !== 'cancelAfter'))
+      .toEqual(before.outcome.branches.filter(row => row.name !== 'cancelAfter'))
+    expect(setup.continuity.lifecycleCalls).toBe(before.continuity.lifecycleCalls)
+    expect(setup.rival.rivalCalls).toBe(before.rival.rivalCalls)
+    expect(setup.player.actualTicks).toBeLessThanOrEqual(setup.player.cap)
+    expect(input.first.take.week).toBe(61); expect(input.first.released.market.tick).toBe(65)
+    expect(input.state.market.tick).toBe(112); admitted(input.state)
+    const root = actualPromise(input.state, input.promiseId)
+    expect(root).toMatchObject({ progress: 1, outcome: 'BROKEN', dueWeekExclusive: 112 })
+    const retirement = core.retirementRecordFor(input.state, input.actorId, 'actor'); assert.ok(retirement)
+    expect(retirement).toMatchObject({ profession: 'actor', status: 'announced', announcedWeek: 104,
+      effectiveWeek: 156, retiredWeek: null })
+    expect(person(input.state, input.actorId).role).toBe('actor')
+    const contract = activeContract(input.state, input.actorId); assert.ok(contract)
+    expect(contract).toMatchObject({ startWeek: 52, endWeekExclusive: 156 })
+    const made = occupancyPicture(input, 1)
+    expect(made.state.market.tick).toBe(112)
+    expect(core.retirementRecordFor(made.state, input.actorId, 'actor')).toEqual(retirement)
+    expect(actualPromise(made.state, input.promiseId)).toEqual(root)
+    // Explicit query-time controls; neither state nor actual employment is moved to147/164.
+    const queryWeek = retirement.effectiveWeek - 9
+    expect(queryWeek).toBe(147)
+    const draft: DirectorDraft = { ...directorDraft(input.state, input.actorId, 1),
+      startWeek: 112, termWeeks: 52, windowStartWeek: queryWeek, dueWeekExclusive: 162 }
+    const physicalDraft = { ...draft, dueWeekExclusive: 160 }
+    for (const state of [input.state, made.state]) {
+      expect(occupancyReservationFacts(state, draft).selected).toEqual([])
+      expect(occupancyReservationFacts(state, physicalDraft).selected).toEqual([])
+    }
+    const releaseLowerBound = queryWeek + made.production.remainingTicks
+    expect(releaseLowerBound).toBe(155); expect(releaseLowerBound + 5).toBe(160)
+    const admissionBefore = bytes(made.state), admissionRng = clone(made.state.rngState)
+    const admissions = [queryWeek, queryWeek + 1, releaseLowerBound].map(week => ({ week,
+      refusal: lifecycle.assignmentRefusal(made.state, input.actorId, week, 'director') }))
+    expect(admissions[0]!.refusal).toBeNull()
+    for (const row of admissions.slice(1)) expect(row.refusal).toMatch(/retirementAnnounced/)
+    expect(bytes(made.state)).toBe(admissionBefore); expect(made.state.rngState).toEqual(admissionRng)
+    const vacant = occupancyQueryAt(input.state, draft, queryWeek)
+    const capped = occupancyQueryAt(made.state, draft, queryWeek)
+    const physical = occupancyQueryAt(made.state, physicalDraft, queryWeek)
+    expect(occupancyControlCounts()).toEqual(setup)
+    console.info('1213-P3-RETIREMENT-FLOOR ' + JSON.stringify({ actualWorldWeek: 112, explicitQueryWeek: queryWeek,
+      personId: input.actorId, retirement, actualContract: contract, draft, physicalDraft,
+      reservations: occupancyReservationFacts(made.state, draft).rows,
+      claims: occupancyCompanyClaims(made.state, input.actorId), admissions, releaseLowerBound,
+      freshTakeLowerBound: 160, vacant, capped, physical, counters: setup }))
+    expect(vacant).toMatchObject({ classification: 'FRAGILE', rulesVersion: 6,
+      bottleneck: 'the schedule leaves no spare picture inside the window' })
+    expect(capped).toMatchObject({ classification: 'IMPOSSIBLE', rulesVersion: 6,
+      bottleneck: 'retirement leaves too few qualifying production seats inside the window' })
+    expect(physical).toMatchObject({ classification: 'IMPOSSIBLE', rulesVersion: 6,
+      bottleneck: 'no filming week inside the window can reach that many pictures' })
+  }, LEAF_TIMEOUT_MS)
+})

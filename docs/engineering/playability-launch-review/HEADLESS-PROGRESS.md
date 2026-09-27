@@ -1,5 +1,33 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — Three occupancy boundary controls applied; P4/P5 preparation underway
+
+Production2af37179 remains unchanged and qualified by1208–1211: both compilers
+and15 nonrival core cases passed,518/556 advances. Verified records are published
+b936e116b157d316e5064e9692f355c7b42c288c with exact remote equality.
+
+Parent read/final-pin-verified1212/1213-A/B and applied the exact1213 test append.
+The entire85257-byte prior test remains a literal prefix; helper/production stay
+unchanged. New source98958 bytes/1bcbbe03552f5815c3e88fc1f0937ef51f37d7b84ca0f3bd8fd693f5058e2e16.
+D03X/W/R isolate cross-issuer occupancy, Writer-credit exclusion and retirement
+versus physical timing on actual112 queried explicitly at147. The D03X amendment
+keeps the complete real reservation union and its player count2 root; it requires
+total>=2 instead of an unproved exact-one census. Frozen earlier plans remain.
+
+Publish and verify GitHub equality, then1214 rootcompiler and1215 new3-only
+selection (17 filtered), unchanged60s leaves. Fresh expected116=65player+51cancelAfter,
+zero added branch advances; existing subset guard272. No heavy process active.
+Do not repeat completed15, rival route, UI or generated checks.
+
+1218-A/B begins independently reviewed P4/P5 preparation: immutable new take facts
+beside preserved old receipts, explicit cast classes and singular feasibility,
+with genuine current39/54 preservation before any version/predicate activation.
+Current P4/P5 refusals remain.1219-A prepares bounded evidence/tests only. Rival,
+isolated-slack and historical post-take gaps remain; no complete P3/P14 claim.
+Existing separate test/review specialists remain; parent alone owns production
+and execution. P15 choices persist; continue P14/P15/P16/specified P17/P18, with
+Unity/native/Owner access deferred.
+
 ## CURRENT — Occupancy correction verified on published2af37179; boundary controls next
 
 Source2af37179eb2d33b2a295c0e20fdd87e5318ad3cf is published with exact remote

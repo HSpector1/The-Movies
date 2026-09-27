@@ -1,0 +1,59 @@
+{
+  "at": "2026-09-27T17:50:29.715474+00:00",
+  "head": "b936e116b157d316e5064e9692f355c7b42c288c",
+  "action": "Applied exact reviewed1213 patch after live/prepared/protected/A/B pin checks.",
+  "target": "tests/p14p3-directing-promises.test.ts",
+  "postimage": {
+    "bytes": 98958,
+    "sha256": "1bcbbe03552f5815c3e88fc1f0937ef51f37d7b84ca0f3bd8fd693f5058e2e16"
+  },
+  "originalPrefixLiteral": true,
+  "adoptedCensusRefinement": "D03X retains complete independently selected union and real player count2 root; remaining>=2 permits lawful additional r01 roots instead of requiring an unproved exact-one census.",
+  "verification": [
+    {
+      "id": 1214,
+      "argv": [
+        "node_modules/.bin/tsc",
+        "--noEmit"
+      ]
+    },
+    {
+      "id": 1215,
+      "argv": [
+        "node_modules/.bin/vitest",
+        "run",
+        "--project",
+        "core",
+        "tests/p14p3-directing-promises.test.ts",
+        "-t",
+        "D03(?:X|W|R) "
+      ]
+    }
+  ],
+  "expectedSelection": {
+    "selected": [
+      "D03X keeps an actual player cast seat visible to a rival Director quote",
+      "D03W excludes Writer credit alone from actual production occupancy",
+      "D03R distinguishes the retirement cap from physical time at an explicit future query week"
+    ],
+    "filteredExisting": 17,
+    "leafTimeoutMs": 60000
+  },
+  "calls": {
+    "freshExpected": 116,
+    "playerExpected": 65,
+    "cancelAfterExpected": 51,
+    "firstTwoLeavesFreshSharedPrefix": 52,
+    "addedAdvancesAfterCaches": 0,
+    "otherBranchesExpected": 0,
+    "lifecycleExpected": 0,
+    "rivalExpected": 0,
+    "unchangedPlayerCap": 208,
+    "unchangedCancelAfterCap": 64,
+    "selectedSubsetExistingGuardCeiling": 272,
+    "unchangedWholeCoreCap": 816,
+    "cacheReuse": "Assert setup deltas and unchanged branch counters; no global reset."
+  },
+  "next": "Publish/exact remote equality, compiler then new3 only; no runtime result yet.",
+  "productionUnchanged": "2af37179eb2d33b2a295c0e20fdd87e5318ad3cf"
+}

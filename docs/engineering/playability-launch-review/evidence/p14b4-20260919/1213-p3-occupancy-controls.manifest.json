@@ -1,0 +1,96 @@
+{
+  "status": "FROZEN_SOURCE_ONLY_UNAPPLIED",
+  "preparationHead": "b936e116b157d316e5064e9692f355c7b42c288c",
+  "liveTarget": {
+    "path": "tests/p14p3-directing-promises.test.ts",
+    "bytes": 85257,
+    "sha256": "6e0f49573038e68472485462941cd671e9d579a91eb1654ad568d84530231121"
+  },
+  "postimage": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1213-p3-occupancy-controls.stage/tests/p14p3-directing-promises.test.ts",
+    "bytes": 98958,
+    "sha256": "1bcbbe03552f5815c3e88fc1f0937ef51f37d7b84ca0f3bd8fd693f5058e2e16"
+  },
+  "append": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1213-p3-occupancy-controls.append.txt",
+    "bytes": 13701,
+    "sha256": "225124ddb2de012ad8c65108c04b43b9a2970c56010411d4be0c9d4fd7bce597"
+  },
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1213-p3-occupancy-controls.patch",
+    "bytes": 14124,
+    "sha256": "267bdc65e5f028a5bffc90a2ebe712cb4dcbe1529eb7d189752453a475e1bee5"
+  },
+  "protected": [
+    {
+      "path": "tests/helpers/p14p3-fixtures.ts",
+      "bytes": 78674,
+      "sha256": "389112bde75ccaab9e2d155a1df6e6dc279b78c7d6d531a582b04f27be5fba83"
+    },
+    {
+      "path": "src/core/promises.ts",
+      "bytes": 97928,
+      "sha256": "ca7a6edb1a16f30de5ed8090a49822b501922388504502c662778a44d8635b19"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1212-A-p3-occupancy-controls-design.md",
+      "bytes": 10159,
+      "sha256": "e0a579f561ccb4981c18c8cb6e0c17e31c0711c493a389eb52116d230c9c399d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1212-B-p3-occupancy-controls-design-review.md",
+      "bytes": 3930,
+      "sha256": "d862a6c33952e53337a28865816c1a27d32b8fe04d1ab0d7213ce9a4fa579aef"
+    }
+  ],
+  "preservation": {
+    "completeOriginalPrefixBytes": 85257,
+    "completeOriginalPrefixSha256": "6e0f49573038e68472485462941cd671e9d579a91eb1654ad568d84530231121",
+    "originalLeafCount": 17,
+    "newLeafCount": 3,
+    "existingPrefixLiteral": true,
+    "helperAndProductionUnchanged": true
+  },
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14p3-directing-promises.test.ts",
+    "-t",
+    "D03(?:X|W|R) "
+  ],
+  "selection": {
+    "selected": [
+      "D03X keeps an actual player cast seat visible to a rival Director quote",
+      "D03W excludes Writer credit alone from actual production occupancy",
+      "D03R distinguishes the retirement cap from physical time at an explicit future query week"
+    ],
+    "filteredExisting": 17,
+    "leafTimeoutMs": 60000
+  },
+  "calls": {
+    "freshExpected": 116,
+    "playerExpected": 65,
+    "cancelAfterExpected": 51,
+    "firstTwoLeavesFreshSharedPrefix": 52,
+    "addedAdvancesAfterCaches": 0,
+    "otherBranchesExpected": 0,
+    "lifecycleExpected": 0,
+    "rivalExpected": 0,
+    "unchangedPlayerCap": 208,
+    "unchangedCancelAfterCap": 64,
+    "selectedSubsetExistingGuardCeiling": 272,
+    "unchangedWholeCoreCap": 816,
+    "cacheReuse": "Assert setup deltas and unchanged branch counters; no global reset."
+  },
+  "scopeAmendment": "D03X retains complete independently selected union and real player count2 root; remaining>=2 permits lawful additional r01 roots instead of requiring an unproved exact-one census.",
+  "notExecuted": [
+    "project imports",
+    "compiler",
+    "tests",
+    "gameplay",
+    "git apply",
+    "git index mutation"
+  ]
+}
