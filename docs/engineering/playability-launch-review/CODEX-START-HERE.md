@@ -1,5 +1,28 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — Bridge evidence closed; four new core controls staging
+
+Published7e9055b0fc9342203e2498a73d1d61e69a5b6558 matched GitHub.1236-J/K
+now independently close the actual1247b compiler and1250 three Bridge PASS
+results on4d1fdec8, preserving the228.867s synchronous B55-2 timeout overrun and
+all runtime/slot/privacy limits. Parent read both;1236-L and full raw are retained.
+No repeat Bridge/UI/capture is needed for that completed slice.
+
+Parent adopts frozen1249-A/B plus F: four new core leaves Q07/Q08/Q09/Q10,
+selected by Q(?:0[789]|10), original six filtered. Reuse only existing Q05 setup:
+20 expected/hard47 advances, zeroQ06 and zero added branch advances. Q07 strict
+nonempty suffix negatives; Q08 actual class/window matching; Q09 real narrowing
+waiver chain; Q10 one fixed, pure P5 reservation query on actual scheduled60
+with an independently established held P4 witness. Q10 changes no campaign and
+has no alternate person/project/window rescue. Source remains evidence-only
+staging pending C handback/D review, parent exact application/publication, then
+1252 root compilation and1253 new-only runtime on guarded published source.
+
+All complete old bodies/inputs/counters remain frozen. Full1226 is incomplete;
+continue authorized P14/P15/P16/specified program. Parent remains sole production/
+integration/heavy owner; existing two specialists retain test/review ownership.
+Unity/native and Owner campaign remain deferred.
+
 ## CURRENT — Bridge55 three-case logic PASS with elapsed limitation
 
 Published4d1fdec8ad8b73e7db01281bef5ed84147d3c63c matched GitHub.1247b Bridge
