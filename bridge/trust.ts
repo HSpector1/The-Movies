@@ -74,7 +74,8 @@ export function promiseAttentionRows(
     }
     if (promise.outcome === null && promise.progress === 0
       && promise.dueWeekExclusive - week <= PROMISE_ATTENTION_WEEKS) {
-      add('promiseDue', `Promise to ${name} due Week ${String(promise.dueWeekExclusive)} — filming has not begun`)
+      const work = 'kind' in promise.predicate && promise.predicate.kind === 'directorCount' ? 'directing' : 'filming'
+      add('promiseDue', `Promise to ${name} due Week ${String(promise.dueWeekExclusive)} — ${work} has not begun`)
     }
     // P14B.7: the gate and the WORD move together. This was a two-way ternary
     // with no third arm, so admitting WAIVED at the gate alone would have

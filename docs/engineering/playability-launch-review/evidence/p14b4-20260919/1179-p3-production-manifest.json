@@ -1,0 +1,57 @@
+{
+  "baselineHead": "f4c631c29244b3f78bc5a30bbd31a7db370649b1",
+  "scope": "P3 Bridge54 and pure presentation candidate after actual1178RED; not yet compiled or runtime-qualified",
+  "files": [
+    {
+      "path": "src/core/talentMarket.ts",
+      "bytes": 88293,
+      "sha256": "f51346f62b4a6a788db4ed99bdc76fe1aa3943204384ac7a4c2e945da641a337"
+    },
+    {
+      "path": "bridge/promises.ts",
+      "bytes": 15335,
+      "sha256": "7d37b8c82af30dcbad68f6c003e1d298137fd1458ca7fe3940f1c4b892eb93eb"
+    },
+    {
+      "path": "bridge/trust.ts",
+      "bytes": 4237,
+      "sha256": "8818cdd8e0458ea8bd34d6b99d665ad0bd2bae4fe177e48f284318b077abca6d"
+    },
+    {
+      "path": "bridge/runtime-checkpoint.ts",
+      "bytes": 63252,
+      "sha256": "9dc6595b5b701ecbfcf0484f0113225894d830a8590d440e6b4436c80de29a5d"
+    },
+    {
+      "path": "bridge/schema/bridge-schema.ts",
+      "bytes": 187261,
+      "sha256": "810328848c813b5b8a84e776c924335998b4541c1681d2b15299fd6f5fa777cc"
+    },
+    {
+      "path": "bridge/schema/project-studio-bridge.schema.json",
+      "bytes": 396058,
+      "sha256": "745d9f0c02f40b5f67a0882e3bf29133da21e1d9917f5a57a9ee73b4cb5a7723"
+    },
+    {
+      "path": "generated/unity/StudioBridgeDtos.Generated.cs",
+      "bytes": 867401,
+      "sha256": "891b8f971dfcc474d6c083f2f0db54ff972e50ad0664b0a4e15d65e949de422a"
+    },
+    {
+      "path": "generated/unity/project-studio-bridge.contract-manifest.json",
+      "bytes": 820,
+      "sha256": "ecf51c7755bb54dc3a79f809dd7022bb3c3c875138887756d634fd655c4958d3"
+    },
+    {
+      "path": "generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs",
+      "bytes": 44592,
+      "sha256": "be4b1dd1da2e7dc28906b9bad1ab0fa73e32d4dbe69eef344d9aeaf0a697bdb6"
+    },
+    {
+      "path": "ui/src/components/ProfessionalPromiseTerms.tsx",
+      "bytes": 1545,
+      "sha256": "cbd79a409639b5ac788da62a5d1cc2ed222856b3cc90c504d9812791cf1865f7"
+    }
+  ],
+  "schemaId": "sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302"
+}

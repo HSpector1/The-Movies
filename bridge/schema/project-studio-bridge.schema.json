@@ -561,7 +561,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 53,
+          "const": 54,
           "type": "integer"
         },
         "stateDigest": {
@@ -678,7 +678,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 53,
+          "const": 54,
           "type": "integer"
         },
         "stateDigest": {
@@ -1201,7 +1201,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 53,
+          "const": 54,
           "type": "integer"
         },
         "stateDigest": {
@@ -1280,7 +1280,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 53,
+          "const": 54,
           "type": "integer"
         },
         "stateDigest": {
@@ -1572,7 +1572,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 53,
+          "const": 54,
           "type": "integer"
         },
         "stateDigest": {
@@ -9579,7 +9579,8 @@
         "preferredOpportunity": {
           "enum": [
             "significantCastRole",
-            "anyCastAppearance"
+            "anyCastAppearance",
+            "directingOpportunity"
           ],
           "type": "string"
         },
@@ -9687,6 +9688,13 @@
           "minLength": 1,
           "type": "string"
         },
+        "qualifyingRole": {
+          "enum": [
+            "cast",
+            "director"
+          ],
+          "type": "string"
+        },
         "seatClass": {
           "anyOf": [
             {
@@ -9728,6 +9736,7 @@
         "outcomeWeek",
         "progress",
         "promiseId",
+        "qualifyingRole",
         "seatClass",
         "supersededByPromiseId",
         "windowStartWeek"
@@ -9799,6 +9808,13 @@
           ],
           "type": "string"
         },
+        "qualifyingRole": {
+          "enum": [
+            "cast",
+            "director"
+          ],
+          "type": "string"
+        },
         "seatClass": {
           "anyOf": [
             {
@@ -9824,6 +9840,7 @@
         "count",
         "dueWeekExclusive",
         "family",
+        "qualifyingRole",
         "seatClass",
         "windowStartWeek"
       ],
@@ -9886,7 +9903,6 @@
         "family": {
           "enum": [
             "APPEARANCE_COUNT",
-            "DIRECTING_COUNT",
             "PREFERRED_GENRE_OPPORTUNITY",
             "SPECIFIC_PROJECT"
           ],
@@ -9906,6 +9922,38 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioMarketProposalCountPromiseDraftPayload"
+    },
+    "StudioMarketProposalDirectorPromiseDraftPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "count": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "dueWeekExclusive": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "family": {
+          "const": "DIRECTING_COUNT",
+          "type": "string"
+        },
+        "windowStartWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "count",
+        "dueWeekExclusive",
+        "family",
+        "windowStartWeek"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioMarketProposalDirectorPromiseDraftPayload"
     },
     "StudioMarketProposalDraftPayload": {
       "additionalProperties": false,
@@ -9962,6 +10010,9 @@
       "anyOf": [
         {
           "$ref": "#/$defs/StudioMarketProposalCastClassPromiseDraftPayload"
+        },
+        {
+          "$ref": "#/$defs/StudioMarketProposalDirectorPromiseDraftPayload"
         },
         {
           "$ref": "#/$defs/StudioMarketProposalCountPromiseDraftPayload"
@@ -14405,6 +14456,38 @@
       "type": "object",
       "x-csharp-name": "StudioPromiseWaiverCountSubstituteDraftPayload"
     },
+    "StudioPromiseWaiverDirectorSubstituteDraftPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "count": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "dueWeekExclusive": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "family": {
+          "const": "DIRECTING_COUNT",
+          "type": "string"
+        },
+        "windowStartWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "count",
+        "dueWeekExclusive",
+        "family",
+        "windowStartWeek"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPromiseWaiverDirectorSubstituteDraftPayload"
+    },
     "StudioPromiseWaiverDraftPayload": {
       "additionalProperties": false,
       "properties": {
@@ -14471,6 +14554,13 @@
           "minLength": 1,
           "type": "string"
         },
+        "qualifyingRole": {
+          "enum": [
+            "cast",
+            "director"
+          ],
+          "type": "string"
+        },
         "queueNote": {
           "anyOf": [
             {
@@ -14531,6 +14621,7 @@
         "kind",
         "ok",
         "promiseId",
+        "qualifyingRole",
         "queueNote",
         "queues",
         "refusalReason",
@@ -14546,6 +14637,9 @@
       "anyOf": [
         {
           "$ref": "#/$defs/StudioPromiseWaiverCastClassSubstituteDraftPayload"
+        },
+        {
+          "$ref": "#/$defs/StudioPromiseWaiverDirectorSubstituteDraftPayload"
         },
         {
           "$ref": "#/$defs/StudioPromiseWaiverCountSubstituteDraftPayload"
@@ -17607,7 +17701,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-53",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-54",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -17663,7 +17757,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 53,
+    "projectionVersion": 54,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

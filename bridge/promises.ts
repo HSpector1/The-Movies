@@ -40,17 +40,20 @@ export type MarketPromiseRow = {
 
 export type MarketPromiseHistoryRow = BridgeMarketPromiseHistoryRow
 
-/** The wire draft (projection 47): the closed family-discriminated union — a
- * `LEAD_OR_SIGNIFICANT_ROLE_COUNT` draft carries its required `seatClass`, every
- * other family is count-only. */
+/** The closed family-discriminated wire draft. Only P2 carries a seat class;
+ * fresh P3 selects Director work without exposing the private predicate. */
 export type WirePromiseDraft = BridgeMarketProposalPromiseDraftPayload
 
-/** The ONE wire→core material conversion, shared by quote and attach: the kind
- * and the selected class travel together, only for the seat-class family. */
+/** The ONE wire→core conversion shared by quote, attachment and waiver. */
 export function corePredicateOf(draft: WirePromiseDraft): PromiseAttachment['predicate'] {
+  if (draft.family === 'DIRECTING_COUNT') return { kind: 'directorCount', count: draft.count }
   return 'seatClass' in draft
     ? { kind: 'castRoleCount', count: draft.count, seatClass: draft.seatClass }
     : { count: draft.count }
+}
+
+function qualifyingRoleOf(predicate: PromiseAttachment['predicate']): 'cast' | 'director' {
+  return 'kind' in predicate && predicate.kind === 'directorCount' ? 'director' : 'cast'
 }
 
 /** The quote-time draft. The window is checked against the PROPOSED contract, so
@@ -107,8 +110,9 @@ export function promiseHistoryFor(
         promiseId: promise.promiseId,
         family: promise.family,
         count: promise.predicate.count,
+        qualifyingRole: qualifyingRoleOf(promise.predicate),
         // The stored shape alone selects a class; a legacy classless P2 reads null.
-        seatClass: 'kind' in promise.predicate ? promise.predicate.seatClass : null,
+        seatClass: 'kind' in promise.predicate && promise.predicate.kind === 'castRoleCount' ? promise.predicate.seatClass : null,
         windowStartWeek: promise.windowStartWeek,
         dueWeekExclusive: promise.dueWeekExclusive,
         contractId: promise.contractId,
@@ -185,8 +189,7 @@ export function unboxPromise(value: Disclosed<DisclosedPromise | null>): Disclos
 // FORCES `issuerStudioId` to the player rather than trusting the payload. A waiver
 // has no such field to force, so the same decision can only be a refusal.
 
-/** The wire draft (projection 50): one promise id plus one substitute, whose family
- * is APPEARANCE_COUNT or an explicitly classed LEAD_OR_SIGNIFICANT_ROLE_COUNT. */
+/** One own promise id plus a closed P1, explicitly classed P2 or Director P3 substitute. */
 export type WireWaiverDraft = BridgePromiseWaiverDraftPayload
 
 export type PromiseWaiverConversionOk = {
@@ -211,7 +214,8 @@ function noSuchPromiseOfYours(promiseId: string): string {
   return `This studio has no promise ${JSON.stringify(promiseId)} on its record.`
 }
 
-function substituteTerms(count: number, seatClass: string | null): string {
+function substituteTerms(count: number, seatClass: string | null, qualifyingRole: 'cast' | 'director'): string {
+  if (qualifyingRole === 'director') return `begin directing ${String(count)} production${count === 1 ? '' : 's'}`
   const noun = seatClass === null
     ? 'appearance'
     : seatClass === 'lead' ? 'lead role' : 'lead or antagonist role'
@@ -252,7 +256,7 @@ export function promiseWaiverDraftToEngine(state: GameState, draft: WireWaiverDr
     dueWeekExclusive: draft.substitute.dueWeekExclusive,
   }
   const seatClass = 'seatClass' in draft.substitute ? draft.substitute.seatClass : null
-  const terms = substituteTerms(draft.substitute.count, seatClass)
+  const terms = substituteTerms(draft.substitute.count, seatClass, qualifyingRoleOf(substitute.predicate))
   return {
     ok: true,
     kind: 'waivePromise',
@@ -278,7 +282,8 @@ export function promiseWaiverQuoteSnapshot(
   intentId: string,
 ): BridgePromiseWaiverQuoteSnapshot {
   const { substitute, seatClass, refusal, talentName } = conversion
-  const terms = substituteTerms(substitute.predicate.count, seatClass)
+  const qualifyingRole = qualifyingRoleOf(substitute.predicate)
+  const terms = substituteTerms(substitute.predicate.count, seatClass, qualifyingRole)
   return {
     intentId,
     kind: 'waivePromise',
@@ -293,6 +298,7 @@ export function promiseWaiverQuoteSnapshot(
     talentId: conversion.talentId,
     family: substitute.family,
     count: substitute.predicate.count,
+    qualifyingRole,
     seatClass,
     windowStartWeek: substitute.windowStartWeek,
     dueWeekExclusive: substitute.dueWeekExclusive,

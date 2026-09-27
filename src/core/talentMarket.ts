@@ -490,6 +490,8 @@ export type Disclosed<T> = T | typeof UNKNOWN
 export type DisclosedPromise = {
   family: PromiseFamily
   count: number
+  /** Stored predicate semantics; historical classless P3 remains cast work. */
+  qualifyingRole: 'cast' | 'director'
   /** P14B.4: the explicitly selected P2 seat class, or null (count family or a
    * legacy classless P2) — read from the stored shape, never from a version. */
   seatClass: 'lead' | 'leadOrAntagonist' | null
@@ -575,6 +577,7 @@ function disclosedPromise(state: GameState, proposal: TalentMarketProposal): Dis
   return {
     family: promise.family,
     count: promise.predicate.count,
+    qualifyingRole: 'kind' in promise.predicate && promise.predicate.kind === 'directorCount' ? 'director' : 'cast',
     seatClass: 'kind' in promise.predicate && promise.predicate.kind === 'castRoleCount' ? promise.predicate.seatClass : null,
     windowStartWeek: promise.windowStartWeek,
     dueWeekExclusive: promise.dueWeekExclusive,

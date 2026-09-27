@@ -1,0 +1,46 @@
+{
+  "baselineHead": "f4c631c29244b3f78bc5a30bbd31a7db370649b1",
+  "newTest": {
+    "path": "ui/src/components/ProfessionalPromiseTerms.test.tsx",
+    "bytes": 4931,
+    "sha256": "9e3f3bb1b077972cfc4310582f2cd0635eb5c3b1893ea1236bedfa43180b0b06"
+  },
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1179-p3-promise-terms-test.patch",
+    "bytes": 5266,
+    "sha256": "9110237420d979bb686baed1d53138c45d8f3cde3b3ff52ba4d223dd4e2fc3a3"
+  },
+  "parentOwnedComponentObserved": {
+    "path": "ui/src/components/ProfessionalPromiseTerms.tsx",
+    "bytes": 1545,
+    "sha256": "cbd79a409639b5ac788da62a5d1cc2ed222856b3cc90c504d9812791cf1865f7"
+  },
+  "parentComponentMayBePublishedWithProductionCandidate": true,
+  "protectedTests": [
+    {
+      "path": "tests/bridge-p14p3-directing-promises.test.ts",
+      "bytes": 45268,
+      "sha256": "8f086d16818dd3449604f2da2b91ed575b1c5c04e5a656020867d5b140f6872d"
+    },
+    {
+      "path": "tests/bridge-p14b2-trust.test.ts",
+      "bytes": 32115,
+      "sha256": "7c9535be07f532d1d424525e8e1dd14ea9be2a3bd148773bb8b394772da197e8"
+    }
+  ],
+  "declarations": [
+    "D16 renders own, unknown, history and waiver terms without private authority"
+  ],
+  "timeout": "Existing UI project default; no override or configuration edit.",
+  "simulationTicks": 0,
+  "engineActions": 0,
+  "runtimeCommands": 0,
+  "runtimeArgv": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "ui",
+    "ui/src/components/ProfessionalPromiseTerms.test.tsx"
+  ],
+  "noExecution": true
+}

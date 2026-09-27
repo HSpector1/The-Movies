@@ -1,0 +1,61 @@
+{
+  "scope": "Local declaration generation only; no native consumer verification",
+  "commands": [
+    {
+      "command": [
+        "npm",
+        "run",
+        "generate:bridge-contract"
+      ],
+      "start": "2026-09-27T16:09:55.657459+00:00",
+      "end": "2026-09-27T16:09:57.269749+00:00",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "generate:bridge-contract:fixtures"
+      ],
+      "start": "2026-09-27T16:09:57.269835+00:00",
+      "end": "2026-09-27T16:09:58.401737+00:00",
+      "exitCode": 0
+    }
+  ],
+  "outputs": [
+    {
+      "path": "bridge/schema/project-studio-bridge.schema.json",
+      "bytes": 396058,
+      "sha256": "745d9f0c02f40b5f67a0882e3bf29133da21e1d9917f5a57a9ee73b4cb5a7723"
+    },
+    {
+      "path": "generated/unity/StudioBridgeDtos.Generated.cs",
+      "bytes": 867401,
+      "sha256": "891b8f971dfcc474d6c083f2f0db54ff972e50ad0664b0a4e15d65e949de422a"
+    },
+    {
+      "path": "generated/unity/project-studio-bridge.contract-manifest.json",
+      "bytes": 820,
+      "sha256": "ecf51c7755bb54dc3a79f809dd7022bb3c3c875138887756d634fd655c4958d3"
+    },
+    {
+      "path": "generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs",
+      "bytes": 44592,
+      "sha256": "be4b1dd1da2e7dc28906b9bad1ab0fa73e32d4dbe69eef344d9aeaf0a697bdb6"
+    }
+  ],
+  "schema": {
+    "contractId": "project-studio-current-game-unity-bridge",
+    "generatorSourceSha256": "1b4dfcf144baa723cd037558f1ac7b15b9269d5ac4cc43b17ae6867444a99595",
+    "generatorVersion": 1,
+    "manifestVersion": 1,
+    "projectionVersion": 54,
+    "protocolVersion": 4,
+    "schemaId": "sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302",
+    "typescriptGeneratedContractPath": "generated/unity/StudioBridgeDtos.Generated.cs",
+    "typescriptGeneratedContractSha256": "891b8f971dfcc474d6c083f2f0db54ff972e50ad0664b0a4e15d65e949de422a",
+    "unityConsumerRepository": "HSpector1/project-studio-unity-visual-spike",
+    "unityGeneratedContractPath": "Assets/Studio/Runtime/Data/Generated/StudioBridgeDtos.Generated.cs",
+    "unityGeneratedContractSha256": "891b8f971dfcc474d6c083f2f0db54ff972e50ad0664b0a4e15d65e949de422a"
+  }
+}

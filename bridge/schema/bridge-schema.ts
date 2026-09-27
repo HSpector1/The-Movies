@@ -274,7 +274,9 @@ export const PROTOCOL_VERSION = 4 as const
 // exact outgoing51 is registered before any52 checkpoint is minted.
 // C.3: separate profession history and industry finality; exact outgoing52
 // checkpoints take the registered prior-schema path into independent Save38 slots.
-export const PROJECTION_VERSION = 53 as const
+// P3: explicit Director drafts and truthful stored-role disclosures. Genuine
+// outgoing53 checkpoints are registered before this Save39 runtime boundary.
+export const PROJECTION_VERSION = 54 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -1808,11 +1810,11 @@ const MARKET_PROPOSAL_REFUSAL_KINDS = [
 // P14B.1: the promise a propose/revise draft may carry. The window is read against
 // the SAME proposed contract the draft names (`startWeek` is the case's decision
 // week, `termWeeks` the draft's own term), so the payload carries neither.
-// P14B.4 (projection 47): a CLOSED union discriminated by `family`. The two members'
+// A CLOSED union discriminated by `family`. The members'
 // `family` domains are disjoint, so the first-match `anyOf` is order-independent.
 const PROMISE_SEAT_CLASSES = ['lead', 'leadOrAntagonist'] as const
 const COUNT_ONLY_PROMISE_FAMILIES = [
-  'APPEARANCE_COUNT', 'DIRECTING_COUNT', 'PREFERRED_GENRE_OPPORTUNITY', 'SPECIFIC_PROJECT',
+  'APPEARANCE_COUNT', 'PREFERRED_GENRE_OPPORTUNITY', 'SPECIFIC_PROJECT',
 ] as const
 const promiseDraftTerms = {
   count: integer({ minimum: 1 }),
@@ -1825,13 +1827,19 @@ const StudioMarketProposalCastClassPromiseDraftPayload = object('StudioMarketPro
   ...promiseDraftTerms,
   seatClass: enumeration(PROMISE_SEAT_CLASSES),
 })
-/** Every other catalogue family stays count-only; P3–P5 remain enumerated and engine-refused. */
+/** Fresh P3 has its own closed member; clients never supply a core predicate. */
+const StudioMarketProposalDirectorPromiseDraftPayload = object('StudioMarketProposalDirectorPromiseDraftPayload', {
+  family: literal('DIRECTING_COUNT'),
+  ...promiseDraftTerms,
+})
+/** Other catalogue families stay count-only; P4/P5 remain engine-refused. */
 const StudioMarketProposalCountPromiseDraftPayload = object('StudioMarketProposalCountPromiseDraftPayload', {
   family: enumeration(COUNT_ONLY_PROMISE_FAMILIES),
   ...promiseDraftTerms,
 })
 const StudioMarketProposalPromiseDraftPayload = union('StudioMarketProposalPromiseDraftPayload', [
   reference('StudioMarketProposalCastClassPromiseDraftPayload', StudioMarketProposalCastClassPromiseDraftPayload),
+  reference('StudioMarketProposalDirectorPromiseDraftPayload', StudioMarketProposalDirectorPromiseDraftPayload),
   reference('StudioMarketProposalCountPromiseDraftPayload', StudioMarketProposalCountPromiseDraftPayload),
 ] as const)
 const StudioMarketProposalDraftPayload = object('StudioMarketProposalDraftPayload', {
@@ -1858,13 +1866,9 @@ const StudioQuoteMarketProposalRequest = object('StudioQuoteMarketProposalReques
 
 // ── P14B.8 (projection 50) — the waiver's propose leg ────────────────────────
 // ITS OWN DRAFT PAYLOAD, not the market proposal's reused. The `family` domain
-// enumerates ONLY the two families this surface offers, so `DIRECTING_COUNT`,
-// `PREFERRED_GENRE_OPPORTUNITY` and `SPECIFIC_PROJECT` are unexpressible BY
-// CONSTRUCTION: each of those reaches the engine's `NOT_OFFERED_IN_B1` refusal,
-// which would publish the build vocabulary *a directing promise is not offered in
-// this slice* to a player. The seat-class family REQUIRES its explicit class for
-// exactly the same reason — a classless P2 publishes *a seat-class promise needs
-// its seat class selected (lead, or lead-or-antagonist)*.
+// enumerates only the offered P1/P2/P3 families. P4/P5 remain unexpressible here.
+// P2 requires its explicit class; P3 carries only count/window and derives its
+// Director predicate at the single wire conversion boundary.
 // The draft NAMES NO STUDIO. The issuer arrives implicitly through the promise id,
 // and the bridge refuses every id whose issuer is not the player's own studio.
 const StudioPromiseWaiverCastClassSubstituteDraftPayload = object('StudioPromiseWaiverCastClassSubstituteDraftPayload', {
@@ -1876,8 +1880,13 @@ const StudioPromiseWaiverCountSubstituteDraftPayload = object('StudioPromiseWaiv
   family: literal('APPEARANCE_COUNT'),
   ...promiseDraftTerms,
 })
+const StudioPromiseWaiverDirectorSubstituteDraftPayload = object('StudioPromiseWaiverDirectorSubstituteDraftPayload', {
+  family: literal('DIRECTING_COUNT'),
+  ...promiseDraftTerms,
+})
 const StudioPromiseWaiverSubstituteDraftPayload = union('StudioPromiseWaiverSubstituteDraftPayload', [
   reference('StudioPromiseWaiverCastClassSubstituteDraftPayload', StudioPromiseWaiverCastClassSubstituteDraftPayload),
+  reference('StudioPromiseWaiverDirectorSubstituteDraftPayload', StudioPromiseWaiverDirectorSubstituteDraftPayload),
   reference('StudioPromiseWaiverCountSubstituteDraftPayload', StudioPromiseWaiverCountSubstituteDraftPayload),
 ] as const)
 const StudioPromiseWaiverDraftPayload = object('StudioPromiseWaiverDraftPayload', {
@@ -2183,6 +2192,7 @@ const StudioPromiseWaiverQuoteSnapshot = object('StudioPromiseWaiverQuoteSnapsho
   /** The SUBSTITUTE's terms. `seatClass` is null for the count-only family. */
   family: enumeration(PROMISE_FAMILIES),
   count: integer({ minimum: 1 }),
+  qualifyingRole: enumeration(['cast', 'director']),
   seatClass: nullable(enumeration(PROMISE_SEAT_CLASSES)),
   windowStartWeek: nonNegativeInteger(),
   dueWeekExclusive: nonNegativeInteger(),
@@ -2406,6 +2416,8 @@ const StudioMarketPromiseSnapshot = object('StudioMarketPromiseSnapshot', {
   family: enumeration(PROMISE_FAMILIES),
   /** The promised count X of a count family. */
   count: integer({ minimum: 1 }),
+  /** Stored predicate semantics, including cast semantics for historical P3. */
+  qualifyingRole: enumeration(['cast', 'director']),
   /** P14B.4: the explicitly selected P2 seat class; `null` for a count family or a
    * legacy classless P2 (read from the stored shape, never inferred from a version). */
   seatClass: nullable(enumeration(PROMISE_SEAT_CLASSES)),
@@ -2419,6 +2431,7 @@ const StudioMarketPromiseHistoryRow = object('StudioMarketPromiseHistoryRow', {
   promiseId: nonEmptyText(),
   family: enumeration(PROMISE_FAMILIES),
   count: integer({ minimum: 1 }),
+  qualifyingRole: enumeration(['cast', 'director']),
   /** P14B.4: as on `StudioMarketPromiseSnapshot` — real class or `null`. */
   seatClass: nullable(enumeration(PROMISE_SEAT_CLASSES)),
   windowStartWeek: nonNegativeInteger(),
@@ -2497,7 +2510,7 @@ const StudioMarketPreferencesSnapshot = object('StudioMarketPreferencesSnapshot'
   preferredTermWeeks: integer({ minimum: 1 }),
   /** P14B.4: the engine's own public opportunity preference (`publicPreferredOpportunity`,
    * the same proven/unproven archetype as the order and term) — read, never a copy. */
-  preferredOpportunity: enumeration(['significantCastRole', 'anyCastAppearance']),
+  preferredOpportunity: enumeration(['significantCastRole', 'anyCastAppearance', 'directingOpportunity']),
   line: nonEmptyText(),
 })
 const StudioRetirementExtension = object('StudioRetirementExtension', {
@@ -3557,11 +3570,13 @@ const definitions = {
   StudioContractDraftPayload,
   StudioQuoteContractRequest,
   StudioMarketProposalCastClassPromiseDraftPayload,
+  StudioMarketProposalDirectorPromiseDraftPayload,
   StudioMarketProposalCountPromiseDraftPayload,
   StudioMarketProposalPromiseDraftPayload,
   StudioMarketProposalDraftPayload,
   StudioQuoteMarketProposalRequest,
   StudioPromiseWaiverCastClassSubstituteDraftPayload,
+  StudioPromiseWaiverDirectorSubstituteDraftPayload,
   StudioPromiseWaiverCountSubstituteDraftPayload,
   StudioPromiseWaiverSubstituteDraftPayload,
   StudioPromiseWaiverDraftPayload,
