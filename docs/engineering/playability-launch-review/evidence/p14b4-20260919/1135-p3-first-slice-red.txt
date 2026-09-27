@@ -1,0 +1,165 @@
+{"sourceSha":"3a61b1b26e57a80822436616c7c9613c01996634","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14p3-directing-promises.test.ts"],"node":"v20.20.2","start":"2026-09-27T11:32:38.135Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D01 offers fresh directing work to lawful Actors and Directors
+1133-P3-LEGACY4 {"week":8,"rngState":"1557239868,672280863,464522958,2878174094","receipts":[{"draft":{"family":"APPEARANCE_COUNT","predicate":{"count":1},"issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":112},"receipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"9a5006d1107172a3","rulesVersion":4,"week":8}},{"draft":{"family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"lead"},"issuerStudioId":"studio-de11f27b-player","beneficiaryPersonId":"authored-0006","startWeek":52,"termWeeks":104,"windowStartWeek":52,"dueWeekExclusive":112},"receipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"3dbf55ccb67dfa2c","rulesVersion":4,"week":8}}]}
+
+stdout | tests/p14p3-directing-promises.test.ts
+1133-P3-COUNTERS {"actualTicks":45,"cap":208,"cachedPhases":[{"name":"created0","completed":true},{"name":"managedEmpty8","completed":true},{"name":"ready10","completed":true},{"name":"cases45","completed":true},{"name":"attached45","completed":false},{"name":"bound52","completed":false},{"name":"firstFilm","completed":false},{"name":"secondFilm","completed":false}]}
+
+ ❯ |core| tests/p14p3-directing-promises.test.ts (8 tests | 8 failed) 4566ms
+   × P3 first slice: public Director promises and historical meaning > D01 offers fresh directing work to lawful Actors and Directors 3441ms
+     → expected [Function] to throw an error
+   × P3 first slice: public Director promises and historical meaning > D02 counts only actual unrecorded Director seats through the first take 197ms
+     → expected { classification: 'IMPOSSIBLE', …(4) } to match object { …(3) }
+(2 matching properties omitted from actual)
+   × P3 first slice: public Director promises and historical meaning > D03 preserves conservative clocks and names each unavailable resource 266ms
+     → expected { classification: 'IMPOSSIBLE', …(4) } to match object { classification: 'FRAGILE', …(2) }
+(2 matching properties omitted from actual)
+   × P3 first slice: public Director promises and historical meaning > D04 selects revision6 only for the explicit relevant domain and preserves pure history 538ms
+     → expected { classification: 'IMPOSSIBLE', …(4) } to match object { …(2) }
+(3 matching properties omitted from actual)
+   × P3 first slice: public Director promises and historical meaning > D05 binds only the actual accepted material proposal 3ms
+     → expected { classification: 'IMPOSSIBLE', …(4) } to match object { …(3) }
+(2 matching properties omitted from actual)
+   × P3 first slice: public Director promises and historical meaning > D06 fulfills directing once from two real distinct first takes 3ms
+     → expected { classification: 'IMPOSSIBLE', …(4) } to match object { …(3) }
+(2 matching properties omitted from actual)
+   × P3 first slice: public Director promises and historical meaning > D13 admits exact new promise authority and rejects malformed current saves 2ms
+     → expected { classification: 'IMPOSSIBLE', …(4) } to match object { …(3) }
+(2 matching properties omitted from actual)
+   × P3 first slice: public Director promises and historical meaning > D14 preserves old meaning and refuses lossy reverse conversion 112ms
+     → expected 38 to be 39 // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D01 offers fresh directing work to lawful Actors and Directors
+AssertionError: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/p14p3-directing-promises.test.ts:75:77
+     73|       expect(core.promiseFeasibility(state, { ...draft, predicate: { c…
+     74|         .toMatchObject({ classification: 'IMPOSSIBLE' })
+     75|       expect(() => core.attachPromise(state, id, issuer(state), classl…
+       |                                                                             ^
+     76|       expect(bytes(state)).toBe(before)
+     77|       expect(receipt).toMatchObject({ classification: 'REASONABLY_ACHI…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D02 counts only actual unrecorded Director seats through the first take
+ FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D05 binds only the actual accepted material proposal
+ FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D06 fulfills directing once from two real distinct first takes
+ FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D13 admits exact new promise authority and rejects malformed current saves
+AssertionError: expected { classification: 'IMPOSSIBLE', …(4) } to match object { …(3) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "bottleneck": null,
+-   "classification": "REASONABLY_ACHIEVABLE",
+-   "rulesVersion": 6,
++   "bottleneck": "a directing promise is not offered in this slice",
++   "classification": "IMPOSSIBLE",
++   "rulesVersion": 4,
+  }
+
+ ❯ tests/helpers/p14p3-fixtures.ts:252:33
+    250|   return memo('attached45', () => {
+    251|     const input = at45(), state = proposal(input.state, input.actorId)…
+    252|     expect(quote(state, draft)).toMatchObject({ classification: 'REASO…
+       |                                 ^
+    253|     const next = attach(state, input.actorId, draft), own = next.promi…
+    254|     expect(own).toMatchObject({ family: 'DIRECTING_COUNT', predicate: …
+ ❯ memo tests/helpers/p14p3-fixtures.ts:108:23
+ ❯ attached tests/helpers/p14p3-fixtures.ts:250:10
+ ❯ tests/helpers/p14p3-fixtures.ts:263:19
+ ❯ memo tests/helpers/p14p3-fixtures.ts:108:23
+ ❯ bound tests/helpers/p14p3-fixtures.ts:262:10
+ ❯ tests/helpers/p14p3-fixtures.ts:346:50
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D03 preserves conservative clocks and names each unavailable resource
+AssertionError: expected { classification: 'IMPOSSIBLE', …(4) } to match object { classification: 'FRAGILE', …(2) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "bottleneck": "needs a picture not yet commissioned",
+-   "classification": "FRAGILE",
+-   "rulesVersion": 6,
++   "bottleneck": "a directing promise is not offered in this slice",
++   "classification": "IMPOSSIBLE",
++   "rulesVersion": 4,
+  }
+
+ ❯ tests/p14p3-directing-promises.test.ts:154:8
+    152|     expect([57, 65, 73, 81, 89, 97, 105].every(week => week >= 52 && w…
+    153|     expect(quote(state, directorDraft(state, empty.actorId, 1)))
+    154|       .toMatchObject({ classification: 'FRAGILE', bottleneck: PIPELINE…
+       |        ^
+    155|     expect(bytes(state)).toBe(before)
+    156| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D04 selects revision6 only for the explicit relevant domain and preserves pure history
+AssertionError: expected { classification: 'IMPOSSIBLE', …(4) } to match object { …(2) }
+(3 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "classification": "REASONABLY_ACHIEVABLE",
+-   "rulesVersion": 6,
++   "classification": "IMPOSSIBLE",
++   "rulesVersion": 4,
+  }
+
+ ❯ tests/p14p3-directing-promises.test.ts:189:37
+    187|     state = proposal(state, input.actorId)
+    188|     const directing = directorDraft(state, input.actorId, 1)
+    189|     expect(quote(state, directing)).toMatchObject({ classification: 'R…
+       |                                     ^
+    190|     state = attach(state, input.actorId, directing); admitted(state)
+    191|     const newId = state.promises.at(-1)!.promiseId, before = bytes(sta…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D14 preserves old meaning and refuses lossy reverse conversion
+AssertionError: expected 38 to be 39 // Object.is equality
+
+- Expected
++ Received
+
+- 39
++ 38
+
+ ❯ tests/p14p3-directing-promises.test.ts:348:35
+    346|       const current = saves.migrateToLive(old.save)
+    347|       // Existing semantic boundary: fails as37/38 rather than a missi…
+    348|       expect(current.saveVersion).toBe(39)
+       |                                   ^
+    349|       expect(saves.stableStringify(current.state)).toBe(oldState)
+    350|       expect(current.state.promises).toEqual(old.save.state.promises)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ Test Files  1 failed (1)
+      Tests  8 failed (8)
+   Start at  13:32:38
+   Duration  7.65s (transform 1.87s, setup 0ms, collect 2.48s, tests 4.57s, environment 0ms, prepare 140ms)
+

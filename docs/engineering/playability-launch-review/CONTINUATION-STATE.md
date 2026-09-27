@@ -1,25 +1,27 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
-## CURRENT — P3 test typing correction frozen; first behavior run next
+## CURRENT — P3 bounded semantic RED complete; first core/save candidate in progress
 
-Published initial test checkpoint ea237c2015386bf8551216c86d0d747bea7a4bdb exactly
-matched GitHub. 1134 root typing closed child2/fixedSource:true/empty consumed diff
-in33.427s with one new-test TS2353. Original raw failure remains preserved.
-1134-A/B record the named GameState-local correction: exact same null-Hollywood
-input/assertion, no behavior, timeout or route change. Re-frozen test is27,813B /
-f76990d2; helper remains23,664B / c46c50b8. 1133 originals remain immutable.
+1134b root typing PASS and1135 eight-leaf RED are closed on published3a61b1b26e57a80822436616c7c9613c01996634,
+empty consumed diff/fixedSource:true. 1135-A/B independently retain8FAIL/five
+primary groups, actual45 calls and passed created0/managed8/Ready10/cases45.
+Fresh classless attachment did not refuse; tagged quotes stayed unoffered4;
+actual migration returned38. Bound52/films/outcomes/new39 negatives remain
+unreached. Exact pre-writer old4 marker851B/182cf54d is retained for comparison.
 
-Publish the correction/evidence, then parent runs1134b-p3-first-slice-root-types
-and the first1135-p3-first-slice-red using unchanged1133 argv. No production edit
-or gameplay run has occurred. Eight D01–D06/D13–D14 leaves retain one cached
-<=208-call route and declared60s local ceilings. Preserve actual first causes
-and pre-writer LEGACY4 bytes; fixture failure is not feature qualification.
+Parent alone is implementing the matching initial offer/attachment/scoped6 and
+strictSave39/migration path. Production candidate is not verified or qualified.
+Existing reviewer owns1136-B; tests remain frozen. No rival policy, preference,
+waiver support, projection54 or Director outcome implementation is released by
+this initial RED. New Director substitutions remain closed pendingD12. Actual
+next failures will expose and gate subsequent behavior; no fixture rescue.
 
-Parent remains sole production integrator/heavy executor. Existing test/review
-specialists own separate evidence, with consumed source frozen during runs.
-Outgoing38/53 atcc62, bounded1128 C.3,1122 P15 choices and all limitations stand.
-D13 waived-state and broader P3/lifecycle/Bridge work remain pending. Continue
-the authorized program after actual semantic RED, without routine approval pauses.
+Next parent checks the frozen candidate with1136-p3-front-door-root-types then
+1137-p3-front-door-behavior, using the same eight-leaf argv and208-call cap.
+Keep one heavy process and freeze HEAD/index/consumed source throughout each run.
+Publish closed evidence and recoverable checkpoints. Outgoing38/53 atcc62,
+bounded1128 C.3,1122 P15 selections and prior limitations remain unchanged.
+Continue the authorized program without routine approval pauses.
 
 ## CURRENT — reviewed 25-file fixture repair applied; publish and verify
 

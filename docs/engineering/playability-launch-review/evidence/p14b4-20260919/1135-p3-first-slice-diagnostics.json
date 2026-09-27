@@ -1,0 +1,210 @@
+{
+  "raw": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1135-p3-first-slice-red.txt",
+    "bytes": 10089,
+    "sha256": "4eb50ed3cd9f9f9afb006f81715c5657148bb074d660b6d04f17eb64d87ac877"
+  },
+  "source": {
+    "sourceSha": "3a61b1b26e57a80822436616c7c9613c01996634",
+    "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSource": [],
+    "command": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p3-directing-promises.test.ts"
+    ],
+    "node": "v20.20.2",
+    "start": "2026-09-27T11:32:38.135Z",
+    "end": "2026-09-27T11:32:46.926Z",
+    "exitCode": 1,
+    "signal": null,
+    "error": null,
+    "sourceShaAtEnd": "3a61b1b26e57a80822436616c7c9613c01996634",
+    "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedSourceAtEnd": [],
+    "fixedSource": true
+  },
+  "observed": {
+    "files": 1,
+    "failedCases": 8,
+    "passedCases": 0,
+    "diagnosticGroups": 5,
+    "sharedGroups": 1,
+    "sharedCaseCount": 4,
+    "timeouts": 0,
+    "actualTickCounters": {
+      "actualTicks": 45,
+      "cap": 208,
+      "cachedPhases": [
+        {
+          "name": "created0",
+          "completed": true
+        },
+        {
+          "name": "managedEmpty8",
+          "completed": true
+        },
+        {
+          "name": "ready10",
+          "completed": true
+        },
+        {
+          "name": "cases45",
+          "completed": true
+        },
+        {
+          "name": "attached45",
+          "completed": false
+        },
+        {
+          "name": "bound52",
+          "completed": false
+        },
+        {
+          "name": "firstFilm",
+          "completed": false
+        },
+        {
+          "name": "secondFilm",
+          "completed": false
+        }
+      ]
+    }
+  },
+  "extraction": "Exact primary and printed-tail text with outer whitespace trimmed only; each complete body includes all shared FAIL header identities; a shared stack is not independently inferred for each cached caller.",
+  "groups": [
+    {
+      "headers": [
+        " FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D01 offers fresh directing work to lawful Actors and Directors"
+      ],
+      "ids": [
+        "p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D01 offers fresh directing work to lawful Actors and Directors"
+      ],
+      "primary": "AssertionError: expected [Function] to throw an error\n\n- Expected: \nnull\n\n+ Received: \nundefined",
+      "primarySha256": "fa9d9bc15eab459e938c2b8d5dff4b799a85b34e54a021a2aa14efc4170bb677",
+      "printedTail": "❯ tests/p14p3-directing-promises.test.ts:75:77\n     73|       expect(core.promiseFeasibility(state, { ...draft, predicate: { c…\n     74|         .toMatchObject({ classification: 'IMPOSSIBLE' })\n     75|       expect(() => core.attachPromise(state, id, issuer(state), classl…\n       |                                                                             ^\n     76|       expect(bytes(state)).toBe(before)\n     77|       expect(receipt).toMatchObject({ classification: 'REASONABLY_ACHI…",
+      "printedTailSha256": "46c0869a64d667441bee19fcffb97f92a0cd9fe3ee39b264c2cddeb7166758f0",
+      "completeBody": "AssertionError: expected [Function] to throw an error\n\n- Expected: \nnull\n\n+ Received: \nundefined\n\n ❯ tests/p14p3-directing-promises.test.ts:75:77\n     73|       expect(core.promiseFeasibility(state, { ...draft, predicate: { c…\n     74|         .toMatchObject({ classification: 'IMPOSSIBLE' })\n     75|       expect(() => core.attachPromise(state, id, issuer(state), classl…\n       |                                                                             ^\n     76|       expect(bytes(state)).toBe(before)\n     77|       expect(receipt).toMatchObject({ classification: 'REASONABLY_ACHI…",
+      "completeBodySha256": "cb178adff2fb8dda288b4b95aa91c17d7af9b0cd4cf8316515ac053b9a7501b8"
+    },
+    {
+      "headers": [
+        " FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D02 counts only actual unrecorded Director seats through the first take",
+        " FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D05 binds only the actual accepted material proposal",
+        " FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D06 fulfills directing once from two real distinct first takes",
+        " FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D13 admits exact new promise authority and rejects malformed current saves"
+      ],
+      "ids": [
+        "p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D02 counts only actual unrecorded Director seats through the first take",
+        "p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D05 binds only the actual accepted material proposal",
+        "p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D06 fulfills directing once from two real distinct first takes",
+        "p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D13 admits exact new promise authority and rejects malformed current saves"
+      ],
+      "primary": "AssertionError: expected { classification: 'IMPOSSIBLE', …(4) } to match object { …(3) }\n(2 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  Object {\n-   \"bottleneck\": null,\n-   \"classification\": \"REASONABLY_ACHIEVABLE\",\n-   \"rulesVersion\": 6,\n+   \"bottleneck\": \"a directing promise is not offered in this slice\",\n+   \"classification\": \"IMPOSSIBLE\",\n+   \"rulesVersion\": 4,\n  }",
+      "primarySha256": "4386e420dea72a19ccaa626218c4fa436fa4a959176fab0306418b37a0366be6",
+      "printedTail": "❯ tests/helpers/p14p3-fixtures.ts:252:33\n    250|   return memo('attached45', () => {\n    251|     const input = at45(), state = proposal(input.state, input.actorId)…\n    252|     expect(quote(state, draft)).toMatchObject({ classification: 'REASO…\n       |                                 ^\n    253|     const next = attach(state, input.actorId, draft), own = next.promi…\n    254|     expect(own).toMatchObject({ family: 'DIRECTING_COUNT', predicate: …\n ❯ memo tests/helpers/p14p3-fixtures.ts:108:23\n ❯ attached tests/helpers/p14p3-fixtures.ts:250:10\n ❯ tests/helpers/p14p3-fixtures.ts:263:19\n ❯ memo tests/helpers/p14p3-fixtures.ts:108:23\n ❯ bound tests/helpers/p14p3-fixtures.ts:262:10\n ❯ tests/helpers/p14p3-fixtures.ts:346:50",
+      "printedTailSha256": "8d16fd6761aafbe58ad35f82b94e93fad9ee6979b480a71775e072af5335e649",
+      "completeBody": "AssertionError: expected { classification: 'IMPOSSIBLE', …(4) } to match object { …(3) }\n(2 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  Object {\n-   \"bottleneck\": null,\n-   \"classification\": \"REASONABLY_ACHIEVABLE\",\n-   \"rulesVersion\": 6,\n+   \"bottleneck\": \"a directing promise is not offered in this slice\",\n+   \"classification\": \"IMPOSSIBLE\",\n+   \"rulesVersion\": 4,\n  }\n\n ❯ tests/helpers/p14p3-fixtures.ts:252:33\n    250|   return memo('attached45', () => {\n    251|     const input = at45(), state = proposal(input.state, input.actorId)…\n    252|     expect(quote(state, draft)).toMatchObject({ classification: 'REASO…\n       |                                 ^\n    253|     const next = attach(state, input.actorId, draft), own = next.promi…\n    254|     expect(own).toMatchObject({ family: 'DIRECTING_COUNT', predicate: …\n ❯ memo tests/helpers/p14p3-fixtures.ts:108:23\n ❯ attached tests/helpers/p14p3-fixtures.ts:250:10\n ❯ tests/helpers/p14p3-fixtures.ts:263:19\n ❯ memo tests/helpers/p14p3-fixtures.ts:108:23\n ❯ bound tests/helpers/p14p3-fixtures.ts:262:10\n ❯ tests/helpers/p14p3-fixtures.ts:346:50",
+      "completeBodySha256": "f5bd6f9b5e61fd5e5d830845c08e8da44de06de100246c4c7054357df7bc1e7f"
+    },
+    {
+      "headers": [
+        " FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D03 preserves conservative clocks and names each unavailable resource"
+      ],
+      "ids": [
+        "p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D03 preserves conservative clocks and names each unavailable resource"
+      ],
+      "primary": "AssertionError: expected { classification: 'IMPOSSIBLE', …(4) } to match object { classification: 'FRAGILE', …(2) }\n(2 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  Object {\n-   \"bottleneck\": \"needs a picture not yet commissioned\",\n-   \"classification\": \"FRAGILE\",\n-   \"rulesVersion\": 6,\n+   \"bottleneck\": \"a directing promise is not offered in this slice\",\n+   \"classification\": \"IMPOSSIBLE\",\n+   \"rulesVersion\": 4,\n  }",
+      "primarySha256": "b1a119ccf69eff8b14107815c242241149592d82b23e982b78fb8981868e0529",
+      "printedTail": "❯ tests/p14p3-directing-promises.test.ts:154:8\n    152|     expect([57, 65, 73, 81, 89, 97, 105].every(week => week >= 52 && w…\n    153|     expect(quote(state, directorDraft(state, empty.actorId, 1)))\n    154|       .toMatchObject({ classification: 'FRAGILE', bottleneck: PIPELINE…\n       |        ^\n    155|     expect(bytes(state)).toBe(before)\n    156|",
+      "printedTailSha256": "ec9fc4b2802764760e23b8a01ebb39c87ae1cb48463408084b56db216ef7c03b",
+      "completeBody": "AssertionError: expected { classification: 'IMPOSSIBLE', …(4) } to match object { classification: 'FRAGILE', …(2) }\n(2 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  Object {\n-   \"bottleneck\": \"needs a picture not yet commissioned\",\n-   \"classification\": \"FRAGILE\",\n-   \"rulesVersion\": 6,\n+   \"bottleneck\": \"a directing promise is not offered in this slice\",\n+   \"classification\": \"IMPOSSIBLE\",\n+   \"rulesVersion\": 4,\n  }\n\n ❯ tests/p14p3-directing-promises.test.ts:154:8\n    152|     expect([57, 65, 73, 81, 89, 97, 105].every(week => week >= 52 && w…\n    153|     expect(quote(state, directorDraft(state, empty.actorId, 1)))\n    154|       .toMatchObject({ classification: 'FRAGILE', bottleneck: PIPELINE…\n       |        ^\n    155|     expect(bytes(state)).toBe(before)\n    156|",
+      "completeBodySha256": "524b34627a36d6db24e026575b0b22c856e96becf73174b0a23e07b1701878ab"
+    },
+    {
+      "headers": [
+        " FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D04 selects revision6 only for the explicit relevant domain and preserves pure history"
+      ],
+      "ids": [
+        "p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D04 selects revision6 only for the explicit relevant domain and preserves pure history"
+      ],
+      "primary": "AssertionError: expected { classification: 'IMPOSSIBLE', …(4) } to match object { …(2) }\n(3 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  Object {\n-   \"classification\": \"REASONABLY_ACHIEVABLE\",\n-   \"rulesVersion\": 6,\n+   \"classification\": \"IMPOSSIBLE\",\n+   \"rulesVersion\": 4,\n  }",
+      "primarySha256": "5a76eed389ce2cf8d5a04dce6d57fe82d5f9a424fbbd9a316a6073b198f3a6e9",
+      "printedTail": "❯ tests/p14p3-directing-promises.test.ts:189:37\n    187|     state = proposal(state, input.actorId)\n    188|     const directing = directorDraft(state, input.actorId, 1)\n    189|     expect(quote(state, directing)).toMatchObject({ classification: 'R…\n       |                                     ^\n    190|     state = attach(state, input.actorId, directing); admitted(state)\n    191|     const newId = state.promises.at(-1)!.promiseId, before = bytes(sta…",
+      "printedTailSha256": "08be0b97ea4388650628eecf21c4908999b30f5a2e195833f2df6749dbad4f7f",
+      "completeBody": "AssertionError: expected { classification: 'IMPOSSIBLE', …(4) } to match object { …(2) }\n(3 matching properties omitted from actual)\n\n- Expected\n+ Received\n\n  Object {\n-   \"classification\": \"REASONABLY_ACHIEVABLE\",\n-   \"rulesVersion\": 6,\n+   \"classification\": \"IMPOSSIBLE\",\n+   \"rulesVersion\": 4,\n  }\n\n ❯ tests/p14p3-directing-promises.test.ts:189:37\n    187|     state = proposal(state, input.actorId)\n    188|     const directing = directorDraft(state, input.actorId, 1)\n    189|     expect(quote(state, directing)).toMatchObject({ classification: 'R…\n       |                                     ^\n    190|     state = attach(state, input.actorId, directing); admitted(state)\n    191|     const newId = state.promises.at(-1)!.promiseId, before = bytes(sta…",
+      "completeBodySha256": "4d1a339b94340c804ec2cc1fd918961084eb9c45877be37aa008ec3b2386d020"
+    },
+    {
+      "headers": [
+        " FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D14 preserves old meaning and refuses lossy reverse conversion"
+      ],
+      "ids": [
+        "p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D14 preserves old meaning and refuses lossy reverse conversion"
+      ],
+      "primary": "AssertionError: expected 38 to be 39 // Object.is equality\n\n- Expected\n+ Received\n\n- 39\n+ 38",
+      "primarySha256": "4d113b79881a3446a854bd02d31e09ffb45d6d9263eeb934834975e7db82f850",
+      "printedTail": "❯ tests/p14p3-directing-promises.test.ts:348:35\n    346|       const current = saves.migrateToLive(old.save)\n    347|       // Existing semantic boundary: fails as37/38 rather than a missi…\n    348|       expect(current.saveVersion).toBe(39)\n       |                                   ^\n    349|       expect(saves.stableStringify(current.state)).toBe(oldState)\n    350|       expect(current.state.promises).toEqual(old.save.state.promises)",
+      "printedTailSha256": "127c312d60eccae832ba5198685eb26ada8392e791de9aa73e73952644ccef47",
+      "completeBody": "AssertionError: expected 38 to be 39 // Object.is equality\n\n- Expected\n+ Received\n\n- 39\n+ 38\n\n ❯ tests/p14p3-directing-promises.test.ts:348:35\n    346|       const current = saves.migrateToLive(old.save)\n    347|       // Existing semantic boundary: fails as37/38 rather than a missi…\n    348|       expect(current.saveVersion).toBe(39)\n       |                                   ^\n    349|       expect(saves.stableStringify(current.state)).toBe(oldState)\n    350|       expect(current.state.promises).toEqual(old.save.state.promises)",
+      "completeBodySha256": "eb6add0ae1e3c2e3ebbcde3d5dfb7fd5b9b35a215e4b65c004f50c9511ab87d2"
+    }
+  ],
+  "legacyMarker": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1135-p3-legacy4-markers.txt",
+    "bytes": 851,
+    "sha256": "182cf54d3a2fbb8bb2fc55cf74e97e220923d634ef454b816d3770d12dcb055e",
+    "value": {
+      "week": 8,
+      "rngState": "1557239868,672280863,464522958,2878174094",
+      "receipts": [
+        {
+          "draft": {
+            "family": "APPEARANCE_COUNT",
+            "predicate": {
+              "count": 1
+            },
+            "issuerStudioId": "studio-de11f27b-player",
+            "beneficiaryPersonId": "authored-0006",
+            "startWeek": 52,
+            "termWeeks": 104,
+            "windowStartWeek": 52,
+            "dueWeekExclusive": 112
+          },
+          "receipt": {
+            "classification": "REASONABLY_ACHIEVABLE",
+            "bottleneck": null,
+            "inputsDigest": "9a5006d1107172a3",
+            "rulesVersion": 4,
+            "week": 8
+          }
+        },
+        {
+          "draft": {
+            "family": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+            "predicate": {
+              "kind": "castRoleCount",
+              "count": 1,
+              "seatClass": "lead"
+            },
+            "issuerStudioId": "studio-de11f27b-player",
+            "beneficiaryPersonId": "authored-0006",
+            "startWeek": 52,
+            "termWeeks": 104,
+            "windowStartWeek": 52,
+            "dueWeekExclusive": 112
+          },
+          "receipt": {
+            "classification": "REASONABLY_ACHIEVABLE",
+            "bottleneck": null,
+            "inputsDigest": "3dbf55ccb67dfa2c",
+            "rulesVersion": 4,
+            "week": 8
+          }
+        }
+      ]
+    }
+  }
+}
