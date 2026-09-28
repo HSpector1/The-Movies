@@ -1,5 +1,24 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — Save42 casting drivers landed (1b675f75); GREEN 34/1; review KEEP; Save42 pin sweep IN PROGRESS
+
+R2/R3 is closed (1311-K, LOGIC VERIFIED, not GREEN; see the block below). The casting RED
+(1315-stage5) was applied and recorded on unchanged production: 21 failed, 13 passed, 1
+skipped (1318-R). Two RED files that import bridge/*.ts were renamed to tests/bridge-p14b9-*
+(10790fa6, content unchanged) so the root type gate stays valid. Production 1b675f75 lands
+the reviewed draft: castingCompetitionLost/repeatedCompetition drivers minted once per pair
+per admitted player greenlight, the Inseparable contract-expiry note, Save42
+(RelationshipEdge.sharedCompetitions; 42->41 refuses to discard a competition). GREEN 1319:
+34 passed, 1 skipped (the hollywood === null clause, review-only). Contract --check passes
+(projection 56 unchanged). 1319-J: KEEP, no required changes; the queue path is traced.
+
+IN PROGRESS: the Save42 test pin sweep. Measured at the production (1320-M, 1320-M2): 855
+core failures (705 new against 1316: 335 live-version literals, 333 live V41 validator
+selections, 15 future-version sentinels, 12 hand-built edges without sharedCompetitions,
+others) and 12 new UI rows. Plan 1320-A (classes S1-S10); test-author stages 1320-C. Then
+parent scratch dry runs, 1320-D review, 1320-E apply, recorded broad gates, attribution
+against 1316/1317, 1319-K closure. Open: D-1312-1, D-1312-2; retained 1316/1317 clusters.
+
 ## CURRENT — R2/R3 closed LOGIC VERIFIED (1311-K); sweep 1309 landed; casting RED next
 
 The 1309 pin sweep converged at r5 (146 test files, 671 rows; 1309-D2 ACCEPT) and landed
