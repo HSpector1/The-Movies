@@ -1,5 +1,22 @@
 # P4/P5 verification coverage
 
+## CURRENT — Q25 compiler failure retained; minimal type fix next
+
+Published e33b4b53 contains the reviewed Q25 source and future1297/P15 notes.
+1294 root types FAIL39.704s: three narrowing diagnostics on the captured
+`initial` variable inside lockedPeople's callback. The actual bounded postflight
+passed within its1139-source/555-excluded scope.1293-initial-types-failure.md
+preserves the diagnostics and record; runtime1295 has not run.
+
+The test author prepares a local-const narrowing correction; independent1293-H
+review precedes parent application/publication,1294b types0 and first1295 runtime2.
+Original expectations/timeouts/C/D/stage remain frozen. No old gate or producer
+is repeated. Parent retains live integration and one heavy lane; the same two
+specialists own test/review separately. Use only bounded guards and explicit
+P14 inputs;1296-B access correction and six collection exclusions remain.
+After actual Q25 closure, adopted1297 neighbors require their reviewed companion
+guard. Continue the authorized program; Unity/native and Owner campaigns deferred.
+
 ## CURRENT — Post-capacity source applied; Q25 gates next
 
 Parent applied reviewed1293-C/D on published6d332e85.1293-E records the exact
