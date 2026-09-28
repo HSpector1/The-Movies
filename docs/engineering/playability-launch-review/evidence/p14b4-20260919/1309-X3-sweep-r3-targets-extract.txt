@@ -1,0 +1,549 @@
+ ❯ tests/p14b1-trust-chooser.test.ts (13 tests | 2 failed | 2 skipped) 48315ms
+ ✓ tests/p14p4p5-post-capacity.test.ts (1 test) 55290ms
+ ❯ tests/p14p4p5-opportunities.test.ts (10 tests | 3 failed) 123905ms
+ ✓ tests/p14p4p5-queued-project-outcome.test.ts (1 test) 34575ms
+ ❯ tests/p14p3-directing-promises.test.ts (20 tests | 5 failed) 252839ms
+ ✓ tests/p14p4p5-delayed-retirement.test.ts (1 test) 95897ms
+ ❯ tests/p14b4-cast-class-policy.test.ts (7 tests | 1 failed) 344086ms
+ ✓ tests/bridge-p14b1-promises.test.ts (11 tests) 24380ms
+ ✓ tests/bridge-p14p3-directing-promises.test.ts (3 tests) 401814ms
+ ✓ tests/bridge-p14b3-promise-command.test.ts (19 tests) 87848ms
+ ❯ tests/bridge-p14b2-trust.test.ts (22 tests | 10 failed) 89370ms
+ ✓ tests/p14p4p5-finishing-material.test.ts (1 test) 17527ms
+ ✓ tests/p14bf2-acting-discipline.test.ts (13 tests) 11314ms
+ ✓ tests/p14p4p5-soundstage-capacity.test.ts (1 test) 13450ms
+ ✓ tests/p14p4p5-scenery-capacity.test.ts (1 test) 10540ms
+ ✓ tests/p14p4p5-receipt-freeze.test.ts (1 test) 15881ms
+ ✓ tests/p14p4p5-casting-reservation.test.ts (1 test) 10162ms
+ ✓ tests/p14p4p5-writer-resources.test.ts (2 tests) 6518ms
+ ✓ tests/p14b4-save-v30-compatibility.test.ts (36 tests) 163907ms
+ ❯ tests/bridge-p14c3-runtime.test.ts (8 tests | 1 failed) 132982ms
+ ✓ tests/p14p4p5-cross-owner.test.ts (1 test) 3132ms
+ ✓ tests/p14b3-rule-revision.test.ts (6 tests) 12398ms
+ ❯ tests/p14b1-t4-regressions.test.ts (34 tests | 15 failed) 88481ms
+ ❯ tests/bridge-p14p4p5-opportunities.test.ts (3 tests | 1 failed) 569923ms
+ ❯ tests/bridge-p14b2-trust.test.ts:225:22
+ ❯ tests/bridge-p14b2-trust.test.ts:245:22
+ ❯ tests/bridge-p14b2-trust.test.ts:250:15
+ ❯ tests/bridge-p14b2-trust.test.ts:295:15
+ ❯ tests/bridge-p14b2-trust.test.ts:314:15
+ ❯ tests/bridge-p14b2-trust.test.ts:342:15
+ ❯ tests/bridge-p14b2-trust.test.ts:360:19
+ ❯ tests/bridge-p14b2-trust.test.ts:383:15
+ ❯ tests/bridge-p14b2-trust.test.ts:395:15
+ ❯ tests/bridge-p14b2-trust.test.ts:409:15
+ ❯ tests/bridge-p14p4p5-opportunities.test.ts:474:19
+ ❯ tests/p14b1-t4-regressions.test.ts:288:33
+ ❯ tests/p14b1-t4-regressions.test.ts:310:33
+ ❯ tests/p14b1-t4-regressions.test.ts:329:33
+ ❯ tests/p14b1-trust-chooser.test.ts:349:53
+ ❯ tests/p14b1-trust-chooser.test.ts:822:59
+ ❯ tests/p14b1-trust-chooser.test.ts:806:5
+ ❯ tests/p14b4-cast-class-policy.test.ts:642:30
+ ❯ tests/p14p3-directing-promises.test.ts:347:38
+ ❯ tests/p14p3-directing-promises.test.ts:360:52
+ ❯ tests/p14p3-directing-promises.test.ts:638:38
+ ❯ tests/helpers/p14p3-fixtures.ts:1082:99
+ ❯ tests/p14p3-directing-promises.test.ts:894:20
+ ❯ tests/p14p4p5-opportunities.test.ts:286:46
+ ❯ tests/p14p4p5-opportunities.test.ts:326:66
+ ❯ tests/p14p4p5-opportunities.test.ts:951:5
+ Test Files  8 failed | 16 passed (24)
+      Tests  38 failed | 176 passed | 2 todo (216)
+   Duration  931.83s (transform 7.21s, setup 0ms, collect 30.62s, tests 2614.53s, environment 8ms, prepare 5.24s)
+
+⎯⎯ Failed Tests 38 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/bridge-p14b2-trust.test.ts > P14B.2 group3 — one bound-only newest-first history DTO on both carriers > shows two real contracts newest-first, with contract identity, open/outcome fields and exact causes
+AssertionError: expected [ …(2) ] to deeply equal [ …(2) ]
+
+- Expected
++ Received
+
+  Array [
+    Object {
+      "contractId": "studio-aca408ec-player:contract:t-act-09:104:player-33",
+      "count": 1,
+      "dueWeekExclusive": 144,
+      "family": "APPEARANCE_COUNT",
+      "outcome": null,
+      "outcomeCause": null,
+      "outcomeWeek": null,
+      "progress": 0,
+      "promiseId": "promise-2",
++     "qualifyingRole": "cast",
+      "seatClass": null,
+      "supersededByPromiseId": null,
+      "windowStartWeek": 104,
+    },
+    Object {
+      "contractId": "studio-aca408ec-player:contract:t-act-09:52:player-31",
+      "count": 1,
+      "dueWeekExclusive": 92,
+      "family": "APPEARANCE_COUNT",
+      "outcome": "SATISFIED",
+      "outcomeCause": "the promised pictures began filming inside the window",
+      "outcomeWeek": 61,
+      "progress": 1,
+      "promiseId": "promise-0",
++     "qualifyingRole": "cast",
+      "seatClass": null,
+      "supersededByPromiseId": null,
+      "windowStartWeek": 52,
+    },
+  ]
+
+ ❯ tests/bridge-p14b2-trust.test.ts:225:22
+[... 9 more lines omitted]
+ FAIL  tests/bridge-p14b2-trust.test.ts > P14B.2 group3 — one bound-only newest-first history DTO on both carriers > never promotes an attached/withdrawn unbound draft into history
+AssertionError: expected [ { promiseId: 'promise-0', …(12) } ] to deeply equal [ { promiseId: 'promise-0', …(11) } ]
+
+- Expected
++ Received
+
+  Array [
+    Object {
+      "contractId": "studio-aca408ec-player:contract:t-act-09:52:player-31",
+      "count": 1,
+      "dueWeekExclusive": 92,
+      "family": "APPEARANCE_COUNT",
+      "outcome": "SATISFIED",
+      "outcomeCause": "the promised pictures began filming inside the window",
+      "outcomeWeek": 61,
+      "progress": 1,
+      "promiseId": "promise-0",
++     "qualifyingRole": "cast",
+      "seatClass": null,
+      "supersededByPromiseId": null,
+      "windowStartWeek": 52,
+    },
+  ]
+
+ ❯ tests/bridge-p14b2-trust.test.ts:245:22
+    243|     expect(f.withdrawn.promises.find((p) => p.promiseId === f.withdraw…
+    244|     expect(currentProposals(f.withdrawn, f.talentId).some((p) => p.iss…
+    245|     expect(promises).toEqual(expectedHistory(f.withdrawn, f.talentId))
+       |                      ^
+    246|     expect(promises).toHaveLength(1)
+    247|     expect(promises.some((p) => p.promiseId === f.withdrawnId)).toBe(f…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/38]⎯
+
+ FAIL  tests/bridge-p14b2-trust.test.ts > P14B.2 group3 — one bound-only newest-first history DTO on both carriers > does not publish another studio’s real bound history as the player’s own terms
+Error: P14B.2 fixture: no natural rival-only promise outcome by 240
+ ❯ Module.rivalFixture tests/helpers/p14b2-fixtures.ts:264:9
+    262|     state = tick(state)
+    263|   }
+    264|   throw new Error('P14B.2 fixture: no natural rival-only promise outco…
+       |         ^
+    265| }
+    266| 
+ ❯ tests/bridge-p14b2-trust.test.ts:250:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/38]⎯
+
+ FAIL  tests/bridge-p14b2-trust.test.ts > P14B.2 group5 — independent promise attention after cases close > raises due at minus8 but not minus9 for an actual player poaching winner with no proposals
+AssertionError: expected 208 to be 52 // Object.is equality
+
+- Expected
++ Received
+
+- 52
++ 208
+
+ ❯ Module.poachingFixture tests/helpers/p14b2-fixtures.ts:198:48
+    196|   expect(trustDescriptor(state, talentId, player(state), state.market.…
+    197|   expect(state.hollywood!.businesses.find((b) => b.studioId === incumb…
+    198|   expect(publicPreferredTerm(state, talentId)).toBe(52)
+       |                                                ^
+    199|   expect(trustDrivers(state, talentId, player(state), state.market.tic…
+    200|   expect(caseForTalent(state, talentId)!.subjectStudioId).toBe(incumbe…
+ ❯ tests/bridge-p14b2-trust.test.ts:295:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/38]⎯
+
+ FAIL  tests/bridge-p14b2-trust.test.ts > P14B.2 group5 — independent promise attention after cases close > raises the poaching winner’s actual outcome only in its recorded week, once per cause/person
+AssertionError: expected 208 to be 52 // Object.is equality
+
+- Expected
++ Received
+
+- 52
++ 208
+
+ ❯ Module.poachingFixture tests/helpers/p14b2-fixtures.ts:198:48
+    196|   expect(trustDescriptor(state, talentId, player(state), state.market.…
+    197|   expect(state.hollywood!.businesses.find((b) => b.studioId === incumb…
+    198|   expect(publicPreferredTerm(state, talentId)).toBe(52)
+       |                                                ^
+    199|   expect(trustDrivers(state, talentId, player(state), state.market.tic…
+    200|   expect(caseForTalent(state, talentId)!.subjectStudioId).toBe(incumbe…
+ ❯ tests/bridge-p14b2-trust.test.ts:314:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/38]⎯
+
+ FAIL  tests/bridge-p14b2-trust.test.ts > P14B.2 group5 — independent promise attention after cases close > does not require any case entry to retain a real promise reminder (explicit read-only case-carrier probe)
+AssertionError: expected 208 to be 52 // Object.is equality
+
+- Expected
++ Received
+
+- 52
++ 208
+
+ ❯ Module.poachingFixture tests/helpers/p14b2-fixtures.ts:198:48
+    196|   expect(trustDescriptor(state, talentId, player(state), state.market.…
+    197|   expect(state.hollywood!.businesses.find((b) => b.studioId === incumb…
+    198|   expect(publicPreferredTerm(state, talentId)).toBe(52)
+       |                                                ^
+    199|   expect(trustDrivers(state, talentId, player(state), state.market.tic…
+    200|   expect(caseForTalent(state, talentId)!.subjectStudioId).toBe(incumbe…
+ ❯ tests/bridge-p14b2-trust.test.ts:342:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/38]⎯
+
+ FAIL  tests/bridge-p14b2-trust.test.ts > P14B.2 group5 — independent promise attention after cases close > ignores real withdrawn unbound drafts near due and never interrupts for rival-issued promises
+Error: P14B.2 fixture: no natural rival-only promise outcome by 240
+ ❯ Module.rivalFixture tests/helpers/p14b2-fixtures.ts:264:9
+    262|     state = tick(state)
+    263|   }
+    264|   throw new Error('P14B.2 fixture: no natural rival-only promise outco…
+       |         ^
+    265| }
+    266| 
+ ❯ tests/bridge-p14b2-trust.test.ts:360:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/38]⎯
+
+ FAIL  tests/bridge-p14b2-trust.test.ts > P14B.2 group7 — rival terms stay private and rival outcomes stay public > keeps open rival proposal terms literal UNKNOWN across Profile and Market
+Error: P14B.2 fixture: no natural rival-only promise outcome by 240
+ ❯ Module.rivalFixture tests/helpers/p14b2-fixtures.ts:264:9
+    262|     state = tick(state)
+    263|   }
+    264|   throw new Error('P14B.2 fixture: no natural rival-only promise outco…
+       |         ^
+    265| }
+    266| 
+ ❯ tests/bridge-p14b2-trust.test.ts:383:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/38]⎯
+
+ FAIL  tests/bridge-p14b2-trust.test.ts > P14B.2 group7 — rival terms stay private and rival outcomes stay public > publishes the real rival kept outcome and aggregate label while withholding bound history terms
+Error: P14B.2 fixture: no natural rival-only promise outcome by 240
+ ❯ Module.rivalFixture tests/helpers/p14b2-fixtures.ts:264:9
+    262|     state = tick(state)
+    263|   }
+    264|   throw new Error('P14B.2 fixture: no natural rival-only promise outco…
+       |         ^
+    265| }
+    266| 
+ ❯ tests/bridge-p14b2-trust.test.ts:395:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/38]⎯
+
+ FAIL  tests/bridge-p14b2-trust.test.ts > P14B.2 group7 — rival terms stay private and rival outcomes stay public > is semantically unchanged when only hidden terminal terms vary, retaining real outcome/event identities
+Error: P14B.2 fixture: no natural rival-only promise outcome by 240
+ ❯ Module.rivalFixture tests/helpers/p14b2-fixtures.ts:264:9
+    262|     state = tick(state)
+    263|   }
+    264|   throw new Error('P14B.2 fixture: no natural rival-only promise outco…
+       |         ^
+    265| }
+    266| 
+ ❯ tests/bridge-p14b2-trust.test.ts:409:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/38]⎯
+
+ FAIL  tests/bridge-p14c3-runtime.test.ts > C.3 projection53 current/save/journal and durable campaign authority > R8 durable coordinator Save As branches208, saves B209, then clean-loads A207 and restarts with isolated records/journals
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/38]⎯
+
+ FAIL  tests/bridge-p14p4p5-opportunities.test.ts > P4/P5 closed Bridge material and outgoing runtime authority > B55-3 independently migrates genuine54 slots and resets only prior runtime authority
+AssertionError: expected [ [ …(2) ], [ …(2) ], [ …(2) ], …(40) ] to have a length of 42 but got 43
+
+- Expected
++ Received
+
+- 42
++ 43
+
+ ❯ tests/bridge-p14p4p5-opportunities.test.ts:474:19
+    472|     const older = [...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([…
+    473|       .sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0)
+    474|     expect(older).toHaveLength(42)
+       |                   ^
+    475|     // Data-only literal extraction from published8d6d5a23 runtime sou…
+    476|     expect(sha(canonicalJson(older))).toBe('882c5273de957a30e222b91e43…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/38]⎯
+
+ FAIL  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > round-trips several beneficiaries sharing one real take and distinct own outcome receipts
+Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks
+ ❯ sharedTakeOutcomes tests/p14b1-t4-regressions.test.ts:283:9
+    281|     state = tick(state)
+    282|   }
+    283|   throw new Error('fixture: no multi-beneficiary promise outcome from …
+       |         ^
+    284| }
+    285| 
+ ❯ tests/p14b1-t4-regressions.test.ts:288:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/38]⎯
+
+ FAIL  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects missing outcome receipt references
+ FAIL  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects null outcome receipt references
+ FAIL  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects unknown outcome receipt references
+ FAIL  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects wrong receipt kind outcome receipt references
+ FAIL  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects another beneficiary outcome receipt references
+ FAIL  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects wrong outcome week outcome receipt references
+Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks
+ ❯ sharedTakeOutcomes tests/p14b1-t4-regressions.test.ts:283:9
+    281|     state = tick(state)
+    282|   }
+    283|   throw new Error('fixture: no multi-beneficiary promise outcome from …
+       |         ^
+    284| }
+    285| 
+ ❯ tests/p14b1-t4-regressions.test.ts:310:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/38]⎯
+
+ FAIL  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects missing take qualifying evidence
+ FAIL  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects non-take receipt qualifying evidence
+ FAIL  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects wrong studio or cast qualifying evidence
+ FAIL  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects empty qualifying evidence
+ FAIL  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects duplicate qualifying evidence
+ FAIL  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects outside window qualifying evidence
+ FAIL  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects wrong progress qualifying evidence
+ FAIL  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects unbound outcome qualifying evidence
+Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks
+ ❯ sharedTakeOutcomes tests/p14b1-t4-regressions.test.ts:283:9
+    281|     state = tick(state)
+    282|   }
+    283|   throw new Error('fixture: no multi-beneficiary promise outcome from …
+       |         ^
+    284| }
+    285| 
+ ❯ tests/p14b1-t4-regressions.test.ts:329:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/38]⎯
+
+ FAIL  tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals
+AssertionError: expected 'compensation' to be 'opportunity' // Object.is equality
+
+Expected: "opportunity"
+Received: "compensation"
+
+ ❯ tests/p14b1-trust-chooser.test.ts:349:53
+    347|     expect(row.terms.endWeekExclusive).toBe(208)
+    348|     expect(state.hollywood!.businesses.find((b) => b.studioId === incu…
+    349|     expect(publicPriorityOrder(state, talentId)[0]).toBe('opportunity')
+       |                                                     ^
+    350|     expect(state.talentMarket.cases.some((c) => c.talentId === talentI…
+    351|     expect(state.promises.filter((p) => p.beneficiaryPersonId === tale…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/38]⎯
+
+ FAIL  tests/p14b1-trust-chooser.test.ts > P14B.1 test 7: rival symmetry > natural rival authoring preserves the first writer IFF, the first actor positive (P1 if proven, flexible P2 if unproven), and an actual non-achievable zero-attachment witness for a proven person (unproven branches: open coverage finding above)
+AssertionError: expected 'FRAGILE' to be 'REASONABLY_ACHIEVABLE' // Object.is equality
+
+Expected: "REASONABLY_ACHIEVABLE"
+Received: "FRAGILE"
+
+ ❯ tests/p14b1-trust-chooser.test.ts:822:59
+    820|         // The unconditional positive: the actor's FIRST read is achie…
+    821|         // exactly that read's promise is authored — never a fallback.
+    822|         expect(observed.reads[0]!.receipt.classification).toBe('REASON…
+       |                                                           ^
+    823|         const authored = assertOriginalAuthoring(after, observed)
+    824|         if (authored === undefined) throw new Error('test premise fail…
+ ❯ scanNaturalRivalAuthoring tests/p14b1-trust-chooser.test.ts:705:15
+ ❯ tests/p14b1-trust-chooser.test.ts:806:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/38]⎯
+
+ FAIL  tests/p14b4-cast-class-policy.test.ts > P14B4: natural rival policy uses the real shared service, never staged failed candidates > observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG
+AssertionError: expected [ 'DIRECTING_COUNT', 'neither', …(1) ] to deeply equal [ 'DIRECTING_COUNT', …(4) ]
+
+- Expected
++ Received
+
+  Array [
+    "DIRECTING_COUNT",
+-   "P1fallback",
+-   "flexibleP2",
+    "neither",
+    "provenP1",
+  ]
+
+ ❯ tests/p14b4-cast-class-policy.test.ts:642:30
+    640|     // 'DIRECTING_COUNT' is carried forward from the default-seed scan…
+    641|     // ('seen' accumulates across both scans); seed-b does not need to…
+    642|     expect([...seen].sort()).toEqual(['DIRECTING_COUNT', 'P1fallback',…
+       |                              ^
+    643|   })
+    644| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/38]⎯
+
+ FAIL  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D13 admits exact new promise authority and rejects malformed current saves
+AssertionError: expected [Function] to throw error matching /director|promise|predicate/i but got 'validateSaveV37: state is invalid — v…'
+
+- Expected: 
+/director|promise|predicate/i
+
++ Received: 
+"validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state  [...374 chars]
+
+ ❯ tests/p14p3-directing-promises.test.ts:347:38
+    345|     // satisfy this precise predicate cause. Never strip those real an…
+    346|     for (const builder of [saves.makeSaveV1, saves.makeSaveV13, saves.…
+    347|       expect(() => builder(a.state)).toThrow(/director|promise|predica…
+       |                                      ^
+    348|       const invalid: GameState = { ...clone(a.state), hollywood: null }
+    349|       expect(() => builder(invalid)).toThrow()
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/38]⎯
+
+ FAIL  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D14 preserves old meaning and refuses lossy reverse conversion
+AssertionError: expected '{"broadcastItems":[],"careerEvents":[…' to be '{"broadcastItems":[],"careerEvents":[…' // Object.is equality
+
+- Expected
++ Received
+
+- {"broadcastItems":[],"careerEvents":[],"careerLifecycle":{"boundaryWeek":52,"cohorts":[],"industryRetirements":[],"professionAnchors":[{"kind":"existing","personId":"t-wri-00","profession":"writer","recordedWeek":52},{"kind":"existing","personId":"t-wri-01","profession":"writer","recordedWeek":52},{"kind":"existing","personId":"t-wri-02","profession":"writer","recordedWeek":52},{"kind":"existing [...768091 chars]
++ {"broadcastItems":[],"careerEvents":[],"careerLifecycle":{"boundaryWeek":52,"cohorts":[],"industryRetirements":[],"professionAnchors":[{"kind":"existing","personId":"t-wri-00","profession":"writer","recordedWeek":52},{"kind":"existing","personId":"t-wri-01","profession":"writer","recordedWeek":52},{"kind":"existing","personId":"t-wri-02","profession":"writer","recordedWeek":52},{"kind":"existing [...768220 chars]
+
+ ❯ tests/p14p3-directing-promises.test.ts:360:52
+    358|       // Existing semantic boundary: fails as37/38 rather than a missi…
+    359|       expect(current.saveVersion).toBe(41)
+    360|       expect(saves.stableStringify(current.state)).toBe(oldState)
+       |                                                    ^
+    361|       expect(current.state.promises).toEqual(old.save.state.promises)
+    362|       expect(current.state.firstTakes).toEqual(old.save.state.firstTak…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/38]⎯
+
+ FAIL  tests/p14p3-directing-promises.test.ts > P3 second slice: cancellation and same-domain waiver > D12 waives only forward same-domain remaining work on the same contract
+AssertionError: expected [Function] to throw error matching /director|promise|predicate/i but got 'validateSaveV37: state is invalid — v…'
+
+- Expected: 
+/director|promise|predicate/i
+
++ Received: 
+"validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state  [...374 chars]
+
+ ❯ tests/p14p3-directing-promises.test.ts:638:38
+    636|       expect(() => futureSave().convertV39ToV38(save)).toThrow(/direct…
+    637|       for (const builder of [saves.makeSaveV1, saves.makeSaveV13, save…
+    638|         expect(() => builder(state)).toThrow(/director|promise|predica…
+       |                                      ^
+    639|     }
+    640|     console.info('1143-P3-WAIVER ' + JSON.stringify({ waived: change.s…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/38]⎯
+
+ FAIL  tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D07 authors and fulfills a real rival promise to a credited primary Actor
+ FAIL  tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D18 uses the declared rival strategy and legal distinct staffing
+AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{…} ]
+
+- Expected
++ Received
+
+  Array [
+-   ObjectContaining {
+-     "studioId": "studio-de11f27b-r01",
++   Object {
++     "dropped": Array [
++       "Bellwether Pictures had no seat open for this person's role at the decision week.",
++       "Rose Lantern Films had no seat open for this person's role at the decision week.",
++       "Night Orchard Productions had no seat open for this person's role at the decision week.",
++     ],
++     "eventId": "talent-market-event-178",
++     "kind": "settled",
++     "reasons": Array [
++       "theirs was the only proposal on the table",
++     ],
++     "studioId": "studio-de11f27b-r04",
++     "talentId": "authored-0006",
++     "week": 208,
+    },
+  ]
+
+ ❯ tests/helpers/p14p3-fixtures.ts:1082:99
+    1080|     expect(state.promises.find(p => p.promiseId === vacancyPromiseId)?…
+    1081|     const focusWinner = state.talentMarket.receipts.filter(r => r.kind…
+    1082|     expect(focusWinner, 'fixture premise: the same fixed rival really …
+       |                                                                                                   ^
+    1083|       expect.objectContaining({ studioId: RIVAL.studio }),
+    1084|     ])
+ ❯ memo tests/helpers/p14p3-fixtures.ts:134:23
+ ❯ Module.rivalWinner208 tests/helpers/p14p3-fixtures.ts:1056:10
+ ❯ tests/p14p3-directing-promises.test.ts:894:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/38]⎯
+
+ FAIL  tests/p14p4p5-opportunities.test.ts > P4/P5 initial Ready paths and genuine39 boundary > Q03 attaches exact selected material terms and refuses classless or cross-family fresh authority
+AssertionError: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/p14p4p5-opportunities.test.ts:286:46
+    284|     expect((valid as { saveVersion: number }).saveVersion).toBe(41)
+    285|     const api = futureAPI(); expect(api.validateSaveV41(valid)).toBe(v…
+    286|     expect(() => api.convertV41ToV40(valid)).toThrow(/opportunit|genre…
+       |                                              ^
+    287|     for (const mutate of [
+    288|       (p: Record<string, unknown>) => { p.predicate = { kind: 'genreOp…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/38]⎯
+
+ FAIL  tests/p14p4p5-opportunities.test.ts > P4/P5 initial Ready paths and genuine39 boundary > Q04 migrates genuine39 to an exact empty subject suffix and preserves outgoing Director authority
+AssertionError: expected '{"broadcastItems":[],"careerEvents":[…' to be '{"broadcastItems":[],"careerEvents":[…' // Object.is equality
+
+- Expected
++ Received
+
+- {"broadcastItems":[],"careerEvents":[],"careerLifecycle":{"boundaryWeek":0,"cohorts":[],"industryRetirements":[],"professionAnchors":[{"kind":"existing","personId":"t-wri-00","profession":"writer","recordedWeek":0},{"kind":"existing","personId":"t-wri-01","profession":"writer","recordedWeek":0},{"kind":"existing","personId":"t-wri-02","profession":"writer","recordedWeek":0},{"kind":"existing","p [...750803 chars]
++ {"broadcastItems":[],"careerEvents":[],"careerLifecycle":{"boundaryWeek":0,"cohorts":[],"industryRetirements":[],"professionAnchors":[{"kind":"existing","personId":"t-wri-00","profession":"writer","recordedWeek":0},{"kind":"existing","personId":"t-wri-01","profession":"writer","recordedWeek":0},{"kind":"existing","personId":"t-wri-02","profession":"writer","recordedWeek":0},{"kind":"existing","p [...750867 chars]
+
+ ❯ tests/p14p4p5-opportunities.test.ts:326:66
+    324|       // Comparison-only exclusion of the sole additive root, never an…
+    325|       const { firstTakeSubjects: added, ...unchanged } = valid.state
+    326|       expect(added.facts).toEqual([]); expect(stable(unchanged)).toBe(…
+       |                                                                  ^
+    327|       expect(stable(current.state.firstTakes)).toBe(stable(old.state.f…
+    328|       expect(stable(current.state.promises)).toBe(stable(old.state.pro…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/38]⎯
+
+ FAIL  tests/p14p4p5-opportunities.test.ts > P4/P5 actual narrowing on the retained bound contract > Q09 narrows cast and material through a genuine forward waiver chain
+AssertionError: expected 'validateSaveV40: opportunity waiver p…' to match /validateSaveV41: opportunity waiver .…/
+
+- Expected: 
+/validateSaveV41: opportunity waiver .* must have one later successor/
+
++ Received: 
+"validateSaveV40: opportunity waiver promise-1 must have one later successor"
+
+ ❯ waiverLinkNegative tests/p14p4p5-opportunities.test.ts:916:56
+    914|   const message = error instanceof Error ? error.message : String(erro…
+    915|   console.info('1249-P4P5-WAIVER-LINK-REFUSAL ' + JSON.stringify({ nam…
+    916|   expect(error).toBeInstanceOf(Error); expect(message).toMatch(cause);…
+       |                                                        ^
+    917| }
+    918| 
+ ❯ tests/p14p4p5-opportunities.test.ts:951:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/38]⎯
+
+ Test Files  8 failed | 16 passed (24)
+      Tests  38 failed | 176 passed | 2 todo (216)
+   Start at  15:17:11
+   Duration  931.83s (transform 7.21s, setup 0ms, collect 30.62s, tests 2614.53s, environment 8ms, prepare 5.24s)
+
