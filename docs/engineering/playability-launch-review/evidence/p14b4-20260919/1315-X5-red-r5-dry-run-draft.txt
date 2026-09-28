@@ -1,0 +1,24 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/rB1
+
+ ✓ tests/p14b9-save-v42.test.ts (12 tests) 3178ms
+   ✓ 1313-A §3 — genuine V41 casting inputs migrate to V42 by adding sharedCompetitions: 0 and nothing else > genuine-v41-casting-acknowledged (24 edges, week 10, not greenlit): fresh V42 validates; every edge gains sharedCompetitions: 0; every other field is untouched 553ms
+   ✓ 1313-A §3 — genuine V41 casting inputs migrate to V42 by adding sharedCompetitions: 0 and nothing else > genuine-v41-casting-released (30 edges, week 19, released; three slate pairs share a production): migrates the same way — the released input is NOT retro-minted (no castingCompetitionLost/repeatedCompetition anywhere; every sharedCompetitions is 0) 491ms
+   ✓ 1313-A §3 — genuine V41 casting inputs migrate to V42 by adding sharedCompetitions: 0 and nothing else > without competitions, 42->41 is lossless: convertV42ToV41(convertV41ToV42(x)) exports byte-identical to the original genuine V41 text 601ms
+   ✓ 1313-A §3 — the acknowledged input, migrated then greenlit, mints real competitions; 42->41 then refuses by name > greenlightScriptProject under the V42-migrated state mints castingCompetitionLost for the three slate pairs; validateSaveV42 admits the result; convertV42ToV41 throws naming the reason 921ms
+ ✓ tests/p14b9-casting-expiry.test.ts (4 tests) 2836ms
+   ✓ 1313-A §2 / 1313-F Amendment 4 — the Inseparable expiry note in financeUpcoming > the SYNTHETIC Inseparable variants are a whole state the live writer accepts (makeSave + the live validateSave do not throw, whichever save version is live) 2640ms
+ ✓ tests/p14b9-casting-readers.test.ts (4 tests) 2437ms
+   ✓ 1313-F note 9 — bridge/relationships.ts relationshipBlockFor observes the new kinds through pairChemistry, never through the raw catalogue > the row for a competition-only counterpart carries the DRIVER_COPY sentences and reads 0 shared pictures (sharedPictureCount is derived from firstTakes/releasedFilms, never from state.relationships) 2344ms
+ ✓ tests/p14b9-casting-copy.test.ts (2 tests) 2472ms
+   ✓ 1313-F note 6 — pairChemistry dormancy copy for a competition-only edge > an edge with sharedProductions 0, queried well past the drift grace window, reads "they have never worked together" (not "...lately") 2455ms
+ ✓ tests/p14b9-casting-competition.test.ts (13 tests | 1 skipped) 7185ms
+   ✓ 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P1: lead and antagonist each mint one castingCompetitionLost driver on the right pair, ref = the production id, delta = -RELATIONSHIP_COMPETITION_DELTA through driverGain (identity today) 2575ms
+   ✓ 1313-F Amendment 1 — a queue-admitted greenlight mints the same as a direct one > a synthetic queue entry, granted by the real tick-driven admission step, mints the same castingCompetitionLost drivers as a direct greenlight 1212ms
+   ✓ 1313-A §4 item 2 — no rival edge carries either new kind across a bounded natural run (1312-F Amendment 1: rivals hold no casting session) > 60 further weeks, zero player actions: every castingCompetitionLost/repeatedCompetition driver anywhere in state.relationships has ref in the set of productions this file greenlit as the player 3007ms
+
+ Test Files  5 passed (5)
+      Tests  34 passed | 1 skipped (35)
+   Start at  14:53:55
+   Duration  11.66s (transform 3.26s, setup 0ms, collect 11.07s, tests 18.11s, environment 3ms, prepare 1.89s)
+
