@@ -1,0 +1,38 @@
+# 1305-D — independent R3, Save41 and Scientist-staffing RED review
+
+Independent contract-auditor review (read-only tools: Read, Glob, Grep) of the 1305-C staged tests, persisted verbatim
+by the parent.
+
+**REFINE**
+
+The three staged files are carefully derived from 1305-A/B/F and match the current source at HEAD `993e6b01` closely. I independently re-traced the surplus mechanism, the `finishHollywoodWeek` gap, the Save41 naming convention, and the cited natural routes against source, not against the handback's claims alone. The core logic is sound. Four concrete corrections are needed before the parent runs these; none require rewriting a leaf.
+
+## Required changes
+
+1. **Wrong source citation for the surplus mechanism.** `E/1305-stage/tests/p14r3-rival-release.test.ts:53-54` attributes "the slot loop's `.slice(0,3)`" to `hollywoodTick.ts:198`. Line 198 is inside `decide()`'s cast-selection (`const actors=[...promised,...].slice(0,3)`), not `staff()`'s slot loop (which is at `hollywoodTick.ts:138-141`, no `.slice`). I independently re-traced `staff()`'s actual slot loop: `currentEmployees` (`hollywoodTick.ts:56-58`) returns employees in `activeEmploymentOrdinals` order, which is mint order (writer=0, director=1, actor=2/3/4, craft=5 — confirmed at `hollywood.ts:225,231`). The three `'actor'` slot iterations retain the 3 lower-ordinal genuine actors via `Array.prototype.find` before the relabeled ordinal-5 craft→actor person is ever reached, leaving it correctly unretained, and the vacated `'craft'` slot triggers a real replacement hire (which is why the test deliberately avoids a cash-delta assertion — its own comment at lines 170-176 already anticipates this). **The mechanism and assertions are correct; only the citation is wrong.** Fix the line reference before landing.
+
+2. **"Byte-identical" claim is narrower than what's implemented.** 1305-A's Tests section states "Player behavior, rival hiring and research are byte-identical on worlds without surplus." The actual leaf (`p14r3-rival-release.test.ts:306-339`) checks only that no rival exceeds its `RIVAL_TEAM_ROLES` role counts and that zero rival `termination` receipts appear across weeks 1-150. This correctly avoids the circularity the task's check item 6 warns about (it compares against an invariant, not against "production output captured now" — MET WITH EVIDENCE on that specific concern), but it is not the stronger literal claim in 1305-A. Recommend the parent either rename the 1305-A framing to match what's tested, or add a true before/after full-state diff leaf if the stronger guarantee is actually wanted.
+
+3. **Pin-sweep completeness gap.** The 1305-C handback's sweep (§"Existing-test sweep input") lists 20 files pinning `LIVE_SAVE_VERSION).toBe(40)` plus one explicitly-excluded deliberate `38` pin (`p14b8-waiver-surface-oracle.test.ts:177`). My independent grep of `tests/` for `LIVE_SAVE_VERSION\)\.toBe\(` found a third file entirely unaddressed: `tests/p13b-s7-announcements.test.ts:87` asserts `expect(save.LIVE_SAVE_VERSION).toBe(38)` while `src/core/save.ts:6538` pins the live constant to `40` today — a direct contradiction, independent of R3. This may be a pre-existing baseline defect (I could not execute to confirm it is actually RED today; no Bash tool available). Either way, the handback's "Net for the parent's pin sweep" claim of completeness should name this file the same way it named `p14b8`, rather than omit it.
+
+4. Minor, non-blocking: the handback calls out `bridge-p14a3-world.test.ts` as having "two occurrences, same file" but my grep shows `bridge-p14a2-market.test.ts` also has two occurrences (lines 232, 739), unremarked. Cosmetic only; the file is still correctly in the 20-file list.
+
+## Findings by check item
+
+**1 (literals).** `terminationCost` formula confirmed byte-exact at `employment.ts:197-199`; test's `expectedCharge = terminationCost(before.terms, WEEK)` matches. Player-only `termination` gate confirmed at `hollywoodValidation.ts:444-445`. `RIVAL_MONEY_KINDS` today has 14 kinds (`hollywood.ts:24-26`), widening to 15 as claimed. MET WITH EVIDENCE.
+
+**2 (synthetic surplus).** `advanceProfessionTransitions` throw confirmed verbatim at `professionTransitions.ts:164` ("still holds work or employment"). `CreativeRole` confirmed as exactly 5 values (`types.ts:19`) with `RIVAL_TEAM_ROLES` covering the other four (`hollywoodStartingData.ts:46`), so the first surplus disjunct is genuinely unsatisfiable as amendment 2 states. The single labeled `Talent.role` rewrite is the one fabrication, matches amendment 3, and avoids the scientist route entirely. No validator runs against the live simulated state in any of file 1's leaves (validation is only invoked from `save.ts`'s `validateSaveVNN` chain, never from `tick.ts`), so a RED failure here is attributable purely to missing production logic, not to an "invalid fixture" being rejected. MET WITH EVIDENCE, modulo finding 1's citation error.
+
+**3 (skipped leaves).** Condition (c): `attachPromise` requiring an existing `state.talentMarket.proposals` row is confirmed at `promises.ts:702-705`. I did not trace the full case/proposal lifecycle to independently confirm proposals exist only inside an open case window — NOT VERIFIED beyond the cited signature, but plausible and consistent with the project's established renewal-case model. Condition (d) and the R1 leaf: reasoning is plausible; `releaseFloor`/`studioOffer` confirmed studio-generic at `talentMarket.ts:209-259` (the player-only skip at :223-224 only fires for `releasingStudioId===playerStudioId`). Skips are honestly marked `it.skip`, not counted as coverage.
+
+**5 (scientist witness).** `rivalScientistDemand` signature and deficit formula confirmed exactly at `rivalResearch.ts:113-122`; the retain-then-hire slot-loop interaction 1305-F describes is independently confirmed by source trace. The witness would genuinely fail only if the hypothesis holds, and passes otherwise — a real test of the hypothesis, not a guaranteed-RED. Natural route (seed `p13b-s8-bridge-probe-01`, week 265, 4 Scientists) confirmed verbatim against `tests/bridge-p13b-s8-rivals.test.ts:22-40`'s own measured-fact header. `advanceTo` is a simple deterministic tick loop (`fixtures.ts:13-16`), so reusing it directly to week 265 (rather than via the sibling's two-stage advance) is safe.
+
+**6 (byte-identical leaf).** See required change 2.
+
+**7 (imports/typecheck).** All imports in all three files are used with signatures matching direct source reads (`industryBusyTalentIds`, `rivalWeeklyOperatingCost`, `studioEmployerId` at `hollywood.ts:85,92,106`; `terminationCost` at `employment.ts:197`; `rivalScientistDemand` at `rivalResearch.ts:113`). The four Save41 symbols are genuinely absent from `save.ts` at HEAD (confirmed by direct grep against the full file) and are each called, not merely imported — a real, non-spurious RED. The `{ termination: _t, ...rest }` destructure in `p14r3-save-v41.test.ts:154` is TS's recognized rest-sibling exemption, not an unused-locals violation.
+
+**8 (pin sweep).** 20-file count independently verified correct for the literal `.toBe(40)` search; see required change 3 for the one omitted file.
+
+## What I could not verify
+
+No code executed (Read/Glob/Grep only). Full proposal/case lifecycle for condition (c) not traced beyond `attachPromise`'s immediate signature. Reachability of condition (a)'s bounded search (weeks 1-150) not independently executed; the test's self-reporting throw is a sound design either way. Whether `tests/p13b-s7-announcements.test.ts` is actually RED today was not executed to confirm.
