@@ -530,7 +530,7 @@ describe('C1-M1a (b) — nothing assumes eight structures or a small placement c
     // And it all round-trips byte-identically at the live boundary.
     const json = exportSave(makeSave(operational))
     const reloaded = migrateToCurrentControl(importSave(json))
-    expect(reloaded.saveVersion).toBe(38)
+    expect(reloaded.saveVersion).toBe(40)
     expect(exportSave(makeSave(reloaded.state))).toBe(json)
     expect(reloaded.state.property).toEqual(INITIAL_PROPERTY)
     expect(reloaded.state.placement.facilities).toEqual(operational.placement.facilities)
@@ -697,7 +697,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
       const save = makeSave(state)
       // P13B-S6: the LIVE envelope is now V26. The property root and every claim
       // this case makes about it are unchanged — only which version writes it.
-      expect(save.saveVersion).toBe(38)
+      expect(save.saveVersion).toBe(40)
       expect(validateSave(save)).toBe(save)
       expect(validateSaveV38(save)).toBe(save)
       expect(save.state.property).toEqual(INITIAL_PROPERTY)
@@ -938,10 +938,10 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     }
   })
 
-  it('rejects unknown V38 beyond the current V37 reader boundary (stale numbers corrected post-C.2b)', () => {
+  it('rejects unknown V41 beyond the current V37 reader boundary (stale numbers corrected post-C.2b)', () => {
     const live = makeSave(managedStudio('c1-m1a-unknown'))
-    expect(() => validateSave({ ...live, saveVersion: 39 })).toThrow(
-      /unknown saveVersion 39.*versions 1 through 38 only/,
+    expect(() => validateSave({ ...live, saveVersion: 41 })).toThrow(
+      /unknown saveVersion 41.*versions 1 through 40 only/,
     )
   })
 })

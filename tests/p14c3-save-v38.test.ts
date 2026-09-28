@@ -16,8 +16,8 @@ import type { Evaluation, Save38 } from './helpers/p14c3-fixtures.js'
 describe('C.3 A01/A02 exact Save38 opening', () => {
   it('moves the existing live writer and fresh root together while preserving intent1 and promise4', () => {
     const world = generateWorld('967-fresh-root'), saved = makeSave(world)
-    expect(saved.saveVersion, 'existing makeSave must write the governed new envelope').toBe(38)
-    expect(LIVE_SAVE_VERSION).toBe(38)
+    expect(saved.saveVersion, 'existing makeSave must write the governed new envelope').toBe(40)
+    expect(LIVE_SAVE_VERSION).toBe(40)
     expect(LIFECYCLE_INTENT_RULES_VERSION).toBe(1)
     expect(PROMISE_RULES_VERSION).toBe(4)
     const root = root38(saved.state)
@@ -35,7 +35,7 @@ describe('C.3 A01/A02 exact Save38 opening', () => {
     'migrates genuine %s losslessly except for explicit prospective38 scaffolding', filename => {
       const raw = c3Raw(filename), old = historical37(filename), before = stableStringify(old)
       const upgraded = migrateToLive(old)
-      expect(upgraded.saveVersion, 'actual migration must change the current envelope').toBe(38)
+      expect(upgraded.saveVersion, 'actual migration must change the current envelope').toBe(40)
       const root = root38(upgraded.state), week = old.state.market.tick
       expect(root.transitionBoundaryWeek).toBe(week)
       expect(root.professionAnchors).toEqual(old.state.talent.map(talent => ({ personId: talent.id,

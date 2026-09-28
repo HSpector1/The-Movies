@@ -221,7 +221,7 @@ function laboratoryBuildingId(state: GameState): string {
 
 describe('P13B-S4-T3 office bridge page: projection bump', () => {
   it('bumps PROJECTION_VERSION to the S4-T3 wire contract (36)', () => {
-    expect(PROJECTION_VERSION).toBe(53)
+    expect(PROJECTION_VERSION).toBe(55)
   })
 })
 

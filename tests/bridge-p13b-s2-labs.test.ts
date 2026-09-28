@@ -112,7 +112,7 @@ function dispatch(session: BridgeSession, buildingId: string, rowId: string): vo
 
 describe('P13B-S2 T6 Laboratory bridge page: projection bump', () => {
   it('bumps PROJECTION_VERSION to the S2 wire contract (34; 38 after the S5-R07-T3 bump)', () => {
-    expect(PROJECTION_VERSION).toBe(53)
+    expect(PROJECTION_VERSION).toBe(55)
   })
 })
 

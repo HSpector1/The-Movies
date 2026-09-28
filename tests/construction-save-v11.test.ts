@@ -186,7 +186,7 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
 
     for (const state of states) {
       const save = makeSave(state);
-      expect(save.saveVersion).toBe(38);
+      expect(save.saveVersion).toBe(40);
       expect(validateSave(save)).toBe(save);
       expect(validateSaveV38(save)).toBe(save);
       const json = exportSave(save);
@@ -550,8 +550,8 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
     };
     expect(() => makeSave(withFuture)).toThrow(/unknown field "futureV13"/);
     const save = makeSave(managedVacant("save-v11-projection"));
-    expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(
-      /unknown saveVersion 39.*versions 1 through 38 only/,
+    expect(() => validateSave({ ...save, saveVersion: 41 })).toThrow(
+      /unknown saveVersion 41.*versions 1 through 40 only/,
     );
   });
 });

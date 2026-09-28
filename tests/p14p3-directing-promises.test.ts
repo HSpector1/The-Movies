@@ -318,7 +318,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
     const positives = [a.state, b.state, first.first.afterTake, second.second.afterTake]
     for (const state of positives) {
       admitted(state)
-      const save = saves.makeSave(state); expect(save.saveVersion).toBe(39)
+      const save = saves.makeSave(state); expect(save.saveVersion).toBe(40)
       expect(api.validateSaveV39(save)).toBe(save)
       expect(bytes(reopen(state))).toBe(bytes(state))
       expect(() => saves.validateSaveV38({ ...clone(save), saveVersion: 38 })).toThrow(/predicate|promise/i)
@@ -356,7 +356,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
       const old = outgoing(name), oldState = saves.stableStringify(old.save.state)
       const current = saves.migrateToLive(old.save)
       // Existing semantic boundary: fails as37/38 rather than a missing import.
-      expect(current.saveVersion).toBe(39)
+      expect(current.saveVersion).toBe(40)
       expect(saves.stableStringify(current.state)).toBe(oldState)
       expect(current.state.promises).toEqual(old.save.state.promises)
       expect(current.state.firstTakes).toEqual(old.save.state.firstTakes)
@@ -381,7 +381,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
       expect(oldTakes.length).toBeGreaterThanOrEqual(replacement.predicate.count)
       expect(oldTakes.every(take => Object.values(take.cast).includes(replacement.beneficiaryPersonId))).toBe(true)
       const rawBefore = saves.exportSave(old), current = saves.migrateToLive(old)
-      expect(current.saveVersion).toBe(39)
+      expect(current.saveVersion).toBe(40)
       expect(current.state.promises[index]).toEqual(replacement)
       expect(qualifyingTakes(current.state, current.state.promises[index]!)).toEqual(oldTakes)
       expect(saves.exportSave(futureSave().convertV39ToV38(current))).toBe(rawBefore)
@@ -1033,7 +1033,7 @@ describe('P3 bounded occupancy admission', () => {
     expect(input.state.market.tick).toBe(52)
     expect(input.actorId).toBe('authored-0006')
     admitted(input.state)
-    expect(saves.makeSave(input.state).saveVersion).toBe(39)
+    expect(saves.makeSave(input.state).saveVersion).toBe(40)
     const root = actualPromise(input.state, input.promiseId)
     expect(root).toMatchObject({ contractId: expect.any(String), progress: 0, outcome: null })
     const contract = activeContract(input.state, input.actorId); assert.ok(contract)
@@ -1073,7 +1073,7 @@ describe('P3 bounded occupancy admission', () => {
     const occupied = made.state
     admitted(occupied)
     expect(occupied.market.tick).toBe(52)
-    expect(saves.makeSave(occupied).saveVersion).toBe(39)
+    expect(saves.makeSave(occupied).saveVersion).toBe(40)
     const production = occupied.studio.activeProductions.find(row => row.id === made.productionId)
     assert.ok(production)
     expect(production).toMatchObject({ startTick: 52, remainingTicks: 8,

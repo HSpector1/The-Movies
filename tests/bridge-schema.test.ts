@@ -78,10 +78,10 @@ describe('canonical Unity bridge schema', () => {
     assertEveryObjectIsClosed(BRIDGE_SCHEMA)
     expect(BRIDGE_SCHEMA['x-project-studio']).toMatchObject({
       protocolVersion: 4,
-      projectionVersion: 54,
+      projectionVersion: 55,
       transport: 'http-json-localhost',
     })
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-54')
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-55')
   })
 
   it('projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope', () => {
@@ -337,8 +337,8 @@ describe('canonical Unity bridge schema', () => {
     expect(() => parseWireValue(definition, int32Overflow)).toThrow(/<= 2147483647/)
 
     const oldProjection = { ...clone(envelope), snapshotVersion: 24 }
-    expect(PROJECTION_VERSION).toBe(54)
-    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 54/)
+    expect(PROJECTION_VERSION).toBe(55)
+    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 55/)
 
     const missingSection = clone(envelope)
     delete (missingSection.snapshot as Partial<typeof missingSection.snapshot>).releaseResults

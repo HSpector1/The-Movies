@@ -315,9 +315,9 @@ describe('C2a-M1 · guards (B) — the live boundary moves one way', () => {
   // P04A (§2.5): the live boundary moved again, from V14 to V15. The unknown-version
   // boundary moves the same way it always does — one past whatever the newest live
   // version now is. 15 is no longer unknown (validateSaveV15 exists); 16 is.
-  it('keeps every historical version frozen and rejects unknown V22', () => {
+  it('keeps every historical version frozen and rejects unknown V41', () => {
     const save = envelopeAt(14)
-    expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(/unknown saveVersion 39/)
+    expect(() => validateSave({ ...save, saveVersion: 41 })).toThrow(/unknown saveVersion 41/)
   })
 })
 

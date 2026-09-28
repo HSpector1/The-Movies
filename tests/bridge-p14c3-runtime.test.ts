@@ -157,7 +157,7 @@ describe('C.3 projection53 current/save/journal and durable campaign authority',
   })
   it('R2 opens53/Save38 once, registers exact52 and independently migrates208/207 while resetting prior session authority', () => {
     const f = recovered52('slots')
-    expect(PROJECTION_VERSION).toBe(53); expect(PROTOCOL_VERSION).toBe(4); expect(LIVE_SAVE_VERSION).toBe(38)
+    expect(PROJECTION_VERSION).toBe(55); expect(PROTOCOL_VERSION).toBe(4); expect(LIVE_SAVE_VERSION).toBe(40)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OUTGOING_52)).toEqual([[OUTGOING_52, 'projection-v52']])
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     const current = f.loaded.hydrated.checkpoint

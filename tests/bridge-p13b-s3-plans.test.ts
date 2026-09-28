@@ -199,7 +199,7 @@ function ownPlans<T extends { studioId: string }>(state: { physicalPlans: { plan
 
 describe('P13B-S3-T4 plans bridge page: projection bump', () => {
   it('bumps PROJECTION_VERSION to the S3-T4 wire contract (35; 38 after the S5-R07-T3 bump)', () => {
-    expect(PROJECTION_VERSION).toBe(53)
+    expect(PROJECTION_VERSION).toBe(55)
   })
 })
 

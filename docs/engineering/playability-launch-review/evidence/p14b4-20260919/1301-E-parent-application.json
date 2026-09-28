@@ -1,0 +1,68 @@
+{
+  "record": "1301-E parent application of the live-version pin maintenance",
+  "timeUtc": "2026-09-28T07:24:17.188315+00:00",
+  "publishedBase": "091e602045e19de1163a8b3a8a1157be02421748",
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1301-live-pin-maintenance-final.patch",
+    "bytes": 94540,
+    "sha256": "80c6e2ceda54edd42c1a8cf493240ec7d819b399cf86f3d59e57686e4faf3003"
+  },
+  "classification": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1301-live-pin-classification.json",
+      "bytes": 85990,
+      "sha256": "67002f7bf83021de446b0ddb61d02a1ab7c06c5e39dbe017d73ae090c07c5777"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1301-live-pin-classification-addendum.json",
+      "bytes": 46742,
+      "sha256": "cf646fee030d62e083b5bc791cbde967cac655844495e4f8236fefe8cdbdd615"
+    }
+  ],
+  "author": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1301-C-live-pin-maintenance-handback.md",
+      "bytes": 36622,
+      "sha256": "732a1d7c23381d0d59b0e87dcb3fb18b7666b752392a556f6cd3e416caa912ca"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1301-C2-live-pin-maintenance-addendum-handback.md",
+      "bytes": 19636,
+      "sha256": "19562c75cb52b03aef2331b9a82b30368d62ebe689f29c0bfdc8c3edfde3a5be"
+    }
+  ],
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1301-D-live-pin-maintenance-review.md",
+    "bytes": 7476,
+    "sha256": "0d3f673b0f303f9fe366737ef97ee96fe590c9285e34222840a4e708615a0768"
+  },
+  "reviewVerdict": "KEEP",
+  "appliedFiles": 74,
+  "changedLinePairs": 188,
+  "parentChecks": [
+    "git apply --check then git apply of the final patch at the published base",
+    "git diff --name-only equals the 74 stage2 paths exactly; every live file byte-equals its stage2 postimage",
+    "every changed path is a tests/ or ui/src/ *.test.ts(x) file; none of the six 1296-A files changed",
+    "all 188 changed line pairs differ only in digit runs (parent audit of the patch before application)"
+  ],
+  "corrections": [
+    "1301-F amendment 3 says 'Line 32' for the migrateToLive assertion in tests/p14c3-save-v38.test.ts; the actual line is 38 (author and reviewer agree)",
+    "1301-D writes 'correctly 55/56' for tests/bridge-schema.test.ts:81,84,340,341; every changed literal there is 55 and the patch contains no 56"
+  ],
+  "retainedFindings": [
+    "tests/bridge-p14c2s-scientist-runtime.test.ts:99 validator selection (validateSaveV38 on migrated data) is a pre-existing test defect, KEEP, attributed by the broad run",
+    "tests/bridge-contract-generator.test.ts:564 generator hash pin needs its own re-measurement increment",
+    "pin forms outside the inventory patterns (message-string numbers, title-prose ranges, schema-id sha lists) are left for broad-run attribution"
+  ],
+  "compilerDecision": "literal-only test edits; no compiler run (1301-A/F)",
+  "runtimeExecuted": false,
+  "next": [
+    "publish",
+    "1302 collection proof pre",
+    "bounded pre 1302-p4p5-broad-core advanceCap -1",
+    "recorder 411-path core command",
+    "bounded post",
+    "collection proof post",
+    "then 1303 UI"
+  ]
+}

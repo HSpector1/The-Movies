@@ -773,9 +773,9 @@ describe('P14B.8 group11 — A8: the waiver draft offers only what this surface 
 // group12 — 744 §11 A3: the projection bump, complete and consistent, in ONE commit.
 describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing identity is registered as a prior', () => {
   it('PROJECTION_VERSION is 54 and the schema document agrees', () => {
-    expect(PROJECTION_VERSION).toBe(54)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-54`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(54)
+    expect(PROJECTION_VERSION).toBe(55)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-55`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(55)
     expect(PROJECTION_VERSION).toBeGreaterThan(OUTGOING_PROJECTION)
   })
 
@@ -814,8 +814,8 @@ describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing iden
     expect(loaded.migratedFromProtocolVersion, 'handled exactly as its projection-47 and -48 siblings are').toBe(4)
     expect(minted, 'the governed prior path mints one fresh session id').toBe(1)
     const hydrated = loaded.hydrated as unknown as { currentSave: { saveVersion: number; state: { market: { tick: number } } }; savedSave: { saveVersion: number } }
-    expect(hydrated.currentSave.saveVersion, 'P3: each historical slot reaches actual live Save39').toBe(39)
-    expect(hydrated.savedSave.saveVersion).toBe(39)
+    expect(hydrated.currentSave.saveVersion, 'P3: each historical slot reaches actual live Save39').toBe(40)
+    expect(hydrated.savedSave.saveVersion).toBe(40)
     expect(hydrated.currentSave.state.market.tick).toBe(PROJECTION49_CHECKPOINT.week)
   })
 })

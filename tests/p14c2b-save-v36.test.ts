@@ -148,13 +148,13 @@ describe('P14C.2b S3: the validator refuses each tampering, one per case, from a
 
 describe('P14C.2b S4: LIVE_SAVE_VERSION, makeSave, replay determinism', () => {
   it('LIVE_SAVE_VERSION === 38', () => {
-    expect(LIVE_SAVE_VERSION).toBe(38)
+    expect(LIVE_SAVE_VERSION).toBe(40)
   })
 
   it('makeSave stamps 38', () => {
     const live = c2bLiveFixture('genuine-v35-c2b-contract-gap-freeagent-expiry') // F1: migrate first — makeSave now expects the live (V36) shape
     const saved = makeSave(live)
-    expect((saved as { saveVersion: number }).saveVersion).toBe(38)
+    expect((saved as { saveVersion: number }).saveVersion).toBe(40)
   })
 
   it('two independent V35 -> V36 migrations of the SAME state are byte-identical', () => {

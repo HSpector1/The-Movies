@@ -132,7 +132,7 @@ describe('P13B-S7 announcements persist nowhere: genuine V26 fixture, live load,
     expect(exported).not.toMatch(/"announcement/i)
 
     const reimported = save.importSave(exported)
-    expect(reimported.saveVersion).toBe(38) // S7 added no save root; the live version is S8's
+    expect(reimported.saveVersion).toBe(40) // S7 added no save root; the live version is S8's
   })
 
   it('Save As proxy: two independently-loaded copies of the same genuine save publish byte-identical announcement rows at 884', () => {

@@ -345,12 +345,12 @@ const wireEnum = (): string[] => {
 describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, re-expressed by 700-T2 after P14B.8 landed projection 50 / Save V32 unchanged)', () => {
   it('live projection52/Save37 and literal current hash retain all40 independent prior identities (875)', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(53)
+    expect(PROJECTION_VERSION).toBe(55)
     expect(OUTGOING_PROJECTION).toBe(47)
     // 1047 independently checked the current53 schema at e6475aca.
     expect(SCHEMA_ID).toBe('sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d')
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
-    expect(LIVE_SAVE_VERSION).toBe(38)
+    expect(LIVE_SAVE_VERSION).toBe(40)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')

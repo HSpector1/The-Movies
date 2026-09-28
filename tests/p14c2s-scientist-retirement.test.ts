@@ -252,7 +252,7 @@ describe('Scientist retirement persistence has an explicit semantic version boun
     const state = scientistWorld()
     const before = bytes(state)
     const live = makeSave(state)
-    expect(live.saveVersion).toBe(38)
+    expect(live.saveVersion).toBe(40)
     const outgoing37 = migrateToV37(live) // governed lossless C.3 boundary, preserving every older root
     expect(live.state.careerLifecycle).toEqual({ ...outgoing37.state.careerLifecycle,
       transitionBoundaryWeek: state.market.tick,
@@ -263,7 +263,7 @@ describe('Scientist retirement persistence has an explicit semantic version boun
     expect(old.saveVersion).toBe(36)
     expect(JSON.stringify(old.state)).toBe(JSON.stringify(outgoing37.state))
     const lifted = migrateToLive(old)
-    expect(lifted.saveVersion).toBe(38)
+    expect(lifted.saveVersion).toBe(40)
     expect(JSON.stringify(lifted.state)).toBe(JSON.stringify(live.state))
     expect(JSON.stringify(migrateToV37(lifted).state)).toBe(JSON.stringify(old.state))
     expect(bytes(state)).toBe(before)
@@ -273,7 +273,7 @@ describe('Scientist retirement persistence has an explicit semantic version boun
     const state = scientistAt('hardResearch', 566)
     expect(record(state)?.profession).toBe('scientist')
     const live = makeSave(state)
-    expect(live.saveVersion).toBe(38)
+    expect(live.saveVersion).toBe(40)
     const before = JSON.stringify(live)
     expect(importSave(before)).toEqual(live)
     expect(() => migrateToV36(live)).toThrow(/Scientist|scientist|downgrade/)
@@ -315,7 +315,7 @@ describe('Scientist retirement persistence has an explicit semantic version boun
     const state = scientistAt('hardResearch', 566)
     expect(record(state)?.profession).toBe('scientist')
     const live = makeSave(state)
-    expect(live.saveVersion).toBe(38)
+    expect(live.saveVersion).toBe(40)
     const before = JSON.stringify(live)
     type MutableEnvelope = { state: { talentProvenance: { rows: Record<string, unknown>[] },
       careerLifecycle: { records: Record<string, unknown>[] } } }

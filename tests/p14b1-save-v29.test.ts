@@ -199,10 +199,10 @@ describe('P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same d
   // The B5 additive reader recognizes V31 (the live writer cut over at record 662,
   // LIVE_SAVE_VERSION 31); 31 is the current dispatch ceiling, not a change to
   // frozen V29 fixture law.
-  it('an unknown saveVersion 38 is refused, naming the handled range "1 through 36 only" (stale numbers corrected post-C.2b)', () => {
+  it('an unknown saveVersion 41 is refused, naming the handled range "1 through 40 only" (stale numbers corrected post-C.2b)', () => {
     const json = load(FIXTURE.file)
     const lifted = withV29.migrateToV29(JSON.parse(json))
-    const forged = { ...lifted, saveVersion: 39 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 38 only/)
+    const forged = { ...lifted, saveVersion: 41 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 40 only/)
   })
 })

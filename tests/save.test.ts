@@ -280,12 +280,12 @@ describe("§17 / §15.7 — export→import→export round-trips byte-identicall
 });
 
 describe("§17 — loud rejection of an unknown saveVersion", () => {
-  it("throws on an unknown saveVersion (e.g. 38; Scientist amendment 840 makes 37 live and valid)", () => {
+  it("throws on an unknown saveVersion (e.g. 41; Scientist amendment 840 makes 37 live and valid)", () => {
     // Source: §17 "loud rejection of unknown versions". B5's additive reader
     // recognizes versions 1–38 after the C.3 cutover; the unsupported
     // sentinel remains one version past that CURRENT dispatch ceiling.
     const save = wellFormedSave();
-    const bad = { ...save, saveVersion: 39 } as unknown as SaveFileV14;
+    const bad = { ...save, saveVersion: 41 } as unknown as SaveFileV14;
     expect(() => loadSave(bad)).toThrow();
   });
 });
@@ -450,10 +450,10 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
     ).toMatchObject({ subjectId: null });
   });
 
-  it("rejects an unknown saveVersion 38 with the updated range, and rejects downgrading V15 to V14 (stale number corrected post-C.2b)", () => {
+  it("rejects an unknown saveVersion 41 with the updated range, and rejects downgrading V15 to V14 (stale number corrected post-C.2b)", () => {
     const save = wellFormedV15Save();
-    expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(
-      /versions 1 through 38 only/,
+    expect(() => validateSave({ ...save, saveVersion: 41 })).toThrow(
+      /versions 1 through 40 only/,
     );
     expect(() => migrateToV14(save)).toThrow(/cannot downgrade SaveFileV15/);
   });

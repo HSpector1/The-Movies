@@ -73,7 +73,7 @@ function identityFixture(seed: string, idA: string, idB: string) {
 
 describe('P13B-S1b Laboratory seats read model (projection 46 after P14B.2)', () => {
   it('bumps PROJECTION_VERSION to the S1b wire contract (33; 46 after the P14B.2 bump)', () => {
-    expect(PROJECTION_VERSION).toBe(53)
+    expect(PROJECTION_VERSION).toBe(55)
   })
 
   let entry: GameState

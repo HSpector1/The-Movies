@@ -757,7 +757,7 @@ describe('family 8 — the WIRE (RED BY VALUE: version literals and a registry c
     expect(PROTOCOL_VERSION).toBe(4)
     expect(PROJECTION_VERSION).toBe(INCOMING_PROJECTION)
     expect(OUTGOING_PROJECTION).toBe(48)
-    expect(LIVE_SAVE_VERSION).toBe(38) // B.6 has NO save step
+    expect(LIVE_SAVE_VERSION).toBe(40) // B.6 has NO save step
     expect(SCHEMA_ID).not.toBe(OUTGOING_48)
     expect(schemaIdentity(BRIDGE_SCHEMA)).toBe(SCHEMA_ID)
     expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-4:projection-${String(INCOMING_PROJECTION)}`)

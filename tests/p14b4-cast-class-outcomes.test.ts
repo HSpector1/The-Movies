@@ -76,7 +76,7 @@ function live(state: GameState): GameState {
   // Existing live writer is the governed strict V31 validation entry after B5.
   // Do not manually stamp a save version or invent a new outcome-test API.
   const validated = makeSave(state)
-  expect(validated.saveVersion).toBe(38)
+  expect(validated.saveVersion).toBe(40)
   return validated.state
 }
 function production(prepared: Prepared) {

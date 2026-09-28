@@ -134,7 +134,7 @@ describe('P09 R1 — the founding regime is persisted, exact, and immutable', ()
     for (const regime of ['endowed', 'bare-lot'] as const) {
       const state = regime === 'bare-lot' ? bareLot('p09-r1-rt') : endowed('p09-r1-rt')
       const save = makeSave(state)
-      expect(save.saveVersion).toBe(38)
+      expect(save.saveVersion).toBe(40)
       expect(save.state.foundingRegime).toBe(regime)
       const json = exportSave(save)
       expect(exportSave(importSave(json))).toBe(json)

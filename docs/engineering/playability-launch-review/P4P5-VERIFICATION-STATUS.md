@@ -1,5 +1,20 @@
 # P4/P5 verification coverage
 
+## CURRENT — 1301 live-pin maintenance applied; broad gates 1302/1303 next
+
+Parent applied the reviewed 1301 final patch (1301-C/C2, independent 1301-D KEEP,
+parent 1301-E): 74 test files, 188 lines, digit-only changes of stale live
+literals (save 40, projection 55, first unknown save version 41) with historical
+readers, provenance, downgrade targets and receipts kept. Retained for broad-run
+attribution: the scientist-runtime validator selection (test defect), the C#
+generator hash pin and unpatterned pin forms. Next, no commit until both posts of
+a gate close: 1302 collection proof pre, bounded pre (advanceCap -1 label), the
+411-path core command, bounded post, collection proof post; then 1303 UI.
+IN PROGRESS: R2 busy-set release refusal (a Core requirement never implemented,
+tests/p14a1-firing.test.ts:59) is drafted for after the baseline; R3 rival release
+and rival material policy remain open. Same two specialists, parent live writer,
+one heavy process; Unity/native/Owner deferred.
+
 ## CURRENT — 1300 Save30 compatibility qualified; 1301 maintenance staging
 
 Gate 1300 on published 52c95a3f: 36 passed (36), zero filtered, child0, fixed

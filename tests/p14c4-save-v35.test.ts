@@ -54,13 +54,13 @@ describe('P14C.4 D1: every corpus world migrates V34 -> V35 with cohorts: [] and
 
 describe('P14C.4 D2: the live boundary moved through 35 (stale numbers corrected post-C.2b; both bodies always assert the live constant)', () => {
   it('LIVE_SAVE_VERSION === 38', () => {
-    expect(LIVE_SAVE_VERSION).toBe(38)
+    expect(LIVE_SAVE_VERSION).toBe(40)
   })
 
   it('makeSave stamps 38', () => {
     const state = c4LiveFixture('genuine-v34-c4-mid-year') // F2: migrate first — makeSave now expects the live (V36) shape
     const saved = makeSave(state)
-    expect((saved as { saveVersion: number }).saveVersion).toBe(38)
+    expect((saved as { saveVersion: number }).saveVersion).toBe(40)
   })
 })
 

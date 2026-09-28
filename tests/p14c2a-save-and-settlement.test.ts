@@ -350,7 +350,7 @@ describe('P14C.2a G1-G5: Save V34', () => {
 
   it('records LIVE_SAVE_VERSION and confirms migrateToV34/migrateToLive exist (RED premise only — not exercised further here)', () => {
     // P14C.4: LIVE_SAVE_VERSION is the live writer's own stamp — moves with the bump.
-    expect(LIVE_SAVE_VERSION).toBe(38)
+    expect(LIVE_SAVE_VERSION).toBe(40)
     expect(typeof migrateToV34, 'RED premise: migrateToV34 must exist as a named export of src/core/save.ts').toBe('function')
     expect(typeof migrateToLive, 'RED premise: migrateToLive must exist as a named export of src/core/save.ts').toBe('function')
   })
