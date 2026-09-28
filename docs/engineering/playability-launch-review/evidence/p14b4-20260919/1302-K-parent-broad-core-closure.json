@@ -1,0 +1,102 @@
+{
+  "record": "1302-K parent closure: broad core gate 1302 attribution",
+  "timeUtc": "2026-09-28T09:22:03.738929+00:00",
+  "executedPublishedSource": "993e6b01",
+  "gate": {
+    "command": "vitest run --project core",
+    "files": 411,
+    "failedFiles": 96,
+    "failed": 498,
+    "passed": 4102,
+    "todo": 11,
+    "collectionProof": "exact (1302-collection-proof.py pre/post)"
+  },
+  "run": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1302-p4p5-broad-core-preflight.json",
+      "bytes": 114021,
+      "sha256": "826903053bc30e855863bd4b590078a73fbad69e6fb7c073ef1d3178f73e5663"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1302-p4p5-broad-core-collection-preflight.json",
+      "bytes": 18719,
+      "sha256": "113c7fc27308e01e510ea04c1b4e09c44607c279257a23f91707907093000328"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1302-p4p5-broad-core.json",
+      "bytes": 70364,
+      "sha256": "dc58ebe29a9017efea2d3ed3ffe3d75c99e434b73fcb47c0a45c3524af8e6166"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1302-p4p5-broad-core.txt",
+      "bytes": 30130336,
+      "sha256": "bf48d14f26d62eed1e132edcb24381ad589cad38f78df8f08650bad5694c2510"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1302-p4p5-broad-core.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1302-p4p5-broad-core-postflight.json",
+      "bytes": 114690,
+      "sha256": "820285dfd3b0407d24f27801fe3961db9549557684aeac784f0415b45de72fcb"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1302-p4p5-broad-core-collection-postflight.json",
+      "bytes": 139,
+      "sha256": "02ed1872fe80f5ea8492dbdc0adac86edd33a73d22838f78245eeea9be16c896"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1302-collection-proof.py",
+      "bytes": 3330,
+      "sha256": "9eeb380c38c0c6ea5a0f72e2fe87588eda6a52e20155cbebc96ac9c4b4be4d12"
+    }
+  ],
+  "attribution": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1302-I-broad-core-attribution.md",
+      "bytes": 34366,
+      "sha256": "89c176ef36cb7bfd1204c4aa9a54e368798fa601a6360ac57547522ea5344b8e"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1302-I-failures.json",
+      "bytes": 650060,
+      "sha256": "e6bc3614f9324a24740aa3d463719b78f93fb30d35bb4ec5c0a02e4ea7e3d842"
+    }
+  ],
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1302-J-broad-core-attribution-review.md",
+    "bytes": 10387,
+    "sha256": "0af462a0b84899bf07075c7342b92b7b6d085ec1cbb45a21d1d4bcb70ce21c80"
+  },
+  "reviewVerdict": "KEEP with one refinement (DIRECTING_COUNT promise pair downgraded to likely stale premise)",
+  "parentRootCause": {
+    "method": "static trace after 1302-J; no execution. The spied export is talentMarket.ts authorRivalPromise -> promiseFeasibility (cross-module, intercepted); attachPromise reads promiseFeasibility intra-module, which a namespace spy does not intercept.",
+    "cause": "Commit 969fb459 (1161-A/B, P3 rival candidate policy) and ef38cf9a (opportunity predicates) widened authorRivalPromise candidates after the 1100 baseline source 6e63f4c8: non-directing-first people now try [cast..., DIRECTING_COUNT] and directing-first people [DIRECTING_COUNT, cast...], then up to two SPECIFIC_PROJECT and two PREFERRED_GENRE_OPPORTUNITY candidates (src/core/talentMarket.ts:1418-1475, docstring 1112-A/D and the bounded opportunity fallback comment). Neither slice updated the two tests that hard-code the pre-P3 sequence, and 1161-A/B name no neighbor tests.",
+    "items": [
+      {
+        "identity": "tests/p14b1-trust-chooser.test.ts test 7 (two leaves) at :620",
+        "observed": "expected 1 to be less than 1",
+        "trace": "proven person, sequence [APPEARANCE_COUNT]; a second distinct authoring read arrives, the DIRECTING_COUNT candidate after a non-achievable P1. Consistent only with the widened list.",
+        "disposition": "stale test premise; update the spy sequence to the current law (test-author, derived from the authorRivalPromise law text, never from output). The updated leaves are the RED witness: if they fail, that is a demonstrated defect."
+      },
+      {
+        "identity": "tests/p14b4-cast-class-policy.test.ts natural rival policy at :452",
+        "observed": "expected length 1 but got 6",
+        "trace": "reads dedup exact repeats; 6 distinct drafts = proven P1 + DIRECTING_COUNT + two genre + two project candidates, the widened maximum for a proven non-directing-first person.",
+        "disposition": "same as above"
+      },
+      {
+        "identity": "tests/bridge-p14b1-promises.test.ts:400, tests/bridge-p14b3-promise-command.test.ts:180",
+        "disposition": "per 1302-J 3c: likely stale premise (DIRECTING_COUNT is offerable since the director-predicate slice); test update names a family still refused or supplies directorCount"
+      }
+    ]
+  },
+  "dispositions": {
+    "classA_combinedSweep": "C1 validator selection, C2-C5 tests/helpers saveVersion literals, C9 projection literals, C10 namespaced live pins incl. tests/p13b-s7-announcements.test.ts:87, C12 generator hash pins, C13 prior-schema roster, C14 migrate regex (now intercepted by the convertV40ToV39 guard) move to the combined 41/56 sweep after R2/R3 land",
+    "retainedOpen": "C7/C8/C16/C20 and 20 unresolved rows are re-attributed by identity on the broad rerun after the sweep; none is closed here",
+    "notClaimed": "no production defect is established by 1302"
+  },
+  "deviation": "While resuming the 1306-B reviewer the parent briefly ran three specialists concurrently, over the two-specialist limit; no writes overlapped. Recorded here and in the handoff."
+}
