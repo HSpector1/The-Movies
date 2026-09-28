@@ -1,5 +1,24 @@
 # P4/P5 verification coverage
 
+## CURRENT — 1298 legacy neighbors closed; 1299 Save30 correction adopted
+
+Claude parent took over after Codex exhausted its allowance. 1297-K records the
+ownership check: Codex pid71871 idle, no child process or open repository file;
+recheck ps before any recorded run. 1298 PASS on ea46f8b8: two files, 13 passed,
+one filtered winning-freeze leaf, child0, fixed source, bounded and companion
+pre/post closed. 1297-I attribution and independent 1297-J KEEP; parent 1297-K
+rejoined every record and the 1294b inventory (1139 source/555 excluded). The
+pasted Codex TypeError was a parser defect, not a test result.
+
+1299-A/B/F adopt one hunk in the Save30 compatibility test: title literal37→40 and
+toBe(38)→toBe(40). Historical readers, receipts and frozen fixtures keep their
+original versions. Next: test-author 1299-C stage plus an exclusive gate1300
+companion, contract-auditor 1299-D, parent E and publication, then 1300 (36
+selected/0 filtered, cap0). No compiler for two literals (1299-F). IN PROGRESS:
+broader core/Bridge/UI and rival material policy remain open. Same two specialists,
+parent live writer, one heavy process; 1296 access boundaries stand. Unity/native/
+Owner deferred.
+
 ## CURRENT — Q25 published; legacy-neighbor gate released
 
 Q25 I/J/K closure is published39082d35a537c26d9d8352b1c5076098f15fdf99.
@@ -52,7 +71,7 @@ The twenty-five core leaves Q01–Q25 passed across **seventeen separate selecti
 
 | Area | Actual qualified evidence | Remaining limit or next task |
 |---|---|---|
-| Predicate and save authority | Tagged singular classes/targets, retained links, strict current validation and legacy compatibility controls in 1234b/1238/1253. | Broader historical neighbors are not a full-suite pass. |
+| Predicate and save authority | Tagged singular classes/targets, retained links, strict current validation and legacy compatibility controls in 1234b/1238/1253. | 1298 (1297-I/J/K) separately qualifies13 legacy neighbors: D3 age/class matching and B3 evaluator1 root/receipt/digest preservation plus a fresh generic attachment; the winning-freeze leaf stays filtered. 1299-F adopts the Save30 live-literal correction and a36-case gate1300, not yet run. Neither is a full-suite pass. |
 | Material take facts | Actual managed player and rival subjects, ordered post-cutover suffix, owner-local material joins, cancellation and release retention. See 1239 and 1249 closures. | Q15 /1265b adds actual stock c00/comedy/null take61/event24 and full retention through returned65/film-stamp64, all20 old receipts/eight new mixed facts. Original1265 stamp-oracle FAIL remains; no new material obligation was created. |
 | Exclusive physical deadline and slack | Q11 / 1256: eight real drafting, Review, Ready, rewriting and casting snapshots; due at first possible take is IMPOSSIBLE, seven weeks of slack FRAGILE, eight RA. | These states had spare resources. They do not isolate congestion or the reservation exemption. |
 | Isolated facts-only downgrade refusal | Q11 / 1256 reached a genuine new rival fact with no promises, admitted current40 and refused40→39 for recorded subject authority. | The earlier 1253 refusal combined material tags and facts; keep the two claims distinct. |
@@ -67,12 +86,12 @@ The twenty-five core leaves Q01–Q25 passed across **seventeen separate selecti
 | Retirement and cross-owner availability | Q16 /1268: actual retired Actors now primary Director/Writer retain requested-Actor refusal, while current-profession admission is allowed; active Actor control RA. Three pure quotes, all59 old roots/85 takes retained; two unbound same-person roots excluded. | Q17 /1271 separately qualifies six pure cross-owner P5 queries: rival Actor company floor52/take57 versus Writer draft due46/take51, exact exclusive and seven/eight-week slack boundaries. Zero actions/advances; contracts unchanged. Q18 /1274 adds current Director-only retirement refusal and actual held Actor finishing work: five pure quotes, two accepted existing-task actions, one312→313 take/c00 drama/null. All111 old receipts/69 roots and both finishing records retained; no release/completed retirement. Q21 /1283 now qualifies delayed-release readmission:59 actual45→104 advances/five accepted mutations/four pure quotes; actual104 announcement/effective156 and a public waiver delay common release109→148, changing identical P5 RA to timing-FRAGILE despite27 weeks of uncapped slack and spare resources. Query147 allowed/query148 refused; no later arrival or player take. Historical V37 provenance/parity FAIL remains. |
 | Bridge and UI disclosure | New Bridge3/3 and isolated UI1/1 passed; own targets and rival UNKNOWN privacy, current-save replay/duplicates and genuine previous54 migration covered. | One Bridge leaf took228.867s despite a60s declaration; no timeout enforcement/performance claim. No disk coordinator, native consumer or full-UI qualification follows. |
 
-Primary closure records are in [the evidence directory](evidence/p14b4-20260919/): 1234-A/B, 1239-A/B/C, 1236-J/K/L, 1249-I/J/K, 1254-I/J/K, 1257-I/J/K 1260-I/J/K, 1263-I/J/K 1266-I/J/K, 1269-I/J/K 1272-I/J/K 1275-I/J/K 1278-I/J/K 1281-I/J/K 1284-I/J/K 1287-I/J/K 1290-I/J/K and1293-I/J/K. The frozen detailed requirements remain [1226-A](evidence/p14b4-20260919/1226-A-p4p5-initial-test-requirements.md); their original candidate wording is historical, not a statement that current versions are still only proposed.
+Primary closure records are in [the evidence directory](evidence/p14b4-20260919/): 1234-A/B, 1239-A/B/C, 1236-J/K/L, 1249-I/J/K, 1254-I/J/K, 1257-I/J/K 1260-I/J/K, 1263-I/J/K 1266-I/J/K, 1269-I/J/K 1272-I/J/K 1275-I/J/K 1278-I/J/K 1281-I/J/K 1284-I/J/K 1287-I/J/K 1290-I/J/K, 1293-I/J/K and1297-I/J/K. The frozen detailed requirements remain [1226-A](evidence/p14b4-20260919/1226-A-p4p5-initial-test-requirements.md); their original candidate wording is historical, not a statement that current versions are still only proposed.
 
-Current next work is adopted1297/1298 bounded legacy neighbors after closure
-publication and independent companion review. Use both the bounded and explicit
-manual pre/post guards and preserve the filtered winning-freeze leaf. Compare the
-exact code inventory before attributing1294b compiler. Actual rival material policy,
+Current next work is adopted1299: staged one-hunk Save30 live-literal correction
+(1299-C) with an exclusive gate1300 companion, independent 1299-D, parent application
+and publication, then the36-case gate1300 under bounded and manual pre/post guards.
+Historical readers, receipts and frozen inputs keep their original versions. Actual rival material policy,
 staffing and callback coverage and broader core/Bridge/UI remain open. Same two
 specialists, parent live writer, one heavy process. Continue the program with the
 recorded P15/P17 choices and P18 limits; Unity/native and Owner campaigns deferred.

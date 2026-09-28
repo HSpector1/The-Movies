@@ -1,0 +1,164 @@
+{
+  "gate": "1298-legacy-neighbors-runtime",
+  "mode": "post",
+  "time": "2026-09-28T03:49:07.478213+00:00",
+  "head": "ea46f8b873cf74ed4922d70ae6ac71bc71a13db6",
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "--no-file-parallelism",
+    "tests/p14b4-d3-matching.test.ts",
+    "tests/p14b3-rule-revision.test.ts",
+    "-t",
+    "B4 D3 public pure matcher|pins the live evaluator generation|preserves genuine|new actual attachment"
+  ],
+  "sourceRouteAdvanceCap": 0,
+  "advanceCounterMeasured": false,
+  "expectedSelection": {
+    "files": 2,
+    "selected": 13,
+    "filtered": 1
+  },
+  "manual": [
+    {
+      "path": "tests/p14b4-d3-matching.test.ts",
+      "bytes": 6210,
+      "sha256": "31eefcc27339d8a518146256e474c1eb863b16f8b26b5b0044f30a830bfd0519"
+    },
+    {
+      "path": "tests/p14b3-rule-revision.test.ts",
+      "bytes": 17872,
+      "sha256": "fec9711ce1dd11467905cb421d59bb10495d40d0b183b9fa9aad353f0e752699"
+    },
+    {
+      "path": "src/harness/p13a/fixtures.ts",
+      "bytes": 2130,
+      "sha256": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5"
+    },
+    {
+      "path": "vitest.workspace.ts",
+      "bytes": 1228,
+      "sha256": "2bb01ef4b7f9f02877e42b425e43f40e3905be769cd6f091cf61a3275563b446"
+    },
+    {
+      "path": "vitest.config.ts",
+      "bytes": 176,
+      "sha256": "2939ba611a5c025c2974043c98c06af10aadd3065925103d3f506bd1f1d07faa"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/MANIFEST.json",
+      "bytes": 7195,
+      "sha256": "9e56cfe4202f6bc18d0952cee09514149dec30a7b74ea8f8fe202c2e86a221b3"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-current-p1.json.gz",
+      "bytes": 82607,
+      "sha256": "cadbbd41271b820a466d5d9114e198f7e44b4ff0c801df68fa0cbe69f677c1d2",
+      "raw": {
+        "bytes": 675654,
+        "sha256": "78decd6e96938facc2b9e20e433c44fcae4e998402d78be4122996d3887cdc0b"
+      }
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-current-p1.provenance.json",
+      "bytes": 5013,
+      "sha256": "3876035b391355ea0fd86ae97270391a5b2f5266b32299afbddf3de28388a2b0"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-withdrawn-p1.json.gz",
+      "bytes": 82566,
+      "sha256": "a34114171c81c37e46ebbc8ccc5bd72995bfad42e6bb8f828eb437a67ef6c5a1",
+      "raw": {
+        "bytes": 675401,
+        "sha256": "8ecb96f736ef81795af599e9827fba46fd98415c96a47df4d465e554ffa67586"
+      }
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-withdrawn-p1.provenance.json",
+      "bytes": 5186,
+      "sha256": "5c14d8645a5c11b64ced9e70ef62f37db338d34974770d754fac864b0219affc"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-role-label-refused-p1.json.gz",
+      "bytes": 122311,
+      "sha256": "febd33112d57128c67a025237add374aeb7925d94a7d941bd4b303b3fedc0367",
+      "raw": {
+        "bytes": 1121277,
+        "sha256": "0272162ec2746cefb1a7910487d6d30642c8743f9853d61a73ebef469a3df2b3"
+      }
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-role-label-refused-p1.provenance.json",
+      "bytes": 6603,
+      "sha256": "4eea49c7f0b4c9b147d1276b2eeff164067e86e65e2bd9c3ee262a72e9dfabfc"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1297-A-legacy-neighbors-proposal.md",
+      "bytes": 4397,
+      "sha256": "b2e942931d527a754c9761e5df19fa778db910a692820974f0d242c1c2b0e3c4"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1297-B-legacy-neighbors-plan-review.md",
+      "bytes": 5249,
+      "sha256": "319a76d1512e4933217275ae059a58fc928053070464cd335fecb1b78c7cbcdb"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1297-F-parent-plan-adoption.md",
+      "bytes": 1904,
+      "sha256": "d577f3814407a3b645eb80b1548da94203e69d934e092c12549be0c586a236f2"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1297-legacy-neighbors-manifest.json",
+      "bytes": 3831,
+      "sha256": "dd9843b8f4671a7b1b6411ce8dc0aad73e5ee282b128857e9fdacdce19ce86ff"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1297-C-legacy-neighbors-manual-guard.py",
+      "bytes": 13645,
+      "sha256": "4a7e946729e84cbe27bdadf7aeab46ee51d7e524368464c40d53488068e3e63b"
+    }
+  ],
+  "boundedPreflight": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1298-legacy-neighbors-runtime-preflight.json",
+    "bytes": 114020,
+    "sha256": "3b098ef184dc450b3391faf6507a141543f3eac54536bd2f32ccb9297a887ed7"
+  },
+  "automaticPayloadReads": false,
+  "excludedAutomaticReadPrefixes": [
+    "tests/fixtures/",
+    "ui/e2e/",
+    "ui/public/"
+  ],
+  "manualPreflight": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1298-legacy-neighbors-runtime-manual-preflight.json",
+    "bytes": 5031,
+    "sha256": "4be9e8b29ee6473689711ace1902814d629aab87eec35d34037822d15e821752"
+  },
+  "boundedPostflight": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1298-legacy-neighbors-runtime-postflight.json",
+    "bytes": 114714,
+    "sha256": "a2c9ea6dc6b976b5084a6493a790d8ac709311b934287c4165fbca1adc0e7f32"
+  },
+  "record": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1298-legacy-neighbors-runtime.json",
+    "bytes": 52517,
+    "sha256": "d8e378c0262bb64b1b342861d1e5a20726220ef384dd7c8bf1cc73967d7ddd7f"
+  },
+  "raw": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1298-legacy-neighbors-runtime.txt",
+    "bytes": 45492,
+    "sha256": "7fa596355cebd3ede5a60ed1cdc424a68532980ce019053c771597712d8fef59"
+  },
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1298-legacy-neighbors-runtime.patch",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "manualGuardsExact": true,
+  "testExitCode": 0,
+  "signal": null,
+  "error": null,
+  "runtimePassInferred": false
+}

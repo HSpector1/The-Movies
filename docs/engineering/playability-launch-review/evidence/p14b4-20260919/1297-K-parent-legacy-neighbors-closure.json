@@ -1,0 +1,107 @@
+{
+  "record": "1297-K parent legacy-neighbor closure and ownership recovery",
+  "timeUtc": "2026-09-28T06:14:36.961024+00:00",
+  "executedPublishedSource": "ea46f8b873cf74ed4922d70ae6ac71bc71a13db6",
+  "ownershipRecovery": {
+    "coordinator": "Claude Code parent session (model id claude-opus-5-5 per its system context); Codex parent exhausted its allowance after 1299-B was read",
+    "observedAtLocal": "2026-09-28 08:12 CEST",
+    "codexProcess": "pid71871 `codex --yolo` in this worktree: idle 0%CPU, no child process, no repository file open, last evidence write 1297-J 05:53:59 CEST. Not terminated. It can write again only if resumed after its quota reset; a successor must recheck ps before any recorded run.",
+    "otherClaude": "pid33954 cwd ~/Downloads/project-studio-p13-owner-direction-inputs-01; unrelated directory, untouched.",
+    "trackedChanges": "none; eleven untracked 1297-I/J, 1298 and 1299-A/B records only",
+    "writeOwnershipAccepted": true
+  },
+  "codexParserFailure": "The pasted TypeError (len() of an int) was a parent verification-script defect, not a test result. This record's stdlib joins reproduce every check below from the closed evidence; no game run is repeated.",
+  "parentJoins": {
+    "boundedPrePostEqual": true,
+    "boundedPostAllGuardsExact": true,
+    "outputIdentityPins": true,
+    "recordFixedSourceExit0NoSignal": true,
+    "manualPostExactPinsRuntimePassInferredFalse": true,
+    "manualSeventeenRowsThreeDecoded": true,
+    "companionSelfHash": "4a7e946729e84cbe27bdadf7aeab46ee51d7e524368464c40d53488068e3e63b",
+    "chronology": "bounded pre < manual pre < child start < child end < bounded post < manual post",
+    "sourceInventoryEquals1294b": true,
+    "compiler1294bExit": 0,
+    "counts": {
+      "sourceFiles": 1139,
+      "excludedPayloadPaths": 555,
+      "boundedManualPins": 298
+    }
+  },
+  "result": {
+    "command": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "--no-file-parallelism",
+      "tests/p14b4-d3-matching.test.ts",
+      "tests/p14b3-rule-revision.test.ts",
+      "-t",
+      "B4 D3 public pure matcher|pins the live evaluator generation|preserves genuine|new actual attachment"
+    ],
+    "start": "2026-09-28T03:40:48.259Z",
+    "end": "2026-09-28T03:40:58.031Z",
+    "childExitCode": 0,
+    "vitest": "Test Files 2 passed (2); Tests 13 passed | 1 skipped (14)",
+    "filteredLeaf": "actual later winning freeze keeps old root.version1 but stores genuine new rulesVersion4 receipt and binding",
+    "sourceRouteAdvanceCap": 0,
+    "advanceCounterMeasured": false
+  },
+  "attribution": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1297-I-legacy-neighbors-verification-attribution.md",
+    "bytes": 9577,
+    "sha256": "9a37ad908597bdd29953ccdf29702846e36cef06c8059e5b2798cf8b215c2582"
+  },
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1297-J-legacy-neighbors-verification-review.md",
+    "bytes": 5811,
+    "sha256": "ee378857c2d7ed535743d04af286a89a6ca343c050a518ebb167e14a6c03a853"
+  },
+  "reviewVerdict": "KEEP",
+  "artifacts": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1298-legacy-neighbors-runtime-preflight.json",
+      "bytes": 114020,
+      "sha256": "3b098ef184dc450b3391faf6507a141543f3eac54536bd2f32ccb9297a887ed7"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1298-legacy-neighbors-runtime-manual-preflight.json",
+      "bytes": 5031,
+      "sha256": "4be9e8b29ee6473689711ace1902814d629aab87eec35d34037822d15e821752"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1298-legacy-neighbors-runtime.json",
+      "bytes": 52517,
+      "sha256": "d8e378c0262bb64b1b342861d1e5a20726220ef384dd7c8bf1cc73967d7ddd7f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1298-legacy-neighbors-runtime.txt",
+      "bytes": 45492,
+      "sha256": "7fa596355cebd3ede5a60ed1cdc424a68532980ce019053c771597712d8fef59"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1298-legacy-neighbors-runtime.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1298-legacy-neighbors-runtime-postflight.json",
+      "bytes": 114714,
+      "sha256": "a2c9ea6dc6b976b5084a6493a790d8ac709311b934287c4165fbca1adc0e7f32"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1298-legacy-neighbors-runtime-manual-postflight.json",
+      "bytes": 6374,
+      "sha256": "16ca4051034d5a1eff22f762ce372cb636d78b8a4d4750fd62ce2d987f98c508"
+    }
+  ],
+  "notQualified": [
+    "filtered winning-freeze leaf",
+    "deferred Save30 (1299) and Bridge-waiver neighbors",
+    "combined/full core, Bridge or UI suite",
+    "actual rival material policy, staffing and wrong-seat callback",
+    "native/Owner campaigns"
+  ],
+  "next": "1299-F adoption, staged 1299-C correction plus exclusive 1300 companion, independent 1299-D, parent 1299-E application and publication, then gate 1300-save-v30-compatibility-runtime"
+}

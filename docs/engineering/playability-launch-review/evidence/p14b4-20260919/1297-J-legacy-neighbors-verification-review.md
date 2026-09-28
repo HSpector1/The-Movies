@@ -1,0 +1,29 @@
+# 1297-J — independent actual legacy-neighbor review
+
+**KEEP:1298 qualifies the13 selected cases, with one winning-freeze case filtered.** I read the complete raw/header/result body, actual run record, both bounded and both companion records, A/B/F/E and the final [I](1297-I-legacy-neighbors-verification-attribution.md). I also reread both complete selected test files/config/helper and independently checked the companion's seventeen exact files and three decoded authorized inputs. No project execution occurred in this review.
+
+The actual source is `ea46f8b873cf74ed4922d70ae6ac71bc71a13db6`. The exact adopted two-filename/core/`--no-file-parallelism` command and regex match the manifest, raw initial header, closed record and manual records. Runtime UTC2026-09-28 is03:40:48.259–03:40:58.031:9.772s recorder,8.58s Vitest. B3 takes4.451s and D3 takes0.997s. Child0, no signal/error, fixed source, empty diff and no untracked consumed source are recorded. This does not infer a future timing bound.
+
+Raw45,492 bytes / SHA256 `7fa596355cebd3ede5a60ed1cdc424a68532980ce019053c771597712d8fef59` includes the complete1,324-byte nonheader body / `b426cc45564f9abbd3124f063f1481f7824e54f940d1776cb3a9aff9ea0742a2`. It reports two files PASS,13 cases PASS, one skipped by filter; there are no selected diagnostics, failure groups or masked assertions. The body contains no campaign-value or numeric advance marker. Claims about reached values below are qualified by the complete test assertions and PASS, not separately printed receipts.
+
+## Reached scope
+
+All eight D3 table cases pass. Generated uncredited subjects at explicitly synthetic, provenance-consistent ages29/30 retain the adopted significant-cast/any-appearance matching table for P1 and the two tagged P2 classes. The four historical count-only family examples at each age remain neutral, including classless P4/P5. Complete read-state/promise purity and current-save consistency assertions execute. This is neither a natural birthday nor new material P4/P5 admission.
+
+The five selected B3 cases pass: generic evaluator constant4; three genuine evaluator1 historical envelopes preserving exact old root/receipt/digest/market authority and governed live migration; and actual public resubmission/attachment of a fresh generic count root4/receipt4 while retaining old roots. Current40 roundtrip admits the new unbound/open attachment. The synthetic age controls do not overwrite history, and the preserved historical Writer role-label refusal is not a demand that today's policy reproduce that refusal.
+
+The unchanged original corpus authority remains producer `7f89f75bad5a450b50340e3ab074a913c3ef2744`, publication `034065b4f6e4ef0f9f53750a343568e32f54d9ab`, inputs45/45/196. Historical generated funding is provenance, not a new run action. Strict29 loading, old raw roundtrips, expected additive current roots/empty subject suffix and original version1 receipts are exercised without restamping them to material revision7.
+
+The exact excluded case is `actual later winning freeze keeps old root.version1 but stores genuine new rulesVersion4 receipt and binding`. Its45→52 continuation and settlement assertions are not qualified by1298. Zero advances is static selected-route accounting; `advanceCounterMeasured:false` correctly states the lack of a new invocation counter. The selected D3 cases still initialize generated worlds and B3 actually resubmits/attaches. This is not a zero-action claim. Imported advancing helper functions are not called by these selected bodies.
+
+## Closed bounded preservation
+
+Bounded preflight03:40:32.123706Z precedes manual pre03:40:47.810640Z, the child interval, bounded post03:49:01.575602Z and manual post03:49:07.478213Z. Both posts actually closed successfully. I verified complete metadata equality, chronology, exact record/raw/empty-patch identities and initial-null-header versus closed-record joins. `manualGuardsExact:true` is kept separate from the test result; the companion records `runtimePassInferred:false`.
+
+The automatic scope is1,139 included paths and555 excluded filename entries under `tests/fixtures/`, `ui/e2e/`, `ui/public/`. All298 main manual rows and the complete source/index/stage metadata compare across pre/post. The companion's fixed17 files and three decoded generated-P14 streams were independently rehashed; no other fixture payload was read. I did not rehash the298-entry historical manual set or recreate an unrestricted source inventory.
+
+Recorded inventory162,646 bytes / `eb6c7c5a4af7fd9b2a8861dea8dc21d4cd1af77067369cf0406bf3924cc0432a`, index `363ac6548eacdfa408b77db911372549bfc04ec8653d066354f8ff54cb12cabf`, and stage `4d1eeb939627866c400a245b8a1523fc59b32a439675e1c5686a1afe0ed2ea47` are unchanged during the gate. The complete source paths/count/inventory/exclusion metadata also equal the closed1294b compiler records. That supports the adopted no-repeat compiler decision across documentation/helper publication; it is not a new compiler run or an excluded-payload comparison.
+
+The bounded [post](1298-legacy-neighbors-runtime-postflight.json) and companion [post](1298-legacy-neighbors-runtime-manual-postflight.json) retain full identities; the latter is6,374 bytes / `16ca4051034d5a1eff22f762ce372cb636d78b8a4d4750fd62ce2d987f98c508`. Final I is9,577 bytes / `9a37ad908597bdd29953ccdf29702846e36cef06c8059e5b2798cf8b215c2582` and agrees with the independent checks.
+
+This isolated result does not qualify the filtered freeze, deferred Save30/waiver neighbors, all material tests in one run, broad core/Bridge/UI, native/Owner access or the unresolved actual rival material-policy positive. The historical1296 access correction remains explicit. No source/expectation/timeout/fixture/index mutation, project evaluation or commit was performed here.

@@ -1,5 +1,24 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — 1298 legacy neighbors closed; 1299 Save30 correction adopted
+
+Claude parent took over after Codex exhausted its allowance. 1297-K records the
+ownership check: Codex pid71871 idle, no child process or open repository file;
+recheck ps before any recorded run. 1298 PASS on ea46f8b8: two files, 13 passed,
+one filtered winning-freeze leaf, child0, fixed source, bounded and companion
+pre/post closed. 1297-I attribution and independent 1297-J KEEP; parent 1297-K
+rejoined every record and the 1294b inventory (1139 source/555 excluded). The
+pasted Codex TypeError was a parser defect, not a test result.
+
+1299-A/B/F adopt one hunk in the Save30 compatibility test: title literal37→40 and
+toBe(38)→toBe(40). Historical readers, receipts and frozen fixtures keep their
+original versions. Next: test-author 1299-C stage plus an exclusive gate1300
+companion, contract-auditor 1299-D, parent E and publication, then 1300 (36
+selected/0 filtered, cap0). No compiler for two literals (1299-F). IN PROGRESS:
+broader core/Bridge/UI and rival material policy remain open. Same two specialists,
+parent live writer, one heavy process; 1296 access boundaries stand. Unity/native/
+Owner deferred.
+
 ## CURRENT — Q25 published; legacy-neighbor gate released
 
 Q25 I/J/K closure is published39082d35a537c26d9d8352b1c5076098f15fdf99.
