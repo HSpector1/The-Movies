@@ -1,0 +1,51 @@
+{
+  "record": "1281-E parent application",
+  "timeUtc": "2026-09-28T01:02:57.356017+00:00",
+  "basePublishedSource": "bf8ac29ff13cb74bcd1cf404c2f5c47a19980c72",
+  "parentRead": "Complete 546-line staged source and A/B/C/D; reviewed59 actual weekly advances45-to104, five public mutations, four explicit previews, first precommit52 price/frozen receipt, full old-prefix/new-subject owner joins, actual104 retirement and held unassigned work, common144/release148 witness timing with147 allowed and148 refused admission, exact waiver event/reason authority, whole-state purity and preservation. The market-receipt assertion was corrected before final source freeze; no runtime failure occurred. All manifest pins/decoded input/protected source rehashed; exact checked patch applied. No current validator, game code, compiler or runtime execution in this application.",
+  "operation": "add one standalone Q21 test; preserve all older files",
+  "source": {
+    "path": "tests/p14p4p5-delayed-retirement.test.ts",
+    "bytes": 42810,
+    "sha256": "d7de5234ff171dc330aa4472bd5482e18a99a86ea1f1dda377f3b107b9acc579"
+  },
+  "author": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1281-C-delayed-retirement-source-handback.md",
+    "bytes": 8803,
+    "sha256": "6cd44474852aa0264ee41c82a5b79ba97272609d5a5d8706cb5cb89285f5b8dc"
+  },
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1281-D-delayed-retirement-source-review.md",
+    "bytes": 7590,
+    "sha256": "2adb9ae304f4c89881bedbd00e9d57324e405e51d79b1a59b3bbfa6dde995f7a"
+  },
+  "manifest": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1281-delayed-retirement-source-manifest.json",
+    "bytes": 11919,
+    "sha256": "dade598ebded86848dab04f65521879b22d03369ba004780f252386e73cdf632"
+  },
+  "verifiedManifestPins": 52,
+  "protectedFilesUnchanged": 46,
+  "runtimeExecuted": false,
+  "next": {
+    "1282-delayed-retirement-types": [
+      "node_modules/.bin/tsc",
+      "--noEmit",
+      "-p",
+      "tsconfig.json"
+    ],
+    "1283-delayed-retirement-runtime": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p4p5-delayed-retirement.test.ts",
+      "-t",
+      "Q21 "
+    ]
+  },
+  "advanceCaps": {
+    "types": 0,
+    "runtime": 59
+  }
+}

@@ -1,5 +1,26 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — Delayed-retirement source applied; Q21 gates next
+
+Parent applied exact1281-C/D on publishedbf8ac29f.1281-E records one new
+42,810-byte standalone testd7de5234,52 verified manifest pins and46 unchanged
+protected files. Publish then1282 root types(cap0),1283 isolatedQ21(cap59):
+59 real develop:true advances45→104, five public mutations/four explicit previews,
+new-leaf180s timeout. Require real104 announcement/effective156 and held work
+before the prospective109/147/148 admission and public-waiver comparison. The
+market-receipt assertion was corrected before source freeze; no runtime failure.
+Actual settlement, held104, retirement and query outcomes remain unexecuted.
+Twenty earlier core leaves remain qualified across twelve separate selections.
+
+After Q21 closure begin accepted1284 soundstage source, then1287 queued/refused
+project outcome underA/B/F. Parent owns live integration/production and one heavy
+lane; same two specialists retain separate test/review roles. P17 report read
+complete; healthy reboots,35% Recognition floor and Legacy Sequel as a dormant
+Direct Sequel are adopted. No P17 question from this session remains pending.
+The required P18 charter is source-reviewed and published under plans; its season,
+platform and economic rules remain proposed. Continue authorized program;
+Unity/native and Owner campaigns deferred, all earlier failures/limits retained.
+
 ## CURRENT — Casting reservation qualified; delayed retirement source next
 
 Executed/publishedf0b3ff98dad6fbe1dd314c559fdb997b19f9347f matched GitHub.

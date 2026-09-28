@@ -23,13 +23,12 @@ The twenty core leaves Q01–Q20 passed across **twelve separate selections**: 1
 
 Primary closure records are in [the evidence directory](evidence/p14b4-20260919/): 1234-A/B, 1239-A/B/C, 1236-J/K/L, 1249-I/J/K, 1254-I/J/K, 1257-I/J/K 1260-I/J/K, 1263-I/J/K 1266-I/J/K, 1269-I/J/K 1272-I/J/K 1275-I/J/K and1278-I/J/K. The frozen detailed requirements remain [1226-A](evidence/p14b4-20260919/1226-A-p4p5-initial-test-requirements.md); their original candidate wording is historical, not a statement that current versions are still only proposed.
 
-Current next work is1281-C delayed-release retirement source under acceptedA/B:
-existing1171actual45, hard59develop:true advances to104, five public mutations and
-four explicit previews. New-leaf180s timeout is predeclared for this route; no
-existing timeout changes. IndependentD then parent application/publication and
-1282types0/1283runtime59. Accepted1284 soundstage and1287 queued/refused underA/B/F
-follow, without source/execution release yet. Keep one live production/integration
-writer, separate test/review specialists and one heavy process. Unity/native and
-Owner campaigns remain deferred. P17 canonical report has been read; healthy
-reboots/35% Recognition floor stand; Legacy Sequel is an adopted dormant return
-within Direct Sequel. No P17 question from this session remains pending.
+Current next work is1282types0/1283runtime59 after publication of exact1281-C/D/E:
+one Q21 leaf,59 real develop:true45→104 advances, five public mutations/four
+explicit previews, prospective180s timeout. Independent source review is complete;
+runtime remains unexecuted. After closure begin1284 soundstage, then1287 queued/
+refused underA/B/F. Keep one live production/integration writer, separate test/review
+specialists and one heavy process. Unity/native and Owner campaigns remain deferred.
+P17 healthy reboots,35% Recognition floor and dormant Direct Sequel classification
+are adopted; no P17 question from this session is pending. The required P18 charter
+is source-reviewed in plans; unspecified season/platform rules remain proposed.
