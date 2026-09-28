@@ -1,5 +1,23 @@
 # R3-N1 native correction record — 2026-09-15 · OPS-R3-N1-NATIVE-CORRECTION-20260915-01
 
+## CURRENT — R2/R3 production landed (Save41, projection 56); GREEN 46/46; sweep 1309 next
+
+Production commit f3f8c209 lands R2 (release refused during the founding draft and for
+a person seated on an active production, engine and Bridge, codes `foundingDraft` and
+`seatedOnActiveProduction`; the release copy states the charge's two branches), R3 (a
+rival releases unretained non-Scientist surplus under the player's termination law, new
+rival money kind `termination`, same-pass free agency, R1 floor on its re-hire) and
+Save41 (live validator reconciles rival termination per period; frozen readers keep the
+old law; 41→40 refuses a real release). Projection 56 registers genuine outgoing55
+(1307) as a prior. RED 1310 on unchanged production failed 32 exactly as predicted;
+GREEN 1311 passed 46 with 2 honest skips; contract check 1311b passes. The measured
+scientist deficit probe (1308-Q) does not witness under-hiring; no correction follows.
+IN PROGRESS: 1311-J implementation review; 1309 pin sweep (1309-A plan, test-author
+staging) including 15 test-side type errors (1311-T), then 1309-D review, 1309-E apply
+with the p14b6 neighbor change, one broad core and UI rerun attributed against
+1302-I/1303-I. Open: premise clusters C6/C7/C8/C15/C16/C17/C20, rival material policy,
+R3 skipped leaves (promise, cash). Two specialists, parent writer, one heavy process.
+
 ## CURRENT — 1302/1303 attributed; R2+R3 production increment next
 
 Broad core gate 1302 on 993e6b01: 411 files, 96 failed files, 498 failed, 4102
