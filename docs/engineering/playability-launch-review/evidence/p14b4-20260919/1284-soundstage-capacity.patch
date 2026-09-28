@@ -1,0 +1,322 @@
+diff --git a/tests/p14p4p5-soundstage-capacity.test.ts b/tests/p14p4p5-soundstage-capacity.test.ts
+new file mode 100644
+--- /dev/null
++++ b/tests/p14p4p5-soundstage-capacity.test.ts
+@@ -0,0 +1,317 @@
++// 1284-A/B: actual312 stock capacity, two pure quotes, one public cancellation, no advances.
++import assert from 'node:assert/strict'
++import { createHash } from 'node:crypto'
++import { readFileSync } from 'node:fs'
++import { gunzipSync } from 'node:zlib'
++import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
++import * as core from '../src/core/index.js'
++import * as saves from '../src/core/save.js'
++import * as tickOwner from '../src/core/tick.js'
++import * as opportunityOwner from '../src/core/opportunityPromises.js'
++import { activeContract, busyTalentIds } from '../src/core/employment.js'
++import { occupiedResourceSlots, resourceClaimsOf } from '../src/core/occupancy.js'
++import type { PromiseDraft } from '../src/core/promises.js'
++import type { Action, GameState } from '../src/core/types.js'
++
++const INPUT = new URL('./fixtures/p14/genuine-pre38-validation-controls/', import.meta.url)
++const E = new URL('../docs/engineering/playability-launch-review/evidence/p14b4-20260919/', import.meta.url)
++const FILE = 'reproduced-v35-c4-all-statuses-week312.json.gz', PROD = 'prod-0000', OTHER = 'prod-0000-1'
++const PERSON = 't-act-00', TIMEOUT = 60_000
++const clone = <T>(value: T): T => structuredClone(value)
++const stable = saves.stableStringify
++const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
++const bytes = (state: GameState): string => saves.exportSave(saves.makeSave(state))
++const issuer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }
++const emit = (kind: string, value: unknown): void => console.info(`1284-P4P5-${kind} ${JSON.stringify(value)}`)
++const count = { advanceAttempts: 0, advancesInvoked: 0, advancesCompleted: 0, actionAttempts: 0, actionsAccepted: 0,
++  quoteAttempts: 0, quotesReturned: 0 }
++const operations: { action: Action; week: number; accepted: boolean }[] = []
++const quotes: { request: PromiseDraft; receipt: ReturnType<typeof core.promiseFeasibility> }[] = []
++const cache = new Map<string, { ok: true; value: GameState } | { ok: false; error: unknown }>()
++let restoreTick: (() => void) | undefined
++let oldTakes: GameState['firstTakes'] = [], oldRoots: GameState['promises'] = []
++beforeAll(() => {
++  const spy = vi.spyOn(tickOwner, 'tick').mockImplementation(() => {
++    count.advanceAttempts++; throw new Error('1284: Q22 hard zero advances, including every setup path')
++  })
++  restoreTick = () => spy.mockRestore()
++})
++afterAll(() => {
++  restoreTick?.()
++  emit('COUNTERS', { ...count, hardAdvanceAttempts: 0, hardActionAttempts: 1, hardQuoteAttempts: 2,
++    historicalPrefixAdvances: 0, producerOrHelperImported: false, operations, quotes,
++    phases: [...cache].map(([name, row]) => ({ name, complete: row.ok, ...(!row.ok ? { failure: String(row.error) } : {}) })) })
++  expect(count.advanceAttempts).toBe(0); expect(count.actionAttempts).toBeLessThanOrEqual(1)
++  expect(count.quoteAttempts).toBeLessThanOrEqual(2)
++})
++function memo(name: string, build: () => GameState): GameState {
++  const prior = cache.get(name)
++  if (prior) { if (!prior.ok) throw prior.error; return clone(prior.value) }
++  try { const value = build(); cache.set(name, { ok: true, value }); return clone(value) }
++  catch (error) { cache.set(name, { ok: false, error }); throw error }
++}
++function admitted(state: GameState): void {
++  const before = stable(state), save = saves.makeSave(state)
++  expect(save.saveVersion).toBe(40); expect(saves.validateSaveV40(save)).toBe(save)
++  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV40(imported)
++  expect(current).toBe(imported); expect(saves.exportSave(current)).toBe(raw); expect(stable(state)).toBe(before)
++}
++function unchangedAuthority(state: GameState): void {
++  expect(state.market.tick).toBe(312); expect(state.firstTakes).toEqual(oldTakes); expect(state.promises).toEqual(oldRoots)
++  expect(state.firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: 111, facts: [] })
++  expect(state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] }); expect(state.studio.cash).toBe(-3959669.2663676403)
++  expect(state.productionQueue).toEqual([]); expect(state.releaseAuthority).toEqual({ commitments: [] })
++}
++function input312(): GameState {
++  return memo('literal35-to40:312', () => {
++    const manifestBytes = readFileSync(new URL('MANIFEST.json', INPUT))
++    expect(manifestBytes.length).toBe(48338); expect(sha(manifestBytes)).toBe('c9609b940ae77bf3d5c99c81463152d2c4b8782372da59249b942d1e51f1b101')
++    const manifest = JSON.parse(manifestBytes.toString('utf8')) as { generatedAt: string; sourceSha: string; producerSha256: string;
++      archivedSource: { sourceSha: string; fileCount: number; filesSha256: string; files: unknown[] };
++      currentWorktree: { head: string; patchSha256: string; untracked: string[] }; development: { develop: boolean };
++      bounds: { totalTicks: number; stages: { name: string; startWeek: number; endWeek: number; ticks: number }[] };
++      artifacts: { filename: string; kind: string; week: number; byteLength: number; compressedByteLength: number;
++        uncompressedSha256: string; compressedSha256: string }[] }
++    expect(manifest.generatedAt).toBe('2026-09-26T20:21:57.565Z')
++    expect(manifest.sourceSha).toBe('c000479d6e888d3a02f5c2ff534f5dfcbb32af3f')
++    expect(manifest.producerSha256).toBe('5de47c19d3c665e79590126c3c7155d517ef65fc3285a69a751a539cc355e161')
++    expect(manifest.archivedSource).toMatchObject({ sourceSha: manifest.sourceSha, fileCount: 174,
++      filesSha256: '1583d5c7d6311cc8de99429a4ead13d8d82a4abdc73602eb436cf5dac6280816' })
++    expect(manifest.archivedSource.files).toHaveLength(174)
++    expect(sha(JSON.stringify(manifest.archivedSource.files))).toBe(manifest.archivedSource.filesSha256)
++    expect(manifest.currentWorktree).toEqual({ head: manifest.sourceSha,
++      patchSha256: '3acb791a875fcce2403ebe2809e8e312e3318d41b7c2834ff45d964c33a5aa92', untracked: [] })
++    expect(manifest.bounds.totalTicks).toBe(501); expect(manifest.development.develop).toBe(false)
++    expect(manifest.bounds.stages.find(row => row.name === 'C4 all-statuses')).toEqual({ name: 'C4 all-statuses', startWeek: 227, endWeek: 312, ticks: 85 })
++    const provenanceBytes = readFileSync(new URL('./fixtures/p14/genuine-v34-c4-corpus/genuine-v34-c4-all-statuses.provenance.json', import.meta.url))
++    expect(provenanceBytes.length).toBe(7589); expect(sha(provenanceBytes)).toBe('043b645d0dc808164f85c24e31d69665429609921ef018669f705bfff9770769')
++    const provenance = JSON.parse(provenanceBytes.toString('utf8')) as { campaign: string; recipe: { builder: string }; week: number; saveVersion: number }
++    expect(provenance.campaign).toBe("generated test campaign (world 5: migrated from the repository's own held V33 fixture); never an Owner save")
++    expect(provenance.recipe.builder).toBe('fund(p13aGeneratedStudio("p14c4-corpus-01-y3")) -> createTalent x5 (age 70 each) -> signContract + sign supporting cast x2 -> greenlight x2 (both left unreleased) -> advanceTo(227)')
++    expect(provenance.week).toBe(227); expect(provenance.saveVersion).toBe(34)
++    const historicalBytes = readFileSync(new URL('978-c3-historical-controls.json', E))
++    expect(historicalBytes.length).toBe(2980); expect(sha(historicalBytes)).toBe('8ce1f5fc19b5b416324df3832d594fdd40a12cf2ad042a9f7b8e6836a7d41559')
++    const historical = JSON.parse(historicalBytes.toString('utf8')) as { exitCode: number; fixedExistingSource: boolean; exactDeclaredOutputs: boolean; start: string; end: string }
++    expect(historical).toMatchObject({ exitCode: 0, fixedExistingSource: true, exactDeclaredOutputs: true,
++      start: '2026-09-26T20:21:42.408Z', end: '2026-09-26T20:21:57.923Z' })
++    const entry = manifest.artifacts.find(row => row.filename === FILE); assert.ok(entry)
++    expect(entry).toMatchObject({ kind: 'save35', week: 312, byteLength: 2185646, compressedByteLength: 221085,
++      uncompressedSha256: 'f0316e4966e2bd4ce092accc0abe2b0c2e83b6f2a047827d866e08102ca6ff33',
++      compressedSha256: '4c53ede9e7b548b60f09385a7d0427bedcfca98654bb62d3619ed6b549121d18' })
++    const compressed = readFileSync(new URL(FILE, INPUT)); expect(compressed.length).toBe(entry.compressedByteLength); expect(sha(compressed)).toBe(entry.compressedSha256)
++    const raw = gunzipSync(compressed).toString('utf8'); expect(Buffer.byteLength(raw)).toBe(entry.byteLength); expect(sha(raw)).toBe(entry.uncompressedSha256)
++    const parsed: unknown = JSON.parse(raw), old = saves.validateSaveV35(parsed), prior = stable(old)
++    expect(old).toBe(parsed); expect(saves.exportSave(old)).toBe(raw)
++    const state = saves.migrateToLive(old).state
++    expect(stable(old)).toBe(prior); admitted(state)
++    expect(state.market.tick).toBe(312); expect(issuer(state)).toBe('studio-88c92bc3-player'); expect(state.studio.cash).toBe(-3959669.2663676403)
++    expect(state.firstTakes).toEqual(old.state.firstTakes); expect(state.firstTakes).toHaveLength(111)
++    expect(state.firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: 111, facts: [] })
++    expect(state.promises).toEqual(old.state.promises); expect(state.promises).toHaveLength(69)
++    expect(state.careerLifecycle.boundaryWeek).toBe(old.state.careerLifecycle.boundaryWeek)
++    expect(state.careerLifecycle.cohorts).toEqual(old.state.careerLifecycle.cohorts)
++    expect(state.careerLifecycle.records.map(({ extensionUsed, extendedFromWeek, ...row }) => {
++      expect(extensionUsed).toBe(false); expect(extendedFromWeek).toBeNull(); return row
++    })).toEqual(old.state.careerLifecycle.records)
++    expect(state.talentMarket.cases.map(({ variant, ...row }) => { expect(variant).toBe('expiry'); return row })).toEqual(old.state.talentMarket.cases)
++    expect(state.careerLifecycle.transitionBoundaryWeek).toBe(312); expect(state.careerLifecycle.professionChanges).toEqual([])
++    expect(state.studio.activeProductions).toEqual(old.state.studio.activeProductions)
++    expect(state.operations).toEqual(old.state.operations); expect(state.contracts).toEqual([])
++    expect(state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] }); expect(state.talentMarket.proposals).toEqual([])
++    expect(state.releaseAuthority).toEqual({ commitments: [] }); expect(state.productionQueue).toEqual([])
++    oldTakes = clone(state.firstTakes); oldRoots = clone(state.promises)
++    emit('INPUT', { historicalReproduction: { generatedAt: manifest.generatedAt, sourceSha: manifest.sourceSha,
++      originalCampaign: provenance.campaign, originalBuilder: provenance.recipe.builder, archivedSource: manifest.archivedSource,
++      currentWorktree: manifest.currentWorktree, bounds: manifest.bounds, selected: entry, historicalRecord: historical },
++      actualWeek: 312, cash: state.studio.cash, noCurrentFunding: true, oldReceiptCount: oldTakes.length,
++      oldReceiptsSha256: sha(stable(oldTakes)), oldPromiseCount: oldRoots.length, oldPromisesSha256: sha(stable(oldRoots)),
++      migratedLifecycle: state.careerLifecycle, firstTakeSubjects: state.firstTakeSubjects,
++      migratedBytes: Buffer.byteLength(bytes(state)), migratedSha256: sha(bytes(state)) })
++    return state
++  })
++}
++function owners(state: GameState) {
++  return [{ studioId: issuer(state), productions: state.studio.activeProductions, development: state.scriptDevelopment },
++    ...state.hollywood!.businesses.map(row => ({ studioId: row.studioId, productions: row.productions, development: row.development }))]
++}
++function personFacts(state: GameState) {
++  const talent = state.talent.find(row => row.id === PERSON); assert.ok(talent?.skills.acting)
++  expect(talent).toMatchObject({ id: PERSON, role: 'actor', age: 41 })
++  expect(talent.skills.acting).toEqual({ actingTechnique: { actual: 39, perceived: 47 }, comicTiming: { actual: 80, perceived: 92 },
++    dialogueDelivery: { actual: 53, perceived: 48 }, emotionalRange: { actual: 54, perceived: 61 },
++    physicalPerformance: { actual: 76, perceived: 81 }, screenPresence: { actual: 68, perceived: 63 } })
++  const provenance = state.talentProvenance.rows.find(row => row.personId === PERSON); assert.ok(provenance)
++  expect(provenance).toEqual({ personId: PERSON, kind: 'authored_exact_week', entryWeek: 0, ageAtEntry: 35.22299891072342 })
++  expect(core.ageAt(provenance, 312)).toBe(41)
++  const current = core.retirementRecordFor(state, PERSON), actor = core.retirementRecordFor(state, PERSON, 'actor')
++  expect(current).toBeUndefined(); expect(actor).toBeUndefined()
++  const currentRefusal = core.assignmentRefusal(state, PERSON, 312), actorRefusal = core.assignmentRefusal(state, PERSON, 312, 'actor')
++  expect(currentRefusal).toBeNull(); expect(actorRefusal).toBeNull(); expect(activeContract(state, PERSON)).toBeUndefined()
++  const employment = state.hollywood!.employment.filter(row => row.terms.talentId === PERSON); expect(employment).toEqual([])
++  const company = owners(state).flatMap(owner => owner.productions.map(production => ({ studioId: owner.studioId, production: clone(production),
++    member: production.directorId === PERSON || Object.values(production.cast).includes(PERSON) || production.craftIds.includes(PERSON),
++    writerCredit: production.writerId === PERSON })))
++  const writing = owners(state).flatMap(owner => owner.development.projects.map(project => ({ studioId: owner.studioId, project: clone(project),
++    assigned: ['drafting', 'rewriting'].includes(project.status) && project.writerIds.includes(PERSON) })))
++  const research = state.technology.projects.map(project => ({ project: clone(project), assigned: project.status === 'active'
++    && project.seats.some(seat => seat.talentId === PERSON && seat.releasedWeek === null) }))
++  expect(company.filter(row => row.member)).toEqual([]); expect(company.filter(row => row.writerCredit)).toEqual([])
++  expect(writing.filter(row => row.assigned)).toEqual([]); expect(research.filter(row => row.assigned)).toEqual([])
++  expect(busyTalentIds(state).has(PERSON)).toBe(false)
++  return { talent: clone(talent), provenance: clone(provenance), current: current ?? null, requestedActor: actor ?? null,
++    currentRefusal, actorRefusal, employment, company, writing, research, actualWeek: 312, hypotheticalContractOnly: true }
++}
++function candidates(state: GameState) {
++  expect(state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] }); expect(state.studio.releasedFilms).toEqual([])
++  const used = [...new Set([...state.studio.activeProductions.map(row => row.conceptId), ...state.studio.releasedFilms.map(row => row.conceptId)])]
++  const crime = state.concepts.filter(row => row.genre === 'crime'), unused = crime.filter(row => !used.includes(row.id))
++  expect(unused.map(row => row.id)).toEqual(['c-04', 'c-05', 'c-08', 'c-16', 'c-20']); expect(unused).toEqual(crime)
++  for (const p of state.studio.activeProductions) expect(['drama', 'comedy']).toContain(state.concepts.find(row => row.id === p.conceptId)?.genre)
++  const clocks = unused.map(concept => ({ conceptId: concept.id, freshWeek: 312, takeWeek: 312 + 5, dueWeekExclusive: 325, slack: 325 - (312 + 5) }))
++  for (const row of clocks) { expect(row.takeWeek).toBeLessThan(row.dueWeekExclusive); expect(row.slack).toBe(8) }
++  return { mode: state.scriptDevelopment.mode, allCrime: clone(crime), unused: clone(unused), usedConceptIds: used,
++    playerProductions: clone(state.studio.activeProductions), releasedFilms: clone(state.studio.releasedFilms), clocks }
++}
++function capacity(state: GameState, cancelled: boolean) {
++  expect(state.operations.mode).toBe('managed'); expect(state.operations.workflows.map(row => row.productionId)).toEqual(cancelled ? [OTHER] : [PROD, OTHER])
++  expect(state.technology.projects).toHaveLength(1)
++  expect(state.technology.projects[0]).toMatchObject({ id: 'studio-88c92bc3-r01:research:synchronized-sound',
++    laboratoryFacilityId: 'studio-88c92bc3-r01:laboratory:0', status: 'completed', completedWeek: 276 })
++  expect(state.castingSessions.sessions).toEqual([]); expect(state.construction.projects).toEqual([])
++  expect(state.placement.facilities).toEqual([]); expect(state.scriptDevelopment.projects).toEqual([])
++  expect(state.sets).toHaveLength(2); for (const set of state.sets) expect(set.status).toBe('standing')
++  const claims = resourceClaimsOf(occupiedResourceSlots(state))
++  type Expected = { owner: string; ownerId: string; kind: string; facilityId: string; slot: number | null; capability: string | null }
++  const expected: Expected[] = state.technology.projects.map(row => ({ owner: 'research', ownerId: row.id, kind: 'facility',
++    facilityId: row.laboratoryFacilityId, slot: null, capability: null }))
++  for (const plan of state.operations.workflows) {
++    expect(plan).toMatchObject({ phase: 'shooting', blocker: null, shootingTask: { status: 'unassigned' } })
++    expected.push(...plan.reservations.map(r => ({ owner: 'production', ownerId: plan.productionId, kind: 'facility',
++      facilityId: r.facilityId, slot: r.slot, capability: r.capability })))
++    assert.ok(plan.shootingTask)
++    expected.push({ owner: 'shootingTask', ownerId: plan.productionId, kind: 'facility',
++      facilityId: plan.shootingTask.soundstageFacilityId, slot: null, capability: null })
++  }
++  expected.push(...state.sets.map(row => ({ owner: 'set', ownerId: row.id, kind: 'mount', facilityId: row.mountedOn, slot: null, capability: null })))
++  for (const plan of state.operations.workflows) if (plan.bindings.setId !== null && plan.reservations.some(r => r.capability === 'soundstage')) {
++    expected.push({ owner: 'production', ownerId: plan.productionId, kind: 'set', facilityId: plan.bindings.stageFacilityId ?? '', slot: null, capability: null })
++  }
++  expect(claims.map(row => ({ owner: row.owner, ownerId: row.ownerId, kind: row.kind, facilityId: row.facilityId,
++    slot: row.slot, capability: row.capability }))).toEqual(expected)
++  expect(claims).toHaveLength(cancelled ? 7 : 11); expect(claims.filter(row => row.kind === 'facility')).toHaveLength(cancelled ? 4 : 7)
++  expect(state.operations.facilities.filter(row => row.capability === 'soundstage').map(row => [row.id, row.capacity]))
++    .toEqual([['facility-soundstage-07', 1], ['facility-soundstage-12', 1]])
++  expect(state.operations.facilities.filter(row => row.capability === 'set-scenery').map(row => [row.id, row.capacity]))
++    .toEqual([['facility-scenery-shop', 2]])
++  const free = (['development-casting', 'soundstage', 'set-scenery', 'post'] as const).map(capability => ({ capability,
++    slots: state.operations.facilities.filter(row => row.capability === capability).flatMap(facility =>
++      Array.from({ length: facility.capacity }, (_, slot) => ({ facilityId: facility.id, slot })).filter(candidate =>
++        !claims.some(row => row.kind === 'facility' && row.facilityId === candidate.facilityId && (row.slot === null || row.slot === candidate.slot)))) }))
++  expect(free).toEqual([
++    { capability: 'development-casting', slots: [{ facilityId: 'facility-development-casting', slot: 0 }, { facilityId: 'facility-development-casting', slot: 1 }] },
++    { capability: 'soundstage', slots: cancelled ? [{ facilityId: 'facility-soundstage-07', slot: 0 }] : [] },
++    { capability: 'set-scenery', slots: cancelled ? [{ facilityId: 'facility-scenery-shop', slot: 0 }] : [] },
++    { capability: 'post', slots: [{ facilityId: 'facility-post-building', slot: 0 }, { facilityId: 'facility-post-building', slot: 1 }] }])
++  return { claims: clone(claims), expected, facilities: clone(state.operations.facilities), free,
++    workflows: clone(state.operations.workflows), sets: clone(state.sets), research: clone(state.technology.projects) }
++}
++function request(state: GameState): PromiseDraft {
++  return { family: 'PREFERRED_GENRE_OPPORTUNITY', issuerStudioId: issuer(state), beneficiaryPersonId: PERSON,
++    predicate: { kind: 'genreOpportunity', count: 1, seatClass: 'allCast', genre: 'crime' },
++    startWeek: 312, termWeeks: 52, windowStartWeek: 312, dueWeekExclusive: 325 }
++}
++function union(state: GameState, draft: PromiseDraft) {
++  const attachedIds = [...new Set(state.talentMarket.proposals.flatMap(row => row.promises))]
++  const rows = state.promises.map(row => {
++    const remaining = row.predicate.count - row.progress, open = row.outcome === null, unmet = remaining > 0,
++      boundOrAttached = row.contractId !== null || attachedIds.includes(row.promiseId), notSelf = row.promiseId !== draft.promiseId,
++      overlap = row.dueWeekExclusive > 312 && row.windowStartWeek < draft.dueWeekExclusive,
++      issuerOrPerson = row.issuerStudioId === draft.issuerStudioId || row.beneficiaryPersonId === draft.beneficiaryPersonId
++    return { promiseId: row.promiseId, remaining, open, unmet, boundOrAttached, notSelf, overlap, issuerOrPerson,
++      selected: open && unmet && boundOrAttached && notSelf && overlap && issuerOrPerson }
++  })
++  const ids = rows.filter(row => row.selected).map(row => row.promiseId), selected = state.promises.filter(row => ids.includes(row.promiseId))
++  expect(state.promises).toEqual(oldRoots); expect(rows).toHaveLength(69); expect(selected).toEqual([])
++  return { from: 312, rawRoots: clone(state.promises), proposals: clone(state.talentMarket.proposals), attachedIds, rows, selected: clone(selected) }
++}
++function quote(state: GameState, cancelled: boolean): void {
++  admitted(state); unchangedAuthority(state)
++  const before = bytes(state), rng = clone(state.rngState), draft = request(state), argument = stable(draft)
++  const person = personFacts(state), stock = candidates(state), resource = capacity(state, cancelled), census = union(state, draft)
++  assert.ok(count.quoteAttempts < 2)
++  const spy = vi.spyOn(opportunityOwner, 'opportunityReservations')
++  let receipt: ReturnType<typeof core.promiseFeasibility>, selected: unknown
++  try {
++    count.quoteAttempts++; receipt = core.promiseFeasibility(state, draft, 312); count.quotesReturned++
++    expect(spy.mock.calls).toHaveLength(1); const args = spy.mock.calls[0]!, result = spy.mock.results[0]!
++    expect(args[0]).toBe(state); expect(args[1]).toBe(draft); expect(args[2]).toBe(312); expect(result.type).toBe('return')
++    selected = clone(result.value)
++  } finally { spy.mockRestore() }
++  quotes.push({ request: clone(draft), receipt: clone(receipt) })
++  emit('QUOTE', { ordinal: count.quoteAttempts, cancelled, actualWeek: 312, request: draft, requestBytes: argument,
++    receipt, census, actualSelection: selected, person, stock, resource, inputBytes: Buffer.byteLength(before), inputSha256: sha(before), rng })
++  expect(selected).toEqual(census.selected); expect(bytes(state)).toBe(before); expect(stable(draft)).toBe(argument); expect(state.rngState).toEqual(rng)
++  expect(receipt).toMatchObject({ rulesVersion: 7, week: 312, classification: cancelled ? 'REASONABLY_ACHIEVABLE' : 'FRAGILE',
++    bottleneck: cancelled ? null : 'existing soundstage capacity is not available for this opportunity' })
++}
++function firstQuote(): GameState {
++  return memo('initial-capacity-quote312', () => { const state = input312(); quote(state, false); return state })
++}
++function cancelled312(): GameState {
++  return memo('public-cancel312', () => {
++    const state = firstQuote(), before = bytes(state), priorCandidates = candidates(state), priorClaims = capacity(state, false)
++    const target = state.studio.activeProductions.find(row => row.id === PROD); assert.ok(target)
++    expect(state.studio.activeProductions.map(row => [row.id, row.conceptId, row.remainingTicks]))
++      .toEqual([[PROD, 'c-00', 5], [OTHER, 'c-01', 5]])
++    expect(state.firstTakes.filter(row => row.studioId === issuer(state) && row.productionId === PROD)).toEqual([])
++    const locked = state.technology.productions.find(row => row.productionId === PROD && row.studioId === issuer(state))
++    expect(locked).toEqual({ productionId: PROD, studioId: issuer(state), method: 'silent', adoptionId: null, lockedWeek: 3 })
++    const finishing = ['authored-0000', 'authored-0003'].map(id => {
++      const record = core.retirementRecordFor(state, id); assert.ok(record)
++      expect(record).toMatchObject({ status: 'finishing_commitments', retiredWeek: null }); return clone(record)
++    })
++    const action: Action = { kind: 'cancel', productionId: PROD }, argument = stable(action), rng = clone(state.rngState)
++    assert.ok(count.actionAttempts < 1)
++    const operation = { action: clone(action), week: 312, accepted: false }; operations.push(operation); count.actionAttempts++
++    emit('CANCEL-ATTEMPT', { ...operation, target, workflow: state.operations.workflows.find(row => row.productionId === PROD), locked, finishing })
++    const next = core.applyActions(clone(state), [clone(action)])
++    expect(bytes(state)).toBe(before); expect(stable(action)).toBe(argument); expect(state.rngState).toEqual(rng)
++    expect(next).toEqual({ ...state, studio: { ...state.studio, activeProductions: state.studio.activeProductions.filter(row => row.id !== PROD) },
++      operations: { ...state.operations, workflows: state.operations.workflows.filter(row => row.productionId !== PROD) } })
++    admitted(next); unchangedAuthority(next)
++    const afterCandidates = candidates(next), afterClaims = capacity(next, true)
++    expect(afterCandidates.unused).toEqual(priorCandidates.unused); expect(afterCandidates.clocks).toEqual(priorCandidates.clocks)
++    const removed = priorClaims.claims.filter(row => (row.owner === 'production' || row.owner === 'shootingTask') && row.ownerId === PROD)
++    expect(removed).toHaveLength(4)
++    expect(afterClaims.claims).toEqual(priorClaims.claims.filter(row => !removed.includes(row)))
++    expect(next.technology).toEqual(state.technology); expect(next.careerLifecycle).toEqual(state.careerLifecycle)
++    expect(['authored-0000', 'authored-0003'].map(id => core.retirementRecordFor(next, id))).toEqual(finishing)
++    operation.accepted = true; count.actionsAccepted++
++    emit('CANCEL-ACCEPTED', { ...operation, releasedClaims: removed, beforeClaims: priorClaims, afterClaims,
++      unchangedCandidates: afterCandidates.unused, remainingProductions: next.studio.activeProductions, lockedTechnology: next.technology,
++      finishing, careerLifecycle: next.careerLifecycle, oldReceipts: next.firstTakes, oldRoots: next.promises,
++      firstTakeSubjects: next.firstTakeSubjects, inputBytes: Buffer.byteLength(before), inputSha256: sha(before),
++      outputBytes: Buffer.byteLength(bytes(next)), outputSha256: sha(bytes(next)), noRefund: next.studio.cash === state.studio.cash })
++    return next
++  })
++}
++function finalQuote(): GameState {
++  return memo('released-capacity-quote312', () => {
++    const state = cancelled312(); quote(state, true)
++    expect(quotes[1]!.request).toEqual(quotes[0]!.request); expect(stable(quotes[1]!.request)).toBe(stable(quotes[0]!.request))
++    return state
++  })
++}
++
++describe('P4/P5 actual existing soundstage capacity', () => {
++  it('Q22 releases the actual soundstage owner before repeating the unchanged crime opportunity', () => {
++    const state = finalQuote(); admitted(state); unchangedAuthority(state)
++    expect(count).toEqual({ advanceAttempts: 0, advancesInvoked: 0, advancesCompleted: 0, actionAttempts: 1, actionsAccepted: 1,
++      quoteAttempts: 2, quotesReturned: 2 })
++    expect(operations).toEqual([{ action: { kind: 'cancel', productionId: PROD }, week: 312, accepted: true }])
++    expect([...cache].every(([, row]) => row.ok)).toBe(true)
++    emit('COMPLETE', { actualWeek: 312, count, unchangedRequest: quotes[0]!.request, receipts: quotes.map(row => row.receipt),
++      claims: resourceClaimsOf(occupiedResourceSlots(state)), firstTakeSubjects: state.firstTakeSubjects,
++      scope: 'pure hypothetical312/52 terms; no hire, funding, new crew, film, retirement tick or general allocator claim' })
++  }, TIMEOUT)
++})

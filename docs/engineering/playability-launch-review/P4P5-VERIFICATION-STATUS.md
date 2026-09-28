@@ -23,11 +23,12 @@ The twenty-one core leaves Q01–Q21 passed across **thirteen separate selection
 
 Primary closure records are in [the evidence directory](evidence/p14b4-20260919/): 1234-A/B, 1239-A/B/C, 1236-J/K/L, 1249-I/J/K, 1254-I/J/K, 1257-I/J/K 1260-I/J/K, 1263-I/J/K 1266-I/J/K, 1269-I/J/K 1272-I/J/K 1275-I/J/K 1278-I/J/K and1281-I/J/K. The frozen detailed requirements remain [1226-A](evidence/p14b4-20260919/1226-A-p4p5-initial-test-requirements.md); their original candidate wording is historical, not a statement that current versions are still only proposed.
 
-Current next work is accepted1284-C soundstage-capacity source: two identical
-crime P4 quotes, one public cancellation and hard0advances at genuine actual312.
-IndependentD then parent application/publication,1285types0/1286runtime0;1287
-queued/refused underA/B/F follows. Keep one live integration/production writer,
-separate test/review specialists and one heavy process. Unity/native and Owner
-campaigns remain deferred. P17 healthy reboots,35% Recognition floor and dormant
-Direct Sequel classification are adopted; no P17 question is pending. Required
-P18 charter is source-reviewed; unspecified TV rules remain proposed.
+Current next work is1285types0/1286runtime0 after publication of exact1284-C/D/E:
+one Q22 leaf, two identical P4crime quotes/one public cancellation at actual312,
+hard0advances/new60s timeout. Actual capacity results remain unexecuted. Then
+begin accepted1287 queued/refused underA/B/F. Keep one live integration/production
+writer, separate test/review specialists and one heavy process. Unity/native and
+Owner campaigns remain deferred. P17 healthy reboots,35% Recognition floor and
+dormant Direct Sequel are adopted; its paper reproduction is separate from
+engine/balance verification. Required P18 charter is source-reviewed; unspecified
+TV rules remain proposed.

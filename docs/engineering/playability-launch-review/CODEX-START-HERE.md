@@ -1,5 +1,23 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — Soundstage source applied; Q22 gates next
+
+Parent applied exact1284-C/D on publishedf6c7343e.1284-E records one new
+27,651-byte standalone test a858733f,59 manifest pins and48 unchanged protected
+files. Publish then1285 root types(cap0),1286 isolatedQ22(cap0): two identical
+P4 crime quotes around one public cancellation at genuine actual312, new60s
+leaf timeout. Full11→7 claims, five unchanged stock crime candidates, locked
+technology and finishing-record preservation remain runtime premises to prove.
+Twenty-one earlier core leaves are qualified across thirteen separate selections.
+
+After Q22 closure begin accepted1287 queued/refused project-outcome source under
+A/B/F. Parent owns live integration/production and one heavy lane; the same two
+specialists retain separate test/review roles. P17 healthy reboots,35% Recognition
+floor and Legacy Sequel as dormant Direct Sequel remain adopted. Its canonical
+paper reproduction is tracked separately, with no engine/balance claim. Required
+P18 charter is source-reviewed; unspecified TV rules remain proposed. Continue the
+authorized program; Unity/native and Owner campaigns remain deferred.
+
 ## CURRENT — Delayed retirement qualified; soundstage source next
 
 Executed/published4d2aca744f15a73b45589d4d97b717f831209373 matched GitHub.

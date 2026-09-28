@@ -1,0 +1,51 @@
+{
+  "record": "1284-E parent application",
+  "timeUtc": "2026-09-28T01:28:21.313149+00:00",
+  "basePublishedSource": "f6c7343e69c5f1b91cb5b8fa4d2743304feeffe5",
+  "parentRead": "Full317-line stage and A/B/C/D. Strict35 admission/provenance then40 migration; all111 takes/69 roots; complete person/owner/stock-path/union/resource bodies and actual selector observation. Two identical pure crime quotes surround one public cancel, hard0advances. Exact whole-state delta only removes production and workflow, retaining locked technology, finishing records, other owner and same five crime concepts. Full11-to7 claims isolate first soundstage cause; scenery also occupied, not separately qualified. All manifest and decoded-input pins plus48 protected files rehashed; checked exact new-file patch. No compiler/runtime or project-code execution in this application.",
+  "operation": "add one standalone Q22 test; preserve all older files",
+  "source": {
+    "path": "tests/p14p4p5-soundstage-capacity.test.ts",
+    "bytes": 27651,
+    "sha256": "a858733f70b30d35c4bb7c614981513d640567ac552ac63c47dffe209f8b2b8e"
+  },
+  "author": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1284-C-soundstage-capacity-source-handback.md",
+    "bytes": 7350,
+    "sha256": "79bacfa66b21b53271f60ca979dc5b9c0eff11a00751566f924e3407dac856dd"
+  },
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1284-D-soundstage-capacity-source-review.md",
+    "bytes": 5851,
+    "sha256": "6ad52d5d8b3dd647ea39b48947b37616a475eaa588b91b76d9e4d4eb599fe863"
+  },
+  "manifest": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1284-soundstage-capacity-source-manifest.json",
+    "bytes": 14419,
+    "sha256": "ccc5d7d5c5a28ebc3449d3229d650975a128c0d865a73f954454a21ade353b36"
+  },
+  "verifiedManifestPins": 59,
+  "protectedFilesUnchanged": 48,
+  "runtimeExecuted": false,
+  "next": {
+    "1285-soundstage-capacity-types": [
+      "node_modules/.bin/tsc",
+      "--noEmit",
+      "-p",
+      "tsconfig.json"
+    ],
+    "1286-soundstage-capacity-runtime": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p4p5-soundstage-capacity.test.ts",
+      "-t",
+      "Q22 "
+    ]
+  },
+  "advanceCaps": {
+    "types": 0,
+    "runtime": 0
+  }
+}
