@@ -1,5 +1,23 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — Q25 published; legacy-neighbor gate released
+
+Q25 I/J/K closure is published39082d35a537c26d9d8352b1c5076098f15fdf99.
+1297-C/D/E companion is reviewed/adopted for the next1298 gate only: two exact
+existing files, expected13 selected/one filtered, zero advances by source-route
+accounting. Publish this checkpoint, then bounded pre0 → companion pre → exact
+manifest command → actual bounded post exit → companion post. Bind the companion
+to this published HEAD and its reviewed4a7e9467 hash. All17 manual files/three
+explicit generated inputs stay exact. Source inventory must equal1294b before
+attributing that compiler; no extra types run for documentation alone.
+
+1299 source-only planning found a stale live-version38 assertion in the existing
+Save30 compatibility test (actual live40). A narrow reviewed correction and full
+historical compatibility selection are next; historical reader expectations stay
+literal. No1299 edit or runtime yet. Broader core/Bridge/UI and rival material
+policy remain open. Same two specialists, parent live writer, one heavy process;
+corrected access boundaries remain. Continue program; Unity/native/Owner deferred.
+
 ## CURRENT — Post capacity qualified; bounded legacy neighbors next
 
 Executed/published a30f86f2fead8b3f7d9e6b9e3e9cfd5bd10ce323 matched GitHub.
