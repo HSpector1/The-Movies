@@ -1,5 +1,33 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — Post capacity qualified; bounded legacy neighbors next
+
+Executed/published a30f86f2fead8b3f7d9e6b9e3e9cfd5bd10ce323 matched GitHub.
+1294b root types PASS35.601s;1295 Q25 PASS1/zero filtered22.078s recorder,
+17.113s leaf. Original1294 compiler FAIL39.704s and reviewed local-const G/H
+correction remain preserved.1293-I/J/K close two ordinary312→314 advances,
+five public actions/two identical pure P4crime quotes. Both held films take313
+and enter post at returned314 (wrap/events stamped313). Cancellation frees post0;
+FRAGILE becomes RA while all other facilities stay free. Full111 old/two new
+player takes,69 promise authorities, six relationship changes and studio trust
+fallback remain joined. Ordinary unrelated lifecycle/industry changes are retained.
+Twenty-five core leaves passed across seventeen separate selections, not a
+combined/full suite. No player release or completion of the locked finishing crew.
+
+Both successful gates used the corrected bounded helpers:1139 automatic source
+files,555 excluded payload paths,295 explicit manual pins/nine decoded inputs.
+Recorded source/index/stage and all in-scope pins remained exact.1296-B's historical
+Owner-fixture hash error and six runtime collection exclusions/holds still stand;
+never rerun the old broad inventory guards.
+
+Publish closure plus reviewed1297 companion, then1298 legacy neighbors(cap0):
+two fixed files,13 selected/one filtered. Use bounded pre, companion pre, exact
+recorder command, actual bounded post exit, companion post. Cap0 is source-route
+accounting, not a new measured counter. Attribute1294b compiler only after proving
+unchanged code. Parent owns live integration/production and one heavy lane; same
+two retained specialists own test/review separately. P15 ordering inventory remains
+source preparation. Continue the authorized program; Unity/native/Owner deferred.
+
 ## CURRENT — Q25 type correction applied; compiler retry next
 
 Original1294 FAIL remains published2e1543ff, with no runtime executed.

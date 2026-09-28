@@ -1,0 +1,1410 @@
+{
+  "record": "1293-K parent Q25 post-capacity closure",
+  "timeUtc": "2026-09-28T03:38:57.778891+00:00",
+  "executedPublishedSource": "a30f86f2fead8b3f7d9e6b9e3e9cfd5bd10ce323",
+  "parentRead": "Complete original591-line C/D and complete type-only G/H/diff/manifest read, full actual marker parsing and independent stdlib reconstruction, complete I/J read after freeze. No runtime repeated.",
+  "originalCompilerFailure": {
+    "source": "e33b4b5367903ad534feec8ea8c1d0d931041b5a",
+    "childExitCode": 2,
+    "seconds": 39.704,
+    "diagnostics": [
+      "TS18048 196:32",
+      "TS18048 198:83",
+      "TS2345 203:55"
+    ],
+    "correction": "Captured checked initial in const baseline; three references changed; no test oracle/action/timeout or production behavior change.",
+    "record": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1294-post-capacity-types.json",
+      "bytes": 52294,
+      "sha256": "c836ca9b17dacd6323e703f2bae1cb345850e961fc247026363ebf40ebffeeca"
+    },
+    "raw": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1294-post-capacity-types.txt",
+      "bytes": 44452,
+      "sha256": "7f5aba3709d4e7d67f2383d566bc4b0048738460193254f492d811aaa10c0385"
+    },
+    "review": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-H-type-narrowing-review.md",
+      "bytes": 3545,
+      "sha256": "b09a81dc979c8ef134917647d83da127e33000608698b2d18505ddb69f43eda4"
+    }
+  },
+  "source": {
+    "path": "tests/p14p4p5-post-capacity.test.ts",
+    "bytes": 50088,
+    "sha256": "3527d3468da5cc8baf2bc30545c01eee75ca92371f0d27ac8c223e450afd4369"
+  },
+  "gates": [
+    {
+      "stem": "1294b-post-capacity-types",
+      "seconds": 35.601,
+      "start": "2026-09-28T03:21:10.907Z",
+      "end": "2026-09-28T03:21:46.508Z",
+      "childExitCode": 0,
+      "source": "a30f86f2fead8b3f7d9e6b9e3e9cfd5bd10ce323",
+      "command": [
+        "node_modules/.bin/tsc",
+        "--noEmit",
+        "-p",
+        "tsconfig.json"
+      ],
+      "scope": {
+        "excludedAutomaticReadPrefixes": [
+          "tests/fixtures/",
+          "ui/e2e/",
+          "ui/public/"
+        ],
+        "trackedPathCount": 1694,
+        "includedPathCount": 1139,
+        "authorizedManualInputsSeparate": true
+      },
+      "manualPins": 295,
+      "decodedInputs": 9,
+      "sourceInventory": {
+        "bytes": 162646,
+        "sha256": "eb6c7c5a4af7fd9b2a8861dea8dc21d4cd1af77067369cf0406bf3924cc0432a"
+      },
+      "index": {
+        "bytes": 1156695,
+        "sha256": "0f3d4f1459997d3c48fc24cb00ca91c077a5fbb2b77480a4e9dc66777c89603e"
+      },
+      "stageEntries": {
+        "bytes": 1027388,
+        "sha256": "079e26ecba4cd3f9b5aff39c181598260eb8dba54155847ca945530dd5bd1ca9"
+      },
+      "artifacts": [
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1294b-post-capacity-types-preflight.json",
+          "bytes": 113281,
+          "sha256": "b2f1e5da5eedba5a6437d2a450b340400b718c139e787bce6bf1dfad184e0769"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1294b-post-capacity-types.json",
+          "bytes": 52294,
+          "sha256": "c1dde47805a4649ff800ef8f7c761bbd37a35285e0281b585014b71c2deca6a3"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1294b-post-capacity-types.patch",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1294b-post-capacity-types.txt",
+          "bytes": 43971,
+          "sha256": "1e66934602c717cc8addd96e77899ab68d14d1a473653d691395684f24133cb8"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1294b-post-capacity-types-postflight.json",
+          "bytes": 113963,
+          "sha256": "c330207f455713f9f1ffed3c437705616b12d7b0ef49077f3bfadc2c77244700"
+        }
+      ]
+    },
+    {
+      "stem": "1295-post-capacity-runtime",
+      "seconds": 22.078,
+      "start": "2026-09-28T03:23:40.698Z",
+      "end": "2026-09-28T03:24:02.776Z",
+      "childExitCode": 0,
+      "source": "a30f86f2fead8b3f7d9e6b9e3e9cfd5bd10ce323",
+      "command": [
+        "node_modules/.bin/vitest",
+        "run",
+        "--project",
+        "core",
+        "tests/p14p4p5-post-capacity.test.ts",
+        "-t",
+        "Q25 "
+      ],
+      "scope": {
+        "excludedAutomaticReadPrefixes": [
+          "tests/fixtures/",
+          "ui/e2e/",
+          "ui/public/"
+        ],
+        "trackedPathCount": 1694,
+        "includedPathCount": 1139,
+        "authorizedManualInputsSeparate": true
+      },
+      "manualPins": 295,
+      "decodedInputs": 9,
+      "sourceInventory": {
+        "bytes": 162646,
+        "sha256": "eb6c7c5a4af7fd9b2a8861dea8dc21d4cd1af77067369cf0406bf3924cc0432a"
+      },
+      "index": {
+        "bytes": 1156695,
+        "sha256": "0f3d4f1459997d3c48fc24cb00ca91c077a5fbb2b77480a4e9dc66777c89603e"
+      },
+      "stageEntries": {
+        "bytes": 1027388,
+        "sha256": "079e26ecba4cd3f9b5aff39c181598260eb8dba54155847ca945530dd5bd1ca9"
+      },
+      "artifacts": [
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1295-post-capacity-runtime-preflight.json",
+          "bytes": 113281,
+          "sha256": "c5e7dfa4b7cfab82d2f6cec61350ec6f91f38113beff52806a2119ecab25a3c2"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1295-post-capacity-runtime.json",
+          "bytes": 52355,
+          "sha256": "4fd1677028e3161d013efb74c7e860d42c4010f37e8384a3dfda0643ee6426e1"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1295-post-capacity-runtime.patch",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1295-post-capacity-runtime.txt",
+          "bytes": 3558156,
+          "sha256": "a7df42f4cef0185c16c711a80f7481b7301e5874153f90bffa6be59769bbf065"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1295-post-capacity-runtime-postflight.json",
+          "bytes": 113968,
+          "sha256": "2bd07d74b971de6776933513bee8fcee9cc8007559f134e36d85b0a517452383"
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "selected": 1,
+    "passed": 1,
+    "failed": 0,
+    "filtered": 0,
+    "leafSeconds": 17.113,
+    "fileSeconds": 17.116,
+    "vitestSeconds": 20.78,
+    "declaredNewLeafTimeoutMs": 60000
+  },
+  "actual": {
+    "raw": {
+      "bytes": 3558156,
+      "sha256": "a7df42f4cef0185c16c711a80f7481b7301e5874153f90bffa6be59769bbf065"
+    },
+    "markers": {
+      "bytes": 3513392,
+      "sha256": "c41130006bd8197a6fa623495069b91e325b1549fb67de44355e61ab0b27a9cd",
+      "count": 18
+    },
+    "newTakes": [
+      {
+        "receipt": {
+          "eventId": "first-take-event-111",
+          "week": 313,
+          "productionId": "prod-0000",
+          "studioId": "studio-88c92bc3-player",
+          "directorId": "authored-0003",
+          "cast": {
+            "lead": "authored-0000",
+            "antagonist": "t-act-12",
+            "support": "t-act-11"
+          }
+        },
+        "subject": {
+          "eventId": "first-take-event-111",
+          "conceptId": "c-00",
+          "genre": "drama",
+          "scriptProjectId": null
+        }
+      },
+      {
+        "receipt": {
+          "eventId": "first-take-event-112",
+          "week": 313,
+          "productionId": "prod-0000-1",
+          "studioId": "studio-88c92bc3-player",
+          "directorId": "t-dir-08",
+          "cast": {
+            "lead": "authored-0004",
+            "antagonist": "t-act-13",
+            "support": "t-act-14"
+          }
+        },
+        "subject": {
+          "eventId": "first-take-event-112",
+          "conceptId": "c-01",
+          "genre": "comedy",
+          "scriptProjectId": null
+        }
+      }
+    ],
+    "quotes": [
+      {
+        "ordinal": 1,
+        "request": {
+          "family": "PREFERRED_GENRE_OPPORTUNITY",
+          "issuerStudioId": "studio-88c92bc3-player",
+          "beneficiaryPersonId": "t-act-00",
+          "predicate": {
+            "kind": "genreOpportunity",
+            "count": 1,
+            "seatClass": "allCast",
+            "genre": "crime"
+          },
+          "startWeek": 314,
+          "termWeeks": 52,
+          "windowStartWeek": 314,
+          "dueWeekExclusive": 327
+        },
+        "receipt": {
+          "classification": "FRAGILE",
+          "bottleneck": "existing post capacity is not available for this opportunity",
+          "inputsDigest": "768faad0183c536d",
+          "rulesVersion": 7,
+          "week": 314
+        },
+        "inputBytes": 2219269,
+        "inputSha256": "19fef5e4c09fad8abeb91fdef359e012f41d8a193b3e1334c249584d19ff9eb6"
+      },
+      {
+        "ordinal": 2,
+        "request": {
+          "family": "PREFERRED_GENRE_OPPORTUNITY",
+          "issuerStudioId": "studio-88c92bc3-player",
+          "beneficiaryPersonId": "t-act-00",
+          "predicate": {
+            "kind": "genreOpportunity",
+            "count": 1,
+            "seatClass": "allCast",
+            "genre": "crime"
+          },
+          "startWeek": 314,
+          "termWeeks": 52,
+          "windowStartWeek": 314,
+          "dueWeekExclusive": 327
+        },
+        "receipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "c88be8c659894a58",
+          "rulesVersion": 7,
+          "week": 314
+        },
+        "inputBytes": 2215577,
+        "inputSha256": "23f515836c623594cfe93ad0c944a1047eb24df2d2a80ad0d5379918832fcde2"
+      }
+    ],
+    "oldTakes": 111,
+    "oldPromises": 69,
+    "finalPromises": 69,
+    "claimCounts": [
+      11,
+      11,
+      5,
+      4
+    ],
+    "resourceBodiesChecked": 12,
+    "advanceCash": [
+      {
+        "from": 312,
+        "to": 313,
+        "cashBefore": -3959669.2663676403,
+        "cashAfter": -3974669.2663676403,
+        "ledgerAppend": [
+          {
+            "week": 312,
+            "kind": "overhead",
+            "amount": -15000,
+            "note": "weekly studio overhead"
+          }
+        ]
+      },
+      {
+        "from": 313,
+        "to": 314,
+        "cashBefore": -3974669.2663676403,
+        "cashAfter": -3989669.2663676403,
+        "ledgerAppend": [
+          {
+            "week": 313,
+            "kind": "overhead",
+            "amount": -15000,
+            "note": "weekly studio overhead"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "pair": {
+          "a": "authored-0000",
+          "b": "authored-0003",
+          "weight": 6
+        },
+        "before": {
+          "edgeId": "relationship-edge-30",
+          "a": "authored-0000",
+          "b": "authored-0003",
+          "closeness": 56,
+          "firstSharedWeek": 313,
+          "lastEventWeek": 313,
+          "sharedProductions": 1,
+          "sharedSuccesses": 0,
+          "sharedFailures": 0,
+          "sharedCancellations": 0,
+          "peakTier": "Colleagues",
+          "peakTierWeek": 313,
+          "recent": [
+            {
+              "kind": "sharedProduction",
+              "week": 313,
+              "ref": "prod-0000",
+              "delta": 6
+            }
+          ]
+        },
+        "after": {
+          "edgeId": "relationship-edge-30",
+          "a": "authored-0000",
+          "b": "authored-0003",
+          "closeness": 54,
+          "firstSharedWeek": 313,
+          "lastEventWeek": 314,
+          "sharedProductions": 1,
+          "sharedSuccesses": 0,
+          "sharedFailures": 0,
+          "sharedCancellations": 1,
+          "peakTier": "Colleagues",
+          "peakTierWeek": 313,
+          "recent": [
+            {
+              "kind": "sharedProduction",
+              "week": 313,
+              "ref": "prod-0000",
+              "delta": 6
+            },
+            {
+              "kind": "cancelledAfterFirstTake",
+              "week": 314,
+              "ref": "prod-0000",
+              "delta": -2
+            }
+          ]
+        }
+      },
+      {
+        "pair": {
+          "a": "authored-0003",
+          "b": "t-act-12",
+          "weight": 4
+        },
+        "before": {
+          "edgeId": "relationship-edge-31",
+          "a": "authored-0003",
+          "b": "t-act-12",
+          "closeness": 54,
+          "firstSharedWeek": 313,
+          "lastEventWeek": 313,
+          "sharedProductions": 1,
+          "sharedSuccesses": 0,
+          "sharedFailures": 0,
+          "sharedCancellations": 0,
+          "peakTier": "Acquaintances",
+          "peakTierWeek": 313,
+          "recent": [
+            {
+              "kind": "sharedProduction",
+              "week": 313,
+              "ref": "prod-0000",
+              "delta": 4
+            }
+          ]
+        },
+        "after": {
+          "edgeId": "relationship-edge-31",
+          "a": "authored-0003",
+          "b": "t-act-12",
+          "closeness": 52,
+          "firstSharedWeek": 313,
+          "lastEventWeek": 314,
+          "sharedProductions": 1,
+          "sharedSuccesses": 0,
+          "sharedFailures": 0,
+          "sharedCancellations": 1,
+          "peakTier": "Acquaintances",
+          "peakTierWeek": 313,
+          "recent": [
+            {
+              "kind": "sharedProduction",
+              "week": 313,
+              "ref": "prod-0000",
+              "delta": 4
+            },
+            {
+              "kind": "cancelledAfterFirstTake",
+              "week": 314,
+              "ref": "prod-0000",
+              "delta": -2
+            }
+          ]
+        }
+      },
+      {
+        "pair": {
+          "a": "authored-0003",
+          "b": "t-act-11",
+          "weight": 2
+        },
+        "before": {
+          "edgeId": "relationship-edge-32",
+          "a": "authored-0003",
+          "b": "t-act-11",
+          "closeness": 52,
+          "firstSharedWeek": 313,
+          "lastEventWeek": 313,
+          "sharedProductions": 1,
+          "sharedSuccesses": 0,
+          "sharedFailures": 0,
+          "sharedCancellations": 0,
+          "peakTier": "Acquaintances",
+          "peakTierWeek": 313,
+          "recent": [
+            {
+              "kind": "sharedProduction",
+              "week": 313,
+              "ref": "prod-0000",
+              "delta": 2
+            }
+          ]
+        },
+        "after": {
+          "edgeId": "relationship-edge-32",
+          "a": "authored-0003",
+          "b": "t-act-11",
+          "closeness": 50,
+          "firstSharedWeek": 313,
+          "lastEventWeek": 314,
+          "sharedProductions": 1,
+          "sharedSuccesses": 0,
+          "sharedFailures": 0,
+          "sharedCancellations": 1,
+          "peakTier": "Acquaintances",
+          "peakTierWeek": 313,
+          "recent": [
+            {
+              "kind": "sharedProduction",
+              "week": 313,
+              "ref": "prod-0000",
+              "delta": 2
+            },
+            {
+              "kind": "cancelledAfterFirstTake",
+              "week": 314,
+              "ref": "prod-0000",
+              "delta": -2
+            }
+          ]
+        }
+      },
+      {
+        "pair": {
+          "a": "authored-0000",
+          "b": "t-act-12",
+          "weight": 6
+        },
+        "before": {
+          "edgeId": "relationship-edge-33",
+          "a": "authored-0000",
+          "b": "t-act-12",
+          "closeness": 56,
+          "firstSharedWeek": 313,
+          "lastEventWeek": 313,
+          "sharedProductions": 1,
+          "sharedSuccesses": 0,
+          "sharedFailures": 0,
+          "sharedCancellations": 0,
+          "peakTier": "Colleagues",
+          "peakTierWeek": 313,
+          "recent": [
+            {
+              "kind": "sharedProduction",
+              "week": 313,
+              "ref": "prod-0000",
+              "delta": 6
+            }
+          ]
+        },
+        "after": {
+          "edgeId": "relationship-edge-33",
+          "a": "authored-0000",
+          "b": "t-act-12",
+          "closeness": 54,
+          "firstSharedWeek": 313,
+          "lastEventWeek": 314,
+          "sharedProductions": 1,
+          "sharedSuccesses": 0,
+          "sharedFailures": 0,
+          "sharedCancellations": 1,
+          "peakTier": "Colleagues",
+          "peakTierWeek": 313,
+          "recent": [
+            {
+              "kind": "sharedProduction",
+              "week": 313,
+              "ref": "prod-0000",
+              "delta": 6
+            },
+            {
+              "kind": "cancelledAfterFirstTake",
+              "week": 314,
+              "ref": "prod-0000",
+              "delta": -2
+            }
+          ]
+        }
+      },
+      {
+        "pair": {
+          "a": "authored-0000",
+          "b": "t-act-11",
+          "weight": 4
+        },
+        "before": {
+          "edgeId": "relationship-edge-34",
+          "a": "authored-0000",
+          "b": "t-act-11",
+          "closeness": 54,
+          "firstSharedWeek": 313,
+          "lastEventWeek": 313,
+          "sharedProductions": 1,
+          "sharedSuccesses": 0,
+          "sharedFailures": 0,
+          "sharedCancellations": 0,
+          "peakTier": "Acquaintances",
+          "peakTierWeek": 313,
+          "recent": [
+            {
+              "kind": "sharedProduction",
+              "week": 313,
+              "ref": "prod-0000",
+              "delta": 4
+            }
+          ]
+        },
+        "after": {
+          "edgeId": "relationship-edge-34",
+          "a": "authored-0000",
+          "b": "t-act-11",
+          "closeness": 52,
+          "firstSharedWeek": 313,
+          "lastEventWeek": 314,
+          "sharedProductions": 1,
+          "sharedSuccesses": 0,
+          "sharedFailures": 0,
+          "sharedCancellations": 1,
+          "peakTier": "Acquaintances",
+          "peakTierWeek": 313,
+          "recent": [
+            {
+              "kind": "sharedProduction",
+              "week": 313,
+              "ref": "prod-0000",
+              "delta": 4
+            },
+            {
+              "kind": "cancelledAfterFirstTake",
+              "week": 314,
+              "ref": "prod-0000",
+              "delta": -2
+            }
+          ]
+        }
+      },
+      {
+        "pair": {
+          "a": "t-act-11",
+          "b": "t-act-12",
+          "weight": 2
+        },
+        "before": {
+          "edgeId": "relationship-edge-35",
+          "a": "t-act-11",
+          "b": "t-act-12",
+          "closeness": 52,
+          "firstSharedWeek": 313,
+          "lastEventWeek": 313,
+          "sharedProductions": 1,
+          "sharedSuccesses": 0,
+          "sharedFailures": 0,
+          "sharedCancellations": 0,
+          "peakTier": "Acquaintances",
+          "peakTierWeek": 313,
+          "recent": [
+            {
+              "kind": "sharedProduction",
+              "week": 313,
+              "ref": "prod-0000",
+              "delta": 2
+            }
+          ]
+        },
+        "after": {
+          "edgeId": "relationship-edge-35",
+          "a": "t-act-11",
+          "b": "t-act-12",
+          "closeness": 50,
+          "firstSharedWeek": 313,
+          "lastEventWeek": 314,
+          "sharedProductions": 1,
+          "sharedSuccesses": 0,
+          "sharedFailures": 0,
+          "sharedCancellations": 1,
+          "peakTier": "Acquaintances",
+          "peakTierWeek": 313,
+          "recent": [
+            {
+              "kind": "sharedProduction",
+              "week": 313,
+              "ref": "prod-0000",
+              "delta": 2
+            },
+            {
+              "kind": "cancelledAfterFirstTake",
+              "week": 314,
+              "ref": "prod-0000",
+              "delta": -2
+            }
+          ]
+        }
+      }
+    ],
+    "conductBefore": {
+      "label": "Reliable",
+      "drivers": [
+        {
+          "kind": "ranToEnd",
+          "week": 208,
+          "positive": true,
+          "reason": "ran a contract to its end"
+        },
+        {
+          "kind": "ranToEnd",
+          "week": 208,
+          "positive": true,
+          "reason": "ran a contract to its end"
+        },
+        {
+          "kind": "ranToEnd",
+          "week": 208,
+          "positive": true,
+          "reason": "ran a contract to its end"
+        }
+      ],
+      "scope": "studio"
+    },
+    "conductAfter": {
+      "label": "Mixed record",
+      "drivers": [
+        {
+          "kind": "cancelledAfterFirstTake",
+          "week": 313,
+          "positive": false,
+          "reason": "cancelled a picture after filming began"
+        },
+        {
+          "kind": "ranToEnd",
+          "week": 208,
+          "positive": true,
+          "reason": "ran a contract to its end"
+        },
+        {
+          "kind": "ranToEnd",
+          "week": 208,
+          "positive": true,
+          "reason": "ran a contract to its end"
+        }
+      ],
+      "scope": "studio"
+    },
+    "counters": {
+      "attempted": 2,
+      "reserved": 2,
+      "invoked": 2,
+      "completed": 2,
+      "outside": 0,
+      "actionAttempts": 5,
+      "actionsAccepted": 5,
+      "quotes": 2,
+      "returnedQuotes": 2,
+      "selectorCalls": 2,
+      "hardAdvanceAttempts": 2,
+      "hardActions": 5,
+      "hardQuotes": 2,
+      "tickDevelopmentOption": "default false",
+      "historicalPrefixAdvances": 0,
+      "producerOrHelperImported": false,
+      "operations": [
+        {
+          "action": {
+            "kind": "assignShootingDirector",
+            "productionId": "prod-0000",
+            "directorId": "authored-0003"
+          },
+          "week": 312,
+          "accepted": true
+        },
+        {
+          "action": {
+            "kind": "scheduleShootingTake",
+            "productionId": "prod-0000"
+          },
+          "week": 312,
+          "accepted": true
+        },
+        {
+          "action": {
+            "kind": "assignShootingDirector",
+            "productionId": "prod-0000-1",
+            "directorId": "t-dir-08"
+          },
+          "week": 312,
+          "accepted": true
+        },
+        {
+          "action": {
+            "kind": "scheduleShootingTake",
+            "productionId": "prod-0000-1"
+          },
+          "week": 312,
+          "accepted": true
+        },
+        {
+          "action": {
+            "kind": "cancel",
+            "productionId": "prod-0000"
+          },
+          "week": 314,
+          "accepted": true
+        }
+      ],
+      "quoteOrder": [
+        {
+          "family": "PREFERRED_GENRE_OPPORTUNITY",
+          "issuerStudioId": "studio-88c92bc3-player",
+          "beneficiaryPersonId": "t-act-00",
+          "predicate": {
+            "kind": "genreOpportunity",
+            "count": 1,
+            "seatClass": "allCast",
+            "genre": "crime"
+          },
+          "startWeek": 314,
+          "termWeeks": 52,
+          "windowStartWeek": 314,
+          "dueWeekExclusive": 327
+        },
+        {
+          "family": "PREFERRED_GENRE_OPPORTUNITY",
+          "issuerStudioId": "studio-88c92bc3-player",
+          "beneficiaryPersonId": "t-act-00",
+          "predicate": {
+            "kind": "genreOpportunity",
+            "count": 1,
+            "seatClass": "allCast",
+            "genre": "crime"
+          },
+          "startWeek": 314,
+          "termWeeks": 52,
+          "windowStartWeek": 314,
+          "dueWeekExclusive": 327
+        }
+      ],
+      "phases": [
+        {
+          "name": "literal35-to40:312",
+          "complete": true
+        },
+        {
+          "name": "two-scheduled312",
+          "complete": true
+        },
+        {
+          "name": "two-takes313",
+          "complete": true
+        },
+        {
+          "name": "two-post314",
+          "complete": true
+        },
+        {
+          "name": "first-quote314",
+          "complete": true
+        },
+        {
+          "name": "cancelled314",
+          "complete": true
+        },
+        {
+          "name": "second-quote314",
+          "complete": true
+        }
+      ]
+    },
+    "parentLimits": "Full trust driver arithmetic recomputed from emitted censuses; employment termination booleans use recorded census, not a separate complete raw industry receipt body. Runtime test independently joined them against actual state.",
+    "incidentalIndustryReleases": [
+      {
+        "filmId": "studio-88c92bc3-r01:film:32",
+        "studioId": "studio-88c92bc3-r01",
+        "conceptId": "studio-88c92bc3-r01:concept:32",
+        "genre": "comedy",
+        "scriptProjectId": "script-0032",
+        "provenance": "simulation/v1",
+        "settledWeek": null,
+        "studioRevenueReceived": 8693701.886802785,
+        "releaseTick": 312
+      }
+    ],
+    "ordinaryLifecycle313": {
+      "transitionEvaluations": {
+        "before": [],
+        "after": [
+          {
+            "id": "transition-evaluation-0",
+            "ordinal": 0,
+            "week": 313,
+            "personId": "t-act-15",
+            "source": {
+              "personId": "t-act-15",
+              "profession": "actor"
+            },
+            "rulesVersion": 1,
+            "inputs": {
+              "age": 63,
+              "actingFirstTakes": 0,
+              "leadFirstTakes": 0,
+              "actingWitnesses": [],
+              "targets": [
+                {
+                  "profession": "director",
+                  "capability": 9,
+                  "roleTier": "Highly unproven",
+                  "workHistory": 0,
+                  "proven": false,
+                  "potentialTier": "High Upside",
+                  "contextCount": 0,
+                  "contextBand": 0,
+                  "contextWitness": {
+                    "counterpartId": null,
+                    "pictures": []
+                  }
+                },
+                {
+                  "profession": "writer",
+                  "capability": 55,
+                  "roleTier": "Raw prospect",
+                  "workHistory": 0,
+                  "proven": false,
+                  "potentialTier": "Steady",
+                  "contextCount": 0,
+                  "contextBand": 0,
+                  "contextWitness": {
+                    "counterpartId": null,
+                    "pictures": []
+                  }
+                }
+              ]
+            },
+            "inputsDigest": "1803e4c486236481",
+            "outcome": "deferred",
+            "selected": null,
+            "reason": "noEligibleTarget"
+          },
+          {
+            "id": "transition-evaluation-1",
+            "ordinal": 1,
+            "week": 313,
+            "personId": "t-act-27",
+            "source": {
+              "personId": "t-act-27",
+              "profession": "actor"
+            },
+            "rulesVersion": 1,
+            "inputs": {
+              "age": 61,
+              "actingFirstTakes": 0,
+              "leadFirstTakes": 0,
+              "actingWitnesses": [],
+              "targets": [
+                {
+                  "profession": "director",
+                  "capability": 1,
+                  "roleTier": "Highly unproven",
+                  "workHistory": 0,
+                  "proven": false,
+                  "potentialTier": "Limited",
+                  "contextCount": 0,
+                  "contextBand": 0,
+                  "contextWitness": {
+                    "counterpartId": null,
+                    "pictures": []
+                  }
+                },
+                {
+                  "profession": "writer",
+                  "capability": 1,
+                  "roleTier": "Highly unproven",
+                  "workHistory": 0,
+                  "proven": false,
+                  "potentialTier": "Promising",
+                  "contextCount": 0,
+                  "contextBand": 0,
+                  "contextWitness": {
+                    "counterpartId": null,
+                    "pictures": []
+                  }
+                }
+              ]
+            },
+            "inputsDigest": "79d760c39753172e",
+            "outcome": "deferred",
+            "selected": null,
+            "reason": "noEligibleTarget"
+          }
+        ]
+      },
+      "industryRetirements": {
+        "before": [],
+        "after": [
+          {
+            "personId": "authored-0001",
+            "week": 313,
+            "profession": "writer",
+            "source": {
+              "personId": "authored-0001",
+              "profession": "writer"
+            },
+            "cause": "noCatalogue",
+            "evaluationId": null
+          },
+          {
+            "personId": "t-wri-10",
+            "week": 313,
+            "profession": "writer",
+            "source": {
+              "personId": "t-wri-10",
+              "profession": "writer"
+            },
+            "cause": "noCatalogue",
+            "evaluationId": null
+          }
+        ]
+      },
+      "transitionDue": {
+        "before": [
+          {
+            "personId": "authored-0001",
+            "week": 313
+          },
+          {
+            "personId": "t-act-15",
+            "week": 313
+          },
+          {
+            "personId": "t-act-27",
+            "week": 313
+          },
+          {
+            "personId": "t-wri-10",
+            "week": 313
+          }
+        ],
+        "after": [
+          {
+            "personId": "t-act-15",
+            "week": 365
+          },
+          {
+            "personId": "t-act-27",
+            "week": 365
+          }
+        ]
+      }
+    },
+    "postTransitionEvents": [
+      {
+        "seq": 18,
+        "week": 313,
+        "kind": "wrapped",
+        "productionId": "prod-0000",
+        "stageFacilityId": "facility-soundstage-07",
+        "setId": "set-0"
+      },
+      {
+        "seq": 19,
+        "week": 313,
+        "kind": "reservationReleased",
+        "ownerId": "prod-0000",
+        "resourceKey": "facility-soundstage-07:0"
+      },
+      {
+        "seq": 20,
+        "week": 313,
+        "kind": "reservationReleased",
+        "ownerId": "prod-0000",
+        "resourceKey": "facility-scenery-shop:0"
+      },
+      {
+        "seq": 21,
+        "week": 313,
+        "kind": "reservationGranted",
+        "ownerId": "prod-0000",
+        "resourceKey": "facility-post-building:0"
+      },
+      {
+        "seq": 22,
+        "week": 313,
+        "kind": "phaseEntered",
+        "productionId": "prod-0000",
+        "phase": "postProduction"
+      },
+      {
+        "seq": 23,
+        "week": 313,
+        "kind": "wrapped",
+        "productionId": "prod-0000-1",
+        "stageFacilityId": "facility-soundstage-12",
+        "setId": "set-1"
+      },
+      {
+        "seq": 24,
+        "week": 313,
+        "kind": "reservationReleased",
+        "ownerId": "prod-0000-1",
+        "resourceKey": "facility-soundstage-12:0"
+      },
+      {
+        "seq": 25,
+        "week": 313,
+        "kind": "reservationReleased",
+        "ownerId": "prod-0000-1",
+        "resourceKey": "facility-scenery-shop:1"
+      },
+      {
+        "seq": 26,
+        "week": 313,
+        "kind": "reservationGranted",
+        "ownerId": "prod-0000-1",
+        "resourceKey": "facility-post-building:1"
+      },
+      {
+        "seq": 27,
+        "week": 313,
+        "kind": "phaseEntered",
+        "productionId": "prod-0000-1",
+        "phase": "postProduction"
+      }
+    ],
+    "incidentalRivalCompany": [
+      {
+        "studioId": "studio-88c92bc3-r01",
+        "production": {
+          "conceptId": "studio-88c92bc3-r01:concept:33",
+          "shape": {
+            "ending": "tragic",
+            "midpoint": "escalation",
+            "opening": "mysteryHook"
+          },
+          "promise": {
+            "genre": "romance",
+            "intendedSegments": [
+              "adult"
+            ],
+            "ranges": {
+              "intimacy": [
+                -0.3100269142508727,
+                0.38997308574912726
+              ],
+              "kineticEnergy": [
+                -0.004610147931938813,
+                0.6953898520680611
+              ],
+              "tonalWeight": [
+                -0.8008510562158058,
+                -0.10085105621580576
+              ]
+            }
+          },
+          "budget": {
+            "negative": 4777189,
+            "marketing": 1261959
+          },
+          "writerId": "person-studio-88c92bc3-r01-0",
+          "directorId": "person-studio-88c92bc3-r01-1",
+          "cast": {
+            "lead": "person-studio-88c92bc3-r01-3",
+            "antagonist": "person-studio-88c92bc3-r01-4",
+            "support": "person-studio-88c92bc3-r01-2"
+          },
+          "craftIds": [
+            "person-studio-88c92bc3-r01-5"
+          ],
+          "id": "studio-88c92bc3-r01:film:33",
+          "startTick": 313,
+          "remainingTicks": 8,
+          "forecastSnapshot": {
+            "segments": [
+              {
+                "segmentId": "youngAdult",
+                "center": 72.17663490462718,
+                "estimate": 72.17663490462718,
+                "low": 65.17663490462718,
+                "high": 79.17663490462718,
+                "expectedBand": "strong",
+                "confidence": "high",
+                "causalFactors": [
+                  "castFame",
+                  "directorSkill"
+                ],
+                "uncertaintyFactors": [],
+                "opening": {
+                  "center": 68.15923863164866,
+                  "estimate": 68.15923863164866,
+                  "low": 61.15923863164866,
+                  "high": 75.15923863164866
+                }
+              },
+              {
+                "segmentId": "family",
+                "center": 52.122907617341966,
+                "estimate": 52.122907617341966,
+                "low": 45.122907617341966,
+                "high": 59.122907617341966,
+                "expectedBand": "mixed",
+                "confidence": "high",
+                "causalFactors": [
+                  "castFame",
+                  "directorSkill"
+                ],
+                "uncertaintyFactors": [],
+                "opening": {
+                  "center": 48.10551134436345,
+                  "estimate": 48.10551134436345,
+                  "low": 41.10551134436345,
+                  "high": 55.10551134436345
+                }
+              },
+              {
+                "segmentId": "adult",
+                "center": 69.68416771351254,
+                "estimate": 69.68416771351254,
+                "low": 62.68416771351254,
+                "high": 76.68416771351254,
+                "expectedBand": "mixed",
+                "confidence": "high",
+                "causalFactors": [
+                  "castFame",
+                  "directorSkill"
+                ],
+                "uncertaintyFactors": [],
+                "opening": {
+                  "center": 65.66677144053402,
+                  "estimate": 65.66677144053402,
+                  "low": 58.66677144053402,
+                  "high": 72.66677144053402
+                }
+              },
+              {
+                "segmentId": "prestige",
+                "center": 65.56823300040318,
+                "estimate": 65.56823300040318,
+                "low": 58.56823300040318,
+                "high": 72.56823300040318,
+                "expectedBand": "mixed",
+                "confidence": "high",
+                "causalFactors": [
+                  "castFame",
+                  "directorSkill"
+                ],
+                "uncertaintyFactors": [],
+                "opening": {
+                  "center": 61.55083672742465,
+                  "estimate": 61.55083672742465,
+                  "low": 54.55083672742465,
+                  "high": 68.55083672742465
+                }
+              }
+            ],
+            "expectedOpening": 7548476.628483223,
+            "expectedTotal": 20727642.704478633,
+            "expectedCriticScore": 47.281510807405084
+          },
+          "participants": {
+            "writer": {
+              "talentId": "person-studio-88c92bc3-r01-0",
+              "name": "Iris Bell",
+              "role": "writer",
+              "discipline": "writing",
+              "greenlightOVR": 36,
+              "greenlightFit": 45,
+              "greenlightEP": {
+                "low": 43.17733021070738,
+                "high": 64.93967409921851,
+                "expected": 54.058502154962945
+              },
+              "freelancer": false
+            },
+            "director": {
+              "talentId": "person-studio-88c92bc3-r01-1",
+              "name": "Arthur Vale",
+              "role": "director",
+              "discipline": "directing",
+              "greenlightOVR": 58,
+              "greenlightFit": 58,
+              "greenlightEP": {
+                "low": 61.348622633276136,
+                "high": 82.98883013671721,
+                "expected": 72.16872638499667
+              },
+              "freelancer": false
+            },
+            "cast": {
+              "lead": {
+                "talentId": "person-studio-88c92bc3-r01-3",
+                "name": "Walter Reed",
+                "role": "lead",
+                "discipline": "acting",
+                "greenlightOVR": 44,
+                "greenlightFit": 42,
+                "greenlightEP": {
+                  "low": 52.59950131798729,
+                  "high": 72.94077611260595,
+                  "expected": 62.77013871529662
+                },
+                "freelancer": false
+              },
+              "antagonist": {
+                "talentId": "person-studio-88c92bc3-r01-4",
+                "name": "Clara Moss",
+                "role": "antagonist",
+                "discipline": "acting",
+                "greenlightOVR": 72,
+                "greenlightFit": 50,
+                "greenlightEP": {
+                  "low": 66.02934698525557,
+                  "high": 86.85402868213352,
+                  "expected": 76.44168783369454
+                },
+                "freelancer": false
+              },
+              "support": {
+                "talentId": "person-studio-88c92bc3-r01-2",
+                "name": "Mabel Finch",
+                "role": "support",
+                "discipline": "acting",
+                "greenlightOVR": 45,
+                "greenlightFit": 35,
+                "greenlightEP": {
+                  "low": 51.10668777993089,
+                  "high": 73.0402009055523,
+                  "expected": 62.07344434274159
+                },
+                "freelancer": false
+              }
+            },
+            "craft": [
+              {
+                "talentId": "person-studio-88c92bc3-r01-5",
+                "name": "Edwin Pike",
+                "role": "craft",
+                "discipline": "craft",
+                "greenlightOVR": 41,
+                "greenlightFit": 52,
+                "greenlightEP": {
+                  "low": 49.11625297563509,
+                  "high": 70.97674940487298,
+                  "expected": 60.046501190254034
+                },
+                "freelancer": false
+              }
+            ]
+          }
+        },
+        "member": false,
+        "writerCredit": false
+      }
+    ],
+    "incidentalRivalNewProject": [
+      {
+        "studioId": "studio-88c92bc3-r01",
+        "project": {
+          "id": "script-0034",
+          "conceptId": "studio-88c92bc3-r01:concept:34",
+          "writerId": "person-studio-88c92bc3-r01-0",
+          "writerIds": [
+            "person-studio-88c92bc3-r01-0"
+          ],
+          "shape": {
+            "opening": "mysteryHook",
+            "midpoint": "escalation",
+            "ending": "tragic"
+          },
+          "promise": {
+            "genre": "romance",
+            "intendedSegments": [
+              "adult"
+            ],
+            "ranges": {
+              "intimacy": [
+                -0.3100269142508727,
+                0.38997308574912726
+              ],
+              "tonalWeight": [
+                -0.8008510562158058,
+                -0.10085105621580576
+              ],
+              "kineticEnergy": [
+                -0.004610147931938813,
+                0.6953898520680611
+              ]
+            }
+          },
+          "status": "drafting",
+          "rewriteCount": 0,
+          "commissionedWeek": 313,
+          "dueWeek": 316,
+          "assessment": null,
+          "reservation": {
+            "projectId": "script-0034",
+            "facilityId": "studio-88c92bc3-r01:development",
+            "capability": "development-casting",
+            "slot": 1
+          },
+          "productionId": null
+        },
+        "assigned": false
+      }
+    ]
+  },
+  "author": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-I-post-capacity-verification-attribution.md",
+    "bytes": 11964,
+    "sha256": "6b9297521282bd28976ed69099308f120caf707890649d46ee25748ff73428c2"
+  },
+  "reviewer": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-J-post-capacity-verification-review.md",
+    "bytes": 9476,
+    "sha256": "58ec8453aed93ca79145e8e8b74963251a1116a6e0f4e79f05e4c9a453eeae67"
+  },
+  "qualification": [
+    "Strict35 actual312 migration to40 preserves111 takes/69 old promise authorities; no producer prefix/funding/replacement person.",
+    "Five accepted public actions; exactly two default-false advances312\u2192314; only two actual new player takes111/112 at313, stock c00 drama/c01 comedy/null. No new rival take in this run.",
+    "Actual returned314 post reservations slots0/1, wrapped/reservation/phase events stamped313. Set condition100\u219291 once; locked novelty/uplift retained.",
+    "Exact full12 resource bodies independently recomputed. Claims11\u219211\u21925\u21924. Other facility capacity stays free at both quotes.",
+    "Same P4crime allCast count1 prospective314/52 window[314,327), five unused concepts/fresh314/take319/slack8, all69 union membership flags yield empty selection. Post FRAGILE768faad0183c536d\u2192RAc88be8c659894a58.",
+    "Public post-take cancellation removes only prod0000/workflow and six relationship deltas, preserves other film/take subjects/history/technology/lifecycle/money. Two ordinary15000 overhead debits account for cash; no cancellation refund.",
+    "Ordinary313 lifecycle adds two deferred Actor evaluations and two Writer industry-retirement facts; unrelated rival release/new greenlight and technology follow ordinary owners. These are retained incidental facts, not a new targeted qualification.",
+    "Relationships313 +6/+4/+2 then314\u22122, peaks retained. Conduct uses take313; studio12positive\u219212positive+1negative Reliable\u2192Mixed record. Queried person personal history remains empty, public descriptor follows studio fallback.",
+    "All seven route caches complete; 2attempted/reserved/invoked/completed,0outside,5/5actions,2/2quotes,2selectors."
+  ],
+  "limits": [
+    "Twenty-five core leaves across seventeen separate selections, not a combined/full suite.",
+    "No fresh-film affordability/crew feasibility, hire, player release, completion of locked finishing Actor/Director commitments, rival material offer/staffing/callback or general-solver qualification.",
+    "Bounded automatic guards exclude555 fixture/e2e/public paths before bytes; authorizedP14 manual inputs separate. Historical1296-B access correction remains.",
+    "Parent trust reconstruction uses emitted employment termination census; runtime test independently joined it to the state receipt authority.",
+    "Existing Bridge timeout overrun and all earlier failed gates retained. Native/Owner work remains deferred."
+  ],
+  "next": "Adopted1297 bounded historical neighbors only after companion C/review and parent publication; prior compiler attribution requires exact unchanged1139-source inventory."
+}
