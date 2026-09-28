@@ -1,5 +1,32 @@
 # R3-N1 native correction record — 2026-09-15 · OPS-R3-N1-NATIVE-CORRECTION-20260915-01
 
+## CURRENT — sweep review REFINE applied as 1309-F; Save41 casting inputs minted; casting RED staging
+
+1311-J (REFINE) found no code defect in R2/R3/Save41/projection 56; the increment stays
+IN PROGRESS until the 1309 sweep is applied and one broad core and UI rerun is attributed.
+The staged sweep (1309-C, 115 files) type-checks root-clean in scratch (1309-X) with three
+Bridge errors. 1309-D (REFINE) confirmed items 1-7, disproved item 8's swap (no wire-valid
+draft reaches "not offered in this slice"), and found about 23 more files that feed live
+saves to validateSaveV40. 1309-F adopts all changes and rules on item 8 (retitled to P3
+law, measured ok:true), item 8b (two UNRESOLVED 1302 rows with the same stale directing
+refusal, measured text), item 9 (rival-authoring expectation computed in-test from
+authorRivalPromise, no literals) and item 10. IN PROGRESS: 1309-C2 revision (test-author).
+
+Casting drivers: 1313-B (REFINE) reviewed 1313-A; 1313-F adopts it with the seam inside
+applyGreenlight, one competition per pair per admitted production (ref = production id),
+re-greenlight after cancel counts again, and the expiry note built from edges. 1314-P
+measured a public-action route through a real casting session to release. Producer 1314
+(r2 after 1314-B) ran once on acb2d472 under the bounded recorder (exit 0, all guards
+exact); tests/fixtures/p14/genuine-v41-pre-casting-drivers holds the acknowledged (week 10)
+and released (week 19) inputs; closure 1314-K. IN PROGRESS: 1315-C RED staging
+(test-author). Owner decisions open: D-1312-1 (conflict record), D-1312-2 (romance end).
+
+Next: parent scratch dry run of 1309-C2, 1309-D2 review, 1309-E apply with the 1308
+neighbor (applies over the sweep, offset 3), broad core (417-file allowlist, collection
+proof re-checked at HEAD: 423 tracked, 6 excluded) and UI gates, attribution, 1311-K;
+then the 1315 RED recorded run, Save42 production, GREEN, Save42 pin sweep. Two
+specialists, parent writer, one heavy process; Unity/native/Owner deferred.
+
 ## CURRENT — R2/R3 production landed (Save41, projection 56); GREEN 46/46; sweep 1309 next
 
 Production commit f3f8c209 lands R2 (release refused during the founding draft and for
