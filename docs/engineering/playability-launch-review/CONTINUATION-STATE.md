@@ -1,5 +1,26 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — R2/R3 closed LOGIC VERIFIED (1311-K); sweep 1309 landed; casting RED next
+
+The 1309 pin sweep converged at r5 (146 test files, 671 rows; 1309-D2 ACCEPT) and landed
+as cd79e85b with the 1308 neighbor change. Recorded broad core gate 1316 on cd79e85b: 151
+failed, 4496 passed, guards exact, collection equal to the 417-file allowlist; no failing
+identity is new against 1302 (347 of its 498 are gone; 1316-I). Recorded UI gate 1317: 33
+failed, 2659 passed; six rows new against 1303 fail the same way on the 1303 source today
+(A/B), and runway and mount-time probes match across sources, so they sit with the C1
+test time-budget family (1317-I). 1316-J (REFINE, two wording fixes applied) reviewed both;
+type gates pass at HEAD; 1311-K closes R2/R3/Save41/projection 56 as LOGIC VERIFIED ·
+UNITY NOT VERIFIED. Not GREEN: 151 core and 33 UI
+failures stay open with their 1302/1303 causes (C1, C6, C7, C8, C15-C17, C20, UNRESOLVED,
+inherited, C12 generator pins). Disk: the parent removed its own scratch copies (1309-X5).
+
+Next, per 1315-F: apply the casting RED (1315-stage5, five files) to tests/, recorded RED
+on unchanged production (expect 21 failed, 13 passed, 1 skipped), land the reviewed Save42
+draft (1315-X-production-draft.patch, byte-verified against the dry-run tree), GREEN,
+implementation review, then the Save42 pin sweep (about 136 toBe(41), 196 validateSaveV41
+calls in 68 files, 47 convertV41ToV40 uses, 20 "1 through 41"). Owner decisions open:
+D-1312-1, D-1312-2. Two specialists, parent writer, one heavy process; Unity/native deferred.
+
 ## CURRENT — sweep review REFINE applied as 1309-F; Save41 casting inputs minted; casting RED staging
 
 1311-J (REFINE) found no code defect in R2/R3/Save41/projection 56; the increment stays

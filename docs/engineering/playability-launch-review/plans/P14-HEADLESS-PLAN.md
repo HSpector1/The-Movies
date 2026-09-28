@@ -1,5 +1,15 @@
 # P14 — Contested Talent Market, Bonds and Promises, Career Lifecycle — headless plan (logic-first)
 
+## CURRENT — R2 (release busy set / founding) and R3 closed LOGIC VERIFIED (1311-K)
+
+The P14A.1 T2 ruling below records "R2 DEFERRED (release refused for the busy set / founding
+...) — recorded for a follow-up". That follow-up is the 1304-1311 increment: production
+f3f8c209 (R2, R3 rival termination, Save41, projection 56), the 1309 test pin sweep, and the
+recorded broad gates 1316/1317 with no failing identity new against 1302 and the six UI rows
+new against 1303 attributed to the C1 time-budget family. Closure
+`../evidence/p14b4-20260919/1311-K-parent-r2r3-closure.json`. Not GREEN: 151 core and 33 UI
+failures stay open with their 1302/1303 causes. Next: casting drivers (Save42) per 1315-F.
+
 ## CURRENT — C.3 paired repairs and final types/checks passed; full suites remain
 
 1118-A/B qualify the six exact maintenance gates, including243 repaired cases

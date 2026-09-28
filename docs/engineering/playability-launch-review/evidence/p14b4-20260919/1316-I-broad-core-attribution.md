@@ -72,5 +72,7 @@ Three rows time out (`bridge-p13-campaign-isolation`, `bridge-runtime-checkpoint
 ## Disposition
 
 The 1309 sweep and the R2/R3/Save41/projection 56 production introduce no failing identity in the broad core gate.
-The 151 retained failures keep their 1302 causes, open and owned as listed; none is attributed to R2/R3. The UI gate
+The 151 retained failures keep their 1302 causes, open and owned as listed. None is a new failing identity
+attributable to R2/R3; three of the fourteen changed-value rows (items 5-7 above) have R3, Save41 or projection 56 as
+the cause of their new received value on a failure already open before 1316 (corrected per 1316-J). The UI gate
 (1317) and an independent review of this attribution precede the closure (1311-K).

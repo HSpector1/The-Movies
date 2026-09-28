@@ -31,8 +31,10 @@ The 1302-I identity method. Both this raw and the 1303 raw are parsed by the sam
 | C6 World Inspector TypeError | 1 | changed: now "Found multiple elements by `lot-nav-theater`", the C2 duplicate-test-id cause, in the same file |
 | New against 1303 | 6 | see below |
 
-No longer failing: the three C8 `StudioCalendar.career` rows (the test imports `tests/helpers/p14c3-fixtures.ts`,
-whose live-writer literal the 1309 sweep moved to 41) and the C7 `livingTurn.parity` DOM race (passes this run).
+No longer failing: the three C8 `StudioCalendar.career` rows (the test imports, through
+`tests/helpers/p14c3-surface-fixtures.ts`, `tests/helpers/p14c3-genuine-evidence-fixtures.ts:17`
+(`expect(saved.saveVersion).toBe(41)`, the frame 1303-I records) and `tests/helpers/p14c3-fixtures.ts`, whose
+live-writer literals the 1309 sweep moved to 41; corrected per 1316-J) and the C7 `livingTurn.parity` DOM race (passes this run).
 
 ## The six rows new against 1303
 
