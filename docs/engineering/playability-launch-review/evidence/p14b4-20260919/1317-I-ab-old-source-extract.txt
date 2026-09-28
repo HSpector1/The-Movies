@@ -1,0 +1,43 @@
+# 1317-I A/B: vitest run --project ui on a scratch archive of 42f216e8 (the 1303 source; tests/ not archived, so 16 suites fail to import), run 2026-09-28 21:13 local after gate 1317. Full log   447904 bytes, sha256 683d3acc457a73562b8f4423e026730e1421ee3a6a007c2a7ff1fede8a673bb2, not archived.
+ ❯ |ui| ui/src/lot/StudioLotScreen.test.tsx (61 tests | 1 failed) 44063ms
+ ❯ |ui| ui/src/lot/studio-lot-snapshot.test.ts (0 test)
+ ❯ |ui| ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx (36 tests | 4 failed) 106167ms
+ ❯ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx (0 test)
+ ❯ |ui| ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx (28 tests | 8 failed) 34008ms
+ ❯ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx (10 tests | 1 failed) 45970ms
+ ❯ |ui| ui/src/test/contracts/p05a-w2-closed-production.contract.test.ts (0 test)
+ ❯ |ui| ui/src/lot/livingTurn.scheduler.test.tsx (13 tests | 6 failed) 44189ms
+ ❯ |ui| ui/src/test/contracts/p05a-w2-invariant-kills.contract.test.ts (0 test)
+ ❯ |ui| ui/src/lot/livingTurn.parity.test.tsx (0 test)
+ ❯ |ui| ui/src/lot/snapshot/weekTheater.test.ts (0 test)
+ ❯ |ui| ui/src/screens/a3-queue-admission-ui.test.tsx (0 test)
+ ❯ |ui| ui/src/test/contracts/audio-provenance.contract.test.ts (13 tests | 6 failed) 57ms
+ ❯ |ui| ui/src/lot/authored-stage-a.test.ts (17 tests | 4 failed) 924ms
+ ❯ |ui| ui/src/screens/script-projects-ui.test.tsx (0 test)
+ ❯ |ui| ui/src/test/contracts/p05a-w1-scenery-alignment.contract.test.ts (0 test)
+ ❯ |ui| ui/src/test/contracts/m5-determinism.contract.test.ts (0 test)
+ ❯ |ui| ui/src/test/contracts/m5-hands-off-gate.contract.test.ts (0 test)
+ ❯ |ui| ui/src/lot/authored-rgba-export.test.ts (8 tests | 6 failed) 929ms
+ ❯ |ui| ui/src/test/contracts/week-theater-mirror.contract.test.ts (0 test)
+ ❯ |ui| ui/src/lot/snapshot/queueAdmission.test.ts (0 test)
+ ❯ |ui| ui/src/screens/StudioCalendar.career.test.tsx (0 test)
+ ❯ |ui| ui/src/screens/StudioCalendar.retirement.test.tsx (0 test)
+ ❯ |ui| ui/src/engine/salary-sum-writer-credit.test.ts (0 test)
+
+# livingTurn.scheduler and NextEventApp leaves
+   × World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > keeps an exact non-release stop on one mounted world, contains a stale repeat, and returns from the exact deep owner 6298ms
+   × Living Turn V1 — the partition, at the seam > auto-pauses on the FIRST PAUSE-class stop, at exactly the hand-advanced week 5718ms
+   × Living Turn V1 — the partition, at the seam > a NOTIFY-class wrap reaches the bulletin and the loop keeps working 2487ms
+   × Living Turn V1 — the partition, at the seam > the bulletin clears on request 1864ms
+   × Living Turn V1 — the loop cannot stall silently, and the batch verb holds it > re-arms the week on screen when the cadence channel is cleared under a running loop 1548ms
+   × Living Turn V1 — the loop cannot stall silently, and the batch verb holds it > the batch verb HOLDS the studio — a skipped batch was never witnessed time 1447ms
+   × Living Turn V1 — the release week plays before its surfaces take over > the shipping week is witnessed, and the release surface follows it 1432ms
+
+ Test Files  24 failed | 180 passed (204)
+      Tests  36 failed | 2506 passed | 5 skipped (2547)
+     Errors  1 error
+   Duration  699.58s (transform 16.71s, setup 54.07s, collect 217.24s, tests 1386.68s, environment 317.63s, prepare 43.28s)
+
+# probes on the current tree (rC3) and on 42f216e8 (old1303), isolated
+RUNWAY living-turn-pause-class: weeks=4 reason=productionDecision on both sources
+MOUNT App boot to studio-lot-screen, first (cold) mount: current 1161 ms, old 1275 ms; warm mounts 116-262 ms on both
