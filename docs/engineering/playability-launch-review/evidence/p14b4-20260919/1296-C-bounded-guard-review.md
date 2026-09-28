@@ -1,0 +1,24 @@
+# 1296-C — Independent bounded guard review
+
+**KEEP for the declared prospective use, with the scope limits below.** I read the complete one-off1292 postflight script, its closed record and both new reusable helpers without executing any of them. This review uses source and path/index metadata. No old full-inventory audit was rerun and no excluded fixture, e2e or public asset bytes were reread for it.
+
+| Reviewed artifact | Bytes | SHA256 |
+| --- | ---: | --- |
+| `/tmp/studio-1292-bounded-post.py` | 3,167 | `323ac41db6de375e6aff797403bf23432b3468029c173a6ef11954ed01c42d57` |
+| [Actual1292 postflight](1292-scenery-capacity-runtime-postflight.json) | 322,836 | `73822f8f5ac93771e4423f297aeb2cc187daff313e06f71e0fb17e531078702e` |
+| [Prospective recorder](run-bounded-source-c2.mjs) | 3,581 | `ae167b103ddaa714268cd63e163daa4966b0c3b8f07bfa3e9bd8f0c7d07751a2` |
+| [Prospective pre/post guards](run-bounded-source-guards.py) | 6,092 | `1a1e144c25dd36320c64237d5b58f19d848eb85171fa777e5772c2c3fff1a20e` |
+
+The **actual**1292 postflight excludes `tests/fixtures/**` and `ui/e2e/**` from automatic content reads. Its broad `git ls-files` obtains path metadata first; only the included paths are subsequently opened and compared with their complete executed-HEAD images. It separately checks authorized manual entries under this P14 evidence directory or `tests/fixtures/p14/`, including declared decoded inputs, then checks raw index and NUL stage-entry bytes. It performs no broad worktree diff. The actual post exited0 and records `boundedGuardsExact:true`, **`allGuardsExact:false`** at `d2f55dd93ca9e3f9c11ca1287bada47788b5cedf`.
+
+I reconstructed the record's partition from filename metadata:1,693 tracked paths =1,193 included +500 excluded. The recorded1,193 include55 `ui/public/**` assets; the one-off post did not yet apply the later public-assets exclusion. Its included inventory is170,738 bytes / `0b693620b4b624aeacb048315c29f262d1cc2b4289e17edc1ab29b7c8ee0e88f`. The274 manual rows equal preflight and have the admitted prefixes. These facts describe what that post checked. This review did not independently rehash its public assets or excluded500 payloads, and does not turn the old1,693-file preflight into a safely repeated complete inventory check.
+
+The **prospective** helpers add `ui/public/**` to the automatic exclusions. In both, filtering occurs before any tracked-file content hash or worktree diff. The recorder supplies individual included filenames to `git diff`, avoiding the previous root-wide diff. Its broad untracked scan is filename metadata and is filtered before recording. Start/end equality includes the declared path scope, HEAD, diff digest and untracked list. The guard similarly hashes only included paths and compares scope/inventory/manual/index/stage across pre/post; preflight's worktree diff uses only included paths. Both helper files are included in the manual pins before future execution.
+
+At the reviewed current tree, the stricter policy would include1,138 paths and exclude555, rather than the actual post's1,193/500. This is a metadata prediction, not a completed new-helper gate. Neither new helper was executed for this review or supplied1292's already closed result. Excluded automatic paths can still be admitted as explicitly authorized P14 manual inputs; that exception is intentional, not an assertion that all fixture data is forbidden or fully requalified.
+
+The manual check is a literal prefix check over the current pinned rows. No tracked symlink/gitlink modes were present in the inspected source roots. The current directory policy is not a general code-extension allowlist: a future payload added elsewhere, path traversal or changed link layout would require review before use. It also does not sandbox the child command. The six runtime collection exclusions/holds in [1296-A](1296-A-bounded-regression-scope.md) still apply; filtering guard reads alone cannot stop a selected test from loading a held fixture.
+
+A fixed-source recorder success describes source stability, not child success. The recorder stores the child's exit code/error/signal separately; parent attribution must inspect those and the actual raw result. Similarly, future `allGuardsExact` is scoped by its explicit exclusions and manual set, not an unrestricted all-files claim.
+
+Historical broad guards remain preserved. Their hashing of every tracked source-root file was payload access even where no Owner test ran; previous independent full-inventory reconstructions require the same distinction. The new policy cannot undo that access or justify earlier unrestricted no-access wording. The1291 recorded broad post and1292 original broad preflight are historical evidence, while the1292 bounded post deliberately declines to requalify excluded content. The parent's separate historical-access correction records that chronology; no frozen earlier report is silently rewritten here.

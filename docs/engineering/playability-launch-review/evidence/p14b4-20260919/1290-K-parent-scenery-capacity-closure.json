@@ -1,0 +1,492 @@
+{
+  "record": "1290-K parent scenery-capacity closure",
+  "recordedUtc": "2026-09-28T02:51:14.474408+00:00",
+  "executedSource": "d2f55dd93ca9e3f9c11ca1287bada47788b5cedf",
+  "remoteExactAtClosure": true,
+  "status": "BOUNDED Q24 LOGIC VERIFIED; ACCESS-BOUNDARY ERROR RETAINED; NATIVE NOT VERIFIED",
+  "source": {
+    "path": "tests/p14p4p5-scenery-capacity.test.ts",
+    "bytes": 25606,
+    "sha256": "439cda265df237532c6e64be97f83790b4c40e6bcd182bfd8ee0e9738457a412"
+  },
+  "sourceHandback": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-C-scenery-capacity-source-handback.md",
+    "bytes": 6872,
+    "sha256": "99987d9cc539cf9c64d5a776e1489e93d476d4fa0566678ae658c64d52c72d9e"
+  },
+  "sourceReview": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-D-scenery-capacity-source-review.md",
+    "bytes": 5418,
+    "sha256": "6a23fc3c0307fc7e942a3760a3a3900e7f33714d3ea51fcbb3213a2989e70ba0"
+  },
+  "application": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-E-parent-application.json",
+    "bytes": 2355,
+    "sha256": "3ff7970594119e82fe9e7ea813ee1181492215efb918ada9484b709df7a6214d"
+  },
+  "attribution": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-I-scenery-capacity-verification-attribution.md",
+    "bytes": 9854,
+    "sha256": "f52e68e3afb197e1809b54b8bc01fcdadd00052da8785a69ce237bdd39b672eb"
+  },
+  "verificationReview": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-J-scenery-capacity-verification-review.md",
+    "bytes": 7506,
+    "sha256": "eb351d72f534160e482aaecce9eced0088777220e9b32fbce0778bc9ec055c15"
+  },
+  "accessCorrection": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1296-B-parent-access-correction.md",
+    "bytes": 3647,
+    "sha256": "7b265d4ff9b684a9da1b74b25f3b19364a6deca31c2480e03d6778ffafc39793"
+  },
+  "guardReview": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1296-C-bounded-guard-review.md",
+    "bytes": 4932,
+    "sha256": "46fe77e575bec85d26ade31dba1b187f37c09fb23c026632c9299a964125de51"
+  },
+  "parentReview": "Complete318-line source/A/B/C/D/F and finalI/J read. Full raw/nonmarker output read and all13 structured markers parsed. Independently rejoined authorized1171 literal input, all19 old takes, four complete action/set/cash/ledger/event deltas, all seven full resource producer bodies, every embedded set and independently derived free slot. Rejoined actual4company/26writing/0research owner bodies, Actor employment/provenance and unchanged Ready crime project/concept. Both actual request/receipt/selector/input-state joins and all counters exact. Source pins/protected HEAD images checked at application. Original broad guard records retained without rerun after access-boundary discovery; actual1193/500 bounded post process exited before closure.",
+  "auditCorrection": "An initial temporary parent data auditor incorrectly added an extra facility: prefix to facilitySlotKey and failed its claim-object comparison. Corrected the auditor from the source/raw field definition; complete data audit then passed. No project source, expected test result, raw output or engine gate was changed or rerun.",
+  "gates": [
+    {
+      "stem": "1291-scenery-capacity-types",
+      "command": [
+        "node_modules/.bin/tsc",
+        "--noEmit",
+        "-p",
+        "tsconfig.json"
+      ],
+      "start": "2026-09-28T02:36:49.974Z",
+      "end": "2026-09-28T02:37:27.696Z",
+      "elapsedSeconds": 37.722,
+      "exitCode": 0,
+      "advanceCap": 0,
+      "fixedSource": true,
+      "allGuardsExact": true,
+      "boundedGuardsExact": null,
+      "manualPins": 274,
+      "historicalBroadSourceFiles": 1693,
+      "scope": "original broad source hash retained as access-boundary mistake",
+      "record": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1291-scenery-capacity-types.json",
+        "bytes": 634,
+        "sha256": "8eb732a6d45f3e19b31adb582c41520596a8135be9e5e45ab795f2e9f97e1a00"
+      },
+      "raw": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1291-scenery-capacity-types.txt",
+        "bytes": 340,
+        "sha256": "4587f970411ce0d115c34b5cb77db65534b89bb7a260bbd36d76f1837657dfec"
+      },
+      "diff": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1291-scenery-capacity-types.patch",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "preflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1291-scenery-capacity-types-preflight.json",
+        "bytes": 68153,
+        "sha256": "476d068c7166eaedc00540017cabea9b8b692186e50a2c1e5ef031a38f578880"
+      },
+      "postflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1291-scenery-capacity-types-postflight.json",
+        "bytes": 68837,
+        "sha256": "0b9a5a8cba4bce6ff8a9f22f41c11cdf9bdb3d3bf64a13821f8004508928c41a"
+      }
+    },
+    {
+      "stem": "1292-scenery-capacity-runtime",
+      "command": [
+        "node_modules/.bin/vitest",
+        "run",
+        "--project",
+        "core",
+        "tests/p14p4p5-scenery-capacity.test.ts",
+        "-t",
+        "Q24 "
+      ],
+      "start": "2026-09-28T02:37:46.448Z",
+      "end": "2026-09-28T02:37:55.318Z",
+      "elapsedSeconds": 8.87,
+      "exitCode": 0,
+      "advanceCap": 0,
+      "fixedSource": true,
+      "allGuardsExact": false,
+      "boundedGuardsExact": true,
+      "manualPins": 274,
+      "historicalBroadSourceFiles": 1693,
+      "scope": "1193 included files compared to executedHEAD;500 automatic payload paths excluded; original1693 aggregate not recomputed",
+      "record": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1292-scenery-capacity-runtime.json",
+        "bytes": 698,
+        "sha256": "01bf86c62ca046380ccab1eeaa32c08bd55e84b859ca462f2a02268a58d01abb"
+      },
+      "raw": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1292-scenery-capacity-runtime.txt",
+        "bytes": 224635,
+        "sha256": "b31f392cf3f61f23728bccb9f2e011035652eb2a85929eb6e6e9507b65dd5f39"
+      },
+      "diff": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1292-scenery-capacity-runtime.patch",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "preflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1292-scenery-capacity-runtime-preflight.json",
+        "bytes": 68153,
+        "sha256": "d240ae0c415aa98e970adb292fc6349a99ec517870966c58a6068f94b49cf8d0"
+      },
+      "postflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1292-scenery-capacity-runtime-postflight.json",
+        "bytes": 322836,
+        "sha256": "73822f8f5ac93771e4423f297aeb2cc187daff313e06f71e0fb17e531078702e"
+      }
+    }
+  ],
+  "selection": {
+    "filesPassed": 1,
+    "leavesPassed": 1,
+    "filtered": 0,
+    "leafMs": 4790,
+    "fileMs": 4793,
+    "vitestSeconds": 7.85,
+    "declaredTimeoutMs": 60000
+  },
+  "observed": {
+    "raw": {
+      "bytes": 224635,
+      "sha256": "b31f392cf3f61f23728bccb9f2e011035652eb2a85929eb6e6e9507b65dd5f39"
+    },
+    "markers": {
+      "bytes": 223498,
+      "sha256": "ac1f0bedae5e59a54d06183fc89d4dfa37f93437c279adb10e73bcd52599dcd3",
+      "count": 13
+    },
+    "quotes": [
+      {
+        "ordinal": 1,
+        "request": {
+          "family": "SPECIFIC_PROJECT",
+          "issuerStudioId": "studio-de11f27b-player",
+          "beneficiaryPersonId": "authored-0005",
+          "predicate": {
+            "kind": "projectOpportunity",
+            "count": 1,
+            "seatClass": "allCast",
+            "scriptProjectId": "script-0001"
+          },
+          "startWeek": 45,
+          "termWeeks": 52,
+          "windowStartWeek": 45,
+          "dueWeekExclusive": 58
+        },
+        "receipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "f55e77aef287c631",
+          "rulesVersion": 7,
+          "week": 45
+        },
+        "freshWeek": 45,
+        "takeWeek": 50,
+        "slack": 8,
+        "inputBytes": 752125,
+        "inputSha256": "30181fc7246eed6446cae142f61a95167e2f4a9b9179ee5f2af015760924fa98"
+      },
+      {
+        "ordinal": 2,
+        "request": {
+          "family": "SPECIFIC_PROJECT",
+          "issuerStudioId": "studio-de11f27b-player",
+          "beneficiaryPersonId": "authored-0005",
+          "predicate": {
+            "kind": "projectOpportunity",
+            "count": 1,
+            "seatClass": "allCast",
+            "scriptProjectId": "script-0001"
+          },
+          "startWeek": 45,
+          "termWeeks": 52,
+          "windowStartWeek": 45,
+          "dueWeekExclusive": 58
+        },
+        "receipt": {
+          "classification": "FRAGILE",
+          "bottleneck": "existing set-scenery capacity is not available for this opportunity",
+          "inputsDigest": "9c3dfda51857df65",
+          "rulesVersion": 7,
+          "week": 45
+        },
+        "freshWeek": 45,
+        "takeWeek": 50,
+        "slack": 8,
+        "inputBytes": 752559,
+        "inputSha256": "5c16309ec88326a4c2ec98d7ef3740ff7dbefb6e3d26a14ce89c94b8f50b6663"
+      }
+    ],
+    "cashSequence": [
+      24701506,
+      24754006,
+      25062006,
+      24912006,
+      24762006
+    ],
+    "ledgerAppend": [
+      {
+        "week": 45,
+        "kind": "setDemolitionRefund",
+        "amount": 52500,
+        "note": "Stage 12 House Set \u2014 set struck"
+      },
+      {
+        "week": 45,
+        "kind": "setDemolitionRefund",
+        "amount": 308000,
+        "note": "Grand Ballroom \u2014 set struck"
+      },
+      {
+        "week": 45,
+        "kind": "setCapex",
+        "amount": -150000,
+        "note": "House Set \u2014 set construction"
+      },
+      {
+        "week": 45,
+        "kind": "setCapex",
+        "amount": -150000,
+        "note": "House Set 4 \u2014 set construction"
+      }
+    ],
+    "events": {
+      "nextSeq": 4,
+      "rows": [
+        {
+          "kind": "setRetired",
+          "refund": 52500,
+          "seq": 0,
+          "setId": "set-0",
+          "week": 0
+        },
+        {
+          "kind": "setBuilt",
+          "seq": 1,
+          "setId": "set-2",
+          "week": 8
+        },
+        {
+          "kind": "setRetired",
+          "seq": 2,
+          "week": 45,
+          "setId": "set-1",
+          "refund": 52500
+        },
+        {
+          "kind": "setRetired",
+          "seq": 3,
+          "week": 45,
+          "setId": "set-2",
+          "refund": 308000
+        }
+      ]
+    },
+    "claimCounts": [
+      2,
+      1,
+      0,
+      2,
+      4
+    ],
+    "freeSlotsAtQuotes": [
+      [
+        {
+          "capability": "development-casting",
+          "slots": [
+            {
+              "facilityId": "facility-development-casting",
+              "slot": 0
+            },
+            {
+              "facilityId": "facility-development-casting",
+              "slot": 1
+            }
+          ]
+        },
+        {
+          "capability": "soundstage",
+          "slots": [
+            {
+              "facilityId": "facility-soundstage-07",
+              "slot": 0
+            },
+            {
+              "facilityId": "facility-soundstage-12",
+              "slot": 0
+            }
+          ]
+        },
+        {
+          "capability": "set-scenery",
+          "slots": [
+            {
+              "facilityId": "facility-scenery-shop",
+              "slot": 1
+            }
+          ]
+        },
+        {
+          "capability": "post",
+          "slots": [
+            {
+              "facilityId": "facility-post-building",
+              "slot": 0
+            },
+            {
+              "facilityId": "facility-post-building",
+              "slot": 1
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "capability": "development-casting",
+          "slots": [
+            {
+              "facilityId": "facility-development-casting",
+              "slot": 0
+            },
+            {
+              "facilityId": "facility-development-casting",
+              "slot": 1
+            }
+          ]
+        },
+        {
+          "capability": "soundstage",
+          "slots": [
+            {
+              "facilityId": "facility-soundstage-07",
+              "slot": 0
+            },
+            {
+              "facilityId": "facility-soundstage-12",
+              "slot": 0
+            }
+          ]
+        },
+        {
+          "capability": "set-scenery",
+          "slots": []
+        },
+        {
+          "capability": "post",
+          "slots": [
+            {
+              "facilityId": "facility-post-building",
+              "slot": 0
+            },
+            {
+              "facilityId": "facility-post-building",
+              "slot": 1
+            }
+          ]
+        }
+      ]
+    ],
+    "personOwnerCounts": {
+      "productionRows": 4,
+      "writingRows": 26,
+      "researchRows": 0
+    },
+    "oldTakes": 19,
+    "cutover": {
+      "version": 1,
+      "cutoverOrdinal": 19,
+      "facts": []
+    },
+    "counters": {
+      "advanceAttempts": 0,
+      "advanceInvoked": 0,
+      "advanceCompleted": 0,
+      "actionAttempts": 4,
+      "actionsAccepted": 4,
+      "quoteAttempts": 2,
+      "quotesReturned": 2,
+      "selectorCalls": 2,
+      "hardAdvanceAttempts": 0,
+      "hardActions": 4,
+      "hardQuotes": 2,
+      "capturePrefixAdvances": 0,
+      "oldTestsOrHelpersImported": false,
+      "operations": [
+        {
+          "action": {
+            "kind": "strikeSet",
+            "setId": "set-1"
+          },
+          "accepted": true
+        },
+        {
+          "action": {
+            "kind": "strikeSet",
+            "setId": "set-2"
+          },
+          "accepted": true
+        },
+        {
+          "action": {
+            "kind": "commissionSet",
+            "commission": {
+              "blueprintId": "set-house-generic",
+              "stageFacilityId": "facility-soundstage-12"
+            }
+          },
+          "accepted": true
+        },
+        {
+          "action": {
+            "kind": "commissionSet",
+            "commission": {
+              "blueprintId": "set-house-generic",
+              "stageFacilityId": "facility-soundstage-07"
+            }
+          },
+          "accepted": true
+        }
+      ],
+      "phases": [
+        {
+          "name": "genuine45",
+          "complete": true
+        },
+        {
+          "name": "first-build45",
+          "complete": true
+        },
+        {
+          "name": "first-quote45",
+          "complete": true
+        },
+        {
+          "name": "second-build45",
+          "complete": true
+        },
+        {
+          "name": "second-quote45",
+          "complete": true
+        }
+      ]
+    }
+  },
+  "qualification": "At actual45, a byte-identical pure P5crime Ready request changes RA7/null to FRAGILE7 exact scenery-capacity cause after the second public House commission fills scenery slot1. Full other capacity remains free; actual Actor/company/writing/project/union/clock/RNG unchanged. Four real set transactions reconcile refunds/capex and preserve retired rows/events/old19takes. Zero advances, no build completion or new promise.",
+  "unchangedProduction": true,
+  "cumulativeCoreQualification": {
+    "leaves": 24,
+    "separateSelections": 16,
+    "sameRunOrFullSuite": false
+  },
+  "limits": [
+    "Inherited broad hashing accessed committed Owner-derived fixture bytes; passing Q24 does not erase that mistake.1296-B adopts narrowed future guards.",
+    "Runtime post allGuardsExact:false/boundedGuardsExact:true; excluded500 contents are not requalified. Future policy also excludes55 public assets.",
+    "No arrival48, usable completed scenery, fresh production/crew, hire, generic allocator, rival material-policy runtime, native or full-suite qualification. Earlier failures and overruns remain."
+  ],
+  "next": "Begin adopted1293-C post-capacity source underA/B/F including public trust-descriptor fallback clarification. Five public actions/two default-false advances312-to314/two quotes; independentD then parent publication and1294types0/1295runtime2. Use only new bounded helpers and reviewed source/input scopes."
+}

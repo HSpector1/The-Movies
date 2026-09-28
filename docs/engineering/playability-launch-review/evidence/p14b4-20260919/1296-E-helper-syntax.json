@@ -1,0 +1,38 @@
+{
+  "record": "1296-E helper syntax checks",
+  "recordedUtc": "2026-09-28T02:45:29.591380+00:00",
+  "checks": [
+    {
+      "command": "Python ast.parse, no evaluation",
+      "files": [
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/run-bounded-source-guards.py",
+          "bytes": 6092,
+          "sha256": "1a1e144c25dd36320c64237d5b58f19d848eb85171fa777e5772c2c3fff1a20e"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1296-D-one-off-1292-post.py",
+          "bytes": 3167,
+          "sha256": "323ac41db6de375e6aff797403bf23432b3468029c173a6ef11954ed01c42d57"
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "docs/engineering/playability-launch-review/evidence/p14b4-20260919/run-bounded-source-c2.mjs"
+      ],
+      "file": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/run-bounded-source-c2.mjs",
+        "bytes": 3581,
+        "sha256": "ae167b103ddaa714268cd63e163daa4966b0c3b8f07bfa3e9bd8f0c7d07751a2"
+      },
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "limits": "Syntax only; no project/runtime execution and no new guard gate. Exact start/end times were not sampled."
+}

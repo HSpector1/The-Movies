@@ -1,5 +1,33 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — Scenery capacity qualified; post-capacity source next
+
+Published/executed d2f55dd93ca9e3f9c11ca1287bada47788b5cedf matched GitHub.
+1291 root types PASS37.722s;1292 Q24 PASS1/zero filtered8.870s recorder,
+4.790s leaf.1290-I/J/K close four public set actions/two identical pure P5crime
+quotes/zero advances. Filling scenery slot1 changes RA to exact scenery-capacity
+FRAGILE while all other facilities stay free. Full refunds/capex/retired sets,
+Actor/target/union and all19 old takes remain exact. Twenty-four core leaves have
+passed across sixteen separate selections, not one combined/full suite.
+
+ACCESS CORRECTION: inherited automatic guards hashed committed Owner-derived
+fixture bytes.1296-B records the mistake; previous blanket no-access wording
+must not cover those hashes. The actual1292 post checked1193 files and274 P14
+manual pins, excluded500 fixture/e2e paths, and reports allGuardsExact:false /
+boundedGuardsExact:true. Do not rerun old full-inventory helpers or audits.
+Future gates use evidence/p14b4-20260919/run-bounded-source-c2.mjs and
+run-bounded-source-guards.py: exclude fixture/e2e/public payloads automatically,
+keep explicitly authorized P14 inputs separate, and scope Git diffs likewise.
+1296-A's six collection exclusions/holds remain; this is no full-suite claim.
+
+Begin1293-C under adoptedA/B/F including public trust-descriptor fallback:
+five fixed actions/two ordinary advances312→314/two identical P4crime quotes.
+IndependentD then parent publication,1294types(cap0),1295runtime(cap2). Parent
+owns live integration/production and one heavy lane; same two specialists keep
+separate test/review ownership. P15A1 source notes remain a parent draft awaiting
+review. P17 choices/paper limits remain recorded. Continue the authorized program;
+Unity/native and Owner campaigns remain deferred.
+
 ## CURRENT — Scenery source applied; Q24 gates next
 
 Parent applied exact1290-C/D on published46c356bb.1290-E records one new

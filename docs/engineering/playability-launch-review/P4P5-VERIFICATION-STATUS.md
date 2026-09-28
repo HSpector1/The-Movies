@@ -1,25 +1,36 @@
 # P4/P5 verification coverage
 
-## CURRENT — Scenery source applied; Q24 gates next
+## CURRENT — Scenery capacity qualified; post-capacity source next
 
-Parent applied exact1290-C/D on published46c356bb.1290-E records one new
-25,606-byte standalone test439cda26,63 manifest pins and55 unchanged protected
-files. Publish then1291 root types(cap0),1292 isolatedQ24(cap0): four fixed public
-set actions and two identical pure P5crime quotes at actual45, with a new60s leaf.
-Exact refunds/capex, retained retired sets, full claims and unchanged other free
-facilities must distinguish scenery capacity. These are unexecuted premises.
-Twenty-three earlier core leaves passed across fifteen separate selections.
+Published/executed d2f55dd93ca9e3f9c11ca1287bada47788b5cedf matched GitHub.
+1291 root types PASS37.722s;1292 Q24 PASS1/zero filtered8.870s recorder,
+4.790s leaf.1290-I/J/K close four public set actions/two identical pure P5crime
+quotes/zero advances. Filling scenery slot1 changes RA to exact scenery-capacity
+FRAGILE while all other facilities stay free. Full refunds/capex/retired sets,
+Actor/target/union and all19 old takes remain exact. Twenty-four core leaves have
+passed across sixteen separate selections, not one combined/full suite.
 
-1293 post-capacity A/B/F is adopted with the public trust-descriptor fallback
-clarification; source starts after Q24 closure. Parent owns live integration,
-production and one heavy lane; the same two specialists retain separate test/review
-roles. No older producer or completed gate is repeated. P17's three decisions and
-paper reproduction limits remain recorded. Continue the authorized program;
+ACCESS CORRECTION: inherited automatic guards hashed committed Owner-derived
+fixture bytes.1296-B records the mistake; previous blanket no-access wording
+must not cover those hashes. The actual1292 post checked1193 files and274 P14
+manual pins, excluded500 fixture/e2e paths, and reports allGuardsExact:false /
+boundedGuardsExact:true. Do not rerun old full-inventory helpers or audits.
+Future gates use evidence/p14b4-20260919/run-bounded-source-c2.mjs and
+run-bounded-source-guards.py: exclude fixture/e2e/public payloads automatically,
+keep explicitly authorized P14 inputs separate, and scope Git diffs likewise.
+1296-A's six collection exclusions/holds remain; this is no full-suite claim.
+
+Begin1293-C under adoptedA/B/F including public trust-descriptor fallback:
+five fixed actions/two ordinary advances312→314/two identical P4crime quotes.
+IndependentD then parent publication,1294types(cap0),1295runtime(cap2). Parent
+owns live integration/production and one heavy lane; same two specialists keep
+separate test/review ownership. P15A1 source notes remain a parent draft awaiting
+review. P17 choices/paper limits remain recorded. Continue the authorized program;
 Unity/native and Owner campaigns remain deferred.
 
-Evidence cutoff: 2026-09-28, after Q23 / 1289. This is a navigation summary of recorded results, not a new contract, execution budget or full-suite pass. Save40, projection55 and evaluator7 are implemented. The outstanding verification below keeps the wider P14 task open.
+Evidence cutoff: 2026-09-28, after Q24 / 1292. This is a navigation summary of recorded results, not a new contract, execution budget or full-suite pass. Save40, projection55 and evaluator7 are implemented. The outstanding verification below keeps the wider P14 task open.
 
-The twenty-three core leaves Q01–Q23 passed across **fifteen separate selections**: 1234b (four), 1238 (two), 1253 (four), 1256 (one), 1259 (one), 1262 (two), 1265b (one), 1268 (one), 1271 (one), 1274 (one), 1277 (one), 1280 (one), 1283 (one), 1286 (one), and1289 (one). There was no same-run twenty-three-leaf qualification. Three new Bridge leaves and one new UI leaf passed separately. Prior compiler/runtime failures and the Bridge synchronous timeout overrun remain in their original records.
+The twenty-four core leaves Q01–Q24 passed across **sixteen separate selections**: 1234b (four), 1238 (two), 1253 (four), 1256 (one), 1259 (one), 1262 (two), 1265b (one), 1268 (one), 1271 (one), 1274 (one), 1277 (one), 1280 (one), 1283 (one), 1286 (one), 1289 (one), and1292 (one). There was no same-run twenty-four-leaf qualification. Three new Bridge leaves and one new UI leaf passed separately. Prior compiler/runtime failures and the Bridge synchronous timeout overrun remain in their original records.
 
 | Area | Actual qualified evidence | Remaining limit or next task |
 |---|---|---|
@@ -28,7 +39,7 @@ The twenty-three core leaves Q01–Q23 passed across **fifteen separate selectio
 | Exclusive physical deadline and slack | Q11 / 1256: eight real drafting, Review, Ready, rewriting and casting snapshots; due at first possible take is IMPOSSIBLE, seven weeks of slack FRAGILE, eight RA. | These states had spare resources. They do not isolate congestion or the reservation exemption. |
 | Isolated facts-only downgrade refusal | Q11 / 1256 reached a genuine new rival fact with no promises, admitted current40 and refused40→39 for recorded subject authority. | The earlier 1253 refusal combined material tags and facts; keep the two claims distinct. |
 | Active writing and permanent screenplay credit | Q13 /1262: real Actor commission at45 moves the other Ready target from fresh45/take50 to fresh46/take51, with exact physical/slack outcomes; own screenplay credit independently refuses cast admission. Five pure quotes. | Actual state remains45; the admission query46 does not observe drafting completion. |
-| Resource congestion and own reservation | Q14 /1262: second real commission fills both development slots. Identical Ready request becomes FRAGILE for capacity; identical drafting target stays RA with only its own due46 slot exempted and unrelated hold retained. | Q20 /1280 independently qualifies casting-session exemption under actual congestion: three public actions/four pure P5 queries/hard0advances; unrelated Ready target becomes capacity-FRAGILE, own audition target stays RA while unrelated same-due draft remains held. No actual46 arrival or completion occurred; Q22 /1286 now qualifies existing soundstage first cause: two identical P4crime quotes around one public cancellation, zero ticks, full11→7claims and unchanged five crime candidates. FRAGILE becomes RA after stage07/scenery0 release; retained technology/lifecycle/111takes/69roots stay exact. Initial scenery was also full, so separate scenery/post discrimination remains open. |
+| Resource congestion and own reservation | Q14 /1262: second real commission fills both development slots. Identical Ready request becomes FRAGILE for capacity; identical drafting target stays RA with only its own due46 slot exempted and unrelated hold retained. | Q20 /1280 independently qualifies casting-session exemption under actual congestion: three public actions/four pure P5 queries/hard0advances; unrelated Ready target becomes capacity-FRAGILE, own audition target stays RA while unrelated same-due draft remains held. No actual46 arrival or completion occurred; Q22 /1286 now qualifies existing soundstage first cause: two identical P4crime quotes around one public cancellation, zero ticks, full11→7claims and unchanged five crime candidates. FRAGILE becomes RA after stage07/scenery0 release; retained technology/lifecycle/111takes/69roots stay exact. Q24 /1292 separately qualifies isolated scenery: four public strike/commission actions and two identical Ready crime quotes at actual45, zero ticks. RA becomes exact scenery-capacity FRAGILE while other facilities stay free; full set/cash/ledger/claim bodies preserved. Post remains separate;1296-B retains the guard-access error and bounded postflight scope. |
 | Reservation membership and committed witness | Complete person-or-issuer union, self and scope controls; Q10 / 1253 observed one actual nonempty successful committed-seat witness. | Q19 /1277 qualifies two genuine P1 roots sharing one production: public waivers move the common take/release and same-person fresh clock, isolate slack7/8, then create individually feasible windows with no common take; unchanged idle control becomes witness-FRAGILE. Eight quotes/six actions/eight52→60 advances. No actual later take/release, retirement readmission or general solver claim. |
 | Mixed stored version and receipt version | Q12 / 1259: actual Director root6/RA6 remained unchanged when another same-player material attachment scoped a quote into7; first actual freeze52 RA7 was committed on root6, with real52→156 employment and exact price/payment. | Freeze and ranking calls had identical receipt values. This run does not distinguish unequal alternative receipts. Later material offer was declined, not a P4 recruitment win. |
 | Legacy quote preservation | Full1,226-byte legacy baseline remains literal through 1256; Q12 separately retains the actual attached Director6 receipt. | Q12 did not rerun the complete legacy baseline. |
@@ -38,13 +49,14 @@ The twenty-three core leaves Q01–Q23 passed across **fifteen separate selectio
 | Retirement and cross-owner availability | Q16 /1268: actual retired Actors now primary Director/Writer retain requested-Actor refusal, while current-profession admission is allowed; active Actor control RA. Three pure quotes, all59 old roots/85 takes retained; two unbound same-person roots excluded. | Q17 /1271 separately qualifies six pure cross-owner P5 queries: rival Actor company floor52/take57 versus Writer draft due46/take51, exact exclusive and seven/eight-week slack boundaries. Zero actions/advances; contracts unchanged. Q18 /1274 adds current Director-only retirement refusal and actual held Actor finishing work: five pure quotes, two accepted existing-task actions, one312→313 take/c00 drama/null. All111 old receipts/69 roots and both finishing records retained; no release/completed retirement. Q21 /1283 now qualifies delayed-release readmission:59 actual45→104 advances/five accepted mutations/four pure quotes; actual104 announcement/effective156 and a public waiver delay common release109→148, changing identical P5 RA to timing-FRAGILE despite27 weeks of uncapped slack and spare resources. Query147 allowed/query148 refused; no later arrival or player take. Historical V37 provenance/parity FAIL remains. |
 | Bridge and UI disclosure | New Bridge3/3 and isolated UI1/1 passed; own targets and rival UNKNOWN privacy, current-save replay/duplicates and genuine previous54 migration covered. | One Bridge leaf took228.867s despite a60s declaration; no timeout enforcement/performance claim. No disk coordinator, native consumer or full-UI qualification follows. |
 
-Primary closure records are in [the evidence directory](evidence/p14b4-20260919/): 1234-A/B, 1239-A/B/C, 1236-J/K/L, 1249-I/J/K, 1254-I/J/K, 1257-I/J/K 1260-I/J/K, 1263-I/J/K 1266-I/J/K, 1269-I/J/K 1272-I/J/K 1275-I/J/K 1278-I/J/K 1281-I/J/K 1284-I/J/K and1287-I/J/K. The frozen detailed requirements remain [1226-A](evidence/p14b4-20260919/1226-A-p4p5-initial-test-requirements.md); their original candidate wording is historical, not a statement that current versions are still only proposed.
+Primary closure records are in [the evidence directory](evidence/p14b4-20260919/): 1234-A/B, 1239-A/B/C, 1236-J/K/L, 1249-I/J/K, 1254-I/J/K, 1257-I/J/K 1260-I/J/K, 1263-I/J/K 1266-I/J/K, 1269-I/J/K 1272-I/J/K 1275-I/J/K 1278-I/J/K 1281-I/J/K 1284-I/J/K 1287-I/J/K and1290-I/J/K. The frozen detailed requirements remain [1226-A](evidence/p14b4-20260919/1226-A-p4p5-initial-test-requirements.md); their original candidate wording is historical, not a statement that current versions are still only proposed.
 
-Current next work is adopted1290-C scenery-capacity source under A/B/F:
-four public set actions, two identical pure P5crime quotes, zero advances.
-IndependentD then parent application/publication,1291types0/1292runtime0.
-1293 post-capacity plan remains source-only and requires independent review.
-Keep one live integration/production writer, separate retained test/review
-specialists and one heavy process. P17 choices and reviewed paper reproduction
-are recorded with engine/balance limits. Required P18 charter is source-reviewed;
-unspecified TV rules remain proposed. Unity/native and Owner campaigns deferred.
+Current next work is adopted1293-C post-capacity source under A/B/F, including
+the public trust-descriptor fallback clarification: five fixed public actions,
+two ordinary312→314 advances and two identical pure P4crime quotes. IndependentD
+then parent publication,1294types0/1295runtime2. Use only the reviewed bounded
+helpers and input scopes in1296-B/C; do not rehash excluded payload inventories.
+Keep one live writer, two retained specialists with separate test/review roles,
+and one heavy process. P17 choices and paper limitations are recorded; required
+P18 charter is source-reviewed with unspecified rules proposed. Continue the
+authorized program. Unity/native and Owner campaigns remain deferred.
