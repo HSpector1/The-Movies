@@ -27,6 +27,18 @@ question remains pending from this session's three P17 questions.
 The optional inflated-expectation lever and optional cast-seat changes remain
 unselected; this question does not expand scope to those features.
 
+## Canonical paper reproduction — 2026-09-28
+
+Parent ran the unchanged367-line revision02 calculator once after reading it.
+Its20,012-byte output exactly matched the committed output, exit0/empty stderr.
+[Record and limits](evidence/p17-paper-reproduction-20260928/02-attribution.md)
+retain exact source/output pins. This is paper-output reproducibility only:
+Case B does not instantiate separate SubProperty Recognition inheritance, and
+current-engine economics/rights/runtime integration remain unverified.
+[Independent review and parent disposition](evidence/p17-paper-reproduction-20260928/04-parent-adoption.md)
+close the paper read, retaining the additional finite-horizon rate-bound caveat.
+No implementation or extra feature is released; P14 work continues in order.
+
 ## Recovery history
 
 2026-09-27 UTC. Recovered the already-published revision02 object
@@ -38,7 +50,7 @@ Canonical report at that immutable commit:
 Parent initially read §19 in full. On2026-09-28, parent completed the entire
 658-line canonical report, including §5.7 and the closing table. This is a report
 read, not verification of its linked evidence, calculators or current engine fit.
-The prior missing-object dependency is resolved. Its research scripts were not run.
+The prior missing-object dependency is resolved. Its research scripts had not been run at that recovery point; the later canonical reproduction above is separate.
 
 At recovery, two genuine §19.2 product questions were sent asynchronously: healthy-franchise reboot legality (recommend
 legal with property-wide fatigue retained), and a lasting Recognition floor

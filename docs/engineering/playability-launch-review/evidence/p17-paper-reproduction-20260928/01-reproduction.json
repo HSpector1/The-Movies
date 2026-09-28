@@ -1,0 +1,26 @@
+{
+  "sourceCommit": "f2eff6356fca3e6d5287e690bf2404867d638906",
+  "sourcePath": "docs/research/p17-independent-verification-01/redteam/R3-reviewer-corrections-calc.py",
+  "source": {
+    "bytes": 25069,
+    "sha256": "69607c3bf3834ec4ba1a13dbc776c486dd833c4a41ac4ca3ffd1cff0fe97af47"
+  },
+  "committedOutput": {
+    "bytes": 20012,
+    "sha256": "0cec0d7bcb1b9f53c91df2d5f6d34f3086951f3afee9f05268d7e77668ccc7d9"
+  },
+  "actualOutput": {
+    "bytes": 20012,
+    "sha256": "0cec0d7bcb1b9f53c91df2d5f6d34f3086951f3afee9f05268d7e77668ccc7d9"
+  },
+  "exitCode": 0,
+  "stderr": "",
+  "elapsedSeconds": 0.06679308999446221,
+  "exactOutputMatch": true,
+  "python": "3.14.4 (main, May  2 2026, 23:00:00) [Clang 14.0.0 (clang-1400.0.29.202)]",
+  "scope": "Canonical paper calculator reproduction only; no current engine code, state, actions, ticks, tests, schema or runtime integration.",
+  "recordedAfterCompletionUtc": "2026-09-28T01:22:51.621213+00:00",
+  "exactStartAndEndUtc": "Not separately sampled; elapsed monotonic duration retained.",
+  "reviewStatus": "Parent full367-line source and full20012-byte output read; independent downstream review pending.",
+  "commandDescription": "Python subprocess.run([sys.executable, /tmp/studio-p17-r3-canonical.py], capture_output=True) from python3 orchestration; exact source retained beside this record."
+}
