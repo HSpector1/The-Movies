@@ -1,5 +1,28 @@
 # P4/P5 verification coverage
 
+## CURRENT — 1302/1303 attributed; R2+R3 production increment next
+
+Broad core gate 1302 on 993e6b01: 411 files, 96 failed files, 498 failed, 4102
+passed, 11 todo, exact collection proof. UI gate 1303 on 42f216e8: 10 failed
+files, 31 failed, 2661 passed, 5 skipped. 1302-I/J (KEEP) and 1303-I attribute
+every case by identity; parent 1302-K closes 1302. No production defect is
+established. Most failures are stale test infrastructure from the Save39/40 and
+projection-55 bumps that 1301 missed: tests/helpers saveVersion 38 literals,
+validateSaveV38 selection on live saves, namespaced live pins. The two flagged
+rival-authoring failures (trust-chooser :620, cast-class-policy :452) trace to
+the P3 and opportunity candidate widening (969fb459, ef38cf9a) landing without a
+neighbor sweep; their test update becomes the RED witness. 1303-J review runs.
+
+Genuine outgoing Save40 inputs are minted (1306/1306b, 1306-K; the r2 premise
+failure is preserved in 1306-C). R2 (1304-A..D) and R3 (1305-A..D) are reviewed.
+The parent lands them as one production increment with Save41 and projection 56,
+then one combined 41/56 pin sweep (1301 rows, 1302-I class a, the 1305-D gap,
+the widened rival-authoring sequence), then one broad rerun attributed against
+1302-I/1303-I. Scientist under-hiring stays a hypothesis until its witness runs.
+Deviation: three specialists ran briefly at once while resuming 1306-B; no
+writes overlapped. IN PROGRESS: R2, R3, rival material policy. Two specialists,
+parent live writer, one heavy process; Unity/native/Owner deferred.
+
 ## CURRENT — 1301 live-pin maintenance applied; broad gates 1302/1303 next
 
 Parent applied the reviewed 1301 final patch (1301-C/C2, independent 1301-D KEEP,
