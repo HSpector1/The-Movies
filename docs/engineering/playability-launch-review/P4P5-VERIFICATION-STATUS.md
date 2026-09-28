@@ -31,4 +31,5 @@ existing timeout changes. IndependentD then parent application/publication and
 follow, without source/execution release yet. Keep one live production/integration
 writer, separate test/review specialists and one heavy process. Unity/native and
 Owner campaigns remain deferred. P17 canonical report has been read; healthy
-reboots/35% Recognition floor stand and Legacy Sequel remains pending.
+reboots/35% Recognition floor stand; Legacy Sequel is an adopted dormant return
+within Direct Sequel. No P17 question from this session remains pending.

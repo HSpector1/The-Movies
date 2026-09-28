@@ -1,26 +1,29 @@
-# P17 recovered specification and pending product decisions
+# P17 recovered specification and adopted product decisions
 
 ## Adopted user decisions
 
-The user selected both recommended answers in this session:
+The user selected these recommended answers in this session:
 
 - “Allow healthy-franchise reboots (recommended)”: rebooting a still-healthy
   franchise is legal; the existing property-wide audience fatigue still applies.
 - “Keep a lasting recognition floor (recommended)”: Recognition retains a durable
   floor at35% of the franchise's quality-qualified peak, as stated in the question.
+- “Dormant return within Direct Sequel (recommended)”: a legacy sequel is a
+  Direct Sequel returning after a long dormant period, not a sixth continuation
+  type. Record the dormancy interpretation without creating another lineage type.
 
-These resolve revision02 §19.2 choices1 and2. They are user decisions, not an
+These resolve revision02 §19.2 choices1,2 and4. They are user decisions, not an
 inferred acceptance of researcher recommendations. Do not ask them again. This
 does not select optional hype/cast/crossover features or resolve remaining scope
 questions. P14 work continues in its existing order.
 
 Recorded UTC: 2026-09-27T23:58:40.864721+00:00.
+Legacy Sequel answer received and adopted2026-09-28 UTC.
 
-## Remaining product question
+## Remaining scope boundaries
 
-Revision02 §19.2 choice4 has now been asked: treat a legacy sequel as a dormant
-return within Direct Sequel (recommended), or make it a separate continuation
-type. This choice is PENDING until the user answers. No elapsed-time assumption.
+Revision02 §19.2 choice4 is now resolved by the explicit answer above. No product
+question remains pending from this session's three P17 questions.
 The optional inflated-expectation lever and optional cast-seat changes remain
 unselected; this question does not expand scope to those features.
 
@@ -41,9 +44,8 @@ At recovery, two genuine §19.2 product questions were sent asynchronously: heal
 legal with property-wide fatigue retained), and a lasting Recognition floor
 (recommend0.35 of quality-gated peak). The answers above now resolve both. Elapsed time and the researcher's recommendation alone did not adopt them. P14 work continues independently.
 
-The remaining §19.2 items are recorded for later scope reconciliation: an explicit
-inflated-expectation lever is not recommended for the first checkpoint; legacy
-sequel is recommended as a dormancy case of DIRECT SEQUEL; making a required cast
+The other §19.2 items remain recorded for later scope reconciliation: an explicit
+inflated-expectation lever is not recommended for the first checkpoint; making a required cast
 seat optional is outside P17 and is not proposed. No optional feature is authorized
 by this recovery note. Existing settled P15 decisions remain unchanged.
 

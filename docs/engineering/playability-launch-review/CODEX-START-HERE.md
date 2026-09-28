@@ -22,7 +22,8 @@ unchanged. IndependentD precedes parent application/publication,1282types(cap0),
 1283runtime(cap59). Then1284 soundstage and1287 queued/refused underA/B/F. No
 later source/execution release. Parent owns live integration/production and one
 heavy lane; same two specialists retain separate test/review roles. P17 report
-read complete, healthy reboots/35% Recognition adopted, Legacy Sequel pending.
+read complete; healthy reboots,35% Recognition floor and Legacy Sequel as a
+dormant Direct Sequel are adopted. No P17 question from this session is pending.
 Continue authorized program. Unity/native and Owner campaigns remain deferred;
 all prior failures and qualification limits remain recorded.
 
