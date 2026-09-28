@@ -1,0 +1,210 @@
+{
+  "gate": "1300-save-v30-compatibility-runtime",
+  "mode": "pre",
+  "time": "2026-09-28T06:31:35.934657+00:00",
+  "head": "52c95a3f78a9392c8031a287360f05ee3f6a36f2",
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "--no-file-parallelism",
+    "tests/p14b4-save-v30-compatibility.test.ts"
+  ],
+  "sourceRouteAdvanceCap": 0,
+  "advanceCounterMeasured": false,
+  "expectedSelection": {
+    "files": 1,
+    "selected": 36,
+    "filtered": 0
+  },
+  "manual": [
+    {
+      "path": "tests/p14b4-save-v30-compatibility.test.ts",
+      "bytes": 25226,
+      "sha256": "f7f97c673abc825dcc3dd64ccde8048fcfb9c626d04368ba1b96d6d9b736cff6"
+    },
+    {
+      "path": "src/core/save.ts",
+      "bytes": 474474,
+      "sha256": "88d1bab0db6c1b96c0895af9cdf09a353d8c16993791024bedbebd97cf3d0984"
+    },
+    {
+      "path": "vitest.workspace.ts",
+      "bytes": 1228,
+      "sha256": "2bb01ef4b7f9f02877e42b425e43f40e3905be769cd6f091cf61a3275563b446"
+    },
+    {
+      "path": "vitest.config.ts",
+      "bytes": 176,
+      "sha256": "2939ba611a5c025c2974043c98c06af10aadd3065925103d3f506bd1f1d07faa"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-p2/MANIFEST.json",
+      "bytes": 39934,
+      "sha256": "77fa32dabb635f4fc839328ac47b07a008b8d26953cff61cf10d1a3dbbb8c1d1"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-empty.json.gz",
+      "bytes": 47265,
+      "sha256": "93c925eb5bf5027b963bb8d5222497d7b1325979be0830ea1d4ee41fecf6ab8d",
+      "raw": {
+        "bytes": 383776,
+        "sha256": "2ca7733a9e7d60f13c0fc46d3646e6bb4711962d394523684717a5503afaea6a"
+      }
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-empty.provenance.json",
+      "bytes": 4290,
+      "sha256": "6ab685f8b59f6b8a61f3970c9e98a96bf90685c56d948d50c95d5315d4629588"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-current-p1.json.gz",
+      "bytes": 82610,
+      "sha256": "4947c31baa8cf9b948edd3a75b246df56c6d924e6d624ef1e18591d977f4cca7",
+      "raw": {
+        "bytes": 675654,
+        "sha256": "03017370f16d9d2cf211f5653650a6d41452f73f0e8b96bb4aa154a6a946f4ca"
+      }
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-current-p1.provenance.json",
+      "bytes": 4956,
+      "sha256": "8d971552112afe2c7e02501593b4fca03cd5d72be9d0b021bda20cbb175a0d89"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-replaced-p1.json.gz",
+      "bytes": 82642,
+      "sha256": "bfd215039345d8ce223283f1f21e8d16f61113bb0a583bae194c6fa7067263ad",
+      "raw": {
+        "bytes": 676287,
+        "sha256": "7d5dba1e1dcf78c361c42ccfe5637578a33e64e943662a6e201d699656eb9950"
+      }
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-replaced-p1.provenance.json",
+      "bytes": 6015,
+      "sha256": "67b0c4f3e228e8b26818ca22363040debe8a970d6921e57614869374247ee19e"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-withdrawn-p1.json.gz",
+      "bytes": 82599,
+      "sha256": "4b0d27c32d231b2815853343fe56e8282f9f0b766e9dc41d871f3652c60206ca",
+      "raw": {
+        "bytes": 676034,
+        "sha256": "95a01ac1e86772fc7e0e338fdc167261a244fb09e2b15d8c73e8ba4cd7a0bae7"
+      }
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-withdrawn-p1.provenance.json",
+      "bytes": 6476,
+      "sha256": "fdb410af8e8510cfa61b09eaab5671a52813e1bdcf02a3bb0077c471dd7d61b0"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-bound-open-p1.json.gz",
+      "bytes": 88103,
+      "sha256": "48ec1b4474c2d808cae8d689dde74b8695fa5a95f2b51499a384a189e7fb880e",
+      "raw": {
+        "bytes": 729829,
+        "sha256": "9d1a1ea177f021477fbd73d401e76bbb4a0448a680253082a100c1e5246862d9"
+      }
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-bound-open-p1.provenance.json",
+      "bytes": 5495,
+      "sha256": "18e72f4320a52739624675ca930348a4e575dafb3f565534fb7e1631de42c781"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-kept-and-broken-p1.json.gz",
+      "bytes": 95800,
+      "sha256": "5ad270aafe913186d0570c3e876f7d76d0108ec73a600c1e9e6c8036c5851654",
+      "raw": {
+        "bytes": 796283,
+        "sha256": "d4ddc01941f4a814cf992ad101a3a03b0b64aaa0043953d2108fa234a0475c4c"
+      }
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-kept-and-broken-p1.provenance.json",
+      "bytes": 5624,
+      "sha256": "4c80c68eef0f5f007663f62eb79dbfc891912931044b3901e0f51338f689a9a5"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-current-p1.json.gz",
+      "bytes": 122731,
+      "sha256": "560f645e0575a031d8a8e4b4320b968fdc2c25c264c05511f0d7cfe9494570d9",
+      "raw": {
+        "bytes": 1132766,
+        "sha256": "4902a1b2151529336091ffa30c488f2b6f2ecd818add1596eb8f37fbc81cb555"
+      }
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-current-p1.provenance.json",
+      "bytes": 24691,
+      "sha256": "7937653154e52a26ecbcd23fef2b9d171d7fb3ea08b7060827df875bf0a49640"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-shared-take-terminal-p1.json.gz",
+      "bytes": 122548,
+      "sha256": "c4065d9c150c7741adb0901625fae787fc6fdd2804daad4803e777df9ed0fa46",
+      "raw": {
+        "bytes": 1131090,
+        "sha256": "51cb83b5a9cbbc8aa08fdd1e66a269d2e57ff77a98e88d08e134f5d6a16d7918"
+      }
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-shared-take-terminal-p1.provenance.json",
+      "bytes": 6273,
+      "sha256": "b032a11a2066c286e105e2d19d72420d6628b956a1a2e218bbbf2bb16b5a1444"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-refused-p2-count-only-current-draft.json.gz",
+      "bytes": 82741,
+      "sha256": "dedd68ed7a975d362838dbbbc5b32016181052a62d3b82a33dea3d95a63d5497",
+      "raw": {
+        "bytes": 676337,
+        "sha256": "7f7529cb05ab29d2b27bb2855448d2b72e69b5b222b6b351698da0ec7632a253"
+      }
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-refused-p2-count-only-current-draft.provenance.json",
+      "bytes": 5239,
+      "sha256": "f1dbd042b5ddb4b59880c2d80987aff464a335a773c297bea69a99e1e751ad87"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1299-A-save-compatibility-neighbor-proposal.md",
+      "bytes": 14762,
+      "sha256": "5a4378279fc8fccb391ddaf3d54de28b9d5ff092e90d45cce340489119bcabcb"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1299-B-save-compatibility-neighbor-review.md",
+      "bytes": 6346,
+      "sha256": "cf7fcc5a0121dc3f3e71d4da655f91e1aaee92cfc979946ee912f4e7d4e5d352"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1299-F-parent-plan-adoption.md",
+      "bytes": 3146,
+      "sha256": "67624fa93f23a40f4cc82a1af37c44e0b52f8c4c6421c21bb8102d1978524a4b"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1299-save-compatibility-manifest.json",
+      "bytes": 9568,
+      "sha256": "01239bdcb25ba6238fa64089f33021c6bf0a2dccb385cb5c4ef04b0e85ce26a9"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1299-C-save-compatibility-manual-guard.py",
+      "bytes": 16708,
+      "sha256": "97d5695b5c8c98075dcd77bdfe7bf72e1c3c5d913f0117dbb6c3ece5109075b6"
+    }
+  ],
+  "boundedPreflight": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1300-save-v30-compatibility-runtime-preflight.json",
+    "bytes": 114020,
+    "sha256": "26667a21903745a780605cf69cf789dde1c8b9e77714f6c870603b848d63064c"
+  },
+  "automaticPayloadReads": false,
+  "excludedAutomaticReadPrefixes": [
+    "tests/fixtures/",
+    "ui/e2e/",
+    "ui/public/"
+  ]
+}
