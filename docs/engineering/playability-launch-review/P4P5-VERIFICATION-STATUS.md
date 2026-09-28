@@ -1,8 +1,8 @@
 # P4/P5 verification coverage
 
-Evidence cutoff: 2026-09-28, after Q22 / 1286. This is a navigation summary of recorded results, not a new contract, execution budget or full-suite pass. Save40, projection55 and evaluator7 are implemented. The outstanding verification below keeps the wider P14 task open.
+Evidence cutoff: 2026-09-28, after Q23 / 1289. This is a navigation summary of recorded results, not a new contract, execution budget or full-suite pass. Save40, projection55 and evaluator7 are implemented. The outstanding verification below keeps the wider P14 task open.
 
-The twenty-two core leaves Q01–Q22 passed across **fourteen separate selections**: 1234b (four), 1238 (two), 1253 (four), 1256 (one), 1259 (one), 1262 (two), 1265b (one), 1268 (one), 1271 (one), 1274 (one), 1277 (one), 1280 (one), 1283 (one), and1286 (one). There was no same-run twenty-two-leaf qualification. Three new Bridge leaves and one new UI leaf passed separately. Prior compiler/runtime failures and the Bridge synchronous timeout overrun remain in their original records.
+The twenty-three core leaves Q01–Q23 passed across **fifteen separate selections**: 1234b (four), 1238 (two), 1253 (four), 1256 (one), 1259 (one), 1262 (two), 1265b (one), 1268 (one), 1271 (one), 1274 (one), 1277 (one), 1280 (one), 1283 (one), 1286 (one), and1289 (one). There was no same-run twenty-three-leaf qualification. Three new Bridge leaves and one new UI leaf passed separately. Prior compiler/runtime failures and the Bridge synchronous timeout overrun remain in their original records.
 
 | Area | Actual qualified evidence | Remaining limit or next task |
 |---|---|---|
@@ -16,19 +16,18 @@ The twenty-two core leaves Q01–Q22 passed across **fourteen separate selection
 | Mixed stored version and receipt version | Q12 / 1259: actual Director root6/RA6 remained unchanged when another same-player material attachment scoped a quote into7; first actual freeze52 RA7 was committed on root6, with real52→156 employment and exact price/payment. | Freeze and ranking calls had identical receipt values. This run does not distinguish unequal alternative receipts. Later material offer was declined, not a P4 recruitment win. |
 | Legacy quote preservation | Full1,226-byte legacy baseline remains literal through 1256; Q12 separately retains the actual attached Director6 receipt. | Q12 did not rerun the complete legacy baseline. |
 | Public waiver | Actual accepted genre/class/project narrowing, three sequential successors, forward windows, remaining obligations, trust and current link negatives in Q09 / 1253. | Natural VOIDED evidence is still absent from its prior bounded search; do not extend that search or invent a witness. |
-| Wrong-seat and cancellation outcomes | Real player wrong-seat commit, pre-take cancellation and post-take earned evidence retention in 1238; strict and idempotent controls in 1253. | Queued/refused and rival wrong-seat callbacks need their own actual owner evidence. |
+| Wrong-seat and cancellation outcomes | Real player wrong-seat commit, pre-take cancellation and post-take earned evidence retention in 1238; strict and idempotent controls in 1253. | Q23 /1289 now qualifies refused and queued player requests: eight45→53 advances, six attempts (five accepted/one expected duplicate-seat refusal), one pure quote. Both refused/queued52 preserve OPEN; ordinary53 delivery/dequeue starts the named film and records one wrong-lead BROKEN outcome with beneficiary in support. No player take/release; rival wrong-seat callback remains open. |
 | Rival material policy and staffing | Implemented bounded fallback and subject-aware staffing; actual rival subject appends are qualified. | Actual material candidate order, accepted policy offer and matching staffing remain open. Failed1169 is not a positive witness and authorizes no rescue/retry. [Read-only scope notes](P4P5-RIVAL-POLICY-RECONNAISSANCE.md) record constraints without a new runtime route. |
 | Retirement and cross-owner availability | Q16 /1268: actual retired Actors now primary Director/Writer retain requested-Actor refusal, while current-profession admission is allowed; active Actor control RA. Three pure quotes, all59 old roots/85 takes retained; two unbound same-person roots excluded. | Q17 /1271 separately qualifies six pure cross-owner P5 queries: rival Actor company floor52/take57 versus Writer draft due46/take51, exact exclusive and seven/eight-week slack boundaries. Zero actions/advances; contracts unchanged. Q18 /1274 adds current Director-only retirement refusal and actual held Actor finishing work: five pure quotes, two accepted existing-task actions, one312→313 take/c00 drama/null. All111 old receipts/69 roots and both finishing records retained; no release/completed retirement. Q21 /1283 now qualifies delayed-release readmission:59 actual45→104 advances/five accepted mutations/four pure quotes; actual104 announcement/effective156 and a public waiver delay common release109→148, changing identical P5 RA to timing-FRAGILE despite27 weeks of uncapped slack and spare resources. Query147 allowed/query148 refused; no later arrival or player take. Historical V37 provenance/parity FAIL remains. |
 | Bridge and UI disclosure | New Bridge3/3 and isolated UI1/1 passed; own targets and rival UNKNOWN privacy, current-save replay/duplicates and genuine previous54 migration covered. | One Bridge leaf took228.867s despite a60s declaration; no timeout enforcement/performance claim. No disk coordinator, native consumer or full-UI qualification follows. |
 
-Primary closure records are in [the evidence directory](evidence/p14b4-20260919/): 1234-A/B, 1239-A/B/C, 1236-J/K/L, 1249-I/J/K, 1254-I/J/K, 1257-I/J/K 1260-I/J/K, 1263-I/J/K 1266-I/J/K, 1269-I/J/K 1272-I/J/K 1275-I/J/K 1278-I/J/K 1281-I/J/K and1284-I/J/K. The frozen detailed requirements remain [1226-A](evidence/p14b4-20260919/1226-A-p4p5-initial-test-requirements.md); their original candidate wording is historical, not a statement that current versions are still only proposed.
+Primary closure records are in [the evidence directory](evidence/p14b4-20260919/): 1234-A/B, 1239-A/B/C, 1236-J/K/L, 1249-I/J/K, 1254-I/J/K, 1257-I/J/K 1260-I/J/K, 1263-I/J/K 1266-I/J/K, 1269-I/J/K 1272-I/J/K 1275-I/J/K 1278-I/J/K 1281-I/J/K 1284-I/J/K and1287-I/J/K. The frozen detailed requirements remain [1226-A](evidence/p14b4-20260919/1226-A-p4p5-initial-test-requirements.md); their original candidate wording is historical, not a statement that current versions are still only proposed.
 
-Current next work is accepted1287-C queued/refused project-outcome source under
-A/B/F: eight develop:true45→53 advances, six attempts (five accepted/one expected
-refusal), one explicit promise quote. IndependentD then parent publication,
-1288types0/1289runtime8. Separate scenery/post source-only candidates need later
-A/B; no execution release yet. Keep one live integration/production writer,
-separate test/review specialists and one heavy process. P17 choices are settled;
-paper reproduction is separately reviewed with explicit limits. Required P18
-charter is source-reviewed; unspecified TV rules remain proposed. Unity/native
-and Owner campaigns remain deferred.
+Current next work is adopted1290-C scenery-capacity source under A/B/F:
+four public set actions, two identical pure P5crime quotes, zero advances.
+IndependentD then parent application/publication,1291types0/1292runtime0.
+1293 post-capacity plan remains source-only and requires independent review.
+Keep one live integration/production writer, separate retained test/review
+specialists and one heavy process. P17 choices and reviewed paper reproduction
+are recorded with engine/balance limits. Required P18 charter is source-reviewed;
+unspecified TV rules remain proposed. Unity/native and Owner campaigns deferred.

@@ -1,5 +1,28 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — Queued project outcome qualified; scenery source next
+
+Executed/published65bf39140429ddf0934be94c5e9fe3c9fe2f3c6c matched GitHub.
+1288 root types PASS36.414s;1289 Q23 PASS1/zero filtered14.855s recorder,
+10.143s leaf. All1,692 source files,261 manual pins,index/stage and fixed-source
+checks stayed exact.1287-I/J/K close eight develop:true45→53 advances, six
+public attempts (five accepted and one expected duplicate-Actor refusal), one
+direct quote and one ordinary queue observation. Refusal and queue52 preserve
+the open P5. Actual53 delivery frees both draft slots; queue commitment links
+prod0053 and breaks the promised lead once while the beneficiary plays support.
+Film debit and ordinary payroll/overhead reconcile;19 old takes and one actual
+rival48 subject remain joined. Twenty-three core leaves passed across fifteen
+separate selections, not a combined/full suite.
+
+Begin1290-C scenery source under adoptedA/B/F: same actual45, four fixed public
+set actions/two identical pure P5crime quotes/hard0advances. IndependentD precedes
+parent publication,1291types(cap0),1292runtime(cap0).1293 post-capacity planning
+remains source-only. Parent owns live integration/production and one heavy lane;
+same two specialists retain separate test/review roles. P17 selected choices and
+canonical paper reproduction remain recorded with explicit engine/balance limits;
+P18 charter is source-reviewed and unspecified TV rules remain proposed. Continue
+the authorized program. Unity/native and Owner campaigns remain deferred.
+
 ## CURRENT — Queued-project source applied; Q23 gates next
 
 Parent applied exact1287-C/D on published8626030c.1287-E records one new
