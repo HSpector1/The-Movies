@@ -1,5 +1,21 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — 1299 Save30 correction applied; gate1300 next
+
+Parent applied reviewed 1299-C/D (KEEP) on published 2bb5326e: one hunk in
+tests/p14b4-save-v30-compatibility.test.ts, title literal37→40 and toBe(38)→
+toBe(40), 25,226 bytes / f7f97c67. 1299-E records the rehashed manifest, inverse
+proof and companion checks the read-only reviewer could not run. Next, with no
+commit until both posts close: bounded pre cap0, companion 1299-C pre
+(P14_SAVE30_EXPECTED_HEAD = this published HEAD, P14_SAVE30_GUARD_SHA256 =
+97d5695b...), the exact 36-case command, bounded post, companion post. The 1297
+companion stays frozen to 1298. IN PROGRESS: a source sweep found about 58
+direct live-constant pins (saveVersion 38/39, projection 53/54 against live
+40/55) in about 40 other tests; a cause-scoped reviewed maintenance increment
+precedes one broad core(411 files, six 1296-A exclusions)/UI(204) regression.
+Rival material policy and R3 rival early release remain open. Same two
+specialists, parent live writer, one heavy process; Unity/native/Owner deferred.
+
 ## CURRENT — 1298 legacy neighbors closed; 1299 Save30 correction adopted
 
 Claude parent took over after Codex exhausted its allowance. 1297-K records the

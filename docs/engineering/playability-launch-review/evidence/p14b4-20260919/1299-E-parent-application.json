@@ -1,0 +1,63 @@
+{
+  "record": "1299-E parent application of the Save30 live-literal correction",
+  "timeUtc": "2026-09-28T06:31:01.612689+00:00",
+  "publishedBase": "2bb5326ef09255e7f8cd90022e134a889c2335cc",
+  "preimage": {
+    "path": "tests/p14b4-save-v30-compatibility.test.ts",
+    "bytes": 25277,
+    "sha256": "9da53d5d64e9015d9dca158c112232e8229872b98d39d1ce9d55b7ddb028e48a"
+  },
+  "source": {
+    "path": "tests/p14b4-save-v30-compatibility.test.ts",
+    "bytes": 25226,
+    "sha256": "f7f97c673abc825dcc3dd64ccde8048fcfb9c626d04368ba1b96d6d9b736cff6"
+  },
+  "stagedPostimage": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1299-stage/tests/p14b4-save-v30-compatibility.test.ts",
+    "bytes": 25226,
+    "sha256": "f7f97c673abc825dcc3dd64ccde8048fcfb9c626d04368ba1b96d6d9b736cff6"
+  },
+  "patch": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1299-save-compatibility.patch",
+    "bytes": 868,
+    "sha256": "dbd117a16cb1640ae4d1722b5dd7447814723081800616d9febf44da57004b89"
+  },
+  "manifest": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1299-save-compatibility-manifest.json",
+    "bytes": 9568,
+    "sha256": "01239bdcb25ba6238fa64089f33021c6bf0a2dccb385cb5c4ef04b0e85ce26a9"
+  },
+  "companion": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1299-C-save-compatibility-manual-guard.py",
+    "bytes": 16708,
+    "sha256": "97d5695b5c8c98075dcd77bdfe7bf72e1c3c5d913f0117dbb6c3ece5109075b6"
+  },
+  "author": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1299-C-save-compatibility-source-handback.md",
+    "bytes": 17575,
+    "sha256": "97f7536b873257bc49b333d356a824b6e78ec5b8328201a0747099699f434a35"
+  },
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1299-D-save-compatibility-source-review.md",
+    "bytes": 6382,
+    "sha256": "f322c4f214302f2b742654b1fe3c724b8da287f9825f92c5c4d53669c6c403d5"
+  },
+  "reviewVerdict": "KEEP",
+  "parentClosesReviewerUnverified": {
+    "manifestPins": "all 31 manifest pin rows (30 unique paths: 4 source/config, 19 authorized inputs with 9 decoded, 3 plan, 2 bounded helpers, stage, patch) rehashed by stdlib; only mismatch before application was the live test at its declared postimage identity, as designed",
+    "fullFileDiff": "live and staged files identical after deleting lines 228-229 from both; after application live bytes equal the staged postimage (cmp)",
+    "inverseProof": "scratch git apply -p1 yields f7f97c67...; git apply -R restores 9da53d5d... exactly",
+    "companionSyntax": "ast.parse OK; companion FILES literal equals manifest sourceConfigPins + fixtureInputs (23 rows, 9 decoded)",
+    "boundedHelpers": "run-bounded-source-c2.mjs and run-bounded-source-guards.py rehash to their manifest pins"
+  },
+  "compilerDecision": "No compiler run for the two literals (1299-F): toBe is <E>(expected: E) => void in Vitest 2.1.9; the only consumed-source change since the 1294b inventory is this test file.",
+  "runtimeExecuted": false,
+  "next": [
+    "publish",
+    "bounded pre 1300-save-v30-compatibility-runtime cap0",
+    "companion pre with P14_SAVE30_EXPECTED_HEAD=<published HEAD> and P14_SAVE30_GUARD_SHA256=97d5695b5c8c98075dcd77bdfe7bf72e1c3c5d913f0117dbb6c3ece5109075b6",
+    "recorder command",
+    "bounded post",
+    "companion post"
+  ]
+}
