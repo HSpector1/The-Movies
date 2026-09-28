@@ -1,0 +1,349 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/rB1
+
+ ❯ tests/p14b9-casting-readers.test.ts (4 tests | 2 failed) 228ms
+   × 1313-F note 9 — bridge/relationships.ts relationshipBlockFor observes the new kinds through pairChemistry, never through the raw catalogue > the row for a competition-only counterpart carries the DRIVER_COPY sentences and reads 0 shared pictures (sharedPictureCount is derived from firstTakes/releasedFilms, never from state.relationships) 154ms
+     → route premise failed: seed "r1315-readers-01" week-0 hiring market does not hold a writer, director, craft and 4 actors — got {"writer":"t-wri-01","director":"t-dir-07","craft":"t-cra-06","actors":["t-act-15","t-act-07"]}
+   × 1313-F note 9 — bridge/relationships.ts castingChemistryRows / castingChemistryWarning observe the new kinds the same way > a proposed seating pairing (a,d) as lead/antagonist shows the competition copy and (if the tier reads -1) the one-sentence warning 64ms
+     → route premise failed: seed "r1315-readers-01" week-0 hiring market does not hold a writer, director, craft and 4 actors — got {"writer":"t-wri-01","director":"t-dir-07","craft":"t-cra-06","actors":["t-act-15","t-act-07"]}
+ ❯ tests/p14b9-save-v42.test.ts (10 tests | 1 failed) 2954ms
+   ✓ 1313-A §3 — genuine V41 casting inputs migrate to V42 by adding sharedCompetitions: 0 and nothing else > genuine-v41-casting-acknowledged (24 edges, week 10, not greenlit): fresh V42 validates; every edge gains sharedCompetitions: 0; every other field is untouched 554ms
+   ✓ 1313-A §3 — genuine V41 casting inputs migrate to V42 by adding sharedCompetitions: 0 and nothing else > genuine-v41-casting-released (30 edges, week 19, released; three slate pairs share a production): migrates the same way — the released input is NOT retro-minted (no castingCompetitionLost/repeatedCompetition anywhere; every sharedCompetitions is 0) 490ms
+   ✓ 1313-A §3 — genuine V41 casting inputs migrate to V42 by adding sharedCompetitions: 0 and nothing else > without competitions, 42->41 is lossless: convertV42ToV41(convertV41ToV42(x)) exports byte-identical to the original genuine V41 text 774ms
+   ✓ 1313-A §3 — the acknowledged input, migrated then greenlit, mints real competitions; 42->41 then refuses by name > greenlightScriptProject under the V42-migrated state mints castingCompetitionLost for the three slate pairs; validateSaveV42 admits the result; convertV42ToV41 throws naming the reason 706ms
+   × every frozen reader V1..V41 admits its own version (house assertion form, regression pin) > migrateToV{4..41} + validateSaveV{4..41} both exist and admit the genuine acknowledged input projected down 339ms
+     → expected [Function] to not throw an error but 'Error: migrateToV39: cannot downgrade…' was thrown
+ ❯ tests/p14b9-casting-expiry.test.ts (2 tests | 2 failed) 283ms
+   × 1313-A §2 / 1313-F Amendment 4 — the Inseparable expiry note in financeUpcoming > the SYNTHETIC Inseparable variant is a whole state the live writer accepts (makeSave + validateSaveV41 do not throw) 185ms
+     → applyActions: signContract rejected — talent "t-act-00" is not currently available to sign (D-11.14)
+   × 1313-A §2 / 1313-F Amendment 4 — the Inseparable expiry note in financeUpcoming > the contractExpiry row for the expiring lead names each Inseparable roster counterpart, in employment order, and says nothing for the Colleagues-tier antagonist 97ms
+     → applyActions: signContract rejected — talent "t-act-00" is not currently available to sign (D-11.14)
+ ❯ tests/p14b9-casting-copy.test.ts (2 tests | 2 failed) 213ms
+   × 1313-F note 6 — pairChemistry dormancy copy for a competition-only edge > an edge with sharedProductions 0, queried well past the drift grace window, reads "they have never worked together" (not "...lately") 163ms
+     → route premise failed: seed "r1315-copy-01" week-0 hiring market does not hold a writer, director, craft and 4 actors — got {"writer":"t-wri-07","craft":"t-cra-01","actors":["t-act-03","t-act-17","t-act-18","t-act-04"]}
+   × 1313-A §1 "Copy" — DRIVER_COPY for castingCompetitionLost and repeatedCompetition > pairChemistry surfaces "competed for the same role" and "competed again" for a pair that lost twice 46ms
+     → route premise failed: seed "r1315-copy-01" week-0 hiring market does not hold a writer, director, craft and 4 actors — got {"writer":"t-wri-07","craft":"t-cra-01","actors":["t-act-03","t-act-17","t-act-18","t-act-04"]}
+ ❯ tests/p14b9-casting-competition.test.ts (13 tests | 10 failed | 1 skipped) 7621ms
+   × 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P1: lead and antagonist each mint one castingCompetitionLost driver on the right pair, ref = the production id, delta = -RELATIONSHIP_COMPETITION_DELTA through driverGain (identity today) 2888ms
+     → applyActions: greenlight rejected — Insufficient cash — this 5431207 commitment would leave cash at -4618864. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+   × 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P1: the off-slate support slot (seated c, candidates [a,b]) mints nothing for that slot 1100ms
+     → applyActions: greenlight rejected — Insufficient cash — this 5431207 commitment would leave cash at -4618864. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+   × 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P1: a competition-only edge is created with sharedProductions 0, sharedCompetitions 1, firstSharedWeek = the greenlight week 918ms
+     → applyActions: greenlight rejected — Insufficient cash — this 5431207 commitment would leave cash at -4618864. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+   × 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P2: pair (a,d) competes a second time on a different production — repeatedCompetition, delta = -min(n-1, RELATIONSHIP_COMPETITION_REPEAT_CAP); the pair never shares a production and reaches Strained (1313-A: "50 - 3 = 47, then 47 - 3 - 1 = 43") 384ms
+     → applyActions: greenlight rejected — Insufficient cash — this 5431207 commitment would leave cash at -4618864. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+   × 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P2: (b,c) and (a,c) are each fresh competition-only edges 315ms
+     → applyActions: greenlight rejected — Insufficient cash — this 5431207 commitment would leave cash at -4618864. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+   × 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P-dedup: a slate naming the same pair in two slots (each winning one from the other) records ONE competition for that production, not two (1313-F Amendment 2) 322ms
+     → applyActions: greenlight rejected — Insufficient cash — this 5431207 commitment would leave cash at -4618864. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+   × 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P3: a re-greenlight after a cancel mints again under the new production id (1313-F Amendment 3) — no first take exists at the cancel, so recordCancelledAfterFirstTake mints nothing extra there 350ms
+     → applyActions: greenlight rejected — Insufficient cash — this 5431207 commitment would leave cash at -4618864. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+   × 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P-no-session: a greenlight for a project with no casting session mints nothing for any of its seated pairs 471ms
+     → applyActions: greenlight rejected — Insufficient cash — this 5431207 commitment would leave cash at -4618864. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+   × 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > rngState is unchanged by the greenlight's minting (regression pin — driverGain is identity and no RNG stream exists today, so this is ALREADY true before the law lands; 1313-A: "No RNG, no reservation, no charge") 318ms
+     → applyActions: greenlight rejected — Insufficient cash — this 5431207 commitment would leave cash at -4618864. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+   × 1313-A §4 item 2 — no rival edge carries either new kind across a bounded natural run (1312-F Amendment 1: rivals hold no casting session) > 60 further weeks, zero player actions: every castingCompetitionLost/repeatedCompetition driver anywhere in state.relationships has ref in the set of productions this file greenlit as the player 312ms
+     → applyActions: greenlight rejected — Insufficient cash — this 5431207 commitment would leave cash at -4618864. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 17 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P1: lead and antagonist each mint one castingCompetitionLost driver on the right pair, ref = the production id, delta = -RELATIONSHIP_COMPETITION_DELTA through driverGain (identity today)
+Error: applyActions: greenlight rejected — Insufficient cash — this 5431207 commitment would leave cash at -4618864. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+ ❯ applyGreenlight src/core/actions.ts:456:13
+    454|     const aff = canAfford(state, productionCost + freelancerFees)
+    455|     if (!aff.ok) {
+    456|       throw new Error(`applyActions: greenlight rejected — ${aff.reaso…
+       |             ^
+    457|     }
+    458|     cash = state.studio.cash - productionCost - freelancerFees
+ ❯ applyGreenlightScriptProjectNow src/core/actions.ts:2406:16
+ ❯ src/core/actions.ts:2386:11
+ ❯ admitOrQueue src/core/actions.ts:1688:12
+ ❯ applyGreenlightScriptProject src/core/actions.ts:2384:10
+ ❯ Module.applyActions src/core/actions.ts:3018:16
+ ❯ castingCompetitionWorld tests/p14b9-casting-competition.test.ts:214:20
+ ❯ tests/p14b9-casting-competition.test.ts:250:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/17]⎯
+
+ FAIL  tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P1: the off-slate support slot (seated c, candidates [a,b]) mints nothing for that slot
+Error: applyActions: greenlight rejected — Insufficient cash — this 5431207 commitment would leave cash at -4618864. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+ ❯ applyGreenlight src/core/actions.ts:456:13
+    454|     const aff = canAfford(state, productionCost + freelancerFees)
+    455|     if (!aff.ok) {
+    456|       throw new Error(`applyActions: greenlight rejected — ${aff.reaso…
+       |             ^
+    457|     }
+    458|     cash = state.studio.cash - productionCost - freelancerFees
+ ❯ applyGreenlightScriptProjectNow src/core/actions.ts:2406:16
+ ❯ src/core/actions.ts:2386:11
+ ❯ admitOrQueue src/core/actions.ts:1688:12
+ ❯ applyGreenlightScriptProject src/core/actions.ts:2384:10
+ ❯ Module.applyActions src/core/actions.ts:3018:16
+ ❯ castingCompetitionWorld tests/p14b9-casting-competition.test.ts:214:20
+ ❯ tests/p14b9-casting-competition.test.ts:261:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/17]⎯
+
+ FAIL  tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P1: a competition-only edge is created with sharedProductions 0, sharedCompetitions 1, firstSharedWeek = the greenlight week
+Error: applyActions: greenlight rejected — Insufficient cash — this 5431207 commitment would leave cash at -4618864. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+ ❯ applyGreenlight src/core/actions.ts:456:13
+    454|     const aff = canAfford(state, productionCost + freelancerFees)
+    455|     if (!aff.ok) {
+    456|       throw new Error(`applyActions: greenlight rejected — ${aff.reaso…
+       |             ^
+    457|     }
+    458|     cash = state.studio.cash - productionCost - freelancerFees
+ ❯ applyGreenlightScriptProjectNow src/core/actions.ts:2406:16
+ ❯ src/core/actions.ts:2386:11
+ ❯ admitOrQueue src/core/actions.ts:1688:12
+ ❯ applyGreenlightScriptProject src/core/actions.ts:2384:10
+ ❯ Module.applyActions src/core/actions.ts:3018:16
+ ❯ castingCompetitionWorld tests/p14b9-casting-competition.test.ts:214:20
+ ❯ tests/p14b9-casting-competition.test.ts:268:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/17]⎯
+
+ FAIL  tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P2: pair (a,d) competes a second time on a different production — repeatedCompetition, delta = -min(n-1, RELATIONSHIP_COMPETITION_REPEAT_CAP); the pair never shares a production and reaches Strained (1313-A: "50 - 3 = 47, then 47 - 3 - 1 = 43")
+Error: applyActions: greenlight rejected — Insufficient cash — this 5431207 commitment would leave cash at -4618864. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+ ❯ applyGreenlight src/core/actions.ts:456:13
+    454|     const aff = canAfford(state, productionCost + freelancerFees)
+    455|     if (!aff.ok) {
+    456|       throw new Error(`applyActions: greenlight rejected — ${aff.reaso…
+       |             ^
+    457|     }
+    458|     cash = state.studio.cash - productionCost - freelancerFees
+ ❯ applyGreenlightScriptProjectNow src/core/actions.ts:2406:16
+ ❯ src/core/actions.ts:2386:11
+ ❯ admitOrQueue src/core/actions.ts:1688:12
+ ❯ applyGreenlightScriptProject src/core/actions.ts:2384:10
+ ❯ Module.applyActions src/core/actions.ts:3018:16
+ ❯ castingCompetitionWorld tests/p14b9-casting-competition.test.ts:214:20
+ ❯ tests/p14b9-casting-competition.test.ts:279:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/17]⎯
+
+ FAIL  tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P2: (b,c) and (a,c) are each fresh competition-only edges
+Error: applyActions: greenlight rejected — Insufficient cash — this 5431207 commitment would leave cash at -4618864. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+ ❯ applyGreenlight src/core/actions.ts:456:13
+    454|     const aff = canAfford(state, productionCost + freelancerFees)
+    455|     if (!aff.ok) {
+    456|       throw new Error(`applyActions: greenlight rejected — ${aff.reaso…
+       |             ^
+    457|     }
+    458|     cash = state.studio.cash - productionCost - freelancerFees
+ ❯ applyGreenlightScriptProjectNow src/core/actions.ts:2406:16
+ ❯ src/core/actions.ts:2386:11
+ ❯ admitOrQueue src/core/actions.ts:1688:12
+ ❯ applyGreenlightScriptProject src/core/actions.ts:2384:10
+ ❯ Module.applyActions src/core/actions.ts:3018:16
+ ❯ castingCompetitionWorld tests/p14b9-casting-competition.test.ts:214:20
+ ❯ tests/p14b9-casting-competition.test.ts:296:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/17]⎯
+
+ FAIL  tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P-dedup: a slate naming the same pair in two slots (each winning one from the other) records ONE competition for that production, not two (1313-F Amendment 2)
+Error: applyActions: greenlight rejected — Insufficient cash — this 5431207 commitment would leave cash at -4618864. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+ ❯ applyGreenlight src/core/actions.ts:456:13
+    454|     const aff = canAfford(state, productionCost + freelancerFees)
+    455|     if (!aff.ok) {
+    456|       throw new Error(`applyActions: greenlight rejected — ${aff.reaso…
+       |             ^
+    457|     }
+    458|     cash = state.studio.cash - productionCost - freelancerFees
+ ❯ applyGreenlightScriptProjectNow src/core/actions.ts:2406:16
+ ❯ src/core/actions.ts:2386:11
+ ❯ admitOrQueue src/core/actions.ts:1688:12
+ ❯ applyGreenlightScriptProject src/core/actions.ts:2384:10
+ ❯ Module.applyActions src/core/actions.ts:3018:16
+ ❯ castingCompetitionWorld tests/p14b9-casting-competition.test.ts:214:20
+ ❯ tests/p14b9-casting-competition.test.ts:307:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/17]⎯
+
+ FAIL  tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P3: a re-greenlight after a cancel mints again under the new production id (1313-F Amendment 3) — no first take exists at the cancel, so recordCancelledAfterFirstTake mints nothing extra there
+Error: applyActions: greenlight rejected — Insufficient cash — this 5431207 commitment would leave cash at -4618864. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+ ❯ applyGreenlight src/core/actions.ts:456:13
+    454|     const aff = canAfford(state, productionCost + freelancerFees)
+    455|     if (!aff.ok) {
+    456|       throw new Error(`applyActions: greenlight rejected — ${aff.reaso…
+       |             ^
+    457|     }
+    458|     cash = state.studio.cash - productionCost - freelancerFees
+ ❯ applyGreenlightScriptProjectNow src/core/actions.ts:2406:16
+ ❯ src/core/actions.ts:2386:11
+ ❯ admitOrQueue src/core/actions.ts:1688:12
+ ❯ applyGreenlightScriptProject src/core/actions.ts:2384:10
+ ❯ Module.applyActions src/core/actions.ts:3018:16
+ ❯ castingCompetitionWorld tests/p14b9-casting-competition.test.ts:214:20
+ ❯ tests/p14b9-casting-competition.test.ts:317:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/17]⎯
+
+ FAIL  tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P-no-session: a greenlight for a project with no casting session mints nothing for any of its seated pairs
+Error: applyActions: greenlight rejected — Insufficient cash — this 5431207 commitment would leave cash at -4618864. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+ ❯ applyGreenlight src/core/actions.ts:456:13
+    454|     const aff = canAfford(state, productionCost + freelancerFees)
+    455|     if (!aff.ok) {
+    456|       throw new Error(`applyActions: greenlight rejected — ${aff.reaso…
+       |             ^
+    457|     }
+    458|     cash = state.studio.cash - productionCost - freelancerFees
+ ❯ applyGreenlightScriptProjectNow src/core/actions.ts:2406:16
+ ❯ src/core/actions.ts:2386:11
+ ❯ admitOrQueue src/core/actions.ts:1688:12
+ ❯ applyGreenlightScriptProject src/core/actions.ts:2384:10
+ ❯ Module.applyActions src/core/actions.ts:3018:16
+ ❯ castingCompetitionWorld tests/p14b9-casting-competition.test.ts:214:20
+ ❯ tests/p14b9-casting-competition.test.ts:329:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/17]⎯
+
+ FAIL  tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > rngState is unchanged by the greenlight's minting (regression pin — driverGain is identity and no RNG stream exists today, so this is ALREADY true before the law lands; 1313-A: "No RNG, no reservation, no charge")
+Error: applyActions: greenlight rejected — Insufficient cash — this 5431207 commitment would leave cash at -4618864. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+ ❯ applyGreenlight src/core/actions.ts:456:13
+    454|     const aff = canAfford(state, productionCost + freelancerFees)
+    455|     if (!aff.ok) {
+    456|       throw new Error(`applyActions: greenlight rejected — ${aff.reaso…
+       |             ^
+    457|     }
+    458|     cash = state.studio.cash - productionCost - freelancerFees
+ ❯ applyGreenlightScriptProjectNow src/core/actions.ts:2406:16
+ ❯ src/core/actions.ts:2386:11
+ ❯ admitOrQueue src/core/actions.ts:1688:12
+ ❯ applyGreenlightScriptProject src/core/actions.ts:2384:10
+ ❯ Module.applyActions src/core/actions.ts:3018:16
+ ❯ castingCompetitionWorld tests/p14b9-casting-competition.test.ts:214:20
+ ❯ tests/p14b9-casting-competition.test.ts:340:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/17]⎯
+
+ FAIL  tests/p14b9-casting-competition.test.ts > 1313-A §4 item 2 — no rival edge carries either new kind across a bounded natural run (1312-F Amendment 1: rivals hold no casting session) > 60 further weeks, zero player actions: every castingCompetitionLost/repeatedCompetition driver anywhere in state.relationships has ref in the set of productions this file greenlit as the player
+Error: applyActions: greenlight rejected — Insufficient cash — this 5431207 commitment would leave cash at -4618864. New commitments require cash to stay at or above zero (unavoidable weekly payroll and overhead may still run it negative). (D-12 solvency gate)
+ ❯ applyGreenlight src/core/actions.ts:456:13
+    454|     const aff = canAfford(state, productionCost + freelancerFees)
+    455|     if (!aff.ok) {
+    456|       throw new Error(`applyActions: greenlight rejected — ${aff.reaso…
+       |             ^
+    457|     }
+    458|     cash = state.studio.cash - productionCost - freelancerFees
+ ❯ applyGreenlightScriptProjectNow src/core/actions.ts:2406:16
+ ❯ src/core/actions.ts:2386:11
+ ❯ admitOrQueue src/core/actions.ts:1688:12
+ ❯ applyGreenlightScriptProject src/core/actions.ts:2384:10
+ ❯ Module.applyActions src/core/actions.ts:3018:16
+ ❯ castingCompetitionWorld tests/p14b9-casting-competition.test.ts:214:20
+ ❯ tests/p14b9-casting-competition.test.ts:413:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/17]⎯
+
+ FAIL  tests/p14b9-casting-copy.test.ts > 1313-F note 6 — pairChemistry dormancy copy for a competition-only edge > an edge with sharedProductions 0, queried well past the drift grace window, reads "they have never worked together" (not "...lately")
+Error: route premise failed: seed "r1315-copy-01" week-0 hiring market does not hold a writer, director, craft and 4 actors — got {"writer":"t-wri-07","craft":"t-cra-01","actors":["t-act-03","t-act-17","t-act-18","t-act-04"]}
+ ❯ deriveMarket tests/p14b9-casting-copy.test.ts:57:11
+     55|   const actors = byRole('actor')
+     56|   if (writer === undefined || director === undefined || craft === unde…
+     57|     throw new Error(`route premise failed: seed "${SEED}" week-0 hirin…
+       |           ^
+     58|   }
+     59|   return { writer, director, craft, actors }
+ ❯ world tests/p14b9-casting-copy.test.ts:102:18
+ ❯ tests/p14b9-casting-copy.test.ts:126:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/17]⎯
+
+ FAIL  tests/p14b9-casting-copy.test.ts > 1313-A §1 "Copy" — DRIVER_COPY for castingCompetitionLost and repeatedCompetition > pairChemistry surfaces "competed for the same role" and "competed again" for a pair that lost twice
+Error: route premise failed: seed "r1315-copy-01" week-0 hiring market does not hold a writer, director, craft and 4 actors — got {"writer":"t-wri-07","craft":"t-cra-01","actors":["t-act-03","t-act-17","t-act-18","t-act-04"]}
+ ❯ deriveMarket tests/p14b9-casting-copy.test.ts:57:11
+     55|   const actors = byRole('actor')
+     56|   if (writer === undefined || director === undefined || craft === unde…
+     57|     throw new Error(`route premise failed: seed "${SEED}" week-0 hirin…
+       |           ^
+     58|   }
+     59|   return { writer, director, craft, actors }
+ ❯ world tests/p14b9-casting-copy.test.ts:102:18
+ ❯ tests/p14b9-casting-copy.test.ts:136:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/17]⎯
+
+ FAIL  tests/p14b9-casting-expiry.test.ts > 1313-A §2 / 1313-F Amendment 4 — the Inseparable expiry note in financeUpcoming > the SYNTHETIC Inseparable variant is a whole state the live writer accepts (makeSave + validateSaveV41 do not throw)
+Error: applyActions: signContract rejected — talent "t-act-00" is not currently available to sign (D-11.14)
+ ❯ applySignContract src/core/actions.ts:2584:11
+    2582|   // Operating phase: talent must be currently signable (hiring market…
+    2583|   if (!hiringMarketIds(state).includes(talentId)) {
+    2584|     throw new Error(
+       |           ^
+    2585|       `applyActions: signContract rejected — talent "${talentId}" is n…
+    2586|     )
+ ❯ Module.applyActions src/core/actions.ts:2970:16
+ ❯ world tests/p14b9-casting-expiry.test.ts:104:7
+ ❯ tests/p14b9-casting-expiry.test.ts:144:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/17]⎯
+
+ FAIL  tests/p14b9-casting-expiry.test.ts > 1313-A §2 / 1313-F Amendment 4 — the Inseparable expiry note in financeUpcoming > the contractExpiry row for the expiring lead names each Inseparable roster counterpart, in employment order, and says nothing for the Colleagues-tier antagonist
+Error: applyActions: signContract rejected — talent "t-act-00" is not currently available to sign (D-11.14)
+ ❯ applySignContract src/core/actions.ts:2584:11
+    2582|   // Operating phase: talent must be currently signable (hiring market…
+    2583|   if (!hiringMarketIds(state).includes(talentId)) {
+    2584|     throw new Error(
+       |           ^
+    2585|       `applyActions: signContract rejected — talent "${talentId}" is n…
+    2586|     )
+ ❯ Module.applyActions src/core/actions.ts:2970:16
+ ❯ world tests/p14b9-casting-expiry.test.ts:104:7
+ ❯ tests/p14b9-casting-expiry.test.ts:152:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/17]⎯
+
+ FAIL  tests/p14b9-casting-readers.test.ts > 1313-F note 9 — bridge/relationships.ts relationshipBlockFor observes the new kinds through pairChemistry, never through the raw catalogue > the row for a competition-only counterpart carries the DRIVER_COPY sentences and reads 0 shared pictures (sharedPictureCount is derived from firstTakes/releasedFilms, never from state.relationships)
+Error: route premise failed: seed "r1315-readers-01" week-0 hiring market does not hold a writer, director, craft and 4 actors — got {"writer":"t-wri-01","director":"t-dir-07","craft":"t-cra-06","actors":["t-act-15","t-act-07"]}
+ ❯ deriveMarket tests/p14b9-casting-readers.test.ts:78:11
+     76|   const actors = byRole('actor')
+     77|   if (writer === undefined || director === undefined || craft === unde…
+     78|     throw new Error(`route premise failed: seed "${SEED}" week-0 hirin…
+       |           ^
+     79|   }
+     80|   return { writer, director, craft, actors }
+ ❯ world tests/p14b9-casting-readers.test.ts:123:18
+ ❯ tests/p14b9-casting-readers.test.ts:164:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/17]⎯
+
+ FAIL  tests/p14b9-casting-readers.test.ts > 1313-F note 9 — bridge/relationships.ts castingChemistryRows / castingChemistryWarning observe the new kinds the same way > a proposed seating pairing (a,d) as lead/antagonist shows the competition copy and (if the tier reads -1) the one-sentence warning
+Error: route premise failed: seed "r1315-readers-01" week-0 hiring market does not hold a writer, director, craft and 4 actors — got {"writer":"t-wri-01","director":"t-dir-07","craft":"t-cra-06","actors":["t-act-15","t-act-07"]}
+ ❯ deriveMarket tests/p14b9-casting-readers.test.ts:78:11
+     76|   const actors = byRole('actor')
+     77|   if (writer === undefined || director === undefined || craft === unde…
+     78|     throw new Error(`route premise failed: seed "${SEED}" week-0 hirin…
+       |           ^
+     79|   }
+     80|   return { writer, director, craft, actors }
+ ❯ world tests/p14b9-casting-readers.test.ts:123:18
+ ❯ tests/p14b9-casting-readers.test.ts:178:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/17]⎯
+
+ FAIL  tests/p14b9-save-v42.test.ts > every frozen reader V1..V41 admits its own version (house assertion form, regression pin) > migrateToV{4..41} + validateSaveV{4..41} both exist and admit the genuine acknowledged input projected down
+AssertionError: expected [Function] to not throw an error but 'Error: migrateToV39: cannot downgrade…' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"Error: migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject"
+
+ ❯ tests/p14b9-save-v42.test.ts:234:48
+    232|       expect(typeof migrate, `migrateToV${String(v)} must exist`).toBe…
+    233|       expect(typeof validate, `validateSaveV${String(v)} must exist`).…
+    234|       expect(() => validate(migrate(v41))).not.toThrow()
+       |                                                ^
+    235|     }
+    236|   }, 30_000)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/17]⎯
+
+ Test Files  5 failed (5)
+      Tests  17 failed | 13 passed | 1 skipped (31)
+   Start at  13:58:23
+   Duration  12.09s (transform 3.19s, setup 0ms, collect 11.27s, tests 11.30s, environment 2ms, prepare 2.31s)
+
