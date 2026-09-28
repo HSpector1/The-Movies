@@ -1,0 +1,373 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/rA1
+
+ ❯ tests/p14b9-casting-expiry.test.ts (3 tests | 3 failed) 343ms
+   × 1313-A §2 / 1313-F Amendment 4 — the Inseparable expiry note in financeUpcoming > the SYNTHETIC Inseparable variants are a whole state the live writer accepts (makeSave + the live validateSave do not throw, whichever save version is live) 102ms
+     → applyActions: signContract rejected — talent "t-act-12" is not currently available to sign (D-11.14)
+   × 1313-A §2 / 1313-F Amendment 4 — the Inseparable expiry note in financeUpcoming > the contractExpiry row for the expiring lead names every Inseparable roster counterpart whose own committed term reaches past the expiry week, in employment order; says nothing for a stranger with no edge at all 63ms
+     → applyActions: signContract rejected — talent "t-act-12" is not currently available to sign (D-11.14)
+   × 1313-A §2 / 1313-F Amendment 4 — the Inseparable expiry note in financeUpcoming > INTERPRETATION (1313-F Amendment 4 + the committed-term condition, not settled law — reviewer rules): a counterpart whose own committed term ends BEFORE the lead's expiry week is excluded despite an Inseparable edge, because the bare rosterAt interval predicate cannot read a future week without also checking the [...41 chars]
+     → applyActions: signContract rejected — talent "t-act-12" is not currently available to sign (D-11.14)
+ ❯ tests/p14b9-save-v42.test.ts (10 tests | 7 failed) 2080ms
+   × 1313-A §3 — genuine V41 casting inputs migrate to V42 by adding sharedCompetitions: 0 and nothing else > genuine-v41-casting-acknowledged (24 edges, week 10, not greenlit): fresh V42 validates; every edge gains sharedCompetitions: 0; every other field is untouched 187ms
+     → convertV41ToV42 is not a function
+   × 1313-A §3 — genuine V41 casting inputs migrate to V42 by adding sharedCompetitions: 0 and nothing else > genuine-v41-casting-released (30 edges, week 19, released; three slate pairs share a production): migrates the same way — the released input is NOT retro-minted (no castingCompetitionLost/repeatedCompetition anywhere; every sharedCompetitions is 0) 108ms
+     → convertV41ToV42 is not a function
+   × 1313-A §3 — genuine V41 casting inputs migrate to V42 by adding sharedCompetitions: 0 and nothing else > without competitions, 42->41 is lossless: convertV42ToV41(convertV41ToV42(x)) exports byte-identical to the original genuine V41 text 222ms
+     → mods.convertV41ToV42 is not a function
+   × 1313-A §3 — the acknowledged input, migrated then greenlit, mints real competitions; 42->41 then refuses by name > greenlightScriptProject under the V42-migrated state mints castingCompetitionLost for the three slate pairs; validateSaveV42 admits the result; convertV42ToV41 throws naming the reason 147ms
+     → mods.convertV41ToV42 is not a function
+   × LIVE_SAVE_VERSION and the dispatcher message > LIVE_SAVE_VERSION is 42 10ms
+     → expected 41 to be 42 // Object.is equality
+   × LIVE_SAVE_VERSION and the dispatcher message > validateSave names the new ceiling in its unknown-version message ("1 through 42") 21ms
+     → expected [Function] to throw error matching /1 through 42/ but got 'validateSave: unknown saveVersion 999…'
+   × every frozen reader V1..V41 admits its own version (house assertion form, regression pin) > migrateToV{40,41} admit the genuine acknowledged input; migrateToV{4..39} admit a fresh, take-free world 1218ms
+     → expected [Function] to not throw an error but 'Error: migrateToV37: cannot downgrade…' was thrown
+ ❯ tests/p14b9-casting-readers.test.ts (4 tests | 2 failed) 2276ms
+   × 1313-F note 9 — bridge/relationships.ts relationshipBlockFor observes the new kinds through pairChemistry, never through the raw catalogue > the row for a competition-only counterpart carries the DRIVER_COPY sentences and reads 0 shared pictures (sharedPictureCount is derived from firstTakes/releasedFilms, never from state.relationships) 2164ms
+     → route/RED premise: "t-act-24" should disclose a tie with "t-act-12" on the viewer's own roster: expected undefined to be defined
+   × 1313-F note 9 — bridge/relationships.ts castingChemistryRows / castingChemistryWarning observe the new kinds the same way > a proposed seating pairing (a,d) as lead/antagonist shows the competition copy and (if the tier reads -1) the one-sentence warning 102ms
+     → expected null not to be null
+ ❯ tests/p14b9-casting-copy.test.ts (2 tests | 2 failed) 2098ms
+   × 1313-F note 6 — pairChemistry dormancy copy for a competition-only edge > an edge with sharedProductions 0, queried well past the drift grace window, reads "they have never worked together" (not "...lately") 2073ms
+     → expected [] to include 'they have never worked together'
+   × 1313-A §1 "Copy" — DRIVER_COPY for castingCompetitionLost and repeatedCompetition > pairChemistry surfaces "competed for the same role" and "competed again" for a pair that lost twice 22ms
+     → expected [] to include 'competed for the same role'
+ ❯ tests/p14b9-casting-competition.test.ts (13 tests | 8 failed | 1 skipped) 6526ms
+   × 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > the named law constants bind to real numbers (RED gate: a missing named export binds to undefined under vite) 17ms
+     → expected 'undefined' to be 'number' // Object.is equality
+   × 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P1: lead and antagonist each mint one castingCompetitionLost driver on the right pair, ref = the production id, delta = -RELATIONSHIP_COMPETITION_DELTA through driverGain (identity today) 2757ms
+     → expected [] to have a length of 1 but got +0
+   × 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P1: a competition-only edge is created with sharedProductions 0, sharedCompetitions 1, firstSharedWeek = the greenlight week 161ms
+     → expected undefined to be defined
+   × 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P2: pair (a,d) competes a second time on a different production — repeatedCompetition, delta = -min(n-1, RELATIONSHIP_COMPETITION_REPEAT_CAP); the pair never shares a production and reaches Strained (1313-A: "50 - 3 = 47, then 47 - 3 - 1 = 43") 32ms
+     → Cannot read properties of undefined (reading 'sharedProductions')
+   × 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P2: (b,c) and (a,c) are each fresh competition-only edges 136ms
+     → Cannot read properties of undefined (reading 'sharedProductions')
+   × 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P-dedup: a slate naming the same pair in two slots (each winning one from the other) records ONE competition for that production, not two (1313-F Amendment 2) 123ms
+     → Cannot read properties of undefined (reading 'sharedCompetitions')
+   × 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P3: a re-greenlight after a cancel mints again under the new production id (1313-F Amendment 3) — no first take exists at the cancel, so recordCancelledAfterFirstTake mints nothing extra there 66ms
+     → Cannot read properties of undefined (reading 'sharedCompetitions')
+   × 1313-F Amendment 1 — a queue-admitted greenlight mints the same as a direct one > a synthetic queue entry, granted by the real tick-driven admission step, mints the same castingCompetitionLost drivers as a direct greenlight 1642ms
+     → expected [] to have a length of 1 but got +0
+   ✓ 1313-A §4 item 2 — no rival edge carries either new kind across a bounded natural run (1312-F Amendment 1: rivals hold no casting session) > 60 further weeks, zero player actions: every castingCompetitionLost/repeatedCompetition driver anywhere in state.relationships has ref in the set of productions this file greenlit as the player 1504ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 22 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > the named law constants bind to real numbers (RED gate: a missing named export binds to undefined under vite)
+AssertionError: expected 'undefined' to be 'number' // Object.is equality
+
+Expected: "number"
+Received: "undefined"
+
+ ❯ tests/p14b9-casting-competition.test.ts:279:51
+    277| describe('1313-A/F casting-competition drivers — a generated world thr…
+    278|   it('the named law constants bind to real numbers (RED gate: a missin…
+    279|     expect(typeof RELATIONSHIP_COMPETITION_DELTA).toBe('number')
+       |                                                   ^
+    280|     expect(typeof RELATIONSHIP_COMPETITION_REPEAT_CAP).toBe('number')
+    281|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/22]⎯
+
+ FAIL  tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P1: lead and antagonist each mint one castingCompetitionLost driver on the right pair, ref = the production id, delta = -RELATIONSHIP_COMPETITION_DELTA through driverGain (identity today)
+AssertionError: expected [] to have a length of 1 but got +0
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ tests/p14b9-casting-competition.test.ts:287:24
+    285|     const [a, b, , d] = w.market.actors
+    286|     const leadDriver = driversOf(w.afterP1, a, d, 'castingCompetitionL…
+    287|     expect(leadDriver).toHaveLength(1)
+       |                        ^
+    288|     expect(leadDriver[0]).toMatchObject({ ref: w.p1, delta: -RELATIONS…
+    289|     const antagonistDriver = driversOf(w.afterP1, b, d, 'castingCompet…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/22]⎯
+
+ FAIL  tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P1: a competition-only edge is created with sharedProductions 0, sharedCompetitions 1, firstSharedWeek = the greenlight week
+AssertionError: expected undefined to be defined
+ ❯ tests/p14b9-casting-competition.test.ts:305:18
+    303|     const [a, , , d] = w.market.actors
+    304|     const edge = edgeOf(w.afterP1, a, d)!
+    305|     expect(edge).toBeDefined()
+       |                  ^
+    306|     expect(edge.sharedProductions).toBe(0)
+    307|     // RED: `sharedCompetitions` is not a field of RelationshipEdge ye…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/22]⎯
+
+ FAIL  tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P2: pair (a,d) competes a second time on a different production — repeatedCompetition, delta = -min(n-1, RELATIONSHIP_COMPETITION_REPEAT_CAP); the pair never shares a production and reaches Strained (1313-A: "50 - 3 = 47, then 47 - 3 - 1 = 43")
+TypeError: Cannot read properties of undefined (reading 'sharedProductions')
+ ❯ tests/p14b9-casting-competition.test.ts:316:17
+    314|     const [a, , , d] = w.market.actors
+    315|     const edge = edgeOf(w.afterP2, a, d)!
+    316|     expect(edge.sharedProductions).toBe(0) // d is never seated across…
+       |                 ^
+    317|     expect((edge as unknown as { sharedCompetitions: number }).sharedC…
+    318|     const losses = driversOf(w.afterP2, a, d, 'castingCompetitionLost')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/22]⎯
+
+ FAIL  tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P2: (b,c) and (a,c) are each fresh competition-only edges
+TypeError: Cannot read properties of undefined (reading 'sharedProductions')
+ ❯ tests/p14b9-casting-competition.test.ts:333:15
+    331|     const [a, b, c] = w.market.actors
+    332|     const bc = edgeOf(w.afterP2, b, c)!
+    333|     expect(bc.sharedProductions).toBe(0)
+       |               ^
+    334|     expect((bc as unknown as { sharedCompetitions: number }).sharedCom…
+    335|     const ac = edgeOf(w.afterP2, a, c)!
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/22]⎯
+
+ FAIL  tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P-dedup: a slate naming the same pair in two slots (each winning one from the other) records ONE competition for that production, not two (1313-F Amendment 2)
+TypeError: Cannot read properties of undefined (reading 'sharedCompetitions')
+ ❯ tests/p14b9-casting-competition.test.ts:345:65
+    343|     const beforeCount = (edgeOf(w.beforeDedup, a, b) as unknown as { s…
+    344|     const after = edgeOf(w.afterDedup, a, b)!
+    345|     expect((after as unknown as { sharedCompetitions: number }).shared…
+       |                                                                 ^
+    346|     const thisProduction = driversOf(w.afterDedup, a, b, 'castingCompe…
+    347|     expect(thisProduction).toHaveLength(1)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/22]⎯
+
+ FAIL  tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P3: a re-greenlight after a cancel mints again under the new production id (1313-F Amendment 3) — no first take exists at the cancel, so recordCancelledAfterFirstTake mints nothing extra there
+TypeError: Cannot read properties of undefined (reading 'sharedCompetitions')
+ ❯ tests/p14b9-casting-competition.test.ts:354:48
+    352|     const [a, b] = w.market.actors
+    353|     expect(w.p3a).not.toBe(w.p3b)
+    354|     const afterFirst = (edgeOf(w.afterP3a, a, b) as unknown as { share…
+       |                                                ^
+    355|     const afterSecond = (edgeOf(w.afterP3b, a, b) as unknown as { shar…
+    356|     expect(afterSecond).toBe(afterFirst + 1)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/22]⎯
+
+ FAIL  tests/p14b9-casting-competition.test.ts > 1313-F Amendment 1 — a queue-admitted greenlight mints the same as a direct one > a synthetic queue entry, granted by the real tick-driven admission step, mints the same castingCompetitionLost drivers as a direct greenlight
+AssertionError: expected [] to have a length of 1 but got +0
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ tests/p14b9-casting-competition.test.ts:441:24
+    439|     expect(productionId).toBeDefined()
+    440|     const leadDriver = driversOf(after, a, b, 'castingCompetitionLost'…
+    441|     expect(leadDriver).toHaveLength(1)
+       |                        ^
+    442|     expect(leadDriver[0]).toMatchObject({ delta: -RELATIONSHIP_COMPETI…
+    443|   }, 60_000)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/22]⎯
+
+ FAIL  tests/p14b9-casting-copy.test.ts > 1313-F note 6 — pairChemistry dormancy copy for a competition-only edge > an edge with sharedProductions 0, queried well past the drift grace window, reads "they have never worked together" (not "...lately")
+AssertionError: expected [] to include 'they have never worked together'
+ ❯ tests/p14b9-casting-copy.test.ts:143:26
+    141|     const farWeek = w.lastEventWeek + RELATIONSHIP_DRIFT_GRACE_WEEKS +…
+    142|     const chem = pairChemistry(w.state, w.a, w.d, farWeek)
+    143|     expect(chem.reasons).toContain('they have never worked together')
+       |                          ^
+    144|     expect(chem.reasons).not.toContain('they have not worked together …
+    145|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/22]⎯
+
+ FAIL  tests/p14b9-casting-copy.test.ts > 1313-A §1 "Copy" — DRIVER_COPY for castingCompetitionLost and repeatedCompetition > pairChemistry surfaces "competed for the same role" and "competed again" for a pair that lost twice
+AssertionError: expected [] to include 'competed for the same role'
+ ❯ tests/p14b9-casting-copy.test.ts:152:26
+    150|     const w = world()
+    151|     const chem = pairChemistry(w.state, w.a, w.d, w.lastEventWeek)
+    152|     expect(chem.reasons).toContain('competed for the same role')
+       |                          ^
+    153|     expect(chem.reasons).toContain('competed again')
+    154|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/22]⎯
+
+ FAIL  tests/p14b9-casting-expiry.test.ts > 1313-A §2 / 1313-F Amendment 4 — the Inseparable expiry note in financeUpcoming > the SYNTHETIC Inseparable variants are a whole state the live writer accepts (makeSave + the live validateSave do not throw, whichever save version is live)
+Error: applyActions: signContract rejected — talent "t-act-12" is not currently available to sign (D-11.14)
+ ❯ applySignContract src/core/actions.ts:2577:11
+    2575|   // Operating phase: talent must be currently signable (hiring market…
+    2576|   if (!hiringMarketIds(state).includes(talentId)) {
+    2577|     throw new Error(
+       |           ^
+    2578|       `applyActions: signContract rejected — talent "${talentId}" is n…
+    2579|     )
+ ❯ Module.applyActions src/core/actions.ts:2963:16
+ ❯ world tests/p14b9-casting-expiry.test.ts:147:7
+ ❯ tests/p14b9-casting-expiry.test.ts:187:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/22]⎯
+
+ FAIL  tests/p14b9-casting-expiry.test.ts > 1313-A §2 / 1313-F Amendment 4 — the Inseparable expiry note in financeUpcoming > the contractExpiry row for the expiring lead names every Inseparable roster counterpart whose own committed term reaches past the expiry week, in employment order; says nothing for a stranger with no edge at all
+Error: applyActions: signContract rejected — talent "t-act-12" is not currently available to sign (D-11.14)
+ ❯ applySignContract src/core/actions.ts:2577:11
+    2575|   // Operating phase: talent must be currently signable (hiring market…
+    2576|   if (!hiringMarketIds(state).includes(talentId)) {
+    2577|     throw new Error(
+       |           ^
+    2578|       `applyActions: signContract rejected — talent "${talentId}" is n…
+    2579|     )
+ ❯ Module.applyActions src/core/actions.ts:2963:16
+ ❯ world tests/p14b9-casting-expiry.test.ts:147:7
+ ❯ tests/p14b9-casting-expiry.test.ts:197:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/22]⎯
+
+ FAIL  tests/p14b9-casting-expiry.test.ts > 1313-A §2 / 1313-F Amendment 4 — the Inseparable expiry note in financeUpcoming > INTERPRETATION (1313-F Amendment 4 + the committed-term condition, not settled law — reviewer rules): a counterpart whose own committed term ends BEFORE the lead's expiry week is excluded despite an Inseparable edge, because the bare rosterAt interval predicate cannot read  [...74 chars]
+Error: applyActions: signContract rejected — talent "t-act-12" is not currently available to sign (D-11.14)
+ ❯ applySignContract src/core/actions.ts:2577:11
+    2575|   // Operating phase: talent must be currently signable (hiring market…
+    2576|   if (!hiringMarketIds(state).includes(talentId)) {
+    2577|     throw new Error(
+       |           ^
+    2578|       `applyActions: signContract rejected — talent "${talentId}" is n…
+    2579|     )
+ ❯ Module.applyActions src/core/actions.ts:2963:16
+ ❯ world tests/p14b9-casting-expiry.test.ts:147:7
+ ❯ tests/p14b9-casting-expiry.test.ts:221:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/22]⎯
+
+ FAIL  tests/p14b9-casting-readers.test.ts > 1313-F note 9 — bridge/relationships.ts relationshipBlockFor observes the new kinds through pairChemistry, never through the raw catalogue > the row for a competition-only counterpart carries the DRIVER_COPY sentences and reads 0 shared pictures (sharedPictureCount is derived from firstTakes/releasedFilms, never from state.relationships)
+AssertionError: route/RED premise: "t-act-24" should disclose a tie with "t-act-12" on the viewer's own roster: expected undefined to be defined
+ ❯ tests/p14b9-casting-readers.test.ts:181:111
+    179|     const block = relationshipBlockFor(w.state, w.a, viewerStudioId, w…
+    180|     const row = block.rows.find((r) => r.counterpartId === w.d)
+    181|     expect(row, `route/RED premise: "${w.a}" should disclose a tie wit…
+       |                                                                                                               ^
+    182|     expect(row!.drivers).toContain('competed for the same role')
+    183|     expect(row!.drivers).toContain('competed again')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/22]⎯
+
+ FAIL  tests/p14b9-casting-readers.test.ts > 1313-F note 9 — bridge/relationships.ts castingChemistryRows / castingChemistryWarning observe the new kinds the same way > a proposed seating pairing (a,d) as lead/antagonist shows the competition copy and (if the tier reads -1) the one-sentence warning
+AssertionError: expected null not to be null
+ ❯ tests/p14b9-casting-readers.test.ts:194:45
+    192|     const rows = castingChemistryRows(w.state, { directorId: w.market.…
+    193|     const leadAntagonistRow = rows.find((r) => r.seatA === 'lead' && r…
+    194|     expect(leadAntagonistRow.tierLabel).not.toBeNull()
+       |                                             ^
+    195|     expect(leadAntagonistRow.drivers).toContain('competed for the same…
+    196|     expect(leadAntagonistRow.drivers).toContain('competed again')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/22]⎯
+
+ FAIL  tests/p14b9-save-v42.test.ts > 1313-A §3 — genuine V41 casting inputs migrate to V42 by adding sharedCompetitions: 0 and nothing else > genuine-v41-casting-acknowledged (24 edges, week 10, not greenlit): fresh V42 validates; every edge gains sharedCompetitions: 0; every other field is untouched
+TypeError: convertV41ToV42 is not a function
+ ❯ tests/p14b9-save-v42.test.ts:112:93
+    110|     const v41 = genuineV41(acknowledgedRaw())
+    111|     expect(v41.state.relationships).toHaveLength(24) // MANIFEST fact
+    112|     const v42 = (saveModule as unknown as { convertV41ToV42: (s: V41Sa…
+       |                                                                                             ^
+    113|     expect(v42.saveVersion).toBe(42)
+    114|     const validated = (saveModule as unknown as { validateSaveV42: (s:…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/22]⎯
+
+ FAIL  tests/p14b9-save-v42.test.ts > 1313-A §3 — genuine V41 casting inputs migrate to V42 by adding sharedCompetitions: 0 and nothing else > genuine-v41-casting-released (30 edges, week 19, released; three slate pairs share a production): migrates the same way — the released input is NOT retro-minted (no castingCompetitionLost/repeatedCompetition anywhere; every sharedCompetitions is 0)
+TypeError: convertV41ToV42 is not a function
+ ❯ tests/p14b9-save-v42.test.ts:136:93
+    134|     const v41 = genuineV41(releasedRaw())
+    135|     expect(v41.state.relationships).toHaveLength(30) // MANIFEST fact
+    136|     const v42 = (saveModule as unknown as { convertV41ToV42: (s: V41Sa…
+       |                                                                                             ^
+    137|     const validated = (saveModule as unknown as { validateSaveV42: (s:…
+    138|     for (const edge of validated.state.relationships as (RelationshipE…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/22]⎯
+
+ FAIL  tests/p14b9-save-v42.test.ts > 1313-A §3 — genuine V41 casting inputs migrate to V42 by adding sharedCompetitions: 0 and nothing else > without competitions, 42->41 is lossless: convertV42ToV41(convertV41ToV42(x)) exports byte-identical to the original genuine V41 text
+TypeError: mods.convertV41ToV42 is not a function
+ ❯ tests/p14b9-save-v42.test.ts:152:52
+    150|       convertV42ToV41: (s: unknown) => unknown
+    151|     }
+    152|     const roundTripped = mods.convertV42ToV41(mods.convertV41ToV42(v41…
+       |                                                    ^
+    153|     expect(exportSave(roundTripped as SaveFile)).toBe(raw)
+    154|   }, 30_000)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/22]⎯
+
+ FAIL  tests/p14b9-save-v42.test.ts > 1313-A §3 — the acknowledged input, migrated then greenlit, mints real competitions; 42->41 then refuses by name > greenlightScriptProject under the V42-migrated state mints castingCompetitionLost for the three slate pairs; validateSaveV42 admits the result; convertV42ToV41 throws naming the reason
+TypeError: mods.convertV41ToV42 is not a function
+ ❯ tests/p14b9-save-v42.test.ts:166:22
+    164|       convertV42ToV41: (s: unknown) => unknown
+    165|     }
+    166|     const v42 = mods.convertV41ToV42(v41)
+       |                      ^
+    167|     const state = v42.state as unknown as GameState
+    168|     const projectId = 'script-0000'
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/22]⎯
+
+ FAIL  tests/p14b9-save-v42.test.ts > LIVE_SAVE_VERSION and the dispatcher message > LIVE_SAVE_VERSION is 42
+AssertionError: expected 41 to be 42 // Object.is equality
+
+- Expected
++ Received
+
+- 42
++ 41
+
+ ❯ tests/p14b9-save-v42.test.ts:197:31
+    195| describe('LIVE_SAVE_VERSION and the dispatcher message', () => {
+    196|   it('LIVE_SAVE_VERSION is 42', () => {
+    197|     expect(LIVE_SAVE_VERSION).toBe(42)
+       |                               ^
+    198|   })
+    199| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/22]⎯
+
+ FAIL  tests/p14b9-save-v42.test.ts > LIVE_SAVE_VERSION and the dispatcher message > validateSave names the new ceiling in its unknown-version message ("1 through 42")
+AssertionError: expected [Function] to throw error matching /1 through 42/ but got 'validateSave: unknown saveVersion 999…'
+
+- Expected: 
+/1 through 42/
+
++ Received: 
+"validateSave: unknown saveVersion 999 (this build handles versions 1 through 41 only)"
+
+ ❯ tests/p14b9-save-v42.test.ts:201:54
+    199| 
+    200|   it('validateSave names the new ceiling in its unknown-version messag…
+    201|     expect(() => validateSave({ saveVersion: 999 })).toThrow(/1 throug…
+       |                                                      ^
+    202|   })
+    203| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/22]⎯
+
+ FAIL  tests/p14b9-save-v42.test.ts > every frozen reader V1..V41 admits its own version (house assertion form, regression pin) > migrateToV{40,41} admit the genuine acknowledged input; migrateToV{4..39} admit a fresh, take-free world
+AssertionError: expected [Function] to not throw an error but 'Error: migrateToV37: cannot downgrade…' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"Error: migrateToV37: cannot downgrade or discard profession transition, industry retirement or entrant authority"
+
+ ❯ tests/p14b9-save-v42.test.ts:267:50
+    265|       expect(typeof migrate, `migrateToV${String(v)} must exist`).toBe…
+    266|       expect(typeof validate, `validateSaveV${String(v)} must exist`).…
+    267|       expect(() => validate(migrate(fresh))).not.toThrow()
+       |                                                  ^
+    268|     }
+    269|   }, 30_000)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/22]⎯
+
+ Test Files  5 failed (5)
+      Tests  22 failed | 9 passed | 1 skipped (32)
+   Start at  14:31:46
+   Duration  11.29s (transform 3.42s, setup 0ms, collect 12.53s, tests 13.32s, environment 4ms, prepare 1.48s)
+

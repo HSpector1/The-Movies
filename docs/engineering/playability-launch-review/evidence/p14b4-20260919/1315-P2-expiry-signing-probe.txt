@@ -1,0 +1,16 @@
+# scratch tree B (HEAD + Save42 draft); node_modules/.bin/vite-node <copy of 1315-P2-expiry-signing-probe.ts>
+terms [52,104,156,208]
+before t-wri-05 ["t-cra-09:craft","t-dir-04:director","t-wri-05:writer","t-act-24:actor","t-dir-03:director","t-act-08:actor","t-act-20:actor","t-act-12:actor"]
+ signed t-wri-05 208
+before t-cra-09 ["t-cra-09:craft","t-dir-05:director","t-wri-06:writer","t-act-24:actor","t-dir-04:director","t-act-09:actor","t-act-20:actor","t-act-13:actor"]
+ signed t-cra-09 208
+before t-dir-04 ["t-cra-08:craft","t-dir-05:director","t-wri-06:writer","t-act-24:actor","t-dir-04:director","t-act-08:actor","t-act-20:actor","t-act-12:actor"]
+ signed t-dir-04 208
+before t-act-24 ["t-cra-08:craft","t-dir-06:director","t-wri-06:writer","t-act-24:actor","t-dir-05:director","t-act-09:actor","t-act-20:actor","t-act-13:actor"]
+ signed t-act-24 208
+before t-act-08 ["t-cra-08:craft","t-dir-05:director","t-wri-06:writer","t-act-23:actor","t-dir-03:director","t-act-08:actor","t-act-19:actor","t-act-12:actor"]
+ signed t-act-08 52
+before t-act-20 ["t-cra-08:craft","t-dir-05:director","t-wri-06:writer","t-act-23:actor","t-dir-03:director","t-act-09:actor","t-act-20:actor","t-act-13:actor"]
+ signed t-act-20 208
+before t-act-12 ["t-cra-08:craft","t-dir-05:director","t-wri-06:writer","t-act-23:actor","t-dir-03:director","t-act-07:actor","t-act-19:actor","t-act-12:actor"]
+ signed t-act-12 60

@@ -1,0 +1,97 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/rB1
+
+ ❯ tests/p14b9-casting-expiry.test.ts (3 tests | 3 failed) 315ms
+   × 1313-A §2 / 1313-F Amendment 4 — the Inseparable expiry note in financeUpcoming > the SYNTHETIC Inseparable variants are a whole state the live writer accepts (makeSave + the live validateSave do not throw, whichever save version is live) 157ms
+     → applyActions: signContract rejected — talent "t-act-12" is not currently available to sign (D-11.14)
+   × 1313-A §2 / 1313-F Amendment 4 — the Inseparable expiry note in financeUpcoming > the contractExpiry row for the expiring lead names every Inseparable roster counterpart whose own committed term reaches past the expiry week, in employment order; says nothing for a stranger with no edge at all 106ms
+     → applyActions: signContract rejected — talent "t-act-12" is not currently available to sign (D-11.14)
+   × 1313-A §2 / 1313-F Amendment 4 — the Inseparable expiry note in financeUpcoming > INTERPRETATION (1313-F Amendment 4 + the committed-term condition, not settled law — reviewer rules): a counterpart whose own committed term ends BEFORE the lead's expiry week is excluded despite an Inseparable edge, because the bare rosterAt interval predicate cannot read a future week without also checking the [...40 chars]
+     → applyActions: signContract rejected — talent "t-act-12" is not currently available to sign (D-11.14)
+ ❯ tests/p14b9-save-v42.test.ts (10 tests | 1 failed) 3576ms
+   ✓ 1313-A §3 — genuine V41 casting inputs migrate to V42 by adding sharedCompetitions: 0 and nothing else > genuine-v41-casting-acknowledged (24 edges, week 10, not greenlit): fresh V42 validates; every edge gains sharedCompetitions: 0; every other field is untouched 805ms
+   ✓ 1313-A §3 — genuine V41 casting inputs migrate to V42 by adding sharedCompetitions: 0 and nothing else > genuine-v41-casting-released (30 edges, week 19, released; three slate pairs share a production): migrates the same way — the released input is NOT retro-minted (no castingCompetitionLost/repeatedCompetition anywhere; every sharedCompetitions is 0) 460ms
+   ✓ 1313-A §3 — genuine V41 casting inputs migrate to V42 by adding sharedCompetitions: 0 and nothing else > without competitions, 42->41 is lossless: convertV42ToV41(convertV41ToV42(x)) exports byte-identical to the original genuine V41 text 536ms
+   ✓ 1313-A §3 — the acknowledged input, migrated then greenlit, mints real competitions; 42->41 then refuses by name > greenlightScriptProject under the V42-migrated state mints castingCompetitionLost for the three slate pairs; validateSaveV42 admits the result; convertV42ToV41 throws naming the reason 533ms
+   × every frozen reader V1..V41 admits its own version (house assertion form, regression pin) > migrateToV{40,41} admit the genuine acknowledged input; migrateToV{4..39} admit a fresh, take-free world 1172ms
+     → expected [Function] to not throw an error but 'Error: migrateToV37: cannot downgrade…' was thrown
+ ✓ tests/p14b9-casting-readers.test.ts (4 tests) 2052ms
+   ✓ 1313-F note 9 — bridge/relationships.ts relationshipBlockFor observes the new kinds through pairChemistry, never through the raw catalogue > the row for a competition-only counterpart carries the DRIVER_COPY sentences and reads 0 shared pictures (sharedPictureCount is derived from firstTakes/releasedFilms, never from state.relationships) 1977ms
+ ✓ tests/p14b9-casting-copy.test.ts (2 tests) 1718ms
+   ✓ 1313-F note 6 — pairChemistry dormancy copy for a competition-only edge > an edge with sharedProductions 0, queried well past the drift grace window, reads "they have never worked together" (not "...lately") 1678ms
+ ✓ tests/p14b9-casting-competition.test.ts (13 tests | 1 skipped) 7295ms
+   ✓ 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P1: lead and antagonist each mint one castingCompetitionLost driver on the right pair, ref = the production id, delta = -RELATIONSHIP_COMPETITION_DELTA through driverGain (identity today) 2165ms
+   ✓ 1313-F Amendment 1 — a queue-admitted greenlight mints the same as a direct one > a synthetic queue entry, granted by the real tick-driven admission step, mints the same castingCompetitionLost drivers as a direct greenlight 1685ms
+   ✓ 1313-A §4 item 2 — no rival edge carries either new kind across a bounded natural run (1312-F Amendment 1: rivals hold no casting session) > 60 further weeks, zero player actions: every castingCompetitionLost/repeatedCompetition driver anywhere in state.relationships has ref in the set of productions this file greenlit as the player 2776ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/p14b9-casting-expiry.test.ts > 1313-A §2 / 1313-F Amendment 4 — the Inseparable expiry note in financeUpcoming > the SYNTHETIC Inseparable variants are a whole state the live writer accepts (makeSave + the live validateSave do not throw, whichever save version is live)
+Error: applyActions: signContract rejected — talent "t-act-12" is not currently available to sign (D-11.14)
+ ❯ applySignContract src/core/actions.ts:2584:11
+    2582|   // Operating phase: talent must be currently signable (hiring market…
+    2583|   if (!hiringMarketIds(state).includes(talentId)) {
+    2584|     throw new Error(
+       |           ^
+    2585|       `applyActions: signContract rejected — talent "${talentId}" is n…
+    2586|     )
+ ❯ Module.applyActions src/core/actions.ts:2970:16
+ ❯ world tests/p14b9-casting-expiry.test.ts:147:7
+ ❯ tests/p14b9-casting-expiry.test.ts:187:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  tests/p14b9-casting-expiry.test.ts > 1313-A §2 / 1313-F Amendment 4 — the Inseparable expiry note in financeUpcoming > the contractExpiry row for the expiring lead names every Inseparable roster counterpart whose own committed term reaches past the expiry week, in employment order; says nothing for a stranger with no edge at all
+Error: applyActions: signContract rejected — talent "t-act-12" is not currently available to sign (D-11.14)
+ ❯ applySignContract src/core/actions.ts:2584:11
+    2582|   // Operating phase: talent must be currently signable (hiring market…
+    2583|   if (!hiringMarketIds(state).includes(talentId)) {
+    2584|     throw new Error(
+       |           ^
+    2585|       `applyActions: signContract rejected — talent "${talentId}" is n…
+    2586|     )
+ ❯ Module.applyActions src/core/actions.ts:2970:16
+ ❯ world tests/p14b9-casting-expiry.test.ts:147:7
+ ❯ tests/p14b9-casting-expiry.test.ts:197:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  tests/p14b9-casting-expiry.test.ts > 1313-A §2 / 1313-F Amendment 4 — the Inseparable expiry note in financeUpcoming > INTERPRETATION (1313-F Amendment 4 + the committed-term condition, not settled law — reviewer rules): a counterpart whose own committed term ends BEFORE the lead's expiry week is excluded despite an Inseparable edge, because the bare rosterAt interval predicate cannot read  [...74 chars]
+Error: applyActions: signContract rejected — talent "t-act-12" is not currently available to sign (D-11.14)
+ ❯ applySignContract src/core/actions.ts:2584:11
+    2582|   // Operating phase: talent must be currently signable (hiring market…
+    2583|   if (!hiringMarketIds(state).includes(talentId)) {
+    2584|     throw new Error(
+       |           ^
+    2585|       `applyActions: signContract rejected — talent "${talentId}" is n…
+    2586|     )
+ ❯ Module.applyActions src/core/actions.ts:2970:16
+ ❯ world tests/p14b9-casting-expiry.test.ts:147:7
+ ❯ tests/p14b9-casting-expiry.test.ts:221:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  tests/p14b9-save-v42.test.ts > every frozen reader V1..V41 admits its own version (house assertion form, regression pin) > migrateToV{40,41} admit the genuine acknowledged input; migrateToV{4..39} admit a fresh, take-free world
+AssertionError: expected [Function] to not throw an error but 'Error: migrateToV37: cannot downgrade…' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"Error: migrateToV37: cannot downgrade or discard profession transition, industry retirement or entrant authority"
+
+ ❯ tests/p14b9-save-v42.test.ts:267:50
+    265|       expect(typeof migrate, `migrateToV${String(v)} must exist`).toBe…
+    266|       expect(typeof validate, `validateSaveV${String(v)} must exist`).…
+    267|       expect(() => validate(migrate(fresh))).not.toThrow()
+       |                                                  ^
+    268|     }
+    269|   }, 30_000)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+ Test Files  2 failed | 3 passed (5)
+      Tests  4 failed | 27 passed | 1 skipped (32)
+   Start at  14:31:58
+   Duration  12.00s (transform 3.53s, setup 0ms, collect 12.57s, tests 14.95s, environment 1ms, prepare 1.49s)
+
