@@ -1,0 +1,117 @@
+{
+  "record": "1308-E parent application of the reviewed combined R2/R3 RED",
+  "timeUtc": "2026-09-28T10:25:50.484994+00:00",
+  "reviews": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1308-D-combined-red-review.md",
+      "bytes": 10835,
+      "sha256": "34e87e5e362a6ad41985c138f17434f3e9d8d5b5284c87f88a4867b4e3c54f56"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1308-D2-red-revision-review.md",
+      "bytes": 12228,
+      "sha256": "3e2b911c3988017ebbde2a8c9604c7a7b62a2ec71eb0efd58e1359c8c11aebf6"
+    }
+  ],
+  "verdict": "1308-D REFINE (applied via 1308-F/C2); 1308-D2 KEEP",
+  "landed": [
+    {
+      "staged": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1308-stage/tests/p14a1-release-busy-set.test.ts",
+        "bytes": 23226,
+        "sha256": "4eb02b8e43cf17dd07b14eb76e9d3ee4dfda97ae2e7a0f6cf615790b93cbf170"
+      },
+      "landed": {
+        "path": "tests/p14a1-release-busy-set.test.ts",
+        "bytes": 23226,
+        "sha256": "4eb02b8e43cf17dd07b14eb76e9d3ee4dfda97ae2e7a0f6cf615790b93cbf170"
+      }
+    },
+    {
+      "staged": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1308-stage/tests/bridge-p14a1-release-busy-set.test.ts",
+        "bytes": 21017,
+        "sha256": "d8e55f123098bb1327b8ecb041adace9bd080bd69cfe8f7dd0b238f1ce0d7ed1"
+      },
+      "landed": {
+        "path": "tests/bridge-p14a1-release-busy-set.test.ts",
+        "bytes": 21020,
+        "sha256": "2da8d34b9c43e1dfeb44b82e5a8be69073cfc5604c371d6d04180d7f02512b8e"
+      }
+    },
+    {
+      "staged": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1308-stage/tests/bridge-p14r2r3-prior55.test.ts",
+        "bytes": 12867,
+        "sha256": "8673bc3b58cbe658d76c3db254a2e8c38918c8aabb0fea4e050d565ea439f6cb"
+      },
+      "landed": {
+        "path": "tests/bridge-p14r2r3-prior55.test.ts",
+        "bytes": 12867,
+        "sha256": "8673bc3b58cbe658d76c3db254a2e8c38918c8aabb0fea4e050d565ea439f6cb"
+      }
+    },
+    {
+      "staged": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1308-stage/tests/p14r3-rival-release.test.ts",
+        "bytes": 28511,
+        "sha256": "ba6ad04787330fe6bf7afd0ad4c84165cce406f2a5fbc7003bd749245062b7ad"
+      },
+      "landed": {
+        "path": "tests/p14r3-rival-release.test.ts",
+        "bytes": 28511,
+        "sha256": "ba6ad04787330fe6bf7afd0ad4c84165cce406f2a5fbc7003bd749245062b7ad"
+      }
+    },
+    {
+      "staged": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1308-stage/tests/p14r3-save-v41.test.ts",
+        "bytes": 29124,
+        "sha256": "2c505afb15406153b166b29c6fa39dd1e40ab4b6ac5f52350da914c6bedb544e"
+      },
+      "landed": {
+        "path": "tests/p14r3-save-v41.test.ts",
+        "bytes": 29124,
+        "sha256": "2c505afb15406153b166b29c6fa39dd1e40ab4b6ac5f52350da914c6bedb544e"
+      }
+    },
+    {
+      "staged": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1308-stage/tests/p13b-rival-scientist-staffing.test.ts",
+        "bytes": 10607,
+        "sha256": "54b546af7dbfa6402c14318a4cd915dc79eb274ac4a147ff87c0413468d44d82"
+      },
+      "landed": {
+        "path": "tests/p13b-rival-scientist-staffing.test.ts",
+        "bytes": 10607,
+        "sha256": "54b546af7dbfa6402c14318a4cd915dc79eb274ac4a147ff87c0413468d44d82"
+      }
+    }
+  ],
+  "parentEdit": "tests/bridge-p14a1-release-busy-set.test.ts lines 7-8: the stale physical-location comment (1304-stage) now names 1308-stage and this landing (1308-D2 check 5). No other byte differs from the staged files.",
+  "deferred": "The neighbor tests/bridge-p14b6-relationship-read-models.test.ts change (one cancel before the line-466 release) lands with the 1309 sweep, which also edits that file; it is not part of the RED gate.",
+  "redGate": {
+    "name": "1310-r2r3-red",
+    "command": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14a1-release-busy-set.test.ts",
+      "tests/bridge-p14a1-release-busy-set.test.ts",
+      "tests/bridge-p14r2r3-prior55.test.ts",
+      "tests/p14r3-rival-release.test.ts",
+      "tests/p14r3-save-v41.test.ts",
+      "tests/p13b-rival-scientist-staffing.test.ts"
+    ],
+    "production": "unchanged (LIVE_SAVE_VERSION 40, PROJECTION_VERSION 55)"
+  },
+  "predictions": {
+    "bridge-p14r2r3-prior55": "1 leaf RED at PROJECTION_VERSION 55 != 56",
+    "bridge-p14a1-release-busy-set": "9 RED (schema leaf 55 != 56; five seated and one founding leaf releaseAvailable true; two copy leaves contain half); 1 regression witness passes (free unseated person quotes)",
+    "p14a1-release-busy-set": "seated (5) and founding refusals RED (no throw); regression witnesses pass (post-release success, research seat, credited writer, founding allowed after foundStudio)",
+    "p14r3-rival-release": "happy path RED at movements.termination undefined; conditions (a) and (b) pass vacuously; Scientists-never-surplus and the role-target invariant pass; two it.skip",
+    "p14r3-save-v41": "every leaf calling a missing Save41 export fails with TypeError; live-boundary and stamps-41 leaves fail 40 != 41; the frozen-reader pair passes",
+    "p13b-rival-scientist-staffing": "both leaves pass (1308-Q: deficit 0 for weeks 266-420); a failure would witness under-hiring"
+  }
+}
