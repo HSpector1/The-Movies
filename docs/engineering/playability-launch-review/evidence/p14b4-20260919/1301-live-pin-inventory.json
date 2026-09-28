@@ -1,0 +1,1416 @@
+[
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-contract-generator.test.ts",
+  "line": 564,
+  "text": "const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 54 })",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-operations-events.test.ts",
+  "line": 323,
+  "text": "it('L6 is pure, mutates nothing, and validates inside the served projection-50 envelope', () => {",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-operations-events.test.ts",
+  "line": 333,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-owner-ux-projection20-migration.test.ts",
+  "line": 65,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": true
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-owner-ux-projection20-migration.test.ts",
+  "line": 119,
+  "text": "expect(after.saveVersion).toBe(38)",
+  "excluded": true
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-owner-ux-projection21-schema.test.ts",
+  "line": 18,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-owner-ux-projection21-schema.test.ts",
+  "line": 19,
+  "text": "expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-53')",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p10a-w0-people-projection.test.ts",
+  "line": 321,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-p10a-w0-people-projection.test.ts",
+  "line": 322,
+  "text": "expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-53')",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p11-capital-contributors.test.ts",
+  "line": 24,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p11-ready.test.ts",
+  "line": 52,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p13b-r07-setup.test.ts",
+  "line": 320,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-p13b-r07-setup.test.ts",
+  "line": 321,
+  "text": "expect(BRIDGE_SCHEMA.$id).toContain('projection-53')",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p13b-r07-setup.test.ts",
+  "line": 322,
+  "text": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p13b-s1b-seats.test.ts",
+  "line": 76,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p13b-s2-labs.test.ts",
+  "line": 115,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p13b-s3-plans.test.ts",
+  "line": 202,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p13b-s4-office.test.ts",
+  "line": 224,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p13b-s5-adoption.test.ts",
+  "line": 250,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-p13b-s5-adoption.test.ts",
+  "line": 251,
+  "text": "expect(BRIDGE_SCHEMA.$id).toContain('projection-53')",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p13b-s5-adoption.test.ts",
+  "line": 252,
+  "text": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p13b-s6-cancellation.test.ts",
+  "line": 270,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-p13b-s6-cancellation.test.ts",
+  "line": 271,
+  "text": "expect(BRIDGE_SCHEMA.$id).toContain('projection-53')",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p13b-s6-cancellation.test.ts",
+  "line": 272,
+  "text": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p13b-s7-disclosure.test.ts",
+  "line": 270,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-p13b-s7-disclosure.test.ts",
+  "line": 271,
+  "text": "expect(BRIDGE_SCHEMA.$id).toContain('projection-53')",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p13b-s7-disclosure.test.ts",
+  "line": 272,
+  "text": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p13b-s8-rivals.test.ts",
+  "line": 223,
+  "text": "expect(PROJECTION_VERSION).toBe(53) // RED: today PROJECTION_VERSION is 40",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-p13b-s8-rivals.test.ts",
+  "line": 224,
+  "text": "expect(BRIDGE_SCHEMA.$id).toContain('projection-53')",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p13b-s8-rivals.test.ts",
+  "line": 225,
+  "text": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-p13b-s8-rivals.test.ts",
+  "line": 233,
+  "text": "expect((JSON.parse(saved.saveJson) as { saveVersion: number }).saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-p13b-s8-rivals.test.ts",
+  "line": 404,
+  "text": "expect((JSON.parse(savedBefore.saveJson) as { saveVersion: number }).saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14a1-market.test.ts",
+  "line": 152,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-p14a1-market.test.ts",
+  "line": 153,
+  "text": "expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-53`)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14a1-market.test.ts",
+  "line": 154,
+  "text": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-p14a1-market.test.ts",
+  "line": 408,
+  "text": "expect(parsed.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14a2-market.test.ts",
+  "line": 217,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-p14a2-market.test.ts",
+  "line": 218,
+  "text": "expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-53`)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14a2-market.test.ts",
+  "line": 219,
+  "text": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14a2-market.test.ts",
+  "line": 232,
+  "text": "expect(LIVE_SAVE_VERSION).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14a2-market.test.ts",
+  "line": 739,
+  "text": "expect(LIVE_SAVE_VERSION).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-p14a2-market.test.ts",
+  "line": 772,
+  "text": "if (reSavedOpen.accepted) expect((JSON.parse(reSavedOpen.saveJson) as { saveVersion: number }).saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-p14a2-market.test.ts",
+  "line": 784,
+  "text": "if (reSavedSettled.accepted) expect((JSON.parse(reSavedSettled.saveJson) as { saveVersion: number }).saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-p14a2-market.test.ts",
+  "line": 794,
+  "text": "if (reSavedLegacy.accepted) expect((JSON.parse(reSavedLegacy.saveJson) as { saveVersion: number }).saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-p14a2-market.test.ts",
+  "line": 809,
+  "text": "expect(parsed.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14a3-world.test.ts",
+  "line": 229,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-p14a3-world.test.ts",
+  "line": 230,
+  "text": "expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-53`)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14a3-world.test.ts",
+  "line": 231,
+  "text": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14a3-world.test.ts",
+  "line": 245,
+  "text": "expect(LIVE_SAVE_VERSION).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14a3-world.test.ts",
+  "line": 575,
+  "text": "expect(LIVE_SAVE_VERSION).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-p14a3-world.test.ts",
+  "line": 600,
+  "text": "expect((JSON.parse(saved.saveJson) as { saveVersion: number }).saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-p14a3-world.test.ts",
+  "line": 622,
+  "text": "expect(parsed.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14b1-promises.test.ts",
+  "line": 207,
+  "text": "expect(LIVE_SAVE_VERSION).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14b1-promises.test.ts",
+  "line": 208,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-p14b1-promises.test.ts",
+  "line": 209,
+  "text": "expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-53`)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14b1-promises.test.ts",
+  "line": 210,
+  "text": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-p14b1-promises.test.ts",
+  "line": 499,
+  "text": "if (reSaved.accepted) expect((JSON.parse(reSaved.saveJson) as { saveVersion: number }).saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-p14b1-promises.test.ts",
+  "line": 515,
+  "text": "expect(parsed.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-p14b2-checkpoint.test.ts",
+  "line": 53,
+  "text": "expect(governed.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-p14b2-checkpoint.test.ts",
+  "line": 65,
+  "text": "expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 38, state: { ...source.state,",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+  "line": 61,
+  "text": "// schemaId before the projection-50 bump, read independently",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+  "line": 182,
+  "text": "expect(PROJECTION_VERSION).toBe(54)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+  "line": 183,
+  "text": "expect(LIVE_SAVE_VERSION).toBe(39)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14b5-relationships.test.ts",
+  "line": 348,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14b5-relationships.test.ts",
+  "line": 353,
+  "text": "expect(LIVE_SAVE_VERSION).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-p14b6-relationship-read-models.test.ts",
+  "line": 756,
+  "text": "it('projection 52, schema $id projection-52, LIVE_SAVE_VERSION now 37 (Scientist live boundary; B.6 itself has no save step), and the outgoing 48 identity is re",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14b6-relationship-read-models.test.ts",
+  "line": 760,
+  "text": "expect(LIVE_SAVE_VERSION).toBe(38) // B.6 has NO save step",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14b7-promise-waiver.test.ts",
+  "line": 137,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14b8-waiver-surface.test.ts",
+  "line": 776,
+  "text": "expect(PROJECTION_VERSION).toBe(54)",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-p14b8-waiver-surface.test.ts",
+  "line": 777,
+  "text": "expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-54`)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14b8-waiver-surface.test.ts",
+  "line": 778,
+  "text": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(54)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-p14b8-waiver-surface.test.ts",
+  "line": 817,
+  "text": "expect(hydrated.currentSave.saveVersion, 'P3: each historical slot reaches actual live Save39').toBe(39)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-p14b8-waiver-surface.test.ts",
+  "line": 818,
+  "text": "expect(hydrated.savedSave.saveVersion).toBe(39)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-p14c2rm-runtime.test.ts",
+  "line": 25,
+  "text": "expect(current.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-p14c2rm-runtime.test.ts",
+  "line": 45,
+  "text": "producerSha256: RUNTIME_51.producer, saveVersion: 37, projectionVersion: 51,",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14c2rm-runtime.test.ts",
+  "line": 65,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14c2rm-runtime.test.ts",
+  "line": 67,
+  "text": "expect(LIVE_SAVE_VERSION).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-p14c2s-scientist-runtime.test.ts",
+  "line": 63,
+  "text": "producerSha256: fixture.producer, saveVersion: 36, projectionVersion: 50, protocolVersion: 4,",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14c2s-scientist-runtime.test.ts",
+  "line": 82,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14c2s-scientist-runtime.test.ts",
+  "line": 83,
+  "text": "expect(LIVE_SAVE_VERSION).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-p14c2s-scientist-runtime.test.ts",
+  "line": 100,
+  "text": "expect(actual.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-p14c3-promise-digest-continuity.test.ts",
+  "line": 34,
+  "text": "projectionVersion: 52, saveVersion: 37, knownParityDefect: { status: 'FAIL', parsed208: { count: 12 } } })",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14c3-promise-digest-continuity.test.ts",
+  "line": 91,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-p14c3-promise-digest-continuity.test.ts",
+  "line": 139,
+  "text": "expect(current.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-p14c3-runtime.test.ts",
+  "line": 143,
+  "text": "expect(manifest).toMatchObject({ saveVersion: 37, projectionVersion: 52, knownParityDefect: { status: 'FAIL', parsed208: { count: 12 } } })",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14c3-runtime.test.ts",
+  "line": 160,
+  "text": "expect(PROJECTION_VERSION).toBe(53); expect(PROTOCOL_VERSION).toBe(4); expect(LIVE_SAVE_VERSION).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-p14c3-runtime.test.ts",
+  "line": 160,
+  "text": "expect(PROJECTION_VERSION).toBe(53); expect(PROTOCOL_VERSION).toBe(4); expect(LIVE_SAVE_VERSION).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-process-restart.test.ts",
+  "line": 797,
+  "text": "expect(hydrated.currentSave.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-process-restart.test.ts",
+  "line": 799,
+  "text": "expect(hydrated.savedSave?.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-r3n4-read-model-deltas.test.ts",
+  "line": 144,
+  "text": "expect(PROJECTION_VERSION).toBe(53)",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-r3n4-read-model-deltas.test.ts",
+  "line": 145,
+  "text": "expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-53')",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-runtime-checkpoint.test.ts",
+  "line": 232,
+  "text": "expect(loaded.hydrated.currentSave.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-runtime-checkpoint.test.ts",
+  "line": 233,
+  "text": "expect(loaded.hydrated.savedSave?.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-runtime-checkpoint.test.ts",
+  "line": 269,
+  "text": "expect(loaded.hydrated.currentSave.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-runtime-checkpoint.test.ts",
+  "line": 270,
+  "text": "expect(loaded.hydrated.savedSave?.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-runtime-checkpoint.test.ts",
+  "line": 331,
+  "text": "expect(hydrated.currentSave.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-runtime-checkpoint.test.ts",
+  "line": 332,
+  "text": "expect(hydrated.savedSave?.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-runtime-checkpoint.test.ts",
+  "line": 721,
+  "text": "expect(loaded.hydrated.currentSave.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-runtime-checkpoint.test.ts",
+  "line": 749,
+  "text": "expect(loaded.hydrated.savedSave?.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/bridge-runtime-checkpoint.test.ts",
+  "line": 777,
+  "text": "expect(loaded.hydrated.currentSave.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-runtime-checkpoint.test.ts",
+  "line": 995,
+  "text": "// schemaId before the projection-50 bump, also pinned independently by",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-schema.test.ts",
+  "line": 81,
+  "text": "projectionVersion: 54,",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-schema.test.ts",
+  "line": 84,
+  "text": "expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-54')",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/bridge-schema.test.ts",
+  "line": 340,
+  "text": "expect(PROJECTION_VERSION).toBe(54)",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/bridge-schema.test.ts",
+  "line": 341,
+  "text": "expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 54/)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/c2a-m3-rename-and-pooling.test.ts",
+  "line": 214,
+  "text": "expect(makeSave(state).saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/c2a-m3-rename-and-pooling.test.ts",
+  "line": 363,
+  "text": "expect(makeSave(state).saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/c2a-m3-screenplay-mint.test.ts",
+  "line": 356,
+  "text": "expect(save.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/construction-save-v11.test.ts",
+  "line": 189,
+  "text": "expect(save.saveVersion).toBe(38);",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/construction-save-v11.test.ts",
+  "line": 553,
+  "text": "expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/construction-save-v11.test.ts",
+  "line": 554,
+  "text": "/unknown saveVersion 39.*versions 1 through 38 only/,",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/contracts/v14-boundary-guards.contract.test.ts",
+  "line": 320,
+  "text": "expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(/unknown saveVersion 39/)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/contracts/v14-byte-parity.contract.test.ts",
+  "line": 205,
+  "text": "expect(save.saveVersion).toBe(38) // P14C.2b: the live version (was 35)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/d11-employment.test.ts",
+  "line": 551,
+  "text": "expect(save.saveVersion).toBe(38) // P13B-S8: new games save as V27.",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/d17-engagement-persistence.test.ts",
+  "line": 466,
+  "text": "expect(save.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/d17a-adv-migration.test.ts",
+  "line": 274,
+  "text": "expect(() => validateSave({ ...v6, saveVersion: 39 })).toThrow(/unknown saveVersion 39/)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/d17a-adv-reconciliation.test.ts",
+  "line": 337,
+  "text": "expect(reloaded.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/d17b-save-v7.test.ts",
+  "line": 163,
+  "text": "expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(/unknown saveVersion 39/)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/film-chronicle.test.ts",
+  "line": 911,
+  "text": "expect(envelope.saveVersion).toBe(38);",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/film-chronicle.test.ts",
+  "line": 922,
+  "text": "expect(restored.saveVersion).toBe(38);",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/film-chronicle.test.ts",
+  "line": 923,
+  "text": "if (restored.saveVersion !== 38) return;",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p04a2-writer-credit-law.test.ts",
+  "line": 773,
+  "text": "expect(save.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p09a-w0-founding-regime.test.ts",
+  "line": 137,
+  "text": "expect(save.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p13b-r07-save-v25.test.ts",
+  "line": 266,
+  "text": "it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => ",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p13b-r07-save-v25.test.ts",
+  "line": 267,
+  "text": "const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 39 }",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p13b-s2-save-v22.test.ts",
+  "line": 208,
+  "text": "expect(makeSave(live(migrated)).saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p13b-s2-save-v22.test.ts",
+  "line": 211,
+  "text": "it('refuses an unknown saveVersion 38 with the updated range (stale number corrected post-C.2b)', () => {",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p13b-s2-save-v22.test.ts",
+  "line": 214,
+  "text": "expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(/versions 1 through 38 only/)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p13b-s3-save-v23.test.ts",
+  "line": 118,
+  "text": "expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p13b-s3-save-v23.test.ts",
+  "line": 121,
+  "text": "it('an unknown saveVersion 38 is refused, naming the handled range (stale number corrected post-C.2b)', () => {",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p13b-s3-save-v23.test.ts",
+  "line": 122,
+  "text": "const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 39 }",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p13b-s5-save-v24.test.ts",
+  "line": 210,
+  "text": "expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p13b-s5-save-v24.test.ts",
+  "line": 213,
+  "text": "it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (stale numbers corrected post-C.2b)', () => {",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p13b-s5-save-v24.test.ts",
+  "line": 214,
+  "text": "const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 39 }",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p13b-s6-save-v26.test.ts",
+  "line": 221,
+  "text": "it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => ",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p13b-s6-save-v26.test.ts",
+  "line": 224,
+  "text": "const forged = { ...v26, saveVersion: 39 }",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p13b-s6-save-v26.test.ts",
+  "line": 254,
+  "text": "expect((reimported as { saveVersion: number }).saveVersion).toBe(38) // did NOT throw (at the live version this real advance writes)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p13b-s7-announcements.test.ts",
+  "line": 135,
+  "text": "expect(reimported.saveVersion).toBe(38) // S7 added no save root; the live version is S8's",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p13b-s8-save-v27.test.ts",
+  "line": 187,
+  "text": "expect(envelope.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p13b-s8-save-v27.test.ts",
+  "line": 211,
+  "text": "it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => ",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p13b-s8-save-v27.test.ts",
+  "line": 214,
+  "text": "const forged = { ...v27, saveVersion: 39 }",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14a1-save-v28.test.ts",
+  "line": 252,
+  "text": "it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (stale numbers corrected post-C.2b)', () => {",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14a1-save-v28.test.ts",
+  "line": 255,
+  "text": "const forged = { ...lifted, saveVersion: 39 }",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14b1-save-v29.test.ts",
+  "line": 202,
+  "text": "it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (stale numbers corrected post-C.2b)', () => {",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14b1-save-v29.test.ts",
+  "line": 205,
+  "text": "const forged = { ...lifted, saveVersion: 39 }",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14b3-rule-revision.test.ts",
+  "line": 161,
+  "text": "const expected38 = validateSaveV38({ saveVersion: 38, seed: liftedV32.seed,",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14b4-cancel-causal-proof.test.ts",
+  "line": 271,
+  "text": "expect(makeSave(state).saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14b4-cast-class-outcomes.test.ts",
+  "line": 79,
+  "text": "expect(validated.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14b4-rival-seating-preference.test.ts",
+  "line": 102,
+  "text": "expect(validated.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14b4-save-v30-compatibility.test.ts",
+  "line": 197,
+  "text": "const expected38 = validateSaveV38({ saveVersion: 38, seed: migrated.seed, state: { ...migrated.state,",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/p14b5-save-v31.test.ts",
+  "line": 196,
+  "text": "expect(LIVE_SAVE_VERSION).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/p14b7-promise-waiver.test.ts",
+  "line": 651,
+  "text": "expect(LIVE_SAVE_VERSION).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14bf2-acting-discipline.test.ts",
+  "line": 356,
+  "text": "const expected38 = validateSaveV38({ saveVersion: 38, seed: liftedV32.seed,",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/p14c1-materialized-aging.test.ts",
+  "line": 1008,
+  "text": "expect(LIVE_SAVE_VERSION).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/p14c2a-save-and-settlement.test.ts",
+  "line": 353,
+  "text": "expect(LIVE_SAVE_VERSION).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/p14c2b-save-v36.test.ts",
+  "line": 151,
+  "text": "expect(LIVE_SAVE_VERSION).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14c2b-save-v36.test.ts",
+  "line": 157,
+  "text": "expect((saved as { saveVersion: number }).saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14c2s-scientist-retirement.test.ts",
+  "line": 255,
+  "text": "expect(live.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14c2s-scientist-retirement.test.ts",
+  "line": 266,
+  "text": "expect(lifted.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14c2s-scientist-retirement.test.ts",
+  "line": 276,
+  "text": "expect(live.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14c2s-scientist-retirement.test.ts",
+  "line": 318,
+  "text": "expect(live.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "B-projection-form",
+  "path": "tests/p14c3-promise-digest-continuity.test.ts",
+  "line": 35,
+  "text": "projectionVersion: 52, saveVersion: 37, knownParityDefect: { status: 'FAIL', parsed208: { count: 12 } } })",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14c3-queued-writing-proof.test.ts",
+  "line": 20,
+  "text": "const envelope = (state: GameState) => ({ saveVersion: 38, seed: state.seed, state, broadcastCache: state.broadcastItems })",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14c3-save-v38.test.ts",
+  "line": 19,
+  "text": "expect(saved.saveVersion, 'existing makeSave must write the governed new envelope').toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/p14c3-save-v38.test.ts",
+  "line": 20,
+  "text": "expect(LIVE_SAVE_VERSION).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14c3-save-v38.test.ts",
+  "line": 38,
+  "text": "expect(upgraded.saveVersion, 'actual migration must change the current envelope').toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14c3-save-v38.test.ts",
+  "line": 63,
+  "text": "expect(converted.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14c3-second-episode-writing.test.ts",
+  "line": 144,
+  "text": "expect.soft(() => validateSaveV38({ saveVersion: 38, seed: malformed.seed, state: malformed,",
+  "excluded": false
+ },
+ {
+  "cls": "A-direct",
+  "path": "tests/p14c4-save-v35.test.ts",
+  "line": 57,
+  "text": "expect(LIVE_SAVE_VERSION).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14c4-save-v35.test.ts",
+  "line": 63,
+  "text": "expect((saved as { saveVersion: number }).saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14p3-directing-promises.test.ts",
+  "line": 321,
+  "text": "const save = saves.makeSave(state); expect(save.saveVersion).toBe(39)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14p3-directing-promises.test.ts",
+  "line": 324,
+  "text": "expect(() => saves.validateSaveV38({ ...clone(save), saveVersion: 38 })).toThrow(/predicate|promise/i)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14p3-directing-promises.test.ts",
+  "line": 359,
+  "text": "expect(current.saveVersion).toBe(39)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14p3-directing-promises.test.ts",
+  "line": 384,
+  "text": "expect(current.saveVersion).toBe(39)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14p3-directing-promises.test.ts",
+  "line": 635,
+  "text": "expect(() => saves.validateSaveV38({ ...clone(save), saveVersion: 38 })).toThrow(/predicate|promise/i)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14p3-directing-promises.test.ts",
+  "line": 1036,
+  "text": "expect(saves.makeSave(input.state).saveVersion).toBe(39)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14p3-directing-promises.test.ts",
+  "line": 1076,
+  "text": "expect(saves.makeSave(occupied).saveVersion).toBe(39)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14p4p5-casting-reservation.test.ts",
+  "line": 170,
+  "text": "expect(manifest.output).toEqual({ filename: 'genuine-v39-p3-market-week45.json.gz', saveVersion: 39, week: 45,",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14p4p5-cross-owner.test.ts",
+  "line": 61,
+  "text": "expect(manifest.output).toEqual({ filename: 'genuine-v39-p3-market-week45.json.gz', saveVersion: 39, week: 45,",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14p4p5-delayed-retirement.test.ts",
+  "line": 145,
+  "text": "expect(manifest.output).toEqual({ filename: 'genuine-v39-p3-market-week45.json.gz', saveVersion: 39, week: 45,",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14p4p5-queued-project-outcome.test.ts",
+  "line": 148,
+  "text": "expect(manifest.output).toEqual({ filename: 'genuine-v39-p3-market-week45.json.gz', saveVersion: 39, week: 45,",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/p14p4p5-scenery-capacity.test.ts",
+  "line": 162,
+  "text": "expect(manifest.output).toEqual({ filename: 'genuine-v39-p3-market-week45.json.gz', saveVersion: 39, week: 45,",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/property-state-v13.test.ts",
+  "line": 533,
+  "text": "expect(reloaded.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/property-state-v13.test.ts",
+  "line": 700,
+  "text": "expect(save.saveVersion).toBe(38)",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/property-state-v13.test.ts",
+  "line": 943,
+  "text": "expect(() => validateSave({ ...live, saveVersion: 39 })).toThrow(",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/property-state-v13.test.ts",
+  "line": 944,
+  "text": "/unknown saveVersion 39.*versions 1 through 38 only/,",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/save.test.ts",
+  "line": 239,
+  "text": "return migrateToLive(validateSaveV38({ saveVersion: 38, seed: historical.seed, state: historical, broadcastCache: historical.broadcastItems })).state;",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/save.test.ts",
+  "line": 283,
+  "text": "it(\"throws on an unknown saveVersion (e.g. 38; Scientist amendment 840 makes 37 live and valid)\", () => {",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/save.test.ts",
+  "line": 288,
+  "text": "const bad = { ...save, saveVersion: 39 } as unknown as SaveFileV14;",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/save.test.ts",
+  "line": 453,
+  "text": "it(\"rejects an unknown saveVersion 38 with the updated range, and rejects downgrading V15 to V14 (stale number corrected post-C.2b)\", () => {",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/save.test.ts",
+  "line": 455,
+  "text": "expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/script-projects-save-v9.test.ts",
+  "line": 415,
+  "text": "expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/script-projects-save-v9.test.ts",
+  "line": 416,
+  "text": "/unknown saveVersion 39/,",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "tests/script-projects-save-v9.test.ts",
+  "line": 418,
+  "text": "expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "ui/src/engine/d17-save-migration.test.ts",
+  "line": 131,
+  "text": "expect(JSON.parse(json).saveVersion).toBe(38) // Current C.3 writer: SaveFileV38.",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "ui/src/engine/d17-save-migration.test.ts",
+  "line": 155,
+  "text": "expect(JSON.parse(exportSaveJson(r.state)).saveVersion).toBe(38) // current C.3 writer: SaveFileV38.",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "ui/src/engine/film-chronicle-adapter.test.ts",
+  "line": 289,
+  "text": "expect((JSON.parse(json) as { saveVersion: number }).saveVersion).toBe(38) // current C.3 writer: SaveFileV38.",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts",
+  "line": 46,
+  "text": "expect(JSON.parse(json).saveVersion).toBe(38) // current C.3 writer: SaveFileV38.",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "ui/src/saves.test.tsx",
+  "line": 126,
+  "text": "expect(JSON.parse(json).saveVersion).toBe(38) // current C.3 writer: SaveFileV38.",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "ui/src/session.test.tsx",
+  "line": 332,
+  "text": "expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(38) // C.3: live saves are SaveFileV38.",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "ui/src/session.test.tsx",
+  "line": 360,
+  "text": "expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(38) // C.3: live saves are SaveFileV38.",
+  "excluded": false
+ },
+ {
+  "cls": "C-derived-saveVersion",
+  "path": "ui/src/session.test.tsx",
+  "line": 387,
+  "text": "expect(parsedV11.saveVersion).toBe(38) // C.3: live saves are SaveFileV38.",
+  "excluded": false
+ }
+]
