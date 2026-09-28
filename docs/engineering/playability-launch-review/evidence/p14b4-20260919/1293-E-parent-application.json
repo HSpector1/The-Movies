@@ -1,0 +1,51 @@
+{
+  "record": "1293-E parent application",
+  "timeUtc": "2026-09-28T03:14:30.899043+00:00",
+  "basePublishedSource": "6d332e8542692e7aa890c2b401c09950fc377d43",
+  "parentRead": "Complete591-line staged source, A/B/F, final C/D and final manifest fully read; exact final source/C/D/manifest/patch identities checked before application. Fixed actual35 week312 input with literal strict admission, genuine40 migration and complete roundtrips; explicit old111 takes/69 authorities. Four existing task assignment/scheduling actions, two ordinary default-false advances and one public post-take cancellation. Full actual receipt/material joins, managed post transitions and wrap313 stamp at returned314; exact claims11-to5-to4 and set wear. Two identical P4crime queries/empty union/free other resources. Exact six new relationship edges and cancellation deltas, independently derived person/studio conduct with empty-person studio fallback. No current funding, extra tick, old helper or producer. Only scoped code/config and authorized P14 input reads.",
+  "operation": "add one standalone Q25; preserve every older file",
+  "source": {
+    "path": "tests/p14p4p5-post-capacity.test.ts",
+    "bytes": 50058,
+    "sha256": "0b3907b1cd997318e55291fd33a6d580beb1c5b40eddadf70ccfe612e5bfc133"
+  },
+  "author": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-C-post-capacity-source-handback.md",
+    "bytes": 9089,
+    "sha256": "f10089ea6984b9c23e270046bd4ccb84c185f5b6219cee53ef548994af31f738"
+  },
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-D-post-capacity-source-review.md",
+    "bytes": 7615,
+    "sha256": "305a6d08b486bb71f7447252caf8dabe089ac1acd604887227d49611f03fa4d2"
+  },
+  "manifest": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-post-capacity-source-manifest.json",
+    "bytes": 18522,
+    "sha256": "2f457cd81d090318a9af621df6fd1a1c70cf3f0445f7c689249b479cdad85b4c"
+  },
+  "verifiedManifestPins": 74,
+  "protectedFilesUnchanged": 58,
+  "runtimeExecuted": false,
+  "next": {
+    "1294-post-capacity-types": [
+      "node_modules/.bin/tsc",
+      "--noEmit",
+      "-p",
+      "tsconfig.json"
+    ],
+    "1295-post-capacity-runtime": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p4p5-post-capacity.test.ts",
+      "-t",
+      "Q25 "
+    ]
+  },
+  "advanceCaps": {
+    "types": 0,
+    "runtime": 2
+  }
+}

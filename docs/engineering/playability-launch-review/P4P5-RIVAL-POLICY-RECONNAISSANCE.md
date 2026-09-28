@@ -71,3 +71,22 @@ resources and staffing facts from source/data. Preserve failed1169 and all prior
 qualification limits. No altered roster, seed, issuer, competing bid, funding,
 synthetic promise or outcome, rescue continuation or broad search run is released
 by these notes. The remaining actual rival-policy/staffing/callback gap stays open.
+
+## Additional bounded input check — natural208
+
+At published6d332e8542692e7aa890c2b401c09950fc377d43, parent parsed only the
+already-authorized `tests/fixtures/p14/genuine-v38-pre-p3/genuine-v38-p3-natural-week208.json.gz`
+with the standard library:174,916 gzip bytes / `a7418eb0f90fa2d10ae65e78e3c3b9e75ec19346970c677c1cfdeefce42b2960`;
+decoded1,705,876 bytes / `ebb00ca54328ef3340d959d830045d28c73dc493b8f069220256183e718fc4bb`.
+No project migration, quote, action or advance ran. This is an additional named
+snapshot check, not a broad corpus/runtime search or a new execution route.
+
+The actual208 state has30 closed cases (24 settled,4 declined,2 expired), zero
+current proposals and59 retained open promise rows. Each rival has its complete
+six-person Writer/Director/three-Actor/Craft employment roster ending416. Rivals
+r01/r02/r03 each retain one remaining3 film22 that already has a first take, plus
+one Ready script23; r04 has no production and Ready scripts11/14. These facts do
+not supply an open ordinary proposal-authoring trigger or an untaken committed
+company witness at this snapshot. No later case, candidate evaluation, offer,
+victory or staffing is inferred. The actual rival material-policy gap remains
+open; this check releases no continuation or replay of failed1169.

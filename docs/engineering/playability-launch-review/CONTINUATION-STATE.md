@@ -1,5 +1,30 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — Post-capacity source applied; Q25 gates next
+
+Parent applied reviewed1293-C/D on published6d332e85.1293-E records the exact
+50,058-byte standalone test0b3907b1,74 manifest pins and58 unchanged protected
+source images. Publish then1294 types(cap0),1295 isolatedQ25(cap2): four existing
+task actions at312, two ordinary advances to314, two identical P4crime queries
+around one post-take cancellation. Full post reservations, take history, set
+wear, six relationship edges and public trust fallback are runtime premises;
+the new leaf has a60s declaration. Twenty-four earlier leaves passed across
+sixteen separate selections; no combined/full-suite claim.
+
+Use only reviewed bounded helpers: automatic reads/diffs exclude fixtures,
+UI e2e and public payloads; authorized P14 manual inputs remain explicit.
+1296-B preserves the inherited Owner-fixture hashing error and historical guard
+limits. The six collection exclusions/holds in1296-A remain. No old gate repeats.
+
+1297-A/B/F adopts two bounded historical-neighbor files after Q25 closure; its
+extra manual-input guard must be concretely reviewed before execution. P15A1
+release-seam notes and independent review are preparation, with same-week rival
+ordering and RNG constraints still requiring a concrete implementation contract.
+The natural208 rival appendix adds no viable trigger or positive witness.
+Parent owns live production/integration and one heavy lane; the same two
+specialists retain separate test/review ownership. Continue the authorized
+program. P17 choices remain recorded; Unity/native and Owner campaigns deferred.
+
 ## CURRENT — Scenery capacity qualified; post-capacity source next
 
 Published/executed d2f55dd93ca9e3f9c11ca1287bada47788b5cedf matched GitHub.

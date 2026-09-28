@@ -1,0 +1,102 @@
+{
+  "record": "1297 bounded legacy-neighbor source/data proposal",
+  "sourceOnly": true,
+  "observedHead": "6d332e8542692e7aa890c2b401c09950fc377d43",
+  "files": [
+    {
+      "path": "tests/p14b4-d3-matching.test.ts",
+      "bytes": 6210,
+      "sha256": "31eefcc27339d8a518146256e474c1eb863b16f8b26b5b0044f30a830bfd0519"
+    },
+    {
+      "path": "tests/p14b3-rule-revision.test.ts",
+      "bytes": 17872,
+      "sha256": "fec9711ce1dd11467905cb421d59bb10495d40d0b183b9fa9aad353f0e752699"
+    },
+    {
+      "path": "src/harness/p13a/fixtures.ts",
+      "bytes": 2130,
+      "sha256": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5"
+    },
+    {
+      "path": "vitest.workspace.ts",
+      "bytes": 1228,
+      "sha256": "2bb01ef4b7f9f02877e42b425e43f40e3905be769cd6f091cf61a3275563b446"
+    },
+    {
+      "path": "vitest.config.ts",
+      "bytes": 176,
+      "sha256": "2939ba611a5c025c2974043c98c06af10aadd3065925103d3f506bd1f1d07faa"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/MANIFEST.json",
+      "bytes": 7195,
+      "sha256": "9e56cfe4202f6bc18d0952cee09514149dec30a7b74ea8f8fe202c2e86a221b3"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-current-p1.json.gz",
+      "bytes": 82607,
+      "sha256": "cadbbd41271b820a466d5d9114e198f7e44b4ff0c801df68fa0cbe69f677c1d2",
+      "raw": {
+        "bytes": 675654,
+        "sha256": "78decd6e96938facc2b9e20e433c44fcae4e998402d78be4122996d3887cdc0b"
+      }
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-current-p1.provenance.json",
+      "bytes": 5013,
+      "sha256": "3876035b391355ea0fd86ae97270391a5b2f5266b32299afbddf3de28388a2b0"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-withdrawn-p1.json.gz",
+      "bytes": 82566,
+      "sha256": "a34114171c81c37e46ebbc8ccc5bd72995bfad42e6bb8f828eb437a67ef6c5a1",
+      "raw": {
+        "bytes": 675401,
+        "sha256": "8ecb96f736ef81795af599e9827fba46fd98415c96a47df4d465e554ffa67586"
+      }
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-withdrawn-p1.provenance.json",
+      "bytes": 5186,
+      "sha256": "5c14d8645a5c11b64ced9e70ef62f37db338d34974770d754fac864b0219affc"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-role-label-refused-p1.json.gz",
+      "bytes": 122311,
+      "sha256": "febd33112d57128c67a025237add374aeb7925d94a7d941bd4b303b3fedc0367",
+      "raw": {
+        "bytes": 1121277,
+        "sha256": "0272162ec2746cefb1a7910487d6d30642c8743f9853d61a73ebef469a3df2b3"
+      }
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-role-label-refused-p1.provenance.json",
+      "bytes": 6603,
+      "sha256": "4eea49c7f0b4c9b147d1276b2eeff164067e86e65e2bd9c3ee262a72e9dfabfc"
+    }
+  ],
+  "commands": {
+    "1298-legacy-neighbors-runtime": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "--no-file-parallelism",
+      "tests/p14b4-d3-matching.test.ts",
+      "tests/p14b3-rule-revision.test.ts",
+      "-t",
+      "B4 D3 public pure matcher|pins the live evaluator generation|preserves genuine|new actual attachment"
+    ]
+  },
+  "selection": {
+    "files": 2,
+    "selectedLeaves": 13,
+    "filteredLeaves": 1,
+    "expectedAdvances": 0,
+    "newTestSource": false,
+    "timeoutChanges": false
+  },
+  "excludedLeaf": "actual later winning freeze keeps old root.version1 but stores genuine new rulesVersion4 receipt and binding",
+  "scope": "Existing pure matcher/generation/old save/attachment neighbors on the current P4P5 implementation. Source/data plan only; no project module or test executed."
+}
