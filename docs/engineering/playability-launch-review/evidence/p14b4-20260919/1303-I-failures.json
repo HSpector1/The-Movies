@@ -1,0 +1,758 @@
+{
+  "metadata": {
+    "task": "P14 task 1303-I -- attribute every failure in closed broad UI gate 1303",
+    "mode": "VERIFY (evidence reading and stdlib parsing only; no vitest/tsc/node/vite-node executed)",
+    "parsedEvidence": {
+      "gateRawTxt": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1303-p4p5-broad-ui.txt",
+        "bytes": 384582,
+        "sha256": "2c539640f056583bfed701df87da55995cdb35d70b93045f43dc42acbdf81e95"
+      },
+      "gateWrapperJson": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1303-p4p5-broad-ui.json",
+        "bytes": 52288,
+        "sha256": "7bfcec52fddc509b1cd28565c8350fffb8affe0cec934d70426addcfb68c5ff9"
+      },
+      "gatePreflightJson": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1303-p4p5-broad-ui-preflight.json",
+        "bytes": 114021,
+        "sha256": "e1b7ce96e4175497ea7f80857e16b4e8a7e933ae7c5d411e248aca1115968831"
+      },
+      "gatePostflightJson": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1303-p4p5-broad-ui-postflight.json",
+        "bytes": 114682,
+        "sha256": "38f92059cf244f2ff513e17cab752b9bc886e847e506f52d4a03b133ac4aa33b"
+      },
+      "baselineRawTxt": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1101-c3-final-ui.txt",
+        "bytes": 423106,
+        "sha256": "40e4eec4bceea1850c78cb31686ec8fcaf385a4dec68dc7c2c93bdcd611fb645"
+      }
+    },
+    "command": "node_modules/.bin/vitest run --project ui",
+    "executedSource": "42f216e8f1fa0a9f706640c783f19bf67c9c1e57",
+    "baselineSource": "6e63f4c82a286dc67271cce0d53a0e586a6b523b",
+    "gateSummary": {
+      "files": "10 failed | 194 passed (204)",
+      "cases": "31 failed | 2661 passed | 5 skipped (2697)"
+    },
+    "baselineSummary": {
+      "files": "12 failed | 191 passed (203)",
+      "cases": "39 failed | 2651 passed | 5 skipped (2695)",
+      "unhandledErrors": 1
+    },
+    "unhandledErrorsIn1303": 0,
+    "hollywoodPerformanceUnhandledTypeErrorRecurred": false,
+    "hollywoodPerformanceNote": "The 1101 baseline 'Unhandled Errors' section (TypeError: viewRef.current?.hollywoodPerformance is not a function, first frame ui/src/lot/StudioLotScreen.tsx:4854:37) does NOT appear in 1303's raw txt: no 'Unhandled Errors' heading, no 'Errors' summary line, and no 'hollywoodPerformance' string anywhere in the file (grep-confirmed).",
+    "comparisonMethod": "1119-A method: exact case identity = 'file > describe-chain > test name' string as printed on the ' FAIL |ui|' line. RETAINED = identical id present in both runs; CHANGED = identical id, differing primaryError/firstTestFrame; NEW = id only in 1303; VANISHED = id only in 1101.",
+    "counts": {
+      "currentFailingCases": 31,
+      "retained": 23,
+      "changedSameId": 0,
+      "new": 8,
+      "vanished": 16
+    },
+    "rawCaptureStructuralNote": "The raw ANSI-colored txt's 'Failed Tests N' block does not print one divider per failing case. Vitest collapses consecutive failing cases that share exactly one printed error object into a single divider block (multiple ' FAIL |ui|' header lines followed by ONE error/trace). This happened for 2 blocks in 1303: the un-numbered lead block before divider [1/31] (7 cases sharing 'Error: Test timed out in 5000ms.' with no source frame) and the block after divider [20/31] (3 StudioCalendar.career.test.tsx cases sharing one AssertionError). Per-case rows below inherit that shared error/frame verbatim; sharedErrorBlock/siblingsInBlock record this explicitly so it is not mistaken for 31 independently-diagnosed cases. This is confirmed as genuine vitest reporter behavior, not an ANSI-stripping artifact: the raw stream contains zero cursor-movement escape codes (checked programmatically), only SGR color codes, and the file-level '\u276f |ui| <file> (N tests | M failed)' dashboard lines independently corroborate the true 10-file / 31-case totals used throughout this record."
+  },
+  "failures": [
+    {
+      "id": "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 \u2014 App/Lot integration > greenlights the canonical Package into exact formation without replacing the Lot, canvas, or renderer",
+      "file": "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx",
+      "describePath": [
+        "World-First Lot-Native Casting Review Intervention V1 \u2014 App/Lot integration",
+        "greenlights the canonical Package into exact formation without replacing the Lot, canvas, or renderer"
+      ],
+      "primaryError": "Error: Test timed out in 5000ms.",
+      "firstTestFrame": null,
+      "sharedErrorBlock": true,
+      "siblingsInBlock": [
+        "ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx > Lot-native Casting review \u2014 App commit and handoff authority > never lets stale Casting review closures demote or mutate a newer exact event",
+        "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 \u2014 App/Lot integration > orients a cash stop to Administration and focuses the supporting Finances section",
+        "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 \u2014 App/Lot integration > clears every next-event transient across an accepted same-seed same-week whole-studio replacement",
+        "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > World Inspector Default V1 \u2014 no building click ever ejects > reaches the canonical deep screen ONLY through the explicit details action",
+        "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > never lets any place print its blocks out of the canonical order",
+        "ui/src/lot/livingTurn.scheduler.test.tsx > Living Turn V1 \u2014 the partition, at the seam > auto-pauses on the FIRST PAUSE-class stop, at exactly the hand-advanced week"
+      ],
+      "comparisonStatus": "RETAINED",
+      "baselinePrimaryError": "Error: Test timed out in 5000ms.",
+      "baselineFirstTestFrame": null,
+      "cluster": "C1-timeout-5000ms",
+      "causeClass": "FU1/FU2 inherited (timeout, no printed source frame)"
+    },
+    {
+      "id": "ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx > Lot-native Casting review \u2014 App commit and handoff authority > never lets stale Casting review closures demote or mutate a newer exact event",
+      "file": "ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx",
+      "describePath": [
+        "Lot-native Casting review \u2014 App commit and handoff authority",
+        "never lets stale Casting review closures demote or mutate a newer exact event"
+      ],
+      "primaryError": "Error: Test timed out in 5000ms.",
+      "firstTestFrame": null,
+      "sharedErrorBlock": true,
+      "siblingsInBlock": [
+        "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 \u2014 App/Lot integration > greenlights the canonical Package into exact formation without replacing the Lot, canvas, or renderer",
+        "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 \u2014 App/Lot integration > orients a cash stop to Administration and focuses the supporting Finances section",
+        "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 \u2014 App/Lot integration > clears every next-event transient across an accepted same-seed same-week whole-studio replacement",
+        "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > World Inspector Default V1 \u2014 no building click ever ejects > reaches the canonical deep screen ONLY through the explicit details action",
+        "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > never lets any place print its blocks out of the canonical order",
+        "ui/src/lot/livingTurn.scheduler.test.tsx > Living Turn V1 \u2014 the partition, at the seam > auto-pauses on the FIRST PAUSE-class stop, at exactly the hand-advanced week"
+      ],
+      "comparisonStatus": "RETAINED",
+      "baselinePrimaryError": "Error: Test timed out in 5000ms.",
+      "baselineFirstTestFrame": null,
+      "cluster": "C1-timeout-5000ms",
+      "causeClass": "FU1/FU2 inherited (timeout, no printed source frame)"
+    },
+    {
+      "id": "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 \u2014 App/Lot integration > orients a cash stop to Administration and focuses the supporting Finances section",
+      "file": "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx",
+      "describePath": [
+        "World-First Lot-Native Next-Event Cadence V1 \u2014 App/Lot integration",
+        "orients a cash stop to Administration and focuses the supporting Finances section"
+      ],
+      "primaryError": "Error: Test timed out in 5000ms.",
+      "firstTestFrame": null,
+      "sharedErrorBlock": true,
+      "siblingsInBlock": [
+        "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 \u2014 App/Lot integration > greenlights the canonical Package into exact formation without replacing the Lot, canvas, or renderer",
+        "ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx > Lot-native Casting review \u2014 App commit and handoff authority > never lets stale Casting review closures demote or mutate a newer exact event",
+        "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 \u2014 App/Lot integration > clears every next-event transient across an accepted same-seed same-week whole-studio replacement",
+        "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > World Inspector Default V1 \u2014 no building click ever ejects > reaches the canonical deep screen ONLY through the explicit details action",
+        "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > never lets any place print its blocks out of the canonical order",
+        "ui/src/lot/livingTurn.scheduler.test.tsx > Living Turn V1 \u2014 the partition, at the seam > auto-pauses on the FIRST PAUSE-class stop, at exactly the hand-advanced week"
+      ],
+      "comparisonStatus": "RETAINED",
+      "baselinePrimaryError": "Error: Test timed out in 5000ms.",
+      "baselineFirstTestFrame": null,
+      "cluster": "C1-timeout-5000ms",
+      "causeClass": "FU1/FU2 inherited (timeout, no printed source frame)"
+    },
+    {
+      "id": "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 \u2014 App/Lot integration > clears every next-event transient across an accepted same-seed same-week whole-studio replacement",
+      "file": "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx",
+      "describePath": [
+        "World-First Lot-Native Next-Event Cadence V1 \u2014 App/Lot integration",
+        "clears every next-event transient across an accepted same-seed same-week whole-studio replacement"
+      ],
+      "primaryError": "Error: Test timed out in 5000ms.",
+      "firstTestFrame": null,
+      "sharedErrorBlock": true,
+      "siblingsInBlock": [
+        "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 \u2014 App/Lot integration > greenlights the canonical Package into exact formation without replacing the Lot, canvas, or renderer",
+        "ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx > Lot-native Casting review \u2014 App commit and handoff authority > never lets stale Casting review closures demote or mutate a newer exact event",
+        "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 \u2014 App/Lot integration > orients a cash stop to Administration and focuses the supporting Finances section",
+        "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > World Inspector Default V1 \u2014 no building click ever ejects > reaches the canonical deep screen ONLY through the explicit details action",
+        "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > never lets any place print its blocks out of the canonical order",
+        "ui/src/lot/livingTurn.scheduler.test.tsx > Living Turn V1 \u2014 the partition, at the seam > auto-pauses on the FIRST PAUSE-class stop, at exactly the hand-advanced week"
+      ],
+      "comparisonStatus": "NEW",
+      "baselinePrimaryError": null,
+      "baselineFirstTestFrame": null,
+      "cluster": "C1-timeout-5000ms",
+      "causeClass": "FU1/FU2 inherited (timeout, no printed source frame)"
+    },
+    {
+      "id": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > World Inspector Default V1 \u2014 no building click ever ejects > reaches the canonical deep screen ONLY through the explicit details action",
+      "file": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx",
+      "describePath": [
+        "World Inspector Default V1 \u2014 no building click ever ejects",
+        "reaches the canonical deep screen ONLY through the explicit details action"
+      ],
+      "primaryError": "Error: Test timed out in 5000ms.",
+      "firstTestFrame": null,
+      "sharedErrorBlock": true,
+      "siblingsInBlock": [
+        "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 \u2014 App/Lot integration > greenlights the canonical Package into exact formation without replacing the Lot, canvas, or renderer",
+        "ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx > Lot-native Casting review \u2014 App commit and handoff authority > never lets stale Casting review closures demote or mutate a newer exact event",
+        "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 \u2014 App/Lot integration > orients a cash stop to Administration and focuses the supporting Finances section",
+        "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 \u2014 App/Lot integration > clears every next-event transient across an accepted same-seed same-week whole-studio replacement",
+        "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > never lets any place print its blocks out of the canonical order",
+        "ui/src/lot/livingTurn.scheduler.test.tsx > Living Turn V1 \u2014 the partition, at the seam > auto-pauses on the FIRST PAUSE-class stop, at exactly the hand-advanced week"
+      ],
+      "comparisonStatus": "NEW",
+      "baselinePrimaryError": null,
+      "baselineFirstTestFrame": null,
+      "cluster": "C1-timeout-5000ms",
+      "causeClass": "FU1/FU2 inherited (timeout, no printed source frame)"
+    },
+    {
+      "id": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > never lets any place print its blocks out of the canonical order",
+      "file": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx",
+      "describePath": [
+        "M-B \u2014 the buildings carry the verbs the guidance names",
+        "never lets any place print its blocks out of the canonical order"
+      ],
+      "primaryError": "Error: Test timed out in 5000ms.",
+      "firstTestFrame": null,
+      "sharedErrorBlock": true,
+      "siblingsInBlock": [
+        "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 \u2014 App/Lot integration > greenlights the canonical Package into exact formation without replacing the Lot, canvas, or renderer",
+        "ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx > Lot-native Casting review \u2014 App commit and handoff authority > never lets stale Casting review closures demote or mutate a newer exact event",
+        "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 \u2014 App/Lot integration > orients a cash stop to Administration and focuses the supporting Finances section",
+        "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 \u2014 App/Lot integration > clears every next-event transient across an accepted same-seed same-week whole-studio replacement",
+        "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > World Inspector Default V1 \u2014 no building click ever ejects > reaches the canonical deep screen ONLY through the explicit details action",
+        "ui/src/lot/livingTurn.scheduler.test.tsx > Living Turn V1 \u2014 the partition, at the seam > auto-pauses on the FIRST PAUSE-class stop, at exactly the hand-advanced week"
+      ],
+      "comparisonStatus": "RETAINED",
+      "baselinePrimaryError": "Error: Test timed out in 5000ms.",
+      "baselineFirstTestFrame": null,
+      "cluster": "C1-timeout-5000ms",
+      "causeClass": "FU1/FU2 inherited (timeout, no printed source frame)"
+    },
+    {
+      "id": "ui/src/lot/livingTurn.scheduler.test.tsx > Living Turn V1 \u2014 the partition, at the seam > auto-pauses on the FIRST PAUSE-class stop, at exactly the hand-advanced week",
+      "file": "ui/src/lot/livingTurn.scheduler.test.tsx",
+      "describePath": [
+        "Living Turn V1 \u2014 the partition, at the seam",
+        "auto-pauses on the FIRST PAUSE-class stop, at exactly the hand-advanced week"
+      ],
+      "primaryError": "Error: Test timed out in 5000ms.",
+      "firstTestFrame": null,
+      "sharedErrorBlock": true,
+      "siblingsInBlock": [
+        "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 \u2014 App/Lot integration > greenlights the canonical Package into exact formation without replacing the Lot, canvas, or renderer",
+        "ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx > Lot-native Casting review \u2014 App commit and handoff authority > never lets stale Casting review closures demote or mutate a newer exact event",
+        "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 \u2014 App/Lot integration > orients a cash stop to Administration and focuses the supporting Finances section",
+        "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 \u2014 App/Lot integration > clears every next-event transient across an accepted same-seed same-week whole-studio replacement",
+        "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > World Inspector Default V1 \u2014 no building click ever ejects > reaches the canonical deep screen ONLY through the explicit details action",
+        "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > never lets any place print its blocks out of the canonical order"
+      ],
+      "comparisonStatus": "NEW",
+      "baselinePrimaryError": null,
+      "baselineFirstTestFrame": null,
+      "cluster": "C1-timeout-5000ms",
+      "causeClass": "FU1/FU2 inherited (timeout, no printed source frame)"
+    },
+    {
+      "id": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > World Inspector Default V1 \u2014 no building click ever ejects > routes canvas intent and semantic companion activation to the same owner",
+      "file": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx",
+      "describePath": [
+        "World Inspector Default V1 \u2014 no building click ever ejects",
+        "routes canvas intent and semantic companion activation to the same owner"
+      ],
+      "primaryError": "TypeError: Cannot read properties of undefined (reading 'options')",
+      "firstTestFrame": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:361:22",
+      "sharedErrorBlock": false,
+      "siblingsInBlock": [],
+      "comparisonStatus": "NEW",
+      "baselinePrimaryError": null,
+      "baselineFirstTestFrame": null,
+      "cluster": "C6-worldinspector-typeerror-options",
+      "causeClass": "FU1/FU2 inherited (new failure mode on a previously-named unstable identity)"
+    },
+    {
+      "id": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > offers Development the Commission verb at Week 0 \u2014 the first step of the whole game",
+      "file": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx",
+      "describePath": [
+        "M-B \u2014 the buildings carry the verbs the guidance names",
+        "offers Development the Commission verb at Week 0 \u2014 the first step of the whole game"
+      ],
+      "primaryError": "TestingLibraryElementError: Found multiple elements by: [data-testid=\"lot-nav-writers\"]",
+      "firstTestFrame": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:635:28",
+      "sharedErrorBlock": false,
+      "siblingsInBlock": [],
+      "comparisonStatus": "RETAINED",
+      "baselinePrimaryError": "TestingLibraryElementError: Found multiple elements by: [data-testid=\"lot-nav-writers\"]",
+      "baselineFirstTestFrame": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:635:28",
+      "cluster": "C2-worldinspector-duplicate-testid",
+      "causeClass": "FU1/FU2 inherited (Inspector body / duplicate lot-nav testid)"
+    },
+    {
+      "id": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > routes the Commission verb to the commission intent, and the deep ghost to Development",
+      "file": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx",
+      "describePath": [
+        "M-B \u2014 the buildings carry the verbs the guidance names",
+        "routes the Commission verb to the commission intent, and the deep ghost to Development"
+      ],
+      "primaryError": "TestingLibraryElementError: Found multiple elements by: [data-testid=\"lot-nav-writers\"]",
+      "firstTestFrame": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:663:28",
+      "sharedErrorBlock": false,
+      "siblingsInBlock": [],
+      "comparisonStatus": "RETAINED",
+      "baselinePrimaryError": "TestingLibraryElementError: Found multiple elements by: [data-testid=\"lot-nav-writers\"]",
+      "baselineFirstTestFrame": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:663:28",
+      "cluster": "C2-worldinspector-duplicate-testid",
+      "causeClass": "FU1/FU2 inherited (Inspector body / duplicate lot-nav testid)"
+    },
+    {
+      "id": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > F4: offers the Commission verb while a screenplay is already being written",
+      "file": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx",
+      "describePath": [
+        "M-B \u2014 the buildings carry the verbs the guidance names",
+        "F4: offers the Commission verb while a screenplay is already being written"
+      ],
+      "primaryError": "TestingLibraryElementError: Found multiple elements by: [data-testid=\"lot-nav-writers\"]",
+      "firstTestFrame": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:697:28",
+      "sharedErrorBlock": false,
+      "siblingsInBlock": [],
+      "comparisonStatus": "RETAINED",
+      "baselinePrimaryError": "TestingLibraryElementError: Found multiple elements by: [data-testid=\"lot-nav-writers\"]",
+      "baselineFirstTestFrame": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:697:28",
+      "cluster": "C2-worldinspector-duplicate-testid",
+      "causeClass": "FU1/FU2 inherited (Inspector body / duplicate lot-nav testid)"
+    },
+    {
+      "id": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > F4: offers it with an accepted screenplay waiting on casting, too",
+      "file": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx",
+      "describePath": [
+        "M-B \u2014 the buildings carry the verbs the guidance names",
+        "F4: offers it with an accepted screenplay waiting on casting, too"
+      ],
+      "primaryError": "TestingLibraryElementError: Found multiple elements by: [data-testid=\"lot-nav-writers\"]",
+      "firstTestFrame": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:711:28",
+      "sharedErrorBlock": false,
+      "siblingsInBlock": [],
+      "comparisonStatus": "RETAINED",
+      "baselinePrimaryError": "TestingLibraryElementError: Found multiple elements by: [data-testid=\"lot-nav-writers\"]",
+      "baselineFirstTestFrame": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:711:28",
+      "cluster": "C2-worldinspector-duplicate-testid",
+      "causeClass": "FU1/FU2 inherited (Inspector body / duplicate lot-nav testid)"
+    },
+    {
+      "id": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > names the picture in Casting\u2019s audition verb, and prefers the retained in-world planner",
+      "file": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx",
+      "describePath": [
+        "M-B \u2014 the buildings carry the verbs the guidance names",
+        "names the picture in Casting\u2019s audition verb, and prefers the retained in-world planner"
+      ],
+      "primaryError": "TestingLibraryElementError: Found multiple elements by: [data-testid=\"lot-nav-casting\"]",
+      "firstTestFrame": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:733:28",
+      "sharedErrorBlock": false,
+      "siblingsInBlock": [],
+      "comparisonStatus": "RETAINED",
+      "baselinePrimaryError": "TestingLibraryElementError: Found multiple elements by: [data-testid=\"lot-nav-casting\"]",
+      "baselineFirstTestFrame": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:733:28",
+      "cluster": "C2-worldinspector-duplicate-testid",
+      "causeClass": "FU1/FU2 inherited (Inspector body / duplicate lot-nav testid)"
+    },
+    {
+      "id": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > falls back to the existing deep Casting path rather than leaving a dead button",
+      "file": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx",
+      "describePath": [
+        "M-B \u2014 the buildings carry the verbs the guidance names",
+        "falls back to the existing deep Casting path rather than leaving a dead button"
+      ],
+      "primaryError": "TestingLibraryElementError: Found multiple elements by: [data-testid=\"lot-nav-casting\"]",
+      "firstTestFrame": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:760:28",
+      "sharedErrorBlock": false,
+      "siblingsInBlock": [],
+      "comparisonStatus": "RETAINED",
+      "baselinePrimaryError": "TestingLibraryElementError: Found multiple elements by: [data-testid=\"lot-nav-casting\"]",
+      "baselineFirstTestFrame": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:760:28",
+      "cluster": "C2-worldinspector-duplicate-testid",
+      "causeClass": "FU1/FU2 inherited (Inspector body / duplicate lot-nav testid)"
+    },
+    {
+      "id": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > reads the deep ghosts in plain language, never in internal screen names",
+      "file": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx",
+      "describePath": [
+        "M-B \u2014 the buildings carry the verbs the guidance names",
+        "reads the deep ghosts in plain language, never in internal screen names"
+      ],
+      "primaryError": "TestingLibraryElementError: Found multiple elements by: [data-testid=\"lot-nav-writers\"]",
+      "firstTestFrame": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:770:28",
+      "sharedErrorBlock": false,
+      "siblingsInBlock": [],
+      "comparisonStatus": "RETAINED",
+      "baselinePrimaryError": "TestingLibraryElementError: Found multiple elements by: [data-testid=\"lot-nav-writers\"]",
+      "baselineFirstTestFrame": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:770:28",
+      "cluster": "C2-worldinspector-duplicate-testid",
+      "causeClass": "FU1/FU2 inherited (Inspector body / duplicate lot-nav testid)"
+    },
+    {
+      "id": "ui/src/lot/authored-rgba-export.test.ts > current production authored export \u2014 the shipped Stage B assets > 3. the RGB channel is reduced to the recovered 128-colour contract",
+      "file": "ui/src/lot/authored-rgba-export.test.ts",
+      "describePath": [
+        "current production authored export \u2014 the shipped Stage B assets",
+        "3. the RGB channel is reduced to the recovered 128-colour contract"
+      ],
+      "primaryError": "Error: Command failed: python3 -c ",
+      "firstTestFrame": "ui/src/lot/authored-rgba-export.test.ts:43:15",
+      "sharedErrorBlock": false,
+      "siblingsInBlock": [],
+      "comparisonStatus": "RETAINED",
+      "baselinePrimaryError": "Error: Command failed: python3 -c ",
+      "baselineFirstTestFrame": "ui/src/lot/authored-rgba-export.test.ts:43:15",
+      "cluster": "C3-missing-pil-rgba-export",
+      "causeClass": "missing-PIL/environment"
+    },
+    {
+      "id": "ui/src/lot/authored-rgba-export.test.ts > current production authored export \u2014 the shipped Stage B assets > 4. alpha is bit-identical between the two finishes",
+      "file": "ui/src/lot/authored-rgba-export.test.ts",
+      "describePath": [
+        "current production authored export \u2014 the shipped Stage B assets",
+        "4. alpha is bit-identical between the two finishes"
+      ],
+      "primaryError": "Error: Command failed: python3 -c ",
+      "firstTestFrame": "ui/src/lot/authored-rgba-export.test.ts:43:15",
+      "sharedErrorBlock": false,
+      "siblingsInBlock": [],
+      "comparisonStatus": "RETAINED",
+      "baselinePrimaryError": "Error: Command failed: python3 -c ",
+      "baselineFirstTestFrame": "ui/src/lot/authored-rgba-export.test.ts:43:15",
+      "cluster": "C3-missing-pil-rgba-export",
+      "causeClass": "missing-PIL/environment"
+    },
+    {
+      "id": "ui/src/lot/authored-rgba-export.test.ts > current production authored export \u2014 the shipped Stage B assets > 5. alpha is genuinely lossless, not collapsed into a palette-sized set",
+      "file": "ui/src/lot/authored-rgba-export.test.ts",
+      "describePath": [
+        "current production authored export \u2014 the shipped Stage B assets",
+        "5. alpha is genuinely lossless, not collapsed into a palette-sized set"
+      ],
+      "primaryError": "Error: Command failed: python3 -c ",
+      "firstTestFrame": "ui/src/lot/authored-rgba-export.test.ts:43:15",
+      "sharedErrorBlock": false,
+      "siblingsInBlock": [],
+      "comparisonStatus": "RETAINED",
+      "baselinePrimaryError": "Error: Command failed: python3 -c ",
+      "baselineFirstTestFrame": "ui/src/lot/authored-rgba-export.test.ts:43:15",
+      "cluster": "C3-missing-pil-rgba-export",
+      "causeClass": "missing-PIL/environment"
+    },
+    {
+      "id": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 6. output is truecolour RGBA with no PLTE/tRNS, alpha preserved exactly",
+      "file": "ui/src/lot/authored-rgba-export.test.ts",
+      "describePath": [
+        "rgba-export tool contract",
+        "6. output is truecolour RGBA with no PLTE/tRNS, alpha preserved exactly"
+      ],
+      "primaryError": "Error: Command failed: python3 -c ",
+      "firstTestFrame": "ui/src/lot/authored-rgba-export.test.ts:119:5",
+      "sharedErrorBlock": false,
+      "siblingsInBlock": [],
+      "comparisonStatus": "RETAINED",
+      "baselinePrimaryError": "Error: Command failed: python3 -c ",
+      "baselineFirstTestFrame": "ui/src/lot/authored-rgba-export.test.ts:119:5",
+      "cluster": "C3-missing-pil-rgba-export",
+      "causeClass": "missing-PIL/environment"
+    },
+    {
+      "id": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 7. repeated runs are byte-identical",
+      "file": "ui/src/lot/authored-rgba-export.test.ts",
+      "describePath": [
+        "rgba-export tool contract",
+        "7. repeated runs are byte-identical"
+      ],
+      "primaryError": "Error: Command failed: python3 -c ",
+      "firstTestFrame": "ui/src/lot/authored-rgba-export.test.ts:119:5",
+      "sharedErrorBlock": false,
+      "siblingsInBlock": [],
+      "comparisonStatus": "RETAINED",
+      "baselinePrimaryError": "Error: Command failed: python3 -c ",
+      "baselineFirstTestFrame": "ui/src/lot/authored-rgba-export.test.ts:119:5",
+      "cluster": "C3-missing-pil-rgba-export",
+      "causeClass": "missing-PIL/environment"
+    },
+    {
+      "id": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 8. the historical PNG-8 path is still available and clearly separate",
+      "file": "ui/src/lot/authored-rgba-export.test.ts",
+      "describePath": [
+        "rgba-export tool contract",
+        "8. the historical PNG-8 path is still available and clearly separate"
+      ],
+      "primaryError": "Error: Command failed: python3 -c ",
+      "firstTestFrame": "ui/src/lot/authored-rgba-export.test.ts:119:5",
+      "sharedErrorBlock": false,
+      "siblingsInBlock": [],
+      "comparisonStatus": "RETAINED",
+      "baselinePrimaryError": "Error: Command failed: python3 -c ",
+      "baselineFirstTestFrame": "ui/src/lot/authored-rgba-export.test.ts:119:5",
+      "cluster": "C3-missing-pil-rgba-export",
+      "causeClass": "missing-PIL/environment"
+    },
+    {
+      "id": "ui/src/lot/authored-stage-a.test.ts > Stage A \u2014 the committed assets satisfy the CURRENT production export contract > 4. the RGB channel carries the recovered 128-colour contract",
+      "file": "ui/src/lot/authored-stage-a.test.ts",
+      "describePath": [
+        "Stage A \u2014 the committed assets satisfy the CURRENT production export contract",
+        "4. the RGB channel carries the recovered 128-colour contract"
+      ],
+      "primaryError": "Error: Command failed: python3 -c ",
+      "firstTestFrame": "ui/src/lot/authored-stage-a.test.ts:64:15",
+      "sharedErrorBlock": false,
+      "siblingsInBlock": [],
+      "comparisonStatus": "RETAINED",
+      "baselinePrimaryError": "Error: Command failed: python3 -c ",
+      "baselineFirstTestFrame": "ui/src/lot/authored-stage-a.test.ts:64:15",
+      "cluster": "C4-missing-pil-stage-a",
+      "causeClass": "missing-PIL/environment"
+    },
+    {
+      "id": "ui/src/lot/authored-stage-a.test.ts > Stage A \u2014 the committed assets satisfy the CURRENT production export contract > 5. alpha is bit-identical between the two finishes",
+      "file": "ui/src/lot/authored-stage-a.test.ts",
+      "describePath": [
+        "Stage A \u2014 the committed assets satisfy the CURRENT production export contract",
+        "5. alpha is bit-identical between the two finishes"
+      ],
+      "primaryError": "Error: Command failed: python3 -c ",
+      "firstTestFrame": "ui/src/lot/authored-stage-a.test.ts:64:15",
+      "sharedErrorBlock": false,
+      "siblingsInBlock": [],
+      "comparisonStatus": "RETAINED",
+      "baselinePrimaryError": "Error: Command failed: python3 -c ",
+      "baselineFirstTestFrame": "ui/src/lot/authored-stage-a.test.ts:64:15",
+      "cluster": "C4-missing-pil-stage-a",
+      "causeClass": "missing-PIL/environment"
+    },
+    {
+      "id": "ui/src/lot/authored-stage-a.test.ts > Stage A \u2014 the committed assets satisfy the CURRENT production export contract > 6. alpha is lossless, not collapsed into a palette-sized set",
+      "file": "ui/src/lot/authored-stage-a.test.ts",
+      "describePath": [
+        "Stage A \u2014 the committed assets satisfy the CURRENT production export contract",
+        "6. alpha is lossless, not collapsed into a palette-sized set"
+      ],
+      "primaryError": "Error: Command failed: python3 -c ",
+      "firstTestFrame": "ui/src/lot/authored-stage-a.test.ts:64:15",
+      "sharedErrorBlock": false,
+      "siblingsInBlock": [],
+      "comparisonStatus": "RETAINED",
+      "baselinePrimaryError": "Error: Command failed: python3 -c ",
+      "baselineFirstTestFrame": "ui/src/lot/authored-stage-a.test.ts:64:15",
+      "cluster": "C4-missing-pil-stage-a",
+      "causeClass": "missing-PIL/environment"
+    },
+    {
+      "id": "ui/src/lot/authored-stage-a.test.ts > Stage A \u2014 the committed assets satisfy the CURRENT production export contract > 7. registration is the approved one \u2014 inset, with a forecourt",
+      "file": "ui/src/lot/authored-stage-a.test.ts",
+      "describePath": [
+        "Stage A \u2014 the committed assets satisfy the CURRENT production export contract",
+        "7. registration is the approved one \u2014 inset, with a forecourt"
+      ],
+      "primaryError": "Error: Command failed: python3 -c ",
+      "firstTestFrame": "ui/src/lot/authored-stage-a.test.ts:64:15",
+      "sharedErrorBlock": false,
+      "siblingsInBlock": [],
+      "comparisonStatus": "RETAINED",
+      "baselinePrimaryError": "Error: Command failed: python3 -c ",
+      "baselineFirstTestFrame": "ui/src/lot/authored-stage-a.test.ts:64:15",
+      "cluster": "C4-missing-pil-stage-a",
+      "causeClass": "missing-PIL/environment"
+    },
+    {
+      "id": "ui/src/lot/livingTurn.parity.test.tsx > C2a-M5 \u2014 four-way time parity: the same twelve weeks, four ways > (a) by hand at the seam \u2014 the manual verb, pressed twelve times",
+      "file": "ui/src/lot/livingTurn.parity.test.tsx",
+      "describePath": [
+        "C2a-M5 \u2014 four-way time parity: the same twelve weeks, four ways",
+        "(a) by hand at the seam \u2014 the manual verb, pressed twelve times"
+      ],
+      "primaryError": "TestingLibraryElementError: Unable to find an element by: [data-testid=\"studio-lot-screen\"]",
+      "firstTestFrame": "ui/src/lot/livingTurn.parity.test.tsx:110:16",
+      "sharedErrorBlock": false,
+      "siblingsInBlock": [],
+      "comparisonStatus": "NEW",
+      "baselinePrimaryError": null,
+      "baselineFirstTestFrame": null,
+      "cluster": "C7-livingturn-parity-dom-race",
+      "causeClass": "unknown / candidate new regression -- flag for independent review"
+    },
+    {
+      "id": "ui/src/screens/StudioCalendar.career.test.tsx > C.3 recent career facts use existing Calendar identity routes > U1 renders genuine change/finality names and dates, retains age12, and removes age13 news",
+      "file": "ui/src/screens/StudioCalendar.career.test.tsx",
+      "describePath": [
+        "C.3 recent career facts use existing Calendar identity routes",
+        "U1 renders genuine change/finality names and dates, retains age12, and removes age13 news"
+      ],
+      "primaryError": "AssertionError: expected 40 to be 38 // Object.is equality",
+      "firstTestFrame": "tests/helpers/p14c3-genuine-evidence-fixtures.ts:17:29",
+      "sharedErrorBlock": true,
+      "siblingsInBlock": [
+        "ui/src/screens/StudioCalendar.career.test.tsx > C.3 recent career facts use existing Calendar identity routes > U2 App opens the exact off-roster career profile and restores focus without post-hydration writes",
+        "ui/src/screens/StudioCalendar.career.test.tsx > C.3 recent career facts use existing Calendar identity routes > U3 actual208 expiry explains its stop while Scientist finality alone adds no automatic stop"
+      ],
+      "comparisonStatus": "NEW",
+      "baselinePrimaryError": null,
+      "baselineFirstTestFrame": null,
+      "cluster": "C8-studiocalendar-stale-v38-literal",
+      "causeClass": "stale literal / fixture-version boundary (missed by 1301 sweep)"
+    },
+    {
+      "id": "ui/src/screens/StudioCalendar.career.test.tsx > C.3 recent career facts use existing Calendar identity routes > U2 App opens the exact off-roster career profile and restores focus without post-hydration writes",
+      "file": "ui/src/screens/StudioCalendar.career.test.tsx",
+      "describePath": [
+        "C.3 recent career facts use existing Calendar identity routes",
+        "U2 App opens the exact off-roster career profile and restores focus without post-hydration writes"
+      ],
+      "primaryError": "AssertionError: expected 40 to be 38 // Object.is equality",
+      "firstTestFrame": "tests/helpers/p14c3-genuine-evidence-fixtures.ts:17:29",
+      "sharedErrorBlock": true,
+      "siblingsInBlock": [
+        "ui/src/screens/StudioCalendar.career.test.tsx > C.3 recent career facts use existing Calendar identity routes > U1 renders genuine change/finality names and dates, retains age12, and removes age13 news",
+        "ui/src/screens/StudioCalendar.career.test.tsx > C.3 recent career facts use existing Calendar identity routes > U3 actual208 expiry explains its stop while Scientist finality alone adds no automatic stop"
+      ],
+      "comparisonStatus": "NEW",
+      "baselinePrimaryError": null,
+      "baselineFirstTestFrame": null,
+      "cluster": "C8-studiocalendar-stale-v38-literal",
+      "causeClass": "stale literal / fixture-version boundary (missed by 1301 sweep)"
+    },
+    {
+      "id": "ui/src/screens/StudioCalendar.career.test.tsx > C.3 recent career facts use existing Calendar identity routes > U3 actual208 expiry explains its stop while Scientist finality alone adds no automatic stop",
+      "file": "ui/src/screens/StudioCalendar.career.test.tsx",
+      "describePath": [
+        "C.3 recent career facts use existing Calendar identity routes",
+        "U3 actual208 expiry explains its stop while Scientist finality alone adds no automatic stop"
+      ],
+      "primaryError": "AssertionError: expected 40 to be 38 // Object.is equality",
+      "firstTestFrame": "tests/helpers/p14c3-genuine-evidence-fixtures.ts:17:29",
+      "sharedErrorBlock": true,
+      "siblingsInBlock": [
+        "ui/src/screens/StudioCalendar.career.test.tsx > C.3 recent career facts use existing Calendar identity routes > U1 renders genuine change/finality names and dates, retains age12, and removes age13 news",
+        "ui/src/screens/StudioCalendar.career.test.tsx > C.3 recent career facts use existing Calendar identity routes > U2 App opens the exact off-roster career profile and restores focus without post-hydration writes"
+      ],
+      "comparisonStatus": "NEW",
+      "baselinePrimaryError": null,
+      "baselineFirstTestFrame": null,
+      "cluster": "C8-studiocalendar-stale-v38-literal",
+      "causeClass": "stale literal / fixture-version boundary (missed by 1301 sweep)"
+    },
+    {
+      "id": "ui/src/test/contracts/p05a-w2-closed-production.contract.test.ts > P05A W2 \u2014 closed operational states across the lifecycle > the guidance card agrees with the rail on the wrapped-waiting oracle fixture \u2014 never SHOOTING (P06C \u00a75)",
+      "file": "ui/src/test/contracts/p05a-w2-closed-production.contract.test.ts",
+      "describePath": [
+        "P05A W2 \u2014 closed operational states across the lifecycle",
+        "the guidance card agrees with the rail on the wrapped-waiting oracle fixture \u2014 never SHOOTING (P06C \u00a75)"
+      ],
+      "primaryError": "Error: studioLotSnapshot: invalid or ambiguous Gate Hiring authority",
+      "firstTestFrame": "ui/src/engine/adapter.ts:7264:11",
+      "sharedErrorBlock": false,
+      "siblingsInBlock": [],
+      "comparisonStatus": "RETAINED",
+      "baselinePrimaryError": "Error: studioLotSnapshot: invalid or ambiguous Gate Hiring authority",
+      "baselineFirstTestFrame": "ui/src/engine/adapter.ts:7264:11",
+      "cluster": "C5-p05a-w2-gate-hiring-throw",
+      "causeClass": "apparent production defect with a concrete trace (retained/pre-existing, not new in this gate)"
+    },
+    {
+      "id": "ui/src/test/contracts/p05a-w2-closed-production.contract.test.ts > P05A W2 \u2014 closed operational states across the lifecycle > the rail, the world Stage card, the workspace source and the guidance card all agree for the wrapped-waiting picture (P06D item 2)",
+      "file": "ui/src/test/contracts/p05a-w2-closed-production.contract.test.ts",
+      "describePath": [
+        "P05A W2 \u2014 closed operational states across the lifecycle",
+        "the rail, the world Stage card, the workspace source and the guidance card all agree for the wrapped-waiting picture (P06D item 2)"
+      ],
+      "primaryError": "Error: studioLotSnapshot: invalid or ambiguous Gate Hiring authority",
+      "firstTestFrame": "ui/src/engine/adapter.ts:7264:11",
+      "sharedErrorBlock": false,
+      "siblingsInBlock": [],
+      "comparisonStatus": "RETAINED",
+      "baselinePrimaryError": "Error: studioLotSnapshot: invalid or ambiguous Gate Hiring authority",
+      "baselineFirstTestFrame": "ui/src/engine/adapter.ts:7264:11",
+      "cluster": "C5-p05a-w2-gate-hiring-throw",
+      "causeClass": "apparent production defect with a concrete trace (retained/pre-existing, not new in this gate)"
+    }
+  ],
+  "vanishedFromBaseline": [
+    {
+      "id": "ui/src/saves.test.tsx > saves: export \u2192 import round-trips the EXACT state > importSaveJson(exportSaveJson(state)) has a serialized form equal to the original",
+      "file": "ui/src/saves.test.tsx",
+      "baselinePrimaryError": "AssertionError: expected 38 to be 31 // Object.is equality",
+      "baselineFirstTestFrame": "ui/src/saves.test.tsx:125:42",
+      "explanation": "Explained: commit ab9f4923 'Repair reviewed C3 historical test boundaries and fixture ownership' (applies reviewed 1123-A/B maintenance staging) bumped the stale saveVersion literal (31->38) / repaired the validateSaveV37 fixture chain at this exact file."
+    },
+    {
+      "id": "ui/src/saves.test.tsx > saves: migration disclosure through real App navigation > shows a one-shot, version-neutral notice after an accepted V8 load leaves Saves",
+      "file": "ui/src/saves.test.tsx",
+      "baselinePrimaryError": "Error: validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV16: frozen V15 state is invalid \u2014 validateSaveV12: state is missing required field \"scriptDevelopment\"",
+      "baselineFirstTestFrame": "ui/src/saves.test.tsx:73:21",
+      "explanation": "Explained: commit ab9f4923 'Repair reviewed C3 historical test boundaries and fixture ownership' (applies reviewed 1123-A/B maintenance staging) bumped the stale saveVersion literal (31->38) / repaired the validateSaveV37 fixture chain at this exact file."
+    },
+    {
+      "id": "ui/src/saves.test.tsx > saves: migration disclosure through real App navigation > carries the same version-neutral notice through a Start-screen V8 import",
+      "file": "ui/src/saves.test.tsx",
+      "baselinePrimaryError": "Error: validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV16: frozen V15 state is invalid \u2014 validateSaveV12: state is missing required field \"scriptDevelopment\"",
+      "baselineFirstTestFrame": "ui/src/saves.test.tsx:73:21",
+      "explanation": "Explained: commit ab9f4923 'Repair reviewed C3 historical test boundaries and fixture ownership' (applies reviewed 1123-A/B maintenance staging) bumped the stale saveVersion literal (31->38) / repaired the validateSaveV37 fixture chain at this exact file."
+    },
+    {
+      "id": "ui/src/saves.test.tsx > saves: migration disclosure through real App navigation > discloses migration when App restores an older active-session envelope",
+      "file": "ui/src/saves.test.tsx",
+      "baselinePrimaryError": "Error: validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV16: frozen V15 state is invalid \u2014 validateSaveV12: state is missing required field \"scriptDevelopment\"",
+      "baselineFirstTestFrame": "ui/src/saves.test.tsx:73:21",
+      "explanation": "Explained: commit ab9f4923 'Repair reviewed C3 historical test boundaries and fixture ownership' (applies reviewed 1123-A/B maintenance staging) bumped the stale saveVersion literal (31->38) / repaired the validateSaveV37 fixture chain at this exact file."
+    },
+    {
+      "id": "ui/src/session.test.tsx > D-17A fix-pass \u2014 a stored V5 autosave migrates on load > an ENGAGED V5 session restores with the flag true and the converted banner",
+      "file": "ui/src/session.test.tsx",
+      "baselinePrimaryError": "AssertionError: expected 38 to be 31 // Object.is equality",
+      "baselineFirstTestFrame": "ui/src/session.test.tsx:332:79",
+      "explanation": "Explained: commit ab9f4923 'Repair reviewed C3 historical test boundaries and fixture ownership' (applies reviewed 1123-A/B maintenance staging) bumped the stale saveVersion literal (31->38) / repaired the validateSaveV37 fixture chain at this exact file."
+    },
+    {
+      "id": "ui/src/session.test.tsx > D-17A fix-pass \u2014 a stored V5 autosave migrates on load > a NEVER-ENGAGED headless V5 session restores with the flag false",
+      "file": "ui/src/session.test.tsx",
+      "baselinePrimaryError": "AssertionError: expected 38 to be 31 // Object.is equality",
+      "baselineFirstTestFrame": "ui/src/session.test.tsx:360:79",
+      "explanation": "Explained: commit ab9f4923 'Repair reviewed C3 historical test boundaries and fixture ownership' (applies reviewed 1123-A/B maintenance staging) bumped the stale saveVersion literal (31->38) / repaired the validateSaveV37 fixture chain at this exact file."
+    },
+    {
+      "id": "ui/src/session.test.tsx > Script Projects V1 \u2014 a stored V8 autosave migrates on load > preserves operations, seeds legacy screenplay and casting state, then re-saves as V15",
+      "file": "ui/src/session.test.tsx",
+      "baselinePrimaryError": "AssertionError: expected 38 to be 31 // Object.is equality",
+      "baselineFirstTestFrame": "ui/src/session.test.tsx:387:35",
+      "explanation": "Explained: commit ab9f4923 'Repair reviewed C3 historical test boundaries and fixture ownership' (applies reviewed 1123-A/B maintenance staging) bumped the stale saveVersion literal (31->38) / repaired the validateSaveV37 fixture chain at this exact file."
+    },
+    {
+      "id": "ui/src/engine/d17-save-migration.test.ts > D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a CURRENT-version save round-trips through the adapter as NOT converted",
+      "file": "ui/src/engine/d17-save-migration.test.ts",
+      "baselinePrimaryError": "AssertionError: expected 38 to be 31 // Object.is equality",
+      "baselineFirstTestFrame": "ui/src/engine/d17-save-migration.test.ts:131:42",
+      "explanation": "Explained: commit ab9f4923 'Repair reviewed C3 historical test boundaries and fixture ownership' (applies reviewed 1123-A/B maintenance staging) bumped the stale saveVersion literal (31->38) / repaired the validateSaveV37 fixture chain at this exact file."
+    },
+    {
+      "id": "ui/src/engine/d17-save-migration.test.ts > D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a literal V8 save upgrades to V16 with legacy screenplay, casting, construction, placement, and property state",
+      "file": "ui/src/engine/d17-save-migration.test.ts",
+      "baselinePrimaryError": "AssertionError: expected 38 to be 31 // Object.is equality",
+      "baselineFirstTestFrame": "ui/src/engine/d17-save-migration.test.ts:155:61",
+      "explanation": "Explained: commit ab9f4923 'Repair reviewed C3 historical test boundaries and fixture ownership' (applies reviewed 1123-A/B maintenance staging) bumped the stale saveVersion literal (31->38) / repaired the validateSaveV37 fixture chain at this exact file."
+    },
+    {
+      "id": "ui/src/engine/film-chronicle-adapter.test.ts > Film Chronicle V1 \u2014 real adapter wiring > uses current market week as the chronology gate and reconstructs deeply after V13 reload",
+      "file": "ui/src/engine/film-chronicle-adapter.test.ts",
+      "baselinePrimaryError": "AssertionError: expected 38 to be 31 // Object.is equality",
+      "baselineFirstTestFrame": "ui/src/engine/film-chronicle-adapter.test.ts:289:71",
+      "explanation": "Explained: commit ab9f4923 'Repair reviewed C3 historical test boundaries and fixture ownership' (applies reviewed 1123-A/B maintenance staging) bumped the stale saveVersion literal (31->38) / repaired the validateSaveV37 fixture chain at this exact file."
+    },
+    {
+      "id": "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 \u2014 App/Lot integration > keeps a blocked acknowledgement and every current remedy on the same mounted fallback Lot",
+      "file": "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx",
+      "baselinePrimaryError": "TestingLibraryElementError: Unable to find an element by: [data-testid=\"studio-lot-screen\"]",
+      "baselineFirstTestFrame": "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx:240:28",
+      "explanation": "Explained: commit ab9f4923 'Repair reviewed C3 historical test boundaries and fixture ownership' (applies reviewed 1123-A/B maintenance staging) replaced the malformed local blockedReviewState fixture helper with a properly-admitted historical V13-sourced fixture in this file."
+    },
+    {
+      "id": "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 \u2014 App/Lot integration > keeps the complete blocked world action available in the Classic physical fallback",
+      "file": "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx",
+      "baselinePrimaryError": "TestingLibraryElementError: Unable to find an element by: [data-testid=\"studio-lot-screen\"]",
+      "baselineFirstTestFrame": "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx:240:28",
+      "explanation": "Explained: commit ab9f4923 'Repair reviewed C3 historical test boundaries and fixture ownership' (applies reviewed 1123-A/B maintenance staging) replaced the malformed local blockedReviewState fixture helper with a properly-admitted historical V13-sourced fixture in this file."
+    },
+    {
+      "id": "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 \u2014 App/Lot integration > rebuilds an imported pending review only after Casting is selected in the replacement Lot",
+      "file": "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx",
+      "baselinePrimaryError": "Error: validateSaveV38: current profession changed without its anchored change history",
+      "baselineFirstTestFrame": "ui/src/engine/adapter.ts:3780:10",
+      "explanation": "Explained: commit ab9f4923 'Repair reviewed C3 historical test boundaries and fixture ownership' (applies reviewed 1123-A/B maintenance staging) replaced the malformed local blockedReviewState fixture helper with a properly-admitted historical V13-sourced fixture in this file."
+    },
+    {
+      "id": "ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx > Lot-native Casting review \u2014 App commit and handoff authority > keeps a blocked accepted successor in the same mounted Lot and autosaves exact parity",
+      "file": "ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx",
+      "baselinePrimaryError": "TestingLibraryElementError: Unable to find an element by: [data-testid=\"mock-casting-authority-lot\"]",
+      "baselineFirstTestFrame": "ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx:327:28",
+      "explanation": "Explained: commit ab9f4923 'Repair reviewed C3 historical test boundaries and fixture ownership' (applies reviewed 1123-A/B maintenance staging) (same fixture repair family as CastingReviewApp) touched this file."
+    },
+    {
+      "id": "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 \u2014 App/Lot integration > preserves the exact live-world reaction after a rejected import or declined restart",
+      "file": "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx",
+      "baselinePrimaryError": "TestingLibraryElementError: Unable to find an element by: [data-testid=\"dashboard-releases-heading\"]",
+      "baselineFirstTestFrame": "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx:1929:44",
+      "explanation": "UNKNOWN: no commit between 6e63f4c8 and 42f216e8 touches this test file, and no ui/src/lot production file changed in that range either. 1119-A's isolation record (1102) previously reproduced this exact identity under unchanged source. Cannot attribute the disappearance to any source diff; mark unknown / possibly flaky."
+    },
+    {
+      "id": "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts > C2a-M2 \u2014 a save round-trips as V15, roots and all > exports V15 and imports it back with the four C2a roots intact",
+      "file": "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts",
+      "baselinePrimaryError": "AssertionError: expected 38 to be 31 // Object.is equality",
+      "baselineFirstTestFrame": "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts:46:42",
+      "explanation": "Explained: commit ab9f4923 'Repair reviewed C3 historical test boundaries and fixture ownership' (applies reviewed 1123-A/B maintenance staging) bumped the stale saveVersion literal (31->38) / repaired the validateSaveV37 fixture chain at this exact file."
+    }
+  ]
+}
