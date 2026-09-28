@@ -1,0 +1,797 @@
+[
+ {
+  "path": "tests/p13b-r07-save-v25.test.ts",
+  "line": 266,
+  "class": "1c-future-version-refusal",
+  "kind": "title",
+  "text": "  it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {",
+  "decision": "CHANGE",
+  "oldValue": "  it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {",
+  "newValue": "  it('an unknown saveVersion 41 is refused, naming the handled range \"1 through 40 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {",
+  "titleChange": {
+   "old": "  it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {",
+   "new": "  it('an unknown saveVersion 41 is refused, naming the handled range \"1 through 40 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {"
+  },
+  "reason": "1c: title names the stale forged-probe / handled-range number(s); updated to the same numbers rule 1c sets in this leaf's code (41 for the forged/probed value, 40 for the handled-range upper bound). Record: old/new below.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Title paired with L267's forged-value probe (KEEP); title narrates the historical/forged boundary, not a live fact.",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/p13b-r07-save-v25.test.ts",
+  "line": 267,
+  "class": "1c-future-version-refusal",
+  "kind": "forged",
+  "text": "    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 39 }",
+  "decision": "CHANGE",
+  "oldValue": "    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 39 }",
+  "newValue": "    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 41 }",
+  "titleChange": null,
+  "reason": "1c: forges a current-writer save to what was live+1 at authoring time; that value (39) is now a KNOWN version (validateSaveV39 exists, src/core/save.ts), so the probe no longer tests refusal of an unknown FUTURE version. Bumped to 41 (first version past live 40), per parent rule 1c.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Downgrade target: forged `{ ...save.makeSave(...), saveVersion: 39 }` probing rejection; KEEP.",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/p13b-r07-save-v25.test.ts",
+  "line": 268,
+  "class": "1c-future-version-refusal",
+  "kind": "regex",
+  "text": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 38 only/)",
+  "decision": "CHANGE",
+  "oldValue": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 38 only/)",
+  "newValue": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 40 only/)",
+  "titleChange": null,
+  "reason": "1c: the dispatcher's live message (src/core/save.ts:5415-5417) is 'unknown saveVersion N (this build handles versions 1 through 40 only)'; this regex still asserted the superseded range/number. Corrected per parent rule 1c.",
+  "supersededDecision": null,
+  "newRow": true
+ },
+ {
+  "path": "tests/p13b-s8-save-v27.test.ts",
+  "line": 211,
+  "class": "1c-future-version-refusal",
+  "kind": "title",
+  "text": "  it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {",
+  "decision": "CHANGE",
+  "oldValue": "  it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {",
+  "newValue": "  it('an unknown saveVersion 41 is refused, naming the handled range \"1 through 40 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {",
+  "titleChange": {
+   "old": "  it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {",
+   "new": "  it('an unknown saveVersion 41 is refused, naming the handled range \"1 through 40 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {"
+  },
+  "reason": "1c: title names the stale forged-probe / handled-range number(s); updated to the same numbers rule 1c sets in this leaf's code (41 for the forged/probed value, 40 for the handled-range upper bound). Record: old/new below.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Title paired with L214's forged-value probe (KEEP).",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/p13b-s8-save-v27.test.ts",
+  "line": 214,
+  "class": "1c-future-version-refusal",
+  "kind": "forged",
+  "text": "    const forged = { ...v27, saveVersion: 39 }",
+  "decision": "CHANGE",
+  "oldValue": "    const forged = { ...v27, saveVersion: 39 }",
+  "newValue": "    const forged = { ...v27, saveVersion: 41 }",
+  "titleChange": null,
+  "reason": "1c: forges a current-writer save to what was live+1 at authoring time; that value (39) is now a KNOWN version (validateSaveV39 exists, src/core/save.ts), so the probe no longer tests refusal of an unknown FUTURE version. Bumped to 41 (first version past live 40), per parent rule 1c.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Downgrade target: forged `{ ...v27, saveVersion: 39 }` probing rejection; KEEP.",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/p13b-s8-save-v27.test.ts",
+  "line": 215,
+  "class": "1c-future-version-refusal",
+  "kind": "regex",
+  "text": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 38 only/)",
+  "decision": "CHANGE",
+  "oldValue": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 38 only/)",
+  "newValue": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 40 only/)",
+  "titleChange": null,
+  "reason": "1c: the dispatcher's live message (src/core/save.ts:5415-5417) is 'unknown saveVersion N (this build handles versions 1 through 40 only)'; this regex still asserted the superseded range/number. Corrected per parent rule 1c.",
+  "supersededDecision": null,
+  "newRow": true
+ },
+ {
+  "path": "tests/script-projects-save-v9.test.ts",
+  "line": 413,
+  "class": "1c-future-version-refusal",
+  "kind": "title",
+  "text": "  it(\"rejects unknown V38 and refuses to downgrade V9 through migrateToV8 (stale number corrected post-C.2b)\", () => {",
+  "decision": "CHANGE",
+  "oldValue": "  it(\"rejects unknown V38 and refuses to downgrade V9 through migrateToV8 (stale number corrected post-C.2b)\", () => {",
+  "newValue": "  it(\"rejects unknown V41 and refuses to downgrade V9 through migrateToV8 (stale number corrected post-C.2b)\", () => {",
+  "titleChange": {
+   "old": "  it(\"rejects unknown V38 and refuses to downgrade V9 through migrateToV8 (stale number corrected post-C.2b)\", () => {",
+   "new": "  it(\"rejects unknown V41 and refuses to downgrade V9 through migrateToV8 (stale number corrected post-C.2b)\", () => {"
+  },
+  "reason": "1c: title names the stale forged-probe / handled-range number(s); updated to the same numbers rule 1c sets in this leaf's code (41 for the forged/probed value, 40 for the handled-range upper bound). Record: old/new below.",
+  "supersededDecision": null,
+  "newRow": true
+ },
+ {
+  "path": "tests/script-projects-save-v9.test.ts",
+  "line": 415,
+  "class": "1c-future-version-refusal",
+  "kind": "forged",
+  "text": "    expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(",
+  "decision": "CHANGE",
+  "oldValue": "    expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(",
+  "newValue": "    expect(() => validateSave({ ...save, saveVersion: 41 })).toThrow(",
+  "titleChange": null,
+  "reason": "1c: forges a current-writer save to what was live+1 at authoring time; that value (39) is now a KNOWN version (validateSaveV39 exists, src/core/save.ts), so the probe no longer tests refusal of an unknown FUTURE version. Bumped to 41 (first version past live 40), per parent rule 1c.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Regex prefix paired with a forged saveVersion:39 probe (L414 save=makeSaveV9(...); the throw call itself is the surrounding, unflagged line); KEEP.",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/script-projects-save-v9.test.ts",
+  "line": 416,
+  "class": "1c-future-version-refusal",
+  "kind": "regex",
+  "text": "      /unknown saveVersion 39/,",
+  "decision": "CHANGE",
+  "oldValue": "      /unknown saveVersion 39/,",
+  "newValue": "      /unknown saveVersion 41/,",
+  "titleChange": null,
+  "reason": "1c: the dispatcher's live message (src/core/save.ts:5415-5417) is 'unknown saveVersion N (this build handles versions 1 through 40 only)'; this regex still asserted the superseded range/number. Corrected per parent rule 1c.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Regex text `/unknown saveVersion 39/` paired with the same forged probe; KEEP.",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/script-projects-save-v9.test.ts",
+  "line": 418,
+  "class": "1c-future-version-refusal",
+  "kind": "forged",
+  "text": "    expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(",
+  "decision": "CHANGE",
+  "oldValue": "    expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(",
+  "newValue": "    expect(() => validateSave({ ...save, saveVersion: 41 })).toThrow(",
+  "titleChange": null,
+  "reason": "1c: forges a current-writer save to what was live+1 at authoring time; that value (39) is now a KNOWN version (validateSaveV39 exists, src/core/save.ts), so the probe no longer tests refusal of an unknown FUTURE version. Bumped to 41 (first version past live 40), per parent rule 1c.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Second assertion on the same forged save (`{ ...save, saveVersion: 39 }`), regex `/versions 1 through 38 only/`; KEEP (downgrade target). Same live-message mismatch noted above.",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/script-projects-save-v9.test.ts",
+  "line": 419,
+  "class": "1c-future-version-refusal",
+  "kind": "regex",
+  "text": "      /versions 1 through 38 only/,",
+  "decision": "CHANGE",
+  "oldValue": "      /versions 1 through 38 only/,",
+  "newValue": "      /versions 1 through 40 only/,",
+  "titleChange": null,
+  "reason": "1c: the dispatcher's live message (src/core/save.ts:5415-5417) is 'unknown saveVersion N (this build handles versions 1 through 40 only)'; this regex still asserted the superseded range/number. Corrected per parent rule 1c.",
+  "supersededDecision": null,
+  "newRow": true
+ },
+ {
+  "path": "tests/p13b-s6-save-v26.test.ts",
+  "line": 221,
+  "class": "1c-future-version-refusal",
+  "kind": "title",
+  "text": "  it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {",
+  "decision": "CHANGE",
+  "oldValue": "  it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {",
+  "newValue": "  it('an unknown saveVersion 41 is refused, naming the handled range \"1 through 40 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {",
+  "titleChange": {
+   "old": "  it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {",
+   "new": "  it('an unknown saveVersion 41 is refused, naming the handled range \"1 through 40 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {"
+  },
+  "reason": "1c: title names the stale forged-probe / handled-range number(s); updated to the same numbers rule 1c sets in this leaf's code (41 for the forged/probed value, 40 for the handled-range upper bound). Record: old/new below.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Title paired with L224's forged-value probe (KEEP).",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/p13b-s6-save-v26.test.ts",
+  "line": 224,
+  "class": "1c-future-version-refusal",
+  "kind": "forged",
+  "text": "    const forged = { ...v26, saveVersion: 39 }",
+  "decision": "CHANGE",
+  "oldValue": "    const forged = { ...v26, saveVersion: 39 }",
+  "newValue": "    const forged = { ...v26, saveVersion: 41 }",
+  "titleChange": null,
+  "reason": "1c: forges a current-writer save to what was live+1 at authoring time; that value (39) is now a KNOWN version (validateSaveV39 exists, src/core/save.ts), so the probe no longer tests refusal of an unknown FUTURE version. Bumped to 41 (first version past live 40), per parent rule 1c.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Downgrade target: forged `{ ...v26, saveVersion: 39 }` probing rejection; KEEP.",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/p13b-s6-save-v26.test.ts",
+  "line": 225,
+  "class": "1c-future-version-refusal",
+  "kind": "regex",
+  "text": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 38 only/)",
+  "decision": "CHANGE",
+  "oldValue": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 38 only/)",
+  "newValue": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 40 only/)",
+  "titleChange": null,
+  "reason": "1c: the dispatcher's live message (src/core/save.ts:5415-5417) is 'unknown saveVersion N (this build handles versions 1 through 40 only)'; this regex still asserted the superseded range/number. Corrected per parent rule 1c.",
+  "supersededDecision": null,
+  "newRow": true
+ },
+ {
+  "path": "tests/property-state-v13.test.ts",
+  "line": 941,
+  "class": "1c-future-version-refusal",
+  "kind": "title",
+  "text": "  it('rejects unknown V38 beyond the current V37 reader boundary (stale numbers corrected post-C.2b)', () => {",
+  "decision": "CHANGE",
+  "oldValue": "  it('rejects unknown V38 beyond the current V37 reader boundary (stale numbers corrected post-C.2b)', () => {",
+  "newValue": "  it('rejects unknown V41 beyond the current V37 reader boundary (stale numbers corrected post-C.2b)', () => {",
+  "titleChange": {
+   "old": "  it('rejects unknown V38 beyond the current V37 reader boundary (stale numbers corrected post-C.2b)', () => {",
+   "new": "  it('rejects unknown V41 beyond the current V37 reader boundary (stale numbers corrected post-C.2b)', () => {"
+  },
+  "reason": "1c: title names the stale forged-probe / handled-range number(s); updated to the same numbers rule 1c sets in this leaf's code (41 for the forged/probed value, 40 for the handled-range upper bound). Record: old/new below.",
+  "supersededDecision": null,
+  "newRow": true
+ },
+ {
+  "path": "tests/property-state-v13.test.ts",
+  "line": 943,
+  "class": "1c-future-version-refusal",
+  "kind": "forged",
+  "text": "    expect(() => validateSave({ ...live, saveVersion: 39 })).toThrow(",
+  "decision": "CHANGE",
+  "oldValue": "    expect(() => validateSave({ ...live, saveVersion: 39 })).toThrow(",
+  "newValue": "    expect(() => validateSave({ ...live, saveVersion: 41 })).toThrow(",
+  "titleChange": null,
+  "reason": "1c: forges a current-writer save to what was live+1 at authoring time; that value (39) is now a KNOWN version (validateSaveV39 exists, src/core/save.ts), so the probe no longer tests refusal of an unknown FUTURE version. Bumped to 41 (first version past live 40), per parent rule 1c.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Downgrade target: forged `{ ...live, saveVersion: 39 }` probing rejection; KEEP.",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/property-state-v13.test.ts",
+  "line": 944,
+  "class": "1c-future-version-refusal",
+  "kind": "regex",
+  "text": "      /unknown saveVersion 39.*versions 1 through 38 only/,",
+  "decision": "CHANGE",
+  "oldValue": "      /unknown saveVersion 39.*versions 1 through 38 only/,",
+  "newValue": "      /unknown saveVersion 41.*versions 1 through 40 only/,",
+  "titleChange": null,
+  "reason": "1c: the dispatcher's live message (src/core/save.ts:5415-5417) is 'unknown saveVersion N (this build handles versions 1 through 40 only)'; this regex still asserted the superseded range/number. Corrected per parent rule 1c.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Regex paired with L943's forged probe; KEEP. Same live-message mismatch noted above (real message says 'through 40 only').",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/p14a1-save-v28.test.ts",
+  "line": 252,
+  "class": "1c-future-version-refusal",
+  "kind": "title",
+  "text": "  it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (stale numbers corrected post-C.2b)', () => {",
+  "decision": "CHANGE",
+  "oldValue": "  it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (stale numbers corrected post-C.2b)', () => {",
+  "newValue": "  it('an unknown saveVersion 41 is refused, naming the handled range \"1 through 40 only\" (stale numbers corrected post-C.2b)', () => {",
+  "titleChange": {
+   "old": "  it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (stale numbers corrected post-C.2b)', () => {",
+   "new": "  it('an unknown saveVersion 41 is refused, naming the handled range \"1 through 40 only\" (stale numbers corrected post-C.2b)', () => {"
+  },
+  "reason": "1c: title names the stale forged-probe / handled-range number(s); updated to the same numbers rule 1c sets in this leaf's code (41 for the forged/probed value, 40 for the handled-range upper bound). Record: old/new below.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Title paired with L255's forged-value probe (KEEP).",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/p14a1-save-v28.test.ts",
+  "line": 255,
+  "class": "1c-future-version-refusal",
+  "kind": "forged",
+  "text": "    const forged = { ...lifted, saveVersion: 39 }",
+  "decision": "CHANGE",
+  "oldValue": "    const forged = { ...lifted, saveVersion: 39 }",
+  "newValue": "    const forged = { ...lifted, saveVersion: 41 }",
+  "titleChange": null,
+  "reason": "1c: forges a current-writer save to what was live+1 at authoring time; that value (39) is now a KNOWN version (validateSaveV39 exists, src/core/save.ts), so the probe no longer tests refusal of an unknown FUTURE version. Bumped to 41 (first version past live 40), per parent rule 1c.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Downgrade target: forged `{ ...lifted, saveVersion: 39 }` probing rejection; KEEP.",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/p14a1-save-v28.test.ts",
+  "line": 256,
+  "class": "1c-future-version-refusal",
+  "kind": "regex",
+  "text": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 38 only/)",
+  "decision": "CHANGE",
+  "oldValue": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 38 only/)",
+  "newValue": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 40 only/)",
+  "titleChange": null,
+  "reason": "1c: the dispatcher's live message (src/core/save.ts:5415-5417) is 'unknown saveVersion N (this build handles versions 1 through 40 only)'; this regex still asserted the superseded range/number. Corrected per parent rule 1c.",
+  "supersededDecision": null,
+  "newRow": true
+ },
+ {
+  "path": "tests/construction-save-v11.test.ts",
+  "line": 553,
+  "class": "1c-future-version-refusal",
+  "kind": "forged",
+  "text": "    expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(",
+  "decision": "CHANGE",
+  "oldValue": "    expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(",
+  "newValue": "    expect(() => validateSave({ ...save, saveVersion: 41 })).toThrow(",
+  "titleChange": null,
+  "reason": "1c: forges a current-writer save to what was live+1 at authoring time; that value (39) is now a KNOWN version (validateSaveV39 exists, src/core/save.ts), so the probe no longer tests refusal of an unknown FUTURE version. Bumped to 41 (first version past live 40), per parent rule 1c.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Downgrade target: forged input `{ ...save, saveVersion: 39 }` (one past the save's own OLD version at the time this test was authored) probing rejection; per rule 2 'downgrade targets' stay KEEP regardless of the live boundary.",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/construction-save-v11.test.ts",
+  "line": 554,
+  "class": "1c-future-version-refusal",
+  "kind": "regex",
+  "text": "      /unknown saveVersion 39.*versions 1 through 38 only/,",
+  "decision": "CHANGE",
+  "oldValue": "      /unknown saveVersion 39.*versions 1 through 38 only/,",
+  "newValue": "      /unknown saveVersion 41.*versions 1 through 40 only/,",
+  "titleChange": null,
+  "reason": "1c: the dispatcher's live message (src/core/save.ts:5415-5417) is 'unknown saveVersion N (this build handles versions 1 through 40 only)'; this regex still asserted the superseded range/number. Corrected per parent rule 1c.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Regex paired with L553's forged saveVersion:39 probe; KEEP with L553. NOTE: the real current message (src/core/save.ts:5416) is now 'versions 1 through 40 only', so this /…through 38 only/ regex is itself CURRENTLY MISMATCHED/RED at published HEAD (see handback regression list) -- not corrected here because it is a downgrade-target assertion pair, out of this literal-maintenance patch's scope per rule 2.",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/save.test.ts",
+  "line": 283,
+  "class": "1c-future-version-refusal",
+  "kind": "title",
+  "text": "  it(\"throws on an unknown saveVersion (e.g. 38; Scientist amendment 840 makes 37 live and valid)\", () => {",
+  "decision": "CHANGE",
+  "oldValue": "  it(\"throws on an unknown saveVersion (e.g. 38; Scientist amendment 840 makes 37 live and valid)\", () => {",
+  "newValue": "  it(\"throws on an unknown saveVersion (e.g. 41; Scientist amendment 840 makes 37 live and valid)\", () => {",
+  "titleChange": {
+   "old": "  it(\"throws on an unknown saveVersion (e.g. 38; Scientist amendment 840 makes 37 live and valid)\", () => {",
+   "new": "  it(\"throws on an unknown saveVersion (e.g. 41; Scientist amendment 840 makes 37 live and valid)\", () => {"
+  },
+  "reason": "1c: title names the stale forged-probe / handled-range number(s); updated to the same numbers rule 1c sets in this leaf's code (41 for the forged/probed value, 40 for the handled-range upper bound). Record: old/new below.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Title paired with L288's forged-value probe (KEEP).",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/save.test.ts",
+  "line": 288,
+  "class": "1c-future-version-refusal",
+  "kind": "forged",
+  "text": "    const bad = { ...save, saveVersion: 39 } as unknown as SaveFileV14;",
+  "decision": "CHANGE",
+  "oldValue": "    const bad = { ...save, saveVersion: 39 } as unknown as SaveFileV14;",
+  "newValue": "    const bad = { ...save, saveVersion: 41 } as unknown as SaveFileV14;",
+  "titleChange": null,
+  "reason": "1c: forges a current-writer save to what was live+1 at authoring time; that value (39) is now a KNOWN version (validateSaveV39 exists, src/core/save.ts), so the probe no longer tests refusal of an unknown FUTURE version. Bumped to 41 (first version past live 40), per parent rule 1c.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Downgrade target: forged `{ ...save, saveVersion: 39 }` probing rejection; KEEP.",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/save.test.ts",
+  "line": 453,
+  "class": "1c-future-version-refusal",
+  "kind": "title",
+  "text": "  it(\"rejects an unknown saveVersion 38 with the updated range, and rejects downgrading V15 to V14 (stale number corrected post-C.2b)\", () => {",
+  "decision": "CHANGE",
+  "oldValue": "  it(\"rejects an unknown saveVersion 38 with the updated range, and rejects downgrading V15 to V14 (stale number corrected post-C.2b)\", () => {",
+  "newValue": "  it(\"rejects an unknown saveVersion 41 with the updated range, and rejects downgrading V15 to V14 (stale number corrected post-C.2b)\", () => {",
+  "titleChange": {
+   "old": "  it(\"rejects an unknown saveVersion 38 with the updated range, and rejects downgrading V15 to V14 (stale number corrected post-C.2b)\", () => {",
+   "new": "  it(\"rejects an unknown saveVersion 41 with the updated range, and rejects downgrading V15 to V14 (stale number corrected post-C.2b)\", () => {"
+  },
+  "reason": "1c: title names the stale forged-probe / handled-range number(s); updated to the same numbers rule 1c sets in this leaf's code (41 for the forged/probed value, 40 for the handled-range upper bound). Record: old/new below.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Title paired with L455's forged-value probe (KEEP).",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/save.test.ts",
+  "line": 455,
+  "class": "1c-future-version-refusal",
+  "kind": "forged",
+  "text": "    expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(",
+  "decision": "CHANGE",
+  "oldValue": "    expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(",
+  "newValue": "    expect(() => validateSave({ ...save, saveVersion: 41 })).toThrow(",
+  "titleChange": null,
+  "reason": "1c: forges a current-writer save to what was live+1 at authoring time; that value (39) is now a KNOWN version (validateSaveV39 exists, src/core/save.ts), so the probe no longer tests refusal of an unknown FUTURE version. Bumped to 41 (first version past live 40), per parent rule 1c.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Downgrade target: forged `{ ...save, saveVersion: 39 }` probing rejection; KEEP.",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/save.test.ts",
+  "line": 456,
+  "class": "1c-future-version-refusal",
+  "kind": "regex",
+  "text": "      /versions 1 through 38 only/,",
+  "decision": "CHANGE",
+  "oldValue": "      /versions 1 through 38 only/,",
+  "newValue": "      /versions 1 through 40 only/,",
+  "titleChange": null,
+  "reason": "1c: the dispatcher's live message (src/core/save.ts:5415-5417) is 'unknown saveVersion N (this build handles versions 1 through 40 only)'; this regex still asserted the superseded range/number. Corrected per parent rule 1c.",
+  "supersededDecision": null,
+  "newRow": true
+ },
+ {
+  "path": "tests/p13b-s2-save-v22.test.ts",
+  "line": 211,
+  "class": "1c-future-version-refusal",
+  "kind": "title",
+  "text": "  it('refuses an unknown saveVersion 38 with the updated range (stale number corrected post-C.2b)', () => {",
+  "decision": "CHANGE",
+  "oldValue": "  it('refuses an unknown saveVersion 38 with the updated range (stale number corrected post-C.2b)', () => {",
+  "newValue": "  it('refuses an unknown saveVersion 41 with the updated range (stale number corrected post-C.2b)', () => {",
+  "titleChange": {
+   "old": "  it('refuses an unknown saveVersion 38 with the updated range (stale number corrected post-C.2b)', () => {",
+   "new": "  it('refuses an unknown saveVersion 41 with the updated range (stale number corrected post-C.2b)', () => {"
+  },
+  "reason": "1c: title names the stale forged-probe / handled-range number(s); updated to the same numbers rule 1c sets in this leaf's code (41 for the forged/probed value, 40 for the handled-range upper bound). Record: old/new below.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Title paired with L214's forged-value probe (KEEP); narrates the forged boundary.",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/p13b-s2-save-v22.test.ts",
+  "line": 214,
+  "class": "1c-future-version-refusal",
+  "kind": "combined",
+  "text": "    expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(/versions 1 through 38 only/)",
+  "decision": "CHANGE",
+  "oldValue": "    expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(/versions 1 through 38 only/)",
+  "newValue": "    expect(() => validateSave({ ...save, saveVersion: 41 })).toThrow(/versions 1 through 40 only/)",
+  "titleChange": null,
+  "reason": "1c: forged literal and regex on the same line both named the superseded live+1 probe / range; both corrected together per parent rule 1c (src/core/save.ts:5415-5417 is the live message this regex must match).",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Downgrade target: forged `{ ...save, saveVersion: 39 }` probing rejection; KEEP.",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/p13b-s3-save-v23.test.ts",
+  "line": 121,
+  "class": "1c-future-version-refusal",
+  "kind": "title",
+  "text": "  it('an unknown saveVersion 38 is refused, naming the handled range (stale number corrected post-C.2b)', () => {",
+  "decision": "CHANGE",
+  "oldValue": "  it('an unknown saveVersion 38 is refused, naming the handled range (stale number corrected post-C.2b)', () => {",
+  "newValue": "  it('an unknown saveVersion 41 is refused, naming the handled range (stale number corrected post-C.2b)', () => {",
+  "titleChange": {
+   "old": "  it('an unknown saveVersion 38 is refused, naming the handled range (stale number corrected post-C.2b)', () => {",
+   "new": "  it('an unknown saveVersion 41 is refused, naming the handled range (stale number corrected post-C.2b)', () => {"
+  },
+  "reason": "1c: title names the stale forged-probe / handled-range number(s); updated to the same numbers rule 1c sets in this leaf's code (41 for the forged/probed value, 40 for the handled-range upper bound). Record: old/new below.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Title paired with L122's forged-value probe (KEEP).",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/p13b-s3-save-v23.test.ts",
+  "line": 122,
+  "class": "1c-future-version-refusal",
+  "kind": "forged",
+  "text": "    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 39 }",
+  "decision": "CHANGE",
+  "oldValue": "    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 39 }",
+  "newValue": "    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 41 }",
+  "titleChange": null,
+  "reason": "1c: forges a current-writer save to what was live+1 at authoring time; that value (39) is now a KNOWN version (validateSaveV39 exists, src/core/save.ts), so the probe no longer tests refusal of an unknown FUTURE version. Bumped to 41 (first version past live 40), per parent rule 1c.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Downgrade target: forged `{ ...makeSave(...), saveVersion: 39 }` probing rejection; KEEP.",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/p13b-s3-save-v23.test.ts",
+  "line": 123,
+  "class": "1c-future-version-refusal",
+  "kind": "regex",
+  "text": "    expect(() => validateSave(forged)).toThrow(/versions 1 through 38 only/)",
+  "decision": "CHANGE",
+  "oldValue": "    expect(() => validateSave(forged)).toThrow(/versions 1 through 38 only/)",
+  "newValue": "    expect(() => validateSave(forged)).toThrow(/versions 1 through 40 only/)",
+  "titleChange": null,
+  "reason": "1c: the dispatcher's live message (src/core/save.ts:5415-5417) is 'unknown saveVersion N (this build handles versions 1 through 40 only)'; this regex still asserted the superseded range/number. Corrected per parent rule 1c.",
+  "supersededDecision": null,
+  "newRow": true
+ },
+ {
+  "path": "tests/p14b1-save-v29.test.ts",
+  "line": 202,
+  "class": "1c-future-version-refusal",
+  "kind": "title",
+  "text": "  it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (stale numbers corrected post-C.2b)', () => {",
+  "decision": "CHANGE",
+  "oldValue": "  it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (stale numbers corrected post-C.2b)', () => {",
+  "newValue": "  it('an unknown saveVersion 41 is refused, naming the handled range \"1 through 40 only\" (stale numbers corrected post-C.2b)', () => {",
+  "titleChange": {
+   "old": "  it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (stale numbers corrected post-C.2b)', () => {",
+   "new": "  it('an unknown saveVersion 41 is refused, naming the handled range \"1 through 40 only\" (stale numbers corrected post-C.2b)', () => {"
+  },
+  "reason": "1c: title names the stale forged-probe / handled-range number(s); updated to the same numbers rule 1c sets in this leaf's code (41 for the forged/probed value, 40 for the handled-range upper bound). Record: old/new below.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Title paired with L205's forged-value probe (KEEP).",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/p14b1-save-v29.test.ts",
+  "line": 205,
+  "class": "1c-future-version-refusal",
+  "kind": "forged",
+  "text": "    const forged = { ...lifted, saveVersion: 39 }",
+  "decision": "CHANGE",
+  "oldValue": "    const forged = { ...lifted, saveVersion: 39 }",
+  "newValue": "    const forged = { ...lifted, saveVersion: 41 }",
+  "titleChange": null,
+  "reason": "1c: forges a current-writer save to what was live+1 at authoring time; that value (39) is now a KNOWN version (validateSaveV39 exists, src/core/save.ts), so the probe no longer tests refusal of an unknown FUTURE version. Bumped to 41 (first version past live 40), per parent rule 1c.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Downgrade target: forged `{ ...lifted, saveVersion: 39 }` probing rejection; KEEP.",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/p14b1-save-v29.test.ts",
+  "line": 206,
+  "class": "1c-future-version-refusal",
+  "kind": "regex",
+  "text": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 38 only/)",
+  "decision": "CHANGE",
+  "oldValue": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 38 only/)",
+  "newValue": "    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 40 only/)",
+  "titleChange": null,
+  "reason": "1c: the dispatcher's live message (src/core/save.ts:5415-5417) is 'unknown saveVersion N (this build handles versions 1 through 40 only)'; this regex still asserted the superseded range/number. Corrected per parent rule 1c.",
+  "supersededDecision": null,
+  "newRow": true
+ },
+ {
+  "path": "tests/p13b-s5-save-v24.test.ts",
+  "line": 213,
+  "class": "1c-future-version-refusal",
+  "kind": "title",
+  "text": "  it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (stale numbers corrected post-C.2b)', () => {",
+  "decision": "CHANGE",
+  "oldValue": "  it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (stale numbers corrected post-C.2b)', () => {",
+  "newValue": "  it('an unknown saveVersion 41 is refused, naming the handled range \"1 through 40 only\" (stale numbers corrected post-C.2b)', () => {",
+  "titleChange": {
+   "old": "  it('an unknown saveVersion 38 is refused, naming the handled range \"1 through 36 only\" (stale numbers corrected post-C.2b)', () => {",
+   "new": "  it('an unknown saveVersion 41 is refused, naming the handled range \"1 through 40 only\" (stale numbers corrected post-C.2b)', () => {"
+  },
+  "reason": "1c: title names the stale forged-probe / handled-range number(s); updated to the same numbers rule 1c sets in this leaf's code (41 for the forged/probed value, 40 for the handled-range upper bound). Record: old/new below.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Title paired with L214's forged-value probe (KEEP).",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/p13b-s5-save-v24.test.ts",
+  "line": 214,
+  "class": "1c-future-version-refusal",
+  "kind": "forged",
+  "text": "    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 39 }",
+  "decision": "CHANGE",
+  "oldValue": "    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 39 }",
+  "newValue": "    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 41 }",
+  "titleChange": null,
+  "reason": "1c: forges a current-writer save to what was live+1 at authoring time; that value (39) is now a KNOWN version (validateSaveV39 exists, src/core/save.ts), so the probe no longer tests refusal of an unknown FUTURE version. Bumped to 41 (first version past live 40), per parent rule 1c.",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Downgrade target: forged `{ ...makeSave(...), saveVersion: 39 }` probing rejection; KEEP.",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/p13b-s5-save-v24.test.ts",
+  "line": 215,
+  "class": "1c-future-version-refusal",
+  "kind": "regex",
+  "text": "    expect(() => validateSave(forged as never)).toThrow(/versions 1 through 38 only/)",
+  "decision": "CHANGE",
+  "oldValue": "    expect(() => validateSave(forged as never)).toThrow(/versions 1 through 38 only/)",
+  "newValue": "    expect(() => validateSave(forged as never)).toThrow(/versions 1 through 40 only/)",
+  "titleChange": null,
+  "reason": "1c: the dispatcher's live message (src/core/save.ts:5415-5417) is 'unknown saveVersion N (this build handles versions 1 through 40 only)'; this regex still asserted the superseded range/number. Corrected per parent rule 1c.",
+  "supersededDecision": null,
+  "newRow": true
+ },
+ {
+  "path": "tests/d17a-adv-migration.test.ts",
+  "line": 273,
+  "class": "1c-future-version-refusal",
+  "kind": "title",
+  "text": "  it('rejects unknown V38 loudly (stale title corrected post-C.2b; the boundary moves on every save bump)', () => {",
+  "decision": "CHANGE",
+  "oldValue": "  it('rejects unknown V38 loudly (stale title corrected post-C.2b; the boundary moves on every save bump)', () => {",
+  "newValue": "  it('rejects unknown V41 loudly (stale title corrected post-C.2b; the boundary moves on every save bump)', () => {",
+  "titleChange": {
+   "old": "  it('rejects unknown V38 loudly (stale title corrected post-C.2b; the boundary moves on every save bump)', () => {",
+   "new": "  it('rejects unknown V41 loudly (stale title corrected post-C.2b; the boundary moves on every save bump)', () => {"
+  },
+  "reason": "1c: title names the stale forged-probe / handled-range number(s); updated to the same numbers rule 1c sets in this leaf's code (41 for the forged/probed value, 40 for the handled-range upper bound). Record: old/new below.",
+  "supersededDecision": null,
+  "newRow": true
+ },
+ {
+  "path": "tests/d17a-adv-migration.test.ts",
+  "line": 274,
+  "class": "1c-future-version-refusal",
+  "kind": "combined",
+  "text": "    expect(() => validateSave({ ...v6, saveVersion: 39 })).toThrow(/unknown saveVersion 39/)",
+  "decision": "CHANGE",
+  "oldValue": "    expect(() => validateSave({ ...v6, saveVersion: 39 })).toThrow(/unknown saveVersion 39/)",
+  "newValue": "    expect(() => validateSave({ ...v6, saveVersion: 41 })).toThrow(/unknown saveVersion 41/)",
+  "titleChange": null,
+  "reason": "1c: forged literal and regex on the same line both named the superseded live+1 probe / range; both corrected together per parent rule 1c (src/core/save.ts:5415-5417 is the live message this regex must match).",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Downgrade target: forged `{ ...v6, saveVersion: 39 }` probing rejection; KEEP.",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/d17b-save-v7.test.ts",
+  "line": 161,
+  "class": "1c-future-version-refusal",
+  "kind": "title",
+  "text": "  it('V7 through V36 are known, so the unknown-version boundary is now 37 (stale numbers corrected post-C.2b; the boundary moves on every save bump)', () => {",
+  "decision": "CHANGE",
+  "oldValue": "  it('V7 through V36 are known, so the unknown-version boundary is now 37 (stale numbers corrected post-C.2b; the boundary moves on every save bump)', () => {",
+  "newValue": "  it('V7 through V36 are known, so the unknown-version boundary is now 41 (stale numbers corrected post-C.2b; the boundary moves on every save bump)', () => {",
+  "titleChange": {
+   "old": "  it('V7 through V36 are known, so the unknown-version boundary is now 37 (stale numbers corrected post-C.2b; the boundary moves on every save bump)', () => {",
+   "new": "  it('V7 through V36 are known, so the unknown-version boundary is now 41 (stale numbers corrected post-C.2b; the boundary moves on every save bump)', () => {"
+  },
+  "reason": "1c: title names the stale forged-probe / handled-range number(s); updated to the same numbers rule 1c sets in this leaf's code (41 for the forged/probed value, 40 for the handled-range upper bound). Record: old/new below.",
+  "supersededDecision": null,
+  "newRow": true
+ },
+ {
+  "path": "tests/d17b-save-v7.test.ts",
+  "line": 163,
+  "class": "1c-future-version-refusal",
+  "kind": "combined",
+  "text": "    expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(/unknown saveVersion 39/)",
+  "decision": "CHANGE",
+  "oldValue": "    expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(/unknown saveVersion 39/)",
+  "newValue": "    expect(() => validateSave({ ...save, saveVersion: 41 })).toThrow(/unknown saveVersion 41/)",
+  "titleChange": null,
+  "reason": "1c: forged literal and regex on the same line both named the superseded live+1 probe / range; both corrected together per parent rule 1c (src/core/save.ts:5415-5417 is the live message this regex must match).",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Downgrade target: forged `{ ...save, saveVersion: 39 }` probing rejection; KEEP.",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/contracts/v14-boundary-guards.contract.test.ts",
+  "line": 318,
+  "class": "1c-future-version-refusal",
+  "kind": "title",
+  "text": "  it('keeps every historical version frozen and rejects unknown V22', () => {",
+  "decision": "CHANGE",
+  "oldValue": "  it('keeps every historical version frozen and rejects unknown V22', () => {",
+  "newValue": "  it('keeps every historical version frozen and rejects unknown V41', () => {",
+  "titleChange": {
+   "old": "  it('keeps every historical version frozen and rejects unknown V22', () => {",
+   "new": "  it('keeps every historical version frozen and rejects unknown V41', () => {"
+  },
+  "reason": "1c: title names the stale forged-probe / handled-range number(s); updated to the same numbers rule 1c sets in this leaf's code (41 for the forged/probed value, 40 for the handled-range upper bound). Record: old/new below.",
+  "supersededDecision": null,
+  "newRow": true
+ },
+ {
+  "path": "tests/contracts/v14-boundary-guards.contract.test.ts",
+  "line": 320,
+  "class": "1c-future-version-refusal",
+  "kind": "combined",
+  "text": "    expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(/unknown saveVersion 39/)",
+  "decision": "CHANGE",
+  "oldValue": "    expect(() => validateSave({ ...save, saveVersion: 39 })).toThrow(/unknown saveVersion 39/)",
+  "newValue": "    expect(() => validateSave({ ...save, saveVersion: 41 })).toThrow(/unknown saveVersion 41/)",
+  "titleChange": null,
+  "reason": "1c: forged literal and regex on the same line both named the superseded live+1 probe / range; both corrected together per parent rule 1c (src/core/save.ts:5415-5417 is the live message this regex must match).",
+  "supersededDecision": {
+   "decision": "KEEP",
+   "reason": "Downgrade target: forged `{ ...save, saveVersion: 39 }` on a frozen envelopeAt(14) probing rejection; KEEP (downgrade target). Same live-message mismatch noted above applies to its /unknown saveVersion 39/ regex prefix (still matches; the message text after it does not, since this regex omits the 'through N only' suffix).",
+   "source": "1301-live-pin-classification.json (original 1301-C pass)"
+  },
+  "newRow": false
+ },
+ {
+  "path": "tests/construction-save-v11.test.ts",
+  "line": 546,
+  "class": "1c-future-version-refusal",
+  "kind": "title",
+  "text": "  it(\"validates original current input and rejects unknown future versions\", () => {",
+  "decision": "KEEP",
+  "oldValue": null,
+  "newValue": null,
+  "reason": "1c considered: this leaf's title carries no numeral naming the forged/probed value or the handled range (unlike its siblings); nothing to update under rule 1c's 'a title that names those stale numbers' clause. The leaf's own forged/regex lines (553, 554) are corrected.",
+  "titleChange": null,
+  "supersededDecision": null,
+  "newRow": true
+ }
+]
