@@ -1,0 +1,110 @@
+{
+  "purpose": "generated test campaigns only; never Owner saves",
+  "record": "1314",
+  "executionHead": "acb2d47246cd3984558dfa12f6c3283ffaaf08dd",
+  "saveVersion": 41,
+  "elapsedMs": 1491,
+  "inputs": [
+    {
+      "name": "genuine-v41-casting-acknowledged",
+      "gzip": {
+        "bytes": 57181,
+        "sha256": "3e9da8307dfaf6f8a54698c403648e658033cc05e616a2cb2540073f38049ff6"
+      },
+      "decoded": {
+        "bytes": 462047,
+        "sha256": "6fc0e0768c87d86702df77a5978fe5031bdd313c867e07e8ad476d2c0aba6469"
+      },
+      "facts": {
+        "week": 10,
+        "rivals": 4,
+        "edges": 24,
+        "session": {
+          "id": "casting-0000",
+          "projectId": "script-0000",
+          "status": "complete",
+          "slate": {
+            "lead": [
+              "t-act-24",
+              "t-act-08"
+            ],
+            "antagonist": [
+              "t-act-08",
+              "t-act-20"
+            ],
+            "support": [
+              "t-act-20",
+              "t-act-24"
+            ]
+          }
+        },
+        "project": "ready",
+        "production": "none",
+        "slateEdges": []
+      }
+    },
+    {
+      "name": "genuine-v41-casting-released",
+      "gzip": {
+        "bytes": 67977,
+        "sha256": "1890a473e76314c449ce98dfabb0cc1cce393adbdc80896dc982aeba28681670"
+      },
+      "decoded": {
+        "bytes": 535978,
+        "sha256": "dd3da574a9d65c9a5bc411925ca7dac70f71ef86b43f3fc792dabdd222dd220a"
+      },
+      "facts": {
+        "week": 19,
+        "rivals": 4,
+        "edges": 30,
+        "session": {
+          "id": "casting-0000",
+          "projectId": "script-0000",
+          "status": "complete",
+          "slate": {
+            "lead": [
+              "t-act-24",
+              "t-act-08"
+            ],
+            "antagonist": [
+              "t-act-08",
+              "t-act-20"
+            ],
+            "support": [
+              "t-act-20",
+              "t-act-24"
+            ]
+          }
+        },
+        "project": "produced",
+        "production": "released",
+        "slateEdges": [
+          {
+            "a": "t-act-08",
+            "b": "t-act-24",
+            "sharedProductions": 1,
+            "kinds": [
+              "sharedProduction"
+            ]
+          },
+          {
+            "a": "t-act-20",
+            "b": "t-act-24",
+            "sharedProductions": 1,
+            "kinds": [
+              "sharedProduction"
+            ]
+          },
+          {
+            "a": "t-act-08",
+            "b": "t-act-20",
+            "sharedProductions": 1,
+            "kinds": [
+              "sharedProduction"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

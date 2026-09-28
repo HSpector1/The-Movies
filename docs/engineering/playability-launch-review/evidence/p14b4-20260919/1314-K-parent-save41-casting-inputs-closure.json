@@ -1,0 +1,126 @@
+{
+  "record": "1314-K parent closure: genuine outgoing Save41 inputs for the casting-driver Save42 increment",
+  "timeUtc": "2026-09-28T11:21:11.756816+00:00",
+  "executedPublishedSource": "acb2d47246cd3984558dfa12f6c3283ffaaf08dd",
+  "plan": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1313-A-casting-drivers-expansion.md",
+      "bytes": 6293,
+      "sha256": "659f43c394e129154e6095ede6d2a2f4c87e03447b1a217e919f3ffc4ad9aef3"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1313-F-parent-casting-drivers-adoption.md",
+      "bytes": 5722,
+      "sha256": "7952ff8082744a267007420654ece4947d7e2f0115bbf5b265f198a4d6d6d35b"
+    }
+  ],
+  "probe": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1314-P-casting-route-probe.ts",
+      "bytes": 5667,
+      "sha256": "ee9e0ade067ab5f441c8aeb56e89582ccfe99e20071792ced5f7390a69d59e95"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1314-P-casting-route-probe.txt",
+      "bytes": 1353,
+      "sha256": "a07755f3510e598acec648ddcc89cc4e0ac16892bc38309a5b26c5f3ca305a70"
+    }
+  ],
+  "producer": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1314-save41-casting-outgoing-producer-r2.ts",
+    "bytes": 10197,
+    "sha256": "abeb57a796b2eab7a11255f44f9f8bd4dfb377762bd732c8bdac9ec933874a8a"
+  },
+  "supersededDraft": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1314-save41-casting-outgoing-producer.ts",
+    "bytes": 9991,
+    "sha256": "4f78c69af650246c01d2f40ea2e58a0761386eba14bfeacd221a617b6b2f51d8"
+  },
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1314-B-save41-producer-review.md",
+    "bytes": 14692,
+    "sha256": "668f7207fec29a50117854098418e93ff5d2ff961bc3d23c8c029c31729c69c0"
+  },
+  "reviewVerdict": "REFINE; both changes applied in r2 (shooting guard restored to the 1314-P text; acknowledged input asserts zero slate edges)",
+  "dryRun": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1314-X-producer-dry-run.md",
+    "bytes": 1961,
+    "sha256": "5359aa72fa4f889a7a95062af5707de1162908e8319e813b706274d30e2e3592"
+  },
+  "run": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1314-save41-casting-outgoing-run-preflight.json",
+      "bytes": 114702,
+      "sha256": "956631551c80f43133c4aa3056554effe4fdc78b696f2dc9779b6e0ffcddc359"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1314-save41-casting-outgoing-run.json",
+      "bytes": 52650,
+      "sha256": "83385c5790528641d4da86e0f373c7b786426402e4dfabc6234045bbc42e7190"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1314-save41-casting-outgoing-run.txt",
+      "bytes": 45479,
+      "sha256": "0151ed9290445fdee73df2b7d0f3a3bacf21241274eba2f928c7346fd87718cd"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1314-save41-casting-outgoing-run.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1314-save41-casting-outgoing-run-postflight.json",
+      "bytes": 115405,
+      "sha256": "cb6ca014fe1de2bc789e268f5ecda57fa72d25c6bd7c437f59ff4a1e49642e32"
+    }
+  ],
+  "runFacts": {
+    "command": [
+      "node_modules/.bin/vite-node",
+      "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1314-save41-casting-outgoing-producer-r2.ts"
+    ],
+    "exitCode": 0,
+    "fixedSource": true,
+    "start": "2026-09-28T11:20:49.306Z",
+    "end": "2026-09-28T11:20:54.040Z",
+    "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "allGuardsExact": true
+  },
+  "outputs": [
+    {
+      "path": "tests/fixtures/p14/genuine-v41-pre-casting-drivers/MANIFEST.json",
+      "bytes": 2677,
+      "sha256": "a605cfa0149b2bf3dcf7968ea3c5a0f5cce1e7e2317eced6c2c2037767e45d4e"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v41-pre-casting-drivers/genuine-v41-casting-acknowledged.json.gz",
+      "bytes": 57181,
+      "sha256": "3e9da8307dfaf6f8a54698c403648e658033cc05e616a2cb2540073f38049ff6",
+      "raw": {
+        "bytes": 462047,
+        "sha256": "6fc0e0768c87d86702df77a5978fe5031bdd313c867e07e8ad476d2c0aba6469"
+      }
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v41-pre-casting-drivers/genuine-v41-casting-acknowledged.provenance.json",
+      "bytes": 1812,
+      "sha256": "69b48d00b526dfebc5ff8dea7b90caf9f56e77cedf60169d2b9ae90a4d5cf786"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v41-pre-casting-drivers/genuine-v41-casting-released.json.gz",
+      "bytes": 67977,
+      "sha256": "1890a473e76314c449ce98dfabb0cc1cce393adbdc80896dc982aeba28681670",
+      "raw": {
+        "bytes": 535978,
+        "sha256": "dd3da574a9d65c9a5bc411925ca7dac70f71ef86b43f3fc792dabdd222dd220a"
+      }
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v41-pre-casting-drivers/genuine-v41-casting-released.provenance.json",
+      "bytes": 2452,
+      "sha256": "15892890bab3da2f322cf127a8b3108efb61d640f76b8950133bc7904bef5fae"
+    }
+  ],
+  "orderNote": "1313-F placed this run after the 1309 sweep and broad rerun. It ran first because it reads no test and writes only a new fixture directory that no tracked test reads yet, so it cannot move either gate; the broad gates still run before the 1313 RED.",
+  "disposition": "CLOSED: genuine Save41 inputs minted at the last Save41 writer before the Save42 writer moves."
+}

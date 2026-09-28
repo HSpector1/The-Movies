@@ -1,0 +1,80 @@
+{
+  "purpose": "generated test campaigns only; never Owner saves",
+  "record": "1314",
+  "plan": [
+    "1313-A",
+    "1313-F"
+  ],
+  "probe": "1314-P",
+  "producer": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1314-save41-casting-outgoing-producer-r2.ts",
+  "executionHead": "acb2d47246cd3984558dfa12f6c3283ffaaf08dd",
+  "saveVersion": 41,
+  "projectionVersion": 56,
+  "schemaId": "sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1",
+  "route": "p13aGeneratedStudio('r1314-casting-01'); sign week-0 market writer, director, craft, first three actors (208 weeks); strike any set on facility-soundstage-07, commission set-grand-ballroom there, advanceTo(SET_BUILD_WEEKS_BAND_HIGH); activateScriptDevelopment, activateCastingSessions; commissionScript concept 0; tick to review; acceptScript; startCastingSession lead[a,b] antagonist[b,c] support[c,a]; tick to review; acknowledgeCastingSession; greenlightScriptProject cast lead a, antagonist b, support c; assignShootingDirector + scheduleShootingTake at remainingTicks 5; commitPictureToRelease at releaseReady; tick until released",
+  "cast": {
+    "lead": "t-act-24",
+    "antagonist": "t-act-08",
+    "support": "t-act-20"
+  },
+  "gzip": {
+    "bytes": 67977,
+    "sha256": "1890a473e76314c449ce98dfabb0cc1cce393adbdc80896dc982aeba28681670"
+  },
+  "decoded": {
+    "bytes": 535978,
+    "sha256": "dd3da574a9d65c9a5bc411925ca7dac70f71ef86b43f3fc792dabdd222dd220a"
+  },
+  "facts": {
+    "week": 19,
+    "rivals": 4,
+    "edges": 30,
+    "session": {
+      "id": "casting-0000",
+      "projectId": "script-0000",
+      "status": "complete",
+      "slate": {
+        "lead": [
+          "t-act-24",
+          "t-act-08"
+        ],
+        "antagonist": [
+          "t-act-08",
+          "t-act-20"
+        ],
+        "support": [
+          "t-act-20",
+          "t-act-24"
+        ]
+      }
+    },
+    "project": "produced",
+    "production": "released",
+    "slateEdges": [
+      {
+        "a": "t-act-08",
+        "b": "t-act-24",
+        "sharedProductions": 1,
+        "kinds": [
+          "sharedProduction"
+        ]
+      },
+      {
+        "a": "t-act-20",
+        "b": "t-act-24",
+        "sharedProductions": 1,
+        "kinds": [
+          "sharedProduction"
+        ]
+      },
+      {
+        "a": "t-act-08",
+        "b": "t-act-20",
+        "sharedProductions": 1,
+        "kinds": [
+          "sharedProduction"
+        ]
+      }
+    ]
+  }
+}
