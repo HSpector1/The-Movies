@@ -1,0 +1,26 @@
+--- a/tests/p14p4p5-post-capacity.test.ts
++++ b/tests/p14p4p5-post-capacity.test.ts
+@@ -188,19 +188,20 @@
+ }
+ function lockedPeople(state: GameState) {
+   assert.ok(initial)
++  const baseline = initial
+   return [ACTOR, 'authored-0004', DIRECTOR, 't-dir-08'].map(id => {
+     const talent = state.talent.find(row => row.id === id), provenance = state.talentProvenance.rows.find(row => row.personId === id)
+     assert.ok(talent && provenance)
+     expect(talent.role).toBe(id === DIRECTOR || id === 't-dir-08' ? 'director' : 'actor')
+     expect(talent.age).toBe(id === 't-dir-08' ? 40 : 76); expect(core.ageAt(provenance, state.market.tick)).toBe(talent.age)
+-    expect(provenance).toEqual(initial.talentProvenance.rows.find(row => row.personId === id))
++    expect(provenance).toEqual(baseline.talentProvenance.rows.find(row => row.personId === id))
+     const record = core.retirementRecordFor(state, id), employment = state.hollywood!.employment.filter(row => row.terms.talentId === id)
+-    expect(activeContract(state, id)).toBeUndefined(); expect(employment).toEqual(initial.hollywood!.employment.filter(row => row.terms.talentId === id))
++    expect(activeContract(state, id)).toBeUndefined(); expect(employment).toEqual(baseline.hollywood!.employment.filter(row => row.terms.talentId === id))
+     expect(employment).toHaveLength(1); expect(employment[0]).toMatchObject({ studioId: issuer(state), endedWeek: 208,
+       terms: { talentId: id, startWeek: 0, endWeekExclusive: 208, termWeeks: 208 } })
+     if (id === 't-dir-08') expect(record).toBeUndefined()
+     else {
+-      expect(record).toEqual(core.retirementRecordFor(initial, id))
++      expect(record).toEqual(core.retirementRecordFor(baseline, id))
+       expect(record).toMatchObject({ personId: id, profession: talent.role, status: 'finishing_commitments', retiredWeek: null,
+         announcedWeek: id === DIRECTOR ? 260 : 52, effectiveWeek: id === DIRECTOR ? 312 : 208 })
+     }

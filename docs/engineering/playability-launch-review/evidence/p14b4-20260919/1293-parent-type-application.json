@@ -1,0 +1,34 @@
+{
+  "record": "1293 parent observed type correction application",
+  "timeUtc": "2026-09-28T03:20:56.186740+00:00",
+  "publishedBase": "2e1543ffb3e5f4636fc8ce90d5da08146535d69a",
+  "preparationHead": "e33b4b5367903ad534feec8ea8c1d0d931041b5a",
+  "source": {
+    "path": "tests/p14p4p5-post-capacity.test.ts",
+    "bytes": 50088,
+    "sha256": "3527d3468da5cc8baf2bc30545c01eee75ca92371f0d27ac8c223e450afd4369"
+  },
+  "manifest": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-type-narrowing-manifest.json",
+    "bytes": 14449,
+    "sha256": "a996ce07ea6e365ceec4109e60d7ac86e65dffe9721a58e01006a151561e225e"
+  },
+  "author": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-G-type-narrowing-handback.md",
+    "bytes": 3656,
+    "sha256": "363cceed8376696af496171fa74ddb715c7b2e0fdb7f98e6898a943c42af46be"
+  },
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1293-H-type-narrowing-review.md",
+    "bytes": 3545,
+    "sha256": "b09a81dc979c8ef134917647d83da127e33000608698b2d18505ddb69f43eda4"
+  },
+  "verifiedPins": 75,
+  "protectedSourceImages": 58,
+  "parentRead": "Full G/H/manifest/diff read; exact three-reference plus const-only transform independently matches complete staged postimage. Original1294 failure and all original source evidence retained. No runtime behavior/oracle/timeout changes.",
+  "runtimeExecuted": false,
+  "next": [
+    "1294b-post-capacity-types cap0",
+    "first1295-post-capacity-runtime cap2 only after compiler PASS and closed guards"
+  ]
+}

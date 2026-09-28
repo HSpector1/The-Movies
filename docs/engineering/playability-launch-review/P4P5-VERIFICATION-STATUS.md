@@ -1,5 +1,20 @@
 # P4/P5 verification coverage
 
+## CURRENT — Q25 type correction applied; compiler retry next
+
+Original1294 FAIL remains published2e1543ff, with no runtime executed.
+Parent applied independently reviewed1293-G/H: one checked local const and three
+callback references, exact50,088-byte source3527d346. The full inverse preserves
+every assertion, action, bound and timeout. Publish then1294b types(cap0); only
+PASS plus closed bounded guards releases first1295 Q25(cap2).1293 parent type
+application records75 pins/58 unchanged protected source images.
+
+Use the corrected bounded helpers and explicit P14 inputs;1296-B preserves the
+historical access error. Same two test/review specialists, parent live writer,
+one heavy process. After Q25 closure, adopted1297 neighbors require the reviewed
+companion guard. P15 ordering inventory is preparation only. Continue the
+program; Unity/native and Owner campaigns deferred.
+
 ## CURRENT — Q25 compiler failure retained; minimal type fix next
 
 Published e33b4b53 contains the reviewed Q25 source and future1297/P15 notes.
