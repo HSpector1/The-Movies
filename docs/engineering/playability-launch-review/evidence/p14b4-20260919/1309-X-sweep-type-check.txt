@@ -1,0 +1,8 @@
+# 1309-X parent scratch type check: git archive of HEAD f8660266 (src, bridge, ui/src, scripts, generated, tests without tests/fixtures payloads) + 1309-pin-sweep.patch
+# root tsc --noEmit: 0 errors
+# tsc -p tsconfig.bridge.json:
+tests/bridge-p14b1-promises.test.ts(399,73): error TS2345: Argument of type '{ family: "PREFERRED_GENRE_OPPORTUNITY"; count: number; windowStartWeek: number; dueWeekExclusive: number; startWeek: number; termWeeks: number; }' is not assignable to parameter of type 'PromiseQuoteDraft'.
+tests/bridge-p14b3-promise-command.test.ts(168,47): error TS2322: Type '{ family: "PREFERRED_GENRE_OPPORTUNITY"; windowStartWeek: number; dueWeekExclusive: number; count: number; }' is not assignable to type 'ObjectValue<{ readonly seatClass: JsonSchema<"lead" | "leadOrAntagonist">; readonly count: JsonSchema<number>; readonly windowStartWeek: JsonSchema<number>; readonly dueWeekExclusive: JsonSchema<...>; readonly family: JsonSchema<...>; }> | ObjectValue<...> | ObjectValue<...> | ObjectValue<...> | ObjectValue<...>'.
+tests/bridge-p14c3-runtime.test.ts(178,41): error TS2345: Argument of type 'SaveFileV41' is not assignable to parameter of type 'SaveFileV38'.
+# tsc -p ui/tsconfig.json --noEmit (roleAtlas row is a scratch artifact: ui/public is not archived):
+ui/src/lot/hollywood/roleAtlas.test.ts(2,29): error TS2307: Cannot find module '../../../public/lot/hollywood/role-atlas-v1.json' or its corresponding type declarations.
