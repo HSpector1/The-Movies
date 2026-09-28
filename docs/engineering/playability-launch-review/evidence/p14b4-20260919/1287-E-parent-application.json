@@ -1,0 +1,51 @@
+{
+  "record": "1287-E parent application",
+  "timeUtc": "2026-09-28T01:57:40.774301+00:00",
+  "basePublishedSource": "8626030cfdf8d5dd0ce2b10facbbf577fc87fc64",
+  "parentRead": "Full566-line source and A/B/C/D/F read before integration. Exact existing45 input/strict39 to40 authority; seven real settlement ticks then two real commissions, intentional duplicate-seat refusal, queue admission and sole ordinary53 commit. Independent owner census/full reservation and resource bodies, actual52 precommit price/receipt and complete old/new subject joins. Transient53 forwarding observation preserves stable full-object/request/RNG, completed53 independently admits. One actual wrong-lead P5 outcome, ordinary payroll separated from film charge. No simulation, historical prefix or engine evaluation during application. All61 manifest identities, decoded input and53 protected complete HEAD images independently checked.",
+  "operation": "add one standalone Q23 test; preserve all older files",
+  "source": {
+    "path": "tests/p14p4p5-queued-project-outcome.test.ts",
+    "bytes": 46898,
+    "sha256": "e1a4c0789e0546085c44e91aaddaa72754fcedc8f50c18ef48e5d6e26ca8ea33"
+  },
+  "author": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1287-C-queued-project-outcome-source-handback.md",
+    "bytes": 8550,
+    "sha256": "33471b3ac32bddfa20c8825724736f9cbe1b76abeb27472d9a5b38b9e4c82de6"
+  },
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1287-D-queued-project-outcome-source-review.md",
+    "bytes": 6330,
+    "sha256": "d836ea276c295e245020c969dd78af94e115f54e7276ab10389c47d1ca5f59fc"
+  },
+  "manifest": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1287-queued-project-outcome-source-manifest.json",
+    "bytes": 14703,
+    "sha256": "3ae084700f7ea789e2ecfb0d23ba7776d65c90dbb2f46cf4b81bc39425200d4d"
+  },
+  "verifiedManifestPins": 61,
+  "protectedFilesUnchanged": 53,
+  "runtimeExecuted": false,
+  "next": {
+    "1288-queued-project-outcome-types": [
+      "node_modules/.bin/tsc",
+      "--noEmit",
+      "-p",
+      "tsconfig.json"
+    ],
+    "1289-queued-project-outcome-runtime": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p4p5-queued-project-outcome.test.ts",
+      "-t",
+      "Q23 "
+    ]
+  },
+  "advanceCaps": {
+    "types": 0,
+    "runtime": 8
+  }
+}

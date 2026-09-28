@@ -1,5 +1,25 @@
 # R3-N1 native correction record — 2026-09-15 · OPS-R3-N1-NATIVE-CORRECTION-20260915-01
 
+## CURRENT — Queued-project source applied; Q23 gates next
+
+Parent applied exact1287-C/D on published8626030c.1287-E records one new
+46,898-byte standalone test e1a4c078,61 manifest pins and53 unchanged protected
+files. Publish then1288 root types(cap0),1289 isolatedQ23(cap8): eight actual
+develop:true45→53 advances, six public attempts (five accepted plus one expected
+duplicate-Actor refusal), one direct promise quote and one forwarded ordinary
+queue commitment. The refused and queued52 requests must preserve the open P5;
+only real53 commitment may produce its wrong-lead outcome. These remain runtime
+premises, with a new60s leaf declaration. Twenty-two earlier core leaves are
+qualified across fourteen separate selections; no full-suite claim.
+
+Independent review of1290 scenery planning follows; its source and execution
+remain unreleased until parent adoption. Source-only1293 post planning uses the
+known35 actual312 input. Parent owns live integration/production and one heavy
+lane; the same two specialists retain separate test/review roles. P17 choices
+and reviewed paper reproduction remain recorded with engine/balance limits;
+P18 charter is source-reviewed and unspecified TV rules proposed. Continue the
+authorized program. Unity/native and Owner campaigns remain deferred.
+
 ## CURRENT — Soundstage capacity qualified; queued outcome source next
 
 Executed/published3fa911cb5fcfc738d108d69386a5e8eb2ac8cb5b matched GitHub.

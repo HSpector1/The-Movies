@@ -1,0 +1,566 @@
+// 1287-A/B/F: genuine refusal, queued request and ordinary commit; fixed45→53 only.
+import assert from 'node:assert/strict'
+import { createHash } from 'node:crypto'
+import { readFileSync } from 'node:fs'
+import { gunzipSync } from 'node:zlib'
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
+import * as core from '../src/core/index.js'
+import * as saves from '../src/core/save.js'
+import * as tickOwner from '../src/core/tick.js'
+import * as actionsOwner from '../src/core/actions.js'
+import * as promiseOwner from '../src/core/promises.js'
+import * as opportunityOwner from '../src/core/opportunityPromises.js'
+import { activeContract, busyTalentIds } from '../src/core/employment.js'
+import { occupiedResourceSlots, resourceClaimsOf } from '../src/core/occupancy.js'
+import type { PromiseAttachment, PromiseDraft } from '../src/core/promises.js'
+import type { Action, FirstTakeReceipt, FirstTakeSubject, GameState, ProfessionalPromise, PromiseFeasibilityReceipt } from '../src/core/types.js'
+
+const E = new URL('../docs/engineering/playability-launch-review/evidence/p14b4-20260919/', import.meta.url)
+const FOCUS = 'authored-0006', WRITER = 'authored-0003', DIRECTOR = 'authored-0002', CRAFT = 'authored-0004'
+const CAST = { lead: 'authored-0000', antagonist: 'authored-0005', support: FOCUS }
+const HARD_ADVANCES = 8, TIMEOUT = 60_000
+const clone = <T>(value: T): T => structuredClone(value)
+const stable = saves.stableStringify
+const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
+const issuer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }
+const bytes = (state: GameState): string => saves.exportSave(saves.makeSave(state))
+const emit = (kind: string, value: unknown): void => console.info(`1287-P4P5-${kind} ${JSON.stringify(value)}`)
+const count = { attempted: 0, reserved: 0, invoked: 0, completed: 0, outside: 0,
+  mutationAttempts: 0, mutationsAccepted: 0, explicitQuotes: 0, returnedQuotes: 0, priceReads: 0, settlementObservations: 0, expectedRefusals: 0, queueObservations: 0 }
+const operations: { week: number; kind: string; request: unknown; accepted: boolean; refusal?: string }[] = []
+const cache = new Map<string, { ok: true; value: unknown } | { ok: false; error: unknown }>()
+let permit: { from: number; used: boolean } | undefined
+let restoreTick: (() => void) | undefined
+let oldTakes: GameState['firstTakes'] = []
+let promiseId = '', productionId = ''
+const expectedSuffix: { receipt: FirstTakeReceipt; subject: FirstTakeSubject }[] = []
+const trace: unknown[] = []
+beforeAll(() => {
+  const actual = tickOwner.tick
+  const spy = vi.spyOn(tickOwner, 'tick').mockImplementation((state, options) => {
+    count.attempted++
+    if (!permit) { count.outside++; throw new Error('1287: no tick outside the one Q23 route') }
+    assert.equal(permit.used, false); permit.used = true
+    assert.ok(count.attempted <= HARD_ADVANCES && count.reserved < HARD_ADVANCES, 'hard8 before invocation')
+    assert.equal(state.market.tick, permit.from); assert.equal(permit.from, 45 + count.reserved)
+    expect(options).toEqual({ develop: true })
+    count.reserved++; count.invoked++
+    const next = actual(state, options)
+    expect(next.market.tick).toBe(state.market.tick + 1); count.completed++
+    return next
+  })
+  restoreTick = () => spy.mockRestore()
+})
+afterAll(() => {
+  restoreTick?.()
+  emit('COUNTERS', { ...count, hardAdvanceAttempts: HARD_ADVANCES, hardMutations: 6, hardExplicitQuotes: 1, hardExpectedRefusals: 1, hardQueueObservations: 1,
+    oldHelpersImported: false, capturePrefixAdvances: 0, operations, trace,
+    phases: [...cache].map(([name, row]) => ({ name, complete: row.ok })) })
+  expect(count.outside).toBe(0); expect(count.attempted).toBeLessThanOrEqual(HARD_ADVANCES)
+  expect(count.mutationAttempts).toBeLessThanOrEqual(6); expect(count.explicitQuotes).toBeLessThanOrEqual(1)
+  expect(count.queueObservations).toBeLessThanOrEqual(1)
+})
+function memo<T>(name: string, build: () => T): T {
+  const old = cache.get(name)
+  if (old) { if (!old.ok) throw old.error; return clone(old.value as T) }
+  try { const value = build(); cache.set(name, { ok: true, value }); return clone(value) }
+  catch (error) { cache.set(name, { ok: false, error }); throw error }
+}
+function admitted(state: GameState): void {
+  const before = stable(state), save = saves.makeSave(state)
+  expect(save.saveVersion).toBe(40); expect(saves.validateSaveV40(save)).toBe(save)
+  const raw = saves.exportSave(save)
+  expect(saves.exportSave(saves.importSave(raw))).toBe(raw); expect(stable(state)).toBe(before)
+}
+function suffix(state: GameState): void {
+  expect(state.firstTakes.slice(0, oldTakes.length)).toEqual(oldTakes)
+  expect(state.firstTakes.slice(oldTakes.length)).toEqual(expectedSuffix.map(row => row.receipt))
+  expect(state.firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: 19, facts: expectedSuffix.map(row => row.subject) })
+}
+function owners(state: GameState) {
+  return [{ studioId: issuer(state), productions: state.studio.activeProductions, development: state.scriptDevelopment,
+    concepts: state.concepts, workflows: state.operations.workflows }, ...state.hollywood!.businesses.map(row => ({ studioId: row.studioId,
+    productions: row.productions, development: row.development, concepts: state.hollywood!.concepts, workflows: row.operations.workflows }))]
+}
+function takeOwners(state: GameState) {
+  return owners(state).flatMap(owner => owner.productions.map(production => ({ studioId: owner.studioId, production,
+    concept: owner.concepts.find(row => row.id === production.conceptId), mode: owner.development.mode,
+    projects: owner.development.projects.filter(row => row.productionId === production.id) })))
+}
+function advance(state: GameState): GameState {
+  assert.equal(permit, undefined)
+  const before = bytes(state), priorTakes = clone(state.firstTakes), beforeOwners = takeOwners(state)
+  permit = { from: state.market.tick, used: false }
+  let next: GameState
+  try { next = tickOwner.tick(clone(state), { develop: true }) } finally { permit = undefined }
+  expect(bytes(state)).toBe(before); expect(next.firstTakes.slice(0, priorTakes.length)).toEqual(priorTakes)
+  const afterOwners = takeOwners(next)
+  const added = next.firstTakes.slice(priorTakes.length).map(receipt => {
+    const owner = beforeOwners.find(row => row.studioId === receipt.studioId && row.production.id === receipt.productionId)
+      ?? afterOwners.find(row => row.studioId === receipt.studioId && row.production.id === receipt.productionId)
+    assert.ok(owner?.concept, 'actual new receipt must join a direct owner/concept')
+    expect(owner.production.directorId).toBe(receipt.directorId); expect(owner.production.cast).toEqual(receipt.cast)
+    expect(owner.projects.length).toBeLessThanOrEqual(1)
+    if (owner.mode === 'managed') expect(owner.projects).toHaveLength(1)
+    for (const row of owner.projects) expect(row.conceptId).toBe(owner.concept.id)
+    const subject: FirstTakeSubject = { eventId: receipt.eventId, conceptId: owner.concept.id,
+      genre: owner.concept.genre, scriptProjectId: owner.projects[0]?.id ?? null }
+    expectedSuffix.push({ receipt: clone(receipt), subject })
+    return { receipt: clone(receipt), subject, owner: clone(owner) }
+  })
+  admitted(next); suffix(next)
+  const held = productionId === '' ? null : next.studio.activeProductions.find(row => row.id === productionId) ?? null
+  const row = { from: state.market.tick, to: next.market.tick, develop: true, added, firstTakeSubjects: clone(next.firstTakeSubjects),
+    focus: next.talent.find(row => row.id === FOCUS), retirement: core.retirementRecordFor(next, FOCUS, 'actor') ?? null,
+    held, storedPromise: promiseId === '' ? null : root(next, promiseId), currentStateSha256: sha(bytes(next)) }
+  trace.push(row); emit('ADVANCE', row); return next
+}
+function root(state: GameState, id = promiseId): ProfessionalPromise {
+  const rows = state.promises.filter(row => row.promiseId === id); expect(rows).toHaveLength(1); return rows[0]!
+}
+function proposal(state: GameState) {
+  const rows = state.talentMarket.proposals.filter(row => row.talentId === FOCUS && row.issuerStudioId === issuer(state))
+  expect(rows).toHaveLength(1); return rows[0]!
+}
+function focus(state: GameState, expectedAge: number) {
+  const talent = state.talent.find(row => row.id === FOCUS); assert.ok(talent?.skills.acting)
+  expect(talent).toMatchObject({ role: 'actor', age: expectedAge })
+  const provenance = state.talentProvenance.rows.find(row => row.personId === FOCUS); assert.ok(provenance)
+  expect(provenance).toEqual({ personId: FOCUS, kind: 'authored_exact_week', ageAtEntry: 68, entryWeek: 0 })
+  expect(core.ageAt(provenance, state.market.tick)).toBe(expectedAge)
+  return { talent, provenance }
+}
+function input45(): GameState {
+  return memo('genuine45', () => {
+    const manifestBytes = readFileSync(new URL('1171-p3-current45-capture/MANIFEST.json', E))
+    expect(manifestBytes.length).toBe(11550); expect(sha(manifestBytes)).toBe('a261fc3177527d05d5a8daf624de7af015df8c9a8fedd3e11b37fe1597a2f4b6')
+    const manifest = JSON.parse(manifestBytes.toString('utf8'))
+    const historicalBytes = readFileSync(new URL('./fixtures/p14/genuine-v37-c3-corpus/MANIFEST.json', import.meta.url))
+    expect(historicalBytes.length).toBe(32532); expect(sha(historicalBytes)).toBe('b3a3251ae7b3df96a1e2a615991744c5d1e5966a095424693f086a1581244294')
+    const historical = JSON.parse(historicalBytes.toString('utf8'))
+    expect(historical.bootstrap).toEqual({ builder: 'p13aGeneratedStudio', cashBefore: 20000000, cashAfter: 30000000, delta: 10000000,
+      note: 'Disclosed generated-fixture funding, not simulated earned film revenue. No other direct world edits.' })
+    expect(manifest.initialization).toContain('no funding or alternate route')
+    const zipped = readFileSync(new URL('1171-p3-current45-capture/genuine-v39-p3-market-week45.json.gz', E))
+    expect(zipped.length).toBe(86995); expect(sha(zipped)).toBe('12799a849b0b4aff49cd9707ea8c1b87c64b4e787ff261b2e9cf4b109a953117')
+    const raw = gunzipSync(zipped).toString('utf8')
+    expect(Buffer.byteLength(raw)).toBe(751294); expect(sha(raw)).toBe('e7401f2578a7ad151383ca905df4253c2bbd82d6823c406c28b7e76aa809c5af')
+    expect(manifest.output).toEqual({ filename: 'genuine-v39-p3-market-week45.json.gz', saveVersion: 39, week: 45,
+      raw: { bytes: Buffer.byteLength(raw), sha256: sha(raw) }, gzip: { bytes: zipped.length, sha256: sha(zipped) } })
+    const parsed: unknown = JSON.parse(raw), old = saves.validateSaveV39(parsed), frozen = stable(old)
+    expect(old).toBe(parsed); expect(saves.exportSave(old)).toBe(raw)
+    const state = saves.migrateToLive(old).state
+    expect(stable(old)).toBe(frozen); expect(state).toEqual({ ...old.state, firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
+    oldTakes = clone(old.state.firstTakes); expect(oldTakes).toHaveLength(19); admitted(state); suffix(state)
+    expect(state.market.tick).toBe(45); expect(state.studio.cash).toBe(24701506); expect(state.promises).toEqual([])
+    expect(state.talentMarket.proposals).toEqual([]); expect(state.studio.activeProductions).toEqual([])
+    expect(state.productionQueue).toEqual([]); expect(state.operations.mode).toBe('managed')
+    expect(state.scriptDevelopment.mode).toBe('managed'); expect(state.scriptDevelopment.projects).toHaveLength(2)
+    for (const [id, conceptId, genre] of [['script-0000', 'c-00', 'drama'], ['script-0001', 'c-01', 'crime']] as const) {
+      const project = state.scriptDevelopment.projects.find(row => row.id === id); assert.ok(project?.assessment)
+      expect(project).toMatchObject({ conceptId, writerId: WRITER, status: 'ready', productionId: null, reservation: null, dueWeek: null })
+      expect(state.concepts.find(row => row.id === conceptId)?.genre).toBe(genre)
+    }
+    const person = focus(state, 68); expect(core.retirementRecordFor(state, FOCUS)).toBeUndefined()
+    expect(core.retirementRecordFor(state, FOCUS, 'actor')).toBeUndefined(); expect(core.assignmentRefusal(state, FOCUS, 45, 'actor')).toBeNull()
+    const contract = activeContract(state, FOCUS); assert.ok(contract)
+    expect(contract).toMatchObject({ startWeek: 0, endWeekExclusive: 52, termWeeks: 52 })
+    expect(core.caseForTalent(state, FOCUS)).toMatchObject({ openedWeek: 40, decisionWeek: 52 })
+    const marketCase = state.talentMarket.cases.find(row => row.talentId === FOCUS && row.openedWeek === 40); assert.ok(marketCase)
+    expect(marketCase).toMatchObject({ variant: 'expiry', subjectStudioId: issuer(state), closedWeek: null, outcome: null })
+    const employment = state.hollywood!.employment.find(row => row.contractId === marketCase.contractId); assert.ok(employment)
+    expect(employment.terms).toEqual(contract); expect(employment.endedWeek).toBeNull()
+    emit('INPUT', { manifest, historicalBootstrap: historical.bootstrap, noAddedFunding: true, person, contract, employment, marketCase, ready: state.scriptDevelopment.projects,
+      oldTakes, firstTakeSubjects: state.firstTakeSubjects, cash: state.studio.cash })
+    return state
+  })
+}
+function membership(state: GameState, request: PromiseDraft, week = state.market.tick) {
+  const from = Math.max(week, request.windowStartWeek), attached = [...new Set(state.talentMarket.proposals.flatMap(row => row.promises))]
+  const rows = state.promises.map(row => {
+    const remaining = row.predicate.count - row.progress, open = row.outcome === null, unmet = remaining > 0,
+      boundOrAttached = row.contractId !== null || attached.includes(row.promiseId), notSelf = row.promiseId !== request.promiseId,
+      overlap = row.dueWeekExclusive > from && row.windowStartWeek < request.dueWeekExclusive,
+      issuerOrPerson = row.issuerStudioId === request.issuerStudioId || row.beneficiaryPersonId === request.beneficiaryPersonId
+    return { promiseId: row.promiseId, remaining, open, unmet, boundOrAttached, notSelf, overlap, issuerOrPerson,
+      selected: open && unmet && boundOrAttached && notSelf && overlap && issuerOrPerson }
+  })
+  const ids = rows.filter(row => row.selected).map(row => row.promiseId)
+  return { from, rows, selected: state.promises.filter(row => ids.includes(row.promiseId)), attached,
+    rawRoots: clone(state.promises), proposals: clone(state.talentMarket.proposals) }
+}
+function quote(state: GameState, request: PromiseDraft, name: string, expectedSelected: readonly string[], facts: unknown) {
+  assert.ok(count.explicitQuotes < 1, 'one explicit feasibility preview')
+  const before = bytes(state), argument = stable(request), rng = clone(state.rngState), census = membership(state, request)
+  expect(census.selected.map(row => row.promiseId)).toEqual(expectedSelected)
+  const spy = vi.spyOn(opportunityOwner, 'opportunityReservations')
+  let receipt: PromiseFeasibilityReceipt, selected: unknown
+  try {
+    count.explicitQuotes++; receipt = core.promiseFeasibility(state, request, state.market.tick); count.returnedQuotes++
+    expect(spy.mock.calls).toHaveLength(1)
+    const args = spy.mock.calls[0]!, result = spy.mock.results[0]!
+    expect(args[0]).toBe(state); expect(args[1]).toBe(request); expect(args[2]).toBe(census.from)
+    expect(result.type).toBe('return'); selected = clone(result.value)
+  } finally { spy.mockRestore() }
+  emit('QUOTE', { name, actualWeek: state.market.tick, request, receipt, census, actualSelection: selected, facts,
+    stateBytes: Buffer.byteLength(before), stateSha256: sha(before), requestBytes: argument, rng })
+  expect(selected).toEqual(census.selected); expect(bytes(state)).toBe(before); expect(stable(request)).toBe(argument)
+  expect(state.rngState).toEqual(rng); expect(receipt).toMatchObject({ rulesVersion: 7, week: state.market.tick })
+  return receipt
+}
+function ra(receipt: PromiseFeasibilityReceipt): void { expect(receipt).toMatchObject({ classification: 'REASONABLY_ACHIEVABLE', bottleneck: null }) }
+function projectDraft(state: GameState): PromiseDraft {
+  return { family: 'SPECIFIC_PROJECT', issuerStudioId: issuer(state), beneficiaryPersonId: FOCUS,
+    predicate: { kind: 'projectOpportunity', count: 1, seatClass: 'lead', scriptProjectId: 'script-0000' },
+    startWeek: 52, termWeeks: 104, windowStartWeek: 52, dueWeekExclusive: 112 }
+}
+function mutation(state: GameState, kind: string, request: unknown, apply: () => GameState, verify: (next: GameState) => void): GameState {
+  assert.ok(count.mutationAttempts < 6, 'six fixed public attempts including expected refusal')
+  const before = bytes(state), argument = stable(request), row = { week: state.market.tick, kind, request: clone(request), accepted: false }
+  count.mutationAttempts++; operations.push(row); emit('MUTATION-ATTEMPT', row)
+  const next = apply(); expect(bytes(state)).toBe(before); expect(stable(request)).toBe(argument)
+  expect(next.market.tick).toBe(state.market.tick); admitted(next); suffix(next)
+  expect(next.productionQueue).toEqual(state.productionQueue); verify(next)
+  count.mutationsAccepted++; row.accepted = true
+  emit('MUTATION-ACCEPTED', { ...row, stateBytes: Buffer.byteLength(bytes(next)), stateSha256: sha(bytes(next)) })
+  return next
+}
+type Attached = { state: GameState; attachedRoot: ProfessionalPromise }
+function attached45(): Attached {
+  return memo('attached45', () => {
+    const base = input45(), before = bytes(base)
+    count.priceReads++; const price = core.proposalDraft(base, issuer(base), FOCUS, 104, 1.25, 45)
+    expect(bytes(base)).toBe(before); expect(base.studio.cash).toBeGreaterThanOrEqual(price.signingBonus)
+    const submit = { talentId: FOCUS, issuerStudioId: issuer(base), termWeeks: 104 as const, premiumTier: 1.25 as const }
+    let state = mutation(base, 'submitProposal', submit, () => core.submitProposal(clone(base), clone(submit)), next => {
+      expect(proposal(next)).toMatchObject({ talentId: FOCUS, issuerStudioId: issuer(next), submittedWeek: 45,
+        startWeek: 52, termWeeks: 104, premiumTier: 1.25, annualSalary: price.annualSalary, signingBonus: price.signingBonus,
+        digest: price.digest, promises: [] })
+    })
+    const request = projectDraft(state), preview = quote(state, request, 'attachment45', [], { price, actualContract: activeContract(state, FOCUS) })
+    ra(preview)
+    const attachment: PromiseAttachment = { family: request.family, predicate: clone(request.predicate),
+      windowStartWeek: request.windowStartWeek, dueWeekExclusive: request.dueWeekExclusive }
+    const proposed = state
+    state = mutation(proposed, 'attachPromise', attachment,
+      () => core.attachPromise(clone(proposed), FOCUS, issuer(proposed), clone(attachment)), next => {
+        expect(proposal(next).promises).toHaveLength(1); promiseId = proposal(next).promises[0]!
+        expect(root(next)).toMatchObject({ version: 7, family: request.family, predicate: request.predicate,
+          issuerStudioId: issuer(next), beneficiaryPersonId: FOCUS, contractId: null, windowStartWeek: 52,
+          dueWeekExclusive: 112, progress: 0, evidenceRefs: [], outcome: null, feasibilityReceipt: preview })
+      })
+    emit('ATTACHED45', { price, proposal: proposal(state), root: root(state) })
+    return { state, attachedRoot: clone(root(state)) }
+  })
+}
+type Bound = Attached & { boundRoot: ProfessionalPromise; contractId: string }
+function bound52(): Bound {
+  return memo('bound52', () => {
+    const input = attached45()
+    let state = input.state
+    while (state.market.tick < 51) { state = advance(state); expect(root(state)).toEqual(input.attachedRoot) }
+    const actual = promiseOwner.promiseFeasibility
+    const observations: { receipt: PromiseFeasibilityReceipt; request: PromiseDraft; root: ProfessionalPromise;
+      beforeStateSha256: string; afterStateSha256: string; price: ReturnType<typeof core.proposalDraft> | null }[] = []
+    const spy = vi.spyOn(promiseOwner, 'promiseFeasibility').mockImplementation((current, request, week) => {
+      if (week !== 52 || request.promiseId !== promiseId || request.issuerStudioId !== issuer(current)
+        || request.beneficiaryPersonId !== FOCUS) return actual(current, request, week)
+      const before = stable(current), argument = stable(request), rng = clone(current.rngState)
+      const carried = proposal(current)
+      let price: ReturnType<typeof core.proposalDraft> | null = null
+      if (observations.length === 0) {
+        count.priceReads++
+        price = core.proposalDraft(current, issuer(current), FOCUS, 104, 1.25, week,
+          promiseOwner.attachedPromiseDigest(current, carried.promises))
+        expect(price.digest).toBe(carried.digest); expect(current.studio.cash).toBeGreaterThanOrEqual(price.signingBonus)
+      }
+      count.settlementObservations++
+      const receipt = actual(current, request, week)
+      expect(stable(current)).toBe(before); expect(stable(request)).toBe(argument); expect(current.rngState).toEqual(rng)
+      const row = { receipt: clone(receipt), request: clone(request), root: clone(root(current)),
+        beforeStateSha256: sha(before), afterStateSha256: sha(stable(current)), price: clone(price) }
+      observations.push(row); emit('PRECOMMIT52', row); return receipt
+    })
+    try { state = advance(state) } finally { spy.mockRestore() }
+    expect(state.market.tick).toBe(52); expect(count.completed).toBe(7); focus(state, 69)
+    expect(core.retirementRecordFor(state, FOCUS, 'actor')).toBeUndefined()
+    const settled = state.talentMarket.receipts.filter(row => row.kind === 'settled' && row.week === 52 && row.talentId === FOCUS)
+    assert.ok(settled.some(row => row.studioId === issuer(state)), `real player win prerequisite: ${JSON.stringify(settled)}`)
+    const contract = activeContract(state, FOCUS); assert.ok(contract)
+    expect(contract).toMatchObject({ talentId: FOCUS, startWeek: 52, endWeekExclusive: 156, termWeeks: 104 })
+    const employed = state.hollywood!.employment.filter(row => row.studioId === issuer(state) && row.terms.talentId === FOCUS
+      && row.terms.startWeek === 52 && row.terms.endWeekExclusive === 156 && row.endedWeek === null)
+    expect(employed).toHaveLength(1); expect(employed[0]!.terms).toEqual(contract)
+    const first = observations[0]; assert.ok(first?.price, 'actual decision-state price/frozen receipt must have been observed')
+    ra(first.receipt); expect(first.receipt).toMatchObject({ rulesVersion: 7, week: 52 })
+    expect([contract.annualSalary, contract.signingBonus]).toEqual([first.price.annualSalary, first.price.signingBonus])
+    const payment = state.ledger.filter(row => row.week === 52 && row.kind === 'signingBonus' && row.talentId === FOCUS)
+    expect(payment).toEqual([{ week: 52, kind: 'signingBonus', amount: -first.price.signingBonus,
+      talentId: FOCUS, note: 'market settlement signing bonus' }])
+    expect(root(state)).toEqual({ ...input.attachedRoot, contractId: employed[0]!.contractId, feasibilityReceipt: first.receipt })
+    expect(count.priceReads).toBe(2); expect(observations).toHaveLength(2)
+    emit('BOUND52', { settled, contract, employment: employed[0], signingPayment: payment, observations, root: root(state),
+      pricingScope: 'first decision-state receipt and price; equal-valued ranking reread is not independently distinguishable if identical' })
+    return { ...input, state, boundRoot: clone(root(state)), contractId: employed[0]!.contractId }
+  })
+}
+function project(state: GameState, id: string) {
+  const rows = state.scriptDevelopment.projects.filter(row => row.id === id); expect(rows).toHaveLength(1); return rows[0]!
+}
+function engagement(state: GameState, id: string) {
+  const company = owners(state).flatMap(owner => owner.productions.map(production => ({ studioId: owner.studioId, production: clone(production),
+    member: production.directorId === id || Object.values(production.cast).includes(id) || production.craftIds.includes(id), writerCredit: production.writerId === id })))
+  const writing = owners(state).flatMap(owner => owner.development.projects.map(row => ({ studioId: owner.studioId, project: clone(row),
+    assigned: ['drafting', 'rewriting'].includes(row.status) && row.writerIds.includes(id) })))
+  const research = state.technology.projects.map(row => ({ project: clone(row), assigned: row.status === 'active'
+    && row.seats.some(seat => seat.talentId === id && seat.releasedWeek === null) }))
+  return { company, writing, research, busy: busyTalentIds(state).has(id) }
+}
+function people(state: GameState) {
+  const seats = [[WRITER, 'writer'], ['authored-0001', 'writer'], [DIRECTOR, 'director'], [CRAFT, 'craft'],
+    [CAST.lead, 'actor'], [CAST.antagonist, 'actor'], [FOCUS, 'actor']] as const
+  return seats.map(([id, profession]) => {
+    const talent = state.talent.find(row => row.id === id), provenance = state.talentProvenance.rows.find(row => row.personId === id)
+    assert.ok(talent && provenance)
+    expect(talent.age).toBe(core.ageAt(provenance, state.market.tick))
+    const profile = profession === 'actor' ? talent.skills.acting : profession === 'director' ? talent.skills.directing
+      : profession === 'writer' ? talent.skills.writing : talent.skills.craft
+    assert.ok(profile); expect(Object.keys(profile)).toHaveLength(6)
+    const contract = activeContract(state, id); assert.ok(contract)
+    expect(contract).toMatchObject(id === FOCUS ? { startWeek: 52, endWeekExclusive: 156 } : { startWeek: 0, endWeekExclusive: 208 })
+    const employment = state.hollywood!.employment.filter(row => row.studioId === issuer(state) && row.terms.talentId === id
+      && row.terms.startWeek <= state.market.tick && row.terms.endWeekExclusive > state.market.tick && row.endedWeek === null)
+    expect(employment).toHaveLength(1); expect(employment[0]!.terms).toEqual(contract)
+    const current = core.retirementRecordFor(state, id), requested = core.retirementRecordFor(state, id, profession)
+    const refusal = core.assignmentRefusal(state, id, state.market.tick, profession); expect(refusal).toBeNull()
+    return { talent: clone(talent), provenance: clone(provenance), profession, profile: clone(profile), contract: clone(contract), employment: clone(employment),
+      current: current ?? null, requested: requested ?? null, refusal, engagement: engagement(state, id) }
+  })
+}
+function resources(state: GameState) {
+  const claims = resourceClaimsOf(occupiedResourceSlots(state))
+  expect(state.placement.facilities).toEqual([]); expect(state.construction.projects).toEqual([])
+  expect(state.technology.projects).toEqual([]); expect(state.castingSessions).toEqual({ mode: 'legacy', sessions: [] })
+  type Expected = { owner: string; ownerId: string; kind: string; facilityId: string; slot: number | null; capability: string | null }
+  const expected: Expected[] = []
+  for (const plan of state.operations.workflows) {
+    expected.push(...plan.reservations.map(r => ({ owner: 'production', ownerId: plan.productionId, kind: 'facility',
+      facilityId: r.facilityId, slot: r.slot, capability: r.capability })))
+    if (plan.shootingTask !== null) expected.push({ owner: 'shootingTask', ownerId: plan.productionId, kind: 'facility',
+      facilityId: plan.shootingTask.soundstageFacilityId, slot: null, capability: null })
+  }
+  for (const row of state.scriptDevelopment.projects) if (row.reservation !== null) expected.push({ owner: 'screenplay', ownerId: row.id,
+    kind: 'facility', facilityId: row.reservation.facilityId, slot: row.reservation.slot, capability: row.reservation.capability })
+  expect(state.sets.every(row => row.status === 'standing' || row.status === 'retired')).toBe(true)
+  expected.push(...state.sets.filter(row => row.status !== 'retired').map(row => ({ owner: 'set', ownerId: row.id,
+    kind: 'mount', facilityId: row.mountedOn, slot: null, capability: null })))
+  for (const plan of state.operations.workflows) if (plan.bindings.setId !== null && plan.reservations.some(r => r.capability === 'soundstage')) {
+    expected.push({ owner: 'production', ownerId: plan.productionId, kind: 'set', facilityId: plan.bindings.stageFacilityId ?? '', slot: null, capability: null })
+  }
+  expect(claims.map(row => ({ owner: row.owner, ownerId: row.ownerId, kind: row.kind, facilityId: row.facilityId,
+    slot: row.slot, capability: row.capability }))).toEqual(expected)
+  const free = (['development-casting', 'soundstage', 'set-scenery', 'post'] as const).map(capability => ({ capability,
+    slots: state.operations.facilities.filter(row => row.capability === capability).flatMap(facility =>
+      Array.from({ length: facility.capacity }, (_, slot) => ({ facilityId: facility.id, slot })).filter(candidate =>
+        !claims.some(row => row.kind === 'facility' && row.facilityId === candidate.facilityId && (row.slot === null || row.slot === candidate.slot)))) }))
+  return { claims: clone(claims), expected, free, facilities: clone(state.operations.facilities),
+    scripts: clone(state.scriptDevelopment), workflows: clone(state.operations.workflows), sets: clone(state.sets) }
+}
+function devSlots(state: GameState): number[] {
+  return resources(state).free.find(row => row.capability === 'development-casting')!.slots.map(row => row.slot)
+}
+function commission(state: GameState, second: boolean): GameState {
+  const writerId = second ? WRITER : 'authored-0001', conceptId = second ? 'c-03' : 'c-02', projectId = second ? 'script-0003' : 'script-0002'
+  const person = people(state).find(row => row.talent.id === writerId); assert.ok(person)
+  expect(person.engagement.busy).toBe(false); expect(person.engagement.company.filter(row => row.member)).toEqual([])
+  expect(person.engagement.writing.filter(row => row.assigned)).toEqual([]); expect(person.engagement.research.filter(row => row.assigned)).toEqual([])
+  for (const value of Object.values(person.profile)) expect(value).toEqual({ actual: second ? 75 : 80, perceived: second ? 75 : 80 })
+  expect(devSlots(state)).toEqual(second ? [1] : [0, 1])
+  expect(state.concepts.find(row => row.id === conceptId)?.genre).toBe(second ? 'romance' : 'comedy')
+  if (second) expect(state.concepts.find(row => row.id === conceptId)?.baseNegativeCost).toBe(2374761.932883933)
+  const action: Action = { kind: 'commissionScript', project: { conceptId, writerId,
+    shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' }, promise: {
+      genre: second ? 'romance' : 'comedy', intendedSegments: ['adult'],
+      ranges: { intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } } } }
+  const next = mutation(state, action.kind, action, () => core.applyActions(clone(state), [clone(action)]), value => {
+    expect(value.scriptDevelopment.projects.slice(0, state.scriptDevelopment.projects.length)).toEqual(state.scriptDevelopment.projects)
+    expect(value.scriptDevelopment.projects).toHaveLength(state.scriptDevelopment.projects.length + 1)
+    expect(project(value, projectId)).toEqual({ id: projectId, ...action.project, writerIds: [writerId], status: 'drafting', rewriteCount: 0,
+      commissionedWeek: 52, dueWeek: 53, assessment: null, productionId: null,
+      reservation: { projectId, facilityId: 'facility-development-casting', capability: 'development-casting', slot: second ? 1 : 0 } })
+    const { scriptDevelopment: _before, originalScreenplays: oldBlueprints, ...otherBefore } = state
+    const { scriptDevelopment: _after, originalScreenplays: newBlueprints, ...otherAfter } = value
+    expect(otherAfter).toEqual(otherBefore); expect(newBlueprints.nextOrdinal).toBe(oldBlueprints.nextOrdinal)
+    expect(newBlueprints.blueprints.slice(0, oldBlueprints.blueprints.length)).toEqual(oldBlueprints.blueprints)
+    expect(newBlueprints.blueprints).toHaveLength(oldBlueprints.blueprints.length + 1)
+    expect(newBlueprints.blueprints.at(-1)).toMatchObject({ conceptId, projectId, writerId, mintedWeek: 52, ordinal: null, generatedTitle: null })
+    expect(devSlots(value)).toEqual(second ? [] : [1])
+  })
+  emit('COMMISSION', { action, writer: person, project: project(next, projectId), resources: resources(next),
+    cash: next.studio.cash, ledger: next.ledger, originalScreenplays: next.originalScreenplays, root: root(next) })
+  return next
+}
+function full52(): Bound {
+  return memo('two-real-drafts52', () => {
+    const input = bound52(), state = input.state
+    expect(state.castingSessions).toEqual({ mode: 'legacy', sessions: [] }); expect(state.studio.activeProductions).toEqual([])
+    expect(state.operations.workflows).toEqual([]); expect(state.productionQueue).toEqual([]); expect(devSlots(state)).toEqual([0, 1])
+    const crew = people(state)
+    for (const row of crew) expect(row.engagement.busy).toBe(false)
+    expect(crew.find(row => row.talent.id === CAST.lead)?.talent.age).toBe(69)
+    const first = commission(state, false), next = commission(first, true)
+    expect(root(next)).toEqual(input.boundRoot)
+    const writers = owners(next).flatMap(owner => owner.development.projects.filter(row => ['drafting', 'rewriting'].includes(row.status))
+      .map(row => ({ studioId: owner.studioId, project: clone(row) })))
+    expect(writers.filter(row => row.studioId === issuer(next)).map(row => [row.project.id, row.project.writerId, row.project.dueWeek]))
+      .toEqual([['script-0002', 'authored-0001', 53], ['script-0003', WRITER, 53]])
+    emit('FULL52', { crew: people(next), resources: resources(next), allOwnerWriting: writers, ready: next.scriptDevelopment.projects.slice(0, 2),
+      root: root(next), queue: next.productionQueue, cash: next.studio.cash, ledger: next.ledger })
+    return { ...input, state: next }
+  })
+}
+function greenlightRequest(state: GameState, duplicate: boolean): Action & { kind: 'greenlightScriptProject' } {
+  const target = project(state, 'script-0000'), concept = state.concepts.find(row => row.id === target.conceptId); assert.ok(concept)
+  expect(target).toMatchObject({ conceptId: 'c-00', writerId: WRITER, status: 'ready', productionId: null, reservation: null })
+  return { kind: 'greenlightScriptProject', production: { projectId: target.id, directorId: DIRECTOR, craftIds: [CRAFT],
+    cast: { ...CAST, antagonist: duplicate ? CAST.lead : CAST.antagonist }, budget: { negative: concept.baseNegativeCost, marketing: 0 } } }
+}
+function refused52(): Bound {
+  return memo('expected-duplicate-Actor-refusal52', () => {
+    const input = full52(), state = input.state, action = greenlightRequest(state, true)
+    const before = bytes(state), argument = stable(action), rng = clone(state.rngState), attempted = clone(state), attemptedBefore = bytes(attempted)
+    const operation: typeof operations[number] = { week: 52, kind: action.kind, request: clone(action), accepted: false }
+    assert.ok(count.mutationAttempts < 6); count.mutationAttempts++; operations.push(operation); emit('MUTATION-ATTEMPT', operation)
+    const attemptedAction = clone(action), attemptedArgument = stable(attemptedAction)
+    let error: unknown
+    try { core.applyActions(attempted, [attemptedAction]) } catch (caught) { error = caught }
+    const actualMessage = error instanceof Error ? error.message : String(error)
+    emit('REFUSAL', { actualMessage, request: action, inputBytes: Buffer.byteLength(before), inputSha256: sha(before), root: root(state),
+      queue: state.productionQueue, project: project(state, 'script-0000'), resources: resources(state), receipts: state.talentMarket.receipts })
+    expect(actualMessage).toBe('applyActions: greenlight assigns the same actor to more than one cast slot (authored-0000, authored-0000, authored-0006)')
+    expect(bytes(attempted)).toBe(attemptedBefore); expect(stable(attemptedAction)).toBe(attemptedArgument)
+    expect(bytes(state)).toBe(before); expect(stable(action)).toBe(argument)
+    expect(state.rngState).toEqual(rng); expect(root(state)).toEqual(input.boundRoot); admitted(state); suffix(state)
+    operation.refusal = actualMessage; count.expectedRefusals++
+    return input
+  })
+}
+function queued52(): Bound {
+  return memo('actual-queued-intent52', () => {
+    const input = refused52(), state = input.state, action = greenlightRequest(state, false)
+    const duplicate = greenlightRequest(state, true)
+    expect(action).toEqual({ ...duplicate, production: { ...duplicate.production, cast: { ...duplicate.production.cast, antagonist: CAST.antagonist } } })
+    const crew = people(state)
+    for (const row of crew.filter(row => ![WRITER, 'authored-0001'].includes(row.talent.id))) expect(row.engagement.busy).toBe(false)
+    expect(crew.find(row => row.talent.id === WRITER)!.engagement.writing.filter(row => row.assigned).map(row => row.project.id)).toEqual(['script-0003'])
+    expect(state.productionQueue).toEqual([]); expect(devSlots(state)).toEqual([])
+    const before = bytes(state), argument = stable(action), rng = clone(state.rngState)
+    const operation: typeof operations[number] = { week: 52, kind: action.kind, request: clone(action), accepted: false }
+    assert.ok(count.mutationAttempts < 6); count.mutationAttempts++; operations.push(operation); emit('MUTATION-ATTEMPT', operation)
+    const next = core.applyActions(clone(state), [clone(action)])
+    expect(bytes(state)).toBe(before); expect(stable(action)).toBe(argument); expect(state.rngState).toEqual(rng)
+    expect(next.productionQueue).toEqual([{ kind: 'greenlightScriptProject', scriptProjectId: 'script-0000', payload: action.production, ordinal: 0, queuedWeek: 52 }])
+    expect(next.studioEvents.rows).toEqual([...state.studioEvents.rows,
+      { kind: 'queueAdmitted', entryKind: 'greenlightScriptProject', ordinal: 0, seq: state.studioEvents.nextSeq, week: 52 }])
+    expect(next.studioEvents.nextSeq).toBe(state.studioEvents.nextSeq + 1)
+    const { productionQueue: _oldQueue, studioEvents: _oldEvents, ...oldOther } = state
+    const { productionQueue: _newQueue, studioEvents: _newEvents, ...newOther } = next
+    expect(newOther).toEqual(oldOther); expect(root(next)).toEqual(input.boundRoot); admitted(next); suffix(next)
+    operation.accepted = true; count.mutationsAccepted++
+    emit('QUEUED52', { request: action, queue: next.productionQueue, studioEvents: next.studioEvents, root: root(next),
+      crew, resources: resources(next), target: project(next, 'script-0000'), productions: next.studio.activeProductions,
+      cash: next.studio.cash, ledger: next.ledger, receipts: next.talentMarket.receipts,
+      inputBytes: Buffer.byteLength(before), inputSha256: sha(before), outputSha256: sha(bytes(next)) })
+    return { ...input, state: next }
+  })
+}
+function queueFacts(state: GameState) {
+  return { actualPhaseWeek: state.market.tick, queue: clone(state.productionQueue), root: clone(root(state)), crew: people(state),
+    resources: resources(state), projects: clone(state.scriptDevelopment.projects), productions: clone(state.studio.activeProductions),
+    contracts: clone(state.contracts), cash: state.studio.cash, ledger: clone(state.ledger), receipts: clone(state.talentMarket.receipts),
+    rng: clone(state.rngState) }
+}
+type QueueObservation = { entry: GameState['productionQueue'][number]; week: number; before: ReturnType<typeof queueFacts>;
+  after: ReturnType<typeof queueFacts> | null; outcome: string; beforeStateSha256: string; afterInputStateSha256: string }
+function committed53() {
+  return memo('actual-dequeue-commit53', () => {
+    const input = queued52(), state = input.state, prior = bytes(state), observations: QueueObservation[] = []
+    const actual = actionsOwner.commitQueuedIntent
+    const spy = vi.spyOn(actionsOwner, 'commitQueuedIntent').mockImplementation((current, entry, week, events, writingContext) => {
+      assert.ok(count.queueObservations < 1, 'one actual ordinary dequeue observation'); count.queueObservations++
+      expect(week).toBe(53); expect(current.market.tick).toBe(53); expect(entry).toEqual(state.productionQueue[0])
+      const beforeBytes = stable(current), argument = stable(entry), rng = clone(current.rngState), before = queueFacts(current)
+      expect(before.productions).toEqual([]); expect(before.root).toEqual(input.boundRoot); expect(devSlots(current)).toEqual([0, 1])
+      for (const row of before.crew) expect(row.engagement.busy).toBe(false)
+      for (const id of ['script-0002', 'script-0003']) expect(project(current, id)).toMatchObject({ status: 'review', dueWeek: null, reservation: null, productionId: null })
+      const result = actual(current, entry, week, events, writingContext)
+      expect(stable(current)).toBe(beforeBytes); expect(stable(entry)).toBe(argument); expect(current.rngState).toEqual(rng)
+      const observation = { entry: clone(entry), week, before, after: result.outcome === 'granted' ? queueFacts(result.state) : null,
+        outcome: result.outcome, beforeStateSha256: sha(beforeBytes), afterInputStateSha256: sha(stable(current)) }
+      observations.push(observation); emit('DEQUEUE53', observation); return result
+    })
+    let next: GameState
+    try { next = advance(state) } finally { spy.mockRestore() }
+    expect(bytes(state)).toBe(prior); expect(count.completed).toBe(8); expect(observations).toHaveLength(1)
+    const observed = observations[0]!; expect(observed.outcome).toBe('granted'); assert.ok(observed.after)
+    expect(next.market.tick).toBe(53); expect(next.productionQueue).toEqual([])
+    expect(next.studioEvents.rows.slice(state.studioEvents.rows.length).filter(row => row.kind === 'queueIntentExpired')).toEqual([])
+    expect(next.studio.activeProductions).toHaveLength(1); const production = next.studio.activeProductions[0]!; productionId = production.id
+    expect(production).toMatchObject({ id: 'prod-0053', conceptId: 'c-00', writerId: WRITER, directorId: DIRECTOR,
+      craftIds: [CRAFT], cast: CAST, startTick: 53, remainingTicks: 8 })
+    expect(project(next, 'script-0000')).toEqual({ ...project(state, 'script-0000'), status: 'inProduction', productionId })
+    expect(project(next, 'script-0001')).toEqual(project(state, 'script-0001'))
+    for (const id of ['script-0002', 'script-0003']) {
+      const row = project(next, id); expect(row).toMatchObject({ status: 'review', reservation: null, dueWeek: null, productionId: null })
+      assert.ok(row.assessment); expect(row).toEqual(projectFromObservation(observed.before.projects, id))
+    }
+    const workflow = next.operations.workflows.find(row => row.productionId === productionId); assert.ok(workflow)
+    expect(workflow).toMatchObject({ phase: 'development', blocker: null, shootingTask: null,
+      reservations: [{ productionId, phase: 'development', facilityId: 'facility-development-casting', capability: 'development-casting', slot: 0 }] })
+    expect(next.firstTakes.filter(row => row.studioId === issuer(next) && row.productionId === productionId)).toEqual([])
+    expect(next.contracts).toEqual(state.contracts); expect(next.ledger.slice(0, state.ledger.length)).toEqual(state.ledger)
+    const ledgerAdds = next.ledger.slice(state.ledger.length), cost = production.budget.negative + production.budget.marketing
+    expect(ledgerAdds.filter(row => row.kind === 'production' && row.productionId === productionId))
+      .toEqual([{ week: 53, kind: 'production', amount: -cost, productionId, note: 'negative + marketing' }])
+    expect(ledgerAdds.filter(row => row.kind === 'freelancerFee' && row.productionId === productionId)).toEqual([])
+    expect(ledgerAdds.some(row => row.kind === 'payroll')).toBe(true)
+    expect(next.studio.cash - state.studio.cash).toBeCloseTo(ledgerAdds.reduce((sum, row) => sum + row.amount, 0), 6)
+    expect(observed.after.cash).toBe(observed.before.cash - cost)
+    expect(observed.after.ledger.slice(observed.before.ledger.length)).toEqual([{ week: 53, kind: 'production', amount: -cost, productionId, note: 'negative + marketing' }])
+    admitted(next); suffix(next)
+    emit('COMMITTED53', { production, workflow, projects: next.scriptDevelopment.projects, queue: next.productionQueue,
+      crew: people(next), resources: resources(next), root: root(next), receipts: next.talentMarket.receipts,
+      ledgerAdds, cashBeforeTick: state.studio.cash, cashAfterTick: next.studio.cash, filmCost: cost,
+      studioEvents: next.studioEvents, firstTakeSubjects: next.firstTakeSubjects, newReceipts: next.firstTakes.slice(19),
+      scope: 'whole53 admission after ordinary tick; precommit phase was protected by stable bytes only' })
+    return { ...input, state: next, observation: observed, productionId }
+  })
+}
+function projectFromObservation(rows: GameState['scriptDevelopment']['projects'], id: string) {
+  const found = rows.find(row => row.id === id); assert.ok(found); return found
+}
+
+describe('P4/P5 refused, queued and committed project-seat outcomes', () => {
+  it('Q23 preserves an open project promise until the ordinary queued wrong-seat assignment commits', () => {
+    const result = committed53(), state = result.state, row = root(state), outcomeId = row.outcomeEventId
+    assert.ok(outcomeId)
+    emit('OUTCOME53', { original: result.boundRoot, actual: row, immediateCommitRoot: result.observation.after!.root,
+      outcomeReceipts: state.talentMarket.receipts.filter(receipt => receipt.eventId === outcomeId), production: state.studio.activeProductions[0],
+      actualWeek: state.market.tick, counters: count })
+    expect(row).toEqual({ ...result.boundRoot, outcome: 'BROKEN', outcomeWeek: 53,
+      outcomeCause: 'the studio fixed the named project cast without this person in the promised seat', outcomeEventId: outcomeId })
+    expect(row).toEqual(result.observation.after!.root)
+    expect(state.talentMarket.receipts.filter(receipt => receipt.eventId === outcomeId)).toEqual([expect.objectContaining({
+      eventId: outcomeId, kind: 'promiseOutcome', week: 53, talentId: FOCUS, studioId: issuer(state),
+      reasons: ['a promise to this person was broken by the named project casting'] })])
+    expect(state.talentMarket.receipts.filter(receipt => receipt.kind === 'promiseOutcome' && receipt.talentId === FOCUS)).toHaveLength(1)
+    expect(state.studio.activeProductions[0]!.cast.support).toBe(FOCUS); expect(state.studio.activeProductions[0]!.cast.lead).not.toBe(FOCUS)
+    expect(row.progress).toBe(0); expect(row.evidenceRefs).toEqual([]); admitted(state); suffix(state)
+    expect([count.attempted, count.reserved, count.invoked, count.completed, count.outside]).toEqual([8, 8, 8, 8, 0])
+    expect([count.mutationAttempts, count.mutationsAccepted, count.expectedRefusals, count.explicitQuotes, count.returnedQuotes]).toEqual([6, 5, 1, 1, 1])
+    expect([count.priceReads, count.settlementObservations, count.queueObservations]).toEqual([2, 2, 1])
+    expect([...cache].every(([, row]) => row.ok)).toBe(true)
+    emit('COMPLETE', { week: state.market.tick, counters: count, operations, oldReceiptCount: oldTakes.length,
+      newReceipts: state.firstTakes.slice(19), firstTakeSubjects: state.firstTakeSubjects, original: result.boundRoot, outcome: row })
+  }, TIMEOUT)
+})
