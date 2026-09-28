@@ -24,6 +24,8 @@ later source/execution release. Parent owns live integration/production and one
 heavy lane; same two specialists retain separate test/review roles. P17 report
 read complete; healthy reboots,35% Recognition floor and Legacy Sequel as a
 dormant Direct Sequel are adopted. No P17 question from this session is pending.
+The required P18 finite charter is source-reviewed at plans/P18-HEADLESS-CHARTER.md;
+season/platform economics remain proposed and no TV implementation is released.
 Continue authorized program. Unity/native and Owner campaigns remain deferred;
 all prior failures and qualification limits remain recorded.
 
