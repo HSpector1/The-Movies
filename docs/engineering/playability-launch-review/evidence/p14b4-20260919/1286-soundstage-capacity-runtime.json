@@ -1,0 +1,24 @@
+{
+  "sourceSha": "3fa911cb5fcfc738d108d69386a5e8eb2ac8cb5b",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14p4p5-soundstage-capacity.test.ts",
+    "-t",
+    "Q22 "
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-28T01:30:35.876Z",
+  "end": "2026-09-28T01:30:46.914Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "3fa911cb5fcfc738d108d69386a5e8eb2ac8cb5b",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

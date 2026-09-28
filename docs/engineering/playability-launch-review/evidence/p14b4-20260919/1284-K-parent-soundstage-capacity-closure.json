@@ -1,0 +1,749 @@
+{
+  "record": "1284-K parent soundstage-capacity closure",
+  "timeUtc": "2026-09-28T01:38:28.688395+00:00",
+  "executedSource": "3fa911cb5fcfc738d108d69386a5e8eb2ac8cb5b",
+  "remoteExactAtClosure": true,
+  "status": "BOUNDED Q22 LOGIC VERIFIED; UNITY NOT VERIFIED",
+  "source": {
+    "path": "tests/p14p4p5-soundstage-capacity.test.ts",
+    "bytes": 27651,
+    "sha256": "a858733f70b30d35c4bb7c614981513d640567ac552ac63c47dffe209f8b2b8e"
+  },
+  "sourceHandback": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1284-C-soundstage-capacity-source-handback.md",
+    "bytes": 7350,
+    "sha256": "79bacfa66b21b53271f60ca979dc5b9c0eff11a00751566f924e3407dac856dd"
+  },
+  "sourceReview": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1284-D-soundstage-capacity-source-review.md",
+    "bytes": 5851,
+    "sha256": "6ad52d5d8b3dd647ea39b48947b37616a475eaa588b91b76d9e4d4eb599fe863"
+  },
+  "application": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1284-E-parent-application.json",
+    "bytes": 2354,
+    "sha256": "01091af183d146b73755c36695ba5397ab90b14b45f0e15cb408a4301fabfab0"
+  },
+  "attribution": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1284-I-soundstage-capacity-verification-attribution.md",
+    "bytes": 10540,
+    "sha256": "cbb65c3339babd74aeecdd8d559ca4ea7a183a5143df444ce28e5b1dd7414cf7"
+  },
+  "verificationReview": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1284-J-soundstage-capacity-verification-review.md",
+    "bytes": 7376,
+    "sha256": "484869ab6f8b9845ef0c10e3f218a8bf5f9f81ac8690fb4a4380a11430c2cd95"
+  },
+  "parentReview": "Complete317-line source and A/B/C/D read before application; final I/J full read. Full raw/nonmarker output read and all7 markers parsed. Independently compared both complete person/provenance/owner censuses with immutable35 input and the actual production removal:3-to2 company rows,118 writing and1 completed research each. Recomputed all138 membership flags from all69 literal roots and actual empty proposals, compared actual selector; full five-crime-concept bodies and fresh/take/slack clocks exact. All11-to7 claim bodies joined actual reservations/tasks/sets/research; four removed owners and all retained bodies/free slots checked. Full locked technology, both finishing records, actual old111takes/69roots and their stable hashes preserved. Complete historical manifest archived inventory/selected entry/978record compared. Both249 manual/1691 source/index/stage guards independently rehashed after actual postflight exits. No engine or gate rerun in this closure.",
+  "gates": [
+    {
+      "stem": "1285-soundstage-capacity-types",
+      "command": [
+        "node_modules/.bin/tsc",
+        "--noEmit",
+        "-p",
+        "tsconfig.json"
+      ],
+      "start": "2026-09-28T01:29:27.778Z",
+      "end": "2026-09-28T01:30:03.372Z",
+      "elapsedSeconds": 35.594,
+      "exitCode": 0,
+      "advanceCap": 0,
+      "fixedSource": true,
+      "allGuardsExact": true,
+      "manualPins": 249,
+      "sourceFiles": 1691,
+      "sourceInventory": {
+        "bytes": 256677,
+        "sha256": "2b232515149f1678243e14e7110b2743c6367ae7fea708007e43b64e12166f67"
+      },
+      "index": {
+        "bytes": 1139592,
+        "sha256": "0ebb49c1138973ae64900ceb401b272eb27b04824110dec20aebc3b34ee59821"
+      },
+      "stageEntries": {
+        "bytes": 1012171,
+        "sha256": "96dbfea9a7edb91fc942edab5a57f25284a508011526885f03a6dd63bf4c13b9"
+      },
+      "record": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1285-soundstage-capacity-types.json",
+        "bytes": 634,
+        "sha256": "363a2f8416abf633501f2ec907f1f743cc333b6d4649f50aff0aa70ddeb77778"
+      },
+      "raw": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1285-soundstage-capacity-types.txt",
+        "bytes": 340,
+        "sha256": "001169d72085a21309e4e525aec42ec3b883187e93a2c35b65b81094f0af242d"
+      },
+      "diff": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1285-soundstage-capacity-types.patch",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "preflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1285-soundstage-capacity-types-preflight.json",
+        "bytes": 62009,
+        "sha256": "6d2c91f2d509d68dbeddc7ca9a33ceddd039ab51091522783953664d78593529"
+      },
+      "postflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1285-soundstage-capacity-types-postflight.json",
+        "bytes": 62702,
+        "sha256": "7d23b884d0d9ed2bac5c43448946d2c4ed5889e37349962bbd5b0c7c0e948548"
+      }
+    },
+    {
+      "stem": "1286-soundstage-capacity-runtime",
+      "command": [
+        "node_modules/.bin/vitest",
+        "run",
+        "--project",
+        "core",
+        "tests/p14p4p5-soundstage-capacity.test.ts",
+        "-t",
+        "Q22 "
+      ],
+      "start": "2026-09-28T01:30:35.876Z",
+      "end": "2026-09-28T01:30:46.914Z",
+      "elapsedSeconds": 11.038,
+      "exitCode": 0,
+      "advanceCap": 0,
+      "fixedSource": true,
+      "allGuardsExact": true,
+      "manualPins": 249,
+      "sourceFiles": 1691,
+      "sourceInventory": {
+        "bytes": 256677,
+        "sha256": "2b232515149f1678243e14e7110b2743c6367ae7fea708007e43b64e12166f67"
+      },
+      "index": {
+        "bytes": 1139592,
+        "sha256": "0ebb49c1138973ae64900ceb401b272eb27b04824110dec20aebc3b34ee59821"
+      },
+      "stageEntries": {
+        "bytes": 1012171,
+        "sha256": "96dbfea9a7edb91fc942edab5a57f25284a508011526885f03a6dd63bf4c13b9"
+      },
+      "record": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1286-soundstage-capacity-runtime.json",
+        "bytes": 701,
+        "sha256": "d91504c2d6f7acbb745467175ade27badc29a08968fa9cfa4b789e15d44b37de"
+      },
+      "raw": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1286-soundstage-capacity-runtime.txt",
+        "bytes": 606195,
+        "sha256": "3d2521403b83674076349281619e751a577626394e776bcb5ace885c79872636"
+      },
+      "diff": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1286-soundstage-capacity-runtime.patch",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "preflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1286-soundstage-capacity-runtime-preflight.json",
+        "bytes": 62009,
+        "sha256": "f2b7c45a3ddd92706da86014cb4d05fdaf3d802c2b59963f487f098dda2cdb5c"
+      },
+      "postflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1286-soundstage-capacity-runtime-postflight.json",
+        "bytes": 62711,
+        "sha256": "8b57251d3786146f3c95ab302610fa6701ad0975adfa1d86478bbb461c362391"
+      }
+    }
+  ],
+  "selection": {
+    "filesPassed": 1,
+    "leavesPassed": 1,
+    "filtered": 0,
+    "leafMs": 6234,
+    "fileMs": 6237,
+    "vitestSeconds": 9.89,
+    "declaredTimeoutMs": 60000
+  },
+  "observed": {
+    "raw": {
+      "bytes": 606195,
+      "sha256": "3d2521403b83674076349281619e751a577626394e776bcb5ace885c79872636"
+    },
+    "markers": {
+      "bytes": 605096,
+      "sha256": "72f94f9769ef724db9c6bb081aa0edb69be0c1c09ccc0ba8205ae0606f4bf3ce",
+      "count": 7
+    },
+    "quotes": [
+      {
+        "ordinal": 1,
+        "actualWeek": 312,
+        "request": {
+          "family": "PREFERRED_GENRE_OPPORTUNITY",
+          "issuerStudioId": "studio-88c92bc3-player",
+          "beneficiaryPersonId": "t-act-00",
+          "predicate": {
+            "kind": "genreOpportunity",
+            "count": 1,
+            "seatClass": "allCast",
+            "genre": "crime"
+          },
+          "startWeek": 312,
+          "termWeeks": 52,
+          "windowStartWeek": 312,
+          "dueWeekExclusive": 325
+        },
+        "receipt": {
+          "classification": "FRAGILE",
+          "bottleneck": "existing soundstage capacity is not available for this opportunity",
+          "inputsDigest": "c93c053c389a73d1",
+          "rulesVersion": 7,
+          "week": 312
+        },
+        "inputBytes": 2195779,
+        "inputSha256": "fbf4ca9626f02559e2d8d7d109bda2486ed98825efc7f53d91363a70757c552d"
+      },
+      {
+        "ordinal": 2,
+        "actualWeek": 312,
+        "request": {
+          "family": "PREFERRED_GENRE_OPPORTUNITY",
+          "issuerStudioId": "studio-88c92bc3-player",
+          "beneficiaryPersonId": "t-act-00",
+          "predicate": {
+            "kind": "genreOpportunity",
+            "count": 1,
+            "seatClass": "allCast",
+            "genre": "crime"
+          },
+          "startWeek": 312,
+          "termWeeks": 52,
+          "windowStartWeek": 312,
+          "dueWeekExclusive": 325
+        },
+        "receipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "e252bc52cebae1d8",
+          "rulesVersion": 7,
+          "week": 312
+        },
+        "inputBytes": 2191356,
+        "inputSha256": "931935786000d04a267d5f37a1d32a23b1f449701935ac8ccb1eb17d006c8e49"
+      }
+    ],
+    "person": {
+      "provenance": {
+        "ageAtEntry": 35.22299891072342,
+        "entryWeek": 0,
+        "kind": "authored_exact_week",
+        "personId": "t-act-00"
+      },
+      "current": null,
+      "requestedActor": null,
+      "currentRefusal": null,
+      "actorRefusal": null,
+      "employment": []
+    },
+    "companyRows": [
+      3,
+      2
+    ],
+    "writingRows": [
+      118,
+      118
+    ],
+    "researchRows": [
+      1,
+      1
+    ],
+    "candidateIds": [
+      "c-04",
+      "c-05",
+      "c-08",
+      "c-16",
+      "c-20"
+    ],
+    "clocks": [
+      {
+        "conceptId": "c-04",
+        "freshWeek": 312,
+        "takeWeek": 317,
+        "dueWeekExclusive": 325,
+        "slack": 8
+      },
+      {
+        "conceptId": "c-05",
+        "freshWeek": 312,
+        "takeWeek": 317,
+        "dueWeekExclusive": 325,
+        "slack": 8
+      },
+      {
+        "conceptId": "c-08",
+        "freshWeek": 312,
+        "takeWeek": 317,
+        "dueWeekExclusive": 325,
+        "slack": 8
+      },
+      {
+        "conceptId": "c-16",
+        "freshWeek": 312,
+        "takeWeek": 317,
+        "dueWeekExclusive": 325,
+        "slack": 8
+      },
+      {
+        "conceptId": "c-20",
+        "freshWeek": 312,
+        "takeWeek": 317,
+        "dueWeekExclusive": 325,
+        "slack": 8
+      }
+    ],
+    "claimsBefore": [
+      {
+        "owner": "research",
+        "ownerId": "studio-88c92bc3-r01:research:synchronized-sound",
+        "kind": "facility",
+        "facilityId": "studio-88c92bc3-r01:laboratory:0",
+        "slot": null,
+        "capability": null
+      },
+      {
+        "owner": "production",
+        "ownerId": "prod-0000",
+        "kind": "facility",
+        "facilityId": "facility-soundstage-07",
+        "slot": 0,
+        "capability": "soundstage"
+      },
+      {
+        "owner": "production",
+        "ownerId": "prod-0000",
+        "kind": "facility",
+        "facilityId": "facility-scenery-shop",
+        "slot": 0,
+        "capability": "set-scenery"
+      },
+      {
+        "owner": "shootingTask",
+        "ownerId": "prod-0000",
+        "kind": "facility",
+        "facilityId": "facility-soundstage-07",
+        "slot": null,
+        "capability": null
+      },
+      {
+        "owner": "production",
+        "ownerId": "prod-0000-1",
+        "kind": "facility",
+        "facilityId": "facility-soundstage-12",
+        "slot": 0,
+        "capability": "soundstage"
+      },
+      {
+        "owner": "production",
+        "ownerId": "prod-0000-1",
+        "kind": "facility",
+        "facilityId": "facility-scenery-shop",
+        "slot": 1,
+        "capability": "set-scenery"
+      },
+      {
+        "owner": "shootingTask",
+        "ownerId": "prod-0000-1",
+        "kind": "facility",
+        "facilityId": "facility-soundstage-12",
+        "slot": null,
+        "capability": null
+      },
+      {
+        "owner": "set",
+        "ownerId": "set-0",
+        "kind": "mount",
+        "facilityId": "facility-soundstage-07",
+        "slot": null,
+        "capability": null
+      },
+      {
+        "owner": "set",
+        "ownerId": "set-1",
+        "kind": "mount",
+        "facilityId": "facility-soundstage-12",
+        "slot": null,
+        "capability": null
+      },
+      {
+        "owner": "production",
+        "ownerId": "prod-0000",
+        "kind": "set",
+        "facilityId": "facility-soundstage-07",
+        "slot": null,
+        "capability": null
+      },
+      {
+        "owner": "production",
+        "ownerId": "prod-0000-1",
+        "kind": "set",
+        "facilityId": "facility-soundstage-12",
+        "slot": null,
+        "capability": null
+      }
+    ],
+    "claimsAfter": [
+      {
+        "owner": "research",
+        "ownerId": "studio-88c92bc3-r01:research:synchronized-sound",
+        "kind": "facility",
+        "facilityId": "studio-88c92bc3-r01:laboratory:0",
+        "slot": null,
+        "capability": null
+      },
+      {
+        "owner": "production",
+        "ownerId": "prod-0000-1",
+        "kind": "facility",
+        "facilityId": "facility-soundstage-12",
+        "slot": 0,
+        "capability": "soundstage"
+      },
+      {
+        "owner": "production",
+        "ownerId": "prod-0000-1",
+        "kind": "facility",
+        "facilityId": "facility-scenery-shop",
+        "slot": 1,
+        "capability": "set-scenery"
+      },
+      {
+        "owner": "shootingTask",
+        "ownerId": "prod-0000-1",
+        "kind": "facility",
+        "facilityId": "facility-soundstage-12",
+        "slot": null,
+        "capability": null
+      },
+      {
+        "owner": "set",
+        "ownerId": "set-0",
+        "kind": "mount",
+        "facilityId": "facility-soundstage-07",
+        "slot": null,
+        "capability": null
+      },
+      {
+        "owner": "set",
+        "ownerId": "set-1",
+        "kind": "mount",
+        "facilityId": "facility-soundstage-12",
+        "slot": null,
+        "capability": null
+      },
+      {
+        "owner": "production",
+        "ownerId": "prod-0000-1",
+        "kind": "set",
+        "facilityId": "facility-soundstage-12",
+        "slot": null,
+        "capability": null
+      }
+    ],
+    "freeBefore": [
+      {
+        "capability": "development-casting",
+        "slots": [
+          {
+            "facilityId": "facility-development-casting",
+            "slot": 0
+          },
+          {
+            "facilityId": "facility-development-casting",
+            "slot": 1
+          }
+        ]
+      },
+      {
+        "capability": "soundstage",
+        "slots": []
+      },
+      {
+        "capability": "set-scenery",
+        "slots": []
+      },
+      {
+        "capability": "post",
+        "slots": [
+          {
+            "facilityId": "facility-post-building",
+            "slot": 0
+          },
+          {
+            "facilityId": "facility-post-building",
+            "slot": 1
+          }
+        ]
+      }
+    ],
+    "freeAfter": [
+      {
+        "capability": "development-casting",
+        "slots": [
+          {
+            "facilityId": "facility-development-casting",
+            "slot": 0
+          },
+          {
+            "facilityId": "facility-development-casting",
+            "slot": 1
+          }
+        ]
+      },
+      {
+        "capability": "soundstage",
+        "slots": [
+          {
+            "facilityId": "facility-soundstage-07",
+            "slot": 0
+          }
+        ]
+      },
+      {
+        "capability": "set-scenery",
+        "slots": [
+          {
+            "facilityId": "facility-scenery-shop",
+            "slot": 0
+          }
+        ]
+      },
+      {
+        "capability": "post",
+        "slots": [
+          {
+            "facilityId": "facility-post-building",
+            "slot": 0
+          },
+          {
+            "facilityId": "facility-post-building",
+            "slot": 1
+          }
+        ]
+      }
+    ],
+    "releasedClaims": [
+      {
+        "key": "facility:facility-soundstage-07:0",
+        "facilitySlotKey": "facility-soundstage-07:0",
+        "kind": "facility",
+        "facilityId": "facility-soundstage-07",
+        "slot": 0,
+        "capability": "soundstage",
+        "owner": "production",
+        "ownerId": "prod-0000",
+        "phase": "shooting",
+        "reservation": {
+          "capability": "soundstage",
+          "facilityId": "facility-soundstage-07",
+          "phase": "shooting",
+          "productionId": "prod-0000",
+          "slot": 0
+        }
+      },
+      {
+        "key": "facility:facility-scenery-shop:0",
+        "facilitySlotKey": "facility-scenery-shop:0",
+        "kind": "facility",
+        "facilityId": "facility-scenery-shop",
+        "slot": 0,
+        "capability": "set-scenery",
+        "owner": "production",
+        "ownerId": "prod-0000",
+        "phase": "shooting",
+        "reservation": {
+          "capability": "set-scenery",
+          "facilityId": "facility-scenery-shop",
+          "phase": "shooting",
+          "productionId": "prod-0000",
+          "slot": 0
+        }
+      },
+      {
+        "key": "facility:facility-soundstage-07",
+        "facilitySlotKey": null,
+        "kind": "facility",
+        "facilityId": "facility-soundstage-07",
+        "slot": null,
+        "capability": null,
+        "owner": "shootingTask",
+        "ownerId": "prod-0000",
+        "task": {
+          "directorId": "authored-0003",
+          "id": "shooting:prod-0000",
+          "productionId": "prod-0000",
+          "soundstageFacilityId": "facility-soundstage-07",
+          "status": "unassigned"
+        }
+      },
+      {
+        "key": "set:set-0",
+        "facilitySlotKey": null,
+        "kind": "set",
+        "facilityId": "facility-soundstage-07",
+        "slot": null,
+        "capability": null,
+        "owner": "production",
+        "ownerId": "prod-0000",
+        "setId": "set-0"
+      }
+    ],
+    "lockedTechnologyRow": {
+      "adoptionId": null,
+      "lockedWeek": 3,
+      "method": "silent",
+      "productionId": "prod-0000",
+      "studioId": "studio-88c92bc3-player"
+    },
+    "finishing": [
+      {
+        "ageAtAnnouncement": 71,
+        "announcedWeek": 52,
+        "cause": "hardBoundary",
+        "effectiveWeek": 208,
+        "finishingFromWeek": 208,
+        "intentRulesVersion": 1,
+        "personId": "authored-0000",
+        "profession": "actor",
+        "retiredWeek": null,
+        "status": "finishing_commitments",
+        "extensionUsed": false,
+        "extendedFromWeek": null
+      },
+      {
+        "ageAtAnnouncement": 75,
+        "announcedWeek": 260,
+        "cause": "hardBoundary",
+        "effectiveWeek": 312,
+        "finishingFromWeek": 312,
+        "intentRulesVersion": 1,
+        "personId": "authored-0003",
+        "profession": "director",
+        "retiredWeek": null,
+        "status": "finishing_commitments",
+        "extensionUsed": false,
+        "extendedFromWeek": null
+      }
+    ],
+    "oldTakes": 111,
+    "oldRoots": 69,
+    "fullUnionRowsPerQuote": 69,
+    "selected": [],
+    "firstTakeSubjects": {
+      "version": 1,
+      "cutoverOrdinal": 111,
+      "facts": []
+    },
+    "counters": {
+      "advanceAttempts": 0,
+      "advancesInvoked": 0,
+      "advancesCompleted": 0,
+      "actionAttempts": 1,
+      "actionsAccepted": 1,
+      "quoteAttempts": 2,
+      "quotesReturned": 2,
+      "hardAdvanceAttempts": 0,
+      "hardActionAttempts": 1,
+      "hardQuoteAttempts": 2,
+      "historicalPrefixAdvances": 0,
+      "producerOrHelperImported": false,
+      "operations": [
+        {
+          "action": {
+            "kind": "cancel",
+            "productionId": "prod-0000"
+          },
+          "week": 312,
+          "accepted": true
+        }
+      ],
+      "quotes": [
+        {
+          "request": {
+            "family": "PREFERRED_GENRE_OPPORTUNITY",
+            "issuerStudioId": "studio-88c92bc3-player",
+            "beneficiaryPersonId": "t-act-00",
+            "predicate": {
+              "kind": "genreOpportunity",
+              "count": 1,
+              "seatClass": "allCast",
+              "genre": "crime"
+            },
+            "startWeek": 312,
+            "termWeeks": 52,
+            "windowStartWeek": 312,
+            "dueWeekExclusive": 325
+          },
+          "receipt": {
+            "classification": "FRAGILE",
+            "bottleneck": "existing soundstage capacity is not available for this opportunity",
+            "inputsDigest": "c93c053c389a73d1",
+            "rulesVersion": 7,
+            "week": 312
+          }
+        },
+        {
+          "request": {
+            "family": "PREFERRED_GENRE_OPPORTUNITY",
+            "issuerStudioId": "studio-88c92bc3-player",
+            "beneficiaryPersonId": "t-act-00",
+            "predicate": {
+              "kind": "genreOpportunity",
+              "count": 1,
+              "seatClass": "allCast",
+              "genre": "crime"
+            },
+            "startWeek": 312,
+            "termWeeks": 52,
+            "windowStartWeek": 312,
+            "dueWeekExclusive": 325
+          },
+          "receipt": {
+            "classification": "REASONABLY_ACHIEVABLE",
+            "bottleneck": null,
+            "inputsDigest": "e252bc52cebae1d8",
+            "rulesVersion": 7,
+            "week": 312
+          }
+        }
+      ],
+      "phases": [
+        {
+          "name": "literal35-to40:312",
+          "complete": true
+        },
+        {
+          "name": "initial-capacity-quote312",
+          "complete": true
+        },
+        {
+          "name": "public-cancel312",
+          "complete": true
+        },
+        {
+          "name": "released-capacity-quote312",
+          "complete": true
+        }
+      ]
+    }
+  },
+  "qualification": "At actual312 a byte-identical pure P4crime/count1/allCast request changes FRAGILE soundstage capacity to RA/null after one public cancellation. Complete unused crime set remains five, fresh312/take317/slack8, person free and full reservation union empty. Only prod0000 and its workflow disappear; exactly four claims release stage07/scenery0 while other stage/scenery hold, two mounts and completed research reference persist. No refund, funding, new promise, altered history or advances.",
+  "provenance": "Unchanged reproduced35 actual312 with strict literal35 admission then genuine40 migration/whole-current roundtrip. Original funded world5/held33 and archived37 reproduction501total/85selected227-to312 ticks remain disclosed history; no current funding or historical prefix replay. Not an Owner campaign.",
+  "unchangedProduction": true,
+  "cumulativeCoreQualification": {
+    "leaves": 22,
+    "separateSelections": 14,
+    "sameRunOrFullSuite": false
+  },
+  "limits": [
+    "Initial scenery was also occupied; the recorded first cause qualifies soundstage, not isolated scenery/post.",
+    "Hypothetical312-to364 terms are not a hire, market offer, affordability, full crew or new film.",
+    "Locked technology is not an invented first-take receipt; finishing records persist without a retirement-completion tick.",
+    "No general allocator, rival material policy, full-suite, native or natural-economy qualification. Earlier failures/overruns remain."
+  ],
+  "next": "Begin accepted1287-C queued/refused project outcome under A/B/F, hard8advances/6public attempts (5accepted and1intentional refusal)/1direct promise quote; independentD then parent publication and1288types0/1289runtime8. Separate scenery/post candidate planning remains prospective."
+}
