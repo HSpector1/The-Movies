@@ -1,0 +1,15 @@
+# 1309-X5 targets extract: six files, --project core, r5 scratch tree (full log 4313615 bytes, not archived)
+ ✓ |core| tests/bridge-p14b6-relationship-read-models.test.ts (24 tests) 33371ms
+ ✓ |core| tests/p14p4p5-opportunities.test.ts (10 tests) 121740ms
+ ✓ |core| tests/bridge-schema.test.ts (22 tests) 130481ms
+ ❯ |core| tests/p14c3-save-v38.test.ts (47 tests | 5 failed) 73892ms
+ ✓ |core| tests/p14c2b-save-v36.test.ts (14 tests) 29908ms
+ ✓ |core| tests/bridge-p14c2s-scientist-runtime.test.ts (10 tests) 48358ms
+ FAIL |core|  tests/p14c3-save-v38.test.ts > C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-created-week0.json.gz losslessly except for explicit prospective38 scaffolding
+ FAIL |core|  tests/p14c3-save-v38.test.ts > C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-preretirement-week207.json.gz losslessly except for explicit prospective38 scaffolding
+ FAIL |core|  tests/p14c3-save-v38.test.ts > C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-retired-week208.json.gz losslessly except for explicit prospective38 scaffolding
+ FAIL |core|  tests/p14c3-save-v38.test.ts > C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-runtime-current208.json.gz losslessly except for explicit prospective38 scaffolding
+ FAIL |core|  tests/p14c3-save-v38.test.ts > C.3 A01/A02 exact Save38 opening > exposes matching strict38 conversion, validation and current migration over a genuine37 save
+ Test Files  1 failed | 5 passed (6)
+      Tests  5 failed | 122 passed (127)
+   Duration  176.41s (transform 4.87s, setup 0ms, collect 16.24s, tests 437.75s, environment 4ms, prepare 1.45s)

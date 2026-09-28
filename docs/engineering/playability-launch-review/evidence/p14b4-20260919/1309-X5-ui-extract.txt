@@ -1,0 +1,78 @@
+# 1309-X5 UI extract: vitest run --project ui on the r5 scratch tree (full log 402072 bytes, not archived)
+ ❯ |ui| ui/src/lot/StudioLotScreen.test.tsx (61 tests | 1 failed) 42354ms
+ ❯ |ui| ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx (36 tests | 2 failed) 113687ms
+ ❯ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx (15 tests | 1 failed) 44598ms
+ ❯ |ui| ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx (28 tests | 8 failed) 33874ms
+ ❯ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx (10 tests | 1 failed) 42016ms
+ ❯ |ui| ui/src/test/contracts/p05a-w2-closed-production.contract.test.ts (13 tests | 2 failed) 2036ms
+ ❯ |ui| ui/src/lot/livingTurn.scheduler.test.tsx (13 tests | 6 failed) 47065ms
+ ❯ |ui| ui/src/lot/livingTurn.parity.test.tsx (7 tests | 1 failed) 67171ms
+ ❯ |ui| ui/src/test/contracts/audio-provenance.contract.test.ts (13 tests | 6 failed) 56ms
+ ❯ |ui| ui/src/lot/authored-stage-a.test.ts (17 tests | 4 failed) 715ms
+ ❯ |ui| ui/src/lot/authored-rgba-export.test.ts (8 tests | 6 failed) 1010ms
+ FAIL |ui|  ui/src/lot/StudioLotScreen.test.tsx > StudioLotScreen — authoritative Hollywood operations host > moves Hollywood keyboard focus to each successor and announces the final take
+ FAIL |ui|  ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > greenlights the canonical Package into exact formation without replacing the Lot, canvas, or renderer
+ FAIL |ui|  ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx > Lot-native Casting review — App commit and handoff authority > never lets stale Casting review closures demote or mutate a newer exact event
+ FAIL |ui|  ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > orients a cash stop to Administration and focuses the supporting Finances section
+ FAIL |ui|  ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > clears every next-event transient across an accepted same-seed same-week whole-studio replacement
+ FAIL |ui|  ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B — the buildings carry the verbs the guidance names > never lets any place print its blocks out of the canonical order
+ FAIL |ui|  ui/src/lot/livingTurn.scheduler.test.tsx > Living Turn V1 — the partition, at the seam > auto-pauses on the FIRST PAUSE-class stop, at exactly the hand-advanced week
+ FAIL |ui|  ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B — the buildings carry the verbs the guidance names > offers Development the Commission verb at Week 0 — the first step of the whole game
+ FAIL |ui|  ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B — the buildings carry the verbs the guidance names > routes the Commission verb to the commission intent, and the deep ghost to Development
+ FAIL |ui|  ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B — the buildings carry the verbs the guidance names > F4: offers the Commission verb while a screenplay is already being written
+ FAIL |ui|  ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B — the buildings carry the verbs the guidance names > F4: offers it with an accepted screenplay waiting on casting, too
+ FAIL |ui|  ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B — the buildings carry the verbs the guidance names > names the picture in Casting’s audition verb, and prefers the retained in-world planner
+ FAIL |ui|  ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B — the buildings carry the verbs the guidance names > falls back to the existing deep Casting path rather than leaving a dead button
+ FAIL |ui|  ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B — the buildings carry the verbs the guidance names > reads the deep ghosts in plain language, never in internal screen names
+ FAIL |ui|  ui/src/lot/authored-rgba-export.test.ts > current production authored export — the shipped Stage B assets > 3. the RGB channel is reduced to the recovered 128-colour contract
+ FAIL |ui|  ui/src/lot/authored-rgba-export.test.ts > current production authored export — the shipped Stage B assets > 4. alpha is bit-identical between the two finishes
+ FAIL |ui|  ui/src/lot/authored-rgba-export.test.ts > current production authored export — the shipped Stage B assets > 5. alpha is genuinely lossless, not collapsed into a palette-sized set
+ FAIL |ui|  ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 6. output is truecolour RGBA with no PLTE/tRNS, alpha preserved exactly
+ FAIL |ui|  ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 7. repeated runs are byte-identical
+ FAIL |ui|  ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 8. the historical PNG-8 path is still available and clearly separate
+ FAIL |ui|  ui/src/lot/authored-stage-a.test.ts > Stage A — the committed assets satisfy the CURRENT production export contract > 4. the RGB channel carries the recovered 128-colour contract
+ FAIL |ui|  ui/src/lot/authored-stage-a.test.ts > Stage A — the committed assets satisfy the CURRENT production export contract > 5. alpha is bit-identical between the two finishes
+ FAIL |ui|  ui/src/lot/authored-stage-a.test.ts > Stage A — the committed assets satisfy the CURRENT production export contract > 6. alpha is lossless, not collapsed into a palette-sized set
+ FAIL |ui|  ui/src/lot/authored-stage-a.test.ts > Stage A — the committed assets satisfy the CURRENT production export contract > 7. registration is the approved one — inset, with a forecourt
+ FAIL |ui|  ui/src/lot/livingTurn.parity.test.tsx > C2a-M5 — four-way time parity: the same twelve weeks, four ways > (a) by hand at the seam — the manual verb, pressed twelve times
+ FAIL |ui|  ui/src/lot/livingTurn.scheduler.test.tsx > Living Turn V1 — the partition, at the seam > a NOTIFY-class wrap reaches the bulletin and the loop keeps working
+ FAIL |ui|  ui/src/lot/livingTurn.scheduler.test.tsx > Living Turn V1 — the partition, at the seam > the bulletin clears on request
+ FAIL |ui|  ui/src/lot/livingTurn.scheduler.test.tsx > Living Turn V1 — the loop cannot stall silently, and the batch verb holds it > re-arms the week on screen when the cadence channel is cleared under a running loop
+ FAIL |ui|  ui/src/lot/livingTurn.scheduler.test.tsx > Living Turn V1 — the loop cannot stall silently, and the batch verb holds it > the batch verb HOLDS the studio — a skipped batch was never witnessed time
+ FAIL |ui|  ui/src/lot/livingTurn.scheduler.test.tsx > Living Turn V1 — the release week plays before its surfaces take over > the shipping week is witnessed, and the release surface follows it
+ FAIL |ui|  ui/src/test/contracts/audio-provenance.contract.test.ts > PF1-M1 asset gate — the assets and their provenance exist > ships an AUDIO-PROVENANCE.md with File / Source / License columns
+ FAIL |ui|  ui/src/test/contracts/audio-provenance.contract.test.ts > PF1-M1 asset gate — provenance covers every file > every committed audio file has a provenance row
+ FAIL |ui|  ui/src/test/contracts/audio-provenance.contract.test.ts > PF1-M1 asset gate — provenance covers every file > every provenance row names a file that exists
+ FAIL |ui|  ui/src/test/contracts/audio-provenance.contract.test.ts > PF1-M1 asset gate — provenance covers every file > every provenance row carries a non-empty source
+ FAIL |ui|  ui/src/test/contracts/audio-provenance.contract.test.ts > PF1-M1 asset gate — provenance covers every file > every provenance row carries a non-empty license
+ FAIL |ui|  ui/src/test/contracts/audio-provenance.contract.test.ts > PF1-M1 asset gate — provenance covers every file > no provenance row is a duplicate claim on the same file
+ FAIL |ui|  ui/src/test/contracts/p05a-w2-closed-production.contract.test.ts > P05A W2 — closed operational states across the lifecycle > the guidance card agrees with the rail on the wrapped-waiting oracle fixture — never SHOOTING (P06C §5)
+ FAIL |ui|  ui/src/test/contracts/p05a-w2-closed-production.contract.test.ts > P05A W2 — closed operational states across the lifecycle > the rail, the world Stage card, the workspace source and the guidance card all agree for the wrapped-waiting picture (P06D item 2)
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 1 unhandled error during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯⎯ Uncaught Exception ⎯⎯⎯⎯⎯
+TypeError: viewRef.current?.hollywoodPerformance is not a function
+ ❯ Timeout._onTimeout ui/src/lot/StudioLotScreen.tsx:4854:37
+ ❯ listOnTimeout node:internal/timers:581:17
+ ❯ processTimers node:internal/timers:519:7
+
+This error originated in "ui/src/lot/StudioLotIdentityReview.test.tsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "each mode drives setIdentityMode / setReducedMotion correctly". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+ Test Files  11 failed | 193 passed (204)
+      Tests  38 failed | 2654 passed | 5 skipped (2697)
+     Errors  1 error
+   Start at  19:14:03
+   Duration  908.11s (transform 17.23s, setup 53.66s, collect 235.86s, tests 1843.05s, environment 307.83s, prepare 42.97s)
+
+# isolation rerun: StudioLotScreen.test.tsx + livingTurn.scheduler.test.tsx
+ ✓ |ui| ui/src/lot/StudioLotScreen.test.tsx (61 tests) 25968ms
+ ✓ |ui| ui/src/lot/livingTurn.scheduler.test.tsx (13 tests) 28136ms
+ Test Files  2 passed (2)
+      Tests  74 passed (74)
