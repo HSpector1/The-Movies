@@ -1,0 +1,115 @@
+{
+  "record": "1299-K parent Save30 compatibility closure",
+  "timeUtc": "2026-09-28T06:47:59.436780+00:00",
+  "executedPublishedSource": "52c95a3f78a9392c8031a287360f05ee3f6a36f2",
+  "recordsPublished": "62004a4a639cf170009446ce9f94f99d0463780a",
+  "correction": {
+    "path": "tests/p14b4-save-v30-compatibility.test.ts",
+    "bytes": 25226,
+    "sha256": "f7f97c673abc825dcc3dd64ccde8048fcfb9c626d04368ba1b96d6d9b736cff6",
+    "change": "first leaf title literal37 -> literal40 and toBe(38) -> toBe(40); every historical reader, receipt, digest pin, synthetic label, refusal and timeout unchanged"
+  },
+  "result": {
+    "command": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "--no-file-parallelism",
+      "tests/p14b4-save-v30-compatibility.test.ts"
+    ],
+    "start": "2026-09-28T06:31:40.901Z",
+    "end": "2026-09-28T06:33:02.276Z",
+    "childExitCode": 0,
+    "signal": null,
+    "error": null,
+    "vitest": "Test Files 1 passed (1); Tests 36 passed (36); zero filtered; Duration 79.96s",
+    "groups": {
+      "literalAndGenuineCorpus": 10,
+      "legacyVariantsSharedSupport": 12,
+      "strict29Negatives": 4,
+      "taggedP2Boundary": 10
+    },
+    "printedLeaves": 21,
+    "aggregateOnlyLeaves": 15,
+    "preservesExactlySourceRouteCalls": 56,
+    "sourceRouteAdvances": 0,
+    "advanceCounterMeasured": false
+  },
+  "parentJoins": {
+    "boundedPrePostEqual": true,
+    "boundedPostAllGuardsExact": true,
+    "advanceCap": 0,
+    "remoteEqualsHead": true,
+    "outputIdentityPins": true,
+    "recordFixedSourceExit0NoSignal": true,
+    "manualRows": 28,
+    "decodedInputs": 9,
+    "manualGuardsExact": true,
+    "runtimePassInferred": false,
+    "companionSelfHash": "97d5695b5c8c98075dcd77bdfe7bf72e1c3c5d913f0117dbb6c3ece5109075b6",
+    "chronology": "bounded pre < companion pre < child start < child end < bounded post < companion post",
+    "sourceInventory": {
+      "bytes": 162646,
+      "sha256": "6c46a816fcc9b11c6665f7e71fd35e8ff70719c9b0868a23c4d9afd769478e8d"
+    },
+    "compilerRelation": "git diff --name-only a30f86f2..52c95a3f over the consumed roots, excluding tests/fixtures, ui/e2e and ui/public, lists exactly tests/p14b4-save-v30-compatibility.test.ts; 1294b root compiler PASS at a30f86f2 plus the two literal-only edits (toBe is <E>(expected: E) => void) is the type basis; no new compiler run"
+  },
+  "attribution": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1299-I-save-compatibility-verification-attribution.md",
+    "bytes": 16501,
+    "sha256": "ba670e4a9518cc8d112976f7230d46bbf4bc9f188c93c501fe80d4d72e94e771"
+  },
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1299-J-save-compatibility-verification-review.md",
+    "bytes": 5019,
+    "sha256": "3eb55bbbf35789e753f0e437d0f6af165971267ba5291f3d2a2d9005d1516a55"
+  },
+  "reviewVerdict": "KEEP",
+  "commandDisclosureReconciliation": "The 1299-I author's return message to the parent also named `git log --oneline` and `git diff --stat HEAD`; the persisted 1299-I lists four other read-only git metadata commands and not those two. The parent's brief to 1299-J repeated the message's wording, which J correctly found absent from the file. All six are read-only metadata commands that neither run project code nor touch tested source; evidence validity is unaffected. Recorded here so the file and the message do not silently disagree.",
+  "artifacts": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1300-save-v30-compatibility-runtime-preflight.json",
+      "bytes": 114020,
+      "sha256": "26667a21903745a780605cf69cf789dde1c8b9e77714f6c870603b848d63064c"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1300-save-v30-compatibility-runtime-manual-preflight.json",
+      "bytes": 7997,
+      "sha256": "bbfa5502e0db5bf901dd601450828e52261e1ee012a8363261b3cd65651451d5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1300-save-v30-compatibility-runtime.json",
+      "bytes": 52369,
+      "sha256": "b3bf1dc14bbecd984fbc9d3b1105714becd626400397ba2be2592fed6654c7e4"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1300-save-v30-compatibility-runtime.txt",
+      "bytes": 48362,
+      "sha256": "05ae6b0821519299dad85729b96b79a02455d51c4893e05c83016a161e542d63"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1300-save-v30-compatibility-runtime.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1300-save-v30-compatibility-runtime-postflight.json",
+      "bytes": 114732,
+      "sha256": "d87ede09717d44a5a526a43ae01ba5d8517a46abbbc40094abbae2197b9c0d6b"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1300-save-v30-compatibility-runtime-manual-postflight.json",
+      "bytes": 9370,
+      "sha256": "b6f646b2f6761c1f0ca5f5db7947d07401d2751b0fe8294570d7fdcaf78c9d0d"
+    }
+  ],
+  "notQualified": [
+    "a new 40->39 semantic-loss discriminator",
+    "modern material quote, attachment, fulfillment or rival policy",
+    "broad core, Bridge or UI suites",
+    "the deferred five Bridge-waiver leaves and V32 input",
+    "native or Owner campaigns"
+  ],
+  "next": "1301 live-pin maintenance (C staging in progress), then broad gates 1302 core and 1303 UI"
+}

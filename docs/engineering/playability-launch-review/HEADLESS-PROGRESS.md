@@ -1,5 +1,23 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — 1300 Save30 compatibility qualified; 1301 maintenance staging
+
+Gate 1300 on published 52c95a3f: 36 passed (36), zero filtered, child0, fixed
+source, 79.96s. Bounded and 1299-C companion pre/post closed (28 manual rows,
+nine decoded generated inputs). 1299-I attribution, independent 1299-J KEEP and
+parent 1299-K close it. Only the corrected test differs from the 1294b compiler
+source over the consumed roots; no compiler rerun. Classless historical promises
+keep original receipts through strict29, 29→30 and live migration. Not qualified:
+a 40→39 loss discriminator, modern material behavior, deferred Bridge-waiver leaves.
+
+1301-A/B/F adopt a cause-scoped live-pin maintenance increment (three-class
+inventory: 56 direct, 26 projection-form, 118 derived saveVersion candidates in
+86 files) before one broad core gate 1302 (411 files, six 1296-A exclusions,
+pre/post collection proof) and UI gate 1303 (204 files). Test-author stages
+1301-C; contract-auditor reviews D; parent applies E. IN PROGRESS: rival material
+policy and R3 rival early release remain open. Same two specialists, parent live
+writer, one heavy process; Unity/native/Owner deferred.
+
 ## CURRENT — 1299 Save30 correction applied; gate1300 next
 
 Parent applied reviewed 1299-C/D (KEEP) on published 2bb5326e: one hunk in
