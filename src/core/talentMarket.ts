@@ -246,8 +246,19 @@ export function studioOffer(
   termWeeks: number,
   week: number = state.market.tick,
 ): ContractOffer {
-  const offer = contractOffer(state, talentId, termWeeks, week)
-  const floor = releaseFloor(state, studioId, talentId, week)
+  return floorOffer(state, studioId, contractOffer(state, talentId, termWeeks, week), week)
+}
+
+/** R1 applied to an ask already priced for this person: the releasing studio's
+ * unexpired floor, else the ask unchanged. A rival's own re-hire in `staff()`
+ * (R3) prices through this, exactly as the player's studio-aware ask does. */
+export function floorOffer(
+  state: GameState,
+  studioId: string,
+  offer: ContractOffer,
+  week: number = state.market.tick,
+): ContractOffer {
+  const floor = releaseFloor(state, studioId, offer.talentId, week)
   if (floor === null || floor.floorAnnual <= offer.annualSalary) return offer
   // The bonus is the same published fraction of the annual everywhere (§2.1.4 /
   // `offerForTalent`), so a floored annual carries a floored bonus.

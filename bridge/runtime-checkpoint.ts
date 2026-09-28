@@ -58,6 +58,9 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
 // that window would carry the earlier hash, and this map is keyed on the
 // hash, not the label.
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // R2/R3: genuine1307 preserves an outgoing55 current111/saved110 checkpoint.
+  // Each Save40 slot lifts to Save41 independently; prior session/journal authority resets.
+  ['sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158', 'projection-v55'],
   // P4/P5: genuine1221 preserves outgoing54 current-waived/saved-earned slots.
   // Independently migrate Save39; prior session/revision/journal authority resets.
   ['sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302', 'projection-v54'],

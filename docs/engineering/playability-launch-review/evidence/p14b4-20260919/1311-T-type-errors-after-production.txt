@@ -1,0 +1,67 @@
+# parent dev type check of the landed R2/R3 production (uncommitted working tree over HEAD 85d7883c); root tsc --noEmit
+tests/contracts/v14-boundary-guards.contract.test.ts(63,68): error TS2345: Argument of type 'SaveFileV41' is not assignable to parameter of type 'SaveFileV40'.
+  Type 'SaveFileV41' is not assignable to type '{ saveVersion: 40; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '41' is not assignable to type '40'.
+tests/helpers/p14c2b-fixtures.ts(69,74): error TS2345: Argument of type 'SaveFileV41' is not assignable to parameter of type 'SaveFileV40'.
+  Type 'SaveFileV41' is not assignable to type '{ saveVersion: 40; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '41' is not assignable to type '40'.
+tests/helpers/p14c4-fixtures.ts(71,56): error TS2345: Argument of type 'SaveFileV41' is not assignable to parameter of type 'SaveFileV40'.
+  Type 'SaveFileV41' is not assignable to type '{ saveVersion: 40; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '41' is not assignable to type '40'.
+tests/p06a-w1-release-authority.test.ts(406,72): error TS2345: Argument of type 'SaveFileV41' is not assignable to parameter of type 'SaveFileV40'.
+  Type 'SaveFileV41' is not assignable to type '{ saveVersion: 40; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '41' is not assignable to type '40'.
+tests/p14b4-material-evidence-core.test.ts(293,9): error TS2322: Type 'SaveFileV41' is not assignable to type 'SaveFileV40'.
+  Type 'SaveFileV41' is not assignable to type '{ saveVersion: 40; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '41' is not assignable to type '40'.
+tests/p14c2rm-writer-continuation.test.ts(236,82): error TS2345: Argument of type 'SaveFileV41' is not assignable to parameter of type 'SaveFileV40'.
+  Type 'SaveFileV41' is not assignable to type '{ saveVersion: 40; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '41' is not assignable to type '40'.
+tests/p14c3-cohort-transition.test.ts(281,66): error TS2345: Argument of type 'SaveFileV41' is not assignable to parameter of type 'SaveFileV40'.
+  Type 'SaveFileV41' is not assignable to type '{ saveVersion: 40; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '41' is not assignable to type '40'.
+tests/p14c3-dual-extensions.test.ts(172,66): error TS2345: Argument of type 'SaveFileV41' is not assignable to parameter of type 'SaveFileV40'.
+  Type 'SaveFileV41' is not assignable to type '{ saveVersion: 40; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '41' is not assignable to type '40'.
+tests/p14c3-offmenu-extensions.test.ts(229,66): error TS2345: Argument of type 'SaveFileV41' is not assignable to parameter of type 'SaveFileV40'.
+  Type 'SaveFileV41' is not assignable to type '{ saveVersion: 40; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '41' is not assignable to type '40'.
+tests/p14c3-profession-history.test.ts(112,81): error TS2345: Argument of type 'SaveFileV41' is not assignable to parameter of type 'SaveFileV40'.
+  Type 'SaveFileV41' is not assignable to type '{ saveVersion: 40; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '41' is not assignable to type '40'.
+tests/p14c3-promise-digest-continuity.test.ts(226,71): error TS2345: Argument of type 'SaveFileV41' is not assignable to parameter of type 'SaveFileV40'.
+  Type 'SaveFileV41' is not assignable to type '{ saveVersion: 40; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '41' is not assignable to type '40'.
+tests/p14p4p5-opportunities.test.ts(766,40): error TS2345: Argument of type 'SaveFileV41' is not assignable to parameter of type 'SaveFileV40'.
+  Type 'SaveFileV41' is not assignable to type '{ saveVersion: 40; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '41' is not assignable to type '40'.
+tests/p14p4p5-screenplay-status.test.ts(320,31): error TS2345: Argument of type 'SaveFileV41' is not assignable to parameter of type 'SaveFileV40'.
+  Type 'SaveFileV41' is not assignable to type '{ saveVersion: 40; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '41' is not assignable to type '40'.
+tests/save.test.ts(370,72): error TS2345: Argument of type 'SaveFileV41' is not assignable to parameter of type 'SaveFileV40'.
+  Type 'SaveFileV41' is not assignable to type '{ saveVersion: 40; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '41' is not assignable to type '40'.
+tests/save.test.ts(419,72): error TS2345: Argument of type 'SaveFileV41' is not assignable to parameter of type 'SaveFileV40'.
+  Type 'SaveFileV41' is not assignable to type '{ saveVersion: 40; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '41' is not assignable to type '40'.
+# tsc -p tsconfig.bridge.json
+tests/helpers/p14c2b-fixtures.ts(69,74): error TS2345: Argument of type 'SaveFileV41' is not assignable to parameter of type 'SaveFileV40'.
+tests/helpers/p14c4-fixtures.ts(71,56): error TS2345: Argument of type 'SaveFileV41' is not assignable to parameter of type 'SaveFileV40'.
+# tsc -p ui/tsconfig.json --noEmit
+tests/helpers/p14c2b-fixtures.ts(69,74): error TS2345: Argument of type 'SaveFileV41' is not assignable to parameter of type 'SaveFileV40'.
+tests/helpers/p14c4-fixtures.ts(71,56): error TS2345: Argument of type 'SaveFileV41' is not assignable to parameter of type 'SaveFileV40'.

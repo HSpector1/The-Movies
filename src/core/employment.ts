@@ -24,6 +24,7 @@ import type {
   EmploymentStatus,
   FilmConcept,
   GameState,
+  Production,
   Talent,
 } from './types.js'
 import { salaryCurve } from './worldgen.js'
@@ -125,6 +126,15 @@ export function isContracted(state: GameState, talentId: string, week?: number):
  */
 export function activeProductionCompanyTalentIds(state: GameState): Set<string> {
   return productionCompanyTalentIds(state.studio.activeProductions)
+}
+
+/**
+ * R2 (companion §3.4): the active production that seats this person, if any. A
+ * seat holds from greenlight through release; research seats and writer credits
+ * are not production seats. Engine release and the Bridge ask this one question.
+ */
+export function seatingProduction(state: GameState, talentId: string): Production | undefined {
+  return state.studio.activeProductions.find((p) => productionCompanyTalentIds([p]).has(talentId))
 }
 
 /**

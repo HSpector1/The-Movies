@@ -29,6 +29,7 @@ import {
   playerOfferOptions,
   guaranteedComp,
   renewalWindowOpen,
+  seatingProduction,
   terminationCost,
   weeklySalary,
   type Contract,
@@ -51,7 +52,7 @@ import { financialConsequence } from './finance-consequence.ts'
 import { corePredicateOf, promiseQuoteSnapshot } from './promises.ts'
 import type { WirePromiseDraft } from './promises.ts'
 import { attachPromise } from '../src/core/promises.ts'
-import { latestCaseIsExtension } from '../src/core/talentMarket.ts'
+import { latestCaseIsExtension, releaseDisclosure } from '../src/core/talentMarket.ts'
 import { retirementExtensionFields } from './retirement-extension.ts'
 import { TUNING } from '../src/core/tuning.ts'
 import type { ActionOutcome } from '../ui/src/engine/adapter.ts'
@@ -166,6 +167,23 @@ export function releaseRefusal(state: GameState, talent: Talent, contract: Contr
       code: 'noActiveContract',
       reason: `${talent.name} is not under contract.`,
       remedy: 'Only a contracted person can be released early.',
+    }
+  }
+  // R2 (companion §3.4): the engine's own two refusals, in the engine's order.
+  if (state.founding !== null) {
+    return {
+      code: 'foundingDraft',
+      reason: `${talent.name} was signed in the founding draft, which is still open.`,
+      remedy: 'Found the studio first; release opens once the founding draft closes.',
+    }
+  }
+  const seated = seatingProduction(state, talent.id)
+  if (seated !== undefined) {
+    const title = state.concepts.find((concept) => concept.id === seated.conceptId)?.title ?? seated.id
+    return {
+      code: 'seatedOnActiveProduction',
+      reason: `${talent.name} is seated on ${title}, an active production, until the picture is released.`,
+      remedy: 'Release after the picture is released, or recast before shooting.',
     }
   }
   const task = scriptTaskLabel(state, talent.id)
@@ -296,11 +314,16 @@ export function contractQuoteSnapshot(
   const release = contract === undefined ? null : terminationCost(contract, week)
   const cost = renew ? (offer?.signingBonus ?? 0) : (release ?? 0)
   const remaining = contract === undefined ? null : Math.max(0, contract.endWeekExclusive - week)
+  // Companion §3.4 direction 2: the charge's two exact branches, from the engine's own disclosure.
+  const releaseBasis = !ok || renew || contract === undefined ? ''
+    : releaseDisclosure(state, talent.id, week).capApplies
+      ? `${String(TUNING.HIRING_TERMINATION_CAP_WEEKS)} weeks of the ${dollars(guaranteed ?? 0)} still guaranteed through Week ${String(contract.endWeekExclusive)}`
+      : `all ${String(remaining)} remaining weeks of pay`
   const consequence = !ok
     ? `${refusal.reason} ${refusal.remedy}`.trim()
     : renew && offer !== null
       ? `Pays a ${dollars(offer.signingBonus)} signing bonus now. ${talent.name} stays under contract through Week ${String(offer.endWeekExclusive)} (${contractTermLabel(offer.termWeeks)}) at ${dollars(weeklySalary(offer.annualSalary))} a week — ${dollars(offer.annualSalary)} a year. Nothing else about the person changes.`
-      : `Pays ${dollars(cost)} in termination now (half of the ${dollars(guaranteed ?? 0)} still guaranteed through Week ${String(contract?.endWeekExclusive ?? week)}). ${talent.name} leaves the roster this week as a free agent. Recorded credits and career history stay on the record.`
+      : `Pays ${dollars(cost)} in termination now (${releaseBasis}). ${talent.name} leaves the roster this week as a free agent. Recorded credits and career history stay on the record.`
   return {
     financial: ok && successor !== null ? financialConsequence(state, successor) : null,
     intentId,

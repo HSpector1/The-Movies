@@ -50,9 +50,14 @@ export type IndustryFilm = AuthoredFilm | LiveIndustryFilm
  * V27 period whose four are all zero downgrades losslessly.
  */
 export type RivalResearchMoneyKind = 'researchSpend' | 'researchCapacity' | 'technologyRestoration' | 'technologyRefund'
+/**
+ * R3 (Save V41): `termination` is a rival's early release of its own employee under
+ * the player's termination law. Every V41 period carries it; a V40 period is lifted
+ * with it at zero and a V41 period whose charge is zero downgrades losslessly.
+ */
 export type RivalMoneyKind = 'capacity' | 'signing' | 'payroll' | 'overhead' | 'facilityOpex'
   | 'development' | 'production' | 'marketing' | 'studioRevenue' | 'technologyAdoption'
-  | RivalResearchMoneyKind
+  | RivalResearchMoneyKind | 'termination'
 export type RivalFinancePeriod = {
   fromWeek: number
   throughWeek: number

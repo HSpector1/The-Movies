@@ -23,7 +23,7 @@ export const RIVAL_RESEARCH_MONEY_KINDS: readonly RivalResearchMoneyKind[] =
   ['researchSpend','researchCapacity','technologyRestoration','technologyRefund']
 export const RIVAL_MONEY_KINDS: readonly RivalMoneyKind[] = ['capacity','signing','payroll','overhead',
   'facilityOpex','development','production','marketing','studioRevenue','technologyAdoption',
-  ...RIVAL_RESEARCH_MONEY_KINDS]
+  ...RIVAL_RESEARCH_MONEY_KINDS,'termination']
 
 export function uniqueIdentity(base: string, taken: Set<string>): string {
   let id = base

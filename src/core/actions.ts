@@ -56,6 +56,7 @@ import {
   hiringMarketIds,
   isContracted,
   renewalWindowOpen,
+  seatingProduction,
   terminationCost,
 } from './employment.js'
 import { computeForecast, type ForecastContext } from './forecast.js'
@@ -2664,6 +2665,17 @@ function applyReleaseTalent(state: GameState, action: Action & { kind: 'releaseT
   const contract = activeContract(state, talentId)
   if (contract === undefined) {
     throw new Error(`applyActions: releaseTalent rejected — talent "${talentId}" has no active contract (D-11.9)`)
+  }
+  // R2 (companion §3.4): release is refused during the founding draft and for a
+  // person seated on an active production, before any charge or record.
+  if (state.founding !== null) {
+    throw new Error('applyActions: releaseTalent rejected — the founding draft is still open; release waits until the studio is founded (R2)')
+  }
+  const seated = seatingProduction(state, talentId)
+  if (seated !== undefined) {
+    throw new Error(
+      `applyActions: releaseTalent rejected — talent "${talentId}" is seated on active production "${seated.id}" until it is released (R2)`,
+    )
   }
   const scriptAssignment = activeScriptWriterAssignments(
     state.scriptDevelopment,

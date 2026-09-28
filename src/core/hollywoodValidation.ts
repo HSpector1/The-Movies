@@ -4,7 +4,7 @@ import type { RetirementWritingAuthority } from './retirementWriting.js'
 import { sameContractTerms } from './industryEmployment.js'
 import { HOLLYWOOD_STARTING_MANIFEST, RIVAL_CREDIT_ROLES, RIVAL_TEAM_ROLES } from './hollywoodStartingData.js'
 import { persistedConceptIds, persistedProductionIds } from './productionIdentity.js'
-import { weeklySalary, PRE_V28_TERMINATION_LAW } from './employment.js'
+import { weeklySalary, PRE_V28_TERMINATION_LAW, terminationCost } from './employment.js'
 import type { TerminationLaw } from './employment.js'
 import type { GameState } from './types.js'
 import { CAMPAIGN_CALENDAR_POLICY, campaignDate, historicalDate, RIVAL_ARRIVAL_WEEKS } from './calendar.js'
@@ -63,10 +63,13 @@ export type HollywoodLeafValidators = {
 // explicitly by the caller that knows which era it is reading (never sniffed off
 // the state). It defaults to the FROZEN pre-V28 law, so every existing frozen
 // reader keeps reconciling under the law its own era wrote.
-export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>, research = false, plans: readonly PhysicalPlan[] = [], terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): asserts value is HollywoodState | null {
+// R3 — `rivalTermination` is the Save41 era: the `termination` movement and a rival's
+// own termination end receipt exist only under it; every frozen reader keeps the
+// player-only rule and the old period keyset.
+export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>, research = false, plans: readonly PhysicalPlan[] = [], terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false): asserts value is HollywoodState | null {
   const researchKinds = new Set<string>(RIVAL_RESEARCH_MONEY_KINDS)
   const moneyKinds = RIVAL_MONEY_KINDS.filter(kind =>
-    (technology !== undefined || kind !== 'technologyAdoption') && (research || !researchKinds.has(kind)))
+    (technology !== undefined || kind !== 'technologyAdoption') && (research || !researchKinds.has(kind)) && (rivalTermination || kind !== 'termination'))
   const researchProjects = research ? ((technology as StudioTechnology | undefined)?.projects ?? []) : []
   campaignDate(state.market.tick)
   if (value === null) {
@@ -242,6 +245,15 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
     }
     const expectedCapacity = b.account.periods.map(() => 0)
     const expectedSpend = b.account.periods.map(() => 0)
+    // R3: each own early release is charged `terminationCost` at its end receipt's week.
+    const expectedTermination = b.account.periods.map(() => 0)
+    if (rivalTermination) {
+      for (const r of h.receipts) {
+        if (r.kind !== 'employment' || r.reason !== 'termination' || r.studioId !== b.studioId) continue
+        const interval = contractById.get(r.contractId), index = periodOf(r.week)
+        if (interval !== undefined && index >= 0) expectedTermination[index]! += terminationCost(interval.terms, r.week)
+      }
+    }
     if (research) {
       for (const plan of plans) {
         if (plan.studioId !== b.studioId || plan.commitReceipt === null) continue
@@ -276,6 +288,7 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
         // carried by the record and are zero until one is authored with receipts.
         requireFact(p.movements.technologyRestoration === 0 && p.movements.technologyRefund === 0, 'rival restoration or refund without a cancellation receipt')
       }
+      if (rivalTermination) requireFact(close(p.movements.termination, -expectedTermination[periodIndex]!), 'rival termination movements do not reconcile with termination receipts')
       for (const [kind,n] of Object.entries(p.movements)) number(n,kind === 'studioRevenue' ? 0 : -Infinity,kind === 'studioRevenue' ? Infinity : 0)
       requireFact(close(balance,p.opening) && close(p.opening+Object.values(p.movements).reduce((a,n)=>a+n,0),p.closing),'unreconciled money')
       balance=p.closing
@@ -442,7 +455,7 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
       const interval=contractById.get(r.contractId)
       requireFact(interval&&interval.terms.talentId===r.talentId&&interval.studioId===r.studioId,'unknown or inconsistent employment receipt subject')
       if(r.toStudioId===null)requireFact(r.fromStudioId===r.studioId&&interval.endedWeek===r.week&&
-        (r.reason==='expiry'&&interval.terms.endWeekExclusive===r.week || r.reason==='termination'&&r.studioId===h.playerStudioId&&r.week<interval.terms.endWeekExclusive),'employment end receipt differs from actual end')
+        (r.reason==='expiry'&&interval.terms.endWeekExclusive===r.week || r.reason==='termination'&&(rivalTermination||r.studioId===h.playerStudioId)&&r.week<interval.terms.endWeekExclusive),'employment end receipt differs from actual end')
       else {
         const prior=employmentByPerson.get(r.talentId)!.find(e=>e!==interval&&e.studioId===r.studioId&&e.endedWeek===r.week&&e.terms.endWeekExclusive>r.week)
         requireFact(r.toStudioId===r.studioId&&r.week===(interval.reason==='existing-player-contract'?h.originWeek:interval.terms.startWeek)&&r.reason===interval.reason&&
@@ -509,8 +522,8 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
     const starts=grouped('employment',`${e.contractId}:start`)
     requireFact(starts.length===1 && starts[0]!.kind==='employment' && starts[0]!.talentId===e.terms.talentId && starts[0]!.week===(e.reason==='existing-player-contract'?h.originWeek:e.terms.startWeek) && starts[0]!.reason===e.reason, 'employment interval lacks exact signing or observation receipt')
     const ends=grouped('employment',`${e.contractId}:end`)
-    const terminated=ends.length===1&&ends[0]!.kind==='employment'&&ends[0]!.reason==='termination'&&e.studioId===h.playerStudioId
-    if(terminated){const lawful=terminationLaw(e.terms,e.endedWeek!,e.contractId);requireFact(state.ledger.some(row=>row.kind==='termination'&&row.talentId===e.terms.talentId&&row.week===e.endedWeek&&lawful.some(charge=>close(row.amount,-charge))),'employment termination lacks its actual player payment')}
+    const terminated=ends.length===1&&ends[0]!.kind==='employment'&&ends[0]!.reason==='termination'&&(rivalTermination||e.studioId===h.playerStudioId)
+    if(terminated&&e.studioId===h.playerStudioId){const lawful=terminationLaw(e.terms,e.endedWeek!,e.contractId);requireFact(state.ledger.some(row=>row.kind==='termination'&&row.talentId===e.terms.talentId&&row.week===e.endedWeek&&lawful.some(charge=>close(row.amount,-charge))),'employment termination lacks its actual player payment')}
     if(e.studioId===h.playerStudioId&&e.reason!=='existing-player-contract'&&!(h.origin==='fresh'&&e.reason==='player-contract'&&e.terms.startWeek===0))
       requireFact(state.ledger.some(row=>row.kind==='signingBonus'&&row.talentId===e.terms.talentId&&row.week===e.terms.startWeek&&close(row.amount,-e.terms.signingBonus)),'employment start lacks its actual player signing payment')
     requireFact(ends.length===(e.endedWeek===e.terms.endWeekExclusive||terminated?1:0),'employment interval lacks exact end receipt or has an extra one')

@@ -278,7 +278,9 @@ export const PROTOCOL_VERSION = 4 as const
 // outgoing53 checkpoints are registered before this Save39 runtime boundary.
 // P4/P5: closed material drafts and issuer-only genre/project/class disclosures.
 // Genuine outgoing54 checkpoints retain distinct slots through Save40 migration.
-export const PROJECTION_VERSION = 55 as const
+// R2/R3: two contract refusal codes (`foundingDraft`, `seatedOnActiveProduction`).
+// Genuine outgoing55 checkpoints are registered before this Save41 runtime boundary.
+export const PROJECTION_VERSION = 56 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -1761,6 +1763,10 @@ const CONTRACT_REFUSAL_KINDS = [
   // incumbent's renewal IS a proposal settled at the decision week — the engine's
   // own `underMarketCase` refusal (src/core/actions.ts, applyRenewContract).
   'underMarketCase',
+  // R2 (projection 56, companion §3.4): release waits for the founding draft to close
+  // and for a seated person's picture to release — the engine's own two refusals.
+  'foundingDraft',
+  'seatedOnActiveProduction',
 ] as const
 
 const StudioContractDraftPayload = object('StudioContractDraftPayload', {

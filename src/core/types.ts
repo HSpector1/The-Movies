@@ -2287,7 +2287,8 @@ export type GameStateV31 = GameStateV30 & {
 // gameplay shape includes V36's single final extension. V37 configures Scientist
 // retirement without adding fields; the save version distinguishes its semantic law.
 // V38 adds prospective profession history and its one actor transition catalogue.
-export type GameState = GameStateV40
+// V41 adds no field: the rival `termination` movement is version-aware at the boundary.
+export type GameState = GameStateV41
 
 // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
 
@@ -2507,6 +2508,13 @@ export type GameStateV40 = Omit<GameStateV39, 'promises'> & {
   promises: readonly ProfessionalPromiseV40[]
   firstTakeSubjects: FirstTakeSubjects
 }
+/**
+ * R2/R3 (Save V41). NO new root: the widened `RivalMoneyKind` movement record (the
+ * rival `termination` kind) and a rival's own termination end receipt, version-aware
+ * at the boundary exactly as V27's research kinds were. The distinct name exists so
+ * save.ts's version dispatch has a version to point `GameState` at.
+ */
+export type GameStateV41 = GameStateV40
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.

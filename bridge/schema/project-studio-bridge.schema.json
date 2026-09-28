@@ -561,7 +561,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 55,
+          "const": 56,
           "type": "integer"
         },
         "stateDigest": {
@@ -678,7 +678,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 55,
+          "const": 56,
           "type": "integer"
         },
         "stateDigest": {
@@ -1201,7 +1201,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 55,
+          "const": 56,
           "type": "integer"
         },
         "stateDigest": {
@@ -1280,7 +1280,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 55,
+          "const": 56,
           "type": "integer"
         },
         "stateDigest": {
@@ -1572,7 +1572,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 55,
+          "const": 56,
           "type": "integer"
         },
         "stateDigest": {
@@ -3969,7 +3969,9 @@
                 "unpublishedTerm",
                 "insufficientFunds",
                 "onScreenplayTask",
-                "underMarketCase"
+                "underMarketCase",
+                "foundingDraft",
+                "seatedOnActiveProduction"
               ],
               "type": "string"
             },
@@ -17965,7 +17967,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-55",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-56",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -18021,7 +18023,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 55,
+    "projectionVersion": 56,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

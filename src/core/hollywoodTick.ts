@@ -1,12 +1,12 @@
 import {chooseIndustryPackage} from './hollywoodPolicy.js'
 import { considerRivalSoundPurchase, selectRivalSoundProduction, rivalInstallationSlots } from './technologyRival.js'
 import { createProductionTechnologyPolicy } from './technologyProduction.js'
-import { busyTalentIds, offerForTalent, weeklySalary, renewalWindowOpen } from './employment.js'
+import { busyTalentIds, offerForTalent, weeklySalary, renewalWindowOpen, terminationCost } from './employment.js'
 import { productionCompanyTalentIds } from './productionPeople.js'
-import { caseOpenForTalent } from './talentMarket.js'
+import { caseOpenForTalent, floorOffer } from './talentMarket.js'
 import { assignmentRefusal, contractEndRefusal } from './careerLifecycle.js'
 import { promisedCastMasks, WEEKS_TO_FIRST_TAKE } from './promises.js'
-import { moveRivalMoney, rivalCapacityOpex, rivalWeeklyOperatingCost, uniqueIdentity } from './hollywood.js'
+import { industryBusyTalentIds, moveRivalMoney, rivalCapacityOpex, rivalWeeklyOperatingCost, uniqueIdentity } from './hollywood.js'
 import { admitRivalPlansInWeek, advanceRivalResearch, completeRivalPlans, rivalScientistDemand } from './rivalResearch.js'
 import { researchAfterEmploymentRelease } from './technology.js'
 import { RIVAL_TEAM_ROLES } from './hollywoodStartingData.js'
@@ -112,7 +112,8 @@ function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],
     // announced person's effective week; they finish this term and are not renewed.
     if(contractEndRefusal(state,old.terms.talentId,week+TUNING.HOLLYWOOD_CONTRACT_WEEKS)!==null)continue
     const person=talent.find(t=>t.id===old.terms.talentId)!
-    const terms=offerForTalent(state.seed,person,TUNING.HOLLYWOOD_CONTRACT_WEEKS,week)
+    // R1 binds rivals (R3): this studio's own release floor prices its own re-hire.
+    const terms=floorOffer({...state,hollywood:h},b.studioId,offerForTalent(state.seed,person,TUNING.HOLLYWOOD_CONTRACT_WEEKS,week),week)
     if(b.account.cash-terms.signingBonus<reserveAfterOffer(terms,ordinal))continue
     const contractId=`${b.studioId}:contract:${person.id}:${week}`
     const newOrdinal=h.employment.length
@@ -153,7 +154,7 @@ function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],
       person={...person,age:Math.floor(exactAge)}
       supplied=true
     }
-    const terms=offerForTalent(state.seed,person,TUNING.HOLLYWOOD_CONTRACT_WEEKS,week)
+    const terms=floorOffer({...state,hollywood:h},b.studioId,offerForTalent(state.seed,person,TUNING.HOLLYWOOD_CONTRACT_WEEKS,week),week)
     if(b.account.cash-terms.signingBonus < reserveAfterOffer(terms))continue
     // P14C.1 (record 762 §4, 759-C amendment 3): the APPEND, not the mint at :138.
     // The affordability check above `continue`s, so a rival that cannot pay discards
@@ -169,6 +170,29 @@ function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],
     moveRivalMoney(b.account,'signing',-terms.signingBonus,week)
     appendReceipt(h,{week,studioId:b.studioId,kind:'employment',talentId:person.id,fromStudioId:null,toStudioId:b.studioId,contractId,reason})
     unavailable.add(person.id);filled.add(person.id)
+  }
+  // R3 (companion §2.1.9, §3.5 E4, §3.6; 1305-A/F): the player's termination law, chosen
+  // by strategy. Surplus is an own non-Scientist employee the slot loop did not retain;
+  // deficit slots retain Scientists, so they are never surplus. A release needs no
+  // production, writing or unreleased research seat, more than the cap left, no open
+  // promise from this studio, and this studio's reserve without the person after the charge.
+  const seated=industryBusyTalentIds(h)
+  for(const project of state.technology.projects) if(project.studioId===b.studioId)
+    for(const seat of project.seats) if(seat.releasedWeek===null) seated.add(seat.talentId)
+  const surplus=h.activeEmploymentOrdinals.filter(i=>{const e=h.employment[i]!
+    return e.studioId===b.studioId&&!filled.has(e.terms.talentId)&&next.find(t=>t.id===e.terms.talentId)?.role!=='scientist'})
+  for(const ordinal of surplus.sort((x,y)=>x-y)) {
+    const e=h.employment[ordinal]!,id=e.terms.talentId
+    if(seated.has(id)||e.terms.endWeekExclusive-week<=TUNING.HIRING_TERMINATION_CAP_WEEKS)continue
+    if(state.promises.some(p=>p.issuerStudioId===b.studioId&&p.beneficiaryPersonId===id&&p.outcome===null))continue
+    const charge=terminationCost(e.terms,week)
+    const activeEmploymentOrdinals=h.activeEmploymentOrdinals.filter(i=>i!==ordinal)
+    if(b.account.cash-charge<operatingReserve(b,{...h,activeEmploymentOrdinals},week))continue
+    h.employment=[...h.employment]
+    h.employment[ordinal]={...e,endedWeek:week}
+    h.activeEmploymentOrdinals=activeEmploymentOrdinals
+    moveRivalMoney(b.account,'termination',-charge,week)
+    appendReceipt(h,{week,studioId:b.studioId,kind:'employment',talentId:id,fromStudioId:b.studioId,toStudioId:null,contractId:e.contractId,reason:'termination'})
   }
   return next
 }
@@ -389,8 +413,16 @@ export function finishHollywoodWeek(state:GameState):GameState {
     })
     h={...h,previousChart:h.chart,chart:{week,rows}}
   }
-  const freeAgents=expired.length>0?[...new Set([...state.freeAgents,...expired.map(i=>h.employment[i]!.terms.talentId)])]:state.freeAgents
-  let next:GameState=h===source?state:{...state,hollywood:h,freeAgents}
+  // R3 (1305-F amendment 1): a rival's early release in the week just advanced (the
+  // pre-increment week `staff()` ran in) frees the person in the same pass, read from
+  // that week's own termination end receipts.
+  const released:string[]=[]
+  for(let i=source.receipts.length-1;i>=0&&source.receipts[i]!.week>=week-1;i--) {
+    const r=source.receipts[i]!
+    if(r.week===week-1&&r.kind==='employment'&&r.reason==='termination'&&r.studioId!==source.playerStudioId)released.push(r.talentId)
+  }
+  const freeAgents=expired.length+released.length>0?[...new Set([...state.freeAgents,...expired.map(i=>h.employment[i]!.terms.talentId),...released])]:state.freeAgents
+  let next:GameState=h===source&&freeAgents===state.freeAgents?state:{...state,hollywood:h,freeAgents}
   // P13B-S8: a Scientist whose contract ended holds no seat that can work — the
   // same pause law the player's own release runs, for that studio's own project.
   for(const i of expired) {
