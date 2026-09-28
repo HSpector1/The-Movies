@@ -1,0 +1,11 @@
+# HEAD 2dd7768cb460686676559ba99ca70a1582546f7d; clean source: 0 changed paths; node_modules/.bin/vite-node docs/engineering/playability-launch-review/evidence/p14b4-20260919/1314-P-casting-route-probe.ts
+market {"writer":"t-wri-05","director":"t-dir-04","craft":"t-cra-09","actors":["t-act-24","t-act-08","t-act-20","t-act-12"]}
+scriptReview {"week":9,"projectId":"script-0000"}
+castingReview {"week":10,"sessionId":"casting-0000"}
+greenlit {"week":10,"productionId":"prod-0010","session":"complete","relationships":24}
+10 {"rem":8,"phase":"development","blocker":null,"takes":0}
+15 {"rem":4,"phase":"shooting","blocker":null,"shoot":"completed","takes":1}
+18 {"rem":1,"phase":"releaseReady","blocker":null,"takes":1}
+released {"week":19,"releasedTick":18,"relationships":30,"edges":[{"a":"t-act-24","b":"t-dir-04","shared":1,"first":15,"kinds":["sharedProduction"]},{"a":"t-act-08","b":"t-dir-04","shared":1,"first":15,"kinds":["sharedProduction"]},{"a":"t-act-20","b":"t-dir-04","shared":1,"first":15,"kinds":["sharedProduction"]},{"a":"t-act-08","b":"t-act-24","shared":1,"first":15,"kinds":["sharedProduction"]},{"a":"t-act-20","b":"t-act-24","shared":1,"first":15,"kinds":["sharedProduction"]},{"a":"t-act-08","b":"t-act-20","shared":1,"first":15,"kinds":["sharedProduction"]}]}
+save {"saveVersion":41,"week":19,"rivals":4,"allEdges":30}
+# exit 0
