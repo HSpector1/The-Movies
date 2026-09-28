@@ -1,5 +1,30 @@
 # R3-N1 native correction record — 2026-09-15 · OPS-R3-N1-NATIVE-CORRECTION-20260915-01
 
+## CURRENT — Shared committed witnesses qualified; casting reservation source next
+
+Executed/published431b1252edcfba80d5a2fcfa9587e4deb071bc17 matched GitHub.
+1276 root types PASS35.099s;1277 Q19 PASS1/zero filtered15.175s recorder,
+11.142s leaf. All1,688 source files,216 manual pins,index/stage and fixed-source
+checks stayed exact.1275-I/J/K close eight default-false advances52→60, six
+accepted actions/two P1 waivers, eight pure quotes and seven complete caches.
+One shared production has common take61/release65 initially, then prospective
+81/85 after waiver; same-person fresh90 gives due90 timing-FRAGILE, due97 slack7
+FRAGILE and due98 slack8 RA. Second waiver leaves individually feasible windows
+[81,101)/[61,81) without one common take; unchanged idle control becomes FRAGILE.
+Old4 previews/receipts stay distinct from new7 clocks. No player take occurred;
+all20 old receipts and four new rival facts remain exact. Nineteen core leaves
+passed across eleven separate selections, not a combined/full suite.
+
+Begin1278-C under acceptedA/B: existing1171 actual45, hard0advances, three public
+actions and four pureP5quotes to isolate a casting session's own due46 reservation
+exemption under real congestion. IndependentD precedes parent application,
+publication,1279types(cap0) and1280runtime(cap0). Then1281 delayed retirement and
+1284 soundstage. Future1287 queued/refused project-outcome proposal is under
+review, source-unreleased. Parent owns live integration/production and one heavy
+lane; same two specialists retain separate test/review roles. Continue authorized
+program. P17 reboot/35% Recognition choices adopted; Legacy Sequel question
+pending. Unity/native and Owner campaigns deferred; all earlier limits retained.
+
 ## CURRENT — Grouped-witness source applied; Q19 gates next
 
 Parent applied exact1275-C/D on published2676eaf9.1275-E records one new

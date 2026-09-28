@@ -1,0 +1,5985 @@
+{
+  "record": "1275-K parent shared committed witness closure",
+  "timeUtc": "2026-09-28T00:23:09.162402+00:00",
+  "executedPublishedSource": "431b1252edcfba80d5a2fcfa9587e4deb071bc17",
+  "result": "Q19 PASS1/zero filtered; root types PASS",
+  "parentRead": "Full584-line staged source, A/B/C/D/I/J. Parsed complete33marker raw and read nonmarker tail; independently compared seven crew profiles/provenance/contracts to immutable31, all23 row membership decisions and six actual material selections, complete repeated person/company/production/workflow/claim/resource payloads, all eight clocks/receipts, both exact public waiver transitions and whole four-take rival suffix/counters. Strict31 old promises gain only lawful null successor field on40 migration before waivers. Legacy selector undefined is rendered null in raw. All216manual pins/all1688source files/index/stage rehashed before closure. No project code rerun for attribution.",
+  "gates": [
+    {
+      "stem": "1276-grouped-witness-types",
+      "record": {
+        "sourceSha": "431b1252edcfba80d5a2fcfa9587e4deb071bc17",
+        "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "untrackedSource": [],
+        "command": [
+          "node_modules/.bin/tsc",
+          "--noEmit",
+          "-p",
+          "tsconfig.json"
+        ],
+        "node": "v20.20.2",
+        "start": "2026-09-28T00:13:58.840Z",
+        "end": "2026-09-28T00:14:33.939Z",
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "sourceShaAtEnd": "431b1252edcfba80d5a2fcfa9587e4deb071bc17",
+        "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "untrackedSourceAtEnd": [],
+        "fixedSource": true
+      },
+      "evidence": [
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1276-grouped-witness-types.json",
+          "bytes": 634,
+          "sha256": "7f2d4c3d6b5c9c3fcc7673522ec9857b69786cac795863a256aea2abedaaa930"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1276-grouped-witness-types.txt",
+          "bytes": 340,
+          "sha256": "ae33cf969fbb88931eac808c20c4889b3432f2701c1ff42d17fd606958e8a1ea"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1276-grouped-witness-types.patch",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1276-grouped-witness-types-preflight.json",
+          "bytes": 53873,
+          "sha256": "bbb69f22f1504355ae9f5e1e18095e6088fb118b6b9c77dddd031fbb57fd84b2"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1276-grouped-witness-types-postflight.json",
+          "bytes": 54554,
+          "sha256": "c8a9d6a72a88966a6e5c1596a9b7593ae59093604cf66c1c730b754d76bedb09"
+        }
+      ]
+    },
+    {
+      "stem": "1277-grouped-witness-runtime",
+      "record": {
+        "sourceSha": "431b1252edcfba80d5a2fcfa9587e4deb071bc17",
+        "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "untrackedSource": [],
+        "command": [
+          "node_modules/.bin/vitest",
+          "run",
+          "--project",
+          "core",
+          "tests/p14p4p5-grouped-witness.test.ts",
+          "-t",
+          "Q19 "
+        ],
+        "node": "v20.20.2",
+        "start": "2026-09-28T00:15:22.519Z",
+        "end": "2026-09-28T00:15:37.694Z",
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "sourceShaAtEnd": "431b1252edcfba80d5a2fcfa9587e4deb071bc17",
+        "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "untrackedSourceAtEnd": [],
+        "fixedSource": true
+      },
+      "evidence": [
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1277-grouped-witness-runtime.json",
+          "bytes": 697,
+          "sha256": "aa6bf07ba0399d30acad588a814f595b15c8274fd99d4bd0425938a1ff5573ad"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1277-grouped-witness-runtime.txt",
+          "bytes": 429476,
+          "sha256": "178be2eb8f331d3e9a31c8a229c049e538455103247bd5feb0536d62ff50680a"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1277-grouped-witness-runtime.patch",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1277-grouped-witness-runtime-preflight.json",
+          "bytes": 53873,
+          "sha256": "4a4545b8e894af7768e5d07b8f278902c5f1c575b43c63801f121027c0ffbe83"
+        },
+        {
+          "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1277-grouped-witness-runtime-postflight.json",
+          "bytes": 54563,
+          "sha256": "98a242e7a50ccfff6f98a7547d6f2654e5b580917bf9048d806e0d0c16c23c80"
+        }
+      ]
+    }
+  ],
+  "verifiedCurrentGuards": {
+    "sourceFiles": 1688,
+    "sourceInventory": {
+      "bytes": 256231,
+      "sha256": "644328a549c440b31f2b745cd453b3d61d362a56b3934f231c0e493ba3d819bf"
+    },
+    "index": {
+      "bytes": 1128290,
+      "sha256": "8d7a140c0fdc9eb8c5463a130a1f3abce9a51bd9217ee7987e3707e6a99ead09"
+    },
+    "stageEntries": {
+      "bytes": 1002071,
+      "sha256": "224cc09189b2b1b9fc47e406c54b9b18735400646aaac9593122c3f56394e443"
+    }
+  },
+  "manualPinCount": 216,
+  "source": {
+    "path": "tests/p14p4p5-grouped-witness.test.ts",
+    "bytes": 46119,
+    "sha256": "781937cda4f29caf34de4d86629eee473350a878cad0758b2ea3f6a269d23ddf"
+  },
+  "reviews": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1275-I-grouped-witness-verification-attribution.md",
+      "bytes": 8420,
+      "sha256": "4af3b894df0cab2f578019ff711b4282dd51c797d62e0cf262ae1b7090427648"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1275-J-grouped-witness-verification-review.md",
+      "bytes": 6913,
+      "sha256": "e443224dd5fe742c43fea41856d39ffdae793a771d3367d74a4d987c4250671d"
+    }
+  ],
+  "markers": {
+    "lines": 33,
+    "bytes": 428325,
+    "sha256": "8ebf4b43e7c6f2a19da64fe2940a25ba414e19e4cb12185db13117ac1735165e"
+  },
+  "input": {
+    "source": "generated test campaigns only; never Owner saves",
+    "economicInput": "explicit fund helper cash delta with matching ledger",
+    "week": 52,
+    "cash": 23525721,
+    "crew": [
+      {
+        "id": "t-wri-03",
+        "role": "writer",
+        "age": 40,
+        "provenance": {
+          "personId": "t-wri-03",
+          "kind": "legacy_age_anchor",
+          "ageAtMigration": 40.394059906476315,
+          "migrationWeek": 52
+        },
+        "profile": {
+          "characterDevelopment": {
+            "actual": 44,
+            "perceived": 49
+          },
+          "dialogue": {
+            "actual": 41,
+            "perceived": 46
+          },
+          "narrativePacing": {
+            "actual": 35,
+            "perceived": 42
+          },
+          "originality": {
+            "actual": 27,
+            "perceived": 21
+          },
+          "rewriting": {
+            "actual": 30,
+            "perceived": 29
+          },
+          "storyStructure": {
+            "actual": 22,
+            "perceived": 26
+          }
+        },
+        "contract": {
+          "annualSalary": 641798,
+          "endWeekExclusive": 221,
+          "signingBonus": 115524,
+          "startWeek": 13,
+          "talentId": "t-wri-03",
+          "termWeeks": 208
+        },
+        "employmentId": "studio-aca408ec-player:contract:t-wri-03:13:player-26",
+        "engagements": {
+          "productions": [],
+          "writing": [],
+          "research": []
+        }
+      },
+      {
+        "id": "t-dir-01",
+        "role": "director",
+        "age": 68,
+        "provenance": {
+          "personId": "t-dir-01",
+          "kind": "legacy_age_anchor",
+          "ageAtMigration": 68.27905073840981,
+          "migrationWeek": 52
+        },
+        "profile": {
+          "adaptability": {
+            "actual": 87,
+            "perceived": 93
+          },
+          "directingPacing": {
+            "actual": 59,
+            "perceived": 55
+          },
+          "performanceDirection": {
+            "actual": 90,
+            "perceived": 89
+          },
+          "productionManagement": {
+            "actual": 72,
+            "perceived": 71
+          },
+          "toneControl": {
+            "actual": 76,
+            "perceived": 83
+          },
+          "visualStorytelling": {
+            "actual": 78,
+            "perceived": 64
+          }
+        },
+        "contract": {
+          "annualSalary": 292051,
+          "endWeekExclusive": 221,
+          "signingBonus": 52569,
+          "startWeek": 13,
+          "talentId": "t-dir-01",
+          "termWeeks": 208
+        },
+        "employmentId": "studio-aca408ec-player:contract:t-dir-01:13:player-27",
+        "engagements": {
+          "productions": [],
+          "writing": [],
+          "research": []
+        }
+      },
+      {
+        "id": "t-act-09",
+        "role": "actor",
+        "age": 25,
+        "provenance": {
+          "personId": "t-act-09",
+          "kind": "legacy_age_anchor",
+          "ageAtMigration": 25.165751355325384,
+          "migrationWeek": 52
+        },
+        "profile": {
+          "actingTechnique": {
+            "actual": 21,
+            "perceived": 25
+          },
+          "comicTiming": {
+            "actual": 29,
+            "perceived": 25
+          },
+          "dialogueDelivery": {
+            "actual": 28,
+            "perceived": 31
+          },
+          "emotionalRange": {
+            "actual": 43,
+            "perceived": 38
+          },
+          "physicalPerformance": {
+            "actual": 26,
+            "perceived": 21
+          },
+          "screenPresence": {
+            "actual": 40,
+            "perceived": 50
+          }
+        },
+        "contract": {
+          "annualSalary": 820195,
+          "endWeekExclusive": 104,
+          "signingBonus": 147635,
+          "startWeek": 52,
+          "talentId": "t-act-09",
+          "termWeeks": 52
+        },
+        "employmentId": "studio-aca408ec-player:contract:t-act-09:52:player-31",
+        "engagements": {
+          "productions": [],
+          "writing": [],
+          "research": []
+        }
+      },
+      {
+        "id": "t-act-08",
+        "role": "actor",
+        "age": 38,
+        "provenance": {
+          "personId": "t-act-08",
+          "kind": "legacy_age_anchor",
+          "ageAtMigration": 38.16262775009736,
+          "migrationWeek": 52
+        },
+        "profile": {
+          "actingTechnique": {
+            "actual": 54,
+            "perceived": 50
+          },
+          "comicTiming": {
+            "actual": 56,
+            "perceived": 50
+          },
+          "dialogueDelivery": {
+            "actual": 55,
+            "perceived": 58
+          },
+          "emotionalRange": {
+            "actual": 39,
+            "perceived": 43
+          },
+          "physicalPerformance": {
+            "actual": 42,
+            "perceived": 42
+          },
+          "screenPresence": {
+            "actual": 37,
+            "perceived": 39
+          }
+        },
+        "contract": {
+          "annualSalary": 193244,
+          "endWeekExclusive": 104,
+          "signingBonus": 34784,
+          "startWeek": 52,
+          "talentId": "t-act-08",
+          "termWeeks": 52
+        },
+        "employmentId": "studio-aca408ec-player:contract:t-act-08:52:player-32",
+        "engagements": {
+          "productions": [],
+          "writing": [],
+          "research": []
+        }
+      },
+      {
+        "id": "t-act-12",
+        "role": "actor",
+        "age": 56,
+        "provenance": {
+          "personId": "t-act-12",
+          "kind": "legacy_age_anchor",
+          "ageAtMigration": 56.539313455905074,
+          "migrationWeek": 52
+        },
+        "profile": {
+          "actingTechnique": {
+            "actual": 54,
+            "perceived": 49
+          },
+          "comicTiming": {
+            "actual": 47,
+            "perceived": 52
+          },
+          "dialogueDelivery": {
+            "actual": 51,
+            "perceived": 56
+          },
+          "emotionalRange": {
+            "actual": 52,
+            "perceived": 51
+          },
+          "physicalPerformance": {
+            "actual": 56,
+            "perceived": 61
+          },
+          "screenPresence": {
+            "actual": 40,
+            "perceived": 44
+          }
+        },
+        "contract": {
+          "annualSalary": 832914,
+          "endWeekExclusive": 221,
+          "signingBonus": 149925,
+          "startWeek": 13,
+          "talentId": "t-act-12",
+          "termWeeks": 208
+        },
+        "employmentId": "studio-aca408ec-player:contract:t-act-12:13:player-28",
+        "engagements": {
+          "productions": [],
+          "writing": [],
+          "research": []
+        }
+      },
+      {
+        "id": "t-act-13",
+        "role": "actor",
+        "age": 40,
+        "provenance": {
+          "personId": "t-act-13",
+          "kind": "legacy_age_anchor",
+          "ageAtMigration": 40.22472059362216,
+          "migrationWeek": 52
+        },
+        "profile": {
+          "actingTechnique": {
+            "actual": 45,
+            "perceived": 50
+          },
+          "comicTiming": {
+            "actual": 54,
+            "perceived": 44
+          },
+          "dialogueDelivery": {
+            "actual": 53,
+            "perceived": 51
+          },
+          "emotionalRange": {
+            "actual": 38,
+            "perceived": 43
+          },
+          "physicalPerformance": {
+            "actual": 65,
+            "perceived": 69
+          },
+          "screenPresence": {
+            "actual": 53,
+            "perceived": 51
+          }
+        },
+        "contract": {
+          "annualSalary": 1249804,
+          "endWeekExclusive": 221,
+          "signingBonus": 224965,
+          "startWeek": 13,
+          "talentId": "t-act-13",
+          "termWeeks": 208
+        },
+        "employmentId": "studio-aca408ec-player:contract:t-act-13:13:player-29",
+        "engagements": {
+          "productions": [],
+          "writing": [],
+          "research": []
+        }
+      },
+      {
+        "id": "t-cra-01",
+        "role": "craft",
+        "age": 45,
+        "provenance": {
+          "personId": "t-cra-01",
+          "kind": "legacy_age_anchor",
+          "ageAtMigration": 45.79483915292527,
+          "migrationWeek": 52
+        },
+        "profile": {
+          "cinematography": {
+            "actual": 41,
+            "perceived": 37
+          },
+          "editing": {
+            "actual": 61,
+            "perceived": 66
+          },
+          "effectsExecution": {
+            "actual": 61,
+            "perceived": 58
+          },
+          "productionDesign": {
+            "actual": 39,
+            "perceived": 42
+          },
+          "soundAndMusic": {
+            "actual": 58,
+            "perceived": 51
+          },
+          "technicalCoordination": {
+            "actual": 59,
+            "perceived": 53
+          }
+        },
+        "contract": {
+          "annualSalary": 509433,
+          "endWeekExclusive": 221,
+          "signingBonus": 91698,
+          "startWeek": 13,
+          "talentId": "t-cra-01",
+          "termWeeks": 208
+        },
+        "employmentId": "studio-aca408ec-player:contract:t-cra-01:13:player-30",
+        "engagements": {
+          "productions": [],
+          "writing": [],
+          "research": []
+        }
+      }
+    ],
+    "claims": [
+      {
+        "key": "mount:facility-soundstage-12",
+        "facilitySlotKey": null,
+        "kind": "mount",
+        "facilityId": "facility-soundstage-12",
+        "slot": null,
+        "capability": null,
+        "owner": "set",
+        "ownerId": "set-1",
+        "set": {
+          "blueprintId": "set-house-generic",
+          "completesWeek": null,
+          "condition": 100,
+          "genreWeights": {
+            "adventure": 0.5,
+            "comedy": 0.5,
+            "crime": 0.5,
+            "drama": 0.5,
+            "horror": 0.5,
+            "romance": 0.5
+          },
+          "id": "set-1",
+          "mountedOn": "facility-soundstage-12",
+          "name": "Stage 12 House Set",
+          "novelty": 1,
+          "priorityGenre": "drama",
+          "quality": 45,
+          "setType": "generic-interior",
+          "status": "standing"
+        }
+      },
+      {
+        "key": "mount:facility-soundstage-07",
+        "facilitySlotKey": null,
+        "kind": "mount",
+        "facilityId": "facility-soundstage-07",
+        "slot": null,
+        "capability": null,
+        "owner": "set",
+        "ownerId": "set-2",
+        "set": {
+          "blueprintId": "set-grand-ballroom",
+          "completesWeek": null,
+          "condition": 100,
+          "genreWeights": {
+            "adventure": 0.25,
+            "comedy": 0.7,
+            "crime": 0.5,
+            "drama": 0.7,
+            "horror": 0.25,
+            "romance": 0.9
+          },
+          "id": "set-2",
+          "mountedOn": "facility-soundstage-07",
+          "name": "Grand Ballroom",
+          "novelty": 1,
+          "priorityGenre": "romance",
+          "quality": 85,
+          "setType": "grand-ballroom",
+          "status": "standing"
+        }
+      }
+    ],
+    "concept": {
+      "baseNegativeCost": 4164354.4863039134,
+      "baselineStrength": 62.32601030988377,
+      "genre": "comedy",
+      "id": "c-00",
+      "originalityRaw": 61.7374066914228,
+      "requiredSlots": [
+        "lead",
+        "antagonist",
+        "support"
+      ],
+      "roleRequirements": {
+        "antagonist": {
+          "target": {
+            "gravity": 0.2833776641637087,
+            "physicality": -0.3509315480478108,
+            "warmth": 0.8482773504219949
+          },
+          "tolerance": 1.0111358328256757
+        },
+        "lead": {
+          "target": {
+            "gravity": -0.18750166380777955,
+            "physicality": -0.7809584410861135,
+            "warmth": -0.12036116374656558
+          },
+          "tolerance": 1.3310596078634263
+        },
+        "support": {
+          "target": {
+            "gravity": 0.7424654541537166,
+            "physicality": 0.16673989966511726,
+            "warmth": -0.24605864798650146
+          },
+          "tolerance": 1.2857395691797138
+        }
+      },
+      "title": "Ghosts of Serpent"
+    },
+    "oldPromises": [
+      {
+        "beneficiaryPersonId": "t-act-09",
+        "contractId": "studio-aca408ec-player:contract:t-act-09:52:player-31",
+        "dueWeekExclusive": 92,
+        "evidenceRefs": [],
+        "family": "APPEARANCE_COUNT",
+        "feasibilityReceipt": {
+          "bottleneck": null,
+          "classification": "REASONABLY_ACHIEVABLE",
+          "inputsDigest": "dffb435ac41a7bf8",
+          "rulesVersion": 4,
+          "week": 52
+        },
+        "issuerStudioId": "studio-aca408ec-player",
+        "outcome": null,
+        "outcomeCause": null,
+        "outcomeEventId": null,
+        "outcomeWeek": null,
+        "predicate": {
+          "count": 1
+        },
+        "progress": 0,
+        "promiseId": "promise-0",
+        "version": 4,
+        "windowStartWeek": 52,
+        "supersededByPromiseId": null
+      },
+      {
+        "beneficiaryPersonId": "t-act-08",
+        "contractId": "studio-aca408ec-player:contract:t-act-08:52:player-32",
+        "dueWeekExclusive": 92,
+        "evidenceRefs": [],
+        "family": "APPEARANCE_COUNT",
+        "feasibilityReceipt": {
+          "bottleneck": null,
+          "classification": "REASONABLY_ACHIEVABLE",
+          "inputsDigest": "57ac45bb5049984b",
+          "rulesVersion": 4,
+          "week": 52
+        },
+        "issuerStudioId": "studio-aca408ec-player",
+        "outcome": null,
+        "outcomeCause": null,
+        "outcomeEventId": null,
+        "outcomeWeek": null,
+        "predicate": {
+          "count": 1
+        },
+        "progress": 0,
+        "promiseId": "promise-1",
+        "version": 4,
+        "windowStartWeek": 52,
+        "supersededByPromiseId": null
+      }
+    ],
+    "oldReceiptCount": 20,
+    "firstTakeSubjects": {
+      "version": 1,
+      "cutoverOrdinal": 20,
+      "facts": []
+    },
+    "migratedBytes": 771584,
+    "migratedSha256": "2a016d654cf471df4ae46e43d6e1a045ed0b5c2bb246a328ad4391047bf7a7be"
+  },
+  "actions": [
+    {
+      "week": 52,
+      "action": {
+        "kind": "greenlight",
+        "production": {
+          "conceptId": "c-00",
+          "writerId": "t-wri-03",
+          "directorId": "t-dir-01",
+          "cast": {
+            "lead": "t-act-09",
+            "antagonist": "t-act-08",
+            "support": "t-act-12"
+          },
+          "craftIds": [
+            "t-cra-01"
+          ],
+          "shape": {
+            "opening": "slowSetup",
+            "midpoint": "revelation",
+            "ending": "bittersweet"
+          },
+          "promise": {
+            "genre": "comedy",
+            "intendedSegments": [
+              "adult"
+            ],
+            "ranges": {
+              "intimacy": [
+                -0.5,
+                0.5
+              ],
+              "tonalWeight": [
+                -0.5,
+                0.5
+              ],
+              "kineticEnergy": [
+                -0.5,
+                0.5
+              ]
+            }
+          },
+          "budget": {
+            "negative": 4164354.4863039134,
+            "marketing": 0
+          }
+        }
+      },
+      "accepted": true,
+      "ownProduction": {
+        "id": "prod-0052",
+        "conceptId": "c-00",
+        "shape": {
+          "opening": "slowSetup",
+          "midpoint": "revelation",
+          "ending": "bittersweet"
+        },
+        "promise": {
+          "genre": "comedy",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "writerId": "t-wri-03",
+        "directorId": "t-dir-01",
+        "craftIds": [
+          "t-cra-01"
+        ],
+        "cast": {
+          "lead": "t-act-09",
+          "antagonist": "t-act-08",
+          "support": "t-act-12"
+        },
+        "budget": {
+          "negative": 4164354.4863039134,
+          "marketing": 0
+        },
+        "startTick": 52,
+        "remainingTicks": 8,
+        "forecastSnapshot": {
+          "segments": [
+            {
+              "segmentId": "youngAdult",
+              "center": 47.158174398263654,
+              "estimate": 47.158174398263654,
+              "low": 17.158174398263654,
+              "high": 61.158174398263654,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 46.77997237236082,
+                "estimate": 46.77997237236082,
+                "low": 32.77997237236082,
+                "high": 60.77997237236082
+              }
+            },
+            {
+              "segmentId": "family",
+              "center": 49.79800678529728,
+              "estimate": 49.79800678529728,
+              "low": 19.798006785297282,
+              "high": 63.79800678529728,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 49.419804759394445,
+                "estimate": 49.419804759394445,
+                "low": 35.419804759394445,
+                "high": 63.419804759394445
+              }
+            },
+            {
+              "segmentId": "adult",
+              "center": 67.20556896842238,
+              "estimate": 67.20556896842238,
+              "low": 37.205568968422384,
+              "high": 81.20556896842238,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 66.82736694251956,
+                "estimate": 66.82736694251956,
+                "low": 52.82736694251956,
+                "high": 80.82736694251956
+              }
+            },
+            {
+              "segmentId": "prestige",
+              "center": 68.42358139408925,
+              "estimate": 68.42358139408925,
+              "low": 38.423581394089254,
+              "high": 82.42358139408925,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 68.04537936818642,
+                "estimate": 68.04537936818642,
+                "low": 54.04537936818642,
+                "high": 82.04537936818642
+              }
+            }
+          ],
+          "expectedOpening": 1478905.3124781467,
+          "expectedTotal": 3660763.9475180637,
+          "expectedCriticScore": 51.46525603963963
+        },
+        "participants": {
+          "writer": {
+            "talentId": "t-wri-03",
+            "name": "Vivien Chandra",
+            "role": "writer",
+            "discipline": "writing",
+            "greenlightOVR": 7,
+            "greenlightFit": 36,
+            "greenlightEP": {
+              "low": 22.096055396669925,
+              "high": 53.069623396669925,
+              "expected": 37.582839396669925
+            },
+            "freelancer": false
+          },
+          "director": {
+            "talentId": "t-dir-01",
+            "name": "Spencer Merrick",
+            "role": "director",
+            "discipline": "directing",
+            "greenlightOVR": 67,
+            "greenlightFit": 59,
+            "greenlightEP": {
+              "low": 60.53822709027582,
+              "high": 91.98255509027581,
+              "expected": 76.26039109027582
+            },
+            "freelancer": false
+          },
+          "cast": {
+            "lead": {
+              "talentId": "t-act-09",
+              "name": "Conrad Novak",
+              "role": "lead",
+              "discipline": "acting",
+              "greenlightOVR": 3,
+              "greenlightFit": 40,
+              "greenlightEP": {
+                "low": 16.97407333333333,
+                "high": 48.05158533333333,
+                "expected": 32.51282933333333
+              },
+              "freelancer": false
+            },
+            "antagonist": {
+              "talentId": "t-act-08",
+              "name": "Loretta Mancuso",
+              "role": "antagonist",
+              "discipline": "acting",
+              "greenlightOVR": 23,
+              "greenlightFit": 28,
+              "greenlightEP": {
+                "low": 31.773221959207916,
+                "high": 63.217549959207915,
+                "expected": 47.495385959207916
+              },
+              "freelancer": false
+            },
+            "support": {
+              "talentId": "t-act-12",
+              "name": "Ramon Nakamura",
+              "role": "support",
+              "discipline": "acting",
+              "greenlightOVR": 30,
+              "greenlightFit": 48,
+              "greenlightEP": {
+                "low": 37.52240349730384,
+                "high": 67.37039549730385,
+                "expected": 52.446399497303844
+              },
+              "freelancer": false
+            }
+          },
+          "craft": [
+            {
+              "talentId": "t-cra-01",
+              "name": "Bette Fenwick",
+              "role": "craft",
+              "discipline": "craft",
+              "greenlightOVR": 29,
+              "greenlightFit": 46,
+              "greenlightEP": {
+                "low": 36.022026666666655,
+                "high": 66.99559466666665,
+                "expected": 51.508810666666655
+              },
+              "freelancer": false
+            }
+          ]
+        }
+      },
+      "ownWorkflow": {
+        "productionId": "prod-0052",
+        "phase": "development",
+        "reservations": [
+          {
+            "productionId": "prod-0052",
+            "facilityId": "facility-development-casting",
+            "capability": "development-casting",
+            "slot": 0,
+            "phase": "development"
+          }
+        ],
+        "shootingTask": null,
+        "blocker": null,
+        "bindings": {
+          "requiresSetBinding": true,
+          "stageFacilityId": null,
+          "setId": null,
+          "lockedNovelty": null,
+          "lockedUplift": null,
+          "heldSinceWeek": null
+        },
+        "setup": null,
+        "planRevision": 0
+      },
+      "releaseAuthority": {
+        "commitments": []
+      }
+    },
+    {
+      "week": 55,
+      "action": {
+        "kind": "setProductionSetupRecipe",
+        "productionId": "prod-0052",
+        "recipeId": "ballroom-reveal-lighting-01",
+        "expectedPlanRevision": 0
+      },
+      "accepted": true,
+      "ownProduction": {
+        "id": "prod-0052",
+        "conceptId": "c-00",
+        "shape": {
+          "opening": "slowSetup",
+          "midpoint": "revelation",
+          "ending": "bittersweet"
+        },
+        "promise": {
+          "genre": "comedy",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "writerId": "t-wri-03",
+        "directorId": "t-dir-01",
+        "craftIds": [
+          "t-cra-01"
+        ],
+        "cast": {
+          "lead": "t-act-09",
+          "antagonist": "t-act-08",
+          "support": "t-act-12"
+        },
+        "budget": {
+          "negative": 4164354.4863039134,
+          "marketing": 0
+        },
+        "startTick": 52,
+        "remainingTicks": 6,
+        "forecastSnapshot": {
+          "segments": [
+            {
+              "segmentId": "youngAdult",
+              "center": 47.158174398263654,
+              "estimate": 47.158174398263654,
+              "low": 17.158174398263654,
+              "high": 61.158174398263654,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 46.77997237236082,
+                "estimate": 46.77997237236082,
+                "low": 32.77997237236082,
+                "high": 60.77997237236082
+              }
+            },
+            {
+              "segmentId": "family",
+              "center": 49.79800678529728,
+              "estimate": 49.79800678529728,
+              "low": 19.798006785297282,
+              "high": 63.79800678529728,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 49.419804759394445,
+                "estimate": 49.419804759394445,
+                "low": 35.419804759394445,
+                "high": 63.419804759394445
+              }
+            },
+            {
+              "segmentId": "adult",
+              "center": 67.20556896842238,
+              "estimate": 67.20556896842238,
+              "low": 37.205568968422384,
+              "high": 81.20556896842238,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 66.82736694251956,
+                "estimate": 66.82736694251956,
+                "low": 52.82736694251956,
+                "high": 80.82736694251956
+              }
+            },
+            {
+              "segmentId": "prestige",
+              "center": 68.42358139408925,
+              "estimate": 68.42358139408925,
+              "low": 38.423581394089254,
+              "high": 82.42358139408925,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 68.04537936818642,
+                "estimate": 68.04537936818642,
+                "low": 54.04537936818642,
+                "high": 82.04537936818642
+              }
+            }
+          ],
+          "expectedOpening": 1478905.3124781467,
+          "expectedTotal": 3660763.9475180637,
+          "expectedCriticScore": 51.46525603963963
+        },
+        "participants": {
+          "writer": {
+            "talentId": "t-wri-03",
+            "name": "Vivien Chandra",
+            "role": "writer",
+            "discipline": "writing",
+            "greenlightOVR": 7,
+            "greenlightFit": 36,
+            "greenlightEP": {
+              "low": 22.096055396669925,
+              "high": 53.069623396669925,
+              "expected": 37.582839396669925
+            },
+            "freelancer": false
+          },
+          "director": {
+            "talentId": "t-dir-01",
+            "name": "Spencer Merrick",
+            "role": "director",
+            "discipline": "directing",
+            "greenlightOVR": 67,
+            "greenlightFit": 59,
+            "greenlightEP": {
+              "low": 60.53822709027582,
+              "high": 91.98255509027581,
+              "expected": 76.26039109027582
+            },
+            "freelancer": false
+          },
+          "cast": {
+            "lead": {
+              "talentId": "t-act-09",
+              "name": "Conrad Novak",
+              "role": "lead",
+              "discipline": "acting",
+              "greenlightOVR": 3,
+              "greenlightFit": 40,
+              "greenlightEP": {
+                "low": 16.97407333333333,
+                "high": 48.05158533333333,
+                "expected": 32.51282933333333
+              },
+              "freelancer": false
+            },
+            "antagonist": {
+              "talentId": "t-act-08",
+              "name": "Loretta Mancuso",
+              "role": "antagonist",
+              "discipline": "acting",
+              "greenlightOVR": 23,
+              "greenlightFit": 28,
+              "greenlightEP": {
+                "low": 31.773221959207916,
+                "high": 63.217549959207915,
+                "expected": 47.495385959207916
+              },
+              "freelancer": false
+            },
+            "support": {
+              "talentId": "t-act-12",
+              "name": "Ramon Nakamura",
+              "role": "support",
+              "discipline": "acting",
+              "greenlightOVR": 30,
+              "greenlightFit": 48,
+              "greenlightEP": {
+                "low": 37.52240349730384,
+                "high": 67.37039549730385,
+                "expected": 52.446399497303844
+              },
+              "freelancer": false
+            }
+          },
+          "craft": [
+            {
+              "talentId": "t-cra-01",
+              "name": "Bette Fenwick",
+              "role": "craft",
+              "discipline": "craft",
+              "greenlightOVR": 29,
+              "greenlightFit": 46,
+              "greenlightEP": {
+                "low": 36.022026666666655,
+                "high": 66.99559466666665,
+                "expected": 51.508810666666655
+              },
+              "freelancer": false
+            }
+          ]
+        }
+      },
+      "ownWorkflow": {
+        "productionId": "prod-0052",
+        "phase": "rehearsal",
+        "reservations": [
+          {
+            "productionId": "prod-0052",
+            "facilityId": "facility-soundstage-07",
+            "capability": "soundstage",
+            "slot": 0,
+            "phase": "rehearsal"
+          }
+        ],
+        "shootingTask": null,
+        "blocker": null,
+        "bindings": {
+          "requiresSetBinding": true,
+          "stageFacilityId": "facility-soundstage-07",
+          "setId": "set-2",
+          "lockedNovelty": 1,
+          "lockedUplift": 7.8999999999999995,
+          "heldSinceWeek": 54
+        },
+        "setup": {
+          "recipeId": "ballroom-reveal-lighting-01",
+          "planRevision": 0,
+          "admittedWeek": null,
+          "route": "conventional",
+          "adoptionId": null,
+          "equipmentAssetId": null,
+          "stageFacilityId": "facility-soundstage-07",
+          "setId": "set-2",
+          "requiredUnits": 4,
+          "creditedUnits": 0,
+          "lastCreditedWeek": null,
+          "completedWeek": null,
+          "priorWork": []
+        },
+        "planRevision": 0
+      },
+      "releaseAuthority": {
+        "commitments": []
+      }
+    },
+    {
+      "week": 60,
+      "action": {
+        "kind": "assignShootingDirector",
+        "productionId": "prod-0052",
+        "directorId": "t-dir-01"
+      },
+      "accepted": true,
+      "ownProduction": {
+        "id": "prod-0052",
+        "conceptId": "c-00",
+        "shape": {
+          "opening": "slowSetup",
+          "midpoint": "revelation",
+          "ending": "bittersweet"
+        },
+        "promise": {
+          "genre": "comedy",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "writerId": "t-wri-03",
+        "directorId": "t-dir-01",
+        "craftIds": [
+          "t-cra-01"
+        ],
+        "cast": {
+          "lead": "t-act-09",
+          "antagonist": "t-act-08",
+          "support": "t-act-12"
+        },
+        "budget": {
+          "negative": 4164354.4863039134,
+          "marketing": 0
+        },
+        "startTick": 52,
+        "remainingTicks": 5,
+        "forecastSnapshot": {
+          "segments": [
+            {
+              "segmentId": "youngAdult",
+              "center": 47.158174398263654,
+              "estimate": 47.158174398263654,
+              "low": 17.158174398263654,
+              "high": 61.158174398263654,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 46.77997237236082,
+                "estimate": 46.77997237236082,
+                "low": 32.77997237236082,
+                "high": 60.77997237236082
+              }
+            },
+            {
+              "segmentId": "family",
+              "center": 49.79800678529728,
+              "estimate": 49.79800678529728,
+              "low": 19.798006785297282,
+              "high": 63.79800678529728,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 49.419804759394445,
+                "estimate": 49.419804759394445,
+                "low": 35.419804759394445,
+                "high": 63.419804759394445
+              }
+            },
+            {
+              "segmentId": "adult",
+              "center": 67.20556896842238,
+              "estimate": 67.20556896842238,
+              "low": 37.205568968422384,
+              "high": 81.20556896842238,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 66.82736694251956,
+                "estimate": 66.82736694251956,
+                "low": 52.82736694251956,
+                "high": 80.82736694251956
+              }
+            },
+            {
+              "segmentId": "prestige",
+              "center": 68.42358139408925,
+              "estimate": 68.42358139408925,
+              "low": 38.423581394089254,
+              "high": 82.42358139408925,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 68.04537936818642,
+                "estimate": 68.04537936818642,
+                "low": 54.04537936818642,
+                "high": 82.04537936818642
+              }
+            }
+          ],
+          "expectedOpening": 1478905.3124781467,
+          "expectedTotal": 3660763.9475180637,
+          "expectedCriticScore": 51.46525603963963
+        },
+        "participants": {
+          "writer": {
+            "talentId": "t-wri-03",
+            "name": "Vivien Chandra",
+            "role": "writer",
+            "discipline": "writing",
+            "greenlightOVR": 7,
+            "greenlightFit": 36,
+            "greenlightEP": {
+              "low": 22.096055396669925,
+              "high": 53.069623396669925,
+              "expected": 37.582839396669925
+            },
+            "freelancer": false
+          },
+          "director": {
+            "talentId": "t-dir-01",
+            "name": "Spencer Merrick",
+            "role": "director",
+            "discipline": "directing",
+            "greenlightOVR": 67,
+            "greenlightFit": 59,
+            "greenlightEP": {
+              "low": 60.53822709027582,
+              "high": 91.98255509027581,
+              "expected": 76.26039109027582
+            },
+            "freelancer": false
+          },
+          "cast": {
+            "lead": {
+              "talentId": "t-act-09",
+              "name": "Conrad Novak",
+              "role": "lead",
+              "discipline": "acting",
+              "greenlightOVR": 3,
+              "greenlightFit": 40,
+              "greenlightEP": {
+                "low": 16.97407333333333,
+                "high": 48.05158533333333,
+                "expected": 32.51282933333333
+              },
+              "freelancer": false
+            },
+            "antagonist": {
+              "talentId": "t-act-08",
+              "name": "Loretta Mancuso",
+              "role": "antagonist",
+              "discipline": "acting",
+              "greenlightOVR": 23,
+              "greenlightFit": 28,
+              "greenlightEP": {
+                "low": 31.773221959207916,
+                "high": 63.217549959207915,
+                "expected": 47.495385959207916
+              },
+              "freelancer": false
+            },
+            "support": {
+              "talentId": "t-act-12",
+              "name": "Ramon Nakamura",
+              "role": "support",
+              "discipline": "acting",
+              "greenlightOVR": 30,
+              "greenlightFit": 48,
+              "greenlightEP": {
+                "low": 37.52240349730384,
+                "high": 67.37039549730385,
+                "expected": 52.446399497303844
+              },
+              "freelancer": false
+            }
+          },
+          "craft": [
+            {
+              "talentId": "t-cra-01",
+              "name": "Bette Fenwick",
+              "role": "craft",
+              "discipline": "craft",
+              "greenlightOVR": 29,
+              "greenlightFit": 46,
+              "greenlightEP": {
+                "low": 36.022026666666655,
+                "high": 66.99559466666665,
+                "expected": 51.508810666666655
+              },
+              "freelancer": false
+            }
+          ]
+        }
+      },
+      "ownWorkflow": {
+        "productionId": "prod-0052",
+        "phase": "shooting",
+        "reservations": [
+          {
+            "productionId": "prod-0052",
+            "facilityId": "facility-soundstage-07",
+            "capability": "soundstage",
+            "slot": 0,
+            "phase": "shooting"
+          },
+          {
+            "productionId": "prod-0052",
+            "facilityId": "facility-scenery-shop",
+            "capability": "set-scenery",
+            "slot": 0,
+            "phase": "shooting"
+          }
+        ],
+        "shootingTask": {
+          "id": "shooting:prod-0052",
+          "productionId": "prod-0052",
+          "directorId": "t-dir-01",
+          "soundstageFacilityId": "facility-soundstage-07",
+          "status": "ready"
+        },
+        "blocker": null,
+        "bindings": {
+          "requiresSetBinding": true,
+          "stageFacilityId": "facility-soundstage-07",
+          "setId": "set-2",
+          "lockedNovelty": 1,
+          "lockedUplift": 7.8999999999999995,
+          "heldSinceWeek": 54
+        },
+        "setup": {
+          "recipeId": "ballroom-reveal-lighting-01",
+          "planRevision": 0,
+          "admittedWeek": 56,
+          "route": "conventional",
+          "adoptionId": null,
+          "equipmentAssetId": null,
+          "stageFacilityId": "facility-soundstage-07",
+          "setId": "set-2",
+          "requiredUnits": 4,
+          "creditedUnits": 4,
+          "lastCreditedWeek": 60,
+          "completedWeek": 60,
+          "priorWork": []
+        },
+        "planRevision": 0
+      },
+      "releaseAuthority": {
+        "commitments": []
+      }
+    },
+    {
+      "week": 60,
+      "action": {
+        "kind": "scheduleShootingTake",
+        "productionId": "prod-0052"
+      },
+      "accepted": true,
+      "ownProduction": {
+        "id": "prod-0052",
+        "conceptId": "c-00",
+        "shape": {
+          "opening": "slowSetup",
+          "midpoint": "revelation",
+          "ending": "bittersweet"
+        },
+        "promise": {
+          "genre": "comedy",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "writerId": "t-wri-03",
+        "directorId": "t-dir-01",
+        "craftIds": [
+          "t-cra-01"
+        ],
+        "cast": {
+          "lead": "t-act-09",
+          "antagonist": "t-act-08",
+          "support": "t-act-12"
+        },
+        "budget": {
+          "negative": 4164354.4863039134,
+          "marketing": 0
+        },
+        "startTick": 52,
+        "remainingTicks": 5,
+        "forecastSnapshot": {
+          "segments": [
+            {
+              "segmentId": "youngAdult",
+              "center": 47.158174398263654,
+              "estimate": 47.158174398263654,
+              "low": 17.158174398263654,
+              "high": 61.158174398263654,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 46.77997237236082,
+                "estimate": 46.77997237236082,
+                "low": 32.77997237236082,
+                "high": 60.77997237236082
+              }
+            },
+            {
+              "segmentId": "family",
+              "center": 49.79800678529728,
+              "estimate": 49.79800678529728,
+              "low": 19.798006785297282,
+              "high": 63.79800678529728,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 49.419804759394445,
+                "estimate": 49.419804759394445,
+                "low": 35.419804759394445,
+                "high": 63.419804759394445
+              }
+            },
+            {
+              "segmentId": "adult",
+              "center": 67.20556896842238,
+              "estimate": 67.20556896842238,
+              "low": 37.205568968422384,
+              "high": 81.20556896842238,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 66.82736694251956,
+                "estimate": 66.82736694251956,
+                "low": 52.82736694251956,
+                "high": 80.82736694251956
+              }
+            },
+            {
+              "segmentId": "prestige",
+              "center": 68.42358139408925,
+              "estimate": 68.42358139408925,
+              "low": 38.423581394089254,
+              "high": 82.42358139408925,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 68.04537936818642,
+                "estimate": 68.04537936818642,
+                "low": 54.04537936818642,
+                "high": 82.04537936818642
+              }
+            }
+          ],
+          "expectedOpening": 1478905.3124781467,
+          "expectedTotal": 3660763.9475180637,
+          "expectedCriticScore": 51.46525603963963
+        },
+        "participants": {
+          "writer": {
+            "talentId": "t-wri-03",
+            "name": "Vivien Chandra",
+            "role": "writer",
+            "discipline": "writing",
+            "greenlightOVR": 7,
+            "greenlightFit": 36,
+            "greenlightEP": {
+              "low": 22.096055396669925,
+              "high": 53.069623396669925,
+              "expected": 37.582839396669925
+            },
+            "freelancer": false
+          },
+          "director": {
+            "talentId": "t-dir-01",
+            "name": "Spencer Merrick",
+            "role": "director",
+            "discipline": "directing",
+            "greenlightOVR": 67,
+            "greenlightFit": 59,
+            "greenlightEP": {
+              "low": 60.53822709027582,
+              "high": 91.98255509027581,
+              "expected": 76.26039109027582
+            },
+            "freelancer": false
+          },
+          "cast": {
+            "lead": {
+              "talentId": "t-act-09",
+              "name": "Conrad Novak",
+              "role": "lead",
+              "discipline": "acting",
+              "greenlightOVR": 3,
+              "greenlightFit": 40,
+              "greenlightEP": {
+                "low": 16.97407333333333,
+                "high": 48.05158533333333,
+                "expected": 32.51282933333333
+              },
+              "freelancer": false
+            },
+            "antagonist": {
+              "talentId": "t-act-08",
+              "name": "Loretta Mancuso",
+              "role": "antagonist",
+              "discipline": "acting",
+              "greenlightOVR": 23,
+              "greenlightFit": 28,
+              "greenlightEP": {
+                "low": 31.773221959207916,
+                "high": 63.217549959207915,
+                "expected": 47.495385959207916
+              },
+              "freelancer": false
+            },
+            "support": {
+              "talentId": "t-act-12",
+              "name": "Ramon Nakamura",
+              "role": "support",
+              "discipline": "acting",
+              "greenlightOVR": 30,
+              "greenlightFit": 48,
+              "greenlightEP": {
+                "low": 37.52240349730384,
+                "high": 67.37039549730385,
+                "expected": 52.446399497303844
+              },
+              "freelancer": false
+            }
+          },
+          "craft": [
+            {
+              "talentId": "t-cra-01",
+              "name": "Bette Fenwick",
+              "role": "craft",
+              "discipline": "craft",
+              "greenlightOVR": 29,
+              "greenlightFit": 46,
+              "greenlightEP": {
+                "low": 36.022026666666655,
+                "high": 66.99559466666665,
+                "expected": 51.508810666666655
+              },
+              "freelancer": false
+            }
+          ]
+        }
+      },
+      "ownWorkflow": {
+        "productionId": "prod-0052",
+        "phase": "shooting",
+        "reservations": [
+          {
+            "productionId": "prod-0052",
+            "facilityId": "facility-soundstage-07",
+            "capability": "soundstage",
+            "slot": 0,
+            "phase": "shooting"
+          },
+          {
+            "productionId": "prod-0052",
+            "facilityId": "facility-scenery-shop",
+            "capability": "set-scenery",
+            "slot": 0,
+            "phase": "shooting"
+          }
+        ],
+        "shootingTask": {
+          "id": "shooting:prod-0052",
+          "productionId": "prod-0052",
+          "directorId": "t-dir-01",
+          "soundstageFacilityId": "facility-soundstage-07",
+          "status": "scheduled"
+        },
+        "blocker": null,
+        "bindings": {
+          "requiresSetBinding": true,
+          "stageFacilityId": "facility-soundstage-07",
+          "setId": "set-2",
+          "lockedNovelty": 1,
+          "lockedUplift": 7.8999999999999995,
+          "heldSinceWeek": 54
+        },
+        "setup": {
+          "recipeId": "ballroom-reveal-lighting-01",
+          "planRevision": 0,
+          "admittedWeek": 56,
+          "route": "conventional",
+          "adoptionId": null,
+          "equipmentAssetId": null,
+          "stageFacilityId": "facility-soundstage-07",
+          "setId": "set-2",
+          "requiredUnits": 4,
+          "creditedUnits": 4,
+          "lastCreditedWeek": 60,
+          "completedWeek": 60,
+          "priorWork": []
+        },
+        "planRevision": 0
+      },
+      "releaseAuthority": {
+        "commitments": []
+      }
+    },
+    {
+      "week": 60,
+      "action": {
+        "kind": "waivePromise",
+        "promiseId": "promise-0",
+        "substitute": {
+          "family": "APPEARANCE_COUNT",
+          "predicate": {
+            "count": 1
+          },
+          "windowStartWeek": 81,
+          "dueWeekExclusive": 101
+        }
+      },
+      "accepted": true,
+      "waived": {
+        "beneficiaryPersonId": "t-act-09",
+        "contractId": "studio-aca408ec-player:contract:t-act-09:52:player-31",
+        "dueWeekExclusive": 92,
+        "evidenceRefs": [],
+        "family": "APPEARANCE_COUNT",
+        "feasibilityReceipt": {
+          "bottleneck": null,
+          "classification": "REASONABLY_ACHIEVABLE",
+          "inputsDigest": "dffb435ac41a7bf8",
+          "rulesVersion": 4,
+          "week": 52
+        },
+        "issuerStudioId": "studio-aca408ec-player",
+        "outcome": "WAIVED",
+        "outcomeCause": "this person accepted the substitute promise \"promise-2\" in place of it",
+        "outcomeEventId": "talent-market-event-6",
+        "outcomeWeek": 60,
+        "predicate": {
+          "count": 1
+        },
+        "progress": 0,
+        "promiseId": "promise-0",
+        "version": 4,
+        "windowStartWeek": 52,
+        "supersededByPromiseId": "promise-2"
+      },
+      "successor": {
+        "promiseId": "promise-2",
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-player",
+        "beneficiaryPersonId": "t-act-09",
+        "windowStartWeek": 81,
+        "dueWeekExclusive": 101,
+        "feasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "d2ac6334a96e1a60",
+          "rulesVersion": 4,
+          "week": 60
+        },
+        "progress": 0,
+        "evidenceRefs": [],
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeCause": null,
+        "outcomeEventId": null,
+        "contractId": "studio-aca408ec-player:contract:t-act-09:52:player-31",
+        "supersededByPromiseId": null,
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        }
+      },
+      "preview": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "d2ac6334a96e1a60",
+        "rulesVersion": 4,
+        "week": 60
+      },
+      "actualNewReceipt": [
+        {
+          "kind": "promiseOutcome",
+          "week": 60,
+          "talentId": "t-act-09",
+          "studioId": "studio-aca408ec-player",
+          "reasons": [
+            "a promise to this person was waived for a substitute the person accepted"
+          ],
+          "dropped": [],
+          "eventId": "talent-market-event-6"
+        }
+      ],
+      "internalFeasibilityCalls": "ordinary public waiver acceptance and minted-receipt evaluations; not explicit test quotes"
+    },
+    {
+      "week": 60,
+      "action": {
+        "kind": "waivePromise",
+        "promiseId": "promise-1",
+        "substitute": {
+          "family": "APPEARANCE_COUNT",
+          "predicate": {
+            "count": 1
+          },
+          "windowStartWeek": 61,
+          "dueWeekExclusive": 81
+        }
+      },
+      "accepted": true,
+      "waived": {
+        "beneficiaryPersonId": "t-act-08",
+        "contractId": "studio-aca408ec-player:contract:t-act-08:52:player-32",
+        "dueWeekExclusive": 92,
+        "evidenceRefs": [],
+        "family": "APPEARANCE_COUNT",
+        "feasibilityReceipt": {
+          "bottleneck": null,
+          "classification": "REASONABLY_ACHIEVABLE",
+          "inputsDigest": "57ac45bb5049984b",
+          "rulesVersion": 4,
+          "week": 52
+        },
+        "issuerStudioId": "studio-aca408ec-player",
+        "outcome": "WAIVED",
+        "outcomeCause": "this person accepted the substitute promise \"promise-3\" in place of it",
+        "outcomeEventId": "talent-market-event-7",
+        "outcomeWeek": 60,
+        "predicate": {
+          "count": 1
+        },
+        "progress": 0,
+        "promiseId": "promise-1",
+        "version": 4,
+        "windowStartWeek": 52,
+        "supersededByPromiseId": "promise-3"
+      },
+      "successor": {
+        "promiseId": "promise-3",
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-player",
+        "beneficiaryPersonId": "t-act-08",
+        "windowStartWeek": 61,
+        "dueWeekExclusive": 81,
+        "feasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "3aa37104c35e16a2",
+          "rulesVersion": 4,
+          "week": 60
+        },
+        "progress": 0,
+        "evidenceRefs": [],
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeCause": null,
+        "outcomeEventId": null,
+        "contractId": "studio-aca408ec-player:contract:t-act-08:52:player-32",
+        "supersededByPromiseId": null,
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        }
+      },
+      "preview": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "3aa37104c35e16a2",
+        "rulesVersion": 4,
+        "week": 60
+      },
+      "actualNewReceipt": [
+        {
+          "kind": "promiseOutcome",
+          "week": 60,
+          "talentId": "t-act-08",
+          "studioId": "studio-aca408ec-player",
+          "reasons": [
+            "a promise to this person was waived for a substitute the person accepted"
+          ],
+          "dropped": [],
+          "eventId": "talent-market-event-7"
+        }
+      ],
+      "internalFeasibilityCalls": "ordinary public waiver acceptance and minted-receipt evaluations; not explicit test quotes"
+    }
+  ],
+  "advances": [
+    {
+      "from": 52,
+      "to": 53,
+      "added": [
+        {
+          "receipt": {
+            "eventId": "first-take-event-20",
+            "week": 53,
+            "productionId": "studio-aca408ec-r01:film:5",
+            "studioId": "studio-aca408ec-r01",
+            "directorId": "person-studio-aca408ec-r01-1",
+            "cast": {
+              "lead": "person-studio-aca408ec-r01-4",
+              "antagonist": "person-studio-aca408ec-r01-3",
+              "support": "person-studio-aca408ec-r01-2"
+            }
+          },
+          "subject": {
+            "eventId": "first-take-event-20",
+            "conceptId": "studio-aca408ec-r01:concept:5",
+            "genre": "comedy",
+            "scriptProjectId": "script-0005"
+          }
+        },
+        {
+          "receipt": {
+            "eventId": "first-take-event-21",
+            "week": 53,
+            "productionId": "studio-aca408ec-r03:film:5",
+            "studioId": "studio-aca408ec-r03",
+            "directorId": "person-studio-aca408ec-r03-1",
+            "cast": {
+              "lead": "person-studio-aca408ec-r03-3",
+              "antagonist": "person-studio-aca408ec-r03-2",
+              "support": "person-studio-aca408ec-r03-4"
+            }
+          },
+          "subject": {
+            "eventId": "first-take-event-21",
+            "conceptId": "studio-aca408ec-r03:concept:5",
+            "genre": "crime",
+            "scriptProjectId": "script-0005"
+          }
+        }
+      ],
+      "actualSubjectRoot": {
+        "version": 1,
+        "cutoverOrdinal": 20,
+        "facts": [
+          {
+            "eventId": "first-take-event-20",
+            "conceptId": "studio-aca408ec-r01:concept:5",
+            "genre": "comedy",
+            "scriptProjectId": "script-0005"
+          },
+          {
+            "eventId": "first-take-event-21",
+            "conceptId": "studio-aca408ec-r03:concept:5",
+            "genre": "crime",
+            "scriptProjectId": "script-0005"
+          }
+        ]
+      },
+      "ownProduction": {
+        "id": "prod-0052",
+        "conceptId": "c-00",
+        "shape": {
+          "opening": "slowSetup",
+          "midpoint": "revelation",
+          "ending": "bittersweet"
+        },
+        "promise": {
+          "genre": "comedy",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "writerId": "t-wri-03",
+        "directorId": "t-dir-01",
+        "craftIds": [
+          "t-cra-01"
+        ],
+        "cast": {
+          "lead": "t-act-09",
+          "antagonist": "t-act-08",
+          "support": "t-act-12"
+        },
+        "budget": {
+          "negative": 4164354.4863039134,
+          "marketing": 0
+        },
+        "startTick": 52,
+        "remainingTicks": 8,
+        "forecastSnapshot": {
+          "segments": [
+            {
+              "segmentId": "youngAdult",
+              "center": 47.158174398263654,
+              "estimate": 47.158174398263654,
+              "low": 17.158174398263654,
+              "high": 61.158174398263654,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 46.77997237236082,
+                "estimate": 46.77997237236082,
+                "low": 32.77997237236082,
+                "high": 60.77997237236082
+              }
+            },
+            {
+              "segmentId": "family",
+              "center": 49.79800678529728,
+              "estimate": 49.79800678529728,
+              "low": 19.798006785297282,
+              "high": 63.79800678529728,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 49.419804759394445,
+                "estimate": 49.419804759394445,
+                "low": 35.419804759394445,
+                "high": 63.419804759394445
+              }
+            },
+            {
+              "segmentId": "adult",
+              "center": 67.20556896842238,
+              "estimate": 67.20556896842238,
+              "low": 37.205568968422384,
+              "high": 81.20556896842238,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 66.82736694251956,
+                "estimate": 66.82736694251956,
+                "low": 52.82736694251956,
+                "high": 80.82736694251956
+              }
+            },
+            {
+              "segmentId": "prestige",
+              "center": 68.42358139408925,
+              "estimate": 68.42358139408925,
+              "low": 38.423581394089254,
+              "high": 82.42358139408925,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 68.04537936818642,
+                "estimate": 68.04537936818642,
+                "low": 54.04537936818642,
+                "high": 82.04537936818642
+              }
+            }
+          ],
+          "expectedOpening": 1478905.3124781467,
+          "expectedTotal": 3660763.9475180637,
+          "expectedCriticScore": 51.46525603963963
+        },
+        "participants": {
+          "writer": {
+            "talentId": "t-wri-03",
+            "name": "Vivien Chandra",
+            "role": "writer",
+            "discipline": "writing",
+            "greenlightOVR": 7,
+            "greenlightFit": 36,
+            "greenlightEP": {
+              "low": 22.096055396669925,
+              "high": 53.069623396669925,
+              "expected": 37.582839396669925
+            },
+            "freelancer": false
+          },
+          "director": {
+            "talentId": "t-dir-01",
+            "name": "Spencer Merrick",
+            "role": "director",
+            "discipline": "directing",
+            "greenlightOVR": 67,
+            "greenlightFit": 59,
+            "greenlightEP": {
+              "low": 60.53822709027582,
+              "high": 91.98255509027581,
+              "expected": 76.26039109027582
+            },
+            "freelancer": false
+          },
+          "cast": {
+            "lead": {
+              "talentId": "t-act-09",
+              "name": "Conrad Novak",
+              "role": "lead",
+              "discipline": "acting",
+              "greenlightOVR": 3,
+              "greenlightFit": 40,
+              "greenlightEP": {
+                "low": 16.97407333333333,
+                "high": 48.05158533333333,
+                "expected": 32.51282933333333
+              },
+              "freelancer": false
+            },
+            "antagonist": {
+              "talentId": "t-act-08",
+              "name": "Loretta Mancuso",
+              "role": "antagonist",
+              "discipline": "acting",
+              "greenlightOVR": 23,
+              "greenlightFit": 28,
+              "greenlightEP": {
+                "low": 31.773221959207916,
+                "high": 63.217549959207915,
+                "expected": 47.495385959207916
+              },
+              "freelancer": false
+            },
+            "support": {
+              "talentId": "t-act-12",
+              "name": "Ramon Nakamura",
+              "role": "support",
+              "discipline": "acting",
+              "greenlightOVR": 30,
+              "greenlightFit": 48,
+              "greenlightEP": {
+                "low": 37.52240349730384,
+                "high": 67.37039549730385,
+                "expected": 52.446399497303844
+              },
+              "freelancer": false
+            }
+          },
+          "craft": [
+            {
+              "talentId": "t-cra-01",
+              "name": "Bette Fenwick",
+              "role": "craft",
+              "discipline": "craft",
+              "greenlightOVR": 29,
+              "greenlightFit": 46,
+              "greenlightEP": {
+                "low": 36.022026666666655,
+                "high": 66.99559466666665,
+                "expected": 51.508810666666655
+              },
+              "freelancer": false
+            }
+          ]
+        }
+      },
+      "ownWorkflow": {
+        "productionId": "prod-0052",
+        "phase": "development",
+        "reservations": [
+          {
+            "productionId": "prod-0052",
+            "facilityId": "facility-development-casting",
+            "capability": "development-casting",
+            "slot": 0,
+            "phase": "development"
+          }
+        ],
+        "shootingTask": null,
+        "blocker": null,
+        "bindings": {
+          "requiresSetBinding": true,
+          "stageFacilityId": null,
+          "setId": null,
+          "lockedNovelty": null,
+          "lockedUplift": null,
+          "heldSinceWeek": null
+        },
+        "setup": null,
+        "planRevision": 0
+      }
+    },
+    {
+      "from": 53,
+      "to": 54,
+      "added": [
+        {
+          "receipt": {
+            "eventId": "first-take-event-22",
+            "week": 54,
+            "productionId": "studio-aca408ec-r02:film:5",
+            "studioId": "studio-aca408ec-r02",
+            "directorId": "person-studio-aca408ec-r02-1",
+            "cast": {
+              "lead": "person-studio-aca408ec-r02-4",
+              "antagonist": "person-studio-aca408ec-r02-3",
+              "support": "person-studio-aca408ec-r02-2"
+            }
+          },
+          "subject": {
+            "eventId": "first-take-event-22",
+            "conceptId": "studio-aca408ec-r02:concept:5",
+            "genre": "comedy",
+            "scriptProjectId": "script-0005"
+          }
+        }
+      ],
+      "actualSubjectRoot": {
+        "version": 1,
+        "cutoverOrdinal": 20,
+        "facts": [
+          {
+            "eventId": "first-take-event-20",
+            "conceptId": "studio-aca408ec-r01:concept:5",
+            "genre": "comedy",
+            "scriptProjectId": "script-0005"
+          },
+          {
+            "eventId": "first-take-event-21",
+            "conceptId": "studio-aca408ec-r03:concept:5",
+            "genre": "crime",
+            "scriptProjectId": "script-0005"
+          },
+          {
+            "eventId": "first-take-event-22",
+            "conceptId": "studio-aca408ec-r02:concept:5",
+            "genre": "comedy",
+            "scriptProjectId": "script-0005"
+          }
+        ]
+      },
+      "ownProduction": {
+        "id": "prod-0052",
+        "conceptId": "c-00",
+        "shape": {
+          "opening": "slowSetup",
+          "midpoint": "revelation",
+          "ending": "bittersweet"
+        },
+        "promise": {
+          "genre": "comedy",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "writerId": "t-wri-03",
+        "directorId": "t-dir-01",
+        "craftIds": [
+          "t-cra-01"
+        ],
+        "cast": {
+          "lead": "t-act-09",
+          "antagonist": "t-act-08",
+          "support": "t-act-12"
+        },
+        "budget": {
+          "negative": 4164354.4863039134,
+          "marketing": 0
+        },
+        "startTick": 52,
+        "remainingTicks": 7,
+        "forecastSnapshot": {
+          "segments": [
+            {
+              "segmentId": "youngAdult",
+              "center": 47.158174398263654,
+              "estimate": 47.158174398263654,
+              "low": 17.158174398263654,
+              "high": 61.158174398263654,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 46.77997237236082,
+                "estimate": 46.77997237236082,
+                "low": 32.77997237236082,
+                "high": 60.77997237236082
+              }
+            },
+            {
+              "segmentId": "family",
+              "center": 49.79800678529728,
+              "estimate": 49.79800678529728,
+              "low": 19.798006785297282,
+              "high": 63.79800678529728,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 49.419804759394445,
+                "estimate": 49.419804759394445,
+                "low": 35.419804759394445,
+                "high": 63.419804759394445
+              }
+            },
+            {
+              "segmentId": "adult",
+              "center": 67.20556896842238,
+              "estimate": 67.20556896842238,
+              "low": 37.205568968422384,
+              "high": 81.20556896842238,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 66.82736694251956,
+                "estimate": 66.82736694251956,
+                "low": 52.82736694251956,
+                "high": 80.82736694251956
+              }
+            },
+            {
+              "segmentId": "prestige",
+              "center": 68.42358139408925,
+              "estimate": 68.42358139408925,
+              "low": 38.423581394089254,
+              "high": 82.42358139408925,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 68.04537936818642,
+                "estimate": 68.04537936818642,
+                "low": 54.04537936818642,
+                "high": 82.04537936818642
+              }
+            }
+          ],
+          "expectedOpening": 1478905.3124781467,
+          "expectedTotal": 3660763.9475180637,
+          "expectedCriticScore": 51.46525603963963
+        },
+        "participants": {
+          "writer": {
+            "talentId": "t-wri-03",
+            "name": "Vivien Chandra",
+            "role": "writer",
+            "discipline": "writing",
+            "greenlightOVR": 7,
+            "greenlightFit": 36,
+            "greenlightEP": {
+              "low": 22.096055396669925,
+              "high": 53.069623396669925,
+              "expected": 37.582839396669925
+            },
+            "freelancer": false
+          },
+          "director": {
+            "talentId": "t-dir-01",
+            "name": "Spencer Merrick",
+            "role": "director",
+            "discipline": "directing",
+            "greenlightOVR": 67,
+            "greenlightFit": 59,
+            "greenlightEP": {
+              "low": 60.53822709027582,
+              "high": 91.98255509027581,
+              "expected": 76.26039109027582
+            },
+            "freelancer": false
+          },
+          "cast": {
+            "lead": {
+              "talentId": "t-act-09",
+              "name": "Conrad Novak",
+              "role": "lead",
+              "discipline": "acting",
+              "greenlightOVR": 3,
+              "greenlightFit": 40,
+              "greenlightEP": {
+                "low": 16.97407333333333,
+                "high": 48.05158533333333,
+                "expected": 32.51282933333333
+              },
+              "freelancer": false
+            },
+            "antagonist": {
+              "talentId": "t-act-08",
+              "name": "Loretta Mancuso",
+              "role": "antagonist",
+              "discipline": "acting",
+              "greenlightOVR": 23,
+              "greenlightFit": 28,
+              "greenlightEP": {
+                "low": 31.773221959207916,
+                "high": 63.217549959207915,
+                "expected": 47.495385959207916
+              },
+              "freelancer": false
+            },
+            "support": {
+              "talentId": "t-act-12",
+              "name": "Ramon Nakamura",
+              "role": "support",
+              "discipline": "acting",
+              "greenlightOVR": 30,
+              "greenlightFit": 48,
+              "greenlightEP": {
+                "low": 37.52240349730384,
+                "high": 67.37039549730385,
+                "expected": 52.446399497303844
+              },
+              "freelancer": false
+            }
+          },
+          "craft": [
+            {
+              "talentId": "t-cra-01",
+              "name": "Bette Fenwick",
+              "role": "craft",
+              "discipline": "craft",
+              "greenlightOVR": 29,
+              "greenlightFit": 46,
+              "greenlightEP": {
+                "low": 36.022026666666655,
+                "high": 66.99559466666665,
+                "expected": 51.508810666666655
+              },
+              "freelancer": false
+            }
+          ]
+        }
+      },
+      "ownWorkflow": {
+        "productionId": "prod-0052",
+        "phase": "preProduction",
+        "reservations": [
+          {
+            "productionId": "prod-0052",
+            "facilityId": "facility-development-casting",
+            "capability": "development-casting",
+            "slot": 0,
+            "phase": "preProduction"
+          }
+        ],
+        "shootingTask": null,
+        "blocker": null,
+        "bindings": {
+          "requiresSetBinding": true,
+          "stageFacilityId": null,
+          "setId": null,
+          "lockedNovelty": null,
+          "lockedUplift": null,
+          "heldSinceWeek": null
+        },
+        "setup": null,
+        "planRevision": 0
+      }
+    },
+    {
+      "from": 54,
+      "to": 55,
+      "added": [],
+      "actualSubjectRoot": {
+        "version": 1,
+        "cutoverOrdinal": 20,
+        "facts": [
+          {
+            "eventId": "first-take-event-20",
+            "conceptId": "studio-aca408ec-r01:concept:5",
+            "genre": "comedy",
+            "scriptProjectId": "script-0005"
+          },
+          {
+            "eventId": "first-take-event-21",
+            "conceptId": "studio-aca408ec-r03:concept:5",
+            "genre": "crime",
+            "scriptProjectId": "script-0005"
+          },
+          {
+            "eventId": "first-take-event-22",
+            "conceptId": "studio-aca408ec-r02:concept:5",
+            "genre": "comedy",
+            "scriptProjectId": "script-0005"
+          }
+        ]
+      },
+      "ownProduction": {
+        "id": "prod-0052",
+        "conceptId": "c-00",
+        "shape": {
+          "opening": "slowSetup",
+          "midpoint": "revelation",
+          "ending": "bittersweet"
+        },
+        "promise": {
+          "genre": "comedy",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "writerId": "t-wri-03",
+        "directorId": "t-dir-01",
+        "craftIds": [
+          "t-cra-01"
+        ],
+        "cast": {
+          "lead": "t-act-09",
+          "antagonist": "t-act-08",
+          "support": "t-act-12"
+        },
+        "budget": {
+          "negative": 4164354.4863039134,
+          "marketing": 0
+        },
+        "startTick": 52,
+        "remainingTicks": 6,
+        "forecastSnapshot": {
+          "segments": [
+            {
+              "segmentId": "youngAdult",
+              "center": 47.158174398263654,
+              "estimate": 47.158174398263654,
+              "low": 17.158174398263654,
+              "high": 61.158174398263654,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 46.77997237236082,
+                "estimate": 46.77997237236082,
+                "low": 32.77997237236082,
+                "high": 60.77997237236082
+              }
+            },
+            {
+              "segmentId": "family",
+              "center": 49.79800678529728,
+              "estimate": 49.79800678529728,
+              "low": 19.798006785297282,
+              "high": 63.79800678529728,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 49.419804759394445,
+                "estimate": 49.419804759394445,
+                "low": 35.419804759394445,
+                "high": 63.419804759394445
+              }
+            },
+            {
+              "segmentId": "adult",
+              "center": 67.20556896842238,
+              "estimate": 67.20556896842238,
+              "low": 37.205568968422384,
+              "high": 81.20556896842238,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 66.82736694251956,
+                "estimate": 66.82736694251956,
+                "low": 52.82736694251956,
+                "high": 80.82736694251956
+              }
+            },
+            {
+              "segmentId": "prestige",
+              "center": 68.42358139408925,
+              "estimate": 68.42358139408925,
+              "low": 38.423581394089254,
+              "high": 82.42358139408925,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 68.04537936818642,
+                "estimate": 68.04537936818642,
+                "low": 54.04537936818642,
+                "high": 82.04537936818642
+              }
+            }
+          ],
+          "expectedOpening": 1478905.3124781467,
+          "expectedTotal": 3660763.9475180637,
+          "expectedCriticScore": 51.46525603963963
+        },
+        "participants": {
+          "writer": {
+            "talentId": "t-wri-03",
+            "name": "Vivien Chandra",
+            "role": "writer",
+            "discipline": "writing",
+            "greenlightOVR": 7,
+            "greenlightFit": 36,
+            "greenlightEP": {
+              "low": 22.096055396669925,
+              "high": 53.069623396669925,
+              "expected": 37.582839396669925
+            },
+            "freelancer": false
+          },
+          "director": {
+            "talentId": "t-dir-01",
+            "name": "Spencer Merrick",
+            "role": "director",
+            "discipline": "directing",
+            "greenlightOVR": 67,
+            "greenlightFit": 59,
+            "greenlightEP": {
+              "low": 60.53822709027582,
+              "high": 91.98255509027581,
+              "expected": 76.26039109027582
+            },
+            "freelancer": false
+          },
+          "cast": {
+            "lead": {
+              "talentId": "t-act-09",
+              "name": "Conrad Novak",
+              "role": "lead",
+              "discipline": "acting",
+              "greenlightOVR": 3,
+              "greenlightFit": 40,
+              "greenlightEP": {
+                "low": 16.97407333333333,
+                "high": 48.05158533333333,
+                "expected": 32.51282933333333
+              },
+              "freelancer": false
+            },
+            "antagonist": {
+              "talentId": "t-act-08",
+              "name": "Loretta Mancuso",
+              "role": "antagonist",
+              "discipline": "acting",
+              "greenlightOVR": 23,
+              "greenlightFit": 28,
+              "greenlightEP": {
+                "low": 31.773221959207916,
+                "high": 63.217549959207915,
+                "expected": 47.495385959207916
+              },
+              "freelancer": false
+            },
+            "support": {
+              "talentId": "t-act-12",
+              "name": "Ramon Nakamura",
+              "role": "support",
+              "discipline": "acting",
+              "greenlightOVR": 30,
+              "greenlightFit": 48,
+              "greenlightEP": {
+                "low": 37.52240349730384,
+                "high": 67.37039549730385,
+                "expected": 52.446399497303844
+              },
+              "freelancer": false
+            }
+          },
+          "craft": [
+            {
+              "talentId": "t-cra-01",
+              "name": "Bette Fenwick",
+              "role": "craft",
+              "discipline": "craft",
+              "greenlightOVR": 29,
+              "greenlightFit": 46,
+              "greenlightEP": {
+                "low": 36.022026666666655,
+                "high": 66.99559466666665,
+                "expected": 51.508810666666655
+              },
+              "freelancer": false
+            }
+          ]
+        }
+      },
+      "ownWorkflow": {
+        "productionId": "prod-0052",
+        "phase": "rehearsal",
+        "reservations": [
+          {
+            "productionId": "prod-0052",
+            "facilityId": "facility-soundstage-07",
+            "capability": "soundstage",
+            "slot": 0,
+            "phase": "rehearsal"
+          }
+        ],
+        "shootingTask": null,
+        "blocker": null,
+        "bindings": {
+          "requiresSetBinding": true,
+          "stageFacilityId": "facility-soundstage-07",
+          "setId": "set-2",
+          "lockedNovelty": 1,
+          "lockedUplift": 7.8999999999999995,
+          "heldSinceWeek": 54
+        },
+        "setup": null,
+        "planRevision": 0
+      }
+    },
+    {
+      "from": 55,
+      "to": 56,
+      "added": [],
+      "actualSubjectRoot": {
+        "version": 1,
+        "cutoverOrdinal": 20,
+        "facts": [
+          {
+            "eventId": "first-take-event-20",
+            "conceptId": "studio-aca408ec-r01:concept:5",
+            "genre": "comedy",
+            "scriptProjectId": "script-0005"
+          },
+          {
+            "eventId": "first-take-event-21",
+            "conceptId": "studio-aca408ec-r03:concept:5",
+            "genre": "crime",
+            "scriptProjectId": "script-0005"
+          },
+          {
+            "eventId": "first-take-event-22",
+            "conceptId": "studio-aca408ec-r02:concept:5",
+            "genre": "comedy",
+            "scriptProjectId": "script-0005"
+          }
+        ]
+      },
+      "ownProduction": {
+        "id": "prod-0052",
+        "conceptId": "c-00",
+        "shape": {
+          "opening": "slowSetup",
+          "midpoint": "revelation",
+          "ending": "bittersweet"
+        },
+        "promise": {
+          "genre": "comedy",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "writerId": "t-wri-03",
+        "directorId": "t-dir-01",
+        "craftIds": [
+          "t-cra-01"
+        ],
+        "cast": {
+          "lead": "t-act-09",
+          "antagonist": "t-act-08",
+          "support": "t-act-12"
+        },
+        "budget": {
+          "negative": 4164354.4863039134,
+          "marketing": 0
+        },
+        "startTick": 52,
+        "remainingTicks": 6,
+        "forecastSnapshot": {
+          "segments": [
+            {
+              "segmentId": "youngAdult",
+              "center": 47.158174398263654,
+              "estimate": 47.158174398263654,
+              "low": 17.158174398263654,
+              "high": 61.158174398263654,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 46.77997237236082,
+                "estimate": 46.77997237236082,
+                "low": 32.77997237236082,
+                "high": 60.77997237236082
+              }
+            },
+            {
+              "segmentId": "family",
+              "center": 49.79800678529728,
+              "estimate": 49.79800678529728,
+              "low": 19.798006785297282,
+              "high": 63.79800678529728,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 49.419804759394445,
+                "estimate": 49.419804759394445,
+                "low": 35.419804759394445,
+                "high": 63.419804759394445
+              }
+            },
+            {
+              "segmentId": "adult",
+              "center": 67.20556896842238,
+              "estimate": 67.20556896842238,
+              "low": 37.205568968422384,
+              "high": 81.20556896842238,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 66.82736694251956,
+                "estimate": 66.82736694251956,
+                "low": 52.82736694251956,
+                "high": 80.82736694251956
+              }
+            },
+            {
+              "segmentId": "prestige",
+              "center": 68.42358139408925,
+              "estimate": 68.42358139408925,
+              "low": 38.423581394089254,
+              "high": 82.42358139408925,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 68.04537936818642,
+                "estimate": 68.04537936818642,
+                "low": 54.04537936818642,
+                "high": 82.04537936818642
+              }
+            }
+          ],
+          "expectedOpening": 1478905.3124781467,
+          "expectedTotal": 3660763.9475180637,
+          "expectedCriticScore": 51.46525603963963
+        },
+        "participants": {
+          "writer": {
+            "talentId": "t-wri-03",
+            "name": "Vivien Chandra",
+            "role": "writer",
+            "discipline": "writing",
+            "greenlightOVR": 7,
+            "greenlightFit": 36,
+            "greenlightEP": {
+              "low": 22.096055396669925,
+              "high": 53.069623396669925,
+              "expected": 37.582839396669925
+            },
+            "freelancer": false
+          },
+          "director": {
+            "talentId": "t-dir-01",
+            "name": "Spencer Merrick",
+            "role": "director",
+            "discipline": "directing",
+            "greenlightOVR": 67,
+            "greenlightFit": 59,
+            "greenlightEP": {
+              "low": 60.53822709027582,
+              "high": 91.98255509027581,
+              "expected": 76.26039109027582
+            },
+            "freelancer": false
+          },
+          "cast": {
+            "lead": {
+              "talentId": "t-act-09",
+              "name": "Conrad Novak",
+              "role": "lead",
+              "discipline": "acting",
+              "greenlightOVR": 3,
+              "greenlightFit": 40,
+              "greenlightEP": {
+                "low": 16.97407333333333,
+                "high": 48.05158533333333,
+                "expected": 32.51282933333333
+              },
+              "freelancer": false
+            },
+            "antagonist": {
+              "talentId": "t-act-08",
+              "name": "Loretta Mancuso",
+              "role": "antagonist",
+              "discipline": "acting",
+              "greenlightOVR": 23,
+              "greenlightFit": 28,
+              "greenlightEP": {
+                "low": 31.773221959207916,
+                "high": 63.217549959207915,
+                "expected": 47.495385959207916
+              },
+              "freelancer": false
+            },
+            "support": {
+              "talentId": "t-act-12",
+              "name": "Ramon Nakamura",
+              "role": "support",
+              "discipline": "acting",
+              "greenlightOVR": 30,
+              "greenlightFit": 48,
+              "greenlightEP": {
+                "low": 37.52240349730384,
+                "high": 67.37039549730385,
+                "expected": 52.446399497303844
+              },
+              "freelancer": false
+            }
+          },
+          "craft": [
+            {
+              "talentId": "t-cra-01",
+              "name": "Bette Fenwick",
+              "role": "craft",
+              "discipline": "craft",
+              "greenlightOVR": 29,
+              "greenlightFit": 46,
+              "greenlightEP": {
+                "low": 36.022026666666655,
+                "high": 66.99559466666665,
+                "expected": 51.508810666666655
+              },
+              "freelancer": false
+            }
+          ]
+        }
+      },
+      "ownWorkflow": {
+        "productionId": "prod-0052",
+        "phase": "rehearsal",
+        "reservations": [
+          {
+            "productionId": "prod-0052",
+            "facilityId": "facility-soundstage-07",
+            "capability": "soundstage",
+            "slot": 0,
+            "phase": "rehearsal"
+          }
+        ],
+        "shootingTask": null,
+        "blocker": null,
+        "bindings": {
+          "requiresSetBinding": true,
+          "stageFacilityId": "facility-soundstage-07",
+          "setId": "set-2",
+          "lockedNovelty": 1,
+          "lockedUplift": 7.8999999999999995,
+          "heldSinceWeek": 54
+        },
+        "setup": {
+          "recipeId": "ballroom-reveal-lighting-01",
+          "planRevision": 0,
+          "admittedWeek": 56,
+          "route": "conventional",
+          "adoptionId": null,
+          "equipmentAssetId": null,
+          "stageFacilityId": "facility-soundstage-07",
+          "setId": "set-2",
+          "requiredUnits": 4,
+          "creditedUnits": 0,
+          "lastCreditedWeek": null,
+          "completedWeek": null,
+          "priorWork": []
+        },
+        "planRevision": 0
+      }
+    },
+    {
+      "from": 56,
+      "to": 57,
+      "added": [
+        {
+          "receipt": {
+            "eventId": "first-take-event-23",
+            "week": 57,
+            "productionId": "studio-aca408ec-r04:film:6",
+            "studioId": "studio-aca408ec-r04",
+            "directorId": "person-studio-aca408ec-r04-1",
+            "cast": {
+              "lead": "person-studio-aca408ec-r04-3",
+              "antagonist": "person-studio-aca408ec-r04-2",
+              "support": "person-studio-aca408ec-r04-4"
+            }
+          },
+          "subject": {
+            "eventId": "first-take-event-23",
+            "conceptId": "studio-aca408ec-r04:concept:6",
+            "genre": "romance",
+            "scriptProjectId": "script-0006"
+          }
+        }
+      ],
+      "actualSubjectRoot": {
+        "version": 1,
+        "cutoverOrdinal": 20,
+        "facts": [
+          {
+            "eventId": "first-take-event-20",
+            "conceptId": "studio-aca408ec-r01:concept:5",
+            "genre": "comedy",
+            "scriptProjectId": "script-0005"
+          },
+          {
+            "eventId": "first-take-event-21",
+            "conceptId": "studio-aca408ec-r03:concept:5",
+            "genre": "crime",
+            "scriptProjectId": "script-0005"
+          },
+          {
+            "eventId": "first-take-event-22",
+            "conceptId": "studio-aca408ec-r02:concept:5",
+            "genre": "comedy",
+            "scriptProjectId": "script-0005"
+          },
+          {
+            "eventId": "first-take-event-23",
+            "conceptId": "studio-aca408ec-r04:concept:6",
+            "genre": "romance",
+            "scriptProjectId": "script-0006"
+          }
+        ]
+      },
+      "ownProduction": {
+        "id": "prod-0052",
+        "conceptId": "c-00",
+        "shape": {
+          "opening": "slowSetup",
+          "midpoint": "revelation",
+          "ending": "bittersweet"
+        },
+        "promise": {
+          "genre": "comedy",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "writerId": "t-wri-03",
+        "directorId": "t-dir-01",
+        "craftIds": [
+          "t-cra-01"
+        ],
+        "cast": {
+          "lead": "t-act-09",
+          "antagonist": "t-act-08",
+          "support": "t-act-12"
+        },
+        "budget": {
+          "negative": 4164354.4863039134,
+          "marketing": 0
+        },
+        "startTick": 52,
+        "remainingTicks": 6,
+        "forecastSnapshot": {
+          "segments": [
+            {
+              "segmentId": "youngAdult",
+              "center": 47.158174398263654,
+              "estimate": 47.158174398263654,
+              "low": 17.158174398263654,
+              "high": 61.158174398263654,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 46.77997237236082,
+                "estimate": 46.77997237236082,
+                "low": 32.77997237236082,
+                "high": 60.77997237236082
+              }
+            },
+            {
+              "segmentId": "family",
+              "center": 49.79800678529728,
+              "estimate": 49.79800678529728,
+              "low": 19.798006785297282,
+              "high": 63.79800678529728,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 49.419804759394445,
+                "estimate": 49.419804759394445,
+                "low": 35.419804759394445,
+                "high": 63.419804759394445
+              }
+            },
+            {
+              "segmentId": "adult",
+              "center": 67.20556896842238,
+              "estimate": 67.20556896842238,
+              "low": 37.205568968422384,
+              "high": 81.20556896842238,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 66.82736694251956,
+                "estimate": 66.82736694251956,
+                "low": 52.82736694251956,
+                "high": 80.82736694251956
+              }
+            },
+            {
+              "segmentId": "prestige",
+              "center": 68.42358139408925,
+              "estimate": 68.42358139408925,
+              "low": 38.423581394089254,
+              "high": 82.42358139408925,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 68.04537936818642,
+                "estimate": 68.04537936818642,
+                "low": 54.04537936818642,
+                "high": 82.04537936818642
+              }
+            }
+          ],
+          "expectedOpening": 1478905.3124781467,
+          "expectedTotal": 3660763.9475180637,
+          "expectedCriticScore": 51.46525603963963
+        },
+        "participants": {
+          "writer": {
+            "talentId": "t-wri-03",
+            "name": "Vivien Chandra",
+            "role": "writer",
+            "discipline": "writing",
+            "greenlightOVR": 7,
+            "greenlightFit": 36,
+            "greenlightEP": {
+              "low": 22.096055396669925,
+              "high": 53.069623396669925,
+              "expected": 37.582839396669925
+            },
+            "freelancer": false
+          },
+          "director": {
+            "talentId": "t-dir-01",
+            "name": "Spencer Merrick",
+            "role": "director",
+            "discipline": "directing",
+            "greenlightOVR": 67,
+            "greenlightFit": 59,
+            "greenlightEP": {
+              "low": 60.53822709027582,
+              "high": 91.98255509027581,
+              "expected": 76.26039109027582
+            },
+            "freelancer": false
+          },
+          "cast": {
+            "lead": {
+              "talentId": "t-act-09",
+              "name": "Conrad Novak",
+              "role": "lead",
+              "discipline": "acting",
+              "greenlightOVR": 3,
+              "greenlightFit": 40,
+              "greenlightEP": {
+                "low": 16.97407333333333,
+                "high": 48.05158533333333,
+                "expected": 32.51282933333333
+              },
+              "freelancer": false
+            },
+            "antagonist": {
+              "talentId": "t-act-08",
+              "name": "Loretta Mancuso",
+              "role": "antagonist",
+              "discipline": "acting",
+              "greenlightOVR": 23,
+              "greenlightFit": 28,
+              "greenlightEP": {
+                "low": 31.773221959207916,
+                "high": 63.217549959207915,
+                "expected": 47.495385959207916
+              },
+              "freelancer": false
+            },
+            "support": {
+              "talentId": "t-act-12",
+              "name": "Ramon Nakamura",
+              "role": "support",
+              "discipline": "acting",
+              "greenlightOVR": 30,
+              "greenlightFit": 48,
+              "greenlightEP": {
+                "low": 37.52240349730384,
+                "high": 67.37039549730385,
+                "expected": 52.446399497303844
+              },
+              "freelancer": false
+            }
+          },
+          "craft": [
+            {
+              "talentId": "t-cra-01",
+              "name": "Bette Fenwick",
+              "role": "craft",
+              "discipline": "craft",
+              "greenlightOVR": 29,
+              "greenlightFit": 46,
+              "greenlightEP": {
+                "low": 36.022026666666655,
+                "high": 66.99559466666665,
+                "expected": 51.508810666666655
+              },
+              "freelancer": false
+            }
+          ]
+        }
+      },
+      "ownWorkflow": {
+        "productionId": "prod-0052",
+        "phase": "rehearsal",
+        "reservations": [
+          {
+            "productionId": "prod-0052",
+            "facilityId": "facility-soundstage-07",
+            "capability": "soundstage",
+            "slot": 0,
+            "phase": "rehearsal"
+          }
+        ],
+        "shootingTask": null,
+        "blocker": null,
+        "bindings": {
+          "requiresSetBinding": true,
+          "stageFacilityId": "facility-soundstage-07",
+          "setId": "set-2",
+          "lockedNovelty": 1,
+          "lockedUplift": 7.8999999999999995,
+          "heldSinceWeek": 54
+        },
+        "setup": {
+          "recipeId": "ballroom-reveal-lighting-01",
+          "planRevision": 0,
+          "admittedWeek": 56,
+          "route": "conventional",
+          "adoptionId": null,
+          "equipmentAssetId": null,
+          "stageFacilityId": "facility-soundstage-07",
+          "setId": "set-2",
+          "requiredUnits": 4,
+          "creditedUnits": 1,
+          "lastCreditedWeek": 57,
+          "completedWeek": null,
+          "priorWork": []
+        },
+        "planRevision": 0
+      }
+    },
+    {
+      "from": 57,
+      "to": 58,
+      "added": [],
+      "actualSubjectRoot": {
+        "version": 1,
+        "cutoverOrdinal": 20,
+        "facts": [
+          {
+            "eventId": "first-take-event-20",
+            "conceptId": "studio-aca408ec-r01:concept:5",
+            "genre": "comedy",
+            "scriptProjectId": "script-0005"
+          },
+          {
+            "eventId": "first-take-event-21",
+            "conceptId": "studio-aca408ec-r03:concept:5",
+            "genre": "crime",
+            "scriptProjectId": "script-0005"
+          },
+          {
+            "eventId": "first-take-event-22",
+            "conceptId": "studio-aca408ec-r02:concept:5",
+            "genre": "comedy",
+            "scriptProjectId": "script-0005"
+          },
+          {
+            "eventId": "first-take-event-23",
+            "conceptId": "studio-aca408ec-r04:concept:6",
+            "genre": "romance",
+            "scriptProjectId": "script-0006"
+          }
+        ]
+      },
+      "ownProduction": {
+        "id": "prod-0052",
+        "conceptId": "c-00",
+        "shape": {
+          "opening": "slowSetup",
+          "midpoint": "revelation",
+          "ending": "bittersweet"
+        },
+        "promise": {
+          "genre": "comedy",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "writerId": "t-wri-03",
+        "directorId": "t-dir-01",
+        "craftIds": [
+          "t-cra-01"
+        ],
+        "cast": {
+          "lead": "t-act-09",
+          "antagonist": "t-act-08",
+          "support": "t-act-12"
+        },
+        "budget": {
+          "negative": 4164354.4863039134,
+          "marketing": 0
+        },
+        "startTick": 52,
+        "remainingTicks": 6,
+        "forecastSnapshot": {
+          "segments": [
+            {
+              "segmentId": "youngAdult",
+              "center": 47.158174398263654,
+              "estimate": 47.158174398263654,
+              "low": 17.158174398263654,
+              "high": 61.158174398263654,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 46.77997237236082,
+                "estimate": 46.77997237236082,
+                "low": 32.77997237236082,
+                "high": 60.77997237236082
+              }
+            },
+            {
+              "segmentId": "family",
+              "center": 49.79800678529728,
+              "estimate": 49.79800678529728,
+              "low": 19.798006785297282,
+              "high": 63.79800678529728,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 49.419804759394445,
+                "estimate": 49.419804759394445,
+                "low": 35.419804759394445,
+                "high": 63.419804759394445
+              }
+            },
+            {
+              "segmentId": "adult",
+              "center": 67.20556896842238,
+              "estimate": 67.20556896842238,
+              "low": 37.205568968422384,
+              "high": 81.20556896842238,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 66.82736694251956,
+                "estimate": 66.82736694251956,
+                "low": 52.82736694251956,
+                "high": 80.82736694251956
+              }
+            },
+            {
+              "segmentId": "prestige",
+              "center": 68.42358139408925,
+              "estimate": 68.42358139408925,
+              "low": 38.423581394089254,
+              "high": 82.42358139408925,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 68.04537936818642,
+                "estimate": 68.04537936818642,
+                "low": 54.04537936818642,
+                "high": 82.04537936818642
+              }
+            }
+          ],
+          "expectedOpening": 1478905.3124781467,
+          "expectedTotal": 3660763.9475180637,
+          "expectedCriticScore": 51.46525603963963
+        },
+        "participants": {
+          "writer": {
+            "talentId": "t-wri-03",
+            "name": "Vivien Chandra",
+            "role": "writer",
+            "discipline": "writing",
+            "greenlightOVR": 7,
+            "greenlightFit": 36,
+            "greenlightEP": {
+              "low": 22.096055396669925,
+              "high": 53.069623396669925,
+              "expected": 37.582839396669925
+            },
+            "freelancer": false
+          },
+          "director": {
+            "talentId": "t-dir-01",
+            "name": "Spencer Merrick",
+            "role": "director",
+            "discipline": "directing",
+            "greenlightOVR": 67,
+            "greenlightFit": 59,
+            "greenlightEP": {
+              "low": 60.53822709027582,
+              "high": 91.98255509027581,
+              "expected": 76.26039109027582
+            },
+            "freelancer": false
+          },
+          "cast": {
+            "lead": {
+              "talentId": "t-act-09",
+              "name": "Conrad Novak",
+              "role": "lead",
+              "discipline": "acting",
+              "greenlightOVR": 3,
+              "greenlightFit": 40,
+              "greenlightEP": {
+                "low": 16.97407333333333,
+                "high": 48.05158533333333,
+                "expected": 32.51282933333333
+              },
+              "freelancer": false
+            },
+            "antagonist": {
+              "talentId": "t-act-08",
+              "name": "Loretta Mancuso",
+              "role": "antagonist",
+              "discipline": "acting",
+              "greenlightOVR": 23,
+              "greenlightFit": 28,
+              "greenlightEP": {
+                "low": 31.773221959207916,
+                "high": 63.217549959207915,
+                "expected": 47.495385959207916
+              },
+              "freelancer": false
+            },
+            "support": {
+              "talentId": "t-act-12",
+              "name": "Ramon Nakamura",
+              "role": "support",
+              "discipline": "acting",
+              "greenlightOVR": 30,
+              "greenlightFit": 48,
+              "greenlightEP": {
+                "low": 37.52240349730384,
+                "high": 67.37039549730385,
+                "expected": 52.446399497303844
+              },
+              "freelancer": false
+            }
+          },
+          "craft": [
+            {
+              "talentId": "t-cra-01",
+              "name": "Bette Fenwick",
+              "role": "craft",
+              "discipline": "craft",
+              "greenlightOVR": 29,
+              "greenlightFit": 46,
+              "greenlightEP": {
+                "low": 36.022026666666655,
+                "high": 66.99559466666665,
+                "expected": 51.508810666666655
+              },
+              "freelancer": false
+            }
+          ]
+        }
+      },
+      "ownWorkflow": {
+        "productionId": "prod-0052",
+        "phase": "rehearsal",
+        "reservations": [
+          {
+            "productionId": "prod-0052",
+            "facilityId": "facility-soundstage-07",
+            "capability": "soundstage",
+            "slot": 0,
+            "phase": "rehearsal"
+          }
+        ],
+        "shootingTask": null,
+        "blocker": null,
+        "bindings": {
+          "requiresSetBinding": true,
+          "stageFacilityId": "facility-soundstage-07",
+          "setId": "set-2",
+          "lockedNovelty": 1,
+          "lockedUplift": 7.8999999999999995,
+          "heldSinceWeek": 54
+        },
+        "setup": {
+          "recipeId": "ballroom-reveal-lighting-01",
+          "planRevision": 0,
+          "admittedWeek": 56,
+          "route": "conventional",
+          "adoptionId": null,
+          "equipmentAssetId": null,
+          "stageFacilityId": "facility-soundstage-07",
+          "setId": "set-2",
+          "requiredUnits": 4,
+          "creditedUnits": 2,
+          "lastCreditedWeek": 58,
+          "completedWeek": null,
+          "priorWork": []
+        },
+        "planRevision": 0
+      }
+    },
+    {
+      "from": 58,
+      "to": 59,
+      "added": [],
+      "actualSubjectRoot": {
+        "version": 1,
+        "cutoverOrdinal": 20,
+        "facts": [
+          {
+            "eventId": "first-take-event-20",
+            "conceptId": "studio-aca408ec-r01:concept:5",
+            "genre": "comedy",
+            "scriptProjectId": "script-0005"
+          },
+          {
+            "eventId": "first-take-event-21",
+            "conceptId": "studio-aca408ec-r03:concept:5",
+            "genre": "crime",
+            "scriptProjectId": "script-0005"
+          },
+          {
+            "eventId": "first-take-event-22",
+            "conceptId": "studio-aca408ec-r02:concept:5",
+            "genre": "comedy",
+            "scriptProjectId": "script-0005"
+          },
+          {
+            "eventId": "first-take-event-23",
+            "conceptId": "studio-aca408ec-r04:concept:6",
+            "genre": "romance",
+            "scriptProjectId": "script-0006"
+          }
+        ]
+      },
+      "ownProduction": {
+        "id": "prod-0052",
+        "conceptId": "c-00",
+        "shape": {
+          "opening": "slowSetup",
+          "midpoint": "revelation",
+          "ending": "bittersweet"
+        },
+        "promise": {
+          "genre": "comedy",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "writerId": "t-wri-03",
+        "directorId": "t-dir-01",
+        "craftIds": [
+          "t-cra-01"
+        ],
+        "cast": {
+          "lead": "t-act-09",
+          "antagonist": "t-act-08",
+          "support": "t-act-12"
+        },
+        "budget": {
+          "negative": 4164354.4863039134,
+          "marketing": 0
+        },
+        "startTick": 52,
+        "remainingTicks": 6,
+        "forecastSnapshot": {
+          "segments": [
+            {
+              "segmentId": "youngAdult",
+              "center": 47.158174398263654,
+              "estimate": 47.158174398263654,
+              "low": 17.158174398263654,
+              "high": 61.158174398263654,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 46.77997237236082,
+                "estimate": 46.77997237236082,
+                "low": 32.77997237236082,
+                "high": 60.77997237236082
+              }
+            },
+            {
+              "segmentId": "family",
+              "center": 49.79800678529728,
+              "estimate": 49.79800678529728,
+              "low": 19.798006785297282,
+              "high": 63.79800678529728,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 49.419804759394445,
+                "estimate": 49.419804759394445,
+                "low": 35.419804759394445,
+                "high": 63.419804759394445
+              }
+            },
+            {
+              "segmentId": "adult",
+              "center": 67.20556896842238,
+              "estimate": 67.20556896842238,
+              "low": 37.205568968422384,
+              "high": 81.20556896842238,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 66.82736694251956,
+                "estimate": 66.82736694251956,
+                "low": 52.82736694251956,
+                "high": 80.82736694251956
+              }
+            },
+            {
+              "segmentId": "prestige",
+              "center": 68.42358139408925,
+              "estimate": 68.42358139408925,
+              "low": 38.423581394089254,
+              "high": 82.42358139408925,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 68.04537936818642,
+                "estimate": 68.04537936818642,
+                "low": 54.04537936818642,
+                "high": 82.04537936818642
+              }
+            }
+          ],
+          "expectedOpening": 1478905.3124781467,
+          "expectedTotal": 3660763.9475180637,
+          "expectedCriticScore": 51.46525603963963
+        },
+        "participants": {
+          "writer": {
+            "talentId": "t-wri-03",
+            "name": "Vivien Chandra",
+            "role": "writer",
+            "discipline": "writing",
+            "greenlightOVR": 7,
+            "greenlightFit": 36,
+            "greenlightEP": {
+              "low": 22.096055396669925,
+              "high": 53.069623396669925,
+              "expected": 37.582839396669925
+            },
+            "freelancer": false
+          },
+          "director": {
+            "talentId": "t-dir-01",
+            "name": "Spencer Merrick",
+            "role": "director",
+            "discipline": "directing",
+            "greenlightOVR": 67,
+            "greenlightFit": 59,
+            "greenlightEP": {
+              "low": 60.53822709027582,
+              "high": 91.98255509027581,
+              "expected": 76.26039109027582
+            },
+            "freelancer": false
+          },
+          "cast": {
+            "lead": {
+              "talentId": "t-act-09",
+              "name": "Conrad Novak",
+              "role": "lead",
+              "discipline": "acting",
+              "greenlightOVR": 3,
+              "greenlightFit": 40,
+              "greenlightEP": {
+                "low": 16.97407333333333,
+                "high": 48.05158533333333,
+                "expected": 32.51282933333333
+              },
+              "freelancer": false
+            },
+            "antagonist": {
+              "talentId": "t-act-08",
+              "name": "Loretta Mancuso",
+              "role": "antagonist",
+              "discipline": "acting",
+              "greenlightOVR": 23,
+              "greenlightFit": 28,
+              "greenlightEP": {
+                "low": 31.773221959207916,
+                "high": 63.217549959207915,
+                "expected": 47.495385959207916
+              },
+              "freelancer": false
+            },
+            "support": {
+              "talentId": "t-act-12",
+              "name": "Ramon Nakamura",
+              "role": "support",
+              "discipline": "acting",
+              "greenlightOVR": 30,
+              "greenlightFit": 48,
+              "greenlightEP": {
+                "low": 37.52240349730384,
+                "high": 67.37039549730385,
+                "expected": 52.446399497303844
+              },
+              "freelancer": false
+            }
+          },
+          "craft": [
+            {
+              "talentId": "t-cra-01",
+              "name": "Bette Fenwick",
+              "role": "craft",
+              "discipline": "craft",
+              "greenlightOVR": 29,
+              "greenlightFit": 46,
+              "greenlightEP": {
+                "low": 36.022026666666655,
+                "high": 66.99559466666665,
+                "expected": 51.508810666666655
+              },
+              "freelancer": false
+            }
+          ]
+        }
+      },
+      "ownWorkflow": {
+        "productionId": "prod-0052",
+        "phase": "rehearsal",
+        "reservations": [
+          {
+            "productionId": "prod-0052",
+            "facilityId": "facility-soundstage-07",
+            "capability": "soundstage",
+            "slot": 0,
+            "phase": "rehearsal"
+          }
+        ],
+        "shootingTask": null,
+        "blocker": null,
+        "bindings": {
+          "requiresSetBinding": true,
+          "stageFacilityId": "facility-soundstage-07",
+          "setId": "set-2",
+          "lockedNovelty": 1,
+          "lockedUplift": 7.8999999999999995,
+          "heldSinceWeek": 54
+        },
+        "setup": {
+          "recipeId": "ballroom-reveal-lighting-01",
+          "planRevision": 0,
+          "admittedWeek": 56,
+          "route": "conventional",
+          "adoptionId": null,
+          "equipmentAssetId": null,
+          "stageFacilityId": "facility-soundstage-07",
+          "setId": "set-2",
+          "requiredUnits": 4,
+          "creditedUnits": 3,
+          "lastCreditedWeek": 59,
+          "completedWeek": null,
+          "priorWork": []
+        },
+        "planRevision": 0
+      }
+    },
+    {
+      "from": 59,
+      "to": 60,
+      "added": [],
+      "actualSubjectRoot": {
+        "version": 1,
+        "cutoverOrdinal": 20,
+        "facts": [
+          {
+            "eventId": "first-take-event-20",
+            "conceptId": "studio-aca408ec-r01:concept:5",
+            "genre": "comedy",
+            "scriptProjectId": "script-0005"
+          },
+          {
+            "eventId": "first-take-event-21",
+            "conceptId": "studio-aca408ec-r03:concept:5",
+            "genre": "crime",
+            "scriptProjectId": "script-0005"
+          },
+          {
+            "eventId": "first-take-event-22",
+            "conceptId": "studio-aca408ec-r02:concept:5",
+            "genre": "comedy",
+            "scriptProjectId": "script-0005"
+          },
+          {
+            "eventId": "first-take-event-23",
+            "conceptId": "studio-aca408ec-r04:concept:6",
+            "genre": "romance",
+            "scriptProjectId": "script-0006"
+          }
+        ]
+      },
+      "ownProduction": {
+        "id": "prod-0052",
+        "conceptId": "c-00",
+        "shape": {
+          "opening": "slowSetup",
+          "midpoint": "revelation",
+          "ending": "bittersweet"
+        },
+        "promise": {
+          "genre": "comedy",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "writerId": "t-wri-03",
+        "directorId": "t-dir-01",
+        "craftIds": [
+          "t-cra-01"
+        ],
+        "cast": {
+          "lead": "t-act-09",
+          "antagonist": "t-act-08",
+          "support": "t-act-12"
+        },
+        "budget": {
+          "negative": 4164354.4863039134,
+          "marketing": 0
+        },
+        "startTick": 52,
+        "remainingTicks": 5,
+        "forecastSnapshot": {
+          "segments": [
+            {
+              "segmentId": "youngAdult",
+              "center": 47.158174398263654,
+              "estimate": 47.158174398263654,
+              "low": 17.158174398263654,
+              "high": 61.158174398263654,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 46.77997237236082,
+                "estimate": 46.77997237236082,
+                "low": 32.77997237236082,
+                "high": 60.77997237236082
+              }
+            },
+            {
+              "segmentId": "family",
+              "center": 49.79800678529728,
+              "estimate": 49.79800678529728,
+              "low": 19.798006785297282,
+              "high": 63.79800678529728,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 49.419804759394445,
+                "estimate": 49.419804759394445,
+                "low": 35.419804759394445,
+                "high": 63.419804759394445
+              }
+            },
+            {
+              "segmentId": "adult",
+              "center": 67.20556896842238,
+              "estimate": 67.20556896842238,
+              "low": 37.205568968422384,
+              "high": 81.20556896842238,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 66.82736694251956,
+                "estimate": 66.82736694251956,
+                "low": 52.82736694251956,
+                "high": 80.82736694251956
+              }
+            },
+            {
+              "segmentId": "prestige",
+              "center": 68.42358139408925,
+              "estimate": 68.42358139408925,
+              "low": 38.423581394089254,
+              "high": 82.42358139408925,
+              "expectedBand": "mixed",
+              "confidence": "low",
+              "causalFactors": [
+                "directorSkill",
+                "segmentTaste"
+              ],
+              "uncertaintyFactors": [
+                "unknownLead",
+                "untestedDirectorGenre",
+                "noSegmentHistory"
+              ],
+              "opening": {
+                "center": 68.04537936818642,
+                "estimate": 68.04537936818642,
+                "low": 54.04537936818642,
+                "high": 82.04537936818642
+              }
+            }
+          ],
+          "expectedOpening": 1478905.3124781467,
+          "expectedTotal": 3660763.9475180637,
+          "expectedCriticScore": 51.46525603963963
+        },
+        "participants": {
+          "writer": {
+            "talentId": "t-wri-03",
+            "name": "Vivien Chandra",
+            "role": "writer",
+            "discipline": "writing",
+            "greenlightOVR": 7,
+            "greenlightFit": 36,
+            "greenlightEP": {
+              "low": 22.096055396669925,
+              "high": 53.069623396669925,
+              "expected": 37.582839396669925
+            },
+            "freelancer": false
+          },
+          "director": {
+            "talentId": "t-dir-01",
+            "name": "Spencer Merrick",
+            "role": "director",
+            "discipline": "directing",
+            "greenlightOVR": 67,
+            "greenlightFit": 59,
+            "greenlightEP": {
+              "low": 60.53822709027582,
+              "high": 91.98255509027581,
+              "expected": 76.26039109027582
+            },
+            "freelancer": false
+          },
+          "cast": {
+            "lead": {
+              "talentId": "t-act-09",
+              "name": "Conrad Novak",
+              "role": "lead",
+              "discipline": "acting",
+              "greenlightOVR": 3,
+              "greenlightFit": 40,
+              "greenlightEP": {
+                "low": 16.97407333333333,
+                "high": 48.05158533333333,
+                "expected": 32.51282933333333
+              },
+              "freelancer": false
+            },
+            "antagonist": {
+              "talentId": "t-act-08",
+              "name": "Loretta Mancuso",
+              "role": "antagonist",
+              "discipline": "acting",
+              "greenlightOVR": 23,
+              "greenlightFit": 28,
+              "greenlightEP": {
+                "low": 31.773221959207916,
+                "high": 63.217549959207915,
+                "expected": 47.495385959207916
+              },
+              "freelancer": false
+            },
+            "support": {
+              "talentId": "t-act-12",
+              "name": "Ramon Nakamura",
+              "role": "support",
+              "discipline": "acting",
+              "greenlightOVR": 30,
+              "greenlightFit": 48,
+              "greenlightEP": {
+                "low": 37.52240349730384,
+                "high": 67.37039549730385,
+                "expected": 52.446399497303844
+              },
+              "freelancer": false
+            }
+          },
+          "craft": [
+            {
+              "talentId": "t-cra-01",
+              "name": "Bette Fenwick",
+              "role": "craft",
+              "discipline": "craft",
+              "greenlightOVR": 29,
+              "greenlightFit": 46,
+              "greenlightEP": {
+                "low": 36.022026666666655,
+                "high": 66.99559466666665,
+                "expected": 51.508810666666655
+              },
+              "freelancer": false
+            }
+          ]
+        }
+      },
+      "ownWorkflow": {
+        "productionId": "prod-0052",
+        "phase": "shooting",
+        "reservations": [
+          {
+            "productionId": "prod-0052",
+            "facilityId": "facility-soundstage-07",
+            "capability": "soundstage",
+            "slot": 0,
+            "phase": "shooting"
+          },
+          {
+            "productionId": "prod-0052",
+            "facilityId": "facility-scenery-shop",
+            "capability": "set-scenery",
+            "slot": 0,
+            "phase": "shooting"
+          }
+        ],
+        "shootingTask": {
+          "id": "shooting:prod-0052",
+          "productionId": "prod-0052",
+          "directorId": "t-dir-01",
+          "soundstageFacilityId": "facility-soundstage-07",
+          "status": "unassigned"
+        },
+        "blocker": null,
+        "bindings": {
+          "requiresSetBinding": true,
+          "stageFacilityId": "facility-soundstage-07",
+          "setId": "set-2",
+          "lockedNovelty": 1,
+          "lockedUplift": 7.8999999999999995,
+          "heldSinceWeek": 54
+        },
+        "setup": {
+          "recipeId": "ballroom-reveal-lighting-01",
+          "planRevision": 0,
+          "admittedWeek": 56,
+          "route": "conventional",
+          "adoptionId": null,
+          "equipmentAssetId": null,
+          "stageFacilityId": "facility-soundstage-07",
+          "setId": "set-2",
+          "requiredUnits": 4,
+          "creditedUnits": 4,
+          "lastCreditedWeek": 60,
+          "completedWeek": 60,
+          "priorWork": []
+        },
+        "planRevision": 0
+      }
+    }
+  ],
+  "final": {
+    "actualWeek": 60,
+    "oldPromises": [
+      {
+        "beneficiaryPersonId": "t-act-09",
+        "contractId": "studio-aca408ec-player:contract:t-act-09:52:player-31",
+        "dueWeekExclusive": 92,
+        "evidenceRefs": [],
+        "family": "APPEARANCE_COUNT",
+        "feasibilityReceipt": {
+          "bottleneck": null,
+          "classification": "REASONABLY_ACHIEVABLE",
+          "inputsDigest": "dffb435ac41a7bf8",
+          "rulesVersion": 4,
+          "week": 52
+        },
+        "issuerStudioId": "studio-aca408ec-player",
+        "outcome": "WAIVED",
+        "outcomeCause": "this person accepted the substitute promise \"promise-2\" in place of it",
+        "outcomeEventId": "talent-market-event-6",
+        "outcomeWeek": 60,
+        "predicate": {
+          "count": 1
+        },
+        "progress": 0,
+        "promiseId": "promise-0",
+        "version": 4,
+        "windowStartWeek": 52,
+        "supersededByPromiseId": "promise-2"
+      },
+      {
+        "beneficiaryPersonId": "t-act-08",
+        "contractId": "studio-aca408ec-player:contract:t-act-08:52:player-32",
+        "dueWeekExclusive": 92,
+        "evidenceRefs": [],
+        "family": "APPEARANCE_COUNT",
+        "feasibilityReceipt": {
+          "bottleneck": null,
+          "classification": "REASONABLY_ACHIEVABLE",
+          "inputsDigest": "57ac45bb5049984b",
+          "rulesVersion": 4,
+          "week": 52
+        },
+        "issuerStudioId": "studio-aca408ec-player",
+        "outcome": "WAIVED",
+        "outcomeCause": "this person accepted the substitute promise \"promise-3\" in place of it",
+        "outcomeEventId": "talent-market-event-7",
+        "outcomeWeek": 60,
+        "predicate": {
+          "count": 1
+        },
+        "progress": 0,
+        "promiseId": "promise-1",
+        "version": 4,
+        "windowStartWeek": 52,
+        "supersededByPromiseId": "promise-3"
+      }
+    ],
+    "openSuccessors": [
+      {
+        "promiseId": "promise-2",
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-player",
+        "beneficiaryPersonId": "t-act-09",
+        "windowStartWeek": 81,
+        "dueWeekExclusive": 101,
+        "feasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "d2ac6334a96e1a60",
+          "rulesVersion": 4,
+          "week": 60
+        },
+        "progress": 0,
+        "evidenceRefs": [],
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeCause": null,
+        "outcomeEventId": null,
+        "contractId": "studio-aca408ec-player:contract:t-act-09:52:player-31",
+        "supersededByPromiseId": null,
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        }
+      },
+      {
+        "promiseId": "promise-3",
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-player",
+        "beneficiaryPersonId": "t-act-08",
+        "windowStartWeek": 61,
+        "dueWeekExclusive": 81,
+        "feasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "3aa37104c35e16a2",
+          "rulesVersion": 4,
+          "week": 60
+        },
+        "progress": 0,
+        "evidenceRefs": [],
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeCause": null,
+        "outcomeEventId": null,
+        "contractId": "studio-aca408ec-player:contract:t-act-08:52:player-32",
+        "supersededByPromiseId": null,
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        }
+      }
+    ],
+    "completeMixedSuffix": [
+      {
+        "receipt": {
+          "eventId": "first-take-event-20",
+          "week": 53,
+          "productionId": "studio-aca408ec-r01:film:5",
+          "studioId": "studio-aca408ec-r01",
+          "directorId": "person-studio-aca408ec-r01-1",
+          "cast": {
+            "lead": "person-studio-aca408ec-r01-4",
+            "antagonist": "person-studio-aca408ec-r01-3",
+            "support": "person-studio-aca408ec-r01-2"
+          }
+        },
+        "subject": {
+          "eventId": "first-take-event-20",
+          "conceptId": "studio-aca408ec-r01:concept:5",
+          "genre": "comedy",
+          "scriptProjectId": "script-0005"
+        }
+      },
+      {
+        "receipt": {
+          "eventId": "first-take-event-21",
+          "week": 53,
+          "productionId": "studio-aca408ec-r03:film:5",
+          "studioId": "studio-aca408ec-r03",
+          "directorId": "person-studio-aca408ec-r03-1",
+          "cast": {
+            "lead": "person-studio-aca408ec-r03-3",
+            "antagonist": "person-studio-aca408ec-r03-2",
+            "support": "person-studio-aca408ec-r03-4"
+          }
+        },
+        "subject": {
+          "eventId": "first-take-event-21",
+          "conceptId": "studio-aca408ec-r03:concept:5",
+          "genre": "crime",
+          "scriptProjectId": "script-0005"
+        }
+      },
+      {
+        "receipt": {
+          "eventId": "first-take-event-22",
+          "week": 54,
+          "productionId": "studio-aca408ec-r02:film:5",
+          "studioId": "studio-aca408ec-r02",
+          "directorId": "person-studio-aca408ec-r02-1",
+          "cast": {
+            "lead": "person-studio-aca408ec-r02-4",
+            "antagonist": "person-studio-aca408ec-r02-3",
+            "support": "person-studio-aca408ec-r02-2"
+          }
+        },
+        "subject": {
+          "eventId": "first-take-event-22",
+          "conceptId": "studio-aca408ec-r02:concept:5",
+          "genre": "comedy",
+          "scriptProjectId": "script-0005"
+        }
+      },
+      {
+        "receipt": {
+          "eventId": "first-take-event-23",
+          "week": 57,
+          "productionId": "studio-aca408ec-r04:film:6",
+          "studioId": "studio-aca408ec-r04",
+          "directorId": "person-studio-aca408ec-r04-1",
+          "cast": {
+            "lead": "person-studio-aca408ec-r04-3",
+            "antagonist": "person-studio-aca408ec-r04-2",
+            "support": "person-studio-aca408ec-r04-4"
+          }
+        },
+        "subject": {
+          "eventId": "first-take-event-23",
+          "conceptId": "studio-aca408ec-r04:concept:6",
+          "genre": "romance",
+          "scriptProjectId": "script-0006"
+        }
+      }
+    ],
+    "firstTakeSubjects": {
+      "version": 1,
+      "cutoverOrdinal": 20,
+      "facts": [
+        {
+          "eventId": "first-take-event-20",
+          "conceptId": "studio-aca408ec-r01:concept:5",
+          "genre": "comedy",
+          "scriptProjectId": "script-0005"
+        },
+        {
+          "eventId": "first-take-event-21",
+          "conceptId": "studio-aca408ec-r03:concept:5",
+          "genre": "crime",
+          "scriptProjectId": "script-0005"
+        },
+        {
+          "eventId": "first-take-event-22",
+          "conceptId": "studio-aca408ec-r02:concept:5",
+          "genre": "comedy",
+          "scriptProjectId": "script-0005"
+        },
+        {
+          "eventId": "first-take-event-23",
+          "conceptId": "studio-aca408ec-r04:concept:6",
+          "genre": "romance",
+          "scriptProjectId": "script-0006"
+        }
+      ]
+    },
+    "counters": {
+      "attempted": 8,
+      "reserved": 8,
+      "invoked": 8,
+      "completed": 8,
+      "outside": 0,
+      "actionAttempts": 6,
+      "actionsAccepted": 6,
+      "explicitQuotes": 8,
+      "returnedQuotes": 8
+    },
+    "prospectiveOnly": "No take81, release85, fresh production90, retirement readmission or material offer was performed"
+  },
+  "counters": {
+    "attempted": 8,
+    "reserved": 8,
+    "invoked": 8,
+    "completed": 8,
+    "outside": 0,
+    "actionAttempts": 6,
+    "actionsAccepted": 6,
+    "explicitQuotes": 8,
+    "returnedQuotes": 8,
+    "hardAdvanceAttempts": 8,
+    "hardActions": 6,
+    "hardExplicitQuotes": 8,
+    "historicalPrefixAdvances": 0,
+    "simulationHelperImported": false,
+    "tickDevelopmentOption": "default false",
+    "phases": [
+      {
+        "name": "genuine31-to40:52",
+        "complete": true
+      },
+      {
+        "name": "stock-greenlit52",
+        "complete": true
+      },
+      {
+        "name": "recipe55",
+        "complete": true
+      },
+      {
+        "name": "scheduled60",
+        "complete": true
+      },
+      {
+        "name": "initial-quote-and-first-waiver60",
+        "complete": true
+      },
+      {
+        "name": "compatible-queries-and-second-waiver60",
+        "complete": true
+      },
+      {
+        "name": "incompatible-group-quote60",
+        "complete": true
+      }
+    ],
+    "operations": [
+      {
+        "week": 52,
+        "action": {
+          "kind": "greenlight",
+          "production": {
+            "conceptId": "c-00",
+            "writerId": "t-wri-03",
+            "directorId": "t-dir-01",
+            "cast": {
+              "lead": "t-act-09",
+              "antagonist": "t-act-08",
+              "support": "t-act-12"
+            },
+            "craftIds": [
+              "t-cra-01"
+            ],
+            "shape": {
+              "opening": "slowSetup",
+              "midpoint": "revelation",
+              "ending": "bittersweet"
+            },
+            "promise": {
+              "genre": "comedy",
+              "intendedSegments": [
+                "adult"
+              ],
+              "ranges": {
+                "intimacy": [
+                  -0.5,
+                  0.5
+                ],
+                "tonalWeight": [
+                  -0.5,
+                  0.5
+                ],
+                "kineticEnergy": [
+                  -0.5,
+                  0.5
+                ]
+              }
+            },
+            "budget": {
+              "negative": 4164354.4863039134,
+              "marketing": 0
+            }
+          }
+        },
+        "accepted": true
+      },
+      {
+        "week": 55,
+        "action": {
+          "kind": "setProductionSetupRecipe",
+          "productionId": "prod-0052",
+          "recipeId": "ballroom-reveal-lighting-01",
+          "expectedPlanRevision": 0
+        },
+        "accepted": true
+      },
+      {
+        "week": 60,
+        "action": {
+          "kind": "assignShootingDirector",
+          "productionId": "prod-0052",
+          "directorId": "t-dir-01"
+        },
+        "accepted": true
+      },
+      {
+        "week": 60,
+        "action": {
+          "kind": "scheduleShootingTake",
+          "productionId": "prod-0052"
+        },
+        "accepted": true
+      },
+      {
+        "week": 60,
+        "action": {
+          "kind": "waivePromise",
+          "promiseId": "promise-0",
+          "substitute": {
+            "family": "APPEARANCE_COUNT",
+            "predicate": {
+              "count": 1
+            },
+            "windowStartWeek": 81,
+            "dueWeekExclusive": 101
+          }
+        },
+        "accepted": true
+      },
+      {
+        "week": 60,
+        "action": {
+          "kind": "waivePromise",
+          "promiseId": "promise-1",
+          "substitute": {
+            "family": "APPEARANCE_COUNT",
+            "predicate": {
+              "count": 1
+            },
+            "windowStartWeek": 61,
+            "dueWeekExclusive": 81
+          }
+        },
+        "accepted": true
+      }
+    ],
+    "tickTrace": [
+      {
+        "from": 52,
+        "to": 53,
+        "added": [
+          {
+            "receipt": {
+              "eventId": "first-take-event-20",
+              "week": 53,
+              "productionId": "studio-aca408ec-r01:film:5",
+              "studioId": "studio-aca408ec-r01",
+              "directorId": "person-studio-aca408ec-r01-1",
+              "cast": {
+                "lead": "person-studio-aca408ec-r01-4",
+                "antagonist": "person-studio-aca408ec-r01-3",
+                "support": "person-studio-aca408ec-r01-2"
+              }
+            },
+            "subject": {
+              "eventId": "first-take-event-20",
+              "conceptId": "studio-aca408ec-r01:concept:5",
+              "genre": "comedy",
+              "scriptProjectId": "script-0005"
+            }
+          },
+          {
+            "receipt": {
+              "eventId": "first-take-event-21",
+              "week": 53,
+              "productionId": "studio-aca408ec-r03:film:5",
+              "studioId": "studio-aca408ec-r03",
+              "directorId": "person-studio-aca408ec-r03-1",
+              "cast": {
+                "lead": "person-studio-aca408ec-r03-3",
+                "antagonist": "person-studio-aca408ec-r03-2",
+                "support": "person-studio-aca408ec-r03-4"
+              }
+            },
+            "subject": {
+              "eventId": "first-take-event-21",
+              "conceptId": "studio-aca408ec-r03:concept:5",
+              "genre": "crime",
+              "scriptProjectId": "script-0005"
+            }
+          }
+        ]
+      },
+      {
+        "from": 53,
+        "to": 54,
+        "added": [
+          {
+            "receipt": {
+              "eventId": "first-take-event-22",
+              "week": 54,
+              "productionId": "studio-aca408ec-r02:film:5",
+              "studioId": "studio-aca408ec-r02",
+              "directorId": "person-studio-aca408ec-r02-1",
+              "cast": {
+                "lead": "person-studio-aca408ec-r02-4",
+                "antagonist": "person-studio-aca408ec-r02-3",
+                "support": "person-studio-aca408ec-r02-2"
+              }
+            },
+            "subject": {
+              "eventId": "first-take-event-22",
+              "conceptId": "studio-aca408ec-r02:concept:5",
+              "genre": "comedy",
+              "scriptProjectId": "script-0005"
+            }
+          }
+        ]
+      },
+      {
+        "from": 54,
+        "to": 55,
+        "added": []
+      },
+      {
+        "from": 55,
+        "to": 56,
+        "added": []
+      },
+      {
+        "from": 56,
+        "to": 57,
+        "added": [
+          {
+            "receipt": {
+              "eventId": "first-take-event-23",
+              "week": 57,
+              "productionId": "studio-aca408ec-r04:film:6",
+              "studioId": "studio-aca408ec-r04",
+              "directorId": "person-studio-aca408ec-r04-1",
+              "cast": {
+                "lead": "person-studio-aca408ec-r04-3",
+                "antagonist": "person-studio-aca408ec-r04-2",
+                "support": "person-studio-aca408ec-r04-4"
+              }
+            },
+            "subject": {
+              "eventId": "first-take-event-23",
+              "conceptId": "studio-aca408ec-r04:concept:6",
+              "genre": "romance",
+              "scriptProjectId": "script-0006"
+            }
+          }
+        ]
+      },
+      {
+        "from": 57,
+        "to": 58,
+        "added": []
+      },
+      {
+        "from": 58,
+        "to": 59,
+        "added": []
+      },
+      {
+        "from": 59,
+        "to": 60,
+        "added": []
+      }
+    ]
+  },
+  "timingsSeconds": {
+    "rootRecorder": 35.099,
+    "runtimeRecorder": 15.175,
+    "runtimeVitest": 14.18,
+    "file": 11.145,
+    "leaf": 11.142
+  },
+  "interpretation": [
+    "At actual60, stock prod0052 c00/comedy has actual09/08/12 cast, scheduled/unblocked task, remaining5, no player take or release commitment. All six claims/actual free slots retained.",
+    "Two current bound P1 roots share one actual production. Initial common61/release65 gives Actor09 fresh drama take70 and due90 RA7 d530f13beac9d24e.",
+    "Actual first public P1 waiver to[81,101) moves common take81/release85/fresh90; identical due90 FRAGILE timing8ff9421b7f2acb07; due97 slack7 FRAGILEe5956b52bd40bf60; due98 slack8 RAd969f3118d19532f.",
+    "IdleActor13 due112 stays RA09ad956058635357 while compatible. Actual second P1 waiver to[61,81) leaves each individual window feasible but common81 cannot precede exclusive81; identical idle quote FRAGILE for incompatible witnesses04cd9e63101417ab.",
+    "Both genuine old4 previews RA d2ac6334a96e1a60/3aa37104c35e16a2 use82/94 and62/74 clocks respectively; unchanged old receipts and same contracts retained, two actual successors/new outcome receipts at60.",
+    "Hard8defaultfalse advances52to60,6accepted public actions,8explicit pure quotes,7complete caches. Original20takes retained, entire new suffix4rival facts20to23; no player take.",
+    "Nineteen core leaves qualified across eleven separate selections, not a combined suite."
+  ],
+  "limits": [
+    "Generated historical explicit funding with matching ledger; no producer or prefix replay, no current funding or Owner access.",
+    "No actual61/65/81/85/90, own take/completed film, material recruitment, retirement readmission, rival strategy or general solver/full-suite/native qualification.",
+    "Prior failed stock film-stamp expectation, P3 rivals and historical provenance/parity limits remain in their original immutable records."
+  ],
+  "next": "Begin accepted1278-C casting-session own-reservation exemption: existing1171actual45,3public actions,4pureP5quotes,0advances. IndependentD before parent application/publication and1279types0/1280runtime0. Then1281delayedretirement and1284soundstage.1287queued/refused project-outcome proposal remains future/unreleased. P17 Legacy Sequel classification question pending; settled reboot/Recognition choices adopted.",
+  "observedQuotes": [
+    {
+      "name": "P4-Actor09-original-due90",
+      "actualWeek": 60,
+      "request": {
+        "family": "PREFERRED_GENRE_OPPORTUNITY",
+        "issuerStudioId": "studio-aca408ec-player",
+        "beneficiaryPersonId": "t-act-09",
+        "predicate": {
+          "kind": "genreOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "genre": "drama"
+        },
+        "startWeek": 52,
+        "termWeeks": 52,
+        "windowStartWeek": 60,
+        "dueWeekExclusive": 90
+      },
+      "receipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "d530f13beac9d24e",
+        "rulesVersion": 7,
+        "week": 60
+      },
+      "clock": {
+        "evaluator": 7,
+        "earliestHeldTake": 61,
+        "commonTake": 61,
+        "release": 65,
+        "freshTake": 70
+      },
+      "group": {
+        "held": [
+          {
+            "promiseId": "promise-0",
+            "beneficiaryPersonId": "t-act-09",
+            "contractId": "studio-aca408ec-player:contract:t-act-09:52:player-31",
+            "windowStartWeek": 52,
+            "dueWeekExclusive": 92,
+            "remaining": 1,
+            "individualTake": 61,
+            "candidateProductionIds": [
+              "prod-0052"
+            ]
+          },
+          {
+            "promiseId": "promise-1",
+            "beneficiaryPersonId": "t-act-08",
+            "contractId": "studio-aca408ec-player:contract:t-act-08:52:player-32",
+            "windowStartWeek": 52,
+            "dueWeekExclusive": 92,
+            "remaining": 1,
+            "individualTake": 61,
+            "candidateProductionIds": [
+              "prod-0052"
+            ]
+          }
+        ],
+        "productionId": "prod-0052",
+        "groupCount": 1,
+        "commonTake": 61,
+        "compatible": true,
+        "inCompany": true,
+        "commonRelease": 65,
+        "physicalFresh": 65,
+        "physicalTake": 70,
+        "delayedFresh": 65,
+        "delayedTake": 70
+      },
+      "stateBytes": 824845,
+      "stateSha256": "66b96e4da0d9e3f7b95ce3c9c38e51e0ec29556649df9239fa8d0ae09f0112b9",
+      "selectedIds": [
+        "promise-0",
+        "promise-1"
+      ],
+      "actualSelectionIds": [
+        "promise-0",
+        "promise-1"
+      ],
+      "membershipRows": [
+        {
+          "promiseId": "promise-0",
+          "remaining": 1,
+          "open": true,
+          "unmet": true,
+          "boundOrAttached": true,
+          "overlap": true,
+          "issuerOrPerson": true,
+          "notSelf": true,
+          "selected": true
+        },
+        {
+          "promiseId": "promise-1",
+          "remaining": 1,
+          "open": true,
+          "unmet": true,
+          "boundOrAttached": true,
+          "overlap": true,
+          "issuerOrPerson": true,
+          "notSelf": true,
+          "selected": true
+        }
+      ]
+    },
+    {
+      "name": "P1-preview-promise-0",
+      "actualWeek": 60,
+      "request": {
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "windowStartWeek": 81,
+        "dueWeekExclusive": 101,
+        "issuerStudioId": "studio-aca408ec-player",
+        "beneficiaryPersonId": "t-act-09",
+        "startWeek": 52,
+        "termWeeks": 52,
+        "promiseId": "promise-0"
+      },
+      "receipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "d2ac6334a96e1a60",
+        "rulesVersion": 4,
+        "week": 60
+      },
+      "clock": {
+        "evaluator": 4,
+        "from": 81,
+        "first": 82,
+        "second": 94,
+        "third": 102,
+        "nMax": 2,
+        "buffer": 1,
+        "firstSlack": 19,
+        "existingHeldProduction": "prod-0052",
+        "legacyUnusedStock": true
+      },
+      "group": null,
+      "stateBytes": 824845,
+      "stateSha256": "66b96e4da0d9e3f7b95ce3c9c38e51e0ec29556649df9239fa8d0ae09f0112b9",
+      "selectedIds": [
+        "promise-1"
+      ],
+      "actualSelectionIds": null,
+      "membershipRows": [
+        {
+          "promiseId": "promise-0",
+          "remaining": 1,
+          "open": true,
+          "unmet": true,
+          "boundOrAttached": true,
+          "overlap": true,
+          "issuerOrPerson": true,
+          "notSelf": false,
+          "selected": false
+        },
+        {
+          "promiseId": "promise-1",
+          "remaining": 1,
+          "open": true,
+          "unmet": true,
+          "boundOrAttached": true,
+          "overlap": true,
+          "issuerOrPerson": true,
+          "notSelf": true,
+          "selected": true
+        }
+      ]
+    },
+    {
+      "name": "P4-Actor09-delayed-due90",
+      "actualWeek": 60,
+      "request": {
+        "family": "PREFERRED_GENRE_OPPORTUNITY",
+        "issuerStudioId": "studio-aca408ec-player",
+        "beneficiaryPersonId": "t-act-09",
+        "predicate": {
+          "kind": "genreOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "genre": "drama"
+        },
+        "startWeek": 52,
+        "termWeeks": 52,
+        "windowStartWeek": 60,
+        "dueWeekExclusive": 90
+      },
+      "receipt": {
+        "classification": "FRAGILE",
+        "bottleneck": "committed reservation timing leaves this opportunity uncertain",
+        "inputsDigest": "8ff9421b7f2acb07",
+        "rulesVersion": 7,
+        "week": 60
+      },
+      "clock": {
+        "evaluator": 7,
+        "commonTake": 81,
+        "delayedRelease": 85,
+        "freshTake": 90
+      },
+      "group": {
+        "held": [
+          {
+            "promiseId": "promise-2",
+            "beneficiaryPersonId": "t-act-09",
+            "contractId": "studio-aca408ec-player:contract:t-act-09:52:player-31",
+            "windowStartWeek": 81,
+            "dueWeekExclusive": 101,
+            "remaining": 1,
+            "individualTake": 81,
+            "candidateProductionIds": [
+              "prod-0052"
+            ]
+          },
+          {
+            "promiseId": "promise-1",
+            "beneficiaryPersonId": "t-act-08",
+            "contractId": "studio-aca408ec-player:contract:t-act-08:52:player-32",
+            "windowStartWeek": 52,
+            "dueWeekExclusive": 92,
+            "remaining": 1,
+            "individualTake": 61,
+            "candidateProductionIds": [
+              "prod-0052"
+            ]
+          }
+        ],
+        "productionId": "prod-0052",
+        "groupCount": 1,
+        "commonTake": 81,
+        "compatible": true,
+        "inCompany": true,
+        "commonRelease": 85,
+        "physicalFresh": 65,
+        "physicalTake": 70,
+        "delayedFresh": 85,
+        "delayedTake": 90
+      },
+      "stateBytes": 825728,
+      "stateSha256": "56d28ed24c912ef25e629d56bd862aabb257acebc66edf5bccd4f88bc11a7d00",
+      "selectedIds": [
+        "promise-1",
+        "promise-2"
+      ],
+      "actualSelectionIds": [
+        "promise-1",
+        "promise-2"
+      ],
+      "membershipRows": [
+        {
+          "promiseId": "promise-0",
+          "remaining": 1,
+          "open": false,
+          "unmet": true,
+          "boundOrAttached": true,
+          "overlap": true,
+          "issuerOrPerson": true,
+          "notSelf": true,
+          "selected": false
+        },
+        {
+          "promiseId": "promise-1",
+          "remaining": 1,
+          "open": true,
+          "unmet": true,
+          "boundOrAttached": true,
+          "overlap": true,
+          "issuerOrPerson": true,
+          "notSelf": true,
+          "selected": true
+        },
+        {
+          "promiseId": "promise-2",
+          "remaining": 1,
+          "open": true,
+          "unmet": true,
+          "boundOrAttached": true,
+          "overlap": true,
+          "issuerOrPerson": true,
+          "notSelf": true,
+          "selected": true
+        }
+      ]
+    },
+    {
+      "name": "P4-Actor09-slack7-due97",
+      "actualWeek": 60,
+      "request": {
+        "family": "PREFERRED_GENRE_OPPORTUNITY",
+        "issuerStudioId": "studio-aca408ec-player",
+        "beneficiaryPersonId": "t-act-09",
+        "predicate": {
+          "kind": "genreOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "genre": "drama"
+        },
+        "startWeek": 52,
+        "termWeeks": 52,
+        "windowStartWeek": 60,
+        "dueWeekExclusive": 97
+      },
+      "receipt": {
+        "classification": "FRAGILE",
+        "bottleneck": "the due week leaves too little slack before filming would start",
+        "inputsDigest": "e5956b52bd40bf60",
+        "rulesVersion": 7,
+        "week": 60
+      },
+      "clock": {
+        "evaluator": 7,
+        "commonTake": 81,
+        "freshTake": 90,
+        "slack": 7
+      },
+      "group": {
+        "held": [
+          {
+            "promiseId": "promise-2",
+            "beneficiaryPersonId": "t-act-09",
+            "contractId": "studio-aca408ec-player:contract:t-act-09:52:player-31",
+            "windowStartWeek": 81,
+            "dueWeekExclusive": 101,
+            "remaining": 1,
+            "individualTake": 81,
+            "candidateProductionIds": [
+              "prod-0052"
+            ]
+          },
+          {
+            "promiseId": "promise-1",
+            "beneficiaryPersonId": "t-act-08",
+            "contractId": "studio-aca408ec-player:contract:t-act-08:52:player-32",
+            "windowStartWeek": 52,
+            "dueWeekExclusive": 92,
+            "remaining": 1,
+            "individualTake": 61,
+            "candidateProductionIds": [
+              "prod-0052"
+            ]
+          }
+        ],
+        "productionId": "prod-0052",
+        "groupCount": 1,
+        "commonTake": 81,
+        "compatible": true,
+        "inCompany": true,
+        "commonRelease": 85,
+        "physicalFresh": 65,
+        "physicalTake": 70,
+        "delayedFresh": 85,
+        "delayedTake": 90
+      },
+      "stateBytes": 825728,
+      "stateSha256": "56d28ed24c912ef25e629d56bd862aabb257acebc66edf5bccd4f88bc11a7d00",
+      "selectedIds": [
+        "promise-1",
+        "promise-2"
+      ],
+      "actualSelectionIds": [
+        "promise-1",
+        "promise-2"
+      ],
+      "membershipRows": [
+        {
+          "promiseId": "promise-0",
+          "remaining": 1,
+          "open": false,
+          "unmet": true,
+          "boundOrAttached": true,
+          "overlap": true,
+          "issuerOrPerson": true,
+          "notSelf": true,
+          "selected": false
+        },
+        {
+          "promiseId": "promise-1",
+          "remaining": 1,
+          "open": true,
+          "unmet": true,
+          "boundOrAttached": true,
+          "overlap": true,
+          "issuerOrPerson": true,
+          "notSelf": true,
+          "selected": true
+        },
+        {
+          "promiseId": "promise-2",
+          "remaining": 1,
+          "open": true,
+          "unmet": true,
+          "boundOrAttached": true,
+          "overlap": true,
+          "issuerOrPerson": true,
+          "notSelf": true,
+          "selected": true
+        }
+      ]
+    },
+    {
+      "name": "P4-Actor09-slack8-due98",
+      "actualWeek": 60,
+      "request": {
+        "family": "PREFERRED_GENRE_OPPORTUNITY",
+        "issuerStudioId": "studio-aca408ec-player",
+        "beneficiaryPersonId": "t-act-09",
+        "predicate": {
+          "kind": "genreOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "genre": "drama"
+        },
+        "startWeek": 52,
+        "termWeeks": 52,
+        "windowStartWeek": 60,
+        "dueWeekExclusive": 98
+      },
+      "receipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "d969f3118d19532f",
+        "rulesVersion": 7,
+        "week": 60
+      },
+      "clock": {
+        "evaluator": 7,
+        "commonTake": 81,
+        "freshTake": 90,
+        "slack": 8
+      },
+      "group": {
+        "held": [
+          {
+            "promiseId": "promise-2",
+            "beneficiaryPersonId": "t-act-09",
+            "contractId": "studio-aca408ec-player:contract:t-act-09:52:player-31",
+            "windowStartWeek": 81,
+            "dueWeekExclusive": 101,
+            "remaining": 1,
+            "individualTake": 81,
+            "candidateProductionIds": [
+              "prod-0052"
+            ]
+          },
+          {
+            "promiseId": "promise-1",
+            "beneficiaryPersonId": "t-act-08",
+            "contractId": "studio-aca408ec-player:contract:t-act-08:52:player-32",
+            "windowStartWeek": 52,
+            "dueWeekExclusive": 92,
+            "remaining": 1,
+            "individualTake": 61,
+            "candidateProductionIds": [
+              "prod-0052"
+            ]
+          }
+        ],
+        "productionId": "prod-0052",
+        "groupCount": 1,
+        "commonTake": 81,
+        "compatible": true,
+        "inCompany": true,
+        "commonRelease": 85,
+        "physicalFresh": 65,
+        "physicalTake": 70,
+        "delayedFresh": 85,
+        "delayedTake": 90
+      },
+      "stateBytes": 825728,
+      "stateSha256": "56d28ed24c912ef25e629d56bd862aabb257acebc66edf5bccd4f88bc11a7d00",
+      "selectedIds": [
+        "promise-1",
+        "promise-2"
+      ],
+      "actualSelectionIds": [
+        "promise-1",
+        "promise-2"
+      ],
+      "membershipRows": [
+        {
+          "promiseId": "promise-0",
+          "remaining": 1,
+          "open": false,
+          "unmet": true,
+          "boundOrAttached": true,
+          "overlap": true,
+          "issuerOrPerson": true,
+          "notSelf": true,
+          "selected": false
+        },
+        {
+          "promiseId": "promise-1",
+          "remaining": 1,
+          "open": true,
+          "unmet": true,
+          "boundOrAttached": true,
+          "overlap": true,
+          "issuerOrPerson": true,
+          "notSelf": true,
+          "selected": true
+        },
+        {
+          "promiseId": "promise-2",
+          "remaining": 1,
+          "open": true,
+          "unmet": true,
+          "boundOrAttached": true,
+          "overlap": true,
+          "issuerOrPerson": true,
+          "notSelf": true,
+          "selected": true
+        }
+      ]
+    },
+    {
+      "name": "P4-Actor13-compatible-due112",
+      "actualWeek": 60,
+      "request": {
+        "family": "PREFERRED_GENRE_OPPORTUNITY",
+        "issuerStudioId": "studio-aca408ec-player",
+        "beneficiaryPersonId": "t-act-13",
+        "predicate": {
+          "kind": "genreOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "genre": "drama"
+        },
+        "startWeek": 13,
+        "termWeeks": 208,
+        "windowStartWeek": 60,
+        "dueWeekExclusive": 112
+      },
+      "receipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "09ad956058635357",
+        "rulesVersion": 7,
+        "week": 60
+      },
+      "clock": {
+        "evaluator": 7,
+        "commonTake": 81,
+        "inCompany": false,
+        "freshTake": 65,
+        "slack": 47
+      },
+      "group": {
+        "held": [
+          {
+            "promiseId": "promise-2",
+            "beneficiaryPersonId": "t-act-09",
+            "contractId": "studio-aca408ec-player:contract:t-act-09:52:player-31",
+            "windowStartWeek": 81,
+            "dueWeekExclusive": 101,
+            "remaining": 1,
+            "individualTake": 81,
+            "candidateProductionIds": [
+              "prod-0052"
+            ]
+          },
+          {
+            "promiseId": "promise-1",
+            "beneficiaryPersonId": "t-act-08",
+            "contractId": "studio-aca408ec-player:contract:t-act-08:52:player-32",
+            "windowStartWeek": 52,
+            "dueWeekExclusive": 92,
+            "remaining": 1,
+            "individualTake": 61,
+            "candidateProductionIds": [
+              "prod-0052"
+            ]
+          }
+        ],
+        "productionId": "prod-0052",
+        "groupCount": 1,
+        "commonTake": 81,
+        "compatible": true,
+        "inCompany": false,
+        "commonRelease": 85,
+        "physicalFresh": 60,
+        "physicalTake": 65,
+        "delayedFresh": 60,
+        "delayedTake": 65
+      },
+      "stateBytes": 825728,
+      "stateSha256": "56d28ed24c912ef25e629d56bd862aabb257acebc66edf5bccd4f88bc11a7d00",
+      "selectedIds": [
+        "promise-1",
+        "promise-2"
+      ],
+      "actualSelectionIds": [
+        "promise-1",
+        "promise-2"
+      ],
+      "membershipRows": [
+        {
+          "promiseId": "promise-0",
+          "remaining": 1,
+          "open": false,
+          "unmet": true,
+          "boundOrAttached": true,
+          "overlap": true,
+          "issuerOrPerson": true,
+          "notSelf": true,
+          "selected": false
+        },
+        {
+          "promiseId": "promise-1",
+          "remaining": 1,
+          "open": true,
+          "unmet": true,
+          "boundOrAttached": true,
+          "overlap": true,
+          "issuerOrPerson": true,
+          "notSelf": true,
+          "selected": true
+        },
+        {
+          "promiseId": "promise-2",
+          "remaining": 1,
+          "open": true,
+          "unmet": true,
+          "boundOrAttached": true,
+          "overlap": true,
+          "issuerOrPerson": true,
+          "notSelf": true,
+          "selected": true
+        }
+      ]
+    },
+    {
+      "name": "P1-preview-promise-1",
+      "actualWeek": 60,
+      "request": {
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "windowStartWeek": 61,
+        "dueWeekExclusive": 81,
+        "issuerStudioId": "studio-aca408ec-player",
+        "beneficiaryPersonId": "t-act-08",
+        "startWeek": 52,
+        "termWeeks": 52,
+        "promiseId": "promise-1"
+      },
+      "receipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "3aa37104c35e16a2",
+        "rulesVersion": 4,
+        "week": 60
+      },
+      "clock": {
+        "evaluator": 4,
+        "from": 61,
+        "first": 62,
+        "second": 74,
+        "third": 82,
+        "nMax": 2,
+        "buffer": 1,
+        "firstSlack": 19,
+        "existingHeldProduction": "prod-0052",
+        "legacyUnusedStock": true
+      },
+      "group": null,
+      "stateBytes": 825728,
+      "stateSha256": "56d28ed24c912ef25e629d56bd862aabb257acebc66edf5bccd4f88bc11a7d00",
+      "selectedIds": [],
+      "actualSelectionIds": null,
+      "membershipRows": [
+        {
+          "promiseId": "promise-0",
+          "remaining": 1,
+          "open": false,
+          "unmet": true,
+          "boundOrAttached": true,
+          "overlap": true,
+          "issuerOrPerson": true,
+          "notSelf": true,
+          "selected": false
+        },
+        {
+          "promiseId": "promise-1",
+          "remaining": 1,
+          "open": true,
+          "unmet": true,
+          "boundOrAttached": true,
+          "overlap": true,
+          "issuerOrPerson": true,
+          "notSelf": false,
+          "selected": false
+        },
+        {
+          "promiseId": "promise-2",
+          "remaining": 1,
+          "open": true,
+          "unmet": true,
+          "boundOrAttached": true,
+          "overlap": false,
+          "issuerOrPerson": true,
+          "notSelf": true,
+          "selected": false
+        }
+      ]
+    },
+    {
+      "name": "P4-Actor13-incompatible-due112",
+      "actualWeek": 60,
+      "request": {
+        "family": "PREFERRED_GENRE_OPPORTUNITY",
+        "issuerStudioId": "studio-aca408ec-player",
+        "beneficiaryPersonId": "t-act-13",
+        "predicate": {
+          "kind": "genreOpportunity",
+          "count": 1,
+          "seatClass": "allCast",
+          "genre": "drama"
+        },
+        "startWeek": 13,
+        "termWeeks": 208,
+        "windowStartWeek": 60,
+        "dueWeekExclusive": 112
+      },
+      "receipt": {
+        "classification": "FRAGILE",
+        "bottleneck": "other promises lack compatible committed-seat reservation witnesses",
+        "inputsDigest": "04cd9e63101417ab",
+        "rulesVersion": 7,
+        "week": 60
+      },
+      "clock": {
+        "evaluator": 7,
+        "individualTakes": [
+          81,
+          61
+        ],
+        "commonTake": 81,
+        "firstDue": 101,
+        "secondDue": 81,
+        "freshTake": 65,
+        "slack": 47
+      },
+      "group": {
+        "held": [
+          {
+            "promiseId": "promise-2",
+            "beneficiaryPersonId": "t-act-09",
+            "contractId": "studio-aca408ec-player:contract:t-act-09:52:player-31",
+            "windowStartWeek": 81,
+            "dueWeekExclusive": 101,
+            "remaining": 1,
+            "individualTake": 81,
+            "candidateProductionIds": [
+              "prod-0052"
+            ]
+          },
+          {
+            "promiseId": "promise-3",
+            "beneficiaryPersonId": "t-act-08",
+            "contractId": "studio-aca408ec-player:contract:t-act-08:52:player-32",
+            "windowStartWeek": 61,
+            "dueWeekExclusive": 81,
+            "remaining": 1,
+            "individualTake": 61,
+            "candidateProductionIds": [
+              "prod-0052"
+            ]
+          }
+        ],
+        "productionId": "prod-0052",
+        "groupCount": 1,
+        "commonTake": 81,
+        "compatible": false,
+        "inCompany": false,
+        "commonRelease": 85,
+        "physicalFresh": 60,
+        "physicalTake": 65,
+        "delayedFresh": 60,
+        "delayedTake": 65
+      },
+      "stateBytes": 826610,
+      "stateSha256": "8244df07395c5117a1da82c961d43ff63e5dcd16b41aab50ad8a4eca1ad69be1",
+      "selectedIds": [
+        "promise-2",
+        "promise-3"
+      ],
+      "actualSelectionIds": [
+        "promise-2",
+        "promise-3"
+      ],
+      "membershipRows": [
+        {
+          "promiseId": "promise-0",
+          "remaining": 1,
+          "open": false,
+          "unmet": true,
+          "boundOrAttached": true,
+          "overlap": true,
+          "issuerOrPerson": true,
+          "notSelf": true,
+          "selected": false
+        },
+        {
+          "promiseId": "promise-1",
+          "remaining": 1,
+          "open": false,
+          "unmet": true,
+          "boundOrAttached": true,
+          "overlap": true,
+          "issuerOrPerson": true,
+          "notSelf": true,
+          "selected": false
+        },
+        {
+          "promiseId": "promise-2",
+          "remaining": 1,
+          "open": true,
+          "unmet": true,
+          "boundOrAttached": true,
+          "overlap": true,
+          "issuerOrPerson": true,
+          "notSelf": true,
+          "selected": true
+        },
+        {
+          "promiseId": "promise-3",
+          "remaining": 1,
+          "open": true,
+          "unmet": true,
+          "boundOrAttached": true,
+          "overlap": true,
+          "issuerOrPerson": true,
+          "notSelf": true,
+          "selected": true
+        }
+      ]
+    }
+  ],
+  "completePayloadAuthority": "All full repeated owner/person/claim/promise/selection/production payloads remain in the exact raw429476-byte1277 output pinned above; observedQuotes abbreviates only those repeated bodies after complete parent audit."
+}

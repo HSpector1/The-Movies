@@ -1,0 +1,24 @@
+{
+  "sourceSha": "431b1252edcfba80d5a2fcfa9587e4deb071bc17",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14p4p5-grouped-witness.test.ts",
+    "-t",
+    "Q19 "
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-28T00:15:22.519Z",
+  "end": "2026-09-28T00:15:37.694Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "431b1252edcfba80d5a2fcfa9587e4deb071bc17",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}
