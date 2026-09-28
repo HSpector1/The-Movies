@@ -1,0 +1,589 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/tc
+
+ ❯ |core| tests/p14r3-save-v41.test.ts (16 tests | 1 failed) 13787ms
+   ✓ P14 1305-C Save41: live boundary > makeSave stamps 41 on a freshly generated current campaign 303ms
+   ✓ P14 1305-C Save41: fresh V41 validates (freshly generated, no fixture needed) > a freshly generated current campaign round-trips through validateSaveV41 470ms
+   ✓ P14 1305-C Save41: migrateToV41 dispatch matches the direct converter (chain-entry parity) on each genuine input > week110: migrateToV41 equals convertV40ToV41 on the same genuine input 1721ms
+   ✓ P14 1305-C Save41: migrateToV41 dispatch matches the direct converter (chain-entry parity) on each genuine input > week280: migrateToV41 equals convertV40ToV41 on the same genuine input 1890ms
+   ✓ P14 1305-C Save41: 40->41 migration adds ONLY termination:0 to every period of every rival > genuine week110 (4 rivals x 3 periods) migrates losslessly except for the new key 793ms
+   ✓ P14 1305-C Save41: 40->41 migration adds ONLY termination:0 to every period of every rival > genuine week280 (4 rivals x 6 periods, real nonzero research-kind movements) migrates losslessly except for the new key — "research kinds... preserved exactly" 2209ms
+   ✓ P14 1305-C Save41: frozen readers unchanged (regression pin — already true before V41 exists) > validateSaveV40 still admits the genuine week280 envelope after V41 lands 623ms
+   ✓ P14 1305-C Save41: the player's own termination is not counted as a rival movement (the same-name collision 1306-B raised, witnessed on a genuine input) > week110 has exactly one player termination ledger row and one player termination end receipt; after migration every rival period's termination movement is still 0, and both player-side counts are unchanged 791ms
+   ✓ P14 1305-C Save41: 41->40 downgrade > lossless (byte-identical to the original V40 envelope) for a zero-termination save (genuine week110: 0 rival termination receipts) 661ms
+   ✓ P14 1305-C Save41: 41->40 downgrade > refused, with a message matching /termination/i, when a rival termination movement is nonzero (no matching receipt either — isolates the movement half of the "and" condition) 498ms
+   × P14 1305-C Save41: 41->40 downgrade > refused, with a message matching /termination/i, when a rival termination end receipt exists even though every movement (including the one on that receipt's own period) is left at 0 — isolates the receipt half of the "and" condition 564ms
+     → expected [Function] to throw error matching /termination/i but got 'validateSaveV37: state is invalid — v…'
+   ✓ P14 1305-C Save41: validateSaveV41 tamper refusals (reconciliation) > refuses a forged, unreconciled nonzero termination movement with no matching receipt anywhere for that rival 675ms
+   ✓ P14 1305-C Save41: validateSaveV41 tamper refusals (reconciliation) > refuses a rival termination end receipt without its matching movement (matching movement deliberately left at 0, isolating the receipt-presence check from the movement check above) 512ms
+   ✓ P14 1305-C Save41: migrateToV41 chains from a genuine V38 envelope (multi-hop composition, distinct from the single-hop parity leaves above) > migrateToV41 on a genuine V38 envelope equals convertV40ToV41(migrateToV40(v38)) — no V40/V41-specific fixture needed for this leaf 1878ms
+ ❯ |core| tests/p14r3-rival-release.test.ts (7 tests | 1 failed | 2 skipped) 29852ms
+   ✓ P14 1305-C R3: rival early release — decision and effects (happy path, all four strategy conditions hold) > releases the synthetic-surplus employee exactly at the tested week: charge, movement, end receipt, ordinal removal, freeAgents, signability 2938ms
+   ✓ P14 1305-C R3: one leaf per failed strategy condition keeps the person > condition (b) fails — 26 or fewer weeks remain (still outside the 12-week renewal window): the person is kept 10009ms
+   ✓ P14 1305-C R3: one leaf per failed strategy condition keeps the person > condition (a) fails — seated on the rival's own active production keeps the person (bounded natural search, weeks 1..150, NOT the synthetic rewrite) 628ms
+   × P14 1305-C R3: Scientists are never R3-surplus > a rival with employed Scientists and no surplus team-role employee releases nobody (natural world, no synthetic rewrite) 11302ms
+     → expected 0 to be greater than 0
+   ✓ P14 1305-C R3: no rival exceeds its RIVAL_TEAM_ROLES role targets, and no rival termination receipt appears, on an unmodified generated world > no rival ever exceeds its RIVAL_TEAM_ROLES role counts, and no rival termination receipt appears, across weeks 1..150 on all four founding rivals 4971ms
+ ✓ |core| tests/p14a1-release-busy-set.test.ts (11 tests) 15072ms
+   ✓ P14 1304-C RED: R2 busy-set release refusal (player) + founding-draft refusal > a person seated only on an active research seat is still releasable, and research releases the seat as today (companion §3.4 item 2: research is deliberately excluded from the busy set; corroborated on unchanged production by tests/p13a-research-employment.test.ts) 11780ms
+ ❯ |core| tests/bridge-p14a1-release-busy-set.test.ts (10 tests | 5 failed) 4333ms
+   × P14 1304-C RED (Bridge): R2 seated/founding refusal, schema leaf, release-copy correction > seated director of an active player production > contractActionDecisions reports releaseAvailable:false for the director; the quote refuses with the typed seatedOnActiveProduction code and the 1304-A remedy sentence; the command refuses too, and commits nothing (produces no successor) 102ms
+     → applyActions: greenlight rejected — managed studios must greenlight an authoritative Ready script project
+   × P14 1304-C RED (Bridge): R2 seated/founding refusal, schema leaf, release-copy correction > seated lead of an active player production > contractActionDecisions reports releaseAvailable:false for the lead; the quote refuses with the typed seatedOnActiveProduction code and the 1304-A remedy sentence; the command refuses too, and commits nothing (produces no successor) 47ms
+     → applyActions: greenlight rejected — managed studios must greenlight an authoritative Ready script project
+   × P14 1304-C RED (Bridge): R2 seated/founding refusal, schema leaf, release-copy correction > seated antagonist of an active player production > contractActionDecisions reports releaseAvailable:false for the antagonist; the quote refuses with the typed seatedOnActiveProduction code and the 1304-A remedy sentence; the command refuses too, and commits nothing (produces no successor) 23ms
+     → applyActions: greenlight rejected — managed studios must greenlight an authoritative Ready script project
+   × P14 1304-C RED (Bridge): R2 seated/founding refusal, schema leaf, release-copy correction > seated support of an active player production > contractActionDecisions reports releaseAvailable:false for the support; the quote refuses with the typed seatedOnActiveProduction code and the 1304-A remedy sentence; the command refuses too, and commits nothing (produces no successor) 24ms
+     → applyActions: greenlight rejected — managed studios must greenlight an authoritative Ready script project
+   × P14 1304-C RED (Bridge): R2 seated/founding refusal, schema leaf, release-copy correction > seated craft of an active player production > contractActionDecisions reports releaseAvailable:false for the craft; the quote refuses with the typed seatedOnActiveProduction code and the 1304-A remedy sentence; the command refuses too, and commits nothing (produces no successor) 46ms
+     → applyActions: greenlight rejected — managed studios must greenlight an authoritative Ready script project
+   ✓ P14 1304-C RED (Bridge): R2 seated/founding refusal, schema leaf, release-copy correction > founding draft: contractActionDecisions reports releaseAvailable:false with a founding-keyed reason; the quote refuses with the typed foundingDraft code; the command refuses too, and commits nothing 602ms
+   ✓ P14 1304-C RED (Bridge): R2 seated/founding refusal, schema leaf, release-copy correction > release confirmation copy, no-cap branch (companion §3.4 direction 2): the consequence names "all <remaining> remaining weeks of pay", the exact charge (equal to the full remaining guarantee here), and never the word "half" 3189ms
+ ✓ |core| tests/bridge-p14r2r3-prior55.test.ts (1 test) 6738ms
+   ✓ P14 1308-C: the outgoing projection55 runtime checkpoint migrates to current56, and each Save40 slot migrates to Save41 independently > loadBridgeRuntimeCheckpoint migrates the prior-schema checkpoint, resets runtime authority, and migrates both save slots to V41 with only the new key added 6736ms
+ ❯ |core| tests/bridge-p14b6-relationship-read-models.test.ts (24 tests | 23 failed) 39151ms
+   × family 0 — PREMISES of the engine-built worlds (GREEN control; measured 2026-09-22 at HEAD 43817117) > W1: the real player take at week 61 mints six player edges beside 24 RIVAL-INTERNAL ones on the standard seed 4358ms
+     → validateSaveV38: expected version 38
+   × family 0 — PREMISES of the engine-built worlds (GREEN control; measured 2026-09-22 at HEAD 43817117) > W2: the market re-settlement puts BOTH predicate boundaries on week 104 with the week-61 edge standing 4551ms
+     → validateSaveV38: expected version 38
+   × family 0 — PREMISES of the engine-built worlds (GREEN control; measured 2026-09-22 at HEAD 43817117) > S1/S2/S3 staged roots are VALIDATOR-ADMITTED, and Strained really is sign −1 under the live constants 214ms
+     → validateSaveV38: expected version 38
+   × family 0 — PREMISES of the engine-built worlds (GREEN control; measured 2026-09-22 at HEAD 43817117) > the landed leak law at bridge-p14b5-relationships.test.ts:404-408 is GREEN on unchanged source, so every RED below is attributable to B.6 2818ms
+     → validateSaveV38: expected version 38
+   × family 1 — the PROFILE BLOCK (RED BY RESOLUTION: bridge/relationships.ts is absent) > a block hangs beside `trust` on EVERY profile, with deterministic rows, ladder labels and a sign that agrees with pairChemistry 2703ms
+     → validateSaveV38: expected version 38
+   × family 1 — the PROFILE BLOCK (RED BY RESOLUTION: bridge/relationships.ts is absent) > the block parses against its own schema $def, and the profile still parses whole 2383ms
+     → validateSaveV38: expected version 38
+   × family 2 — DISCLOSURE, the family that matters most (RED BY RESOLUTION) > every boundary the roster-at-W predicate has, on ONE engine-built world: committed AT W is OFF, closed AT W is OFF, spanning W is ON 2184ms
+     → validateSaveV38: expected version 38
+   × family 2 — DISCLOSURE, the family that matters most (RED BY RESOLUTION) > a second, independent closed-AT-W case: releasing a seated person removes the tie in the SAME week 2151ms
+     → validateSaveV38: expected version 38
+   × family 2 — DISCLOSURE, the family that matters most (RED BY RESOLUTION) > a RIVAL-INTERNAL pair appears on NO DTO anywhere, on a world the ENGINE built from a standard seed where such edges demonstrably exist 2539ms
+     → validateSaveV38: expected version 38
+   × family 2 — DISCLOSURE, the family that matters most (RED BY RESOLUTION) > when undisclosed ties exist the block carries an HONEST line with no count and no identity (the presence.withheld precedent, people.ts :351-356) 1910ms
+     → validateSaveV38: expected version 38
+   × family 3 — DRIVERS TEXT and the 694-C Q2 FORWARD CONSTRAINT (RED BY RESOLUTION) > no driver string on any published block carries a digit, on every world this file builds 2049ms
+     → validateSaveV38: expected version 38
+   × family 3 — DRIVERS TEXT and the 694-C Q2 FORWARD CONSTRAINT (RED BY RESOLUTION) > S1 STAGED: one edge holding BOTH a -4 and a -5 sharedFailure renders text IDENTICAL to an edge holding only the -5 2601ms
+     → validateSaveV38: expected version 38
+   × family 4 — CASTING CHEMISTRY ROWS (RED BY RESOLUTION) > the six seatPairs, in seat order, on a real greenlight draft — a pair with no edge reads as no-shared-work, never as a neutral score 51ms
+     → validateSaveV38: expected version 38
+   × family 5 — the CASTING WARNING, Owner ruling 3 (iii) (RED BY RESOLUTION; the −1 edge is S2 STAGED) > exactly one sentence when a seated pair reads −1, none otherwise, and the quote bytes are otherwise identical 73ms
+     → validateSaveV38: expected version 38
+   × family 6 — FACTUAL SHARED-CREDIT COUNTS, Owner ruling 3 (ii) (RED BY RESOLUTION) > `sharedPictures` equals the count derived from firstTakes and released credits, and is never presented as friendship 2885ms
+     → validateSaveV38: expected version 38
+   × family 6 — FACTUAL SHARED-CREDIT COUNTS, Owner ruling 3 (ii) (RED BY RESOLUTION) > S3 the Q3 resumed-campaign shape: a world holding player credits with an EMPTY V31 root shows COUNTS and NO tiers 2567ms
+     → validateSaveV38: expected version 38
+   × family 6 — FACTUAL SHARED-CREDIT COUNTS, Owner ruling 3 (ii) (RED BY RESOLUTION) > the GENUINE pre-V31 artifact (projection-47 savedSaveJson through migrateToV32) publishes no tier at all 2ms
+     → ENOENT: no such file or directory, open '/private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/tc/tests/fixtures/p14/genuine-projection47-runtime/genuine-projection47-runtime.checkpoint.json.gz'
+   × family 7 — the LEAK LAW over the NEW DTOs (RED BY RESOLUTION; the landed :404-408 test stays GREEN UNAMENDED) > no root, record, edge id or rendered delta reaches people, casting or market on any world this file builds 2822ms
+     → validateSaveV38: expected version 38
+   × family 8 — the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here) > projection 52, schema $id projection-52, LIVE_SAVE_VERSION now 37 (Scientist live boundary; B.6 itself has no save step), and the outgoing 48 identity is retired 5ms
+     → expected 56 to be 53 // Object.is equality
+   × family 8 — the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here) > the outgoing 00c0075b… stays registered as projection-v48 and the prior roster contains40 identities through projection51 5ms
+     → expected [ …(44) ] to deeply equal [ …(41) ]
+   × family 8 — the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here) > the checked-in generator artifacts equal the running identity (`--check` clean), and priorityOrder keeps its seven members and its line 13ms
+     → ENOENT: no such file or directory, open '/private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/tc/generated/unity/project-studio-bridge.contract-manifest.json'
+   × family 9 — COMPATIBILITY (RED BY VALUE: the T0 fixture identity is the RUNNING identity today) > the genuine projection-48 checkpoint takes the governed PRIOR path exactly once and both slots land on the live Save (V32, via the governed V31->V32 lift) 1ms
+     → ENOENT: no such file or directory, open '/private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/tc/tests/fixtures/p14/genuine-projection48-runtime/genuine-projection48-runtime.checkpoint.json.gz'
+   × family 9 — COMPATIBILITY (RED BY VALUE: the T0 fixture identity is the RUNNING identity today) > the 45 / 46 / 47 fixtures keep migrating exactly as they do today 1ms
+     → ENOENT: no such file or directory, open '/private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/tc/tests/fixtures/p14/genuine-projection45-runtime.checkpoint.json.gz'
+ ❯ |core| tests/p13b-rival-scientist-staffing.test.ts (2 tests | 2 failed) 11529ms
+   × P13B-S8 rival Scientist staffing witness (1305-F amendment 2 suspected defect) > r01 has an operational Laboratory with real research interest and 4 employed Scientists at week 265 (precondition, cites the already-measured fact) 7005ms
+     → expected [] to have a length of 4 but got +0
+   × P13B-S8 rival Scientist staffing witness (1305-F amendment 2 suspected defect) > the deficit rivalScientistDemand reports is 0 (employed === min(capacity,demanded)) at every affordable week in [265,270] 4521ms
+     → week 265: rival studio-efb645e3-r01 has affordable reserve (cash 127876633.08431976 vs reserve 2079532) but rivalScientistDemand reports a nonzero deficit: expected 4 to be +0 // Object.is equality
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 32 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14a1-release-busy-set.test.ts > P14 1304-C RED (Bridge): R2 seated/founding refusal, schema leaf, release-copy correction > seated director of an active player production > contractActionDecisions reports releaseAvailable:false for the director; the quote refuses with the typed seatedOnActiveProduction code and the 1304-A remedy sentence; the command refuses too, and commits nothing (produces no successor)
+ FAIL |core|  tests/bridge-p14a1-release-busy-set.test.ts > P14 1304-C RED (Bridge): R2 seated/founding refusal, schema leaf, release-copy correction > seated lead of an active player production > contractActionDecisions reports releaseAvailable:false for the lead; the quote refuses with the typed seatedOnActiveProduction code and the 1304-A remedy sentence; the command refuses too, and commits nothing (produces no successor)
+ FAIL |core|  tests/bridge-p14a1-release-busy-set.test.ts > P14 1304-C RED (Bridge): R2 seated/founding refusal, schema leaf, release-copy correction > seated antagonist of an active player production > contractActionDecisions reports releaseAvailable:false for the antagonist; the quote refuses with the typed seatedOnActiveProduction code and the 1304-A remedy sentence; the command refuses too, and commits nothing (produces no successor)
+ FAIL |core|  tests/bridge-p14a1-release-busy-set.test.ts > P14 1304-C RED (Bridge): R2 seated/founding refusal, schema leaf, release-copy correction > seated support of an active player production > contractActionDecisions reports releaseAvailable:false for the support; the quote refuses with the typed seatedOnActiveProduction code and the 1304-A remedy sentence; the command refuses too, and commits nothing (produces no successor)
+ FAIL |core|  tests/bridge-p14a1-release-busy-set.test.ts > P14 1304-C RED (Bridge): R2 seated/founding refusal, schema leaf, release-copy correction > seated craft of an active player production > contractActionDecisions reports releaseAvailable:false for the craft; the quote refuses with the typed seatedOnActiveProduction code and the 1304-A remedy sentence; the command refuses too, and commits nothing (produces no successor)
+Error: applyActions: greenlight rejected — managed studios must greenlight an authoritative Ready script project
+ ❯ Module.requireGreenlightHeader src/core/productionAdmission.ts:108:13
+    106|   if (facts.development.mode === 'managed') {
+    107|     if (scriptProject === undefined || scriptProject.status !== 'ready…
+    108|       throw new Error(
+       |             ^
+    109|         'applyActions: greenlight rejected — managed studios must gree…
+    110|       )
+ ❯ applyGreenlight src/core/actions.ts:305:38
+ ❯ Module.applyActions src/core/actions.ts:2945:16
+ ❯ seatedFixture tests/bridge-p14a1-release-busy-set.test.ts:148:11
+ ❯ tests/bridge-p14a1-release-busy-set.test.ts:201:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/32]⎯
+
+ FAIL |core|  tests/bridge-p14b6-relationship-read-models.test.ts > family 0 — PREMISES of the engine-built worlds (GREEN control; measured 2026-09-22 at HEAD 43817117) > W1: the real player take at week 61 mints six player edges beside 24 RIVAL-INTERNAL ones on the standard seed
+Error: validateSaveV38: expected version 38
+ ❯ proveProfessionSave src/core/save.ts:10343:43
+    10341|   if (!isRecord(save)) throw new Error(`validateSaveV${version}: objec…
+    10342|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10343|   if (save.saveVersion !== version) throw new Error(`validateSaveV${ve…
+       |                                           ^
+    10344|   const raw = v14Record(checkEnvelope(save, `validateSaveV${version}`)…
+    10345|   validateTalentProvenanceRoot(raw);
+ ❯ Module.validateSaveV38 src/core/save.ts:10357:10
+ ❯ Module.retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ w1 tests/bridge-p14b6-relationship-read-models.test.ts:236:40
+ ❯ tests/bridge-p14b6-relationship-read-models.test.ts:297:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/32]⎯
+
+ FAIL |core|  tests/bridge-p14b6-relationship-read-models.test.ts > family 0 — PREMISES of the engine-built worlds (GREEN control; measured 2026-09-22 at HEAD 43817117) > W2: the market re-settlement puts BOTH predicate boundaries on week 104 with the week-61 edge standing
+Error: validateSaveV38: expected version 38
+ ❯ proveProfessionSave src/core/save.ts:10343:43
+    10341|   if (!isRecord(save)) throw new Error(`validateSaveV${version}: objec…
+    10342|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10343|   if (save.saveVersion !== version) throw new Error(`validateSaveV${ve…
+       |                                           ^
+    10344|   const raw = v14Record(checkEnvelope(save, `validateSaveV${version}`)…
+    10345|   validateTalentProvenanceRoot(raw);
+ ❯ Module.validateSaveV38 src/core/save.ts:10357:10
+ ❯ retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ Module.historyFixture tests/helpers/p14b2-fixtures.ts:130:19
+ ❯ tests/bridge-p14b6-relationship-read-models.test.ts:319:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/32]⎯
+
+ FAIL |core|  tests/bridge-p14b6-relationship-read-models.test.ts > family 0 — PREMISES of the engine-built worlds (GREEN control; measured 2026-09-22 at HEAD 43817117) > S1/S2/S3 staged roots are VALIDATOR-ADMITTED, and Strained really is sign −1 under the live constants
+Error: validateSaveV38: expected version 38
+ ❯ proveProfessionSave src/core/save.ts:10343:43
+    10341|   if (!isRecord(save)) throw new Error(`validateSaveV${version}: objec…
+    10342|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10343|   if (save.saveVersion !== version) throw new Error(`validateSaveV${ve…
+       |                                           ^
+    10344|   const raw = v14Record(checkEnvelope(save, `validateSaveV${version}`)…
+    10345|   validateTalentProvenanceRoot(raw);
+ ❯ Module.validateSaveV38 src/core/save.ts:10357:10
+ ❯ admitted tests/bridge-p14b6-relationship-read-models.test.ts:224:3
+ ❯ stageEdge tests/bridge-p14b6-relationship-read-models.test.ts:286:10
+ ❯ tests/bridge-p14b6-relationship-read-models.test.ts:350:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/32]⎯
+
+ FAIL |core|  tests/bridge-p14b6-relationship-read-models.test.ts > family 0 — PREMISES of the engine-built worlds (GREEN control; measured 2026-09-22 at HEAD 43817117) > the landed leak law at bridge-p14b5-relationships.test.ts:404-408 is GREEN on unchanged source, so every RED below is attributable to B.6
+Error: validateSaveV38: expected version 38
+ ❯ proveProfessionSave src/core/save.ts:10343:43
+    10341|   if (!isRecord(save)) throw new Error(`validateSaveV${version}: objec…
+    10342|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10343|   if (save.saveVersion !== version) throw new Error(`validateSaveV${ve…
+       |                                           ^
+    10344|   const raw = v14Record(checkEnvelope(save, `validateSaveV${version}`)…
+    10345|   validateTalentProvenanceRoot(raw);
+ ❯ Module.validateSaveV38 src/core/save.ts:10357:10
+ ❯ Module.retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ w1 tests/bridge-p14b6-relationship-read-models.test.ts:236:40
+ ❯ tests/bridge-p14b6-relationship-read-models.test.ts:371:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/32]⎯
+
+ FAIL |core|  tests/bridge-p14b6-relationship-read-models.test.ts > family 1 — the PROFILE BLOCK (RED BY RESOLUTION: bridge/relationships.ts is absent) > a block hangs beside `trust` on EVERY profile, with deterministic rows, ladder labels and a sign that agrees with pairChemistry
+Error: validateSaveV38: expected version 38
+ ❯ proveProfessionSave src/core/save.ts:10343:43
+    10341|   if (!isRecord(save)) throw new Error(`validateSaveV${version}: objec…
+    10342|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10343|   if (save.saveVersion !== version) throw new Error(`validateSaveV${ve…
+       |                                           ^
+    10344|   const raw = v14Record(checkEnvelope(save, `validateSaveV${version}`)…
+    10345|   validateTalentProvenanceRoot(raw);
+ ❯ Module.validateSaveV38 src/core/save.ts:10357:10
+ ❯ Module.retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ w1 tests/bridge-p14b6-relationship-read-models.test.ts:236:40
+ ❯ tests/bridge-p14b6-relationship-read-models.test.ts:382:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/32]⎯
+
+ FAIL |core|  tests/bridge-p14b6-relationship-read-models.test.ts > family 1 — the PROFILE BLOCK (RED BY RESOLUTION: bridge/relationships.ts is absent) > the block parses against its own schema $def, and the profile still parses whole
+Error: validateSaveV38: expected version 38
+ ❯ proveProfessionSave src/core/save.ts:10343:43
+    10341|   if (!isRecord(save)) throw new Error(`validateSaveV${version}: objec…
+    10342|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10343|   if (save.saveVersion !== version) throw new Error(`validateSaveV${ve…
+       |                                           ^
+    10344|   const raw = v14Record(checkEnvelope(save, `validateSaveV${version}`)…
+    10345|   validateTalentProvenanceRoot(raw);
+ ❯ Module.validateSaveV38 src/core/save.ts:10357:10
+ ❯ Module.retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ w1 tests/bridge-p14b6-relationship-read-models.test.ts:236:40
+ ❯ tests/bridge-p14b6-relationship-read-models.test.ts:415:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/32]⎯
+
+ FAIL |core|  tests/bridge-p14b6-relationship-read-models.test.ts > family 2 — DISCLOSURE, the family that matters most (RED BY RESOLUTION) > every boundary the roster-at-W predicate has, on ONE engine-built world: committed AT W is OFF, closed AT W is OFF, spanning W is ON
+Error: validateSaveV38: expected version 38
+ ❯ proveProfessionSave src/core/save.ts:10343:43
+    10341|   if (!isRecord(save)) throw new Error(`validateSaveV${version}: objec…
+    10342|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10343|   if (save.saveVersion !== version) throw new Error(`validateSaveV${ve…
+       |                                           ^
+    10344|   const raw = v14Record(checkEnvelope(save, `validateSaveV${version}`)…
+    10345|   validateTalentProvenanceRoot(raw);
+ ❯ Module.validateSaveV38 src/core/save.ts:10357:10
+ ❯ retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ Module.historyFixture tests/helpers/p14b2-fixtures.ts:130:19
+ ❯ tests/bridge-p14b6-relationship-read-models.test.ts:431:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/32]⎯
+
+ FAIL |core|  tests/bridge-p14b6-relationship-read-models.test.ts > family 2 — DISCLOSURE, the family that matters most (RED BY RESOLUTION) > a second, independent closed-AT-W case: releasing a seated person removes the tie in the SAME week
+Error: validateSaveV38: expected version 38
+ ❯ proveProfessionSave src/core/save.ts:10343:43
+    10341|   if (!isRecord(save)) throw new Error(`validateSaveV${version}: objec…
+    10342|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10343|   if (save.saveVersion !== version) throw new Error(`validateSaveV${ve…
+       |                                           ^
+    10344|   const raw = v14Record(checkEnvelope(save, `validateSaveV${version}`)…
+    10345|   validateTalentProvenanceRoot(raw);
+ ❯ Module.validateSaveV38 src/core/save.ts:10357:10
+ ❯ Module.retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ w1 tests/bridge-p14b6-relationship-read-models.test.ts:236:40
+ ❯ tests/bridge-p14b6-relationship-read-models.test.ts:461:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/32]⎯
+
+ FAIL |core|  tests/bridge-p14b6-relationship-read-models.test.ts > family 2 — DISCLOSURE, the family that matters most (RED BY RESOLUTION) > a RIVAL-INTERNAL pair appears on NO DTO anywhere, on a world the ENGINE built from a standard seed where such edges demonstrably exist
+Error: validateSaveV38: expected version 38
+ ❯ proveProfessionSave src/core/save.ts:10343:43
+    10341|   if (!isRecord(save)) throw new Error(`validateSaveV${version}: objec…
+    10342|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10343|   if (save.saveVersion !== version) throw new Error(`validateSaveV${ve…
+       |                                           ^
+    10344|   const raw = v14Record(checkEnvelope(save, `validateSaveV${version}`)…
+    10345|   validateTalentProvenanceRoot(raw);
+ ❯ Module.validateSaveV38 src/core/save.ts:10357:10
+ ❯ Module.retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ w1 tests/bridge-p14b6-relationship-read-models.test.ts:236:40
+ ❯ tests/bridge-p14b6-relationship-read-models.test.ts:489:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/32]⎯
+
+ FAIL |core|  tests/bridge-p14b6-relationship-read-models.test.ts > family 2 — DISCLOSURE, the family that matters most (RED BY RESOLUTION) > when undisclosed ties exist the block carries an HONEST line with no count and no identity (the presence.withheld precedent, people.ts :351-356)
+Error: validateSaveV38: expected version 38
+ ❯ proveProfessionSave src/core/save.ts:10343:43
+    10341|   if (!isRecord(save)) throw new Error(`validateSaveV${version}: objec…
+    10342|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10343|   if (save.saveVersion !== version) throw new Error(`validateSaveV${ve…
+       |                                           ^
+    10344|   const raw = v14Record(checkEnvelope(save, `validateSaveV${version}`)…
+    10345|   validateTalentProvenanceRoot(raw);
+ ❯ Module.validateSaveV38 src/core/save.ts:10357:10
+ ❯ Module.retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ w1 tests/bridge-p14b6-relationship-read-models.test.ts:236:40
+ ❯ tests/bridge-p14b6-relationship-read-models.test.ts:526:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/32]⎯
+
+ FAIL |core|  tests/bridge-p14b6-relationship-read-models.test.ts > family 3 — DRIVERS TEXT and the 694-C Q2 FORWARD CONSTRAINT (RED BY RESOLUTION) > no driver string on any published block carries a digit, on every world this file builds
+Error: validateSaveV38: expected version 38
+ ❯ proveProfessionSave src/core/save.ts:10343:43
+    10341|   if (!isRecord(save)) throw new Error(`validateSaveV${version}: objec…
+    10342|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10343|   if (save.saveVersion !== version) throw new Error(`validateSaveV${ve…
+       |                                           ^
+    10344|   const raw = v14Record(checkEnvelope(save, `validateSaveV${version}`)…
+    10345|   validateTalentProvenanceRoot(raw);
+ ❯ Module.validateSaveV38 src/core/save.ts:10357:10
+ ❯ Module.retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ w1 tests/bridge-p14b6-relationship-read-models.test.ts:236:40
+ ❯ tests/bridge-p14b6-relationship-read-models.test.ts:553:54
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/32]⎯
+
+ FAIL |core|  tests/bridge-p14b6-relationship-read-models.test.ts > family 3 — DRIVERS TEXT and the 694-C Q2 FORWARD CONSTRAINT (RED BY RESOLUTION) > S1 STAGED: one edge holding BOTH a -4 and a -5 sharedFailure renders text IDENTICAL to an edge holding only the -5
+Error: validateSaveV38: expected version 38
+ ❯ proveProfessionSave src/core/save.ts:10343:43
+    10341|   if (!isRecord(save)) throw new Error(`validateSaveV${version}: objec…
+    10342|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10343|   if (save.saveVersion !== version) throw new Error(`validateSaveV${ve…
+       |                                           ^
+    10344|   const raw = v14Record(checkEnvelope(save, `validateSaveV${version}`)…
+    10345|   validateTalentProvenanceRoot(raw);
+ ❯ Module.validateSaveV38 src/core/save.ts:10357:10
+ ❯ Module.retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ w1 tests/bridge-p14b6-relationship-read-models.test.ts:236:40
+ ❯ tests/bridge-p14b6-relationship-read-models.test.ts:569:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/32]⎯
+
+ FAIL |core|  tests/bridge-p14b6-relationship-read-models.test.ts > family 4 — CASTING CHEMISTRY ROWS (RED BY RESOLUTION) > the six seatPairs, in seat order, on a real greenlight draft — a pair with no edge reads as no-shared-work, never as a neutral score
+Error: validateSaveV38: expected version 38
+ ❯ proveProfessionSave src/core/save.ts:10343:43
+    10341|   if (!isRecord(save)) throw new Error(`validateSaveV${version}: objec…
+    10342|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10343|   if (save.saveVersion !== version) throw new Error(`validateSaveV${ve…
+       |                                           ^
+    10344|   const raw = v14Record(checkEnvelope(save, `validateSaveV${version}`)…
+    10345|   validateTalentProvenanceRoot(raw);
+ ❯ Module.validateSaveV38 src/core/save.ts:10357:10
+ ❯ admitted tests/bridge-p14b6-relationship-read-models.test.ts:224:3
+ ❯ stageEdge tests/bridge-p14b6-relationship-read-models.test.ts:286:10
+ ❯ tests/bridge-p14b6-relationship-read-models.test.ts:628:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/32]⎯
+
+ FAIL |core|  tests/bridge-p14b6-relationship-read-models.test.ts > family 5 — the CASTING WARNING, Owner ruling 3 (iii) (RED BY RESOLUTION; the −1 edge is S2 STAGED) > exactly one sentence when a seated pair reads −1, none otherwise, and the quote bytes are otherwise identical
+Error: validateSaveV38: expected version 38
+ ❯ proveProfessionSave src/core/save.ts:10343:43
+    10341|   if (!isRecord(save)) throw new Error(`validateSaveV${version}: objec…
+    10342|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10343|   if (save.saveVersion !== version) throw new Error(`validateSaveV${ve…
+       |                                           ^
+    10344|   const raw = v14Record(checkEnvelope(save, `validateSaveV${version}`)…
+    10345|   validateTalentProvenanceRoot(raw);
+ ❯ Module.validateSaveV38 src/core/save.ts:10357:10
+ ❯ admitted tests/bridge-p14b6-relationship-read-models.test.ts:224:3
+ ❯ stageEdge tests/bridge-p14b6-relationship-read-models.test.ts:286:10
+ ❯ tests/bridge-p14b6-relationship-read-models.test.ts:656:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/32]⎯
+
+ FAIL |core|  tests/bridge-p14b6-relationship-read-models.test.ts > family 6 — FACTUAL SHARED-CREDIT COUNTS, Owner ruling 3 (ii) (RED BY RESOLUTION) > `sharedPictures` equals the count derived from firstTakes and released credits, and is never presented as friendship
+Error: validateSaveV38: expected version 38
+ ❯ proveProfessionSave src/core/save.ts:10343:43
+    10341|   if (!isRecord(save)) throw new Error(`validateSaveV${version}: objec…
+    10342|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10343|   if (save.saveVersion !== version) throw new Error(`validateSaveV${ve…
+       |                                           ^
+    10344|   const raw = v14Record(checkEnvelope(save, `validateSaveV${version}`)…
+    10345|   validateTalentProvenanceRoot(raw);
+ ❯ Module.validateSaveV38 src/core/save.ts:10357:10
+ ❯ Module.retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ w1 tests/bridge-p14b6-relationship-read-models.test.ts:236:40
+ ❯ tests/bridge-p14b6-relationship-read-models.test.ts:694:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/32]⎯
+
+ FAIL |core|  tests/bridge-p14b6-relationship-read-models.test.ts > family 6 — FACTUAL SHARED-CREDIT COUNTS, Owner ruling 3 (ii) (RED BY RESOLUTION) > S3 the Q3 resumed-campaign shape: a world holding player credits with an EMPTY V31 root shows COUNTS and NO tiers
+Error: validateSaveV38: expected version 38
+ ❯ proveProfessionSave src/core/save.ts:10343:43
+    10341|   if (!isRecord(save)) throw new Error(`validateSaveV${version}: objec…
+    10342|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10343|   if (save.saveVersion !== version) throw new Error(`validateSaveV${ve…
+       |                                           ^
+    10344|   const raw = v14Record(checkEnvelope(save, `validateSaveV${version}`)…
+    10345|   validateTalentProvenanceRoot(raw);
+ ❯ Module.validateSaveV38 src/core/save.ts:10357:10
+ ❯ Module.retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ w1 tests/bridge-p14b6-relationship-read-models.test.ts:236:40
+ ❯ tests/bridge-p14b6-relationship-read-models.test.ts:713:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/32]⎯
+
+ FAIL |core|  tests/bridge-p14b6-relationship-read-models.test.ts > family 6 — FACTUAL SHARED-CREDIT COUNTS, Owner ruling 3 (ii) (RED BY RESOLUTION) > the GENUINE pre-V31 artifact (projection-47 savedSaveJson through migrateToV32) publishes no tier at all
+Error: ENOENT: no such file or directory, open '/private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/tc/tests/fixtures/p14/genuine-projection47-runtime/genuine-projection47-runtime.checkpoint.json.gz'
+ ❯ tests/bridge-p14b6-relationship-read-models.test.ts:731:24
+    729|   it('the GENUINE pre-V31 artifact (projection-47 savedSaveJson throug…
+    730|     await requireModule()
+    731|     const compressed = readFileSync(artifact('genuine-projection47-run…
+       |                        ^
+    732|     expect(sha(compressed)).toBe(PRIOR_47.gz)
+    733|     const prior = JSON.parse(gunzipSync(compressed).toString('utf8')) …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/32]⎯
+
+ FAIL |core|  tests/bridge-p14b6-relationship-read-models.test.ts > family 7 — the LEAK LAW over the NEW DTOs (RED BY RESOLUTION; the landed :404-408 test stays GREEN UNAMENDED) > no root, record, edge id or rendered delta reaches people, casting or market on any world this file builds
+Error: validateSaveV38: expected version 38
+ ❯ proveProfessionSave src/core/save.ts:10343:43
+    10341|   if (!isRecord(save)) throw new Error(`validateSaveV${version}: objec…
+    10342|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10343|   if (save.saveVersion !== version) throw new Error(`validateSaveV${ve…
+       |                                           ^
+    10344|   const raw = v14Record(checkEnvelope(save, `validateSaveV${version}`)…
+    10345|   validateTalentProvenanceRoot(raw);
+ ❯ Module.validateSaveV38 src/core/save.ts:10357:10
+ ❯ Module.retentionFixture tests/helpers/p14b2-fixtures.ts:122:3
+ ❯ w1 tests/bridge-p14b6-relationship-read-models.test.ts:236:40
+ ❯ tests/bridge-p14b6-relationship-read-models.test.ts:749:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/32]⎯
+
+ FAIL |core|  tests/bridge-p14b6-relationship-read-models.test.ts > family 8 — the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here) > projection 52, schema $id projection-52, LIVE_SAVE_VERSION now 37 (Scientist live boundary; B.6 itself has no save step), and the outgoing 48 identity is retired
+AssertionError: expected 56 to be 53 // Object.is equality
+
+- Expected
++ Received
+
+- 53
++ 56
+
+ ❯ tests/bridge-p14b6-relationship-read-models.test.ts:772:32
+    770|   it('projection 52, schema $id projection-52, LIVE_SAVE_VERSION now 3…
+    771|     expect(PROTOCOL_VERSION).toBe(4)
+    772|     expect(PROJECTION_VERSION).toBe(INCOMING_PROJECTION)
+       |                                ^
+    773|     expect(OUTGOING_PROJECTION).toBe(48)
+    774|     expect(LIVE_SAVE_VERSION).toBe(40) // B.6 has NO save step
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/32]⎯
+
+ FAIL |core|  tests/bridge-p14b6-relationship-read-models.test.ts > family 8 — the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here) > the outgoing 00c0075b… stays registered as projection-v48 and the prior roster contains40 identities through projection51
+AssertionError: expected [ …(44) ] to deeply equal [ …(41) ]
+
+- Expected
++ Received
+
+  Array [
+    "sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec",
+    "sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e",
+    "sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f25db55b5",
+    "sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f",
+    "sha256:15033cf9ca43be65abcb25fc6f910f9487ac23056090126ec7d3e2353f6ce587",
+    "sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78",
+    "sha256:1bad05a95c284e64ceaef54c276f2dd0ccad8ca3ef1b12198068bb61b85198c9",
+    "sha256:204a71924bd8c2e8ae9af47591226894b3e42f62457da3cc20ed6b106ede611a",
+    "sha256:2b339a6a8b3e5add0726b7eaac9ce8746e235d8b6111a6816f890ff56afdffd1",
++   "sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158",
+    "sha256:510f08e4a551827a30e0f3d93bbe09fa5ddadbd39366b4dcfa93530500c7979c",
+    "sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c",
+    "sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d",
+    "sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b",
+    "sha256:625377a2804a681da3be209da02850e221ae33ac5f58b727f6395736ad607ad1",
+    "sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9",
+    "sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538",
+    "sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b",
+    "sha256:7e3af4db0d3d18cdeaab00082e0034f304a9141f46ea87e9e64e5a99d985483c",
+    "sha256:80f2f0fcd14d1b25e713c2624286a6c05a98c53ea5cfcb2b47612f8c030f5e47",
+    "sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236",
+    "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+    "sha256:92317ec179456cdc5bd5cc7c4ca47dd066b768a9e2e45519f1263ef921a211a4",
+    "sha256:97940e51e0566bed80231b223e5b7303a45d62db8d698f693e525eb244775211",
++   "sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302",
+    "sha256:a481d14f3810ffbafcba2bbf509db7340263f3f0fd665a059507a1567d98923d",
+    "sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f",
+    "sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b",
+    "sha256:b779faa92227bd1f2e623ad04d0899c87e7ddc60ce43f9ae9c39a7626c20a83d",
+    "sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f",
+    "sha256:be7ed660d04ed9b1056f48e946f86f26c10cab42b950a273d57ad9cba372f5bb",
+    "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+    "sha256:c9c07d6febe4afee7f7c27c991acdfa1c86b6c3a7f5dff8528d7fa5ad72e43a1",
+    "sha256:c9dad9f3d8bb94445db1a5425d90db3f9894da9354f47a07992ff96261cfc399",
+    "sha256:d3338cb713385cc23414e6a17293a5900871764f0eeaed19698e17634e74740b",
++   "sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d",
+    "sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99",
+    "sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698",
+    "sha256:e64a3b659e4247b98631f1caa1f0e9eb0b6016aac92b0f46be590360ff9cee48",
+    "sha256:ea5d645f34a472f4710b9273b225d6f15433d6d17ae8ed1af3c03686a225c8c4",
+    "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+    "sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2",
+    "sha256:f84ae77ec59a0d7ca7cdd89115456504ddecbde2c6e3839936e4951bd65bce61",
+    "sha256:fe9bf4558dc12abc5f258ba8b8f581242e06361cfbae8ae31d8c676f6c7a6460",
+  ]
+
+ ❯ tests/bridge-p14b6-relationship-read-models.test.ts:786:70
+    784|     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(…
+    785|     expect(EXPECTED_36_PRIOR_IDS).toHaveLength(36)
+    786|     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).t…
+       |                                                                      ^
+    787|     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toB…
+    788|     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toB…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/32]⎯
+
+ FAIL |core|  tests/bridge-p14b6-relationship-read-models.test.ts > family 8 — the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here) > the checked-in generator artifacts equal the running identity (`--check` clean), and priorityOrder keeps its seven members and its line
+Error: ENOENT: no such file or directory, open '/private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/tc/generated/unity/project-studio-bridge.contract-manifest.json'
+ ❯ tests/bridge-p14b6-relationship-read-models.test.ts:794:33
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/32]⎯
+
+ FAIL |core|  tests/bridge-p14b6-relationship-read-models.test.ts > family 9 — COMPATIBILITY (RED BY VALUE: the T0 fixture identity is the RUNNING identity today) > the genuine projection-48 checkpoint takes the governed PRIOR path exactly once and both slots land on the live Save (V32, via the governed V31->V32 lift)
+Error: ENOENT: no such file or directory, open '/private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/tc/tests/fixtures/p14/genuine-projection48-runtime/genuine-projection48-runtime.checkpoint.json.gz'
+ ❯ tests/bridge-p14b6-relationship-read-models.test.ts:817:24
+    815| describe('family 9 — COMPATIBILITY (RED BY VALUE: the T0 fixture ident…
+    816|   it('the genuine projection-48 checkpoint takes the governed PRIOR pa…
+    817|     const compressed = readFileSync(artifact('genuine-projection48-run…
+       |                        ^
+    818|     expect(sha(compressed)).toBe(T0_48.gz)
+    819|     const raw = gunzipSync(compressed).toString('utf8')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/32]⎯
+
+ FAIL |core|  tests/bridge-p14b6-relationship-read-models.test.ts > family 9 — COMPATIBILITY (RED BY VALUE: the T0 fixture identity is the RUNNING identity today) > the 45 / 46 / 47 fixtures keep migrating exactly as they do today
+Error: ENOENT: no such file or directory, open '/private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/tc/tests/fixtures/p14/genuine-projection45-runtime.checkpoint.json.gz'
+ ❯ tests/bridge-p14b6-relationship-read-models.test.ts:853:26
+    851|     ]
+    852|     for (const [path, gz] of pins) {
+    853|       const compressed = readFileSync(artifact(path))
+       |                          ^
+    854|       expect(sha(compressed), `${path} bytes moved`).toBe(gz)
+    855|       const raw = gunzipSync(compressed).toString('utf8')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/32]⎯
+
+ FAIL |core|  tests/p13b-rival-scientist-staffing.test.ts > P13B-S8 rival Scientist staffing witness (1305-F amendment 2 suspected defect) > r01 has an operational Laboratory with real research interest and 4 employed Scientists at week 265 (precondition, cites the already-measured fact)
+AssertionError: expected [] to have a length of 4 but got +0
+
+- Expected
++ Received
+
+- 4
++ 0
+
+ ❯ tests/p13b-rival-scientist-staffing.test.ts:83:34
+     81|       .filter((e) => e.studioId === r01.studioId && state.talent.find(…
+     82|       .map((e) => e.terms.talentId)
+     83|     expect(employedScientistIds).toHaveLength(4) // the cited measured…
+       |                                  ^
+     84|   })
+     85| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/32]⎯
+
+ FAIL |core|  tests/p13b-rival-scientist-staffing.test.ts > P13B-S8 rival Scientist staffing witness (1305-F amendment 2 suspected defect) > the deficit rivalScientistDemand reports is 0 (employed === min(capacity,demanded)) at every affordable week in [265,270]
+AssertionError: week 265: rival studio-efb645e3-r01 has affordable reserve (cash 127876633.08431976 vs reserve 2079532) but rivalScientistDemand reports a nonzero deficit: expected 4 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 4
+
+ ❯ tests/p13b-rival-scientist-staffing.test.ts:103:187
+    101|         checkedAtLeastOneAffordableWeek = true
+    102|         const deficit = rivalScientistDemand(state, state.hollywood!, …
+    103|         expect(deficit, `week ${week}: rival ${rivalId} has affordable…
+       |                                                                                                                                                                                           ^
+    104|       }
+    105|       state = tick(state)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/32]⎯
+
+ FAIL |core|  tests/p14r3-rival-release.test.ts > P14 1305-C R3: Scientists are never R3-surplus > a rival with employed Scientists and no surplus team-role employee releases nobody (natural world, no synthetic rewrite)
+AssertionError: expected 0 to be greater than 0
+ ❯ tests/p14r3-rival-release.test.ts:317:33
+    315|       .filter((e) => e.studioId === r01.studioId && atWeek265.talent.f…
+    316|       .map((e) => e.terms.talentId)
+    317|     expect(scientistIds.length).toBeGreaterThan(0) // precondition per…
+       |                                 ^
+    318| 
+    319|     // Precondition: no team-role surplus exists on r01 at this week (…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/32]⎯
+
+ FAIL |core|  tests/p14r3-save-v41.test.ts > P14 1305-C Save41: 41->40 downgrade > refused, with a message matching /termination/i, when a rival termination end receipt exists even though every movement (including the one on that receipt's own period) is left at 0 — isolates the receipt half of the "and" condition
+AssertionError: expected [Function] to throw error matching /termination/i but got 'validateSaveV37: state is invalid — v…'
+
+- Expected: 
+/termination/i
+
++ Received: 
+"validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — Hollywood save: active employment index differs from contract interval"
+
+ ❯ tests/p14r3-save-v41.test.ts:326:54
+    324|     // is downgrade losing the fact that a rival termination happened,…
+    325|     // the (also-forged, unreconciled) movement half of the condition …
+    326|     expect(() => convertV41ToV40(tampered as never)).toThrow(/terminat…
+       |                                                      ^
+    327|   })
+    328| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/32]⎯
+
+ Test Files  5 failed | 2 passed (7)
+      Tests  32 failed | 37 passed | 2 skipped (71)
+   Start at  11:56:06
+   Duration  53.88s (transform 6.69s, setup 0ms, collect 16.20s, tests 120.46s, environment 3ms, prepare 1.90s)
+

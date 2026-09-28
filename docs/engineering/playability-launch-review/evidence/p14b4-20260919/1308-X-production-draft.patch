@@ -1,0 +1,1129 @@
+--- bridge/contract.ts	2026-09-26 18:05:47.000000000 +0200
++++ /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/prod/bridge/contract.ts	2026-09-28 11:32:00.000000000 +0200
+@@ -29,6 +29,7 @@
+   playerOfferOptions,
+   guaranteedComp,
+   renewalWindowOpen,
++  seatingProduction,
+   terminationCost,
+   weeklySalary,
+   type Contract,
+@@ -51,7 +52,7 @@
+ import { corePredicateOf, promiseQuoteSnapshot } from './promises.ts'
+ import type { WirePromiseDraft } from './promises.ts'
+ import { attachPromise } from '../src/core/promises.ts'
+-import { latestCaseIsExtension } from '../src/core/talentMarket.ts'
++import { latestCaseIsExtension, releaseDisclosure } from '../src/core/talentMarket.ts'
+ import { retirementExtensionFields } from './retirement-extension.ts'
+ import { TUNING } from '../src/core/tuning.ts'
+ import type { ActionOutcome } from '../ui/src/engine/adapter.ts'
+@@ -168,6 +169,23 @@
+       remedy: 'Only a contracted person can be released early.',
+     }
+   }
++  // R2 (companion §3.4): the engine's own two refusals, in the engine's order.
++  if (state.founding !== null) {
++    return {
++      code: 'foundingDraft',
++      reason: `${talent.name} was signed in the founding draft, which is still open.`,
++      remedy: 'Found the studio first; release opens once the founding draft closes.',
++    }
++  }
++  const seated = seatingProduction(state, talent.id)
++  if (seated !== undefined) {
++    const title = state.concepts.find((concept) => concept.id === seated.conceptId)?.title ?? seated.id
++    return {
++      code: 'seatedOnActiveProduction',
++      reason: `${talent.name} is seated on ${title}, an active production, until the picture is released.`,
++      remedy: 'Release after the picture is released, or recast before shooting.',
++    }
++  }
+   const task = scriptTaskLabel(state, talent.id)
+   if (task !== null) {
+     return {
+@@ -296,11 +314,16 @@
+   const release = contract === undefined ? null : terminationCost(contract, week)
+   const cost = renew ? (offer?.signingBonus ?? 0) : (release ?? 0)
+   const remaining = contract === undefined ? null : Math.max(0, contract.endWeekExclusive - week)
++  // Companion §3.4 direction 2: the charge's two exact branches, from the engine's own disclosure.
++  const releaseBasis = !ok || renew || contract === undefined ? ''
++    : releaseDisclosure(state, talent.id, week).capApplies
++      ? `${String(TUNING.HIRING_TERMINATION_CAP_WEEKS)} weeks of the ${dollars(guaranteed ?? 0)} still guaranteed through Week ${String(contract.endWeekExclusive)}`
++      : `all ${String(remaining)} remaining weeks of pay`
+   const consequence = !ok
+     ? `${refusal.reason} ${refusal.remedy}`.trim()
+     : renew && offer !== null
+       ? `Pays a ${dollars(offer.signingBonus)} signing bonus now. ${talent.name} stays under contract through Week ${String(offer.endWeekExclusive)} (${contractTermLabel(offer.termWeeks)}) at ${dollars(weeklySalary(offer.annualSalary))} a week — ${dollars(offer.annualSalary)} a year. Nothing else about the person changes.`
+-      : `Pays ${dollars(cost)} in termination now (half of the ${dollars(guaranteed ?? 0)} still guaranteed through Week ${String(contract?.endWeekExclusive ?? week)}). ${talent.name} leaves the roster this week as a free agent. Recorded credits and career history stay on the record.`
++      : `Pays ${dollars(cost)} in termination now (${releaseBasis}). ${talent.name} leaves the roster this week as a free agent. Recorded credits and career history stay on the record.`
+   return {
+     financial: ok && successor !== null ? financialConsequence(state, successor) : null,
+     intentId,
+--- bridge/runtime-checkpoint.ts	2026-09-27 21:38:14.000000000 +0200
++++ /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/prod/bridge/runtime-checkpoint.ts	2026-09-28 11:32:15.000000000 +0200
+@@ -58,6 +58,9 @@
+ // that window would carry the earlier hash, and this map is keyed on the
+ // hash, not the label.
+ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
++  // R2/R3: genuine1307 preserves an outgoing55 current111/saved110 checkpoint.
++  // Each Save40 slot lifts to Save41 independently; prior session/journal authority resets.
++  ['sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158', 'projection-v55'],
+   // P4/P5: genuine1221 preserves outgoing54 current-waived/saved-earned slots.
+   // Independently migrate Save39; prior session/revision/journal authority resets.
+   ['sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302', 'projection-v54'],
+--- src/core/hollywood.ts	2026-09-26 21:54:15.000000000 +0200
++++ /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/prod/src/core/hollywood.ts	2026-09-28 11:32:32.000000000 +0200
+@@ -23,7 +23,7 @@
+   ['researchSpend','researchCapacity','technologyRestoration','technologyRefund']
+ export const RIVAL_MONEY_KINDS: readonly RivalMoneyKind[] = ['capacity','signing','payroll','overhead',
+   'facilityOpex','development','production','marketing','studioRevenue','technologyAdoption',
+-  ...RIVAL_RESEARCH_MONEY_KINDS]
++  ...RIVAL_RESEARCH_MONEY_KINDS,'termination']
+ 
+ export function uniqueIdentity(base: string, taken: Set<string>): string {
+   let id = base
+--- src/core/employment.ts	2026-09-26 03:49:23.000000000 +0200
++++ /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/prod/src/core/employment.ts	2026-09-28 11:31:26.000000000 +0200
+@@ -24,6 +24,7 @@
+   EmploymentStatus,
+   FilmConcept,
+   GameState,
++  Production,
+   Talent,
+ } from './types.js'
+ import { salaryCurve } from './worldgen.js'
+@@ -128,6 +129,15 @@
+ }
+ 
+ /**
++ * R2 (companion §3.4): the active production that seats this person, if any. A
++ * seat holds from greenlight through release; research seats and writer credits
++ * are not production seats. Engine release and the Bridge ask this one question.
++ */
++export function seatingProduction(state: GameState, talentId: string): Production | undefined {
++  return state.studio.activeProductions.find((p) => productionCompanyTalentIds([p]).has(talentId))
++}
++
++/**
+  * The writers doing actual writing work right now — drafting or rewriting, the
+  * whole pooled crew, not just the attributed one. This is the ONLY sense in
+  * which writing makes a writer busy.
+--- src/core/types.ts	2026-09-27 20:53:55.000000000 +0200
++++ /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/prod/src/core/types.ts	2026-09-28 11:39:20.000000000 +0200
+@@ -2287,7 +2287,8 @@
+ // gameplay shape includes V36's single final extension. V37 configures Scientist
+ // retirement without adding fields; the save version distinguishes its semantic law.
+ // V38 adds prospective profession history and its one actor transition catalogue.
+-export type GameState = GameStateV40
++// V41 adds no field: the rival `termination` movement is version-aware at the boundary.
++export type GameState = GameStateV41
+ 
+ // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
+ 
+@@ -2507,6 +2508,13 @@
+   promises: readonly ProfessionalPromiseV40[]
+   firstTakeSubjects: FirstTakeSubjects
+ }
++/**
++ * R2/R3 (Save V41). NO new root: the widened `RivalMoneyKind` movement record (the
++ * rival `termination` kind) and a rival's own termination end receipt, version-aware
++ * at the boundary exactly as V27's research kinds were. The distinct name exists so
++ * save.ts's version dispatch has a version to point `GameState` at.
++ */
++export type GameStateV41 = GameStateV40
+ 
+ // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
+ // The ONE canonical persisted record of a participant's outcome on one released film.
+--- src/core/actions.ts	2026-09-27 21:05:58.000000000 +0200
++++ /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/prod/src/core/actions.ts	2026-09-28 11:31:35.000000000 +0200
+@@ -56,6 +56,7 @@
+   hiringMarketIds,
+   isContracted,
+   renewalWindowOpen,
++  seatingProduction,
+   terminationCost,
+ } from './employment.js'
+ import { computeForecast, type ForecastContext } from './forecast.js'
+@@ -2665,6 +2666,17 @@
+   if (contract === undefined) {
+     throw new Error(`applyActions: releaseTalent rejected — talent "${talentId}" has no active contract (D-11.9)`)
+   }
++  // R2 (companion §3.4): release is refused during the founding draft and for a
++  // person seated on an active production, before any charge or record.
++  if (state.founding !== null) {
++    throw new Error('applyActions: releaseTalent rejected — the founding draft is still open; release waits until the studio is founded (R2)')
++  }
++  const seated = seatingProduction(state, talentId)
++  if (seated !== undefined) {
++    throw new Error(
++      `applyActions: releaseTalent rejected — talent "${talentId}" is seated on active production "${seated.id}" until it is released (R2)`,
++    )
++  }
+   const scriptAssignment = activeScriptWriterAssignments(
+     state.scriptDevelopment,
+     state.concepts,
+--- src/core/hollywoodTypes.ts	2026-09-18 02:43:09.000000000 +0200
++++ /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/prod/src/core/hollywoodTypes.ts	2026-09-28 11:32:39.000000000 +0200
+@@ -50,9 +50,14 @@
+  * V27 period whose four are all zero downgrades losslessly.
+  */
+ export type RivalResearchMoneyKind = 'researchSpend' | 'researchCapacity' | 'technologyRestoration' | 'technologyRefund'
++/**
++ * R3 (Save V41): `termination` is a rival's early release of its own employee under
++ * the player's termination law. Every V41 period carries it; a V40 period is lifted
++ * with it at zero and a V41 period whose charge is zero downgrades losslessly.
++ */
+ export type RivalMoneyKind = 'capacity' | 'signing' | 'payroll' | 'overhead' | 'facilityOpex'
+   | 'development' | 'production' | 'marketing' | 'studioRevenue' | 'technologyAdoption'
+-  | RivalResearchMoneyKind
++  | RivalResearchMoneyKind | 'termination'
+ export type RivalFinancePeriod = {
+   fromWeek: number
+   throughWeek: number
+--- src/core/hollywoodValidation.ts	2026-09-26 22:07:11.000000000 +0200
++++ /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/prod/src/core/hollywoodValidation.ts	2026-09-28 11:37:35.000000000 +0200
+@@ -4,7 +4,7 @@
+ import { sameContractTerms } from './industryEmployment.js'
+ import { HOLLYWOOD_STARTING_MANIFEST, RIVAL_CREDIT_ROLES, RIVAL_TEAM_ROLES } from './hollywoodStartingData.js'
+ import { persistedConceptIds, persistedProductionIds } from './productionIdentity.js'
+-import { weeklySalary, PRE_V28_TERMINATION_LAW } from './employment.js'
++import { weeklySalary, PRE_V28_TERMINATION_LAW, terminationCost } from './employment.js'
+ import type { TerminationLaw } from './employment.js'
+ import type { GameState } from './types.js'
+ import { CAMPAIGN_CALENDAR_POLICY, campaignDate, historicalDate, RIVAL_ARRIVAL_WEEKS } from './calendar.js'
+@@ -63,10 +63,13 @@
+ // explicitly by the caller that knows which era it is reading (never sniffed off
+ // the state). It defaults to the FROZEN pre-V28 law, so every existing frozen
+ // reader keeps reconciling under the law its own era wrote.
+-export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>, research = false, plans: readonly PhysicalPlan[] = [], terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): asserts value is HollywoodState | null {
++// R3 — `rivalTermination` is the Save41 era: the `termination` movement and a rival's
++// own termination end receipt exist only under it; every frozen reader keeps the
++// player-only rule and the old period keyset.
++export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>, research = false, plans: readonly PhysicalPlan[] = [], terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false): asserts value is HollywoodState | null {
+   const researchKinds = new Set<string>(RIVAL_RESEARCH_MONEY_KINDS)
+   const moneyKinds = RIVAL_MONEY_KINDS.filter(kind =>
+-    (technology !== undefined || kind !== 'technologyAdoption') && (research || !researchKinds.has(kind)))
++    (technology !== undefined || kind !== 'technologyAdoption') && (research || !researchKinds.has(kind)) && (rivalTermination || kind !== 'termination'))
+   const researchProjects = research ? ((technology as StudioTechnology | undefined)?.projects ?? []) : []
+   campaignDate(state.market.tick)
+   if (value === null) {
+@@ -242,6 +245,15 @@
+     }
+     const expectedCapacity = b.account.periods.map(() => 0)
+     const expectedSpend = b.account.periods.map(() => 0)
++    // R3: each own early release is charged `terminationCost` at its end receipt's week.
++    const expectedTermination = b.account.periods.map(() => 0)
++    if (rivalTermination) {
++      for (const r of h.receipts) {
++        if (r.kind !== 'employment' || r.reason !== 'termination' || r.studioId !== b.studioId) continue
++        const interval = contractById.get(r.contractId), index = periodOf(r.week)
++        if (interval !== undefined && index >= 0) expectedTermination[index]! += terminationCost(interval.terms, r.week)
++      }
++    }
+     if (research) {
+       for (const plan of plans) {
+         if (plan.studioId !== b.studioId || plan.commitReceipt === null) continue
+@@ -276,6 +288,7 @@
+         // carried by the record and are zero until one is authored with receipts.
+         requireFact(p.movements.technologyRestoration === 0 && p.movements.technologyRefund === 0, 'rival restoration or refund without a cancellation receipt')
+       }
++      if (rivalTermination) requireFact(close(p.movements.termination, -expectedTermination[periodIndex]!), 'rival termination movements do not reconcile with termination receipts')
+       for (const [kind,n] of Object.entries(p.movements)) number(n,kind === 'studioRevenue' ? 0 : -Infinity,kind === 'studioRevenue' ? Infinity : 0)
+       requireFact(close(balance,p.opening) && close(p.opening+Object.values(p.movements).reduce((a,n)=>a+n,0),p.closing),'unreconciled money')
+       balance=p.closing
+@@ -442,7 +455,7 @@
+       const interval=contractById.get(r.contractId)
+       requireFact(interval&&interval.terms.talentId===r.talentId&&interval.studioId===r.studioId,'unknown or inconsistent employment receipt subject')
+       if(r.toStudioId===null)requireFact(r.fromStudioId===r.studioId&&interval.endedWeek===r.week&&
+-        (r.reason==='expiry'&&interval.terms.endWeekExclusive===r.week || r.reason==='termination'&&r.studioId===h.playerStudioId&&r.week<interval.terms.endWeekExclusive),'employment end receipt differs from actual end')
++        (r.reason==='expiry'&&interval.terms.endWeekExclusive===r.week || r.reason==='termination'&&(rivalTermination||r.studioId===h.playerStudioId)&&r.week<interval.terms.endWeekExclusive),'employment end receipt differs from actual end')
+       else {
+         const prior=employmentByPerson.get(r.talentId)!.find(e=>e!==interval&&e.studioId===r.studioId&&e.endedWeek===r.week&&e.terms.endWeekExclusive>r.week)
+         requireFact(r.toStudioId===r.studioId&&r.week===(interval.reason==='existing-player-contract'?h.originWeek:interval.terms.startWeek)&&r.reason===interval.reason&&
+@@ -509,8 +522,8 @@
+     const starts=grouped('employment',`${e.contractId}:start`)
+     requireFact(starts.length===1 && starts[0]!.kind==='employment' && starts[0]!.talentId===e.terms.talentId && starts[0]!.week===(e.reason==='existing-player-contract'?h.originWeek:e.terms.startWeek) && starts[0]!.reason===e.reason, 'employment interval lacks exact signing or observation receipt')
+     const ends=grouped('employment',`${e.contractId}:end`)
+-    const terminated=ends.length===1&&ends[0]!.kind==='employment'&&ends[0]!.reason==='termination'&&e.studioId===h.playerStudioId
+-    if(terminated){const lawful=terminationLaw(e.terms,e.endedWeek!,e.contractId);requireFact(state.ledger.some(row=>row.kind==='termination'&&row.talentId===e.terms.talentId&&row.week===e.endedWeek&&lawful.some(charge=>close(row.amount,-charge))),'employment termination lacks its actual player payment')}
++    const terminated=ends.length===1&&ends[0]!.kind==='employment'&&ends[0]!.reason==='termination'&&(rivalTermination||e.studioId===h.playerStudioId)
++    if(terminated&&e.studioId===h.playerStudioId){const lawful=terminationLaw(e.terms,e.endedWeek!,e.contractId);requireFact(state.ledger.some(row=>row.kind==='termination'&&row.talentId===e.terms.talentId&&row.week===e.endedWeek&&lawful.some(charge=>close(row.amount,-charge))),'employment termination lacks its actual player payment')}
+     if(e.studioId===h.playerStudioId&&e.reason!=='existing-player-contract'&&!(h.origin==='fresh'&&e.reason==='player-contract'&&e.terms.startWeek===0))
+       requireFact(state.ledger.some(row=>row.kind==='signingBonus'&&row.talentId===e.terms.talentId&&row.week===e.terms.startWeek&&close(row.amount,-e.terms.signingBonus)),'employment start lacks its actual player signing payment')
+     requireFact(ends.length===(e.endedWeek===e.terms.endWeekExclusive||terminated?1:0),'employment interval lacks exact end receipt or has an extra one')
+--- src/core/index.ts	2026-09-27 21:04:13.000000000 +0200
++++ /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/prod/src/core/index.ts	2026-09-28 11:39:33.000000000 +0200
+@@ -1058,6 +1058,7 @@
+   assignmentProjectCost,
+   busyTalentIds,
+   activeProductionCompanyTalentIds,
++  seatingProduction,
+   activeWritingAssignmentIds,
+   creditedWriterIds,
+   weeklySalary,
+@@ -1356,6 +1357,10 @@
+   convertV39ToV40,
+   convertV40ToV39,
+   migrateToV40,
++  validateSaveV41,
++  convertV40ToV41,
++  convertV41ToV40,
++  migrateToV41,
+   convertV27ToV28,
+   convertV28ToV27,
+   // P13B-S5-R07 — live V24 → NEW V25 + migrateToV25 (the widened production
+@@ -1405,6 +1410,7 @@
+   SaveFileV38,
+   SaveFileV39,
+   SaveFileV40,
++  SaveFileV41,
+   LiveSaveFile,
+   SaveFile,
+   TalentV1,
+@@ -1667,7 +1673,7 @@
+ export { productionTechnologyView } from './technologyProduction.js'
+ export type { StudioTechnology, StudioTechnologyV2, StudioTechnologyV3, TechnologyAction, ResearchProject, ResearchWeekReceipt, ResearchLabContribution, TechnologyAdoption, TechnologyAdoptionComponent, TechnologyEquipmentAsset, ProductionTechnology } from './technologyTypes.js'
+ 
+-export type { GameStateV40, ProfessionalPromiseV40, OpportunitySeatClass, OpportunityPredicate, GenreOpportunityPredicate, ProjectOpportunityPredicate, FirstTakeSubject, FirstTakeSubjects,
++export type { GameStateV40, GameStateV41, ProfessionalPromiseV40, OpportunitySeatClass, OpportunityPredicate, GenreOpportunityPredicate, ProjectOpportunityPredicate, FirstTakeSubject, FirstTakeSubjects,
+   GameStateV38, GameStateV39, ProfessionalPromiseV39, DirectorCountPredicate, CareerLifecycleRootV38, TransitionTarget, TransitionRoleTier, TransitionPotentialTier,
+   RetirementKey, ProfessionAnchor, TransitionPictureRef, TransitionContextWitness, TransitionTargetInput,
+   TransitionInputs, TransitionEvaluation, ProfessionChange, IndustryRetirement, TransitionDue } from './types.js'
+--- src/core/hollywoodTick.ts	2026-09-27 21:05:58.000000000 +0200
++++ /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/prod/src/core/hollywoodTick.ts	2026-09-28 11:37:00.000000000 +0200
+@@ -1,12 +1,12 @@
+ import {chooseIndustryPackage} from './hollywoodPolicy.js'
+ import { considerRivalSoundPurchase, selectRivalSoundProduction, rivalInstallationSlots } from './technologyRival.js'
+ import { createProductionTechnologyPolicy } from './technologyProduction.js'
+-import { busyTalentIds, offerForTalent, weeklySalary, renewalWindowOpen } from './employment.js'
++import { busyTalentIds, offerForTalent, weeklySalary, renewalWindowOpen, terminationCost } from './employment.js'
+ import { productionCompanyTalentIds } from './productionPeople.js'
+-import { caseOpenForTalent } from './talentMarket.js'
++import { caseOpenForTalent, floorOffer } from './talentMarket.js'
+ import { assignmentRefusal, contractEndRefusal } from './careerLifecycle.js'
+ import { promisedCastMasks, WEEKS_TO_FIRST_TAKE } from './promises.js'
+-import { moveRivalMoney, rivalCapacityOpex, rivalWeeklyOperatingCost, uniqueIdentity } from './hollywood.js'
++import { industryBusyTalentIds, moveRivalMoney, rivalCapacityOpex, rivalWeeklyOperatingCost, uniqueIdentity } from './hollywood.js'
+ import { admitRivalPlansInWeek, advanceRivalResearch, completeRivalPlans, rivalScientistDemand } from './rivalResearch.js'
+ import { researchAfterEmploymentRelease } from './technology.js'
+ import { RIVAL_TEAM_ROLES } from './hollywoodStartingData.js'
+@@ -112,7 +112,8 @@
+     // announced person's effective week; they finish this term and are not renewed.
+     if(contractEndRefusal(state,old.terms.talentId,week+TUNING.HOLLYWOOD_CONTRACT_WEEKS)!==null)continue
+     const person=talent.find(t=>t.id===old.terms.talentId)!
+-    const terms=offerForTalent(state.seed,person,TUNING.HOLLYWOOD_CONTRACT_WEEKS,week)
++    // R1 binds rivals (R3): this studio's own release floor prices its own re-hire.
++    const terms=floorOffer({...state,hollywood:h},b.studioId,offerForTalent(state.seed,person,TUNING.HOLLYWOOD_CONTRACT_WEEKS,week),week)
+     if(b.account.cash-terms.signingBonus<reserveAfterOffer(terms,ordinal))continue
+     const contractId=`${b.studioId}:contract:${person.id}:${week}`
+     const newOrdinal=h.employment.length
+@@ -153,7 +154,7 @@
+       person={...person,age:Math.floor(exactAge)}
+       supplied=true
+     }
+-    const terms=offerForTalent(state.seed,person,TUNING.HOLLYWOOD_CONTRACT_WEEKS,week)
++    const terms=floorOffer({...state,hollywood:h},b.studioId,offerForTalent(state.seed,person,TUNING.HOLLYWOOD_CONTRACT_WEEKS,week),week)
+     if(b.account.cash-terms.signingBonus < reserveAfterOffer(terms))continue
+     // P14C.1 (record 762 §4, 759-C amendment 3): the APPEND, not the mint at :138.
+     // The affordability check above `continue`s, so a rival that cannot pay discards
+@@ -170,6 +171,29 @@
+     appendReceipt(h,{week,studioId:b.studioId,kind:'employment',talentId:person.id,fromStudioId:null,toStudioId:b.studioId,contractId,reason})
+     unavailable.add(person.id);filled.add(person.id)
+   }
++  // R3 (companion §2.1.9, §3.5 E4, §3.6; 1305-A/F): the player's termination law, chosen
++  // by strategy. Surplus is an own non-Scientist employee the slot loop did not retain;
++  // deficit slots retain Scientists, so they are never surplus. A release needs no
++  // production, writing or unreleased research seat, more than the cap left, no open
++  // promise from this studio, and this studio's reserve without the person after the charge.
++  const seated=industryBusyTalentIds(h)
++  for(const project of state.technology.projects) if(project.studioId===b.studioId)
++    for(const seat of project.seats) if(seat.releasedWeek===null) seated.add(seat.talentId)
++  const surplus=h.activeEmploymentOrdinals.filter(i=>{const e=h.employment[i]!
++    return e.studioId===b.studioId&&!filled.has(e.terms.talentId)&&next.find(t=>t.id===e.terms.talentId)?.role!=='scientist'})
++  for(const ordinal of surplus.sort((x,y)=>x-y)) {
++    const e=h.employment[ordinal]!,id=e.terms.talentId
++    if(seated.has(id)||e.terms.endWeekExclusive-week<=TUNING.HIRING_TERMINATION_CAP_WEEKS)continue
++    if(state.promises.some(p=>p.issuerStudioId===b.studioId&&p.beneficiaryPersonId===id&&p.outcome===null))continue
++    const charge=terminationCost(e.terms,week)
++    const activeEmploymentOrdinals=h.activeEmploymentOrdinals.filter(i=>i!==ordinal)
++    if(b.account.cash-charge<operatingReserve(b,{...h,activeEmploymentOrdinals},week))continue
++    h.employment=[...h.employment]
++    h.employment[ordinal]={...e,endedWeek:week}
++    h.activeEmploymentOrdinals=activeEmploymentOrdinals
++    moveRivalMoney(b.account,'termination',-charge,week)
++    appendReceipt(h,{week,studioId:b.studioId,kind:'employment',talentId:id,fromStudioId:b.studioId,toStudioId:null,contractId:e.contractId,reason:'termination'})
++  }
+   return next
+ }
+ 
+@@ -389,8 +413,16 @@
+     })
+     h={...h,previousChart:h.chart,chart:{week,rows}}
+   }
+-  const freeAgents=expired.length>0?[...new Set([...state.freeAgents,...expired.map(i=>h.employment[i]!.terms.talentId)])]:state.freeAgents
+-  let next:GameState=h===source?state:{...state,hollywood:h,freeAgents}
++  // R3 (1305-F amendment 1): a rival's early release in the week just advanced (the
++  // pre-increment week `staff()` ran in) frees the person in the same pass, read from
++  // that week's own termination end receipts.
++  const released:string[]=[]
++  for(let i=source.receipts.length-1;i>=0&&source.receipts[i]!.week>=week-1;i--) {
++    const r=source.receipts[i]!
++    if(r.week===week-1&&r.kind==='employment'&&r.reason==='termination'&&r.studioId!==source.playerStudioId)released.push(r.talentId)
++  }
++  const freeAgents=expired.length+released.length>0?[...new Set([...state.freeAgents,...expired.map(i=>h.employment[i]!.terms.talentId),...released])]:state.freeAgents
++  let next:GameState=h===source&&freeAgents===state.freeAgents?state:{...state,hollywood:h,freeAgents}
+   // P13B-S8: a Scientist whose contract ended holds no seat that can work — the
+   // same pause law the player's own release runs, for that studio's own project.
+   for(const i of expired) {
+--- src/core/talentMarket.ts	2026-09-27 21:42:26.000000000 +0200
++++ /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/prod/src/core/talentMarket.ts	2026-09-28 11:32:46.000000000 +0200
+@@ -246,8 +246,19 @@
+   termWeeks: number,
+   week: number = state.market.tick,
+ ): ContractOffer {
+-  const offer = contractOffer(state, talentId, termWeeks, week)
+-  const floor = releaseFloor(state, studioId, talentId, week)
++  return floorOffer(state, studioId, contractOffer(state, talentId, termWeeks, week), week)
++}
++
++/** R1 applied to an ask already priced for this person: the releasing studio's
++ * unexpired floor, else the ask unchanged. A rival's own re-hire in `staff()`
++ * (R3) prices through this, exactly as the player's studio-aware ask does. */
++export function floorOffer(
++  state: GameState,
++  studioId: string,
++  offer: ContractOffer,
++  week: number = state.market.tick,
++): ContractOffer {
++  const floor = releaseFloor(state, studioId, offer.talentId, week)
+   if (floor === null || floor.floorAnnual <= offer.annualSalary) return offer
+   // The bonus is the same published fraction of the annual everywhere (§2.1.4 /
+   // `offerForTalent`), so a floored annual carries a floored bonus.
+--- src/core/save.ts	2026-09-27 21:03:30.000000000 +0200
++++ /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/prod/src/core/save.ts	2026-09-28 11:39:20.000000000 +0200
+@@ -102,6 +102,7 @@
+   GameStateV38,
+   GameStateV39,
+   GameStateV40,
++  GameStateV41,
+   CohortReceipt,
+   FilmCreativeRole,
+   RetirementRecord,
+@@ -606,7 +607,11 @@
+   saveVersion: 40;
+   state: GameStateV40;
+ };
+-export type LiveSaveFile = SaveFileV40;
++export type SaveFileV41 = Omit<SaveFileV40, 'saveVersion' | 'state'> & {
++  saveVersion: 41;
++  state: GameStateV41;
++};
++export type LiveSaveFile = SaveFileV41;
+ 
+ // Any envelope (the return of the version-dispatching validateSave/loadSave).
+ export type SaveFile =
+@@ -649,7 +654,8 @@
+   | SaveFileV37
+   | SaveFileV38
+   | SaveFileV39
+-  | SaveFileV40;
++  | SaveFileV40
++  | SaveFileV41;
+ 
+ // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
+ // Recursively serializes with object keys sorted lexicographically, so the same
+@@ -5412,8 +5418,9 @@
+   if (s.saveVersion === 38) return validateSaveV38(save);
+   if (s.saveVersion === 39) return validateSaveV39(save);
+   if (s.saveVersion === 40) return validateSaveV40(save);
++  if (s.saveVersion === 41) return validateSaveV41(save);
+   throw new Error(
+-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 40 only)`,
++    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 41 only)`,
+   );
+ }
+ 
+@@ -6535,15 +6542,15 @@
+ // Every caller that asks "is this envelope a migration?" compares against this
+ // constant rather than a literal that goes stale the next time `makeSave` moves
+ // (the bridge and the ui adapter both still compared against 23 at V25).
+-export const LIVE_SAVE_VERSION = 40 as const;
++export const LIVE_SAVE_VERSION = 41 as const;
+ 
+-// makeSave — the live V39 boundary. Frozen prior values migrate explicitly.
++// makeSave — the live V41 boundary. Frozen prior values migrate explicitly.
+ // The plain-JSON state is detached once; only final serialization sorts it.
+-export function makeSave(state: GameState): SaveFileV40 {
+-  const save = validateSaveV40({ saveVersion: 40, seed: state.seed, state, broadcastCache: state.broadcastItems });
++export function makeSave(state: GameState): SaveFileV41 {
++  const save = validateSaveV41({ saveVersion: 41, seed: state.seed, state, broadcastCache: state.broadcastItems });
+   // Validation precedes detachment, so undefined/non-JSON authority cannot be
+   // silently repaired by stringify before the boundary sees it.
+-  return JSON.parse(JSON.stringify(save)) as SaveFileV40;
++  return JSON.parse(JSON.stringify(save)) as SaveFileV41;
+ }
+ 
+ // ── Load / export / import ───────────────────────────────────────────────────
+@@ -7389,6 +7396,7 @@
+ export function migrateToV4(
+   save: SaveFile,
+ ): SaveFileV4 {
++  if (save.saveVersion === 41) return migrateToV4(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV4(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV4(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV4(convertV38ToV37(save as SaveFileV38));
+@@ -7414,6 +7422,7 @@
+ export function migrateToV5(
+   save: SaveFile,
+ ): SaveFileV5 {
++  if (save.saveVersion === 41) return migrateToV5(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV5(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV5(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV5(convertV38ToV37(save as SaveFileV38));
+@@ -7434,6 +7443,7 @@
+ export function migrateToV6(
+   save: SaveFile,
+ ): SaveFileV6 {
++  if (save.saveVersion === 41) return migrateToV6(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV6(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV6(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV6(convertV38ToV37(save as SaveFileV38));
+@@ -7455,6 +7465,7 @@
+ export function migrateToV7(
+   save: SaveFile,
+ ): SaveFileV7 {
++  if (save.saveVersion === 41) return migrateToV7(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV7(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV7(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV7(convertV38ToV37(save as SaveFileV38));
+@@ -7472,6 +7483,7 @@
+ // V1–V7 migrate deterministically. Newer files are rejected loudly: this function
+ // may never silently discard authoritative screenplay or casting state.
+ export function migrateToV8(save: SaveFile): SaveFileV8 {
++  if (save.saveVersion === 41) return migrateToV8(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV8(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV8(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV8(convertV38ToV37(save as SaveFileV38));
+@@ -7507,6 +7519,7 @@
+ // identity; V1–V8 migrate forward. V10 is rejected rather than silently losing
+ // authoritative casting history.
+ export function migrateToV9(save: SaveFile): SaveFileV9 {
++  if (save.saveVersion === 41) return migrateToV9(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV9(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV9(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV9(convertV38ToV37(save as SaveFileV38));
+@@ -7541,6 +7554,7 @@
+ // identity; V1–V9 cross every frozen boundary and receive exactly legacy-empty
+ // casting state only at the final V9→V10 step. V11 is rejected, never downgraded.
+ export function migrateToV10(save: SaveFile): SaveFileV10 {
++  if (save.saveVersion === 41) return migrateToV10(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV10(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV10(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV10(convertV38ToV37(save as SaveFileV38));
+@@ -7576,6 +7590,7 @@
+ // mode. V12 is rejected, never downgraded: a placed facility, its land, its
+ // debit, and its operating history have no V11 home.
+ export function migrateToV11(save: SaveFile): SaveFileV11 {
++  if (save.saveVersion === 41) return migrateToV11(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV11(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV11(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV11(convertV38ToV37(save as SaveFileV38));
+@@ -7609,6 +7624,7 @@
+ // their own validated construction history implies at the final V11→V12 step.
+ // V13 is rejected, never downgraded: a property that has grown has no V12 home.
+ export function migrateToV12(save: SaveFile): SaveFileV12 {
++  if (save.saveVersion === 41) return migrateToV12(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV12(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV12(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV12(convertV38ToV37(save as SaveFileV38));
+@@ -7645,6 +7661,7 @@
+ // one widened leaf — the honest, un-guessed `subjectId: null` on any
+ // pre-existing `queueIntentExpired` row — at the final V14→V15 step.
+ export function migrateToV15(save: SaveFile): SaveFileV15 {
++  if (save.saveVersion === 41) return migrateToV15(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV15(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV15(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV15(convertV38ToV37(save as SaveFileV38));
+@@ -7733,6 +7750,7 @@
+ // identity (after validation at the call boundary); V1–V17 cross every frozen
+ // boundary, then receive `endowed` at the final V17→V18 step.
+ export function migrateToV18(save: SaveFile): SaveFileV18 {
++  if (save.saveVersion === 41) return migrateToV18(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV18(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV18(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV18(convertV38ToV37(save as SaveFileV38));
+@@ -7762,6 +7780,7 @@
+ // migrateToV17 — the frozen V17-target migration (P08A). A V18 save can never
+ // be downgraded: discarding the founding regime would erase exact history.
+ export function migrateToV17(save: SaveFile): SaveFileV17 {
++  if (save.saveVersion === 41) return migrateToV17(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV17(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV17(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV17(convertV38ToV37(save as SaveFileV38));
+@@ -7796,6 +7815,7 @@
+ // migrateToV16 — the frozen V16-target migration (P06A). A V17 save can never
+ // be downgraded: discarding the recorded history would silently erase provenance.
+ export function migrateToV16(save: SaveFile): SaveFileV16 {
++  if (save.saveVersion === 41) return migrateToV16(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV16(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV16(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV16(convertV38ToV37(save as SaveFileV38));
+@@ -7833,6 +7853,7 @@
+ }
+ 
+ export function migrateToV14(save: SaveFile): SaveFileV14 {
++  if (save.saveVersion === 41) return migrateToV14(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV14(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV14(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV14(convertV38ToV37(save as SaveFileV38));
+@@ -7880,6 +7901,7 @@
+ }
+ 
+ export function migrateToV13(save: SaveFile): SaveFileV13 {
++  if (save.saveVersion === 41) return migrateToV13(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV13(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV13(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV13(convertV38ToV37(save as SaveFileV38));
+@@ -7945,6 +7967,8 @@
+   terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW,
+   retirementWriting?: RetirementWritingAuthority,
+   professionContext?: ProfessionValidationContext,
++  // R3: the Save41 era's rival termination law, threaded like `terminationLaw`.
++  rivalTermination = false,
+ ): SaveFileV19 {
+   if (!isRecord(save)) throw new Error('validateSaveV19: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+@@ -7969,7 +7993,7 @@
+     // `validateHollywood` immediately afterwards.
+     operations: (v, productions) => checkOperationsContext({ operations: v, activeProductions: productions, engaged: true, founding: null }, 'hollywood.operations', policy === 'research-v27' ? policy : 'sets-v14'),
+     development: v => checkScriptDevelopmentShape(v, 'sets-v14'),
+-  }, technology, policy === 'research-v27', plans ?? [], terminationLaw, retirementWriting, professionContext);
++  }, technology, policy === 'research-v27', plans ?? [], terminationLaw, retirementWriting, professionContext, rivalTermination);
+   return save as SaveFileV19;
+ }
+ 
+@@ -7993,11 +8017,15 @@
+         if (period.movements[kind] !== 0) throw new Error('V18 to V19 cannot discard rival research expenditure');
+         Reflect.deleteProperty(period.movements, kind);
+       }
++      // R3 (Save41): the shared initializer now mints the zero `termination` movement too.
++      if (period.movements.termination !== 0) throw new Error('V18 to V19 cannot discard a rival termination');
++      Reflect.deleteProperty(period.movements, 'termination');
+     }
+   }
+   return validateSaveV19({ saveVersion: 19, seed: save.seed, state, broadcastCache: state.broadcastItems });
+ }
+ export function migrateToV19(save: SaveFile): SaveFileV19 {
++  if (save.saveVersion === 41) return migrateToV19(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV19(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV19(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV19(convertV38ToV37(save as SaveFileV38));
+@@ -8089,6 +8117,7 @@
+ }
+ 
+ export function migrateToV21(save: SaveFile): SaveFileV21 {
++  if (save.saveVersion === 41) return migrateToV21(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV21(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV21(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV21(convertV38ToV37(save as SaveFileV38));
+@@ -8126,6 +8155,7 @@
+ }
+ 
+ export function migrateToV22(save: SaveFile): SaveFileV22 {
++  if (save.saveVersion === 41) return migrateToV22(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV22(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV22(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV22(convertV38ToV37(save as SaveFileV38));
+@@ -8188,6 +8218,7 @@
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV23(save: SaveFile | { saveVersion: number }): SaveFileV23 {
++  if (save.saveVersion === 41) return migrateToV23(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV23(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV23(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV23(convertV38ToV37(save as SaveFileV38));
+@@ -8225,7 +8256,7 @@
+  * and refund rows, while a genuine V24 or V25 file is still validated under
+  * 'technology-v20' and still refuses both.
+  */
+-function validateSaveV24WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): SaveFileV24 {
++function validateSaveV24WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false): SaveFileV24 {
+   if (!isRecord(save)) throw new Error('validateSaveV24: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 24) throw new Error('validateSaveV24: expected version 24');
+@@ -8236,7 +8267,7 @@
+   validateTechnology(typed.state as unknown as GameState);
+   validatePhysicalPlans(typed.state as unknown as GameState);
+   const { technology, physicalPlans: _physicalPlans, ...legacy } = raw;
+-  validateSaveV19WithPolicy({ saveVersion: 19, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, policy, technology as StudioTechnology, typed.state.physicalPlans.plans, terminationLaw, retirementWriting, professionContext);
++  validateSaveV19WithPolicy({ saveVersion: 19, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, policy, technology as StudioTechnology, typed.state.physicalPlans.plans, terminationLaw, retirementWriting, professionContext, rivalTermination);
+   assertNoDoubleBookedResourceSlots(typed.state as unknown as GameState);
+   return typed;
+ }
+@@ -8260,6 +8291,7 @@
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV24(save: SaveFile | { saveVersion: number }): SaveFileV24 {
++  if (save.saveVersion === 41) return migrateToV24(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV24(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV24(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV24(convertV38ToV37(save as SaveFileV38));
+@@ -8399,7 +8431,7 @@
+ }
+ 
+ /** See `validateSaveV24WithPolicy`: the V26 chain threads its own policy down. */
+-function validateSaveV25WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): SaveFileV25 {
++function validateSaveV25WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false): SaveFileV25 {
+   if (!isRecord(save)) throw new Error('validateSaveV25: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 25) throw new Error('validateSaveV25: expected version 25');
+@@ -8447,7 +8479,7 @@
+         studioEvents: strippedEvents,
+       },
+       broadcastCache: save.broadcastCache,
+-    }, policy, terminationLaw, retirementWriting, professionContext);
++    }, policy, terminationLaw, retirementWriting, professionContext, rivalTermination);
+   } catch (error) {
+     throw new Error(`validateSaveV25: frozen V24 state is invalid — ${(error as Error).message}`);
+   }
+@@ -8493,6 +8525,7 @@
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV25(save: SaveFile | { saveVersion: number }): SaveFileV25 {
++  if (save.saveVersion === 41) return migrateToV25(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV25(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV25(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV25(convertV38ToV37(save as SaveFileV38));
+@@ -8607,7 +8640,7 @@
+ }
+ 
+ /** See `validateSaveV25WithPolicy`: the V27 chain threads its own policy down. */
+-function validateSaveV26WithPolicy(save: unknown, policy: 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): SaveFileV26 {
++function validateSaveV26WithPolicy(save: unknown, policy: 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false): SaveFileV26 {
+   if (!isRecord(save)) throw new Error('validateSaveV26: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 26) throw new Error('validateSaveV26: expected version 26');
+@@ -8628,7 +8661,7 @@
+         technology: { ...technologyRaw, adoptions: strippedAdoptions },
+       },
+       broadcastCache: save.broadcastCache,
+-    }, policy, terminationLaw, retirementWriting, professionContext);
++    }, policy, terminationLaw, retirementWriting, professionContext, rivalTermination);
+   } catch (error) {
+     throw new Error(`validateSaveV26: frozen V25 state is invalid — ${(error as Error).message}`);
+   }
+@@ -8667,6 +8700,7 @@
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV26(save: SaveFile | { saveVersion: number }): SaveFileV26 {
++  if (save.saveVersion === 41) return migrateToV26(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV26(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV26(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV26(convertV38ToV37(save as SaveFileV38));
+@@ -8762,14 +8796,14 @@
+ 
+ /** P14A.1/R4: V28 reads the same frozen V27 state under ITS OWN era's
+  * termination law. Everything else about the chain is unchanged. */
+-function validateSaveV27WithLaw(save: unknown, terminationLaw: TerminationLaw, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): SaveFileV27 {
++function validateSaveV27WithLaw(save: unknown, terminationLaw: TerminationLaw, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false): SaveFileV27 {
+   if (!isRecord(save)) throw new Error('validateSaveV27: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 27) throw new Error('validateSaveV27: expected version 27');
+   const raw = v14Record(checkEnvelope(save, 'validateSaveV27'), 'state');
+   v27Movements(raw);
+   try {
+-    validateSaveV26WithPolicy({ saveVersion: 26, seed: save.seed, state: raw, broadcastCache: save.broadcastCache }, 'research-v27', terminationLaw, retirementWriting, professionContext);
++    validateSaveV26WithPolicy({ saveVersion: 26, seed: save.seed, state: raw, broadcastCache: save.broadcastCache }, 'research-v27', terminationLaw, retirementWriting, professionContext, rivalTermination);
+   } catch (error) {
+     throw new Error(`validateSaveV27: frozen V26 state is invalid — ${(error as Error).message}`);
+   }
+@@ -8828,6 +8862,7 @@
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV27(save: SaveFile | { saveVersion: number }): SaveFileV27 {
++  if (save.saveVersion === 41) return migrateToV27(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV27(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV27(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV27(convertV38ToV37(save as SaveFileV38));
+@@ -8857,7 +8892,7 @@
+   return validateSaveV28WithWriting(save);
+ }
+ 
+-function validateSaveV28WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext): SaveFileV28 {
++function validateSaveV28WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false): SaveFileV28 {
+   if (!isRecord(save)) throw new Error('validateSaveV28: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 28) throw new Error('validateSaveV28: expected version 28');
+@@ -8866,7 +8901,7 @@
+   validateTalentMarketRoot(raw.talentMarket, raw);
+   const { talentMarket: _talentMarket, ...legacy } = raw;
+   try {
+-    validateSaveV27WithLaw({ saveVersion: 27, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, talentMarketTerminationLaw(raw.talentMarket), retirementWriting, professionContext);
++    validateSaveV27WithLaw({ saveVersion: 27, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, talentMarketTerminationLaw(raw.talentMarket), retirementWriting, professionContext, rivalTermination);
+   } catch (error) {
+     throw new Error(`validateSaveV28: frozen V27 state is invalid — ${(error as Error).message}`);
+   }
+@@ -8924,6 +8959,7 @@
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV28(save: SaveFile | { saveVersion: number }): SaveFileV28 {
++  if (save.saveVersion === 41) return migrateToV28(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV28(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV28(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV28(convertV38ToV37(save as SaveFileV38));
+@@ -9032,6 +9068,7 @@
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV29(save: SaveFile | { saveVersion: number }): SaveFileV29 {
++  if (save.saveVersion === 41) return migrateToV29(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV29(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV29(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV29(convertV38ToV37(save as SaveFileV38));
+@@ -9055,7 +9092,7 @@
+   return validateSaveV30WithWriting(save);
+ }
+ 
+-function validateSaveV30WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false): SaveFileV30 {
++function validateSaveV30WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false, rivalTermination = false): SaveFileV30 {
+   if (!isRecord(save)) throw new Error('validateSaveV30: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 30) throw new Error('validateSaveV30: expected version 30');
+@@ -9067,7 +9104,7 @@
+   else validatePromiseRootsV30(raw);
+   try {
+     validateSaveV28WithWriting({ saveVersion: 28, seed: save.seed, state: directingPromises === 40
+-      ? stripFirstTakeSubjects(stripV29Roots(raw)) : stripV29Roots(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext);
++      ? stripFirstTakeSubjects(stripV29Roots(raw)) : stripV29Roots(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext, rivalTermination);
+   } catch (error) {
+     throw new Error(`validateSaveV30: frozen V28 state is invalid — ${(error as Error).message}`);
+   }
+@@ -9094,6 +9131,7 @@
+ /** The V30 boundary (P14B.4, record 600); since P14B.5 a frozen prior shape
+  * reached from the live V31 by the ONE lossless-when-empty downgrade. */
+ export function migrateToV30(save: SaveFile | { saveVersion: number }): SaveFileV30 {
++  if (save.saveVersion === 41) return migrateToV30(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV30(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV30(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV30(convertV38ToV37(save as SaveFileV38));
+@@ -9128,7 +9166,7 @@
+   return validateSaveV31WithWriting(save);
+ }
+ 
+-function validateSaveV31WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false): SaveFileV31 {
++function validateSaveV31WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false, rivalTermination = false): SaveFileV31 {
+   if (!isRecord(save)) throw new Error('validateSaveV31: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 31) throw new Error('validateSaveV31: expected version 31');
+@@ -9136,7 +9174,7 @@
+   if (!Object.hasOwn(raw, 'relationships')) throw new Error('validateSaveV31: relationships root missing');
+   validateRelationshipsRoot(raw);
+   try {
+-    validateSaveV30WithWriting({ saveVersion: 30, seed: save.seed, state: stripV31Root(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext, directingPromises);
++    validateSaveV30WithWriting({ saveVersion: 30, seed: save.seed, state: stripV31Root(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext, directingPromises, rivalTermination);
+   } catch (error) {
+     throw new Error(`validateSaveV31: frozen V30 state is invalid — ${(error as Error).message}`);
+   }
+@@ -9182,6 +9220,7 @@
+ /** The live load-to-play route (P14B.5): every prior envelope migrates to the
+  * V31 boundary the live writer stamps. */
+ export function migrateToV31(save: SaveFile | { saveVersion: number }): SaveFileV31 {
++  if (save.saveVersion === 41) return migrateToV31(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV31(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV31(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV31(convertV38ToV37(save as SaveFileV38));
+@@ -9226,14 +9265,14 @@
+   return validateSaveV32WithWriting(save);
+ }
+ 
+-function validateSaveV32WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false): SaveFileV32 {
++function validateSaveV32WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false, rivalTermination = false): SaveFileV32 {
+   if (!isRecord(save)) throw new Error('validateSaveV32: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 32) throw new Error('validateSaveV32: expected version 32');
+   const raw = v14Record(checkEnvelope(save, 'validateSaveV32'), 'state');
+   validateWaivedPromiseLinks(raw);
+   try {
+-    validateSaveV31WithWriting({ saveVersion: 31, seed: save.seed, state: stripV32Field(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext, directingPromises);
++    validateSaveV31WithWriting({ saveVersion: 31, seed: save.seed, state: stripV32Field(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext, directingPromises, rivalTermination);
+   } catch (error) {
+     throw new Error(`validateSaveV32: frozen V31 state is invalid — ${(error as Error).message}`);
+   }
+@@ -9280,6 +9319,7 @@
+ /** The live load-to-play route (P14B.7): every prior envelope migrates to the
+  * V32 boundary the live writer stamps. */
+ export function migrateToV32(save: SaveFile | { saveVersion: number }): SaveFileV32 {
++  if (save.saveVersion === 41) return migrateToV32(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV32(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV32(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV32(convertV38ToV37(save as SaveFileV38));
+@@ -9446,7 +9486,7 @@
+   return validateSaveV33WithWriting(save);
+ }
+ 
+-function validateSaveV33WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false): SaveFileV33 {
++function validateSaveV33WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false, rivalTermination = false): SaveFileV33 {
+   if (!isRecord(save)) throw new Error('validateSaveV33: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 33) throw new Error('validateSaveV33: expected version 33');
+@@ -9454,7 +9494,7 @@
+   if (!Object.hasOwn(raw, 'talentProvenance')) throw new Error('validateSaveV33: talentProvenance root missing');
+   validateTalentProvenanceRoot(raw);
+   try {
+-    validateSaveV32WithWriting({ saveVersion: 32, seed: save.seed, state: stripV33Root(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext, directingPromises);
++    validateSaveV32WithWriting({ saveVersion: 32, seed: save.seed, state: stripV33Root(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext, directingPromises, rivalTermination);
+   } catch (error) {
+     throw new Error(`validateSaveV33: frozen V32 state is invalid — ${(error as Error).message}`);
+   }
+@@ -9543,6 +9583,7 @@
+ /** The live load-to-play route (P14C.1): every prior envelope migrates to the
+  * V33 boundary the live writer stamps. */
+ export function migrateToV33(save: SaveFile | { saveVersion: number }): SaveFileV33 {
++  if (save.saveVersion === 41) return migrateToV33(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV33(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV33(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV33(convertV38ToV37(save as SaveFileV38));
+@@ -9736,7 +9777,7 @@
+   return validateSaveV34WithPolicy(save, frozenLifecycleWindow);
+ }
+ 
+-function validateSaveV34WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false): SaveFileV34 {
++function validateSaveV34WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false, rivalTermination = false): SaveFileV34 {
+   if (!isRecord(save)) throw new Error('validateSaveV34: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 34) throw new Error('validateSaveV34: expected version 34');
+@@ -9744,7 +9785,7 @@
+   if (!Object.hasOwn(raw, 'careerLifecycle')) throw new Error('validateSaveV34: careerLifecycle root missing');
+   validateCareerLifecycleRootWithPolicy(raw, windowOf, professionContext);
+   try {
+-    validateSaveV33WithWriting({ saveVersion: 33, seed: save.seed, state: stripV34Root(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext, directingPromises);
++    validateSaveV33WithWriting({ saveVersion: 33, seed: save.seed, state: stripV34Root(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext, directingPromises, rivalTermination);
+   } catch (error) {
+     throw new Error(`validateSaveV34: frozen V33 state is invalid — ${(error as Error).message}`);
+   }
+@@ -9791,6 +9832,7 @@
+ /** Every prior envelope migrates to the V34 boundary; a V35 one downgrades losslessly
+  * only while it holds no cohort receipt. */
+ export function migrateToV34(save: SaveFile | { saveVersion: number }): SaveFileV34 {
++  if (save.saveVersion === 41) return migrateToV34(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV34(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV34(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV34(convertV38ToV37(save as SaveFileV38));
+@@ -9940,7 +9982,7 @@
+   return validateSaveV35WithPolicy(save, frozenLifecycleWindow);
+ }
+ 
+-function validateSaveV35WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false): SaveFileV35 {
++function validateSaveV35WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false, rivalTermination = false): SaveFileV35 {
+   if (!isRecord(save)) throw new Error('validateSaveV35: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 35) throw new Error('validateSaveV35: expected version 35');
+@@ -9948,7 +9990,7 @@
+   if (!Object.hasOwn(raw, 'careerLifecycle')) throw new Error('validateSaveV35: careerLifecycle root missing');
+   validateCohortReceipts(raw, professionContext);
+   try {
+-    validateSaveV34WithPolicy({ saveVersion: 34, seed: save.seed, state: stripV35Cohorts(raw), broadcastCache: save.broadcastCache }, windowOf, retirementWriting, professionContext, directingPromises);
++    validateSaveV34WithPolicy({ saveVersion: 34, seed: save.seed, state: stripV35Cohorts(raw), broadcastCache: save.broadcastCache }, windowOf, retirementWriting, professionContext, directingPromises, rivalTermination);
+   } catch (error) {
+     throw new Error(`validateSaveV35: frozen V34 state is invalid — ${(error as Error).message}`);
+   }
+@@ -9992,6 +10034,7 @@
+ /** Every prior envelope migrates to the V35 boundary; a V36 one downgrades losslessly
+  * only while it holds no retirement extension. */
+ export function migrateToV35(save: SaveFile | { saveVersion: number }): SaveFileV35 {
++  if (save.saveVersion === 41) return migrateToV35(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV35(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV35(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV35(convertV38ToV37(save as SaveFileV38));
+@@ -10005,7 +10048,7 @@
+  * stamps. Callers whose meaning is "the live state" call this, never a numbered
+  * step, so the next save bump moves this one definition. */
+ export function migrateToLive(save: SaveFile | { saveVersion: number }): LiveSaveFile {
+-  return migrateToV40(save);
++  return migrateToV41(save);
+ }
+ 
+ export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
+@@ -10026,6 +10069,7 @@
+ }
+ 
+ export function migrateToV20(save: SaveFile): SaveFileV20 {
++  if (save.saveVersion === 41) return migrateToV20(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV20(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV20(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV20(convertV38ToV37(save as SaveFileV38));
+@@ -10155,7 +10199,7 @@
+   return validateSaveV36WithPolicy(save, frozenLifecycleWindow);
+ }
+ 
+-function validateSaveV36WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false): SaveFileV36 {
++function validateSaveV36WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false, rivalTermination = false): SaveFileV36 {
+   if (!isRecord(save)) throw new Error('validateSaveV36: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 36) throw new Error('validateSaveV36: expected version 36');
+@@ -10164,7 +10208,7 @@
+   if (!Object.hasOwn(raw, 'talentMarket')) throw new Error('validateSaveV36: talentMarket root missing');
+   validateRetirementExtensions(raw, professionContext);
+   try {
+-    validateSaveV35WithPolicy({ saveVersion: 35, seed: save.seed, state: stripV36Extension(raw), broadcastCache: save.broadcastCache }, windowOf, retirementWriting, professionContext, directingPromises);
++    validateSaveV35WithPolicy({ saveVersion: 35, seed: save.seed, state: stripV36Extension(raw), broadcastCache: save.broadcastCache }, windowOf, retirementWriting, professionContext, directingPromises, rivalTermination);
+   } catch (error) {
+     throw new Error(`validateSaveV36: frozen V35 state is invalid — ${(error as Error).message}`);
+   }
+@@ -10220,6 +10264,7 @@
+ 
+ /** Every prior envelope migrates to the V36 boundary. */
+ export function migrateToV36(save: SaveFile | { saveVersion: number }): SaveFileV36 {
++  if (save.saveVersion === 41) return migrateToV36(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV36(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV36(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return migrateToV36(convertV38ToV37(save as SaveFileV38));
+@@ -10237,7 +10282,7 @@
+ }
+ 
+ function validateSaveV37WithProfession(save: unknown, professionContext?: ProfessionValidationContext,
+-  writing?: RetirementWritingAuthority, directingPromises: false | 39 | 40 = false): SaveFileV37 {
++  writing?: RetirementWritingAuthority, directingPromises: false | 39 | 40 = false, rivalTermination = false): SaveFileV37 {
+   if (!isRecord(save)) throw new Error('validateSaveV37: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 37) throw new Error('validateSaveV37: expected version 37');
+@@ -10245,7 +10290,7 @@
+   // They travel beside stripped fragments; public historical entry points omit them.
+   const retirementWriting = writing ?? retirementWritingAuthority(save.state);
+   try {
+-    validateSaveV36WithPolicy({ ...save, saveVersion: 36 }, retirementWindow, retirementWriting, professionContext, directingPromises);
++    validateSaveV36WithPolicy({ ...save, saveVersion: 36 }, retirementWindow, retirementWriting, professionContext, directingPromises, rivalTermination);
+   } catch (error) {
+     throw new Error(`validateSaveV37: state is invalid — ${(error as Error).message}`);
+   }
+@@ -10282,6 +10327,7 @@
+ 
+ /** Every prior envelope migrates to the explicit amended-law boundary. */
+ export function migrateToV37(save: SaveFile | { saveVersion: number }): SaveFileV37 {
++  if (save.saveVersion === 41) return migrateToV37(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV37(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV37(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return convertV38ToV37(save as SaveFileV38);
+@@ -10291,7 +10337,7 @@
+ 
+ 
+ // ── P14C.3 — prospective profession history, Save38 ────────────────────────
+-function proveProfessionSave(save: unknown, version: 38 | 39 | 40): { save: SaveFileV38 | SaveFileV39 | SaveFileV40; professionContext: ProfessionValidationContext } {
++function proveProfessionSave(save: unknown, version: 38 | 39 | 40 | 41): { save: SaveFileV38 | SaveFileV39 | SaveFileV40 | SaveFileV41; professionContext: ProfessionValidationContext } {
+   if (!isRecord(save)) throw new Error(`validateSaveV${version}: object required`);
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== version) throw new Error(`validateSaveV${version}: expected version ${version}`);
+@@ -10299,10 +10345,12 @@
+   validateTalentProvenanceRoot(raw);
+   const professionContext = validateProfessionHistory(raw);
+   const writing = retirementWritingAuthority(raw, professionContext);
+-  validateSaveV37WithProfession({ ...save, saveVersion: 37, state: stripProfessionHistory(raw) }, professionContext, writing, version === 38 ? false : version);
+-  if (version >= 39) validateDirectorWaiverLinks((save as SaveFileV39 | SaveFileV40).state.promises);
+-  if (version === 40) validateOpportunityWaiverLinks((save as SaveFileV40).state);
+-  return { save: save as SaveFileV38 | SaveFileV39 | SaveFileV40, professionContext };
++  // Save41 moves no promise law: its promise roots validate as Save40's.
++  validateSaveV37WithProfession({ ...save, saveVersion: 37, state: stripProfessionHistory(raw) }, professionContext, writing,
++    version === 38 ? false : version === 41 ? 40 : version, version === 41);
++  if (version >= 39) validateDirectorWaiverLinks((save as SaveFileV39 | SaveFileV40 | SaveFileV41).state.promises);
++  if (version >= 40) validateOpportunityWaiverLinks((save as SaveFileV40 | SaveFileV41).state);
++  return { save: save as SaveFileV38 | SaveFileV39 | SaveFileV40 | SaveFileV41, professionContext };
+ }
+ 
+ export function validateSaveV38(save: unknown): SaveFileV38 {
+@@ -10312,7 +10360,7 @@
+ /** Internal live-entry proof. Context escapes only after the complete current
+  * save chain succeeds; no serialization or historical projection repairs input. */
+ export function validatedLiveProfessionContext(state: GameState): ProfessionValidationContext {
+-  return proveProfessionSave({ saveVersion: 40, seed: state.seed, state, broadcastCache: state.broadcastItems }, 40).professionContext;
++  return proveProfessionSave({ saveVersion: 41, seed: state.seed, state, broadcastCache: state.broadcastItems }, 41).professionContext;
+ }
+ 
+ export function convertV37ToV38(save: SaveFileV37): SaveFileV38 {
+@@ -10345,6 +10393,7 @@
+ }
+ 
+ export function migrateToV38(save: SaveFile | { saveVersion: number }): SaveFileV38 {
++  if (save.saveVersion === 41) return migrateToV38(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV38(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return migrateToV38(convertV39ToV38(save as SaveFileV39));
+   if (save.saveVersion === 38) return validateSaveV38(save);
+@@ -10377,6 +10426,7 @@
+ }
+ 
+ export function migrateToV39(save: SaveFile | { saveVersion: number }): SaveFileV39 {
++  if (save.saveVersion === 41) return migrateToV39(convertV41ToV40(save as SaveFileV41));
+   if (save.saveVersion === 40) return migrateToV39(convertV40ToV39(save as SaveFileV40));
+   if (save.saveVersion === 39) return validateSaveV39(save);
+   return convertV38ToV39(migrateToV38(save));
+@@ -10412,6 +10462,48 @@
+ }
+ 
+ export function migrateToV40(save: SaveFile | { saveVersion: number }): SaveFileV40 {
++  if (save.saveVersion === 41) return convertV41ToV40(save as SaveFileV41);
+   if (save.saveVersion === 40) return validateSaveV40(save);
+   return convertV39ToV40(migrateToV39(save));
+ }
++
++
++// R2/R3: a rival's early release of its own employee under the player's law, Save41.
++// No new root: every rival finance period gains the `termination` movement, and a
++// rival's own termination end receipt becomes lawful; promise law stays Save40's.
++export function validateSaveV41(save: unknown): SaveFileV41 {
++  return proveProfessionSave(save, 41).save as SaveFileV41;
++}
++
++/** Adds a zero `termination` movement to every rival period; nothing else moves. */
++export function convertV40ToV41(save: SaveFileV40): SaveFileV41 {
++  const validated = validateSaveV40(save);
++  const old = JSON.parse(JSON.stringify(validated)) as SaveFileV40;
++  for (const business of old.state.hollywood?.businesses ?? []) {
++    for (const period of business.account.periods) period.movements.termination = 0;
++  }
++  return validateSaveV41({ ...old, saveVersion: 41 });
++}
++
++/** Lossless only while no rival has released anyone: a zero `termination` movement is
++ * dropped; a real one, or a rival termination receipt, refuses by name. */
++export function convertV41ToV40(save: SaveFileV41): SaveFileV40 {
++  const validated = validateSaveV41(save);
++  const detached = JSON.parse(JSON.stringify(validated)) as SaveFileV41;
++  const hollywood = detached.state.hollywood;
++  if (hollywood?.receipts.some(r => r.kind === 'employment' && r.reason === 'termination' && r.studioId !== hollywood.playerStudioId)) {
++    throw new Error('migrateToV40: cannot downgrade or discard a rival termination receipt');
++  }
++  for (const business of hollywood?.businesses ?? []) {
++    for (const period of business.account.periods) {
++      if (period.movements.termination !== 0) throw new Error('migrateToV40: cannot downgrade or discard a rival termination movement');
++      Reflect.deleteProperty(period.movements, 'termination');
++    }
++  }
++  return validateSaveV40({ ...detached, saveVersion: 40 });
++}
++
++export function migrateToV41(save: SaveFile | { saveVersion: number }): SaveFileV41 {
++  if (save.saveVersion === 41) return validateSaveV41(save);
++  return convertV40ToV41(migrateToV40(save));
++}
+--- bridge/schema/bridge-schema.ts	2026-09-27 21:38:14.000000000 +0200
++++ /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/prod/bridge/schema/bridge-schema.ts	2026-09-28 11:32:15.000000000 +0200
+@@ -278,7 +278,9 @@
+ // outgoing53 checkpoints are registered before this Save39 runtime boundary.
+ // P4/P5: closed material drafts and issuer-only genre/project/class disclosures.
+ // Genuine outgoing54 checkpoints retain distinct slots through Save40 migration.
+-export const PROJECTION_VERSION = 55 as const
++// R2/R3: two contract refusal codes (`foundingDraft`, `seatedOnActiveProduction`).
++// Genuine outgoing55 checkpoints are registered before this Save41 runtime boundary.
++export const PROJECTION_VERSION = 56 as const
+ 
+ const nonEmptyText = () => text({ minLength: 1 })
+ const nonNegativeInteger = () => integer({ minimum: 0 })
+@@ -1761,6 +1763,10 @@
+   // incumbent's renewal IS a proposal settled at the decision week — the engine's
+   // own `underMarketCase` refusal (src/core/actions.ts, applyRenewContract).
+   'underMarketCase',
++  // R2 (projection 56, companion §3.4): release waits for the founding draft to close
++  // and for a seated person's picture to release — the engine's own two refusals.
++  'foundingDraft',
++  'seatedOnActiveProduction',
+ ] as const
+ 
+ const StudioContractDraftPayload = object('StudioContractDraftPayload', {
