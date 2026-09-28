@@ -1,0 +1,29 @@
+# 1319-T: type errors at 1b675f75 (Save42 production), tsc --noEmit per project. All are test-side: live makeSave output (SaveFileV42) passed to V41-era functions. Scope of the Save42 pin sweep.
+
+## root (18 errors)
+tests/contracts/v14-boundary-guards.contract.test.ts(63,84): error TS2345: Argument of type 'SaveFileV42' is not assignable to parameter of type 'SaveFileV41'.
+tests/helpers/p14c2b-fixtures.ts(69,90): error TS2345: Argument of type 'SaveFileV42' is not assignable to parameter of type 'SaveFileV41'.
+tests/helpers/p14c4-fixtures.ts(71,72): error TS2345: Argument of type 'SaveFileV42' is not assignable to parameter of type 'SaveFileV41'.
+tests/p06a-w1-release-authority.test.ts(406,88): error TS2345: Argument of type 'SaveFileV42' is not assignable to parameter of type 'SaveFileV41'.
+tests/p12-starting-world.test.ts(52,44): error TS2345: Argument of type 'SaveFileV42' is not assignable to parameter of type 'SaveFileV41'.
+tests/p14b4-material-evidence-core.test.ts(293,9): error TS2322: Type 'SaveFileV42' is not assignable to type 'SaveFileV41'.
+tests/p14c2rm-writer-continuation.test.ts(247,98): error TS2345: Argument of type 'SaveFileV42' is not assignable to parameter of type 'SaveFileV41'.
+tests/p14c3-cohort-transition.test.ts(281,82): error TS2345: Argument of type 'SaveFileV42' is not assignable to parameter of type 'SaveFileV41'.
+tests/p14c3-dual-extensions.test.ts(172,82): error TS2345: Argument of type 'SaveFileV42' is not assignable to parameter of type 'SaveFileV41'.
+tests/p14c3-offmenu-extensions.test.ts(229,82): error TS2345: Argument of type 'SaveFileV42' is not assignable to parameter of type 'SaveFileV41'.
+tests/p14c3-profession-history.test.ts(112,102): error TS2345: Argument of type 'SaveFileV42' is not assignable to parameter of type 'SaveFileV41'.
+tests/p14c3-promise-digest-continuity.test.ts(226,87): error TS2345: Argument of type 'SaveFileV42' is not assignable to parameter of type 'SaveFileV41'.
+tests/p14p3-directing-promises.test.ts(351,46): error TS2345: Argument of type 'SaveFileV42' is not assignable to parameter of type 'SaveFileV41'.
+tests/p14p3-directing-promises.test.ts(646,47): error TS2345: Argument of type 'SaveFileV42' is not assignable to parameter of type 'SaveFileV41'.
+tests/p14p4p5-opportunities.test.ts(786,62): error TS2345: Argument of type 'SaveFileV42' is not assignable to parameter of type 'SaveFileV41'.
+tests/p14p4p5-screenplay-status.test.ts(320,53): error TS2345: Argument of type 'SaveFileV42' is not assignable to parameter of type 'SaveFileV41'.
+tests/save.test.ts(370,88): error TS2345: Argument of type 'SaveFileV42' is not assignable to parameter of type 'SaveFileV41'.
+tests/save.test.ts(419,88): error TS2345: Argument of type 'SaveFileV42' is not assignable to parameter of type 'SaveFileV41'.
+
+## bridge (2 errors)
+tests/helpers/p14c2b-fixtures.ts(69,90): error TS2345: Argument of type 'SaveFileV42' is not assignable to parameter of type 'SaveFileV41'.
+tests/helpers/p14c4-fixtures.ts(71,72): error TS2345: Argument of type 'SaveFileV42' is not assignable to parameter of type 'SaveFileV41'.
+
+## ui (2 errors)
+tests/helpers/p14c2b-fixtures.ts(69,90): error TS2345: Argument of type 'SaveFileV42' is not assignable to parameter of type 'SaveFileV41'.
+tests/helpers/p14c4-fixtures.ts(71,72): error TS2345: Argument of type 'SaveFileV42' is not assignable to parameter of type 'SaveFileV41'.
