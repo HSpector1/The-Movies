@@ -1,0 +1,52 @@
+{
+  "purpose": "generated test campaigns only; never Owner saves",
+  "record": "1307",
+  "plan": [
+    "1304-F",
+    "1305-F"
+  ],
+  "producer": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1307-runtime55-outgoing-producer.ts",
+  "executionHead": "711183416e872000608b230ffd65f433a9de494f",
+  "input": {
+    "path": "tests/fixtures/p14/genuine-v40-pre-r3/genuine-v40-r3-outgoing-week110.json.gz",
+    "gzip": {
+      "bytes": 122176,
+      "sha256": "196b73d43ac6e346c6b6e6a73e0b13f16bc23a1f5d321947067d6f81ca774bd8"
+    },
+    "decoded": {
+      "bytes": 1094789,
+      "sha256": "2e717382e952fa0f175f07d5f7055d6d3f37c66eb4bf86a783dd169ae21d2ddc"
+    }
+  },
+  "route": "fresh runtime session on the 1306 week-110 Save40 input; save; submit the offered advanceWeek intent; restart and replay the command",
+  "gzip": {
+    "bytes": 435601,
+    "sha256": "3e9ca499555dfcca262078329f66030fc0a49f52e350dec38749bb51e2af7447"
+  },
+  "decoded": {
+    "bytes": 4850473,
+    "sha256": "939da0b79a2b9fbef45b7f71c71e3717d80d885b7c3a2e6244cdebc1bf379036"
+  },
+  "facts": {
+    "schemaId": "sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158",
+    "projectionVersion": 55,
+    "saveVersion": 40,
+    "sessionId": "1307-outgoing55",
+    "stateRevision": 1,
+    "journalRoutes": [
+      "save",
+      "command"
+    ],
+    "journalDigest": "e8b9748d6870e02f99306dd0f534043832e11fbb61b41d640b12f3f3925c2f82",
+    "savedSlot": {
+      "week": 110,
+      "bytes": 1094789,
+      "sha256": "2e717382e952fa0f175f07d5f7055d6d3f37c66eb4bf86a783dd169ae21d2ddc"
+    },
+    "currentSlot": {
+      "week": 111,
+      "bytes": 1095023,
+      "sha256": "487d8f7eae91d3ec058a5f7f42be21428a2f6a318c3dd459b0cf2ed06985143d"
+    }
+  }
+}

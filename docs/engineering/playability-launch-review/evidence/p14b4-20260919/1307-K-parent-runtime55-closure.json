@@ -1,0 +1,81 @@
+{
+  "record": "1307-K parent closure: genuine outgoing projection55 runtime checkpoint",
+  "timeUtc": "2026-09-28T09:35:25.095726+00:00",
+  "executedPublishedSource": "711183416e872000608b230ffd65f433a9de494f",
+  "producer": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1307-runtime55-outgoing-producer.ts",
+    "bytes": 8953,
+    "sha256": "461e9679f5c3ce943cd226cc728917b3c1e40788c9bfb4232eacec777cf6c186"
+  },
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1307-B-runtime55-producer-review.md",
+    "bytes": 9647,
+    "sha256": "b28d6d31f8d86ca24d304466ca9ce38a60ac94a9667d991484f11b68e004b826"
+  },
+  "reviewVerdict": "REFINE with two optional items; both adopted before the single execution",
+  "run": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1307-runtime55-outgoing-run-preflight-preflight.json",
+      "bytes": 114445,
+      "sha256": "20bbff919d7337318b1239c5990b35f85929046482173ff240fb599a05f8b4af"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1307-runtime55-outgoing-run-preflight.json",
+      "bytes": 114445,
+      "sha256": "20bbff919d7337318b1239c5990b35f85929046482173ff240fb599a05f8b4af"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1307-runtime55-outgoing-run.json",
+      "bytes": 52363,
+      "sha256": "a2e184bb21440020d8f15f9412105d580f3b8db4ab4622c7fdd39f35b5d7d351"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1307-runtime55-outgoing-run.txt",
+      "bytes": 44848,
+      "sha256": "d044a664be3f8dd323b9436522dd4e9fbc2d2df9a52ab5bf12fa0727d1d1ad8a"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1307-runtime55-outgoing-run.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1307-runtime55-outgoing-run-postflight.json",
+      "bytes": 115133,
+      "sha256": "6c9dc2e4e8648c3347662acb04ce296134f5ffe6d0c7cbc6912cffb4df84f40d"
+    }
+  ],
+  "runNote": "The parent invoked the bounded pre with a doubled stem, so it wrote 1307-runtime55-outgoing-run-preflight-preflight.json. Nothing moved before the post: no commit, stage or source edit. The parent copied those bytes unchanged (cmp-equal) to the canonical 1307-runtime55-outgoing-run-preflight.json and ran the post with the record stem; it closed allGuardsExact:true, fixedSource:true, exitCode 0. Both pre files are kept.",
+  "outputs": [
+    {
+      "path": "tests/fixtures/p14/genuine-runtime55-pre-r3/MANIFEST.json",
+      "bytes": 1270,
+      "sha256": "c573009c6a46210750b6f3ab4e52e6beccc54515752baaf75fc10f74f2897fcc"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-runtime55-pre-r3/runtime55-current111-saved110.json.gz",
+      "bytes": 435601,
+      "sha256": "3e9ca499555dfcca262078329f66030fc0a49f52e350dec38749bb51e2af7447",
+      "raw": {
+        "bytes": 4850473,
+        "sha256": "939da0b79a2b9fbef45b7f71c71e3717d80d885b7c3a2e6244cdebc1bf379036"
+      }
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-runtime55-pre-r3/runtime55-current111-saved110.provenance.json",
+      "bytes": 1747,
+      "sha256": "a0360b90a2b5205f84d0a4708d44866535c3d22f98e1173621b88687be9734c4"
+    }
+  ],
+  "facts": {
+    "schemaId": "sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158",
+    "protocolVersion": 4,
+    "sessionId": "1307-outgoing55",
+    "stateRevision": 1,
+    "journalRoutes": [
+      "save",
+      "command"
+    ]
+  },
+  "use": "registered as projection-v55 in SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS by the R2/R3 increment; its RED/GREEN consumer test loads it through the prior-schema path and migrates each Save40 slot to Save41 independently"
+}
