@@ -1,0 +1,51 @@
+{
+  "record": "1275-E parent application",
+  "timeUtc": "2026-09-28T00:12:53.544249+00:00",
+  "basePublishedSource": "2676eaf9b71f42b57147138d2876e049a0863bcf",
+  "parentRead": "Complete 584-line staged source and A/B/C/D; reviewed shared committed witness, common-window and delayed-release clocks, independent actual selector census, public waiver preservation and old4/new7 distinction. All manifest pins/decoded input/protected source rehashed; exact checked patch applied. No current validator, game code, compiler or runtime execution in this application.",
+  "operation": "add exactly one standalone Q19 test file",
+  "source": {
+    "path": "tests/p14p4p5-grouped-witness.test.ts",
+    "bytes": 46119,
+    "sha256": "781937cda4f29caf34de4d86629eee473350a878cad0758b2ea3f6a269d23ddf"
+  },
+  "author": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1275-C-grouped-witness-source-handback.md",
+    "bytes": 6575,
+    "sha256": "56b159f24d15ce997e6687089ad2913ed052ca385512591517b74a7e59fcd60e"
+  },
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1275-D-grouped-witness-source-review.md",
+    "bytes": 5565,
+    "sha256": "d2ed2722a4c6714486a83cc3eb09528f5d4458d178b958d8145f3b45979a5b58"
+  },
+  "manifest": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1275-grouped-witness-source-manifest.json",
+    "bytes": 13113,
+    "sha256": "b6dbc3c57fc63ee479afe70afd71abce012366a1c8fb0c5cc2931682fa1bb5ab"
+  },
+  "verifiedManifestPins": 51,
+  "protectedFilesUnchanged": 44,
+  "runtimeExecuted": false,
+  "next": {
+    "1276-grouped-witness-types": [
+      "node_modules/.bin/tsc",
+      "--noEmit",
+      "-p",
+      "tsconfig.json"
+    ],
+    "1277-grouped-witness-runtime": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p4p5-grouped-witness.test.ts",
+      "-t",
+      "Q19 "
+    ]
+  },
+  "advanceCaps": {
+    "types": 0,
+    "runtime": 8
+  }
+}

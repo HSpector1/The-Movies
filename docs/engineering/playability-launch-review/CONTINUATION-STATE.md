@@ -1,5 +1,25 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — Grouped-witness source applied; Q19 gates next
+
+Parent applied exact1275-C/D on published2676eaf9.1275-E records one new
+46,119-byte standalone test781937cd,51 verified manifest pins and44 unchanged
+protected files. Publish then1276 root types(cap0),1277 isolatedQ19(cap8): eight
+default-false advances52→60, six public actions including two actual P1 waivers,
+and eight explicit pure quotes. Shared-production common-window and delayed-release
+expectations remain unexecuted. No later61/81/85/90 take or release is simulated.
+Eighteen earlier leaves remain qualified across ten separate selections.
+
+After Q19 closure, begin accepted1278 casting-reservation source, then1281 delayed
+retirement and newly reviewed1284-A/B soundstage-capacity control. Future1284 is
+two identical crime quotes around one isolated-test public cancellation, zero
+advances; retained locked technology and between-actions finishing records remain.
+No future source/execution release yet. Parent owns live integration/production
+and one heavy lane; same two specialists retain separate test/review ownership.
+P17 healthy reboots with fatigue and35% Recognition floor are adopted. The separate
+Legacy Sequel classification question is pending. Continue authorized program;
+Unity/native and Owner campaigns deferred, all earlier failures/limits retained.
+
 ## CURRENT — Existing finishing work qualified; grouped-witness source next
 
 Executed/publishedfb8f4a2210bb56803c851e133ac61075b34bb041 matched GitHub.

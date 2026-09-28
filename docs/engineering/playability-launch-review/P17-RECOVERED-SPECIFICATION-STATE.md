@@ -16,6 +16,14 @@ questions. P14 work continues in its existing order.
 
 Recorded UTC: 2026-09-27T23:58:40.864721+00:00.
 
+## Remaining product question
+
+Revision02 §19.2 choice4 has now been asked: treat a legacy sequel as a dormant
+return within Direct Sequel (recommended), or make it a separate continuation
+type. This choice is PENDING until the user answers. No elapsed-time assumption.
+The optional inflated-expectation lever and optional cast-seat changes remain
+unselected; this question does not expand scope to those features.
+
 ## Recovery history
 
 2026-09-27 UTC. Recovered the already-published revision02 object
