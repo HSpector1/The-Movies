@@ -1,0 +1,57 @@
+{
+  "purpose": "generated test campaigns only; never Owner saves",
+  "record": "1306",
+  "plan": [
+    "1305-A",
+    "1305-F"
+  ],
+  "producer": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1306-save40-outgoing-producer-r2.ts",
+  "executionHead": "5627fd1147e067dc92ed5827545250fc195ee47f",
+  "saveVersion": 40,
+  "projectionVersion": 55,
+  "schemaId": "sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158",
+  "route": "p13aGeneratedStudio('r3-outgoing-v40-01'); week 0 signContract first hiring-market Actor 208 weeks; advanceTo(60); releaseTalent; advanceTo(110)",
+  "gzip": {
+    "bytes": 122176,
+    "sha256": "196b73d43ac6e346c6b6e6a73e0b13f16bc23a1f5d321947067d6f81ca774bd8"
+  },
+  "decoded": {
+    "bytes": 1094789,
+    "sha256": "2e717382e952fa0f175f07d5f7055d6d3f37c66eb4bf86a783dd169ae21d2ddc"
+  },
+  "facts": {
+    "week": 110,
+    "rivals": 4,
+    "financePeriods": [
+      {
+        "studioId": "studio-64a16d11-r01",
+        "periods": 3
+      },
+      {
+        "studioId": "studio-64a16d11-r02",
+        "periods": 3
+      },
+      {
+        "studioId": "studio-64a16d11-r03",
+        "periods": 3
+      },
+      {
+        "studioId": "studio-64a16d11-r04",
+        "periods": 3
+      }
+    ],
+    "activeRivalEmployment": 24,
+    "rivalTerminationReceipts": 0,
+    "playerTerminationLedgerRows": 1,
+    "playerTerminationReceipts": 1,
+    "rivalResearchReceipts": {
+      "laboratoryCommitted": 4,
+      "laboratoryOperational": 4,
+      "instrumentOperational": 0,
+      "researchSeatAssigned": 0,
+      "researchCompleted": 0
+    },
+    "rivalTechnologyProjects": 0
+  },
+  "elapsedMs": 2351
+}
