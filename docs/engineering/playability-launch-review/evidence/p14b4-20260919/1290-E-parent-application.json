@@ -1,0 +1,51 @@
+{
+  "record": "1290-E parent application",
+  "timeUtc": "2026-09-28T02:36:06.912317+00:00",
+  "basePublishedSource": "46c356bb71c8220232deb634489e5f5c3a8d5d0e",
+  "parentRead": "Full staged source and A/B/C/D/F read before integration. Exact1171 actual45 input, strict39 literal admission then genuine40 migration and whole-current roundtrip; all19 old takes and empty material suffix. Four fixed public strike/commission actions, full exact state/ledger/event/set deltas and independent complete owner claims. Two byte-identical pure P5crime requests with real Actor/profile/employment/lifecycle and full owner/membership facts. Other facility slots remain free while scenery alone becomes full. No simulated advance, producer, imported helper or engine evaluation during application. All manifest identities, decoded input and complete protected HEAD images independently checked.",
+  "operation": "add one standalone Q24 test; preserve all older files",
+  "source": {
+    "path": "tests/p14p4p5-scenery-capacity.test.ts",
+    "bytes": 25606,
+    "sha256": "439cda265df237532c6e64be97f83790b4c40e6bcd182bfd8ee0e9738457a412"
+  },
+  "author": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-C-scenery-capacity-source-handback.md",
+    "bytes": 6872,
+    "sha256": "99987d9cc539cf9c64d5a776e1489e93d476d4fa0566678ae658c64d52c72d9e"
+  },
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-D-scenery-capacity-source-review.md",
+    "bytes": 5418,
+    "sha256": "6a23fc3c0307fc7e942a3760a3a3900e7f33714d3ea51fcbb3213a2989e70ba0"
+  },
+  "manifest": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-scenery-capacity-source-manifest.json",
+    "bytes": 15680,
+    "sha256": "e2dcd184d9fab71e1c6984d1a2350562793ea9d788240a8e86d1370f505e1cad"
+  },
+  "verifiedManifestPins": 63,
+  "protectedFilesUnchanged": 55,
+  "runtimeExecuted": false,
+  "next": {
+    "1291-scenery-capacity-types": [
+      "node_modules/.bin/tsc",
+      "--noEmit",
+      "-p",
+      "tsconfig.json"
+    ],
+    "1292-scenery-capacity-runtime": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p4p5-scenery-capacity.test.ts",
+      "-t",
+      "Q24 "
+    ]
+  },
+  "advanceCaps": {
+    "types": 0,
+    "runtime": 0
+  }
+}

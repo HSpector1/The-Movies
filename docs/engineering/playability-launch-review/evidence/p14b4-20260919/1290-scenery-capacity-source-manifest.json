@@ -1,0 +1,449 @@
+{
+  "kind": "1290-scenery-capacity-test-source",
+  "sourceOnly": true,
+  "preparationHead": "46c356bb71c8220232deb634489e5f5c3a8d5d0e",
+  "application": {
+    "target": "tests/p14p4p5-scenery-capacity.test.ts",
+    "preimage": null,
+    "liveTargetAbsent": true,
+    "postimage": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-scenery-capacity-stage/tests/p14p4p5-scenery-capacity.test.ts",
+      "bytes": 25606,
+      "sha256": "439cda265df237532c6e64be97f83790b4c40e6bcd182bfd8ee0e9738457a412"
+    },
+    "patch": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-scenery-capacity.patch",
+      "bytes": 26115,
+      "sha256": "1d1ee10cb6178699e3a01218a4a73a0ffbe26ed8161bcd5d5a5ae3915b14897a"
+    },
+    "operation": "add one standalone Q24 test; preserve all older files"
+  },
+  "authorities": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-A-scenery-capacity-proposal.md",
+      "bytes": 8137,
+      "sha256": "2cbfcbf68fba87c60bcff404868325d4c8dbd97d6c00c5ac2555a2d44bc6f6b6"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-B-scenery-capacity-plan-review.md",
+      "bytes": 6052,
+      "sha256": "f10909d0b104ead7b7682333f1bd571e5e2f02027bf3cfaf7740fcbcdca5421d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1290-F-parent-plan-adoption.md",
+      "bytes": 2042,
+      "sha256": "6ffcd2b34d9d9e68b5b4ad7e123d65e0adaaa3518030f7349f5902c87e01ab76"
+    }
+  ],
+  "protected": [
+    {
+      "path": "tests/p14p4p5-opportunities.test.ts",
+      "bytes": 78825,
+      "sha256": "205bf41b2ee5e0f9c0f0dd9b772f07174c117cbc79ad55e0309ca54cefa52422"
+    },
+    {
+      "path": "tests/helpers/p14p3-fixtures.ts",
+      "bytes": 78674,
+      "sha256": "389112bde75ccaab9e2d155a1df6e6dc279b78c7d6d531a582b04f27be5fba83"
+    },
+    {
+      "path": "tests/p14p3-directing-promises.test.ts",
+      "bytes": 98958,
+      "sha256": "1bcbbe03552f5815c3e88fc1f0937ef51f37d7b84ca0f3bd8fd693f5058e2e16"
+    },
+    {
+      "path": "src/core/index.ts",
+      "bytes": 48927,
+      "sha256": "211f99177eed29ba9a79ba7fc3f771c489f2e359d0e4115d3e61b99a2655ef3f"
+    },
+    {
+      "path": "src/core/types.ts",
+      "bytes": 121905,
+      "sha256": "ef3251ab81c56193bacc5ed9a52e6fd55e50f9d3800b76b7c1e39df1eefc2f9b"
+    },
+    {
+      "path": "src/core/save.ts",
+      "bytes": 474474,
+      "sha256": "88d1bab0db6c1b96c0895af9cdf09a353d8c16993791024bedbebd97cf3d0984"
+    },
+    {
+      "path": "src/core/tick.ts",
+      "bytes": 62182,
+      "sha256": "cd487a1b68f1b95582895ae73a9d9fb0c1d0300a2e1a212b0d83ae6bce30dcb9"
+    },
+    {
+      "path": "src/core/promises.ts",
+      "bytes": 110100,
+      "sha256": "4489e9ad16faad47d0f7cd8ab36b4a039c24151be8075b7cc35836aacfd670c2"
+    },
+    {
+      "path": "src/core/opportunityPromises.ts",
+      "bytes": 21851,
+      "sha256": "22883a39e5ea2c5925da38878f613383a9c846f2ea06d1d7b3ff3427ac2d0e3c"
+    },
+    {
+      "path": "src/core/firstTakeSubjects.ts",
+      "bytes": 6350,
+      "sha256": "2525b7e04a2449fbb91f8fb73765448eacf791f1854f5c054c093641f388993a"
+    },
+    {
+      "path": "src/core/actions.ts",
+      "bytes": 129205,
+      "sha256": "287e52ae7f3763a869c6ae75e49717a02ab20029b9a715aa85ae45bd7cd1e4c4"
+    },
+    {
+      "path": "src/core/scriptDevelopment.ts",
+      "bytes": 46802,
+      "sha256": "88ab848828a7eadad1a818a61d37cf0ab7d962ef06858c58d923ab50a56181b0"
+    },
+    {
+      "path": "src/core/castingSessions.ts",
+      "bytes": 24255,
+      "sha256": "497a8a32152e556378db96d8363be6de9a0719f2eed1fbec4a4fcfe222cf3a3b"
+    },
+    {
+      "path": "src/core/screenplay.ts",
+      "bytes": 26479,
+      "sha256": "1cb32a9ccd23dd7dc51d11cf080370feeb985de66fd36d4670c936ca6d1f929f"
+    },
+    {
+      "path": "src/core/tuning.ts",
+      "bytes": 136827,
+      "sha256": "bd6da50cf43ad7ec56ca1891ead4d6850ed2b03ecbdd853a06be5e3fbb70a541"
+    },
+    {
+      "path": "src/core/employment.ts",
+      "bytes": 27743,
+      "sha256": "7b0ffe9795014664dfee6e6ea57500cd5f28ac0e0fbb711e00ff964bca2d5c9d"
+    },
+    {
+      "path": "src/core/occupancy.ts",
+      "bytes": 31596,
+      "sha256": "e9f66c3d225d8fe9f47d52ce18fc1ca00c587d24ec84f4dc70e9b0ab29a85122"
+    },
+    {
+      "path": "src/core/aging.ts",
+      "bytes": 15022,
+      "sha256": "f0fa2af61d7b8cfaff9923be46c07c21134f899ec2321dccc618a1160aa75c34"
+    },
+    {
+      "path": "src/core/careerLifecycle.ts",
+      "bytes": 24706,
+      "sha256": "338510e570d2ace8bdeaa24b989fe7783c2d4e4250e1929eb56fc8f149c5d1f6"
+    },
+    {
+      "path": "src/core/hollywoodTick.ts",
+      "bytes": 30644,
+      "sha256": "4f5156c4cf47991936f2dd5b4a6ade9bf81609e27161fe40eb3d07d968614436"
+    },
+    {
+      "path": "src/core/operations.ts",
+      "bytes": 81366,
+      "sha256": "9935b09495df1d11f39bf3b1a37b244c3d7bf7d0994cd4c8ce286571b3be3411"
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 706,
+      "sha256": "f855dfc9191a0d63240d447bccac5e029530a74b83e12f467083f1393bbe6d4f"
+    },
+    {
+      "path": "vitest.config.ts",
+      "bytes": 176,
+      "sha256": "2939ba611a5c025c2974043c98c06af10aadd3065925103d3f506bd1f1d07faa"
+    },
+    {
+      "path": "vitest.workspace.ts",
+      "bytes": 1228,
+      "sha256": "2bb01ef4b7f9f02877e42b425e43f40e3905be769cd6f091cf61a3275563b446"
+    },
+    {
+      "path": "package.json",
+      "bytes": 2726,
+      "sha256": "031dadd99741140dae256481de76d98502bfb5855dee6f8eb46d043baa6fac9f"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 149287,
+      "sha256": "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de"
+    },
+    {
+      "path": "tests/p14p4p5-screenplay-status.test.ts",
+      "bytes": 26435,
+      "sha256": "496ea58490a0695410ab88bf98ca41830594718061ad9051c3e011e86b6d0506"
+    },
+    {
+      "path": "src/core/talentMarket.ts",
+      "bytes": 90843,
+      "sha256": "96dd8be9e682e5f614095968dee010ffe99dfc06dfd2de778cde7963667ada1e"
+    },
+    {
+      "path": "src/core/industryEmployment.ts",
+      "bytes": 2560,
+      "sha256": "51a4128847d310a735ae72ad9fa1ef3fc5fa698db2a6c195879abdcc0b6e0c39"
+    },
+    {
+      "path": "tests/p14p4p5-receipt-freeze.test.ts",
+      "bytes": 25498,
+      "sha256": "c1ee22dec887614a2b1489ca4c1578f670841e11fc0157a67921967674c913d3"
+    },
+    {
+      "path": "tests/p14p4p5-writer-resources.test.ts",
+      "bytes": 23883,
+      "sha256": "4e2f660b54501150e016ec757e675163b1de972f804be3457f23444b45b6aed0"
+    },
+    {
+      "path": "src/core/releaseAuthority.ts",
+      "bytes": 9646,
+      "sha256": "9ab259623d3b5f5f75f1d750168e68ccb5c14d27d96f06f4656985db8064b218"
+    },
+    {
+      "path": "src/core/sceneryLoadIn.ts",
+      "bytes": 13224,
+      "sha256": "f9240de85704a29aa1040694a53f2d0f7761856b579fb0dc93abf89fb8176766"
+    },
+    {
+      "path": "tests/helpers/p14b2-fixtures.ts",
+      "bytes": 18074,
+      "sha256": "3035805a00a6853399fc054858dc7774c9eb6acd3f40b89bbd989086123771ac"
+    },
+    {
+      "path": "tests/p14p4p5-stock-subject.test.ts",
+      "bytes": 25170,
+      "sha256": "060ac12b20b2cce1310d940589c2a9e886a8be0dbbbd904036fe6d5e848ebed8"
+    },
+    {
+      "path": "tests/p14p4p5-retired-acting.test.ts",
+      "bytes": 15682,
+      "sha256": "1ce0b6e6247226b2d513cf7b12cab494e4247e190f87ad6c8a0093c39d8a4ffd"
+    },
+    {
+      "path": "src/core/productionPeople.ts",
+      "bytes": 505,
+      "sha256": "2c6ea9affd6811d25cd36d85808d9470441f579153a7f0a2fb5b6a2c8a118d58"
+    },
+    {
+      "path": "tests/p14p4p5-cross-owner.test.ts",
+      "bytes": 18482,
+      "sha256": "301acd4a82ee48c71da6002c095c296c0c8fe306d0866848141f7ac2d130ca3c"
+    },
+    {
+      "path": "src/core/studioEvents.ts",
+      "bytes": 11218,
+      "sha256": "570521afd32d96490092236d0041b358bd4b72abce08a79d929736a57ffbdc31"
+    },
+    {
+      "path": "tests/p14p4p5-finishing-material.test.ts",
+      "bytes": 30044,
+      "sha256": "6ac099679b6f5e0b0bf04a37db3608fa9e7b56a8d6bf513996fb268aa3350fa5"
+    },
+    {
+      "path": "tests/bridge-p14p4p5-opportunities.test.ts",
+      "bytes": 38919,
+      "sha256": "288fd844a598c1591be7a7eb079f8dd8be160469e381d5dba1eb78fea2eaeefb"
+    },
+    {
+      "path": "tests/bridge-p14p3-directing-promises.test.ts",
+      "bytes": 46230,
+      "sha256": "dee28fa9b6f314015f86d27d709f51b92ab8cd3c1f1d57c7a01c746602faedfe"
+    },
+    {
+      "path": "ui/src/components/ProfessionalPromiseTerms.tsx",
+      "bytes": 1940,
+      "sha256": "d534940a34fc717d15a8445fe97bdac40e896332113d9ce374f0d58942275e9b"
+    },
+    {
+      "path": "ui/src/components/ProfessionalPromiseTerms.test.tsx",
+      "bytes": 9152,
+      "sha256": "daff12cc88f6ae54c9c337015ecccaeb462aaf3b22d094c25f99c288e4d03427"
+    },
+    {
+      "path": "tests/p14p4p5-grouped-witness.test.ts",
+      "bytes": 46119,
+      "sha256": "781937cda4f29caf34de4d86629eee473350a878cad0758b2ea3f6a269d23ddf"
+    },
+    {
+      "path": "tests/p14p4p5-casting-reservation.test.ts",
+      "bytes": 24532,
+      "sha256": "9157ad0cdd1a3e1c1f6afed086e2488c934758a7fa487e38a158d21d5f1bd822"
+    },
+    {
+      "path": "tests/p14p4p5-delayed-retirement.test.ts",
+      "bytes": 42810,
+      "sha256": "d7de5234ff171dc330aa4472bd5482e18a99a86ea1f1dda377f3b107b9acc579"
+    },
+    {
+      "path": "src/core/technologyProduction.ts",
+      "bytes": 9909,
+      "sha256": "aa77c468b2b59742fcf5fea9d24229ab0e0f01d656b25a18af59ce987fa3f176"
+    },
+    {
+      "path": "tests/p14p4p5-soundstage-capacity.test.ts",
+      "bytes": 27651,
+      "sha256": "a858733f70b30d35c4bb7c614981513d640567ac552ac63c47dffe209f8b2b8e"
+    },
+    {
+      "path": "src/core/productionQueue.ts",
+      "bytes": 10648,
+      "sha256": "38672a2d2c0d7c5a4b7434545d9b4ebb7400865349a3ec5568fb31ddae4c6c92"
+    },
+    {
+      "path": "src/core/queueAdmission.ts",
+      "bytes": 4411,
+      "sha256": "ad74544f539f1d383839cbbe8b19d6324b5c5fffd3e7249ae6a2cc1b330b1047"
+    },
+    {
+      "path": "src/core/productionAdmission.ts",
+      "bytes": 9366,
+      "sha256": "fba9441b361920491e430ca87306912e7e54b40ee9bb0ce25a05c3da3d9ecd6e"
+    },
+    {
+      "path": "src/core/liveRetirementWriting.ts",
+      "bytes": 1419,
+      "sha256": "eb8736770ae2d96ad90069d981327acbebb661852101143ca53afa8d1553530b"
+    },
+    {
+      "path": "tests/p14p4p5-queued-project-outcome.test.ts",
+      "bytes": 46898,
+      "sha256": "e1a4c0789e0546085c44e91aaddaa72754fcedc8f50c18ef48e5d6e26ca8ea33"
+    },
+    {
+      "path": "src/core/sets.ts",
+      "bytes": 35772,
+      "sha256": "7f18032b877f1215e7d8a6f8906509887bb0de4f899c66ba9d12c6cc66c98ab5"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json",
+      "bytes": 11550,
+      "sha256": "a261fc3177527d05d5a8daf624de7af015df8c9a8fedd3e11b37fe1597a2f4b6"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/genuine-v39-p3-market-week45.json.gz",
+      "bytes": 86995,
+      "sha256": "12799a849b0b4aff49cd9707ea8c1b87c64b4e787ff261b2e9cf4b109a953117"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v37-c3-corpus/MANIFEST.json",
+      "bytes": 32532,
+      "sha256": "b3a3251ae7b3df96a1e2a615991744c5d1e5966a095424693f086a1581244294"
+    }
+  ],
+  "decodedInput": {
+    "gzipPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/genuine-v39-p3-market-week45.json.gz",
+    "bytes": 751294,
+    "sha256": "e7401f2578a7ad151383ca905df4253c2bbd82d6823c406c28b7e76aa809c5af",
+    "saveVersion": 39,
+    "week": 45,
+    "oldTakeCount": 19,
+    "retainedPromiseCount": 0
+  },
+  "declarations": [
+    {
+      "describe": "P4/P5 actual scenery capacity with independently free other facilities",
+      "it": "Q24 isolates two under-construction scenery holds with identical Ready crime requests",
+      "timeoutMs": 60000
+    }
+  ],
+  "commands": {
+    "1291-scenery-capacity-types": [
+      "node_modules/.bin/tsc",
+      "--noEmit",
+      "-p",
+      "tsconfig.json"
+    ],
+    "1292-scenery-capacity-runtime": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p4p5-scenery-capacity.test.ts",
+      "-t",
+      "Q24 "
+    ]
+  },
+  "bounds": {
+    "advanceAttempts": 0,
+    "expectedEngineAdvances": 0,
+    "actualInputWeek": 45,
+    "finalWeek": 45,
+    "publicActionAttempts": 4,
+    "expectedAcceptedActions": 4,
+    "explicitFeasibilityQuotes": 2,
+    "expectedSelectorCalls": 2,
+    "expectedSelected": 1,
+    "expectedFiltered": 0,
+    "historicalPrefixAdvances": 0,
+    "simulationHelperImported": false,
+    "cachePhases": [
+      "genuine45",
+      "first-build45",
+      "first-quote45",
+      "second-build45",
+      "second-quote45"
+    ]
+  },
+  "fixedActions": [
+    {
+      "kind": "strikeSet",
+      "setId": "set-1"
+    },
+    {
+      "kind": "strikeSet",
+      "setId": "set-2"
+    },
+    {
+      "kind": "commissionSet",
+      "commission": {
+        "blueprintId": "set-house-generic",
+        "stageFacilityId": "facility-soundstage-12"
+      }
+    },
+    {
+      "kind": "commissionSet",
+      "commission": {
+        "blueprintId": "set-house-generic",
+        "stageFacilityId": "facility-soundstage-07"
+      }
+    }
+  ],
+  "request": {
+    "family": "SPECIFIC_PROJECT",
+    "issuerStudioId": "studio-de11f27b-player",
+    "beneficiaryPersonId": "authored-0005",
+    "predicate": {
+      "kind": "projectOpportunity",
+      "count": 1,
+      "seatClass": "allCast",
+      "scriptProjectId": "script-0001"
+    },
+    "startWeek": 45,
+    "termWeeks": 52,
+    "windowStartWeek": 45,
+    "dueWeekExclusive": 58
+  },
+  "guards": [
+    "strict39 literal input/export and real40 migration; only empty cutover19 sidecar added",
+    "all 55 protected complete source/config images equal preparation HEAD; live target absent; new-file patch reconstruction exact",
+    "hard-zero tick spy; fixed4 attempts and2 quotes; accepted counters follow exact intended delta/current admission; first failure cached",
+    "complete independent set mount/scenery census with all other resource owners proven empty; mounts never counted as facility claims",
+    "actual Actor employment/current-requested admission and full all-owner company/writing/research census; exact Ready target and empty issuer-or-person union",
+    "single forwarding selector per quote, exact input/from/complete returned rows; restore only local spy and count observed calls in finally",
+    "same two query bytes; full state/request/RNG purity for actual action input and quotes; exact whole-state permitted action delta",
+    "all old19 takes, contracts, lifecycle, technology and every unrelated root preserved; real refunds/capex and retained retired sets/events",
+    "new 60000ms declaration prospective; author ran no project imports/compiler/tests/actions/quotes/ticks"
+  ],
+  "provenance": {
+    "original37Bootstrap": {
+      "builder": "p13aGeneratedStudio",
+      "cashBefore": 20000000,
+      "cashAfter": 30000000,
+      "delta": 10000000,
+      "note": "Disclosed generated-fixture funding, not simulated earned film revenue. No other direct world edits."
+    },
+    "captureAddsFunding": false,
+    "newTestAddsFunding": false,
+    "replaysCapturePrefix": false
+  },
+  "scope": "Pure evaluator scenery distinction after fixed public set actions; actual existing contract remains [0,208), quoted [45,97) terms are hypothetical. No build completion48, usable construction scenery, fresh production/crew, filming, hiring, generic allocation, native or full-suite claim."
+}

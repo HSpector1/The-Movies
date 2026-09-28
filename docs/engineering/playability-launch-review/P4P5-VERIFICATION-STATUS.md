@@ -1,5 +1,22 @@
 # P4/P5 verification coverage
 
+## CURRENT — Scenery source applied; Q24 gates next
+
+Parent applied exact1290-C/D on published46c356bb.1290-E records one new
+25,606-byte standalone test439cda26,63 manifest pins and55 unchanged protected
+files. Publish then1291 root types(cap0),1292 isolatedQ24(cap0): four fixed public
+set actions and two identical pure P5crime quotes at actual45, with a new60s leaf.
+Exact refunds/capex, retained retired sets, full claims and unchanged other free
+facilities must distinguish scenery capacity. These are unexecuted premises.
+Twenty-three earlier core leaves passed across fifteen separate selections.
+
+1293 post-capacity A/B/F is adopted with the public trust-descriptor fallback
+clarification; source starts after Q24 closure. Parent owns live integration,
+production and one heavy lane; the same two specialists retain separate test/review
+roles. No older producer or completed gate is repeated. P17's three decisions and
+paper reproduction limits remain recorded. Continue the authorized program;
+Unity/native and Owner campaigns remain deferred.
+
 Evidence cutoff: 2026-09-28, after Q23 / 1289. This is a navigation summary of recorded results, not a new contract, execution budget or full-suite pass. Save40, projection55 and evaluator7 are implemented. The outstanding verification below keeps the wider P14 task open.
 
 The twenty-three core leaves Q01–Q23 passed across **fifteen separate selections**: 1234b (four), 1238 (two), 1253 (four), 1256 (one), 1259 (one), 1262 (two), 1265b (one), 1268 (one), 1271 (one), 1274 (one), 1277 (one), 1280 (one), 1283 (one), 1286 (one), and1289 (one). There was no same-run twenty-three-leaf qualification. Three new Bridge leaves and one new UI leaf passed separately. Prior compiler/runtime failures and the Bridge synchronous timeout overrun remain in their original records.

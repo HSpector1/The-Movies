@@ -1,5 +1,22 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — Scenery source applied; Q24 gates next
+
+Parent applied exact1290-C/D on published46c356bb.1290-E records one new
+25,606-byte standalone test439cda26,63 manifest pins and55 unchanged protected
+files. Publish then1291 root types(cap0),1292 isolatedQ24(cap0): four fixed public
+set actions and two identical pure P5crime quotes at actual45, with a new60s leaf.
+Exact refunds/capex, retained retired sets, full claims and unchanged other free
+facilities must distinguish scenery capacity. These are unexecuted premises.
+Twenty-three earlier core leaves passed across fifteen separate selections.
+
+1293 post-capacity A/B/F is adopted with the public trust-descriptor fallback
+clarification; source starts after Q24 closure. Parent owns live integration,
+production and one heavy lane; the same two specialists retain separate test/review
+roles. No older producer or completed gate is repeated. P17's three decisions and
+paper reproduction limits remain recorded. Continue the authorized program;
+Unity/native and Owner campaigns remain deferred.
+
 ## CURRENT — Queued project outcome qualified; scenery source next
 
 Executed/published65bf39140429ddf0934be94c5e9fe3c9fe2f3c6c matched GitHub.
