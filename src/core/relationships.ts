@@ -23,6 +23,7 @@
 // this advance's delta — never from a scan of a root, so a migrated save forms
 // no edge from its old credits (Q3, OPEN 2 stays open).
 
+import { castingSessionForProject } from './castingSessions.js'
 import type {
   CastSlot, FilmResult, FirstTakeReceipt, GameState, Production, RelationshipDriver, RelationshipDriverKind,
   RelationshipEdge, RelationshipTier,
@@ -52,9 +53,15 @@ export const RELATIONSHIP_TIER_FLOOR: Readonly<Record<RelationshipTier, number>>
   Nemeses: 0, Enemies: 11, Strained: 31, Acquaintances: 45, Colleagues: 56, Friends: 61, CloseFriends: 71, Inseparable: 81,
 }
 
-/** The five driver kinds B.5 mints (§5.4 :439-445). No conflict-record kind. */
-export const RELATIONSHIP_DRIVER_KINDS: readonly RelationshipDriverKind[] =
+/** The five driver kinds B.5 minted (§5.4 :439-445): the FROZEN catalogue every
+ * Save31..Save41 reader validates against, never widened. */
+export const RELATIONSHIP_DRIVER_KINDS_V31: readonly RelationshipDriverKind[] =
   ['sharedProduction', 'repeatedCollaboration', 'sharedSuccess', 'sharedFailure', 'cancelledAfterFirstTake'] as const
+
+/** The live catalogue: B.5's five plus the casting competition and its accelerator
+ * (§5.4 rows 5-6; 1313-A/F, Save42). No conflict-record kind. */
+export const RELATIONSHIP_DRIVER_KINDS: readonly RelationshipDriverKind[] =
+  [...RELATIONSHIP_DRIVER_KINDS_V31, 'castingCompetitionLost', 'repeatedCompetition'] as const
 
 /** §5.4 :439 proximity classes on one shared take: director–lead and lead–antagonist
  * HIGH, director–antagonist and lead–support MID, director–support and
@@ -80,6 +87,12 @@ export const RELATIONSHIP_SUCCESS_DELTA = 5
 export const RELATIONSHIP_FAILURE_DELTA = 5
 /** §5.4 :445 "small". */
 export const RELATIONSHIP_CANCEL_DELTA = 2
+/** §5.4 row 5, "the principal source of negative relationships" (1313-A): between
+ * the cancel driver and the failure driver. HYPOTHESIS by name. */
+export const RELATIONSHIP_COMPETITION_DELTA = 3
+/** §5.4 row 6 "small", the competition mirror of the repeat accelerator: the
+ * accelerator is `min(sharedCompetitions − 1, RELATIONSHIP_COMPETITION_REPEAT_CAP)`. */
+export const RELATIONSHIP_COMPETITION_REPEAT_CAP = 2
 /** The release thresholds on `FilmResult.criticScore` (0..100, always present —
  * 647-B ruling on OPEN 9). Today they mirror the shipped critic bands
  * (`receptionVerdict.ts`: hit at 60, flop below 40) without being bound to them. */
@@ -166,7 +179,9 @@ function counted(edge: RelationshipEdge, kind: RelationshipDriverKind): Relation
     case 'sharedSuccess': return { ...edge, sharedSuccesses: edge.sharedSuccesses + 1 }
     case 'sharedFailure': return { ...edge, sharedFailures: edge.sharedFailures + 1 }
     case 'cancelledAfterFirstTake': return { ...edge, sharedCancellations: edge.sharedCancellations + 1 }
-    case 'repeatedCollaboration': return edge
+    case 'castingCompetitionLost': return { ...edge, sharedCompetitions: edge.sharedCompetitions + 1 }
+    case 'repeatedCollaboration':
+    case 'repeatedCompetition': return edge
   }
 }
 
@@ -188,16 +203,19 @@ function writeEdge(edge: RelationshipEdge, week: number, driver: RelationshipDri
   }
 }
 
-/** A new edge from its first shared take: the baseline with the proximity delta
+/** A new edge from its first shared take, or from a first lost casting competition
+ * (1313-F note 5: no shared production yet): the baseline with the driver's delta
  * applied (drift materialized on a fresh baseline is the baseline itself). */
 function newEdge(index: number, a: string, b: string, week: number, driver: RelationshipDriver): RelationshipEdge {
   const closeness = clamp(RELATIONSHIP_BASELINE + driver.delta)
   const tier = tierOf(closeness)
+  const competition = driver.kind === 'castingCompetitionLost'
   return {
     edgeId: `relationship-edge-${String(index)}`,
     a, b, closeness,
     firstSharedWeek: week, lastEventWeek: week,
-    sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0, sharedCancellations: 0,
+    sharedProductions: competition ? 0 : 1, sharedSuccesses: 0, sharedFailures: 0, sharedCancellations: 0,
+    sharedCompetitions: competition ? 1 : 0,
     peakTier: tier, peakTierWeek: week,
     recent: [driver],
   }
@@ -329,6 +347,64 @@ export function recordCancelledAfterFirstTake(state: GameState, studioId: string
   return commitLedger(state, ledger)
 }
 
+/**
+ * 1313-A/F: the casting competition, synchronously inside `applyGreenlight` once a
+ * script-project production is admitted (1312-F note 3; the `applyCancel` precedent
+ * for the studio guard). For each cast slot whose seated person is one of that
+ * slot's two auditioned candidates, the pair (seated person, the slot's other
+ * candidate); a slot filled from outside its slate names no pair. Pairs are
+ * canonical and de-duplicated, so a pair contesting two slots of one production
+ * records ONE competition (1313-F amendment 2). Each pair: `castingCompetitionLost`
+ * (ref = the production id, stamped `state.market.tick`), then from its second
+ * competition the capped `repeatedCompetition` accelerator. A project without a
+ * complete session mints nothing (the SAME reference comes back). No RNG. Rivals
+ * hold no casting session, so the reachable set is player-only (1312-F amendment 1).
+ */
+export function recordCastingCompetition(state: GameState, studioId: string, production: Production, projectId: string): GameState {
+  const session = castingSessionForProject(state.castingSessions, projectId)
+  if (session === undefined || session.status !== 'complete') return state
+  requireRelationshipsRoot(state)
+  if (studioId !== state.hollywood?.playerStudioId) {
+    throw new Error(`relationships: casting session "${session.id}" belongs to the player studio, not ${studioId}`)
+  }
+  const pairs: { a: string; b: string }[] = []
+  const seen = new Set<string>()
+  for (const slot of ['lead', 'antagonist', 'support'] as const satisfies readonly CastSlot[]) {
+    const seated = production.cast[slot]
+    const [x, y] = session.slate[slot]
+    const other = seated === x ? y : seated === y ? x : null
+    if (other === null) continue
+    const [a, b] = canonicalPair(seated, other)
+    if (seen.has(pairKey(a, b))) continue
+    seen.add(pairKey(a, b))
+    pairs.push({ a, b })
+  }
+  if (pairs.length === 0) return state
+  const week = state.market.tick
+  const ledger = openLedger(state)
+  for (const { a, b } of pairs) {
+    const driver: RelationshipDriver = { kind: 'castingCompetitionLost', week, ref: production.id,
+      delta: driverGain(state, a, b, -RELATIONSHIP_COMPETITION_DELTA) }
+    const i = ledger.index.get(pairKey(a, b))
+    if (i === undefined) {
+      ledger.index.set(pairKey(a, b), ledger.edges.length)
+      ledger.edges.push(newEdge(ledger.edges.length, a, b, week, driver))
+      ledger.changed = true
+      continue
+    }
+    const edge = ledger.edges[i]!
+    if (hasDriver(edge, 'castingCompetitionLost', production.id)) continue
+    let next = writeEdge(edge, week, driver)
+    const accelerator = Math.min(next.sharedCompetitions - 1, RELATIONSHIP_COMPETITION_REPEAT_CAP)
+    if (accelerator > 0) {
+      next = writeEdge(next, week, { kind: 'repeatedCompetition', week, ref: production.id, delta: driverGain(state, a, b, -accelerator) })
+    }
+    ledger.edges[i] = next
+    ledger.changed = true
+  }
+  return commitLedger(state, ledger)
+}
+
 // ── reads (plan scope (5)-(7)) ───────────────────────────────────────────────
 
 /** The D5 / reservation read: the subject's current tier with every counterpart
@@ -353,6 +429,8 @@ const DRIVER_COPY: Readonly<Record<RelationshipDriverKind, string>> = {
   sharedSuccess: 'a picture they shared was well received',
   sharedFailure: 'a picture they shared was poorly received',
   cancelledAfterFirstTake: 'a picture they shared was cancelled after its first take',
+  castingCompetitionLost: 'competed for the same role',
+  repeatedCompetition: 'competed again',
 }
 
 /**
@@ -370,7 +448,9 @@ export function pairChemistry(state: GameState, x: string, y: string, week: numb
   const tier = currentTier(edge, week)
   const sign = rank(tier) >= rank('Colleagues') ? 1 : tier === 'Acquaintances' ? 0 : -1
   const reasons = RELATIONSHIP_DRIVER_KINDS.filter((kind) => edge.recent.some((d) => d.kind === kind)).map((kind) => DRIVER_COPY[kind])
-  if (week - edge.lastEventWeek > RELATIONSHIP_DRIFT_GRACE_WEEKS) reasons.push('they have not worked together lately')
+  if (week - edge.lastEventWeek > RELATIONSHIP_DRIFT_GRACE_WEEKS) {
+    reasons.push(edge.sharedProductions === 0 ? 'they have never worked together' : 'they have not worked together lately')
+  }
   return { tier, sign, reasons }
 }
 
@@ -382,6 +462,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 const EDGE_KEYS = ['edgeId', 'a', 'b', 'closeness', 'firstSharedWeek', 'lastEventWeek', 'sharedProductions', 'sharedSuccesses',
   'sharedFailures', 'sharedCancellations', 'peakTier', 'peakTierWeek', 'recent'] as const
+const EDGE_KEYS_V42 = [...EDGE_KEYS, 'sharedCompetitions'] as const
 const DRIVER_KEYS = ['kind', 'week', 'ref', 'delta'] as const
 
 /**
@@ -393,11 +474,15 @@ const DRIVER_KEYS = ['kind', 'week', 'ref', 'delta'] as const
  * counters non-negative with `sharedSuccesses + sharedFailures ≤ sharedProductions`
  * and `sharedCancellations ≤ sharedProductions`; `peakTier` in the catalogue;
  * `recent` within the cap, each driver in the catalogue with `week ≤ lastEventWeek`.
+ * `era` 31 (every frozen Save31..Save41 reader) is exactly that law with the frozen
+ * five-kind catalogue; `era` 42 adds the exact `sharedCompetitions` counter and the
+ * two casting kinds (1313-A §3, 1313-F note 8).
  */
-export function validateRelationshipsRoot(state: unknown): void {
+export function validateRelationshipsRoot(state: unknown, era: 31 | 42 = 31): void {
   const fail = (message: string): never => {
-    throw new Error(`validateSaveV31: ${message}`)
+    throw new Error(`validateSaveV${String(era)}: ${message}`)
   }
+  const catalogue = era === 42 ? RELATIONSHIP_DRIVER_KINDS : RELATIONSHIP_DRIVER_KINDS_V31
   if (!isRecord(state)) return fail('state is not a plain object')
   const rows = state.relationships
   if (!Array.isArray(rows)) return fail('state.relationships is not an array')
@@ -441,7 +526,7 @@ export function validateRelationshipsRoot(state: unknown): void {
   for (let i = 0; i < rows.length; i++) {
     const at = `state.relationships[${String(i)}]`
     const row = record(rows[i], at)
-    exact(row, EDGE_KEYS, at)
+    exact(row, era === 42 ? EDGE_KEYS_V42 : EDGE_KEYS, at)
     if (row.edgeId !== `relationship-edge-${String(i)}`) return fail(`${at}.edgeId is not this root's ordinal id`)
     const a = personId(row.a, `${at}.a`)
     const b = personId(row.b, `${at}.b`)
@@ -460,6 +545,7 @@ export function validateRelationshipsRoot(state: unknown): void {
     const cancellations = nonnegative(row.sharedCancellations, `${at}.sharedCancellations`)
     if (successes + failures > productions) return fail(`${at} counters are inconsistent: sharedSuccesses + sharedFailures exceeds sharedProductions`)
     if (cancellations > productions) return fail(`${at} counters are inconsistent: sharedCancellations exceeds sharedProductions`)
+    if (era === 42) nonnegative(row.sharedCompetitions, `${at}.sharedCompetitions`)
     if (!RELATIONSHIP_TIERS.includes(row.peakTier as RelationshipTier)) return fail(`${at}.peakTier is not a tier of the catalogue`)
     recordedWeek(row.peakTierWeek, `${at}.peakTierWeek`)
     const recent = row.recent
@@ -469,7 +555,7 @@ export function validateRelationshipsRoot(state: unknown): void {
       const d = `${at}.recent[${String(j)}]`
       const driver = record(recent[j], d)
       exact(driver, DRIVER_KEYS, d)
-      if (!RELATIONSHIP_DRIVER_KINDS.includes(driver.kind as RelationshipDriverKind)) return fail(`${d}.kind is not a driver kind of the catalogue`)
+      if (!catalogue.includes(driver.kind as RelationshipDriverKind)) return fail(`${d}.kind is not a driver kind of the catalogue`)
       const week = recordedWeek(driver.week, `${d}.week`)
       if (week > last) return fail(`${d}.week is after lastEventWeek`)
       text(driver.ref, `${d}.ref`)
@@ -489,5 +575,23 @@ export function projectRelationshipsPreV31(state: unknown): void {
   const rows = state.relationships
   if (Array.isArray(rows) && rows.length > 0) {
     throw new Error(`frozen save projection cannot discard authoritative V31 relationships (${String(rows.length)} held)`)
+  }
+}
+
+/**
+ * Save42 → the era-31 edge every frozen reader knows (1313-A §3): `sharedCompetitions`
+ * dropped and the two casting kinds removed from `recent`. `validateSaveV42` hands the
+ * frozen V41 chain this projection after validating its own root at era 42; the
+ * downgrade calls it only after `assertRelationshipsAtV31` has refused real history.
+ */
+export function relationshipsAtV31(rows: readonly RelationshipEdge[]): Record<string, unknown>[] {
+  return rows.map(({ sharedCompetitions: _competitions, ...edge }) =>
+    ({ ...edge, recent: edge.recent.filter((d) => RELATIONSHIP_DRIVER_KINDS_V31.includes(d.kind)) }))
+}
+
+/** The 42→41 refusal (1313-A §3): lossless exactly while no pair ever competed. */
+export function assertRelationshipsAtV31(rows: readonly RelationshipEdge[], caller: string): void {
+  if (rows.some((edge) => edge.sharedCompetitions !== 0 || edge.recent.some((d) => !RELATIONSHIP_DRIVER_KINDS_V31.includes(d.kind)))) {
+    throw new Error(`${caller}: cannot downgrade or discard a casting competition`)
   }
 }

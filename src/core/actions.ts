@@ -63,7 +63,7 @@ import { computeForecast, type ForecastContext } from './forecast.js'
 import { forecastHistoryForOwner } from './industryCareer.js'
 import { recordPlayerEmployment } from './industryEmployment.js'
 import { breakPromisesOnCancel, breakPromisesOnGreenlight, breakPromisesOnTermination, waivePromise } from './promises.js'
-import { recordCancelledAfterFirstTake } from './relationships.js'
+import { recordCancelledAfterFirstTake, recordCastingCompetition } from './relationships.js'
 import { caseOpenForTalent, playerOffer } from './talentMarket.js'
 import { cancelAdoption, cancelInstallation, cancellationQuote } from './installationCancellation.js'
 import { clamp } from './math.js'
@@ -580,7 +580,14 @@ function applyGreenlight(
           production.id,
         ),
       }
-  return breakPromisesOnGreenlight(linked, linked.hollywood?.playerStudioId ?? '', production)
+  const settled = breakPromisesOnGreenlight(linked, linked.hollywood?.playerStudioId ?? '', production)
+  // 1313-A/F: the casting competition mints here, where every greenlight admits its
+  // production (direct and queue-admitted alike, 1312-F note 3). Only a script-project
+  // greenlight can carry a casting session; the studio guard is `applyCancel`'s.
+  const playerStudioId = settled.hollywood?.playerStudioId
+  return scriptProject === undefined || playerStudioId === undefined
+    ? settled
+    : recordCastingCompetition(settled, playerStudioId, production, scriptProject.id)
 }
 
 // ── cancel (M15) ─────────────────────────────────────────────────────────────

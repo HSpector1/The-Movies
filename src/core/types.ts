@@ -2240,10 +2240,12 @@ export type ProfessionalPromise = ProfessionalPromiseV40
  * Partners is the romance track, held ALONGSIDE the tier — never a rung. */
 export type RelationshipTier = 'Nemeses' | 'Enemies' | 'Strained' | 'Acquaintances' | 'Colleagues' | 'Friends' | 'CloseFriends' | 'Inseparable'
 
-/** The five driver kinds B.5 mints (§5.4): shared first take with its proximity
- * weight, the repeat accelerator, success/failure at release, the player cancel
- * after a first take. No conflict-record kind exists yet. */
+/** The driver kinds (§5.4): shared first take with its proximity weight, the
+ * repeat accelerator, success/failure at release, the player cancel after a first
+ * take (B.5, Save31), and a lost casting competition with its repeat accelerator
+ * (1313-A/F, Save42). No conflict-record kind exists yet. */
 export type RelationshipDriverKind = 'sharedProduction' | 'repeatedCollaboration' | 'sharedSuccess' | 'sharedFailure' | 'cancelledAfterFirstTake'
+  | 'castingCompetitionLost' | 'repeatedCompetition'
 
 /** One evidence row: `ref` = the productionId; `week` = `state.market.tick` at
  * the write; no prose persisted (kind → copy at read, the B.2 pattern). */
@@ -2270,6 +2272,9 @@ export type RelationshipEdge = {
   sharedSuccesses: number
   sharedFailures: number
   sharedCancellations: number
+  /** Save42 (1313-A/F): admitted productions on which the pair competed for a cast
+   * slot, one per pair per production; exact, never compacted. */
+  sharedCompetitions: number
   peakTier: RelationshipTier
   peakTierWeek: number
   recent: readonly RelationshipDriver[]
@@ -2288,7 +2293,8 @@ export type GameStateV31 = GameStateV30 & {
 // retirement without adding fields; the save version distinguishes its semantic law.
 // V38 adds prospective profession history and its one actor transition catalogue.
 // V41 adds no field: the rival `termination` movement is version-aware at the boundary.
-export type GameState = GameStateV41
+// V42 adds the edge's `sharedCompetitions` counter and the two casting driver kinds.
+export type GameState = GameStateV42
 
 // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
 
@@ -2515,6 +2521,12 @@ export type GameStateV40 = Omit<GameStateV39, 'promises'> & {
  * save.ts's version dispatch has a version to point `GameState` at.
  */
 export type GameStateV41 = GameStateV40
+/**
+ * Casting competition (Save V42, 1313-A/F). NO new root: every relationship edge gains
+ * `sharedCompetitions` and `recent` admits the two casting kinds. Frozen V31..V41
+ * readers validate the edge at era 31 (five kinds, no counter), exactly the V41 law.
+ */
+export type GameStateV42 = GameStateV41
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.

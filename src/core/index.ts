@@ -1361,6 +1361,10 @@ export {
   convertV40ToV41,
   convertV41ToV40,
   migrateToV41,
+  validateSaveV42,
+  convertV41ToV42,
+  convertV42ToV41,
+  migrateToV42,
   convertV27ToV28,
   convertV28ToV27,
   // P13B-S5-R07 — live V24 → NEW V25 + migrateToV25 (the widened production
@@ -1411,6 +1415,7 @@ export type {
   SaveFileV39,
   SaveFileV40,
   SaveFileV41,
+  SaveFileV42,
   LiveSaveFile,
   SaveFile,
   TalentV1,
@@ -1513,6 +1518,9 @@ export type {
 export {
   advanceRelationshipsWeek,
   recordCancelledAfterFirstTake,
+  recordCastingCompetition,
+  relationshipsAtV31,
+  assertRelationshipsAtV31,
   currentCloseness,
   currentTier,
   pairChemistry,
@@ -1526,6 +1534,7 @@ export {
   RELATIONSHIP_TIERS,
   RELATIONSHIP_TIER_FLOOR,
   RELATIONSHIP_DRIVER_KINDS,
+  RELATIONSHIP_DRIVER_KINDS_V31,
   RELATIONSHIP_PROXIMITY_HIGH,
   RELATIONSHIP_PROXIMITY_MID,
   RELATIONSHIP_PROXIMITY_LOW,
@@ -1533,6 +1542,8 @@ export {
   RELATIONSHIP_SUCCESS_DELTA,
   RELATIONSHIP_FAILURE_DELTA,
   RELATIONSHIP_CANCEL_DELTA,
+  RELATIONSHIP_COMPETITION_DELTA,
+  RELATIONSHIP_COMPETITION_REPEAT_CAP,
   RELATIONSHIP_SUCCESS_CRITIC_SCORE,
   RELATIONSHIP_FAILURE_CRITIC_SCORE,
   RELATIONSHIP_DRIFT_GRACE_WEEKS,
@@ -1673,7 +1684,7 @@ export type { AdoptionQuote, AdoptionRequest } from './technologyAdoption.js'
 export { productionTechnologyView } from './technologyProduction.js'
 export type { StudioTechnology, StudioTechnologyV2, StudioTechnologyV3, TechnologyAction, ResearchProject, ResearchWeekReceipt, ResearchLabContribution, TechnologyAdoption, TechnologyAdoptionComponent, TechnologyEquipmentAsset, ProductionTechnology } from './technologyTypes.js'
 
-export type { GameStateV40, GameStateV41, ProfessionalPromiseV40, OpportunitySeatClass, OpportunityPredicate, GenreOpportunityPredicate, ProjectOpportunityPredicate, FirstTakeSubject, FirstTakeSubjects,
+export type { GameStateV40, GameStateV41, GameStateV42, ProfessionalPromiseV40, OpportunitySeatClass, OpportunityPredicate, GenreOpportunityPredicate, ProjectOpportunityPredicate, FirstTakeSubject, FirstTakeSubjects,
   GameStateV38, GameStateV39, ProfessionalPromiseV39, DirectorCountPredicate, CareerLifecycleRootV38, TransitionTarget, TransitionRoleTier, TransitionPotentialTier,
   RetirementKey, ProfessionAnchor, TransitionPictureRef, TransitionContextWitness, TransitionTargetInput,
   TransitionInputs, TransitionEvaluation, ProfessionChange, IndustryRetirement, TransitionDue } from './types.js'

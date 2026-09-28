@@ -5,6 +5,7 @@ import { weeklySalary } from '../src/core/employment.ts'
 import { setIsUnderRepair } from '../src/core/sets.ts'
 import { TUNING } from '../src/core/tuning.ts'
 import { ordinaryRenewalWindow } from '../src/core/studioCalendar.ts'
+import { currentTier } from '../src/core/relationships.ts'
 import type { FinanceRoute } from './finance-route.ts'
 
 export type FinanceUpcomingEvent = {
@@ -12,6 +13,30 @@ export type FinanceUpcomingEvent = {
   week: number; label: string; detail: string; weeklyOperatingCostChange: number | null; route: FinanceRoute | null
 }
 export const FINANCE_UPCOMING_LIMIT = 64
+
+/**
+ * 1313-A §2 / 1313-F amendment 4: one sentence per Inseparable counterpart who stays on
+ * the player's roster at the expiry week, in roster (employment) order. The roster test
+ * restates `bridge/relationships.ts` `rosterAt` (strict at the week on both ends) and,
+ * because the week is in the future, also requires the counterpart's committed term to
+ * reach past it. The tier is read at the expiry week, drift included.
+ */
+function inseparableNote(state: GameState, subjectId: string, week: number): string {
+  const playerStudioId = state.hollywood?.playerStudioId
+  if (playerStudioId === undefined || state.relationships === undefined) return ''
+  const notes: string[] = []
+  for (const row of state.hollywood!.employment) {
+    const id = row.terms.talentId
+    if (row.studioId !== playerStudioId || id === subjectId) continue
+    if (!(row.terms.startWeek < week && week < (row.endedWeek ?? row.terms.endWeekExclusive))) continue
+    const edge = state.relationships.find(e => (e.a === subjectId && e.b === id) || (e.b === subjectId && e.a === id))
+    if (edge === undefined || currentTier(edge, week) !== 'Inseparable') continue
+    const name = state.talent.find(t => t.id === id)?.name
+    if (name === undefined) throw new Error('Finance Upcoming: unknown roster counterpart')
+    notes.push(` ${name} works here and is Inseparable with them; letting the contract lapse separates them.`)
+  }
+  return notes.join('')
+}
 
 /** Only already-committed dates. No future receipt schedule crosses this boundary. */
 export function financeUpcoming(state: GameState) {
@@ -42,7 +67,7 @@ export function financeUpcoming(state: GameState) {
       weeklyOperatingCostChange: null, route })
     events.push({ id: `expiry:${talent.id}:${contract.endWeekExclusive}`, kind: 'contractExpiry', week: contract.endWeekExclusive,
       label: `${talent.name} current contract expires`,
-      detail: `If not renewed, current weekly salary of $${weeklySalary(contract.annualSalary).toLocaleString('en-US')} ends on arrival in Week ${contract.endWeekExclusive}. No replacement contract is assumed.`,
+      detail: `If not renewed, current weekly salary of $${weeklySalary(contract.annualSalary).toLocaleString('en-US')} ends on arrival in Week ${contract.endWeekExclusive}. No replacement contract is assumed.${inseparableNote(state, talent.id, contract.endWeekExclusive)}`,
       weeklyOperatingCostChange: null, route })
   }
   for (const set of state.sets) {
