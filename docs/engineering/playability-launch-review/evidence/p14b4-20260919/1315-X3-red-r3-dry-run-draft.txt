@@ -1,0 +1,79 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/rB1
+
+ ✓ tests/p14b9-save-v42.test.ts (12 tests) 3085ms
+   ✓ 1313-A §3 — genuine V41 casting inputs migrate to V42 by adding sharedCompetitions: 0 and nothing else > genuine-v41-casting-acknowledged (24 edges, week 10, not greenlit): fresh V42 validates; every edge gains sharedCompetitions: 0; every other field is untouched 393ms
+   ✓ 1313-A §3 — genuine V41 casting inputs migrate to V42 by adding sharedCompetitions: 0 and nothing else > without competitions, 42->41 is lossless: convertV42ToV41(convertV41ToV42(x)) exports byte-identical to the original genuine V41 text 701ms
+   ✓ 1313-A §3 — the acknowledged input, migrated then greenlit, mints real competitions; 42->41 then refuses by name > greenlightScriptProject under the V42-migrated state mints castingCompetitionLost for the three slate pairs; validateSaveV42 admits the result; convertV42ToV41 throws naming the reason 945ms
+   ✓ the frozen V41 reader is unchanged after Save42 lands (house assertion form, regression pin) > migrateToV40 and migrateToV41 admit the genuine acknowledged input projected down 405ms
+ ❯ tests/p14b9-casting-expiry.test.ts (3 tests | 3 failed) 3902ms
+   × 1313-A §2 / 1313-F Amendment 4 — the Inseparable expiry note in financeUpcoming > the SYNTHETIC Inseparable variants are a whole state the live writer accepts (makeSave + the live validateSave do not throw, whichever save version is live) 2068ms
+     → applyActions: assignShootingDirector rejected — productionId "prod-0008" is not in Shooting
+   × 1313-A §2 / 1313-F Amendment 4 — the Inseparable expiry note in financeUpcoming > the contractExpiry row for the expiring lead names every Inseparable roster counterpart whose own committed term reaches past the expiry week, in employment order; says nothing for a stranger with no edge at all 893ms
+     → applyActions: assignShootingDirector rejected — productionId "prod-0008" is not in Shooting
+   × 1313-A §2 / 1313-F Amendment 4 — the Inseparable expiry note in financeUpcoming > INTERPRETATION (1313-F Amendment 4 + the committed-term condition, not settled law — reviewer rules): a counterpart whose own committed term ends BEFORE the lead's expiry week is excluded despite an Inseparable edge, because the bare rosterAt interval predicate cannot read a future week without also checking the [...41 chars]
+     → applyActions: assignShootingDirector rejected — productionId "prod-0008" is not in Shooting
+ ✓ tests/p14b9-casting-readers.test.ts (4 tests) 2078ms
+   ✓ 1313-F note 9 — bridge/relationships.ts relationshipBlockFor observes the new kinds through pairChemistry, never through the raw catalogue > the row for a competition-only counterpart carries the DRIVER_COPY sentences and reads 0 shared pictures (sharedPictureCount is derived from firstTakes/releasedFilms, never from state.relationships) 2048ms
+ ✓ tests/p14b9-casting-copy.test.ts (2 tests) 1680ms
+   ✓ 1313-F note 6 — pairChemistry dormancy copy for a competition-only edge > an edge with sharedProductions 0, queried well past the drift grace window, reads "they have never worked together" (not "...lately") 1656ms
+ ✓ tests/p14b9-casting-competition.test.ts (13 tests | 1 skipped) 8079ms
+   ✓ 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P1: lead and antagonist each mint one castingCompetitionLost driver on the right pair, ref = the production id, delta = -RELATIONSHIP_COMPETITION_DELTA through driverGain (identity today) 2961ms
+   ✓ 1313-F Amendment 1 — a queue-admitted greenlight mints the same as a direct one > a synthetic queue entry, granted by the real tick-driven admission step, mints the same castingCompetitionLost drivers as a direct greenlight 1164ms
+   ✓ 1313-A §4 item 2 — no rival edge carries either new kind across a bounded natural run (1312-F Amendment 1: rivals hold no casting session) > 60 further weeks, zero player actions: every castingCompetitionLost/repeatedCompetition driver anywhere in state.relationships has ref in the set of productions this file greenlit as the player 3458ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/p14b9-casting-expiry.test.ts > 1313-A §2 / 1313-F Amendment 4 — the Inseparable expiry note in financeUpcoming > the SYNTHETIC Inseparable variants are a whole state the live writer accepts (makeSave + the live validateSave do not throw, whichever save version is live)
+Error: applyActions: assignShootingDirector rejected — productionId "prod-0008" is not in Shooting
+ ❯ Module.assignShootingDirector src/core/operations.ts:691:11
+    689|   const workflow = requireManagedWorkflow(operations, production.id, '…
+    690|   if (workflow.phase !== 'shooting' || workflow.shootingTask === null)…
+    691|     throw new Error(
+       |           ^
+    692|       `applyActions: assignShootingDirector rejected — productionId "$…
+    693|     )
+ ❯ applyAssignShootingDirector src/core/actions.ts:1828:22
+ ❯ Module.applyActions src/core/actions.ts:2985:16
+ ❯ world tests/p14b9-casting-expiry.test.ts:202:11
+ ❯ tests/p14b9-casting-expiry.test.ts:222:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/p14b9-casting-expiry.test.ts > 1313-A §2 / 1313-F Amendment 4 — the Inseparable expiry note in financeUpcoming > the contractExpiry row for the expiring lead names every Inseparable roster counterpart whose own committed term reaches past the expiry week, in employment order; says nothing for a stranger with no edge at all
+Error: applyActions: assignShootingDirector rejected — productionId "prod-0008" is not in Shooting
+ ❯ Module.assignShootingDirector src/core/operations.ts:691:11
+    689|   const workflow = requireManagedWorkflow(operations, production.id, '…
+    690|   if (workflow.phase !== 'shooting' || workflow.shootingTask === null)…
+    691|     throw new Error(
+       |           ^
+    692|       `applyActions: assignShootingDirector rejected — productionId "$…
+    693|     )
+ ❯ applyAssignShootingDirector src/core/actions.ts:1828:22
+ ❯ Module.applyActions src/core/actions.ts:2985:16
+ ❯ world tests/p14b9-casting-expiry.test.ts:202:11
+ ❯ tests/p14b9-casting-expiry.test.ts:232:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/p14b9-casting-expiry.test.ts > 1313-A §2 / 1313-F Amendment 4 — the Inseparable expiry note in financeUpcoming > INTERPRETATION (1313-F Amendment 4 + the committed-term condition, not settled law — reviewer rules): a counterpart whose own committed term ends BEFORE the lead's expiry week is excluded despite an Inseparable edge, because the bare rosterAt interval predicate cannot read  [...74 chars]
+Error: applyActions: assignShootingDirector rejected — productionId "prod-0008" is not in Shooting
+ ❯ Module.assignShootingDirector src/core/operations.ts:691:11
+    689|   const workflow = requireManagedWorkflow(operations, production.id, '…
+    690|   if (workflow.phase !== 'shooting' || workflow.shootingTask === null)…
+    691|     throw new Error(
+       |           ^
+    692|       `applyActions: assignShootingDirector rejected — productionId "$…
+    693|     )
+ ❯ applyAssignShootingDirector src/core/actions.ts:1828:22
+ ❯ Module.applyActions src/core/actions.ts:2985:16
+ ❯ world tests/p14b9-casting-expiry.test.ts:202:11
+ ❯ tests/p14b9-casting-expiry.test.ts:256:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+ Test Files  1 failed | 4 passed (5)
+      Tests  3 failed | 30 passed | 1 skipped (34)
+   Start at  14:37:54
+   Duration  13.03s (transform 3.14s, setup 0ms, collect 12.76s, tests 18.82s, environment 1ms, prepare 1.63s)
+
