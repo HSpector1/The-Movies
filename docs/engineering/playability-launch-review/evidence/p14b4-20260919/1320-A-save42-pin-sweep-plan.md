@@ -66,3 +66,11 @@ pin now masks is moved past the pin so it again fails with its 1316 primary; not
 
 Success: type gates clean; the broad core gate's failing identities equal 1316's 151 (same primaries, the 22 changed
 rows restored); the UI gate's equal 1317's (or its C1-family timing rows); no new identity.
+
+## UI measurement ([1320-M2](1320-M2-save42-ui-fallout-extract.txt))
+
+UI project at the Save42 production: 42 failed, 2650 passed. Against 1317, 12 identities are new: 11 live-version
+literals (S2) in `ui/src/saves.test.tsx`, `session.test.tsx`, `engine/d17-save-migration.test.ts`,
+`engine/film-chronicle-adapter.test.ts`, `lot/snapshot/v14SetHolderBoundary.test.ts` and `screens/StudioCalendar.career`
+(through a helper literal), and one `WorldFirstLotNativeNextEventApp` leaf at `:1929` ("Unable to find
+`dashboard-releases-heading`") that the parent re-measures after the sweep before any change is made to it.

@@ -1,0 +1,23 @@
+# 1320-M2 extract: vitest run --project ui in the repository at HEAD cf3be30d (Save42 production, tests unchanged). Not a recorded gate. Full log   404442 bytes, sha256 452733543457b6ac9dc6e65545d200c18c5a5d262249f74b697c5f8d2440d1c7, not archived.
+ ❯ |ui| ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx (36 tests | 3 failed) 110018ms
+ ❯ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx (15 tests | 1 failed) 39243ms
+ ❯ |ui| ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx (28 tests | 8 failed) 34605ms
+ ❯ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx (10 tests | 1 failed) 42867ms
+ ❯ |ui| ui/src/test/contracts/p05a-w2-closed-production.contract.test.ts (13 tests | 2 failed) 1935ms
+ ❯ |ui| ui/src/lot/livingTurn.scheduler.test.tsx (13 tests | 6 failed) 42516ms
+ ❯ |ui| ui/src/session.test.tsx (17 tests | 3 failed) 14628ms
+ ❯ |ui| ui/src/saves.test.tsx (15 tests | 1 failed) 15444ms
+ ❯ |ui| ui/src/engine/film-chronicle-adapter.test.ts (2 tests | 1 failed) 4608ms
+ ❯ |ui| ui/src/lot/authored-stage-a.test.ts (17 tests | 4 failed) 976ms
+ ❯ |ui| ui/src/lot/authored-rgba-export.test.ts (8 tests | 6 failed) 885ms
+ ❯ |ui| ui/src/engine/d17-save-migration.test.ts (6 tests | 2 failed) 9274ms
+ ❯ |ui| ui/src/lot/snapshot/v14SetHolderBoundary.test.ts (5 tests | 1 failed) 496ms
+ ❯ |ui| ui/src/screens/StudioCalendar.career.test.tsx (3 tests | 3 failed) 1469ms
+ Test Files  14 failed | 190 passed (204)
+      Tests  42 failed | 2650 passed | 5 skipped (2697)
+   Duration  863.56s (transform 16.47s, setup 50.56s, collect 225.31s, tests 1736.18s, environment 283.20s, prepare 40.97s)
+
+# New against 1317 (12): 11 live-version literals (S2) and one NextEventApp leaf to re-measure after the sweep
+ui/src/saves.test.tsx:126; ui/src/session.test.tsx:332,360,387; ui/src/engine/d17-save-migration.test.ts:131,155; ui/src/engine/film-chronicle-adapter.test.ts:289; ui/src/screens/StudioCalendar.career.test.tsx:29 (3 leaves, through a tests/helpers literal); ui/src/lot/snapshot/v14SetHolderBoundary.test.ts:46 — expected 42 to be 41
+ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx:1929 — Unable to find [data-testid="dashboard-releases-heading"]
+Gone against 1317: 3 (timing rows)
