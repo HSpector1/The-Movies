@@ -88,7 +88,7 @@ describe('955 historical preservation and interim projection52 journal authority
     // Stable historical leaf title is retained for the paired selector. Under
     // the explicit53 cutover this actual52 journal is preserved as old evidence;
     // it must lose replay authority when both genuine37 slots migrate to38.
-    expect(PROJECTION_VERSION).toBe(55)
+    expect(PROJECTION_VERSION).toBe(56)
     const outgoing52 = 'sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2'
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(outgoing52)).toBe('projection-v52')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
@@ -136,7 +136,7 @@ describe('955 historical preservation and interim projection52 journal authority
         transitionDue: old.state.hollywood === null ? [] : old.state.careerLifecycle.records
           .filter(row => row.status === 'retired').map(row => ({ personId: row.personId, week: week + 1 }))
           .sort((a, b) => a.personId < b.personId ? -1 : a.personId > b.personId ? 1 : 0) })
-      expect(current.saveVersion).toBe(40)
+      expect(current.saveVersion).toBe(41)
       expect(next[slot]).toBe(exportSave(current))
       expect(next[digest]).toBe(sha(exportSave(current)))
     }

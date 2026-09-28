@@ -218,11 +218,11 @@ describe('P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator
     expect(() => save.migrateToV20(v26 as never)).toThrow(/cannot downgrade/i)
   })
 
-  it('an unknown saveVersion 41 is refused, naming the handled range "1 through 40 only" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {
+  it('an unknown saveVersion 42 is refused, naming the handled range "1 through 41 only" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {
     const json = load(V25_FIXTURES.soundMidDeployment.file)
     const v26 = withV26.migrateToV26(JSON.parse(json))
-    const forged = { ...v26, saveVersion: 41 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 40 only/)
+    const forged = { ...v26, saveVersion: 42 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 41 only/)
   })
 
   it('VALID: a cancelled adoption with a passed original completesWeek is exempt from the v4 "operational receipt differs" clause', () => {
@@ -251,7 +251,7 @@ describe('P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator
       // clock's reach (already proven by tests/p13b-s6-ordering.test.ts case 3).
       return advanceTo(cancelled, 320)
     })
-    expect((reimported as { saveVersion: number }).saveVersion).toBe(40) // did NOT throw (at the live version this real advance writes)
+    expect((reimported as { saveVersion: number }).saveVersion).toBe(41) // did NOT throw (at the live version this real advance writes)
   })
 
   it('REFUSED: a cancelled placement marked operational', () => {

@@ -74,11 +74,34 @@ export type FutureSaveAPI = {
   validateSaveV39: (input: unknown) => unknown
   convertV39ToV38: (input: unknown) => SaveFileV38
 }
+type FutureSaveChainSteps = FutureSaveAPI & {
+  validateSaveV41: (input: unknown) => unknown
+  convertV40ToV39: (input: unknown) => unknown
+  convertV41ToV40: (input: unknown) => unknown
+}
 export function futureSave(): FutureSaveAPI {
-  const candidate = core as unknown as Partial<FutureSaveAPI>
+  const candidate = core as unknown as Partial<FutureSaveChainSteps>
   assert.equal(typeof candidate.validateSaveV39, 'function', 'public index exposes the new strict reader')
   assert.equal(typeof candidate.convertV39ToV38, 'function', 'public index exposes the guarded reverse conversion')
-  return candidate as FutureSaveAPI
+  assert.equal(typeof candidate.validateSaveV41, 'function', 'public index exposes the live validator')
+  assert.equal(typeof candidate.convertV40ToV39, 'function', 'public index exposes the V40->V39 downgrade step')
+  assert.equal(typeof candidate.convertV41ToV40, 'function', 'public index exposes the V41->V40 downgrade step')
+  const steps = candidate as FutureSaveChainSteps
+  // 1309-X2 ruling 3: the chain 1309-D recommended and 1309-F adopted is
+  // refused by the law for live saves — migrateToV39 (src/core/save.ts:10454-10458)
+  // refuses any envelope that holds a recorded first-take subject, which every
+  // live P3 fixture in this file genuinely has (measured:
+  // tests/p14p3-directing-promises.test.ts:322,614,851 via malformed()).
+  // validateSaveV39 therefore validates the LIVE envelope with the LIVE
+  // validator (validateSaveV41) — the exposed key name stays under the file's
+  // own "name stays, value tracks live" convention, but the value no longer
+  // downgrades at all; convertV39ToV38 keeps the chain from 1309-C2, since its
+  // only callers are the retained C20 leaf (D14), which needs the real
+  // lossy-downgrade guard, not a live-only validation.
+  return {
+    validateSaveV39: (input: unknown) => steps.validateSaveV41(input),
+    convertV39ToV38: (input: unknown) => steps.convertV39ToV38(steps.convertV40ToV39(steps.convertV41ToV40(input))),
+  }
 }
 
 const outgoingPins = {

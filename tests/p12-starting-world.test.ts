@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { beginFounding, generateWorld, makeSave, exportSave, importSave, migrateToV25, migrateToLive, makeSaveV18 } from '../src/core/index.js'
+import { beginFounding, generateWorld, makeSave, exportSave, importSave, migrateToV25, migrateToLive, makeSaveV18, convertV41ToV40 } from '../src/core/index.js'
 import { enterRival } from '../src/core/hollywood.js'
 import { persistedConceptIds, persistedProductionIds } from '../src/core/productionIdentity.js'
 
@@ -46,7 +46,10 @@ describe('R05 canonical starting history and genuine migration', () => {
   it('refuses early entry and malformed or duplicate authored history without repairing it', () => {
     const state=beginFounding(generateWorld('r05-refusal'))
     expect(()=>enterRival(state,state.hollywood!.identities[5]!.studioId,'scheduled')).toThrow()
-    expect(()=>makeSaveV18(state)).toThrow(/cannot downgrade/)
+    // 1309-X3 ruling 3: makeSaveV18 fed the raw live GameState now stops at the
+    // V25 Hollywood exact-key check on the Save41 rival `termination` movement;
+    // it receives the lawful V40 projection instead.
+    expect(()=>makeSaveV18(convertV41ToV40(makeSave(state)).state)).toThrow(/cannot downgrade/)
     const saved=makeSave(state)
     const duplicate=structuredClone(saved)
     duplicate.state.hollywood!.films.push(duplicate.state.hollywood!.films[0]!)

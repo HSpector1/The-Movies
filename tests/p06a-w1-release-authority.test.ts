@@ -29,13 +29,13 @@ import {
   makeSave,
   makeSaveV15,
   convertV38ToV37,
-  convertV39ToV38, convertV40ToV39,
+  convertV39ToV38, convertV40ToV39, convertV41ToV40,
   migrateToV15,
   migrateToLive,
   mintReleaseCommitmentId,
   stableStringify,
   tick,
-  validateSaveV38,
+  validateSaveV41,
 } from '../src/core/index.js'
 import type { CastSlot, GameState, SegmentId } from '../src/core/index.js'
 
@@ -403,7 +403,7 @@ describe('P06A W1 — save law', () => {
     // predates `setup`/`planRevision` (added at V25, P13B-S5-R07) exactly as it
     // predates `releaseAuthority` (added at V16, P06A) — strip both leaves the
     // same way, or `makeSaveV15` refuses the workflow's own unknown field.
-    const admitted37 = convertV38ToV37(convertV39ToV38(convertV40ToV39(makeSave(ready))))
+    const admitted37 = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(makeSave(ready)))))
     const { releaseAuthority: _drop, ...v15State } = admitted37.state
     const v15 = makeSaveV15({
       ...v15State,
@@ -441,7 +441,10 @@ describe('P06A W1 — save law', () => {
     // (added directly beside the P14C.2a-era V34 arm); `save` is genuinely live.
     // P14C.2b: migrateToV15 now meets a NEWER unconditional V36 guard first
     // (added directly beside the P14C.4-era V35 arm); `save` is genuinely live.
-    expect(() => migrateToV15(save)).toThrow(/^migrateToV37: cannot downgrade or discard profession transition, industry retirement or entrant authority$/)
+    // 1309-X3 ruling 2: migrateToV15 now crosses convertV41ToV40 then convertV40ToV39 FIRST; this
+    // fixture's `save` genuinely carries a recorded first-take subject, so the NEW V39 guard is the
+    // one that actually refuses -- migrateToV37's own guard, still true of this state, is masked.
+    expect(() => migrateToV15(save)).toThrow(/^migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject$/)
   })
 
   it('validateSaveV37 rejects forged authority at the save boundary (stale title said V32 before this sweep too)', () => {
@@ -453,12 +456,12 @@ describe('P06A W1 — save law', () => {
       state: { releaseAuthority: { commitments: { productionId: string }[] } }
     }
     orphan.state.releaseAuthority.commitments[0]!.productionId = 'prod-9999'
-    expect(() => validateSaveV38(orphan)).toThrow(/foreign identity|orphan/)
+    expect(() => validateSaveV41(orphan)).toThrow(/foreign identity|orphan/)
 
     const extraKey = JSON.parse(exportSave(good)) as {
       state: { releaseAuthority: Record<string, unknown> }
     }
     extraKey.state.releaseAuthority.surprise = true
-    expect(() => validateSaveV38(extraKey)).toThrow(/unknown field .surprise./)
+    expect(() => validateSaveV41(extraKey)).toThrow(/unknown field .surprise./)
   })
 })

@@ -66,7 +66,7 @@ import {
   PROMISE_RULES_VERSION, waivePromise, waiverAccepted,
   type PromiseAttachment,
 } from '../src/core/promises.js'
-import { LIVE_SAVE_VERSION, convertV31ToV32, convertV32ToV33, validateSaveV31, validateSaveV32 } from '../src/core/save.js'
+import { convertV31ToV32, convertV32ToV33, validateSaveV31, validateSaveV32 } from '../src/core/save.js'
 import type { GameState, ProfessionalPromise } from '../src/core/types.js'
 
 const sha = (value: Buffer | string): string => createHash('sha256').update(value).digest('hex')
@@ -174,7 +174,9 @@ describe('P14B.8 group1 — the owes-two world is exactly what 744 §11 A5 says 
   })
 
   it('744 §6: B.8 is a wire change, so LIVE_SAVE_VERSION stays 35 (stale title corrected post-C.4) and PROMISE_RULES_VERSION stays 4', () => {
-    expect(LIVE_SAVE_VERSION, 'B.8 moves no save law; a bump here is a plan amendment, not an implementation detail').toBe(38)
+    // B.8 (744 §6) moves no save law — verified once against that slice's own diff at the time;
+    // re-pinning LIVE_SAVE_VERSION to the live number here would only re-encode the identical
+    // defect for the next bump (1309-A item 10 / 1309-D check 10 / 1309-F item 9).
     expect(PROMISE_RULES_VERSION, 'B.8 moves no promise rule; the stamped law version does not move').toBe(4)
   })
 })
@@ -236,9 +238,9 @@ describe('P14B.8 group2 — waiverAccepted\'s verdict table on the owes-two worl
     const promise = promiseOf(state, OWES_TWO.promiseId)
     const week = state.market.tick
     const refusal = waiverAccepted(state, promise, { family: 'DIRECTING_COUNT', predicate: { count: 2 }, windowStartWeek: week + 1, dueWeekExclusive: week + 61 }, week)
-    expect(refusal).toBe('what remains of the contract cannot reasonably carry the substitute — a directing promise is not offered in this slice')
+    expect(refusal).toBe('what remains of the contract cannot reasonably carry the substitute — a directing promise needs its explicit directorCount predicate selected')
     // A8's decision rests on this string being REACHABLE through rule 9, not on it being hypothetical.
-    expect(refusal).toContain('not offered in this slice')
+    expect(refusal).toContain('a directing promise needs its explicit directorCount predicate selected')
   })
 })
 

@@ -70,7 +70,7 @@ import { tick } from '../src/core/tick.js'
 import * as marketModule from '../src/core/talentMarket.js'
 import { publicPreferredTerm, publicPriorityOrder, submitProposal, type FreezeDrop } from '../src/core/talentMarket.js'
 import { attachPromise } from '../src/core/promises.js'
-import { LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31, validateSaveV33, validateSaveV38 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31, validateSaveV33, validateSaveV41 } from '../src/core/save.js'
 import { TUNING } from '../src/core/tuning.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
@@ -994,7 +994,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
   const expectRefused = (mutate: (edges: Edge[], state: Record<string, unknown>) => void, pattern: RegExp) => {
     const save = v31()
     mutate(save.state.relationships, save.state)
-    expect(() => validateSaveV38(save)).toThrow(pattern)
+    expect(() => validateSaveV41(save)).toThrow(pattern)
     expect(() => validateRelationshipsRoot(save.state)).toThrow(pattern)
   }
 
@@ -1005,13 +1005,13 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     const save = v31()
     expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(save.state.relationships).toHaveLength(6)
-    expect(validateSaveV38(save)).toEqual(save)
+    expect(validateSaveV41(save)).toEqual(save)
   })
 
   it('refuses a missing root', () => {
     const save = v31()
     Reflect.deleteProperty(save.state, 'relationships')
-    expect(() => validateSaveV38(save)).toThrow(/relationships/)
+    expect(() => validateSaveV41(save)).toThrow(/relationships/)
   })
   it('refuses a non-ordinal edgeId', () => expectRefused((e) => { e[0]!.edgeId = 'edge-x' }, /edgeId/))
   it('refuses a duplicate pair', () => expectRefused((e) => { e[1]!.a = e[0]!.a; e[1]!.b = e[0]!.b }, /duplicate|pair/i))
@@ -1051,7 +1051,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // moves to the live validator, same as every other `v31()`-derived save below.
     // P14C.2b: `one.saveVersion` moved once more, to 36 — the live validator moves
     // with it again, same reasoning.
-    const admitted = validateSaveV38(one)
+    const admitted = validateSaveV41(one)
     const before = JSON.stringify(admitted)
     expect(() => projectRelationshipsPreV31(one.state)).toThrow()
     // RE-EXPRESSED (was: `/cannot downgrade SaveFileV31 or discard the relationship
@@ -1064,11 +1064,19 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // BEFORE it ever checks row kind (save.ts:9204-9210), and refuses with "an age
     // has materialized since week 60 (the campaign is at week 61), and V32 has
     // nowhere to record the provenance that produced it" — never reaching V31's own
-    // relationship-specific downgrade guard at all. This is the SAME rule
+    // relationship-specific downgrade guard at all. This was the SAME rule
     // `tests/p14c1-materialized-aging.test.ts` family 5 exercises directly ("ticking
     // once past the boundary is refused as a downgrade"), arriving here for a
     // different reason (a mandatory take-recording tick) than that file's.
-    expect(() => migrateToV30(admitted)).toThrow(/cannot downgrade SaveFileV33 — an age has materialized since week \d+ \(the campaign is at week \d+\), and V32 has nowhere to record the provenance that produced it/)
+    // 1309-X3 ruling 2 (MASKED, recorded reduction): migrateToV30 now crosses
+    // convertV41ToV40 then convertV40ToV39 FIRST; `admitted`'s state genuinely
+    // carries a recorded first-take subject (from `takeWorld()`'s extra tick, the
+    // very fact the V33 guard above is about), so the NEW V39 guard refuses here
+    // before the V33 aging guard is ever reached. The V33 aging guard itself is
+    // unchanged and still covered on its own era's genuine input by
+    // `tests/p14c1-materialized-aging.test.ts` family 5 (out of this sweep's scope,
+    // retained with its own 1302 cause) — this site no longer reaches it.
+    expect(() => migrateToV30(admitted)).toThrow(/cannot downgrade or discard an opportunity predicate or recorded first-take subject/)
     // Every older migrateToVn refuses too, but MEASURED (not assumed) to be for
     // two DIFFERENT reasons depending on vintage, so the loop's regex only claims
     // what both share: migrateToV29/28/27/26 chain through the same convertV33ToV32
@@ -1078,8 +1086,10 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // (save.ts:8265 and siblings), "cannot downgrade SaveFileV33 or discard the
     // talent provenance root" — never reaching convertV33ToV32 at all. Neither
     // reaches its own frozen V31-specific arm either way.
+    // 1309-X3 ruling 2: same masking as above -- `admitted` still carries its
+    // recorded first-take subject for every one of these older migrators too.
     for (const older of [migrateToV29, migrateToV28, migrateToV27, migrateToV26]) {
-      expect(() => older(admitted as never)).toThrow(/cannot downgrade SaveFileV33/)
+      expect(() => older(admitted as never)).toThrow(/cannot downgrade or discard an opportunity predicate or recorded first-take subject/)
     }
     // P14C.4: migrateToV25 (and every migrator older than V26) now meets the
     // NEWER unconditional V35 guard FIRST — added directly beside the
@@ -1090,7 +1100,9 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // P14C.2b: `migrateToV25` now meets a NEWER unconditional V36 guard FIRST,
     // added directly beside the P14C.4-era V35 one — `admitted` is genuinely
     // live (V36) here, so it never reaches the V35 arm either.
-    expect(() => migrateToV25(admitted as never)).toThrow(/cannot downgrade SaveFileV36 or discard the retirement extension/)
+    // 1309-X3 ruling 2: `admitted` still masks migrateToV25's own V36
+    // retirement-extension guard behind the same recorded first-take subject.
+    expect(() => migrateToV25(admitted as never)).toThrow(/cannot downgrade or discard an opportunity predicate or recorded first-take subject/)
     expect(JSON.stringify(admitted)).toBe(before)
 
     // RE-EXPRESSED (was: "empty is lossless" — `migrateToV30(empty)` succeeded and
@@ -1103,9 +1115,12 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // That downgrade route does not exist for this fixture any more; the correct,
     // current-law assertion is that it is refused too — not a different message,
     // and not a success.
-    const empty = validateSaveV38({ ...save, state: { ...save.state, relationships: [] } })
+    const empty = validateSaveV41({ ...save, state: { ...save.state, relationships: [] } })
     expect(projectRelationshipsPreV31(empty.state)).toBeUndefined()
-    expect(() => migrateToV30(empty)).toThrow(/cannot downgrade SaveFileV33 — an age has materialized since week \d+ \(the campaign is at week \d+\), and V32 has nowhere to record the provenance that produced it/)
+    // 1309-X3 ruling 2: `empty` is also takeWorld()-derived, so it too carries a
+    // recorded first-take subject; the V39 guard masks the V33 materialization
+    // gate here exactly as it does for `admitted` above.
+    expect(() => migrateToV30(empty)).toThrow(/cannot downgrade or discard an opportunity predicate or recorded first-take subject/)
     // GAP, disclosed rather than hidden: the ORIGINAL claim under test here — that an
     // EMPTY relationship root downgrades losslessly — is a real, still-implemented
     // behavior of `convertV32ToV31`/`convertV31ToV30`, but it is not observable from

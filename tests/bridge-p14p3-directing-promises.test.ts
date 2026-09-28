@@ -24,7 +24,7 @@ import type { CampaignLibrary } from '../bridge/runtime/campaign-library.ts'
 import { caseDisclosure } from '../src/core/talentMarket.js'
 import { activeContract } from '../src/core/employment.js'
 import { exportSave, importSave, makeSave, migrateToLive, stableStringify,
-  validateSaveV38, validateSaveV39, validateSaveV40 } from '../src/core/save.js'
+  validateSaveV38, validateSaveV39, validateSaveV41 } from '../src/core/save.js'
 import type { GameState, ProfessionalPromise } from '../src/core/types.js'
 
 const TIMEOUT = 60_000
@@ -34,11 +34,26 @@ const OLD = './fixtures/p14/genuine-v38-pre-p3/'
 const OLD_SCHEMA = 'sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d'
 const ACTOR = 'authored-0006', DIRECTOR = 'authored-0007'
 const clone = <T>(value: T): T => structuredClone(value)
+// 1309-X2 ruling 1: convertV40ToV41 (src/core/save.ts:10479) adds a zero
+// `termination` movement to every rival finance period; the OLD state never
+// carried it, so the expected migrated state must build it the same way,
+// never a literal.
+// 1309-X3 ruling 4: generic over the state it receives -- GameStateV38/V39
+// (and any other era's state sharing this shape) hit exactOptionalPropertyTypes
+// when forced through the plain GameState parameter/return type.
+type WithRivalBusinesses = { hollywood: { businesses: readonly { account: { periods: readonly { movements: Record<string, number> }[] } }[] } | null }
+function withRivalTermination<T extends WithRivalBusinesses>(state: T): T {
+  if (state.hollywood === null) return state
+  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+    ...business, account: { ...business.account, periods: business.account.periods.map((period) => ({
+      ...period, movements: { ...period.movements, termination: 0 } })) },
+  })) } }
+}
 const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
 const bytes = (state: GameState): string => exportSave(makeSave(state))
 function full(state: GameState): string {
   const before = stableStringify(state), save = makeSave(state)
-  expect(save.saveVersion).toBe(40); expect(validateSaveV40(save)).toBe(save)
+  expect(save.saveVersion).toBe(41); expect(validateSaveV41(save)).toBe(save)
   const raw = exportSave(save)
   expect(exportSave(importSave(raw))).toBe(raw)
   expect(stableStringify(state)).toBe(before)
@@ -95,8 +110,8 @@ function current45(): GameState {
     expect(save.state.talent.find(row => row.id === ACTOR)?.role).toBe('actor')
     expect(save.state.talent.find(row => row.id === DIRECTOR)?.role).toBe('director')
     const current = migrateToLive(save)
-    expect(current.saveVersion).toBe(40)
-    expect(current.state).toEqual({ ...save.state, firstTakeSubjects: { version: 1, cutoverOrdinal: save.state.firstTakes.length, facts: [] } })
+    expect(current.saveVersion).toBe(41)
+    expect(current.state).toEqual({ ...withRivalTermination(save.state), firstTakeSubjects: { version: 1, cutoverOrdinal: save.state.firstTakes.length, facts: [] } })
     full(current.state); return current.state
   })
 }
@@ -245,7 +260,7 @@ function legacyClassless(open: boolean, version: 4 | 6) {
     feasibilityReceipt: { ...target.feasibilityReceipt, rulesVersion: version } }
   variant.state.promises = variant.state.promises.map(row => row.promiseId === target.promiseId ? replacement : row)
   expect(validateSaveV38(variant)).toBe(variant)
-  const current = migrateToLive(variant); expect(current.saveVersion).toBe(40)
+  const current = migrateToLive(variant); expect(current.saveVersion).toBe(41)
   expect(current.state.promises.find(row => row.promiseId === target.promiseId)).toEqual(replacement)
   full(current.state)
   return { state: current.state, promise: root(current.state, target.promiseId) }
@@ -320,7 +335,7 @@ function qualifyPrior53(): void {
     const factory = vi.fn(() => `1174-prior53-${name}`)
     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
     expect(loaded.migratedFromProtocolVersion).toBe(4); expect(factory).toHaveBeenCalledTimes(1)
-    expect(PROJECTION_VERSION).toBe(55); expect(PROTOCOL_VERSION).toBe(4)
+    expect(PROJECTION_VERSION).toBe(56); expect(PROTOCOL_VERSION).toBe(4)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v53']])
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     const current = loaded.hydrated.checkpoint
@@ -330,8 +345,8 @@ function qualifyPrior53(): void {
     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
       assert.ok(current[slot])
       const previous = validateSaveV38(JSON.parse(old.value[slot]))
-      const now = validateSaveV40(JSON.parse(current[slot]!))
-      expect(now.state).toEqual({ ...previous.state, firstTakeSubjects: { version: 1, cutoverOrdinal: previous.state.firstTakes.length, facts: [] } })
+      const now = validateSaveV41(JSON.parse(current[slot]!))
+      expect(now.state).toEqual({ ...withRivalTermination(previous.state), firstTakeSubjects: { version: 1, cutoverOrdinal: previous.state.firstTakes.length, facts: [] } })
       expect(current[slot]).toBe(exportSave(migrateToLive(previous)))
       full(now.state)
     }

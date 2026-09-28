@@ -18,6 +18,21 @@ const FILM = 'studio-de11f27b-r04:film:4', TARGET = 'script-0000', TIMEOUT = 60_
 const ORDER = [{ id: ACTOR, dues: [57, 64, 65], floor: 52, take: 57 },
   { id: WRITER, dues: [51, 58, 59], floor: 46, take: 51 }] as const
 const clone = <T>(value: T): T => structuredClone(value)
+// 1309-X2 ruling 1: convertV40ToV41 (src/core/save.ts:10479) adds a zero
+// `termination` movement to every rival finance period; the OLD state never
+// carried it, so the expected migrated state must build it the same way,
+// never a literal.
+// 1309-X3 ruling 4: generic over the state it receives -- GameStateV38/V39
+// (and any other era's state sharing this shape) hit exactOptionalPropertyTypes
+// when forced through the plain GameState parameter/return type.
+type WithRivalBusinesses = { hollywood: { businesses: readonly { account: { periods: readonly { movements: Record<string, number> }[] } }[] } | null }
+function withRivalTermination<T extends WithRivalBusinesses>(state: T): T {
+  if (state.hollywood === null) return state
+  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+    ...business, account: { ...business.account, periods: business.account.periods.map((period) => ({
+      ...period, movements: { ...period.movements, termination: 0 } })) },
+  })) } }
+}
 const stable = saves.stableStringify
 const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
 const bytes = (state: GameState): string => saves.exportSave(saves.makeSave(state))
@@ -44,8 +59,8 @@ afterAll(() => {
 })
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(40); expect(saves.validateSaveV40(save)).toBe(save)
-  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV40(imported)
+  expect(save.saveVersion).toBe(41); expect(saves.validateSaveV41(save)).toBe(save)
+  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV41(imported)
   expect(current).toBe(imported); expect(saves.exportSave(current)).toBe(raw); expect(stable(state)).toBe(before)
 }
 function input45(): GameState {
@@ -70,7 +85,7 @@ function input45(): GameState {
     const state = saves.migrateToLive(old).state
     expect(stable(old)).toBe(prior); admitted(state)
     const { firstTakeSubjects, ...retained } = state
-    expect(retained).toEqual(old.state); expect(firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: 19, facts: [] })
+    expect(retained).toEqual(withRivalTermination(old.state)); expect(firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: 19, facts: [] })
     expect(state.market.tick).toBe(45); expect(state.studio.cash).toBe(24701506)
     expect(issuer(state)).toBe('studio-de11f27b-player')
     expect(state.firstTakes).toHaveLength(19); expect(state.promises).toEqual([]); expect(state.talentMarket.proposals).toEqual([])

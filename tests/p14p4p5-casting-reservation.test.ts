@@ -19,6 +19,21 @@ const SLATE: CastingSlate = { lead: [ACTOR, 'authored-0000'], antagonist: ['auth
   support: ['authored-0001', ACTOR] }
 const clone = <T>(value: T): T => structuredClone(value)
 const stable = saves.stableStringify
+// 1309-X2 ruling 1: convertV40ToV41 (src/core/save.ts:10479) adds a zero
+// `termination` movement to every rival finance period; the OLD state never
+// carried it, so the expected migrated state must build it the same way,
+// never a literal.
+// 1309-X3 ruling 4: generic over the state it receives -- GameStateV38/V39
+// (and any other era's state sharing this shape) hit exactOptionalPropertyTypes
+// when forced through the plain GameState parameter/return type.
+type WithRivalBusinesses = { hollywood: { businesses: readonly { account: { periods: readonly { movements: Record<string, number> }[] } }[] } | null }
+function withRivalTermination<T extends WithRivalBusinesses>(state: T): T {
+  if (state.hollywood === null) return state
+  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+    ...business, account: { ...business.account, periods: business.account.periods.map((period) => ({
+      ...period, movements: { ...period.movements, termination: 0 } })) },
+  })) } }
+}
 const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
 const issuer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }
 const bytes = (state: GameState): string => saves.exportSave(saves.makeSave(state))
@@ -50,7 +65,7 @@ function memo(name: string, build: () => GameState): GameState {
 }
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(40); expect(saves.validateSaveV40(save)).toBe(save)
+  expect(save.saveVersion).toBe(41); expect(saves.validateSaveV41(save)).toBe(save)
   const raw = saves.exportSave(save)
   expect(saves.exportSave(saves.importSave(raw))).toBe(raw); expect(stable(state)).toBe(before)
 }
@@ -173,7 +188,7 @@ function input45(): GameState {
     expect(old).toBe(parsed); expect(saves.exportSave(old)).toBe(raw)
     const state = saves.migrateToLive(old).state
     expect(stable(old)).toBe(prior)
-    expect(state).toEqual({ ...old.state, firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
+    expect(state).toEqual({ ...withRivalTermination(old.state), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
     initial = clone(state); retained(state)
     expect(issuer(state)).toBe('studio-de11f27b-player')
     expect(state.operations.mode).toBe('managed'); expect(state.scriptDevelopment.mode).toBe('managed')

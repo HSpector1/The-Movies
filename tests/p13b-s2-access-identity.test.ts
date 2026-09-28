@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { tick } from '../src/core/tick.js'
-import { exportSave, importSave, makeSave, migrateToLive, validateSaveV38 } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToLive, validateSaveV41 } from '../src/core/save.js'
 import { playerTechnologyAccess } from '../src/core/technology.js'
 import type { TechnologyAccess, TechnologyId } from '../src/core/technologyTypes.js'
 import type { GameState } from '../src/core/types.js'
@@ -193,7 +193,7 @@ describe('P13B-S2 access identity: completion grant must key on (studioId, techn
     expect(lightRows).toHaveLength(1)
     expect(soundRows[0]).toEqual({ studioId: own, technologyId: 'synchronized-sound', route: 'research', chosenWeek: 780, acquiredWeek: 787, accessCost: 0, researchProjectId: firstId })
     expect(lightRows[0]).toEqual({ studioId: own, technologyId: 'lighting-control-01', route: 'research', chosenWeek: 787, acquiredWeek: 794, accessCost: 0, researchProjectId: secondId })
-    expect(() => validateSaveV38(makeSave(state))).not.toThrow()
+    expect(() => validateSaveV41(makeSave(state))).not.toThrow()
   })
 
   it('7. idempotence: ticking again after completion never adds a duplicate row for either technology', () => {

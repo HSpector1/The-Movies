@@ -108,19 +108,22 @@ describe('P13B-S3 Save V23 (test 7)', () => {
     // P14C.2b: the live writer moved on again, to V36; each of these three now
     // carries a NEWER unconditional `saveVersion === 36` arm ahead of the V35
     // one, so it refuses there first instead.
+    // 1309-X3 ruling 2: migrateToV22/21/20 now cross convertV41ToV40 then convertV40ToV39 FIRST;
+    // `live` genuinely carries a recorded first-take subject, so the NEW V39 guard refuses first --
+    // migrateToV37's own guard, still true of this state, is masked.
     const live = makeSave(p13aLaboratorySlice())
-    expect(() => migrateToV22(live)).toThrow(/^migrateToV37: cannot downgrade or discard profession transition, industry retirement or entrant authority$/)
-    expect(() => migrateToV21(live)).toThrow(/^migrateToV37: cannot downgrade or discard profession transition, industry retirement or entrant authority$/)
-    expect(() => migrateToV20(live)).toThrow(/^migrateToV37: cannot downgrade or discard profession transition, industry retirement or entrant authority$/)
+    expect(() => migrateToV22(live)).toThrow(/^migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject$/)
+    expect(() => migrateToV21(live)).toThrow(/^migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject$/)
+    expect(() => migrateToV20(live)).toThrow(/^migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject$/)
   })
 
   it('makeSave writes the live saveVersion 37 (stale title corrected post-C.2b)', () => {
-    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(40)
+    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(41)
   })
 
-  it('an unknown saveVersion 41 is refused, naming the handled range (stale number corrected post-C.2b)', () => {
-    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 41 }
-    expect(() => validateSave(forged)).toThrow(/versions 1 through 40 only/)
+  it('an unknown saveVersion 42 is refused, naming the handled range (stale number corrected post-C.2b)', () => {
+    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 42 }
+    expect(() => validateSave(forged)).toThrow(/versions 1 through 41 only/)
   })
 
   it('save/reload mid-queue continues identically (byte for byte)', () => {

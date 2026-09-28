@@ -62,7 +62,7 @@ function memo(name: string, build: () => GameState): GameState {
 }
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(40); expect(saves.validateSaveV40(save)).toBe(save)
+  expect(save.saveVersion).toBe(41); expect(saves.validateSaveV41(save)).toBe(save)
   const raw = saves.exportSave(save)
   expect(saves.exportSave(saves.importSave(raw))).toBe(raw)
   expect(stable(state)).toBe(before)
@@ -317,7 +317,7 @@ function factOnly(state: GameState): void {
   expect(suffix.some(t => t.studioId === 'studio-de11f27b-r04' && t.productionId === 'studio-de11f27b-r04:film:4' && t.week === 48)).toBe(true)
   assert.equal(count.downgradeAttempts, 0); count.downgradeAttempts++
   let error: unknown
-  try { saves.convertV40ToV39(save) } catch (caught) { error = caught }
+  try { saves.convertV40ToV39(saves.convertV41ToV40(save)) } catch (caught) { error = caught }
   const message = error instanceof Error ? error.message : String(error)
   emit('FACT-ONLY-REFUSAL', { actualWeek: 48, message, facts: state.firstTakeSubjects.facts })
   expect(error).toBeInstanceOf(Error)

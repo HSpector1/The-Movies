@@ -15,12 +15,13 @@ import { careerIdentity, roleOVR } from '../src/core/talentSummary.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import { generateWorld } from '../src/core/worldgen.js'
-import type { GameState, Talent, TalentMarketCaseV36, TalentMarketProposal, TalentMarketReceipt } from '../src/core/types.js'
+import type { GameState, PromiseFamily, Talent, TalentMarketCaseV36, TalentMarketProposal, TalentMarketReceipt } from '../src/core/types.js'
 import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
 import * as marketModule from '../src/core/talentMarket.js'
 import * as promiseModule from '../src/core/promises.js'
 import { publicPreferredOpportunity, publicPreferredTerm, publicPriorityOrder, submitProposal } from '../src/core/talentMarket.js'
 import { attachPromise, promiseFeasibility, trustDescriptor } from '../src/core/promises.js'
+import type { PromisePredicate } from '../src/core/promises.js'
 import { ageAt, anchorOf, provenanceRowFor, recomputeDue } from '../src/core/aging.js'
 
 const clone = <T>(value: T): T => structuredClone(value)
@@ -68,6 +69,37 @@ function realProven(state: GameState, id: string): boolean {
   // identity uses real credits at usable OVR; this introduces no new threshold.
   const subject = person(state, id)
   return subject.age >= 30 || careerIdentity(subject).identityDisciplines.length > 0
+}
+type RivalCandidate = { family: PromiseFamily; predicate: PromisePredicate }
+// 1309-A item 9 / 1309-D check 9 / 1309-F item 8: verbatim restatement of
+// src/core/talentMarket.ts:1441-1488's own widened candidate order — Director
+// first-or-last, then the cast list, then up to two SPECIFIC_PROJECT and two
+// PREFERRED_GENRE_OPPORTUNITY candidates from the issuer's own unproduced
+// development projects (genre-first when proven) — from public state only,
+// never a pinned literal count.
+function expectedRivalCandidates(input: GameState, talentId: string, issuerStudioId: string, proven: boolean): RivalCandidate[] {
+  const directing: RivalCandidate = { family: 'DIRECTING_COUNT', predicate: { kind: 'directorCount', count: 1 } }
+  const subject = person(input, talentId)
+  const directingFirst = subject.role === 'director' || (subject.role === 'actor'
+    && (input.studio.releasedFilms.some((film) => film.directorId === talentId)
+      || input.hollywood?.films.some((film) => film.credits.some((credit) =>
+        credit.talentId === talentId && credit.role === 'director')) === true))
+  const cast: RivalCandidate[] = proven ? [P1] : [FLEX, P1]
+  const candidates: RivalCandidate[] = directingFirst ? [directing, ...cast] : [...cast, directing]
+  const business = input.hollywood?.businesses.find((row) => row.studioId === issuerStudioId)
+  const projects = [...(business?.development.projects ?? [])].filter((row) => row.status !== 'produced')
+    .sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0).slice(0, 2)
+  const seatClass = proven ? 'allCast' as const : 'leadOrAntagonist' as const
+  const projectCandidates: RivalCandidate[] = projects.map((project) => ({ family: 'SPECIFIC_PROJECT',
+    predicate: { kind: 'projectOpportunity', count: 1, seatClass, scriptProjectId: project.id } }))
+  const genres = [...new Set(projects.flatMap((project) => {
+    const genre = input.hollywood?.concepts.find((row) => row.id === project.conceptId)?.genre
+    return genre === undefined ? [] : [genre]
+  }))]
+  const genreCandidates: RivalCandidate[] = genres.map((genre) => ({ family: 'PREFERRED_GENRE_OPPORTUNITY',
+    predicate: { kind: 'genreOpportunity', count: 1, seatClass, genre } }))
+  candidates.push(...(proven ? [...genreCandidates, ...projectCandidates] : [...projectCandidates, ...genreCandidates]))
+  return candidates
 }
 function expectPreferences(state: GameState, id: string, proven: boolean): void {
   const before = clone(state)
@@ -377,7 +409,7 @@ const witness = (seed: string | undefined, kind: string, first: ReadObservation,
     .map((c) => `${c.draft.family}=${c.receipt.classification}${c.receipt.bottleneck === null ? '' : ':' + c.receipt.bottleneck}`).join(', ')}${rootId === null ? '' : ' root ' + rootId}`
 
 describe('P14B4: natural rival policy uses the real shared service, never staged failed candidates', () => {
-  it('observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG', () => {
+  it('observes a genuine Director choice, proven P1, and a genuine zero-attachment refusal without extra RNG (flexible-first/P1-fallback: open coverage finding, 1309-X2 ruling 6)', () => {
     const evaluate = promiseModule.promiseFeasibility
     const attach = promiseModule.attachPromise
     const market = marketModule.advanceTalentMarketWeek
@@ -447,8 +479,9 @@ describe('P14B4: natural rival policy uses the real shared service, never staged
           const first = calls[0]!
           expect(first.submission).toEqual(submission)
           const proven = realProven(first.input, first.proposal.talentId)
-          const candidates = proven ? [P1] : [FLEX, P1]
-          const expectedCount = !proven && first.receipt.classification !== ACHIEVABLE ? 2 : 1
+          const candidates = expectedRivalCandidates(first.input, first.proposal.talentId, first.proposal.issuerStudioId, proven)
+          const chosenIndex = calls.findIndex((call) => call.receipt.classification === ACHIEVABLE)
+          const expectedCount = chosenIndex === -1 ? candidates.length : chosenIndex + 1
           expect(calls).toHaveLength(expectedCount)
           for (const [index, call] of calls.entries()) {
             expect(call.input).toEqual(first.input) // no failed root, reserve, cash, receipt or RNG in between
@@ -502,8 +535,13 @@ describe('P14B4: natural rival policy uses the real shared service, never staged
             // No attachment means no newly minted pair root or reservation.
             expect(afterPair).toEqual(beforePair)
             if (terminal === undefined) expect(current).toEqual([first.proposal])
-            if (!proven && !seen.has('neither')) console.log(witness(seed, 'neither', first, calls, null))
-            if (!proven) seen.add('neither') // requires actual BOTH-candidate refusal
+            // 1309-X2 ruling 6: a zero-attachment refusal is not proven-vs-unproven
+            // gated — the measured default-seed census (E/1309-Q2) shows every one
+            // of its 46 zero-attachment ('neither') outcomes is PROVEN (none
+            // unproven occur on this seed at all); recording only the unproven half
+            // silently dropped the witness this scan actually needs.
+            if (!seen.has('neither')) console.log(witness(seed, 'neither', first, calls, null))
+            seen.add('neither') // requires actual BOTH-(or-more)-candidate refusal, proven or not
           } else {
             expect(writes).toHaveLength(1)
             const write = writes[0]!
@@ -555,26 +593,47 @@ describe('P14B4: natural rival policy uses the real shared service, never staged
               expect(finalRoot).toEqual(root) // open, declined or another studio won
               if (terminal === undefined) expect(current).toEqual([proposal])
             }
-            const kind = proven ? 'provenP1' : chosen.draft.family === 'LEAD_OR_SIGNIFICANT_ROLE_COUNT' ? 'flexibleP2' : 'P1fallback'
+            // Labelled by the actually-chosen family, not a proven-vs-unproven
+            // binary invented here: the widened list can also choose a Director
+            // or opportunity candidate. 1309-X2 ruling 6: 'DIRECTING_COUNT' has a
+            // real natural witness on the default seed (E/1309-Q2 census: 2
+            // director|proven authorings choose it), so it is now a required
+            // witness alongside the other four below (seen.size requires 5).
+            const kind = chosen.draft.family === 'LEAD_OR_SIGNIFICANT_ROLE_COUNT' ? 'flexibleP2'
+              : chosen.draft.family === 'APPEARANCE_COUNT' ? (proven ? 'provenP1' : 'P1fallback')
+              : chosen.draft.family
             if (!seen.has(kind)) console.log(witness(seed, kind, first, calls, root.promiseId))
             seen.add(kind)
           }
         }
-        if (seen.size === 4) break
+        if (seen.size === 3) break
       }
     }
     try {
-      scan() // the default seed: every witness it carried before 600-T4 is still required of it below
-      expect([...seen].sort()).toEqual(expect.arrayContaining(['flexibleP2', 'neither', 'provenP1']))
-      // 600-T4 (record 616 R-6; F-G9-1): the P1-fallback branch (FLEX non-achievable, P1 achievable for an
-      // unproven person) has no natural witness on the default seed within 220 ticks (600-T2 D.3). 'seed-b'
-      // carries it at w196 (r03 -> r03-4, actor 28: FLEX FRAGILE "needs a picture not yet commissioned", P1
-      // REASONABLY_ACHIEVABLE, root promise-36; scan log 600-T4-scan-C-policy-seed-b-seed-c-bottleneck.log),
-      // found by this same search with the same in-loop assertions. Never a synthetic state.
+      scan() // the default seed
+      // 1309-X2 ruling 6 (E/1309-Q2-rival-authoring-census.txt: 72 authorings over
+      // 220 weeks on this exact fixture, all proven, none unproven): the default
+      // seed never carries an unproven authoring under the current widened law, so
+      // 'flexibleP2' and 'P1fallback' (both require !proven) have no natural
+      // witness here. 'DIRECTING_COUNT' is a real natural witness here (census: 2
+      // director|proven authorings choose it) and is required below.
+      expect([...seen].sort()).toEqual(['DIRECTING_COUNT', 'neither', 'provenP1'].sort())
+      // 1309-X3 ruling 10 (measured directly, full core run against this exact
+      // r3-patched source): the OLD in-file citation here (600-T4-scan-C-policy-
+      // seed-b-seed-c-bottleneck.log, captured under an EARLIER candidate-order
+      // law) claimed 'seed-b' carries both 'flexibleP2' and 'P1fallback' — that
+      // citation is STALE under the current widened law. Running 'seed-b' with
+      // this exact search and these exact in-loop assertions now measures the
+      // SAME three witnesses as the default seed, nothing more:
+      // ['DIRECTING_COUNT','neither','provenP1']. 'flexibleP2' and 'P1fallback'
+      // (both require an unproven authoring) are the open coverage finding
+      // ruling 6 of 1309-X2 names, not a witness this file can currently claim.
       scan('seed-b')
     } finally {
       marketSpy.mockRestore(); attachSpy.mockRestore(); readSpy.mockRestore()
     }
-    expect([...seen].sort()).toEqual(['P1fallback', 'flexibleP2', 'neither', 'provenP1'].sort())
+    // 'seed-b' adds nothing beyond the default seed's own three witnesses
+    // ('seen' accumulates across both scans, and both land on the same set).
+    expect([...seen].sort()).toEqual(['DIRECTING_COUNT', 'neither', 'provenP1'].sort())
   })
 })

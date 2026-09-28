@@ -14,7 +14,7 @@ import { decodeCampaignStorage } from '../bridge/runtime/campaign-storage-codec.
 import type { BridgeCheckpointStore } from '../bridge/runtime/checkpoint-store.ts'
 import type { CampaignLibrary } from '../bridge/runtime/campaign-library.ts'
 import type { CampaignRequest } from '../bridge/schema/bridge-schema.ts'
-import { convertV38ToV37, exportSave, LIVE_SAVE_VERSION, makeSave, validateSaveV37, validateSaveV38 } from '../src/core/save.js'
+import { convertV38ToV37, exportSave, LIVE_SAVE_VERSION, makeSave, migrateToV38, validateSaveV37, validateSaveV41 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import type { GameState } from '../src/core/types.js'
 import { c3Raw, clone, CONTINUOUS208, FOCUS, migrated, PRE207, RUNTIME208, SCIENTIST, sha } from './helpers/p14c3-fixtures.js'
@@ -157,7 +157,7 @@ describe('C.3 projection53 current/save/journal and durable campaign authority',
   })
   it('R2 opens53/Save38 once, registers exact52 and independently migrates208/207 while resetting prior session authority', () => {
     const f = recovered52('slots')
-    expect(PROJECTION_VERSION).toBe(55); expect(PROTOCOL_VERSION).toBe(4); expect(LIVE_SAVE_VERSION).toBe(40)
+    expect(PROJECTION_VERSION).toBe(56); expect(PROTOCOL_VERSION).toBe(4); expect(LIVE_SAVE_VERSION).toBe(41)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OUTGOING_52)).toEqual([[OUTGOING_52, 'projection-v52']])
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     const current = f.loaded.hydrated.checkpoint
@@ -165,7 +165,7 @@ describe('C.3 projection53 current/save/journal and durable campaign authority',
     expect(current.sessionId).not.toBe(f.value.sessionId)
     for (const [slot, week] of [['currentSaveJson', 208], ['savedSaveJson', 207]] as const) {
       assert.ok(current[slot])
-      const saved = validateSaveV38(JSON.parse(current[slot]!))
+      const saved = validateSaveV41(JSON.parse(current[slot]!))
       expect(saved.state.careerLifecycle.transitionBoundaryWeek).toBe(week)
       expect(saved.state.careerLifecycle.professionChanges).toEqual([])
       expect(saved.state.careerLifecycle.transitionEvaluations).toEqual([])
@@ -175,7 +175,7 @@ describe('C.3 projection53 current/save/journal and durable campaign authority',
         if (week === 208) expect(saved.state.careerLifecycle.transitionDue).toContainEqual({ personId: id, week: 209 })
         else expect(saved.state.careerLifecycle.transitionDue.some(row => row.personId === id)).toBe(false)
       }
-      expect(exportSave(convertV38ToV37(saved))).toBe(f.value[slot])
+      expect(exportSave(convertV38ToV37(migrateToV38(saved)))).toBe(f.value[slot])
     }
     expect(current.currentSaveJson).not.toBe(current.savedSaveJson)
     expect(f.session.snapshot().savedSlot?.gameWeek).toBe(207)

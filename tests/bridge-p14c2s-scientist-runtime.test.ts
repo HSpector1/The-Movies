@@ -9,7 +9,20 @@ import { canonicalJson } from '../bridge/schema/canonical.ts'
 import { decodeBridgeRuntimeCheckpoint, encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint,
   SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS } from '../bridge/runtime-checkpoint.ts'
 import { BridgeSession } from '../bridge/session.ts'
-import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV36, validateSaveV38 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV36, validateSaveV41 } from '../src/core/save.js'
+import type { GameStateV36 } from '../src/core/types.js'
+
+// 1309-X3 ruling 4: convertV40ToV41 (src/core/save.ts:10479) adds a zero
+// `termination` movement to every rival finance period; the OLD (V36-vintage)
+// state never carried it, so the expected canonical comparison must build it
+// the same way, never a bare `old.state`.
+function withRivalTermination<T extends { hollywood: GameStateV36['hollywood'] }>(state: T): T {
+  if (state.hollywood === null) return state
+  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+    ...business, account: { ...business.account, periods: business.account.periods.map((period) => ({
+      ...period, movements: { ...period.movements, termination: 0 } })) },
+  })) } }
+}
 
 const OUTGOING_50 = 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698'
 const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
@@ -79,8 +92,8 @@ describe('C.2 Scientist S11: genuine outgoing50 runtime compatibility', () => {
 
   it('requires literal projection52/Save37, registers actual outgoing50, and excludes the running identity from prior schemas', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(55)
-    expect(LIVE_SAVE_VERSION).toBe(40)
+    expect(PROJECTION_VERSION).toBe(56)
+    expect(LIVE_SAVE_VERSION).toBe(41)
     expect(SCHEMA_ID).not.toBe(OUTGOING_50)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_50)).toBe('projection-v50')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
@@ -96,14 +109,19 @@ describe('C.2 Scientist S11: genuine outgoing50 runtime compatibility', () => {
       const old = validateSaveV36(JSON.parse(prior[slot]))
       const actualJson = loaded.hydrated.checkpoint[slot]
       expect(typeof actualJson).toBe('string')
-      const actual = validateSaveV38(importSave(actualJson!))
-      expect(actual.saveVersion).toBe(38)
+      const actual = validateSaveV41(importSave(actualJson!))
+      expect(actual.saveVersion).toBe(41)
       expect(actual.state.market.tick).toBe(week)
       // C.3 adds only six dated profession-authority fields; every old root,
       // retirement, skill, employment and receipt remains independently exact.
       const { transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
         industryRetirements, transitionDue, ...oldLifecycle } = actual.state.careerLifecycle
-      expect(canonicalJson({ ...actual.state, careerLifecycle: oldLifecycle })).toBe(canonicalJson(old.state))
+      // 1309-C5 Z4: the live state also carries the V40 firstTakeSubjects root
+      // (absent from every pre-V40 fixture); exclude it from the canonical
+      // comparison the same way p14p4p5-opportunities.test.ts's Q04 does.
+      const { firstTakeSubjects, ...restState } = actual.state
+      expect(firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: old.state.firstTakes.length, facts: [] })
+      expect(canonicalJson({ ...restState, careerLifecycle: oldLifecycle })).toBe(canonicalJson(withRivalTermination(old.state)))
       expect({ transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
         industryRetirements, transitionDue }).toEqual({ transitionBoundaryWeek: week,
         professionAnchors: old.state.talent.map(person => ({ personId: person.id, profession: person.role,

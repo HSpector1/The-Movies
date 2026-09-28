@@ -16,7 +16,7 @@ import { promiseRowsForPerson, trustBlockFor } from '../bridge/trust.ts'
 import { applyActions, hiringMarketIds } from '../src/core/index.js'
 import { attachPromise, promiseFeasibility, trustDrivers } from '../src/core/promises.js'
 import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
-import { LIVE_SAVE_VERSION, makeSave, validateSaveV40 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, makeSave, validateSaveV41 } from '../src/core/save.js'
 import type { GameState } from '../src/core/types.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
 
@@ -35,7 +35,7 @@ function fixture() {
     state = advanceTo(state, 45)
     expect(currentProposals(state, talentId).filter((p) => p.issuerStudioId === player(state))).toEqual([])
     expect(state.promises.filter((p) => p.beneficiaryPersonId === talentId)).toEqual([])
-    validateSaveV40(JSON.parse(JSON.stringify(makeSave(state))))
+    validateSaveV41(JSON.parse(JSON.stringify(makeSave(state))))
     cached = { state, talentId }
   }
   return structuredClone(cached)
@@ -83,7 +83,7 @@ function attachedOwn(state: GameState, talentId: string) {
 function saveSlot(session: BridgeSession, commandId = 'save-fixture') {
   const result = session.save(control(session, commandId))
   if (!result.accepted) throw new Error(result.message)
-  validateSaveV40(JSON.parse(result.saveJson))
+  validateSaveV41(JSON.parse(result.saveJson))
   return result.saveJson
 }
 function feasibilityAfterRealBaseRevision(state: GameState, wire: Payload) {
@@ -133,7 +133,7 @@ describe('P14B.3: quote and atomic command attachment', () => {
     expect(session.exportRuntimeCheckpoint().savedSaveJson).toBe(slot)
     const plain = submitProposal(before, { talentId, issuerStudioId: player(before), termWeeks: 52, premiumTier: 1.25 })
     expect(currentOwn(session.gameState, talentId).digest).not.toBe(currentOwn(plain, talentId).digest)
-    validateSaveV40(JSON.parse(JSON.stringify(makeSave(session.gameState))))
+    validateSaveV41(JSON.parse(JSON.stringify(makeSave(session.gameState))))
   })
 
   it('pure repeated quotes retain exact state/RNG/receipt/cash/slot bytes and one opaque identity', () => {
@@ -159,13 +159,18 @@ describe('P14B.3: quote and atomic command attachment', () => {
     // Under the closed family-discriminated wire union a classless P2 is not a
     // wire shape at all — the grammar refuses it with INVALID_COMMAND before any
     // quote exists (bridge-p14b4-cast-class G2), so it can no longer be the
-    // ENGINE-refused, quoted-yet-noncommittable variant this case needs. That
-    // purpose is kept with the count-only P3 family, which the wire still
-    // enumerates and promiseFeasibility still refuses ("not offered in this
-    // slice"); the two lawful seat classes join as projection 47's new material
-    // field. Every variant must still mint its own opaque identity and leave the
-    // session truth untouched.
-    const engineRefused: Payload = { ...base, promise: { ...base.promise!, family: 'DIRECTING_COUNT' } }
+    // ENGINE-refused, quoted-yet-noncommittable variant this case needs. Since P3
+    // (src/core/promises.ts:558-561) corePredicateOf builds a clean directorCount
+    // predicate for DIRECTING_COUNT, so that family is offerable too and can no
+    // longer carry the "not offered in this slice" refusal either. The ENGINE-
+    // refused, quoted-yet-noncommittable purpose is now kept by a DIRECTING_COUNT
+    // draft with a due week past the proposed contract's own end — still
+    // wire-valid (the grammar admits any dueWeekExclusive on this family), still
+    // refused by promiseFeasibility's ordinary window check, before the seat
+    // pipeline runs. The two lawful seat classes join as projection 47's new
+    // material field. Every variant must still mint its own opaque identity and
+    // leave the session truth untouched.
+    const engineRefused: Payload = { ...base, promise: { ...base.promise!, family: 'DIRECTING_COUNT', dueWeekExclusive: base.promise!.windowStartWeek + base.termWeeks! + 1 } }
     const variants: Payload[] = [base,
       engineRefused,
       { ...base, promise: { ...base.promise!, family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT', seatClass: 'lead' } },
@@ -179,7 +184,7 @@ describe('P14B.3: quote and atomic command attachment', () => {
     expect(new Set(ids).size).toBe(variants.length)
     expect(responses[1]!.quote.ok).toBe(false)
     expect(responses[1]!.quote.promise).toMatchObject({ ok: false, classification: 'IMPOSSIBLE',
-      message: 'not offerable: a directing promise is not offered in this slice' })
+      message: 'not offerable: the due week falls outside the proposed contract' })
     expect(truth(session)).toEqual(before)
   })
 
@@ -355,7 +360,7 @@ describe('P14B.3: revise, remove, withdraw retain abandoned evidence without pha
     expect(session.gameState.ledger).toEqual(beforeMoney.ledger)
     expect(session.gameState.rngState).toBe(beforeMoney.rng)
     const saved = saveSlot(session, 'save-abandoned-evidence')
-    expect(validateSaveV40(JSON.parse(saved)).state.promises).toEqual(session.gameState.promises)
+    expect(validateSaveV41(JSON.parse(saved)).state.promises).toEqual(session.gameState.promises)
   })
 })
 
@@ -500,10 +505,10 @@ describe('P14B.3: real settlement/outcome, V29 and B2 public/private carriers', 
     expect(receipt).toMatchObject({ kind: 'promiseOutcome', week: 92, talentId, studioId: player(outcome) })
     const completed = new BridgeSession(outcome, 'b3-outcome-save')
     const saved = saveSlot(completed)
-    const validated = validateSaveV40(JSON.parse(saved))
-    expect(LIVE_SAVE_VERSION).toBe(40)
-    expect(PROJECTION_VERSION).toBe(55)
-    expect(validated.saveVersion).toBe(40)
+    const validated = validateSaveV41(JSON.parse(saved))
+    expect(LIVE_SAVE_VERSION).toBe(41)
+    expect(PROJECTION_VERSION).toBe(56)
+    expect(validated.saveVersion).toBe(41)
     const reloaded = BridgeSession.fromSaveJson(saved, 'b3-outcome-reloaded')
     const read = (world: GameState) => ({ trust: trustBlockFor(world, talentId, player(world)),
       own: promiseRowsForPerson(world, talentId, player(world)), foreign: promiseRowsForPerson(world, talentId, rival),
@@ -514,7 +519,7 @@ describe('P14B.3: real settlement/outcome, V29 and B2 public/private carriers', 
     // P14B.4 (projection 47): the nullable `seatClass` rides every history row; a count-only P1 reads null.
     // P14B.8 (projection 50): so do `supersededByPromiseId` and `progress`. This promise was
     // BROKEN, never waived, and no take ever landed, so the link is null and progress is 0.
-    expect(before.own).toEqual([{ promiseId: broken.promiseId, family: 'APPEARANCE_COUNT', count: 1, seatClass: null,
+    expect(before.own).toEqual([{ promiseId: broken.promiseId, family: 'APPEARANCE_COUNT', count: 1, qualifyingRole: 'cast', seatClass: null,
       windowStartWeek: 52, dueWeekExclusive: 92, contractId: broken.contractId, outcome: 'BROKEN',
       outcomeWeek: 92, outcomeCause: broken.outcomeCause, supersededByPromiseId: null, progress: 0 }])
     expect(before.foreign).toEqual([]) // rival sees no player-owned private history; its losing draft is unbound

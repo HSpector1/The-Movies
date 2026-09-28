@@ -9,7 +9,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { expect } from 'vitest'
 import {
-  convertV35ToV36, convertV36ToV37, convertV36ToV35, convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39,
+  convertV35ToV36, convertV36ToV37, convertV36ToV35, convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40,
   makeSave, migrateToLive, validateSaveV34, validateSaveV35, validateSaveV37,
 } from '../../src/core/save.js'
 import type { SaveFileV34, SaveFileV35 } from '../../src/core/save.js'
@@ -68,7 +68,7 @@ export function envelopeV34(state: GameStateV34): SaveFileV34 {
  * projection refuse; older cohort assertions then need genuine historical inputs,
  * never a manually stripped current root. */
 export function liveEnvelope(state: GameState): SaveFileV35 {
-  const historical38 = convertV39ToV38(convertV40ToV39(makeSave(state)))
+  const historical38 = convertV39ToV38(convertV40ToV39(convertV41ToV40(makeSave(state))))
   return convertV36ToV35(convertV37ToV36(convertV38ToV37(historical38)))
 }
 

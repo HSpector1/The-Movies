@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest'
 import { extensionIssuer, retirementRecordFor } from '../src/core/careerLifecycle.js'
 import { activeContract } from '../src/core/employment.js'
 import { professionAtWeek } from '../src/core/index.js'
-import { convertV38ToV37, convertV39ToV38, convertV40ToV39, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
+import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
 import { marketEligibility, openMarketCaseFor, playerOffer, submitProposal } from '../src/core/talentMarket.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
 import { TUNING } from '../src/core/tuning.js'
@@ -169,7 +169,7 @@ describe.each(DUAL_TARGETS)('C.3 actor→%s two genuine profession extensions', 
     expect(exportSave(makeSave(loaded))).toBe(raw)
     expect(loaded.talentMarket.cases.filter(row => row.talentId === id)).toEqual(state.talentMarket.cases.filter(row => row.talentId === id))
     expect(loaded.careerLifecycle).toEqual(state.careerLifecycle)
-    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(saved)))).toThrow(/cannot downgrade or discard profession transition, industry retirement or entrant authority/)
+    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(saved))))).toThrow(/cannot downgrade or discard an opportunity predicate or recorded first-take subject/)
     accepted(loaded)
   })
 

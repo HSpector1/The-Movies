@@ -204,10 +204,10 @@ function containsNumber(value: unknown, target: number): boolean {
 
 describe('group 1: PROJECTION_VERSION / LIVE_SAVE_VERSION', () => {
   it('LIVE_SAVE_VERSION is 35 (stale title corrected post-C.4) and the live promise surface carries projection 47 after the P14B.4 cutover (record 600 / 616)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(40)
-    expect(PROJECTION_VERSION).toBe(55)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-55`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(55)
+    expect(LIVE_SAVE_VERSION).toBe(41)
+    expect(PROJECTION_VERSION).toBe(56)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-56`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(56)
   })
 })
 
@@ -299,7 +299,7 @@ describe('group 3: trust descriptor label and promise history, open then settled
     // P14B.4 (projection 47): history rows carry the nullable `seatClass`; a
     // count-only P1 reads null (shape-derived, never an invented class).
     expect(openBlock!.promiseHistory).toEqual([{
-      promiseId: openPromise.promiseId, family: openPromise.family, count: openPromise.predicate.count, seatClass: null,
+      promiseId: openPromise.promiseId, family: openPromise.family, count: openPromise.predicate.count, qualifyingRole: 'cast', seatClass: null,
       windowStartWeek: openPromise.windowStartWeek, dueWeekExclusive: openPromise.dueWeekExclusive,
       contractId: openPromise.contractId, outcome: null, outcomeWeek: null, outcomeCause: null,
       // P14B.8 (projection 50): the typed successor link and the delivered count.
@@ -319,7 +319,7 @@ describe('group 3: trust descriptor label and promise history, open then settled
     } | null
     expect(settledBlock!.trustLabel).toBe(settledLabel)
     expect(settledBlock!.promiseHistory).toEqual([{
-      promiseId: brokenPromise.promiseId, family: brokenPromise.family, count: brokenPromise.predicate.count, seatClass: null,
+      promiseId: brokenPromise.promiseId, family: brokenPromise.family, count: brokenPromise.predicate.count, qualifyingRole: 'cast', seatClass: null,
       windowStartWeek: brokenPromise.windowStartWeek, dueWeekExclusive: brokenPromise.dueWeekExclusive,
       contractId: brokenPromise.contractId, outcome: 'BROKEN', outcomeWeek: dueWeekExclusive,
       outcomeCause: brokenPromise.outcomeCause,
@@ -391,15 +391,20 @@ describe('group 4: the promise draft on marketProposalAction\'s quote family', (
     expect(quote.message).toBe('not offerable: the due week falls outside the proposed contract')
   })
 
-  it('a non-P1 family is refused with its own typed reason, deterministically, before any pipeline check runs', () => {
+  it('a non-P1 family P3 makes offerable succeeds through the Bridge quote, ok true, not the retired refusal, and deterministic across repeated quotes', () => {
     const { state, talentId, playerStudioId } = openCaseWithBothProposals('p14b1-bridge-quote-non-p1-family')
     const proposal = currentProposals(state, talentId).find((p) => p.issuerStudioId === playerStudioId)!
     const draft = { family: 'DIRECTING_COUNT' as const, count: 1, windowStartWeek: proposal.startWeek, dueWeekExclusive: proposal.startWeek + 40, startWeek: proposal.startWeek, termWeeks: proposal.termWeeks }
-    // NOT YET EXISTING: promiseQuoteSnapshot — this test's RED cause.
+    // Since P3 (src/core/promises.ts:558-561) corePredicateOf builds a clean directorCount
+    // predicate for DIRECTING_COUNT, so this family is offerable through the Bridge too —
+    // measured: 1302-p4p5-broad-core.txt:15753-15762 ("expected true to be false" against the
+    // retired refusal expectation this leaf once pinned). No classification literal is pinned;
+    // the run has not measured one.
     const quote = promiseQuoteSnapshot(state, playerStudioId, talentId, draft, state.market.tick)
-    expect(quote.ok).toBe(false)
-    expect(quote.classification).toBe('IMPOSSIBLE')
-    expect(quote.message).toBe('not offerable: a directing promise is not offered in this slice')
+    expect(quote.ok).toBe(true)
+    expect(quote.message).not.toBe('not offerable: a directing promise is not offered in this slice')
+    const repeat = promiseQuoteSnapshot(state, playerStudioId, talentId, draft, state.market.tick)
+    expect(repeat).toEqual(quote)
   })
 })
 
@@ -496,7 +501,7 @@ describe('group 6: save/load', () => {
     // above ARE the V28->V29 step of that conversion), so the re-save is live-version bytes
     // by law. The fixture's V28 sha stays the provenance pin on the FILE (line above); the
     // re-save proves only that the bridge wrote the live envelope.
-    if (reSaved.accepted) expect((JSON.parse(reSaved.saveJson) as { saveVersion: number }).saveVersion).toBe(40)
+    if (reSaved.accepted) expect((JSON.parse(reSaved.saveJson) as { saveVersion: number }).saveVersion).toBe(41)
   })
 
   it('a live V30 state carrying a real promise round-trips through the bridge save/load path byte-stable, and the promise-row read is identical on both sides', () => {
@@ -512,7 +517,7 @@ describe('group 6: save/load', () => {
     expect(saved.accepted).toBe(true)
     if (!saved.accepted) throw new Error(`save refused: ${JSON.stringify(saved)}`)
     const parsed = JSON.parse(saved.saveJson) as { saveVersion: number; state: { promises: unknown[] } }
-    expect(parsed.saveVersion).toBe(40)
+    expect(parsed.saveVersion).toBe(41)
     expect(parsed.state.promises).toHaveLength(1)
 
     const reloaded = BridgeSession.fromSaveJson(saved.saveJson, 'p14b1-bridge-roundtrip-reload')

@@ -22,7 +22,7 @@ import { attachPromise } from '../src/core/promises.js'
 import * as promiseModule from '../src/core/promises.js'
 import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
-import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV39 } from '../src/core/save.js'
+import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV41 } from '../src/core/save.js'
 import { advanceTo } from '../src/harness/p13a/fixtures.js'
 import { provenanceRowFor, recomputeDue } from '../src/core/aging.js'
 import type { GameState, ProfessionalPromiseV30 } from '../src/core/types.js'
@@ -124,7 +124,7 @@ function base() {
   expect(state.operations.mode).toBe('managed')
   expect(state.scriptDevelopment.mode).toBe('legacy')
   expect(currentProposals(state, focus.beneficiaryPersonId)).toEqual([])
-  validateSaveV39({ ...live, state, broadcastCache: state.broadcastItems })
+  validateSaveV41({ ...live, state, broadcastCache: state.broadcastItems })
   return { state, talentId: focus.beneficiaryPersonId }
 }
 function p2(talentId: string, seatClass: SeatClass = 'lead'): P2Payload {
@@ -194,13 +194,24 @@ describe('P14B4 exact wire grammar — no P2 offerability prerequisite', () => {
     // This tests the actual worker-adapter's validateQuote boundary, not an HTTP
     // transport/future dispatch spy. Never cast malformed data into session.quote.
   })
-  it('keeps no-promise and count-only non-P2 wire shapes legal; P3-P5 remain engine-refused separately', () => {
+  it('keeps no-promise and count-only P1/P3 wire shapes legal; count-only P4/P5 are wire-illegal (schema requires seatClass+genre/scriptProjectId); P3-P5 remain engine-refused separately', () => {
     const { state, talentId } = base()
     const session = new BridgeSession(state, 'b4-wire-old-shapes')
     const plain = { verb: 'propose', talentId, termWeeks: 52, premiumTier: 1.25 }
     expect(validateQuote(request(session, plain, 'plain')).ok).toBe(true)
-    for (const family of ['APPEARANCE_COUNT', 'DIRECTING_COUNT', 'PREFERRED_GENRE_OPPORTUNITY', 'SPECIFIC_PROJECT']) {
+    // 1309-X3 ruling 8: the wire schema (bridge/schema/bridge-schema.ts:1842-1856)
+    // admits a count-only draft for APPEARANCE_COUNT/DIRECTING_COUNT
+    // (StudioMarketProposalCountPromiseDraftPayload /
+    // StudioMarketProposalDirectorPromiseDraftPayload need no extra terms), but
+    // PREFERRED_GENRE_OPPORTUNITY/SPECIFIC_PROJECT each require their own
+    // opportunityDraftTerms (`seatClass`) plus `genre`/`scriptProjectId`
+    // respectively -- WIRE_P2 alone is wire-illegal for those two families.
+    for (const family of ['APPEARANCE_COUNT', 'DIRECTING_COUNT']) {
       expect(validateQuote(request(session, { ...plain, promise: { ...WIRE_P2, family } }, family)).ok).toBe(true)
+    }
+    for (const family of ['PREFERRED_GENRE_OPPORTUNITY', 'SPECIFIC_PROJECT']) {
+      expect(validateQuote(request(session, { ...plain, promise: { ...WIRE_P2, family } }, family)))
+        .toMatchObject({ ok: false, reasonCode: 'INVALID_COMMAND' })
     }
   })
 })
@@ -442,7 +453,7 @@ describe('P14B4 existing own/private/public carriers', () => {
     // hand-written `talent[i].age` disagreeing with it is now refused), not a
     // fabricated credit — same disclosed synthetic pure-read age input as before.
     const state = withSyntheticAge(live.state, person.id, age)
-    validateSaveV39({ ...live, state }) // disclosed synthetic pure-read age input, no fake credit
+    validateSaveV41({ ...live, state }) // disclosed synthetic pure-read age input, no fake credit
     const before = clone(state)
     const block = marketCaseProjection(state, person.id, player(state))!
     const profile = peopleProjection(state).profiles.find((p) => p.talentId === person.id)!
@@ -500,7 +511,7 @@ describe('P14B4 existing own/private/public carriers', () => {
     const savedSession = new BridgeSession(brokenState, 'b4-saved-' + seatClass)
     const saved = savedSession.save(control(savedSession, 'save-real-outcome'))
     if (!saved.accepted) throw new Error(saved.message)
-    expect(validateSaveV39(JSON.parse(saved.saveJson)).state.promises).toEqual(brokenState.promises)
+    expect(validateSaveV41(JSON.parse(saved.saveJson)).state.promises).toEqual(brokenState.promises)
     const loaded = BridgeSession.fromSaveJson(saved.saveJson, 'b4-loaded-' + seatClass)
     expect(loaded.gameState.promises).toEqual(brokenState.promises)
     history(loaded.gameState, loaded.gameState.promises.find((p) => p.promiseId === broken.promiseId)!, seatClass)

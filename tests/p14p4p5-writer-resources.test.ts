@@ -47,7 +47,7 @@ function memo(name: string, build: () => GameState): GameState {
 }
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(40); expect(saves.validateSaveV40(save)).toBe(save)
+  expect(save.saveVersion).toBe(41); expect(saves.validateSaveV41(save)).toBe(save)
   const raw = saves.exportSave(save)
   expect(saves.exportSave(saves.importSave(raw))).toBe(raw); expect(stable(state)).toBe(before)
 }

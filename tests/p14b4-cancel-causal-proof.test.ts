@@ -82,7 +82,7 @@ const TERMINATION_CAUSE = 'the studio terminated this contract early, ending the
 // the landed proof reuses the PHYSICAL_BOUND sentence (:672) and none of the other three
 const JOINT_RESERVATION = 'promises already made to this person exhaust the window'
 const CLASSLESS_REFUSAL = 'a seat-class promise needs its seat class selected (lead, or lead-or-antagonist); without one it is not offered'
-const FAMILY_REFUSAL = 'a directing promise is not offered in this slice'
+const FAMILY_REFUSAL = 'a directing promise needs its explicit directorCount predicate selected'
 const PHYSICAL_BOUND = 'no filming week inside the window can reach that many pictures'
 
 // ── quote law, transcribed (see header): the offer service's ESTIMATE, used for RED premises only ──
@@ -268,7 +268,7 @@ function bind(state: GameState, spec: BindSpec): GameState {
 }
 /** The live writer validates the whole state (P14C.2a: validateSaveV37, was validateSaveV35, was validateSaveV34); a refusal fails the case with its text. */
 function lawful(state: GameState): void {
-  expect(makeSave(state).saveVersion).toBe(40)
+  expect(makeSave(state).saveVersion).toBe(41)
 }
 function root(state: GameState, promiseId: string): ProfessionalPromise {
   const rows = state.promises.filter((p) => p.promiseId === promiseId)

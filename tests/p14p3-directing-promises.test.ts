@@ -318,7 +318,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
     const positives = [a.state, b.state, first.first.afterTake, second.second.afterTake]
     for (const state of positives) {
       admitted(state)
-      const save = saves.makeSave(state); expect(save.saveVersion).toBe(40)
+      const save = saves.makeSave(state); expect(save.saveVersion).toBe(41)
       expect(api.validateSaveV39(save)).toBe(save)
       expect(bytes(reopen(state))).toBe(bytes(state))
       expect(() => saves.validateSaveV38({ ...clone(save), saveVersion: 38 })).toThrow(/predicate|promise/i)
@@ -343,9 +343,15 @@ describe('P3 first slice: public Director promises and historical meaning', () =
     // The parent-approved guard order is whole39 proof, then explicit P3 loss
     // refusal before any older profession projection. Entrant authority cannot
     // satisfy this precise predicate cause. Never strip those real anchors.
+    // 1309-X3 ruling 3: these frozen builders receive the lawful V40 projection
+    // (convertV41ToV40(makeSave(state)).state), not the raw live GameState --
+    // fed directly, they now stop at the V25 Hollywood exact-key check on the
+    // Save41 rival `termination` movement, before ever reaching this leaf's own
+    // named cause.
+    const projectedA = saves.convertV41ToV40(saves.makeSave(a.state)).state
     for (const builder of [saves.makeSaveV1, saves.makeSaveV13, saves.makeSaveV18]) {
-      expect(() => builder(a.state)).toThrow(/director|promise|predicate/i)
-      const invalid: GameState = { ...clone(a.state), hollywood: null }
+      expect(() => builder(projectedA)).toThrow(/director|promise|predicate/i)
+      const invalid: GameState = { ...clone(projectedA), hollywood: null }
       expect(() => builder(invalid)).toThrow()
     }
     // Genuine P3 WAIVED authority belongs to D12's separately authorized route.
@@ -356,7 +362,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
       const old = outgoing(name), oldState = saves.stableStringify(old.save.state)
       const current = saves.migrateToLive(old.save)
       // Existing semantic boundary: fails as37/38 rather than a missing import.
-      expect(current.saveVersion).toBe(40)
+      expect(current.saveVersion).toBe(41)
       expect(saves.stableStringify(current.state)).toBe(oldState)
       expect(current.state.promises).toEqual(old.save.state.promises)
       expect(current.state.firstTakes).toEqual(old.save.state.firstTakes)
@@ -381,7 +387,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
       expect(oldTakes.length).toBeGreaterThanOrEqual(replacement.predicate.count)
       expect(oldTakes.every(take => Object.values(take.cast).includes(replacement.beneficiaryPersonId))).toBe(true)
       const rawBefore = saves.exportSave(old), current = saves.migrateToLive(old)
-      expect(current.saveVersion).toBe(40)
+      expect(current.saveVersion).toBe(41)
       expect(current.state.promises[index]).toEqual(replacement)
       expect(qualifyingTakes(current.state, current.state.promises[index]!)).toEqual(oldTakes)
       expect(saves.exportSave(futureSave().convertV39ToV38(current))).toBe(rawBefore)
@@ -634,8 +640,12 @@ describe('P3 second slice: cancellation and same-domain waiver', () => {
       expect(futureSave().validateSaveV39(save)).toBe(save)
       expect(() => saves.validateSaveV38({ ...clone(save), saveVersion: 38 })).toThrow(/predicate|promise/i)
       expect(() => futureSave().convertV39ToV38(save)).toThrow(/director|predicate|promise/i)
+      // 1309-X3 ruling 3: fed the raw live GameState, these frozen builders now
+      // stop at the V25 Hollywood exact-key check on the Save41 rival
+      // `termination` movement; they receive the lawful V40 projection instead.
+      const projected = saves.convertV41ToV40(save).state
       for (const builder of [saves.makeSaveV1, saves.makeSaveV13, saves.makeSaveV18])
-        expect(() => builder(state)).toThrow(/director|promise|predicate/i)
+        expect(() => builder(projected)).toThrow(/director|promise|predicate/i)
     }
     console.info('1143-P3-WAIVER ' + JSON.stringify({ waived: change.state.market.tick, windowStart: input.substitute.windowStartWeek,
       originalTake: done.first.take.week, substituteTake: done.second.take.week, due: done.state.market.tick }))
@@ -1033,7 +1043,7 @@ describe('P3 bounded occupancy admission', () => {
     expect(input.state.market.tick).toBe(52)
     expect(input.actorId).toBe('authored-0006')
     admitted(input.state)
-    expect(saves.makeSave(input.state).saveVersion).toBe(40)
+    expect(saves.makeSave(input.state).saveVersion).toBe(41)
     const root = actualPromise(input.state, input.promiseId)
     expect(root).toMatchObject({ contractId: expect.any(String), progress: 0, outcome: null })
     const contract = activeContract(input.state, input.actorId); assert.ok(contract)
@@ -1073,7 +1083,7 @@ describe('P3 bounded occupancy admission', () => {
     const occupied = made.state
     admitted(occupied)
     expect(occupied.market.tick).toBe(52)
-    expect(saves.makeSave(occupied).saveVersion).toBe(40)
+    expect(saves.makeSave(occupied).saveVersion).toBe(41)
     const production = occupied.studio.activeProductions.find(row => row.id === made.productionId)
     assert.ok(production)
     expect(production).toMatchObject({ startTick: 52, remainingTicks: 8,

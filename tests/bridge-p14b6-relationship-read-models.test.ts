@@ -76,7 +76,7 @@ import { castingDraftToEngine, castingProjection, castingQuoteSnapshot } from '.
 import type { BridgeCastingDraftPayload } from '../bridge/schema/bridge-schema.ts'
 import { applyActions } from '../src/core/actions.js'
 import { tick } from '../src/core/tick.js'
-import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV30, validateSaveV38 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV30, validateSaveV41 } from '../src/core/save.js'
 import { pairChemistry, RELATIONSHIP_TIERS } from '../src/core/relationships.js'
 import type { GameState, RelationshipDriver, RelationshipTier } from '../src/core/types.js'
 import { historyFixture, player, retentionFixture } from './helpers/p14b2-fixtures.js'
@@ -96,8 +96,11 @@ const OUTGOING_49 = 'sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfc
 const OUTGOING_50 = 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698'
 const OUTGOING_51 = 'sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f' // 875/914: genuine outgoing51
 const OUTGOING_52 = 'sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2' // genuine953 outgoing52; C.3 projection53
+const OUTGOING_53 = 'sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d' // P3: genuine1117 outgoing53
+const OUTGOING_54 = 'sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302' // P4/P5: genuine1221 outgoing54
+const OUTGOING_55 = 'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158' // R2/R3: genuine1307 outgoing55
 const OUTGOING_PROJECTION = 48
-const INCOMING_PROJECTION = 53
+const INCOMING_PROJECTION = 56
 // The 36 accepted prior literals as they stand today (tests/bridge-p14b4-runtime47-compatibility.test.ts
 // :40-80, exact-count pin at :162). B.6 took this roster to 37 by adding OUTGOING_48;
 // B.8 takes it to 38 by adding OUTGOING_49.
@@ -221,7 +224,7 @@ function everyBlock(state: GameState): { talentId: string; block: Block }[] {
 function admitted(state: GameState, label: string): GameState {
   const save = makeSave(state)
   expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
-  validateSaveV38(JSON.parse(JSON.stringify(save)))
+  validateSaveV41(JSON.parse(JSON.stringify(save)))
   expect(label.length).toBeGreaterThan(0)
   return save.state as GameState
 }
@@ -463,7 +466,21 @@ describe('family 2 — DISCLOSURE, the family that matters most (RED BY RESOLUTI
     const subject = W1_SEATS.directorId
     const dropped = W1_SEATS.support
     expect(blockOn(peopleProjection(before).profiles.find((p) => p.talentId === subject)!).rows.map((r) => r.counterpartId)).toContain(dropped)
-    const after = applyActions(before, [{ kind: 'releaseTalent', talentId: dropped }])
+    // 1308-C / R2 (busy-set release refusal): `dropped` (t-act-13) is the support seat of
+    // prod-0052, still in state.studio.activeProductions here (retentionFixture never cancels
+    // or completes it) — releasing them directly is now the R2 seatedOnActiveProduction
+    // refusal, not the same-week close this leaf exists to test. Cancel the production first,
+    // same week (applyCancel, actions.ts:588-611, never ticks): it clears the seat so the
+    // release below is lawful again, and it does not touch state.relationships or
+    // state.hollywood.employment directly, so the SAME-WEEK close and the edge's continued
+    // existence asserted below are unaffected. Disclosed side effect: prod-0052 has a first
+    // take (retentionFixture ticks once past remainingTicks 5), so this cancellation also
+    // drives a 'cancelledAfterFirstTake' relationship event between the picture's seated pairs
+    // (src/core/relationships.ts:320-329) — a real, incidental consequence of the smallest
+    // lawful fix, not asserted on either way by this leaf (which only checks edge EXISTENCE,
+    // never its tier/closeness/driver list).
+    const cancelled = applyActions(before, [{ kind: 'cancel', productionId: 'prod-0052' }])
+    const after = applyActions(cancelled, [{ kind: 'releaseTalent', talentId: dropped }])
     expect(after.market.tick).toBe(week)
     expect(after.hollywood!.employment.some((e) => e.terms.talentId === dropped && e.endedWeek === week)).toBe(true)
     expect(edges(after).some((e) => (e.a === dropped || e.b === dropped) && (e.a === subject || e.b === subject))).toBe(true)
@@ -757,7 +774,7 @@ describe('family 8 — the WIRE (RED BY VALUE: version literals and a registry c
     expect(PROTOCOL_VERSION).toBe(4)
     expect(PROJECTION_VERSION).toBe(INCOMING_PROJECTION)
     expect(OUTGOING_PROJECTION).toBe(48)
-    expect(LIVE_SAVE_VERSION).toBe(40) // B.6 has NO save step
+    expect(LIVE_SAVE_VERSION).toBe(41) // B.6 has NO save step
     expect(SCHEMA_ID).not.toBe(OUTGOING_48)
     expect(schemaIdentity(BRIDGE_SCHEMA)).toBe(SCHEMA_ID)
     expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-4:projection-${String(INCOMING_PROJECTION)}`)
@@ -769,10 +786,10 @@ describe('family 8 — the WIRE (RED BY VALUE: version literals and a registry c
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect(EXPECTED_36_PRIOR_IDS).toHaveLength(36)
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48, OUTGOING_49, OUTGOING_50, OUTGOING_51, OUTGOING_52].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48, OUTGOING_49, OUTGOING_50, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
-    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(41)
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(44)
   })
 
   it('the checked-in generator artifacts equal the running identity (`--check` clean), and priorityOrder keeps its seven members and its line', () => {

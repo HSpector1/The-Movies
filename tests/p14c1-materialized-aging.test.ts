@@ -1005,6 +1005,6 @@ describe('13. provenance is written at the append, not the mint call', () => {
 // P14C.2a (776 S10): C.1 landed at 33 as this test predicted, then C.2a bumped once more.
 describe('save version bump (contract §6)', () => {
   it('LIVE_SAVE_VERSION is 37 once C.2b lands (was 35 after C.4, was 34 after C.2a)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(40)
+    expect(LIVE_SAVE_VERSION).toBe(41)
   })
 })

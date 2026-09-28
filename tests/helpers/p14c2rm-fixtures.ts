@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { expect } from 'vitest'
-import { exportSave, importSave, makeSave, migrateToLive, validateSaveV37, validateSaveV40 } from '../../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToLive, validateSaveV37, validateSaveV41 } from '../../src/core/save.js'
 import type { SaveFileV37 } from '../../src/core/save.js'
 import { retirementRecordFor } from '../../src/core/careerLifecycle.js'
 import { applyActions } from '../../src/core/actions.js'
@@ -21,7 +21,7 @@ export const sha = (value: string | Uint8Array) => createHash('sha256').update(v
 export const bytes = (state: GameState) => exportSave(makeSave(state))
 export const owner = (state: GameState) => state.hollywood!.playerStudioId
 export function admitted(state: GameState): GameState {
-  return validateSaveV40(JSON.parse(bytes(state))).state
+  return validateSaveV41(JSON.parse(bytes(state))).state
 }
 export const OUTGOING_51 = 'sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f'
 export const SCI = 't-sci-00'

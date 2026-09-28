@@ -1,0 +1,25 @@
+--- a/tests/bridge-p14b6-relationship-read-models.test.ts	2026-09-28 13:06:01.000000000 +0200
++++ b/tests/bridge-p14b6-relationship-read-models.test.ts	2026-09-28 13:06:01.000000000 +0200
+@@ -463,7 +463,21 @@
+     const subject = W1_SEATS.directorId
+     const dropped = W1_SEATS.support
+     expect(blockOn(peopleProjection(before).profiles.find((p) => p.talentId === subject)!).rows.map((r) => r.counterpartId)).toContain(dropped)
+-    const after = applyActions(before, [{ kind: 'releaseTalent', talentId: dropped }])
++    // 1308-C / R2 (busy-set release refusal): `dropped` (t-act-13) is the support seat of
++    // prod-0052, still in state.studio.activeProductions here (retentionFixture never cancels
++    // or completes it) — releasing them directly is now the R2 seatedOnActiveProduction
++    // refusal, not the same-week close this leaf exists to test. Cancel the production first,
++    // same week (applyCancel, actions.ts:588-611, never ticks): it clears the seat so the
++    // release below is lawful again, and it does not touch state.relationships or
++    // state.hollywood.employment directly, so the SAME-WEEK close and the edge's continued
++    // existence asserted below are unaffected. Disclosed side effect: prod-0052 has a first
++    // take (retentionFixture ticks once past remainingTicks 5), so this cancellation also
++    // drives a 'cancelledAfterFirstTake' relationship event between the picture's seated pairs
++    // (src/core/relationships.ts:320-329) — a real, incidental consequence of the smallest
++    // lawful fix, not asserted on either way by this leaf (which only checks edge EXISTENCE,
++    // never its tier/closeness/driver list).
++    const cancelled = applyActions(before, [{ kind: 'cancel', productionId: 'prod-0052' }])
++    const after = applyActions(cancelled, [{ kind: 'releaseTalent', talentId: dropped }])
+     expect(after.market.tick).toBe(week)
+     expect(after.hollywood!.employment.some((e) => e.terms.talentId === dropped && e.endedWeek === week)).toBe(true)
+     expect(edges(after).some((e) => (e.a === dropped || e.b === dropped) && (e.a === subject || e.b === subject))).toBe(true)
