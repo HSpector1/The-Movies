@@ -1,8 +1,8 @@
 # P4/P5 verification coverage
 
-Evidence cutoff: 2026-09-28, after Q20 / 1280. This is a navigation summary of recorded results, not a new contract, execution budget or full-suite pass. Save40, projection55 and evaluator7 are implemented. The outstanding verification below keeps the wider P14 task open.
+Evidence cutoff: 2026-09-28, after Q21 / 1283. This is a navigation summary of recorded results, not a new contract, execution budget or full-suite pass. Save40, projection55 and evaluator7 are implemented. The outstanding verification below keeps the wider P14 task open.
 
-The twenty core leaves Q01–Q20 passed across **twelve separate selections**: 1234b (four), 1238 (two), 1253 (four), 1256 (one), 1259 (one), 1262 (two), 1265b (one), 1268 (one), 1271 (one), 1274 (one), 1277 (one), and1280 (one). There was no same-run twenty-leaf qualification. Three new Bridge leaves and one new UI leaf passed separately. Prior compiler/runtime failures and the Bridge synchronous timeout overrun remain in their original records.
+The twenty-one core leaves Q01–Q21 passed across **thirteen separate selections**: 1234b (four), 1238 (two), 1253 (four), 1256 (one), 1259 (one), 1262 (two), 1265b (one), 1268 (one), 1271 (one), 1274 (one), 1277 (one), 1280 (one), and1283 (one). There was no same-run twenty-one-leaf qualification. Three new Bridge leaves and one new UI leaf passed separately. Prior compiler/runtime failures and the Bridge synchronous timeout overrun remain in their original records.
 
 | Area | Actual qualified evidence | Remaining limit or next task |
 |---|---|---|
@@ -18,17 +18,16 @@ The twenty core leaves Q01–Q20 passed across **twelve separate selections**: 1
 | Public waiver | Actual accepted genre/class/project narrowing, three sequential successors, forward windows, remaining obligations, trust and current link negatives in Q09 / 1253. | Natural VOIDED evidence is still absent from its prior bounded search; do not extend that search or invent a witness. |
 | Wrong-seat and cancellation outcomes | Real player wrong-seat commit, pre-take cancellation and post-take earned evidence retention in 1238; strict and idempotent controls in 1253. | Queued/refused and rival wrong-seat callbacks need their own actual owner evidence. |
 | Rival material policy and staffing | Implemented bounded fallback and subject-aware staffing; actual rival subject appends are qualified. | Actual material candidate order, accepted policy offer and matching staffing remain open. Failed1169 is not a positive witness and authorizes no rescue/retry. [Read-only scope notes](P4P5-RIVAL-POLICY-RECONNAISSANCE.md) record constraints without a new runtime route. |
-| Retirement and cross-owner availability | Q16 /1268: actual retired Actors now primary Director/Writer retain requested-Actor refusal, while current-profession admission is allowed; active Actor control RA. Three pure quotes, all59 old roots/85 takes retained; two unbound same-person roots excluded. | Q17 /1271 separately qualifies six pure cross-owner P5 queries: rival Actor company floor52/take57 versus Writer draft due46/take51, exact exclusive and seven/eight-week slack boundaries. Zero actions/advances; contracts unchanged. Q18 /1274 adds current Director-only retirement refusal and actual held Actor finishing work: five pure quotes, two accepted existing-task actions, one312→313 take/c00 drama/null. All111 old receipts/69 roots and both finishing records retained; no release/completed retirement. Delayed-release readmission remains separate. Historical V37 provenance/parity FAIL remains. |
+| Retirement and cross-owner availability | Q16 /1268: actual retired Actors now primary Director/Writer retain requested-Actor refusal, while current-profession admission is allowed; active Actor control RA. Three pure quotes, all59 old roots/85 takes retained; two unbound same-person roots excluded. | Q17 /1271 separately qualifies six pure cross-owner P5 queries: rival Actor company floor52/take57 versus Writer draft due46/take51, exact exclusive and seven/eight-week slack boundaries. Zero actions/advances; contracts unchanged. Q18 /1274 adds current Director-only retirement refusal and actual held Actor finishing work: five pure quotes, two accepted existing-task actions, one312→313 take/c00 drama/null. All111 old receipts/69 roots and both finishing records retained; no release/completed retirement. Q21 /1283 now qualifies delayed-release readmission:59 actual45→104 advances/five accepted mutations/four pure quotes; actual104 announcement/effective156 and a public waiver delay common release109→148, changing identical P5 RA to timing-FRAGILE despite27 weeks of uncapped slack and spare resources. Query147 allowed/query148 refused; no later arrival or player take. Historical V37 provenance/parity FAIL remains. |
 | Bridge and UI disclosure | New Bridge3/3 and isolated UI1/1 passed; own targets and rival UNKNOWN privacy, current-save replay/duplicates and genuine previous54 migration covered. | One Bridge leaf took228.867s despite a60s declaration; no timeout enforcement/performance claim. No disk coordinator, native consumer or full-UI qualification follows. |
 
-Primary closure records are in [the evidence directory](evidence/p14b4-20260919/): 1234-A/B, 1239-A/B/C, 1236-J/K/L, 1249-I/J/K, 1254-I/J/K, 1257-I/J/K 1260-I/J/K, 1263-I/J/K 1266-I/J/K, 1269-I/J/K 1272-I/J/K 1275-I/J/K and1278-I/J/K. The frozen detailed requirements remain [1226-A](evidence/p14b4-20260919/1226-A-p4p5-initial-test-requirements.md); their original candidate wording is historical, not a statement that current versions are still only proposed.
+Primary closure records are in [the evidence directory](evidence/p14b4-20260919/): 1234-A/B, 1239-A/B/C, 1236-J/K/L, 1249-I/J/K, 1254-I/J/K, 1257-I/J/K 1260-I/J/K, 1263-I/J/K 1266-I/J/K, 1269-I/J/K 1272-I/J/K 1275-I/J/K 1278-I/J/K and1281-I/J/K. The frozen detailed requirements remain [1226-A](evidence/p14b4-20260919/1226-A-p4p5-initial-test-requirements.md); their original candidate wording is historical, not a statement that current versions are still only proposed.
 
-Current next work is1282types0/1283runtime59 after publication of exact1281-C/D/E:
-one Q21 leaf,59 real develop:true45→104 advances, five public mutations/four
-explicit previews, prospective180s timeout. Independent source review is complete;
-runtime remains unexecuted. After closure begin1284 soundstage, then1287 queued/
-refused underA/B/F. Keep one live production/integration writer, separate test/review
-specialists and one heavy process. Unity/native and Owner campaigns remain deferred.
-P17 healthy reboots,35% Recognition floor and dormant Direct Sequel classification
-are adopted; no P17 question from this session is pending. The required P18 charter
-is source-reviewed in plans; unspecified season/platform rules remain proposed.
+Current next work is accepted1284-C soundstage-capacity source: two identical
+crime P4 quotes, one public cancellation and hard0advances at genuine actual312.
+IndependentD then parent application/publication,1285types0/1286runtime0;1287
+queued/refused underA/B/F follows. Keep one live integration/production writer,
+separate test/review specialists and one heavy process. Unity/native and Owner
+campaigns remain deferred. P17 healthy reboots,35% Recognition floor and dormant
+Direct Sequel classification are adopted; no P17 question is pending. Required
+P18 charter is source-reviewed; unspecified TV rules remain proposed.

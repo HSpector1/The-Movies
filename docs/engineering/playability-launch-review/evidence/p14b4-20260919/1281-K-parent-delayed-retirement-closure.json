@@ -1,0 +1,1053 @@
+{
+  "record": "1281-K parent delayed-retirement closure",
+  "timeUtc": "2026-09-28T01:18:51.707732+00:00",
+  "executedSource": "4d2aca744f15a73b45589d4d97b717f831209373",
+  "remoteExactAtClosure": true,
+  "status": "BOUNDED Q21 LOGIC VERIFIED; UNITY NOT VERIFIED",
+  "source": {
+    "path": "tests/p14p4p5-delayed-retirement.test.ts",
+    "bytes": 42810,
+    "sha256": "d7de5234ff171dc330aa4472bd5482e18a99a86ea1f1dda377f3b107b9acc579"
+  },
+  "sourceHandback": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1281-C-delayed-retirement-source-handback.md",
+    "bytes": 8803,
+    "sha256": "6cd44474852aa0264ee41c82a5b79ba97272609d5a5d8706cb5cb89285f5b8dc"
+  },
+  "sourceReview": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1281-D-delayed-retirement-source-review.md",
+    "bytes": 7590,
+    "sha256": "2adb9ae304f4c89881bedbd00e9d57324e405e51d79b1a59b3bbfa6dde995f7a"
+  },
+  "application": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1281-E-parent-application.json",
+    "bytes": 2352,
+    "sha256": "442c3e7fc5dfcc35d326e1d5157fea9c3c93fd5fa4ae2047da05e2002f0e97a3"
+  },
+  "attribution": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1281-I-delayed-retirement-verification-attribution.md",
+    "bytes": 11480,
+    "sha256": "bed93302b45aa719d3d843f4a9d75ab6f4af9bae94cea5ffd3b04d88f6226a1a"
+  },
+  "verificationReview": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1281-J-delayed-retirement-verification-review.md",
+    "bytes": 8485,
+    "sha256": "6d64f57247d0970427ed4680105b7a1ab818c7d6fea65763ec331f3d8bed3634"
+  },
+  "parentReview": "Complete546-line source and A/B/C/D read before application. Full final I/J and nonmarker output read; all86 raw markers parsed. Independently compared all59 trace records with final replay, all25 new rival receipt/subject/full production-concept-project joins, every cumulative sidecar, actual birthdays/announcement, unchanged complete held production60-to104 and bound root52-to104. Full repeated physical premises equal, all5 company/53 screenplay assignment flags and six resource claims recomputed; workflow/task/set bodies joined. Every raw union membership flag and complete selected row compared with actual selector. All four requests/receipts, decision prices/frozen52 receipts, public waiver/root/event5 and actual104 admissions read. Both238 manual/1690 source/index/stage guards independently reconstructed after actual postflight exits. Temporary stdlib audit initially used nonexistent recorder startHead/endHead keys and departing-week stamp for rival receipts; corrected to actual sourceSha/sourceShaAtEnd schema and observed arrival-week stamps before final audit PASS. These were audit-script errors; no gate/source/raw record changed or engine execution repeated.",
+  "gates": [
+    {
+      "stem": "1282-delayed-retirement-types",
+      "command": [
+        "node_modules/.bin/tsc",
+        "--noEmit",
+        "-p",
+        "tsconfig.json"
+      ],
+      "start": "2026-09-28T01:03:27.840Z",
+      "end": "2026-09-28T01:04:02.731Z",
+      "elapsedSeconds": 34.891,
+      "exitCode": 0,
+      "advanceCap": 0,
+      "fixedSource": true,
+      "allGuardsExact": true,
+      "manualPins": 238,
+      "sourceFiles": 1690,
+      "sourceInventory": {
+        "bytes": 256528,
+        "sha256": "9dabf7a4960d19dff74124a8a45fc744764156a598a74b1eb178fec134f4e070"
+      },
+      "index": {
+        "bytes": 1136083,
+        "sha256": "b941fe8c4333adc8da11158b59f22273a63e83d6faef766ee155bc10eedcb723"
+      },
+      "stageEntries": {
+        "bytes": 1009034,
+        "sha256": "90a6f91221003008cc5a78b37ffd10f48a226b98634c0920b08dbe7542b089ee"
+      },
+      "record": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1282-delayed-retirement-types.json",
+        "bytes": 634,
+        "sha256": "251cf0dd6e650ee02b851ca65b03e17d01890fab262ab8479f546d233e9d63d4"
+      },
+      "raw": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1282-delayed-retirement-types.txt",
+        "bytes": 340,
+        "sha256": "b5555328fbbecb26c958b74c9d804a3a5334c9fd7d4888d841a1eca860c99e8a"
+      },
+      "diff": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1282-delayed-retirement-types.patch",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "preflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1282-delayed-retirement-types-preflight.json",
+        "bytes": 59292,
+        "sha256": "935abfb5403c8916e9098fc0e7d605720b9ceef2a53254816c12920cfd25ec99"
+      },
+      "postflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1282-delayed-retirement-types-postflight.json",
+        "bytes": 59982,
+        "sha256": "4d0beab9bd2e5d9d44178c7f46e8dda40c40784366320248c3f8cd279ec43467"
+      }
+    },
+    {
+      "stem": "1283-delayed-retirement-runtime",
+      "command": [
+        "node_modules/.bin/vitest",
+        "run",
+        "--project",
+        "core",
+        "tests/p14p4p5-delayed-retirement.test.ts",
+        "-t",
+        "Q21 "
+      ],
+      "start": "2026-09-28T01:04:28.474Z",
+      "end": "2026-09-28T01:05:14.076Z",
+      "elapsedSeconds": 45.602,
+      "exitCode": 0,
+      "advanceCap": 59,
+      "fixedSource": true,
+      "allGuardsExact": true,
+      "manualPins": 238,
+      "sourceFiles": 1690,
+      "sourceInventory": {
+        "bytes": 256528,
+        "sha256": "9dabf7a4960d19dff74124a8a45fc744764156a598a74b1eb178fec134f4e070"
+      },
+      "index": {
+        "bytes": 1136083,
+        "sha256": "b941fe8c4333adc8da11158b59f22273a63e83d6faef766ee155bc10eedcb723"
+      },
+      "stageEntries": {
+        "bytes": 1009034,
+        "sha256": "90a6f91221003008cc5a78b37ffd10f48a226b98634c0920b08dbe7542b089ee"
+      },
+      "record": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1283-delayed-retirement-runtime.json",
+        "bytes": 700,
+        "sha256": "1ca54fb6615b64fad10620c558a9c43b3dc7e23ac4841f0abde6d199d75b9b40"
+      },
+      "raw": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1283-delayed-retirement-runtime.txt",
+        "bytes": 1854303,
+        "sha256": "e315a4d240e7b53db2a46aab3d41939dda4f705f2595ee030a4b4715b9acd065"
+      },
+      "diff": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1283-delayed-retirement-runtime.patch",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "preflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1283-delayed-retirement-runtime-preflight.json",
+        "bytes": 59293,
+        "sha256": "9c4704adf3a0138d6f18e00af9e4447e930d1ea18e349effdf529c3cf73b7361"
+      },
+      "postflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1283-delayed-retirement-runtime-postflight.json",
+        "bytes": 59992,
+        "sha256": "7700e7b46e3be61b8f915e643f4d615d42d8870d230ab0b24f199ffb5563c5e1"
+      }
+    }
+  ],
+  "selection": {
+    "filesPassed": 1,
+    "leavesPassed": 1,
+    "filtered": 0,
+    "leafMs": 40661,
+    "fileMs": 40670,
+    "vitestSeconds": 44.55,
+    "declaredTimeoutMs": 180000
+  },
+  "observed": {
+    "raw": {
+      "bytes": 1854303,
+      "sha256": "e315a4d240e7b53db2a46aab3d41939dda4f705f2595ee030a4b4715b9acd065"
+    },
+    "markers": {
+      "bytes": 1853186,
+      "sha256": "9095fa0714ba5a0df4059022cbfb6a5473a809c95839acf46bb6b9f4cf1a7ad4",
+      "count": 86
+    },
+    "newRivalReceipts": [
+      {
+        "eventId": "first-take-event-19",
+        "week": 48,
+        "productionId": "studio-de11f27b-r04:film:4",
+        "studioId": "studio-de11f27b-r04",
+        "directorId": "person-studio-de11f27b-r04-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r04-2",
+          "antagonist": "person-studio-de11f27b-r04-3",
+          "support": "person-studio-de11f27b-r04-4"
+        }
+      },
+      {
+        "eventId": "first-take-event-20",
+        "week": 54,
+        "productionId": "studio-de11f27b-r01:film:5",
+        "studioId": "studio-de11f27b-r01",
+        "directorId": "person-studio-de11f27b-r01-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r01-4",
+          "antagonist": "person-studio-de11f27b-r01-3",
+          "support": "person-studio-de11f27b-r01-2"
+        }
+      },
+      {
+        "eventId": "first-take-event-21",
+        "week": 54,
+        "productionId": "studio-de11f27b-r02:film:5",
+        "studioId": "studio-de11f27b-r02",
+        "directorId": "person-studio-de11f27b-r02-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r02-3",
+          "antagonist": "person-studio-de11f27b-r02-2",
+          "support": "person-studio-de11f27b-r02-4"
+        }
+      },
+      {
+        "eventId": "first-take-event-22",
+        "week": 54,
+        "productionId": "studio-de11f27b-r03:film:5",
+        "studioId": "studio-de11f27b-r03",
+        "directorId": "person-studio-de11f27b-r03-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r03-3",
+          "antagonist": "person-studio-de11f27b-r03-2",
+          "support": "person-studio-de11f27b-r03-4"
+        }
+      },
+      {
+        "eventId": "first-take-event-23",
+        "week": 57,
+        "productionId": "studio-de11f27b-r04:film:5",
+        "studioId": "studio-de11f27b-r04",
+        "directorId": "person-studio-de11f27b-r04-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r04-2",
+          "antagonist": "person-studio-de11f27b-r04-3",
+          "support": "person-studio-de11f27b-r04-4"
+        }
+      },
+      {
+        "eventId": "first-take-event-24",
+        "week": 63,
+        "productionId": "studio-de11f27b-r01:film:6",
+        "studioId": "studio-de11f27b-r01",
+        "directorId": "person-studio-de11f27b-r01-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r01-4",
+          "antagonist": "person-studio-de11f27b-r01-3",
+          "support": "person-studio-de11f27b-r01-2"
+        }
+      },
+      {
+        "eventId": "first-take-event-25",
+        "week": 63,
+        "productionId": "studio-de11f27b-r02:film:6",
+        "studioId": "studio-de11f27b-r02",
+        "directorId": "person-studio-de11f27b-r02-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r02-3",
+          "antagonist": "person-studio-de11f27b-r02-2",
+          "support": "person-studio-de11f27b-r02-4"
+        }
+      },
+      {
+        "eventId": "first-take-event-26",
+        "week": 63,
+        "productionId": "studio-de11f27b-r03:film:6",
+        "studioId": "studio-de11f27b-r03",
+        "directorId": "person-studio-de11f27b-r03-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r03-3",
+          "antagonist": "person-studio-de11f27b-r03-4",
+          "support": "person-studio-de11f27b-r03-2"
+        }
+      },
+      {
+        "eventId": "first-take-event-27",
+        "week": 66,
+        "productionId": "studio-de11f27b-r04:film:6",
+        "studioId": "studio-de11f27b-r04",
+        "directorId": "person-studio-de11f27b-r04-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r04-2",
+          "antagonist": "person-studio-de11f27b-r04-3",
+          "support": "person-studio-de11f27b-r04-4"
+        }
+      },
+      {
+        "eventId": "first-take-event-28",
+        "week": 72,
+        "productionId": "studio-de11f27b-r01:film:7",
+        "studioId": "studio-de11f27b-r01",
+        "directorId": "person-studio-de11f27b-r01-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r01-3",
+          "antagonist": "person-studio-de11f27b-r01-4",
+          "support": "person-studio-de11f27b-r01-2"
+        }
+      },
+      {
+        "eventId": "first-take-event-29",
+        "week": 72,
+        "productionId": "studio-de11f27b-r02:film:7",
+        "studioId": "studio-de11f27b-r02",
+        "directorId": "person-studio-de11f27b-r02-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r02-2",
+          "antagonist": "person-studio-de11f27b-r02-3",
+          "support": "person-studio-de11f27b-r02-4"
+        }
+      },
+      {
+        "eventId": "first-take-event-30",
+        "week": 72,
+        "productionId": "studio-de11f27b-r03:film:7",
+        "studioId": "studio-de11f27b-r03",
+        "directorId": "person-studio-de11f27b-r03-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r03-3",
+          "antagonist": "person-studio-de11f27b-r03-4",
+          "support": "person-studio-de11f27b-r03-2"
+        }
+      },
+      {
+        "eventId": "first-take-event-31",
+        "week": 75,
+        "productionId": "studio-de11f27b-r04:film:7",
+        "studioId": "studio-de11f27b-r04",
+        "directorId": "person-studio-de11f27b-r04-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r04-2",
+          "antagonist": "person-studio-de11f27b-r04-3",
+          "support": "person-studio-de11f27b-r04-4"
+        }
+      },
+      {
+        "eventId": "first-take-event-32",
+        "week": 81,
+        "productionId": "studio-de11f27b-r01:film:8",
+        "studioId": "studio-de11f27b-r01",
+        "directorId": "person-studio-de11f27b-r01-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r01-4",
+          "antagonist": "person-studio-de11f27b-r01-3",
+          "support": "person-studio-de11f27b-r01-2"
+        }
+      },
+      {
+        "eventId": "first-take-event-33",
+        "week": 81,
+        "productionId": "studio-de11f27b-r02:film:8",
+        "studioId": "studio-de11f27b-r02",
+        "directorId": "person-studio-de11f27b-r02-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r02-3",
+          "antagonist": "person-studio-de11f27b-r02-2",
+          "support": "person-studio-de11f27b-r02-4"
+        }
+      },
+      {
+        "eventId": "first-take-event-34",
+        "week": 81,
+        "productionId": "studio-de11f27b-r03:film:8",
+        "studioId": "studio-de11f27b-r03",
+        "directorId": "person-studio-de11f27b-r03-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r03-3",
+          "antagonist": "person-studio-de11f27b-r03-4",
+          "support": "person-studio-de11f27b-r03-2"
+        }
+      },
+      {
+        "eventId": "first-take-event-35",
+        "week": 84,
+        "productionId": "studio-de11f27b-r04:film:8",
+        "studioId": "studio-de11f27b-r04",
+        "directorId": "person-studio-de11f27b-r04-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r04-2",
+          "antagonist": "person-studio-de11f27b-r04-3",
+          "support": "person-studio-de11f27b-r04-4"
+        }
+      },
+      {
+        "eventId": "first-take-event-36",
+        "week": 90,
+        "productionId": "studio-de11f27b-r01:film:9",
+        "studioId": "studio-de11f27b-r01",
+        "directorId": "person-studio-de11f27b-r01-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r01-2",
+          "antagonist": "person-studio-de11f27b-r01-4",
+          "support": "person-studio-de11f27b-r01-3"
+        }
+      },
+      {
+        "eventId": "first-take-event-37",
+        "week": 90,
+        "productionId": "studio-de11f27b-r02:film:9",
+        "studioId": "studio-de11f27b-r02",
+        "directorId": "person-studio-de11f27b-r02-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r02-3",
+          "antagonist": "person-studio-de11f27b-r02-2",
+          "support": "person-studio-de11f27b-r02-4"
+        }
+      },
+      {
+        "eventId": "first-take-event-38",
+        "week": 90,
+        "productionId": "studio-de11f27b-r03:film:9",
+        "studioId": "studio-de11f27b-r03",
+        "directorId": "person-studio-de11f27b-r03-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r03-3",
+          "antagonist": "person-studio-de11f27b-r03-2",
+          "support": "person-studio-de11f27b-r03-4"
+        }
+      },
+      {
+        "eventId": "first-take-event-39",
+        "week": 93,
+        "productionId": "studio-de11f27b-r04:film:9",
+        "studioId": "studio-de11f27b-r04",
+        "directorId": "person-studio-de11f27b-r04-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r04-2",
+          "antagonist": "person-studio-de11f27b-r04-3",
+          "support": "person-studio-de11f27b-r04-4"
+        }
+      },
+      {
+        "eventId": "first-take-event-40",
+        "week": 99,
+        "productionId": "studio-de11f27b-r01:film:10",
+        "studioId": "studio-de11f27b-r01",
+        "directorId": "person-studio-de11f27b-r01-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r01-4",
+          "antagonist": "person-studio-de11f27b-r01-3",
+          "support": "person-studio-de11f27b-r01-2"
+        }
+      },
+      {
+        "eventId": "first-take-event-41",
+        "week": 99,
+        "productionId": "studio-de11f27b-r02:film:10",
+        "studioId": "studio-de11f27b-r02",
+        "directorId": "person-studio-de11f27b-r02-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r02-3",
+          "antagonist": "person-studio-de11f27b-r02-2",
+          "support": "person-studio-de11f27b-r02-4"
+        }
+      },
+      {
+        "eventId": "first-take-event-42",
+        "week": 99,
+        "productionId": "studio-de11f27b-r03:film:10",
+        "studioId": "studio-de11f27b-r03",
+        "directorId": "person-studio-de11f27b-r03-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r03-3",
+          "antagonist": "person-studio-de11f27b-r03-4",
+          "support": "person-studio-de11f27b-r03-2"
+        }
+      },
+      {
+        "eventId": "first-take-event-43",
+        "week": 102,
+        "productionId": "studio-de11f27b-r04:film:10",
+        "studioId": "studio-de11f27b-r04",
+        "directorId": "person-studio-de11f27b-r04-1",
+        "cast": {
+          "lead": "person-studio-de11f27b-r04-2",
+          "antagonist": "person-studio-de11f27b-r04-3",
+          "support": "person-studio-de11f27b-r04-4"
+        }
+      }
+    ],
+    "newSubjectFacts": [
+      {
+        "eventId": "first-take-event-19",
+        "conceptId": "studio-de11f27b-r04:concept:4",
+        "genre": "horror",
+        "scriptProjectId": "script-0004"
+      },
+      {
+        "eventId": "first-take-event-20",
+        "conceptId": "studio-de11f27b-r01:concept:5",
+        "genre": "comedy",
+        "scriptProjectId": "script-0005"
+      },
+      {
+        "eventId": "first-take-event-21",
+        "conceptId": "studio-de11f27b-r02:concept:5",
+        "genre": "romance",
+        "scriptProjectId": "script-0005"
+      },
+      {
+        "eventId": "first-take-event-22",
+        "conceptId": "studio-de11f27b-r03:concept:5",
+        "genre": "drama",
+        "scriptProjectId": "script-0005"
+      },
+      {
+        "eventId": "first-take-event-23",
+        "conceptId": "studio-de11f27b-r04:concept:5",
+        "genre": "horror",
+        "scriptProjectId": "script-0005"
+      },
+      {
+        "eventId": "first-take-event-24",
+        "conceptId": "studio-de11f27b-r01:concept:6",
+        "genre": "comedy",
+        "scriptProjectId": "script-0006"
+      },
+      {
+        "eventId": "first-take-event-25",
+        "conceptId": "studio-de11f27b-r02:concept:6",
+        "genre": "romance",
+        "scriptProjectId": "script-0006"
+      },
+      {
+        "eventId": "first-take-event-26",
+        "conceptId": "studio-de11f27b-r03:concept:6",
+        "genre": "horror",
+        "scriptProjectId": "script-0006"
+      },
+      {
+        "eventId": "first-take-event-27",
+        "conceptId": "studio-de11f27b-r04:concept:6",
+        "genre": "adventure",
+        "scriptProjectId": "script-0006"
+      },
+      {
+        "eventId": "first-take-event-28",
+        "conceptId": "studio-de11f27b-r01:concept:7",
+        "genre": "comedy",
+        "scriptProjectId": "script-0007"
+      },
+      {
+        "eventId": "first-take-event-29",
+        "conceptId": "studio-de11f27b-r02:concept:7",
+        "genre": "romance",
+        "scriptProjectId": "script-0007"
+      },
+      {
+        "eventId": "first-take-event-30",
+        "conceptId": "studio-de11f27b-r03:concept:7",
+        "genre": "horror",
+        "scriptProjectId": "script-0007"
+      },
+      {
+        "eventId": "first-take-event-31",
+        "conceptId": "studio-de11f27b-r04:concept:7",
+        "genre": "romance",
+        "scriptProjectId": "script-0007"
+      },
+      {
+        "eventId": "first-take-event-32",
+        "conceptId": "studio-de11f27b-r01:concept:8",
+        "genre": "comedy",
+        "scriptProjectId": "script-0008"
+      },
+      {
+        "eventId": "first-take-event-33",
+        "conceptId": "studio-de11f27b-r02:concept:8",
+        "genre": "drama",
+        "scriptProjectId": "script-0008"
+      },
+      {
+        "eventId": "first-take-event-34",
+        "conceptId": "studio-de11f27b-r03:concept:8",
+        "genre": "horror",
+        "scriptProjectId": "script-0008"
+      },
+      {
+        "eventId": "first-take-event-35",
+        "conceptId": "studio-de11f27b-r04:concept:8",
+        "genre": "comedy",
+        "scriptProjectId": "script-0008"
+      },
+      {
+        "eventId": "first-take-event-36",
+        "conceptId": "studio-de11f27b-r01:concept:9",
+        "genre": "horror",
+        "scriptProjectId": "script-0009"
+      },
+      {
+        "eventId": "first-take-event-37",
+        "conceptId": "studio-de11f27b-r02:concept:9",
+        "genre": "adventure",
+        "scriptProjectId": "script-0009"
+      },
+      {
+        "eventId": "first-take-event-38",
+        "conceptId": "studio-de11f27b-r03:concept:9",
+        "genre": "horror",
+        "scriptProjectId": "script-0009"
+      },
+      {
+        "eventId": "first-take-event-39",
+        "conceptId": "studio-de11f27b-r04:concept:9",
+        "genre": "romance",
+        "scriptProjectId": "script-0009"
+      },
+      {
+        "eventId": "first-take-event-40",
+        "conceptId": "studio-de11f27b-r01:concept:10",
+        "genre": "comedy",
+        "scriptProjectId": "script-0010"
+      },
+      {
+        "eventId": "first-take-event-41",
+        "conceptId": "studio-de11f27b-r02:concept:10",
+        "genre": "romance",
+        "scriptProjectId": "script-0010"
+      },
+      {
+        "eventId": "first-take-event-42",
+        "conceptId": "studio-de11f27b-r03:concept:10",
+        "genre": "crime",
+        "scriptProjectId": "script-0010"
+      },
+      {
+        "eventId": "first-take-event-43",
+        "conceptId": "studio-de11f27b-r04:concept:10",
+        "genre": "romance",
+        "scriptProjectId": "script-0010"
+      }
+    ],
+    "newReceiptCensus": {
+      "studio-de11f27b-r04": 7,
+      "studio-de11f27b-r01": 6,
+      "studio-de11f27b-r02": 6,
+      "studio-de11f27b-r03": 6
+    },
+    "quoteResults": [
+      {
+        "name": "attachment45",
+        "actualWeek": 45,
+        "request": {
+          "family": "PREFERRED_GENRE_OPPORTUNITY",
+          "issuerStudioId": "studio-de11f27b-player",
+          "beneficiaryPersonId": "authored-0006",
+          "predicate": {
+            "kind": "genreOpportunity",
+            "count": 1,
+            "seatClass": "allCast",
+            "genre": "drama"
+          },
+          "startWeek": 52,
+          "termWeeks": 104,
+          "windowStartWeek": 52,
+          "dueWeekExclusive": 156
+        },
+        "receipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "285bd77ca6f4d65b",
+          "rulesVersion": 7,
+          "week": 45
+        },
+        "stateBytes": 751767,
+        "stateSha256": "23b4b57673a64a997b2e610c44de912dc552e2ac75bc209ef19259bd689477ce"
+      },
+      {
+        "name": "P5-original-reservation104",
+        "actualWeek": 104,
+        "request": {
+          "family": "SPECIFIC_PROJECT",
+          "issuerStudioId": "studio-de11f27b-player",
+          "beneficiaryPersonId": "authored-0006",
+          "predicate": {
+            "kind": "projectOpportunity",
+            "count": 1,
+            "seatClass": "allCast",
+            "scriptProjectId": "script-0001"
+          },
+          "startWeek": 104,
+          "termWeeks": 104,
+          "windowStartWeek": 104,
+          "dueWeekExclusive": 180
+        },
+        "receipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "f83a6276c698016f",
+          "rulesVersion": 7,
+          "week": 104
+        },
+        "stateBytes": 1142937,
+        "stateSha256": "4f31d770c20ee0f44196ccfeba0f061be53fc5e8c1a5dd6974e6c306570b448c"
+      },
+      {
+        "name": "self-excluded-P4-substitute104",
+        "actualWeek": 104,
+        "request": {
+          "family": "PREFERRED_GENRE_OPPORTUNITY",
+          "issuerStudioId": "studio-de11f27b-player",
+          "beneficiaryPersonId": "authored-0006",
+          "predicate": {
+            "kind": "genreOpportunity",
+            "count": 1,
+            "seatClass": "allCast",
+            "genre": "drama"
+          },
+          "startWeek": 52,
+          "termWeeks": 104,
+          "windowStartWeek": 144,
+          "dueWeekExclusive": 156,
+          "promiseId": "promise-0"
+        },
+        "receipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "6e49940332403f7d",
+          "rulesVersion": 7,
+          "week": 104
+        },
+        "stateBytes": 1142937,
+        "stateSha256": "4f31d770c20ee0f44196ccfeba0f061be53fc5e8c1a5dd6974e6c306570b448c"
+      },
+      {
+        "name": "identical-P5-after-delayed-waiver104",
+        "actualWeek": 104,
+        "request": {
+          "family": "SPECIFIC_PROJECT",
+          "issuerStudioId": "studio-de11f27b-player",
+          "beneficiaryPersonId": "authored-0006",
+          "predicate": {
+            "kind": "projectOpportunity",
+            "count": 1,
+            "seatClass": "allCast",
+            "scriptProjectId": "script-0001"
+          },
+          "startWeek": 104,
+          "termWeeks": 104,
+          "windowStartWeek": 104,
+          "dueWeekExclusive": 180
+        },
+        "receipt": {
+          "classification": "FRAGILE",
+          "bottleneck": "committed reservation timing leaves this opportunity uncertain",
+          "inputsDigest": "75f14535d4cf12e8",
+          "rulesVersion": 7,
+          "week": 104
+        },
+        "stateBytes": 1143914,
+        "stateSha256": "548a6dd2d5ed16d1faaec6bf4c274a9ea6fd51e71e972ef54fb3c7c13ae2e493"
+      }
+    ],
+    "selectedUnionIds": [
+      [],
+      [
+        "promise-0"
+      ],
+      [],
+      [
+        "promise-1"
+      ]
+    ],
+    "retirement": {
+      "personId": "authored-0006",
+      "profession": "actor",
+      "intentRulesVersion": 1,
+      "cause": "hardBoundary",
+      "announcedWeek": 104,
+      "ageAtAnnouncement": 70,
+      "effectiveWeek": 156,
+      "status": "announced",
+      "finishingFromWeek": null,
+      "retiredWeek": null,
+      "extensionUsed": false,
+      "extendedFromWeek": null
+    },
+    "actualContract": {
+      "talentId": "authored-0006",
+      "annualSalary": 488081,
+      "signingBonus": 87855,
+      "startWeek": 52,
+      "endWeekExclusive": 156,
+      "termWeeks": 104
+    },
+    "admissions": [
+      {
+        "queryWeek": 109,
+        "actualWeek": 104,
+        "conservativeRelease": 118,
+        "refusal": null
+      },
+      {
+        "queryWeek": 147,
+        "actualWeek": 104,
+        "conservativeRelease": 156,
+        "refusal": null
+      },
+      {
+        "queryWeek": 148,
+        "actualWeek": 104,
+        "conservativeRelease": 157,
+        "refusal": "talent \"authored-0006\" is retirementAnnounced (effective week 156) \u2014 a production seat taken at week 148 cannot release before it (P14C.2a)"
+      }
+    ],
+    "claims": [
+      {
+        "owner": "production",
+        "ownerId": "prod-0052",
+        "kind": "facility",
+        "facilityId": "facility-soundstage-07",
+        "slot": 0,
+        "capability": "soundstage"
+      },
+      {
+        "owner": "production",
+        "ownerId": "prod-0052",
+        "kind": "facility",
+        "facilityId": "facility-scenery-shop",
+        "slot": 0,
+        "capability": "set-scenery"
+      },
+      {
+        "owner": "shootingTask",
+        "ownerId": "prod-0052",
+        "kind": "facility",
+        "facilityId": "facility-soundstage-07",
+        "slot": null,
+        "capability": null
+      },
+      {
+        "owner": "set",
+        "ownerId": "set-1",
+        "kind": "mount",
+        "facilityId": "facility-soundstage-12",
+        "slot": null,
+        "capability": null
+      },
+      {
+        "owner": "set",
+        "ownerId": "set-2",
+        "kind": "mount",
+        "facilityId": "facility-soundstage-07",
+        "slot": null,
+        "capability": null
+      },
+      {
+        "owner": "production",
+        "ownerId": "prod-0052",
+        "kind": "set",
+        "facilityId": "facility-soundstage-07",
+        "slot": null,
+        "capability": null
+      }
+    ],
+    "free": [
+      {
+        "capability": "development-casting",
+        "slots": [
+          {
+            "facilityId": "facility-development-casting",
+            "slot": 0
+          },
+          {
+            "facilityId": "facility-development-casting",
+            "slot": 1
+          }
+        ]
+      },
+      {
+        "capability": "soundstage",
+        "slots": [
+          {
+            "facilityId": "facility-soundstage-12",
+            "slot": 0
+          }
+        ]
+      },
+      {
+        "capability": "set-scenery",
+        "slots": [
+          {
+            "facilityId": "facility-scenery-shop",
+            "slot": 1
+          }
+        ]
+      },
+      {
+        "capability": "post",
+        "slots": [
+          {
+            "facilityId": "facility-post-building",
+            "slot": 0
+          },
+          {
+            "facilityId": "facility-post-building",
+            "slot": 1
+          }
+        ]
+      }
+    ],
+    "clock": {
+      "originalFresh": 109,
+      "originalTake": 114,
+      "delayedTake": 144,
+      "delayedFresh": 148,
+      "uncappedFreshTake": 153,
+      "due": 180,
+      "slackWithoutRetirement": 27,
+      "allowedAdmission": 147,
+      "refusedAdmission": 148
+    },
+    "counters": {
+      "attempted": 59,
+      "reserved": 59,
+      "invoked": 59,
+      "completed": 59,
+      "outside": 0,
+      "mutationAttempts": 5,
+      "mutationsAccepted": 5,
+      "explicitQuotes": 4,
+      "returnedQuotes": 4,
+      "priceReads": 2,
+      "settlementObservations": 2,
+      "hardAdvanceAttempts": 59,
+      "hardMutations": 5,
+      "hardExplicitQuotes": 4,
+      "oldHelpersImported": false,
+      "capturePrefixAdvances": 0,
+      "operations": [
+        {
+          "week": 45,
+          "kind": "submitProposal",
+          "request": {
+            "talentId": "authored-0006",
+            "issuerStudioId": "studio-de11f27b-player",
+            "termWeeks": 104,
+            "premiumTier": 1.25
+          },
+          "accepted": true
+        },
+        {
+          "week": 45,
+          "kind": "attachPromise",
+          "request": {
+            "family": "PREFERRED_GENRE_OPPORTUNITY",
+            "predicate": {
+              "kind": "genreOpportunity",
+              "count": 1,
+              "seatClass": "allCast",
+              "genre": "drama"
+            },
+            "windowStartWeek": 52,
+            "dueWeekExclusive": 156
+          },
+          "accepted": true
+        },
+        {
+          "week": 52,
+          "kind": "greenlightScriptProject",
+          "request": {
+            "kind": "greenlightScriptProject",
+            "production": {
+              "projectId": "script-0000",
+              "directorId": "authored-0002",
+              "craftIds": [
+                "authored-0004"
+              ],
+              "cast": {
+                "lead": "authored-0006",
+                "antagonist": "authored-0001",
+                "support": "authored-0005"
+              },
+              "budget": {
+                "negative": 5208592.827974877,
+                "marketing": 0
+              }
+            }
+          },
+          "accepted": true
+        },
+        {
+          "week": 55,
+          "kind": "setProductionSetupRecipe",
+          "request": {
+            "kind": "setProductionSetupRecipe",
+            "productionId": "prod-0052",
+            "recipeId": "ballroom-reveal-lighting-01",
+            "expectedPlanRevision": 0
+          },
+          "accepted": true
+        },
+        {
+          "week": 104,
+          "kind": "waivePromise",
+          "request": {
+            "promiseId": "promise-0",
+            "substitute": {
+              "family": "PREFERRED_GENRE_OPPORTUNITY",
+              "predicate": {
+                "kind": "genreOpportunity",
+                "count": 1,
+                "seatClass": "allCast",
+                "genre": "drama"
+              },
+              "windowStartWeek": 144,
+              "dueWeekExclusive": 156
+            }
+          },
+          "accepted": true
+        }
+      ],
+      "phases": [
+        {
+          "name": "genuine45",
+          "complete": true
+        },
+        {
+          "name": "attached45",
+          "complete": true
+        },
+        {
+          "name": "bound52",
+          "complete": true
+        },
+        {
+          "name": "greenlit52",
+          "complete": true
+        },
+        {
+          "name": "rehearsal55",
+          "complete": true
+        },
+        {
+          "name": "held104",
+          "complete": true
+        },
+        {
+          "name": "waived104",
+          "complete": true
+        }
+      ]
+    }
+  },
+  "qualification": "Actual104 Actor70 announcement/effective156 plus unchanged held work; Reliable public waiver moves P4 common take105-to144/release109-to148. Identical pure P5 Ready crime request changes RA to committed-timing FRAGILE despite27 weeks of uncapped slack and separate available resources. Query147 conservative release156 allowed; query148 conservative release157 refused. Genuine current/requested retirement and complete reservation union explain delayed readmission.",
+  "provenance": "Unchanged1171 generated-test actual45, strict39 identity/export then genuine40 migration; original37 bootstrap20M-to30M disclosed,1171 own capture added no funding. No prefix replay or current funding; not an Owner campaign.",
+  "unchangedProduction": true,
+  "cumulativeCoreQualification": {
+    "leaves": 21,
+    "separateSelections": 13,
+    "sameRunOrFullSuite": false
+  },
+  "limits": [
+    "Last actual state104. Future105/109/114/144/147/148/153/156 are derived or query facts, not reached gameplay.",
+    "Hypothetical P5 terms104-to208 are not extension, attachment, staffing, employment or filming. No player take/fulfillment/retirement completion.",
+    "Both settlement observations have equal receipts; runtime cannot distinguish unequal first-versus-ranking choices.",
+    "No rival material policy win, general scheduler, full suite or native qualification; earlier failures/overruns remain."
+  ],
+  "next": "Begin accepted1284-C soundstage-capacity source under A/B, two quotes/one public cancellation/zero advances; independentD then parent publication and1285types0/1286runtime0.1287 queued/refused underA/B/F follows."
+}
