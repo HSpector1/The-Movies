@@ -1,0 +1,73 @@
+{
+  "record": "1303-K parent closure: broad UI gate 1303 attribution",
+  "timeUtc": "2026-09-28T09:27:16.453250+00:00",
+  "executedPublishedSource": "42f216e8",
+  "gate": {
+    "command": "vitest run --project ui",
+    "files": 204,
+    "failedFiles": 10,
+    "failed": 31,
+    "passed": 2661,
+    "skipped": 5
+  },
+  "run": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1303-p4p5-broad-ui-preflight.json",
+      "bytes": 114021,
+      "sha256": "e1b7ce96e4175497ea7f80857e16b4e8a7e933ae7c5d411e248aca1115968831"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1303-p4p5-broad-ui.json",
+      "bytes": 52288,
+      "sha256": "7bfcec52fddc509b1cd28565c8350fffb8affe0cec934d70426addcfb68c5ff9"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1303-p4p5-broad-ui.txt",
+      "bytes": 384582,
+      "sha256": "2c539640f056583bfed701df87da55995cdb35d70b93045f43dc42acbdf81e95"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1303-p4p5-broad-ui.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1303-p4p5-broad-ui-postflight.json",
+      "bytes": 114682,
+      "sha256": "38f92059cf244f2ff513e17cab752b9bc886e847e506f52d4a03b133ac4aa33b"
+    }
+  ],
+  "attribution": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1303-I-broad-ui-attribution.md",
+      "bytes": 19716,
+      "sha256": "d670ff9c2c18f2b25389b2c876227ee2198a7283166019250e78563576574f00"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1303-I-failures.json",
+      "bytes": 59242,
+      "sha256": "75f35cea9616f1c1c5e995bb01b59edd4b7eb16c1515c28c859a4cdf42510eb9"
+    }
+  ],
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1303-J-broad-ui-attribution-review.md",
+    "bytes": 12776,
+    "sha256": "5807a5a55d8614decc70ec16b1dfdb5b90fe7d86fa39e8744ba91053d9415dfd"
+  },
+  "reviewVerdict": "REFINE: one prose count correction and one widened diff scope; classifications stand",
+  "requiredChanges": [
+    {
+      "change": "1303-I line 120 says \"4 NEW cases in C1\"; the table, JSON and enumerated bullets give 3 NEW in C1 plus 1 in C6",
+      "disposition": "corrected here; 1303-I stays byte-frozen"
+    },
+    {
+      "change": "widen the no-explaining-diff scope for C7 livingTurn.parity and the vanished NextEventApp case beyond ui/src/lot",
+      "disposition": "parent ran git diff 6e63f4c8..42f216e8. Non-test ui/src production: only ui/src/components/ProfessionalPromiseTerms.tsx (+30). ui/src/App.tsx, ui/src/engine/adapter.ts and ui/src/engine/session.ts are unchanged. Engine/Bridge: 20 files (the P3 and P4/P5 increments: bridge/promises.ts, runtime-checkpoint.ts, bridge-schema.ts, schema json, c3 endurance testing helpers, trust.ts; src/core actions, firstTakeSubjects, hollywoodTick, index, opportunityPromises, professionHistory, promises, save, talentMarket, tick, types, worldgen; src/harness/roster-wall/historical-control.ts). Both cases render the whole App over the engine, so the engine changes are in scope; neither case is settled. They stay UNKNOWN with the Testing Library findBy window (~1000 ms default) against lazy Lot chunk load named as the candidate mechanism for C7 (1303-J check 4)."
+    }
+  ],
+  "dispositions": {
+    "classA_combinedSweep": "C8 StudioCalendar.career: tests/helpers/p14c3-genuine-evidence-fixtures.ts:17 joins the 41/56 sweep (same helper family as 1302-I C3)",
+    "retainedOpen": "C1/C6 FU1/FU2 timeout family, C2 duplicate test ids, C3/C4 missing PIL (environment), C5 adapter.ts:7264 Gate Hiring throw (retained since 1101; defect vs intended law not decided), C7 and the vanished NextEventApp case (UNKNOWN)",
+    "notClaimed": "no UI production defect is established by 1303"
+  }
+}
