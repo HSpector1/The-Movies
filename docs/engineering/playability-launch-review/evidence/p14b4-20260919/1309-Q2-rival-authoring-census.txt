@@ -1,0 +1,12 @@
+# scratch tree: HEAD d8e90042 + 1309-pin-sweep-r2.patch + 1308 neighbor; node_modules/.bin/vitest run tests/zz-authoring-census.test.ts (copy of docs/engineering/playability-launch-review/evidence/p14b4-20260919/1309-Q2-rival-authoring-census.test.ts)
+CENSUS 72
+CENSUS 24 actor|proven|first=APPEARANCE_COUNT=FRAGILE|chosen=neither
+CENSUS 12 actor|proven|first=APPEARANCE_COUNT=REASONABLY_ACHIEVABLE|chosen=APPEARANCE_COUNT=REASONABLY_ACHIEVABLE
+CENSUS 8 craft|proven|first=APPEARANCE_COUNT=FRAGILE|chosen=neither
+CENSUS 4 craft|proven|first=APPEARANCE_COUNT=REASONABLY_ACHIEVABLE|chosen=APPEARANCE_COUNT=REASONABLY_ACHIEVABLE
+CENSUS 3 director|proven|first=DIRECTING_COUNT/directorCount=FRAGILE|chosen=APPEARANCE_COUNT=REASONABLY_ACHIEVABLE
+CENSUS 7 director|proven|first=DIRECTING_COUNT/directorCount=FRAGILE|chosen=neither
+CENSUS 2 director|proven|first=DIRECTING_COUNT/directorCount=REASONABLY_ACHIEVABLE|chosen=DIRECTING_COUNT/directorCount=REASONABLY_ACHIEVABLE
+CENSUS 7 writer|proven|first=APPEARANCE_COUNT=FRAGILE|chosen=neither
+CENSUS 5 writer|proven|first=APPEARANCE_COUNT=REASONABLY_ACHIEVABLE|chosen=APPEARANCE_COUNT=REASONABLY_ACHIEVABLE
+      Tests  1 passed (1)
