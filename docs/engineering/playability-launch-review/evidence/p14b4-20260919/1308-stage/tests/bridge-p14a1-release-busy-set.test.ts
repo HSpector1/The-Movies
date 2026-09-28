@@ -79,7 +79,6 @@ import { contractActionDecisions } from '../bridge/contract.ts'
 import {
   applyActions,
   beginFounding,
-  FOUNDING_MINIMUMS,
   generateWorld,
   guaranteedComp,
   hiringMarketIds,
@@ -88,6 +87,7 @@ import {
 } from '../src/core/index.js'
 import type { CastSlot, CreativeRole, GameState, SegmentId } from '../src/core/index.js'
 import { campaignDate } from '../src/core/calendar.ts'
+import { tick } from '../src/core/tick.js'
 import { p13aGeneratedStudio, advanceTo } from '../src/harness/p13a/fixtures.js'
 
 // ── shared helpers (duplicated in shape from tests/bridge-p10a-r1-contract-quote.test.ts) ──
@@ -105,56 +105,91 @@ function dollars(value: number): string {
   return `$${Math.round(value).toLocaleString('en-US')}`
 }
 
-function foundMinimum(state: GameState): GameState {
-  let next = beginFounding(state)
-  const applicants = next.founding!.applicantIds.map((id) => next.talent.find((t) => t.id === id)!)
-  for (const role of ['actor', 'director', 'writer', 'craft'] as const satisfies readonly CreativeRole[]) {
-    const pool = applicants.filter((t) => t.role === role)
-    for (const t of pool.slice(0, FOUNDING_MINIMUMS[role])) {
-      next = applyActions(next, [{ kind: 'signContract', talentId: t.id, termWeeks: 208 }])
-    }
+type Team = { writerId: string; directorId: string; leadId: string; antagonistId: string; supportId: string; craftId: string }
+
+/** A cash bootstrap before any production choice — mirrors fundTo in the companion Core RED
+ * file (tests/p14a1-release-busy-set.test.ts), same 30,000,000 headroom. */
+function fundTo(state: GameState, target: number): GameState {
+  const delta = target - state.studio.cash
+  if (delta === 0) return state
+  return {
+    ...state,
+    studio: { ...state.studio, cash: target },
+    ledger: [...state.ledger, {
+      week: state.market.tick,
+      kind: (delta > 0 ? 'studioRevenue' : 'overhead') as 'studioRevenue' | 'overhead',
+      amount: delta,
+      note: 'test fixture cash bootstrap',
+    }],
   }
-  return applyActions(next, [
-    { kind: 'foundStudio' },
-    { kind: 'activateStudioOperations' },
-    { kind: 'activateScriptDevelopment' },
-    { kind: 'activateCastingSessions' },
-  ])
 }
-const founded = (seed: string) => foundMinimum(generateWorld(seed, { regime: 'endowed' }))
+
+/** Walk the rotating hiring market forward until a free-agent candidate of `role` appears,
+ * then sign them — mirrors signOneOfRole in the companion Core RED file
+ * (tests/p14a1-release-busy-set.test.ts); never assumes week-0 presence. */
+function signOneOfRole(state: GameState, role: CreativeRole, termWeeks = 208): { state: GameState; id: string } {
+  let next = state
+  for (let i = 0; i < 60; i++) {
+    const candidates = hiringMarketIds(next, next.market.tick)
+    const person = candidates.map((id) => next.talent.find((t) => t.id === id)).find((t) => t?.role === role)
+    if (person !== undefined) {
+      return { state: applyActions(next, [{ kind: 'signContract', talentId: person.id, termWeeks }]), id: person.id }
+    }
+    next = tick(next)
+  }
+  throw new Error(`fixture premise failed: no free-agent ${role} found within 60 weeks`)
+}
+
+function signTeam(seed: string): { state: GameState; team: Team } {
+  let state = p13aGeneratedStudio(seed)
+  const writer = signOneOfRole(state, 'writer'); state = writer.state
+  const director = signOneOfRole(state, 'director'); state = director.state
+  const lead = signOneOfRole(state, 'actor'); state = lead.state
+  const antagonist = signOneOfRole(state, 'actor'); state = antagonist.state
+  const support = signOneOfRole(state, 'actor'); state = support.state
+  const craft = signOneOfRole(state, 'craft'); state = craft.state
+  return {
+    state,
+    team: {
+      writerId: writer.id, directorId: director.id, leadId: lead.id,
+      antagonistId: antagonist.id, supportId: support.id, craftId: craft.id,
+    },
+  }
+}
 
 /** A light greenlit production (no Set, no rehearsal walk needed — the seat check reads
- * only state.studio.activeProductions, populated the moment greenlight succeeds). */
+ * only state.studio.activeProductions, populated the moment greenlight succeeds).
+ *
+ * 1308-F item 2 (was 1308-X defect 1): reaches the active production the SAME way the
+ * companion Core RED file does (`p13aGeneratedStudio` + hiring-market signs, then greenlight
+ * directly) — NOT the prior `founded()` managed-studio route (`activateScriptDevelopment`),
+ * which requires an authoritative Ready script project before ANY greenlight
+ * (`src/core/productionAdmission.ts:108`) and refused this fixture's direct-package draft.
+ * Measured on the parent's scratch dry run (1308-X-draft-dry-run.txt): "applyActions:
+ * greenlight rejected — managed studios must greenlight an authoritative Ready script
+ * project", thrown from `seatedFixture` at the old `founded()`-based construction. All five
+ * seated leaves keep their original assertions unchanged (1308-F: "the five seated leaves
+ * keep their assertions"). */
 function seatedFixture(seed: string) {
-  let state = founded(seed)
-  const usedIds = new Set<string>()
-  const pick = (role: CreativeRole) => {
-    const found2 = state.contracts.map((c) => state.talent.find((t) => t.id === c.talentId)!)
-      .find((t) => t.role === role && !usedIds.has(t.id))
-    if (found2 === undefined) throw new Error(`fixture premise failed: no additional contracted ${role} available`)
-    usedIds.add(found2.id)
-    return found2.id
-  }
-  const writerId = pick('writer')
-  const directorId = pick('director')
-  const leadId = pick('actor')
-  const antagonistId = pick('actor')
-  const supportId = pick('actor')
-  const craftId = pick('craft')
+  const { state: signedState, team } = signTeam(seed)
+  const state = fundTo(signedState, 30_000_000)
   const concept = state.concepts.find((c) =>
     !state.studio.activeProductions.some((p) => p.conceptId === c.id) &&
     !state.studio.releasedFilms.some((f) => f.conceptId === c.id))!
-  const cast: Record<CastSlot, string> = { lead: leadId, antagonist: antagonistId, support: supportId }
-  state = applyActions(state, [{ kind: 'greenlight', production: {
+  const cast: Record<CastSlot, string> = { lead: team.leadId, antagonist: team.antagonistId, support: team.supportId }
+  const greenlit = applyActions(state, [{ kind: 'greenlight', production: {
     conceptId: concept.id,
     shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
     promise: { genre: concept.genre, intendedSegments: ['adult'] as SegmentId[], ranges: {
       intimacy: [-0.5, 0.5] as [number, number], tonalWeight: [-0.5, 0.5] as [number, number], kineticEnergy: [-0.5, 0.5] as [number, number] } },
-    writerId, directorId, cast, craftIds: [craftId],
+    writerId: team.writerId, directorId: team.directorId, cast, craftIds: [team.craftId],
     budget: { negative: concept.baseNegativeCost, marketing: 0 },
   } }])
-  const productionId = state.studio.activeProductions.at(-1)!.id
-  return { state, directorId, leadId, antagonistId, supportId, craftId, writerId, productionId }
+  const productionId = greenlit.studio.activeProductions.at(-1)!.id
+  return {
+    state: greenlit, directorId: team.directorId, leadId: team.leadId, antagonistId: team.antagonistId,
+    supportId: team.supportId, craftId: team.craftId, writerId: team.writerId, productionId,
+  }
 }
 
 /** One signed actor, no production, no founding roster — the cheapest legal release

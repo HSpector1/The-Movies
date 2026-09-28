@@ -1,0 +1,45 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/tc
+
+ ✓ |core| tests/p14r3-save-v41.test.ts (17 tests) 14591ms
+   ✓ P14 1305-C Save41: live boundary > makeSave stamps 41 on a freshly generated current campaign 657ms
+   ✓ P14 1305-C Save41: fresh V41 validates (freshly generated, no fixture needed) > a freshly generated current campaign round-trips through validateSaveV41 463ms
+   ✓ P14 1305-C Save41: migrateToV41 dispatch matches the direct converter (chain-entry parity) on each genuine input > week110: migrateToV41 equals convertV40ToV41 on the same genuine input 1646ms
+   ✓ P14 1305-C Save41: migrateToV41 dispatch matches the direct converter (chain-entry parity) on each genuine input > week280: migrateToV41 equals convertV40ToV41 on the same genuine input 1567ms
+   ✓ P14 1305-C Save41: 40->41 migration adds ONLY termination:0 to every period of every rival > genuine week110 (4 rivals x 3 periods) migrates losslessly except for the new key 805ms
+   ✓ P14 1305-C Save41: 40->41 migration adds ONLY termination:0 to every period of every rival > genuine week280 (4 rivals x 6 periods, real nonzero research-kind movements) migrates losslessly except for the new key — "research kinds... preserved exactly" 1221ms
+   ✓ P14 1305-C Save41: the player's own termination is not counted as a rival movement (the same-name collision 1306-B raised, witnessed on a genuine input) > week110 has exactly one player termination ledger row and one player termination end receipt; after migration every rival period's termination movement is still 0, and both player-side counts are unchanged 401ms
+   ✓ P14 1305-C Save41: a genuine rival release (lawful route) validates under V41 with the exact charge, and is refused by the frozen V40 reader > validateSaveV41 admits it; the row-2 period's termination movement equals -terminationCost(original terms, 22); relabeling saveVersion 40 is refused by the frozen validateSaveV40 2413ms
+   ✓ P14 1305-C Save41: 41->40 downgrade > lossless (byte-identical to the original V40 envelope) for a zero-termination save (genuine week110: 0 rival termination receipts) 663ms
+   ✓ P14 1305-C Save41: 41->40 downgrade > refused, with a message matching /termination/i, when a rival termination movement is nonzero (no matching receipt either — isolates the movement half of the "and" condition) 396ms
+   ✓ P14 1305-C Save41: 41->40 downgrade > refused, with a message matching /termination/i, on a genuine V41 save carrying a real rival release (lawful route, 1308-F item 5 — replaces the prior receipt-only tamper, which is not a valid V41 envelope: every house converter validates first, so that tamper's refusal named the validator's own interval-consistency failure, never "termination") 1034ms
+   ✓ P14 1305-C Save41: validateSaveV41 tamper refusals (reconciliation) > refuses a forged, unreconciled nonzero termination movement with no matching receipt anywhere for that rival 366ms
+   ✓ P14 1305-C Save41: validateSaveV41 tamper refusals (reconciliation) > refuses a rival termination end receipt without its matching movement (matching movement deliberately left at 0, isolating the receipt-presence check from the movement check above) 542ms
+   ✓ P14 1305-C Save41: migrateToV41 chains from a genuine V38 envelope (multi-hop composition, distinct from the single-hop parity leaves above) > migrateToV41 on a genuine V38 envelope equals convertV40ToV41(migrateToV40(v38)) — no V40/V41-specific fixture needed for this leaf 2084ms
+ ✓ |core| tests/p14a1-release-busy-set.test.ts (11 tests) 16392ms
+   ✓ P14 1304-C RED: R2 busy-set release refusal (player) + founding-draft refusal > a person seated only on an active research seat is still releasable, and research releases the seat as today (companion §3.4 item 2: research is deliberately excluded from the busy set; corroborated on unchanged production by tests/p13a-research-employment.test.ts) 12465ms
+ ✓ |core| tests/bridge-p14r2r3-prior55.test.ts (1 test) 7287ms
+   ✓ P14 1308-C: the outgoing projection55 runtime checkpoint migrates to current56, and each Save40 slot migrates to Save41 independently > loadBridgeRuntimeCheckpoint migrates the prior-schema checkpoint, resets runtime authority, and migrates both save slots to V41 with only the new key added 7274ms
+ ✓ |core| tests/bridge-p14a1-release-busy-set.test.ts (10 tests) 10023ms
+   ✓ P14 1304-C RED (Bridge): R2 seated/founding refusal, schema leaf, release-copy correction > seated director of an active player production > contractActionDecisions reports releaseAvailable:false for the director; the quote refuses with the typed seatedOnActiveProduction code and the 1304-A remedy sentence; the command refuses too, and commits nothing (produces no successor) 2555ms
+   ✓ P14 1304-C RED (Bridge): R2 seated/founding refusal, schema leaf, release-copy correction > seated lead of an active player production > contractActionDecisions reports releaseAvailable:false for the lead; the quote refuses with the typed seatedOnActiveProduction code and the 1304-A remedy sentence; the command refuses too, and commits nothing (produces no successor) 393ms
+   ✓ P14 1304-C RED (Bridge): R2 seated/founding refusal, schema leaf, release-copy correction > seated antagonist of an active player production > contractActionDecisions reports releaseAvailable:false for the antagonist; the quote refuses with the typed seatedOnActiveProduction code and the 1304-A remedy sentence; the command refuses too, and commits nothing (produces no successor) 1804ms
+   ✓ P14 1304-C RED (Bridge): R2 seated/founding refusal, schema leaf, release-copy correction > seated support of an active player production > contractActionDecisions reports releaseAvailable:false for the support; the quote refuses with the typed seatedOnActiveProduction code and the 1304-A remedy sentence; the command refuses too, and commits nothing (produces no successor) 441ms
+   ✓ P14 1304-C RED (Bridge): R2 seated/founding refusal, schema leaf, release-copy correction > seated craft of an active player production > contractActionDecisions reports releaseAvailable:false for the craft; the quote refuses with the typed seatedOnActiveProduction code and the 1304-A remedy sentence; the command refuses too, and commits nothing (produces no successor) 2211ms
+   ✓ P14 1304-C RED (Bridge): R2 seated/founding refusal, schema leaf, release-copy correction > founding draft: contractActionDecisions reports releaseAvailable:false with a founding-keyed reason; the quote refuses with the typed foundingDraft code; the command refuses too, and commits nothing 353ms
+   ✓ P14 1304-C RED (Bridge): R2 seated/founding refusal, schema leaf, release-copy correction > release confirmation copy, no-cap branch (companion §3.4 direction 2): the consequence names "all <remaining> remaining weeks of pay", the exact charge (equal to the full remaining guarantee here), and never the word "half" 1838ms
+ ✓ |core| tests/p14r3-rival-release.test.ts (7 tests | 2 skipped) 30714ms
+   ✓ P14 1305-C R3: rival early release — decision and effects (happy path, all four strategy conditions hold) > releases the synthetic-surplus employee exactly at the tested week: charge, movement, end receipt, ordinal removal, freeAgents, signability 3057ms
+   ✓ P14 1305-C R3: one leaf per failed strategy condition keeps the person > condition (b) fails — 26 or fewer weeks remain (still outside the 12-week renewal window): the person is kept 7916ms
+   ✓ P14 1305-C R3: one leaf per failed strategy condition keeps the person > condition (a) fails — seated on the rival's own active production keeps the person (bounded natural search, weeks 1..150, NOT the synthetic rewrite) 395ms
+   ✓ P14 1305-C R3: Scientists are never R3-surplus > a rival with employed Scientists and no surplus team-role employee releases nobody (natural world, no synthetic rewrite) 14066ms
+   ✓ P14 1305-C R3: no rival exceeds its RIVAL_TEAM_ROLES role targets, and no rival termination receipt appears, on an unmodified generated world > no rival ever exceeds its RIVAL_TEAM_ROLES role counts, and no rival termination receipt appears, across weeks 1..150 on all four founding rivals 5277ms
+ ✓ |core| tests/p13b-rival-scientist-staffing.test.ts (2 tests) 15125ms
+   ✓ P13B-S8 rival Scientist staffing witness (1305-F amendment 2 suspected defect) > r01 has an operational Laboratory with real research interest and 4 employed Scientists at week 266 (precondition, cites the parent's 1308-Q measurement, state week — not the receipt week 265 the sibling file's header names) 7059ms
+   ✓ P13B-S8 rival Scientist staffing witness (1305-F amendment 2 suspected defect) > the deficit rivalScientistDemand reports is 0 (employed === min(capacity,demanded)) at every affordable state week in [266,420] (the full 1308-Q measured window) — EXPECTED TO PASS on this route; see header 8064ms
+
+ Test Files  6 passed (6)
+      Tests  46 passed | 2 skipped (48)
+   Start at  12:14:19
+   Duration  45.98s (transform 4.70s, setup 0ms, collect 12.91s, tests 94.13s, environment 2ms, prepare 1.69s)
+

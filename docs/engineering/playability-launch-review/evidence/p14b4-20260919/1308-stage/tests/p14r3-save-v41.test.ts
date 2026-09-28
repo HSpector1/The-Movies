@@ -1,4 +1,4 @@
-// ── P14 task 1305-C, REVISED by 1308-C: R3 Save41 persistence (companion file to
+// ── P14 task 1305-C, REVISED by 1308-C and 1308-C2: R3 Save41 persistence (companion file to
 // p14r3-rival-release.test.ts) ──
 //
 // STAGED FILE. Import paths below are written for this file's INTENDED destination,
@@ -6,6 +6,22 @@
 // `tests/*.test.ts`). It is physically staged at
 // docs/engineering/playability-launch-review/evidence/p14b4-20260919/1308-stage/tests/ and
 // has NOT been executed, type-checked, or moved from there by this author.
+//
+// 1308-C2 REVISION (1308-F item 5, dry-run defect 1308-X-3): the RECEIPT-ONLY downgrade
+// tamper leaf ("a rival termination end receipt exists even though every movement is left at
+// 0") is replaced. That tamper is not a valid V41 envelope on its own (an active employment
+// row with a matching end receipt but zero reconciled movement fails V41's OWN admission
+// rule), and every house `convertVNToVN-1` validates its input first (the established idiom),
+// so the refusal it produced named the VALIDATOR's interval-consistency failure, never
+// "termination" — a real defect in the tamper's construction, not in the law under test. The
+// replacement (`lawfulTerminatedSave`, below) reaches a genuine V41 save carrying a real
+// rival release through the lawful route: the SAME ONE labeled `Talent.role` rewrite
+// p14r3-rival-release.test.ts's happy-path leaf uses, one real tick, the original role
+// restored, then `makeSave` — no forged receipt or movement anywhere. See that function's own
+// comment for the full account; three leaves now use it (a new describe block asserting
+// `validateSaveV41` admission / the exact charge / the frozen `validateSaveV40` refusal, and
+// the replacement downgrade-refusal leaf). The movement-half downgrade leaf and both
+// `validateSaveV41` forgery leaves are UNCHANGED (1308-F: "stay").
 //
 // 1308-C REVISION (supersedes the 1305-C stage's genuine-V40 approach): the 1305-C draft
 // reconstructed a V40 envelope AT TEST-RUN TIME from the already-committed genuine V38
@@ -105,7 +121,9 @@ import {
   LIVE_SAVE_VERSION, exportSave, makeSave, migrateToV40, validateSaveV40,
   validateSaveV41, convertV40ToV41, convertV41ToV40, migrateToV41,
 } from '../src/core/save.js'
-import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+import { terminationCost } from '../src/core/employment.js'
+import { tick } from '../src/core/tick.js'
+import { p13aGeneratedStudio, advanceTo } from '../src/harness/p13a/fixtures.js'
 
 const FIXTURES = new URL('./fixtures/p14/genuine-v40-pre-r3/', import.meta.url)
 const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
@@ -155,6 +173,37 @@ type Employment = { contractId: string; studioId: string; endedWeek: number | nu
 type HollywoodShape = { businesses: Business[]; employment: Employment[]; receipts: unknown[]; nextReceipt: number; playerStudioId: string }
 function hollywoodOf(state: Record<string, unknown>): HollywoodShape {
   return state.hollywood as never
+}
+
+/** 1308-C2 (1308-F item 5, replacing the receipt-only downgrade tamper — that tamper is not
+ * a valid V41 envelope, and every house converter validates first, so the refusal it produced
+ * named the validator's own interval-consistency failure, never "termination"). The LAWFUL
+ * route to a genuine V41 save carrying a real rival release: the SAME ONE labeled
+ * `Talent.role` rewrite p14r3-rival-release.test.ts's happy-path leaf uses (row-2's founding
+ * craft employee, `person-<row2>-5`, 'craft' -> 'actor', at week 22 — matching that file's own
+ * measured, non-seated week, E/1308-P-r3-unseated-probe.ts/.txt), ONE real tick (once R3
+ * lands, the engine's own logic releases the now-surplus person), then the ORIGINAL role
+ * restored ('actor' -> 'craft') before `makeSave`. The rewrite and the restoration TOGETHER
+ * are the one synthetic trigger (1308-F item 5's own phrasing) bookending a single real engine
+ * tick — the resulting save carries a genuine termination charge/movement/receipt with no
+ * synthetic residue (the person's role, once again 'craft', matches their history; only their
+ * employment legitimately ended). Every other person and fact in the world is engine-derived. */
+function lawfulTerminatedSave(): { save: unknown; expectedCharge: number; rivalId: string } {
+  const WEEK = 22
+  const base = p13aGeneratedStudio()
+  const rivalId = base.hollywood!.identities.find((s) => s.row === 2)!.studioId
+  const craftId = `person-${rivalId}-5`
+  const state = advanceTo(base, WEEK)
+  const before = state.hollywood!.activeEmploymentOrdinals
+    .map((i) => state.hollywood!.employment[i]!)
+    .find((e) => e.studioId === rivalId && e.terms.talentId === craftId)
+  if (!before) throw new Error(`p14r3-save-v41 lawful-route premise: ${craftId} is not actively employed by ${rivalId} at week ${String(WEEK)}`)
+  const person = state.talent.find((t) => t.id === craftId)
+  if (!person || person.role !== 'craft') throw new Error(`p14r3-save-v41 lawful-route premise: expected ${craftId} to be 'craft' before the labeled rewrite, was '${String(person?.role)}'`)
+  const rewritten = { ...state, talent: state.talent.map((t) => (t.id === craftId ? { ...t, role: 'actor' as const } : t)) }
+  const next = tick(rewritten)
+  const restored = { ...next, talent: next.talent.map((t) => (t.id === craftId ? { ...t, role: 'craft' as const } : t)) }
+  return { save: makeSave(restored), expectedCharge: terminationCost(before.terms, WEEK), rivalId }
 }
 
 describe('P14 1305-C Save41: live boundary', () => {
@@ -287,6 +336,21 @@ describe('P14 1305-C Save41: the player\'s own termination is not counted as a r
   })
 })
 
+describe('P14 1305-C Save41: a genuine rival release (lawful route) validates under V41 with the exact charge, and is refused by the frozen V40 reader', () => {
+  it('validateSaveV41 admits it; the row-2 period\'s termination movement equals -terminationCost(original terms, 22); relabeling saveVersion 40 is refused by the frozen validateSaveV40', () => {
+    const { save, expectedCharge, rivalId } = lawfulTerminatedSave()
+    const validated = validateSaveV41(save as never)
+    expect(validated.saveVersion).toBe(41)
+    const business = rivalBusinesses(validated.state as never).find((b) => b.studioId === rivalId)!
+    const period = business.account.periods[business.account.periods.length - 1]!
+    expect(period.movements.termination).toBe(-expectedCharge)
+
+    const relabeled = JSON.parse(JSON.stringify(save)) as { saveVersion: number }
+    relabeled.saveVersion = 40
+    expect(() => validateSaveV40(relabeled as never)).toThrow()
+  })
+})
+
 describe('P14 1305-C Save41: 41->40 downgrade', () => {
   it('lossless (byte-identical to the original V40 envelope) for a zero-termination save (genuine week110: 0 rival termination receipts)', () => {
     const v40 = genuineV40(week110Raw())
@@ -305,25 +369,9 @@ describe('P14 1305-C Save41: 41->40 downgrade', () => {
     expect(() => convertV41ToV40(tampered as never)).toThrow(/termination/i)
   })
 
-  it('refused, with a message matching /termination/i, when a rival termination end receipt exists even though every movement (including the one on that receipt\'s own period) is left at 0 — isolates the receipt half of the "and" condition', () => {
-    const v40 = genuineV40(week110Raw())
-    const migrated = convertV40ToV41(v40 as never) as unknown as { saveVersion: 41; seed: string; state: Record<string, unknown>; broadcastCache: unknown[] }
-    const tampered = JSON.parse(JSON.stringify(migrated)) as typeof migrated
-    const hollywood = hollywoodOf(tampered.state)
-    const rivalId = hollywood.businesses[0]!.studioId
-    const currentWeek = (tampered.state.market as { tick: number }).tick
-    const row = hollywood.employment.find((e) => e.studioId === rivalId && e.endedWeek === null && e.terms.endWeekExclusive > currentWeek)
-    if (!row) throw new Error('p14r3-save-v41 tamper premise: no active rival employment row with endWeekExclusive beyond the fixture\'s own current week was found')
-    row.endedWeek = currentWeek
-    hollywood.receipts.push({
-      eventId: `industry-event-${hollywood.nextReceipt}`, week: currentWeek, studioId: rivalId, kind: 'employment',
-      talentId: row.terms.talentId, fromStudioId: rivalId, toStudioId: null, contractId: row.contractId, reason: 'termination',
-    })
-    hollywood.nextReceipt += 1
-    // movements.termination deliberately left at 0 everywhere — the defect this leaf targets
-    // is downgrade losing the fact that a rival termination happened, independent of whether
-    // the (also-forged, unreconciled) movement half of the condition is exercised.
-    expect(() => convertV41ToV40(tampered as never)).toThrow(/termination/i)
+  it('refused, with a message matching /termination/i, on a genuine V41 save carrying a real rival release (lawful route, 1308-F item 5 — replaces the prior receipt-only tamper, which is not a valid V41 envelope: every house converter validates first, so that tamper\'s refusal named the validator\'s own interval-consistency failure, never "termination")', () => {
+    const { save } = lawfulTerminatedSave()
+    expect(() => convertV41ToV40(save as never)).toThrow(/termination/i)
   })
 })
 

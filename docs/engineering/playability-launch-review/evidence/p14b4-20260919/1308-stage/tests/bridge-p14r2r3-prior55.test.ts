@@ -59,6 +59,7 @@ import { gunzipSync } from 'node:zlib'
 import { describe, expect, it, vi } from 'vitest'
 import { PROJECTION_VERSION, PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
 import { BRIDGE_SCHEMA } from '../bridge/schema/bridge-schema.ts'
+import { canonicalJson } from '../bridge/schema/canonical.ts'
 import {
   encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint,
   SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS,
@@ -135,6 +136,21 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
     expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-56')
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v55']])
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+    // 1308-D required change 1 / 1308-F item 1 (B55-3-style older-roster pin, mirrored from
+    // tests/bridge-p14p4p5-opportunities.test.ts:461-465): this increment only ADDS the one
+    // new OLD_SCHEMA entry (1305-A/1304-F's own stated scope), so every OTHER pre-existing
+    // entry must survive untouched — a length + canonical-JSON-hash pin catches a regression
+    // that silently drops or reorders an unrelated prior-schema entry while adding the new
+    // one. Measured identically on the unchanged engine and on the parent's scratch draft
+    // (1308-R-prior-roster-probe.txt: olderLength 43 / olderSha identical on both; only
+    // `total` differs, 43 -> 44, from the one new entry the draft adds) — so this specific
+    // assertion is ALREADY-TRUE today (OLD_SCHEMA isn't registered yet, so excluding it is a
+    // no-op over the same 43 pre-existing entries) and stays true as a regression guard once
+    // the increment lands.
+    const older = [...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id !== OLD_SCHEMA)
+      .sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0)
+    expect(older).toHaveLength(43)
+    expect(sha(canonicalJson(older))).toBe('11ec9999e052d8e6ce6dbdbb08060d57ad3a7dbb45335182c85806c4d88e4e51')
 
     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
     expect(loaded.migratedFromProtocolVersion).toBe(4)

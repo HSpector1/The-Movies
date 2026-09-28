@@ -1,12 +1,13 @@
-// ── P14 task 1305-C: the P13B rival Scientist under-hiring witness (1305-F amendment 2's
-// "suspected existing defect", separate gate, separate from R3 — reused/cited by
-// p14r3-rival-release.test.ts's "Scientists are never R3-surplus" leaf, but this file is
-// the one authorized to test the STAFFING defect itself) ──
+// ── P14 task 1305-C, revised by 1308-C2: the P13B rival Scientist under-hiring witness
+// (1305-F amendment 2's "suspected existing defect", separate gate, separate from R3 —
+// reused/cited by p14r3-rival-release.test.ts's "Scientists are never R3-surplus" leaf, but
+// this file is the one authorized to test the STAFFING defect itself) ──
 //
-// STAGED FILE (revised by 1308-C: import paths only, mechanical, re-pointed from the
-// 1305-stage physical-location depth to the destination tests/ depth — no assertion or
-// requirement-derivation change; per the 1308-C brief this file is a separate hypothesis-
-// witness gate, not part of R3 GREEN). Physically staged at
+// STAGED FILE (1308-C revised import paths only, mechanical, re-pointed from the 1305-stage
+// physical-location depth to the destination tests/ depth — per the 1308-C brief this file is
+// a separate hypothesis-witness gate, not part of R3 GREEN). 1308-C2 revises the PREMISE and
+// WINDOW per 1308-F item 4 / 1308-X defect 2 / 1308-Q (see below) — no change to the
+// mechanism/caveat reasoning, which stays as 1305-C authored it. Physically staged at
 // docs/engineering/playability-launch-review/evidence/p14b4-20260919/1308-stage/tests/, has
 // NOT been executed, type-checked, or moved from there by this author. Independent-test-
 // engineer authored, mode IMPLEMENT.
@@ -38,6 +39,17 @@
 // overshoot the target it computes), so under that mechanism deficit-zero and exact equality
 // coincide; this is not re-derived as a separate, independent proof here.
 //
+// 1308-C2 PREMISE CORRECTION (1308-F item 4 / 1308-X defect 2, superseding 1308-D check 7's
+// source-reading-only judgment): the ORIGINAL premise ("four Scientists seated week 265")
+// cites tests/bridge-p13b-s8-rivals.test.ts's own header fact — but that fact is the RECEIPT
+// week written during the tick that PROCESSES week 265, not the STATE at week 265 before that
+// tick runs. Measured directly on the unchanged engine (1308-Q-scientist-deficit-probe.ts /
+// .txt, HEAD 7af5412c, seed 'p13b-s8-bridge-probe-01' with the player Laboratory, weeks
+// 260-420): every rival reports deficit 4 (0 employed Scientists) at STATE week 265; from
+// STATE week 266 onward r01 employs 4 Scientists with deficit 0, every week through 420,
+// cashOK (`cash > reserve`) true throughout. The premise and window below move to week 266
+// accordingly. This is a genuine premise correction, not a change to what the witness tests.
+//
 // NATURAL ROUTE REUSED, NOT SEARCHED (per instruction: "do not search seeds or extend
 // routes"): tests/bridge-p13b-s8-rivals.test.ts (already landed, read in full) carries its
 // own measured-fact header, "probed 2026-09-18 via `npx vite-node` against the already-landed
@@ -46,20 +58,32 @@
 // "instrument operational week 265, four Scientists seated week 265, project verifiedWork
 // 60/64 at week 275, researchCompleted at week 276, a second Laboratory laboratoryCommitted
 // week 266 / laboratoryOperational week 278, technologyAdopted (commercial capability)
-// week 288." This file reuses that exact seed, that exact placement, and that exact
-// bounded tick count (265) — no new tick count is invented and no seed is tried.
+// week 288." This file reuses that exact seed and that exact placement — no new seed is
+// tried; only the STATE week read (266, not 265) and the checked window (below) are corrected
+// per the parent's own measurement (1308-Q), which is itself a bounded natural route on the
+// SAME seed, not a search.
 //
-// BOUNDED WINDOW: weeks 265 through 270 inclusive (6 weeks, matching the task's "across
-// consecutive weeks" wording) — chosen to sit inside the cited "instrument operational week
-// 265 ... researchCompleted week 276" span, comfortably before any of the cited cash-related
-// concerns ("rival r01's own cash goes deeply negative ... at week 400 on an UNRELATED seed",
-// same sibling file, not this one — named here only as the reason this file does not extend
-// the window past ~week 290 without a fresh affordability measurement).
+// WINDOW: state weeks 266 through 420 inclusive — the FULL measured window
+// (1308-Q-scientist-deficit-probe.ts/.txt), not a newly invented or extended bound. Affordability
+// is read with the SAME definition the measurement used (`business.account.cash >
+// rivalWeeklyOperatingCost(...) * business.policy.reserveWeeks`, no extra margin) so this
+// leaf's own "affordable" set matches exactly what was measured, rather than diverging with
+// an independently invented cushion.
 //
-// STOP RULE: if the natural route above does not reproduce (e.g. the cited week-265 fact does
+// EXPECTED OUTCOME, STATED HONESTLY (per 1308-F item 4): on the measured route this leaf is
+// EXPECTED TO PASS. 1308-Q shows `rivalScientistDemand` reporting deficit 0 for r01 at every
+// state week in [266,420], with `cashOK` true throughout — the hypothesis is NOT witnessed on
+// this route, and per 1305-F/1308-F no production correction follows from an unwitnessed
+// hypothesis. A passing result here is the correct, informative outcome of a genuine test,
+// not a broken or vacuous one — this file's PRECONDITION leaf (four Scientists at week 266)
+// is the assertion that actually exercises new ground (it was RED at week 265 in the original
+// draft; it is expected to PASS at week 266).
+//
+// STOP RULE: if the natural route above does not reproduce (e.g. the cited week-266 fact does
 // not hold on a re-read of the current engine), this file's own sanity assertions fail loudly
-// at the PRECONDITION checks, distinct from the defect-witness assertion itself — see the
-// handback for how to tell the two failure modes apart.
+// at the PRECONDITION check, distinct from the defect-witness assertion itself — see the
+// handback for how to tell the two failure modes apart. Per instruction, no seed search or
+// window extension follows from either failure mode without explicit parent authorization.
 
 import { describe, expect, it } from 'vitest'
 import { tick } from '../src/core/tick.js'
@@ -69,34 +93,34 @@ import { rivalWeeklyOperatingCost } from '../src/core/hollywood.js'
 import { rivalScientistDemand } from '../src/core/rivalResearch.js'
 
 const SEED = 'p13b-s8-bridge-probe-01' // reused verbatim from tests/bridge-p13b-s8-rivals.test.ts
+const WINDOW_END = 420 // the full measured window (1308-Q-scientist-deficit-probe.ts/.txt)
 
 describe('P13B-S8 rival Scientist staffing witness (1305-F amendment 2 suspected defect)', () => {
-  it('r01 has an operational Laboratory with real research interest and 4 employed Scientists at week 265 (precondition, cites the already-measured fact)', () => {
+  it('r01 has an operational Laboratory with real research interest and 4 employed Scientists at week 266 (precondition, cites the parent\'s 1308-Q measurement, state week — not the receipt week 265 the sibling file\'s header names)', () => {
     const withPlayerLab = commitPlacement(p13aGeneratedStudio(SEED), { blueprintId: 'research-laboratory', origin: { gx: 0, gy: 9 } })
-    const state = advanceTo(withPlayerLab, 265)
+    const state = advanceTo(withPlayerLab, 266)
     const r01 = state.hollywood!.businesses[0]!
     expect(r01.operations.facilities.some((f) => f.capability === 'laboratory')).toBe(true)
     const employedScientistIds = state.hollywood!.activeEmploymentOrdinals
       .map((i) => state.hollywood!.employment[i]!)
       .filter((e) => e.studioId === r01.studioId && state.talent.find((t) => t.id === e.terms.talentId)?.role === 'scientist')
       .map((e) => e.terms.talentId)
-    expect(employedScientistIds).toHaveLength(4) // the cited measured fact
+    expect(employedScientistIds).toHaveLength(4) // the 1308-Q measured fact, state week 266
   })
 
-  it('the deficit rivalScientistDemand reports is 0 (employed === min(capacity,demanded)) at every affordable week in [265,270]', () => {
+  it(`the deficit rivalScientistDemand reports is 0 (employed === min(capacity,demanded)) at every affordable state week in [266,${String(WINDOW_END)}] (the full 1308-Q measured window) — EXPECTED TO PASS on this route; see header`, () => {
     const withPlayerLab = commitPlacement(p13aGeneratedStudio(SEED), { blueprintId: 'research-laboratory', origin: { gx: 0, gy: 9 } })
-    let state = advanceTo(withPlayerLab, 265)
+    let state = advanceTo(withPlayerLab, 266)
     const rivalId = state.hollywood!.businesses[0]!.studioId
     let checkedAtLeastOneAffordableWeek = false
-    for (let week = 265; week <= 270; week++) {
+    for (let week = 266; week <= WINDOW_END; week++) {
       expect(state.market.tick).toBe(week)
       const business = state.hollywood!.businesses.find((b) => b.studioId === rivalId)!
       const reserve = rivalWeeklyOperatingCost(business, state.hollywood!, week) * business.policy.reserveWeeks
-      // Affordable-reserve headroom, stated explicitly: enough above reserve to plausibly
-      // afford one more Scientist's signing bonus (companion §3.3's worked salary tables put
-      // even a STAR signing bonus under $0.5M; $2M is a stated, generous margin, not tuned to
-      // this seed's actual numbers, which were not independently re-measured in this pass).
-      const affordable = business.account.cash > reserve + 2_000_000
+      // Affordability read with the SAME bare definition the parent's own measurement used
+      // (1308-Q-scientist-deficit-probe.ts:15, `cash > reserve`, no extra margin) — matching
+      // what was actually measured rather than diverging with an independently invented cushion.
+      const affordable = business.account.cash > reserve
       if (affordable) {
         checkedAtLeastOneAffordableWeek = true
         const deficit = rivalScientistDemand(state, state.hollywood!, business, state.talent, week)
@@ -106,10 +130,10 @@ describe('P13B-S8 rival Scientist staffing witness (1305-F amendment 2 suspected
     }
     if (!checkedAtLeastOneAffordableWeek) {
       throw new Error(
-        'p13b-rival-scientist-staffing: no week in [265,270] showed the rival with cash above reserve+2,000,000 — ' +
+        `p13b-rival-scientist-staffing: no week in [266,${String(WINDOW_END)}] showed the rival with cash above reserve — ` +
         'the affordability precondition itself was never met in this bounded window; this is a STOPPED leaf per ' +
         'instruction (do not search seeds or extend routes), not a witnessed absence of the defect. Report and widen ' +
-        'the window or lower the margin only on explicit parent instruction.',
+        'the window only on explicit parent instruction.',
       )
     }
   })

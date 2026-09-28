@@ -26,6 +26,16 @@
 // P14-PREPARATION-COMPANION.md §2.1.9, §3.2 (the charge law), §3.4 (refusal/disclosure),
 // §3.5 E4 (rival symmetry cost check), §3.6.
 //
+// 1308-C2 REVISIONS (parent dry run 1308-X against a scratch production draft; disposition
+// 1308-F): (a) "Scientists are never R3-surplus" moved from `advanceTo(...,265)` to `266` —
+// the state at week 265 has 0 employed Scientists and a deficit of 4 for every rival; the
+// S8 sibling file's "week 265" fact is the RECEIPT week written during the tick that
+// PROCESSES week 265, not the state before it (measured, 1308-Q-scientist-deficit-probe.txt).
+// (b) LAW UNDER TEST item 4 below corrected: R2 itself binds rivals only for production and
+// writing seats; the research-seat exclusion is a STRATEGY choice (1305-A), not part of R2's
+// own law — the prior "production/writing/research" phrasing conflated the two (1308-D
+// check 2 / 1308-F item 6, non-blocking, adopted).
+//
 // SAVE-VALIDATION EXCLUSION (parent mid-task note): the synthetic `Talent.role` rewrite
 // (`withSurplusActor`) makes the state fail `validateSaveV41` by design (profession history:
 // a role change without its anchored change-history row) — no leaf in this file pipes a
@@ -42,8 +52,15 @@
 //      contract is that it ALSO unions the talentId of every rival employment end receipt
 //      with reason 'termination' at this week; no second list is threaded through
 //      advanceHollywoodWeek).
-//   4. R2 binds rivals: a person seated on the rival's own production/writing/research seat
-//      cannot be released.
+//   4. R2 binds rivals for PRODUCTION and WRITING seats only (1305-A Law item 4, verbatim:
+//      "R2 binds rivals: a person seated on the rival's active production or writing for it
+//      cannot be released" — 1308-D check 2 / 1308-F item 6, correcting the 1305-C/1308-C
+//      draft's "production/writing/research" phrasing, which conflated law with strategy).
+//      The STRATEGY (item below) is stricter than R2 by CHOICE and additionally never
+//      touches a research seat (1305-A Strategy: "the strategy is stricter than R2 and never
+//      touches a research seat, so no rival research release handler is needed") — no leaf in
+//      this file asserts a legal refusal for a research-seated rival release; only the
+//      strategy's own exclusion is exercised.
 //   5. R1 binds rivals: a later re-hire by the SAME releasing rival prices through the
 //      already-landed, already-studio-agnostic `releaseFloor`/`studioOffer`
 //      (talentMarket.ts:209-259 — confirmed by source read, not asserted on faith: the
@@ -301,37 +318,41 @@ describe('P14 1305-C R3: one leaf per failed strategy condition keeps the person
 })
 
 describe('P14 1305-C R3: Scientists are never R3-surplus', () => {
-  // Reuses the measured natural route from tests/bridge-p13b-s8-rivals.test.ts (read in
-  // full; not re-derived here): seed 'p13b-s8-bridge-probe-01', a player Research
-  // Laboratory committed at week 0, advanced to week 265 — "rival r01 ... instrument
-  // operational week 265, four Scientists seated week 265" (that file's own measured-fact
-  // header, probed via vite-node against the landed engine 2026-09-18, not invented here).
+  // Reuses the seed and route from tests/bridge-p13b-s8-rivals.test.ts (read in full; not
+  // re-derived here): seed 'p13b-s8-bridge-probe-01', a player Research Laboratory committed
+  // at week 0. WEEK CORRECTED TO 266 (1308-X defect 2 / 1308-F item 3 / 1308-Q): the sibling
+  // file's own header cites "instrument operational week 265, four Scientists seated week
+  // 265," but that S8 fact is the RECEIPT week written during the tick that PROCESSES week
+  // 265 — the STATE at week 265 (before that tick runs) still shows 0 employed Scientists and
+  // a deficit of 4 for every rival; from state week 266 onward r01 employs 4 with deficit 0.
+  // Measured on the unchanged engine (1308-Q-scientist-deficit-probe.txt, HEAD 7af5412c):
+  // "265 r01 sci 0 deficit 4 cashOK true" / "266 r01 sci 4 deficit 0 cashOK true" through 420.
   it('a rival with employed Scientists and no surplus team-role employee releases nobody (natural world, no synthetic rewrite)', () => {
     const withPlayerLab = commitPlacement(p13aGeneratedStudio('p13b-s8-bridge-probe-01'), { blueprintId: 'research-laboratory', origin: { gx: 0, gy: 9 } })
-    const atWeek265 = advanceTo(withPlayerLab, 265)
-    const r01 = atWeek265.hollywood!.businesses[0]!
-    const scientistIds = atWeek265.hollywood!.activeEmploymentOrdinals
-      .map((i) => atWeek265.hollywood!.employment[i]!)
-      .filter((e) => e.studioId === r01.studioId && atWeek265.talent.find((t) => t.id === e.terms.talentId)?.role === 'scientist')
+    const atWeek266 = advanceTo(withPlayerLab, 266)
+    const r01 = atWeek266.hollywood!.businesses[0]!
+    const scientistIds = atWeek266.hollywood!.activeEmploymentOrdinals
+      .map((i) => atWeek266.hollywood!.employment[i]!)
+      .filter((e) => e.studioId === r01.studioId && atWeek266.talent.find((t) => t.id === e.terms.talentId)?.role === 'scientist')
       .map((e) => e.terms.talentId)
-    expect(scientistIds.length).toBeGreaterThan(0) // precondition per the cited measured fact
+    expect(scientistIds.length).toBeGreaterThan(0) // precondition per the measured fact above
 
     // Precondition: no team-role surplus exists on r01 at this week (own-employee count per
     // RIVAL_TEAM_ROLES role does not exceed that role's target count).
     const ownByRole = new Map<string, number>()
-    for (const i of atWeek265.hollywood!.activeEmploymentOrdinals) {
-      const e = atWeek265.hollywood!.employment[i]!
+    for (const i of atWeek266.hollywood!.activeEmploymentOrdinals) {
+      const e = atWeek266.hollywood!.employment[i]!
       if (e.studioId !== r01.studioId) continue
-      const role = atWeek265.talent.find((t) => t.id === e.terms.talentId)?.role
+      const role = atWeek266.talent.find((t) => t.id === e.terms.talentId)?.role
       if (role && role !== 'scientist') ownByRole.set(role, (ownByRole.get(role) ?? 0) + 1)
     }
     const targetByRole = new Map<string, number>()
     for (const role of RIVAL_TEAM_ROLES) targetByRole.set(role, (targetByRole.get(role) ?? 0) + 1)
     for (const [role, count] of ownByRole) expect(count).toBeLessThanOrEqual(targetByRole.get(role) ?? 0)
 
-    const next = tick(atWeek265)
+    const next = tick(atWeek266)
     for (const scientistId of scientistIds) {
-      const row = next.hollywood!.employment.find((e) => e.studioId === r01.studioId && e.terms.talentId === scientistId && e.endedWeek === atWeek265.market.tick)
+      const row = next.hollywood!.employment.find((e) => e.studioId === r01.studioId && e.terms.talentId === scientistId && e.endedWeek === atWeek266.market.tick)
       expect(row).toBeUndefined() // no scientist ended this week
     }
     expect(next.hollywood!.receipts.filter((r) => r.kind === 'employment' && r.studioId === r01.studioId && r.reason === 'termination')).toHaveLength(0)
