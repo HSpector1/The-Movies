@@ -1,0 +1,98 @@
+{
+  "purpose": "generated test campaigns only; never Owner saves",
+  "record": "1306",
+  "executionHead": "ce77117122ea43c9c940364569628f3be776ae99",
+  "saveVersion": 40,
+  "inputs": [
+    {
+      "name": "genuine-v40-r3-outgoing-week110",
+      "gzip": {
+        "bytes": 122176,
+        "sha256": "196b73d43ac6e346c6b6e6a73e0b13f16bc23a1f5d321947067d6f81ca774bd8"
+      },
+      "decoded": {
+        "bytes": 1094789,
+        "sha256": "2e717382e952fa0f175f07d5f7055d6d3f37c66eb4bf86a783dd169ae21d2ddc"
+      },
+      "facts": {
+        "week": 110,
+        "rivals": 4,
+        "financePeriods": [
+          {
+            "studioId": "studio-64a16d11-r01",
+            "periods": 3
+          },
+          {
+            "studioId": "studio-64a16d11-r02",
+            "periods": 3
+          },
+          {
+            "studioId": "studio-64a16d11-r03",
+            "periods": 3
+          },
+          {
+            "studioId": "studio-64a16d11-r04",
+            "periods": 3
+          }
+        ],
+        "activeRivalEmployment": 24,
+        "rivalTerminationReceipts": 0,
+        "playerTerminationLedgerRows": 1,
+        "playerTerminationReceipts": 1,
+        "rivalResearchReceipts": {
+          "laboratoryCommitted": 4,
+          "laboratoryOperational": 4,
+          "instrumentOperational": 0,
+          "researchSeatAssigned": 0,
+          "researchCompleted": 0
+        },
+        "rivalTechnologyProjects": 0
+      }
+    },
+    {
+      "name": "genuine-v40-r3-research-week280",
+      "gzip": {
+        "bytes": 238161,
+        "sha256": "13cff0da503ee23249fdc1d3c2209daae7807745d3f38530f853e11d65258699"
+      },
+      "decoded": {
+        "bytes": 2308264,
+        "sha256": "55284c8c5a78da67227f1c35aa82773e5b59f4a2b0b9075a8f2f5284006686b7"
+      },
+      "facts": {
+        "week": 280,
+        "rivals": 4,
+        "financePeriods": [
+          {
+            "studioId": "studio-efb645e3-r01",
+            "periods": 6
+          },
+          {
+            "studioId": "studio-efb645e3-r02",
+            "periods": 6
+          },
+          {
+            "studioId": "studio-efb645e3-r03",
+            "periods": 6
+          },
+          {
+            "studioId": "studio-efb645e3-r04",
+            "periods": 6
+          }
+        ],
+        "activeRivalEmployment": 28,
+        "rivalTerminationReceipts": 0,
+        "playerTerminationLedgerRows": 0,
+        "playerTerminationReceipts": 0,
+        "rivalResearchReceipts": {
+          "laboratoryCommitted": 5,
+          "laboratoryOperational": 5,
+          "instrumentOperational": 4,
+          "researchSeatAssigned": 4,
+          "researchCompleted": 1
+        },
+        "rivalTechnologyProjects": 1
+      }
+    }
+  ]
+}

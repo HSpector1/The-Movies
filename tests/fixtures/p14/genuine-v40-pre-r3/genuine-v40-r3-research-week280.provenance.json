@@ -1,0 +1,57 @@
+{
+  "purpose": "generated test campaigns only; never Owner saves",
+  "record": "1306",
+  "plan": [
+    "1305-A",
+    "1305-F"
+  ],
+  "producer": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1306-save40-outgoing-producer-r3.ts",
+  "executionHead": "ce77117122ea43c9c940364569628f3be776ae99",
+  "saveVersion": 40,
+  "projectionVersion": 55,
+  "schemaId": "sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158",
+  "route": "commitPlacement(p13aGeneratedStudio('p13b-s8-bridge-probe-01'), research-laboratory at gx0 gy9); advanceTo(280)",
+  "gzip": {
+    "bytes": 238161,
+    "sha256": "13cff0da503ee23249fdc1d3c2209daae7807745d3f38530f853e11d65258699"
+  },
+  "decoded": {
+    "bytes": 2308264,
+    "sha256": "55284c8c5a78da67227f1c35aa82773e5b59f4a2b0b9075a8f2f5284006686b7"
+  },
+  "facts": {
+    "week": 280,
+    "rivals": 4,
+    "financePeriods": [
+      {
+        "studioId": "studio-efb645e3-r01",
+        "periods": 6
+      },
+      {
+        "studioId": "studio-efb645e3-r02",
+        "periods": 6
+      },
+      {
+        "studioId": "studio-efb645e3-r03",
+        "periods": 6
+      },
+      {
+        "studioId": "studio-efb645e3-r04",
+        "periods": 6
+      }
+    ],
+    "activeRivalEmployment": 28,
+    "rivalTerminationReceipts": 0,
+    "playerTerminationLedgerRows": 0,
+    "playerTerminationReceipts": 0,
+    "rivalResearchReceipts": {
+      "laboratoryCommitted": 5,
+      "laboratoryOperational": 5,
+      "instrumentOperational": 4,
+      "researchSeatAssigned": 4,
+      "researchCompleted": 1
+    },
+    "rivalTechnologyProjects": 1
+  },
+  "elapsedMs": 6036
+}

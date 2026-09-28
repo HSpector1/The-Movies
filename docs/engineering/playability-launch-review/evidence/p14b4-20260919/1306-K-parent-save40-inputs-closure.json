@@ -1,0 +1,86 @@
+{
+  "record": "1306-K parent closure: genuine outgoing Save40 inputs for R2/R3",
+  "timeUtc": "2026-09-28T09:05:24.979159+00:00",
+  "executedPublishedSource": "ce77117122ea43c9c940364569628f3be776ae99",
+  "producer": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1306-save40-outgoing-producer-r3.ts",
+    "bytes": 7092,
+    "sha256": "91d829715a00d1343ff42ae64f7d9a1302c532efb5c65be842a207545c8b078e"
+  },
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1306-B-save40-producer-review.md",
+    "bytes": 11064,
+    "sha256": "636221f4db340a714c229521cd3f4a497616a8ee9660bb2c4d62372b01797141"
+  },
+  "reviewVerdict": "KEEP (after REFINE, r2 and r3 follow-ups)",
+  "failedFirstRun": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1306-C-producer-premise-failure.md",
+    "bytes": 2671,
+    "sha256": "27aeca9a1bd98e9b70a407e7cf62b43a91fcbfd2ee5e1ebfb15cc848a156dfc1"
+  },
+  "run": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1306b-save40-outgoing-run-preflight.json",
+      "bytes": 114021,
+      "sha256": "3689a7b843bf6defd802fba70b59d619359ba3fc86c871a40187fd148a5a8a34"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1306b-save40-outgoing-run.json",
+      "bytes": 52363,
+      "sha256": "f8345dc19d6b32bad166558954a9c20719f34e56ad60a839666510ec27e408bb"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1306b-save40-outgoing-run.txt",
+      "bytes": 45466,
+      "sha256": "160102c5df32f452bc329464f636e92c82d69f20e75343f755302e1b6c725876"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1306b-save40-outgoing-run.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1306b-save40-outgoing-run-postflight.json",
+      "bytes": 114702,
+      "sha256": "7cd7af0bfa14c8b039b833d96feef05fe3d31d7317b76a0bce28ed2012c443a6"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "tests/fixtures/p14/genuine-v40-pre-r3/MANIFEST.json",
+      "bytes": 2694,
+      "sha256": "0dbee376a442a02424f83c7665c80b6af7516ae4c2321455f305e9784e6df0e0"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v40-pre-r3/genuine-v40-r3-outgoing-week110.json.gz",
+      "bytes": 122176,
+      "sha256": "196b73d43ac6e346c6b6e6a73e0b13f16bc23a1f5d321947067d6f81ca774bd8",
+      "raw": {
+        "bytes": 1094789,
+        "sha256": "2e717382e952fa0f175f07d5f7055d6d3f37c66eb4bf86a783dd169ae21d2ddc"
+      }
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v40-pre-r3/genuine-v40-r3-outgoing-week110.provenance.json",
+      "bytes": 1655,
+      "sha256": "ad8dd1a5387126aa168441e6e266198bb552429229f84925820d7a8d7b68c67e"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v40-pre-r3/genuine-v40-r3-research-week280.json.gz",
+      "bytes": 238161,
+      "sha256": "13cff0da503ee23249fdc1d3c2209daae7807745d3f38530f853e11d65258699",
+      "raw": {
+        "bytes": 2308264,
+        "sha256": "55284c8c5a78da67227f1c35aa82773e5b59f4a2b0b9075a8f2f5284006686b7"
+      }
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v40-pre-r3/genuine-v40-r3-research-week280.provenance.json",
+      "bytes": 1622,
+      "sha256": "9971c1265dea99213935559c0211d3a8ae4851e7bada5a568e43611637f2214d"
+    }
+  ],
+  "determinism": "week-110 gzip equals the failed run's preserved partial byte for byte (196b73d4...), produced on the same consumed source",
+  "access": "producer imports source modules only; writes only the new directory with exclusive create; the outputs are generated test campaigns, never Owner saves, and become explicit manual inputs for later gates",
+  "use": "Save41 migration, validator and downgrade RED/GREEN for the combined R2/R3 increment (1304-F, 1305-F)"
+}
