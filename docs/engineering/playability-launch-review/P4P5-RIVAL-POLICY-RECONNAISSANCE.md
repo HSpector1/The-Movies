@@ -56,6 +56,15 @@ positive was identified and none was executed. Existing33 c2 files precede the
 careerLifecycle root and do not themselves retain current retirement authority.
 Do not read this limited inspection as an exhaustive search of the corpus.
 
+The unchanged1171 actual45 input was also checked for its two pending player
+expiry cases (Focus0006 and Later0007, decision52). At that snapshot each of the
+four rivals still employs its complete Writer/Director/three-Actor/Craft roster
+through208, and neither case has a rival incumbent. The current trigger's
+incumbent, same-role-expiry and seat-deficit conditions therefore provide no
+ordinary offer trigger for those cases from those snapshot facts. A proposed
+player-held witness alone does not establish a rival fallback route here. This
+read does not simulate subsequent roster changes or promise evaluation.
+
 Before any runtime proposal, fix a named genuine input and prove its ordinary
 proposal trigger, full reservation membership/witnesses, person admission,
 resources and staffing facts from source/data. Preserve failed1169 and all prior

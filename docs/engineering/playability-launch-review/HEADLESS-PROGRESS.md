@@ -1,5 +1,31 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — Casting reservation qualified; delayed retirement source next
+
+Executed/publishedf0b3ff98dad6fbe1dd314c559fdb997b19f9347f matched GitHub.
+1279 root types PASS36.024s;1280 Q20 PASS1/zero filtered8.486s recorder,
+4.086s leaf. All1,689 source files,227 manual pins,index/stage and fixed-source
+checks stayed exact.1278-I/J/K close three accepted public actions/four pureP5
+quotes at actual45, hard0advances. With casting slot0 and unrelated drafting
+slot1 both due46, the identical unrelated Ready request becomes capacity-FRAGILE;
+the audition target stays RA after exempting only its own casting reservation.
+Whole40/purity, original19 receipts/cutover19/facts[], contracts, cash and ledger
+remain exact. No actual46 completion, cast award, take or release is claimed.
+Twenty core leaves passed across twelve separate selections, not a full suite.
+
+Begin1281-C under acceptedA/B: genuine1171actual45, hard59develop:true advances
+to104, five public mutations/four explicit previews. Require actual104 Actor70
+announcement/effective156 and held work, then a public waiver moving its witness
+take to144/release148 and real prospective retirement readmission refusal. New
+leaf timeout180s is a prospective implementation budget; existing timeouts stay
+unchanged. IndependentD precedes parent application/publication,1282types(cap0),
+1283runtime(cap59). Then1284 soundstage and1287 queued/refused underA/B/F. No
+later source/execution release. Parent owns live integration/production and one
+heavy lane; same two specialists retain separate test/review roles. P17 report
+read complete, healthy reboots/35% Recognition adopted, Legacy Sequel pending.
+Continue authorized program. Unity/native and Owner campaigns remain deferred;
+all prior failures and qualification limits remain recorded.
+
 ## CURRENT — Casting-reservation source applied; Q20 gates next
 
 Parent applied exact1278-C/D on publishedfb58f92d.1278-E records one new

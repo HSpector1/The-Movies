@@ -1,0 +1,24 @@
+{
+  "sourceSha": "f0b3ff98dad6fbe1dd314c559fdb997b19f9347f",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14p4p5-casting-reservation.test.ts",
+    "-t",
+    "Q20 "
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-28T00:42:32.185Z",
+  "end": "2026-09-28T00:42:40.671Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "f0b3ff98dad6fbe1dd314c559fdb997b19f9347f",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

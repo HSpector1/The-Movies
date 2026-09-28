@@ -1,0 +1,663 @@
+{
+  "record": "1278-K parent casting-reservation closure",
+  "timeUtc": "2026-09-28T00:49:04.615013+00:00",
+  "executedSource": "f0b3ff98dad6fbe1dd314c559fdb997b19f9347f",
+  "remoteExactAtClosure": true,
+  "status": "BOUNDED Q20 LOGIC VERIFIED; UNITY NOT VERIFIED",
+  "source": {
+    "path": "tests/p14p4p5-casting-reservation.test.ts",
+    "bytes": 24532,
+    "sha256": "9157ad0cdd1a3e1c1f6afed086e2488c934758a7fa487e38a158d21d5f1bd822"
+  },
+  "sourceHandback": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1278-C-casting-reservation-source-handback.md",
+    "bytes": 6766,
+    "sha256": "8ea91d0a88cd4aedc7bdd3fcb7daef24c85f43a20b43ae02eab71b116c9b94c2"
+  },
+  "sourceReview": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1278-D-casting-reservation-source-review.md",
+    "bytes": 5664,
+    "sha256": "451341008a23998d64b50f8976de5b3a76204e064bb823aedc4fe8383de38d66"
+  },
+  "application": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1278-E-parent-application.json",
+    "bytes": 2104,
+    "sha256": "43fc4faa34a884ce9aecdec130665861bd51d65d7e2af2614e12d5088b86682f"
+  },
+  "attribution": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1278-I-casting-reservation-verification-attribution.md",
+    "bytes": 8503,
+    "sha256": "6678a1ffd993dc6bfda3c3dea4e013f6ca4e4d95a512db1b04c3b0a3397b4576"
+  },
+  "verificationReview": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1278-J-casting-reservation-verification-review.md",
+    "bytes": 6744,
+    "sha256": "e6b5533bb6d5faa7a87a134440184b12edfd3dfbf64b360a64cff81e85243921"
+  },
+  "parentReview": "Full staged334-line source and A/B/C/D plus final I/J; complete raw parsed into all13 markers. Parent compared four complete input person/profile/provenance/contract records, complete capture manifest and old19 takes,16 full repeated all-owner engagement censuses, every resource owner root and all repeated claim/reservation/mount bodies against immutable input and accepted root changes. All four exact receipts/requests/clocks/selected-empty unions, three actions and final counters read. Both guard inventories/manual files/index/stage independently rehashed after actual postflight exits. No runtime rerun or new project-code evaluation in this closure.",
+  "gates": [
+    {
+      "stem": "1279-casting-reservation-types",
+      "command": [
+        "node_modules/.bin/tsc",
+        "--noEmit",
+        "-p",
+        "tsconfig.json"
+      ],
+      "start": "2026-09-28T00:41:37.784Z",
+      "end": "2026-09-28T00:42:13.808Z",
+      "elapsedSeconds": 36.024,
+      "exitCode": 0,
+      "advanceCap": 0,
+      "fixedSource": true,
+      "allGuardsExact": true,
+      "manualPins": 227,
+      "sourceFiles": 1689,
+      "sourceInventory": {
+        "bytes": 256380,
+        "sha256": "30b53b439bfccc8316dc8b43c3ef41f6bd3fedc4181b6715e4b5cf0bd5095436"
+      },
+      "index": {
+        "bytes": 1132439,
+        "sha256": "a0e18aa745fb33a7b4b2e425f563c6ff4e145d29282dca57466f83ae89a415d5"
+      },
+      "stageEntries": {
+        "bytes": 1005768,
+        "sha256": "61540468525c426398bfbc2e6995130196c07a183986aa3f9a9bd98ff27c0f06"
+      },
+      "record": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1279-casting-reservation-types.json",
+        "bytes": 634,
+        "sha256": "956d93fac620bae1e0ec943dcade4a60ca94693516376eda7900faf4a1b75472"
+      },
+      "raw": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1279-casting-reservation-types.txt",
+        "bytes": 340,
+        "sha256": "f3ca5d26f543609a91058e6509651a98d59223b0bb56cfca99a086cc5280de07"
+      },
+      "diff": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1279-casting-reservation-types.patch",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "preflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1279-casting-reservation-types-preflight.json",
+        "bytes": 56581,
+        "sha256": "360b67fee475038f45f57daa3fd6e64b58b117c90824fbb721cf8eb848b16447"
+      },
+      "postflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1279-casting-reservation-types-postflight.json",
+        "bytes": 57274,
+        "sha256": "d153ea990cd2be7f9403efa94116de5f257f34f7149c2730ad689144054d7ab1"
+      }
+    },
+    {
+      "stem": "1280-casting-reservation-runtime",
+      "command": [
+        "node_modules/.bin/vitest",
+        "run",
+        "--project",
+        "core",
+        "tests/p14p4p5-casting-reservation.test.ts",
+        "-t",
+        "Q20 "
+      ],
+      "start": "2026-09-28T00:42:32.185Z",
+      "end": "2026-09-28T00:42:40.671Z",
+      "elapsedSeconds": 8.486,
+      "exitCode": 0,
+      "advanceCap": 0,
+      "fixedSource": true,
+      "allGuardsExact": true,
+      "manualPins": 227,
+      "sourceFiles": 1689,
+      "sourceInventory": {
+        "bytes": 256380,
+        "sha256": "30b53b439bfccc8316dc8b43c3ef41f6bd3fedc4181b6715e4b5cf0bd5095436"
+      },
+      "index": {
+        "bytes": 1132439,
+        "sha256": "a0e18aa745fb33a7b4b2e425f563c6ff4e145d29282dca57466f83ae89a415d5"
+      },
+      "stageEntries": {
+        "bytes": 1005768,
+        "sha256": "61540468525c426398bfbc2e6995130196c07a183986aa3f9a9bd98ff27c0f06"
+      },
+      "record": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1280-casting-reservation-runtime.json",
+        "bytes": 701,
+        "sha256": "75eea9d68604facf9dc1ac3e916cdde859de68a9ecdbe92b4afd7ac0a1d52d34"
+      },
+      "raw": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1280-casting-reservation-runtime.txt",
+        "bytes": 879390,
+        "sha256": "b4cfa4bf41ea564f0caad64eed7f531fd8352af731d25a26f55a359f4db9da93"
+      },
+      "diff": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1280-casting-reservation-runtime.patch",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "preflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1280-casting-reservation-runtime-preflight.json",
+        "bytes": 56581,
+        "sha256": "51ebf1c0bb11d1f85c9310b2c8b2b1381fa18fdbc5f5d3d86d546bd9f3625ab7"
+      },
+      "postflight": {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1280-casting-reservation-runtime-postflight.json",
+        "bytes": 57283,
+        "sha256": "426ee21469fc0ccb675ddb0b373eb1ae2119e96549c72a91ef85d2a93687ebfc"
+      }
+    }
+  ],
+  "selection": {
+    "filesPassed": 1,
+    "leavesPassed": 1,
+    "filtered": 0,
+    "leafMs": 4086,
+    "fileMs": 4089,
+    "vitestSeconds": 7.3,
+    "declaredTimeoutMs": 60000
+  },
+  "observed": {
+    "raw": {
+      "bytes": 879390,
+      "sha256": "b4cfa4bf41ea564f0caad64eed7f531fd8352af731d25a26f55a359f4db9da93"
+    },
+    "markers": {
+      "bytes": 878273,
+      "sha256": "827929d640dd58bdd69ba6a1fdf0416a3e8031ea153be01621dbbb2877976e23",
+      "count": 13
+    },
+    "quotes": [
+      {
+        "ordinal": 1,
+        "actualWeek": 45,
+        "ownCasting": false,
+        "congested": false,
+        "query": {
+          "family": "SPECIFIC_PROJECT",
+          "issuerStudioId": "studio-de11f27b-player",
+          "beneficiaryPersonId": "authored-0005",
+          "predicate": {
+            "kind": "projectOpportunity",
+            "count": 1,
+            "seatClass": "allCast",
+            "scriptProjectId": "script-0001"
+          },
+          "startWeek": 0,
+          "termWeeks": 208,
+          "windowStartWeek": 45,
+          "dueWeekExclusive": 58
+        },
+        "receipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "45188dc641824989",
+          "rulesVersion": 7,
+          "week": 45
+        },
+        "freshWeek": 45,
+        "takeWeek": 50,
+        "slack": 8,
+        "exempted": [],
+        "held": [
+          {
+            "owner": "castingSession",
+            "ownerId": "casting-0000",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "capability": "development-casting",
+            "slot": 0
+          }
+        ],
+        "usable": [
+          1
+        ],
+        "inputBytes": 751748,
+        "inputSha256": "4ae442ce66f6db06f0fbdcf8429904004895864d0f37a374cd68e3cf530e0551"
+      },
+      {
+        "ordinal": 2,
+        "actualWeek": 45,
+        "ownCasting": true,
+        "congested": false,
+        "query": {
+          "family": "SPECIFIC_PROJECT",
+          "issuerStudioId": "studio-de11f27b-player",
+          "beneficiaryPersonId": "authored-0005",
+          "predicate": {
+            "kind": "projectOpportunity",
+            "count": 1,
+            "seatClass": "allCast",
+            "scriptProjectId": "script-0000"
+          },
+          "startWeek": 0,
+          "termWeeks": 208,
+          "windowStartWeek": 45,
+          "dueWeekExclusive": 59
+        },
+        "receipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "bdf0c1b177e75675",
+          "rulesVersion": 7,
+          "week": 45
+        },
+        "freshWeek": 46,
+        "takeWeek": 51,
+        "slack": 8,
+        "exempted": [
+          {
+            "owner": "castingSession",
+            "ownerId": "casting-0000",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "capability": "development-casting",
+            "slot": 0
+          }
+        ],
+        "held": [],
+        "usable": [
+          0,
+          1
+        ],
+        "inputBytes": 751748,
+        "inputSha256": "4ae442ce66f6db06f0fbdcf8429904004895864d0f37a374cd68e3cf530e0551"
+      },
+      {
+        "ordinal": 3,
+        "actualWeek": 45,
+        "ownCasting": false,
+        "congested": true,
+        "query": {
+          "family": "SPECIFIC_PROJECT",
+          "issuerStudioId": "studio-de11f27b-player",
+          "beneficiaryPersonId": "authored-0005",
+          "predicate": {
+            "kind": "projectOpportunity",
+            "count": 1,
+            "seatClass": "allCast",
+            "scriptProjectId": "script-0001"
+          },
+          "startWeek": 0,
+          "termWeeks": 208,
+          "windowStartWeek": 45,
+          "dueWeekExclusive": 58
+        },
+        "receipt": {
+          "classification": "FRAGILE",
+          "bottleneck": "existing development-casting capacity is not available for this opportunity",
+          "inputsDigest": "64817a77b354bef8",
+          "rulesVersion": 7,
+          "week": 45
+        },
+        "freshWeek": 45,
+        "takeWeek": 50,
+        "slack": 8,
+        "exempted": [],
+        "held": [
+          {
+            "owner": "screenplay",
+            "ownerId": "script-0002",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "capability": "development-casting",
+            "slot": 1
+          },
+          {
+            "owner": "castingSession",
+            "ownerId": "casting-0000",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "capability": "development-casting",
+            "slot": 0
+          }
+        ],
+        "usable": [],
+        "inputBytes": 752892,
+        "inputSha256": "6c6c1cde7b4dac254d953d85418e8803e13651b7388c7dff4eca9736f536d28a"
+      },
+      {
+        "ordinal": 4,
+        "actualWeek": 45,
+        "ownCasting": true,
+        "congested": true,
+        "query": {
+          "family": "SPECIFIC_PROJECT",
+          "issuerStudioId": "studio-de11f27b-player",
+          "beneficiaryPersonId": "authored-0005",
+          "predicate": {
+            "kind": "projectOpportunity",
+            "count": 1,
+            "seatClass": "allCast",
+            "scriptProjectId": "script-0000"
+          },
+          "startWeek": 0,
+          "termWeeks": 208,
+          "windowStartWeek": 45,
+          "dueWeekExclusive": 59
+        },
+        "receipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "ec86a626a61eec88",
+          "rulesVersion": 7,
+          "week": 45
+        },
+        "freshWeek": 46,
+        "takeWeek": 51,
+        "slack": 8,
+        "exempted": [
+          {
+            "owner": "castingSession",
+            "ownerId": "casting-0000",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "capability": "development-casting",
+            "slot": 0
+          }
+        ],
+        "held": [
+          {
+            "owner": "screenplay",
+            "ownerId": "script-0002",
+            "kind": "facility",
+            "facilityId": "facility-development-casting",
+            "capability": "development-casting",
+            "slot": 1
+          }
+        ],
+        "usable": [
+          0
+        ],
+        "inputBytes": 752892,
+        "inputSha256": "6c6c1cde7b4dac254d953d85418e8803e13651b7388c7dff4eca9736f536d28a"
+      }
+    ],
+    "actions": [
+      {
+        "action": {
+          "kind": "activateCastingSessions"
+        },
+        "accepted": true,
+        "week": 45,
+        "stateBytes": 751360,
+        "stateSha256": "6a3632af1d7b52054164e62c1ac58b747eaffe72a926ad39d4c5fbe49b6794c2"
+      },
+      {
+        "action": {
+          "kind": "startCastingSession",
+          "session": {
+            "projectId": "script-0000",
+            "slate": {
+              "lead": [
+                "authored-0005",
+                "authored-0000"
+              ],
+              "antagonist": [
+                "authored-0000",
+                "authored-0001"
+              ],
+              "support": [
+                "authored-0001",
+                "authored-0005"
+              ]
+            }
+          }
+        },
+        "accepted": true,
+        "week": 45,
+        "stateBytes": 751748,
+        "stateSha256": "4ae442ce66f6db06f0fbdcf8429904004895864d0f37a374cd68e3cf530e0551"
+      },
+      {
+        "action": {
+          "kind": "commissionScript",
+          "project": {
+            "conceptId": "c-02",
+            "writerId": "authored-0003",
+            "shape": {
+              "opening": "slowSetup",
+              "midpoint": "revelation",
+              "ending": "bittersweet"
+            },
+            "promise": {
+              "genre": "comedy",
+              "intendedSegments": [
+                "adult"
+              ],
+              "ranges": {
+                "intimacy": [
+                  -0.5,
+                  0.5
+                ],
+                "kineticEnergy": [
+                  -0.5,
+                  0.5
+                ],
+                "tonalWeight": [
+                  -0.5,
+                  0.5
+                ]
+              }
+            }
+          }
+        },
+        "accepted": true,
+        "week": 45,
+        "stateBytes": 752892,
+        "stateSha256": "6c6c1cde7b4dac254d953d85418e8803e13651b7388c7dff4eca9736f536d28a"
+      }
+    ],
+    "counters": {
+      "advanceAttempts": 0,
+      "advanceInvoked": 0,
+      "advanceCompleted": 0,
+      "actionAttempts": 3,
+      "actionsAccepted": 3,
+      "quoteAttempts": 4,
+      "quotesReturned": 4,
+      "hardAdvanceAttempts": 0,
+      "hardActions": 3,
+      "hardQuotes": 4,
+      "capturePrefixAdvances": 0,
+      "oldTestsOrHelpersImported": false,
+      "operations": [
+        {
+          "action": {
+            "kind": "activateCastingSessions"
+          },
+          "accepted": true
+        },
+        {
+          "action": {
+            "kind": "startCastingSession",
+            "session": {
+              "projectId": "script-0000",
+              "slate": {
+                "lead": [
+                  "authored-0005",
+                  "authored-0000"
+                ],
+                "antagonist": [
+                  "authored-0000",
+                  "authored-0001"
+                ],
+                "support": [
+                  "authored-0001",
+                  "authored-0005"
+                ]
+              }
+            }
+          },
+          "accepted": true
+        },
+        {
+          "action": {
+            "kind": "commissionScript",
+            "project": {
+              "conceptId": "c-02",
+              "writerId": "authored-0003",
+              "shape": {
+                "opening": "slowSetup",
+                "midpoint": "revelation",
+                "ending": "bittersweet"
+              },
+              "promise": {
+                "genre": "comedy",
+                "intendedSegments": [
+                  "adult"
+                ],
+                "ranges": {
+                  "intimacy": [
+                    -0.5,
+                    0.5
+                  ],
+                  "kineticEnergy": [
+                    -0.5,
+                    0.5
+                  ],
+                  "tonalWeight": [
+                    -0.5,
+                    0.5
+                  ]
+                }
+              }
+            }
+          },
+          "accepted": true
+        }
+      ],
+      "phases": [
+        {
+          "name": "genuine45",
+          "complete": true
+        },
+        {
+          "name": "activated45",
+          "complete": true
+        },
+        {
+          "name": "auditioning45",
+          "complete": true
+        },
+        {
+          "name": "baselineQuotes45",
+          "complete": true
+        },
+        {
+          "name": "congested45",
+          "complete": true
+        }
+      ]
+    },
+    "complete": {
+      "actualWeek": 45,
+      "knownDueQueryWeek": 46,
+      "rawFreeDevelopmentSlots": [],
+      "auditionsStillPending": {
+        "id": "casting-0000",
+        "projectId": "script-0000",
+        "status": "auditioning",
+        "slate": {
+          "lead": [
+            "authored-0005",
+            "authored-0000"
+          ],
+          "antagonist": [
+            "authored-0000",
+            "authored-0001"
+          ],
+          "support": [
+            "authored-0001",
+            "authored-0005"
+          ]
+        },
+        "startedWeek": 45,
+        "dueWeek": 46,
+        "reservation": {
+          "sessionId": "casting-0000",
+          "facilityId": "facility-development-casting",
+          "capability": "development-casting",
+          "slot": 0
+        },
+        "results": null
+      },
+      "unrelatedDraftStillPending": {
+        "id": "script-0002",
+        "conceptId": "c-02",
+        "writerId": "authored-0003",
+        "writerIds": [
+          "authored-0003"
+        ],
+        "shape": {
+          "opening": "slowSetup",
+          "midpoint": "revelation",
+          "ending": "bittersweet"
+        },
+        "promise": {
+          "genre": "comedy",
+          "intendedSegments": [
+            "adult"
+          ],
+          "ranges": {
+            "intimacy": [
+              -0.5,
+              0.5
+            ],
+            "tonalWeight": [
+              -0.5,
+              0.5
+            ],
+            "kineticEnergy": [
+              -0.5,
+              0.5
+            ]
+          }
+        },
+        "status": "drafting",
+        "rewriteCount": 0,
+        "commissionedWeek": 45,
+        "dueWeek": 46,
+        "assessment": null,
+        "reservation": {
+          "projectId": "script-0002",
+          "facilityId": "facility-development-casting",
+          "capability": "development-casting",
+          "slot": 1
+        },
+        "productionId": null
+      },
+      "firstTakeSubjects": {
+        "version": 1,
+        "cutoverOrdinal": 19,
+        "facts": []
+      },
+      "retainedFirstTakeCount": 19,
+      "counters": {
+        "advanceAttempts": 0,
+        "advanceInvoked": 0,
+        "advanceCompleted": 0,
+        "actionAttempts": 3,
+        "actionsAccepted": 3,
+        "quoteAttempts": 4,
+        "quotesReturned": 4
+      }
+    }
+  },
+  "qualification": "At actual45, three lawful public actions activate casting, reserve casting0000/slot0 and commission unrelated script0002/slot1. Four pure P5 queries isolate only the target audition known-due reservation exemption with the unrelated same-due draft retained. Identical other target becomes capacity-FRAGILE while own target remains RA. All current40/lossless admission, whole state/request/RNG purity, contracts/cash/ledger/calendar/old19/cutover19 empty-facts checks pass.",
+  "provenance": "Unchanged1171 generated-test actual45 input, strict39 identity/literal export before real40 migration. Original37 corpus bootstrap had disclosed20M-to30M funding;1171 capture added no funding, and this test adds no funding or45-week prefix. Not an Owner campaign or natural-profit proof.",
+  "unchangedProduction": true,
+  "cumulativeCoreQualification": {
+    "leaves": 20,
+    "separateSelections": 12,
+    "sameRunOrFullSuite": false
+  },
+  "limits": [
+    "No advance or actual46 arrival, audition result/acknowledgement, screenplay completion, staffing, take or release.",
+    "No new material promise attachment/outcome, retirement, rival policy, other capacity owner, full-suite or native qualification.",
+    "No previous failed or overrun gate is converted to a pass."
+  ],
+  "next": "Begin1281-C delayed-release retirement source under accepted A/B,59 actual advances/five public mutations/four explicit previews; independentD then parent publication and1282types0/1283runtime59.1284 soundstage and1287 queued/refused underA/B/F follow."
+}
