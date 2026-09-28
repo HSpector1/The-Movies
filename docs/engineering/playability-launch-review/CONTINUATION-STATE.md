@@ -1,5 +1,25 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — Casting-reservation source applied; Q20 gates next
+
+Parent applied exact1278-C/D on publishedfb58f92d.1278-E records one new
+24,532-byte standalone test9157ad0c,51 verified manifest pins and45 unchanged
+protected files. Publish then1279 root types(cap0) and1280 isolatedQ20(cap0):
+three public actions/four pureP5quotes at actual45, no engine advances. Actual
+casting slot0 and unrelated screenplay slot1 both due46 must isolate only the
+target audition's reservation exemption; no actual46/result/take is claimed.
+Nineteen prior core leaves remain qualified across eleven separate selections.
+
+After Q20 closure, begin accepted1281 delayed-retirement source, then1284
+soundstage and1287 queued/refused project-outcome source under acceptedA/B/F.
+No later source/execution release yet. Parent owns live integration/production
+and the one heavy lane; the same two specialists retain test/review ownership.
+Read-only rival-policy notes preserve the open actual offer/staffing gap without
+an alternate failed1169 route. P17 canonical report is now fully read; healthy
+reboots and35% Recognition floor are adopted, Legacy Sequel question pending.
+Continue the authorized program. Unity/native and Owner campaigns remain deferred;
+all inherited failures and limits remain recorded.
+
 ## CURRENT — Shared committed witnesses qualified; casting reservation source next
 
 Executed/published431b1252edcfba80d5a2fcfa9587e4deb071bc17 matched GitHub.
@@ -19,8 +39,8 @@ Begin1278-C under acceptedA/B: existing1171 actual45, hard0advances, three publi
 actions and four pureP5quotes to isolate a casting session's own due46 reservation
 exemption under real congestion. IndependentD precedes parent application,
 publication,1279types(cap0) and1280runtime(cap0). Then1281 delayed retirement and
-1284 soundstage. Future1287 queued/refused project-outcome proposal is under
-review, source-unreleased. Parent owns live integration/production and one heavy
+1284 soundstage. Future1287 queued/refused project-outcome plan is accepted
+underA/B/F, source-unreleased. Parent owns live integration/production and one heavy
 lane; same two specialists retain separate test/review roles. Continue authorized
 program. P17 reboot/35% Recognition choices adopted; Legacy Sequel question
 pending. Unity/native and Owner campaigns deferred; all earlier limits retained.

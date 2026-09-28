@@ -1,0 +1,51 @@
+{
+  "record": "1278-E parent application",
+  "timeUtc": "2026-09-28T00:41:08.775791+00:00",
+  "basePublishedSource": "fb58f92d38dd1edf2c6b46750c04434d3c971d5a",
+  "parentRead": "Complete 334-line staged source and A/B/C/D; reviewed three public actions, four pure P5 queries, complete independent resource claims, own casting due-boundary exemption with unrelated same-due screenplay hold retained, unchanged request/state/RNG, and hard-zero advances. All manifest pins/decoded input/protected source rehashed; exact checked patch applied. No current validator, game code, compiler or runtime execution in this application.",
+  "operation": "add exactly one standalone Q20 test file",
+  "source": {
+    "path": "tests/p14p4p5-casting-reservation.test.ts",
+    "bytes": 24532,
+    "sha256": "9157ad0cdd1a3e1c1f6afed086e2488c934758a7fa487e38a158d21d5f1bd822"
+  },
+  "author": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1278-C-casting-reservation-source-handback.md",
+    "bytes": 6766,
+    "sha256": "8ea91d0a88cd4aedc7bdd3fcb7daef24c85f43a20b43ae02eab71b116c9b94c2"
+  },
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1278-D-casting-reservation-source-review.md",
+    "bytes": 5664,
+    "sha256": "451341008a23998d64b50f8976de5b3a76204e064bb823aedc4fe8383de38d66"
+  },
+  "manifest": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1278-casting-reservation-source-manifest.json",
+    "bytes": 11005,
+    "sha256": "c97e352d7cfe7afbfa8d8ce5be6543de264e9fd26583bcf395a23b0b261e8ffc"
+  },
+  "verifiedManifestPins": 51,
+  "protectedFilesUnchanged": 45,
+  "runtimeExecuted": false,
+  "next": {
+    "1279-casting-reservation-types": [
+      "node_modules/.bin/tsc",
+      "--noEmit",
+      "-p",
+      "tsconfig.json"
+    ],
+    "1280-casting-reservation-runtime": [
+      "node_modules/.bin/vitest",
+      "run",
+      "--project",
+      "core",
+      "tests/p14p4p5-casting-reservation.test.ts",
+      "-t",
+      "Q20 "
+    ]
+  },
+  "advanceCaps": {
+    "types": 0,
+    "runtime": 0
+  }
+}
