@@ -1,5 +1,31 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — repair R1 closed LOGIC VERIFIED (1324-K); C8 cause measured (D-1329-1); repair R2 in review
+
+Retained-defect repair R1 (1324-A, tests only, 7 files) is closed: staged 1324-C, dry run
+1324-X, review 1324-D ACCEPT, applied 57b7bee9. Recorded core gate 1325: 93 failed / 4588
+passed, all retained from 1316 (85 same, 8 changed primary with recorded causes), 58 gone
+(the 56 C6/C7/C20 targets plus two c2a-m2 leaves with the same v13TwinOf cause), 0 new.
+Recorded UI gate 1326: 32 failed / 2660 passed on UI source byte-identical to 1322; every
+identity is in the 1317 or 1322 set (C1 timing). Review 1325-J KEEP; type gates pass at
+6458955e. Closure 1324-K: LOGIC VERIFIED · UNITY NOT VERIFIED; not GREEN (93 core / 32 UI
+open). The p14c3-save-v38 :93 leaf stays retained by design (1324-A rule 4).
+
+C8 (1329-A): 21 of its 42 rows search p13a-core-causal-01 for a satisfied rival promise.
+Bisect puts the move at 969fb459 (the accepted P3 candidate order): r01 no longer wins the
+week-208 cases whose cast made a held screenplay viable. Underneath, a pre-existing rival
+stall: two ready screenplays with no viable package (hollywoodPolicy.ts:67) fill the ready
+inventory (hollywoodTick.ts:254), so a rival neither films nor commissions; on this seed all
+four rivals stop filming by week 140. No test-only repair; Owner decision D-1329-1 (keep the
+law and re-derive fixtures as new fixtures, or charter a shelving rule).
+
+IN PROGRESS: repair R2 (1327-A): C15 (7), C3 (6; the Save38 down-projection of the week-0
+save reproduces CANONICAL_INITIAL_SHA exactly), C12 (2; pins from the staged 1328
+projection-56 producer after a recorded run). Review 1327-B running.
+
+Owner decisions open: D-1323-1 (P15A.1 formula), D-1312-1, D-1312-2, D-1329-1 (rival
+unviable screenplays), Mentor/Rivals labels (HIS-014).
+
 ## CURRENT — P15A.1 stopped for Owner decision D-1323-1; retained-defect repair R1 IN PROGRESS
 
 Save42 casting drivers are closed (1319-K; see the block below). The P15A.1 charter (1323-A,

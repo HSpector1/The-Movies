@@ -1,5 +1,12 @@
 # P14 — Contested Talent Market, Bonds and Promises, Career Lifecycle — headless plan (logic-first)
 
+## CURRENT — retained-defect repair R1 closed LOGIC VERIFIED (1324-K)
+
+Test-only repair of clusters C6, C7 and C20 (1324-A): recorded gates 1325/1326 remove 58
+failing core identities and add none (`../evidence/p14b4-20260919/1324-K-parent-retained-r1-closure.json`).
+C8's measured cause (1329-A) is a rival stall that waits on Owner decision D-1329-1; repair
+R2 (C15, C3, C12) is planned in 1327-A. Not GREEN: 93 core and 32 UI failures stay open.
+
 ## CURRENT — casting competition drivers and Save42 closed LOGIC VERIFIED (1319-K)
 
 The 1312 slice (1313-A/F law) landed as 1b675f75 with its RED/GREEN, implementation review
