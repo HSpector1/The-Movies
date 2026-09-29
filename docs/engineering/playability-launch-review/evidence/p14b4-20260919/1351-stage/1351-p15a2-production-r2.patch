@@ -1,0 +1,206 @@
+diff --git a/src/core/powerRanking.ts b/src/core/powerRanking.ts
+new file mode 100644
+index 0000000..8d2f6db
+--- /dev/null
++++ b/src/core/powerRanking.ts
+@@ -0,0 +1,178 @@
++// ── P15A.2 Wave 1: the pure Power Ranking law `power-ranking/v1` ─────────────
++// Authority (docs/engineering/playability-launch-review/evidence/p14b4-20260919/):
++// Owner ruling 1342-O item 2 (quarterly; formula, weights and ties are reviewed provisional
++// tuning; no invented Honors, no private rival balance, no second financial ranking),
++// 1122-A D2/D3/D4a, charter 1350-A §3 as reviewed in 1350-B and adopted in 1350-F, and the
++// parent's API decisions on the 1351 RED.
++//
++// Pure `(inputs) => outputs`: no RNG, Date, GameState, save, Bridge or tick hook. Wave 2
++// owns the quarterly archive, the snapshot step and the view. Inputs are never mutated.
++//
++// At quarter week W the window is [W−52, W). Authored pre-campaign films count in no lane
++// (1351-F amends 1350-A §3): the ranking measures campaign momentum. For each studio:
++// - Films: each campaign film released in the window whose run has ended by W scores, in integer
++//   tenths rounded half up once, CRITIC_SHARE·critic + (1−CRITIC_SHARE)·100·reach, where
++//   reach = min(1, totalGross / max(baseMarketValue, 1) / REACH_SCALE). This is
++//   10·(CRITIC_SHARE·critic/100 + (1−CRITIC_SHARE)·reach) on the 0-10 scale, evaluated
++//   directly in tenths. The lane is the mean of the best FILM_CAP of those integers (ties
++//   by ascending filmId), rounded half up once; 0 with no finished film in the window.
++// - Releases: n counts the studio's campaign releases in the window, running or finished.
++//   The lane is 100·min(n, RELEASE_CAP)/RELEASE_CAP tenths, rounded half up once. The
++//   row's `releases` is n itself, uncapped.
++// - Points = Films + Releases, 0..200 tenths. Honors and the distress stage read
++//   'notRecorded' and carry no number.
++// A ranking is available only when originWeek ≤ W−52. A studio is ranked once
++// enteredWeek ≤ W−52. rank = 1 + the number of ranked studios with strictly more points
++// (competition ranking, 1-1-3). An unranked row never enters the comparison, and no
++// secondary tie-break exists. Rows are presented ranked first by (rank, studioId), then
++// unranked by studioId.
++// The financial-strength band sits beside the rank. It feeds no points, rank or order, and
++// no row carries cash or a fixed cost.
++//
++// Rounding: every rounded quantity is non-negative, and Math.round rounds exact halves
++// toward +∞, so it is true half-up here (never half-to-even).
++
++import { TUNING } from './tuning.js'
++
++export const POWER_RANKING_DEFINITION = 'power-ranking/v1'
++
++export type FinancialStrengthBand = 'inTheRed' | 'strained' | 'stable' | 'thriving'
++export type RankingFilm = {
++  filmId: string
++  studioId: string
++  releaseTick: number
++  runEndedByWeek: boolean
++  criticScore: number
++  totalGross: number
++  authoredPreCampaign: boolean
++}
++export type RankingStudio = { studioId: string; enteredWeek: number; cash: number; weeklyFixedCost: number }
++export type RankingInput = {
++  week: number
++  originWeek: number
++  baseMarketValue: number
++  studios: readonly RankingStudio[]
++  films: readonly RankingFilm[]
++}
++export type PowerRankingRow = {
++  studioId: string
++  ranked: boolean
++  rank: number | null
++  filmsTenths: number
++  releases: number
++  releasesTenths: number
++  pointsTenths: number
++  countedFilmIds: string[]
++  band: FinancialStrengthBand
++  honors: 'notRecorded'
++  distressStage: 'notRecorded'
++}
++export type PowerRankingSnapshot = {
++  week: number
++  definitionVersion: typeof POWER_RANKING_DEFINITION
++  available: boolean
++  windowStartWeek: number
++  rows: PowerRankingRow[]
++}
++
++const compareText = (a: string, b: string): number => (a < b ? -1 : a > b ? 1 : 0)
++
++/** The Studio Charts' own quarterly boundary (hollywoodTick.ts:408): the first week of each calendar quarter. */
++export function isPowerRankingWeek(week: number): boolean {
++  return week % 13 === 0
++}
++
++/**
++ * The band beside the rank (1122-A D2/D3). cash ≤ 0 reads inTheRed even at a zero fixed
++ * cost; otherwise a zero fixed cost reads thriving; otherwise weeks = floor(cash / cost).
++ * Errors never echo a finance value, so a rival balance cannot leak through a message.
++ */
++export function financialStrengthBand(cash: number, weeklyFixedCost: number): FinancialStrengthBand {
++  if (!Number.isFinite(cash)) throw new Error('power ranking: cash must be finite')
++  if (!Number.isFinite(weeklyFixedCost) || weeklyFixedCost < 0) {
++    throw new Error('power ranking: weekly fixed cost must be finite and non-negative')
++  }
++  if (cash <= 0) return 'inTheRed'
++  if (weeklyFixedCost === 0) return 'thriving'
++  const weeks = Math.floor(cash / weeklyFixedCost)
++  if (weeks < TUNING.POWER_RANKING_BAND_STABLE_WEEKS) return 'strained'
++  return weeks < TUNING.POWER_RANKING_BAND_THRIVING_WEEKS ? 'stable' : 'thriving'
++}
++
++/**
++ * 100·reach is one division of exact products, not gross/base/scale rounded twice. So an
++ * exact half stays exact and rounds up: critic 0 at gross 243,000 of base 1,000,000
++ * (reach 0.27) is 13.5 tenths → 14, where gross/base/scale gives 13.499999999999998 → 13.
++ */
++function filmScoreTenths(film: RankingFilm, baseMarketValue: number): number {
++  const reachPoints = Math.min(100, (100 * film.totalGross) / (Math.max(baseMarketValue, 1) * TUNING.POWER_RANKING_REACH_SCALE))
++  const share = TUNING.POWER_RANKING_CRITIC_SHARE
++  return Math.round(share * film.criticScore + (1 - share) * reachPoints)
++}
++
++export function computePowerRanking(input: RankingInput): PowerRankingSnapshot {
++  const { week, originWeek, baseMarketValue } = input
++  if (!Number.isInteger(week) || !Number.isInteger(originWeek)) {
++    throw new Error(`power ranking: weeks must be integers (week ${week}, origin ${originWeek})`)
++  }
++  if (!Number.isFinite(baseMarketValue)) throw new Error('power ranking: baseMarketValue must be finite')
++  const windowStartWeek = week - TUNING.POWER_RANKING_WINDOW_WEEKS
++  const available = originWeek <= windowStartWeek
++
++  const seenStudios = new Set<string>()
++  for (const s of input.studios) {
++    if (seenStudios.has(s.studioId)) throw new Error(`power ranking: studio ${s.studioId} appears twice`)
++    if (!Number.isInteger(s.enteredWeek)) throw new Error(`power ranking: studio ${s.studioId} has a non-integer entry week`)
++    seenStudios.add(s.studioId)
++  }
++
++  const seenFilms = new Set<string>()
++  const releases = new Map<string, number>()
++  const finished = new Map<string, Array<{ filmId: string; tenths: number }>>()
++  for (const f of input.films) {
++    if (seenFilms.has(f.filmId)) throw new Error(`power ranking: film ${f.filmId} appears twice`)
++    seenFilms.add(f.filmId)
++    if (!Number.isInteger(f.releaseTick)) throw new Error(`power ranking: film ${f.filmId} has a non-integer release tick`)
++    if (!(f.criticScore >= 0 && f.criticScore <= 100)) throw new Error(`power ranking: film ${f.filmId} critic score is outside 0..100`)
++    if (!(Number.isFinite(f.totalGross) && f.totalGross >= 0)) throw new Error(`power ranking: film ${f.filmId} gross must be finite and non-negative`)
++    if (f.releaseTick < windowStartWeek || f.releaseTick >= week || f.authoredPreCampaign) continue
++    releases.set(f.studioId, (releases.get(f.studioId) ?? 0) + 1)
++    if (!f.runEndedByWeek) continue
++    const list = finished.get(f.studioId) ?? []
++    list.push({ filmId: f.filmId, tenths: filmScoreTenths(f, baseMarketValue) })
++    finished.set(f.studioId, list)
++  }
++
++  const releaseCap = TUNING.POWER_RANKING_RELEASE_CAP
++  const rows: PowerRankingRow[] = input.studios.map((s) => {
++    const counted = (finished.get(s.studioId) ?? [])
++      .sort((a, b) => b.tenths - a.tenths || compareText(a.filmId, b.filmId))
++      .slice(0, TUNING.POWER_RANKING_FILM_CAP)
++    const filmsTenths = counted.length === 0 ? 0 : Math.round(counted.reduce((sum, c) => sum + c.tenths, 0) / counted.length)
++    const n = releases.get(s.studioId) ?? 0
++    const releasesTenths = Math.round((100 * Math.min(n, releaseCap)) / releaseCap)
++    return {
++      studioId: s.studioId,
++      ranked: available && s.enteredWeek <= windowStartWeek,
++      rank: null,
++      filmsTenths,
++      releases: n,
++      releasesTenths,
++      pointsTenths: filmsTenths + releasesTenths,
++      countedFilmIds: counted.map((c) => c.filmId),
++      band: financialStrengthBand(s.cash, s.weeklyFixedCost),
++      honors: 'notRecorded',
++      distressStage: 'notRecorded',
++    }
++  })
++
++  const rankedPoints = rows.filter((r) => r.ranked).map((r) => r.pointsTenths)
++  for (const row of rows) {
++    if (row.ranked) row.rank = 1 + rankedPoints.filter((p) => p > row.pointsTenths).length
++  }
++  rows.sort(
++    (a, b) =>
++      (a.ranked === b.ranked ? (a.rank ?? 0) - (b.rank ?? 0) : a.ranked ? -1 : 1) || compareText(a.studioId, b.studioId),
++  )
++  return { week, definitionVersion: POWER_RANKING_DEFINITION, available, windowStartWeek, rows }
++}
+diff --git a/src/core/tuning.ts b/src/core/tuning.ts
+index 020e4ba..7a55026 100644
+--- a/src/core/tuning.ts
++++ b/src/core/tuning.ts
+@@ -32,6 +32,17 @@ export const TUNING = {
+   HOLLYWOOD_PROMISE_HALF_WIDTH: 0.35,
+   HOLLYWOOD_NEGATIVE_CHOICES: [0.65,0.85,1.05] as const,
+   HOLLYWOOD_POLICY_PREFERENCE_COST: 25_000,
++  // P15A.2 Power Ranking law `power-ranking/v1` (src/core/powerRanking.ts). PROVISIONAL
++  // TUNING under Owner ruling 1342-O item 2, which delegates the formula, weights and ties;
++  // the formula was written in 1350-A §3, reviewed in 1350-B and adopted in 1350-F. Any
++  // change to these values changes the law: bump POWER_RANKING_DEFINITION with it.
++  POWER_RANKING_WINDOW_WEEKS: 52, // the window [W−52, W): four complete quarters
++  POWER_RANKING_FILM_CAP: 4, // the Films lane averages a studio's best four film scores
++  POWER_RANKING_RELEASE_CAP: 4, // four releases in the window fill the Releases lane
++  POWER_RANKING_CRITIC_SHARE: 0.5, // critic score and audience reach weigh equally
++  POWER_RANKING_REACH_SCALE: 0.9, // pooled p90 reach, copied so Standing tuning cannot move the rank
++  POWER_RANKING_BAND_STABLE_WEEKS: 13, // fixed-cost weeks of cash at which a band reads stable
++  POWER_RANKING_BAND_THRIVING_WEEKS: 26, // fixed-cost weeks of cash at which a band reads thriving
+   // §16 verbatim
+   COHESION_CAP: 16,
+   COHESION_SMOOTH_LO: 0.35,

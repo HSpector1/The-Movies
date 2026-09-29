@@ -1,0 +1,38 @@
+diff --git a/src/core/powerRanking.ts b/src/core/powerRanking.ts
+index 16b9a19..8d2f6db 100644
+--- a/src/core/powerRanking.ts
++++ b/src/core/powerRanking.ts
+@@ -8,16 +8,17 @@
+ // Pure `(inputs) => outputs`: no RNG, Date, GameState, save, Bridge or tick hook. Wave 2
+ // owns the quarterly archive, the snapshot step and the view. Inputs are never mutated.
+ //
+-// At quarter week W the window is [W−52, W). For each studio:
+-// - Films: each film released in the window whose run has ended by W scores, in integer
++// At quarter week W the window is [W−52, W). Authored pre-campaign films count in no lane
++// (1351-F amends 1350-A §3): the ranking measures campaign momentum. For each studio:
++// - Films: each campaign film released in the window whose run has ended by W scores, in integer
+ //   tenths rounded half up once, CRITIC_SHARE·critic + (1−CRITIC_SHARE)·100·reach, where
+ //   reach = min(1, totalGross / max(baseMarketValue, 1) / REACH_SCALE). This is
+ //   10·(CRITIC_SHARE·critic/100 + (1−CRITIC_SHARE)·reach) on the 0-10 scale, evaluated
+ //   directly in tenths. The lane is the mean of the best FILM_CAP of those integers (ties
+ //   by ascending filmId), rounded half up once; 0 with no finished film in the window.
+-// - Releases: n counts the studio's campaign releases in the window, running or finished;
+-//   authored pre-1920 films are excluded. The lane is 100·min(n, RELEASE_CAP)/RELEASE_CAP
+-//   tenths, rounded half up once. The row's `releases` is n itself, uncapped.
++// - Releases: n counts the studio's campaign releases in the window, running or finished.
++//   The lane is 100·min(n, RELEASE_CAP)/RELEASE_CAP tenths, rounded half up once. The
++//   row's `releases` is n itself, uncapped.
+ // - Points = Films + Releases, 0..200 tenths. Honors and the distress stage read
+ //   'notRecorded' and carry no number.
+ // A ranking is available only when originWeek ≤ W−52. A studio is ranked once
+@@ -134,8 +135,8 @@ export function computePowerRanking(input: RankingInput): PowerRankingSnapshot {
+     if (!Number.isInteger(f.releaseTick)) throw new Error(`power ranking: film ${f.filmId} has a non-integer release tick`)
+     if (!(f.criticScore >= 0 && f.criticScore <= 100)) throw new Error(`power ranking: film ${f.filmId} critic score is outside 0..100`)
+     if (!(Number.isFinite(f.totalGross) && f.totalGross >= 0)) throw new Error(`power ranking: film ${f.filmId} gross must be finite and non-negative`)
+-    if (f.releaseTick < windowStartWeek || f.releaseTick >= week) continue
+-    if (!f.authoredPreCampaign) releases.set(f.studioId, (releases.get(f.studioId) ?? 0) + 1)
++    if (f.releaseTick < windowStartWeek || f.releaseTick >= week || f.authoredPreCampaign) continue
++    releases.set(f.studioId, (releases.get(f.studioId) ?? 0) + 1)
+     if (!f.runEndedByWeek) continue
+     const list = finished.get(f.studioId) ?? []
+     list.push({ filmId: f.filmId, tenths: filmScoreTenths(f, baseMarketValue) })
