@@ -76,11 +76,41 @@
   },
   {
     "file": "tests/p14c3-canonical-rival-history.test.ts",
-    "line": 233,
-    "old_text": null,
-    "new_text": null,
+    "line": 10,
+    "old_text": "import { exportSave, makeSave, stableStringify, validateSaveV37, validateSaveV38 } from '../src/core/save.js'",
+    "new_text": "import { exportSave, makeSave, stableStringify, validateSaveV37, validateSaveV42 } from '../src/core/save.js'",
     "cluster": "C3",
-    "cause": "NO-EDIT (Rule 3 — leaf's stated premise not reachable within the authorized single-line C3 fix). Once the shared `canonicalInitial()` cache-thrown error (the assigned fix) is cleared, K4 (\"refuses separate malformed canonical title, credit, entry cause and missing profession authority\") reaches its own, SEPARATE, previously-masked defect at its own test line 233: `const control = makeSave(canonicalChosen().loaded); expect(validateSaveV38(control)).toBe(control)` — `makeSave` always returns the live SaveFileV42 (saveVersion 42), so calling the version-frozen `validateSaveV38` on it throws `validateSaveV38: expected version 38` (src/core/save.ts:10385). This is a stale V38-pinned call in the TEST BODY of tests/p14c3-canonical-rival-history.test.ts, not inside the one helper line (tests/helpers/p14c3-canonical-rival-fixtures.ts:187) this task's C3 section authorizes. Reported per Rule 3 rather than expanded into scope; not edited."
+    "cause": "1327-C2 (per parent amendment E/1327-F-parent-r2-handback-adoption.md, 1320-A class S1): K4 validates a live `makeSave` envelope and its detached mutants with the version-frozen `validateSaveV38` (saveVersion always 42 from `makeSave`), throwing `validateSaveV38: expected version 38` (src/core/save.ts:10385) before any mutant cause is reached — the C3 masking hid this file from the original Save42 sweep. Import swapped to `validateSaveV42`; `validateSaveV37` kept for the genuine V37 capture (`historical37()`) at line 235, untouched.",
+    "target_rows_fixed": []
+  },
+  {
+    "file": "tests/p14c3-canonical-rival-history.test.ts",
+    "line": 233,
+    "old_text": "    expect(validateSaveV38(control)).toBe(control)",
+    "new_text": "    expect(validateSaveV42(control)).toBe(control)",
+    "cluster": "C3",
+    "cause": "1327-C2 (S1 class): `control = makeSave(canonicalChosen().loaded)` is a live SaveFileV42 envelope; selecting the live validator it actually carries. Measured (disposable probe, deleted before handback): validateSaveV42(control) does not throw, matching the leaf's own premise.",
+    "target_rows_fixed": []
+  },
+  {
+    "file": "tests/p14c3-canonical-rival-history.test.ts",
+    "line": 245,
+    "old_text": "      expect(() => validateSaveV38(mutant)).toThrow(cause)",
+    "new_text": "      expect(() => validateSaveV42(mutant)).toThrow(cause)",
+    "cluster": "C3",
+    "cause": "1327-C2 (S1 class). Measured what each mutant is now refused with via a disposable probe (deleted before handback), selecting validateSaveV42 on each detached mutant: title -> '...Hollywood save: authored film differs from canonical starting manifest' (matches the unchanged expected /authored film differs from canonical starting manifest/); credit -> '...Hollywood save: authored credit differs from canonical starting manifest' (matches the unchanged expected /authored credit differs from canonical starting manifest/); entry -> the same '...authored credit differs from canonical starting manifest' cause (matches its own unchanged expected regex, identical to credit's). All three causes are unchanged from the original expectations under the live validator; no message differs, so no expectation text was edited (S8: only the validator selection changed).",
+    "target_rows_fixed": [
+      "tests/p14c3-canonical-rival-history.test.ts > C.3 canonical Actor history survives actual passive rival Writer transition and work > K4 refuses separate malformed canonical title, credit, entry cause and missing profession authority"
+    ]
+  },
+  {
+    "file": "tests/p14c3-canonical-rival-history.test.ts",
+    "line": 255,
+    "old_text": "    expect(() => validateSaveV38(missing)).toThrow(/current profession changed without its anchored change history/)\n    expect(validateSaveV38(control)).toBe(control)",
+    "new_text": "    expect(() => validateSaveV42(missing)).toThrow(/current profession changed without its anchored change history/)\n    expect(validateSaveV42(control)).toBe(control)",
+    "cluster": "C3",
+    "cause": "1327-C2 (S1 class). Measured: validateSaveV42(missing) throws 'validateSaveV38: current profession changed without its anchored change history' — the message text carries a literal 'validateSaveV38:' prefix baked into src/core/professionHistory.ts:42's own internal `fail()` helper (`` throw new Error(`validateSaveV38: ${message}`) ``), independent of which top-level validator function calls it; this is pre-existing PRODUCTION source text, not edited (Rule 1, tests only), and the leaf's own regex (/current profession changed without its anchored change history/) does not depend on that prefix, so it still matches unchanged. Final `validateSaveV42(control)).toBe(control)` re-check at line 256 also confirmed not to throw.",
+    "target_rows_fixed": []
   },
   {
     "file": "tests/p14c3-canonical-rival-history.test.ts",
