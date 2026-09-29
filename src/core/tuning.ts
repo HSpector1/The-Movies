@@ -994,7 +994,7 @@ export const TUNING = {
   SHARED_MARKET_STOCK_START: 0.2, // genre-saturation stock weight at R+4, continuous with the last window week
   SHARED_MARKET_STOCK_HALF_LIFE_WEEKS: 13, // the stock weight halves every 13 weeks
   SHARED_MARKET_RETIRE_AFTER_WEEKS: 26, // a release weighs nothing from R+26
-  SHARED_MARKET_FACTOR_MAX_PENALTY: 0.25, // f(P) = 1 − 0.25·(1 − e^(−P/2)): bounded in (0.75, 1]
+  SHARED_MARKET_FACTOR_MAX_PENALTY: 0.25, // f(P) = 1 − 0.25·(1 − e^(−P/2)): (0.75, 1] exactly; float64 reaches 0.75 past P ≈ 72, so the tested range is [0.75, 1]
   SHARED_MARKET_PRESSURE_SCALE: 2, // the P scale in that exponent
   SHARED_MARKET_STUDIO_WINDOW_CAP: 1, // one release's worth: a studio's window pressure per genre is clamped here
 } as const
