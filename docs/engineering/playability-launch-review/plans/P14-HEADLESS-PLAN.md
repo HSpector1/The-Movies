@@ -1,5 +1,13 @@
 # P14 — Contested Talent Market, Bonds and Promises, Career Lifecycle — headless plan (logic-first)
 
+## CURRENT — casting competition drivers and Save42 closed LOGIC VERIFIED (1319-K)
+
+The 1312 slice (1313-A/F law) landed as 1b675f75 with its RED/GREEN, implementation review
+and the Save42 pin sweep; the recorded broad gates 1321/1322 add no failing identity
+(`../evidence/p14b4-20260919/1319-K-parent-save42-closure.json`). Open P14B items:
+D-1312-1 and D-1312-2 (Owner), Mentor/Rivals labels (definitions, HIS-014), shared awards
+(P08), §5.5 compaction (PERF-010). Not GREEN: retained 1316/1303 failures stay open.
+
 ## CURRENT — R2 (release busy set / founding) and R3 closed LOGIC VERIFIED (1311-K)
 
 The P14A.1 T2 ruling below records "R2 DEFERRED (release refused for the busy set / founding

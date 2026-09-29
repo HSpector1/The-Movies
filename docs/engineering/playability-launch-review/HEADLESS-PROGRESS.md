@@ -1,5 +1,26 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — Save42 casting drivers closed LOGIC VERIFIED (1319-K); P15A.1 charter next
+
+Production 1b675f75 (castingCompetitionLost/repeatedCompetition, the Inseparable expiry
+note, Save42) is closed with its test sweep: RED 1318 (21/13/1), GREEN 1319 (34/1),
+contract check 1319b, implementation review 1319-J KEEP; Save42 sweep 1320 (measured
+1320-M/M2, 131 files, 500 rows, 1320-D ACCEPT, applied 25501835). Recorded core gate
+1321: 151 failed / 4530 passed, exactly 1316's identities (0 new, 0 gone). Recorded UI
+gate 1322: 25 failed / 2667 passed; one intermittent focus leaf that predates Save42.
+1321-J KEEP; type gates pass at HEAD. Closure 1319-K: LOGIC VERIFIED · UNITY NOT
+VERIFIED; not GREEN (151 core / 25 UI retained failures stay open with their causes).
+
+P14B relationship scope left: D-1312-1 (conflict record) and D-1312-2 (romance ending,
+romance formation waits with it) for the Owner; Mentor/Rivals labels need authored
+definitions (HIS-014); shared awards wait on P08; compaction waits on PERF-010.
+Next: the P15A.1 charter (launch-time market pressure over one actual release batch,
+RECONCILIATION-02 §7.1-7.3 at c5b52b4d; P15A1-RELEASE-SEAM-NOTES/REVIEW and
+P15A1-ORDERING-INVENTORY): batch identity and order, the chronology change and its
+controls, reach metric, clamps, coefficients (class C), storage, cold start, previews.
+P15A.2 Owner choices D2/D3/D4a do not block it. Two specialists, parent writer, one
+heavy process; Unity/native deferred.
+
 ## CURRENT — Save42 casting drivers landed (1b675f75); GREEN 34/1; review KEEP; Save42 pin sweep IN PROGRESS
 
 R2/R3 is closed (1311-K, LOGIC VERIFIED, not GREEN; see the block below). The casting RED

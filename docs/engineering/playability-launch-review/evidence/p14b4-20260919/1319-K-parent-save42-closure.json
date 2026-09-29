@@ -1,0 +1,252 @@
+{
+  "record": "1319-K parent closure: casting competition drivers, Inseparable expiry note and Save42 (1313-A/F law) with the Save42 test pin sweep",
+  "timeUtc": "2026-09-29T02:19:27.566871+00:00",
+  "disposition": "CLOSED \u2014 LOGIC VERIFIED \u00b7 UNITY NOT VERIFIED. Not GREEN: 151 core and 25 UI failures remain open with their 1302/1303 causes (unchanged from 1316; the UI set is 1303's retained rows plus one intermittent focus leaf).",
+  "production": {
+    "commit": "1b675f75",
+    "saveVersion": 42,
+    "projectionVersion": 56,
+    "contractCheck": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1319b-contract-check.json",
+      "bytes": 52822,
+      "sha256": "6a63fefdde3a36716c5c3c60e1b8341f17d76c2691e360d90b756bb63d595e78"
+    }
+  },
+  "law": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1313-A-casting-drivers-expansion.md",
+      "bytes": 6293,
+      "sha256": "659f43c394e129154e6095ede6d2a2f4c87e03447b1a217e919f3ffc4ad9aef3"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1313-B-casting-drivers-review.md",
+      "bytes": 13735,
+      "sha256": "cb5215aa276ef25e9695ed7b4f22c7334a59461d29bcb320db7fb6e708ec5d54"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1313-F-parent-casting-drivers-adoption.md",
+      "bytes": 5722,
+      "sha256": "7952ff8082744a267007420654ece4947d7e2f0115bbf5b265f198a4d6d6d35b"
+    }
+  ],
+  "genuineInputs": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1314-K-parent-save41-casting-inputs-closure.json",
+    "bytes": 5779,
+    "sha256": "b91a0ead3951ff77944fff953c620cf010eaa6b92192fa77aa7ccca383633356"
+  },
+  "red": {
+    "adoption": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1315-F-parent-red-adoption.md",
+      "bytes": 2310,
+      "sha256": "b93e5c112151f9e39d95892ed79067d68552fb85df4317e2c0e5be95e0a1712d"
+    },
+    "record": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1318-R-casting-red-record.md",
+      "bytes": 1658,
+      "sha256": "4361855f3ad883e7223d47d170b2160585f37a5b3072cb2abe769e23aa536135"
+    },
+    "run": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1318-casting-red.json",
+      "bytes": 52995,
+      "sha256": "e62004695352a5b39847bbe0383aaa6da2317c69b9cfed3409f0839ed15f106f"
+    },
+    "result": "21 failed, 13 passed, 1 skipped on unchanged production",
+    "renameAfterRed": "10790fa6: tests/bridge-p14b9-casting-{expiry,readers}.test.ts (content unchanged; root tsconfig excludes only tests/bridge*)"
+  },
+  "green": {
+    "record": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1319-R-casting-green-record.md",
+      "bytes": 1454,
+      "sha256": "d436709f0ced491a588b84053f60efa901d30d6e6580ebdfe239c85f8066e936"
+    },
+    "run": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1319-casting-green.json",
+      "bytes": 53023,
+      "sha256": "5813cedd557edb61e0ea4f88be6bfb0f268d80ac450f221771e1792bd885a3ac"
+    },
+    "result": "34 passed, 1 skipped (state.hollywood === null clause, review-only)"
+  },
+  "implementationReview": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1319-J-save42-implementation-review.md",
+    "bytes": 4197,
+    "sha256": "5d67fa85066df144cb4162a3c874ebdc68342235f34946bcddc80ae3cbae113d"
+  },
+  "implementationVerdict": "KEEP (queue path traced by the parent)",
+  "sweep": {
+    "measurement": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1320-M-save42-fallout-extract.txt",
+        "bytes": 12829,
+        "sha256": "0446200ec6a438722f0303b3f379e37c8c66425fe74609c4215adb8248d512b6"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1320-M2-save42-ui-fallout-extract.txt",
+        "bytes": 2252,
+        "sha256": "58a5b560eb050dd4d60ea7e2e9b8c853ee509b3e0e27f84e6b40d3d79e395ba4"
+      }
+    ],
+    "plan": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1320-A-save42-pin-sweep-plan.md",
+      "bytes": 6669,
+      "sha256": "d365973962fb83e52885a341e8c1644f22634cab32f7339aa45e8e75108a66fa"
+    },
+    "handback": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1320-C-save42-sweep-handback.md",
+      "bytes": 16980,
+      "sha256": "2829a8d0c2cf3cb2078f6e5ea8f3c1ab1f4ef5f498fe566b49c099c315dd1a3c"
+    },
+    "patch": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1320-stage/1320-save42-sweep.patch",
+      "bytes": 290815,
+      "sha256": "0145afcba7d9f72f3ba7a43e8ebff4524c76cf94e9d469235118614c10d84875"
+    },
+    "classification": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1320-stage/1320-save42-sweep-classification.json",
+      "bytes": 217193,
+      "sha256": "39ac5d2c75e264ce644c2e17491d9fe832fd2b33be5f04ed8acb5d2beee76c6e"
+    },
+    "dryRun": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1320-X-save42-sweep-dry-run.md",
+      "bytes": 2144,
+      "sha256": "52afc59c3a91b9f117cdaae1b29706e0a2d84b9bb2510921e21aea9b4042b377"
+    },
+    "review": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1320-D-save42-sweep-review.md",
+      "bytes": 15115,
+      "sha256": "802274c05838a3f926eff204d79b24640910161ca270b76664ec01c33764d0d4"
+    },
+    "reviewVerdict": "ACCEPT",
+    "appliedCommit": "25501835"
+  },
+  "coreGate": {
+    "failedFiles": 35,
+    "failed": 151,
+    "passed": 4530,
+    "skipped": 3,
+    "todo": 11,
+    "newAgainst1316": 0,
+    "goneFrom1316": 0,
+    "run": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1321-save42-broad-core-collection-preflight.json",
+        "bytes": 19208,
+        "sha256": "fbd1bbb3814fc2b607cb2fb9f90cca8879237bc5fe32cbc00d900182b95f12f7"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1321-save42-broad-core-preflight.json",
+        "bytes": 115188,
+        "sha256": "ce8d5581b0403d4937c472c0bdc3a2b4b9ef42c88b3be7e7670bf2fb7868e073"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1321-save42-broad-core.json",
+        "bytes": 71364,
+        "sha256": "8e5d3caac8b4930d744e6ba6b2aa1bfb1a8fff5eb973c271fb5677ab0bcca07b"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1321-save42-broad-core.txt",
+        "bytes": 28946018,
+        "sha256": "bb3f0bb918bf2a41c8731ff865467a4dfafe094bc168bc556c8e3a0bc3c70df5"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1321-save42-broad-core.patch",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1321-save42-broad-core-postflight.json",
+        "bytes": 115864,
+        "sha256": "b9427ecde7c70bb00b2b6e3eacb0e40dbb6d5bf0d85280785b2de3b60e23d171"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1321-save42-broad-core-collection-postflight.json",
+        "bytes": 139,
+        "sha256": "3768a1c4b6a4940627b88ab28f24b033a55cfc3cb21021a678a53d7ddd17e872"
+      }
+    ],
+    "attribution": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1321-I-broad-core-attribution.md",
+        "bytes": 2467,
+        "sha256": "22f5e60ad406323101bc1e8a3ab67b417b8d7d93c45edf2234b794537b00861a"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1321-I-failures.json",
+        "bytes": 154182,
+        "sha256": "5206cc553a3f000f6e037233ada3cfe61c8b239abfdde7b2adadba0f924101b0"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1321-I-attribution.py",
+        "bytes": 5699,
+        "sha256": "1c8b95105da174f085a2f07cca1076e34a2a826c3f536b90015bceaba61159f9"
+      }
+    ]
+  },
+  "uiGate": {
+    "failedFiles": 8,
+    "failed": 25,
+    "passed": 2667,
+    "skipped": 5,
+    "newAgainst1303": 1,
+    "newAttribution": "StudioLotScreen keyboard focus (:930): intermittent, pre-Save42 (failed in 1309-X5, passed in 1317 and 1320-X, passes alone); bare toHaveFocus after an async re-render",
+    "run": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1322-save42-broad-ui-preflight.json",
+        "bytes": 115188,
+        "sha256": "d860ffdafdb2eda16650ba2f8cda87070adb0b3e5363bd6b59f23de2fa729bad"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1322-save42-broad-ui.json",
+        "bytes": 52799,
+        "sha256": "e00a42669018a10c24e863de5735b44e941ce996d9fd10c3a24bd37cf0d6388c"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1322-save42-broad-ui.txt",
+        "bytes": 378358,
+        "sha256": "860c45f7ec1ef65a8fb4bcdee36db05879ef5993f91921cd205a73403d39b762"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1322-save42-broad-ui.patch",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1322-save42-broad-ui-postflight.json",
+        "bytes": 115856,
+        "sha256": "0cecd7184cbb72b4320a0151ef2c2896e436bd101101728d565da2a879558228"
+      }
+    ],
+    "attribution": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1322-I-broad-ui-attribution.md",
+        "bytes": 1832,
+        "sha256": "ef4df1b0e0330751bb537b5ff9f27241e7f62a52527a611e4cde682145a518fb"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1322-I-failures.json",
+        "bytes": 23314,
+        "sha256": "ff570ed9c9fc823a80012298bf301c9656cf45f5075c8a9fad1572bf8290f713"
+      }
+    ]
+  },
+  "typeGatesAtHead": {
+    "head": "17b8b1c7",
+    "root": 0,
+    "bridge": 0,
+    "ui": 0
+  },
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1321-J-save42-attribution-review.md",
+    "bytes": 13495,
+    "sha256": "ef66f0f8cb16a55bef758fc00cf2bd2eec8b69cbc81b8caee6df494923d91d29"
+  },
+  "reviewVerdict": "KEEP, no required changes",
+  "openItems": [
+    "state.hollywood === null clause has no lawful route (review-only)",
+    "unproven rival authoring witnesses absent on scanned chains (1309-Q2)",
+    "retained 1316 core clusters and 1303 UI clusters",
+    "Owner decisions D-1312-1 (conflict record) and D-1312-2 (romance ending); romance formation waits with D-1312-2",
+    "Mentor/Rivals evidence labels need authored definitions (HIS-014)",
+    "shared-awards driver waits on P08 awards; \u00a75.5 compaction waits on PERF-010"
+  ],
+  "next": "P15A.1 charter (release-batch market assessment) per RECONCILIATION-02 \u00a77.1-7.3 and the P15A1 seam notes and inventory"
+}
