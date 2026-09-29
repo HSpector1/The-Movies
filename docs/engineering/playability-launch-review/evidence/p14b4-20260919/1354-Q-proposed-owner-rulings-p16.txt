@@ -1,0 +1,86 @@
+PROJECT: STUDIO — PROPOSED OWNER RULINGS FOR P16 AND THE P15B CLOSURE HANDOFF
+
+DRAFT FOR HOWARD'S APPROVAL. These are recommendations until Howard explicitly
+approves them. A draft is not Owner approval.
+
+Source: the P16 research at 084713980ef8 (never Owner authority) as read in
+record 1354-W0, against the adopted P15B charter (1352-A with 1352-F) and the
+rulings of 2026-09-29 (1340-O, 1342-O). None of these questions is answered by
+those rulings. Each item gives the recommended option first. On approval, record
+them in the existing decision register and continuation records, and apply them
+at the next safe checkpoint without interrupting a recorded run.
+
+1. RIVAL CLOSURE STAYS PRIVATE UNTIL IT HAPPENS; NO RETENTION ON THE ESTATE PATH
+
+Keep the 1122-A disclosure: rivals show their distress stage and band, never a
+closure countdown. When a rival closes, its people are released to free agency
+in the closure week, and a later P16 purchase of its estate buys assets only
+(films, rights, facilities), not a window to keep its staff. Alternatives: a
+public "closure due" notice with a bidding window, or contracts held open past
+closure with wages owed. Both change an Owner presentation ruling and the wage
+law, so they are not recommended for the first slice.
+
+2. THE PLAYER'S ESTATE IS SETTLED IN THE CLOSURE WEEK
+
+When the player's studio fails, everything settles in the closure week. People
+go to free agency. Films and rights are archived as the studio's permanent
+record. Facilities refund under the existing demolition law into the closure
+record. No rival buys the player's estate, and the run then ends with the
+recoverable end-of-run record of ruling 3. Alternative: keep the world running
+until rivals buy the estate, which delays the end-of-run record.
+
+3. A CLOSED STUDIO'S RIGHTS STAY ARCHIVED
+
+A closed studio's story properties and film rights stay unowned and archived,
+not for sale, in the first P16 slices. There is no claim or auction mechanism.
+Alternative: an estate auction for rights, deferred to a later slice.
+
+4. NO GROWTH OR ACQUISITION FINANCING
+
+The only loan stays the P15B distress loan. Purchases are cash-funded above the
+studio's reserve, and a studio with an outstanding loan cannot bid. This keeps
+ruling 3's "no new undocumented debt product". Alternative: a documented growth
+loan, which is a new product that would need its own charter and ruling.
+
+5. NO DUE-DILIGENCE ACCESS TO RIVAL FINANCES
+
+Bidders see public facts only: stage, band, released films, public rights.
+Nothing reveals a rival's cash, book figures or contract terms, which keeps
+ruling 2's "no private rival balances". Alternative: a costed due-diligence
+event that reveals a target's figures to one bidder.
+
+6. ONLY A STABLE STUDIO MAY SELL ITSELF ON THE HEALTHY PATH
+
+A whole-studio sale on the healthy path needs a willing target in the stable
+stage. A studio in warning, distress or recovery cannot sell itself that way.
+Its route is the P15B remedies, or closure followed by an estate sale. It may
+still sell single assets under P16B's ordinary rules.
+
+7. NO SECOND BIDDER FOR ORDINARY SALES
+
+Ordinary asset sales between two active studios have one buyer and one seller
+under the sub-cost floor. Competitive bidding is used only for estate sales.
+
+8. KEEPING STAFF AFTER A HEALTHY ACQUISITION
+
+When the player buys a studio and takes no action in the retention window,
+every contract that fits the player's usable capacity continues, in the
+target's contract order. The rest go to free agency. Keeping staff is a
+priority opportunity, never ownership of people.
+
+9. RESEARCH DEFAULTS FOR THE REMAINING DETAILS
+
+Adopt the research defaults for the lower-priority items:
+- in-flight research of an acquired studio cancels, and its verified partial
+  progress survives;
+- an inventor's price advantage does not transfer;
+- licences have no territory sub-split in the first slices;
+- the Star & Script Selling Facility stays outside P16B until separately
+  dispositioned.
+
+Delegated, not asked: when a StoryProperty is created (recommended at
+Greenlight), the library valuation formula, the P16A save root and the Licence
+fields. These are written down and reviewed before implementation, as with
+earlier delegated tuning.
+
+Unity/native work stays deferred. Protected main stays protected.
