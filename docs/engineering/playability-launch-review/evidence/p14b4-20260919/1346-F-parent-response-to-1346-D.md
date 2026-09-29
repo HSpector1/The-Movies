@@ -28,3 +28,14 @@ record's size, not a market outcome. 1346-C2 asserts `sourceReleaseIds.length <=
 - The exact per-week active-set equality is explained in the revised handback.
 - Decision 3 of [1346-X](1346-X-p15a1-red-dry-run-and-adoption.md), restated: a member appended by the batch has no
   lane at `batch.week − 1` and reports no transition. Only exposures that existed before the batch can transition.
+
+## After revision 1346-C2
+
+[1346-C2](1346-C2-p15a1-red-revision.md) adds five leaves, redesigns `market-reasons-capped-at-five` and extends two
+others ([r2 patch](1346-stage/1346-p15a1-red-r2.patch), sha256 54704911…). The parent dry run at c01b3d79
+([run](1346-X2-red-run.txt)): **32 of 32 leaves fail**. 31 fail on the missing module, each attributed to its own
+leaf, and 1 fails on the missing TUNING key.
+
+Parent decision on the one shape C2 found unpinned: `sourceReleaseIds` lists its ids in selection order, largest
+contribution first, ties by ascending `releaseId`. The C2 ordering leaf asserts set membership only. The order is
+binding on production.

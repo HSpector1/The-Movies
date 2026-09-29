@@ -1,0 +1,226 @@
+[
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: TUNING (real, already-existing module) > market-tuning-bounded-terms",
+    "requirement": "Brief 1346-p15a1-red PARENT API DECISIONS: 'TUNING keys ... asserted by value AND range in a bounded-term test'; 1340-O D-1323-1 (constants are provisional tuning).",
+    "redReason": "AssertionError: expected undefined to deeply equal [ 1, 0.55, 0.55, 0.2 ]",
+    "status": "unchanged from 1346-C"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: module surface > market-definition-version-export",
+    "requirement": "Brief PARENT API DECISIONS: 'SHARED_MARKET_DEFINITION = p15a1-market-v1'; 1323-A §3 names the definition 'p15a1-market-v1'.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "unchanged from 1346-C"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: module surface > market-reason-source-limit-export",
+    "requirement": "1346-F Blocking 2 fix: 'the bound is an exported law constant, MARKET_REASON_SOURCE_LIMIT = 5 in src/core/sharedMarket.ts'.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "NEW in 1346-C2"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: exposureWeight lanes and boundaries > market-exposure-weight-window-lane-offsets",
+    "requirement": "1323-A §3 Lanes: 'window [R,R+4): 1.00, 0.55, 0.55, 0.20 by offset'.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "unchanged from 1346-C"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: exposureWeight lanes and boundaries > market-decay-boundaries-r3-r4",
+    "requirement": "1323-A §4 'market-decay-boundaries (R+3/R+4 ... exactly ... continuity 0.20 at R+4)'; 1323-F Amendment 3.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "unchanged from 1346-C"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: exposureWeight lanes and boundaries > market-decay-boundaries-r25-r26",
+    "requirement": "1323-A §4 'market-decay-boundaries (... R+25/R+26 exactly ... ~0.065 at R+25)'; 1323-F Amendment 3.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "unchanged from 1346-C"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: exposureWeight lanes and boundaries > market-decay-boundaries-precondition-t-lt-r",
+    "requirement": "Brief PARENT API DECISIONS: 'exposureWeight ... t < R is a caller error (throws)'.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "unchanged from 1346-C"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: pressureFactor > market-factor-zero-exact",
+    "requirement": "1323-A §3 'f(P)=1-0.25*(1-e^(-P/2)) ... f(0)=1 exactly'.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "unchanged from 1346-C"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: pressureFactor > market-factor-bounds-and-monotonicity",
+    "requirement": "1323-A §3 'Factor. f(P) ... monotone, bounded in (0.75, 1]'.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "unchanged from 1346-C"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: pressureFactor > market-factor-worked-examples",
+    "requirement": "1323-A §3 'about 0.90 for one same-window competitor, 0.84 for two, 0.78 for four'; brief TESTS section, worked numeric expectations.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "unchanged from 1346-C"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: pressureFactor > market-factor-preconditions",
+    "requirement": "Brief PARENT API DECISIONS: 'pressureFactor ... throws on negative or non-finite P'.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "unchanged from 1346-C"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: assessBatch symmetry and identity invariants > market-one-player-one-rival",
+    "requirement": "1323-A §4 test name 'market-one-player-one-rival'; §3 one-same-window-competitor worked example and self-exclusion.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "unchanged from 1346-C"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: assessBatch symmetry and identity invariants > market-owner-swap",
+    "requirement": "1323-A §4 test name 'market-owner-swap'; §3 'no studio flag, owner or enumeration order enters the formula'.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "unchanged from 1346-C"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: assessBatch symmetry and identity invariants > market-id-swap",
+    "requirement": "1323-A §4 test name 'market-id-swap'; §3 'Swapping two studios ids or two films ids swaps the normalized outputs exactly'.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "unchanged from 1346-C"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: assessBatch symmetry and identity invariants > market-order-reversal",
+    "requirement": "1323-A §4 test name 'market-order-reversal'; §3 'Members are canonicalized by (week, releaseId) before any arithmetic'.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "unchanged from 1346-C"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: assessBatch symmetry and identity invariants > market-same-week-batch",
+    "requirement": "1323-A §4 'market-same-week-batch (both see one pre-batch snapshot plus each other, neither early)'.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "unchanged from 1346-C"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: assessBatch symmetry and identity invariants > market-different-genre",
+    "requirement": "1323-F 'Note adopted': 'a member of another genre contributes nothing to that subject and yields the market-different-genre ineligibility reason'.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "unchanged from 1346-C"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: stock term through assessBatch, and reason codes (1346-D Blocking 1) > market-stock-term-through-assess-batch",
+    "requirement": "1346-D Blocking Defect 1 / 1346-F: 'a leaf that calls assessBatch with a stock-lane-only exposure (no window-lane rivals) and asserts windowTerm===0, stockTerm against an independently hand-computed value ..., pressure~=stockTerm, factor~=expectedFactor(stockTerm), and that reasons include a GENRE_SATURATION-coded entry'.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "NEW in 1346-C2"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: stock term through assessBatch, and reason codes (1346-D Blocking 1) > market-stock-term-unclamped-same-studio",
+    "requirement": "1323-A §3 'stock term: Sum of stock weights of all genre-g exposures (unclamped: saturation counts volume)'; 1346-D Blocking Defect 1: 'separately verify multiple same-studio stock-lane exposures are not clamped (unlike the window term)'.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "NEW in 1346-C2"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: stock term through assessBatch, and reason codes (1346-D Blocking 1) > market-window-releases-reason-code",
+    "requirement": "1346-F: 'A window-lane case asserts the WINDOW_RELEASES code.'; brief PARENT API DECISIONS reason codes enumeration.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "NEW in 1346-C2"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: stock term through assessBatch, and reason codes (1346-D Blocking 1) > market-reason-source-ids-ordering",
+    "requirement": "1346-F Blocking 2 fix: 'each reason lists at most five sourceReleaseIds (the largest contributors to that reason's value, ties by ascending releaseId); value stays the full sum over every contributor'; coordinator instruction 'plus one leaf that checks the ordering rule on a small constructed case'.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "NEW in 1346-C2"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: per-studio clamp and reasons cap > market-studio-window-clamp",
+    "requirement": "1323-A §3 'clamped min(Wk,1.0) per (studio, genre) - one studio cannot flood a window'.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "unchanged from 1346-C"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: per-studio clamp and reasons cap > market-reasons-capped-at-five",
+    "requirement": "1323-A §4 'reasons capped at five'; §3 'reasons are typed codes ... at most five'; coordinator instruction '(1) ... market-reasons-capped-at-five must assert which codes are retained.'",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "REVISED in 1346-C2 (body redesigned: asserts the retained code SET across all four non-NO_PRESSURE codes engineered at once, not a per-source trim count)"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: large-batch linear storage > market-large-batch-linear-storage",
+    "requirement": "1323-A §4 'market-large-batch-linear-storage (512 same-week releases, 64 studios, dense overlap: assessment size independent of batch size, no co-batch list per assessment)'; 1323-F Amendment 3 annex L.5 '32 vs 512 same per-assessment size'; 1346-D Blocking Defect 2 / coordinator instruction (2): 'Assert sourceReleaseIds.length <= 5 for every reason at both the 32- and 512-release sizes'.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "EXTENDED in 1346-C2 (original top-level array-length assertions kept unchanged; added a nested reason.sourceReleaseIds bound check against the MARKET_REASON_SOURCE_LIMIT constant)"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: step counter (Amendment 3 work bound, small scale) > market-step-counter-basic",
+    "requirement": "Brief PARENT API DECISIONS: 'assessBatch accepts an optional { steps?: { count } } third argument and increments count per unit of work'; 1323-F Amendment 3 work bound.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "unchanged from 1346-C"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: reduceExposures > market-reduce-exposures-append",
+    "requirement": "1323-A §3 'Exposure reducer. After a batch, each member becomes an exposure {releaseId, studioId, genre, releaseWeek W}'.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "unchanged from 1346-C"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: reduceExposures > market-reduce-exposures-retire-boundary",
+    "requirement": "1323-A §3 'the reducer drops exposures at t >= R+26 and reports lane transitions'.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "unchanged from 1346-C"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: reduceExposures > market-reduce-exposures-lane-transition",
+    "requirement": "1323-A §3 'reports lane transitions'; 1346-F notes adopted: 'a member appended by the batch has no lane at batch.week - 1 and reports no transition; only exposures that existed before the batch can transition.'",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "unchanged from 1346-C (already matched the 1346-F restatement; no edit needed, confirmed in revision handback)"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: assessment shape invariants > market-input-digest-deterministic-and-sensitive",
+    "requirement": "Brief PARENT API DECISIONS MarketAssessment shape includes 'inputDigest'; 1323-F Amendment 3 determinism (byte-identical canonical JSON across runs).",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "unchanged from 1346-C"
+  },
+  {
+    "file": "tests/p15a1-shared-market.test.ts",
+    "leaf": "p15a1 shared market: assessment shape invariants > market-pressure-decomposition-invariant",
+    "requirement": "1323-A §3 'P = Sum_k min(Wk,1.0) + stock'; brief MarketAssessment shape { ..., pressure, factor, windowTerm, stockTerm, ..., definitionVersion }.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "unchanged from 1346-C (1346-D noted this leaf alone was a tautology re: stock aggregation; Blocking 1 is now independently closed by the three new stock-lane leaves above, not by editing this one)"
+  },
+  {
+    "file": "tests/p15a1-shared-market-harness.test.ts",
+    "leaf": "p15a1 shared market: pure 6,240-week harness (1323-F Amendment 3) > market-harness-normal-stream-bounded-active-set-and-determinism",
+    "requirement": "1323-A §4 'A pure 6,240-week harness drives a normal stream (nine rivals at about two releases a year plus the player) ... asserts bounded active set ... and determinism across two runs'; 1323-F Amendment 3 bounded-active-set-by-recount and determinism (byte-identical canonical JSON).",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "unchanged from 1346-C"
+  },
+  {
+    "file": "tests/p15a1-shared-market-harness.test.ts",
+    "leaf": "p15a1 shared market: pure 6,240-week harness (1323-F Amendment 3) > market-harness-hostile-batch-work-bound-and-active-set",
+    "requirement": "1323-A §4 'the hostile stream (64 studios, a 512-release batch, 4,000 active exposures)'; 1323-F Amendment 3 work bound 'at most (active exposures) + 2*(batch members)', bounded active set, determinism; 1346-D non-blocking note: 'add toBeGreaterThan(0) there too for self-containment'.",
+    "redReason": "Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in <importer>. Does the file exist?",
+    "status": "EXTENDED in 1346-C2 (added steps.count > 0 assertion; existing upper-bound and active-set/determinism assertions unchanged)"
+  }
+]

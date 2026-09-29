@@ -1,0 +1,137 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x
+
+ ❯ |core| tests/p15a1-shared-market-harness.test.ts (2 tests | 2 failed) 22ms
+   × p15a1 shared market: pure 6,240-week harness (1323-F Amendment 3) > market-harness-normal-stream-bounded-active-set-and-determinism 14ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: pure 6,240-week harness (1323-F Amendment 3) > market-harness-hostile-batch-work-bound-and-active-set 5ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+ ❯ |core| tests/p15a1-shared-market.test.ts (30 tests | 30 failed) 150ms
+   × p15a1 shared market: TUNING (real, already-existing module) > market-tuning-bounded-terms 31ms
+     → expected undefined to deeply equal [ 1, 0.55, 0.55, 0.2 ]
+   × p15a1 shared market: module surface > market-definition-version-export 17ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: module surface > market-reason-source-limit-export 5ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: exposureWeight lanes and boundaries > market-exposure-weight-window-lane-offsets 4ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: exposureWeight lanes and boundaries > market-decay-boundaries-r3-r4 2ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: exposureWeight lanes and boundaries > market-decay-boundaries-r25-r26 2ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: exposureWeight lanes and boundaries > market-decay-boundaries-precondition-t-lt-r 4ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: pressureFactor > market-factor-zero-exact 2ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: pressureFactor > market-factor-bounds-and-monotonicity 6ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: pressureFactor > market-factor-worked-examples 3ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: pressureFactor > market-factor-preconditions 2ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: assessBatch symmetry and identity invariants > market-one-player-one-rival 4ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: assessBatch symmetry and identity invariants > market-owner-swap 4ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: assessBatch symmetry and identity invariants > market-id-swap 5ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: assessBatch symmetry and identity invariants > market-order-reversal 3ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: assessBatch symmetry and identity invariants > market-same-week-batch 2ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: assessBatch symmetry and identity invariants > market-different-genre 2ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: stock term through assessBatch, and reason codes (1346-D Blocking 1) > market-stock-term-through-assess-batch 2ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: stock term through assessBatch, and reason codes (1346-D Blocking 1) > market-stock-term-unclamped-same-studio 2ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: stock term through assessBatch, and reason codes (1346-D Blocking 1) > market-window-releases-reason-code 2ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: stock term through assessBatch, and reason codes (1346-D Blocking 1) > market-reason-source-ids-ordering 1ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: per-studio clamp and reasons cap > market-studio-window-clamp 20ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: per-studio clamp and reasons cap > market-reasons-capped-at-five 7ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: large-batch linear storage > market-large-batch-linear-storage 2ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: step counter (Amendment 3 work bound, small scale) > market-step-counter-basic 1ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: reduceExposures > market-reduce-exposures-append 1ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: reduceExposures > market-reduce-exposures-retire-boundary 5ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: reduceExposures > market-reduce-exposures-lane-transition 1ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: assessment shape invariants > market-input-digest-deterministic-and-sensitive 2ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+   × p15a1 shared market: assessment shape invariants > market-pressure-decomposition-invariant 1ms
+     → Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 32 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p15a1-shared-market-harness.test.ts > p15a1 shared market: pure 6,240-week harness (1323-F Amendment 3) > market-harness-normal-stream-bounded-active-set-and-determinism
+ FAIL |core|  tests/p15a1-shared-market-harness.test.ts > p15a1 shared market: pure 6,240-week harness (1323-F Amendment 3) > market-harness-hostile-batch-work-bound-and-active-set
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: module surface > market-definition-version-export
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: module surface > market-reason-source-limit-export
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: exposureWeight lanes and boundaries > market-exposure-weight-window-lane-offsets
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: exposureWeight lanes and boundaries > market-decay-boundaries-r3-r4
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: exposureWeight lanes and boundaries > market-decay-boundaries-r25-r26
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: exposureWeight lanes and boundaries > market-decay-boundaries-precondition-t-lt-r
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: pressureFactor > market-factor-zero-exact
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: pressureFactor > market-factor-bounds-and-monotonicity
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: pressureFactor > market-factor-worked-examples
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: pressureFactor > market-factor-preconditions
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: assessBatch symmetry and identity invariants > market-one-player-one-rival
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: assessBatch symmetry and identity invariants > market-owner-swap
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: assessBatch symmetry and identity invariants > market-id-swap
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: assessBatch symmetry and identity invariants > market-order-reversal
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: assessBatch symmetry and identity invariants > market-same-week-batch
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: assessBatch symmetry and identity invariants > market-different-genre
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: stock term through assessBatch, and reason codes (1346-D Blocking 1) > market-stock-term-through-assess-batch
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: stock term through assessBatch, and reason codes (1346-D Blocking 1) > market-stock-term-unclamped-same-studio
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: stock term through assessBatch, and reason codes (1346-D Blocking 1) > market-window-releases-reason-code
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: stock term through assessBatch, and reason codes (1346-D Blocking 1) > market-reason-source-ids-ordering
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: per-studio clamp and reasons cap > market-studio-window-clamp
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: per-studio clamp and reasons cap > market-reasons-capped-at-five
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: large-batch linear storage > market-large-batch-linear-storage
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: step counter (Amendment 3 work bound, small scale) > market-step-counter-basic
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: reduceExposures > market-reduce-exposures-append
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: reduceExposures > market-reduce-exposures-retire-boundary
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: reduceExposures > market-reduce-exposures-lane-transition
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: assessment shape invariants > market-input-digest-deterministic-and-sensitive
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: assessment shape invariants > market-pressure-decomposition-invariant
+Error: Failed to load url ../src/core/sharedMarket.js (resolved id: ../src/core/sharedMarket.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346x/tests/p15a1-shared-market.test.ts. Does the file exist?
+ ❯ loadAndTransform ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/32]⎯
+
+ FAIL |core|  tests/p15a1-shared-market.test.ts > p15a1 shared market: TUNING (real, already-existing module) > market-tuning-bounded-terms
+AssertionError: expected undefined to deeply equal [ 1, 0.55, 0.55, 0.2 ]
+
+- Expected: 
+Array [
+  1,
+  0.55,
+  0.55,
+  0.2,
+]
+
++ Received: 
+undefined
+
+ ❯ tests/p15a1-shared-market.test.ts:114:44
+    112|     // A bounded-term test asserts value AND range, per repo conventio…
+    113|     const t = TUNING as unknown as Record<string, unknown>
+    114|     expect(t.SHARED_MARKET_WINDOW_WEIGHTS).toEqual([1, 0.55, 0.55, 0.2…
+       |                                            ^
+    115|     expect(t.SHARED_MARKET_STOCK_START).toBe(0.2)
+    116|     expect(t.SHARED_MARKET_STOCK_HALF_LIFE_WEEKS).toBe(13)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/32]⎯
+
+ Test Files  2 failed (2)
+      Tests  32 failed (32)
+   Start at  00:08:44
+   Duration  1.48s (transform 538ms, setup 0ms, collect 778ms, tests 172ms, environment 1ms, prepare 726ms)
+
