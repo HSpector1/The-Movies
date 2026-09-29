@@ -1,0 +1,24 @@
+[
+  {
+    "file": "tests/bridge-p14p3-directing-promises.test.ts",
+    "line": 30,
+    "leaf": [
+      "D15 commits genuine public directing commands with closed private authority",
+      "D16 discloses Director and legacy cast terms truthfully without private inputs",
+      "D17 migrates outgoing53 independently and isolates current55 campaigns"
+    ],
+    "old": "const TIMEOUT = 60_000",
+    "new": "const TIMEOUT = 300_000",
+    "cause": "1333 full-suite gate measured D15/D16/D17 at 139,426/116,959/118,597 ms, all above the old 60,000ms shared budget; only D17 (async) was actually cut off ('Test timed out in 60000ms.') because Vitest's timer can only preempt at a yield point, which D15/D16's synchronous bodies never give it. 300_000 is ~2x the slowest measured leaf (139,426ms), per 1337-A rule 2 / 1337-B ACCEPT. Comment adds 1337-B non-blocking note 1: the constant is enforced only for D17 today; a future async conversion of D15/D16 should reconsider their budget."
+  },
+  {
+    "file": "ui/src/lot/livingTurn.parity.test.tsx",
+    "line": 110,
+    "leaf": [
+      "mountLot helper's first studio-lot-screen wait, used by all seven leaves in the file (all four parity arms, the byte-identical-export leaf, and the theater READ/never-read leaf)"
+    ],
+    "old": "await screen.findByTestId('studio-lot-screen')",
+    "new": "await screen.findByTestId('studio-lot-screen', {}, { timeout: 10_000 })",
+    "cause": "1336/1303 (C7): 'Unable to find an element by: [data-testid=\"studio-lot-screen\"]' at this line under full-suite load, RTL's findBy default 1000ms timeout; the file passes 3/3 alone (1336-F) so the failure depends on load, mechanism inferred not isolated. 10_000ms is the U1 M1 value (1335-A/1335-C), the identical figure already validated for three sibling mount-race files under the same full-suite load condition, per 1337-A rule 3 / 1337-B ACCEPT. Comment adds 1337-B non-blocking note 2: this figure is precedent-analogical for this specific file, not a direct worst-case measurement, and the recorded UI gate after this change is the actual confirmation step. Wait stays strictly before vi.useFakeTimers() (unchanged position)."
+  }
+]

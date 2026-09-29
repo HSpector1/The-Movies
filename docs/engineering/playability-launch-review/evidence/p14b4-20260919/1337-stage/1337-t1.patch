@@ -1,0 +1,37 @@
+diff --git a/tests/bridge-p14p3-directing-promises.test.ts b/tests/bridge-p14p3-directing-promises.test.ts
+index 6de51a8..cf90c36 100644
+--- a/tests/bridge-p14p3-directing-promises.test.ts
++++ b/tests/bridge-p14p3-directing-promises.test.ts
+@@ -27,7 +27,13 @@ import { exportSave, importSave, makeSave, migrateToLive, stableStringify,
+   validateSaveV38, validateSaveV39, validateSaveV42 } from '../src/core/save.js'
+ import type { GameState, ProfessionalPromise } from '../src/core/types.js'
+ 
+-const TIMEOUT = 60_000
++// 1333-I: D15/D16/D17 measured 139,426/116,959/118,597 ms in the full-suite gate; the old
++// 60,000 ms budget cut D17 off (`Test timed out in 60000ms.`) while D15/D16 ran past it and
++// still passed, because Vitest's timer can only preempt at a yield point a fully synchronous
++// body never gives it -- this constant is currently enforced only for D17 (the async leaf); a
++// future conversion of D15/D16 to `async` should reconsider whether they need their own budget.
++// 300_000 is about 2x the slowest measured leaf (139,426 ms), rounded.
++const TIMEOUT = 300_000
+ const E = '../docs/engineering/playability-launch-review/evidence/p14b4-20260919/'
+ const CAPTURE = E + '1171-p3-current45-capture/'
+ const OLD = './fixtures/p14/genuine-v38-pre-p3/'
+diff --git a/ui/src/lot/livingTurn.parity.test.tsx b/ui/src/lot/livingTurn.parity.test.tsx
+index da560ea..f6b385f 100644
+--- a/ui/src/lot/livingTurn.parity.test.tsx
++++ b/ui/src/lot/livingTurn.parity.test.tsx
+@@ -107,7 +107,12 @@ const MOUNTED_ARM_TIMEOUT_MS = 60_000
+ async function mountLot(state: GameState) {
+   saveActiveSession(state)
+   render(<App />)
+-  await screen.findByTestId('studio-lot-screen')
++  // 10_000ms is the U1 M1 value (1335-A/1335-C), validated under full-suite load for three
++  // sibling mount-race files (livingTurn.scheduler, WorldFirstLotNativeCastingReviewApp,
++  // WorldFirstLotNativeNextEventApp), not a direct worst-case measurement for this file --
++  // RTL's findBy failure reports no elapsed time. The recorded UI gate after this change is
++  // the confirmation step, per 1337-B note 2. Stays strictly before `vi.useFakeTimers()`.
++  await screen.findByTestId('studio-lot-screen', {}, { timeout: 10_000 })
+   await waitFor(() => expect(renderer.instances).toHaveLength(1))
+   vi.useFakeTimers()
+   // @testing-library's fake-timer support keys off a global `jest` carrying
