@@ -1,0 +1,191 @@
+{
+  "record": "1337-K parent closure: timing-budget repair T1 (core D17 TIMEOUT, livingTurn.parity first-mount wait), test-only",
+  "timeUtc": "2026-09-29T20:47:18.697724+00:00",
+  "disposition": "CLOSED \u2014 LOGIC VERIFIED \u00b7 UNITY NOT VERIFIED. Both T1 targets pass in the recorded gates. Not GREEN: core 79 (1338), UI 14 (1339: 10 PIL, 1124-A, three new time-budget rows on unbudgeted App-mount leaves).",
+  "plan": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1337-A-timing-budget-t1-plan.md",
+    "bytes": 3214,
+    "sha256": "0e18ec8ca0bf09fcd814c6fa5083ca718cf2319e7dd79bf51f51bae996064a6b"
+  },
+  "planReview": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1337-B-t1-plan-review.md",
+    "bytes": 11674,
+    "sha256": "b3a106440797cb14369332c7da1d67b89f330dfae140584665a8b9e7ac705008"
+  },
+  "planVerdict": "ACCEPT",
+  "handback": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1337-C-t1-handback.md",
+    "bytes": 11542,
+    "sha256": "ed11434b60c0c3c6e772718b2e5495301940f0523df5423d3ab348817f59c911"
+  },
+  "staged": {
+    "patch": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1337-stage/1337-t1.patch",
+      "bytes": 2391,
+      "sha256": "dc06e85cf157e8e43bc39c5ae6e9d4cdc052857666b6310b8c742f1566034d60"
+    },
+    "classification": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1337-stage/1337-t1-classification.json",
+      "bytes": 2171,
+      "sha256": "09095a70704ce6eb54a6a0e1f440bbe93c8779693eed44d67f1db6f45f56c1dc"
+    }
+  },
+  "dryRun": {
+    "record": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1337-X-t1-dry-run.md",
+      "bytes": 1314,
+      "sha256": "8a0775fb3e1babc24ad32e9259e637a38ba8deaacfeb505762ffdfe598bf6ad7"
+    },
+    "core": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1337-X-core-run.txt",
+      "bytes": 2484,
+      "sha256": "b89b87d8efc668d0746155f6714aea3442be0c6c56951a989ea3b8bc467e333f"
+    },
+    "ui": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1337-X-ui-run.txt",
+      "bytes": 1014,
+      "sha256": "921961a1a04d3d8efa53bbb367c8306ce791da9d9440c1afe2b2e2fe3f924cd3"
+    }
+  },
+  "implementationReview": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1337-D-t1-review.md",
+    "bytes": 13442,
+    "sha256": "f223689a363e7a345f24d099e25497eb60090102cb3d41af91b21fae92acd34a"
+  },
+  "implementationVerdict": "REFINE (record accuracy: parity line numbers, 5 of 7 leaves), answered in 1337-F",
+  "implementationResponse": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1337-F-parent-response-to-1337-D.md",
+    "bytes": 1952,
+    "sha256": "fbfbe63d45ee7951067055e5293c489c86a8c5c7bbc8bbf18acb5830b313ff32"
+  },
+  "application": {
+    "commit": "ff803032",
+    "appliedFilesEqualDryRunTree": true,
+    "typeGates": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1337-E-type-gates.txt",
+      "bytes": 36,
+      "sha256": "40095271085dfebbe92a6c6c551958841ddd11a406a2bca37ac8a6b6d00ba1fc"
+    }
+  },
+  "coreGate": {
+    "failed": 79,
+    "passed": 4602,
+    "goneVs1333": 1,
+    "newVs1333": 0,
+    "note": "D17 gone; D15/D16/D17 124.6/109.6/93.2 s inside the 300 s TIMEOUT",
+    "run": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1338-t1-broad-core-collection-preflight.json",
+        "bytes": 19208,
+        "sha256": "fbd1bbb3814fc2b607cb2fb9f90cca8879237bc5fe32cbc00d900182b95f12f7"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1338-t1-broad-core-preflight.json",
+        "bytes": 115188,
+        "sha256": "4d29d8faaf566b0b5de4019237046e5181b737745d47aed8ef3c55be5b2c4617"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1338-t1-broad-core.json",
+        "bytes": 71364,
+        "sha256": "317c3d3790849738e8ee15d48a2406c92af82deb0734b2a744277e17c0148616"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1338-t1-broad-core.txt",
+        "bytes": 14839463,
+        "sha256": "eda4ae257e5c71d42f1bb5823314b6a1d30872ae9d98350d851cd1d9ebf1b68c"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1338-t1-broad-core.patch",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1338-t1-broad-core-postflight.json",
+        "bytes": 115852,
+        "sha256": "69ce50697cd50601d78db2f875f27f6cf5de0abbe2c1e473f4e23025614bb995"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1338-t1-broad-core-collection-postflight.json",
+        "bytes": 139,
+        "sha256": "3768a1c4b6a4940627b88ab28f24b033a55cfc3cb21021a678a53d7ddd17e872"
+      }
+    ],
+    "attribution": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1338-I-broad-core-attribution.md",
+        "bytes": 1962,
+        "sha256": "262d2fb0f447223b1cd297116eb0bec86b3c71e78c15e016a29ba4fde78e1594"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1338-I-failures.json",
+        "bytes": 95871,
+        "sha256": "72b3cb9585c4aff844a8a4b24b07680e3f43ca780d050063302678819e90accb"
+      }
+    ]
+  },
+  "uiGate": {
+    "failed": 14,
+    "passed": 2678,
+    "goneVs1336": 2,
+    "newVs1336": 3,
+    "note": "livingTurn.parity (a) passes (7.1 s); new: CastingReview first leaf and World Inspector first leaf time out at the 5 s default, plus the World Inspector cascade",
+    "run": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1339-t1-broad-ui-preflight.json",
+        "bytes": 115188,
+        "sha256": "715956933543a0180be906f1d515f581480c74c11408a88d70e63f03fa7c1c42"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1339-t1-broad-ui.json",
+        "bytes": 52799,
+        "sha256": "b632bc699d6688978330f134d68e3b8057ff4cfce233189d3be9945321704588"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1339-t1-broad-ui.txt",
+        "bytes": 254124,
+        "sha256": "e11d1523ccc086bbff2c3faba5cbdc79d443b659ce7cfd06cfd0a33f1e707fcd"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1339-t1-broad-ui.patch",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1339-t1-broad-ui-postflight.json",
+        "bytes": 115844,
+        "sha256": "baf2d1dca8467998879c713baada31346a345691e428b672d89126a45588460f"
+      }
+    ],
+    "attribution": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1339-I-broad-ui-attribution.md",
+        "bytes": 3468,
+        "sha256": "3294f24c03d9b2e4a55fc4c8b8c4b7ac64e74149c1d024bc0c4f00e45f303e57"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1339-I-failures.json",
+        "bytes": 17252,
+        "sha256": "0f9ff3a5dbb594bd55fae249dcb37e8bfcaf925300536141fbf0783c9788b1ae"
+      }
+    ]
+  },
+  "gatesReview": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1338-J-t1-gates-attribution-review.md",
+    "bytes": 13290,
+    "sha256": "1dd39e4c58bf38fdc79d5dc183b27e42f6bbdf37d0d4d2f4328759ce63d7098c"
+  },
+  "gatesReviewVerdict": "KEEP, no defects",
+  "ownerDecision": {
+    "id": "D-1339-1",
+    "date": "2026-09-29",
+    "question": "raise the UI project's default per-test limit in the repo's own test config, or stay inside the test files",
+    "answer": "Repo test config (the Owner chose the recommended option): the UI project's testTimeout in vitest.workspace.ts becomes 30 s; the Owner reads 'no global configuration changes' as machine/global settings"
+  },
+  "openItems": [
+    "U2: UI project testTimeout 30 s in vitest.workspace.ts (D-1339-1)",
+    "1124-A NextEvent dashboard-heading wait and StudioLotScreen:930 focus: intermittents needing investigation",
+    "PIL absent (environment)",
+    "Owner decisions D-1329-1, D-1323-1, D-1312-1, D-1312-2, HIS-014"
+  ],
+  "next": "U2 plan (1340-A)"
+}
