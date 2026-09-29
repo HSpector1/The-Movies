@@ -1,0 +1,47 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1349x
+
+stderr | ui/src/lot/StudioLotIdentityReview.test.tsx > D1-A identity review selector > zz-u3 probe: a mounted Lot with the dev flag outlives one 500 ms telemetry tick
+An update to StudioLotScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | ui/src/lot/StudioLotIdentityReview.test.tsx > D1-A identity review selector > zz-u3 probe: a mounted Lot with the dev flag outlives one 500 ms telemetry tick
+An update to StudioLotScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | ui/src/lot/StudioLotIdentityReview.test.tsx > D1-A identity review selector > zz-u3 probe: a mounted Lot with the dev flag outlives one 500 ms telemetry tick
+An update to StudioLotScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ✓ |ui| ui/src/lot/StudioLotIdentityReview.test.tsx (11 tests | 10 skipped) 1511ms
+   ✓ D1-A identity review selector > zz-u3 probe: a mounted Lot with the dev flag outlives one 500 ms telemetry tick 1509ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 10 skipped (11)
+   Start at  23:34:40
+   Duration  9.93s (transform 3.83s, setup 384ms, collect 5.17s, tests 1.51s, environment 2.11s, prepare 193ms)
+

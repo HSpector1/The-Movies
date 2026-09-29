@@ -1,0 +1,13 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1349x
+
+ ✓ |ui| ui/src/lot/StudioLotIdentityReview.test.tsx (10 tests) 2343ms
+   ✓ D1-A identity review selector > each mode drives setIdentityMode / setReducedMotion correctly 458ms
+   ✓ D1-A identity review selector > switching review modes never mutates GameState 514ms
+   ✓ D1-A identity review selector > the companion navigation still reaches the deep screen while the review selector is active 476ms
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+   Start at  23:35:00
+   Duration  10.37s (transform 3.63s, setup 509ms, collect 4.83s, tests 2.34s, environment 1.97s, prepare 203ms)
+
