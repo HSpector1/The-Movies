@@ -12,6 +12,22 @@ order). Marathon-era "no successor" language below is historical.**
 This is a compact routing index, not a replacement for the contracts, evidence, Owner records, or
 canonical Lessons Learned.
 
+## Owner rulings, 2026-09-29
+
+Recorded word for word in
+[1340-O](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1340-O-owner-rulings-20260929.md).
+The Owner said not to reopen these for routine implementation details.
+
+- D-1329-1 rival stall: charter and implement bounded shelving of a Ready, unproduced screenplay; tuning provisional.
+- D-1323-1 shared market: the 1323-A formula as amended by 1323-F; constants provisional; Wave 4 playtest.
+- D-1312-1 conflict records: three distinct recorded casting competitions between the pair; evidence, not a tier.
+- D-1312-2 romance ending: candidate A; sustained separation may decay the romance track and end the bond.
+- HIS-014 labels: Mentor (first three qualifying pictures, one director); Professional Rivals (two competitions
+  for the same casting slot). Labels decorate tiers and have no effect of their own.
+- D-1339-1: the UI project's default `testTimeout` is 30,000 ms in `vitest.workspace.ts`. This stabilizes the test
+  harness; it does not prove in-game performance.
+- Order: the rival-stall correction and its verification come before shared-market pressure enters the live economy.
+
 ## Product doctrine
 
 - **THE STUDIO LOT IS THE PRIMARY GAME SURFACE.** Management UI supports the world; it does not

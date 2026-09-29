@@ -1,5 +1,30 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — T1 closed LOGIC VERIFIED (1337-K); Owner rulings close all five decisions (1340-O)
+
+T1 (1337-A, two test files) is closed. D17's budget is 300 s, and livingTurn.parity's first
+mount waits up to 10 s. Core gate 1338: 79 failed / 4602 passed; D17 gone, 0 new against 1333.
+UI gate 1339: 14 failed / 2678 passed. The parity leaf passes; the failures are 10 PIL,
+1124-A, and three time-budget rows on App-mount leaves with no budget (CastingReview and World
+Inspector first leaves at the 5 s default, plus the World Inspector cascade). Review 1338-J
+KEEP. Closure 1337-K: LOGIC VERIFIED · UNITY NOT VERIFIED; not GREEN.
+
+Owner rulings of 2026-09-29, verbatim in 1340-O and indexed in DECISIONS.md:
+- D-1329-1: charter and implement bounded rival screenplay shelving;
+- D-1323-1: the 1323-A/F shared-market formula; P15A.1 authorized;
+- D-1312-1: three distinct recorded casting competitions make conflict evidence;
+- D-1312-2: candidate A; separation may decay the romance track;
+- HIS-014: Mentor and Professional Rivals label definitions;
+- D-1339-1: UI project testTimeout 30,000 ms in vitest.workspace.ts.
+Constants in all of them are provisional tuning. The Owner said not to reopen these for routine
+implementation details.
+
+Order: U2 (the UI testTimeout, with a recorded UI gate) now; then the rival-shelving charter
+and its verification before any shared-market pressure enters the live economy. The P15A.1
+sequence and the P14 relationship rules proceed meanwhile up to that integration point.
+Owner decisions open: none of the five. P15 §4.3's other items (Power Ranking, closure
+asymmetry, later entry, finale, post-2040) remain open for later slices.
+
 ## CURRENT — UI repair U1 closed LOGIC VERIFIED (1335-K); UI gate down to 13 (10 PIL)
 
 U1 (1335-A, six UI test files) is closed. Test-only fixes for four clusters:
