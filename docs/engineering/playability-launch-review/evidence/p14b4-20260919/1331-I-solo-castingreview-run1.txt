@@ -1,0 +1,198 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx (10 tests | 1 failed) 26910ms
+   × World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > reviews all six event-owned observations in the Lot, keeps deep detail optional, then hands the clear successor to Package 2457ms
+     → Unable to find an element by: [data-testid="studio-lot-screen"]
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="card"
+      data-recovery="continuing"
+      data-testid="recovery-notice"
+      role="status"
+      style="margin-bottom: 12px;"
+    >
+      <div
+        class="spread"
+      >
+        <span>
+          Continuing your studio — Week 1.
+        </span>
+        <button
+          class="ghost"
+          data-testid="recovery-dismiss"
+        >
+          Dismiss
+        </button>
+      </div>
+    </div>
+    <div
+      class="app-shell"
+    >
+      <p
+        aria-atomic="true"
+        aria-live="polite"
+        class="hint"
+        data-testid="studio-lot-lazy-loading"
+        role="status"
+      >
+        Opening the Studio Lot…
+      </p>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="card"
+      data-recovery="continuing"
+      data-testid="recovery-notice"
+      role="status"
+      style="margin-bottom: 12px;"
+    >
+      <div
+        class="spread"
+      >
+        <span>
+          Continuing your studio — Week 1.
+        </span>
+        <button
+          class="ghost"
+          data-testid="recovery-dismiss"
+        >
+          Dismiss
+        </button>
+      </div>
+    </div>
+    <div
+      class="app-shell"
+    >
+      <p
+        aria-atomic="true"
+        aria-live="polite"
+        class="hint"
+        data-testid="studio-lot-lazy-loading"
+        role="status"
+      >
+        Opening the Studio Lot…
+      </p>
+    </div>
+  </div>
+</body>
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > greenlights the canonical Package into exact formation without replacing the Lot, canvas, or renderer 4770ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > keeps a blocked acknowledgement and every current remedy on the same mounted fallback Lot 3540ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > keeps the complete blocked world action available in the Classic physical fallback 2944ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > preserves the clear Classic rollback route as standalone Package Assembly 2094ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > rebuilds an imported pending review only after Casting is selected in the replacement Lot 4075ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > keeps a malformed current Casting decision neutral instead of falling through to Casting Room 1219ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > keeps a thrown current-decision adapter neutral 1509ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > lands the in-world Casting inspector when no current studio decision exists, and still reaches the Casting Room by explicit choice 1815ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > dispatches the first same-title session from the Lot and returns neutral instead of substituting the later review 2485ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |ui|  ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > reviews all six event-owned observations in the Lot, keeps deep detail optional, then hands the clear successor to Package
+TestingLibraryElementError: Unable to find an element by: [data-testid="studio-lot-screen"]
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="card"
+      data-recovery="continuing"
+      data-testid="recovery-notice"
+      role="status"
+      style="margin-bottom: 12px;"
+    >
+      <div
+        class="spread"
+      >
+        <span>
+          Continuing your studio — Week 1.
+        </span>
+        <button
+          class="ghost"
+          data-testid="recovery-dismiss"
+        >
+          Dismiss
+        </button>
+      </div>
+    </div>
+    <div
+      class="app-shell"
+    >
+      <p
+        aria-atomic="true"
+        aria-live="polite"
+        class="hint"
+        data-testid="studio-lot-lazy-loading"
+        role="status"
+      >
+        Opening the Studio Lot…
+      </p>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="card"
+      data-recovery="continuing"
+      data-testid="recovery-notice"
+      role="status"
+      style="margin-bottom: 12px;"
+    >
+      <div
+        class="spread"
+      >
+        <span>
+          Continuing your studio — Week 1.
+        </span>
+        <button
+          class="ghost"
+          data-testid="recovery-dismiss"
+        >
+          Dismiss
+        </button>
+      </div>
+    </div>
+    <div
+      class="app-shell"
+    >
+      <p
+        aria-atomic="true"
+        aria-live="polite"
+        class="hint"
+        data-testid="studio-lot-lazy-loading"
+        role="status"
+      >
+        Opening the Studio Lot…
+      </p>
+    </div>
+  </div>
+</body>
+ ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ renderStudio ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx:250:28
+    248|   expect(saveActiveSession(state)).toBe(true)
+    249|   render(<App />)
+    250|   const lot = await screen.findByTestId('studio-lot-screen')
+       |                            ^
+    251|   await waitFor(() => expect(renderer.instances).toHaveLength(1))
+    252|   return {
+ ❯ ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx:311:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 9 passed (10)
+   Start at  12:45:27
+   Duration  34.57s (transform 5.03s, setup 140ms, collect 5.70s, tests 26.91s, environment 1.16s, prepare 164ms)
+

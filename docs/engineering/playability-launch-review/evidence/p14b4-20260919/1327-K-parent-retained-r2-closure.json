@@ -1,0 +1,265 @@
+{
+  "record": "1327-K parent closure: retained-defect repair R2 (clusters C15, C3, C12), test-only",
+  "timeUtc": "2026-09-29T10:54:53.543692+00:00",
+  "disposition": "CLOSED \u2014 LOGIC VERIFIED \u00b7 UNITY NOT VERIFIED. Headless TypeScript/Vitest evidence only; no Unity run. Not GREEN: 82 core and 34 UI failures remain open, every core identity retained from 1325 (0 new) and every UI identity in a recorded retained cluster (33 of 34 in the 1317/1322 sets; the one outsider attributed to the C1 time-budget family by 1331-I).",
+  "scope": "Tests only (1327-A rule 1): 7 files under tests/, no production, fixture payload or config change.",
+  "plan": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1327-A-retained-defect-repair-r2-plan.md",
+    "bytes": 4776,
+    "sha256": "59406a24f021edb6fb2d0aec9e9f423c15803d43d4286f2309662ca1e89d7752"
+  },
+  "planReview": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1327-B-r2-plan-and-producer-review.md",
+    "bytes": 8867,
+    "sha256": "23a128d1c42552ba2aab826f4e503efe36a41dffd50a0d31069f3e9b3b0eaa15"
+  },
+  "planVerdict": "ACCEPT for the plan and the 1328 producer",
+  "producer": {
+    "source": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1328-p56-declaration-measurement.ts",
+      "bytes": 9413,
+      "sha256": "8218a08ee0a6e1dd920e5496953f5e93a024396d7708e14736d805154fcee16f"
+    },
+    "sourceManifest": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1328-p56-declaration-source-manifest.json",
+      "bytes": 4324,
+      "sha256": "6dee241f135b80dfd4f7b12d67342734ee4f3f6c328d1b454dea1c9a11e1e2ea"
+    },
+    "run": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1328-p56-declaration-measurement-preflight.json",
+        "bytes": 115188,
+        "sha256": "856353a23b604d2b90994c6f44e6720970a73ded282d3ec2b9f1d2fa46899e71"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1328-p56-declaration-measurement.json",
+        "bytes": 52874,
+        "sha256": "782bb7985f58c3e4f08ceaf5c5c20398e8c5d81bcdf775c83a8448f74087c0ff"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1328-p56-declaration-measurement.txt",
+        "bytes": 50085,
+        "sha256": "a1bd5337d18ab58c0a3916873130f835faea9ea73c45816184b94a3f9033fc54"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1328-p56-declaration-measurement.patch",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1328-p56-declaration-measurement-postflight.json",
+        "bytes": 115891,
+        "sha256": "19f1ef72bdbe37de0c7464c0c230b1259bd83375e86fd1ffd462431c01ccfea4"
+      }
+    ],
+    "result": "F10/F11 a0f316eb5b4be929f82102246b415414e0720000e6dd4a62b22980192abaf8aa (418,871 bytes); six fixed outputs unchanged; ALL_EIGHT_POSITIVES_MEASURED_TWICE_SIX_FIXED_UNCHANGED"
+  },
+  "handback": {
+    "revision1": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1327-C-retained-r2-handback.md",
+      "bytes": 26933,
+      "sha256": "b2dfc2290e00920514ca95bbeb815c0718d6c487911175dc4f60a8de60d07aec"
+    },
+    "adoption": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1327-F-parent-r2-handback-adoption.md",
+      "bytes": 2637,
+      "sha256": "f75ac7d5855654ba2af1c3727c0217560239d5a2252d512215d0a1345cda7d00"
+    },
+    "revision2": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1327-C2-retained-r2-revision.md",
+      "bytes": 8245,
+      "sha256": "c3c5d449b3f515ade5626da75bbf1282cde91f9b88ef46a3de6e1aca14a76317"
+    }
+  },
+  "staged": {
+    "patch": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1327-stage/1327-retained-r2.patch",
+      "bytes": 14498,
+      "sha256": "fbc3ac33b2ac9cc7258edb4cd15e46b15b1d757a15892258426da17defda0084"
+    },
+    "classification": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1327-stage/1327-retained-r2-classification.json",
+      "bytes": 24838,
+      "sha256": "aad21b3d6f09bb8d36e439de74276da7634c08c7acfcd5e20c58e967ef8e33c9"
+    },
+    "stagingCommit": "4c851445"
+  },
+  "dryRun": {
+    "record": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1327-X-retained-r2-dry-run.md",
+      "bytes": 3018,
+      "sha256": "a734dfff416ba5b986f1f12fb1f26d9348cbba762f939284c29bb19ffe304085"
+    },
+    "extract": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1327-X-fullcore-extract.txt",
+      "bytes": 2777,
+      "sha256": "d9c394ee6ac13ef2548ac921aa60f53a88f5cd32ad1d5994f878ffd2ec896b8f"
+    },
+    "rows": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1327-X-fullcore-rows.json",
+      "bytes": 102740,
+      "sha256": "3845c40cde26bb078ed67361f11524d1ebd8d70eba94ca9bf0b65e648cb32758"
+    },
+    "result": "89 failed / 4592 passed; 11 gone against 1325, 7 scratch-only bridge-supervisor rows, L1/L2 reach noCatalogue, no new cause"
+  },
+  "implementationReview": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1327-D-retained-r2-review.md",
+    "bytes": 9225,
+    "sha256": "cedffcde1da39cfcee141c49e2b9d0bb5b080a439e01d7352044492a8ad3c1f0"
+  },
+  "implementationVerdict": "ACCEPT",
+  "application": {
+    "commit": "350f9db5",
+    "appliedFilesEqualDryRunTree": true
+  },
+  "coreGate": {
+    "failedFiles": 24,
+    "failed": 82,
+    "passed": 4599,
+    "skipped": 3,
+    "todo": 11,
+    "retainedSameVs1316": 78,
+    "retainedChangedVs1316": 4,
+    "newVs1325": 0,
+    "goneVs1325": 11,
+    "gone": "the 10 R2 target rows (C12 2, C15 5, C3 K1-K3) and K4 under the 1327-F amendment; equal to the 1327-X gone set",
+    "changedVs1325": "L1 and L2 of p14c3-canonical-rival-history now fail at the masked natural-chain cause (noCatalogue, week 607); the benign exporter row differs only in its temporary directory",
+    "testedDiff": "testedDiffSha256 = sha256(\"\") at start and end; 0-byte patch",
+    "run": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1330-r2-broad-core-collection-preflight.json",
+        "bytes": 19208,
+        "sha256": "fbd1bbb3814fc2b607cb2fb9f90cca8879237bc5fe32cbc00d900182b95f12f7"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1330-r2-broad-core-preflight.json",
+        "bytes": 115188,
+        "sha256": "d5e25c06e5786812046070804457cf1083475f78baaffa888557e131e370bcee"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1330-r2-broad-core.json",
+        "bytes": 71364,
+        "sha256": "c175506d68b350067a1d371a72ab790f87bfad0840edeb2b94abffe0d17b0e03"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1330-r2-broad-core.txt",
+        "bytes": 15967082,
+        "sha256": "819b1984e9be9e5179718fc1aaa25c429574127f226bed4085ad1485549fd980"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1330-r2-broad-core.patch",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1330-r2-broad-core-postflight.json",
+        "bytes": 115852,
+        "sha256": "d2641628dee97c9d03cedcc5b573da61585d581661b0c0d148a28d83bb32b02f"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1330-r2-broad-core-collection-postflight.json",
+        "bytes": 139,
+        "sha256": "3768a1c4b6a4940627b88ab28f24b033a55cfc3cb21021a678a53d7ddd17e872"
+      }
+    ],
+    "attribution": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1330-I-broad-core-attribution.md",
+        "bytes": 3116,
+        "sha256": "4b3be50718061ee78b1b6363ec09fca337af9110652e28049fbbfb3ad34a3741"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1330-I-failures.json",
+        "bytes": 97688,
+        "sha256": "539eaf5b5af4e3596e8c561662b7397104c6b953a5c05a0a5a1f6c419f32daa1"
+      }
+    ],
+    "review": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1330-J-r2-core-attribution-review.md",
+      "bytes": 7884,
+      "sha256": "d4ed4f32b828bb22a652ace9530d10eb037cf0bf0eb81b92b9d579c2c549b7b9"
+    },
+    "reviewVerdict": "KEEP, no required changes"
+  },
+  "uiGate": {
+    "failedFiles": 9,
+    "failed": 34,
+    "passed": 2658,
+    "skipped": 5,
+    "newAgainst1303": 7,
+    "outsideRecorded1317or1322": 1,
+    "attributionNote": "UI project ran source byte-identical to 1322 and 1326. The outsider, WorldFirstLotNativeCastingReviewApp's first leaf, fails alone twice with the lazy Studio Lot placeholder still on screen when findBy's 1000 ms default expires (C1 cold-mount mechanism of 1317-I); unlike earlier C1 rows it does not pass alone.",
+    "testedDiff": "testedDiffSha256 = sha256(\"\") at start and end; 0-byte patch",
+    "run": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1331-r2-broad-ui-preflight.json",
+        "bytes": 115188,
+        "sha256": "98be93deb1010fd22989934231553df7242b9e89966570ed381ccfff2fba0962"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1331-r2-broad-ui.json",
+        "bytes": 52799,
+        "sha256": "9919fda520285b714618db3a5d62359adfb5c054a526a40cfc56f516b7b4d975"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1331-r2-broad-ui.txt",
+        "bytes": 432809,
+        "sha256": "69b3d82cadd01445e79f69089ef8bc97f37e263dd5d0231b42161681ee60c963"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1331-r2-broad-ui.patch",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1331-r2-broad-ui-postflight.json",
+        "bytes": 115844,
+        "sha256": "5e7bee691f7cc37fdcbbc9b1a0bf8f47b465ca498bf447f16cedd46b48d09732"
+      }
+    ],
+    "attribution": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1331-I-broad-ui-attribution.md",
+        "bytes": 4320,
+        "sha256": "d27d466331b925e77d6f9d2e8839970c46ad2ad0b5ad6d710dd3cc6094f4ea82"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1331-I-failures.json",
+        "bytes": 29392,
+        "sha256": "4a403efa30b24ce3ef175dac955d062e2ecc4c5987eff78196a982bbb911e902"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1331-I-solo-castingreview-run1.txt",
+        "bytes": 6427,
+        "sha256": "63d626cce56ae6e000af34834a65bbd7ed7e91915bec9bcfb7a7cb27e0ff6470"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1331-I-solo-castingreview-run2.txt",
+        "bytes": 6427,
+        "sha256": "db228ba1d1e42230ce1fb2bf04054c98408737891ea106ac6c5535fd36785d2d"
+      }
+    ],
+    "review": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1331-J-r2-ui-attribution-review.md",
+      "bytes": 9732,
+      "sha256": "51bc1cf21f80a1ff4ecb49407c19ed5452bc5865def2ca3266e676e0342df478"
+    },
+    "reviewVerdict": "REFINE: item 1 (six to seven stacked C1 rows) and the section 4 caveat applied to 1331-I before commit; the claim that the UI-project source is unchanged was checked by the parent with git diff and is not checkable read-only (evidence limit, as at 1325-J)"
+  },
+  "typeGatesAtHead": {
+    "head": "089431d8",
+    "root": 0,
+    "bridge": 0,
+    "ui": 0
+  },
+  "openItems": [
+    "retained core clusters after R2: C8 42, UNRESOLVED 10, inherited 9, C17 6, C16 5, C3 3 (L1, L2 noCatalogue; R8 time budget), C15 2 (bridge-p14c2rm-retirement, natural trust law), C16b 2, C1 1, C20 1 (rule-4 leaf), benign 1",
+    "C8, and the UNRESOLVED ledger (4) and seating-preference (3) rows: natural chain moved at 969fb459; Owner decision D-1329-1",
+    "UNRESOLVED bridge-p14b2-checkpoint:65, p14b5-relationships:546, p14c3-promise-digest-continuity:194: measured causes, test-only repair R3 is the next increment (1332-A, to be written)",
+    "C16b (P3 D07/D18): the frozen failed fixed-rival attempt of 1169-A/B; no rescue authorized",
+    "C17 generated fixture absent (gitignored Evidence tree) and PIL absent: environment, no installation campaign",
+    "UI clusters C1 timing (now including the Casting Review first leaf), C2 duplicate test id, C3/C4 PIL, C5 Gate Hiring, C6",
+    "Owner decisions D-1323-1, D-1312-1, D-1312-2, D-1329-1; Mentor/Rivals labels (HIS-014)"
+  ],
+  "next": "Repair R3 (1332-A) for the three UNRESOLVED rows with measured test-side causes"
+}

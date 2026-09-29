@@ -1,5 +1,31 @@
 # R3-N1 native correction record — 2026-09-15 · OPS-R3-N1-NATIVE-CORRECTION-20260915-01
 
+## CURRENT — repair R2 closed LOGIC VERIFIED (1327-K); UNRESOLVED rows attributed; repair R3 next
+
+Retained-defect repair R2 (1327-A, tests only, 7 files) is closed: C12 pins from the
+recorded projection-56 producer 1328, C15 guard-and-strip reconstructions, C3 by
+down-projecting the week-0 save to Save38 against the unchanged CANONICAL_INITIAL_SHA,
+and K4 on the live validator (1327-F). Staged 1327-C/C2, dry run 1327-X, review 1327-D
+ACCEPT, applied 350f9db5. Recorded core gate 1330: 82 failed / 4599 passed, 11 gone
+against 1325, 0 new; L1/L2 now reach their masked cause (noCatalogue, week 607).
+Recorded UI gate 1331: 34 failed / 2658 passed on unchanged UI source; 33 in the
+1317/1322 sets, the Casting Review first leaf attributed to the C1 cold-mount timing
+(it fails alone too). Reviews 1330-J KEEP, 1331-J REFINE applied. Type gates 0/0/0 at
+089431d8. Closure 1327-K: LOGIC VERIFIED · UNITY NOT VERIFIED; not GREEN.
+
+Attribution of the 10 UNRESOLVED core rows (scratch bisect, HEAD tests over old src):
+- ledger family 12 (4) and seating preference (3) move at 969fb459 (P3 candidate
+  order / director preference): week-208 winners reshuffle with frozen settlement
+  sentences only (no D5 sentence); long natural runs, so they wait on D-1329-1 with C8.
+- promise-digest-continuity :194 moves at 969fb459 on a one-tick genuine207 world:
+  promise-3's subject declines on a tie, promise-26's stays with its current employer,
+  so their receipts keep week 196. bridge-p14b2-checkpoint :65 and p14b5-relationships
+  :546 miss the additive Save40 firstTakeSubjects root and Save41 zero termination
+  movement (counterfactual strip reproduces the frozen digest exactly). These three are
+  repair R3 (test-only), next.
+C16b (P3 D07/D18) stays the frozen failed fixed-rival attempt of 1169-A/B (no rescue
+authorized). Owner decisions open: D-1323-1, D-1312-1, D-1312-2, D-1329-1, HIS-014.
+
 ## CURRENT — repair R1 closed LOGIC VERIFIED (1324-K); C8 cause measured (D-1329-1); repair R2 in review
 
 Retained-defect repair R1 (1324-A, tests only, 7 files) is closed: staged 1324-C, dry run
