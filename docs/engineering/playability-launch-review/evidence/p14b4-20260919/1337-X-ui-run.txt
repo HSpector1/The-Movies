@@ -1,0 +1,15 @@
+
+ RUN  v2.1.9 <scratch>
+
+ ✓ |ui| ui/src/lot/livingTurn.parity.test.tsx (7 tests) 23531ms
+   ✓ C2a-M5 — four-way time parity: the same twelve weeks, four ways > (a) by hand at the seam — the manual verb, pressed twelve times 3521ms
+   ✓ C2a-M5 — four-way time parity: the same twelve weeks, four ways > (b) by the living loop at 1× — one press of Roll, then nothing at all 3969ms
+   ✓ C2a-M5 — four-way time parity: the same twelve weeks, four ways > (b′) by the living loop at 4× — the same weeks, a quarter of the wall time 3551ms
+   ✓ C2a-M5 — four-way time parity: the same twelve weeks, four ways > (c) paused and resumed arbitrarily, including mid-week 4481ms
+   ✓ C2a-M5 — and the four are one studio > exports FOUR byte-identical saves from four different ways of spending time 7825ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  18:54:07
+   Duration  31.81s (transform 4.32s, setup 395ms, collect 5.24s, tests 23.53s, environment 2.05s, prepare 126ms)
+

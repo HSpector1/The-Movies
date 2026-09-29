@@ -1,0 +1,28 @@
+
+ RUN  v2.1.9 <scratch>
+
+stdout | tests/bridge-p14p3-directing-promises.test.ts > P3 public Bridge authority, truthful terms and durable runtime > D15 commits genuine public directing commands with closed private authority
+1174-P3-WIRE {"week":52,"promiseId":"promise-0","contractId":"studio-de11f27b-player:contract:authored-0006:52:player-32","advancingCommands":7}
+
+stdout | tests/bridge-p14p3-directing-promises.test.ts > P3 public Bridge authority, truthful terms and durable runtime > D16 discloses Director and legacy cast terms truthfully without private inputs
+1174-P3-DISCLOSURE {"boundWeek":52,"reminderQueryWeek":104,"waiverWeek":52,"original":"promise-0","successor":"promise-1","extraTicks":0}
+
+stdout | tests/bridge-p14p3-directing-promises.test.ts > P3 public Bridge authority, truthful terms and durable runtime > D17 migrates outgoing53 independently and isolates current55 campaigns
+1174-P3-PRIOR53 {"slots":["208/207","104-after/104-before"],"ticks":0,"qualified":true}
+
+stdout | tests/bridge-p14p3-directing-promises.test.ts > P3 public Bridge authority, truthful terms and durable runtime > D17 migrates outgoing53 independently and isolates current55 campaigns
+1174-P3-RUNTIME {"originalWeek":52,"branchWeek":54,"freshFactories":1,"coordinatorAdvances":2,"aggregateVerifiedAdvances":9}
+
+stdout | tests/bridge-p14p3-directing-promises.test.ts
+1174-P3-BRIDGE-COUNTERS {"reservedAdvanceCommands":9,"verifiedOneWeekAdvances":9,"actualAdvanceDispatchInvocations":9,"sessionAdvanceAttempts":7,"coordinatorAdvanceAttempts":2,"duplicateInvocations":4,"cap":12,"phases":[{"name":"captured45","complete":true},{"name":"actualAttached45","complete":true},{"name":"actualBound52","complete":true},{"name":"actualWaived52","complete":true}]}
+
+ ✓ |core| tests/bridge-p14p3-directing-promises.test.ts (3 tests) 149485ms
+   ✓ P3 public Bridge authority, truthful terms and durable runtime > D15 commits genuine public directing commands with closed private authority 62016ms
+   ✓ P3 public Bridge authority, truthful terms and durable runtime > D16 discloses Director and legacy cast terms truthfully without private inputs 49075ms
+   ✓ P3 public Bridge authority, truthful terms and durable runtime > D17 migrates outgoing53 independently and isolates current55 campaigns 38392ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  18:51:32
+   Duration  154.07s (transform 2.91s, setup 0ms, collect 3.91s, tests 149.49s, environment 0ms, prepare 130ms)
+
