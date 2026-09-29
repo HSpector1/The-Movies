@@ -1,0 +1,27 @@
+# 1320-X UI extract: vitest run --project ui on the same scratch tree. Full log   347470 bytes, sha256 7fb29b7a5a3d72b01fdbc65b28927556f97ba19e9f5770d524c6ca848296596b, not archived.
+ ❯ |ui| ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx (36 tests | 2 failed) 98206ms
+ ❯ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx (15 tests | 1 failed) 38112ms
+ ❯ |ui| ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx (28 tests | 8 failed) 33770ms
+ ❯ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx (10 tests | 1 failed) 41976ms
+ ❯ |ui| ui/src/test/contracts/p05a-w2-closed-production.contract.test.ts (13 tests | 2 failed) 1956ms
+ ❯ |ui| ui/src/lot/livingTurn.scheduler.test.tsx (13 tests | 2 failed) 49943ms
+ ❯ |ui| ui/src/lot/authored-stage-a.test.ts (17 tests | 4 failed) 816ms
+ ❯ |ui| ui/src/lot/authored-rgba-export.test.ts (8 tests | 6 failed) 1023ms
+ Test Files  8 failed | 196 passed (204)
+      Tests  26 failed | 2666 passed | 5 skipped (2697)
+   Duration  865.75s (transform 20.45s, setup 51.01s, collect 234.71s, tests 1734.58s, environment 289.65s, prepare 42.65s)
+
+   × World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > keeps an exact non-release stop on one mounted world, contains a stale repeat, and returns from the exact deep owner 2616ms
+   × Living Turn V1 — the transport > offers hold/roll and the whole pace ladder, paused at 1x 2370ms
+   ✓ Living Turn V1 — the transport > speaks about the studio, never about a scheduler 1446ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > commits ONE authoritative week per witnessed week and nothing else 4642ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > runs 12 consecutive weeks with ZERO input and lands byte-identically 13186ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > speed changes the PACE and nothing else — 4x is four weeks in one week s time 4361ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > holding stops the weeks, and the studio stays exactly where it was 3461ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > a hidden tab is a held studio — living time never advances what nobody watches 2276ms
+   × Living Turn V1 — the partition, at the seam > auto-pauses on the FIRST PAUSE-class stop, at exactly the hand-advanced week 5688ms
+   ✓ Living Turn V1 — the partition, at the seam > a NOTIFY-class wrap reaches the bulletin and the loop keeps working 3134ms
+   ✓ Living Turn V1 — the partition, at the seam > the bulletin clears on request 1738ms
+   ✓ Living Turn V1 — the loop cannot stall silently, and the batch verb holds it > re-arms the week on screen when the cadence channel is cleared under a running loop 3238ms
+   ✓ Living Turn V1 — the loop cannot stall silently, and the batch verb holds it > the batch verb HOLDS the studio — a skipped batch was never witnessed time 2015ms
+   ✓ Living Turn V1 — the release week plays before its surfaces take over > the shipping week is witnessed, and the release surface follows it 2369ms
