@@ -1,0 +1,12 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x6/tree
+
+ ✓ |core| tests/p15a2-power-ranking.test.ts (46 tests) 104ms
+ ✓ |core| tests/p15a2-power-ranking-harness.test.ts (2 tests) 1579ms
+   ✓ p15a2 power ranking: bounded 6,240-week harness (1350-A §5 item 16) > power-ranking-bounded-harness-480-snapshots-row-counts-and-value-bounds 1442ms
+
+ Test Files  2 passed (2)
+      Tests  48 passed (48)
+   Start at  01:29:52
+   Duration  2.50s (transform 441ms, setup 0ms, collect 428ms, tests 1.68s, environment 1ms, prepare 487ms)
+

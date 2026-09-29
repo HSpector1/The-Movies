@@ -1,0 +1,338 @@
+[
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: module surface > power-ranking-definition-version-export",
+    "requirement": "Brief PARENT API DECISIONS: 'POWER_RANKING_DEFINITION = power-ranking/v1'.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: module surface > is-power-ranking-week-boundaries",
+    "requirement": "Brief PARENT API DECISIONS: 'isPowerRankingWeek(week: number): boolean -- week % 13 === 0'; 1350-A \u00a72 fact 4 (arrival weeks are quarter-boundary multiples of 13).",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: TUNING (real, already-existing module) > tuning-power-ranking-bounded-terms",
+    "requirement": "Brief PARENT API DECISIONS: 'TUNING keys (src/core/tuning.ts): POWER_RANKING_WINDOW_WEEKS: 52 ... (bounded-term test: values and ranges)'; 1350-A \u00a73 constants table.",
+    "redStatus": "FAIL",
+    "redReason": "AssertionError: expected undefined to be 52 // Object.is equality"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: financialStrengthBand boundaries (1350-A \u00a73 / 1350-F) > financial-strength-band-in-the-red-boundary",
+    "requirement": "1350-A \u00a73: 'In the red: cash <= 0'; 1350-F RED additions: 'the band's thresholds at each boundary: cash <= 0 reads In the red'.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: financialStrengthBand boundaries (1350-A \u00a73 / 1350-F) > financial-strength-band-strained-and-stable-boundaries",
+    "requirement": "1350-A \u00a73: 'Strained: cash>0 and weeks<13. Stable: 13 to 25 weeks.'; 1350-F: '12 weeks Strained; 13 and 25 Stable'.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: financialStrengthBand boundaries (1350-A \u00a73 / 1350-F) > financial-strength-band-thriving-boundary",
+    "requirement": "1350-A \u00a73: 'Thriving: 26 weeks or more'; 1350-F: '26 Thriving'.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: financialStrengthBand boundaries (1350-A \u00a73 / 1350-F) > financial-strength-band-zero-fixed-cost-founding-edge",
+    "requirement": "1350-A \u00a73: 'Thriving: ... or a fixed cost of 0'; 1350-F: 'a fixed cost of 0 [reads] Thriving' and 'Founding edge... A test pins what happens if it does.'",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: computePowerRanking worked examples > compute-power-ranking-worked-example-critic60-gross045-reach05-score55",
+    "requirement": "1350-A \u00a73: 'Example: critic 60 and gross 0.45 * baseMarketValue give reach 0.5 and a film score of 5.5.'; brief TESTS section worked example.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: computePowerRanking worked examples > compute-power-ranking-film-score-rounds-half-up-at-exact-half-tenth",
+    "requirement": "1350-A \u00a73 Precision: 'Film scores and lanes are stored as integer tenths, rounded half up once each'. 1351-C4 (F1, per 1351-E production handback + 1351-F ruling): the test's own filmScoreTenths() helper divided criticScore by 100 and re-multiplied by 10 in two separate float ops, which for critic=61 yielded 80.49999999999999 instead of the exact 80.5, floor-rounding to 80 instead of the correct 81 -- a test-side bug, not a production defect (the assertion at this line already expected the correct value, 81; only the helper computing it was wrong). Fixed by evaluating the tenths formula with a single division (CRITIC_SHARE*critic + (1-CRITIC_SHARE)*100*reach), matching production design note 3. Verified numerically that this is the ONLY one of 24 distinct (critic,gross) pairs used anywhere in the file whose rounded result changes; see 1351-C4-p15a2-red-writer-findings.md for the full list.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: computePowerRanking worked examples > compute-power-ranking-window-start-week-and-definition-version-fields",
+    "requirement": "Brief PARENT API DECISIONS: PowerRankingSnapshot shape ({week, definitionVersion, available, windowStartWeek, rows}); 1350-A \u00a73 Cadence: 'The window is [W-52, W)'.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: multi-film mean rounding order (1351-C2 pin) > compute-power-ranking-filmstenths-mean-rounding-order-genuinely-fractional",
+    "requirement": "1351-C2 coordinator message, decision (5): \"each counted film's score is rounded half up to integer tenths once; filmsTenths is then the mean of those integer tenths, rounded half up once\" -- pinned with a genuinely fractional input where the rejected alternative order (average raw scores, round once) gives a different result (Method A=56 vs Method B=57 for critic 10.98/12.98/16.98, all reach=1).",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: multi-film mean rounding order (1351-C2 pin) > compute-power-ranking-filmstenths-mean-rounds-half-up-at-exact-half",
+    "requirement": "1351-C2 coordinator message, decision (5), half-up pin: \"e.g. ... 55, 56 -> 55.5 -> 56\" (parent's literal example, HALFEVEN studio) plus a second HALFODD studio (tenths 60, 61 -> mean 60.5 -> 61) that discriminates true half-up from round-half-to-even, since 61 is odd and banker's rounding of 60.5 would give 60.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: window edges and the running-film rule > compute-power-ranking-window-edge-release-tick-w52-counts-w53-excluded",
+    "requirement": "1350-A \u00a75 item 2 'rank-window-edges: releaseTick W-52 counts and W-53 does not'; brief TESTS section, same text.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: window edges and the running-film rule > compute-power-ranking-window-edge-w52-unfinished-counts-releases-not-films",
+    "requirement": "1351-D non-blocking note 1: combine the release-tick window edge with an unfinished film at that same boundary tick, closing 1350-A item 2's \"release and settlement edges tested separately\" phrase (previously the window-tick edge and the running-film settlement rule were only exercised at different ticks by two separate leaves).",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: window edges and the running-film rule > compute-power-ranking-running-film-counts-releases-only-then-films-next-snapshot",
+    "requirement": "1350-A \u00a75 item 3 'rank-running-film: an unfinished run counts in Releases only, then in Films at the next snapshot'; \u00a73 'A film still in its run counts toward Releases now and toward Films at the next snapshot.'",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: window edges and the running-film rule > compute-power-ranking-releases-lane-excludes-authored-pre-1920-films",
+    "requirement": "1350-F RED additions: 'The Releases lane excludes authored pre-1920 films.'; 1350-A \u00a73 Lane R text.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: window edges and the running-film rule > compute-power-ranking-authored-pre-campaign-film-counts-in-no-lane",
+    "requirement": "1351-F ruling on F3: \"authored pre-campaign films count in no lane\" -- amends 1350-A \u00a73 by one condition (previously only Releases excluded authored pre-1920 films; the Films lane named no exclusion). A finished authored film inside an early window (W=26<52) scores 0.0 in Films with the empty-lane reason and is excluded from Releases; a control with the same film but authoredPreCampaign:false is counted in both lanes, isolating the flag as the cause.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: FILM_CAP and RELEASE_CAP > compute-power-ranking-film-cap-fifth-film-changes-nothing",
+    "requirement": "1350-A \u00a75 item 4 'rank-film-cap, rank-release-cap: a fifth film or fifth release changes nothing; the best four are selected.'; brief TESTS section, same text.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: FILM_CAP and RELEASE_CAP > compute-power-ranking-film-cap-tie-break-by-film-id",
+    "requirement": "Brief TESTS section: 'best four by film score, ties by filmId'.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: FILM_CAP and RELEASE_CAP > compute-power-ranking-release-cap-fifth-release-changes-nothing",
+    "requirement": "1350-A \u00a75 item 4 'rank-release-cap: a fifth release changes nothing'; \u00a73 Lane R formula '10 x min(n, RELEASE_CAP) / RELEASE_CAP'.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: ranking, symmetry, determinism > compute-power-ranking-competition-ranking-1-1-3-and-presentation-order",
+    "requirement": "1350-A \u00a75 item 5 'rank-ties: equal points produce 1-1-3...'. This leaf covers only the FIRST half of item 5 (competition ranking 1-1-3 and studioId-ascending presentation order, for an unswapped tied cohort). The SECOND half ('swapping the IDs of tied studios swaps only their presentation order') is NOT exercised by this leaf; it is covered by the sibling leaf compute-power-ranking-tied-pair-id-swap-flips-presentation-order, added in 1351-C3 to close 1351-D non-blocking note 4 (citation-precision).",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: ranking, symmetry, determinism > compute-power-ranking-tied-pair-id-swap-flips-presentation-order",
+    "requirement": "1351-D non-blocking note 2 / 1350-A \u00a75 item 5 second clause: \"swapping the IDs of tied studios swaps only their presentation order.\" A tied pair via two structurally different fact combinations (LOW: 1 finished film + its own release; HIGH: 3 unfinished releases; both sum to 75 points) so the swap is observable in filmsTenths, not just in an opaque total; ranks stay 1,1 and the ID-string sequence stays ['ALPHA','ZETA'] in both setups, while which fact-set occupies each slot swaps.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: ranking, symmetry, determinism > compute-power-ranking-id-and-owner-swap-symmetry",
+    "requirement": "1350-A \u00a75 item 6 'rank-owner-swap, rank-id-swap: the same facts give the same lanes and band whether the studio is the player or a rival.' 1351-D non-blocking note 3 (closed in 1351-C3): the per-key equality loop now also compares 'releases' and 'countedFilmIds' (Set-compared), not only ranked/rank/filmsTenths/releasesTenths/pointsTenths/band; filmId generation was changed from an owner-id-embedded label to a fact-set-fixed label ('FACTSA'/'FACTSB') so countedFilmIds is directly comparable across the ID swap.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: ranking, symmetry, determinism > compute-power-ranking-determinism-byte-identical-two-calls",
+    "requirement": "1350-A \u00a75 item 7 'rank-determinism: two runs produce byte-identical archives'; brief TESTS section 'determinism (byte-identical JSON of two calls)'.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: Standing independence, finance independence, privacy > compute-power-ranking-standing-independence-no-standing-field-in-type",
+    "requirement": "1350-A \u00a75 item 8 'rank-standing-independent'; brief TESTS section: 'assert the input type has no standing field by constructing inputs'.",
+    "redStatus": "PASS",
+    "redReason": "control-passes: this leaf never calls loadPowerRanking() / the missing module. It is a structural check on this file's own locally-declared fixture shapes (mirroring the brief's PARENT API DECISIONS field-for-field), proving those shapes carry no 'standing' key. It is expected to pass unconditionally at RED and will remain green after Wave 1 lands; it does not by itself prove production's real exported types omit 'standing' (Wave 1 tests never statically import a type from the not-yet-existing module, by the per-leaf-attribution design in this file's header). The load-bearing, production-dependent purity proof is the sibling leaf compute-power-ranking-standing-independence-injected-field-ignored, which does fail at RED for the expected reason. See the handback's Findings section."
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: Standing independence, finance independence, privacy > compute-power-ranking-standing-independence-injected-field-ignored",
+    "requirement": "1350-A \u00a75 item 8 'rank-standing-independent... changing any Standing channel changes nothing'; brief TESTS section: 'changing any non-input fact cannot matter -- i.e. the function is pure over RankingInput'.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: Standing independence, finance independence, privacy > compute-power-ranking-finance-independence-band-only",
+    "requirement": "1350-A \u00a75 item 9 'rank-finance-independent: changing cash or fixed cost changes only the band, never points, rank or order; no band sort key exists.'",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: Standing independence, finance independence, privacy > compute-power-ranking-no-private-balance-probe-cash-not-in-payload",
+    "requirement": "1350-A \u00a75 item 10 'rank-no-private-balance: rival rows carry no finance number, and a probe cash value appears nowhere in the payload.'; brief TESTS section: probe cash value like 987654321.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: Honors/distress notRecorded, explainability > compute-power-ranking-honors-and-distress-always-not-recorded-no-numeric-field",
+    "requirement": "1350-A \u00a75 items 11-12 'rank-honors-not-recorded... rank-distress-not-recorded'; brief TESTS section: 'honors/distress always notRecorded with no numeric field'; 1122-A D4a.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: Honors/distress notRecorded, explainability > compute-power-ranking-explainable-lanes-recompute-from-counted-films",
+    "requirement": "1350-A \u00a75 item 13 'rank-explainable: each counted film is a real release of that studio in the window, and the lanes recompute exactly from its public facts.'",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: eligibility > compute-power-ranking-eligibility-available-false-when-origin-week-exceeds-threshold",
+    "requirement": "Brief PARENT API DECISIONS: 'available is false when originWeek > week - 52 (then every row has ranked false, rank null)'; 1350-A \u00a73 Eligibility.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: eligibility > compute-power-ranking-eligibility-available-true-at-exact-threshold",
+    "requirement": "Brief PARENT API DECISIONS, same clause, exact boundary (originWeek === week-52).",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: eligibility > compute-power-ranking-eligibility-entrant-unranked-lanes-shown-excluded-from-comparison",
+    "requirement": "1350-A \u00a75 item 14 'rank-eligibility: early weeks show not available; an entrant is unranked until 52 weeks after entry'; brief TESTS section: 'a studio with enteredWeek > W-52 is unranked but its lanes are shown'; 1350-A \u00a73 'Rank uses competition ranking... 1 + the number of ranked studios with strictly more points' (unranked excluded from the comparison set). 1351-C4 (F2, per 1351-E production handback + 1351-F ruling): EARLY's and MID's releases were built at releaseTick=10, but the leaf runs at week=104 (window [52,104)), so tick 10 fell OUTSIDE the window this same file's own window-edge leaf (row 13) pins as excluded -- both studios scored 0 and tied at rank 1, contradicting the leaf's own comment (which already stated the intended 50/25 point values). Fixed by moving both to releaseTick=60 (matching LATE-FILM's own tick, already inside the window), restoring EARLY=50/MID=25/rank 1,2 as the comment always intended. Every assertion in the leaf re-derived by hand in 1351-C4-p15a2-red-writer-findings.md.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking-harness.test.ts",
+    "leaf": "p15a2 power ranking: bounded 6,240-week harness (1350-A \u00a75 item 16) > power-ranking-bounded-harness-480-snapshots-row-counts-and-value-bounds",
+    "requirement": "1350-A \u00a75 item 16 'rank-bounded-harness: a pure 6,240-week run gives exactly 480 snapshots with bounded rows.'; brief TESTS section, same text.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking-harness.test.ts",
+    "leaf": "p15a2 power ranking: bounded 6,240-week harness (1350-A \u00a75 item 16) > power-ranking-bounded-harness-determinism-two-runs",
+    "requirement": "1350-A \u00a75 item 16, determinism half of the same requirement.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: error handling (1351-C5) > error-handling-non-integer-week",
+    "requirement": "1351-F2 point 2: one leaf per throw condition -- non-integer week. Production r2 (1351-stage/1351-p15a2-production-r2.patch:121-123): `if (!Number.isInteger(week) || !Number.isInteger(originWeek)) throw new Error('power ranking: weeks must be integers (week ${week}, origin ${originWeek})')`. Asserted via toThrow('weeks must be integers'), a message-specific pattern, not a generic throw.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: error handling (1351-C5) > error-handling-non-integer-origin-week",
+    "requirement": "1351-F2 point 2: non-integer originWeek, same guard/message as week (production r2:121-123), tested as its own leaf per the parent's explicit naming of originWeek as a separate condition.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: error handling (1351-C5) > error-handling-non-integer-entered-week",
+    "requirement": "1351-F2 point 2: non-integer enteredWeek. Production r2:131: `if (!Number.isInteger(s.enteredWeek)) throw new Error('power ranking: studio ${s.studioId} has a non-integer entry week')`. Asserted via toThrow('has a non-integer entry week').",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: error handling (1351-C5) > error-handling-non-integer-release-tick",
+    "requirement": "1351-F2 point 2: non-integer releaseTick. Production r2:141: `if (!Number.isInteger(f.releaseTick)) throw new Error('power ranking: film ${f.filmId} has a non-integer release tick')`. Asserted via toThrow('has a non-integer release tick').",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: error handling (1351-C5) > error-handling-non-finite-base-market-value",
+    "requirement": "1351-F2 point 2: non-finite baseMarketValue. Production r2:124: `if (!Number.isFinite(baseMarketValue)) throw new Error('power ranking: baseMarketValue must be finite')`. Asserted via toThrow('baseMarketValue must be finite').",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: error handling (1351-C5) > error-handling-non-finite-cash",
+    "requirement": "1351-F2 point 2: non-finite cash. Production r2:97 (financialStrengthBand): `if (!Number.isFinite(cash)) throw new Error('power ranking: cash must be finite')`. Tested both directly via financialStrengthBand and end-to-end via computePowerRanking (every row calls financialStrengthBand(s.cash, s.weeklyFixedCost), production r2:169). Asserted via toThrow('cash must be finite').",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: error handling (1351-C5) > error-handling-duplicate-studio-id",
+    "requirement": "1351-F2 point 2: duplicate studioId. Production r2:130: `if (seenStudios.has(s.studioId)) throw new Error('power ranking: studio ${s.studioId} appears twice')`. Asserted via toThrow('studio DUP appears twice'), distinguishing it from the film-duplicate message by the 'studio ' prefix.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: error handling (1351-C5) > error-handling-duplicate-film-id",
+    "requirement": "1351-F2 point 2: duplicate filmId. Production r2:139: `if (seenFilms.has(f.filmId)) throw new Error('power ranking: film ${f.filmId} appears twice')`. Asserted via toThrow('film DUP appears twice'), distinguishing it from the studio-duplicate message by the 'film ' prefix.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: error handling (1351-C5) > error-handling-critic-score-outside-range",
+    "requirement": "1351-F2 point 2: critic score outside 0..100. Production r2:142: `if (!(f.criticScore >= 0 && f.criticScore <= 100)) throw new Error('power ranking: film ${f.filmId} critic score is outside 0..100')`. Tested at -1, 101, and NaN (NaN>=0 is false, so NaN is caught by the same guard). Asserted via toThrow('critic score is outside 0..100').",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: error handling (1351-C5) > error-handling-non-finite-or-negative-total-gross",
+    "requirement": "1351-F2 point 2: negative or non-finite totalGross. Production r2:143: `if (!(Number.isFinite(f.totalGross) && f.totalGross >= 0)) throw new Error('power ranking: film ${f.filmId} gross must be finite and non-negative')`. Tested at -1, Infinity, and NaN (all three trigger the same message). Asserted via toThrow('gross must be finite and non-negative').",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: error handling (1351-C5) > error-handling-non-finite-or-negative-weekly-fixed-cost",
+    "requirement": "1351-F2 point 2: negative or non-finite weeklyFixedCost. Production r2:98-100 (financialStrengthBand): `if (!Number.isFinite(weeklyFixedCost) || weeklyFixedCost < 0) throw new Error('power ranking: weekly fixed cost must be finite and non-negative')`. Tested at -1, Infinity, NaN directly via financialStrengthBand, plus end-to-end via computePowerRanking with a studio carrying a negative weeklyFixedCost. Asserted via toThrow('weekly fixed cost must be finite and non-negative').",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: error handling (1351-C5) > error-handling-no-private-balance-in-thrown-messages",
+    "requirement": "1351-F2 point 2: 'one leaf asserting that no thrown message from computePowerRanking or financialStrengthBand contains a probe cash or fixed-cost value.' Mirrors the existing compute-power-ranking-no-private-balance-probe-cash-not-in-payload leaf's probe values (987654321, 123456789) but over thrown message text across four distinct throw paths (both financialStrengthBand guards, plus two unrelated computePowerRanking throws -- duplicate studio, non-integer enteredWeek -- on a studio carrying both probe values), proving no throw path ever interpolates a finance value.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  },
+  {
+    "file": "tests/p15a2-power-ranking.test.ts",
+    "leaf": "p15a2 power ranking: error handling (1351-C5) > error-handling-deep-frozen-input-survives-call-byte-identical",
+    "requirement": "1351-F2 point 3 / 1351-J non-blocking note 1: 'Inputs are not mutated... 1351-C5 adds one leaf: a deep-frozen input survives the call byte-identical.' A recursively Object.frozen RankingInput is passed to computePowerRanking; the call must not throw, and the input's canonicalized JSON and Object.isFrozen status are asserted unchanged before/after -- freezing makes any in-place mutation throw in strict mode, so this also proves no assignment into input.* is even attempted, not merely that the JSON looks the same afterward.",
+    "redStatus": "FAIL",
+    "redReason": "Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in <importer>. Does the file exist?"
+  }
+]
