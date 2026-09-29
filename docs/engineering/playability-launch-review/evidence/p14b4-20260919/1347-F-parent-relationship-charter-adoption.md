@@ -58,3 +58,11 @@ and a rival issuer; with only an enemy, `enemies here` (0).
 Slice A (rules version 2, the D5 comment, Mentor, projection 57) needs no save step and can be staged now. RED goes to
 test-author, and production is queued behind the rival-shelving writer. Slice B (the `competitions` log, romance,
 Rivals, Save44, projection 58) follows shelving's Save43.
+
+## Addendum (same day, before any RED): one projection step, in slice B
+
+Every `PROJECTION_VERSION` step needs its own value sweep of the tests (the 49→50 sweep found 42 pins in 27 files). So
+slice A publishes nothing new. Rules version 2, the D5 comment and the core Mentor derivation land without a
+projection change. Tier values already travel in the existing tier field, so Enemies and Nemeses become visible
+through it with no schema change. Slice B takes projection 57 once, for `labels` (`'Mentor' | 'Professional
+Rivals'`) and `romance` together. This supersedes the projection split above.
