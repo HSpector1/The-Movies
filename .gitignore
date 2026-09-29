@@ -1,4 +1,6 @@
 node_modules/
+# Project-local Python for the image tests (Owner ruling 1 of 1342-O, record 1345-A). Never committed.
+/.venv/
 dist/
 coverage/
 out/

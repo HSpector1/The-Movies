@@ -1,0 +1,9 @@
+$ PATH="$PWD/.venv/bin:$PATH" node -e <execFileSync python3 ...>
+/Users/zacheryspector/The-Movies-headless-program/.venv/bin/python3
+3.14.4
+pillow 12.3.0
+zlib 1.2.11
+pillow_zlib 1.3.1.zlib-ng
+exit 0
+$ node -e <same, without the scoped PATH>
+import fails: ModuleNotFoundError: No module named 'PIL'

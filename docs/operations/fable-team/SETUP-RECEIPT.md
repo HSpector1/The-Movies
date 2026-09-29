@@ -139,3 +139,24 @@ scope; do not select bypass-permissions or extra paid usage.
 - Effective-model verification for all six aliases, and confirmation that Claude Code's current
   version actually delegates to a custom subagent by name rather than a general-purpose
   substitute — both deferred to the smoke test.
+
+## Python image dependency for the tests (2026-09-29, record 1345)
+
+Owner ruling 1 of `docs/engineering/playability-launch-review/evidence/p14b4-20260919/1342-O-owner-rulings-p14-p18.md`
+authorizes one scoped Pillow installation for the existing image tests.
+
+- The tests call the bare `python3` from the Vitest process's `PATH`. On this machine that is `/usr/local/bin/python3`,
+  Homebrew `python@3.14` 3.14.4, which is externally managed (PEP 668), so it gets no user-site install.
+- The project-local environment is `.venv/` at the repository root. It is ignored by `/.venv/` in `.gitignore` and
+  never committed. Setup, from the repository root:
+
+  ```
+  /usr/local/bin/python3 -m venv .venv
+  .venv/bin/python -m pip install 'pillow==12.3.0'
+  ```
+
+  Installed: `pillow 12.3.0` (bundled zlib 1.3.1.zlib-ng); pip 26.1 as created, not upgraded.
+- Scoping: only test commands get `PATH="$PWD/.venv/bin:$PATH"` on their own command line, as do the recorded gates
+  from 1345 on. No shell profile or global setting changes. Without the prefix, `from PIL import Image` still fails.
+- Not installed: `numpy`. `scripts/art/authored-asset-pipeline.py` needs it (`:43-47`), and the ruling authorizes
+  Pillow only. The three rgba-export "tool contract" tests stay failing until the Owner decides.

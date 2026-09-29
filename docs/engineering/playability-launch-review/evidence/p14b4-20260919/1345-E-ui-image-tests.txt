@@ -1,0 +1,77 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+authored-asset-pipeline: missing dependency (No module named 'numpy'). Needs Pillow and numpy.
+ ✓ |ui| ui/src/lot/authored-stage-a.test.ts (17 tests) 2851ms
+   ✓ Stage A — the committed assets satisfy the CURRENT production export contract > 4. the RGB channel carries the recovered 128-colour contract 729ms
+   ✓ Stage A — the committed assets satisfy the CURRENT production export contract > 5. alpha is bit-identical between the two finishes 1327ms
+   ✓ Stage A — the committed assets satisfy the CURRENT production export contract > 6. alpha is lossless, not collapsed into a palette-sized set 441ms
+   ✓ Stage A — the committed assets satisfy the CURRENT production export contract > 7. registration is the approved one — inset, with a forecourt 320ms
+authored-asset-pipeline: missing dependency (No module named 'numpy'). Needs Pillow and numpy.
+authored-asset-pipeline: missing dependency (No module named 'numpy'). Needs Pillow and numpy.
+ ❯ |ui| ui/src/lot/authored-rgba-export.test.ts (8 tests | 3 failed) 3900ms
+   ✓ current production authored export — the shipped Stage B assets > 3. the RGB channel is reduced to the recovered 128-colour contract 934ms
+   ✓ current production authored export — the shipped Stage B assets > 4. alpha is bit-identical between the two finishes 1196ms
+   ✓ current production authored export — the shipped Stage B assets > 5. alpha is genuinely lossless, not collapsed into a palette-sized set 566ms
+   × rgba-export tool contract > 6. output is truecolour RGBA with no PLTE/tRNS, alpha preserved exactly 462ms
+     → Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/scripts/art/authored-asset-pipeline.py rgba-export --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-opTc5U/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-opTc5U/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-opTc5U --stem t --colours 16
+authored-asset-pipeline: missing dependency (No module named 'numpy'). Needs Pillow and numpy.
+
+   × rgba-export tool contract > 7. repeated runs are byte-identical 385ms
+     → Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/scripts/art/authored-asset-pipeline.py rgba-export --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-CiA7Kx/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-CiA7Kx/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-CiA7Kx/a --stem t --colours 16
+authored-asset-pipeline: missing dependency (No module named 'numpy'). Needs Pillow and numpy.
+
+   × rgba-export tool contract > 8. the historical PNG-8 path is still available and clearly separate 278ms
+     → Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/scripts/art/authored-asset-pipeline.py quantize --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-jdtI4a/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-jdtI4a/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-jdtI4a --stem q
+authored-asset-pipeline: missing dependency (No module named 'numpy'). Needs Pillow and numpy.
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |ui|  ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 6. output is truecolour RGBA with no PLTE/tRNS, alpha preserved exactly
+Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/scripts/art/authored-asset-pipeline.py rgba-export --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-opTc5U/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-opTc5U/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-opTc5U --stem t --colours 16
+authored-asset-pipeline: missing dependency (No module named 'numpy'). Needs Pillow and numpy.
+
+ ❯ ui/src/lot/authored-rgba-export.test.ts:138:7
+    136|     try {
+    137|       const src = synth(dir)
+    138|       execFileSync('python3', [TOOL, 'rgba-export', '--normal', src, '…
+       |       ^
+    139|         '--out-dir', dir, '--stem', 't', '--colours', '16'], { encodin…
+    140|       const out = join(dir, 't.png')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL |ui|  ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 7. repeated runs are byte-identical
+Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/scripts/art/authored-asset-pipeline.py rgba-export --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-CiA7Kx/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-CiA7Kx/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-CiA7Kx/a --stem t --colours 16
+authored-asset-pipeline: missing dependency (No module named 'numpy'). Needs Pillow and numpy.
+
+ ❯ ui/src/lot/authored-rgba-export.test.ts:164:9
+    162|       for (const run of ['a', 'b', 'c']) {
+    163|         const sub = join(dir, run)
+    164|         execFileSync('python3', [TOOL, 'rgba-export', '--normal', src,…
+       |         ^
+    165|           '--out-dir', sub, '--stem', 't', '--colours', '16'], { encod…
+    166|         hashes.add(readFileSync(join(sub, 't.png')).toString('base64'))
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL |ui|  ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 8. the historical PNG-8 path is still available and clearly separate
+Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/scripts/art/authored-asset-pipeline.py quantize --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-jdtI4a/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-jdtI4a/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-jdtI4a --stem q
+authored-asset-pipeline: missing dependency (No module named 'numpy'). Needs Pillow and numpy.
+
+ ❯ ui/src/lot/authored-rgba-export.test.ts:178:7
+    176|     try {
+    177|       const src = synth(dir)
+    178|       execFileSync('python3', [TOOL, 'quantize', '--normal', src, '--w…
+       |       ^
+    179|         '--out-dir', dir, '--stem', 'q'], { encoding: 'utf8' })
+    180|       const c = chunks(join(dir, 'q.png'))
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  3 failed | 22 passed (25)
+   Start at  23:30:43
+   Duration  6.71s (transform 381ms, setup 676ms, collect 661ms, tests 6.75s, environment 2.98s, prepare 759ms)
+

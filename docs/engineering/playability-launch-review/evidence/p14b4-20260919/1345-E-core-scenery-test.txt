@@ -1,0 +1,11 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/world-first-scenery-load-in-provenance.test.ts (3 tests) 7105ms
+   ✓ World-First Scenery Load-In V1 — frozen district provenance > replays the clean exporter and pins its deliberately non-runtime manifest 7043ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  23:31:03
+   Duration  8.09s (transform 56ms, setup 0ms, collect 78ms, tests 7.10s, environment 1ms, prepare 169ms)
+

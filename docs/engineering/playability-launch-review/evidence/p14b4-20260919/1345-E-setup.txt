@@ -1,0 +1,16 @@
+$ /usr/local/bin/python3 -m venv .venv
+exit 0
+$ .venv/bin/python -m pip install 'pillow==12.3.0'
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.4/5.4 MB 688.6 kB/s  0:00:08
+Installing collected packages: pillow
+Successfully installed pillow-12.3.0
+
+[notice] A new release of pip is available: 26.1 -> 26.2.1
+[notice] To update, run: /Users/zacheryspector/The-Movies-headless-program/.venv/bin/python -m pip install --upgrade pip
+exit 0
+$ .venv/bin/python -m pip list
+Package Version
+------- -------
+pillow  12.3.0
+pip     26.1
+lrwxr-xr-x  1 zacheryspector  staff  10 Sep 29 23:30 .venv/bin/python3 -> python3.14
