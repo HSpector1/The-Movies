@@ -1,5 +1,32 @@
 # P4/P5 verification coverage
 
+## CURRENT — P15A.1 stopped for Owner decision D-1323-1; retained-defect repair R1 IN PROGRESS
+
+Save42 casting drivers are closed (1319-K; see the block below). The P15A.1 charter (1323-A,
+Wave 0 reconnaissance plus a Wave 1 pure-law proposal) was reviewed REFINE (1323-B) and
+adopted with amendments (1323-F). The review established that no P15 Owner-ruling
+amendment exists: CODEX-P13-P15-OWNER-RULINGS.md §4.3 still lists "the exact shared-market
+formula" as an open Owner decision, RECONCILIATION-02 labels itself research not Owner
+authority and does not close that line, and the rulings' governance rule (§8) keeps the
+open decision until a newer explicit ruling. P15A.1 therefore stops before any RED or code.
+P15A.2/P15B/P16 depend on P15A.1 or their own open §4.3 decisions; P18 waits on P16/P17
+producers (P18-HEADLESS-CHARTER). The P15 presentation choices D2/D3/D4a were answered on
+2026-09-27 (1122-A) and need no further decision.
+
+Owner decisions open (with options in the cited records):
+- D-1323-1 exact P15A.1 shared-market formula (1323-F: recommended genre + four-week window
+  1.00/0.55/0.55/0.20, saturation stock 0.20 halving every 13 weeks to week 26, one unit per
+  release, per-studio window cap, factor 1 − 0.25(1 − e^(−P/2)); or other strengths, window
+  only, or delegate to tuning with a Wave 4 playtest).
+- D-1312-1 conflict-record source (Enemies/Nemeses), D-1312-2 romance ending rule (romance
+  formation waits with it) — 1312-A/1312-F.
+- Mentor/Rivals evidence-label definitions (companion §5.3, register HIS-014).
+
+IN PROGRESS: retained-defect repair R1 (1324-A): clusters C6 (v13TwinOf, 25), C7
+(firstTakeSubjects fixtures, 23), C20 (migration purity, 9); test-author stages 1324-C, then
+parent dry run, review, application, recorded gates. Two specialists, parent writer, one
+heavy process; Unity/native deferred.
+
 ## CURRENT — Save42 casting drivers closed LOGIC VERIFIED (1319-K); P15A.1 charter next
 
 Production 1b675f75 (castingCompetitionLost/repeatedCompetition, the Inseparable expiry
