@@ -9,8 +9,8 @@ import { studioConstructionView } from '../src/core/placement.js'
 import { availableDevelopmentCastingSlots } from '../src/core/scriptDevelopment.js'
 import { studioCalendar } from '../src/core/studioCalendar.js'
 import { tick } from '../src/core/tick.js'
-import { convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,
-  validateSaveV36, validateSaveV41 } from '../src/core/save.js'
+import { convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,
+  validateSaveV36, validateSaveV42 } from '../src/core/save.js'
 import type { GameState, GameStateV33, RetirementRecordV36, ScriptProject } from '../src/core/types.js'
 import { c2Fixture } from './helpers/p14c2a-fixtures.js'
 
@@ -71,7 +71,7 @@ describe('880-B natural retired-writer continuation', () => {
     const reopened = readBack(f.finishing)
     // Persistence has always canonicalized JSON -0 to 0. Validate the actual
     // reopened object and compare authoritative canonical bytes across storage.
-    expect(validateSaveV41(envelope(reopened)).state).toBe(reopened)
+    expect(validateSaveV42(envelope(reopened)).state).toBe(reopened)
     expect(stableStringify(reopened)).toBe(before)
     expect(stableStringify(f.finishing)).toBe(before)
   })
@@ -208,7 +208,7 @@ const invalidCases: InvalidCase[] = [
 describe('880-B live allowance stays narrowly scoped', () => {
   it.each(invalidCases)('refuses $name without altering caller bytes', ({ corrupt }) => {
     const f = finishingWriter(), state = corrupt(f.finishing, f.writerId), input = envelope(state), before = stableStringify(input)
-    expect(() => validateSaveV41(input)).toThrow()
+    expect(() => validateSaveV42(input)).toThrow()
     expect(stableStringify(input)).toBe(before)
   })
 
@@ -222,7 +222,7 @@ describe('880-B live allowance stays narrowly scoped', () => {
     // branch, so it cannot borrow retirement to become lawful here.
     const illegal = { ...terminated, concepts: f.commissioned.concepts, scriptDevelopment: f.commissioned.scriptDevelopment,
       originalScreenplays: f.commissioned.originalScreenplays }
-    expect(() => validateSaveV41(envelope(illegal))).toThrow()
+    expect(() => validateSaveV42(envelope(illegal))).toThrow()
     expect(() => applyActions(terminated, [originalCommission(f.writerId)])).toThrow()
   })
 
@@ -231,8 +231,8 @@ describe('880-B live allowance stays narrowly scoped', () => {
     const input = envelope({ ...f.finishing, scriptDevelopment: { ...f.finishing.scriptDevelopment,
       projects: f.finishing.scriptDevelopment.projects.map(row => ({ ...row, retirementBypass: true })),
     } })
-    expect(() => validateSaveV41(input)).toThrow()
-    expect(() => validateSaveV41({ ...envelope(f.finishing), retirementBypass: true })).toThrow()
+    expect(() => validateSaveV42(input)).toThrow()
+    expect(() => validateSaveV42({ ...envelope(f.finishing), retirementBypass: true })).toThrow()
   })
 
   it('frozen public V36 stays strict, and an exceptional current save cannot silently downgrade', () => {
@@ -244,7 +244,7 @@ describe('880-B live allowance stays narrowly scoped', () => {
     expect(convertV37ToV36(old.commissioned).saveVersion).toBe(36)
     expect(() => convertV37ToV36(old.finishing)).toThrow(/not contracted/i)
     const current = makeSave(f.finishing), before = stableStringify(current)
-    expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(current)))))).toThrow()
+    expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(current))))))).toThrow()
     expect(stableStringify(current)).toBe(before)
   })
 
@@ -267,8 +267,8 @@ describe('880-B live allowance stays narrowly scoped', () => {
       records: f.finishing.careerLifecycle.records.filter(row => row.personId !== f.writerId) } })
     const legalBefore = stableStringify(legal), illegalBefore = stableStringify(illegal)
     for (let round = 0; round < 2; round++) {
-      expect(() => validateSaveV41(legal)).not.toThrow()
-      expect(() => validateSaveV41(illegal)).toThrow()
+      expect(() => validateSaveV42(legal)).not.toThrow()
+      expect(() => validateSaveV42(illegal)).toThrow()
       expect(() => validateSaveV36({ ...historicalWriterPair().finishing, saveVersion: 36 })).toThrow(/not contracted/i)
     }
     expect(stableStringify(legal)).toBe(legalBefore)
@@ -334,7 +334,7 @@ describe('880-B malformed authority refuses before live work, not only at persis
       // The unmodified real state and this same live entrypoint are admissible.
       expect(() => caller.run(f.state, f.youngId)).not.toThrow()
       const invalid = corrupt(f.state, f.retiringId), before = structuredClone(invalid)
-      expect(() => validateSaveV41(envelope(invalid)), 'existing full-save refusal is a control').toThrow()
+      expect(() => validateSaveV42(envelope(invalid)), 'existing full-save refusal is a control').toThrow()
       expect(() => caller.run(invalid, f.youngId), 'live permission must also reject malformed authority').toThrow()
       // Compare in memory so NaN and signed zero are not hidden by JSON encoding.
       expect(invalid).toEqual(before)

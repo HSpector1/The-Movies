@@ -32,6 +32,12 @@ function withRivalTermination<T extends WithRivalBusinesses>(state: T): T {
       ...period, movements: { ...period.movements, termination: 0 } })) },
   })) } }
 }
+// 1320-A S5: Save42 gives every relationship edge a `sharedCompetitions` counter
+// (convertV41ToV42); a genuine V41-or-older old.state never carried it.
+type WithRelationships = { relationships: readonly { sharedCompetitions?: number }[] }
+function withSharedCompetitions<T extends WithRelationships>(state: T): T {
+  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, sharedCompetitions: 0 })) }
+}
 const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
 const issuer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }
 const bytes = (state: GameState): string => saves.exportSave(saves.makeSave(state))
@@ -64,7 +70,7 @@ function memo(name: string, build: () => GameState): GameState {
 }
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(41); expect(saves.validateSaveV41(save)).toBe(save)
+  expect(save.saveVersion).toBe(42); expect(saves.validateSaveV42(save)).toBe(save)
   const raw = saves.exportSave(save)
   expect(saves.exportSave(saves.importSave(raw))).toBe(raw); expect(stable(state)).toBe(before)
 }
@@ -180,7 +186,7 @@ function input45(): GameState {
     expect(old).toBe(parsed); expect(saves.exportSave(old)).toBe(raw)
     const state = saves.migrateToLive(old).state
     expect(stable(old)).toBe(prior)
-    expect(state).toEqual({ ...withRivalTermination(old.state), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
+    expect(state).toEqual({ ...withRivalTermination(withSharedCompetitions(old.state)), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
     initial = clone(state); retained(state)
     expect(issuer(state)).toBe('studio-de11f27b-player'); expect(state.studio.cash).toBe(24701506)
     expect(state.operations.mode).toBe('managed'); expect(state.scriptDevelopment.mode).toBe('managed')

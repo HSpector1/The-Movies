@@ -118,12 +118,12 @@ describe('P13B-S3 Save V23 (test 7)', () => {
   })
 
   it('makeSave writes the live saveVersion 37 (stale title corrected post-C.2b)', () => {
-    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(41)
+    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(42)
   })
 
-  it('an unknown saveVersion 42 is refused, naming the handled range (stale number corrected post-C.2b)', () => {
-    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 42 }
-    expect(() => validateSave(forged)).toThrow(/versions 1 through 41 only/)
+  it('an unknown saveVersion 43 is refused, naming the handled range (stale number corrected post-C.2b)', () => {
+    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 43 }
+    expect(() => validateSave(forged)).toThrow(/versions 1 through 42 only/)
   })
 
   it('save/reload mid-queue continues identically (byte for byte)', () => {

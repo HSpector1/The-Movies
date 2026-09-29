@@ -31,7 +31,10 @@ type CurrentView = { saveVersion: number; state: Record<string, unknown> & {
   firstTakeSubjects: Sidecar; promises: Record<string, unknown>[]
 } }
 type FutureAPI = {
-  validateSaveV41(input: unknown): unknown
+  validateSaveV42(input: unknown): unknown
+  // 1320-A S4: an extra live-to-one-below hop now precedes the fixed
+  // V41->V40 boundary this type has always tested.
+  convertV42ToV41(input: unknown): unknown
   convertV41ToV40(input: unknown): SaveFileV40
   // 1309-X3 ruling 7: the first downgrade that cannot hold opportunity
   // material is convertV40ToV39, one step past convertV41ToV40.
@@ -52,6 +55,12 @@ function withRivalTermination<T extends WithRivalBusinesses>(state: T): T {
       ...period, movements: { ...period.movements, termination: 0 } })) },
   })) } }
 }
+// 1320-A S5: Save42 gives every relationship edge a `sharedCompetitions` counter
+// (convertV41ToV42); a genuine V41-or-older old.state never carried it.
+type WithRelationships = { relationships: readonly { sharedCompetitions?: number }[] }
+function withSharedCompetitions<T extends WithRelationships>(state: T): T {
+  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, sharedCompetitions: 0 })) }
+}
 const issuer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }
 const bytes = (state: GameState): string => saves.exportSave(saves.makeSave(state))
 function admitted(state: GameState): void {
@@ -61,7 +70,8 @@ function admitted(state: GameState): void {
 }
 function futureAPI(): FutureAPI {
   const api = core as unknown as Partial<FutureAPI>
-  assert.equal(typeof api.validateSaveV41, 'function', 'new public strict41 reader after actual version assertion')
+  assert.equal(typeof api.validateSaveV42, 'function', 'new public strict41 reader after actual version assertion')
+  assert.equal(typeof api.convertV42ToV41, 'function', 'new public guarded live→41 conversion')
   assert.equal(typeof api.convertV41ToV40, 'function', 'new public guarded41→40 conversion')
   assert.equal(typeof api.convertV40ToV39, 'function', 'existing public guarded40→39 conversion')
   return api as FutureAPI
@@ -297,12 +307,12 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
     // The positive is public-created and fully admitted, including all C3 authority.
     // A generic entrant-loss failure cannot stand in for this new semantic guard.
     const valid: unknown = JSON.parse(bytes(admittedGenre))
-    expect((valid as { saveVersion: number }).saveVersion).toBe(41)
-    const api = futureAPI(); expect(api.validateSaveV41(valid)).toBe(valid)
+    expect((valid as { saveVersion: number }).saveVersion).toBe(42)
+    const api = futureAPI(); expect(api.validateSaveV42(valid)).toBe(valid)
     // 1309-X3 ruling 7: the live-to-one-below conversion now reaches V40, which
     // holds opportunity material, so it no longer refuses; the FIRST downgrade
     // that cannot hold the material is convertV40ToV39.
-    const oneDown = api.convertV41ToV40(valid)
+    const oneDown = api.convertV41ToV40(api.convertV42ToV41(valid))
     expect(() => api.convertV40ToV39(oneDown)).toThrow(/opportunit|genre|project|predicate/i)
     for (const mutate of [
       (p: Record<string, unknown>) => { p.predicate = { kind: 'genreOpportunity', count: 2, seatClass: 'allCast', genre: 'drama' } },
@@ -311,13 +321,13 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
     ]) {
       const bad = clone(valid) as CurrentView, row = bad.state.promises.find(p => p.promiseId === real.promiseId); assert.ok(row)
       mutate(row)
-      expect(() => api.validateSaveV41(bad)).toThrow(/predicate|family|genre|project|class|count|opportunit/i)
+      expect(() => api.validateSaveV42(bad)).toThrow(/predicate|family|genre|project|class|count|opportunit/i)
     }
   }, LEAF_TIMEOUT_MS)
 
   it('Q04 migrates genuine39 to an exact empty subject suffix and preserves outgoing Director authority', () => {
     input45() // Independent old4/6 marker is reached before the version assertion.
-    expect(saves.LIVE_SAVE_VERSION).toBe(41)
+    expect(saves.LIVE_SAVE_VERSION).toBe(42)
     const api = futureAPI()
     const captureManifest = readFileSync(new URL('1221-p4p5-outgoing-capture/MANIFEST.json', E))
     expect(sha(captureManifest)).toBe('02115df5d6e7d4c33284b9a439a7c79601e1b2e807f4fa96c20149f5c84186f3')
@@ -338,21 +348,21 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
     for (const [filename, gzipHash, rawHash] of pins) {
       const { raw, save: old } = pinned39(filename, gzipHash, rawHash), before = stable(old)
       const current = saves.migrateToLive(old), valid = current as unknown as CurrentView
-      expect(current.saveVersion).toBe(41); expect(api.validateSaveV41(current)).toBe(current)
+      expect(current.saveVersion).toBe(42); expect(api.validateSaveV42(current)).toBe(current)
       expect(valid.state.firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: old.state.firstTakes.length, facts: [] })
       expect(Object.keys(valid.state.firstTakeSubjects).sort()).toEqual(['cutoverOrdinal', 'facts', 'version'])
       // Comparison-only exclusion of the sole additive root, never an admission path.
       const { firstTakeSubjects: added, ...unchanged } = valid.state
-      expect(added.facts).toEqual([]); expect(stable(unchanged)).toBe(stable(withRivalTermination(old.state)))
+      expect(added.facts).toEqual([]); expect(stable(unchanged)).toBe(stable(withRivalTermination(withSharedCompetitions(old.state))))
       expect(stable(current.state.firstTakes)).toBe(stable(old.state.firstTakes))
       expect(stable(current.state.promises)).toBe(stable(old.state.promises))
       expect(stable(old)).toBe(before)
-      expect(saves.exportSave(api.convertV40ToV39(api.convertV41ToV40(current)))).toBe(raw)
+      expect(saves.exportSave(api.convertV40ToV39(api.convertV41ToV40(api.convertV42ToV41(current))))).toBe(raw)
       expect(() => saves.validateSaveV39(current)).toThrow()
       admitted(current.state)
     }
     const positive = JSON.parse(bytes(input45())) as CurrentView
-    expect(api.validateSaveV41(positive)).toBe(positive)
+    expect(api.validateSaveV42(positive)).toBe(positive)
     expect(positive.state.firstTakeSubjects.cutoverOrdinal).toBe(19)
     const mutations: ((s: CurrentView) => void)[] = [
       s => { delete (s.state as Partial<CurrentView['state']>).firstTakeSubjects },
@@ -366,8 +376,8 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
     ]
     for (const mutate of mutations) {
       const bad = clone(positive); mutate(bad)
-      expect(() => api.validateSaveV41(bad)).toThrow(/first.?take|subject|suffix|cutover/i)
-      expect(() => api.convertV41ToV40(bad)).toThrow(/first.?take|subject|suffix|cutover/i)
+      expect(() => api.validateSaveV42(bad)).toThrow(/first.?take|subject|suffix|cutover/i)
+      expect(() => api.convertV41ToV40(api.convertV42ToV41(bad))).toThrow(/first.?take|subject|suffix|cutover/i)
     }
   }, LEAF_TIMEOUT_MS)
 })
@@ -705,7 +715,7 @@ function controlsEnd(before: ReturnType<typeof controlsStart>): void {
 function controlSave(state: GameState): ControlSave {
   admitted(state)
   const save = saves.makeSave(state), before = stable(save)
-  expect(saves.validateSaveV41(save)).toBe(save)
+  expect(saves.validateSaveV42(save)).toBe(save)
   expect(stable(save)).toBe(before)
   return save
 }
@@ -713,7 +723,7 @@ function subjectNegative(base: ControlSave, name: string, change: (save: Control
   const before = stable(base), bad = clone(base)
   change(bad)
   let error: unknown
-  try { saves.validateSaveV41(bad) } catch (caught) { error = caught }
+  try { saves.validateSaveV42(bad) } catch (caught) { error = caught }
   const message = error instanceof Error ? error.message : String(error)
   console.info('1249-P4P5-SUBJECT-REFUSAL ' + JSON.stringify({ name, message }))
   expect(error).toBeInstanceOf(Error); expect(message).toMatch(cause)
@@ -783,7 +793,7 @@ describe('P4/P5 retained subject and waiver authority controls', () => {
     // The retained screenplay link legitimately precedes the film-only join.
     subjectNegative(released, 'coherent other tuple vs released authority', replaceTuple, /firstTakeSubjects facts\[\d+\] disagrees with the surviving screenplay link/)
     const before = stable(released)
-    expect(() => saves.convertV40ToV39(saves.convertV41ToV40(released))).toThrow(/cannot downgrade or discard an opportunity predicate or recorded first-take subject/)
+    expect(() => saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(released)))).toThrow(/cannot downgrade or discard an opportunity predicate or recorded first-take subject/)
     expect(stable(released)).toBe(before) // Combined tag+fact refusal; not isolated fact-only proof.
     controlsEnd(counters)
   }, LEAF_TIMEOUT_MS)
@@ -930,7 +940,7 @@ function waiverLinkNegative(base: ControlSave, name: string, change: (state: Gam
   const before = stable(base), bad = clone(base)
   change(bad.state)
   let error: unknown
-  try { saves.validateSaveV41(bad) } catch (caught) { error = caught }
+  try { saves.validateSaveV42(bad) } catch (caught) { error = caught }
   const message = error instanceof Error ? error.message : String(error)
   console.info('1249-P4P5-WAIVER-LINK-REFUSAL ' + JSON.stringify({ name, message }))
   expect(error).toBeInstanceOf(Error); expect(message).toMatch(cause); expect(stable(base)).toBe(before)

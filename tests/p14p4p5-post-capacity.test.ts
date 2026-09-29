@@ -68,8 +68,8 @@ function memo(name: string, build: () => GameState): GameState {
 }
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(41); expect(saves.validateSaveV41(save)).toBe(save)
-  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV41(imported)
+  expect(save.saveVersion).toBe(42); expect(saves.validateSaveV42(save)).toBe(save)
+  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV42(imported)
   expect(current).toBe(imported); expect(saves.exportSave(current)).toBe(raw); expect(stable(state)).toBe(before)
 }
 function production(state: GameState, id = PROD) {
@@ -346,7 +346,7 @@ function firstPairs(state: GameState) {
     const edge = rows[0]!
     expect(edge).toEqual({ edgeId: edge.edgeId, a: pair.a, b: pair.b, closeness: 50 + pair.weight,
       firstSharedWeek: 313, lastEventWeek: 313, sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0,
-      sharedCancellations: 0, peakTier: pair.weight === 6 ? 'Colleagues' : 'Acquaintances', peakTierWeek: 313,
+      sharedCancellations: 0, sharedCompetitions: 0, peakTier: pair.weight === 6 ? 'Colleagues' : 'Acquaintances', peakTierWeek: 313,
       recent: [{ kind: 'sharedProduction', week: 313, ref: PROD, delta: pair.weight }] })
     expect(edge.a).not.toBe('authored-0001'); expect(edge.b).not.toBe('authored-0001')
     expect(edge.a).not.toBe('authored-0002'); expect(edge.b).not.toBe('authored-0002')

@@ -271,7 +271,7 @@ describe('D-17A/D — validateSave still guards the version boundary loudly', ()
   // boundary moved one further, to 17 — the same law the boundary has always followed one
   // bump on.
   it('rejects unknown V42 loudly (stale title corrected post-C.2b; the boundary moves on every save bump)', () => {
-    expect(() => validateSave({ ...v6, saveVersion: 42 })).toThrow(/unknown saveVersion 42/)
+    expect(() => validateSave({ ...v6, saveVersion: 43 })).toThrow(/unknown saveVersion 43/)
   })
 
   it('rejects a V6 whose persisted regime fact is missing or not a boolean', () => {

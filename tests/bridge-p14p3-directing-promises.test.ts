@@ -24,7 +24,7 @@ import type { CampaignLibrary } from '../bridge/runtime/campaign-library.ts'
 import { caseDisclosure } from '../src/core/talentMarket.js'
 import { activeContract } from '../src/core/employment.js'
 import { exportSave, importSave, makeSave, migrateToLive, stableStringify,
-  validateSaveV38, validateSaveV39, validateSaveV41 } from '../src/core/save.js'
+  validateSaveV38, validateSaveV39, validateSaveV42 } from '../src/core/save.js'
 import type { GameState, ProfessionalPromise } from '../src/core/types.js'
 
 const TIMEOUT = 60_000
@@ -49,11 +49,17 @@ function withRivalTermination<T extends WithRivalBusinesses>(state: T): T {
       ...period, movements: { ...period.movements, termination: 0 } })) },
   })) } }
 }
+// 1320-A S5: Save42 gives every relationship edge a `sharedCompetitions` counter
+// (convertV41ToV42); a genuine V39-or-older old.state never carried it.
+type WithRelationships = { relationships: readonly { sharedCompetitions?: number }[] }
+function withSharedCompetitions<T extends WithRelationships>(state: T): T {
+  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, sharedCompetitions: 0 })) }
+}
 const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
 const bytes = (state: GameState): string => exportSave(makeSave(state))
 function full(state: GameState): string {
   const before = stableStringify(state), save = makeSave(state)
-  expect(save.saveVersion).toBe(41); expect(validateSaveV41(save)).toBe(save)
+  expect(save.saveVersion).toBe(42); expect(validateSaveV42(save)).toBe(save)
   const raw = exportSave(save)
   expect(exportSave(importSave(raw))).toBe(raw)
   expect(stableStringify(state)).toBe(before)
@@ -110,8 +116,8 @@ function current45(): GameState {
     expect(save.state.talent.find(row => row.id === ACTOR)?.role).toBe('actor')
     expect(save.state.talent.find(row => row.id === DIRECTOR)?.role).toBe('director')
     const current = migrateToLive(save)
-    expect(current.saveVersion).toBe(41)
-    expect(current.state).toEqual({ ...withRivalTermination(save.state), firstTakeSubjects: { version: 1, cutoverOrdinal: save.state.firstTakes.length, facts: [] } })
+    expect(current.saveVersion).toBe(42)
+    expect(current.state).toEqual({ ...withRivalTermination(withSharedCompetitions(save.state)), firstTakeSubjects: { version: 1, cutoverOrdinal: save.state.firstTakes.length, facts: [] } })
     full(current.state); return current.state
   })
 }
@@ -260,7 +266,7 @@ function legacyClassless(open: boolean, version: 4 | 6) {
     feasibilityReceipt: { ...target.feasibilityReceipt, rulesVersion: version } }
   variant.state.promises = variant.state.promises.map(row => row.promiseId === target.promiseId ? replacement : row)
   expect(validateSaveV38(variant)).toBe(variant)
-  const current = migrateToLive(variant); expect(current.saveVersion).toBe(41)
+  const current = migrateToLive(variant); expect(current.saveVersion).toBe(42)
   expect(current.state.promises.find(row => row.promiseId === target.promiseId)).toEqual(replacement)
   full(current.state)
   return { state: current.state, promise: root(current.state, target.promiseId) }
@@ -345,8 +351,8 @@ function qualifyPrior53(): void {
     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
       assert.ok(current[slot])
       const previous = validateSaveV38(JSON.parse(old.value[slot]))
-      const now = validateSaveV41(JSON.parse(current[slot]!))
-      expect(now.state).toEqual({ ...withRivalTermination(previous.state), firstTakeSubjects: { version: 1, cutoverOrdinal: previous.state.firstTakes.length, facts: [] } })
+      const now = validateSaveV42(JSON.parse(current[slot]!))
+      expect(now.state).toEqual({ ...withRivalTermination(withSharedCompetitions(previous.state)), firstTakeSubjects: { version: 1, cutoverOrdinal: previous.state.firstTakes.length, facts: [] } })
       expect(current[slot]).toBe(exportSave(migrateToLive(previous)))
       full(now.state)
     }

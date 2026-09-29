@@ -55,10 +55,10 @@ type SaveAPI = { validateSaveV38: (input: unknown) => Save38;
   convertV37ToV38: (input: SaveFileV37) => Save38; convertV38ToV37: (input: Save38) => SaveFileV37;
   migrateToV38: (input: unknown) => Save38;
   // 1309-X3 ruling 1: envelope38()'s own writer moves coherently to the LIVE
-  // version (41), not 38 — 'validateSaveV38' is a stale name for a live site;
+  // version (42), not 38 — 'validateSaveV38' is a stale name for a live site;
   // this key exposes the real live validator under the SAME return shape
   // convention envelope38() already uses (`as unknown as Save38`).
-  validateSaveV41: (input: unknown) => Save38 }
+  validateSaveV42: (input: unknown) => Save38 }
 export function saveApi<K extends keyof SaveAPI>(name: K): SaveAPI[K] {
   const fn = (save as unknown as Partial<SaveAPI>)[name]
   expect(typeof fn, `946 versioned save export ${name}`).toBe('function')
@@ -128,7 +128,7 @@ export function root38(state: GameState): Root38 {
 }
 export function envelope38(state: GameState): Save38 {
   const result = save.makeSave(state)
-  expect(result.saveVersion, 'existing live writer moves coherently to38').toBe(41)
+  expect(result.saveVersion, 'existing live writer moves coherently to38').toBe(42)
   root38(result.state)
   return result as unknown as Save38
 }

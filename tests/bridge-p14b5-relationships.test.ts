@@ -215,7 +215,10 @@ type Relationships = {
   RELATIONSHIP_RECENT_CAP: number
 }
 type Edge = { edgeId: string; a: string; b: string; closeness: number; firstSharedWeek: number; lastEventWeek: number; sharedProductions: number
-  sharedSuccesses: number; sharedFailures: number; sharedCancellations: number; peakTier: string; peakTierWeek: number; recent: readonly { kind: string; week: number; ref: string; delta: number }[] }
+  sharedSuccesses: number; sharedFailures: number; sharedCancellations: number
+  // 1320-A S6: Save42 adds this exact counter to every edge at the live validator (era 42).
+  sharedCompetitions: number
+  peakTier: string; peakTierWeek: number; recent: readonly { kind: string; week: number; ref: string; delta: number }[] }
 const edges = (state: GameState): readonly Edge[] => (state as unknown as { relationships?: readonly Edge[] }).relationships ?? []
 /** The engine's new module, reached dynamically so the frozen pins of this file run before it exists. */
 async function relationships(): Promise<Relationships | null> {
@@ -367,7 +370,7 @@ describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, 
     // not projection53's identity (OUTGOING_53) -- states the received value.
     expect(SCHEMA_ID).toBe('sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1')
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
-    expect(LIVE_SAVE_VERSION).toBe(41)
+    expect(LIVE_SAVE_VERSION).toBe(42)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
@@ -477,7 +480,7 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
     const [a, b] = F6.subject < base.offCycle ? [F6.subject, base.offCycle] : [base.offCycle, F6.subject]
     const closeness = rel.RELATIONSHIP_TIER_FLOOR['CloseFriends']!
     const edge: Edge = { edgeId: `relationship-edge-${String(edges(base.at207).length)}`, a, b, closeness, firstSharedWeek: 207, lastEventWeek: 207,
-      sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0, sharedCancellations: 0, peakTier: 'CloseFriends', peakTierWeek: 207,
+      sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0, sharedCancellations: 0, sharedCompetitions: 0, peakTier: 'CloseFriends', peakTierWeek: 207,
       recent: [{ kind: 'sharedProduction', week: 207, ref: 'staged-production', delta: 1 }] }
     const staged = makeSave({ ...base.at207, relationships: [...edges(base.at207), edge] } as unknown as GameState) // validator-admitted staging
     expect(staged.saveVersion).toBe(LIVE_SAVE_VERSION)

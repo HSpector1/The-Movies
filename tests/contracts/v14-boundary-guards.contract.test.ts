@@ -31,7 +31,7 @@
 
 import { beforeAll, describe, expect, it } from 'vitest'
 
-import { applyActions, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, makeSave, stableStringify, tick } from '../../src/core/index.js'
+import { applyActions, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, makeSave, stableStringify, tick } from '../../src/core/index.js'
 import type { GameState } from '../../src/core/index.js'
 
 import { clone, operationsStudio, productionPayload, withCash } from './_contractFixtures.js'
@@ -60,7 +60,7 @@ let legacy: GameState
 let inFlight: ReturnType<typeof historicalWorkflowCarrier>
 
 function historicalWorkflowCarrier(state: GameState) {
-  const admitted = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(makeSave(state))))).state
+  const admitted = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(makeSave(state)))))).state
   return { ...admitted, operations: { ...admitted.operations,
     workflows: admitted.operations.workflows.map(({ setup: _setup, planRevision: _planRevision, ...workflow }) => workflow) } }
 }
@@ -317,7 +317,7 @@ describe('C2a-M1 · guards (B) — the live boundary moves one way', () => {
   // version now is. 15 is no longer unknown (validateSaveV15 exists); 16 is.
   it('keeps every historical version frozen and rejects unknown V42', () => {
     const save = envelopeAt(14)
-    expect(() => validateSave({ ...save, saveVersion: 42 })).toThrow(/unknown saveVersion 42/)
+    expect(() => validateSave({ ...save, saveVersion: 43 })).toThrow(/unknown saveVersion 43/)
   })
 })
 

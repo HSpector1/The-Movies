@@ -5,13 +5,13 @@ import { describe, expect, it } from 'vitest'
 import * as core from '../src/core/index.js'
 import { ageAt, nextBirthdayWeek } from '../src/core/aging.js'
 import { retirementRecordFor } from '../src/core/careerLifecycle.js'
-import { exportSave, importSave, migrateToLive, stableStringify } from '../src/core/save.js'
+import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, exportSave, importSave, migrateToLive, stableStringify } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { CreativeRole, GameState } from '../src/core/types.js'
 import { CONTINUOUS208, DEFERRED_ACTOR, FOCUS, PRE207, RUNTIME208, SCIENTIST,
   api, bytes, chosen, clone, deferredBoundary, envelope38, expectFocusChosen,
-  expectedFocusInputs, migrated, person, root38, saveApi, scientistBoundary,
+  expectedFocusInputs, migrated, person, root38, scientistBoundary,
   syntheticInputs } from './helpers/p14c3-fixtures.js'
 import type { Choice, Inputs, Root38, TargetInput } from './helpers/p14c3-fixtures.js'
 
@@ -166,7 +166,7 @@ describe('C.3 A05/A06 public profession history, current evidence and repeat saf
     expect(root38(next).transitionEvaluations).toEqual(root38(reopened).transitionEvaluations)
     expect(root38(next).professionChanges).toEqual(root38(reopened).professionChanges)
     for (const [target, id] of Object.entries(FOCUS)) expect(at(next, id, 209)).toBe(target)
-    expect(() => saveApi('convertV38ToV37')(envelope38(reopened))).toThrow(/downgrade|transition|discard|profession/i)
+    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(envelope38(reopened) as never)))))).toThrow(/downgrade|transition|discard|profession/i)
   })
 })
 
@@ -195,7 +195,7 @@ describe('C.3 A09/A10 genuine prospective finality and deferred reconciliation',
     const next = tick(reopened, { develop: true })
     expect(root38(next).industryRetirements.filter(row => row.personId === SCIENTIST))
       .toEqual(root.industryRetirements.filter(row => row.personId === SCIENTIST))
-    expect(() => saveApi('convertV38ToV37')(envelope38(reopened))).toThrow(/downgrade|retirement|discard|profession/i)
+    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(envelope38(reopened) as never)))))).toThrow(/downgrade|retirement|discard|profession/i)
   })
 
   it('defers the real retired cohort actor at2601 and schedules the exact annual-or-age deadline, never the next week', () => {

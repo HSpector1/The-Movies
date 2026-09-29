@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { beginFounding, generateWorld, makeSave, exportSave, importSave, migrateToV25, migrateToLive, makeSaveV18, convertV41ToV40 } from '../src/core/index.js'
+import { beginFounding, generateWorld, makeSave, exportSave, importSave, migrateToV25, migrateToLive, makeSaveV18, convertV41ToV40, convertV42ToV41 } from '../src/core/index.js'
 import { enterRival } from '../src/core/hollywood.js'
 import { persistedConceptIds, persistedProductionIds } from '../src/core/productionIdentity.js'
 
@@ -49,7 +49,7 @@ describe('R05 canonical starting history and genuine migration', () => {
     // 1309-X3 ruling 3: makeSaveV18 fed the raw live GameState now stops at the
     // V25 Hollywood exact-key check on the Save41 rival `termination` movement;
     // it receives the lawful V40 projection instead.
-    expect(()=>makeSaveV18(convertV41ToV40(makeSave(state)).state)).toThrow(/cannot downgrade/)
+    expect(()=>makeSaveV18(convertV41ToV40(convertV42ToV41(makeSave(state))).state)).toThrow(/cannot downgrade/)
     const saved=makeSave(state)
     const duplicate=structuredClone(saved)
     duplicate.state.hollywood!.films.push(duplicate.state.hollywood!.films[0]!)

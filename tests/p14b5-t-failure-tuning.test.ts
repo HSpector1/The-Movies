@@ -51,7 +51,7 @@ import {
   RELATIONSHIP_SUCCESS_CRITIC_SCORE, RELATIONSHIP_SUCCESS_DELTA, RELATIONSHIP_TIER_FLOOR,
   advanceRelationshipsWeek, currentCloseness, currentTier, pairChemistry, validateRelationshipsRoot,
 } from '../src/core/relationships.js'
-import { LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV38 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV42 } from '../src/core/save.js'
 import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
 import { tick } from '../src/core/tick.js'
 import type { FilmResult, GameState, Production, RelationshipDriver, RelationshipEdge } from '../src/core/types.js'
@@ -107,13 +107,13 @@ function shoot(state: GameState, studioId: string, q: Quartet, week: number, pro
   const production = shot(productionId, q)
   const staged = appendFirstTakes(at(state, week), [{ studioId, production }], week) // the REAL receipt writer
   const written = advanceRelationshipsWeek(staged, { takes: [{ studioId, production }], releases: [] }, week)
-  validateRelationshipsRoot(written)
+  validateRelationshipsRoot(written, 42)
   return written
 }
 function release(state: GameState, week: number, productionId: string, criticScore: number): GameState {
   const film = { productionId, criticScore } as unknown as FilmResult // the two fields the release join reads
   const written = advanceRelationshipsWeek(at(state, week), { takes: [], releases: [film] }, week)
-  validateRelationshipsRoot(written)
+  validateRelationshipsRoot(written, 42)
   return written
 }
 
@@ -385,7 +385,7 @@ describe('CONSTRUCTED group 6 — SAVE AND LOAD ACROSS THE CHANGE: historical de
     expect(written.every((row) => row.includes(FAIL_DELTA))).toBe(true) // the chain really recorded failures
     const save = makeSave(state)
     expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
-    expect(validateSaveV38(save)).toEqual(save)
+    expect(validateSaveV42(save)).toEqual(save)
     const migrated = migrateToLive(save)
     expect(JSON.stringify(migrated.state.relationships)).toBe(JSON.stringify(save.state.relationships))
     expect(migrated.state.relationships.map((e) => e.recent.map((d) => d.delta))).toEqual(written)
@@ -405,12 +405,12 @@ describe('CONSTRUCTED group 6 — SAVE AND LOAD ACROSS THE CHANGE: historical de
       recent: edge.recent.map((d: RelationshipDriver) => (d.kind === 'sharedFailure' ? { ...d, delta: historicalDelta } : d)),
     })
     const historical = { ...chain.at(-1)!.state, relationships: edgesOf(chain.at(-1)!.state).map(restamp) } as GameState
-    expect(() => { validateRelationshipsRoot(historical) }).not.toThrow()
+    expect(() => { validateRelationshipsRoot(historical, 42) }).not.toThrow()
     const save = makeSave(historical)
     const carried = save.state.relationships.flatMap((e) => e.recent.filter((d) => d.kind === 'sharedFailure').map((d) => d.delta))
     expect(carried.length).toBeGreaterThan(0)
     expect(new Set(carried)).toEqual(new Set([historicalDelta]))
-    const migrated = migrateToLive(validateSaveV38(save))
+    const migrated = migrateToLive(validateSaveV42(save))
     expect(JSON.stringify(migrated.state.relationships)).toBe(JSON.stringify(save.state.relationships))
     expect(migrated.state.relationships.flatMap((e) => e.recent.filter((d) => d.kind === 'sharedFailure').map((d) => d.delta)))
       .toEqual(carried)
@@ -461,6 +461,6 @@ describe('NATURAL WORLD group 7 — one standard seed, what is TRUE and nothing 
       expect(edge.sharedFailures).toBe(was.sharedFailures + 1)
       expect(edge.lastEventWeek).toBe(week)
     }
-    validateRelationshipsRoot(state)
+    validateRelationshipsRoot(state, 42)
   })
 })

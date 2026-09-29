@@ -5,7 +5,7 @@ import { expect } from 'vitest'
 import { applyActions } from '../../src/core/actions.js'
 import { retirementRecordFor } from '../../src/core/careerLifecycle.js'
 import { activeContract, busyTalentIds } from '../../src/core/employment.js'
-import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV41 } from '../../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV42 } from '../../src/core/save.js'
 import { availableDevelopmentCastingSlots } from '../../src/core/scriptDevelopment.js'
 import { openMarketCaseFor, submitProposal } from '../../src/core/talentMarket.js'
 import { tick } from '../../src/core/tick.js'
@@ -24,8 +24,8 @@ const completionCache = new Map<Target, { direct: GameState; reopened: GameState
 
 export function accepted(state: GameState): void {
   const before = stableStringify(state), save = makeSave(state)
-  expect(save.saveVersion).toBe(41)
-  expect(validateSaveV41(save)).toBe(save)
+  expect(save.saveVersion).toBe(42)
+  expect(validateSaveV42(save)).toBe(save)
   expect(stableStringify(state)).toBe(before)
 }
 export function advanceExactly(state: GameState, end: number): GameState {

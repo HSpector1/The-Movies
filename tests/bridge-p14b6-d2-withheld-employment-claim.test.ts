@@ -58,7 +58,7 @@ import assert from 'node:assert/strict'
 import { describe, expect, it } from 'vitest'
 
 import { beginFounding, generateWorld } from '../src/core/index.js'
-import { LIVE_SAVE_VERSION, makeSave, validateSaveV41 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, makeSave, validateSaveV42 } from '../src/core/save.js'
 import type { GameState, RelationshipDriver, RelationshipTier } from '../src/core/types.js'
 import { peopleProjection } from '../bridge/people.ts'
 import { contractedByRole, richFoundedStudio } from './contracts/_contractFixtures.ts'
@@ -70,6 +70,8 @@ import { contractedByRole, richFoundedStudio } from './contracts/_contractFixtur
 type Edge = {
   edgeId: string; a: string; b: string; closeness: number; firstSharedWeek: number; lastEventWeek: number
   sharedProductions: number; sharedSuccesses: number; sharedFailures: number; sharedCancellations: number
+  // 1320-A S6: Save42 adds this exact counter to every edge at the live validator (era 42).
+  sharedCompetitions: number
   peakTier: RelationshipTier; peakTierWeek: number; recent: RelationshipDriver[]
 }
 const withRoot = (state: GameState, rows: readonly Edge[]): GameState =>
@@ -79,7 +81,7 @@ const withRoot = (state: GameState, rows: readonly Edge[]): GameState =>
 function admitted(state: GameState): GameState {
   const save = makeSave(state)
   expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
-  validateSaveV41(JSON.parse(JSON.stringify(save)))
+  validateSaveV42(JSON.parse(JSON.stringify(save)))
   return save.state as GameState
 }
 /** One edge, staged between `x` and `y` at `week` — the single canonical pair, ordinal id 0. */
@@ -87,7 +89,7 @@ const stagedEdge = (x: string, y: string, week: number): Edge => {
   const [a, b] = x < y ? [x, y] : [y, x]
   return {
     edgeId: 'relationship-edge-0', a, b, closeness: 50, firstSharedWeek: week, lastEventWeek: week,
-    sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0, sharedCancellations: 0,
+    sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0, sharedCancellations: 0, sharedCompetitions: 0,
     peakTier: 'Acquaintances', peakTierWeek: week,
     recent: [{ kind: 'sharedProduction', week, ref: 'staged-d2-production', delta: 2 }],
   }

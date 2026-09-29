@@ -318,10 +318,17 @@ describe('P3 first slice: public Director promises and historical meaning', () =
     const positives = [a.state, b.state, first.first.afterTake, second.second.afterTake]
     for (const state of positives) {
       admitted(state)
-      const save = saves.makeSave(state); expect(save.saveVersion).toBe(41)
+      const save = saves.makeSave(state); expect(save.saveVersion).toBe(42)
       expect(api.validateSaveV39(save)).toBe(save)
       expect(bytes(reopen(state))).toBe(bytes(state))
-      expect(() => saves.validateSaveV38({ ...clone(save), saveVersion: 38 })).toThrow(/predicate|promise/i)
+      // 1320-A S9-adjacent: a bare saveVersion relabel keeps the live sharedCompetitions
+      // field on every relationship edge; the frozen V31 relationship reader refuses that
+      // unknown field before this leaf's own promise-shape cause is ever reached. Project
+      // relationships to era 31 (the same production helper validateSaveV42 itself uses)
+      // so the intended promise refusal is the one that actually fires.
+      expect(() => saves.validateSaveV38({ ...clone(save), saveVersion: 38,
+        state: { ...save.state, relationships: core.relationshipsAtV31(save.state.relationships) } }))
+        .toThrow(/predicate|promise/i)
       expect(() => api.convertV39ToV38(save)).toThrow(/director|predicate|promise|discard/i)
     }
     const id = a.promiseId
@@ -348,7 +355,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
     // fed directly, they now stop at the V25 Hollywood exact-key check on the
     // Save41 rival `termination` movement, before ever reaching this leaf's own
     // named cause.
-    const projectedA = saves.convertV41ToV40(saves.makeSave(a.state)).state
+    const projectedA = saves.convertV41ToV40(saves.convertV42ToV41(saves.makeSave(a.state))).state
     for (const builder of [saves.makeSaveV1, saves.makeSaveV13, saves.makeSaveV18]) {
       expect(() => builder(projectedA)).toThrow(/director|promise|predicate/i)
       const invalid: GameState = { ...clone(projectedA), hollywood: null }
@@ -362,7 +369,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
       const old = outgoing(name), oldState = saves.stableStringify(old.save.state)
       const current = saves.migrateToLive(old.save)
       // Existing semantic boundary: fails as37/38 rather than a missing import.
-      expect(current.saveVersion).toBe(41)
+      expect(current.saveVersion).toBe(42)
       expect(saves.stableStringify(current.state)).toBe(oldState)
       expect(current.state.promises).toEqual(old.save.state.promises)
       expect(current.state.firstTakes).toEqual(old.save.state.firstTakes)
@@ -387,7 +394,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
       expect(oldTakes.length).toBeGreaterThanOrEqual(replacement.predicate.count)
       expect(oldTakes.every(take => Object.values(take.cast).includes(replacement.beneficiaryPersonId))).toBe(true)
       const rawBefore = saves.exportSave(old), current = saves.migrateToLive(old)
-      expect(current.saveVersion).toBe(41)
+      expect(current.saveVersion).toBe(42)
       expect(current.state.promises[index]).toEqual(replacement)
       expect(qualifyingTakes(current.state, current.state.promises[index]!)).toEqual(oldTakes)
       expect(saves.exportSave(futureSave().convertV39ToV38(current))).toBe(rawBefore)
@@ -638,12 +645,19 @@ describe('P3 second slice: cancellation and same-domain waiver', () => {
     for (const state of [change.state, done.state]) {
       admitted(state); const save = saves.makeSave(state)
       expect(futureSave().validateSaveV39(save)).toBe(save)
-      expect(() => saves.validateSaveV38({ ...clone(save), saveVersion: 38 })).toThrow(/predicate|promise/i)
+      // 1320-A S9-adjacent: a bare saveVersion relabel keeps the live sharedCompetitions
+      // field on every relationship edge; the frozen V31 relationship reader refuses that
+      // unknown field before this leaf's own promise-shape cause is ever reached. Project
+      // relationships to era 31 (the same production helper validateSaveV42 itself uses)
+      // so the intended promise refusal is the one that actually fires.
+      expect(() => saves.validateSaveV38({ ...clone(save), saveVersion: 38,
+        state: { ...save.state, relationships: core.relationshipsAtV31(save.state.relationships) } }))
+        .toThrow(/predicate|promise/i)
       expect(() => futureSave().convertV39ToV38(save)).toThrow(/director|predicate|promise/i)
       // 1309-X3 ruling 3: fed the raw live GameState, these frozen builders now
       // stop at the V25 Hollywood exact-key check on the Save41 rival
       // `termination` movement; they receive the lawful V40 projection instead.
-      const projected = saves.convertV41ToV40(save).state
+      const projected = saves.convertV41ToV40(saves.convertV42ToV41(save)).state
       for (const builder of [saves.makeSaveV1, saves.makeSaveV13, saves.makeSaveV18])
         expect(() => builder(projected)).toThrow(/director|promise|predicate/i)
     }
@@ -1043,7 +1057,7 @@ describe('P3 bounded occupancy admission', () => {
     expect(input.state.market.tick).toBe(52)
     expect(input.actorId).toBe('authored-0006')
     admitted(input.state)
-    expect(saves.makeSave(input.state).saveVersion).toBe(41)
+    expect(saves.makeSave(input.state).saveVersion).toBe(42)
     const root = actualPromise(input.state, input.promiseId)
     expect(root).toMatchObject({ contractId: expect.any(String), progress: 0, outcome: null })
     const contract = activeContract(input.state, input.actorId); assert.ok(contract)
@@ -1083,7 +1097,7 @@ describe('P3 bounded occupancy admission', () => {
     const occupied = made.state
     admitted(occupied)
     expect(occupied.market.tick).toBe(52)
-    expect(saves.makeSave(occupied).saveVersion).toBe(41)
+    expect(saves.makeSave(occupied).saveVersion).toBe(42)
     const production = occupied.studio.activeProductions.find(row => row.id === made.productionId)
     assert.ok(production)
     expect(production).toMatchObject({ startTick: 52, remainingTicks: 8,
