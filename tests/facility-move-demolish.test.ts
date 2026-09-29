@@ -861,6 +861,12 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     // authority — records is already empty above, so trivially none is used.
     expect((forgedV11.state.careerLifecycle as { records: { extensionUsed?: boolean }[] }).records.some((record) => record.extensionUsed === true)).toBe(false)
     delete forgedV11.state.careerLifecycle
+    // 1327-C sweep (C15): and the first-take-subject root (V40), removed only
+    // while EMPTY, same precondition as `firstTakes`/`promises` above — the V11
+    // exact-keys allowlist trips on "unknown field firstTakeSubjects" before the
+    // walk reaches the demolition refund boundary this test is about.
+    expect((forgedV11.state.firstTakeSubjects as { facts: unknown[] }).facts).toEqual([])
+    delete forgedV11.state.firstTakeSubjects
     for (const person of forgedV11.state.talent as Record<string, unknown>[]) {
       for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {
         delete (person[key] as Record<string, unknown>).research

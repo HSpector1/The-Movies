@@ -428,7 +428,12 @@ describe('BridgeRuntimeCheckpointV1', () => {
       currentSaveJson: nonCanonicalSave,
       savedSaveJson: checkpoint.savedSaveJson,
       journal: checkpoint.journal,
-    })).toThrow(/canonical V38 save bytes exactly/)
+      // 1327-C sweep (C15, S8 form): the live save version moved past V38; the
+      // guard's own message is version-aware (`bridge/runtime-checkpoint.ts:501`,
+      // `must preserve the canonical V${LIVE_SAVE_VERSION} save bytes exactly`).
+      // The refused-non-canonical-bytes premise still holds, only the number
+      // in its own message moved with the live version.
+    })).toThrow(/canonical V42 save bytes exactly/)
 
     const forgedSave = JSON.parse(checkpoint.currentSaveJson) as Record<string, unknown>
     forgedSave['bridgeJournal'] = []

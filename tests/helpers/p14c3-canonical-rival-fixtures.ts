@@ -5,7 +5,8 @@ import { expect, vi } from 'vitest'
 import * as owner from '../../src/core/professionTransitions.js'
 import * as scripts from '../../src/core/scriptDevelopment.js'
 import { busyTalentIds } from '../../src/core/employment.js'
-import { exportSave, makeSave, stableStringify } from '../../src/core/save.js'
+import { LIVE_SAVE_VERSION, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41,
+  exportSave, makeSave, stableStringify } from '../../src/core/save.js'
 import { careerIdentity, expectedPotentialTier, roleTier } from '../../src/core/talentSummary.js'
 import { tick } from '../../src/core/tick.js'
 import { p13aGeneratedStudio } from '../../src/harness/p13a/fixtures.js'
@@ -184,7 +185,18 @@ export function canonicalInitial(): GameState {
     // public activateStudioOperations, initializeHollywood(fresh). Nothing added.
     const state = p13aGeneratedStudio(CANONICAL_SEED)
     acceptedEvidence(state)
-    expect(sha(exportSave(makeSave(state)))).toBe(CANONICAL_INITIAL_SHA)
+    // 1327-C (C3): the live save version moved past V38 (b71d4599's own pin era),
+    // so the digest of unchanged week-0 content moves with it even though nothing
+    // about this world changed. CANONICAL_INITIAL_SHA stays pinned to its original
+    // Save38 era; the live envelope is instead down-projected to V38 through the
+    // real production converters (never a literal), and that down-projection's
+    // export is what is compared with the unchanged constant. Measured directly
+    // (1327-measure/c3-down-projection.json): live v42 sha a7d0034f… (moved, not
+    // pinned here), v38 down-projection sha 2f9ec0fa… (equals CANONICAL_INITIAL_SHA).
+    const live = makeSave(state)
+    expect(live.saveVersion).toBe(LIVE_SAVE_VERSION)
+    const v38 = convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(live))))
+    expect(sha(exportSave(v38))).toBe(CANONICAL_INITIAL_SHA)
     expect(state.market.tick).toBe(0)
     expect(person(state, id)).toMatchObject({ name: 'Clara Moss', role: 'actor', age: 62 })
     expect(state.talentProvenance.rows.find(row => row.personId === id)).toEqual({ personId: id,

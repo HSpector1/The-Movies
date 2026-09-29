@@ -294,6 +294,22 @@ describe('Scientist retirement persistence has an explicit semantic version boun
       envelope.saveVersion = version
       for (const field of ['transitionBoundaryWeek', 'professionAnchors', 'transitionEvaluations',
         'professionChanges', 'industryRetirements', 'transitionDue']) delete envelope.state.careerLifecycle[field]
+      // 1327-C sweep (C15): none of V34/V35/V36 ever had the relationship
+      // `sharedCompetitions` field (added V42) either — same reader-only shape
+      // adjustment as the careerLifecycle fields just above.
+      for (const edge of envelope.state.relationships) delete (edge as { sharedCompetitions?: unknown }).sharedCompetitions
+      // 1327-C sweep (C15): nor the `firstTakeSubjects` root (added V40) —
+      // measured non-empty on this world (real first-take history), but this
+      // block is a reader-only shape control, not a fidelity-preserving
+      // reconstruction (see comment above: "No such object is played/
+      // exported"), exactly like the unconditional `extensionUsed`/`variant`
+      // deletions above — V34/35/36 never had this root at all.
+      delete (envelope.state as { firstTakeSubjects?: unknown }).firstTakeSubjects
+      // 1327-C sweep (C15): nor the `termination` rival-finance movement key
+      // (added V41 to `RivalMoneyKind`) — same reader-only shape adjustment.
+      for (const business of envelope.state.hollywood.businesses) {
+        for (const period of business.account.periods) delete (period.movements as { termination?: unknown }).termination
+      }
       if (version < 36) {
         for (const row of envelope.state.careerLifecycle.records) {
           delete row.extensionUsed

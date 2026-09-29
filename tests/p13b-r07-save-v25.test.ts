@@ -198,6 +198,13 @@ function asV25Envelope(state: GameState): { saveVersion: 25; seed: string; state
   // none is used.
   expect(stripped.careerLifecycle.records.some((record) => (record as unknown as { extensionUsed?: boolean }).extensionUsed === true)).toBe(false)
   delete (stripped as unknown as { careerLifecycle?: unknown }).careerLifecycle
+  // 1327-C sweep (C15): a frozen V25 envelope carries no `firstTakeSubjects`
+  // root either (added V40) — the frozen chain's exact-key law refuses a root
+  // V25 never had. Same honest reconstruction as `talentMarket`/`relationships`
+  // above: this rehearsing world never completes a first take, so it holds no
+  // fact and nothing is discarded.
+  expect(stripped.firstTakeSubjects.facts).toEqual([])
+  delete (stripped as unknown as { firstTakeSubjects?: unknown }).firstTakeSubjects
   return { saveVersion: 25, seed: stripped.seed, state: stripped, broadcastCache: stripped.broadcastItems }
 }
 
