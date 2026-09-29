@@ -1,0 +1,3 @@
+tests/p14b10-conflict-evidence.test.ts(86,26): error TS2305: Module '"../src/core/relationships.js"' has no exported member 'RELATIONSHIP_CONFLICT_COMPETITIONS'.
+tests/p14b10-conflict-evidence.test.ts(88,34): error TS2305: Module '"../src/core/relationships.js"' has no exported member 'hasConflictEvidence'.
+tests/p14b10-mentor-label.test.ts(82,37): error TS2307: Cannot find module '../src/core/relationshipLabels.js' or its corresponding type declarations.
