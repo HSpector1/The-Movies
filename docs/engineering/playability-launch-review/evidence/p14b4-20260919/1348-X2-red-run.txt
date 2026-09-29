@@ -1,0 +1,331 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1348x
+
+ ❯ |core| tests/p14b10-mentor-label.test.ts (9 tests | 9 failed) 73ms
+   × P14B10 T1 — the new module and its exports exist (RED per leaf: dynamic import) > MENTOR_FIRST_PICTURES is the Owner's named 3 and mentorEvidence is a function 58ms
+     → Failed to load url ../src/core/relationshipLabels.js (resolved id: ../src/core/relationshipLabels.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1348x/tests/p14b10-mentor-label.test.ts. Does the file exist?
+   × Mentor — the positive case (a genuine cohort entrant, three genuine same-director pictures) > mentorEvidence names the real director, the three real productionIds in week order, and the real cohort receipt week 3ms
+     → Failed to load url ../src/core/relationshipLabels.js (resolved id: ../src/core/relationshipLabels.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1348x/tests/p14b10-mentor-label.test.ts. Does the file exist?
+   × Mentor — negative and boundary cases (1347-F Amendment 1 and the qualifying-pictures note) > two of three sharing the director gives no label [RED: relationshipLabels.ts does not exist at BASE] 1ms
+     → Failed to load url ../src/core/relationshipLabels.js (resolved id: ../src/core/relationshipLabels.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1348x/tests/p14b10-mentor-label.test.ts. Does the file exist?
+   × Mentor — negative and boundary cases (1347-F Amendment 1 and the qualifying-pictures note) > a duplicate first take of one production counts once — the label still names the same three original productions [RED] 1ms
+     → Failed to load url ../src/core/relationshipLabels.js (resolved id: ../src/core/relationshipLabels.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1348x/tests/p14b10-mentor-label.test.ts. Does the file exist?
+   × Mentor — negative and boundary cases (1347-F Amendment 1 and the qualifying-pictures note) > fewer than three qualifying pictures gives no label [RED] 1ms
+     → Failed to load url ../src/core/relationshipLabels.js (resolved id: ../src/core/relationshipLabels.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1348x/tests/p14b10-mentor-label.test.ts. Does the file exist?
+   × Mentor — genesis and authored-start people are structurally excluded (not named in ANY CohortReceipt) > a genesis person with three staged same-director pictures still gets no label [RED] 1ms
+     → Failed to load url ../src/core/relationshipLabels.js (resolved id: ../src/core/relationshipLabels.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1348x/tests/p14b10-mentor-label.test.ts. Does the file exist?
+   × Mentor — genesis and authored-start people are structurally excluded (not named in ANY CohortReceipt) > an authored-start person (createCustomTalent) with three staged same-director pictures still gets no label [RED] 1ms
+     → Failed to load url ../src/core/relationshipLabels.js (resolved id: ../src/core/relationshipLabels.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1348x/tests/p14b10-mentor-label.test.ts. Does the file exist?
+   × Mentor — reading the label is inert (HIS-014: "labels create no additional ... effect by themselves") > reading mentorEvidence leaves state deep-equal before/after [RED] 1ms
+     → Failed to load url ../src/core/relationshipLabels.js (resolved id: ../src/core/relationshipLabels.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1348x/tests/p14b10-mentor-label.test.ts. Does the file exist?
+   × Mentor — reading the label is inert (HIS-014: "labels create no additional ... effect by themselves") > reading mentorEvidence changes no chemistry/tier/trust reading for the Mentor pair [RED] 2ms
+     → Failed to load url ../src/core/relationshipLabels.js (resolved id: ../src/core/relationshipLabels.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1348x/tests/p14b10-mentor-label.test.ts. Does the file exist?
+ ❯ |core| tests/p14b10-conflict-evidence.test.ts (20 tests | 12 failed) 2768ms
+   × P14B10 T1 — the new bindings exist (RED at behavior, never a vacuous undefined pass) > hasConflictEvidence is a function and RELATIONSHIP_CONFLICT_COMPETITIONS is the Owner's named 3 23ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × P14B10 T1 — the new bindings exist (RED at behavior, never a vacuous undefined pass) > RELATIONSHIP_RULES_VERSION moves to 2 (1347-A §3:86, "RELATIONSHIP_RULES_VERSION moves to 2") 26ms
+     → expected 1 to be 2 // Object.is equality
+   × tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > hasConflictEvidence is exactly sharedCompetitions >= RELATIONSHIP_CONFLICT_COMPETITIONS (boundary at 2 vs 3) 3ms
+     → hasConflictEvidence is not a function
+   × tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > three competitions (the Owner's named threshold) in the Enemies band reads Enemies [RED: V1 always reads Strained here] 1ms
+     → hasConflictEvidence is not a function
+   × tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > three competitions with closeness at or below 10 reads Nemeses [RED: V1 always reads Strained here] 5ms
+     → expected 'Strained' to be 'Nemeses' // Object.is equality
+   × tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > a pair with only flops/cancellations reports no conflict evidence [RED: hasConflictEvidence does not exist at BASE] 6ms
+     → hasConflictEvidence is not a function
+   × tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > recovery keeps the evidence counter itself [RED: hasConflictEvidence does not exist at BASE] 1ms
+     → hasConflictEvidence is not a function
+   × tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > drift to Acquaintances at baseline still works with evidence kept [RED: at week 10 this pair reads Enemies under v2, never under v1] 1ms
+     → expected 'Strained' to be 'Enemies' // Object.is equality
+   × tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > tiers read current closeness, never peakTier: a pair that peaked Inseparable and is now Enemies (with evidence) reads Enemies [RED under v1] 4ms
+     → expected 'Strained' to be 'Enemies' // Object.is equality
+   ✓ the real casting-competition route reaches genuine evidence with no double-application [control] > pair (a,b) reaches sharedCompetitions = 3 with exactly the existing drivers (-3, -3+-1, -3+-2) and no extra kind or row 1872ms
+   × the real casting-competition route reaches genuine evidence with no double-application [control] > the real 3-competition pair reports conflict evidence [RED: hasConflictEvidence does not exist at BASE] 1ms
+     → hasConflictEvidence is not a function
+   ✓ D5 — the shipped order is unchanged; evidence merely makes `enemies here` reachable (1347-F Amendment 2) > a player issuer: both a close tie and an enemy on the roster reads `close ties here` (2) [control: unchanged combinator order] 753ms
+   × D5 — the shipped order is unchanged; evidence merely makes `enemies here` reachable (1347-F Amendment 2) > a player issuer: only an enemy on the roster reads `enemies here` (0) [RED under v1: no evidence-gated Enemies tier exists yet] 34ms
+     → expected [ 'Strained' ] to deeply equal [ 'Enemies' ]
+   × D5 — the shipped order is unchanged; evidence merely makes `enemies here` reachable (1347-F Amendment 2) > a rival issuer: only an enemy on the roster reads `enemies here` (0) [RED under v1] 1ms
+     → expected [ 'Strained' ] to deeply equal [ 'Enemies' ]
+ ❯ |core| tests/p14b5-relationships.test.ts (48 tests | 3 failed) 22201ms
+   × P14B.5 T1 — the module and its named exports exist (RED at import; never a spurious pass) > the hypothesis constants carry the companion values named in the expansion and the ONE pinned relation 78ms
+     → expected 1 to be 2 // Object.is equality
+   ✓ family 1 — EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) > the seam exists and refuses in the copied guard order: empty delta before the root guard, then the LOUD root guard, then hollywood null 2898ms
+   ✓ family 1 — EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) > a headless world (legacy-v28-shooting-5: hollywood null) lifted through migrateToV32 keeps relationships empty across a tick 422ms
+   ✓ family 2 — CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) > the first post-migration RIVAL take mints six edges under the same law; the 45 pre-migration takes mint none (Q3) 2844ms
+   ✓ family 3 — DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); §5.5 :467-468) > past the grace window the value drifts toward the baseline by the plan formula (independent oracle), from either side, never past it, and is fully returned at GRACE + RETURN 454ms
+   ✓ family 3 — DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); §5.5 :467-468) > a WRITE after dormancy materialises the drifted value first, then applies the delta; counters, firstSharedWeek and the peak survive; recent folds by count at the cap 325ms
+   × family 4 — TIER RULE under RELATIONSHIP_RULES_VERSION 1 and the D2 reachability (scope (3)-(4)) > eight members, byte-equal output for byte-equal input, and a value in the Enemies/Nemeses bands WITHOUT a conflict record reads Strained 2ms
+     → expected 1 to be 2 // Object.is equality
+   ✓ family 5 — RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) > a rival release (hollywood.films / industry.growth) mints under the same law; a release whose take predates every edge mints nothing (I2) 1542ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > the base (no edge) declines by the tie order: every landed band ties between the two survivors (measured premise) 6224ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > a CloseFriends counterpart on the player's OFF-CYCLE row (startWeek < W, active at W) settles the case for the player with the D5 sentence as the ONLY reason 446ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > the same case at a W where that edge has DRIFTED below Close Friends declines by the tie order 421ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > a row COMMITTED AT W (startWeek === W) never counts — the predicate's strict lower end; the same row one week earlier does 379ms
+   × family 6b — D5 SETTLEMENT-LEVEL through the real bandsFor (record 1348-C2, review 1348-D blocking defect 2) > a player issuer: only the enemy (with conflict evidence) on the roster — settlement reads enemies here (0), the rival wins 224ms
+     → expected 'declined' to be 'settled' // Object.is equality
+   ✓ family 8 — RESERVATION enumerated and CHEMISTRY read-only (scope (6)-(7); §5.6 :476, :482) > pairChemistry returns {null, 0, []} without an edge, sign +1 for Colleagues and above, −1 for Strained and below, no digit in any reason, and reads nothing but the record 469ms
+   ✓ family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses closeness outside 0..100 or non-integer 357ms
+   ✓ family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses an unknown driver kind, an empty ref and a non-integer delta 515ms
+   ✓ family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > a V31 world holding ONE edge, and the SAME world with relationships emptied, both refuse migrateToV30 — MEASURED: the nearest guard is now V33s own materialization gate, one week past its migration boundary, not the V31-specific message 1214ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 24 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b10-conflict-evidence.test.ts > P14B10 T1 — the new bindings exist (RED at behavior, never a vacuous undefined pass) > hasConflictEvidence is a function and RELATIONSHIP_CONFLICT_COMPETITIONS is the Owner's named 3
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ tests/p14b10-conflict-evidence.test.ts:121:40
+    119|   it('hasConflictEvidence is a function and RELATIONSHIP_CONFLICT_COMP…
+    120|     // Owner ruling D-1312-1 (1340-O:59-63): "Choose repeated competit…
+    121|     expect(typeof hasConflictEvidence).toBe('function')
+       |                                        ^
+    122|     expect(RELATIONSHIP_CONFLICT_COMPETITIONS).toBe(3)
+    123|     expect(typeof currentTier).toBe('function')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/24]⎯
+
+ FAIL |core|  tests/p14b10-conflict-evidence.test.ts > P14B10 T1 — the new bindings exist (RED at behavior, never a vacuous undefined pass) > RELATIONSHIP_RULES_VERSION moves to 2 (1347-A §3:86, "RELATIONSHIP_RULES_VERSION moves to 2")
+AssertionError: expected 1 to be 2 // Object.is equality
+
+- Expected
++ Received
+
+- 2
++ 1
+
+ ❯ tests/p14b10-conflict-evidence.test.ts:128:40
+    126| 
+    127|   it('RELATIONSHIP_RULES_VERSION moves to 2 (1347-A §3:86, "RELATIONSH…
+    128|     expect(RELATIONSHIP_RULES_VERSION).toBe(2)
+       |                                        ^
+    129|   })
+    130| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/24]⎯
+
+ FAIL |core|  tests/p14b10-conflict-evidence.test.ts > tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > hasConflictEvidence is exactly sharedCompetitions >= RELATIONSHIP_CONFLICT_COMPETITIONS (boundary at 2 vs 3)
+TypeError: hasConflictEvidence is not a function
+ ❯ tests/p14b10-conflict-evidence.test.ts:135:12
+    133| describe('tier law v2 — conflict evidence gates Enemies/Nemeses (1347-…
+    134|   it('hasConflictEvidence is exactly sharedCompetitions >= RELATIONSHI…
+    135|     expect(hasConflictEvidence({ sharedCompetitions: 0 })).toBe(false)
+       |            ^
+    136|     expect(hasConflictEvidence({ sharedCompetitions: RELATIONSHIP_CONF…
+    137|     expect(hasConflictEvidence({ sharedCompetitions: RELATIONSHIP_CONF…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/24]⎯
+
+ FAIL |core|  tests/p14b10-conflict-evidence.test.ts > tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > three competitions (the Owner's named threshold) in the Enemies band reads Enemies [RED: V1 always reads Strained here]
+TypeError: hasConflictEvidence is not a function
+ ❯ tests/p14b10-conflict-evidence.test.ts:153:12
+    151|   it('three competitions (the Owner\'s named threshold) in the Enemies…
+    152|     const edge = stagedEdge(0, 'p-a', 'p-b', floor('Enemies'), 10, { s…
+    153|     expect(hasConflictEvidence(edge)).toBe(true)
+       |            ^
+    154|     expect(currentTier(edge, 10)).toBe('Enemies')
+    155|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/24]⎯
+
+ FAIL |core|  tests/p14b10-conflict-evidence.test.ts > tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > three competitions with closeness at or below 10 reads Nemeses [RED: V1 always reads Strained here]
+AssertionError: expected 'Strained' to be 'Nemeses' // Object.is equality
+
+Expected: "Nemeses"
+Received: "Strained"
+
+ ❯ tests/p14b10-conflict-evidence.test.ts:159:35
+    157|   it('three competitions with closeness at or below 10 reads Nemeses […
+    158|     const edge = stagedEdge(0, 'p-a', 'p-b', 10, 10, { sharedCompetiti…
+    159|     expect(currentTier(edge, 10)).toBe('Nemeses')
+       |                                   ^
+    160|     const zero = stagedEdge(1, 'p-a', 'p-b', 0, 10, { sharedCompetitio…
+    161|     expect(currentTier(zero, 10)).toBe('Nemeses')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/24]⎯
+
+ FAIL |core|  tests/p14b10-conflict-evidence.test.ts > tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > a pair with only flops/cancellations reports no conflict evidence [RED: hasConflictEvidence does not exist at BASE]
+TypeError: hasConflictEvidence is not a function
+ ❯ tests/p14b10-conflict-evidence.test.ts:173:12
+    171|   it('a pair with only flops/cancellations reports no conflict evidenc…
+    172|     const edge = stagedEdge(0, 'p-a', 'p-b', floor('Enemies'), 10, { s…
+    173|     expect(hasConflictEvidence(edge)).toBe(false)
+       |            ^
+    174|   })
+    175| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/24]⎯
+
+ FAIL |core|  tests/p14b10-conflict-evidence.test.ts > tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > recovery keeps the evidence counter itself [RED: hasConflictEvidence does not exist at BASE]
+TypeError: hasConflictEvidence is not a function
+ ❯ tests/p14b10-conflict-evidence.test.ts:191:12
+    189|   it('recovery keeps the evidence counter itself [RED: hasConflictEvid…
+    190|     const recovered = stagedEdge(0, 'p-a', 'p-b', floor('Colleagues'),…
+    191|     expect(hasConflictEvidence(recovered)).toBe(true) // evidence kept…
+       |            ^
+    192|   })
+    193| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/24]⎯
+
+ FAIL |core|  tests/p14b10-conflict-evidence.test.ts > tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > drift to Acquaintances at baseline still works with evidence kept [RED: at week 10 this pair reads Enemies under v2, never under v1]
+AssertionError: expected 'Strained' to be 'Enemies' // Object.is equality
+
+Expected: "Enemies"
+Received: "Strained"
+
+ ❯ tests/p14b10-conflict-evidence.test.ts:198:46
+    196|     const edge = stagedEdge(0, 'p-a', 'p-b', floor('Enemies'), lastEve…
+    197|     // premise: at the anchor week this pair is genuinely in the Enemi…
+    198|     expect(currentTier(edge, lastEventWeek)).toBe('Enemies')
+       |                                              ^
+    199|     const driftedWeek = lastEventWeek + RELATIONSHIP_DRIFT_GRACE_WEEKS…
+    200|     expect(currentCloseness(edge, driftedWeek)).toBe(RELATIONSHIP_BASE…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/24]⎯
+
+ FAIL |core|  tests/p14b10-conflict-evidence.test.ts > tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > tiers read current closeness, never peakTier: a pair that peaked Inseparable and is now Enemies (with evidence) reads Enemies [RED under v1]
+AssertionError: expected 'Strained' to be 'Enemies' // Object.is equality
+
+Expected: "Enemies"
+Received: "Strained"
+
+ ❯ tests/p14b10-conflict-evidence.test.ts:207:35
+    205|   it('tiers read current closeness, never peakTier: a pair that peaked…
+    206|     const edge = stagedEdge(0, 'p-a', 'p-b', floor('Enemies'), 10, { s…
+    207|     expect(currentTier(edge, 10)).toBe('Enemies')
+       |                                   ^
+    208|   })
+    209| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/24]⎯
+
+ FAIL |core|  tests/p14b10-conflict-evidence.test.ts > the real casting-competition route reaches genuine evidence with no double-application [control] > the real 3-competition pair reports conflict evidence [RED: hasConflictEvidence does not exist at BASE]
+TypeError: hasConflictEvidence is not a function
+ ❯ tests/p14b10-conflict-evidence.test.ts:315:12
+    313|     const edge = edgeOf(state, a, b)
+    314|     assert.ok(edge, 'route premise: pair (a,b) never formed an edge')
+    315|     expect(hasConflictEvidence(edge)).toBe(true)
+       |            ^
+    316|   }, 60_000)
+    317| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/24]⎯
+
+ FAIL |core|  tests/p14b10-conflict-evidence.test.ts > D5 — the shipped order is unchanged; evidence merely makes `enemies here` reachable (1347-F Amendment 2) > a player issuer: only an enemy on the roster reads `enemies here` (0) [RED under v1: no evidence-gated Enemies tier exists yet]
+AssertionError: expected [ 'Strained' ] to deeply equal [ 'Enemies' ]
+
+- Expected
++ Received
+
+  Array [
+-   "Enemies",
++   "Strained",
+  ]
+
+ ❯ tests/p14b10-conflict-evidence.test.ts:385:19
+    383|     const enemyOnlyRoster = new Set([w.enemy])
+    384|     const tiers = tiersOnRoster(w.state, w.subject, enemyOnlyRoster, w…
+    385|     expect(tiers).toEqual(['Enemies']) // RED under v1 (would read ['S…
+       |                   ^
+    386|     expect(d5Band(tiers)).toBe(0)
+    387|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/24]⎯
+
+ FAIL |core|  tests/p14b10-conflict-evidence.test.ts > D5 — the shipped order is unchanged; evidence merely makes `enemies here` reachable (1347-F Amendment 2) > a rival issuer: only an enemy on the roster reads `enemies here` (0) [RED under v1]
+AssertionError: expected [ 'Strained' ] to deeply equal [ 'Enemies' ]
+
+- Expected
++ Received
+
+  Array [
+-   "Enemies",
++   "Strained",
+  ]
+
+ ❯ tests/p14b10-conflict-evidence.test.ts:401:19
+    399|     const enemyOnlyRoster = new Set([w.rivalEnemy])
+    400|     const tiers = tiersOnRoster(w.state, w.subject, enemyOnlyRoster, w…
+    401|     expect(tiers).toEqual(['Enemies'])
+       |                   ^
+    402|     expect(d5Band(tiers)).toBe(0)
+    403|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/24]⎯
+
+ FAIL |core|  tests/p14b10-mentor-label.test.ts > P14B10 T1 — the new module and its exports exist (RED per leaf: dynamic import) > MENTOR_FIRST_PICTURES is the Owner's named 3 and mentorEvidence is a function
+ FAIL |core|  tests/p14b10-mentor-label.test.ts > Mentor — the positive case (a genuine cohort entrant, three genuine same-director pictures) > mentorEvidence names the real director, the three real productionIds in week order, and the real cohort receipt week
+ FAIL |core|  tests/p14b10-mentor-label.test.ts > Mentor — negative and boundary cases (1347-F Amendment 1 and the qualifying-pictures note) > two of three sharing the director gives no label [RED: relationshipLabels.ts does not exist at BASE]
+ FAIL |core|  tests/p14b10-mentor-label.test.ts > Mentor — negative and boundary cases (1347-F Amendment 1 and the qualifying-pictures note) > a duplicate first take of one production counts once — the label still names the same three original productions [RED]
+ FAIL |core|  tests/p14b10-mentor-label.test.ts > Mentor — negative and boundary cases (1347-F Amendment 1 and the qualifying-pictures note) > fewer than three qualifying pictures gives no label [RED]
+ FAIL |core|  tests/p14b10-mentor-label.test.ts > Mentor — genesis and authored-start people are structurally excluded (not named in ANY CohortReceipt) > a genesis person with three staged same-director pictures still gets no label [RED]
+ FAIL |core|  tests/p14b10-mentor-label.test.ts > Mentor — genesis and authored-start people are structurally excluded (not named in ANY CohortReceipt) > an authored-start person (createCustomTalent) with three staged same-director pictures still gets no label [RED]
+ FAIL |core|  tests/p14b10-mentor-label.test.ts > Mentor — reading the label is inert (HIS-014: "labels create no additional ... effect by themselves") > reading mentorEvidence leaves state deep-equal before/after [RED]
+ FAIL |core|  tests/p14b10-mentor-label.test.ts > Mentor — reading the label is inert (HIS-014: "labels create no additional ... effect by themselves") > reading mentorEvidence changes no chemistry/tier/trust reading for the Mentor pair [RED]
+Error: Failed to load url ../src/core/relationshipLabels.js (resolved id: ../src/core/relationshipLabels.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1348x/tests/p14b10-mentor-label.test.ts. Does the file exist?
+ ❯ loadAndTransform ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/24]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > P14B.5 T1 — the module and its named exports exist (RED at import; never a spurious pass) > the hypothesis constants carry the companion values named in the expansion and the ONE pinned relation
+AssertionError: expected 1 to be 2 // Object.is equality
+
+- Expected
++ Received
+
+- 2
++ 1
+
+ ❯ tests/p14b5-relationships.test.ts:510:40
+    508|     // 1347-A §3:86) — the conflict-evidence gate (D-1312-1) is rules …
+    509|     // implementation detail. Was `.toBe(1)`.
+    510|     expect(RELATIONSHIP_RULES_VERSION).toBe(2)
+       |                                        ^
+    511|     // 647-B ruling (ii) on OPEN 5: pinned BY NAME — a relation betwee…
+    512|     expect(RELATIONSHIP_FAILURE_DELTA).toBeGreaterThan(RELATIONSHIP_PR…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/24]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 4 — TIER RULE under RELATIONSHIP_RULES_VERSION 1 and the D2 reachability (scope (3)-(4)) > eight members, byte-equal output for byte-equal input, and a value in the Enemies/Nemeses bands WITHOUT a conflict record reads Strained
+AssertionError: expected 1 to be 2 // Object.is equality
+
+- Expected
++ Received
+
+- 2
++ 1
+
+ ❯ tests/p14b5-relationships.test.ts:760:40
+    758|     // evidence) — so under rules v2 the SAME "WITHOUT a conflict reco…
+    759|     // this test's own title states still holds for every tier in the …
+    760|     expect(RELATIONSHIP_RULES_VERSION).toBe(2)
+       |                                        ^
+    761|     expect(new Set(RELATIONSHIP_TIERS).size).toBe(8)
+    762|     const world = takeWorld().after
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/24]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 6b — D5 SETTLEMENT-LEVEL through the real bandsFor (record 1348-C2, review 1348-D blocking defect 2) > a player issuer: only the enemy (with conflict evidence) on the roster — settlement reads enemies here (0), the rival wins
+AssertionError: expected 'declined' to be 'settled' // Object.is equality
+
+Expected: "settled"
+Received: "declined"
+
+ ❯ tests/p14b5-relationships.test.ts:1062:26
+    1060|     // here' (0), strictly below r01's 'none' (1), so r01 DOMINATES an…
+    1061|     // sentence as its sole reason (DESCRIPTOR_ORDER.relationships is …
+    1062|     expect(receipt.kind).toBe('settled')
+       |                          ^
+    1063|     expect(receipt.studioId).toBe(base.r01)
+    1064|     expect(receipt.reasons).toEqual(["their roster holds this person's…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/24]⎯
+
+ Test Files  3 failed (3)
+      Tests  24 failed | 53 passed (77)
+   Start at  00:36:35
+   Duration  26.94s (transform 3.09s, setup 0ms, collect 11.44s, tests 25.04s, environment 3ms, prepare 1.00s)
+
