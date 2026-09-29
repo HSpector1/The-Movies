@@ -185,16 +185,69 @@ describe('955 genuine207 normal-development continuation', () => {
   it('produces identical208 saves and all twelve actual affected receipts from value-identical key orders', () => {
     const original = pre207(), alternate = reordered(original), ids = recordedAffectedIds()
     const initial = bytes(original), otherInitial = bytes(alternate)
+    // 1332-A rule 4 / 1332-F Amendment 1 (repair R3): each of the twelve
+    // subjects' OWN receipt in THIS pre-tick state -- the baseline a subject
+    // NOT bound at week 208 keeps unchanged (every field equal), derived from
+    // the pre-tick state itself, never from a literal week.
+    const preReceipts = new Map(ids.map(id => {
+      const root = original.promises.find(row => row.promiseId === id)
+      assert.ok(root)
+      return [id, root.feasibilityReceipt] as const
+    }))
     const direct = tick(original, { develop: true }), resumed = tick(alternate, { develop: true })
     expect(direct.market.tick).toBe(208)
     expect(resumed.market.tick).toBe(208)
     const selected = (state: GameState) => ids.map(id => {
       const root = state.promises.find(row => row.promiseId === id)
       assert.ok(root)
-      expect(root.feasibilityReceipt).toMatchObject({ week: 208, rulesVersion: 4 })
+      // `commitWinningPromise` (src/core/talentMarket.ts:1237-1248) writes
+      // `contractId` and the re-derived feasibility receipt TOGETHER,
+      // atomically, only for the winning proposal's own promise -- so a
+      // non-null `contractId` on this post-tick root is the independent
+      // signal that THIS tick's week-208 settlement bound the subject. It is
+      // never read off `feasibilityReceipt.week` itself, the field this
+      // very assertion checks; a subject not bound keeps the receipt it held
+      // in the pre-tick state above, unchanged.
+      // 1332-F2 amendment: 1332-A rule 4 asks for `rulesVersion` 4 on BOTH
+      // paths, asserted explicitly here rather than only inherited through
+      // equality with a snapshot. 1332-F amendment 1 requires the unbound
+      // path's receipt "unchanged (every field equal)" -- `toMatchObject`
+      // left `classification`/`bottleneck`/`inputsDigest` unchecked, so the
+      // unbound path now `toEqual`s the whole pre-tick receipt object;
+      // the bound path keeps its shape check (its other fields are freshly
+      // re-derived at 208, not independently predictable here).
+      expect(root.feasibilityReceipt.rulesVersion).toBe(4)
+      if (root.contractId !== null) {
+        expect(root.feasibilityReceipt).toMatchObject({ week: 208, rulesVersion: 4 })
+      } else {
+        expect(root.feasibilityReceipt).toEqual(preReceipts.get(id)!)
+      }
       return { promiseId: id, ...root.feasibilityReceipt }
     })
     const directReceipts = selected(direct), resumedReceipts = selected(resumed)
+    // 1332-A Attribution 3 / 1332-F pre-declared attribution (rule 4): the
+    // derived unbound set must equal EXACTLY promise-3 and promise-26, each
+    // with the week-208 case-decision facts measured there -- event id, kind,
+    // winning studio, the reason sentences verbatim, `contractId` null and a
+    // week-196 pre-tick receipt. Any other subject, fact or sentence stops
+    // this leaf; it never silently passes.
+    const unboundIds = ids.filter(id => direct.promises.find(row => row.promiseId === id)!.contractId === null)
+    expect(unboundIds).toEqual(['promise-3', 'promise-26'])
+    for (const id of unboundIds) {
+      const root = direct.promises.find(row => row.promiseId === id)!
+      expect(root.contractId).toBeNull()
+      expect(preReceipts.get(id)!.week).toBe(196)
+      const decision = direct.talentMarket.receipts.find(r => r.talentId === root.beneficiaryPersonId && r.week === 208
+        && (r.kind === 'settled' || r.kind === 'declined'))
+      assert.ok(decision, `1332-A Attribution 3 premise: no week-208 case decision for ${id}`)
+      if (id === 'promise-3') {
+        expect(decision).toMatchObject({ eventId: 'talent-market-event-143', kind: 'declined', studioId: null,
+          reasons: ['this person could not separate 2 equally ranked proposals.'] })
+      } else {
+        expect(decision).toMatchObject({ eventId: 'talent-market-event-155', kind: 'settled', studioId: 'studio-de11f27b-r03',
+          reasons: ['their studio standing ranked higher', 'they are the current employer'] })
+      }
+    }
     expect(resumedReceipts.map(({ inputsDigest: _digest, ...rest }) => rest))
       .toEqual(directReceipts.map(({ inputsDigest: _digest, ...rest }) => rest))
     expect(resumedReceipts, 'the same twelve genuine promise subjects must retain identical receipts').toEqual(directReceipts)

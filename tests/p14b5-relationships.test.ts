@@ -70,6 +70,7 @@ import { tick } from '../src/core/tick.js'
 import * as marketModule from '../src/core/talentMarket.js'
 import { publicPreferredTerm, publicPriorityOrder, submitProposal, type FreezeDrop } from '../src/core/talentMarket.js'
 import { attachPromise } from '../src/core/promises.js'
+import { validateFirstTakeSubjects } from '../src/core/firstTakeSubjects.js'
 import { LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31, validateSaveV33, validateSaveV42 } from '../src/core/save.js'
 import { TUNING } from '../src/core/tuning.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
@@ -140,6 +141,14 @@ const FROZEN = {
   // exactly; stripping the root alone does not — both halves are needed and
   // nothing else in the state moved. Contract 762 §6 authorises the flooring
   // and §11 makes the new root unavoidable.
+  // 1332-A row 5 / 1332-F Amendment 2 (repair R3): `firstTakeSubjects` (V40)
+  // and every rival period's `termination` movement (V41) join the strip
+  // below. This constant itself is UNCHANGED — the record's own counterfactual
+  // (1332-measure/probes/mk-cf.py, run [cf-58c89932.json], re-measured in this
+  // tree: PROBE after.firstTakeSubjects {"version":1,"cutoverOrdinal":24,
+  // "facts":[{"eventId":"first-take-event-24","conceptId":"c-00","genre":
+  // "comedy","scriptProjectId":null}]}, PROBE termination movements all 0)
+  // shows the wider strip reproduces this exact digest.
   postTakeDigestStripped: '9702aa6869cf80f82d5133f68137427a0ed44c07ce987e8fe2be66bbb60f3d78',
   // The rival chain from `rival-current-p1-and-p2` (196): first post-migration take, its release, the repeat take.
   rival: { studioId: 'studio-aca408ec-r01', firstTake: 'studio-aca408ec-r01:film:11', firstTakeWeek: 213, firstReleaseWeek: 217,
@@ -235,6 +244,15 @@ const stage = (state: GameState, edge: Edge): GameState => live(withEdges(state,
 // is past the week-52 cohort floor, so `cohorts` may now be non-empty on both
 // sides in an eligible hollywood world, but that no longer matters: the root
 // is dropped wholesale before comparison either way.
+// 1332-A row 5 / 1332-F Amendment 2 (repair R3): `firstTakeSubjects` (V40,
+// whole root) and every rival period's `termination` movement (V41, one
+// scalar key) join the strip for the same reason `relationships` does -- both
+// are additive schema, not facts this CANNOT-MOVE control is about. Unlike
+// `supersededByPromiseId`/`variant` above, `firstTakeSubjects` carries real
+// per-take content (conceptId/genre/scriptProjectId), so a bare
+// existence-strip would leave that content outside every assertion once it
+// leaves the digest (1332-B blocking item 2); the guard below asserts it in
+// full, by the LAW's own validator, before the strip runs.
 const bytes = (state: GameState): string => {
   // P14C.2b: before the structural strip below silently drops the whole root,
   // confirm it is dropping no retirement-extension authority — this window
@@ -242,7 +260,33 @@ const bytes = (state: GameState): string => {
   if (state.careerLifecycle.records.some((record) => (record as unknown as { extensionUsed?: boolean }).extensionUsed === true)) {
     throw new Error('bytes: a settled retirement extension would be silently dropped by this strip')
   }
-  const { relationships: _r, careerLifecycle: _cl, ...rest } = state as unknown as Record<string, unknown> & {
+  // 1332-F Amendment 2: assert `firstTakeSubjects`'s full content (version,
+  // cutoverOrdinal, and every fact's eventId/conceptId/genre/scriptProjectId
+  // agreement with its owning concept/production/released film) BEFORE the
+  // strip below drops the whole root -- by calling the LAW's own validator
+  // (src/core/firstTakeSubjects.ts:36-89, the exact function `promises.ts:1633`
+  // invokes at saveVersion 40), never a reimplementation and never the probe
+  // output. Any drift in any field throws loudly here instead of silently
+  // leaving the digest.
+  validateFirstTakeSubjects(state as unknown as Record<string, unknown>)
+  // 1332-A rule 3: the widened `termination` movement (V41) is a bare scalar
+  // per rival period with no sub-structure -- throw if a real (non-zero) one
+  // would be silently dropped by the strip below, the same guard-before-strip
+  // convention as `extensionUsed` above.
+  for (const business of state.hollywood?.businesses ?? []) {
+    for (const period of business.account.periods) {
+      if (period.movements.termination !== 0) {
+        throw new Error('bytes: a real rival termination movement would be silently dropped by this strip')
+      }
+    }
+  }
+  const strippedHollywood = state.hollywood === null ? null : { ...state.hollywood,
+    businesses: state.hollywood.businesses.map((business) => ({ ...business,
+      account: { ...business.account, periods: business.account.periods.map((period) => {
+        const { termination: _t, ...movements } = period.movements
+        return { ...period, movements }
+      }) } })) }
+  const { relationships: _r, careerLifecycle: _cl, firstTakeSubjects: _fts, ...rest } = state as unknown as Record<string, unknown> & {
     promises: Record<string, unknown>[]
     talentMarket: { cases: Record<string, unknown>[] } & Record<string, unknown>
   }
@@ -252,7 +296,7 @@ const bytes = (state: GameState): string => {
   // for the same reason `supersededByPromiseId` is: a pure schema addition,
   // not a fact this CANNOT-MOVE control is about.
   const talentMarket = { ...rest.talentMarket, cases: rest.talentMarket.cases.map((c) => { const { variant: _v, ...legacy } = c; return legacy }) }
-  return JSON.stringify({ ...rest, promises, talentMarket })
+  return JSON.stringify({ ...rest, promises, talentMarket, hollywood: strippedHollywood })
 }
 // P14C.2a: `stripRoot` builds a pre-V31 view for the relationships-root-presence
 // fault test above (family 1's first `it`) -- it strips only the one root that
@@ -543,6 +587,12 @@ describe('family 1 — EDGE MINTING at the tick tail from the advance\'s delta (
     const { pre, after } = takeWorld()
     expect(JSON.stringify(after.rngState)).toBe(JSON.stringify(pre.rngState)) // the take week consumes no sim RNG (measured)
     expect(after.rngState).toBe(FROZEN.rngAfterTake)
+    // 1332-F Amendment 2: `cutoverOrdinal` is the ordinal the Save39->Save40
+    // lift wrote once (src/core/save.ts:10497); this tick only appends to
+    // `facts`, so the ordinal itself is unchanged -- checked here, across the
+    // tick, since `bytes()` receives one state at a time and cannot compare.
+    expect(after.firstTakeSubjects.version).toBe(1)
+    expect(after.firstTakeSubjects.cutoverOrdinal).toBe(pre.firstTakeSubjects.cutoverOrdinal)
     expect(sha(bytes(after))).toBe(FROZEN.postTakeDigestStripped) // CANNOT-MOVE class: the pre-settlement chain
     const production = pre.studio.activeProductions.find((p) => p.id === FROZEN.productionId)!
     const direct = advanceRelationshipsWeek(withEdges(pre, []), { takes: [{ studioId: player(pre), production }], releases: [] }, pre.market.tick + 1)

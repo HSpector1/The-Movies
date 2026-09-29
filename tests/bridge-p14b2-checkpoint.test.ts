@@ -62,16 +62,34 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
       // root, so the expected shape below carries it transparently.
       const sourcePeople = source.state.talent as { id: string; age: number; role: string }[]
       const sourceCases = (source.state.talentMarket.cases as Record<string, unknown>[]).map((kase) => ({ ...kase, variant: 'expiry' }))
+      // R3 rule 2 (1332-A / 1332-F, this record's own file-list scope): the governed
+      // lift now also writes the root `firstTakeSubjects` (convertV39ToV40,
+      // src/core/save.ts:10493-10497: `{ version: 1, cutoverOrdinal:
+      // old.state.firstTakes.length, facts: [] }`) and a zero `termination`
+      // movement on every `hollywood.businesses[].account.periods[].movements`
+      // (convertV40ToV41, src/core/save.ts:10526-10533) -- both additive, like
+      // V34's own root above, so the expected shape below carries them
+      // transparently, DERIVED from the source envelope and the lift code. The
+      // received values (cutoverOrdinal 5, four termination keys, re-measured in
+      // this tree) are cross-checks, never the source of this expectation.
+      const sourceFirstTakeSubjects = { version: 1, cutoverOrdinal: (source.state.firstTakes as unknown[]).length, facts: [] }
+      const sourceHollywood = source.state.hollywood as { businesses: Record<string, unknown>[] }
+      const sourceBusinesses = sourceHollywood.businesses.map((business) => ({ ...business,
+        account: { ...(business.account as Record<string, unknown>),
+          periods: ((business.account as { periods: Record<string, unknown>[] }).periods).map((period) => ({
+            ...period, movements: { ...(period.movements as Record<string, unknown>), termination: 0 } })) } }))
       expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 42, state: { ...source.state,
         relationships: [], promises: (source.state.promises as Record<string, unknown>[]).map(addedFields),
         talent: sourcePeople.map((person) => ({ ...person, age: Math.floor(person.age) })),
         talentProvenance: buildTalentProvenance(sourcePeople, source.state.market.tick as number, 'legacy_age_anchor'),
+        firstTakeSubjects: sourceFirstTakeSubjects,
         careerLifecycle: { boundaryWeek: source.state.market.tick, records: [], cohorts: [],
           transitionBoundaryWeek: source.state.market.tick,
           professionAnchors: sourcePeople.map(person => ({ personId: person.id, profession: person.role,
             kind: 'existing', recordedWeek: source.state.market.tick })),
           transitionEvaluations: [], professionChanges: [], industryRetirements: [], transitionDue: [] },
-        talentMarket: { ...source.state.talentMarket, cases: sourceCases } } })
+        talentMarket: { ...source.state.talentMarket, cases: sourceCases },
+        hollywood: { ...sourceHollywood, businesses: sourceBusinesses } } })
       expect(after[slot]).toBe(exportSave(governed))
     }
     expect(after.currentStateDigest).toBe(sha(after.currentSaveJson))
