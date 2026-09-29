@@ -1,0 +1,3 @@
+root exit 0
+bridge exit 0
+ui exit 0

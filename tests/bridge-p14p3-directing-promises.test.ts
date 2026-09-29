@@ -27,7 +27,13 @@ import { exportSave, importSave, makeSave, migrateToLive, stableStringify,
   validateSaveV38, validateSaveV39, validateSaveV42 } from '../src/core/save.js'
 import type { GameState, ProfessionalPromise } from '../src/core/types.js'
 
-const TIMEOUT = 60_000
+// 1333-I: D15/D16/D17 measured 139,426/116,959/118,597 ms in the full-suite gate; the old
+// 60,000 ms budget cut D17 off (`Test timed out in 60000ms.`) while D15/D16 ran past it and
+// still passed, because Vitest's timer can only preempt at a yield point a fully synchronous
+// body never gives it -- this constant is currently enforced only for D17 (the async leaf); a
+// future conversion of D15/D16 to `async` should reconsider whether they need their own budget.
+// 300_000 is about 2x the slowest measured leaf (139,426 ms), rounded.
+const TIMEOUT = 300_000
 const E = '../docs/engineering/playability-launch-review/evidence/p14b4-20260919/'
 const CAPTURE = E + '1171-p3-current45-capture/'
 const OLD = './fixtures/p14/genuine-v38-pre-p3/'

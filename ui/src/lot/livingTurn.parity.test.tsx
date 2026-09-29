@@ -107,7 +107,12 @@ const MOUNTED_ARM_TIMEOUT_MS = 60_000
 async function mountLot(state: GameState) {
   saveActiveSession(state)
   render(<App />)
-  await screen.findByTestId('studio-lot-screen')
+  // 10_000ms is the U1 M1 value (1335-A/1335-C), validated under full-suite load for three
+  // sibling mount-race files (livingTurn.scheduler, WorldFirstLotNativeCastingReviewApp,
+  // WorldFirstLotNativeNextEventApp), not a direct worst-case measurement for this file --
+  // RTL's findBy failure reports no elapsed time. The recorded UI gate after this change is
+  // the confirmation step, per 1337-B note 2. Stays strictly before `vi.useFakeTimers()`.
+  await screen.findByTestId('studio-lot-screen', {}, { timeout: 10_000 })
   await waitFor(() => expect(renderer.instances).toHaveLength(1))
   vi.useFakeTimers()
   // @testing-library's fake-timer support keys off a global `jest` carrying
