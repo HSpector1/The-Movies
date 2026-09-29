@@ -1,0 +1,128 @@
+[
+  {
+    "file": "ui/src/test/contracts/p05a-w2-closed-production.contract.test.ts",
+    "line": 17,
+    "leaf": "(import statement, supports both C5 leaves below)",
+    "mechanism": "C5",
+    "status": "reactive",
+    "old": "  loadSave,\n  tick,\n} from '../../../../src/core/index.ts'",
+    "new": "  loadSave,\n  migrateToLive,\n  tick,\n} from '../../../../src/core/index.ts'"
+  },
+  {
+    "file": "ui/src/test/contracts/p05a-w2-closed-production.contract.test.ts",
+    "line": 337,
+    "leaf": "the guidance card agrees with the rail on the wrapped-waiting oracle fixture — never SHOOTING (P06C §5)",
+    "mechanism": "C5",
+    "status": "reactive",
+    "old": "const state = (loadSave(raw) as { state: GameState }).state",
+    "new": "const state = migrateToLive(loadSave(raw)).state"
+  },
+  {
+    "file": "ui/src/test/contracts/p05a-w2-closed-production.contract.test.ts",
+    "line": 369,
+    "leaf": "the rail, the world Stage card, the workspace source and the guidance card all agree for the wrapped-waiting picture (P06D item 2)",
+    "mechanism": "C5",
+    "status": "reactive",
+    "old": "const state = (loadSave(JSON.parse(readFileSync(fixturePath!, 'utf8')) as unknown) as { state: GameState }).state",
+    "new": "const state = migrateToLive(loadSave(JSON.parse(readFileSync(fixturePath!, 'utf8')) as unknown)).state"
+  },
+  {
+    "file": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx",
+    "line": 355,
+    "leaf": "reaches the canonical deep screen ONLY through the explicit details action",
+    "mechanism": "M2",
+    "status": "reactive",
+    "old": "  })",
+    "new": "  }, 30_000)"
+  },
+  {
+    "file": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx",
+    "line": 629,
+    "leaf": "never lets any place print its blocks out of the canonical order",
+    "mechanism": "M2",
+    "status": "reactive",
+    "old": "  })",
+    "new": "  }, 30_000)"
+  },
+  {
+    "file": "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx",
+    "line": 254,
+    "leaf": "(renderStudio mount helper — applies to every leaf's first App mount in this file)",
+    "mechanism": "M1",
+    "status": "reactive",
+    "old": "const lot = await screen.findByTestId('studio-lot-screen')",
+    "new": "const lot = await screen.findByTestId('studio-lot-screen', {}, { timeout: 10_000 })"
+  },
+  {
+    "file": "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx",
+    "line": 499,
+    "leaf": "greenlights the canonical Package into exact formation without replacing the Lot, canvas, or renderer",
+    "mechanism": "M2",
+    "status": "reactive",
+    "old": "  })",
+    "new": "  }, 30_000)"
+  },
+  {
+    "file": "ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx",
+    "line": 341,
+    "leaf": "(mountStudio mount helper — applies to every leaf's first App mount in this file)",
+    "mechanism": "M1",
+    "status": "preventive",
+    "old": "const lot = await screen.findByTestId('mock-casting-authority-lot')",
+    "new": "const lot = await screen.findByTestId('mock-casting-authority-lot', {}, { timeout: 10_000 })"
+  },
+  {
+    "file": "ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx",
+    "line": 998,
+    "leaf": "never lets stale Casting review closures demote or mutate a newer exact event",
+    "mechanism": "M2",
+    "status": "reactive",
+    "old": "  })",
+    "new": "  }, 30_000)"
+  },
+  {
+    "file": "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx",
+    "line": 563,
+    "leaf": "(renderStudio mount helper — applies to every leaf's first App mount in this file)",
+    "mechanism": "M1",
+    "status": "reactive",
+    "old": "const lot = await screen.findByTestId('studio-lot-screen')",
+    "new": "const lot = await screen.findByTestId('studio-lot-screen', {}, { timeout: 10_000 })"
+  },
+  {
+    "file": "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx",
+    "line": 1709,
+    "leaf": "orients a cash stop to Administration and focuses the supporting Finances section",
+    "mechanism": "M2",
+    "status": "reactive",
+    "old": "  })",
+    "new": "  }, 30_000)"
+  },
+  {
+    "file": "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx",
+    "line": 2080,
+    "leaf": "clears every next-event transient across an accepted same-seed same-week whole-studio replacement",
+    "mechanism": "M2",
+    "status": "reactive",
+    "old": "  })",
+    "new": "  }, 30_000)"
+  },
+  {
+    "file": "ui/src/lot/livingTurn.scheduler.test.tsx",
+    "line": 211,
+    "leaf": "(mountLot mount helper — applies to every leaf's first App mount in this file; findBy stays strictly before vi.useFakeTimers())",
+    "mechanism": "M1",
+    "status": "reactive",
+    "old": "await screen.findByTestId('studio-lot-screen')",
+    "new": "await screen.findByTestId('studio-lot-screen', {}, { timeout: 10_000 })"
+  },
+  {
+    "file": "ui/src/lot/livingTurn.scheduler.test.tsx",
+    "line": 466,
+    "leaf": "auto-pauses on the FIRST PAUSE-class stop, at exactly the hand-advanced week",
+    "mechanism": "M2",
+    "status": "reactive",
+    "old": "  })",
+    "new": "  }, 30_000)"
+  }
+]
