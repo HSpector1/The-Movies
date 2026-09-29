@@ -29,6 +29,10 @@ export default defineWorkspace([
       globals: true,
       include: ['ui/**/*.test.{ts,tsx}'],
       setupFiles: ['ui/src/test/setup.ts'],
+      // Owner decision D-1339-1 (record 1340-O): App-mount leaves ran 5.6-24.8 s in
+      // recorded gates, past Vitest's 5 s default. Harness budget only, not a
+      // performance requirement. The core project keeps the default.
+      testTimeout: 30_000,
     },
   },
 ])
