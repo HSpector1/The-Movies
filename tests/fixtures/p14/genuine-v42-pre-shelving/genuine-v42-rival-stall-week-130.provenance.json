@@ -1,0 +1,136 @@
+{
+  "purpose": "generated test campaigns only; never Owner saves",
+  "record": "1344",
+  "plan": [
+    "1344-A",
+    "1344-F"
+  ],
+  "finding": "1329-A",
+  "producer": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-P-save42-rival-stall-producer.ts",
+  "executionHead": "19a31f73c98d1c3b5b0dcf98cb764e7217bceb98",
+  "saveVersion": 42,
+  "projectionVersion": 56,
+  "schemaId": "sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1",
+  "route": "p13aGeneratedStudio('p13a-core-causal-01'); natural ticks only; saved at week 130",
+  "gzip": {
+    "bytes": 121262,
+    "sha256": "af45c8a0efb9a56ac9ff4c16244509d59b49a02370f8390769c79b133d7238f6"
+  },
+  "decoded": {
+    "bytes": 1096270,
+    "sha256": "f0bf1f76552347f590b54cafefc5704a436f63de49c6782e9bb9a582f28f1425"
+  },
+  "facts": {
+    "week": 130,
+    "rivals": [
+      {
+        "studioId": "studio-aca408ec-r01",
+        "cash": 18412932.26293507,
+        "productions": 0,
+        "activeScriptOrdinals": [
+          6,
+          11
+        ],
+        "statuses": [
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "ready",
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "ready"
+        ],
+        "readyActive": 2,
+        "films": 12
+      },
+      {
+        "studioId": "studio-aca408ec-r02",
+        "cash": 19142641.654646564,
+        "productions": 0,
+        "activeScriptOrdinals": [
+          11,
+          13
+        ],
+        "statuses": [
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "ready",
+          "produced",
+          "ready"
+        ],
+        "readyActive": 2,
+        "films": 14
+      },
+      {
+        "studioId": "studio-aca408ec-r03",
+        "cash": 5912232.917604369,
+        "productions": 1,
+        "activeScriptOrdinals": [
+          14,
+          15
+        ],
+        "statuses": [
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "inProduction",
+          "drafting"
+        ],
+        "readyActive": 0,
+        "films": 16
+      },
+      {
+        "studioId": "studio-aca408ec-r04",
+        "cash": -33191.044389319606,
+        "productions": 0,
+        "activeScriptOrdinals": [
+          5
+        ],
+        "statuses": [
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "produced",
+          "ready",
+          "produced",
+          "produced",
+          "produced"
+        ],
+        "readyActive": 1,
+        "films": 10
+      }
+    ],
+    "stalledStudioIds": [
+      "studio-aca408ec-r01",
+      "studio-aca408ec-r02"
+    ],
+    "firstTakes": 44,
+    "industryFilms": 52
+  }
+}
