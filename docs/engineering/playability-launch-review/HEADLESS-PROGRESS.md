@@ -1,5 +1,33 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — UI repair U1 closed LOGIC VERIFIED (1335-K); UI gate down to 13 (10 PIL)
+
+U1 (1335-A, six UI test files) is closed. Test-only fixes for four clusters:
+- C5: the contract test read a Save16 oracle fixture with loadSave, which validates
+  without migrating; it now uses the app's migrateToLive path;
+- C2: the World Inspector sweep gets a 30 s budget, which ends its duplicate-element
+  cascade;
+- C1: the named slow leaves get 30 s budgets, and three mount helpers wait up to 10 s
+  for the cold lazy Lot chunk;
+- C6 needed no edit.
+Staging and review:
+- plan review 1335-B ACCEPT;
+- staged 1335-C/C2 (the Authority file's M1 edit dropped, 1335-F);
+- implementation review 1335-D REFINE (documentation, 1335-F2);
+- dry run 1335-X: PIL only; applied 88eb90d9.
+Recorded UI gate 1336: 13 failed / 2679 passed. None of the 24 U1 targets fails, and the
+seven budgeted leaves ran 5.6-24.8 s, each above the old 5 s default. Remaining: 10 PIL
+(environment) plus 3 recorded intermittents outside U1's edits:
+- livingTurn.parity's first-mount wait (passes alone 3/3; mechanism inferred, 1336-F);
+- 1124-A's NextEvent dashboard wait;
+- StudioLotScreen:930 focus.
+Review 1336-J REFINE, answered in 1336-F. Core unchanged by U1: 80 at 1333.
+
+Next without Owner input: a small timing bundle (parity first-mount wait, D17's 60 s
+budget, NextEvent "orients" margin). Everything else waits on the Owner decisions below.
+Owner decisions open: D-1329-1 (recommended: charter a rival shelving rule), D-1323-1,
+D-1312-1, D-1312-2, HIS-014.
+
 ## CURRENT — repair R3 closed LOGIC VERIFIED (1332-K); UI repair U1 in staging
 
 1332-A attributed the ten UNRESOLVED core rows. Scratch bisect: HEAD test bytes over each

@@ -1,0 +1,15 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |ui| ui/src/lot/livingTurn.parity.test.tsx (7 tests) 24134ms
+   ✓ C2a-M5 — four-way time parity: the same twelve weeks, four ways > (a) by hand at the seam — the manual verb, pressed twelve times 3720ms
+   ✓ C2a-M5 — four-way time parity: the same twelve weeks, four ways > (b) by the living loop at 1× — one press of Roll, then nothing at all 4020ms
+   ✓ C2a-M5 — four-way time parity: the same twelve weeks, four ways > (b′) by the living loop at 4× — the same weeks, a quarter of the wall time 3501ms
+   ✓ C2a-M5 — four-way time parity: the same twelve weeks, four ways > (c) paused and resumed arbitrarily, including mid-week 4686ms
+   ✓ C2a-M5 — and the four are one studio > exports FOUR byte-identical saves from four different ways of spending time 8024ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  18:32:34
+   Duration  32.32s (transform 4.34s, setup 362ms, collect 5.29s, tests 24.13s, environment 1.94s, prepare 177ms)
+

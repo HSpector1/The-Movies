@@ -1,0 +1,183 @@
+{
+  "record": "1335-K parent closure: UI retained-defect repair U1 (C5, C2, C1 time budgets; C6 observed), UI tests only",
+  "timeUtc": "2026-09-29T16:34:21.943753+00:00",
+  "disposition": "CLOSED \u2014 LOGIC VERIFIED \u00b7 UNITY NOT VERIFIED. Headless Vitest evidence only; no Unity run. Not GREEN: the UI gate fails 13 (10 PIL environment rows and 3 recorded intermittent rows outside U1's edits); the core gate is unchanged by U1 (80 at 1333).",
+  "scope": "Six UI test files (1335-A rule 1); no production, fixture payload, vitest config or setup change.",
+  "plan": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1335-A-ui-retained-repair-u1-plan.md",
+    "bytes": 7391,
+    "sha256": "2abad09576731b6e158e92da97500a116a7dcc7f8c7a95d780f54d10caf51024"
+  },
+  "planReview": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1335-B-u1-plan-review.md",
+    "bytes": 11107,
+    "sha256": "ad41fa62cafcb172f8f5aeda4bb4377835e7c7ea68d9fae6da446536b8fc2537"
+  },
+  "planVerdict": "ACCEPT",
+  "measurements": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1335-measure/",
+  "handback": {
+    "revision1": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1335-C-ui-u1-handback.md",
+      "bytes": 23303,
+      "sha256": "a555739e8dff697125e82e5d51bf1314a9534d004eb0765d9e6678f2f1c0bfe9"
+    },
+    "adoption": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1335-F-parent-u1-handback-adoption.md",
+      "bytes": 2529,
+      "sha256": "e67cec33fc922751d9c88b4e81349d36897d9828fb62bf19797357dd81b1d36f"
+    },
+    "revision2": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1335-C2-ui-u1-revision.md",
+      "bytes": 8081,
+      "sha256": "f3e229054ceb645412016c08cf043fc46b3dcd0445df430e3414c9edb4df6686"
+    }
+  },
+  "staged": {
+    "revision1": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1335-stage/1335-ui-u1.patch",
+      "bytes": 9118,
+      "sha256": "54261c9de7c82851101ac9011413db414be18d470b8b2a4da071da875fa74a4a"
+    },
+    "revision2": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1335-stage/1335-ui-u1-r2.patch",
+      "bytes": 8330,
+      "sha256": "3466694daee7f4d354d0f44685951c2590dd7dc4a85456453f63aa16acab2b1e"
+    },
+    "classification": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1335-stage/1335-ui-u1-r2-classification.json",
+      "bytes": 4596,
+      "sha256": "2b90d654ba001e3e96eeaae22a3f350a3ff82719433334f558fc3b26fe2f3f7a"
+    }
+  },
+  "dryRun": {
+    "record": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1335-X-ui-u1-dry-run.md",
+      "bytes": 2761,
+      "sha256": "79e719702c4868f48b8428d9c660acf884552c5ec608062b59b7548bf38515cb"
+    },
+    "extract": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1335-X-ui-extract.txt",
+      "bytes": 1001,
+      "sha256": "3c43eb6bbdeb4d384aa3c9c15088891caf6e0ad44209928ee08469b4974c24d6"
+    },
+    "rows": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1335-X-ui-rows.json",
+      "bytes": 14153,
+      "sha256": "81e2c3f5651e95586f4b3ad415de2b4869ba84c718d1113c770f94aa44caed02"
+    },
+    "result": "10 failed (PIL only) / 2682 passed; 24 gone against 1331, 16 against 1334, 0 new"
+  },
+  "implementationReview": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1335-D-ui-u1-review.md",
+    "bytes": 13865,
+    "sha256": "51bfab789cffb2c775cc1f472c4d9ae006504d7696e734995e1d4fff49ce72ae"
+  },
+  "implementationVerdict": "REFINE (documentation only: the World Inspector M1-exclusion rationale), answered in 1335-F2",
+  "implementationResponse": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1335-F2-parent-response-to-1335-D.md",
+    "bytes": 2092,
+    "sha256": "591076b76b6869140b9bdbc6707587f1ee3b0b256d81b96fade8994159f858a9"
+  },
+  "application": {
+    "commit": "88eb90d9",
+    "appliedFilesEqualDryRunTree": true
+  },
+  "uiGate": {
+    "failedFiles": 5,
+    "failed": 13,
+    "passed": 2679,
+    "skipped": 5,
+    "vs1303": {
+      "RETAINED-SAME": 11,
+      "NEW": 2
+    },
+    "vs1334": {
+      "gone": 16,
+      "new": 3
+    },
+    "vs1331": {
+      "gone": 23,
+      "new": 2
+    },
+    "u1Targets": "none fails; the seven budgeted leaves pass at 5.6-24.8 s, each above the old 5 s default",
+    "remaining": "10 PIL (C3/C4, environment); livingTurn.parity (a) first-mount wait under load (passes alone 3/3; mechanism inferred, 1336-F); NextEvent 'preserves the exact live-world reaction' (1124-A, unresolved intermittent); StudioLotScreen:930 focus (intermittent, passes alone 61/61)",
+    "testedDiff": "testedDiffSha256 = sha256(\"\") at start and end; 0-byte patch",
+    "run": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1336-u1-broad-ui-preflight.json",
+        "bytes": 115188,
+        "sha256": "cc060853688d713367edf65eb0d4eccb86a8b29c1347f1f0af5b28d4d2cc364b"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1336-u1-broad-ui.json",
+        "bytes": 52799,
+        "sha256": "4e20bb9f36fa272b65810fd8ed8b2661e73339c2d37bf8f2b9ccda9fc6cb8c38"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1336-u1-broad-ui.txt",
+        "bytes": 274092,
+        "sha256": "c594f91e082f8672b5f87b24322be9685123f5c9c5cd4aa270c5abe3cf009e9b"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1336-u1-broad-ui.patch",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1336-u1-broad-ui-postflight.json",
+        "bytes": 115844,
+        "sha256": "46ec3c0d1ce024156ed90f32be8947f99d5abd30faa3e6343e89fae675ce3303"
+      }
+    ],
+    "attribution": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1336-I-broad-ui-attribution.md",
+        "bytes": 3565,
+        "sha256": "eabd29a412290a2be821b70787cd2a4892f4ef9449d84d490bb30fbd3340a628"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1336-I-failures.json",
+        "bytes": 16310,
+        "sha256": "e0cb03f5a9efddaa3924862e9208fa3923a691dcc542f1be2b574804494ab63f"
+      }
+    ],
+    "review": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1336-J-u1-gate-attribution-review.md",
+      "bytes": 11218,
+      "sha256": "30aacd203c96fe392f19fea54e96f0ff85af56829d05632fe8461729eb2babfa"
+    },
+    "reviewVerdict": "REFINE: row 1 mechanism overstated; corrected and the isolated rerun performed in 1336-F",
+    "response": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1336-F-parent-response-to-1336-J.md",
+        "bytes": 2174,
+        "sha256": "a59c70f83d5f86294acd6b77d5b44b09db242916e7ffa80b62f3b684d63117d2"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1336-F-parity-solo-run1.txt",
+        "bytes": 1054,
+        "sha256": "2b5f93b0b52530fcd5029df47df8b53c7db081c195d671887c473b28b304b942"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1336-F-parity-solo-run2.txt",
+        "bytes": 1054,
+        "sha256": "cb37029e0d2ae397d55893c6f546c9353ee76b91ee1277ff188b94674af01637"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1336-F-parity-solo-run3.txt",
+        "bytes": 1054,
+        "sha256": "ebc8655240d8d2a4c94d54a2c753e903b4059d55ffa4c6fc22c682dd6d4101d2"
+      }
+    ]
+  },
+  "typeGates": "UI tsc --noEmit exit 0 on the dry-run tree (1335-X) and in the author's tree (1335-C/C2)",
+  "coreGate": "not re-run: U1 changes ui/** test files only; the core project includes tests/** only",
+  "openItems": [
+    "UI timing follow-ups: livingTurn.parity first-mount wait; NextEvent 'orients a cash stop' used 24.8 of 30 s under load",
+    "UI intermittents needing their own investigation: 1124-A NextEvent dashboard-heading wait; StudioLotScreen:930 focus",
+    "core D17 (bridge-p14p3) 60 s TIMEOUT below its 97-100 s solo duration",
+    "PIL absent (C3/C4): environment, no installation campaign",
+    "Owner decisions D-1329-1, D-1323-1, D-1312-1, D-1312-2, HIS-014"
+  ],
+  "next": "Owner decisions; then the natural-chain re-derivation (after D-1329-1) with the small timing budget bundle"
+}
