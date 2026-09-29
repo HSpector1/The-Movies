@@ -28,7 +28,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
 import {
-  applyActions, exportSave, generateWorld, importSave, loadSave, LIVE_SAVE_VERSION, tick, validateSaveV32,
+  applyActions, exportSave, generateWorld, importSave, loadSave, LIVE_SAVE_VERSION, tick, validateSave, validateSaveV32,
 } from '../src/core/index.js'
 import type { AuthoredTalentInput, GameState, SaveFile, Talent } from '../src/core/index.js'
 import { enterRival, initializeHollywood } from '../src/core/hollywood.js'
@@ -73,10 +73,14 @@ const convertV33ToV34 = SaveModule.convertV33ToV34
 // P14C.4: same reasoning, one bump on — `tick()` now also requires `cohorts`
 // inside that root once a state reaches a cohort week (week 52); `validateSaveV34`
 // (frozen, unused for a genuinely live envelope now) is not aliased here — every
-// LIVE check below moves straight to `validateSaveV38`.
+// LIVE check below goes through the generic `validateSave` dispatcher (index.ts
+// §17: "dispatches on version"), never a version-literal validator name, so a
+// genuinely live-tagged envelope (`saveVersion: LIVE_SAVE_VERSION`) is always
+// checked by whatever validator its own tag names (1324-C / C7: `validateSaveV38`
+// was pinned here and silently stopped matching once the live version moved past
+// 38 — masked until the C7 `firstTakeSubjects` gap above stopped throwing first).
 const convertV34ToV35 = SaveModule.convertV34ToV35
 const convertV35ToV36 = SaveModule.convertV35ToV36
-const validateSaveV38 = SaveModule.validateSaveV38
 
 const p14 = (relative: string): URL => new URL('./fixtures/' + relative, import.meta.url)
 
@@ -151,7 +155,20 @@ function liftForTick(migrated: { envelope: Envelope; state: ProvenanceState }): 
   const v36 = convertV35ToV36(v35 as Parameters<typeof convertV35ToV36>[0])
   // C.3: real frozen33 controls stay above; only inputs for the live engine
   // proceed through Scientist37 and current profession-authority38.
-  const live = SaveModule.convertV37ToV38(SaveModule.convertV36ToV37(v36))
+  const v38 = SaveModule.convertV37ToV38(SaveModule.convertV36ToV37(v36))
+  // 1324-C / C7: one further governed step to the true live boundary —
+  // `appendFirstTakes` (src/core/promises.ts:144, commit ef38cf9a) now throws
+  // on a state carrying no `firstTakeSubjects` root whenever `tick()` reaches a
+  // shoot event, so every lifted state needs the V40 root too, built by
+  // `convertV39ToV40`'s own rule, never a literal.
+  const v40 = SaveModule.convertV39ToV40(SaveModule.convertV38ToV39(v38))
+  // 1324-C / C20 family: every case below that tags its own envelope
+  // `saveVersion: LIVE_SAVE_VERSION` and hands it to the generic `validateSave`
+  // dispatcher needs a state that is ACTUALLY V42-shaped, or the claim is
+  // incoherent — the frozen V41/V24 Hollywood-account-periods leg refuses a V40
+  // state for a missing `termination` movement first. Two further governed
+  // steps, by the same rule as above, never a literal.
+  const live = SaveModule.convertV41ToV42(SaveModule.convertV40ToV41(v40))
   return { envelope: live, state: withProvenance(live.state as object) }
 }
 
@@ -630,7 +647,7 @@ describe('8. save and reload at week 12 and week 13', () => {
       const envelope: Envelope = { saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems }
 
       const reloaded = JSON.parse(JSON.stringify(envelope))
-      const validated = validateSaveV38(reloaded)
+      const validated = validateSave(reloaded)
       const reloadedState = withProvenance(validated.state as object)
       expect(reloadedState.talent.find((t) => t.id === 'authored-0001')!.age).toBe(week === 12 ? 29 : 30)
     })
@@ -725,15 +742,16 @@ describe('11. the validator refuses four tampered states, each attributably', ()
     // everything this test tampers with, so the four causes stay distinguishable
     // (each inner message survives inside the wrapping "frozen V33 state is
     // invalid —" prefix).
-    // C.3: `baseState()` now ticks a live (V38) state; `validateSaveV38`
-    // delegates to `validateSaveV34`, which delegates to the frozen V33 chain —
-    // the four causes below still stay distinguishable, each inner message
-    // surviving through both wrapping prefixes (checked by substring, not
-    // exact-match, below).
+    // 1324-C / C7 & C20: `baseState()` now ticks a genuinely V42-shaped live
+    // state (`liftForTick`), and the envelope is checked through the generic
+    // `validateSave` dispatcher rather than a version-literal validator name —
+    // it still delegates all the way down to the frozen V33 chain for
+    // everything this test tampers with, so the four causes stay distinguishable
+    // through every wrapping prefix (checked by substring, not exact-match).
     const envelope: Envelope = { saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems }
     const json = JSON.parse(JSON.stringify(envelope))
     try {
-      validateSaveV38(json)
+      validateSave(json)
       return ''
     } catch (error) {
       return (error as Error).message

@@ -19,13 +19,35 @@ function artifact(): { raw: string; prior: Historical } {
   expect(canonicalJson(prior) + '\n').toBe(raw)
   return { raw, prior }
 }
+// 1324-C / C20: three roots `migrateToLive` genuinely adds that a Save37 `old.state`
+// never carried — built from the old state by each root's own migration rule, never
+// a literal (1309-X3 ruling 4 `termination`; 1320-A S5 `sharedCompetitions`;
+// convertV39ToV40 `firstTakeSubjects`), the same precedent `p14c3-save-v38.test.ts`
+// already carries for the first two.
+type WithRivalBusinesses = { hollywood: { businesses: readonly { account: { periods: readonly { movements: Record<string, number> }[] } }[] } | null }
+function withRivalTermination<T extends WithRivalBusinesses>(state: T): T {
+  if (state.hollywood === null) return state
+  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+    ...business, account: { ...business.account, periods: business.account.periods.map((period) => ({
+      ...period, movements: { ...period.movements, termination: 0 } })) },
+  })) } }
+}
+type WithRelationships = { relationships: readonly { sharedCompetitions?: number }[] }
+function withSharedCompetitions<T extends WithRelationships>(state: T): T {
+  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, sharedCompetitions: 0 })) }
+}
+type WithFirstTakes = { firstTakes: readonly unknown[]; firstTakeSubjects?: unknown }
+function withFirstTakeSubjects<T extends WithFirstTakes>(state: T): T {
+  return { ...state, firstTakeSubjects: { version: 1, cutoverOrdinal: state.firstTakes.length, facts: [] } }
+}
 // Independent old-state preservation alongside the actual governed slot bytes.
 function currentSlot(json: string): string {
   const old = validateSaveV37(JSON.parse(json)), current = migrateToLive(importSave(json)), week = old.state.market.tick
   expect(current.saveVersion).toBe(42)
   const { transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
     industryRetirements, transitionDue, ...oldLifecycle } = current.state.careerLifecycle
-  expect(canonicalJson({ ...current.state, careerLifecycle: oldLifecycle })).toBe(canonicalJson(old.state))
+  const expectedOld = withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state)))
+  expect(canonicalJson({ ...current.state, careerLifecycle: oldLifecycle })).toBe(canonicalJson(expectedOld))
   expect({ transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
     industryRetirements, transitionDue }).toEqual({ transitionBoundaryWeek: week,
     professionAnchors: old.state.talent.map(person => ({ personId: person.id, profession: person.role,

@@ -31,6 +31,14 @@ type WithRelationships = { relationships: readonly { sharedCompetitions?: number
 function withSharedCompetitions<T extends WithRelationships>(state: T): T {
   return { ...state, relationships: state.relationships.map(edge => ({ ...edge, sharedCompetitions: 0 })) }
 }
+// 1324-C / C20: convertV39ToV40 (src/core/save.ts:10493) adds a top-level
+// `firstTakeSubjects` root, built from the state's own already-written
+// `firstTakes` root (`{version:1, cutoverOrdinal: firstTakes.length, facts:[]}`);
+// a genuine V37 old.state never carried it either.
+type WithFirstTakes = { firstTakes: readonly unknown[]; firstTakeSubjects?: unknown }
+function withFirstTakeSubjects<T extends WithFirstTakes>(state: T): T {
+  return { ...state, firstTakeSubjects: { version: 1, cutoverOrdinal: state.firstTakes.length, facts: [] } }
+}
 
 describe('C.3 A01/A02 exact Save38 opening', () => {
   it('moves the existing live writer and fresh root together while preserving intent1 and promise4', () => {
@@ -69,7 +77,7 @@ describe('C.3 A01/A02 exact Save38 opening', () => {
       expect(root.transitionDue, 'actual completed retirements reconcile prospectively, not on load').toEqual(expectedDue)
       const stripped = { ...upgraded.state, careerLifecycle: Object.fromEntries(
         Object.entries(root).filter(([key]) => !FUTURE_ROOT_KEYS.includes(key as typeof FUTURE_ROOT_KEYS[number]))) }
-      expect(stableStringify(stripped), 'every old field, receipt, clock and RNG value survives migration').toBe(stableStringify(withRivalTermination(withSharedCompetitions(old.state))))
+      expect(stableStringify(stripped), 'every old field, receipt, clock and RNG value survives migration').toBe(stableStringify(withRivalTermination(withSharedCompetitions(withFirstTakeSubjects(old.state)))))
       expect(stableStringify(old), 'converter never mutates its genuine input').toBe(before)
       expect(exportSave(importSave(raw))).toBe(raw)
       expect(c3Raw(filename)).toBe(raw)

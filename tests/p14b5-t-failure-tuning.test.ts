@@ -27,7 +27,10 @@
 //     populated: `relationships`, `firstTakes`, `promises` (the two roots `requirePromiseRoots`
 //     demands), `talent` (the four people the root validator checks membership against),
 //     `market.tick` + `studioHistory.recordingStartedWeek` (the recording interval the REAL
-//     `validateRelationshipsRoot` reads) and `hollywood.playerStudioId` (non-null, the seam's guard).
+//     `validateRelationshipsRoot` reads), `hollywood.playerStudioId` (non-null, the seam's guard),
+//     and (1324-C / C7, added when `appendFirstTakes` gained the Save40 subject-resolution guard)
+//     `firstTakeSubjects` plus the minimal `concepts`/`scriptDevelopment`/`studio` legacy-mode
+//     shapes `subjectForNewTake`'s real owner/concept resolution unconditionally dereferences.
 //     The real `validateRelationshipsRoot` certifies the root after EVERY write.
 //   * Groups 5–6 run the same constructed chain over a REAL full `GameState` — the generated
 //     campaign `p13a-core-causal-01` advanced by the live `tick` to week 6, BEFORE that seed mints
@@ -96,15 +99,19 @@ const seats = (q: Quartet): readonly Seat[] => [
   { x: q.director, y: q.support, weight: LOW }, { x: q.lead, y: q.antagonist, weight: HIGH },
   { x: q.lead, y: q.support, weight: MID }, { x: q.antagonist, y: q.support, weight: LOW },
 ]
-const shot = (id: string, q: Quartet): Production =>
-  ({ id, directorId: q.director, cast: { lead: q.lead, antagonist: q.antagonist, support: q.support } } as unknown as Production)
+// 1324-C / C7: `appendFirstTakes` (src/core/promises.ts:150) resolves every new take's
+// subject through the REAL `subjectForNewTake` (src/core/firstTakeSubjects.ts:18), which
+// needs a `conceptId` naming a concept the issuing studio actually owns. Defaults to the
+// staged world's own fixture concept (below); the carrier call sites pass their genuine one.
+const shot = (id: string, q: Quartet, conceptId: string = STAGED_CONCEPT_ID): Production =>
+  ({ id, conceptId, directorId: q.director, cast: { lead: q.lead, antagonist: q.antagonist, support: q.support } } as unknown as Production)
 /** The clock the real root validator reads. RAISED, never lowered: on the constructed world it is
  * the staged week; on the real carrier the live clock already stands at the chain's end. */
 const at = (state: GameState, week: number): GameState =>
   (state.market.tick >= week ? state : { ...state, market: { ...state.market, tick: week } } as GameState)
 
-function shoot(state: GameState, studioId: string, q: Quartet, week: number, productionId: string): GameState {
-  const production = shot(productionId, q)
+function shoot(state: GameState, studioId: string, q: Quartet, week: number, productionId: string, conceptId: string = STAGED_CONCEPT_ID): GameState {
+  const production = shot(productionId, q, conceptId)
   const staged = appendFirstTakes(at(state, week), [{ studioId, production }], week) // the REAL receipt writer
   const written = advanceRelationshipsWeek(staged, { takes: [{ studioId, production }], releases: [] }, week)
   validateRelationshipsRoot(written, 42)
@@ -119,13 +126,13 @@ function release(state: GameState, week: number, productionId: string, criticSco
 
 type Step = { label: string; week: number; state: GameState }
 /** take-1, release-1, take-2, release-2 … one week apart, no dormancy, one new production id each. */
-function driveChain(start: GameState, studioId: string, q: Quartet, firstWeek: number, productions: number, criticScore: number): Step[] {
+function driveChain(start: GameState, studioId: string, q: Quartet, firstWeek: number, productions: number, criticScore: number, conceptId: string = STAGED_CONCEPT_ID): Step[] {
   const trail: Step[] = []
   let state = start
   let week = firstWeek
   for (let p = 1; p <= productions; p++) {
     if (p > 1) week += 1
-    state = shoot(state, studioId, q, week, `${studioId}:t684-p${String(p)}`)
+    state = shoot(state, studioId, q, week, `${studioId}:t684-p${String(p)}`, conceptId)
     trail.push({ label: `take-${String(p)}`, week, state })
     week += 1
     state = release(state, week, `${studioId}:t684-p${String(p)}`, criticScore)
@@ -162,8 +169,22 @@ const printTrail = (rows: { label: string; week: number; closeness: number }[]):
 const STAGED: Quartet = { director: 'person-d', lead: 'person-l', antagonist: 'person-n', support: 'person-s' }
 const STAGED_STUDIO = 'studio-684t'
 const STAGED_FIRST_WEEK = 10
+// 1324-C / C7: the one fixture concept every staged production names via `shot()`'s
+// default `conceptId`. `subjectForNewTake` only ever reads `.id`/`.genre` off it.
+const STAGED_CONCEPT_ID = 'concept-684t'
 const stagedWorld = (): GameState => ({
   relationships: [], firstTakes: [], promises: [],
+  // 1324-C / C7: `appendFirstTakes` (src/core/promises.ts:150) requires this root since
+  // Save40 (commit ef38cf9a); built by convertV39ToV40's own rule over the two roots
+  // already named above (`{version:1, cutoverOrdinal: firstTakes.length, facts:[]}`).
+  firstTakeSubjects: { version: 1, cutoverOrdinal: 0, facts: [] },
+  // 1324-C / C7: `subjectForNewTake` resolves the issuing owner via `takeSubjectOwner`,
+  // which for the player studio dereferences `concepts`/`scriptDevelopment`/`studio`
+  // unconditionally (src/core/firstTakeSubjects.ts:7-15) — all three are therefore real
+  // roots here too, minimal legacy-mode shapes with no managed screenplay link required.
+  concepts: [{ id: STAGED_CONCEPT_ID, genre: 'drama' }],
+  scriptDevelopment: { mode: 'legacy', projects: [] },
+  studio: { activeProductions: [] },
   talent: [STAGED.director, STAGED.lead, STAGED.antagonist, STAGED.support].map((id) => ({ id })),
   market: { tick: STAGED_FIRST_WEEK }, studioHistory: { recordingStartedWeek: 0 },
   hollywood: { playerStudioId: STAGED_STUDIO },
@@ -182,7 +203,7 @@ const CARRIER_FIRST_WEEK = CARRIER_WEEK - (2 * CARRIER_PRODUCTIONS - 1)
 let carrierCache: GameState | undefined
 /** The generated campaign at week 6. Every relationship function is pure and spread-preserving, so
  * the memoised state is never mutated by a case and is shared, not cloned. */
-function carrier(): { state: GameState; studioId: string; quartet: Quartet } {
+function carrier(): { state: GameState; studioId: string; quartet: Quartet; conceptId: string } {
   carrierCache ??= advanceTo(p13aGeneratedStudio(CARRIER_SEED), CARRIER_WEEK)
   const state = carrierCache
   expect(state.market.tick).toBe(CARRIER_WEEK)
@@ -195,11 +216,15 @@ function carrier(): { state: GameState; studioId: string; quartet: Quartet } {
   assert.ok(director && actors.length === 3, `premise: ${CARRIER_SEED} at week ${String(CARRIER_WEEK)} has no director plus three actors`)
   const quartet: Quartet = { director: director.id, lead: actors[0]!.id, antagonist: actors[1]!.id, support: actors[2]!.id }
   expect(new Set(Object.values(quartet)).size).toBe(4)
-  return { state, studioId: state.hollywood!.playerStudioId, quartet }
+  // 1324-C / C7: the real `subjectForNewTake` needs a concept the player studio genuinely
+  // owns; the world's own worldgen-minted catalogue supplies one, never an invented id.
+  const concept = state.concepts[0]
+  assert.ok(concept, `premise: ${CARRIER_SEED} at week ${String(CARRIER_WEEK)} carries no concept`)
+  return { state, studioId: state.hollywood!.playerStudioId, quartet, conceptId: concept.id }
 }
 function carrierChain(criticScore: number): Step[] {
-  const { state, studioId, quartet } = carrier()
-  return driveChain(state, studioId, quartet, CARRIER_FIRST_WEEK, CARRIER_PRODUCTIONS, criticScore)
+  const { state, studioId, quartet, conceptId } = carrier()
+  return driveChain(state, studioId, quartet, CARRIER_FIRST_WEEK, CARRIER_PRODUCTIONS, criticScore, conceptId)
 }
 
 // ───────────────────────────────────────────────────────────────────────────────────────────────
@@ -352,8 +377,8 @@ describe('CONSTRUCTED group 4 — DRIFT IS READ-ONLY AND UNCHANGED by this tunin
 // ───────────────────────────────────────────────────────────────────────────────────────────────
 describe('CONSTRUCTED group 5 — REPLAY AND IDEMPOTENCY on the real carrier world', () => {
   it('the same advance from the same pre-state writes a byte-identical root, and a second advance over the same production id mints nothing twice', () => {
-    const { state, studioId, quartet } = carrier()
-    const production = shot(`${studioId}:t684-replay`, quartet)
+    const { state, studioId, quartet, conceptId } = carrier()
+    const production = shot(`${studioId}:t684-replay`, quartet, conceptId)
     const week = CARRIER_WEEK
     const pre = appendFirstTakes(state, [{ studioId, production }], week)
     const delta = { takes: [{ studioId, production }], releases: [] as readonly FilmResult[] }

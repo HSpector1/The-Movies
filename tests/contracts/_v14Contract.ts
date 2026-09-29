@@ -421,6 +421,14 @@ export function projectToV13State(state: GameState): Record<string, unknown> {
   }
   delete raw.firstTakes
   delete raw.promises
+  // P14B.1 (V40 extension, commit ef38cf9a): the first-take-subject root is
+  // V40-only — younger than `firstTakes`/`promises` above but the same family
+  // — so a genuine V13 file never carried it either. Real authority in it is
+  // never discarded, exactly as `firstTakes`/`promises` above.
+  if ((state.firstTakeSubjects?.facts ?? []).length > 0) {
+    throw new Error('V13 twin cannot discard first-take-subject authority')
+  }
+  delete raw.firstTakeSubjects
   // P14B.5: the relationship root is V31-only, so a genuine V13 file never
   // carried one. Real relationship authority is never discarded, as above.
   if ((state.relationships ?? []).length > 0) {

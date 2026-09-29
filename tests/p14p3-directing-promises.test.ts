@@ -64,6 +64,28 @@ function malformed(state: GameState, promiseId: string,
 }
 afterAll(() => console.info('1133-P3-COUNTERS ' + JSON.stringify(counters())))
 
+// 1324-C / C20: three roots `migrateToLive` genuinely adds that a Save38 `outgoing()`
+// fixture never carried — built from the old state by each root's own migration
+// rule, never a literal (1309-X3 ruling 4 `termination`; 1320-A S5
+// `sharedCompetitions`; convertV39ToV40 `firstTakeSubjects`), the same precedent
+// `p14c3-save-v38.test.ts` already carries for the first two.
+type WithRivalBusinesses = { hollywood: { businesses: readonly { account: { periods: readonly { movements: Record<string, number> }[] } }[] } | null }
+function withRivalTermination<T extends WithRivalBusinesses>(state: T): T {
+  if (state.hollywood === null) return state
+  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+    ...business, account: { ...business.account, periods: business.account.periods.map((period) => ({
+      ...period, movements: { ...period.movements, termination: 0 } })) },
+  })) } }
+}
+type WithRelationships = { relationships: readonly { sharedCompetitions?: number }[] }
+function withSharedCompetitions<T extends WithRelationships>(state: T): T {
+  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, sharedCompetitions: 0 })) }
+}
+type WithFirstTakes = { firstTakes: readonly unknown[]; firstTakeSubjects?: unknown }
+function withFirstTakeSubjects<T extends WithFirstTakes>(state: T): T {
+  return { ...state, firstTakeSubjects: { version: 1, cutoverOrdinal: state.firstTakes.length, facts: [] } }
+}
+
 describe('P3 first slice: public Director promises and historical meaning', () => {
   it('D01 offers fresh directing work to lawful Actors and Directors', () => {
     const input = at45()
@@ -366,7 +388,8 @@ describe('P3 first slice: public Director promises and historical meaning', () =
 
   it('D14 preserves old meaning and refuses lossy reverse conversion', () => {
     for (const name of outgoingNames) {
-      const old = outgoing(name), oldState = saves.stableStringify(old.save.state)
+      const old = outgoing(name)
+      const oldState = saves.stableStringify(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.save.state))))
       const current = saves.migrateToLive(old.save)
       // Existing semantic boundary: fails as37/38 rather than a missing import.
       expect(current.saveVersion).toBe(42)
