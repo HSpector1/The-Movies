@@ -1,0 +1,679 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1344rx
+
+ ❯ |core| tests/p14d1-rival-shelving-save-v43.test.ts (15 tests | 15 failed) 8091ms
+   × API decisions this file exercises (existence asserted first) > validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist as functions; LIVE_SAVE_VERSION is 43 24ms
+     → expected 42 to be 43 // Object.is equality
+   × save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration > genuine V42 week-100 input migrates to V43 with the empty screenplayShelving state on every business, and validates 656ms
+     → mods(...).convertV42ToV43 is not a function
+   × save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration > genuine V42 week-130 input migrates to V43 with the empty screenplayShelving state on every business, and validates 292ms
+     → mods(...).convertV42ToV43 is not a function
+   × save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration > migrateToLive carries a genuine V42 save to V43 (LIVE_SAVE_VERSION) 538ms
+     → expected 42 to be 43 // Object.is equality
+   × save-v43-shelving: save/load in the middle of a count continues byte-identically > ticking 7 weeks, then round-tripping through export/import at count 7, then ticking 5 more weeks, matches an uninterrupted 12-week tick byte-for-byte 4947ms
+     → Cannot read properties of undefined (reading 'rejections')
+   × save-v43-shelving: the validator rejects each inconsistent state > rejects a shelved entry naming an ordinal that is ALSO active 309ms
+     → expected [Function] to throw error matching /shelv/i but got 'mods(...).validateSaveV43 is not a fu…'
+   × save-v43-shelving: the validator rejects each inconsistent state > rejects a shelved entry naming an ordinal that is ALSO produced 211ms
+     → expected [Function] to throw error matching /shelv/i but got 'mods(...).validateSaveV43 is not a fu…'
+   × save-v43-shelving: the validator rejects each inconsistent state > rejects a rejection count over the documented threshold (14 > 13) 181ms
+     → expected [Function] to throw error matching /shelv|reject|threshold/i but got 'mods(...).validateSaveV43 is not a fu…'
+   × save-v43-shelving: the validator rejects each inconsistent state > rejects a shelved entry with no matching screenplayShelved receipt 125ms
+     → expected [Function] to throw error matching /shelv|receipt/i but got 'mods(...).validateSaveV43 is not a fu…'
+   × save-v43-shelving: the validator rejects each inconsistent state > rejects two screenplayShelved receipts naming the same screenplay 114ms
+     → expected [Function] to throw error matching /shelv|receipt|duplicate|second/i but got 'mods(...).validateSaveV43 is not a fu…'
+   × save-v43-shelving: the validator rejects each inconsistent state > accepts the well-formed empty state on every business (control: does not throw) 53ms
+     → expected [Function] to not throw an error but 'TypeError: mods(...).validateSaveV43 …' was thrown
+   × save-v43-shelving: down-conversion (convertV43ToV42) > accepts the empty screenplayShelving state (round-trips losslessly, Save41 pattern) 233ms
+     → mods(...).convertV42ToV43 is not a function
+   × save-v43-shelving: down-conversion (convertV43ToV42) > refuses a real rejection count by name 127ms
+     → expected [Function] to throw error matching /shelv/i but got 'mods(...).convertV43ToV42 is not a fu…'
+   × save-v43-shelving: down-conversion (convertV43ToV42) > refuses a real shelved entry (with its receipt) by name 104ms
+     → expected [Function] to throw error matching /shelv/i but got 'mods(...).convertV43ToV42 is not a fu…'
+   × save-v43-shelving: down-conversion (convertV43ToV42) > refuses a nonzero commissionHoldUntilWeek by name 173ms
+     → expected [Function] to throw error matching /shelv|hold/i but got 'mods(...).convertV43ToV42 is not a fu…'
+ ❯ |core| tests/p14d1-rival-shelving.test.ts (23 tests | 19 failed) 22296ms
+   × API decisions this file exercises (asserted to exist first, per PITFALL) > TUNING.HOLLYWOOD_SHELVE_AFTER_REJECTIONS is a positive integer, 13 18ms
+     → expected 'undefined' to be 'number' // Object.is equality
+   × API decisions this file exercises (asserted to exist first, per PITFALL) > TUNING.HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS is a positive integer, 13 5ms
+     → expected 'undefined' to be 'number' // Object.is equality
+   × API decisions this file exercises (asserted to exist first, per PITFALL) > TUNING.HOLLYWOOD_SHELVED_RETRY_WEEKS is a positive integer, 26 12ms
+     → expected 'undefined' to be 'number' // Object.is equality
+   × API decisions this file exercises (asserted to exist first, per PITFALL) > hollywoodPolicy.searchIndustryPackages exists as a function 2ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × API decisions this file exercises (asserted to exist first, per PITFALL) > save.ts LIVE_SAVE_VERSION is 43, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist 3ms
+     → expected 42 to be 43 // Object.is equality
+   × shelving-stalled-route (1344-A §6.1) > a stalled rival with staff and cash available shelves after exactly 13 evaluated economic rejections; the week is derived from receipts, never hard-coded 4527ms
+     → route/RED premise: studio-aca408ec-r01 shelves within 16 weeks of week 130: expected null not to be null
+   × shelving-blocked-weeks-hold (1344-A §6.2) > staffingBlocked weeks (no seatable triple) leave the rejection count unchanged 616ms
+     → Cannot read properties of undefined (reading 'rejections')
+   × shelving-blocked-weeks-hold (1344-A §6.2) > cashBlocked weeks (cash below every candidate) leave the rejection count unchanged 472ms
+     → Cannot read properties of undefined (reading 'rejections')
+   × shelving-blocked-weeks-hold (1344-A §6.2) > a week with a running production evaluates nothing (count unchanged while productions.length>0; resumes after) 519ms
+     → Cannot read properties of undefined (reading 'rejections')
+   × shelving-blocked-weeks-hold (1344-A §6.2) > a mixed sequence (staffing-blocked, then economic rejections) shelves only after 13 economic rejections, never 13 calendar weeks 1091ms
+     → Cannot read properties of undefined (reading 'rejections')
+   × shelving-viable-control (1344-F Amendment 2) > genesis to week 100: with screenplayShelving stripped from every business, state equals the genuine week-100 input migrated by convertV42ToV43 (also stripped); receipts identical 154ms
+     → mods.convertV42ToV43 is not a function
+   × shelving-viable-control (1344-F Amendment 2) > a business with at least one recorded greenlight and zero economic rejections in the first 20 weeks keeps the empty screenplayShelving state 2473ms
+     → expected undefined to deeply equal { version: 1, rejections: [], …(2) }
+   × shelving-commission-hold (1344-A §6.4) > no new development project for the shelving studio during its commission hold; commissionHoldUntilWeek is exactly week+HOLD; a commission is not permanently blocked 1822ms
+     → route/RED premise (shared with test 1): expected null not to be null
+   ✓ shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > no retry before retryWeek 577ms
+   × shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > a viable retry re-enters the slot and greenlights, removing the shelved entry 442ms
+     → Unhandled Industry identity: [object Object]
+   × shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > an unviable retry advances retryWeek and stays shelved (and never re-enters the slot, so it cannot be shelved twice) 387ms
+     → expected 130 to be NaN // Object.is equality
+   ✓ shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > at most one retry per decision: two shelved-and-due entries in the same week advance at most one 495ms
+   × shelving-promise-guard (1344-A §3.3) > an open SPECIFIC_PROJECT promise naming the screenplay defers shelving (count held at 13); shelving proceeds at the next economic rejection after it settles 1001ms
+     → Cannot read properties of undefined (reading 'rejections')
+   × shelving-feasibility-readers (1344-A §3.6) > a shelved screenplay changes the feasibility digest (unproducedScripts must stop counting it, promises.ts:410-411) 288ms
+     → RED premise: today unproducedScripts filters by status only, so removing ordinal 6 from activeScriptOrdinals alone does not change the digest; once shelved screenplays are excluded from the count, it must: expected 'ed297b3951d28bec' not to be 'ed297b3951d28bec' // Object.is equality
+   × shelving-feasibility-readers (1344-A §3.6) > opportunity paths mark a shelved screenplay impossible with reason "the named script project is shelved" 236ms
+     → expected 'REASONABLY_ACHIEVABLE' to be 'IMPOSSIBLE' // Object.is equality
+   × shelving-chart-output (1344-A §6.8) > the 13-week chart row equals released (produced) films with a shelved screenplay present, and the state validates 3351ms
+     → route/RED premise: a shelving occurred before the next chart week: expected false to be true // Object.is equality
+   ✓ shelving-player-symmetry (1344-A §3.6, control at RED) > no screenplayShelved receipt ever names the player studio, across a long natural route 3596ms
+ ❯ |core| tests/p14d1-rival-shelving-natural.test.ts (5 tests | 4 failed) 56134ms
+   × shelving-natural-route (1344-F Amendment 3): week 130 -> week 260 on p13a-core-causal-01 > at least one screenplayShelved receipt occurs 16573ms
+     → route/RED premise: at least one shelving in 130 weeks from the genuine stalled fixture: expected 0 to be greater than or equal to 1
+   × shelving-natural-route (1344-F Amendment 3): week 130 -> week 260 on p13a-core-causal-01 > no commission by a shelving studio within 13 weeks after any of its shelvings 10011ms
+     → expected 0 to be greater than or equal to 1
+   × shelving-natural-route (1344-F Amendment 3): week 130 -> week 260 on p13a-core-causal-01 > every shelved screenplay keeps its ScriptProject and cost row through the final week 7213ms
+     → expected 0 to be greater than or equal to 1
+   × shelving-natural-route (1344-F Amendment 3): week 130 -> week 260 on p13a-core-causal-01 > per studio, at most four shelvings in any 52-week window 7747ms
+     → expected 0 to be greater than or equal to 1
+   ✓ determinism (1344-A §6 item 12): two runs of the natural route are byte-identical > exportSave(makeSave(...)) is identical across two independent runs of the same 130-week route 14582ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 38 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-natural.test.ts > shelving-natural-route (1344-F Amendment 3): week 130 -> week 260 on p13a-core-causal-01 > at least one screenplayShelved receipt occurs
+AssertionError: route/RED premise: at least one shelving in 130 weeks from the genuine stalled fixture: expected 0 to be greater than or equal to 1
+ ❯ tests/p14d1-rival-shelving-natural.test.ts:53:120
+     51|     const { finalState } = runNaturalRoute()
+     52|     const shelvings = shelvedReceiptsOf(finalState.hollywood!.receipts)
+     53|     expect(shelvings.length, 'route/RED premise: at least one shelving…
+       |                                                                                                                        ^
+     54|   }, 60_000)
+     55| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-natural.test.ts > shelving-natural-route (1344-F Amendment 3): week 130 -> week 260 on p13a-core-causal-01 > no commission by a shelving studio within 13 weeks after any of its shelvings
+AssertionError: expected 0 to be greater than or equal to 1
+ ❯ tests/p14d1-rival-shelving-natural.test.ts:59:30
+     57|     const { finalState, weeklyStates } = runNaturalRoute()
+     58|     const shelvings = shelvedReceiptsOf(finalState.hollywood!.receipts)
+     59|     expect(shelvings.length).toBeGreaterThanOrEqual(1)
+       |                              ^
+     60|     // "A commission happened for studio S at week w" is observed as g…
+     61|     // b.development.projects.length between consecutive weekly snapsh…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-natural.test.ts > shelving-natural-route (1344-F Amendment 3): week 130 -> week 260 on p13a-core-causal-01 > every shelved screenplay keeps its ScriptProject and cost row through the final week
+AssertionError: expected 0 to be greater than or equal to 1
+ ❯ tests/p14d1-rival-shelving-natural.test.ts:86:30
+     84|     const { finalState } = runNaturalRoute()
+     85|     const shelvings = shelvedReceiptsOf(finalState.hollywood!.receipts)
+     86|     expect(shelvings.length).toBeGreaterThanOrEqual(1)
+       |                              ^
+     87|     for (const receipt of shelvings) {
+     88|       const b = finalState.hollywood!.businesses.find(row => row.studi…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-natural.test.ts > shelving-natural-route (1344-F Amendment 3): week 130 -> week 260 on p13a-core-causal-01 > per studio, at most four shelvings in any 52-week window
+AssertionError: expected 0 to be greater than or equal to 1
+ ❯ tests/p14d1-rival-shelving-natural.test.ts:99:30
+     97|     const { finalState } = runNaturalRoute()
+     98|     const shelvings = shelvedReceiptsOf(finalState.hollywood!.receipts)
+     99|     expect(shelvings.length).toBeGreaterThanOrEqual(1)
+       |                              ^
+    100|     const byStudio = new Map<string, number[]>()
+    101|     for (const r of shelvings) byStudio.set(r.studioId, [...(byStudio.…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > API decisions this file exercises (existence asserted first) > validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist as functions; LIVE_SAVE_VERSION is 43
+AssertionError: expected 42 to be 43 // Object.is equality
+
+- Expected
++ Received
+
+- 43
++ 42
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:46:42
+     44| describe('API decisions this file exercises (existence asserted first)…
+     45|   it('validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist as fun…
+     46|     expect(saveModule.LIVE_SAVE_VERSION).toBe(43)
+       |                                          ^
+     47|     expect(typeof mods().validateSaveV43).toBe('function')
+     48|     expect(typeof mods().convertV42ToV43).toBe('function')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration > genuine V42 week-100 input migrates to V43 with the empty screenplayShelving state on every business, and validates
+TypeError: mods(...).convertV42ToV43 is not a function
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:56:24
+     54|   it('genuine V42 week-100 input migrates to V43 with the empty screen…
+     55|     const v42 = genuineV42Week100()
+     56|     const v43 = mods().convertV42ToV43(v42)
+       |                        ^
+     57|     expect(v43.saveVersion).toBe(43)
+     58|     const validated = mods().validateSaveV43(v43)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration > genuine V42 week-130 input migrates to V43 with the empty screenplayShelving state on every business, and validates
+TypeError: mods(...).convertV42ToV43 is not a function
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:75:24
+     73|   it('genuine V42 week-130 input migrates to V43 with the empty screen…
+     74|     const v42 = genuineV42Week130()
+     75|     const v43 = mods().convertV42ToV43(v42)
+       |                        ^
+     76|     const validated = mods().validateSaveV43(v43)
+     77|     for (const b of validated.state.hollywood!.businesses) {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration > migrateToLive carries a genuine V42 save to V43 (LIVE_SAVE_VERSION)
+AssertionError: expected 42 to be 43 // Object.is equality
+
+- Expected
++ Received
+
+- 43
++ 42
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:85:70
+     83|     const v42 = saveModule.importSave(week130Raw())
+     84|     const live = migrateToLive(v42)
+     85|     expect((live as unknown as { saveVersion: number }).saveVersion).t…
+       |                                                                      ^
+     86|   })
+     87| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: save/load in the middle of a count continues byte-identically > ticking 7 weeks, then round-tripping through export/import at count 7, then ticking 5 more weeks, matches an uninterrupted 12-week tick byte-for-byte
+TypeError: Cannot read properties of undefined (reading 'rejections')
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:99:93
+     97|     for (let i = 0; i < 7; i++) stateB = tick(stateB)
+     98|     const b7 = stateB.hollywood!.businesses.find(b => b.studioId === R…
+     99|     expect((b7 as unknown as { screenplayShelving: ScreenplayShelving …
+       |                                                                                             ^
+    100|       'route/RED premise: count 7 after 7 weeks').toBe(7)
+    101|     const saved = saveModule.makeSave(stateB)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: the validator rejects each inconsistent state > rejects a shelved entry naming an ordinal that is ALSO active
+AssertionError: expected [Function] to throw error matching /shelv/i but got 'mods(...).validateSaveV43 is not a fu…'
+
+- Expected: 
+/shelv/i
+
++ Received: 
+"mods(...).validateSaveV43 is not a function"
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:139:47
+    137|     expect(b.activeScriptOrdinals).toContain(6) // route premise: ordi…
+    138|     b.screenplayShelving = { version: 1, rejections: [], shelved: [{ o…
+    139|     expect(() => mods().validateSaveV43(env)).toThrow(/shelv/i)
+       |                                               ^
+    140|   })
+    141| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: the validator rejects each inconsistent state > rejects a shelved entry naming an ordinal that is ALSO produced
+AssertionError: expected [Function] to throw error matching /shelv/i but got 'mods(...).validateSaveV43 is not a fu…'
+
+- Expected: 
+/shelv/i
+
++ Received: 
+"mods(...).validateSaveV43 is not a function"
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:147:47
+    145|     expect(b.development.projects[0]!.status).toBe('produced') // rout…
+    146|     b.screenplayShelving = { version: 1, rejections: [], shelved: [{ o…
+    147|     expect(() => mods().validateSaveV43(env)).toThrow(/shelv/i)
+       |                                               ^
+    148|   })
+    149| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: the validator rejects each inconsistent state > rejects a rejection count over the documented threshold (14 > 13)
+AssertionError: expected [Function] to throw error matching /shelv|reject|threshold/i but got 'mods(...).validateSaveV43 is not a fu…'
+
+- Expected: 
+/shelv|reject|threshold/i
+
++ Received: 
+"mods(...).validateSaveV43 is not a function"
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:156:47
+    154|     // a validator boundary fixture, not a derived route fact.
+    155|     b.screenplayShelving = { version: 1, rejections: [{ ordinal: 6, co…
+    156|     expect(() => mods().validateSaveV43(env)).toThrow(/shelv|reject|th…
+       |                                               ^
+    157|   })
+    158| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: the validator rejects each inconsistent state > rejects a shelved entry with no matching screenplayShelved receipt
+AssertionError: expected [Function] to throw error matching /shelv|receipt/i but got 'mods(...).validateSaveV43 is not a fu…'
+
+- Expected: 
+/shelv|receipt/i
+
++ Received: 
+"mods(...).validateSaveV43 is not a function"
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:165:47
+    163|     b.screenplayShelving = { version: 1, rejections: [], shelved: [{ o…
+    164|     // No screenplayShelved receipt appended to state.hollywood.receip…
+    165|     expect(() => mods().validateSaveV43(env)).toThrow(/shelv|receipt/i)
+       |                                               ^
+    166|   })
+    167| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: the validator rejects each inconsistent state > rejects two screenplayShelved receipts naming the same screenplay
+AssertionError: expected [Function] to throw error matching /shelv|receipt|duplicate|second/i but got 'mods(...).validateSaveV43 is not a fu…'
+
+- Expected: 
+/shelv|receipt|duplicate|second/i
+
++ Received: 
+"mods(...).validateSaveV43 is not a function"
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:180:47
+    178|     )
+    179|     env.state.hollywood.nextReceipt += 2
+    180|     expect(() => mods().validateSaveV43(env)).toThrow(/shelv|receipt|d…
+       |                                               ^
+    181|   })
+    182| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: the validator rejects each inconsistent state > accepts the well-formed empty state on every business (control: does not throw)
+AssertionError: expected [Function] to not throw an error but 'TypeError: mods(...).validateSaveV43 …' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"TypeError: mods(...).validateSaveV43 is not a function"
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:185:51
+    183|   it('accepts the well-formed empty state on every business (control: …
+    184|     const env = baseV43Envelope()
+    185|     expect(() => mods().validateSaveV43(env)).not.toThrow()
+       |                                                   ^
+    186|   })
+    187| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: down-conversion (convertV43ToV42) > accepts the empty screenplayShelving state (round-trips losslessly, Save41 pattern)
+TypeError: mods(...).convertV42ToV43 is not a function
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:191:24
+    189| describe('save-v43-shelving: down-conversion (convertV43ToV42)', () =>…
+    190|   it('accepts the empty screenplayShelving state (round-trips lossless…
+    191|     const v43 = mods().convertV42ToV43(genuineV42Week130())
+       |                        ^
+    192|     expect(() => mods().convertV43ToV42(v43)).not.toThrow()
+    193|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: down-conversion (convertV43ToV42) > refuses a real rejection count by name
+AssertionError: expected [Function] to throw error matching /shelv/i but got 'mods(...).convertV43ToV42 is not a fu…'
+
+- Expected: 
+/shelv/i
+
++ Received: 
+"mods(...).convertV43ToV42 is not a function"
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:204:47
+    202|         : { ...EMPTY_SHELVING }
+    203|     }
+    204|     expect(() => mods().convertV43ToV42(env)).toThrow(/shelv/i)
+       |                                               ^
+    205|   })
+    206| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: down-conversion (convertV43ToV42) > refuses a real shelved entry (with its receipt) by name
+AssertionError: expected [Function] to throw error matching /shelv/i but got 'mods(...).convertV43ToV42 is not a fu…'
+
+- Expected: 
+/shelv/i
+
++ Received: 
+"mods(...).convertV43ToV42 is not a function"
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:220:47
+    218|       studioId: RIVAL_R01, kind: 'screenplayShelved', scriptProjectId:…
+    219|     env.state.hollywood.nextReceipt += 1
+    220|     expect(() => mods().convertV43ToV42(env)).toThrow(/shelv/i)
+       |                                               ^
+    221|   })
+    222| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: down-conversion (convertV43ToV42) > refuses a nonzero commissionHoldUntilWeek by name
+AssertionError: expected [Function] to throw error matching /shelv|hold/i but got 'mods(...).convertV43ToV42 is not a fu…'
+
+- Expected: 
+/shelv|hold/i
+
++ Received: 
+"mods(...).convertV43ToV42 is not a function"
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:232:47
+    230|         : { ...EMPTY_SHELVING }
+    231|     }
+    232|     expect(() => mods().convertV43ToV42(env)).toThrow(/shelv|hold/i)
+       |                                               ^
+    233|   })
+    234| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > TUNING.HOLLYWOOD_SHELVE_AFTER_REJECTIONS is a positive integer, 13
+AssertionError: expected 'undefined' to be 'number' // Object.is equality
+
+Expected: "number"
+Received: "undefined"
+
+ ❯ tests/p14d1-rival-shelving.test.ts:104:22
+    102|   it('TUNING.HOLLYWOOD_SHELVE_AFTER_REJECTIONS is a positive integer, …
+    103|     const v = (TUNING as unknown as Record<string, unknown>).HOLLYWOOD…
+    104|     expect(typeof v).toBe('number')
+       |                      ^
+    105|     expect(Number.isInteger(v) && (v as number) > 0).toBe(true)
+    106|     expect(v).toBe(13)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > TUNING.HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS is a positive integer, 13
+AssertionError: expected 'undefined' to be 'number' // Object.is equality
+
+Expected: "number"
+Received: "undefined"
+
+ ❯ tests/p14d1-rival-shelving.test.ts:110:22
+    108|   it('TUNING.HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS is a positive inte…
+    109|     const v = (TUNING as unknown as Record<string, unknown>).HOLLYWOOD…
+    110|     expect(typeof v).toBe('number')
+       |                      ^
+    111|     expect(Number.isInteger(v) && (v as number) > 0).toBe(true)
+    112|     expect(v).toBe(13)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > TUNING.HOLLYWOOD_SHELVED_RETRY_WEEKS is a positive integer, 26
+AssertionError: expected 'undefined' to be 'number' // Object.is equality
+
+Expected: "number"
+Received: "undefined"
+
+ ❯ tests/p14d1-rival-shelving.test.ts:116:22
+    114|   it('TUNING.HOLLYWOOD_SHELVED_RETRY_WEEKS is a positive integer, 26',…
+    115|     const v = (TUNING as unknown as Record<string, unknown>).HOLLYWOOD…
+    116|     expect(typeof v).toBe('number')
+       |                      ^
+    117|     expect(Number.isInteger(v) && (v as number) > 0).toBe(true)
+    118|     expect(v).toBe(26)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > hollywoodPolicy.searchIndustryPackages exists as a function
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ tests/p14d1-rival-shelving.test.ts:122:23
+    120|   it('hollywoodPolicy.searchIndustryPackages exists as a function', ()…
+    121|     const fn = (hollywoodPolicy as unknown as Record<string, unknown>)…
+    122|     expect(typeof fn).toBe('function')
+       |                       ^
+    123|   })
+    124|   it('save.ts LIVE_SAVE_VERSION is 43, and validateSaveV43/convertV42T…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > save.ts LIVE_SAVE_VERSION is 43, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist
+AssertionError: expected 42 to be 43 // Object.is equality
+
+- Expected
++ Received
+
+- 43
++ 42
+
+ ❯ tests/p14d1-rival-shelving.test.ts:125:42
+    123|   })
+    124|   it('save.ts LIVE_SAVE_VERSION is 43, and validateSaveV43/convertV42T…
+    125|     expect(saveModule.LIVE_SAVE_VERSION).toBe(43)
+       |                                          ^
+    126|     const mods = saveModule as unknown as Record<string, unknown>
+    127|     expect(typeof mods.validateSaveV43).toBe('function')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-stalled-route (1344-A §6.1) > a stalled rival with staff and cash available shelves after exactly 13 evaluated economic rejections; the week is derived from receipts, never hard-coded
+AssertionError: route/RED premise: studio-aca408ec-r01 shelves within 16 weeks of week 130: expected null not to be null
+ ❯ tests/p14d1-rival-shelving.test.ts:157:107
+    155|       if (fresh.length > 0) { shelvingWeek = before.market.tick; shelv…
+    156|     }
+    157|     expect(shelvingWeek, `route/RED premise: ${RIVAL_R01} shelves with…
+       |                                                                                                           ^
+    158|     expect(before).not.toBeNull(); expect(after).not.toBeNull()
+    159|     // "Exactly one screenplayShelved receipt" is scoped per screenpla…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-blocked-weeks-hold (1344-A §6.2) > staffingBlocked weeks (no seatable triple) leave the rejection count unchanged
+TypeError: Cannot read properties of undefined (reading 'rejections')
+ ❯ tests/p14d1-rival-shelving.test.ts:210:47
+    208|     const b1 = business(state, RIVAL)
+    209|     const ordinal = 6
+    210|     const countAfterOneRejection = shelving(b1).rejections.find(r => r…
+       |                                               ^
+    211|     expect(countAfterOneRejection, 'route/RED premise: one economic re…
+    212|     // End one actor's employment (r01 has exactly 3 actors; removing …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-blocked-weeks-hold (1344-A §6.2) > cashBlocked weeks (cash below every candidate) leave the rejection count unchanged
+TypeError: Cannot read properties of undefined (reading 'rejections')
+ ❯ tests/p14d1-rival-shelving.test.ts:242:23
+    240|     const ordinal = 6
+    241|     const b1 = business(state, RIVAL)
+    242|     expect(shelving(b1).rejections.find(r => r.ordinal === ordinal)?.c…
+       |                       ^
+    243|     // Drive cash to zero: every (negative,marketing) candidate exceed…
+    244|     // so chooseIndustryPackage sees zero affordable candidates (cashB…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-blocked-weeks-hold (1344-A §6.2) > a week with a running production evaluates nothing (count unchanged while productions.length>0; resumes after)
+TypeError: Cannot read properties of undefined (reading 'rejections')
+ ❯ tests/p14d1-rival-shelving.test.ts:273:31
+    271|       state = tick(state)
+    272|       const b = business(state, RIVAL)
+    273|       const count = shelving(b).rejections.find(r => r.ordinal === ord…
+       |                               ^
+    274|       if (b.productions.length > 0) { expect(count, `week ${state.mark…
+    275|       else if (resumedCount === null && count > 0) { resumedCount = co…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-blocked-weeks-hold (1344-A §6.2) > a mixed sequence (staffing-blocked, then economic rejections) shelves only after 13 economic rejections, never 13 calendar weeks
+TypeError: Cannot read properties of undefined (reading 'rejections')
+ ❯ tests/p14d1-rival-shelving.test.ts:301:43
+    299|     }
+    300|     for (let i = 0; i < 3; i++) mixed = tick(mixed)
+    301|     expect(shelving(business(mixed, RIVAL)).rejections.find(r => r.ord…
+       |                                           ^
+    302|     // Restore staffing; the remaining decisions are economic rejectio…
+    303|     // premise: this screenplay's package fails viability every week o…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-viable-control (1344-F Amendment 2) > genesis to week 100: with screenplayShelving stripped from every business, state equals the genuine week-100 input migrated by convertV42ToV43 (also stripped); receipts identical
+TypeError: mods.convertV42ToV43 is not a function
+ ❯ tests/p14d1-rival-shelving.test.ts:325:29
+    323|   it('genesis to week 100: with screenplayShelving stripped from every…
+    324|     const mods = saveModule as unknown as { convertV42ToV43: (s: unkno…
+    325|     const genuineV43 = mods.convertV42ToV43(genuineV42Week100())
+       |                             ^
+    326|     const genuineState = genuineV43.state
+    327|     let state = HARNESS_GENESIS()
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-viable-control (1344-F Amendment 2) > a business with at least one recorded greenlight and zero economic rejections in the first 20 weeks keeps the empty screenplayShelving state
+AssertionError: expected undefined to deeply equal { version: 1, rejections: [], …(2) }
+
+- Expected: 
+Object {
+  "commissionHoldUntilWeek": 0,
+  "rejections": Array [],
+  "shelved": Array [],
+  "version": 1,
+}
+
++ Received: 
+undefined
+
+ ❯ tests/p14d1-rival-shelving.test.ts:356:25
+    354|     expect(sawGreenlightFor, 'route/RED premise: at least one rival gr…
+    355|     const b = business(state, sawGreenlightFor!)
+    356|     expect(shelving(b)).toEqual(EMPTY_SHELVING)
+       |                         ^
+    357|   }, 15_000)
+    358| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[31/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-commission-hold (1344-A §6.4) > no new development project for the shelving studio during its commission hold; commissionHoldUntilWeek is exactly week+HOLD; a commission is not permanently blocked
+AssertionError: route/RED premise (shared with test 1): expected null not to be null
+ ❯ tests/p14d1-rival-shelving.test.ts:381:72
+    379|       }
+    380|     }
+    381|     expect(shelvingWeek, 'route/RED premise (shared with test 1)').not…
+       |                                                                        ^
+    382|     const bAtShelving = business(state, RIVAL)
+    383|     const hold = shelving(bAtShelving).commissionHoldUntilWeek
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[32/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > a viable retry re-enters the slot and greenlights, removing the shelved entry
+Error: Unhandled Industry identity: [object Object]
+ ❯ Module.persistedProductionIds src/core/productionIdentity.ts:111:57
+    109|       case 'laboratoryCommitted': case 'laboratoryOperational': case '…
+    110|       case 'researchSeatAssigned': case 'researchCompleted': break
+    111|       default: { const exhaustive: never = event; throw new Error(`Unh…
+       |                                                         ^
+    112|     }
+    113|   }
+ ❯ decide src/core/hollywoodTick.ts:233:83
+ ❯ Module.advanceHollywoodWeek src/core/hollywoodTick.ts:321:5
+ ❯ Module.tick src/core/tick.ts:935:20
+ ❯ tests/p14d1-rival-shelving.test.ts:457:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[33/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > an unviable retry advances retryWeek and stays shelved (and never re-enters the slot, so it cannot be shelved twice)
+AssertionError: expected 130 to be NaN // Object.is equality
+
+- Expected
++ Received
+
+- NaN
++ 130
+
+ ❯ tests/p14d1-rival-shelving.test.ts:475:30
+    473|     const entry = shelving(b).shelved.find(s => s.ordinal === ordinal)
+    474|     expect(entry, 'stays shelved').toBeDefined()
+    475|     expect(entry!.retryWeek).toBe(week + TUNING_FUTURE.HOLLYWOOD_SHELV…
+       |                              ^
+    476|     expect(shelvedReceiptsOf(newReceipts(before, state)).filter(r => r…
+    477|   }, 15_000)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[34/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-promise-guard (1344-A §3.3) > an open SPECIFIC_PROJECT promise naming the screenplay defers shelving (count held at 13); shelving proceeds at the next economic rejection after it settles
+TypeError: Cannot read properties of undefined (reading 'rejections')
+ ❯ tests/p14d1-rival-shelving.test.ts:539:24
+    537|     for (let i = 0; i < 12; i++) state = tick(state)
+    538|     const b12 = business(state, RIVAL)
+    539|     expect(shelving(b12).rejections.find(r => r.ordinal === ordinal)?.…
+       |                        ^
+    540|     const scriptProjectId = b12.development.projects[ordinal]!.id
+    541|     // Hand-built open promise (contractId: null keeps it inert to adv…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[35/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-feasibility-readers (1344-A §3.6) > a shelved screenplay changes the feasibility digest (unproducedScripts must stop counting it, promises.ts:410-411)
+AssertionError: RED premise: today unproducedScripts filters by status only, so removing ordinal 6 from activeScriptOrdinals alone does not change the digest; once shelved screenplays are excluded from the count, it must: expected 'ed297b3951d28bec' not to be 'ed297b3951d28bec' // Object.is equality
+ ❯ tests/p14d1-rival-shelving.test.ts:610:247
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[36/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-feasibility-readers (1344-A §3.6) > opportunity paths mark a shelved screenplay impossible with reason "the named script project is shelved"
+AssertionError: expected 'REASONABLY_ACHIEVABLE' to be 'IMPOSSIBLE' // Object.is equality
+
+Expected: "IMPOSSIBLE"
+Received: "REASONABLY_ACHIEVABLE"
+
+ ❯ tests/p14d1-rival-shelving.test.ts:624:36
+    622|     }
+    623|     const receipt = promiseFeasibility(state, draft, state.market.tick)
+    624|     expect(receipt.classification).toBe('IMPOSSIBLE')
+       |                                    ^
+    625|     expect(receipt.bottleneck).toBe('the named script project is shelv…
+    626|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[37/38]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-chart-output (1344-A §6.8) > the 13-week chart row equals released (produced) films with a shelved screenplay present, and the state validates
+AssertionError: route/RED premise: a shelving occurred before the next chart week: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/p14d1-rival-shelving.test.ts:643:94
+    641|       if (sawShelving && state.market.tick % 13 === 0) break
+    642|     }
+    643|     expect(sawShelving, 'route/RED premise: a shelving occurred before…
+       |                                                                                              ^
+    644|     expect(state.market.tick % 13).toBe(0)
+    645|     const b = business(state, RIVAL)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[38/38]⎯
+
+ Test Files  3 failed (3)
+      Tests  38 failed | 5 passed (43)
+   Start at  00:28:21
+   Duration  64.15s (transform 8.12s, setup 0ms, collect 19.33s, tests 86.52s, environment 1ms, prepare 1.56s)
+
