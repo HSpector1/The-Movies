@@ -1,0 +1,215 @@
+diff --git a/tests/bridge-p14b2-checkpoint.test.ts b/tests/bridge-p14b2-checkpoint.test.ts
+index 2d04002..a8f4c49 100644
+--- a/tests/bridge-p14b2-checkpoint.test.ts
++++ b/tests/bridge-p14b2-checkpoint.test.ts
+@@ -62,16 +62,34 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
+       // root, so the expected shape below carries it transparently.
+       const sourcePeople = source.state.talent as { id: string; age: number; role: string }[]
+       const sourceCases = (source.state.talentMarket.cases as Record<string, unknown>[]).map((kase) => ({ ...kase, variant: 'expiry' }))
++      // R3 rule 2 (1332-A / 1332-F, this record's own file-list scope): the governed
++      // lift now also writes the root `firstTakeSubjects` (convertV39ToV40,
++      // src/core/save.ts:10490-10497: `{ version: 1, cutoverOrdinal:
++      // old.state.firstTakes.length, facts: [] }`) and a zero `termination`
++      // movement on every `hollywood.businesses[].account.periods[].movements`
++      // (convertV40ToV41, src/core/save.ts:10526-10533) -- both additive, like
++      // V34's own root above, so the expected shape below carries them
++      // transparently, DERIVED from the source envelope and the lift code. The
++      // received values (cutoverOrdinal 5, four termination keys, re-measured in
++      // this tree) are cross-checks, never the source of this expectation.
++      const sourceFirstTakeSubjects = { version: 1, cutoverOrdinal: (source.state.firstTakes as unknown[]).length, facts: [] }
++      const sourceHollywood = source.state.hollywood as { businesses: Record<string, unknown>[] }
++      const sourceBusinesses = sourceHollywood.businesses.map((business) => ({ ...business,
++        account: { ...(business.account as Record<string, unknown>),
++          periods: ((business.account as { periods: Record<string, unknown>[] }).periods).map((period) => ({
++            ...period, movements: { ...(period.movements as Record<string, unknown>), termination: 0 } })) } }))
+       expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 42, state: { ...source.state,
+         relationships: [], promises: (source.state.promises as Record<string, unknown>[]).map(addedFields),
+         talent: sourcePeople.map((person) => ({ ...person, age: Math.floor(person.age) })),
+         talentProvenance: buildTalentProvenance(sourcePeople, source.state.market.tick as number, 'legacy_age_anchor'),
++        firstTakeSubjects: sourceFirstTakeSubjects,
+         careerLifecycle: { boundaryWeek: source.state.market.tick, records: [], cohorts: [],
+           transitionBoundaryWeek: source.state.market.tick,
+           professionAnchors: sourcePeople.map(person => ({ personId: person.id, profession: person.role,
+             kind: 'existing', recordedWeek: source.state.market.tick })),
+           transitionEvaluations: [], professionChanges: [], industryRetirements: [], transitionDue: [] },
+-        talentMarket: { ...source.state.talentMarket, cases: sourceCases } } })
++        talentMarket: { ...source.state.talentMarket, cases: sourceCases },
++        hollywood: { ...sourceHollywood, businesses: sourceBusinesses } } })
+       expect(after[slot]).toBe(exportSave(governed))
+     }
+     expect(after.currentStateDigest).toBe(sha(after.currentSaveJson))
+diff --git a/tests/p14b5-relationships.test.ts b/tests/p14b5-relationships.test.ts
+index 581ebd2..b147a6d 100644
+--- a/tests/p14b5-relationships.test.ts
++++ b/tests/p14b5-relationships.test.ts
+@@ -70,6 +70,7 @@ import { tick } from '../src/core/tick.js'
+ import * as marketModule from '../src/core/talentMarket.js'
+ import { publicPreferredTerm, publicPriorityOrder, submitProposal, type FreezeDrop } from '../src/core/talentMarket.js'
+ import { attachPromise } from '../src/core/promises.js'
++import { validateFirstTakeSubjects } from '../src/core/firstTakeSubjects.js'
+ import { LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31, validateSaveV33, validateSaveV42 } from '../src/core/save.js'
+ import { TUNING } from '../src/core/tuning.js'
+ import { careerIdentity } from '../src/core/talentSummary.js'
+@@ -140,6 +141,14 @@ const FROZEN = {
+   // exactly; stripping the root alone does not — both halves are needed and
+   // nothing else in the state moved. Contract 762 §6 authorises the flooring
+   // and §11 makes the new root unavoidable.
++  // 1332-A row 5 / 1332-F Amendment 2 (repair R3): `firstTakeSubjects` (V40)
++  // and every rival period's `termination` movement (V41) join the strip
++  // below. This constant itself is UNCHANGED — the record's own counterfactual
++  // (1332-measure/probes/mk-cf.py, run [cf-58c89932.json], re-measured in this
++  // tree: PROBE after.firstTakeSubjects {"version":1,"cutoverOrdinal":24,
++  // "facts":[{"eventId":"first-take-event-24","conceptId":"c-00","genre":
++  // "comedy","scriptProjectId":null}]}, PROBE termination movements all 0)
++  // shows the wider strip reproduces this exact digest.
+   postTakeDigestStripped: '9702aa6869cf80f82d5133f68137427a0ed44c07ce987e8fe2be66bbb60f3d78',
+   // The rival chain from `rival-current-p1-and-p2` (196): first post-migration take, its release, the repeat take.
+   rival: { studioId: 'studio-aca408ec-r01', firstTake: 'studio-aca408ec-r01:film:11', firstTakeWeek: 213, firstReleaseWeek: 217,
+@@ -235,6 +244,15 @@ const stage = (state: GameState, edge: Edge): GameState => live(withEdges(state,
+ // is past the week-52 cohort floor, so `cohorts` may now be non-empty on both
+ // sides in an eligible hollywood world, but that no longer matters: the root
+ // is dropped wholesale before comparison either way.
++// 1332-A row 5 / 1332-F Amendment 2 (repair R3): `firstTakeSubjects` (V40,
++// whole root) and every rival period's `termination` movement (V41, one
++// scalar key) join the strip for the same reason `relationships` does -- both
++// are additive schema, not facts this CANNOT-MOVE control is about. Unlike
++// `supersededByPromiseId`/`variant` above, `firstTakeSubjects` carries real
++// per-take content (conceptId/genre/scriptProjectId), so a bare
++// existence-strip would leave that content outside every assertion once it
++// leaves the digest (1332-B blocking item 2); the guard below asserts it in
++// full, by the LAW's own validator, before the strip runs.
+ const bytes = (state: GameState): string => {
+   // P14C.2b: before the structural strip below silently drops the whole root,
+   // confirm it is dropping no retirement-extension authority — this window
+@@ -242,7 +260,33 @@ const bytes = (state: GameState): string => {
+   if (state.careerLifecycle.records.some((record) => (record as unknown as { extensionUsed?: boolean }).extensionUsed === true)) {
+     throw new Error('bytes: a settled retirement extension would be silently dropped by this strip')
+   }
+-  const { relationships: _r, careerLifecycle: _cl, ...rest } = state as unknown as Record<string, unknown> & {
++  // 1332-F Amendment 2: assert `firstTakeSubjects`'s full content (version,
++  // cutoverOrdinal, and every fact's eventId/conceptId/genre/scriptProjectId
++  // agreement with its owning concept/production/released film) BEFORE the
++  // strip below drops the whole root -- by calling the LAW's own validator
++  // (src/core/firstTakeSubjects.ts:36-89, the exact function `promises.ts:1633`
++  // invokes at saveVersion 40), never a reimplementation and never the probe
++  // output. Any drift in any field throws loudly here instead of silently
++  // leaving the digest.
++  validateFirstTakeSubjects(state as unknown as Record<string, unknown>)
++  // 1332-A rule 3: the widened `termination` movement (V41) is a bare scalar
++  // per rival period with no sub-structure -- throw if a real (non-zero) one
++  // would be silently dropped by the strip below, the same guard-before-strip
++  // convention as `extensionUsed` above.
++  for (const business of state.hollywood?.businesses ?? []) {
++    for (const period of business.account.periods) {
++      if (period.movements.termination !== 0) {
++        throw new Error('bytes: a real rival termination movement would be silently dropped by this strip')
++      }
++    }
++  }
++  const strippedHollywood = state.hollywood === null ? null : { ...state.hollywood,
++    businesses: state.hollywood.businesses.map((business) => ({ ...business,
++      account: { ...business.account, periods: business.account.periods.map((period) => {
++        const { termination: _t, ...movements } = period.movements
++        return { ...period, movements }
++      }) } })) }
++  const { relationships: _r, careerLifecycle: _cl, firstTakeSubjects: _fts, ...rest } = state as unknown as Record<string, unknown> & {
+     promises: Record<string, unknown>[]
+     talentMarket: { cases: Record<string, unknown>[] } & Record<string, unknown>
+   }
+@@ -252,7 +296,7 @@ const bytes = (state: GameState): string => {
+   // for the same reason `supersededByPromiseId` is: a pure schema addition,
+   // not a fact this CANNOT-MOVE control is about.
+   const talentMarket = { ...rest.talentMarket, cases: rest.talentMarket.cases.map((c) => { const { variant: _v, ...legacy } = c; return legacy }) }
+-  return JSON.stringify({ ...rest, promises, talentMarket })
++  return JSON.stringify({ ...rest, promises, talentMarket, hollywood: strippedHollywood })
+ }
+ // P14C.2a: `stripRoot` builds a pre-V31 view for the relationships-root-presence
+ // fault test above (family 1's first `it`) -- it strips only the one root that
+@@ -543,6 +587,12 @@ describe('family 1 — EDGE MINTING at the tick tail from the advance\'s delta (
+     const { pre, after } = takeWorld()
+     expect(JSON.stringify(after.rngState)).toBe(JSON.stringify(pre.rngState)) // the take week consumes no sim RNG (measured)
+     expect(after.rngState).toBe(FROZEN.rngAfterTake)
++    // 1332-F Amendment 2: `cutoverOrdinal` is the ordinal the Save39->Save40
++    // lift wrote once (src/core/save.ts:10497); this tick only appends to
++    // `facts`, so the ordinal itself is unchanged -- checked here, across the
++    // tick, since `bytes()` receives one state at a time and cannot compare.
++    expect(after.firstTakeSubjects.version).toBe(1)
++    expect(after.firstTakeSubjects.cutoverOrdinal).toBe(pre.firstTakeSubjects.cutoverOrdinal)
+     expect(sha(bytes(after))).toBe(FROZEN.postTakeDigestStripped) // CANNOT-MOVE class: the pre-settlement chain
+     const production = pre.studio.activeProductions.find((p) => p.id === FROZEN.productionId)!
+     const direct = advanceRelationshipsWeek(withEdges(pre, []), { takes: [{ studioId: player(pre), production }], releases: [] }, pre.market.tick + 1)
+diff --git a/tests/p14c3-promise-digest-continuity.test.ts b/tests/p14c3-promise-digest-continuity.test.ts
+index f068f9a..818720a 100644
+--- a/tests/p14c3-promise-digest-continuity.test.ts
++++ b/tests/p14c3-promise-digest-continuity.test.ts
+@@ -185,16 +185,69 @@ describe('955 genuine207 normal-development continuation', () => {
+   it('produces identical208 saves and all twelve actual affected receipts from value-identical key orders', () => {
+     const original = pre207(), alternate = reordered(original), ids = recordedAffectedIds()
+     const initial = bytes(original), otherInitial = bytes(alternate)
++    // 1332-A rule 4 / 1332-F Amendment 1 (repair R3): each of the twelve
++    // subjects' OWN receipt in THIS pre-tick state -- the baseline a subject
++    // NOT bound at week 208 keeps unchanged (every field equal), derived from
++    // the pre-tick state itself, never from a literal week.
++    const preReceipts = new Map(ids.map(id => {
++      const root = original.promises.find(row => row.promiseId === id)
++      assert.ok(root)
++      return [id, root.feasibilityReceipt] as const
++    }))
+     const direct = tick(original, { develop: true }), resumed = tick(alternate, { develop: true })
+     expect(direct.market.tick).toBe(208)
+     expect(resumed.market.tick).toBe(208)
+     const selected = (state: GameState) => ids.map(id => {
+       const root = state.promises.find(row => row.promiseId === id)
+       assert.ok(root)
+-      expect(root.feasibilityReceipt).toMatchObject({ week: 208, rulesVersion: 4 })
++      // `commitWinningPromise` (src/core/talentMarket.ts:1237-1248) writes
++      // `contractId` and the re-derived feasibility receipt TOGETHER,
++      // atomically, only for the winning proposal's own promise -- so a
++      // non-null `contractId` on this post-tick root is the independent
++      // signal that THIS tick's week-208 settlement bound the subject. It is
++      // never read off `feasibilityReceipt.week` itself, the field this
++      // very assertion checks; a subject not bound keeps the receipt it held
++      // in the pre-tick state above, unchanged.
++      // 1332-F2 amendment: 1332-A rule 4 asks for `rulesVersion` 4 on BOTH
++      // paths, asserted explicitly here rather than only inherited through
++      // equality with a snapshot. 1332-F amendment 1 requires the unbound
++      // path's receipt "unchanged (every field equal)" -- `toMatchObject`
++      // left `classification`/`bottleneck`/`inputsDigest` unchecked, so the
++      // unbound path now `toEqual`s the whole pre-tick receipt object;
++      // the bound path keeps its shape check (its other fields are freshly
++      // re-derived at 208, not independently predictable here).
++      expect(root.feasibilityReceipt.rulesVersion).toBe(4)
++      if (root.contractId !== null) {
++        expect(root.feasibilityReceipt).toMatchObject({ week: 208, rulesVersion: 4 })
++      } else {
++        expect(root.feasibilityReceipt).toEqual(preReceipts.get(id)!)
++      }
+       return { promiseId: id, ...root.feasibilityReceipt }
+     })
+     const directReceipts = selected(direct), resumedReceipts = selected(resumed)
++    // 1332-A Attribution 3 / 1332-F pre-declared attribution (rule 4): the
++    // derived unbound set must equal EXACTLY promise-3 and promise-26, each
++    // with the week-208 case-decision facts measured there -- event id, kind,
++    // winning studio, the reason sentences verbatim, `contractId` null and a
++    // week-196 pre-tick receipt. Any other subject, fact or sentence stops
++    // this leaf; it never silently passes.
++    const unboundIds = ids.filter(id => direct.promises.find(row => row.promiseId === id)!.contractId === null)
++    expect(unboundIds).toEqual(['promise-3', 'promise-26'])
++    for (const id of unboundIds) {
++      const root = direct.promises.find(row => row.promiseId === id)!
++      expect(root.contractId).toBeNull()
++      expect(preReceipts.get(id)!.week).toBe(196)
++      const decision = direct.talentMarket.receipts.find(r => r.talentId === root.beneficiaryPersonId && r.week === 208
++        && (r.kind === 'settled' || r.kind === 'declined'))
++      assert.ok(decision, `1332-A Attribution 3 premise: no week-208 case decision for ${id}`)
++      if (id === 'promise-3') {
++        expect(decision).toMatchObject({ eventId: 'talent-market-event-143', kind: 'declined', studioId: null,
++          reasons: ['this person could not separate 2 equally ranked proposals.'] })
++      } else {
++        expect(decision).toMatchObject({ eventId: 'talent-market-event-155', kind: 'settled', studioId: 'studio-de11f27b-r03',
++          reasons: ['their studio standing ranked higher', 'they are the current employer'] })
++      }
++    }
+     expect(resumedReceipts.map(({ inputsDigest: _digest, ...rest }) => rest))
+       .toEqual(directReceipts.map(({ inputsDigest: _digest, ...rest }) => rest))
+     expect(resumedReceipts, 'the same twelve genuine promise subjects must retain identical receipts').toEqual(directReceipts)

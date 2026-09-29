@@ -1,0 +1,74 @@
+[
+  {
+    "file": "tests/bridge-p14b2-checkpoint.test.ts",
+    "line": 65,
+    "old": "expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 42, state: { ...source.state,\n  relationships: [], promises: (source.state.promises as Record<string, unknown>[]).map(addedFields),\n  talent: sourcePeople.map((person) => ({ ...person, age: Math.floor(person.age) })),\n  talentProvenance: buildTalentProvenance(sourcePeople, source.state.market.tick as number, 'legacy_age_anchor'),\n  careerLifecycle: { ... },\n  talentMarket: { ...source.state.talentMarket, cases: sourceCases } } })",
+    "new": "const sourceFirstTakeSubjects = { version: 1, cutoverOrdinal: (source.state.firstTakes as unknown[]).length, facts: [] }\nconst sourceHollywood = source.state.hollywood as { businesses: Record<string, unknown>[] }\nconst sourceBusinesses = sourceHollywood.businesses.map((business) => ({ ...business, account: { ...(business.account as Record<string, unknown>), periods: ((business.account as { periods: Record<string, unknown>[] }).periods).map((period) => ({ ...period, movements: { ...(period.movements as Record<string, unknown>), termination: 0 } })) } }))\nexpect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 42, state: { ...source.state,\n  relationships: [], promises: (source.state.promises as Record<string, unknown>[]).map(addedFields),\n  talent: sourcePeople.map((person) => ({ ...person, age: Math.floor(person.age) })),\n  talentProvenance: buildTalentProvenance(sourcePeople, source.state.market.tick as number, 'legacy_age_anchor'),\n  firstTakeSubjects: sourceFirstTakeSubjects,\n  careerLifecycle: { ... },\n  talentMarket: { ...source.state.talentMarket, cases: sourceCases },\n  hollywood: { ...sourceHollywood, businesses: sourceBusinesses } } })",
+    "row": "1332-A Attribution row 4 (bridge-p14b2-checkpoint :65)",
+    "cause": "expected migration shape misses two additive fields: the root firstTakeSubjects written by convertV39ToV40 (save.ts:10493-10497) and a zero termination movement on every rival account period written by convertV40ToV41 (save.ts:10526-10533)",
+    "rule": "1332-A rule 2"
+  },
+  {
+    "file": "tests/p14b5-relationships.test.ts",
+    "line": 73,
+    "old": "import { attachPromise } from '../src/core/promises.js'",
+    "new": "import { attachPromise } from '../src/core/promises.js'\nimport { validateFirstTakeSubjects } from '../src/core/firstTakeSubjects.js'",
+    "row": "1332-A Attribution row 5 (p14b5-relationships :546)",
+    "cause": "digest strip-list misses two additive fields (firstTakeSubjects, termination); the import supplies the law's own validator used as the content guard",
+    "rule": "1332-A rule 3 / 1332-F Amendment 2"
+  },
+  {
+    "file": "tests/p14b5-relationships.test.ts",
+    "line": 143,
+    "old": "postTakeDigestStripped: '9702aa6869cf80f82d5133f68137427a0ed44c07ce987e8fe2be66bbb60f3d78',",
+    "new": "// 1332-A row 5 / 1332-F Amendment 2 (repair R3): `firstTakeSubjects` (V40)\n// and every rival period's `termination` movement (V41) join the strip\n// below. This constant itself is UNCHANGED -- the record's own counterfactual\n// (1332-measure/probes/mk-cf.py, run [cf-58c89932.json], re-measured in this\n// tree: PROBE after.firstTakeSubjects {...cutoverOrdinal 24, facts:[{eventId:'first-take-event-24',conceptId:'c-00',genre:'comedy',scriptProjectId:null}]}, PROBE termination movements all 0)\n// shows the wider strip reproduces this exact digest.\npostTakeDigestStripped: '9702aa6869cf80f82d5133f68137427a0ed44c07ce987e8fe2be66bbb60f3d78',",
+    "row": "1332-A Attribution row 5 (p14b5-relationships :546)",
+    "cause": "FROZEN pin comment must cite this record's counterfactual per rule 3; the sha256 literal itself is unchanged",
+    "rule": "1332-A rule 3 / 1332-A rule 5 (no pin edited)"
+  },
+  {
+    "file": "tests/p14b5-relationships.test.ts",
+    "line": 238,
+    "old": "const bytes = (state: GameState): string => {\n  if (state.careerLifecycle.records.some(...)) { throw new Error('bytes: a settled retirement extension would be silently dropped by this strip') }\n  const { relationships: _r, careerLifecycle: _cl, ...rest } = state as unknown as Record<string, unknown> & { promises: ...; talentMarket: ... }\n  const promises = rest.promises.map((p) => { const { supersededByPromiseId: _s, ...legacy } = p; return legacy })\n  const talentMarket = { ...rest.talentMarket, cases: rest.talentMarket.cases.map((c) => { const { variant: _v, ...legacy } = c; return legacy }) }\n  return JSON.stringify({ ...rest, promises, talentMarket })\n}",
+    "new": "const bytes = (state: GameState): string => {\n  if (state.careerLifecycle.records.some(...)) { throw new Error(...) }\n  validateFirstTakeSubjects(state as unknown as Record<string, unknown>)\n  for (const business of state.hollywood?.businesses ?? []) { for (const period of business.account.periods) { if (period.movements.termination !== 0) throw new Error('bytes: a real rival termination movement would be silently dropped by this strip') } }\n  const strippedHollywood = state.hollywood === null ? null : { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({ ...business, account: { ...business.account, periods: business.account.periods.map((period) => { const { termination: _t, ...movements } = period.movements; return { ...period, movements } }) } })) }\n  const { relationships: _r, careerLifecycle: _cl, firstTakeSubjects: _fts, ...rest } = state as unknown as Record<string, unknown> & { promises: ...; talentMarket: ... }\n  const promises = rest.promises.map((p) => { const { supersededByPromiseId: _s, ...legacy } = p; return legacy })\n  const talentMarket = { ...rest.talentMarket, cases: rest.talentMarket.cases.map((c) => { const { variant: _v, ...legacy } = c; return legacy }) }\n  return JSON.stringify({ ...rest, promises, talentMarket, hollywood: strippedHollywood })\n}",
+    "row": "1332-A Attribution row 5 (p14b5-relationships :546)",
+    "cause": "digest strip-list misses two additive fields (firstTakeSubjects whole root, termination scalar per rival period); a bare existence-strip would leave the fact's payload (conceptId/genre/scriptProjectId) outside every assertion (1332-B blocking item 2)",
+    "rule": "1332-A rule 3 / 1332-F Amendment 2"
+  },
+  {
+    "file": "tests/p14b5-relationships.test.ts",
+    "line": 586,
+    "old": "expect(JSON.stringify(after.rngState)).toBe(JSON.stringify(pre.rngState))\nexpect(after.rngState).toBe(FROZEN.rngAfterTake)\nexpect(sha(bytes(after))).toBe(FROZEN.postTakeDigestStripped)",
+    "new": "expect(JSON.stringify(after.rngState)).toBe(JSON.stringify(pre.rngState))\nexpect(after.rngState).toBe(FROZEN.rngAfterTake)\nexpect(after.firstTakeSubjects.version).toBe(1)\nexpect(after.firstTakeSubjects.cutoverOrdinal).toBe(pre.firstTakeSubjects.cutoverOrdinal)\nexpect(sha(bytes(after))).toBe(FROZEN.postTakeDigestStripped)",
+    "row": "1332-A Attribution row 5 (p14b5-relationships :546)",
+    "cause": "1332-F Amendment 2 requires cutoverOrdinal equal to the ordinal the Save39->Save40 lift wrote, unchanged across the tick; bytes() receives one state at a time and cannot compare pre/after, so this cross-tick invariant is asserted at the leaf",
+    "rule": "1332-F Amendment 2"
+  },
+  {
+    "file": "tests/p14c3-promise-digest-continuity.test.ts",
+    "line": 186,
+    "old": "const original = pre207(), alternate = reordered(original), ids = recordedAffectedIds()\nconst initial = bytes(original), otherInitial = bytes(alternate)\nconst direct = tick(original, { develop: true }), resumed = tick(alternate, { develop: true })",
+    "new": "const original = pre207(), alternate = reordered(original), ids = recordedAffectedIds()\nconst initial = bytes(original), otherInitial = bytes(alternate)\nconst preReceipts = new Map(ids.map(id => { const root = original.promises.find(row => row.promiseId === id); assert.ok(root); return [id, root.feasibilityReceipt] as const }))\nconst direct = tick(original, { develop: true }), resumed = tick(alternate, { develop: true })",
+    "row": "1332-A Attribution row 3 (p14c3-promise-digest-continuity :194)",
+    "cause": "the replacement derives each subject's expectation from the pre-tick state's own receipt; preReceipts captures that baseline before the tick runs",
+    "rule": "1332-A rule 4 / 1332-F Amendment 1"
+  },
+  {
+    "file": "tests/p14c3-promise-digest-continuity.test.ts",
+    "line": 194,
+    "old": "expect(root.feasibilityReceipt).toMatchObject({ week: 208, rulesVersion: 4 })",
+    "new": "expect(root.feasibilityReceipt.rulesVersion).toBe(4)\nif (root.contractId !== null) {\n  expect(root.feasibilityReceipt).toMatchObject({ week: 208, rulesVersion: 4 })\n} else {\n  expect(root.feasibilityReceipt).toEqual(preReceipts.get(id)!)\n}",
+    "row": "1332-A Attribution row 3 (p14c3-promise-digest-continuity :194)",
+    "cause": "1332-F2 amendment to 1332-F Amendment 1: 'unchanged (every field equal)' was staged as toMatchObject({week, rulesVersion}) copied from the pre-tick receipt, leaving classification/bottleneck/inputsDigest unchecked; 1332-A rule 4 also asks for rulesVersion 4 on both paths, asserted explicitly rather than only inherited",
+    "rule": "1332-A rule 4 / 1332-F Amendment 1 / 1332-F2 amendment (revision 2)"
+  },
+  {
+    "file": "tests/p14c3-promise-digest-continuity.test.ts",
+    "line": 197,
+    "old": "const directReceipts = selected(direct), resumedReceipts = selected(resumed)",
+    "new": "const directReceipts = selected(direct), resumedReceipts = selected(resumed)\nconst unboundIds = ids.filter(id => direct.promises.find(row => row.promiseId === id)!.contractId === null)\nexpect(unboundIds).toEqual(['promise-3', 'promise-26'])\nfor (const id of unboundIds) {\n  const root = direct.promises.find(row => row.promiseId === id)!\n  expect(root.contractId).toBeNull()\n  expect(preReceipts.get(id)!.week).toBe(196)\n  const decision = direct.talentMarket.receipts.find(r => r.talentId === root.beneficiaryPersonId && r.week === 208 && (r.kind === 'settled' || r.kind === 'declined'))\n  assert.ok(decision, `1332-A Attribution 3 premise: no week-208 case decision for ${id}`)\n  if (id === 'promise-3') { expect(decision).toMatchObject({ eventId: 'talent-market-event-143', kind: 'declined', studioId: null, reasons: ['this person could not separate 2 equally ranked proposals.'] }) }\n  else { expect(decision).toMatchObject({ eventId: 'talent-market-event-155', kind: 'settled', studioId: 'studio-de11f27b-r03', reasons: ['their studio standing ranked higher', 'they are the current employer'] }) }\n}",
+    "row": "1332-A Attribution row 3 (p14c3-promise-digest-continuity :194)",
+    "cause": "1332-F rule 4 pre-declared attribution: the derived unbound set must equal exactly promise-3 and promise-26, with the receipt facts in Attribution 3 (case event ids, kinds, winning studio, reason sentences verbatim, contractId null, receipt week 196); any other subject/fact/sentence stops the leaf",
+    "rule": "1332-A rule 4 / 1332-F Amendment 1 (pre-declared attribution guard)"
+  }
+]
