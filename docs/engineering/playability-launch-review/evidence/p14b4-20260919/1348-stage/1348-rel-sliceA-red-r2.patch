@@ -1,0 +1,776 @@
+diff --git a/tests/p14b10-conflict-evidence.test.ts b/tests/p14b10-conflict-evidence.test.ts
+new file mode 100644
+index 0000000..57af299
+--- /dev/null
++++ b/tests/p14b10-conflict-evidence.test.ts
+@@ -0,0 +1,404 @@
++// Record 1348-C — independent-test-engineer RED for P14B relationship rulings SLICE A, item 1
++// (tier law v2 with conflict evidence) and item 2 (D5, Amendment 2: shipped order unchanged) and
++// item 4 (negative D-1312-1 cases). Authored on a scratch tree (1327-C method) at BASE
++// f5b2ab92651d10e33c58f3f628b5d6eca3e96ca8, branch wip/headless-program-20260916-ts.
++//
++// REVISION 1348-C2 (review 1348-D returned REFINE; parent response 1348-F): (1) fixed the D1
++// roster predicate citation from talentMarket.ts:894-900 (wrong range, D2/D6/D7 descriptors) to
++// the actual :867-874 (non-blocking note); (2) added a settlement-level D5 leaf reusing the real
++// `bandsFor` — see the D5 SCOPE NOTE below for where it landed and why. No other line in this
++// file's assertions changed.
++//
++// AUTHORITY (read in full before use):
++//   docs/engineering/playability-launch-review/evidence/p14b4-20260919/1340-O-owner-rulings-20260929.md
++//     (D-1312-1, :59-67; HIS-014, :80-90)
++//   docs/.../1342-O-owner-rulings-p14-p18-approved.txt item 8 (:83-95, friend/enemy precedence)
++//   docs/.../1347-A-p14b-relationship-rulings-charter.md §2.1-2.2 (:29-41), §3 (:78), §5
++//   docs/.../1347-B-relationship-charter-review.md (blocking defect 2, D5)
++//   docs/.../1347-F-parent-relationship-charter-adoption.md Amendment 2 (:27-43): "The parent's
++//     decision is to change nothing in D5 ... D5 applies its existing order to the reachable
++//     tiers ... with both on the roster, D5 reads `close ties here` (2) ... with only an enemy,
++//     `enemies here` (0)." This supersedes 1347-A's own "enemies here wins" §5 test line.
++//
++// PARENT API DECISIONS UNDER TEST (brief-1348-rel-sliceA-red.md):
++//   src/core/relationships.ts: RELATIONSHIP_RULES_VERSION = 2 (was 1); new
++//   RELATIONSHIP_CONFLICT_COMPETITIONS = 3; currentTier(edge: Pick<RelationshipEdge,
++//   'closeness'|'lastEventWeek'|'sharedCompetitions'>, week); new hasConflictEvidence(edge:
++//   Pick<RelationshipEdge, 'sharedCompetitions'>): boolean.
++//
++// RED MECHANISM (memory: "RED-first tests import from a missing module — vite binds a missing
++// NAMED export of an EXISTING module to `undefined`, not a resolution error"). `relationships.ts`
++// already exists (unlike a brand-new module), so `RELATIONSHIP_CONFLICT_COMPETITIONS` and
++// `hasConflictEvidence` import successfully as bindings but resolve to `undefined` at HEAD
++// f5b2ab92. The FIRST test below asserts `typeof hasConflictEvidence === 'function'` and the
++// exact value of `RELATIONSHIP_CONFLICT_COMPETITIONS` BEFORE any other leaf calls them, so a
++// partially-implemented module can never turn a later leaf green by accident (undefined() throws
++// TypeError, never a silent pass, but the constant/typeof checks catch it one step earlier and
++// name the reason precisely). `currentTier` and `RELATIONSHIP_RULES_VERSION` already exist at
++// HEAD (V1 values) — their RED is behavioral, checked by direct value/output assertions, never
++// existence alone.
++//
++// CONTROL LEAVES (explicitly not RED): several assertions below already hold on UNCHANGED source
++// because V1's `tierOf` already redirects EVERY value in the Enemies/Nemeses band to Strained
++// unconditionally (relationships.ts:152-155, current HEAD) — so "1 or 2 competitions still read
++// Strained", "flops/cancellations alone never read Enemies", and the real 3-competition driver
++// arithmetic (unrelated to the evidence gate; recordCastingCompetition is untouched by slice A)
++// are already true today. These are marked `redStatus: 'control-passes'` in the classification
++// JSON and are kept as regression guards, not as claims of new behavior.
++//
++// STAGED EDGES (I3-style IN-MEMORY / reader-admitted, validator-checked variant, the p14b5
++// `stagedEdge`/`live` precedent, tests/p14b5-relationships.test.ts:221-228): every edge below is
++// either (a) fed directly to the pure functions `currentTier`/`currentCloseness`/`hasConflictEvidence`
++// with no wrapping state at all, or (b) spliced into a genuinely-generated `p13aGeneratedStudio()`
++// world and passed through the LIVE validator (`makeSave`) before any D5 read, exactly as
++// tests/p14b5-relationships.test.ts's `stage()`/`live()` helpers do. No edge here claims to have
++// been minted by a real event unless explicitly built through one (the "3 real competitions"
++// leaf below IS built through the real `recordCastingCompetition` route, no staging).
++//
++// D5 SCOPE NOTE (revised in 1348-C2 per review 1348-D blocking defect 2 and parent response
++// 1348-F item 2): `bandsFor`'s descriptor combinator (talentMarket.ts:911-918) is PRIVATE
++// (unexported). 1348-D correctly flagged that the `d5Band()` helper below, a hand-copied literal
++// of that ternary, verifies only a frozen snapshot of the ternary TEXT, never the live function —
++// acceptable as a targeted `tiersOnRoster` exercise (the exact, exported "D5 / reservation read",
++// relationships.ts:410-412 docstring) with a REAL D1 roster (the identical `startWeek < W &&
++// (endedWeek === null || W < endedWeek)` predicate, quoted from talentMarket.ts:867-874,
++// re-derived here rather than imported since `rosterAt` is private there too), but NOT a
++// substitute for exercising the real, live `bandsFor` through an actual settlement. Per the
++// parent response, that settlement-level leaf now exists at
++// tests/p14b5-relationships.test.ts, describe block "family 6b — D5 SETTLEMENT-LEVEL through the
++// real bandsFor" (reusing that file's own `f6Base()`/`settlementAt208()` apparatus; PLAYER issuer
++// only — r01's own roster for the subject is genuinely empty in that fixture, measured and
++// documented there). The `d5Band()` leaves below are KEPT, explicitly as documentation/unit-level
++// coverage of `tiersOnRoster` for both a player AND a rival issuer (the settlement-level leaf
++// covers player only) — not as the evidence for "D5's shipped order is unchanged" anymore.
++//
++// SLICE A EXCLUSIONS (out of scope here; nothing from slice B): no romance, no Professional
++// Rivals, no `competitions` log, no Save44, no projection change (1347-F Addendum: "slice A
++// publishes nothing new").
++
++import assert from 'node:assert/strict'
++import { describe, expect, it } from 'vitest'
++import { applyActions } from '../src/core/actions.js'
++import { hiringMarketIds } from '../src/core/employment.js'
++import { tick } from '../src/core/tick.js'
++import { makeSave } from '../src/core/save.js'
++import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
++import { fund } from './helpers/p14b2-fixtures.js'
++import { TUNING } from '../src/core/tuning.js'
++import type { CastingSlate, CastSlot, GameState, RelationshipEdge, RelationshipTier } from '../src/core/types.js'
++// RED (see header): `RELATIONSHIP_CONFLICT_COMPETITIONS` and `hasConflictEvidence` are absent
++// from src/core/relationships.ts at BASE f5b2ab92 (bind to `undefined`, an EXISTING module).
++// `RELATIONSHIP_RULES_VERSION` exists (value 1); `currentTier`/`tiersOnRoster`/`currentCloseness`
++// exist and are called directly — every RED here is a value/behavioral assertion.
++import {
++  RELATIONSHIP_BASELINE, RELATIONSHIP_CONFLICT_COMPETITIONS, RELATIONSHIP_DRIFT_GRACE_WEEKS,
++  RELATIONSHIP_DRIFT_RETURN_WEEKS, RELATIONSHIP_RULES_VERSION, RELATIONSHIP_TIER_FLOOR,
++  currentCloseness, currentTier, hasConflictEvidence, tiersOnRoster,
++} from '../src/core/relationships.js'
++
++const floor = (tier: RelationshipTier): number => (RELATIONSHIP_TIER_FLOOR as Record<RelationshipTier, number>)[tier]
++const canon = (x: string, y: string): readonly [string, string] => (x < y ? [x, y] : [y, x])
++
++/** A STAGED (reader-admitted) edge — never a claim that any engine event minted it (I3 pattern,
++ * tests/p14b5-relationships.test.ts:220-227). `index` must be unique across edges placed in the
++ * SAME state (the live validator requires the ordinal `relationship-edge-<index>` id). */
++function stagedEdge(index: number, x: string, y: string, closeness: number, lastEventWeek: number,
++  extra: Partial<RelationshipEdge> = {}): RelationshipEdge {
++  const [a, b] = canon(x, y)
++  return {
++    edgeId: `relationship-edge-${String(index)}`, a, b, closeness, firstSharedWeek: lastEventWeek, lastEventWeek,
++    sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0, sharedCancellations: 0, sharedCompetitions: 0,
++    peakTier: 'Acquaintances', peakTierWeek: lastEventWeek,
++    recent: [{ kind: 'sharedProduction', week: lastEventWeek, ref: 'staged-production', delta: 2 }],
++    ...extra,
++  }
++}
++
++// ─────────────────────────────────────────────────────────────────────────────────────────────────────
++describe('P14B10 T1 — the new bindings exist (RED at behavior, never a vacuous undefined pass)', () => {
++  it('hasConflictEvidence is a function and RELATIONSHIP_CONFLICT_COMPETITIONS is the Owner\'s named 3', () => {
++    // Owner ruling D-1312-1 (1340-O:59-63): "Choose repeated competition: initially three..."
++    expect(typeof hasConflictEvidence).toBe('function')
++    expect(RELATIONSHIP_CONFLICT_COMPETITIONS).toBe(3)
++    expect(typeof currentTier).toBe('function')
++    expect(typeof tiersOnRoster).toBe('function')
++  })
++
++  it('RELATIONSHIP_RULES_VERSION moves to 2 (1347-A §3:86, "RELATIONSHIP_RULES_VERSION moves to 2")', () => {
++    expect(RELATIONSHIP_RULES_VERSION).toBe(2)
++  })
++})
++
++// ─────────────────────────────────────────────────────────────────────────────────────────────────────
++describe('tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged)', () => {
++  it('hasConflictEvidence is exactly sharedCompetitions >= RELATIONSHIP_CONFLICT_COMPETITIONS (boundary at 2 vs 3)', () => {
++    expect(hasConflictEvidence({ sharedCompetitions: 0 })).toBe(false)
++    expect(hasConflictEvidence({ sharedCompetitions: RELATIONSHIP_CONFLICT_COMPETITIONS - 1 })).toBe(false)
++    expect(hasConflictEvidence({ sharedCompetitions: RELATIONSHIP_CONFLICT_COMPETITIONS })).toBe(true)
++    expect(hasConflictEvidence({ sharedCompetitions: RELATIONSHIP_CONFLICT_COMPETITIONS + 5 })).toBe(true)
++  })
++
++  it('one competition in the Enemies band reads Strained [control: already true at V1 — every Enemies/Nemeses value redirects unconditionally]', () => {
++    const edge = stagedEdge(0, 'p-a', 'p-b', floor('Enemies'), 10, { sharedCompetitions: 1 })
++    expect(currentTier(edge, 10)).toBe('Strained')
++  })
++
++  it('two competitions in the Enemies band reads Strained [control: already true at V1]', () => {
++    const edge = stagedEdge(0, 'p-a', 'p-b', floor('Enemies'), 10, { sharedCompetitions: 2 })
++    expect(currentTier(edge, 10)).toBe('Strained')
++  })
++
++  it('three competitions (the Owner\'s named threshold) in the Enemies band reads Enemies [RED: V1 always reads Strained here]', () => {
++    const edge = stagedEdge(0, 'p-a', 'p-b', floor('Enemies'), 10, { sharedCompetitions: 3 })
++    expect(hasConflictEvidence(edge)).toBe(true)
++    expect(currentTier(edge, 10)).toBe('Enemies')
++  })
++
++  it('three competitions with closeness at or below 10 reads Nemeses [RED: V1 always reads Strained here]', () => {
++    const edge = stagedEdge(0, 'p-a', 'p-b', 10, 10, { sharedCompetitions: 3 })
++    expect(currentTier(edge, 10)).toBe('Nemeses')
++    const zero = stagedEdge(1, 'p-a', 'p-b', 0, 10, { sharedCompetitions: 4 })
++    expect(currentTier(zero, 10)).toBe('Nemeses')
++  })
++
++  it('a pair with only flops/cancellations (no competitions) never reads Enemies, whatever the closeness [control: already true at V1]', () => {
++    const edge = stagedEdge(0, 'p-a', 'p-b', floor('Enemies'), 10, { sharedCompetitions: 0, sharedFailures: 5, sharedCancellations: 2 })
++    expect(currentTier(edge, 10)).toBe('Strained')
++    const nemesesBand = stagedEdge(1, 'p-a', 'p-b', 5, 10, { sharedCompetitions: 0, sharedFailures: 5 })
++    expect(currentTier(nemesesBand, 10)).toBe('Strained')
++  })
++
++  it('a pair with only flops/cancellations reports no conflict evidence [RED: hasConflictEvidence does not exist at BASE]', () => {
++    const edge = stagedEdge(0, 'p-a', 'p-b', floor('Enemies'), 10, { sharedCompetitions: 0, sharedFailures: 5, sharedCancellations: 2 })
++    expect(hasConflictEvidence(edge)).toBe(false)
++  })
++
++  it('evidence never moves closeness: two edges differing ONLY in sharedCompetitions read the identical currentCloseness at every week [control: currentCloseness\'s own Pick type never reads sharedCompetitions]', () => {
++    const noEvidence = stagedEdge(0, 'p-a', 'p-b', floor('Enemies'), 10, { sharedCompetitions: 0 })
++    const withEvidence = stagedEdge(1, 'p-a', 'p-b', floor('Enemies'), 10, { sharedCompetitions: 5 })
++    for (const week of [10, 60, 150, 400]) {
++      expect(currentCloseness(withEvidence, week)).toBe(currentCloseness(noEvidence, week))
++    }
++  })
++
++  it('recovery through positive drivers still works: closeness at a positive band reads its true tier regardless of evidence [control: already true at V1]', () => {
++    const recovered = stagedEdge(0, 'p-a', 'p-b', floor('Colleagues'), 10, { sharedCompetitions: 5 })
++    expect(currentTier(recovered, 10)).toBe('Colleagues')
++  })
++
++  it('recovery keeps the evidence counter itself [RED: hasConflictEvidence does not exist at BASE]', () => {
++    const recovered = stagedEdge(0, 'p-a', 'p-b', floor('Colleagues'), 10, { sharedCompetitions: 5 })
++    expect(hasConflictEvidence(recovered)).toBe(true) // evidence kept, never erased by recovery
++  })
++
++  it('drift to Acquaintances at baseline still works with evidence kept [RED: at week 10 this pair reads Enemies under v2, never under v1]', () => {
++    const lastEventWeek = 100
++    const edge = stagedEdge(0, 'p-a', 'p-b', floor('Enemies'), lastEventWeek, { sharedCompetitions: 3 })
++    // premise: at the anchor week this pair is genuinely in the Enemies band with evidence (RED under v1).
++    expect(currentTier(edge, lastEventWeek)).toBe('Enemies')
++    const driftedWeek = lastEventWeek + RELATIONSHIP_DRIFT_GRACE_WEEKS + RELATIONSHIP_DRIFT_RETURN_WEEKS
++    expect(currentCloseness(edge, driftedWeek)).toBe(RELATIONSHIP_BASELINE) // full return to baseline
++    expect(currentTier(edge, driftedWeek)).toBe('Acquaintances')
++    expect(hasConflictEvidence(edge)).toBe(true) // the evidence counter itself never decays
++  })
++
++  it('tiers read current closeness, never peakTier: a pair that peaked Inseparable and is now Enemies (with evidence) reads Enemies [RED under v1]', () => {
++    const edge = stagedEdge(0, 'p-a', 'p-b', floor('Enemies'), 10, { sharedCompetitions: 3, peakTier: 'Inseparable', peakTierWeek: 1 })
++    expect(currentTier(edge, 10)).toBe('Enemies')
++  })
++})
++
++// ─────────────────────────────────────────────────────────────────────────────────────────────────────
++// A minimal REAL casting-competition route (not staged): one pair (a,b) reaches sharedCompetitions
++// = 3 through the genuine, UNCHANGED `recordCastingCompetition` write path (relationships.ts:363-406),
++// via one script/casting cycle greenlit three times (cancel + re-greenlight against the same
++// still-complete session twice, 1313-F Amendment 3). This is the pattern p14b9's `castingCompetitionWorld`
++// establishes, trimmed to the ONE pair this leaf needs. MEASURED on this scratch tree (dry run,
++// scratchpad probe1348b, not archived in the real repo): closeness lands at 38 (Strained band,
++// UNCHANGED by slice A — 38 needs no evidence gate to read Strained), sharedCompetitions = 3,
++// `recent` holds exactly 3 `castingCompetitionLost` rows (-3 each) and 2 `repeatedCompetition` rows
++// (-1 at the 2nd competition, -2 at the 3rd, `min(n-1, RELATIONSHIP_COMPETITION_REPEAT_CAP=2)`) —
++// no extra driver kind, no extra row, nothing applied twice. This leaf is a CONTROL: it already
++// passes at RED (recordCastingCompetition is untouched by slice A) and is kept as the regression
++// guard for "the third competition applies exactly the existing drivers and no more."
++const SEED = 'r1314-casting-01'
++const STAGE = 'facility-soundstage-07'
++const SHAPE = { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' } as const
++const RANGES = { intimacy: [-0.5, 0.5] as [number, number], tonalWeight: [-0.5, 0.5] as [number, number], kineticEnergy: [-0.5, 0.5] as [number, number] }
++type Market = { writer: string; director: string; craft: string; actors: readonly string[] }
++function deriveMarket(s: GameState): Market {
++  const market = hiringMarketIds(s, 0)
++  const byRole = (role: string) => market.filter((id) => s.talent.find((t) => t.id === id)?.role === role)
++  const writer = byRole('writer')[0], director = byRole('director')[0], craft = byRole('craft')[0], actors = byRole('actor')
++  assert.ok(writer && director && craft && actors.length >= 3, `route premise failed: seed "${SEED}" week-0 market lacks a writer/director/craft/3 actors`)
++  return { writer, director, craft, actors }
++}
++function foundStudio(): { state: GameState; market: Market } {
++  let s = fund(p13aGeneratedStudio(SEED))
++  const market = deriveMarket(s)
++  for (const id of [market.writer, market.director, market.craft, ...market.actors.slice(0, 3)]) {
++    s = applyActions(s, [{ kind: 'signContract', talentId: id, termWeeks: 208 }])
++  }
++  const mounted = s.sets.find((x) => x.mountedOn === STAGE && x.status !== 'retired')
++  if (mounted !== undefined) s = applyActions(s, [{ kind: 'strikeSet', setId: mounted.id }])
++  s = applyActions(s, [{ kind: 'commissionSet', commission: { blueprintId: 'set-grand-ballroom', stageFacilityId: STAGE } }])
++  s = advanceTo(s, TUNING.SET_BUILD_WEEKS_BAND_HIGH)
++  s = applyActions(s, [{ kind: 'activateScriptDevelopment' }, { kind: 'activateCastingSessions' }])
++  return { state: s, market }
++}
++function greenlightCycle(input: GameState, market: Market, conceptIndex: number, slate: CastingSlate | null,
++  cast: Record<CastSlot, string>, reuseProjectId?: string): { state: GameState; productionId: string; projectId: string } {
++  let s = input, projectId = reuseProjectId
++  if (projectId === undefined) {
++    const concept = s.concepts[conceptIndex]!
++    s = applyActions(s, [{ kind: 'commissionScript', project: { conceptId: concept.id, writerId: market.writer, shape: SHAPE, promise: { genre: concept.genre, intendedSegments: ['adult'], ranges: RANGES } } }])
++    projectId = s.scriptDevelopment.projects.at(-1)!.id
++    for (let n = 0; s.scriptDevelopment.projects.find((p) => p.id === projectId)!.status !== 'review'; n++) {
++      if (n >= 30) throw new Error(`route premise failed: project "${projectId}" did not reach review within 30 ticks`)
++      s = tick(s)
++    }
++    s = applyActions(s, [{ kind: 'acceptScript', projectId }])
++    if (slate !== null) {
++      s = applyActions(s, [{ kind: 'startCastingSession', session: { projectId, slate } }])
++      const sessionId = s.castingSessions.sessions.find((x) => x.projectId === projectId)!.id
++      for (let n = 0; s.castingSessions.sessions.find((x) => x.id === sessionId)!.status !== 'review'; n++) {
++        if (n >= 30) throw new Error(`route premise failed: session "${sessionId}" did not reach review within 30 ticks`)
++        s = tick(s)
++      }
++      s = applyActions(s, [{ kind: 'acknowledgeCastingSession', sessionId }])
++    }
++  }
++  const concept = s.concepts[conceptIndex]!
++  s = applyActions(s, [{ kind: 'greenlightScriptProject', production: { projectId, directorId: market.director, craftIds: [market.craft], cast, budget: { negative: concept.baseNegativeCost, marketing: 0 } } }])
++  const productionId = s.studio.activeProductions.at(-1)!.id
++  return { state: s, productionId, projectId }
++}
++function edgeOf(s: GameState, x: string, y: string) {
++  return s.relationships.find((e) => (e.a === x && e.b === y) || (e.a === y && e.b === x))
++}
++let castingWorld: { state: GameState; a: string; b: string } | undefined
++function threeRealCompetitions() {
++  if (castingWorld === undefined) {
++    const { state: s0, market } = foundStudio()
++    const [a, b, c] = market.actors as [string, string, string]
++    const slate: CastingSlate = { lead: [a, b], antagonist: [b, c], support: [c, a] }
++    const g1 = greenlightCycle(s0, market, 0, slate, { lead: a, antagonist: b, support: c })
++    let s = fund(applyActions(g1.state, [{ kind: 'cancel', productionId: g1.productionId }]))
++    const g2 = greenlightCycle(s, market, 0, null, { lead: a, antagonist: b, support: c }, g1.projectId)
++    s = fund(applyActions(g2.state, [{ kind: 'cancel', productionId: g2.productionId }]))
++    const g3 = greenlightCycle(s, market, 0, null, { lead: a, antagonist: b, support: c }, g1.projectId)
++    castingWorld = { state: g3.state, a, b }
++  }
++  return castingWorld
++}
++
++describe('the real casting-competition route reaches genuine evidence with no double-application [control]', () => {
++  it('pair (a,b) reaches sharedCompetitions = 3 with exactly the existing drivers (-3, -3+-1, -3+-2) and no extra kind or row', () => {
++    const { state, a, b } = threeRealCompetitions()
++    const edge = edgeOf(state, a, b)
++    assert.ok(edge, 'route premise: pair (a,b) never formed an edge')
++    expect(edge.sharedCompetitions).toBe(3)
++    expect(edge.sharedProductions).toBe(0) // never seated together — competition-only edge
++    expect(edge.closeness).toBe(RELATIONSHIP_BASELINE - 3 - 3 - 1 - 3 - 2)
++    const kinds = edge.recent.map((d) => d.kind)
++    expect(kinds).toEqual(['castingCompetitionLost', 'castingCompetitionLost', 'repeatedCompetition', 'castingCompetitionLost', 'repeatedCompetition'])
++    expect(edge.recent.filter((d) => d.kind === 'castingCompetitionLost').every((d) => d.delta === -3)).toBe(true)
++    expect(edge.recent.filter((d) => d.kind === 'repeatedCompetition').map((d) => d.delta)).toEqual([-1, -2])
++    // 38 (Strained band, floor 31) needs no evidence gate: unchanged by slice A.
++    expect(currentTier(edge, state.market.tick)).toBe('Strained')
++  }, 60_000)
++
++  it('the real 3-competition pair reports conflict evidence [RED: hasConflictEvidence does not exist at BASE]', () => {
++    const { state, a, b } = threeRealCompetitions()
++    const edge = edgeOf(state, a, b)
++    assert.ok(edge, 'route premise: pair (a,b) never formed an edge')
++    expect(hasConflictEvidence(edge)).toBe(true)
++  }, 60_000)
++})
++
++// ─────────────────────────────────────────────────────────────────────────────────────────────────────
++// D5 (1347-F Amendment 2): D5's own combinator code (talentMarket.ts:911-918) does not change.
++// This exercises `tiersOnRoster` (the exported D5 read) with a REAL D1 roster for a player and a
++// rival issuer, staged relationship edges for the tier signal, and the SHIPPED combinator quoted
++// verbatim below (comment cites talentMarket.ts:916-918) — see the file header D5 SCOPE NOTE for
++// why this is not a full settlement-receipt test.
++describe('D5 — the shipped order is unchanged; evidence merely makes `enemies here` reachable (1347-F Amendment 2)', () => {
++  /** talentMarket.ts:867-874's own D1 roster predicate, re-derived (private there). */
++  function rosterAt(state: GameState, issuer: string, subject: string, week: number): ReadonlySet<string> {
++    const roster = new Set<string>()
++    for (const row of state.hollywood!.employment) {
++      if (row.studioId !== issuer || row.terms.talentId === subject) continue
++      if (row.terms.startWeek < week && (row.endedWeek === null || week < row.endedWeek)) roster.add(row.terms.talentId)
++    }
++    return roster
++  }
++  /** talentMarket.ts:916-918, quoted verbatim (never reimplemented judgment): the D5 relationships band. */
++  function d5Band(tiers: readonly RelationshipTier[]): 0 | 1 | 2 {
++    return tiers.some((t) => t === 'CloseFriends' || t === 'Inseparable') ? 2
++      : tiers.some((t) => t === 'Enemies' || t === 'Nemeses') ? 0 : 1
++  }
++
++  let world: { state: GameState; subject: string; playerId: string; rivalId: string; closeTie: string; enemy: string; rivalCloseTie: string; rivalEnemy: string; week: number } | undefined
++  function d5World() {
++    if (world === undefined) {
++      let s = fund(p13aGeneratedStudio())
++      s = advanceTo(s, 5)
++      const week0 = s.market.tick
++      const actors = hiringMarketIds(s, week0).map((id) => s.talent.find((t) => t.id === id))
++        .filter((t): t is NonNullable<typeof t> => t !== undefined && t.role === 'actor')
++      assert.ok(actors.length >= 2, 'D5 fixture premise: at least two free actors at week 5')
++      const closeTie = actors[0]!, enemy = actors[1]!
++      s = applyActions(s, [{ kind: 'signContract', talentId: closeTie.id, termWeeks: 100 }, { kind: 'signContract', talentId: enemy.id, termWeeks: 100 }])
++      s = advanceTo(s, week0 + 1)
++      const week = s.market.tick
++      const playerId = s.hollywood!.playerStudioId
++      const rivalId = s.hollywood!.identities.find((i) => i.studioId !== playerId)!.studioId
++      const subject = s.talent.find((t) => t.role === 'writer' && t.id !== closeTie.id && t.id !== enemy.id)!.id
++      const rivalRoster = [...rosterAt(s, rivalId, subject, week)]
++      assert.ok(rivalRoster.length >= 2, 'D5 fixture premise: at least two pre-existing rival employees')
++      const [rivalCloseTie, rivalEnemy] = rivalRoster as [string, string]
++      const edges: RelationshipEdge[] = [
++        stagedEdge(0, subject, closeTie.id, floor('CloseFriends'), week),
++        stagedEdge(1, subject, enemy.id, floor('Enemies'), week, { sharedCompetitions: 3 }),
++        stagedEdge(2, subject, rivalCloseTie, floor('CloseFriends'), week),
++        stagedEdge(3, subject, rivalEnemy, floor('Enemies'), week, { sharedCompetitions: 3 }),
++      ]
++      s = { ...s, relationships: edges }
++      const validated = makeSave(s)
++      world = { state: validated.state as GameState, subject, playerId, rivalId, closeTie: closeTie.id, enemy: enemy.id, rivalCloseTie, rivalEnemy, week }
++    }
++    return world
++  }
++
++  it('a player issuer: both a close tie and an enemy on the roster reads `close ties here` (2) [control: unchanged combinator order]', () => {
++    const w = d5World()
++    const roster = rosterAt(w.state, w.playerId, w.subject, w.week)
++    expect([...roster]).toEqual(expect.arrayContaining([w.closeTie, w.enemy]))
++    const tiers = tiersOnRoster(w.state, w.subject, roster, w.week)
++    expect(d5Band(tiers)).toBe(2)
++  })
++
++  it('a player issuer: only an enemy on the roster reads `enemies here` (0) [RED under v1: no evidence-gated Enemies tier exists yet]', () => {
++    const w = d5World()
++    const enemyOnlyRoster = new Set([w.enemy])
++    const tiers = tiersOnRoster(w.state, w.subject, enemyOnlyRoster, w.week)
++    expect(tiers).toEqual(['Enemies']) // RED under v1 (would read ['Strained'])
++    expect(d5Band(tiers)).toBe(0)
++  })
++
++  it('a rival issuer: both a close tie and an enemy on the roster reads `close ties here` (2) [control: unchanged combinator order]', () => {
++    const w = d5World()
++    const roster = rosterAt(w.state, w.rivalId, w.subject, w.week)
++    expect([...roster]).toEqual(expect.arrayContaining([w.rivalCloseTie, w.rivalEnemy]))
++    const tiers = tiersOnRoster(w.state, w.subject, roster, w.week)
++    expect(d5Band(tiers)).toBe(2)
++  })
++
++  it('a rival issuer: only an enemy on the roster reads `enemies here` (0) [RED under v1]', () => {
++    const w = d5World()
++    const enemyOnlyRoster = new Set([w.rivalEnemy])
++    const tiers = tiersOnRoster(w.state, w.subject, enemyOnlyRoster, w.week)
++    expect(tiers).toEqual(['Enemies'])
++    expect(d5Band(tiers)).toBe(0)
++  })
++})
+diff --git a/tests/p14b10-mentor-label.test.ts b/tests/p14b10-mentor-label.test.ts
+new file mode 100644
+index 0000000..b4fa5f7
+--- /dev/null
++++ b/tests/p14b10-mentor-label.test.ts
+@@ -0,0 +1,257 @@
++// Record 1348-C — independent-test-engineer RED for P14B relationship rulings SLICE A, item 3
++// (Mentor label, HIS-014 with 1347-F Amendment 1 and the "qualifying pictures" note). Authored
++// on a scratch tree (1327-C method) at BASE f5b2ab92651d10e33c58f3f628b5d6eca3e96ca8, branch
++// wip/headless-program-20260916-ts.
++//
++// REVISION 1348-C2 (review 1348-D blocking defect 1; parent response 1348-F item 1): the static
++// `import * as relationshipLabels from '../src/core/relationshipLabels.js'` collapsed all 9 leaves
++// into one suite-level collection failure (`0 test`), losing per-leaf attribution. Converted to
++// PER-LEAF DYNAMIC IMPORT (`await import(...)` inside each test body via `loadLabels()`),
++// matching the established in-repo technique from `1346-C-p15a1-wave1-red-handback.md` (the
++// `loadMarket()`/`requireFn()` pattern for `tests/p15a1-shared-market.test.ts`, chosen there for
++// the identical reason: "so every leaf gets its own attributed failure ... instead of one
++// collection-level cascade that would make the classification JSON's rows redundant"). Every
++// expectation below is UNCHANGED from 1348-C; only the import mechanism and each `it()`'s
++// signature (now `async`) changed.
++//
++// AUTHORITY (read in full before use):
++//   docs/.../1340-O-owner-rulings-20260929.md HIS-014 (:80-90): "Mentor: the same director
++//     directed an actor's first three qualifying pictures, where authoritative history
++//     establishes those first three. Do not infer missing early-career history from an
++//     incomplete record."
++//   docs/.../1347-A-p14b-relationship-rulings-charter.md §2.4 (:62-66)
++//   docs/.../1347-F-parent-relationship-charter-adoption.md Amendment 1 (:8-25), the "qualifying
++//     pictures" non-blocking note (:46-48): "A person's career in the film world starts at the
++//     earliest point the authoritative record fixes. For a cohort entrant, that point is the
++//     CohortReceipt week ... Genesis people and authored-start people are excluded for a
++//     different reason ... their first pictures lie before any record the game holds." /
++//     "A qualifying picture is a distinct production whose recorded first take seats the actor
++//     in any cast slot. Ordering and de-duplication follow `retainedTransitionEvidence`
++//     (professionTransitions.ts:54-66)."
++//
++// PARENT API DECISION UNDER TEST (brief-1348-rel-sliceA-red.md): new module
++// src/core/relationshipLabels.ts: `export const MENTOR_FIRST_PICTURES = 3`; `export function
++// mentorEvidence(state: GameState, actorId: string): { directorId: string; productionIds:
++// readonly [string, string, string]; entryWeek: number } | null`.
++//
++// RED MECHANISM: `src/core/relationshipLabels.ts` does not exist at BASE f5b2ab92. A DYNAMIC
++// `await import('../src/core/relationshipLabels.js')` INSIDE each test body rejects with "Failed
++// to load url ... Does the file exist?" scoped to that ONE test — sibling tests in this file that
++// also import it are independently attributable (each is its own rejected promise), unlike a
++// static top-level import which fails the whole file's collection at once. `requireFn`/
++// `requireConst` below additionally guard against Vite binding a merely-MISSING named export of
++// an eventually-existing module to `undefined` (the "vite binds a missing named export to
++// undefined" pitfall) — once the module exists even partially during implementation, a missing
++// individual export still fails loudly and per-leaf, never silently.
++//
++// FIXTURE STRATEGY (documented per leaf; see also the 1348-C handback "how each Mentor fixture
++// establishes cohort entry and first takes"):
++//   POSITIVE case — reuses tests/helpers/p14c3-cohort-transition-fixtures.ts's `cohortThreeFilms()`
++//     UNCHANGED (an existing, accepted fixture already used by tests/p14c3-cohort-transition.test.ts):
++//     a GENUINE `CohortReceipt` at week 832 for `COHORT_SUBJECT` (`careerLifecycle.cohorts`,
++//     re-derived and validator-checked by that fixture's own `validateSaveV35` calls) and three
++//     GENUINE `FirstTakeReceipt` rows (real `commissionScript`→`greenlightScriptProject`→shoot→
++//     release cycles, one director for all three) — no staging at all for this leaf. MEASURED on
++//     this scratch tree (dry run, not archived in the real repo): directorId 'authored-0000',
++//     productionIds ['prod-2608','prod-2617','prod-2626'] in week order (2613/2622/2631),
++//     CohortReceipt week 832.
++//   NEGATIVE variants (two-of-three, duplicate, fewer-than-three) — take that SAME genuine base
++//     state and vary EXACTLY the one field under test in memory (the p14b5 I3 "IN-MEMORY VARIANT"
++//     convention, tests/p14b5-relationships.test.ts:44-48), keeping the real, validator-checked
++//     `careerLifecycle.cohorts` root untouched. `state.firstTakes`'s OWN validator
++//     (`validatePromiseRootsForVersion`, src/core/promises.ts:1553) re-derives no cross-root
++//     content for these rows beyond personId/studioId/week bounds, so this is a legitimate,
++//     validator-admissible shape even where re-validated; these particular derived states are NOT
++//     re-run through `makeSave` (unlike tests/p14b10-conflict-evidence.test.ts's D5 states),
++//     because `careerLifecycle.cohorts`'s OWN validator (`validateCohortReceipts`,
++//     src/core/save.ts:9938) RE-DERIVES every receipt from `talent.slice(0, talentCountBefore)`
++//     and would reject any world whose talent array does not exactly match the receipt's own
++//     genuine construction — irrelevant to and untouched by this file's firstTakes-only edits, but
++//     stated here rather than silently skipped.
++//   GENESIS / AUTHORED-START absence — a genesis person needs no real production route at all:
++//     the exclusion is structural (not named in ANY `CohortReceipt`), so a genesis person from a
++//     plain `p13aGeneratedStudio()` world, given STAGED (in-memory) qualifying-picture-shaped
++//     firstTakes under one director, must still read absent — proving the exclusion is enforced by
++//     the cohort-receipt test specifically, not accidentally by some absent picture data. The
++//     authored-start person is REAL (`createCustomTalent`, a genuine, cheap action; the same
++//     helper pattern `addYoung` in tests/helpers/p14c3-cohort-transition-fixtures.ts:96-114 uses),
++//     given the SAME staged firstTakes treatment, for the identical reason.
++//
++// SLICE A EXCLUSIONS: no romance, no Professional Rivals, no `competitions` log, no Save44, no
++// projection change (1347-F Addendum).
++
++import { describe, expect, it } from 'vitest'
++import { applyActions } from '../src/core/actions.js'
++import { trustDescriptor } from '../src/core/promises.js'
++import { currentTier, pairChemistry } from '../src/core/relationships.js'
++import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
++import { clone, fund } from './helpers/p14b2-fixtures.js'
++import { cohortThreeFilms, COHORT_SUBJECT } from './helpers/p14c3-cohort-transition-fixtures.js'
++import type { FirstTakeReceipt, GameState } from '../src/core/types.js'
++
++// 1346-C technique (see header): dynamic per-test import + a loud guard against a merely-missing
++// named export, so a partially-implemented module still fails per-leaf, never silently.
++async function loadLabels(): Promise<Record<string, unknown>> {
++  return (await import('../src/core/relationshipLabels.js')) as unknown as Record<string, unknown>
++}
++type MentorEvidenceFn = (state: GameState, actorId: string) => { directorId: string; productionIds: readonly string[]; entryWeek: number } | null
++function requireFn<T extends (...a: never[]) => unknown>(mod: Record<string, unknown>, name: string): T {
++  const fn = mod[name]
++  if (typeof fn !== 'function') {
++    throw new Error(
++      `RED: src/core/relationshipLabels.ts does not export a function named '${name}' (got ${typeof fn}). ` +
++        'This guard exists so a partially-implemented module fails loudly per-leaf instead of a vacuous pass.',
++    )
++  }
++  return fn as T
++}
++function requireConst<T>(mod: Record<string, unknown>, name: string): T {
++  if (!Object.hasOwn(mod, name)) {
++    throw new Error(`RED: src/core/relationshipLabels.ts does not export '${name}'.`)
++  }
++  return mod[name] as T
++}
++
++// ─────────────────────────────────────────────────────────────────────────────────────────────────────
++describe('P14B10 T1 — the new module and its exports exist (RED per leaf: dynamic import)', () => {
++  it('MENTOR_FIRST_PICTURES is the Owner\'s named 3 and mentorEvidence is a function', async () => {
++    // HIS-014 (1340-O:81-82): "the same director directed an actor's first THREE qualifying pictures."
++    const labels = await loadLabels()
++    expect(requireConst<number>(labels, 'MENTOR_FIRST_PICTURES')).toBe(3)
++    expect(typeof requireFn<MentorEvidenceFn>(labels, 'mentorEvidence')).toBe('function')
++  })
++})
++
++// ─────────────────────────────────────────────────────────────────────────────────────────────────────
++describe('Mentor — the positive case (a genuine cohort entrant, three genuine same-director pictures)', () => {
++  it('mentorEvidence names the real director, the three real productionIds in week order, and the real cohort receipt week', async () => {
++    const labels = await loadLabels()
++    const mentorEvidence = requireFn<MentorEvidenceFn>(labels, 'mentorEvidence')
++    const { state, team, pictureIds } = cohortThreeFilms()
++    expect(pictureIds).toHaveLength(3) // fixture premise (already asserted by cohortThreeFilms itself)
++    const receipt = state.careerLifecycle.cohorts.find((c) => c.personIds.includes(COHORT_SUBJECT))
++    expect(receipt).toBeDefined() // fixture premise: COHORT_SUBJECT is genuinely named in a CohortReceipt
++    const evidence = mentorEvidence(state, COHORT_SUBJECT)
++    expect(evidence).toEqual({ directorId: team.directorId, productionIds: pictureIds, entryWeek: receipt!.week })
++  }, 30_000)
++})
++
++// ── shared base for the in-memory firstTakes variants (I3 pattern) ──────────────────────────────────
++function baseAndTakes() {
++  const { state } = cohortThreeFilms()
++  const takes = state.firstTakes.filter((t) => Object.values(t.cast).includes(COHORT_SUBJECT))
++    .sort((a, b) => a.week - b.week)
++  return { state, takes }
++}
++
++describe('Mentor — negative and boundary cases (1347-F Amendment 1 and the qualifying-pictures note)', () => {
++  it('two of three sharing the director gives no label [RED: relationshipLabels.ts does not exist at BASE]', async () => {
++    const labels = await loadLabels()
++    const mentorEvidence = requireFn<MentorEvidenceFn>(labels, 'mentorEvidence')
++    const { state, takes } = baseAndTakes()
++    expect(takes).toHaveLength(3)
++    const otherRealDirectorId = state.talent.find((t) => t.id !== takes[0]!.directorId && t.id !== COHORT_SUBJECT)!.id
++    const varied: FirstTakeReceipt = { ...takes[1]!, directorId: otherRealDirectorId }
++    const variantTakes = state.firstTakes.map((t) => (t.eventId === varied.eventId ? varied : t))
++    const variant: GameState = { ...state, firstTakes: variantTakes }
++    expect(mentorEvidence(variant, COHORT_SUBJECT)).toBeNull()
++  }, 30_000)
++
++  it('a duplicate first take of one production counts once — the label still names the same three original productions [RED]', async () => {
++    const labels = await loadLabels()
++    const mentorEvidence = requireFn<MentorEvidenceFn>(labels, 'mentorEvidence')
++    const { state, takes } = baseAndTakes()
++    const duplicate: FirstTakeReceipt = { ...takes[0]!, eventId: `first-take-event-${String(state.firstTakes.length)}` }
++    const variant: GameState = { ...state, firstTakes: [...state.firstTakes, duplicate] }
++    const evidence = mentorEvidence(variant, COHORT_SUBJECT)
++    expect(evidence).not.toBeNull()
++    expect(evidence!.productionIds).toEqual(takes.map((t) => t.productionId)) // unchanged: the 4th row is the SAME production, not a 4th picture
++  }, 30_000)
++
++  it('fewer than three qualifying pictures gives no label [RED]', async () => {
++    const labels = await loadLabels()
++    const mentorEvidence = requireFn<MentorEvidenceFn>(labels, 'mentorEvidence')
++    const { state, takes } = baseAndTakes()
++    const firstTwoIds = new Set(takes.slice(0, 2).map((t) => t.eventId))
++    const variant: GameState = { ...state, firstTakes: state.firstTakes.filter((t) => firstTwoIds.has(t.eventId) || !Object.values(t.cast).includes(COHORT_SUBJECT)) }
++    expect(mentorEvidence(variant, COHORT_SUBJECT)).toBeNull()
++  }, 30_000)
++})
++
++// ── a plain generated world for the structural-exclusion cases (no cohort route needed) ────────────
++function genesisWorld() {
++  return fund(p13aGeneratedStudio())
++}
++/** Three STAGED (in-memory, reader-admitted — the p14b5 `stagedEdge` discipline applied to
++ * firstTakes) qualifying-picture-shaped takes under ONE director, for `actorId` — the structural
++ * shape that WOULD satisfy Mentor if the subject were named in a CohortReceipt. */
++function stagedQualifyingTakes(state: GameState, actorId: string, directorId: string): readonly FirstTakeReceipt[] {
++  const studioId = state.hollywood!.playerStudioId
++  const support = state.talent.find((t) => t.id !== actorId && t.id !== directorId)!.id
++  return [0, 1, 2].map((n) => ({
++    eventId: `first-take-event-staged-${String(n)}`, week: state.market.tick, productionId: `staged-production-${String(n)}`,
++    studioId, directorId, cast: { lead: actorId, antagonist: support, support },
++  }))
++}
++
++describe('Mentor — genesis and authored-start people are structurally excluded (not named in ANY CohortReceipt)', () => {
++  it('a genesis person with three staged same-director pictures still gets no label [RED]', async () => {
++    const labels = await loadLabels()
++    const mentorEvidence = requireFn<MentorEvidenceFn>(labels, 'mentorEvidence')
++    const state = genesisWorld()
++    const genesis = state.talent.find((t) => t.role === 'actor')!
++    expect(state.careerLifecycle.cohorts.every((c) => !c.personIds.includes(genesis.id))).toBe(true) // fixture premise
++    const director = state.talent.find((t) => t.id !== genesis.id)!.id
++    const variant: GameState = { ...state, firstTakes: [...state.firstTakes, ...stagedQualifyingTakes(state, genesis.id, director)] }
++    expect(mentorEvidence(variant, genesis.id)).toBeNull()
++  })
++
++  it('an authored-start person (createCustomTalent) with three staged same-director pictures still gets no label [RED]', async () => {
++    const labels = await loadLabels()
++    const mentorEvidence = requireFn<MentorEvidenceFn>(labels, 'mentorEvidence')
++    let state = genesisWorld()
++    state = applyActions(state, [{ kind: 'createCustomTalent', talent: { name: '1348 authored-start actor', role: 'actor', age: 30,
++      workEthic: 55, fame: 25, actual: { warmth: 0, gravity: 0, physicality: 0.2 },
++      skills: { acting: [20, 20, 20, 20, 20, 20], directing: [20, 20, 20, 20, 20, 20], writing: [20, 20, 20, 20, 20, 20], craft: [20, 20, 20, 20, 20, 20], research: [1, 1, 1, 1, 1, 1] } } }])
++    const authored = state.talent.at(-1)!
++    expect(authored.name).toBe('1348 authored-start actor') // fixture premise
++    expect(state.careerLifecycle.cohorts.every((c) => !c.personIds.includes(authored.id))).toBe(true) // fixture premise
++    const director = state.talent.find((t) => t.id !== authored.id)!.id
++    const variant: GameState = { ...state, firstTakes: [...state.firstTakes, ...stagedQualifyingTakes(state, authored.id, director)] }
++    expect(mentorEvidence(variant, authored.id)).toBeNull()
++  })
++})
++
++// ─────────────────────────────────────────────────────────────────────────────────────────────────────
++describe('Mentor — reading the label is inert (HIS-014: "labels create no additional ... effect by themselves")', () => {
++  it('reading mentorEvidence leaves state deep-equal before/after [RED]', async () => {
++    const labels = await loadLabels()
++    const mentorEvidence = requireFn<MentorEvidenceFn>(labels, 'mentorEvidence')
++    const { state } = cohortThreeFilms()
++    const before = clone(state)
++    mentorEvidence(state, COHORT_SUBJECT)
++    expect(state).toEqual(before)
++  }, 30_000)
++
++  it('reading mentorEvidence changes no chemistry/tier/trust reading for the Mentor pair [RED]', async () => {
++    const labels = await loadLabels()
++    const mentorEvidence = requireFn<MentorEvidenceFn>(labels, 'mentorEvidence')
++    const { state, team } = cohortThreeFilms()
++    const week = state.market.tick
++    const playerId = state.hollywood!.playerStudioId
++    const before = {
++      chemistry: pairChemistry(state, team.directorId, COHORT_SUBJECT, week),
++      trust: trustDescriptor(state, COHORT_SUBJECT, playerId, week),
++    }
++    const edge = state.relationships.find((e) => [e.a, e.b].includes(team.directorId) && [e.a, e.b].includes(COHORT_SUBJECT))
++    expect(edge).toBeDefined() // fixture premise: three shared productions genuinely form an edge
++    const tierBefore = currentTier(edge!, week)
++    mentorEvidence(state, COHORT_SUBJECT)
++    const after = {
++      chemistry: pairChemistry(state, team.directorId, COHORT_SUBJECT, week),
++      trust: trustDescriptor(state, COHORT_SUBJECT, playerId, week),
++    }
++    expect(after).toEqual(before)
++    expect(currentTier(edge!, week)).toBe(tierBefore)
++  }, 30_000)
++})
+diff --git a/tests/p14b5-relationships.test.ts b/tests/p14b5-relationships.test.ts
+index b147a6d..19b896a 100644
+--- a/tests/p14b5-relationships.test.ts
++++ b/tests/p14b5-relationships.test.ts
+@@ -504,7 +504,10 @@ describe('P14B.5 T1 — the module and its named exports exist (RED at import; n
+     expect(RELATIONSHIP_DRIFT_GRACE_WEEKS).toBe(52) // §5.5 :467
+     expect(RELATIONSHIP_DRIFT_RETURN_WEEKS).toBe(260) // §5.5 :467
+     expect(RELATIONSHIP_RECENT_CAP).toBe(8) // OPEN 16 as folded
+-    expect(RELATIONSHIP_RULES_VERSION).toBe(1) // scope (3), code-only
++    // 1348-C: moves by ruling (1347-F Amendment 2, "RELATIONSHIP_RULES_VERSION moves to 2";
++    // 1347-A §3:86) — the conflict-evidence gate (D-1312-1) is rules version 2, not a routine
++    // implementation detail. Was `.toBe(1)`.
++    expect(RELATIONSHIP_RULES_VERSION).toBe(2)
+     // 647-B ruling (ii) on OPEN 5: pinned BY NAME — a relation between two hypotheses, not a value.
+     expect(RELATIONSHIP_FAILURE_DELTA).toBeGreaterThan(RELATIONSHIP_PROXIMITY_LOW)
+     // §5.4 :439 proximity classes: director–lead / co-leads highest, supporting lowest.
+@@ -750,7 +753,11 @@ describe('family 3 — DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); §5.5 :4
+ describe('family 4 — TIER RULE under RELATIONSHIP_RULES_VERSION 1 and the D2 reachability (scope (3)-(4))', () => {
+   it('eight members, byte-equal output for byte-equal input, and a value in the Enemies/Nemeses bands WITHOUT a conflict record reads Strained', () => {
+     expect(typeof currentTier).toBe('function')
+-    expect(RELATIONSHIP_RULES_VERSION).toBe(1)
++    // 1348-C: moves by ruling (1347-F Amendment 2). Was `.toBe(1)`. The rest of this test builds
++    // every edge through `stagedEdge`, which hardcodes `sharedCompetitions: 0` (no conflict
++    // evidence) — so under rules v2 the SAME "WITHOUT a conflict record reads Strained" premise
++    // this test's own title states still holds for every tier in the ladder, unchanged.
++    expect(RELATIONSHIP_RULES_VERSION).toBe(2)
+     expect(new Set(RELATIONSHIP_TIERS).size).toBe(8)
+     const world = takeWorld().after
+     for (const tier of LADDER) {
+@@ -991,6 +998,73 @@ describe('family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5
+   }, 120_000)
+ })
+ 
++// 1348-C2 (revision of 1348-C, per review 1348-D blocking defect 2 and parent response 1348-F
++// item 2): a SETTLEMENT-LEVEL D5 leaf that drives the real, private `bandsFor` combinator
++// (talentMarket.ts:911-918) through this file's own `f6Base()`/`settlementAt208()` apparatus —
++// not the copied-literal `d5Band()` in tests/p14b10-conflict-evidence.test.ts, which 1348-D
++// correctly flagged as verifying only a frozen snapshot of the ternary text, never the live
++// function. 1347-F Amendment 2: "with both on the roster, D5 reads close ties here (2) ... with
++// only an enemy, enemies here (0)."
++//
++// PLAYER ISSUER ONLY (both leaves), disclosed and measured, not silently narrowed: r01's own
++// roster for F6.subject is genuinely EMPTY in this fixture (measured on this scratch tree,
++// `rosterAt(tick(base.at207), base.r01, F6.subject, F6.W)` returns `[]` — r01 employs nobody
++// this subject's D1 predicate admits at week 208 on this seed). Reaching a rival-issuer
++// settlement-decisive D5 signal would need either a synthetic rival employment-row injection
++// (an unproven technique for a RIVAL business's employment/standing bookkeeping, unlike the
++// player-side real re-sign this file already uses below) or a wholly separate tie-engineered
++// fixture (the ~90-line cost 1348-D's own review weighed against duplicating). The existing
++// `tiersOnRoster`-level D5 leaves in tests/p14b10-conflict-evidence.test.ts already cover a
++// rival issuer (real rival roster, both "both present" and "enemy only") at that (documented,
++// non-settlement) level — kept per the parent response's "the copied-combinator leaves may stay
++// as documentation."
++//
++// FIXTURE FOR "BOTH PRESENT": the player's real roster at W has exactly one member (`offCycle`)
++// by `f6Base()`'s own design (family 6 premise, line ~466 above). A second roster member is
++// needed to hold BOTH tiers at once, so `base.reliable` — a REAL talent whose own first contract
++// genuinely ended at week 52 (measured: `{start:0, end:52}` on this fixture, confirmed a true
++// free agent by week 207, not a synthetic id) — is RE-SIGNED with a real `signContract` action at
++// week 207 (`startWeek: 207 < W`, satisfying the strict D1 predicate). This is the SAME kind of
++// real, validator-consistent action `f6Base()` itself uses throughout, not a hand-built
++// employment row: `activeEmploymentOrdinals` and every other invariant stay consistent because
++// the real production code path performs the signing. `reliable`'s identity is unclaimed by any
++// OTHER family-6 assertion (see the fixture's own note, line ~450-457 above), so re-signing them
++// disturbs no other test.
++describe('family 6b — D5 SETTLEMENT-LEVEL through the real bandsFor (record 1348-C2, review 1348-D blocking defect 2)', () => {
++  it('a player issuer: both a close tie and an enemy (with conflict evidence) on the roster — settlement reads close ties here (2) [control: the shipped combinator order is unchanged]', () => {
++    const base = f6Base()
++    const withClose = stage(base.at207, stagedEdge(base.at207, F6.subject, base.offCycle, floor('CloseFriends'), 207))
++    const withSecondSigned = applyActions(withClose, [{ kind: 'signContract', talentId: base.reliable, termWeeks: 208 }])
++    const withEnemy = stage(withSecondSigned, stagedEdge(withSecondSigned, F6.subject, base.reliable, floor('Enemies'), 207, { sharedCompetitions: 3 }))
++    const after = tick(withEnemy)
++    expect(rosterAt(after, base.playerId, F6.subject, F6.W)).toEqual(expect.arrayContaining([base.offCycle, base.reliable]))
++    expect(rosterAt(after, base.playerId, F6.subject, F6.W)).toHaveLength(2)
++    const enemyEdge = findEdge(after, F6.subject, base.reliable)!
++    expect(currentTier(enemyEdge, F6.W)).toBe('Strained') // measured at BASE (v1); v2 would read 'Enemies' here, and the settlement outcome below is unchanged either way
++    const receipt = settlementAt208(after)
++    expect(receipt.kind).toBe('settled')
++    expect(receipt.studioId).toBe(base.playerId)
++    expect(receipt.reasons).toEqual(["their roster holds this person's close ties"])
++  }, 120_000)
++
++  it('a player issuer: only the enemy (with conflict evidence) on the roster — settlement reads enemies here (0), the rival wins', () => {
++    const base = f6Base()
++    const withEnemyOnly = stage(base.at207, stagedEdge(base.at207, F6.subject, base.offCycle, floor('Enemies'), 207, { sharedCompetitions: 3 }))
++    const after = tick(withEnemyOnly)
++    const enemyEdge = findEdge(after, F6.subject, base.offCycle)!
++    expect(currentTier(enemyEdge, F6.W)).toBe('Strained') // measured at BASE (v1): the evidence-gated Enemies tier does not exist yet
++    const receipt = settlementAt208(after)
++    // RED under v1: the redirect to Strained means the player's own `relationships` band reads
++    // 'none' (1), identical to r01's baseline — the SAME tie the family-6 base case (no edge at
++    // all) produces. Required under v2 (1347-F Amendment 2): the player's band reads 'enemies
++    // here' (0), strictly below r01's 'none' (1), so r01 DOMINATES and wins outright with the D5
++    // sentence as its sole reason (DESCRIPTOR_ORDER.relationships is the only strictly-better key).
++    expect(receipt.kind).toBe('settled')
++    expect(receipt.studioId).toBe(base.r01)
++    expect(receipt.reasons).toEqual(["their roster holds this person's close ties"])
++  }, 120_000)
++})
++
+ // ─────────────────────────────────────────────────────────────────────────────────────────────────────
+ describe('family 7 — PUBLIC ORDER: the SEVEN-member companion orders (§2.1.7 :120), term preference unchanged', () => {
+   it('publicPriorityOrder is byte-equal to the companion order for both archetypes and publicPreferredTerm is value-identical', () => {
