@@ -1,0 +1,42 @@
+import { writeFileSync } from 'node:fs'
+import { it } from 'vitest'
+import { tick } from '../src/core/index.js'
+import type { GameState } from '../src/core/index.js'
+import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+
+const OUT = process.env.C8_OUT!
+const WEEKS = Number(process.env.C8_WEEKS ?? '520')
+const player = (s: GameState) => s.studio.id
+
+it('c8 natural-chain probe', () => {
+  let state = p13aGeneratedStudio()
+  let firstRivalOpen = -1, firstRivalSatisfied = -1, firstShared = -1
+  const lines: string[] = []
+  for (let week = 0; week <= WEEKS; week++) {
+    if (firstRivalOpen < 0 && state.talentMarket.proposals.some((p) => p.issuerStudioId !== player(state) && p.promises.length > 0)) firstRivalOpen = state.market.tick
+    if (firstRivalSatisfied < 0 && state.promises.some((p) => p.issuerStudioId !== player(state) && p.outcome === 'SATISFIED')) firstRivalSatisfied = state.market.tick
+    const groups = new Map<string, Set<string>>()
+    for (const p of state.promises) {
+      if (p.outcome !== 'SATISFIED') continue
+      for (const e of p.evidenceRefs) groups.set(e, (groups.get(e) ?? new Set()).add(p.beneficiaryPersonId))
+    }
+    const maxShared = Math.max(0, ...[...groups.values()].map((g) => g.size))
+    if (firstShared < 0 && maxShared >= 2) firstShared = state.market.tick
+    if (week % 20 === 0 || week === WEEKS) {
+      const byOutcome: Record<string, number> = {}
+      const byFamily: Record<string, number> = {}
+      for (const p of state.promises) {
+        const k = `${p.issuerStudioId === player(state) ? 'player' : 'rival'}:${p.outcome ?? 'open'}`
+        byOutcome[k] = (byOutcome[k] ?? 0) + 1
+        byFamily[p.family] = (byFamily[p.family] ?? 0) + 1
+      }
+      lines.push(JSON.stringify({ week: state.market.tick, promises: state.promises.length, byOutcome, byFamily,
+        firstTakes: state.firstTakes.length, rivalProposalsWithPromises: state.talentMarket.proposals.filter((p) => p.issuerStudioId !== player(state) && p.promises.length > 0).length,
+        films: state.hollywood?.films.length ?? null, maxShared }))
+    }
+    state = tick(state)
+  }
+  lines.push(JSON.stringify({ summary: true, firstRivalOpen, firstRivalSatisfied, firstShared,
+    promiseDetail: state.promises.map((p) => ({ id: p.promiseId, fam: p.family, issuer: p.issuerStudioId === player(state) ? 'player' : p.issuerStudioId, ben: p.beneficiaryPersonId, win: [p.windowStartWeek, p.dueWeekExclusive], out: p.outcome, ow: p.outcomeWeek, cause: p.outcomeCause, ev: p.evidenceRefs.length, contract: p.contractId !== null })) }))
+  writeFileSync(OUT, lines.join('\n') + '\n')
+}, 3_600_000)

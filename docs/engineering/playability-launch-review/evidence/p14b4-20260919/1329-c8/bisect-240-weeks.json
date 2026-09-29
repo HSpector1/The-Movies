@@ -1,0 +1,100 @@
+[
+ {
+  "commit": "5b58e064 Add initial P3 Director offers and strict Save39 boundary",
+  "firstRivalOpen": 196,
+  "firstRivalSatisfied": 213,
+  "firstShared": 213,
+  "promises": 48
+ },
+ {
+  "commit": "594a42b9 Count explicit Director first takes and preserve progressive evidence",
+  "firstRivalOpen": 196,
+  "firstRivalSatisfied": 213,
+  "firstShared": 213,
+  "promises": 48
+ },
+ {
+  "commit": "7abaa6e0 Exclude linked films from scoped Director promise script capacity",
+  "firstRivalOpen": 196,
+  "firstRivalSatisfied": 213,
+  "firstShared": 213,
+  "promises": 48
+ },
+ {
+  "commit": "7fed8f51 Support Director promise cancellation and forward waivers",
+  "firstRivalOpen": 196,
+  "firstRivalSatisfied": 213,
+  "firstShared": 213,
+  "promises": 48
+ },
+ {
+  "commit": "75d70e18 Apply promise work domain to retirement disposition",
+  "firstRivalOpen": 196,
+  "firstRivalSatisfied": 213,
+  "firstShared": 213,
+  "promises": 48
+ },
+ {
+  "commit": "969fb459 Prefer directing opportunities for credited rival candidates",
+  "firstRivalOpen": 196,
+  "firstRivalSatisfied": -1,
+  "firstShared": -1,
+  "promises": 26
+ },
+ {
+  "commit": "8ede2aef Implement directing promises at the Bridge54 boundary",
+  "firstRivalOpen": 196,
+  "firstRivalSatisfied": -1,
+  "firstShared": -1,
+  "promises": 26
+ },
+ {
+  "commit": "2af37179 fix(promises): account for existing production seats in directing quotes",
+  "firstRivalOpen": 196,
+  "firstRivalSatisfied": -1,
+  "firstShared": -1,
+  "promises": 26
+ },
+ {
+  "commit": "ef38cf9a wip: checkpoint core opportunity predicates and prospective take subjects",
+  "firstRivalOpen": 196,
+  "firstRivalSatisfied": -1,
+  "firstShared": -1,
+  "promises": 26
+ },
+ {
+  "commit": "df4f22bb wip: preserve opportunity compiler diagnostics and repair core boundaries",
+  "firstRivalOpen": 196,
+  "firstRivalSatisfied": -1,
+  "firstShared": -1,
+  "promises": 26
+ },
+ {
+  "commit": "2c9b67fc Integrate reviewed Save40 test compatibility boundaries",
+  "firstRivalOpen": 196,
+  "firstRivalSatisfied": -1,
+  "firstShared": -1,
+  "promises": 26
+ },
+ {
+  "commit": "029dae8a Preserve initial P4 P5 results and rank concrete tie causes first",
+  "firstRivalOpen": 196,
+  "firstRivalSatisfied": -1,
+  "firstShared": -1,
+  "promises": 26
+ },
+ {
+  "commit": "354db2a1 Draft Bridge55 material promise disclosures and preserve core work results",
+  "firstRivalOpen": 196,
+  "firstRivalSatisfied": -1,
+  "firstShared": -1,
+  "promises": 26
+ },
+ {
+  "commit": "993e6b01 test(p14): apply reviewed live-version pin maintenance (1301)",
+  "firstRivalOpen": 196,
+  "firstRivalSatisfied": -1,
+  "firstShared": -1,
+  "promises": 26
+ }
+]

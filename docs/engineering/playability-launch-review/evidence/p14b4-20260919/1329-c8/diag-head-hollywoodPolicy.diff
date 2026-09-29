@@ -1,0 +1,22 @@
+--- /dev/fd/63	2026-09-29 08:27:48.000000000 +0200
++++ /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/c8diag/src/core/hollywoodPolicy.ts	2026-09-29 08:26:45.000000000 +0200
+@@ -54,7 +54,8 @@
+       const negative=Math.round(required*scale*policy.negativeScale)
+       const base={...inp,budget:{negative,marketing:0}}
+       for(const marketing of marketingMenuFromCapacity(marketingCapacityForInputs(base,true))) {
+-        if(negative+marketing>options.cashAvailable)continue
++        const __d=(globalThis as any).__C8POL as any
++        if(negative+marketing>options.cashAvailable){if(__d)__d.cash++;continue}
+         const candidate={...base,budget:{negative,marketing}}
+         const forecast=computeForecast(candidate,{seed:options.seed,productionId:options.key,directorId:inp.director.id,releasedFilms:[],concepts:[inp.concept]},true,true)
+         const expectedIncrementalContribution=forecast.expectedTotal*TUNING.STUDIO_RENTAL_BLENDED-negative-marketing
+@@ -64,7 +65,8 @@
+         const expectedOperatingMargin=expectedIncrementalContribution+holdOperatingMargin
+         // Preference is a small cost of departing from the authored spend posture; outcomes remain uncertain.
+         const score=expectedOperatingMargin-Math.abs(marketing/Math.max(negative,1)-policy.marketingRatio)*TUNING.HOLLYWOOD_POLICY_PREFERENCE_COST
+-        if(options.lockScreenplay&&score<=holdOperatingMargin)continue
++        if(__d){__d.evaluated++;if(score>__d.bestScore){__d.bestScore=score;__d.hold=holdOperatingMargin;__d.best={negative,marketing,total:Math.round(forecast.expectedTotal),contribution:Math.round(expectedIncrementalContribution)}}}
++        if(options.lockScreenplay&&score<=holdOperatingMargin){if(__d)__d.unviable++;continue}
+         // Maximize benefit among candidates that passed the cash and viability gates, then the ordinary score, then the inherited strict-greater BILLINGS order.
+         if(benefit>bestBenefit||(benefit===bestBenefit&&score>bestScore)){bestBenefit=benefit;bestScore=score;best={shape,promise:inp.promise,budget:{negative,marketing},cast:{lead:inp.cast.lead.id,antagonist:inp.cast.antagonist.id,support:inp.cast.support.id},expectedOperatingMargin,expectedIncrementalContribution,holdOperatingMargin}}
+       }

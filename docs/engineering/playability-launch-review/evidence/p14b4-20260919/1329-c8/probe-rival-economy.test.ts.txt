@@ -1,0 +1,31 @@
+import { writeFileSync } from 'node:fs'
+import { it } from 'vitest'
+import { tick } from '../src/core/index.js'
+import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+
+const OUT = process.env.C8_OUT!
+const WEEKS = Number(process.env.C8_WEEKS ?? '300')
+
+it('c8 rival economy probe', () => {
+  let state: any = p13aGeneratedStudio()
+  const lines: string[] = []
+  for (let week = 0; week <= WEEKS; week++) {
+    if (week % 10 === 0 || week === WEEKS) {
+      const h = state.hollywood
+      const biz = (h?.businesses ?? []).map((b: any) => {
+        const st: Record<string, number> = {}
+        for (const p of b.development?.projects ?? []) st[p.status] = (st[p.status] ?? 0) + 1
+        const emp = (h.employment ?? []).filter((e: any) => e.studioId === b.studioId && e.endedWeek === null).length
+        return { id: b.studioId.slice(-3), cash: Math.round(b.account?.cash ?? NaN), prod: b.productions.length,
+          dev: st, next: b.nextDecisionWeek, emp, films: h.films.filter((f: any) => f.studioId === b.studioId).length,
+          runs: b.runs?.length }
+      })
+      const pst: Record<string, number> = {}
+      for (const p of state.scriptDevelopment?.projects ?? []) pst[p.status] = (pst[p.status] ?? 0) + 1
+      lines.push(JSON.stringify({ week: state.market.tick, player: { cash: Math.round(state.studio.cash), active: state.studio.activeProductions.length, dev: pst,
+        firstTakes: state.firstTakes?.length, contracts: (state.contracts ?? []).length }, biz }))
+    }
+    state = tick(state)
+  }
+  writeFileSync(OUT, lines.join('\n') + '\n')
+}, 3_600_000)

@@ -1,0 +1,11 @@
+import { writeFileSync } from 'node:fs'
+import { it } from 'vitest'
+import { tick } from '../src/core/index.js'
+import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+it('c8 decide diag', () => {
+  const rows: any[] = []
+  ;(globalThis as any).__C8DIAG = rows
+  let state: any = p13aGeneratedStudio(process.env.C8_SEED ?? 'p13a-core-causal-01')
+  for (let week = 0; week <= Number(process.env.C8_WEEKS ?? '260'); week++) state = tick(state)
+  writeFileSync(process.env.C8_OUT!, rows.map((r) => JSON.stringify(r)).join('\n') + '\n')
+}, 3_600_000)

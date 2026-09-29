@@ -1,0 +1,21 @@
+--- /dev/fd/63	2026-09-29 08:28:03.000000000 +0200
++++ /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/c8old/src/core/hollywoodTick.ts	2026-09-29 08:27:22.000000000 +0200
+@@ -193,14 +193,18 @@
+     const taken=new Set([ready.writerId,director?.id,craft?.id])
+     const promised=employees.filter(t=>masks.has(t.id)&&seatable(t)&&!taken.has(t.id)&&t.skills.acting!==undefined)
+     const actors=[...promised,...employees.filter(t=>t.role==='actor'&&seatable(t)&&!promised.includes(t))].slice(0,3)
++    const __diag=(globalThis as any).__C8DIAG as any[]|undefined
++    if(__diag)__diag.push({week,studio:b.studioId.slice(-3),ready:ready.id,director:director?.id??null,craft:craft?.id??null,actors:actors.length,cash:Math.round(b.account.cash),masks:masks.size,cast:actors.map(t=>t.id.slice(-6))})
+     if(director&&actors.length===3&&craft) {
+       const cost=b.projects[Number(ready.id.slice(7))]!
+       const concept=h.concepts[cost.conceptOrdinal]!
+       const provisional={conceptId:concept.id,shape:ready.shape,promise:ready.promise,budget:{negative:concept.baseNegativeCost,marketing:0},writerId:ready.writerId,
+         directorId:director.id,cast:{lead:actors[0]!.id,antagonist:actors[1]!.id,support:actors[2]!.id},craftIds:[craft.id]}
++      ;(globalThis as any).__C8POL={cash:0,evaluated:0,unviable:0,bestScore:-Infinity,hold:null,best:null}
+       const candidate=chooseIndustryPackage(inputsFor(state,h,b,provisional,ready,people),b.policy,{seed:state.seed,key:`${b.studioId}:package:${ready.id}`,
+         cashAvailable:b.account.cash-operatingReserve(b,h,week),weeklyCost:rivalWeeklyOperatingCost(b,h,week),lockScreenplay:true,
+         ...(masks.size>0?{promisedMasks:masks}:{})})
++      if(__diag){__diag[__diag.length-1].pol={...(globalThis as any).__C8POL,bestScore:Math.round((globalThis as any).__C8POL.bestScore)};__diag[__diag.length-1].candidate=candidate?{neg:candidate.budget.negative}:null}
+       if(candidate) {
+         const {negative,marketing}=candidate.budget
+         const id=uniqueIdentity(`${b.studioId}:film:${Number(ready.id.slice(7))}`,persistedProductionIds({...state,hollywood:h}))
