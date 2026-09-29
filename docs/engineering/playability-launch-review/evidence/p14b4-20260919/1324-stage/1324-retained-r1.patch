@@ -1,0 +1,375 @@
+diff --git a/tests/bridge-p14c2rm-runtime.test.ts b/tests/bridge-p14c2rm-runtime.test.ts
+index f03929f..02691e5 100644
+--- a/tests/bridge-p14c2rm-runtime.test.ts
++++ b/tests/bridge-p14c2rm-runtime.test.ts
+@@ -19,13 +19,35 @@ function artifact(): { raw: string; prior: Historical } {
+   expect(canonicalJson(prior) + '\n').toBe(raw)
+   return { raw, prior }
+ }
++// 1324-C / C20: three roots `migrateToLive` genuinely adds that a Save37 `old.state`
++// never carried — built from the old state by each root's own migration rule, never
++// a literal (1309-X3 ruling 4 `termination`; 1320-A S5 `sharedCompetitions`;
++// convertV39ToV40 `firstTakeSubjects`), the same precedent `p14c3-save-v38.test.ts`
++// already carries for the first two.
++type WithRivalBusinesses = { hollywood: { businesses: readonly { account: { periods: readonly { movements: Record<string, number> }[] } }[] } | null }
++function withRivalTermination<T extends WithRivalBusinesses>(state: T): T {
++  if (state.hollywood === null) return state
++  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
++    ...business, account: { ...business.account, periods: business.account.periods.map((period) => ({
++      ...period, movements: { ...period.movements, termination: 0 } })) },
++  })) } }
++}
++type WithRelationships = { relationships: readonly { sharedCompetitions?: number }[] }
++function withSharedCompetitions<T extends WithRelationships>(state: T): T {
++  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, sharedCompetitions: 0 })) }
++}
++type WithFirstTakes = { firstTakes: readonly unknown[]; firstTakeSubjects?: unknown }
++function withFirstTakeSubjects<T extends WithFirstTakes>(state: T): T {
++  return { ...state, firstTakeSubjects: { version: 1, cutoverOrdinal: state.firstTakes.length, facts: [] } }
++}
+ // Independent old-state preservation alongside the actual governed slot bytes.
+ function currentSlot(json: string): string {
+   const old = validateSaveV37(JSON.parse(json)), current = migrateToLive(importSave(json)), week = old.state.market.tick
+   expect(current.saveVersion).toBe(42)
+   const { transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
+     industryRetirements, transitionDue, ...oldLifecycle } = current.state.careerLifecycle
+-  expect(canonicalJson({ ...current.state, careerLifecycle: oldLifecycle })).toBe(canonicalJson(old.state))
++  const expectedOld = withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state)))
++  expect(canonicalJson({ ...current.state, careerLifecycle: oldLifecycle })).toBe(canonicalJson(expectedOld))
+   expect({ transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
+     industryRetirements, transitionDue }).toEqual({ transitionBoundaryWeek: week,
+     professionAnchors: old.state.talent.map(person => ({ personId: person.id, profession: person.role,
+diff --git a/tests/bridge-p14c3-promise-digest-continuity.test.ts b/tests/bridge-p14c3-promise-digest-continuity.test.ts
+index 2ebf5db..64a8be9 100644
+--- a/tests/bridge-p14c3-promise-digest-continuity.test.ts
++++ b/tests/bridge-p14c3-promise-digest-continuity.test.ts
+@@ -66,6 +66,27 @@ function reordered(state: GameState): GameState {
+   expect(bytes(next), 'whole live-save validation admits the same world').toBe(bytes(state))
+   return next
+ }
++// 1324-C / C20: three roots `migrateToLive` genuinely adds that a Save37 `old.state`
++// never carried — built from the old state by each root's own migration rule, never
++// a literal (1309-X3 ruling 4 `termination`; 1320-A S5 `sharedCompetitions`;
++// convertV39ToV40 `firstTakeSubjects`), the same precedent `p14c3-save-v38.test.ts`
++// already carries for the first two.
++type WithRivalBusinesses = { hollywood: { businesses: readonly { account: { periods: readonly { movements: Record<string, number> }[] } }[] } | null }
++function withRivalTermination<T extends WithRivalBusinesses>(state: T): T {
++  if (state.hollywood === null) return state
++  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
++    ...business, account: { ...business.account, periods: business.account.periods.map((period) => ({
++      ...period, movements: { ...period.movements, termination: 0 } })) },
++  })) } }
++}
++type WithRelationships = { relationships: readonly { sharedCompetitions?: number }[] }
++function withSharedCompetitions<T extends WithRelationships>(state: T): T {
++  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, sharedCompetitions: 0 })) }
++}
++type WithFirstTakes = { firstTakes: readonly unknown[]; firstTakeSubjects?: unknown }
++function withFirstTakeSubjects<T extends WithFirstTakes>(state: T): T {
++  return { ...state, firstTakeSubjects: { version: 1, cutoverOrdinal: state.firstTakes.length, facts: [] } }
++}
+ describe('955 genuine207 normal-development continuation', () => {
+   it('matches actual BridgeSession advance from saved207 with uninterrupted develop:true on the reordered raw world', () => {
+     const raw = reordered(pre207()), save = bytes(raw), direct = tick(raw, { develop: true })
+@@ -127,7 +148,8 @@ describe('955 historical preservation and interim projection52 journal authority
+       const current = migrateToLive(old)
+       const { transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
+         industryRetirements, transitionDue, ...oldLifecycle } = current.state.careerLifecycle
+-      expect(canonicalJson({ ...current.state, careerLifecycle: oldLifecycle })).toBe(canonicalJson(old.state))
++      const expectedOld = withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state)))
++      expect(canonicalJson({ ...current.state, careerLifecycle: oldLifecycle })).toBe(canonicalJson(expectedOld))
+       expect({ transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
+         industryRetirements, transitionDue }).toEqual({ transitionBoundaryWeek: week,
+         professionAnchors: old.state.talent.map(person => ({ personId: person.id, profession: person.role,
+diff --git a/tests/contracts/_v14Contract.ts b/tests/contracts/_v14Contract.ts
+index 9926987..2659e69 100644
+--- a/tests/contracts/_v14Contract.ts
++++ b/tests/contracts/_v14Contract.ts
+@@ -421,6 +421,14 @@ export function projectToV13State(state: GameState): Record<string, unknown> {
+   }
+   delete raw.firstTakes
+   delete raw.promises
++  // P14B.1 (V40 extension, commit ef38cf9a): the first-take-subject root is
++  // V40-only — younger than `firstTakes`/`promises` above but the same family
++  // — so a genuine V13 file never carried it either. Real authority in it is
++  // never discarded, exactly as `firstTakes`/`promises` above.
++  if ((state.firstTakeSubjects?.facts ?? []).length > 0) {
++    throw new Error('V13 twin cannot discard first-take-subject authority')
++  }
++  delete raw.firstTakeSubjects
+   // P14B.5: the relationship root is V31-only, so a genuine V13 file never
+   // carried one. Real relationship authority is never discarded, as above.
+   if ((state.relationships ?? []).length > 0) {
+diff --git a/tests/p14b5-t-failure-tuning.test.ts b/tests/p14b5-t-failure-tuning.test.ts
+index 5abc962..4b811de 100644
+--- a/tests/p14b5-t-failure-tuning.test.ts
++++ b/tests/p14b5-t-failure-tuning.test.ts
+@@ -27,7 +27,10 @@
+ //     populated: `relationships`, `firstTakes`, `promises` (the two roots `requirePromiseRoots`
+ //     demands), `talent` (the four people the root validator checks membership against),
+ //     `market.tick` + `studioHistory.recordingStartedWeek` (the recording interval the REAL
+-//     `validateRelationshipsRoot` reads) and `hollywood.playerStudioId` (non-null, the seam's guard).
++//     `validateRelationshipsRoot` reads), `hollywood.playerStudioId` (non-null, the seam's guard),
++//     and (1324-C / C7, added when `appendFirstTakes` gained the Save40 subject-resolution guard)
++//     `firstTakeSubjects` plus the minimal `concepts`/`scriptDevelopment`/`studio` legacy-mode
++//     shapes `subjectForNewTake`'s real owner/concept resolution unconditionally dereferences.
+ //     The real `validateRelationshipsRoot` certifies the root after EVERY write.
+ //   * Groups 5–6 run the same constructed chain over a REAL full `GameState` — the generated
+ //     campaign `p13a-core-causal-01` advanced by the live `tick` to week 6, BEFORE that seed mints
+@@ -96,15 +99,19 @@ const seats = (q: Quartet): readonly Seat[] => [
+   { x: q.director, y: q.support, weight: LOW }, { x: q.lead, y: q.antagonist, weight: HIGH },
+   { x: q.lead, y: q.support, weight: MID }, { x: q.antagonist, y: q.support, weight: LOW },
+ ]
+-const shot = (id: string, q: Quartet): Production =>
+-  ({ id, directorId: q.director, cast: { lead: q.lead, antagonist: q.antagonist, support: q.support } } as unknown as Production)
++// 1324-C / C7: `appendFirstTakes` (src/core/promises.ts:150) resolves every new take's
++// subject through the REAL `subjectForNewTake` (src/core/firstTakeSubjects.ts:18), which
++// needs a `conceptId` naming a concept the issuing studio actually owns. Defaults to the
++// staged world's own fixture concept (below); the carrier call sites pass their genuine one.
++const shot = (id: string, q: Quartet, conceptId: string = STAGED_CONCEPT_ID): Production =>
++  ({ id, conceptId, directorId: q.director, cast: { lead: q.lead, antagonist: q.antagonist, support: q.support } } as unknown as Production)
+ /** The clock the real root validator reads. RAISED, never lowered: on the constructed world it is
+  * the staged week; on the real carrier the live clock already stands at the chain's end. */
+ const at = (state: GameState, week: number): GameState =>
+   (state.market.tick >= week ? state : { ...state, market: { ...state.market, tick: week } } as GameState)
+ 
+-function shoot(state: GameState, studioId: string, q: Quartet, week: number, productionId: string): GameState {
+-  const production = shot(productionId, q)
++function shoot(state: GameState, studioId: string, q: Quartet, week: number, productionId: string, conceptId: string = STAGED_CONCEPT_ID): GameState {
++  const production = shot(productionId, q, conceptId)
+   const staged = appendFirstTakes(at(state, week), [{ studioId, production }], week) // the REAL receipt writer
+   const written = advanceRelationshipsWeek(staged, { takes: [{ studioId, production }], releases: [] }, week)
+   validateRelationshipsRoot(written, 42)
+@@ -119,13 +126,13 @@ function release(state: GameState, week: number, productionId: string, criticSco
+ 
+ type Step = { label: string; week: number; state: GameState }
+ /** take-1, release-1, take-2, release-2 … one week apart, no dormancy, one new production id each. */
+-function driveChain(start: GameState, studioId: string, q: Quartet, firstWeek: number, productions: number, criticScore: number): Step[] {
++function driveChain(start: GameState, studioId: string, q: Quartet, firstWeek: number, productions: number, criticScore: number, conceptId: string = STAGED_CONCEPT_ID): Step[] {
+   const trail: Step[] = []
+   let state = start
+   let week = firstWeek
+   for (let p = 1; p <= productions; p++) {
+     if (p > 1) week += 1
+-    state = shoot(state, studioId, q, week, `${studioId}:t684-p${String(p)}`)
++    state = shoot(state, studioId, q, week, `${studioId}:t684-p${String(p)}`, conceptId)
+     trail.push({ label: `take-${String(p)}`, week, state })
+     week += 1
+     state = release(state, week, `${studioId}:t684-p${String(p)}`, criticScore)
+@@ -162,8 +169,22 @@ const printTrail = (rows: { label: string; week: number; closeness: number }[]):
+ const STAGED: Quartet = { director: 'person-d', lead: 'person-l', antagonist: 'person-n', support: 'person-s' }
+ const STAGED_STUDIO = 'studio-684t'
+ const STAGED_FIRST_WEEK = 10
++// 1324-C / C7: the one fixture concept every staged production names via `shot()`'s
++// default `conceptId`. `subjectForNewTake` only ever reads `.id`/`.genre` off it.
++const STAGED_CONCEPT_ID = 'concept-684t'
+ const stagedWorld = (): GameState => ({
+   relationships: [], firstTakes: [], promises: [],
++  // 1324-C / C7: `appendFirstTakes` (src/core/promises.ts:150) requires this root since
++  // Save40 (commit ef38cf9a); built by convertV39ToV40's own rule over the two roots
++  // already named above (`{version:1, cutoverOrdinal: firstTakes.length, facts:[]}`).
++  firstTakeSubjects: { version: 1, cutoverOrdinal: 0, facts: [] },
++  // 1324-C / C7: `subjectForNewTake` resolves the issuing owner via `takeSubjectOwner`,
++  // which for the player studio dereferences `concepts`/`scriptDevelopment`/`studio`
++  // unconditionally (src/core/firstTakeSubjects.ts:7-15) — all three are therefore real
++  // roots here too, minimal legacy-mode shapes with no managed screenplay link required.
++  concepts: [{ id: STAGED_CONCEPT_ID, genre: 'drama' }],
++  scriptDevelopment: { mode: 'legacy', projects: [] },
++  studio: { activeProductions: [] },
+   talent: [STAGED.director, STAGED.lead, STAGED.antagonist, STAGED.support].map((id) => ({ id })),
+   market: { tick: STAGED_FIRST_WEEK }, studioHistory: { recordingStartedWeek: 0 },
+   hollywood: { playerStudioId: STAGED_STUDIO },
+@@ -182,7 +203,7 @@ const CARRIER_FIRST_WEEK = CARRIER_WEEK - (2 * CARRIER_PRODUCTIONS - 1)
+ let carrierCache: GameState | undefined
+ /** The generated campaign at week 6. Every relationship function is pure and spread-preserving, so
+  * the memoised state is never mutated by a case and is shared, not cloned. */
+-function carrier(): { state: GameState; studioId: string; quartet: Quartet } {
++function carrier(): { state: GameState; studioId: string; quartet: Quartet; conceptId: string } {
+   carrierCache ??= advanceTo(p13aGeneratedStudio(CARRIER_SEED), CARRIER_WEEK)
+   const state = carrierCache
+   expect(state.market.tick).toBe(CARRIER_WEEK)
+@@ -195,11 +216,15 @@ function carrier(): { state: GameState; studioId: string; quartet: Quartet } {
+   assert.ok(director && actors.length === 3, `premise: ${CARRIER_SEED} at week ${String(CARRIER_WEEK)} has no director plus three actors`)
+   const quartet: Quartet = { director: director.id, lead: actors[0]!.id, antagonist: actors[1]!.id, support: actors[2]!.id }
+   expect(new Set(Object.values(quartet)).size).toBe(4)
+-  return { state, studioId: state.hollywood!.playerStudioId, quartet }
++  // 1324-C / C7: the real `subjectForNewTake` needs a concept the player studio genuinely
++  // owns; the world's own worldgen-minted catalogue supplies one, never an invented id.
++  const concept = state.concepts[0]
++  assert.ok(concept, `premise: ${CARRIER_SEED} at week ${String(CARRIER_WEEK)} carries no concept`)
++  return { state, studioId: state.hollywood!.playerStudioId, quartet, conceptId: concept.id }
+ }
+ function carrierChain(criticScore: number): Step[] {
+-  const { state, studioId, quartet } = carrier()
+-  return driveChain(state, studioId, quartet, CARRIER_FIRST_WEEK, CARRIER_PRODUCTIONS, criticScore)
++  const { state, studioId, quartet, conceptId } = carrier()
++  return driveChain(state, studioId, quartet, CARRIER_FIRST_WEEK, CARRIER_PRODUCTIONS, criticScore, conceptId)
+ }
+ 
+ // ───────────────────────────────────────────────────────────────────────────────────────────────
+@@ -352,8 +377,8 @@ describe('CONSTRUCTED group 4 — DRIFT IS READ-ONLY AND UNCHANGED by this tunin
+ // ───────────────────────────────────────────────────────────────────────────────────────────────
+ describe('CONSTRUCTED group 5 — REPLAY AND IDEMPOTENCY on the real carrier world', () => {
+   it('the same advance from the same pre-state writes a byte-identical root, and a second advance over the same production id mints nothing twice', () => {
+-    const { state, studioId, quartet } = carrier()
+-    const production = shot(`${studioId}:t684-replay`, quartet)
++    const { state, studioId, quartet, conceptId } = carrier()
++    const production = shot(`${studioId}:t684-replay`, quartet, conceptId)
+     const week = CARRIER_WEEK
+     const pre = appendFirstTakes(state, [{ studioId, production }], week)
+     const delta = { takes: [{ studioId, production }], releases: [] as readonly FilmResult[] }
+diff --git a/tests/p14c1-materialized-aging.test.ts b/tests/p14c1-materialized-aging.test.ts
+index d6a0b76..ad11e72 100644
+--- a/tests/p14c1-materialized-aging.test.ts
++++ b/tests/p14c1-materialized-aging.test.ts
+@@ -28,7 +28,7 @@ import { existsSync, readFileSync } from 'node:fs'
+ import { gunzipSync } from 'node:zlib'
+ import { describe, expect, it } from 'vitest'
+ import {
+-  applyActions, exportSave, generateWorld, importSave, loadSave, LIVE_SAVE_VERSION, tick, validateSaveV32,
++  applyActions, exportSave, generateWorld, importSave, loadSave, LIVE_SAVE_VERSION, tick, validateSave, validateSaveV32,
+ } from '../src/core/index.js'
+ import type { AuthoredTalentInput, GameState, SaveFile, Talent } from '../src/core/index.js'
+ import { enterRival, initializeHollywood } from '../src/core/hollywood.js'
+@@ -73,10 +73,14 @@ const convertV33ToV34 = SaveModule.convertV33ToV34
+ // P14C.4: same reasoning, one bump on — `tick()` now also requires `cohorts`
+ // inside that root once a state reaches a cohort week (week 52); `validateSaveV34`
+ // (frozen, unused for a genuinely live envelope now) is not aliased here — every
+-// LIVE check below moves straight to `validateSaveV38`.
++// LIVE check below goes through the generic `validateSave` dispatcher (index.ts
++// §17: "dispatches on version"), never a version-literal validator name, so a
++// genuinely live-tagged envelope (`saveVersion: LIVE_SAVE_VERSION`) is always
++// checked by whatever validator its own tag names (1324-C / C7: `validateSaveV38`
++// was pinned here and silently stopped matching once the live version moved past
++// 38 — masked until the C7 `firstTakeSubjects` gap above stopped throwing first).
+ const convertV34ToV35 = SaveModule.convertV34ToV35
+ const convertV35ToV36 = SaveModule.convertV35ToV36
+-const validateSaveV38 = SaveModule.validateSaveV38
+ 
+ const p14 = (relative: string): URL => new URL('./fixtures/' + relative, import.meta.url)
+ 
+@@ -151,7 +155,20 @@ function liftForTick(migrated: { envelope: Envelope; state: ProvenanceState }):
+   const v36 = convertV35ToV36(v35 as Parameters<typeof convertV35ToV36>[0])
+   // C.3: real frozen33 controls stay above; only inputs for the live engine
+   // proceed through Scientist37 and current profession-authority38.
+-  const live = SaveModule.convertV37ToV38(SaveModule.convertV36ToV37(v36))
++  const v38 = SaveModule.convertV37ToV38(SaveModule.convertV36ToV37(v36))
++  // 1324-C / C7: one further governed step to the true live boundary —
++  // `appendFirstTakes` (src/core/promises.ts:144, commit ef38cf9a) now throws
++  // on a state carrying no `firstTakeSubjects` root whenever `tick()` reaches a
++  // shoot event, so every lifted state needs the V40 root too, built by
++  // `convertV39ToV40`'s own rule, never a literal.
++  const v40 = SaveModule.convertV39ToV40(SaveModule.convertV38ToV39(v38))
++  // 1324-C / C20 family: every case below that tags its own envelope
++  // `saveVersion: LIVE_SAVE_VERSION` and hands it to the generic `validateSave`
++  // dispatcher needs a state that is ACTUALLY V42-shaped, or the claim is
++  // incoherent — the frozen V41/V24 Hollywood-account-periods leg refuses a V40
++  // state for a missing `termination` movement first. Two further governed
++  // steps, by the same rule as above, never a literal.
++  const live = SaveModule.convertV41ToV42(SaveModule.convertV40ToV41(v40))
+   return { envelope: live, state: withProvenance(live.state as object) }
+ }
+ 
+@@ -630,7 +647,7 @@ describe('8. save and reload at week 12 and week 13', () => {
+       const envelope: Envelope = { saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems }
+ 
+       const reloaded = JSON.parse(JSON.stringify(envelope))
+-      const validated = validateSaveV38(reloaded)
++      const validated = validateSave(reloaded)
+       const reloadedState = withProvenance(validated.state as object)
+       expect(reloadedState.talent.find((t) => t.id === 'authored-0001')!.age).toBe(week === 12 ? 29 : 30)
+     })
+@@ -725,15 +742,16 @@ describe('11. the validator refuses four tampered states, each attributably', ()
+     // everything this test tampers with, so the four causes stay distinguishable
+     // (each inner message survives inside the wrapping "frozen V33 state is
+     // invalid —" prefix).
+-    // C.3: `baseState()` now ticks a live (V38) state; `validateSaveV38`
+-    // delegates to `validateSaveV34`, which delegates to the frozen V33 chain —
+-    // the four causes below still stay distinguishable, each inner message
+-    // surviving through both wrapping prefixes (checked by substring, not
+-    // exact-match, below).
++    // 1324-C / C7 & C20: `baseState()` now ticks a genuinely V42-shaped live
++    // state (`liftForTick`), and the envelope is checked through the generic
++    // `validateSave` dispatcher rather than a version-literal validator name —
++    // it still delegates all the way down to the frozen V33 chain for
++    // everything this test tampers with, so the four causes stay distinguishable
++    // through every wrapping prefix (checked by substring, not exact-match).
+     const envelope: Envelope = { saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems }
+     const json = JSON.parse(JSON.stringify(envelope))
+     try {
+-      validateSaveV38(json)
++      validateSave(json)
+       return ''
+     } catch (error) {
+       return (error as Error).message
+diff --git a/tests/p14c3-save-v38.test.ts b/tests/p14c3-save-v38.test.ts
+index 8132738..6beaaa1 100644
+--- a/tests/p14c3-save-v38.test.ts
++++ b/tests/p14c3-save-v38.test.ts
+@@ -31,6 +31,14 @@ type WithRelationships = { relationships: readonly { sharedCompetitions?: number
+ function withSharedCompetitions<T extends WithRelationships>(state: T): T {
+   return { ...state, relationships: state.relationships.map(edge => ({ ...edge, sharedCompetitions: 0 })) }
+ }
++// 1324-C / C20: convertV39ToV40 (src/core/save.ts:10493) adds a top-level
++// `firstTakeSubjects` root, built from the state's own already-written
++// `firstTakes` root (`{version:1, cutoverOrdinal: firstTakes.length, facts:[]}`);
++// a genuine V37 old.state never carried it either.
++type WithFirstTakes = { firstTakes: readonly unknown[]; firstTakeSubjects?: unknown }
++function withFirstTakeSubjects<T extends WithFirstTakes>(state: T): T {
++  return { ...state, firstTakeSubjects: { version: 1, cutoverOrdinal: state.firstTakes.length, facts: [] } }
++}
+ 
+ describe('C.3 A01/A02 exact Save38 opening', () => {
+   it('moves the existing live writer and fresh root together while preserving intent1 and promise4', () => {
+@@ -69,7 +77,7 @@ describe('C.3 A01/A02 exact Save38 opening', () => {
+       expect(root.transitionDue, 'actual completed retirements reconcile prospectively, not on load').toEqual(expectedDue)
+       const stripped = { ...upgraded.state, careerLifecycle: Object.fromEntries(
+         Object.entries(root).filter(([key]) => !FUTURE_ROOT_KEYS.includes(key as typeof FUTURE_ROOT_KEYS[number]))) }
+-      expect(stableStringify(stripped), 'every old field, receipt, clock and RNG value survives migration').toBe(stableStringify(withRivalTermination(withSharedCompetitions(old.state))))
++      expect(stableStringify(stripped), 'every old field, receipt, clock and RNG value survives migration').toBe(stableStringify(withRivalTermination(withSharedCompetitions(withFirstTakeSubjects(old.state)))))
+       expect(stableStringify(old), 'converter never mutates its genuine input').toBe(before)
+       expect(exportSave(importSave(raw))).toBe(raw)
+       expect(c3Raw(filename)).toBe(raw)
+diff --git a/tests/p14p3-directing-promises.test.ts b/tests/p14p3-directing-promises.test.ts
+index a7f1b02..a61e87d 100644
+--- a/tests/p14p3-directing-promises.test.ts
++++ b/tests/p14p3-directing-promises.test.ts
+@@ -64,6 +64,28 @@ function malformed(state: GameState, promiseId: string,
+ }
+ afterAll(() => console.info('1133-P3-COUNTERS ' + JSON.stringify(counters())))
+ 
++// 1324-C / C20: three roots `migrateToLive` genuinely adds that a Save38 `outgoing()`
++// fixture never carried — built from the old state by each root's own migration
++// rule, never a literal (1309-X3 ruling 4 `termination`; 1320-A S5
++// `sharedCompetitions`; convertV39ToV40 `firstTakeSubjects`), the same precedent
++// `p14c3-save-v38.test.ts` already carries for the first two.
++type WithRivalBusinesses = { hollywood: { businesses: readonly { account: { periods: readonly { movements: Record<string, number> }[] } }[] } | null }
++function withRivalTermination<T extends WithRivalBusinesses>(state: T): T {
++  if (state.hollywood === null) return state
++  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
++    ...business, account: { ...business.account, periods: business.account.periods.map((period) => ({
++      ...period, movements: { ...period.movements, termination: 0 } })) },
++  })) } }
++}
++type WithRelationships = { relationships: readonly { sharedCompetitions?: number }[] }
++function withSharedCompetitions<T extends WithRelationships>(state: T): T {
++  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, sharedCompetitions: 0 })) }
++}
++type WithFirstTakes = { firstTakes: readonly unknown[]; firstTakeSubjects?: unknown }
++function withFirstTakeSubjects<T extends WithFirstTakes>(state: T): T {
++  return { ...state, firstTakeSubjects: { version: 1, cutoverOrdinal: state.firstTakes.length, facts: [] } }
++}
++
+ describe('P3 first slice: public Director promises and historical meaning', () => {
+   it('D01 offers fresh directing work to lawful Actors and Directors', () => {
+     const input = at45()
+@@ -366,7 +388,8 @@ describe('P3 first slice: public Director promises and historical meaning', () =
+ 
+   it('D14 preserves old meaning and refuses lossy reverse conversion', () => {
+     for (const name of outgoingNames) {
+-      const old = outgoing(name), oldState = saves.stableStringify(old.save.state)
++      const old = outgoing(name)
++      const oldState = saves.stableStringify(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.save.state))))
+       const current = saves.migrateToLive(old.save)
+       // Existing semantic boundary: fails as37/38 rather than a missing import.
+       expect(current.saveVersion).toBe(42)

@@ -1,0 +1,226 @@
+[
+  {
+    "file": "tests/bridge-p14c2rm-runtime.test.ts",
+    "line": 22,
+    "old_text": "",
+    "new_text": "// 1324-C / C20: three roots `migrateToLive` genuinely adds that a Save37 `old.state`\n// never carried \u2014 built from the old state by each root's own migration rule, never\n// a literal (1309-X3 ruling 4 `termination`; 1320-A S5 `sharedCompetitions`;\n// convertV39ToV40 `firstTakeSubjects`), the same precedent `p14c3-save-v38.test.ts`\n// already carries for the first two.\ntype WithRivalBusinesses = { hollywood: { businesses: readonly { account: { periods: readonly { movements: Record<string, number> }[] } }[] } | null }\nfunction withRivalTermination<T extends WithRivalBusinesses>(state: T): T {\n  if (state.hollywood === null) return state\n  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({\n    ...business, account: { ...business.account, periods: business.account.periods.map((period) => ({\n      ...period, movements: { ...period.movements, termination: 0 } })) },\n  })) } }\n}\ntype WithRelationships = { relationships: readonly { sharedCompetitions?: number }[] }\nfunction withSharedCompetitions<T extends WithRelationships>(state: T): T {\n  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, sharedCompetitions: 0 })) }\n}\ntype WithFirstTakes = { firstTakes: readonly unknown[]; firstTakeSubjects?: unknown }\nfunction withFirstTakeSubjects<T extends WithFirstTakes>(state: T): T {\n  return { ...state, firstTakeSubjects: { version: 1, cutoverOrdinal: state.firstTakes.length, facts: [] } }\n}",
+    "cluster": "C20-migration-purity-new-root",
+    "cause": "migrateToLive adds three roots current.state carries that a Save37 old.state never did (firstTakeSubjects V40 commit ef38cf9a, termination V41 1309-X3 ruling 4, sharedCompetitions V42 1320-A S5); the byte-purity comparison against old.state needs the same three with*() wrapper helpers p14c3-save-v38.test.ts already establishes for the first two, built from each root's own migration rule, never a literal. Adds the three helpers."
+  },
+  {
+    "file": "tests/bridge-p14c2rm-runtime.test.ts",
+    "line": 28,
+    "old_text": "  expect(canonicalJson({ ...current.state, careerLifecycle: oldLifecycle })).toBe(canonicalJson(old.state))",
+    "new_text": "  const expectedOld = withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state)))\n  expect(canonicalJson({ ...current.state, careerLifecycle: oldLifecycle })).toBe(canonicalJson(expectedOld))",
+    "cluster": "C20-migration-purity-new-root",
+    "cause": "migrateToLive adds three roots current.state carries that a Save37 old.state never did (firstTakeSubjects V40 commit ef38cf9a, termination V41 1309-X3 ruling 4, sharedCompetitions V42 1320-A S5); the byte-purity comparison against old.state needs the same three with*() wrapper helpers p14c3-save-v38.test.ts already establishes for the first two, built from each root's own migration rule, never a literal. Applies them to old.state before the canonicalJson comparison in currentSlot()."
+  },
+  {
+    "file": "tests/bridge-p14c3-promise-digest-continuity.test.ts",
+    "line": 69,
+    "old_text": "",
+    "new_text": "// 1324-C / C20: three roots `migrateToLive` genuinely adds that a Save37 `old.state`\n// never carried \u2014 built from the old state by each root's own migration rule, never\n// a literal (1309-X3 ruling 4 `termination`; 1320-A S5 `sharedCompetitions`;\n// convertV39ToV40 `firstTakeSubjects`), the same precedent `p14c3-save-v38.test.ts`\n// already carries for the first two.\ntype WithRivalBusinesses = { hollywood: { businesses: readonly { account: { periods: readonly { movements: Record<string, number> }[] } }[] } | null }\nfunction withRivalTermination<T extends WithRivalBusinesses>(state: T): T {\n  if (state.hollywood === null) return state\n  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({\n    ...business, account: { ...business.account, periods: business.account.periods.map((period) => ({\n      ...period, movements: { ...period.movements, termination: 0 } })) },\n  })) } }\n}\ntype WithRelationships = { relationships: readonly { sharedCompetitions?: number }[] }\nfunction withSharedCompetitions<T extends WithRelationships>(state: T): T {\n  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, sharedCompetitions: 0 })) }\n}\ntype WithFirstTakes = { firstTakes: readonly unknown[]; firstTakeSubjects?: unknown }\nfunction withFirstTakeSubjects<T extends WithFirstTakes>(state: T): T {\n  return { ...state, firstTakeSubjects: { version: 1, cutoverOrdinal: state.firstTakes.length, facts: [] } }\n}",
+    "cluster": "C20-migration-purity-new-root",
+    "cause": "migrateToLive adds three roots current.state carries that a Save37 old.state never did (firstTakeSubjects V40 commit ef38cf9a, termination V41 1309-X3 ruling 4, sharedCompetitions V42 1320-A S5); the byte-purity comparison against old.state needs the same three with*() wrapper helpers p14c3-save-v38.test.ts already establishes for the first two, built from each root's own migration rule, never a literal. Adds the three helpers."
+  },
+  {
+    "file": "tests/bridge-p14c3-promise-digest-continuity.test.ts",
+    "line": 130,
+    "old_text": "      expect(canonicalJson({ ...current.state, careerLifecycle: oldLifecycle })).toBe(canonicalJson(old.state))",
+    "new_text": "      const expectedOld = withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state)))\n      expect(canonicalJson({ ...current.state, careerLifecycle: oldLifecycle })).toBe(canonicalJson(expectedOld))",
+    "cluster": "C20-migration-purity-new-root",
+    "cause": "migrateToLive adds three roots current.state carries that a Save37 old.state never did (firstTakeSubjects V40 commit ef38cf9a, termination V41 1309-X3 ruling 4, sharedCompetitions V42 1320-A S5); the byte-purity comparison against old.state needs the same three with*() wrapper helpers p14c3-save-v38.test.ts already establishes for the first two, built from each root's own migration rule, never a literal. Applies them to old.state before the canonicalJson comparison inside the currentSaveJson/savedSaveJson loop."
+  },
+  {
+    "file": "tests/contracts/_v14Contract.ts",
+    "line": 424,
+    "old_text": "",
+    "new_text": "  // P14B.1 (V40 extension, commit ef38cf9a): the first-take-subject root is\n  // V40-only \u2014 younger than `firstTakes`/`promises` above but the same family\n  // \u2014 so a genuine V13 file never carried it either. Real authority in it is\n  // never discarded, exactly as `firstTakes`/`promises` above.\n  if ((state.firstTakeSubjects?.facts ?? []).length > 0) {\n    throw new Error('V13 twin cannot discard first-take-subject authority')\n  }\n  delete raw.firstTakeSubjects",
+    "cluster": "C6-v13TwinOf-historical-carrier-premise",
+    "cause": "v13TwinOf's projectToV13State (tests/contracts/_v14Contract.ts:507) strips only roots known when it was written; firstTakeSubjects (V40, commit ef38cf9a) was never added to the strip list, so a genuine V13 twin (carrying none of the newer roots) is refused at the V13 boundary with 'validateSaveV12: state has unknown field \"firstTakeSubjects\"', masking the C2a-M1 (\u00a78.3) widened-leaf boundary assertion every T9 leaf in tests/v14-migration.contract.test.ts depends on. Mirrors the existing firstTakes/promises guard immediately above (same P14B.1 family, one version younger)."
+  },
+  {
+    "file": "tests/p14b5-t-failure-tuning.test.ts",
+    "line": 30,
+    "old_text": "//     `validateRelationshipsRoot` reads) and `hollywood.playerStudioId` (non-null, the seam's guard).",
+    "new_text": "//     `validateRelationshipsRoot` reads), `hollywood.playerStudioId` (non-null, the seam's guard),\n//     and (1324-C / C7, added when `appendFirstTakes` gained the Save40 subject-resolution guard)\n//     `firstTakeSubjects` plus the minimal `concepts`/`scriptDevelopment`/`studio` legacy-mode\n//     shapes `subjectForNewTake`'s real owner/concept resolution unconditionally dereferences.",
+    "cluster": "C7-firstTakeSubjects-migration-guard",
+    "cause": "Documents the two new fixture requirements added to stagedWorld() below (firstTakeSubjects, concepts/scriptDevelopment/studio), keeping the file's own 'every populated field is named in the header' claim accurate."
+  },
+  {
+    "file": "tests/p14b5-t-failure-tuning.test.ts",
+    "line": 99,
+    "old_text": "const shot = (id: string, q: Quartet): Production =>\n  ({ id, directorId: q.director, cast: { lead: q.lead, antagonist: q.antagonist, support: q.support } } as unknown as Production)",
+    "new_text": "// 1324-C / C7: `appendFirstTakes` (src/core/promises.ts:150) resolves every new take's\n// subject through the REAL `subjectForNewTake` (src/core/firstTakeSubjects.ts:18), which\n// needs a `conceptId` naming a concept the issuing studio actually owns. Defaults to the\n// staged world's own fixture concept (below); the carrier call sites pass their genuine one.\nconst shot = (id: string, q: Quartet, conceptId: string = STAGED_CONCEPT_ID): Production =>\n  ({ id, conceptId, directorId: q.director, cast: { lead: q.lead, antagonist: q.antagonist, support: q.support } } as unknown as Production)",
+    "cluster": "C7-firstTakeSubjects-migration-guard",
+    "cause": "subjectForNewTake (src/core/firstTakeSubjects.ts:18), reached from the real appendFirstTakes once state.firstTakeSubjects is present, refuses a production with no genuine conceptId owned by the issuing studio (\"first take subject: missing issuing owner or concept\"); shot()/shoot()/driveChain() thread a real conceptId through instead of inventing one, defaulting to the staged fixture's own concept and using the carrier's genuine worldgen-minted one for groups 5-6. shot() gains an optional conceptId parameter."
+  },
+  {
+    "file": "tests/p14b5-t-failure-tuning.test.ts",
+    "line": 106,
+    "old_text": "function shoot(state: GameState, studioId: string, q: Quartet, week: number, productionId: string): GameState {\n  const production = shot(productionId, q)",
+    "new_text": "function shoot(state: GameState, studioId: string, q: Quartet, week: number, productionId: string, conceptId: string = STAGED_CONCEPT_ID): GameState {\n  const production = shot(productionId, q, conceptId)",
+    "cluster": "C7-firstTakeSubjects-migration-guard",
+    "cause": "subjectForNewTake (src/core/firstTakeSubjects.ts:18), reached from the real appendFirstTakes once state.firstTakeSubjects is present, refuses a production with no genuine conceptId owned by the issuing studio (\"first take subject: missing issuing owner or concept\"); shot()/shoot()/driveChain() thread a real conceptId through instead of inventing one, defaulting to the staged fixture's own concept and using the carrier's genuine worldgen-minted one for groups 5-6. shoot() gains an optional conceptId parameter and passes it to shot()."
+  },
+  {
+    "file": "tests/p14b5-t-failure-tuning.test.ts",
+    "line": 122,
+    "old_text": "function driveChain(start: GameState, studioId: string, q: Quartet, firstWeek: number, productions: number, criticScore: number): Step[] {",
+    "new_text": "function driveChain(start: GameState, studioId: string, q: Quartet, firstWeek: number, productions: number, criticScore: number, conceptId: string = STAGED_CONCEPT_ID): Step[] {",
+    "cluster": "C7-firstTakeSubjects-migration-guard",
+    "cause": "subjectForNewTake (src/core/firstTakeSubjects.ts:18), reached from the real appendFirstTakes once state.firstTakeSubjects is present, refuses a production with no genuine conceptId owned by the issuing studio (\"first take subject: missing issuing owner or concept\"); shot()/shoot()/driveChain() thread a real conceptId through instead of inventing one, defaulting to the staged fixture's own concept and using the carrier's genuine worldgen-minted one for groups 5-6. driveChain()'s signature gains an optional conceptId parameter."
+  },
+  {
+    "file": "tests/p14b5-t-failure-tuning.test.ts",
+    "line": 128,
+    "old_text": "    state = shoot(state, studioId, q, week, `${studioId}:t684-p${String(p)}`)",
+    "new_text": "    state = shoot(state, studioId, q, week, `${studioId}:t684-p${String(p)}`, conceptId)",
+    "cluster": "C7-firstTakeSubjects-migration-guard",
+    "cause": "subjectForNewTake (src/core/firstTakeSubjects.ts:18), reached from the real appendFirstTakes once state.firstTakeSubjects is present, refuses a production with no genuine conceptId owned by the issuing studio (\"first take subject: missing issuing owner or concept\"); shot()/shoot()/driveChain() thread a real conceptId through instead of inventing one, defaulting to the staged fixture's own concept and using the carrier's genuine worldgen-minted one for groups 5-6. driveChain() passes conceptId through to shoot()."
+  },
+  {
+    "file": "tests/p14b5-t-failure-tuning.test.ts",
+    "line": 172,
+    "old_text": "",
+    "new_text": "// 1324-C / C7: the one fixture concept every staged production names via `shot()`'s\n// default `conceptId`. `subjectForNewTake` only ever reads `.id`/`.genre` off it.\nconst STAGED_CONCEPT_ID = 'concept-684t'",
+    "cluster": "C7-firstTakeSubjects-migration-guard",
+    "cause": "Adds STAGED_CONCEPT_ID, the one fixture concept id shot()'s default parameter and stagedWorld()'s new concepts root share."
+  },
+  {
+    "file": "tests/p14b5-t-failure-tuning.test.ts",
+    "line": 177,
+    "old_text": "",
+    "new_text": "  // 1324-C / C7: `appendFirstTakes` (src/core/promises.ts:150) requires this root since\n  // Save40 (commit ef38cf9a); built by convertV39ToV40's own rule over the two roots\n  // already named above (`{version:1, cutoverOrdinal: firstTakes.length, facts:[]}`).\n  firstTakeSubjects: { version: 1, cutoverOrdinal: 0, facts: [] },\n  // 1324-C / C7: `subjectForNewTake` resolves the issuing owner via `takeSubjectOwner`,\n  // which for the player studio dereferences `concepts`/`scriptDevelopment`/`studio`\n  // unconditionally (src/core/firstTakeSubjects.ts:7-15) \u2014 all three are therefore real\n  // roots here too, minimal legacy-mode shapes with no managed screenplay link required.\n  concepts: [{ id: STAGED_CONCEPT_ID, genre: 'drama' }],\n  scriptDevelopment: { mode: 'legacy', projects: [] },\n  studio: { activeProductions: [] },",
+    "cluster": "C7-firstTakeSubjects-migration-guard",
+    "cause": "appendFirstTakes (src/core/promises.ts:144) refuses a state carrying no firstTakeSubjects root since commit ef38cf9a ('promises: migrate to Save40 before recording a first take'); once that root is present, subjectForNewTake (src/core/firstTakeSubjects.ts:7-15) unconditionally dereferences concepts/scriptDevelopment/studio for the player studio, so stagedWorld()'s partial GameState needs minimal legacy-mode shapes for all four, built by convertV39ToV40's own rule for firstTakeSubjects (never a literal)."
+  },
+  {
+    "file": "tests/p14b5-t-failure-tuning.test.ts",
+    "line": 185,
+    "old_text": "function carrier(): { state: GameState; studioId: string; quartet: Quartet } {",
+    "new_text": "function carrier(): { state: GameState; studioId: string; quartet: Quartet; conceptId: string } {",
+    "cluster": "C7-firstTakeSubjects-migration-guard",
+    "cause": "subjectForNewTake (src/core/firstTakeSubjects.ts:18), reached from the real appendFirstTakes once state.firstTakeSubjects is present, refuses a production with no genuine conceptId owned by the issuing studio (\"first take subject: missing issuing owner or concept\"); shot()/shoot()/driveChain() thread a real conceptId through instead of inventing one, defaulting to the staged fixture's own concept and using the carrier's genuine worldgen-minted one for groups 5-6. carrier()'s return type gains conceptId."
+  },
+  {
+    "file": "tests/p14b5-t-failure-tuning.test.ts",
+    "line": 198,
+    "old_text": "  return { state, studioId: state.hollywood!.playerStudioId, quartet }",
+    "new_text": "  // 1324-C / C7: the real `subjectForNewTake` needs a concept the player studio genuinely\n  // owns; the world's own worldgen-minted catalogue supplies one, never an invented id.\n  const concept = state.concepts[0]\n  assert.ok(concept, `premise: ${CARRIER_SEED} at week ${String(CARRIER_WEEK)} carries no concept`)\n  return { state, studioId: state.hollywood!.playerStudioId, quartet, conceptId: concept.id }",
+    "cluster": "C7-firstTakeSubjects-migration-guard",
+    "cause": "subjectForNewTake (src/core/firstTakeSubjects.ts:18), reached from the real appendFirstTakes once state.firstTakeSubjects is present, refuses a production with no genuine conceptId owned by the issuing studio (\"first take subject: missing issuing owner or concept\"); shot()/shoot()/driveChain() thread a real conceptId through instead of inventing one, defaulting to the staged fixture's own concept and using the carrier's genuine worldgen-minted one for groups 5-6. carrier() derives and returns a genuine conceptId from the world's own state.concepts[0], never an invented id."
+  },
+  {
+    "file": "tests/p14b5-t-failure-tuning.test.ts",
+    "line": 201,
+    "old_text": "  const { state, studioId, quartet } = carrier()\n  return driveChain(state, studioId, quartet, CARRIER_FIRST_WEEK, CARRIER_PRODUCTIONS, criticScore)",
+    "new_text": "  const { state, studioId, quartet, conceptId } = carrier()\n  return driveChain(state, studioId, quartet, CARRIER_FIRST_WEEK, CARRIER_PRODUCTIONS, criticScore, conceptId)",
+    "cluster": "C7-firstTakeSubjects-migration-guard",
+    "cause": "subjectForNewTake (src/core/firstTakeSubjects.ts:18), reached from the real appendFirstTakes once state.firstTakeSubjects is present, refuses a production with no genuine conceptId owned by the issuing studio (\"first take subject: missing issuing owner or concept\"); shot()/shoot()/driveChain() thread a real conceptId through instead of inventing one, defaulting to the staged fixture's own concept and using the carrier's genuine worldgen-minted one for groups 5-6. carrierChain() passes the carrier's genuine conceptId to driveChain()."
+  },
+  {
+    "file": "tests/p14b5-t-failure-tuning.test.ts",
+    "line": 355,
+    "old_text": "    const { state, studioId, quartet } = carrier()\n    const production = shot(`${studioId}:t684-replay`, quartet)",
+    "new_text": "    const { state, studioId, quartet, conceptId } = carrier()\n    const production = shot(`${studioId}:t684-replay`, quartet, conceptId)",
+    "cluster": "C7-firstTakeSubjects-migration-guard",
+    "cause": "subjectForNewTake (src/core/firstTakeSubjects.ts:18), reached from the real appendFirstTakes once state.firstTakeSubjects is present, refuses a production with no genuine conceptId owned by the issuing studio (\"first take subject: missing issuing owner or concept\"); shot()/shoot()/driveChain() thread a real conceptId through instead of inventing one, defaulting to the staged fixture's own concept and using the carrier's genuine worldgen-minted one for groups 5-6. The direct shot() call in group 5's first leaf passes the carrier's genuine conceptId."
+  },
+  {
+    "file": "tests/p14c1-materialized-aging.test.ts",
+    "line": 31,
+    "old_text": "  applyActions, exportSave, generateWorld, importSave, loadSave, LIVE_SAVE_VERSION, tick, validateSaveV32,",
+    "new_text": "  applyActions, exportSave, generateWorld, importSave, loadSave, LIVE_SAVE_VERSION, tick, validateSave, validateSaveV32,",
+    "cluster": "C7-firstTakeSubjects-migration-guard",
+    "cause": "Imports the generic validateSave dispatcher (src/core/save.ts:5383, index.ts \u00a717 'dispatches on version') used to replace the two stale validateSaveV38 call sites below."
+  },
+  {
+    "file": "tests/p14c1-materialized-aging.test.ts",
+    "line": 76,
+    "old_text": "// LIVE check below moves straight to `validateSaveV38`.",
+    "new_text": "// LIVE check below goes through the generic `validateSave` dispatcher (index.ts\n// \u00a717: \"dispatches on version\"), never a version-literal validator name, so a\n// genuinely live-tagged envelope (`saveVersion: LIVE_SAVE_VERSION`) is always\n// checked by whatever validator its own tag names (1324-C / C7: `validateSaveV38`\n// was pinned here and silently stopped matching once the live version moved past\n// 38 \u2014 masked until the C7 `firstTakeSubjects` gap above stopped throwing first).",
+    "cluster": "C7-firstTakeSubjects-migration-guard",
+    "cause": "Updates the comment documenting why every LIVE check below now goes through the generic validateSave dispatcher instead of a version-literal validator name, and records the 1324-C finding that validateSaveV38 was masked here until the C7 firstTakeSubjects gap stopped throwing first."
+  },
+  {
+    "file": "tests/p14c1-materialized-aging.test.ts",
+    "line": 79,
+    "old_text": "const validateSaveV38 = SaveModule.validateSaveV38",
+    "new_text": "",
+    "cluster": "C7-firstTakeSubjects-migration-guard",
+    "cause": "Removes the now-unused const validateSaveV38 = SaveModule.validateSaveV38 alias (noUnusedLocals) once both call sites switch to the generic validateSave dispatcher."
+  },
+  {
+    "file": "tests/p14c1-materialized-aging.test.ts",
+    "line": 154,
+    "old_text": "  const live = SaveModule.convertV37ToV38(SaveModule.convertV36ToV37(v36))",
+    "new_text": "  const v38 = SaveModule.convertV37ToV38(SaveModule.convertV36ToV37(v36))\n  // 1324-C / C7: one further governed step to the true live boundary \u2014\n  // `appendFirstTakes` (src/core/promises.ts:144, commit ef38cf9a) now throws\n  // on a state carrying no `firstTakeSubjects` root whenever `tick()` reaches a\n  // shoot event, so every lifted state needs the V40 root too, built by\n  // `convertV39ToV40`'s own rule, never a literal.\n  const v40 = SaveModule.convertV39ToV40(SaveModule.convertV38ToV39(v38))\n  // 1324-C / C20 family: every case below that tags its own envelope\n  // `saveVersion: LIVE_SAVE_VERSION` and hands it to the generic `validateSave`\n  // dispatcher needs a state that is ACTUALLY V42-shaped, or the claim is\n  // incoherent \u2014 the frozen V41/V24 Hollywood-account-periods leg refuses a V40\n  // state for a missing `termination` movement first. Two further governed\n  // steps, by the same rule as above, never a literal.\n  const live = SaveModule.convertV41ToV42(SaveModule.convertV40ToV41(v40))",
+    "cluster": "C7-firstTakeSubjects-migration-guard",
+    "cause": "appendFirstTakes (src/core/promises.ts:144, commit ef38cf9a) throws 'promises: migrate to Save40 before recording a first take' when tick() reaches a shoot event on a state liftForTick only carried to V38; extended by the same governed-conversion pattern the function already established across P14C.2a/P14C.4/C.3 (one named step per newly-required root, never a literal) through convertV39ToV40 (firstTakeSubjects), convertV40ToV41 (termination) and convertV41ToV42 (sharedCompetitions) \u2014 the latter two because several leaves below tag their own envelope saveVersion: LIVE_SAVE_VERSION and validate it through the generic dispatcher, which requires the state to actually BE V42-shaped."
+  },
+  {
+    "file": "tests/p14c1-materialized-aging.test.ts",
+    "line": 633,
+    "old_text": "      const validated = validateSaveV38(reloaded)",
+    "new_text": "      const validated = validateSave(reloaded)",
+    "cluster": "C7-firstTakeSubjects-migration-guard",
+    "cause": "The leaf's own title states \"the round trip is through whatever the live writer stamps, not pinned to V33\"; the call site was still pinned to the frozen validateSaveV38, refusing the now-genuinely-V42-tagged envelope with 'validateSaveV38: expected version 38'. Replaced with the generic validateSave dispatcher."
+  },
+  {
+    "file": "tests/p14c1-materialized-aging.test.ts",
+    "line": 728,
+    "old_text": "    // C.3: `baseState()` now ticks a live (V38) state; `validateSaveV38`\n    // delegates to `validateSaveV34`, which delegates to the frozen V33 chain \u2014\n    // the four causes below still stay distinguishable, each inner message\n    // surviving through both wrapping prefixes (checked by substring, not\n    // exact-match, below).",
+    "new_text": "    // 1324-C / C7 & C20: `baseState()` now ticks a genuinely V42-shaped live\n    // state (`liftForTick`), and the envelope is checked through the generic\n    // `validateSave` dispatcher rather than a version-literal validator name \u2014\n    // it still delegates all the way down to the frozen V33 chain for\n    // everything this test tampers with, so the four causes stay distinguishable\n    // through every wrapping prefix (checked by substring, not exact-match).",
+    "cluster": "C7-firstTakeSubjects-migration-guard",
+    "cause": "Updates the comment documenting that refusalMessage() now goes through the generic validateSave dispatcher, delegating all the way down to the same frozen V33 chain so the four tamper causes stay distinguishable."
+  },
+  {
+    "file": "tests/p14c1-materialized-aging.test.ts",
+    "line": 736,
+    "old_text": "      validateSaveV38(json)",
+    "new_text": "      validateSave(json)",
+    "cluster": "C7-firstTakeSubjects-migration-guard",
+    "cause": "Same stale-pin defect as line 633, inside refusalMessage(): validateSaveV38(json) refused the genuinely-V42-tagged envelope before its own intended tamper-message assertion could run. Replaced with the generic validateSave dispatcher."
+  },
+  {
+    "file": "tests/p14c3-save-v38.test.ts",
+    "line": 34,
+    "old_text": "",
+    "new_text": "// 1324-C / C20: convertV39ToV40 (src/core/save.ts:10493) adds a top-level\n// `firstTakeSubjects` root, built from the state's own already-written\n// `firstTakes` root (`{version:1, cutoverOrdinal: firstTakes.length, facts:[]}`);\n// a genuine V37 old.state never carried it either.\ntype WithFirstTakes = { firstTakes: readonly unknown[]; firstTakeSubjects?: unknown }\nfunction withFirstTakeSubjects<T extends WithFirstTakes>(state: T): T {\n  return { ...state, firstTakeSubjects: { version: 1, cutoverOrdinal: state.firstTakes.length, facts: [] } }\n}",
+    "cluster": "C20-migration-purity-new-root",
+    "cause": "Adds withFirstTakeSubjects, the third with*() wrapper alongside the file's own existing withRivalTermination/withSharedCompetitions, built from convertV39ToV40's own rule (src/core/save.ts:10493: version 1, cutoverOrdinal: old firstTakes.length, facts: []), never a literal."
+  },
+  {
+    "file": "tests/p14c3-save-v38.test.ts",
+    "line": 72,
+    "old_text": "      expect(stableStringify(stripped), 'every old field, receipt, clock and RNG value survives migration').toBe(stableStringify(withRivalTermination(withSharedCompetitions(old.state))))",
+    "new_text": "      expect(stableStringify(stripped), 'every old field, receipt, clock and RNG value survives migration').toBe(stableStringify(withRivalTermination(withSharedCompetitions(withFirstTakeSubjects(old.state)))))",
+    "cluster": "C20-migration-purity-new-root",
+    "cause": "The 'every old field, receipt, clock and RNG value survives migration' comparison wrapped old.state in withRivalTermination(withSharedCompetitions(...)) but never added the V40 firstTakeSubjects root the same migrateToLive() call also genuinely adds, leaving the comparison to fail on that one unwrapped root. Adds withFirstTakeSubjects(...) to the same chain."
+  },
+  {
+    "file": "tests/p14p3-directing-promises.test.ts",
+    "line": 67,
+    "old_text": "",
+    "new_text": "// 1324-C / C20: three roots `migrateToLive` genuinely adds that a Save38 `outgoing()`\n// fixture never carried \u2014 built from the old state by each root's own migration\n// rule, never a literal (1309-X3 ruling 4 `termination`; 1320-A S5\n// `sharedCompetitions`; convertV39ToV40 `firstTakeSubjects`), the same precedent\n// `p14c3-save-v38.test.ts` already carries for the first two.\ntype WithRivalBusinesses = { hollywood: { businesses: readonly { account: { periods: readonly { movements: Record<string, number> }[] } }[] } | null }\nfunction withRivalTermination<T extends WithRivalBusinesses>(state: T): T {\n  if (state.hollywood === null) return state\n  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({\n    ...business, account: { ...business.account, periods: business.account.periods.map((period) => ({\n      ...period, movements: { ...period.movements, termination: 0 } })) },\n  })) } }\n}\ntype WithRelationships = { relationships: readonly { sharedCompetitions?: number }[] }\nfunction withSharedCompetitions<T extends WithRelationships>(state: T): T {\n  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, sharedCompetitions: 0 })) }\n}\ntype WithFirstTakes = { firstTakes: readonly unknown[]; firstTakeSubjects?: unknown }\nfunction withFirstTakeSubjects<T extends WithFirstTakes>(state: T): T {\n  return { ...state, firstTakeSubjects: { version: 1, cutoverOrdinal: state.firstTakes.length, facts: [] } }\n}\n",
+    "cluster": "C20-migration-purity-new-root",
+    "cause": "D14 compares migrateToLive(old.save) (a Save38 fixture, per outgoing()'s own return type) against old.save.state verbatim with no wrapper at all; convertV39ToV40/convertV40ToV41/convertV41ToV42 each add a root the V38 fixture never carried (1320-C's own 'Unresolved items' #3 measured three co-mingled gaps here: firstTakeSubjects V40, termination V41, sharedCompetitions V42). Adds the same three with*() helpers as the other C20 files."
+  },
+  {
+    "file": "tests/p14p3-directing-promises.test.ts",
+    "line": 369,
+    "old_text": "      const old = outgoing(name), oldState = saves.stableStringify(old.save.state)",
+    "new_text": "      const old = outgoing(name)\n      const oldState = saves.stableStringify(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.save.state))))",
+    "cluster": "C20-migration-purity-new-root",
+    "cause": "Applies the three wrappers to old.save.state before stableStringify, so oldState is built from the old state by each root's own migration rule rather than compared bare."
+  },
+  {
+    "file": "tests/p14c3-save-v38.test.ts",
+    "line": 93,
+    "old_text": "expect(stableStringify(migrateToLive(old))).toBe(stableStringify(converted))",
+    "new_text": "expect(stableStringify(migrateToLive(old))).toBe(stableStringify(converted))",
+    "cluster": "C20-migration-purity-new-root",
+    "cause": "RULE 4 \u2014 NOT EDITED. 'exposes matching strict38 conversion, validation and current migration over a genuine37 save' compares a permanently-V38-pinned convertV37ToV38(old) against migrateToLive(old), which always tracks the live version (currently 42). Structurally broken since V39 shipped (1320-C 'Unresolved items' #2, itself citing 1316's identical primary with '...41...' in place of today's '...42...'); no version-literal or with*() root-addition fix can make a fixed-V38 comparator agree with a moving live comparator without changing what the assertion means. Measured directly on Build56 (this task): Received saveVersion 42 vs Expected saveVersion 38, full canonicalized state bodies otherwise structurally parallel. Left failing; reported to the parent per the plan's explicit instruction for this exact leaf."
+  }
+]
