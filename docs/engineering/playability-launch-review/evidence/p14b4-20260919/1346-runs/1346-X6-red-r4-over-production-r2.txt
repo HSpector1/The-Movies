@@ -1,0 +1,13 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1346-x5/tree
+
+ ✓ |core| tests/p15a1-shared-market.test.ts (33 tests) 238ms
+ ✓ |core| tests/p15a1-shared-market-harness.test.ts (2 tests) 4114ms
+   ✓ p15a1 shared market: pure 6,240-week harness (1323-F Amendment 3) > market-harness-normal-stream-bounded-active-set-and-determinism 3805ms
+   ✓ p15a1 shared market: pure 6,240-week harness (1323-F Amendment 3) > market-harness-hostile-batch-work-bound-and-active-set 307ms
+
+ Test Files  2 passed (2)
+      Tests  35 passed (35)
+   Start at  01:07:59
+   Duration  5.71s (transform 640ms, setup 0ms, collect 672ms, tests 4.35s, environment 1ms, prepare 826ms)
+

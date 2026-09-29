@@ -1,0 +1,169 @@
+diff --git a/src/core/sharedMarket.ts b/src/core/sharedMarket.ts
+index c34f051..dadc946 100644
+--- a/src/core/sharedMarket.ts
++++ b/src/core/sharedMarket.ts
+@@ -13,8 +13,9 @@
+ // s itself) and stock sums every genre-g stock weight, unclamped. The factor is
+ // f(P) = 1 − 0.25·(1 − e^(−P/2)). Other genres contribute nothing.
+ //
+-// Exactness: every term is evaluated from integer release counts per week offset, in a
+-// fixed offset order. No input order, studio order or id relabelling can move a bit of
++// Exactness: every term is evaluated from each week offset's summed release contribution
++// (`releaseContribution`; 1 per release in v1, so these are integer counts), in a fixed
++// offset order. No input order, studio order or id relabelling can move a bit of
+ // pressure, factor or either term, and no studio flag or owner enters the formula.
+ //
+ // Work (1323-F Amendment 3): one pass folds each exposure and each member into
+@@ -46,10 +47,10 @@ export type MarketExposure = MarketRelease
+ export type MarketBatchMember = { releaseId: string; studioId: string; genre: Genre }
+ export type MarketBatch = { week: number; members: readonly MarketBatchMember[] }
+ /**
+- * One reason per applicable code. Its contributors are releases, each weighing its lane
+- * weight at the batch week; `value` is the full sum over every contributor, and
+- * `sourceReleaseIds` lists the heaviest MARKET_REASON_SOURCE_LIMIT of them in selection
+- * order, ties by ascending releaseId (1346-F):
++ * One reason per applicable code. Its contributors are releases, each weighing its
++ * contribution times its lane weight at the batch week; `value` is the full sum over
++ * every contributor, and `sourceReleaseIds` lists the heaviest MARKET_REASON_SOURCE_LIMIT
++ * of them in selection order, ties by ascending releaseId (1346-F):
+  * - SAME_WEEK_RELEASES: the other same-genre batch members;
+  * - WINDOW_RELEASES: same-genre pre-batch exposures in the window lane;
+  * - GENRE_SATURATION: same-genre exposures in the stock lane (value = stockTerm);
+@@ -75,6 +76,11 @@ export type MarketLaneTransition = { releaseId: string; from: MarketLane; to: Ma
+ 
+ // ── the lanes and the factor ─────────────────────────────────────────────────
+ 
++/** 1323-A §3 reach-scaling seam: every release weight is multiplied through it once. v1 returns 1. */
++export function releaseContribution(_release: MarketRelease): number {
++  return 1
++}
++
+ /** A release's lane and weight at `week`. Exactly one lane per week; `week < releaseWeek` is a caller error. */
+ export function exposureWeight(releaseWeek: number, week: number): { lane: MarketLane; weight: number } {
+   if (!Number.isInteger(releaseWeek) || !Number.isInteger(week)) {
+@@ -93,41 +99,31 @@ export function exposureWeight(releaseWeek: number, week: number): { lane: Marke
+   return { lane: 'retired', weight: 0 }
+ }
+ 
+-/** f(P) = 1 − 0.25·(1 − e^(−P/2)), with f(0) = 1 exactly. */
++/** f(P) = 1 − 0.25·(1 − e^(−P/2)) as written: f(0) = 1 exactly; float64 rounds it to exactly 0.75 past P ≈ 72. */
+ export function pressureFactor(pressure: number): number {
+   if (!Number.isFinite(pressure) || pressure < 0) {
+     throw new Error(`shared market: pressure must be finite and non-negative (got ${pressure})`)
+   }
+   const maxPenalty = TUNING.SHARED_MARKET_FACTOR_MAX_PENALTY
+-  const factor = 1 - maxPenalty * (1 - Math.exp(-pressure / TUNING.SHARED_MARKET_PRESSURE_SCALE))
+-  // The law's range is (1 − maxPenalty, 1] (1323-A §3). Past P ≈ 72 the double nearest
+-  // the formula is the excluded bound itself, so the law returns the next double above it.
+-  const bound = 1 - maxPenalty
+-  return factor > bound ? factor : nextDoubleAbove(bound)
+-}
+-
+-function nextDoubleAbove(x: number): number {
+-  const float = new Float64Array([x])
+-  new BigUint64Array(float.buffer)[0] += 1n // x is positive and finite: the next bit pattern is the next double up
+-  return float[0] as number
++  return 1 - maxPenalty * (1 - Math.exp(-pressure / TUNING.SHARED_MARKET_PRESSURE_SCALE))
+ }
+ 
+ // ── batch assessment ─────────────────────────────────────────────────────────
+ 
+ type Source = { releaseId: string; weight: number }
+ 
+-/** One studio's genre-g releases in the window lane, counted per week offset (0 = the batch week). */
++/** One studio's genre-g releases in the window lane: contribution summed per week offset (0 = the batch week). */
+ type StudioWindow = { counts: number[]; raw: number; sources: Source[] }
+ 
+ type GenreBook = {
+   studios: Map<string, StudioWindow>
+-  windowCounts: number[] // every window-lane release per offset: members at 0, exposures at 1..3
++  windowCounts: number[] // window-lane contribution per offset: members at 0, exposures at 1..3
+   sameWeekSources: Source[] // one spare, for self-exclusion
+   windowSources: Source[]
+   clamped: number // studio windows over the cap
+-  clampedCounts: number[] // their releases per offset
++  clampedCounts: number[] // their contribution per offset
+   clampedTop: StudioWindow[] // the clamped windows with the heaviest leads, one spare
+-  stockCounts: number[] // stock-lane releases per offset
++  stockCounts: number[] // stock-lane contribution per offset
+   stockSources: Source[]
+   stockTerm: number
+   digest: bigint // order-free sum of the genre's record digests
+@@ -181,10 +177,11 @@ export function assessBatch(
+     if (lane === 'retired') continue
+     const book = bookFor(exposure.genre)
+     addDigest(book, exposure.releaseWeek, exposure.releaseId, exposure.studioId)
+-    const source = { releaseId: exposure.releaseId, weight }
+-    if (lane === 'window') foldWindow(book, exposure.studioId, source, offset)
++    const contribution = releaseContribution(exposure)
++    const source = { releaseId: exposure.releaseId, weight: contribution * weight }
++    if (lane === 'window') foldWindow(book, exposure.studioId, source, offset, contribution)
+     else {
+-      book.stockCounts[offset]!++
++      book.stockCounts[offset]! += contribution
+       keepHeaviest(book.stockSources, source, MARKET_REASON_SOURCE_LIMIT)
+     }
+   }
+@@ -196,7 +193,8 @@ export function assessBatch(
+     requireRelease(member, seen)
+     const book = bookFor(member.genre)
+     addDigest(book, week, member.releaseId, member.studioId)
+-    foldWindow(book, member.studioId, { releaseId: member.releaseId, weight: sameWeekWeight }, 0)
++    const contribution = releaseContribution(asRelease(member, week))
++    foldWindow(book, member.studioId, { releaseId: member.releaseId, weight: contribution * sameWeekWeight }, 0, contribution)
+   }
+ 
+   for (const book of books.values()) {
+@@ -218,12 +216,13 @@ function assessSubject(member: MarketBatchMember, week: number, book: GenreBook)
+   // Self-exclusion: the subject is one same-week release in its own studio's window.
+   // Take it out and re-clamp that studio; every other studio stands as folded.
+   const own = book.studios.get(member.studioId)!
++  const contribution = releaseContribution(asRelease(member, week))
+   const ownCounts = own.counts.slice()
+-  ownCounts[0]!--
++  ownCounts[0]! -= contribution
+   const ownWasClamped = own.raw > cap
+   const ownIsClamped = laneSum(ownCounts, 0, windowLength) > cap
+   const counts = book.windowCounts.slice()
+-  counts[0]!--
++  counts[0]! -= contribution
+   const clampedCounts = book.clampedCounts.slice()
+   if (ownWasClamped) addCounts(clampedCounts, own.counts, -1)
+   if (ownIsClamped) addCounts(clampedCounts, ownCounts, 1)
+@@ -276,7 +275,7 @@ function reason(code: MarketReasonCode, value: number, sources: readonly Source[
+   return { code, sourceReleaseIds: sources.slice(0, MARKET_REASON_SOURCE_LIMIT).map((s) => s.releaseId), value }
+ }
+ 
+-function foldWindow(book: GenreBook, studioId: string, source: Source, offset: number): void {
++function foldWindow(book: GenreBook, studioId: string, source: Source, offset: number, contribution: number): void {
+   const cap = TUNING.SHARED_MARKET_STUDIO_WINDOW_CAP
+   let studio = book.studios.get(studioId)
+   if (studio === undefined) {
+@@ -284,13 +283,13 @@ function foldWindow(book: GenreBook, studioId: string, source: Source, offset: n
+     book.studios.set(studioId, studio)
+   }
+   const wasClamped = studio.raw > cap
+-  studio.counts[offset]!++
++  studio.counts[offset]! += contribution
+   studio.raw = laneSum(studio.counts, 0, studio.counts.length)
+   keepHeaviest(studio.sources, source, MARKET_REASON_SOURCE_LIMIT + 1)
+-  book.windowCounts[offset]!++
++  book.windowCounts[offset]! += contribution
+   if (offset === 0) keepHeaviest(book.sameWeekSources, source, MARKET_REASON_SOURCE_LIMIT + 1)
+   else keepHeaviest(book.windowSources, source, MARKET_REASON_SOURCE_LIMIT)
+-  if (wasClamped) book.clampedCounts[offset]!++
++  if (wasClamped) book.clampedCounts[offset]! += contribution
+   else if (studio.raw > cap) {
+     book.clamped++
+     addCounts(book.clampedCounts, studio.counts, 1)
+@@ -368,6 +367,10 @@ function canonicalMembers(members: readonly MarketBatchMember[]): MarketBatchMem
+   return [...members].sort((a, b) => compareIds(a.releaseId, b.releaseId))
+ }
+ 
++function asRelease(member: MarketBatchMember, week: number): MarketRelease {
++  return { releaseId: member.releaseId, studioId: member.studioId, genre: member.genre, releaseWeek: week }
++}
++
+ function requireWeek(week: number): number {
+   if (!Number.isInteger(week)) throw new Error(`shared market: batch week must be an integer (got ${week})`)
+   return week
