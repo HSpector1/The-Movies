@@ -1,0 +1,11 @@
+   × u2 probe awaits 6 s 5007ms
+     → Test timed out in 5000ms.
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL |ui|  ui/src/zz-u2-probe.test.ts > u2 probe awaits 6 s
+Error: Test timed out in 5000ms.
+---core
+   × u2 probe awaits 6 s 5009ms
+     → Test timed out in 5000ms.
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL |core|  tests/zz-u2-probe.test.ts > u2 probe awaits 6 s
+Error: Test timed out in 5000ms.
