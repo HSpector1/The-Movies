@@ -14,6 +14,7 @@ import {
   applyActions,
   firstFilmJourney,
   loadSave,
+  migrateToLive,
   tick,
 } from '../../../../src/core/index.ts'
 import type { GameState, ProductionWorkflow } from '../../../../src/core/index.ts'
@@ -328,7 +329,12 @@ describe('P05A W2 — closed operational states across the lifecycle', () => {
     const fixturePath = [`ui/${fixture}`, fixture].find(existsSync)
     expect(fixturePath, 'wrapped-waiting oracle fixture must exist').toBeDefined()
     const raw = JSON.parse(readFileSync(fixturePath!, 'utf8')) as unknown
-    const state = (loadSave(raw) as { state: GameState }).state
+    // The app's own load path always migrates a loaded save to the live version
+    // before handing state to the engine (ui/src/engine/adapter.ts:3796,
+    // `importSaveJson`: `migrateToLive(save).state`). This fixture is a historical
+    // Save16; reading it through `loadSave` alone (without migration) passes a
+    // pre-Hollywood state with no `hollywood` root to `studioLotSnapshot`.
+    const state = migrateToLive(loadSave(raw)).state
     const waiting = 'prod-0002'
 
     // Rail side: the authoritative current state.
@@ -358,7 +364,9 @@ describe('P05A W2 — closed operational states across the lifecycle', () => {
     const fixture = 'e2e/p06-visual-oracle-v1/s2-wrapped-waiting-for-post.save.json'
     const fixturePath = [`ui/${fixture}`, fixture].find(existsSync)
     expect(fixturePath, 'wrapped-waiting oracle fixture must exist').toBeDefined()
-    const state = (loadSave(JSON.parse(readFileSync(fixturePath!, 'utf8')) as unknown) as { state: GameState }).state
+    // See the citation above: the app's own load path migrates before use
+    // (ui/src/engine/adapter.ts:3796).
+    const state = migrateToLive(loadSave(JSON.parse(readFileSync(fixturePath!, 'utf8')) as unknown)).state
     const waiting = 'prod-0002'
     const snapshot = managedSnapshot(state)
 

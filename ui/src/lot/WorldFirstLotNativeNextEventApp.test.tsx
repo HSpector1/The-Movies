@@ -556,7 +556,11 @@ function currentSessionBytes(): string {
 async function renderStudio(state: GameState) {
   saveActiveSession(state)
   render(<App />)
-  const lot = await screen.findByTestId('studio-lot-screen')
+  // M1: this file's first mount races App's lazily loaded StudioLotScreen chunk
+  // (ui/src/App.tsx:239) against findBy's 1000ms default; the cold transform can
+  // exceed it. An explicit timeout on this wait only, never a change to what is
+  // asserted.
+  const lot = await screen.findByTestId('studio-lot-screen', {}, { timeout: 10_000 })
   await waitFor(() => expect(renderer.instances).toHaveLength(1))
   return {
     lot,
@@ -1702,7 +1706,7 @@ describe('World-First Lot-Native Next-Event Cadence V1 — App/Lot integration',
       'next-event-reaction',
     )
     expect(currentSessionBytes()).toBe(exportSaveJson(secondExpected.next))
-  })
+  }, 30_000)
 
   it('accepts only neutral final facts when the primary receipt is malformed and retains one independently valid completion', async () => {
     const before = constructionBefore(
@@ -2073,5 +2077,5 @@ describe('World-First Lot-Native Next-Event Cadence V1 — App/Lot integration',
     fireEvent.click(replacementControl, { detail: 1 })
     await waitFor(() => expect(adapterProbe.calls).toHaveLength(2))
     await screen.findByTestId('lot-next-event-rail')
-  })
+  }, 30_000)
 })

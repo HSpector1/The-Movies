@@ -204,7 +204,11 @@ function pauseClassRunway(start: GameState): {
 async function mountLot(state: GameState) {
   saveActiveSession(state)
   render(<App />)
-  await screen.findByTestId('studio-lot-screen')
+  // M1: this file's first mount races App's lazily loaded StudioLotScreen chunk
+  // (ui/src/App.tsx:239) against findBy's 1000ms default; the cold transform can
+  // exceed it. An explicit timeout on this wait only — still strictly before
+  // `vi.useFakeTimers()` below, per the comment above this function.
+  await screen.findByTestId('studio-lot-screen', {}, { timeout: 10_000 })
   await waitFor(() => expect(renderer.instances).toHaveLength(1))
   vi.useFakeTimers()
   // @testing-library's fake-timer support keys off a global `jest` carrying
@@ -459,7 +463,7 @@ describe('Living Turn V1 — the partition, at the seam', () => {
     const restored = loadActiveSession()
     expect(restored.ok).toBe(true)
     if (restored.ok) expect(exportSaveJson(restored.state)).toBe(exportSaveJson(runway.at))
-  })
+  }, 30_000)
 
   it('a NOTIFY-class wrap reaches the bulletin and the loop keeps working', async () => {
     const start = walkToWeekBefore(

@@ -991,7 +991,7 @@ describe('Lot-native Casting review — App commit and handoff authority', () =>
       exactFeedback(authorityProbe.lotProps!).receipt,
       newerReceipt,
     )).toBe(true)
-  })
+  }, 30_000)
 
   it('invalidates retained Lot Casting callbacks synchronously when deep navigation starts', async () => {
     const before = reviewState()

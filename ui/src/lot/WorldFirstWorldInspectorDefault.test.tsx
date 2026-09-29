@@ -352,7 +352,7 @@ describe('World Inspector Default V1 — no building click ever ejects', () => {
       renderer.instances.length = 0
       resetLotSelectedBuilding()
     }
-  })
+  }, 30_000)
 
   it('routes canvas intent and semantic companion activation to the same owner', async () => {
     const { routes } = renderLot(managedWeekZero('world-inspector-canvas-parity'))
@@ -626,7 +626,7 @@ describe('M-B — the buildings carry the verbs the guidance names', () => {
         resetLotSelectedBuilding()
       }
     }
-  })
+  }, 30_000)
 
   it('offers Development the Commission verb at Week 0 — the first step of the whole game', async () => {
     const { routes } = renderLot(managedScriptWeekZero('m-b-commission-verb'))

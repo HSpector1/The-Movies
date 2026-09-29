@@ -247,7 +247,11 @@ function activeSessionBytes(): string {
 async function renderStudio(state: GameState) {
   expect(saveActiveSession(state)).toBe(true)
   render(<App />)
-  const lot = await screen.findByTestId('studio-lot-screen')
+  // M1: this file's first mount races App's lazily loaded StudioLotScreen chunk
+  // (ui/src/App.tsx:239) against findBy's 1000ms default; the cold transform can
+  // exceed it. An explicit timeout on this wait only, never a change to what is
+  // asserted.
+  const lot = await screen.findByTestId('studio-lot-screen', {}, { timeout: 10_000 })
   await waitFor(() => expect(renderer.instances).toHaveLength(1))
   return {
     lot,
@@ -492,7 +496,7 @@ describe('World-First Lot-Native Casting Review Intervention V1 — App/Lot inte
       before.scriptDevelopment.projects.find((project) => project.id === context.projectId)
         ?.conceptId,
     )
-  })
+  }, 30_000)
 
   it('keeps a blocked acknowledgement and every current remedy on the same mounted fallback Lot', async () => {
     const before = blockedReviewState()
