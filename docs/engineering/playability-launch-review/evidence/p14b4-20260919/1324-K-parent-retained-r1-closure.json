@@ -1,0 +1,191 @@
+{
+  "record": "1324-K parent closure: retained-defect repair R1 (clusters C6, C7, C20), test-only",
+  "timeUtc": "2026-09-29T06:33:22.410089+00:00",
+  "disposition": "CLOSED \u2014 LOGIC VERIFIED \u00b7 UNITY NOT VERIFIED. Headless TypeScript/Vitest evidence only; no Unity run. Not GREEN: 93 core and 32 UI failures remain open, every one a recorded retained identity (0 new in either gate).",
+  "scope": "Tests only (1324-A rule 1): 7 files under tests/, no production, fixture payload or config change.",
+  "plan": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1324-A-retained-defect-repair-r1-plan.md",
+    "bytes": 3166,
+    "sha256": "377839d466607ecc46e9bee7553a5884302b0b9d9b106c1fd20ac59e5ac40a0f"
+  },
+  "handback": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1324-C-retained-r1-handback.md",
+    "bytes": 19946,
+    "sha256": "e16048176b1d2ed3fc373e3ad5ffed2f0f9ea38b464769d22c9d97d55aad1ba7"
+  },
+  "staged": {
+    "patch": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1324-stage/1324-retained-r1.patch",
+      "bytes": 26952,
+      "sha256": "cbbbed4e6c98dcb8111a721c52943976f37009ecb9b02039b742e37913d22383"
+    },
+    "classification": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1324-stage/1324-retained-r1-classification.json",
+      "bytes": 31315,
+      "sha256": "6e219e62161d090d1674868dee1c5187afb300b78a2f11bc7facbd8e92f04d80"
+    },
+    "stagingCommit": "133aca7a"
+  },
+  "dryRun": {
+    "record": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1324-X-retained-r1-dry-run.md",
+      "bytes": 3504,
+      "sha256": "8bf3d6a920ea16b599c8f1c1284d4c7087dbdb2100667d49c533c975605e4ce2"
+    },
+    "extract": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1324-X-fullcore-extract.txt",
+      "bytes": 3163,
+      "sha256": "1d0c4c0a02c3d82becebb1e68481b9c6c181049e476d281afbde9c8b4b982b12"
+    },
+    "rows": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1324-X-fullcore-rows.json",
+      "bytes": 109271,
+      "sha256": "fbfefba80472eda949c4e4e2505c3b3a4a6e734b9b59def032e5acd4656a7bde"
+    },
+    "result": "100 failed / 4581 passed; 58 gone, 7 scratch-only bridge-supervisor rows, no new cause"
+  },
+  "implementationReview": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1324-D-retained-r1-review.md",
+    "bytes": 10657,
+    "sha256": "ee44aefc7f9eaba93c89fae641dbb27634e859b5566ad4e1e8ddb78243306ab1"
+  },
+  "implementationVerdict": "ACCEPT, no required changes (non-blocking: validateSave dispatcher equal in strength here because the envelope stamp is the LIVE_SAVE_VERSION constant; stagedWorld() cast leaves its new roots runtime-checked only)",
+  "application": {
+    "commit": "57b7bee9",
+    "appliedFilesEqualDryRunTree": true
+  },
+  "coreGate": {
+    "failedFiles": 29,
+    "failed": 93,
+    "passed": 4588,
+    "skipped": 3,
+    "todo": 11,
+    "retainedSame": 85,
+    "retainedChanged": 8,
+    "new": 0,
+    "goneFrom1316": 58,
+    "gone": "56 R1 target rows (C6 25, C7 23, C20 8) plus the two c2a-m2-sets-save leaves whose 1321 refusal was the same v13TwinOf firstTakeSubjects cause (incidental fix of a shared root cause, reported by 1324-C, 1324-X and 1324-D)",
+    "testedDiff": "testedDiffSha256 = sha256(\"\") at start and end; 0-byte patch",
+    "run": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1325-r1-broad-core-collection-preflight.json",
+        "bytes": 19208,
+        "sha256": "fbd1bbb3814fc2b607cb2fb9f90cca8879237bc5fe32cbc00d900182b95f12f7"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1325-r1-broad-core-preflight.json",
+        "bytes": 115188,
+        "sha256": "6f0ed23c225484a89efabe6232d610e007ffd1ff82725d3c68bef34c024bdbcc"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1325-r1-broad-core.json",
+        "bytes": 71364,
+        "sha256": "f4fa103f20fca6c30509d4f3ad5ad71faf60b0a4e63a95032efcad16780d4aae"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1325-r1-broad-core.txt",
+        "bytes": 16760146,
+        "sha256": "b8961d326c8828ee271c49605cde7f989590ee1381be16aa27170b693cab196e"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1325-r1-broad-core.patch",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1325-r1-broad-core-postflight.json",
+        "bytes": 115852,
+        "sha256": "1a224da9210af746a58385e0df20c80d2aa4c427a06963de468b72269bfc1883"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1325-r1-broad-core-collection-postflight.json",
+        "bytes": 139,
+        "sha256": "3768a1c4b6a4940627b88ab28f24b033a55cfc3cb21021a678a53d7ddd17e872"
+      }
+    ],
+    "attribution": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1325-I-broad-core-attribution.md",
+        "bytes": 2716,
+        "sha256": "8974067232598f2c39837e061a4f08f0ad336998d69fb092dcdce35a344dd85c"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1325-I-failures.json",
+        "bytes": 104217,
+        "sha256": "d12c597f6b2801baedeb45c8267d627b3ed1da7ff425e1cbcf06e934950fbee0"
+      }
+    ]
+  },
+  "uiGate": {
+    "failedFiles": 9,
+    "failed": 32,
+    "passed": 2660,
+    "skipped": 5,
+    "newAgainst1303": 7,
+    "outsideRecorded1317or1322": 0,
+    "attributionNote": "UI project ran source byte-identical to 1322; the 7 rows beyond 1322 are the C1 time-budget rows 1317-I measured (A/B on old source, files pass alone). 1325-J notes: 1326-I line 35 \"among the 25\" means the 25 failures 1322 recorded, not the 25 RETAINED-SAME rows.",
+    "testedDiff": "testedDiffSha256 = sha256(\"\") at start and end; 0-byte patch",
+    "run": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1326-r1-broad-ui-preflight.json",
+        "bytes": 115188,
+        "sha256": "4b01a0b758621c92981d30ef594fa266ee09c192de78917cd25268b53730ff55"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1326-r1-broad-ui.json",
+        "bytes": 52799,
+        "sha256": "af9f48cd28995c760499364b07e9b9c1d083dca14fbfc7cb3513e75444a02064"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1326-r1-broad-ui.txt",
+        "bytes": 433032,
+        "sha256": "7f1c04257c2b55f9198a54d13d768fa2e62b50ef774d2388e20d4c307fda1f69"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1326-r1-broad-ui.patch",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1326-r1-broad-ui-postflight.json",
+        "bytes": 115844,
+        "sha256": "a960ec8afaec40f3b9872471ecee7f2171dbb6cc7b38fb80fec03dddc6b07c94"
+      }
+    ],
+    "attribution": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1326-I-broad-ui-attribution.md",
+        "bytes": 2487,
+        "sha256": "06e7bc7749db3736bb65992086b9474216d87f8eb201816aa3658cff96c8732b"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1326-I-failures.json",
+        "bytes": 28416,
+        "sha256": "7d166c1671bc38aca3de01bfdc417a4d669dfb33f47cf908d48a6531c2f025f8"
+      }
+    ]
+  },
+  "typeGatesAtHead": {
+    "head": "6458955e",
+    "root": 0,
+    "bridge": 0,
+    "ui": 0
+  },
+  "review": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1325-J-r1-gates-attribution-review.md",
+    "bytes": 7560,
+    "sha256": "21906b353d7979bdebbfe54b9e1383427ca55127e66f0b725f848d81ade1e63c"
+  },
+  "reviewVerdict": "KEEP, no required changes",
+  "retainedByDesign": "p14c3-save-v38 \"exposes matching strict38 conversion, validation and current migration over a genuine37 save\" (:93, C20): compares a fixed V38 conversion with migrateToLive; cannot pass without changing what it asserts (1324-A rule 4). Not a fixable pin.",
+  "openItems": [
+    "retained core clusters after R1: C8 42, UNRESOLVED 10, inherited 9, C15 7, C3 7, C17 6, C16 5, C12 2, C16b 2, C1 1, C20 1 (rule-4 leaf), benign 1",
+    "C8 (21 of 42): measured cause and rival stall, Owner decision D-1329-1 (1329-A)",
+    "C15, C3 (6), C12: repair R2 planned (1327-A), review 1327-B pending",
+    "C17 generated fixture absent (gitignored Evidence tree) and PIL absent: environment, no installation campaign",
+    "C16: fixture redesign (new subject or seed) recorded as a follow-up pass in tests/helpers/p14b2-fixtures.ts",
+    "UI clusters C1 timing, C2 duplicate test id, C3/C4 PIL, C5 Gate Hiring",
+    "Owner decisions D-1323-1, D-1312-1, D-1312-2, D-1329-1; Mentor/Rivals labels (HIS-014)"
+  ],
+  "next": "Repair R2 (1327-A) after review 1327-B and the recorded 1328 producer run"
+}
