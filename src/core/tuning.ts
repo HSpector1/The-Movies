@@ -32,6 +32,17 @@ export const TUNING = {
   HOLLYWOOD_PROMISE_HALF_WIDTH: 0.35,
   HOLLYWOOD_NEGATIVE_CHOICES: [0.65,0.85,1.05] as const,
   HOLLYWOOD_POLICY_PREFERENCE_COST: 25_000,
+  // P15A.2 Power Ranking law `power-ranking/v1` (src/core/powerRanking.ts). PROVISIONAL
+  // TUNING under Owner ruling 1342-O item 2, which delegates the formula, weights and ties;
+  // the formula was written in 1350-A §3, reviewed in 1350-B and adopted in 1350-F. Any
+  // change to these values changes the law: bump POWER_RANKING_DEFINITION with it.
+  POWER_RANKING_WINDOW_WEEKS: 52, // the window [W−52, W): four complete quarters
+  POWER_RANKING_FILM_CAP: 4, // the Films lane averages a studio's best four film scores
+  POWER_RANKING_RELEASE_CAP: 4, // four releases in the window fill the Releases lane
+  POWER_RANKING_CRITIC_SHARE: 0.5, // critic score and audience reach weigh equally
+  POWER_RANKING_REACH_SCALE: 0.9, // pooled p90 reach, copied so Standing tuning cannot move the rank
+  POWER_RANKING_BAND_STABLE_WEEKS: 13, // fixed-cost weeks of cash at which a band reads stable
+  POWER_RANKING_BAND_THRIVING_WEEKS: 26, // fixed-cost weeks of cash at which a band reads thriving
   // §16 verbatim
   COHESION_CAP: 16,
   COHESION_SMOOTH_LO: 0.35,
