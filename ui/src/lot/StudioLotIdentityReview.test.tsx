@@ -42,6 +42,9 @@ const spy = vi.hoisted(() => {
     setSignageMasked() {}
     camera() {}
     identityDebug() { return { mode: 'concept-a', failed: false, identityObjects: 8, attnBadges: 0, marqueeBulbs: 14, displayObjects: 120, fps: 60 } }
+    // The screen polls this every 500 ms under the dev identity-proof flag (StudioLotScreen.tsx:4851-4855),
+    // as the other fake views in ui/src already model it.
+    hollywoodPerformance() { return null }
     destroy() {}
   }
   return { instances, Fake }
