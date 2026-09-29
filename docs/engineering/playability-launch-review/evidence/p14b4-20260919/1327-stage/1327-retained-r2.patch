@@ -1,0 +1,161 @@
+diff --git a/tests/bridge-contract-generator.test.ts b/tests/bridge-contract-generator.test.ts
+index ba99d82..351baaa 100644
+--- a/tests/bridge-contract-generator.test.ts
++++ b/tests/bridge-contract-generator.test.ts
+@@ -557,16 +557,19 @@ describe('CF-08 sound union-to-C# generation', () => {
+       // (required seatClass), nullable seatClass on own snapshot/history rows and
+       // preferredOpportunity on preferences moved the whole-schema identity.
+       // P14B.5 (record 662, projection 48): the `priorityOrder` wire enum gains
+-      // `relationships` (thin), moving the whole-schema identity again. The
+-      // literal below is the schemaId of the checked-in
+-      // generated/unity/project-studio-bridge.contract-manifest.json at 96d84212 (1193/1196),
++      // `relationships` (thin), moving the whole-schema identity again. R2
++      // projection56 (1327/1328): independently recorded producer
++      // 1328-p56-declaration-measurement.ts, run on b96a973a's parent source
++      // 1a9fd5f0 (prior measurement 1196, projection54), exit 0. The literal
++      // below is the schemaId of the checked-in
++      // generated/unity/project-studio-bridge.contract-manifest.json,
+       // read independently of this test (never schemaIdentity(schema) itself).
+-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 54 })
++      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 56 })
+       expect(generated).toContain(
+-        '// Schema identity: sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302',
++        '// Schema identity: sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1',
+       )
+       expect(schemaIdentity(schema)).toBe(
+-        'sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302',
++        'sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1',
+       )
+       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
+       expect(generated).toContain('public StudioCastingDraftPayload draft;')
+@@ -712,9 +715,14 @@ describe('CF-08 sound union-to-C# generation', () => {
+         // P3 projection54: independent 1193 producer, recorded 1196 on
+         // 96d84212, renders all eight positives twice. Both current bodies are
+         // 406091 bytes / a9708ee3…; all six fixed bodies remain unchanged.
++        // R2 projection56 (1327/1328): independent 1328 producer, run as a
++        // recorded run on b96a973a's parent source 1a9fd5f0 (prior measurement
++        // 1196, projection54), exit 0, fixedSource true. Renders all eight
++        // positives twice; both current bodies are 418871 bytes / a0f316eb…;
++        // all six fixed bodies, including F12, remain unchanged.
+         // This measurement precedes these pins and is not failure-derived.
+-        F10_CURRENT_QUOTE_UNIONS: 'a9708ee36cb26c7a5fd48662c0bf705c364a42feeb796ade78a36432add3c092',
+-        F11_CURRENT_COMMAND_UNION: 'a9708ee36cb26c7a5fd48662c0bf705c364a42feeb796ade78a36432add3c092',
++        F10_CURRENT_QUOTE_UNIONS: 'a0f316eb5b4be929f82102246b415414e0720000e6dd4a62b22980192abaf8aa',
++        F11_CURRENT_COMMAND_UNION: 'a0f316eb5b4be929f82102246b415414e0720000e6dd4a62b22980192abaf8aa',
+         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
+       } as const
+       for (const [name, expectedHash] of Object.entries(expected)) {
+diff --git a/tests/bridge-runtime-checkpoint.test.ts b/tests/bridge-runtime-checkpoint.test.ts
+index d84aab1..1f6fc4d 100644
+--- a/tests/bridge-runtime-checkpoint.test.ts
++++ b/tests/bridge-runtime-checkpoint.test.ts
+@@ -428,7 +428,12 @@ describe('BridgeRuntimeCheckpointV1', () => {
+       currentSaveJson: nonCanonicalSave,
+       savedSaveJson: checkpoint.savedSaveJson,
+       journal: checkpoint.journal,
+-    })).toThrow(/canonical V38 save bytes exactly/)
++      // 1327-C sweep (C15, S8 form): the live save version moved past V38; the
++      // guard's own message is version-aware (`bridge/runtime-checkpoint.ts:501`,
++      // `must preserve the canonical V${LIVE_SAVE_VERSION} save bytes exactly`).
++      // The refused-non-canonical-bytes premise still holds, only the number
++      // in its own message moved with the live version.
++    })).toThrow(/canonical V42 save bytes exactly/)
+ 
+     const forgedSave = JSON.parse(checkpoint.currentSaveJson) as Record<string, unknown>
+     forgedSave['bridgeJournal'] = []
+diff --git a/tests/facility-move-demolish.test.ts b/tests/facility-move-demolish.test.ts
+index 1241f32..c68ec0a 100644
+--- a/tests/facility-move-demolish.test.ts
++++ b/tests/facility-move-demolish.test.ts
+@@ -861,6 +861,12 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
+     // authority — records is already empty above, so trivially none is used.
+     expect((forgedV11.state.careerLifecycle as { records: { extensionUsed?: boolean }[] }).records.some((record) => record.extensionUsed === true)).toBe(false)
+     delete forgedV11.state.careerLifecycle
++    // 1327-C sweep (C15): and the first-take-subject root (V40), removed only
++    // while EMPTY, same precondition as `firstTakes`/`promises` above — the V11
++    // exact-keys allowlist trips on "unknown field firstTakeSubjects" before the
++    // walk reaches the demolition refund boundary this test is about.
++    expect((forgedV11.state.firstTakeSubjects as { facts: unknown[] }).facts).toEqual([])
++    delete forgedV11.state.firstTakeSubjects
+     for (const person of forgedV11.state.talent as Record<string, unknown>[]) {
+       for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {
+         delete (person[key] as Record<string, unknown>).research
+diff --git a/tests/helpers/p14c3-canonical-rival-fixtures.ts b/tests/helpers/p14c3-canonical-rival-fixtures.ts
+index ac0b822..0e873b4 100644
+--- a/tests/helpers/p14c3-canonical-rival-fixtures.ts
++++ b/tests/helpers/p14c3-canonical-rival-fixtures.ts
+@@ -5,7 +5,8 @@ import { expect, vi } from 'vitest'
+ import * as owner from '../../src/core/professionTransitions.js'
+ import * as scripts from '../../src/core/scriptDevelopment.js'
+ import { busyTalentIds } from '../../src/core/employment.js'
+-import { exportSave, makeSave, stableStringify } from '../../src/core/save.js'
++import { LIVE_SAVE_VERSION, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41,
++  exportSave, makeSave, stableStringify } from '../../src/core/save.js'
+ import { careerIdentity, expectedPotentialTier, roleTier } from '../../src/core/talentSummary.js'
+ import { tick } from '../../src/core/tick.js'
+ import { p13aGeneratedStudio } from '../../src/harness/p13a/fixtures.js'
+@@ -184,7 +185,18 @@ export function canonicalInitial(): GameState {
+     // public activateStudioOperations, initializeHollywood(fresh). Nothing added.
+     const state = p13aGeneratedStudio(CANONICAL_SEED)
+     acceptedEvidence(state)
+-    expect(sha(exportSave(makeSave(state)))).toBe(CANONICAL_INITIAL_SHA)
++    // 1327-C (C3): the live save version moved past V38 (b71d4599's own pin era),
++    // so the digest of unchanged week-0 content moves with it even though nothing
++    // about this world changed. CANONICAL_INITIAL_SHA stays pinned to its original
++    // Save38 era; the live envelope is instead down-projected to V38 through the
++    // real production converters (never a literal), and that down-projection's
++    // export is what is compared with the unchanged constant. Measured directly
++    // (1327-measure/c3-down-projection.json): live v42 sha a7d0034f… (moved, not
++    // pinned here), v38 down-projection sha 2f9ec0fa… (equals CANONICAL_INITIAL_SHA).
++    const live = makeSave(state)
++    expect(live.saveVersion).toBe(LIVE_SAVE_VERSION)
++    const v38 = convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(live))))
++    expect(sha(exportSave(v38))).toBe(CANONICAL_INITIAL_SHA)
+     expect(state.market.tick).toBe(0)
+     expect(person(state, id)).toMatchObject({ name: 'Clara Moss', role: 'actor', age: 62 })
+     expect(state.talentProvenance.rows.find(row => row.personId === id)).toEqual({ personId: id,
+diff --git a/tests/p13b-r07-save-v25.test.ts b/tests/p13b-r07-save-v25.test.ts
+index b0396d6..16e2fd0 100644
+--- a/tests/p13b-r07-save-v25.test.ts
++++ b/tests/p13b-r07-save-v25.test.ts
+@@ -198,6 +198,13 @@ function asV25Envelope(state: GameState): { saveVersion: 25; seed: string; state
+   // none is used.
+   expect(stripped.careerLifecycle.records.some((record) => (record as unknown as { extensionUsed?: boolean }).extensionUsed === true)).toBe(false)
+   delete (stripped as unknown as { careerLifecycle?: unknown }).careerLifecycle
++  // 1327-C sweep (C15): a frozen V25 envelope carries no `firstTakeSubjects`
++  // root either (added V40) — the frozen chain's exact-key law refuses a root
++  // V25 never had. Same honest reconstruction as `talentMarket`/`relationships`
++  // above: this rehearsing world never completes a first take, so it holds no
++  // fact and nothing is discarded.
++  expect(stripped.firstTakeSubjects.facts).toEqual([])
++  delete (stripped as unknown as { firstTakeSubjects?: unknown }).firstTakeSubjects
+   return { saveVersion: 25, seed: stripped.seed, state: stripped, broadcastCache: stripped.broadcastItems }
+ }
+ 
+diff --git a/tests/p14c2s-scientist-retirement.test.ts b/tests/p14c2s-scientist-retirement.test.ts
+index 857dc48..e0ca604 100644
+--- a/tests/p14c2s-scientist-retirement.test.ts
++++ b/tests/p14c2s-scientist-retirement.test.ts
+@@ -294,6 +294,22 @@ describe('Scientist retirement persistence has an explicit semantic version boun
+       envelope.saveVersion = version
+       for (const field of ['transitionBoundaryWeek', 'professionAnchors', 'transitionEvaluations',
+         'professionChanges', 'industryRetirements', 'transitionDue']) delete envelope.state.careerLifecycle[field]
++      // 1327-C sweep (C15): none of V34/V35/V36 ever had the relationship
++      // `sharedCompetitions` field (added V42) either — same reader-only shape
++      // adjustment as the careerLifecycle fields just above.
++      for (const edge of envelope.state.relationships) delete (edge as { sharedCompetitions?: unknown }).sharedCompetitions
++      // 1327-C sweep (C15): nor the `firstTakeSubjects` root (added V40) —
++      // measured non-empty on this world (real first-take history), but this
++      // block is a reader-only shape control, not a fidelity-preserving
++      // reconstruction (see comment above: "No such object is played/
++      // exported"), exactly like the unconditional `extensionUsed`/`variant`
++      // deletions above — V34/35/36 never had this root at all.
++      delete (envelope.state as { firstTakeSubjects?: unknown }).firstTakeSubjects
++      // 1327-C sweep (C15): nor the `termination` rival-finance movement key
++      // (added V41 to `RivalMoneyKind`) — same reader-only shape adjustment.
++      for (const business of envelope.state.hollywood.businesses) {
++        for (const period of business.account.periods) delete (period.movements as { termination?: unknown }).termination
++      }
+       if (version < 36) {
+         for (const row of envelope.state.careerLifecycle.records) {
+           delete row.extensionUsed

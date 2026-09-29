@@ -1,0 +1,116 @@
+[
+  {
+    "file": "tests/p13b-r07-save-v25.test.ts",
+    "line": 201,
+    "old_text": "  delete (stripped as unknown as { careerLifecycle?: unknown }).careerLifecycle\n  return { saveVersion: 25, seed: stripped.seed, state: stripped, broadcastCache: stripped.broadcastItems }\n}",
+    "new_text": "  delete (stripped as unknown as { careerLifecycle?: unknown }).careerLifecycle\n  // 1327-C sweep (C15): a frozen V25 envelope carries no `firstTakeSubjects`\n  // root either (added V40) — the frozen chain's exact-key law refuses a root\n  // V25 never had. Same honest reconstruction as `talentMarket`/`relationships`\n  // above: this rehearsing world never completes a first take, so it holds no\n  // fact and nothing is discarded.\n  expect(stripped.firstTakeSubjects.facts).toEqual([])\n  delete (stripped as unknown as { firstTakeSubjects?: unknown }).firstTakeSubjects\n  return { saveVersion: 25, seed: stripped.seed, state: stripped, broadcastCache: stripped.broadcastItems }\n}",
+    "cluster": "C15",
+    "cause": "measured: `asV25Envelope`'s reconstruction never guarded/stripped the `firstTakeSubjects` root (added V40 by commit ef38cf9a, after this function was written); `legacyRehearsingWorld` runs the real live engine so the reconstructed envelope keeps a genuine `firstTakeSubjects` root, and `validateSaveV25WithPolicy`'s frozen chain refuses it: `validateSaveV12: state has unknown field \"firstTakeSubjects\"` (measured at tests/p13b-r07-save-v25.test.ts:241 and :251, matching 1325-I-failures.json rows). Guard measured empty on this world (`stripped.firstTakeSubjects.facts` = []) before stripping, same shape as the five existing guard-and-strip blocks in the same function.",
+    "target_rows_fixed": [
+      "tests/p13b-r07-save-v25.test.ts > P13B-S5-R07 Save V25 (test 5) > validates a reconstructed V25 envelope with a real rehearsing production and setup: null on a nonempty workflow",
+      "tests/p13b-r07-save-v25.test.ts > P13B-S5-R07 Save V25 (test 5) > migrateToV24 / migrateToV23 / migrateToV22 / migrateToV21 / migrateToV20 refuse a V25 save"
+    ]
+  },
+  {
+    "file": "tests/facility-move-demolish.test.ts",
+    "line": 864,
+    "old_text": "    delete forgedV11.state.careerLifecycle\n    for (const person of forgedV11.state.talent as Record<string, unknown>[]) {",
+    "new_text": "    delete forgedV11.state.careerLifecycle\n    // 1327-C sweep (C15): and the first-take-subject root (V40), removed only\n    // while EMPTY, same precondition as `firstTakes`/`promises` above — the V11\n    // exact-keys allowlist trips on \"unknown field firstTakeSubjects\" before the\n    // walk reaches the demolition refund boundary this test is about.\n    expect((forgedV11.state.firstTakeSubjects as { facts: unknown[] }).facts).toEqual([])\n    delete forgedV11.state.firstTakeSubjects\n    for (const person of forgedV11.state.talent as Record<string, unknown>[]) {",
+    "cluster": "C15",
+    "cause": "measured: `forgedV11`'s guard-and-strip block (already stripping talentMarket/firstTakes/promises/relationships/talentProvenance/careerLifecycle) never guarded/stripped `firstTakeSubjects` (added V40); received `validateSaveV11: state has unknown field \"firstTakeSubjects\"` at tests/facility-move-demolish.test.ts:870 (matching 1325-I-failures.json). Guard measured empty on this world before stripping, same shape as the sibling `firstTakes`/`promises` blocks immediately above.",
+    "target_rows_fixed": [
+      "tests/facility-move-demolish.test.ts > C1-M3a (F) — saves, boundaries, and determinism > keeps the refund row out of every historical save format (law 19)"
+    ]
+  },
+  {
+    "file": "tests/p14c2s-scientist-retirement.test.ts",
+    "line": 297,
+    "old_text": "      for (const field of ['transitionBoundaryWeek', 'professionAnchors', 'transitionEvaluations',\n        'professionChanges', 'industryRetirements', 'transitionDue']) delete envelope.state.careerLifecycle[field]\n      if (version < 36) {",
+    "new_text": "      for (const field of ['transitionBoundaryWeek', 'professionAnchors', 'transitionEvaluations',\n        'professionChanges', 'industryRetirements', 'transitionDue']) delete envelope.state.careerLifecycle[field]\n      // 1327-C sweep (C15): none of V34/V35/V36 ever had the relationship\n      // `sharedCompetitions` field (added V42) either — same reader-only shape\n      // adjustment as the careerLifecycle fields just above.\n      for (const edge of envelope.state.relationships) delete (edge as { sharedCompetitions?: unknown }).sharedCompetitions\n      // 1327-C sweep (C15): nor the `firstTakeSubjects` root (added V40) —\n      // measured non-empty on this world (real first-take history), but this\n      // block is a reader-only shape control, not a fidelity-preserving\n      // reconstruction (see comment above: \"No such object is played/\n      // exported\"), exactly like the unconditional `extensionUsed`/`variant`\n      // deletions above — V34/35/36 never had this root at all.\n      delete (envelope.state as { firstTakeSubjects?: unknown }).firstTakeSubjects\n      // 1327-C sweep (C15): nor the `termination` rival-finance movement key\n      // (added V41 to `RivalMoneyKind`) — same reader-only shape adjustment.\n      for (const business of envelope.state.hollywood.businesses) {\n        for (const period of business.account.periods) delete (period.movements as { termination?: unknown }).termination\n      }\n      if (version < 36) {",
+    "cluster": "C15",
+    "cause": "measured in three steps, one guard-and-strip per newly-added root/field, each re-run to confirm the next layer: (1) `sharedCompetitions` (relationship edge field, added V42) — received `validateSaveV31: state.relationships[0].sharedCompetitions is not a field of this record` inside the frozen V34->V33->V32->V31 chain; (2) after stripping (1), `firstTakeSubjects` (root, added V40) — chain then reached `validateSaveV12: state has unknown field \"firstTakeSubjects\"`; (3) after stripping (2), `termination` (RivalMoneyKind key on every `business.account.periods[].movements`, added V41) — chain then reached `Hollywood save: exact keys required: capacity,signing,payroll,...` (src/core/hollywoodValidation.ts:27) because the live `movements` record carries the V41 `termination` key the frozen V24-era exact-keys check never allows. All three unconditionally deleted (no emptiness guard) matching this block's own established convention for `extensionUsed`/`extendedFromWeek`/`variant`, since the block is an explicitly-disclosed reader-only shape control (\"No such object is played/exported\"), not a fidelity-preserving reconstruction — `termination` and `sharedCompetitions` were measured zero on this world; `firstTakeSubjects` was measured NON-empty (real first-take history) and is still deleted under that same reader-only-control precedent, not the empty-guard precedent used in the other two C15 files above.",
+    "target_rows_fixed": [
+      "tests/p14c2s-scientist-retirement.test.ts > Scientist retirement persistence has an explicit semantic version boundary > S10 frozen public34/35/36 readers still refuse the Scientist law, independently of the live tuning table"
+    ]
+  },
+  {
+    "file": "tests/bridge-runtime-checkpoint.test.ts",
+    "line": 431,
+    "old_text": "    })).toThrow(/canonical V38 save bytes exactly/)",
+    "new_text": "      // 1327-C sweep (C15, S8 form): the live save version moved past V38; the\n      // guard's own message is version-aware (`bridge/runtime-checkpoint.ts:501`,\n      // `must preserve the canonical V${LIVE_SAVE_VERSION} save bytes exactly`).\n      // The refused-non-canonical-bytes premise still holds, only the number\n      // in its own message moved with the live version.\n    })).toThrow(/canonical V42 save bytes exactly/)",
+    "cluster": "C15",
+    "cause": "measured: received 'checkpoint.currentSaveJson: must preserve the canonical V42 save bytes exactly' instead of the expected V38-literal pattern. Source: bridge/runtime-checkpoint.ts:501, `fail(path, \\`must preserve the canonical V${LIVE_SAVE_VERSION} save bytes exactly\\`)` — the guard's own message is version-aware and LIVE_SAVE_VERSION is now 42 (src/core/save.ts:6553). The refused-non-canonical-bytes premise still holds under the current validator; only the version number in its own message moved (S8 form per 1320-A: \"the expected message names what that validator says for the tampered field, measured, cited by source line\").",
+    "target_rows_fixed": [
+      "tests/bridge-runtime-checkpoint.test.ts > BridgeRuntimeCheckpointV1 > requires untouched canonical V15 current and explicit-save bytes with exact digests"
+    ]
+  },
+  {
+    "file": "tests/helpers/p14c2rm-fixtures.ts",
+    "line": 302,
+    "old_text": null,
+    "new_text": null,
+    "cluster": "C15",
+    "cause": "NO-EDIT (Rule 6). Two leaves in tests/bridge-p14c2rm-retirement.test.ts (\"natural retired tiers stay fixed across real drift while lawful current employment changes disclosure\", line 334; \"SYNTHETIC imported newer edge withholds unreconstructible retirement tier, with no hidden-counterpart notice leak\", line 347) both call the shared `frozenTies()` fixture, which fails at tests/helpers/p14c2rm-fixtures.ts:302: `expect(activeContract(state, f.directorId), 'freeze premise: counterpart stays lawfully disclosed').toMatchObject({endWeekExclusive: 416})` — received `undefined`, not a frozen-validator boundary error. Measured with a disposable, non-committed probe replicating the fixture's own steps (submitProposal at week 196, termWeeks 208, advanceTo week 208): the player studio's proposal is genuinely `declined` at the decision week, with receipt reasons including `\"Your Studio holds a record this person distrusts.\"` (src/talentMarket.ts:1149 `issuerDistrusted`, gated by `trustDescriptor(...).label === 'Distrusted'` at :1193). This is a real natural-chain trust-mechanic consequence of the fixture's own earlier actions (two scheduled-then-cancelled takes with this same director), not a moved frozen-validator boundary — per Rule 6, left untouched and reported with these receipt facts."
+  },
+  {
+    "file": "tests/helpers/p14c3-canonical-rival-fixtures.ts",
+    "line": 8,
+    "old_text": "import { exportSave, makeSave, stableStringify } from '../../src/core/save.js'",
+    "new_text": "import { LIVE_SAVE_VERSION, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41,\n  exportSave, makeSave, stableStringify } from '../../src/core/save.js'",
+    "cluster": "C3",
+    "cause": "supporting import for the down-projection fix below (real production converters and LIVE_SAVE_VERSION from src/core/save.ts, never literals).",
+    "target_rows_fixed": []
+  },
+  {
+    "file": "tests/helpers/p14c3-canonical-rival-fixtures.ts",
+    "line": 187,
+    "old_text": "    expect(sha(exportSave(makeSave(state)))).toBe(CANONICAL_INITIAL_SHA)",
+    "new_text": "    // 1327-C (C3): the live save version moved past V38 (b71d4599's own pin era),\n    // so the digest of unchanged week-0 content moves with it even though nothing\n    // about this world changed. CANONICAL_INITIAL_SHA stays pinned to its original\n    // Save38 era; the live envelope is instead down-projected to V38 through the\n    // real production converters (never a literal), and that down-projection's\n    // export is what is compared with the unchanged constant. Measured directly\n    // (1327-measure/c3-down-projection.json): live v42 sha a7d0034f… (moved, not\n    // pinned here), v38 down-projection sha 2f9ec0fa… (equals CANONICAL_INITIAL_SHA).\n    const live = makeSave(state)\n    expect(live.saveVersion).toBe(LIVE_SAVE_VERSION)\n    const v38 = convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(live))))\n    expect(sha(exportSave(v38))).toBe(CANONICAL_INITIAL_SHA)",
+    "cluster": "C3",
+    "cause": "measured (re-measured directly in own tree, reproducing the parent's 1327-measure/c3-down-projection.json exactly): live v42 export sha a7d0034f7a44dc3163e0b85127531d6138b013dec077bafbc703091208e00514 (moved, matches 1321/1325 received value); v38 down-projection export sha 2f9ec0fa289a28a188428f9caa59ba969c50f6bcf0c7f93819bd0d17541c5353 (equals the unchanged CANONICAL_INITIAL_SHA constant at :20). CANONICAL_INITIAL_SHA kept per plan Rule 4. The single live-export assertion is replaced with the Save38 down-projection (convertV42ToV41 -> convertV41ToV40 -> convertV40ToV39 -> convertV39ToV38, all real src/core/save.ts converters) compared with the constant, plus an assertion that the live envelope's saveVersion is LIVE_SAVE_VERSION (42).",
+    "target_rows_fixed": [
+      "tests/p14c3-canonical-rival-history.test.ts > C.3 canonical Actor history survives actual passive rival Writer transition and work > K1 reaches genuine eligible acting retirement with independently counted campaign and authored evidence",
+      "tests/p14c3-canonical-rival-history.test.ts > C.3 canonical Actor history survives actual passive rival Writer transition and work > K2 observes the exact real owner write set and inclusive Actor-to-Writer authority",
+      "tests/p14c3-canonical-rival-history.test.ts > C.3 canonical Actor history survives actual passive rival Writer transition and work > K3 preserves exact canonical old support credits and actual employment closure through Writer reload"
+    ]
+  },
+  {
+    "file": "tests/p14c3-canonical-rival-history.test.ts",
+    "line": 233,
+    "old_text": null,
+    "new_text": null,
+    "cluster": "C3",
+    "cause": "NO-EDIT (Rule 3 — leaf's stated premise not reachable within the authorized single-line C3 fix). Once the shared `canonicalInitial()` cache-thrown error (the assigned fix) is cleared, K4 (\"refuses separate malformed canonical title, credit, entry cause and missing profession authority\") reaches its own, SEPARATE, previously-masked defect at its own test line 233: `const control = makeSave(canonicalChosen().loaded); expect(validateSaveV38(control)).toBe(control)` — `makeSave` always returns the live SaveFileV42 (saveVersion 42), so calling the version-frozen `validateSaveV38` on it throws `validateSaveV38: expected version 38` (src/core/save.ts:10385). This is a stale V38-pinned call in the TEST BODY of tests/p14c3-canonical-rival-history.test.ts, not inside the one helper line (tests/helpers/p14c3-canonical-rival-fixtures.ts:187) this task's C3 section authorizes. Reported per Rule 3 rather than expanded into scope; not edited."
+  },
+  {
+    "file": "tests/p14c3-canonical-rival-history.test.ts",
+    "line": 259,
+    "old_text": null,
+    "new_text": null,
+    "cluster": "C3",
+    "cause": "NO-EDIT (Rule 3). L1 (\"observes an actual passive non-player Writer hire...\") and L2 (which depends on L1's own `canonicalHired()`/`canonicalReleased()` chain) reach a SEPARATE, previously-masked natural-chain defect once the shared `canonicalInitial()` failure clears: tests/helpers/p14c3-canonical-rival-fixtures.ts:290 `refuseTerminalWithoutWork` throws `AssertionError: L passive work premise ended without an obligation: {\"personId\":\"person-studio-8c9ee794-r01-4\",...,\"cause\":\"noCatalogue\",...}` — the canonical098 seed's simulated trajectory (run out to up to 156 `step('L', ...)` calls inside `canonicalHired()`) now reaches an industry-retirement finality with cause `noCatalogue` (src/core/professionTransitions.ts:167, src/core/professionHistory.ts:225-270 — a real career-lifecycle/profession-transition-catalogue mechanic) before any Writer-hire vacancy ever appears for the canonical subject, where the fixture's own guard expects the opposite. This is a genuine natural-chain simulation-trajectory drift, structurally the same class as the C15 Rule-6 carve-out, and is outside the authorized single-line C3 fix (tests/helpers/p14c3-canonical-rival-fixtures.ts:187 only). Reported, not edited.",
+    "note": "L2 (tests/p14c3-canonical-rival-history.test.ts:284) fails for the same upstream cause via canonicalReleased() -> canonicalHired(); not a distinct root cause."
+  },
+  {
+    "file": "tests/bridge-contract-generator.test.ts",
+    "line": 559,
+    "old_text": "      // P14B.5 (record 662, projection 48): the `priorityOrder` wire enum gains\n      // `relationships` (thin), moving the whole-schema identity again. The\n      // literal below is the schemaId of the checked-in\n      // generated/unity/project-studio-bridge.contract-manifest.json at 96d84212 (1193/1196),\n      // read independently of this test (never schemaIdentity(schema) itself).\n      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 54 })\n      expect(generated).toContain(\n        '// Schema identity: sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302',\n      )\n      expect(schemaIdentity(schema)).toBe(\n        'sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302',",
+    "new_text": "      // P14B.5 (record 662, projection 48): the `priorityOrder` wire enum gains\n      // `relationships` (thin), moving the whole-schema identity again. R2\n      // projection56 (1327/1328): independently recorded producer\n      // 1328-p56-declaration-measurement.ts, run on b96a973a's parent source\n      // 1a9fd5f0 (prior measurement 1196, projection54), exit 0. The literal\n      // below is the schemaId of the checked-in\n      // generated/unity/project-studio-bridge.contract-manifest.json,\n      // read independently of this test (never schemaIdentity(schema) itself).\n      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 56 })\n      expect(generated).toContain(\n        '// Schema identity: sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1',\n      )\n      expect(schemaIdentity(schema)).toBe(\n        'sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1',",
+    "cluster": "C12",
+    "cause": "pin taken from RECORDED PRODUCER output only (never a failure message, never computed by the test). Schema identity literal = the checked-in generated/unity/project-studio-bridge.contract-manifest.json's own `schemaId` field (read independently: `sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1`, confirmed by grep of the tracked manifest file itself, not by running the generator). Generator call's `projectionVersion` updated to 56 (current PROJECTION_VERSION, bridge/schema/bridge-schema.ts:283 / 1328-p56-declaration-measurement.ts:65). Provenance comment updated to name 1328 as the recorded producer on b96a973a's parent source 1a9fd5f0 (git rev-parse b96a973a^ = 1a9fd5f06dcea222dfc8557f17352bc851b8e6c7) and the prior 1196 measurement, per the house form already used above it for P14B.4/P14B.5.",
+    "target_rows_fixed": [
+      "tests/bridge-contract-generator.test.ts > CF-08 sound union-to-C# generation > current accepted contract and future sentinel > F10 emits sound request and response union shapes without changing schema identity"
+    ]
+  },
+  {
+    "file": "tests/bridge-contract-generator.test.ts",
+    "line": 715,
+    "old_text": "        // P3 projection54: independent 1193 producer, recorded 1196 on\n        // 96d84212, renders all eight positives twice. Both current bodies are\n        // 406091 bytes / a9708ee3…; all six fixed bodies remain unchanged.\n        // This measurement precedes these pins and is not failure-derived.\n        F10_CURRENT_QUOTE_UNIONS: 'a9708ee36cb26c7a5fd48662c0bf705c364a42feeb796ade78a36432add3c092',\n        F11_CURRENT_COMMAND_UNION: 'a9708ee36cb26c7a5fd48662c0bf705c364a42feeb796ade78a36432add3c092',",
+    "new_text": "        // P3 projection54: independent 1193 producer, recorded 1196 on\n        // 96d84212, renders all eight positives twice. Both current bodies are\n        // 406091 bytes / a9708ee3…; all six fixed bodies remain unchanged.\n        // R2 projection56 (1327/1328): independent 1328 producer, run as a\n        // recorded run on b96a973a's parent source 1a9fd5f0 (prior measurement\n        // 1196, projection54), exit 0, fixedSource true. Renders all eight\n        // positives twice; both current bodies are 418871 bytes / a0f316eb…;\n        // all six fixed bodies, including F12, remain unchanged.\n        // This measurement precedes these pins and is not failure-derived.\n        F10_CURRENT_QUOTE_UNIONS: 'a0f316eb5b4be929f82102246b415414e0720000e6dd4a62b22980192abaf8aa',\n        F11_CURRENT_COMMAND_UNION: 'a0f316eb5b4be929f82102246b415414e0720000e6dd4a62b22980192abaf8aa',",
+    "cluster": "C12",
+    "cause": "pins taken from RECORDED PRODUCER output only: E/1328-p56-declaration-measurement.txt (and .json), `identities.F10_CURRENT_QUOTE_UNIONS.sha256` = `identities.F11_CURRENT_COMMAND_UNION.sha256` = a0f316eb5b4be929f82102246b415414e0720000e6dd4a62b22980192abaf8aa (418871 bytes, exit 0, fixedSource true), never from the 1325-I failure message (which happened to show the same received value, 'a0f316eb…', at tests/bridge-contract-generator.test.ts:725/1325-I row — pin is sourced from the recorded producer output file, independently confirmed equal, not copied from that failure line). F12 and the other five fixed pins (F01-F04, F09) are byte-identical to 1193/1196 and left unchanged. Provenance comment block extended with the R2/projection56/1328 entry, naming source commit 1a9fd5f0 (b96a973a's parent) and prior measurement 1196, matching the house form used by every prior entry in this same comment block.",
+    "target_rows_fixed": [
+      "tests/bridge-contract-generator.test.ts > CF-08 sound union-to-C# generation > current accepted contract and future sentinel > pins exact positive output identities and deterministic rerendering"
+    ]
+  }
+]
