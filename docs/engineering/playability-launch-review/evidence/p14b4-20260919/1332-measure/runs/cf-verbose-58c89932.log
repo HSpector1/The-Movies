@@ -1,0 +1,14 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/bisU
+
+stdout | tests/zz-p14b5-cf.test.ts > family 1 — EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) > no RNG reaches the seam: rngState is byte-equal before/after the seam and the tick's rngState equals the frozen control; everything but the root is byte-identical to the frozen post-tick state
+CF firstTakeSubjects {"version":1,"cutoverOrdinal":24,"facts":[{"eventId":"first-take-event-24","conceptId":"c-00","genre":"comedy","scriptProjectId":null}]} nonZeroTermination 0
+
+ ✓ |core| tests/zz-p14b5-cf.test.ts (46 tests | 45 skipped) 894ms
+   ✓ family 1 — EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) > no RNG reaches the seam: rngState is byte-equal before/after the seam and the tick's rngState equals the frozen control; everything but the root is byte-identical to the frozen post-tick state 892ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 45 skipped (46)
+   Start at  12:48:17
+   Duration  4.48s (transform 2.24s, setup 0ms, collect 2.89s, tests 894ms, environment 0ms, prepare 177ms)
+
