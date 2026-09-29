@@ -1,5 +1,32 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — P15A.1 Wave 1 landed (gates pending); shelving production running; P15B charter in review
+
+- P15A.1 Wave 1, the pure shared-market law (D-1323-1), landed (1346-L).
+  - Tests: RED r4 at 58d485a1; the recorded RED run fails 35/35.
+  - Code: production r2 at 874247eb, with the TUNING comment fix at 3b6cd98c.
+  - The recorded GREEN run passes 35/35, source fixed. Reviews 1346-J and 1346-J2: KEEP.
+  - IN PROGRESS: the broad core and UI gates, run once together with P15A.2, then attribution and closure.
+- Rival shelving (D-1329-1): final RED r2 has 51 leaves (1344-C2). The dry run gives 46 fail and 5 pass (1344-X3).
+  Re-review 1344-D2: ACCEPT.
+  - IN PROGRESS: sim-core production 1344-E (the single writer).
+  - Then: the Save43 sweep measurement (1344-M) and the sweep, the §7 verification, and the recorded gates with the
+    .venv PATH (these also confirm U3), then closure.
+- P15A.2 Wave 1, the Power Ranking: RED r4 (1351-C4) fixes two test defects and pins the ruling of 1351-F: authored
+  pre-campaign films count in no lane. Production r2 passes 35/35 (1351-X5).
+  - IN PROGRESS: implementation review 1351-J, then landing.
+- Relationship slice A: the RED r3 dry run gives 25 fail and 55 pass (1348-X3). The parent asked for a lawful rival
+  employment row in one control, because the validator rejects the spliced row (`hollywoodValidation.ts:201`).
+  - IN PROGRESS: 1348-C4.
+- P15B, distress, loans and closure (Owner rulings 3 and 4): Wave 0 facts are in 1352-W0. The charter 1352-A sets out
+  the condition law v1, the loan law v1, five waves and a measurement gate before live integration.
+  - IN PROGRESS: review 1352-B.
+- P15C, the 2040 finale and the Legacy dossier (rulings 5 and 6): Wave 0 facts are in 1353-W0.
+  - IN PROGRESS: charter draft.
+- U3 is applied (8b984d12). The next recorded UI gate confirms it.
+- Open Owner question: numpy for the three rgba-export rows, which is not authorized.
+- Production order, one writer at a time: shelving, then relationship slice A, then P15B Wave 1.
+
 ## CURRENT — U2 closed (1341-K); scoped Pillow (1345-E); Save42 inputs minted; three REDs in staging
 
 - U2 (UI testTimeout 30,000 ms, D-1339-1) is closed as test-harness stabilization. UI gate 1343:
