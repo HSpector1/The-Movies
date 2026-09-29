@@ -1,0 +1,5 @@
+{
+  "extends": "../../../../../tsconfig.bridge.json",
+  "include": ["./1328-p56-declaration-measurement.ts"],
+  "exclude": ["../../../../../node_modules", "../../../../../dist"]
+}

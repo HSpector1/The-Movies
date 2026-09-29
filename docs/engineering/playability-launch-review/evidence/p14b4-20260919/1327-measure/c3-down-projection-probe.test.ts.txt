@@ -1,0 +1,19 @@
+import { createHash } from 'node:crypto'
+import { writeFileSync } from 'node:fs'
+import { it } from 'vitest'
+import * as save from '../src/core/save.js'
+import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+
+const sha = (s: string) => createHash('sha256').update(s).digest('hex')
+it('c3 down-projection probe', () => {
+  const state = p13aGeneratedStudio('p14c3-canonical-stage-c-098')
+  const live = save.makeSave(state)
+  const v41 = save.convertV42ToV41(live as any)
+  const v40 = save.convertV41ToV40(v41 as any)
+  const v39 = save.convertV40ToV39(v40 as any)
+  const v38 = save.convertV39ToV38(v39 as any)
+  const out = { tick: state.market.tick, live: { v: live.saveVersion, sha: sha(save.exportSave(live)) },
+    v41: sha(save.exportSave(v41 as any)), v40: sha(save.exportSave(v40 as any)), v39: sha(save.exportSave(v39 as any)),
+    v38: { v: v38.saveVersion, sha: sha(save.exportSave(v38 as any)) }, pinned: '2f9ec0fa289a28a188428f9caa59ba969c50f6bcf0c7f93819bd0d17541c5353' }
+  writeFileSync(process.env.C3_OUT!, JSON.stringify(out, null, 1) + '\n')
+})
