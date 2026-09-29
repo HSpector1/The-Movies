@@ -1,0 +1,1241 @@
+diff --git a/tests/p15a2-power-ranking-harness.test.ts b/tests/p15a2-power-ranking-harness.test.ts
+new file mode 100644
+index 0000000..207cae3
+--- /dev/null
++++ b/tests/p15a2-power-ranking-harness.test.ts
+@@ -0,0 +1,173 @@
++// ── P15A.2 Wave 1 — the pure 6,240-week harness, RED tests (record 1351-C) ──
++//
++// Authority: 1350-A-p15a2-power-ranking-charter.md §5 item 16 ("a bounded pure
++// harness over 6,240 weeks... 480 snapshots"); brief-1351-p15a2-red TESTS
++// section ("a bounded pure harness over 6,240 weeks that calls
++// computePowerRanking at every quarter boundary (480 snapshots) with a normal
++// synthetic release stream and asserts bounded row counts and determinism").
++//
++// RED-BY-DESIGN: `src/core/powerRanking.ts` does not exist yet. Dynamic
++// per-test import, same pattern and rationale as tests/p15a2-power-ranking.test.ts
++// (see that file's header for the verified per-leaf-vs-whole-file rationale).
++//
++// PURITY: deterministic modular arithmetic release stream, no RNG anywhere
++// (Wave 1 is `(inputs) => outputs` with no RNG, per 1350-A §3).
++
++import { describe, expect, it } from 'vitest'
++
++async function loadPowerRanking(): Promise<Record<string, unknown>> {
++  return (await import('../src/core/powerRanking.js')) as unknown as Record<string, unknown>
++}
++
++function requireFn<T extends (...a: any[]) => any>(mod: Record<string, unknown>, name: string): T {
++  const fn = mod[name]
++  if (typeof fn !== 'function') {
++    throw new Error(
++      `RED: src/core/powerRanking.ts does not export a function named '${name}' (got ${typeof fn}). ` +
++        'This guard exists so a partially-implemented module fails loudly per-leaf instead of a vacuous pass.',
++    )
++  }
++  return fn as T
++}
++
++function canonicalize(value: unknown): unknown {
++  if (Array.isArray(value)) return value.map(canonicalize)
++  if (value && typeof value === 'object') {
++    const out: Record<string, unknown> = {}
++    for (const k of Object.keys(value as object).sort()) out[k] = canonicalize((value as Record<string, unknown>)[k])
++    return out
++  }
++  return value
++}
++
++function canonicalJSON(value: unknown): string {
++  return JSON.stringify(canonicalize(value))
++}
++
++type FilmFixture = {
++  filmId: string
++  studioId: string
++  releaseTick: number
++  runEndedByWeek: boolean
++  criticScore: number
++  totalGross: number
++  authoredPreCampaign: boolean
++}
++type StudioFixture = { studioId: string; enteredWeek: number; cash: number; weeklyFixedCost: number }
++type InputFixture = {
++  week: number
++  originWeek: number
++  baseMarketValue: number
++  studios: StudioFixture[]
++  films: FilmFixture[]
++}
++
++const BMV = 1_000_000
++const WEEKS = 6240 // 120 years at 52 weeks/year; 6240/13 = 480 quarter boundaries exactly.
++const THEATRICAL_WEEKS = 6 // tuning.ts:463, reused here only as a test-side realism rule for
++// runEndedByWeek -- Wave 1 itself takes runEndedByWeek as an explicit pure input per snapshot.
++
++const ROSTER: Array<{ studioId: string; enteredWeek: number; interval: number; cash: number; weeklyFixedCost: number }> = [
++  { studioId: 'S0', enteredWeek: 0, interval: 30, cash: 20_000, weeklyFixedCost: 400 },
++  { studioId: 'S1', enteredWeek: 26, interval: 34, cash: 15_000, weeklyFixedCost: 600 },
++  { studioId: 'S2', enteredWeek: 208, interval: 38, cash: 50_000, weeklyFixedCost: 300 },
++  { studioId: 'S3', enteredWeek: 520, interval: 42, cash: 8_000, weeklyFixedCost: 200 },
++]
++
++const BAND_LABELS = new Set(['inTheRed', 'strained', 'stable', 'thriving'])
++
++// Deterministic modular release stream: each studio releases every `interval`
++// weeks starting 5 weeks after it enters. No RNG.
++function buildReleaseLog(): FilmFixture[] {
++  const log: FilmFixture[] = []
++  let globalIndex = 0
++  for (const s of ROSTER) {
++    for (let week = s.enteredWeek + 5; week < WEEKS; week += s.interval) {
++      const critic = 30 + ((globalIndex * 17) % 71) // deterministic 30..100
++      const grossFraction = (globalIndex % 11) / 10 // deterministic 0.0..1.0 step 0.1
++      log.push({
++        filmId: `${s.studioId}-${String(week).padStart(5, '0')}`,
++        studioId: s.studioId,
++        releaseTick: week,
++        runEndedByWeek: false, // recomputed per snapshot in runHarness()
++        criticScore: critic,
++        totalGross: grossFraction * BMV,
++        authoredPreCampaign: false,
++      })
++      globalIndex++
++    }
++  }
++  return log
++}
++
++async function runHarness(): Promise<{ snapshots: any[] }> {
++  const mod = await loadPowerRanking()
++  const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++  const releaseLog = buildReleaseLog()
++  const snapshots: any[] = []
++  for (let week = 0; week < WEEKS; week += 13) {
++    const knownStudios: StudioFixture[] = ROSTER.filter((s) => s.enteredWeek <= week).map((s) => ({
++      studioId: s.studioId,
++      enteredWeek: s.enteredWeek,
++      cash: s.cash,
++      weeklyFixedCost: s.weeklyFixedCost,
++    }))
++    const knownFilms: FilmFixture[] = releaseLog
++      .filter((f) => f.releaseTick < week)
++      .map((f) => ({ ...f, runEndedByWeek: f.releaseTick + THEATRICAL_WEEKS <= week }))
++    const input: InputFixture = { week, originWeek: 0, baseMarketValue: BMV, studios: knownStudios, films: knownFilms }
++    snapshots.push(computePowerRanking(input))
++  }
++  return { snapshots }
++}
++
++describe('p15a2 power ranking: bounded 6,240-week harness (1350-A §5 item 16)', () => {
++  it(
++    'power-ranking-bounded-harness-480-snapshots-row-counts-and-value-bounds',
++    async () => {
++      const { snapshots } = await runHarness()
++      expect(snapshots.length).toBe(480) // 6240/13
++      let weekCursor = -13
++      for (const snapshot of snapshots) {
++        weekCursor += 13
++        expect(snapshot.week).toBe(weekCursor)
++        expect(snapshot.windowStartWeek).toBe(weekCursor - 52)
++        const expectedRosterSize = ROSTER.filter((s) => s.enteredWeek <= weekCursor).length
++        expect(snapshot.rows.length).toBe(expectedRosterSize)
++        if (!snapshot.available) {
++          for (const row of snapshot.rows) {
++            expect(row.ranked).toBe(false)
++            expect(row.rank).toBeNull()
++          }
++        }
++        for (const row of snapshot.rows) {
++          expect(row.filmsTenths).toBeGreaterThanOrEqual(0)
++          expect(row.filmsTenths).toBeLessThanOrEqual(100)
++          expect(row.releasesTenths).toBeGreaterThanOrEqual(0)
++          expect(row.releasesTenths).toBeLessThanOrEqual(100)
++          expect(row.releases).toBeGreaterThanOrEqual(0)
++          expect(row.countedFilmIds.length).toBeLessThanOrEqual(4) // POWER_RANKING_FILM_CAP
++          expect(row.pointsTenths).toBe(row.filmsTenths + row.releasesTenths)
++          expect(row.pointsTenths).toBeGreaterThanOrEqual(0)
++          expect(row.pointsTenths).toBeLessThanOrEqual(200)
++          expect(row.rank === null || (Number.isInteger(row.rank) && row.rank >= 1)).toBe(true)
++          expect(typeof row.ranked).toBe('boolean')
++          expect(BAND_LABELS.has(row.band)).toBe(true)
++          expect(row.honors).toBe('notRecorded')
++          expect(row.distressStage).toBe('notRecorded')
++        }
++      }
++    },
++    30_000, // explicit headroom for 480 pure computePowerRanking calls; not a performance requirement.
++  )
++
++  it(
++    'power-ranking-bounded-harness-determinism-two-runs',
++    async () => {
++      const run1 = await runHarness()
++      const run2 = await runHarness()
++      expect(canonicalJSON(run1.snapshots)).toBe(canonicalJSON(run2.snapshots))
++    },
++    30_000,
++  )
++})
+diff --git a/tests/p15a2-power-ranking.test.ts b/tests/p15a2-power-ranking.test.ts
+new file mode 100644
+index 0000000..46df2f1
+--- /dev/null
++++ b/tests/p15a2-power-ranking.test.ts
+@@ -0,0 +1,1056 @@
++// ── P15A.2 Wave 1 — the pure Power Ranking law, RED tests (record 1351-C) ──
++//
++// Authority: 1350-A-p15a2-power-ranking-charter.md §3 (the formula "power-ranking/v1")
++// and §5 (test intents 2-13, 16); 1350-B-power-ranking-charter-review.md (ACCEPT,
++// non-blocking notes on band boundaries and the pre-1920 exclusion); 1350-F
++// (parent adoption: the RED additions for band boundaries incl. zero fixed cost,
++// the authored-pre-1920 Releases exclusion, and the founding zero-fixed-cost pin).
++//
++// SCOPE (brief-1351-p15a2-red): Wave 1 only, the pure law as a function of
++// explicit `RankingInput` facts. No GameState, no save root, no Bridge, no tick
++// hook. `isPowerRankingWeek`/entrant-tick behaviour are exercised only as pure
++// functions of the week numbers passed in, never against a real tick.
++//
++// RED-BY-DESIGN: `src/core/powerRanking.ts` does not exist yet. Every leaf below
++// is expected to fail. Dynamic per-test import (`loadPowerRanking()`), not a
++// static top-level import, so each leaf gets its own attributed failure instead
++// of one whole-file collection error (1346-C precedent, directly verified against
++// this tree during method setup). The one exception is the TUNING leaf, which
++// imports the real, already-existing `src/core/tuning.ts` and gets a genuine
++// value-mismatch RED reason instead of a load failure.
++//
++// EXPECTED VALUES: computed independently in this file from the formula text in
++// 1350-A §3, never imported from production (none exists yet). Every non-trivial
++// number is derived in a comment at its call site.
++
++import { describe, expect, it } from 'vitest'
++import { TUNING } from '../src/core/tuning.js'
++
++// ── module loading (per-leaf attributed failure; see header) ──────────────
++async function loadPowerRanking(): Promise<Record<string, unknown>> {
++  return (await import('../src/core/powerRanking.js')) as unknown as Record<string, unknown>
++}
++
++function requireFn<T extends (...a: any[]) => any>(mod: Record<string, unknown>, name: string): T {
++  const fn = mod[name]
++  if (typeof fn !== 'function') {
++    throw new Error(
++      `RED: src/core/powerRanking.ts does not export a function named '${name}' (got ${typeof fn}). ` +
++        'This guard exists so a partially-implemented module fails loudly per-leaf instead of a vacuous pass.',
++    )
++  }
++  return fn as T
++}
++
++function requireValue(mod: Record<string, unknown>, name: string): unknown {
++  if (!(name in mod)) {
++    throw new Error(`RED: src/core/powerRanking.ts does not export a binding named '${name}'.`)
++  }
++  return mod[name]
++}
++
++function canonicalize(value: unknown): unknown {
++  if (Array.isArray(value)) return value.map(canonicalize)
++  if (value && typeof value === 'object') {
++    const out: Record<string, unknown> = {}
++    for (const k of Object.keys(value as object).sort()) out[k] = canonicalize((value as Record<string, unknown>)[k])
++    return out
++  }
++  return value
++}
++
++function canonicalJSON(value: unknown): string {
++  return JSON.stringify(canonicalize(value))
++}
++
++// ── formula constants, per 1350-A §3, NOT imported from production ────────
++const CRITIC_SHARE = 0.5
++const REACH_SCALE = 0.9
++const FILM_CAP = 4
++const RELEASE_CAP = 4
++
++function roundHalfUp(x: number): number {
++  // All values in this law are nonnegative (criticScore>=0, reach in [0,1]),
++  // so floor(x+0.5) is exact half-up rounding for every case exercised here.
++  return Math.floor(x + 0.5)
++}
++
++function reachOf(totalGross: number, baseMarketValue: number): number {
++  return Math.min(1, totalGross / Math.max(baseMarketValue, 1) / REACH_SCALE)
++}
++
++// filmScore in TENTHS directly (0..100 integer scale), evaluated with a
++// SINGLE division (via reachOf), never by first computing a 0.0-10.0-scale
++// "raw" value and multiplying by 10 afterward. 1351-E/1351-F (F1): the
++// two-multiplication form `10 * (CRITIC_SHARE*(critic/100) + ...) * 10`
++// divides criticScore by 100 and then re-multiplies by 100 in two separate
++// float operations; for critic=61 this yields 80.49999999999999 instead of
++// the exact 80.5, and floor(x+0.5) then wrongly gives 80, not 81. The tenths
++// formula collapses algebraically to CRITIC_SHARE*critic + (1-CRITIC_SHARE)*
++// 100*reach (no division of criticScore at all), matching production's
++// design note 3 ("one division of exact products keeps every such tie
++// exact"). Verified this is the ONLY affected value anywhere this file
++// relies on: see 1351-C4-p15a2-red-writer-findings.md.
++function filmScoreTenths(criticScore: number, totalGross: number, baseMarketValue: number): number {
++  const reach = reachOf(totalGross, baseMarketValue)
++  return roundHalfUp(CRITIC_SHARE * criticScore + (1 - CRITIC_SHARE) * 100 * reach)
++}
++
++// Releases lane (0.0-10.0 scale) = 10 * min(n, RELEASE_CAP) / RELEASE_CAP,
++// stored as integer tenths, rounded half up once.
++function releasesTenthsOf(n: number): number {
++  const raw = (10 * Math.min(n, RELEASE_CAP)) / RELEASE_CAP
++  return roundHalfUp(raw * 10)
++}
++
++// ── local fixture shapes, mirroring the brief's pinned API field-for-field ─
++type FilmFixture = {
++  filmId: string
++  studioId: string
++  releaseTick: number
++  runEndedByWeek: boolean
++  criticScore: number
++  totalGross: number
++  authoredPreCampaign: boolean
++}
++type StudioFixture = { studioId: string; enteredWeek: number; cash: number; weeklyFixedCost: number }
++type InputFixture = {
++  week: number
++  originWeek: number
++  baseMarketValue: number
++  studios: StudioFixture[]
++  films: FilmFixture[]
++}
++
++function film(overrides: Partial<FilmFixture> & { filmId: string; studioId: string }): FilmFixture {
++  return {
++    releaseTick: 0,
++    runEndedByWeek: true,
++    criticScore: 50,
++    totalGross: 0,
++    authoredPreCampaign: false,
++    ...overrides,
++  }
++}
++
++function studio(overrides: Partial<StudioFixture> & { studioId: string }): StudioFixture {
++  return { enteredWeek: 0, cash: 100_000, weeklyFixedCost: 1_000, ...overrides }
++}
++
++const BMV = 1_000_000
++
++const ROW_KEYS = [
++  'band',
++  'countedFilmIds',
++  'distressStage',
++  'filmsTenths',
++  'honors',
++  'pointsTenths',
++  'rank',
++  'ranked',
++  'releases',
++  'releasesTenths',
++  'studioId',
++].sort()
++
++const SNAPSHOT_KEYS = ['available', 'definitionVersion', 'rows', 'week', 'windowStartWeek'].sort()
++
++function rowFor(rows: any[], studioId: string): any {
++  const row = rows.find((r) => r.studioId === studioId)
++  if (!row) throw new Error(`No row for studioId ${studioId}`)
++  return row
++}
++
++// ═══════════════════════════════════════════════════════════════════════
++// A. module surface and TUNING
++// ═══════════════════════════════════════════════════════════════════════
++describe('p15a2 power ranking: module surface', () => {
++  it('power-ranking-definition-version-export', async () => {
++    const mod = await loadPowerRanking()
++    expect(requireValue(mod, 'POWER_RANKING_DEFINITION')).toBe('power-ranking/v1')
++  })
++
++  it('is-power-ranking-week-boundaries', async () => {
++    const mod = await loadPowerRanking()
++    const isPowerRankingWeek = requireFn<(week: number) => boolean>(mod, 'isPowerRankingWeek')
++    // week % 13 === 0, per PARENT API DECISIONS and 1350-A §2 fact 4.
++    expect(isPowerRankingWeek(0)).toBe(true)
++    expect(isPowerRankingWeek(13)).toBe(true)
++    expect(isPowerRankingWeek(26)).toBe(true)
++    expect(isPowerRankingWeek(52)).toBe(true)
++    expect(isPowerRankingWeek(6227)).toBe(true) // 13*479
++    expect(isPowerRankingWeek(1)).toBe(false)
++    expect(isPowerRankingWeek(12)).toBe(false)
++    expect(isPowerRankingWeek(14)).toBe(false)
++    expect(isPowerRankingWeek(25)).toBe(false)
++  })
++})
++
++describe('p15a2 power ranking: TUNING (real, already-existing module)', () => {
++  it('tuning-power-ranking-bounded-terms', () => {
++    const t = TUNING as unknown as Record<string, unknown>
++    // Bounded-term test: values from 1350-A §3's constants table, and each
++    // key's stated provisional range.
++    expect(t.POWER_RANKING_WINDOW_WEEKS).toBe(52)
++    expect(t.POWER_RANKING_FILM_CAP).toBe(4)
++    expect(t.POWER_RANKING_RELEASE_CAP).toBe(4)
++    expect(t.POWER_RANKING_CRITIC_SHARE).toBe(0.5)
++    expect(t.POWER_RANKING_REACH_SCALE).toBe(0.9)
++    expect(t.POWER_RANKING_BAND_STABLE_WEEKS).toBe(13)
++    expect(t.POWER_RANKING_BAND_THRIVING_WEEKS).toBe(26)
++    // Ranges: caps are positive integers; shares/scales are in (0,1]; the
++    // thriving threshold sits strictly above the stable threshold.
++    expect(t.POWER_RANKING_WINDOW_WEEKS as number).toBeGreaterThan(0)
++    expect(t.POWER_RANKING_FILM_CAP as number).toBeGreaterThan(0)
++    expect(t.POWER_RANKING_RELEASE_CAP as number).toBeGreaterThan(0)
++    expect(t.POWER_RANKING_CRITIC_SHARE as number).toBeGreaterThan(0)
++    expect(t.POWER_RANKING_CRITIC_SHARE as number).toBeLessThanOrEqual(1)
++    expect(t.POWER_RANKING_REACH_SCALE as number).toBeGreaterThan(0)
++    expect(t.POWER_RANKING_BAND_THRIVING_WEEKS as number).toBeGreaterThan(t.POWER_RANKING_BAND_STABLE_WEEKS as number)
++  })
++})
++
++// ═══════════════════════════════════════════════════════════════════════
++// B. financialStrengthBand
++// ═══════════════════════════════════════════════════════════════════════
++describe('p15a2 power ranking: financialStrengthBand boundaries (1350-A §3 / 1350-F)', () => {
++  it('financial-strength-band-in-the-red-boundary', async () => {
++    const mod = await loadPowerRanking()
++    const financialStrengthBand = requireFn<(cash: number, weeklyFixedCost: number) => string>(mod, 'financialStrengthBand')
++    // "In the red: cash <= 0", tested at and below zero, including the
++    // fixed-cost-zero edge (interpretation: cash<=0 is checked before the
++    // fixed-cost-zero rule, since the four labels are mutually exclusive and
++    // the charter lists "In the red" first with no "cash>0" qualifier of its
++    // own — the other three labels each require cash>0 by elimination).
++    expect(financialStrengthBand(0, 1_000)).toBe('inTheRed')
++    expect(financialStrengthBand(-1, 1_000)).toBe('inTheRed')
++    expect(financialStrengthBand(-500_000, 1_000)).toBe('inTheRed')
++    expect(financialStrengthBand(0, 0)).toBe('inTheRed')
++    expect(financialStrengthBand(-1, 0)).toBe('inTheRed')
++  })
++
++  it('financial-strength-band-strained-and-stable-boundaries', async () => {
++    const mod = await loadPowerRanking()
++    const financialStrengthBand = requireFn<(cash: number, weeklyFixedCost: number) => string>(mod, 'financialStrengthBand')
++    // weeklyFixedCost = 100 for clean week arithmetic: weeks = floor(cash/100).
++    expect(financialStrengthBand(100, 100)).toBe('strained') // weeks=1 <13
++    expect(financialStrengthBand(1_200, 100)).toBe('strained') // weeks=12 <13
++    expect(financialStrengthBand(1_300, 100)).toBe('stable') // weeks=13
++    expect(financialStrengthBand(2_500, 100)).toBe('stable') // weeks=25
++    // floor behaviour: 1250/100=12.5 -> floor 12 -> strained, not stable.
++    expect(financialStrengthBand(1_250, 100)).toBe('strained')
++  })
++
++  it('financial-strength-band-thriving-boundary', async () => {
++    const mod = await loadPowerRanking()
++    const financialStrengthBand = requireFn<(cash: number, weeklyFixedCost: number) => string>(mod, 'financialStrengthBand')
++    expect(financialStrengthBand(2_600, 100)).toBe('thriving') // weeks=26
++    expect(financialStrengthBand(10_000, 100)).toBe('thriving') // weeks=100
++  })
++
++  it('financial-strength-band-zero-fixed-cost-founding-edge', async () => {
++    const mod = await loadPowerRanking()
++    const financialStrengthBand = requireFn<(cash: number, weeklyFixedCost: number) => string>(mod, 'financialStrengthBand')
++    // 1350-F: "a fixed cost of 0 [reads] Thriving" and "a test pins what
++    // happens if [the founding edge] does [show]" (cash>0, fixedCost=0).
++    expect(financialStrengthBand(500, 0)).toBe('thriving')
++    expect(financialStrengthBand(1, 0)).toBe('thriving')
++    // cash<=0 still wins over the fixed-cost-zero rule (see the in-the-red leaf).
++  })
++})
++
++// ═══════════════════════════════════════════════════════════════════════
++// C. computePowerRanking — worked examples, rounding
++// ═══════════════════════════════════════════════════════════════════════
++describe('p15a2 power ranking: computePowerRanking worked examples', () => {
++  it('compute-power-ranking-worked-example-critic60-gross045-reach05-score55', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    // 1350-A §3 worked example, verbatim: "critic 60, gross 0.45 * baseMarketValue
++    // give reach 0.5 and a film score of 5.5."
++    // reach = min(1, 450000/1000000/0.9) = min(1, 0.5) = 0.5
++    // raw   = 10*(0.5*60/100 + 0.5*0.5) = 10*(0.30+0.25) = 10*0.55 = 5.5
++    // tenths = round_half_up(5.5*10) = 55
++    const input: InputFixture = {
++      week: 52,
++      originWeek: 0,
++      baseMarketValue: BMV,
++      studios: [studio({ studioId: 'M' })],
++      films: [film({ filmId: 'WORKED', studioId: 'M', releaseTick: 10, runEndedByWeek: true, criticScore: 60, totalGross: 0.45 * BMV })],
++    }
++    const snapshot = computePowerRanking(input)
++    const row = rowFor(snapshot.rows, 'M')
++    expect(row.filmsTenths).toBe(55)
++    expect(row.countedFilmIds).toEqual(['WORKED'])
++    expect(row.releases).toBe(1)
++    expect(row.releasesTenths).toBe(releasesTenthsOf(1)) // 25
++    expect(row.pointsTenths).toBe(55 + 25)
++  })
++
++  it('compute-power-ranking-film-score-rounds-half-up-at-exact-half-tenth', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    // critic=61, gross=baseMarketValue exactly -> reach=min(1,1/0.9)=min(1,1.111)=1
++    // tenths = CRITIC_SHARE*61 + (1-CRITIC_SHARE)*100*1 = 0.5*61 + 0.5*100 = 30.5+50 = 80.5 exactly
++    // (both 0.5*61 and 0.5*100 are exact in float64; this is why filmScoreTenths
++    // must be evaluated this way -- see the helper's own comment / 1351-C4 F1)
++    // tenths = round_half_up(80.5) = 81 (half rounds up, not to-even/truncated 80)
++    expect(filmScoreTenths(61, BMV, BMV)).toBe(81) // sanity on the test's own helper
++    const input: InputFixture = {
++      week: 52,
++      originWeek: 0,
++      baseMarketValue: BMV,
++      studios: [studio({ studioId: 'R' })],
++      films: [film({ filmId: 'HALF', studioId: 'R', releaseTick: 10, runEndedByWeek: true, criticScore: 61, totalGross: BMV })],
++    }
++    const snapshot = computePowerRanking(input)
++    expect(rowFor(snapshot.rows, 'R').filmsTenths).toBe(81)
++  })
++
++  it('compute-power-ranking-window-start-week-and-definition-version-fields', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    const definition = requireValue(mod, 'POWER_RANKING_DEFINITION')
++    const input: InputFixture = { week: 130, originWeek: 0, baseMarketValue: BMV, studios: [studio({ studioId: 'A' })], films: [] }
++    const snapshot = computePowerRanking(input)
++    expect(snapshot.week).toBe(130)
++    expect(snapshot.definitionVersion).toBe(definition)
++    expect(snapshot.windowStartWeek).toBe(130 - 52) // window is [W-52, W)
++    expect(Object.keys(snapshot).sort()).toEqual(SNAPSHOT_KEYS)
++  })
++})
++
++// ═══════════════════════════════════════════════════════════════════════
++// C2. multi-film mean rounding order (1351-C2 pin, per the parent's 1351-C2
++// decision on finding 5): each counted film's score is rounded half up to
++// integer tenths ONCE; filmsTenths is then the mean of those integer tenths,
++// rounded half up ONCE. This is "round-then-average-then-round" (Method A,
++// adopted), not "average-raw-then-round-once" (Method B, rejected).
++// ═══════════════════════════════════════════════════════════════════════
++describe('p15a2 power ranking: multi-film mean rounding order (1351-C2 pin)', () => {
++  it('compute-power-ranking-filmstenths-mean-rounding-order-genuinely-fractional', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    // Three films, reach=1 for all (gross=BMV), so raw tenths = 0.5*critic+50.
++    // Chosen so each film's raw (pre-rounding) tenths sits near the TOP of its
++    // own rounding bucket -- individually each still rounds to the parent's
++    // own worked example (55, 56, 58) -- but the raw values themselves are
++    // high enough within their buckets that averaging them BEFORE rounding
++    // (the rejected Method B) crosses a different rounding boundary than
++    // averaging the already-rounded integers (the adopted Method A).
++    //   critic=10.98 -> raw tenths = 0.5*10.98+50 = 55.49 -> rounds to 55
++    //   critic=12.98 -> raw tenths = 0.5*12.98+50 = 56.49 -> rounds to 56
++    //   critic=16.98 -> raw tenths = 0.5*16.98+50 = 58.49 -> rounds to 58
++    // Method A (adopted): mean(55, 56, 58) = 169/3 = 56.333... -> round half
++    //   up = 56.  (Exactly the parent's own worked example: "55, 56, 58 ->
++    //   mean 56.333... -> 56".)
++    // Method B (rejected): mean(55.49, 56.49, 58.49) = 170.47/3 = 56.8233...
++    //   -> round half up = 57.
++    // 56 !== 57: a genuine divergence, so this leaf actually discriminates
++    // between the two orders, not merely restates the charter prose.
++    const films = [
++      film({ filmId: 'FR1', studioId: 'FRAC', releaseTick: 10, criticScore: 10.98, totalGross: BMV }),
++      film({ filmId: 'FR2', studioId: 'FRAC', releaseTick: 10, criticScore: 12.98, totalGross: BMV }),
++      film({ filmId: 'FR3', studioId: 'FRAC', releaseTick: 10, criticScore: 16.98, totalGross: BMV }),
++    ]
++    // Sanity-check this test's own arithmetic before asserting against production.
++    const individual = films.map((f) => filmScoreTenths(f.criticScore, f.totalGross, BMV))
++    expect(individual).toEqual([55, 56, 58])
++    const methodA = roundHalfUp(individual.reduce((a, b) => a + b, 0) / individual.length)
++    const rawTenths = films.map((f) => {
++      const reach = reachOf(f.totalGross, BMV)
++      return 10 * (10 * (CRITIC_SHARE * (f.criticScore / 100) + (1 - CRITIC_SHARE) * reach))
++    })
++    const methodB = roundHalfUp(rawTenths.reduce((a, b) => a + b, 0) / rawTenths.length)
++    expect(methodA).toBe(56)
++    expect(methodB).toBe(57)
++    expect(methodA).not.toBe(methodB) // the two orders genuinely diverge for this input
++
++    const input: InputFixture = {
++      week: 52,
++      originWeek: 0,
++      baseMarketValue: BMV,
++      studios: [studio({ studioId: 'FRAC' })],
++      films,
++    }
++    const row = rowFor(computePowerRanking(input).rows, 'FRAC')
++    expect(row.filmsTenths).toBe(methodA) // 56: the adopted round-then-average-then-round order
++    expect(row.filmsTenths).not.toBe(methodB) // not 57: the rejected average-then-round order
++    expect(new Set(row.countedFilmIds)).toEqual(new Set(['FR1', 'FR2', 'FR3']))
++  })
++
++  it('compute-power-ranking-filmstenths-mean-rounds-half-up-at-exact-half', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    // Two studios, each with two counted films whose INDIVIDUAL tenths are
++    // already exact integers (critic chosen so raw tenths = 0.5*critic+50
++    // lands exactly on an integer, reach=1 via gross=BMV), isolating the
++    // LANE-MEAN rounding step (the second "rounded half up once") from the
++    // per-film rounding step (the first).
++    //
++    // HALFEVEN: critic=10 -> tenths=55; critic=12 -> tenths=56.
++    //   mean = (55+56)/2 = 55.5 -> round half up = 56.
++    //   This is the parent's own literal example ("55, 56 -> 55.5 -> 56").
++    //   56 happens to also be the nearest EVEN integer, so this case alone
++    //   does not distinguish half-up from banker's (round-half-to-even).
++    //
++    // HALFODD: critic=20 -> tenths=60; critic=22 -> tenths=61.
++    //   mean = (60+61)/2 = 60.5 -> round half up = 61 (ODD).
++    //   Banker's rounding would give 60 (the nearest even integer); simple
++    //   truncation would also give 60. Only true half-up gives 61, so this
++    //   second case is what actually pins half-up over the alternatives.
++    const input: InputFixture = {
++      week: 52,
++      originWeek: 0,
++      baseMarketValue: BMV,
++      studios: [studio({ studioId: 'HALFEVEN' }), studio({ studioId: 'HALFODD' })],
++      films: [
++        film({ filmId: 'HE1', studioId: 'HALFEVEN', releaseTick: 10, criticScore: 10, totalGross: BMV }),
++        film({ filmId: 'HE2', studioId: 'HALFEVEN', releaseTick: 10, criticScore: 12, totalGross: BMV }),
++        film({ filmId: 'HO1', studioId: 'HALFODD', releaseTick: 10, criticScore: 20, totalGross: BMV }),
++        film({ filmId: 'HO2', studioId: 'HALFODD', releaseTick: 10, criticScore: 22, totalGross: BMV }),
++      ],
++    }
++    // Sanity-check this test's own arithmetic before asserting against production.
++    expect(filmScoreTenths(10, BMV, BMV)).toBe(55)
++    expect(filmScoreTenths(12, BMV, BMV)).toBe(56)
++    expect(filmScoreTenths(20, BMV, BMV)).toBe(60)
++    expect(filmScoreTenths(22, BMV, BMV)).toBe(61)
++
++    const snapshot = computePowerRanking(input)
++    expect(rowFor(snapshot.rows, 'HALFEVEN').filmsTenths).toBe(56)
++    expect(rowFor(snapshot.rows, 'HALFODD').filmsTenths).toBe(61)
++  })
++})
++
++// ═══════════════════════════════════════════════════════════════════════
++// D. window edges, running films, pre-1920 exclusion
++// ═══════════════════════════════════════════════════════════════════════
++describe('p15a2 power ranking: window edges and the running-film rule', () => {
++  it('compute-power-ranking-window-edge-release-tick-w52-counts-w53-excluded', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    // W=104, window=[52,104). releaseTick=52 (=W-52) is the first included
++    // tick; releaseTick=51 (=W-53) is excluded; releaseTick=104 (=W) is
++    // excluded (right-exclusive upper bound).
++    const input: InputFixture = {
++      week: 104,
++      originWeek: 0,
++      baseMarketValue: BMV,
++      studios: [studio({ studioId: 'W' })],
++      films: [
++        film({ filmId: 'AT-W-52', studioId: 'W', releaseTick: 52, runEndedByWeek: true, criticScore: 80, totalGross: BMV }),
++        film({ filmId: 'AT-W-53', studioId: 'W', releaseTick: 51, runEndedByWeek: true, criticScore: 80, totalGross: BMV }),
++        film({ filmId: 'AT-W', studioId: 'W', releaseTick: 104, runEndedByWeek: true, criticScore: 80, totalGross: BMV }),
++      ],
++    }
++    const snapshot = computePowerRanking(input)
++    const row = rowFor(snapshot.rows, 'W')
++    expect(row.releases).toBe(1)
++    expect(row.countedFilmIds).toEqual(['AT-W-52'])
++    // critic=80, reach=1: raw=10*(0.5*0.8+0.5*1)=10*0.9=9.0 -> tenths=90
++    expect(row.filmsTenths).toBe(90)
++  })
++
++  it('compute-power-ranking-window-edge-w52-unfinished-counts-releases-not-films', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    // 1351-D non-blocking note 1: combine the release-tick window edge with
++    // an unfinished film AT THAT SAME BOUNDARY TICK (releaseTick=W-52 exactly,
++    // runEndedByWeek:false), per 1350-A item 2's "release and settlement
++    // edges tested separately" phrase. The two rules were previously only
++    // exercised at DIFFERENT ticks by two separate leaves; this leaf proves
++    // both apply together at the one tick where they could plausibly
++    // interact: the film is inside the window (counts in Releases) but has
++    // not finished its run (excluded from Films), simultaneously.
++    const input: InputFixture = {
++      week: 104,
++      originWeek: 0,
++      baseMarketValue: BMV,
++      studios: [studio({ studioId: 'ATEDGE' })],
++      films: [
++        film({ filmId: 'AT-W-52-RUNNING', studioId: 'ATEDGE', releaseTick: 52, runEndedByWeek: false, criticScore: 90, totalGross: BMV }),
++      ],
++    }
++    const row = rowFor(computePowerRanking(input).rows, 'ATEDGE')
++    expect(row.releases).toBe(1) // window-edge rule: releaseTick=52=W-52 is inside [52,104)
++    expect(row.releasesTenths).toBe(releasesTenthsOf(1)) // 25
++    expect(row.filmsTenths).toBe(0) // settlement rule: unfinished -> excluded from Films
++    expect(row.countedFilmIds).toEqual([])
++  })
++
++  it('compute-power-ranking-running-film-counts-releases-only-then-films-next-snapshot', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    // Same release (releaseTick=40), observed at two snapshots. At week 52
++    // the run has not ended (runEndedByWeek:false, an explicit pure input):
++    // it counts in Releases only. At week 65 (still inside a window that
++    // contains releaseTick=40 -- window [13,65)) the caller now supplies
++    // runEndedByWeek:true, and it counts in Films.
++    // critic=80, gross=0 -> reach=0 -> raw=10*(0.5*0.8+0)=4.0 -> tenths=40
++    const running = film({ filmId: 'RUN', studioId: 'R', releaseTick: 40, runEndedByWeek: false, criticScore: 80, totalGross: 0 })
++    const snapshot1 = computePowerRanking({
++      week: 52,
++      originWeek: 0,
++      baseMarketValue: BMV,
++      studios: [studio({ studioId: 'R' })],
++      films: [running],
++    })
++    const row1 = rowFor(snapshot1.rows, 'R')
++    expect(row1.releases).toBe(1)
++    expect(row1.releasesTenths).toBe(releasesTenthsOf(1)) // 25
++    expect(row1.filmsTenths).toBe(0) // no finished release in the window
++    expect(row1.countedFilmIds).toEqual([])
++
++    const finished = { ...running, runEndedByWeek: true }
++    const snapshot2 = computePowerRanking({
++      week: 65,
++      originWeek: 0,
++      baseMarketValue: BMV,
++      studios: [studio({ studioId: 'R' })],
++      films: [finished],
++    })
++    const row2 = rowFor(snapshot2.rows, 'R')
++    expect(row2.releases).toBe(1)
++    expect(row2.filmsTenths).toBe(40)
++    expect(row2.countedFilmIds).toEqual(['RUN'])
++  })
++
++  it('compute-power-ranking-releases-lane-excludes-authored-pre-1920-films', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    // 1350-F RED addition: authored pre-1920 films are excluded from Releases.
++    // runEndedByWeek:false on both, isolating the Releases-only effect (Films
++    // lane stays 0 for both regardless of the authored flag, since neither
++    // has a finished run -- this test only pins the Releases exclusion, which
++    // is the only lane 1350-F names).
++    const input: InputFixture = {
++      week: 52,
++      originWeek: 0,
++      baseMarketValue: BMV,
++      studios: [studio({ studioId: 'P' })],
++      films: [
++        film({ filmId: 'AUTHORED', studioId: 'P', releaseTick: 10, runEndedByWeek: false, authoredPreCampaign: true }),
++        film({ filmId: 'CAMPAIGN', studioId: 'P', releaseTick: 10, runEndedByWeek: false, authoredPreCampaign: false }),
++      ],
++    }
++    const snapshot = computePowerRanking(input)
++    const row = rowFor(snapshot.rows, 'P')
++    expect(row.releases).toBe(1)
++    expect(row.releasesTenths).toBe(releasesTenthsOf(1)) // 25
++  })
++
++  it('compute-power-ranking-authored-pre-campaign-film-counts-in-no-lane', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    // 1351-F ruling on F3: "authored pre-campaign films count in no lane."
++    // 1350-A §3 excluded authored pre-1920 films from Releases only; the
++    // Films lane named no exclusion. The ruling amends §3 by one condition:
++    // a FINISHED, in-window authored film must score 0.0 in Films too (with
++    // the same "no finished release in the window" reason an empty Films
++    // lane already carries), not just be excluded from Releases.
++    // W=26 (< 52, an "early window": windowStartWeek=26-52=-26, so the film's
++    // releaseTick=5 is trivially inside [-26,26)). originWeek=0 -- note
++    // `available` is false here regardless (0 > -26), but lanes are shown
++    // even when unranked/unavailable (established by the eligibility leaves),
++    // so this exercises the lane computation directly, independent of rank
++    // publication (1351-F: "Only a snapshot before week 52 can hold one").
++    const authoredFilm = film({
++      filmId: 'AUTHORED-FINISHED',
++      studioId: 'HERITAGE',
++      releaseTick: 5,
++      runEndedByWeek: true,
++      criticScore: 90,
++      totalGross: BMV,
++      authoredPreCampaign: true,
++    })
++    const input: InputFixture = {
++      week: 26,
++      originWeek: 0,
++      baseMarketValue: BMV,
++      studios: [studio({ studioId: 'HERITAGE' })],
++      films: [authoredFilm],
++    }
++    const row = rowFor(computePowerRanking(input).rows, 'HERITAGE')
++    expect(row.filmsTenths).toBe(0) // "no finished release in the window" -- the authored film does not count
++    expect(row.countedFilmIds).toEqual([])
++    expect(row.releases).toBe(0) // Releases already excluded authored films (1350-F); still 0 here
++    expect(row.releasesTenths).toBe(releasesTenthsOf(0))
++
++    // Control: the identical film, only `authoredPreCampaign: false`, counts
++    // in BOTH lanes -- proving the exclusion above is driven by the flag,
++    // not by some other property of this fixture (week, releaseTick, critic).
++    // critic=90, gross=BMV (reach=1): tenths = 0.5*90+50*1 = 45+50 = 95
++    const campaignFilm = { ...authoredFilm, filmId: 'CAMPAIGN-FINISHED', authoredPreCampaign: false }
++    const controlInput: InputFixture = {
++      week: 26,
++      originWeek: 0,
++      baseMarketValue: BMV,
++      studios: [studio({ studioId: 'HERITAGE' })],
++      films: [campaignFilm],
++    }
++    const controlRow = rowFor(computePowerRanking(controlInput).rows, 'HERITAGE')
++    expect(controlRow.filmsTenths).toBe(95)
++    expect(controlRow.countedFilmIds).toEqual(['CAMPAIGN-FINISHED'])
++    expect(controlRow.releases).toBe(1)
++    expect(controlRow.releasesTenths).toBe(releasesTenthsOf(1))
++  })
++})
++
++// ═══════════════════════════════════════════════════════════════════════
++// E. caps
++// ═══════════════════════════════════════════════════════════════════════
++describe('p15a2 power ranking: FILM_CAP and RELEASE_CAP', () => {
++  it('compute-power-ranking-film-cap-fifth-film-changes-nothing', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    // Four strong films (critic 60/40/20/0, all reach=1 via gross=BMV):
++    //   80, 70, 60, 50 tenths (see filmScoreTenths derivations elsewhere in
++    //   this file) -> mean = 260/4 = 65.
++    // A fifth, weaker film (critic=0, gross=0 -> reach=0 -> tenths=0) must
++    // not move the mean or the counted set: FILM_CAP=4 keeps only the best 4.
++    const strong = [
++      film({ filmId: 'F60', studioId: 'C', releaseTick: 10, criticScore: 60, totalGross: BMV }),
++      film({ filmId: 'F40', studioId: 'C', releaseTick: 10, criticScore: 40, totalGross: BMV }),
++      film({ filmId: 'F20', studioId: 'C', releaseTick: 10, criticScore: 20, totalGross: BMV }),
++      film({ filmId: 'F00', studioId: 'C', releaseTick: 10, criticScore: 0, totalGross: BMV }),
++    ]
++    const weak = film({ filmId: 'WEAK', studioId: 'C', releaseTick: 10, criticScore: 0, totalGross: 0 })
++    const base: InputFixture = { week: 52, originWeek: 0, baseMarketValue: BMV, studios: [studio({ studioId: 'C' })], films: strong }
++    const withFifth: InputFixture = { ...base, films: [...strong, weak] }
++    const rowBase = rowFor(computePowerRanking(base).rows, 'C')
++    const rowFifth = rowFor(computePowerRanking(withFifth).rows, 'C')
++    expect(rowBase.filmsTenths).toBe(65)
++    expect(rowFifth.filmsTenths).toBe(65)
++    expect(rowFifth.releases).toBe(5) // Releases lane's own raw count is uncapped
++    expect(rowFifth.countedFilmIds.length).toBeLessThanOrEqual(FILM_CAP)
++    expect(new Set(rowFifth.countedFilmIds)).toEqual(new Set(['F60', 'F40', 'F20', 'F00']))
++    expect(rowFifth.countedFilmIds).not.toContain('WEAK')
++  })
++
++  it('compute-power-ranking-film-cap-tie-break-by-film-id', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    // Five films: critic 60/40/20/0/0 (D and E tied at critic=0, reach=1 ->
++    // both 50 tenths). FILM_CAP=4 keeps the best 4 by score; at the tie, the
++    // lower filmId is kept ('D' < 'E' lexicographically) -- an interpretation
++    // decision documented in the handback, since 1350-A/F name "ties by
++    // filmId" without stating the tie direction.
++    const films = [
++      film({ filmId: 'A', studioId: 'C', releaseTick: 10, criticScore: 60, totalGross: BMV }), // 80
++      film({ filmId: 'B', studioId: 'C', releaseTick: 10, criticScore: 40, totalGross: BMV }), // 70
++      film({ filmId: 'C1', studioId: 'C', releaseTick: 10, criticScore: 20, totalGross: BMV }), // 60
++      film({ filmId: 'D', studioId: 'C', releaseTick: 10, criticScore: 0, totalGross: BMV }), // 50, tied
++      film({ filmId: 'E', studioId: 'C', releaseTick: 10, criticScore: 0, totalGross: BMV }), // 50, tied
++    ]
++    const input: InputFixture = { week: 52, originWeek: 0, baseMarketValue: BMV, studios: [studio({ studioId: 'C' })], films }
++    const row = rowFor(computePowerRanking(input).rows, 'C')
++    expect(row.filmsTenths).toBe(65) // (80+70+60+50)/4 = 65, same either way the tie resolves
++    expect(new Set(row.countedFilmIds)).toEqual(new Set(['A', 'B', 'C1', 'D']))
++    expect(row.countedFilmIds).not.toContain('E')
++  })
++
++  it('compute-power-ranking-release-cap-fifth-release-changes-nothing', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    const filler = (n: number) =>
++      Array.from({ length: n }, (_, i) => film({ filmId: `REL${i}`, studioId: 'C', releaseTick: 10, runEndedByWeek: false }))
++    const four = computePowerRanking({ week: 52, originWeek: 0, baseMarketValue: BMV, studios: [studio({ studioId: 'C' })], films: filler(4) })
++    const five = computePowerRanking({ week: 52, originWeek: 0, baseMarketValue: BMV, studios: [studio({ studioId: 'C' })], films: filler(5) })
++    const rowFour = rowFor(four.rows, 'C')
++    const rowFive = rowFor(five.rows, 'C')
++    expect(rowFour.releases).toBe(4)
++    expect(rowFive.releases).toBe(5) // raw count still reflects reality
++    expect(rowFour.releasesTenths).toBe(100) // 10*min(4,4)/4*10 = 100
++    expect(rowFive.releasesTenths).toBe(100) // 10*min(5,4)/4*10 = 100, unchanged
++  })
++})
++
++// ═══════════════════════════════════════════════════════════════════════
++// F. competition ranking, symmetry, determinism
++// ═══════════════════════════════════════════════════════════════════════
++describe('p15a2 power ranking: ranking, symmetry, determinism', () => {
++  it('compute-power-ranking-competition-ranking-1-1-3-and-presentation-order', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    // No films anywhere: filmsTenths=0 for every row, so points = releasesTenths
++    // only. ZEBRA and ALPHA both get 4 releases (releasesTenths=100, tied for
++    // first); MID gets 2 (50); LOW gets 0 (0).
++    // rank(ALPHA)=rank(ZEBRA)=1+0=1; rank(MID)=1+2=3; rank(LOW)=1+3=4 (1-1-3-4).
++    // Presentation: rank asc, studioId asc within a tie -> ALPHA, ZEBRA, MID, LOW.
++    const releases = (id: string, n: number) =>
++      Array.from({ length: n }, (_, i) => film({ filmId: `${id}-${i}`, studioId: id, releaseTick: 10, runEndedByWeek: false }))
++    const input: InputFixture = {
++      week: 52,
++      originWeek: 0,
++      baseMarketValue: BMV,
++      studios: [studio({ studioId: 'ZEBRA' }), studio({ studioId: 'ALPHA' }), studio({ studioId: 'MID' }), studio({ studioId: 'LOW' })],
++      films: [...releases('ZEBRA', 4), ...releases('ALPHA', 4), ...releases('MID', 2), ...releases('LOW', 0)],
++    }
++    const rows = computePowerRanking(input).rows
++    expect(rowFor(rows, 'ALPHA').rank).toBe(1)
++    expect(rowFor(rows, 'ZEBRA').rank).toBe(1)
++    expect(rowFor(rows, 'MID').rank).toBe(3)
++    expect(rowFor(rows, 'LOW').rank).toBe(4)
++    expect(rows.map((r: any) => r.studioId)).toEqual(['ALPHA', 'ZEBRA', 'MID', 'LOW'])
++  })
++
++  it('compute-power-ranking-tied-pair-id-swap-flips-presentation-order', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    // 1351-D non-blocking note 2 / 1350-A §5 item 5's second clause:
++    // "swapping the IDs of tied studios swaps only their presentation order."
++    // A tied pair via two STRUCTURALLY DIFFERENT combinations that sum to the
++    // same points (75), so a fact-swap between the two ID labels is genuinely
++    // observable (not just an opaque tied total):
++    //   LOW:  1 finished film (critic=0, reach=1 -> tenths=50) -> filmsTenths=50;
++    //         that same film also counts as 1 release -> releasesTenths=25.
++    //         pointsTenths = 50+25 = 75.
++    //   HIGH: 0 finished films (filmsTenths=0); 3 unfinished releases ->
++    //         releasesTenths = 10*min(3,4)/4*10 = 75. pointsTenths = 0+75 = 75.
++    // Presentation order among a tie is studioId ascending ('ALPHA' < 'ZETA'),
++    // so the ID-STRING SEQUENCE in `rows` is ['ALPHA','ZETA'] in BOTH setups
++    // below (it is a property of the two ID strings, not of the facts
++    // attached to them) -- ranks stay 1,1 in both setups too, trivially,
++    // since the pair is tied either way. What the charter's clause actually
++    // pins is that WHICH FACT-SET occupies the first ('ALPHA') vs second
++    // ('ZETA') slot swaps when the IDs attached to the two fact-sets are
++    // swapped -- i.e. presentation position tracks the ID label alone, never
++    // an internal identity that persists across the swap.
++    const lowFilm = (owner: string) => film({ filmId: `${owner}-LOWFILM`, studioId: owner, releaseTick: 10, criticScore: 0, totalGross: BMV })
++    const highReleases = (owner: string) =>
++      Array.from({ length: 3 }, (_, i) => film({ filmId: `${owner}-HR${i}`, studioId: owner, releaseTick: 10, runEndedByWeek: false }))
++    function buildInput(lowOwner: string, highOwner: string): InputFixture {
++      return {
++        week: 52,
++        originWeek: 0,
++        baseMarketValue: BMV,
++        studios: [studio({ studioId: lowOwner }), studio({ studioId: highOwner })],
++        films: [lowFilm(lowOwner), ...highReleases(highOwner)],
++      }
++    }
++    const setupA = computePowerRanking(buildInput('ALPHA', 'ZETA')) // ALPHA=LOW, ZETA=HIGH
++    const setupB = computePowerRanking(buildInput('ZETA', 'ALPHA')) // ZETA=LOW, ALPHA=HIGH -- IDs swapped
++    for (const snapshot of [setupA, setupB]) {
++      expect(snapshot.rows.map((r: any) => r.studioId)).toEqual(['ALPHA', 'ZETA']) // ID-sequence invariant
++      for (const row of snapshot.rows) {
++        expect(row.ranked).toBe(true)
++        expect(row.rank).toBe(1) // ranks stay 1,1 in both setups
++        expect(row.pointsTenths).toBe(75)
++      }
++    }
++    // the presentation order of the FACTS flips: the 'ALPHA' slot holds LOW's
++    // facts in setup A but HIGH's facts in setup B, and vice versa for 'ZETA'.
++    expect(rowFor(setupA.rows, 'ALPHA').filmsTenths).toBe(50) // LOW
++    expect(rowFor(setupA.rows, 'ZETA').filmsTenths).toBe(0) // HIGH
++    expect(rowFor(setupB.rows, 'ALPHA').filmsTenths).toBe(0) // HIGH now
++    expect(rowFor(setupB.rows, 'ZETA').filmsTenths).toBe(50) // LOW now
++  })
++
++  it('compute-power-ranking-id-and-owner-swap-symmetry', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    // RankingStudio/RankingInput carry no role/player field at all (see the
++    // standing-independence structural leaves below), so "owner swap" and "id
++    // swap" collapse to the same check: the same facts, relabelled under a
++    // different studioId, must produce the same lanes/band/rank -- proving no
++    // special-cased identity exists anywhere in the pure law.
++    const factsA = { cash: 5_000, weeklyFixedCost: 1_000, criticScore: 80, totalGross: BMV, releases: 2 }
++    const factsB = { cash: 50_000, weeklyFixedCost: 500, criticScore: 20, totalGross: 0, releases: 0 }
++    // filmId is built from a fact-set-fixed LABEL ('FACTSA'/'FACTSB'), not
++    // from the owning studioId -- so swapping which studioId currently holds
++    // a fact-set does not change that fact-set's own filmId strings, and
++    // `countedFilmIds` becomes directly comparable across the swap (1351-D
++    // non-blocking note 3).
++    function buildInput(idOfA: string, idOfB: string): InputFixture {
++      const filmsFor = (owner: string, label: string, f: typeof factsA) => [
++        film({ filmId: `${label}-main`, studioId: owner, releaseTick: 10, criticScore: f.criticScore, totalGross: f.totalGross }),
++        ...Array.from({ length: f.releases }, (_, i) => film({ filmId: `${label}-rel${i}`, studioId: owner, releaseTick: 10, runEndedByWeek: false })),
++      ]
++      return {
++        week: 52,
++        originWeek: 0,
++        baseMarketValue: BMV,
++        studios: [
++          studio({ studioId: idOfA, cash: factsA.cash, weeklyFixedCost: factsA.weeklyFixedCost }),
++          studio({ studioId: idOfB, cash: factsB.cash, weeklyFixedCost: factsB.weeklyFixedCost }),
++        ],
++        films: [...filmsFor(idOfA, 'FACTSA', factsA), ...filmsFor(idOfB, 'FACTSB', factsB)],
++      }
++    }
++    const original = computePowerRanking(buildInput('A', 'B'))
++    const swapped = computePowerRanking(buildInput('B', 'A'))
++    const rowAOriginal = rowFor(original.rows, 'A')
++    const rowASwapped = rowFor(swapped.rows, 'A') // now holds factsB's data
++    const rowBOriginal = rowFor(original.rows, 'B')
++    const rowBSwapped = rowFor(swapped.rows, 'B') // now holds factsA's data
++    for (const key of ['ranked', 'rank', 'filmsTenths', 'releases', 'releasesTenths', 'pointsTenths', 'band'] as const) {
++      expect(rowASwapped[key]).toEqual(rowBOriginal[key])
++      expect(rowBSwapped[key]).toEqual(rowAOriginal[key])
++    }
++    // countedFilmIds: order-insensitive (Set) comparison, now meaningful
++    // because filmId no longer embeds the (swapped) owner id.
++    expect(new Set(rowASwapped.countedFilmIds)).toEqual(new Set(rowBOriginal.countedFilmIds))
++    expect(new Set(rowBSwapped.countedFilmIds)).toEqual(new Set(rowAOriginal.countedFilmIds))
++  })
++
++  it('compute-power-ranking-determinism-byte-identical-two-calls', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    const buildInput = (): InputFixture => ({
++      week: 78,
++      originWeek: 0,
++      baseMarketValue: BMV,
++      studios: [studio({ studioId: 'X', cash: 3_000, weeklyFixedCost: 250 }), studio({ studioId: 'Y', cash: 9_000, weeklyFixedCost: 100 })],
++      films: [
++        film({ filmId: 'X1', studioId: 'X', releaseTick: 30, criticScore: 55, totalGross: 0.3 * BMV }),
++        film({ filmId: 'Y1', studioId: 'Y', releaseTick: 40, criticScore: 90, totalGross: BMV }),
++      ],
++    })
++    // Two independently-constructed, structurally-identical inputs (via
++    // JSON round-trip to guarantee no shared object references).
++    const inputA = JSON.parse(JSON.stringify(buildInput()))
++    const inputB = JSON.parse(JSON.stringify(buildInput()))
++    const snapshotA = computePowerRanking(inputA)
++    const snapshotB = computePowerRanking(inputB)
++    expect(canonicalJSON(snapshotA)).toBe(canonicalJSON(snapshotB))
++  })
++})
++
++// ═══════════════════════════════════════════════════════════════════════
++// G. Standing independence, finance independence, no private balance
++// ═══════════════════════════════════════════════════════════════════════
++describe('p15a2 power ranking: Standing independence, finance independence, privacy', () => {
++  it('compute-power-ranking-standing-independence-no-standing-field-in-type', () => {
++    // No Standing input channel exists anywhere in the pure API surface:
++    // exact key-set checks on each fixture shape, none of which include
++    // 'standing' (or any Standing channel name).
++    const s = studio({ studioId: 'S' })
++    expect(Object.keys(s).sort()).toEqual(['cash', 'enteredWeek', 'studioId', 'weeklyFixedCost'])
++    const f = film({ filmId: 'F', studioId: 'S' })
++    expect(Object.keys(f).sort()).toEqual(
++      ['authoredPreCampaign', 'criticScore', 'filmId', 'releaseTick', 'runEndedByWeek', 'studioId', 'totalGross'].sort(),
++    )
++    const input: InputFixture = { week: 0, originWeek: 0, baseMarketValue: 1, studios: [], films: [] }
++    expect(Object.keys(input).sort()).toEqual(['baseMarketValue', 'films', 'originWeek', 'studios', 'week'].sort())
++  })
++
++  it('compute-power-ranking-standing-independence-injected-field-ignored', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: any) => any>(mod, 'computePowerRanking')
++    // Purity over RankingInput: even if a caller smuggles an untyped extra
++    // fact (e.g. a bogus 'standing' object) onto a studio record, the
++    // function must ignore it -- it may only read the declared fields.
++    const baseInput: InputFixture = {
++      week: 52,
++      originWeek: 0,
++      baseMarketValue: BMV,
++      studios: [studio({ studioId: 'S', cash: 4_000, weeklyFixedCost: 200 })],
++      films: [film({ filmId: 'F', studioId: 'S', releaseTick: 10, criticScore: 70, totalGross: 0.6 * BMV })],
++    }
++    const pollutedInput = {
++      ...baseInput,
++      studios: baseInput.studios.map((s) => ({ ...s, standing: { awareness: 99, warmth: 1, prestige: 1 } })),
++    }
++    const baseline = computePowerRanking(baseInput)
++    const polluted = computePowerRanking(pollutedInput)
++    expect(canonicalJSON(polluted)).toBe(canonicalJSON(baseline))
++  })
++
++  it('compute-power-ranking-finance-independence-band-only', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    const buildInput = (cash: number, weeklyFixedCost: number): InputFixture => ({
++      week: 52,
++      originWeek: 0,
++      baseMarketValue: BMV,
++      studios: [studio({ studioId: 'A', cash, weeklyFixedCost }), studio({ studioId: 'B', cash: 5_000, weeklyFixedCost: 500 })],
++      films: [
++        film({ filmId: 'A1', studioId: 'A', releaseTick: 10, criticScore: 70, totalGross: 0.6 * BMV }),
++        film({ filmId: 'B1', studioId: 'B', releaseTick: 10, criticScore: 30, totalGross: 0.1 * BMV }),
++      ],
++    })
++    const strained = computePowerRanking(buildInput(100, 100)) // weeks=1 -> strained
++    const thriving = computePowerRanking(buildInput(10_000, 100)) // weeks=100 -> thriving
++    expect(rowFor(strained.rows, 'A').band).toBe('strained')
++    expect(rowFor(thriving.rows, 'A').band).toBe('thriving')
++    for (const key of ['ranked', 'rank', 'filmsTenths', 'releases', 'releasesTenths', 'pointsTenths', 'countedFilmIds'] as const) {
++      expect(rowFor(thriving.rows, 'A')[key]).toEqual(rowFor(strained.rows, 'A')[key])
++      expect(rowFor(thriving.rows, 'B')[key]).toEqual(rowFor(strained.rows, 'B')[key])
++    }
++    expect(thriving.rows.map((r: any) => r.studioId)).toEqual(strained.rows.map((r: any) => r.studioId))
++  })
++
++  it('compute-power-ranking-no-private-balance-probe-cash-not-in-payload', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    const input: InputFixture = {
++      week: 52,
++      originWeek: 0,
++      baseMarketValue: BMV,
++      studios: [studio({ studioId: 'RIVAL', cash: 987_654_321, weeklyFixedCost: 123_456_789 })],
++      films: [],
++    }
++    const snapshot = computePowerRanking(input)
++    const serialized = JSON.stringify(snapshot)
++    expect(serialized).not.toContain('987654321')
++    expect(serialized).not.toContain('123456789')
++  })
++})
++
++// ═══════════════════════════════════════════════════════════════════════
++// H. Honors/distress, explainability
++// ═══════════════════════════════════════════════════════════════════════
++describe('p15a2 power ranking: Honors/distress notRecorded, explainability', () => {
++  it('compute-power-ranking-honors-and-distress-always-not-recorded-no-numeric-field', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    const input: InputFixture = {
++      week: 52,
++      originWeek: 0,
++      baseMarketValue: BMV,
++      studios: [studio({ studioId: 'A' }), studio({ studioId: 'B', enteredWeek: 60 })],
++      films: [film({ filmId: 'A1', studioId: 'A', releaseTick: 10, criticScore: 50, totalGross: 0.2 * BMV })],
++    }
++    const rows = computePowerRanking(input).rows
++    expect(rows.length).toBeGreaterThan(0)
++    for (const row of rows) {
++      expect(row.honors).toBe('notRecorded')
++      expect(row.distressStage).toBe('notRecorded')
++      // exact key set: no numeric honors/distress field exists anywhere on the row.
++      expect(Object.keys(row).sort()).toEqual(ROW_KEYS)
++    }
++  })
++
++  it('compute-power-ranking-explainable-lanes-recompute-from-counted-films', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    // Three finished films (critic 60/40/20, reach=1) -> tenths 80/70/60,
++    // mean = 210/3 = 70. A fourth unfinished film and a fifth film owned by a
++    // different studio must both be excluded from the recount.
++    const counted = [
++      film({ filmId: 'E1', studioId: 'X', releaseTick: 10, criticScore: 60, totalGross: BMV }), // 80
++      film({ filmId: 'E2', studioId: 'X', releaseTick: 10, criticScore: 40, totalGross: BMV }), // 70
++      film({ filmId: 'E3', studioId: 'X', releaseTick: 10, criticScore: 20, totalGross: BMV }), // 60
++    ]
++    const unfinished = film({ filmId: 'UNFIN', studioId: 'X', releaseTick: 10, runEndedByWeek: false, criticScore: 90, totalGross: BMV })
++    const otherStudioFilm = film({ filmId: 'OTHER', studioId: 'Y', releaseTick: 10, criticScore: 100, totalGross: BMV })
++    const input: InputFixture = {
++      week: 52,
++      originWeek: 0,
++      baseMarketValue: BMV,
++      studios: [studio({ studioId: 'X' }), studio({ studioId: 'Y' })],
++      films: [...counted, unfinished, otherStudioFilm],
++    }
++    const snapshot = computePowerRanking(input)
++    const row = rowFor(snapshot.rows, 'X')
++    expect(new Set(row.countedFilmIds)).toEqual(new Set(['E1', 'E2', 'E3']))
++    // recompute the lane exactly from the counted films' own public facts,
++    // looked up by filmId in the input -- the definition of explainability.
++    const byId = new Map(input.films.map((f) => [f.filmId, f]))
++    const recomputed = row.countedFilmIds
++      .map((id: string) => byId.get(id)!)
++      .map((f: FilmFixture) => filmScoreTenths(f.criticScore, f.totalGross, input.baseMarketValue))
++    const mean = recomputed.reduce((a: number, b: number) => a + b, 0) / recomputed.length
++    expect(row.filmsTenths).toBe(roundHalfUp(mean))
++    expect(row.filmsTenths).toBe(70)
++  })
++})
++
++// ═══════════════════════════════════════════════════════════════════════
++// I. eligibility
++// ═══════════════════════════════════════════════════════════════════════
++describe('p15a2 power ranking: eligibility', () => {
++  it('compute-power-ranking-eligibility-available-false-when-origin-week-exceeds-threshold', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    // available=false when originWeek > week-52. At week=52, threshold=0;
++    // originWeek=1 > 0, so available=false and every row is unranked.
++    const input: InputFixture = {
++      week: 52,
++      originWeek: 1,
++      baseMarketValue: BMV,
++      studios: [studio({ studioId: 'Z' }), studio({ studioId: 'A' })],
++      films: [],
++    }
++    const snapshot = computePowerRanking(input)
++    expect(snapshot.available).toBe(false)
++    for (const row of snapshot.rows) {
++      expect(row.ranked).toBe(false)
++      expect(row.rank).toBeNull()
++    }
++    // studioId ascending when every row is unranked.
++    expect(snapshot.rows.map((r: any) => r.studioId)).toEqual(['A', 'Z'])
++  })
++
++  it('compute-power-ranking-eligibility-available-true-at-exact-threshold', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    // originWeek === week-52 exactly (0 === 52-52) -> available=true.
++    const input: InputFixture = { week: 52, originWeek: 0, baseMarketValue: BMV, studios: [studio({ studioId: 'A' })], films: [] }
++    const snapshot = computePowerRanking(input)
++    expect(snapshot.available).toBe(true)
++    expect(rowFor(snapshot.rows, 'A').ranked).toBe(true)
++  })
++
++  it('compute-power-ranking-eligibility-entrant-unranked-lanes-shown-excluded-from-comparison', async () => {
++    const mod = await loadPowerRanking()
++    const computePowerRanking = requireFn<(input: InputFixture) => any>(mod, 'computePowerRanking')
++    // W=104, window=[52,104), threshold = W-52 = 52. EARLY and MID entered at
++    // week 0 (eligible). LATE, ABLE and ZOOM entered after week 52
++    // (ineligible/unranked).
++    // LATE is given a very strong film so its points would eclipse EARLY/MID
++    // if it were (wrongly) included in the ranked comparison -- pinning that
++    // "ranked studios with strictly more points" excludes unranked rows.
++    // 1351-E/1351-F (F2): EARLY's and MID's releases must sit INSIDE the
++    // window (releaseTick=60, matching LATE-FILM's own tick) -- releaseTick=10
++    // silently fell outside [52,104), the window-filtering leaf's own rule
++    // (see compute-power-ranking-window-edge-release-tick-w52-counts-w53-excluded),
++    // which zeroed both studios' points and wrongly tied them at rank 1.
++    //   EARLY: 2 releases, no films -> releasesTenths=50, pointsTenths=50
++    //   MID:   1 release,  no films -> releasesTenths=25, pointsTenths=25
++    //   LATE:  critic=100, gross=BMV (reach=1) -> tenths=0.5*100+50*1=100,
++    //          plus that same film also counts as 1 release (25) ->
++    //          pointsTenths=125 (highest of all, but must not count).
++    const releases = (id: string, n: number) =>
++      Array.from({ length: n }, (_, i) => film({ filmId: `${id}-${i}`, studioId: id, releaseTick: 60, runEndedByWeek: false }))
++    const input: InputFixture = {
++      week: 104,
++      originWeek: 0,
++      studios: [
++        studio({ studioId: 'EARLY', enteredWeek: 0 }),
++        studio({ studioId: 'MID', enteredWeek: 0 }),
++        studio({ studioId: 'LATE', enteredWeek: 60 }),
++        studio({ studioId: 'ABLE', enteredWeek: 80 }),
++        studio({ studioId: 'ZOOM', enteredWeek: 70 }),
++      ],
++      baseMarketValue: BMV,
++      films: [
++        ...releases('EARLY', 2),
++        ...releases('MID', 1),
++        film({ filmId: 'LATE-FILM', studioId: 'LATE', releaseTick: 60, criticScore: 100, totalGross: BMV }),
++      ],
++    }
++    const snapshot = computePowerRanking(input)
++    const early = rowFor(snapshot.rows, 'EARLY')
++    const mid = rowFor(snapshot.rows, 'MID')
++    const late = rowFor(snapshot.rows, 'LATE')
++    const able = rowFor(snapshot.rows, 'ABLE')
++    const zoom = rowFor(snapshot.rows, 'ZOOM')
++    expect(early.ranked).toBe(true)
++    expect(early.rank).toBe(1)
++    expect(mid.ranked).toBe(true)
++    expect(mid.rank).toBe(2)
++    expect(late.ranked).toBe(false)
++    expect(late.rank).toBeNull()
++    // lanes are still shown for the unranked entrant.
++    expect(late.pointsTenths).toBe(125)
++    expect(late.countedFilmIds).toEqual(['LATE-FILM'])
++    expect(able.ranked).toBe(false)
++    expect(able.rank).toBeNull()
++    expect(zoom.ranked).toBe(false)
++    expect(zoom.rank).toBeNull()
++    // presentation: ranked block (rank asc) then unranked block (studioId asc).
++    expect(snapshot.rows.map((r: any) => r.studioId)).toEqual(['EARLY', 'MID', 'ABLE', 'LATE', 'ZOOM'])
++  })
++})

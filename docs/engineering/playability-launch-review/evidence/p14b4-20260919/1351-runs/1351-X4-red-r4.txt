@@ -1,0 +1,138 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree
+
+ ❯ |core| tests/p15a2-power-ranking-harness.test.ts (2 tests | 2 failed) 17ms
+   × p15a2 power ranking: bounded 6,240-week harness (1350-A §5 item 16) > power-ranking-bounded-harness-480-snapshots-row-counts-and-value-bounds 11ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: bounded 6,240-week harness (1350-A §5 item 16) > power-ranking-bounded-harness-determinism-two-runs 3ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+ ❯ |core| tests/p15a2-power-ranking.test.ts (33 tests | 32 failed) 99ms
+   × p15a2 power ranking: module surface > power-ranking-definition-version-export 6ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: module surface > is-power-ranking-week-boundaries 3ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: TUNING (real, already-existing module) > tuning-power-ranking-bounded-terms 19ms
+     → expected undefined to be 52 // Object.is equality
+   × p15a2 power ranking: financialStrengthBand boundaries (1350-A §3 / 1350-F) > financial-strength-band-in-the-red-boundary 2ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: financialStrengthBand boundaries (1350-A §3 / 1350-F) > financial-strength-band-strained-and-stable-boundaries 1ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: financialStrengthBand boundaries (1350-A §3 / 1350-F) > financial-strength-band-thriving-boundary 2ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: financialStrengthBand boundaries (1350-A §3 / 1350-F) > financial-strength-band-zero-fixed-cost-founding-edge 3ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: computePowerRanking worked examples > compute-power-ranking-worked-example-critic60-gross045-reach05-score55 14ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: computePowerRanking worked examples > compute-power-ranking-film-score-rounds-half-up-at-exact-half-tenth 4ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: computePowerRanking worked examples > compute-power-ranking-window-start-week-and-definition-version-fields 2ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: multi-film mean rounding order (1351-C2 pin) > compute-power-ranking-filmstenths-mean-rounding-order-genuinely-fractional 2ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: multi-film mean rounding order (1351-C2 pin) > compute-power-ranking-filmstenths-mean-rounds-half-up-at-exact-half 2ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: window edges and the running-film rule > compute-power-ranking-window-edge-release-tick-w52-counts-w53-excluded 1ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: window edges and the running-film rule > compute-power-ranking-window-edge-w52-unfinished-counts-releases-not-films 1ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: window edges and the running-film rule > compute-power-ranking-running-film-counts-releases-only-then-films-next-snapshot 1ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: window edges and the running-film rule > compute-power-ranking-releases-lane-excludes-authored-pre-1920-films 1ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: window edges and the running-film rule > compute-power-ranking-authored-pre-campaign-film-counts-in-no-lane 1ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: FILM_CAP and RELEASE_CAP > compute-power-ranking-film-cap-fifth-film-changes-nothing 1ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: FILM_CAP and RELEASE_CAP > compute-power-ranking-film-cap-tie-break-by-film-id 1ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: FILM_CAP and RELEASE_CAP > compute-power-ranking-release-cap-fifth-release-changes-nothing 1ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: ranking, symmetry, determinism > compute-power-ranking-competition-ranking-1-1-3-and-presentation-order 1ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: ranking, symmetry, determinism > compute-power-ranking-tied-pair-id-swap-flips-presentation-order 2ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: ranking, symmetry, determinism > compute-power-ranking-id-and-owner-swap-symmetry 1ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: ranking, symmetry, determinism > compute-power-ranking-determinism-byte-identical-two-calls 1ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: Standing independence, finance independence, privacy > compute-power-ranking-standing-independence-injected-field-ignored 1ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: Standing independence, finance independence, privacy > compute-power-ranking-finance-independence-band-only 5ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: Standing independence, finance independence, privacy > compute-power-ranking-no-private-balance-probe-cash-not-in-payload 2ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: Honors/distress notRecorded, explainability > compute-power-ranking-honors-and-distress-always-not-recorded-no-numeric-field 2ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: Honors/distress notRecorded, explainability > compute-power-ranking-explainable-lanes-recompute-from-counted-films 3ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: eligibility > compute-power-ranking-eligibility-available-false-when-origin-week-exceeds-threshold 2ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: eligibility > compute-power-ranking-eligibility-available-true-at-exact-threshold 1ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+   × p15a2 power ranking: eligibility > compute-power-ranking-eligibility-entrant-unranked-lanes-shown-excluded-from-comparison 3ms
+     → Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 34 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p15a2-power-ranking-harness.test.ts > p15a2 power ranking: bounded 6,240-week harness (1350-A §5 item 16) > power-ranking-bounded-harness-480-snapshots-row-counts-and-value-bounds
+ FAIL |core|  tests/p15a2-power-ranking-harness.test.ts > p15a2 power ranking: bounded 6,240-week harness (1350-A §5 item 16) > power-ranking-bounded-harness-determinism-two-runs
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: module surface > power-ranking-definition-version-export
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: module surface > is-power-ranking-week-boundaries
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: financialStrengthBand boundaries (1350-A §3 / 1350-F) > financial-strength-band-in-the-red-boundary
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: financialStrengthBand boundaries (1350-A §3 / 1350-F) > financial-strength-band-strained-and-stable-boundaries
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: financialStrengthBand boundaries (1350-A §3 / 1350-F) > financial-strength-band-thriving-boundary
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: financialStrengthBand boundaries (1350-A §3 / 1350-F) > financial-strength-band-zero-fixed-cost-founding-edge
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: computePowerRanking worked examples > compute-power-ranking-worked-example-critic60-gross045-reach05-score55
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: computePowerRanking worked examples > compute-power-ranking-film-score-rounds-half-up-at-exact-half-tenth
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: computePowerRanking worked examples > compute-power-ranking-window-start-week-and-definition-version-fields
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: multi-film mean rounding order (1351-C2 pin) > compute-power-ranking-filmstenths-mean-rounding-order-genuinely-fractional
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: multi-film mean rounding order (1351-C2 pin) > compute-power-ranking-filmstenths-mean-rounds-half-up-at-exact-half
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: window edges and the running-film rule > compute-power-ranking-window-edge-release-tick-w52-counts-w53-excluded
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: window edges and the running-film rule > compute-power-ranking-window-edge-w52-unfinished-counts-releases-not-films
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: window edges and the running-film rule > compute-power-ranking-running-film-counts-releases-only-then-films-next-snapshot
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: window edges and the running-film rule > compute-power-ranking-releases-lane-excludes-authored-pre-1920-films
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: window edges and the running-film rule > compute-power-ranking-authored-pre-campaign-film-counts-in-no-lane
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: FILM_CAP and RELEASE_CAP > compute-power-ranking-film-cap-fifth-film-changes-nothing
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: FILM_CAP and RELEASE_CAP > compute-power-ranking-film-cap-tie-break-by-film-id
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: FILM_CAP and RELEASE_CAP > compute-power-ranking-release-cap-fifth-release-changes-nothing
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: ranking, symmetry, determinism > compute-power-ranking-competition-ranking-1-1-3-and-presentation-order
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: ranking, symmetry, determinism > compute-power-ranking-tied-pair-id-swap-flips-presentation-order
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: ranking, symmetry, determinism > compute-power-ranking-id-and-owner-swap-symmetry
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: ranking, symmetry, determinism > compute-power-ranking-determinism-byte-identical-two-calls
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: Standing independence, finance independence, privacy > compute-power-ranking-standing-independence-injected-field-ignored
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: Standing independence, finance independence, privacy > compute-power-ranking-finance-independence-band-only
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: Standing independence, finance independence, privacy > compute-power-ranking-no-private-balance-probe-cash-not-in-payload
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: Honors/distress notRecorded, explainability > compute-power-ranking-honors-and-distress-always-not-recorded-no-numeric-field
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: Honors/distress notRecorded, explainability > compute-power-ranking-explainable-lanes-recompute-from-counted-films
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: eligibility > compute-power-ranking-eligibility-available-false-when-origin-week-exceeds-threshold
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: eligibility > compute-power-ranking-eligibility-available-true-at-exact-threshold
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: eligibility > compute-power-ranking-eligibility-entrant-unranked-lanes-shown-excluded-from-comparison
+Error: Failed to load url ../src/core/powerRanking.js (resolved id: ../src/core/powerRanking.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree/tests/p15a2-power-ranking-harness.test.ts. Does the file exist?
+ ❯ loadAndTransform ../../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/34]⎯
+
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: TUNING (real, already-existing module) > tuning-power-ranking-bounded-terms
+AssertionError: expected undefined to be 52 // Object.is equality
+
+- Expected: 
+52
+
++ Received: 
+undefined
+
+ ❯ tests/p15a2-power-ranking.test.ts:194:42
+    192|     // Bounded-term test: values from 1350-A §3's constants table, and…
+    193|     // key's stated provisional range.
+    194|     expect(t.POWER_RANKING_WINDOW_WEEKS).toBe(52)
+       |                                          ^
+    195|     expect(t.POWER_RANKING_FILM_CAP).toBe(4)
+    196|     expect(t.POWER_RANKING_RELEASE_CAP).toBe(4)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/34]⎯
+
+ Test Files  2 failed (2)
+      Tests  34 failed | 1 passed (35)
+   Start at  01:07:16
+   Duration  1.54s (transform 416ms, setup 0ms, collect 480ms, tests 115ms, environment 1ms, prepare 622ms)
+

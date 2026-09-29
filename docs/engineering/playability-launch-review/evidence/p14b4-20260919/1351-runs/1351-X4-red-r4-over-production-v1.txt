@@ -1,0 +1,35 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1351-x4/tree
+
+ ❯ |core| tests/p15a2-power-ranking.test.ts (33 tests | 1 failed) 140ms
+   × p15a2 power ranking: window edges and the running-film rule > compute-power-ranking-authored-pre-campaign-film-counts-in-no-lane 70ms
+     → expected 95 to be +0 // Object.is equality
+ ✓ |core| tests/p15a2-power-ranking-harness.test.ts (2 tests) 1207ms
+   ✓ p15a2 power ranking: bounded 6,240-week harness (1350-A §5 item 16) > power-ranking-bounded-harness-480-snapshots-row-counts-and-value-bounds 1064ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p15a2-power-ranking.test.ts > p15a2 power ranking: window edges and the running-film rule > compute-power-ranking-authored-pre-campaign-film-counts-in-no-lane
+AssertionError: expected 95 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 95
+
+ ❯ tests/p15a2-power-ranking.test.ts:575:29
+    573|     }
+    574|     const row = rowFor(computePowerRanking(input).rows, 'HERITAGE')
+    575|     expect(row.filmsTenths).toBe(0) // "no finished release in the win…
+       |                             ^
+    576|     expect(row.countedFilmIds).toEqual([])
+    577|     expect(row.releases).toBe(0) // Releases already excluded authored…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 34 passed (35)
+   Start at  01:07:19
+   Duration  2.26s (transform 399ms, setup 0ms, collect 424ms, tests 1.35s, environment 35ms, prepare 480ms)
+
