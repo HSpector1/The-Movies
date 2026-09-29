@@ -28,6 +28,16 @@ The Owner said not to reopen these for routine implementation details.
   harness; it does not prove in-game performance.
 - Order: the rival-stall correction and its verification come before shared-market pressure enters the live economy.
 
+Twelve more rulings, approved the same day and kept byte for byte in
+[1342-O](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1342-O-owner-rulings-p14-p18.md):
+one scoped Pillow install for the image tests; quarterly Power Ranking, formula as reviewed provisional tuning; the
+player's studio can fail after warnings and recovery chances (amends the older no-player-bankruptcy wording below);
+authored arrivals only, no replacement rivals; a 2040 ceremony with an evidence-linked Legacy dossier; an endless
+sandbox after 2040 with the 2040 Legacy frozen; no near-deadline promise override in the first slice; one current
+friendship tier per pair, with conflict as evidence, not an automatic tier; P17 options #3 and #5 declined for the
+first checkpoint; a bounded first-season P18 example with delegated rule authoring; no stop at 2026-10-06; protected
+main stays protected.
+
 ## Product doctrine
 
 - **THE STUDIO LOT IS THE PRIMARY GAME SURFACE.** Management UI supports the world; it does not
@@ -66,6 +76,12 @@ Future work may investigate the week-208 roster wall and a believable size-scali
 must instrument the authoritative facility/capacity/construction systems first. Do not introduce
 financing, loans, bailouts, restructuring, hard bankruptcy, the failure ladder, or an arbitrary
 cash sink.
+
+*(Amended 2026-09-29 by Owner ruling 3 of
+[1342-O](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1342-O-owner-rulings-p14-p18.md): the
+player's studio and rivals can fail after warnings and real recovery chances, including explicitly contracted
+interest-bearing loans under shared rules. The prohibition above is kept as history; where it conflicts, the
+amendment governs.)*
 
 ## Current world boundaries
 

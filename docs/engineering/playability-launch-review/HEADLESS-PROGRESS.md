@@ -1,5 +1,28 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — twelve more Owner rulings (1342-O); U2 in review; rival shelving next
+
+The Owner approved the twelve P14-P18 rulings, kept byte for byte in 1342-O:
+- a scoped Pillow install;
+- quarterly Power Ranking, formula as tuning;
+- the player's studio can fail (this amends the older no-player-bankruptcy wording; pointers
+  in DECISIONS.md, OWNER-RULINGS-HOLLYWOOD-HORIZON.md §3 and CLAUDE.md);
+- no replacement rivals; a 2040 ceremony and Legacy dossier; an endless sandbox after 2040;
+- no near-deadline promise override; one current friendship tier per pair, with conflict
+  as evidence;
+- P17 #3 and #5 declined; a bounded P18 first-season example;
+- no stop at 2026-10-06; protected main stays protected.
+With the five of 1340-O, no Owner decision blocks P14-P18. Delegated tuning is written down
+and reviewed before it is implemented. The Owner also lifted the two-specialist cap. The
+parent keeps one production writer and one heavy test process.
+
+IN PROGRESS: U2 (1341-A: UI project testTimeout 30,000 ms). Plan review 1341-B ACCEPT. Dry
+run 1341-X: a 6 s probe passes in UI and still times out in core. The four affected files
+pass 81/81 on run 1; run 2 is 80/81, the one failure being 1124-A's findBy wait (not
+timing). Review 1341-D is pending, then application and the recorded UI gate.
+Next: the Pillow repair after that gate; then the rival-shelving charter (D-1329-1), its
+RED, production and verification, before any live shared-market pressure.
+
 ## CURRENT — T1 closed LOGIC VERIFIED (1337-K); Owner rulings close all five decisions (1340-O)
 
 T1 (1337-A, two test files) is closed. D17's budget is 300 s, and livingTurn.parity's first

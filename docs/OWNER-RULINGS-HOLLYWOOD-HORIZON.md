@@ -64,6 +64,13 @@ identity of films already in the player's history.
 The prior prohibition (no financing, loans, bailouts, restructuring, hard bankruptcy, failure ladder
 or arbitrary cash sink) remains in force **for the player's studio** and is unchanged.
 
+> **Amended 2026-09-29 (Owner ruling 3,
+> [1342-O](engineering/playability-launch-review/evidence/p14b4-20260919/1342-O-owner-rulings-p14-p18.md)).** The
+> player's studio is no longer exempt: player and rival studios can fail after warnings and meaningful recovery
+> opportunities, including explicitly contracted interest-bearing loans under the shared rules. The player gets clear
+> notices and a recoverable end-of-run record. There is no automatic bailout and no undocumented debt product. This
+> section stays as history; where it conflicts, the amendment governs.
+
 ## 4. HOLLYWOOD ECOSYSTEM
 
 Rival studios, rival films, multi-studio awards, film-library / IP economics, creative dynasties,

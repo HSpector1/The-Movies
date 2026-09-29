@@ -87,6 +87,12 @@ rival studios as agents · awards season · library economics · competition mod
 receivership *(rival studios only — the no-hard-bankruptcy ruling still binds the player's
 studio)*
 
+*(Amended 2026-09-29 by Owner ruling 3 of
+`docs/engineering/playability-launch-review/evidence/p14b4-20260919/1342-O-owner-rulings-p14-p18.md`: the player's
+studio is no longer exempt. Player and rival studios can fail after warnings and meaningful recovery opportunities,
+including explicitly contracted interest-bearing loans under the shared rules. The parenthesis above is history; P15
+owns distress and closure, P16 owns acquisition.)*
+
 **Not current scope; permanence undecided:**
 chemistry · readable memories · production incidents · contract negotiation ·
 scene composition · screenplay generation · SimulationFlags · cultural drift *(the related

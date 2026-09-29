@@ -1,0 +1,191 @@
+PROJECT: STUDIO — OWNER DECISIONS AND CONTINUATION
+
+DRAFT FOR HOWARD'S APPROVAL. These are recommendations until Howard explicitly
+sends or approves this instruction as his ruling. Receiving a researcher or
+assistant's draft alone is not Owner approval.
+
+On explicit Owner approval, record these decisions in the EXISTING decision
+register and relevant continuation records. Apply at the next safe checkpoint;
+do not interrupt an active recorded run or change its inputs/environment.
+Do not start a new planning hierarchy or repeat completed work.
+
+1. PILLOW — ONE SCOPED DEPENDENCY INSTALLATION IS AUTHORIZED
+
+Install only the compatible Pillow package needed by the existing tests. First
+identify the actual Python executable used by their python3 subprocesses. Use an
+existing project environment where available; a user-site installation is allowed
+when supported by that interpreter. If Python is externally managed, use a
+project-local virtual environment and scoped test-runner environment instead of
+bypassing its protections. No sudo, --break-system-packages, replacement Python,
+global shell-profile changes, unrelated upgrades, or installation campaign.
+
+Record the executable, Pillow version and reproducible setup command in existing
+setup documentation. Confirm `from PIL import Image` succeeds through the SAME
+subprocess environment that the tests use, then run the affected allowed tests.
+Do not call those tests passing merely because import succeeds. Keep binary
+packages and virtual environments out of Git, and preserve current fixture/data
+access restrictions. Installation must not change a running test's environment.
+
+2. POWER RANKING — QUARTERLY; FORMULA IS PROVISIONAL TUNING
+
+Use quarterly in-game ranking. Delegate the concrete formula, weights and tie
+handling to documented, reviewed provisional tuning within the selected P15
+model; write the initial formula before implementing it. Keep categories
+explainable and preserve the existing distinctions between creative rank,
+Standing, Honors and finances.
+
+Keep the already selected 1122-A presentation: financial-strength band beside
+creative rank, public distress stage plus financial-strength band for rivals,
+and Honors NOT RECORDED until Awards provides real evidence. No invented Honors
+or private rival balances, and no covert second financial ranking formula.
+
+3. CLOSURE — THE PLAYER'S STUDIO CAN FAIL
+
+Ratify genuine player AND rival failure after warnings and meaningful recovery
+opportunities, including explicitly contracted interest-bearing loans under the
+shared rules. The player is not permanently exempt from bankruptcy/closure.
+This is an explicit current amendment superseding older no-player-bankruptcy
+wording where it conflicts. Preserve the older record as history and point its
+active instruction to this amendment; do not erase the historical decision.
+
+Shared economic law does not require identical presentation: the player receives
+clear notices and a recoverable end-of-run/history record rather than silent
+simulation removal. No automatic bailout, new undocumented debt product, loss
+of historical identities, or deletion of the Owner's saves. P15 owns distress,
+closure and the disposal handoff; P16 owns acquisition transactions.
+
+4. LATER ENTRY — NO AUTOMATIC REPLACEMENT RIVALS
+
+Keep authored future arrivals unchanged. No minimum active-studio count and no
+automatic replacement of failed studios. Industry consolidation is permitted.
+A late-entry expansion pack is optional and not authorized by this instruction.
+
+5. FINALE — CEREMONY AND EVIDENCE-LINKED LEGACY DOSSIER
+
+Implement the 2040 ceremony and interactive Legacy dossier, tied to actual
+recorded history and its completeness limits. Freeze the official campaign's
+Legacy boundary at 2040. Do not invent achievements to populate the presentation.
+
+6. POST-2040 — ENDLESS SANDBOX
+
+Allow continued play after the 2040 finale under the ordinary simulation,
+including failure risk. Preserve the official 2040 Legacy snapshot unchanged;
+subsequent history remains distinct. Do not turn reaching 2040 into immortality
+or rewrite the frozen official Legacy with later achievements. Record this as
+an explicit selection rather than treating research prose as Owner authority.
+
+7. NEAR-DEADLINE PROMISE OVERRIDE — NOT IN THE FIRST SLICE
+
+Do not add an override. Keep existing promise deadlines, feasibility, waiver and
+outcome rules. This does not remove the existing lawful renegotiation route.
+Retain any later override concept as optional scope, not an active dependency.
+
+8. FRIEND/ENEMY PRECEDENCE — CURRENT TIER, NOT PERMANENT CONFLICT OVERRIDE
+
+One pair has one current friendship tier, derived from current closeness and its
+required evidence. Three recorded competitions establish conflict evidence under
+D-1312-1; they do NOT automatically set an Enemies/Nemeses tier, force a value
+change, or prevent future recovery.
+
+Current hostility governs current consequences even where historical friendship
+exists. Conversely, a historical conflict alone does not override current
+positive closeness forever. Preserve friendship milestones and conflict events
+in history. Romance remains the independent track already approved. Implement
+these distinctions in the existing tier law, not a new duplicate precedence
+system, and do not apply the same negative driver twice.
+
+9. P17 OPTIONAL FEATURES — DECLINED FOR THE FIRST CHECKPOINT
+
+Do not add the optional inflated-expectations lever (#3) or make a required cast
+seat optional (#5) for the first P17 checkpoint. Preserve the existing accepted
+reboot, Recognition-floor and dormant Direct-Sequel decisions. These exclusions
+do not remove required franchise fatigue, expectations, casting or rights rules.
+
+10. P18 — AUTHORIZE A BOUNDED FIRST-SEASON EXAMPLE, WITH EXPLICIT DELEGATION
+
+Select the charter's limited-series/first-season example and the eight bounded
+recommendations as the direction for the first implementation. This is NOT a
+claim that its currently missing economic rules are already specified.
+
+Delegate the remaining first-example workload, fee/milestone amounts,
+late-delivery/cancellation terms and single-distribution-model behavior to
+provisional product-rule authoring. Record a compact complete contract and obtain
+one independent review before its dependent implementation. These choices need
+not return to the Owner if they remain within the following boundaries:
+
+- One season-level workload and one explicit commissioning/distribution agreement;
+  persistent series identity, not an episode scheduler or platform empire.
+- Real P16 television grants and real P13/P14 people, capacity and work. A role
+  label such as showrunner creates no free person or duplicate profession.
+- A contracted season fee with declared earned-payment milestones, separated from
+  P16 rights consideration. Preserve incurred costs, earned compensation and
+  existing obligations. Explicitly define treatment of advances, cancellation
+  and late delivery; no invented payment, automatic refund, or erased ledger.
+- Each later season is a new commitment with fresh rights, staffing, capacity
+  and affordability checks. No automatic perpetual renewal.
+- One documented distribution model; no unselected audience/streaming economy.
+- Preserve cross-media lineage, but NO numerical film/TV Recognition, Momentum or
+  Fatigue transfer in the first example. Such a transfer needs its own later
+  selected directional rule and shared formula owner.
+- Era, technology, rights terms and expiry use actual upstream authorities; no
+  invented dates or grandfathering.
+- Television events do not silently satisfy film-only promises, Awards, Standing
+  or franchise credit consumers. Keep those contracts typed and unchanged until
+  their owners explicitly accept television events.
+
+Reach real delivery and reconciled settlement, then test cancellation/expiry,
+save/reload and concurrent film/TV resources. Dependencies remain real gates.
+This first example does not close all P18 television, ongoing-series, platform
+and cross-media scope; retain those remaining obligations explicitly.
+
+11. AUTONOMOUS WINDOW — CONTINUE PAST 2026-10-06
+
+The October 6 date alone is no longer a stop gate. Continue the authorized
+remaining P14 -> P15 -> P16 -> P17 -> sufficiently specified P18 program until
+that scope is complete, Howard pauses it, or a genuine decision/access/safety/
+resource boundary prevents further independent work. No automatic P19 scope.
+
+This extends permission, not runtime or subscription quota. At an actual stopping
+boundary, publish a precise recoverable handoff and yield ownership. Do not
+promise unattended execution after the process or quota stops.
+
+12. MAIN — KEEP PROTECTION; PUBLISH TO THE WORKING BRANCH
+
+Continue normal recoverable commits/pushes on the existing owned working branch.
+A review-ready pull request may be prepared with explicit qualifications. Do not
+merge/promote protected main, disable protection, force-push, or treat a qualified
+headless checkpoint as full native acceptance without separate Owner approval.
+
+EXECUTION PRIORITY AND BOUNDARIES
+
+Keep U2's current verification undisturbed. Repair the missing Pillow dependency
+at a safe checkpoint. Prioritize the already approved rival-shelving correction
+and its real-world verification before introducing additional live shared-market
+pressure. Continue independent P15 pure-law or relationship work where genuinely
+independent, rather than blocking the whole program on unrelated decisions.
+
+Preserve the existing tests, historical version readers, source/data allowlists,
+private-save exclusions and Git evidence. Maximum two concurrent specialists,
+one production writer and one heavy test process; separate test/review ownership.
+No installations beyond the narrow Pillow authorization. Unity/native remains
+deferred. No new broad audit, no routine permission requests for decisions
+explicitly delegated above, and no weakening assertions to declare a pass.
+
+SOURCE BASIS FOR RECORDING (NOT EXTRA IMPLEMENTATION TASKS)
+
+Inspected head: 67bf816580f4969d31258c89e3eb7381c4037232, recovery reference only.
+Preserve all newer legitimate work; do not reset to this reference.
+
+- docs/engineering/playability-launch-review/CODEX-START-HERE.md (latest CURRENT).
+- docs/engineering/playability-launch-review/evidence/p14b4-20260919/1122-A-p15-owner-presentation-decisions.md.
+- docs/engineering/playability-launch-review/P17-RECOVERED-SPECIFICATION-STATE.md.
+- docs/engineering/playability-launch-review/plans/P18-HEADLESS-CHARTER.md.
+- docs/research/p15-independent-verification-01/RECONCILIATION-02.md at
+  c5b52b4d8147d9de7d1478d12397cdface08bf70: reports the later September Owner
+  direction, while explicitly NOT itself constituting Owner authority.
+- Existing D-1312-1/D-1312-2 and HIS-014 rulings recorded with 1340-O.
+
+The bankruptcy, 2040 and ongoing-play selections above are explicit current
+ratifications when Howard approves this document; do not misattribute them to an
+older research document, silently overwrite history, or call this draft approved
+before he does so.
