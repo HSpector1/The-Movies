@@ -1,0 +1,11 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/c8old
+
+ ✓ |core| tests/zz-ledger-reasons.test.ts (1 test) 30352ms
+   ✓ ledger settlement reasons probe 30351ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  12:49:52
+   Duration  33.82s (transform 2.17s, setup 0ms, collect 2.92s, tests 30.35s, environment 0ms, prepare 121ms)
+

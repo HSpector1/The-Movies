@@ -1,0 +1,28 @@
+#!/bin/bash
+R=/Users/zacheryspector/The-Movies-headless-program
+S=/private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad
+OUT=$S/bisU-out
+swapU() {
+  rm -rf /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/bisU/src /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/bisU/generated
+  (cd $R && git archive $1 src generated) | tar -x -C $S/bisU
+}
+swapO() {
+  rm -rf /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/c8old/src /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/c8old/generated
+  (cd $R && git archive $1 src generated) | tar -x -C $S/c8old
+}
+# 1. counterfactual, verbose, HEAD src
+swapU 58c89932
+(cd $S/bisU && node_modules/.bin/vitest run --project core tests/zz-p14b5-cf.test.ts -t "no RNG reaches the seam" > $OUT/cf-verbose-58c89932.log 2>&1); echo "cf verbose exit $?"
+# 2. digest facts
+for c in 75d70e18 969fb459 58c89932; do
+  swapU $c
+  (cd $S/bisU && LEDGER_COMMIT=$c node_modules/.bin/vitest run --project core tests/zz-digest-facts.test.ts -t "identical208" > $OUT/digest-facts-$c.log 2>&1); echo "digest $c exit $?"
+done
+swapU 58c89932
+echo "bisU restored $(cd $R && git rev-parse 58c89932:src)"
+# 3. ledger reasons
+for c in 75d70e18 969fb459 1b675f75; do
+  swapO $c
+  (cd $S/c8old && LEDGER_COMMIT=$c LEDGER_OUT=$S/c8probe/ledger-reasons.jsonl node_modules/.bin/vitest run --project core tests/zz-ledger-reasons.test.ts > $S/c8probe/ledger-reasons-$c.txt 2>&1); echo "ledger reasons $c exit $?"
+done
+echo BATCH2 DONE

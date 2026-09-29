@@ -1,0 +1,23 @@
+import { createHash } from 'node:crypto'
+import { appendFileSync } from 'node:fs'
+import { it } from 'vitest'
+import { tick } from '../src/core/index.js'
+import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+
+const sha = (v: string) => createHash('sha256').update(v).digest('hex')
+const SEEDS = ['p13a-core-causal-01', 'seed-b', 'p13b-s8-bridge-probe-01', 'p13-public-commercial-adoption']
+it('ledger controls probe', () => {
+  const out: Record<string, unknown> = { commit: process.env.LEDGER_COMMIT }
+  for (const seed of SEEDS) {
+    let state: any = p13aGeneratedStudio(seed)
+    for (let step = 0; step < 416; step++) state = tick(state)
+    const rows = state.talentMarket.receipts.filter((r: any) => r.kind === 'settled' || r.kind === 'declined' || r.kind === 'expired')
+    const count = (k: string) => rows.filter((r: any) => r.kind === k).length
+    out[seed] = { tick: state.market.tick, rows: rows.length, settled: count('settled'), declined: count('declined'), expired: count('expired'),
+      settlement: sha(JSON.stringify(rows.map((r: any) => [r.eventId, r.kind, r.week, r.talentId, r.studioId, r.reasons, r.dropped]))),
+      receipts: sha(JSON.stringify(state.talentMarket.receipts)), employment: sha(JSON.stringify(state.hollywood.employment)),
+      takes: sha(JSON.stringify(state.firstTakes)), rng: state.rngState,
+      rowKeys: rows.map((r: any) => `${r.week}:${r.kind}:${r.talentId}:${r.studioId ?? ''}`) }
+  }
+  appendFileSync(process.env.LEDGER_OUT!, JSON.stringify(out) + '\n')
+}, 3_600_000)

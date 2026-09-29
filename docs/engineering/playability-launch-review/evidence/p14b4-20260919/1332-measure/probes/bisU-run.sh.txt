@@ -1,0 +1,12 @@
+#!/bin/bash
+# usage: bisU-run.sh <label> <commit> <test files...>   (runs in the scratch bisect tree; swaps src and generated only)
+set -u
+R=/Users/zacheryspector/The-Movies-headless-program
+OUT=/private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/bisU-out
+label=$1; commit=$2; shift 2
+rm -rf /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/bisU/src /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/bisU/generated
+(cd $R && git archive $commit src generated) | tar -x -C /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/bisU
+cd /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/bisU
+echo "$label $commit src-tree $(cd $R && git rev-parse $commit:src)"
+node_modules/.bin/vitest run --project core "$@" --reporter=json --outputFile=$OUT/$label-$commit.json > $OUT/$label-$commit.log 2>&1
+echo "$label $commit exit $?"

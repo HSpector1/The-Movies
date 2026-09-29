@@ -1,0 +1,9 @@
+#!/bin/bash
+S=/private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad
+$S/bisU-run.sh cf 58c89932 tests/zz-p14b5-cf.test.ts -t "no RNG reaches the seam"
+for c in 1b675f75 6e63f4c8 75d70e18 969fb459 993e6b01; do
+  $S/bisU-run.sh unres $c tests/p14b4-rival-seating-preference.test.ts tests/p14c3-promise-digest-continuity.test.ts
+  $S/bisU-run.sh p3 $c tests/p14p3-directing-promises.test.ts -t "D07|D18"
+done
+$S/bisU-run.sh restore 58c89932 tests/zz-none-does-not-exist.test.ts
+echo BATCH1 DONE

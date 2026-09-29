@@ -1,0 +1,38 @@
+== cf-58c89932.json pass 1 fail 0 suitesFailed 0
+== unres-1b675f75.json pass 11 fail 18 suitesFailed 7
+   F P14B4 final seating preference — no-preference path and viability gates (plan :223-225) p13a-core-causal-01: every real  | AssertionError: expected [] to deeply equal [ { week: 208, …(4) }, …(1) ]
+   F P14B4 final seating preference — no-preference path and viability gates (plan :223-225) seed-b: every real film decision | AssertionError: expected '9eeb62f640c8a749e71a0c1d21b917ce5cf70…' to be 'f9cd2a86368b222882e84776b30f8a8d3f5b2…' // Object.is equality
+   F P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) CURRENT unaccepted offers never count:  | AssertionError: expected { week: 202, …(1) } to deeply equal { week: 202, …(1) }
+   F P14B4 final seating preference — the initial cast seam (plan :225-232) the positive seam witness (plan :225-227, :233; r | AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no picture on 'p13a-core-causal-01' within 350 ticks seats a promised person outside the historical first three
+   F 955 genuine207 normal-development continuation produces identical208 saves and all twelve actual affected receipts from  | AssertionError: expected { bottleneck: null, …(4) } to match object { week: 208, rulesVersion: 4 }
+== p3-1b675f75.json pass 0 fail 2 suitesFailed 2
+   F P3 fixed rival: public credit, ordinary contest and distinct staffing D07 authors and fulfills a real rival promise to a | AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{…} ]
+   F P3 fixed rival: public credit, ordinary contest and distinct staffing D18 uses the declared rival strategy and legal dis | AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{…} ]
+== unres-6e63f4c8.json pass 12 fail 17 suitesFailed 6
+   F P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) CURRENT unaccepted offers never count:  | AssertionError: expected 38 to be 42 // Object.is equality
+== p3-6e63f4c8.json pass 0 fail 2 suitesFailed 2
+   F P3 fixed rival: public credit, ordinary contest and distinct staffing D07 authors and fulfills a real rival promise to a | AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [] to deeply equal [ ObjectContaining{…} ]
+   F P3 fixed rival: public credit, ordinary contest and distinct staffing D18 uses the declared rival strategy and legal dis | AssertionError: expected { family: 'APPEARANCE_COUNT', …(7) } to match object { family: 'DIRECTING_COUNT', …(7) }
+== unres-75d70e18.json pass 12 fail 17 suitesFailed 6
+   F P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) CURRENT unaccepted offers never count:  | AssertionError: expected 39 to be 42 // Object.is equality
+== p3-75d70e18.json pass 0 fail 2 suitesFailed 2
+   F P3 fixed rival: public credit, ordinary contest and distinct staffing D07 authors and fulfills a real rival promise to a | AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [] to deeply equal [ ObjectContaining{…} ]
+   F P3 fixed rival: public credit, ordinary contest and distinct staffing D18 uses the declared rival strategy and legal dis | AssertionError: expected { family: 'APPEARANCE_COUNT', …(7) } to match object { family: 'DIRECTING_COUNT', …(7) }
+== unres-969fb459.json pass 8 fail 21 suitesFailed 8
+   F P14B4 final seating preference — no-preference path and viability gates (plan :223-225) p13a-core-causal-01: every real  | AssertionError: expected [] to deeply equal [ { week: 208, …(4) }, …(1) ]
+   F P14B4 final seating preference — no-preference path and viability gates (plan :223-225) seed-b: every real film decision | AssertionError: expected '9eeb62f640c8a749e71a0c1d21b917ce5cf70…' to be 'f9cd2a86368b222882e84776b30f8a8d3f5b2…' // Object.is equality
+   F P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) CURRENT unaccepted offers never count:  | AssertionError: expected { week: 202, …(1) } to deeply equal { week: 202, …(1) }
+   F P14B4 final seating preference — the initial cast seam (plan :225-232) the positive seam witness (plan :225-227, :233; r | AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no picture on 'p13a-core-causal-01' within 350 ticks seats a promised person outside the historical first three
+   F 955 genuine207 normal-development continuation produces identical208 saves and all twelve actual affected receipts from  | AssertionError: expected { bottleneck: null, …(4) } to match object { week: 208, rulesVersion: 4 }
+== p3-969fb459.json pass 0 fail 2 suitesFailed 2
+   F P3 fixed rival: public credit, ordinary contest and distinct staffing D07 authors and fulfills a real rival promise to a | AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{…} ]
+   F P3 fixed rival: public credit, ordinary contest and distinct staffing D18 uses the declared rival strategy and legal dis | AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{…} ]
+== unres-993e6b01.json pass 8 fail 21 suitesFailed 8
+   F P14B4 final seating preference — no-preference path and viability gates (plan :223-225) p13a-core-causal-01: every real  | AssertionError: expected [] to deeply equal [ { week: 208, …(4) }, …(1) ]
+   F P14B4 final seating preference — no-preference path and viability gates (plan :223-225) seed-b: every real film decision | AssertionError: expected '9eeb62f640c8a749e71a0c1d21b917ce5cf70…' to be 'f9cd2a86368b222882e84776b30f8a8d3f5b2…' // Object.is equality
+   F P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) CURRENT unaccepted offers never count:  | AssertionError: expected { week: 202, …(1) } to deeply equal { week: 202, …(1) }
+   F P14B4 final seating preference — the initial cast seam (plan :225-232) the positive seam witness (plan :225-227, :233; r | AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no picture on 'p13a-core-causal-01' within 350 ticks seats a promised person outside the historical first three
+   F 955 genuine207 normal-development continuation produces identical208 saves and all twelve actual affected receipts from  | AssertionError: expected { bottleneck: null, …(4) } to match object { week: 208, rulesVersion: 4 }
+== p3-993e6b01.json pass 0 fail 2 suitesFailed 2
+   F P3 fixed rival: public credit, ordinary contest and distinct staffing D07 authors and fulfills a real rival promise to a | AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{…} ]
+   F P3 fixed rival: public credit, ordinary contest and distinct staffing D18 uses the declared rival strategy and legal dis | AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{…} ]

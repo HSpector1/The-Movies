@@ -1,0 +1,23 @@
+import { appendFileSync } from 'node:fs'
+import { it } from 'vitest'
+import { tick } from '../src/core/index.js'
+import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+
+const SEEDS = ['p13a-core-causal-01', 'seed-b', 'p13b-s8-bridge-probe-01', 'p13-public-commercial-adoption']
+it('ledger settlement reasons probe', () => {
+  const out: Record<string, unknown> = { commit: process.env.LEDGER_COMMIT }
+  for (const seed of SEEDS) {
+    let state: any = p13aGeneratedStudio(seed)
+    for (let step = 0; step < 416; step++) state = tick(state)
+    const role = (id: string) => state.talent.find((t: any) => t.id === id)?.role ?? null
+    out[seed] = state.talentMarket.receipts.filter((r: any) => r.kind === 'settled' || r.kind === 'declined' || r.kind === 'expired')
+      .map((r: any) => {
+        const winnerPromises = state.promises.filter((p: any) => p.beneficiaryPersonId === r.talentId && p.issuerStudioId === r.studioId && p.windowStartWeek === r.week)
+        const submitted = state.talentMarket.receipts.filter((q: any) => q.kind === 'proposalSubmitted' && q.talentId === r.talentId && q.week <= r.week && q.week >= r.week - 16)
+          .map((q: any) => q.studioId)
+        return { eventId: r.eventId, week: r.week, kind: r.kind, talentId: r.talentId, role: role(r.talentId), studioId: r.studioId ?? null,
+          reasons: r.reasons, dropped: r.dropped, submitted, winnerPromiseFamilies: winnerPromises.map((p: any) => p.family) }
+      })
+  }
+  appendFileSync(process.env.LEDGER_OUT!, JSON.stringify(out) + '\n')
+}, 3_600_000)
