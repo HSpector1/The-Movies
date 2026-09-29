@@ -1,0 +1,2 @@
+tests/p15a1-shared-market-harness.test.ts(23,24): error TS2307: Cannot find module '../src/core/sharedMarket.js' or its corresponding type declarations.
+tests/p15a1-shared-market.test.ts(40,24): error TS2307: Cannot find module '../src/core/sharedMarket.js' or its corresponding type declarations.
