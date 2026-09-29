@@ -1,5 +1,38 @@
 # P4/P5 verification coverage
 
+## CURRENT — repair R3 closed LOGIC VERIFIED (1332-K); UI repair U1 in staging
+
+1332-A attributed the ten UNRESOLVED core rows. Scratch bisect: HEAD test bytes over each
+commit's src/generated. Ledger (4) and seating preference (3) move at 969fb459 with C8 and
+wait on D-1329-1. The other three were repaired test-only (R3):
+- promise-digest continuity: the week-208 settlement ranking moved at 969fb459; derived
+  from the tick's own receipts, with promise-3/26 pinned;
+- checkpoint :65: the expected shape now names the Save40 firstTakeSubjects root and the
+  Save41 zero termination movement;
+- relationships :546: the counterfactual strip reproduces the frozen digest; the stripped
+  root is guarded by validateFirstTakeSubjects.
+Reviews 1332-B/D REFINE, both resolved (1332-F/F2/F3); applied 59e2666a. Core gate 1333:
+80 failed / 4601 passed, 3 gone. One new row: bridge-p14p3 D17, a load-dependent 60 s
+timeout (it runs 97-100 s alone and passes). UI gate 1334: 26 failed on unchanged UI
+source. Review 1333-J KEEP. Closure 1332-K: LOGIC VERIFIED · UNITY NOT VERIFIED; not GREEN.
+
+IN PROGRESS: UI repair U1 (1335-A, review 1335-B ACCEPT), in test-author staging:
+- C5: the contract test read a Save16 fixture with loadSave (validate only); it now uses
+  the app's migrateToLive path;
+- C2: a 27-mount World Inspector sweep outruns 5 s, and its still-running body causes the
+  duplicate-element rows;
+- C1: cold lazy-Lot mounts race findBy's 1000 ms default, and slow leaves exceed 5 s.
+
+Lessons recorded this session (procedures):
+- bisect with HEAD tests over old src;
+- migrate fixtures before live readers;
+- a timed-out Vitest body keeps running, so run the file alone and budget the slow leaf;
+- name the baseline of every attribution count;
+- re-check additive-schema digest pins by down-projection or counterfactual strip.
+
+Owner decisions open: D-1329-1 (rival stall; recommended: charter a shelving rule),
+D-1323-1, D-1312-1, D-1312-2, HIS-014.
+
 ## CURRENT — repair R2 closed LOGIC VERIFIED (1327-K); UNRESOLVED rows attributed; repair R3 next
 
 Retained-defect repair R2 (1327-A, tests only, 7 files) is closed: C12 pins from the
