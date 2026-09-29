@@ -1,0 +1,11 @@
+# 1335-X UI extract: vitest run --project ui on a scratch archive of HEAD 995f0fd1 (tests/fixtures, docs, node_modules, art, tools linked read-only) with 1335-ui-u1-r2.patch applied; failing-file lines, the six touched files' lines and the summary
+ ✓ |ui| ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx (36 tests) 104877ms
+ ✓ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx (15 tests) 41004ms
+ ✓ |ui| ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx (28 tests) 43711ms
+ ✓ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx (10 tests) 46184ms
+ ✓ |ui| ui/src/test/contracts/p05a-w2-closed-production.contract.test.ts (13 tests) 5499ms
+ ✓ |ui| ui/src/lot/livingTurn.scheduler.test.tsx (13 tests) 48111ms
+ ❯ |ui| ui/src/lot/authored-stage-a.test.ts (17 tests | 4 failed) 943ms
+ ❯ |ui| ui/src/lot/authored-rgba-export.test.ts (8 tests | 6 failed) 975ms
+ Test Files  2 failed | 202 passed (204)
+      Tests  10 failed | 2682 passed | 5 skipped (2697)
