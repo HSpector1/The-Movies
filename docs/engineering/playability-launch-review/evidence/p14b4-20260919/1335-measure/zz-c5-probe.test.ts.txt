@@ -1,0 +1,42 @@
+import { existsSync, readFileSync } from 'node:fs'
+import { it } from 'vitest'
+import { loadSave } from '../../../src/core/index.ts'
+import type { GameState } from '../../../src/core/index.ts'
+import { hiringMarketCards } from '../engine/adapter.ts'
+
+it('C5 gate hiring eligibility probe', () => {
+  const fixture = 'e2e/p06-visual-oracle-v1/s2-wrapped-waiting-for-post.save.json'
+  const fixturePath = [`ui/${fixture}`, fixture].find(existsSync)!
+  const state = (loadSave(JSON.parse(readFileSync(fixturePath, 'utf8'))) as { state: GameState }).state
+  const out: Record<string, unknown> = { week: state.market.tick }
+  let market
+  try { market = hiringMarketCards(state) } catch (e) { out.marketThrow = String((e as Error).stack).split('\n').slice(0, 8); console.log('C5PROBE ' + JSON.stringify(out)); return }
+  out.marketSize = market.length
+  const rows: unknown[] = []
+  for (const card of market) {
+    const e = card.employment as any
+    if (e.status !== 'freeAgent' || e.contract !== null || e.freelancerFee !== null) continue
+    const id = card.profile.id
+    const reasons: string[] = []
+    if (!Array.isArray(e.offerOptions)) reasons.push('offerOptions not array')
+    else if (e.offerOptions.length === 0) continue
+    const identities = state.talent.filter((t) => t.id === id)
+    const matches = market.filter((c) => c.profile.id === id)
+    if (id.trim().length === 0) reasons.push('empty id')
+    if (card.profile.name.trim().length === 0) reasons.push('empty name')
+    if (!['actor', 'director', 'writer', 'craft', 'scientist'].includes(card.profile.role)) reasons.push('role ' + card.profile.role)
+    if (identities.length !== 1) reasons.push('identities ' + identities.length)
+    if (matches.length !== 1) reasons.push('marketMatches ' + matches.length)
+    const ident = identities[0]
+    if (ident && (ident.name !== card.profile.name || ident.role !== card.profile.role)) reasons.push(`identity mismatch name ${ident.name}/${card.profile.name} role ${ident.role}/${card.profile.role}`)
+    let prev = 0
+    for (const o of e.offerOptions ?? []) {
+      if (o.talentId !== id) reasons.push('offer talentId ' + o.talentId)
+      if (!Number.isSafeInteger(o.termWeeks) || o.termWeeks <= prev) reasons.push('term order ' + o.termWeeks + ' after ' + prev)
+      prev = o.termWeeks
+    }
+    if (reasons.length) rows.push({ id, role: card.profile.role, name: card.profile.name, offerTerms: (e.offerOptions ?? []).map((o: any) => o.termWeeks), reasons })
+  }
+  out.bad = rows
+  console.log('C5PROBE ' + JSON.stringify(out))
+})

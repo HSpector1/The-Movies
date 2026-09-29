@@ -1,0 +1,27 @@
+
+ RUN  v2.1.9 <scratch>
+
+ ✓ |ui| ui/src/lot/zz-WorldInspector-budget.test.tsx (28 tests) 22269ms
+   ✓ World Inspector Default V1 — no building click ever ejects > never navigates from any of the nine places, and always lands an in-world context 2314ms
+   ✓ World Inspector Default V1 — no building click ever ejects > lands the generic inspector — with name, role and live status — where no richer context applies 1877ms
+   ✓ World Inspector Default V1 — no building click ever ejects > reaches the canonical deep screen ONLY through the explicit details action 2545ms
+   ✓ World Inspector Default V1 — no building click ever ejects > routes canvas intent and semantic companion activation to the same owner 392ms
+   ✓ World Inspector Default V1 — no building click ever ejects > prints the shared Development & Casting occupancy and the stage’s own idle truth 338ms
+   ✓ World Inspector Default V1 — no building click ever ejects > moves focus into the in-world panel it just opened 306ms
+   ✓ World Inspector Default V1 — no building click ever ejects > leaves the retained painted plate exactly as M1 left it 359ms
+   ✓ the camera grammar — selection frames, and the whole property is always one control away > never asks the world to reframe for an ORDINARY inspector — the quiet half of the grammar 612ms
+   ✓ M-B — the buildings carry the verbs the guidance names > never lets any place print its blocks out of the canonical order 6830ms
+   ✓ M-B — the buildings carry the verbs the guidance names > routes the Commission verb to the commission intent, and the deep ghost to Development 454ms
+   ✓ M-B — the buildings carry the verbs the guidance names > F4: offers the Commission verb while a screenplay is already being written 374ms
+   ✓ M-B — the buildings carry the verbs the guidance names > F4: offers it with an accepted screenplay waiting on casting, too 341ms
+   ✓ M-B — the buildings carry the verbs the guidance names > names the picture in Casting’s audition verb, and prefers the retained in-world planner 374ms
+   ✓ M-B — the buildings carry the verbs the guidance names > reads the deep ghosts in plain language, never in internal screen names 329ms
+   ✓ M-B — the audition verb is a first-class retained-planner origin > opens the in-world planner over the live lot when the companion rail cannot vouch for it 1085ms
+   ✓ M-B — the audition verb is a first-class retained-planner origin > still refuses — and still never dead-ends — when the verb cannot prove ITSELF either 712ms
+   ✓ M-B — the audition verb is a first-class retained-planner origin > keeps the companion rail a first-class origin of its own 529ms
+
+ Test Files  1 passed (1)
+      Tests  28 passed (28)
+   Start at  15:09:36
+   Duration  30.49s (transform 4.97s, setup 134ms, collect 6.52s, tests 22.27s, environment 707ms, prepare 233ms)
+

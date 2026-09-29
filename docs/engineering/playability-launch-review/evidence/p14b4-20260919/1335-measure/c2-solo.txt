@@ -1,0 +1,2557 @@
+
+ RUN  v2.1.9 <scratch>
+
+ ❯ |ui| ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx (28 tests | 6 failed) 21046ms
+   ✓ World Inspector Default V1 — no building click ever ejects > never navigates from any of the nine places, and always lands an in-world context 2287ms
+   ✓ World Inspector Default V1 — no building click ever ejects > lands the generic inspector — with name, role and live status — where no richer context applies 1626ms
+   ✓ World Inspector Default V1 — no building click ever ejects > reaches the canonical deep screen ONLY through the explicit details action 2476ms
+   ✓ World Inspector Default V1 — no building click ever ejects > routes canvas intent and semantic companion activation to the same owner 381ms
+   ✓ World Inspector Default V1 — no building click ever ejects > prints the shared Development & Casting occupancy and the stage’s own idle truth 498ms
+   ✓ World Inspector Default V1 — no building click ever ejects > moves focus into the in-world panel it just opened 317ms
+   ✓ the camera grammar — selection frames, and the whole property is always one control away > never asks the world to reframe for an ORDINARY inspector — the quiet half of the grammar 751ms
+   × M-B — the buildings carry the verbs the guidance names > never lets any place print its blocks out of the canonical order 5229ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × M-B — the buildings carry the verbs the guidance names > offers Development the Commission verb at Week 0 — the first step of the whole game 461ms
+     → Found multiple elements by: [data-testid="lot-nav-writers"]
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+<button
+  class="lot-nav-item att-empty"
+  data-attention="empty"
+  data-testid="lot-nav-writers"
+  title="Develop and assemble your next film."
+  type="button"
+>
+  <span
+    class="lot-nav-name"
+  >
+    Development
+  </span>
+  <span
+    class="lot-nav-state"
+    data-testid="lot-nav-writers-state"
+  >
+    <span
+      aria-hidden="true"
+      class="lot-nav-icon"
+    >
+      ○
+    </span>
+    <span
+      class="lot-nav-att-word visually-hidden"
+    >
+      Available
+      : 
+    </span>
+    Writers Room idle
+  </span>
+</button>
+
+Ignored nodes: comments, script, style
+<button
+  class="lot-nav-item att-positive"
+  data-attention="positive"
+  data-testid="lot-nav-writers"
+  title="Develop and assemble your next film."
+  type="button"
+>
+  <span
+    class="lot-nav-name"
+  >
+    Development
+  </span>
+  <span
+    class="lot-nav-state"
+    data-testid="lot-nav-writers-state"
+  >
+    <span
+      aria-hidden="true"
+      class="lot-nav-icon"
+    >
+      ✓
+    </span>
+    <span
+      class="lot-nav-att-word visually-hidden"
+    >
+      Positive
+      : 
+    </span>
+    Screenplay ready to package
+  </span>
+</button>
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="lot-screen lot-hollywood"
+      data-entry-focus="none"
+      data-testid="studio-lot-screen"
+    >
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-casting-review-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-production-formation-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-script-review-announcement"
+        role="status"
+      />
+      <header
+        class="lot-topbar"
+      >
+        <div
+          class="lot-brand"
+        >
+          <h1
+            class="mark lot-studio-heading"
+            data-testid="lot-studio-heading"
+            tabindex="-1"
+          >
+            PROJECT: STUDIO
+          </h1>
+          <span
+            class="lot-sub"
+          >
+            Studio Chronicle · Hollywood, 1920 · Week 1
+          </span>
+        </div>
+        <div
+          class="lot-topbar-actions"
+        >
+          <span
+            class="lot-cash-slot"
+          >
+            <span
+              class="lot-cash"
+              data-testid="lot-cash"
+            >
+              $20,000,000
+            </span>
+          </span>
+          <button
+            aria-label="Advance one week"
+            class="primary lot-advance-week lot-topbar-compactable"
+            data-testid="lot-advance-week"
+            title="Advance one week"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="lot-topbar-mark"
+            >
+              ▸
+            </span>
+            <span
+              class="lot-topbar-label"
+            >
+              Advance one week
+            </span>
+          </button>
+          <div
+            class="lot-next-event-control"
+          >
+            <button
+              aria-label="Sim to next event"
+              class="accent lot-next-event-button lot-topbar-compactable"
+              data-testid="lot-sim-to-next-event"
+              disabled=""
+              title="Sim to next event"
+              type="button"
+            >
+              <span
+                aria-hidden="true"
+                class="lot-topbar-mark"
+              >
+                »
+              </span>
+              <span
+                class="lot-topbar-label"
+              >
+                Sim to next event
+              </span>
+            </button>
+          </div>
+          <button
+            class="ghost"
+            data-testid="lot-return-dashboard"
+          >
+            Open Dashboard
+          </button>
+          <button
+            aria-label="Saves"
+            class="ghost lot-topbar-compactable"
+            data-testid="lot-open-saves"
+            title="Export a print of this studio, or load one"
+          >
+            <span
+              aria-hidden="true"
+              class="lot-topbar-mark"
+            >
+              ▤
+            </span>
+            <span
+              class="lot-topbar-label"
+            >
+              Saves
+            </span>
+          </button>
+        </div>
+      </header>
+      <div
+        class="lot-body"
+      >
+        <div
+          class="lot-stage-wrap"
+          data-guidance-target="writers"
+        >
+          <div
+            aria-hidden="true"
+            class="lot-canvas"
+            data-testid="studio-lot-canvas"
+          />
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            class="lot-notice"
+            data-punctuation="0"
+            data-testid="lot-annex-operational-announcement"
+            role="status"
+          />
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            class="lot-notice"
+            data-punctuation="0"
+            data-testid="lot-week-update-announcement"
+            role="status"
+          />
+          <div
+            aria-label="Lot camera"
+            class="lot-camera-tools"
+            role="group"
+          >
+            <button
+              aria-keyshortcuts="R"
+              aria-label="Show the whole property. Keyboard shortcut R."
+              class="lot-camera-home"
+              data-testid="lot-camera-home"
+              title="Show the whole property (shortcut: R)"
+              type="button"
+            >
+              <span...
+   × M-B — the buildings carry the verbs the guidance names > routes the Commission verb to the commission intent, and the deep ghost to Development 433ms
+     → Found multiple elements by: [data-testid="lot-nav-writers"]
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+<button
+  class="lot-nav-item att-empty"
+  data-attention="empty"
+  data-testid="lot-nav-writers"
+  title="Develop and assemble your next film."
+  type="button"
+>
+  <span
+    class="lot-nav-name"
+  >
+    Development
+  </span>
+  <span
+    class="lot-nav-state"
+    data-testid="lot-nav-writers-state"
+  >
+    <span
+      aria-hidden="true"
+      class="lot-nav-icon"
+    >
+      ○
+    </span>
+    <span
+      class="lot-nav-att-word visually-hidden"
+    >
+      Available
+      : 
+    </span>
+    Writers Room idle
+  </span>
+</button>
+
+Ignored nodes: comments, script, style
+<button
+  class="lot-nav-item att-positive"
+  data-attention="positive"
+  data-testid="lot-nav-writers"
+  title="Develop and assemble your next film."
+  type="button"
+>
+  <span
+    class="lot-nav-name"
+  >
+    Development
+  </span>
+  <span
+    class="lot-nav-state"
+    data-testid="lot-nav-writers-state"
+  >
+    <span
+      aria-hidden="true"
+      class="lot-nav-icon"
+    >
+      ✓
+    </span>
+    <span
+      class="lot-nav-att-word visually-hidden"
+    >
+      Positive
+      : 
+    </span>
+    Screenplay ready to package
+  </span>
+</button>
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="lot-screen lot-hollywood"
+      data-entry-focus="none"
+      data-testid="studio-lot-screen"
+    >
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-casting-review-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-production-formation-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-script-review-announcement"
+        role="status"
+      />
+      <header
+        class="lot-topbar"
+      >
+        <div
+          class="lot-brand"
+        >
+          <h1
+            class="mark lot-studio-heading"
+            data-testid="lot-studio-heading"
+            tabindex="-1"
+          >
+            PROJECT: STUDIO
+          </h1>
+          <span
+            class="lot-sub"
+          >
+            Studio Chronicle · Hollywood, 1920 · Week 1
+          </span>
+        </div>
+        <div
+          class="lot-topbar-actions"
+        >
+          <span
+            class="lot-cash-slot"
+          >
+            <span
+              class="lot-cash"
+              data-testid="lot-cash"
+            >
+              $20,000,000
+            </span>
+          </span>
+          <button
+            aria-label="Advance one week"
+            class="primary lot-advance-week lot-topbar-compactable"
+            data-testid="lot-advance-week"
+            title="Advance one week"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="lot-topbar-mark"
+            >
+              ▸
+            </span>
+            <span
+              class="lot-topbar-label"
+            >
+              Advance one week
+            </span>
+          </button>
+          <div
+            class="lot-next-event-control"
+          >
+            <button
+              aria-label="Sim to next event"
+              class="accent lot-next-event-button lot-topbar-compactable"
+              data-testid="lot-sim-to-next-event"
+              disabled=""
+              title="Sim to next event"
+              type="button"
+            >
+              <span
+                aria-hidden="true"
+                class="lot-topbar-mark"
+              >
+                »
+              </span>
+              <span
+                class="lot-topbar-label"
+              >
+                Sim to next event
+              </span>
+            </button>
+          </div>
+          <button
+            class="ghost"
+            data-testid="lot-return-dashboard"
+          >
+            Open Dashboard
+          </button>
+          <button
+            aria-label="Saves"
+            class="ghost lot-topbar-compactable"
+            data-testid="lot-open-saves"
+            title="Export a print of this studio, or load one"
+          >
+            <span
+              aria-hidden="true"
+              class="lot-topbar-mark"
+            >
+              ▤
+            </span>
+            <span
+              class="lot-topbar-label"
+            >
+              Saves
+            </span>
+          </button>
+        </div>
+      </header>
+      <div
+        class="lot-body"
+      >
+        <div
+          class="lot-stage-wrap"
+          data-guidance-target="writers"
+        >
+          <div
+            aria-hidden="true"
+            class="lot-canvas"
+            data-testid="studio-lot-canvas"
+          />
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            class="lot-notice"
+            data-punctuation="0"
+            data-testid="lot-annex-operational-announcement"
+            role="status"
+          />
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            class="lot-notice"
+            data-punctuation="0"
+            data-testid="lot-week-update-announcement"
+            role="status"
+          />
+          <div
+            aria-label="Lot camera"
+            class="lot-camera-tools"
+            role="group"
+          >
+            <button
+              aria-keyshortcuts="R"
+              aria-label="Show the whole property. Keyboard shortcut R."
+              class="lot-camera-home"
+              data-testid="lot-camera-home"
+              title="Show the whole property (shortcut: R)"
+              type="button"
+            >
+              <span...
+   × M-B — the buildings carry the verbs the guidance names > F4: offers the Commission verb while a screenplay is already being written 448ms
+     → Found multiple elements by: [data-testid="lot-nav-writers"]
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+<button
+  class="lot-nav-item att-active"
+  data-attention="active"
+  data-testid="lot-nav-writers"
+  title="Develop and assemble your next film."
+  type="button"
+>
+  <span
+    class="lot-nav-name"
+  >
+    Development
+  </span>
+  <span
+    class="lot-nav-state"
+    data-testid="lot-nav-writers-state"
+  >
+    <span
+      aria-hidden="true"
+      class="lot-nav-icon"
+    >
+      ▶
+    </span>
+    <span
+      class="lot-nav-att-word visually-hidden"
+    >
+      Active
+      : 
+    </span>
+    Drafting: The Careless Harvest
+  </span>
+</button>
+
+Ignored nodes: comments, script, style
+<button
+  class="lot-nav-item att-positive"
+  data-attention="positive"
+  data-testid="lot-nav-writers"
+  title="Develop and assemble your next film."
+  type="button"
+>
+  <span
+    class="lot-nav-name"
+  >
+    Development
+  </span>
+  <span
+    class="lot-nav-state"
+    data-testid="lot-nav-writers-state"
+  >
+    <span
+      aria-hidden="true"
+      class="lot-nav-icon"
+    >
+      ✓
+    </span>
+    <span
+      class="lot-nav-att-word visually-hidden"
+    >
+      Positive
+      : 
+    </span>
+    Screenplay ready to package
+  </span>
+</button>
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="lot-screen lot-hollywood"
+      data-entry-focus="none"
+      data-testid="studio-lot-screen"
+    >
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-casting-review-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-production-formation-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-script-review-announcement"
+        role="status"
+      />
+      <header
+        class="lot-topbar"
+      >
+        <div
+          class="lot-brand"
+        >
+          <h1
+            class="mark lot-studio-heading"
+            data-testid="lot-studio-heading"
+            tabindex="-1"
+          >
+            PROJECT: STUDIO
+          </h1>
+          <span
+            class="lot-sub"
+          >
+            Studio Chronicle · Hollywood, 1920 · Week 1
+          </span>
+        </div>
+        <div
+          class="lot-topbar-actions"
+        >
+          <span
+            class="lot-cash-slot"
+          >
+            <span
+              class="lot-cash"
+              data-testid="lot-cash"
+            >
+              $20,000,000
+            </span>
+          </span>
+          <button
+            aria-label="Advance one week"
+            class="primary lot-advance-week lot-topbar-compactable"
+            data-testid="lot-advance-week"
+            title="Advance one week"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="lot-topbar-mark"
+            >
+              ▸
+            </span>
+            <span
+              class="lot-topbar-label"
+            >
+              Advance one week
+            </span>
+          </button>
+          <div
+            class="lot-next-event-control"
+          >
+            <button
+              aria-label="Sim to next event"
+              class="accent lot-next-event-button lot-topbar-compactable"
+              data-testid="lot-sim-to-next-event"
+              disabled=""
+              title="Sim to next event"
+              type="button"
+            >
+              <span
+                aria-hidden="true"
+                class="lot-topbar-mark"
+              >
+                »
+              </span>
+              <span
+                class="lot-topbar-label"
+              >
+                Sim to next event
+              </span>
+            </button>
+          </div>
+          <button
+            class="ghost"
+            data-testid="lot-return-dashboard"
+          >
+            Open Dashboard
+          </button>
+          <button
+            aria-label="Saves"
+            class="ghost lot-topbar-compactable"
+            data-testid="lot-open-saves"
+            title="Export a print of this studio, or load one"
+          >
+            <span
+              aria-hidden="true"
+              class="lot-topbar-mark"
+            >
+              ▤
+            </span>
+            <span
+              class="lot-topbar-label"
+            >
+              Saves
+            </span>
+          </button>
+        </div>
+      </header>
+      <div
+        class="lot-body"
+      >
+        <div
+          class="lot-stage-wrap"
+          data-guidance-target="none"
+        >
+          <div
+            aria-hidden="true"
+            class="lot-canvas"
+            data-testid="studio-lot-canvas"
+          />
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            class="lot-notice"
+            data-punctuation="0"
+            data-testid="lot-annex-operational-announcement"
+            role="status"
+          />
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            class="lot-notice"
+            data-punctuation="0"
+            data-testid="lot-week-update-announcement"
+            role="status"
+          />
+          <div
+            aria-label="Lot camera"
+            class="lot-camera-tools"
+            role="group"
+          >
+            <button
+              aria-keyshortcuts="R"
+              aria-label="Show the whole property. Keyboard shortcut R."
+              class="lot-camera-home"
+              data-testid="lot-camera-home"
+              title="Show the whole property (shortcut: R)"
+              type="button"
+            >
+              <span[39...
+   × M-B — the buildings carry the verbs the guidance names > F4: offers it with an accepted screenplay waiting on casting, too 668ms
+     → Found multiple elements by: [data-testid="lot-nav-writers"]
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+<button
+  class="lot-nav-item att-positive"
+  data-attention="positive"
+  data-testid="lot-nav-writers"
+  title="Develop and assemble your next film."
+  type="button"
+>
+  <span
+    class="lot-nav-name"
+  >
+    Development
+  </span>
+  <span
+    class="lot-nav-state"
+    data-testid="lot-nav-writers-state"
+  >
+    <span
+      aria-hidden="true"
+      class="lot-nav-icon"
+    >
+      ✓
+    </span>
+    <span
+      class="lot-nav-att-word visually-hidden"
+    >
+      Positive
+      : 
+    </span>
+    Screenplay ready to package
+  </span>
+</button>
+
+Ignored nodes: comments, script, style
+<button
+  class="lot-nav-item att-positive"
+  data-attention="positive"
+  data-testid="lot-nav-writers"
+  title="Develop and assemble your next film."
+  type="button"
+>
+  <span
+    class="lot-nav-name"
+  >
+    Development
+  </span>
+  <span
+    class="lot-nav-state"
+    data-testid="lot-nav-writers-state"
+  >
+    <span
+      aria-hidden="true"
+      class="lot-nav-icon"
+    >
+      ✓
+    </span>
+    <span
+      class="lot-nav-att-word visually-hidden"
+    >
+      Positive
+      : 
+    </span>
+    Screenplay ready to package
+  </span>
+</button>
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="lot-screen lot-hollywood"
+      data-entry-focus="none"
+      data-testid="studio-lot-screen"
+    >
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-casting-review-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-production-formation-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-script-review-announcement"
+        role="status"
+      />
+      <header
+        class="lot-topbar"
+      >
+        <div
+          class="lot-brand"
+        >
+          <h1
+            class="mark lot-studio-heading"
+            data-testid="lot-studio-heading"
+            tabindex="-1"
+          >
+            PROJECT: STUDIO
+          </h1>
+          <span
+            class="lot-sub"
+          >
+            Studio Chronicle · Hollywood, 1920 · Week 2
+          </span>
+        </div>
+        <div
+          class="lot-topbar-actions"
+        >
+          <span
+            class="lot-cash-slot"
+          >
+            <span
+              class="lot-cash"
+              data-testid="lot-cash"
+            >
+              $19,907,850
+            </span>
+          </span>
+          <button
+            aria-label="Advance one week"
+            class="primary lot-advance-week lot-topbar-compactable"
+            data-testid="lot-advance-week"
+            title="Advance one week"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="lot-topbar-mark"
+            >
+              ▸
+            </span>
+            <span
+              class="lot-topbar-label"
+            >
+              Advance one week
+            </span>
+          </button>
+          <div
+            class="lot-next-event-control"
+          >
+            <button
+              aria-label="Sim to next event"
+              class="accent lot-next-event-button lot-topbar-compactable"
+              data-testid="lot-sim-to-next-event"
+              disabled=""
+              title="Sim to next event"
+              type="button"
+            >
+              <span
+                aria-hidden="true"
+                class="lot-topbar-mark"
+              >
+                »
+              </span>
+              <span
+                class="lot-topbar-label"
+              >
+                Sim to next event
+              </span>
+            </button>
+          </div>
+          <button
+            class="ghost"
+            data-testid="lot-return-dashboard"
+          >
+            Open Dashboard
+          </button>
+          <button
+            aria-label="Saves"
+            class="ghost lot-topbar-compactable"
+            data-testid="lot-open-saves"
+            title="Export a print of this studio, or load one"
+          >
+            <span
+              aria-hidden="true"
+              class="lot-topbar-mark"
+            >
+              ▤
+            </span>
+            <span
+              class="lot-topbar-label"
+            >
+              Saves
+            </span>
+          </button>
+        </div>
+      </header>
+      <div
+        class="lot-body"
+      >
+        <div
+          class="lot-stage-wrap"
+          data-guidance-target="casting"
+        >
+          <div
+            aria-hidden="true"
+            class="lot-canvas"
+            data-testid="studio-lot-canvas"
+          />
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            class="lot-notice"
+            data-punctuation="0"
+            data-testid="lot-annex-operational-announcement"
+            role="status"
+          />
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            class="lot-notice"
+            data-punctuation="0"
+            data-testid="lot-week-update-announcement"
+            role="status"
+          />
+          <div
+            aria-label="Lot camera"
+            class="lot-camera-tools"
+            role="group"
+          >
+            <button
+              aria-keyshortcuts="R"
+              aria-label="Show the whole property. Keyboard shortcut R."
+              class="lot-camera-home"
+              data-testid="lot-camera-home"
+              title="Show the whole property (shortcut: R)"
+              type="button"
+            >
+              <span...
+   × M-B — the buildings carry the verbs the guidance names > names the picture in Casting’s audition verb, and prefers the retained in-world planner 457ms
+     → Found multiple elements by: [data-testid="lot-nav-casting"]
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+<button
+  class="lot-nav-item att-positive"
+  data-attention="positive"
+  data-testid="lot-nav-casting"
+  title="Plan camera tests, review audition evidence, and take a screenplay to package."
+  type="button"
+>
+  <span
+    class="lot-nav-name"
+  >
+    Casting / Talent
+  </span>
+  <span
+    class="lot-nav-state"
+    data-testid="lot-nav-casting-state"
+  >
+    <span
+      aria-hidden="true"
+      class="lot-nav-icon"
+    >
+      ✓
+    </span>
+    <span
+      class="lot-nav-att-word visually-hidden"
+    >
+      Positive
+      : 
+    </span>
+    The Crimson Impresario — ready for auditions
+  </span>
+</button>
+
+Ignored nodes: comments, script, style
+<button
+  class="lot-nav-item att-positive"
+  data-attention="positive"
+  data-testid="lot-nav-casting"
+  title="Plan camera tests, review audition evidence, and take a screenplay to package."
+  type="button"
+>
+  <span
+    class="lot-nav-name"
+  >
+    Casting / Talent
+  </span>
+  <span
+    class="lot-nav-state"
+    data-testid="lot-nav-casting-state"
+  >
+    <span
+      aria-hidden="true"
+      class="lot-nav-icon"
+    >
+      ✓
+    </span>
+    <span
+      class="lot-nav-att-word visually-hidden"
+    >
+      Positive
+      : 
+    </span>
+    Echoes of Sanctuary — ready for auditions
+  </span>
+</button>
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="lot-screen lot-hollywood"
+      data-entry-focus="none"
+      data-testid="studio-lot-screen"
+    >
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-casting-review-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-production-formation-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-script-review-announcement"
+        role="status"
+      />
+      <header
+        class="lot-topbar"
+      >
+        <div
+          class="lot-brand"
+        >
+          <h1
+            class="mark lot-studio-heading"
+            data-testid="lot-studio-heading"
+            tabindex="-1"
+          >
+            PROJECT: STUDIO
+          </h1>
+          <span
+            class="lot-sub"
+          >
+            Studio Chronicle · Hollywood, 1920 · Week 2
+          </span>
+        </div>
+        <div
+          class="lot-topbar-actions"
+        >
+          <span
+            class="lot-cash-slot"
+          >
+            <span
+              class="lot-cash"
+              data-testid="lot-cash"
+            >
+              $19,901,705
+            </span>
+          </span>
+          <button
+            aria-label="Advance one week"
+            class="primary lot-advance-week lot-topbar-compactable"
+            data-testid="lot-advance-week"
+            title="Advance one week"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="lot-topbar-mark"
+            >
+              ▸
+            </span>
+            <span
+              class="lot-topbar-label"
+            >
+              Advance one week
+            </span>
+          </button>
+          <div
+            class="lot-next-event-control"
+          >
+            <button
+              aria-label="Sim to next event"
+              class="accent lot-next-event-button lot-topbar-compactable"
+              data-testid="lot-sim-to-next-event"
+              disabled=""
+              title="Sim to next event"
+              type="button"
+            >
+              <span
+                aria-hidden="true"
+                class="lot-topbar-mark"
+              >
+                »
+              </span>
+              <span
+                class="lot-topbar-label"
+              >
+                Sim to next event
+              </span>
+            </button>
+          </div>
+          <button
+            class="ghost"
+            data-testid="lot-return-dashboard"
+          >
+            Open Dashboard
+          </button>
+          <button
+            aria-label="Saves"
+            class="ghost lot-topbar-compactable"
+            data-testid="lot-open-saves"
+            title="Export a print of this studio, or load one"
+          >
+            <span
+              aria-hidden="true"
+              class="lot-topbar-mark"
+            >
+              ▤
+            </span>
+            <span
+              class="lot-topbar-label"
+            >
+              Saves
+            </span>
+          </button>
+        </div>
+      </header>
+      <div
+        class="lot-body"
+      >
+        <div
+          class="lot-stage-wrap"
+          data-guidance-target="casting"
+        >
+          <div
+            aria-hidden="true"
+            class="lot-canvas"
+            data-testid="studio-lot-canvas"
+          />
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            class="lot-notice"
+            data-punctuation="0"
+            data-testid="lot-annex-operational-announcement"
+            role="status"
+          />
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            class="lot-notice"
+            data-punctuation="0"
+            data-testid="lot-week-update-announcement"
+            role="status"
+          />
+          <div
+            aria-label="Lot camera"
+            class="lot-camera-tools"
+            role="group"
+          >
+            <button
+              aria-keyshortcuts="R"
+              aria-label="Show the whole property. Keyboard shortcut R."
+              class="lot-camera-home"
+              data-testid="lot-camera-home"
+              title="Show the whole property (shortcut: R)"
+              type="button"
+            >
+              <span...
+   ✓ M-B — the buildings carry the verbs the guidance names > falls back to the existing deep Casting path rather than leaving a dead button 365ms
+   ✓ M-B — the buildings carry the verbs the guidance names > reads the deep ghosts in plain language, never in internal screen names 331ms
+   ✓ M-B — the audition verb is a first-class retained-planner origin > opens the in-world planner over the live lot when the companion rail cannot vouch for it 1096ms
+   ✓ M-B — the audition verb is a first-class retained-planner origin > still refuses — and still never dead-ends — when the verb cannot prove ITSELF either 470ms
+   ✓ M-B — the audition verb is a first-class retained-planner origin > keeps the companion rail a first-class origin of its own 466ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |ui|  ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B — the buildings carry the verbs the guidance names > never lets any place print its blocks out of the canonical order
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL |ui|  ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B — the buildings carry the verbs the guidance names > offers Development the Commission verb at Week 0 — the first step of the whole game
+TestingLibraryElementError: Found multiple elements by: [data-testid="lot-nav-writers"]
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+<button
+  class="lot-nav-item att-empty"
+  data-attention="empty"
+  data-testid="lot-nav-writers"
+  title="Develop and assemble your next film."
+  type="button"
+>
+  <span
+    class="lot-nav-name"
+  >
+    Development
+  </span>
+  <span
+    class="lot-nav-state"
+    data-testid="lot-nav-writers-state"
+  >
+    <span
+      aria-hidden="true"
+      class="lot-nav-icon"
+    >
+      ○
+    </span>
+    <span
+      class="lot-nav-att-word visually-hidden"
+    >
+      Available
+      : 
+    </span>
+    Writers Room idle
+  </span>
+</button>
+
+Ignored nodes: comments, script, style
+<button
+  class="lot-nav-item att-positive"
+  data-attention="positive"
+  data-testid="lot-nav-writers"
+  title="Develop and assemble your next film."
+  type="button"
+>
+  <span
+    class="lot-nav-name"
+  >
+    Development
+  </span>
+  <span
+    class="lot-nav-state"
+    data-testid="lot-nav-writers-state"
+  >
+    <span
+      aria-hidden="true"
+      class="lot-nav-icon"
+    >
+      ✓
+    </span>
+    <span
+      class="lot-nav-att-word visually-hidden"
+    >
+      Positive
+      : 
+    </span>
+    Screenplay ready to package
+  </span>
+</button>
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="lot-screen lot-hollywood"
+      data-entry-focus="none"
+      data-testid="studio-lot-screen"
+    >
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-casting-review-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-production-formation-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-script-review-announcement"
+        role="status"
+      />
+      <header
+        class="lot-topbar"
+      >
+        <div
+          class="lot-brand"
+        >
+          <h1
+            class="mark lot-studio-heading"
+            data-testid="lot-studio-heading"
+            tabindex="-1"
+          >
+            PROJECT: STUDIO
+          </h1>
+          <span
+            class="lot-sub"
+          >
+            Studio Chronicle · Hollywood, 1920 · Week 1
+          </span>
+        </div>
+        <div
+          class="lot-topbar-actions"
+        >
+          <span
+            class="lot-cash-slot"
+          >
+            <span
+              class="lot-cash"
+              data-testid="lot-cash"
+            >
+              $20,000,000
+            </span>
+          </span>
+          <button
+            aria-label="Advance one week"
+            class="primary lot-advance-week lot-topbar-compactable"
+            data-testid="lot-advance-week"
+            title="Advance one week"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="lot-topbar-mark"
+            >
+              ▸
+            </span>
+            <span
+              class="lot-topbar-label"
+            >
+              Advance one week
+            </span>
+          </button>
+          <div
+            class="lot-next-event-control"
+          >
+            <button
+              aria-label="Sim to next event"
+              class="accent lot-next-event-button lot-topbar-compactable"
+              data-testid="lot-sim-to-next-event"
+              disabled=""
+              title="Sim to next event"
+              type="button"
+            >
+              <span
+                aria-hidden="true"
+                class="lot-topbar-mark"
+              >
+                »
+              </span>
+              <span
+                class="lot-topbar-label"
+              >
+                Sim to next event
+              </span>
+            </button>
+          </div>
+          <button
+            class="ghost"
+            data-testid="lot-return-dashboard"
+          >
+            Open Dashboard
+          </button>
+          <button
+            aria-label="Saves"
+            class="ghost lot-topbar-compactable"
+            data-testid="lot-open-saves"
+            title="Export a print of this studio, or load one"
+          >
+            <span
+              aria-hidden="true"
+              class="lot-topbar-mark"
+            >
+              ▤
+            </span>
+            <span
+              class="lot-topbar-label"
+            >
+              Saves
+            </span>
+          </button>
+        </div>
+      </header>
+      <div
+        class="lot-body"
+      >
+        <div
+          class="lot-stage-wrap"
+          data-guidance-target="writers"
+        >
+          <div
+            aria-hidden="true"
+            class="lot-canvas"
+            data-testid="studio-lot-canvas"
+          />
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            class="lot-notice"
+            data-punctuation="0"
+            data-testid="lot-annex-operational-announcement"
+            role="status"
+          />
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            class="lot-notice"
+            data-punctuation="0"
+            data-testid="lot-week-update-announcement"
+            role="status"
+          />
+          <div
+            aria-label="Lot camera"
+            class="lot-camera-tools"
+            role="group"
+          >
+            <button
+              aria-keyshortcuts="R"
+              aria-label="Show the whole property. Keyboard shortcut R."
+              class="lot-camera-home"
+              data-testid="lot-camera-home"
+              title="Show the whole property (shortcut: R)"
+              type="button"
+            >
+              <span...
+ ❯ Object.getElementError ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getElementError ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:20:35
+ ❯ getMultipleElementsFoundError ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:23:10
+ ❯ ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:55:13
+ ❯ ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:635:28
+    633|     await onlyView()
+    634| 
+    635|     fireEvent.click(screen.getByTestId('lot-nav-writers'))
+       |                            ^
+    636|     const commission = screen.getByTestId('lot-building-inspector-prim…
+    637|     expect(commission.tagName).toBe('BUTTON')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL |ui|  ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B — the buildings carry the verbs the guidance names > routes the Commission verb to the commission intent, and the deep ghost to Development
+TestingLibraryElementError: Found multiple elements by: [data-testid="lot-nav-writers"]
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+<button
+  class="lot-nav-item att-empty"
+  data-attention="empty"
+  data-testid="lot-nav-writers"
+  title="Develop and assemble your next film."
+  type="button"
+>
+  <span
+    class="lot-nav-name"
+  >
+    Development
+  </span>
+  <span
+    class="lot-nav-state"
+    data-testid="lot-nav-writers-state"
+  >
+    <span
+      aria-hidden="true"
+      class="lot-nav-icon"
+    >
+      ○
+    </span>
+    <span
+      class="lot-nav-att-word visually-hidden"
+    >
+      Available
+      : 
+    </span>
+    Writers Room idle
+  </span>
+</button>
+
+Ignored nodes: comments, script, style
+<button
+  class="lot-nav-item att-positive"
+  data-attention="positive"
+  data-testid="lot-nav-writers"
+  title="Develop and assemble your next film."
+  type="button"
+>
+  <span
+    class="lot-nav-name"
+  >
+    Development
+  </span>
+  <span
+    class="lot-nav-state"
+    data-testid="lot-nav-writers-state"
+  >
+    <span
+      aria-hidden="true"
+      class="lot-nav-icon"
+    >
+      ✓
+    </span>
+    <span
+      class="lot-nav-att-word visually-hidden"
+    >
+      Positive
+      : 
+    </span>
+    Screenplay ready to package
+  </span>
+</button>
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="lot-screen lot-hollywood"
+      data-entry-focus="none"
+      data-testid="studio-lot-screen"
+    >
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-casting-review-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-production-formation-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-script-review-announcement"
+        role="status"
+      />
+      <header
+        class="lot-topbar"
+      >
+        <div
+          class="lot-brand"
+        >
+          <h1
+            class="mark lot-studio-heading"
+            data-testid="lot-studio-heading"
+            tabindex="-1"
+          >
+            PROJECT: STUDIO
+          </h1>
+          <span
+            class="lot-sub"
+          >
+            Studio Chronicle · Hollywood, 1920 · Week 1
+          </span>
+        </div>
+        <div
+          class="lot-topbar-actions"
+        >
+          <span
+            class="lot-cash-slot"
+          >
+            <span
+              class="lot-cash"
+              data-testid="lot-cash"
+            >
+              $20,000,000
+            </span>
+          </span>
+          <button
+            aria-label="Advance one week"
+            class="primary lot-advance-week lot-topbar-compactable"
+            data-testid="lot-advance-week"
+            title="Advance one week"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="lot-topbar-mark"
+            >
+              ▸
+            </span>
+            <span
+              class="lot-topbar-label"
+            >
+              Advance one week
+            </span>
+          </button>
+          <div
+            class="lot-next-event-control"
+          >
+            <button
+              aria-label="Sim to next event"
+              class="accent lot-next-event-button lot-topbar-compactable"
+              data-testid="lot-sim-to-next-event"
+              disabled=""
+              title="Sim to next event"
+              type="button"
+            >
+              <span
+                aria-hidden="true"
+                class="lot-topbar-mark"
+              >
+                »
+              </span>
+              <span
+                class="lot-topbar-label"
+              >
+                Sim to next event
+              </span>
+            </button>
+          </div>
+          <button
+            class="ghost"
+            data-testid="lot-return-dashboard"
+          >
+            Open Dashboard
+          </button>
+          <button
+            aria-label="Saves"
+            class="ghost lot-topbar-compactable"
+            data-testid="lot-open-saves"
+            title="Export a print of this studio, or load one"
+          >
+            <span
+              aria-hidden="true"
+              class="lot-topbar-mark"
+            >
+              ▤
+            </span>
+            <span
+              class="lot-topbar-label"
+            >
+              Saves
+            </span>
+          </button>
+        </div>
+      </header>
+      <div
+        class="lot-body"
+      >
+        <div
+          class="lot-stage-wrap"
+          data-guidance-target="writers"
+        >
+          <div
+            aria-hidden="true"
+            class="lot-canvas"
+            data-testid="studio-lot-canvas"
+          />
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            class="lot-notice"
+            data-punctuation="0"
+            data-testid="lot-annex-operational-announcement"
+            role="status"
+          />
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            class="lot-notice"
+            data-punctuation="0"
+            data-testid="lot-week-update-announcement"
+            role="status"
+          />
+          <div
+            aria-label="Lot camera"
+            class="lot-camera-tools"
+            role="group"
+          >
+            <button
+              aria-keyshortcuts="R"
+              aria-label="Show the whole property. Keyboard shortcut R."
+              class="lot-camera-home"
+              data-testid="lot-camera-home"
+              title="Show the whole property (shortcut: R)"
+              type="button"
+            >
+              <span...
+ ❯ Object.getElementError ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getElementError ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:20:35
+ ❯ getMultipleElementsFoundError ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:23:10
+ ❯ ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:55:13
+ ❯ ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:663:28
+    661|     const { routes, unmount } = renderLot(managedScriptWeekZero('m-b-c…
+    662|     await onlyView()
+    663|     fireEvent.click(screen.getByTestId('lot-nav-writers'))
+       |                            ^
+    664|     fireEvent.click(screen.getByTestId('lot-building-inspector-primary…
+    665|     expect(routes).toEqual([{ kind: 'commissionScreenplay' }])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL |ui|  ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B — the buildings carry the verbs the guidance names > F4: offers the Commission verb while a screenplay is already being written
+TestingLibraryElementError: Found multiple elements by: [data-testid="lot-nav-writers"]
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+<button
+  class="lot-nav-item att-active"
+  data-attention="active"
+  data-testid="lot-nav-writers"
+  title="Develop and assemble your next film."
+  type="button"
+>
+  <span
+    class="lot-nav-name"
+  >
+    Development
+  </span>
+  <span
+    class="lot-nav-state"
+    data-testid="lot-nav-writers-state"
+  >
+    <span
+      aria-hidden="true"
+      class="lot-nav-icon"
+    >
+      ▶
+    </span>
+    <span
+      class="lot-nav-att-word visually-hidden"
+    >
+      Active
+      : 
+    </span>
+    Drafting: The Careless Harvest
+  </span>
+</button>
+
+Ignored nodes: comments, script, style
+<button
+  class="lot-nav-item att-positive"
+  data-attention="positive"
+  data-testid="lot-nav-writers"
+  title="Develop and assemble your next film."
+  type="button"
+>
+  <span
+    class="lot-nav-name"
+  >
+    Development
+  </span>
+  <span
+    class="lot-nav-state"
+    data-testid="lot-nav-writers-state"
+  >
+    <span
+      aria-hidden="true"
+      class="lot-nav-icon"
+    >
+      ✓
+    </span>
+    <span
+      class="lot-nav-att-word visually-hidden"
+    >
+      Positive
+      : 
+    </span>
+    Screenplay ready to package
+  </span>
+</button>
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="lot-screen lot-hollywood"
+      data-entry-focus="none"
+      data-testid="studio-lot-screen"
+    >
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-casting-review-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-production-formation-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-script-review-announcement"
+        role="status"
+      />
+      <header
+        class="lot-topbar"
+      >
+        <div
+          class="lot-brand"
+        >
+          <h1
+            class="mark lot-studio-heading"
+            data-testid="lot-studio-heading"
+            tabindex="-1"
+          >
+            PROJECT: STUDIO
+          </h1>
+          <span
+            class="lot-sub"
+          >
+            Studio Chronicle · Hollywood, 1920 · Week 1
+          </span>
+        </div>
+        <div
+          class="lot-topbar-actions"
+        >
+          <span
+            class="lot-cash-slot"
+          >
+            <span
+              class="lot-cash"
+              data-testid="lot-cash"
+            >
+              $20,000,000
+            </span>
+          </span>
+          <button
+            aria-label="Advance one week"
+            class="primary lot-advance-week lot-topbar-compactable"
+            data-testid="lot-advance-week"
+            title="Advance one week"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="lot-topbar-mark"
+            >
+              ▸
+            </span>
+            <span
+              class="lot-topbar-label"
+            >
+              Advance one week
+            </span>
+          </button>
+          <div
+            class="lot-next-event-control"
+          >
+            <button
+              aria-label="Sim to next event"
+              class="accent lot-next-event-button lot-topbar-compactable"
+              data-testid="lot-sim-to-next-event"
+              disabled=""
+              title="Sim to next event"
+              type="button"
+            >
+              <span
+                aria-hidden="true"
+                class="lot-topbar-mark"
+              >
+                »
+              </span>
+              <span
+                class="lot-topbar-label"
+              >
+                Sim to next event
+              </span>
+            </button>
+          </div>
+          <button
+            class="ghost"
+            data-testid="lot-return-dashboard"
+          >
+            Open Dashboard
+          </button>
+          <button
+            aria-label="Saves"
+            class="ghost lot-topbar-compactable"
+            data-testid="lot-open-saves"
+            title="Export a print of this studio, or load one"
+          >
+            <span
+              aria-hidden="true"
+              class="lot-topbar-mark"
+            >
+              ▤
+            </span>
+            <span
+              class="lot-topbar-label"
+            >
+              Saves
+            </span>
+          </button>
+        </div>
+      </header>
+      <div
+        class="lot-body"
+      >
+        <div
+          class="lot-stage-wrap"
+          data-guidance-target="none"
+        >
+          <div
+            aria-hidden="true"
+            class="lot-canvas"
+            data-testid="studio-lot-canvas"
+          />
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            class="lot-notice"
+            data-punctuation="0"
+            data-testid="lot-annex-operational-announcement"
+            role="status"
+          />
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            class="lot-notice"
+            data-punctuation="0"
+            data-testid="lot-week-update-announcement"
+            role="status"
+          />
+          <div
+            aria-label="Lot camera"
+            class="lot-camera-tools"
+            role="group"
+          >
+            <button
+              aria-keyshortcuts="R"
+              aria-label="Show the whole property. Keyboard shortcut R."
+              class="lot-camera-home"
+              data-testid="lot-camera-home"
+              title="Show the whole property (shortcut: R)"
+              type="button"
+            >
+              <span[39...
+ ❯ Object.getElementError ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getElementError ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:20:35
+ ❯ getMultipleElementsFoundError ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:23:10
+ ❯ ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:55:13
+ ❯ ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:697:28
+    695|     await onlyView()
+    696| 
+    697|     fireEvent.click(screen.getByTestId('lot-nav-writers'))
+       |                            ^
+    698|     expect(screen.getByTestId('lot-building-inspector-writers')).toBeI…
+    699|     expect(screen.getByTestId('lot-building-inspector-primary-commissi…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL |ui|  ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B — the buildings carry the verbs the guidance names > F4: offers it with an accepted screenplay waiting on casting, too
+TestingLibraryElementError: Found multiple elements by: [data-testid="lot-nav-writers"]
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+<button
+  class="lot-nav-item att-positive"
+  data-attention="positive"
+  data-testid="lot-nav-writers"
+  title="Develop and assemble your next film."
+  type="button"
+>
+  <span
+    class="lot-nav-name"
+  >
+    Development
+  </span>
+  <span
+    class="lot-nav-state"
+    data-testid="lot-nav-writers-state"
+  >
+    <span
+      aria-hidden="true"
+      class="lot-nav-icon"
+    >
+      ✓
+    </span>
+    <span
+      class="lot-nav-att-word visually-hidden"
+    >
+      Positive
+      : 
+    </span>
+    Screenplay ready to package
+  </span>
+</button>
+
+Ignored nodes: comments, script, style
+<button
+  class="lot-nav-item att-positive"
+  data-attention="positive"
+  data-testid="lot-nav-writers"
+  title="Develop and assemble your next film."
+  type="button"
+>
+  <span
+    class="lot-nav-name"
+  >
+    Development
+  </span>
+  <span
+    class="lot-nav-state"
+    data-testid="lot-nav-writers-state"
+  >
+    <span
+      aria-hidden="true"
+      class="lot-nav-icon"
+    >
+      ✓
+    </span>
+    <span
+      class="lot-nav-att-word visually-hidden"
+    >
+      Positive
+      : 
+    </span>
+    Screenplay ready to package
+  </span>
+</button>
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="lot-screen lot-hollywood"
+      data-entry-focus="none"
+      data-testid="studio-lot-screen"
+    >
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-casting-review-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-production-formation-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-script-review-announcement"
+        role="status"
+      />
+      <header
+        class="lot-topbar"
+      >
+        <div
+          class="lot-brand"
+        >
+          <h1
+            class="mark lot-studio-heading"
+            data-testid="lot-studio-heading"
+            tabindex="-1"
+          >
+            PROJECT: STUDIO
+          </h1>
+          <span
+            class="lot-sub"
+          >
+            Studio Chronicle · Hollywood, 1920 · Week 2
+          </span>
+        </div>
+        <div
+          class="lot-topbar-actions"
+        >
+          <span
+            class="lot-cash-slot"
+          >
+            <span
+              class="lot-cash"
+              data-testid="lot-cash"
+            >
+              $19,907,850
+            </span>
+          </span>
+          <button
+            aria-label="Advance one week"
+            class="primary lot-advance-week lot-topbar-compactable"
+            data-testid="lot-advance-week"
+            title="Advance one week"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="lot-topbar-mark"
+            >
+              ▸
+            </span>
+            <span
+              class="lot-topbar-label"
+            >
+              Advance one week
+            </span>
+          </button>
+          <div
+            class="lot-next-event-control"
+          >
+            <button
+              aria-label="Sim to next event"
+              class="accent lot-next-event-button lot-topbar-compactable"
+              data-testid="lot-sim-to-next-event"
+              disabled=""
+              title="Sim to next event"
+              type="button"
+            >
+              <span
+                aria-hidden="true"
+                class="lot-topbar-mark"
+              >
+                »
+              </span>
+              <span
+                class="lot-topbar-label"
+              >
+                Sim to next event
+              </span>
+            </button>
+          </div>
+          <button
+            class="ghost"
+            data-testid="lot-return-dashboard"
+          >
+            Open Dashboard
+          </button>
+          <button
+            aria-label="Saves"
+            class="ghost lot-topbar-compactable"
+            data-testid="lot-open-saves"
+            title="Export a print of this studio, or load one"
+          >
+            <span
+              aria-hidden="true"
+              class="lot-topbar-mark"
+            >
+              ▤
+            </span>
+            <span
+              class="lot-topbar-label"
+            >
+              Saves
+            </span>
+          </button>
+        </div>
+      </header>
+      <div
+        class="lot-body"
+      >
+        <div
+          class="lot-stage-wrap"
+          data-guidance-target="casting"
+        >
+          <div
+            aria-hidden="true"
+            class="lot-canvas"
+            data-testid="studio-lot-canvas"
+          />
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            class="lot-notice"
+            data-punctuation="0"
+            data-testid="lot-annex-operational-announcement"
+            role="status"
+          />
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            class="lot-notice"
+            data-punctuation="0"
+            data-testid="lot-week-update-announcement"
+            role="status"
+          />
+          <div
+            aria-label="Lot camera"
+            class="lot-camera-tools"
+            role="group"
+          >
+            <button
+              aria-keyshortcuts="R"
+              aria-label="Show the whole property. Keyboard shortcut R."
+              class="lot-camera-home"
+              data-testid="lot-camera-home"
+              title="Show the whole property (shortcut: R)"
+              type="button"
+            >
+              <span...
+ ❯ Object.getElementError ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getElementError ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:20:35
+ ❯ getMultipleElementsFoundError ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:23:10
+ ❯ ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:55:13
+ ❯ ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:711:28
+    709|     await onlyView()
+    710| 
+    711|     fireEvent.click(screen.getByTestId('lot-nav-writers'))
+       |                            ^
+    712|     expect(screen.getByTestId('lot-building-inspector-primary-commissi…
+    713|       'Commission a screenplay',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL |ui|  ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B — the buildings carry the verbs the guidance names > names the picture in Casting’s audition verb, and prefers the retained in-world planner
+TestingLibraryElementError: Found multiple elements by: [data-testid="lot-nav-casting"]
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+<button
+  class="lot-nav-item att-positive"
+  data-attention="positive"
+  data-testid="lot-nav-casting"
+  title="Plan camera tests, review audition evidence, and take a screenplay to package."
+  type="button"
+>
+  <span
+    class="lot-nav-name"
+  >
+    Casting / Talent
+  </span>
+  <span
+    class="lot-nav-state"
+    data-testid="lot-nav-casting-state"
+  >
+    <span
+      aria-hidden="true"
+      class="lot-nav-icon"
+    >
+      ✓
+    </span>
+    <span
+      class="lot-nav-att-word visually-hidden"
+    >
+      Positive
+      : 
+    </span>
+    The Crimson Impresario — ready for auditions
+  </span>
+</button>
+
+Ignored nodes: comments, script, style
+<button
+  class="lot-nav-item att-positive"
+  data-attention="positive"
+  data-testid="lot-nav-casting"
+  title="Plan camera tests, review audition evidence, and take a screenplay to package."
+  type="button"
+>
+  <span
+    class="lot-nav-name"
+  >
+    Casting / Talent
+  </span>
+  <span
+    class="lot-nav-state"
+    data-testid="lot-nav-casting-state"
+  >
+    <span
+      aria-hidden="true"
+      class="lot-nav-icon"
+    >
+      ✓
+    </span>
+    <span
+      class="lot-nav-att-word visually-hidden"
+    >
+      Positive
+      : 
+    </span>
+    Echoes of Sanctuary — ready for auditions
+  </span>
+</button>
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="lot-screen lot-hollywood"
+      data-entry-focus="none"
+      data-testid="studio-lot-screen"
+    >
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-casting-review-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-production-formation-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-script-review-announcement"
+        role="status"
+      />
+      <header
+        class="lot-topbar"
+      >
+        <div
+          class="lot-brand"
+        >
+          <h1
+            class="mark lot-studio-heading"
+            data-testid="lot-studio-heading"
+            tabindex="-1"
+          >
+            PROJECT: STUDIO
+          </h1>
+          <span
+            class="lot-sub"
+          >
+            Studio Chronicle · Hollywood, 1920 · Week 2
+          </span>
+        </div>
+        <div
+          class="lot-topbar-actions"
+        >
+          <span
+            class="lot-cash-slot"
+          >
+            <span
+              class="lot-cash"
+              data-testid="lot-cash"
+            >
+              $19,901,705
+            </span>
+          </span>
+          <button
+            aria-label="Advance one week"
+            class="primary lot-advance-week lot-topbar-compactable"
+            data-testid="lot-advance-week"
+            title="Advance one week"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="lot-topbar-mark"
+            >
+              ▸
+            </span>
+            <span
+              class="lot-topbar-label"
+            >
+              Advance one week
+            </span>
+          </button>
+          <div
+            class="lot-next-event-control"
+          >
+            <button
+              aria-label="Sim to next event"
+              class="accent lot-next-event-button lot-topbar-compactable"
+              data-testid="lot-sim-to-next-event"
+              disabled=""
+              title="Sim to next event"
+              type="button"
+            >
+              <span
+                aria-hidden="true"
+                class="lot-topbar-mark"
+              >
+                »
+              </span>
+              <span
+                class="lot-topbar-label"
+              >
+                Sim to next event
+              </span>
+            </button>
+          </div>
+          <button
+            class="ghost"
+            data-testid="lot-return-dashboard"
+          >
+            Open Dashboard
+          </button>
+          <button
+            aria-label="Saves"
+            class="ghost lot-topbar-compactable"
+            data-testid="lot-open-saves"
+            title="Export a print of this studio, or load one"
+          >
+            <span
+              aria-hidden="true"
+              class="lot-topbar-mark"
+            >
+              ▤
+            </span>
+            <span
+              class="lot-topbar-label"
+            >
+              Saves
+            </span>
+          </button>
+        </div>
+      </header>
+      <div
+        class="lot-body"
+      >
+        <div
+          class="lot-stage-wrap"
+          data-guidance-target="casting"
+        >
+          <div
+            aria-hidden="true"
+            class="lot-canvas"
+            data-testid="studio-lot-canvas"
+          />
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            class="lot-notice"
+            data-punctuation="0"
+            data-testid="lot-annex-operational-announcement"
+            role="status"
+          />
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            class="lot-notice"
+            data-punctuation="0"
+            data-testid="lot-week-update-announcement"
+            role="status"
+          />
+          <div
+            aria-label="Lot camera"
+            class="lot-camera-tools"
+            role="group"
+          >
+            <button
+              aria-keyshortcuts="R"
+              aria-label="Show the whole property. Keyboard shortcut R."
+              class="lot-camera-home"
+              data-testid="lot-camera-home"
+              title="Show the whole property (shortcut: R)"
+              type="button"
+            >
+              <span...
+ ❯ Object.getElementError ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getElementError ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:20:35
+ ❯ getMultipleElementsFoundError ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:23:10
+ ❯ ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:55:13
+ ❯ ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:733:28
+    731|     await onlyView()
+    732| 
+    733|     fireEvent.click(screen.getByTestId('lot-nav-casting'))
+       |                            ^
+    734|     const plan = screen.getByTestId('lot-building-inspector-primary-pl…
+    735|     expect(plan.tagName).toBe('BUTTON')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+ Test Files  1 failed (1)
+      Tests  6 failed | 22 passed (28)
+   Start at  15:08:45
+   Duration  29.63s (transform 5.08s, setup 120ms, collect 6.82s, tests 21.05s, environment 676ms, prepare 164ms)
+

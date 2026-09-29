@@ -1,0 +1,13 @@
+
+ RUN  v2.1.9 <scratch>
+
+ ✓ |ui| ui/src/test/contracts/zz-p05a-w2-migrated.contract.test.ts (13 tests) 2903ms
+   ✓ P05A W2 — closed operational states across the lifecycle > walks one picture through the closed states without ever guessing 399ms
+   ✓ P05A W2 — closed operational states across the lifecycle > the guidance card agrees with the rail on the wrapped-waiting oracle fixture — never SHOOTING (P06C §5) 1042ms
+   ✓ P05A W2 — closed operational states across the lifecycle > the rail, the world Stage card, the workspace source and the guidance card all agree for the wrapped-waiting picture (P06D item 2) 722ms
+
+ Test Files  1 passed (1)
+      Tests  13 passed (13)
+   Start at  15:08:18
+   Duration  7.71s (transform 2.37s, setup 125ms, collect 3.10s, tests 2.90s, environment 939ms, prepare 126ms)
+

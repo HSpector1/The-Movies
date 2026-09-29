@@ -1,0 +1,20 @@
+
+ RUN  v2.1.9 <scratch>
+
+ ✓ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx (10 tests) 24770ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > reviews all six event-owned observations in the Lot, keeps deep detail optional, then hands the clear successor to Package 4219ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > greenlights the canonical Package into exact formation without replacing the Lot, canvas, or renderer 4594ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > keeps a blocked acknowledgement and every current remedy on the same mounted fallback Lot 2794ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > keeps the complete blocked world action available in the Classic physical fallback 2325ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > preserves the clear Classic rollback route as standalone Package Assembly 1659ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > rebuilds an imported pending review only after Casting is selected in the replacement Lot 3060ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > keeps a malformed current Casting decision neutral instead of falling through to Casting Room 1187ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > keeps a thrown current-decision adapter neutral 1159ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > lands the in-world Casting inspector when no current studio decision exists, and still reaches the Casting Room by explicit choice 1390ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > dispatches the first same-title session from the Lot and returns neutral instead of substituting the later review 2383ms
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+   Start at  15:13:14
+   Duration  33.20s (transform 5.04s, setup 126ms, collect 6.12s, tests 24.77s, environment 1.18s, prepare 139ms)
+

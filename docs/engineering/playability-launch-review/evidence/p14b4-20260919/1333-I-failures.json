@@ -1,0 +1,1430 @@
+{
+ "raw": {
+  "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1333-r3-broad-core.txt",
+  "bytes": 14840775,
+  "sha256": "bfe9d4f6f65ac1d347ec36abf32da93a66361d1ebe1f2c98af220cf1ec4b9447"
+ },
+ "summary": {
+  "Test Files": "22 failed | 400 passed (422)",
+  "Tests": "80 failed | 4601 passed | 3 skipped | 11 todo (4695)"
+ },
+ "failedCases": 80,
+ "byStatus": {
+  "RETAINED-SAME": 75,
+  "NEW": 1,
+  "RETAINED-CHANGED": 4
+ },
+ "vanishedFrom1316": 72,
+ "rows": [
+  {
+   "file": "tests/bridge-p13-campaign-isolation.test.ts",
+   "describe": "P13A research authority across named campaign operations",
+   "leaf": "Save As branches real research, inactive and renamed campaigns stay frozen, and a new campaign receives none of their authority",
+   "identity": "tests/bridge-p13-campaign-isolation.test.ts > P13A research authority across named campaign operations > Save As branches real research, inactive and renamed campaigns stay frozen, and a new campaign receives none of their authority",
+   "primary": "Error: Test timed out in 60000ms.",
+   "frame": null,
+   "timeout": true,
+   "shared_group_size": 2,
+   "marker_no": 1,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "RETAINED-INHERITED-FROM-1100"
+  },
+  {
+   "file": "tests/bridge-p14p3-directing-promises.test.ts",
+   "describe": "P3 public Bridge authority, truthful terms and durable runtime",
+   "leaf": "D17 migrates outgoing53 independently and isolates current55 campaigns",
+   "identity": "tests/bridge-p14p3-directing-promises.test.ts > P3 public Bridge authority, truthful terms and durable runtime > D17 migrates outgoing53 independently and isolates current55 campaigns",
+   "primary": "Error: Test timed out in 60000ms.",
+   "frame": null,
+   "timeout": true,
+   "shared_group_size": 2,
+   "marker_no": 1,
+   "suite": false,
+   "status_vs_1316": "NEW",
+   "cluster_1302": null
+  },
+  {
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "describe": "P14B.2 group3 \u2014 one bound-only newest-first history DTO on both carriers",
+   "leaf": "does not publish another studio\u2019s real bound history as the player\u2019s own terms",
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group3 \u2014 one bound-only newest-first history DTO on both carriers > does not publish another studio\u2019s real bound history as the player\u2019s own terms",
+   "primary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "frame": "tests/bridge-p14b2-trust.test.ts:253:15",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 2,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "describe": "P14B.2 group5 \u2014 independent promise attention after cases close",
+   "leaf": "raises due at minus8 but not minus9 for an actual player poaching winner with no proposals",
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group5 \u2014 independent promise attention after cases close > raises due at minus8 but not minus9 for an actual player poaching winner with no proposals",
+   "primary": "AssertionError: expected 208 to be 52 // Object.is equality",
+   "frame": "tests/bridge-p14b2-trust.test.ts:298:15",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 3,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C16-poachingFixture-publicPreferredTerm-premise"
+  },
+  {
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "describe": "P14B.2 group5 \u2014 independent promise attention after cases close",
+   "leaf": "raises the poaching winner\u2019s actual outcome only in its recorded week, once per cause/person",
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group5 \u2014 independent promise attention after cases close > raises the poaching winner\u2019s actual outcome only in its recorded week, once per cause/person",
+   "primary": "AssertionError: expected 208 to be 52 // Object.is equality",
+   "frame": "tests/bridge-p14b2-trust.test.ts:317:15",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 4,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C16-poachingFixture-publicPreferredTerm-premise"
+  },
+  {
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "describe": "P14B.2 group5 \u2014 independent promise attention after cases close",
+   "leaf": "does not require any case entry to retain a real promise reminder (explicit read-only case-carrier probe)",
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group5 \u2014 independent promise attention after cases close > does not require any case entry to retain a real promise reminder (explicit read-only case-carrier probe)",
+   "primary": "AssertionError: expected 208 to be 52 // Object.is equality",
+   "frame": "tests/bridge-p14b2-trust.test.ts:345:15",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 5,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C16-poachingFixture-publicPreferredTerm-premise"
+  },
+  {
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "describe": "P14B.2 group5 \u2014 independent promise attention after cases close",
+   "leaf": "ignores real withdrawn unbound drafts near due and never interrupts for rival-issued promises",
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group5 \u2014 independent promise attention after cases close > ignores real withdrawn unbound drafts near due and never interrupts for rival-issued promises",
+   "primary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "frame": "tests/bridge-p14b2-trust.test.ts:363:19",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 6,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C1-validateSaveV38-39-selection"
+  },
+  {
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "describe": "P14B.2 group7 \u2014 rival terms stay private and rival outcomes stay public",
+   "leaf": "keeps open rival proposal terms literal UNKNOWN across Profile and Market",
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group7 \u2014 rival terms stay private and rival outcomes stay public > keeps open rival proposal terms literal UNKNOWN across Profile and Market",
+   "primary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "frame": "tests/bridge-p14b2-trust.test.ts:386:15",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 7,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "describe": "P14B.2 group7 \u2014 rival terms stay private and rival outcomes stay public",
+   "leaf": "publishes the real rival kept outcome and aggregate label while withholding bound history terms",
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group7 \u2014 rival terms stay private and rival outcomes stay public > publishes the real rival kept outcome and aggregate label while withholding bound history terms",
+   "primary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "frame": "tests/bridge-p14b2-trust.test.ts:398:15",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 8,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "describe": "P14B.2 group7 \u2014 rival terms stay private and rival outcomes stay public",
+   "leaf": "is semantically unchanged when only hidden terminal terms vary, retaining real outcome/event identities",
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group7 \u2014 rival terms stay private and rival outcomes stay public > is semantically unchanged when only hidden terminal terms vary, retaining real outcome/event identities",
+   "primary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "frame": "tests/bridge-p14b2-trust.test.ts:412:15",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 9,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/bridge-p14b5-relationships.test.ts",
+   "describe": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts)",
+   "leaf": "p13a-core-causal-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+   "identity": "tests/bridge-p14b5-relationships.test.ts > family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > p13a-core-causal-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+   "primary": "AssertionError: expected '4a047502216f05c0d2e972743d9d94be57be0\u2026' to be '706e54c6ec9728df1664025982ebbafeb0fc3\u2026' // Object.is equality",
+   "frame": "tests/bridge-p14b5-relationships.test.ts:550:37",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 10,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "UNRESOLVED"
+  },
+  {
+   "file": "tests/bridge-p14b5-relationships.test.ts",
+   "describe": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts)",
+   "leaf": "seed-b: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+   "identity": "tests/bridge-p14b5-relationships.test.ts > family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > seed-b: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+   "primary": "AssertionError: expected [ { \u2026(2) } ] to deeply equal []",
+   "frame": "tests/bridge-p14b5-relationships.test.ts:547:36",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 11,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "UNRESOLVED"
+  },
+  {
+   "file": "tests/bridge-p14b5-relationships.test.ts",
+   "describe": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts)",
+   "leaf": "p13b-s8-bridge-probe-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+   "identity": "tests/bridge-p14b5-relationships.test.ts > family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > p13b-s8-bridge-probe-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+   "primary": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(42) ] to have a length of 48 but got 43",
+   "frame": "tests/bridge-p14b5-relationships.test.ts:530:54",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 12,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "UNRESOLVED"
+  },
+  {
+   "file": "tests/bridge-p14b5-relationships.test.ts",
+   "describe": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts)",
+   "leaf": "p13-public-commercial-adoption: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+   "identity": "tests/bridge-p14b5-relationships.test.ts > family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > p13-public-commercial-adoption: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+   "primary": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(34) ] to have a length of 36 but got 35",
+   "frame": "tests/bridge-p14b5-relationships.test.ts:530:54",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 13,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "UNRESOLVED"
+  },
+  {
+   "file": "tests/bridge-p14b5-relationships.test.ts",
+   "describe": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts)",
+   "leaf": "the MOST EXPOSED shared fixture, poachingFixture (p14b2-fixtures.ts :145-211; consumers bridge-p14b2-trust, p14b2-fixture-preconditions): the week-208 reasons pin and endedWeek 208 hold, and under D1 no survivor holds a shared-take counterpart",
+   "identity": "tests/bridge-p14b5-relationships.test.ts > family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > the MOST EXPOSED shared fixture, poachingFixture (p14b2-fixtures.ts :145-211; consumers bridge-p14b2-trust, p14b2-fixture-preconditions): the week-208 reasons pin and endedWeek 208 hold, and under D1 no survivor holds a shared-take counterpart",
+   "primary": "AssertionError: expected 208 to be 52 // Object.is equality",
+   "frame": "tests/bridge-p14b5-relationships.test.ts:560:46",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 14,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C16-poachingFixture-publicPreferredTerm-premise"
+  },
+  {
+   "file": "tests/bridge-p14c2rm-retirement.test.ts",
+   "describe": "C.2-RM alumni evidence and disclosure",
+   "leaf": "natural retired tiers stay fixed across real drift while lawful current employment changes disclosure",
+   "identity": "tests/bridge-p14c2rm-retirement.test.ts > C.2-RM alumni evidence and disclosure > natural retired tiers stay fixed across real drift while lawful current employment changes disclosure",
+   "primary": "AssertionError: freeze premise: counterpart stays lawfully disclosed: expected undefined to match object { endWeekExclusive: 416 }",
+   "frame": "tests/bridge-p14c2rm-retirement.test.ts:334:15",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 15,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C15-frozen-validator-chain-historical-boundary"
+  },
+  {
+   "file": "tests/bridge-p14c2rm-retirement.test.ts",
+   "describe": "C.2-RM alumni evidence and disclosure",
+   "leaf": "SYNTHETIC imported newer edge withholds unreconstructible retirement tier, with no hidden-counterpart notice leak",
+   "identity": "tests/bridge-p14c2rm-retirement.test.ts > C.2-RM alumni evidence and disclosure > SYNTHETIC imported newer edge withholds unreconstructible retirement tier, with no hidden-counterpart notice leak",
+   "primary": "AssertionError: freeze premise: counterpart stays lawfully disclosed: expected undefined to match object { endWeekExclusive: 416 }",
+   "frame": "tests/bridge-p14c2rm-retirement.test.ts:347:15",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 16,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C15-frozen-validator-chain-historical-boundary"
+  },
+  {
+   "file": "tests/bridge-p14c3-runtime.test.ts",
+   "describe": "C.3 projection53 current/save/journal and durable campaign authority",
+   "leaf": "R8 durable coordinator Save As branches208, saves B209, then clean-loads A207 and restarts with isolated records/journals",
+   "identity": "tests/bridge-p14c3-runtime.test.ts > C.3 projection53 current/save/journal and durable campaign authority > R8 durable coordinator Save As branches208, saves B209, then clean-loads A207 and restarts with isolated records/journals",
+   "primary": "Error: Test timed out in 5000ms.",
+   "frame": null,
+   "timeout": true,
+   "shared_group_size": 1,
+   "marker_no": 17,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C3-acceptedEvidence-helper-literal"
+  },
+  {
+   "file": "tests/bridge-runtime-checkpoint-prepared-reuse.test.ts",
+   "describe": "prepared checkpoint representation reuse preserves authority boundaries",
+   "leaf": "preserves live authority on failed Save and replays the exact successful receipt after later changes and restart",
+   "identity": "tests/bridge-runtime-checkpoint-prepared-reuse.test.ts > prepared checkpoint representation reuse preserves authority boundaries > preserves live authority on failed Save and replays the exact successful receipt after later changes and restart",
+   "primary": "Error: Test timed out in 20000ms.",
+   "frame": null,
+   "timeout": true,
+   "shared_group_size": 1,
+   "marker_no": 18,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "RETAINED-INHERITED-FROM-1100"
+  },
+  {
+   "file": "tests/p13a-scientist-foundation.test.ts",
+   "describe": "P13A Scientist identity and employment foundation",
+   "leaf": "preserves accepted people, concepts, market, era and RNG for p13a-person-regression-1",
+   "identity": "tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-1",
+   "primary": "AssertionError: expected 'e5796af6edd31bc3ecd910f2761e4dc0dda0c\u2026' to be '16857a2609206c58bfb34ba3be7b67d95276e\u2026' // Object.is equality",
+   "frame": "tests/p13a-scientist-foundation.test.ts:32:77",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 19,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "RETAINED-INHERITED-FROM-1100"
+  },
+  {
+   "file": "tests/p13a-scientist-foundation.test.ts",
+   "describe": "P13A Scientist identity and employment foundation",
+   "leaf": "preserves accepted people, concepts, market, era and RNG for p13a-person-regression-2",
+   "identity": "tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-2",
+   "primary": "AssertionError: expected 'd82b15fdd4235680423bbc521fbb395a5763c\u2026' to be 'd71583f6fc04af2d251e2010ca6725e6bcc01\u2026' // Object.is equality",
+   "frame": "tests/p13a-scientist-foundation.test.ts:32:77",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 20,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "RETAINED-INHERITED-FROM-1100"
+  },
+  {
+   "file": "tests/p13a-scientist-foundation.test.ts",
+   "describe": "P13A Scientist identity and employment foundation",
+   "leaf": "preserves accepted people, concepts, market, era and RNG for m0a-0001",
+   "identity": "tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for m0a-0001",
+   "primary": "AssertionError: expected '8fb8cbf85fd5e7925bc26d317151ab19a2d4e\u2026' to be '7517c0d01eb928245e2101752932b99ccd344\u2026' // Object.is equality",
+   "frame": "tests/p13a-scientist-foundation.test.ts:32:77",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 21,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "RETAINED-INHERITED-FROM-1100"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "describe": "P14B.1 T4: terminal V29 promise reference integrity",
+   "leaf": "round-trips several beneficiaries sharing one real take and distinct own outcome receipts",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > round-trips several beneficiaries sharing one real take and distinct own outcome receipts",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 22,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "describe": "P14B.1 T4: terminal V29 promise reference integrity",
+   "leaf": "rejects missing outcome receipt references",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects missing outcome receipt references",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "timeout": false,
+   "shared_group_size": 6,
+   "marker_no": 23,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "describe": "P14B.1 T4: terminal V29 promise reference integrity",
+   "leaf": "rejects null outcome receipt references",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects null outcome receipt references",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "timeout": false,
+   "shared_group_size": 6,
+   "marker_no": 23,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "describe": "P14B.1 T4: terminal V29 promise reference integrity",
+   "leaf": "rejects unknown outcome receipt references",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects unknown outcome receipt references",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "timeout": false,
+   "shared_group_size": 6,
+   "marker_no": 23,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "describe": "P14B.1 T4: terminal V29 promise reference integrity",
+   "leaf": "rejects wrong receipt kind outcome receipt references",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects wrong receipt kind outcome receipt references",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "timeout": false,
+   "shared_group_size": 6,
+   "marker_no": 23,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "describe": "P14B.1 T4: terminal V29 promise reference integrity",
+   "leaf": "rejects another beneficiary outcome receipt references",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects another beneficiary outcome receipt references",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "timeout": false,
+   "shared_group_size": 6,
+   "marker_no": 23,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "describe": "P14B.1 T4: terminal V29 promise reference integrity",
+   "leaf": "rejects wrong outcome week outcome receipt references",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects wrong outcome week outcome receipt references",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "timeout": false,
+   "shared_group_size": 6,
+   "marker_no": 23,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "describe": "P14B.1 T4: terminal V29 promise reference integrity",
+   "leaf": "rejects missing take qualifying evidence",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects missing take qualifying evidence",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "timeout": false,
+   "shared_group_size": 8,
+   "marker_no": 24,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "describe": "P14B.1 T4: terminal V29 promise reference integrity",
+   "leaf": "rejects non-take receipt qualifying evidence",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects non-take receipt qualifying evidence",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "timeout": false,
+   "shared_group_size": 8,
+   "marker_no": 24,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "describe": "P14B.1 T4: terminal V29 promise reference integrity",
+   "leaf": "rejects wrong studio or cast qualifying evidence",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects wrong studio or cast qualifying evidence",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "timeout": false,
+   "shared_group_size": 8,
+   "marker_no": 24,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "describe": "P14B.1 T4: terminal V29 promise reference integrity",
+   "leaf": "rejects empty qualifying evidence",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects empty qualifying evidence",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "timeout": false,
+   "shared_group_size": 8,
+   "marker_no": 24,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "describe": "P14B.1 T4: terminal V29 promise reference integrity",
+   "leaf": "rejects duplicate qualifying evidence",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects duplicate qualifying evidence",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "timeout": false,
+   "shared_group_size": 8,
+   "marker_no": 24,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "describe": "P14B.1 T4: terminal V29 promise reference integrity",
+   "leaf": "rejects outside window qualifying evidence",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects outside window qualifying evidence",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "timeout": false,
+   "shared_group_size": 8,
+   "marker_no": 24,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "describe": "P14B.1 T4: terminal V29 promise reference integrity",
+   "leaf": "rejects wrong progress qualifying evidence",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects wrong progress qualifying evidence",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "timeout": false,
+   "shared_group_size": 8,
+   "marker_no": 24,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "describe": "P14B.1 T4: terminal V29 promise reference integrity",
+   "leaf": "rejects unbound outcome qualifying evidence",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects unbound outcome qualifying evidence",
+   "primary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "frame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "timeout": false,
+   "shared_group_size": 8,
+   "marker_no": 24,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b1-trust-chooser.test.ts",
+   "describe": "P14B.1 test 6: trust, the widened chooser and the priority order",
+   "leaf": "opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals",
+   "identity": "tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals",
+   "primary": "AssertionError: expected 'compensation' to be 'opportunity' // Object.is equality",
+   "frame": "tests/p14b1-trust-chooser.test.ts:349:53",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 25,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "RETAINED-INHERITED-FROM-1100"
+  },
+  {
+   "file": "tests/p14b2-fixture-preconditions.test.ts",
+   "describe": "P14B.2 lawful engine fixture preconditions (not bridge verification)",
+   "leaf": "wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone",
+   "identity": "tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone",
+   "primary": "AssertionError: expected 208 to be 52 // Object.is equality",
+   "frame": "tests/p14b2-fixture-preconditions.test.ts:22:15",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 26,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C16-poachingFixture-publicPreferredTerm-premise"
+  },
+  {
+   "file": "tests/p14b2-fixture-preconditions.test.ts",
+   "describe": "P14B.2 lawful engine fixture preconditions (not bridge verification)",
+   "leaf": "produces a rival-only open promise and public kept outcome from the unmodified natural rival chain",
+   "identity": "tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > produces a rival-only open promise and public kept outcome from the unmodified natural rival chain",
+   "primary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "frame": "tests/p14b2-fixture-preconditions.test.ts:27:15",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 27,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b4-cast-class-capacity-evaluator5.test.ts",
+   "describe": "P14B4 evaluator-5 kernel vocabulary (record 600 \u00a73 2(b)): the joint certificate the scalar cannot issue",
+   "leaf": "a conflicting fixed lead claim makes the joint offer impossible, not a target-specific BROKEN winner choice",
+   "identity": "tests/p14b4-cast-class-capacity-evaluator5.test.ts > P14B4 evaluator-5 kernel vocabulary (record 600 \u00a73 2(b)): the joint certificate the scalar cannot issue > a conflicting fixed lead claim makes the joint offer impossible, not a target-specific BROKEN winner choice",
+   "primary": "AssertionError: expected 'FRAGILE' to be 'IMPOSSIBLE' // Object.is equality",
+   "frame": "tests/p14b4-cast-class-capacity-evaluator5.test.ts:239:77",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 28,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "RETAINED-INHERITED-FROM-1100"
+  },
+  {
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "describe": "P14B4 genuine submit/settle/take routes, no synthetic commitments",
+   "leaf": "RIVAL: a genuinely naturally authored tagged commitment binds and qualifies through the real scheduled owner transition",
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 genuine submit/settle/take routes, no synthetic commitments > RIVAL: a genuinely naturally authored tagged commitment binds and qualifies through the real scheduled owner transition",
+   "primary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "frame": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 29,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "describe": "P14B4 labeled outcome-owner probes on real bound roots and actual casts",
+   "leaf": "'rival' 'lead' with actual 'lead' seat: qualification=true",
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'lead' seat: qualification=true",
+   "primary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "frame": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "timeout": false,
+   "shared_group_size": 6,
+   "marker_no": 30,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "describe": "P14B4 labeled outcome-owner probes on real bound roots and actual casts",
+   "leaf": "'rival' 'lead' with actual 'antagonist' seat: qualification=false",
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'antagonist' seat: qualification=false",
+   "primary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "frame": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "timeout": false,
+   "shared_group_size": 6,
+   "marker_no": 30,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "describe": "P14B4 labeled outcome-owner probes on real bound roots and actual casts",
+   "leaf": "'rival' 'lead' with actual 'support' seat: qualification=false",
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'support' seat: qualification=false",
+   "primary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "frame": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "timeout": false,
+   "shared_group_size": 6,
+   "marker_no": 30,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "describe": "P14B4 labeled outcome-owner probes on real bound roots and actual casts",
+   "leaf": "'rival' 'leadOrAntagonist' with actual 'lead' seat: qualification=true",
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'lead' seat: qualification=true",
+   "primary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "frame": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "timeout": false,
+   "shared_group_size": 6,
+   "marker_no": 30,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "describe": "P14B4 labeled outcome-owner probes on real bound roots and actual casts",
+   "leaf": "'rival' 'leadOrAntagonist' with actual 'antagonist' seat: qualification=true",
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'antagonist' seat: qualification=true",
+   "primary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "frame": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "timeout": false,
+   "shared_group_size": 6,
+   "marker_no": 30,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "describe": "P14B4 labeled outcome-owner probes on real bound roots and actual casts",
+   "leaf": "'rival' 'leadOrAntagonist' with actual 'support' seat: qualification=false",
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'support' seat: qualification=false",
+   "primary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "frame": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "timeout": false,
+   "shared_group_size": 6,
+   "marker_no": 30,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "describe": "P14B4 labeled outcome-owner probes on real bound roots and actual casts",
+   "leaf": "rival support qualifies for P1 and shape-legacy count-only P2, not tagged P2",
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival support qualifies for P1 and shape-legacy count-only P2, not tagged P2",
+   "primary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "frame": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 31,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "describe": "P14B4 labeled outcome-owner probes on real bound roots and actual casts",
+   "leaf": "rival half-open window counts start, excludes before-start and excludes due",
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival half-open window counts start, excludes before-start and excludes due",
+   "primary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "frame": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 32,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b4-ready-replay-stale-target.test.ts",
+   "describe": "P14B4 Ready replay \u2014 stale Ready target after genuine release",
+   "leaf": "resolves the same source-now Ready target against the released branch, refuses without resurrection, and retains the real first-take/release prefix",
+   "identity": "tests/p14b4-ready-replay-stale-target.test.ts > P14B4 Ready replay \u2014 stale Ready target after genuine release > resolves the same source-now Ready target against the released branch, refuses without resurrection, and retains the real first-take/release prefix",
+   "primary": "AssertionError: expected 'workLimit' to be 'commandRefused' // Object.is equality",
+   "frame": "tests/p14b4-ready-replay-stale-target.test.ts:234:28",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 33,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "RETAINED-INHERITED-FROM-1100"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "describe": "P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225)",
+   "leaf": "p13a-core-causal-01: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225) > p13a-core-causal-01: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable",
+   "primary": "AssertionError: expected [] to deeply equal [ { week: 208, \u2026(4) }, \u2026(1) ]",
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:483:78",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 34,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "UNRESOLVED"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "describe": "P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225)",
+   "leaf": "seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225) > seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable",
+   "primary": "AssertionError: expected '9eeb62f640c8a749e71a0c1d21b917ce5cf70\u2026' to be 'f9cd2a86368b222882e84776b30f8a8d3f5b2\u2026' // Object.is equality",
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:498:20",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 35,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "UNRESOLVED"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "describe": "P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1)",
+   "leaf": "search table: the first seed-b decision whose seating matters holds two tagged leadOrAntagonist beneficiaries and one P1 beneficiary in a three-actor pool",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > search table: the first seed-b decision whose seating matters holds two tagged leadOrAntagonist beneficiaries and one P1 beneficiary in a three-actor pool",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 36,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "describe": "P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1)",
+   "leaf": "RED: the real seating serves the maximal DISTINCT-beneficiary count (plan :215-218), the picture is viable and affordable (:223-225), and the real first take then satisfies all three through advancePromisesWeek/qualifyingTakes",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > RED: the real seating serves the maximal DISTINCT-beneficiary count (plan :215-218), the picture is viable and affordable (:223-225), and the real first take then satisfies all three through advancePromisesWeek/qualifyingTakes",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 37,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "describe": "P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1)",
+   "leaf": "CONFLICT: the ordinary economic score prefers a two-beneficiary permutation; benefit count wins over score (:216-217) and the real take proves it",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > CONFLICT: the ordinary economic score prefers a two-beneficiary permutation; benefit count wins over score (:216-217) and the real take proves it",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 38,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "describe": "P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1)",
+   "leaf": "TIE FALLBACK (labeled reception-input variant): two reception-identical tagged beneficiaries tie on score; the first strict-greater winner in the inherited BILLINGS order is seated \u2014 inherited tie behaviour, not fairness (:218-221)",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > TIE FALLBACK (labeled reception-input variant): two reception-identical tagged beneficiaries tie on score; the first strict-greater winner in the inherited BILLINGS order is seated \u2014 inherited tie behaviour, not fairness (:218-221)",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 39,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "describe": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215)",
+   "leaf": "CURRENT unaccepted offers never count: seed-b w202, three rivals decide while their own retention offers carry promises with contractId null; re-authored offers make the negative discriminating",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > CURRENT unaccepted offers never count: seed-b w202, three rivals decide while their own retention offers carry promises with contractId null; re-authored offers make the negative discriminating",
+   "primary": "AssertionError: expected { week: 202, \u2026(1) } to deeply equal { week: 202, \u2026(1) }",
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:622:66",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 40,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "UNRESOLVED"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "describe": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215)",
+   "leaf": "another issuer's promise never counts: r02's offers to r01's three actors are present at w202 and at the witness and never enter r01's member set; re-authored r02 offers make the negative discriminating",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > another issuer's promise never counts: r02's offers to r01's three actors are present at w202 and at the witness and never enter r01's member set; re-authored r02 offers make the negative discriminating",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 41,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "describe": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215)",
+   "leaf": "a met promise never counts (control, r02 chain): after r02's w211 picture satisfies its three P1 roots at w216, its next real decision has no member and takes the ordinary pick",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > a met promise never counts (control, r02 chain): after r02's w211 picture satisfies its three P1 roots at w216, its next real decision has no member and takes the ordinary pick",
+   "primary": "AssertionError: The expression evaluated to a falsy value:",
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:690:12",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 42,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "RETAINED-INHERITED-FROM-1100"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "describe": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215)",
+   "leaf": "a met promise never counts (r01 chain, RED today only through the witness defect): after the witness take the SATISFIED roots leave r01's member set at its next real decision",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > a met promise never counts (r01 chain, RED today only through the witness defect): after the witness take the SATISFIED roots leave r01's member set at its next real decision",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 43,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "describe": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215)",
+   "leaf": "a promise whose window excludes the prospective take never counts \u2014 'window starts after every plausible t\u2026'",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts \u2014 'window starts after every plausible t\u2026'",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "timeout": false,
+   "shared_group_size": 2,
+   "marker_no": 44,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "describe": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215)",
+   "leaf": "a promise whose window excludes the prospective take never counts \u2014 'window ends before any take can land \u2026'",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts \u2014 'window ends before any take can land \u2026'",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "timeout": false,
+   "shared_group_size": 2,
+   "marker_no": 44,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "describe": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215)",
+   "leaf": "mask derivation through the shared reader \u2014 'tagged lead stays exact: r01-2 counts\u2026'",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader \u2014 'tagged lead stays exact: r01-2 counts\u2026'",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "timeout": false,
+   "shared_group_size": 3,
+   "marker_no": 45,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "describe": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215)",
+   "leaf": "mask derivation through the shared reader \u2014 'legacy count-only LEAD_OR_SIGNIFICANT\u2026'",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader \u2014 'legacy count-only LEAD_OR_SIGNIFICANT\u2026'",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "timeout": false,
+   "shared_group_size": 3,
+   "marker_no": 45,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "describe": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215)",
+   "leaf": "mask derivation through the shared reader \u2014 'APPEARANCE_COUNT is generic cast'",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader \u2014 'APPEARANCE_COUNT is generic cast'",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "timeout": false,
+   "shared_group_size": 3,
+   "marker_no": 45,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "describe": "P14B4 final seating preference \u2014 the initial cast seam (plan :225-232)",
+   "leaf": "promised non-primary-actor beneficiaries (the witness rival's writer, director and craft, each bound OPEN P1) are never seated: one person cannot double, and the sole holder of a role is a capacity constraint, not a forged package",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 the initial cast seam (plan :225-232) > promised non-primary-actor beneficiaries (the witness rival's writer, director and craft, each bound OPEN P1) are never seated: one person cannot double, and the sole holder of a role is a capacity constraint, not a forged package",
+   "primary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 46,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "describe": "P14B4 final seating preference \u2014 the initial cast seam (plan :225-232)",
+   "leaf": "the positive seam witness (plan :225-227, :233; record 621 R2 / G10-b): the first default-seed picture whose pool seats a promised person outside the historical first three admits r01's sole WRITER \u2014 a non-primary-actor beneficiary \u2014 and the real package and first take serve his promise",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 the initial cast seam (plan :225-232) > the positive seam witness (plan :225-227, :233; record 621 R2 / G10-b): the first default-seed picture whose pool seats a promised person outside the historical first three admits r01's sole WRITER \u2014 a non-primary-actor beneficiary \u2014 and the real package and first take serve his promise",
+   "primary": "AssertionError: UNEXECUTED natural premise: no picture on 'p13a-core-causal-01' within 350 ticks seats a promised person outside the historical first three",
+   "frame": "tests/p14b4-rival-seating-preference.test.ts:807:12",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 47,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C8-natural-search-exhaustion-first-take"
+  },
+  {
+   "file": "tests/p14c3-canonical-rival-history.test.ts",
+   "describe": "C.3 canonical Actor history survives actual passive rival Writer transition and work",
+   "leaf": "L1 observes an actual passive non-player Writer hire with one employer and paid signing authority",
+   "identity": "tests/p14c3-canonical-rival-history.test.ts > C.3 canonical Actor history survives actual passive rival Writer transition and work > L1 observes an actual passive non-player Writer hire with one employer and paid signing authority",
+   "primary": "AssertionError: L passive work premise ended without an obligation: {\"personId\":\"person-studio-8c9ee794-r01-4\",\"week\":607,\"profession\":\"writer\",\"source\":{\"personId\":\"person-studio-8c9ee794-r01-4\",\"profession\":\"writer\"},\"cause\":\"noCatalogue\",\"evaluationId\":null}",
+   "frame": "tests/p14c3-canonical-rival-history.test.ts:260:15",
+   "timeout": false,
+   "shared_group_size": 2,
+   "marker_no": 48,
+   "suite": false,
+   "status_vs_1316": "RETAINED-CHANGED",
+   "cluster_1302": "C3-acceptedEvidence-helper-literal"
+  },
+  {
+   "file": "tests/p14c3-canonical-rival-history.test.ts",
+   "describe": "C.3 canonical Actor history survives actual passive rival Writer transition and work",
+   "leaf": "L2 completes real rival screenplay review, production and released Writer credit after the change",
+   "identity": "tests/p14c3-canonical-rival-history.test.ts > C.3 canonical Actor history survives actual passive rival Writer transition and work > L2 completes real rival screenplay review, production and released Writer credit after the change",
+   "primary": "AssertionError: L passive work premise ended without an obligation: {\"personId\":\"person-studio-8c9ee794-r01-4\",\"week\":607,\"profession\":\"writer\",\"source\":{\"personId\":\"person-studio-8c9ee794-r01-4\",\"profession\":\"writer\"},\"cause\":\"noCatalogue\",\"evaluationId\":null}",
+   "frame": "tests/p14c3-canonical-rival-history.test.ts:260:15",
+   "timeout": false,
+   "shared_group_size": 2,
+   "marker_no": 48,
+   "suite": false,
+   "status_vs_1316": "RETAINED-CHANGED",
+   "cluster_1302": "C3-acceptedEvidence-helper-literal"
+  },
+  {
+   "file": "tests/p14c3-save-v38.test.ts",
+   "describe": "C.3 A01/A02 exact Save38 opening",
+   "leaf": "exposes matching strict38 conversion, validation and current migration over a genuine37 save",
+   "identity": "tests/p14c3-save-v38.test.ts > C.3 A01/A02 exact Save38 opening > exposes matching strict38 conversion, validation and current migration over a genuine37 save",
+   "primary": "AssertionError: expected '{\"broadcastCache\":[],\"saveVersion\":42\u2026' to be '{\"broadcastCache\":[],\"saveVersion\":38\u2026' // Object.is equality",
+   "frame": "tests/p14c3-save-v38.test.ts:93:49",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 49,
+   "suite": false,
+   "status_vs_1316": "RETAINED-CHANGED",
+   "cluster_1302": "C20-migration-purity-new-root"
+  },
+  {
+   "file": "tests/p14p3-directing-promises.test.ts",
+   "describe": "P3 fixed rival: public credit, ordinary contest and distinct staffing",
+   "leaf": "D07 authors and fulfills a real rival promise to a credited primary Actor",
+   "identity": "tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D07 authors and fulfills a real rival promise to a credited primary Actor",
+   "primary": "AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{\u2026} ]",
+   "frame": "tests/p14p3-directing-promises.test.ts:941:20",
+   "timeout": false,
+   "shared_group_size": 2,
+   "marker_no": 50,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C16b-rivalWinner-fixture-premise"
+  },
+  {
+   "file": "tests/p14p3-directing-promises.test.ts",
+   "describe": "P3 fixed rival: public credit, ordinary contest and distinct staffing",
+   "leaf": "D18 uses the declared rival strategy and legal distinct staffing",
+   "identity": "tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D18 uses the declared rival strategy and legal distinct staffing",
+   "primary": "AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{\u2026} ]",
+   "frame": "tests/p14p3-directing-promises.test.ts:941:20",
+   "timeout": false,
+   "shared_group_size": 2,
+   "marker_no": 50,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C16b-rivalWinner-fixture-premise"
+  },
+  {
+   "file": "tests/r3n1-stale-schedule-take-02.test.ts",
+   "describe": "R3-N1-DATA-02 \u2014 stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge",
+   "leaf": "SERVER REFUSAL \u2014 a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation",
+   "identity": "tests/r3n1-stale-schedule-take-02.test.ts > R3-N1-DATA-02 \u2014 stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge > SERVER REFUSAL \u2014 a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation",
+   "primary": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'",
+   "frame": "tests/r3n1-stale-schedule-take-02.test.ts:100:15",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 51,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C17-missing-generated-evidence-fixture"
+  },
+  {
+   "file": "tests/r3n1-stale-schedule-take-02.test.ts",
+   "describe": "R3-N1-DATA-02 \u2014 stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge",
+   "leaf": "SERVER REFUSAL \u2014 the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once",
+   "identity": "tests/r3n1-stale-schedule-take-02.test.ts > R3-N1-DATA-02 \u2014 stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge > SERVER REFUSAL \u2014 the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once",
+   "primary": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'",
+   "frame": "tests/r3n1-stale-schedule-take-02.test.ts:100:15",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 52,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C17-missing-generated-evidence-fixture"
+  },
+  {
+   "file": "tests/r3n1-stale-schedule-take-02p31.test.ts",
+   "describe": "R3-N4-DATA-03 \u2014 stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge",
+   "leaf": "SERVER REFUSAL \u2014 a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation",
+   "identity": "tests/r3n1-stale-schedule-take-02p31.test.ts > R3-N4-DATA-03 \u2014 stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge > SERVER REFUSAL \u2014 a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation",
+   "primary": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'",
+   "frame": "tests/r3n1-stale-schedule-take-02p31.test.ts:107:15",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 53,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C17-missing-generated-evidence-fixture"
+  },
+  {
+   "file": "tests/r3n1-stale-schedule-take-02p31.test.ts",
+   "describe": "R3-N4-DATA-03 \u2014 stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge",
+   "leaf": "SERVER REFUSAL \u2014 the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once",
+   "identity": "tests/r3n1-stale-schedule-take-02p31.test.ts > R3-N4-DATA-03 \u2014 stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge > SERVER REFUSAL \u2014 the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once",
+   "primary": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'",
+   "frame": "tests/r3n1-stale-schedule-take-02p31.test.ts:107:15",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 54,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C17-missing-generated-evidence-fixture"
+  },
+  {
+   "file": "tests/r3n1-stale-schedule-take-02p32.test.ts",
+   "describe": "R3-N4-TEST-25 \u2014 stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge",
+   "leaf": "SERVER REFUSAL \u2014 a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation",
+   "identity": "tests/r3n1-stale-schedule-take-02p32.test.ts > R3-N4-TEST-25 \u2014 stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge > SERVER REFUSAL \u2014 a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation",
+   "primary": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'",
+   "frame": "tests/r3n1-stale-schedule-take-02p32.test.ts:98:15",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 55,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C17-missing-generated-evidence-fixture"
+  },
+  {
+   "file": "tests/r3n1-stale-schedule-take-02p32.test.ts",
+   "describe": "R3-N4-TEST-25 \u2014 stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge",
+   "leaf": "SERVER REFUSAL \u2014 the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once",
+   "identity": "tests/r3n1-stale-schedule-take-02p32.test.ts > R3-N4-TEST-25 \u2014 stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge > SERVER REFUSAL \u2014 the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once",
+   "primary": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'",
+   "frame": "tests/r3n1-stale-schedule-take-02p32.test.ts:98:15",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 56,
+   "suite": false,
+   "status_vs_1316": "RETAINED-SAME",
+   "cluster_1302": "C17-missing-generated-evidence-fixture"
+  },
+  {
+   "file": "tests/world-first-scenery-load-in-provenance.test.ts",
+   "describe": "World-First Scenery Load-In V1 \u2014 frozen district provenance",
+   "leaf": "replays the clean exporter and pins its deliberately non-runtime manifest",
+   "identity": "tests/world-first-scenery-load-in-provenance.test.ts > World-First Scenery Load-In V1 \u2014 frozen district provenance > replays the clean exporter and pins its deliberately non-runtime manifest",
+   "primary": "Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py --source /Users/zacheryspector/The-Movies-headless-program/art/hollywood/source/moonshot-studio-chronicle-concept.png --manifest /Users/zacheryspector/The-Movies-headless-program/art/hollywood/district-manifest.source.json --output /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/studio-scenery-export-SGCI15",
+   "frame": "tests/world-first-scenery-load-in-provenance.test.ts:85:7",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 57,
+   "suite": false,
+   "status_vs_1316": "RETAINED-CHANGED",
+   "cluster_1302": "RETAINED-benign-tmp-suffix"
+  }
+ ],
+ "vanished": [
+  {
+   "identity": "tests/bridge-contract-generator.test.ts > CF-08 sound union-to-C# generation > current accepted contract and future sentinel > F10 emits sound request and response union shapes without changing schema identity",
+   "cluster_1302": "C12-generator-hash-pin-needs-remeasurement"
+  },
+  {
+   "identity": "tests/bridge-contract-generator.test.ts > CF-08 sound union-to-C# generation > current accepted contract and future sentinel > pins exact positive output identities and deterministic rerendering",
+   "cluster_1302": "C12-generator-hash-pin-needs-remeasurement"
+  },
+  {
+   "identity": "tests/bridge-p14b2-checkpoint.test.ts > P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged) > opens genuine45 with a new session while preserving both distinct gameplay slots byte-for-byte",
+   "cluster_1302": "UNRESOLVED"
+  },
+  {
+   "identity": "tests/bridge-p14c2rm-runtime.test.ts > C.2-RM genuine projection51 recovery > lifts both slots byte-exactly but resets old journal/revision/session authority, then reopens52 without migration",
+   "cluster_1302": "C20-migration-purity-new-root"
+  },
+  {
+   "identity": "tests/bridge-p14c2rm-runtime.test.ts > C.2-RM genuine projection51 recovery > rejects the old command identity and replays only a new52 saved-slot LOAD receipt after restart",
+   "cluster_1302": "C20-migration-purity-new-root"
+  },
+  {
+   "identity": "tests/bridge-p14c3-promise-digest-continuity.test.ts > 955 historical preservation and interim projection52 journal authority > preserves the current52 historical command journal and exact duplicate response without replaying gameplay",
+   "cluster_1302": "C20-migration-purity-new-root"
+  },
+  {
+   "identity": "tests/bridge-runtime-checkpoint.test.ts > BridgeRuntimeCheckpointV1 > requires untouched canonical V15 current and explicit-save bytes with exact digests",
+   "cluster_1302": "C15-frozen-validator-chain-historical-boundary"
+  },
+  {
+   "identity": "tests/c2a-m2-sets-save.test.ts > C2a-M2 \u2014 the \u00a712-M2 gate: a migrated managed V13 save reaches a NEW greenlight > greenlights, binds a set, and shoots \u2014 while the picture it migrated with never does",
+   "cluster_1302": "C1-validateSaveV38-39-selection"
+  },
+  {
+   "identity": "tests/c2a-m2-sets-save.test.ts > C2a-M2 \u2014 the \u00a712-M2 gate: a migrated managed V13 save reaches a NEW greenlight > lets a migrated studio BUILD a set on the stage it just cleared",
+   "cluster_1302": "C1-validateSaveV38-39-selection"
+  },
+  {
+   "identity": "tests/facility-move-demolish.test.ts > C1-M3a (F) \u2014 saves, boundaries, and determinism > keeps the refund row out of every historical save format (law 19)",
+   "cluster_1302": "C15-frozen-validator-chain-historical-boundary"
+  },
+  {
+   "identity": "tests/p13b-r07-save-v25.test.ts > P13B-S5-R07 Save V25 (test 5) > validates a reconstructed V25 envelope with a real rehearsing production and setup: null on a nonempty workflow",
+   "cluster_1302": "C15-frozen-validator-chain-historical-boundary"
+  },
+  {
+   "identity": "tests/p13b-r07-save-v25.test.ts > P13B-S5-R07 Save V25 (test 5) > migrateToV24 / migrateToV23 / migrateToV22 / migrateToV21 / migrateToV20 refuse a V25 save",
+   "cluster_1302": "C15-frozen-validator-chain-historical-boundary"
+  },
+  {
+   "identity": "tests/p14b5-relationships.test.ts > family 1 \u2014 EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) > no RNG reaches the seam: rngState is byte-equal before/after the seam and the tick's rngState equals the frozen control; everything but the root is byte-identical to the frozen post-tick state",
+   "cluster_1302": "UNRESOLVED"
+  },
+  {
+   "identity": "tests/p14b5-t-failure-tuning.test.ts > CONSTRUCTED group 1 \u2014 THE REQUIREMENT: repeated shared failure must reach Strained (record 683 ruling 1) > a low-proximity pair whose shared pictures repeatedly flop reaches the negative band",
+   "cluster_1302": "C7-firstTakeSubjects-migration-guard"
+  },
+  {
+   "identity": "tests/p14b5-t-failure-tuning.test.ts > CONSTRUCTED group 2 \u2014 POSITIVE CONTROL: the success driver, the proximity weights and the accelerator are untouched > every one of the six pairs climbs on its own proximity weight and the capped accelerator, with the success delta by name",
+   "cluster_1302": "C7-firstTakeSubjects-migration-guard"
+  },
+  {
+   "identity": "tests/p14b5-t-failure-tuning.test.ts > CONSTRUCTED group 2 \u2014 POSITIVE CONTROL: the success driver, the proximity weights and the accelerator are untouched > the top of the ladder is reached on the SAME picture the constants predict, and the prediction holds no failure term",
+   "cluster_1302": "C7-firstTakeSubjects-migration-guard"
+  },
+  {
+   "identity": "tests/p14b5-t-failure-tuning.test.ts > CONSTRUCTED group 3 \u2014 NEUTRAL CONTROL: a picture between the thresholds mints nothing > a release in the neutral band returns the SAME state and moves no pair",
+   "cluster_1302": "C7-firstTakeSubjects-migration-guard"
+  },
+  {
+   "identity": "tests/p14b5-t-failure-tuning.test.ts > CONSTRUCTED group 3 \u2014 NEUTRAL CONTROL: a picture between the thresholds mints nothing > a chain with no flop follows a trajectory that holds no failure term at all",
+   "cluster_1302": "C7-firstTakeSubjects-migration-guard"
+  },
+  {
+   "identity": "tests/p14b5-t-failure-tuning.test.ts > CONSTRUCTED group 4 \u2014 DRIFT IS READ-ONLY AND UNCHANGED by this tuning > a flopped edge below the baseline drifts UP toward it, lands exactly on it, and never passes it",
+   "cluster_1302": "C7-firstTakeSubjects-migration-guard"
+  },
+  {
+   "identity": "tests/p14b5-t-failure-tuning.test.ts > CONSTRUCTED group 4 \u2014 DRIFT IS READ-ONLY AND UNCHANGED by this tuning > reading a drifted edge changes no stored value, no counter, no firstSharedWeek and no peakTier",
+   "cluster_1302": "C7-firstTakeSubjects-migration-guard"
+  },
+  {
+   "identity": "tests/p14b5-t-failure-tuning.test.ts > CONSTRUCTED group 5 \u2014 REPLAY AND IDEMPOTENCY on the real carrier world > the same advance from the same pre-state writes a byte-identical root, and a second advance over the same production id mints nothing twice",
+   "cluster_1302": "C7-firstTakeSubjects-migration-guard"
+  },
+  {
+   "identity": "tests/p14b5-t-failure-tuning.test.ts > CONSTRUCTED group 5 \u2014 REPLAY AND IDEMPOTENCY on the real carrier world > rngState is byte-equal before and after every write of the whole chain (B.5 uses no RNG)",
+   "cluster_1302": "C7-firstTakeSubjects-migration-guard"
+  },
+  {
+   "identity": "tests/p14b5-t-failure-tuning.test.ts > CONSTRUCTED group 6 \u2014 SAVE AND LOAD ACROSS THE CHANGE: historical deltas are carried, never restamped > a genuinely written root round-trips through makeSave / validateSaveV32 / migrateToV32 with every driver delta verbatim",
+   "cluster_1302": "C7-firstTakeSubjects-migration-guard"
+  },
+  {
+   "identity": "tests/p14b5-t-failure-tuning.test.ts > CONSTRUCTED group 6 \u2014 SAVE AND LOAD ACROSS THE CHANGE: historical deltas are carried, never restamped > a root whose stored failure deltas carry a value the CURRENT constant does not produce is admitted, carried verbatim and never restamped",
+   "cluster_1302": "C7-firstTakeSubjects-migration-guard"
+  },
+  {
+   "identity": "tests/p14c1-materialized-aging.test.ts > 6. the calendar advance > week 12: authored-0001 is 29; week 13: authored-0001 is 30 \u2014 asserted at BOTH weeks, invariant holds throughout",
+   "cluster_1302": "C7-firstTakeSubjects-migration-guard"
+  },
+  {
+   "identity": "tests/p14c1-materialized-aging.test.ts > 7. the 30 crossing is a market decision (talentMarket.ts:690 isProven) > external observation: publicPriorityOrder/publicPreferredTerm/publicPreferredOpportunity differ across the crossing, attributable to age alone",
+   "cluster_1302": "C7-firstTakeSubjects-migration-guard"
+  },
+  {
+   "identity": "tests/p14c1-materialized-aging.test.ts > 7. the 30 crossing is a market decision (talentMarket.ts:690 isProven) > COMPONENT TEST, NOT TICK EVIDENCE (765 \u00a72 finding, applied to itself): a hand-reconstructed successor state, calling `materializeAges` directly and building `tailState` by hand rather than running tick(), shows the aging.ts/talentMarket.ts surface agrees internally \u2014 it does NOT and cannot prove what the real tick() settles with, because the real tick() is never called here",
+   "cluster_1302": "C7-firstTakeSubjects-migration-guard"
+  },
+  {
+   "identity": "tests/p14c1-materialized-aging.test.ts > 7. the 30 crossing is a market decision (talentMarket.ts:690 isProven) > REAL EVIDENCE: the ACTUAL tick() across the crossing prices a reused free agent through hollywood.ts:224 with the materialized (new) age, never the pre-crossing one \u2014 measured on a bounded arrangement, corpus and tick unmodified",
+   "cluster_1302": "C7-firstTakeSubjects-migration-guard"
+  },
+  {
+   "identity": "tests/p14c1-materialized-aging.test.ts > 8. save and reload at week 12 and week 13 > week 12: round trip preserves the age and the live validator accepts the state (P14C.4: was validateSaveV33, then validateSaveV34, now validateSaveV37 \u2014 the round trip is through whatever the live writer stamps, not pinned to V33)",
+   "cluster_1302": "C7-firstTakeSubjects-migration-guard"
+  },
+  {
+   "identity": "tests/p14c1-materialized-aging.test.ts > 8. save and reload at week 12 and week 13 > week 13: round trip preserves the age and the live validator accepts the state (P14C.4: was validateSaveV33, then validateSaveV34, now validateSaveV37 \u2014 the round trip is through whatever the live writer stamps, not pinned to V33)",
+   "cluster_1302": "C7-firstTakeSubjects-migration-guard"
+  },
+  {
+   "identity": "tests/p14c1-materialized-aging.test.ts > 8. save and reload at week 12 and week 13 > bonus, not explicitly pinned by contract \u00a76: the GENERIC exportSave/importSave/loadSave dispatcher also accepts a live envelope (flags a real gap if validateSave was not given the live saveVersion arm \u2014 see summary; P14C.4: was V33, then V34, now V35)",
+   "cluster_1302": "C7-firstTakeSubjects-migration-guard"
+  },
+  {
+   "identity": "tests/p14c1-materialized-aging.test.ts > 9. scientists age > genuine-v32-scientist: t-sci-00 crosses a birthday, its stored age advances, and its provenance row survives",
+   "cluster_1302": "C7-firstTakeSubjects-migration-guard"
+  },
+  {
+   "identity": "tests/p14c1-materialized-aging.test.ts > 10. zero RNG draw > BINDING: a direct materializeAges call that materializes a birthday leaves rngState byte-identical",
+   "cluster_1302": "C7-firstTakeSubjects-migration-guard"
+  },
+  {
+   "identity": "tests/p14c1-materialized-aging.test.ts > 10. zero RNG draw > DIAGNOSTIC, not the pin: an ordinary weekly tick spanning the crossing may legitimately draw RNG for other simulation activity",
+   "cluster_1302": "C7-firstTakeSubjects-migration-guard"
+  },
+  {
+   "identity": "tests/p14c1-materialized-aging.test.ts > 11. the validator refuses four tampered states, each attributably > refuses a hand-edited talent.age that disagrees with its provenance, a missing row, an extra row naming nobody, and a stale due bucket \u2014 each with its own distinguishable message",
+   "cluster_1302": "C7-firstTakeSubjects-migration-guard"
+  },
+  {
+   "identity": "tests/p14c1-materialized-aging.test.ts > 12. materializeAges is idempotent > twice on the same state returns an equal state",
+   "cluster_1302": "C7-firstTakeSubjects-migration-guard"
+  },
+  {
+   "identity": "tests/p14c2s-scientist-retirement.test.ts > Scientist retirement persistence has an explicit semantic version boundary > S10 frozen public34/35/36 readers still refuse the Scientist law, independently of the live tuning table",
+   "cluster_1302": "C15-frozen-validator-chain-historical-boundary"
+  },
+  {
+   "identity": "tests/p14c3-canonical-rival-history.test.ts > C.3 canonical Actor history survives actual passive rival Writer transition and work > K1 reaches genuine eligible acting retirement with independently counted campaign and authored evidence",
+   "cluster_1302": "C3-acceptedEvidence-helper-literal"
+  },
+  {
+   "identity": "tests/p14c3-canonical-rival-history.test.ts > C.3 canonical Actor history survives actual passive rival Writer transition and work > K2 observes the exact real owner write set and inclusive Actor-to-Writer authority",
+   "cluster_1302": "C3-acceptedEvidence-helper-literal"
+  },
+  {
+   "identity": "tests/p14c3-canonical-rival-history.test.ts > C.3 canonical Actor history survives actual passive rival Writer transition and work > K3 preserves exact canonical old support credits and actual employment closure through Writer reload",
+   "cluster_1302": "C3-acceptedEvidence-helper-literal"
+  },
+  {
+   "identity": "tests/p14c3-canonical-rival-history.test.ts > C.3 canonical Actor history survives actual passive rival Writer transition and work > K4 refuses separate malformed canonical title, credit, entry cause and missing profession authority",
+   "cluster_1302": "C3-acceptedEvidence-helper-literal"
+  },
+  {
+   "identity": "tests/p14c3-promise-digest-continuity.test.ts > 955 genuine207 normal-development continuation > produces identical208 saves and all twelve actual affected receipts from value-identical key orders",
+   "cluster_1302": "UNRESOLVED"
+  },
+  {
+   "identity": "tests/p14c3-save-v38.test.ts > C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-created-week0.json.gz losslessly except for explicit prospective38 scaffolding",
+   "cluster_1302": "C20-migration-purity-new-root"
+  },
+  {
+   "identity": "tests/p14c3-save-v38.test.ts > C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-preretirement-week207.json.gz losslessly except for explicit prospective38 scaffolding",
+   "cluster_1302": "C20-migration-purity-new-root"
+  },
+  {
+   "identity": "tests/p14c3-save-v38.test.ts > C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-retired-week208.json.gz losslessly except for explicit prospective38 scaffolding",
+   "cluster_1302": "C20-migration-purity-new-root"
+  },
+  {
+   "identity": "tests/p14c3-save-v38.test.ts > C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-runtime-current208.json.gz losslessly except for explicit prospective38 scaffolding",
+   "cluster_1302": "C20-migration-purity-new-root"
+  },
+  {
+   "identity": "tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D14 preserves old meaning and refuses lossy reverse conversion",
+   "cluster_1302": "C20-migration-purity-new-root"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (A) \u2014 the headline matrix covers every phase that holds a reservation > projects a genuine, legal V13 file for every cell",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (A) \u2014 the headline matrix covers every phase that holds a reservation > agrees byte-for-byte with the frozen V13 builder wherever that builder writes",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (B) \u2014 every held phase \u00d7 blocker kind migrates and plays true > migrates development/none to V14 without touching one V13-visible byte",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (B) \u2014 every held phase \u00d7 blocker kind migrates and plays true > migrates preProduction/none to V14 without touching one V13-visible byte",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (B) \u2014 every held phase \u00d7 blocker kind migrates and plays true > migrates preProduction/facility-capacity to V14 without touching one V13-visible byte",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (B) \u2014 every held phase \u00d7 blocker kind migrates and plays true > migrates rehearsal/none to V14 without touching one V13-visible byte",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (B) \u2014 every held phase \u00d7 blocker kind migrates and plays true > migrates rehearsal/facility-capacity to V14 without touching one V13-visible byte",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (B) \u2014 every held phase \u00d7 blocker kind migrates and plays true > migrates shooting/none to V14 without touching one V13-visible byte",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (B) \u2014 every held phase \u00d7 blocker kind migrates and plays true > migrates shooting/scenery-load-in to V14 without touching one V13-visible byte",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (B) \u2014 every held phase \u00d7 blocker kind migrates and plays true > migrates shooting/facility-capacity to V14 without touching one V13-visible byte",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (B) \u2014 every held phase \u00d7 blocker kind migrates and plays true > migrates postProduction/none to V14 without touching one V13-visible byte",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (B) \u2014 every held phase \u00d7 blocker kind migrates and plays true > plays development/none byte-identically to its V13 twin for 30 weeks",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (B) \u2014 every held phase \u00d7 blocker kind migrates and plays true > plays preProduction/none byte-identically to its V13 twin for 30 weeks",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (B) \u2014 every held phase \u00d7 blocker kind migrates and plays true > plays preProduction/facility-capacity byte-identically to its V13 twin for 30 weeks",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (B) \u2014 every held phase \u00d7 blocker kind migrates and plays true > plays rehearsal/none byte-identically to its V13 twin for 30 weeks",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (B) \u2014 every held phase \u00d7 blocker kind migrates and plays true > plays rehearsal/facility-capacity byte-identically to its V13 twin for 30 weeks",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (B) \u2014 every held phase \u00d7 blocker kind migrates and plays true > plays shooting/none byte-identically to its V13 twin for 30 weeks",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (B) \u2014 every held phase \u00d7 blocker kind migrates and plays true > plays shooting/scenery-load-in byte-identically to its V13 twin for 30 weeks",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (B) \u2014 every held phase \u00d7 blocker kind migrates and plays true > plays shooting/facility-capacity byte-identically to its V13 twin for 30 weeks",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (B) \u2014 every held phase \u00d7 blocker kind migrates and plays true > plays postProduction/none byte-identically to its V13 twin for 30 weeks",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (C) \u2014 the endowed house sets are DERIVED, not invented > gives a managed-mode migrated save exactly the two house sets and nextSetId 2",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (C) \u2014 the endowed house sets are DERIVED, not invented > gives a legacy migrated save zero sets and nextSetId 0",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (C) \u2014 the endowed house sets are DERIVED, not invented > leaves the queue and the screenplay root empty for every migrated save (\u00a78.3)",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (D) \u2014 migrated workflows are grandfathered, by derivation > derives every bindings field exactly as \u00a78.3 states it",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  },
+  {
+   "identity": "tests/v14-migration.contract.test.ts > C2a-M1 \u00b7 T9 (D) \u2014 migrated workflows are grandfathered, by derivation > keeps the in-flight scenery reservation byte-for-byte across the boundary",
+   "cluster_1302": "C6-v13TwinOf-historical-carrier-premise"
+  }
+ ]
+}

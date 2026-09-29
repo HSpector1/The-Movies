@@ -1,0 +1,201 @@
+
+ RUN  v2.1.9 <scratch>
+
+ ❯ |ui| ui/src/lot/livingTurn.scheduler.test.tsx (13 tests | 1 failed) 23426ms
+   × Living Turn V1 — the transport > offers hold/roll and the whole pace ladder, paused at 1x 1372ms
+     → Unable to find an element by: [data-testid="studio-lot-screen"]
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="card"
+      data-recovery="continuing"
+      data-testid="recovery-notice"
+      role="status"
+      style="margin-bottom: 12px;"
+    >
+      <div
+        class="spread"
+      >
+        <span>
+          Continuing your studio — Week 0.
+        </span>
+        <button
+          class="ghost"
+          data-testid="recovery-dismiss"
+        >
+          Dismiss
+        </button>
+      </div>
+    </div>
+    <div
+      class="app-shell"
+    >
+      <p
+        aria-atomic="true"
+        aria-live="polite"
+        class="hint"
+        data-testid="studio-lot-lazy-loading"
+        role="status"
+      >
+        Opening the Studio Lot…
+      </p>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="card"
+      data-recovery="continuing"
+      data-testid="recovery-notice"
+      role="status"
+      style="margin-bottom: 12px;"
+    >
+      <div
+        class="spread"
+      >
+        <span>
+          Continuing your studio — Week 0.
+        </span>
+        <button
+          class="ghost"
+          data-testid="recovery-dismiss"
+        >
+          Dismiss
+        </button>
+      </div>
+    </div>
+    <div
+      class="app-shell"
+    >
+      <p
+        aria-atomic="true"
+        aria-live="polite"
+        class="hint"
+        data-testid="studio-lot-lazy-loading"
+        role="status"
+      >
+        Opening the Studio Lot…
+      </p>
+    </div>
+  </div>
+</body>
+   ✓ Living Turn V1 — the transport > speaks about the studio, never about a scheduler 679ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > commits ONE authoritative week per witnessed week and nothing else 1655ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > runs 12 consecutive weeks with ZERO input and lands byte-identically 5712ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > speed changes the PACE and nothing else — 4x is four weeks in one week s time 2184ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > holding stops the weeks, and the studio stays exactly where it was 1768ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > a hidden tab is a held studio — living time never advances what nobody watches 1326ms
+   ✓ Living Turn V1 — the partition, at the seam > auto-pauses on the FIRST PAUSE-class stop, at exactly the hand-advanced week 2622ms
+   ✓ Living Turn V1 — the partition, at the seam > a NOTIFY-class wrap reaches the bulletin and the loop keeps working 1443ms
+   ✓ Living Turn V1 — the partition, at the seam > the bulletin clears on request 919ms
+   ✓ Living Turn V1 — the loop cannot stall silently, and the batch verb holds it > re-arms the week on screen when the cadence channel is cleared under a running loop 1799ms
+   ✓ Living Turn V1 — the loop cannot stall silently, and the batch verb holds it > the batch verb HOLDS the studio — a skipped batch was never witnessed time 1079ms
+   ✓ Living Turn V1 — the release week plays before its surfaces take over > the shipping week is witnessed, and the release surface follows it 864ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |ui|  ui/src/lot/livingTurn.scheduler.test.tsx > Living Turn V1 — the transport > offers hold/roll and the whole pace ladder, paused at 1x
+TestingLibraryElementError: Unable to find an element by: [data-testid="studio-lot-screen"]
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="card"
+      data-recovery="continuing"
+      data-testid="recovery-notice"
+      role="status"
+      style="margin-bottom: 12px;"
+    >
+      <div
+        class="spread"
+      >
+        <span>
+          Continuing your studio — Week 0.
+        </span>
+        <button
+          class="ghost"
+          data-testid="recovery-dismiss"
+        >
+          Dismiss
+        </button>
+      </div>
+    </div>
+    <div
+      class="app-shell"
+    >
+      <p
+        aria-atomic="true"
+        aria-live="polite"
+        class="hint"
+        data-testid="studio-lot-lazy-loading"
+        role="status"
+      >
+        Opening the Studio Lot…
+      </p>
+    </div>
+  </div>
+</body>
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      class="card"
+      data-recovery="continuing"
+      data-testid="recovery-notice"
+      role="status"
+      style="margin-bottom: 12px;"
+    >
+      <div
+        class="spread"
+      >
+        <span>
+          Continuing your studio — Week 0.
+        </span>
+        <button
+          class="ghost"
+          data-testid="recovery-dismiss"
+        >
+          Dismiss
+        </button>
+      </div>
+    </div>
+    <div
+      class="app-shell"
+    >
+      <p
+        aria-atomic="true"
+        aria-live="polite"
+        class="hint"
+        data-testid="studio-lot-lazy-loading"
+        role="status"
+      >
+        Opening the Studio Lot…
+      </p>
+    </div>
+  </div>
+</body>
+ ❯ waitForWrapper ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ ../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ mountLot ui/src/lot/livingTurn.scheduler.test.tsx:207:16
+    205|   saveActiveSession(state)
+    206|   render(<App />)
+    207|   await screen.findByTestId('studio-lot-screen')
+       |                ^
+    208|   await waitFor(() => expect(renderer.instances).toHaveLength(1))
+    209|   vi.useFakeTimers()
+ ❯ ui/src/lot/livingTurn.scheduler.test.tsx:286:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 12 passed (13)
+   Start at  15:12:10
+   Duration  32.62s (transform 5.44s, setup 404ms, collect 6.00s, tests 23.43s, environment 2.04s, prepare 155ms)
+

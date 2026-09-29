@@ -1,0 +1,13 @@
+
+ RUN  v2.1.9 <scratch>
+
+stdout | ui/src/zzprobe/zz-c5-probe.test.ts > C5 gate hiring eligibility probe
+C5PROBE {"week":35,"marketThrow":["TypeError: Cannot read properties of undefined (reading 'playerStudioId')","    at playerOffer (<scratch>/src/core/talentMarket.ts:288:42)","    at <scratch>/src/core/talentMarket.ts:297:50","    at Array.map (<anonymous>)","    at Module.playerOfferOptions (<scratch>/src/core/talentMarket.ts:297:39)","    at employmentInfo (<scratch>/ui/src/engine/adapter.ts:4032:35)","    at employmentCard (<scratch>/ui/src/engine/adapter.ts:4093:60)","    at <scratch>/ui/src/engine/adapter.ts:4108:45"]}
+
+ ✓ |ui| ui/src/zzprobe/zz-c5-probe.test.ts (1 test) 124ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  15:07:36
+   Duration  6.71s (transform 2.77s, setup 401ms, collect 3.45s, tests 124ms, environment 2.10s, prepare 122ms)
+

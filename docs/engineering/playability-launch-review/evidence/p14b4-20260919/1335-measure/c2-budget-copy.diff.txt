@@ -1,0 +1,11 @@
+--- ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx	2026-09-29 12:22:31.000000000 +0200
++++ ui/src/lot/zz-WorldInspector-budget.test.tsx	2026-09-29 15:09:35.000000000 +0200
+@@ -626,7 +626,7 @@
+         resetLotSelectedBuilding()
+       }
+     }
+-  })
++  }, 30_000)
+ 
+   it('offers Development the Commission verb at Week 0 — the first step of the whole game', async () => {
+     const { routes } = renderLot(managedScriptWeekZero('m-b-commission-verb'))

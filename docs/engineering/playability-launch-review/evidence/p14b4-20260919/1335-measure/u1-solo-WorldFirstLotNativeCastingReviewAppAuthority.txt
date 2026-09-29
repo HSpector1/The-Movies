@@ -1,0 +1,25 @@
+
+ RUN  v2.1.9 <scratch>
+
+ ✓ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx (15 tests) 24790ms
+   ✓ Lot-native Casting review — App commit and handoff authority > commits the clear successor, invokes autosave, then opens the exact Package owner once 1698ms
+   ✓ Lot-native Casting review — App commit and handoff authority > contains retained Lot profile tails while the Package and its nested Profile own input 1095ms
+   ✓ Lot-native Casting review — App commit and handoff authority > cancels only the optional Package open when a current Lot Profile wins the handoff boundary 1171ms
+   ✓ Lot-native Casting review — App commit and handoff authority > accepts one exact Custom Talent successor without replacing the Lot, workspace, or Assembly owner 1339ms
+   ✓ Lot-native Casting review — App commit and handoff authority > keeps the committing successor above the same Lot until autosave, then publishes one live formation atomically 1399ms
+   ✓ Lot-native Casting review — App commit and handoff authority > commits a valid greenlight with a mismatched presentation receipt but exposes no formation guess 1386ms
+   ✓ Lot-native Casting review — App commit and handoff authority > retains an exact queued greenlight with project truth, no formation cue, and no invented production 1178ms
+   ✓ Lot-native Casting review — App commit and handoff authority > keeps a blocked accepted successor in the same mounted Lot and autosaves exact parity 2118ms
+   ✓ Lot-native Casting review — App commit and handoff authority > restores one rejected event ceremony and permits exactly one later fresh retry 1277ms
+   ✓ Lot-native Casting review — App commit and handoff authority > demotes a malformed Casting receipt neutrally, then permits only a later explicit pending action 1458ms
+   ✓ Lot-native Casting review — App commit and handoff authority > never lets stale Casting review closures demote or mutate a newer exact event 5229ms
+   ✓ Lot-native Casting review — App commit and handoff authority > invalidates retained Lot Casting callbacks synchronously when deep navigation starts 974ms
+   ✓ Lot-native Casting review — App commit and handoff authority > keeps the committed clear successor and autosave but cancels Package after Lot drift 1357ms
+   ✓ Lot-native Casting review — App commit and handoff authority > rejects retained Casting callbacks after the exact Lot presentation unmounts 1419ms
+   ✓ Lot-native Casting review — App commit and handoff authority > rejects retained Casting commands synchronously behind the Talent Profile modal 1688ms
+
+ Test Files  1 passed (1)
+      Tests  15 passed (15)
+   Start at  15:10:26
+   Duration  33.93s (transform 4.40s, setup 398ms, collect 5.87s, tests 24.79s, environment 2.15s, prepare 155ms)
+
