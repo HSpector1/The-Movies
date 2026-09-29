@@ -1,5 +1,28 @@
 # R3-N1 native correction record — 2026-09-15 · OPS-R3-N1-NATIVE-CORRECTION-20260915-01
 
+## CURRENT — U2 closed (1341-K); scoped Pillow (1345-E); Save42 inputs minted; three REDs in staging
+
+- U2 (UI testTimeout 30,000 ms, D-1339-1) is closed as test-harness stabilization. UI gate 1343:
+  10 failed / 2682 passed, 4 gone and 0 new against 1339. 21 async leaves on the default budget
+  ran 5.0-8.7 s and passed. Reviews 1343-J and 1341-D REFINE, both answered (1343-F, 1341-F).
+  One new unhandled error goes to U3.
+- U3 (1349-A): the identity-review fake view lacks hollywoodPerformance. Reproduced in scratch;
+  a three-line test-double fix passes; review 1349-D pending, then application.
+- Pillow (Owner ruling 1): .venv/ with pillow 12.3.0, scoped per command. 8 of the 11 image
+  rows pass. 3 rgba-export tool-contract rows need numpy, which is not authorized (open
+  question). Gates from now run as: PATH="$PWD/.venv/bin:$PATH" node .../run-bounded-source-c2.mjs ...
+- Rival shelving (D-1329-1):
+  - charter 1344-A, review 1344-B REFINE, adoption 1344-F;
+  - genuine Save42 inputs minted at the last Save42 writer (weeks 100 and 130; 1344-P/PB/X,
+    recorded run 1344-save42-rival-stall-mint, fixtures tests/fixtures/p14/genuine-v42-pre-shelving);
+  - IN PROGRESS: RED staging 1344-C (test-author). Then sim-core production (one writer),
+    Save43 sweep, verification, gates.
+- Relationships (D-1312-1/2, HIS-014, ruling 8): charter 1347-A, review 1347-B REFINE, adoption
+  1347-F (Mentor rests on the cohort receipt; D5 keeps its order; one projection step in slice
+  B). IN PROGRESS: slice A RED staging 1348-C.
+- P15A.1 Wave 1 (pure shared-market law, D-1323-1): IN PROGRESS, RED staging 1346-C.
+- Production order (one writer): shelving first, then P15A.1 Wave 1, then relationship slice A.
+
 ## CURRENT — twelve more Owner rulings (1342-O); U2 in review; rival shelving next
 
 The Owner approved the twelve P14-P18 rulings, kept byte for byte in 1342-O:

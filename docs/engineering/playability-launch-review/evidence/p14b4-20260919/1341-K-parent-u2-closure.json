@@ -1,0 +1,153 @@
+{
+  "record": "1341-K parent closure: UI repair U2, UI project default testTimeout 30,000 ms (Owner decision D-1339-1)",
+  "timeUtc": "2026-09-29T21:41:39.482759+00:00",
+  "disposition": "CLOSED as test-harness stabilization. Not evidence of in-game performance, not Unity or UI acceptance. UI gate 1343: 10 failed (python3 without Pillow), 4 gone and 0 new against 1339, one new unhandled error routed to U3 (1349).",
+  "ownerAuthority": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1340-O-owner-rulings-20260929.md",
+    "bytes": 7892,
+    "sha256": "d111989ee919d2877f027546b6b783f7bd03856ff747b77d5cfec728bdd5801f"
+  },
+  "plan": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1341-A-ui-default-timeout-u2-plan.md",
+    "bytes": 3618,
+    "sha256": "15d17073d49750cc85b6a2408596ecd60c40832c868d4268798badaaf2f86c64"
+  },
+  "planReview": {
+    "record": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1341-B-u2-plan-review.md",
+      "bytes": 10635,
+      "sha256": "dc8c997d7386f9ad7cdc2c4a7566e5323dc77e59074e728e270c40bfe53a16f1"
+    },
+    "verdict": "ACCEPT"
+  },
+  "dryRun": {
+    "record": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1341-X-u2-dry-run.md",
+      "bytes": 4978,
+      "sha256": "29052f34c9d99777b7ce6c24ff743e8551ef075c2d5f792f8ee4b20822c50276"
+    },
+    "patch": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1341-stage/1341-u2.patch",
+      "bytes": 582,
+      "sha256": "35c831bb643c45c11a03dd419470c6aac96a8901f7ad70172bb22f736ca51844"
+    },
+    "probes": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1341-X-probe-before.txt",
+        "bytes": 451,
+        "sha256": "ca7f4a7b1196e6380f16e6f31ce4331ad0d1754cc55a81478d06a2c421a94f00"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1341-X-probe-after.txt",
+        "bytes": 343,
+        "sha256": "c66aaf960d17f25202b54ccaa1f2ca6d6deca5c5fb6c45c4b9b40a0215f66f14"
+      }
+    ],
+    "affected": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1341-X-ui-affected-base.txt",
+        "bytes": 45594,
+        "sha256": "4b54fa05fe4499996da2aad2b490bba3bf7ac68443920812b630686c31af2b0b"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1341-X-ui-affected-run1.txt",
+        "bytes": 15431,
+        "sha256": "a0921a6d0a688b006b1d1a498a55f8220ae71ca4d8f6122e44d8d5209a794fc8"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1341-X-ui-affected-run2.txt",
+        "bytes": 45531,
+        "sha256": "cbda5efe63592ff3bb3fe2449ae8f5dbc96dd879d8e46caf38652a3c6ec9c542"
+      }
+    ]
+  },
+  "dryRunReview": {
+    "record": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1341-D-u2-dry-run-review.md",
+      "bytes": 9659,
+      "sha256": "72754d44f2eb68c9bf1912e70d214c2600423b77ec7c556dd5c77e04221764ce"
+    },
+    "verdict": "REFINE (572 ms should be 3,572 ms), answered",
+    "response": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1341-F-parent-response-to-1341-D.md",
+      "bytes": 1638,
+      "sha256": "f5851577ec9f146c19744edf23b250fdab4c37c4708d068be72e879847068330"
+    }
+  },
+  "application": {
+    "commit": "6b73e424",
+    "appliedEqualsDryRunTree": true
+  },
+  "uiGate": {
+    "failed": 10,
+    "passed": 2682,
+    "skipped": 5,
+    "unhandledErrors": 1,
+    "goneVs1339": 4,
+    "newVs1339": 0,
+    "run": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1343-u2-broad-ui-preflight.json",
+        "bytes": 115188,
+        "sha256": "e83b1468c6997fd2a9826f132f6b2f4c3725e5241ae69acc15a3379a8f0cc9f6"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1343-u2-broad-ui.json",
+        "bytes": 52799,
+        "sha256": "78dc806e81f7d2406d418cc80caa63edde68a9a91c26158946df70c397dfb3b9"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1343-u2-broad-ui.txt",
+        "bytes": 241311,
+        "sha256": "1583fe8f7f357dd802bce6c7544fcf65ad5180f36aff3f99c4c3ba3fa8ed2b3e"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1343-u2-broad-ui.patch",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1343-u2-broad-ui-postflight.json",
+        "bytes": 115844,
+        "sha256": "27eefbf99e5f39899ad0e1ca90162614ebef6eda61c7836ad843969ca9f8db85"
+      }
+    ],
+    "attribution": [
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1343-I-broad-ui-attribution.md",
+        "bytes": 5127,
+        "sha256": "aaca08e1962b85b09df8e2899907af6fb58c826cb90a6b60930b2a669d8a61cf"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1343-I-failures.json",
+        "bytes": 14105,
+        "sha256": "c0e2adc0c26991ef4ad8be080a1d49f5bec94f97147dcdcae79e5b4038b60d82"
+      },
+      {
+        "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1343-I-slow-leaves.tsv",
+        "bytes": 7512,
+        "sha256": "4a96e2ab47221bc6fafc2f1d18a8b132e1bb29ea7835df73cfbcc8d4b8c3afb5"
+      }
+    ],
+    "durations": "21 async default-budget leaves ran 5.0-8.7 s and passed (max 8,709 ms, 29% of 30 s); NextEvent 'orients a cash stop' 24,865 ms of its explicit 30 s"
+  },
+  "gateReview": {
+    "record": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1343-J-u2-gate-attribution-review.md",
+      "bytes": 9449,
+      "sha256": "3c559998f5f4c5ccc4b978a29f21448ded5e77739a59ca682707c31269e9f823"
+    },
+    "verdict": "REFINE (eight fakes should be 21), answered",
+    "response": {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1343-F-parent-response-to-1343-J.md",
+      "bytes": 1576,
+      "sha256": "a62b1fd784dac6ebfea38552fda9c29ed15edeafb7d93d407fce1338f48c40a7"
+    }
+  },
+  "coreProject": "not re-gated: the edit touches only the ui block; the dry-run core probe still times out at 5,000 ms",
+  "openItems": [
+    "U3 (1349): identity-review fake view lacks hollywoodPerformance; reproduced; review 1349-D pending",
+    "1124-A NextEvent intermittent: passed in 1343, cause never isolated",
+    "three rgba-export tool-contract rows need numpy (not authorized; 1345-E)"
+  ]
+}
