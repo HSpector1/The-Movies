@@ -1014,6 +1014,24 @@ export const TUNING = {
   SHARED_MARKET_FACTOR_MAX_PENALTY: 0.25, // f(P) = 1 − 0.25·(1 − e^(−P/2)): (0.75, 1] exactly; float64 reaches 0.75 past P ≈ 72, so the tested range is [0.75, 1]
   SHARED_MARKET_PRESSURE_SCALE: 2, // the P scale in that exponent
   SHARED_MARKET_STUDIO_WINDOW_CAP: 1, // one release's worth: a studio's window pressure per genre is clamped here
+
+  // P15B Wave 1 corporate condition law `corporate-condition/v1` (src/core/corporateCondition.ts)
+  // and loan law `studio-loan/v1` (src/core/studioLoan.ts). PROVISIONAL TUNING under Owner
+  // ruling 3 of 1342-O and the delegated rule authoring of 1352-A §4.5 as amended by 1352-F;
+  // the Owner's playtest judges them. Every key is an integer > 0 (tests/p15b1-studio-loan
+  // tuning-bounded-terms). A change to a CORPORATE_* value changes the condition law: bump
+  // CORPORATE_CONDITION_VERSION with it. A change to a LOAN_* value changes the loan law: bump
+  // STUDIO_LOAN_VERSION with it.
+  CORPORATE_WARN_COVER_WEEKS: 4, // integer > 0; a week is low when cover (cash / obligations) is below this
+  CORPORATE_WARN_SUSTAIN_WEEKS: 4, // integer > 0; consecutive low weeks that move stable or recovery to warning
+  CORPORATE_CLEAR_WEEKS: 4, // integer > 0; consecutive clear weeks that move warning back to stable
+  CORPORATE_DISTRESS_SUSTAIN_WEEKS: 8, // integer > 0; consecutive negative-cash weeks that move warning to distress
+  CORPORATE_RECOVERY_STABLE_WEEKS: 13, // integer > 0; consecutive clear weeks that move recovery to stable
+  CORPORATE_CLOSURE_DISTRESS_WEEKS: 26, // integer > 0, equal to LOAN_MAX_FIXED_COST_WEEKS; distress weeks, with negative cash, that close a studio
+  LOAN_MAX_FIXED_COST_WEEKS: 26, // integer > 0, equal to CORPORATE_CLOSURE_DISTRESS_WEEKS; max principal = floor(26·fixed cost / step)·step
+  LOAN_TERM_WEEKS: 52, // integer > 0, at most LOAN_AMOUNT_STEP·(100 + LOAN_INTEREST_PERCENT)/100 (1,120), so no installment is 0
+  LOAN_INTEREST_PERCENT: 12, // integer > 0; flat over the term: total = principal·(100 + 12)/100
+  LOAN_AMOUNT_STEP: 1000, // integer > 0; principals are whole multiples, which keeps the flat interest an integer
 } as const
 
 // ── Placement Core V12 — the facility blueprint catalog ──────────────────────
