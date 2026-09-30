@@ -1,0 +1,254 @@
+[
+  {
+    "file": "tests/p14b10-conflict-evidence.test.ts",
+    "leaf": "P14B10 T1 \u2014 the new bindings exist > hasConflictEvidence is a function and RELATIONSHIP_CONFLICT_COMPETITIONS is the Owner's named 3",
+    "requirement": "D-1312-1 (1340-O-owner-rulings-20260929.md:59-63); PARENT API DECISIONS (brief-1348-rel-sliceA-red.md): new RELATIONSHIP_CONFLICT_COMPETITIONS=3, hasConflictEvidence()",
+    "redStatus": "fails",
+    "redReason": "hasConflictEvidence and RELATIONSHIP_CONFLICT_COMPETITIONS are absent from src/core/relationships.ts at BASE (existing module: vite binds the missing named export to undefined, not a resolution error). Measured: 'expected \"undefined\" to be \"function\"'. Unchanged since 1348-C."
+  },
+  {
+    "file": "tests/p14b10-conflict-evidence.test.ts",
+    "leaf": "P14B10 T1 \u2014 the new bindings exist > RELATIONSHIP_RULES_VERSION moves to 2",
+    "requirement": "1347-F-parent-relationship-charter-adoption.md Amendment 2 (:27-43); 1347-A \u00a73 (:86) \"RELATIONSHIP_RULES_VERSION moves to 2\"",
+    "redStatus": "fails",
+    "redReason": "RELATIONSHIP_RULES_VERSION is 1 at BASE (relationships.ts:38). Measured: 'expected 1 to be 2'. Unchanged since 1348-C."
+  },
+  {
+    "file": "tests/p14b10-conflict-evidence.test.ts",
+    "leaf": "tier law v2 > hasConflictEvidence is exactly sharedCompetitions >= RELATIONSHIP_CONFLICT_COMPETITIONS (boundary at 2 vs 3)",
+    "requirement": "PARENT API DECISION: hasConflictEvidence(edge: Pick<RelationshipEdge,'sharedCompetitions'>): boolean; D-1312-1",
+    "redStatus": "fails",
+    "redReason": "hasConflictEvidence is not a function at BASE. Unchanged since 1348-C."
+  },
+  {
+    "file": "tests/p14b10-conflict-evidence.test.ts",
+    "leaf": "tier law v2 > one competition in the Enemies band reads Strained",
+    "requirement": "1347-A \u00a75 negative case 1 (brief item 4, line 1): 'one competition with closeness in the Enemies band reads Strained'",
+    "redStatus": "control-passes",
+    "redReason": "Already true on unmodified source: V1's tierOf (relationships.ts:152-155) redirects EVERY value in the Enemies/Nemeses band to Strained unconditionally, regardless of sharedCompetitions. Kept as a regression guard, not a claim of new behavior. Unchanged since 1348-C."
+  },
+  {
+    "file": "tests/p14b10-conflict-evidence.test.ts",
+    "leaf": "tier law v2 > two competitions in the Enemies band reads Strained",
+    "requirement": "brief item 4, line 1: 'two competitions read Strained'",
+    "redStatus": "control-passes",
+    "redReason": "Same as the 1-competition case: V1 redirects unconditionally below the evidence threshold too. Unchanged since 1348-C."
+  },
+  {
+    "file": "tests/p14b10-conflict-evidence.test.ts",
+    "leaf": "tier law v2 > three competitions (the Owner's named threshold) in the Enemies band reads Enemies",
+    "requirement": "D-1312-1 (1340-O:59-63, 'initially three'); brief item 4, line 1: 'three read Enemies'",
+    "redStatus": "fails",
+    "redReason": "Measured (first assertion reached): hasConflictEvidence is not a function. Unchanged since 1348-C."
+  },
+  {
+    "file": "tests/p14b10-conflict-evidence.test.ts",
+    "leaf": "tier law v2 > three competitions with closeness at or below 10 reads Nemeses",
+    "requirement": "brief item 4, line 1: 'three with closeness \u2264 10 read Nemeses'",
+    "redStatus": "fails",
+    "redReason": "Measured: currentTier returns 'Strained' at BASE; expected 'Nemeses'. Unchanged since 1348-C."
+  },
+  {
+    "file": "tests/p14b10-conflict-evidence.test.ts",
+    "leaf": "tier law v2 > a pair with only flops/cancellations (no competitions) never reads Enemies, whatever the closeness",
+    "requirement": "brief item 4, line 2: 'a pair with only flops or cancellations ... never reads Enemies'",
+    "redStatus": "control-passes",
+    "redReason": "Already true on unmodified source. Unchanged since 1348-C."
+  },
+  {
+    "file": "tests/p14b10-conflict-evidence.test.ts",
+    "leaf": "tier law v2 > a pair with only flops/cancellations reports no conflict evidence",
+    "requirement": "brief item 4, line 2; PARENT API DECISION hasConflictEvidence",
+    "redStatus": "fails",
+    "redReason": "hasConflictEvidence is not a function at BASE. Unchanged since 1348-C."
+  },
+  {
+    "file": "tests/p14b10-conflict-evidence.test.ts",
+    "leaf": "tier law v2 > evidence never moves closeness: two edges differing ONLY in sharedCompetitions read the identical currentCloseness at every week",
+    "requirement": "1347-A \u00a72.2 (:37): 'Evidence only unlocks a band. It never moves closeness.'",
+    "redStatus": "control-passes",
+    "redReason": "Already true on unmodified source. Unchanged since 1348-C."
+  },
+  {
+    "file": "tests/p14b10-conflict-evidence.test.ts",
+    "leaf": "tier law v2 > recovery through positive drivers still works: closeness at a positive band reads its true tier regardless of evidence",
+    "requirement": "brief item 1: 'Recovery through positive drivers ... still works'",
+    "redStatus": "control-passes",
+    "redReason": "Already true on unmodified source. Unchanged since 1348-C."
+  },
+  {
+    "file": "tests/p14b10-conflict-evidence.test.ts",
+    "leaf": "tier law v2 > recovery keeps the evidence counter itself",
+    "requirement": "brief item 1: 'evidence kept'; PARENT API DECISION hasConflictEvidence",
+    "redStatus": "fails",
+    "redReason": "hasConflictEvidence is not a function at BASE. Unchanged since 1348-C."
+  },
+  {
+    "file": "tests/p14b10-conflict-evidence.test.ts",
+    "leaf": "tier law v2 > drift to Acquaintances at baseline still works with evidence kept",
+    "requirement": "brief item 1: 'drift to baseline still works, evidence kept'; 1347-A \u00a72.2 (:38) companion \u00a75.5:467",
+    "redStatus": "fails",
+    "redReason": "Measured: the leaf's own premise assertion currentTier(edge, lastEventWeek).toBe('Enemies') fails at BASE ('Strained' received). Unchanged since 1348-C."
+  },
+  {
+    "file": "tests/p14b10-conflict-evidence.test.ts",
+    "leaf": "tier law v2 > tiers read current closeness, never peakTier: a pair that peaked Inseparable and is now Enemies (with evidence) reads Enemies",
+    "requirement": "brief item 1: 'Tiers read current closeness, never peakTier'",
+    "redStatus": "fails",
+    "redReason": "Measured: currentTier returns 'Strained' at BASE regardless of peakTier or sharedCompetitions; expected 'Enemies'. Unchanged since 1348-C."
+  },
+  {
+    "file": "tests/p14b10-conflict-evidence.test.ts",
+    "leaf": "the real casting-competition route > pair (a,b) reaches sharedCompetitions = 3 with exactly the existing drivers (-3, -3+-1, -3+-2) and no extra kind or row",
+    "requirement": "brief item 4, line 3: 'the third competition applies exactly the existing drivers (\u22123 lost, \u22122 repeat cap) and no extra driver kind or row'",
+    "redStatus": "control-passes",
+    "redReason": "Already true on unmodified source: recordCastingCompetition (relationships.ts:363-406) is untouched by slice A. Measured: sharedCompetitions=3, closeness=38, recent=[castingCompetitionLost(-3), castingCompetitionLost(-3), repeatedCompetition(-1), castingCompetitionLost(-3), repeatedCompetition(-2)], no extra kind/row. Unchanged since 1348-C."
+  },
+  {
+    "file": "tests/p14b10-conflict-evidence.test.ts",
+    "leaf": "the real casting-competition route > the real 3-competition pair reports conflict evidence",
+    "requirement": "PARENT API DECISION hasConflictEvidence; D-1312-1",
+    "redStatus": "fails",
+    "redReason": "hasConflictEvidence is not a function at BASE. Unchanged since 1348-C."
+  },
+  {
+    "file": "tests/p14b10-conflict-evidence.test.ts",
+    "leaf": "D5 > a player issuer: both a close tie and an enemy on the roster reads `close ties here` (2)",
+    "requirement": "1347-F Amendment 2 (:27-43): 'with both on the roster, D5 reads close ties here (2)'",
+    "redStatus": "control-passes",
+    "redReason": "Unit-level documentation coverage (tiersOnRoster + a hand-copied combinator literal), not the settlement-level evidence -- see tests/p14b5-relationships.test.ts 'family 6b' and 'D5 REASON SENTENCE'. This leaf does not pin any relationships REASON SENTENCE text (it asserts only the numeric band 2 via the copied ternary), so 1348-F2's reason-sentence correction does not touch it. Unchanged since 1348-C2."
+  },
+  {
+    "file": "tests/p14b10-conflict-evidence.test.ts",
+    "leaf": "D5 > a player issuer: only an enemy on the roster reads `enemies here` (0)",
+    "requirement": "1347-F Amendment 2 (:27-43): 'with only an enemy, enemies here (0)'",
+    "redStatus": "fails",
+    "redReason": "Unit-level documentation coverage (see the row above). Asserts only the numeric band 0, not a settlement reason sentence, so 1348-F2 does not touch it. Measured: tiersOnRoster(state, subject, {enemy}, week) returns ['Strained'] at BASE; expected ['Enemies']. Unchanged since 1348-C2."
+  },
+  {
+    "file": "tests/p14b10-conflict-evidence.test.ts",
+    "leaf": "D5 > a rival issuer: both a close tie and an enemy on the roster reads `close ties here` (2)",
+    "requirement": "1347-F Amendment 2: '...for a player issuer and a rival issuer'",
+    "redStatus": "control-passes",
+    "redReason": "The ONLY rival-issuer coverage for the 'both present' case (band-level, not sentence-level). Unchanged since 1348-C2."
+  },
+  {
+    "file": "tests/p14b10-conflict-evidence.test.ts",
+    "leaf": "D5 > a rival issuer: only an enemy on the roster reads `enemies here` (0)",
+    "requirement": "1347-F Amendment 2: '...for a player issuer and a rival issuer'",
+    "redStatus": "fails",
+    "redReason": "The ONLY rival-issuer coverage for the enemy-only case (band-level, not sentence-level). Measured: tiersOnRoster returns ['Strained'] at BASE, expected ['Enemies']. Unchanged since 1348-C2."
+  },
+  {
+    "file": "tests/p14b10-mentor-label.test.ts",
+    "leaf": "P14B10 T1 \u2014 the new module and its exports exist > MENTOR_FIRST_PICTURES is the Owner's named 3 and mentorEvidence is a function",
+    "requirement": "HIS-014 (1340-O:80-90); PARENT API DECISION: new module src/core/relationshipLabels.ts (MENTOR_FIRST_PICTURES=3, mentorEvidence)",
+    "redStatus": "fails",
+    "redReason": "Per-leaf dynamic import (1346-C technique). Independently measured: 'Failed to load url ../src/core/relationshipLabels.js ... in .../tests/p14b10-mentor-label.test.ts. Does the file exist?', attributed to exactly this test. Unchanged since 1348-C2 (not touched by this revision's D5 reason-sentence scope)."
+  },
+  {
+    "file": "tests/p14b10-mentor-label.test.ts",
+    "leaf": "Mentor \u2014 the positive case > mentorEvidence names the real director, the three real productionIds in week order, and the real cohort receipt week",
+    "requirement": "HIS-014; 1347-A \u00a72.4 (:65); 1347-F Amendment 1 (:8-25) and qualifying-pictures note (:46-48)",
+    "redStatus": "fails",
+    "redReason": "Independently measured via this leaf's own dynamic import rejection. Unchanged since 1348-C2."
+  },
+  {
+    "file": "tests/p14b10-mentor-label.test.ts",
+    "leaf": "Mentor \u2014 negative and boundary cases > two of three sharing the director gives no label",
+    "requirement": "HIS-014: 'the same director directed ... the first three'; brief item 3: 'absent when two of three share the director'",
+    "redStatus": "fails",
+    "redReason": "Independently measured, this leaf's own dynamic-import rejection (module absent). Unchanged since 1348-C2."
+  },
+  {
+    "file": "tests/p14b10-mentor-label.test.ts",
+    "leaf": "Mentor \u2014 negative and boundary cases > a duplicate first take of one production counts once \u2014 the label still names the same three original productions",
+    "requirement": "1347-F qualifying-pictures note (:46-48); brief item 3: 'a duplicate first take of one production counts once'",
+    "redStatus": "fails",
+    "redReason": "Independently measured, this leaf's own dynamic-import rejection (module absent). Unchanged since 1348-C2."
+  },
+  {
+    "file": "tests/p14b10-mentor-label.test.ts",
+    "leaf": "Mentor \u2014 negative and boundary cases > fewer than three qualifying pictures gives no label",
+    "requirement": "brief item 3: 'absent when fewer than three qualifying pictures exist'",
+    "redStatus": "fails",
+    "redReason": "Independently measured, this leaf's own dynamic-import rejection (module absent). Unchanged since 1348-C2."
+  },
+  {
+    "file": "tests/p14b10-mentor-label.test.ts",
+    "leaf": "Mentor \u2014 genesis and authored-start > a genesis person with three staged same-director pictures still gets no label",
+    "requirement": "1347-F Amendment 1 (:20-23): genesis people excluded; brief item 3: 'Absent for genesis people'",
+    "redStatus": "fails",
+    "redReason": "Independently measured, this leaf's own dynamic-import rejection (module absent). Unchanged since 1348-C2."
+  },
+  {
+    "file": "tests/p14b10-mentor-label.test.ts",
+    "leaf": "Mentor \u2014 genesis and authored-start > an authored-start person (createCustomTalent) with three staged same-director pictures still gets no label",
+    "requirement": "1347-F Amendment 1 (:20-23): authored-start people excluded; brief item 3: 'authored-start people ... absent'",
+    "redStatus": "fails",
+    "redReason": "Independently measured, this leaf's own dynamic-import rejection (module absent). Unchanged since 1348-C2."
+  },
+  {
+    "file": "tests/p14b10-mentor-label.test.ts",
+    "leaf": "Mentor \u2014 reading the label is inert > reading mentorEvidence leaves state deep-equal before/after",
+    "requirement": "brief item 3: 'Reading the label leaves state byte-equal (deep-equal before/after)'",
+    "redStatus": "fails",
+    "redReason": "Independently measured, this leaf's own dynamic-import rejection (module absent). Unchanged since 1348-C2."
+  },
+  {
+    "file": "tests/p14b10-mentor-label.test.ts",
+    "leaf": "Mentor \u2014 reading the label is inert > reading mentorEvidence changes no chemistry/tier/trust reading for the Mentor pair",
+    "requirement": "brief item 3: 'No effect on closeness, trust, chemistry or skill (compare pairChemistry / tier / trust readers with and without a Mentor pair)'",
+    "redStatus": "fails",
+    "redReason": "Independently measured, this leaf's own dynamic-import rejection (module absent). Unchanged since 1348-C2."
+  },
+  {
+    "file": "tests/p14b5-relationships.test.ts",
+    "leaf": "P14B.5 T1 > the hypothesis constants carry the companion values named in the expansion and the ONE pinned relation (RELATIONSHIP_RULES_VERSION assertion at the edited line, orig :507)",
+    "requirement": "brief item 5: 'tests/p14b5-relationships.test.ts:507 ... pin RELATIONSHIP_RULES_VERSION to 1; update them to 2'; 1347-F Amendment 2",
+    "redStatus": "fails",
+    "redReason": "Unchanged since 1348-C. Classified 'moves by ruling (1347-F)'. Measured: RELATIONSHIP_RULES_VERSION is 1 at BASE; expected 2. Line is :510 in this patch."
+  },
+  {
+    "file": "tests/p14b5-relationships.test.ts",
+    "leaf": "family 4 \u2014 TIER RULE > eight members, byte-equal output for byte-equal input, and a value in the Enemies/Nemeses bands WITHOUT a conflict record reads Strained (RELATIONSHIP_RULES_VERSION assertion at the edited line, orig :753)",
+    "requirement": "brief item 5: 'tests/p14b5-relationships.test.ts:507 and :753 ... update them to 2'; 1347-F Amendment 2",
+    "redStatus": "fails",
+    "redReason": "Unchanged since 1348-C. Classified 'moves by ruling (1347-F)'. Measured: RELATIONSHIP_RULES_VERSION is 1 at BASE; expected 2, at the leaf's own first assertion. Line is :760 in this patch."
+  },
+  {
+    "file": "tests/p14b5-relationships.test.ts",
+    "leaf": "family 6b \u2014 D5 SETTLEMENT-LEVEL through the real bandsFor > a player issuer: both a close tie and an enemy (with conflict evidence) on the roster \u2014 settlement reads close ties here (2)",
+    "requirement": "1348-C2 (review 1348-D blocking defect 2); 1347-F Amendment 2 (:27-43): 'with both on the roster, D5 reads close ties here (2)'. Unaffected by 1348-F2 (winner band 2 sentence is unchanged). REVISED in 1348-C5 (parent rulings 1348-F4 item 1, production finding F1 against 1348-E): the leaf's own tier premise (closeness 11, sharedCompetitions 3) must read Enemies under v2 (D-1312-1, 1342-O item 8, 1347-F, tests/p14b10-conflict-evidence.test.ts:151); the OLD premise ('Strained', 'measured at BASE (v1)') silently pinned v1 and made this a false control. The settlement-level expectations below the premise are UNCHANGED and still correct under either law (the winner's band-2 close-ties sentence does not depend on this one edge's own tier reading).",
+    "redStatus": "fails",
+    "redReason": "REVISED in 1348-C5: no longer a control. Measured: expect(currentTier(enemyEdge, F6.W)).toBe('Enemies') fails at BASE (still v1): received 'Strained' at tests/p14b5-relationships.test.ts:1060. This is now the leaf's OWN first failing assertion (thrown before the settlement assertions below it ever run); the settlement path itself (both roster members present, player wins with the close-ties sentence) is unexercised at RED for this reason, same as every other leaf in this file whose first assertion is a premise. 1348-F4 item 1: 'when a leaf fails at RED, a later assertion can hide an intermediate premise that pins the old law.'"
+  },
+  {
+    "file": "tests/p14b5-relationships.test.ts",
+    "leaf": "family 6b \u2014 D5 SETTLEMENT-LEVEL through the real bandsFor > a player issuer: only the enemy (with conflict evidence) on the roster \u2014 settlement reads enemies here (0), the rival wins with the AT-ODDS sentence (1348-F2)",
+    "requirement": "REVISED in 1348-C3 per re-review 1348-D2 (ACCEPT, trace defect) and parent decision 1348-F2: the winner (r01) reads band 1 (\"none\"), not band 2, so the close-ties sentence 1348-C2 asserted was FALSE (r01's own roster holds no close tie). Corrected sentence: \"every other offer comes from a roster holding someone this person is at odds with\" (winner band 1 over a band-0 loser). REVISED in 1348-C5 (1348-F4 item 1): the tier premise on this same edge also moves from 'Strained' ('measured at BASE (v1)') to 'Enemies', for the identical reason as the sibling leaf above.",
+    "redStatus": "fails",
+    "redReason": "REVISED in 1348-C5: the leaf's FIRST failing assertion is now the tier premise itself, not the settlement receipt. Measured: expect(currentTier(enemyEdge, F6.W)).toBe('Enemies') fails at BASE (still v1): received 'Strained' at tests/p14b5-relationships.test.ts:1072, thrown before the settlement assertions below it ever run. The settlement-level defect this leaf also documents (recorded in 1348-C3's classification: at BASE the receipt reads {kind:'declined', reasons:[\"this person could not separate 2 equally ranked proposals.\"]} instead of {kind:'settled', studioId: base.r01, reasons:[\"every other offer comes from a roster holding someone this person is at odds with\"]}) is real and unchanged, but is no longer the line the test runner reports first; both are genuine v1-vs-v2 defects on the same edge."
+  },
+  {
+    "file": "tests/p14b5-relationships.test.ts",
+    "leaf": "D5 REASON SENTENCE \u2014 companion-copy test per branch > BRANCH 2 over 1: a close tie beats a roster holding no signal \u2014 reads the close-ties sentence, unchanged",
+    "requirement": "NEW in 1348-C3, parent decision 1348-F2: 'winner band 2 (close ties): \"their roster holds this person's close ties\", unchanged.' The record's own companion-copy convention: 'an order, band or copy accessor gets a companion-text test per branch in the slice that lands it.'",
+    "redStatus": "control-passes",
+    "redReason": "Already true on unmodified source AND unaffected by the v1/v2 evidence gate: winner (player, band 2 via a CloseFriends edge) beats r01 (naturally band 1, empty roster, no staging needed). Measured receipt: {kind:'settled', studioId: player, reasons:[\"their roster holds this person's close ties\"]}. This branch does not involve the Enemies band at all, so it is identical at BASE and under v2 -- a genuine, dedicated pin of the literal sentence text (which no PRIOR leaf, including the pre-existing family-6 close-tie test, asserted verbatim; that test only checks structural properties: length 1, no digit, no name)."
+  },
+  {
+    "file": "tests/p14b5-relationships.test.ts",
+    "leaf": "D5 REASON SENTENCE \u2014 companion-copy test per branch > BRANCH 2 over 0: the exported relationshipsReasonSentence(2) is the close-ties sentence, unchanged \u2014 the winner's own band governs, no loser band matters",
+    "requirement": "REVISED in 1348-C4 per parent dry run 1348-X3's requested change: the C3 settlement-path construction (a raw, ordinal-untracked IndustryEmployment row for r01) is a state stage()/makeSave() rejects (hollywoodValidation.ts:201). No lawful construction survives the tick either (finding below), so this branch moves to the new exported pure accessor relationshipsReasonSentence(band: 0|1|2): string in src/core/relationships.ts (this revision's PARENT API DECISION), tested via a dynamic import inside the leaf (the same technique tests/p14b10-mentor-label.test.ts's loadLabels() already uses for a new export on an existing module). 1347-F Amendment 2 / 1348-F2: 'winner band 2 (close ties): unchanged.'",
+    "redStatus": "fails",
+    "redReason": "FINDING (measured on this scratch tree, not in the patch): a row satisfying every hollywoodValidation.ts contract/ordinal/receipt requirement (correct contractId format hollywoodValidation.ts:176-177, matching IndustryReceipt hollywoodValidation.ts:522-523, genuine activeEmploymentOrdinals membership) DOES pass makeSave() (measured: saveVersion 42, no throw) -- so the SAVE validator is not the blocking check. The blocking check is src/core/hollywoodTick.ts:182-195 (staff()'s rival surplus-termination loop): any activeEmploymentOrdinals member of a rival business not filling one of the fixed RIVAL_TEAM_ROLES canonical slots (hollywoodTick.ts:127-159) or a research seat (:183) is terminated the SAME week unless seated on a live production/research seat or within TUNING.HIRING_TERMINATION_CAP_WEEKS of its own natural expiry (:187) -- measured directly: the staged row's own endedWeek reads the tick's processing week post-tick, and rosterAt(after, base.r01, F6.subject, F6.W) returns [] ; the row never reaches settlement, regardless of its own contract validity. Per the coordinator's fallback instruction, this branch is retargeted to relationshipsReasonSentence(2), which is not a function at BASE (measured: 'expected undefined to be function') -- genuine RED for the correct reason (the export does not exist yet), never reached at the assertion that would call it."
+  },
+  {
+    "file": "tests/p14b5-relationships.test.ts",
+    "leaf": "D5 REASON SENTENCE \u2014 companion-copy test per branch > BRANCH 1 over 0: a roster holding no signal beats a roster holding evidence-backed enemies \u2014 reads the NEW at-odds sentence",
+    "requirement": "NEW in 1348-C3, parent decision 1348-F2: 'winner band 1 over losers at band 0: \"every other offer comes from a roster holding someone this person is at odds with\".' Also asserts the sentence class (1348-F2: 'stays in the sentence class of :744-745: ordering only, naming no person, tier or number') -- no digit, no person/studio/tier name. REVISED in 1348-C5 (1348-F4 item 1): the tier premise on this leaf's own staged edge also moves from 'Strained' ('measured at BASE (v1)') to 'Enemies', for the identical reason as family 6b above (this leaf restages the identical scenario under a different describe block, the companion-copy convention).",
+    "redStatus": "fails",
+    "redReason": "REVISED in 1348-C5: the leaf's FIRST failing assertion is now the tier premise itself. Measured: expect(currentTier(enemyEdge, F6.W)).toBe('Enemies') fails at BASE (still v1): received 'Strained' at tests/p14b5-relationships.test.ts:1166, thrown before the sentence-class checks and the settlement assertions below it ever run. The sentence-class assertions (no digit, no name) and the settlement-level defect this leaf also documents (1348-C3's classification: receipt reads {kind:'declined', reasons:[the tie sentence]} instead of {kind:'settled', studioId: base.r01, reasons:['every other offer comes from a roster holding someone this person is at odds with']}) remain real and unchanged, but are unreached at RED; the test runner reports only the first thrown assertion."
+  }
+]
