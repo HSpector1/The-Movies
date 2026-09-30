@@ -66,7 +66,10 @@ export type HollywoodLeafValidators = {
 // R3 — `rivalTermination` is the Save41 era: the `termination` movement and a rival's
 // own termination end receipt exist only under it; every frozen reader keeps the
 // player-only rule and the old period keyset.
-export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>, research = false, plans: readonly PhysicalPlan[] = [], terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false): asserts value is HollywoodState | null {
+// P14D.1 — `rivalShelving` is the Save43 era: `screenplayShelving` on every business and
+// the `screenplayShelved` receipt exist only under it, and an unproduced screenplay is
+// active or shelved, never both; every frozen reader keeps "unproduced ⇔ active".
+export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>, research = false, plans: readonly PhysicalPlan[] = [], terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false, rivalShelving = false): asserts value is HollywoodState | null {
   const researchKinds = new Set<string>(RIVAL_RESEARCH_MONEY_KINDS)
   const moneyKinds = RIVAL_MONEY_KINDS.filter(kind =>
     (technology !== undefined || kind !== 'technologyAdoption') && (research || !researchKinds.has(kind)) && (rivalTermination || kind !== 'termination'))
@@ -222,7 +225,7 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
   for(const p of state.studio.activeProductions)verifyParticipants(p,false)
   for(const a of activeScriptWriterAssignments(state.scriptDevelopment,state.concepts))claimAssignment(a.talentId,`${h.playerStudioId}:${a.projectId}`)
   for (const b of h.businesses) {
-    exact(b,['studioId','entryKey','account','standing','operations','development','productions','activeScriptOrdinals','activeRunFilmOrdinals','releaseAuthority','runs','projects','nextDecisionWeek','policy'])
+    exact(b,['studioId','entryKey','account','standing','operations','development','productions','activeScriptOrdinals','activeRunFilmOrdinals','releaseAuthority','runs','projects','nextDecisionWeek','policy',...(rivalShelving?['screenplayShelving']:[])])
     requireFact(!businesses.has(b.studioId) && studios.get(b.studioId)?.role === 'rival' && studios.get(b.studioId)!.enteredWeek !== null,'duplicate/unknown business'); businesses.add(b.studioId)
     requireFact(b.entryKey === `${b.studioId}:entry`,'entry key mismatch'); integer(b.nextDecisionWeek); standing(b.standing)
     requireFact(b.nextDecisionWeek>=state.market.tick && b.nextDecisionWeek<=Math.max(state.market.tick,studios.get(b.studioId)!.enteredWeek!)+TUNING.HOLLYWOOD_DECISION_WEEKS,'decision boundary differs from actual cadence')
@@ -338,7 +341,32 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
     requireFact(b.activeScriptOrdinals.length<=2 && new Set(b.activeScriptOrdinals).size===b.activeScriptOrdinals.length, 'bounded unique active screenplay index')
     for(const i of b.activeScriptOrdinals){integer(i);requireFact(i<b.development.projects.length,'screenplay index out of bounds')}
     for(const i of b.activeRunFilmOrdinals){integer(i);requireFact(i<h.films.length,'run film index out of bounds')}
-    for(const [ordinal,p] of b.development.projects.entries()) requireFact(b.activeScriptOrdinals.includes(ordinal)===(p.status!=='produced'), 'active screenplay index differs from lifecycle')
+    // P14D.1 (Save43): counts name active ready screenplays; a shelved one is ready, out of the
+    // active index, and retried only after the week it was shelved. Both lists are sorted by ordinal.
+    const shelvedOrdinals=new Set<number>()
+    if(rivalShelving) {
+      const shelving:unknown=b.screenplayShelving
+      exact(shelving,['version','rejections','shelved','commissionHoldUntilWeek'])
+      requireFact(shelving.version===1,'screenplay shelving: unknown version')
+      list(shelving.rejections); list(shelving.shelved); integer(shelving.commissionHoldUntilWeek)
+      let prior=-1
+      for(const r of shelving.rejections) {
+        exact(r,['ordinal','count']); integer(r.ordinal); integer(r.count)
+        requireFact(r.ordinal>prior,'screenplay shelving: rejection counts are not sorted and unique by ordinal'); prior=r.ordinal
+        requireFact(r.count>=1&&r.count<=TUNING.HOLLYWOOD_SHELVE_AFTER_REJECTIONS,'screenplay shelving: a rejection count lies outside [1, the shelving threshold]')
+        requireFact(b.activeScriptOrdinals.includes(r.ordinal)&&b.development.projects[r.ordinal]?.status==='ready','screenplay shelving: a rejection count names a screenplay that is not active and ready')
+      }
+      prior=-1
+      for(const e of shelving.shelved) {
+        exact(e,['ordinal','week','retryWeek']); integer(e.ordinal); integer(e.week); integer(e.retryWeek)
+        requireFact(e.ordinal>prior,'screenplay shelving: shelved screenplays are not sorted and unique by ordinal'); prior=e.ordinal
+        requireFact(b.development.projects[e.ordinal]?.status==='ready','screenplay shelving: a shelved screenplay must be ready and unproduced')
+        requireFact(!b.activeScriptOrdinals.includes(e.ordinal),'screenplay shelving: a shelved screenplay is still in the active index')
+        requireFact(e.week<=state.market.tick&&e.retryWeek>e.week,'screenplay shelving: a retry week must follow its shelving week')
+        shelvedOrdinals.add(e.ordinal)
+      }
+    }
+    for(const [ordinal,p] of b.development.projects.entries()) requireFact((b.activeScriptOrdinals.includes(ordinal)||shelvedOrdinals.has(ordinal))===(p.status!=='produced'), 'active screenplay index differs from lifecycle')
     for(const [i,run] of b.runs.entries()) requireFact(h.films[b.activeRunFilmOrdinals[i]!]?.filmId===run.productionId, 'active run index differs from film identity')
     requireFact(b.activeRunFilmOrdinals.length===b.runs.length,'active run index size')
     shared.operations(b.operations,b.productions); shared.development(b.development)
@@ -445,8 +473,8 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
       laboratoryCommitted:research?['planId','facilityId']:undefined, laboratoryOperational:research?['facilityId']:undefined,
       instrumentOperational:research?['facilityId','technologyId']:undefined,
       researchSeatAssigned:research?['projectId','talentId']:undefined, researchCompleted:research?['projectId']:undefined,
-      // P14D.1: no era validates a shelving receipt yet.
-      screenplayShelved:undefined}[r.kind]
+      // P14D.1: a rival's shelving receipt exists only under the Save43 era.
+      screenplayShelved:rivalShelving?['scriptProjectId','conceptId','rejections']:undefined}[r.kind]
     requireFact(extra,'unknown receipt kind'); exact(r,[...base,'kind',...extra])
     integer(r.week); requireFact(r.week>=priorWeek&&r.week<=state.market.tick,'receipt chronology'); priorWeek=r.week
     const owner=studios.get(r.studioId)
@@ -505,9 +533,20 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
       const project=researchProjects.find(row=>row.id===r.projectId)
       requireFact(project&&project.studioId===r.studioId&&project.completedWeek===r.week,'completion receipt has no completed project')
     }
+    if(r.kind==='screenplayShelved') {
+      const business=businessById.get(r.studioId)
+      const ordinal=business?.development.projects.findIndex(p=>p.id===r.scriptProjectId)??-1
+      requireFact(business&&ordinal>=0&&business.projects[ordinal]?.conceptId===r.conceptId,'screenplayShelved receipt names no costed screenplay of its rival')
+      integer(r.rejections,1)
+      // Shelved now at the receipt's week, or since retried into a greenlight: never silently re-activated.
+      const entry=business.screenplayShelving.shelved.find(e=>e.ordinal===ordinal)
+      requireFact(entry?entry.week===r.week:business.development.projects[ordinal]!.status!=='ready','screenplayShelved receipt differs from the shelved screenplay')
+    }
     const key=r.kind==='employment'?`${r.kind}:${r.contractId}:${r.toStudioId===null?'end':'start'}`:r.kind==='studioEntered'?`${r.kind}:${r.studioId}`:r.kind==='technologyAdopted'?`${r.kind}:${r.adoptionId}`
+      :r.kind==='screenplayShelved'?`${r.kind}:${r.studioId}:${r.scriptProjectId}`
       :r.kind==='filmAnnounced'||r.kind==='filmReleased'||r.kind==='filmSettled'?`${r.kind}:${r.productionId}`:`${r.kind}:${r.eventId}`
     const rows=receiptGroups.get(key)??[];rows.push(r);receiptGroups.set(key,rows)
+    if(r.kind==='screenplayShelved')requireFact(rows.length===1,'a screenplay carries more than one screenplayShelved receipt')
   }
   requireFact(h.nextReceipt===h.receipts.length,'receipt sequence cannot be erased or have gaps')
   for(const adoption of technology?.adoptions ?? []) if(adoption.studioId!==h.playerStudioId&&adoption.operationalWeek!==null) requireFact(grouped('technologyAdopted',adoption.id).length===1,'missing or repeated public adoption consequence')
@@ -535,6 +574,10 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
   for(const b of h.businesses) for(const p of b.projects) {
     const announcements=p.productionId===null?[]:grouped('filmAnnounced',p.productionId)
     requireFact(p.announcedWeek===null ? announcements.length===0 : announcements.length===1 && announcements[0]!.kind==='filmAnnounced' && announcements[0]!.conceptId===p.conceptId && announcements[0]!.week===p.announcedWeek, 'announcement differs from actual commitment')
+  }
+  if(rivalShelving) for(const b of h.businesses) for(const e of b.screenplayShelving.shelved) {
+    const receipts=grouped('screenplayShelved',`${b.studioId}:${b.development.projects[e.ordinal]!.id}`)
+    requireFact(receipts.length===1&&receipts[0]!.week===e.week,'screenplay shelving: a shelved screenplay lacks its exact screenplayShelved receipt')
   }
   for(const f of h.films) if(f.provenance==='simulation/v1') {
     const releases=grouped('filmReleased',f.filmId)
