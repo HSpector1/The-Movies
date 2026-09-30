@@ -1,0 +1,11 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x3/tree
+
+ ✓ |core| tests/p15c-wave-r-retention.test.ts (6 tests) 58762ms
+   ✓ p15c wave R: retention guards over the six named roots (1353-A §4 row R) > wave-r-retention-studio-released-films 58598ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  07:42:09
+   Duration  65.96s (transform 4.67s, setup 0ms, collect 5.87s, tests 58.76s, environment 0ms, prepare 224ms)
+

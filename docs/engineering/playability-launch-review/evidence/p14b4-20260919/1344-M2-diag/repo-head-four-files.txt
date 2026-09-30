@@ -1,0 +1,398 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stderr | ui/src/lot/StudioLotScreen.test.tsx > StudioLotScreen — host lifecycle + accessible companion navigation > 5. + 6. pauses when the tab is hidden and resumes when visible
+An update to StudioLotScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to StudioLotScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ✓ |ui| ui/src/lot/WorldFirstStudioHome.test.tsx (33 tests) 37855ms
+   ✓ Studio Home V1 — App world-root navigation > routes accepted Start imports through the canonical founded/founding home matrix 2641ms
+   ✓ Studio Home V1 — App world-root navigation > routes successful Founding directly to the default Studio Home without Dashboard paint 1066ms
+   ✓ Studio Home V1 — App world-root navigation > restores a founded studio directly into the default-on Lot without a Dashboard render 415ms
+   ✓ Studio Home V1 — App world-root navigation > keeps the legacy Dashboard root under the explicit overview rollback 650ms
+   ✓ Studio Home V1 — App world-root navigation > opens Dashboard as a supporting surface and returns to the canonical Studio Home focus 673ms
+   ✓ Studio Home V1 — App world-root navigation > owns one exact Lot publicity successor and exposes only the accepted tier/week receipt boundary 1132ms
+   ✓ Studio Home V1 — App world-root navigation > returns explicit Publicity Dashboard details to fresh campaign context and demotes unrelated deep navigation 1564ms
+   ✓ Studio Home V1 — App world-root navigation > keeps exact save/RNG/ledger bytes and adds no autosave write across pure root navigation 1588ms
+   ✓ Studio Home V1 — App world-root navigation > carries Lot root through archived Clipping → Film Chronicle and direct Chronicle 3210ms
+   ✓ Studio Home V1 — App world-root navigation > discards old Lot origin and recovery notice on an accepted founded Saves import 845ms
+   ✓ Studio Home V1 — App world-root navigation > routes an accepted founding-draft Saves import to Founding, not either operating root 1612ms
+   ✓ Studio Home V1 — App world-root navigation > keeps Saves and its Lot origin after a rejected import 412ms
+   ✓ Studio Home V1 — App world-root navigation > carries Lot root through supporting Dashboard → Talent Creator 571ms
+   ✓ Studio Home V1 — App world-root navigation > carries Lot root through supporting Dashboard → Saves 306ms
+   ✓ Studio Home V1 — App world-root navigation > carries Lot root through supporting Dashboard → Calendar 776ms
+   ✓ Studio Home V1 — App world-root navigation > carries Lot root through supporting Dashboard → Recap 477ms
+   ✓ Studio Home V1 — App world-root navigation > carries Lot root through supporting Dashboard → Roster 497ms
+   ✓ Studio Home V1 — App world-root navigation > carries Lot root through supporting Dashboard → Casting 573ms
+   ✓ Studio Home V1 — App world-root navigation > carries Lot root through supporting Dashboard → Hiring 518ms
+   ✓ Studio Home V1 — App world-root navigation > carries Lot root through supporting Dashboard → Talent Hub 1272ms
+   ✓ Studio Home V1 — App world-root navigation > carries Lot root through supporting Dashboard → Studio Development 401ms
+   ✓ Studio Home V1 — App world-root navigation > returns from a building-origin deep screen with selected-building focus 518ms
+   ✓ Studio Home V1 — App world-root navigation > retains Lot root through the latent/visible assembly route 580ms
+   ✓ Studio Home V1 — App world-root navigation > retains Lot root through the latent/visible casting route 671ms
+   ✓ Studio Home V1 — App world-root navigation > retains Lot root through the latent/visible hiring route 628ms
+   ✓ Studio Home V1 — App world-root navigation > retains Lot root through the latent/visible hub route 934ms
+   ✓ Studio Home V1 — App world-root navigation > retains Lot root through the latent/visible saves route 462ms
+   ✓ Studio Home V1 — App world-root navigation > retains Lot root through the latent/visible studio development route 687ms
+   ✓ Studio Home V1 — App world-root navigation > keeps Hiring nested while Talent Creator retains the Lot root 790ms
+   ✓ Studio Home V1 — App world-root navigation > returns a no-release supporting-Dashboard advance to the Lot with advance-week focus 613ms
+   ✓ Studio Home V1 — App world-root navigation > preserves topbar focus through a supporting-Dashboard Sim result 4833ms
+   ✓ Studio Home V1 — App world-root navigation > preserves building focus through a supporting-Dashboard Sim result 5636ms
+ ❯ |ui| ui/src/lot/StudioLotScreen.test.tsx (61 tests | 1 failed) 61372ms
+   ✓ StudioLotScreen — host lifecycle + accessible companion navigation > 4. setSnapshot updates the view when GameState changes 324ms
+   ✓ StudioLotScreen — host lifecycle + accessible companion navigation > 8. repeated mount/unmount creates no duplicate live renderer 546ms
+   ✓ StudioLotScreen — host lifecycle + accessible companion navigation > 9. + 10. navigation emits a route only and never mutates GameState 319ms
+   ✓ StudioLotScreen — host lifecycle + accessible companion navigation > 13. companion items are semantic, keyboard-operable buttons that navigate 474ms
+   ✓ StudioLotScreen — host lifecycle + accessible companion navigation > keeps the Hollywood Annex parcel in the live lot and opens its exact context 1455ms
+   ✓ StudioLotScreen — host lifecycle + accessible companion navigation > 11. restores the selected building when returning to the lot 654ms
+   ✓ StudioLotScreen — host lifecycle + accessible companion navigation > 12b. the return-to-dashboard control is present and calls onExit 359ms
+   ✓ StudioLotScreen — host lifecycle + accessible companion navigation > owns a semantic page heading and obeys canonical and selected-building entry focus 653ms
+   ✓ StudioLotScreen — host lifecycle + accessible companion navigation > fails selected-building entry focus closed to the studio heading 412ms
+   ✓ StudioLotScreen — World-First Live Week Advance V1 host boundary > exposes one native intent and contains every down-event family before Phaser 343ms
+   ✓ StudioLotScreen — World-First Live Week Advance V1 host boundary > keeps the same focused renderer host through sequential authoritative snapshots 1592ms
+   ✓ StudioLotScreen — World-First Live Week Advance V1 host boundary > feeds the latest post-tick snapshot when renderer readiness arrives late 595ms
+   ✓ StudioLotScreen — World-First Live Week Advance V1 host boundary > records a scheduled Stage 7 take only after the authoritative weekly result 3662ms
+   ✓ StudioLotScreen — World-First Live Week Advance V1 host boundary > gives exact construction completion sole focus and suppresses duplicate Operational copy 1340ms
+   ✓ StudioLotScreen — World-First Live Week Advance V1 host boundary > dismisses the construction card, and a LATER completion still announces itself 2653ms
+   ✓ StudioLotScreen — World-First Live Week Advance V1 host boundary > suppresses Operational on the immediate deep return, then restores it on a fresh mount 1181ms
+   ✓ StudioLotScreen — World-First Live Week Advance V1 host boundary > keeps the semantic advance path when renderer construction fails 343ms
+   × StudioLotScreen — authoritative Hollywood operations host > moves Hollywood keyboard focus to each successor and announces the final take 1564ms
+     → expect(element).toHaveFocus()
+
+Expected element with focus:
+  <div
+  aria-atomic="true"
+  aria-live="polite"
+  class="hollywood-task-chain"
+  data-testid="hollywood-task-status-prod-0000"
+  role="status"
+  tabindex="-1"
+>
+  <span
+    class="done"
+  >
+    PHASE
+    <b>
+      Shooting
+    </b>
+  </span>
+  <i>
+    ›
+  </i>
+  <span
+    class="done"
+  >
+    TASK
+    <b>
+      scheduled
+    </b>
+  </span>
+  <i>
+    ›
+  </i>
+  <span
+    class="done"
+  >
+    STATUS
+    <b>
+      Take scheduled
+    </b>
+  </span>
+</div>
+Received element with focus:
+  <body>
+  <div>
+    <div
+      class="lot-screen lot-hollywood"
+      data-entry-focus="none"
+      data-testid="studio-lot-screen"
+    >
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-casting-review-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-production-formation-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-script-review-announcement"
+        role="status"
+      />
+      <header
+        class="lot-topbar"
+      >
+        <div
+          class="lot-brand"
+        >
+          <h1 … />
+          <span … />
+        </div>
+        <div
+          class="lot-topbar-actions"
+        >
+          <span … />
+          <button … />
+          <div … />
+          <button … />
+          <button … />
+        </div>
+      </header>
+      <div
+        class="lot-body"
+      >
+        <div
+          class="lot-stage-wrap"
+          data-guidance-target="none"
+        >
+          <div … />
+          <div … />
+          <div … />
+          <div … />
+          <section … />
+          <section … />
+          <div … />
+          <div … />
+        </div>
+        <nav
+          aria-label="Studio lot destinations"
+          class="lot-companion"
+          data-testid="lot-companion-nav"
+        >
+          <h2 … />
+          <p … />
+          <ul … />
+          <h3 … />
+          <ul … />
+        </nav>
+      </div>
+    </div>
+  </div>
+</body>
+   ✓ StudioLotScreen — authoritative Hollywood operations host > keeps renderer telemetry out of the ordinary-player Hollywood surface 398ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > shows an honestly idle managed studio — its OWN employees, no fabricated film, person, or task 559ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > renders exact operations facts and dispatches the exact snapshot command 484ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > selects and focuses the exact Stage 7 operation from a world event when Stage 12 is first 772ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > dispatches the field-exact Production Board command and yields a byte-identical outcome 1273ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > revalidates a production event against the latest full managed and engine predicate 1461ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > fails closed when an explicitly selected production disappears from the latest snapshot 810ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > preserves legacy two-production default and exact list selection outside the Stage 7 seam 898ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > C2a-M4: with no Stage 7 operation, the studio’s OTHER stage is heard 774ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > gives the Stage 7 blocker and companion Stage A button equivalent in-lot selection 1736ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > keeps complete SaveFileV11 and RNG bytes through camera and reduced-motion controls 1498ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > contains overlay mouse, touch, and pointer downs so Phaser cannot steal a world command 906ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > C2a-M4: a Stage 12 blocker becomes the same live control Stage 7’s always was 529ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > handles a rejected command once, preserves exact live error and selection, and clears stale focus 795ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > clears a prior command error after the next accepted engine outcome 683ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > retains the semantic Stage 7 command path when renderer construction fails 824ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > keeps a Soundstage 12 operation truthful in the inspector and dispatches no Stage 7 fiction 422ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > keeps a selected person and the production command in one two-film inspector context 2055ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > keeps all six exact company members selectable while only the assigned Director owns the call 3648ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > clears semantic and physical person ownership when a company identity becomes duplicated 1500ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > gives the exact physical polygon and semantic Administration companion one context, while hostile identity fails closed 1409ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > retains the complete semantic campaign when the renderer is unavailable and makes no physical claim 2028ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > converts an asynchronous Hollywood boot/runtime failure into the explicit semantic fallback 1993ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > rejects the second click of one native double-click gesture even when the first owner rejection clears pending synchronously 768ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > keeps every tier synchronously guarded while an accepted receipt waits for fresh parent truth 796ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > clears semantic and physical campaign selection when an accepted receipt names the wrong tier 971ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > clears semantic and physical campaign selection when an accepted receipt names the wrong week 975ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > keeps campaign controls out of unrelated contexts, then renders all three exact offers from Administration 950ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > names the presentation-owner boundary when an Engine-available offer has no host action 958ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > accepts once through the Lot-safe owner, then repaints exact successor accounting and all-tier cooldown truth 1287ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > produces the byte-exact existing Engine successor for an independent whisper Lot purchase 1513ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > produces the byte-exact existing Engine successor for an independent push Lot purchase 1699ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > produces the byte-exact existing Engine successor for an independent blitz Lot purchase 1522ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > shows authoritative unavailability without calling an action owner or mutating state 757ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > makes the complete Lot inert and blocks held/programmatic campaign actions while a profile modal is open 1881ms
+ ✓ |ui| ui/src/lot/livingTurn.scheduler.test.tsx (13 tests) 76954ms
+   ✓ Living Turn V1 — the transport > offers hold/roll and the whole pace ladder, paused at 1x 2556ms
+   ✓ Living Turn V1 — the transport > speaks about the studio, never about a scheduler 1372ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > commits ONE authoritative week per witnessed week and nothing else 4466ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > runs 12 consecutive weeks with ZERO input and lands byte-identically 18290ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > speed changes the PACE and nothing else — 4x is four weeks in one week s time 6049ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > holding stops the weeks, and the studio stays exactly where it was 6524ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > a hidden tab is a held studio — living time never advances what nobody watches 5336ms
+   ✓ Living Turn V1 — the partition, at the seam > auto-pauses on the FIRST PAUSE-class stop, at exactly the hand-advanced week 8865ms
+   ✓ Living Turn V1 — the partition, at the seam > a NOTIFY-class wrap reaches the bulletin and the loop keeps working 4489ms
+   ✓ Living Turn V1 — the partition, at the seam > the bulletin clears on request 2981ms
+   ✓ Living Turn V1 — the loop cannot stall silently, and the batch verb holds it > re-arms the week on screen when the cadence channel is cleared under a running loop 6152ms
+   ✓ Living Turn V1 — the loop cannot stall silently, and the batch verb holds it > the batch verb HOLDS the studio — a skipped batch was never witnessed time 5775ms
+   ✓ Living Turn V1 — the release week plays before its surfaces take over > the shipping week is witnessed, and the release surface follows it 4097ms
+ ✓ |ui| ui/src/lot/WorldFirstLiveWeekAdvance.test.tsx (9 tests) 30908ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > returns a real building-origin deep route to that exact companion focus 2276ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > pointer activation records Stage 7 through one exact App-owned tick 4093ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > keyboard activation records Stage 7 through one exact App-owned tick 3305ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > preserves the selected named person and production context through a same-world tick 4017ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > routes a real release without a Gazette to ReleaseResult and back to the initiating lot 2579ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > consumes the freshly rendered App state across two deliberate lot activations 4536ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > keeps reduced motion state/RNG/route/focus parity for an App-owned lot tick 2945ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > keeps the exact App-owned tick available when the renderer constructor fails 2607ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > returns from a no-Gazette ReleaseResult Autopsy to the initiating lot 4547ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |ui|  ui/src/lot/StudioLotScreen.test.tsx > StudioLotScreen — authoritative Hollywood operations host > moves Hollywood keyboard focus to each successor and announces the final take
+Error: expect(element).toHaveFocus()
+
+Expected element with focus:
+  <div
+  aria-atomic="true"
+  aria-live="polite"
+  class="hollywood-task-chain"
+  data-testid="hollywood-task-status-prod-0000"
+  role="status"
+  tabindex="-1"
+>
+  <span
+    class="done"
+  >
+    PHASE
+    <b>
+      Shooting
+    </b>
+  </span>
+  <i>
+    ›
+  </i>
+  <span
+    class="done"
+  >
+    TASK
+    <b>
+      scheduled
+    </b>
+  </span>
+  <i>
+    ›
+  </i>
+  <span
+    class="done"
+  >
+    STATUS
+    <b>
+      Take scheduled
+    </b>
+  </span>
+</div>
+Received element with focus:
+  <body>
+  <div>
+    <div
+      class="lot-screen lot-hollywood"
+      data-entry-focus="none"
+      data-testid="studio-lot-screen"
+    >
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-casting-review-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-production-formation-announcement"
+        role="status"
+      />
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        class="visually-hidden"
+        data-testid="lot-script-review-announcement"
+        role="status"
+      />
+      <header
+        class="lot-topbar"
+      >
+        <div
+          class="lot-brand"
+        >
+          <h1 … />
+          <span … />
+        </div>
+        <div
+          class="lot-topbar-actions"
+        >
+          <span … />
+          <button … />
+          <div … />
+          <button … />
+          <button … />
+        </div>
+      </header>
+      <div
+        class="lot-body"
+      >
+        <div
+          class="lot-stage-wrap"
+          data-guidance-target="none"
+        >
+          <div … />
+          <div … />
+          <div … />
+          <div … />
+          <section … />
+          <section … />
+          <div … />
+          <div … />
+        </div>
+        <nav
+          aria-label="Studio lot destinations"
+          class="lot-companion"
+          data-testid="lot-companion-nav"
+        >
+          <h2 … />
+          <p … />
+          <ul … />
+          <h3 … />
+          <ul … />
+        </nav>
+      </div>
+    </div>
+  </div>
+</body>
+ ❯ ui/src/lot/StudioLotScreen.test.tsx:930:20
+    928|     await waitFor(() => expect(status).toHaveTextContent('scheduled'))
+    929|     expect(status).toHaveAttribute('role', 'status')
+    930|     expect(status).toHaveFocus()
+       |                    ^
+    931|   })
+    932| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  1 failed | 115 passed (116)
+   Start at  07:40:08
+   Duration  89.23s (transform 9.84s, setup 2.02s, collect 27.07s, tests 207.09s, environment 8.93s, prepare 1.06s)
+
+exit 1

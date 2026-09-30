@@ -1,0 +1,76 @@
+tests/contracts/v14-boundary-guards.contract.test.ts(63,100): error TS2345: Argument of type 'SaveFileV43' is not assignable to parameter of type 'SaveFileV42'.
+  Type 'SaveFileV43' is not assignable to type '{ saveVersion: 42; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '43' is not assignable to type '42'.
+tests/helpers/p14c2b-fixtures.ts(69,106): error TS2345: Argument of type 'SaveFileV43' is not assignable to parameter of type 'SaveFileV42'.
+  Type 'SaveFileV43' is not assignable to type '{ saveVersion: 42; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '43' is not assignable to type '42'.
+tests/helpers/p14c3-canonical-rival-fixtures.ts(198,81): error TS2345: Argument of type 'SaveFileV43' is not assignable to parameter of type 'SaveFileV42'.
+  Type 'SaveFileV43' is not assignable to type '{ saveVersion: 42; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '43' is not assignable to type '42'.
+tests/helpers/p14c4-fixtures.ts(71,88): error TS2345: Argument of type 'SaveFileV43' is not assignable to parameter of type 'SaveFileV42'.
+  Type 'SaveFileV43' is not assignable to type '{ saveVersion: 42; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '43' is not assignable to type '42'.
+tests/p06a-w1-release-authority.test.ts(406,104): error TS2345: Argument of type 'SaveFileV43' is not assignable to parameter of type 'SaveFileV42'.
+  Type 'SaveFileV43' is not assignable to type '{ saveVersion: 42; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '43' is not assignable to type '42'.
+tests/p12-starting-world.test.ts(52,60): error TS2345: Argument of type 'SaveFileV43' is not assignable to parameter of type 'SaveFileV42'.
+  Type 'SaveFileV43' is not assignable to type '{ saveVersion: 42; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '43' is not assignable to type '42'.
+tests/p14b4-material-evidence-core.test.ts(293,9): error TS2322: Type 'SaveFileV43' is not assignable to type 'SaveFileV42'.
+  Type 'SaveFileV43' is not assignable to type '{ saveVersion: 42; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '43' is not assignable to type '42'.
+tests/p14c2rm-writer-continuation.test.ts(247,114): error TS2345: Argument of type 'SaveFileV43' is not assignable to parameter of type 'SaveFileV42'.
+  Type 'SaveFileV43' is not assignable to type '{ saveVersion: 42; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '43' is not assignable to type '42'.
+tests/p14c3-cohort-transition.test.ts(281,98): error TS2345: Argument of type 'SaveFileV43' is not assignable to parameter of type 'SaveFileV42'.
+  Type 'SaveFileV43' is not assignable to type '{ saveVersion: 42; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '43' is not assignable to type '42'.
+tests/p14c3-dual-extensions.test.ts(172,98): error TS2345: Argument of type 'SaveFileV43' is not assignable to parameter of type 'SaveFileV42'.
+  Type 'SaveFileV43' is not assignable to type '{ saveVersion: 42; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '43' is not assignable to type '42'.
+tests/p14c3-offmenu-extensions.test.ts(229,98): error TS2345: Argument of type 'SaveFileV43' is not assignable to parameter of type 'SaveFileV42'.
+  Type 'SaveFileV43' is not assignable to type '{ saveVersion: 42; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '43' is not assignable to type '42'.
+tests/p14c3-profession-history.test.ts(112,123): error TS2345: Argument of type 'SaveFileV43' is not assignable to parameter of type 'SaveFileV42'.
+  Type 'SaveFileV43' is not assignable to type '{ saveVersion: 42; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '43' is not assignable to type '42'.
+tests/p14c3-promise-digest-continuity.test.ts(279,103): error TS2345: Argument of type 'SaveFileV43' is not assignable to parameter of type 'SaveFileV42'.
+  Type 'SaveFileV43' is not assignable to type '{ saveVersion: 42; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '43' is not assignable to type '42'.
+tests/p14p3-directing-promises.test.ts(380,68): error TS2345: Argument of type 'SaveFileV43' is not assignable to parameter of type 'SaveFileV42'.
+  Type 'SaveFileV43' is not assignable to type '{ saveVersion: 42; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '43' is not assignable to type '42'.
+tests/p14p3-directing-promises.test.ts(683,69): error TS2345: Argument of type 'SaveFileV43' is not assignable to parameter of type 'SaveFileV42'.
+  Type 'SaveFileV43' is not assignable to type '{ saveVersion: 42; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '43' is not assignable to type '42'.
+tests/p14p4p5-opportunities.test.ts(796,84): error TS2345: Argument of type 'SaveFileV43' is not assignable to parameter of type 'SaveFileV42'.
+  Type 'SaveFileV43' is not assignable to type '{ saveVersion: 42; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '43' is not assignable to type '42'.
+tests/p14p4p5-screenplay-status.test.ts(320,75): error TS2345: Argument of type 'SaveFileV43' is not assignable to parameter of type 'SaveFileV42'.
+  Type 'SaveFileV43' is not assignable to type '{ saveVersion: 42; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '43' is not assignable to type '42'.
+tests/save.test.ts(370,104): error TS2345: Argument of type 'SaveFileV43' is not assignable to parameter of type 'SaveFileV42'.
+  Type 'SaveFileV43' is not assignable to type '{ saveVersion: 42; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '43' is not assignable to type '42'.
+tests/save.test.ts(419,104): error TS2345: Argument of type 'SaveFileV43' is not assignable to parameter of type 'SaveFileV42'.
+  Type 'SaveFileV43' is not assignable to type '{ saveVersion: 42; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '43' is not assignable to type '42'.

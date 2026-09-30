@@ -1,0 +1,222 @@
+{
+ "new": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-I2-ui-failures.json",
+ "base": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1343-I-failures.json",
+ "counts": {
+  "NEW": 15,
+  "CHANGED": 3,
+  "GONE": 7
+ },
+ "newByFile": {
+  "ui/src/screens/StudioCalendar.career.test.tsx": 3,
+  "ui/src/session.test.tsx": 3,
+  "ui/src/engine/d17-save-migration.test.ts": 2,
+  "ui/src/engine/film-chronicle-adapter.test.ts": 1,
+  "ui/src/lot/StudioLotScreen.test.tsx": 1,
+  "ui/src/lot/WorldFirstLiveWeekAdvance.test.tsx": 1,
+  "ui/src/lot/WorldFirstStudioHome.test.tsx": 1,
+  "ui/src/lot/livingTurn.scheduler.test.tsx": 1,
+  "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts": 1,
+  "ui/src/saves.test.tsx": 1
+ },
+ "rows": [
+  {
+   "identity": "ui/src/engine/d17-save-migration.test.ts > D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a CURRENT-version save round-trips through the adapter as NOT converted",
+   "file": "ui/src/engine/d17-save-migration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected 43 to be 42 // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/engine/d17-save-migration.test.ts:131:42"
+  },
+  {
+   "identity": "ui/src/engine/d17-save-migration.test.ts > D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a literal V8 save upgrades to V16 with legacy screenplay, casting, construction, placement, and property state",
+   "file": "ui/src/engine/d17-save-migration.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected 43 to be 42 // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/engine/d17-save-migration.test.ts:155:61"
+  },
+  {
+   "identity": "ui/src/engine/film-chronicle-adapter.test.ts > Film Chronicle V1 \u2014 real adapter wiring > uses current market week as the chronology gate and reconstructs deeply after V13 reload",
+   "file": "ui/src/engine/film-chronicle-adapter.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected 43 to be 42 // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/engine/film-chronicle-adapter.test.ts:289:71"
+  },
+  {
+   "identity": "ui/src/lot/StudioLotScreen.test.tsx > StudioLotScreen \u2014 authoritative Hollywood operations host > moves Hollywood keyboard focus to each successor and announces the final take",
+   "file": "ui/src/lot/StudioLotScreen.test.tsx",
+   "status": "NEW",
+   "primary": "Error: expect(element).toHaveFocus()",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/lot/StudioLotScreen.test.tsx:930:20"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstLiveWeekAdvance.test.tsx > World-First Live Week Advance V1 \u2014 App authority and routing > returns a real building-origin deep route to that exact companion focus",
+   "file": "ui/src/lot/WorldFirstLiveWeekAdvance.test.tsx",
+   "status": "NEW",
+   "primary": "TestingLibraryElementError: Unable to find an element by: [data-testid=\"studio-lot-screen\"]",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/lot/WorldFirstLiveWeekAdvance.test.tsx:176:18"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstStudioHome.test.tsx > Studio Home V1 \u2014 App world-root navigation > carries Lot root through supporting Dashboard \u2192 Talent Hub",
+   "file": "ui/src/lot/WorldFirstStudioHome.test.tsx",
+   "status": "NEW",
+   "primary": "Error: Test timed out in 30000ms.",
+   "basePrimary": null,
+   "timeout": true,
+   "frame": null
+  },
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 6. output is truecolour RGBA with no PLTE/tRNS, alpha preserved exactly",
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "status": "CHANGED",
+   "primary": "Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/scripts/art/authored-asset-pipeline.py rgba-export --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-kAiaPQ/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-kAiaPQ/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-kAiaPQ --stem t --colours 16",
+   "basePrimary": "Error: Command failed: python3 -c",
+   "timeout": false,
+   "frame": "ui/src/lot/authored-rgba-export.test.ts:138:7"
+  },
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 7. repeated runs are byte-identical",
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "status": "CHANGED",
+   "primary": "Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/scripts/art/authored-asset-pipeline.py rgba-export --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-4lTSeA/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-4lTSeA/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-4lTSeA/a --stem t --colours 16",
+   "basePrimary": "Error: Command failed: python3 -c",
+   "timeout": false,
+   "frame": "ui/src/lot/authored-rgba-export.test.ts:164:9"
+  },
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 8. the historical PNG-8 path is still available and clearly separate",
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "status": "CHANGED",
+   "primary": "Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/scripts/art/authored-asset-pipeline.py quantize --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-gWdFc0/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-gWdFc0/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-gWdFc0 --stem q",
+   "basePrimary": "Error: Command failed: python3 -c",
+   "timeout": false,
+   "frame": "ui/src/lot/authored-rgba-export.test.ts:178:7"
+  },
+  {
+   "identity": "ui/src/lot/livingTurn.scheduler.test.tsx > Living Turn V1 \u2014 time flows while unpaused (the Owner s acceptance) > runs 12 consecutive weeks with ZERO input and lands byte-identically",
+   "file": "ui/src/lot/livingTurn.scheduler.test.tsx",
+   "status": "NEW",
+   "primary": "Error: Test timed out in 15000ms.",
+   "basePrimary": null,
+   "timeout": true,
+   "frame": null
+  },
+  {
+   "identity": "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts > C2a-M2 \u2014 a save round-trips as V15, roots and all > exports V15 and imports it back with the four C2a roots intact",
+   "file": "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts",
+   "status": "NEW",
+   "primary": "AssertionError: expected 43 to be 42 // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts:46:42"
+  },
+  {
+   "identity": "ui/src/saves.test.tsx > saves: export \u2192 import round-trips the EXACT state > importSaveJson(exportSaveJson(state)) has a serialized form equal to the original",
+   "file": "ui/src/saves.test.tsx",
+   "status": "NEW",
+   "primary": "AssertionError: expected 43 to be 42 // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/saves.test.tsx:126:42"
+  },
+  {
+   "identity": "ui/src/screens/StudioCalendar.career.test.tsx > C.3 recent career facts use existing Calendar identity routes > U1 renders genuine change/finality names and dates, retains age12, and removes age13 news",
+   "file": "ui/src/screens/StudioCalendar.career.test.tsx",
+   "status": "NEW",
+   "primary": "AssertionError: expected 43 to be 42 // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/screens/StudioCalendar.career.test.tsx:29:23"
+  },
+  {
+   "identity": "ui/src/screens/StudioCalendar.career.test.tsx > C.3 recent career facts use existing Calendar identity routes > U2 App opens the exact off-roster career profile and restores focus without post-hydration writes",
+   "file": "ui/src/screens/StudioCalendar.career.test.tsx",
+   "status": "NEW",
+   "primary": "AssertionError: expected 43 to be 42 // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/screens/StudioCalendar.career.test.tsx:29:23"
+  },
+  {
+   "identity": "ui/src/screens/StudioCalendar.career.test.tsx > C.3 recent career facts use existing Calendar identity routes > U3 actual208 expiry explains its stop while Scientist finality alone adds no automatic stop",
+   "file": "ui/src/screens/StudioCalendar.career.test.tsx",
+   "status": "NEW",
+   "primary": "AssertionError: expected 43 to be 42 // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/screens/StudioCalendar.career.test.tsx:29:23"
+  },
+  {
+   "identity": "ui/src/session.test.tsx > D-17A fix-pass \u2014 a stored V5 autosave migrates on load > a NEVER-ENGAGED headless V5 session restores with the flag false",
+   "file": "ui/src/session.test.tsx",
+   "status": "NEW",
+   "primary": "AssertionError: expected 43 to be 42 // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/session.test.tsx:360:79"
+  },
+  {
+   "identity": "ui/src/session.test.tsx > D-17A fix-pass \u2014 a stored V5 autosave migrates on load > an ENGAGED V5 session restores with the flag true and the converted banner",
+   "file": "ui/src/session.test.tsx",
+   "status": "NEW",
+   "primary": "AssertionError: expected 43 to be 42 // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/session.test.tsx:332:79"
+  },
+  {
+   "identity": "ui/src/session.test.tsx > Script Projects V1 \u2014 a stored V8 autosave migrates on load > preserves operations, seeds legacy screenplay and casting state, then re-saves as V15",
+   "file": "ui/src/session.test.tsx",
+   "status": "NEW",
+   "primary": "AssertionError: expected 43 to be 42 // Object.is equality",
+   "basePrimary": null,
+   "timeout": false,
+   "frame": "ui/src/session.test.tsx:387:35"
+  }
+ ],
+ "gone": [
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > current production authored export \u2014 the shipped Stage B assets > 3. the RGB channel is reduced to the recovered 128-colour contract",
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "basePrimary": "Error: Command failed: python3 -c"
+  },
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > current production authored export \u2014 the shipped Stage B assets > 4. alpha is bit-identical between the two finishes",
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "basePrimary": "Error: Command failed: python3 -c"
+  },
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > current production authored export \u2014 the shipped Stage B assets > 5. alpha is genuinely lossless, not collapsed into a palette-sized set",
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "basePrimary": "Error: Command failed: python3 -c"
+  },
+  {
+   "identity": "ui/src/lot/authored-stage-a.test.ts > Stage A \u2014 the committed assets satisfy the CURRENT production export contract > 4. the RGB channel carries the recovered 128-colour contract",
+   "file": "ui/src/lot/authored-stage-a.test.ts",
+   "basePrimary": "Error: Command failed: python3 -c"
+  },
+  {
+   "identity": "ui/src/lot/authored-stage-a.test.ts > Stage A \u2014 the committed assets satisfy the CURRENT production export contract > 5. alpha is bit-identical between the two finishes",
+   "file": "ui/src/lot/authored-stage-a.test.ts",
+   "basePrimary": "Error: Command failed: python3 -c"
+  },
+  {
+   "identity": "ui/src/lot/authored-stage-a.test.ts > Stage A \u2014 the committed assets satisfy the CURRENT production export contract > 6. alpha is lossless, not collapsed into a palette-sized set",
+   "file": "ui/src/lot/authored-stage-a.test.ts",
+   "basePrimary": "Error: Command failed: python3 -c"
+  },
+  {
+   "identity": "ui/src/lot/authored-stage-a.test.ts > Stage A \u2014 the committed assets satisfy the CURRENT production export contract > 7. registration is the approved one \u2014 inset, with a forecourt",
+   "file": "ui/src/lot/authored-stage-a.test.ts",
+   "basePrimary": "Error: Command failed: python3 -c"
+  }
+ ]
+}
