@@ -1,0 +1,46 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1344-x4/tree
+
+ ✓ |core| tests/p14d1-rival-shelving-save-v43.test.ts (18 tests) 15017ms
+   ✓ save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration > genuine V42 week-100 input migrates to V43 with the empty screenplayShelving state on every business, and validates 928ms
+   ✓ save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration > genuine V42 week-130 input migrates to V43 with the empty screenplayShelving state on every business, and validates 789ms
+   ✓ save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration > migrateToLive carries a genuine V42 save to V43 (LIVE_SAVE_VERSION) 530ms
+   ✓ save-v43-shelving: save/load in the middle of a count continues byte-identically > ticking 7 weeks, then round-tripping through export/import at count 7, then ticking 5 more weeks, matches an uninterrupted 12-week tick byte-for-byte 8901ms
+   ✓ save-v43-shelving: the validator rejects each inconsistent state > rejects a shelved entry naming an ordinal that is ALSO active 364ms
+   ✓ save-v43-shelving: down-conversion (convertV43ToV42) > accepts the empty screenplayShelving state (round-trips losslessly, Save41 pattern) 1044ms
+   ✓ save-v43-shelving: down-conversion (convertV43ToV42) > refuses a real rejection count by name 315ms
+ ✓ |core| tests/p14d1-rival-shelving.test.ts (28 tests) 52623ms
+   ✓ searchIndustryPackages counts contract (1344-D Blocking 1) > on a captured genuine economic-rejection call: choice matches chooseIndustryPackage; affordable+unaffordable equals the independently-derived candidate count (never the literal 54); viable<=affordable; (choice===null)===(viable===0) 1596ms
+   ✓ searchIndustryPackages counts contract (1344-D Blocking 1) > decide-level: a partly cash-constrained week (cash strictly between the cheapest and dearest real candidate cost) reads cashBlocked — the rejection count stays unchanged 1233ms
+   ✓ shelving-stalled-route (1344-A §6.1) > a stalled rival with staff and cash available shelves after exactly 13 evaluated economic rejections; the week is derived from receipts, never hard-coded 7121ms
+   ✓ shelving-blocked-weeks-hold (1344-A §6.2) > staffingBlocked weeks (no seatable triple that survives staff()) leave the rejection count unchanged and evaluate no package 1148ms
+   ✓ shelving-blocked-weeks-hold (1344-A §6.2) > cashBlocked weeks (cash below every candidate) leave the rejection count unchanged 1210ms
+   ✓ shelving-blocked-weeks-hold (1344-A §6.2) > a week with a running production evaluates nothing (count unchanged while productions.length>0; resumes after) 1886ms
+   ✓ shelving-blocked-weeks-hold (1344-A §6.2) > a mixed sequence (staffing-blocked, then economic rejections) shelves only after 13 economic rejections, never 13 calendar weeks 2666ms
+   ✓ shelving-viable-control (1344-F Amendment 2) > genesis to week 93: with screenplayShelving stripped from every business, state equals the genuine week-93 input migrated by convertV42ToV43 (also stripped); receipts identical; the leaf asserts its own premise that no shelving has happened yet and that the first screenplayShelved receipt falls strictly after this state, never a hard-coded week 7892ms
+   ✓ shelving-viable-control (1344-F Amendment 2) > a business with at least one recorded greenlight and zero economic rejections in the first 5 weeks keeps the empty screenplayShelving state 1256ms
+   ✓ shelving-commission-hold (1344-A §6.4) > no new development project for the shelving studio during its commission hold; commissionHoldUntilWeek is exactly week+HOLD; a commission is not permanently blocked 5391ms
+   ✓ shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > no retry before retryWeek 1253ms
+   ✓ shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > a viable retry re-enters the slot and greenlights, removing the shelved entry 926ms
+   ✓ shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > an unviable retry advances retryWeek and stays shelved (and never re-enters the slot, so it cannot be shelved twice) 872ms
+   ✓ shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > no retry without a free slot (both original ordinals stay active, and a synthetic third due-shelved entry is not promoted) 737ms
+   ✓ shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > at most one retry per decision: two shelved-and-due entries in the same week advance at most one 1191ms
+   ✓ shelving-promise-guard (1344-A §3.3) > an open SPECIFIC_PROJECT promise naming the screenplay defers shelving (count held at 13); shelving proceeds at the next economic rejection after it settles 3160ms
+   ✓ rivalPromiseProjectCandidates (1344-X2 parent API decision; covers 1344-A §6 item 7(c)) > a shelved screenplay is absent from the candidates 603ms
+   ✓ rivalPromiseProjectCandidates (1344-X2 parent API decision; covers 1344-A §6 item 7(c)) > with nothing shelved, the result equals the first two non-produced screenplays by id 963ms
+   ✓ shelving-feasibility-readers (1344-A §3.6) > a shelved screenplay changes the feasibility digest (unproducedScripts must stop counting it, promises.ts:410-411) 904ms
+   ✓ shelving-feasibility-readers (1344-A §3.6) > opportunity paths mark a shelved screenplay impossible with reason "the named script project is shelved" 927ms
+   ✓ shelving-chart-output (1344-A §6.8) > the 13-week chart row equals released (produced) films with a shelved screenplay present, and the state validates 4329ms
+   ✓ shelving-player-symmetry (1344-A §3.6, control at RED) > no screenplayShelved receipt ever names the player studio, across a long natural route 5351ms
+ ✓ |core| tests/p14d1-rival-shelving-natural.test.ts (5 tests) 85582ms
+   ✓ shelving-natural-route (1344-F Amendment 3): week 130 -> week 260 on p13a-core-causal-01 > at least one screenplayShelved receipt occurs 16929ms
+   ✓ shelving-natural-route (1344-F Amendment 3): week 130 -> week 260 on p13a-core-causal-01 > no commission by a shelving studio within 13 weeks after any of its shelvings 13233ms
+   ✓ shelving-natural-route (1344-F Amendment 3): week 130 -> week 260 on p13a-core-causal-01 > every shelved screenplay keeps its ScriptProject and cost row through the final week 16419ms
+   ✓ shelving-natural-route (1344-F Amendment 3): week 130 -> week 260 on p13a-core-causal-01 > per studio, at most four shelvings in any 52-week window 15106ms
+   ✓ determinism (1344-A §6 item 12): two runs of the natural route are byte-identical > exportSave(makeSave(...)) is identical across two independent runs of the same 130-week route 23894ms
+
+ Test Files  3 passed (3)
+      Tests  51 passed (51)
+   Start at  02:48:36
+   Duration  90.81s (transform 3.92s, setup 0ms, collect 11.81s, tests 153.22s, environment 1ms, prepare 961ms)
+

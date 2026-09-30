@@ -1,0 +1,410 @@
+[
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "API decisions this file exercises > TUNING.HOLLYWOOD_SHELVE_AFTER_REJECTIONS is a positive integer, 13",
+    "requirement": "1344-C brief PARENT API DECISIONS (TUNING); 1344-A §5",
+    "redStatus": "fails",
+    "redReason": "TUNING.HOLLYWOOD_SHELVE_AFTER_REJECTIONS is undefined at BASE: typeof v === 'undefined', not 'number'.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "API decisions this file exercises > TUNING.HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS is a positive integer, 13",
+    "requirement": "1344-C brief PARENT API DECISIONS (TUNING); 1344-A §5",
+    "redStatus": "fails",
+    "redReason": "TUNING.HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS is undefined at BASE.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "API decisions this file exercises > TUNING.HOLLYWOOD_SHELVED_RETRY_WEEKS is a positive integer, 26",
+    "requirement": "1344-C brief PARENT API DECISIONS (TUNING); 1344-A §5",
+    "redStatus": "fails",
+    "redReason": "TUNING.HOLLYWOOD_SHELVED_RETRY_WEEKS is undefined at BASE.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "API decisions this file exercises > hollywoodPolicy.searchIndustryPackages exists as a function",
+    "requirement": "1344-C brief PARENT API DECISIONS (hollywoodPolicy); 1344-A §3.1",
+    "redStatus": "fails",
+    "redReason": "hollywoodPolicy.searchIndustryPackages is undefined at BASE.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "API decisions this file exercises > save.ts LIVE_SAVE_VERSION is 43, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist",
+    "requirement": "1344-C brief PARENT API DECISIONS (save.ts); 1344-A §4",
+    "redStatus": "fails",
+    "redReason": "saveModule.LIVE_SAVE_VERSION is 42 at BASE, not 43 (the first assertion in this leaf, so the function-existence checks after it never execute).",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "API decisions this file exercises > talentMarket.rivalPromiseProjectCandidates exists as a function (1344-X2)",
+    "requirement": "1344-X2 parent API decision; 1344-D Blocking 2; 1344-A §6 item 7(c)",
+    "redStatus": "fails",
+    "redReason": "talentMarket.rivalPromiseProjectCandidates is undefined at BASE.",
+    "revision": "1344-C2 NEW"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "shelving-stalled-route > a stalled rival with staff and cash available shelves after exactly 13 evaluated economic rejections; the week is derived from receipts, never hard-coded",
+    "requirement": "1344-A §3.1-3.2, §6 item 1",
+    "redStatus": "fails",
+    "redReason": "No screenplayShelved receipt for studio-aca408ec-r01 ever appears within the 16-week search bound; the route/RED-premise assertion 'shelvingWeek not null' fails (shelvingWeek stays null) because the shelving law does not exist yet. Unaffected by the 1344-C3 fix below (not reached at RED): re-confirmed failing for the same premise reason on unchanged HEAD 78af2754/cd9797ed.",
+    "revision": "1344-C3 REVISED (1344-E correction 1 / 1344-F3): the per-receipt 'exactly one receipt this week for this screenplay' assertion filtered by scriptProjectId only; canonicalScriptProjectId(ordinal) repeats across rival studios, so another studio's same-ordinal receipt the same week could have hidden a real over-count at r01. Now filters by studioId AND scriptProjectId."
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "shelving-blocked-weeks-hold > staffingBlocked weeks (no seatable triple that survives staff()) leave the rejection count unchanged and evaluate no package",
+    "requirement": "1344-A §3.1, §6 item 2",
+    "redStatus": "fails",
+    "redReason": "TypeError: Cannot read properties of undefined (reading 'rejections') — business.screenplayShelving does not exist at BASE, so reading it after even the first plain (non-hand-edited) tick throws. Unaffected by the 1344-C3 fix below (fails earlier, at the same warm-up read): re-confirmed failing for the same reason on unchanged HEAD 78af2754/cd9797ed.",
+    "revision": "1344-C3 REVISED (1344-E corrections 2/3 / 1344-F3): ending one actor's employment alone does not reproduce staffingBlocked, because staff() runs before decide() in the same weekly pass and re-hires into the vacant slot before decide() ever reads the roster. Now also drives r01's cash to the pre-hire reserve+1 (rivalWeeklyOperatingCost(...) * policy.reserveWeeks), which fails the re-hire's own affordability gate (cash - signingBonus < reserveAfterOffer(terms), hollywoodTick.ts staff()), and adds a chooseIndustryPackage spy asserting no package is evaluated for r01 across the blocked weeks (previously only the count was checked)."
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "shelving-blocked-weeks-hold > cashBlocked weeks (cash below every candidate) leave the rejection count unchanged",
+    "requirement": "1344-A §3.1, §6 item 2",
+    "redStatus": "fails",
+    "redReason": "Same TypeError as the staffingBlocked leaf (reading .rejections of undefined) after the first warm-up tick.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "shelving-blocked-weeks-hold > a week with a running production evaluates nothing (count unchanged while productions.length>0; resumes after)",
+    "requirement": "1344-A §3.1 ('A week in which decide does not evaluate the screenplay ... leaves it unchanged'), §6 item 2",
+    "redStatus": "fails",
+    "redReason": "Same TypeError as above at the first tick of the genuine week-100 running-production input.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "shelving-blocked-weeks-hold > a mixed sequence (staffing-blocked, then economic rejections) shelves only after 13 economic rejections, never 13 calendar weeks",
+    "requirement": "1344-A §3.1-3.2, §6 item 2",
+    "redStatus": "fails",
+    "redReason": "Same TypeError as row 7 at the first tick of the staffing-blocked window. Unaffected by the 1344-C3 fix below: re-confirmed failing for the same reason on unchanged HEAD 78af2754/cd9797ed.",
+    "revision": "1344-C3 REVISED (1344-E corrections 2/3 / 1344-F3): same unseatable-week construction and no-package-evaluated spy as row 7 (cash to reserve+1 during the 3 staffing-blocked weeks, cash and employment both restored before the economic-rejection phase). Also independently tightened (beyond the 7 named corrections, same cause as correction 1): the post-restoration shelved-receipt filter now matches by studioId AND scriptProjectId, not scriptProjectId alone."
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "searchIndustryPackages counts contract > on a captured genuine economic-rejection call: choice matches chooseIndustryPackage; affordable+unaffordable equals the independently-derived candidate count; viable<=affordable; (choice===null)===(viable===0)",
+    "requirement": "1344-D Blocking 1; 1344-F2 item 1; 1344-A §3.1 lines 57/63-65; brief PARENT API DECISIONS (searchIndustryPackages shape)",
+    "redStatus": "fails",
+    "redReason": "TypeError: mods.searchIndustryPackages is not a function. Reached only after several non-vacuous premise assertions already pass at RED: the spy correctly captures a real (input, policy, options) triple from a genuine tick over the week-130 fixture (options.lockScreenplay===true, key studio-aca408ec-r01:package:script-0006); call.result is null (a real economic rejection at real/unlimited cash, read directly off chooseIndustryPackage's own existing return value, not the shelving law); and the independently-derived candidate-universe size (1 locked shape x 6 generated cast-slot permutations x TUNING.HOLLYWOOD_NEGATIVE_CHOICES.length x marketingMenuFromCapacity(...).length, never the literal 54) self-checks to 54, reproducing 1329-A's own measured value from first principles using only already-exported functions.",
+    "revision": "1344-C2 NEW"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "searchIndustryPackages counts contract > decide-level: a partly cash-constrained week (cash strictly between the cheapest and dearest real candidate cost) reads cashBlocked — the rejection count stays unchanged",
+    "requirement": "1344-D Blocking 1; 1344-F2 item 1 (partial-cashBlocked case); 1344-A §3.1",
+    "redStatus": "fails",
+    "redReason": "TypeError: Cannot read properties of undefined (reading 'rejections') on the 3-tick partial-cashBlocked loop. Reached only after: the spy captures the real ordinal-6 call and confirms result===null (law-independent, real-cash non-viability); candidateCosts() replicates chooseIndustryPackage's own cost formula (perceivedPlanningInputs -> 6 generated billings -> HOLLYWOOD_NEGATIVE_CHOICES -> marketingMenuFromCapacity) over the REAL captured (input, policy) and returns exactly 54 real costs; a midpoint cash strictly between the real min and max is derived and shown (not assumed); cash is set to reserve+midpoint via the real rivalWeeklyOperatingCost/reserveWeeks formula. 'No affordable candidate is viable' follows logically from result===null (a smaller cash's affordable set is a subset of an already-all-non-viable 54), so no forecast/score replication was needed.",
+    "revision": "1344-C2 NEW"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "shelving-viable-control > genesis to week 93: with screenplayShelving stripped from every business, state equals the genuine week-93 input migrated by convertV42ToV43 (also stripped); receipts identical; the leaf asserts its own premise that no shelving has happened yet and that the first screenplayShelved receipt falls strictly after this state, never a hard-coded week",
+    "requirement": "1344-F Amendment 2",
+    "redStatus": "fails",
+    "redReason": "TypeError: mods.convertV42ToV43 is not a function. Unaffected by the 1344-C3 fix below (fails before the comparison line is reached): re-confirmed failing for the same reason on unchanged HEAD 78af2754/cd9797ed.",
+    "revision": "1344-C3 REVISED (1344-E correction 4 / 1344-F3, 1344-F Amendment 2): week 100 crosses the candidate's own first shelving (the 13th evaluated economic rejection at week 93, with the shelving receipt in the tick after), so the old comparison was unsound. Now compares genesis-to-week-93 against the new genuine week-93 input minted at the last Save42 writer (1344-P2, execution HEAD e62c944f; pins independently recomputed against tests/fixtures/p14/genuine-v42-pre-shelving-week93/, manifestPin93()), and asserts its own premise from the CANDIDATE's own receipts (zero screenplayShelved through week 93, then at least one within a bounded search after) rather than hard-coding a shelving week. Additional finding made during this revision's own GREEN dry run (not one of the 7 named corrections, discovered independently): the genuine fixture's mint HEAD (e62c944f) carries unrelated, out-of-scope P15A commits (src/core/sharedMarket.ts, src/core/powerRanking.ts, tuning.ts additions) not present in this candidate's BASE tree; on this route the only observed effect was a narrow, mathematically-null IEEE754 sign-of-zero divergence (0 vs -0) in six unrelated audience-perception/genre-experience leaves under strict toEqual. Replaced the raw toEqual/JSON.stringify comparison with a canonical (recursively key-sorted) JSON serialization comparison, matching the contract's own 'byte for byte' wording (JSON.stringify(-0) === '0' in this runtime) and this file's established byte-identity convention; this does not loosen the check against any other kind of divergence (a real value, an extra/missing key, or a different count would still fail it)."
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "shelving-viable-control > a business with at least one recorded greenlight and zero economic rejections in the first 5 weeks keeps the empty screenplayShelving state",
+    "requirement": "1344-F Amendment 2 (second case); 1344-F2 non-blocking note 1 (\"asserts its own premise\")",
+    "redStatus": "fails",
+    "redReason": "shelving(b) is undefined, not the expected {version:1,rejections:[],shelved:[],commissionHoldUntilWeek:0} object; AssertionError 'expected undefined to deeply equal {...}'. REVISED (1344-C2): the leaf now explicitly asserts its own premise — no studio it could select had a ready screenplay persist un-greenlit across a tick in the window — using only public state (status + filmAnnounced receipts). A direct trace (recorded in the r2 handback) showed the ORIGINAL 20-week window was unsound: every rival's SECOND screenplay genuinely stalls for several real consecutive weeks starting around week 5-6 (a real early rejection sequence, not a cadence artifact), so no studio has a clean run inside 20 weeks on this seed. The window is narrowed to 5 weeks (covering only every rival's clean, zero-gap FIRST greenlight, before any second screenplay goes ready), and the premise is asserted, not assumed; it holds (passes) at RED, isolating the leaf's one real failure to the intended field.",
+    "revision": "1344-C2 REVISED (was: 20-week window, unasserted premise, per 1344-D non-blocking note 3)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "shelving-commission-hold > no new development project during the hold; commissionHoldUntilWeek is exactly week+HOLD; a commission is not permanently blocked",
+    "requirement": "1344-A §3.2 (commission hold), §5, §6 item 4",
+    "redStatus": "fails",
+    "redReason": "Shares leaf 'shelving-stalled-route's root cause: no shelving receipt is ever found within the 16-week search bound, so the route/RED-premise assertion fails before the hold-specific assertions are reached.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "shelving-retry > no retry before retryWeek",
+    "requirement": "1344-F Amendment 1; 1344-A §3.4, §6 item 5",
+    "redStatus": "control-passes",
+    "redReason": "tick() at BASE never reads or writes RivalBusiness.screenplayShelving (unknown extra field, passed through unchanged by the object-spread patterns hollywoodTick.ts uses). This leaf hand-inserts a shelved-and-not-due entry via this file's own markShelved() test helper (now file-scope, shared with the new rivalPromiseProjectCandidates tests — a non-behavioral refactor), then ticks 3 times; since nothing at BASE ever touches the field, the entry trivially persists unchanged regardless of whether any real retry-timing law exists. Becomes a genuine test once GREEN adds retry logic that must ALSO leave a not-yet-due entry alone.",
+    "revision": "1344-C (unchanged; markShelved helper relocated to file scope in 1344-C2, same logic)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "shelving-retry > a viable retry re-enters the slot and greenlights, removing the shelved entry",
+    "requirement": "1344-F Amendment 1; 1344-A §3.4, §6 item 5",
+    "redStatus": "fails",
+    "redReason": "Error: 'Unhandled Industry identity: [object Object]' thrown from productionIdentity.ts:111 (persistedProductionIds' exhaustive switch on IndustryReceipt.kind), called from decide() (hollywoodTick.ts:233) via uniqueIdentity() when this route's genuine week-3 greenlight actually occurs and the switch iterates the hand-inserted 'screenplayShelved' receipt. This independently confirms 1344-A §2's cited fact that productionIdentity.ts's switch is exhaustive and needs a new case for the new receipt kind.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "shelving-retry > an unviable retry advances retryWeek and stays shelved (and never re-enters the slot)",
+    "requirement": "1344-F Amendment 1; 1344-A §3.4, §6 item 5",
+    "redStatus": "fails",
+    "redReason": "AssertionError 'expected 130 to be NaN': entry.retryWeek stays at its hand-inserted value 130 (nothing at BASE touches it, same root cause as 'no retry before retryWeek'), while the expected value week+TUNING_FUTURE.HOLLYWOOD_SHELVED_RETRY_WEEKS evaluates to NaN because the TUNING constant is undefined. 130 !== NaN is a genuine, non-vacuous mismatch.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "shelving-retry > no retry without a free slot",
+    "requirement": "1344-A §3.4, §6 item 5",
+    "redStatus": "control-passes",
+    "redReason": "Same root cause as 'no retry before retryWeek': nothing at BASE reads or writes the hand-inserted shelved entry or activeScriptOrdinals for the synthetic ordinal, and no greenlight occurs on this route, so the entry trivially stays untouched regardless of any real free-slot gating.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "shelving-retry > at most one retry per decision: two shelved-and-due entries in the same week advance at most one",
+    "requirement": "1344-A §3.4, §6 item 5",
+    "redStatus": "control-passes",
+    "redReason": "Same root cause: neither hand-inserted entry is touched by BASE's tick(), so 'changed' computes to 0 (<=1) trivially.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "shelving-promise-guard > an open SPECIFIC_PROJECT promise naming the screenplay defers shelving (count held at 13); shelving proceeds at the next economic rejection after it settles",
+    "requirement": "1344-A §3.3, §6 item 6",
+    "redStatus": "fails",
+    "redReason": "TypeError: Cannot read properties of undefined (reading 'rejections') at the 12-tick warm-up, before any promise is even inserted. Unaffected by the 1344-C3 fix below (fails earlier): re-confirmed failing for the same reason on unchanged HEAD 78af2754/cd9797ed.",
+    "revision": "1344-C3 REVISED (1344-E correction 5 / 1344-F3): the three shelved-receipt checks in this leaf were unfiltered or filtered by scriptProjectId only, so another lawfully-shelving screenplay (r01's other screenplay, or another rival's) the same week could break or falsely satisfy the guard. Now all three filter by studioId===RIVAL_R01 AND scriptProjectId===the named screenplay's id."
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "rivalPromiseProjectCandidates > a shelved screenplay is absent from the candidates",
+    "requirement": "1344-X2 parent API decision; 1344-D Blocking 2; 1344-A §6 item 7(c) (\"is not offered by authorRivalPromise\")",
+    "redStatus": "fails",
+    "redReason": "TypeError: candidatesOf(...) is not a function (talentMarket.rivalPromiseProjectCandidates does not exist at BASE).",
+    "revision": "1344-C2 NEW"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "rivalPromiseProjectCandidates > with nothing shelved, the result equals the first two non-produced screenplays by id",
+    "requirement": "1344-X2 parent API decision; 1344-D Blocking 2",
+    "redStatus": "fails",
+    "redReason": "TypeError: candidatesOf(...) is not a function. The route-premise sub-assertion (the two non-produced screenplays are script-0006 and script-0011) passes on its own at RED, confirming the expected value is derived from real fixture state, not invented, before the call that actually needs the missing export.",
+    "revision": "1344-C2 NEW"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "shelving-feasibility-readers > a shelved screenplay changes the feasibility digest (unproducedScripts must stop counting it)",
+    "requirement": "1344-A §3.6, promises.ts:410-411",
+    "redStatus": "fails",
+    "redReason": "AssertionError: both digests equal 'ed297b3951d28bec' — today's unproducedScripts digest entry (promises.ts:410-411) filters by ScriptProject.status only; removing an ordinal from activeScriptOrdinals without changing its status does not change the digest, confirming this file's stated premise for the expected post-GREEN change.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "shelving-feasibility-readers > opportunity paths mark a shelved screenplay impossible with reason \"the named script project is shelved\"",
+    "requirement": "1344-A §3.6",
+    "redStatus": "fails",
+    "redReason": "AssertionError: classification is 'REASONABLY_ACHIEVABLE', not 'IMPOSSIBLE'. Under the 1344-C3 fix below this is now a stronger, more meaningful RED: the leaf actually shelves the project first (file-scope markShelved helper) and promiseFeasibility STILL classifies it as REASONABLY_ACHIEVABLE, proving the READER (not just the missing field) does not yet implement the shelved-project exclusion. Re-confirmed on unchanged HEAD 78af2754/cd9797ed.",
+    "revision": "1344-C3 REVISED (1344-E correction 6 / 1344-F3): the leaf previously named ordinal 6 as 'shelvedProjectId' without ever calling markShelved, so it quoted an unmodified, still-active/ready project (a weak, arguably vacuous-risk RED against the wrong premise). Now calls the file's own markShelved(state, RIVAL_R01, 6, week, week+26) first, and asserts the route premise that ordinal 6 actually left activeScriptOrdinals, before quoting promiseFeasibility."
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "shelving-chart-output > the 13-week chart row equals released (produced) films with a shelved screenplay present, and the state validates",
+    "requirement": "1344-A §3.6, §6 item 8",
+    "redStatus": "fails",
+    "redReason": "Shares shelving-stalled-route's root cause: no shelving occurs within the 40-week search bound (130 -> 170), so the route/RED-premise assertion fails before the chart-row/validation assertions are reached. Unaffected by the 1344-C3 fix below (not reached at RED): re-confirmed failing for the same reason on unchanged HEAD 78af2754/cd9797ed.",
+    "revision": "1344-C3 REVISED (1344-E correction 7 / 1344-F3): expected output was development.projects[*].status==='produced' count alone, omitting r01's two authored canonical starting films (provenance 'authored-start/v1'), which hollywoodValidation.ts's own chart-output law always counts for a non-player studio's output regardless of production status. Now derives expected = authoredCount + releasedSimulationCount directly from state.hollywood.films by the validator's own predicate (provenance==='authored-start/v1', or provenance==='simulation/v1' with result.releaseTick before this observation week), with an explicit premise check that r01 has its two authored films."
+  },
+  {
+    "file": "tests/p14d1-rival-shelving.test.ts",
+    "leaf": "shelving-player-symmetry > no screenplayShelved receipt ever names the player studio, across a long natural route",
+    "requirement": "1344-A §3.6 (player symmetry: no automatic shelving for the player)",
+    "redStatus": "control-passes",
+    "redReason": "No screenplayShelved receipt of any kind exists yet at BASE (the receipt kind does not exist), so 'never for the player' holds vacuously across the whole 60-week genesis route. Remains a meaningful regression guard once GREEN lands real rival screenplayShelved receipts.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+    "leaf": "API decisions this file exercises > validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist; LIVE_SAVE_VERSION is 43",
+    "requirement": "1344-C brief PARENT API DECISIONS (save.ts); 1344-A §4",
+    "redStatus": "fails",
+    "redReason": "saveModule.LIVE_SAVE_VERSION is 42, not 43 (first assertion in the leaf).",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+    "leaf": "V42 -> V43 migration > genuine V42 week-100 input migrates to V43 with the empty screenplayShelving state, and validates",
+    "requirement": "1344-A §4, §6 item 9 (bullet 1)",
+    "redStatus": "fails",
+    "redReason": "TypeError: mods().convertV42ToV43 is not a function.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+    "leaf": "V42 -> V43 migration > genuine V42 week-130 input migrates to V43 with the empty screenplayShelving state, and validates",
+    "requirement": "1344-A §4, §6 item 9 (bullet 1)",
+    "redStatus": "fails",
+    "redReason": "TypeError: mods().convertV42ToV43 is not a function.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+    "leaf": "V42 -> V43 migration > migrateToLive carries a genuine V42 save to V43",
+    "requirement": "1344-C brief PARENT API DECISIONS ('migrateToLive carries a V42 save to V43')",
+    "redStatus": "fails",
+    "redReason": "migrateToLive(v42).saveVersion is 42, not 43 (migrateToLive still calls migrateToV42 internally at BASE).",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+    "leaf": "save/load in the middle of a count continues byte-identically",
+    "requirement": "1344-A §6 item 9 (bullet 2)",
+    "redStatus": "fails",
+    "redReason": "TypeError: Cannot read properties of undefined (reading 'rejections') when reading the count-7 checkpoint's screenplayShelving before the save/load round trip is even attempted.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+    "leaf": "validator rejects each inconsistent state > rejects a shelved entry naming an ordinal that is ALSO active",
+    "requirement": "1344-A §4 (validation bullet 2: shelved names a non-active, non-produced ordinal)",
+    "redStatus": "fails",
+    "redReason": "Content-specific assertion .toThrow(/shelv/i) genuinely fails (not vacuous): the thrown message is 'mods().validateSaveV43 is not a function', which does not match /shelv/i.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+    "leaf": "validator rejects each inconsistent state > rejects a shelved entry naming an ordinal that is ALSO produced",
+    "requirement": "1344-A §4 (validation bullet 2)",
+    "redStatus": "fails",
+    "redReason": "Same pattern: .toThrow(/shelv/i) fails against the generic 'is not a function' message.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+    "leaf": "validator rejects each inconsistent state > rejects a rejection count over the documented threshold (14 > 13)",
+    "requirement": "1344-A §4 (validation bullet 1: count in [1, HOLLYWOOD_SHELVE_AFTER_REJECTIONS])",
+    "redStatus": "fails",
+    "redReason": "Same pattern: .toThrow(/shelv|reject|threshold/i) fails against the generic 'is not a function' message.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+    "leaf": "validator rejects each inconsistent state > rejects a shelved entry with no matching screenplayShelved receipt",
+    "requirement": "1344-A §4 (validation bullet 2: exactly one matching receipt)",
+    "redStatus": "fails",
+    "redReason": "Same pattern: .toThrow(/shelv|receipt/i) fails against the generic 'is not a function' message.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+    "leaf": "validator rejects each inconsistent state > rejects two screenplayShelved receipts naming the same screenplay",
+    "requirement": "1344-A §4 (validation bullet 4: at most one receipt per scriptProjectId)",
+    "redStatus": "fails",
+    "redReason": "Same pattern: .toThrow(/shelv|receipt|duplicate|second/i) fails against the generic 'is not a function' message.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+    "leaf": "validator rejects each inconsistent state > rejects a rejection entry with count 0 (below the documented [1, threshold] bound)",
+    "requirement": "1344-F2 non-blocking note 2; 1344-A §4 (validation bullet 1)",
+    "redStatus": "fails",
+    "redReason": "Content-specific .toThrow(/shelv|reject/i) fails against the generic 'mods().validateSaveV43 is not a function' message.",
+    "revision": "1344-C2 NEW"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+    "leaf": "validator rejects each inconsistent state > rejects a rejection entry naming an ordinal that is not active/ready (produced)",
+    "requirement": "1344-F2 non-blocking note 2; 1344-A §4 (validation bullet 1: names an active ready ordinal)",
+    "redStatus": "fails",
+    "redReason": "Content-specific .toThrow(/shelv|reject|active|ready/i) fails against the generic 'is not a function' message.",
+    "revision": "1344-C2 NEW"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+    "leaf": "validator rejects each inconsistent state > rejects a shelved entry with retryWeek <= week",
+    "requirement": "1344-F2 non-blocking note 2; 1344-A §4 (validation bullet 2: retryWeek > week)",
+    "redStatus": "fails",
+    "redReason": "Content-specific .toThrow(/shelv|retry/i) fails against the generic 'is not a function' message.",
+    "revision": "1344-C2 NEW"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+    "leaf": "validator rejects each inconsistent state > accepts the well-formed empty state on every business (control: does not throw)",
+    "requirement": "1344-A §4 (convertV42ToV43 adds the empty state)",
+    "redStatus": "fails",
+    "redReason": "expect(...).not.toThrow() fails because validateSaveV43 IS thrown (TypeError: not a function) — the intended-passing control currently fails because the function does not exist yet, which is itself informative RED evidence, not a false green.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+    "leaf": "down-conversion (convertV43ToV42) > accepts the empty screenplayShelving state (round-trips losslessly)",
+    "requirement": "1344-A §4 (convertV43ToV42 accepts only the empty state)",
+    "redStatus": "fails",
+    "redReason": "TypeError: mods().convertV42ToV43 is not a function (setup line, before convertV43ToV42 is even reached).",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+    "leaf": "down-conversion (convertV43ToV42) > refuses a real rejection count by name",
+    "requirement": "1344-A §4 (convertV43ToV42 refuses any rejection entry)",
+    "redStatus": "fails",
+    "redReason": "Content-specific .toThrow(/shelv/i) fails against the generic 'mods().convertV43ToV42 is not a function' message.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+    "leaf": "down-conversion (convertV43ToV42) > refuses a real shelved entry (with its receipt) by name",
+    "requirement": "1344-A §4 (convertV43ToV42 refuses any shelved entry)",
+    "redStatus": "fails",
+    "redReason": "Same pattern: .toThrow(/shelv/i) fails against the generic 'is not a function' message.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+    "leaf": "down-conversion (convertV43ToV42) > refuses a nonzero commissionHoldUntilWeek by name",
+    "requirement": "1344-A §4 (convertV43ToV42 refuses any nonzero hold)",
+    "redStatus": "fails",
+    "redReason": "Same pattern: .toThrow(/shelv|hold/i) fails against the generic 'is not a function' message.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving-natural.test.ts",
+    "leaf": "shelving-natural-route > at least one screenplayShelved receipt occurs",
+    "requirement": "1344-F Amendment 3 (bullet 1)",
+    "redStatus": "fails",
+    "redReason": "AssertionError: 0 screenplayShelved receipts found across the full 130-week route (week 130 -> 260); expected >= 1.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving-natural.test.ts",
+    "leaf": "shelving-natural-route > no commission by a shelving studio within 13 weeks after any of its shelvings",
+    "requirement": "1344-F Amendment 3 (bullet 2)",
+    "redStatus": "fails",
+    "redReason": "AssertionError: 0 shelvings found (shares the route's root cause); the route/premise assertion inside this leaf fails before the commission-window check is reached.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving-natural.test.ts",
+    "leaf": "shelving-natural-route > every shelved screenplay keeps its ScriptProject and cost row through the final week",
+    "requirement": "1344-F Amendment 3 (bullet 3)",
+    "redStatus": "fails",
+    "redReason": "AssertionError: 0 shelvings found; same shared root cause.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving-natural.test.ts",
+    "leaf": "shelving-natural-route > per studio, at most four shelvings in any 52-week window",
+    "requirement": "1344-F Amendment 3 (bullet 4)",
+    "redStatus": "fails",
+    "redReason": "AssertionError: 0 shelvings found; same shared root cause.",
+    "revision": "1344-C (unchanged)"
+  },
+  {
+    "file": "tests/p14d1-rival-shelving-natural.test.ts",
+    "leaf": "determinism > exportSave(makeSave(...)) is identical across two independent runs of the same 130-week route",
+    "requirement": "1344-A §6 item 12; §7 verification 'determinism across two runs'",
+    "redStatus": "control-passes",
+    "redReason": "tick()'s determinism (same seed, same route, no Math.random/Date.now) does not depend on the shelving law existing; two independent 130-week runs are already byte-identical at BASE. Remains a required regression guard once GREEN lands real screenplayShelving state and receipts, which must themselves stay deterministic.",
+    "revision": "1344-C (unchanged)"
+  }
+]
