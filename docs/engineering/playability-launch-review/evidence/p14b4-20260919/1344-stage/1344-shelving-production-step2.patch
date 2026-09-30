@@ -1,0 +1,304 @@
+diff --git a/src/core/hollywood.ts b/src/core/hollywood.ts
+index bbc1091e81b0518d565d9b8b12d33771506ea768..c4ad7ae9529318431cc7d47f04a496f813289115 100644
+--- a/src/core/hollywood.ts
++++ b/src/core/hollywood.ts
+@@ -203,6 +203,7 @@ export function enterRival(state: GameState, studioId: string, origin: 'fresh' |
+   const business: RivalBusiness = {studioId, entryKey:`${studioId}:entry`, account,
+     standing:startingStanding(template,authored), operations:{mode:'managed',workflows:[],facilities:rivalStartingFacilities(studioId)}, development:initialManagedScriptDevelopment(), productions:[], activeScriptOrdinals:[], activeRunFilmOrdinals:[], releaseAuthority:initialReleaseAuthority(),
+     runs:[], projects:[], nextDecisionWeek:week+1,
++    screenplayShelving:{version:1,rejections:[],shelved:[],commissionHoldUntilWeek:0},
+     policy:{version:1,affinities:Object.fromEntries(GENRE_ORDER.map(g => [g,template.anchors.includes(g)?5:1])) as Record<Genre,number>,
+       negativeScale:template.negativeScale,marketingRatio:template.marketingRatio,reserveWeeks:template.reserveWeeks}}
+   const capex = TUNING.BASELINE_DEVELOPMENT_CASTING_CAPEX + TUNING.STAGE_STANDARD_CAPEX +
+diff --git a/src/core/hollywoodPolicy.ts b/src/core/hollywoodPolicy.ts
+index 8229ff7614ae23ec82b9e316d1232f6002a6d1ab..e3eaf333657d9d9d5fe7d1583884804e01edfcf9 100644
+--- a/src/core/hollywoodPolicy.ts
++++ b/src/core/hollywoodPolicy.ts
+@@ -29,15 +29,20 @@ export function perceivedPlanningInputs(input:ReceptionInputs):ReceptionInputs {
+ }
+ export type IndustryPackageChoice={shape:FilmShape;promise:ReceptionInputs['promise'];budget:ReceptionInputs['budget'];
+   cast:Record<'lead'|'antagonist'|'support',string>;expectedOperatingMargin:number;expectedIncrementalContribution:number;holdOperatingMargin:number}
+-/** Bounded legal menu, never a winning-film oracle. The candidate set has a fixed ceiling. */
+-export function chooseIndustryPackage(input:ReceptionInputs,policy:RivalBusiness['policy'],options:{
++type IndustryPackageOptions={
+   seed:string;key:string;cashAvailable:number;weeklyCost:number;lockScreenplay:boolean
+   /** P14B.4 seating preference (plan :215-236): bound-open member masks (promises.ts promisedCastMasks); absent = no preference. */
+   promisedMasks?:ReadonlyMap<string,readonly CastSlot[]>
+-}):IndustryPackageChoice|null {
++}
++/** P14D.1 (1344-A §3.1): the same bounded search, reporting how many candidates the cash gate skipped
++ * (unaffordable), how many it admitted (affordable) and how many of those passed the viability gate (viable).
++ * A refusal with unaffordable > 0 is cash-blocked; one with every candidate affordable is an economic rejection. */
++export function searchIndustryPackages(input:ReceptionInputs,policy:RivalBusiness['policy'],options:IndustryPackageOptions):{
++  choice:IndustryPackageChoice|null;affordable:number;unaffordable:number;viable:number} {
+   const planning=perceivedPlanningInputs(input)
+   const actors=[planning.cast.lead,planning.cast.antagonist,planning.cast.support]
+   let best:IndustryPackageChoice|null=null;let bestScore=-Infinity;let bestBenefit=0
++  let affordable=0,unaffordable=0,viable=0
+   const masks=options.promisedMasks
+   // Benefit = DISTINCT beneficiaries whose assigned slot satisfies their mask (the cast is distinct by construction).
+   const benefitOf=(cast:ReceptionInputs['cast']):number=>masks===undefined?0:CAST_SLOTS.filter(slot=>masks.get(cast[slot].id)?.includes(slot)===true).length
+@@ -54,7 +59,8 @@ export function chooseIndustryPackage(input:ReceptionInputs,policy:RivalBusiness
+       const negative=Math.round(required*scale*policy.negativeScale)
+       const base={...inp,budget:{negative,marketing:0}}
+       for(const marketing of marketingMenuFromCapacity(marketingCapacityForInputs(base,true))) {
+-        if(negative+marketing>options.cashAvailable)continue
++        if(negative+marketing>options.cashAvailable){unaffordable++;continue}
++        affordable++
+         const candidate={...base,budget:{negative,marketing}}
+         const forecast=computeForecast(candidate,{seed:options.seed,productionId:options.key,directorId:inp.director.id,releasedFilms:[],concepts:[inp.concept]},true,true)
+         const expectedIncrementalContribution=forecast.expectedTotal*TUNING.STUDIO_RENTAL_BLENDED-negative-marketing
+@@ -65,10 +71,15 @@ export function chooseIndustryPackage(input:ReceptionInputs,policy:RivalBusiness
+         // Preference is a small cost of departing from the authored spend posture; outcomes remain uncertain.
+         const score=expectedOperatingMargin-Math.abs(marketing/Math.max(negative,1)-policy.marketingRatio)*TUNING.HOLLYWOOD_POLICY_PREFERENCE_COST
+         if(options.lockScreenplay&&score<=holdOperatingMargin)continue
++        viable++
+         // Maximize benefit among candidates that passed the cash and viability gates, then the ordinary score, then the inherited strict-greater BILLINGS order.
+         if(benefit>bestBenefit||(benefit===bestBenefit&&score>bestScore)){bestBenefit=benefit;bestScore=score;best={shape,promise:inp.promise,budget:{negative,marketing},cast:{lead:inp.cast.lead.id,antagonist:inp.cast.antagonist.id,support:inp.cast.support.id},expectedOperatingMargin,expectedIncrementalContribution,holdOperatingMargin}}
+       }
+     }
+   }
+-  return best
++  return {choice:best,affordable,unaffordable,viable}
++}
++/** Bounded legal menu, never a winning-film oracle. The candidate set has a fixed ceiling. */
++export function chooseIndustryPackage(input:ReceptionInputs,policy:RivalBusiness['policy'],options:IndustryPackageOptions):IndustryPackageChoice|null {
++  return searchIndustryPackages(input,policy,options).choice
+ }
+diff --git a/src/core/hollywoodTick.ts b/src/core/hollywoodTick.ts
+index 12c9c17a5c67dde5becd27ade21262247f32df65..1c9c523d8bf90292f192bd3834f3152611035adb 100644
+--- a/src/core/hollywoodTick.ts
++++ b/src/core/hollywoodTick.ts
+@@ -1,4 +1,4 @@
+-import {chooseIndustryPackage} from './hollywoodPolicy.js'
++import {chooseIndustryPackage, searchIndustryPackages} from './hollywoodPolicy.js'
+ import { considerRivalSoundPurchase, selectRivalSoundProduction, rivalInstallationSlots } from './technologyRival.js'
+ import { createProductionTechnologyPolicy } from './technologyProduction.js'
+ import { busyTalentIds, offerForTalent, weeklySalary, renewalWindowOpen, terminationCost } from './employment.js'
+@@ -6,6 +6,7 @@ import { productionCompanyTalentIds } from './productionPeople.js'
+ import { caseOpenForTalent, floorOffer } from './talentMarket.js'
+ import { assignmentRefusal, contractEndRefusal } from './careerLifecycle.js'
+ import { promisedCastMasks, WEEKS_TO_FIRST_TAKE } from './promises.js'
++import { isOpportunityPredicate } from './opportunityPromises.js'
+ import { industryBusyTalentIds, moveRivalMoney, rivalCapacityOpex, rivalWeeklyOperatingCost, uniqueIdentity } from './hollywood.js'
+ import { admitRivalPlansInWeek, advanceRivalResearch, completeRivalPlans, rivalScientistDemand } from './rivalResearch.js'
+ import { researchAfterEmploymentRelease } from './technology.js'
+@@ -207,8 +208,9 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
+   // P14C.2a (773 D9): a rival seats nobody whose seat cannot release before their
+   // effective retirement week, and nobody finishing or retired — director, cast and craft.
+   const seatable=(t:Talent)=>!busy.has(t.id)&&assignmentRefusal(state,t.id,week)===null
+-  for(const ready of hotDevelopment(b).projects.filter(p=>p.status==='ready')) {
+-    if(b.productions.length!==0)break
++  // P14D.1 (1344-A §3.1): one decision opportunity for one ready screenplay. A viable package
++  // is returned for the greenlight; otherwise the outcome names why none was chosen.
++  const evaluate=(ready:ScriptProject)=>{
+     const director=employees.find(t=>t.role==='director'&&seatable(t))
+     const craft=employees.find(t=>t.role==='craft'&&seatable(t))
+     // P14B.4 seating preference (plan :215-236): eligible PROMISED people enter the triple first, in employment
+@@ -220,38 +222,84 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
+     const taken=new Set([ready.writerId,director?.id,craft?.id])
+     const promised=employees.filter(t=>masks.has(t.id)&&seatable(t)&&!taken.has(t.id)&&t.skills.acting!==undefined)
+     const actors=[...promised,...employees.filter(t=>t.role==='actor'&&seatable(t)&&!promised.includes(t))].slice(0,3)
+-    if(director&&actors.length===3&&craft) {
+-      const cost=b.projects[Number(ready.id.slice(7))]!
+-      const concept=h.concepts[cost.conceptOrdinal]!
+-      const provisional={conceptId:concept.id,shape:ready.shape,promise:ready.promise,budget:{negative:concept.baseNegativeCost,marketing:0},writerId:ready.writerId,
+-        directorId:director.id,cast:{lead:actors[0]!.id,antagonist:actors[1]!.id,support:actors[2]!.id},craftIds:[craft.id]}
+-      const candidate=chooseIndustryPackage(inputsFor(state,h,b,provisional,ready,people),b.policy,{seed:state.seed,key:`${b.studioId}:package:${ready.id}`,
+-        cashAvailable:b.account.cash-operatingReserve(b,h,week),weeklyCost:rivalWeeklyOperatingCost(b,h,week),lockScreenplay:true,
+-        ...(masks.size>0?{promisedMasks:masks}:{})})
+-      if(candidate) {
+-        const {negative,marketing}=candidate.budget
+-        const id=uniqueIdentity(`${b.studioId}:film:${Number(ready.id.slice(7))}`,persistedProductionIds({...state,hollywood:h}))
+-        const choices={...provisional,budget:candidate.budget,cast:candidate.cast}
+-        const inp=inputsFor(state,h,b,choices,ready,people)
+-        const forecastSnapshot=computeForecast(inp,{seed:state.seed,productionId:id,directorId:director.id,
+-          ...forecastHistoryForOwner({...state,hollywood:h},b.studioId)},true,true)
+-        const production:Production={...choices,id,startTick:week,remainingTicks:TUNING.PRODUCTION_TICKS,forecastSnapshot,
+-          participants:buildFilmParticipants(id=>employees.some(t=>t.id===id),inp,concept,inp.shapeEffects,ready.promise,ready.shape)}
+-        const operations=addManagedProductionWorkflow(b.operations,production,scriptOccupiedFacilitySlots(hotDevelopment(b)))
+-        const development=linkScriptProjectToProduction(hotDevelopment(b),ready.id,id)
+-        b.operations=operations;b.productions=[...b.productions,production];storeHotDevelopment(b,development)
+-        greenlights.push({studioId:b.studioId,production})
+-        // A newly seated person cannot also start writing in this decision.
+-        // Permanent screenplay credit alone does not occupy a production seat.
+-        for(const personId of productionCompanyTalentIds([production]))busy.add(personId)
+-        moveRivalMoney(b.account,'production',-negative,week);moveRivalMoney(b.account,'marketing',-marketing,week)
+-        b.projects=[...b.projects];b.projects[Number(ready.id.slice(7))]={...cost,productionId:id,production:negative,marketing,announcedWeek:week}
+-        appendReceipt(h,{week,studioId:b.studioId,kind:'filmAnnounced',productionId:id,conceptId:concept.id})
+-      }
++    if(!director||actors.length!==3||!craft)return {outcome:'staffingBlocked'} as const
++    const cost=b.projects[Number(ready.id.slice(7))]!
++    const concept=h.concepts[cost.conceptOrdinal]!
++    const provisional={conceptId:concept.id,shape:ready.shape,promise:ready.promise,budget:{negative:concept.baseNegativeCost,marketing:0},writerId:ready.writerId,
++      directorId:director.id,cast:{lead:actors[0]!.id,antagonist:actors[1]!.id,support:actors[2]!.id},craftIds:[craft.id]}
++    const args=[inputsFor(state,h,b,provisional,ready,people),b.policy,{seed:state.seed,key:`${b.studioId}:package:${ready.id}`,
++      cashAvailable:b.account.cash-operatingReserve(b,h,week),weeklyCost:rivalWeeklyOperatingCost(b,h,week),lockScreenplay:true,
++      ...(masks.size>0?{promisedMasks:masks}:{})}] as const
++    const candidate=chooseIndustryPackage(...args)
++    if(candidate)return {outcome:'viable',candidate,provisional,director,cost,concept} as const
++    // A refusal is re-searched only for its counts: any candidate the cash gate skipped makes it cash-blocked.
++    return {outcome:searchIndustryPackages(...args).unaffordable>0?'cashBlocked':'economicRejection'} as const
++  }
++  type Viable=Extract<ReturnType<typeof evaluate>,{outcome:'viable'}>
++  const greenlight=(ready:ScriptProject,{candidate,provisional,director,cost,concept}:Viable)=>{
++    const {negative,marketing}=candidate.budget
++    const id=uniqueIdentity(`${b.studioId}:film:${Number(ready.id.slice(7))}`,persistedProductionIds({...state,hollywood:h}))
++    const choices={...provisional,budget:candidate.budget,cast:candidate.cast}
++    const inp=inputsFor(state,h,b,choices,ready,people)
++    const forecastSnapshot=computeForecast(inp,{seed:state.seed,productionId:id,directorId:director.id,
++      ...forecastHistoryForOwner({...state,hollywood:h},b.studioId)},true,true)
++    const production:Production={...choices,id,startTick:week,remainingTicks:TUNING.PRODUCTION_TICKS,forecastSnapshot,
++      participants:buildFilmParticipants(id=>employees.some(t=>t.id===id),inp,concept,inp.shapeEffects,ready.promise,ready.shape)}
++    const operations=addManagedProductionWorkflow(b.operations,production,scriptOccupiedFacilitySlots(hotDevelopment(b)))
++    const development=linkScriptProjectToProduction(hotDevelopment(b),ready.id,id)
++    b.operations=operations;b.productions=[...b.productions,production];storeHotDevelopment(b,development)
++    greenlights.push({studioId:b.studioId,production})
++    // A newly seated person cannot also start writing in this decision.
++    // Permanent screenplay credit alone does not occupy a production seat.
++    for(const personId of productionCompanyTalentIds([production]))busy.add(personId)
++    moveRivalMoney(b.account,'production',-negative,week);moveRivalMoney(b.account,'marketing',-marketing,week)
++    b.projects=[...b.projects];b.projects[Number(ready.id.slice(7))]={...cost,productionId:id,production:negative,marketing,announcedWeek:week}
++    appendReceipt(h,{week,studioId:b.studioId,kind:'filmAnnounced',productionId:id,conceptId:concept.id})
++  }
++  for(const ready of hotDevelopment(b).projects.filter(p=>p.status==='ready')) {
++    if(b.productions.length!==0)break
++    const ordinal=Number(ready.id.slice(7))
++    const result=evaluate(ready)
++    const shelving=b.screenplayShelving
++    // A greenlit screenplay is no longer ready, so its count leaves with it.
++    if(result.outcome==='viable'){b.screenplayShelving={...shelving,rejections:shelving.rejections.filter(r=>r.ordinal!==ordinal)};greenlight(ready,result);continue}
++    // P14D.1 (1344-A §3.1-§3.3): only an economic rejection counts; staffing and cash blockage leave the count.
++    if(result.outcome!=='economicRejection')continue
++    const count=Math.min(TUNING.HOLLYWOOD_SHELVE_AFTER_REJECTIONS,(shelving.rejections.find(r=>r.ordinal===ordinal)?.count??0)+1)
++    // An open promise from this studio naming the screenplay defers shelving; the count waits at the threshold.
++    const named=state.promises.some(p=>p.outcome===null&&p.issuerStudioId===b.studioId&&isOpportunityPredicate(p.predicate)
++      &&p.predicate.kind==='projectOpportunity'&&p.predicate.scriptProjectId===ready.id)
++    if(count<TUNING.HOLLYWOOD_SHELVE_AFTER_REJECTIONS||named) {
++      b.screenplayShelving={...shelving,rejections:[...shelving.rejections.filter(r=>r.ordinal!==ordinal),{ordinal,count}].sort((x,y)=>x.ordinal-y.ordinal)}
++      continue
++    }
++    // Shelving frees the slot. The screenplay stays ready with its costs and history; no money moves.
++    b.activeScriptOrdinals=b.activeScriptOrdinals.filter(i=>i!==ordinal)
++    b.screenplayShelving={version:1,rejections:shelving.rejections.filter(r=>r.ordinal!==ordinal),
++      shelved:[...shelving.shelved,{ordinal,week,retryWeek:week+TUNING.HOLLYWOOD_SHELVED_RETRY_WEEKS}].sort((x,y)=>x.ordinal-y.ordinal),
++      commissionHoldUntilWeek:week+TUNING.HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS}
++    appendReceipt(h,{week,studioId:b.studioId,kind:'screenplayShelved',scriptProjectId:ready.id,conceptId:b.projects[ordinal]!.conceptId,rejections:count})
++  }
++  // P14D.1 (1344-A §3.4, 1344-F Amendment 1): with no production and a free slot, retry the oldest due
++  // shelved screenplay, read directly (a shelved ordinal is outside the hot view). It re-enters the
++  // index only together with its greenlight; an economic rejection waits another retry interval.
++  const due=b.productions.length===0&&b.activeScriptOrdinals.length<2
++    ?b.screenplayShelving.shelved.find(s=>s.retryWeek<=week):undefined
++  if(due) {
++    const ready=b.development.projects[due.ordinal]!
++    const result=evaluate(ready)
++    const shelving=b.screenplayShelving
++    if(result.outcome==='viable') {
++      b.activeScriptOrdinals=[...b.activeScriptOrdinals,due.ordinal].sort((x,y)=>x-y)
++      b.screenplayShelving={...shelving,shelved:shelving.shelved.filter(s=>s!==due)}
++      greenlight(ready,result)
++    } else if(result.outcome==='economicRejection') {
++      b.screenplayShelving={...shelving,shelved:shelving.shelved.map(s=>s===due?{...s,retryWeek:week+TUNING.HOLLYWOOD_SHELVED_RETRY_WEEKS}:s)}
+     }
+   }
+   // A bounded ready inventory, paid writers and enough actual runway precede a commission.
+   if(b.activeScriptOrdinals.length>=2||b.account.cash<operatingReserve(b,h,week))return
++  if(week<b.screenplayShelving.commissionHoldUntilWeek)return
+   const writer=employees.find(t=>t.role==='writer'&&!busy.has(t.id))
+   if(!writer)return
+   const ordinal=b.development.projects.length
+@@ -409,7 +457,7 @@ export function finishHollywoodWeek(state:GameState):GameState {
+     const rows=h.identities.filter(s=>s.enteredWeek!==null).map(s=>{
+       const b=h.businesses.find(b=>b.studioId===s.studioId)
+       return {studioId:s.studioId,standing:{...(b?.standing??state.studio.standing)},
+-        output:b?b.development.projects.length-b.activeScriptOrdinals.length+(h.origin==='fresh'&&s.row<=4?2:0):state.studio.releasedFilms.length}
++        output:b?b.development.projects.filter(p=>p.status==='produced').length+(h.origin==='fresh'&&s.row<=4?2:0):state.studio.releasedFilms.length}
+     })
+     h={...h,previousChart:h.chart,chart:{week,rows}}
+   }
+diff --git a/src/core/hollywoodTypes.ts b/src/core/hollywoodTypes.ts
+index e38b3236243c5b69d2f8e600d95aae41fc20ce70..b42d5867893b09e3477aa4eb92cefb022ca0ef77 100644
+--- a/src/core/hollywoodTypes.ts
++++ b/src/core/hollywoodTypes.ts
+@@ -88,6 +88,18 @@ export type RivalProjectCosts = {
+   marketing: number
+   announcedWeek: number | null
+ }
++/**
++ * P14D.1 (Save V43, 1344-A §3-§4): rival screenplay shelving. `rejections` counts
++ * consecutive economic rejections per active ready screenplay; `shelved` names ready,
++ * unproduced screenplays out of the active index; both sorted by ordinal. No commission
++ * before `commissionHoldUntilWeek`. The empty state is `[]`, `[]`, `0`.
++ */
++export type ScreenplayShelving = {
++  version: 1
++  rejections: { ordinal: number; count: number }[]
++  shelved: { ordinal: number; week: number; retryWeek: number }[]
++  commissionHoldUntilWeek: number
++}
+ export type RivalBusiness = {
+   studioId: string
+   entryKey: string
+@@ -104,6 +116,7 @@ export type RivalBusiness = {
+   nextDecisionWeek: number
+   policy: { version: 1; affinities: Record<Genre, number>; negativeScale: number;
+     marketingRatio: number; reserveWeeks: number }
++  screenplayShelving: ScreenplayShelving
+ }
+ export type IndustryReceipt = { eventId: string; week: number; studioId: string } & (
+   | { kind: 'studioEntered'; entryKey: string; origin: 'fresh' | 'migration' | 'scheduled' }
+@@ -121,6 +134,8 @@ export type IndustryReceipt = { eventId: string; week: number; studioId: string
+   | { kind: 'instrumentOperational'; facilityId: string; technologyId: string }
+   | { kind: 'researchSeatAssigned'; projectId: string; talentId: string }
+   | { kind: 'researchCompleted'; projectId: string }
++  // P14D.1 (Save V43): one per screenplay, ever; the screenplay, its costs and history remain.
++  | { kind: 'screenplayShelved'; scriptProjectId: string; conceptId: string; rejections: number }
+ )
+ /** The five V27 receipt kinds, as one roster the save boundary and the projection share. */
+ export const RIVAL_RESEARCH_RECEIPT_KINDS = ['laboratoryCommitted', 'laboratoryOperational',
+diff --git a/src/core/hollywoodValidation.ts b/src/core/hollywoodValidation.ts
+index c66176a50fbbfe80bb86b0fd1938e81ff5760860..c8115acc551cae58ed096fe685e25bce2dc76909 100644
+--- a/src/core/hollywoodValidation.ts
++++ b/src/core/hollywoodValidation.ts
+@@ -444,7 +444,9 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
+       // P13B-S8: the five rival research kinds exist only under the V27 policy.
+       laboratoryCommitted:research?['planId','facilityId']:undefined, laboratoryOperational:research?['facilityId']:undefined,
+       instrumentOperational:research?['facilityId','technologyId']:undefined,
+-      researchSeatAssigned:research?['projectId','talentId']:undefined, researchCompleted:research?['projectId']:undefined}[r.kind]
++      researchSeatAssigned:research?['projectId','talentId']:undefined, researchCompleted:research?['projectId']:undefined,
++      // P14D.1: no era validates a shelving receipt yet.
++      screenplayShelved:undefined}[r.kind]
+     requireFact(extra,'unknown receipt kind'); exact(r,[...base,'kind',...extra])
+     integer(r.week); requireFact(r.week>=priorWeek&&r.week<=state.market.tick,'receipt chronology'); priorWeek=r.week
+     const owner=studios.get(r.studioId)
+diff --git a/src/core/productionIdentity.ts b/src/core/productionIdentity.ts
+index 30096eae4db936218a7e75524ccd9eb33dfd2a9b..54a02bd55343a8b8811ed3b84c5da2ac57c784b0 100644
+--- a/src/core/productionIdentity.ts
++++ b/src/core/productionIdentity.ts
+@@ -108,6 +108,8 @@ export function persistedProductionIds(state: GameState): Set<string> {
+       // P13B-S8: the five rival research receipts name no production identity.
+       case 'laboratoryCommitted': case 'laboratoryOperational': case 'instrumentOperational':
+       case 'researchSeatAssigned': case 'researchCompleted': break
++      // P14D.1: a shelved screenplay was never greenlit; it names no production.
++      case 'screenplayShelved': break
+       default: { const exhaustive: never = event; throw new Error(`Unhandled Industry identity: ${exhaustive}`) }
+     }
+   }
+diff --git a/src/core/tuning.ts b/src/core/tuning.ts
+index 020e4baa7d287f40a0fa4e69f75707ae9af42be6..01f9bc1d97f27b61300a7c95e33aeef8515004c2 100644
+--- a/src/core/tuning.ts
++++ b/src/core/tuning.ts
+@@ -27,6 +27,12 @@ import type {
+ export const TUNING = {
+   // P12A bounded management policy; economics and reception remain the shared laws.
+   HOLLYWOOD_DECISION_WEEKS: 1,
++  // P14D.1 rival screenplay shelving (Owner ruling D-1329-1, charter 1344-A §5): named
++  // PROVISIONAL tuning, hypotheses under the Owner's delegation, not settled law. Changing
++  // one is a tuning amendment with its own record.
++  HOLLYWOOD_SHELVE_AFTER_REJECTIONS: 13, // consecutive economic rejections of one ready screenplay
++  HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS: 13, // no commission for this long after a shelving
++  HOLLYWOOD_SHELVED_RETRY_WEEKS: 26, // between retries of one shelved screenplay
+   HOLLYWOOD_CONTRACT_WEEKS: 208,
+   HOLLYWOOD_UNASSESSED_ESTIMATE: 50,
+   HOLLYWOOD_PROMISE_HALF_WIDTH: 0.35,
