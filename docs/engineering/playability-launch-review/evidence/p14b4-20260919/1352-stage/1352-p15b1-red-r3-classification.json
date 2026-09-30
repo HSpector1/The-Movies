@@ -1,0 +1,366 @@
+[
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: module surface and stepCondition preconditions > condition-definition-version-export",
+    "requirement": "Brief PARENT API DECISIONS: 'export const CORPORATE_CONDITION_VERSION = corporate-condition/v1'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: module surface and stepCondition preconditions > step-condition-throws-on-non-sequential-week",
+    "requirement": "Brief PARENT API DECISIONS: 'otherwise facts.week must equal prev.week + 1 (throws otherwise)'. Additional to the numbered RED list (see file header note).",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: module surface and stepCondition preconditions > step-condition-throws-on-invalid-facts",
+    "requirement": "Brief PARENT API DECISIONS: 'throws on non-finite cash, negative/non-finite weeklyFixedCost, negative/non-integer loanInstallment, non-integer week'. Additional to the numbered RED list (see file header note).",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: first-evaluation semantics (1352-F2 ruling 1) > condition-first-evaluation-negative-cash",
+    "requirement": "1352-F2 ruling 1: 'A studio whose first evaluated week has negative cash therefore starts at lowRun 1 and negativeRun 1 ... A new leaf pins a first evaluation with negative cash: lowRun 1, negativeRun 1, clearRun 0, no transition.' 1352-D review Q4 non-blocking note (applied in 1352-C3): chained into one following week through runFrom (a second negative week gives lowRun 2, negativeRun 2, no transition), so a bug specific to the negative-first-eval Condition breaking the NEXT call is also caught.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-transition-table > condition-transition-table",
+    "requirement": "1352-A \u00a74.2 (transition table) as amended by 1352-F Amendments 1 & 2 (distressWeeks override on the distress-entry week; recovery rows replaced) and 1352-F2 rulings 1 & 2 (the bootstrap's clearRun=1, not 0; the closure week's Condition.distressWeeks=0, not 26); RED item 1.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-distress-weeks-exact > condition-distress-weeks-exact",
+    "requirement": "1352-F Amendment 1 and 'RED list after adoption' item 1a (entry week distressWeeks=1, next week 2, relapse entry restarts at 1).",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-no-single-week-skip > condition-no-single-week-skip-single-negative-week",
+    "requirement": "1352-A \u00a75 item 2: 'one negative week gives no transition'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-no-single-week-skip > condition-no-single-week-skip-four-week-negative-streak-gives-warning-only",
+    "requirement": "1352-A \u00a75 item 2: 'a 4-week negative streak gives warning only'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-one-bad-film > condition-one-bad-film",
+    "requirement": "1352-A \u00a75 item 3; \u00a74.2 property 'One large week that cash absorbs (one bad film) produces no distress'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-distress-after-warning > condition-distress-after-warning-minimal-timing",
+    "requirement": "1352-A \u00a75 item 4: 'distress never before four weeks of warning, and only after eight negative weeks'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-distress-after-warning > condition-distress-after-warning-extended-warning-duration",
+    "requirement": "1352-A \u00a75 item 4; 1352-F Amendment 3 Lemma B (distress begins exactly at negativeRun=8 independent of how long warning has already persisted).",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-recovery-declines-as-stable > condition-recovery-declines-as-stable-13-clear-weeks-to-stable",
+    "requirement": "1352-F Amendment 2 and 'RED list after adoption' item 5 (replaced): '13 clear weeks to stable' (week21, not week22 -- a self-caught off-by-one in this leaf's own r1 draft, corrected in 1352-C2; see the revision record).",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-recovery-declines-as-stable > condition-recovery-declines-as-stable-relapse-only-through-warning-after-8-negative-weeks",
+    "requirement": "1352-F Amendment 2 and item 5 (replaced): 'recovery goes to warning after 4 low weeks and to distress only through warning after 8 negative weeks'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-no-single-week-distress > condition-no-single-week-distress-from-stable-and-warning",
+    "requirement": "1352-F 'RED list after adoption' item 5b: 'from every stage, one negative week, or any run shorter than 8 negative weeks, never enters distress'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-no-single-week-distress > condition-no-single-week-distress-from-recovery",
+    "requirement": "1352-F item 5b, the recovery-stage case.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-closure > condition-closure-at-exactly-26-distress-weeks-with-negative-cash",
+    "requirement": "1352-A \u00a75 item 6: 'closure at exactly 26 distress weeks with negative cash'; \u00a74.2 closure row.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-closure > condition-closure-never-with-non-negative-cash",
+    "requirement": "1352-A \u00a75 item 6: 'never with non-negative cash'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-closure > condition-closure-is-absorbing-and-the-step-refuses-a-closed-prev",
+    "requirement": "1352-A \u00a75 item 6: 'closed is absorbing and the step refuses it'; PARENT API DECISIONS: 'throws for a closed prev'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-closure > condition-closure-earliest-route-is-33-consecutive-negative-weeks",
+    "requirement": "1352-A \u00a75 item 6: 'the earliest route is 33 negative weeks'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-owner-swap-and-determinism > condition-owner-swap-and-determinism-identical-facts-give-identical-output",
+    "requirement": "1352-A \u00a75 item 7: 'identical facts give identical outputs regardless of studio'; \u00a74.2 'swapping the owner of the same facts gives the same output'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-causes-bounded > condition-causes-bounded-at-most-five-and-typed",
+    "requirement": "1352-A \u00a75 item 8: 'at most 5 typed causes'; \u00a74.2 annex E.4 maximum of 5.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-causes-bounded > condition-causes-bounded-warning-entry-exact-both-branches",
+    "requirement": "1352-F2 ruling 3: causes table row 'stable/recovery -> warning: LOW_COVER, then NEGATIVE_CASH if negativeRun>0'; 'LOW_COVER at the week-4 warning of the negative-from-week-1 sequence is 4.'",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-causes-bounded > condition-causes-bounded-recovery-to-warning-exact-both-branches",
+    "requirement": "1352-F2 ruling 3, same row, the recovery->warning instance named explicitly in the revision instruction ('incl. the conditional NEGATIVE_CASH').",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-causes-bounded > condition-causes-bounded-warning-to-distress-exact",
+    "requirement": "1352-F2 ruling 3: causes table row 'warning -> distress: NEGATIVE_CASH, LOW_COVER' (note the order, reversed from the warning-entry rows).",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-causes-bounded > condition-causes-bounded-clear-exits-exact",
+    "requirement": "1352-F2 ruling 3: causes table row 'warning->stable, distress->recovery, recovery->stable: COVER_RESTORED'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-causes-bounded > condition-causes-bounded-closure-exact",
+    "requirement": "1352-F2 ruling 3: causes table row 'distress->closed: DISTRESS_DURATION, NEGATIVE_CASH'; DISTRESS_DURATION value is 'the counter-step value, before the transition step resets it'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-causes-bounded > condition-causes-bounded-zero-obligation-finite-and-json-safe",
+    "requirement": "1352-F2 ruling 3 motivation and revision instruction (4): 'zero-obligation (weeklyFixedCost 0, loanInstallment 0) negative-cash sequence reaching warning -> every cause weeks is a finite integer and JSON.parse(JSON.stringify(transition)) deep-equals transition.'",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-causes-bounded > condition-causes-bounded-public-projection-has-no-finance-number",
+    "requirement": "1352-A \u00a75 item 8: 'no finance number in the rival-safe projection helper'; PARENT API DECISIONS publicCondition shape { stage, since }; 1122-A rival stage-only disclosure.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: remedies-two-routes > remedies-two-routes-pending-release-and-staff-and-no-loan-gives-at-least-two",
+    "requirement": "1352-A \u00a74.3 and \u00a75 item 9: 'a studio entering distress with a pending release, or with staff, and no outstanding loan has at least two families'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: remedies-two-routes > remedies-two-routes-zero-route-case",
+    "requirement": "1352-A \u00a74.3 and \u00a75 item 9: 'a studio with none left (no staff, no release, a loan outstanding) still transitions ... no route remains'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: remedies-two-routes > remedies-two-routes-rival-shaped-capability-does-not-over-count",
+    "requirement": "1352-F 'Notes adopted': 'RED item 9 adds a rival-shaped capability, with staff but terminableContracts = 0. The function reports fewer routes and does not over-count.'",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: remedies-two-routes > remedies-two-routes-fixed-order-skips-ineligible-middle-family",
+    "requirement": "Brief PARENT API DECISIONS: 'remedies(condition, facts, capability) ... fixed order LOAN, REDUCE_OBLIGATIONS, RELEASE'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: remedies-two-routes > remedies-two-routes-loan-zero-fixed-cost-addition-1352-F",
+    "requirement": "1352-F Amendment 4: 'Loan eligibility adds max >= LOAN_AMOUNT_STEP. A studio with weeklyFixedCost = 0 has no loan route, and the remedy list omits LOAN.'",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: remedies-two-routes > remedies-two-routes-stage-outside-warning-distress-excludes-loan",
+    "requirement": "1352-D review blocking defect 1: 'remedies()'s condition.stage parameter is never varied away from distress -- LOAN-vs-stage wiring is untested.' Coordinator instruction: a stable-stage and a recovery-stage Condition, both with otherwise loan-eligible facts/capability, exclude LOAN while REDUCE_OBLIGATIONS/RELEASE follow capability as usual.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: remedies-two-routes > remedies-two-routes-founding-excludes-loan",
+    "requirement": "1352-D review blocking defect 2: 'remedies()'s capability.founding is never set to true -- the founding exclusion is untested at the remedies() boundary.' Coordinator instruction: a distress Condition with loan-eligible facts but capability.founding true excludes LOAN.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: loan-obligation-in-cover > loan-obligation-in-cover-installment-raises-o-and-lowers-cover-exactly",
+    "requirement": "1352-A \u00a75 item 13: 'an installment raises O and lowers cover exactly'; \u00a74.1 O = weeklyFixedCost + loanInstallment, c = cash/O. coverWeeks is pinned to corporateCondition.ts by the PARENT API DECISIONS.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: loan-obligation-in-cover > loan-obligation-in-cover-zero-obligation-infinity-rule",
+    "requirement": "1352-A \u00a74.1: 'Cover c = O > 0 ? cash / O : (cash >= 0 ? +Infinity : -Infinity)'; PARENT API DECISIONS: 'coverWeeks(facts) (cash / O with the \u00b1Infinity rule for O = 0)'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-distress-week-is-eighth-negative > condition-distress-week-is-eighth-negative-long-low-positive-then-negative",
+    "requirement": "1352-F 'RED list after adoption' item 15: 'distress begins in exactly the week negativeRun first reaches 8, and never on low-positive weeks alone'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-distress-week-is-eighth-negative > condition-distress-week-is-eighth-negative-low-positive-alone-never-triggers-however-long",
+    "requirement": "1352-F item 15, the 'including long low but positive stretches' clause.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-distress-week-is-eighth-negative > condition-distress-week-is-eighth-negative-distress-does-not-clear-on-low-positive-return",
+    "requirement": "Direct mechanical consequence of the pinned \u00a74.2 distress->recovery row ('not low', i.e. cover>=4) isolating 'low' from 'negative' as item 15's own name requires; test-author derivation, flagged in the handback. distressWeeks=11 at week18, not 10 -- a self-caught off-by-one in this leaf's own r1 draft, corrected in 1352-C2; see the revision record.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/corporateCondition.js (resolved id: ../src/core/corporateCondition.js) in <scratch-tree>/tests/p15b1-corporate-condition.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-corporate-condition.test.ts",
+    "leaf": "p15b corporate condition: condition-owner-swap-and-determinism > condition-owner-swap-and-determinism-module-imports-no-rng",
+    "requirement": "1352-A \u00a74.2: 'The step reads no RNG'; W0 \u00a78: 'A deterministic condition needs no RNG'.",
+    "redStatus": "RED",
+    "redReason": "Error: ENOENT: no such file or directory, open '<scratch-tree>/src/core/corporateCondition.ts' (the module genuinely does not exist yet; a distinct RED reason from the load-failure leaves above because this leaf reads the source file's own text rather than importing it)."
+  },
+  {
+    "file": "tests/p15b1-studio-loan.test.ts",
+    "leaf": "p15b studio loan: module surface > loan-definition-version-export",
+    "requirement": "Brief PARENT API DECISIONS: 'export const STUDIO_LOAN_VERSION = studio-loan/v1'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/studioLoan.js (resolved id: ../src/core/studioLoan.js) in <scratch-tree>/tests/p15b1-studio-loan.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-studio-loan.test.ts",
+    "leaf": "p15b studio loan: loan-eligibility > loan-eligibility-stage-table",
+    "requirement": "1352-A \u00a74.4 Eligible bullet and \u00a75 item 10: 'the stage table'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/studioLoan.js (resolved id: ../src/core/studioLoan.js) in <scratch-tree>/tests/p15b1-studio-loan.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-studio-loan.test.ts",
+    "leaf": "p15b studio loan: loan-eligibility > loan-eligibility-one-at-a-time-no-outstanding-loan",
+    "requirement": "1352-A \u00a75 item 10: 'one loan at a time'; \u00a74.4 'no outstanding loan'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/studioLoan.js (resolved id: ../src/core/studioLoan.js) in <scratch-tree>/tests/p15b1-studio-loan.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-studio-loan.test.ts",
+    "leaf": "p15b studio loan: loan-eligibility > loan-eligibility-never-while-founding-or-closed",
+    "requirement": "1352-A \u00a75 item 10: 'never while founding or closed'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/studioLoan.js (resolved id: ../src/core/studioLoan.js) in <scratch-tree>/tests/p15b1-studio-loan.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-studio-loan.test.ts",
+    "leaf": "p15b studio loan: loan-eligibility > loan-eligibility-max-below-step-boundary",
+    "requirement": "1352-F Amendment 4: 'Loan eligibility adds max >= LOAN_AMOUNT_STEP.'",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/studioLoan.js (resolved id: ../src/core/studioLoan.js) in <scratch-tree>/tests/p15b1-studio-loan.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-studio-loan.test.ts",
+    "leaf": "p15b studio loan: loan-principal > loan-principal-max-formula",
+    "requirement": "1352-A \u00a74.4 Principal bullet: 'max = floor(LOAN_MAX_FIXED_COST_WEEKS x weeklyFixedCost / LOAN_AMOUNT_STEP) x LOAN_AMOUNT_STEP'; \u00a75 item 11.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/studioLoan.js (resolved id: ../src/core/studioLoan.js) in <scratch-tree>/tests/p15b1-studio-loan.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-studio-loan.test.ts",
+    "leaf": "p15b studio loan: loan-principal > loan-principal-step-multiples-and-refusals",
+    "requirement": "1352-A \u00a75 item 11: 'step multiples, refusal of zero, negatives, non-multiples and amounts above max'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/studioLoan.js (resolved id: ../src/core/studioLoan.js) in <scratch-tree>/tests/p15b1-studio-loan.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-studio-loan.test.ts",
+    "leaf": "p15b studio loan: loan-principal > loan-zero-fixed-cost",
+    "requirement": "1352-F Amendment 4 and 'RED list after adoption' item 11 addition: 'weeklyFixedCost = 0 gives max = 0, the loan is ineligible'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/studioLoan.js (resolved id: ../src/core/studioLoan.js) in <scratch-tree>/tests/p15b1-studio-loan.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-studio-loan.test.ts",
+    "leaf": "p15b studio loan: loan-schedule-exact > loan-schedule-exact-smallest-total-case",
+    "requirement": "1352-A \u00a74.4 Schedule bullet: installments sum exactly to total, term installments, integer, first due the week after contracting; \u00a75 item 12.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/studioLoan.js (resolved id: ../src/core/studioLoan.js) in <scratch-tree>/tests/p15b1-studio-loan.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-studio-loan.test.ts",
+    "leaf": "p15b studio loan: loan-schedule-exact > loan-schedule-exact-boundary-total-mod-term-is-zero",
+    "requirement": "1352-A \u00a75 item 12: 'a boundary case where total mod term = 0'.",
+    "redStatus": "RED",
+    "redReason": "Error: Failed to load url ../src/core/studioLoan.js (resolved id: ../src/core/studioLoan.js) in <scratch-tree>/tests/p15b1-studio-loan.test.ts. Does the file exist?"
+  },
+  {
+    "file": "tests/p15b1-studio-loan.test.ts",
+    "leaf": "p15b studio loan: tuning-bounded-terms > tuning-bounded-terms",
+    "requirement": "1352-A \u00a74.5 (the full TUNING table) and \u00a75 item 14; 1352-F note: 'a bounded-term test pins LOAN_AMOUNT_STEP x (100 + LOAN_INTEREST_PERCENT) / 100 >= LOAN_TERM_WEEKS' (RED list item 14 addition).",
+    "redStatus": "RED",
+    "redReason": "AssertionError: expected undefined to be 4 // Object.is equality (TUNING has no CORPORATE_WARN_COVER_WEEKS key yet; a genuine value-mismatch RED reason, not a module-load failure, since this leaf only imports the real, already-existing src/core/tuning.ts)."
+  }
+]
