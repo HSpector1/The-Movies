@@ -1,0 +1,34 @@
+<!-- 1353-J: verbatim final text of the independent implementation reviewer (contract-auditor), saved by the parent on arrival. -->
+# Independent review 1353-J
+
+**Verdict: KEEP**
+
+Scope: `src/core/campaignLegacy.ts` (805 lines, tree3) + the `LEGACY_*` TUNING block in `src/core/tuning.ts`, as landed by `1353-stage/1353-p15c1-production.patch` (step 3, identical to the step3 patch per 1353-E §S3.5, `cmp` equal). Cross-checked directly against `1353-A` as amended by `1353-F/F2/F3/F4/F5`, `1359-F` Amendment 1, and Owner rulings 2/3/5/6 of `1342-O-owner-rulings-p14-p18-approved.txt:29-75` (read verbatim, not taken on the charter's word).
+
+## Blocking defects
+None found. I re-derived the eight archetypes and the completeness/cut rules from the charter and rulings independently (not from the handback's own tables) and matched them line-for-line against tree3.
+
+## Spot-checks that matched
+- **A3 (`campaignLegacy.ts:682, :699`, tree3).** Confirmed exactly as claimed: `conditionEventsBefore` (:682) filters `c.week < f.B`; `resilientSurvivor`'s `closed` flag (:699) is `closures.length > 0 || (s.closedWeek !== null && s.closedWeek < f.B)`. Both correctly read `closedWeek === B` as open. No code change was needed here, matching 1353-F4/F5.
+- **OPEN-9/A1**, ranking ref = `recordId`, never week-derived: `:736` `.map((r) => ({ domainId: 'powerRanking', id: r.recordId }))`; type at `:154-155`.
+- **A2**, market cut at B: `LegacyMarketAssessmentFact.week` (:156); `:717` `.filter((m) => m.week < f.B)`.
+- **OPEN-12** (changed reading), contrary-only gate: `:642` `if (t.commercialWeek < s.enteredWeek! || t.commercialWeek >= spanEnd) continue`. The qualifying/held side (`:637`) does not read `enteredWeek` at all — matches F4/F5's explicit "held-or-not is unchanged."
+- **OPEN-19**, settled-before-release refuses by name only: `:358` `fail(..., 'must not precede its release week: a run settles only after it opens')` — no value printed.
+- **D1** `baseMarketValue`: required, finite, positive top-level field (`:161`, `:272-273`); used only as the exact product `100·gross ≥ P·baseMarketValue` (`:618, :620`), never a division — satisfies the "no cross-run floating drift" requirement in the charge.
+- **§5.3 amendments 1-4**: `2·liked ≥ scored` (:608), `2·genreCount > n` (:672), calendar-block decade `floor(campaignDate(week).year/10)` (:600, and `calendar.ts:17` confirmed pure — no `Date`, integer arithmetic only), pioneer contrary using S's own earliest adoption (:643-646). All match the amendment text verbatim.
+- **§9 point 2 (`limitedBy` sets)**: the fixed per-archetype domain sets (`:592, :612, :624, :651, :665, :677, :687, :780`) match the handback's ratified table exactly.
+- **Public facts / fail-loud**: no fact type carries cash/cost/revenue; every `fail()` call emits `field + rule`, no value, confirmed by scanning every call site in `readFacts`.
+- **Scope (requirement 7)**: the full patch (`1353-p15c1-production.patch`, verified to line 844) touches only these two files; no `index.ts` change; nothing else in `src` was touched, so nothing else could import it yet.
+- **TUNING (requirement 6)**: all 15 `LEGACY_*` values equal 1353-A §5.5 exactly (`70/35, 57, 5/25, 90/30, 4/2, 52/260, 3/10/260, 8`); each carries a "positive integer" range comment plus an explicit "changing a value changes the law" convention note.
+- **Purity/determinism**: no `Date`, RNG, `GameState`, save, Bridge, or tick import; inputs are only read (`rows()`, `.forEach`), never mutated; every collection consumed downstream is explicitly re-sorted with a full tiebreak (`byWeekThenId`, `compareText`, canonical `LEGACY_DOMAIN_IDS` order for `limitedBy`/`sources`), so Map-iteration-order artifacts from input order cannot leak into output — satisfies 1359-F Amendment 1's "no hidden input" requirement for the future validator replay.
+
+## Non-blocking notes
+1. **Ratified quirk, not a defect (S3.6 in 1353-E).** A studio that enters within `LEGACY_PIONEER_WEEKS` after a technology's `commercialWeek` can hold `technology-pioneer` for it while never being cited as late/never for that same technology (the contrary gate at `:642` excludes it, the qualifying side at `:637` does not gate on `enteredWeek`). The writer flagged this explicitly; 1353-F5 ruled the reading correct and withdrew the "cannot pioneer it" prose as imprecise. Worth a one-line callout in the eventual dossier copy (Wave 4) so a reviewer doesn't rediscover it as a bug.
+2. **Version discipline is convention only.** "Any change changes the law: bump `CAMPAIGN_LEGACY_DEFINITION`" is a comment, not code-enforced. Fine for Wave 1; Wave 2's validator (1359-F Amendment 1) is where an old-law fixture actually has to prove this holds.
+3. **Evidence basis.** I did not execute vitest myself (read-only toolset, no shell). My confidence rests on (a) my own independent line-by-line cross-check of tree3 against the charter/amendments/rulings text (not the handback's summaries), and (b) the handback's own reference-implementation + defect-injection + purity-check chain (1353-E §6, §S3.4), which is materially strong evidence (independent second derivation, three rounds of injected-defect detection, deep-freeze purity check, permuted-input determinism check) but is still supplied evidence, not a run I watched.
+4. Wave 2 (root, adapter, tick freeze step, validator replay) does not exist yet — correctly out of this record's scope per the charter's own wave gating; nothing here claims otherwise.
+
+## Next action
+No production changes needed for Wave 1. Proceed to the parent dry run 1353-X3 (already queued per 1353-E §S3.7) and then Wave 2 staging per `1359-F`. If the parent wants a native/CI-executed confirmation independent of the writer's own scratch runs, that requires a writable/shell-enabled role — outside this review's tool grant.
+
+**Files read for this record** (all absolute paths under `/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/` unless noted): `1353-A-p15c-finale-legacy-charter.md`, `1353-F-parent-p15c-charter-adoption.md`, `1353-F2-parent-rulings-on-1353-C.md`, `1353-F3-parent-response-to-1353-D.md`, `1353-F4-parent-rulings-on-1353-E.md`, `1353-F5-parent-response-to-1353-E-step3.md`, `1359-F-parent-p15c-wave2-charter-adoption.md`, `1353-C4-p15c-red-r4-revision.md`, `1353-stage/1353-p15c-red-r4-classification.json`, `1353-stage/1353-p15c1-production.patch`, `1353-E-p15c1-production-handback.md`, `1342-O-owner-rulings-p14-p18-approved.txt`; plus `/Users/zacheryspector/The-Movies-headless-program/src/core/calendar.ts` (repo HEAD) and `/private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-prod/tree3/src/core/campaignLegacy.ts` (candidate, all line numbers above cite this file).

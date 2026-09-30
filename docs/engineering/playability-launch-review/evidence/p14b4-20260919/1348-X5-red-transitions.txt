@@ -1,0 +1,405 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1348-x5/tree
+
+stdout | tests/p14c3-canonical-rival-history.test.ts
+{"phase":"1061-canonical098-passive-route","calls":{"K":0,"L":0},"total":0,"cap":988,"lastWeek":0,"chosenWeek":null,"hiredWeek":null,"releasedWeek":null,"boundaries":[],"appends":[],"weekly":[],"pendingCategories":["ordinary-staff","scientist-staff","ordinary-reuse","scientist-reuse","scheduled-entry","cohort"],"row5Reached":false,"failedCaches":["initial","chosen","hired","released"]}
+
+ ❯ |core| tests/p14c3-canonical-rival-history.test.ts (6 tests | 6 failed) 898ms
+   × C.3 canonical Actor history survives actual passive rival Writer transition and work > K1 reaches genuine eligible acting retirement with independently counted campaign and authored evidence 838ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 canonical Actor history survives actual passive rival Writer transition and work > K2 observes the exact real owner write set and inclusive Actor-to-Writer authority 49ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 canonical Actor history survives actual passive rival Writer transition and work > K3 preserves exact canonical old support credits and actual employment closure through Writer reload 1ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 canonical Actor history survives actual passive rival Writer transition and work > K4 refuses separate malformed canonical title, credit, entry cause and missing profession authority 1ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 canonical Actor history survives actual passive rival Writer transition and work > L1 observes an actual passive non-player Writer hire with one employer and paid signing authority 1ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 canonical Actor history survives actual passive rival Writer transition and work > L2 completes real rival screenplay review, production and released Writer credit after the change 1ms
+     → expected 43 to be 42 // Object.is equality
+stdout | tests/p14c3-offmenu-extensions.test.ts
+{"phase":"1026-offmenu-route-observation","prefixRouteWeeks":157,"completedPrefixes":[],"directTickCalls":{"director":0,"writer":0},"completedPrefixWeeksPlusDirectCalls":0,"observed":{}}
+
+ ❯ |core| tests/p14c3-offmenu-extensions.test.ts (8 tests | 8 failed) 5093ms
+   × C.3 actor→director genuine off-menu58-week extension > O1 records a real six-week termination, floored same-week rehire and invalidation of the old ordinary case 3116ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 actor→director genuine off-menu58-week extension > O2 derives real D410<E416 and accepts only the entered incumbent58-week proposal ending468 26ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 actor→director genuine off-menu58-week extension > O3 actually settles and pays58 weeks at410 with real trust and both dated used episodes preserved 1ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 actor→director genuine off-menu58-week extension > O4 opens no repeat case and preserves actual468 finality and all termination history through loaded469 1ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 actor→writer genuine off-menu58-week extension > O1 records a real six-week termination, floored same-week rehire and invalidation of the old ordinary case 1943ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 actor→writer genuine off-menu58-week extension > O2 derives real D410<E416 and accepts only the entered incumbent58-week proposal ending468 1ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 actor→writer genuine off-menu58-week extension > O3 actually settles and pays58 weeks at410 with real trust and both dated used episodes preserved 0ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 actor→writer genuine off-menu58-week extension > O4 opens no repeat case and preserves actual468 finality and all termination history through loaded469 0ms
+     → expected 43 to be 42 // Object.is equality
+stdout | tests/p14c3-equal-tuple-evidence.test.ts
+C3_G4_ACTUAL_ROUTES {"tickCalls":{"main":0,"repeat":0},"totalTickCalls":0,"mainPictures":[],"repeatPictures":[]}
+
+ ❯ |core| tests/p14c3-equal-tuple-evidence.test.ts (4 tests | 4 failed) 2148ms
+   × C.3 genuine equal public tuples and canonical counterpart evidence > T1 distinguishes A/B from A/A contexts at the same two actual acting pictures 2101ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 genuine equal public tuples and canonical counterpart evidence > T2 chooses later encountered smaller B witnesses from actual A/B/A/B tied pairs 2ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 genuine equal public tuples and canonical counterpart evidence > T3 genuinely declines both eligible equal careers at natural retirement208 39ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 genuine equal public tuples and canonical counterpart evidence > T4 reloads actual208 and preserves terminal finality through every week to260 1ms
+     → expected 43 to be 42 // Object.is equality
+stdout | tests/p14c3-held-actor-evidence.test.ts
+{"phase":"1020-genuine-route-observation","group":"G3","tickCalls":0,"releaseWeek":null,"clearanceWeek":null,"ageFinalityWeek":null}
+
+ ❯ |core| tests/p14c3-held-actor-evidence.test.ts (6 tests | 6 failed) 4449ms
+   × C.3 genuine held actor evidence and retirement clearance > H1 holds a real unscheduled company across E without a take, release or transition 4326ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 genuine held actor evidence and retirement clearance > H2 cancels before a take and makes one genuine decision at clearance209 without new evidence 2ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 genuine held actor evidence and retirement clearance > H3 captures an actual post-E take while the active company still postpones both decisions 2ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 genuine held actor evidence and retirement clearance > H4 cancels after the take and retains acting/directing facts but no released Writer picture at210 1ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 genuine held actor evidence and retirement clearance > H5 actual release adds the fourth shared Writer credit before one observed clearance decision each 1ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 genuine held actor evidence and retirement clearance > H6 holds genuine work to75 and takes age precedence over qualifying evidence, preserving finality after reopening 1ms
+     → expected 43 to be 42 // Object.is equality
+stdout | tests/p14c3-cohort-transition.test.ts
+C3_COHORT_ROUTE_ACTUAL {"calls":0,"maximumCalls":729,"maximumWeek":3329,"observations":{}}
+
+ ❯ |core| tests/p14c3-cohort-transition.test.ts (9 tests | 9 failed) 19830ms
+   × C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J1 accepts genuine35/37/current input and discloses only the initial79M before real public hires 19733ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J2 actually releases three lead pictures with repeated Director and credited Writer context 2ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 genuine cohort-born Actor enters a new profession with origin authority intact > 'J3' genuinely retains the incumbent through its ordinary proposal and decision-week payment 1ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 genuine cohort-born Actor enters a new profession with origin authority intact > 'J4' genuinely retains the incumbent through its ordinary proposal and decision-week payment 0ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 genuine cohort-born Actor enters a new profession with origin authority intact > 'J5' genuinely retains the incumbent through its ordinary proposal and decision-week payment 1ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J6 records actual hard70 notice, unoffered59-week descriptor and seven-week expiry gap 1ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J7 makes the real3283 Director choice while preserving the original832 Actor receipt and strict cause 72ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J8 reloads and hires a new crew for genuine Director work while retired acting stays refused 5ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J9 counts the active Director at actual3328 and survives loaded3329 with all origin and choice facts 1ms
+     → expected 43 to be 42 // Object.is equality
+stdout | tests/p14c3-transition-owner-and-snapshots.test.ts
+{"phase":"1020-genuine-route-observation","group":"G1/G5","tickCalls":0,"releaseWeek":null,"releasedStateWeek":null}
+
+ ❯ |core| tests/p14c3-transition-owner-and-snapshots.test.ts (3 tests | 3 failed) 4043ms
+   × C.3 genuine transition owner and later public snapshots > O1 observes the actual retirement-owner call and preserves all state outside its exact write set 4026ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 genuine transition owner and later public snapshots > S1 real later director credit changes public proof but preserves the old stored question 10ms
+     → expected 43 to be 42 // Object.is equality
+   × C.3 genuine transition owner and later public snapshots > S2 real later writer credit changes public proof but preserves the old stored question 1ms
+     → expected 43 to be 42 // Object.is equality
+ ❯ |core| tests/p14c3-transitions.test.ts (35 tests | 6 failed) 37319ms
+   × C.3 A03/A04 genuine retirement choices through existing tick > retires the two genuine207 actors into director and writer at208 with real bounded evidence 8278ms
+     → existing live writer moves coherently to38: expected 43 to be 42 // Object.is equality
+   × C.3 A03/A04 genuine retirement choices through existing tick > reconciles actual retired genuine-v37-c3-retired-week208.json.gz prospectively at209 without backdating or rewriting old receipts 7912ms
+     → existing live writer moves coherently to38: expected 43 to be 42 // Object.is equality
+   × C.3 A03/A04 genuine retirement choices through existing tick > reconciles actual retired genuine-v37-c3-runtime-current208.json.gz prospectively at209 without backdating or rewriting old receipts 5337ms
+     → existing live writer moves coherently to38: expected 43 to be 42 // Object.is equality
+   ✓ C.3 A05/A06 public profession history, current evidence and repeat safety > derives the exact current public input without mutation and refuses past-week reconstruction 1924ms
+   × C.3 A05/A06 public profession history, current evidence and repeat safety > uses inclusive change weeks and current-versus-explicit retirement lookup after save and reload 2429ms
+     → existing live writer moves coherently to38: expected 43 to be 42 // Object.is equality
+   × C.3 A09/A10 genuine prospective finality and deferred reconciliation > records Scientist noCatalogue finality at671 once, preserving the actual670 profession retirement 3071ms
+     → expected [Function] to throw error matching /downgrade|retirement|discard|profess…/i but got 'existing live writer moves coherently…'
+   × C.3 A09/A10 genuine prospective finality and deferred reconciliation > defers the real retired cohort actor at2601 and schedules the exact annual-or-age deadline, never the next week 8239ms
+     → existing live writer moves coherently to38: expected 43 to be 42 // Object.is equality
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 42 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14c3-canonical-rival-history.test.ts > C.3 canonical Actor history survives actual passive rival Writer transition and work > K1 reaches genuine eligible acting retirement with independently counted campaign and authored evidence
+ FAIL |core|  tests/p14c3-canonical-rival-history.test.ts > C.3 canonical Actor history survives actual passive rival Writer transition and work > K2 observes the exact real owner write set and inclusive Actor-to-Writer authority
+ FAIL |core|  tests/p14c3-canonical-rival-history.test.ts > C.3 canonical Actor history survives actual passive rival Writer transition and work > K3 preserves exact canonical old support credits and actual employment closure through Writer reload
+ FAIL |core|  tests/p14c3-canonical-rival-history.test.ts > C.3 canonical Actor history survives actual passive rival Writer transition and work > K4 refuses separate malformed canonical title, credit, entry cause and missing profession authority
+ FAIL |core|  tests/p14c3-canonical-rival-history.test.ts > C.3 canonical Actor history survives actual passive rival Writer transition and work > L1 observes an actual passive non-player Writer hire with one employer and paid signing authority
+ FAIL |core|  tests/p14c3-canonical-rival-history.test.ts > C.3 canonical Actor history survives actual passive rival Writer transition and work > L2 completes real rival screenplay review, production and released Writer credit after the change
+AssertionError: expected 43 to be 42 // Object.is equality
+
+- Expected
++ Received
+
+- 42
++ 43
+
+ ❯ Module.acceptedEvidence tests/helpers/p14c3-genuine-evidence-fixtures.ts:17:29
+     15| export function acceptedEvidence(state: GameState): void {
+     16|   const before = stableStringify(state), saved = makeSave(state)
+     17|   expect(saved.saveVersion).toBe(42)
+       |                             ^
+     18|   expect(validateSaveV42(saved)).toBe(saved)
+     19|   expect(stableStringify(state)).toBe(before)
+ ❯ tests/helpers/p14c3-canonical-rival-fixtures.ts:187:5
+ ❯ memo tests/helpers/p14c3-canonical-rival-fixtures.ts:28:23
+ ❯ canonicalInitial tests/helpers/p14c3-canonical-rival-fixtures.ts:176:10
+ ❯ tests/helpers/p14c3-canonical-rival-fixtures.ts:227:21
+ ❯ memo tests/helpers/p14c3-canonical-rival-fixtures.ts:28:23
+ ❯ Module.canonicalChosen tests/helpers/p14c3-canonical-rival-fixtures.ts:226:10
+ ❯ tests/p14c3-canonical-rival-history.test.ts:144:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/42]⎯
+
+ FAIL |core|  tests/p14c3-cohort-transition.test.ts > C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J1 accepts genuine35/37/current input and discloses only the initial79M before real public hires
+ FAIL |core|  tests/p14c3-cohort-transition.test.ts > C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J2 actually releases three lead pictures with repeated Director and credited Writer context
+ FAIL |core|  tests/p14c3-cohort-transition.test.ts > C.3 genuine cohort-born Actor enters a new profession with origin authority intact > 'J3' genuinely retains the incumbent through its ordinary proposal and decision-week payment
+ FAIL |core|  tests/p14c3-cohort-transition.test.ts > C.3 genuine cohort-born Actor enters a new profession with origin authority intact > 'J4' genuinely retains the incumbent through its ordinary proposal and decision-week payment
+ FAIL |core|  tests/p14c3-cohort-transition.test.ts > C.3 genuine cohort-born Actor enters a new profession with origin authority intact > 'J5' genuinely retains the incumbent through its ordinary proposal and decision-week payment
+ FAIL |core|  tests/p14c3-cohort-transition.test.ts > C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J6 records actual hard70 notice, unoffered59-week descriptor and seven-week expiry gap
+ FAIL |core|  tests/p14c3-cohort-transition.test.ts > C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J7 makes the real3283 Director choice while preserving the original832 Actor receipt and strict cause
+ FAIL |core|  tests/p14c3-cohort-transition.test.ts > C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J8 reloads and hires a new crew for genuine Director work while retired acting stays refused
+ FAIL |core|  tests/p14c3-cohort-transition.test.ts > C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J9 counts the active Director at actual3328 and survives loaded3329 with all origin and choice facts
+AssertionError: expected 43 to be 42 // Object.is equality
+
+- Expected
++ Received
+
+- 42
++ 43
+
+ ❯ Module.acceptedEvidence tests/helpers/p14c3-genuine-evidence-fixtures.ts:17:29
+     15| export function acceptedEvidence(state: GameState): void {
+     16|   const before = stableStringify(state), saved = makeSave(state)
+     17|   expect(saved.saveVersion).toBe(42)
+       |                             ^
+     18|   expect(validateSaveV42(saved)).toBe(saved)
+     19|   expect(stableStringify(state)).toBe(before)
+ ❯ tests/helpers/p14c3-cohort-transition-fixtures.ts:170:5
+ ❯ memo tests/helpers/p14c3-cohort-transition-fixtures.ts:33:23
+ ❯ Module.cohortSetup tests/helpers/p14c3-cohort-transition-fixtures.ts:164:10
+ ❯ tests/p14c3-cohort-transition.test.ts:139:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/42]⎯
+
+ FAIL |core|  tests/p14c3-equal-tuple-evidence.test.ts > C.3 genuine equal public tuples and canonical counterpart evidence > T1 distinguishes A/B from A/A contexts at the same two actual acting pictures
+ FAIL |core|  tests/p14c3-equal-tuple-evidence.test.ts > C.3 genuine equal public tuples and canonical counterpart evidence > T2 chooses later encountered smaller B witnesses from actual A/B/A/B tied pairs
+ FAIL |core|  tests/p14c3-equal-tuple-evidence.test.ts > C.3 genuine equal public tuples and canonical counterpart evidence > T3 genuinely declines both eligible equal careers at natural retirement208
+ FAIL |core|  tests/p14c3-equal-tuple-evidence.test.ts > C.3 genuine equal public tuples and canonical counterpart evidence > T4 reloads actual208 and preserves terminal finality through every week to260
+AssertionError: expected 43 to be 42 // Object.is equality
+
+- Expected
++ Received
+
+- 42
++ 43
+
+ ❯ Module.acceptedEvidence tests/helpers/p14c3-genuine-evidence-fixtures.ts:17:29
+     15| export function acceptedEvidence(state: GameState): void {
+     16|   const before = stableStringify(state), saved = makeSave(state)
+     17|   expect(saved.saveVersion).toBe(42)
+       |                             ^
+     18|   expect(validateSaveV42(saved)).toBe(saved)
+     19|   expect(stableStringify(state)).toBe(before)
+ ❯ tests/helpers/p14c3-equal-tuple-fixtures.ts:94:5
+ ❯ memo tests/helpers/p14c3-equal-tuple-fixtures.ts:32:23
+ ❯ preparedEqualTuple tests/helpers/p14c3-equal-tuple-fixtures.ts:91:10
+ ❯ tests/helpers/p14c3-equal-tuple-fixtures.ts:156:47
+ ❯ memo tests/helpers/p14c3-equal-tuple-fixtures.ts:32:23
+ ❯ firstEqualPicture tests/helpers/p14c3-equal-tuple-fixtures.ts:156:10
+ ❯ tests/helpers/p14c3-equal-tuple-fixtures.ts:158:81
+ ❯ memo tests/helpers/p14c3-equal-tuple-fixtures.ts:32:23
+ ❯ Module.twoEqualMain tests/helpers/p14c3-equal-tuple-fixtures.ts:158:51
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/42]⎯
+
+ FAIL |core|  tests/p14c3-held-actor-evidence.test.ts > C.3 genuine held actor evidence and retirement clearance > H1 holds a real unscheduled company across E without a take, release or transition
+ FAIL |core|  tests/p14c3-held-actor-evidence.test.ts > C.3 genuine held actor evidence and retirement clearance > H2 cancels before a take and makes one genuine decision at clearance209 without new evidence
+ FAIL |core|  tests/p14c3-held-actor-evidence.test.ts > C.3 genuine held actor evidence and retirement clearance > H3 captures an actual post-E take while the active company still postpones both decisions
+ FAIL |core|  tests/p14c3-held-actor-evidence.test.ts > C.3 genuine held actor evidence and retirement clearance > H4 cancels after the take and retains acting/directing facts but no released Writer picture at210
+ FAIL |core|  tests/p14c3-held-actor-evidence.test.ts > C.3 genuine held actor evidence and retirement clearance > H5 actual release adds the fourth shared Writer credit before one observed clearance decision each
+ FAIL |core|  tests/p14c3-held-actor-evidence.test.ts > C.3 genuine held actor evidence and retirement clearance > H6 holds genuine work to75 and takes age precedence over qualifying evidence, preserving finality after reopening
+AssertionError: expected 43 to be 42 // Object.is equality
+
+- Expected
++ Received
+
+- 42
++ 43
+
+ ❯ acceptedEvidence tests/helpers/p14c3-genuine-evidence-fixtures.ts:17:29
+     15| export function acceptedEvidence(state: GameState): void {
+     16|   const before = stableStringify(state), saved = makeSave(state)
+     17|   expect(saved.saveVersion).toBe(42)
+       |                             ^
+     18|   expect(validateSaveV42(saved)).toBe(saved)
+     19|   expect(stableStringify(state)).toBe(before)
+ ❯ tests/helpers/p14c3-genuine-evidence-fixtures.ts:182:5
+ ❯ memo tests/helpers/p14c3-genuine-evidence-fixtures.ts:86:23
+ ❯ Module.heldEvidence tests/helpers/p14c3-genuine-evidence-fixtures.ts:179:10
+ ❯ tests/p14c3-held-actor-evidence.test.ts:101:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/42]⎯
+
+ FAIL |core|  tests/p14c3-offmenu-extensions.test.ts > C.3 actor→director genuine off-menu58-week extension > O1 records a real six-week termination, floored same-week rehire and invalidation of the old ordinary case
+ FAIL |core|  tests/p14c3-offmenu-extensions.test.ts > C.3 actor→director genuine off-menu58-week extension > O2 derives real D410<E416 and accepts only the entered incumbent58-week proposal ending468
+ FAIL |core|  tests/p14c3-offmenu-extensions.test.ts > C.3 actor→director genuine off-menu58-week extension > O3 actually settles and pays58 weeks at410 with real trust and both dated used episodes preserved
+ FAIL |core|  tests/p14c3-offmenu-extensions.test.ts > C.3 actor→director genuine off-menu58-week extension > O4 opens no repeat case and preserves actual468 finality and all termination history through loaded469
+ FAIL |core|  tests/p14c3-offmenu-extensions.test.ts > C.3 actor→writer genuine off-menu58-week extension > O1 records a real six-week termination, floored same-week rehire and invalidation of the old ordinary case
+ FAIL |core|  tests/p14c3-offmenu-extensions.test.ts > C.3 actor→writer genuine off-menu58-week extension > O2 derives real D410<E416 and accepts only the entered incumbent58-week proposal ending468
+ FAIL |core|  tests/p14c3-offmenu-extensions.test.ts > C.3 actor→writer genuine off-menu58-week extension > O3 actually settles and pays58 weeks at410 with real trust and both dated used episodes preserved
+ FAIL |core|  tests/p14c3-offmenu-extensions.test.ts > C.3 actor→writer genuine off-menu58-week extension > O4 opens no repeat case and preserves actual468 finality and all termination history through loaded469
+AssertionError: expected 43 to be 42 // Object.is equality
+
+- Expected
++ Received
+
+- 42
++ 43
+
+ ❯ Module.accepted tests/helpers/p14c3-second-episode-fixtures.ts:27:28
+     25| export function accepted(state: GameState): void {
+     26|   const before = stableStringify(state), save = makeSave(state)
+     27|   expect(save.saveVersion).toBe(42)
+       |                            ^
+     28|   expect(validateSaveV42(save)).toBe(save)
+     29|   expect(stableStringify(state)).toBe(before)
+ ❯ tests/helpers/p14c3-dual-extension-fixtures.ts:43:5
+ ❯ memo tests/helpers/p14c3-dual-extension-fixtures.ts:23:26
+ ❯ dualOrigin tests/helpers/p14c3-dual-extension-fixtures.ts:36:10
+ ❯ tests/helpers/p14c3-dual-extension-fixtures.ts:102:40
+ ❯ memo tests/helpers/p14c3-dual-extension-fixtures.ts:23:26
+ ❯ actorWindow tests/helpers/p14c3-dual-extension-fixtures.ts:101:10
+ ❯ tests/helpers/p14c3-dual-extension-fixtures.ts:121:62
+ ❯ memo tests/helpers/p14c3-dual-extension-fixtures.ts:23:26
+ ❯ actorSettlement tests/helpers/p14c3-dual-extension-fixtures.ts:120:10
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/42]⎯
+
+ FAIL |core|  tests/p14c3-transition-owner-and-snapshots.test.ts > C.3 genuine transition owner and later public snapshots > O1 observes the actual retirement-owner call and preserves all state outside its exact write set
+ FAIL |core|  tests/p14c3-transition-owner-and-snapshots.test.ts > C.3 genuine transition owner and later public snapshots > S1 real later director credit changes public proof but preserves the old stored question
+ FAIL |core|  tests/p14c3-transition-owner-and-snapshots.test.ts > C.3 genuine transition owner and later public snapshots > S2 real later writer credit changes public proof but preserves the old stored question
+AssertionError: expected 43 to be 42 // Object.is equality
+
+- Expected
++ Received
+
+- 42
++ 43
+
+ ❯ Module.acceptedEvidence tests/helpers/p14c3-genuine-evidence-fixtures.ts:17:29
+     15| export function acceptedEvidence(state: GameState): void {
+     16|   const before = stableStringify(state), saved = makeSave(state)
+     17|   expect(saved.saveVersion).toBe(42)
+       |                             ^
+     18|   expect(validateSaveV42(saved)).toBe(saved)
+     19|   expect(stableStringify(state)).toBe(before)
+ ❯ tests/p14c3-transition-owner-and-snapshots.test.ts:40:5
+ ❯ memo tests/p14c3-transition-owner-and-snapshots.test.ts:20:23
+ ❯ actualOwner tests/p14c3-transition-owner-and-snapshots.test.ts:37:10
+ ❯ tests/p14c3-transition-owner-and-snapshots.test.ts:114:31
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/42]⎯
+
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A03/A04 genuine retirement choices through existing tick > retires the two genuine207 actors into director and writer at208 with real bounded evidence
+AssertionError: existing live writer moves coherently to38: expected 43 to be 42 // Object.is equality
+
+- Expected
++ Received
+
+- 42
++ 43
+
+ ❯ envelope38 tests/helpers/p14c3-fixtures.ts:131:76
+    129| export function envelope38(state: GameState): Save38 {
+    130|   const result = save.makeSave(state)
+    131|   expect(result.saveVersion, 'existing live writer moves coherently to…
+       |                                                                            ^
+    132|   root38(result.state)
+    133|   return result as unknown as Save38
+ ❯ Module.chosen tests/helpers/p14c3-fixtures.ts:164:5
+ ❯ tests/p14c3-transitions.test.ts:99:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/42]⎯
+
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A03/A04 genuine retirement choices through existing tick > reconciles actual retired genuine-v37-c3-retired-week208.json.gz prospectively at209 without backdating or rewriting old receipts
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A03/A04 genuine retirement choices through existing tick > reconciles actual retired genuine-v37-c3-runtime-current208.json.gz prospectively at209 without backdating or rewriting old receipts
+AssertionError: existing live writer moves coherently to38: expected 43 to be 42 // Object.is equality
+
+- Expected
++ Received
+
+- 42
++ 43
+
+ ❯ envelope38 tests/helpers/p14c3-fixtures.ts:131:76
+    129| export function envelope38(state: GameState): Save38 {
+    130|   const result = save.makeSave(state)
+    131|   expect(result.saveVersion, 'existing live writer moves coherently to…
+       |                                                                            ^
+    132|   root38(result.state)
+    133|   return result as unknown as Save38
+ ❯ Module.chosen tests/helpers/p14c3-fixtures.ts:164:5
+ ❯ tests/p14c3-transitions.test.ts:122:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/42]⎯
+
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A05/A06 public profession history, current evidence and repeat safety > uses inclusive change weeks and current-versus-explicit retirement lookup after save and reload
+AssertionError: existing live writer moves coherently to38: expected 43 to be 42 // Object.is equality
+
+- Expected
++ Received
+
+- 42
++ 43
+
+ ❯ envelope38 tests/helpers/p14c3-fixtures.ts:131:76
+    129| export function envelope38(state: GameState): Save38 {
+    130|   const result = save.makeSave(state)
+    131|   expect(result.saveVersion, 'existing live writer moves coherently to…
+       |                                                                            ^
+    132|   root38(result.state)
+    133|   return result as unknown as Save38
+ ❯ Module.chosen tests/helpers/p14c3-fixtures.ts:164:5
+ ❯ tests/p14c3-transitions.test.ts:151:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/42]⎯
+
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A09/A10 genuine prospective finality and deferred reconciliation > records Scientist noCatalogue finality at671 once, preserving the actual670 profession retirement
+AssertionError: expected [Function] to throw error matching /downgrade|retirement|discard|profess…/i but got 'existing live writer moves coherently…'
+
+- Expected: 
+/downgrade|retirement|discard|profession/i
+
++ Received: 
+"existing live writer moves coherently to38: expected 43 to be 42 // Object.is equality"
+
+ ❯ tests/p14c3-transitions.test.ts:198:134
+    196|     expect(root38(next).industryRetirements.filter(row => row.personId…
+    197|       .toEqual(root.industryRetirements.filter(row => row.personId ===…
+    198|     expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(conve…
+       |                                                                                                                                      ^
+    199|   })
+    200| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/42]⎯
+
+ FAIL |core|  tests/p14c3-transitions.test.ts > C.3 A09/A10 genuine prospective finality and deferred reconciliation > defers the real retired cohort actor at2601 and schedules the exact annual-or-age deadline, never the next week
+AssertionError: existing live writer moves coherently to38: expected 43 to be 42 // Object.is equality
+
+- Expected
++ Received
+
+- 42
++ 43
+
+ ❯ Module.envelope38 tests/helpers/p14c3-fixtures.ts:131:76
+    129| export function envelope38(state: GameState): Save38 {
+    130|   const result = save.makeSave(state)
+    131|   expect(result.saveVersion, 'existing live writer moves coherently to…
+       |                                                                            ^
+    132|   root38(result.state)
+    133|   return result as unknown as Save38
+ ❯ tests/p14c3-transitions.test.ts:226:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/42]⎯
+
+ Test Files  7 failed (7)
+      Tests  42 failed | 29 passed (71)
+   Start at  05:23:36
+   Duration  46.92s (transform 4.38s, setup 0ms, collect 20.76s, tests 73.78s, environment 2ms, prepare 2.83s)
+

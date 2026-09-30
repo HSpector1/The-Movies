@@ -1,0 +1,538 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1348-x5/tree
+
+ ❯ |core| tests/p14b5-t-failure-tuning.test.ts (12 tests | 2 failed) 4381ms
+   ✓ CONSTRUCTED group 5 — REPLAY AND IDEMPOTENCY on the real carrier world > the same advance from the same pre-state writes a byte-identical root, and a second advance over the same production id mints nothing twice 2175ms
+   × CONSTRUCTED group 6 — SAVE AND LOAD ACROSS THE CHANGE: historical deltas are carried, never restamped > a genuinely written root round-trips through makeSave / validateSaveV32 / migrateToV32 with every driver delta verbatim 538ms
+     → validateSaveV42: expected version 42
+   × CONSTRUCTED group 6 — SAVE AND LOAD ACROSS THE CHANGE: historical deltas are carried, never restamped > a root whose stored failure deltas carry a value the CURRENT constant does not produce is admitted, carried verbatim and never restamped 226ms
+     → validateSaveV42: expected version 42
+   ✓ NATURAL WORLD group 7 — one standard seed, what is TRUE and nothing more > the first natural shared failure stores exactly −RELATIONSHIP_FAILURE_DELTA and moves closeness by exactly that 1364ms
+ ✓ |core| tests/p14b10-conflict-evidence.test.ts (20 tests) 3362ms
+   ✓ the real casting-competition route reaches genuine evidence with no double-application [control] > pair (a,b) reaches sharedCompetitions = 3 with exactly the existing drivers (-3, -3+-1, -3+-2) and no extra kind or row 2097ms
+   ✓ D5 — the shipped order is unchanged; evidence merely makes `enemies here` reachable (1347-F Amendment 2) > a player issuer: both a close tie and an enemy on the roster reads `close ties here` (2) [control: unchanged combinator order] 1250ms
+ ❯ |core| tests/p14b10-mentor-label.test.ts (9 tests | 6 failed) 13200ms
+   × Mentor — the positive case (a genuine cohort entrant, three genuine same-director pictures) > mentorEvidence names the real director, the three real productionIds in week order, and the real cohort receipt week 12989ms
+     → expected 43 to be 42 // Object.is equality
+   × Mentor — negative and boundary cases (1347-F Amendment 1 and the qualifying-pictures note) > two of three sharing the director gives no label [RED: relationshipLabels.ts does not exist at BASE] 2ms
+     → expected 43 to be 42 // Object.is equality
+   × Mentor — negative and boundary cases (1347-F Amendment 1 and the qualifying-pictures note) > a duplicate first take of one production counts once — the label still names the same three original productions [RED] 21ms
+     → expected 43 to be 42 // Object.is equality
+   × Mentor — negative and boundary cases (1347-F Amendment 1 and the qualifying-pictures note) > fewer than three qualifying pictures gives no label [RED] 1ms
+     → expected 43 to be 42 // Object.is equality
+   × Mentor — reading the label is inert (HIS-014: "labels create no additional ... effect by themselves") > reading mentorEvidence leaves state deep-equal before/after [RED] 1ms
+     → expected 43 to be 42 // Object.is equality
+   × Mentor — reading the label is inert (HIS-014: "labels create no additional ... effect by themselves") > reading mentorEvidence changes no chemistry/tier/trust reading for the Mentor pair [RED] 19ms
+     → expected 43 to be 42 // Object.is equality
+ ❯ |core| tests/p14b5-relationships.test.ts (51 tests | 20 failed) 38918ms
+   ✓ P14B.5 T1 — the module and its named exports exist (RED at import; never a spurious pass) > the hypothesis constants carry the companion values named in the expansion and the ONE pinned relation 4259ms
+   ✓ family 1 — EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) > a second advance from the same pre-take state mints byte-identical edges (replay); re-ticking the post-take state leaves the six untouched (idempotent) and mints only from THAT week's delta 451ms
+   × family 1 — EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) > no RNG reaches the seam: rngState is byte-equal before/after the seam and the tick's rngState equals the frozen control; everything but the root is byte-identical to the frozen post-tick state 267ms
+     → expected '696e3db50d3c5bfa7a5e39d99d84a75490242…' to be '9702aa6869cf80f82d5133f68137427a0ed44…' // Object.is equality
+   ✓ family 1 — EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) > a headless world (legacy-v28-shooting-5: hollywood null) lifted through migrateToV32 keeps relationships empty across a tick 979ms
+   × family 2 — CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) > the first post-migration RIVAL take mints six edges under the same law; the 45 pre-migration takes mint none (Q3) 5143ms
+     → expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]
+   × family 2 — CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) > the same pair on a second production is ONE edge with sharedProductions 2 and a repeatedCollaboration driver of the capped accelerator; a < b regardless of seat order 4654ms
+     → expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]
+   ✓ family 3 — DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); §5.5 :467-468) > past the grace window the value drifts toward the baseline by the plan formula (independent oracle), from either side, never past it, and is fully returned at GRACE + RETURN 1314ms
+   ✓ family 3 — DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); §5.5 :467-468) > a WRITE after dormancy materialises the drifted value first, then applies the delta; counters, firstSharedWeek and the peak survive; recent folds by count at the cap 750ms
+   ✓ family 4 — TIER RULE under RELATIONSHIP_RULES_VERSION 1 and the D2 reachability (scope (3)-(4)) > a staged pair at the Acquaintances floor reads Strained after one flop and pairChemistry reads sign −1; Enemies/Nemeses never read on any B.5-minted edge 347ms
+   × family 5 — RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) > a rival release (hollywood.films / industry.growth) mints under the same law; a release whose take predates every edge mints nothing (I2) 3327ms
+     → expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > the base (no edge) declines by the tie order: every landed band ties between the two survivors (measured premise) 8776ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > a CloseFriends counterpart on the player's OFF-CYCLE row (startWeek < W, active at W) settles the case for the player with the D5 sentence as the ONLY reason 476ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > a row CLOSED AT W (the actor signed at 0 for 208 weeks) never counts — the predicate's strict upper end 367ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > a row COMMITTED AT W (startWeek === W) never counts — the predicate's strict lower end; the same row one week earlier does 466ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > `enemies here` is never read: without a Close Friends counterpart no D5 sentence appears, whatever the value on the record 327ms
+   ✓ family 6b — D5 SETTLEMENT-LEVEL through the real bandsFor (record 1348-C2, review 1348-D blocking defect 2) > a player issuer: both a close tie and an enemy (with conflict evidence) on the roster — settlement reads close ties here (2) [RED under v2, 1347-F/1348-F4: the tier premise below now requires Enemies; the settlement outcome is unchanged under either law] 422ms
+   ✓ D5 REASON SENTENCE — companion-copy test per branch (record 1348-C3/C4, parent decision 1348-F2) > BRANCH 2 over 1: a close tie beats a roster holding no signal — reads the close-ties sentence, unchanged [control] 751ms
+   ✓ D5 REASON SENTENCE — companion-copy test per branch (record 1348-C3/C4, parent decision 1348-F2) > BRANCH 1 over 0: a roster holding no signal beats a roster holding evidence-backed enemies — reads the NEW at-odds sentence [RED under v1] 369ms
+   ✓ family 8 — RESERVATION enumerated and CHEMISTRY read-only (scope (6)-(7); §5.6 :476, :482) > pairChemistry returns {null, 0, []} without an edge, sign +1 for Colleagues and above, −1 for Strained and below, no digit in any reason, and reads nothing but the record 624ms
+   × family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > validateSaveV32/validateRelationshipsRoot exist and admit the genuinely minted world round-trip 169ms
+     → validateSaveV42: expected version 42
+   × family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a missing root 215ms
+     → expected [Function] to throw error matching /relationships/ but got 'validateSaveV42: expected version 42'
+   × family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a non-ordinal edgeId 173ms
+     → expected [Function] to throw error matching /edgeId/ but got 'validateSaveV42: expected version 42'
+   × family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a duplicate pair 178ms
+     → expected [Function] to throw error matching /duplicate|pair/i but got 'validateSaveV42: expected version 42'
+   × family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a non-canonical key 173ms
+     → expected [Function] to throw error matching /canonical|order|a < b|\ba\b/i but got 'validateSaveV42: expected version 42'
+   × family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a person not in state.talent 132ms
+     → expected [Function] to throw error matching /person|talent/i but got 'validateSaveV42: expected version 42'
+   × family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses firstSharedWeek > lastEventWeek 150ms
+     → expected [Function] to throw error matching /firstSharedWeek|lastEventWeek/ but got 'validateSaveV42: expected version 42'
+   × family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a week outside the recording interval (before the boundary; after market.tick) 169ms
+     → expected [Function] to throw error matching /recording|interval|firstSharedWeek/i but got 'validateSaveV42: expected version 42'
+   × family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a driver week after lastEventWeek 117ms
+     → expected [Function] to throw error matching /week|driver/i but got 'validateSaveV42: expected version 42'
+   × family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses recent over the cap 215ms
+     → expected [Function] to throw error matching /recent|cap/i but got 'validateSaveV42: expected version 42'
+   × family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses peakTier outside the catalogue 191ms
+     → expected [Function] to throw error matching /peakTier|tier/i but got 'validateSaveV42: expected version 42'
+   × family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses closeness outside 0..100 or non-integer 203ms
+     → expected [Function] to throw error matching /closeness/ but got 'validateSaveV42: expected version 42'
+   × family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses inconsistent counters 174ms
+     → expected [Function] to throw error matching /sharedSuccesses|sharedFailures|share…/i but got 'validateSaveV42: expected version 42'
+   × family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses an unknown driver kind, an empty ref and a non-integer delta 128ms
+     → expected [Function] to throw error matching /kind/ but got 'validateSaveV42: expected version 42'
+   × family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses an extra key on an edge 242ms
+     → expected [Function] to throw error matching /field|key|closenessShown/i but got 'validateSaveV42: expected version 42'
+   × family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > a V31 world holding ONE edge, and the SAME world with relationships emptied, both refuse migrateToV30 — MEASURED: the nearest guard is now V33s own materialization gate, one week past its migration boundary, not the V31-specific message 180ms
+     → validateSaveV42: expected version 42
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 28 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b10-mentor-label.test.ts > Mentor — the positive case (a genuine cohort entrant, three genuine same-director pictures) > mentorEvidence names the real director, the three real productionIds in week order, and the real cohort receipt week
+ FAIL |core|  tests/p14b10-mentor-label.test.ts > Mentor — negative and boundary cases (1347-F Amendment 1 and the qualifying-pictures note) > two of three sharing the director gives no label [RED: relationshipLabels.ts does not exist at BASE]
+ FAIL |core|  tests/p14b10-mentor-label.test.ts > Mentor — negative and boundary cases (1347-F Amendment 1 and the qualifying-pictures note) > a duplicate first take of one production counts once — the label still names the same three original productions [RED]
+ FAIL |core|  tests/p14b10-mentor-label.test.ts > Mentor — negative and boundary cases (1347-F Amendment 1 and the qualifying-pictures note) > fewer than three qualifying pictures gives no label [RED]
+ FAIL |core|  tests/p14b10-mentor-label.test.ts > Mentor — reading the label is inert (HIS-014: "labels create no additional ... effect by themselves") > reading mentorEvidence leaves state deep-equal before/after [RED]
+ FAIL |core|  tests/p14b10-mentor-label.test.ts > Mentor — reading the label is inert (HIS-014: "labels create no additional ... effect by themselves") > reading mentorEvidence changes no chemistry/tier/trust reading for the Mentor pair [RED]
+AssertionError: expected 43 to be 42 // Object.is equality
+
+- Expected
++ Received
+
+- 42
++ 43
+
+ ❯ Module.acceptedEvidence tests/helpers/p14c3-genuine-evidence-fixtures.ts:17:29
+     15| export function acceptedEvidence(state: GameState): void {
+     16|   const before = stableStringify(state), saved = makeSave(state)
+     17|   expect(saved.saveVersion).toBe(42)
+       |                             ^
+     18|   expect(validateSaveV42(saved)).toBe(saved)
+     19|   expect(stableStringify(state)).toBe(before)
+ ❯ tests/helpers/p14c3-cohort-transition-fixtures.ts:170:5
+ ❯ memo tests/helpers/p14c3-cohort-transition-fixtures.ts:33:23
+ ❯ cohortSetup tests/helpers/p14c3-cohort-transition-fixtures.ts:164:10
+ ❯ tests/helpers/p14c3-cohort-transition-fixtures.ts:216:19
+ ❯ memo tests/helpers/p14c3-cohort-transition-fixtures.ts:33:23
+ ❯ Module.cohortThreeFilms tests/helpers/p14c3-cohort-transition-fixtures.ts:215:10
+ ❯ tests/p14b10-mentor-label.test.ts:158:41
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/28]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 1 — EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) > no RNG reaches the seam: rngState is byte-equal before/after the seam and the tick's rngState equals the frozen control; everything but the root is byte-identical to the frozen post-tick state
+AssertionError: expected '696e3db50d3c5bfa7a5e39d99d84a75490242…' to be '9702aa6869cf80f82d5133f68137427a0ed44…' // Object.is equality
+
+Expected: "9702aa6869cf80f82d5133f68137427a0ed44c07ce987e8fe2be66bbb60f3d78"
+Received: "696e3db50d3c5bfa7a5e39d99d84a75490242d3b64b9ee0019e3a46266e61954"
+
+ ❯ tests/p14b5-relationships.test.ts:599:31
+    597|     expect(after.firstTakeSubjects.version).toBe(1)
+    598|     expect(after.firstTakeSubjects.cutoverOrdinal).toBe(pre.firstTakeS…
+    599|     expect(sha(bytes(after))).toBe(FROZEN.postTakeDigestStripped) // C…
+       |                               ^
+    600|     const production = pre.studio.activeProductions.find((p) => p.id =…
+    601|     const direct = advanceRelationshipsWeek(withEdges(pre, []), { take…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/28]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 2 — CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) > the first post-migration RIVAL take mints six edges under the same law; the 45 pre-migration takes mint none (Q3)
+AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]
+
+- Expected
++ Received
+
+- Array [
+-   "studio-aca408ec-r01:film:6",
+- ]
++ Array []
+
+ ❯ rivalWorld tests/p14b5-relationships.test.ts:372:53
+    370|         out.beforeRelease = before; out.atRelease = state
+    371|       } else if (week === FROZEN.rival.repeatTakeWeek) {
+    372|         expect(newTakes.map((t) => t.productionId)).toEqual([FROZEN.ri…
+       |                                                     ^
+    373|         out.beforeRepeat = before; out.atRepeat = state
+    374|       } else {
+ ❯ tests/p14b5-relationships.test.ts:631:46
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/28]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 2 — CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) > the same pair on a second production is ONE edge with sharedProductions 2 and a repeatedCollaboration driver of the capped accelerator; a < b regardless of seat order
+AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]
+
+- Expected
++ Received
+
+- Array [
+-   "studio-aca408ec-r01:film:6",
+- ]
++ Array []
+
+ ❯ rivalWorld tests/p14b5-relationships.test.ts:372:53
+    370|         out.beforeRelease = before; out.atRelease = state
+    371|       } else if (week === FROZEN.rival.repeatTakeWeek) {
+    372|         expect(newTakes.map((t) => t.productionId)).toEqual([FROZEN.ri…
+       |                                                     ^
+    373|         out.beforeRepeat = before; out.atRepeat = state
+    374|       } else {
+ ❯ tests/p14b5-relationships.test.ts:640:40
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/28]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 5 — RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) > a rival release (hollywood.films / industry.growth) mints under the same law; a release whose take predates every edge mints nothing (I2)
+AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]
+
+- Expected
++ Received
+
+- Array [
+-   "studio-aca408ec-r01:film:6",
+- ]
++ Array []
+
+ ❯ rivalWorld tests/p14b5-relationships.test.ts:372:53
+    370|         out.beforeRelease = before; out.atRelease = state
+    371|       } else if (week === FROZEN.rival.repeatTakeWeek) {
+    372|         expect(newTakes.map((t) => t.productionId)).toEqual([FROZEN.ri…
+       |                                                     ^
+    373|         out.beforeRepeat = before; out.atRepeat = state
+    374|       } else {
+ ❯ tests/p14b5-relationships.test.ts:842:42
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/28]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > validateSaveV32/validateRelationshipsRoot exist and admit the genuinely minted world round-trip
+Error: validateSaveV42: expected version 42
+ ❯ validateSaveV42Era src/core/save.ts:10629:38
+    10627|   if (!isRecord(save)) throw new Error('validateSaveV42: object requir…
+    10628|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10629|   if (save.saveVersion !== 42) throw new Error('validateSaveV42: expec…
+       |                                      ^
+    10630|   const raw = v14Record(checkEnvelope(save, 'validateSaveV42'), 'state…
+    10631|   validateRelationshipsRoot(raw, 42);
+ ❯ Module.validateSaveV42 src/core/save.ts:10623:10
+ ❯ tests/p14b5-relationships.test.ts:1246:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/28]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a missing root
+AssertionError: expected [Function] to throw error matching /relationships/ but got 'validateSaveV42: expected version 42'
+
+- Expected: 
+/relationships/
+
++ Received: 
+"validateSaveV42: expected version 42"
+
+ ❯ tests/p14b5-relationships.test.ts:1252:41
+    1250|     const save = v31()
+    1251|     Reflect.deleteProperty(save.state, 'relationships')
+    1252|     expect(() => validateSaveV42(save)).toThrow(/relationships/)
+       |                                         ^
+    1253|   })
+    1254|   it('refuses a non-ordinal edgeId', () => expectRefused((e) => { e[0]…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/28]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a non-ordinal edgeId
+AssertionError: expected [Function] to throw error matching /edgeId/ but got 'validateSaveV42: expected version 42'
+
+- Expected: 
+/edgeId/
+
++ Received: 
+"validateSaveV42: expected version 42"
+
+ ❯ expectRefused tests/p14b5-relationships.test.ts:1232:41
+    1230|     const save = v31()
+    1231|     mutate(save.state.relationships, save.state)
+    1232|     expect(() => validateSaveV42(save)).toThrow(pattern)
+       |                                         ^
+    1233|     // 1320-A: save is genuinely live (era 42, from v31()'s makeSave);…
+    1234|     // default would refuse on the unrelated new sharedCompetitions fi…
+ ❯ tests/p14b5-relationships.test.ts:1254:44
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/28]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a duplicate pair
+AssertionError: expected [Function] to throw error matching /duplicate|pair/i but got 'validateSaveV42: expected version 42'
+
+- Expected: 
+/duplicate|pair/i
+
++ Received: 
+"validateSaveV42: expected version 42"
+
+ ❯ expectRefused tests/p14b5-relationships.test.ts:1232:41
+    1230|     const save = v31()
+    1231|     mutate(save.state.relationships, save.state)
+    1232|     expect(() => validateSaveV42(save)).toThrow(pattern)
+       |                                         ^
+    1233|     // 1320-A: save is genuinely live (era 42, from v31()'s makeSave);…
+    1234|     // default would refuse on the unrelated new sharedCompetitions fi…
+ ❯ tests/p14b5-relationships.test.ts:1255:40
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/28]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a non-canonical key
+AssertionError: expected [Function] to throw error matching /canonical|order|a < b|\ba\b/i but got 'validateSaveV42: expected version 42'
+
+- Expected: 
+/canonical|order|a < b|\ba\b/i
+
++ Received: 
+"validateSaveV42: expected version 42"
+
+ ❯ expectRefused tests/p14b5-relationships.test.ts:1232:41
+    1230|     const save = v31()
+    1231|     mutate(save.state.relationships, save.state)
+    1232|     expect(() => validateSaveV42(save)).toThrow(pattern)
+       |                                         ^
+    1233|     // 1320-A: save is genuinely live (era 42, from v31()'s makeSave);…
+    1234|     // default would refuse on the unrelated new sharedCompetitions fi…
+ ❯ tests/p14b5-relationships.test.ts:1256:43
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/28]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a person not in state.talent
+AssertionError: expected [Function] to throw error matching /person|talent/i but got 'validateSaveV42: expected version 42'
+
+- Expected: 
+/person|talent/i
+
++ Received: 
+"validateSaveV42: expected version 42"
+
+ ❯ expectRefused tests/p14b5-relationships.test.ts:1232:41
+    1230|     const save = v31()
+    1231|     mutate(save.state.relationships, save.state)
+    1232|     expect(() => validateSaveV42(save)).toThrow(pattern)
+       |                                         ^
+    1233|     // 1320-A: save is genuinely live (era 42, from v31()'s makeSave);…
+    1234|     // default would refuse on the unrelated new sharedCompetitions fi…
+ ❯ tests/p14b5-relationships.test.ts:1257:52
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/28]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses firstSharedWeek > lastEventWeek
+AssertionError: expected [Function] to throw error matching /firstSharedWeek|lastEventWeek/ but got 'validateSaveV42: expected version 42'
+
+- Expected: 
+/firstSharedWeek|lastEventWeek/
+
++ Received: 
+"validateSaveV42: expected version 42"
+
+ ❯ expectRefused tests/p14b5-relationships.test.ts:1232:41
+    1230|     const save = v31()
+    1231|     mutate(save.state.relationships, save.state)
+    1232|     expect(() => validateSaveV42(save)).toThrow(pattern)
+       |                                         ^
+    1233|     // 1320-A: save is genuinely live (era 42, from v31()'s makeSave);…
+    1234|     // default would refuse on the unrelated new sharedCompetitions fi…
+ ❯ tests/p14b5-relationships.test.ts:1258:55
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/28]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a week outside the recording interval (before the boundary; after market.tick)
+AssertionError: expected [Function] to throw error matching /recording|interval|firstSharedWeek/i but got 'validateSaveV42: expected version 42'
+
+- Expected: 
+/recording|interval|firstSharedWeek/i
+
++ Received: 
+"validateSaveV42: expected version 42"
+
+ ❯ expectRefused tests/p14b5-relationships.test.ts:1232:41
+    1230|     const save = v31()
+    1231|     mutate(save.state.relationships, save.state)
+    1232|     expect(() => validateSaveV42(save)).toThrow(pattern)
+       |                                         ^
+    1233|     // 1320-A: save is genuinely live (era 42, from v31()'s makeSave);…
+    1234|     // default would refuse on the unrelated new sharedCompetitions fi…
+ ❯ tests/p14b5-relationships.test.ts:1260:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/28]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a driver week after lastEventWeek
+AssertionError: expected [Function] to throw error matching /week|driver/i but got 'validateSaveV42: expected version 42'
+
+- Expected: 
+/week|driver/i
+
++ Received: 
+"validateSaveV42: expected version 42"
+
+ ❯ expectRefused tests/p14b5-relationships.test.ts:1232:41
+    1230|     const save = v31()
+    1231|     mutate(save.state.relationships, save.state)
+    1232|     expect(() => validateSaveV42(save)).toThrow(pattern)
+       |                                         ^
+    1233|     // 1320-A: save is genuinely live (era 42, from v31()'s makeSave);…
+    1234|     // default would refuse on the unrelated new sharedCompetitions fi…
+ ❯ tests/p14b5-relationships.test.ts:1263:57
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/28]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses recent over the cap
+AssertionError: expected [Function] to throw error matching /recent|cap/i but got 'validateSaveV42: expected version 42'
+
+- Expected: 
+/recent|cap/i
+
++ Received: 
+"validateSaveV42: expected version 42"
+
+ ❯ expectRefused tests/p14b5-relationships.test.ts:1232:41
+    1230|     const save = v31()
+    1231|     mutate(save.state.relationships, save.state)
+    1232|     expect(() => validateSaveV42(save)).toThrow(pattern)
+       |                                         ^
+    1233|     // 1320-A: save is genuinely live (era 42, from v31()'s makeSave);…
+    1234|     // default would refuse on the unrelated new sharedCompetitions fi…
+ ❯ tests/p14b5-relationships.test.ts:1264:43
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/28]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses peakTier outside the catalogue
+AssertionError: expected [Function] to throw error matching /peakTier|tier/i but got 'validateSaveV42: expected version 42'
+
+- Expected: 
+/peakTier|tier/i
+
++ Received: 
+"validateSaveV42: expected version 42"
+
+ ❯ expectRefused tests/p14b5-relationships.test.ts:1232:41
+    1230|     const save = v31()
+    1231|     mutate(save.state.relationships, save.state)
+    1232|     expect(() => validateSaveV42(save)).toThrow(pattern)
+       |                                         ^
+    1233|     // 1320-A: save is genuinely live (era 42, from v31()'s makeSave);…
+    1234|     // default would refuse on the unrelated new sharedCompetitions fi…
+ ❯ tests/p14b5-relationships.test.ts:1265:54
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/28]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses closeness outside 0..100 or non-integer
+AssertionError: expected [Function] to throw error matching /closeness/ but got 'validateSaveV42: expected version 42'
+
+- Expected: 
+/closeness/
+
++ Received: 
+"validateSaveV42: expected version 42"
+
+ ❯ expectRefused tests/p14b5-relationships.test.ts:1232:41
+    1230|     const save = v31()
+    1231|     mutate(save.state.relationships, save.state)
+    1232|     expect(() => validateSaveV42(save)).toThrow(pattern)
+       |                                         ^
+    1233|     // 1320-A: save is genuinely live (era 42, from v31()'s makeSave);…
+    1234|     // default would refuse on the unrelated new sharedCompetitions fi…
+ ❯ tests/p14b5-relationships.test.ts:1267:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/28]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses inconsistent counters
+AssertionError: expected [Function] to throw error matching /sharedSuccesses|sharedFailures|share…/i but got 'validateSaveV42: expected version 42'
+
+- Expected: 
+/sharedSuccesses|sharedFailures|sharedProductions|counter/i
+
++ Received: 
+"validateSaveV42: expected version 42"
+
+ ❯ expectRefused tests/p14b5-relationships.test.ts:1232:41
+    1230|     const save = v31()
+    1231|     mutate(save.state.relationships, save.state)
+    1232|     expect(() => validateSaveV42(save)).toThrow(pattern)
+       |                                         ^
+    1233|     // 1320-A: save is genuinely live (era 42, from v31()'s makeSave);…
+    1234|     // default would refuse on the unrelated new sharedCompetitions fi…
+ ❯ tests/p14b5-relationships.test.ts:1272:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/28]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses an unknown driver kind, an empty ref and a non-integer delta
+AssertionError: expected [Function] to throw error matching /kind/ but got 'validateSaveV42: expected version 42'
+
+- Expected: 
+/kind/
+
++ Received: 
+"validateSaveV42: expected version 42"
+
+ ❯ expectRefused tests/p14b5-relationships.test.ts:1232:41
+    1230|     const save = v31()
+    1231|     mutate(save.state.relationships, save.state)
+    1232|     expect(() => validateSaveV42(save)).toThrow(pattern)
+       |                                         ^
+    1233|     // 1320-A: save is genuinely live (era 42, from v31()'s makeSave);…
+    1234|     // default would refuse on the unrelated new sharedCompetitions fi…
+ ❯ tests/p14b5-relationships.test.ts:1277:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/28]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses an extra key on an edge
+AssertionError: expected [Function] to throw error matching /field|key|closenessShown/i but got 'validateSaveV42: expected version 42'
+
+- Expected: 
+/field|key|closenessShown/i
+
++ Received: 
+"validateSaveV42: expected version 42"
+
+ ❯ expectRefused tests/p14b5-relationships.test.ts:1232:41
+    1230|     const save = v31()
+    1231|     mutate(save.state.relationships, save.state)
+    1232|     expect(() => validateSaveV42(save)).toThrow(pattern)
+       |                                         ^
+    1233|     // 1320-A: save is genuinely live (era 42, from v31()'s makeSave);…
+    1234|     // default would refuse on the unrelated new sharedCompetitions fi…
+ ❯ tests/p14b5-relationships.test.ts:1281:47
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/28]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > a V31 world holding ONE edge, and the SAME world with relationships emptied, both refuse migrateToV30 — MEASURED: the nearest guard is now V33s own materialization gate, one week past its migration boundary, not the V31-specific message
+Error: validateSaveV42: expected version 42
+ ❯ validateSaveV42Era src/core/save.ts:10629:38
+    10627|   if (!isRecord(save)) throw new Error('validateSaveV42: object requir…
+    10628|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10629|   if (save.saveVersion !== 42) throw new Error('validateSaveV42: expec…
+       |                                      ^
+    10630|   const raw = v14Record(checkEnvelope(save, 'validateSaveV42'), 'state…
+    10631|   validateRelationshipsRoot(raw, 42);
+ ❯ Module.validateSaveV42 src/core/save.ts:10623:10
+ ❯ tests/p14b5-relationships.test.ts:1294:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/28]⎯
+
+ FAIL |core|  tests/p14b5-t-failure-tuning.test.ts > CONSTRUCTED group 6 — SAVE AND LOAD ACROSS THE CHANGE: historical deltas are carried, never restamped > a genuinely written root round-trips through makeSave / validateSaveV32 / migrateToV32 with every driver delta verbatim
+Error: validateSaveV42: expected version 42
+ ❯ validateSaveV42Era src/core/save.ts:10629:38
+    10627|   if (!isRecord(save)) throw new Error('validateSaveV42: object requir…
+    10628|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10629|   if (save.saveVersion !== 42) throw new Error('validateSaveV42: expec…
+       |                                      ^
+    10630|   const raw = v14Record(checkEnvelope(save, 'validateSaveV42'), 'state…
+    10631|   validateRelationshipsRoot(raw, 42);
+ ❯ Module.validateSaveV42 src/core/save.ts:10623:10
+ ❯ tests/p14b5-t-failure-tuning.test.ts:413:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/28]⎯
+
+ FAIL |core|  tests/p14b5-t-failure-tuning.test.ts > CONSTRUCTED group 6 — SAVE AND LOAD ACROSS THE CHANGE: historical deltas are carried, never restamped > a root whose stored failure deltas carry a value the CURRENT constant does not produce is admitted, carried verbatim and never restamped
+Error: validateSaveV42: expected version 42
+ ❯ validateSaveV42Era src/core/save.ts:10629:38
+    10627|   if (!isRecord(save)) throw new Error('validateSaveV42: object requir…
+    10628|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10629|   if (save.saveVersion !== 42) throw new Error('validateSaveV42: expec…
+       |                                      ^
+    10630|   const raw = v14Record(checkEnvelope(save, 'validateSaveV42'), 'state…
+    10631|   validateRelationshipsRoot(raw, 42);
+ ❯ Module.validateSaveV42 src/core/save.ts:10623:10
+ ❯ tests/p14b5-t-failure-tuning.test.ts:438:36
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/28]⎯
+
+ Test Files  3 failed | 1 passed (4)
+      Tests  28 failed | 64 passed (92)
+   Start at  05:24:25
+   Duration  44.80s (transform 5.24s, setup 0ms, collect 14.41s, tests 59.86s, environment 1ms, prepare 1.28s)
+
