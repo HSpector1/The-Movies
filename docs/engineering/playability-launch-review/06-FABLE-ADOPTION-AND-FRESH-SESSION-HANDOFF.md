@@ -1,5 +1,27 @@
 # R3-N1 native correction record — 2026-09-15 · OPS-R3-N1-NATIVE-CORRECTION-20260915-01
 
+## CURRENT — UI Save43 fallout attributed (1344-M2); P15C Wave 1 dry run clean (1353-X3), landing next; Save43 sweep authoring paused mid-run
+
+State at 3057eb0b (pushed, remote verified). Owner offline about 10 hours from 2026-09-30 ~08:15 CEST.
+
+- Save43 / shelving (D-1329-1): IN PROGRESS.
+  - Core fallout 1344-M; UI fallout 1344-M2: recorded r2 at 644b9038, 18 leaves, guards exact, 0 unhandled errors.
+    Vs 1343: 11 Save43 pins (8 direct UI sites in 6 files; 3 StudioCalendar rows via the helper pin), 3 numpy rows
+    (1345-E), 4 intermittents. Three intermittents predate shelving; the deep-route row stays open.
+  - Sweep authoring: workflow run wf_93dac5b7-da4 (script `save43-pin-sweep-authoring-wf_4d2c2f82-246.js`), output in
+    scratch `1344-sweep/<group>/`. helpers DONE (30 edits, 2 deferred, handback.md); g1 near done (14 commits);
+    g2 started; g3-g6 not started. Resume with Workflow `resumeFromRunId: wf_93dac5b7-da4` and the same script and
+    args (`sweep-groups-args.json`). Authors run no tests.
+  - Then: merge disjoint patches, add the 1344-M2 UI sites to 1344-N, handle deferred S8/S9/S10 rows, parent dry run,
+    review 1344-D4, apply, recorded core and UI gates alone on a quiet machine, §7 (stalled route, C8), closure 1344-K.
+- P15C Wave 1: dry run 1353-X3 at 9d0d8a04: RED r4 72/72 fail, Wave R 6/6, GREEN 78/78, type gates unchanged.
+  Review 1353-J KEEP. NEXT: landing (RED r4 commit, push, recorded RED, production commit, push, recorded GREEN).
+- Slice A: production verified (1348-X5); lands after the sweep with r5 rebased.
+- Slice B: 1358-C handed back; dry run 1358-X, producer mint, r2 and review 1358-D pending.
+- P15 Wave 2: P15B probe 1357-P (1357-X) before RED; P15A.1 and P15A.2 REDs; P15C Wave 2 RED after Wave 1 lands.
+- Open Owner items: P16 questions (1354-Q); numpy for three rgba rows.
+- Scratch trees still needed: 1353-x3, 1344-sweep/*, 1348-x5, 1358-work. bisF and bisG (diagnostics) can go.
+
 ## CURRENT — Save43 fallout measured; P15B Wave 1 landed; all four P15 Wave 2 charters adopted; offline window next
 
 - Save43 / shelving (D-1329-1): IN PROGRESS.
