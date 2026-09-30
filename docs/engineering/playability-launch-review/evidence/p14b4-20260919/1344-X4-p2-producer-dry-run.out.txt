@@ -1,0 +1,1 @@
+{"output":"tests/fixtures/p14/genuine-v42-pre-shelving-week93","inputs":[{"name":"genuine-v42-rival-stall-week-93","gzip":{"bytes":109886,"sha256":"14c41c2cf3a570e59bdb5ef97da04576499528039f76389904a057ea5ae4048e"},"decoded":{"bytes":985487,"sha256":"c13fb767b369c5c0e7c4d2e80260af9846f0bc5a850f9342036a3e46697a0e86"},"facts":{"week":93,"stalledStudioIds":[]}}]}
