@@ -2294,7 +2294,8 @@ export type GameStateV31 = GameStateV30 & {
 // V38 adds prospective profession history and its one actor transition catalogue.
 // V41 adds no field: the rival `termination` movement is version-aware at the boundary.
 // V42 adds the edge's `sharedCompetitions` counter and the two casting driver kinds.
-export type GameState = GameStateV42
+// V43 adds rival screenplay shelving: `screenplayShelving` per business and its receipt.
+export type GameState = GameStateV43
 
 // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
 
@@ -2527,6 +2528,12 @@ export type GameStateV41 = GameStateV40
  * readers validate the edge at era 31 (five kinds, no counter), exactly the V41 law.
  */
 export type GameStateV42 = GameStateV41
+/**
+ * Rival screenplay shelving (Save V43, 1344-A/F). NO new root: every rival business gains
+ * `screenplayShelving` and the `screenplayShelved` receipt becomes lawful, version-aware at
+ * the boundary as V41's termination was. Frozen readers keep "unproduced ⇔ active".
+ */
+export type GameStateV43 = GameStateV42
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.

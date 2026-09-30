@@ -1365,6 +1365,10 @@ export {
   convertV41ToV42,
   convertV42ToV41,
   migrateToV42,
+  validateSaveV43,
+  convertV42ToV43,
+  convertV43ToV42,
+  migrateToV43,
   convertV27ToV28,
   convertV28ToV27,
   // P13B-S5-R07 — live V24 → NEW V25 + migrateToV25 (the widened production
@@ -1416,6 +1420,7 @@ export type {
   SaveFileV40,
   SaveFileV41,
   SaveFileV42,
+  SaveFileV43,
   LiveSaveFile,
   SaveFile,
   TalentV1,
@@ -1684,7 +1689,7 @@ export type { AdoptionQuote, AdoptionRequest } from './technologyAdoption.js'
 export { productionTechnologyView } from './technologyProduction.js'
 export type { StudioTechnology, StudioTechnologyV2, StudioTechnologyV3, TechnologyAction, ResearchProject, ResearchWeekReceipt, ResearchLabContribution, TechnologyAdoption, TechnologyAdoptionComponent, TechnologyEquipmentAsset, ProductionTechnology } from './technologyTypes.js'
 
-export type { GameStateV40, GameStateV41, GameStateV42, ProfessionalPromiseV40, OpportunitySeatClass, OpportunityPredicate, GenreOpportunityPredicate, ProjectOpportunityPredicate, FirstTakeSubject, FirstTakeSubjects,
+export type { GameStateV40, GameStateV41, GameStateV42, GameStateV43, ProfessionalPromiseV40, OpportunitySeatClass, OpportunityPredicate, GenreOpportunityPredicate, ProjectOpportunityPredicate, FirstTakeSubject, FirstTakeSubjects,
   GameStateV38, GameStateV39, ProfessionalPromiseV39, DirectorCountPredicate, CareerLifecycleRootV38, TransitionTarget, TransitionRoleTier, TransitionPotentialTier,
   RetirementKey, ProfessionAnchor, TransitionPictureRef, TransitionContextWitness, TransitionTargetInput,
   TransitionInputs, TransitionEvaluation, ProfessionChange, IndustryRetirement, TransitionDue } from './types.js'
