@@ -1,5 +1,35 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — Save43 fallout measured; P15B Wave 1 landed; all four P15 Wave 2 charters adopted; offline window next
+
+- Save43 / shelving (D-1329-1): IN PROGRESS.
+  - Core fallout measured (1344-M): 146 files / 848 tests, 771 new vs 1338. Four rows are environment (a stray
+    self-link, since removed, and load).
+  - The 42 C8 rows are unchanged after shelving: §7's stalled-route probe must explain them.
+  - Sweep plan 1344-N (classes S1-S10), pending its UI section.
+  - The UI measurement `1344-save43-broad-ui` was launched in the background before the offline window; check its
+    raw, `.json` and postflight.
+- P15B Wave 1 LANDED (1352-L): RED 52/52 fail at 5bb8d559, GREEN 52/52 at 3b2dc509, type gates unchanged.
+  IN PROGRESS until the broad gates after the sweep.
+- Slice A: review 1348-J KEEP. Dry run 1348-X5 is in scratch `1348-x5/`: transition files 42 fail / 29 pass before
+  and after step 3; slice A files 49 → 28 fail, the remainder Save43 fallout; root tsc 19 errors, all Save43.
+  Landing waits for the sweep, then r5 is rebased.
+- Slice B: RED r1 PARTIAL (1358-C), rulings 1358-F (Reading B, the seams). Next: parent dry run 1358-X and the V43
+  producer mint.
+- P15C Wave 1: production BLOCKED on four RED defects; rulings 1353-F4. RED r4 (1353-C4) has a reference run of 68
+  pass / 4 planned fail. The writer's step 3 was in progress at the offline window: check
+  `1353-stage/1353-p15c1-production-step3.patch` and the handback's "Step 3" section. Part A (Wave R) dry run pending.
+- Wave 2 charters adopted:
+  - P15A.1: 1355-A/F/F2/F3; F2 sets one persisted P15 domain sequence and the phase triple.
+  - P15A.2: 1356-A/F.
+  - P15B: 1357-A/F; its probe 1357-P runs before RED.
+  - P15C: 1359-A/F; the validator replays the manifest.
+- Lessons this session: export history-only authority for read-only reviewers; new-module REDs need a reference run;
+  scratch link steps use `ln -sfn`.
+- Open Owner items: the nine P16 questions (1354-Q); numpy for three rgba rows.
+- Rules: one heavy test process at a time; no other test process during a recorded run; no commits during a recorded
+  run.
+
 ## CURRENT — P15A.1 Wave 1 landed (gates pending); shelving production running; P15B charter in review
 
 - P15A.1 Wave 1, the pure shared-market law (D-1323-1), landed (1346-L).
