@@ -1,0 +1,221 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree
+
+ ❯ |core| tests/p15c1-campaign-legacy.test.ts (62 tests | 62 failed) 452ms
+   × p15c1 campaign legacy: module surface (1353-A §5.1/§5.2, PARENT API DECISIONS) > campaign-legacy-definition-version-export 11ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: module surface (1353-A §5.1/§5.2, PARENT API DECISIONS) > legacy-boundary-week 5ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: module surface (1353-A §5.1/§5.2, PARENT API DECISIONS) > legacy-bounds-constants 2ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: the boundary cut (1353-A §5.1, RED 2) > legacy-boundary-cut-film-before-and-at-b 2ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: the boundary cut (1353-A §5.1, RED 2) > legacy-boundary-cut-periodic-snapshot-window 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: in-run-at-boundary treatment (1353-A §5.1, RED 3) > legacy-in-run-at-boundary-counts-critic-not-commercial 2ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: archetype edges (1353-A §8 item 4) > legacy-archetype-edges-artistic-voice-min-films-n-minus-1-vs-n 2ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: archetype edges (1353-A §8 item 4) > legacy-archetype-edges-artistic-voice-share-exactly-at-threshold 2ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: archetype edges (1353-A §8 item 4) > legacy-archetype-edges-technology-pioneer-plus52-qualifies-plus53-does-not 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: archetype edges (1353-A §8 item 4) > legacy-archetype-edges-technology-pioneer-late-plus260-no-plus261-yes 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: archetype edges (1353-A §8 item 4) > legacy-archetype-edges-technology-pioneer-cancelled-adoption-excluded 2ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: archetype edges (1353-A §8 item 4) > legacy-archetype-edges-talent-foundry-authored-credit-never-a-discovery 5ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: archetype edges (1353-A §8 item 4) > legacy-archetype-edges-talent-foundry-shared-first-week-counts-for-each-studio 2ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: archetype edges (1353-A §8 item 4) > legacy-archetype-edges-talent-foundry-one-credit-contrary-settle-weeks 2ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: notRecorded vs notHeld (1353-A §8 item 5) > legacy-not-recorded-resilient-survivor-without-condition-domain 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: notRecorded vs notHeld (1353-A §8 item 5) > legacy-not-recorded-awards-dynasty-always-not-recorded-no-number 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: notRecorded vs notHeld (1353-A §8 item 5) > legacy-not-recorded-closure-before-boundary-gives-not-held 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: coexistence, no winner, row order (1353-A §8 item 6) > legacy-coexist-every-evaluated-archetype-held 3ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: coexistence, no winner, row order (1353-A §8 item 6) > legacy-coexist-no-studio-holds-any-evaluated-archetype 2ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: coexistence, no winner, row order (1353-A §8 item 6) > legacy-coexist-schema-walk-no-score-total-rank-grade-winner-key 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: coexistence, no winner, row order (1353-A §8 item 6) > legacy-coexist-studios-keep-registry-row-order 2ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: owner swap, no role field (1353-A §8 item 7) > legacy-owner-swap-no-role-field-structural 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: owner swap, no role field (1353-A §8 item 7) > legacy-owner-swap-same-facts-relabelled-give-swapped-results 2ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: determinism (1353-A §8 item 8) > legacy-determinism-byte-identical-two-independent-calls 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: determinism (1353-A §8 item 8) > legacy-determinism-permuted-input-arrays-byte-identical 2ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: determinism (1353-A §8 item 8) > legacy-determinism-no-rng-or-clock-import 2ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: bounds (1353-A §8 item 9, 1353-F 13th-lens addition) > legacy-bounds-refs-capped-at-12-counts-exact-past-12-on-20000-films 2ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: bounds (1353-A §8 item 9, 1353-F 13th-lens addition) > legacy-bounds-seventeenth-domain-refuses-sixteen-succeeds 5ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: bounds (1353-A §8 item 9, 1353-F 13th-lens addition) > legacy-bounds-ninth-archetype-thirteenth-lens-structurally-impossible 4ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: refs resolve below the boundary (1353-A §8 item 10, 1353-F2 §1) > legacy-refs-resolve-every-ref-is-a-real-id-below-boundary-with-exact-domainId 3ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: refs resolve below the boundary (1353-A §8 item 10, 1353-F2 §1) > legacy-refs-resolve-playerRuns-domain-never-cited-by-a-ref 3ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: lens counts key sets (1353-F2 §2) > lens-counts-catalog-exact-keys-and-one-value 107ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: lens counts key sets (1353-F2 §2) > lens-counts-people-exact-keys-and-one-value 39ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: lens counts key sets (1353-F2 §2) > lens-counts-technology-exact-keys-and-one-value 8ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: lens counts key sets (1353-F2 §2) > lens-counts-ranking-exact-keys-and-one-value 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: lens counts key sets (1353-F2 §2) > lens-counts-financialBand-exact-keys-and-one-value 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: lens counts key sets (1353-F2 §2) > lens-counts-market-exact-keys-and-one-value 2ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: lens counts key sets (1353-F2 §2) > lens-counts-resilience-exact-keys-and-one-value 2ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: lens counts key sets (1353-F2 §2) > lens-counts-awards-no-keys-always-not-recorded 2ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: no leak from later state (1353-A §8 item 11) > legacy-no-leak-later-state-facts-extended-through-6500-byte-identical 5ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: frozen once (1353-A §8 item 12) > legacy-frozen-once-second-official-write-refuses 2ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: frozen once (1353-A §8 item 12) > legacy-frozen-once-non-freeze-week-returns-root-unchanged 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: no-backfill completeness (1353-A §8 item 13, law 7, 1353-F2 §4) > legacy-completeness-absent-domain-not-recorded 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: no-backfill completeness (1353-A §8 item 13, law 7, 1353-F2 §4) > legacy-completeness-null-recorded-from-week-not-recorded 22ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: no-backfill completeness (1353-A §8 item 13, law 7, 1353-F2 §4) > legacy-completeness-recorded-from-week-at-or-after-boundary-not-recorded 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: no-backfill completeness (1353-A §8 item 13, law 7, 1353-F2 §4) > legacy-completeness-limited-with-recorded-from-week-after-studio-entry 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: no-backfill completeness (1353-A §8 item 13, law 7, 1353-F2 §4) > legacy-completeness-complete-when-recorded-from-week-at-or-before-every-entry 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: no-backfill completeness (1353-A §8 item 13, law 7, 1353-F2 §4) > legacy-completeness-row-before-recorded-from-week-refuses 2ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: public facts only (1353-A §8 item 14, §5.1 "never read") > legacy-public-facts-only-structural-no-cash-cost-revenue-key 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: public facts only (1353-A §8 item 14, §5.1 "never read") > legacy-public-facts-only-injected-sentinel-never-leaks 2ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: audience score and end-of-run (1353-A §8 item 15) > legacy-audience-score-from-career-events-agreeing 2ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: audience score and end-of-run (1353-A §8 item 15) > legacy-audience-score-disagreeing-events-refuses 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: audience score and end-of-run (1353-A §8 item 15) > legacy-audience-score-no-events-excludes-film-from-decade-counting 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: audience score and end-of-run (1353-A §8 item 15) > legacy-end-of-run-boundary-c-plus-1-null-mode 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: audience score and end-of-run (1353-A §8 item 15) > legacy-official-2040-requires-boundary-week-6240 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: postFinaleMode inert (1353-A §8 item 16, §6) > legacy-mode-inert-no-other-src-core-module-reads-it 2ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: TUNING bounded terms (1353-A §5.5, RED 17) > tuning-legacy-bounded-terms 149ms
+     → expected undefined to be 70 // Object.is equality
+   × p15c1 campaign legacy: closed-before-boundary studio (1353-F note) > legacy-closed-before-boundary-stays-in-roll-call-with-pre-closure-facts 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: §5.3 amendment edges (1353-F amendments 1-4) > amendment-1-audience-institution-exactly-half-liked-qualifies 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: §5.3 amendment edges (1353-F amendments 1-4) > amendment-2-genre-specialist-exactly-half-does-not-qualify 1ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: §5.3 amendment edges (1353-F amendments 1-4) > amendment-3-mid-decade-entrant-decades-by-calendar-block 2ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+   × p15c1 campaign legacy: §5.3 amendment edges (1353-F amendments 1-4) > amendment-4-pioneer-contrary-uses-own-earliest-adoption-not-industrys-first 3ms
+     → Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 62 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: module surface (1353-A §5.1/§5.2, PARENT API DECISIONS) > campaign-legacy-definition-version-export
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: module surface (1353-A §5.1/§5.2, PARENT API DECISIONS) > legacy-boundary-week
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: module surface (1353-A §5.1/§5.2, PARENT API DECISIONS) > legacy-bounds-constants
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: the boundary cut (1353-A §5.1, RED 2) > legacy-boundary-cut-film-before-and-at-b
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: the boundary cut (1353-A §5.1, RED 2) > legacy-boundary-cut-periodic-snapshot-window
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: in-run-at-boundary treatment (1353-A §5.1, RED 3) > legacy-in-run-at-boundary-counts-critic-not-commercial
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: archetype edges (1353-A §8 item 4) > legacy-archetype-edges-artistic-voice-min-films-n-minus-1-vs-n
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: archetype edges (1353-A §8 item 4) > legacy-archetype-edges-artistic-voice-share-exactly-at-threshold
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: archetype edges (1353-A §8 item 4) > legacy-archetype-edges-technology-pioneer-plus52-qualifies-plus53-does-not
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: archetype edges (1353-A §8 item 4) > legacy-archetype-edges-technology-pioneer-late-plus260-no-plus261-yes
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: archetype edges (1353-A §8 item 4) > legacy-archetype-edges-technology-pioneer-cancelled-adoption-excluded
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: archetype edges (1353-A §8 item 4) > legacy-archetype-edges-talent-foundry-authored-credit-never-a-discovery
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: archetype edges (1353-A §8 item 4) > legacy-archetype-edges-talent-foundry-shared-first-week-counts-for-each-studio
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: archetype edges (1353-A §8 item 4) > legacy-archetype-edges-talent-foundry-one-credit-contrary-settle-weeks
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: notRecorded vs notHeld (1353-A §8 item 5) > legacy-not-recorded-resilient-survivor-without-condition-domain
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: notRecorded vs notHeld (1353-A §8 item 5) > legacy-not-recorded-awards-dynasty-always-not-recorded-no-number
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: notRecorded vs notHeld (1353-A §8 item 5) > legacy-not-recorded-closure-before-boundary-gives-not-held
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: coexistence, no winner, row order (1353-A §8 item 6) > legacy-coexist-every-evaluated-archetype-held
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: coexistence, no winner, row order (1353-A §8 item 6) > legacy-coexist-no-studio-holds-any-evaluated-archetype
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: coexistence, no winner, row order (1353-A §8 item 6) > legacy-coexist-schema-walk-no-score-total-rank-grade-winner-key
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: coexistence, no winner, row order (1353-A §8 item 6) > legacy-coexist-studios-keep-registry-row-order
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: owner swap, no role field (1353-A §8 item 7) > legacy-owner-swap-no-role-field-structural
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: owner swap, no role field (1353-A §8 item 7) > legacy-owner-swap-same-facts-relabelled-give-swapped-results
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: determinism (1353-A §8 item 8) > legacy-determinism-byte-identical-two-independent-calls
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: determinism (1353-A §8 item 8) > legacy-determinism-permuted-input-arrays-byte-identical
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: determinism (1353-A §8 item 8) > legacy-determinism-no-rng-or-clock-import
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: bounds (1353-A §8 item 9, 1353-F 13th-lens addition) > legacy-bounds-refs-capped-at-12-counts-exact-past-12-on-20000-films
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: bounds (1353-A §8 item 9, 1353-F 13th-lens addition) > legacy-bounds-seventeenth-domain-refuses-sixteen-succeeds
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: bounds (1353-A §8 item 9, 1353-F 13th-lens addition) > legacy-bounds-ninth-archetype-thirteenth-lens-structurally-impossible
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: refs resolve below the boundary (1353-A §8 item 10, 1353-F2 §1) > legacy-refs-resolve-every-ref-is-a-real-id-below-boundary-with-exact-domainId
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: refs resolve below the boundary (1353-A §8 item 10, 1353-F2 §1) > legacy-refs-resolve-playerRuns-domain-never-cited-by-a-ref
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: lens counts key sets (1353-F2 §2) > lens-counts-catalog-exact-keys-and-one-value
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: lens counts key sets (1353-F2 §2) > lens-counts-people-exact-keys-and-one-value
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: lens counts key sets (1353-F2 §2) > lens-counts-technology-exact-keys-and-one-value
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: lens counts key sets (1353-F2 §2) > lens-counts-ranking-exact-keys-and-one-value
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: lens counts key sets (1353-F2 §2) > lens-counts-financialBand-exact-keys-and-one-value
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: lens counts key sets (1353-F2 §2) > lens-counts-market-exact-keys-and-one-value
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: lens counts key sets (1353-F2 §2) > lens-counts-resilience-exact-keys-and-one-value
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: lens counts key sets (1353-F2 §2) > lens-counts-awards-no-keys-always-not-recorded
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: no leak from later state (1353-A §8 item 11) > legacy-no-leak-later-state-facts-extended-through-6500-byte-identical
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: frozen once (1353-A §8 item 12) > legacy-frozen-once-second-official-write-refuses
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: frozen once (1353-A §8 item 12) > legacy-frozen-once-non-freeze-week-returns-root-unchanged
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: no-backfill completeness (1353-A §8 item 13, law 7, 1353-F2 §4) > legacy-completeness-absent-domain-not-recorded
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: no-backfill completeness (1353-A §8 item 13, law 7, 1353-F2 §4) > legacy-completeness-null-recorded-from-week-not-recorded
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: no-backfill completeness (1353-A §8 item 13, law 7, 1353-F2 §4) > legacy-completeness-recorded-from-week-at-or-after-boundary-not-recorded
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: no-backfill completeness (1353-A §8 item 13, law 7, 1353-F2 §4) > legacy-completeness-limited-with-recorded-from-week-after-studio-entry
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: no-backfill completeness (1353-A §8 item 13, law 7, 1353-F2 §4) > legacy-completeness-complete-when-recorded-from-week-at-or-before-every-entry
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: no-backfill completeness (1353-A §8 item 13, law 7, 1353-F2 §4) > legacy-completeness-row-before-recorded-from-week-refuses
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: public facts only (1353-A §8 item 14, §5.1 "never read") > legacy-public-facts-only-structural-no-cash-cost-revenue-key
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: public facts only (1353-A §8 item 14, §5.1 "never read") > legacy-public-facts-only-injected-sentinel-never-leaks
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: audience score and end-of-run (1353-A §8 item 15) > legacy-audience-score-from-career-events-agreeing
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: audience score and end-of-run (1353-A §8 item 15) > legacy-audience-score-disagreeing-events-refuses
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: audience score and end-of-run (1353-A §8 item 15) > legacy-audience-score-no-events-excludes-film-from-decade-counting
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: audience score and end-of-run (1353-A §8 item 15) > legacy-end-of-run-boundary-c-plus-1-null-mode
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: audience score and end-of-run (1353-A §8 item 15) > legacy-official-2040-requires-boundary-week-6240
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: postFinaleMode inert (1353-A §8 item 16, §6) > legacy-mode-inert-no-other-src-core-module-reads-it
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: closed-before-boundary studio (1353-F note) > legacy-closed-before-boundary-stays-in-roll-call-with-pre-closure-facts
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: §5.3 amendment edges (1353-F amendments 1-4) > amendment-1-audience-institution-exactly-half-liked-qualifies
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: §5.3 amendment edges (1353-F amendments 1-4) > amendment-2-genre-specialist-exactly-half-does-not-qualify
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: §5.3 amendment edges (1353-F amendments 1-4) > amendment-3-mid-decade-entrant-decades-by-calendar-block
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: §5.3 amendment edges (1353-F amendments 1-4) > amendment-4-pioneer-contrary-uses-own-earliest-adoption-not-industrys-first
+Error: Failed to load url ../src/core/campaignLegacy.js (resolved id: ../src/core/campaignLegacy.js) in /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1353-x/tree/tests/p15c1-campaign-legacy.test.ts. Does the file exist?
+ ❯ loadAndTransform ../../../../../../../../Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/62]⎯
+
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: TUNING bounded terms (1353-A §5.5, RED 17) > tuning-legacy-bounded-terms
+AssertionError: expected undefined to be 70 // Object.is equality
+
+- Expected: 
+70
+
++ Received: 
+undefined
+
+ ❯ tests/p15c1-campaign-legacy.test.ts:1697:41
+    1695|   it('tuning-legacy-bounded-terms', () => {
+    1696|     const t = TUNING as unknown as Record<string, unknown>
+    1697|     expect(t.LEGACY_CRITIC_ACCLAIM_MIN).toBe(70)
+       |                                         ^
+    1698|     expect(t.LEGACY_CRITIC_PAN_BELOW).toBe(35)
+    1699|     expect(t.LEGACY_AUDIENCE_LIKED_MIN).toBe(57)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/62]⎯
+
+ Test Files  1 failed (1)
+      Tests  62 failed (62)
+   Start at  03:13:48
+   Duration  3.60s (transform 927ms, setup 0ms, collect 1.19s, tests 452ms, environment 0ms, prepare 476ms)
+

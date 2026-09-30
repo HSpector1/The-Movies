@@ -1,0 +1,632 @@
+[
+  {
+    "file": "tests/p15c-wave-r-retention.test.ts",
+    "leaf": "wave-r-retention-studio-released-films",
+    "requirement": "1353-A \u00a74 row R: studio.releasedFilms retention",
+    "redStatus": "control-passes",
+    "redReason": "Guards an existing, already-shipped production root; campaignLegacy.ts is never imported by this file, so it is unaffected by r4. Unchanged from r3 (byte-identical, sha256 ef56cad2...b036f517, matching 1353-C3's recorded value); each guard was previously proven by an injected defect, reverted and hash-confirmed (1353-C/1353-C3 injection log).",
+    "referenceRun": "pass",
+    "referenceRunNote": "NOT EXECUTED (MACHINE LOAD authorization: never run the Wave R file; a recorded measurement may still be running). 'pass' here records that this leaf does not depend on campaignLegacy.ts at all (no import), so the writer's step-2 module is structurally irrelevant to it -- not an observed run result."
+  },
+  {
+    "file": "tests/p15c-wave-r-retention.test.ts",
+    "leaf": "wave-r-retention-hollywood-films",
+    "requirement": "1353-A \u00a74 row R: hollywood.films retention",
+    "redStatus": "control-passes",
+    "redReason": "Guards an existing, already-shipped production root; campaignLegacy.ts is never imported by this file, so it is unaffected by r4. Unchanged from r3 (byte-identical, sha256 ef56cad2...b036f517, matching 1353-C3's recorded value); each guard was previously proven by an injected defect, reverted and hash-confirmed (1353-C/1353-C3 injection log).",
+    "referenceRun": "pass",
+    "referenceRunNote": "NOT EXECUTED (MACHINE LOAD authorization: never run the Wave R file; a recorded measurement may still be running). 'pass' here records that this leaf does not depend on campaignLegacy.ts at all (no import), so the writer's step-2 module is structurally irrelevant to it -- not an observed run result."
+  },
+  {
+    "file": "tests/p15c-wave-r-retention.test.ts",
+    "leaf": "wave-r-retention-player-career-events",
+    "requirement": "1353-A \u00a74 row R: player careerEvents retention",
+    "redStatus": "control-passes",
+    "redReason": "Guards an existing, already-shipped production root; campaignLegacy.ts is never imported by this file, so it is unaffected by r4. Unchanged from r3 (byte-identical, sha256 ef56cad2...b036f517, matching 1353-C3's recorded value); each guard was previously proven by an injected defect, reverted and hash-confirmed (1353-C/1353-C3 injection log).",
+    "referenceRun": "pass",
+    "referenceRunNote": "NOT EXECUTED (MACHINE LOAD authorization: never run the Wave R file; a recorded measurement may still be running). 'pass' here records that this leaf does not depend on campaignLegacy.ts at all (no import), so the writer's step-2 module is structurally irrelevant to it -- not an observed run result."
+  },
+  {
+    "file": "tests/p15c-wave-r-retention.test.ts",
+    "leaf": "wave-r-retention-hollywood-career-events",
+    "requirement": "1353-A \u00a74 row R: hollywood.careerEvents retention",
+    "redStatus": "control-passes",
+    "redReason": "Guards an existing, already-shipped production root; campaignLegacy.ts is never imported by this file, so it is unaffected by r4. Unchanged from r3 (byte-identical, sha256 ef56cad2...b036f517, matching 1353-C3's recorded value); each guard was previously proven by an injected defect, reverted and hash-confirmed (1353-C/1353-C3 injection log).",
+    "referenceRun": "pass",
+    "referenceRunNote": "NOT EXECUTED (MACHINE LOAD authorization: never run the Wave R file; a recorded measurement may still be running). 'pass' here records that this leaf does not depend on campaignLegacy.ts at all (no import), so the writer's step-2 module is structurally irrelevant to it -- not an observed run result."
+  },
+  {
+    "file": "tests/p15c-wave-r-retention.test.ts",
+    "leaf": "wave-r-retention-theatrical-runs",
+    "requirement": "1353-A \u00a74 row R: theatricalRuns retention",
+    "redStatus": "control-passes",
+    "redReason": "Guards an existing, already-shipped production root; campaignLegacy.ts is never imported by this file, so it is unaffected by r4. Unchanged from r3 (byte-identical, sha256 ef56cad2...b036f517, matching 1353-C3's recorded value); each guard was previously proven by an injected defect, reverted and hash-confirmed (1353-C/1353-C3 injection log).",
+    "referenceRun": "pass",
+    "referenceRunNote": "NOT EXECUTED (MACHINE LOAD authorization: never run the Wave R file; a recorded measurement may still be running). 'pass' here records that this leaf does not depend on campaignLegacy.ts at all (no import), so the writer's step-2 module is structurally irrelevant to it -- not an observed run result."
+  },
+  {
+    "file": "tests/p15c-wave-r-retention.test.ts",
+    "leaf": "wave-r-retention-technology-adoptions",
+    "requirement": "1353-A \u00a74 row R: technology.adoptions retention",
+    "redStatus": "control-passes",
+    "redReason": "Guards an existing, already-shipped production root; campaignLegacy.ts is never imported by this file, so it is unaffected by r4. Unchanged from r3 (byte-identical, sha256 ef56cad2...b036f517, matching 1353-C3's recorded value); each guard was previously proven by an injected defect, reverted and hash-confirmed (1353-C/1353-C3 injection log).",
+    "referenceRun": "pass",
+    "referenceRunNote": "NOT EXECUTED (MACHINE LOAD authorization: never run the Wave R file; a recorded measurement may still be running). 'pass' here records that this leaf does not depend on campaignLegacy.ts at all (no import), so the writer's step-2 module is structurally irrelevant to it -- not an observed run result."
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "campaign-legacy-definition-version-export",
+    "requirement": "PARENT API DECISIONS: CAMPAIGN_LEGACY_DEFINITION export",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-boundary-week",
+    "requirement": "1353-A \u00a75.1, RED 1: legacy-boundary-week",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-bounds-constants",
+    "requirement": "1353-A \u00a75.2/1353-F: LEGACY_BOUNDS, LEGACY_ARCHETYPE_IDS, LEGACY_LENS_IDS",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-boundary-cut-film-before-and-at-b",
+    "requirement": "1353-A \u00a78, RED 2: legacy-boundary-cut",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-boundary-cut-periodic-snapshot-window",
+    "requirement": "1353-A \u00a78, RED 2: legacy-boundary-cut (periodic snapshot window); A1 (1359-A \u00a73.3, 1353-F4) fixture gains recordId ('PR-6240'/'PR-6253') so the .includes('6240')/.includes('6253') assertions keep their r3 meaning once production's ref.id becomes the recordId",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-in-run-at-boundary-counts-critic-not-commercial",
+    "requirement": "1353-A \u00a78, RED 3: legacy-in-run-at-boundary",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-archetype-edges-artistic-voice-min-films-n-minus-1-vs-n",
+    "requirement": "1353-A \u00a78, RED 4: N-1 vs N (LEGACY_MIN_FILMS)",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-archetype-edges-audience-institution-min-decades-n-minus-1-vs-n",
+    "requirement": "1353-D note/1353-F3 \u00a72: N-1 vs N (LEGACY_AUDIENCE_MIN_DECADES)",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-archetype-edges-genre-specialist-min-films-n-minus-1-vs-n",
+    "requirement": "1353-D note/1353-F3 \u00a72: N-1 vs N (LEGACY_GENRE_MIN_FILMS)",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-archetype-edges-commercial-engine-min-films-n-minus-1-vs-n",
+    "requirement": "1353-D note/1353-F3 \u00a72: N-1 vs N (LEGACY_MIN_FILMS, commercial engine)",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-archetype-edges-talent-foundry-min-people-n-minus-1-vs-n",
+    "requirement": "1353-D note/1353-F3 \u00a72: N-1 vs N (LEGACY_FOUNDRY_MIN_PEOPLE)",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-archetype-edges-artistic-voice-share-exactly-at-threshold",
+    "requirement": "1353-A \u00a78, RED 4: share exactly at threshold",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-archetype-edges-technology-pioneer-plus52-qualifies-plus53-does-not",
+    "requirement": "1353-A \u00a78, RED 4: pioneer +52/+53; PROBE-B D2 (1353-F4, hand-derived from amendment 4): S-P53's contrary now includes lighting-control-01, since it was entered (week 0) while lighting became commercial (week 936) and never adopts it",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-archetype-edges-technology-pioneer-late-plus260-no-plus261-yes",
+    "requirement": "1353-A \u00a78, RED 4: late +260/+261; PROBE-B D2 (1353-F4): both studios' contrary lists gain lighting-control-01 (sorted)",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-archetype-edges-technology-pioneer-cancelled-adoption-excluded",
+    "requirement": "1353-A \u00a78, RED 4: a cancelled adoption; PROBE-B D2 (1353-F4): contrary gains lighting-control-01 alongside synchronized-sound (sorted)",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-archetype-edges-talent-foundry-authored-credit-never-a-discovery",
+    "requirement": "1353-A \u00a78, RED 4: a foundry authored credit",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-archetype-edges-talent-foundry-shared-first-week-counts-for-each-studio",
+    "requirement": "1353-A \u00a78, RED 4: a shared first week",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-archetype-edges-talent-foundry-one-credit-contrary-settle-weeks",
+    "requirement": "1353-A \u00a75.3 talent-foundry contrary clause (LEGACY_FOUNDRY_SETTLE_WEEKS)",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-not-recorded-resilient-survivor-without-condition-domain",
+    "requirement": "1353-A \u00a78, RED 5: legacy-not-recorded (resilient-survivor)",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-not-recorded-awards-dynasty-always-not-recorded-no-number",
+    "requirement": "1353-A \u00a78, RED 5: legacy-not-recorded (awards-dynasty)",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-not-recorded-closure-before-boundary-gives-not-held",
+    "requirement": "1353-A \u00a78, RED 5: closure before B gives notHeld",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-coexist-every-evaluated-archetype-held",
+    "requirement": "1353-A \u00a78, RED 6 / 1353-D Defect 1, 1353-F3 \u00a71: legacy-coexist-no-winner (all held), one ref per audience decade",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-coexist-no-studio-holds-any-evaluated-archetype",
+    "requirement": "1353-A \u00a78, RED 6: legacy-coexist-no-winner (none held)",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-coexist-schema-walk-no-score-total-rank-grade-winner-key",
+    "requirement": "1353-A \u00a78, RED 6: schema walk, no score/total/rank/grade/winner key",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-coexist-studios-keep-registry-row-order",
+    "requirement": "1353-A \u00a78, RED 6: studios keep row order",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-owner-swap-no-role-field-structural",
+    "requirement": "1353-A \u00a78, RED 7: structural, no role field",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist). This leaf forces the same RED via an explicit requireFn call, per file header.",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-owner-swap-same-facts-relabelled-give-swapped-results",
+    "requirement": "1353-A \u00a78, RED 7 / 1353-F2 \u00a71: behavioral, tag travels with the fact set",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-determinism-byte-identical-two-independent-calls",
+    "requirement": "1353-A \u00a78, RED 8: legacy-determinism",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-determinism-permuted-input-arrays-byte-identical",
+    "requirement": "1353-A \u00a78, RED 8: permuted inputs",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-determinism-no-rng-or-clock-import",
+    "requirement": "1353-A \u00a78, RED 8: no RNG or clock import",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist). The source-grep half of this leaf is dead code until campaignLegacy.ts exists; see file header.",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-bounds-refs-capped-at-12-counts-exact-past-12-on-20000-films",
+    "requirement": "1353-A \u00a78, RED 9: refsPerSide=12, exact counts past 12; PROBE-B D4 (1353-F4): releaseWeek wraps `10 + (i % 6230)` so all 20,000 releases stay below B=6240 (the old `10+i` put 13,770 of them at or past B)",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-bounds-seventeenth-domain-refuses-sixteen-succeeds",
+    "requirement": "1353-A \u00a78, RED 9: a seventeenth domain refuses",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-bounds-ninth-archetype-thirteenth-lens-structurally-impossible",
+    "requirement": "1353-A \u00a78 RED 9 / 1353-F2 \u00a73: static invariant, structurally impossible",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist). Authored as a static invariant on the exported LEGACY_ARCHETYPE_IDS/LEGACY_LENS_IDS constants, not a dynamic refusal call; the parent-decided API (facts+kind only) gives no caller channel to construct a 9th archetype or 13th lens dynamically.",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-refs-resolve-every-ref-is-a-real-id-below-boundary-with-exact-domainId",
+    "requirement": "1353-A \u00a78, RED 10 / 1353-F2 \u00a71: exact domainId; PROBE-B D2 (1353-F4): technologyWeeks map added to the known-id set and week lookup, since pioneer contrary refs may lawfully cite a technology id",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-refs-resolve-playerRuns-domain-never-cited-by-a-ref",
+    "requirement": "1353-F2 \u00a71: playerRuns never cited by a ref",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist). This leaf forces the same RED via an explicit requireFn call, per file header.",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "lens-counts-catalog-exact-keys-and-one-value",
+    "requirement": "1353-F2 \u00a72: catalog lens count keys",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "lens-counts-people-exact-keys-and-one-value",
+    "requirement": "1353-F2 \u00a72: people lens count keys",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "lens-counts-technology-exact-keys-and-one-value",
+    "requirement": "1353-F2 \u00a72: technology lens count keys",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "lens-counts-ranking-exact-keys-and-one-value",
+    "requirement": "1353-F2 \u00a72: ranking lens count keys; A1 (1353-F4) fixture gains recordId ('PR-100'/'PR-200')",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "lens-counts-financialBand-exact-keys-and-one-value",
+    "requirement": "1353-F2 \u00a72: financialBand lens count keys; A1 (1353-F4) fixture gains recordId",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "lens-counts-market-exact-keys-and-one-value",
+    "requirement": "1353-F2 \u00a72: market lens count keys; A2 (1353-F4) fixture gains week (10/20, both below B) so the existing counts stay unchanged",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "lens-counts-resilience-exact-keys-and-one-value",
+    "requirement": "1353-F2 \u00a72: resilience lens count keys",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "lens-counts-awards-no-keys-always-not-recorded",
+    "requirement": "1353-F2 \u00a72: awards lens, always notRecorded",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-no-leak-later-state-facts-extended-through-6500-byte-identical",
+    "requirement": "1353-A \u00a78, RED 11: legacy-no-leak-later-state",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-frozen-once-second-official-write-refuses",
+    "requirement": "1353-A \u00a78, RED 12: legacy-frozen-once",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-frozen-once-non-freeze-week-returns-root-unchanged",
+    "requirement": "1353-A \u00a78, RED 12: non-freeze week",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-completeness-absent-domain-not-recorded",
+    "requirement": "1353-A \u00a78/1353-F2 \u00a74, RED 13: absent domain notRecorded",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-completeness-null-recorded-from-week-not-recorded",
+    "requirement": "1353-F2 \u00a74: null recordedFromWeek notRecorded",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-completeness-recorded-from-week-at-or-after-boundary-not-recorded",
+    "requirement": "1353-F2 \u00a74: recordedFromWeek >= B notRecorded",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-completeness-limited-with-recorded-from-week-after-studio-entry",
+    "requirement": "1353-A \u00a78, RED 13/1353-F2 \u00a74: limited",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-completeness-complete-when-recorded-from-week-at-or-before-every-entry",
+    "requirement": "1353-F2 \u00a74: complete",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-completeness-row-before-recorded-from-week-refuses",
+    "requirement": "1353-A \u00a78, RED 13: a row dated before recordedFromWeek refuses; PROBE-B D3 (1353-F4): F-TOO-EARLY now carries domainId 'playerFilms' (it tested the wrong domain -- 'industryFilms' records from week 0 -- before)",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-public-facts-only-structural-no-cash-cost-revenue-key",
+    "requirement": "1353-A \u00a78, RED 14: structural",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist). This leaf forces the same RED via an explicit requireFn call, per file header.",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-public-facts-only-injected-sentinel-never-leaks",
+    "requirement": "1353-A \u00a78, RED 14: runtime probe",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-audience-score-from-career-events-agreeing",
+    "requirement": "1353-A \u00a78, RED 15: agreeing career events",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-audience-score-disagreeing-events-refuses",
+    "requirement": "1353-A \u00a78, RED 15: disagreeing events refuse",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-audience-score-no-events-excludes-film-from-decade-counting",
+    "requirement": "1353-A \u00a78/1353-F2 \u00a75, RED 15: no events -> excluded + limitedBy",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-end-of-run-boundary-c-plus-1-null-mode",
+    "requirement": "1353-A \u00a78, RED 15: boundary C+1, endOfRun, null mode",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-official-2040-requires-boundary-week-6240",
+    "requirement": "1353-A \u00a78, RED 15: official2040 requires B=6240",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-mode-inert-no-other-src-core-module-reads-it",
+    "requirement": "1353-A \u00a78, RED 16: legacy-mode-inert",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist). This leaf forces the same RED via an explicit requireFn call, per file header.",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "tuning-legacy-bounded-terms",
+    "requirement": "1353-A \u00a75.5/\u00a78, RED 17: tuning-legacy-bounded-terms",
+    "redStatus": "fails",
+    "redReason": "Real, already-existing src/core/tuning.ts module loads successfully; fails on a genuine value mismatch (t.LEGACY_CRITIC_ACCLAIM_MIN is undefined, expected 70) because the LEGACY_* keys do not exist in today's TUNING object -- the one leaf in this file that is NOT a module-load failure, exactly mirroring 1351-C's POWER_RANKING_* TUNING leaf.",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "legacy-closed-before-boundary-stays-in-roll-call-with-pre-closure-facts",
+    "requirement": "1353-F note: legacy-closed-before-boundary",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "amendment-1-audience-institution-exactly-half-liked-qualifies",
+    "requirement": "1353-F amendment 1: 2*liked >= scored, exactly half qualifies",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "amendment-2-genre-specialist-exactly-half-does-not-qualify",
+    "requirement": "1353-F amendment 2: 2*genreCount > n, exactly half does not qualify",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "amendment-3-mid-decade-entrant-decades-by-calendar-block",
+    "requirement": "1353-F amendment 3: decade partition is a calendar block, per studio",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "amendment-4-pioneer-contrary-uses-own-earliest-adoption-not-industrys-first",
+    "requirement": "1353-F amendment 4: contrary uses S's own earliest operational, non-cancelled adoption; PROBE-B D2 (1353-F4): Y's contrary gains lighting-control-01 (sorted)",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "a1-ranking-ref-cites-record-id-never-week-derived",
+    "requirement": "1359-A \u00a73.3 A1 / 1355-F2 item 5, adopted 1353-F4: a ranking ref cites the fact's own recordId, never a week-derived id",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "fail-planned"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "a2-market-assessment-cut-by-week-outside-b-excluded",
+    "requirement": "1359-A \u00a73.3 A2, adopted 1353-F4: LegacyMarketAssessmentFact gains week; the law cuts market rows at B",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "fail-planned"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "a3-closure-at-or-after-boundary-reads-open",
+    "requirement": "1359-A \u00a73.3 A3 / 1353-E \u00a79 OPEN-7 (ratified as implemented), 1353-F4: closedWeek >= B reads open, no closure contrary, not a closure in the survivor predicate",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "open-12-entrant-after-commercial-week-carries-no-contrary-for-it",
+    "requirement": "1353-E \u00a79 OPEN-12, changed by 1353-F4: an entrant after a technology's commercialWeek carries no contrary for it, adopted late or never",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "fail-planned"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "open-12-entrant-one-week-before-commercial-week-keeps-the-ref",
+    "requirement": "1353-E \u00a79 OPEN-12, changed by 1353-F4: an entrant one week before commercialWeek keeps the ref (the gate's own boundary, isolated to one technology)",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "pass"
+  },
+  {
+    "file": "tests/p15c1-campaign-legacy.test.ts",
+    "leaf": "open-19-settled-week-before-release-week-refuses",
+    "requirement": "1353-E \u00a79 OPEN-19, changed by 1353-F4: settledWeek < releaseWeek refuses",
+    "redStatus": "fails",
+    "redReason": "Module-load failure (src/core/campaignLegacy.ts does not exist).",
+    "referenceRun": "fail-planned"
+  }
+]
