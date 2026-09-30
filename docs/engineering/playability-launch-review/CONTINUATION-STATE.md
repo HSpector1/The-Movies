@@ -1,9 +1,9 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
-## CURRENT — UI Save43 fallout attributed (1344-M2); P15C Wave 1 dry run clean (1353-X3), landing next; Save43 sweep authoring 6 of 7 groups done, g6 partial
+## CURRENT — P15C Wave 1 landed (1353-L); UI Save43 fallout attributed (1344-M2); Save43 sweep authoring 6 of 7 groups done, g6 continuing
 
-State at 2026-09-30 20:20 CEST, HEAD 01f07d97 plus this update (pushed, remote verified). No recorded run or agent
-is active.
+State at 2026-09-30 20:28 CEST (14:28 EDT), HEAD d7c417a5 plus this update (pushed, remote verified). No recorded run
+is active. One background agent continues g6 (below).
 
 - Save43 / shelving (D-1329-1): IN PROGRESS.
   - Core fallout 1344-M; UI fallout 1344-M2: recorded r2 at 644b9038, 18 leaves, guards exact, 0 unhandled errors.
@@ -13,23 +13,26 @@ is active.
     (tree with one commit per file, PROGRESS.txt, classification.json, deferred.json, patch.diff, handback.md).
     - DONE: helpers (30 edits, 2 deferred), g1 (78, 7), g2 (81, 5), g3, g4, g5 (52, 39). g5 wrote every deliverable,
       then its return failed on `401 OAuth access token has been revoked` (laptop off).
-    - g6 PARTIAL: the same 401 after 6 of 23 files; tree clean at a5c1606, diff base..HEAD sha256 0d9aa9a7…. Continue
-      audit-first from that tree for files 7-23 (args `/Users/zacheryspector/studio-scratch/1344-sweep/sweep-groups-args.json`), never from scratch.
+    - g6 CONTINUING: the same 401 stopped it after 6 of 23 files (tree clean at a5c1606, diff base..HEAD sha256
+      0d9aa9a7…). At 20:28 CEST a background agent resumed it audit-first from that tree: audit files 1-6 (PROGRESS
+      counts 4 edits for file 6, classification.json has 3 rows), then files 7-23, no test runs. If it dies, continue
+      from its last scratch commit and PROGRESS.txt, never from scratch.
     - g1, g2 and g5 defer rows to helpers outside the helpers group (e.g. `tests/helpers/p14c3-queued-writing-fixtures.ts`).
       g5 also defers three p14b5-relationships rows (365-372) where the rival's first take no longer appears. They are
       S10-like but not named in 1344-N, so they need attribution declared before any value moves.
   - Then: read every handback verbatim, merge the disjoint patches, add the 1344-M2 UI sites to 1344-N, handle
     deferred S8/S9/S10 rows, parent dry run, review 1344-D4, apply, recorded core and UI gates alone on a quiet
     machine, §7 (stalled route, C8), closure 1344-K.
-- P15C Wave 1: dry run 1353-X3 at 9d0d8a04: RED r4 72/72 fail, Wave R 6/6, GREEN 78/78, type gates unchanged.
-  Review 1353-J KEEP. NEXT: landing (RED r4 commit, push, recorded RED, production commit, push, recorded GREEN).
+- P15C Wave 1 LANDED (1353-L): RED r4 at c7f3cb76, recorded RED 72 failed / 6 passed of 78; production at 321a4378,
+  recorded GREEN 78/78; both fixedSource, every guard exact. Type gates unchanged (19/2/2, the 1352-L lines). IN
+  PROGRESS until the broad gates after the sweep.
 - Slice A: production verified (1348-X5); lands after the sweep with r5 rebased.
 - Slice B: 1358-C handed back; dry run 1358-X, producer mint, r2 and review 1358-D pending.
-- P15 Wave 2: P15B probe 1357-P (1357-X) before RED; P15A.1 and P15A.2 REDs; P15C Wave 2 RED after Wave 1 lands.
+- P15 Wave 2: P15B probe 1357-P (1357-X) before RED; P15A.1 and P15A.2 REDs; P15C Wave 2 RED (unblocked by 1353-L;
+  carry 1353-J note 2 into it).
 - Open Owner items: P16 questions (1354-Q); numpy for three rgba rows.
-- Disk: 4.5 GB free, under the 5 GB floor for recorded runs. Delete merged sweep trees by literal path first.
-  Scratch trees now live in `/Users/zacheryspector/studio-scratch/` (1344-sweep, 1353-x3, 1348-x5, 1358-work), moved from /private/tmp on the same
-  disk at 20:16 with all links checked.
+- Disk: 6.35 GB free, above the 5 GB floor, after deleting the merged 1353-x3 tree and expendable session-scratchpad
+  trees. Scratch trees still needed live in `/Users/zacheryspector/studio-scratch/` (1344-sweep, 1348-x5, 1358-work).
 
 ## CURRENT — Save43 fallout measured; P15B Wave 1 landed; all four P15 Wave 2 charters adopted; offline window next
 
