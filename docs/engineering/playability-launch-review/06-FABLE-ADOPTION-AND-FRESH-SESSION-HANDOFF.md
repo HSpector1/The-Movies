@@ -1,22 +1,23 @@
 # R3-N1 native correction record — 2026-09-15 · OPS-R3-N1-NATIVE-CORRECTION-20260915-01
 
-## CURRENT — UI Save43 fallout attributed (1344-M2); P15C Wave 1 dry run clean (1353-X3), landing next; Save43 sweep authoring 5 of 7 groups done
+## CURRENT — UI Save43 fallout attributed (1344-M2); P15C Wave 1 dry run clean (1353-X3), landing next; Save43 sweep authoring 6 of 7 groups done, g6 partial
 
-State at 2026-09-30 08:12 CEST, HEAD 8d729f58 (pushed, remote verified). The Owner is offline about 10 hours from
-~08:15. No recorded run is active.
+State at 2026-09-30 20:20 CEST, HEAD 01f07d97 plus this update (pushed, remote verified). No recorded run or agent
+is active.
 
 - Save43 / shelving (D-1329-1): IN PROGRESS.
   - Core fallout 1344-M; UI fallout 1344-M2: recorded r2 at 644b9038, 18 leaves, guards exact, 0 unhandled errors.
     Vs 1343: 11 Save43 pins (8 direct UI sites in 6 files; 3 StudioCalendar rows via the helper pin), 3 numpy rows
     (1345-E), 4 intermittents. Three intermittents predate shelving; the deep-route row stays open.
-  - Sweep authoring: Workflow run wf_93dac5b7-da4, script `save43-pin-sweep-authoring-wf_4d2c2f82-246.js` (session
-    workflows/scripts), args `sweep-groups-args.json` (scratch). Output per group in scratch `1344-sweep/<group>/`
+  - Sweep authoring: Workflow run wf_93dac5b7-da4 ended. Output per group in `/Users/zacheryspector/studio-scratch/1344-sweep/<group>/`
     (tree with one commit per file, PROGRESS.txt, classification.json, deferred.json, patch.diff, handback.md).
-    - DONE with handback and patch: helpers (30 edits, 2 deferred), g1, g2, g3, g4.
-    - RUNNING at 08:12: g5 (16 files listed in PROGRESS.txt, 17 commits), g6 (just started).
-    - If the session dies: resume in the same session with Workflow `resumeFromRunId: wf_93dac5b7-da4`. From a new
-      session, finished groups stand on their scratch files. Re-dispatch g5/g6 audit-first from their trees and
-      PROGRESS.txt; do not restart them from scratch.
+    - DONE: helpers (30 edits, 2 deferred), g1 (78, 7), g2 (81, 5), g3, g4, g5 (52, 39). g5 wrote every deliverable,
+      then its return failed on `401 OAuth access token has been revoked` (laptop off).
+    - g6 PARTIAL: the same 401 after 6 of 23 files; tree clean at a5c1606, diff base..HEAD sha256 0d9aa9a7…. Continue
+      audit-first from that tree for files 7-23 (args `/Users/zacheryspector/studio-scratch/1344-sweep/sweep-groups-args.json`), never from scratch.
+    - g1, g2 and g5 defer rows to helpers outside the helpers group (e.g. `tests/helpers/p14c3-queued-writing-fixtures.ts`).
+      g5 also defers three p14b5-relationships rows (365-372) where the rival's first take no longer appears. They are
+      S10-like but not named in 1344-N, so they need attribution declared before any value moves.
   - Then: read every handback verbatim, merge the disjoint patches, add the 1344-M2 UI sites to 1344-N, handle
     deferred S8/S9/S10 rows, parent dry run, review 1344-D4, apply, recorded core and UI gates alone on a quiet
     machine, §7 (stalled route, C8), closure 1344-K.
@@ -27,7 +28,8 @@ State at 2026-09-30 08:12 CEST, HEAD 8d729f58 (pushed, remote verified). The Own
 - P15 Wave 2: P15B probe 1357-P (1357-X) before RED; P15A.1 and P15A.2 REDs; P15C Wave 2 RED after Wave 1 lands.
 - Open Owner items: P16 questions (1354-Q); numpy for three rgba rows.
 - Disk: 4.5 GB free, under the 5 GB floor for recorded runs. Delete merged sweep trees by literal path first.
-  Scratch trees still needed: 1353-x3, 1344-sweep/*, 1348-x5, 1358-work.
+  Scratch trees now live in `/Users/zacheryspector/studio-scratch/` (1344-sweep, 1353-x3, 1348-x5, 1358-work), moved from /private/tmp on the same
+  disk at 20:16 with all links checked.
 
 ## CURRENT — Save43 fallout measured; P15B Wave 1 landed; all four P15 Wave 2 charters adopted; offline window next
 

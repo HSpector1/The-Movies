@@ -1,9 +1,9 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), Wed Sep 30 08:12 CEST 2026
+Last writer: Claude (Opus 5.5, claude-opus-5-5), Wed Sep 30 20:20 CEST 2026
 
 ## Where the work is
-- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ 8d729f58cd987f241329d2acc185d20d7108c349 plus the commit that adds this file, pushed: yes (remote verified by `git ls-remote`)
+- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ 01f07d97604e1b90f69f1fa37a5b0d18fa4ac7fd plus the commit that updates this file, pushed: yes (remote verified by `git ls-remote`)
 - Resume: `claude --resume fda2743f-a621-4100-9f06-e0c38e36295b` from the repo root.
 - Required reading, in order:
   1. `docs/engineering/playability-launch-review/CONTINUATION-STATE.md`: the top `## CURRENT` block
@@ -16,7 +16,7 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), Wed Sep 30 08:12 CEST 2026
 
 ## State
 - Done this session: see the CURRENT block. Latest: 1344-M2 (UI Save43 attribution), 1353-X3 (P15C RED 72/72, GREEN 78/78), 1353-J KEEP.
-- In flight: Workflow run `wf_93dac5b7-da4` (Save43 sweep authoring). g5 and g6 are writing in `/private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1344-sweep/g5` and `/private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1344-sweep/g6`, and the other five groups are done. It dies when the laptop sleeps. Resume paths are in the CURRENT block.
+- In flight: nothing. Workflow run `wf_93dac5b7-da4` (Save43 sweep authoring) ended. helpers and g1-g5 are DONE with handback.md and patch.diff; g5 wrote all its deliverables, then its return failed on `401 OAuth access token has been revoked`. g6 died on the same 401 after 6 of 23 files (tree clean at a5c1606, diff base..HEAD sha256 0d9aa9a7…). Per group: `/Users/zacheryspector/studio-scratch/1344-sweep/<group>/` (tree, PROGRESS.txt, classification.json, deferred.json, patch.diff, handback.md).
 - Claims limits: sweep patches are authored without test runs (by design); nothing is verified until the parent dry run. The UI deep-route intermittent is unattributed.
 
 ## Next step
@@ -26,14 +26,15 @@ Land P15C Wave 1:
 3. Apply `docs/engineering/playability-launch-review/evidence/p14b4-20260919/1353-stage/1353-p15c1-production.patch`, commit, push.
 4. Recorded GREEN; expect 78/78.
 
-Then collect the g5/g6 handbacks and merge the sweep.
+Then finish g6: an audit-first continuation from `/Users/zacheryspector/studio-scratch/1344-sweep/g6/tree` (files 7-23 of its PROGRESS.txt, args in `/Users/zacheryspector/studio-scratch/1344-sweep/sweep-groups-args.json`), never a restart. Then read every handback, merge the patches, and route the deferred helper rows. g1, g2 and g5 found helpers outside the helpers group, e.g. `tests/helpers/p14c3-queued-writing-fixtures.ts`.
 
 ## Open decisions for the Owner
 - numpy for the three rgba-export tool-contract rows: recommend a scoped `.venv` install beside Pillow, because the rows otherwise stay permanent environment failures (1345-E).
 - P16: the nine questions in 1354-Q, open until the Owner answers.
 
 ## Blockers and warnings
-- Scratch is at `/private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad` (trees 1344-sweep, 1353-x3, 1348-x5, 1358-work). A macOS restart wipes /private/tmp and loses them. g5/g6 were still writing at 08:16, so nothing was moved. Next session: once g5/g6 finish, mv those trees to ~/studio-scratch/ (same disk), check the links resolve, and update these paths.
+- Scratch trees now live in `/Users/zacheryspector/studio-scratch/` (1344-sweep, 1353-x3, 1348-x5, 1358-work, plus save-review.py), moved from /private/tmp at 20:16 on the same disk, with all links checked. Other trees left in the session scratchpad are expendable.
+- Subagents failed with `401 OAuth access token has been revoked` while the laptop was off. If an agent returns 401, the Owner runs `/login`.
 - No commits during a recorded run or its postflight. None is active at this writing.
 - Disk is at 4.5 GB free, under the 5 GB floor. Delete merged scratch trees by literal path before any recorded run.
 - The machine has 4 CPUs and 8 GB RAM. Run recorded suites alone. The Workflow cap is 2 agents.
