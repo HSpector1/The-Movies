@@ -6,6 +6,7 @@ import { productionCompanyTalentIds } from './productionPeople.js'
 import { scriptProjectWriterIds } from './scriptDevelopment.js'
 import { takeSubjectOwner } from './firstTakeSubjects.js'
 import { GENRE_ORDER } from './tuning.js'
+import { shelvedScriptIds } from './hollywoodTypes.js'
 import type { PromiseDraft, PromisePredicate } from './promises.js'
 import type { CastSlot, FirstTakeSubject, GameState, OpportunityPredicate, Production, ProfessionalPromise, PromiseClassification, ScriptProject } from './types.js'
 
@@ -136,8 +137,11 @@ function paths(state: GameState, draft: PromiseDraft & { predicate: OpportunityP
   if (predicate.kind === 'projectOpportunity' && matching.length === 0) return [impossiblePath(predicate.scriptProjectId, 'the named script project does not belong to this studio')]
   const rows: Path[] = []
   const person = draft.beneficiaryPersonId, slots = opportunitySlots(predicate)
+  const shelved = shelvedScriptIds(state.hollywood, draft.issuerStudioId)
   for (const project of matching) {
     if (project.status === 'produced') { rows.push(impossiblePath(project.id, 'the named script project has already been produced')); continue }
+    // P14D.1: shelved, not impossible forever; a retry can make it live again.
+    if (shelved.has(project.id)) { rows.push(impossiblePath(project.id, 'the named script project is shelved')); continue }
     if (project.productionId !== null || project.status === 'inProduction') {
       const production = owner.productions.find(row => row.id === project.productionId)
       if (production === undefined || production.remainingTicks < 5 || state.firstTakes.some(row => row.productionId === production.id)

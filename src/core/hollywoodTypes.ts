@@ -137,6 +137,12 @@ export type IndustryReceipt = { eventId: string; week: number; studioId: string 
   // P14D.1 (Save V43): one per screenplay, ever; the screenplay, its costs and history remain.
   | { kind: 'screenplayShelved'; scriptProjectId: string; conceptId: string; rejections: number }
 )
+/** P14D.1: a rival's shelved screenplays are its unproduced ones outside the active index
+ * (Save43: unproduced ⇔ active XOR shelved). The player's development is never shelved. */
+export function shelvedScriptIds(hollywood: { businesses: readonly RivalBusiness[] } | null, studioId: string): ReadonlySet<string> {
+  const business = hollywood?.businesses.find(row => row.studioId === studioId)
+  return new Set(business?.development.projects.filter((p, i) => p.status !== 'produced' && !business.activeScriptOrdinals.includes(i)).map(p => p.id))
+}
 /** The five V27 receipt kinds, as one roster the save boundary and the projection share. */
 export const RIVAL_RESEARCH_RECEIPT_KINDS = ['laboratoryCommitted', 'laboratoryOperational',
   'instrumentOperational', 'researchSeatAssigned', 'researchCompleted'] as const

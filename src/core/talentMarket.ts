@@ -46,8 +46,9 @@ import { TUNING } from './tuning.js'
 import type { Contract, GameState, Genre, LedgerEntry, LegacyTermination, MarketCaseStatus, MarketEligibilityStatus, OpportunitySeatClass,
   ProfessionalPromise, PromiseClassification, PromiseFamily, PromiseFeasibilityReceipt,
   Standing, TalentMarketCase, TalentMarketCaseV36, TalentMarketProposal, TalentMarketReceipt,
-  TalentMarketStateV36 } from './types.js'
+  TalentMarketStateV36, ScriptProject } from './types.js'
 import type { HollywoodState, IndustryEmployment, IndustryReceipt, RivalBusiness } from './hollywoodTypes.js'
+import { shelvedScriptIds } from './hollywoodTypes.js'
 
 const iround = (x: number): number => Math.round(x)
 
@@ -1438,6 +1439,15 @@ function openCasesAt(state: GameState, week: number): TalentMarketCaseV36[] {
  * No candidate adds RNG, changes count/window, or bypasses shared feasibility.
  * A losing rival's promise is never bound (ruling (i)).
  */
+/** P14D.1 (1344-X2): the screenplays a rival may name in a SPECIFIC_PROJECT promise: its
+ * non-produced, non-shelved ones, sorted by id, the first two. */
+export function rivalPromiseProjectCandidates(state: GameState, studioId: string): ScriptProject[] {
+  const shelved = shelvedScriptIds(state.hollywood, studioId)
+  return [...(state.hollywood?.businesses.find(row => row.studioId === studioId)?.development.projects ?? [])]
+    .filter(row => row.status !== 'produced' && !shelved.has(row.id))
+    .sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0).slice(0, 2)
+}
+
 function authorRivalPromise(state: GameState, talentId: string, issuerStudioId: string): GameState {
   const proposal = state.talentMarket.proposals.find((p) => p.talentId === talentId && p.issuerStudioId === issuerStudioId)
   if (proposal === undefined || proposal.promises.length > 0) return state
@@ -1461,9 +1471,7 @@ function authorRivalPromise(state: GameState, talentId: string, issuerStudioId: 
   const candidates = directingFirst ? [directing, ...cast] : [...cast, directing]
   // Existing count candidates keep their exact priority. Only their failure
   // reaches the bounded, unchanged-state opportunity fallback below.
-  const business = state.hollywood?.businesses.find(row => row.studioId === issuerStudioId)
-  const projects = [...(business?.development.projects ?? [])].filter(row => row.status !== 'produced')
-    .sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0).slice(0, 2)
+  const projects = rivalPromiseProjectCandidates(state, issuerStudioId)
   const seatClass = isProven(state, talentId) ? 'allCast' as const : 'leadOrAntagonist' as const
   const projectCandidates: PromiseAttachment[] = projects.map(project => ({ family: 'SPECIFIC_PROJECT',
     predicate: { kind: 'projectOpportunity', count: 1, seatClass, scriptProjectId: project.id }, ...window }))

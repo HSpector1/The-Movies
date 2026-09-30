@@ -32,6 +32,7 @@ import { occupiedResourceSlots } from './occupancy.js'
 import { productionCompanyTalentIds } from './productionPeople.js'
 import { openMarketCaseFor } from './talentMarket.js'
 import { TUNING } from './tuning.js'
+import { shelvedScriptIds } from './hollywoodTypes.js'
 import { subjectForNewTake, takeSubjectOwner, validateFirstTakeSubjects } from './firstTakeSubjects.js'
 import { isOpportunityPredicate, opportunitySlots, opportunityPredicateRefusal, opportunitySubjectMatches,
   opportunityProductionMatches, opportunityReservations, opportunityFeasibilityInputs, opportunityAssessment,
@@ -276,9 +277,11 @@ function unproducedScripts(state: GameState, studioId: string, directingScope = 
     ? state.hollywood.businesses.find((b) => b.studioId === studioId)?.development
     : state.scriptDevelopment
   if (development === undefined || development.mode !== 'managed') return 0
+  // P14D.1: a shelved rival screenplay is not a picture the studio is making.
+  const shelved = shelvedScriptIds(state.hollywood, studioId)
   // A linked script is the running picture, not another future picture. Its
   // actual qualifying seat is counted separately until that picture's take.
-  return development.projects.filter((p) => p.status !== 'produced'
+  return development.projects.filter((p) => p.status !== 'produced' && !shelved.has(p.id)
     && (!directingScope || p.productionId === null)).length
 }
 
@@ -399,6 +402,7 @@ function feasibilityInputs(state: GameState, draft: PromiseDraft, week: number,
   const from = Math.max(draft.windowStartWeek, week)
   const person = state.talent.find((t) => t.id === draft.beneficiaryPersonId)
   const retirement = retirementRecordFor(state, draft.beneficiaryPersonId)
+  const shelved = shelvedScriptIds(state.hollywood, draft.issuerStudioId)
   const actingRetirement = retirementRecordFor(state, draft.beneficiaryPersonId, requestedRole)
   return [
     draft.family, draft.issuerStudioId, draft.beneficiaryPersonId, draft.predicate.count,
@@ -407,7 +411,7 @@ function feasibilityInputs(state: GameState, draft: PromiseDraft, week: number,
     productions.map((p) => [p.id, p.conceptId, p.startTick, p.remainingTicks, p.directorId, p.cast]),
     operations?.facilities.map((f) => [f.id, f.capability, f.capacity]) ?? [],
     operations?.workflows ?? [],
-    development?.projects.filter((p) => p.status !== 'produced' && (!directingScope || p.productionId === null))
+    development?.projects.filter((p) => p.status !== 'produced' && !shelved.has(p.id) && (!directingScope || p.productionId === null))
       .map((p) => [p.id, p.conceptId, p.status, p.writerIds, p.dueWeek, p.reservation, p.productionId]) ?? [],
     [...occupancy].map(([key, claims]) => [key, claims.map((c) => [c.owner, c.ownerId, c.capability, c.slot])]),
     rival ? [] : state.productionQueue,
@@ -437,6 +441,8 @@ function feasibilityInputs(state: GameState, draft: PromiseDraft, week: number,
     ...(directingScope && productionOccupancy.length > 0 ? [['occupiedProductionSeats',
       productionOccupancy.map(({ studioId, production }) =>
         [studioId, production.id, production.startTick, production.remainingTicks])]] : []),
+    // P14D.1: appended only when the issuer has shelved screenplays, so every other tuple stays byte-identical.
+    ...(shelved.size === 0 ? [] : [['shelvedScripts', [...shelved]]]),
   ]
 }
 
