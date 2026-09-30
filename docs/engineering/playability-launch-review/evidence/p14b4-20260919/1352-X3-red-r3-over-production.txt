@@ -1,0 +1,11 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1352-x2/tree
+
+ ✓ |core| tests/p15b1-studio-loan.test.ts (11 tests) 58ms
+ ✓ |core| tests/p15b1-corporate-condition.test.ts (41 tests) 386ms
+
+ Test Files  2 passed (2)
+      Tests  52 passed (52)
+   Start at  03:25:01
+   Duration  2.59s (transform 811ms, setup 0ms, collect 1.04s, tests 444ms, environment 1ms, prepare 968ms)
+
