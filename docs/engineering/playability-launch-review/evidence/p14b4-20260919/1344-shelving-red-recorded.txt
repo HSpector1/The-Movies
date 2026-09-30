@@ -1,0 +1,818 @@
+{"guardScope":{"excludedAutomaticReadPrefixes":["tests/fixtures/","ui/e2e/","ui/public/"],"includedPaths":["bridge/campaign-origin.ts","bridge/cancellation.ts","bridge/casting.ts","bridge/contract.ts","bridge/development.ts","bridge/finance-consequence.ts","bridge/finance-portfolio.ts","bridge/finance-route.ts","bridge/finance-upcoming.ts","bridge/finance.ts","bridge/history.ts","bridge/industry.ts","bridge/laboratory.ts","bridge/lifecycle.ts","bridge/market.ts","bridge/office.ts","bridge/operations-events.ts","bridge/people.ts","bridge/placement.ts","bridge/plans.ts","bridge/productionSetup.ts","bridge/promises.ts","bridge/proof.ts","bridge/protocol.ts","bridge/relationships.ts","bridge/release.ts","bridge/retirement-extension.ts","bridge/runtime-checkpoint.ts","bridge/runtime/campaign-library.ts","bridge/runtime/campaign-storage-codec.ts","bridge/runtime/checkpoint-store.ts","bridge/runtime/process-incarnation.ts","bridge/runtime/runtime-coordinator.ts","bridge/runtime/worker-adapter.ts","bridge/runtime/worker-client.ts","bridge/runtime/worker-contract.ts","bridge/runtime/worker-entry-path.ts","bridge/runtime/worker-entry.ts","bridge/schema/README.md","bridge/schema/bridge-schema.ts","bridge/schema/canonical.ts","bridge/schema/dsl.ts","bridge/schema/industry-schema.ts","bridge/schema/intent-schema.ts","bridge/schema/project-studio-bridge.schema.json","bridge/schema/runtime.ts","bridge/server.ts","bridge/session.ts","bridge/setCommission.ts","bridge/snapshot-build-context.ts","bridge/supervisor/bounded-log.ts","bridge/supervisor/cli-main.ts","bridge/supervisor/cli-packaged.ts","bridge/supervisor/cli.ts","bridge/supervisor/config.ts","bridge/supervisor/lease.ts","bridge/supervisor/supervisor.ts","bridge/testing/c3-active-endurance-contract.ts","bridge/testing/c3-active-endurance-observer.ts","bridge/testing/in-flight-evidence-verifier.ts","bridge/testing/post-commit-response-gate.ts","bridge/trust.ts","bridge/world.ts","generated/unity/StudioBridgeDtos.Generated.cs","generated/unity/project-studio-bridge.contract-manifest.json","generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs","package-lock.json","package.json","scripts/3d-asset-audit-allowlist.json","scripts/art/authored-asset-pipeline.py","scripts/audio/generate_pf1_audio.py","scripts/audit-3d-assets.mjs","scripts/audit-repository-hygiene.mjs","scripts/audit-studio-packaged.mjs","scripts/bridge-contract-consumer-lock.ts","scripts/bridge-contract-csharp.ts","scripts/build-studio.mjs","scripts/gen-career-fixtures.mts","scripts/gen-expanded-property-fixtures.mts","scripts/gen-live-week-advance-fixtures.mts","scripts/gen-lot-fixtures.mts","scripts/gen-lot-native-next-event-fixtures.mts","scripts/gen-p05-visual-oracle-fixtures.mts","scripts/gen-p06-visual-oracle-fixtures.mts","scripts/gen-p07-visual-oracle-fixtures.mts","scripts/gen-p08-visual-oracle-fixtures.mts","scripts/gen-p09-p18-reverify-fixtures.mts","scripts/gen-p09-visual-oracle-fixtures.mts","scripts/gen-p10-visual-oracle-fixtures.mts","scripts/gen-p19-reverify-fixtures.mts","scripts/gen-playmode-embedded-wire.mts","scripts/gen-recap-fixtures.mts","scripts/gen-world-first-operational-annex-work-presence-fixtures.mts","scripts/gen-world-first-scenery-load-in-fixtures.mts","scripts/generate-bridge-contract-fixtures.ts","scripts/generate-bridge-contract.ts","scripts/generate-foundation-recovery-fixtures.ts","scripts/generate-p11-core-fixtures.mts","scripts/generate-p11-editmode-fixtures.mts","scripts/generate-p11-scale-fixture.mts","scripts/living-lot-profile.mjs","scripts/make-favicon.mjs","scripts/measure-c1-economy.mts","scripts/measure-c2-throughput.mts","scripts/measure-p08-history-growth.mts","scripts/measure-v14-save-size.mts","scripts/migrate-p11-current-fixtures.mts","scripts/p06-real-profile-journey.mts","scripts/p07-real-profile-journey.mts","scripts/p08-real-profile-journey.mts","scripts/p09-solvency-preflight.mts","scripts/p10-compat-boundary-probe.sh","scripts/p10-owner-profile-copy.mts","scripts/p10-run-owner-copy-engine.sh","scripts/p11-compat-boundary-probe.py","scripts/p11-owner-profile-copy.mts","scripts/p11-run-owner-copy-engine.sh","scripts/p12a-milestone-checker.mjs","scripts/p13a-generate-evidence.ts","scripts/p13a-generate-review-library.ts","scripts/p13a-package-candidate.mjs","scripts/p13a/accepted-v19-checkpoint.mjs","scripts/p13a/build-performance-probes.mjs","scripts/p13a/instrument-performance-profile.mjs","scripts/p13a/performance-generator.mjs","scripts/p13a/performance-library32-fixture.mjs","scripts/p13a/performance-library32-recovery.mjs","scripts/p13a/performance-migration.mjs","scripts/p13a/performance-preflight.mjs","scripts/p13a/performance-profile.mjs","scripts/p13a/performance-store.mjs","scripts/p13a/performance-summary.mjs","scripts/phase-m-matrix.mjs","scripts/playability-package-candidate.mjs","scripts/playability/generate-evidence.ts","scripts/playability/generate-review-library.ts","scripts/prepare-runtime-worker.mjs","scripts/rebind-foundation-oracle-fixtures.ts","scripts/sweep-c2a-placement.mts","scripts/verify-bridge-contract-consumer.ts","scripts/verify-bridge-inflight-evidence.ts","scripts/verify-foundation-recovery-engine.py","src/core/actions.ts","src/core/agents.ts","src/core/aging.ts","src/core/blueprintRequirements.ts","src/core/boundedStableSort.ts","src/core/broadcast.ts","src/core/calendar.ts","src/core/candidates.ts","src/core/careerLifecycle.ts","src/core/castingPackageReadModel.ts","src/core/castingReadModel.ts","src/core/castingSessions.ts","src/core/construction.ts","src/core/data/screenplay.ts","src/core/data/wordlists.ts","src/core/development.ts","src/core/economy.ts","src/core/economyView.ts","src/core/employment.ts","src/core/facilityEffects.ts","src/core/filmPackage.ts","src/core/filmParticipants.ts","src/core/financeReport.ts","src/core/firstFilmJourney.ts","src/core/firstTakeSubjects.ts","src/core/fixedCostAllocation.ts","src/core/forecast.ts","src/core/grid.ts","src/core/hollywood.ts","src/core/hollywoodPolicy.ts","src/core/hollywoodStartingData.ts","src/core/hollywoodTick.ts","src/core/hollywoodTypes.ts","src/core/hollywoodValidation.ts","src/core/index.ts","src/core/industryCareer.ts","src/core/industryEmployment.ts","src/core/installationCancellation.ts","src/core/liveRetirementWriting.ts","src/core/lot.ts","src/core/marketingMenu.ts","src/core/math.ts","src/core/newspaper.ts","src/core/occupancy.ts","src/core/officeConversion.ts","src/core/operations.ts","src/core/opportunityPromises.ts","src/core/physicalPlans.ts","src/core/placement.ts","src/core/powerRanking.ts","src/core/presence.ts","src/core/productionAdmission.ts","src/core/productionIdentity.ts","src/core/productionPeople.ts","src/core/productionPhases.ts","src/core/productionQueue.ts","src/core/productionSetup.ts","src/core/professionHistory.ts","src/core/professionTransitions.ts","src/core/promiseCapacityEnumerator.ts","src/core/promiseCapacityKernel.ts","src/core/promiseCapacityOwnerReplay.ts","src/core/promiseCapacityOwners.ts","src/core/promises.ts","src/core/publicity.ts","src/core/queueAdmission.ts","src/core/reception.ts","src/core/receptionVerdict.ts","src/core/relationships.ts","src/core/releaseAuthority.ts","src/core/releaseCareers.ts","src/core/researchPeople.ts","src/core/retirementWriting.ts","src/core/rivalResearch.ts","src/core/rng.ts","src/core/save.ts","src/core/sceneryLoadIn.ts","src/core/screenplay.ts","src/core/scriptDevelopment.ts","src/core/scriptReadModel.ts","src/core/sets.ts","src/core/shape.ts","src/core/sharedMarket.ts","src/core/standing.ts","src/core/starPower.ts","src/core/studioCalendar.ts","src/core/studioEvents.ts","src/core/studioHistory.ts","src/core/studioQueueView.ts","src/core/studioRunRecap.ts","src/core/studioWeekTheater.ts","src/core/talentMarket.ts","src/core/talentSummary.ts","src/core/technology.ts","src/core/technologyAdoption.ts","src/core/technologyCatalogue.ts","src/core/technologyDisclosure.ts","src/core/technologyMilestones.ts","src/core/technologyProduction.ts","src/core/technologyRival.ts","src/core/technologyTypes.ts","src/core/tick.ts","src/core/tuning.ts","src/core/types.ts","src/core/vector.ts","src/core/worldgen.ts","src/harness/aggregate.ts","src/harness/d16/compare-d17b-production.ts","src/harness/d16/counterflow.test.ts","src/harness/d16/counterflow.ts","src/harness/d16/driver.test.ts","src/harness/d16/driver.ts","src/harness/d16/experiment.test.ts","src/harness/d16/experiment.ts","src/harness/d16/isolation.test.ts","src/harness/d16/luck.test.ts","src/harness/d16/luck.ts","src/harness/d16/packages.test.ts","src/harness/d16/packages.ts","src/harness/d16/policies.ts","src/harness/d16/production-agreement.test.ts","src/harness/d16/productionIdentity.ts","src/harness/d16/publicity.test.ts","src/harness/d16/publicity.ts","src/harness/d16/run-d16-corpus.ts","src/harness/d16/run-d17b-continuation.ts","src/harness/d16/run-d17b-week86.ts","src/harness/d16/sourceProvenance.ts","src/harness/d16/states.test.ts","src/harness/d16/states.ts","src/harness/d16/stats.test.ts","src/harness/d16/stats.ts","src/harness/d16/view.ts","src/harness/d16/vitest.d16.config.ts","src/harness/facilities/index.ts","src/harness/measure.ts","src/harness/p13a/fixtures.ts","src/harness/p13b/fixtures.ts","src/harness/p13b/legacy-v20-fixtures.ts","src/harness/p13b/legacy-v21-fixtures.ts","src/harness/p13b/legacy-v22-fixtures.ts","src/harness/p13b/legacy-v23-fixtures.ts","src/harness/p13b/legacy-v24-fixtures.ts","src/harness/p13b/legacy-v25-fixtures.ts","src/harness/p13b/legacy-v26-fixtures.ts","src/harness/p13b/legacy-v27-fixtures.ts","src/harness/p13b/s3-fixtures.ts","src/harness/p13b/s4-fixtures.ts","src/harness/p13b/s6-fixtures.ts","src/harness/p14/legacy-v28-fixtures.ts","src/harness/roster-wall/artifacts.ts","src/harness/roster-wall/campaign.ts","src/harness/roster-wall/continuation.ts","src/harness/roster-wall/corpus.ts","src/harness/roster-wall/fixtures.ts","src/harness/roster-wall/historical-control.ts","src/harness/roster-wall/player-policy.ts","src/harness/roster-wall/provenance.ts","src/harness/roster-wall/records.ts","src/harness/roster-wall/renewal.ts","src/harness/roster-wall/schema.ts","src/harness/roster-wall/summary.ts","src/harness/run-capital-risk-reward-audit.ts","src/harness/run-corpus.ts","src/harness/run-creator-baseline-study.ts","src/harness/run-creator-development-study.ts","src/harness/run-dev-study.ts","src/harness/run-driver.ts","src/harness/run-economy-balance-study.ts","src/harness/run-facilities-observatory.ts","src/harness/run-final-balance.ts","src/harness/run-integrated-balance.ts","src/harness/run-microbudget-dominance-audit.ts","src/harness/run-multihyphenate-stats.ts","src/harness/run-owner-calibration-study.ts","src/harness/run-roster-balance-study.ts","src/harness/run-roster-wall-observatory.ts","src/harness/run-selection-stats.ts","src/harness/run-shape-sensitivity.ts","src/harness/run-star-power-calibration.ts","src/harness/run-writer-bottleneck-study.ts","tests/3d-asset-audit.test.ts","tests/_fixtures.ts","tests/_historicalCurrent.ts","tests/_legacyV1Fixtures.ts","tests/_m4Fixtures.ts","tests/_m5Fixtures.ts","tests/_m5PlaytestSave.ts","tests/_p04a2WriterCreditFixtures.ts","tests/_p08HistoryTwins.ts","tests/_presenceFixtures.ts","tests/acceptance-corpus.test.ts","tests/actions.test.ts","tests/agents.test.ts","tests/blueprint-requirements.test.ts","tests/bridge-casting.test.ts","tests/bridge-checkpoint-store.test.ts","tests/bridge-contract-consumer-lock.test.ts","tests/bridge-contract-generator.test.ts","tests/bridge-development.test.ts","tests/bridge-foundation-recovery.test.ts","tests/bridge-founding.test.ts","tests/bridge-http-security.test.ts","tests/bridge-inflight-evidence-verifier.test.ts","tests/bridge-operations-events.test.ts","tests/bridge-owner-ux-genre-projection.test.ts","tests/bridge-owner-ux-projection20-migration.test.ts","tests/bridge-owner-ux-projection21-schema.test.ts","tests/bridge-owner-ux-saved-slot.test.ts","tests/bridge-p04a2-writer-credit-law.test.ts","tests/bridge-p05a-w2-intents.test.ts","tests/bridge-p05a1-owner-greenlight.test.ts","tests/bridge-p05a3-roster-liveness.test.ts","tests/bridge-p06-checkpoint-recovery.test.ts","tests/bridge-p07a-w6-result-continuity.test.ts","tests/bridge-p08a-w2-history-projection.test.ts","tests/bridge-p09a-r2-facility-history-rows.test.ts","tests/bridge-p09a-w1-placement-quote.test.ts","tests/bridge-p09a-w1b-bare-lot-projection.test.ts","tests/bridge-p09a-w5-bare-lot-first-film.test.ts","tests/bridge-p09a-w5-set-commission.test.ts","tests/bridge-p10a-r1-contract-quote.test.ts","tests/bridge-p10a-w0-people-projection.test.ts","tests/bridge-p11-capital-contributors.test.ts","tests/bridge-p11-finance.test.ts","tests/bridge-p11-production-location.test.ts","tests/bridge-p11-ready.test.ts","tests/bridge-p12-campaign-library.test.ts","tests/bridge-p12-industry.test.ts","tests/bridge-p12-storage-codec.test.ts","tests/bridge-p13-campaign-isolation.test.ts","tests/bridge-p13-laboratory.test.ts","tests/bridge-p13-lot-technology.test.ts","tests/bridge-p13-no-laboratory-commercial.test.ts","tests/bridge-p13-profile-availability.test.ts","tests/bridge-p13-scientist-expiry.test.ts","tests/bridge-p13-technology-history.test.ts","tests/bridge-p13b-r07-setup.test.ts","tests/bridge-p13b-s1-identity.test.ts","tests/bridge-p13b-s1b-seats.test.ts","tests/bridge-p13b-s2-labs.test.ts","tests/bridge-p13b-s3-plans.test.ts","tests/bridge-p13b-s3-save-as.test.ts","tests/bridge-p13b-s4-office.test.ts","tests/bridge-p13b-s5-adoption.test.ts","tests/bridge-p13b-s6-cancellation.test.ts","tests/bridge-p13b-s7-disclosure.test.ts","tests/bridge-p13b-s8-rivals.test.ts","tests/bridge-p14a1-market.test.ts","tests/bridge-p14a1-release-busy-set.test.ts","tests/bridge-p14a2-market.test.ts","tests/bridge-p14a3-world.test.ts","tests/bridge-p14b1-promises.test.ts","tests/bridge-p14b2-checkpoint.test.ts","tests/bridge-p14b2-trust.test.ts","tests/bridge-p14b3-promise-command.test.ts","tests/bridge-p14b4-cast-class.test.ts","tests/bridge-p14b4-runtime47-compatibility.test.ts","tests/bridge-p14b5-relationships.test.ts","tests/bridge-p14b6-d2-withheld-employment-claim.test.ts","tests/bridge-p14b6-e714-false-empty-absence-lines.test.ts","tests/bridge-p14b6-relationship-read-models.test.ts","tests/bridge-p14b7-promise-waiver.test.ts","tests/bridge-p14b8-waiver-surface.test.ts","tests/bridge-p14b9-casting-expiry.test.ts","tests/bridge-p14b9-casting-readers.test.ts","tests/bridge-p14c2b-extension.test.ts","tests/bridge-p14c2c-retirement-promises.test.ts","tests/bridge-p14c2rm-proposals.test.ts","tests/bridge-p14c2rm-retirement.test.ts","tests/bridge-p14c2rm-runtime.test.ts","tests/bridge-p14c2s-scientist-runtime.test.ts","tests/bridge-p14c2s-scientist.test.ts","tests/bridge-p14c3-dual-career-surfaces.test.ts","tests/bridge-p14c3-promise-digest-continuity.test.ts","tests/bridge-p14c3-read-models.test.ts","tests/bridge-p14c3-runtime.test.ts","tests/bridge-p14p3-directing-promises.test.ts","tests/bridge-p14p4p5-opportunities.test.ts","tests/bridge-p14r2r3-prior55.test.ts","tests/bridge-process-incarnation.test.ts","tests/bridge-process-restart.test.ts","tests/bridge-r3n4-read-model-deltas.test.ts","tests/bridge-runtime-checkpoint-prepared-reuse.test.ts","tests/bridge-runtime-checkpoint.test.ts","tests/bridge-runtime-coordinator.test.ts","tests/bridge-runtime-session.test.ts","tests/bridge-runtime-worker.test.ts","tests/bridge-schema.test.ts","tests/bridge-snapshot-build-context.test.ts","tests/bridge-supervisor.test.ts","tests/bridge.test.ts","tests/broadcast.test.ts","tests/c1-m6-identity-not-coordinates.test.ts","tests/c1-m6-no-property-cap.test.ts","tests/c1-m6-second-zone-by-data.test.ts","tests/c2a-m0-engine-union.test.ts","tests/c2a-m2-blueprint-slate.test.ts","tests/c2a-m2-set-binding.test.ts","tests/c2a-m2-set-catalog.test.ts","tests/c2a-m2-sets-machinery.test.ts","tests/c2a-m2-sets-save.test.ts","tests/c2a-m3-determinism-and-guards.test.ts","tests/c2a-m3-provenance-surfaces.test.ts","tests/c2a-m3-rename-and-pooling.test.ts","tests/c2a-m3-screenplay-mint.test.ts","tests/c2a-m3-screenplay-vocabulary.test.ts","tests/c2a-m3-writer-speed.test.ts","tests/c2a-m4-contention-property.test.ts","tests/c2a-m4-g101-throughput.test.ts","tests/c2a-m4-queue-admission.test.ts","tests/c2a-m4-queue-legibility.test.ts","tests/c2a-m4-release-law.test.ts","tests/c2a-m5-scenery-load-in-layout.test.ts","tests/c2a-m5-studio-week-theater.test.ts","tests/candidates.test.ts","tests/cash-ledger-checkpoint-v11.test.ts","tests/casting-package-read-model.test.ts","tests/casting-sessions-actions.test.ts","tests/casting-sessions-domain.test.ts","tests/casting-sessions-save-v10.test.ts","tests/construction-accounting-calendar.test.ts","tests/construction-core.test.ts","tests/construction-save-v11.test.ts","tests/contracts/_contractFixtures.ts","tests/contracts/_foundationRecoveryFixtures.ts","tests/contracts/_v14Contract.ts","tests/contracts/cross-owner-refusal.contract.test.ts","tests/contracts/determinism-floor.contract.test.ts","tests/contracts/phase-table-agreement.contract.test.ts","tests/contracts/sticky-retention.contract.test.ts","tests/contracts/studio-events.contract.test.ts","tests/contracts/union-producer-subsumption.contract.test.ts","tests/contracts/v14-boundary-guards.contract.test.ts","tests/contracts/v14-byte-parity.contract.test.ts","tests/d11-cycle2.test.ts","tests/d11-cycle3.test.ts","tests/d11-cycle4.test.ts","tests/d11-employment.test.ts","tests/d12-audience-aligned-weak-execution.test.ts","tests/d12-calibration-closure.test.ts","tests/d12-commercial-outlook-fame.test.ts","tests/d12-economy-view.test.ts","tests/d12-economy.test.ts","tests/d12-fame-isolation.test.ts","tests/d12-final-downside.test.ts","tests/d12-p2-calibration.test.ts","tests/d13-capital-frontier.test.ts","tests/d13-discoverability.test.ts","tests/d14-star-power.test.ts","tests/d17-engagement-persistence.test.ts","tests/d17a-adv-action-parity.test.ts","tests/d17a-adv-cliff.test.ts","tests/d17a-adv-discovery.test.ts","tests/d17a-adv-migration.test.ts","tests/d17a-adv-offer-truth.test.ts","tests/d17a-adv-prospective-cycle.test.ts","tests/d17a-adv-reconciliation.test.ts","tests/d17a-discovery-exposure.test.ts","tests/d17a-economy-selectors.test.ts","tests/d17a-fixed-cost-allocation.test.ts","tests/d17a-recap-studio-economics.test.ts","tests/d17b-awareness-counterflow.test.ts","tests/d17b-disc-shape.test.ts","tests/d17b-marketing-menu.test.ts","tests/d17b-publicity.test.ts","tests/d17b-save-v7.test.ts","tests/d9-talent.test.ts","tests/declarations.test.ts","tests/facilities-observatory-cli.test.ts","tests/facilities-observatory.test.ts","tests/facility-effects.test.ts","tests/facility-move-demolish.test.ts","tests/film-chronicle.test.ts","tests/film-package-truthfulness.test.ts","tests/first-film-journey.test.ts","tests/forecast-independence.test.ts","tests/forecast.test.ts","tests/frozen-save-builder-projection.test.ts","tests/helpers/p14b2-fixtures.ts","tests/helpers/p14c2a-fixtures.ts","tests/helpers/p14c2b-fixtures.ts","tests/helpers/p14c2c-fixtures.ts","tests/helpers/p14c2rm-fixtures.ts","tests/helpers/p14c2rm-writer-fixtures.ts","tests/helpers/p14c2s-fixtures.ts","tests/helpers/p14c3-canonical-rival-fixtures.ts","tests/helpers/p14c3-cohort-transition-fixtures.ts","tests/helpers/p14c3-dual-extension-fixtures.ts","tests/helpers/p14c3-equal-tuple-fixtures.ts","tests/helpers/p14c3-fixtures.ts","tests/helpers/p14c3-genuine-evidence-fixtures.ts","tests/helpers/p14c3-history-boundary-fixtures.ts","tests/helpers/p14c3-offmenu-extension-fixtures.ts","tests/helpers/p14c3-queued-writing-fixtures.ts","tests/helpers/p14c3-second-episode-fixtures.ts","tests/helpers/p14c3-surface-fixtures.ts","tests/helpers/p14c4-fixtures.ts","tests/helpers/p14p3-fixtures.ts","tests/hygiene.test.ts","tests/legacy-parcel-ground.test.ts","tests/migration.test.ts","tests/operations.test.ts","tests/p04a2-writer-credit-law.test.ts","tests/p04a3-greenlight-law.test.ts","tests/p05a-w1-scenery-truth.test.ts","tests/p05a3-minimal-founding-liveness.test.ts","tests/p06a-w1-release-authority.test.ts","tests/p08a-w0-studio-history.test.ts","tests/p09a-w0-founding-regime.test.ts","tests/p11-finance-history-scale.test.ts","tests/p11-finance-recurring.test.ts","tests/p11-finance-report.test.ts","tests/p12-calendar.test.ts","tests/p12-checker.test.ts","tests/p12-lifecycle.test.ts","tests/p12-starting-world.test.ts","tests/p13a-catalogue.test.ts","tests/p13a-causal-core.test.ts","tests/p13a-physical-installation.test.ts","tests/p13a-placement-history-validation.test.ts","tests/p13a-production-technology.test.ts","tests/p13a-research-employment.test.ts","tests/p13a-research-identity.test.ts","tests/p13a-rival-adoption.test.ts","tests/p13a-save-v20.test.ts","tests/p13a-scientist-foundation.test.ts","tests/p13a-technology-membership.test.ts","tests/p13a-technology-milestones.test.ts","tests/p13a-technology-validation.test.ts","tests/p13b-r07-controls.test.ts","tests/p13b-r07-gate.test.ts","tests/p13b-r07-recipes.test.ts","tests/p13b-r07-save-v25.test.ts","tests/p13b-r07-timeline.test.ts","tests/p13b-rival-scientist-staffing.test.ts","tests/p13b-s1-save-v21.test.ts","tests/p13b-s1-scheduler.test.ts","tests/p13b-s1-staffing.test.ts","tests/p13b-s1-validation.test.ts","tests/p13b-s2-access-identity.test.ts","tests/p13b-s2-catalogue.test.ts","tests/p13b-s2-cooperation.test.ts","tests/p13b-s2-doc03.test.ts","tests/p13b-s2-expiry.test.ts","tests/p13b-s2-labs.test.ts","tests/p13b-s2-save-v22.test.ts","tests/p13b-s2-validation.test.ts","tests/p13b-s3-admission.test.ts","tests/p13b-s3-dependencies.test.ts","tests/p13b-s3-save-v23.test.ts","tests/p13b-s3-validation.test.ts","tests/p13b-s4-downtime.test.ts","tests/p13b-s4-plans.test.ts","tests/p13b-s4-quotes.test.ts","tests/p13b-s4-validation.test.ts","tests/p13b-s5-conservation.test.ts","tests/p13b-s5-equipment.test.ts","tests/p13b-s5-operational.test.ts","tests/p13b-s5-quotes.test.ts","tests/p13b-s5-save-v24.test.ts","tests/p13b-s5-validation.test.ts","tests/p13b-s6-equipment.test.ts","tests/p13b-s6-finance.test.ts","tests/p13b-s6-ordering.test.ts","tests/p13b-s6-receipts.test.ts","tests/p13b-s6-refund-once.test.ts","tests/p13b-s6-restoration.test.ts","tests/p13b-s6-save-v26.test.ts","tests/p13b-s7-announcements.test.ts","tests/p13b-s7-forecast.test.ts","tests/p13b-s7-independence.test.ts","tests/p13b-s7-replacement.test.ts","tests/p13b-s8-adoption.test.ts","tests/p13b-s8-capacity.test.ts","tests/p13b-s8-finance.test.ts","tests/p13b-s8-nonleak.test.ts","tests/p13b-s8-research.test.ts","tests/p13b-s8-save-v27.test.ts","tests/p13b-s8-setup-symmetry.test.ts","tests/p14a1-case.test.ts","tests/p14a1-decline-reasons.test.ts","tests/p14a1-disclosure.test.ts","tests/p14a1-eligibility.test.ts","tests/p14a1-f1-priority-order.test.ts","tests/p14a1-firing.test.ts","tests/p14a1-proposals.test.ts","tests/p14a1-release-busy-set.test.ts","tests/p14a1-rival-trigger.test.ts","tests/p14a1-save-v28.test.ts","tests/p14a1-seat-budget.test.ts","tests/p14a1-settlement.test.ts","tests/p14b1-first-take.test.ts","tests/p14b1-leak.test.ts","tests/p14b1-promises.test.ts","tests/p14b1-save-v29.test.ts","tests/p14b1-t4-regressions.test.ts","tests/p14b1-trust-chooser.test.ts","tests/p14b2-fixture-preconditions.test.ts","tests/p14b2-setup-wrap-regressions.test.ts","tests/p14b3-reservations.test.ts","tests/p14b3-rule-revision.test.ts","tests/p14b4-bounded-employment-lookup.test.ts","tests/p14b4-bounded-sort-owners.test.ts","tests/p14b4-bounded-stable-sort.test.ts","tests/p14b4-cancel-causal-proof.test.ts","tests/p14b4-capacity-kernel.test.ts","tests/p14b4-cast-class-capacity-evaluator5.test.ts","tests/p14b4-cast-class-capacity.test.ts","tests/p14b4-cast-class-outcomes.test.ts","tests/p14b4-cast-class-policy.test.ts","tests/p14b4-d3-matching.test.ts","tests/p14b4-joint-trace-mode-extension.test.ts","tests/p14b4-joint-trace.test.ts","tests/p14b4-kernel-hold-order-extension.test.ts","tests/p14b4-managed-clock-owner.test.ts","tests/p14b4-material-evidence-core.test.ts","tests/p14b4-owner-adapter-first-slice.test.ts","tests/p14b4-owner-enumerator-slice.test.ts","tests/p14b4-owner-fact-views.test.ts","tests/p14b4-production-admission.test.ts","tests/p14b4-ready-owner-replay.test.ts","tests/p14b4-ready-replay-background.test.ts","tests/p14b4-ready-replay-command.test.ts","tests/p14b4-ready-replay-first-take.test.ts","tests/p14b4-ready-replay-identity.test.ts","tests/p14b4-ready-replay-stale-target.test.ts","tests/p14b4-replay-bill-reductions.test.ts","tests/p14b4-replay-record-facts.test.ts","tests/p14b4-rival-seating-preference.test.ts","tests/p14b4-save-v30-compatibility.test.ts","tests/p14b4-started-owner-replay.test.ts","tests/p14b4-started-replay-background-command.test.ts","tests/p14b4-started-replay-casting.test.ts","tests/p14b4-started-replay-director.test.ts","tests/p14b4-started-replay-retained-development.test.ts","tests/p14b4-started-replay-scenery-commands.test.ts","tests/p14b5-relationships.test.ts","tests/p14b5-save-v31.test.ts","tests/p14b5-t-failure-tuning.test.ts","tests/p14b7-promise-waiver.test.ts","tests/p14b8-waiver-surface-oracle.test.ts","tests/p14b9-casting-competition.test.ts","tests/p14b9-casting-copy.test.ts","tests/p14b9-save-v42.test.ts","tests/p14bf2-acting-discipline.test.ts","tests/p14c1-materialized-aging.test.ts","tests/p14c2a-consumers.test.ts","tests/p14c2a-core-lifecycle.test.ts","tests/p14c2a-save-and-settlement.test.ts","tests/p14c2b-extension.test.ts","tests/p14c2b-save-v36.test.ts","tests/p14c2c-retirement-promises.test.ts","tests/p14c2c-rival-promises.test.ts","tests/p14c2rm-writer-continuation.test.ts","tests/p14c2s-scientist-retirement.test.ts","tests/p14c3-admission-boundaries.test.ts","tests/p14c3-calendar-career.test.ts","tests/p14c3-canonical-rival-history.test.ts","tests/p14c3-cohort-transition.test.ts","tests/p14c3-deferred-transition-chain.test.ts","tests/p14c3-dual-extensions.test.ts","tests/p14c3-equal-tuple-evidence.test.ts","tests/p14c3-force-order.test.ts","tests/p14c3-held-actor-evidence.test.ts","tests/p14c3-offmenu-extensions.test.ts","tests/p14c3-profession-episodes.test.ts","tests/p14c3-profession-history.test.ts","tests/p14c3-promise-digest-continuity.test.ts","tests/p14c3-queued-writing-proof.test.ts","tests/p14c3-save-v38.test.ts","tests/p14c3-second-episode-writing.test.ts","tests/p14c3-transition-evidence.test.ts","tests/p14c3-transition-owner-and-snapshots.test.ts","tests/p14c3-transitions.test.ts","tests/p14c4-cohorts.test.ts","tests/p14c4-save-v35.test.ts","tests/p14d1-rival-shelving-fixtures.ts","tests/p14d1-rival-shelving-natural.test.ts","tests/p14d1-rival-shelving-save-v43.test.ts","tests/p14d1-rival-shelving.test.ts","tests/p14p3-directing-promises.test.ts","tests/p14p4p5-casting-reservation.test.ts","tests/p14p4p5-cross-owner.test.ts","tests/p14p4p5-delayed-retirement.test.ts","tests/p14p4p5-finishing-material.test.ts","tests/p14p4p5-grouped-witness.test.ts","tests/p14p4p5-opportunities.test.ts","tests/p14p4p5-post-capacity.test.ts","tests/p14p4p5-queued-project-outcome.test.ts","tests/p14p4p5-receipt-freeze.test.ts","tests/p14p4p5-retired-acting.test.ts","tests/p14p4p5-scenery-capacity.test.ts","tests/p14p4p5-screenplay-status.test.ts","tests/p14p4p5-soundstage-capacity.test.ts","tests/p14p4p5-stock-subject.test.ts","tests/p14p4p5-writer-resources.test.ts","tests/p14r3-rival-release.test.ts","tests/p14r3-save-v41.test.ts","tests/p15a1-shared-market-harness.test.ts","tests/p15a1-shared-market.test.ts","tests/p15a2-power-ranking-harness.test.ts","tests/p15a2-power-ranking.test.ts","tests/placement-core.test.ts","tests/placement-lifecycle.test.ts","tests/placement-lot.test.ts","tests/placement-save-v12.test.ts","tests/presence-determinism.test.ts","tests/presence-projection.test.ts","tests/presence-scenario.test.ts","tests/production-operations-save-v8.test.ts","tests/property-state-v13.test.ts","tests/r3n1-stale-schedule-take-02.test.ts","tests/r3n1-stale-schedule-take-02p31.test.ts","tests/r3n1-stale-schedule-take-02p32.test.ts","tests/r3n1-stale-schedule-take.test.ts","tests/reception-bounds.test.ts","tests/reception-formulas.test.ts","tests/reception-verdict-canonical.test.ts","tests/replay.test.ts","tests/rng.test.ts","tests/roster-wall-artifacts.test.ts","tests/roster-wall-campaign.test.ts","tests/roster-wall-continuation.test.ts","tests/roster-wall-corpus.test.ts","tests/roster-wall-fixtures.test.ts","tests/roster-wall-observatory-cli.test.ts","tests/roster-wall-player-policy.test.ts","tests/roster-wall-renewal.test.ts","tests/roster-wall-schema.test.ts","tests/roster-wall-summary.test.ts","tests/ruling-a-development-in-play.test.ts","tests/ruling-b-multihyphenate.test.ts","tests/ruling-c-filmshape.test.ts","tests/save.test.ts","tests/script-development.test.ts","tests/script-projects-actions.test.ts","tests/script-projects-save-v9.test.ts","tests/script-read-model.test.ts","tests/standing.test.ts","tests/studio-calendar.test.ts","tests/studio-decision.test.ts","tests/studioRunRecap.test.ts","tests/three-visual-regression/capture.spec.ts","tests/three-visual-regression/playwright.config.ts","tests/tick.test.ts","tests/tuning.test.ts","tests/v14-dual-run.test.ts","tests/v14-migration.contract.test.ts","tests/world-first-scenery-load-in-provenance.test.ts","tests/worldgen.test.ts","tsconfig.bridge.json","tsconfig.json","tsconfig.src.json","ui/.gitignore","ui/index.html","ui/m6b-art.config.ts","ui/playwright.config.ts","ui/src/App.test.tsx","ui/src/App.tsx","ui/src/audio/audioService.ts","ui/src/audio/registry.ts","ui/src/audio/sink.test.ts","ui/src/audio/sink.ts","ui/src/audio/tokens.ts","ui/src/audio/wiring.test.tsx","ui/src/components/AffordabilityScopes.tsx","ui/src/components/CareerImpact.tsx","ui/src/components/ChangePreview.tsx","ui/src/components/ConceptCard.tsx","ui/src/components/ConstructionCompletionNotice.tsx","ui/src/components/DiscoveryExposure.tsx","ui/src/components/FilmPackageSummary.tsx","ui/src/components/FilmPoster.test.tsx","ui/src/components/FilmPoster.tsx","ui/src/components/FilmReadiness.tsx","ui/src/components/ForecastDisplay.tsx","ui/src/components/ProductionBoard.tsx","ui/src/components/ProfessionalPromiseTerms.test.tsx","ui/src/components/ProfessionalPromiseTerms.tsx","ui/src/components/SceneryShopPanel.tsx","ui/src/components/SetStagePanel.tsx","ui/src/components/StudioQueuePanel.tsx","ui/src/components/TalentPicker.tsx","ui/src/components/TalentProfileDrawer.tsx","ui/src/components/common.tsx","ui/src/components/creator/BalancedCareerCreator.tsx","ui/src/components/creator/BudgetMeter.tsx","ui/src/components/creator/EmphasisStep.tsx","ui/src/components/creator/FullCustomCreator.tsx","ui/src/components/creator/PotentialStep.tsx","ui/src/components/creator/TemperamentStep.tsx","ui/src/components/creator/WorkEthicStep.tsx","ui/src/components/information-integrity.test.tsx","ui/src/components/refusal-voice.test.tsx","ui/src/components/restricted.test.tsx","ui/src/content.ts","ui/src/determinism.test.tsx","ui/src/engine/adapter.test.ts","ui/src/engine/adapter.ts","ui/src/engine/careerImpact.ts","ui/src/engine/completion-receipt-copy.test.ts","ui/src/engine/d17-save-migration.test.ts","ui/src/engine/d17a-regime.test.ts","ui/src/engine/film-chronicle-adapter.test.ts","ui/src/engine/placement-completion-stop.test.ts","ui/src/engine/productionOperationsProjection.ts","ui/src/engine/recap-parity.test.tsx","ui/src/engine/salary-sum-writer-credit.test.ts","ui/src/engine/screenplay.ts","ui/src/engine/script-assessment-parity.test.ts","ui/src/engine/session.ts","ui/src/engine/sets.ts","ui/src/engine/writer-credit-not-assignment.test.ts","ui/src/flags.test.ts","ui/src/flags.ts","ui/src/format.ts","ui/src/hygiene.test.tsx","ui/src/lot/FirstPictureGuidanceApp.test.tsx","ui/src/lot/LotAuditionWorkspace.css","ui/src/lot/LotAuditionWorkspace.test.tsx","ui/src/lot/LotAuditionWorkspace.tsx","ui/src/lot/LotCastingReviewPanel.test.tsx","ui/src/lot/LotCastingReviewPanel.tsx","ui/src/lot/LotCommissionWorkspace.tsx","ui/src/lot/LotNextEventRail.test.tsx","ui/src/lot/LotNextEventRail.tsx","ui/src/lot/LotPackageWorkspace.tsx","ui/src/lot/LotPictureGuidanceCard.test.tsx","ui/src/lot/LotPictureGuidanceCard.tsx","ui/src/lot/LotRetainedWorkspace.test.tsx","ui/src/lot/LotRetainedWorkspace.tsx","ui/src/lot/LotScriptReviewPanel.test.tsx","ui/src/lot/LotScriptReviewPanel.tsx","ui/src/lot/NamedPersonWorkCareerInspectorV1.test.tsx","ui/src/lot/StudioLotIdentityReview.test.tsx","ui/src/lot/StudioLotScreen.audition-planning.test.tsx","ui/src/lot/StudioLotScreen.commission-receipt.test.tsx","ui/src/lot/StudioLotScreen.import-race.test.tsx","ui/src/lot/StudioLotScreen.script-review-receipt.test.tsx","ui/src/lot/StudioLotScreen.test.tsx","ui/src/lot/StudioLotScreen.tsx","ui/src/lot/StudioLotView.hollywood.test.ts","ui/src/lot/StudioLotView.ts","ui/src/lot/WorldFirstAnnexConstruction.test.tsx","ui/src/lot/WorldFirstBuildModeV1.test.tsx","ui/src/lot/WorldFirstGateHiringReturnApp.test.tsx","ui/src/lot/WorldFirstGateTalentArrival.test.tsx","ui/src/lot/WorldFirstGreenlightProductionFormation.test.tsx","ui/src/lot/WorldFirstLiveWeekAdvance.test.tsx","ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx","ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx","ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx","ui/src/lot/WorldFirstLotNativeScriptReviewAppAuthority.test.tsx","ui/src/lot/WorldFirstLotRetainedAuditionPlanningAppAuthority.test.tsx","ui/src/lot/WorldFirstLotRetainedCommissioningWorkspaceAppAuthority.test.tsx","ui/src/lot/WorldFirstProductionFormationApp.test.tsx","ui/src/lot/WorldFirstRosterStaffPresence.test.ts","ui/src/lot/WorldFirstSceneryLoadIn.test.tsx","ui/src/lot/WorldFirstStage7ProductionDetailHandoff.test.tsx","ui/src/lot/WorldFirstStage7ProductionDetailHandoffApp.test.tsx","ui/src/lot/WorldFirstStudioHome.test.tsx","ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx","ui/src/lot/authored-rgba-export.test.ts","ui/src/lot/authored-stage-a-wiring.test.tsx","ui/src/lot/authored-stage-a.test.ts","ui/src/lot/authored-stage.test.ts","ui/src/lot/buildCatalog.test.ts","ui/src/lot/buildCatalog.ts","ui/src/lot/buildMode.test.ts","ui/src/lot/buildMode.ts","ui/src/lot/buildingInspector.sets.test.ts","ui/src/lot/buildingInspector.test.ts","ui/src/lot/buildingInspector.ts","ui/src/lot/d1b-assignment-lifecycle.test.tsx","ui/src/lot/d1b-soundstage-wiring.test.tsx","ui/src/lot/facilityMutation.test.ts","ui/src/lot/facilityMutation.ts","ui/src/lot/hollywood/HollywoodScene.test.ts","ui/src/lot/hollywood/HollywoodScene.ts","ui/src/lot/hollywood/hollywood-bridge.test.ts","ui/src/lot/hollywood/roleAtlas.test.ts","ui/src/lot/hollywood/roleAtlas.ts","ui/src/lot/identity/draw.test.ts","ui/src/lot/identity/emblem.ts","ui/src/lot/identity/manifest.test.ts","ui/src/lot/identity/manifest.ts","ui/src/lot/identity/signage.ts","ui/src/lot/livingTurn.parity.test.tsx","ui/src/lot/livingTurn.scheduler.test.tsx","ui/src/lot/livingTurn.test.ts","ui/src/lot/livingTurn.ts","ui/src/lot/lot.css","ui/src/lot/navigation.ts","ui/src/lot/packageJourney.ts","ui/src/lot/presence-on-the-lot.test.ts","ui/src/lot/scene/LotScene.production-occupancy.test.ts","ui/src/lot/scene/LotScene.ts","ui/src/lot/scene/assets.test.ts","ui/src/lot/scene/assets.ts","ui/src/lot/scene/authoredValueStandard.test.ts","ui/src/lot/scene/iso.ts","ui/src/lot/scene/layout.ts","ui/src/lot/scene/palette.ts","ui/src/lot/scene/productionStageState.test.ts","ui/src/lot/scene/productionStageState.ts","ui/src/lot/scene/rng.ts","ui/src/lot/scene/stageSpec.ts","ui/src/lot/scene/vignettes.ts","ui/src/lot/selectionReassert.test.tsx","ui/src/lot/snapshot/StudioLotSnapshot.ts","ui/src/lot/snapshot/ambientGrounding.ts","ui/src/lot/snapshot/annexWork.test.ts","ui/src/lot/snapshot/annexWork.ts","ui/src/lot/snapshot/auditionPlanning.test.ts","ui/src/lot/snapshot/auditionPlanning.ts","ui/src/lot/snapshot/castingReview.test.ts","ui/src/lot/snapshot/castingReview.ts","ui/src/lot/snapshot/firstFilmJourney.test.ts","ui/src/lot/snapshot/firstFilmJourney.ts","ui/src/lot/snapshot/gateHiring.test.ts","ui/src/lot/snapshot/gateHiring.ts","ui/src/lot/snapshot/nextEvent.test.ts","ui/src/lot/snapshot/nextEvent.ts","ui/src/lot/snapshot/personWork.test.ts","ui/src/lot/snapshot/personWork.ts","ui/src/lot/snapshot/presenceLines.test.ts","ui/src/lot/snapshot/presenceLines.ts","ui/src/lot/snapshot/productionCompany.test.ts","ui/src/lot/snapshot/productionCompany.ts","ui/src/lot/snapshot/productionFormation.test.ts","ui/src/lot/snapshot/productionFormation.ts","ui/src/lot/snapshot/publicityCampaign.test.ts","ui/src/lot/snapshot/publicityCampaign.ts","ui/src/lot/snapshot/queueAdmission.test.ts","ui/src/lot/snapshot/queueAdmission.ts","ui/src/lot/snapshot/sceneryLoadIn.test.ts","ui/src/lot/snapshot/sceneryLoadIn.ts","ui/src/lot/snapshot/scriptCommission.test.ts","ui/src/lot/snapshot/scriptCommission.ts","ui/src/lot/snapshot/scriptReview.test.ts","ui/src/lot/snapshot/scriptReview.ts","ui/src/lot/snapshot/selectedBuildingSession.ts","ui/src/lot/snapshot/setDressing.test.ts","ui/src/lot/snapshot/setDressing.ts","ui/src/lot/snapshot/stage7Production.test.ts","ui/src/lot/snapshot/stage7Production.ts","ui/src/lot/snapshot/stageAssignment.test.ts","ui/src/lot/snapshot/stageAssignment.ts","ui/src/lot/snapshot/stageIdentity.test.ts","ui/src/lot/snapshot/stageIdentity.ts","ui/src/lot/snapshot/v14SetHolderBoundary.test.ts","ui/src/lot/snapshot/weekTheater.test.ts","ui/src/lot/snapshot/weekTheater.ts","ui/src/lot/studio-lot-snapshot.test.ts","ui/src/lot/three/ThreeLotScene.ts","ui/src/lot/three/atmosphere3d.ts","ui/src/lot/three/buildings3d.ts","ui/src/lot/three/crew3d.ts","ui/src/lot/three/environment3d.ts","ui/src/lot/three/iso3d.ts","ui/src/lot/three/materials3d.ts","ui/src/lot/three/props3d.ts","ui/src/lot/three/sets3d.ts","ui/src/lot/tycoon/TycoonScene.ts","ui/src/lot/tycoon/assets.ts","ui/src/lot/tycoon/buildings.test.ts","ui/src/lot/tycoon/buildings.ts","ui/src/lot/tycoon/expandedPropertyWorld.test.ts","ui/src/lot/tycoon/palette.ts","ui/src/lot/tycoon/placedSoundstageBody.test.ts","ui/src/lot/tycoon/placedSupportBodies.test.ts","ui/src/lot/tycoon/playback.test.ts","ui/src/lot/tycoon/playback.ts","ui/src/lot/tycoon/presence.test.ts","ui/src/lot/tycoon/presence.ts","ui/src/lot/tycoon/visualWarmth.test.ts","ui/src/lot/tycoon/world.test.ts","ui/src/lot/tycoon/world.ts","ui/src/lot/world-first-operational-annex-work-presence-fixtures.test.ts","ui/src/main.tsx","ui/src/prefs.ts","ui/src/presentation/CashReadout.tsx","ui/src/presentation/auditionEvidence.ts","ui/src/presentation/eventGrammar.ts","ui/src/presentation/punctuate.ts","ui/src/presentation/refusalVoice.ts","ui/src/presentation/setVoice.ts","ui/src/presentation/transientNotice.ts","ui/src/presentation/wiring.test.tsx","ui/src/saves.test.tsx","ui/src/screens/Assembly.tsx","ui/src/screens/AssemblyFormationReceipt.test.tsx","ui/src/screens/AssemblySurface.test.tsx","ui/src/screens/Autopsy.tsx","ui/src/screens/CastingRoom.tsx","ui/src/screens/CastingSlatePlanner.tsx","ui/src/screens/Dashboard.navigation.test.tsx","ui/src/screens/Dashboard.tsx","ui/src/screens/FilmRecord.tsx","ui/src/screens/FoundingScreen.tsx","ui/src/screens/HiringMarket.tsx","ui/src/screens/NewspaperReveal.tsx","ui/src/screens/Recap.test.tsx","ui/src/screens/ReleaseResult.tsx","ui/src/screens/Saves.tsx","ui/src/screens/ScreenplayCommissionForm.test.tsx","ui/src/screens/StartScreen.tsx","ui/src/screens/StudioCalendar.career.test.tsx","ui/src/screens/StudioCalendar.retirement.test.tsx","ui/src/screens/StudioCalendar.tsx","ui/src/screens/StudioDevelopment.tsx","ui/src/screens/StudioRoster.tsx","ui/src/screens/StudioRunRecap.tsx","ui/src/screens/TalentCreator.tsx","ui/src/screens/TalentHub.tsx","ui/src/screens/WeeklySummary.tsx","ui/src/screens/WorldFirstGateHiringFocus.test.tsx","ui/src/screens/WritersRoom.tsx","ui/src/screens/a3-queue-admission-ui.test.tsx","ui/src/screens/assembly-legality.test.tsx","ui/src/screens/audition-payoff.test.tsx","ui/src/screens/autopsy-faithful.test.tsx","ui/src/screens/c2a-m2-production-board-sets.test.tsx","ui/src/screens/c2a-m2-scenery-shop.test.tsx","ui/src/screens/c2a-m2-set-legibility.test.tsx","ui/src/screens/c2a-m3-commission-original.test.tsx","ui/src/screens/c2a-m3-package-and-chronicle.test.tsx","ui/src/screens/c2a-m3-title-and-rename.test.tsx","ui/src/screens/c2a-m4-cap-consumers.test.tsx","ui/src/screens/c2a-m4-queue-panel.test.tsx","ui/src/screens/casting-sessions-ui.test.tsx","ui/src/screens/d11-cycle2-ui.test.tsx","ui/src/screens/d11-cycle3-ui.test.tsx","ui/src/screens/d11-cycle4-ui.test.tsx","ui/src/screens/d11-screens.test.tsx","ui/src/screens/d12-autopsy-arithmetic.test.tsx","ui/src/screens/d12-beta-closure.test.tsx","ui/src/screens/d12-decision-ux.test.tsx","ui/src/screens/d12-economy-ui.test.tsx","ui/src/screens/d12-live-forecast-truth.test.tsx","ui/src/screens/d12-owner-ux.test.tsx","ui/src/screens/d12-p2-marketing-ui.test.tsx","ui/src/screens/d12-production-demand-ui.test.tsx","ui/src/screens/d12-sim-event-stop.test.tsx","ui/src/screens/d12-team-direction.test.tsx","ui/src/screens/d14-career-impact.test.tsx","ui/src/screens/d14-talent-profile.test.tsx","ui/src/screens/d17a-decision-truth.test.tsx","ui/src/screens/d17a-offer-truth.test.tsx","ui/src/screens/d17a-regime-basis.test.tsx","ui/src/screens/d17a-release-truth.test.tsx","ui/src/screens/d17b-truth-surfaces.test.tsx","ui/src/screens/dashboard-release-commit.test.tsx","ui/src/screens/development-summary.test.tsx","ui/src/screens/film-chronicle-ui.test.tsx","ui/src/screens/film-package.test.tsx","ui/src/screens/hub-integrity.test.tsx","ui/src/screens/next-event-destination-focus.test.tsx","ui/src/screens/p07a-film-result-view.test.tsx","ui/src/screens/p07a-result-projection.test.tsx","ui/src/screens/production-operations-ui.test.tsx","ui/src/screens/script-projects-edge-ui.test.tsx","ui/src/screens/script-projects-ui.test.tsx","ui/src/screens/studio-calendar-ui.test.tsx","ui/src/screens/studio-development-ui.test.tsx","ui/src/screens/talent-creator.test.tsx","ui/src/session.test.tsx","ui/src/shell/AppNotice.tsx","ui/src/shell/ConfirmDialog.tsx","ui/src/shell/SettingsOverlay.tsx","ui/src/shell/ShellDialog.tsx","ui/src/shell/dialog-replacement.test.tsx","ui/src/shell/motion.ts","ui/src/shell/persistence.ts","ui/src/shell/save-presentation.test.tsx","ui/src/shell/saveCard.ts","ui/src/shell/settings.test.tsx","ui/src/shell/useResolvedMotion.ts","ui/src/simulation.test.tsx","ui/src/styles.css","ui/src/test/contracts/advance-week-grammar.contract.test.ts","ui/src/test/contracts/audio-hygiene.contract.test.ts","ui/src/test/contracts/audio-provenance.contract.test.ts","ui/src/test/contracts/audio-service.contract.test.ts","ui/src/test/contracts/cue-determinism.contract.test.ts","ui/src/test/contracts/dialog-hygiene.contract.test.ts","ui/src/test/contracts/event-grammar.contract.test.ts","ui/src/test/contracts/m5-determinism.contract.test.ts","ui/src/test/contracts/m5-hands-off-gate.contract.test.ts","ui/src/test/contracts/motion-css-pairing.contract.test.ts","ui/src/test/contracts/motion-resolver.contract.test.ts","ui/src/test/contracts/p05a-w1-scenery-alignment.contract.test.ts","ui/src/test/contracts/p05a-w2-closed-production.contract.test.ts","ui/src/test/contracts/p05a-w2-invariant-kills.contract.test.ts","ui/src/test/contracts/parity-proof.contract.test.ts","ui/src/test/contracts/prefs.contract.test.ts","ui/src/test/contracts/punctuate.contract.test.ts","ui/src/test/contracts/registry.contract.test.ts","ui/src/test/contracts/save-card.contract.test.ts","ui/src/test/contracts/session-status.contract.test.ts","ui/src/test/contracts/sim-stop-ladder.contract.test.ts","ui/src/test/contracts/week-theater-mirror.contract.test.ts","ui/src/test/founding.ts","ui/src/test/p06a-w1-decision-surfaces.test.ts","ui/src/test/pinnedSaveFixture.ts","ui/src/test/redteam/rt-announcement-law.redteam.test.tsx","ui/src/test/redteam/rt-audio-edges.redteam.test.tsx","ui/src/test/redteam/rt-hygiene-voice.redteam.test.ts","ui/src/test/redteam/rt-notice-epoch.redteam.test.tsx","ui/src/test/redteam/rt-parity-adversarial.redteam.test.ts","ui/src/test/redteam/rt-prefs-hostile.redteam.test.tsx","ui/src/test/redteam/rt-save-shell.redteam.test.tsx","ui/src/test/setup.ts","ui/tsconfig.json","ui/vite.config.ts","vitest.config.ts","vitest.workspace.ts"],"authorizedManualInputsSeparate":true},"sourceSha":"9260baf4f4faa3a8934318aadf8f184b4d4ce1a3","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14d1-rival-shelving.test.ts","tests/p14d1-rival-shelving-save-v43.test.ts","tests/p14d1-rival-shelving-natural.test.ts"],"node":"v20.20.2","start":"2026-09-30T01:02:45.665Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14d1-rival-shelving-save-v43.test.ts (18 tests | 18 failed) 7488ms
+   × API decisions this file exercises (existence asserted first) > validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist as functions; LIVE_SAVE_VERSION is 43 16ms
+     → expected 42 to be 43 // Object.is equality
+   × save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration > genuine V42 week-100 input migrates to V43 with the empty screenplayShelving state on every business, and validates 583ms
+     → mods(...).convertV42ToV43 is not a function
+   × save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration > genuine V42 week-130 input migrates to V43 with the empty screenplayShelving state on every business, and validates 249ms
+     → mods(...).convertV42ToV43 is not a function
+   × save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration > migrateToLive carries a genuine V42 save to V43 (LIVE_SAVE_VERSION) 510ms
+     → expected 42 to be 43 // Object.is equality
+   × save-v43-shelving: save/load in the middle of a count continues byte-identically > ticking 7 weeks, then round-tripping through export/import at count 7, then ticking 5 more weeks, matches an uninterrupted 12-week tick byte-for-byte 4365ms
+     → Cannot read properties of undefined (reading 'rejections')
+   × save-v43-shelving: the validator rejects each inconsistent state > rejects a shelved entry naming an ordinal that is ALSO active 150ms
+     → expected [Function] to throw error matching /shelv/i but got 'mods(...).validateSaveV43 is not a fu…'
+   × save-v43-shelving: the validator rejects each inconsistent state > rejects a shelved entry naming an ordinal that is ALSO produced 32ms
+     → expected [Function] to throw error matching /shelv/i but got 'mods(...).validateSaveV43 is not a fu…'
+   × save-v43-shelving: the validator rejects each inconsistent state > rejects a rejection count over the documented threshold (14 > 13) 110ms
+     → expected [Function] to throw error matching /shelv|reject|threshold/i but got 'mods(...).validateSaveV43 is not a fu…'
+   × save-v43-shelving: the validator rejects each inconsistent state > rejects a shelved entry with no matching screenplayShelved receipt 135ms
+     → expected [Function] to throw error matching /shelv|receipt/i but got 'mods(...).validateSaveV43 is not a fu…'
+   × save-v43-shelving: the validator rejects each inconsistent state > rejects two screenplayShelved receipts naming the same screenplay 188ms
+     → expected [Function] to throw error matching /shelv|receipt|duplicate|second/i but got 'mods(...).validateSaveV43 is not a fu…'
+   × save-v43-shelving: the validator rejects each inconsistent state > rejects a rejection entry with count 0 (below the documented [1, threshold] bound) 71ms
+     → expected [Function] to throw error matching /shelv|reject/i but got 'mods(...).validateSaveV43 is not a fu…'
+   × save-v43-shelving: the validator rejects each inconsistent state > rejects a rejection entry naming an ordinal that is not active/ready (produced) 228ms
+     → expected [Function] to throw error matching /shelv|reject|active|ready/i but got 'mods(...).validateSaveV43 is not a fu…'
+   × save-v43-shelving: the validator rejects each inconsistent state > rejects a shelved entry with retryWeek <= week 183ms
+     → expected [Function] to throw error matching /shelv|retry/i but got 'mods(...).validateSaveV43 is not a fu…'
+   × save-v43-shelving: the validator rejects each inconsistent state > accepts the well-formed empty state on every business (control: does not throw) 153ms
+     → expected [Function] to not throw an error but 'TypeError: mods(...).validateSaveV43 …' was thrown
+   × save-v43-shelving: down-conversion (convertV43ToV42) > accepts the empty screenplayShelving state (round-trips losslessly, Save41 pattern) 255ms
+     → mods(...).convertV42ToV43 is not a function
+   × save-v43-shelving: down-conversion (convertV43ToV42) > refuses a real rejection count by name 107ms
+     → expected [Function] to throw error matching /shelv/i but got 'mods(...).convertV43ToV42 is not a fu…'
+   × save-v43-shelving: down-conversion (convertV43ToV42) > refuses a real shelved entry (with its receipt) by name 60ms
+     → expected [Function] to throw error matching /shelv/i but got 'mods(...).convertV43ToV42 is not a fu…'
+   × save-v43-shelving: down-conversion (convertV43ToV42) > refuses a nonzero commissionHoldUntilWeek by name 89ms
+     → expected [Function] to throw error matching /shelv|hold/i but got 'mods(...).convertV43ToV42 is not a fu…'
+ ❯ |core| tests/p14d1-rival-shelving.test.ts (28 tests | 24 failed) 18480ms
+   × API decisions this file exercises (asserted to exist first, per PITFALL) > TUNING.HOLLYWOOD_SHELVE_AFTER_REJECTIONS is a positive integer, 13 18ms
+     → expected 'undefined' to be 'number' // Object.is equality
+   × API decisions this file exercises (asserted to exist first, per PITFALL) > TUNING.HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS is a positive integer, 13 2ms
+     → expected 'undefined' to be 'number' // Object.is equality
+   × API decisions this file exercises (asserted to exist first, per PITFALL) > TUNING.HOLLYWOOD_SHELVED_RETRY_WEEKS is a positive integer, 26 1ms
+     → expected 'undefined' to be 'number' // Object.is equality
+   × API decisions this file exercises (asserted to exist first, per PITFALL) > hollywoodPolicy.searchIndustryPackages exists as a function 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × API decisions this file exercises (asserted to exist first, per PITFALL) > save.ts LIVE_SAVE_VERSION is 43, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist 3ms
+     → expected 42 to be 43 // Object.is equality
+   × API decisions this file exercises (asserted to exist first, per PITFALL) > talentMarket.rivalPromiseProjectCandidates exists as a function (1344-X2) 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × searchIndustryPackages counts contract (1344-D Blocking 1) > on a captured genuine economic-rejection call: choice matches chooseIndustryPackage; affordable+unaffordable equals the independently-derived candidate count (never the literal 54); viable<=affordable; (choice===null)===(viable===0) 1336ms
+     → mods.searchIndustryPackages is not a function
+   × searchIndustryPackages counts contract (1344-D Blocking 1) > decide-level: a partly cash-constrained week (cash strictly between the cheapest and dearest real candidate cost) reads cashBlocked — the rejection count stays unchanged 655ms
+     → Cannot read properties of undefined (reading 'rejections')
+   × shelving-stalled-route (1344-A §6.1) > a stalled rival with staff and cash available shelves after exactly 13 evaluated economic rejections; the week is derived from receipts, never hard-coded 3243ms
+     → route/RED premise: studio-aca408ec-r01 shelves within 16 weeks of week 130: expected null not to be null
+   × shelving-blocked-weeks-hold (1344-A §6.2) > staffingBlocked weeks (no seatable triple that survives staff()) leave the rejection count unchanged and evaluate no package 664ms
+     → Cannot read properties of undefined (reading 'rejections')
+   × shelving-blocked-weeks-hold (1344-A §6.2) > cashBlocked weeks (cash below every candidate) leave the rejection count unchanged 433ms
+     → Cannot read properties of undefined (reading 'rejections')
+   × shelving-blocked-weeks-hold (1344-A §6.2) > a week with a running production evaluates nothing (count unchanged while productions.length>0; resumes after) 558ms
+     → Cannot read properties of undefined (reading 'rejections')
+   × shelving-blocked-weeks-hold (1344-A §6.2) > a mixed sequence (staffing-blocked, then economic rejections) shelves only after 13 economic rejections, never 13 calendar weeks 428ms
+     → Cannot read properties of undefined (reading 'rejections')
+   × shelving-viable-control (1344-F Amendment 2) > genesis to week 93: with screenplayShelving stripped from every business, state equals the genuine week-93 input migrated by convertV42ToV43 (also stripped); receipts identical; the leaf asserts its own premise that no shelving has happened yet and that the first screenplayShelved receipt falls strictly after this state, never a hard-coded week 160ms
+     → mods.convertV42ToV43 is not a function
+   × shelving-viable-control (1344-F Amendment 2) > a business with at least one recorded greenlight and zero economic rejections in the first 5 weeks keeps the empty screenplayShelving state 1102ms
+     → expected undefined to deeply equal { version: 1, rejections: [], …(2) }
+   × shelving-commission-hold (1344-A §6.4) > no new development project for the shelving studio during its commission hold; commissionHoldUntilWeek is exactly week+HOLD; a commission is not permanently blocked 1206ms
+     → route/RED premise (shared with test 1): expected null not to be null
+   ✓ shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > no retry before retryWeek 370ms
+   × shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > a viable retry re-enters the slot and greenlights, removing the shelved entry 434ms
+     → Unhandled Industry identity: [object Object]
+   × shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > an unviable retry advances retryWeek and stays shelved (and never re-enters the slot, so it cannot be shelved twice) 272ms
+     → expected 130 to be NaN // Object.is equality
+   ✓ shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > at most one retry per decision: two shelved-and-due entries in the same week advance at most one 509ms
+   × shelving-promise-guard (1344-A §3.3) > an open SPECIFIC_PROJECT promise naming the screenplay defers shelving (count held at 13); shelving proceeds at the next economic rejection after it settles 865ms
+     → Cannot read properties of undefined (reading 'rejections')
+   × rivalPromiseProjectCandidates (1344-X2 parent API decision; covers 1344-A §6 item 7(c)) > a shelved screenplay is absent from the candidates 183ms
+     → candidatesOf(...) is not a function
+   × rivalPromiseProjectCandidates (1344-X2 parent API decision; covers 1344-A §6 item 7(c)) > with nothing shelved, the result equals the first two non-produced screenplays by id 145ms
+     → candidatesOf(...) is not a function
+   × shelving-feasibility-readers (1344-A §3.6) > a shelved screenplay changes the feasibility digest (unproducedScripts must stop counting it, promises.ts:410-411) 208ms
+     → RED premise: today unproducedScripts filters by status only, so removing ordinal 6 from activeScriptOrdinals alone does not change the digest; once shelved screenplays are excluded from the count, it must: expected 'ed297b3951d28bec' not to be 'ed297b3951d28bec' // Object.is equality
+   × shelving-feasibility-readers (1344-A §3.6) > opportunity paths mark a shelved screenplay impossible with reason "the named script project is shelved" 198ms
+     → expected 'REASONABLY_ACHIEVABLE' to be 'IMPOSSIBLE' // Object.is equality
+   × shelving-chart-output (1344-A §6.8) > the 13-week chart row equals released (produced) films with a shelved screenplay present, and the state validates 2503ms
+     → route/RED premise: a shelving occurred before the next chart week: expected false to be true // Object.is equality
+   ✓ shelving-player-symmetry (1344-A §3.6, control at RED) > no screenplayShelved receipt ever names the player studio, across a long natural route 2733ms
+ ❯ |core| tests/p14d1-rival-shelving-natural.test.ts (5 tests | 4 failed) 42379ms
+   × shelving-natural-route (1344-F Amendment 3): week 130 -> week 260 on p13a-core-causal-01 > at least one screenplayShelved receipt occurs 13260ms
+     → route/RED premise: at least one shelving in 130 weeks from the genuine stalled fixture: expected 0 to be greater than or equal to 1
+   × shelving-natural-route (1344-F Amendment 3): week 130 -> week 260 on p13a-core-causal-01 > no commission by a shelving studio within 13 weeks after any of its shelvings 6989ms
+     → expected 0 to be greater than or equal to 1
+   × shelving-natural-route (1344-F Amendment 3): week 130 -> week 260 on p13a-core-causal-01 > every shelved screenplay keeps its ScriptProject and cost row through the final week 5449ms
+     → expected 0 to be greater than or equal to 1
+   × shelving-natural-route (1344-F Amendment 3): week 130 -> week 260 on p13a-core-causal-01 > per studio, at most four shelvings in any 52-week window 5274ms
+     → expected 0 to be greater than or equal to 1
+   ✓ determinism (1344-A §6 item 12): two runs of the natural route are byte-identical > exportSave(makeSave(...)) is identical across two independent runs of the same 130-week route 11404ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 46 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-natural.test.ts > shelving-natural-route (1344-F Amendment 3): week 130 -> week 260 on p13a-core-causal-01 > at least one screenplayShelved receipt occurs
+AssertionError: route/RED premise: at least one shelving in 130 weeks from the genuine stalled fixture: expected 0 to be greater than or equal to 1
+ ❯ tests/p14d1-rival-shelving-natural.test.ts:53:120
+     51|     const { finalState } = runNaturalRoute()
+     52|     const shelvings = shelvedReceiptsOf(finalState.hollywood!.receipts)
+     53|     expect(shelvings.length, 'route/RED premise: at least one shelving…
+       |                                                                                                                        ^
+     54|   }, 60_000)
+     55| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-natural.test.ts > shelving-natural-route (1344-F Amendment 3): week 130 -> week 260 on p13a-core-causal-01 > no commission by a shelving studio within 13 weeks after any of its shelvings
+AssertionError: expected 0 to be greater than or equal to 1
+ ❯ tests/p14d1-rival-shelving-natural.test.ts:59:30
+     57|     const { finalState, weeklyStates } = runNaturalRoute()
+     58|     const shelvings = shelvedReceiptsOf(finalState.hollywood!.receipts)
+     59|     expect(shelvings.length).toBeGreaterThanOrEqual(1)
+       |                              ^
+     60|     // "A commission happened for studio S at week w" is observed as g…
+     61|     // b.development.projects.length between consecutive weekly snapsh…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-natural.test.ts > shelving-natural-route (1344-F Amendment 3): week 130 -> week 260 on p13a-core-causal-01 > every shelved screenplay keeps its ScriptProject and cost row through the final week
+AssertionError: expected 0 to be greater than or equal to 1
+ ❯ tests/p14d1-rival-shelving-natural.test.ts:86:30
+     84|     const { finalState } = runNaturalRoute()
+     85|     const shelvings = shelvedReceiptsOf(finalState.hollywood!.receipts)
+     86|     expect(shelvings.length).toBeGreaterThanOrEqual(1)
+       |                              ^
+     87|     for (const receipt of shelvings) {
+     88|       const b = finalState.hollywood!.businesses.find(row => row.studi…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-natural.test.ts > shelving-natural-route (1344-F Amendment 3): week 130 -> week 260 on p13a-core-causal-01 > per studio, at most four shelvings in any 52-week window
+AssertionError: expected 0 to be greater than or equal to 1
+ ❯ tests/p14d1-rival-shelving-natural.test.ts:99:30
+     97|     const { finalState } = runNaturalRoute()
+     98|     const shelvings = shelvedReceiptsOf(finalState.hollywood!.receipts)
+     99|     expect(shelvings.length).toBeGreaterThanOrEqual(1)
+       |                              ^
+    100|     const byStudio = new Map<string, number[]>()
+    101|     for (const r of shelvings) byStudio.set(r.studioId, [...(byStudio.…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > API decisions this file exercises (existence asserted first) > validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist as functions; LIVE_SAVE_VERSION is 43
+AssertionError: expected 42 to be 43 // Object.is equality
+
+- Expected
++ Received
+
+- 43
++ 42
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:46:42
+     44| describe('API decisions this file exercises (existence asserted first)…
+     45|   it('validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist as fun…
+     46|     expect(saveModule.LIVE_SAVE_VERSION).toBe(43)
+       |                                          ^
+     47|     expect(typeof mods().validateSaveV43).toBe('function')
+     48|     expect(typeof mods().convertV42ToV43).toBe('function')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration > genuine V42 week-100 input migrates to V43 with the empty screenplayShelving state on every business, and validates
+TypeError: mods(...).convertV42ToV43 is not a function
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:56:24
+     54|   it('genuine V42 week-100 input migrates to V43 with the empty screen…
+     55|     const v42 = genuineV42Week100()
+     56|     const v43 = mods().convertV42ToV43(v42)
+       |                        ^
+     57|     expect(v43.saveVersion).toBe(43)
+     58|     const validated = mods().validateSaveV43(v43)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration > genuine V42 week-130 input migrates to V43 with the empty screenplayShelving state on every business, and validates
+TypeError: mods(...).convertV42ToV43 is not a function
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:75:24
+     73|   it('genuine V42 week-130 input migrates to V43 with the empty screen…
+     74|     const v42 = genuineV42Week130()
+     75|     const v43 = mods().convertV42ToV43(v42)
+       |                        ^
+     76|     const validated = mods().validateSaveV43(v43)
+     77|     for (const b of validated.state.hollywood!.businesses) {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration > migrateToLive carries a genuine V42 save to V43 (LIVE_SAVE_VERSION)
+AssertionError: expected 42 to be 43 // Object.is equality
+
+- Expected
++ Received
+
+- 43
++ 42
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:85:70
+     83|     const v42 = saveModule.importSave(week130Raw())
+     84|     const live = migrateToLive(v42)
+     85|     expect((live as unknown as { saveVersion: number }).saveVersion).t…
+       |                                                                      ^
+     86|   })
+     87| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: save/load in the middle of a count continues byte-identically > ticking 7 weeks, then round-tripping through export/import at count 7, then ticking 5 more weeks, matches an uninterrupted 12-week tick byte-for-byte
+TypeError: Cannot read properties of undefined (reading 'rejections')
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:99:93
+     97|     for (let i = 0; i < 7; i++) stateB = tick(stateB)
+     98|     const b7 = stateB.hollywood!.businesses.find(b => b.studioId === R…
+     99|     expect((b7 as unknown as { screenplayShelving: ScreenplayShelving …
+       |                                                                                             ^
+    100|       'route/RED premise: count 7 after 7 weeks').toBe(7)
+    101|     const saved = saveModule.makeSave(stateB)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: the validator rejects each inconsistent state > rejects a shelved entry naming an ordinal that is ALSO active
+AssertionError: expected [Function] to throw error matching /shelv/i but got 'mods(...).validateSaveV43 is not a fu…'
+
+- Expected: 
+/shelv/i
+
++ Received: 
+"mods(...).validateSaveV43 is not a function"
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:139:47
+    137|     expect(b.activeScriptOrdinals).toContain(6) // route premise: ordi…
+    138|     b.screenplayShelving = { version: 1, rejections: [], shelved: [{ o…
+    139|     expect(() => mods().validateSaveV43(env)).toThrow(/shelv/i)
+       |                                               ^
+    140|   })
+    141| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: the validator rejects each inconsistent state > rejects a shelved entry naming an ordinal that is ALSO produced
+AssertionError: expected [Function] to throw error matching /shelv/i but got 'mods(...).validateSaveV43 is not a fu…'
+
+- Expected: 
+/shelv/i
+
++ Received: 
+"mods(...).validateSaveV43 is not a function"
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:147:47
+    145|     expect(b.development.projects[0]!.status).toBe('produced') // rout…
+    146|     b.screenplayShelving = { version: 1, rejections: [], shelved: [{ o…
+    147|     expect(() => mods().validateSaveV43(env)).toThrow(/shelv/i)
+       |                                               ^
+    148|   })
+    149| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: the validator rejects each inconsistent state > rejects a rejection count over the documented threshold (14 > 13)
+AssertionError: expected [Function] to throw error matching /shelv|reject|threshold/i but got 'mods(...).validateSaveV43 is not a fu…'
+
+- Expected: 
+/shelv|reject|threshold/i
+
++ Received: 
+"mods(...).validateSaveV43 is not a function"
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:156:47
+    154|     // a validator boundary fixture, not a derived route fact.
+    155|     b.screenplayShelving = { version: 1, rejections: [{ ordinal: 6, co…
+    156|     expect(() => mods().validateSaveV43(env)).toThrow(/shelv|reject|th…
+       |                                               ^
+    157|   })
+    158| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: the validator rejects each inconsistent state > rejects a shelved entry with no matching screenplayShelved receipt
+AssertionError: expected [Function] to throw error matching /shelv|receipt/i but got 'mods(...).validateSaveV43 is not a fu…'
+
+- Expected: 
+/shelv|receipt/i
+
++ Received: 
+"mods(...).validateSaveV43 is not a function"
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:165:47
+    163|     b.screenplayShelving = { version: 1, rejections: [], shelved: [{ o…
+    164|     // No screenplayShelved receipt appended to state.hollywood.receip…
+    165|     expect(() => mods().validateSaveV43(env)).toThrow(/shelv|receipt/i)
+       |                                               ^
+    166|   })
+    167| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: the validator rejects each inconsistent state > rejects two screenplayShelved receipts naming the same screenplay
+AssertionError: expected [Function] to throw error matching /shelv|receipt|duplicate|second/i but got 'mods(...).validateSaveV43 is not a fu…'
+
+- Expected: 
+/shelv|receipt|duplicate|second/i
+
++ Received: 
+"mods(...).validateSaveV43 is not a function"
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:180:47
+    178|     )
+    179|     env.state.hollywood.nextReceipt += 2
+    180|     expect(() => mods().validateSaveV43(env)).toThrow(/shelv|receipt|d…
+       |                                               ^
+    181|   })
+    182| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: the validator rejects each inconsistent state > rejects a rejection entry with count 0 (below the documented [1, threshold] bound)
+AssertionError: expected [Function] to throw error matching /shelv|reject/i but got 'mods(...).validateSaveV43 is not a fu…'
+
+- Expected: 
+/shelv|reject/i
+
++ Received: 
+"mods(...).validateSaveV43 is not a function"
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:191:47
+    189|     expect(b.activeScriptOrdinals).toContain(6) // route premise: ordi…
+    190|     b.screenplayShelving = { version: 1, rejections: [{ ordinal: 6, co…
+    191|     expect(() => mods().validateSaveV43(env)).toThrow(/shelv|reject/i)
+       |                                               ^
+    192|   })
+    193| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: the validator rejects each inconsistent state > rejects a rejection entry naming an ordinal that is not active/ready (produced)
+AssertionError: expected [Function] to throw error matching /shelv|reject|active|ready/i but got 'mods(...).validateSaveV43 is not a fu…'
+
+- Expected: 
+/shelv|reject|active|ready/i
+
++ Received: 
+"mods(...).validateSaveV43 is not a function"
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:199:47
+    197|     expect(b.development.projects[0]!.status, 'route premise: ordinal …
+    198|     b.screenplayShelving = { version: 1, rejections: [{ ordinal: 0, co…
+    199|     expect(() => mods().validateSaveV43(env)).toThrow(/shelv|reject|ac…
+       |                                               ^
+    200|   })
+    201| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: the validator rejects each inconsistent state > rejects a shelved entry with retryWeek <= week
+AssertionError: expected [Function] to throw error matching /shelv|retry/i but got 'mods(...).validateSaveV43 is not a fu…'
+
+- Expected: 
+/shelv|retry/i
+
++ Received: 
+"mods(...).validateSaveV43 is not a function"
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:211:47
+    209|       studioId: RIVAL_R01, kind: 'screenplayShelved', scriptProjectId,…
+    210|     env.state.hollywood.nextReceipt += 1
+    211|     expect(() => mods().validateSaveV43(env)).toThrow(/shelv|retry/i)
+       |                                               ^
+    212|   })
+    213| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: the validator rejects each inconsistent state > accepts the well-formed empty state on every business (control: does not throw)
+AssertionError: expected [Function] to not throw an error but 'TypeError: mods(...).validateSaveV43 …' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"TypeError: mods(...).validateSaveV43 is not a function"
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:216:51
+    214|   it('accepts the well-formed empty state on every business (control: …
+    215|     const env = baseV43Envelope()
+    216|     expect(() => mods().validateSaveV43(env)).not.toThrow()
+       |                                                   ^
+    217|   })
+    218| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: down-conversion (convertV43ToV42) > accepts the empty screenplayShelving state (round-trips losslessly, Save41 pattern)
+TypeError: mods(...).convertV42ToV43 is not a function
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:222:24
+    220| describe('save-v43-shelving: down-conversion (convertV43ToV42)', () =>…
+    221|   it('accepts the empty screenplayShelving state (round-trips lossless…
+    222|     const v43 = mods().convertV42ToV43(genuineV42Week130())
+       |                        ^
+    223|     expect(() => mods().convertV43ToV42(v43)).not.toThrow()
+    224|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: down-conversion (convertV43ToV42) > refuses a real rejection count by name
+AssertionError: expected [Function] to throw error matching /shelv/i but got 'mods(...).convertV43ToV42 is not a fu…'
+
+- Expected: 
+/shelv/i
+
++ Received: 
+"mods(...).convertV43ToV42 is not a function"
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:235:47
+    233|         : { ...EMPTY_SHELVING }
+    234|     }
+    235|     expect(() => mods().convertV43ToV42(env)).toThrow(/shelv/i)
+       |                                               ^
+    236|   })
+    237| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: down-conversion (convertV43ToV42) > refuses a real shelved entry (with its receipt) by name
+AssertionError: expected [Function] to throw error matching /shelv/i but got 'mods(...).convertV43ToV42 is not a fu…'
+
+- Expected: 
+/shelv/i
+
++ Received: 
+"mods(...).convertV43ToV42 is not a function"
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:251:47
+    249|       studioId: RIVAL_R01, kind: 'screenplayShelved', scriptProjectId:…
+    250|     env.state.hollywood.nextReceipt += 1
+    251|     expect(() => mods().convertV43ToV42(env)).toThrow(/shelv/i)
+       |                                               ^
+    252|   })
+    253| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving-save-v43.test.ts > save-v43-shelving: down-conversion (convertV43ToV42) > refuses a nonzero commissionHoldUntilWeek by name
+AssertionError: expected [Function] to throw error matching /shelv|hold/i but got 'mods(...).convertV43ToV42 is not a fu…'
+
+- Expected: 
+/shelv|hold/i
+
++ Received: 
+"mods(...).convertV43ToV42 is not a function"
+
+ ❯ tests/p14d1-rival-shelving-save-v43.test.ts:263:47
+    261|         : { ...EMPTY_SHELVING }
+    262|     }
+    263|     expect(() => mods().convertV43ToV42(env)).toThrow(/shelv|hold/i)
+       |                                               ^
+    264|   })
+    265| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > TUNING.HOLLYWOOD_SHELVE_AFTER_REJECTIONS is a positive integer, 13
+AssertionError: expected 'undefined' to be 'number' // Object.is equality
+
+Expected: "number"
+Received: "undefined"
+
+ ❯ tests/p14d1-rival-shelving.test.ts:166:22
+    164|   it('TUNING.HOLLYWOOD_SHELVE_AFTER_REJECTIONS is a positive integer, …
+    165|     const v = (TUNING as unknown as Record<string, unknown>).HOLLYWOOD…
+    166|     expect(typeof v).toBe('number')
+       |                      ^
+    167|     expect(Number.isInteger(v) && (v as number) > 0).toBe(true)
+    168|     expect(v).toBe(13)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > TUNING.HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS is a positive integer, 13
+AssertionError: expected 'undefined' to be 'number' // Object.is equality
+
+Expected: "number"
+Received: "undefined"
+
+ ❯ tests/p14d1-rival-shelving.test.ts:172:22
+    170|   it('TUNING.HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS is a positive inte…
+    171|     const v = (TUNING as unknown as Record<string, unknown>).HOLLYWOOD…
+    172|     expect(typeof v).toBe('number')
+       |                      ^
+    173|     expect(Number.isInteger(v) && (v as number) > 0).toBe(true)
+    174|     expect(v).toBe(13)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > TUNING.HOLLYWOOD_SHELVED_RETRY_WEEKS is a positive integer, 26
+AssertionError: expected 'undefined' to be 'number' // Object.is equality
+
+Expected: "number"
+Received: "undefined"
+
+ ❯ tests/p14d1-rival-shelving.test.ts:178:22
+    176|   it('TUNING.HOLLYWOOD_SHELVED_RETRY_WEEKS is a positive integer, 26',…
+    177|     const v = (TUNING as unknown as Record<string, unknown>).HOLLYWOOD…
+    178|     expect(typeof v).toBe('number')
+       |                      ^
+    179|     expect(Number.isInteger(v) && (v as number) > 0).toBe(true)
+    180|     expect(v).toBe(26)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > hollywoodPolicy.searchIndustryPackages exists as a function
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ tests/p14d1-rival-shelving.test.ts:184:23
+    182|   it('hollywoodPolicy.searchIndustryPackages exists as a function', ()…
+    183|     const fn = (hollywoodPolicy as unknown as Record<string, unknown>)…
+    184|     expect(typeof fn).toBe('function')
+       |                       ^
+    185|   })
+    186|   it('save.ts LIVE_SAVE_VERSION is 43, and validateSaveV43/convertV42T…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > save.ts LIVE_SAVE_VERSION is 43, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist
+AssertionError: expected 42 to be 43 // Object.is equality
+
+- Expected
++ Received
+
+- 43
++ 42
+
+ ❯ tests/p14d1-rival-shelving.test.ts:187:42
+    185|   })
+    186|   it('save.ts LIVE_SAVE_VERSION is 43, and validateSaveV43/convertV42T…
+    187|     expect(saveModule.LIVE_SAVE_VERSION).toBe(43)
+       |                                          ^
+    188|     const mods = saveModule as unknown as Record<string, unknown>
+    189|     expect(typeof mods.validateSaveV43).toBe('function')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > API decisions this file exercises (asserted to exist first, per PITFALL) > talentMarket.rivalPromiseProjectCandidates exists as a function (1344-X2)
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ tests/p14d1-rival-shelving.test.ts:195:23
+    193|   it('talentMarket.rivalPromiseProjectCandidates exists as a function …
+    194|     const fn = (talentMarket as unknown as Record<string, unknown>).ri…
+    195|     expect(typeof fn).toBe('function')
+       |                       ^
+    196|   })
+    197| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > searchIndustryPackages counts contract (1344-D Blocking 1) > on a captured genuine economic-rejection call: choice matches chooseIndustryPackage; affordable+unaffordable equals the independently-derived candidate count (never the literal 54); viable<=affordable; (choice===null)===(viable===0)
+TypeError: mods.searchIndustryPackages is not a function
+ ❯ tests/p14d1-rival-shelving.test.ts:248:27
+    246|         { choice: ReturnType<typeof original>; affordable: number; una…
+    247|     }
+    248|     const searched = mods.searchIndustryPackages(call.input, call.poli…
+       |                           ^
+    249|     expect(searched.choice).toEqual(call.result)
+    250|     expect(searched.affordable + searched.unaffordable).toBe(expectedC…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > searchIndustryPackages counts contract (1344-D Blocking 1) > decide-level: a partly cash-constrained week (cash strictly between the cheapest and dearest real candidate cost) reads cashBlocked — the rejection count stays unchanged
+TypeError: Cannot read properties of undefined (reading 'rejections')
+ ❯ tests/p14d1-rival-shelving.test.ts:305:24
+    303|       blocked = tick(blocked)
+    304|       const b = business(blocked, RIVAL_R01)
+    305|       expect(shelving(b).rejections.find(r => r.ordinal === 6)?.count,
+       |                        ^
+    306|         `partial-cashBlocked week ${i} holds the count (real cost rang…
+    307|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-stalled-route (1344-A §6.1) > a stalled rival with staff and cash available shelves after exactly 13 evaluated economic rejections; the week is derived from receipts, never hard-coded
+AssertionError: route/RED premise: studio-aca408ec-r01 shelves within 16 weeks of week 130: expected null not to be null
+ ❯ tests/p14d1-rival-shelving.test.ts:335:107
+    333|       if (fresh.length > 0) { shelvingWeek = before.market.tick; shelv…
+    334|     }
+    335|     expect(shelvingWeek, `route/RED premise: ${RIVAL_R01} shelves with…
+       |                                                                                                           ^
+    336|     expect(before).not.toBeNull(); expect(after).not.toBeNull()
+    337|     // "Exactly one screenplayShelved receipt" is scoped per screenpla…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[31/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-blocked-weeks-hold (1344-A §6.2) > staffingBlocked weeks (no seatable triple that survives staff()) leave the rejection count unchanged and evaluate no package
+TypeError: Cannot read properties of undefined (reading 'rejections')
+ ❯ tests/p14d1-rival-shelving.test.ts:392:47
+    390|     const b1 = business(state, RIVAL)
+    391|     const ordinal = 6
+    392|     const countAfterOneRejection = shelving(b1).rejections.find(r => r…
+       |                                               ^
+    393|     expect(countAfterOneRejection, 'route/RED premise: one economic re…
+    394|     // End one actor's employment (r01 has exactly 3 actors; removing …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[32/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-blocked-weeks-hold (1344-A §6.2) > cashBlocked weeks (cash below every candidate) leave the rejection count unchanged
+TypeError: Cannot read properties of undefined (reading 'rejections')
+ ❯ tests/p14d1-rival-shelving.test.ts:444:23
+    442|     const ordinal = 6
+    443|     const b1 = business(state, RIVAL)
+    444|     expect(shelving(b1).rejections.find(r => r.ordinal === ordinal)?.c…
+       |                       ^
+    445|     // Drive cash to zero: every (negative,marketing) candidate exceed…
+    446|     // so chooseIndustryPackage sees zero affordable candidates (cashB…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[33/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-blocked-weeks-hold (1344-A §6.2) > a week with a running production evaluates nothing (count unchanged while productions.length>0; resumes after)
+TypeError: Cannot read properties of undefined (reading 'rejections')
+ ❯ tests/p14d1-rival-shelving.test.ts:475:31
+    473|       state = tick(state)
+    474|       const b = business(state, RIVAL)
+    475|       const count = shelving(b).rejections.find(r => r.ordinal === ord…
+       |                               ^
+    476|       if (b.productions.length > 0) { expect(count, `week ${state.mark…
+    477|       else if (resumedCount === null && count > 0) { resumedCount = co…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[34/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-blocked-weeks-hold (1344-A §6.2) > a mixed sequence (staffing-blocked, then economic rejections) shelves only after 13 economic rejections, never 13 calendar weeks
+TypeError: Cannot read properties of undefined (reading 'rejections')
+ ❯ tests/p14d1-rival-shelving.test.ts:520:43
+    518|       spy.mockRestore()
+    519|     }
+    520|     expect(shelving(business(mixed, RIVAL)).rejections.find(r => r.ord…
+       |                                           ^
+    521|     expect(evaluatedDuringBlock, 'no package is evaluated for r01 acro…
+    522|     // Restore staffing AND cash; the remaining decisions are economic…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[35/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-viable-control (1344-F Amendment 2) > genesis to week 93: with screenplayShelving stripped from every business, state equals the genuine week-93 input migrated by convertV42ToV43 (also stripped); receipts identical; the leaf asserts its own premise that no shelving has happened yet and that the first screenplayShelved receipt falls strictly after this state, never a hard-coded week
+TypeError: mods.convertV42ToV43 is not a function
+ ❯ tests/p14d1-rival-shelving.test.ts:561:29
+    559|     manifestPin93()
+    560|     const mods = saveModule as unknown as { convertV42ToV43: (s: unkno…
+    561|     const genuineV43 = mods.convertV42ToV43(genuineV42Week93())
+       |                             ^
+    562|     const genuineState = genuineV43.state
+    563|     let state = HARNESS_GENESIS()
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[36/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-viable-control (1344-F Amendment 2) > a business with at least one recorded greenlight and zero economic rejections in the first 5 weeks keeps the empty screenplayShelving state
+AssertionError: expected undefined to deeply equal { version: 1, rejections: [], …(2) }
+
+- Expected: 
+Object {
+  "commissionHoldUntilWeek": 0,
+  "rejections": Array [],
+  "shelved": Array [],
+  "version": 1,
+}
+
++ Received: 
+undefined
+
+ ❯ tests/p14d1-rival-shelving.test.ts:663:25
+    661|     expect(clean.length, `route/RED premise: at least one rival both g…
+    662|     const b = business(state, clean[0]!)
+    663|     expect(shelving(b)).toEqual(EMPTY_SHELVING)
+       |                         ^
+    664|   }, 15_000)
+    665| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[37/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-commission-hold (1344-A §6.4) > no new development project for the shelving studio during its commission hold; commissionHoldUntilWeek is exactly week+HOLD; a commission is not permanently blocked
+AssertionError: route/RED premise (shared with test 1): expected null not to be null
+ ❯ tests/p14d1-rival-shelving.test.ts:688:72
+    686|       }
+    687|     }
+    688|     expect(shelvingWeek, 'route/RED premise (shared with test 1)').not…
+       |                                                                        ^
+    689|     const bAtShelving = business(state, RIVAL)
+    690|     const hold = shelving(bAtShelving).commissionHoldUntilWeek
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[38/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > a viable retry re-enters the slot and greenlights, removing the shelved entry
+Error: Unhandled Industry identity: [object Object]
+ ❯ Module.persistedProductionIds src/core/productionIdentity.ts:111:57
+    109|       case 'laboratoryCommitted': case 'laboratoryOperational': case '…
+    110|       case 'researchSeatAssigned': case 'researchCompleted': break
+    111|       default: { const exhaustive: never = event; throw new Error(`Unh…
+       |                                                         ^
+    112|     }
+    113|   }
+ ❯ decide src/core/hollywoodTick.ts:233:83
+ ❯ Module.advanceHollywoodWeek src/core/hollywoodTick.ts:321:5
+ ❯ Module.tick src/core/tick.ts:935:20
+ ❯ tests/p14d1-rival-shelving.test.ts:738:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[39/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > an unviable retry advances retryWeek and stays shelved (and never re-enters the slot, so it cannot be shelved twice)
+AssertionError: expected 130 to be NaN // Object.is equality
+
+- Expected
++ Received
+
+- NaN
++ 130
+
+ ❯ tests/p14d1-rival-shelving.test.ts:756:30
+    754|     const entry = shelving(b).shelved.find(s => s.ordinal === ordinal)
+    755|     expect(entry, 'stays shelved').toBeDefined()
+    756|     expect(entry!.retryWeek).toBe(week + TUNING_FUTURE.HOLLYWOOD_SHELV…
+       |                              ^
+    757|     expect(shelvedReceiptsOf(newReceipts(before, state)).filter(r => r…
+    758|   }, 15_000)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[40/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-promise-guard (1344-A §3.3) > an open SPECIFIC_PROJECT promise naming the screenplay defers shelving (count held at 13); shelving proceeds at the next economic rejection after it settles
+TypeError: Cannot read properties of undefined (reading 'rejections')
+ ❯ tests/p14d1-rival-shelving.test.ts:820:24
+    818|     for (let i = 0; i < 12; i++) state = tick(state)
+    819|     const b12 = business(state, RIVAL)
+    820|     expect(shelving(b12).rejections.find(r => r.ordinal === ordinal)?.…
+       |                        ^
+    821|     const scriptProjectId = b12.development.projects[ordinal]!.id
+    822|     // Hand-built open promise (contractId: null keeps it inert to adv…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[41/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > rivalPromiseProjectCandidates (1344-X2 parent API decision; covers 1344-A §6 item 7(c)) > a shelved screenplay is absent from the candidates
+TypeError: candidatesOf(...) is not a function
+ ❯ tests/p14d1-rival-shelving.test.ts:892:33
+    890|     const b = business(state, RIVAL_R01)
+    891|     const shelvedId = b.development.projects[6]!.id
+    892|     const result = candidatesOf()(state, RIVAL_R01)
+       |                                 ^
+    893|     expect(result.some(p => p.id === shelvedId), 'the shelved screenpl…
+    894|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[42/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > rivalPromiseProjectCandidates (1344-X2 parent API decision; covers 1344-A §6 item 7(c)) > with nothing shelved, the result equals the first two non-produced screenplays by id
+TypeError: candidatesOf(...) is not a function
+ ❯ tests/p14d1-rival-shelving.test.ts:902:33
+    900|       .sort((x, y) => x.id < y.id ? -1 : x.id > y.id ? 1 : 0).slice(0,…
+    901|     expect(expected.map(p => p.id), 'route premise: two non-produced s…
+    902|     const result = candidatesOf()(state, RIVAL_R01)
+       |                                 ^
+    903|     expect(result).toEqual(expected)
+    904|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[43/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-feasibility-readers (1344-A §3.6) > a shelved screenplay changes the feasibility digest (unproducedScripts must stop counting it, promises.ts:410-411)
+AssertionError: RED premise: today unproducedScripts filters by status only, so removing ordinal 6 from activeScriptOrdinals alone does not change the digest; once shelved screenplays are excluded from the count, it must: expected 'ed297b3951d28bec' not to be 'ed297b3951d28bec' // Object.is equality
+ ❯ tests/p14d1-rival-shelving.test.ts:922:247
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[44/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-feasibility-readers (1344-A §3.6) > opportunity paths mark a shelved screenplay impossible with reason "the named script project is shelved"
+AssertionError: expected 'REASONABLY_ACHIEVABLE' to be 'IMPOSSIBLE' // Object.is equality
+
+Expected: "IMPOSSIBLE"
+Received: "REASONABLY_ACHIEVABLE"
+
+ ❯ tests/p14d1-rival-shelving.test.ts:943:36
+    941|     }
+    942|     const receipt = promiseFeasibility(state, draft, state.market.tick)
+    943|     expect(receipt.classification).toBe('IMPOSSIBLE')
+       |                                    ^
+    944|     expect(receipt.bottleneck).toBe('the named script project is shelv…
+    945|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[45/46]⎯
+
+ FAIL |core|  tests/p14d1-rival-shelving.test.ts > shelving-chart-output (1344-A §6.8) > the 13-week chart row equals released (produced) films with a shelved screenplay present, and the state validates
+AssertionError: route/RED premise: a shelving occurred before the next chart week: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/p14d1-rival-shelving.test.ts:962:94
+    960|       if (sawShelving && state.market.tick % 13 === 0) break
+    961|     }
+    962|     expect(sawShelving, 'route/RED premise: a shelving occurred before…
+       |                                                                                              ^
+    963|     expect(state.market.tick % 13).toBe(0)
+    964|     const b = business(state, RIVAL)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[46/46]⎯
+
+ Test Files  3 failed (3)
+      Tests  46 failed | 5 passed (51)
+   Start at  03:02:46
+   Duration  48.80s (transform 6.36s, setup 0ms, collect 15.69s, tests 68.35s, environment 1ms, prepare 1.17s)
+
