@@ -7,7 +7,7 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), Wed Sep 30 08:12 CEST 2026
 - Resume: `claude --resume fda2743f-a621-4100-9f06-e0c38e36295b` from the repo root.
 - Required reading, in order:
   1. `docs/engineering/playability-launch-review/CONTINUATION-STATE.md`: the top `## CURRENT` block
-  2. The newest K record in `docs/engineering/playability-launch-review/06-FABLE-ADOPTION-AND-FRESH-SESSION-HANDOFF.md`: 1341-K (`evidence/p14b4-20260919/1341-K-parent-u2-closure.json`)
+  2. The newest K record in `docs/engineering/playability-launch-review/06-FABLE-ADOPTION-AND-FRESH-SESSION-HANDOFF.md`: 1341-K (`docs/engineering/playability-launch-review/evidence/p14b4-20260919/1341-K-parent-u2-closure.json`)
 
 ## Active order
 - Governing Owner order: the Opus take-over mandate (recover, finish P14, then P15 → P16 → P17 → a specified P18) under `docs/operations/fable-team/OWNER-DIRECTIVE-THREE-WEEK-AUTONOMOUS-20260915.md`, with Owner rulings 1340-O, D-1339-1 and 1342-O.
@@ -16,14 +16,14 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), Wed Sep 30 08:12 CEST 2026
 
 ## State
 - Done this session: see the CURRENT block. Latest: 1344-M2 (UI Save43 attribution), 1353-X3 (P15C RED 72/72, GREEN 78/78), 1353-J KEEP.
-- In flight: Workflow run `wf_93dac5b7-da4` (Save43 sweep authoring). g5 and g6 are writing in scratch `1344-sweep/g5` and `1344-sweep/g6`, and the other five groups are done. It dies when the laptop sleeps. Resume paths are in the CURRENT block.
+- In flight: Workflow run `wf_93dac5b7-da4` (Save43 sweep authoring). g5 and g6 are writing in `/private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1344-sweep/g5` and `/private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad/1344-sweep/g6`, and the other five groups are done. It dies when the laptop sleeps. Resume paths are in the CURRENT block.
 - Claims limits: sweep patches are authored without test runs (by design); nothing is verified until the parent dry run. The UI deep-route intermittent is unattributed.
 
 ## Next step
 Land P15C Wave 1:
-1. `git apply --index evidence/p14b4-20260919/1353-stage/1353-p15c-red-r4.patch`, commit, push.
-2. Recorded RED over `tests/p15c1-campaign-legacy.test.ts` and `tests/p15c-wave-r-retention.test.ts`, with the bounded runner (`run-bounded-source-guards.py pre` / `run-bounded-source-c2.mjs` / `post`, lowercase run name).
-3. Apply `1353-p15c1-production.patch`, commit, push.
+1. `git apply --index docs/engineering/playability-launch-review/evidence/p14b4-20260919/1353-stage/1353-p15c-red-r4.patch`, commit, push.
+2. Recorded RED over `tests/p15c1-campaign-legacy.test.ts` and `tests/p15c-wave-r-retention.test.ts`, with the bounded runner (`docs/engineering/playability-launch-review/evidence/p14b4-20260919/run-bounded-source-guards.py pre` / `docs/engineering/playability-launch-review/evidence/p14b4-20260919/run-bounded-source-c2.mjs` / `post`, lowercase run name).
+3. Apply `docs/engineering/playability-launch-review/evidence/p14b4-20260919/1353-stage/1353-p15c1-production.patch`, commit, push.
 4. Recorded GREEN; expect 78/78.
 
 Then collect the g5/g6 handbacks and merge the sweep.
@@ -33,6 +33,7 @@ Then collect the g5/g6 handbacks and merge the sweep.
 - P16: the nine questions in 1354-Q, open until the Owner answers.
 
 ## Blockers and warnings
+- Scratch is at `/private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/fda2743f-a621-4100-9f06-e0c38e36295b/scratchpad` (trees 1344-sweep, 1353-x3, 1348-x5, 1358-work). A macOS restart wipes /private/tmp and loses them. g5/g6 were still writing at 08:16, so nothing was moved. Next session: once g5/g6 finish, mv those trees to ~/studio-scratch/ (same disk), check the links resolve, and update these paths.
 - No commits during a recorded run or its postflight. None is active at this writing.
 - Disk is at 4.5 GB free, under the 5 GB floor. Delete merged scratch trees by literal path before any recorded run.
 - The machine has 4 CPUs and 8 GB RAM. Run recorded suites alone. The Workflow cap is 2 agents.
