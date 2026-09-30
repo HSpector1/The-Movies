@@ -2,7 +2,7 @@
 
 ## CURRENT — Save43 sweep authored and merged in scratch (helpers, g1-g6, parent edits); dry run x2 running detached; P15C Wave 1 landed (1353-L)
 
-State at 2026-09-30 14:52 EDT (20:52 CEST), HEAD d9e253ad plus this update (pushed, remote verified). No recorded run
+State at 2026-09-30 14:49 EDT (20:49 CEST), HEAD d9e253ad plus this update (pushed, remote verified). No recorded run
 is active. The parent dry run x2 runs detached in scratch (below). Root `HANDOFF.md` carries the exact resume commands.
 
 - Save43 / shelving (D-1329-1): IN PROGRESS.

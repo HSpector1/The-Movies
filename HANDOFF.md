@@ -1,6 +1,6 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), Wed Sep 30 14:50 EDT 2026 (20:50 CEST)
+Last writer: Claude (Opus 5.5, claude-opus-5-5), Wed Sep 30 14:49 EDT 2026 (20:49 CEST)
 
 ## Where the work is
 - Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ d9e253ad plus the commit that updates this file, pushed: yes (remote verified by `git ls-remote`). The working tree is clean.
