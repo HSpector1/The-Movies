@@ -1,28 +1,26 @@
 # R3-N1 native correction record — 2026-09-15 · OPS-R3-N1-NATIVE-CORRECTION-20260915-01
 
-## CURRENT — P15C Wave 1 landed (1353-L); UI Save43 fallout attributed (1344-M2); Save43 sweep authoring 6 of 7 groups done, g6 continuing
+## CURRENT — Save43 sweep authored and merged in scratch (helpers, g1-g6, parent edits); dry run x2 running detached; P15C Wave 1 landed (1353-L)
 
-State at 2026-09-30 20:28 CEST (14:28 EDT), HEAD d7c417a5 plus this update (pushed, remote verified). No recorded run
-is active. One background agent continues g6 (below).
+State at 2026-09-30 14:52 EDT (20:52 CEST), HEAD d9e253ad plus this update (pushed, remote verified). No recorded run
+is active. The parent dry run x2 runs detached in scratch (below). Root `HANDOFF.md` carries the exact resume commands.
 
 - Save43 / shelving (D-1329-1): IN PROGRESS.
-  - Core fallout 1344-M; UI fallout 1344-M2: recorded r2 at 644b9038, 18 leaves, guards exact, 0 unhandled errors.
-    Vs 1343: 11 Save43 pins (8 direct UI sites in 6 files; 3 StudioCalendar rows via the helper pin), 3 numpy rows
-    (1345-E), 4 intermittents. Three intermittents predate shelving; the deep-route row stays open.
-  - Sweep authoring: Workflow run wf_93dac5b7-da4 ended. Output per group in `/Users/zacheryspector/studio-scratch/1344-sweep/<group>/`
-    (tree with one commit per file, PROGRESS.txt, classification.json, deferred.json, patch.diff, handback.md).
-    - DONE: helpers (30 edits, 2 deferred), g1 (78, 7), g2 (81, 5), g3, g4, g5 (52, 39). g5 wrote every deliverable,
-      then its return failed on `401 OAuth access token has been revoked` (laptop off).
-    - g6 CONTINUING: the same 401 stopped it after 6 of 23 files (tree clean at a5c1606, diff base..HEAD sha256
-      0d9aa9a7…). At 20:28 CEST a background agent resumed it audit-first from that tree: audit files 1-6 (PROGRESS
-      counts 4 edits for file 6, classification.json has 3 rows), then files 7-23, no test runs. If it dies, continue
-      from its last scratch commit and PROGRESS.txt, never from scratch.
-    - g1, g2 and g5 defer rows to helpers outside the helpers group (e.g. `tests/helpers/p14c3-queued-writing-fixtures.ts`).
-      g5 also defers three p14b5-relationships rows (365-372) where the rival's first take no longer appears. They are
-      S10-like but not named in 1344-N, so they need attribution declared before any value moves.
-  - Then: read every handback verbatim, merge the disjoint patches, add the 1344-M2 UI sites to 1344-N, handle
-    deferred S8/S9/S10 rows, parent dry run, review 1344-D4, apply, recorded core and UI gates alone on a quiet
-    machine, §7 (stalled route, C8), closure 1344-K.
+  - Core fallout 1344-M; UI fallout 1344-M2 (11 Save43 pins: 8 direct UI sites in 5 files, 3 StudioCalendar rows via
+    the helper), 3 numpy rows (1345-E), 4 intermittents; the deep-route row stays open.
+  - Sweep authored (1344-C5): helpers and g1-g6 DONE, per group in `/Users/zacheryspector/studio-scratch/1344-sweep/<group>/`
+    (tree, PROGRESS.txt, classification.json, deferred.json, patch.diff, handback.md). g6 was finished by a
+    continuation agent; its audit of files 1-6 found no rule violation.
+  - Merge tree `/Users/zacheryspector/studio-scratch/1344-merge/tree` (base 3a606df4): the seven group patches (disjoint, clean) plus parent commits
+    f8c48ec (24 `saveApi('validateSaveV42')` callers in 4 files follow the helper's renamed live key, S1) and becafce
+    (the 1344-M2 UI section, S2). The four helpers no group owned need no edit. Type gates before g6: all exit 0.
+  - Dry run x2 at merge HEAD a318722, detached, PID in `/Users/zacheryspector/studio-scratch/1344-merge/x2.pid`: type gates, full core (433
+    files), UI. Progress in `x2.meta`; expected end about 17:20 EDT if the Mac stays awake.
+  - S10 pre-declarations: `/Users/zacheryspector/studio-scratch/1344-sweep/s10/declarations.md`, one section per row with its status.
+  - Then: attribute x2 (core vs 1338-I, UI vs 1343-I), S8/S9 rows from measured messages, independent review of the
+    S10 declarations before any probe or re-pin, stage `1344-stage/1344-save43-sweep.patch` with classification and
+    handback, review 1344-D4, apply, recorded core and UI gates alone on a quiet machine, §7 (stalled route, C8),
+    closure 1344-K.
 - P15C Wave 1 LANDED (1353-L): RED r4 at c7f3cb76, recorded RED 72 failed / 6 passed of 78; production at 321a4378,
   recorded GREEN 78/78; both fixedSource, every guard exact. Type gates unchanged (19/2/2, the 1352-L lines). IN
   PROGRESS until the broad gates after the sweep.
@@ -31,8 +29,7 @@ is active. One background agent continues g6 (below).
 - P15 Wave 2: P15B probe 1357-P (1357-X) before RED; P15A.1 and P15A.2 REDs; P15C Wave 2 RED (unblocked by 1353-L;
   carry 1353-J note 2 into it).
 - Open Owner items: P16 questions (1354-Q); numpy for three rgba rows.
-- Disk: 6.35 GB free, above the 5 GB floor, after deleting the merged 1353-x3 tree and expendable session-scratchpad
-  trees. Scratch trees still needed live in `/Users/zacheryspector/studio-scratch/` (1344-sweep, 1348-x5, 1358-work).
+- Disk: 6.2 GB free. Scratch still needed in `/Users/zacheryspector/studio-scratch/`: 1344-sweep, 1344-merge, 1348-x5, 1358-work.
 
 ## CURRENT — Save43 fallout measured; P15B Wave 1 landed; all four P15 Wave 2 charters adopted; offline window next
 
