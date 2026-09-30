@@ -88,6 +88,18 @@ export type RivalProjectCosts = {
   marketing: number
   announcedWeek: number | null
 }
+/**
+ * P14D.1 (Save V43, 1344-A §3-§4): rival screenplay shelving. `rejections` counts
+ * consecutive economic rejections per active ready screenplay; `shelved` names ready,
+ * unproduced screenplays out of the active index; both sorted by ordinal. No commission
+ * before `commissionHoldUntilWeek`. The empty state is `[]`, `[]`, `0`.
+ */
+export type ScreenplayShelving = {
+  version: 1
+  rejections: { ordinal: number; count: number }[]
+  shelved: { ordinal: number; week: number; retryWeek: number }[]
+  commissionHoldUntilWeek: number
+}
 export type RivalBusiness = {
   studioId: string
   entryKey: string
@@ -104,6 +116,7 @@ export type RivalBusiness = {
   nextDecisionWeek: number
   policy: { version: 1; affinities: Record<Genre, number>; negativeScale: number;
     marketingRatio: number; reserveWeeks: number }
+  screenplayShelving: ScreenplayShelving
 }
 export type IndustryReceipt = { eventId: string; week: number; studioId: string } & (
   | { kind: 'studioEntered'; entryKey: string; origin: 'fresh' | 'migration' | 'scheduled' }
@@ -121,6 +134,8 @@ export type IndustryReceipt = { eventId: string; week: number; studioId: string 
   | { kind: 'instrumentOperational'; facilityId: string; technologyId: string }
   | { kind: 'researchSeatAssigned'; projectId: string; talentId: string }
   | { kind: 'researchCompleted'; projectId: string }
+  // P14D.1 (Save V43): one per screenplay, ever; the screenplay, its costs and history remain.
+  | { kind: 'screenplayShelved'; scriptProjectId: string; conceptId: string; rejections: number }
 )
 /** The five V27 receipt kinds, as one roster the save boundary and the projection share. */
 export const RIVAL_RESEARCH_RECEIPT_KINDS = ['laboratoryCommitted', 'laboratoryOperational',

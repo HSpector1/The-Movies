@@ -27,6 +27,12 @@ import type {
 export const TUNING = {
   // P12A bounded management policy; economics and reception remain the shared laws.
   HOLLYWOOD_DECISION_WEEKS: 1,
+  // P14D.1 rival screenplay shelving (Owner ruling D-1329-1, charter 1344-A §5): named
+  // PROVISIONAL tuning, hypotheses under the Owner's delegation, not settled law. Changing
+  // one is a tuning amendment with its own record.
+  HOLLYWOOD_SHELVE_AFTER_REJECTIONS: 13, // consecutive economic rejections of one ready screenplay
+  HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS: 13, // no commission for this long after a shelving
+  HOLLYWOOD_SHELVED_RETRY_WEEKS: 26, // between retries of one shelved screenplay
   HOLLYWOOD_CONTRACT_WEEKS: 208,
   HOLLYWOOD_UNASSESSED_ESTIMATE: 50,
   HOLLYWOOD_PROMISE_HALF_WIDTH: 0.35,

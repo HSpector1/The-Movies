@@ -444,7 +444,9 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
       // P13B-S8: the five rival research kinds exist only under the V27 policy.
       laboratoryCommitted:research?['planId','facilityId']:undefined, laboratoryOperational:research?['facilityId']:undefined,
       instrumentOperational:research?['facilityId','technologyId']:undefined,
-      researchSeatAssigned:research?['projectId','talentId']:undefined, researchCompleted:research?['projectId']:undefined}[r.kind]
+      researchSeatAssigned:research?['projectId','talentId']:undefined, researchCompleted:research?['projectId']:undefined,
+      // P14D.1: no era validates a shelving receipt yet.
+      screenplayShelved:undefined}[r.kind]
     requireFact(extra,'unknown receipt kind'); exact(r,[...base,'kind',...extra])
     integer(r.week); requireFact(r.week>=priorWeek&&r.week<=state.market.tick,'receipt chronology'); priorWeek=r.week
     const owner=studios.get(r.studioId)

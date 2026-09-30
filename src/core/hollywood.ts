@@ -203,6 +203,7 @@ export function enterRival(state: GameState, studioId: string, origin: 'fresh' |
   const business: RivalBusiness = {studioId, entryKey:`${studioId}:entry`, account,
     standing:startingStanding(template,authored), operations:{mode:'managed',workflows:[],facilities:rivalStartingFacilities(studioId)}, development:initialManagedScriptDevelopment(), productions:[], activeScriptOrdinals:[], activeRunFilmOrdinals:[], releaseAuthority:initialReleaseAuthority(),
     runs:[], projects:[], nextDecisionWeek:week+1,
+    screenplayShelving:{version:1,rejections:[],shelved:[],commissionHoldUntilWeek:0},
     policy:{version:1,affinities:Object.fromEntries(GENRE_ORDER.map(g => [g,template.anchors.includes(g)?5:1])) as Record<Genre,number>,
       negativeScale:template.negativeScale,marketingRatio:template.marketingRatio,reserveWeeks:template.reserveWeeks}}
   const capex = TUNING.BASELINE_DEVELOPMENT_CASTING_CAPEX + TUNING.STAGE_STANDARD_CAPEX +

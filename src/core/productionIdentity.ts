@@ -108,6 +108,8 @@ export function persistedProductionIds(state: GameState): Set<string> {
       // P13B-S8: the five rival research receipts name no production identity.
       case 'laboratoryCommitted': case 'laboratoryOperational': case 'instrumentOperational':
       case 'researchSeatAssigned': case 'researchCompleted': break
+      // P14D.1: a shelved screenplay was never greenlit; it names no production.
+      case 'screenplayShelved': break
       default: { const exhaustive: never = event; throw new Error(`Unhandled Industry identity: ${exhaustive}`) }
     }
   }

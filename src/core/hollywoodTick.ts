@@ -1,4 +1,4 @@
-import {chooseIndustryPackage} from './hollywoodPolicy.js'
+import {chooseIndustryPackage, searchIndustryPackages} from './hollywoodPolicy.js'
 import { considerRivalSoundPurchase, selectRivalSoundProduction, rivalInstallationSlots } from './technologyRival.js'
 import { createProductionTechnologyPolicy } from './technologyProduction.js'
 import { busyTalentIds, offerForTalent, weeklySalary, renewalWindowOpen, terminationCost } from './employment.js'
@@ -6,6 +6,7 @@ import { productionCompanyTalentIds } from './productionPeople.js'
 import { caseOpenForTalent, floorOffer } from './talentMarket.js'
 import { assignmentRefusal, contractEndRefusal } from './careerLifecycle.js'
 import { promisedCastMasks, WEEKS_TO_FIRST_TAKE } from './promises.js'
+import { isOpportunityPredicate } from './opportunityPromises.js'
 import { industryBusyTalentIds, moveRivalMoney, rivalCapacityOpex, rivalWeeklyOperatingCost, uniqueIdentity } from './hollywood.js'
 import { admitRivalPlansInWeek, advanceRivalResearch, completeRivalPlans, rivalScientistDemand } from './rivalResearch.js'
 import { researchAfterEmploymentRelease } from './technology.js'
@@ -207,8 +208,9 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
   // P14C.2a (773 D9): a rival seats nobody whose seat cannot release before their
   // effective retirement week, and nobody finishing or retired — director, cast and craft.
   const seatable=(t:Talent)=>!busy.has(t.id)&&assignmentRefusal(state,t.id,week)===null
-  for(const ready of hotDevelopment(b).projects.filter(p=>p.status==='ready')) {
-    if(b.productions.length!==0)break
+  // P14D.1 (1344-A §3.1): one decision opportunity for one ready screenplay. A viable package
+  // is returned for the greenlight; otherwise the outcome names why none was chosen.
+  const evaluate=(ready:ScriptProject)=>{
     const director=employees.find(t=>t.role==='director'&&seatable(t))
     const craft=employees.find(t=>t.role==='craft'&&seatable(t))
     // P14B.4 seating preference (plan :215-236): eligible PROMISED people enter the triple first, in employment
@@ -220,38 +222,84 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
     const taken=new Set([ready.writerId,director?.id,craft?.id])
     const promised=employees.filter(t=>masks.has(t.id)&&seatable(t)&&!taken.has(t.id)&&t.skills.acting!==undefined)
     const actors=[...promised,...employees.filter(t=>t.role==='actor'&&seatable(t)&&!promised.includes(t))].slice(0,3)
-    if(director&&actors.length===3&&craft) {
-      const cost=b.projects[Number(ready.id.slice(7))]!
-      const concept=h.concepts[cost.conceptOrdinal]!
-      const provisional={conceptId:concept.id,shape:ready.shape,promise:ready.promise,budget:{negative:concept.baseNegativeCost,marketing:0},writerId:ready.writerId,
-        directorId:director.id,cast:{lead:actors[0]!.id,antagonist:actors[1]!.id,support:actors[2]!.id},craftIds:[craft.id]}
-      const candidate=chooseIndustryPackage(inputsFor(state,h,b,provisional,ready,people),b.policy,{seed:state.seed,key:`${b.studioId}:package:${ready.id}`,
-        cashAvailable:b.account.cash-operatingReserve(b,h,week),weeklyCost:rivalWeeklyOperatingCost(b,h,week),lockScreenplay:true,
-        ...(masks.size>0?{promisedMasks:masks}:{})})
-      if(candidate) {
-        const {negative,marketing}=candidate.budget
-        const id=uniqueIdentity(`${b.studioId}:film:${Number(ready.id.slice(7))}`,persistedProductionIds({...state,hollywood:h}))
-        const choices={...provisional,budget:candidate.budget,cast:candidate.cast}
-        const inp=inputsFor(state,h,b,choices,ready,people)
-        const forecastSnapshot=computeForecast(inp,{seed:state.seed,productionId:id,directorId:director.id,
-          ...forecastHistoryForOwner({...state,hollywood:h},b.studioId)},true,true)
-        const production:Production={...choices,id,startTick:week,remainingTicks:TUNING.PRODUCTION_TICKS,forecastSnapshot,
-          participants:buildFilmParticipants(id=>employees.some(t=>t.id===id),inp,concept,inp.shapeEffects,ready.promise,ready.shape)}
-        const operations=addManagedProductionWorkflow(b.operations,production,scriptOccupiedFacilitySlots(hotDevelopment(b)))
-        const development=linkScriptProjectToProduction(hotDevelopment(b),ready.id,id)
-        b.operations=operations;b.productions=[...b.productions,production];storeHotDevelopment(b,development)
-        greenlights.push({studioId:b.studioId,production})
-        // A newly seated person cannot also start writing in this decision.
-        // Permanent screenplay credit alone does not occupy a production seat.
-        for(const personId of productionCompanyTalentIds([production]))busy.add(personId)
-        moveRivalMoney(b.account,'production',-negative,week);moveRivalMoney(b.account,'marketing',-marketing,week)
-        b.projects=[...b.projects];b.projects[Number(ready.id.slice(7))]={...cost,productionId:id,production:negative,marketing,announcedWeek:week}
-        appendReceipt(h,{week,studioId:b.studioId,kind:'filmAnnounced',productionId:id,conceptId:concept.id})
-      }
+    if(!director||actors.length!==3||!craft)return {outcome:'staffingBlocked'} as const
+    const cost=b.projects[Number(ready.id.slice(7))]!
+    const concept=h.concepts[cost.conceptOrdinal]!
+    const provisional={conceptId:concept.id,shape:ready.shape,promise:ready.promise,budget:{negative:concept.baseNegativeCost,marketing:0},writerId:ready.writerId,
+      directorId:director.id,cast:{lead:actors[0]!.id,antagonist:actors[1]!.id,support:actors[2]!.id},craftIds:[craft.id]}
+    const args=[inputsFor(state,h,b,provisional,ready,people),b.policy,{seed:state.seed,key:`${b.studioId}:package:${ready.id}`,
+      cashAvailable:b.account.cash-operatingReserve(b,h,week),weeklyCost:rivalWeeklyOperatingCost(b,h,week),lockScreenplay:true,
+      ...(masks.size>0?{promisedMasks:masks}:{})}] as const
+    const candidate=chooseIndustryPackage(...args)
+    if(candidate)return {outcome:'viable',candidate,provisional,director,cost,concept} as const
+    // A refusal is re-searched only for its counts: any candidate the cash gate skipped makes it cash-blocked.
+    return {outcome:searchIndustryPackages(...args).unaffordable>0?'cashBlocked':'economicRejection'} as const
+  }
+  type Viable=Extract<ReturnType<typeof evaluate>,{outcome:'viable'}>
+  const greenlight=(ready:ScriptProject,{candidate,provisional,director,cost,concept}:Viable)=>{
+    const {negative,marketing}=candidate.budget
+    const id=uniqueIdentity(`${b.studioId}:film:${Number(ready.id.slice(7))}`,persistedProductionIds({...state,hollywood:h}))
+    const choices={...provisional,budget:candidate.budget,cast:candidate.cast}
+    const inp=inputsFor(state,h,b,choices,ready,people)
+    const forecastSnapshot=computeForecast(inp,{seed:state.seed,productionId:id,directorId:director.id,
+      ...forecastHistoryForOwner({...state,hollywood:h},b.studioId)},true,true)
+    const production:Production={...choices,id,startTick:week,remainingTicks:TUNING.PRODUCTION_TICKS,forecastSnapshot,
+      participants:buildFilmParticipants(id=>employees.some(t=>t.id===id),inp,concept,inp.shapeEffects,ready.promise,ready.shape)}
+    const operations=addManagedProductionWorkflow(b.operations,production,scriptOccupiedFacilitySlots(hotDevelopment(b)))
+    const development=linkScriptProjectToProduction(hotDevelopment(b),ready.id,id)
+    b.operations=operations;b.productions=[...b.productions,production];storeHotDevelopment(b,development)
+    greenlights.push({studioId:b.studioId,production})
+    // A newly seated person cannot also start writing in this decision.
+    // Permanent screenplay credit alone does not occupy a production seat.
+    for(const personId of productionCompanyTalentIds([production]))busy.add(personId)
+    moveRivalMoney(b.account,'production',-negative,week);moveRivalMoney(b.account,'marketing',-marketing,week)
+    b.projects=[...b.projects];b.projects[Number(ready.id.slice(7))]={...cost,productionId:id,production:negative,marketing,announcedWeek:week}
+    appendReceipt(h,{week,studioId:b.studioId,kind:'filmAnnounced',productionId:id,conceptId:concept.id})
+  }
+  for(const ready of hotDevelopment(b).projects.filter(p=>p.status==='ready')) {
+    if(b.productions.length!==0)break
+    const ordinal=Number(ready.id.slice(7))
+    const result=evaluate(ready)
+    const shelving=b.screenplayShelving
+    // A greenlit screenplay is no longer ready, so its count leaves with it.
+    if(result.outcome==='viable'){b.screenplayShelving={...shelving,rejections:shelving.rejections.filter(r=>r.ordinal!==ordinal)};greenlight(ready,result);continue}
+    // P14D.1 (1344-A §3.1-§3.3): only an economic rejection counts; staffing and cash blockage leave the count.
+    if(result.outcome!=='economicRejection')continue
+    const count=Math.min(TUNING.HOLLYWOOD_SHELVE_AFTER_REJECTIONS,(shelving.rejections.find(r=>r.ordinal===ordinal)?.count??0)+1)
+    // An open promise from this studio naming the screenplay defers shelving; the count waits at the threshold.
+    const named=state.promises.some(p=>p.outcome===null&&p.issuerStudioId===b.studioId&&isOpportunityPredicate(p.predicate)
+      &&p.predicate.kind==='projectOpportunity'&&p.predicate.scriptProjectId===ready.id)
+    if(count<TUNING.HOLLYWOOD_SHELVE_AFTER_REJECTIONS||named) {
+      b.screenplayShelving={...shelving,rejections:[...shelving.rejections.filter(r=>r.ordinal!==ordinal),{ordinal,count}].sort((x,y)=>x.ordinal-y.ordinal)}
+      continue
+    }
+    // Shelving frees the slot. The screenplay stays ready with its costs and history; no money moves.
+    b.activeScriptOrdinals=b.activeScriptOrdinals.filter(i=>i!==ordinal)
+    b.screenplayShelving={version:1,rejections:shelving.rejections.filter(r=>r.ordinal!==ordinal),
+      shelved:[...shelving.shelved,{ordinal,week,retryWeek:week+TUNING.HOLLYWOOD_SHELVED_RETRY_WEEKS}].sort((x,y)=>x.ordinal-y.ordinal),
+      commissionHoldUntilWeek:week+TUNING.HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS}
+    appendReceipt(h,{week,studioId:b.studioId,kind:'screenplayShelved',scriptProjectId:ready.id,conceptId:b.projects[ordinal]!.conceptId,rejections:count})
+  }
+  // P14D.1 (1344-A §3.4, 1344-F Amendment 1): with no production and a free slot, retry the oldest due
+  // shelved screenplay, read directly (a shelved ordinal is outside the hot view). It re-enters the
+  // index only together with its greenlight; an economic rejection waits another retry interval.
+  const due=b.productions.length===0&&b.activeScriptOrdinals.length<2
+    ?b.screenplayShelving.shelved.find(s=>s.retryWeek<=week):undefined
+  if(due) {
+    const ready=b.development.projects[due.ordinal]!
+    const result=evaluate(ready)
+    const shelving=b.screenplayShelving
+    if(result.outcome==='viable') {
+      b.activeScriptOrdinals=[...b.activeScriptOrdinals,due.ordinal].sort((x,y)=>x-y)
+      b.screenplayShelving={...shelving,shelved:shelving.shelved.filter(s=>s!==due)}
+      greenlight(ready,result)
+    } else if(result.outcome==='economicRejection') {
+      b.screenplayShelving={...shelving,shelved:shelving.shelved.map(s=>s===due?{...s,retryWeek:week+TUNING.HOLLYWOOD_SHELVED_RETRY_WEEKS}:s)}
     }
   }
   // A bounded ready inventory, paid writers and enough actual runway precede a commission.
   if(b.activeScriptOrdinals.length>=2||b.account.cash<operatingReserve(b,h,week))return
+  if(week<b.screenplayShelving.commissionHoldUntilWeek)return
   const writer=employees.find(t=>t.role==='writer'&&!busy.has(t.id))
   if(!writer)return
   const ordinal=b.development.projects.length
@@ -409,7 +457,7 @@ export function finishHollywoodWeek(state:GameState):GameState {
     const rows=h.identities.filter(s=>s.enteredWeek!==null).map(s=>{
       const b=h.businesses.find(b=>b.studioId===s.studioId)
       return {studioId:s.studioId,standing:{...(b?.standing??state.studio.standing)},
-        output:b?b.development.projects.length-b.activeScriptOrdinals.length+(h.origin==='fresh'&&s.row<=4?2:0):state.studio.releasedFilms.length}
+        output:b?b.development.projects.filter(p=>p.status==='produced').length+(h.origin==='fresh'&&s.row<=4?2:0):state.studio.releasedFilms.length}
     })
     h={...h,previousChart:h.chart,chart:{week,rows}}
   }
