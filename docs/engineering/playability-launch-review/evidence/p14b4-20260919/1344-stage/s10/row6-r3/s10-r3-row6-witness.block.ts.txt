@@ -1,0 +1,103 @@
+
+// ── S10 r3 row 6 re-witness probe (1344-F5 Part A; 1344-C5 r3, unit r3-row6). NOT RUN by the author. ──
+// RUNBOOK.md step 1 appends this block to a NEW-named copy, tests/zz-s10-r3-row6.test.ts, of the merge tree's
+// tests/p14b5-relationships.test.ts. It reuses that file's lifted, tick, FROZEN, seatPairs, canon, readFileSync and
+// CastSlot. It applies declaration.md part b (P1-P5) to the take receipts inside rivalWorld's guard and writes the
+// witness or "NONE". The only file it writes is R3_OUT_ROOT/row6-r3.json; any other path throws.
+import * as r3fs from 'node:fs'
+import * as r3path from 'node:path'
+const R3_OUT_ROOT = '/Users/zacheryspector/studio-scratch/1344-r3/row6/out'
+function r3Out(name: string): string {
+  const file = r3path.resolve(R3_OUT_ROOT, name)
+  if (!file.startsWith(R3_OUT_ROOT + '/')) throw new Error(`S10-r3-row6: output path outside ${R3_OUT_ROOT}: ${file}`)
+  r3fs.mkdirSync(R3_OUT_ROOT, { recursive: true })
+  return file
+}
+// A0's anchor: the r2 record of this chain (1344-X10 row 6), read only.
+const R3_RECORDED = '/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-stage/s10/out/row6.json'
+type R3Take = { week: number; studioId: string; productionId: string; directorId: string; cast: Record<CastSlot, string> }
+
+describe('S10 r3 row 6 re-witness (scratch only)', () => {
+  it('S10-r3-row6 witness rule over the take receipts of rival-current-p1-and-p2, post-tick 197..237', () => {
+    // declaration.md part b: the four fixed premise values (unchanged) and the guard's reach (D5 R6a).
+    const FIXED = { studioId: 'studio-aca408ec-r01', firstTake: 'studio-aca408ec-r01:film:11', firstTakeWeek: 213, firstReleaseWeek: 217 } as const
+    const START = 196
+    const LAST = 237
+    const json = (x: unknown) => JSON.stringify(x)
+    let state = lifted('rival-current-p1-and-p2') // fixture() asserts both V30_PINS sha256 pins and tick 196
+    const G1_start_196 = state.market.tick === START
+    // R and F per post-tick, by rivalWorld's own expressions (:387-388), for the 41 ticks its guard allows (:382-383).
+    const weeks: { post: number; takes: R3Take[]; films: string[] }[] = []
+    for (let guard = 0; guard <= 40; guard++) {
+      const before = state
+      state = tick(state)
+      weeks.push({
+        post: state.market.tick,
+        takes: state.firstTakes.slice(before.firstTakes.length).map((t) => ({ week: t.week, studioId: t.studioId,
+          productionId: t.productionId, directorId: t.directorId, cast: { ...t.cast } })),
+        films: state.hollywood!.films.slice(before.hollywood!.films.length).map((f) => f.filmId),
+      })
+    }
+    const takes = weeks.flatMap((w) => w.takes)
+    const films = weeks.flatMap((w) => w.films.map((filmId) => ({ post: w.post, filmId })))
+    const ids = (ts: readonly R3Take[]) => ts.map((t) => t.productionId)
+    const at = (post: number) => weeks.find((w) => w.post === post)
+    const f11 = at(FIXED.firstTakeWeek)?.takes[0]
+
+    // Gates (declaration.md part d).
+    const G2_fixed_fields_in_file = FROZEN.rival.studioId === FIXED.studioId && FROZEN.rival.firstTake === FIXED.firstTake
+      && FROZEN.rival.firstTakeWeek === FIXED.firstTakeWeek && FROZEN.rival.firstReleaseWeek === FIXED.firstReleaseWeek
+    const G3_weeks_197_237 = json(weeks.map((w) => w.post)) === json(Array.from({ length: LAST - START }, (_, i) => START + 1 + i))
+    const G4_take_week_is_post = weeks.every((w) => w.takes.every((t) => t.week === w.post))
+    const G5_first_take_213 = weeks.every((w) => w.post >= FIXED.firstTakeWeek || w.takes.length === 0)
+      && json(ids(at(FIXED.firstTakeWeek)?.takes ?? [])) === json([FIXED.firstTake]) && f11?.studioId === FIXED.studioId
+    const G6_release_217 = json(at(FIXED.firstReleaseWeek)?.films) === json([FIXED.firstTake])
+    const recorded = r3fs.existsSync(R3_RECORDED)
+      ? JSON.parse(readFileSync(R3_RECORDED, 'utf8')) as { takes: unknown; predicates: { R3_d3_film11_208_213_217: { detail: { films: unknown } } } }
+      : null
+    const A0_anchor_recorded_chain = recorded !== null && json(takes) === json(recorded.takes)
+      && json(films) === json(recorded.predicates.R3_d3_film11_208_213_217.detail.films)
+
+    // The rule (part b), in order. It never looks past T1: any later witness fails :400 at T1's week.
+    const pairKey = (x: string, y: string) => canon(x, y).join('|')
+    const sharedWithF11 = (t: R3Take) => f11 === undefined ? []
+      : seatPairs(t).filter((p) => seatPairs(f11).some((q) => pairKey(q.x, q.y) === pairKey(p.x, p.y)))
+    const rivals = new Set(state.hollywood!.businesses.map((b) => b.studioId))
+    const asWitness = (t: R3Take) => ({ repeatTake: t.productionId, repeatTakeWeek: t.week, studioId: t.studioId })
+    const T1 = takes.find((t) => t.week > FIXED.firstTakeWeek) // P1; every take here is at post-tick <= LAST
+    const sameWeek = T1 === undefined ? [] : takes.filter((t) => t.week === T1.week)
+    const sharedPairs = T1 === undefined ? [] : sharedWithF11(T1)
+    const reason = T1 === undefined ? 'P1_NO_TAKE_AFTER_213_BY_237'
+      : T1.week <= FIXED.firstReleaseWeek ? 'P2_NOT_AFTER_RELEASE_WEEK_217'
+      : sameWeek.length !== 1 ? 'P3_NOT_ALONE_IN_ITS_WEEK'
+      : sharedPairs.length === 0 ? 'P4_NO_SHARED_PAIR_WITH_FILM_11'
+      : !rivals.has(T1.studioId) ? 'P5_NOT_A_RIVAL'
+      : null
+    const witness = reason === null ? asWitness(T1!) : 'NONE'
+
+    // P_SIM: rivalWorld's control flow (:382-405) plus the :666-667 premise, simulated with every rival take as the repeat.
+    const leafAccepts = (c: R3Take): boolean => {
+      if (c.week > LAST) return false // :383
+      const reached = new Set<string>()
+      for (const w of weeks) {
+        if (w.post > c.week) break // :382
+        if (w.post === FIXED.firstTakeWeek) { if (json(ids(w.takes)) !== json([FIXED.firstTake])) return false; reached.add('first') }
+        else if (w.post === FIXED.firstReleaseWeek) { if (json(w.films) !== json([FIXED.firstTake])) return false; reached.add('release') }
+        else if (w.post === c.week) { if (json(ids(w.takes)) !== json([c.productionId])) return false; reached.add('repeat') }
+        else if (w.takes.length !== 0) return false // :400
+      }
+      return reached.size === 3 && sharedWithF11(c).length > 0 // :403-405, :666-667
+    }
+    const lawful = takes.filter((c) => rivals.has(c.studioId) && leafAccepts(c))
+    const P_SIM_rule_equals_leaf = lawful.length <= 1 && json(lawful.length === 0 ? 'NONE' : asWitness(lawful[0]!)) === json(witness)
+
+    const gates = { G1_start_196, G2_fixed_fields_in_file, G3_weeks_197_237, G4_take_week_is_post, G5_first_take_213, G6_release_217,
+      A0_anchor_recorded_chain, P_SIM_rule_equals_leaf }
+    r3fs.writeFileSync(r3Out('row6-r3.json'), JSON.stringify({ probe: 'S10-r3-row6', gates, witness, reason,
+      t1: T1 ?? null, sameWeek, sharedPairs, lawful, takes, films }, null, 1))
+    console.log('S10-r3-row6 gates ' + json(gates))
+    console.log('S10-r3-row6 witness ' + json({ witness, reason, t1: T1 ?? null, sameWeek: ids(sameWeek) }))
+    // Gates are asserted. The witness is recorded, never asserted (declaration.md part e).
+    expect(Object.entries(gates).filter(([, pass]) => !pass).map(([name]) => name)).toEqual([])
+  }, 600_000)
+})
