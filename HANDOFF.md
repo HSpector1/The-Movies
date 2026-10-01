@@ -64,15 +64,15 @@ Return plan, approved 2026-09-30 15:01 EDT; full text in `~/.claude/plans/immuta
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-01 16:57 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
-- Branch: `wip/headless-program-20260916-ts` @ `2bd4d080af361145df59ff6a3bacd49fae7abfb7`
+- Stamped: 2026-10-01 17:15 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
+- Branch: `wip/headless-program-20260916-ts` @ `f6cc500f0202813a738a38a9512b3c3389932799`
 - Upstream: `none`, unpushed commits: ?
 - Uncommitted files: 1
   - `M HANDOFF.md`
 - Last commits:
+  - f6cc500f docs(p15a2): 1356-D RED review (REFINE) and parent response 1356-F2 (R1-R3 adopted; sibling-proof sequence leaves; P15_ROOTS helper)
+  - 4f4f98b7 docs(handoff): x2 core attributed (123 failed; residue classified); r2 authors, P15 REDs, 1356-D and §7 kit in flight
   - 2bd4d080 docs(p15a2): Wave 2 slice 2a RED r1 staged (1356-C: 71 leaves, 70 RED, 1 control); reference patch for the parent's run
   - 0f2ee8b9 docs(p14): S10 declarations r2 and probes staged; 1344-D6 confirmation — CONFIRMED
   - 9fc79624 docs(handoff): D5 published; S10 probe revision and three P15 RED authors in flight
-  - 1063ab4f docs(p14): 1344-D5 review of the sweep's S10 pre-declarations — ACCEPT WITH CHANGES
-  - 022aecec docs(handoff): 1344-F4 done; D5 review and 1356-C RED agents in flight; x2 resumed after sleep
 <!-- AUTO:END -->
