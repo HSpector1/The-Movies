@@ -1,0 +1,136 @@
+
+// ── S10 row 1 probe, revision 2 (1344-D5 C1, C2, C3 and row 1 d2; 1344-F4 ruling 1: attribution only). NOT RUN. ──
+// Appended by RUNBOOK.md step 5 to a NEW-named copy, tests/zz-s10-row1.test.ts, of tests/p14b4-rival-seating-preference.test.ts.
+// Run it first in the merge tree with S10_TREE=head (writes row1.head.json), then in the old-source tree with S10_TREE=old
+// (reads row1.head.json, writes row1.old.json and row1.predicates.json). It reuses that file's scan, WITNESS, sha, tick,
+// p13aGeneratedStudio and GameState. It changes no assertion. It writes only under S10_OUT_ROOT; any other path throws.
+import * as s10fs from 'node:fs'
+import * as s10path from 'node:path'
+import { stableStringify as s10Stable } from '../src/core/save.js'
+const S10_OUT_ROOT = '/Users/zacheryspector/studio-scratch/1344-sweep/s10/out'
+function s10Out(name: string): string {
+  const dir = process.env.S10_OUT_DIR ?? S10_OUT_ROOT
+  const file = s10path.resolve(dir, name)
+  if (!s10path.isAbsolute(dir) || !file.startsWith(S10_OUT_ROOT + '/')) throw new Error(`S10: output path outside ${S10_OUT_ROOT}: ${file}`)
+  s10fs.mkdirSync(s10path.dirname(file), { recursive: true })
+  return file
+}
+// C1 anchors: the value :498 received in each recorded run, with its row and decision counts from the leaf's own
+// console line (1344-save43-broad-core.txt:117 for head; 1338-t1-broad-core.txt:29 for old).
+const S10_ROW1_ANCHOR = {
+  head: { digest: 'd32e68f685f658666d620bd3faee2841a3af4ac20373e9449ea0851fbb18a100', stableRows: 115, decisions: 544 },
+  old: { digest: '9eeb62f640c8a749e71a0c1d21b917ce5cf708f7ed002ce2470ca0605a48aac8', stableRows: 134, decisions: 1099 },
+} as const
+type S10Shelving = { rejections: { ordinal: number; count: number }[]; shelved: { ordinal: number; week: number; retryWeek: number }[]; commissionHoldUntilWeek: number }
+type S10Receipt = { eventId: string; week: number; studioId: string; kind: string; scriptProjectId: string; rejections: number }
+const s10ShelvingOf = (b: unknown): S10Shelving | undefined => (b as { screenplayShelving?: S10Shelving }).screenplayShelving
+// C3 (1344-F3 ruling 4; 1344-X6): sha256 of key-sorted JSON (save.ts stableStringify, present and unchanged in both
+// trees) with `screenplayShelving` deleted from every business. The old tree has no such key, so the delete is a no-op there.
+function s10StateHash(state: GameState): string {
+  const h = state.hollywood
+  const stripped = h === null ? state : { ...state, hollywood: { ...h, businesses: h.businesses.map((b) => {
+    const { screenplayShelving: _s, ...rest } = b as typeof b & { screenplayShelving?: unknown }
+    return rest
+  }) } }
+  return sha(s10Stable(stripped))
+}
+type S10Gate = { pass: boolean; detail: unknown }
+
+describe('S10 probe row 1 r2 (scratch only)', () => {
+  it('S10-row1 seed-b: C1 anchor, shelving receipts and counts, C3 state at Ws, C2 first moved row', () => {
+    const tree = process.env.S10_TREE
+    if (tree !== 'head' && tree !== 'old') throw new Error('S10-row1: set S10_TREE=head (merge tree) or S10_TREE=old (old-source tree)')
+    const seed = 'seed-b'
+    // The leaf's own chain and tuple (:460, :495-496); no assertion of the leaf is changed or re-pinned.
+    const rows = scan(seed).rows
+    const stable = rows.filter((r) => r.week < WITNESS.week)
+    const tuples = stable.map((r) => [r.week, r.studioId, r.key, r.pool, r.chosen, r.budget] as unknown[])
+    const digest = sha(JSON.stringify(tuples))
+    const anchor = S10_ROW1_ANCHOR[tree]
+    const C1: S10Gate = { pass: digest === anchor.digest && stable.length === anchor.stableRows && rows.length === anchor.decisions,
+      detail: { digest, stableRows: stable.length, decisions: rows.length, anchor } }
+    // d5: the leaf's other assertions (:461-491) on the same rows.
+    const controls = rows.filter((r) => r.members.length === 0)
+    const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b)
+    const lawParts = {
+      rowsNonEmpty: rows.length > 0, controlsNonEmpty: controls.length > 0,
+      controlsUnambiguous: controls.every((r) => r.ambiguous.length === 0),
+      controlsFirstThree: controls.every((r) => !r.poolKnownBefore || same(r.pool, r.firstThree)),
+      everyRowOk: rows.every((r) => r.ok),
+      nullOnlyWhenNoneViable: rows.every((r) => r.chosen !== null || r.perms.every((p) => p.ordinary === null)),
+      poolIsSeam: rows.every((r) => !r.poolKnownBefore || same(r.pool, r.seam)),
+      noAdmissions: rows.every((r) => r.admitted.length === 0),
+    }
+    const law: S10Gate = { pass: Object.values(lawParts).every(Boolean), detail: lawParts }
+
+    if (tree === 'head') {
+      // The plain chain (the leaf's chain without the spy) to w211: every shelving, the weekly counts, the state at Ws.
+      let state = p13aGeneratedStudio(seed)
+      const counts: { week: number; studioId: string; rejections: { ordinal: number; count: number }[] }[] = []
+      let ws: number | null = null
+      let hashAtWs: string | null = null
+      while (state.market.tick < WITNESS.week) {
+        const before = state
+        state = tick(state)
+        for (const b of state.hollywood!.businesses) {
+          counts.push({ week: before.market.tick, studioId: b.studioId, rejections: structuredClone(s10ShelvingOf(b)?.rejections ?? []) })
+        }
+        const fresh = (state.hollywood!.receipts as unknown as S10Receipt[]).slice(before.hollywood!.receipts.length).filter((r) => r.kind === 'screenplayShelved')
+        if (ws === null && fresh.length > 0) { ws = before.market.tick; hashAtWs = s10StateHash(before) }
+      }
+      const shelvings = (state.hollywood!.receipts as unknown as S10Receipt[]).filter((r) => r.kind === 'screenplayShelved')
+      // d1: a seed-b shelving before w211; Ws is the earliest.
+      const P1: S10Gate = { pass: shelvings.length > 0 && ws === Math.min(...shelvings.map((r) => r.week)), detail: { ws, shelvings } }
+      // d2 (D5): each receipt carries rejections 13, and the count read 12 in the state that entered its week (recorded
+      // after the previous tick). A `chosen === null` row also covers cash-blocked weeks, so rows are not used here.
+      const p2 = shelvings.map((r) => {
+        const ordinal = Number(r.scriptProjectId.slice(7))
+        const prior = counts.find((c) => c.week === r.week - 1 && c.studioId === r.studioId)
+        return { eventId: r.eventId, studioId: r.studioId, scriptProjectId: r.scriptProjectId, week: r.week, rejections: r.rejections,
+          countBefore: prior?.rejections.find((x) => x.ordinal === ordinal)?.count ?? null }
+      })
+      const P2: S10Gate = { pass: p2.length > 0 && p2.every((x) => x.rejections === 13 && x.countBefore === 12), detail: p2 }
+      const gates = { C1_head_anchor: C1, P1_d1_shelving_before_w211: P1, P2_d2_thirteen_rejections: P2, P6_d5_leaf_law_head: law }
+      s10fs.writeFileSync(s10Out('row1.head.json'), JSON.stringify({ probe: 'S10-row1 r2', tree, seed, digest, tuples, ws, hashAtWs, shelvings, counts, gates }))
+      console.log('S10-row1 head gates ' + JSON.stringify(Object.fromEntries(Object.entries(gates).map(([k, v]) => [k, v.pass]))))
+      expect(Object.entries(gates).filter(([, v]) => !v.pass).map(([k]) => k)).toEqual([])
+      return
+    }
+
+    // tree === 'old': compare with the head dump.
+    const head = JSON.parse(s10fs.readFileSync(s10Out('row1.head.json'), 'utf8')) as {
+      tuples: unknown[][]; ws: number | null; hashAtWs: string | null; shelvings: S10Receipt[]; gates: Record<string, S10Gate> }
+    // C3: the old plain chain to market.tick === Ws, hashed the same way.
+    let state = p13aGeneratedStudio(seed)
+    let hashAtWs: string | null = null
+    if (head.ws !== null) { while (state.market.tick < head.ws) state = tick(state); hashAtWs = s10StateHash(state) }
+    const P3: S10Gate = { pass: head.hashAtWs !== null && hashAtWs === head.hashAtWs, detail: { ws: head.ws, head: head.hashAtWs, old: hashAtWs } }
+    // C2: the first differing tuple (rows are in week order); its week must exceed Ws, so every row at or before Ws is equal.
+    const n = Math.max(tuples.length, head.tuples.length)
+    let i = 0
+    while (i < n && JSON.stringify(tuples[i]) === JSON.stringify(head.tuples[i])) i++
+    const firstDiffWeek = i < n ? Math.min(...[tuples[i], head.tuples[i]].filter((t) => t !== undefined).map((t) => t![0] as number)) : null
+    const P4: S10Gate = { pass: head.ws !== null && firstDiffWeek !== null && firstDiffWeek > head.ws,
+      detail: { index: i, firstDiffWeek, ws: head.ws, old: tuples[i] ?? null, head: head.tuples[i] ?? null } }
+    // d4, explanatory only (D5 C3): classify every tuple present in one tree and not the other.
+    const keyOf = (t: unknown[]) => JSON.stringify(t)
+    const oldKeys = new Set(tuples.map(keyOf)), headKeys = new Set(head.tuples.map(keyOf))
+    const shelvedAt = new Map(head.shelvings.map((r) => [`${r.studioId}:package:${r.scriptProjectId}`, r.week] as const))
+    const oldScriptKeys = new Set(tuples.map((t) => t[2] as string))
+    const classify = (t: unknown[], side: 'oldOnly' | 'headOnly') => {
+      const week = t[0] as number, key = t[2] as string, shelved = shelvedAt.get(key)
+      if (side === 'oldOnly' && shelved !== undefined && shelved < week) return 'missing: the screenplay was shelved'
+      if (side === 'headOnly' && shelved !== undefined && week >= shelved + 26) return 'added: a retry of a shelved screenplay'
+      if (side === 'headOnly' && !oldScriptKeys.has(key)) return 'added: a screenplay the old chain never decided'
+      return 'other: pool, choice or budget drift'
+    }
+    const moved = [...tuples.filter((t) => !headKeys.has(keyOf(t))).map((t) => ({ side: 'oldOnly', tuple: t, why: classify(t, 'oldOnly') })),
+      ...head.tuples.filter((t) => !oldKeys.has(keyOf(t))).map((t) => ({ side: 'headOnly', tuple: t, why: classify(t, 'headOnly') }))]
+    const P5 = { pass: true, gating: false, detail: { moved, byReason: moved.reduce<Record<string, number>>((m, x) => ({ ...m, [x.why]: (m[x.why] ?? 0) + 1 }), {}) } }
+    const gates = { ...head.gates, C1_old_anchor: C1, P3_C3_state_equal_at_Ws: P3, P4_C2_first_moved_row_after_Ws: P4 }
+    s10fs.writeFileSync(s10Out('row1.old.json'), JSON.stringify({ probe: 'S10-row1 r2', tree, seed, digest, tuples, hashAtWs, law }))
+    s10fs.writeFileSync(s10Out('row1.predicates.json'), JSON.stringify({ probe: 'S10-row1 r2', gates, P5_d4_explanatory: P5, oldLeafLaw: law }, null, 1))
+    console.log('S10-row1 gates ' + JSON.stringify(Object.fromEntries(Object.entries(gates).map(([k, v]) => [k, v.pass]))))
+    expect(Object.entries(gates).filter(([, v]) => !v.pass).map(([k]) => k)).toEqual([])
+  }, 900_000)
+})

@@ -1,0 +1,29 @@
+--- tests/zz-s10-row7a.test.ts
++++ tests/zz-s10-row7a.test.ts
+@@ -680,7 +680,25 @@
+       // read of this same authoring must have been non-achievable.
+       const index = observed.reads.length
+       expect(index).toBeLessThan(observed.candidates.length)
+-      expect(draft).toEqual(expectedAuthoringDraft(proposal, observed.candidates[index]!))
++      // S10 row 7 Run A (scratch copy only, 1344-D5): the same assertion, wrapped so its first failure logs the facts of d1.
++      // toEqual ignores key order; production spreads the attachment first (talentMarket.ts:1486-1491), the oracle does not.
++      try {
++        expect(draft).toEqual(expectedAuthoringDraft(proposal, observed.candidates[index]!))
++      } catch (error) {
++        const want = expectedAuthoringDraft(proposal, observed.candidates[index]!)
++        const issuer = input.hollywood!.businesses.find((row) => row.studioId === proposal.issuerStudioId)!
++        const shelved = (issuer as unknown as { screenplayShelving: { shelved: { ordinal: number; week: number; retryWeek: number }[] } }).screenplayShelving.shelved
++        const shelvedIds = shelved.map((s) => issuer.development.projects[s.ordinal]!.id)
++        const genreOf = (id: string) => input.hollywood!.concepts.find((c) => c.id === issuer.development.projects.find((p) => p.id === id)?.conceptId)?.genre
++        const w = want.predicate as { kind?: string; scriptProjectId?: string; genre?: string }
++        // d1 as the probe words it: the expected read names a screenplay S that is in the issuer's `shelved` at Wa, or S's genre.
++        const d1 = w.kind === 'projectOpportunity' ? shelvedIds.includes(w.scriptProjectId!)
++          : w.kind === 'genreOpportunity' ? shelvedIds.some((id) => genreOf(id) === w.genre) : false
++        console.log('S10-row7-runA ' + JSON.stringify({ d1, week, issuer: proposal.issuerStudioId, talentId: proposal.talentId, index, draft, want,
++          shelved, shelvedIds, active: issuer.activeScriptOrdinals, candidates: observed.candidates,
++          priorReads: observed.reads.map((r) => r.receipt.classification) }))
++        throw error
++      }
+       for (let prior = 0; prior < index; prior++) {
+         expect(observed.reads[prior]!.receipt.classification).not.toBe('REASONABLY_ACHIEVABLE')
+       }

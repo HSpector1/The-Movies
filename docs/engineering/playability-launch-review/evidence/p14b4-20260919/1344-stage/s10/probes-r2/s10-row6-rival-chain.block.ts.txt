@@ -1,0 +1,105 @@
+
+// ── S10 row 6 probe, revision 2 (1344-D5 R6a, R6b, R6c; 1344-F4 ruling 4). NOT RUN by the author. ──
+// Appended by RUNBOOK.md step 2 to a NEW-named copy, tests/zz-s10-row6.test.ts, of the merge tree's
+// tests/p14b5-relationships.test.ts. It reuses that file's lifted, tick, FROZEN, seatPairs, canon and GameState.
+// The only file it writes is S10_OUT_ROOT/row6.json; any other path throws.
+import * as s10fs from 'node:fs'
+import * as s10path from 'node:path'
+const S10_OUT_ROOT = '/Users/zacheryspector/studio-scratch/1344-sweep/s10/out'
+function s10Out(name: string): string {
+  const dir = process.env.S10_OUT_DIR ?? S10_OUT_ROOT
+  const file = s10path.resolve(dir, name)
+  if (!s10path.isAbsolute(dir) || !file.startsWith(S10_OUT_ROOT + '/')) throw new Error(`S10: output path outside ${S10_OUT_ROOT}: ${file}`)
+  s10fs.mkdirSync(s10path.dirname(file), { recursive: true })
+  return file
+}
+type S10Shelving = { rejections: { ordinal: number; count: number }[]; shelved: { ordinal: number; week: number; retryWeek: number }[]; commissionHoldUntilWeek: number }
+type S10Take = { week: number; studioId: string; productionId: string; directorId: string; cast: Record<CastSlot, string> }
+
+describe('S10 probe row 6 r2 (scratch only)', () => {
+  it('S10-row6 rival chain from 196 through the leaf guard: 41 ticks, post-tick 197..237', () => {
+    const R01 = FROZEN.rival.studioId
+    const business = (s: GameState) => s.hollywood!.businesses.find((b) => b.studioId === R01)!
+    const shelvingOf = (s: GameState) => (business(s) as unknown as { screenplayShelving: S10Shelving }).screenplayShelving
+    let state = lifted('rival-current-p1-and-p2')
+    if (state.market.tick !== 196) throw new Error(`S10-row6: the fixture starts at ${state.market.tick}, not 196`)
+    const weeks: { processed: number; post: number; productionsBefore: number; projects: number; active: number[]; shelving: S10Shelving }[] = []
+    const takes: S10Take[] = []
+    const films: { post: number; filmId: string }[] = []
+    // R6a: rivalWorld (:357-358) ticks while guard <= 40, so 41 ticks from 196 reach post-tick 237.
+    for (let guard = 0; guard <= 40; guard++) {
+      const before = state
+      state = tick(state)
+      const post = state.market.tick
+      for (const t of state.firstTakes.slice(before.firstTakes.length)) {
+        takes.push({ week: post, studioId: t.studioId, productionId: t.productionId, directorId: t.directorId, cast: { ...t.cast } })
+      }
+      for (const f of state.hollywood!.films.slice(before.hollywood!.films.length)) films.push({ post, filmId: f.filmId })
+      // R6c: shelving state and development size recorded after every tick, not only at the end.
+      weeks.push({ processed: before.market.tick, post, productionsBefore: business(before).productions.length,
+        projects: business(state).development.projects.length, active: [...business(state).activeScriptOrdinals],
+        shelving: structuredClone(shelvingOf(state)) })
+    }
+    type S10Receipt = { eventId: string; week: number; studioId: string; kind: string; scriptProjectId?: string; productionId?: string; rejections?: number }
+    const receipts = (state.hollywood!.receipts as unknown as S10Receipt[]).filter((r) => r.week >= 196
+      && (r.kind === 'screenplayShelved' || r.kind === 'filmAnnounced' || r.kind === 'filmReleased'))
+    const film11 = FROZEN.rival.firstTake
+    const film6 = `${R01}:film:6`
+    const json = (x: unknown) => JSON.stringify(x)
+
+    // d1: r01 shelves script-0006 at processed week 208 on its 13th rejection (the promise guard did not defer it).
+    const r01Shelvings = receipts.filter((r) => r.kind === 'screenplayShelved' && r.studioId === R01)
+    const R1 = r01Shelvings.length > 0 && r01Shelvings[0]!.week === 208 && r01Shelvings[0]!.scriptProjectId === 'script-0006'
+      && r01Shelvings[0]!.rejections === 13
+    // d2: counts 1..12 after the ticks of processed weeks 196..207, with no r01 production during them.
+    const pre = weeks.filter((w) => w.processed >= 196 && w.processed <= 207)
+    const preCounts = pre.map((w) => w.shelving.rejections.find((r) => r.ordinal === 6)?.count ?? null)
+    const R2 = json(preCounts) === json([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]) && pre.every((w) => w.productionsBefore === 0)
+    // d3 (+R6c): film:11 announced at 208, its take alone at post-tick 213, released in processed week 216 (post-tick 217).
+    const announced11 = receipts.find((r) => r.kind === 'filmAnnounced' && r.productionId === film11)
+    const released11 = receipts.find((r) => r.kind === 'filmReleased' && r.productionId === film11)
+    const R3 = announced11?.week === 208
+      && json(takes.filter((t) => t.week === FROZEN.rival.firstTakeWeek).map((t) => t.productionId)) === json([film11])
+      && released11?.week === FROZEN.rival.firstReleaseWeek - 1
+      && json(films.filter((f) => f.post === FROZEN.rival.firstReleaseWeek).map((f) => f.filmId)) === json([film11])
+    // d4/d5 (R6c): asserted at post-tick 222 and over processed weeks 208-220, not read once at the end.
+    const at222 = weeks.find((w) => w.post === FROZEN.rival.repeatTakeWeek)!
+    const projects207 = weeks.find((w) => w.processed === 207)!.projects
+    const hold = weeks.filter((w) => w.processed >= 208 && w.processed <= 220)
+    const R4 = json(at222.shelving.shelved) === json([{ ordinal: 6, week: 208, retryWeek: 234 }])
+      && at222.shelving.commissionHoldUntilWeek === 221
+      && hold.length === 13 && hold.every((w) => w.projects === projects207)
+      && !receipts.some((r) => r.kind === 'filmAnnounced' && r.productionId === film6 && r.week < 234)
+    // d6: no take other than film:11 in post-tick weeks 197..221 (the leaf's :375, plus 217 which the leaf leaves unchecked).
+    const otherEarly = takes.filter((t) => t.week >= 197 && t.week <= 221 && t.productionId !== film11)
+    const R5 = otherEarly.length === 0
+    const otherShelvings = receipts.filter((r) => r.kind === 'screenplayShelved' && r.studioId !== R01 && r.week <= 221)
+
+    // The re-pin decision (F4 ruling 4), on the leaf's own terms (R6b): the FIRST take after the first take week must be
+    // r01's, alone in its week, not in the release week, inside the guard, and share a seat pair with film:11 (:641-642).
+    const first = takes.find((t) => t.productionId === film11)
+    const next = takes.find((t) => t.week > FROZEN.rival.firstTakeWeek)
+    const sameWeek = next === undefined ? [] : takes.filter((t) => t.week === next.week)
+    const shared = first === undefined || next === undefined ? []
+      : seatPairs(next).filter((p) => seatPairs(first).some((q) => canon(q.x, q.y).join('|') === canon(p.x, p.y).join('|')))
+    const repin = next !== undefined && next.week <= 237 && next.week !== FROZEN.rival.firstReleaseWeek && sameWeek.length === 1
+      && next.studioId === R01 && shared.length > 0
+    const outcome = repin
+      ? { kind: 'REPIN', repeatTake: next!.productionId, repeatTakeWeek: next!.week, sharedPairs: shared }
+      : { kind: 'PREMISE_CONFLICT', next: next ?? null, sameWeek, sharedPairs: shared }
+
+    const predicates = {
+      R1_d1_shelving_208: { pass: R1, detail: r01Shelvings },
+      R2_d2_counts_196_207: { pass: R2, detail: { preCounts, productionsBefore: pre.map((w) => w.productionsBefore) } },
+      R3_d3_film11_208_213_217: { pass: R3, detail: { announced11, released11, films } },
+      R4_d4_d5_shelved_hold_no_commission: { pass: R4, detail: { at222: at222.shelving, projects207, holdProjects: hold.map((w) => w.projects) } },
+      R5_d6_no_other_take_197_221: { pass: R5, detail: { otherEarly, otherShelvings } },
+    }
+    s10fs.writeFileSync(s10Out('row6.json'), JSON.stringify({ probe: 'S10-row6 r2', predicates, outcome, weeks, takes, receipts }, null, 1))
+    console.log('S10-row6 predicates ' + JSON.stringify(Object.fromEntries(Object.entries(predicates).map(([k, v]) => [k, v.pass]))))
+    console.log('S10-row6 outcome ' + JSON.stringify(outcome))
+    // Attribution gates on R1-R5. The outcome is recorded, never asserted: REPIN names the values the author may write,
+    // PREMISE_CONFLICT returns the three leaves to the parent (no widening).
+    expect(Object.entries(predicates).filter(([, v]) => !v.pass).map(([k]) => k)).toEqual([])
+  }, 600_000)
+})

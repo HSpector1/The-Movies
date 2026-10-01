@@ -1,0 +1,27 @@
+// S10 row 5 probe. NOT RUN by the author. Parent use only, in a scratch tree at the swept HEAD.
+// Append this block to a scratch COPY of tests/p14b5-relationships.test.ts (it reuses takeWorld, bytes, sha, FROZEN),
+// then: node_modules/.bin/vitest run --project core tests/p14b5-relationships.test.ts -t "S10-row5"
+describe('S10 probe row 5 (scratch only)', () => {
+  it('S10-row5: screenplayShelving is the only moved content of bytes(after)', () => {
+    const { after } = takeWorld()
+    const businesses = after.hollywood!.businesses
+    console.log('S10-row5 shelving', JSON.stringify(businesses.map((b) => [b.studioId, b.screenplayShelving])))
+    for (const b of businesses) {
+      const s = b.screenplayShelving
+      expect(s.version).toBe(1)
+      expect(s.shelved).toEqual([])
+      expect(s.commissionHoldUntilWeek).toBe(0)
+      for (const r of s.rejections) {
+        expect(r.count).toBe(1) // counts start at 0 at the V42->V43 lift; one tick adds at most 1
+        expect(b.activeScriptOrdinals).toContain(r.ordinal)
+        expect(b.development.projects[r.ordinal]!.status).toBe('ready')
+      }
+    }
+    expect(after.hollywood!.receipts.filter((r) => r.kind === 'screenplayShelved')).toEqual([])
+    const stripped = { ...after, hollywood: { ...after.hollywood!,
+      businesses: businesses.map(({ screenplayShelving: _s, ...rest }) => rest) } } as unknown as GameState
+    const digest = sha(bytes(stripped))
+    console.log('S10-row5 stripped digest', digest)
+    expect(digest).toBe(FROZEN.postTakeDigestStripped) // 9702aa68...; any other value refutes the attribution
+  })
+})

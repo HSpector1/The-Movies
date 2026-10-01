@@ -1,0 +1,170 @@
+
+// ── S10 rows 2-4 probe, revision 2 (1344-D5 C1, C2, C3, rows 2-4 dump and d4; 1344-F4 ruling 1: attribution only). NOT RUN. ──
+// Appended by RUNBOOK.md step 6 to a NEW-named copy, tests/zz-s10-ledger.test.ts, of tests/bridge-p14b5-relationships.test.ts.
+// Run it first in the merge tree with S10_TREE=head (writes ledger.<seed>.head.json), then in the old-source tree with
+// S10_TREE=old (reads it, writes ledger.<seed>.old.json and ledger.<seed>.predicates.json). It reuses that file's runLedger,
+// relationships, settlementRows, settlementDigest, sha, edges, KNOWN_EXTENSION_ROW, Relationships, tick, p13aGeneratedStudio
+// and GameState. It changes no pin. It writes only under S10_OUT_ROOT; any other path throws.
+import * as s10fs from 'node:fs'
+import * as s10path from 'node:path'
+import { stableStringify as s10Stable } from '../src/core/save.js'
+const S10_OUT_ROOT = '/Users/zacheryspector/studio-scratch/1344-sweep/s10/out'
+function s10Out(name: string): string {
+  const dir = process.env.S10_OUT_DIR ?? S10_OUT_ROOT
+  const file = s10path.resolve(dir, name)
+  if (!s10path.isAbsolute(dir) || !file.startsWith(S10_OUT_ROOT + '/')) throw new Error(`S10: output path outside ${S10_OUT_ROOT}: ${file}`)
+  s10fs.mkdirSync(s10path.dirname(file), { recursive: true })
+  return file
+}
+const S10_SENTENCE = KNOWN_EXTENSION_ROW.sentence
+// C1 anchors. Counts are the ones each recorded run passed before its first failure; `settlement` and `unexpected` are the
+// values it received (head: 1344-save43-broad-core.txt:32676-32745; old: 1338-t1-broad-core.txt:4077-4154).
+const S10_LEDGER_ANCHOR: Record<string, Record<'head' | 'old', Record<string, unknown>>> = {
+  'seed-b': {
+    head: { rows: 48, settled: 41 }, // failed at :530 (merged :540)
+    old: { rows: 48, settled: 48, declined: 0, expired: 0, unexpected: [{ eventId: 'talent-market-event-297', s: S10_SENTENCE }] }, // failed at :547
+  },
+  'p13-public-commercial-adoption': {
+    head: { rows: 48, settled: 36, declined: 12, expired: 0, settlement: '62c9fd5d2d7887b1b6263a38f9545f2ad77cd3db13a6b4bee03b6782f7c350c5' }, // :550
+    old: { rows: 48, settled: 35 }, // failed at :530
+  },
+  'p13a-core-causal-01': {
+    head: { rows: 40, settled: 16, declined: 8, expired: 16, settlement: '8a4df62fdd64ba26fc6e00e438c47c25749921fcad0e849921a7909f2f8b85f9' }, // :550
+    old: { rows: 40, settled: 16, declined: 8, expired: 16, settlement: '4a047502216f05c0d2e972743d9d94be57be056039148499d6fde2750d4ac5a4' }, // :550
+  },
+}
+type S10Gate = { pass: boolean; detail: unknown }
+type S10Row = ReturnType<typeof runLedger>['rows'][number]
+function s10StateHash(state: GameState): string {
+  const h = state.hollywood
+  const stripped = h === null ? state : { ...state, hollywood: { ...h, businesses: h.businesses.map((b) => {
+    const { screenplayShelving: _s, ...rest } = b as typeof b & { screenplayShelving?: unknown }
+    return rest
+  }) } }
+  return sha(s10Stable(stripped))
+}
+/** The leaf's law lines, verbatim in substance: merged :543, :545, :546-551, :552, :555-557, :558 and :565. */
+function s10LawLines(seed: string, rows: S10Row[], state: GameState, rel: Relationships) {
+  const unexpected = rows.flatMap((r) => r.newSentences.map((s) => ({ eventId: r.eventId, s })))
+    .filter(({ eventId, s }) => !(seed === KNOWN_EXTENSION_ROW.seed && eventId === KNOWN_EXTENSION_ROW.eventId && s === KNOWN_EXTENSION_ROW.sentence))
+  return {
+    unexpected,
+    l543_everyRowAtChurn: rows.every((r) => r.churn),
+    l545_rosters208Empty: rows.filter((x) => x.week === 208).every((r) => r.survivors.every((s) => s.roster.length === 0)),
+    l546_551_rosters416: rows.filter((x) => x.week === 416).every((r) => r.survivors.every((s) =>
+      s.roster.every((p) => /-supply-265-\d$/.test(p)) && s.sharedTakeCounterparts.length === 0)),
+    l552_noExposedRow: rows.filter((r) => r.exposed).length === 0,
+    l557_noUnexpectedSentence: unexpected.length === 0,
+    l558_everyBandOne: rows.every((r) => r.survivors.every((s) => s.band === 1)),
+    l565_edgeCaps: edges(state).every((e) => e.recent.length <= rel.RELATIONSHIP_RECENT_CAP && e.sharedSuccesses + e.sharedFailures <= e.sharedProductions),
+  }
+}
+function s10FirstDiff(a: readonly { week: number }[], b: readonly { week: number }[]) {
+  const n = Math.max(a.length, b.length)
+  for (let i = 0; i < n; i++) {
+    if (s10Stable(a[i] ?? null) !== s10Stable(b[i] ?? null)) {
+      return { index: i, week: Math.min(...[a[i], b[i]].filter((x) => x !== undefined).map((x) => x!.week)), old: a[i] ?? null, head: b[i] ?? null }
+    }
+  }
+  return null
+}
+type S10Dump = { tree: 'head' | 'old'; seed: string; counts: Record<string, number>; settlement: string; digests: Record<string, string>; rng: string
+  rows: S10Row[]; settlementRows: { week: number }[]; marketReceipts: { eventId: string; kind: string; week: number; talentId?: string; studioId?: string | null }[]
+  shelvings: { eventId: string; week: number; studioId: string; scriptProjectId: string; rejections: number }[]
+  ws: number | null; hashAtWs: string | null; plainHadShelvingAtWs: boolean | null; law: ReturnType<typeof s10LawLines>; anchor: S10Gate }
+
+describe('S10 probe rows 2-4 r2 (scratch only)', () => {
+  it.each(['seed-b', 'p13-public-commercial-adoption', 'p13a-core-causal-01'] as const)('S10-ledger %s', async (seed) => {
+    const tree = process.env.S10_TREE
+    if (tree !== 'head' && tree !== 'old') throw new Error('S10-ledger: set S10_TREE=head (merge tree) or S10_TREE=old (old-source tree)')
+    const rel = await relationships()
+    // D5: relationships() (:234-236) returns null on ANY import failure; the leaf would then skip its D5 checks silently.
+    if (rel === null) throw new Error('S10-ledger: ../src/core/relationships.js failed to import')
+    const { state, rows } = runLedger(seed, rel) // the leaf's own chain (:537), with its in-loop checks (:270-295)
+    const counts = { rows: rows.length, settled: rows.filter((r) => r.kind === 'settled').length,
+      declined: rows.filter((r) => r.kind === 'declined').length, expired: rows.filter((r) => r.kind === 'expired').length }
+    const settlement = settlementDigest(state)
+    const law = s10LawLines(seed, rows, state, rel)
+    const want = S10_LEDGER_ANCHOR[seed]![tree]
+    const anchor: S10Gate = { pass: Object.entries(want).every(([k, v]) => k === 'settlement' ? v === settlement
+      : k === 'unexpected' ? JSON.stringify(v) === JSON.stringify(law.unexpected) : (counts as Record<string, number>)[k] === v),
+      detail: { want, counts, settlement, unexpected: law.unexpected } }
+    type S10Shelved = S10Dump['shelvings'][number]
+    const shelvings = (state.hollywood!.receipts as unknown as (S10Shelved & { kind: string })[]).filter((r) => r.kind === 'screenplayShelved')
+    const dump: S10Dump = { tree, seed, counts, settlement,
+      digests: { receipts: sha(JSON.stringify(state.talentMarket.receipts)), employment: sha(JSON.stringify(state.hollywood!.employment)), takes: sha(JSON.stringify(state.firstTakes)) },
+      rng: state.rngState, rows, settlementRows: settlementRows(state) as unknown as { week: number }[],
+      marketReceipts: state.talentMarket.receipts as unknown as S10Dump['marketReceipts'], shelvings,
+      ws: null, hashAtWs: null, plainHadShelvingAtWs: null, law, anchor }
+
+    if (tree === 'head') {
+      // C3 setup: Ws is the earliest shelving on this seed; hash the plain chain's state that enters week Ws.
+      dump.ws = shelvings.length > 0 ? Math.min(...shelvings.map((r) => r.week)) : null
+      if (dump.ws !== null) {
+        let plain = p13aGeneratedStudio(seed)
+        while (plain.market.tick < dump.ws) plain = tick(plain)
+        dump.hashAtWs = s10StateHash(plain)
+        dump.plainHadShelvingAtWs = (plain.hollywood!.receipts as unknown as { kind: string }[]).some((r) => r.kind === 'screenplayShelved')
+      }
+      s10fs.writeFileSync(s10Out(`ledger.${seed}.head.json`), JSON.stringify(dump))
+      console.log(`S10-ledger ${seed} head anchor=${anchor.pass} ws=${dump.ws} shelvings=${shelvings.length}`)
+      expect(anchor.pass).toBe(true)
+      return
+    }
+
+    // tree === 'old': every predicate, from both dumps.
+    const head = JSON.parse(s10fs.readFileSync(s10Out(`ledger.${seed}.head.json`), 'utf8')) as S10Dump
+    if (head.ws !== null) {
+      let plain = p13aGeneratedStudio(seed)
+      while (plain.market.tick < head.ws) plain = tick(plain)
+      dump.hashAtWs = s10StateHash(plain)
+    }
+    // C2, verbatim (D5): the settlement receipts the digest hashes (:255, incl. studioId of declined/expired) and the
+    // leaf's rows (incl. subjectStudioId, survivors and band). The earlier of the two first differences counts.
+    const diffReceipts = s10FirstDiff(dump.settlementRows, head.settlementRows)
+    const diffRows = s10FirstDiff(dump.rows, head.rows)
+    const firstDiffWeek = [diffReceipts, diffRows].filter((d) => d !== null).reduce<number | null>((m, d) => m === null ? d!.week : Math.min(m, d!.week), null)
+    // d6 (seed-b): the extension row keeps person, winner, kind, week and sentence; its id moves with the receipt count before it.
+    const ext = (d: S10Dump) => d.rows.filter((r) => r.kind === 'settled' && r.reasons.includes(S10_SENTENCE))
+    const extOld = ext(dump), extHead = ext(head)
+    const idx = (d: S10Dump, id: string) => d.marketReceipts.findIndex((r) => r.eventId === id)
+    const num = (id: string) => Number(id.split('-').pop())
+    const d6pass = seed !== 'seed-b' || (extOld.length === 1 && extHead.length === 1
+      && extOld[0]!.talentId === extHead[0]!.talentId && extOld[0]!.winner === extHead[0]!.winner && extOld[0]!.week === extHead[0]!.week
+      && num(extHead[0]!.eventId) - num(extOld[0]!.eventId) === idx(head, extHead[0]!.eventId) - idx(dump, extOld[0]!.eventId))
+    const hl = head.law
+    const lawOk = hl.l543_everyRowAtChurn && hl.l545_rosters208Empty && hl.l546_551_rosters416 && hl.l552_noExposedRow && hl.l558_everyBandOne && hl.l565_edgeCaps
+      && (hl.l557_noUnexpectedSentence || (seed === 'seed-b' && d6pass && extHead.length === 1
+        && JSON.stringify(hl.unexpected) === JSON.stringify([{ eventId: extHead[0]!.eventId, s: S10_SENTENCE }])))
+    // d3, explanatory only (D5 C3): each moved settlement, the proposals for that person and the issuers' shelvings before it.
+    const keyOf = (r: S10Row) => `${r.week}:${r.talentId}`
+    const oldByKey = new Map(dump.rows.map((r) => [keyOf(r), r] as const)), headByKey = new Map(head.rows.map((r) => [keyOf(r), r] as const))
+    const movedKeys = [...new Set([...oldByKey.keys(), ...headByKey.keys()])].filter((k) => s10Stable(oldByKey.get(k) ?? null) !== s10Stable(headByKey.get(k) ?? null))
+    const proposals = (d: S10Dump, talentId: string, week: number) => d.marketReceipts
+      .filter((r) => r.kind === 'proposalSubmitted' && r.talentId === talentId && r.week <= week && r.week >= week - 26)
+    const explain = movedKeys.map((k) => {
+      const o = oldByKey.get(k) ?? null, h = headByKey.get(k) ?? null, ref = (h ?? o)!
+      const issuers = new Set([...(o?.survivors ?? []), ...(h?.survivors ?? [])].map((s) => s.issuer))
+      return { key: k, old: o, head: h, proposalsOld: proposals(dump, ref.talentId, ref.week), proposalsHead: proposals(head, ref.talentId, ref.week),
+        issuerShelvingsBefore: head.shelvings.filter((s) => issuers.has(s.studioId) && s.week < ref.week) }
+    })
+    const gates: Record<string, S10Gate> = {
+      C1_head_anchor: head.anchor, C1_old_anchor: anchor,
+      // d1 + d2 + C2 in one gate: a shelving exists (Ws), a moved row exists, and the first one lies after Ws. Every settlement
+      // receipt and row before it is equal by construction of the first-difference scan (both arrays are in week order).
+      P1_d1_d2_C2_first_moved_row_after_Ws: { pass: head.ws !== null && firstDiffWeek !== null && firstDiffWeek > head.ws,
+        detail: { ws: head.ws, firstDiffWeek, diffReceipts, diffRows } },
+      P3_C3_state_equal_at_Ws: { pass: head.hashAtWs !== null && dump.hashAtWs === head.hashAtWs && head.plainHadShelvingAtWs === false,
+        detail: { ws: head.ws, head: head.hashAtWs, old: dump.hashAtWs, plainHadShelvingAtWs: head.plainHadShelvingAtWs } },
+      P4_d4_law_lines_head: { pass: lawOk, detail: hl },
+      P5_d5_rng_unmoved: { pass: head.rng === dump.rng, detail: { head: head.rng, old: dump.rng } },
+      P6_d6_extension_row: { pass: d6pass, detail: { old: extOld.map((r) => ({ eventId: r.eventId, talentId: r.talentId, winner: r.winner, week: r.week })),
+        head: extHead.map((r) => ({ eventId: r.eventId, talentId: r.talentId, winner: r.winner, week: r.week })) } },
+    }
+    s10fs.writeFileSync(s10Out(`ledger.${seed}.old.json`), JSON.stringify(dump))
+    s10fs.writeFileSync(s10Out(`ledger.${seed}.predicates.json`), JSON.stringify({ probe: 'S10-ledger r2', seed, gates,
+      E_d3_explanatory: { gating: false, moved: explain, headDigests: head.digests, oldDigests: dump.digests } }, null, 1))
+    console.log(`S10-ledger ${seed} gates ` + JSON.stringify(Object.fromEntries(Object.entries(gates).map(([k, v]) => [k, v.pass]))))
+    expect(Object.entries(gates).filter(([, v]) => !v.pass).map(([k]) => k)).toEqual([])
+  }, 900_000)
+})
