@@ -1,9 +1,9 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-01 17:00 CDT (the Mac now runs on CDT; use `date`)
+Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-01 17:21 CDT (the Mac now runs on CDT; use `date`)
 
 ## Where the work is
-- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ 2bd4d080 plus the commit that updates this file, pushed: yes (remote verified by `git ls-remote`). The working tree is clean.
+- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ e5cd6191 plus the commit that updates this file, pushed: yes (remote verified by `git ls-remote`). The working tree is clean.
 - Resume this session: `cd ~/Downloads/project-studio-p13-owner-direction-inputs-01 && claude --resume 60db833c-4cf7-4685-b2ec-8aac42c6dac1` (the session started in that folder; it works in this repo). A fresh session: start `claude` in this repo root and say "resume from HANDOFF.md".
 - Required reading, in order:
   1. This file.
@@ -22,14 +22,21 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-01 17:00 CDT (the Mac n
   - Save43 sweep authored in full: helpers and g1-g6 DONE (g6 finished by a continuation agent; audit of its first 6 files clean). Handbacks: `/Users/zacheryspector/studio-scratch/1344-sweep/<group>/handback.md`.
   - Sweep merged in `/Users/zacheryspector/studio-scratch/1344-merge/tree` (its own git repo; base 3a606df4): commits helpers 048f62c, g1 eb8d902, g2 558cd49, g3 9310d5a, g4 3c0a5c5, g5 0b738b3, parent f8c48ec (24 `saveApi('validateSaveV42')` callers in 4 files follow the helper's renamed live key, S1), parent becafce (UI section of 1344-M2: 8 live-writer literals in 5 files, S2), g6 a318722. All seven patches disjoint and clean. The four helpers no group owned need no edit (they call swept helpers). Type gates at becafce (before g6): root, UI and Bridge exit 0.
   - Disk 4.5 → about 6.2 GB free (merged or expendable scratch deleted by literal path).
-- In flight (as of 2026-10-01 17:00 CDT):
-  - **x2 UI stage** (detached, PID in `/Users/zacheryspector/studio-scratch/1344-merge/x2.pid`); core finished 16:55 CDT. Never edit `/Users/zacheryspector/studio-scratch/1344-merge/tree` until `x2.meta` shows "ui exit".
-  - **x2 core result** (attributed: `/Users/zacheryspector/studio-scratch/1344-merge/x2-core-failures.json`, `/Users/zacheryspector/studio-scratch/1344-merge/x2-vs1338.json`): 123 failed / 4822 passed (1344-M had 848 failed). Against 1338: SAME 67, CHANGED 11, NEW 45, GONE 1 (the exporter row). CHANGED = 4 S10 rows (F4 ruling 1) + C20 `p14c3-save-v38` (live version in its message) + 6 C17 ENOENT rows carrying the scratch path. NEW = 9 environment or scratch (bridge-supervisor ×7, hygiene ×1, a save-as timeout from the sleep) + 7 already ruled in F4 (oracle ×3, row 5, row 6 ×3) + 9 S9 + 4 S1/S2/S3 leftovers + 8 S5 + 4 promise rows now unmasked (`p14c2c-rival-promises` R1 ×3, `p14c3-admission-boundaries` N10: outcome SATISFIED where 1338 had null) + 4 `p14c3-queued-writing-proof` Q1 rows (g5's Q2 anomaly, measured).
-  - **r2 authors** in ONE shared clone `/Users/zacheryspector/studio-scratch/1344-r2/tree` (a318722), disjoint files, no git writes, no runs; each delivers `patch.diff`, classification, deferred and handback in `/Users/zacheryspector/studio-scratch/1344-r2/<unit>/`: r2a S9 rows + row 5 strip; r2b S5 rows + S1/S2/S3 leftovers + queued-writing Q1; r2c ORACLE rows (trust-chooser :683, cast-class-policy :485); r2d S10-style declarations for the four promise rows (no edits; needs review before probes).
-  - **P15 RED authors** (no runs): 1355-C P15A.1 (`/Users/zacheryspector/studio-scratch/1355-red/`), 1359-C P15C (`/Users/zacheryspector/studio-scratch/1359-red/`). **1356-C** is DONE and staged (E/1356-stage, handback E/1356-C-...); its review **1356-D** is running.
-  - **§7 kit** agent: `/Users/zacheryspector/studio-scratch/1344-s7/` (probes, controls, C8 plan, RUNBOOK, NOTES). No runs.
-  - Agents stop if this session ends; successors continue from each unit's PROGRESS.txt.
-- Disk: the seven merged group trees under `/Users/zacheryspector/studio-scratch/1344-sweep/*/tree` were deleted (their patches, classifications and handbacks remain); free about 5.2 GB.
+- In flight (as of 2026-10-01 17:21 CDT):
+  - **x3**, the dry run of merge HEAD 6935ea5 (r1 plus r2a 5c7f499, r2b 1c2f9e8, r2c 6935ea5), detached, PID in `/Users/zacheryspector/studio-scratch/1344-merge/x3.pid`, started 17:19 CDT: type gates, core (433 files), UI. Outputs `x3-*.txt`, progress `x3.meta`. Never edit `/Users/zacheryspector/studio-scratch/1344-merge/tree` until `x3.meta` shows "ui exit". Then attribute it as 1344-X9 (commands as in Step 1, with x3 file names).
+  - **Agents** (authoring only; each keeps PROGRESS.txt; all stop if this session ends):
+    - r2d: declarations for the four promise rows (`/Users/zacheryspector/studio-scratch/1344-r2/r2d/`). Needs an independent review, then probes after x3.
+    - r3-row6: the row 6 re-witness declaration per 1344-F5 Part A (`/Users/zacheryspector/studio-scratch/1344-r3/row6/`). Needs an independent review, then a probe after x3.
+    - 1356-C r2: P15A.2 slice 2a RED revision per 1356-F2 (`/Users/zacheryspector/studio-scratch/1356-red/`, r2 files beside r1).
+    - 1355-C P15A.1 RED (`/Users/zacheryspector/studio-scratch/1355-red/`) and 1359-C P15C RED (`/Users/zacheryspector/studio-scratch/1359-red/`).
+- Done since the return (all pushed):
+  - 1344-F4 rulings.
+  - 1344-D5 review and 1344-D6 confirmation.
+  - 1344-X8, dry run x2: type gates 0; core 123 failed (848 in 1344-M); UI 3 (all numpy); every row classified.
+  - 1344-X10, S10 probes: rows 1-4 attributed with every gate true; row 5 holds; row 7 oracle holds; row 6 attributed with a PREMISE_CONFLICT.
+  - 1344-F5: row 6 re-witness under review, and §7 definitions 1-20. The §7 kit is staged at E/1344-stage/s7.
+  - r2 merged: r2a S9 and row 5 (12 rows), r2b S5 and S1-S3 leftovers (28 rows), r2c ORACLE (2 rows).
+  - P15A.2: 1356-C RED r1 staged; 1356-D REFINE; 1356-F2 ruling.
 - S10 pre-declarations DONE (not run): `/Users/zacheryspector/studio-scratch/1344-sweep/s10/declarations.md` (parts a-f per row) and five probes in `/Users/zacheryspector/studio-scratch/1344-sweep/s10/probes/` (`.txt`, rename to run). Attributed to shelving: row 4 (family 12, `p13a-core-causal-01`: r01 shelves at week 93, before settlement week 208), row 6 (`p14b5-relationships:372`: r01 shelves `script-0006` at week 208; its replacement repeat take may fall outside the 40-tick guard, and then the row returns under the no-widening rule), row 7 (`p14b1-trust-chooser:683`: an oracle fix, the test's candidate list still includes the screenplay r01 shelves at week 93). Uncertain until a probe finds a shelving: row 1 (seating, seed-b), rows 2-3 (family 12, seed-b and `p13-public-commercial-adoption`; row 2 fails at :530, not :529). Family 12 moves up to seven pins per seed. Not S10: row 5 (`p14b5-relationships:596`): Save43's per-studio field moved the digest; extend its strip list with a guard and keep the pinned value (the 1332-A precedent). Slice A RED r5 edits the same file as rows 5 and 6.
 - Claims limits: the sweep edits are authored without test runs by design. x1 (partial, stopped at 29 files, before g6) is superseded by x2; its early files already dropped toward 1338 counts (p14b5-relationships 20→5, relationship read-models 18→6, p14p4p5-opportunities 6→1). Nothing is verified until x2 is attributed.
 
