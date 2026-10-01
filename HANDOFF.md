@@ -59,18 +59,14 @@ Return plan, approved 2026-09-30 15:01 EDT; full text in `~/.claude/plans/immuta
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-09-30 14:20 EDT by **claude** on SessionEnd (session 6cee540f-aa45-4020-970d-2ba0f7a06b7a)
-- Branch: `wip/headless-program-20260916-ts` @ `c7f3cb76c2089cd862c36e1c6258e5687dd0db08`
+- Stamped: 2026-09-30 15:10 EDT by **claude** on SessionEnd (session fda2743f-a621-4100-9f06-e0c38e36295b)
+- Branch: `wip/headless-program-20260916-ts` @ `d66ab7ceba541bbe6f352c2e5a8f25006337f998`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 4
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1353-p15c1-red-recorded-preflight.json`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1353-p15c1-red-recorded.json`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1353-p15c1-red-recorded.patch`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1353-p15c1-red-recorded.txt`
+- Uncommitted files: 0
 - Last commits:
-  - c7f3cb76 test(p15c): Wave 1 RED r4 — campaign-legacy/v1 and Wave R retention, 78 leaves (1353-C4; reviews 1353-D, 1353-D2; dry run 1353-X3)
-  - 556c69ac docs(handoff): scratch trees moved to ~/studio-scratch; sweep g5 done, g6 partial on 401; resume points
-  - 01f07d97 docs(handoff): repo-root paths; absolute scratch path; restart-loss blocker
-  - 1056ec85 docs(handoff): 08:12 state — sweep 5 of 7 groups authored; root HANDOFF.md for resume
-  - 8d729f58 docs(handoff): CURRENT block — UI Save43 attributed (1344-M2), P15C dry run clean (1353-X3), sweep paused; resume points
+  - d66ab7ce docs(handoff): return plan — sweep landing, §7, 1344-K, queue
+  - c8c2872b docs(handoff): state times from the clock (14:49 EDT)
+  - c76e7894 docs(handoff): Save43 sweep authored (g6 done) and merged in scratch; dry run x2 detached; S10 declarations; resume points
+  - d9e253ad docs(handoff): sweep merge tree, core dry run x1, g6 and S10 agents in flight; next steps
+  - 3a606df4 docs(handoff): P15C Wave 1 landed (1353-L); g6 continuation running; disk 6.35 GB; resume points
 <!-- AUTO:END -->
