@@ -1,0 +1,1350 @@
+diff --git a/src/core/campaignLegacy.ts b/src/core/campaignLegacy.ts
+index 4bd9e8e..815498a 100644
+--- a/src/core/campaignLegacy.ts
++++ b/src/core/campaignLegacy.ts
+@@ -4,8 +4,10 @@
+ // §5.3 amendments 1-4 govern); the LegacyFacts shape adopted in 1353-F2; the decade
+ // ordering rule of 1353-F3; and the parent's API decisions on the 1353 RED.
+ //
+-// Pure `(facts) => manifest`: no randomness, clock, GameState, save, Bridge or tick hook,
+-// and no engine consumer until Wave 2 adds the root, the adapter and the freeze step.
++// The law is pure `(facts) => manifest`: no randomness, clock, GameState, save, Bridge or
++// tick hook. Wave 2 (REFERENCE ONLY, record 1359-C; 1359-A §3-§5 with 1359-F) adds, at the
++// end of this module, the fact adapter, the freeze step, the root's type, the frozen
++// definition table and the root's validator.
+ // Inputs are never mutated; every output is a fresh object in the order stated below.
+ // Public facts only: no fact type carries a studio's cash, costs or revenue, and an error
+ // names a field and a rule, never a value.
+@@ -65,9 +67,11 @@
+ // carries no count and no ref. A ranking ref cites the archive record's own recordId.
+ 
+ import { campaignDate } from './calendar.js'
++import { p15PhaseMatches, p15PhaseTriple } from './p15Phases.js'
+ import type { FinancialStrengthBand } from './powerRanking.js'
++import { TECHNOLOGY_CATALOGUE } from './technologyCatalogue.js'
+ import { GENRE_ORDER, TUNING } from './tuning.js'
+-import type { Genre, Standing } from './types.js'
++import type { GameState, Genre, Standing, TalentCareerEvent } from './types.js'
+ 
+ export const CAMPAIGN_LEGACY_DEFINITION = 'campaign-legacy/v1'
+ /** 2040 · Week 1 under `campaign-calendar-1920-52/v1`. Derived from the calendar, never tuned. */
+@@ -348,7 +352,12 @@ function readFacts(facts: LegacyFacts): Facts {
+         fail(atId, 'must carry no settledWeek or grossSettled while in run: only a settled gross is public')
+       }
+     } else if (f.status === 'settled') {
+-      if (!isWeek(f.settledWeek)) fail(`${atId}.settledWeek`, 'must be a whole week once settled')
++      // 1359-A §3.1 (REFERENCE ONLY, record 1359-C finding F1): an authored pre-1920 film is
++      // settled with no campaign week, so its settledWeek may be null; any other settled film
++      // carries a whole week.
++      if (!(f.provenance === 'authored' && f.settledWeek === null) && !isWeek(f.settledWeek)) {
++        fail(`${atId}.settledWeek`, 'must be a whole week once settled')
++      }
+       if (typeof f.grossSettled !== 'number' || !Number.isFinite(f.grossSettled) || f.grossSettled < 0) {
+         fail(`${atId}.grossSettled`, 'must be a finite non-negative amount once settled')
+       }
+@@ -582,17 +591,17 @@ function archetypeResult(
+ }
+ const heldWhen = (held: boolean): ArchetypeResult['outcome'] => (held ? 'held' : 'notHeld')
+ 
+-function artisticVoice(f: Facts, s: LegacyStudioFact, releases: Release[]): ArchetypeResult {
+-  const acclaimed = releases.filter((r) => r.film.criticScore >= TUNING.LEGACY_CRITIC_ACCLAIM_MIN)
++function artisticVoice(f: Facts, s: LegacyStudioFact, releases: Release[], th: LegacyThresholds): ArchetypeResult {
++  const acclaimed = releases.filter((r) => r.film.criticScore >= th.LEGACY_CRITIC_ACCLAIM_MIN)
+     .sort((a, b) => b.film.criticScore - a.film.criticScore || byWeekThenId(a, b))
+-  const panned = releases.filter((r) => r.film.criticScore < TUNING.LEGACY_CRITIC_PAN_BELOW)
++  const panned = releases.filter((r) => r.film.criticScore < th.LEGACY_CRITIC_PAN_BELOW)
+     .sort((a, b) => a.film.criticScore - b.film.criticScore || byWeekThenId(a, b))
+   const a = acclaimed.length
+-  const held = a >= TUNING.LEGACY_MIN_FILMS && 100 * a >= TUNING.LEGACY_MIN_SHARE_PERCENT * releases.length
++  const held = a >= th.LEGACY_MIN_FILMS && 100 * a >= th.LEGACY_MIN_SHARE_PERCENT * releases.length
+   return archetypeResult('artistic-voice', heldWhen(held), limitedBy(f, s, FILM_READS), acclaimed.map(filmRef), panned.map(filmRef))
+ }
+ 
+-function audienceInstitution(f: Facts, s: LegacyStudioFact, releases: Release[]): ArchetypeResult {
++function audienceInstitution(f: Facts, s: LegacyStudioFact, releases: Release[], th: LegacyThresholds): ArchetypeResult {
+   const decades = new Map<number, Release[]>()
+   const unscoredDomains: string[] = []
+   for (const r of releases) {
+@@ -603,24 +612,24 @@ function audienceInstitution(f: Facts, s: LegacyStudioFact, releases: Release[])
+   const worst: Release[] = []
+   for (const decade of [...decades.keys()].sort((a, b) => a - b)) {
+     const scored = decades.get(decade)!
+-    if (scored.length < TUNING.LEGACY_DECADE_MIN_RELEASES) continue
+-    const liked = scored.filter((r) => r.audience! >= TUNING.LEGACY_AUDIENCE_LIKED_MIN).length
++    if (scored.length < th.LEGACY_DECADE_MIN_RELEASES) continue
++    const liked = scored.filter((r) => r.audience! >= th.LEGACY_AUDIENCE_LIKED_MIN).length
+     if (2 * liked >= scored.length) best.push([...scored].sort((a, b) => b.audience! - a.audience! || byWeekThenId(a, b))[0]!)
+     else worst.push([...scored].sort((a, b) => a.audience! - b.audience! || byWeekThenId(a, b))[0]!)
+   }
+-  const held = best.length >= TUNING.LEGACY_AUDIENCE_MIN_DECADES
++  const held = best.length >= th.LEGACY_AUDIENCE_MIN_DECADES
+   return archetypeResult('audience-institution', heldWhen(held), limitedBy(f, s, FILM_AND_EVENT_READS, unscoredDomains), best.map(filmRef), worst.map(filmRef))
+ }
+ 
+-function commercialEngine(f: Facts, s: LegacyStudioFact, releases: Release[]): ArchetypeResult {
++function commercialEngine(f: Facts, s: LegacyStudioFact, releases: Release[], th: LegacyThresholds): ArchetypeResult {
+   const settled = releases.filter((r) => r.settled)
+   const gross = (r: Release): number => r.film.grossSettled!
+-  const hits = settled.filter((r) => 100 * gross(r) >= TUNING.LEGACY_HIT_REACH_PERCENT * f.bmv)
++  const hits = settled.filter((r) => 100 * gross(r) >= th.LEGACY_HIT_REACH_PERCENT * f.bmv)
+     .sort((a, b) => gross(b) - gross(a) || byWeekThenId(a, b))
+-  const flops = settled.filter((r) => 100 * gross(r) < TUNING.LEGACY_FLOP_REACH_PERCENT * f.bmv)
++  const flops = settled.filter((r) => 100 * gross(r) < th.LEGACY_FLOP_REACH_PERCENT * f.bmv)
+     .sort((a, b) => gross(a) - gross(b) || byWeekThenId(a, b))
+   const h = hits.length
+-  const held = h >= TUNING.LEGACY_MIN_FILMS && 100 * h >= TUNING.LEGACY_MIN_SHARE_PERCENT * settled.length
++  const held = h >= th.LEGACY_MIN_FILMS && 100 * h >= th.LEGACY_MIN_SHARE_PERCENT * settled.length
+   return archetypeResult('commercial-engine', heldWhen(held), limitedBy(f, s, [...FILM_DOMAINS, 'playerRuns']), hits.map(filmRef), flops.map(filmRef))
+ }
+ 
+@@ -631,10 +640,10 @@ function operationalAdoptions(f: Facts, s: LegacyStudioFact): LegacyAdoptionFact
+     .sort((a, b) => a.operationalWeek! - b.operationalWeek! || compareText(a.adoptionId, b.adoptionId))
+ }
+ 
+-function technologyPioneer(f: Facts, s: LegacyStudioFact): ArchetypeResult {
++function technologyPioneer(f: Facts, s: LegacyStudioFact, th: LegacyThresholds): ArchetypeResult {
+   const commercialWeekOf = new Map(f.technologies.map((t) => [t.technologyId, t.commercialWeek]))
+   const operational = operationalAdoptions(f, s)
+-  const pioneers = operational.filter((a) => a.operationalWeek! <= commercialWeekOf.get(a.technologyId)! + TUNING.LEGACY_PIONEER_WEEKS)
++  const pioneers = operational.filter((a) => a.operationalWeek! <= commercialWeekOf.get(a.technologyId)! + th.LEGACY_PIONEER_WEEKS)
+   const spanEnd = Math.min(s.closedWeek ?? f.B, f.B)
+   const contrary: { week: number; ref: LegacyRef }[] = []
+   for (const t of f.technologies) {
+@@ -642,7 +651,7 @@ function technologyPioneer(f: Facts, s: LegacyStudioFact): ArchetypeResult {
+     if (t.commercialWeek < s.enteredWeek! || t.commercialWeek >= spanEnd) continue
+     const own = operational.find((a) => a.technologyId === t.technologyId) // S's own earliest (amendment 4)
+     if (own === undefined) contrary.push({ week: t.commercialWeek, ref: { domainId: 'technologyCatalogue', id: t.technologyId } })
+-    else if (own.operationalWeek! > t.commercialWeek + TUNING.LEGACY_TECH_LATE_WEEKS) {
++    else if (own.operationalWeek! > t.commercialWeek + th.LEGACY_TECH_LATE_WEEKS) {
+       contrary.push({ week: own.operationalWeek!, ref: { domainId: 'technologyAdoptions', id: own.adoptionId } })
+     }
+   }
+@@ -657,15 +666,15 @@ const discoveryRef = (d: Discovery): LegacyRef => ({ domainId: d.event.domainId,
+ const byMostCredits = (a: Discovery, b: Discovery): number =>
+   b.credits - a.credits || a.firstWeek - b.firstWeek || compareText(a.event.eventId, b.event.eventId)
+ 
+-function talentFoundry(f: Facts, s: LegacyStudioFact, discoveries: Discovery[]): ArchetypeResult {
+-  const careers = discoveries.filter((d) => d.credits >= TUNING.LEGACY_FOUNDRY_MIN_CREDITS).sort(byMostCredits)
+-  const stalled = discoveries.filter((d) => d.credits === 1 && d.firstWeek < f.B - TUNING.LEGACY_FOUNDRY_SETTLE_WEEKS)
++function talentFoundry(f: Facts, s: LegacyStudioFact, discoveries: Discovery[], th: LegacyThresholds): ArchetypeResult {
++  const careers = discoveries.filter((d) => d.credits >= th.LEGACY_FOUNDRY_MIN_CREDITS).sort(byMostCredits)
++  const stalled = discoveries.filter((d) => d.credits === 1 && d.firstWeek < f.B - th.LEGACY_FOUNDRY_SETTLE_WEEKS)
+     .sort((a, b) => a.firstWeek - b.firstWeek || compareText(a.event.eventId, b.event.eventId))
+-  const held = careers.length >= TUNING.LEGACY_FOUNDRY_MIN_PEOPLE
++  const held = careers.length >= th.LEGACY_FOUNDRY_MIN_PEOPLE
+   return archetypeResult('talent-foundry', heldWhen(held), limitedBy(f, s, FILM_AND_EVENT_READS), careers.map(discoveryRef), stalled.map(discoveryRef))
+ }
+ 
+-function genreSpecialist(f: Facts, s: LegacyStudioFact, releases: Release[]): ArchetypeResult {
++function genreSpecialist(f: Facts, s: LegacyStudioFact, releases: Release[], th: LegacyThresholds): ArchetypeResult {
+   const n = releases.length
+   const counts = new Map<Genre, number>()
+   for (const r of releases) counts.set(r.genre, (counts.get(r.genre) ?? 0) + 1)
+@@ -673,7 +682,7 @@ function genreSpecialist(f: Facts, s: LegacyStudioFact, releases: Release[]): Ar
+   const byCritic = (a: Release, b: Release): number => b.film.criticScore - a.film.criticScore || byWeekThenId(a, b)
+   const inGenre = majority === undefined ? [] : releases.filter((r) => r.genre === majority).sort(byCritic)
+   const others = majority === undefined ? [] : releases.filter((r) => r.genre !== majority).sort(byCritic)
+-  const held = n >= TUNING.LEGACY_GENRE_MIN_FILMS && majority !== undefined
++  const held = n >= th.LEGACY_GENRE_MIN_FILMS && majority !== undefined
+   return archetypeResult('genre-specialist', heldWhen(held), limitedBy(f, s, FILM_AND_EVENT_READS), inGenre.map(filmRef), others.map(filmRef))
+ }
+ 
+@@ -756,6 +765,12 @@ function lenses(f: Facts, s: LegacyStudioFact, releases: Release[], discoveries:
+ 
+ // ── the builder and the freeze step ───────────────────────────────────────────
+ export function buildLegacyManifest(facts: LegacyFacts, kind: LegacyManifestKind): LegacyManifest {
++  return evaluateLegacyManifest(facts, kind, liveLegacyThresholds())
++}
++
++/** The v1 law under explicit thresholds: live TUNING when a manifest is built, a
++ * definition's frozen thresholds when the validator replays one (1359-F Amendment 1). */
++function evaluateLegacyManifest(facts: LegacyFacts, kind: LegacyManifestKind, th: LegacyThresholds): LegacyManifest {
+   if (kind !== 'official2040' && kind !== 'endOfRun') fail('kind', 'must be official2040 or endOfRun')
+   const f = readFacts(facts)
+   if (kind === 'official2040' && f.B !== LEGACY_BOUNDARY_WEEK) fail('boundaryWeek', 'must be 2040 · Week 1 for the official Legacy')
+@@ -770,12 +785,12 @@ export function buildLegacyManifest(facts: LegacyFacts, kind: LegacyManifestKind
+         commercialConfidence: s.standing.commercialConfidence,
+       },
+       archetypes: [
+-        artisticVoice(f, s, releases),
+-        audienceInstitution(f, s, releases),
+-        commercialEngine(f, s, releases),
+-        technologyPioneer(f, s),
+-        talentFoundry(f, s, discoveries),
+-        genreSpecialist(f, s, releases),
++        artisticVoice(f, s, releases, th),
++        audienceInstitution(f, s, releases, th),
++        commercialEngine(f, s, releases, th),
++        technologyPioneer(f, s, th),
++        talentFoundry(f, s, discoveries, th),
++        genreSpecialist(f, s, releases, th),
+         resilientSurvivor(f, s),
+         archetypeResult('awards-dynasty', 'notRecorded', ['awards'], [], []),
+       ],
+@@ -803,3 +818,544 @@ export function freezeLegacy(root: CampaignLegacy, producedWeek: number, facts:
+   if (root.official !== null) return root
+   return { ...root, official: buildLegacyManifest(facts, 'official2040') }
+ }
++
++// ═════════════════════════════════════════════════════════════════════════════
++// P15C Wave 2 (REFERENCE ONLY, record 1359-C): the Legacy in the live game.
++// 1359-A §3 (the adapter), §4 (the boundary), §5 (the root) with 1359-F Amendment 1 (the
++// validator replays the manifest under the evaluator its definition names).
++// ═════════════════════════════════════════════════════════════════════════════
++
++/** The fifteen v1 thresholds, by their TUNING names (1353-A §5.5). */
++export const LEGACY_THRESHOLD_NAMES = [
++  'LEGACY_CRITIC_ACCLAIM_MIN', 'LEGACY_CRITIC_PAN_BELOW', 'LEGACY_AUDIENCE_LIKED_MIN', 'LEGACY_MIN_FILMS',
++  'LEGACY_MIN_SHARE_PERCENT', 'LEGACY_HIT_REACH_PERCENT', 'LEGACY_FLOP_REACH_PERCENT', 'LEGACY_AUDIENCE_MIN_DECADES',
++  'LEGACY_DECADE_MIN_RELEASES', 'LEGACY_PIONEER_WEEKS', 'LEGACY_TECH_LATE_WEEKS', 'LEGACY_FOUNDRY_MIN_PEOPLE',
++  'LEGACY_FOUNDRY_MIN_CREDITS', 'LEGACY_FOUNDRY_SETTLE_WEEKS', 'LEGACY_GENRE_MIN_FILMS',
++] as const
++export type LegacyThresholdName = (typeof LEGACY_THRESHOLD_NAMES)[number]
++export type LegacyThresholds = Readonly<Record<LegacyThresholdName, number>>
++
++function liveLegacyThresholds(): LegacyThresholds {
++  const live = {} as Record<LegacyThresholdName, number>
++  for (const name of LEGACY_THRESHOLD_NAMES) live[name] = TUNING[name]
++  return live
++}
++
++/** Everything the validator needs to judge a manifest of one definition. */
++export type LegacyDefinition = {
++  readonly boundaryWeek: number
++  readonly postFinaleMode: string
++  readonly archetypeIds: readonly string[]
++  readonly lensIds: readonly string[]
++  /** 1353-F2 §2. `ranking` omits `bestRank` when no quarter ranked; a notRecorded lens has none. */
++  readonly lensCountKeys: Readonly<Record<string, readonly string[]>>
++  readonly bounds: Readonly<{ domains: number; archetypes: number; refsPerSide: number; lenses: number }>
++  readonly domainIds: readonly string[]
++  readonly thresholds: LegacyThresholds
++  readonly evaluate: (facts: LegacyFacts, kind: LegacyManifestKind) => LegacyManifest
++}
++
++/** v1's thresholds as they stood when v1 shipped. A retune of TUNING without a definition
++ * bump fails the era guard; a v2 adds an entry and leaves this one untouched. */
++const V1_THRESHOLDS: LegacyThresholds = Object.freeze({
++  LEGACY_CRITIC_ACCLAIM_MIN: 70, LEGACY_CRITIC_PAN_BELOW: 35, LEGACY_AUDIENCE_LIKED_MIN: 57, LEGACY_MIN_FILMS: 5,
++  LEGACY_MIN_SHARE_PERCENT: 25, LEGACY_HIT_REACH_PERCENT: 90, LEGACY_FLOP_REACH_PERCENT: 30,
++  LEGACY_AUDIENCE_MIN_DECADES: 4, LEGACY_DECADE_MIN_RELEASES: 2, LEGACY_PIONEER_WEEKS: 52,
++  LEGACY_TECH_LATE_WEEKS: 260, LEGACY_FOUNDRY_MIN_PEOPLE: 3, LEGACY_FOUNDRY_MIN_CREDITS: 10,
++  LEGACY_FOUNDRY_SETTLE_WEEKS: 260, LEGACY_GENRE_MIN_FILMS: 8,
++})
++
++/** The frozen definition table (1359-A §5.1 era versioning). Literal values, never live exports. */
++export const LEGACY_DEFINITIONS: Readonly<Record<string, LegacyDefinition>> = Object.freeze({
++  'campaign-legacy/v1': Object.freeze({
++    boundaryWeek: 6240,
++    postFinaleMode: 'ordinary-simulation/v1',
++    archetypeIds: Object.freeze([
++      'artistic-voice', 'audience-institution', 'commercial-engine', 'technology-pioneer',
++      'talent-foundry', 'genre-specialist', 'resilient-survivor', 'awards-dynasty',
++    ]),
++    lensIds: Object.freeze(['catalog', 'people', 'technology', 'ranking', 'financialBand', 'market', 'resilience', 'awards']),
++    lensCountKeys: Object.freeze({
++      catalog: Object.freeze(['releases', 'settled', 'inReleaseAtBoundary', 'authoredPre1920']),
++      people: Object.freeze(['credited', 'discoveries']),
++      technology: Object.freeze(['operationalAdoptions']),
++      ranking: Object.freeze(['rankedQuarters', 'quartersAtFirst', 'bestRank']),
++      financialBand: Object.freeze(['inTheRed', 'strained', 'stable', 'thriving']),
++      market: Object.freeze(['assessed', 'underPressure']),
++      resilience: Object.freeze(['warnings', 'distressEntries', 'returnsToStable', 'closures']),
++      awards: Object.freeze([]),
++    }),
++    bounds: Object.freeze({ domains: 16, archetypes: 8, refsPerSide: 12, lenses: 12 }),
++    domainIds: Object.freeze([
++      'playerFilms', 'industryFilms', 'playerRuns', 'playerCareerEvents', 'industryCareerEvents',
++      'technologyAdoptions', 'technologyCatalogue', 'powerRanking', 'corporateCondition',
++      'marketAssessments', 'awards',
++    ]),
++    thresholds: V1_THRESHOLDS,
++    evaluate: (facts: LegacyFacts, kind: LegacyManifestKind) => evaluateLegacyManifest(facts, kind, V1_THRESHOLDS),
++  }),
++})
++
++// ── the root (1359-A §5) ──────────────────────────────────────────────────────
++/** The official manifest plus the P15 stamp the step adds; the law never sees the stamp. */
++export type OfficialLegacy = LegacyManifest & {
++  legacySnapshotId: string
++  p15DomainSequence: number
++  phaseId: string
++  phaseOrdinal: number
++  phaseOrderVersion: number
++}
++export type CampaignLegacyRoot = {
++  version: 1
++  recordedFromWeek: number
++  official: OfficialLegacy | null
++  /** Wave 5 (1359-A §6): always null in this era. */
++  endOfRun: null
++}
++const STAMP_KEYS = ['legacySnapshotId', 'p15DomainSequence', 'phaseId', 'phaseOrdinal', 'phaseOrderVersion'] as const
++const FINALE_PHASE = 'p15c.finale'
++
++// ── the fact adapter (1359-A §3) ──────────────────────────────────────────────
++/** The three sibling roots and the domain each feeds (1355-A, 1356-A, 1357-A). */
++const SIBLING_ROOTS = [
++  { domainId: 'powerRanking', key: 'powerRanking' },
++  { domainId: 'corporateCondition', key: 'corporateCondition' },
++  { domainId: 'marketAssessments', key: 'sharedMarket' },
++] as const
++type Row = Record<string, unknown>
++const rowsOf = (value: unknown): readonly Row[] => (Array.isArray(value) ? (value as Row[]) : [])
++
++function rootOf(state: GameState, key: string): Row | undefined {
++  const root = (state as unknown as Row)[key]
++  return root !== null && typeof root === 'object' ? (root as Row) : undefined
++}
++/** A sibling root recorded from `boundaryWeek` or later arrived after it: it reads as absent. */
++function siblingBefore(state: GameState, key: string, boundaryWeek: number): Row | undefined {
++  const root = rootOf(state, key)
++  const from = root?.recordedFromWeek
++  return root !== undefined && typeof from === 'number' && from < boundaryWeek ? root : undefined
++}
++/** The rows of a sibling root that carry a P15 domain sequence. */
++function sequencedRows(root: Row, domainId: string): readonly Row[] {
++  if (domainId === 'powerRanking') return rowsOf(root.snapshots)
++  if (domainId === 'corporateCondition') return [...rowsOf(root.events), ...rowsOf(root.loans)]
++  return rowsOf(root.assessments)
++}
++/** 1355-F2 item 7: a P15 watermark is the largest sequence in the root (below `below`). */
++function largestSequence(rows: readonly Row[], below = Number.POSITIVE_INFINITY): number {
++  let largest = 0
++  for (const row of rows) {
++    const sequence = row.p15DomainSequence
++    if (typeof sequence === 'number' && sequence < below && sequence > largest) largest = sequence
++  }
++  return largest
++}
++
++/**
++ * The public facts of `state` for a cut at `boundaryWeek` (1359-A §3.1-§3.2). It reads no
++ * cash, cost, revenue, loan amount, in-run payment or career money or skill field. A player
++ * film's genre is its concept's; a missing concept refuses by name.
++ */
++export function legacyFactsFromState(state: GameState, boundaryWeek: number): LegacyFacts {
++  if (state.hollywood === null) fail('state.hollywood', 'must hold the living industry the Legacy reads')
++  const h = state.hollywood
++  const genreOf = new Map(state.concepts.map((concept) => [concept.id, concept.genre]))
++  const runOf = new Map(state.theatricalRuns.map((run) => [run.productionId, run]))
++
++  const films: LegacyFilmFact[] = []
++  for (const film of state.studio.releasedFilms) {
++    const genre = genreOf.get(film.conceptId)
++    if (genre === undefined) {
++      fail('state.concepts', `must hold concept ${film.conceptId}, the genre of player film ${film.productionId}`)
++    }
++    const run = runOf.get(film.productionId)
++    // Run end by arithmetic, never by status: a run is settled at B when its last payment week is below B.
++    const settledWeek = run === undefined || run.status === 'legacyCompleted' ? film.releaseTick
++      : film.releaseTick + run.totalWeeks <= boundaryWeek ? film.releaseTick + run.totalWeeks - 1 : null
++    films.push({
++      filmId: film.productionId, studioId: h.playerStudioId, domainId: 'playerFilms', provenance: 'campaign',
++      releaseWeek: film.releaseTick, genre, criticScore: film.criticScore, audienceScore: null,
++      status: settledWeek === null ? 'inRun' : 'settled', settledWeek,
++      grossSettled: settledWeek === null ? null : film.boxOffice.total, credits: [],
++    })
++  }
++  for (const film of h.films) {
++    if (film.provenance === 'simulation/v1') {
++      const settled = film.settledWeek !== null && film.settledWeek < boundaryWeek
++      films.push({
++        filmId: film.filmId, studioId: film.studioId, domainId: 'industryFilms', provenance: 'campaign',
++        releaseWeek: film.result.releaseTick, genre: film.genre, criticScore: film.result.criticScore, audienceScore: null,
++        status: settled ? 'settled' : 'inRun', settledWeek: settled ? film.settledWeek : null,
++        grossSettled: settled ? film.result.boxOffice.total : null, credits: [],
++      })
++    } else {
++      films.push({
++        filmId: film.filmId, studioId: film.studioId, domainId: 'industryFilms', provenance: 'authored',
++        releaseWeek: null, genre: film.genre, criticScore: film.criticScore, audienceScore: film.audienceScore,
++        status: 'settled', settledWeek: null, grossSettled: film.totalGross,
++        credits: film.credits.map((credit) => ({ talentId: credit.talentId, role: credit.role })),
++      })
++    }
++  }
++
++  const eventFact = (event: TalentCareerEvent, domainId: LegacyCareerEventDomainId): LegacyCareerEventFact => ({
++    eventId: event.eventId, filmId: event.filmId, talentId: event.talentId, domainId, role: event.role,
++    releaseWeek: event.releaseWeek, genre: event.genre, audienceScore: event.audienceScore,
++  })
++  const careerEvents = [
++    ...state.careerEvents.map((event) => eventFact(event, 'playerCareerEvents')),
++    ...h.careerEvents.map((event) => eventFact(event, 'industryCareerEvents')),
++  ]
++
++  // closedWeek: the week of the studio's `→ closed` event, whatever its week; the law cuts at B.
++  const closedWeekOf = new Map<string, number>()
++  const condition = rootOf(state, 'corporateCondition')
++  for (const event of rowsOf(condition?.events)) {
++    const studioId = event.studioId as string
++    if (event.to === 'closed' && !closedWeekOf.has(studioId)) closedWeekOf.set(studioId, event.week as number)
++  }
++  const studios: LegacyStudioFact[] = h.identities
++    .filter((identity) => identity.enteredWeek !== null)
++    .sort((a, b) => a.row - b.row || compareText(a.studioId, b.studioId))
++    .map((identity) => {
++      const standing = identity.studioId === h.playerStudioId ? state.studio.standing
++        : h.businesses.find((business) => business.studioId === identity.studioId)?.standing
++      if (standing === undefined) fail('state.hollywood.businesses', `must hold entered rival ${identity.studioId}`)
++      return {
++        studioId: identity.studioId, row: identity.row, enteredWeek: identity.enteredWeek,
++        closedWeek: closedWeekOf.get(identity.studioId) ?? null,
++        standing: {
++          audienceAwareness: standing.audienceAwareness,
++          industryPrestige: standing.industryPrestige,
++          commercialConfidence: standing.commercialConfidence,
++        },
++      }
++    })
++
++  const domains: LegacyDomainFact[] = [
++    { domainId: 'playerFilms', highWatermark: state.studio.releasedFilms.length, recordedFromWeek: 0 },
++    { domainId: 'industryFilms', highWatermark: h.films.length, recordedFromWeek: h.originWeek },
++    { domainId: 'playerRuns', highWatermark: state.theatricalRuns.length, recordedFromWeek: 0 },
++    { domainId: 'playerCareerEvents', highWatermark: state.careerEvents.length, recordedFromWeek: 0 },
++    { domainId: 'industryCareerEvents', highWatermark: h.careerEvents.length, recordedFromWeek: h.originWeek },
++    { domainId: 'technologyAdoptions', highWatermark: state.technology.adoptions.length, recordedFromWeek: state.technology.recordingStartedWeek },
++    { domainId: 'technologyCatalogue', highWatermark: TECHNOLOGY_CATALOGUE.length, recordedFromWeek: 0 },
++  ]
++  const facts: LegacyFacts = {
++    boundaryWeek,
++    baseMarketValue: state.market.baseMarketValue,
++    studios,
++    films,
++    careerEvents,
++    adoptions: state.technology.adoptions.map((adoption) => ({
++      adoptionId: adoption.id, studioId: adoption.studioId, technologyId: adoption.technologyId,
++      operationalWeek: adoption.operationalWeek, cancelledWeek: adoption.cancelledWeek,
++    })),
++    technologies: TECHNOLOGY_CATALOGUE.map((technology) => ({ technologyId: technology.id, commercialWeek: technology.commercialWeek })),
++    domains,
++  }
++  for (const { domainId, key } of SIBLING_ROOTS) {
++    const root = siblingBefore(state, key, boundaryWeek)
++    if (root === undefined) {
++      domains.push({ domainId, highWatermark: 0, recordedFromWeek: null })
++      continue
++    }
++    domains.push({ domainId, highWatermark: largestSequence(sequencedRows(root, domainId)), recordedFromWeek: root.recordedFromWeek as number })
++    if (domainId === 'powerRanking') {
++      facts.rankingSnapshots = rowsOf(root.snapshots).flatMap((record) => rowsOf(record.rows).map((row) => ({
++        recordId: record.id as string, week: record.week as number, studioId: row.studioId as string,
++        rank: row.rank as number | null, band: row.band as FinancialStrengthBand,
++      })))
++    } else if (domainId === 'corporateCondition') {
++      facts.conditionEvents = rowsOf(root.events).map((event) => ({
++        eventId: event.eventId as string, studioId: event.studioId as string, week: event.week as number,
++        from: event.from as LegacyConditionStage, to: event.to as LegacyConditionStage,
++      }))
++    } else {
++      facts.marketAssessments = rowsOf(root.assessments).map((assessment) => ({
++        assessmentId: assessment.releaseId as string, studioId: assessment.studioId as string, week: assessment.week as number,
++        assessed: true, underPressure: (assessment.factor as number) < 1,
++      }))
++    }
++  }
++  return facts
++}
++
++// ── the freeze step (1359-A §4.2) ─────────────────────────────────────────────
++/**
++ * The tick's last step. Returns `state` itself unless the industry exists, the produced week
++ * is B, the freeze is due (1359-A §4.3: the industry and the root both record from before B)
++ * and no official manifest exists. Then it builds the facts, calls the law through
++ * `freezeLegacy`, stamps the manifest from the P15 allocator and advances it. It writes
++ * nothing else.
++ */
++export function freezeCampaignLegacyWeek(state: GameState): GameState {
++  if (state.hollywood === null || state.market.tick !== LEGACY_BOUNDARY_WEEK) return state
++  const root = state.campaignLegacy
++  if (root.official !== null) return state
++  if (state.hollywood.originWeek >= LEGACY_BOUNDARY_WEEK || root.recordedFromWeek >= LEGACY_BOUNDARY_WEEK) return state
++  const frozen = freezeLegacy({ version: 1, recordedFromWeek: root.recordedFromWeek, official: null, endOfRun: null },
++    LEGACY_BOUNDARY_WEEK, legacyFactsFromState(state, LEGACY_BOUNDARY_WEEK))
++  if (frozen.official === null) fail('campaignLegacy.official', 'must be written by the freeze at the boundary')
++  const sequence = state.p15Sequence.next
++  const official: OfficialLegacy = {
++    ...frozen.official,
++    legacySnapshotId: `campaign-legacy-${sequence}`,
++    p15DomainSequence: sequence,
++    ...p15PhaseTriple(FINALE_PHASE),
++  }
++  return { ...state, campaignLegacy: { ...root, official }, p15Sequence: { version: 1, next: sequence + 1 } }
++}
++
++// ── the validator (1359-A §5.1 with 1359-F Amendment 1) ───────────────────────
++const isRow = (value: unknown): value is Row => value !== null && typeof value === 'object' && !Array.isArray(value)
++
++/** `validateSaveVN` runs this after the frozen chain proved the rest of `state`. */
++export function validateCampaignLegacy(state: GameState, label: string): void {
++  // An explicit type on the binding makes every call a never-returning call for narrowing.
++  const refuse: (path: string, rule: string) => never = (path, rule) => {
++    throw new Error(`${label}: campaignLegacy${path === '' ? '' : `.${path}`} ${rule}`)
++  }
++  const exactKeys = (value: Row, keys: readonly string[], path: string): void => {
++    const own = Object.keys(value)
++    if (own.length !== keys.length || keys.some((key) => !Object.hasOwn(value, key))) {
++      refuse(path, `must carry exactly ${keys.join(', ')}`)
++    }
++  }
++  const B = LEGACY_BOUNDARY_WEEK
++  const tick = state.market.tick
++
++  // 1. Shape.
++  const root: unknown = (state as unknown as Row).campaignLegacy
++  if (!isRow(root)) refuse('', 'must be an object')
++  exactKeys(root, ['version', 'recordedFromWeek', 'official', 'endOfRun'], '')
++  if (root.version !== 1) refuse('version', 'must be 1')
++  const from = root.recordedFromWeek
++  if (!Number.isSafeInteger(from) || (from as number) < 0 || (from as number) > tick) {
++    refuse('recordedFromWeek', 'must be a whole week in [0, market.tick]')
++  }
++  if (root.endOfRun !== null) refuse('endOfRun', 'must be null in this era: the end-of-run record is Wave 5 (1359-A §6)')
++
++  // 2. The marker rule (1359-A §4.3).
++  const h = state.hollywood
++  const due = h !== null && h.originWeek < B && (from as number) < B && tick >= B
++  if (due && root.official === null) refuse('official', 'must hold the frozen 2040 Legacy: the freeze was due')
++  if (!due && root.official !== null) refuse('official', 'must be null: the 2040 freeze was not due')
++  if (root.official === null) return
++  const raw = root.official
++  if (!isRow(raw)) refuse('official', 'must be an object')
++  exactKeys(raw, ['kind', 'definition', 'boundaryWeek', 'postFinaleMode', 'sources', 'studios', ...STAMP_KEYS], 'official')
++  const official = raw as unknown as OfficialLegacy
++
++  // 3. Identity, against the frozen definition table.
++  if (official.kind !== 'official2040') refuse('official.kind', 'must be official2040')
++  if (typeof official.definition !== 'string' || !Object.hasOwn(LEGACY_DEFINITIONS, official.definition)) {
++    refuse('official.definition', 'must name a definition of the frozen table')
++  }
++  const entry = LEGACY_DEFINITIONS[official.definition]!
++  if (official.boundaryWeek !== entry.boundaryWeek) refuse('official.boundaryWeek', `must be ${entry.boundaryWeek}, its definition's boundary`)
++  if (official.postFinaleMode !== entry.postFinaleMode) refuse('official.postFinaleMode', `must be ${entry.postFinaleMode}, its definition's mode`)
++
++  // 4. The stamp (1355-F2 items 2-5).
++  const sequence = official.p15DomainSequence
++  const next = state.p15Sequence?.next
++  if (!Number.isSafeInteger(sequence) || sequence < 1 || typeof next !== 'number' || sequence > next - 1) {
++    refuse('official.p15DomainSequence', 'must lie in [1, p15Sequence.next − 1]')
++  }
++  if (official.legacySnapshotId !== `campaign-legacy-${sequence}`) refuse('official.legacySnapshotId', 'must be campaign-legacy-<p15DomainSequence>')
++  if (official.phaseId !== FINALE_PHASE) refuse('official.phaseId', `must be ${FINALE_PHASE}`)
++  if (!p15PhaseMatches(official, FINALE_PHASE)) {
++    refuse('official.phaseOrdinal', 'and official.phaseOrderVersion must equal the p15c.finale entry of their phase-order table')
++  }
++
++  // 5. Bounds per the entry.
++  const { bounds } = entry
++  if (!Array.isArray(official.sources) || official.sources.length > bounds.domains) {
++    refuse('official.sources', `must name at most ${bounds.domains} sources`)
++  }
++  const citable = new Set(entry.domainIds.filter((id) => id !== 'awards' && id !== 'playerRuns'))
++  const sourceIds = new Set<string>()
++  official.sources.forEach((source, i) => {
++    const at = `official.sources[${i}]`
++    if (!isRow(source)) refuse(at, 'must be an object')
++    exactKeys(source as unknown as Row, ['domainId', 'highWatermark', 'recordedFromWeek', 'status'], at)
++    if (!entry.domainIds.includes(source.domainId) || source.domainId === 'awards') refuse(`${at}.domainId`, 'must name a v1 domain other than awards')
++    if (sourceIds.has(source.domainId)) refuse(`${at}.domainId`, 'must not repeat a domain')
++    sourceIds.add(source.domainId)
++  })
++  if (!Array.isArray(official.studios)) refuse('official.studios', 'must be an array')
++  const identities = new Map((h?.identities ?? []).map((identity) => [identity.studioId, identity]))
++  const studioIds = new Set<string>()
++  let previous: { row: number; studioId: string } | null = null
++  official.studios.forEach((studio, i) => {
++    const at = `official.studios[${i}]`
++    if (!isRow(studio)) refuse(at, 'must be an object')
++    exactKeys(studio as unknown as Row, ['studioId', 'standingAtBoundary', 'archetypes', 'lenses'], at)
++    const identity = identities.get(studio.studioId)
++    if (identity === undefined || identity.enteredWeek === null || identity.enteredWeek >= entry.boundaryWeek || studioIds.has(studio.studioId)) {
++      refuse(`${at}.studioId`, 'must name a distinct studio that entered before the boundary')
++    }
++    studioIds.add(studio.studioId)
++    if (previous !== null && (identity.row < previous.row || (identity.row === previous.row && compareText(studio.studioId, previous.studioId) < 0))) {
++      refuse('official.studios', 'must list the studios in row order')
++    }
++    previous = { row: identity.row, studioId: studio.studioId }
++    const standing = studio.standingAtBoundary as unknown
++    if (!isRow(standing)) refuse(`${at}.standingAtBoundary`, 'must be an object')
++    exactKeys(standing, ['audienceAwareness', 'industryPrestige', 'commercialConfidence'], `${at}.standingAtBoundary`)
++    for (const channel of ['audienceAwareness', 'industryPrestige', 'commercialConfidence'] as const) {
++      const value = standing[channel]
++      if (typeof value !== 'number' || !Number.isFinite(value) || value < 0 || value > 100) {
++        refuse(`${at}.standingAtBoundary.${channel}`, 'must be a finite value in [0, 100]')
++      }
++    }
++    const archetypes: unknown = studio.archetypes
++    if (!Array.isArray(archetypes) || archetypes.length !== entry.archetypeIds.length
++      || archetypes.some((a, j) => !isRow(a) || a.archetypeId !== entry.archetypeIds[j])) {
++      refuse(`${at}.archetypes`, `must list the ${entry.archetypeIds.length} archetypes of ${official.definition} in order`)
++    }
++    studio.archetypes.forEach((archetype, j) => {
++      const aat = `${at}.archetypes[${j}]`
++      exactKeys(archetype as unknown as Row, ['archetypeId', 'outcome', 'limitedBy', 'qualifyingCount', 'contraryCount', 'qualifying', 'contrary'], aat)
++      if (!['held', 'notHeld', 'notRecorded'].includes(archetype.outcome)) refuse(`${aat}.outcome`, 'must be held, notHeld or notRecorded')
++      for (const side of ['qualifying', 'contrary'] as const) {
++        const refs: unknown = archetype[side]
++        const count: unknown = archetype[side === 'qualifying' ? 'qualifyingCount' : 'contraryCount']
++        if (!Array.isArray(refs) || refs.length > bounds.refsPerSide) refuse(`${aat}.${side}`, `must cite at most ${bounds.refsPerSide} refs`)
++        if (!Number.isSafeInteger(count) || (count as number) < refs.length) refuse(`${aat}.${side}Count`, 'must be a whole count of at least its refs')
++      }
++    })
++    const lensList: unknown = studio.lenses
++    if (!Array.isArray(lensList) || lensList.length > bounds.lenses) refuse(`${at}.lenses`, `must list at most ${bounds.lenses} lenses`)
++    const lensIds = new Set<string>()
++    studio.lenses.forEach((lens, k) => {
++      const lat = `${at}.lenses[${k}]`
++      exactKeys(lens as unknown as Row, ['lensId', 'status', 'counts', 'refs'], lat)
++      if (!entry.lensIds.includes(lens.lensId) || lensIds.has(lens.lensId)) refuse(`${lat}.lensId`, 'must name a distinct lens of its definition')
++      lensIds.add(lens.lensId)
++      if (!['complete', 'limited', 'notRecorded'].includes(lens.status)) refuse(`${lat}.status`, 'must be complete, limited or notRecorded')
++      const counts: unknown = lens.counts
++      if (!isRow(counts)) refuse(`${lat}.counts`, 'must be an object')
++      const full = entry.lensCountKeys[lens.lensId] ?? []
++      const expected = lens.status === 'notRecorded' ? []
++        : lens.lensId === 'ranking' && counts.rankedQuarters === 0 ? full.filter((key) => key !== 'bestRank') : full
++      exactKeys(counts, expected, `${lat}.counts`)
++      for (const key of expected) {
++        if (!Number.isSafeInteger(counts[key]) || (counts[key] as number) < 0) refuse(`${lat}.counts.${key}`, 'must be a whole count')
++      }
++      const refs: unknown = lens.refs
++      if (!Array.isArray(refs) || refs.length > bounds.refsPerSide) refuse(`${lat}.refs`, `must cite at most ${bounds.refsPerSide} refs`)
++    })
++  })
++
++  // 6. Sources against their roots.
++  if (h === null) return // unreachable: the marker rule requires an industry
++  const facts = legacyFactsFromState(state, entry.boundaryWeek)
++  const derived = new Map(facts.domains.map((domain) => [domain.domainId, domain]))
++  const lengthOf: Readonly<Record<string, number>> = {
++    playerFilms: state.studio.releasedFilms.length, industryFilms: h.films.length, playerRuns: state.theatricalRuns.length,
++    playerCareerEvents: state.careerEvents.length, industryCareerEvents: h.careerEvents.length,
++    technologyAdoptions: state.technology.adoptions.length, technologyCatalogue: TECHNOLOGY_CATALOGUE.length,
++  }
++  official.sources.forEach((source, i) => {
++    const at = `official.sources[${i}]`
++    const domain = derived.get(source.domainId)
++    if (domain === undefined) refuse(`${at}.domainId`, 'must name a domain the adapter reads')
++    if (source.recordedFromWeek !== domain.recordedFromWeek) refuse(`${at}.recordedFromWeek`, 'must equal the re-derived recording week')
++    const notRecorded = source.recordedFromWeek === null || source.recordedFromWeek >= entry.boundaryWeek
++    if ((source.status === 'notRecorded') !== notRecorded || !['complete', 'limited', 'notRecorded'].includes(source.status)) {
++      refuse(`${at}.status`, 'must read notRecorded exactly when the domain records nothing before the boundary')
++    }
++    const sibling = SIBLING_ROOTS.find((candidate) => candidate.domainId === source.domainId)
++    if (sibling !== undefined) {
++      const siblingRoot = siblingBefore(state, sibling.key, entry.boundaryWeek)
++      const expected = siblingRoot === undefined ? 0 : largestSequence(sequencedRows(siblingRoot, source.domainId), sequence)
++      if (source.highWatermark !== expected) refuse(`${at}.highWatermark`, "must equal the largest P15 sequence in its root below the official's")
++    } else if (!Number.isSafeInteger(source.highWatermark) || source.highWatermark < 0 || source.highWatermark > (lengthOf[source.domainId] ?? 0)) {
++      refuse(`${at}.highWatermark`, "must be a whole position within its root's length")
++    }
++  })
++
++  // 7. Refs: citable domain, existing row, position within the watermark, dated before B.
++  type Place = { position: number; week: number | null; ranking: boolean }
++  const places = new Map<string, Map<string, Place>>()
++  const index = (domainId: string, entries: Iterable<[string, Place]>): void => { places.set(domainId, new Map(entries)) }
++  index('playerFilms', state.studio.releasedFilms.map((film, i) => [film.productionId, { position: i + 1, week: film.releaseTick, ranking: false }]))
++  index('industryFilms', h.films.map((film, i) => [film.filmId, {
++    position: i + 1, week: film.provenance === 'simulation/v1' ? film.result.releaseTick : -1, ranking: false }]))
++  index('playerCareerEvents', state.careerEvents.map((event, i) => [event.eventId, { position: i + 1, week: event.releaseWeek, ranking: false }]))
++  index('industryCareerEvents', h.careerEvents.map((event, i) => [event.eventId, { position: i + 1, week: event.releaseWeek, ranking: false }]))
++  index('technologyAdoptions', state.technology.adoptions.map((adoption, i) => [adoption.id, { position: i + 1, week: adoption.operationalWeek, ranking: false }]))
++  index('technologyCatalogue', TECHNOLOGY_CATALOGUE.map((technology, i) => [technology.id, { position: i + 1, week: technology.commercialWeek, ranking: false }]))
++  const ranking = siblingBefore(state, 'powerRanking', entry.boundaryWeek)
++  index('powerRanking', rowsOf(ranking?.snapshots).map((record) => [record.id as string, {
++    position: record.p15DomainSequence as number, week: record.week as number, ranking: true }]))
++  const conditionRoot = siblingBefore(state, 'corporateCondition', entry.boundaryWeek)
++  index('corporateCondition', rowsOf(conditionRoot?.events).map((event) => [event.eventId as string, {
++    position: event.p15DomainSequence as number, week: event.week as number, ranking: false }]))
++  const market = siblingBefore(state, 'sharedMarket', entry.boundaryWeek)
++  index('marketAssessments', rowsOf(market?.assessments).map((assessment) => [assessment.releaseId as string, {
++    position: assessment.p15DomainSequence as number, week: assessment.week as number, ranking: false }]))
++  const watermarkOf = new Map(official.sources.map((source) => [source.domainId, source.highWatermark]))
++  const checkRef = (ref: unknown, path: string): void => {
++    if (!isRow(ref)) refuse(path, 'must be an object')
++    exactKeys(ref, ['domainId', 'id'], path)
++    if (typeof ref.domainId !== 'string' || !citable.has(ref.domainId)) refuse(`${path}.domainId`, 'must name a citable domain (never playerRuns or awards)')
++    const place = places.get(ref.domainId)?.get(ref.id as string)
++    if (place === undefined) refuse(path, `names no ${ref.domainId} row`)
++    if (place.position > (watermarkOf.get(ref.domainId) ?? 0)) refuse(path, "sits above its domain's watermark")
++    const before = place.week !== null && (place.ranking ? place.week <= entry.boundaryWeek : place.week < entry.boundaryWeek)
++    if (!before) refuse(path, 'is dated at or after the boundary')
++  }
++  official.studios.forEach((studio, i) => {
++    studio.archetypes.forEach((archetype, j) => {
++      archetype.qualifying.forEach((ref, k) => checkRef(ref, `official.studios[${i}].archetypes[${j}].qualifying[${k}]`))
++      archetype.contrary.forEach((ref, k) => checkRef(ref, `official.studios[${i}].archetypes[${j}].contrary[${k}]`))
++    })
++    studio.lenses.forEach((lens, k) => lens.refs.forEach((ref, m) => checkRef(ref, `official.studios[${i}].lenses[${k}].refs[${m}]`)))
++  })
++
++  // Amendment 1: replay under the definition's own evaluator, the stored sources standing in
++  // for the domain facts. Everything but standingAtBoundary (gone after the freeze tick) must match.
++  const stored = new Map(official.sources.map((source) => [source.domainId, source]))
++  const replayFacts: LegacyFacts = {
++    ...facts,
++    domains: facts.domains.map((domain) => {
++      const source = stored.get(domain.domainId)
++      return source === undefined ? domain
++        : { domainId: domain.domainId, highWatermark: source.highWatermark, recordedFromWeek: source.recordedFromWeek }
++    }),
++  }
++  if (stored.get('powerRanking')?.recordedFromWeek === null) delete replayFacts.rankingSnapshots
++  if (stored.get('corporateCondition')?.recordedFromWeek === null) delete replayFacts.conditionEvents
++  if (stored.get('marketAssessments')?.recordedFromWeek === null) delete replayFacts.marketAssessments
++  const replayed = entry.evaluate(replayFacts, 'official2040')
++  const manifest: Row = { ...official }
++  for (const key of STAMP_KEYS) delete manifest[key]
++  const difference = firstDifference(manifest, replayed, 'official')
++  if (difference !== null) refuse(difference, `must equal the replay under ${official.definition}`)
++}
++
++/** The first path at which `stored` departs from `expected`, skipping standingAtBoundary. */
++function firstDifference(stored: unknown, expected: unknown, path: string): string | null {
++  if (Array.isArray(expected)) {
++    if (!Array.isArray(stored) || stored.length !== expected.length) return path
++    for (let i = 0; i < expected.length; i++) {
++      const found = firstDifference(stored[i], expected[i], `${path}[${i}]`)
++      if (found !== null) return found
++    }
++    return null
++  }
++  if (isRow(expected)) {
++    if (!isRow(stored)) return path
++    for (const key of Object.keys(expected)) {
++      if (key === 'standingAtBoundary') continue
++      if (!Object.hasOwn(stored, key)) return `${path}.${key}`
++      const found = firstDifference(stored[key], expected[key], `${path}.${key}`)
++      if (found !== null) return found
++    }
++    for (const key of Object.keys(stored)) if (!Object.hasOwn(expected, key)) return `${path}.${key}`
++    return null
++  }
++  return stored === expected ? null : path
++}
+diff --git a/src/core/p15Phases.ts b/src/core/p15Phases.ts
+new file mode 100644
+index 0000000..a8f8145
+--- /dev/null
++++ b/src/core/p15Phases.ts
+@@ -0,0 +1,38 @@
++// ── P15 domain-local phase identity and the one P15 allocator (1355-F2 items 1-4) ──
++// REFERENCE ONLY (record 1356-C): scratch evidence that the RED leaves can pass. Not a
++// production candidate; the single writer owns production.
++//
++// One documented table per phase-order version. A P15 native row stores the triple it
++// was written under and keeps it; a later catalogue maps versions and never rewrites rows.
++
++export const P15_PHASE_ORDER_VERSION = 1 as const
++
++/** Ordinals ascend in the table's order (1355-F2 item 3). */
++export const P15_PHASE_TABLES: Readonly<Record<number, readonly { readonly phaseId: string; readonly phaseOrdinal: number }[]>> = {
++  1: [
++    { phaseId: 'p15a1.marketBatch', phaseOrdinal: 1 },
++    { phaseId: 'p15a2.rankingRecord', phaseOrdinal: 2 },
++    { phaseId: 'p15b.condition', phaseOrdinal: 3 },
++    { phaseId: 'p15c.finale', phaseOrdinal: 4 },
++  ],
++}
++
++export type P15PhaseTriple = { phaseId: string; phaseOrdinal: number; phaseOrderVersion: number }
++
++/** The triple a new row of `phaseId` is written under (the current version). */
++export function p15PhaseTriple(phaseId: string): P15PhaseTriple {
++  const entry = P15_PHASE_TABLES[P15_PHASE_ORDER_VERSION]!.find(row => row.phaseId === phaseId)
++  if (entry === undefined) throw new Error(`p15Phases: unknown phase ${phaseId}`)
++  return { phaseId, phaseOrdinal: entry.phaseOrdinal, phaseOrderVersion: P15_PHASE_ORDER_VERSION }
++}
++
++/** True when the stored triple is exactly its own version's table entry for `phaseId`. */
++export function p15PhaseMatches(row: { phaseId: unknown; phaseOrdinal: unknown; phaseOrderVersion: unknown }, phaseId: string): boolean {
++  if (row.phaseId !== phaseId || typeof row.phaseOrderVersion !== 'number') return false
++  const entry = P15_PHASE_TABLES[row.phaseOrderVersion]?.find(candidate => candidate.phaseId === phaseId)
++  return entry !== undefined && row.phaseOrdinal === entry.phaseOrdinal
++}
++
++/** The one persisted P15 allocator (1355-F2 item 1). Starts at 1; `next++` at append. */
++export type P15Sequence = { version: 1; next: number }
++export const initialP15Sequence = (): P15Sequence => ({ version: 1, next: 1 })
+diff --git a/src/core/save.ts b/src/core/save.ts
+index 2f7006b..ef28aa0 100644
+--- a/src/core/save.ts
++++ b/src/core/save.ts
+@@ -6,6 +6,8 @@ import { validateInstallationCancellation } from './installationCancellation.js'
+ import type { StudioTechnology, StudioTechnologyV1, StudioTechnologyV2, StudioTechnologyV3 } from './technologyTypes.js'
+ import { initializeHollywood } from './hollywood.js'
+ import { validateHollywood } from './hollywoodValidation.js'
++import { validateCampaignLegacy } from './campaignLegacy.js'
++import { initialP15Sequence } from './p15Phases.js'
+ import { RIVAL_RESEARCH_MONEY_KINDS } from './hollywood.js'
+ import { RIVAL_RESEARCH_RECEIPT_KINDS } from './hollywoodTypes.js'
+ import type { HollywoodState, RivalFinancePeriod } from './hollywoodTypes.js'
+@@ -105,6 +107,7 @@ import type {
+   GameStateV41,
+   GameStateV42,
+   GameStateV43,
++  GameStateV44,
+   RelationshipEdge,
+   CohortReceipt,
+   FilmCreativeRole,
+@@ -622,7 +625,11 @@ export type SaveFileV43 = Omit<SaveFileV42, 'saveVersion' | 'state'> & {
+   saveVersion: 43;
+   state: GameStateV43;
+ };
+-export type LiveSaveFile = SaveFileV43;
++export type SaveFileV44 = Omit<SaveFileV43, 'saveVersion' | 'state'> & {
++  saveVersion: 44;
++  state: GameStateV44;
++};
++export type LiveSaveFile = SaveFileV44;
+ 
+ // Any envelope (the return of the version-dispatching validateSave/loadSave).
+ export type SaveFile =
+@@ -668,7 +675,8 @@ export type SaveFile =
+   | SaveFileV40
+   | SaveFileV41
+   | SaveFileV42
+-  | SaveFileV43;
++  | SaveFileV43
++  | SaveFileV44;
+ 
+ // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
+ // Recursively serializes with object keys sorted lexicographically, so the same
+@@ -5434,8 +5442,9 @@ export function validateSave(save: unknown): SaveFile {
+   if (s.saveVersion === 41) return validateSaveV41(save);
+   if (s.saveVersion === 42) return validateSaveV42(save);
+   if (s.saveVersion === 43) return validateSaveV43(save);
++  if (s.saveVersion === 44) return validateSaveV44(save);
+   throw new Error(
+-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 43 only)`,
++    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 44 only)`,
+   );
+ }
+ 
+@@ -6173,6 +6182,15 @@ function projectTalentPreV20(person: Talent): Talent {
+ 
+ function assertFrozenBuilderRetainsHollywood(state: object, builder: string): void {
+   const original = state as Record<string, unknown>;
++  // P15C Wave 2 (REFERENCE ONLY, record 1359-C; 1359-A §5.2): no frozen builder can carry the
++  // frozen 2040 Legacy. An empty root and the allocator strip; the frozen chain then runs as before.
++  if (Object.hasOwn(original, 'campaignLegacy') || Object.hasOwn(original, 'p15Sequence')) {
++    const root = original.campaignLegacy;
++    if (isRecord(root) && (root.official !== null || root.endOfRun !== null)) {
++      throw new Error(`${builder}: cannot downgrade or discard the frozen 2040 Legacy`);
++    }
++    return assertFrozenBuilderRetainsHollywood(stripV44Roots(original), builder);
++  }
+   const raw = Object.hasOwn(original, 'firstTakeSubjects')
+     ? convertV40ToV39({ saveVersion: 40, seed: original.seed, state, broadcastCache: original.broadcastItems } as SaveFileV40).state as unknown as Record<string, unknown>
+     : original;
+@@ -6557,15 +6575,15 @@ export function makeSaveV16(state: GameStateV16): SaveFileV16 {
+ // Every caller that asks "is this envelope a migration?" compares against this
+ // constant rather than a literal that goes stale the next time `makeSave` moves
+ // (the bridge and the ui adapter both still compared against 23 at V25).
+-export const LIVE_SAVE_VERSION = 43 as const;
++export const LIVE_SAVE_VERSION = 44 as const;
+ 
+-// makeSave — the live V43 boundary. Frozen prior values migrate explicitly.
++// makeSave — the live V44 boundary (REFERENCE ONLY, record 1359-C). Frozen prior values migrate explicitly.
+ // The plain-JSON state is detached once; only final serialization sorts it.
+-export function makeSave(state: GameState): SaveFileV43 {
+-  const save = validateSaveV43({ saveVersion: 43, seed: state.seed, state, broadcastCache: state.broadcastItems });
++export function makeSave(state: GameState): SaveFileV44 {
++  const save = validateSaveV44({ saveVersion: 44, seed: state.seed, state, broadcastCache: state.broadcastItems });
+   // Validation precedes detachment, so undefined/non-JSON authority cannot be
+   // silently repaired by stringify before the boundary sees it.
+-  return JSON.parse(JSON.stringify(save)) as SaveFileV43;
++  return JSON.parse(JSON.stringify(save)) as SaveFileV44;
+ }
+ 
+ // ── Load / export / import ───────────────────────────────────────────────────
+@@ -7411,6 +7429,7 @@ export function importLegacyV1ToV4(json: string): SaveFileV4 {
+ export function migrateToV4(
+   save: SaveFile,
+ ): SaveFileV4 {
++  if (save.saveVersion === 44) return migrateToV4(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV4(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV4(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV4(convertV41ToV40(save as SaveFileV41));
+@@ -7439,6 +7458,7 @@ export function migrateToV4(
+ export function migrateToV5(
+   save: SaveFile,
+ ): SaveFileV5 {
++  if (save.saveVersion === 44) return migrateToV5(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV5(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV5(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV5(convertV41ToV40(save as SaveFileV41));
+@@ -7462,6 +7482,7 @@ export function migrateToV5(
+ export function migrateToV6(
+   save: SaveFile,
+ ): SaveFileV6 {
++  if (save.saveVersion === 44) return migrateToV6(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV6(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV6(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV6(convertV41ToV40(save as SaveFileV41));
+@@ -7486,6 +7507,7 @@ export function migrateToV6(
+ export function migrateToV7(
+   save: SaveFile,
+ ): SaveFileV7 {
++  if (save.saveVersion === 44) return migrateToV7(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV7(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV7(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV7(convertV41ToV40(save as SaveFileV41));
+@@ -7506,6 +7528,7 @@ export function migrateToV7(
+ // V1–V7 migrate deterministically. Newer files are rejected loudly: this function
+ // may never silently discard authoritative screenplay or casting state.
+ export function migrateToV8(save: SaveFile): SaveFileV8 {
++  if (save.saveVersion === 44) return migrateToV8(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV8(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV8(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV8(convertV41ToV40(save as SaveFileV41));
+@@ -7544,6 +7567,7 @@ export function migrateToV8(save: SaveFile): SaveFileV8 {
+ // identity; V1–V8 migrate forward. V10 is rejected rather than silently losing
+ // authoritative casting history.
+ export function migrateToV9(save: SaveFile): SaveFileV9 {
++  if (save.saveVersion === 44) return migrateToV9(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV9(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV9(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV9(convertV41ToV40(save as SaveFileV41));
+@@ -7581,6 +7605,7 @@ export function migrateToV9(save: SaveFile): SaveFileV9 {
+ // identity; V1–V9 cross every frozen boundary and receive exactly legacy-empty
+ // casting state only at the final V9→V10 step. V11 is rejected, never downgraded.
+ export function migrateToV10(save: SaveFile): SaveFileV10 {
++  if (save.saveVersion === 44) return migrateToV10(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV10(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV10(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV10(convertV41ToV40(save as SaveFileV41));
+@@ -7619,6 +7644,7 @@ export function migrateToV10(save: SaveFile): SaveFileV10 {
+ // mode. V12 is rejected, never downgraded: a placed facility, its land, its
+ // debit, and its operating history have no V11 home.
+ export function migrateToV11(save: SaveFile): SaveFileV11 {
++  if (save.saveVersion === 44) return migrateToV11(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV11(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV11(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV11(convertV41ToV40(save as SaveFileV41));
+@@ -7655,6 +7681,7 @@ export function migrateToV11(save: SaveFile): SaveFileV11 {
+ // their own validated construction history implies at the final V11→V12 step.
+ // V13 is rejected, never downgraded: a property that has grown has no V12 home.
+ export function migrateToV12(save: SaveFile): SaveFileV12 {
++  if (save.saveVersion === 44) return migrateToV12(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV12(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV12(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV12(convertV41ToV40(save as SaveFileV41));
+@@ -7694,6 +7721,7 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
+ // one widened leaf — the honest, un-guessed `subjectId: null` on any
+ // pre-existing `queueIntentExpired` row — at the final V14→V15 step.
+ export function migrateToV15(save: SaveFile): SaveFileV15 {
++  if (save.saveVersion === 44) return migrateToV15(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV15(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV15(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV15(convertV41ToV40(save as SaveFileV41));
+@@ -7785,6 +7813,7 @@ export function convertV17ToV18(v17: SaveFileV17): SaveFileV18 {
+ // identity (after validation at the call boundary); V1–V17 cross every frozen
+ // boundary, then receive `endowed` at the final V17→V18 step.
+ export function migrateToV18(save: SaveFile): SaveFileV18 {
++  if (save.saveVersion === 44) return migrateToV18(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV18(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV18(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV18(convertV41ToV40(save as SaveFileV41));
+@@ -7817,6 +7846,7 @@ export function migrateToV18(save: SaveFile): SaveFileV18 {
+ // migrateToV17 — the frozen V17-target migration (P08A). A V18 save can never
+ // be downgraded: discarding the founding regime would erase exact history.
+ export function migrateToV17(save: SaveFile): SaveFileV17 {
++  if (save.saveVersion === 44) return migrateToV17(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV17(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV17(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV17(convertV41ToV40(save as SaveFileV41));
+@@ -7854,6 +7884,7 @@ export function migrateToV17(save: SaveFile): SaveFileV17 {
+ // migrateToV16 — the frozen V16-target migration (P06A). A V17 save can never
+ // be downgraded: discarding the recorded history would silently erase provenance.
+ export function migrateToV16(save: SaveFile): SaveFileV16 {
++  if (save.saveVersion === 44) return migrateToV16(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV16(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV16(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV16(convertV41ToV40(save as SaveFileV41));
+@@ -7894,6 +7925,7 @@ export function migrateToV16(save: SaveFile): SaveFileV16 {
+ }
+ 
+ export function migrateToV14(save: SaveFile): SaveFileV14 {
++  if (save.saveVersion === 44) return migrateToV14(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV14(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV14(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV14(convertV41ToV40(save as SaveFileV41));
+@@ -7944,6 +7976,7 @@ export function migrateToV14(save: SaveFile): SaveFileV14 {
+ }
+ 
+ export function migrateToV13(save: SaveFile): SaveFileV13 {
++  if (save.saveVersion === 44) return migrateToV13(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV13(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV13(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV13(convertV41ToV40(save as SaveFileV41));
+@@ -8078,6 +8111,7 @@ export function convertV18ToV19(save: SaveFileV18): SaveFileV19 {
+   return validateSaveV19({ saveVersion: 19, seed: save.seed, state, broadcastCache: state.broadcastItems });
+ }
+ export function migrateToV19(save: SaveFile): SaveFileV19 {
++  if (save.saveVersion === 44) return migrateToV19(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV19(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV19(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV19(convertV41ToV40(save as SaveFileV41));
+@@ -8172,6 +8206,7 @@ export function convertV20ToV21(save: SaveFileV20): SaveFileV21 {
+ }
+ 
+ export function migrateToV21(save: SaveFile): SaveFileV21 {
++  if (save.saveVersion === 44) return migrateToV21(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV21(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV21(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV21(convertV41ToV40(save as SaveFileV41));
+@@ -8212,6 +8247,7 @@ export function convertV21ToV22(save: SaveFileV21): SaveFileV22 {
+ }
+ 
+ export function migrateToV22(save: SaveFile): SaveFileV22 {
++  if (save.saveVersion === 44) return migrateToV22(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV22(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV22(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV22(convertV41ToV40(save as SaveFileV41));
+@@ -8277,6 +8313,7 @@ export function convertV22ToV23(save: SaveFileV22): SaveFileV23 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV23(save: SaveFile | { saveVersion: number }): SaveFileV23 {
++  if (save.saveVersion === 44) return migrateToV23(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV23(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV23(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV23(convertV41ToV40(save as SaveFileV41));
+@@ -8352,6 +8389,7 @@ export function convertV23ToV24(save: SaveFileV23): SaveFileV24 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV24(save: SaveFile | { saveVersion: number }): SaveFileV24 {
++  if (save.saveVersion === 44) return migrateToV24(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV24(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV24(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV24(convertV41ToV40(save as SaveFileV41));
+@@ -8588,6 +8626,7 @@ export function convertV24ToV25(save: SaveFileV24): SaveFileV25 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV25(save: SaveFile | { saveVersion: number }): SaveFileV25 {
++  if (save.saveVersion === 44) return migrateToV25(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV25(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV25(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV25(convertV41ToV40(save as SaveFileV41));
+@@ -8765,6 +8804,7 @@ export function convertV25ToV26(save: SaveFileV25): SaveFileV26 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV26(save: SaveFile | { saveVersion: number }): SaveFileV26 {
++  if (save.saveVersion === 44) return migrateToV26(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV26(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV26(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV26(convertV41ToV40(save as SaveFileV41));
+@@ -8932,6 +8972,7 @@ export function convertV27ToV26(save: SaveFileV27): SaveFileV26 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV27(save: SaveFile | { saveVersion: number }): SaveFileV27 {
++  if (save.saveVersion === 44) return migrateToV27(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV27(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV27(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV27(convertV41ToV40(save as SaveFileV41));
+@@ -9031,6 +9072,7 @@ export function convertV28ToV27(save: SaveFileV28): SaveFileV27 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV28(save: SaveFile | { saveVersion: number }): SaveFileV28 {
++  if (save.saveVersion === 44) return migrateToV28(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV28(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV28(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV28(convertV41ToV40(save as SaveFileV41));
+@@ -9142,6 +9184,7 @@ export function convertV29ToV28(save: SaveFileV29): SaveFileV28 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV29(save: SaveFile | { saveVersion: number }): SaveFileV29 {
++  if (save.saveVersion === 44) return migrateToV29(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV29(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV29(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV29(convertV41ToV40(save as SaveFileV41));
+@@ -9207,6 +9250,7 @@ export function convertV30ToV29(save: SaveFileV30): SaveFileV29 {
+ /** The V30 boundary (P14B.4, record 600); since P14B.5 a frozen prior shape
+  * reached from the live V31 by the ONE lossless-when-empty downgrade. */
+ export function migrateToV30(save: SaveFile | { saveVersion: number }): SaveFileV30 {
++  if (save.saveVersion === 44) return migrateToV30(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV30(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV30(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV30(convertV41ToV40(save as SaveFileV41));
+@@ -9298,6 +9342,7 @@ export function convertV31ToV30(save: SaveFileV31): SaveFileV30 {
+ /** The live load-to-play route (P14B.5): every prior envelope migrates to the
+  * V31 boundary the live writer stamps. */
+ export function migrateToV31(save: SaveFile | { saveVersion: number }): SaveFileV31 {
++  if (save.saveVersion === 44) return migrateToV31(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV31(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV31(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV31(convertV41ToV40(save as SaveFileV41));
+@@ -9399,6 +9444,7 @@ export function convertV32ToV31(save: SaveFileV32): SaveFileV31 {
+ /** The live load-to-play route (P14B.7): every prior envelope migrates to the
+  * V32 boundary the live writer stamps. */
+ export function migrateToV32(save: SaveFile | { saveVersion: number }): SaveFileV32 {
++  if (save.saveVersion === 44) return migrateToV32(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV32(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV32(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV32(convertV41ToV40(save as SaveFileV41));
+@@ -9665,6 +9711,7 @@ export function convertV33ToV32(save: SaveFileV33): SaveFileV32 {
+ /** The live load-to-play route (P14C.1): every prior envelope migrates to the
+  * V33 boundary the live writer stamps. */
+ export function migrateToV33(save: SaveFile | { saveVersion: number }): SaveFileV33 {
++  if (save.saveVersion === 44) return migrateToV33(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV33(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV33(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV33(convertV41ToV40(save as SaveFileV41));
+@@ -9916,6 +9963,7 @@ export function convertV34ToV33(save: SaveFileV34): SaveFileV33 {
+ /** Every prior envelope migrates to the V34 boundary; a V35 one downgrades losslessly
+  * only while it holds no cohort receipt. */
+ export function migrateToV34(save: SaveFile | { saveVersion: number }): SaveFileV34 {
++  if (save.saveVersion === 44) return migrateToV34(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV34(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV34(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV34(convertV41ToV40(save as SaveFileV41));
+@@ -10120,6 +10168,7 @@ export function convertV35ToV34(save: SaveFileV35): SaveFileV34 {
+ /** Every prior envelope migrates to the V35 boundary; a V36 one downgrades losslessly
+  * only while it holds no retirement extension. */
+ export function migrateToV35(save: SaveFile | { saveVersion: number }): SaveFileV35 {
++  if (save.saveVersion === 44) return migrateToV35(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV35(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV35(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV35(convertV41ToV40(save as SaveFileV41));
+@@ -10136,7 +10185,7 @@ export function migrateToV35(save: SaveFile | { saveVersion: number }): SaveFile
+  * stamps. Callers whose meaning is "the live state" call this, never a numbered
+  * step, so the next save bump moves this one definition. */
+ export function migrateToLive(save: SaveFile | { saveVersion: number }): LiveSaveFile {
+-  return migrateToV43(save);
++  return migrateToV44(save);
+ }
+ 
+ export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
+@@ -10157,6 +10206,7 @@ export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
+ }
+ 
+ export function migrateToV20(save: SaveFile): SaveFileV20 {
++  if (save.saveVersion === 44) return migrateToV20(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV20(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV20(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV20(convertV41ToV40(save as SaveFileV41));
+@@ -10354,6 +10404,7 @@ export function convertV36ToV35(save: SaveFileV36): SaveFileV35 {
+ 
+ /** Every prior envelope migrates to the V36 boundary. */
+ export function migrateToV36(save: SaveFile | { saveVersion: number }): SaveFileV36 {
++  if (save.saveVersion === 44) return migrateToV36(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV36(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV36(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV36(convertV41ToV40(save as SaveFileV41));
+@@ -10419,6 +10470,7 @@ export function convertV37ToV36(save: SaveFileV37): SaveFileV36 {
+ 
+ /** Every prior envelope migrates to the explicit amended-law boundary. */
+ export function migrateToV37(save: SaveFile | { saveVersion: number }): SaveFileV37 {
++  if (save.saveVersion === 44) return migrateToV37(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV37(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV37(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV37(convertV41ToV40(save as SaveFileV41));
+@@ -10457,7 +10509,7 @@ export function validatedLiveProfessionContext(state: GameState): ProfessionVali
+   // Save42 and Save43 move no profession law: the live state proves through the V41 chain with
+   // its relationship root at era 31 and the Save43 shelving era, exactly what `validateSaveV43`
+   // hands that chain.
+-  return proveProfessionSave({ saveVersion: 41, seed: state.seed, state: { ...state, relationships: relationshipsAtV31(state.relationships) },
++  return proveProfessionSave({ saveVersion: 41, seed: state.seed, state: { ...stripV44Roots(state as unknown as Record<string, unknown>), relationships: relationshipsAtV31(state.relationships) },
+     broadcastCache: state.broadcastItems }, 41, true).professionContext;
+ }
+ 
+@@ -10491,6 +10543,7 @@ export function convertV38ToV37(save: SaveFileV38): SaveFileV37 {
+ }
+ 
+ export function migrateToV38(save: SaveFile | { saveVersion: number }): SaveFileV38 {
++  if (save.saveVersion === 44) return migrateToV38(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV38(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV38(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV38(convertV41ToV40(save as SaveFileV41));
+@@ -10526,6 +10579,7 @@ export function convertV39ToV38(save: SaveFileV39): SaveFileV38 {
+ }
+ 
+ export function migrateToV39(save: SaveFile | { saveVersion: number }): SaveFileV39 {
++  if (save.saveVersion === 44) return migrateToV39(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV39(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV39(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return migrateToV39(convertV41ToV40(save as SaveFileV41));
+@@ -10564,6 +10618,7 @@ export function convertV40ToV39(save: SaveFileV40): SaveFileV39 {
+ }
+ 
+ export function migrateToV40(save: SaveFile | { saveVersion: number }): SaveFileV40 {
++  if (save.saveVersion === 44) return migrateToV40(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV40(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return migrateToV40(convertV42ToV41(save as SaveFileV42));
+   if (save.saveVersion === 41) return convertV41ToV40(save as SaveFileV41);
+@@ -10608,6 +10663,7 @@ export function convertV41ToV40(save: SaveFileV41): SaveFileV40 {
+ }
+ 
+ export function migrateToV41(save: SaveFile | { saveVersion: number }): SaveFileV41 {
++  if (save.saveVersion === 44) return migrateToV41(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return migrateToV41(convertV43ToV42(save as SaveFileV43));
+   if (save.saveVersion === 42) return convertV42ToV41(save as SaveFileV42);
+   if (save.saveVersion === 41) return validateSaveV41(save);
+@@ -10654,6 +10710,7 @@ export function convertV42ToV41(save: SaveFileV42): SaveFileV41 {
+ }
+ 
+ export function migrateToV42(save: SaveFile | { saveVersion: number }): SaveFileV42 {
++  if (save.saveVersion === 44) return migrateToV42(convertV44ToV43(save as SaveFileV44));
+   if (save.saveVersion === 43) return convertV43ToV42(save as SaveFileV43);
+   if (save.saveVersion === 42) return validateSaveV42(save);
+   return convertV41ToV42(migrateToV41(save));
+@@ -10704,6 +10761,77 @@ export function convertV43ToV42(save: SaveFileV43): SaveFileV42 {
+ }
+ 
+ export function migrateToV43(save: SaveFile | { saveVersion: number }): SaveFileV43 {
++  if (save.saveVersion === 44) return convertV44ToV43(save as SaveFileV44);
+   if (save.saveVersion === 43) return validateSaveV43(save);
+   return convertV42ToV43(migrateToV42(save));
+ }
++
++
++// ── P15C Wave 2 — the Campaign Legacy root and the one P15 allocator, Save44 ──
++// REFERENCE ONLY (record 1359-C): the step number is allocated at execution (1355-F
++// Amendment 4); the parent merges the P15 roots that share it. Two top-level roots, the V40
++// pattern: `campaignLegacy` (1359-A §5) and `p15Sequence` (1355-F2 item 1). The V44 validator
++// proves the frozen V43 chain on the stripped state, then the Legacy (1359-A §5.1 "after the
++// frozen chain"), then the allocator.
++function stripV44Roots(raw: Record<string, unknown>): Record<string, unknown> {
++  const { campaignLegacy: _legacy, p15Sequence: _sequence, ...older } = raw;
++  return older;
++}
++
++/** The allocator's own law (1355-F2 item 1): version 1, and `next` one above every stored
++ * P15 sequence. In this reference the official Legacy is the only P15 row. */
++function validateP15Sequence(raw: Record<string, unknown>): void {
++  const sequence = raw.p15Sequence;
++  if (!isRecord(sequence)) throw new Error('validateSaveV44: p15Sequence must be an object');
++  v12ExactKeys(sequence, ['version', 'next'], 'p15Sequence');
++  if (sequence.version !== 1) throw new Error('validateSaveV44: p15Sequence.version must be 1');
++  if (!Number.isSafeInteger(sequence.next) || (sequence.next as number) < 1) {
++    throw new Error('validateSaveV44: p15Sequence.next must be a whole number from 1');
++  }
++  const legacy = raw.campaignLegacy as { official: { p15DomainSequence: number } | null };
++  const largest = legacy.official === null ? 0 : legacy.official.p15DomainSequence;
++  if (sequence.next !== largest + 1) {
++    throw new Error('validateSaveV44: p15Sequence.next must be one above the largest stored p15DomainSequence');
++  }
++}
++
++export function validateSaveV44(save: unknown): SaveFileV44 {
++  if (!isRecord(save)) throw new Error('validateSaveV44: object required');
++  v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
++  if (save.saveVersion !== 44) throw new Error('validateSaveV44: expected version 44');
++  const raw = v14Record(checkEnvelope(save, 'validateSaveV44'), 'state');
++  if (!Object.hasOwn(raw, 'campaignLegacy')) throw new Error('validateSaveV44: the campaignLegacy root is missing');
++  if (!Object.hasOwn(raw, 'p15Sequence')) throw new Error('validateSaveV44: the p15Sequence root is missing');
++  validateSaveV43({ ...save, saveVersion: 43, state: stripV44Roots(raw) });
++  validateCampaignLegacy(raw as unknown as GameStateV44, 'validateSaveV44');
++  validateP15Sequence(raw);
++  return save as SaveFileV44;
++}
++
++/** Adds the empty Legacy at the save's own week and the allocator at 1. No freeze at
++ * migration (1359-A §5.2); a second migration is a no-op. */
++export function convertV43ToV44(save: SaveFileV43): SaveFileV44 {
++  const validated = validateSaveV43(save);
++  const old = JSON.parse(JSON.stringify(validated)) as SaveFileV43;
++  return validateSaveV44({ ...old, saveVersion: 44, state: { ...old.state,
++    campaignLegacy: { version: 1, recordedFromWeek: old.state.market.tick, official: null, endOfRun: null },
++    p15Sequence: initialP15Sequence() } });
++}
++
++/** Lossless only while the Legacy is empty: the root and the allocator drop. A frozen 2040
++ * Legacy refuses by name, before any other work (1359-A §5.2). */
++export function convertV44ToV43(save: SaveFileV44): SaveFileV43 {
++  const root = isRecord(save) && isRecord(save.state) ? (save.state as unknown as Record<string, unknown>).campaignLegacy : undefined;
++  if (isRecord(root) && (root.official !== null || root.endOfRun !== null)) {
++    throw new Error('migrateToV43: cannot downgrade or discard the frozen 2040 Legacy');
++  }
++  const validated = validateSaveV44(save);
++  const detached = JSON.parse(JSON.stringify(validated)) as SaveFileV44;
++  return validateSaveV43({ ...detached, saveVersion: 43,
++    state: stripV44Roots(detached.state as unknown as Record<string, unknown>) });
++}
++
++export function migrateToV44(save: SaveFile | { saveVersion: number }): SaveFileV44 {
++  if (save.saveVersion === 44) return validateSaveV44(save);
++  return convertV43ToV44(migrateToV43(save));
++}
+diff --git a/src/core/tick.ts b/src/core/tick.ts
+index fee7846..cd9e483 100644
+--- a/src/core/tick.ts
++++ b/src/core/tick.ts
+@@ -2,6 +2,7 @@ import { prepareLiveWritingContext } from './liveRetirementWriting.js'
+ import { advanceHollywoodWeek, finishHollywoodWeek } from './hollywoodTick.js'
+ import { birthdaysDueAt, materializeAges, withTalentProvenance } from './aging.js'
+ import { advanceLifecycleIntent, advanceLifecycleSettlement } from './careerLifecycle.js'
++import { freezeCampaignLegacyWeek } from './campaignLegacy.js'
+ import { advancePromisesWeek, appendFirstTakes, breakPromisesOnGreenlight } from './promises.js'
+ import { advanceRelationshipsWeek } from './relationships.js'
+ import { advanceTalentMarketWeek } from './talentMarket.js'
+@@ -1157,7 +1158,11 @@ export function tick(state: GameState, options?: TickOptions): GameState {
+   // runs AFTER the market, so an accepted extension has already moved the effective week it
+   // reads. By here the P10 expiry and `finishHollywoodWeek` have written every contract
+   // end at this week, which settlement asserts rather than repeats (773 D10). No RNG.
+-  return advanceLifecycleSettlement(advanceTalentMarketWeek(advancePromisesWeek(advanceLifecycleIntent(withBonds, birthdays))))
++  // P15C Wave 2 (REFERENCE ONLY, record 1359-C; 1359-A §4.2): the 2040 freeze is the tick's last
++  // step. It reads the week's final state and writes only `campaignLegacy` and `p15Sequence`; in
++  // every other tick it returns its input after three comparisons. No RNG.
++  return freezeCampaignLegacyWeek(
++    advanceLifecycleSettlement(advanceTalentMarketWeek(advancePromisesWeek(advanceLifecycleIntent(withBonds, birthdays)))))
+ }
+ 
+ /**
+diff --git a/src/core/types.ts b/src/core/types.ts
+index a56cd28..ccf9c74 100644
+--- a/src/core/types.ts
++++ b/src/core/types.ts
+@@ -2295,7 +2295,8 @@ export type GameStateV31 = GameStateV30 & {
+ // V41 adds no field: the rival `termination` movement is version-aware at the boundary.
+ // V42 adds the edge's `sharedCompetitions` counter and the two casting driver kinds.
+ // V43 adds rival screenplay shelving: `screenplayShelving` per business and its receipt.
+-export type GameState = GameStateV43
++// V44 (REFERENCE ONLY, record 1359-C) adds the Campaign Legacy root and the one P15 allocator.
++export type GameState = GameStateV44
+ 
+ // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
+ 
+@@ -2534,6 +2535,16 @@ export type GameStateV42 = GameStateV41
+  * the boundary as V41's termination was. Frozen readers keep "unproduced ⇔ active".
+  */
+ export type GameStateV43 = GameStateV42
++/**
++ * P15C Wave 2 (REFERENCE ONLY, record 1359-C; the step number is allocated at execution).
++ * Two top-level roots: the Campaign Legacy (1359-A §5; its type and validator live in
++ * campaignLegacy.ts, so no other src/core file spells the manifest's mode field) and the one
++ * P15 allocator (1355-F2 item 1).
++ */
++export type GameStateV44 = GameStateV43 & {
++  campaignLegacy: import('./campaignLegacy.js').CampaignLegacyRoot
++  p15Sequence: import('./p15Phases.js').P15Sequence
++}
+ 
+ // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
+ // The ONE canonical persisted record of a participant's outcome on one released film.
+diff --git a/src/core/worldgen.ts b/src/core/worldgen.ts
+index 422f045..bc358ff 100644
+--- a/src/core/worldgen.ts
++++ b/src/core/worldgen.ts
+@@ -84,6 +84,7 @@ import {
+ } from './tuning.js'
+ import { ageRunwayMult, roleOVR } from './talentSummary.js'
+ import { emptyPublicityState } from './save.js'
++import { initialP15Sequence } from './p15Phases.js'
+ import type {
+   CastSlot,
+   Ceilings,
+@@ -815,5 +816,9 @@ export function generateWorld(seed: string, options?: GenerateWorldOptions): Gam
+     talentProvenance: buildTalentProvenance(drawn, 0, 'authored_exact_week'),
+     // P14C.2a: a fresh world has announced no retirement; the root records from week 0.
+     careerLifecycle: initialCareerLifecycle(0, people),
++    // P15C Wave 2 (REFERENCE ONLY, record 1359-C; 1359-A §5.2): a fresh world records the
++    // Legacy from week 0, unfrozen. 1355-F2 item 1: the one P15 allocator starts at 1.
++    campaignLegacy: { version: 1, recordedFromWeek: 0, official: null, endOfRun: null },
++    p15Sequence: initialP15Sequence(),
+   }
+ }

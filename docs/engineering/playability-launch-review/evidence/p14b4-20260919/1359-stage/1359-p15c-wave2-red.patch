@@ -1,0 +1,1478 @@
+diff --git a/tests/p15c-wave-r-retention.test.ts b/tests/p15c-wave-r-retention.test.ts
+index 1f3e963..e422a12 100644
+--- a/tests/p15c-wave-r-retention.test.ts
++++ b/tests/p15c-wave-r-retention.test.ts
+@@ -69,9 +69,15 @@
+ // not the 90.4s figure alone: if CI hardware is slower or more contended than
+ // the authoring sandbox, the margin at 120_000 was thinner than the headline
+ // 90.4s suggested.
++//
++// 1359-F Amendment 2 (record 1359-C, P15C Wave 2 RED): a seventh guard,
++// `wave-r-retention-player-concepts`, covers `state.concepts`, the root the Wave 2
++// adapter reads a player film's genre from (1359-A §3.1). It reuses the memoized
++// campaign above and passes at RED by design, like the other six (CONTROL).
+ 
+ import { describe, expect, it } from 'vitest'
+ import { initializeHollywood } from '../src/core/hollywood.js'
++import { stableStringify } from '../src/core/save.js'
+ import { tick } from '../src/core/tick.js'
+ import {
+   foundRosterWallStudio,
+@@ -325,4 +331,29 @@ describe('p15c wave R: retention guards over the six named roots (1353-A §4 row
+     },
+     GUARD_TIMEOUT_MS,
+   )
++
++  // ── 7. state.concepts (player) — 1359-F Amendment 2 ─────────────────────
++  // The Wave 2 adapter reads a player film's genre from the concept its
++  // `conceptId` names in `state.concepts` (1359-A §3.1), and refuses by name
++  // when that concept is gone. No writer prunes the root today; this guard
++  // keeps it so: every concept a W1 player film reads survives to W2,
++  // byte-equal. (`renameScreenplay` may retitle a concept; this campaign's
++  // policy never calls it.)
++  it(
++    'wave-r-retention-player-concepts',
++    async () => {
++      const { w1, w2 } = await campaignRun()
++      expect(w1.studio.releasedFilms.length).toBeGreaterThan(0)
++      const w1ById = byId(w1.concepts, (c) => c.id)
++      const w2ById = byId(w2.concepts, (c) => c.id)
++      for (const film of w1.studio.releasedFilms) {
++        const row = w1ById.get(film.conceptId)
++        if (!row) throw new Error(`premise: player film ${film.productionId} reads concept ${film.conceptId}, absent at W1=${W1}`)
++        const later = w2ById.get(film.conceptId)
++        if (!later) throw new Error(`RED: concept ${film.conceptId} read by player film ${film.productionId} at W1=${W1} is gone at W2=${W2}`)
++        expect(stableStringify(later), film.conceptId).toBe(stableStringify(row))
++      }
++    },
++    GUARD_TIMEOUT_MS,
++  )
+ })
+diff --git a/tests/p15c2-campaign-legacy-integration.test.ts b/tests/p15c2-campaign-legacy-integration.test.ts
+new file mode 100644
+index 0000000..06d7bd3
+--- /dev/null
++++ b/tests/p15c2-campaign-legacy-integration.test.ts
+@@ -0,0 +1,1422 @@
++// ── P15C Wave 2 — the Legacy in the live game: the fact adapter, the 2040 freeze and the
++// root `campaignLegacy`. RED tests (record 1359-C). ──
++//
++// Authority ($E = docs/engineering/playability-launch-review/evidence/p14b4-20260919):
++// 1359-A §3 (the adapter), §4 (the boundary), §5 (the root), §8 (this RED list), as adopted
++// by 1359-F: Amendment 1 (the validator replays the official manifest under the evaluator
++// its definition names; `legacy-validate-replay`; an old-law fixture), Amendment 2 (the
++// `state.concepts` retention guard, added to tests/p15c-wave-r-retention.test.ts) and
++// Amendment 3 (save.ts may read `postFinaleMode`; D1-D3 moved to Wave 1, landed at
++// 321a4378). 1353-J note 2: definition versioning is a comment today; the old-law leaf
++// proves it in code. 1355-F2 item 7: a P15 watermark is the root's largest
++// `p15DomainSequence`; the finale's phase id is `p15c.finale`. Out of scope: the end-of-run
++// manifest (§6, Wave 5), the Bridge views and the ceremony (§7, Waves 3-4), the G-P/G-L
++// measurements (§9, the parent's).
++//
++// FIXTURES. No natural campaign in a test reaches week 6240 from a fresh founding, so:
++// - G6240: the genuine Save38 capture at week 6240 of the 1052 active endurance run (A,
++//   observer fixed), pinned by bytes and sha256, migrated through the public chain. A
++//   fresh-origin campaign: 122 player films with runs, 20 live and 8 authored rival films,
++//   732 + 120 career events, 9 adoptions.
++// - G6240F: G6240 with ONE named forgery, `campaignLegacy.recordedFromWeek` set to 0 (the
++//   campaign as if it had carried the root from world start), then the freeze step
++//   applied. The full validator accepts it before any leaf reads it (1359-A §8).
++// - week 130: the genuine Save42 capture of tests/p14d1-rival-shelving-fixtures.ts
++//   (rivals 5-9 not yet entered, a rival film still in its run).
++// - Route L (late founding), natural throughout: generateWorld, a year of headless M0A
++//   releases by OracleAgent (no economy: no run, no career event), idle headless ticks to
++//   week 6188, `beginFounding` there (origin 'migration', every studio entered at 6188),
++//   then ordinary ticks through 6241, extended to 6760 for the post-freeze leaves.
++// - The genuine below-step captures of 1355-F Amendment 3, shared with 1356-C at
++//   tests/fixtures/p15/genuine-below-p15-save-step/: not minted yet (FIXTURE PENDING).
++// Adapter leaves also feed the adapter named edits of a validated base (sentinels, a
++// removed concept, a legacyCompleted run, sibling roots shaped per 1355-A §3.3, 1356-A §5
++// and 1357-A §4 with 1355-F2's sequence and triple). Those edits are never saved.
++//
++// SAVE VERSION. Nothing here names a future version. STEP is the live constant; the step's
++// own functions are found by name (`convertV${STEP-1}ToV${STEP}` and back,
++// `migrateToV${STEP-1}`), the convention 1356-C uses. Today STEP is 43, so those leaves run
++// the Save43 functions and fail on the missing root. A later step pins STEP in its sweep.
++//
++// SIBLINGS. P15A.1, P15A.2 and P15B Wave 2 have not landed. A leaf that needs a sibling's
++// tick step or root in the live state fails with "SIBLING PENDING" until it lands
++// (1359-A §10 item 3), never with a vacuous pass.
++//
++// RED REASONS. Every RED leaf first resolves the Wave 2 surface (`legacyFactsFromState`,
++// `freezeCampaignLegacyWeek`, `LEGACY_DEFINITIONS`, the `campaignLegacy` root), so it fails
++// fast and by name today. The two `legacy-control-*` leaves pass today. Strict TypeScript;
++// no Math.random; TUNING by name; states compared at the serialization level (1344-X6).
++
++import { createHash } from 'node:crypto'
++import { existsSync, readFileSync } from 'node:fs'
++import { gunzipSync } from 'node:zlib'
++import { describe, expect, it } from 'vitest'
++import { applyActions } from '../src/core/actions.js'
++import { OracleAgent } from '../src/core/agents.js'
++import * as legacyModule from '../src/core/campaignLegacy.js'
++import {
++  buildLegacyManifest,
++  LEGACY_ARCHETYPE_IDS,
++  LEGACY_BOUNDARY_WEEK,
++  LEGACY_BOUNDS,
++  LEGACY_DOMAIN_IDS,
++  LEGACY_LENS_IDS,
++  LEGACY_POST_FINALE_MODE,
++  type LegacyCareerEventFact,
++  type LegacyFacts,
++  type LegacyFilmFact,
++} from '../src/core/campaignLegacy.js'
++import { beginFounding } from '../src/core/employment.js'
++import type { IndustryFilm, LiveIndustryFilm } from '../src/core/hollywoodTypes.js'
++import * as saveModule from '../src/core/save.js'
++import { exportSave, importSave, makeSave, migrateToLive, stableStringify, type SaveFile } from '../src/core/save.js'
++import { TECHNOLOGY_CATALOGUE } from '../src/core/technologyCatalogue.js'
++import { tick } from '../src/core/tick.js'
++import { TUNING } from '../src/core/tuning.js'
++import type { GameState, TalentCareerEvent } from '../src/core/types.js'
++import { generateWorld } from '../src/core/worldgen.js'
++import { liveWeek130 } from './p14d1-rival-shelving-fixtures.js'
++
++const B = LEGACY_BOUNDARY_WEEK // 6240 = 2040 · Week 1, derived from the calendar (Wave 1)
++/** The live version at this RED's base 1063ab4f: a fact of the base, not a future number. */
++const BASE_LIVE_SAVE_VERSION = 43
++const STEP: number = saveModule.LIVE_SAVE_VERSION
++const ROUTE_TIMEOUT_MS = 180_000 // 1359-A §8: natural-campaign leaves keep the Wave R 180 s budget
++const HEAVY_TIMEOUT_MS = 900_000 // 520 post-freeze ticks, or ~40 full validations of G6240F; unmeasured
++const FIXTURE_TIMEOUT_MS = 180_000 // parse and migrate a 6.7 MB genuine save once per file
++const P15_SIBLINGS = [['powerRanking', 'powerRanking'], ['corporateCondition', 'corporateCondition'], ['sharedMarket', 'marketAssessments']] as const
++const P15_ROOT_KEYS = ['campaignLegacy', 'p15Sequence', 'powerRanking', 'corporateCondition', 'sharedMarket'] as const
++
++// ── the persisted shapes this file reads (1359-A §5; 1355-F2 items 1-3) ──────────
++type Ref = { domainId: string; id: string }
++type Archetype = {
++  archetypeId: string; outcome: string; limitedBy: string[]; qualifyingCount: number; contraryCount: number
++  qualifying: Ref[]; contrary: Ref[]
++}
++type Lens = { lensId: string; status: string; counts: Record<string, number>; refs: Ref[] }
++type Source = { domainId: string; highWatermark: number; recordedFromWeek: number | null; status: string }
++type ManifestStudio = { studioId: string; standingAtBoundary: Record<string, number>; archetypes: Archetype[]; lenses: Lens[] }
++type Official = {
++  kind: string; definition: string; boundaryWeek: number; postFinaleMode: string | null; sources: Source[]
++  studios: ManifestStudio[]; legacySnapshotId: string; p15DomainSequence: number; phaseId: string
++  phaseOrdinal: number; phaseOrderVersion: number
++}
++type LegacyRoot = { version: number; recordedFromWeek: number; official: Official | null; endOfRun: unknown }
++type Sequence = { version: number; next: number }
++type Envelope = { saveVersion: number; seed: string; state: GameState; broadcastCache: unknown[] }
++type DefinitionEntry = {
++  boundaryWeek: number; postFinaleMode: string; archetypeIds: readonly string[]; lensIds: readonly string[]
++  lensCountKeys: Record<string, readonly string[]>; bounds: Record<string, number>; domainIds: readonly string[]
++  thresholds: Record<string, number>
++}
++type Band = 'inTheRed' | 'strained' | 'stable' | 'thriving'
++type Stage = 'stable' | 'warning' | 'distress' | 'recovery' | 'closed'
++type P15Row = { root: string; id: string; week: number; sequence: number }
++
++const canon = (value: unknown): string => stableStringify(value)
++const rawOf = (state: GameState): Record<string, unknown> => state as unknown as Record<string, unknown>
++const sha256 = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
++const compareText = (a: string, b: string): number => (a < b ? -1 : a > b ? 1 : 0)
++const byKey = <T>(rows: readonly T[], key: (row: T) => string): T[] => [...rows].sort((a, b) => compareText(key(a), key(b)))
++const isLive = (film: IndustryFilm): film is LiveIndustryFilm => film.provenance === 'simulation/v1'
++
++function memo<T>(build: () => T): () => T {
++  let value: { readonly v: T } | undefined
++  let failure: { readonly e: unknown } | undefined
++  return () => {
++    if (failure !== undefined) throw failure.e
++    if (value === undefined) {
++      try {
++        value = { v: build() }
++      } catch (error) {
++        failure = { e: error }
++        throw error
++      }
++    }
++    return value.v
++  }
++}
++
++function thrownMessage(run: () => unknown): string {
++  try {
++    run()
++  } catch (error) {
++    return error instanceof Error ? error.message : String(error)
++  }
++  throw new Error('expected a refusal, but the call returned')
++}
++
++/** The full live validator refuses `state`, and its message names every token. */
++function refuses(state: GameState, ...tokens: (string | RegExp)[]): void {
++  const message = thrownMessage(() => makeSave(state))
++  for (const token of tokens) {
++    if (typeof token === 'string') expect(message, `the refusal names ${token}`).toContain(token)
++    else expect(message, `the refusal matches ${String(token)}`).toMatch(token)
++  }
++}
++
++// ── the Wave 2 surface, resolved per leaf (RED today, by name) ────────────────
++const wave2 = legacyModule as unknown as Record<string, unknown>
++function wave2Fn<T>(name: string): T {
++  const fn = wave2[name]
++  if (typeof fn !== 'function') {
++    throw new Error(`RED: src/core/campaignLegacy.ts does not export a function named '${name}' (1359-A §3-§5)`)
++  }
++  return fn as unknown as T
++}
++type FactsFn = (state: GameState, boundaryWeek: number) => LegacyFacts
++type StepFn = (state: GameState) => GameState
++const factsFn = (): FactsFn => wave2Fn<FactsFn>('legacyFactsFromState')
++const stepFn = (): StepFn => wave2Fn<StepFn>('freezeCampaignLegacyWeek')
++function definitionsTable(): Record<string, DefinitionEntry> {
++  const table = wave2.LEGACY_DEFINITIONS
++  if (table === null || typeof table !== 'object') {
++    throw new Error('RED: src/core/campaignLegacy.ts does not export LEGACY_DEFINITIONS (1359-A §5.1 era versioning)')
++  }
++  return table as Record<string, DefinitionEntry>
++}
++
++function legacyOf(state: GameState): LegacyRoot {
++  const root = rawOf(state).campaignLegacy
++  if (root === undefined) throw new Error('RED: the state carries no campaignLegacy root (1359-A §5: a top-level GameState key)')
++  return root as LegacyRoot
++}
++function sequenceOf(state: GameState): Sequence {
++  const root = rawOf(state).p15Sequence
++  if (root === undefined) throw new Error('RED: the state carries no p15Sequence root (1355-F2 item 1)')
++  return root as Sequence
++}
++function officialOf(state: GameState): Official {
++  const official = legacyOf(state).official
++  if (official === null) throw new Error('premise: the state holds no official 2040 Legacy')
++  return official
++}
++function withRoot(state: GameState, key: string, value: unknown): GameState {
++  const copy: Record<string, unknown> = { ...rawOf(state) }
++  if (value === undefined) delete copy[key]
++  else copy[key] = value
++  return copy as unknown as GameState
++}
++const STAMP_KEYS = ['legacySnapshotId', 'p15DomainSequence', 'phaseId', 'phaseOrdinal', 'phaseOrderVersion'] as const
++function withoutStamp(official: Official): Record<string, unknown> {
++  const copy: Record<string, unknown> = { ...official }
++  for (const key of STAMP_KEYS) delete copy[key]
++  return copy
++}
++function stripP15(state: GameState): Record<string, unknown> {
++  const copy: Record<string, unknown> = { ...rawOf(state) }
++  for (const key of P15_ROOT_KEYS) delete copy[key]
++  return copy
++}
++function tamper(state: GameState, edit: (official: Official) => void): GameState {
++  const root = structuredClone(legacyOf(state))
++  if (root.official === null) throw new Error('premise: no official manifest to tamper')
++  edit(root.official)
++  return withRoot(state, 'campaignLegacy', root)
++}
++const sourceOf = (official: Official, domainId: string): Source => {
++  const source = official.sources.find((row) => row.domainId === domainId)
++  if (source === undefined) throw new Error(`premise: the manifest has no ${domainId} source`)
++  return source
++}
++const lensOf = (studio: ManifestStudio, lensId: string): Lens => {
++  const lens = studio.lenses.find((row) => row.lensId === lensId)
++  if (lens === undefined) throw new Error(`premise: studio ${studio.studioId} has no ${lensId} lens`)
++  return lens
++}
++/** A cited ref's place: an archetype side or a lens's refs. */
++type RefAt = { studio: number; archetype: number | null; lens: number | null; side: 'qualifying' | 'contrary' | 'refs'; index: number }
++function findRef(official: Official, accept: (ref: Ref) => boolean): RefAt {
++  for (const [studio, row] of official.studios.entries()) {
++    for (const [archetype, result] of row.archetypes.entries()) {
++      for (const side of ['qualifying', 'contrary'] as const) {
++        const index = result[side].findIndex(accept)
++        if (index >= 0) return { studio, archetype, lens: null, side, index }
++      }
++    }
++    for (const [lens, result] of row.lenses.entries()) {
++      const index = result.refs.findIndex(accept)
++      if (index >= 0) return { studio, archetype: null, lens, side: 'refs', index }
++    }
++  }
++  throw new Error('premise: the official manifest cites no ref of the kind this leaf tampers')
++}
++function refAt(official: Official, at: RefAt): Ref {
++  const studio = official.studios[at.studio]!
++  const list = at.lens !== null ? studio.lenses[at.lens]!.refs
++    : studio.archetypes[at.archetype!]![at.side === 'contrary' ? 'contrary' : 'qualifying']
++  return list[at.index]!
++}
++/** The first archetype that cites at least one ref. */
++function citingArchetype(official: Official): Archetype {
++  const found = official.studios.flatMap((row) => row.archetypes).find((a) => a.qualifying.length + a.contrary.length > 0)
++  if (found === undefined) throw new Error('premise: an archetype that cites a ref')
++  return found
++}
++
++/** Array domains: a ref's position is its row's index + 1 in the root (1359-A §5.1 item 7). */
++function arrayRows(state: GameState): Record<string, readonly string[]> {
++  const h = state.hollywood!
++  return {
++    playerFilms: state.studio.releasedFilms.map((film) => film.productionId),
++    industryFilms: h.films.map((film) => film.filmId),
++    playerCareerEvents: state.careerEvents.map((event) => event.eventId),
++    industryCareerEvents: h.careerEvents.map((event) => event.eventId),
++    technologyAdoptions: state.technology.adoptions.map((adoption) => adoption.id),
++    technologyCatalogue: TECHNOLOGY_CATALOGUE.map((technology) => technology.id),
++  }
++}
++
++/** Every P15 native row of the sibling roots present in `state` (1355-F2 item 2). */
++function p15Rows(state: GameState): P15Row[] {
++  const raw = rawOf(state)
++  const rows: P15Row[] = []
++  const ranking = raw.powerRanking as { snapshots: { id: string; week: number; p15DomainSequence: number }[] } | undefined
++  for (const r of ranking?.snapshots ?? []) rows.push({ root: 'powerRanking', id: r.id, week: r.week, sequence: r.p15DomainSequence })
++  const condition = raw.corporateCondition as {
++    events: { eventId: string; week: number; p15DomainSequence: number }[]
++    loans: { loanId: string; contractedWeek: number; p15DomainSequence: number }[]
++  } | undefined
++  for (const e of condition?.events ?? []) rows.push({ root: 'corporateCondition', id: e.eventId, week: e.week, sequence: e.p15DomainSequence })
++  for (const l of condition?.loans ?? []) rows.push({ root: 'corporateCondition', id: l.loanId, week: l.contractedWeek, sequence: l.p15DomainSequence })
++  const market = raw.sharedMarket as { assessments: { releaseId: string; week: number; p15DomainSequence: number }[] } | undefined
++  for (const a of market?.assessments ?? []) rows.push({ root: 'sharedMarket', id: a.releaseId, week: a.week, sequence: a.p15DomainSequence })
++  return rows
++}
++const siblingAllocations = (before: GameState, after: GameState): number =>
++  p15Rows(after).filter((row) => row.sequence >= sequenceOf(before).next).length
++function requireRoot(state: GameState, key: string, why: string): void {
++  if (rawOf(state)[key] === undefined) {
++    throw new Error(`SIBLING PENDING: the ${key} root is not in this tree; ${why} (1359-A §10 item 3)`)
++  }
++}
++function requireSiblings(state: GameState, why: string): void {
++  if (P15_SIBLINGS.every(([key]) => rawOf(state)[key] === undefined)) {
++    throw new Error(`SIBLING PENDING: no P15 sibling root (powerRanking, corporateCondition, sharedMarket) is in this tree; ${why} (1359-A §10 item 3)`)
++  }
++}
++
++// ── forged sibling rows, shaped per their adopted charters (the adapter reads few fields) ──
++function rankingRecord(sequence: number, week: number, rows: { studioId: string; rank: number | null; band: Band }[]): Record<string, unknown> {
++  return {
++    id: `power-ranking-${sequence}`, p15DomainSequence: sequence, phaseId: 'p15a2.rankingRecord', phaseOrdinal: 2, phaseOrderVersion: 1,
++    week, definitionVersion: 'power-ranking/v1', available: true, windowStartWeek: week - 52,
++    rows: rows.map((row) => ({ studioId: row.studioId, ranked: row.rank !== null, rank: row.rank, filmsTenths: 0, releases: 0,
++      releasesTenths: 0, countedFilmIds: [], band: row.band })),
++  }
++}
++const rankingRoot = (recordedFromWeek: number, snapshots: Record<string, unknown>[]): Record<string, unknown> =>
++  ({ version: 1, recordedFromWeek, snapshots })
++function conditionEvent(sequence: number, n: number, studioId: string, week: number, from: Stage, to: Stage, causes: number[] = [1]): Record<string, unknown> {
++  return {
++    eventId: `corporate-event-${n}`, studioId, week, from, to, causes, definitionVersion: 'corporate-condition/v1',
++    p15DomainSequence: sequence, phaseId: 'p15b.condition', phaseOrdinal: 3, phaseOrderVersion: 1,
++  }
++}
++function conditionLoan(sequence: number, n: number, studioId: string, week: number, money = 1_000_000): Record<string, unknown> {
++  return {
++    loanId: `corporate-loan-${n}`, studioId, lawVersion: 'studio-loan/v1', contractedWeek: week, weeklyFixedCostAtContract: money,
++    principal: money, total: money, installments: Array.from({ length: 52 }, () => money),
++    p15DomainSequence: sequence, phaseId: 'p15b.condition', phaseOrdinal: 3, phaseOrderVersion: 1,
++  }
++}
++const conditionRoot = (recordedFromWeek: number, events: Record<string, unknown>[], loans: Record<string, unknown>[],
++  studios: Record<string, unknown>[] = []): Record<string, unknown> =>
++  ({ version: 1, recordedFromWeek, nextEvent: events.length + 1, nextLoan: loans.length + 1, studios, events, loans })
++function assessment(sequence: number, releaseId: string, studioId: string, week: number, factor: number): Record<string, unknown> {
++  return {
++    releaseId, studioId, genre: 'drama', week, definitionVersion: 'p15a1-market-v1', pressure: 1 - factor, factor,
++    windowTerm: 0, stockTerm: 0, inputDigest: 'digest', reasons: [],
++    p15DomainSequence: sequence, phaseId: 'p15a1.marketBatch', phaseOrdinal: 1, phaseOrderVersion: 1,
++  }
++}
++const marketRoot = (recordedFromWeek: number, assessments: Record<string, unknown>[]): Record<string, unknown> =>
++  ({ version: 1, recordedFromWeek, assessments })
++
++// ── the adapter's expected output, derived here from 1359-A §3.1-§3.2 (never from production) ──
++function expectedFilms(state: GameState, boundary: number): LegacyFilmFact[] {
++  const h = state.hollywood!
++  const genreOf = new Map(state.concepts.map((concept) => [concept.id, concept.genre]))
++  const runOf = new Map(state.theatricalRuns.map((run) => [run.productionId, run]))
++  const films: LegacyFilmFact[] = []
++  for (const film of state.studio.releasedFilms) {
++    const run = runOf.get(film.productionId)
++    const settledWeek = run === undefined || run.status === 'legacyCompleted' ? film.releaseTick
++      : film.releaseTick + run.totalWeeks <= boundary ? film.releaseTick + run.totalWeeks - 1 : null
++    films.push({
++      filmId: film.productionId, studioId: h.playerStudioId, domainId: 'playerFilms', provenance: 'campaign',
++      releaseWeek: film.releaseTick, genre: genreOf.get(film.conceptId)!, criticScore: film.criticScore, audienceScore: null,
++      status: settledWeek === null ? 'inRun' : 'settled', settledWeek,
++      grossSettled: settledWeek === null ? null : film.boxOffice.total, credits: [],
++    })
++  }
++  for (const film of h.films) {
++    if (isLive(film)) {
++      const settled = film.settledWeek !== null && film.settledWeek < boundary
++      films.push({
++        filmId: film.filmId, studioId: film.studioId, domainId: 'industryFilms', provenance: 'campaign',
++        releaseWeek: film.result.releaseTick, genre: film.genre, criticScore: film.result.criticScore, audienceScore: null,
++        status: settled ? 'settled' : 'inRun', settledWeek: settled ? film.settledWeek : null,
++        grossSettled: settled ? film.result.boxOffice.total : null, credits: [],
++      })
++    } else {
++      // Authored: settled, null (1359-A §3.1). The landed law refuses a settled film without a
++      // whole settledWeek (campaignLegacy.ts:351); see the handback, finding F1.
++      films.push({
++        filmId: film.filmId, studioId: film.studioId, domainId: 'industryFilms', provenance: 'authored', releaseWeek: null,
++        genre: film.genre, criticScore: film.criticScore, audienceScore: film.audienceScore, status: 'settled',
++        settledWeek: null, grossSettled: film.totalGross, credits: film.credits.map((c) => ({ talentId: c.talentId, role: c.role })),
++      })
++    }
++  }
++  return films
++}
++const eventFact = (event: TalentCareerEvent, domainId: LegacyCareerEventFact['domainId']): LegacyCareerEventFact => ({
++  eventId: event.eventId, filmId: event.filmId, talentId: event.talentId, domainId, role: event.role,
++  releaseWeek: event.releaseWeek, genre: event.genre, audienceScore: event.audienceScore,
++})
++function expectedDomains(state: GameState): { domainId: string; highWatermark: number; recordedFromWeek: number | null }[] {
++  const h = state.hollywood!
++  const raw = rawOf(state)
++  const largest = (rows: readonly { p15DomainSequence: number }[]): number => rows.reduce((max, row) => Math.max(max, row.p15DomainSequence), 0)
++  const sibling = (domainId: string, key: string, rowsOf: (root: Record<string, unknown>) => { p15DomainSequence: number }[]) => {
++    const root = raw[key] as Record<string, unknown> | undefined
++    return root === undefined || (root.recordedFromWeek as number) >= B
++      ? { domainId, highWatermark: 0, recordedFromWeek: null }
++      : { domainId, highWatermark: largest(rowsOf(root)), recordedFromWeek: root.recordedFromWeek as number }
++  }
++  type Rows = { p15DomainSequence: number }[]
++  return [
++    { domainId: 'playerFilms', highWatermark: state.studio.releasedFilms.length, recordedFromWeek: 0 },
++    { domainId: 'industryFilms', highWatermark: h.films.length, recordedFromWeek: h.originWeek },
++    { domainId: 'playerRuns', highWatermark: state.theatricalRuns.length, recordedFromWeek: 0 },
++    { domainId: 'playerCareerEvents', highWatermark: state.careerEvents.length, recordedFromWeek: 0 },
++    { domainId: 'industryCareerEvents', highWatermark: h.careerEvents.length, recordedFromWeek: h.originWeek },
++    { domainId: 'technologyAdoptions', highWatermark: state.technology.adoptions.length, recordedFromWeek: state.technology.recordingStartedWeek },
++    { domainId: 'technologyCatalogue', highWatermark: TECHNOLOGY_CATALOGUE.length, recordedFromWeek: 0 },
++    sibling('powerRanking', 'powerRanking', (root) => root.snapshots as Rows),
++    sibling('corporateCondition', 'corporateCondition', (root) => [...(root.events as Rows), ...(root.loans as Rows)]),
++    sibling('marketAssessments', 'sharedMarket', (root) => root.assessments as Rows),
++  ]
++}
++const domainOf = (facts: LegacyFacts, domainId: string): unknown => facts.domains.find((row) => row.domainId === domainId)
++const pickStatus = (film: LegacyFilmFact | undefined): unknown =>
++  film === undefined ? undefined : { status: film.status, settledWeek: film.settledWeek, grossSettled: film.grossSettled }
++function enteredIds(state: GameState): string[] {
++  return state.hollywood!.identities.filter((identity) => identity.enteredWeek !== null)
++    .sort((a, b) => a.row - b.row).map((identity) => identity.studioId)
++}
++
++// ── genuine captures ─────────────────────────────────────────────────────────
++const EVIDENCE = '../docs/engineering/playability-launch-review/evidence/p14b4-20260919/'
++const GENUINE_6240 = {
++  path: '1052-c3-endurance-A-observer-fixed/authority-6240.json', bytes: 6_720_108,
++  sha256: 'c9bfb1428cf27dad13c26b6f135f3cd3ee00b9303c45076e97abecb357c8aab1',
++} as const
++const genuineSave38 = memo((): Envelope => {
++  const raw = readFileSync(new URL(EVIDENCE + GENUINE_6240.path, import.meta.url))
++  expect(raw.byteLength).toBe(GENUINE_6240.bytes)
++  expect(sha256(raw)).toBe(GENUINE_6240.sha256)
++  const save = importSave(raw.toString('utf8')) as unknown as Envelope
++  expect(save.saveVersion).toBe(38)
++  expect(save.state.market.tick).toBe(B)
++  return save
++})
++const genuine6240 = memo((): GameState => migrateToLive(genuineSave38()).state as GameState)
++const week130 = memo((): GameState => liveWeek130())
++
++/** G6240F: the one named forgery (recordedFromWeek 0), the step, then the full validator. */
++const genuineFrozen = memo((): GameState => {
++  const step = stepFn()
++  const base = genuine6240()
++  const root = legacyOf(base)
++  // C4's rule on a genuine save: migrated at week 6240, it records from its own week, unfrozen.
++  expect(root.recordedFromWeek).toBe(B)
++  expect(root.official).toBeNull()
++  const frozen = step(withRoot(base, 'campaignLegacy', { ...root, recordedFromWeek: 0 }))
++  makeSave(frozen) // 1359-A §8: a forged state passes the full validator before any leaf reads it
++  return frozen
++})
++
++/** The 1355-F Amendment 3 captures, shared with 1356-C; minted by the parent. */
++const CAPTURES = new URL('./fixtures/p15/genuine-below-p15-save-step/', import.meta.url)
++type CaptureManifest = { saveVersion: number; inputs: { name: string; gzip: { bytes: number; sha256: string }; decoded: { bytes: number; sha256: string } }[] }
++const belowStepCaptures = memo((): Envelope[] => {
++  const manifestUrl = new URL('MANIFEST.json', CAPTURES)
++  if (!existsSync(manifestUrl)) {
++    throw new Error('FIXTURE PENDING: no genuine capture below the P15 save step at tests/fixtures/p15/genuine-below-p15-save-step/ '
++      + `(1355-F Amendment 3: mint at the last Save${STEP - 1} writer; this RED needs route L captures at weeks 6239 and 6240)`)
++  }
++  const manifest = JSON.parse(readFileSync(manifestUrl, 'utf8')) as CaptureManifest
++  expect(manifest.saveVersion).toBe(STEP - 1)
++  return manifest.inputs.map((input) => {
++    const gz = readFileSync(new URL(`${input.name}.json.gz`, CAPTURES))
++    expect(gz.byteLength).toBe(input.gzip.bytes)
++    expect(sha256(gz)).toBe(input.gzip.sha256)
++    const raw = gunzipSync(gz).toString('utf8')
++    expect(Buffer.byteLength(raw, 'utf8')).toBe(input.decoded.bytes)
++    expect(sha256(raw)).toBe(input.decoded.sha256)
++    const capture = importSave(raw) as unknown as Envelope
++    expect(capture.saveVersion).toBe(STEP - 1)
++    return capture
++  })
++})
++function captureAt(accept: (state: GameState) => boolean, what: string): Envelope {
++  const capture = belowStepCaptures().find((row) => row.state.hollywood !== null && accept(row.state))
++  if (capture === undefined) throw new Error(`FIXTURE PENDING: no below-step capture ${what} with an industry`)
++  return capture
++}
++
++// ── the save step, by the live constant ──────────────────────────────────────
++function saveFn(name: string): (save: unknown) => Envelope {
++  const fn = (saveModule as unknown as Record<string, unknown>)[name]
++  if (typeof fn !== 'function') throw new Error(`RED: save.ts does not export ${name} (the Legacy's save step is ${STEP})`)
++  return fn as (save: unknown) => Envelope
++}
++const convertIntoStep = (save: unknown): Envelope => saveFn(`convertV${STEP - 1}ToV${STEP}`)(save)
++const convertOutOfStep = (save: unknown): Envelope => saveFn(`convertV${STEP}ToV${STEP - 1}`)(save)
++const migrateBelowStep = (save: unknown): Envelope => saveFn(`migrateToV${STEP - 1}`)(save)
++const asSaveFile = (save: Envelope): SaveFile => save as unknown as SaveFile
++const DOWNGRADE_REFUSAL = /cannot downgrade or discard the frozen 2040 Legacy/
++
++// ── route L: a natural late founding that reaches 2040 inside a test budget ───
++const ROUTE_SEED = '1359-legacy-late-founding-01'
++/** 119 × 52 and 476 × 13: one campaign year (four quarters) before B. */
++const FOUNDING_WEEK = 6188
++
++function commitReady(state: GameState): GameState {
++  const committed = new Set(state.releaseAuthority.commitments.map((row) => row.productionId))
++  const ready = state.studio.activeProductions.filter((p) => p.remainingTicks === 1 && !committed.has(p.id))
++  if (ready.length === 0) return state
++  return applyActions(state, ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })))
++}
++
++type RouteRun = {
++  headlessAtFounding: GameState; foundedAtFounding: GameState
++  headless: Map<number, GameState>; founded: Map<number, GameState>; ms: Record<string, number>
++}
++const route = memo((): RouteRun => {
++  const started = performance.now()
++  let state = generateWorld(ROUTE_SEED)
++  // One headless year: the M0A agent releases films with no economy (no run, no career event).
++  for (let week = 0; week < TUNING.TICKS_PER_YEAR; week++) state = tick(commitReady(applyActions(state, OracleAgent.chooseActions(state))))
++  while (state.studio.activeProductions.length > 0) state = tick(commitReady(state))
++  while (state.market.tick < FOUNDING_WEEK) state = tick(state)
++  const headlessDone = performance.now()
++  const headless = new Map<number, GameState>()
++  let h = state
++  while (h.market.tick < B + 1) {
++    h = tick(h)
++    if (h.market.tick >= B - 1) headless.set(h.market.tick, h)
++  }
++  const foundedAtFounding = beginFounding(state)
++  const founded = new Map<number, GameState>()
++  let f = foundedAtFounding
++  while (f.market.tick < B + 1) {
++    f = tick(f)
++    if (f.market.tick >= B - 2) founded.set(f.market.tick, f)
++  }
++  return {
++    headlessAtFounding: state, foundedAtFounding, headless, founded,
++    ms: { headlessTo6188: headlessDone - started, industry6188To6241: performance.now() - headlessDone },
++  }
++})
++function at(week: number): GameState {
++  const state = route().founded.get(week)
++  if (state === undefined) throw new Error(`route premise: no founded state at week ${week}`)
++  return state
++}
++type Extension = { at: Map<number, GameState>; firstRootChange: number | null; ms: number }
++/** Route L from 6241 to 6760: 520 ticks after the freeze (1353-A §8, carried). */
++const extension = memo((): Extension => {
++  const started = performance.now()
++  const frozenRoot = canon(legacyOf(at(B)))
++  const keep = new Map<number, GameState>()
++  let state = at(B + 1)
++  let firstRootChange: number | null = canon(legacyOf(state)) === frozenRoot ? null : state.market.tick
++  while (state.market.tick < B + 520) {
++    state = tick(state)
++    if (firstRootChange === null && canon(legacyOf(state)) !== frozenRoot) firstRootChange = state.market.tick
++    if (state.market.tick === 6300 || state.market.tick === B + 520) keep.set(state.market.tick, state)
++  }
++  return { at: keep, firstRootChange, ms: performance.now() - started }
++})
++function extended(week: 6300 | 6760): GameState {
++  const state = extension().at.get(week)
++  if (state === undefined) throw new Error(`route premise: no extended state at week ${week}`)
++  return state
++}
++
++// ═══════════════════════════════════════════════════════════════════════════
++// CONTROLS — pass today: the fixtures are lawful without Wave 2
++// ═══════════════════════════════════════════════════════════════════════════
++describe('p15c2 controls: the fixtures are lawful at RED and at GREEN', () => {
++  it('legacy-control-late-founding-route-lawful', () => {
++    const run = route()
++    const founded = run.foundedAtFounding
++    expect(founded.hollywood?.origin).toBe('migration')
++    expect(founded.hollywood?.originWeek).toBe(FOUNDING_WEEK)
++    expect(founded.hollywood!.identities.every((identity) => identity.enteredWeek === FOUNDING_WEEK)).toBe(true)
++    const runs = new Set(founded.theatricalRuns.map((r) => r.productionId))
++    expect(founded.studio.releasedFilms.length, 'the headless year released player films').toBeGreaterThan(0)
++    expect(founded.studio.releasedFilms.every((film) => !runs.has(film.productionId) && film.releaseTick < FOUNDING_WEEK)).toBe(true)
++    expect(founded.careerEvents).toHaveLength(0)
++    makeSave(founded)
++    for (const week of [B - 2, B - 1, B, B + 1]) {
++      expect(at(week).market.tick).toBe(week)
++      expect(makeSave(at(week)).saveVersion).toBe(STEP)
++    }
++    for (const week of [B - 1, B, B + 1]) {
++      const state = run.headless.get(week)!
++      expect(state.hollywood).toBeNull()
++      makeSave(state)
++    }
++    console.info(JSON.stringify({ kind: '1359-legacy-route-timing', seed: ROUTE_SEED, ...run.ms }))
++  }, ROUTE_TIMEOUT_MS)
++
++  it('legacy-control-genuine-save38-6240-lawful', () => {
++    expect(genuineSave38().state.hollywood?.origin).toBe('fresh')
++    const state = genuine6240()
++    expect(state.market.tick).toBe(B)
++    expect(state.studio.releasedFilms).toHaveLength(122)
++    expect(state.hollywood!.films.filter(isLive)).toHaveLength(20)
++    expect(state.hollywood!.films.filter((film) => !isLive(film))).toHaveLength(8)
++    expect(state.careerEvents).toHaveLength(732)
++    expect(state.hollywood!.careerEvents).toHaveLength(120)
++    expect(state.technology.adoptions).toHaveLength(9)
++    expect(makeSave(state).saveVersion).toBe(STEP)
++  }, FIXTURE_TIMEOUT_MS)
++})
++
++// ═══════════════════════════════════════════════════════════════════════════
++// A. the fact adapter `legacyFactsFromState(state, boundaryWeek)` (1359-A §3)
++// ═══════════════════════════════════════════════════════════════════════════
++describe('p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9)', () => {
++  it('legacy-adapter-film-facts', () => {
++    const facts = factsFn()
++    const cases: [string, GameState, number][] = [['genuine Save38 at 6240', genuine6240(), B], ['genuine Save42 at 130', week130(), 130]]
++    for (const [label, state, boundary] of cases) {
++      const actual = facts(state, boundary)
++      expect(actual.boundaryWeek, label).toBe(boundary)
++      expect(canon(byKey(actual.films, (f) => f.filmId)), label).toBe(canon(byKey(expectedFilms(state, boundary), (f) => f.filmId)))
++    }
++    const kinds = new Set(facts(genuine6240(), B).films.map((f) => `${f.domainId}/${f.provenance}`))
++    expect([...kinds].sort(), 'premise: all three film kinds').toEqual(['industryFilms/authored', 'industryFilms/campaign', 'playerFilms/campaign'])
++  }, FIXTURE_TIMEOUT_MS)
++
++  it('legacy-adapter-run-status', () => {
++    const facts = factsFn()
++    const base = genuine6240()
++    const film = (state: GameState, boundary: number, id: string) => facts(state, boundary).films.find((f) => f.filmId === id)
++    const runs = [...base.theatricalRuns].sort((a, b) => a.releaseTick + a.totalWeeks - (b.releaseTick + b.totalWeeks) || compareText(a.productionId, b.productionId))
++    const last = runs[runs.length - 1]!
++    expect(last.totalWeeks, 'premise: a run longer than one week').toBeGreaterThan(1)
++    const end = last.releaseTick + last.totalWeeks
++    const gross = base.studio.releasedFilms.find((f) => f.productionId === last.productionId)!.boxOffice.total
++    // A completed run whose last payment falls at B − 1 against B: settled at releaseTick + totalWeeks − 1.
++    expect(pickStatus(film(base, end, last.productionId))).toEqual({ status: 'settled', settledWeek: end - 1, grossSettled: gross })
++    // The same run one week earlier: in run, no week, no gross.
++    expect(pickStatus(film(base, end - 1, last.productionId))).toEqual({ status: 'inRun', settledWeek: null, grossSettled: null })
++    // legacyCompleted (named edit): settled at its release week, whatever its length.
++    const legacy: GameState = { ...base, theatricalRuns: base.theatricalRuns.map((r) => (r.productionId === last.productionId ? { ...r, status: 'legacyCompleted' as const } : r)) }
++    expect(pickStatus(film(legacy, end - 1, last.productionId))).toEqual({ status: 'settled', settledWeek: last.releaseTick, grossSettled: gross })
++    // No run (named edit): settled at its release week. Route L's natural no-run films: the next leaf.
++    const runless: GameState = { ...base, theatricalRuns: base.theatricalRuns.filter((r) => r.productionId !== last.productionId) }
++    expect(pickStatus(film(runless, end - 1, last.productionId))).toEqual({ status: 'settled', settledWeek: last.releaseTick, grossSettled: gross })
++    // Rival: settledWeek null reads in run; settledWeek B − 1 reads settled; settledWeek B reads in run.
++    const state = week130()
++    const live = state.hollywood!.films.filter(isLive)
++    const open = live.find((f) => f.settledWeek === null)
++    expect(open, 'premise: a rival film still in its run at week 130').toBeDefined()
++    expect(pickStatus(film(state, 130, open!.filmId))).toEqual({ status: 'inRun', settledWeek: null, grossSettled: null })
++    const closed = live.filter((f) => f.settledWeek !== null).sort((a, b) => a.settledWeek! - b.settledWeek! || compareText(a.filmId, b.filmId))
++    const latest = closed[closed.length - 1]!
++    const settledWeek = latest.settledWeek!
++    expect(pickStatus(film(state, settledWeek + 1, latest.filmId))).toEqual({ status: 'settled', settledWeek, grossSettled: latest.result.boxOffice.total })
++    expect(pickStatus(film(state, settledWeek, latest.filmId))).toEqual({ status: 'inRun', settledWeek: null, grossSettled: null })
++  }, FIXTURE_TIMEOUT_MS)
++
++  it('legacy-adapter-run-status-natural-no-run', () => {
++    const facts = factsFn()
++    const state = at(B)
++    const runs = new Set(state.theatricalRuns.map((r) => r.productionId))
++    const runless = state.studio.releasedFilms.filter((film) => !runs.has(film.productionId))
++    expect(runless.length, 'route premise: the headless year released films with no run').toBeGreaterThan(0)
++    const byId = new Map(facts(state, B).films.map((f) => [f.filmId, f]))
++    const genreOf = new Map(state.concepts.map((concept) => [concept.id, concept.genre]))
++    for (const film of runless) {
++      expect(pickStatus(byId.get(film.productionId))).toEqual({ status: 'settled', settledWeek: film.releaseTick, grossSettled: film.boxOffice.total })
++      expect(byId.get(film.productionId)!.genre).toBe(genreOf.get(film.conceptId))
++    }
++  }, ROUTE_TIMEOUT_MS)
++
++  it('legacy-adapter-private-money-never-read', () => {
++    const facts = factsFn()
++    const S = {
++      rivalAccount: 987654321.111, rivalRuns: 987654322.222, directCommitment: 987654323.333, studioRevenueReceived: 987654324.444,
++      loan: 987654325.555, careerMoney: 987654326.666, careerSkill: 987654327.777, playerCash: 987654328.888,
++      ledger: 987654329.999, inRunPaid: 987654330.123, unsettledGross: 987654331.234, conditionCounters: 987654332.345,
++    } as const
++    const leaks = (text: string): string[] => Object.entries(S).filter(([, value]) => text.includes(String(value))).map(([key]) => key)
++    // Case 1: the genuine 6240 campaign at a B where its last player run is still paying.
++    const base = genuine6240()
++    expect(base.ledger.length, 'premise').toBeGreaterThan(0)
++    expect(base.careerEvents.length, 'premise').toBeGreaterThan(0)
++    expect(base.hollywood!.careerEvents.length, 'premise').toBeGreaterThan(0)
++    const runs = [...base.theatricalRuns].sort((a, b) => a.releaseTick + a.totalWeeks - (b.releaseTick + b.totalWeeks))
++    const last = runs[runs.length - 1]!
++    const boundary = last.releaseTick + last.totalWeeks - 1
++    const s = structuredClone(base)
++    const h = s.hollywood!
++    const rivals = enteredIds(s).filter((id) => id !== h.playerStudioId)
++    for (const business of h.businesses) {
++      business.account.cash = S.rivalAccount
++      business.account.openingBalance = S.rivalAccount
++      for (const period of business.account.periods) {
++        period.opening = S.rivalAccount
++        period.closing = S.rivalAccount
++        for (const kind of Object.keys(period.movements) as (keyof typeof period.movements)[]) period.movements[kind] = S.rivalAccount
++      }
++      business.runs = [...business.runs, {
++        productionId: `${business.studioId}:sentinel`, conceptId: 'sentinel', releaseTick: 0, totalWeeks: 1, weekIndex: 0,
++        weeklyGross: [S.rivalRuns], studioShare: S.rivalRuns, cumulativeGrossPaid: S.rivalRuns,
++        cumulativeStudioRevenuePaid: S.rivalRuns, economyModelVersion: 1, status: 'active',
++      }]
++    }
++    for (const film of h.films) {
++      if (!isLive(film)) continue
++      film.directCommitment = S.directCommitment
++      film.studioRevenueReceived = S.studioRevenueReceived
++    }
++    for (const event of [...s.careerEvents, ...h.careerEvents]) {
++      event.realizedOpening = S.careerMoney
++      event.realizedTotal = S.careerMoney
++      event.forecastComparator = S.careerMoney
++      for (const key of ['billingWeight', 'ovrBefore', 'ovrAfter', 'genreExpBefore', 'genreExpAfter', 'workHistoryBefore',
++        'workHistoryAfter', 'starPowerBefore', 'starPowerAfter', 'starPowerDelta'] as const) event[key] = S.careerSkill
++      for (const map of [event.skillsBefore, event.skillsAfter, event.skillDeltas]) for (const skill of Object.keys(map)) map[skill] = S.careerSkill
++    }
++    s.studio.cash = S.playerCash
++    s.ledger = s.ledger.map((entry) => ({ ...entry, amount: S.ledger }))
++    s.theatricalRuns = s.theatricalRuns.map((run) => ({ ...run, weeklyGross: run.weeklyGross.map(() => S.inRunPaid),
++      studioShare: S.inRunPaid, cumulativeGrossPaid: S.inRunPaid, cumulativeStudioRevenuePaid: S.inRunPaid }))
++    s.studio.releasedFilms = s.studio.releasedFilms.map((film) => (film.productionId === last.productionId
++      ? { ...film, boxOffice: { opening: S.unsettledGross, total: S.unsettledGross } } : film))
++    const withLoan = withRoot(s, 'corporateCondition', conditionRoot(6000,
++      [conditionEvent(1, 1, rivals[0]!, 6100, 'stable', 'warning', [S.conditionCounters])],
++      [conditionLoan(2, 1, rivals[0]!, 6101, S.loan)],
++      [{ studioId: rivals[0]!, firstEvaluatedWeek: 6001, definitionVersion: 'corporate-condition/v1', condition: { cash: S.conditionCounters } }]))
++    const genuineFacts = facts(withLoan, boundary)
++    expect(genuineFacts.films.find((f) => f.filmId === last.productionId)?.status, 'premise: the sentinel film is in its run').toBe('inRun')
++    expect(leaks(JSON.stringify(genuineFacts)), 'facts').toEqual([])
++    expect(leaks(JSON.stringify(buildLegacyManifest(genuineFacts, 'endOfRun'))), 'manifest').toEqual([])
++    // Case 2: a rival film in its run at week 130 keeps its gross to date private.
++    const w130 = structuredClone(week130())
++    const open = w130.hollywood!.films.filter(isLive).find((f) => f.settledWeek === null)!
++    open.result.boxOffice = { opening: S.unsettledGross, total: S.unsettledGross }
++    const rivalFacts = facts(w130, 130)
++    expect(leaks(JSON.stringify(rivalFacts)), 'facts at 130').toEqual([])
++    expect(leaks(JSON.stringify(buildLegacyManifest(rivalFacts, 'endOfRun'))), 'manifest at 130').toEqual([])
++  }, FIXTURE_TIMEOUT_MS)
++
++  it('legacy-adapter-career-events', () => {
++    const facts = factsFn()
++    const state = genuine6240()
++    expect(state.careerEvents.length, 'premise').toBeGreaterThan(0)
++    expect(state.hollywood!.careerEvents.length, 'premise').toBeGreaterThan(0)
++    const actual = facts(state, B).careerEvents
++    for (const row of actual) {
++      expect(Object.keys(row).sort()).toEqual(['audienceScore', 'domainId', 'eventId', 'filmId', 'genre', 'releaseWeek', 'role', 'talentId'])
++    }
++    const expected = [
++      ...state.careerEvents.map((event) => eventFact(event, 'playerCareerEvents')),
++      ...state.hollywood!.careerEvents.map((event) => eventFact(event, 'industryCareerEvents')),
++    ]
++    expect(canon(byKey(actual, (e) => e.eventId))).toBe(canon(byKey(expected, (e) => e.eventId)))
++  }, FIXTURE_TIMEOUT_MS)
++
++  it('legacy-adapter-studios', () => {
++    const facts = factsFn()
++    const state = genuine6240()
++    const h = state.hollywood!
++    const channels = (st: { audienceAwareness: number; industryPrestige: number; commercialConfidence: number }) =>
++      ({ audienceAwareness: st.audienceAwareness, industryPrestige: st.industryPrestige, commercialConfidence: st.commercialConfidence })
++    const standingOf = (studioId: string) => (studioId === h.playerStudioId ? state.studio.standing
++      : h.businesses.find((business) => business.studioId === studioId)!.standing)
++    const expected = h.identities.filter((identity) => identity.enteredWeek !== null).sort((a, b) => a.row - b.row)
++      .map((identity) => ({ studioId: identity.studioId, row: identity.row, enteredWeek: identity.enteredWeek, closedWeek: null,
++        standing: channels(standingOf(identity.studioId)) }))
++    // Row order, both Standing sources, and closedWeek null without the condition root.
++    expect(canon(facts(state, B).studios)).toBe(canon(expected))
++    // With the root: the week of the studio's → closed event; every other studio null.
++    const r03 = h.identities.find((identity) => identity.row === 3)!.studioId
++    const withCondition = withRoot(state, 'corporateCondition', conditionRoot(6000, [
++      conditionEvent(1, 1, r03, 6100, 'stable', 'warning'), conditionEvent(2, 2, r03, 6110, 'warning', 'distress'),
++      conditionEvent(3, 3, r03, 6140, 'distress', 'closed')], []))
++    const studios = facts(withCondition, B).studios
++    expect(studios.find((row) => row.studioId === r03)?.closedWeek).toBe(6140)
++    expect(studios.filter((row) => row.studioId !== r03).map((row) => row.closedWeek)).toEqual(Array.from({ length: studios.length - 1 }, () => null))
++    // Entered identities only: at week 130 rows 5-9 have not entered.
++    const w130 = week130()
++    expect(facts(w130, 130).studios.map((row) => row.studioId)).toEqual(enteredIds(w130))
++    expect(enteredIds(w130).length, 'premise').toBeLessThan(w130.hollywood!.identities.length)
++  }, FIXTURE_TIMEOUT_MS)
++
++  it('legacy-adapter-domain-facts', () => {
++    const facts = factsFn()
++    const state = genuine6240()
++    const actual = facts(state, B)
++    expect(actual.domains.map((row) => row.domainId).sort()).toEqual(LEGACY_DOMAIN_IDS.filter((id) => id !== 'awards').slice().sort())
++    expect(canon(byKey(actual.domains, (row) => row.domainId))).toBe(canon(byKey(expectedDomains(state), (row) => row.domainId)))
++    expect(actual.baseMarketValue).toBe(state.market.baseMarketValue)
++    expect(canon(byKey(actual.technologies, (t) => t.technologyId)))
++      .toBe(canon(byKey(TECHNOLOGY_CATALOGUE.map((t) => ({ technologyId: t.id, commercialWeek: t.commercialWeek })), (t) => t.technologyId)))
++    expect(canon(byKey(actual.adoptions, (a) => a.adoptionId))).toBe(canon(byKey(state.technology.adoptions.map((a) => ({
++      adoptionId: a.id, studioId: a.studioId, technologyId: a.technologyId, operationalWeek: a.operationalWeek,
++      cancelledWeek: a.cancelledWeek })), (a) => a.adoptionId)))
++  }, FIXTURE_TIMEOUT_MS)
++
++  it('legacy-adapter-sibling-roots', () => {
++    const facts = factsFn()
++    const base = week130()
++    const [s0, s1, s2] = enteredIds(base)
++    expect(s2, 'premise: three entered studios').toBeDefined()
++    const live = base.hollywood!.films.filter(isLive)
++    const cases = [
++      {
++        key: 'powerRanking', domainId: 'powerRanking', factKey: 'rankingSnapshots',
++        empty: (from: number) => rankingRoot(from, []),
++        rows: rankingRoot(100, [rankingRecord(3, 104, [{ studioId: s0!, rank: 1, band: 'stable' }, { studioId: s1!, rank: null, band: 'thriving' }]),
++          rankingRecord(7, 117, [{ studioId: s0!, rank: 2, band: 'strained' }])]),
++        expected: [{ recordId: 'power-ranking-3', week: 104, studioId: s0, rank: 1, band: 'stable' },
++          { recordId: 'power-ranking-3', week: 104, studioId: s1, rank: null, band: 'thriving' },
++          { recordId: 'power-ranking-7', week: 117, studioId: s0, rank: 2, band: 'strained' }],
++        watermark: 7,
++      },
++      {
++        key: 'corporateCondition', domainId: 'corporateCondition', factKey: 'conditionEvents',
++        empty: (from: number) => conditionRoot(from, [], []),
++        rows: conditionRoot(100, [conditionEvent(4, 1, s2!, 105, 'stable', 'warning'), conditionEvent(6, 2, s2!, 110, 'warning', 'stable')],
++          [conditionLoan(5, 1, s2!, 106)]),
++        expected: [{ eventId: 'corporate-event-1', studioId: s2, week: 105, from: 'stable', to: 'warning' },
++          { eventId: 'corporate-event-2', studioId: s2, week: 110, from: 'warning', to: 'stable' }],
++        watermark: 6,
++      },
++      {
++        key: 'sharedMarket', domainId: 'marketAssessments', factKey: 'marketAssessments',
++        empty: (from: number) => marketRoot(from, []),
++        rows: marketRoot(100, [assessment(2, live[0]!.filmId, live[0]!.studioId, 110, 0.9), assessment(8, live[1]!.filmId, live[1]!.studioId, 112, 1)]),
++        expected: [{ assessmentId: live[0]!.filmId, studioId: live[0]!.studioId, week: 110, assessed: true, underPressure: true },
++          { assessmentId: live[1]!.filmId, studioId: live[1]!.studioId, week: 112, assessed: true, underPressure: false }],
++        watermark: 8,
++      },
++    ]
++    const rowsOf = (f: LegacyFacts, key: string): unknown => (f as unknown as Record<string, unknown>)[key]
++    const sorted = (rows: unknown): string => canon(byKey(rows as Record<string, unknown>[], (row) => canon(row)))
++    for (const c of cases) {
++      const absent = facts(withRoot(base, c.key, undefined), 130)
++      expect(domainOf(absent, c.domainId), `${c.key} absent`).toEqual({ domainId: c.domainId, highWatermark: 0, recordedFromWeek: null })
++      expect(rowsOf(absent, c.factKey), `${c.key} absent`).toBeUndefined()
++      const empty = facts(withRoot(base, c.key, c.empty(100)), 130)
++      expect(domainOf(empty, c.domainId), `${c.key} empty from 100`).toEqual({ domainId: c.domainId, highWatermark: 0, recordedFromWeek: 100 })
++      expect(rowsOf(empty, c.factKey), `${c.key} empty from 100`).toEqual([])
++      const withRows = facts(withRoot(base, c.key, c.rows), 130)
++      expect(domainOf(withRows, c.domainId), `${c.key} with rows`).toEqual({ domainId: c.domainId, highWatermark: c.watermark, recordedFromWeek: 100 })
++      expect(sorted(rowsOf(withRows, c.factKey)), `${c.key} with rows`).toBe(sorted(c.expected))
++      buildLegacyManifest(withRows, 'endOfRun') // the adapter's facts are lawful input for the law
++      // Recorded from B or later: it arrived after the boundary and reads exactly as absent (1359-A §5.1 item 6).
++      const late = facts(withRoot(base, c.key, c.empty(130)), 130)
++      expect(domainOf(late, c.domainId), `${c.key} recorded from B`).toEqual({ domainId: c.domainId, highWatermark: 0, recordedFromWeek: null })
++      expect(rowsOf(late, c.factKey), `${c.key} recorded from B`).toBeUndefined()
++    }
++  }, FIXTURE_TIMEOUT_MS)
++
++  it('legacy-adapter-p15-watermarks', () => {
++    const facts = factsFn()
++    const base = week130()
++    const [s0, s1] = enteredIds(base)
++    const live = base.hollywood!.films.filter(isLive)
++    const watermark = (key: string, root: Record<string, unknown>, domainId: string): unknown =>
++      (domainOf(facts(withRoot(base, key, root), 130), domainId) as { highWatermark?: unknown } | undefined)?.highWatermark
++    const row = (studioId: string, rank: number) => ({ studioId, rank, band: 'stable' as const })
++    expect(watermark('powerRanking', rankingRoot(100, [rankingRecord(3, 104, [row(s0!, 1)]), rankingRecord(12, 117, [row(s0!, 1)])]), 'powerRanking')).toBe(12)
++    expect(watermark('powerRanking', rankingRoot(100, []), 'powerRanking')).toBe(0)
++    // The condition domain's largest sequence spans its events AND its loans.
++    expect(watermark('corporateCondition', conditionRoot(100, [conditionEvent(4, 1, s1!, 105, 'stable', 'warning'),
++      conditionEvent(8, 2, s1!, 110, 'warning', 'stable')], [conditionLoan(5, 1, s1!, 106)]), 'corporateCondition')).toBe(8)
++    expect(watermark('corporateCondition', conditionRoot(100, [conditionEvent(4, 1, s1!, 105, 'stable', 'warning'),
++      conditionEvent(6, 2, s1!, 110, 'warning', 'stable')], [conditionLoan(5, 1, s1!, 106), conditionLoan(9, 2, s1!, 111)]), 'corporateCondition')).toBe(9)
++    expect(watermark('corporateCondition', conditionRoot(100, [], []), 'corporateCondition')).toBe(0)
++    expect(watermark('sharedMarket', marketRoot(100, [assessment(2, live[0]!.filmId, live[0]!.studioId, 110, 1),
++      assessment(5, live[1]!.filmId, live[1]!.studioId, 111, 1)]), 'marketAssessments')).toBe(5)
++    expect(watermark('sharedMarket', marketRoot(100, []), 'marketAssessments')).toBe(0)
++  }, FIXTURE_TIMEOUT_MS)
++
++  it('legacy-adapter-missing-concept-refuses', () => {
++    const facts = factsFn()
++    const base = genuine6240()
++    const film = base.studio.releasedFilms[0]!
++    const without: GameState = { ...base, concepts: base.concepts.filter((concept) => concept.id !== film.conceptId) }
++    expect(without.concepts).toHaveLength(base.concepts.length - 1)
++    const message = thrownMessage(() => facts(without, B))
++    expect(message).toContain(film.conceptId)
++    expect(message).toMatch(/concept/i)
++    expect(() => facts(base, B)).not.toThrow()
++  }, FIXTURE_TIMEOUT_MS)
++})
++
++// ═══════════════════════════════════════════════════════════════════════════
++// B. the boundary: the tick producing 6240 (1359-A §4)
++// ═══════════════════════════════════════════════════════════════════════════
++describe('p15c2 boundary: the freeze as the tick\'s last step (1359-A §4, RED B1-B9)', () => {
++  it('legacy-tick-freezes-once-at-6240', () => {
++    stepFn()
++    const facts = factsFn()
++    const [s6238, s6239, s6240, s6241] = [at(B - 2), at(B - 1), at(B), at(B + 1)]
++    // 6238 → 6239 writes nothing.
++    expect(legacyOf(s6239).official).toBeNull()
++    expect(canon(legacyOf(s6239))).toBe(canon(legacyOf(s6238)))
++    expect(sequenceOf(s6239).next).toBe(sequenceOf(s6238).next + siblingAllocations(s6238, s6239))
++    // 6239 → 6240 writes the official manifest, its stamp, and one allocation, last.
++    const official = officialOf(s6240)
++    const next = sequenceOf(s6240).next
++    expect(next).toBe(sequenceOf(s6239).next + siblingAllocations(s6239, s6240) + 1)
++    expect(official.p15DomainSequence).toBe(next - 1)
++    expect(official.legacySnapshotId).toBe(`campaign-legacy-${official.p15DomainSequence}`)
++    expect(official.phaseId).toBe('p15c.finale')
++    expect(official.phaseOrderVersion).toBe(1)
++    expect(Number.isSafeInteger(official.phaseOrdinal)).toBe(true)
++    expect([official.kind, official.definition, official.boundaryWeek, official.postFinaleMode])
++      .toEqual(['official2040', 'campaign-legacy/v1', B, LEGACY_POST_FINALE_MODE])
++    // The law over the tick's final facts, plus the stamp: nothing else (the step reads the final state).
++    expect(canon(withoutStamp(official))).toBe(canon(buildLegacyManifest(facts(s6240, B), 'official2040')))
++    expect(official.studios.map((row) => row.studioId)).toEqual(enteredIds(s6240))
++    expect(legacyOf(s6240).recordedFromWeek).toBe(legacyOf(s6239).recordedFromWeek)
++    expect(legacyOf(s6240).endOfRun).toBeNull()
++    // 6240 → 6241 writes nothing.
++    expect(canon(legacyOf(s6241))).toBe(canon(legacyOf(s6240)))
++    expect(sequenceOf(s6241).next).toBe(next + siblingAllocations(s6240, s6241))
++    makeSave(s6240)
++    makeSave(s6241)
++  }, ROUTE_TIMEOUT_MS)
++
++  it('legacy-freeze-is-last-allocation', () => {
++    stepFn()
++    const [s6239, s6240] = [at(B - 1), at(B)]
++    requireRoot(s6240, 'powerRanking', 'the freeze tick appends the 6240 ranking record only once P15A.2 slice 2a lands')
++    const fresh = p15Rows(s6240).filter((row) => row.sequence >= sequenceOf(s6239).next)
++    expect(fresh.some((row) => row.root === 'powerRanking' && row.week === B), 'the 6240 ranking record is appended in the freeze tick').toBe(true)
++    const official = officialOf(s6240)
++    for (const row of fresh) expect(official.p15DomainSequence, `${row.root} ${row.id}`).toBeGreaterThan(row.sequence)
++    expect(official.p15DomainSequence).toBe(sequenceOf(s6240).next - 1)
++    for (const [key, domainId] of P15_SIBLINGS) {
++      if (rawOf(s6240)[key] === undefined) continue // an absent sibling reads 0 (A6, A7)
++      const largest = p15Rows(s6240).filter((row) => row.root === key).reduce((max, row) => Math.max(max, row.sequence), 0)
++      expect(sourceOf(official, domainId).highWatermark, `${domainId} watermark includes the freeze tick's rows`).toBe(largest)
++    }
++  }, ROUTE_TIMEOUT_MS)
++
++  it('legacy-freeze-writes-only-its-root', () => {
++    stepFn()
++    const s6239 = at(B - 1)
++    // K1: the same input with the step's guard closed (an official manifest already present).
++    const normal = tick(s6239)
++    const bypassed = tick(withRoot(s6239, 'campaignLegacy', { ...legacyOf(s6239), official: officialOf(at(B)) }))
++    expect(legacyOf(normal).official).not.toBeNull()
++    expect(sequenceOf(normal).next - sequenceOf(bypassed).next).toBe(1)
++    const keys = Object.keys(rawOf(normal)).sort()
++    expect(Object.keys(rawOf(bypassed)).sort()).toEqual(keys)
++    for (const key of keys) {
++      if (key === 'campaignLegacy' || key === 'p15Sequence') continue
++      expect(canon(rawOf(bypassed)[key]), key).toBe(canon(rawOf(normal)[key]))
++    }
++    expect(bypassed.rngState).toBe(normal.rngState)
++    expect(canon(rawOf(normal))).toBe(canon(rawOf(at(B))))
++    // No RNG and no clock in the module that holds the adapter, the step and the validator.
++    const source = readFileSync(new URL('../src/core/campaignLegacy.ts', import.meta.url), 'utf8')
++    expect(source).not.toMatch(/from ['"]\.\/rng\.js['"]/)
++    expect(source).not.toMatch(/Date\.now|new Date\(|Math\.random|performance\.now/)
++  }, ROUTE_TIMEOUT_MS)
++
++  it('legacy-condition-at-6240-outside', () => {
++    const facts = factsFn()
++    const base = genuine6240()
++    const ids = enteredIds(base)
++    const [r01, r03] = [ids[1]!, ids[3]!]
++    const rows = (week: number) => ids.map((studioId, row) => ({ studioId, rank: week === B && studioId === r01 ? 1 : row + 2, band: 'stable' as const }))
++    const state = withRoot(withRoot(base, 'corporateCondition', conditionRoot(6200, [
++      conditionEvent(2, 1, r03, 6205, 'stable', 'warning'), conditionEvent(4, 2, r03, 6213, 'warning', 'distress'),
++      conditionEvent(6, 3, r03, B, 'distress', 'closed')], [])),
++    'powerRanking', rankingRoot(6200, [rankingRecord(3, 6214, rows(6214)), rankingRecord(5, 6227, rows(6227)), rankingRecord(7, B, rows(B))]))
++    const f = facts(state, B)
++    expect(f.studios.find((row) => row.studioId === r03)?.closedWeek, 'the adapter passes the week; the law cuts').toBe(B)
++    const manifest = buildLegacyManifest(f, 'official2040') as unknown as Official
++    const closedStudio = manifest.studios.find((row) => row.studioId === r03)!
++    // A closure stamped 6240 is not a closure before B.
++    expect(lensOf(closedStudio, 'resilience').counts).toEqual({ warnings: 1, distressEntries: 1, returnsToStable: 0, closures: 0 })
++    expect(lensOf(closedStudio, 'resilience').refs.map((ref) => ref.id)).toEqual(['corporate-event-1', 'corporate-event-2'])
++    expect(closedStudio.archetypes.find((a) => a.archetypeId === 'resilient-survivor')!.contrary.map((ref) => ref.id)).not.toContain('corporate-event-3')
++    // The 6240 ranking record is inside.
++    const ranking = lensOf(manifest.studios.find((row) => row.studioId === r01)!, 'ranking')
++    expect(ranking.counts).toEqual({ rankedQuarters: 3, quartersAtFirst: 1, bestRank: 1 })
++    expect(ranking.refs).toEqual([{ domainId: 'powerRanking', id: 'power-ranking-7' }])
++  }, FIXTURE_TIMEOUT_MS)
++
++  it('legacy-condition-at-6240-outside-live-tick', () => {
++    stepFn()
++    const facts = factsFn()
++    const s6240 = at(B)
++    requireRoot(s6240, 'powerRanking', 'the freeze tick writes the 6240 ranking record only once P15A.2 slice 2a lands')
++    const ranking = rawOf(s6240).powerRanking as { snapshots: { week: number }[] }
++    expect(ranking.snapshots.some((record) => record.week === B), 'the ranking step records week 6240 before the freeze').toBe(true)
++    // Inside: removing the 6240 record changes the manifest the law builds.
++    const without = withRoot(s6240, 'powerRanking', { ...ranking, snapshots: ranking.snapshots.filter((record) => record.week !== B) })
++    expect(canon(buildLegacyManifest(facts(without, B), 'official2040'))).not.toBe(canon(withoutStamp(officialOf(s6240))))
++    // Outside: no condition event stamped 6240 is cited.
++    const late = p15Rows(s6240).filter((row) => row.root === 'corporateCondition' && row.week >= B).map((row) => row.id)
++    const cited = officialOf(s6240).studios.flatMap((row) => [...row.archetypes.flatMap((a) => [...a.qualifying, ...a.contrary]), ...row.lenses.flatMap((l) => l.refs)])
++    expect(cited.filter((ref) => ref.domainId === 'corporateCondition' && late.includes(ref.id))).toEqual([])
++  }, ROUTE_TIMEOUT_MS)
++
++  it('legacy-adapter-only-at-boundary', () => {
++    stepFn()
++    const film = at(B - 2).studio.releasedFilms[0]
++    expect(film, 'route premise: the headless year released a player film').toBeDefined()
++    const drop = (state: GameState): GameState => ({ ...state, concepts: state.concepts.filter((concept) => concept.id !== film!.conceptId) })
++    // 6238 → 6239: the adapter does not run.
++    const quiet = tick(drop(at(B - 2)))
++    expect(canon(legacyOf(quiet))).toBe(canon(legacyOf(at(B - 1))))
++    expect(sequenceOf(quiet).next).toBe(sequenceOf(at(B - 1)).next)
++    // 6239 → 6240: the freeze runs the adapter, which refuses by name.
++    const message = thrownMessage(() => tick(drop(at(B - 1))))
++    expect(message).toContain(film!.conceptId)
++    expect(message).toMatch(/concept/i)
++    // 6300 → 6301: after the freeze no tick reads facts again.
++    const s6300 = extended(6300)
++    expect(canon(legacyOf(tick(drop(s6300))))).toBe(canon(legacyOf(s6300)))
++  }, HEAVY_TIMEOUT_MS)
++
++  it('legacy-ticks-after-freeze', () => {
++    stepFn()
++    const ext = extension()
++    expect(ext.firstRootChange, 'the week the campaignLegacy root first changed after the freeze').toBeNull()
++    const [s6240, s6760] = [at(B), extended(6760)]
++    expect(s6760.market.tick).toBe(B + 520)
++    expect(canon(legacyOf(s6760))).toBe(canon(legacyOf(s6240)))
++    // Ordinary play continues: releases and events still append.
++    expect(s6760.hollywood!.films.filter(isLive).some((film) => film.result.releaseTick >= B)).toBe(true)
++    expect(s6760.hollywood!.careerEvents.some((event) => event.releaseWeek >= B)).toBe(true)
++    expect(s6760.hollywood!.receipts.length).toBeGreaterThan(s6240.hollywood!.receipts.length)
++    // The save still validates: the replay reads 520 weeks of later rows and cuts them.
++    expect(makeSave(s6760).saveVersion).toBe(STEP)
++    console.info(JSON.stringify({ kind: '1359-legacy-extension-timing', ...route().ms, extension520Ms: ext.ms }))
++  }, HEAVY_TIMEOUT_MS)
++
++  it('legacy-endless-no-revival', () => {
++    stepFn()
++    const ext = extension()
++    const s6760 = extended(6760)
++    requireRoot(s6760, 'corporateCondition', 'a closure and its non-evaluation are P15B Wave 2 facts')
++    const condition = rawOf(s6760).corporateCondition as { events: { studioId: string; week: number; to: string }[] }
++    const closures = condition.events.filter((event) => event.to === 'closed')
++    const before = closures.filter((event) => event.week < B)
++    const after = closures.filter((event) => event.week >= B)
++    if (before.length === 0 || after.length === 0) {
++      throw new Error(`FIXTURE PENDING: route L closes ${before.length} studio(s) before B and ${after.length} after; B7 needs both (a closure route from the P15B Wave 2 RED)`)
++    }
++    for (const closure of before) {
++      expect(condition.events.filter((event) => event.studioId === closure.studioId && event.week > closure.week), closure.studioId).toEqual([])
++    }
++    expect(ext.firstRootChange).toBeNull()
++  }, HEAVY_TIMEOUT_MS)
++
++  it('legacy-hollywood-null-no-freeze', () => {
++    stepFn()
++    const fresh = generateWorld(ROUTE_SEED)
++    for (const week of [B - 1, B, B + 1]) {
++      const state = route().headless.get(week)!
++      expect(state.hollywood).toBeNull()
++      expect(canon(legacyOf(state)), `week ${week}`).toBe(canon(legacyOf(fresh)))
++      expect(sequenceOf(state).next).toBe(sequenceOf(fresh).next)
++      expect(makeSave(state).saveVersion).toBe(STEP)
++    }
++  }, ROUTE_TIMEOUT_MS)
++
++  it('legacy-determinism', () => {
++    stepFn()
++    // K2: a second run of the industry era, from the founding save through a JSON round trip.
++    const bytes = exportSave(makeSave(route().foundedAtFounding))
++    let state = migrateToLive(importSave(bytes)).state as GameState
++    while (state.market.tick < B) state = tick(state)
++    expect(canon(officialOf(state))).toBe(canon(officialOf(at(B))))
++    expect(sequenceOf(state).next).toBe(sequenceOf(at(B)).next)
++  }, ROUTE_TIMEOUT_MS)
++})
++
++// ═══════════════════════════════════════════════════════════════════════════
++// C. the root `campaignLegacy`: seed, migration, downgrade, validation (1359-A §5)
++// ═══════════════════════════════════════════════════════════════════════════
++describe('p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5)', () => {
++  it('legacy-root-fresh', () => {
++    const fresh = generateWorld('1359-legacy-fresh-01')
++    expect(canon(legacyOf(fresh))).toBe(canon({ version: 1, recordedFromWeek: 0, official: null, endOfRun: null }))
++    const save = makeSave(fresh)
++    expect(save.saveVersion).toBe(STEP)
++    expect(STEP, 'the Legacy root arrives in a save step above this base').toBeGreaterThan(BASE_LIVE_SAVE_VERSION)
++    expect(canon(legacyOf(save.state as GameState))).toBe(canon(legacyOf(fresh)))
++  })
++
++  it('legacy-migration-empty-root', () => {
++    for (const capture of belowStepCaptures()) {
++      const upgraded = convertIntoStep(capture)
++      expect(upgraded.saveVersion).toBe(STEP)
++      expect(canon(legacyOf(upgraded.state))).toBe(canon({ version: 1, recordedFromWeek: capture.state.market.tick, official: null, endOfRun: null }))
++      expect(p15Rows(upgraded.state), 'no ranking, condition or market row').toEqual([])
++      expect(canon(stripP15(upgraded.state))).toBe(canon(capture.state))
++      expect(exportSave(migrateToLive(upgraded)), 'a second migration is a no-op').toBe(exportSave(asSaveFile(upgraded)))
++    }
++  }, FIXTURE_TIMEOUT_MS)
++
++  it('legacy-migration-empty-root-genuine-save38', () => {
++    const save38 = genuineSave38()
++    const live = migrateToLive(save38) as unknown as Envelope
++    expect(live.saveVersion).toBe(STEP)
++    expect(canon(legacyOf(live.state))).toBe(canon({ version: 1, recordedFromWeek: B, official: null, endOfRun: null }))
++    expect(p15Rows(live.state), 'no ranking, condition or market row').toEqual([])
++    const below = migrateBelowStep(save38)
++    expect(canon(stripP15(live.state))).toBe(canon(below.state))
++    expect(canon(convertIntoStep(below)), "the step's own converter agrees").toBe(canon(live))
++    expect(exportSave(migrateToLive(live)), 'a second migration is a no-op').toBe(exportSave(asSaveFile(live)))
++  }, FIXTURE_TIMEOUT_MS)
++
++  it('legacy-migration-before-boundary', () => {
++    const capture = captureAt((state) => state.market.tick === B - 1, 'at week 6239')
++    const state = convertIntoStep(capture).state
++    expect(legacyOf(state).recordedFromWeek).toBe(B - 1)
++    expect(legacyOf(state).official).toBeNull()
++    const next = tick(state)
++    const official = officialOf(next)
++    expect(official.p15DomainSequence).toBe(sequenceOf(next).next - 1)
++    expect(canon(withoutStamp(official))).toBe(canon(buildLegacyManifest(factsFn()(next, B), 'official2040')))
++    makeSave(next)
++  }, ROUTE_TIMEOUT_MS)
++
++  it('legacy-migration-before-boundary-siblings-limited', () => {
++    const capture = captureAt((state) => state.market.tick === B - 1, 'at week 6239')
++    const next = tick(convertIntoStep(capture).state)
++    requireSiblings(next, 'siblings migrated at 6239 read limited only once they land')
++    const official = officialOf(next)
++    for (const [key, domainId] of P15_SIBLINGS) {
++      if (rawOf(next)[key] === undefined) continue
++      const source = sourceOf(official, domainId)
++      expect([source.recordedFromWeek, source.status], domainId).toEqual([B - 1, 'limited'])
++    }
++  }, ROUTE_TIMEOUT_MS)
++
++  it('legacy-migration-past-boundary', () => {
++    const capture = captureAt((state) => state.market.tick >= B, 'at week 6240 or later')
++    const state = convertIntoStep(capture).state
++    expect(legacyOf(state).recordedFromWeek).toBe(capture.state.market.tick)
++    const next = tick(state)
++    expect(legacyOf(next).official, 'a save at or past B never freezes').toBeNull()
++    expect(makeSave(next).saveVersion).toBe(STEP)
++  }, ROUTE_TIMEOUT_MS)
++
++  it('legacy-migration-past-boundary-genuine-save38', () => {
++    const state = genuine6240()
++    expect(legacyOf(state).recordedFromWeek).toBe(B)
++    const next = tick(state)
++    expect(next.market.tick).toBe(B + 1)
++    expect(legacyOf(next).official, 'a save migrated at 6240 never freezes').toBeNull()
++    expect(sequenceOf(next).next).toBe(sequenceOf(state).next + siblingAllocations(state, next))
++    expect(makeSave(next).saveVersion).toBe(STEP)
++  }, FIXTURE_TIMEOUT_MS)
++
++  it('legacy-root-downgrade', () => {
++    // An empty root strips: V(N−1) → VN → V(N−1) is byte-identical.
++    const save38 = genuineSave38()
++    const below = migrateBelowStep(save38)
++    const live = convertIntoStep(below)
++    expect(legacyOf(live.state).official).toBeNull()
++    const down = convertOutOfStep(live)
++    expect(down.saveVersion).toBe(STEP - 1)
++    for (const key of P15_ROOT_KEYS) expect(Object.hasOwn(rawOf(down.state), key), key).toBe(false)
++    expect(canon(down)).toBe(canon(below))
++    // A frozen 2040 Legacy refuses by name: the step's converter and every older migrator.
++    const frozen = makeSave(genuineFrozen())
++    expect(() => convertOutOfStep(frozen)).toThrow(DOWNGRADE_REFUSAL)
++    let checked = 0
++    for (let version = 4; version < STEP; version++) {
++      const migrate = (saveModule as unknown as Record<string, unknown>)[`migrateToV${version}`]
++      if (typeof migrate !== 'function') continue
++      expect(() => (migrate as (save: unknown) => unknown)(frozen), `migrateToV${version}`).toThrow(DOWNGRADE_REFUSAL)
++      checked++
++    }
++    expect(checked).toBeGreaterThanOrEqual(30)
++    // Frozen builders refuse a non-empty root and still project an empty one.
++    const builders = Object.keys(saveModule).filter((name) => /^makeSaveV\d+$/.test(name))
++    expect(builders.length).toBeGreaterThanOrEqual(18)
++    for (const name of builders) {
++      const build = (saveModule as unknown as Record<string, (state: unknown) => unknown>)[name]!
++      expect(() => build(genuineFrozen()), name).toThrow(DOWNGRADE_REFUSAL)
++    }
++    const v18 = saveModule.makeSaveV18(generateWorld('1359-legacy-frozen-builder-01'))
++    expect(Object.hasOwn(v18.state as unknown as Record<string, unknown>, 'campaignLegacy')).toBe(false)
++  }, HEAVY_TIMEOUT_MS)
++})
++
++describe('p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12)', () => {
++  it('legacy-validate-marker', () => {
++    const frozen = genuineFrozen()
++    const official = officialOf(frozen)
++    const MARKER = /campaignLegacy\.official(?![.[\w])/
++    // Missing when due.
++    refuses(withRoot(frozen, 'campaignLegacy', { ...legacyOf(frozen), official: null }), MARKER)
++    // Present when not due: a save recorded from B (migrated at 6240), and a world with no industry.
++    const stamped = (state: GameState): GameState => withRoot(withRoot(state, 'campaignLegacy', { ...legacyOf(state), official }),
++      'p15Sequence', { ...sequenceOf(state), next: official.p15DomainSequence + 1 })
++    refuses(stamped(genuine6240()), MARKER)
++    refuses(stamped(generateWorld('1359-legacy-marker-01')), MARKER)
++    makeSave(genuine6240())
++  }, FIXTURE_TIMEOUT_MS)
++
++  it('legacy-validate-manifest-identity', () => {
++    const frozen = genuineFrozen()
++    refuses(tamper(frozen, (o) => { o.kind = 'endOfRun' }), 'campaignLegacy.official.kind')
++    refuses(tamper(frozen, (o) => { o.boundaryWeek = B - 1 }), 'campaignLegacy.official.boundaryWeek')
++    refuses(tamper(frozen, (o) => { o.postFinaleMode = null }), 'campaignLegacy.official.postFinaleMode')
++    refuses(tamper(frozen, (o) => { o.definition = 'campaign-legacy/v0' }), 'campaignLegacy.official.definition')
++    refuses(withRoot(frozen, 'campaignLegacy', { ...legacyOf(frozen), endOfRun: withoutStamp(officialOf(frozen)) }), 'campaignLegacy.endOfRun')
++  }, FIXTURE_TIMEOUT_MS)
++
++  it('legacy-validate-stamp', () => {
++    const frozen = genuineFrozen()
++    const next = sequenceOf(frozen).next
++    expect(officialOf(frozen).legacySnapshotId.startsWith('campaign-legacy-')).toBe(true)
++    refuses(tamper(frozen, (o) => { o.p15DomainSequence = next; o.legacySnapshotId = `campaign-legacy-${next}` }), /p15/i)
++    refuses(tamper(frozen, (o) => { o.p15DomainSequence = 0; o.legacySnapshotId = 'campaign-legacy-0' }), /p15/i)
++    refuses(tamper(frozen, (o) => { o.legacySnapshotId = `campaign-legacy-${o.p15DomainSequence + 1}` }), 'campaignLegacy.official.legacySnapshotId')
++    refuses(tamper(frozen, (o) => { o.legacySnapshotId = `power-ranking-${o.p15DomainSequence}` }), 'campaignLegacy.official.legacySnapshotId')
++    refuses(tamper(frozen, (o) => { o.phaseId = 'p15b.condition' }), 'campaignLegacy.official.phase')
++    refuses(tamper(frozen, (o) => { o.phaseOrdinal += 1 }), 'campaignLegacy.official.phase')
++    refuses(tamper(frozen, (o) => { o.phaseOrderVersion = 2 }), 'campaignLegacy.official.phase')
++  }, FIXTURE_TIMEOUT_MS)
++
++  it('legacy-validate-stamp-duplicate-across-roots', () => {
++    stepFn()
++    const state = at(B + 1)
++    requireRoot(state, 'powerRanking', 'a duplicate needs a second P15 root')
++    const ranking = rawOf(state).powerRanking as { snapshots: Record<string, unknown>[] }
++    expect(ranking.snapshots.length, 'premise: recorded quarters').toBeGreaterThan(0)
++    const sequence = officialOf(state).p15DomainSequence
++    const lastRecord = ranking.snapshots[ranking.snapshots.length - 1]!
++    refuses(withRoot(state, 'powerRanking', { ...ranking, snapshots: [...ranking.snapshots.slice(0, -1),
++      { ...lastRecord, p15DomainSequence: sequence, id: `power-ranking-${sequence}` }] }), /power ranking|p15/i)
++  }, ROUTE_TIMEOUT_MS)
++
++  it('legacy-validate-bounds', () => {
++    const frozen = genuineFrozen()
++    const withRefs = citingArchetype
++    refuses(tamper(frozen, (o) => {
++      for (let i = o.sources.length; i < LEGACY_BOUNDS.domains + 1; i++) o.sources.push({ domainId: `extra-${i}`, highWatermark: 0, recordedFromWeek: null, status: 'notRecorded' })
++    }), 'campaignLegacy.official.sources')
++    refuses(tamper(frozen, (o) => { o.studios[0]!.archetypes.push(structuredClone(o.studios[0]!.archetypes[0]!)) }), 'archetypes')
++    refuses(tamper(frozen, (o) => { const a = o.studios[0]!.archetypes; [a[0], a[1]] = [a[1]!, a[0]!] }), 'archetypes')
++    refuses(tamper(frozen, (o) => {
++      const lenses = o.studios[0]!.lenses
++      while (lenses.length < LEGACY_BOUNDS.lenses + 1) lenses.push({ lensId: `extra-${lenses.length}`, status: 'notRecorded', counts: {}, refs: [] })
++    }), 'lenses')
++    refuses(tamper(frozen, (o) => { o.studios[0]!.lenses[0]!.lensId = 'unknownLens' }), 'lens')
++    refuses(tamper(frozen, (o) => { delete lensOf(o.studios[0]!, 'catalog').counts.releases }), 'counts')
++    refuses(tamper(frozen, (o) => { lensOf(o.studios[0]!, 'catalog').counts.extra = 0 }), 'counts')
++    refuses(tamper(frozen, (o) => {
++      const a = withRefs(o)
++      const side = a.qualifying.length > 0 ? a.qualifying : a.contrary
++      while (side.length < LEGACY_BOUNDS.refsPerSide + 1) side.push(side[0]!)
++      a.qualifyingCount = Math.max(a.qualifyingCount, a.qualifying.length)
++      a.contraryCount = Math.max(a.contraryCount, a.contrary.length)
++    }), /qualifying|contrary/)
++    refuses(tamper(frozen, (o) => {
++      const a = withRefs(o)
++      if (a.qualifying.length > 0) a.qualifyingCount = a.qualifying.length - 1
++      else a.contraryCount = a.contrary.length - 1
++    }), /qualifyingCount|contraryCount/)
++    refuses(tamper(frozen, (o) => { const s = o.studios; [s[0], s[1]] = [s[1]!, s[0]!] }), 'studios')
++    refuses(tamper(frozen, (o) => { o.studios[0]!.studioId = 'studio-never-entered' }), 'studios')
++  }, FIXTURE_TIMEOUT_MS)
++
++  it('legacy-validate-refs', () => {
++    const frozen = genuineFrozen()
++    const rows = arrayRows(frozen)
++    const official = officialOf(frozen)
++    const where = findRef(official, (ref) => Object.hasOwn(rows, ref.domainId))
++    const ref = refAt(official, where)
++    const position = rows[ref.domainId]!.indexOf(ref.id) + 1
++    expect(position, 'premise: the ref names an array-domain row').toBeGreaterThan(0)
++    const SIDES = /qualifying|contrary|refs/
++    refuses(tamper(frozen, (o) => { refAt(o, where).id = 'no-such-row' }), SIDES)
++    refuses(tamper(frozen, (o) => { refAt(o, where).domainId = 'playerRuns' }), /playerRuns|domainId/)
++    refuses(tamper(frozen, (o) => { refAt(o, where).domainId = 'awards' }), /awards|domainId/)
++    // A cited row above its domain's watermark (the watermark itself stays within the root).
++    refuses(tamper(frozen, (o) => { sourceOf(o, ref.domainId).highWatermark = position - 1 }), /highWatermark|qualifying|contrary|refs/)
++    // An array watermark above its root's length.
++    refuses(tamper(frozen, (o) => { sourceOf(o, 'playerFilms').highWatermark = frozen.studio.releasedFilms.length + 1 }), 'highWatermark')
++    // A P15 watermark or a recordedFromWeek that is not the re-derived value.
++    refuses(tamper(frozen, (o) => { sourceOf(o, 'powerRanking').highWatermark += 5 }), 'highWatermark')
++    refuses(tamper(frozen, (o) => { sourceOf(o, 'industryFilms').recordedFromWeek = (sourceOf(o, 'industryFilms').recordedFromWeek ?? 0) + 1 }), 'recordedFromWeek')
++  }, FIXTURE_TIMEOUT_MS)
++
++  it('legacy-validate-refs-post-boundary-row', () => {
++    stepFn()
++    // Route L at 6300: rows appended after the freeze sit above their domain's watermark.
++    const state = extended(6300)
++    const rows = arrayRows(state)
++    const official = officialOf(state)
++    const grown = (domainId: string): boolean =>
++      Object.hasOwn(rows, domainId) && rows[domainId]!.length > sourceOf(official, domainId).highWatermark
++    const where = findRef(official, (ref) => grown(ref.domainId))
++    const domainId = refAt(official, where).domainId
++    const watermark = sourceOf(official, domainId).highWatermark
++    const late = rows[domainId]![watermark]! // the first row appended after the freeze
++    // Position above the watermark.
++    refuses(tamper(state, (o) => { refAt(o, where).id = late }), /qualifying|contrary|refs/)
++    // Week at or after B: the watermark raised to the root's length (still lawful by item 6) admits the
++    // position, and the row's own week refuses it.
++    refuses(tamper(state, (o) => {
++      sourceOf(o, domainId).highWatermark = rows[domainId]!.length
++      refAt(o, where).id = late
++    }), /qualifying|contrary|refs/)
++  }, HEAVY_TIMEOUT_MS)
++
++  it('legacy-validate-refs-sibling-added-after-freeze', () => {
++    stepFn()
++    const frozen = genuineFrozen()
++    requireSiblings(frozen, 'a sibling root recorded from B or later exists only once a sibling lands')
++    const official = officialOf(frozen)
++    for (const [key, domainId] of P15_SIBLINGS) {
++      const root = rawOf(frozen)[key] as { recordedFromWeek: number } | undefined
++      if (root === undefined) continue
++      expect(root.recordedFromWeek, `${key} migrated at 6240`).toBeGreaterThanOrEqual(B)
++      expect(sourceOf(official, domainId)).toEqual({ domainId, highWatermark: 0, recordedFromWeek: null, status: 'notRecorded' })
++    }
++    expect(makeSave(frozen).saveVersion).toBe(STEP)
++  }, FIXTURE_TIMEOUT_MS)
++
++  it('legacy-definition-era-guard', () => {
++    const table = definitionsTable()
++    const v1 = table['campaign-legacy/v1']
++    expect(v1, "the frozen 'campaign-legacy/v1' entry").toBeDefined()
++    expect(v1!.boundaryWeek).toBe(LEGACY_BOUNDARY_WEEK)
++    expect(v1!.postFinaleMode).toBe(LEGACY_POST_FINALE_MODE)
++    expect([...v1!.archetypeIds]).toEqual([...LEGACY_ARCHETYPE_IDS])
++    expect([...v1!.lensIds]).toEqual([...LEGACY_LENS_IDS])
++    expect([...v1!.domainIds]).toEqual([...LEGACY_DOMAIN_IDS])
++    expect({ ...v1!.bounds }).toEqual({ ...LEGACY_BOUNDS })
++    // 1353-F2 §2's count keys, restated here.
++    expect(canon(v1!.lensCountKeys)).toBe(canon({
++      catalog: ['releases', 'settled', 'inReleaseAtBoundary', 'authoredPre1920'], people: ['credited', 'discoveries'],
++      technology: ['operationalAdoptions'], ranking: ['rankedQuarters', 'quartersAtFirst', 'bestRank'],
++      financialBand: ['inTheRed', 'strained', 'stable', 'thriving'], market: ['assessed', 'underPressure'],
++      resilience: ['warnings', 'distressEntries', 'returnsToStable', 'closures'], awards: [],
++    }))
++    // While the definition is still v1, its frozen thresholds equal the live TUNING by name.
++    const t = TUNING as unknown as Record<string, number>
++    const names = Object.keys(t).filter((key) => key.startsWith('LEGACY_')).sort()
++    expect(names).toHaveLength(15)
++    expect(Object.keys(v1!.thresholds).sort()).toEqual(names)
++    for (const name of names) expect(v1!.thresholds[name], name).toBe(t[name])
++    // An unknown definition refuses by name.
++    refuses(tamper(genuineFrozen(), (o) => { o.definition = 'campaign-legacy/v2' }), 'campaignLegacy.official.definition')
++  }, FIXTURE_TIMEOUT_MS)
++
++  it('legacy-round-trip', () => {
++    stepFn()
++    const s6241 = at(B + 1)
++    const bytes = exportSave(makeSave(s6241))
++    const loaded = migrateToLive(importSave(bytes)).state as GameState
++    expect(exportSave(makeSave(loaded))).toBe(bytes)
++    expect(canon(legacyOf(loaded))).toBe(canon(legacyOf(s6241)))
++    expect(canon(legacyOf(tick(loaded))), 'unchanged by the next tick').toBe(canon(legacyOf(s6241)))
++  }, ROUTE_TIMEOUT_MS)
++})
++
++// ═══════════════════════════════════════════════════════════════════════════
++// 1359-F Amendment 1: the replay and the old-law fixture (with 1353-J note 2)
++// ═══════════════════════════════════════════════════════════════════════════
++describe('p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1)', () => {
++  it('legacy-validate-replay', () => {
++    const frozen = genuineFrozen()
++    const facts = factsFn()(frozen, B)
++    const evaluated = (o: Official): { si: number; ai: number } => {
++      for (const [si, studio] of o.studios.entries()) {
++        const ai = studio.archetypes.findIndex((a) => a.outcome === 'held' || a.outcome === 'notHeld')
++        if (ai >= 0) return { si, ai }
++      }
++      throw new Error('premise: an evaluated archetype')
++    }
++    // A tampered outcome.
++    refuses(tamper(frozen, (o) => {
++      const { si, ai } = evaluated(o)
++      const a = o.studios[si]!.archetypes[ai]!
++      a.outcome = a.outcome === 'held' ? 'notHeld' : 'held'
++    }), 'outcome')
++    // A tampered count that still covers its refs.
++    refuses(tamper(frozen, (o) => { const { si, ai } = evaluated(o); o.studios[si]!.archetypes[ai]!.qualifyingCount += 1 }), 'qualifyingCount')
++    // A tampered ref list: real, in-bounds ids in another order.
++    refuses(tamper(frozen, (o) => {
++      const a = o.studios.flatMap((s) => s.archetypes).find((x) => x.qualifying.length > 1 || x.contrary.length > 1)
++      if (a === undefined) throw new Error('premise: a side with two refs')
++      if (a.qualifying.length > 1) a.qualifying.reverse()
++      else a.contrary.reverse()
++    }), /qualifying|contrary/)
++    // 1359-B's case: commercial engine claimed held over real, pre-B film ids of the studio.
++    refuses(tamper(frozen, (o) => {
++      const player = o.studios.find((s) => s.studioId === frozen.hollywood!.playerStudioId)!
++      const engine = player.archetypes.find((a) => a.archetypeId === 'commercial-engine')!
++      const real = facts.films.filter((f) => f.studioId === player.studioId && f.provenance === 'campaign').slice(0, 12)
++      engine.outcome = engine.outcome === 'held' ? 'notHeld' : 'held'
++      engine.qualifying = real.map((f) => ({ domainId: f.domainId, id: f.filmId }))
++      engine.qualifyingCount = engine.qualifying.length
++    }), /outcome|qualifying/)
++    // A tampered lens value.
++    refuses(tamper(frozen, (o) => { lensOf(o.studios[0]!, 'catalog').counts.releases! += 1 }), 'counts')
++    // standingAtBoundary is range-checked only: inside its range passes; outside refuses.
++    const rival = officialOf(frozen).studios.findIndex((s) => {
++      const v = s.standingAtBoundary.audienceAwareness!
++      return v > 1 && v < 99
++    })
++    expect(rival, 'premise: a channel strictly inside [0, 100]').toBeGreaterThanOrEqual(0)
++    expect(makeSave(tamper(frozen, (o) => { o.studios[rival]!.standingAtBoundary.audienceAwareness! += 1 })).saveVersion).toBe(STEP)
++    refuses(tamper(frozen, (o) => { o.studios[rival]!.standingAtBoundary.audienceAwareness = 100.5 }), 'standingAtBoundary')
++    refuses(tamper(frozen, (o) => { o.studios[rival]!.standingAtBoundary.industryPrestige = -0.5 }), 'standingAtBoundary')
++  }, FIXTURE_TIMEOUT_MS)
++
++  it('legacy-old-law-fixture-v1-validates-after-retune', () => {
++    const frozen = genuineFrozen()
++    const v1 = definitionsTable()['campaign-legacy/v1']!
++    const t = TUNING as unknown as Record<string, number>
++    const names = Object.keys(t).filter((key) => key.startsWith('LEGACY_'))
++    expect(names).toHaveLength(15)
++    const saved = Object.fromEntries(names.map((name) => [name, t[name]!]))
++    // A simulated retune of every v1 threshold, with no definition bump.
++    const RETUNE: Record<string, number> = {
++      LEGACY_CRITIC_ACCLAIM_MIN: 40, LEGACY_CRITIC_PAN_BELOW: 60, LEGACY_AUDIENCE_LIKED_MIN: 30, LEGACY_MIN_FILMS: 1,
++      LEGACY_MIN_SHARE_PERCENT: 1, LEGACY_HIT_REACH_PERCENT: 5, LEGACY_FLOP_REACH_PERCENT: 95, LEGACY_AUDIENCE_MIN_DECADES: 1,
++      LEGACY_DECADE_MIN_RELEASES: 1, LEGACY_PIONEER_WEEKS: 5000, LEGACY_TECH_LATE_WEEKS: 1, LEGACY_FOUNDRY_MIN_PEOPLE: 1,
++      LEGACY_FOUNDRY_MIN_CREDITS: 1, LEGACY_FOUNDRY_SETTLE_WEEKS: 1, LEGACY_GENRE_MIN_FILMS: 1,
++    }
++    expect(Object.keys(RETUNE).sort()).toEqual([...names].sort())
++    try {
++      for (const name of names) t[name] = RETUNE[name]!
++      // The retune is material: the live law now builds a different manifest from the same facts.
++      expect(canon(buildLegacyManifest(factsFn()(frozen, B), 'official2040'))).not.toBe(canon(withoutStamp(officialOf(frozen))))
++      // The stored v1 manifest still validates: the replay runs v1's frozen thresholds, not live TUNING.
++      expect(makeSave(frozen).saveVersion).toBe(STEP)
++      // And the era guard sees the retune that skipped its definition bump.
++      expect(names.some((name) => v1.thresholds[name] !== t[name])).toBe(true)
++    } finally {
++      for (const name of names) t[name] = saved[name]!
++    }
++    for (const name of names) expect(t[name], `${name} restored`).toBe(saved[name])
++  }, FIXTURE_TIMEOUT_MS)
++})
