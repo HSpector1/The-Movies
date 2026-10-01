@@ -1,0 +1,477 @@
+{
+  "record": "1355-C",
+  "base": "1063ab4f",
+  "summary": {
+    "leaves": 58,
+    "control": 8,
+    "red": 50,
+    "fixturePending": 6,
+    "passToday": 4
+  },
+  "leaves": [
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-seam-default-exact: no factor and a factor of exactly 1 give bit-equal results [control]",
+      "clause": "1355-A §7 item 1 (line 229); §3.2 (lines 80-84)",
+      "expectedFailureToday": "passes today (control)",
+      "control": true,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-seam-default-exact: the default path is bit-equal to the RED-commit pin [control, fixture-pending]",
+      "clause": "1355-A §7 item 1 (line 229); §4 \"pins minted at the RED commit\" (line 161)",
+      "expectedFailureToday": "throws \"FIXTURE PENDING: tests/fixtures/p15/p15a1-market-pins/MANIFEST.json\" (1355-P not run); after minting it passes on unchanged production",
+      "control": true,
+      "fixturePending": true
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-seam-scales-opening-only: f < 1 scales the opening and total only; ReceptionResult reports f",
+      "clause": "1355-A §7 item 2 (lines 230-231); §3.2 (lines 80-86)",
+      "expectedFailureToday": "ReceptionResult.competitionFactor is 1, expected f: computeBoxOffice has no factor parameter (reception.ts:678 constant)",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-seam-scales-opening-only: a factor outside [1 − SHARED_MARKET_FACTOR_MAX_PENALTY, 1] throws",
+      "clause": "1355-A §7 item 2 (lines 230-231); §3.2 (lines 80-82)",
+      "expectedFailureToday": "nothing throws: resolveReception ignores competitionFactor",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-forecast-paths-unchanged: agent choices and forecast history ignore the root [control]",
+      "clause": "1355-A §7 item 3 (line 232); §3.2 (lines 76-78)",
+      "expectedFailureToday": "passes today (control)",
+      "control": true,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-forecast-paths-unchanged: a week of rival decisions with no release ignores the root [control]",
+      "clause": "1355-A §7 item 3 (line 232); §3.2 (lines 76-78)",
+      "expectedFailureToday": "passes today (control)",
+      "control": true,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-due-set-equals-releases: frozen members are the committed player release plus every rival picture at 1",
+      "clause": "1355-A §7 item 4 (lines 233-234); §3.1 item 3 (lines 60-62)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3)",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-due-set-mismatch-fails-closed: a frozen batch missing a due rival picture throws, input unchanged",
+      "clause": "1355-A §7 item 5 (line 235); §3.1 item 5 (lines 65-67)",
+      "expectedFailureToday": "nothing throws: advanceHollywoodWeek takes no frozen batch (hollywoodTick.ts:339)",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-due-set-mismatch-fails-closed: a frozen batch naming a picture nobody releases throws, input unchanged",
+      "clause": "1355-A §7 item 5 (line 235); §3.1 item 5 (lines 65-67)",
+      "expectedFailureToday": "nothing throws: advanceHollywoodWeek takes no frozen batch (hollywoodTick.ts:339)",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-live-one-player-one-rival: same genre, same week, both pressureFactor(1), each names the other",
+      "clause": "1355-A §7 item 6 (lines 236-237); §3.1 items 2-4 (lines 57-64)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) (empty-root fixture)",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-live-window-stock-retire: releases at W−2, W−10 and W−26 act through WINDOW_RELEASES, GENRE_SATURATION and nothing",
+      "clause": "1355-A §7 item 7 (lines 238-239); §3.3 active exposures (line 98)",
+      "expectedFailureToday": "throws \"RED: src/core/p15Phases.ts cannot be loaded\" (module absent, 1355-F2 item 3) (synthetic rows carry the v1 triple)",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-live-self-exclusion-clamp: one studio's two same-genre same-week releases see each other at 1.00, never themselves",
+      "clause": "1355-A §7 item 8 (lines 240-241)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) (empty-root fixture)",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-live-no-player-flag: a persisted row carries exactly the law fields and the 1355-F2 fields, no owner",
+      "clause": "1355-A §7 item 9 (lines 242-243); 1355-F3 Blocking 2 (lines 21-22)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) (empty-root fixture)",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-live-no-player-flag: mirror fixtures that swap the player studio give equal assessments after id normalization",
+      "clause": "1355-A §7 item 9 (lines 242-243)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) (empty-root fixture)",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-week-diff-confined (K1): the K1 week is pressured exactly where the law says",
+      "clause": "1355-A §7 item 10 (line 244); §4 K1 (line 165)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3)",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-week-diff-confined (K1): one pressured tick differs from the RED-commit pin only inside the pressured chain [control, fixture-pending]",
+      "clause": "1355-A §7 item 10 (line 244); §4 K1 (lines 157-165)",
+      "expectedFailureToday": "throws \"FIXTURE PENDING: tests/fixtures/p15/p15a1-market-pins/MANIFEST.json\" (1355-P not run); after minting it passes on unchanged production",
+      "control": true,
+      "fixturePending": true
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-no-pressure-week-identity (K2): every release of the K2 week is assessed at P = 0 and f = 1",
+      "clause": "1355-A §7 item 11 (line 244); §4 K2 (line 166)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3)",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-no-pressure-week-identity (K2): the post-tick state minus the new roots is byte-equal to the RED-commit pin [control, fixture-pending]",
+      "clause": "1355-A §7 item 11 (line 244); §4 K2 (line 166)",
+      "expectedFailureToday": "throws \"FIXTURE PENDING: tests/fixtures/p15/p15a1-market-pins/MANIFEST.json\" (1355-P not run); after minting it passes on unchanged production",
+      "control": true,
+      "fixturePending": true
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-root-append-canonical: one ordered append per week; derived exposures equal reduceExposures",
+      "clause": "1355-A §7 item 12 (line 245); 1355-F2 item 2 (lines 26-30); 1355-F3 RED 12 (line 23)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3)",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-root-append-canonical: rows ascend in (week, releaseId) and in p15DomainSequence, each with its v1 phase triple",
+      "clause": "1355-A §7 item 12 (line 245); 1355-F2 items 2-3 (lines 26-42)",
+      "expectedFailureToday": "throws \"RED: src/core/p15Phases.ts cannot be loaded\" (module absent, 1355-F2 item 3)",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-inflight-save-replay: save during an active exposure, reload, run 30 weeks: assessments and terminal save equal an unsaved run",
+      "clause": "1355-A §7 item 13 (lines 246-247)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3)",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-validator-reconciles: the unforged route state validates (premise of every refusal below)",
+      "clause": "1355-A §7 item 14 (lines 248-249); §3.4 (lines 114-127)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3)",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-validator-reconciles: refuses a forged pressure by name",
+      "clause": "1355-A §7 item 14 (line 248-249); §3.4 items 1-5 (lines 116-127)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) inside the forgery",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-validator-reconciles: refuses a forged factor by name",
+      "clause": "1355-A §7 item 14 (line 248-249); §3.4 items 1-5 (lines 116-127)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) inside the forgery",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-validator-reconciles: refuses a forged windowTerm by name",
+      "clause": "1355-A §7 item 14 (line 248-249); §3.4 items 1-5 (lines 116-127)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) inside the forgery",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-validator-reconciles: refuses a forged stockTerm by name",
+      "clause": "1355-A §7 item 14 (line 248-249); §3.4 items 1-5 (lines 116-127)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) inside the forgery",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-validator-reconciles: refuses a forged reason by name",
+      "clause": "1355-A §7 item 14 (line 248-249); §3.4 items 1-5 (lines 116-127)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) inside the forgery",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-validator-reconciles: refuses a forged inputDigest by name",
+      "clause": "1355-A §7 item 14 (line 248-249); §3.4 items 1-5 (lines 116-127)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) inside the forgery",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-validator-reconciles: refuses rows out of (week, releaseId) order by name",
+      "clause": "1355-A §7 item 14 (line 248-249); §3.4 items 1-5 (lines 116-127)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) inside the forgery",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-validator-reconciles: refuses a duplicate assessment by name",
+      "clause": "1355-A §7 item 14 (line 248-249); §3.4 items 1-5 (lines 116-127)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) inside the forgery",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-validator-reconciles: refuses an orphan assessment with no film by name",
+      "clause": "1355-A §7 item 14 (line 248-249); §3.4 items 1-5 (lines 116-127); film bijection §3.4 item 3 (line 118)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) inside the forgery",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-validator-reconciles: refuses a missing assessment by name",
+      "clause": "1355-A §7 item 14 (line 248-249); §3.4 items 1-5 (lines 116-127); film bijection §3.4 item 3 (line 118)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) inside the forgery",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-validator-reconciles: refuses an assessment before recordedFromWeek by name",
+      "clause": "1355-A §7 item 14 (line 248-249); §3.4 items 1-5 (lines 116-127)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) inside the forgery",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-validator-reconciles: refuses an assessment at the tick by name",
+      "clause": "1355-A §7 item 14 (line 248-249); §3.4 items 1-5 (lines 116-127)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) inside the forgery",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-validator-reconciles: refuses an unknown definitionVersion by name",
+      "clause": "1355-A §7 item 14 (line 248-249); §3.4 items 1-5 (lines 116-127)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) inside the forgery",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-validator-reconciles: refuses an unknown root version by name",
+      "clause": "1355-A §7 item 14 (line 248-249); §3.4 items 1-5 (lines 116-127)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) inside the forgery",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-validator-reconciles: refuses an owner field on a row (exact keys) by name",
+      "clause": "1355-A §7 item 14 (line 248-249); §3.4 items 1-5 (lines 116-127)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) inside the forgery",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-validator-reconciles: refuses a duplicate p15DomainSequence by name",
+      "clause": "1355-F3 Blocking 2, RED 14 (lines 24-25); 1355-F2 item 4 (lines 43-45); 1355-A §7 item 14 (line 248-249); §3.4 items 1-5 (lines 116-127)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) inside the forgery",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-validator-reconciles: refuses a p15DomainSequence at p15Sequence.next by name",
+      "clause": "1355-F3 Blocking 2, RED 14 (lines 24-25); 1355-F2 item 4 (lines 43-45); 1355-A §7 item 14 (line 248-249); §3.4 items 1-5 (lines 116-127)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) inside the forgery",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-validator-reconciles: refuses a p15DomainSequence below 1 by name",
+      "clause": "1355-F3 Blocking 2, RED 14 (lines 24-25); 1355-F2 item 4 (lines 43-45); 1355-A §7 item 14 (line 248-249); §3.4 items 1-5 (lines 116-127)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) inside the forgery",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-validator-reconciles: refuses a stale p15Sequence.next by name",
+      "clause": "1355-F3 Blocking 2, RED 14 (lines 24-25); 1355-F2 item 4 (lines 43-45); 1355-A §7 item 14 (line 248-249); §3.4 items 1-5 (lines 116-127)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) inside the forgery",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-validator-reconciles: refuses a phase ordinal off its version's table entry by name",
+      "clause": "1355-F3 Blocking 2, RED 14 (lines 24-25); 1355-F2 item 3 (lines 31-42); 1355-A §7 item 14 (line 248-249); §3.4 items 1-5 (lines 116-127)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) inside the forgery",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-validator-reconciles: refuses another phase's phaseId by name",
+      "clause": "1355-F3 Blocking 2, RED 14 (lines 24-25); 1355-F2 item 3 (lines 31-42); 1355-A §7 item 14 (line 248-249); §3.4 items 1-5 (lines 116-127)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) inside the forgery",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-validator-reconciles: refuses an unknown phaseOrderVersion by name",
+      "clause": "1355-F3 Blocking 2, RED 14 (lines 24-25); 1355-F2 item 3 (lines 31-42); 1355-A §7 item 14 (line 248-249); §3.4 items 1-5 (lines 116-127)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) inside the forgery",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-definition-era-guard: while the definition is p15a1-market-v1 its seven TUNING values are v1's [control]",
+      "clause": "1355-A §7 item 15 (line 250); §3.4 item 5 (lines 124-127)",
+      "expectedFailureToday": "passes today (control)",
+      "control": true,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-old-save: the genuine capture below the step loads to the empty root at its tick; a second migration is a no-op; it round-trips while empty [fixture-pending]",
+      "clause": "1355-A §7 item 16 (lines 251-252); §3.5 Up (lines 133-135); 1355-F Amendment 3 (lines 32-36)",
+      "expectedFailureToday": "throws \"FIXTURE PENDING: no genuine capture below the P15 save step\" (1355-P not run); once minted while the live writer is still the capture version, fails on manifest.saveVersion = N, expected N - 1 (no step yet)",
+      "control": false,
+      "fixturePending": true
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-old-save: the first batches after migration see no pre-migration release [fixture-pending]",
+      "clause": "1355-A §7 item 16 (lines 251-252); §3.5 Up (lines 133-135); 1355-F Amendment 3 (lines 32-36)",
+      "expectedFailureToday": "throws \"FIXTURE PENDING: no genuine capture below the P15 save step\" (1355-P not run); once minted while the live writer is still the capture version, fails on manifest.saveVersion = N, expected N - 1 (no step yet)",
+      "control": false,
+      "fixturePending": true
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-old-save: the genuine Save42 week-130 capture lifts to an empty root at its own week and steps down losslessly while empty",
+      "clause": "1355-A §7 item 16 (lines 251-252); §3.5 Up and Down (lines 133-136)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) after migrateToLive",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-old-save: a non-empty root refuses the downgrade by name, at the step and through every older migrator",
+      "clause": "1355-A §7 item 16 (lines 251-252); §3.5 Down (line 136)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3)",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-disengaged-world: with no industry there is no batch: the root stays empty at week 0 and no market row exists anywhere",
+      "clause": "1355-A §7 item 17 (line 253); §3.1 item 1 (line 56); §3.5 fresh worlds (line 137)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3)",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-disengaged-world: the M0A outputs equal the RED-commit pin [control, fixture-pending]",
+      "clause": "1355-A §7 item 17 (line 253)",
+      "expectedFailureToday": "throws \"FIXTURE PENDING: tests/fixtures/p15/p15a1-market-pins/MANIFEST.json\" (1355-P not run); after minting it passes on unchanged production",
+      "control": true,
+      "fixturePending": true
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-large-batch-persisted-linear: every live row is bounded: exact keys, at most five reasons of at most five ids",
+      "clause": "1355-A §7 item 18 (lines 254-255); §3.3 (lines 103-104)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3)",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-large-batch-persisted-linear: 32- and 512-member batches persist equal-bounded rows and linear root bytes",
+      "clause": "1355-A §7 item 18 (lines 254-255); annex L.6 invariant 11",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) (a live row supplies the persisted shape)",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration.test.ts",
+      "leaf": "market-phase-version-immutable: rows written under v1 keep their triple and validate under a v2 table; a mismatched triple refuses by name",
+      "clause": "1355-F3 Blocking 2, new leaf (lines 28-30); 1355-F2 item 3 (lines 31-42)",
+      "expectedFailureToday": "throws \"RED: src/core/p15Phases.ts cannot be loaded\" (module absent, 1355-F2 item 3)",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration-atomicity.test.ts",
+      "leaf": "market-second-subject-failure-commits-nothing: a rival second subject refuses in the seam; nothing from either subject commits",
+      "clause": "1355-F3 Blocking 1 (lines 9-17); 1355-A §3.1 closing paragraph (lines 71-72)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) (empty-root fixture)",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration-atomicity.test.ts",
+      "leaf": "market-second-subject-failure-commits-nothing: a player second subject refuses in the seam; nothing from either subject commits",
+      "clause": "1355-F3 Blocking 1 (lines 9-17); 1355-A §3.1 closing paragraph (lines 71-72)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) (empty-root fixture)",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration-atomicity.test.ts",
+      "leaf": "market-due-set-mismatch-fails-closed: a frozen batch that loses a due rival picture fails the week by name; input unchanged",
+      "clause": "1355-A §7 item 5 (line 235); §3.1 item 5 (lines 65-67)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) (empty-root fixture)",
+      "control": false,
+      "fixturePending": false
+    },
+    {
+      "file": "tests/p15a1-market-integration-atomicity.test.ts",
+      "leaf": "market-seam-both-call-sites: the batch factor scales the player's and the rival's opening and total; critic and legs hold",
+      "clause": "1355-A §7 item 2 (lines 230-231); §3.2 (lines 76-78)",
+      "expectedFailureToday": "throws \"RED: GameState has no `sharedMarket` root\" (no root, 1355-A §3.3) (empty-root fixture)",
+      "control": false,
+      "fixturePending": false
+    }
+  ]
+}
