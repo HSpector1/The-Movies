@@ -1,9 +1,9 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-01 18:02 CDT (the Mac now runs on CDT; use `date`)
+Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-01 18:33 CDT (the Mac now runs on CDT; use `date`)
 
 ## Where the work is
-- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ 0b59b4a0 plus the commit that updates this file, pushed: yes (remote verified by `git ls-remote`). The working tree is clean.
+- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ da6e73f6 plus the commit that updates this file, pushed: yes (remote verified by `git ls-remote`). The working tree is clean.
 - Resume this session: `cd ~/Downloads/project-studio-p13-owner-direction-inputs-01 && claude --resume 60db833c-4cf7-4685-b2ec-8aac42c6dac1` (the session started in that folder; it works in this repo). A fresh session: start `claude` in this repo root and say "resume from HANDOFF.md".
 - Required reading, in order:
   1. This file.
@@ -24,11 +24,13 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-01 18:02 CDT (the Mac n
   - Disk 4.5 → about 6.2 GB free (merged or expendable scratch deleted by literal path).
 - In flight (as of 2026-10-01 17:21 CDT):
   - **x3**, the dry run of merge HEAD 6935ea5 (r1 plus r2a 5c7f499, r2b 1c2f9e8, r2c 6935ea5), detached, PID in `/Users/zacheryspector/studio-scratch/1344-merge/x3.pid`, started 17:19 CDT: type gates, core (433 files), UI. Outputs `x3-*.txt`, progress `x3.meta`. Never edit `/Users/zacheryspector/studio-scratch/1344-merge/tree` until `x3.meta` shows "ui exit". Then attribute it as 1344-X9 (commands as in Step 1, with x3 file names).
-  - **Agents** (authoring only; each keeps PROGRESS.txt; all stop if this session ends):
-    - r2d revision: adds 1344-D7 A1, a recorded re-witness search, into `/Users/zacheryspector/studio-scratch/1344-r2/r2d/` (r2 files). Then the parent runs the promise-row probe after x3.
-    - 1355-C r2: P15A.1 RED revision per 1355-F4 (`/Users/zacheryspector/studio-scratch/1355-red/`).
-    - 1359-C r2: P15C RED revision per 1359-F2 (`/Users/zacheryspector/studio-scratch/1359-red/`; F1 relaxes the law for authored films; sibling leaves split out).
-  - **Heavy queue after x3, one at a time:** the row 6 re-witness probe (E/1344-stage/s10/row6-r3/RUNBOOK.md; expected NONE); the promise-row probe (after A1); `/Users/zacheryspector/studio-scratch/1356-x/run-1356-X.sh` (P15A.2 reference run, harness alone); 1355-X and 1359-X after their confirmations; then x4 if r3 edits land.
+  - **1359-D2**: confirmation review of the P15C RED r2 (`/Users/zacheryspector/studio-scratch/1359-red/`). The only agent running.
+  - **Heavy queue** (`/Users/zacheryspector/studio-scratch/heavy-queue/run-queue.sh`, log `run-queue.log`), started by a waiter that runs it as soon as x3 ends, one process at a time:
+    1. the row 6 re-witness probe (out `/Users/zacheryspector/studio-scratch/1344-r3/row6/out/`; expected NONE, so 1344-F5 A3 applies);
+    2. the promise-row probe r3 (`promises-r3.sh`, extracted verbatim from E/1344-stage/s10/promises-r2d/RUNBOOK-r3.md; out `/Users/zacheryspector/studio-scratch/1344-r2/r2d/out/`; expected premise conflict with re-witness NONE for both files);
+    3. 1356-X, the P15A.2 reference run (`/Users/zacheryspector/studio-scratch/1356-x/`, harness alone).
+
+    If the session ends mid-queue, check `run-queue.log`, then re-run only the steps not done; each step refuses to overwrite its out/.
 - Done since the return (all pushed):
   - 1344-F4 rulings.
   - 1344-D5 review and 1344-D6 confirmation.
@@ -37,7 +39,9 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-01 18:02 CDT (the Mac n
   - 1344-F5: row 6 re-witness under review, and §7 definitions 1-20. The §7 kit is staged at E/1344-stage/s7.
   - r2 merged: r2a S9 and row 5 (12 rows), r2b S5 and S1-S3 leftovers (28 rows), r2c ORACLE (2 rows).
   - P15A.2: 1356-C r1 and r2 staged; 1356-D REFINE; 1356-F2 ruling; **1356-D2 CONFIRMED** (RED review-complete).
-  - P15A.1: 1355-C r1 staged; 1355-D REFINE; 1355-F4 ruling. P15C: 1359-C r1 staged; 1359-D REFINE; 1359-F2 ruling.
+  - P15A.1: 1355-C r1, r2 and r3 staged; 1355-D REFINE; 1355-F4; 1355-D2 NOT CONFIRMED; 1355-F5 (phase tables read by row version through the export, binding every P15 root); **1355-D3 CONFIRMED** (RED review-complete).
+  - P15C: 1359-C r1 and r2 staged; 1359-D REFINE; 1359-F2 (F1 relaxes the law for authored films; budgets that fire, including the landed Wave R guard; sibling leaves split); 1359-D2 running.
+  - Promise rows: r2 (1344-D8 NOT CONFIRMED: one witness per file) and r3 staged; **1344-D9 CONFIRMED**.
   - Sweep: the row 6 re-witness declaration (expected NONE) and the promise-row declarations (predicted premise conflict) are staged; **1344-D7** accepts row 6, and accepts the promise rows with change A1.
 - S10 pre-declarations DONE (not run): `/Users/zacheryspector/studio-scratch/1344-sweep/s10/declarations.md` (parts a-f per row) and five probes in `/Users/zacheryspector/studio-scratch/1344-sweep/s10/probes/` (`.txt`, rename to run). Attributed to shelving: row 4 (family 12, `p13a-core-causal-01`: r01 shelves at week 93, before settlement week 208), row 6 (`p14b5-relationships:372`: r01 shelves `script-0006` at week 208; its replacement repeat take may fall outside the 40-tick guard, and then the row returns under the no-widening rule), row 7 (`p14b1-trust-chooser:683`: an oracle fix, the test's candidate list still includes the screenplay r01 shelves at week 93). Uncertain until a probe finds a shelving: row 1 (seating, seed-b), rows 2-3 (family 12, seed-b and `p13-public-commercial-adoption`; row 2 fails at :530, not :529). Family 12 moves up to seven pins per seed. Not S10: row 5 (`p14b5-relationships:596`): Save43's per-studio field moved the digest; extend its strip list with a guard and keep the pinned value (the 1332-A precedent). Slice A RED r5 edits the same file as rows 5 and 6.
 - Claims limits: the sweep edits are authored without test runs by design. x1 (partial, stopped at 29 files, before g6) is superseded by x2; its early files already dropped toward 1338 counts (p14b5-relationships 20→5, relationship read-models 18→6, p14p4p5-opportunities 6→1). Nothing is verified until x2 is attributed.
@@ -73,15 +77,15 @@ Return plan, approved 2026-09-30 15:01 EDT; full text in `~/.claude/plans/immuta
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-01 18:00 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
-- Branch: `wip/headless-program-20260916-ts` @ `f1b3432a5640f886427d74b3e6f2cdc98d03b8e6`
+- Stamped: 2026-10-01 18:21 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
+- Branch: `wip/headless-program-20260916-ts` @ `b5ccb37fb00a83f78044140c3d09a2afad535311`
 - Upstream: `none`, unpushed commits: ?
 - Uncommitted files: 1
   - `M HANDOFF.md`
 - Last commits:
-  - f1b3432a docs(p14): 1344-D7 review — promise-row declarations ACCEPT WITH CHANGES (A1 re-witness search), row 6 ACCEPT
-  - 661e80c6 docs(p15a1): 1355-D RED review (REFINE) and parent response 1355-F4 (cross-root leaf; sibling-proof pins; phase v2 via mock)
-  - 3883f877 docs(p15a2): 1356-D2 confirmation of RED r2 — CONFIRMED
-  - 8f416f79 docs(p15a2): Wave 2 slice 2a RED r2 staged (1356-C2: 72 leaves; 1356-F2 items 1-5 applied; P15_ROOTS helper)
-  - c9405c3e docs(p15c): Wave 2 RED r1 staged (1359-C: 43 leaves, 40 RED, 3 control; 5 fixture-pending, 6 sibling-pending); reference patch
+  - b5ccb37f docs(p14): 1344-D8 confirmation — NOT CONFIRMED (D7's single re-witness rule; one witness per file)
+  - a12ec486 docs(p15a1): Wave 2 RED r3 staged (1355-C3: 1355-F5 items 1-2)
+  - 21e433c8 docs(p15a1): 1355-D2 (NOT CONFIRMED: R4) and ruling 1355-F5 (phase tables read by row version through the export; capture assumes one shared step)
+  - cca0a8eb docs(p14): promise-row declarations r2 (1344-D7 A1: recorded re-witness search; row 11 part f fixed)
+  - 5e227cdd docs(p15a1): Wave 2 RED r2 staged (1355-C2: 59 leaves; 1355-F4 applied; cross-root leaf; shared P15_ROOTS)
 <!-- AUTO:END -->
