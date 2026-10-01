@@ -1,0 +1,608 @@
+diff --git a/src/core/hollywoodTick.ts b/src/core/hollywoodTick.ts
+index 1c9c523..79d0a85 100644
+--- a/src/core/hollywoodTick.ts
++++ b/src/core/hollywoodTick.ts
+@@ -336,7 +336,7 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
+ }
+ 
+ /** Stage rival work against pre-development talent. All writes are to new local objects. */
+-export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|null;talent:Talent[];growth:ReleaseGrowthRecord[];technology:GameState['technology'];physicalPlans:GameState['physicalPlans'];
++export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<string,number>):{hollywood:HollywoodState|null;talent:Talent[];growth:ReleaseGrowthRecord[];technology:GameState['technology'];physicalPlans:GameState['physicalPlans'];
+   /** P14B.1 (1): this week's rival first takes (the 5 -> 4 advance), handed to
+    * the outer tick so the ONE first-take root is appended in one place. */
+   firstTakes:{studioId:string;production:Production}[];
+@@ -346,8 +346,23 @@ export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|
+    * to the outer tick so provenance is written with the same commit that carries them. */
+   suppliedTalent:{id:string;age:number}[]} {
+   const source=state.hollywood
+-  if(!source)return {hollywood:null,talent:state.talent,growth:[],technology:state.technology,physicalPlans:state.physicalPlans,firstTakes:[],greenlights:[],suppliedTalent:[]}
++  if(!source) {
++    if(factorById!==undefined&&factorById.size>0)throw new Error(`shared market: a frozen batch [${[...factorById.keys()].sort().join(', ')}] in a world with no industry`)
++    return {hollywood:null,talent:state.talent,growth:[],technology:state.technology,physicalPlans:state.physicalPlans,firstTakes:[],greenlights:[],suppliedTalent:[]}
++  }
+   const week=state.market.tick
++  // P15A.1 Wave 2 (REFERENCE ONLY, record 1355-C; 1355-A §3.1 item 5): the frozen batch's rival
++  // members must be exactly the rival pictures at remainingTicks 1, checked before any work so a
++  // forged or stale batch throws with the input untouched. `undefined` is the no-market caller.
++  if(factorById!==undefined) {
++    const due=new Set(source.businesses.flatMap(b=>b.productions.filter(p=>p.remainingTicks===1).map(p=>p.id)))
++    const missing=[...due].filter(id=>!factorById.has(id)).sort()
++    const unknown=[...factorById.keys()].filter(id=>!due.has(id)).sort()
++    if(missing.length>0||unknown.length>0) {
++      throw new Error(`shared market: the frozen batch disagrees with the rival due set — missing [${missing.join(', ')}], unknown [${unknown.join(', ')}]`)
++    }
++  }
++  const factored=new Set<string>()
+   const h:HollywoodState={...source,businesses:source.businesses.map(b=>({...b,account:{...b.account,
+     periods:b.account.periods.map((p,i)=>i===b.account.periods.length-1?{...p,movements:{...p.movements}}:p)}}))}
+   let talent=state.talent
+@@ -385,7 +400,12 @@ export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|
+     for(const p of releasing) {
+       const project=hotDevelopment(b).projects.find(s=>s.productionId===p.id)!
+       const inp=inputsFor(state,h,{...b,standing:startStanding},p,project,people)
+-      const result=resolveReception(inp,stream(state.seed,'hollywood-v1',`${p.id}:reception`),true,true,stream(state.seed,'discovery-v1',p.id).gaussian(0,1))
++      // P15A.1 Wave 2 (REFERENCE ONLY, record 1355-C; 1355-A §3.1 item 5, §3.2): the witness at
++      // the release site, then the frozen factor at the seam.
++      const factor=factorById?.get(p.id)
++      if(factorById!==undefined&&factor===undefined)throw new Error(`shared market: rival release ${p.id} has no frozen batch factor`)
++      if(factor!==undefined)factored.add(p.id)
++      const result=resolveReception(factor===undefined?inp:{...inp,competitionFactor:factor},stream(state.seed,'hollywood-v1',`${p.id}:reception`),true,true,stream(state.seed,'discovery-v1',p.id).gaussian(0,1))
+       const base=buildFilmResult(result,{productionId:p.id,releaseTick:week,conceptId:p.conceptId,directorId:p.directorId})
+       const filmResult={...base,participants:p.participants!,forecast:{expectedCriticScore:p.forecastSnapshot.expectedCriticScore,expectedTotal:p.forecastSnapshot.expectedTotal,expectedOpening:p.forecastSnapshot.expectedOpening}}
+       const cost=b.projects[Number(project.id.slice(7))]!
+@@ -436,6 +456,9 @@ export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|
+     for(const project of complete.projects)if(project.status==='review')complete=acceptScriptProject(complete,project.id)
+     storeHotDevelopment(b,complete)
+   }
++  // P15A.1 Wave 2 (REFERENCE ONLY, record 1355-C): the studio counts sum to the batch.
++  const unreleased=factorById===undefined?[]:[...factorById.keys()].filter(id=>!factored.has(id)).sort()
++  if(unreleased.length>0)throw new Error(`shared market: frozen batch members [${unreleased.join(', ')}] did not release`)
+   return {hollywood:h,talent,growth,technology,physicalPlans,firstTakes,greenlights,suppliedTalent}
+ }
+ 
+diff --git a/src/core/marketIntegration.ts b/src/core/marketIntegration.ts
+new file mode 100644
+index 0000000..07dd356
+--- /dev/null
++++ b/src/core/marketIntegration.ts
+@@ -0,0 +1,271 @@
++// ── P15A.1 Wave 2: the shared market in the live release pipeline ─────────────
++// REFERENCE ONLY (records 1355-C, 1355-C2): scratch evidence that the 1355-C RED leaves can pass.
++// Not a production candidate; the single writer owns production (1355-A §8 item 5). r2 sits on
++// 1356-C's reference r2 (the landing order of 1355-F4): the allocator check below spans the market
++// rows and the Power Ranking archive's records.
++//
++// 1355-A §3 as amended by 1355-F, 1355-F2 and 1355-F3:
++// - step 2.5: one batch per week, frozen after the P06A witness and before any verdict;
++//   members are the player's releasing pictures and every rival picture at remainingTicks 1;
++//   exposures are the root's suffix with week > W − SHARED_MARKET_RETIRE_AFTER_WEEKS;
++// - the factor reaches reception at the two release sites only (reception.ts seam);
++// - the root `sharedMarket` appends the week's assessments at finalize, each with the next
++//   `p15DomainSequence` values in (week, releaseId) order and the v1 phase triple;
++// - the save validator: exact keys, ranges, order, sequences, phase triples, the film
++//   bijection and the law reconciled week by week, by era.
++
++import { P15_PHASE_TABLES, p15PhaseTriple } from './p15Phases.js'
++import {
++  assessBatch, SHARED_MARKET_DEFINITION, type MarketAssessment, type MarketBatchMember, type MarketExposure,
++} from './sharedMarket.js'
++import { GENRE_ORDER, TUNING } from './tuning.js'
++import type { GameState, Production } from './types.js'
++
++export const MARKET_PHASE_ID = 'p15a1.marketBatch'
++export type PersistedMarketAssessment = MarketAssessment & {
++  p15DomainSequence: number
++  phaseId: string
++  phaseOrdinal: number
++  phaseOrderVersion: number
++}
++export type SharedMarketRoot = { version: 1; recordedFromWeek: number; assessments: PersistedMarketAssessment[] }
++export const initialSharedMarket = (week: number): SharedMarketRoot => ({ version: 1, recordedFromWeek: week, assessments: [] })
++
++export type MarketBatchResult = {
++  week: number
++  assessments: MarketAssessment[]
++  /** Every member's frozen factor. */
++  factorById: ReadonlyMap<string, number>
++  /** The rival members' frozen factors: what `advanceHollywoodWeek` witnesses and applies. */
++  rivalFactorById: ReadonlyMap<string, number>
++}
++
++/** Active exposures (1355-A §3.3): the root's suffix with week > W − 26, by a backward scan. */
++export function activeMarketExposures(root: SharedMarketRoot, week: number): MarketExposure[] {
++  const out: MarketExposure[] = []
++  for (let i = root.assessments.length - 1; i >= 0; i--) {
++    const row = root.assessments[i]!
++    if (row.week <= week - TUNING.SHARED_MARKET_RETIRE_AFTER_WEEKS) break
++    out.push({ releaseId: row.releaseId, studioId: row.studioId, genre: row.genre, releaseWeek: row.week })
++  }
++  return out.reverse()
++}
++
++/** The rival due set (1355-A §3.1 item 3; fact 8): every rival picture at remainingTicks 1. */
++export function rivalDueMembers(hollywood: NonNullable<GameState['hollywood']>): MarketBatchMember[] {
++  const out: MarketBatchMember[] = []
++  for (const business of hollywood.businesses) {
++    for (const production of business.productions) {
++      if (production.remainingTicks !== 1) continue
++      const concept = hollywood.concepts.find((candidate) => candidate.id === production.conceptId)
++      if (concept === undefined) throw new Error(`shared market: rival picture ${production.id} has no concept`)
++      out.push({ releaseId: production.id, studioId: business.studioId, genre: concept.genre })
++    }
++  }
++  return out
++}
++
++export function requireSharedMarket(state: GameState): SharedMarketRoot {
++  const root = (state as { sharedMarket?: SharedMarketRoot }).sharedMarket
++  if (root === undefined) throw new Error('shared market: the state has no sharedMarket root')
++  return root
++}
++
++/** Step 2.5 (1355-A §3.1). Runs only with an industry; reads, never writes. */
++export function runMarketBatch(state: GameState, playerReleasing: readonly Production[], week: number): MarketBatchResult | null {
++  const hollywood = state.hollywood
++  if (hollywood === null) return null
++  const root = requireSharedMarket(state)
++  const player: MarketBatchMember[] = playerReleasing.map((production) => {
++    const concept = state.concepts.find((candidate) => candidate.id === production.conceptId)
++    if (concept === undefined) throw new Error(`shared market: release ${production.id} has no concept`)
++    return { releaseId: production.id, studioId: hollywood.playerStudioId, genre: concept.genre }
++  })
++  const rivals = rivalDueMembers(hollywood)
++  const assessments = assessBatch(activeMarketExposures(root, week), { week, members: [...player, ...rivals] })
++  const rivalIds = new Set(rivals.map((member) => member.releaseId))
++  return {
++    week,
++    assessments,
++    factorById: new Map(assessments.map((row) => [row.releaseId, row.factor])),
++    rivalFactorById: new Map(assessments.filter((row) => rivalIds.has(row.releaseId)).map((row) => [row.releaseId, row.factor])),
++  }
++}
++
++/** The frozen factor of one releasing picture; a release the batch did not freeze fails the week. */
++export function frozenFactor(batch: MarketBatchResult, releaseId: string): number {
++  const factor = batch.factorById.get(releaseId)
++  if (factor === undefined) throw new Error(`shared market: release ${releaseId} has no frozen batch factor`)
++  return factor
++}
++
++/** The one ordered append at finalize: rows in (week, releaseId) order, each taking the
++ * allocator's next value (1355-F2 item 2: the market batch takes the tick's first numbers). */
++export function appendMarketBatch(state: GameState, batch: MarketBatchResult): Pick<GameState, 'sharedMarket' | 'p15Sequence'> {
++  const root = requireSharedMarket(state)
++  if (batch.assessments.length === 0) return { sharedMarket: root, p15Sequence: state.p15Sequence }
++  let next = state.p15Sequence.next
++  const triple = p15PhaseTriple(MARKET_PHASE_ID)
++  const rows = batch.assessments.map((row) => ({ ...row, p15DomainSequence: next++, ...triple }))
++  return { sharedMarket: { ...root, assessments: [...root.assessments, ...rows] }, p15Sequence: { ...state.p15Sequence, next } }
++}
++
++// ── the save validator (1355-A §3.4; 1355-F3 RED 14) ─────────────────────────────
++const ROOT_KEYS = ['assessments', 'recordedFromWeek', 'version']
++const ROW_KEYS = ['definitionVersion', 'factor', 'genre', 'inputDigest', 'p15DomainSequence', 'phaseId', 'phaseOrderVersion',
++  'phaseOrdinal', 'pressure', 'reasons', 'releaseId', 'stockTerm', 'studioId', 'week', 'windowTerm']
++const REASON_KEYS = ['code', 'sourceReleaseIds', 'value']
++/** Era map (1355-A §3.4 item 5): each definition version to its law. v1 is the live TUNING. */
++const LAWS: Readonly<Record<string, typeof assessBatch>> = { [SHARED_MARKET_DEFINITION]: assessBatch }
++const LAW_FIELDS = ['pressure', 'factor', 'windowTerm', 'stockTerm', 'inputDigest'] as const
++
++const isRecord = (value: unknown): value is Record<string, unknown> =>
++  value !== null && typeof value === 'object' && !Array.isArray(value)
++const sameKeys = (value: Record<string, unknown>, keys: readonly string[]): boolean => {
++  const own = Object.keys(value).sort()
++  return own.length === keys.length && own.every((key, i) => key === keys[i])
++}
++const isWeek = (value: unknown): value is number => Number.isSafeInteger(value) && (value as number) >= 0
++
++/** Validates `sharedMarket` against the whole state; refuses by name. */
++export function validateSharedMarketRoot(raw: Record<string, unknown>, label: string): void {
++  const fail = (message: string): never => { throw new Error(`${label}: sharedMarket ${message}`) }
++  const root = raw.sharedMarket
++  if (!isRecord(root)) return fail('root is missing')
++  if (!sameKeys(root, ROOT_KEYS)) fail(`root must have exactly the keys ${ROOT_KEYS.join(', ')}`)
++  if (root.version !== 1) fail(`version ${String(root.version)} is unknown`)
++  const market = raw.market as { tick: number }
++  const tick = market.tick
++  if (!isWeek(root.recordedFromWeek) || root.recordedFromWeek > tick) fail(`recordedFromWeek ${String(root.recordedFromWeek)} is not a week in [0, ${tick}]`)
++  const recordedFromWeek = root.recordedFromWeek as number
++  if (!Array.isArray(root.assessments)) return fail('assessments must be an array')
++  const rows = root.assessments as unknown[]
++  const hollywood = raw.hollywood as GameState['hollywood']
++  if (hollywood === null && rows.length > 0) fail('holds assessments in a world with no industry')
++
++  const seen = new Set<string>()
++  rows.forEach((value, i) => {
++    if (!isRecord(value)) return fail(`assessment ${i} is not an object`)
++    const unexpected = Object.keys(value).filter((key) => !ROW_KEYS.includes(key))
++    if (!sameKeys(value, ROW_KEYS)) fail(`assessment ${i} must have exactly the persisted keys (unexpected key ${unexpected.join(', ') || 'none'})`)
++    const row = value as unknown as PersistedMarketAssessment
++    if (typeof row.releaseId !== 'string' || typeof row.studioId !== 'string' || !(GENRE_ORDER as readonly unknown[]).includes(row.genre) ||
++      !isWeek(row.week) || typeof row.inputDigest !== 'string' || !Array.isArray(row.reasons) ||
++      !LAW_FIELDS.filter((field) => field !== 'inputDigest').every((field) => Number.isFinite(row[field])) ||
++      !Number.isSafeInteger(row.p15DomainSequence) || typeof row.phaseId !== 'string' ||
++      !Number.isSafeInteger(row.phaseOrdinal) || !Number.isSafeInteger(row.phaseOrderVersion)) {
++      fail(`assessment ${i} has a malformed field`)
++    }
++    for (const reason of row.reasons) {
++      if (!isRecord(reason) || !sameKeys(reason, REASON_KEYS)) fail(`assessment ${row.releaseId} has a malformed reason`)
++    }
++    if (LAWS[row.definitionVersion] === undefined) fail(`assessment ${row.releaseId} definitionVersion ${row.definitionVersion} is unknown`)
++    // 1355-F5 item 1: the row's own version's entry, read through the exported binding.
++    if (row.phaseId !== MARKET_PHASE_ID ||
++      P15_PHASE_TABLES[row.phaseOrderVersion]?.find((entry) => entry.phaseId === MARKET_PHASE_ID)?.phaseOrdinal !== row.phaseOrdinal) {
++      fail(`assessment ${row.releaseId} phase triple (${row.phaseId}, ${row.phaseOrdinal}, ${row.phaseOrderVersion}) does not match its phaseOrderVersion's table entry`)
++    }
++    if (row.week < recordedFromWeek) fail(`assessment ${row.releaseId} week ${row.week} is before recordedFromWeek ${recordedFromWeek}`)
++    if (row.week >= tick) fail(`assessment ${row.releaseId} week ${row.week} is not before market.tick ${tick}`)
++    if (seen.has(row.releaseId)) fail(`holds a duplicate assessment of ${row.releaseId}`)
++    seen.add(row.releaseId)
++    const previous = i > 0 ? rows[i - 1] as PersistedMarketAssessment : null
++    if (previous !== null && (previous.week > row.week || (previous.week === row.week && previous.releaseId >= row.releaseId))) {
++      fail(`assessments are out of (week, releaseId) order at ${row.releaseId}`)
++    }
++    if (row.p15DomainSequence < 1) fail(`assessment ${row.releaseId} p15DomainSequence ${row.p15DomainSequence} is below 1`)
++    if (previous !== null && row.p15DomainSequence <= previous.p15DomainSequence) {
++      fail(`assessment ${row.releaseId} p15DomainSequence ${row.p15DomainSequence} does not ascend`)
++    }
++  })
++  const assessments = rows as PersistedMarketAssessment[]
++  validateP15Allocator(raw, assessments, label)
++  if (hollywood !== null) validateFilmBijection(raw, hollywood, assessments, recordedFromWeek, fail)
++  reconcileLaw(assessments, fail)
++}
++
++/** The allocator against every P15 native row (1355-F2 item 4). Scans the P15 roots this
++ * reference knows; a merged step lists every sibling root here. */
++function validateP15Allocator(raw: Record<string, unknown>, market: readonly PersistedMarketAssessment[], label: string): void {
++  const sequence = raw.p15Sequence
++  if (!isRecord(sequence) || !sameKeys(sequence, ['next', 'version']) || sequence.version !== 1 ||
++    !Number.isSafeInteger(sequence.next) || (sequence.next as number) < 1) {
++    throw new Error(`${label}: p15Sequence must be exactly {version: 1, next} with a whole next of at least 1`)
++  }
++  const next = sequence.next as number
++  const all = market.map((row) => row.p15DomainSequence)
++  const ranking = raw.powerRanking
++  if (isRecord(ranking) && Array.isArray(ranking.snapshots)) {
++    for (const record of ranking.snapshots) if (isRecord(record) && typeof record.p15DomainSequence === 'number') all.push(record.p15DomainSequence)
++  }
++  for (const row of market) {
++    if (row.p15DomainSequence >= next) {
++      throw new Error(`${label}: sharedMarket assessment ${row.releaseId} p15DomainSequence ${row.p15DomainSequence} is at or above p15Sequence.next ${next}`)
++    }
++  }
++  const seen = new Set<number>()
++  for (const n of all) {
++    if (seen.has(n)) throw new Error(`${label}: p15DomainSequence ${n} is held by two P15 rows (duplicate)`)
++    seen.add(n)
++  }
++  const largest = all.length === 0 ? 0 : Math.max(...all)
++  if (next !== largest + 1) throw new Error(`${label}: p15Sequence.next ${next} must be one more than the largest p15DomainSequence (${largest})`)
++}
++
++/** 1355-A §3.4 item 3: from max(recordedFromWeek, originWeek) every simulated release has exactly
++ * one assessment with its id, week, studio and genre, and no assessment lacks its film. */
++function validateFilmBijection(raw: Record<string, unknown>, hollywood: NonNullable<GameState['hollywood']>,
++  rows: readonly PersistedMarketAssessment[], recordedFromWeek: number, fail: (message: string) => never): void {
++  const from = Math.max(recordedFromWeek, hollywood.originWeek)
++  const concepts = new Map((raw.concepts as GameState['concepts']).map((concept) => [concept.id, concept]))
++  const films = new Map<string, { week: number; studioId: string; genre: string }>()
++  for (const film of (raw.studio as GameState['studio']).releasedFilms) {
++    const genre = concepts.get(film.conceptId)?.genre
++    if (genre !== undefined) films.set(film.productionId, { week: film.releaseTick, studioId: hollywood.playerStudioId, genre })
++  }
++  for (const film of hollywood.films) {
++    if (film.provenance === 'simulation/v1') films.set(film.filmId, { week: film.result.releaseTick, studioId: film.studioId, genre: film.genre })
++  }
++  const byId = new Map(rows.map((row) => [row.releaseId, row]))
++  for (const [id, film] of films) {
++    if (film.week < from) continue
++    const row = byId.get(id)
++    if (row === undefined) fail(`film ${id} released at week ${film.week} has no assessment`)
++    else if (row.week !== film.week || row.studioId !== film.studioId || row.genre !== film.genre) {
++      fail(`assessment ${id} disagrees with its film's week, studio or genre`)
++    }
++  }
++  for (const row of rows) if (!films.has(row.releaseId)) fail(`assessment ${row.releaseId} has no film`)
++}
++
++/** 1355-A §3.4 item 4: week by week, rebuild exposures and members from the stored rows and
++ * re-run the law of each row's definition; every law field must be exactly equal. */
++function reconcileLaw(rows: readonly PersistedMarketAssessment[], fail: (message: string) => never): void {
++  let start = 0
++  let windowStart = 0
++  while (start < rows.length) {
++    const week = rows[start]!.week
++    let end = start
++    while (end < rows.length && rows[end]!.week === week) end++
++    while (rows[windowStart]!.week <= week - TUNING.SHARED_MARKET_RETIRE_AFTER_WEEKS) windowStart++
++    const exposures = rows.slice(windowStart, start)
++      .map((row) => ({ releaseId: row.releaseId, studioId: row.studioId, genre: row.genre, releaseWeek: row.week }))
++    const members = rows.slice(start, end)
++    const law = LAWS[members[0]!.definitionVersion]!
++    const expected = law(exposures, { week, members: members.map((row) => ({ releaseId: row.releaseId, studioId: row.studioId, genre: row.genre })) })
++    members.forEach((row, k) => {
++      const lawRow = expected[k]!
++      for (const field of LAW_FIELDS) {
++        if (row[field] !== lawRow[field]) fail(`assessment ${row.releaseId} ${field} does not reconcile with ${row.definitionVersion}`)
++      }
++      const reasonsMatch = row.reasons.length === lawRow.reasons.length && row.reasons.every((reason, r) => {
++        const other = lawRow.reasons[r]!
++        return reason.code === other.code && reason.value === other.value &&
++          reason.sourceReleaseIds.length === other.sourceReleaseIds.length &&
++          reason.sourceReleaseIds.every((id, s) => id === other.sourceReleaseIds[s])
++      })
++      if (!reasonsMatch) fail(`assessment ${row.releaseId} reasons do not reconcile with ${row.definitionVersion}`)
++    })
++    start = end
++  }
++}
+diff --git a/src/core/p15Phases.ts b/src/core/p15Phases.ts
+index a8f8145..676a271 100644
+--- a/src/core/p15Phases.ts
++++ b/src/core/p15Phases.ts
+@@ -26,12 +26,9 @@ export function p15PhaseTriple(phaseId: string): P15PhaseTriple {
+   return { phaseId, phaseOrdinal: entry.phaseOrdinal, phaseOrderVersion: P15_PHASE_ORDER_VERSION }
+ }
+ 
+-/** True when the stored triple is exactly its own version's table entry for `phaseId`. */
+-export function p15PhaseMatches(row: { phaseId: unknown; phaseOrdinal: unknown; phaseOrderVersion: unknown }, phaseId: string): boolean {
+-  if (row.phaseId !== phaseId || typeof row.phaseOrderVersion !== 'number') return false
+-  const entry = P15_PHASE_TABLES[row.phaseOrderVersion]?.find(candidate => candidate.phaseId === phaseId)
+-  return entry !== undefined && row.phaseOrdinal === entry.phaseOrdinal
+-}
++// 1355-F5 item 1 (merge, REFERENCE ONLY, record 1355-C3): validators read a row's entry as
++// `P15_PHASE_TABLES[row.phaseOrderVersion]` through this module's exported binding; no helper here
++// closes over the table for validation, so an added version reaches every validator.
+ 
+ /** The one persisted P15 allocator (1355-F2 item 1). Starts at 1; `next++` at append. */
+ export type P15Sequence = { version: 1; next: number }
+diff --git a/src/core/powerRankingArchive.ts b/src/core/powerRankingArchive.ts
+index b81eec9..58c0b25 100644
+--- a/src/core/powerRankingArchive.ts
++++ b/src/core/powerRankingArchive.ts
+@@ -21,7 +21,7 @@ import {
+ import { rivalWeeklyOperatingCost } from './hollywood.js'
+ import { weeklyPayroll } from './employment.js'
+ import { weeklyFacilityOperatingCost, weeklyOverhead } from './economyView.js'
+-import { p15PhaseMatches, p15PhaseTriple } from './p15Phases.js'
++import { P15_PHASE_TABLES, p15PhaseTriple } from './p15Phases.js'
+ import type { HollywoodState } from './hollywoodTypes.js'
+ import type { GameState, PowerRankingRecord, PowerRankingRecordRow } from './types.js'
+ 
+@@ -234,7 +234,12 @@ export function validatePowerRankingArchive(raw: Record<string, unknown>): void
+     if (n <= previous) refuse(`record ${record.week} p15DomainSequence does not ascend with weeks`)
+     if (record.id !== `power-ranking-${n}`) refuse(`record ${record.week} id is not power-ranking-<p15DomainSequence>`)
+     if (seenIds.has(record.id)) refuse(`record id ${record.id} is a duplicate`)
+-    if (!p15PhaseMatches(record, RANKING_PHASE)) refuse(`record ${record.week} phase triple does not match its phase-order version`)
++    // 1355-F5 item 1 (merge, REFERENCE ONLY, record 1355-C3): the record's own version's entry, read
++    // through the exported binding, never a helper closing over the module's table.
++    if (record.phaseId !== RANKING_PHASE ||
++      P15_PHASE_TABLES[record.phaseOrderVersion]?.find((entry) => entry.phaseId === RANKING_PHASE)?.phaseOrdinal !== record.phaseOrdinal) {
++      refuse(`record ${record.week} phase triple does not match its phase-order version`)
++    }
+     seenSequences.add(n)
+     seenIds.add(record.id)
+     previous = n
+@@ -259,5 +264,6 @@ export function validatePowerRankingArchive(raw: Record<string, unknown>): void
+       refuse(`record ${record.week} rows differ from the recomputed law`)
+     }
+   })
+-  if (next !== previous + 1) refuse('p15Sequence.next must be one more than the largest p15DomainSequence (1 when none)')
++  // P15A.1 Wave 2 merge (REFERENCE ONLY, record 1355-C2; 1355-F2 item 4): `next` against the largest
++  // p15DomainSequence over EVERY P15 root is checked once, in validateSharedMarketRoot.
+ }
+diff --git a/src/core/reception.ts b/src/core/reception.ts
+index 068847b..ca36c34 100644
+--- a/src/core/reception.ts
++++ b/src/core/reception.ts
+@@ -100,6 +100,11 @@ export type ReceptionInputs = {
+   // figure, so C6 inherits a measured lever rather than a confound.
+   setUplift?: number
+   setNovelty?: number | null
++  // P15A.1 Wave 2 (REFERENCE ONLY, record 1355-C; 1355-A §3.2): the shared-market factor the
++  // step-2.5 batch froze for THIS release. Set only at the two release sites (the player loop
++  // and the rival release); greenlight, chooser, forecast and package inputs never carry it.
++  // Absent is exactly 1, a bit-exact IEEE no-op.
++  competitionFactor?: number
+ }
+ 
+ // The rich breakdown §5.6 requires: every intermediate exposed alongside the
+@@ -626,6 +631,10 @@ export function computeBoxOffice(
+   // DEFAULTS TO EXACTLY 1 — a bit-exact IEEE no-op — so every forecast, every
+   // legacy release and every unbound picture is byte-identical.
+   setNoveltyFactor = 1,
++  // P15A.1 Wave 2 (REFERENCE ONLY, record 1355-C; 1355-A §3.2): replaces the constant
++  // competitionFactor ≡ 1.0 (N11). Applied where setNoveltyFactor is applied; a factor outside
++  // [1 − SHARED_MARKET_FACTOR_MAX_PENALTY, 1] throws, so a forged factor can never move a gross.
++  competitionFactor = 1,
+ ): {
+   marketingQuality: number
+   preMarketingAwareness: number
+@@ -675,7 +684,10 @@ export function computeBoxOffice(
+   )
+ 
+   const openingReachMult = 1 + shapeEffects.openingReachMod / 100
+-  const competitionFactor = 1.0
++  const competitionFloor = 1 - TUNING.SHARED_MARKET_FACTOR_MAX_PENALTY
++  if (!(competitionFactor >= competitionFloor && competitionFactor <= 1)) {
++    throw new Error(`reception: competitionFactor ${competitionFactor} is outside [${competitionFloor}, 1]`)
++  }
+ 
+   let reachSum = 0
+   let weightedAudienceScore = 0
+@@ -810,6 +822,8 @@ export function resolveReception(
+     appealBlock.starDraw, // D-13: star support for reachSupport (fame, not quality)
+     // C2a-M2: the bound set's locked novelty. Exactly 1 when nothing was bound.
+     setNoveltyReceptionFactor(inp.setNovelty ?? null),
++    // P15A.1 Wave 2 (REFERENCE ONLY, record 1355-C): the frozen batch factor; absent is 1.
++    inp.competitionFactor ?? 1,
+   )
+ 
+   return {
+diff --git a/src/core/save.ts b/src/core/save.ts
+index 97a85b6..0039e77 100644
+--- a/src/core/save.ts
++++ b/src/core/save.ts
+@@ -8,6 +8,7 @@ import { initializeHollywood } from './hollywood.js'
+ import { validateHollywood } from './hollywoodValidation.js'
+ import { validatePowerRankingArchive } from './powerRankingArchive.js'
+ import { initialP15Sequence } from './p15Phases.js'
++import { initialSharedMarket, validateSharedMarketRoot } from './marketIntegration.js'
+ import { RIVAL_RESEARCH_MONEY_KINDS } from './hollywood.js'
+ import { RIVAL_RESEARCH_RECEIPT_KINDS } from './hollywoodTypes.js'
+ import type { HollywoodState, RivalFinancePeriod } from './hollywoodTypes.js'
+@@ -6184,11 +6185,16 @@ function assertFrozenBuilderRetainsHollywood(state: object, builder: string): vo
+   const original = state as Record<string, unknown>;
+   // P15A.2 Wave 2 (REFERENCE ONLY, record 1356-C): no frozen builder can carry a recorded
+   // Power Ranking quarter; an empty archive and the allocator at 1 strip.
+-  if (Object.hasOwn(original, 'powerRanking') || Object.hasOwn(original, 'p15Sequence')) {
++  if (Object.hasOwn(original, 'powerRanking') || Object.hasOwn(original, 'p15Sequence') || Object.hasOwn(original, 'sharedMarket')) {
+     const archive = original.powerRanking;
+     if (isRecord(archive) && Array.isArray(archive.snapshots) && archive.snapshots.length > 0) {
+       throw new Error(`${builder}: cannot downgrade or discard a recorded Power Ranking quarter`);
+     }
++    // P15A.1 Wave 2 merge (REFERENCE ONLY, record 1355-C2): nor a recorded shared-market assessment.
++    const market = original.sharedMarket;
++    if (isRecord(market) && Array.isArray(market.assessments) && market.assessments.length > 0) {
++      throw new Error(`${builder}: cannot downgrade or discard a recorded shared-market assessment`);
++    }
+     return assertFrozenBuilderRetainsHollywood(stripV44Roots(original), builder);
+   }
+   const raw = Object.hasOwn(original, 'firstTakeSubjects')
+@@ -10773,7 +10779,8 @@ export function migrateToV43(save: SaveFile | { saveVersion: number }): SaveFile
+ // `p15Sequence` (1355-F2 item 1). The V44 validator proves the frozen V43 chain on the
+ // stripped state, then the archive (1356-A §5 "after the frozen chain").
+ function stripV44Roots(raw: Record<string, unknown>): Record<string, unknown> {
+-  const { powerRanking: _archive, p15Sequence: _sequence, ...legacy } = raw;
++  // P15A.1 Wave 2 merge (REFERENCE ONLY, record 1355-C2): the shared-market root shares the step.
++  const { powerRanking: _archive, p15Sequence: _sequence, sharedMarket: _market, ...legacy } = raw;
+   return legacy;
+ }
+ 
+@@ -10784,8 +10791,12 @@ export function validateSaveV44(save: unknown): SaveFileV44 {
+   const raw = v14Record(checkEnvelope(save, 'validateSaveV44'), 'state');
+   if (!Object.hasOwn(raw, 'powerRanking')) throw new Error('validateSaveV44: the Power Ranking archive root is missing');
+   if (!Object.hasOwn(raw, 'p15Sequence')) throw new Error('validateSaveV44: the p15Sequence root is missing');
++  if (!Object.hasOwn(raw, 'sharedMarket')) throw new Error('validateSaveV44: the sharedMarket root is missing');
+   validateSaveV43({ ...save, saveVersion: 43, state: stripV44Roots(raw) });
+   validatePowerRankingArchive(raw);
++  // P15A.1 Wave 2 (REFERENCE ONLY, records 1355-C/C2): the market root against the whole state,
++  // and the one allocator against every P15 root (1355-F2 item 4).
++  validateSharedMarketRoot(raw, 'validateSaveV44');
+   return save as SaveFileV44;
+ }
+ 
+@@ -10796,16 +10807,21 @@ export function convertV43ToV44(save: SaveFileV43): SaveFileV44 {
+   const old = JSON.parse(JSON.stringify(validated)) as SaveFileV43;
+   return validateSaveV44({ ...old, saveVersion: 44, state: { ...old.state,
+     powerRanking: { version: 1, recordedFromWeek: old.state.market.tick, snapshots: [] },
+-    p15Sequence: initialP15Sequence() } });
++    p15Sequence: initialP15Sequence(), sharedMarket: initialSharedMarket(old.state.market.tick) } });
+ }
+ 
+ /** Lossless only while nothing is recorded: the empty archive and the allocator at 1 drop;
+  * a recorded quarter refuses by name. A round trip can only claim less history. */
+ export function convertV44ToV43(save: SaveFileV44): SaveFileV43 {
+   const validated = validateSaveV44(save);
+-  if (validated.state.powerRanking.snapshots.length > 0) {
+-    throw new Error('migrateToV43: cannot downgrade or discard a recorded Power Ranking quarter');
+-  }
++  // P15A.1 Wave 2 merge (REFERENCE ONLY, record 1355-C2): one refusal names every non-empty root, so
++  // neither root's refusal hides the other's (1355-D R2; 1355-F4 re-pins both leaves at the merge).
++  const refusals: string[] = [];
++  if (validated.state.sharedMarket.assessments.length > 0) {
++    refusals.push(`cannot downgrade or discard a recorded shared-market assessment (${validated.state.sharedMarket.assessments.length} recorded)`);
++  }
++  if (validated.state.powerRanking.snapshots.length > 0) refusals.push('cannot downgrade or discard a recorded Power Ranking quarter');
++  if (refusals.length > 0) throw new Error(`migrateToV43: ${refusals.join('; ')}`);
+   const detached = JSON.parse(JSON.stringify(validated)) as SaveFileV44;
+   return validateSaveV43({ ...detached, saveVersion: 43,
+     state: stripV44Roots(detached.state as unknown as Record<string, unknown>) });
+diff --git a/src/core/tick.ts b/src/core/tick.ts
+index 4166c4c..14e28bc 100644
+--- a/src/core/tick.ts
++++ b/src/core/tick.ts
+@@ -1,5 +1,6 @@
+ import { prepareLiveWritingContext } from './liveRetirementWriting.js'
+ import { advanceHollywoodWeek, finishHollywoodWeek } from './hollywoodTick.js'
++import { appendMarketBatch, frozenFactor, runMarketBatch } from './marketIntegration.js'
+ import { birthdaysDueAt, materializeAges, withTalentProvenance } from './aging.js'
+ import { advanceLifecycleIntent, advanceLifecycleSettlement } from './careerLifecycle.js'
+ import { recordPowerRankingQuarter } from './powerRankingArchive.js'
+@@ -520,6 +521,13 @@ export function tick(state: GameState, options?: TickOptions): GameState {
+     }
+   }
+ 
++  // ── 2.5 MARKET BATCH (P15A.1 Wave 2; REFERENCE ONLY, records 1355-C/C2; 1355-A §3.1) ──
++  // One batch per week, frozen after the witness and before the week's first verdict: the
++  // player's releasing pictures and every rival picture at remainingTicks 1, assessed once
++  // against the root's active exposures. It writes nothing; the root appends at finalize.
++  // No industry, no batch: the M0A corpus keeps today's path.
++  const marketBatch = runMarketBatch(admitted, releasing, currentTick)
++
+   // ── 3. RECEPTION ───────────────────────────────────────────────────────────
+   // For each releasing production IN ascending-id order: resolve reception (the
+   // ONLY sim-stream consumer — one critic gaussian per release, in this order),
+@@ -611,6 +619,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
+       ...(releasedBindings?.lockedNovelty == null
+         ? {}
+         : { setNovelty: releasedBindings.lockedNovelty }),
++      // P15A.1 Wave 2 (REFERENCE ONLY, records 1355-C/C2; 1355-A §3.2): the frozen batch factor.
++      ...(marketBatch === null ? {} : { competitionFactor: frozenFactor(marketBatch, prod.id) }),
+     }
+ 
+     // The single §5.3 critic draw for this release — the ONLY sim-stream advance. `engaged` drives
+@@ -933,7 +943,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
+   // reference). When develop === false, `talent` is state.talent unchanged — the
+   // validated M0A/D-6 baseline. A single talent working on two same-tick releases
+   // develops once per release, in release order, over the evolving talent list.
+-  const industry = advanceHollywoodWeek({...admitted,technology:researchAdvance.technology})
++  const industry = advanceHollywoodWeek({...admitted,technology:researchAdvance.technology}, marketBatch?.rivalFactorById)
+   // The develop switch belongs to the frozen player corpus. A living industry's
+   // real releases always write their shared career consequences.
+   const allGrowthRecords = [...(develop?records:[]),...industry.growth].sort((a,b)=>
+@@ -1115,6 +1125,10 @@ export function tick(state: GameState, options?: TickOptions): GameState {
+     // P08A: stamp this advance's history rows in pipeline order and fold routine
+     // detail that aged past the window — against the week this advance PRODUCES.
+     studioHistory: commitStudioHistory(state.studioHistory, history, currentTick + 1, facilityCompletionDrafts(placementCompletion.completed)),
++    // P15A.1 Wave 2 (REFERENCE ONLY, records 1355-C/C2; 1355-A §3.3, 1355-F2 item 2): the ONE
++    // ordered append of this week's assessments; the batch takes the tick's first P15 numbers,
++    // before the end-of-tick ranking record.
++    ...(marketBatch === null ? {} : appendMarketBatch(admitted, marketBatch)),
+   }
+   for(const identity of finalized.hollywood?.identities ?? []) {
+     if(identity.role==='rival' && identity.enteredWeek===null && identity.eligibleWeek<=finalized.market.tick) {
+diff --git a/src/core/types.ts b/src/core/types.ts
+index 23d6c8a..2f0ec85 100644
+--- a/src/core/types.ts
++++ b/src/core/types.ts
+@@ -2555,6 +2555,8 @@ export type PowerRankingArchive = { version: 1; recordedFromWeek: number; snapsh
+ export type GameStateV44 = GameStateV43 & {
+   powerRanking: PowerRankingArchive
+   p15Sequence: import('./p15Phases.js').P15Sequence
++  /** P15A.1 Wave 2 (REFERENCE ONLY, records 1355-C/C2; 1355-A §3.3): the shared-market root. */
++  sharedMarket: import('./marketIntegration.js').SharedMarketRoot
+ }
+ 
+ // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
+diff --git a/src/core/worldgen.ts b/src/core/worldgen.ts
+index b6bef44..e06d33f 100644
+--- a/src/core/worldgen.ts
++++ b/src/core/worldgen.ts
+@@ -85,6 +85,7 @@ import {
+ import { ageRunwayMult, roleOVR } from './talentSummary.js'
+ import { emptyPublicityState } from './save.js'
+ import { initialP15Sequence } from './p15Phases.js'
++import { initialSharedMarket } from './marketIntegration.js'
+ import type {
+   CastSlot,
+   Ceilings,
+@@ -820,5 +821,7 @@ export function generateWorld(seed: string, options?: GenerateWorldOptions): Gam
+     // Ranking quarters from week 0. 1355-F2 item 1: the one P15 allocator starts at 1.
+     powerRanking: { version: 1, recordedFromWeek: 0, snapshots: [] },
+     p15Sequence: initialP15Sequence(),
++    // P15A.1 Wave 2 (REFERENCE ONLY, records 1355-C/C2; 1355-A §3.5 "fresh worlds").
++    sharedMarket: initialSharedMarket(0),
+   }
+ }
