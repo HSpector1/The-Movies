@@ -1,0 +1,477 @@
+
+// ── S10 rows 8-11 probe, revision 3 (1344-C5 r2, work unit r2d; 1344-D7 change A1 as fixed by 1344-D8). NOT RUN by the author. ──
+// Rows 8-10: tests/p14c2c-rival-promises.test.ts:25 (leaves R1 :34, R2 :49, R3 :60, all through beforeRivalCutoff :17-31).
+// Row 11: tests/p14c3-admission-boundaries.test.ts:141 (leaf N10 :230, through assertOutcomeDispatch :138-154).
+// Both files build ONE chain: c2bLiveFixture('genuine-v35-c2b-rival-incumbent-cohorts') at week 2600, then `tick` until
+// market.tick is 2695 (rival-promises :19 and :23; admission-boundaries :232 and :237; advanceTo is
+// src/harness/p13a/fixtures.ts:13-17, the same `tick` re-exported by tests/helpers/p14c2c-fixtures.ts:16).
+// r2d RUNBOOK-r3.md appends this block to a NEW-named copy, tests/zz-s10-promises.test.ts, of
+// tests/p14c2c-rival-promises.test.ts and reuses that file's PERSON, ISSUER, PROMISE, c2bLiveFixture, promiseById,
+// retirementRecordFor, advancePromisesWeek, savedState, tick, describe, expect, it and GameState.
+// Step 1 runs it in the merge tree with S10_TREE=head and writes promises.head.json and promises.rewitness.json. Step 3
+// runs it in the old-source tree with S10_TREE=old; it reads promises.head.json and writes promises.old.json and
+// promises.predicates.json. The old branch calls no Save43-only export (savedState and validateSaveV43 are never reached
+// there). The block changes no assertion and pins nothing. It writes only under S10_OUT_ROOT; any other path throws.
+// No Math.random; public exports only.
+// Revision 2 added the A1 re-witness search (s10PassCalls, s10VoidsThisTick, s10RuleOrder, the chain's `voids` and
+// `voidErrors`, the head run's `rewitness`); s10RivalLines also returns the 2695 base and the 2696 state it ticks; N10's pass goes
+// through s10PassCalls; `openBoundForPerson` replaces `openForPerson` (1344-D7 row 11 f). Every gate is unchanged.
+// Revision 3 (1344-D8) splits the search into one witness per test file: rows 8-10 (s10VoidsThisTick, checks 1-4, no actor
+// check) and row 11 (s10OpenAtCutoff, checks 4 and 5, VOIDED or not), each with its own errors (s10Pick, s10Rivals, s10Err).
+import * as s10fs from 'node:fs'
+import * as s10path from 'node:path'
+import { createHash as s10CreateHash } from 'node:crypto'
+import { vi as s10vi } from 'vitest'
+import * as s10lifecycle from '../src/core/careerLifecycle.js'
+import { stableStringify as s10Stable } from '../src/core/save.js'
+
+const S10_OUT_ROOT = '/Users/zacheryspector/studio-scratch/1344-r2/r2d/out'
+function s10Out(name: string): string {
+  const dir = process.env.S10_OUT_DIR ?? S10_OUT_ROOT
+  const file = s10path.resolve(dir, name)
+  if (!s10path.isAbsolute(dir) || !file.startsWith(S10_OUT_ROOT + '/')) throw new Error(`S10: output path outside ${S10_OUT_ROOT}: ${file}`)
+  s10fs.mkdirSync(s10path.dirname(file), { recursive: true })
+  return file
+}
+const S10_FIXTURE = 'genuine-v35-c2b-rival-incumbent-cohorts' as const
+const S10_FROM = 2600 // the corpus week (helpers/p14c2b-fixtures.ts:35); admission-boundaries :233
+const S10_TO = 2695 // rival-promises :23; admission-boundaries :237-238
+const S10_CONTRACT = 'studio-25969b11-r01:contract:person-cohort-208-actor-1:2496' // rival-promises :22; admission-boundaries :236
+// A1: an announced person's seat taken at week w is refused once w + PRODUCTION_TICKS + 1 > effectiveWeek
+// (careerLifecycle.ts:117; tuning.ts:76), so the first refused week, the cutoff Wc, is effectiveWeek - 8. PERSON: 2704 - 8 = 2696.
+const S10_CUTOFF_LEAD = 8
+// C1 anchors: promise-148 at 2695 as each recorded run saw it. head: the value x2 received at :25 and at :141
+// (x2-core.txt:193665-193688 and :196970-196992; 1344-X8-core-extract.txt:863-945). old: the 1338 run passed both files
+// (1338-t1-broad-core.txt:3720, :2962).
+const S10_ANCHOR = { head: { outcome: 'SATISFIED', progress: 1 }, old: { outcome: null, progress: 0 } } as const
+type S10Shelving = { rejections: { ordinal: number; count: number }[]; shelved: { ordinal: number; week: number; retryWeek: number }[]; commissionHoldUntilWeek: number }
+type S10Receipt = { eventId: string; week: number; studioId: string; kind: string; productionId?: string; scriptProjectId?: string; rejections?: number }
+type S10Take = { eventId: string; week: number; studioId: string; productionId: string; directorId: string; cast: Record<string, string> }
+type S10P148 = { outcome: string | null; progress: number; outcomeWeek: number | null; outcomeEventId: string | null; evidenceRefs: string[] }
+type S10R01 = { active: number[]; projects: number; productions: string[]; shelving: S10Shelving | null
+  newProjects: { ordinal: number; id: string; commissionedWeek: number | null; status: string }[] }
+type S10Week = { processed: number; post: number; hash: string; keys: Record<string, string>; r01: S10R01
+  receipts: S10Receipt[]; takes: S10Take[]; p148: S10P148; guardNamed: { promiseId: string; scriptProjectId: string }[] }
+type S10Start = { post: number; hash: string; keys: Record<string, string> }
+type S10Gate = { pass: boolean; detail: unknown }
+type S10Retirement = { profession: string; announcedWeek: number; effectiveWeek: number; status: string }
+type S10Ordered = { promiseId: string; issuerStudioId: string; wc: number; checks: Record<string, boolean>; qualifies: boolean }
+type S10PromiseFacts = { beneficiaryPersonId: string; family: string; predicate: unknown; windowStartWeek: number; dueWeekExclusive: number
+  contractId: string | null }
+/** Rows 8-10 search: a rival promise the tick into Wc settled VOIDED, read on the post-tick Wc - 1 state. */
+type S10VoidCandidate = S10Ordered & S10PromiseFacts & {
+  atWcMinus1: { outcome: string | null; progress: number; contractId: string | null } | null
+  retirementAtWcMinus1: S10Retirement | null; issuerProductionsAtWcMinus1: string[] }
+/** Row 11 search: an open, bound, progress-0 rival promise at post-tick w whose cutoff is w + 1, VOIDED or not. */
+type S10OpenCandidate = S10Ordered & S10PromiseFacts & { w: number; retirementAtW: S10Retirement; issuerProductionsAtW: string[]
+  passAtW: { calls: number; actorOnly: boolean; requested: string[] }; outcomeAfterNextTick: string | null }
+type S10SearchError = { week: number; message: string }
+type S10HeadDump = { tree: 'head'; start: S10Start; weeks: S10Week[]; ws: number | null; wsR01: number | null
+  gates: Record<string, S10Gate>; stallHead: S10Gate; predictions: Record<string, boolean>; outcome: unknown; explanatory: unknown }
+
+const s10Sha = (text: string): string => s10CreateHash('sha256').update(text).digest('hex')
+/** C2 and C3 (1344-F3 ruling 4; 1344-X6): sha256 of key-sorted JSON for each top-level key of the state, with
+ * `screenplayShelving` deleted from every business (absent in the old tree, so a no-op there). stableStringify is the same
+ * function at ff803032 (save.ts:673) and HEAD (:679); it writes -0 as 0, so this compares what a save stores. */
+function s10KeyHashes(state: GameState): Record<string, string> {
+  const h = state.hollywood
+  const stripped: Record<string, unknown> = h === null ? { ...state } : { ...state, hollywood: { ...h, businesses: h.businesses.map((b) => {
+    const { screenplayShelving: _s, ...rest } = b as typeof b & { screenplayShelving?: unknown }
+    return rest
+  }) } }
+  return Object.fromEntries(Object.keys(stripped).filter((k) => stripped[k] !== undefined).sort()
+    .map((k) => [k, s10Sha(s10Stable(stripped[k]))]))
+}
+const s10Hash = (keys: Record<string, string>): string => s10Sha(s10Stable(keys))
+const s10R01 = (s: GameState) => s.hollywood!.businesses.find((b) => b.studioId === ISSUER)!
+const s10ShelvingOf = (s: GameState): S10Shelving | null =>
+  structuredClone((s10R01(s) as unknown as { screenplayShelving?: S10Shelving }).screenplayShelving ?? null)
+function s10P148(s: GameState): S10P148 {
+  const p = promiseById(s, PROMISE)
+  return { outcome: p.outcome, progress: p.progress, outcomeWeek: p.outcomeWeek, outcomeEventId: p.outcomeEventId, evidenceRefs: [...(p.evidenceRefs ?? [])] }
+}
+/** One promise pass on s (advancePromisesWeek, pure) under a spy on the admission owner, as N10 :144-148 runs it:
+ * the calls for personId at s's own week, and whether every one requests the actor episode (:152). */
+function s10PassCalls(s: GameState, personId: string) {
+  const spy = s10vi.spyOn(s10lifecycle, 'assignmentRefusal')
+  try {
+    const after = advancePromisesWeek(s)
+    const calls = spy.mock.calls.filter(([, id, week]) => id === personId && week === s.market.tick)
+    return { after, calls: calls.length, actorOnly: calls.every((c) => c[3] === 'actor'), requested: [...new Set(calls.map((c) => String(c[3])))] }
+  } finally { spy.mockRestore() }
+}
+/** The fixture's rival businesses: `hollywood.businesses` without the player's studio (promises.ts:340, :963). */
+const s10Rivals = (s: GameState): Set<string> =>
+  new Set((s.hollywood?.businesses ?? []).map((b) => b.studioId).filter((id) => id !== s.hollywood?.playerStudioId))
+const s10Retirement = (r: { profession: unknown; announcedWeek: number; effectiveWeek: number; status: unknown }): S10Retirement =>
+  ({ profession: String(r.profession), announcedWeek: r.announcedWeek, effectiveWeek: r.effectiveWeek, status: String(r.status) })
+const s10Err = (s: GameState, e: unknown): S10SearchError => ({ week: s.market.tick, message: e instanceof Error ? e.message : String(e) })
+/** Rows 8-10 search (1344-D8; R1-R3 need VOIDED at the cutoff, :40-41 and :65): every promise a rival business issued that
+ * the tick before -> after settled VOIDED (promises.ts:1049-1057, the only VOIDED writer), so Wc = after's week. Checks 1-4
+ * read on `before`, the post-tick Wc - 1 state. No actor check: R1-R3 never ask for one. Every promise in `after` is read,
+ * so promises created and bound during the chain count. */
+function s10VoidsThisTick(before: GameState, after: GameState): S10VoidCandidate[] {
+  const wc = after.market.tick
+  const rivals = s10Rivals(after)
+  return after.promises.filter((p) => p.outcome === 'VOIDED' && p.outcomeWeek === wc && rivals.has(p.issuerStudioId)).map((p) => {
+    const prior = before.promises.find((x) => x.promiseId === p.promiseId) ?? null
+    const record = retirementRecordFor(before, p.beneficiaryPersonId) ?? null
+    const issuer = before.hollywood?.businesses.find((b) => b.studioId === p.issuerStudioId)
+    const productions = issuer === undefined ? [] : issuer.productions.map((x) => x.id)
+    const checks = {
+      boundOpenProgress0AtWcMinus1: prior !== null && prior.outcome === null && prior.progress === 0 && prior.contractId !== null, // 1: :25
+      wcIsEffectiveWeekMinus8: record !== null && record.status === 'announced' && record.effectiveWeek - S10_CUTOFF_LEAD === wc, // 2: :24, :40
+      wcAtMost2696: wc <= S10_TO + 1, // 3: :23, :39
+      issuerHasNoProductionAtWcMinus1: issuer !== undefined && productions.length === 0, // 4: :27
+    }
+    return { promiseId: p.promiseId, issuerStudioId: p.issuerStudioId, beneficiaryPersonId: p.beneficiaryPersonId, family: String(p.family),
+      predicate: p.predicate, windowStartWeek: p.windowStartWeek, dueWeekExclusive: p.dueWeekExclusive, contractId: p.contractId, wc,
+      atWcMinus1: prior === null ? null : { outcome: prior.outcome, progress: prior.progress, contractId: prior.contractId },
+      retirementAtWcMinus1: record === null ? null : s10Retirement(record), issuerProductionsAtWcMinus1: productions,
+      checks, qualifies: Object.values(checks).every(Boolean) }
+  })
+}
+/** Row 11 search (1344-D8; N10 needs an open promise whose cutoff is the next week, :141, :148): every open, bound,
+ * progress-0 promise a rival business issued at the post-tick state s (week w) whose beneficiary's announced record gives
+ * effectiveWeek - 8 = w + 1, VOIDED or not; a promise whose capacity falls short stays open past its cutoff
+ * (promises.ts:963-964) and still counts. Checks 4 and 5 read on s, as N10 :240 and :144-152 read its 2695 state. `next`,
+ * the state the next tick produces, only records what that tick did. Every promise in s is read, so promises created and
+ * bound during the chain count. */
+function s10OpenAtCutoff(s: GameState, next: GameState): S10OpenCandidate[] {
+  const w = s.market.tick
+  const rivals = s10Rivals(s)
+  return s.promises.filter((p) => p.outcome === null && p.contractId !== null && p.progress === 0 && rivals.has(p.issuerStudioId)).flatMap((p) => {
+    const record = retirementRecordFor(s, p.beneficiaryPersonId)
+    if (record === undefined || record.status !== 'announced' || record.effectiveWeek - S10_CUTOFF_LEAD !== w + 1) return []
+    const productions = s.hollywood!.businesses.find((b) => b.studioId === p.issuerStudioId)!.productions.map((x) => x.id)
+    const pass = s10PassCalls(s, p.beneficiaryPersonId)
+    const checks = {
+      issuerHasNoProductionAtW: productions.length === 0, // 4: N10 :240
+      passCallsActorAtW: pass.calls > 0 && pass.actorOnly, // 5: N10 :148, :152
+    }
+    return [{ promiseId: p.promiseId, issuerStudioId: p.issuerStudioId, beneficiaryPersonId: p.beneficiaryPersonId, family: String(p.family),
+      predicate: p.predicate, windowStartWeek: p.windowStartWeek, dueWeekExclusive: p.dueWeekExclusive, contractId: p.contractId, w, wc: w + 1,
+      retirementAtW: s10Retirement(record), issuerProductionsAtW: productions,
+      passAtW: { calls: pass.calls, actorOnly: pass.actorOnly, requested: pass.requested },
+      outcomeAfterNextTick: next.promises.find((x) => x.promiseId === p.promiseId)?.outcome ?? null,
+      checks, qualifies: Object.values(checks).every(Boolean) }]
+  })
+}
+const s10IdNumber = (id: string): number => { const m = /^promise-(\d+)$/.exec(id); return m === null ? Number.POSITIVE_INFINITY : Number(m[1]) }
+/** The rule order (1344-D7, kept by 1344-D8): r01 first, then the other rivals (1344-F5 A1); within each, cutoff week Wc,
+ * then promise number. */
+const s10RuleOrder = (a: S10Ordered, b: S10Ordered): number =>
+  (a.issuerStudioId === ISSUER ? 0 : 1) - (b.issuerStudioId === ISSUER ? 0 : 1) || a.wc - b.wc
+  || s10IdNumber(a.promiseId) - s10IdNumber(b.promiseId) || (a.promiseId < b.promiseId ? -1 : a.promiseId > b.promiseId ? 1 : 0)
+/** One search's result: every candidate in rule order and the first that qualifies; ERROR when the search threw (the first
+ * qualifying candidate is then undecided), NONE when none qualifies. `log` is the short form the log line prints. */
+function s10Pick<T extends S10Ordered>(found: T[], errors: S10SearchError[]) {
+  const candidates = [...found].sort(s10RuleOrder)
+  const chosen = candidates.find((c) => c.qualifies) ?? null
+  const witness = errors.length > 0 ? 'ERROR' : chosen === null ? 'NONE' : chosen
+  const tag = (c: T | undefined) => c === undefined ? null : { promiseId: c.promiseId, issuerStudioId: c.issuerStudioId, wc: c.wc, qualifies: c.qualifies, checks: c.checks }
+  return { witness, errors, candidates,
+    log: { witness: typeof witness === 'string' ? witness : tag(witness), candidates: candidates.length, first: tag(candidates[0]), errors: errors.length } }
+}
+
+/** The leaves' chain, one tick at a time, recording what each tick did to r01 and to promise-148, and (head only) both
+ * re-witness searches: the rival promises each tick settled VOIDED (rows 8-10), and the open rival promises each state
+ * holds one week before their cutoff (row 11). */
+function s10Chain(searches: boolean) {
+  const initial = c2bLiveFixture(S10_FIXTURE)
+  const p0 = promiseById(initial, PROMISE)
+  // The leaves' premise at 2600: rival-promises :20-22, admission-boundaries :233-236.
+  const premise = { tick: initial.market.tick, outcome: p0.outcome, progress: p0.progress, beneficiaryPersonId: p0.beneficiaryPersonId,
+    issuerStudioId: p0.issuerStudioId, windowStartWeek: p0.windowStartWeek, dueWeekExclusive: p0.dueWeekExclusive, contractId: p0.contractId }
+  const premiseOk = premise.tick === S10_FROM && premise.outcome === null && premise.progress === 0 && premise.beneficiaryPersonId === PERSON
+    && premise.issuerStudioId === ISSUER && premise.windowStartWeek === 2496 && premise.dueWeekExclusive === 2704 && premise.contractId === S10_CONTRACT
+  const r0 = s10R01(initial)
+  const startR01 = { active: [...r0.activeScriptOrdinals], projects: r0.development.projects.length, productions: r0.productions.map((p) => p.id),
+    activeStatuses: r0.activeScriptOrdinals.map((i) => r0.development.projects[i]!.status as string), shelving: s10ShelvingOf(initial) }
+  const startKeys = s10KeyHashes(initial)
+  const start: S10Start = { post: initial.market.tick, hash: s10Hash(startKeys), keys: startKeys }
+  const initialPromiseIds = new Set(initial.promises.map((p) => p.promiseId))
+  const weeks: S10Week[] = []
+  const voids: S10VoidCandidate[] = [], opens: S10OpenCandidate[] = []
+  // The searches never gate: a throw is recorded, and that search's witness then reads ERROR, never NONE.
+  const voidErrors: S10SearchError[] = [], openErrors: S10SearchError[] = []
+  let state = initial
+  while (state.market.tick < S10_TO) {
+    const before = state
+    state = tick(state)
+    if (searches) {
+      try { voids.push(...s10VoidsThisTick(before, state)) } catch (e) { voidErrors.push(s10Err(state, e)) }
+      try { opens.push(...s10OpenAtCutoff(before, state)) } catch (e) { openErrors.push(s10Err(before, e)) }
+    }
+    const rb = s10R01(before), ra = s10R01(state)
+    const activeReady = new Set(rb.activeScriptOrdinals.map((i) => rb.development.projects[i]!).filter((p) => p.status === 'ready').map((p) => p.id))
+    const keys = s10KeyHashes(state)
+    weeks.push({
+      processed: before.market.tick, post: state.market.tick, hash: s10Hash(keys), keys,
+      r01: { active: [...ra.activeScriptOrdinals], projects: ra.development.projects.length, productions: ra.productions.map((p) => p.id),
+        shelving: s10ShelvingOf(state),
+        newProjects: ra.development.projects.slice(rb.development.projects.length).map((p, i) => ({ ordinal: rb.development.projects.length + i,
+          id: p.id, commissionedWeek: (p as unknown as { commissionedWeek?: number }).commissionedWeek ?? null, status: p.status as string })) },
+      // r01's industry receipts from this tick, plus every studio's screenplayShelved receipt from this tick.
+      receipts: (state.hollywood!.receipts as unknown as S10Receipt[]).slice(before.hollywood!.receipts.length)
+        .filter((r) => r.studioId === ISSUER || r.kind === 'screenplayShelved'),
+      takes: (state.firstTakes as unknown as S10Take[]).slice(before.firstTakes.length).filter((t) => t.studioId === ISSUER)
+        .map((t) => ({ eventId: t.eventId, week: t.week, studioId: t.studioId, productionId: t.productionId, directorId: t.directorId, cast: { ...t.cast } })),
+      p148: s10P148(state),
+      // The promise guard (hollywoodTick.ts:269-272) defers a shelving only for an OPEN r01 projectOpportunity promise that names
+      // the screenplay (1344-F3 ruling 5). Read from this tick's input promises; explanatory only.
+      guardNamed: before.promises.filter((p) => p.outcome === null && p.issuerStudioId === ISSUER
+        && (p.predicate as { kind?: string }).kind === 'projectOpportunity'
+        && activeReady.has((p.predicate as { scriptProjectId?: string }).scriptProjectId ?? ''))
+        .map((p) => ({ promiseId: p.promiseId, scriptProjectId: (p.predicate as { scriptProjectId?: string }).scriptProjectId ?? '' })),
+    })
+  }
+  return { premise, premiseOk, startR01, start, initialPromiseIds, weeks, voids, voidErrors, opens, openErrors, final: state }
+}
+
+/** R1-R3 after :25 as if :25 were re-derived: beforeRivalCutoff :26-28, then each leaf's next premise. Also returns the
+ * 2695 base the leaves tick from (savedState on head, :28) and the 2696 state that tick produces, for A1. */
+function s10RivalLines(s: GameState, useSaved: boolean) {
+  const l27 = s10R01(s).productions.length === 0
+  let saved: GameState | null = null
+  let savedError: string | null = null
+  if (useSaved) { try { saved = savedState(s) } catch (e) { savedError = e instanceof Error ? e.message : String(e) } }
+  const base = saved ?? s
+  const terminals = base.promises.filter((p) => p.beneficiaryPersonId === PERSON && p.outcome !== null).map((p) => p.outcome)
+  const at2696 = tick(base)
+  const after = promiseById(at2696, PROMISE)
+  const lines = {
+    l27, l28: !useSaved || savedError === null, savedError,
+    terminals, l37: JSON.stringify(terminals) === JSON.stringify(['SATISFIED', 'BROKEN']),
+    afterTick: { outcome: after.outcome, outcomeWeek: after.outcomeWeek, dueWeekExclusive: after.dueWeekExclusive, progress: after.progress },
+    l40_41: after.outcome === 'VOIDED' && after.outcomeWeek === 2696 && after.dueWeekExclusive === 2704 && after.progress === 0,
+    r2Helper114: promiseById(base, PROMISE).outcome === null, // R2 :50 -> withPromiseVariant, helpers/p14c2c-fixtures.ts:113-114
+    r3L65: after.outcome === 'VOIDED',
+  }
+  return { lines, base, at2696 }
+}
+/** N10 :140-152 on s, with the leaf's own expressions. Its :139 admission passed in x2 before :141 failed. */
+function s10Dispatch(s: GameState) {
+  const promise = promiseById(s, PROMISE), before = s10Stable(s)
+  const pass = s10PassCalls(s, PERSON)
+  return { l142: promise.contractId !== null, l143: promise.dueWeekExclusive > s.market.tick, l148: pass.calls > 0,
+    l149: s10Stable(promiseById(pass.after, PROMISE)) === s10Stable(promise), l150: s10Stable(pass.after) === before, l151: s10Stable(s) === before,
+    l152: pass.actorOnly, calls: pass.calls }
+}
+const s10FirstFailing = (lines: [string, boolean][]): string | null => lines.find(([, ok]) => !ok)?.[0] ?? null
+
+describe('S10 probe rows 8-11 r3 (scratch only)', () => {
+  it('S10-promises promise-148 chain 2600 to 2695: C1 anchors, shelving receipts, first divergence, the satisfying take, re-witness search', () => {
+    const tree = process.env.S10_TREE
+    if (tree !== 'head' && tree !== 'old') throw new Error('S10-promises: set S10_TREE=head (merge tree) or S10_TREE=old (old-source tree)')
+    const { premise, premiseOk, startR01, start, initialPromiseIds, weeks, voids, voidErrors, opens, openErrors, final } = s10Chain(tree === 'head')
+    const p148 = promiseById(final, PROMISE)
+    const record = retirementRecordFor(final, PERSON)
+    const retirementOk = record?.announcedWeek === 2566 && record?.effectiveWeek === 2704 && record?.status === 'announced' // :24, :239
+    const anchor = S10_ANCHOR[tree]
+    // The value at :25 and :141 plus the lines that passed around it in the recorded run of this tree.
+    const anchorBase = premiseOk && final.market.tick === S10_TO && retirementOk && p148.beneficiaryPersonId === PERSON
+      && p148.outcome === anchor.outcome && p148.progress === anchor.progress
+      && s10R01(final).productions.length === 0 // rival-promises :27 (passed at 1338); admission-boundaries :240 (passed in x2)
+    // The stall the law addresses (1344-A §1): two active ready screenplays and no production, so :301 blocks every commission.
+    const startStalled = startR01.active.length === 2 && startR01.activeStatuses.every((x) => x === 'ready') && startR01.productions.length === 0
+    const stalledWeek = (w: S10Week) => JSON.stringify(w.r01.active) === JSON.stringify(startR01.active) && w.r01.projects === startR01.projects
+      && w.r01.productions.length === 0 && !w.receipts.some((r) => r.studioId === ISSUER && r.kind === 'filmAnnounced')
+
+    if (tree === 'head') {
+      const receipts = final.hollywood!.receipts as unknown as S10Receipt[]
+      const shelvedAll = receipts.filter((r) => r.kind === 'screenplayShelved')
+      const ws = shelvedAll.length > 0 ? Math.min(...shelvedAll.map((r) => r.week)) : null
+      const shelvedR01 = shelvedAll.filter((r) => r.studioId === ISSUER)
+      const wsR01 = shelvedR01.length > 0 ? Math.min(...shelvedR01.map((r) => r.week)) : null
+      const takeId = p148.evidenceRefs?.[0] ?? null
+      const take = takeId === null ? null : ((final.firstTakes as unknown as S10Take[]).find((t) => t.eventId === takeId) ?? null)
+      const wt = take?.week ?? null
+      const C1: S10Gate = { pass: anchorBase, detail: { premise, tick: final.market.tick, retirement: record ?? null, p148: s10P148(final),
+        productions: s10R01(final).productions.map((p) => p.id), anchor } }
+      // d1: r01 shelved before the take that satisfied promise-148.
+      const P1: S10Gate = { pass: wsR01 !== null && wt !== null && wsR01 < wt, detail: { ws, wsR01, wt, takeId, shelvedR01 } }
+      // d2: each r01 shelving carries 13 rejections, and its count read 12 in the state entering its week (hollywoodTick.ts:268-281).
+      // A count of 13 there means the guard held it at the threshold first (:269-275); that case passes and is reported.
+      const entering = (week: number): S10Shelving | null => week === S10_FROM ? startR01.shelving : (weeks.find((w) => w.post === week)?.r01.shelving ?? null)
+      const p2 = shelvedR01.map((r) => {
+        const ordinal = Number(r.scriptProjectId!.slice(7))
+        const countBefore = entering(r.week)?.rejections.find((x) => x.ordinal === ordinal)?.count ?? null
+        return { eventId: r.eventId, week: r.week, scriptProjectId: r.scriptProjectId, rejections: r.rejections, countBefore,
+          heldByGuard: countBefore === 13,
+          guardRecord: weeks.filter((w) => w.processed <= r.week && w.guardNamed.some((g) => g.scriptProjectId === r.scriptProjectId)).map((w) => w.processed),
+          climb: weeks.filter((w) => w.processed < r.week).map((w) => [w.processed, w.r01.shelving?.rejections.find((x) => x.ordinal === ordinal)?.count ?? 0]),
+          ok: r.rejections === 13 && (countBefore === 12 || countBefore === 13) }
+      })
+      const P2: S10Gate = { pass: p2.length > 0 && p2.every((x) => x.ok), detail: p2 }
+      // d3: the take came from a picture r01 greenlit after its shelving, through a commission after the hold (:300-335) or a
+      // due retry (:286-295); promise-148 names that take and its own promiseOutcome receipt (promises.ts:1029-1046).
+      const announced = take === null ? null : (receipts.find((r) => r.kind === 'filmAnnounced' && r.productionId === take.productionId) ?? null)
+      const wg = announced?.week ?? null
+      const script = take === null ? null : (s10R01(final).development.projects.find((p) => p.productionId === take.productionId) ?? null)
+      const ordinal = script === null ? null : Number(script.id.slice(7))
+      const commissionedWeek = script === null ? null : ((script as unknown as { commissionedWeek?: number }).commissionedWeek ?? null)
+      const afterWs = wsR01 === null ? null : (weeks.find((w) => w.processed === wsR01) ?? null)
+      const projectsBeforeWs = wsR01 === null ? null : wsR01 === S10_FROM ? startR01.projects : (weeks.find((w) => w.post === wsR01)?.r01.projects ?? null)
+      const hold = afterWs?.r01.shelving?.commissionHoldUntilWeek ?? null
+      const shelvedEntry = ordinal === null ? undefined : afterWs?.r01.shelving?.shelved.find((x) => x.ordinal === ordinal)
+      const path = ordinal === null ? 'none'
+        : projectsBeforeWs !== null && hold !== null && commissionedWeek !== null && ordinal >= projectsBeforeWs && commissionedWeek >= hold ? 'commission after the hold'
+        : shelvedEntry !== undefined && wg !== null && wg >= shelvedEntry.retryWeek ? 'retry of a shelved screenplay'
+        : 'other'
+      const outcomeReceipt = (final.talentMarket.receipts as unknown as { eventId: string; kind: string; week: number; talentId: string; studioId: string; reasons?: string[] }[])
+        .find((r) => r.eventId === p148.outcomeEventId) ?? null
+      const P4: S10Gate = { pass: take !== null && take.studioId === ISSUER && take.week >= 2496 && take.week < 2704 && Object.values(take.cast).includes(PERSON)
+          && p148.outcomeWeek === take.week && (p148.evidenceRefs ?? []).length === 1
+          && outcomeReceipt !== null && outcomeReceipt.kind === 'promiseOutcome' && outcomeReceipt.week === take.week
+          && outcomeReceipt.talentId === PERSON && outcomeReceipt.studioId === ISSUER && (outcomeReceipt.reasons ?? []).includes('a promise to this person was kept')
+          && wsR01 !== null && wg !== null && wg > wsR01 && (path === 'commission after the hold' || path === 'retry of a shelved screenplay'),
+        detail: { take, announced, wg, script: script === null ? null : { id: script.id, status: script.status, commissionedWeek }, ordinal,
+          projectsBeforeWs, hold, shelvedEntry: shelvedEntry ?? null, path, outcomeReceipt } }
+      // d4, head half: r01 stayed stalled until its own shelving.
+      const pre = weeks.filter((w) => wsR01 === null || w.processed < wsR01)
+      const stallHead: S10Gate = { pass: startStalled && pre.every(stalledWeek),
+        detail: { startR01, preWeeks: pre.length, broken: pre.filter((w) => !stalledWeek(w)).map((w) => ({ processed: w.processed, r01: w.r01, receipts: w.receipts })) } }
+      // The S10 outcome on the leaves' own terms (F4 ruling 4 form), recorded and never asserted.
+      const { lines, base, at2696 } = s10RivalLines(final, true)
+      const dispatch = s10Dispatch(final)
+      const leaf = {
+        R1: s10FirstFailing([[':27', lines.l27], [':28', lines.l28], [':37', lines.l37], [':40-41', lines.l40_41]]),
+        R2: s10FirstFailing([[':27', lines.l27], [':28', lines.l28], ['helpers/p14c2c-fixtures.ts:114 via :50', lines.r2Helper114]]),
+        R3: s10FirstFailing([[':27', lines.l27], [':28', lines.l28], [':65', lines.r3L65]]),
+        N10: s10FirstFailing([[':142', dispatch.l142], [':143', dispatch.l143], [':148', dispatch.l148], [':149', dispatch.l149],
+          [':150', dispatch.l150], [':151', dispatch.l151], [':152', dispatch.l152]]),
+      }
+      // Re-witness (1344-D7 A1 as fixed by 1344-D8; 1344-F5 A1-A3), recorded and never gating: ONE witness per test file,
+      // both over this run's chain, both in rule order (r01 first, then cutoff week Wc, then promise number), both ERROR
+      // when their search threw. The last searched tick is the one from the 2695 base to 2696 that s10RivalLines runs.
+      // rows 8-10 (R1-R3): rival promises VOIDED by a tick into Wc, 2601 <= Wc <= 2696, checks 1-4.
+      // row 11 (N10): open, bound, progress-0 rival promises at post-tick w, 2600 <= w <= 2695, whose cutoff is w + 1,
+      // VOIDED or not, checks 4 and 5.
+      try { voids.push(...s10VoidsThisTick(base, at2696)) } catch (e) { voidErrors.push(s10Err(at2696, e)) }
+      try { opens.push(...s10OpenAtCutoff(final, at2696)) } catch (e) { openErrors.push(s10Err(final, e)) }
+      const rows8to10 = s10Pick(voids, voidErrors), row11 = s10Pick(opens, openErrors)
+      const rivalIds = s10Rivals(at2696)
+      // Rows 8-10 cross-check ("across final and the 2696 state", D7): a scan of the 2696 state's promises finds the same
+      // VOIDED set as the tick-by-tick detection.
+      const scanned = at2696.promises.filter((p) => p.outcome === 'VOIDED' && p.outcomeWeek !== null && p.outcomeWeek > S10_FROM
+        && p.outcomeWeek <= S10_TO + 1 && rivalIds.has(p.issuerStudioId)).map((p) => p.promiseId).sort()
+      const detected = rows8to10.candidates.map((c) => c.promiseId).sort()
+      const rewitness = {
+        rows8to10: { leaves: 'tests/p14c2c-rival-promises.test.ts R1 :34, R2 :49, R3 :60',
+          rule: 'rival-issued, VOIDED by the tick into Wc, 2601 <= Wc <= 2696; order: issuer r01 first, then Wc, then promise number; '
+            + 'witness: the first with boundOpenProgress0AtWcMinus1, wcIsEffectiveWeekMinus8, wcAtMost2696 and issuerHasNoProductionAtWcMinus1',
+          horizon: { wcFrom: S10_FROM + 1, wcTo: S10_TO + 1 }, witness: rows8to10.witness, errors: rows8to10.errors,
+          candidates: rows8to10.candidates, scanned, scanMatchesTicks: JSON.stringify(scanned) === JSON.stringify(detected) },
+        row11: { leaf: 'tests/p14c3-admission-boundaries.test.ts N10 :230',
+          rule: 'rival-issued, open, bound and progress 0 at post-tick w, 2600 <= w <= 2695, beneficiary announced with effectiveWeek - 8 = w + 1, '
+            + 'VOIDED or not; order: issuer r01 first, then Wc = w + 1, then promise number; '
+            + 'witness: the first with issuerHasNoProductionAtW and passCallsActorAtW',
+          horizon: { wFrom: S10_FROM, wTo: S10_TO }, witness: row11.witness, errors: row11.errors, candidates: row11.candidates },
+      }
+      // Predicted from source and fixture bytes; reported, never gating.
+      const shelvedAt = afterWs?.r01.shelving?.shelved ?? []
+      const predictions = {
+        wsR01_is_2612: wsR01 === 2612,
+        r01_shelves_script0229_and_script0230_at_2612: JSON.stringify(shelvedR01.filter((r) => r.week === 2612).map((r) => r.scriptProjectId).sort())
+          === JSON.stringify(['script-0229', 'script-0230']),
+        ws_is_2612: ws === 2612,
+        hold_until_2625: hold === 2625,
+        retry_weeks_2638: shelvedAt.length > 0 && shelvedAt.every((x) => x.retryWeek === 2638),
+        path_is_commission: path === 'commission after the hold',
+        rewitness_rows8to10_is_NONE: rows8to10.witness === 'NONE',
+        rewitness_row11_is_NONE: row11.witness === 'NONE',
+      }
+      const outcome = {
+        rows8to10: leaf.R1 === null && leaf.R2 === null && leaf.R3 === null ? 'REPIN' : 'PREMISE_CONFLICT',
+        row11: leaf.N10 === null ? 'REPIN' : 'PREMISE_CONFLICT',
+        firstFailingAfterRederivation: leaf, rivalLines: lines, dispatch,
+        lastOpenPost: Math.max(S10_FROM, ...weeks.filter((w) => w.p148.outcome === null && w.p148.progress === 0).map((w) => w.post)),
+        // N10 :148 needs a call for PERSON at 2695: any open, bound promise to PERSON from any issuer reaches it
+        // (promises.ts:1028 skips settled or unbound promises; :954 makes the call). 1344-D7 row 11 f.
+        openBoundForPerson: final.promises.filter((p) => p.beneficiaryPersonId === PERSON && p.outcome === null && p.contractId !== null)
+          .map((p) => ({ promiseId: p.promiseId, issuerStudioId: p.issuerStudioId })),
+        // A REPIN writes only these two fields, from the receipts P4 verifies: the outcome its promiseOutcome receipt records
+        // (promises.ts:1033-1046) and the number of distinct qualifying takes it names (promises.ts:1029-1032).
+        repinValues: { outcome: outcomeReceipt?.reasons?.includes('a promise to this person was kept') ? 'SATISFIED' : null,
+          progress: (p148.evidenceRefs ?? []).length, takeEventId: takeId, takeWeek: wt, wsR01 },
+        rewitness,
+      }
+      const r01Receipts = weeks.flatMap((w) => w.receipts.filter((r) => r.studioId === ISSUER))
+      const explanatory = {
+        r01Timeline: {
+          shelvings: shelvedR01, holdAfterWs: hold,
+          commissions: weeks.flatMap((w) => w.r01.newProjects.map((p) => ({ processed: w.processed, ...p }))),
+          announced: r01Receipts.filter((r) => r.kind === 'filmAnnounced'), released: r01Receipts.filter((r) => r.kind === 'filmReleased'),
+          takes: weeks.flatMap((w) => w.takes),
+          byWeek: weeks.map((w) => ({ processed: w.processed, active: w.r01.active, productions: w.r01.productions, shelving: w.r01.shelving, p148: w.p148 })),
+        },
+        otherShelvingsBeforeTake: shelvedAll.filter((r) => r.studioId !== ISSUER && (wt === null || r.week < wt)),
+        guardRecord: weeks.filter((w) => w.guardNamed.length > 0).map((w) => ({ processed: w.processed, guardNamed: w.guardNamed })),
+        // The candidate filter (talentMarket.ts:1444-1449, used at :1474): every promise r01 authored on this chain and what it names.
+        r01PromisesAuthored: final.promises.filter((p) => p.issuerStudioId === ISSUER && !initialPromiseIds.has(p.promiseId))
+          .map((p) => ({ promiseId: p.promiseId, family: p.family, predicate: p.predicate, beneficiaryPersonId: p.beneficiaryPersonId,
+            windowStartWeek: p.windowStartWeek, contractId: p.contractId, outcome: p.outcome })),
+      }
+      const gates = { C1_head_anchor: C1, P1_d1_r01_shelving_before_take: P1, P2_d2_thirteen_rejections: P2, P4_d3_take_via_commission_or_retry: P4 }
+      s10fs.writeFileSync(s10Out('promises.rewitness.json'), JSON.stringify({ probe: 'S10-promises r2d r3', ...rewitness }, null, 1))
+      s10fs.writeFileSync(s10Out('promises.head.json'), JSON.stringify({ probe: 'S10-promises r2d r3', tree, premise, startR01, start, weeks, ws, wsR01, wt,
+        gates, stallHead, predictions, outcome, explanatory }))
+      console.log('S10-promises head gates ' + JSON.stringify({ ...Object.fromEntries(Object.entries(gates).map(([k, v]) => [k, v.pass])), P5_head_half: stallHead.pass }))
+      console.log('S10-promises head outcome ' + JSON.stringify({ rows8to10: outcome.rows8to10, row11: outcome.row11, leaf, lastOpenPost: outcome.lastOpenPost }))
+      console.log('S10-promises head rewitness ' + JSON.stringify({ rows8to10: { ...rows8to10.log, scanMatchesTicks: rewitness.rows8to10.scanMatchesTicks },
+        row11: row11.log }))
+      console.log('S10-promises head predictions ' + JSON.stringify(predictions))
+      expect([...Object.entries(gates), ['P5_head_half', stallHead] as const].filter(([, v]) => !v.pass).map(([k]) => k)).toEqual([])
+      return
+    }
+
+    // tree === 'old': the 1338 chain, then every gate from both dumps.
+    const headPath = s10Out('promises.head.json')
+    if (!s10fs.existsSync(headPath)) throw new Error(`S10-promises: ${headPath} is missing; run RUNBOOK-r3 step 1 (head) first`)
+    const head = JSON.parse(s10fs.readFileSync(headPath, 'utf8')) as S10HeadDump
+    // C1 old: the leaves' own lines at ff803032, where both files passed (R1 :37 and :40-41; N10 :142-152).
+    const { lines } = s10RivalLines(final, false)
+    const dispatch = s10Dispatch(final)
+    const C1old: S10Gate = { pass: anchorBase && lines.l37 && lines.l40_41 && dispatch.l142 && dispatch.l143 && dispatch.l148 && dispatch.l149
+        && dispatch.l150 && dispatch.l151 && dispatch.l152,
+      detail: { premise, tick: final.market.tick, retirement: record ?? null, p148: s10P148(final), productions: s10R01(final).productions.map((p) => p.id),
+        rivalLines: lines, dispatch, anchor } }
+    // C2 + C3: every state up to and including the one entering Ws is equal in both trees, and the first different state is the
+    // one the shelving week produced, post-tick Ws + 1. The differing top-level keys locate it.
+    const byPost = (s0: S10Start, ws: S10Week[]) => new Map<number, { hash: string; keys: Record<string, string> }>(
+      [[s0.post, s0] as const, ...ws.map((w) => [w.post, w] as const)])
+    const oldByPost = byPost(start, weeks), headByPost = byPost(head.start, head.weeks)
+    let firstDiffPost: number | null = null
+    let firstDiffKeys: string[] = []
+    for (let post = S10_FROM; post <= S10_TO; post++) {
+      const a = oldByPost.get(post), b = headByPost.get(post)
+      if (a !== undefined && b !== undefined && a.hash === b.hash) continue
+      firstDiffPost = post
+      firstDiffKeys = a === undefined || b === undefined ? ['(missing week)']
+        : [...new Set([...Object.keys(a.keys), ...Object.keys(b.keys)])].filter((k) => a.keys[k] !== b.keys[k]).sort()
+      break
+    }
+    const P3: S10Gate = { pass: head.ws !== null && firstDiffPost === head.ws + 1,
+      detail: { ws: head.ws, firstDiffPost, firstDiffKeys, startEqual: start.hash === head.start.hash } }
+    // d4, old half: without shelving r01 stays stalled through 2695 and promise-148 stays open.
+    const stallOld: S10Gate = { pass: startStalled && weeks.every(stalledWeek) && p148.outcome === null,
+      detail: { startR01, broken: weeks.filter((w) => !stalledWeek(w)).map((w) => ({ processed: w.processed, r01: w.r01, receipts: w.receipts })) } }
+    const gates: Record<string, S10Gate> = {
+      C1_head_anchor: head.gates.C1_head_anchor, C1_old_anchor: C1old,
+      P1_d1_r01_shelving_before_take: head.gates.P1_d1_r01_shelving_before_take,
+      P2_d2_thirteen_rejections: head.gates.P2_d2_thirteen_rejections,
+      P3_C2_C3_first_divergence_at_Ws_plus_1: P3,
+      P4_d3_take_via_commission_or_retry: head.gates.P4_d3_take_via_commission_or_retry,
+      P5_d4_stall_without_shelving: { pass: head.stallHead.pass && stallOld.pass, detail: { head: head.stallHead, old: stallOld } },
+    }
+    const predictions = { ...head.predictions, first_divergence_at_post_2613: firstDiffPost === 2613,
+      first_divergence_in_hollywood_only: JSON.stringify(firstDiffKeys) === JSON.stringify(['hollywood']) }
+    s10fs.writeFileSync(s10Out('promises.old.json'), JSON.stringify({ probe: 'S10-promises r2d r3', tree, premise, startR01, start, weeks }))
+    s10fs.writeFileSync(s10Out('promises.predicates.json'), JSON.stringify({ probe: 'S10-promises r2d r3', gates, predictions,
+      outcome: head.outcome, explanatory: head.explanatory }, null, 1))
+    console.log('S10-promises gates ' + JSON.stringify(Object.fromEntries(Object.entries(gates).map(([k, v]) => [k, v.pass]))))
+    console.log('S10-promises predictions ' + JSON.stringify(predictions))
+    expect(Object.entries(gates).filter(([, v]) => !v.pass).map(([k]) => k)).toEqual([])
+  }, 900_000)
+})
