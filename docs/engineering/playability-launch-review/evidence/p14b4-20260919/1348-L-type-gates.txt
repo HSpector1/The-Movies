@@ -1,0 +1,7 @@
+HEAD c208d214f8f6fa6d348c5caf1b1b57d97c41bfc1
+== tsconfig.json
+exit 0
+== ui/tsconfig.json
+exit 0
+== tsconfig.bridge.json
+exit 0

@@ -1,0 +1,398 @@
+[
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-control-late-founding-route-lawful",
+  "charterClause": "1359-A §8 :253-255 (natural-campaign route; forged states validate first); §4.1 :101-106; 1359-F3 (route L made lawful: founded at 6188 through the migration origin of 1356-C3's foundMidGame, on 1356-F5's basis; the leaf asserts the closed draft and the existing-player-contract roster)",
+  "expectedFailureToday": "none: CONTROL, passes today (route L is lawful at Save43: founded at 6188 through the migration origin, the minimum roster signed and the draft closed before initializeHollywood(..., 'migration'), every studio entered at 6188, the draft closed through 6241; 6188 and 6238-6241 validate, headless 6239-6241 validate); logs route timings; asserts its elapsed time against its budget (1359-F2 item 2; 1359-F4)",
+  "control": true,
+  "fixturePending": false,
+  "budget": "ROUTE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-control-genuine-save38-6240-lawful",
+  "charterClause": "1359-A §8 :255-256 (genuine captures with sha256 provenance)",
+  "expectedFailureToday": "none: CONTROL, passes today (sha256/bytes pin, 122 player films, 20 live + 8 authored rival films, 732 + 120 career events, 9 adoptions, makeSave at the live step); asserts its elapsed time against its budget (1359-F2 item 2; 1359-F4)",
+  "control": true,
+  "fixturePending": false,
+  "budget": "FIXTURE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-adapter-film-facts",
+  "charterClause": "1359-A §8 A1 :221; §3.1 :49-55",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5), thrown before any fixture work",
+  "control": false,
+  "fixturePending": false,
+  "budget": "FIXTURE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-adapter-run-status",
+  "charterClause": "1359-A §8 A2 :222; §3.1 :53-54",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5), thrown before any fixture work",
+  "control": false,
+  "fixturePending": false,
+  "budget": "FIXTURE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-adapter-run-status-natural-no-run",
+  "charterClause": "1359-A §8 A2 :222 (no run); §3.1 :53; §3.2 :74; 1359-F3 (reads route L at 6240: the run-less player films of the headless year, released before the founding; r4 keeps that year as it was)",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5), thrown before any fixture work",
+  "control": false,
+  "fixturePending": false,
+  "budget": "ROUTE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-adapter-private-money-never-read",
+  "charterClause": "1359-A §8 A3 :223; §3.1 :62-66; 1359-F2 item 3 (forged sibling root, re-pinned to the landed shape at that sibling landing; moves to the sibling landing patch if P15C lands first)",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5), thrown before any fixture work",
+  "control": false,
+  "fixturePending": false,
+  "budget": "FIXTURE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-adapter-career-events",
+  "charterClause": "1359-A §8 A4 :224; §3.1 :56",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5), thrown before any fixture work",
+  "control": false,
+  "fixturePending": false,
+  "budget": "FIXTURE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-adapter-studios",
+  "charterClause": "1359-A §8 A5 :225; §3.1 :46-48; 1359-F2 item 3 (forged sibling root, re-pinned to the landed shape at that sibling landing; moves to the sibling landing patch if P15C lands first)",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5), thrown before any fixture work",
+  "control": false,
+  "fixturePending": false,
+  "budget": "FIXTURE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-adapter-domain-facts",
+  "charterClause": "1359-A §8 A6 :226; §3.1 :57; §3.2 :70-84",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5), thrown before any fixture work",
+  "control": false,
+  "fixturePending": false,
+  "budget": "FIXTURE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-adapter-sibling-roots",
+  "charterClause": "1359-A §8 A7 :227; §3.2 :79-84; §5.1 item 6 :171-172 (a root recorded from B or later reads as absent); 1359-F2 item 3 (forged sibling root, re-pinned to the landed shape at that sibling landing; moves to the sibling landing patch if P15C lands first)",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5), thrown before any fixture work",
+  "control": false,
+  "fixturePending": false,
+  "budget": "FIXTURE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-adapter-p15-watermarks",
+  "charterClause": "1359-A §8 A8 :228; §3.2 :79-81; 1355-F2 item 7 :54; 1359-F2 item 3 (forged sibling root, re-pinned to the landed shape at that sibling landing; moves to the sibling landing patch if P15C lands first)",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5), thrown before any fixture work",
+  "control": false,
+  "fixturePending": false,
+  "budget": "FIXTURE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-adapter-missing-concept-refuses",
+  "charterClause": "1359-A §8 A9 :229; §3.1 :51",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5), thrown before any fixture work",
+  "control": false,
+  "fixturePending": false,
+  "budget": "FIXTURE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-tick-freezes-once-at-6240",
+  "charterClause": "1359-A §8 B1 :230; §4.1 :101-106; §4.2 :115-117; §5 :147-150; 1359-F2 item 3 (new P15 rows counted over the shared P15_ROOTS; re-pinned at a sibling landing); 1359-F3 (reads route L at 6238-6241 and saves 6240 and 6241: needs a lawful industry campaign crossing 6239 to 6240, which r4 gives; no industry history before 6188)",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5), thrown before any fixture work",
+  "control": false,
+  "fixturePending": false,
+  "budget": "ROUTE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-freeze-writes-only-its-root",
+  "charterClause": "1359-A §8 B3 :232; §4.2 :115-118; 1359-F2 item 6 (declared: its K1 input is a state the validator refuses; asserted); 1359-F3 (route L at 6239 must pass every frozen rule, so the forged official refuses on the marker rule alone; r3's open draft refused first at technology.ts:897)",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5), thrown before any fixture work",
+  "control": false,
+  "fixturePending": false,
+  "budget": "ROUTE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-condition-at-6240-outside",
+  "charterClause": "1359-A §8 B4 :233; §4.1 :104-106; 1359-F2 item 3 (forged sibling root, re-pinned to the landed shape at that sibling landing; moves to the sibling landing patch if P15C lands first)",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5), thrown before any fixture work",
+  "control": false,
+  "fixturePending": false,
+  "budget": "FIXTURE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-adapter-only-at-boundary",
+  "charterClause": "1359-A §8 B5 :234; §4.2 :118; 1359-F3 (a headless-year player film, route L at 6238 and 6239, and the extension at 6300)",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5), thrown before any fixture work",
+  "control": false,
+  "fixturePending": false,
+  "budget": "POST_FREEZE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-ticks-after-freeze",
+  "charterClause": "1359-A §8 B6 :235; §4.4 :135-139; 1359-D2 fix 1 (logs routeL().ms; r2 called the removed route()); 1359-F3 (520 post-freeze ticks of the industry founded at 6188, with rival releases, industry career events and receipts after B; saves 6760)",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5), thrown before any fixture work",
+  "control": false,
+  "fixturePending": false,
+  "budget": "POST_FREEZE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-hollywood-null-no-freeze",
+  "charterClause": "1359-A §8 B8 :237; §4.2 :115",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5), thrown before any fixture work",
+  "control": false,
+  "fixturePending": false,
+  "budget": "ROUTE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-determinism",
+  "charterClause": "1359-A §8 B9 :238; 1359-F3 (saves and reloads route L's founding-week state, now with the draft closed, then re-runs it to 6240)",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5), thrown before any fixture work",
+  "control": false,
+  "fixturePending": false,
+  "budget": "ROUTE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-root-fresh",
+  "charterClause": "1359-A §8 C1 :239; §5.2 :187-188",
+  "expectedFailureToday": "RED: the state carries no campaignLegacy root (1359-A §5: a top-level GameState key)",
+  "control": false,
+  "fixturePending": false,
+  "budget": ""
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-migration-empty-root",
+  "charterClause": "1359-A §8 C2 :240; §5.2 :185-188; :255-256; 1359-F2 items 4-5 (route L captures by 1359-P; C2 asserts at least one input); 1359-F3 (the captures come from r4's lawful route L, minted by 1359-P r4)",
+  "expectedFailureToday": "FIXTURE PENDING: tests/fixtures/p15/p15c2-route-l-captures/MANIFEST.json does not exist; the parent mints it with 1359-P at the last writer below the Legacy's save step (route L at weeks 6239 and 6240). Once minted at Save43 (the live version at base) it fails by name: 'RED: the route L captures are Save43, the live version: the Legacy's save step has not landed above them (1359-A §5.2)'.",
+  "control": false,
+  "fixturePending": true,
+  "budget": "FIXTURE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-migration-empty-root-genuine-save38",
+  "charterClause": "1359-A §8 C2 :240; §5.2 :185-188 (genuine Save38 at 6240 through the public chain); 1359-F2 item 3 (order-independent: compares what the step adds or strips)",
+  "expectedFailureToday": "RED: the state carries no campaignLegacy root (1359-A §5: a top-level GameState key) (after the 6.7 MB genuine capture migrates)",
+  "control": false,
+  "fixturePending": false,
+  "budget": "FIXTURE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-migration-before-boundary",
+  "charterClause": "1359-A §8 C3 :241; §5.2 :189-190; 1359-F2 item 5 (route L captures by 1359-P); 1359-F3 (the captures come from r4's lawful route L, minted by 1359-P r4)",
+  "expectedFailureToday": "FIXTURE PENDING: tests/fixtures/p15/p15c2-route-l-captures/MANIFEST.json does not exist; the parent mints it with 1359-P at the last writer below the Legacy's save step (route L at weeks 6239 and 6240). Once minted at Save43 (the live version at base) it fails by name: 'RED: the route L captures are Save43, the live version: the Legacy's save step has not landed above them (1359-A §5.2)'.",
+  "control": false,
+  "fixturePending": true,
+  "budget": "ROUTE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-migration-past-boundary",
+  "charterClause": "1359-A §8 C4 :242; §5.2 :191-192; :255-256; 1359-F2 item 5 (route L captures by 1359-P); 1359-F3 (the captures come from r4's lawful route L, minted by 1359-P r4)",
+  "expectedFailureToday": "FIXTURE PENDING: tests/fixtures/p15/p15c2-route-l-captures/MANIFEST.json does not exist; the parent mints it with 1359-P at the last writer below the Legacy's save step (route L at weeks 6239 and 6240). Once minted at Save43 (the live version at base) it fails by name: 'RED: the route L captures are Save43, the live version: the Legacy's save step has not landed above them (1359-A §5.2)'.",
+  "control": false,
+  "fixturePending": true,
+  "budget": "ROUTE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-migration-past-boundary-genuine-save38",
+  "charterClause": "1359-A §8 C4 :242; §5.2 :191-192 (genuine Save38 at 6240); 1359-F2 item 3 (new P15 rows counted over the shared P15_ROOTS; re-pinned at a sibling landing)",
+  "expectedFailureToday": "RED: the state carries no campaignLegacy root (1359-A §5: a top-level GameState key)",
+  "control": false,
+  "fixturePending": false,
+  "budget": "FIXTURE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-root-downgrade",
+  "charterClause": "1359-A §8 C5 :243; §5.2 :193-195; 1359-F2 item 3 (order-independent: compares what the step adds or strips)",
+  "expectedFailureToday": "RED: the state carries no campaignLegacy root (1359-A §5: a top-level GameState key) (after migrateToV42 and convertV42ToV43 run on the genuine capture, the step functions STEP resolves today)",
+  "control": false,
+  "fixturePending": false,
+  "budget": "FIXTURE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-validate-marker",
+  "charterClause": "1359-A §8 C6 :244; §4.3 :129-131; §5.1 item 2 :163",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5), thrown before any fixture work (G6240F is built by the step)",
+  "control": false,
+  "fixturePending": false,
+  "budget": "FIXTURE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-validate-manifest-identity",
+  "charterClause": "1359-A §8 C7 :245; §5.1 items 1 and 3 :162, :164-165",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5), thrown before any fixture work (G6240F)",
+  "control": false,
+  "fixturePending": false,
+  "budget": "FIXTURE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-validate-stamp",
+  "charterClause": "1359-A §8 C8 :246; §5 :149-150, :155-156; §5.1 item 4 :166-167",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5), thrown before any fixture work (G6240F)",
+  "control": false,
+  "fixturePending": false,
+  "budget": "FIXTURE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-validate-bounds",
+  "charterClause": "1359-A §8 C9 :247; §5.1 item 5 :168-170",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5), thrown before any fixture work (G6240F)",
+  "control": false,
+  "fixturePending": false,
+  "budget": "FIXTURE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-validate-refs",
+  "charterClause": "1359-A §8 C10 :248; §5.1 items 6-7 :171-175",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5), thrown before any fixture work (G6240F)",
+  "control": false,
+  "fixturePending": false,
+  "budget": "FIXTURE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-validate-refs-post-boundary-row",
+  "charterClause": "1359-A §8 C10 :248 (position above watermark; week >= B); §5.1 item 7 :174-175; 1359-F3 (route L at 6300 must pass every frozen rule, so the refusal is the Legacy refs rule; needs a cited industry row from 6188-6239 and rows appended after B)",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5), thrown before any fixture work",
+  "control": false,
+  "fixturePending": false,
+  "budget": "POST_FREEZE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-definition-era-guard",
+  "charterClause": "1359-A §8 C11 :249; §5.1 era versioning :177-181; 1359-F Amendment 1 :22-23; 1359-F2 item 1 (v1 pinned as literals: fifteen thresholds, 6240, mode, id lists, bounds, count keys)",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export LEGACY_DEFINITIONS (1359-A §5.1 era versioning)",
+  "control": false,
+  "fixturePending": false,
+  "budget": "FIXTURE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-round-trip",
+  "charterClause": "1359-A §8 C12 :250; 1359-F3 (saves and reloads route L at 6241)",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5), thrown before any fixture work",
+  "control": false,
+  "fixturePending": false,
+  "budget": "ROUTE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-validate-replay",
+  "charterClause": "1359-F Amendment 1 :13-16, :27-28 (outcome, count, ref list, lens value refuse; standingAtBoundary range only)",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5), thrown before any fixture work (G6240F)",
+  "control": false,
+  "fixturePending": false,
+  "budget": "FIXTURE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-old-law-fixture-v1-validates-after-retune",
+  "charterClause": "1359-F Amendment 1 :22-23; 1353-J note 2 :27; 1359-A §8 C11 :249 (the validator imports no TUNING)",
+  "expectedFailureToday": "RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5), thrown before any fixture work (G6240F)",
+  "control": false,
+  "fixturePending": false,
+  "budget": "FIXTURE_MS"
+ },
+ {
+  "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+  "leaf": "legacy-law-settled-week-null-authored-only",
+  "charterClause": "1359-F2 F1 ruling; 1359-D item 7; 1359-A §3.1 :53 (authored: settled, null); landed law src/core/campaignLegacy.ts:351; 1359-D2 fix 2 (the refusal quotes line 351's rule text, which line 358 does not share)",
+  "expectedFailureToday": "buildLegacyManifest refuses the authored film: 'campaign legacy: films[0] (AUTHORED).settledWeek must be a whole week once settled' (the landed law refuses every settled film without a whole week, line 351). The refused side (a campaign film) already refuses today with line 351's own rule, 'films[0] (CAMPAIGN).settledWeek must be a whole week once settled', which the leaf matches exactly; the leaf turns green when the law accepts null for authored films only.",
+  "control": false,
+  "fixturePending": false,
+  "budget": null
+ },
+ {
+  "file": "tests/p15c-wave-r-retention.test.ts",
+  "leaf": "wave-r-retention-studio-released-films",
+  "charterClause": "1353-A §4 row R (landed Wave R guard, 1353-C3); changed test-only by 1359-F2 item 2",
+  "expectedFailureToday": "none: CONTROL, passes today (landed guard; r2 only wraps it in a self-timed budget); asserts its elapsed time against GUARD_BUDGET_MS (1359-F2 item 2; 1359-F4)",
+  "control": true,
+  "fixturePending": false,
+  "budget": "GUARD_BUDGET_MS"
+ },
+ {
+  "file": "tests/p15c-wave-r-retention.test.ts",
+  "leaf": "wave-r-retention-hollywood-films",
+  "charterClause": "1353-A §4 row R (landed Wave R guard, 1353-C3); changed test-only by 1359-F2 item 2",
+  "expectedFailureToday": "none: CONTROL, passes today (landed guard; r2 only wraps it in a self-timed budget); asserts its elapsed time against GUARD_BUDGET_MS (1359-F2 item 2; 1359-F4)",
+  "control": true,
+  "fixturePending": false,
+  "budget": "GUARD_BUDGET_MS"
+ },
+ {
+  "file": "tests/p15c-wave-r-retention.test.ts",
+  "leaf": "wave-r-retention-player-career-events",
+  "charterClause": "1353-A §4 row R (landed Wave R guard, 1353-C3); changed test-only by 1359-F2 item 2",
+  "expectedFailureToday": "none: CONTROL, passes today (landed guard; r2 only wraps it in a self-timed budget); asserts its elapsed time against GUARD_BUDGET_MS (1359-F2 item 2; 1359-F4)",
+  "control": true,
+  "fixturePending": false,
+  "budget": "GUARD_BUDGET_MS"
+ },
+ {
+  "file": "tests/p15c-wave-r-retention.test.ts",
+  "leaf": "wave-r-retention-hollywood-career-events",
+  "charterClause": "1353-A §4 row R (landed Wave R guard, 1353-C3); changed test-only by 1359-F2 item 2",
+  "expectedFailureToday": "none: CONTROL, passes today (landed guard; r2 only wraps it in a self-timed budget); asserts its elapsed time against GUARD_BUDGET_MS (1359-F2 item 2; 1359-F4)",
+  "control": true,
+  "fixturePending": false,
+  "budget": "GUARD_BUDGET_MS"
+ },
+ {
+  "file": "tests/p15c-wave-r-retention.test.ts",
+  "leaf": "wave-r-retention-theatrical-runs",
+  "charterClause": "1353-A §4 row R (landed Wave R guard, 1353-C3); changed test-only by 1359-F2 item 2",
+  "expectedFailureToday": "none: CONTROL, passes today (landed guard; r2 only wraps it in a self-timed budget); asserts its elapsed time against GUARD_BUDGET_MS (1359-F2 item 2; 1359-F4)",
+  "control": true,
+  "fixturePending": false,
+  "budget": "GUARD_BUDGET_MS"
+ },
+ {
+  "file": "tests/p15c-wave-r-retention.test.ts",
+  "leaf": "wave-r-retention-technology-adoptions",
+  "charterClause": "1353-A §4 row R (landed Wave R guard, 1353-C3); changed test-only by 1359-F2 item 2",
+  "expectedFailureToday": "none: CONTROL, passes today (landed guard; r2 only wraps it in a self-timed budget); asserts its elapsed time against GUARD_BUDGET_MS (1359-F2 item 2; 1359-F4)",
+  "control": true,
+  "fixturePending": false,
+  "budget": "GUARD_BUDGET_MS"
+ },
+ {
+  "file": "tests/p15c-wave-r-retention.test.ts",
+  "leaf": "wave-r-retention-player-concepts",
+  "charterClause": "1359-F Amendment 2 :30-34",
+  "expectedFailureToday": "none: CONTROL, passes today (every concept a W1 player film reads exists at W2 byte-equal; reuses the memoized Wave R campaign); asserts its elapsed time against GUARD_BUDGET_MS (1359-F2 item 2; 1359-F4)",
+  "control": true,
+  "fixturePending": false,
+  "budget": "GUARD_BUDGET_MS"
+ }
+]
