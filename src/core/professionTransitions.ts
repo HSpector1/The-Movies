@@ -7,7 +7,7 @@ import { expectedPotentialTier, roleOVR, roleTier, workHistoryCount } from './ta
 import { TUNING } from './tuning.js'
 import { salaryCurve } from './worldgen.js'
 import { compareProfessionText, compareTransitionDue } from './professionHistory.js'
-import type { CreativeRole, GameState, IndustryRetirement, ProfessionChange, RetirementKey,
+import type { CreativeRole, FirstTakeReceipt, GameState, IndustryRetirement, ProfessionChange, RetirementKey,
   TransitionContextWitness, TransitionDue, TransitionEvaluation, TransitionInputs, TransitionPictureRef,
   TransitionPotentialTier, TransitionRoleTier, TransitionTarget, TransitionTargetInput } from './types.js'
 
@@ -49,10 +49,11 @@ function strongestContext(context: PicturesByCounterpart): Context {
     contextWitness: { counterpartId, pictures: pictures.slice(0, TUNING.PROFESSION_TRANSITION_MIN_CONTEXT_PICTURES) } }
 }
 
-/** Historical counts use only retained dated facts. Public skills, potential and
- * work-history snapshots deliberately do not come from this reconstruction. */
-export function retainedTransitionEvidence(state: Pick<GameState, 'firstTakes' | 'studio' | 'hollywood'>,
-  personId: string, week: number): Evidence {
+/** A person's distinct acting pictures up to `week` by recorded first take, any
+ * cast slot: one per (studio, production), ordered by week, studio, production and
+ * event id. Shared by the transition evidence and the Mentor label
+ * (`relationshipLabels.ts`, 1347-F "qualifying pictures"). */
+export function distinctActingFirstTakes(state: Pick<GameState, 'firstTakes'>, personId: string, week: number): FirstTakeReceipt[] {
   const all = state.firstTakes.filter(take => take.week <= week && Object.values(take.cast).includes(personId))
     .sort((a, b) => a.week - b.week || compareProfessionText(a.studioId, b.studioId)
       || compareProfessionText(a.productionId, b.productionId) || compareProfessionText(a.eventId, b.eventId))
@@ -61,9 +62,16 @@ export function retainedTransitionEvidence(state: Pick<GameState, 'firstTakes' |
     const key = pictureKey(take.studioId, take.productionId)
     if (!distinct.has(key)) distinct.set(key, take)
   }
-  const takes = [...distinct.values()]
+  return [...distinct.values()]
     .sort((a, b) => a.week - b.week || compareProfessionText(a.studioId, b.studioId)
       || compareProfessionText(a.productionId, b.productionId) || compareProfessionText(a.eventId, b.eventId))
+}
+
+/** Historical counts use only retained dated facts. Public skills, potential and
+ * work-history snapshots deliberately do not come from this reconstruction. */
+export function retainedTransitionEvidence(state: Pick<GameState, 'firstTakes' | 'studio' | 'hollywood'>,
+  personId: string, week: number): Evidence {
+  const takes = distinctActingFirstTakes(state, personId, week)
   const leads = takes.filter(take => take.cast.lead === personId)
   const directing: PicturesByCounterpart = new Map(), writing: PicturesByCounterpart = new Map()
   for (const take of leads) addPicture(directing, take.directorId, take.studioId, take.productionId)
