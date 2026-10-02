@@ -722,9 +722,15 @@ describe('CF-08 sound union-to-C# generation', () => {
         // 1196, projection54), exit 0, fixedSource true. Renders all eight
         // positives twice; both current bodies are 418871 bytes / a0f316eb…;
         // all six fixed bodies, including F12, remain unchanged.
+        // Relationship slice B projection57 (1358-F9 P4): independent 1358 producer,
+        // run as the recorded run 1358-p57-declaration on eb1c2512 (source manifest
+        // 5d605954…; prior measurement 1328, projection56), exit 0, fixedSource true,
+        // allGuardsExact true. Renders all eight positives twice; both current bodies
+        // are 420340 bytes / 1dadf88f…; all six fixed bodies, including F12, remain
+        // unchanged.
         // This measurement precedes these pins and is not failure-derived.
-        F10_CURRENT_QUOTE_UNIONS: 'a0f316eb5b4be929f82102246b415414e0720000e6dd4a62b22980192abaf8aa',
-        F11_CURRENT_COMMAND_UNION: 'a0f316eb5b4be929f82102246b415414e0720000e6dd4a62b22980192abaf8aa',
+        F10_CURRENT_QUOTE_UNIONS: '1dadf88fb7230405a6232fff3a37e3aee9014718200dfdb8baf4ff385ab71fa4',
+        F11_CURRENT_COMMAND_UNION: '1dadf88fb7230405a6232fff3a37e3aee9014718200dfdb8baf4ff385ab71fa4',
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {
