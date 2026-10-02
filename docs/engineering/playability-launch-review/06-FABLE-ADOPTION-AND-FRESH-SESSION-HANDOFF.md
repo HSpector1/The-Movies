@@ -1,8 +1,8 @@
 # R3-N1 native correction record — 2026-09-15 · OPS-R3-N1-NATIVE-CORRECTION-20260915-01
 
-## CURRENT: P14 closed (1344-K); P15 Wave 1 closed; relationship slice A landed; the P15B probe reads Re-tune
+## CURRENT: P14 closed (1344-K); P15 Wave 1 closed; slice A landed; P15B Re-tune; P15C G-P sends two archetypes to retune
 
-State at 2026-10-01 22:50 CDT, HEAD b0809602 plus this update (pushed, remote verified). No recorded run is active.
+State at 2026-10-01 23:45 CDT, HEAD 975e72a1 plus this update (pushed, remote verified). No recorded run is active.
 Root `HANDOFF.md` carries the resume commands.
 
 - **P14 shelving and Save43: CLOSED** ([1344-K](evidence/p14b4-20260919/1344-K-parent-shelving-save43-closure.json)).
@@ -20,20 +20,32 @@ Root `HANDOFF.md` carries the resume commands.
   - RED r5 at 954a373e: 30 failed, 62 passed.
   - Production 11693bff, 442105f4 and c208d214: recorded GREEN 89 of 92. The 3 failures are 1344-F6 row 6.
   - Its broad gates, and a check of the natural routes at HEAD, ride with the next broad run.
-- **Slice B:** RED r4 staged
-  ([1358-C4](evidence/p14b4-20260919/1358-C4-rel-sliceB-red-r4-handback.md)). The producer now founds the studio
-  first. The parent dry run 1358-X2 is next, then review 1358-D and the mint 1358-P.
+- **Slice A's natural routes:** [1348-X7](evidence/p14b4-20260919/1348-X7-rel-sliceA-natural-routes.md) finds the four
+  §7 routes at HEAD byte-identical to §7's runs.
+- **Slice B:** [1358-X2](evidence/p14b4-20260919/1358-X2-rel-sliceB-red-r4-dry-run.md) matched r4 exactly. Review
+  [1358-D](evidence/p14b4-20260919/1358-D-rel-sliceB-red-r4-review.md) returned REFINE (five blocking items).
+  [1358-F4](evidence/p14b4-20260919/1358-F4-parent-rulings-on-1358-D.md) orders r5. After that come dry run 1358-X3,
+  confirmation 1358-D2, the RED commit, the mint, and then the recorded RED.
 - **P15 Wave 2:**
   - **P15B** probe ([1357-X](evidence/p14b4-20260919/1357-X-p15b-wave2-probe-results.md)): **Re-tune.** On the p13a
     seeds, 7 of 8 rivals are due for closure by 1960, and no rival recovers. No §4.5 value passes the gate.
     [1357-F2](evidence/p14b4-20260919/1357-F2-parent-response-to-1357-X.md) holds Wave 2 at the gate and asks the
     Owner 1357-Q1.
-  - P15A.1 RED r4 CONFIRMED (1355-D4).
-  - P15A.2 RED r4 CONFIRMED (1356-D4).
-  - P15C RED r4 and r5 CONFIRMED
-    ([1359-D4](evidence/p14b4-20260919/1359-D4-p15c-wave2-red-r4-r5-confirmation.md)).
+  - **Why rivals stall:** [1357-R](evidence/p14b4-20260919/1357-R-rival-stall-diagnosis.md), with the parent note
+    [1357-F3](evidence/p14b4-20260919/1357-F3-parent-note-on-1357-R.md). The shelving law's `cashBlocked` rule
+    (1344-A:57) freezes screenplays that lose money at every affordable package. Rivals stop filming with 3-7M above
+    their reserve.
+  - **P15A.1:** RED r4 CONFIRMED (1355-D4). G1
+    ([1355-X4](evidence/p14b4-20260919/1355-X4-p15a1-g1-probe-results.md)) reads Proceed, flagged for the playtest
+    brief. Producer dry run 1355-X3 is clean.
+  - **P15A.2:** RED r4 CONFIRMED (1356-D4).
+  - **P15C:** RED r4 and r5 CONFIRMED
+    ([1359-D4](evidence/p14b4-20260919/1359-D4-p15c-wave2-red-r4-r5-confirmation.md)). Producer dry run 1359-X3 is
+    clean. G-P ([1359-X4](evidence/p14b4-20260919/1359-X4-p15c-gp-probe-results.md)) returns `artistic-voice` and
+    `commercial-engine` to retuning, and
+    [1359-F5](evidence/p14b4-20260919/1359-F5-parent-response-to-1359-X4.md) routes the §5.5 amendment.
 - **Open Owner items:**
-  - 1357-Q1: rival recovery before P15B closure. Recommend (a).
+  - 1357-Q1: rival recovery before P15B closure. Recommend (a), starting with the shelving `cashBlocked` fix (1357-F3).
   - numpy for the three rgba rows.
   - P16's nine questions (1354-Q).
   - The §7 flags (1344-V §9).

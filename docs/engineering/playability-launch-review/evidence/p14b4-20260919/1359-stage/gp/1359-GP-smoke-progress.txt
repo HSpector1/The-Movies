@@ -1,0 +1,10 @@
+[1359-GP] p13a-core-causal-01: F1 BRIDGE: the landed law refused an authored film's null settledWeek (campaignLegacy.ts:351; 1359-F2 F1); the law runs on a copy where 8 authored films read settledWeek 0
+[1359-GP] p13a-core-causal-01: smoke endOfRun at week 20: adapter 1 ms, law 4 ms, manifest 11413 bytes
+[1359-GP] check artistic-voice: evaluated; held p13a-core-causal-01 0/5; retune YES (some-seed reading YES)
+[1359-GP] check audience-institution: evaluated; held p13a-core-causal-01 0/5; retune YES (some-seed reading YES)
+[1359-GP] check commercial-engine: evaluated; held p13a-core-causal-01 0/5; retune YES (some-seed reading YES)
+[1359-GP] check technology-pioneer: evaluated; held p13a-core-causal-01 0/5; retune YES (some-seed reading YES)
+[1359-GP] check talent-foundry: evaluated; held p13a-core-causal-01 0/5; retune YES (some-seed reading YES)
+[1359-GP] check genre-specialist: evaluated; held p13a-core-causal-01 0/5; retune YES (some-seed reading YES)
+[1359-GP] check resilient-survivor: exempt; held p13a-core-causal-01 0/5; retune no (some-seed reading no)
+[1359-GP] check awards-dynasty: notEvaluated; held p13a-core-causal-01 0/5; retune no (some-seed reading no)

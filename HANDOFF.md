@@ -1,9 +1,9 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-01 22:50 CDT (the Mac runs on CDT; use `date`)
+Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-01 23:45 CDT (the Mac runs on CDT; use `date`)
 
 ## Where the work is
-- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ b0809602 plus the commit that adds 1344-K and updates this file, pushed: yes.
+- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ 975e72a1 plus the commit that adds 1358-D, 1357-R, G-P and G1 and updates this file, pushed: yes.
 - Resume this session: `cd ~/Downloads/project-studio-p13-owner-direction-inputs-01 && claude --resume 60db833c-4cf7-4685-b2ec-8aac42c6dac1` (the session started in that folder; it works in this repo). A fresh session: start `claude` in this repo root and say "resume from HANDOFF.md".
 - Required reading, in order:
   1. This file.
@@ -32,7 +32,8 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-01 22:50 CDT (the Mac r
   - **1359-D4:** P15C RED r4 and r5 CONFIRMED, no defects.
   - **Slice B r4** (1358-C4) staged in `E/1358-stage/` (patch d41ea111…, classification 3b008e0a…); the apply check at HEAD passes.
 - Done after e7f075ce: **1358-X2** (slice B r4 dry run at HEAD) equals 1358-C4 on every count: 77 failed, 58 passed (135); root tsc exactly the 17 declared errors; producer r4 exit 0, capture at week 284 with the three slate pairs at `sharedCompetitions` 2. **1348-X7:** the four §7 natural routes at HEAD are byte-identical to §7's candidate runs, so slice A moves none of them.
-- In flight (agents, read-only or authoring; no heavy job runs): review **1358-D** of slice B r4; probe authors **G1** (`S/1355-g1/`) and **G-P** (`S/1359-gp/`); the rival-stall diagnosis **1357-R** (`S/1357-r/`).
+- Done after 26566be8: **1359-X3 and 1355-X3** (both P15 producers dry-run clean at Save43); **1358-D** REFINE (five blocking items) and **1358-F4** (the r5 order, sent to the slice B author); **1357-R** (why rivals stall, verified in code and rows) and **1357-F3** (sharpens 1357-Q1); **G-P (1359-X4)**: `artistic-voice` and `commercial-engine` held by nobody on either seed, so **1359-F5** routes a §5.5 amendment; **G1 (1355-X4)**: Proceed, flagged (p13a: 8.8% of releases at f ≤ 0.95).
+- In flight (agents; no heavy job runs): slice B **r5** (author, `S/1358-r2/`); the §5.5 **retune author** stage 1 (a distributions probe, `S/1353-t/`).
 - Claims limits:
   - §7 describes 469a9547 (the sweep's landed source); 1348-X7 shows HEAD gives byte-identical outputs on the four §7 routes.
   - The 154 §7 promise movements: the shelving law causes them; the path is unnamed.
@@ -41,16 +42,16 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-01 22:50 CDT (the Mac r
 ## Next step
 E = `docs/engineering/playability-launch-review/evidence/p14b4-20260919`, S = `/Users/zacheryspector/studio-scratch`. Standing rules: one production writer; one heavy test process at a time; no commits during a recorded run; free disk ≥ 5 GB before a recorded run (4.9 GiB at 22:45; check before each); recorded runs pin Node v20.20.2; recorded stems must match `^[0-9]{3,4}[a-z0-9-]*$`.
 
-1. **1358-D.** When the review returns, save it verbatim and act on any blocking defect (r4's unordered producer cancel at :139 is in its scope).
-2. **Slice B RED, then mint.** After 1358-D: `git apply --index` the full r4 patch (tests and the producer), commit, push; the recorded RED (stem `1358-sliceb-red-recorded`, expect 77 failed and 58 passed, with the genuine-V43 leaf failing on the missing fixture as declared); then the recorded mint 1358-P at the same Save43 source (`node_modules/.bin/vite-node E/1358-P-save43-producer.ts` with `P14_SAVE43_PRODUCER_HEAD` set); commit the fixture with `git add`; then production (Save44).
-3. **P15 REDs.** P15C: dry-run producer 1359-P r4, mint, then the recorded RED (1359-D4 note 5: the writer must replace the landed record-id uniqueness rule). P15A.1 and P15A.2: their recorded REDs per 1355-D4 and 1356-D4.
-4. **Slice A follow-ups.** Only its broad gates remain, with the next broad run (1348-X7 settled the natural routes).
-5. **P15B** waits for 1357-Q1. Probes G1 (P15A.1) and G-P (P15C) as their charters order.
+1. **Slice B r5.** When the author returns: stage r5 in `E/1358-stage/`, then dry run **1358-X3** (six files with X2's week-284 capture layered where the GENUINE leaf reads it, never writing under a link; type gates; producer), then confirmation **1358-D2**.
+2. **Slice B RED and mint** (1358-F4 item 5): `git apply --index` r5 (tests and producer), commit, push; the recorded mint 1358-P at that commit (`P14_SAVE43_PRODUCER_HEAD` set; lowercase stem); commit the fixture; the recorded RED (stem `1358-sliceb-red-recorded`). Then brief the slice B production writer (Save44, projection 57, 1347-A/F).
+3. **§5.5 retune.** Run the retune author's distributions probe (smoke at 20 weeks first), message the agent with the output for stage 2 (1353-T), then an independent review and G-P again.
+4. **P15 REDs and mints** wait for the last writer below the P15 step (after slice B's Save44 production): P15A.1 (producer 1355-P r3 mints pins and the shared capture), P15A.2, P15C (1359-P r4).
+5. **Slice A** needs only its broad gates, with the next broad run. **P15B** waits for 1357-Q1.
 
 Agents: the user allows as many subagents as help (2026-10-01). Agents author and review; only the parent runs broad or heavy tests.
 
 ## Open decisions for the Owner
-- **1357-Q1 (new):** the P15B closure law closes 7 of 8 rivals by 1960 on two seeds because rivals that stop filming have no income and cannot cut costs. Recommend (a): charter rival recovery (cost-cutting, the filming stall's cause) before Wave 2's closure, then re-probe. Options (b) accept the collapse and (c) notices without closure are in 1357-F2 §4.
+- **1357-Q1:** the P15B closure law closes 7 of 8 rivals by 1960 on two seeds because rivals that stop filming have no income and cannot cut costs. 1357-R/1357-F3 trace the start of the stall to the shelving law's `cashBlocked` rule (1344-A:57): a screenplay that loses money at every affordable package never shelves once its dearest package is out of reach. Recommend (a): fix that rule first, then rival cost-cutting, then re-probe. Options (b) and (c) are in 1357-F2 §4.
 - **numpy** for the three rgba-export tool-contract rows. Recommend a scoped `.venv` install beside Pillow (1345-E).
 - **P16:** the nine questions in 1354-Q.
 - **The seven declared exceptions** that 1344-K lists (1344-F6). Recommend accepting them: both probes found no lawful re-witness.
@@ -65,20 +66,27 @@ Agents: the user allows as many subagents as help (2026-10-01). Agents author an
 - **Deleting scratch.** The harness blocks `rm` on variable paths; use literal absolute paths, links first, then `rm -rf` on the tree.
 - **Agent auth.** If an agent returns `401 OAuth access token has been revoked`, the Owner runs `/login`.
 - **Commits.** None during a recorded run or its postflight. X runs and probes are not recorded runs.
-- **The machine.** 4 CPUs, 8 GB RAM. Disk: 4.9 GiB free at 22:45 CDT; the 1357-x, 1358-x2 and older scratch trees can go once their records are published.
+- **The machine.** 4 CPUs, 8 GB RAM. Disk: 5.6 GiB free at 23:00 CDT after removing finished scratch trees (outputs kept). `S/1358-x2/tree` and `ptree` stay until slice B's RED lands; `S/p15-probes/tree` serves the next probe.
 - **Hard limits.** Do not access Owner saves, scan fixture trees, force-push, or launch Codex.
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-01 22:21 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
-- Branch: `wip/headless-program-20260916-ts` @ `b08096020e4dccf8c22d036bbd9fb7ad742e5aea`
+- Stamped: 2026-10-01 23:31 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
+- Branch: `wip/headless-program-20260916-ts` @ `975e72a18746ee0e3cc2096750f7fdf7967a18be`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 1
-  - `M HANDOFF.md`
+- Uncommitted files: 8
+  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1355-X4-p15a1-g1-probe-results.md`
+  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1355-stage/g1/`
+  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1357-F3-parent-note-on-1357-R.md`
+  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1357-R-rival-stall-diagnosis.md`
+  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1358-D-rel-sliceB-red-r4-review.md`
+  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1358-F4-parent-rulings-on-1358-D.md`
+  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1359-X4-p15c-gp-probe-results.md`
+  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1359-stage/gp/`
 - Last commits:
+  - 975e72a1 docs(p15): 1359-X3 and 1355-X3: both P15 producers dry-run clean at the Save43 HEAD
+  - 26566be8 docs(p14b): 1358-X2 slice B r4 dry run equals 1358-C4; 1348-X7 slice A leaves the §7 natural routes byte-identical
+  - e7f075ce docs(p14,p15): P14 closed (1344-K, §7 1344-V); P15 Wave 1 closed; P15B probe reads Re-tune (1357-X, 1357-F2)
   - b0809602 docs(p14b,p15): slice A landed (1348-L, recorded GREEN 89/92 with the 3 F6 exceptions); 1358-X/F3; 1356-D4 CONFIRMED; 1359 r5
   - c208d214 feat(p14b): relationship slice A production step 3 (1348-E; review 1348-J KEEP; 1348-F4, 1348-F5)
-  - 442105f4 feat(p14b): relationship slice A production step 2 (1348-E; review 1348-J KEEP; 1348-F4, 1348-F5)
-  - 11693bff feat(p14b): relationship slice A production step 1 (1348-E; review 1348-J KEEP; 1348-F4, 1348-F5)
-  - f2663f6f docs(p14b): slice A recorded RED at 954a373e: 30 failed / 62 passed (92), as 1348-X6
 <!-- AUTO:END -->
