@@ -1,0 +1,222 @@
+[
+ {
+  "id": "N-0560",
+  "file": "tests/p14p4p5-screenplay-status.test.ts",
+  "line": 328,
+  "old": "  expect(message).toBe('migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject')",
+  "new": "  // 1358-N S9 (MASKED): this route's week-48 save holds a romance track on relationship-edge-18, so\n  // convertV44ToV43 refuses first (src/core/save.ts:10790), before the V39 opportunity-predicate and\n  // first-take-subject guard this check named (save.ts:10600-10602). Measured in 1358-X6 (probe N-0560).\n  // The V39 guard keeps its own-era coverage in the genuine Save40 assertion at the end of this function.\n  expect(message).toBe('migrateToV43: cannot downgrade or discard the romance of relationship-edge-18')",
+  "cls": "S9",
+  "status": "measured",
+  "note": "r1 :324. 1358-X6 probe (out/probe-parsed.json) N-0560 logged \"migrateToV43: cannot downgrade or discard the romance of relationship-edge-18\"; source src/core/save.ts:10790 (convertV44ToV43 romance refusal). Comment records the masking of the V39 guard (save.ts:10600-10602) and names F1-new-1 as its own-era cover. Q11 passed in 1358-X7t."
+ },
+ {
+  "id": "F1-new-1",
+  "file": "tests/p14p4p5-screenplay-status.test.ts",
+  "line": 341,
+  "old": "",
+  "new": "  // 1358-F10 ruling 4: four 1344 masking comments name this function as the V39 guard's cover, so it\n  // gains direct coverage on that era's input: the genuine week-110 Save40 capture (pins as in\n  // tests/p14r3-save-v41.test.ts:147-151), downgraded once. A campaign generated under Save40 records a\n  // subject for every first take, and no newer root stands between it and convertV40ToV39. Measured in\n  // 1358-X7t (probe F1-V39): 47 subjects for 47 first takes, cutover 0, and this refusal.\n  const zipped40 = readFileSync(new URL('./fixtures/p14/genuine-v40-pre-r3/genuine-v40-r3-outgoing-week110.json.gz', import.meta.url))\n  expect(sha(zipped40)).toBe('196b73d43ac6e346c6b6e6a73e0b13f16bc23a1f5d321947067d6f81ca774bd8')\n  const raw40 = gunzipSync(zipped40).toString('utf8')\n  expect(sha(raw40)).toBe('2e717382e952fa0f175f07d5f7055d6d3f37c66eb4bf86a783dd169ae21d2ddc')\n  const v40 = saves.validateSaveV40(JSON.parse(raw40))\n  expect(v40.state.firstTakeSubjects.facts.length, 'capture premise: recorded first-take subjects').toBeGreaterThan(0)\n  expect(() => saves.convertV40ToV39(v40)).toThrow(/^migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject$/)",
+  "cls": "S9",
+  "status": "measured",
+  "note": "Inserted after r1 :325 (end of factOnly). 1358-F10 ruling 4: four 1344 masking comments (p14c3-dual-extensions:177, p14c3-offmenu-extensions:234, p14b5-relationships:1396, p14c3-cohort-transition:286) name this function as the V39 guard's cover. Own-era input: genuine Save40 capture tests/fixtures/p14/genuine-v40-pre-r3/genuine-v40-r3-outgoing-week110 (pins copied from tests/p14r3-save-v41.test.ts:147-151), downgraded once by convertV40ToV39 (save.ts:10598-10607, message :10602). 1358-X7t probe (x7t/probe.txt) F1-V39[facts] logged \"facts 47 takes 47 cutover 0 opportunityPromises 0\" and F1-V39 the exact V39 message; the comment now cites that measurement."
+ },
+ {
+  "id": "N-0547",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 72,
+  "old": "",
+  "new": "// 1358-N S5: Save44 (convertV43ToV44, src/core/save.ts:10776-10781) gives every relationship edge an\n// empty `competitions` log and a null `romance`; a genuine V43-or-older old.state never carried them.\nfunction withEmptyCompetitionsAndRomance<T extends WithRelationships>(state: T): T {\n  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, competitions: [], romance: null })) }\n}",
+  "cls": "S5",
+  "status": "measured",
+  "note": "Helper definition beside withSharedCompetitions (1358-F9 ruling 6, 1358-F10 ruling 1). Builds competitions: [] and romance: null (convertV43ToV44, save.ts:10776-10781); never strips."
+ },
+ {
+  "id": "N-0547",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 382,
+  "old": "      expect(added.facts).toEqual([]); expect(stable(unchanged)).toBe(stable(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))))",
+  "new": "      // 1358-N S5 (1358-F10 ruling 1): 1358-X6 stopped this comparison at :374; convertV43ToV44 adds only\n      // the empty log and null romance to every edge. 1358-X7t measured both sides equal for all six\n      // captures (24 or 30 edges, no track, no log row).\n      expect(added.facts).toEqual([]); expect(stable(unchanged)).toBe(stable(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state))))))",
+  "cls": "S5",
+  "status": "measured",
+  "note": "r1 :374 (Q04). 1358-X7t probe (x7t/probe.txt) F1-Q04 logged normalizedEqual true and helperEqual true for all six genuine V39 captures (24 or 30 edges, 0 tracks, 0 log rows); Q04 passed. The comment now cites that measurement."
+ },
+ {
+  "id": "N-0555",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 827,
+  "old": "    expect(() => saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(released)))))).toThrow(/cannot downgrade or discard an opportunity predicate or recorded first-take subject/)",
+  "new": "    // 1358-N S9 (MASKED): `released` holds a romance track on relationship-edge-0, so convertV44ToV43\n    // refuses first (src/core/save.ts:10790), before the V39 opportunity-predicate and first-take-subject\n    // guard this line named (save.ts:10600-10602). Measured in 1358-X6 (probe N-0555). The V39 guard stays\n    // covered on its own era's input by tests/p14p4p5-screenplay-status.test.ts Q11 (`factOnly`'s last\n    // assertion: the genuine week-110 Save40 capture, downgraded once).\n    expect(() => saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(released)))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
+  "cls": "S9",
+  "status": "measured",
+  "note": "r1 :814. 1358-X6 probe (out/probe-parsed.json) N-0555 logged \"migrateToV43: cannot downgrade or discard the romance of relationship-edge-0\"; source save.ts:10790. Masks the V39 guard (save.ts:10600-10602); cover named: screenplay-status Q11 factOnly last assertion (F1-new-1). :815 non-mutation check kept."
+ },
+ {
+  "id": "F1-new-4",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 25,
+  "old": "  outgoing, outgoingNames, person, proposal, quote, reopen, secondFilm, SHAPE, terminal208, WRITER,",
+  "new": "import { readFileSync } from 'node:fs'\nimport { gunzipSync } from 'node:zlib'\n  outgoing, outgoingNames, person, proposal, quote, reopen, secondFilm, sha, SHAPE, terminal208, WRITER,",
+  "cls": "S9",
+  "status": "read",
+  "note": "Imports for the F1-new-4 loader: readFileSync (node:fs), gunzipSync (node:zlib) and the helper's existing sha export (tests/helpers/p14p3-fixtures.ts:21, unchanged)."
+ },
+ {
+  "id": "F1-new-4",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 114,
+  "old": "",
+  "new": "// 1358-F11 rulings 1 and 2: a genuine Save39 Director capture of record 1221 (manifest schema.saveVersion\n// 39), pinned and loaded as p14p4p5-opportunities Q04 loads it. Production's convertV39ToV40 alone gives\n// its lawful V40 state for the frozen builders. Nothing is stripped.\nconst EVIDENCE = new URL('../docs/engineering/playability-launch-review/evidence/p14b4-20260919/', import.meta.url)\nfunction directorCapture40(name: string, gzipHash: string, rawHash: string) {\n  expect(sha(readFileSync(new URL('1221-p4p5-outgoing-capture/MANIFEST.json', EVIDENCE))))\n    .toBe('02115df5d6e7d4c33284b9a439a7c79601e1b2e807f4fa96c20149f5c84186f3')\n  const zipped = readFileSync(new URL(`1221-p4p5-outgoing-capture/${name}.json.gz`, EVIDENCE)), raw = gunzipSync(zipped).toString('utf8')\n  expect(sha(zipped)).toBe(gzipHash); expect(sha(raw)).toBe(rawHash)\n  const parsed: unknown = JSON.parse(raw), old = saves.validateSaveV39(parsed)\n  expect(old).toBe(parsed); expect(saves.exportSave(old)).toBe(raw)\n  return saves.convertV39ToV40(old).state\n}",
+  "cls": "S9",
+  "status": "read",
+  "note": "Loader directorCapture40 (1358-F11 rulings 1 and 2): pins E/1221-p4p5-outgoing-capture/MANIFEST.json (sha as in opportunities Q04) and the named capture (gzip and raw sha256, as in Q04 :352-366), validates it with validateSaveV39 (identity and exportSave round trip, as pinned39 does) and returns convertV39ToV40(old).state. No strip. The module constant is EVIDENCE, not E, because D10 declares a local E (:896). Manifest schema.saveVersion is 39; a Python read of both captures confirmed saveVersion 39 (weeks 52 and 61), no edge with a romance or competitions key, and careerLifecycle transition-root fields (so the builders reach assertNoDirectorPromises, save.ts:10556-10559). Probe2 F1-D13-capture and F1-D12-capture measure the rest."
+ },
+ {
+  "id": "G5-new-5",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 387,
+  "old": "      expect(() => api.convertV39ToV38(save)).toThrow(/director|predicate|promise|discard/i)",
+  "new": "      // 1358-N S9 (MASKED): all four positives hold a romance track on relationship-edge-0, so\n      // convertV44ToV43 refuses first (src/core/save.ts:10790), before the V39 opportunity-predicate and\n      // first-take-subject guard 1344-X12 measured here (save.ts:10600-10602). Measured in 1358-X6\n      // (probe G5-new-5, all four cases). The V39 guard stays covered on its own era's input by\n      // tests/p14p4p5-screenplay-status.test.ts Q11 (`factOnly`'s last assertion: the genuine week-110\n      // Save40 capture, downgraded once).\n      expect(() => api.convertV39ToV38(save)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
+  "cls": "S9",
+  "status": "measured",
+  "note": "r1 :361 (D13 positives loop). 1358-X6 probe (out/probe-parsed.json) G5-new-5[0..3] all logged \"migrateToV43: cannot downgrade or discard the romance of relationship-edge-0\"; source save.ts:10790. Cover named: screenplay-status Q11 (F1-new-1)."
+ },
+ {
+  "id": "N-0527",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 418,
+  "old": "    const projectedA = saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.makeSave(a.state))))).state",
+  "new": "    // 1358-N S9 (MASKED), 1358-F11 ruling 1: Save44's romance refusal (src/core/save.ts:10790) now masks\n    // that lawful V40 projection for every route state that holds the promise. The 1358-X7t probe found 19\n    // to 21 romance tracks on all nine candidates, lifecycleAttached() at week 248 included, and each chain\n    // refused at relationship-edge-0.\n    expect(() => saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.makeSave(a.state))))))\n      .toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
+  "cls": "S9",
+  "status": "measured",
+  "note": "r1 :387 (D13 projection chain; X7t core failure at :398:96). 1358-F11 ruling 1. 1358-X7t probe (x7t/probe.txt) F1-D13[...] logged the romance refusal of relationship-edge-0 for all nine candidates (19 to 21 tracks, 0 log rows), a.state included. The chain on a.state now pins that refusal; the comment records the masking of the lawful V40 projection."
+ },
+ {
+  "id": "N-0527",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 427,
+  "old": "    for (const builder of [saves.makeSaveV1, saves.makeSaveV13, saves.makeSaveV18]) {\n      expect(() => builder(projectedA)).toThrow(/director|promise|predicate/i)\n      const invalid: GameState = { ...clone(projectedA), hollywood: null }\n      expect(() => builder(invalid)).toThrow()\n    }",
+  "new": "    // So the frozen builders take the genuine director-bound-week52 capture (Save39, a bound P3 Director\n    // promise), lifted to V40 by convertV39ToV40 alone.\n    const bound40 = directorCapture40('director-bound-week52',\n      'b894a85ffad37378f93dc8a8e83bad926ab7a1bb857dd76e9b9926b520fec6e1', 'eae34cd10d457ad551028f3d0a160a55a74d5153b73653b257dc89a4338b040b')\n    for (const builder of [saves.makeSaveV1, saves.makeSaveV13, saves.makeSaveV18]) {\n      expect(() => builder(bound40)).toThrow(/director|promise|predicate/i)\n      const invalid: GameState = { ...clone(bound40), hollywood: null }\n      expect(() => builder(invalid)).toThrow()\n    }",
+  "cls": "S9",
+  "status": "read",
+  "note": "r1 :388-392 (D13 builder loop), unchanged except its input: bound40 = directorCapture40('director-bound-week52', ...), the genuine Save39 capture holding promise-0 (directorCount, open), lifted by convertV39ToV40 alone. Read from source: assertFrozenBuilderRetainsHollywood (save.ts:6181-6196) runs convertV40ToV39 (no subject facts, no opportunity predicate, so it passes), then validateSaveV39 and assertNoDirectorPromises (\"<builder>: cannot downgrade or discard an explicit Director promise predicate\"). Probe2 F1-D13-capture logs the three refusals."
+ },
+ {
+  "id": "N-0528",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 440,
+  "old": "      const oldState = saves.stableStringify(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.save.state)))))",
+  "new": "      // 1358-N S5 (1358-F10 ruling 1): 1358-X6 stopped this comparison at :406; convertV43ToV44 adds only\n      // the empty log and null romance to every edge. 1358-X7t measured both sides equal for all six\n      // captures (24 or 30 edges, no track, no log row).\n      const oldState = saves.stableStringify(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.save.state))))))",
+  "cls": "S5",
+  "status": "measured",
+  "note": "r1 :402 (D14 oldState; assertion r1 :406). 1358-X7t probe (x7t/probe.txt) F1-D14 logged normalizedEqual true and helperEqual true for all six genuine V38 outgoing captures (24 or 30 edges, 0 tracks, 0 log rows). The comment now cites that measurement."
+ },
+ {
+  "id": "N-0528",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 88,
+  "old": "",
+  "new": "// 1358-N S5: Save44 (convertV43ToV44, src/core/save.ts:10776-10781) gives every relationship edge an\n// empty `competitions` log and a null `romance`; a genuine Save38 `outgoing()` state never carried them.\nfunction withEmptyCompetitionsAndRomance<T extends WithRelationships>(state: T): T {\n  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, competitions: [], romance: null })) }\n}",
+  "cls": "S5",
+  "status": "measured",
+  "note": "Helper definition beside withSharedCompetitions (1358-F9 ruling 6). Builds the two fields, never strips."
+ },
+ {
+  "id": "G5-new-6",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 482,
+  "old": "    expect(() => futureSave().convertV39ToV38(saves.makeSave(abandoned))).toThrow(/director|promise|predicate|discard/i)",
+  "new": "    // 1358-N S9 (MASKED), 1358-F11 ruling 3: `abandoned` keeps the romance track `attached()` holds on\n    // relationship-edge-0, so convertV44ToV43 refuses first (src/core/save.ts:10790), before the V39\n    // opportunity-predicate and first-take-subject guard 1344-X12 measured here (save.ts:10600-10602).\n    // Measured in 1358-X7t (probe G5-new-6). The V39 guard stays covered on its own era's input by\n    // tests/p14p4p5-screenplay-status.test.ts Q11 (`factOnly`'s last assertion: the genuine week-110\n    // Save40 capture, downgraded once).\n    expect(() => futureSave().convertV39ToV38(saves.makeSave(abandoned))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
+  "cls": "S9",
+  "status": "measured",
+  "note": "r1 :438 (D14 end). 1358-F11 ruling 3. 1358-X7t probe (x7t/probe.txt) G5-new-6 logged \"migrateToV43: cannot downgrade or discard the romance of relationship-edge-0\"; source save.ts:10790. Masks the V39 guard 1344-X12 measured here; cover named: screenplay-status Q11 factOnly (F1-new-1)."
+ },
+ {
+  "id": "N-0531",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 740,
+  "old": "      expect(() => futureSave().convertV39ToV38(save)).toThrow(/director|predicate|promise/i)",
+  "new": "      // 1358-N S9 (MASKED): both states descend from `attached()`, whose relationship-edge-0 already holds\n      // a romance track, so convertV44ToV43 refuses first (src/core/save.ts:10790), before the V39\n      // opportunity-predicate and first-take-subject guard (save.ts:10600-10602) this pattern matched\n      // under Save43. Measured for `change.state` in 1358-X6 and for `done.state` in 1358-X7t (probe\n      // N-0531). The V39 guard stays covered on its own era's input by\n      // tests/p14p4p5-screenplay-status.test.ts Q11 (`factOnly`'s last assertion: the genuine week-110\n      // Save40 capture, downgraded once).\n      expect(() => futureSave().convertV39ToV38(save)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
+  "cls": "S9",
+  "status": "measured",
+  "note": "r1 :689 (D12 loop). 1358-X6 probe (out/probe-parsed.json) N-0531[change.state] and 1358-X7t probe (x7t/probe.txt) N-0531[done.state] both logged the romance refusal of relationship-edge-0 (save.ts:10790). The comment now cites both measurements."
+ },
+ {
+  "id": "N-0533",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 748,
+  "old": "      const projected = saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(save)))).state",
+  "new": "      // 1358-N S9 (MASKED), 1358-F11 ruling 2: the same romance refusal now masks that projection for both\n      // states (1358-X7t probe: 19 and 21 tracks, refusing at relationship-edge-0), so the frozen builders\n      // take a genuine capture below.\n      expect(() => saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(save)))))\n        .toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
+  "cls": "S9",
+  "status": "measured",
+  "note": "r1 :693 (D12 projection chain; X7t core failure at :713:97). 1358-F11 ruling 2. 1358-X7t probe (x7t/probe.txt) F1-D12-projection[change.state] and [done.state] logged the romance refusal of relationship-edge-0 (19 and 21 tracks, 0 log rows). The chain now pins that refusal per state."
+ },
+ {
+  "id": "N-0533",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 756,
+  "old": "      for (const builder of [saves.makeSaveV1, saves.makeSaveV13, saves.makeSaveV18])\n        expect(() => builder(projected)).toThrow(/director|promise|predicate/i)",
+  "new": "    // 1358-F11 ruling 2: the genuine director-waived-week61 capture (Save39: promise-0 WAIVED and its open\n    // successor promise-1, the 1221 runtime's committed waiver) holds WAIVED authority; convertV39ToV40\n    // alone lifts it to V40.\n    const waived40 = directorCapture40('director-waived-week61',\n      '95ca93ba0a0f16b1c11ad34960a9617217685a681e8ad27ebf896e75f1debb0e', 'ad25e44bde2ec18bef17a37a252de4ee9323dd0d7b50dbdaf424be50a5d9abce')\n    for (const builder of [saves.makeSaveV1, saves.makeSaveV13, saves.makeSaveV18])\n      expect(() => builder(waived40)).toThrow(/director|promise|predicate/i)",
+  "cls": "S9",
+  "status": "read",
+  "note": "r1 :694-695 (D12 builder loop), moved after the state loop and fed waived40 = directorCapture40('director-waived-week61', ...), the genuine Save39 capture holding promise-0 WAIVED and its open successor promise-1 (both directorCount), lifted by convertV39ToV40 alone. Same source reading as the D13 builder row; assertNoDirectorPromises refuses any directorCount predicate whatever its outcome. The futureSave pin (N-0531) stays. Probe2 F1-D12-capture logs the three refusals."
+ },
+ {
+  "id": "N-0569",
+  "file": "tests/p14r3-save-v41.test.ts",
+  "line": 381,
+  "old": "    expect(() => convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(save as never))))).toThrow(/termination/i)",
+  "new": "    // 1358-N S9 (MASKED): the lawful route's live save holds a romance track on relationship-edge-0, so\n    // convertV44ToV43 refuses first (src/core/save.ts:10790), before the rival termination receipt guard\n    // this title names (save.ts:10642-10643). Measured in 1358-X6 (probe N-0569). The movement leaf above\n    // stops in validateSaveV41's reconciliation (src/core/hollywoodValidation.ts:294; measured in 1358-X7t),\n    // so the guard keeps its own-era coverage in the staged assertion below.\n    expect(() => convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(save as never))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
+  "cls": "S9",
+  "status": "measured",
+  "note": "r1 :374. 1358-X6 probe (out/probe-parsed.json) N-0569 logged \"migrateToV43: cannot downgrade or discard the romance of relationship-edge-0\"; source save.ts:10790. Masks the rival termination receipt guard (save.ts:10642-10643). 1358-X7t probe (x7t/probe.txt) F1-V41[movement-leaf] logged the movement leaf's refusal from the frozen chain validateSaveV41 runs (save.ts:10484-10485): \"... Hollywood save: rival termination movements do not reconcile with termination receipts\" (hollywoodValidation.ts:294). Own-era cover: F1-new-2."
+ },
+ {
+  "id": "F1-new-2",
+  "file": "tests/p14r3-save-v41.test.ts",
+  "line": 125,
+  "old": "import { terminationCost } from '../src/core/employment.js'",
+  "new": "import { industryBusyTalentIds, moveRivalMoney } from '../src/core/hollywood.js'\nimport { tick } from '../src/core/tick.js'\nimport { TUNING } from '../src/core/tuning.js'",
+  "cls": "S9",
+  "status": "read",
+  "note": "Imports for F1-new-2 staging: industryBusyTalentIds and moveRivalMoney (src/core/hollywood.ts:92, :41) and TUNING (src/core/tuning.ts; HIRING_TERMINATION_CAP_WEEKS :415)."
+ },
+ {
+  "id": "F1-new-2",
+  "file": "tests/p14r3-save-v41.test.ts",
+  "line": 409,
+  "old": "",
+  "new": "    // 1358-F10 ruling 4: no Save41 engine remains to write a rival release, so one is staged on a V41 copy\n    // of the genuine week110 input. It writes what the release law writes (src/core/hollywoodTick.ts:180-197)\n    // for the first rival employee that law could end: the end week, the active index, the termination\n    // movement and the end receipt. Nothing is stripped. Measured in 1358-X7t (probe F1-V41): the staged\n    // release of a week-110 rival writer validates, and this guard refuses it.\n    const staged = JSON.parse(JSON.stringify(convertV40ToV41(genuineV40(week110Raw()) as never))) as SaveV40Shape\n    const h = hollywoodOf(staged.state) as HollywoodShape & { activeEmploymentOrdinals: number[] }\n    const week = (staged.state.market as { tick: number }).tick, busy = industryBusyTalentIds(h as never)\n    for (const project of (staged.state.technology as { projects: { seats: { talentId: string; releasedWeek: number | null }[] }[] }).projects) {\n      for (const seat of project.seats) if (seat.releasedWeek === null) busy.add(seat.talentId)\n    }\n    const role = (id: string) => (staged.state.talent as { id: string; role: string }[]).find((t) => t.id === id)?.role\n    const promised = (studioId: string, id: string) => (staged.state.promises as { issuerStudioId: string; beneficiaryPersonId: string; outcome: string | null }[])\n      .some((p) => p.issuerStudioId === studioId && p.beneficiaryPersonId === id && p.outcome === null)\n    const ordinal = h.activeEmploymentOrdinals.find((i) => {\n      const e = h.employment[i]!\n      return e.studioId !== h.playerStudioId && role(e.terms.talentId) !== 'scientist' && !busy.has(e.terms.talentId)\n        && e.terms.endWeekExclusive - week > TUNING.HIRING_TERMINATION_CAP_WEEKS && !promised(e.studioId, e.terms.talentId)\n    })\n    if (ordinal === undefined) throw new Error('p14r3-save-v41 staging premise: no rival employee the release law could end at week 110')\n    const released = h.employment[ordinal]!\n    h.employment[ordinal] = { ...released, endedWeek: week }\n    h.activeEmploymentOrdinals = h.activeEmploymentOrdinals.filter((i) => i !== ordinal)\n    moveRivalMoney(h.businesses.find((b) => b.studioId === released.studioId)!.account as never, 'termination', -terminationCost(released.terms as never, week), week)\n    h.receipts.push({ eventId: `industry-event-${String(h.nextReceipt)}`, week, studioId: released.studioId, kind: 'employment',\n      talentId: released.terms.talentId, fromStudioId: released.studioId, toStudioId: null, contractId: released.contractId, reason: 'termination' })\n    h.nextReceipt += 1\n    expect(() => convertV41ToV40(staged as never)).toThrow(/^migrateToV40: cannot downgrade or discard a rival termination receipt$/)",
+  "cls": "S9",
+  "status": "measured",
+  "note": "Inserted after the N-0569 pin. 1358-F10 ruling 4 with the 1358-F10 ruling 5 staging precedent. 1358-X7t probe (x7t/probe.txt) F1-V41[staging] chose studio-64a16d11-r01:contract:person-studio-64a16d11-r01-0:0 (writer, week 110, endWeekExclusive 208, charge 40664) and F1-V41 logged exactly \"migrateToV40: cannot downgrade or discard a rival termination receipt\", so the staged save passed validateSaveV41. The comment now cites that measurement."
+ },
+ {
+  "id": "G4-new-1",
+  "file": "tests/p13b-s8-save-v27.test.ts",
+  "line": 193,
+  "old": "    expect(() => save.migrateToV26(envelope as never)).toThrow(/cannot downgrade/i)",
+  "new": "    // 1358-N S9 (MASKED): `natural` holds a romance track on relationship-edge-0, so convertV44ToV43 refuses\n    // first (src/core/save.ts:10790). Under Save43 the V39 subject guard already refused first (1344-X12\n    // section 4), so the V27 rival-research guard this title names (convertV27ToV26, save.ts:8945-8956) is\n    // not reached here. Measured in 1358-X6 (probe G4-new-1). The V27 guard keeps its own-era coverage in the\n    // next leaf's last assertion.\n    expect(() => save.migrateToV26(envelope as never)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
+  "cls": "S9",
+  "status": "measured",
+  "note": "r1 :188. 1358-F10 ruling 3 exception: Save44 newly masks the site. 1358-X6 probe (out/probe-parsed.json) G4-new-1 logged \"migrateToV43: cannot downgrade or discard the romance of relationship-edge-0\"; source save.ts:10790. Own-era cover of the V27 guard: F1-new-3."
+ },
+ {
+  "id": "G4-new-2",
+  "file": "tests/p13b-s8-save-v27.test.ts",
+  "line": 205,
+  "old": "    expect(() => save.migrateToV26(envelope as never)).toThrow(/cannot downgrade/i)",
+  "new": "    // 1358-N S9 (MASKED): the same romance track on relationship-edge-0 makes convertV44ToV43 refuse first\n    // (src/core/save.ts:10790), ahead of the V27 receipt guard this title names (save.ts:8945-8956). Under\n    // Save43 the V39 subject guard already refused first on this campaign (1344-X12 section 4, at :188).\n    // Measured in 1358-X6 (probe G4-new-2). The V27 guard keeps its own-era coverage in the staged\n    // assertion below.\n    expect(() => save.migrateToV26(envelope as never)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
+  "cls": "S9",
+  "status": "measured",
+  "note": "r1 :195. Same as G4-new-1: 1358-X6 probe (out/probe-parsed.json) G4-new-2 logged the romance refusal of relationship-edge-0 (save.ts:10790)."
+ },
+ {
+  "id": "F1-new-3",
+  "file": "tests/p13b-s8-save-v27.test.ts",
+  "line": 215,
+  "old": "",
+  "new": "    // 1358-F10 ruling 4: no Save27 engine remains, so the V27 guard's own-era input is a genuine V26\n    // fixture lifted to V27 (as the LOSSLESS leaf lifts it) after one admission by the S8 rival admission\n    // boundary itself (admitRivalPlans, src/core/rivalResearch.ts:200-209): a started Laboratory plan, its\n    // laboratoryCommitted receipt and the researchCapacity movement. Nothing is stripped. Measured in\n    // 1358-X7t (probe F1-V27): the week-309 fixture admits a Laboratory, and the receipt arm refuses it.\n    const staged = Object.values(V26_FIXTURES).map(fixture => withV27.migrateToV27(JSON.parse(load(fixture.file))))\n      .map(lifted => ({ ...lifted, state: admitRivalPlans(lifted.state).state }))\n      .find(lifted => lifted.state.hollywood!.receipts.some(r => r.kind === 'laboratoryCommitted'))\n    expect(staged, 'staging premise: a rival in a genuine V26 fixture can afford a Laboratory').toBeDefined()\n    expect(() => save.convertV27ToV26(staged as never)).toThrow(/^migrateToV26: cannot downgrade SaveFileV27 or discard rival research \\u2014 frozen save projection cannot discard authoritative V27 rival research state on receipt industry-event-\\d+$/)",
+  "cls": "S9",
+  "status": "measured",
+  "note": "Inserted after the G4-new-2 pin. 1358-F10 ruling 4: no test reached convertV27ToV26 (save.ts:8945-8956) on V27 input before this. 1358-X7t probe (x7t/probe.txt) F1-V27[staging] logged \"week 309 committed studio-aca408ec-r02:industry-event-188\" and F1-V27 the receipt arm \"... frozen save projection cannot discard authoritative V27 rival research state on receipt industry-event-188\" (save.ts:8831-8833 inside :8952). The comment now cites that measurement."
+ }
+]

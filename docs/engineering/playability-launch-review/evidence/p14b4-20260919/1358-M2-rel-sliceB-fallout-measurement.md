@@ -110,12 +110,38 @@ Each route ran 520 weeks with integrity 0. The comparison is with [1348-X7](1348
   - seed-b's three changed edges (6, 18 and 23) each hold an open bond, formed at weeks 81, 117 and 171. Their closeness
     stays higher (91 to 95, 90 to 100, 94 to 100) through step 3's drift exemption for a bonded pair.
 
-## Owed: the snapshot measurement (1358-F8 ruling 5)
+## The snapshot measurement (1358-F8 ruling 5; 1358-J findings 11 and 12)
 
-The §7 probe builds no Bridge snapshot, so this run cannot answer 1358-J findings 11 and 12. A snapshot probe
-(`/Users/zacheryspector/studio-scratch/1358-m2/snap/`) closes the gap. It reruns the four routes and builds the people
-projection at every week, on the step-4 commit and on the base. It records each build's time and any thrown message.
-It runs in the heavy lane after the sweep dry run 1358-X6, and its result is added here.
+The §7 probe builds no Bridge snapshot, so two snapshot probes ran after the sweep dry run 1358-X6. Each ran alone in
+the heavy lane on both trees: step 4 and the base (HEAD 5245072a's source). The results and probes are in
+[1358-stage/m2/snap/](1358-stage/m2/snap/).
+
+- **Probe 1** ([zz-snap-probe.test.ts.txt](1358-stage/m2/snap/zz-snap-probe.test.ts.txt)) builds the player's people
+  projection at every week of the four routes.
+  - 521 builds per route, 0 errors on both trees. The median is 23-29 ms on step 4 and 25-28 ms on the base.
+  - **No relationship block holds a row.** With no actions, the player keeps no roster, so this probe never reaches
+    `mentorEvidence`. Its zero is vacuous for finding 11.
+- **Probe 2** ([zz-snap2-probe.test.ts.txt](1358-stage/m2/snap/zz-snap2-probe.test.ts.txt)) reaches the rows. It ran
+  on 1358-X6's tree: step 4 plus sweep r1, which is tests only, and its base commit.
+  - **Finding 11 holds.** On every week of the four routes it calls `mentorEvidence` for every person. That is
+    46,716, 45,936, 46,093 and 47,343 calls per route. **0 throw** on either tree, and none returns a Mentor.
+  - **Finding 12, natural routes.** Every fourth week it builds `relationshipBlockFor` for every person, with each of
+    the five studios holding employment rows as the viewer. Both trees build the same rows (4,599, 6,167, 7,767 and
+    6,786 sampled), and none carries a label: the logs stay empty and no Mentor pattern forms.
+
+    | Route | Median per sampled week, step 4 vs base (ms) | Total (ms) |
+    |---|---|---|
+    | p13a-core-causal-01 | 10.0 vs 9.1 | 1,366 vs 1,193 |
+    | seed-b | 17.9 vs 15.2 | 2,545 vs 1,818 |
+    | p13b-s8-bridge-probe-01 | 18.7 vs 19.6 | 2,807 vs 2,525 |
+    | p13-public-commercial-adoption | 13.3 vs 13.4 | 1,904 vs 1,862 |
+
+    Step 4 stays in the base's complexity class, at 2% to 40% more per route.
+  - **Finding 12, the cohort route.** The player holds a roster on the route the Mentor leaves use
+    (`cohortThreeFilms`, week 2635). Its full people projection has 187 profiles and 30 relationship rows.
+    - It takes a median of 234.6 ms on step 4 and 245.6 ms on the base, over 5 builds each.
+    - On step 4, 2 of the 30 rows carry a label; on the base, none does. So the label path ran and costs nothing
+      measurable at this size.
 
 ## Outputs
 

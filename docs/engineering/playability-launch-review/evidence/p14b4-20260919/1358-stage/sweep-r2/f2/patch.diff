@@ -1,0 +1,358 @@
+diff --git a/tests/p14c2b-save-v36.test.ts b/tests/p14c2b-save-v36.test.ts
+index 9a56e6d..2ccce12 100644
+--- a/tests/p14c2b-save-v36.test.ts
++++ b/tests/p14c2b-save-v36.test.ts
+@@ -71,7 +71,16 @@ describe('P14C.2b S2: V36 -> V35 downgrade', () => {
+     const withOffer = submitProposal(atWindow, { talentId: 'authored-0000', issuerStudioId: 'studio-d7df6c8e-player', termWeeks: 58, premiumTier: 1.1 })
+     const settled = advanceTo(withOffer, 98)
+     expect(retirementRecordFor(settled, 'authored-0000')?.extensionUsed).toBe(true)
+-    expect(() => convertV36ToV35(liveEnvelopeV36(settled))).toThrow(/downgrade/i)
++    // 1358-N S9 (MASKED): the settled state's romance track on relationship-edge-0 makes Save44's
++    // convertV44ToV43 refuse first inside liveEnvelopeV36 (src/core/save.ts:10790). That masks the
++    // V39 guard that fired first under Save43 (save.ts:10600-10602, 1344-X12 §2) and the V36
++    // extension guard this title names (save.ts:10382-10388). Measured by the 1358-X6 message probe
++    // (G4-new-3). The V36 guard stays covered on its own era's input by
++    // tests/p14c2rm-writer-continuation.test.ts:278 (the genuine V37 pair's open case, through
++    // convertV37ToV36); no V36-era input holds a used extension, so this title's branch has none.
++    // The V39 guard stays covered on V40 input by tests/p14p4p5-opportunities.test.ts Q03 (:331)
++    // and exactly by tests/p13b-s3-save-v23.test.ts:115-117.
++    expect(() => convertV36ToV35(liveEnvelopeV36(settled))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)
+   })
+ 
+   it('refused as a downgrade when a case carries variant: retirementExtension (open, not yet used — the case alone is enough)', () => {
+@@ -79,7 +88,14 @@ describe('P14C.2b S2: V36 -> V35 downgrade', () => {
+     const kase = atWindow.talentMarket.cases.find((c) => c.contractId === 'studio-d7df6c8e-player:contract:authored-0000:0:player-24')
+     expect(kase?.variant).toBe('retirementExtension')
+     expect(retirementRecordFor(atWindow, 'authored-0000')?.extensionUsed, 'this state must NOT yet have used its extension — the CASE alone must be enough to refuse').toBe(false)
+-    expect(() => convertV36ToV35(liveEnvelopeV36(atWindow))).toThrow(/downgrade/i)
++    // 1358-N S9 (MASKED): as in the leaf above, the window state's romance track on
++    // relationship-edge-0 makes convertV44ToV43 refuse first (src/core/save.ts:10790), ahead of the
++    // V39 guard and the V36 extension guard this title names (save.ts:10382-10388). Measured by the
++    // 1358-X6 message probe (G4-new-4). tests/p14c2rm-writer-continuation.test.ts:278 covers this
++    // case branch on its own era's input: one open retirementExtension case refuses alone. The V39
++    // guard stays covered on V40 input by tests/p14p4p5-opportunities.test.ts Q03 (:331) and
++    // exactly by tests/p13b-s3-save-v23.test.ts:115-117.
++    expect(() => convertV36ToV35(liveEnvelopeV36(atWindow))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)
+   })
+ })
+ 
+diff --git a/tests/p14c2rm-writer-continuation.test.ts b/tests/p14c2rm-writer-continuation.test.ts
+index 7d87283..eebe80b 100644
+--- a/tests/p14c2rm-writer-continuation.test.ts
++++ b/tests/p14c2rm-writer-continuation.test.ts
+@@ -9,7 +9,7 @@ import { studioConstructionView } from '../src/core/placement.js'
+ import { availableDevelopmentCastingSlots } from '../src/core/scriptDevelopment.js'
+ import { studioCalendar } from '../src/core/studioCalendar.js'
+ import { tick } from '../src/core/tick.js'
+-import { convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,
++import { convertV36ToV35, convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,
+   validateSaveV36, validateSaveV44 } from '../src/core/save.js'
+ import type { GameState, GameStateV33, RetirementRecordV36, ScriptProject } from '../src/core/types.js'
+ import { c2Fixture } from './helpers/p14c2a-fixtures.js'
+@@ -175,47 +175,65 @@ function anotherUncontractedWriter(state: GameState, id: string): string {
+   expect(person, 'negative control premise: an existing writer with no player contract or retirement authority').toBeDefined()
+   return person!.id
+ }
+-const invalidCases: InvalidCase[] = [
++// 1358-N S8 (1358-F10 ruling 2): `refusal` pins the innermost guard the live validator reaches
++// for each tamper, measured by the 1358-X6 message probe (N-0468, 18 cases) and cited at its
++// source. The V9 script development invariants carry the prefixes of src/core/scriptDevelopment.ts:811
++// and src/core/save.ts:3655; the deeper chain prefixes vary, so each pin anchors on the end.
++const invalidCases: (InvalidCase & { refusal: RegExp })[] = [
+   { name: 'missing lifecycle record', corrupt: (state, id) => ({ ...state, careerLifecycle: { ...state.careerLifecycle,
+-    records: state.careerLifecycle.records.filter(row => row.personId !== id) } }) },
++    records: state.careerLifecycle.records.filter(row => row.personId !== id) } }),
++    refusal: /validateSaveV36: talentMarket\.cases\[25\] is a retirementExtension case for authored-0000, who holds no retirement record$/ }, // save.ts:10295
+   { name: 'retired lifecycle cannot own active writing', corrupt: (state, id) => ({ ...state, careerLifecycle: { ...state.careerLifecycle,
+-    records: state.careerLifecycle.records.map(row => row.personId === id ? { ...row, status: 'retired', retiredWeek: state.market.tick } : row) } }) },
++    records: state.careerLifecycle.records.map(row => row.personId === id ? { ...row, status: 'retired', retiredWeek: state.market.tick } : row) } }),
++    refusal: /validateSaveV38: non-catalogue retirement is missing its exact finality$/ }, // professionHistory.ts:270
+   { name: 'another person’s lifecycle record is not authority', corrupt: (state, id) => ({ ...state, careerLifecycle: { ...state.careerLifecycle,
+-    records: state.careerLifecycle.records.map(row => row.personId === id ? { ...row, personId: state.talent.find(t => t.role === 'writer' && t.id !== id)!.id } : row) } }) },
++    records: state.careerLifecycle.records.map(row => row.personId === id ? { ...row, personId: state.talent.find(t => t.role === 'writer' && t.id !== id)!.id } : row) } }),
++    refusal: /validateSaveV36: talentMarket\.cases\[25\] is a retirementExtension case for authored-0000, who holds no retirement record$/ }, // save.ts:10295
+   { name: 'wrong historical employer studio', corrupt: (state, id) => ({ ...state, hollywood: { ...state.hollywood!,
+     employment: state.hollywood!.employment.map(row => row.terms.talentId === id && row.terms.endWeekExclusive === 312
+-      ? { ...row, studioId: state.hollywood!.businesses[0]!.studioId } : row) } }) },
++      ? { ...row, studioId: state.hollywood!.businesses[0]!.studioId } : row) } }),
++    refusal: /validateSaveV9: script development invariant: active project "script-0000" writer is not contracted$/ }, // scriptDevelopment.ts:1118
+   { name: 'historical employment did not cover commissioning', corrupt: (state, id) => ({ ...state, hollywood: { ...state.hollywood!,
+     employment: state.hollywood!.employment.map(row => row.terms.talentId === id && row.terms.endWeekExclusive === 312
+-      ? { ...row, terms: { ...row.terms, startWeek: 312 } } : row) } }) },
++      ? { ...row, terms: { ...row.terms, startWeek: 312 } } : row) } }),
++    refusal: /validateSaveV9: script development invariant: active project "script-0000" writer is not contracted$/ }, // scriptDevelopment.ts:1118
+   { name: 'missing historical employment', corrupt: (state, id) => ({ ...state, hollywood: { ...state.hollywood!,
+-    employment: state.hollywood!.employment.filter(row => row.terms.talentId !== id) } }) },
+-  { name: 'new work begins at E', corrupt: (state, id) => changeProject(state, id, { commissionedWeek: 312 }) },
+-  { name: 'future commission week', corrupt: (state, id) => changeProject(state, id, { commissionedWeek: 313 }) },
+-  { name: 'due week is no longer in the future', corrupt: (state, id) => changeProject(state, id, { dueWeek: 312 }) },
+-  { name: 'due week exceeds the ordinary draft bound', corrupt: (state, id) => changeProject(state, id, { dueWeek: 318 }) },
+-  { name: 'unknown writer membership', corrupt: (state, id) => changeProject(state, id, { writerIds: [id, 'missing-writer'] }) },
++    employment: state.hollywood!.employment.filter(row => row.terms.talentId !== id) } }),
++    refusal: /validateSaveV9: script development invariant: active project "script-0000" writer is not contracted$/ }, // scriptDevelopment.ts:1118
++  { name: 'new work begins at E', corrupt: (state, id) => changeProject(state, id, { commissionedWeek: 312 }),
++    refusal: /validateSaveV9: script development invariant: active project "script-0000" writer is not contracted$/ }, // scriptDevelopment.ts:1118
++  { name: 'future commission week', corrupt: (state, id) => changeProject(state, id, { commissionedWeek: 313 }),
++    refusal: /validateSaveV9: script development invariant: project "script-0000" has an invalid or future commission week$/ }, // scriptDevelopment.ts:996
++  { name: 'due week is no longer in the future', corrupt: (state, id) => changeProject(state, id, { dueWeek: 312 }),
++    refusal: /validateSaveV9: script development invariant: drafting project "script-0000" has an invalid due week$/ }, // scriptDevelopment.ts:1020
++  { name: 'due week exceeds the ordinary draft bound', corrupt: (state, id) => changeProject(state, id, { dueWeek: 318 }),
++    refusal: /validateSaveV9: script development invariant: drafting project "script-0000" has an invalid due week$/ }, // scriptDevelopment.ts:1020
++  { name: 'unknown writer membership', corrupt: (state, id) => changeProject(state, id, { writerIds: [id, 'missing-writer'] }),
++    refusal: /validateSaveV9: script development invariant: project "script-0000" references unknown writer "missing-writer"$/ }, // scriptDevelopment.ts:1113
+   { name: 'uncontracted second writer without retirement authority', corrupt: (state, id) => changeProject(state, id, {
+     writerIds: [id, anotherUncontractedWriter(state, id)],
+-  }) },
+-  { name: 'duplicate writer membership', corrupt: (state, id) => changeProject(state, id, { writerIds: [id, id] }) },
+-  { name: 'attributed writer is missing from membership', corrupt: (state, id) => changeProject(state, id, { writerIds: [] }) },
++  }), refusal: /validateSaveV9: script development invariant: active project "script-0000" writer is not contracted$/ }, // scriptDevelopment.ts:1118
++  { name: 'duplicate writer membership', corrupt: (state, id) => changeProject(state, id, { writerIds: [id, id] }),
++    refusal: /validateSaveV9: state\.scriptDevelopment\.projects\[0\]\.writerIds\[1\] is duplicated$/ }, // save.ts:3532
++  { name: 'attributed writer is missing from membership', corrupt: (state, id) => changeProject(state, id, { writerIds: [] }),
++    refusal: /validateSaveV9: state\.scriptDevelopment\.projects\[0\]\.writerIds must hold between 1 and 5 writers$/ }, // save.ts:3526
+   { name: 'reservation belongs to another project', corrupt: (state, id) => changeProject(state, id, {
+     reservation: { ...writeProject(state, id).reservation!, projectId: 'script-9999' },
+-  }) },
++  }), refusal: /validateSaveV9: script development invariant: project "script-0000" reservation owner disagrees$/ }, // scriptDevelopment.ts:919
+   { name: 'reservation slot is outside capacity', corrupt: (state, id) => changeProject(state, id, {
+     reservation: { ...writeProject(state, id).reservation!, slot: 999 },
+-  }) },
+-  { name: 'unknown concept reference', corrupt: (state, id) => changeProject(state, id, { conceptId: 'missing-concept' }) },
++  }), refusal: /validateSaveV9: script development invariant: project "script-0000" reservation slot is outside facility capacity$/ }, // scriptDevelopment.ts:932
++  { name: 'unknown concept reference', corrupt: (state, id) => changeProject(state, id, { conceptId: 'missing-concept' }),
++    refusal: /validateSaveV9: script development invariant: project "script-0000" references unknown concept$/ }, // scriptDevelopment.ts:984
+   { name: 'duplicate active project cannot borrow the same writer or slot', corrupt: (state, id) => ({ ...state,
+     scriptDevelopment: { ...state.scriptDevelopment, projects: [...state.scriptDevelopment.projects, { ...writeProject(state, id), id: 'script-0001' }] },
+-  }) },
++  }), refusal: /validateSaveV9: script development invariant: duplicate concept link "concept-orig-0000"$/ }, // scriptDevelopment.ts:980
+ ]
+ 
+ describe('880-B live allowance stays narrowly scoped', () => {
+-  it.each(invalidCases)('refuses $name without altering caller bytes', ({ corrupt }) => {
++  it.each(invalidCases)('refuses $name without altering caller bytes', ({ corrupt, refusal }) => {
+     const f = finishingWriter(), state = corrupt(f.finishing, f.writerId), input = envelope(state), before = stableStringify(input)
+-    expect(() => validateSaveV44(input)).toThrow()
++    expect(() => validateSaveV44(input)).toThrow(refusal)
+     expect(stableStringify(input)).toBe(before)
+   })
+ 
+@@ -229,7 +247,9 @@ describe('880-B live allowance stays narrowly scoped', () => {
+     // branch, so it cannot borrow retirement to become lawful here.
+     const illegal = { ...terminated, concepts: f.commissioned.concepts, scriptDevelopment: f.commissioned.scriptDevelopment,
+       originalScreenplays: f.commissioned.originalScreenplays }
+-    expect(() => validateSaveV44(envelope(illegal))).toThrow()
++    // 1358-N S8: the grafted draft's writer holds no contract and no retirement authority on this
++    // branch (src/core/scriptDevelopment.ts:1118). Measured by the 1358-X6 message probe (N-0470).
++    expect(() => validateSaveV44(envelope(illegal))).toThrow(/validateSaveV9: script development invariant: active project "script-0000" writer is not contracted$/)
+     expect(() => applyActions(terminated, [originalCommission(f.writerId)])).toThrow()
+   })
+ 
+@@ -238,7 +258,9 @@ describe('880-B live allowance stays narrowly scoped', () => {
+     const input = envelope({ ...f.finishing, scriptDevelopment: { ...f.finishing.scriptDevelopment,
+       projects: f.finishing.scriptDevelopment.projects.map(row => ({ ...row, retirementBypass: true })),
+     } })
+-    expect(() => validateSaveV44(input)).toThrow()
++    // 1358-N S8: the V9 project key set refuses the extra key (src/core/save.ts:3371). Measured by
++    // the 1358-X6 message probe (N-0472).
++    expect(() => validateSaveV44(input)).toThrow(/validateSaveV9: state\.scriptDevelopment\.projects\[0\] has unknown field "retirementBypass"$/)
+     expect(() => validateSaveV44({ ...envelope(f.finishing), retirementBypass: true })).toThrow(/^validateSaveV12: save has unknown field "retirementBypass"$/)
+   })
+ 
+@@ -249,9 +271,20 @@ describe('880-B live allowance stays narrowly scoped', () => {
+     expect(() => validateSaveV36({ ...old.commissioned, saveVersion: 36 })).not.toThrow()
+     expect(() => validateSaveV36({ ...old.finishing, saveVersion: 36 })).toThrow(/not contracted/i)
+     expect(convertV37ToV36(old.commissioned).saveVersion).toBe(36)
++    // 1358-N S9: the V36 extension guard on its own era's input (src/core/save.ts:10382-10388).
++    // The genuine pair's commissioned311 save holds authored-0000's open retirementExtension case,
++    // opened at week 300, and the real convertV37ToV36 carries it to V36. The two downgrade leaves of
++    // tests/p14c2b-save-v36.test.ts name this assertion, since Save44 now stops their live chains.
++    expect(() => convertV36ToV35(convertV37ToV36(old.commissioned))).toThrow(/^migrateToV35: cannot downgrade SaveFileV36 or discard the retirement extension \u2014 it holds 1 retirementExtension case\(s\) and 0 used extension\(s\) \(first: authored-0000\), and V35 has nowhere to record the one final extension$/)
+     expect(() => convertV37ToV36(old.finishing)).toThrow(/not contracted/i)
+     const current = makeSave(f.finishing), before = stableStringify(current)
+-    expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(current))))))))).toThrow()
++    // 1358-N S9 (MASKED): the finishing state's romance track on relationship-edge-0 makes Save44's
++    // convertV44ToV43 refuse first (src/core/save.ts:10790). That masks the V39 guard that fired first
++    // under Save43 (save.ts:10600-10602, 1344-X12 §4) and the frozen V36 refusal this title names,
++    // which the convertV37ToV36(old.finishing) assertion above covers on the genuine V37 pair.
++    // Measured by the 1358-X6 message probe (N-0476). The V39 guard stays covered on V40 input by
++    // tests/p14p4p5-opportunities.test.ts Q03 (:331) and exactly by tests/p13b-s3-save-v23.test.ts:115-117.
++    expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(current))))))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)
+     expect(stableStringify(current)).toBe(before)
+   })
+ 
+diff --git a/tests/p14c2s-scientist-retirement.test.ts b/tests/p14c2s-scientist-retirement.test.ts
+index 5c40cb3..7a4f8bb 100644
+--- a/tests/p14c2s-scientist-retirement.test.ts
++++ b/tests/p14c2s-scientist-retirement.test.ts
+@@ -5,13 +5,14 @@ import { describe, expect, it } from 'vitest'
+ import { applyActions } from '../src/core/actions.js'
+ import { retirementRecordFor, retirementWindow } from '../src/core/careerLifecycle.js'
+ import { activeContract, busyTalentIds } from '../src/core/employment.js'
+-import { importSave, makeSave, migrateToLive, migrateToV35, migrateToV36, migrateToV37 } from '../src/core/save.js'
++import { convertV37ToV36, importSave, makeSave, migrateToLive, migrateToV35, migrateToV36, migrateToV37, validateSaveV37 } from '../src/core/save.js'
+ import { openMarketCaseFor, submitProposal } from '../src/core/talentMarket.js'
+ import { eligibleSeatIds, researchCandidates } from '../src/core/technology.js'
+ import { tick } from '../src/core/tick.js'
+ import type { GameState } from '../src/core/types.js'
+ import { advanceTo, exhaustedScientistPool, labId, owner, project, saveRoundTrip, SCI, SCI_END,
+   scientistAt, scientistFilm, scientistSupply, scientistWorld } from './helpers/p14c2s-fixtures.js'
++import { scientistRaw } from './helpers/p14c3-fixtures.js'
+ 
+ const record = (state: GameState) => retirementRecordFor(state, SCI)
+ const bytes = (state: GameState) => JSON.stringify(makeSave(state))
+@@ -276,8 +277,18 @@ describe('Scientist retirement persistence has an explicit semantic version boun
+     expect(live.saveVersion).toBe(44)
+     const before = JSON.stringify(live)
+     expect(importSave(before)).toEqual(live)
+-    expect(() => migrateToV36(live)).toThrow(/Scientist|scientist|downgrade/)
+-    expect(() => migrateToV35(live)).toThrow(/Scientist|scientist|downgrade/)
++    // 1358-N S9 (MASKED): this state's romance track on relationship-edge-27 makes Save44's
++    // convertV44ToV43 refuse first on both routes (src/core/save.ts:10790). That masks the V39 guard
++    // that fired first under Save43 (save.ts:10600-10602, 1344-X12 §4) and the Scientist guard this
++    // title names (save.ts:10449-10454). Measured by the 1358-X6 message probe (G1-new-1, both
++    // lines). The next assertion keeps the Scientist guard covered on its own era's genuine input.
++    // The V39 guard stays covered on V40 input by tests/p14p4p5-opportunities.test.ts Q03 (:331)
++    // and exactly by tests/p13b-s3-save-v23.test.ts:115-117.
++    expect(() => migrateToV36(live)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-27$/)
++    expect(() => migrateToV35(live)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-27$/)
++    // The genuine V37 capture at week 670 holds the retired Scientist record of t-sci-00, and
++    // convertV37ToV36 refuses it by name before validation.
++    expect(() => convertV37ToV36(validateSaveV37(JSON.parse(scientistRaw())))).toThrow(/^migrateToV36: cannot downgrade SaveFileV37 or discard Scientist retirement \u2014 t-sci-00 holds a record that V36 does not support$/)
+     expect(JSON.stringify(live)).toBe(before)
+     expect(bytes(state)).toBe(before)
+   })
+diff --git a/tests/p14c3-cohort-transition.test.ts b/tests/p14c3-cohort-transition.test.ts
+index 48627f7..8ef21f6 100644
+--- a/tests/p14c3-cohort-transition.test.ts
++++ b/tests/p14c3-cohort-transition.test.ts
+@@ -278,13 +278,14 @@ describe('C.3 genuine cohort-born Actor enters a new profession with origin auth
+     expect(() => validateSaveV44(malformed)).toThrow(/cohort receipt.*week 832.*as a director entrant.*original profession disagrees/)
+     expect(stableStringify(control)).toBe(controlBytes)
+     expect(validateSaveV44(control)).toBe(control)
+-    // 1344-N S9 (MASKED): this chain's history holds a screenplayShelved receipt, so
+-    // convertV43ToV42 refuses first (src/core/save.ts:10693-10694), before the V39
+-    // subject guard this line named (save.ts:10557-10559). Measured (x2 at a318722):
+-    // "migrateToV42: cannot downgrade or discard a screenplayShelved receipt". The V39
+-    // guard stays covered on its own era's genuine input by
+-    // tests/p14p4p5-screenplay-status.test.ts:324 (genuine V39 capture, week 48 take).
+-    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(control)))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplayShelved receipt$/)
++    // 1358-N S9 (MASKED): the control's romance track on relationship-edge-48 makes Save44's
++    // convertV44ToV43 refuse first (src/core/save.ts:10790). That masks the screenplayShelved
++    // receipt guard 1344-N pinned here (save.ts:10739-10740) and the V39 subject guard this line
++    // named before Save43 (save.ts:10600-10602). Measured by the 1358-X6 message probe (N-0490).
++    // The V39 guard stays covered on V40 input by tests/p14p4p5-opportunities.test.ts Q03 (:331)
++    // and exactly by tests/p13b-s3-save-v23.test.ts:115-117. The receipt guard stays covered on V43
++    // input by tests/p14d1-rival-shelving-save-v43.test.ts:256 (1358-F11).
++    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(control)))))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-48$/)
+     const origin = cohortSetup()
+     expect(validateSaveV35(origin.old)).toBe(origin.old); expect(validateSaveV37(origin.old37)).toBe(origin.old37)
+   })
+diff --git a/tests/p14c3-dual-extensions.test.ts b/tests/p14c3-dual-extensions.test.ts
+index e12516e..3a29128 100644
+--- a/tests/p14c3-dual-extensions.test.ts
++++ b/tests/p14c3-dual-extensions.test.ts
+@@ -169,13 +169,15 @@ describe.each(DUAL_TARGETS)('C.3 actor→%s two genuine profession extensions',
+     expect(exportSave(makeSave(loaded))).toBe(raw)
+     expect(loaded.talentMarket.cases.filter(row => row.talentId === id)).toEqual(state.talentMarket.cases.filter(row => row.talentId === id))
+     expect(loaded.careerLifecycle).toEqual(state.careerLifecycle)
+-    // 1344-N S9 (MASKED): this chain's history holds a screenplayShelved receipt, so
+-    // convertV43ToV42 refuses first (src/core/save.ts:10693-10694), before the V39
+-    // subject guard this line named (save.ts:10557-10559). Measured (x2 at a318722,
+-    // both targets): "migrateToV42: cannot downgrade or discard a screenplayShelved
+-    // receipt". The V39 guard stays covered on its own era's genuine input by
+-    // tests/p14p4p5-screenplay-status.test.ts:324 (genuine V39 capture, week 48 take).
+-    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(saved)))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplayShelved receipt$/)
++    // 1358-N S9 (MASKED): the saved state's romance track on relationship-edge-0 makes Save44's
++    // convertV44ToV43 refuse first (src/core/save.ts:10790). That masks the screenplayShelved
++    // receipt guard 1344-N pinned here (save.ts:10739-10740) and the V39 subject guard this line
++    // named before Save43 (save.ts:10600-10602). Measured by the 1358-X6 message probe (N-0493,
++    // both targets). The V39 guard stays covered on V40 input by
++    // tests/p14p4p5-opportunities.test.ts Q03 (:331) and exactly by
++    // tests/p13b-s3-save-v23.test.ts:115-117. The receipt guard stays covered on V43 input by
++    // tests/p14d1-rival-shelving-save-v43.test.ts:256 (1358-F11).
++    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(saved)))))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)
+     accepted(loaded)
+   })
+ 
+diff --git a/tests/p14c3-offmenu-extensions.test.ts b/tests/p14c3-offmenu-extensions.test.ts
+index ce038b5..f0dfec0 100644
+--- a/tests/p14c3-offmenu-extensions.test.ts
++++ b/tests/p14c3-offmenu-extensions.test.ts
+@@ -226,13 +226,15 @@ describe.each(OFFMENU_TARGETS)('C.3 actor→%s genuine off-menu58-week extension
+     expect(carryingEmployment(loaded, id, 410, 468)).toEqual(employment)
+     expect(professionAtWeek(loaded, id, extensionCase(loaded, id, 196).openedWeek)).toBe('actor')
+     expect(professionAtWeek(loaded, id, extensionCase(loaded, id, 404).openedWeek)).toBe(target)
+-    // 1344-N S9 (MASKED): this chain's history holds a screenplayShelved receipt, so
+-    // convertV43ToV42 refuses first (src/core/save.ts:10693-10694), before the V39
+-    // subject guard this line named (save.ts:10557-10559). Measured (x2 at a318722,
+-    // both targets): "migrateToV42: cannot downgrade or discard a screenplayShelved
+-    // receipt". The V39 guard stays covered on its own era's genuine input by
+-    // tests/p14p4p5-screenplay-status.test.ts:324 (genuine V39 capture, week 48 take).
+-    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(saved)))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplayShelved receipt$/)
++    // 1358-N S9 (MASKED): the saved state's romance track on relationship-edge-0 makes Save44's
++    // convertV44ToV43 refuse first (src/core/save.ts:10790). That masks the screenplayShelved
++    // receipt guard 1344-N pinned here (save.ts:10739-10740) and the V39 subject guard this line
++    // named before Save43 (save.ts:10600-10602). Measured by the 1358-X6 message probe (N-0496,
++    // both targets). The V39 guard stays covered on V40 input by
++    // tests/p14p4p5-opportunities.test.ts Q03 (:331) and exactly by
++    // tests/p13b-s3-save-v23.test.ts:115-117. The receipt guard stays covered on V43 input by
++    // tests/p14d1-rival-shelving-save-v43.test.ts:256 (1358-F11).
++    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(saved)))))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)
+     accepted(loaded)
+     observed[target] = { ...observed[target], term: contract.termWeeks, decision: contract.startWeek, end: contract.endWeekExclusive }
+   })
+diff --git a/tests/p14c3-save-v38.test.ts b/tests/p14c3-save-v38.test.ts
+index 0af6a30..c9194ea 100644
+--- a/tests/p14c3-save-v38.test.ts
++++ b/tests/p14c3-save-v38.test.ts
+@@ -46,6 +46,11 @@ function withEmptyScreenplayShelving<T extends WithRivalBusinesses>(state: T): T
+   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+     ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
+ }
++// 1358-N S5: Save44 (convertV43ToV44, save.ts:10776-10781) gives every relationship edge an
++// empty `competitions` log and a null `romance`; a genuine V37 old.state never carried either.
++function withEmptyCompetitionsAndRomance<T extends WithRelationships>(state: T): T {
++  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, competitions: [], romance: null })) }
++}
+ 
+ describe('C.3 A01/A02 exact Save38 opening', () => {
+   it('moves the existing live writer and fresh root together while preserving intent1 and promise4', () => {
+@@ -84,7 +89,7 @@ describe('C.3 A01/A02 exact Save38 opening', () => {
+       expect(root.transitionDue, 'actual completed retirements reconcile prospectively, not on load').toEqual(expectedDue)
+       const stripped = { ...upgraded.state, careerLifecycle: Object.fromEntries(
+         Object.entries(root).filter(([key]) => !FUTURE_ROOT_KEYS.includes(key as typeof FUTURE_ROOT_KEYS[number]))) }
+-      expect(stableStringify(stripped), 'every old field, receipt, clock and RNG value survives migration').toBe(stableStringify(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(withFirstTakeSubjects(old.state))))))
++      expect(stableStringify(stripped), 'every old field, receipt, clock and RNG value survives migration').toBe(stableStringify(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(withFirstTakeSubjects(old.state)))))))
+       expect(stableStringify(old), 'converter never mutates its genuine input').toBe(before)
+       expect(exportSave(importSave(raw))).toBe(raw)
+       expect(c3Raw(filename)).toBe(raw)
+diff --git a/tests/p14d1-rival-shelving-save-v43.test.ts b/tests/p14d1-rival-shelving-save-v43.test.ts
+index 079ab69..ad10abe 100644
+--- a/tests/p14d1-rival-shelving-save-v43.test.ts
++++ b/tests/p14d1-rival-shelving-save-v43.test.ts
+@@ -238,7 +238,7 @@ describe('save-v43-shelving: down-conversion (convertV43ToV42)', () => {
+   it('refuses a real shelved entry (with its receipt) by name', () => {
+     const env = JSON.parse(week130Raw()) as { saveVersion: number
+       state: { hollywood: { businesses: { studioId: string; activeScriptOrdinals: number[]
+-        development: { projects: { id: string }[] }; screenplayShelving?: unknown }[]
++        development: { projects: { id: string }[] }; projects: { conceptId: string }[]; screenplayShelving?: unknown }[]
+         receipts: unknown[]; nextReceipt: number } } }
+     env.saveVersion = 43
+     for (const b of env.state.hollywood.businesses) b.screenplayShelving = { ...EMPTY_SHELVING }
+@@ -246,9 +246,14 @@ describe('save-v43-shelving: down-conversion (convertV43ToV42)', () => {
+     b.activeScriptOrdinals = b.activeScriptOrdinals.filter(i => i !== 6)
+     b.screenplayShelving = { version: 1, rejections: [], shelved: [{ ordinal: 6, week: 130, retryWeek: 200 }], commissionHoldUntilWeek: 0 }
+     env.state.hollywood.receipts.push({ eventId: `industry-event-${env.state.hollywood.nextReceipt}`, week: 130,
+-      studioId: RIVAL_R01, kind: 'screenplayShelved', scriptProjectId: b.development.projects[6]!.id, conceptId: 'x', rejections: TUNING_FUTURE.HOLLYWOOD_SHELVE_AFTER_REJECTIONS })
++      studioId: RIVAL_R01, kind: 'screenplayShelved', scriptProjectId: b.development.projects[6]!.id, conceptId: b.projects[6]!.conceptId, rejections: TUNING_FUTURE.HOLLYWOOD_SHELVE_AFTER_REJECTIONS })
+     env.state.hollywood.nextReceipt += 1
+-    expect(() => mods().convertV43ToV42(env)).toThrow(/shelv/i)
++    // 1358-F11: the receipt names the business's own costed concept. The old conceptId 'x' was
++    // refused inside validateSaveV43 (src/core/hollywoodValidation.ts:539) before the guard ran, and
++    // the loose /shelv/i hid it (1358-X7t probe F2-RECEIPT43). The pin is convertV43ToV42's receipt
++    // guard (src/core/save.ts:10739-10740). This leaf is now that guard's own-era cover, which the
++    // J7, X5 and O3 chains of the p14c3 cohort, dual and off-menu files reached first under Save43.
++    expect(() => mods().convertV43ToV42(env)).toThrow(/^migrateToV42: cannot downgrade or discard a screenplayShelved receipt$/)
+   })
+ 
+   it('refuses a nonzero commissionHoldUntilWeek by name', () => {

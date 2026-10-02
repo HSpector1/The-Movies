@@ -1,0 +1,44 @@
+// 1358-M2 snapshot probe (1358-F8 ruling 5; 1358-J findings 11 and 12). Scratch only, never lands.
+// One natural chain from p13aGeneratedStudio(seed), natural ticks only (tick(state), no actions), as the §7 kit runs it.
+// At every week 0..WEEKS it builds the Bridge people projection, which builds every profile's relationship block
+// (bridge/people.ts:552, relationshipBlockFor), and records the build time and any thrown message. On the step-4 tree
+// that block reads mentorEvidence for every row; on the base tree it does not. Env: SNAP_SEED, SNAP_WEEKS (520).
+import { it } from 'vitest'
+import { performance } from 'node:perf_hooks'
+import { tick } from '../src/core/index.js'
+import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+import { peopleProjection } from '../bridge/people.js'
+
+const SEED = process.env.SNAP_SEED ?? 'p13a-core-causal-01'
+const WEEKS = Number(process.env.SNAP_WEEKS ?? '520')
+
+it('snapshot probe', () => {
+  let state = p13aGeneratedStudio(SEED)
+  const ms: number[] = []
+  const errors: { week: number; message: string }[] = []
+  let profiles = 0, rows = 0, labelled = 0
+  const routeStarted = performance.now()
+  for (let week = 0; week <= WEEKS; week++) {
+    const started = performance.now()
+    try {
+      const people = peopleProjection(state) as unknown as { profiles?: { collaborators?: { rows?: { labels?: unknown[] }[] } }[] }
+      if (week === WEEKS) {
+        profiles = people.profiles?.length ?? 0
+        for (const p of people.profiles ?? []) for (const r of p.collaborators?.rows ?? []) { rows++; if ((r.labels?.length ?? 0) > 0) labelled++ }
+      }
+    } catch (e) {
+      errors.push({ week, message: e instanceof Error ? e.message : String(e) })
+    }
+    ms.push(performance.now() - started)
+    if (week < WEEKS) state = tick(state)
+  }
+  const sorted = [...ms].sort((a, b) => a - b)
+  const q = (p: number) => sorted[Math.min(sorted.length - 1, Math.floor(p * sorted.length))]
+  const sum = ms.reduce((a, b) => a + b, 0)
+  console.log('SNAP ' + JSON.stringify({ seed: SEED, weeks: WEEKS, builds: ms.length, totalMs: Math.round(sum),
+    p50: +q(0.5).toFixed(2), p95: +q(0.95).toFixed(2), max: +sorted[sorted.length - 1].toFixed(2),
+    maxWeek: ms.indexOf(sorted[sorted.length - 1]), lastWeekMs: +ms[ms.length - 1].toFixed(2),
+    routeMs: Math.round(performance.now() - routeStarted), finalProfiles: profiles, finalRows: rows, finalLabelledRows: labelled,
+    errors: errors.length, mentorEvidenceErrors: errors.filter((e) => e.message.startsWith('mentorEvidence:')).length,
+    firstErrors: errors.slice(0, 5) }))
+}, 3_600_000)

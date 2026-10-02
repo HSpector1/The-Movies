@@ -1,0 +1,55 @@
+diff --git a/tests/p14d1-rival-shelving.test.ts b/tests/p14d1-rival-shelving.test.ts
+index 81ac3e9..7458bc4 100644
+--- a/tests/p14d1-rival-shelving.test.ts
++++ b/tests/p14d1-rival-shelving.test.ts
+@@ -607,6 +607,7 @@ describe('shelving-viable-control (1344-F Amendment 2)', () => {
+     const canon = (v: unknown): unknown => Array.isArray(v) ? v.map(canon)
+       : v !== null && typeof v === 'object' ? Object.fromEntries(Object.keys(v as object).sort().map(k => [k, canon((v as Record<string, unknown>)[k])]))
+       : v
++    try { const es = state.relationships ?? []; const norm = (s: GameState) => ({ ...s, relationships: (s.relationships ?? []).map(e => ({ ...e, competitions: [], romance: null })) }); console.log('PROBE1358 N-0140 ' + JSON.stringify({ edges: es.length, logRows: es.reduce((n, e) => n + ((e as { competitions?: unknown[] }).competitions?.length ?? 0), 0), tracks: es.filter(e => (e as { romance?: unknown }).romance != null).length, equal: JSON.stringify(canon(strip(state))) === JSON.stringify(canon(strip(genuineState))), equalNormalized: JSON.stringify(canon(strip(norm(state)))) === JSON.stringify(canon(strip(norm(genuineState)))) })) } catch (e) { console.log('PROBE1358 N-0140 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(JSON.stringify(canon(strip(state)))).toBe(JSON.stringify(canon(strip(genuineState))))
+     expect(state.hollywood!.receipts).toEqual(genuineState.hollywood!.receipts)
+     // Premise, derived from the CANDIDATE's own receipts (never a hard-coded shelving
+diff --git a/tests/p14p3-directing-promises.test.ts b/tests/p14p3-directing-promises.test.ts
+index 5277dac..e0735f0 100644
+--- a/tests/p14p3-directing-promises.test.ts
++++ b/tests/p14p3-directing-promises.test.ts
+@@ -112,6 +112,22 @@ function directorCapture40(name: string, gzipHash: string, rawHash: string) {
+   expect(old).toBe(parsed); expect(saves.exportSave(old)).toBe(raw)
+   return saves.convertV39ToV40(old).state
+ }
++function probeCapture(id: string, name: string): void {
++  try {
++    const raw = gunzipSync(readFileSync(new URL(`1221-p4p5-outgoing-capture/${name}.json.gz`, EVIDENCE))).toString('utf8')
++    const old = saves.validateSaveV39(JSON.parse(raw)), lifted = saves.convertV39ToV40(old)
++    const edges = lifted.state.relationships as unknown as Record<string, unknown>[], live = saves.migrateToLive(old), liveEdges = live.state.relationships
++    let chain = 'PASS', equal = 'n/a'
++    try { const down = saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(live)))); equal = String(saves.stableStringify(down.state) === saves.stableStringify(lifted.state)) } catch (e) { chain = e instanceof Error ? e.message : String(e) }
++    const builders = [saves.makeSaveV1, saves.makeSaveV13, saves.makeSaveV18].map(builder => { try { builder(lifted.state); return 'NO-THROW' } catch (e) { return e instanceof Error ? e.message : String(e) } }).join(' | ')
++    const director = lifted.state.promises.filter(p => 'kind' in p.predicate && p.predicate.kind === 'directorCount')
++    console.log('PROBE1358 ' + id + '[' + name + '] ' + JSON.stringify('saveVersion ' + String(old.saveVersion) + ' reached ' + String(lifted.saveVersion)
++      + ' edges ' + String(edges.length) + ' romanceOrLogKeys ' + String(edges.filter(edge => 'romance' in edge || 'competitions' in edge).length)
++      + ' directorPromises ' + director.map(p => p.promiseId + ':' + String(p.outcome)).join(',')
++      + ' liveRomance ' + String(liveEdges.filter(edge => edge.romance !== null).length) + ' liveLogs ' + String(liveEdges.filter(edge => edge.competitions.length > 0).length)
++      + ' liveChainToV40 ' + chain + ' roundTripEqual ' + equal + ' builders ' + builders))
++  } catch (e) { console.log('PROBE1358 ' + id + '[' + name + '] ' + JSON.stringify('probe failed: ' + (e instanceof Error ? e.message : String(e)))) }
++}
+ 
+ describe('P3 first slice: public Director promises and historical meaning', () => {
+   it('D01 offers fresh directing work to lawful Actors and Directors', () => {
+@@ -420,6 +436,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
+     // promise), lifted to V40 by convertV39ToV40 alone.
+     const bound40 = directorCapture40('director-bound-week52',
+       'b894a85ffad37378f93dc8a8e83bad926ab7a1bb857dd76e9b9926b520fec6e1', 'eae34cd10d457ad551028f3d0a160a55a74d5153b73653b257dc89a4338b040b')
++    probeCapture('F1-D13-capture', 'director-bound-week52')
+     for (const builder of [saves.makeSaveV1, saves.makeSaveV13, saves.makeSaveV18]) {
+       expect(() => builder(bound40)).toThrow(/director|promise|predicate/i)
+       const invalid: GameState = { ...clone(bound40), hollywood: null }
+@@ -752,6 +769,7 @@ describe('P3 second slice: cancellation and same-domain waiver', () => {
+     // alone lifts it to V40.
+     const waived40 = directorCapture40('director-waived-week61',
+       '95ca93ba0a0f16b1c11ad34960a9617217685a681e8ad27ebf896e75f1debb0e', 'ad25e44bde2ec18bef17a37a252de4ee9323dd0d7b50dbdaf424be50a5d9abce')
++    probeCapture('F1-D12-capture', 'director-waived-week61')
+     for (const builder of [saves.makeSaveV1, saves.makeSaveV13, saves.makeSaveV18])
+       expect(() => builder(waived40)).toThrow(/director|promise|predicate/i)
+     console.info('1143-P3-WAIVER ' + JSON.stringify({ waived: change.state.market.tick, windowStart: input.substitute.windowStartWeek,

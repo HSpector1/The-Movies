@@ -1,0 +1,186 @@
+diff --git a/tests/p13b-s8-save-v27.test.ts b/tests/p13b-s8-save-v27.test.ts
+index b17cb13..9252968 100644
+--- a/tests/p13b-s8-save-v27.test.ts
++++ b/tests/p13b-s8-save-v27.test.ts
+@@ -211,6 +211,8 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
+     const staged = Object.values(V26_FIXTURES).map(fixture => withV27.migrateToV27(JSON.parse(load(fixture.file))))
+       .map(lifted => ({ ...lifted, state: admitRivalPlans(lifted.state).state }))
+       .find(lifted => lifted.state.hollywood!.receipts.some(r => r.kind === 'laboratoryCommitted'))
++    console.log('PROBE1358 F1-V27[staging] ' + JSON.stringify(staged === undefined ? 'no fixture admitted a Laboratory' : 'week ' + String(staged.state.market.tick) + ' committed ' + staged.state.hollywood!.receipts.filter(r => r.kind === 'laboratoryCommitted').map(r => r.studioId + ':' + r.eventId).join(',')))
++    try { save.convertV27ToV26(staged as never); console.log('PROBE1358 F1-V27 NO-THROW') } catch (e) { console.log('PROBE1358 F1-V27 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(staged, 'staging premise: a rival in a genuine V26 fixture can afford a Laboratory').toBeDefined()
+     expect(() => save.convertV27ToV26(staged as never)).toThrow(/^migrateToV26: cannot downgrade SaveFileV27 or discard rival research \u2014 frozen save projection cannot discard authoritative V27 rival research state on receipt industry-event-\d+$/)
+   })
+diff --git a/tests/p14c2rm-writer-continuation.test.ts b/tests/p14c2rm-writer-continuation.test.ts
+index eebe80b..35c8d3a 100644
+--- a/tests/p14c2rm-writer-continuation.test.ts
++++ b/tests/p14c2rm-writer-continuation.test.ts
+@@ -275,6 +275,7 @@ describe('880-B live allowance stays narrowly scoped', () => {
+     // The genuine pair's commissioned311 save holds authored-0000's open retirementExtension case,
+     // opened at week 300, and the real convertV37ToV36 carries it to V36. The two downgrade leaves of
+     // tests/p14c2b-save-v36.test.ts name this assertion, since Save44 now stops their live chains.
++    try { convertV36ToV35(convertV37ToV36(old.commissioned)); console.log('PROBE1358 F2-EXT36 NO-THROW') } catch (e) { console.log('PROBE1358 F2-EXT36 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => convertV36ToV35(convertV37ToV36(old.commissioned))).toThrow(/^migrateToV35: cannot downgrade SaveFileV36 or discard the retirement extension \u2014 it holds 1 retirementExtension case\(s\) and 0 used extension\(s\) \(first: authored-0000\), and V35 has nowhere to record the one final extension$/)
+     expect(() => convertV37ToV36(old.finishing)).toThrow(/not contracted/i)
+     const current = makeSave(f.finishing), before = stableStringify(current)
+diff --git a/tests/p14c2s-scientist-retirement.test.ts b/tests/p14c2s-scientist-retirement.test.ts
+index 7a4f8bb..02bdd66 100644
+--- a/tests/p14c2s-scientist-retirement.test.ts
++++ b/tests/p14c2s-scientist-retirement.test.ts
+@@ -288,6 +288,7 @@ describe('Scientist retirement persistence has an explicit semantic version boun
+     expect(() => migrateToV35(live)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-27$/)
+     // The genuine V37 capture at week 670 holds the retired Scientist record of t-sci-00, and
+     // convertV37ToV36 refuses it by name before validation.
++    try { convertV37ToV36(validateSaveV37(JSON.parse(scientistRaw()))); console.log('PROBE1358 F2-SCI37 NO-THROW') } catch (e) { console.log('PROBE1358 F2-SCI37 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => convertV37ToV36(validateSaveV37(JSON.parse(scientistRaw())))).toThrow(/^migrateToV36: cannot downgrade SaveFileV37 or discard Scientist retirement \u2014 t-sci-00 holds a record that V36 does not support$/)
+     expect(JSON.stringify(live)).toBe(before)
+     expect(bytes(state)).toBe(before)
+diff --git a/tests/p14c3-save-v38.test.ts b/tests/p14c3-save-v38.test.ts
+index c9194ea..194ae08 100644
+--- a/tests/p14c3-save-v38.test.ts
++++ b/tests/p14c3-save-v38.test.ts
+@@ -89,6 +89,7 @@ describe('C.3 A01/A02 exact Save38 opening', () => {
+       expect(root.transitionDue, 'actual completed retirements reconcile prospectively, not on load').toEqual(expectedDue)
+       const stripped = { ...upgraded.state, careerLifecycle: Object.fromEntries(
+         Object.entries(root).filter(([key]) => !FUTURE_ROOT_KEYS.includes(key as typeof FUTURE_ROOT_KEYS[number]))) }
++      try { const edges = stripped.relationships as unknown as readonly { competitions: readonly unknown[]; romance: unknown }[]; const flat = (state: { relationships: readonly object[] }) => stableStringify({ ...state, relationships: state.relationships.map(edge => ({ ...edge, competitions: [], romance: null })) }); const prior = withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(withFirstTakeSubjects(old.state)))); console.log('PROBE1358 F2-N-0041[' + filename + '] ' + JSON.stringify(`normalizedEqual=${String(flat(stripped) === flat(prior))} asWrittenEqual=${String(stableStringify(stripped) === stableStringify(withEmptyCompetitionsAndRomance(prior)))} edges=${edges.length} logRows=${edges.filter(edge => edge.competitions.length > 0).length} romances=${edges.filter(edge => edge.romance !== null).length}`)) } catch (e) { console.log('PROBE1358 F2-N-0041[' + filename + '] ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+       expect(stableStringify(stripped), 'every old field, receipt, clock and RNG value survives migration').toBe(stableStringify(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(withFirstTakeSubjects(old.state)))))))
+       expect(stableStringify(old), 'converter never mutates its genuine input').toBe(before)
+       expect(exportSave(importSave(raw))).toBe(raw)
+diff --git a/tests/p14d1-rival-shelving-save-v43.test.ts b/tests/p14d1-rival-shelving-save-v43.test.ts
+index 079ab69..8a150a3 100644
+--- a/tests/p14d1-rival-shelving-save-v43.test.ts
++++ b/tests/p14d1-rival-shelving-save-v43.test.ts
+@@ -248,6 +248,8 @@ describe('save-v43-shelving: down-conversion (convertV43ToV42)', () => {
+     env.state.hollywood.receipts.push({ eventId: `industry-event-${env.state.hollywood.nextReceipt}`, week: 130,
+       studioId: RIVAL_R01, kind: 'screenplayShelved', scriptProjectId: b.development.projects[6]!.id, conceptId: 'x', rejections: TUNING_FUTURE.HOLLYWOOD_SHELVE_AFTER_REJECTIONS })
+     env.state.hollywood.nextReceipt += 1
++    try { mods().convertV43ToV42(env); console.log('PROBE1358 F2-RECEIPT43[as-written] NO-THROW') } catch (e) { console.log('PROBE1358 F2-RECEIPT43[as-written] ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
++    try { const fixed = JSON.parse(JSON.stringify(env)) as { state: { hollywood: { businesses: { studioId: string; projects: { conceptId: string }[] }[]; receipts: { conceptId?: string }[] } } }; const owner = fixed.state.hollywood.businesses.find(row => row.studioId === RIVAL_R01)!; fixed.state.hollywood.receipts.at(-1)!.conceptId = owner.projects[6]!.conceptId; mods().convertV43ToV42(fixed); console.log('PROBE1358 F2-RECEIPT43[real-concept] NO-THROW') } catch (e) { console.log('PROBE1358 F2-RECEIPT43[real-concept] ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => mods().convertV43ToV42(env)).toThrow(/shelv/i)
+   })
+ 
+diff --git a/tests/p14p3-directing-promises.test.ts b/tests/p14p3-directing-promises.test.ts
+index b4d5db6..cd3e1d6 100644
+--- a/tests/p14p3-directing-promises.test.ts
++++ b/tests/p14p3-directing-promises.test.ts
+@@ -395,6 +395,23 @@ describe('P3 first slice: public Director promises and historical meaning', () =
+     // fed directly, they now stop at the V25 Hollywood exact-key check on the
+     // Save41 rival `termination` movement, before ever reaching this leaf's own
+     // named cause.
++    for (const [name, candidate] of [['a.state', () => a.state], ['b.state', () => b.state],
++      ['first.first.greenlit', () => first.first.greenlit], ['first.first.afterTake', () => first.first.afterTake],
++      ['first.first.released', () => first.first.released], ['second.second.greenlit', () => second.second.greenlit],
++      ['second.second.afterTake', () => second.second.afterTake], ['second.second.released', () => second.second.released],
++      ['lifecycleAttached().state', () => lifecycleAttached().state]] as const) {
++      try {
++        const s = candidate(), edges = s.relationships
++        let chain = 'PASS', builders = ''
++        try {
++          const projected = saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.makeSave(s))))).state
++          builders = [saves.makeSaveV1, saves.makeSaveV13, saves.makeSaveV18].map(builder => { try { builder(projected); return 'NO-THROW' } catch (e) { return e instanceof Error ? e.message : String(e) } }).join(' | ')
++        } catch (e) { chain = e instanceof Error ? e.message : String(e) }
++        console.log('PROBE1358 F1-D13[' + name + '] ' + JSON.stringify('week ' + String(s.market.tick) + ' directorPromises ' + String(s.promises.filter(p => p.family === 'DIRECTING_COUNT' && 'kind' in p.predicate).length)
++          + ' edges ' + String(edges.length) + ' romance ' + String(edges.filter(edge => edge.romance !== null).length) + ' logs ' + String(edges.filter(edge => edge.competitions.length > 0).length)
++          + ' chain ' + chain + (builders === '' ? '' : ' builders ' + builders)))
++      } catch (e) { console.log('PROBE1358 F1-D13[' + name + '] ' + JSON.stringify('route failed: ' + (e instanceof Error ? e.message : String(e)))) }
++    }
+     const projectedA = saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.makeSave(a.state))))).state
+     for (const builder of [saves.makeSaveV1, saves.makeSaveV13, saves.makeSaveV18]) {
+       expect(() => builder(projectedA)).toThrow(/director|promise|predicate/i)
+@@ -405,6 +422,18 @@ describe('P3 first slice: public Director promises and historical meaning', () =
+   }, LEAF_TIMEOUT_MS)
+ 
+   it('D14 preserves old meaning and refuses lossy reverse conversion', () => {
++    try { const probeTagged = attached(); futureSave().convertV39ToV38(saves.makeSave(core.withdrawProposal(probeTagged.state, probeTagged.actorId, issuer(probeTagged.state)))); console.log('PROBE1358 G5-new-6 NO-THROW') } catch (e) { console.log('PROBE1358 G5-new-6 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
++    for (const name of outgoingNames) {
++      const old = outgoing(name), current = saves.migrateToLive(old.save), edges = current.state.relationships
++      const norm = (s: { relationships: readonly object[] }) => ({ ...s, relationships: s.relationships.map(edge => ({ ...edge, competitions: [], romance: null })) })
++      const want = saves.stableStringify(norm(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.save.state))))))
++      const got = saves.stableStringify(norm(current.state))
++      const helperEqual = saves.stableStringify(current.state) === saves.stableStringify(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.save.state))))))
++      let k = 0; while (k < got.length && got[k] === want[k]) k++
++      console.log('PROBE1358 F1-D14[' + name + '] ' + JSON.stringify('normalizedEqual ' + String(got === want) + ' helperEqual ' + String(helperEqual)
++        + ' edges ' + String(edges.length) + ' romance ' + String(edges.filter(edge => edge.romance !== null).length) + ' logs ' + String(edges.filter(edge => edge.competitions.length > 0).length)
++        + (got === want ? '' : ' firstDiff ' + String(k) + ' got ' + got.slice(Math.max(0, k - 120), k + 120) + ' want ' + want.slice(Math.max(0, k - 120), k + 120))))
++    }
+     for (const name of outgoingNames) {
+       const old = outgoing(name)
+       // 1344-N S5 (x2 at a318722, :396 measured: the two stringified states differ only by an added
+@@ -688,6 +717,12 @@ describe('P3 second slice: cancellation and same-domain waiver', () => {
+     expect(qualifyingTakes(done.state, finalSuccessor)).toEqual([done.second.take])
+     outcomeReceipt(done.state, finalSuccessor)
+     stableOutcome(done.state, original.promiseId); stableOutcome(done.state, finalSuccessor.promiseId)
++    for (const [name, s] of [['change.state', change.state], ['done.state', done.state]] as const) {
++      const edges = s.relationships
++      try { futureSave().convertV39ToV38(saves.makeSave(s)); console.log('PROBE1358 N-0531[' + name + '] NO-THROW') } catch (e) { console.log('PROBE1358 N-0531[' + name + '] ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
++      try { saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.makeSave(s))))); console.log('PROBE1358 F1-D12-projection[' + name + '] NO-THROW') } catch (e) { console.log('PROBE1358 F1-D12-projection[' + name + '] ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
++      console.log('PROBE1358 F1-D12[' + name + '] ' + JSON.stringify('week ' + String(s.market.tick) + ' edges ' + String(edges.length) + ' romance ' + String(edges.filter(edge => edge.romance !== null).length) + ' logs ' + String(edges.filter(edge => edge.competitions.length > 0).length)))
++    }
+     for (const state of [change.state, done.state]) {
+       admitted(state); const save = saves.makeSave(state)
+       expect(futureSave().validateSaveV39(save)).toBe(save)
+diff --git a/tests/p14p4p5-opportunities.test.ts b/tests/p14p4p5-opportunities.test.ts
+index 866535d..15824c5 100644
+--- a/tests/p14p4p5-opportunities.test.ts
++++ b/tests/p14p4p5-opportunities.test.ts
+@@ -333,6 +333,7 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
+     // holds opportunity material, so it no longer refuses; the FIRST downgrade
+     // that cannot hold the material is convertV40ToV39.
+     const oneDown = api.convertV41ToV40(api.convertV42ToV41(api.convertV43ToV42(api.convertV44ToV43(valid))))
++    try { api.convertV40ToV39(oneDown); console.log('PROBE1358 F2-Q03 NO-THROW') } catch (e) { console.log('PROBE1358 F2-Q03 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => api.convertV40ToV39(oneDown)).toThrow(/opportunit|genre|project|predicate/i)
+     for (const mutate of [
+       (p: Record<string, unknown>) => { p.predicate = { kind: 'genreOpportunity', count: 2, seatClass: 'allCast', genre: 'drama' } },
+@@ -365,6 +366,17 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
+       ['1221-p4p5-outgoing-capture/director-waived-week61.json.gz',
+         '95ca93ba0a0f16b1c11ad34960a9617217685a681e8ad27ebf896e75f1debb0e', 'ad25e44bde2ec18bef17a37a252de4ee9323dd0d7b50dbdaf424be50a5d9abce'],
+     ] as const
++    for (const [filename, gzipHash, rawHash] of pins) {
++      const { save: old } = pinned39(filename, gzipHash, rawHash), current = saves.migrateToLive(old), edges = current.state.relationships
++      const { firstTakeSubjects: _added, ...unchanged } = (current as unknown as CurrentView).state
++      const norm = (s: object) => { const r = s as { relationships: readonly object[] }; return { ...r, relationships: r.relationships.map(edge => ({ ...edge, competitions: [], romance: null })) } }
++      const want = stable(norm(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state))))), got = stable(norm(unchanged))
++      const helperEqual = stable(unchanged) === stable(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))))
++      let k = 0; while (k < got.length && got[k] === want[k]) k++
++      console.log('PROBE1358 F1-Q04[' + filename + '] ' + JSON.stringify('normalizedEqual ' + String(got === want) + ' helperEqual ' + String(helperEqual)
++        + ' edges ' + String(edges.length) + ' romance ' + String(edges.filter(edge => edge.romance !== null).length) + ' logs ' + String(edges.filter(edge => edge.competitions.length > 0).length)
++        + (got === want ? '' : ' firstDiff ' + String(k) + ' got ' + got.slice(Math.max(0, k - 120), k + 120) + ' want ' + want.slice(Math.max(0, k - 120), k + 120))))
++    }
+     for (const [filename, gzipHash, rawHash] of pins) {
+       const { raw, save: old } = pinned39(filename, gzipHash, rawHash), before = stable(old)
+       const current = saves.migrateToLive(old), valid = current as unknown as CurrentView
+diff --git a/tests/p14p4p5-screenplay-status.test.ts b/tests/p14p4p5-screenplay-status.test.ts
+index b5adfd5..47c1b38 100644
+--- a/tests/p14p4p5-screenplay-status.test.ts
++++ b/tests/p14p4p5-screenplay-status.test.ts
+@@ -337,6 +337,8 @@ function factOnly(state: GameState): void {
+   const raw40 = gunzipSync(zipped40).toString('utf8')
+   expect(sha(raw40)).toBe('2e717382e952fa0f175f07d5f7055d6d3f37c66eb4bf86a783dd169ae21d2ddc')
+   const v40 = saves.validateSaveV40(JSON.parse(raw40))
++  console.log('PROBE1358 F1-V39[facts] ' + JSON.stringify('facts ' + String(v40.state.firstTakeSubjects.facts.length) + ' takes ' + String(v40.state.firstTakes.length) + ' cutover ' + String(v40.state.firstTakeSubjects.cutoverOrdinal) + ' opportunityPromises ' + String(v40.state.promises.filter(p => 'kind' in p.predicate && (p.predicate.kind === 'genreOpportunity' || p.predicate.kind === 'projectOpportunity')).length)))
++  try { saves.convertV40ToV39(v40); console.log('PROBE1358 F1-V39 NO-THROW') } catch (e) { console.log('PROBE1358 F1-V39 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+   expect(v40.state.firstTakeSubjects.facts.length, 'capture premise: recorded first-take subjects').toBeGreaterThan(0)
+   expect(() => saves.convertV40ToV39(v40)).toThrow(/^migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject$/)
+ }
+diff --git a/tests/p14r3-save-v41.test.ts b/tests/p14r3-save-v41.test.ts
+index ecdf15b..46c6a9c 100644
+--- a/tests/p14r3-save-v41.test.ts
++++ b/tests/p14r3-save-v41.test.ts
+@@ -368,6 +368,7 @@ describe('P14 1305-C Save41: 41->40 downgrade', () => {
+     const tampered = JSON.parse(JSON.stringify(migrated)) as typeof migrated
+     const business = rivalBusinesses(tampered.state)[0]!
+     business.account.periods[0]!.movements.termination = -12345
++    try { convertV41ToV40(tampered as never); console.log('PROBE1358 F1-V41[movement-leaf] NO-THROW') } catch (e) { console.log('PROBE1358 F1-V41[movement-leaf] ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => convertV41ToV40(tampered as never)).toThrow(/termination/i)
+   })
+ 
+@@ -405,6 +406,8 @@ describe('P14 1305-C Save41: 41->40 downgrade', () => {
+     h.receipts.push({ eventId: `industry-event-${String(h.nextReceipt)}`, week, studioId: released.studioId, kind: 'employment',
+       talentId: released.terms.talentId, fromStudioId: released.studioId, toStudioId: null, contractId: released.contractId, reason: 'termination' })
+     h.nextReceipt += 1
++    console.log('PROBE1358 F1-V41[staging] ' + JSON.stringify(released.contractId + ' role ' + String(role(released.terms.talentId)) + ' week ' + String(week) + ' endWeekExclusive ' + String(released.terms.endWeekExclusive) + ' charge ' + String(terminationCost(released.terms as never, week))))
++    try { convertV41ToV40(staged as never); console.log('PROBE1358 F1-V41 NO-THROW') } catch (e) { console.log('PROBE1358 F1-V41 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => convertV41ToV40(staged as never)).toThrow(/^migrateToV40: cannot downgrade or discard a rival termination receipt$/)
+   })
+ })

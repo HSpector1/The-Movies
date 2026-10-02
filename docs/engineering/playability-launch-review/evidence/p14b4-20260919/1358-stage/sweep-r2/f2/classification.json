@@ -1,0 +1,472 @@
+[
+ {
+  "id": "N-0490",
+  "file": "tests/p14c3-cohort-transition.test.ts",
+  "line": 288,
+  "old": "    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(control)))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplayShelved receipt$/)",
+  "new": "    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(control)))))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-48$/)",
+  "cls": "S9",
+  "status": "measured",
+  "note": "probe N-0490: \"migrateToV43: cannot downgrade or discard the romance of relationship-edge-48\"; probe-failures.json J7 at :288:146 (probe tree). Pin cites src/core/save.ts:10790 (convertV44ToV43 romance refusal). Comment :281-287 replaces the 1344-N one: masks the receipt guard r1 pinned and the V39 subject guard the line named. the 1344 cover tests/p14p4p5-screenplay-status.test.ts:324 is itself masked now (probe N-0560: romance of relationship-edge-18; probe-failures.json Q11 at :401); the V39 guard (save.ts:10600-10602) is covered by tests/p14p4p5-opportunities.test.ts Q03 :331 (convertV40ToV39 on a V40 envelope from the genuine V39 week-45 capture; Q03 passes in X6, absent from probe-failures.json; first refusal measured by probe F2-Q03 in 1358-X7t: the V39 message) and exactly by tests/p13b-s3-save-v23.test.ts:115-117 (probe N-0367 to N-0369 logged the V39 message; not in probe-failures.json); the screenplayShelved receipt guard (save.ts:10739-10740) is covered on V43 input by tests/p14d1-rival-shelving-save-v43.test.ts:256 (1358-F11, row F11-1; probe F2-RECEIPT43[real-concept] in 1358-X7t logged the pinned message). The last two comment lines name it. The first F2 commit (37a1108) said no other test pinned the guard; X7t confirmed that, and F11 closed the gap"
+ },
+ {
+  "id": "N-0493",
+  "file": "tests/p14c3-dual-extensions.test.ts",
+  "line": 180,
+  "old": "    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(saved)))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplayShelved receipt$/)",
+  "new": "    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(saved)))))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
+  "cls": "S9",
+  "status": "measured",
+  "note": "probe N-0493 [director], [writer]: \"migrateToV43: cannot downgrade or discard the romance of relationship-edge-0\"; probe-failures.json X5 writer at :179:144, director failing with no message captured. Pin cites src/core/save.ts:10790 (convertV44ToV43 romance refusal). Comment :172-179 replaces the 1344-N one. the 1344 cover tests/p14p4p5-screenplay-status.test.ts:324 is itself masked now (probe N-0560: romance of relationship-edge-18; probe-failures.json Q11 at :401); the V39 guard (save.ts:10600-10602) is covered by tests/p14p4p5-opportunities.test.ts Q03 :331 (convertV40ToV39 on a V40 envelope from the genuine V39 week-45 capture; Q03 passes in X6, absent from probe-failures.json; first refusal measured by probe F2-Q03 in 1358-X7t: the V39 message) and exactly by tests/p13b-s3-save-v23.test.ts:115-117 (probe N-0367 to N-0369 logged the V39 message; not in probe-failures.json); the screenplayShelved receipt guard (save.ts:10739-10740) is covered on V43 input by tests/p14d1-rival-shelving-save-v43.test.ts:256 (1358-F11, row F11-1; probe F2-RECEIPT43[real-concept] in 1358-X7t logged the pinned message). The last two comment lines name it. The first F2 commit (37a1108) said no other test pinned the guard; X7t confirmed that, and F11 closed the gap"
+ },
+ {
+  "id": "N-0496",
+  "file": "tests/p14c3-offmenu-extensions.test.ts",
+  "line": 237,
+  "old": "    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(saved)))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplayShelved receipt$/)",
+  "new": "    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(saved)))))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
+  "cls": "S9",
+  "status": "measured",
+  "note": "probe N-0496 [director], [writer]: \"migrateToV43: cannot downgrade or discard the romance of relationship-edge-0\"; probe-failures.json O3 writer at :236:144, director failing with no message captured. Pin cites src/core/save.ts:10790 (convertV44ToV43 romance refusal). Comment :229-236 replaces the 1344-N one. the 1344 cover tests/p14p4p5-screenplay-status.test.ts:324 is itself masked now (probe N-0560: romance of relationship-edge-18; probe-failures.json Q11 at :401); the V39 guard (save.ts:10600-10602) is covered by tests/p14p4p5-opportunities.test.ts Q03 :331 (convertV40ToV39 on a V40 envelope from the genuine V39 week-45 capture; Q03 passes in X6, absent from probe-failures.json; first refusal measured by probe F2-Q03 in 1358-X7t: the V39 message) and exactly by tests/p13b-s3-save-v23.test.ts:115-117 (probe N-0367 to N-0369 logged the V39 message; not in probe-failures.json); the screenplayShelved receipt guard (save.ts:10739-10740) is covered on V43 input by tests/p14d1-rival-shelving-save-v43.test.ts:256 (1358-F11, row F11-1; probe F2-RECEIPT43[real-concept] in 1358-X7t logged the pinned message). The last two comment lines name it. The first F2 commit (37a1108) said no other test pinned the guard; X7t confirmed that, and F11 closed the gap"
+ },
+ {
+  "id": "G4-new-3",
+  "file": "tests/p14c2b-save-v36.test.ts",
+  "line": 83,
+  "old": "    expect(() => convertV36ToV35(liveEnvelopeV36(settled))).toThrow(/downgrade/i)",
+  "new": "    expect(() => convertV36ToV35(liveEnvelopeV36(settled))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
+  "cls": "S9",
+  "status": "measured",
+  "note": "probe G4-new-3: \"migrateToV43: cannot downgrade or discard the romance of relationship-edge-0\"; loose /downgrade/i passed on it. Save44 newly masks the site (1358-F10 ruling 3 exception); under Save43 the V39 guard fired first (1344-X12 section 2). New comment :74-82. The V36 extension guard (save.ts:10382-10388) is covered on its own era's input by tests/p14c2rm-writer-continuation.test.ts:278 (F2-new-4), case branch only: no V36-era input holds a used extension, so this title's extensionUsed branch has no own-era cover. the V39 guard (save.ts:10600-10602) is covered by tests/p14p4p5-opportunities.test.ts Q03 :331 (convertV40ToV39 on a V40 envelope from the genuine V39 week-45 capture; Q03 passes in X6, absent from probe-failures.json; first refusal measured by probe F2-Q03 in 1358-X7t: the V39 message) and exactly by tests/p13b-s3-save-v23.test.ts:115-117 (probe N-0367 to N-0369 logged the V39 message; not in probe-failures.json)"
+ },
+ {
+  "id": "G4-new-4",
+  "file": "tests/p14c2b-save-v36.test.ts",
+  "line": 98,
+  "old": "    expect(() => convertV36ToV35(liveEnvelopeV36(atWindow))).toThrow(/downgrade/i)",
+  "new": "    expect(() => convertV36ToV35(liveEnvelopeV36(atWindow))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
+  "cls": "S9",
+  "status": "measured",
+  "note": "probe G4-new-4: \"migrateToV43: cannot downgrade or discard the romance of relationship-edge-0\"; loose /downgrade/i passed on it. Same masking as G4-new-3. New comment :91-97. tests/p14c2rm-writer-continuation.test.ts:278 (F2-new-4) covers this title's case branch on V36 input. the V39 guard (save.ts:10600-10602) is covered by tests/p14p4p5-opportunities.test.ts Q03 :331 (convertV40ToV39 on a V40 envelope from the genuine V39 week-45 capture; Q03 passes in X6, absent from probe-failures.json; first refusal measured by probe F2-Q03 in 1358-X7t: the V39 message) and exactly by tests/p13b-s3-save-v23.test.ts:115-117 (probe N-0367 to N-0369 logged the V39 message; not in probe-failures.json)"
+ },
+ {
+  "id": "G1-new-1",
+  "file": "tests/p14c2s-scientist-retirement.test.ts",
+  "line": 287,
+  "old": "    expect(() => migrateToV36(live)).toThrow(/Scientist|scientist|downgrade/)",
+  "new": "    expect(() => migrateToV36(live)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-27$/)",
+  "cls": "S9",
+  "status": "measured",
+  "note": "probe G1-new-1 , [:280]: \"migrateToV43: cannot downgrade or discard the romance of relationship-edge-27\"; loose /Scientist|scientist|downgrade/ passed on it. Save44 newly masks the site (1358-F10 ruling 3 exception); under Save43 the V39 guard fired first (1344-X12 section 4). New comment :280-286. The Scientist guard (save.ts:10449-10454) is covered on genuine V37 input by :291 (F2-new-1). the V39 guard (save.ts:10600-10602) is covered by tests/p14p4p5-opportunities.test.ts Q03 :331 (convertV40ToV39 on a V40 envelope from the genuine V39 week-45 capture; Q03 passes in X6, absent from probe-failures.json; first refusal measured by probe F2-Q03 in 1358-X7t: the V39 message) and exactly by tests/p13b-s3-save-v23.test.ts:115-117 (probe N-0367 to N-0369 logged the V39 message; not in probe-failures.json)"
+ },
+ {
+  "id": "G1-new-1[:280]",
+  "file": "tests/p14c2s-scientist-retirement.test.ts",
+  "line": 288,
+  "old": "    expect(() => migrateToV35(live)).toThrow(/Scientist|scientist|downgrade/)",
+  "new": "    expect(() => migrateToV35(live)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-27$/)",
+  "cls": "S9",
+  "status": "measured",
+  "note": "probe G1-new-1[:280]: \"migrateToV43: cannot downgrade or discard the romance of relationship-edge-27\". migrateToV35(live) takes the same first refusal; covered by the same comment and assertion as :287."
+ },
+ {
+  "id": "N-0476",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 287,
+  "old": "    expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(current))))))))).toThrow()",
+  "new": "    expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(current))))))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)",
+  "cls": "S9",
+  "status": "measured",
+  "note": "probe N-0476: \"migrateToV43: cannot downgrade or discard the romance of relationship-edge-0\"; bare .toThrow() passed on it. Under Save43 the V39 guard fired first (1344-X12 section 4). New comment :281-286. The frozen V36 refusal the title names (validateSaveV36 through convertV37ToV36, save.ts:10457, innermost scriptDevelopment.ts:1118) stays covered on the genuine V37 pair by :279 (convertV37ToV36(old.finishing), /not contracted/i; the leaf passes in X6). the V39 guard (save.ts:10600-10602) is covered by tests/p14p4p5-opportunities.test.ts Q03 :331 (convertV40ToV39 on a V40 envelope from the genuine V39 week-45 capture; Q03 passes in X6, absent from probe-failures.json; first refusal measured by probe F2-Q03 in 1358-X7t: the V39 message) and exactly by tests/p13b-s3-save-v23.test.ts:115-117 (probe N-0367 to N-0369 logged the V39 message; not in probe-failures.json)"
+ },
+ {
+  "id": "F2-new-1",
+  "file": "tests/p14c2s-scientist-retirement.test.ts",
+  "line": 291,
+  "old": "",
+  "new": "    expect(() => convertV37ToV36(validateSaveV37(JSON.parse(scientistRaw())))).toThrow(/^migrateToV36: cannot downgrade SaveFileV37 or discard Scientist retirement \\u2014 t-sci-00 holds a record that V36 does not support$/)",
+  "cls": "S9 cover (new assertion)",
+  "status": "measured",
+  "note": "Scientist guard on its own era's genuine input: convertV37ToV36 checks raw records before validation (save.ts:10449-10454). Input: scientistRaw() (tests/helpers/p14c3-fixtures.ts, genuine-v37-scientist-week670.json.gz, MANIFEST sha checked by the helper). t-sci-00 holds the retired Scientist record (tests/p14c3-transitions.test.ts:184-185 asserts it on the migrated state); probe F2-SCI37 in 1358-X7t logged exactly the pinned message."
+ },
+ {
+  "id": "F2-new-2",
+  "file": "tests/p14c2s-scientist-retirement.test.ts",
+  "line": 8,
+  "old": "import { importSave, makeSave, migrateToLive, migrateToV35, migrateToV36, migrateToV37 } from '../src/core/save.js'",
+  "new": "import { convertV37ToV36, importSave, makeSave, migrateToLive, migrateToV35, migrateToV36, migrateToV37, validateSaveV37 } from '../src/core/save.js'",
+  "cls": "S9 cover (import)",
+  "status": "read",
+  "note": "convertV37ToV36 and validateSaveV37 for F2-new-1"
+ },
+ {
+  "id": "F2-new-3",
+  "file": "tests/p14c2s-scientist-retirement.test.ts",
+  "line": 15,
+  "old": "",
+  "new": "import { scientistRaw } from './helpers/p14c3-fixtures.js'",
+  "cls": "S9 cover (import)",
+  "status": "read",
+  "note": "scientistRaw for F2-new-1"
+ },
+ {
+  "id": "F2-new-4",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 278,
+  "old": "",
+  "new": "    expect(() => convertV36ToV35(convertV37ToV36(old.commissioned))).toThrow(/^migrateToV35: cannot downgrade SaveFileV36 or discard the retirement extension \\u2014 it holds 1 retirementExtension case\\(s\\) and 0 used extension\\(s\\) \\(first: authored-0000\\), and V35 has nowhere to record the one final extension$/)",
+  "cls": "S9 cover (new assertion)",
+  "status": "measured",
+  "note": "V36 extension guard on its own era's input (save.ts:10382-10388, pre-validation): convertV36ToV35 over the real convertV37ToV36 of historicalWriterPair().commissioned. Fixture read (rule 6, the one named file): tests/fixtures/p14/genuine-pre38-validation-controls/reproduced-v37-writer-commissioned311-finishing312.json.gz (compressed sha256 db162c4a... equals the helper pin): the commissioned311 V37 save holds 26 cases, one retirementExtension (index 25, authored-0000, opened 300, open) and no extensionUsed record, so the message reads 1 case, 0 used, first authored-0000. Probe F2-EXT36 in 1358-X7t logged exactly the pinned message. Named by the G4-new-3 and G4-new-4 comments."
+ },
+ {
+  "id": "F2-new-5",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 12,
+  "old": "import { convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,",
+  "new": "import { convertV36ToV35, convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,",
+  "cls": "S9 cover (import)",
+  "status": "read",
+  "note": "convertV36ToV35 for F2-new-4"
+ },
+ {
+  "id": "N-0468",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 236,
+  "old": "    expect(() => validateSaveV44(input)).toThrow()",
+  "new": "    expect(() => validateSaveV44(input)).toThrow(refusal)",
+  "cls": "S8",
+  "status": "measured",
+  "note": "bare .toThrow() -> .toThrow(refusal); the callback destructures the new column (:234). Probe N-0468 logged 18 cases (one per it.each row), each a deep validateSaveV37 to V9 chain or a V36/V38 message; every pin anchors on the innermost guard text with $. 1358-F10 ruling 2."
+ },
+ {
+  "id": "N-0468[type]",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 182,
+  "old": "const invalidCases: InvalidCase[] = [",
+  "new": "const invalidCases: (InvalidCase & { refusal: RegExp })[] = [",
+  "cls": "S8 (column)",
+  "status": "measured",
+  "note": "invalidCases gains the expected-message column `refusal`; the header comment :178-181 cites the measurement and the V9 prefixes (scriptDevelopment.ts:811, save.ts:3655). InvalidCase stays shared with invalidTemporalAuthority, which takes no pin (G5-new-7)."
+ },
+ {
+  "id": "N-0468[01]",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 185,
+  "old": "(no expected message; bare .toThrow() at r1 :218)",
+  "new": "    refusal: /validateSaveV36: talentMarket\\.cases\\[25\\] is a retirementExtension case for authored-0000, who holds no retirement record$/ }, // save.ts:10295",
+  "cls": "S8",
+  "status": "measured",
+  "note": "case 'missing lifecycle record': probe N-0468 [880-B live allowance stays narrowly scoped > refuses 'missing lifecycle record' without altering caller bytes] logged \"validateSaveV37: state is invalid — validateSaveV36: talentMarket.cases[25] is a retirementExtension case for authored-0000, who holds no retirement record\" (tail); pin anchors the innermost text at src/core/save.ts:10295 (v36Error, V36 retirementExtension case join). Observation: the V36 case join refuses the missing record before any writing-authority check the case name describes."
+ },
+ {
+  "id": "N-0468[02]",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 188,
+  "old": "(no expected message; bare .toThrow() at r1 :218)",
+  "new": "    refusal: /validateSaveV38: non-catalogue retirement is missing its exact finality$/ }, // professionHistory.ts:270",
+  "cls": "S8",
+  "status": "measured",
+  "note": "case 'retired lifecycle cannot own active writing': probe N-0468 [880-B live allowance stays narrowly scoped > refuses 'retired lifecycle cannot own active w…' without altering caller bytes] logged \"validateSaveV38: non-catalogue retirement is missing its exact finality\" (tail); pin anchors the innermost text at src/core/professionHistory.ts:270 (V38 noCatalogue finality). Observation: the V38 finality guard refuses the retired record before the writing-authority check the case name describes."
+ },
+ {
+  "id": "N-0468[03]",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 191,
+  "old": "(no expected message; bare .toThrow() at r1 :218)",
+  "new": "    refusal: /validateSaveV36: talentMarket\\.cases\\[25\\] is a retirementExtension case for authored-0000, who holds no retirement record$/ }, // save.ts:10295",
+  "cls": "S8",
+  "status": "measured",
+  "note": "case 'another person’s lifecycle record is not authority': probe N-0468 [880-B live allowance stays narrowly scoped > refuses 'another person’s lifecycle record is …' without altering caller bytes] logged \"validateSaveV37: state is invalid — validateSaveV36: talentMarket.cases[25] is a retirementExtension case for authored-0000, who holds no retirement record\" (tail); pin anchors the innermost text at src/core/save.ts:10295 (v36Error, V36 retirementExtension case join). Observation: as case 1, the V36 case join refuses first."
+ },
+ {
+  "id": "N-0468[04]",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 195,
+  "old": "(no expected message; bare .toThrow() at r1 :218)",
+  "new": "    refusal: /validateSaveV9: script development invariant: active project \"script-0000\" writer is not contracted$/ }, // scriptDevelopment.ts:1118",
+  "cls": "S8",
+  "status": "measured",
+  "note": "case 'wrong historical employer studio': probe N-0468 [880-B live allowance stays narrowly scoped > refuses 'wrong historical employer studio' without altering caller bytes] logged \"e is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: active project \"script-0000\" writer is not contracted\" (tail); pin anchors the innermost text at src/core/scriptDevelopment.ts:1118 (writer not contracted)."
+ },
+ {
+  "id": "N-0468[05]",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 199,
+  "old": "(no expected message; bare .toThrow() at r1 :218)",
+  "new": "    refusal: /validateSaveV9: script development invariant: active project \"script-0000\" writer is not contracted$/ }, // scriptDevelopment.ts:1118",
+  "cls": "S8",
+  "status": "measured",
+  "note": "case 'historical employment did not cover commissioning': probe N-0468 [880-B live allowance stays narrowly scoped > refuses 'historical employment did not cover c…' without altering caller bytes] logged \"e is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: active project \"script-0000\" writer is not contracted\" (tail); pin anchors the innermost text at src/core/scriptDevelopment.ts:1118 (writer not contracted)."
+ },
+ {
+  "id": "N-0468[06]",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 202,
+  "old": "(no expected message; bare .toThrow() at r1 :218)",
+  "new": "    refusal: /validateSaveV9: script development invariant: active project \"script-0000\" writer is not contracted$/ }, // scriptDevelopment.ts:1118",
+  "cls": "S8",
+  "status": "measured",
+  "note": "case 'missing historical employment': probe N-0468 [880-B live allowance stays narrowly scoped > refuses 'missing historical employment' without altering caller bytes] logged \"e is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: active project \"script-0000\" writer is not contracted\" (tail); pin anchors the innermost text at src/core/scriptDevelopment.ts:1118 (writer not contracted)."
+ },
+ {
+  "id": "N-0468[07]",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 204,
+  "old": "(no expected message; bare .toThrow() at r1 :218)",
+  "new": "    refusal: /validateSaveV9: script development invariant: active project \"script-0000\" writer is not contracted$/ }, // scriptDevelopment.ts:1118",
+  "cls": "S8",
+  "status": "measured",
+  "note": "case 'new work begins at E': probe N-0468 [880-B live allowance stays narrowly scoped > refuses 'new work begins at E' without altering caller bytes] logged \"e is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: active project \"script-0000\" writer is not contracted\" (tail); pin anchors the innermost text at src/core/scriptDevelopment.ts:1118 (writer not contracted)."
+ },
+ {
+  "id": "N-0468[08]",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 206,
+  "old": "(no expected message; bare .toThrow() at r1 :218)",
+  "new": "    refusal: /validateSaveV9: script development invariant: project \"script-0000\" has an invalid or future commission week$/ }, // scriptDevelopment.ts:996",
+  "cls": "S8",
+  "status": "measured",
+  "note": "case 'future commission week': probe N-0468 [880-B live allowance stays narrowly scoped > refuses 'future commission week' without altering caller bytes] logged \"lid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: project \"script-0000\" has an invalid or future commission week\" (tail); pin anchors the innermost text at src/core/scriptDevelopment.ts:996."
+ },
+ {
+  "id": "N-0468[09]",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 208,
+  "old": "(no expected message; bare .toThrow() at r1 :218)",
+  "new": "    refusal: /validateSaveV9: script development invariant: drafting project \"script-0000\" has an invalid due week$/ }, // scriptDevelopment.ts:1020",
+  "cls": "S8",
+  "status": "measured",
+  "note": "case 'due week is no longer in the future': probe N-0468 [880-B live allowance stays narrowly scoped > refuses 'due week is no longer in the future' without altering caller bytes] logged \" is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: drafting project \"script-0000\" has an invalid due week\" (tail); pin anchors the innermost text at src/core/scriptDevelopment.ts:1020."
+ },
+ {
+  "id": "N-0468[10]",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 210,
+  "old": "(no expected message; bare .toThrow() at r1 :218)",
+  "new": "    refusal: /validateSaveV9: script development invariant: drafting project \"script-0000\" has an invalid due week$/ }, // scriptDevelopment.ts:1020",
+  "cls": "S8",
+  "status": "measured",
+  "note": "case 'due week exceeds the ordinary draft bound': probe N-0468 [880-B live allowance stays narrowly scoped > refuses 'due week exceeds the ordinary draft b…' without altering caller bytes] logged \" is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: drafting project \"script-0000\" has an invalid due week\" (tail); pin anchors the innermost text at src/core/scriptDevelopment.ts:1020."
+ },
+ {
+  "id": "N-0468[11]",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 212,
+  "old": "(no expected message; bare .toThrow() at r1 :218)",
+  "new": "    refusal: /validateSaveV9: script development invariant: project \"script-0000\" references unknown writer \"missing-writer\"$/ }, // scriptDevelopment.ts:1113",
+  "cls": "S8",
+  "status": "measured",
+  "note": "case 'unknown writer membership': probe N-0468 [880-B live allowance stays narrowly scoped > refuses 'unknown writer membership' without altering caller bytes] logged \"d — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: project \"script-0000\" references unknown writer \"missing-writer\"\" (tail); pin anchors the innermost text at src/core/scriptDevelopment.ts:1113."
+ },
+ {
+  "id": "N-0468[12]",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 215,
+  "old": "(no expected message; bare .toThrow() at r1 :218)",
+  "new": "  }), refusal: /validateSaveV9: script development invariant: active project \"script-0000\" writer is not contracted$/ }, // scriptDevelopment.ts:1118",
+  "cls": "S8",
+  "status": "measured",
+  "note": "case 'uncontracted second writer without retirement authority': probe N-0468 [880-B live allowance stays narrowly scoped > refuses 'uncontracted second writer without re…' without altering caller bytes] logged \"e is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: active project \"script-0000\" writer is not contracted\" (tail); pin anchors the innermost text at src/core/scriptDevelopment.ts:1118 (writer not contracted)."
+ },
+ {
+  "id": "N-0468[13]",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 217,
+  "old": "(no expected message; bare .toThrow() at r1 :218)",
+  "new": "    refusal: /validateSaveV9: state\\.scriptDevelopment\\.projects\\[0\\]\\.writerIds\\[1\\] is duplicated$/ }, // save.ts:3532",
+  "cls": "S8",
+  "status": "measured",
+  "note": "case 'duplicate writer membership': probe N-0468 [880-B live allowance stays narrowly scoped > refuses 'duplicate writer membership' without altering caller bytes] logged \"eV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: state.scriptDevelopment.projects[0].writerIds[1] is duplicated\" (tail); pin anchors the innermost text at src/core/save.ts:3532 (v9Error)."
+ },
+ {
+  "id": "N-0468[14]",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 219,
+  "old": "(no expected message; bare .toThrow() at r1 :218)",
+  "new": "    refusal: /validateSaveV9: state\\.scriptDevelopment\\.projects\\[0\\]\\.writerIds must hold between 1 and 5 writers$/ }, // save.ts:3526",
+  "cls": "S8",
+  "status": "measured",
+  "note": "case 'attributed writer is missing from membership': probe N-0468 [880-B live allowance stays narrowly scoped > refuses 'attributed writer is missing from mem…' without altering caller bytes] logged \"state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: state.scriptDevelopment.projects[0].writerIds must hold between 1 and 5 writers\" (tail); pin anchors the innermost text at src/core/save.ts:3526 (v9Error)."
+ },
+ {
+  "id": "N-0468[15]",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 222,
+  "old": "(no expected message; bare .toThrow() at r1 :218)",
+  "new": "  }), refusal: /validateSaveV9: script development invariant: project \"script-0000\" reservation owner disagrees$/ }, // scriptDevelopment.ts:919",
+  "cls": "S8",
+  "status": "measured",
+  "note": "case 'reservation belongs to another project': probe N-0468 [880-B live allowance stays narrowly scoped > refuses 'reservation belongs to another project' without altering caller bytes] logged \"state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: project \"script-0000\" reservation owner disagrees\" (tail); pin anchors the innermost text at src/core/scriptDevelopment.ts:919."
+ },
+ {
+  "id": "N-0468[16]",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 225,
+  "old": "(no expected message; bare .toThrow() at r1 :218)",
+  "new": "  }), refusal: /validateSaveV9: script development invariant: project \"script-0000\" reservation slot is outside facility capacity$/ }, // scriptDevelopment.ts:932",
+  "cls": "S8",
+  "status": "measured",
+  "note": "case 'reservation slot is outside capacity': probe N-0468 [880-B live allowance stays narrowly scoped > refuses 'reservation slot is outside capacity' without altering caller bytes] logged \" validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: project \"script-0000\" reservation slot is outside facility capacity\" (tail); pin anchors the innermost text at src/core/scriptDevelopment.ts:932."
+ },
+ {
+  "id": "N-0468[17]",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 227,
+  "old": "(no expected message; bare .toThrow() at r1 :218)",
+  "new": "    refusal: /validateSaveV9: script development invariant: project \"script-0000\" references unknown concept$/ }, // scriptDevelopment.ts:984",
+  "cls": "S8",
+  "status": "measured",
+  "note": "case 'unknown concept reference': probe N-0468 [880-B live allowance stays narrowly scoped > refuses 'unknown concept reference' without altering caller bytes] logged \" state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: project \"script-0000\" references unknown concept\" (tail); pin anchors the innermost text at src/core/scriptDevelopment.ts:984."
+ },
+ {
+  "id": "N-0468[18]",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 230,
+  "old": "(no expected message; bare .toThrow() at r1 :218)",
+  "new": "  }), refusal: /validateSaveV9: script development invariant: duplicate concept link \"concept-orig-0000\"$/ }, // scriptDevelopment.ts:980",
+  "cls": "S8",
+  "status": "measured",
+  "note": "case 'duplicate active project cannot borrow the same writer or slot': probe N-0468 [880-B live allowance stays narrowly scoped > refuses 'duplicate active project cannot borro…' without altering caller bytes] logged \"en V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: duplicate concept link \"concept-orig-0000\"\" (tail); pin anchors the innermost text at src/core/scriptDevelopment.ts:980. Observation: the duplicate concept link refuses the copied project before any writer or slot double-booking check the case name describes."
+ },
+ {
+  "id": "N-0470",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 252,
+  "old": "    expect(() => validateSaveV44(envelope(illegal))).toThrow()",
+  "new": "    expect(() => validateSaveV44(envelope(illegal))).toThrow(/validateSaveV9: script development invariant: active project \"script-0000\" writer is not contracted$/)",
+  "cls": "S8",
+  "status": "measured",
+  "note": "probe N-0470 innermost \"validateSaveV9: script development invariant: active project \\\"script-0000\\\" writer is not contracted\" (src/core/scriptDevelopment.ts:1118); comment :250-251. The tampered field's own guard."
+ },
+ {
+  "id": "N-0472",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 263,
+  "old": "    expect(() => validateSaveV44(input)).toThrow()",
+  "new": "    expect(() => validateSaveV44(input)).toThrow(/validateSaveV9: state\\.scriptDevelopment\\.projects\\[0\\] has unknown field \"retirementBypass\"$/)",
+  "cls": "S8",
+  "status": "measured",
+  "note": "probe N-0472 innermost \"validateSaveV9: state.scriptDevelopment.projects[0] has unknown field \\\"retirementBypass\\\"\" (src/core/save.ts:3371, v9ExactKeys); comment :261-262. The tampered field's own guard."
+ },
+ {
+  "id": "N-0474",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 264,
+  "old": "    expect(() => validateSaveV44({ ...envelope(f.finishing), retirementBypass: true })).toThrow(/^validateSaveV12: save has unknown field \"retirementBypass\"$/)",
+  "new": "    expect(() => validateSaveV44({ ...envelope(f.finishing), retirementBypass: true })).toThrow(/^validateSaveV12: save has unknown field \"retirementBypass\"$/)",
+  "cls": "S8",
+  "status": "read",
+  "note": "no edit: G5's read pin /^validateSaveV12: save has unknown field \"retirementBypass\"$/ stands (the fourth finding-17 leaf)."
+ },
+ {
+  "id": "G5-new-7",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 378,
+  "old": "      expect(() => validateSaveV44(envelope(invalid)), 'existing full-save refusal is a control').toThrow()",
+  "new": "      expect(() => validateSaveV44(envelope(invalid)), 'existing full-save refusal is a control').toThrow()",
+  "cls": "S8",
+  "status": "measured",
+  "note": "no edit (rule 3): probe G5-new-7 logged 32 cases (4 liveTemporalCallers x 8 invalidTemporalAuthority rows); each reaches the tampered record's own guard (V34 whole week, intent version, announced or finishing status; V36 case-announcement join; V38 duplicate episode), none a version check. The parent records it in 1358-X6."
+ },
+ {
+  "id": "H-new-1",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 121,
+  "old": "    expect(() => validate(mutated), row.name).toThrow()",
+  "new": "    expect(() => validate(mutated), row.name).toThrow()",
+  "cls": "S8",
+  "status": "measured",
+  "note": "no edit (rule 3): probe H-new-1 logged 102 cases across the 11 rejectMutations tests, each a validateSaveV38 guard naming the mutated field, none a version check. The parent records it in 1358-X6."
+ },
+ {
+  "id": "N-0041",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 92,
+  "old": "      expect(stableStringify(stripped), 'every old field, receipt, clock and RNG value survives migration').toBe(stableStringify(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(withFirstTakeSubjects(old.state))))))",
+  "new": "      expect(stableStringify(stripped), 'every old field, receipt, clock and RNG value survives migration').toBe(stableStringify(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(withFirstTakeSubjects(old.state)))))))",
+  "cls": "S5",
+  "status": "measured",
+  "note": "probe-failures.json: the three genuine cases with edges fail at :87 on the whole-state string comparison (created-week0, with no edge, passes). By reading, convertV43ToV44 (save.ts:10776-10781) adds only competitions [] and romance null to every edge, and stableStringify sorts keys, so the expected side gains them through the per-file helper. The X6 output truncated both strings; probe F2-N-0041 in 1358-X7t logged normalizedEqual=true and asWrittenEqual=true for all four files (created-week0: 0 edges; the three others: 30 edges), with 0 log rows and 0 romances, so the S5 stop rule does not fire."
+ },
+ {
+  "id": "N-0041[helper]",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 51,
+  "old": "",
+  "new": "function withEmptyCompetitionsAndRomance<T extends WithRelationships>(state: T): T {",
+  "cls": "S5 (helper)",
+  "status": "measured",
+  "note": "withEmptyCompetitionsAndRomance beside withEmptyScreenplayShelving (:49-54), mapped over the old state's own edges; builds the two fields, strips nothing (1358-F9 ruling 6)."
+ },
+ {
+  "id": "N-0042",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 105,
+  "old": "    expect(stableStringify(migrateToLive(old))).toBe(stableStringify(converted))",
+  "new": "    expect(stableStringify(migrateToLive(old))).toBe(stableStringify(converted))",
+  "cls": "S10 (C20 retained)",
+  "status": "measured",
+  "note": "no edit (1358-F9 ruling 7): probe-failures.json shows the retained C20 primary embedding the live version, now 44 ('{\"broadcastCache\":[],\"saveVersion\":44...' to be '...38...')."
+ },
+ {
+  "id": "F11-1",
+  "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+  "line": 256,
+  "old": "    expect(() => mods().convertV43ToV42(env)).toThrow(/shelv/i)",
+  "new": "    expect(() => mods().convertV43ToV42(env)).toThrow(/^migrateToV42: cannot downgrade or discard a screenplayShelved receipt$/)",
+  "cls": "S9 cover (receipt guard, 1358-F11)",
+  "status": "measured",
+  "note": "parent ruling 1358-F11 (file of group G1, edited with the parent's leave): /shelv/i -> the exact convertV43ToV42 receipt refusal (src/core/save.ts:10739-10740). Probe F2-RECEIPT43[real-concept] in 1358-X7t logged \"migrateToV42: cannot downgrade or discard a screenplayShelved receipt\" on this input. Comment :251-255 records why and names J7, X5 and O3. The leaf is now the receipt guard's own-era cover (hand-built V43 envelope from the genuine V42 week-130 capture)."
+ },
+ {
+  "id": "F11-2",
+  "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+  "line": 249,
+  "old": "      studioId: RIVAL_R01, kind: 'screenplayShelved', scriptProjectId: b.development.projects[6]!.id, conceptId: 'x', rejections: TUNING_FUTURE.HOLLYWOOD_SHELVE_AFTER_REJECTIONS })",
+  "new": "      studioId: RIVAL_R01, kind: 'screenplayShelved', scriptProjectId: b.development.projects[6]!.id, conceptId: b.projects[6]!.conceptId, rejections: TUNING_FUTURE.HOLLYWOOD_SHELVE_AFTER_REJECTIONS })",
+  "cls": "S9 cover (receipt guard, 1358-F11)",
+  "status": "measured",
+  "note": "conceptId 'x' -> b.projects[6]!.conceptId, the business's own costed concept for ordinal 6. Probe F2-RECEIPT43[as-written] in 1358-X7t showed the old receipt refused inside the validateSaveV37 chain with \"Hollywood save: screenplayShelved receipt names no costed screenplay of its rival\" (src/core/hollywoodValidation.ts:539), which /shelv/i accepted."
+ },
+ {
+  "id": "F11-3",
+  "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+  "line": 241,
+  "old": "        development: { projects: { id: string }[] }; screenplayShelving?: unknown }[]",
+  "new": "        development: { projects: { id: string }[] }; projects: { conceptId: string }[]; screenplayShelving?: unknown }[]",
+  "cls": "S9 cover (type)",
+  "status": "read",
+  "note": "the local cast type gains projects: { conceptId: string }[] so F11-2 reads the costed concept"
+ },
+ {
+  "id": "F11-4",
+  "file": "tests/p14c3-cohort-transition.test.ts",
+  "line": 287,
+  "old": "    // by tests/p14c3-transitions.test.ts:175 (rejection count); no other test pins its receipt guard.",
+  "new": "    // input by tests/p14d1-rival-shelving-save-v43.test.ts:256 (1358-F11).",
+  "cls": "S9 comment (1358-F11)",
+  "status": "read",
+  "note": "comment only: the receipt guard's cover sentence now names tests/p14d1-rival-shelving-save-v43.test.ts:256 in place of the rejection-count note and \"no other test pins its receipt guard\""
+ },
+ {
+  "id": "F11-5",
+  "file": "tests/p14c3-dual-extensions.test.ts",
+  "line": 179,
+  "old": "    // tests/p14c3-transitions.test.ts:175 (rejection count); no other test pins its receipt guard.",
+  "new": "    // tests/p14d1-rival-shelving-save-v43.test.ts:256 (1358-F11).",
+  "cls": "S9 comment (1358-F11)",
+  "status": "read",
+  "note": "comment only: the receipt guard's cover sentence now names tests/p14d1-rival-shelving-save-v43.test.ts:256 in place of the rejection-count note and \"no other test pins its receipt guard\""
+ },
+ {
+  "id": "F11-6",
+  "file": "tests/p14c3-offmenu-extensions.test.ts",
+  "line": 236,
+  "old": "    // tests/p14c3-transitions.test.ts:175 (rejection count); no other test pins its receipt guard.",
+  "new": "    // tests/p14d1-rival-shelving-save-v43.test.ts:256 (1358-F11).",
+  "cls": "S9 comment (1358-F11)",
+  "status": "read",
+  "note": "comment only: the receipt guard's cover sentence now names tests/p14d1-rival-shelving-save-v43.test.ts:256 in place of the rejection-count note and \"no other test pins its receipt guard\""
+ }
+]

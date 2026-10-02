@@ -1,0 +1,75 @@
+// 1358-M2 snapshot probe 2 (1358-F8 ruling 5; 1358-J findings 11 and 12). Scratch only, never lands.
+// Probe 1 built the player's people projection on the natural routes; with no player roster every relationship
+// block was empty, so mentorEvidence never ran. This probe reaches the rows two ways:
+//   SNAP2_MODE=route: one natural chain (p13aGeneratedStudio(seed), tick only). Every week it calls mentorEvidence for
+//     every person (the invariant of finding 11). Every SNAP2_EVERY weeks it builds relationshipBlockFor for every
+//     person with each studio that holds an employment row as the viewer, timing the whole set (finding 12).
+//   SNAP2_MODE=cohort: the cohort route the Mentor leaves use (cohortThreeFilms, a player with a roster). On its final
+//     state it times peopleProjection five times and counts rows and labelled rows.
+import { it } from 'vitest'
+import { performance } from 'node:perf_hooks'
+import { tick } from '../src/core/index.js'
+import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+import { relationshipBlockFor } from '../bridge/relationships.js'
+import { peopleProjection } from '../bridge/people.js'
+import * as labels from '../src/core/relationshipLabels.js'
+import { cohortThreeFilms } from './helpers/p14c3-cohort-transition-fixtures.js'
+import type { GameState } from '../src/core/types.js'
+
+const MODE = process.env.SNAP2_MODE ?? 'route'
+const SEED = process.env.SNAP2_SEED ?? 'p13a-core-causal-01'
+const WEEKS = Number(process.env.SNAP2_WEEKS ?? '520')
+const EVERY = Number(process.env.SNAP2_EVERY ?? '4')
+type Row = { labels?: unknown[] }
+const rowsOf = (block: unknown): Row[] => ((block as { rows?: Row[] }).rows ?? [])
+const stats = (ms: number[]) => {
+  const s = [...ms].sort((a, b) => a - b)
+  const q = (p: number) => s[Math.min(s.length - 1, Math.floor(p * s.length))]
+  return { n: ms.length, totalMs: Math.round(ms.reduce((a, b) => a + b, 0)), p50: +q(0.5).toFixed(2), p95: +q(0.95).toFixed(2), max: +s[s.length - 1].toFixed(2) }
+}
+
+it('snapshot probe 2', () => {
+  const mentor = (labels as unknown as { mentorEvidence?: (s: GameState, id: string) => unknown }).mentorEvidence
+  if (MODE === 'cohort') {
+    const { state } = cohortThreeFilms()
+    const ms: number[] = []
+    let rows = 0, labelled = 0, profiles = 0
+    for (let n = 0; n < 5; n++) {
+      const started = performance.now()
+      const people = peopleProjection(state) as unknown as { profiles: { collaborators: unknown }[] }
+      ms.push(performance.now() - started)
+      if (n === 0) { profiles = people.profiles.length; for (const p of people.profiles) for (const r of rowsOf(p.collaborators)) { rows++; if ((r.labels?.length ?? 0) > 0) labelled++ } }
+    }
+    console.log('SNAP2 ' + JSON.stringify({ mode: MODE, week: state.market.tick, profiles, rows, labelled, build: stats(ms) }))
+    return
+  }
+  let state = p13aGeneratedStudio(SEED)
+  let calls = 0, nonNull = 0, throws = 0
+  const firstThrows: { week: number; id: string; message: string }[] = []
+  const blockMs: number[] = []
+  let sampledRows = 0, sampledLabelled = 0, maxWeekRows = 0, viewers = 0
+  for (let week = 0; week <= WEEKS; week++) {
+    if (typeof mentor === 'function') for (const t of state.talent) {
+      calls++
+      try { if (mentor(state, t.id) !== null) nonNull++ } catch (e) {
+        throws++
+        if (firstThrows.length < 5) firstThrows.push({ week, id: t.id, message: e instanceof Error ? e.message : String(e) })
+      }
+    }
+    if (week % EVERY === 0) {
+      const studios = [...new Set((state.hollywood?.employment ?? []).map((row) => row.studioId))]
+      viewers = Math.max(viewers, studios.length)
+      const started = performance.now()
+      let weekRows = 0
+      for (const studioId of studios) for (const t of state.talent) for (const r of rowsOf(relationshipBlockFor(state, t.id, studioId))) {
+        weekRows++; if ((r.labels?.length ?? 0) > 0) sampledLabelled++
+      }
+      blockMs.push(performance.now() - started)
+      sampledRows += weekRows; maxWeekRows = Math.max(maxWeekRows, weekRows)
+    }
+    if (week < WEEKS) state = tick(state)
+  }
+  console.log('SNAP2 ' + JSON.stringify({ mode: MODE, seed: SEED, weeks: WEEKS, every: EVERY,
+    mentor: { available: typeof mentor === 'function', calls, nonNull, throws, firstThrows },
+    blocks: { ...stats(blockMs), maxViewers: viewers, sampledRows, sampledLabelled, maxWeekRows } }))
+}, 3_600_000)

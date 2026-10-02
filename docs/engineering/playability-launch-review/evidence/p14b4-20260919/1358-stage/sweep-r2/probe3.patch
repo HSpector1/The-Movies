@@ -1,0 +1,12 @@
+diff --git a/tests/p14d1-rival-shelving.test.ts b/tests/p14d1-rival-shelving.test.ts
+index 81ac3e9..7458bc4 100644
+--- a/tests/p14d1-rival-shelving.test.ts
++++ b/tests/p14d1-rival-shelving.test.ts
+@@ -607,6 +607,7 @@ describe('shelving-viable-control (1344-F Amendment 2)', () => {
+     const canon = (v: unknown): unknown => Array.isArray(v) ? v.map(canon)
+       : v !== null && typeof v === 'object' ? Object.fromEntries(Object.keys(v as object).sort().map(k => [k, canon((v as Record<string, unknown>)[k])]))
+       : v
++    try { const es = state.relationships ?? []; const norm = (s: GameState) => ({ ...s, relationships: (s.relationships ?? []).map(e => ({ ...e, competitions: [], romance: null })) }); console.log('PROBE1358 N-0140 ' + JSON.stringify({ edges: es.length, logRows: es.reduce((n, e) => n + ((e as { competitions?: unknown[] }).competitions?.length ?? 0), 0), tracks: es.filter(e => (e as { romance?: unknown }).romance != null).length, equal: JSON.stringify(canon(strip(state))) === JSON.stringify(canon(strip(genuineState))), equalNormalized: JSON.stringify(canon(strip(norm(state)))) === JSON.stringify(canon(strip(norm(genuineState)))) })) } catch (e) { console.log('PROBE1358 N-0140 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(JSON.stringify(canon(strip(state)))).toBe(JSON.stringify(canon(strip(genuineState))))
+     expect(state.hollywood!.receipts).toEqual(genuineState.hollywood!.receipts)
+     // Premise, derived from the CANDIDATE's own receipts (never a hard-coded shelving

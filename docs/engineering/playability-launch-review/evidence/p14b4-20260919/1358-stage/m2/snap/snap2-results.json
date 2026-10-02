@@ -1,0 +1,242 @@
+[
+ {
+  "mode": "route",
+  "seed": "p13a-core-causal-01",
+  "weeks": 520,
+  "every": 4,
+  "mentor": {
+   "available": true,
+   "calls": 46716,
+   "nonNull": 0,
+   "throws": 0,
+   "firstThrows": []
+  },
+  "blocks": {
+   "n": 131,
+   "totalMs": 1366,
+   "p50": 10.01,
+   "p95": 16.74,
+   "max": 32.25,
+   "maxViewers": 5,
+   "sampledRows": 4599,
+   "sampledLabelled": 0,
+   "maxWeekRows": 48
+  },
+  "tree": "sweep",
+  "exit": 0
+ },
+ {
+  "mode": "route",
+  "seed": "seed-b",
+  "weeks": 520,
+  "every": 4,
+  "mentor": {
+   "available": true,
+   "calls": 45936,
+   "nonNull": 0,
+   "throws": 0,
+   "firstThrows": []
+  },
+  "blocks": {
+   "n": 131,
+   "totalMs": 2545,
+   "p50": 17.92,
+   "p95": 25.59,
+   "max": 167.51,
+   "maxViewers": 5,
+   "sampledRows": 6167,
+   "sampledLabelled": 0,
+   "maxWeekRows": 55
+  },
+  "tree": "sweep",
+  "exit": 0
+ },
+ {
+  "mode": "route",
+  "seed": "p13b-s8-bridge-probe-01",
+  "weeks": 520,
+  "every": 4,
+  "mentor": {
+   "available": true,
+   "calls": 46093,
+   "nonNull": 0,
+   "throws": 0,
+   "firstThrows": []
+  },
+  "blocks": {
+   "n": 131,
+   "totalMs": 2807,
+   "p50": 18.66,
+   "p95": 44.93,
+   "max": 136.68,
+   "maxViewers": 5,
+   "sampledRows": 7767,
+   "sampledLabelled": 0,
+   "maxWeekRows": 75
+  },
+  "tree": "sweep",
+  "exit": 0
+ },
+ {
+  "mode": "route",
+  "seed": "p13-public-commercial-adoption",
+  "weeks": 520,
+  "every": 4,
+  "mentor": {
+   "available": true,
+   "calls": 47343,
+   "nonNull": 0,
+   "throws": 0,
+   "firstThrows": []
+  },
+  "blocks": {
+   "n": 131,
+   "totalMs": 1904,
+   "p50": 13.3,
+   "p95": 21.46,
+   "max": 49.22,
+   "maxViewers": 5,
+   "sampledRows": 6786,
+   "sampledLabelled": 0,
+   "maxWeekRows": 66
+  },
+  "tree": "sweep",
+  "exit": 0
+ },
+ {
+  "mode": "cohort",
+  "week": 2635,
+  "profiles": 187,
+  "rows": 30,
+  "labelled": 2,
+  "build": {
+   "n": 5,
+   "totalMs": 1329,
+   "p50": 234.55,
+   "p95": 393.43,
+   "max": 393.43
+  },
+  "tree": "sweep",
+  "exit": 0
+ },
+ {
+  "mode": "route",
+  "seed": "p13a-core-causal-01",
+  "weeks": 520,
+  "every": 4,
+  "mentor": {
+   "available": true,
+   "calls": 46716,
+   "nonNull": 0,
+   "throws": 0,
+   "firstThrows": []
+  },
+  "blocks": {
+   "n": 131,
+   "totalMs": 1193,
+   "p50": 9.11,
+   "p95": 15.02,
+   "max": 21.32,
+   "maxViewers": 5,
+   "sampledRows": 4599,
+   "sampledLabelled": 0,
+   "maxWeekRows": 48
+  },
+  "tree": "base",
+  "exit": 0
+ },
+ {
+  "mode": "route",
+  "seed": "seed-b",
+  "weeks": 520,
+  "every": 4,
+  "mentor": {
+   "available": true,
+   "calls": 45936,
+   "nonNull": 0,
+   "throws": 0,
+   "firstThrows": []
+  },
+  "blocks": {
+   "n": 131,
+   "totalMs": 1818,
+   "p50": 15.21,
+   "p95": 20.31,
+   "max": 29.54,
+   "maxViewers": 5,
+   "sampledRows": 6167,
+   "sampledLabelled": 0,
+   "maxWeekRows": 55
+  },
+  "tree": "base",
+  "exit": 0
+ },
+ {
+  "mode": "route",
+  "seed": "p13b-s8-bridge-probe-01",
+  "weeks": 520,
+  "every": 4,
+  "mentor": {
+   "available": true,
+   "calls": 46093,
+   "nonNull": 0,
+   "throws": 0,
+   "firstThrows": []
+  },
+  "blocks": {
+   "n": 131,
+   "totalMs": 2525,
+   "p50": 19.56,
+   "p95": 31.93,
+   "max": 53.94,
+   "maxViewers": 5,
+   "sampledRows": 7767,
+   "sampledLabelled": 0,
+   "maxWeekRows": 75
+  },
+  "tree": "base",
+  "exit": 0
+ },
+ {
+  "mode": "route",
+  "seed": "p13-public-commercial-adoption",
+  "weeks": 520,
+  "every": 4,
+  "mentor": {
+   "available": true,
+   "calls": 47343,
+   "nonNull": 0,
+   "throws": 0,
+   "firstThrows": []
+  },
+  "blocks": {
+   "n": 131,
+   "totalMs": 1862,
+   "p50": 13.4,
+   "p95": 22.22,
+   "max": 46.9,
+   "maxViewers": 5,
+   "sampledRows": 6786,
+   "sampledLabelled": 0,
+   "maxWeekRows": 66
+  },
+  "tree": "base",
+  "exit": 0
+ },
+ {
+  "mode": "cohort",
+  "week": 2635,
+  "profiles": 187,
+  "rows": 30,
+  "labelled": 0,
+  "build": {
+   "n": 5,
+   "totalMs": 1543,
+   "p50": 245.6,
+   "p95": 437.1,
+   "max": 437.1
+  },
+  "tree": "base",
+  "exit": 0
+ }
+]
