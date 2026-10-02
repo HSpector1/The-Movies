@@ -58,6 +58,10 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
 // that window would carry the earlier hash, and this map is keyed on the
 // hash, not the label.
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // Relationship slice B: the outgoing56 identity (the contract manifest's schemaId before the
+  // projection-57 bump). Each Save41-Save43 slot lifts to Save44 independently; prior
+  // session/journal authority resets.
+  ['sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1', 'projection-v56'],
   // R2/R3: genuine1307 preserves an outgoing55 current111/saved110 checkpoint.
   // Each Save40 slot lifts to Save41 independently; prior session/journal authority resets.
   ['sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158', 'projection-v55'],

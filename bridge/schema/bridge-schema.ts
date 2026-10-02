@@ -280,7 +280,10 @@ export const PROTOCOL_VERSION = 4 as const
 // Genuine outgoing54 checkpoints retain distinct slots through Save40 migration.
 // R2/R3: two contract refusal codes (`foundingDraft`, `seatedOnActiveProduction`).
 // Genuine outgoing55 checkpoints are registered before this Save41 runtime boundary.
-export const PROJECTION_VERSION = 56 as const
+// Relationship slice B (1347-F Addendum: one step for both): the collaborators row gains
+// `labels` (HIS-014 Mentor, Professional Rivals) and `romance` (D-1312-2). The outgoing56
+// identity is registered as a prior schema before this Save44 runtime boundary.
+export const PROJECTION_VERSION = 57 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -2779,6 +2782,21 @@ const StudioTrustBlock = object('StudioTrustBlock', {
 // on every serialized DTO (tests/bridge-p14b5-relationships.test.ts :404-408) and a
 // `$def` name never appears as a key. The tier vocabulary and the no-magnitude law are
 // stated on `StudioCastingChemistryRow` above.
+// Relationship slice B (projection 57; 1347-A §2.4 and §4, 1347-F Addendum): a label is its
+// name and one evidence sentence, which cites dates, and pictures only when they are
+// released or the viewer's own. The romance block is the last bond's status and calendar
+// labels. No value, anchor, closeness or other magnitude.
+const RELATIONSHIP_LABEL_NAMES = ['Mentor', 'Professional Rivals'] as const
+const StudioRelationshipLabel = object('StudioRelationshipLabel', {
+  label: enumeration(RELATIONSHIP_LABEL_NAMES),
+  evidence: nonEmptyText(),
+})
+const StudioRelationshipRomance = object('StudioRelationshipRomance', {
+  status: enumeration(['partners', 'ended']),
+  sinceLabel: nonEmptyText(),
+  /** Null while the pair are Partners. */
+  endedLabel: nullable(nonEmptyText()),
+})
 const StudioRelationshipRow = object('StudioRelationshipRow', {
   counterpartId: nonEmptyText(),
   counterpartName: nonEmptyText(),
@@ -2790,6 +2808,10 @@ const StudioRelationshipRow = object('StudioRelationshipRow', {
   drivers: array(nonEmptyText()),
   /** A FACT derived from `firstTakes` and released credits, never friendship. */
   sharedPictures: nonNegativeInteger(),
+  /** HIS-014 labels, derived on read; they decorate the tier and change nothing. */
+  labels: array(reference('StudioRelationshipLabel', StudioRelationshipLabel)),
+  /** D-1312-2: null when no bond ever formed. */
+  romance: nullable(reference('StudioRelationshipRomance', StudioRelationshipRomance)),
 })
 const StudioRelationshipBlock = object('StudioRelationshipBlock', {
   asOfWeek: nullable(nonNegativeInteger()),
@@ -3703,6 +3725,8 @@ const definitions = {
   StudioWorldRouteSnapshot,
   StudioTrustDriverRow,
   StudioTrustBlock,
+  StudioRelationshipLabel,
+  StudioRelationshipRomance,
   StudioRelationshipRow,
   StudioRelationshipBlock,
   StudioProfessionRetirement,

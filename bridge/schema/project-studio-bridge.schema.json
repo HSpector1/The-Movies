@@ -561,7 +561,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 56,
+          "const": 57,
           "type": "integer"
         },
         "stateDigest": {
@@ -678,7 +678,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 56,
+          "const": 57,
           "type": "integer"
         },
         "stateDigest": {
@@ -1201,7 +1201,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 56,
+          "const": 57,
           "type": "integer"
         },
         "stateDigest": {
@@ -1280,7 +1280,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 56,
+          "const": 57,
           "type": "integer"
         },
         "stateDigest": {
@@ -1572,7 +1572,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 56,
+          "const": 57,
           "type": "integer"
         },
         "stateDigest": {
@@ -15418,6 +15418,62 @@
       "type": "object",
       "x-csharp-name": "StudioRelationshipBlock"
     },
+    "StudioRelationshipLabel": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "enum": [
+            "Mentor",
+            "Professional Rivals"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence",
+        "label"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioRelationshipLabel"
+    },
+    "StudioRelationshipRomance": {
+      "additionalProperties": false,
+      "properties": {
+        "endedLabel": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sinceLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "partners",
+            "ended"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "endedLabel",
+        "sinceLabel",
+        "status"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioRelationshipRomance"
+    },
     "StudioRelationshipRow": {
       "additionalProperties": false,
       "properties": {
@@ -15435,6 +15491,22 @@
             "type": "string"
           },
           "type": "array"
+        },
+        "labels": {
+          "items": {
+            "$ref": "#/$defs/StudioRelationshipLabel"
+          },
+          "type": "array"
+        },
+        "romance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioRelationshipRomance"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "sharedPictures": {
           "maximum": 2147483647,
@@ -15471,6 +15543,8 @@
         "counterpartId",
         "counterpartName",
         "drivers",
+        "labels",
+        "romance",
         "sharedPictures",
         "sign",
         "tierLabel"
@@ -17967,7 +18041,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-56",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-57",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -18023,7 +18097,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 56,
+    "projectionVersion": 57,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

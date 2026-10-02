@@ -24,10 +24,11 @@
 //     `firstTakes` and released credits, is published for a pair with NO edge exactly as
 //     readily as for a pair with one, and never implies a tier. A campaign that predates
 //     the V31 root therefore shows counts and no tiers — nothing is backfilled.
-import { pairChemistry, type PairChemistry } from '../src/core/relationships.ts'
+import { pairChemistry, romanceEndWeek, romanceStatus, type PairChemistry } from '../src/core/relationships.ts'
+import { mentorEvidence, professionalRivalsEvidence } from '../src/core/relationshipLabels.ts'
 import { latestCompletedRetirement, retirementRecordFor } from '../src/core/careerLifecycle.ts'
 import { campaignDate } from '../src/core/calendar.ts'
-import type { GameState } from '../src/core/types.ts'
+import type { CastSlot, FirstTakeReceipt, GameState, RelationshipEdge } from '../src/core/types.ts'
 import type {
   BridgeCastingChemistryRow, BridgeRelationshipBlock, BridgeRelationshipRow,
 } from './schema/bridge-schema.ts'
@@ -175,12 +176,59 @@ function sharesViewerPicture(state: GameState, talentId: string, viewerStudioId:
   return false
 }
 
+type LabelRow = BridgeRelationshipRow['labels'][number]
+const ROLE_COPY: Readonly<Record<CastSlot, string>> = { lead: 'the lead', antagonist: 'the antagonist', support: 'the supporting role' }
+
+/** How Mentor evidence cites one picture (1347-A §4 "released pictures or the viewer's
+ *  own" and §6 item 8; 1358-F4 item 1): a rival picture only once it is released, by its
+ *  public title; a picture of the viewer's own, released or not, by its concept title, or
+ *  by its first-take week when no title is on record. Null withholds the label. */
+function citePicture(state: GameState, take: FirstTakeReceipt, viewerStudioId: string): string | null {
+  if (take.studioId !== viewerStudioId) return state.hollywood?.films.find((film) => film.filmId === take.productionId)?.title ?? null
+  const conceptId = state.firstTakeSubjects.facts.find((subject) => subject.eventId === take.eventId)?.conceptId
+    ?? state.studio.releasedFilms.find((film) => film.productionId === take.productionId)?.conceptId
+    ?? state.studio.activeProductions.find((production) => production.id === take.productionId)?.conceptId
+  return state.concepts.find((concept) => concept.id === conceptId)?.title ?? `a picture first shot ${campaignDate(take.week).label}`
+}
+
+/** HIS-014 Mentor(D, A) on a disclosed row, read from `mentorEvidence`; its evidence
+ *  names the three pictures. */
+function mentorLabel(state: GameState, actorId: string, directorId: string, viewerStudioId: string, nameOf: (id: string) => string): LabelRow | null {
+  const mentor = mentorEvidence(state, actorId)
+  if (mentor === null || mentor.directorId !== directorId) return null
+  // `mentorEvidence` read these ids from `firstTakes`, which holds one take per production.
+  const cites = mentor.productionIds.map((id) => citePicture(state, state.firstTakes.find((take) => take.productionId === id)!, viewerStudioId))
+  if (!cites.every((cite): cite is string => cite !== null)) return null
+  const [first, second, third] = cites
+  return { label: 'Mentor', evidence: `${nameOf(directorId)} directed ${nameOf(actorId)}'s first three pictures: ${first}, ${second} and ${third}.` }
+}
+
+/** HIS-014 Professional Rivals on a disclosed row; its evidence is the two dated rows
+ *  (1347-A §2.4). Every row is a casting session of the viewer's own, so no picture is named. */
+function rivalsLabel(edge: RelationshipEdge | undefined): LabelRow | null {
+  const rivals = edge === undefined ? null : professionalRivalsEvidence(edge)
+  if (rivals === null) return null
+  const [first, second] = rivals.rows.map((row) => campaignDate(row.week).label)
+  const when = first === second ? `twice in ${first}` : `in ${first} and ${second}` // two productions can contest in one week
+  return { label: 'Professional Rivals', evidence: `They competed for ${ROLE_COPY[rivals.slot]} ${when}.` }
+}
+
+/** D-1312-2: the last bond at `week`, or null when none ever formed. */
+function romanceRow(edge: RelationshipEdge | undefined, week: number): BridgeRelationshipRow['romance'] {
+  if (edge === undefined) return null
+  const status = romanceStatus(edge, week)
+  const ending = romanceEndWeek(edge.romance)
+  const bond = edge.romance?.bonds.at(-1)
+  if (status === null || ending === null || bond === undefined) return null
+  return { status, sinceLabel: campaignDate(bond.formedWeek).label, endedLabel: status === 'ended' ? campaignDate(ending).label : null }
+}
+
 /**
  * One person's published ties, for the viewer's own studio. Rows are the DISCLOSED
  * counterparts — on the viewer's roster at `week`, the subject excluded — that this
  * person either holds an edge with or shares a credit with; sorted by counterpart id so
  * the block never depends on root or Map order. Present on every profile, empty rows and
- * all.
+ * all. Projection 57: each row carries its HIS-014 labels and its romance block.
  */
 export function relationshipBlockFor(
   state: GameState,
@@ -203,6 +251,7 @@ export function relationshipBlockFor(
     else withheld = true
   }
   const names = new Map(state.talent.map((person) => [person.id, person.name] as const))
+  const nameOf = (id: string): string => names.get(id) ?? id
   const rows: BridgeRelationshipRow[] = []
   for (const counterpartId of [...disclosed].sort()) {
     const sharedPictures = sharedPictureCount(state, talentId, counterpartId)
@@ -213,6 +262,11 @@ export function relationshipBlockFor(
     const unavailable = asOfWeek !== null && edge !== undefined && edge.lastEventWeek > asOfWeek
     if (unavailable) historicalTierNotice = 'A retirement-dated tier cannot be reconstructed for a displayed tie with a later recorded event.'
     const chemistry = unavailable ? NO_ROOT : chemistryOf(state, talentId, counterpartId, asOfWeek ?? week)
+    const labels = [
+      mentorLabel(state, talentId, counterpartId, viewerStudioId, nameOf),
+      mentorLabel(state, counterpartId, talentId, viewerStudioId, nameOf),
+      rivalsLabel(edge),
+    ].filter((label): label is LabelRow => label !== null)
     rows.push({
       counterpartId,
       counterpartName: names.get(counterpartId) ?? counterpartId,
@@ -220,6 +274,9 @@ export function relationshipBlockFor(
       sign: chemistry.sign,
       drivers: [...chemistry.reasons],
       sharedPictures,
+      labels,
+      // Like the tier, a bond cannot be reconstructed at a retirement date with a later event.
+      romance: unavailable ? null : romanceRow(edge, asOfWeek ?? week),
     })
   }
   // The withheld sentence speaks to EMPLOYMENT, so it may only be emitted when the
