@@ -1,6 +1,6 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 15:08 CDT. Claude's weekly usage stood at 89% at 14:39 CDT (Owner): if Claude stops, Codex resumes from this file.
+Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 15:13 CDT. Claude's weekly usage stood at 89% at 14:39 CDT (Owner): if Claude stops, Codex resumes from this file.
 
 ## Where the work is
 - Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit after 50181e76 that carries this file, pushed: yes. Protected main is never touched.
@@ -10,7 +10,7 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 15:08 CDT. Claude's 
   1. This file.
   2. The Save45 production phase: `E/1361-F` (22 rulings, order of work), amended by `E/1361-F2` (probe rulings; ruling 3 corrects the G2-Retune path: P15A.1 takes its own later step) and `E/1361-F3` (slice 2a r2 fixes R1-R4); `E/1361-R` (the protocol); `E/1361-E`, `E/1361-X`, `E/1361-D` (slice 2a r1 handback, dry run, review).
   3. The Owner's three responses of 2026-10-02, verbatim in `E/1362-O` (1357-Q1 (a); numpy; items 5-9; late founding reachable) and summarized in `DECISIONS.md` "Owner rulings, 2026-10-02".
-  4. `E/1363-A-rival-recovery-amendment-charter.md` (draft, under review 1363-B) and `E/1364-R-late-founding-reachability.md`.
+  4. `E/1363-A-rival-recovery-amendment-charter.md` with its adoption `E/1363-F` (12 amendments; review `E/1363-B`) and `E/1364-R-late-founding-reachability.md`.
   5. `docs/engineering/playability-launch-review/CONTINUATION-STATE.md`, top `## CURRENT` block (same as 06's).
 
 ## Active order
@@ -29,7 +29,7 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 15:08 CDT. Claude's 
 - In flight:
   - **G2 running** in the heavy lane since 15:06 CDT: `S/1361-g2/run-g2-all.sh` (trees ok, smoke ok, then control, candidate-1, candidate-2, k4, era-guard, report); log `S/1361-g2/g2-all.log`; outputs `S/1361-g2/run/out/`; report `S/1361-g2/run/out/report/g2-report.{json,md}`. Expected 40-55 min. Verdicts per 1361-F2 ruling 4 (a K failure is a Defect).
   - **review 1361-D2** of the P15A.1 stack and slice 2a r2 -> `S/1361-prod/review/1361-D2-p15a1-r1-review.md` (includes the writer's claim that (b) can land alone, which bears on 1361-F2 ruling 3);
-  - **review 1363-B** of the recovery charter -> `S/1363-recovery/review/1363-B-charter-review.md`.
+  - **G-P control C0** queued in the lane behind G2 (`S/1361-gp/run-1361-gp-c0.sh`, lane log `S/1361-gp-c0.log`, outputs `S/1361-gp-c0/out/`; about 10 s). Pass per notes §5.5: both exit 0, equal `manifestSha256`.
 - Claims limits: P15A.1's r1 commits and slice 2a r2 are unmeasured; the harness time compares across Node versions and machine load (1361-F3 ruling 5); the 1363-A design rests on reading.
 
 ## Next step
@@ -37,13 +37,14 @@ Standing rules: one production writer; one heavy test process at a time (`bash S
 
 1. **When G2 finishes:** read `S/1361-g2/run/out/report/g2-report.md`; record `E/1361-G2-X` (stage the report, notes, probe files and digest sha256s, not the digests); rule. Proceed or Flag: (c) stays in Save45, then G-P (step 3). Retune: 1361-F2 ruling 3, unless 1361-D2 supports the writer's (b)-alone design. Defect: production fix and a new G2.
 2. **When 1361-D2 returns:** publish it; rule (`1361-F4`); a REVISE goes to the writer (SendMessage to the writer agent keeps its context; a fresh writer reads `E/1361-E2`).
-3. **G-P:** run `E/1361-stage/gp/1361-GP-probe-r2.ts` on the candidate after P15A.1 (with (c) only if G2 passed) plus the v2 edits (`E/1353-stage/x4/1353-X4-tree-edits.patch`), per 1361-F2 ruling 1 (logs outside the output dirs; C0 through the lane; smoke must name all three roots).
-4. **When 1363-B returns:** adopt 1363-A as `E/1363-F` with rulings on P1-P10; O1 stays with the Owner.
+3. **G-P:** `nohup bash S/heavy-queue/lane-run.sh 0 S/1361-gp-x.log bash S/1361-gp/run-1361-gp.sh p15a1-c-r1 &` (written and syntax-checked; 1361-F2 ruling 1's guard and GP-D finding 6's checks built in; outputs `S/1361-gp-x/out/`). On a G2 Retune use tag `p15a2-r2` and second argument `"p15Sequence, powerRanking"` (1363-F ruling 7). Expected `rankingRows` and `standInRows` 4,229 per seed and 5 in the smoke; record per notes §5.7 as `E/1361-GP-X`.
+4. **1363 is adopted** (`E/1363-F`, 15:2x CDT): production after Save45, step number by ruling 8, ordered against 1364-A.
 5. **When an agent slot frees:** draft the late-founding charter `1364-A` (scope in 1362-O's third section).
 6. Then P15C's production (writer), the sibling test's classification, the merged-tick harness run, the fallout and the `1361-N` sweep, and the landing (`1361-L`), per 1361-F's order of work.
 
 ## Open decisions for the Owner
 - **1363-A O1, rival facility disposal** (asked 2026-10-02; `E/1363-A` §4.7, §10.2): may rivals close facilities; at what refund; may core filming plant go. v1 keeps facilities and does not wait. Parent recommends: no disposal in v1; revisit with 1363-V's numbers; if ever allowed, non-core plant only at the player's demolition refund, core plant never.
+- **1363-F O6, post-loan restart** (needed before re-probe 2; blocks nothing now): may a rival that cut costs hire and film again after a P15B loan? Parent recommends yes: a loan principal ends cost-cutting and the ordinary staffing laws resume.
 - O2-O5 of 1363-A are asked only with 1363-V's numbers. Everything else the Owner listed is answered (1362-O).
 
 ## Blockers and warnings
@@ -63,14 +64,14 @@ Standing rules: one production writer; one heavy test process at a time (`bash S
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-02 14:46 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
-- Branch: `wip/headless-program-20260916-ts` @ `1d4134fc3b76cb185b34365445e16e2e8fc97f31`
+- Stamped: 2026-10-02 15:08 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
+- Branch: `wip/headless-program-20260916-ts` @ `bd50b72c766075ec86da727c89a1282f2468bfb9`
 - Upstream: `none`, unpushed commits: ?
 - Uncommitted files: 0
 - Last commits:
+  - bd50b72c docs(handoff): P15A.1 stack measured (1361-X2); G2 running on p15a1-c-r1; reviews 1361-D2 and 1363-B running
+  - ffe571c6 docs(p15): 1361-X2 dry run of the P15A.1 r1 stack on slice 2a r2: src type-clean at every tag; 1356 72/72; 1355 9 -> 15 -> 59 (all 59 at (c), K1/K2/M0A and both capture leaves included); harness 83.6 s at (c); generators clean. G2 running on p15a1-c-r1; review 1361-D2 running
+  - c1580d39 docs(p15): 1361-G2-D review of the G2 probe (HOLD on four report/runner edits; probe sound) and 1361-G2-F parent response (all four plus items 5-10 adopted; candidate fixed at p15a1-c-r1 c524911)
+  - d98ba43e docs(p15): 1361-E2 P15A.1 production handback r1 (three commits on slice 2a r2) and the slice 2a r2 delta (R1-R4 of 1361-F3) in 1361-E; the four cumulative patches staged; the three-tag dry run is running
   - 1d4134fc docs(owner): record the Owner's third response of 2026-10-02 verbatim (1362-O): the late-founding import path counts as reachable; bounded correction 1364-A authorized for both invariant failures, scheduled after the Save45 landing. HANDOFF rewritten in full for durability (usage at 89%): state, in-flight agents, exact next commands, open Owner item O1
-  - 50181e76 docs(p15): 1361-D implementation review of slice 2a r1 (PROCEED) and 1361-F3 parent response: slice 2a r2 folds four fixes (a compile-time tie of P15_ROOT_KEYS to P15StepRoots, two undefined checks, the allocator's whole-number check, two comments); P15B's era-flag obligation; the pre-existing writing-context swallow goes to the closure's open items
-  - 32ce0918 docs(handoff): two open Owner questions (1363-A O1 facility disposal; 1364-R import exposure); 1363-A under review 1363-B
-  - fc233994 docs(recovery): 1363-A draft charter for the rival-recovery amendment (Owner 1357-Q1 (a), 1362-O): Part A the binding-cash test (rival-shelving/v2, no save step); Part B scoped rival cost-cutting (rival-cost-cutting/v1, one field at Save46, P15B to Save47); measurement 1363-V with p15a1-w2-market-01 and the 154 promise paths; G-L rerun; follow-on for the seven exceptions; questions P1-P10 and Owner O1-O5. Draft, for review 1363-B
-  - 7d582318 docs(p15): 1361-GP-D review of the G-P sibling-roots branch r2 (PROCEED) and 1361-F2 parent rulings: run hygiene and a tree guard for G-P; the G2 probe's four choices (a K failure is a Defect); the G2-Retune path corrected (P15A.1 takes its later step, since (a)+(b) fail the chartered film bijection without (c)); G-L reruns after the recovery amendment
 <!-- AUTO:END -->
