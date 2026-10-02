@@ -1,5 +1,42 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT: slice B closed (1358-L, 1358-M3); Save44 and projection 57 live; P15 Wave 2 REDs rebase onto Save44
+
+State at 2026-10-02 11:12 CDT, at the commit that adds this block (pushed). No recorded run is active. Root `HANDOFF.md` carries the
+resume commands and the lane queue.
+
+- **Relationship slice B: CLOSED.** [1358-L](evidence/p14b4-20260919/1358-L-rel-sliceB-landing.md) holds the full step
+  table.
+  - **Production** r2 landed as four commits, 9eb1e66e to 83d1030d, each blob-equal to the reviewed step.
+  - **The Save44 and projection-57 pin sweep**, r4, landed at f458680b: 154 test files.
+    - Handback: [1358-C9](evidence/p14b4-20260919/1358-C9-sweep-landing-handback.md), with 762 classification rows and
+      29 census dispositions.
+    - Reviews: [1358-D9](evidence/p14b4-20260919/1358-D9-sweep-r2-review.md) and
+      [1358-D9b](evidence/p14b4-20260919/1358-D9b-sweep-r3-delta.md).
+  - **F10 and F11** take the recorded producer run `1358-p57-declaration` (5ac4b738).
+  - **The recorded GREEN** shows 3 failed and 145 passed: the row 6 exceptions.
+  - **[1358-M3](evidence/p14b4-20260919/1358-M3-sliceb-recorded-broad-gates.md)** recorded the broad gates:
+    - core: 85 failed, SAME 84 against 1348-I, with C20 CHANGED by the live version digit;
+    - UI: 3 failed, the numpy rows (1348-I2; the primaries differ only in the temporary directory).
+  - **The type gates** and both generator checks pass at the landed HEAD.
+  - **Review.** [1358-J3](evidence/p14b4-20260919/1358-J3-sliceb-landing-review.md) returned REFINE on the records, and
+    the parent applied it.
+- **P15 Wave 2 REDs: rebasing onto Save44** (1359-F6 ruling 5).
+  - P15C RED r8 moves `BASE_LIVE_SAVE_VERSION` to 44.
+  - The parent dry-runs the three REDs on Save43 and Save44 (1355-X5, 1356-X4, 1359-X6), with the two producers.
+  - Then come the mints (1355-P r3, 1359-P r4) and the recorded REDs.
+  - The P15 reference patches minted Save44 themselves, so they retarget to Save45 for the productions.
+- **Open Owner items:**
+  - 1357-Q1: rival recovery before P15B closure. Recommend (a), starting with the shelving `cashBlocked` fix (1357-F3).
+  - The P15C playtest brief (1353-T §6.3; 1353-F7 ruling 6).
+  - Slice B's provisional copy (1358-F7 ruling 7).
+  - numpy for the three rgba rows.
+  - P16's nine questions (1354-Q).
+  - The §7 flags (1344-V §9).
+  - The seven declared exceptions.
+  - 1356-X F-2.
+  - X12's V39 family.
+
 ## CURRENT: slice A closed (1348-M); slice B RED r8 and production r2 staged; P15C retune ruled (hit line 49), RED r7 staged
 
 State at 2026-10-02 02:19 CDT, at the commit that adds this block (pushed). No recorded run is active. The heavy lane runs scratch
