@@ -100,6 +100,10 @@ export type ReceptionInputs = {
   // figure, so C6 inherits a measured lever rather than a confound.
   setUplift?: number
   setNovelty?: number | null
+  // P15A.1 Wave 2 (1355-A §3.2): the shared-market factor the week's batch froze for THIS
+  // release. Only the two release sites set it, the player's step 3 and the rival release;
+  // greenlight, chooser, forecast and package inputs never carry it. Absent is exactly 1.
+  competitionFactor?: number
 }
 
 // The rich breakdown §5.6 requires: every intermediate exposed alongside the
@@ -592,7 +596,7 @@ export function efficientMarketingCapacity(preMarketingAwareness: number, engage
 
 // ── §5.5 Box office ──────────────────────────────────────────────────────────
 // Factored to accept the per-segment appeal scores so §7 can reuse it against
-// noisy estimates (B16). competitionFactor ≡ 1.0 (N11). Pure; no sampling.
+// noisy estimates (B16). competitionFactor defaults to 1 (N11; P15A.1 Wave 2). Pure; no sampling.
 export function computeBoxOffice(
   segmentAppeal: Record<SegmentId, number>,
   segments: Segment[],
@@ -626,6 +630,12 @@ export function computeBoxOffice(
   // DEFAULTS TO EXACTLY 1 — a bit-exact IEEE no-op — so every forecast, every
   // legacy release and every unbound picture is byte-identical.
   setNoveltyFactor = 1,
+  // P15A.1 Wave 2 (1355-A §3.2): the shared-market factor, which replaces the constant 1.0 of
+  // N11 and scales the opening where the set novelty factor does, so the total follows and legs
+  // hold. It defaults to exactly 1, an IEEE no-op, so every forecast and every caller that
+  // passes no factor is byte-identical. A factor outside [1 - SHARED_MARKET_FACTOR_MAX_PENALTY, 1]
+  // throws, so a forged factor never moves a gross.
+  competitionFactor = 1,
 ): {
   marketingQuality: number
   preMarketingAwareness: number
@@ -675,7 +685,10 @@ export function computeBoxOffice(
   )
 
   const openingReachMult = 1 + shapeEffects.openingReachMod / 100
-  const competitionFactor = 1.0
+  const competitionFloor = 1 - TUNING.SHARED_MARKET_FACTOR_MAX_PENALTY
+  if (!(competitionFactor >= competitionFloor && competitionFactor <= 1)) {
+    throw new Error(`reception: competitionFactor ${competitionFactor} is outside [${competitionFloor}, 1]`)
+  }
 
   let reachSum = 0
   let weightedAudienceScore = 0
@@ -810,6 +823,8 @@ export function resolveReception(
     appealBlock.starDraw, // D-13: star support for reachSupport (fame, not quality)
     // C2a-M2: the bound set's locked novelty. Exactly 1 when nothing was bound.
     setNoveltyReceptionFactor(inp.setNovelty ?? null),
+    // P15A.1 Wave 2: the frozen batch factor. Exactly 1 when the inputs carry none.
+    inp.competitionFactor ?? 1,
   )
 
   return {

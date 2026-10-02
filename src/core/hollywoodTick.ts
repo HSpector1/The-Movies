@@ -335,8 +335,10 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
   h.concepts=[...h.concepts,concept]
 }
 
-/** Stage rival work against pre-development talent. All writes are to new local objects. */
-export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|null;talent:Talent[];growth:ReleaseGrowthRecord[];technology:GameState['technology'];physicalPlans:GameState['physicalPlans'];
+/** Stage rival work against pre-development talent. All writes are to new local objects.
+ * P15A.1 Wave 2 (1355-A §3.2): `factorById` carries the frozen shared-market factor of each rival
+ * release; absent, every rival release takes today's path. */
+export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<string,number>):{hollywood:HollywoodState|null;talent:Talent[];growth:ReleaseGrowthRecord[];technology:GameState['technology'];physicalPlans:GameState['physicalPlans'];
   /** P14B.1 (1): this week's rival first takes (the 5 -> 4 advance), handed to
    * the outer tick so the ONE first-take root is appended in one place. */
   firstTakes:{studioId:string;production:Production}[];
@@ -385,7 +387,9 @@ export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|
     for(const p of releasing) {
       const project=hotDevelopment(b).projects.find(s=>s.productionId===p.id)!
       const inp=inputsFor(state,h,{...b,standing:startStanding},p,project,people)
-      const result=resolveReception(inp,stream(state.seed,'hollywood-v1',`${p.id}:reception`),true,true,stream(state.seed,'discovery-v1',p.id).gaussian(0,1))
+      // P15A.1 Wave 2 (1355-A §3.2): the rival release site of the seam.
+      const factor=factorById?.get(p.id)
+      const result=resolveReception(factor===undefined?inp:{...inp,competitionFactor:factor},stream(state.seed,'hollywood-v1',`${p.id}:reception`),true,true,stream(state.seed,'discovery-v1',p.id).gaussian(0,1))
       const base=buildFilmResult(result,{productionId:p.id,releaseTick:week,conceptId:p.conceptId,directorId:p.directorId})
       const filmResult={...base,participants:p.participants!,forecast:{expectedCriticScore:p.forecastSnapshot.expectedCriticScore,expectedTotal:p.forecastSnapshot.expectedTotal,expectedOpening:p.forecastSnapshot.expectedOpening}}
       const cost=b.projects[Number(project.id.slice(7))]!
