@@ -251,3 +251,69 @@ Each item applies at its next safe checkpoint. The Save45 sequence (1361-F) is u
      does not qualify.
    - **When.** The Save45 sweep's S9 class touches the same downgrade pins (1361-R Part 3.3), so the repair is authored
      and lands after the Save45 landing, as its own reviewed tests-only change.
+
+## The third response: late founding, 1364-R (2026-10-02)
+
+The parent asked whether 1364-R's import exposure counts as reachable. The Owner answered in the Claude session,
+pasting the response below. The parent recorded it word for word.
+
+```text
+OWNER DECISION — LATE FOUNDING / 1364-R
+
+YES: the browser's supported save-import path counts as reachable.
+Authorize the bounded charter and correction covering both identified
+invariant failures. No historical-build research campaign is needed.
+
+Scope:
+- Reproduce the accepted-import → founding screen → late signing/founding
+  path with a generated, clearly labeled test input.
+- Cover the separate open-draft advance failure at the engine boundary.
+  Do not describe it as UI-reachable when the current UI offers no advance.
+- Preserve normal week-0 founding and existing supported-save behavior.
+
+Required outcome:
+An accepted imported state must support its offered actions and remain
+valid through save/reload. An unsupported or malformed state must instead
+be refused clearly before gameplay mutation, preserving the existing
+campaign and the original input.
+
+Do not invent historical signing payments, backdate receipts, charge
+twice, weaken validators, or erase obligations to obtain a valid save.
+Any migration repair must be explicit and supported by the input's facts.
+
+This does not authorize a new late-start gameplay mode, an advance
+button on the founding screen, or blanket support for arbitrary edits.
+
+Use focused regression tests with independent review. Preserve the
+original failures and distinguish source reasoning from executed proof.
+
+Schedule at the next dependency-safe checkpoint. Do not interrupt or
+restart the current Save45 production work or its recorded runs.
+Record this decision in the existing files, then continue the program.
+No further Owner approval is needed for routine implementation details.
+```
+
+### How the parent routes the third response
+
+- **The record.** The bounded correction is `1364-A`: a charter, then its review, a RED of focused regression tests
+  with an independent review, production, and a recorded GREEN.
+- **Its scope is the Owner's:**
+  - **The import path:** a generated, clearly labeled test input that reproduces import, then the founding screen,
+    then late signing and founding.
+  - **The open-draft advance:** this failure is covered at the engine boundary and is never described as reachable
+    from the UI.
+  - **The behaviour to keep:** normal week-0 founding and existing supported saves.
+- **The required outcome.** An accepted import supports its offered actions and stays valid through save and reload.
+  An unsupported or malformed state is refused clearly before any gameplay mutation, and the campaign and the
+  original input are preserved.
+- **What it never does:**
+  - invent historical signing payments;
+  - backdate receipts;
+  - charge twice;
+  - weaken validators;
+  - erase obligations;
+  - add a late-start mode, an advance button, or blanket support for edits.
+- **The schedule.** The correction changes `src/`, so its production waits for the Save45 landing (1360-F3 ruling 5)
+  and for the single writer. The charter is drafted now, as docs. The parent orders it against the recovery amendment
+  at that checkpoint. Nothing interrupts Save45 or its recorded runs.
+- **Approval.** Routine implementation details need no further Owner approval.

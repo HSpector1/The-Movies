@@ -69,6 +69,17 @@ The Owner said: "Do not stop after the decision report or reopen settled choices
     called fixed.
   - **Item 9.** A targeted coverage repair. Each negative case starts from a valid baseline and isolates its named
     guard. Historical inputs and validator behaviour are kept, and an unrelated refusal does not qualify.
+- **Late founding (1364-R), the third response.** The browser's supported save-import path counts as reachable. A
+  bounded charter and correction (`1364-A`) is authorized for both invariant failures.
+  - **The tests:** a generated, labelled test input reproduces the import path. The open-draft advance failure is
+    covered at the engine boundary and never called UI-reachable.
+  - **What stays:** week-0 founding and supported saves.
+  - **The outcome:** an accepted import supports its offered actions and survives save and reload. Any other state is
+    refused clearly before mutation, with the campaign and the input preserved.
+  - **Never:** invented payments, backdated receipts, double charges, weakened validators or erased obligations. No
+    late-start mode and no advance button.
+  - **How:** focused regression tests with independent review, scheduled at the next dependency-safe checkpoint. Save45
+    is not interrupted.
 
 ## Owner rulings, 2026-09-29
 

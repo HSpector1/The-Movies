@@ -31,8 +31,10 @@ State at 2026-10-02 13:25 CDT, at the commit that adds this block (pushed). No r
   - The slice 2a writer works in `studio-scratch/1361-prod/tree`.
   - The G2 probe and the G-P sibling branch are being written for review.
   - Nothing that changes `src/` lands before Save45.
-- **Still open for the Owner:** none. Any new question comes from 1363-A (a material new product rule) or from the
-  late-founding reachability check.
+- **Late founding.** The Owner's third response (1362-O) counts the save-import path as reachable and authorizes
+  the bounded correction `1364-A` for both invariant failures. It is scheduled after the Save45 landing, and Save45 is
+  not interrupted.
+- **Still open for the Owner:** 1363-A O1, rival facility disposal. v1 keeps facilities and does not wait.
 
 ## CURRENT: P15 Wave 2 REDs landed on Save44 (1360-L); both P15 captures minted; Save45 reserved for the three P15 productions
 
