@@ -1,0 +1,380 @@
+{
+  "probe": "1359-GP",
+  "gate": "G-P (1359-A §9; 1353-A §9)",
+  "mode": "smoke",
+  "treeHead": "1045432824164e7101fb00ed89a25fafa1e40505+v2",
+  "weeks": 20,
+  "boundaryWeek": 6240,
+  "law": "campaign-legacy/v2",
+  "tuning": {
+    "LEGACY_CRITIC_ACCLAIM_MIN": 60,
+    "LEGACY_CRITIC_PAN_BELOW": 35,
+    "LEGACY_AUDIENCE_LIKED_MIN": 57,
+    "LEGACY_MIN_FILMS": 5,
+    "LEGACY_MIN_SHARE_PERCENT": 20,
+    "LEGACY_HIT_REACH_PERCENT": 49,
+    "LEGACY_FLOP_REACH_PERCENT": 30,
+    "LEGACY_AUDIENCE_MIN_DECADES": 4,
+    "LEGACY_DECADE_MIN_RELEASES": 2,
+    "LEGACY_PIONEER_WEEKS": 52,
+    "LEGACY_TECH_LATE_WEEKS": 260,
+    "LEGACY_FOUNDRY_MIN_PEOPLE": 3,
+    "LEGACY_FOUNDRY_MIN_CREDITS": 10,
+    "LEGACY_FOUNDRY_SETTLE_WEEKS": 260,
+    "LEGACY_GENRE_MIN_FILMS": 8
+  },
+  "seeds": [
+    {
+      "seed": "p13a-core-causal-01",
+      "finalWeek": 20,
+      "routeMs": 1039,
+      "msPerTick": 51.95,
+      "playerStudioId": "studio-aca408ec-player",
+      "adapterRefusals": [],
+      "lawRefusal": null,
+      "f1": {
+        "landedLawRefusal": "campaign legacy: films[0] (studio-aca408ec-r01:historical-film:0).settledWeek must be a whole week once settled",
+        "standInFilms": 8
+      },
+      "freeze": {
+        "adapterMs": 1,
+        "lawMs": 7,
+        "freezeMs": 8
+      },
+      "domainTable": [
+        {
+          "domainId": "playerFilms",
+          "highWatermark": 0,
+          "recordedFromWeek": 0,
+          "status": "complete"
+        },
+        {
+          "domainId": "industryFilms",
+          "highWatermark": 12,
+          "recordedFromWeek": 0,
+          "status": "complete"
+        },
+        {
+          "domainId": "playerRuns",
+          "highWatermark": 0,
+          "recordedFromWeek": 0,
+          "status": "complete"
+        },
+        {
+          "domainId": "playerCareerEvents",
+          "highWatermark": 0,
+          "recordedFromWeek": 0,
+          "status": "complete"
+        },
+        {
+          "domainId": "industryCareerEvents",
+          "highWatermark": 24,
+          "recordedFromWeek": 0,
+          "status": "complete"
+        },
+        {
+          "domainId": "technologyAdoptions",
+          "highWatermark": 0,
+          "recordedFromWeek": 0,
+          "status": "complete"
+        },
+        {
+          "domainId": "technologyCatalogue",
+          "highWatermark": 2,
+          "recordedFromWeek": 0,
+          "status": "complete"
+        },
+        {
+          "domainId": "powerRanking",
+          "highWatermark": 0,
+          "recordedFromWeek": null,
+          "status": "notRecorded"
+        },
+        {
+          "domainId": "corporateCondition",
+          "highWatermark": 0,
+          "recordedFromWeek": null,
+          "status": "notRecorded"
+        },
+        {
+          "domainId": "marketAssessments",
+          "highWatermark": 0,
+          "recordedFromWeek": null,
+          "status": "notRecorded"
+        }
+      ],
+      "holders": {
+        "artistic-voice": {
+          "held": [],
+          "notHeld": [
+            "studio-aca408ec-player",
+            "studio-aca408ec-r01",
+            "studio-aca408ec-r02",
+            "studio-aca408ec-r03",
+            "studio-aca408ec-r04"
+          ],
+          "notRecorded": []
+        },
+        "audience-institution": {
+          "held": [],
+          "notHeld": [
+            "studio-aca408ec-player",
+            "studio-aca408ec-r01",
+            "studio-aca408ec-r02",
+            "studio-aca408ec-r03",
+            "studio-aca408ec-r04"
+          ],
+          "notRecorded": []
+        },
+        "commercial-engine": {
+          "held": [],
+          "notHeld": [
+            "studio-aca408ec-player",
+            "studio-aca408ec-r01",
+            "studio-aca408ec-r02",
+            "studio-aca408ec-r03",
+            "studio-aca408ec-r04"
+          ],
+          "notRecorded": []
+        },
+        "technology-pioneer": {
+          "held": [],
+          "notHeld": [
+            "studio-aca408ec-player",
+            "studio-aca408ec-r01",
+            "studio-aca408ec-r02",
+            "studio-aca408ec-r03",
+            "studio-aca408ec-r04"
+          ],
+          "notRecorded": []
+        },
+        "talent-foundry": {
+          "held": [],
+          "notHeld": [
+            "studio-aca408ec-player",
+            "studio-aca408ec-r01",
+            "studio-aca408ec-r02",
+            "studio-aca408ec-r03",
+            "studio-aca408ec-r04"
+          ],
+          "notRecorded": []
+        },
+        "genre-specialist": {
+          "held": [],
+          "notHeld": [
+            "studio-aca408ec-player",
+            "studio-aca408ec-r01",
+            "studio-aca408ec-r02",
+            "studio-aca408ec-r03",
+            "studio-aca408ec-r04"
+          ],
+          "notRecorded": []
+        },
+        "resilient-survivor": {
+          "held": [],
+          "notHeld": [],
+          "notRecorded": [
+            "studio-aca408ec-player",
+            "studio-aca408ec-r01",
+            "studio-aca408ec-r02",
+            "studio-aca408ec-r03",
+            "studio-aca408ec-r04"
+          ]
+        },
+        "awards-dynasty": {
+          "held": [],
+          "notHeld": [],
+          "notRecorded": [
+            "studio-aca408ec-player",
+            "studio-aca408ec-r01",
+            "studio-aca408ec-r02",
+            "studio-aca408ec-r03",
+            "studio-aca408ec-r04"
+          ]
+        }
+      },
+      "studios": [
+        {
+          "studioId": "studio-aca408ec-player",
+          "role": "player",
+          "enteredWeek": 0,
+          "catalog": {
+            "releases": 0,
+            "settled": 0,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 0
+          },
+          "held": []
+        },
+        {
+          "studioId": "studio-aca408ec-r01",
+          "role": "rival",
+          "enteredWeek": 0,
+          "catalog": {
+            "releases": 1,
+            "settled": 1,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 2
+          },
+          "held": []
+        },
+        {
+          "studioId": "studio-aca408ec-r02",
+          "role": "rival",
+          "enteredWeek": 0,
+          "catalog": {
+            "releases": 1,
+            "settled": 1,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 2
+          },
+          "held": []
+        },
+        {
+          "studioId": "studio-aca408ec-r03",
+          "role": "rival",
+          "enteredWeek": 0,
+          "catalog": {
+            "releases": 1,
+            "settled": 1,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 2
+          },
+          "held": []
+        },
+        {
+          "studioId": "studio-aca408ec-r04",
+          "role": "rival",
+          "enteredWeek": 0,
+          "catalog": {
+            "releases": 1,
+            "settled": 1,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 2
+          },
+          "held": []
+        }
+      ],
+      "manifestBytes": 11413,
+      "manifestSha256": "c29c90b3b8dfd2a7fa2d210753c6ebb72164e3a4b0798e9c5dc3776b8b8ef215",
+      "manifestCanonical": "{\"boundaryWeek\":20,\"definition\":\"campaign-legacy/v2\",\"kind\":\"endOfRun\",\"postFinaleMode\":null,\"sources\":[{\"domainId\":\"playerFilms\",\"highWatermark\":0,\"recordedFromWeek\":0,\"status\":\"complete\"},{\"domainId\":\"industryFilms\",\"highWatermark\":12,\"recordedFromWeek\":0,\"status\":\"complete\"},{\"domainId\":\"playerRuns\",\"highWatermark\":0,\"recordedFromWeek\":0,\"status\":\"complete\"},{\"domainId\":\"playerCareerEvents\",\"highWatermark\":0,\"recordedFromWeek\":0,\"status\":\"complete\"},{\"domainId\":\"industryCareerEvents\",\"highWatermark\":24,\"recordedFromWeek\":0,\"status\":\"complete\"},{\"domainId\":\"technologyAdoptions\",\"highWatermark\":0,\"recordedFromWeek\":0,\"status\":\"complete\"},{\"domainId\":\"technologyCatalogue\",\"highWatermark\":2,\"recordedFromWeek\":0,\"status\":\"complete\"},{\"domainId\":\"powerRanking\",\"highWatermark\":0,\"recordedFromWeek\":null,\"status\":\"notRecorded\"},{\"domainId\":\"corporateCondition\",\"highWatermark\":0,\"recordedFromWeek\":null,\"status\":\"notRecorded\"},{\"domainId\":\"marketAssessments\",\"highWatermark\":0,\"recordedFromWeek\":null,\"status\":\"notRecorded\"}],\"studios\":[{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"audience-institution\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"commercial-engine\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"genre-specialist\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":0,\"inReleaseAtBoundary\":0,\"releases\":0,\"settled\":0},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":0,\"discoveries\":0},\"lensId\":\"people\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":0},\"lensId\":\"technology\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":37.21001216939704,\"commercialConfidence\":50,\"industryPrestige\":40},\"studioId\":\"studio-aca408ec-player\"},{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"audience-institution\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"commercial-engine\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:0\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"genre-specialist\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:0\"}],\"qualifyingCount\":1},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":2,\"inReleaseAtBoundary\":0,\"releases\":1,\"settled\":1},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":6,\"discoveries\":0},\"lensId\":\"people\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":0},\"lensId\":\"technology\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":45.02091755450475,\"commercialConfidence\":61.813862745697925,\"industryPrestige\":47.431793665194775},\"studioId\":\"studio-aca408ec-r01\"},{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"audience-institution\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"commercial-engine\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"genre-specialist\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:0\"}],\"qualifyingCount\":1},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":2,\"inReleaseAtBoundary\":0,\"releases\":1,\"settled\":1},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":6,\"discoveries\":0},\"lensId\":\"people\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":0},\"lensId\":\"technology\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":43.389701190301146,\"commercialConfidence\":55.89237622223098,\"industryPrestige\":60.023358946366024},\"studioId\":\"studio-aca408ec-r02\"},{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"audience-institution\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"commercial-engine\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:0\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"genre-specialist\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:0\"}],\"qualifyingCount\":1},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":2,\"inReleaseAtBoundary\":0,\"releases\":1,\"settled\":1},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":6,\"discoveries\":0},\"lensId\":\"people\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":0},\"lensId\":\"technology\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":39.050168854908286,\"commercialConfidence\":49.813754762656494,\"industryPrestige\":55.01742630022643},\"studioId\":\"studio-aca408ec-r03\"},{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"audience-institution\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"commercial-engine\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r04:film:0\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"genre-specialist\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r04:film:0\"}],\"qualifyingCount\":1},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":2,\"inReleaseAtBoundary\":0,\"releases\":1,\"settled\":1},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":6,\"discoveries\":0},\"lensId\":\"people\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":0},\"lensId\":\"technology\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":37.81014020715895,\"commercialConfidence\":48.67597827511839,\"industryPrestige\":38.261480393498054},\"studioId\":\"studio-aca408ec-r04\"}]}"
+    }
+  ],
+  "retuneCheck": {
+    "seedsWithoutManifest": [],
+    "archetypes": [
+      {
+        "archetypeId": "artistic-voice",
+        "status": "evaluated",
+        "held": {
+          "p13a-core-causal-01": "0/5"
+        },
+        "allHoldInEverySeed": false,
+        "noHolderInEverySeed": true,
+        "noHolderInSomeSeed": true,
+        "retune": true,
+        "retuneSomeSeedReading": true
+      },
+      {
+        "archetypeId": "audience-institution",
+        "status": "evaluated",
+        "held": {
+          "p13a-core-causal-01": "0/5"
+        },
+        "allHoldInEverySeed": false,
+        "noHolderInEverySeed": true,
+        "noHolderInSomeSeed": true,
+        "retune": true,
+        "retuneSomeSeedReading": true
+      },
+      {
+        "archetypeId": "commercial-engine",
+        "status": "evaluated",
+        "held": {
+          "p13a-core-causal-01": "0/5"
+        },
+        "allHoldInEverySeed": false,
+        "noHolderInEverySeed": true,
+        "noHolderInSomeSeed": true,
+        "retune": true,
+        "retuneSomeSeedReading": true
+      },
+      {
+        "archetypeId": "technology-pioneer",
+        "status": "evaluated",
+        "held": {
+          "p13a-core-causal-01": "0/5"
+        },
+        "allHoldInEverySeed": false,
+        "noHolderInEverySeed": true,
+        "noHolderInSomeSeed": true,
+        "retune": true,
+        "retuneSomeSeedReading": true
+      },
+      {
+        "archetypeId": "talent-foundry",
+        "status": "evaluated",
+        "held": {
+          "p13a-core-causal-01": "0/5"
+        },
+        "allHoldInEverySeed": false,
+        "noHolderInEverySeed": true,
+        "noHolderInSomeSeed": true,
+        "retune": true,
+        "retuneSomeSeedReading": true
+      },
+      {
+        "archetypeId": "genre-specialist",
+        "status": "evaluated",
+        "held": {
+          "p13a-core-causal-01": "0/5"
+        },
+        "allHoldInEverySeed": false,
+        "noHolderInEverySeed": true,
+        "noHolderInSomeSeed": true,
+        "retune": true,
+        "retuneSomeSeedReading": true
+      },
+      {
+        "archetypeId": "resilient-survivor",
+        "status": "exempt",
+        "held": {
+          "p13a-core-causal-01": "0/5"
+        },
+        "allHoldInEverySeed": false,
+        "noHolderInEverySeed": true,
+        "noHolderInSomeSeed": true,
+        "retune": false,
+        "retuneSomeSeedReading": false
+      },
+      {
+        "archetypeId": "awards-dynasty",
+        "status": "notEvaluated",
+        "held": {
+          "p13a-core-causal-01": "0/5"
+        },
+        "allHoldInEverySeed": false,
+        "noHolderInEverySeed": true,
+        "noHolderInSomeSeed": true,
+        "retune": false,
+        "retuneSomeSeedReading": false
+      }
+    ],
+    "retune": [
+      "artistic-voice",
+      "audience-institution",
+      "commercial-engine",
+      "technology-pioneer",
+      "talent-foundry",
+      "genre-specialist"
+    ],
+    "retuneSomeSeedReading": [
+      "artistic-voice",
+      "audience-institution",
+      "commercial-engine",
+      "technology-pioneer",
+      "talent-foundry",
+      "genre-specialist"
+    ]
+  }
+}

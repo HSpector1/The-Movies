@@ -1,6 +1,6 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 16:00 CDT. Claude's weekly usage stood at 89% at 14:39 CDT (Owner): if Claude stops, Codex resumes from this file.
+Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 16:15 CDT. Claude's weekly usage stood at 89% at 14:39 CDT (Owner): if Claude stops, Codex resumes from this file.
 
 ## Where the work is
 - Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit after 50181e76 that carries this file, pushed: yes. Protected main is never touched.
@@ -29,17 +29,16 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 16:00 CDT. Claude's 
 - **G2 read Retune** (`E/1361-G2-X`; rulings `E/1361-F5`): K1-K5 exact (K3 case (a) of `E/1361-F4` ruling 1, pre-registered at 5b911ed3); Retune rows p13a industry gross 0.875 at 520, seed-b stall (stopped rivals) and below-zero +325% at 520, seed-b root share 2.3-3.1% (storage fix). Save45 now lands slice 2a r2 + P15A.1 (a) and (b) r2 (+ P15C if G-P passes); (c) and (d) wait for a tuning amendment (record 1365, after the landing).
 - **1361-D2** PROCEED (`E/1361-D2`, rulings `E/1361-F4`); **1363** adopted (`E/1363-F`); **G-P C0** passed (15:48; both exit 0, equal manifest, JSON equal apart from the allowed fields).
 - In flight:
-  - **`p15a1-b-r2` b0b6fb01** made by the writer (b-r1 + F3's guard, 7 lines in `tick.ts`; parent-verified; patch `E/1361-stage/prod/1361-p15a1-production-b-r2.patch`). The guard turns a 45th 1355 leaf red at (b) (`market-forecast-paths-unchanged`, T:247-261); `E/1361-F5` Amendment 1 declares it; (c)'s retune must remove the guard with (b)'s write.
-  - **Lane job since 15:59 CDT:** `S/1361-prod/run-1361-X3-b-r2-then-gp.sh` (dry run of `p15a1-b-r2` into `S/1361-prod/x/r3b/`, tree back to branch `b-r2`, then G-P into `S/1361-gp-x/out/`); lane log `S/1361-prod/x3-gp.log` (+ `.meta`). About 20 min.
+  - **P15C production** by the writer (agent `a9b8c143941cbb673`, SendMessage; started 16:15 CDT): brief `S/1361-prod/brief-p15c-production.md`; base `p15a1-b-r2` b0b6fb01; tags `p15c-a-r1`, `p15c-b-r1`, `p15c-c-r1`; handback `1361-E3` with cumulative patches.
+- **Done since the G2 verdict:** `p15a1-b-r2` b0b6fb01 (b-r1 + F3's guard; `E/1361-F5` Amendment 1 adds the 45th leaf); its dry run `E/1361-X3` (src type-clean; 1356 72/72, harness 70,404 ms; 1355 14 passed and exactly the 45 declared failing, list `E/1361-stage/x-r3b/1355-leaves-red-at-b-r2.tsv`; 1359 unchanged; generators 0); **G-P passed** on b-r2 + v2 (`E/1361-GP-X`: no trigger; holder sets equal 1353-X4's; C0 passed; two market-reading expectations of 1361-F5 missed by the parent's own error, explained there).
 - Claims limits: P15A.1's r1 commits and slice 2a r2 are unmeasured; the harness time compares across Node versions and machine load (1361-F3 ruling 5); the 1363-A design rests on reading.
 
 ## Next step
 Standing rules: one production writer; one heavy test process at a time (`bash S/heavy-queue/lane-run.sh 0 <log> <cmd>`); no commits or `git add` during a recorded run or its postflight; free disk ≥ 5 GiB before a recorded run; recorded runs on Node v20.20.2; stems match `^[0-9]{3,4}[a-z0-9-]*$`.
 
-1. **When the lane job ends:** read `S/1361-prod/x/r3b/run.meta` (type gates `src` 0; 1356 72/72; 1355 14 passed and 45 failed: the 44 of `E/1361-stage/x-r2b/1355-leaves-red-at-b.tsv` plus `market-forecast-paths-unchanged`, messages as Amendment 1 expects; 1359 unchanged; generators exit 0); stage the x-r3b outputs and the 45-leaf list from x-r3b; record `E/1361-X3`. Then read G-P (`S/1361-gp-x/out/`: smoke-gp.err/json, gp.err/json, runs.meta) against `E/1361-F5` ruling 4's pre-registered expectations; record `E/1361-GP-X` with C0 (`S/1361-gp-c0/out/`).
-2. **If G-P passes:** send `S/1361-prod/brief-p15c-production.md` to the writer with base `p15a1-b-r2` and without commit (d) (moot at (b); rides with (c)).
-3. Then P15C's dry run, review 1361-D3, the sibling test's classification, the merged-tick harness run, the fallout (+ the d16 config at `base` and the landed tree), the `1361-N` sweep, the landing `1361-L` (four recorded runs; 1355's files fail exactly the 44), per 1361-F's order of work.
-4. **When an agent slot frees and usage allows:** draft the late-founding charter `1364-A` (scope in 1362-O's third section).
+1. **When the writer hands back P15C (`1361-E3`):** stage its patches; check every tag sits on `p15a1-b-r2` and the tree is clean; dry-run `p15c-c-r1` (and (a), (b) as the writer's flip table needs) with `S/1361-prod/run-1361-X.sh <tag> <label>` in the lane (copy `run-1361-X3-b-r2-then-gp.sh` to a new name for the checkout wrapper; never edit a running script); expect 1359 116/116 at (c), 1356 72/72, 1355 exactly the 45 with their messages, `src` type-clean; record `1361-X4`.
+2. Then the independent implementation review `1361-D3` (read-only agent), the sibling test's classification (`E/1359-stage/1359-p15c-wave2-sibling-r2.patch`, five leaves, test author) and its dry run on the merged candidate, the merged-tick 1356 harness run (1361-F ruling 15), the fallout (core suite with no test edit + type gates + the d16 config `src/harness/d16/vitest.d16.config.ts` at `base` and on the candidate), the sweep plan `1361-N`, its units and reviews, the landing `1361-L` with four recorded runs, the broad gates `1361-M`.
+3. **When an agent slot frees and usage allows:** draft the late-founding charter `1364-A` (scope in 1362-O's third section).
 
 ## Open decisions for the Owner
 - **1363-A O1, rival facility disposal** (asked 2026-10-02; `E/1363-A` §4.7, §10.2): may rivals close facilities; at what refund; may core filming plant go. v1 keeps facilities and does not wait. Parent recommends: no disposal in v1; revisit with 1363-V's numbers; if ever allowed, non-core plant only at the player's demolition refund, core plant never.

@@ -1,0 +1,5 @@
+smoke-gp: 1361-GP-probe-r2.ts node v20.20.2, tree b0b6fb0135b9e416627085c8f0e873d4c59a8ce2+45f3111 (p15a1-b-r2), weeks 20, seeds p13a-core-causal-01, start 2026-10-02 16:04:53 CDT
+smoke-gp: exit 0, end 2026-10-02 16:04:56 CDT
+smoke read the roots: p15Sequence, powerRanking, sharedMarket
+gp: 1361-GP-probe-r2.ts node v20.20.2, tree b0b6fb0135b9e416627085c8f0e873d4c59a8ce2+45f3111 (p15a1-b-r2), weeks 6240, seeds p13a-core-causal-01,seed-b, start 2026-10-02 16:04:56 CDT
+gp: exit 0, end 2026-10-02 16:11:36 CDT
