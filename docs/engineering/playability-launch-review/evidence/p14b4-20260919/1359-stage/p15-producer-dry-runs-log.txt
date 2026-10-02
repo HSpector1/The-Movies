@@ -1,0 +1,29 @@
+node v20.20.2, base 26566be88b9522d27ddc072d02e42bb5daeb4207
+ptree-1359: 455e5b6 red tests 1359-p15c-wave2-red-r5.patch, producer sha256 78c1d1055973dfd98479f511140d9ec44978639b83ae27e6389ffb55ada35186
+1359 producer start 22:59:17
+1359 producer exit 0
+total 304
+drwxr-xr-x  5 zacheryspector  staff    160 Oct  1 22:59 .
+drwxr-xr-x  3 zacheryspector  staff     96 Oct  1 22:59 ..
+-rw-r--r--  1 zacheryspector  staff   1331 Oct  1 22:59 MANIFEST.json
+-rw-r--r--  1 zacheryspector  staff  68024 Oct  1 22:59 route-l-week-6239.json.gz
+-rw-r--r--  1 zacheryspector  staff  77999 Oct  1 22:59 route-l-week-6240.json.gz
+status: [?? tests/fixtures/ ]
+ptree-1355: 53bcc81 red tests 1355-p15a1-wave2-red-r4.patch, producer sha256 5007e231468ad566d7c69fe45b78261270550bbc1c9c8ad7c488c2b3e8ba5707
+1355 producer start 22:59:31
+1355 producer exit 0
+tests/fixtures/p15/genuine-below-p15-save-step:
+total 152
+drwxr-xr-x  4 zacheryspector  staff    128 Oct  1 22:59 .
+drwxr-xr-x  4 zacheryspector  staff    128 Oct  1 22:59 ..
+-rw-r--r--  1 zacheryspector  staff    811 Oct  1 22:59 MANIFEST.json
+-rw-r--r--  1 zacheryspector  staff  69635 Oct  1 22:59 fresh-market-week-30.json.gz
+
+tests/fixtures/p15/p15a1-market-pins:
+total 144
+drwxr-xr-x  4 zacheryspector  staff    128 Oct  1 22:59 .
+drwxr-xr-x  4 zacheryspector  staff    128 Oct  1 22:59 ..
+-rw-r--r--  1 zacheryspector  staff   3984 Oct  1 22:59 MANIFEST.json
+-rw-r--r--  1 zacheryspector  staff  68219 Oct  1 22:59 k1-post-tick-week-21.json.gz
+status: [?? tests/fixtures/ ]
+done 22:59:39

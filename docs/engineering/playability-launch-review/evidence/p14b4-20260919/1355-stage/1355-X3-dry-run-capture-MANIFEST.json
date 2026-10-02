@@ -1,0 +1,26 @@
+{
+  "purpose": "generated test campaigns only; never Owner saves",
+  "record": "1355-P",
+  "executionHead": "53bcc810b758ec6300825dfdb9eb645c2e9186bf",
+  "saveVersion": 43,
+  "route": "initializeHollywood(generateWorld('p15a1-w2-market-02'), 'fresh'); natural ticks to week 30",
+  "inputs": [
+    {
+      "name": "fresh-market-week-30",
+      "gzip": {
+        "bytes": 69635,
+        "sha256": "f6daeedc233bd5fee60b7e3e3f1305d39add1d33b140a4f9708a99233a3156ec"
+      },
+      "decoded": {
+        "bytes": 564033,
+        "sha256": "8380bf3ff81213f1b80eb301cb4e244f742a88d5bc088c1e9b9e797b04cf9f80"
+      },
+      "facts": {
+        "week": 30,
+        "recentReleaseId": "studio-315405e1-r01:film:0",
+        "inFlightProductionId": "studio-315405e1-r03:film:2",
+        "genre": "horror"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+{"pins":"tests/fixtures/p15/p15a1-market-pins/","k1":{"week":21,"committed":null},"k2":12,"m0aWeeks":40,"capture":{"week":30,"recentReleaseId":"studio-315405e1-r01:film:0","inFlightProductionId":"studio-315405e1-r03:film:2","genre":"horror"},"elapsedMs":3872}

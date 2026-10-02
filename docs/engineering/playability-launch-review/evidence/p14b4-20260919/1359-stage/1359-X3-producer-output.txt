@@ -1,0 +1,1 @@
+{"captures":"tests/fixtures/p15/p15c2-route-l-captures/","weeks":[6239,6240],"saveVersion":43,"routeMs":{"headlessTo6188":2277.5881270000004,"industry6188To6241":4923.944142},"elapsedMs":7706}
