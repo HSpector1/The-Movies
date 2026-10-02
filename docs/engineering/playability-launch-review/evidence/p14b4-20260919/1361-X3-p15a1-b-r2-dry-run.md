@@ -34,3 +34,33 @@ This is the list the landing's recorded run of 1355's files must match.
 **1359 is unchanged.** It has the same 40 failing leaves with the same messages, so no 1359 leaf trips the guard.
 
 **The harness time** is a measurement, not a comparison: run-to-run noise covers the difference (1361-F4 ruling 4).
+
+## The d16 suite at `base` and at `p15a1-b-r2` (1361-F4 ruling 2; 1361-F5 ruling 3)
+
+The d16 suite runs under `src/harness/d16/vitest.d16.config.ts`, outside the `core` project. Until now no run in the P15
+chain had measured it.
+
+**The run.**
+- **Script:** [run-d16.sh](1361-stage/d16/run-d16.sh). It ran on an archive of each writer tag, with `node_modules`
+  linked, so the writer's working tree stayed untouched.
+- **When:** alone in the lane on Node v20.20.2, 16:17:00 to 16:28:02 CDT.
+- **Outputs:** [1361-stage/d16/](1361-stage/d16/) (`d16-base.json` sha256 55eb745d…, `d16-b-r2.json` sha256 6d2febfd…).
+
+| Tree | Result |
+|---|---|
+| `base` (1045432, `src` as at f3fe97d0) | 12 failed, 164 passed (176) |
+| `p15a1-b-r2` | 12 failed, 164 passed (176): the same 12 leaves with the same messages |
+
+**The baseline already fails.** Twelve leaves fail at `base`:
+- seven in `driver.test.ts`, three in `isolation.test.ts` and two in `publicity.test.ts`;
+- seven read "expected 0 to be greater than N" (N is 0, 20 or 50). They measured a count of zero: of films, of runs, or
+  of corpus entries, by their titles. Why the driver's runs yield zero is unmeasured.
+- Two of them are the leaves 1361-D2 F2 expected (c) to break: the discovery-multiplier spread and the exactly-1 case.
+  They fail at `base` already.
+
+**What follows.**
+- **(a) and (b) move nothing in d16.**
+- **At the landing,** the landed tree must fail exactly these 12 with these messages. Any other change is a finding.
+- **The drift itself goes to the closure's open items** for a bounded review. The question is why the d16 runs stopped
+  releasing films and whether the analysis harness is retired or repaired. P15 does not repair it.
+- **(d)** still rides with the retuned (c). Its effect can be measured only once d16 releases films again.

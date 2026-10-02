@@ -1,0 +1,275 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1361-d16/b-r2/tree/src/harness/d16
+
+ ✓ |d16| packages.test.ts (22 tests) 8732ms
+   ✓ d16/packages — authoritative cost parity (Lesson AC) > the FREELANCER-FEE leg is exact too: cash delta and the ledger rows both match 1882ms
+   ✓ d16/packages — player-visible evaluation > an exploit run can no longer reach the 100 %-of-gross path at all (D-17A/R2) 6460ms
+ ❯ |d16| publicity.test.ts (23 tests | 2 failed) 52548ms
+   ✓ d17b/publicity — accounting (the reconciliation invariant is not negotiable) > moves cash by EXACTLY the cost and writes exactly one paired ledger row 3820ms
+   ✓ d17b/publicity — accounting (the reconciliation invariant is not negotiable) > cash === INITIAL_CASH + Σ ledger after N purchases, and after the NEXT tick 2614ms
+   ✓ d17b/publicity — accounting (the reconciliation invariant is not negotiable) > leaves the FIXED-COST ALLOCATOR byte-identical (R7 break-even is untouched) 2185ms
+   × d17b/publicity — accounting (the reconciliation invariant is not negotiable) > leaves every PER-FILM committedCost and contribution unchanged 2373ms
+     → expected 0 to be greater than 0
+   × d17b/publicity — accounting (the reconciliation invariant is not negotiable) > moves only PURE-CASH recap fields (the A4 F7 result, locked) 2252ms
+     → expected 0 to be greater than 0
+   ✓ d17b/publicity — the effect shape R9 requires > delivers a durationWeeks campaign in equal weekly parts, not as a switch 2748ms
+   ✓ d17b/publicity — the effect shape R9 requires > liftDelivered equals the awareness actually gained when a campaign leg and an instant buy land in the SAME week 2772ms
+   ✓ d17b/publicity — the effect shape R9 requires > never pushes awareness past the engine ceiling of 100 2407ms
+   ✓ d17b/publicity — availability is a gate, not a suggestion > honours the per-tier cooldown AND the global anti-spam cooldown 3251ms
+   ✓ d17b/publicity — availability is a gate, not a suggestion > refuses a purchase that would take cash below zero (the canAfford rule, not a lookalike) 2688ms
+   ✓ d17b/publicity — availability is a gate, not a suggestion > honours a per-run cap 2462ms
+   ✓ d17b/publicity — availability is a gate, not a suggestion > the production action agrees exactly with the lab formula at every tier and representative stock 2533ms
+   ✓ d17b/publicity — the view panel and the policy channel > PlayerView.publicity is null when the shim is off and passes the leak canary when on 764ms
+   ✓ d17b/publicity — the view panel and the policy channel > the panel reports availability the same way the gate does 2382ms
+   ✓ d17b/publicity — the view panel and the policy channel > a run WITHOUT the shim never calls publicize and emits no publicity record 3332ms
+   ✓ d17b/publicity — the view panel and the policy channel > Q0 (never publicize) reproduces its host P3 EXACTLY even with the shim enabled 9455ms
+   ✓ d17b/publicity — the view panel and the policy channel > the adversary really does spend, and the ledger self-check binds on a full run 4501ms
+ ✓ |d16| counterflow.test.ts (17 tests) 135705ms
+   ✓ d17b/counterflow — THE NEUTRAL-ARM INVARIANT > runOne with the shim OFF is byte-identical to runOne without the option (3 seeds × 2 policies) 128409ms
+   ✓ d17b/counterflow — the shim touches awareness and NOTHING else > a real 104-week run under a family MOVES awareness and still reconciles (not vacuous) 7192ms
+ ✓ |d16| states.test.ts (17 tests) 184ms
+ ✓ |d16| experiment.test.ts (21 tests) 103ms
+ ✓ |d16| stats.test.ts (14 tests) 26ms
+ ✓ |d16| production-agreement.test.ts (4 tests) 6103ms
+   ✓ D-17B Phase H — production candidate agreement > a production corpus row uses real publicity ledger rows and no counter-flow shim 5722ms
+ ✓ |d16| luck.test.ts (8 tests) 2561ms
+   ✓ d16/luck > a resampled continuation is itself deterministic and replayable 2306ms
+ ❯ |d16| driver.test.ts (25 tests | 7 failed) 189765ms
+   × d16/driver — discoveryMultiplier is the D-13 draw, not the information gap (B2-C2) > the corpus is not vacuous 14ms
+     → expected 0 to be greater than 50
+   × d16/driver — discoveryMultiplier is the D-13 draw, not the information gap (B2-C2) > implies a spread inside [0, DISC_SPREAD] — never a negative one 1ms
+     → expected 0 to be greater than 20
+   × d16/driver — discoveryMultiplier is the D-13 draw, not the information gap (B2-C2) > is EXACTLY 1 for well-supported films (spread === 0 ⇒ multiplier === 1) 1ms
+     → expected 0 to be greater than 0
+   × d16/driver — discoveryMultiplier is the D-13 draw, not the information gap (B2-C2) > emits the information gap SEPARATELY, and it is a different number from the draw 7ms
+     → expected false to be true // Object.is equality
+   ✓ d16/driver — the engagement cliff is declared, measured and attributable (B2-C3/C8) > P16 doNothing declares its disengagement, so it is never flagged as a defect 12546ms
+   ✓ d16/driver — the engagement cliff is declared, measured and attributable (B2-C3/C8) > P15 exploit reports engagedWeekFraction, not a meaningless "cliff 0 %" 4097ms
+   × d16/driver — the engagement cliff is declared, measured and attributable (B2-C3/C8) > an unpayable renewal is a ROSTER WALL, not an engagement cliff — and it carries its week 10837ms
+     → expected undefined to be true // Object.is equality
+   ✓ d16/driver — the engagement cliff is declared, measured and attributable (B2-C3/C8) > the roster-wall stamp is ABSENT (not false) on a run that never hits the wall 3430ms
+   × d16/driver — the engagement cliff is declared, measured and attributable (B2-C3/C8) > renewal at the FULL 12-week window keeps the healthy cadence policies engaged to 260 wk 10330ms
+     → expected 0.8 to be 1 // Object.is equality
+   ✓ d16/driver — renewals are priced against a RUNNING cash figure (B2-C5) > no renewContract is ever refused by the engine, over 208 weeks of the busiest policies 86454ms
+   ✓ d16/driver — renewals are priced against a RUNNING cash figure (B2-C5) > records the ENGINE’s own reason for anything it does refuse 6388ms
+   ✓ d16/driver — P9 really lets its short contracts lapse (B2-H5) > drops to exactly ONE contract at week 52 and stays engaged on it 5190ms
+   ✓ d16/driver — P9 really lets its short contracts lapse (B2-H5) > MEASURES the resulting market thinness rather than hiding it 9653ms
+   × d16/driver — a RESUMED run is accounted to itself (B2-C10) > counts only the films THIS run released, and slices relative to its own start 1476ms
+     → expected 0 to be greater than 0
+   ✓ d16/driver — a RESUMED run is accounted to itself (B2-C10) > measures runaway success against the run’s OWN opening cash 2366ms
+   ✓ d16/driver — a RESUMED run is accounted to itself (B2-C10) > a FRESH run is unchanged: opening cash is INITIAL_CASH and slices are absolute-equal 4720ms
+   ✓ d17b/driver — the frozen row schema > emits NONE of the new blocks on a neutral run 1560ms
+   ✓ d17b/driver — the frozen row schema > awareness.timeInBand sums to EXACTLY horizonWeeks, and the bands partition the stock 3244ms
+   ✓ d17b/driver — the frozen row schema > durableRecovery is present exactly when the run entered distress 8484ms
+   ✓ d17b/driver — the frozen row schema > the publicity note-sum equals the shim tally on a real run (the driver’s own assert) 3152ms
+   ✓ d17b/driver — the frozen row schema > captureAt harvests states whose classifier label is the one that was asked for 5951ms
+   ✓ d17b/driver — the frozen row schema > --slice-weeks style custom slices are honoured, and stay RELATIVE to the run’s start 5827ms
+   ✓ d17b/driver — the frozen row schema > a CAPACITY-ANCHORED grid re-resolves every week and moves what the policy commits 4026ms
+ ❯ |d16| isolation.test.ts (25 tests | 3 failed) 350572ms
+   ✓ D-16 · production import isolation > no module under src/core/ or ui/src/ imports anything from a harness path 475ms
+   ✓ D-16 · production import isolation > the only textual "harness/" occurrences in production code are the known prose ones 441ms
+   ✓ D-16 · information discipline (PlayerView leak test) > a serialized PlayerView contains none of actual / scriptPotential / rngState 390ms
+   × D-16 · information discipline (PlayerView leak test) > holds after a real run has produced films, runs and career events 7548ms
+     → expected 0 to be greater than 0
+   ✓ D-16 · determinism smoke > two 60-week P3 runs on one seed are byte-identical 5962ms
+   ✓ D-16 · determinism smoke > different seeds produce different runs (the comparison above is not vacuous) 5044ms
+   ✓ D-16 · conservation smoke > cash === INITIAL_CASH + Σ ledger (array order) at the end of a run for several policies 10762ms
+   ✓ D-16 · policy registry > every policy places its films on the ACTIVE marketing grid, resolved per decision 75024ms
+   ✓ D-16 · policy registry > every policy that does NOT declare disengagement stays engaged over 104 weeks 61915ms
+   × D-16 · policy registry > past the 208-week contract wall the ROSTER WALL is possible, flagged, and carries its week 15998ms
+     → expected true to be undefined
+   ✓ D-16 · policy registry > no policy loses the ENGAGED ECONOMY over 260 weeks (the cliff is structurally closed post-R2) 141802ms
+   ✓ D-16 · policy registry > the exploit policy sheds every contract but STAYS in the engaged economy (D-17A/R2) 1323ms
+   ✓ D-17B · publicity policy registry > every Q arm keeps its host’s greenlight behaviour (only `publicize` differs) 4795ms
+   ✓ D-17B · publicity policy registry > no Q arm disengages unintentionally over 104 weeks WITH the shim live 15168ms
+   ✓ D-17B · publicity policy registry > every publicize() intent is derived ONLY from the visible view (never a hidden field) 377ms
+   × D-17B · publicity policy registry > a Q arm’s publicity spend is visible in the ledger under the note prefix, and nowhere else 3404ms
+     → expected -5369782.91 to be -2684891.455 // Object.is equality
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 12 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |d16|  driver.test.ts > d16/driver — discoveryMultiplier is the D-13 draw, not the information gap (B2-C2) > the corpus is not vacuous
+AssertionError: expected 0 to be greater than 50
+ ❯ driver.test.ts:53:25
+     51| 
+     52|   it('the corpus is not vacuous', () => {
+     53|     expect(rows.length).toBeGreaterThan(50)
+       |                         ^
+     54|     expect(supported.length).toBeGreaterThan(50)
+     55|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/12]⎯
+
+ FAIL |d16|  driver.test.ts > d16/driver — discoveryMultiplier is the D-13 draw, not the information gap (B2-C2) > implies a spread inside [0, DISC_SPREAD] — never a negative one
+AssertionError: expected 0 to be greater than 20
+ ❯ driver.test.ts:74:28
+     72|       .filter((r) => Math.abs(r.z) > 0.2 && r.m > TUNING.DISC_FLOOR + …
+     73|       .map((r) => Math.log(r.m) / r.z)
+     74|     expect(implied.length).toBeGreaterThan(20)
+       |                            ^
+     75|     expect(implied.filter((v) => v < -1e-9)).toEqual([])
+     76|     expect(implied.filter((v) => v > TUNING.DISC_SPREAD + 1e-9)).toEqu…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/12]⎯
+
+ FAIL |d16|  driver.test.ts > d16/driver — discoveryMultiplier is the D-13 draw, not the information gap (B2-C2) > is EXACTLY 1 for well-supported films (spread === 0 ⇒ multiplier === 1)
+AssertionError: expected 0 to be greater than 0
+ ❯ driver.test.ts:81:26
+     79|   it('is EXACTLY 1 for well-supported films (spread === 0 ⇒ multiplier…
+     80|     const exact = supported.filter((r) => r.m === 1)
+     81|     expect(exact.length).toBeGreaterThan(0)
+       |                          ^
+     82|   })
+     83| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/12]⎯
+
+ FAIL |d16|  driver.test.ts > d16/driver — discoveryMultiplier is the D-13 draw, not the information gap (B2-C2) > emits the information gap SEPARATELY, and it is a different number from the draw
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ driver.test.ts:88:39
+     86|     expect(gaps.length).toBe(rows.length)
+     87|     // the perceived core is close to, but not equal to, the actual co…
+     88|     expect(gaps.some((g) => g !== 1)).toBe(true)
+       |                                       ^
+     89|     for (const g of gaps) expect(Math.abs(g - 1)).toBeLessThan(0.5)
+     90|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/12]⎯
+
+ FAIL |d16|  driver.test.ts > d16/driver — the engagement cliff is declared, measured and attributable (B2-C3/C8) > an unpayable renewal is a ROSTER WALL, not an engagement cliff — and it carries its week
+AssertionError: expected undefined to be true // Object.is equality
+
+- Expected: 
+true
+
++ Received: 
+undefined
+
+ ❯ driver.test.ts:131:31
+    129|     expect(rec.engagementCliffCash).toBeNull()
+    130|     // …but the WALL is real, is stamped, and is stamped past the cont…
+    131|     expect(rec.rosterWallHit).toBe(true)
+       |                               ^
+    132|     expect(rec.rosterWallWeek).toBeGreaterThanOrEqual(TUNING.CONTRACT_…
+    133|     // …and it happened with negative cash, which is what makes it a w…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/12]⎯
+
+ FAIL |d16|  driver.test.ts > d16/driver — the engagement cliff is declared, measured and attributable (B2-C3/C8) > renewal at the FULL 12-week window keeps the healthy cadence policies engaged to 260 wk
+AssertionError: expected 0.8 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0.8
+
+ ❯ driver.test.ts:150:68
+    148|     for (const seed of SEEDS) {
+    149|       const rec = runOne({ seed, policy: forecastProfitMax, horizonWee…
+    150|       if (!rec.engagementCliffHit) expect(rec.engagedWeekFraction).toB…
+       |                                                                    ^
+    151|     }
+    152|     // at least one seed must survive, or this assertion is vacuous
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/12]⎯
+
+ FAIL |d16|  driver.test.ts > d16/driver — a RESUMED run is accounted to itself (B2-C10) > counts only the films THIS run released, and slices relative to its own start
+AssertionError: expected 0 to be greater than 0
+ ❯ driver.test.ts:224:24
+    222|     const save = seeded()
+    223|     const priorFilms = save.studio.releasedFilms.length
+    224|     expect(priorFilms).toBeGreaterThan(0) // the save really does carr…
+       |                        ^
+    225|     const rec = runOne({
+    226|       seed: 'd16-0002',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/12]⎯
+
+ FAIL |d16|  isolation.test.ts > D-16 · information discipline (PlayerView leak test) > holds after a real run has produced films, runs and career events
+AssertionError: expected 0 to be greater than 0
+ ❯ isolation.test.ts:188:31
+    186|   it('holds after a real run has produced films, runs and career event…
+    187|     const rec = runOne({ seed: 'd16-leak', policy: standardCadence, ho…
+    188|     expect(rec.filmsReleased).toBeGreaterThan(0)
+       |                               ^
+    189|     // Rebuild the view at the end of an equivalent run and re-check.
+    190|     const founded = foundStudioFor('d16-leak', standardCadence).state
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/12]⎯
+
+ FAIL |d16|  isolation.test.ts > D-16 · policy registry > past the 208-week contract wall the ROSTER WALL is possible, flagged, and carries its week
+AssertionError: expected true to be undefined
+
+- Expected: 
+undefined
+
++ Received: 
+true
+
+ ❯ isolation.test.ts:340:35
+    338|     // a solvent studio renews inside the 12-week window and survives …
+    339|     expect(solvent.engagementCliffHit).toBe(false)
+    340|     expect(solvent.rosterWallHit).toBeUndefined()
+       |                                   ^
+    341|     expect(solvent.engagedWeekFraction).toBe(1)
+    342| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/12]⎯
+
+ FAIL |d16|  isolation.test.ts > D-17B · publicity policy registry > a Q arm’s publicity spend is visible in the ledger under the note prefix, and nowhere else
+AssertionError: expected -5369782.91 to be -2684891.455 // Object.is equality
+
+- Expected
++ Received
+
+- -2684891.455
++ -5369782.91
+
+ ❯ isolation.test.ts:492:43
+    490|       publicity: DEFAULT_PUBLICITY,
+    491|     })
+    492|     expect(q0.ledgerTotals['production']).toBe(rec.ledgerTotals['produ…
+       |                                           ^
+    493|   })
+    494| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/12]⎯
+
+ FAIL |d16|  publicity.test.ts > d17b/publicity — accounting (the reconciliation invariant is not negotiable) > leaves every PER-FILM committedCost and contribution unchanged
+AssertionError: expected 0 to be greater than 0
+ ❯ publicity.test.ts:112:27
+    110|     const after = buildPlayerView(s1).releasedFilms.map((f) => `${f.pr…
+    111|     expect(after).toEqual(before)
+    112|     expect(before.length).toBeGreaterThan(0) // not vacuous — the stat…
+       |                           ^
+    113|   })
+    114| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/12]⎯
+
+ FAIL |d16|  publicity.test.ts > d17b/publicity — accounting (the reconciliation invariant is not negotiable) > moves only PURE-CASH recap fields (the A4 F7 result, locked)
+AssertionError: expected 0 to be greater than 0
+ ❯ publicity.test.ts:125:28
+    123|     // every per-film row — the allocator's output as the recap render…
+    124|     expect(stableStringify(b.films)).toBe(stableStringify(a.films))
+    125|     expect(a.films.length).toBeGreaterThan(0)
+       |                            ^
+    126|     // …and the cash it SHOULD move, it moves
+    127|     expect(b.summary.currentCash).toBe(a.summary.currentCash - DEFAULT…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/12]⎯
+
+ Test Files  3 failed | 7 passed (10)
+      Tests  12 failed | 164 passed (176)
+   Start at  16:22:06
+   Duration  355.04s (transform 3.02s, setup 0ms, collect 125.69s, tests 746.30s, environment 3ms, prepare 2.22s)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1361-d16/b-r2/out/d16.json
