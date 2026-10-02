@@ -1,0 +1,14 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1361-sibling/v2-c/tree
+
+ ✓ |core| tests/p15c2-campaign-legacy-sibling.test.ts (5 tests) 13771ms
+   ✓ p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) > legacy-freeze-is-last-allocation 5854ms
+   ✓ p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) > legacy-migration-before-boundary-siblings-limited 326ms
+   ✓ p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) > legacy-validate-refs-sibling-added-after-freeze 7532ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  17:14:25
+   Duration  16.91s (transform 1.84s, setup 0ms, collect 2.43s, tests 13.77s, environment 0ms, prepare 96ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1361-sibling/v2-c/out/sibling.json

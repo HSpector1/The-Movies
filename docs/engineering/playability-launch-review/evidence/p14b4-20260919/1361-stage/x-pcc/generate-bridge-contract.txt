@@ -1,0 +1,3 @@
+verified /Users/zacheryspector/studio-scratch/1361-prod/tree/bridge/schema/project-studio-bridge.schema.json
+verified /Users/zacheryspector/studio-scratch/1361-prod/tree/generated/unity/StudioBridgeDtos.Generated.cs
+verified /Users/zacheryspector/studio-scratch/1361-prod/tree/generated/unity/project-studio-bridge.contract-manifest.json

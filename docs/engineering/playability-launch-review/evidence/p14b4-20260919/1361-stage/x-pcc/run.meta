@@ -1,0 +1,12 @@
+start at p15c-c-r1 f4612bf, node v20.20.2; 2026-10-02 16:51:23 CDT
+tsc tsconfig.json exit 2; src errors 0; tests errors 33; other errors 0; 2026-10-02 16:52:55 CDT
+tsc ui/tsconfig.json exit 2; src errors 0; tests errors 4; other errors 0; 2026-10-02 16:53:40 CDT
+tsc tsconfig.bridge.json exit 2; src errors 0; tests errors 9; other errors 0; 2026-10-02 16:54:12 CDT
+p15a2: vitest exit 0;  Tests 71 passed (71); 2026-10-02 16:54:55 CDT
+p15a2-harness: vitest exit 0;  Tests 1 passed (1); 2026-10-02 16:56:21 CDT
+p15a1: vitest exit 1;  Tests 45 failed | 14 passed (59); 2026-10-02 16:56:35 CDT
+p15c: vitest exit 0;  Tests 116 passed (116); 2026-10-02 16:58:23 CDT
+generate-bridge-contract --check exit 0; 2026-10-02 16:58:24 CDT
+generate-bridge-contract-fixtures --check exit 0; 2026-10-02 16:58:25 CDT
+tree status after: []; 2026-10-02 16:58:25 CDT
+end; 2026-10-02 16:58:25 CDT

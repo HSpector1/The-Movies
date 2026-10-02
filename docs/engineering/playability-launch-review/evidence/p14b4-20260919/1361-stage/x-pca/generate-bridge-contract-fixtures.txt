@@ -1,0 +1,1 @@
+verified /Users/zacheryspector/studio-scratch/1361-prod/tree/generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs

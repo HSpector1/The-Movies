@@ -1,0 +1,98 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1361-sibling/v2-b/tree
+
+ ❯ |core| tests/p15c2-campaign-legacy-sibling.test.ts (5 tests | 5 failed) 473ms
+   × p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) > legacy-freeze-is-last-allocation 14ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+   × p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) > legacy-ranking-at-6240-inside-live-tick 1ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+   × p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) > legacy-migration-before-boundary-siblings-limited 452ms
+     → RED: the state carries no campaignLegacy root (1359-A §5: a top-level GameState key)
+   × p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) > legacy-validate-stamp-duplicate-across-roots 1ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+   × p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) > legacy-validate-refs-sibling-added-after-freeze 2ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-sibling.test.ts > p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) > legacy-freeze-is-last-allocation
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ Module.stepFn tests/helpers/p15c2-legacy.ts:132:37
+ ❯ tests/p15c2-campaign-legacy-sibling.test.ts:51:5
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-sibling.test.ts > p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) > legacy-ranking-at-6240-inside-live-tick
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ Module.stepFn tests/helpers/p15c2-legacy.ts:132:37
+ ❯ tests/p15c2-campaign-legacy-sibling.test.ts:73:5
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-sibling.test.ts > p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) > legacy-migration-before-boundary-siblings-limited
+Error: RED: the state carries no campaignLegacy root (1359-A §5: a top-level GameState key)
+ ❯ legacyOf tests/helpers/p15c2-legacy.ts:143:33
+    141| export function legacyOf(state: GameState): LegacyRoot {
+    142|   const root = rawOf(state).campaignLegacy
+    143|   if (root === undefined) throw new Error('RED: the state carries no c…
+       |                                 ^
+    144|   return root as LegacyRoot
+    145| }
+ ❯ Module.officialOf tests/helpers/p15c2-legacy.ts:152:20
+ ❯ tests/p15c2-campaign-legacy-sibling.test.ts:89:22
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-sibling.test.ts > p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) > legacy-validate-stamp-duplicate-across-roots
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ Module.stepFn tests/helpers/p15c2-legacy.ts:132:37
+ ❯ tests/p15c2-campaign-legacy-sibling.test.ts:101:5
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-sibling.test.ts > p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) > legacy-validate-refs-sibling-added-after-freeze
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ Module.stepFn tests/helpers/p15c2-legacy.ts:132:37
+ ❯ tests/p15c2-campaign-legacy-sibling.test.ts:113:5
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+ Test Files  1 failed (1)
+      Tests  5 failed (5)
+   Start at  17:15:35
+   Duration  3.89s (transform 2.01s, setup 0ms, collect 2.70s, tests 473ms, environment 0ms, prepare 155ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1361-sibling/v2-b/out/sibling.json

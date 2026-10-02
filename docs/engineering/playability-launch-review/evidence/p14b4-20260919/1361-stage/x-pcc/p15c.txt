@@ -1,0 +1,38 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1361-prod/tree
+
+ ✓ |core| tests/p15c1-campaign-legacy.test.ts (72 tests) 548ms
+ ✓ |core| tests/p15c-wave-r-retention.test.ts (7 tests) 65422ms
+   ✓ p15c wave R: retention guards over the six named roots (1353-A §4 row R) > wave-r-retention-studio-released-films 65200ms
+stdout | tests/p15c2-campaign-legacy-integration.test.ts > p15c2 controls: the fixtures are lawful at RED and at GREEN > legacy-control-late-founding-route-lawful
+{"kind":"1359-legacy-route-timing","seed":"1359-legacy-late-founding-01","headlessTo6188":4756.826244,"industry6188To6241":5670.974394000001}
+
+stdout | tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-ticks-after-freeze
+{"kind":"1359-legacy-extension-timing","headlessTo6188":4756.826244,"industry6188To6241":5670.974394000001,"extension520Ms":15095.588203999996}
+
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts (37 tests) 103662ms
+   ✓ p15c2 controls: the fixtures are lawful at RED and at GREEN > legacy-control-late-founding-route-lawful 10821ms
+   ✓ p15c2 controls: the fixtures are lawful at RED and at GREEN > legacy-control-genuine-save38-6240-lawful 14184ms
+   ✓ p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-film-facts 641ms
+   ✓ p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-private-money-never-read 469ms
+   ✓ p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-freeze-writes-only-its-root 698ms
+   ✓ p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-adapter-only-at-boundary 15436ms
+   ✓ p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-determinism 4209ms
+   ✓ p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-empty-root 530ms
+   ✓ p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-empty-root-genuine-save38 21263ms
+   ✓ p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-past-boundary-genuine-save38 476ms
+   ✓ p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-root-downgrade 19781ms
+   ✓ p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-marker 953ms
+   ✓ p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-manifest-identity 1233ms
+   ✓ p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-stamp 2151ms
+   ✓ p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-bounds 3239ms
+   ✓ p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-refs 1819ms
+   ✓ p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) > legacy-validate-replay 2391ms
+   ✓ p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) > legacy-old-law-fixture-v1-validates-after-retune 1848ms
+
+ Test Files  3 passed (3)
+      Tests  116 passed (116)
+   Start at  16:56:35
+   Duration  107.44s (transform 4.71s, setup 0ms, collect 7.18s, tests 169.63s, environment 1ms, prepare 671ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1361-prod/x/pcc/p15c.json

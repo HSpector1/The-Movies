@@ -1,0 +1,36 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1361-sibling/run/tree
+
+ ❯ |core| tests/p15c2-campaign-legacy-sibling.test.ts (5 tests | 1 failed) 6317ms
+   ✓ p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) > legacy-freeze-is-last-allocation 5908ms
+   ✓ p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) > legacy-migration-before-boundary-siblings-limited 329ms
+   × p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) > legacy-validate-refs-sibling-added-after-freeze 13ms
+     → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-scratch/1361-sibling/run/tree/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-sibling.test.ts > p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) > legacy-validate-refs-sibling-added-after-freeze
+Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-scratch/1361-sibling/run/tree/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+ ❯ tests/helpers/p15c2-legacy.ts:211:15
+    209| /** G6240: the genuine Save38 at week 6240 of the 1052 active enduranc…
+    210| export const genuineSave38 = memo((): Envelope => {
+    211|   const raw = readFileSync(new URL(EVIDENCE + GENUINE_6240.path, impor…
+       |               ^
+    212|   expect(raw.byteLength).toBe(GENUINE_6240.bytes)
+    213|   expect(sha256(raw)).toBe(GENUINE_6240.sha256)
+ ❯ tests/helpers/p15c2-legacy.ts:92:22
+ ❯ tests/helpers/p15c2-legacy.ts:219:64
+ ❯ tests/helpers/p15c2-legacy.ts:92:22
+ ❯ tests/helpers/p15c2-legacy.ts:224:16
+ ❯ Module.<anonymous> tests/helpers/p15c2-legacy.ts:92:22
+ ❯ tests/p15c2-campaign-legacy-sibling.test.ts:114:20
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 passed (5)
+   Start at  17:13:08
+   Duration  9.50s (transform 1.99s, setup 0ms, collect 2.58s, tests 6.32s, environment 0ms, prepare 138ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1361-sibling/run/out/sibling.json

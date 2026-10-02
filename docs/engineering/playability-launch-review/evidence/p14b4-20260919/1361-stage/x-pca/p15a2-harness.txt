@@ -1,0 +1,15 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1361-prod/tree
+
+stdout | tests/p15a2-power-ranking-archive-harness.test.ts > p15a2 archive: the bounded natural campaign (1356-A §5; RED 17) > rank-bounded-harness
+{"proof":"p15a2-power-ranking-archive-bounded-harness","weeks":6240,"records":480,"archiveBytes":725757,"saveBytes":6166915,"archiveShare":11.77,"campaignMs":75612,"makeSaveMs":603,"validateSaveMs":338}
+
+ ✓ |core| tests/p15a2-power-ranking-archive-harness.test.ts (1 test) 76845ms
+   ✓ p15a2 archive: the bounded natural campaign (1356-A §5; RED 17) > rank-bounded-harness 76844ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  17:05:50
+   Duration  80.10s (transform 2.00s, setup 0ms, collect 2.67s, tests 76.85s, environment 0ms, prepare 114ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1361-prod/x/pca/p15a2-harness.json

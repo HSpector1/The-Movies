@@ -1,0 +1,230 @@
+[
+  {
+    "id": "B2",
+    "file": "tests/p15c2-campaign-legacy-sibling.test.ts",
+    "leaf": "legacy-freeze-is-last-allocation",
+    "lines": "50-68",
+    "charterClause": "1359-A §8 B2 :231; §4.1-§4.2 :101-119 (the freeze wraps the ranking record and runs last); §5.1 item 6 :171-173 (a P15 watermark is the largest sequence in its root below the official's); 1361-F ruling 9 (tick order); sibling r2 header :13-14 (needs powerRanking)",
+    "expectedFailureToday": "At p15a1-b-r2 without P15C: the first statement stepFn() throws 'RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)'. Route L is never built. requireRoot would pass (the powerRanking root exists since slice 2a) but is not reached.",
+    "firstMessageAtRed": "Error: RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)",
+    "control": false,
+    "fixturePending": false,
+    "budget": "ROUTE_MS",
+    "redBasis": "reading: not run. campaignLegacy.ts at b0b6fb01 exports buildLegacyManifest and freezeLegacy but neither freezeCampaignLegacyWeek nor legacyFactsFromState; wave2Fn (tests/helpers/p15c2-legacy.ts:122-128) throws the message above. Reads no fixture (route L is built in process from seed 1359-legacy-late-founding-01).",
+    "referenceBasis": "reading of p15c-c-r1 (f4612bf) on top of b-r2; not run. tick() ends with freezeCampaignLegacyWeek(recordPowerRankingQuarter(...)) (tick.ts, commit c). Route L has powerRanking records at weeks 6201, 6214, 6227 and 6240 (sequences 1 to 4, so since = 4: the founding at 6188 is not a tick and the headless years record nothing). The 6240 record carries sequence 4 and week 6240. freezeCampaignLegacyWeek (campaignLegacy.ts:1163) stamps the official with p15Sequence.next = 5 and leaves next at 6. legacyFactsFromState (:995) sets the powerRanking watermark to the largest snapshot sequence, 4. The sharedMarket root is present, empty and recorded from week 6240 (b's tick write), so siblingBefore reads it as absent: watermark 0, equal to the leaf's largest of 0 with no rows. corporateCondition is absent and skipped. No dependence on (c) rows or on the guard.",
+    "readingOnly": true,
+    "expectedAtBr2": "fail",
+    "expectedMerged": "pass",
+    "dependsOnC": false,
+    "imports": [
+      {
+        "from": "vitest",
+        "names": ["expect", "it"],
+        "where": "vitest",
+        "resolvesAtBr2": true,
+        "resolvesOnMerged": true,
+        "needsFromP15C": null
+      },
+      {
+        "from": "./helpers/p15c2-legacy.js",
+        "names": ["budgeted", "ROUTE_MS", "stepFn", "B", "requireRoot", "sequenceOf", "siblingRows", "officialOf", "P15_SIBLINGS", "rawOf", "sourceOf"],
+        "where": "tests/helpers/p15c2-legacy.ts, blob 0606c85e, equal to the repository file; every listed name is exported",
+        "resolvesAtBr2": true,
+        "resolvesOnMerged": true,
+        "needsFromP15C": "stepFn resolves freezeCampaignLegacyWeek by name at call time: absent at b-r2, present at p15c-c-r1 (campaignLegacy.ts:1163, commit c). officialOf needs the campaignLegacy root (commit a) and a frozen official (the freeze wrapped into tick(), commit c)."
+      },
+      {
+        "from": "./helpers/p15c2-route-l.js",
+        "names": ["routeAt"],
+        "where": "tests/helpers/p15c2-route-l.ts:132, blob 09de4a54",
+        "resolvesAtBr2": true,
+        "resolvesOnMerged": true,
+        "needsFromP15C": "routeAt returns founded-branch states built by tick(); the 6240 freeze needs commit (c)."
+      }
+    ]
+  },
+  {
+    "id": "B4b",
+    "file": "tests/p15c2-campaign-legacy-sibling.test.ts",
+    "leaf": "legacy-ranking-at-6240-inside-live-tick",
+    "lines": "70-83",
+    "charterClause": "1359-A §8 B4 :233 (the inside half: the 6240 ranking record is inside the Legacy); §4.1 :104-106; 1359-D item 4 (the outside half stayed with B4 on a forged root); sibling r2 header :13-14 (needs powerRanking)",
+    "expectedFailureToday": "At p15a1-b-r2 without P15C: the first statement stepFn() throws the freezeCampaignLegacyWeek message. The second resolver, factsFn() (legacyFactsFromState), is not reached, so the message names freezeCampaignLegacyWeek, not legacyFactsFromState.",
+    "firstMessageAtRed": "Error: RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)",
+    "control": false,
+    "fixturePending": false,
+    "budget": "ROUTE_MS",
+    "redBasis": "reading: not run. Same resolver failure as B2: stepFn() runs before factsFn() and before routeAt(). Reads no fixture.",
+    "referenceBasis": "reading of p15c-c-r1 (f4612bf); not run. legacyFactsFromState (campaignLegacy.ts:995) reads powerRanking.snapshots[].id, week and rows (:1102-1105), which matches slice 2a's record shape. The 6240 record is the first available ranking (originWeek 6188 <= 6240 - 52) and the only record with ranked rows, so removing it changes the ranking and financialBand lenses of every studio. The stored official equals the law over the post-freeze state because the adapter reads neither p15Sequence nor campaignLegacy.official, the only fields the freeze writes. buildLegacyManifest (:771) keeps its (facts, kind) signature. No dependence on (c) rows or on the guard.",
+    "readingOnly": true,
+    "expectedAtBr2": "fail",
+    "expectedMerged": "pass",
+    "dependsOnC": false,
+    "imports": [
+      {
+        "from": "vitest",
+        "names": ["expect", "it"],
+        "where": "vitest",
+        "resolvesAtBr2": true,
+        "resolvesOnMerged": true,
+        "needsFromP15C": null
+      },
+      {
+        "from": "../src/core/campaignLegacy.js",
+        "names": ["buildLegacyManifest"],
+        "where": "src/core/campaignLegacy.ts:758 at b0b6fb01 (Wave 1), :771 at p15c-c-r1; the (facts, kind) signature is unchanged",
+        "resolvesAtBr2": true,
+        "resolvesOnMerged": true,
+        "needsFromP15C": null
+      },
+      {
+        "from": "./helpers/p15c2-legacy.js",
+        "names": ["budgeted", "ROUTE_MS", "stepFn", "factsFn", "B", "requireRoot", "rawOf", "officialOf", "canon", "withoutStamp", "withRoot"],
+        "where": "tests/helpers/p15c2-legacy.ts, blob 0606c85e, equal to the repository file; every listed name is exported",
+        "resolvesAtBr2": true,
+        "resolvesOnMerged": true,
+        "needsFromP15C": "stepFn resolves freezeCampaignLegacyWeek (absent at b-r2; present at p15c-c-r1, campaignLegacy.ts:1163, commit c). factsFn resolves legacyFactsFromState (absent at b-r2; present from p15c-b-r1, campaignLegacy.ts:995). officialOf needs the campaignLegacy root (commit a) and a frozen official (commit c)."
+      },
+      {
+        "from": "./helpers/p15c2-route-l.js",
+        "names": ["routeAt"],
+        "where": "tests/helpers/p15c2-route-l.ts:132, blob 09de4a54",
+        "resolvesAtBr2": true,
+        "resolvesOnMerged": true,
+        "needsFromP15C": "routeAt returns founded-branch states built by tick(); the 6240 freeze needs commit (c)."
+      }
+    ]
+  },
+  {
+    "id": "C3b",
+    "file": "tests/p15c2-campaign-legacy-sibling.test.ts",
+    "leaf": "legacy-migration-before-boundary-siblings-limited",
+    "lines": "85-98",
+    "charterClause": "1359-A §8 C3 :241 (migrated at 6239: the next tick freezes; siblings read limited); §5.2 :185-190; §10 item 4 :277-278 (the shared step); 1360-F3 ruling 1 (C3b joins P15C's fallback); 1361-F ruling 10; sibling r2 header :15-18 (needs a sibling that arrives in the Legacy's own step)",
+    "expectedFailureToday": "At p15a1-b-r2 without P15C: the leaf loads both route L captures (the manifest reads Save44 and STEP reads 45, so the STEP - 1 check passes), converts the 6239 capture with convertV44ToV45 (exported since slice 2a), ticks it and passes requireSiblings (powerRanking and sharedMarket exist). officialOf then throws from legacyOf: 'RED: the state carries no campaignLegacy root (1359-A §5: a top-level GameState key)'. This is the only sibling leaf that does real work before it fails.",
+    "firstMessageAtRed": "Error: RED: the state carries no campaignLegacy root (1359-A §5: a top-level GameState key)",
+    "control": false,
+    "fixturePending": false,
+    "budget": "ROUTE_MS",
+    "redBasis": "reading: not run. Reads tests/fixtures/p15/p15c2-route-l-captures/MANIFEST.json and route-l-week-6239.json.gz and route-l-week-6240.json.gz (belowStepCaptures loads and sha256-checks both; the leaf uses 6239); CAPTURE_DIRECTORY is tests/helpers/p15c2-route-l.ts:41. Not opened here. The Save44 manifest comes from 1360-L and r8's C3 row (the same helper message at HEAD, where STEP is 44).",
+    "referenceBasis": "reading of p15c-c-r1 (f4612bf); not run. convertV44ToV45 writes initialP15Roots(market.tick): powerRanking, sharedMarket and campaignLegacy all record from 6239 (save.ts, commit a). The tick producing 6240 appends the first ranking record (sequence 1), moves sharedMarket.recordedFromWeek to 6240 (b's tick write) and freezes. migrated therefore holds powerRanking alone, and its source reads [6239, 'limited'] (law: start 6239 is above the studios' entry week 6188). The sharedMarket half of the leaf is vacuous because b's write moves its week. No dependence on (c) rows; the guard sees an empty root and stays quiet.",
+    "readingOnly": true,
+    "expectedAtBr2": "fail",
+    "expectedMerged": "pass",
+    "dependsOnC": false,
+    "imports": [
+      {
+        "from": "vitest",
+        "names": ["expect", "it"],
+        "where": "vitest",
+        "resolvesAtBr2": true,
+        "resolvesOnMerged": true,
+        "needsFromP15C": null
+      },
+      {
+        "from": "../src/core/tick.js",
+        "names": ["tick"],
+        "where": "src/core/tick.ts; carries the ranking step since p15a2-r2, the P15A.1 guard and write since b0b6fb01 and the freeze since p15c-c-r1",
+        "resolvesAtBr2": true,
+        "resolvesOnMerged": true,
+        "needsFromP15C": "the freeze must wrap the tick's last expression (commit c; present at p15c-c-r1)"
+      },
+      {
+        "from": "./helpers/p15c2-legacy.js",
+        "names": ["budgeted", "ROUTE_MS", "captureAt", "B", "convertIntoStep", "requireSiblings", "officialOf", "P15_SIBLINGS", "rawOf", "sourceOf"],
+        "where": "tests/helpers/p15c2-legacy.ts, blob 0606c85e, equal to the repository file; every listed name is exported",
+        "resolvesAtBr2": true,
+        "resolvesOnMerged": true,
+        "needsFromP15C": "convertIntoStep resolves convertV44ToV45 by name (exists since slice 2a); commit a adds the campaignLegacy root inside it through initialP15Roots. officialOf needs the root and the freeze (commits a and c)."
+      }
+    ]
+  },
+  {
+    "id": "C8b",
+    "file": "tests/p15c2-campaign-legacy-sibling.test.ts",
+    "leaf": "legacy-validate-stamp-duplicate-across-roots",
+    "lines": "100-110",
+    "charterClause": "1359-A §8 C8 :246 (a duplicate sequence refuses); §5 :155-156; §5.1 item 4 :166-167 (distinct across P15 roots); 1361-F ruling 5 (one allocator check over every sequenced root); sibling r2 header :13-14 (needs powerRanking)",
+    "expectedFailureToday": "At p15a1-b-r2 without P15C: the first statement stepFn() throws the freezeCampaignLegacyWeek message. Route L and makeSave are never reached.",
+    "firstMessageAtRed": "Error: RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)",
+    "control": false,
+    "fixturePending": false,
+    "budget": "ROUTE_MS",
+    "redBasis": "reading: not run. Same resolver failure as B2. Reads no fixture.",
+    "referenceBasis": "reading of p15c-c-r1 (f4612bf); not run. Route L at 6241 holds four ranking records (sequences 1 to 4) and the official (5). The forged last record takes sequence 5 and id power-ranking-5, and validatePowerRankingArchive accepts it (sequences still ascend, the id matches its sequence, the key set is unchanged). validateSaveV45 then runs validateSharedMarketRoot, validateCampaignLegacy and only after them validateP15Allocator. validateCampaignLegacy refuses at item 6, source index 7 (powerRanking): 'validateSaveV45: campaignLegacy.official.sources[7].highWatermark must equal the largest P15 sequence in its root below the official's' (derived 3, stored 4). That message matches /power ranking|p15/i through the word 'P15'. The allocator's duplicate message ('p15DomainSequence 5 is held by two P15 rows (duplicate)') never runs for this forgery, so the leaf proves a refusal that names P15, not the allocator's cross-root check. The leaf does not assert that the unforged state validates; the control legacy-control-late-founding-route-lawful does. No dependence on (c) rows or on the guard.",
+    "readingOnly": true,
+    "expectedAtBr2": "fail",
+    "expectedMerged": "pass",
+    "dependsOnC": false,
+    "imports": [
+      {
+        "from": "vitest",
+        "names": ["expect", "it"],
+        "where": "vitest",
+        "resolvesAtBr2": true,
+        "resolvesOnMerged": true,
+        "needsFromP15C": null
+      },
+      {
+        "from": "./helpers/p15c2-legacy.js",
+        "names": ["budgeted", "ROUTE_MS", "stepFn", "B", "requireRoot", "rawOf", "officialOf", "withRoot", "refuses"],
+        "where": "tests/helpers/p15c2-legacy.ts, blob 0606c85e, equal to the repository file; every listed name is exported. refuses calls makeSave (src/core/save.ts, the live V45 validator).",
+        "resolvesAtBr2": true,
+        "resolvesOnMerged": true,
+        "needsFromP15C": "stepFn resolves freezeCampaignLegacyWeek by name at call time (absent at b-r2; present at p15c-c-r1, campaignLegacy.ts:1163). refuses needs validateSaveV45 to run validateCampaignLegacy (commit a) with item 6 present (commit b)."
+      },
+      {
+        "from": "./helpers/p15c2-route-l.js",
+        "names": ["routeAt"],
+        "where": "tests/helpers/p15c2-route-l.ts:132, blob 09de4a54",
+        "resolvesAtBr2": true,
+        "resolvesOnMerged": true,
+        "needsFromP15C": "routeAt(6241) needs the 6240 freeze from commit (c)."
+      }
+    ]
+  },
+  {
+    "id": "C10c",
+    "file": "tests/p15c2-campaign-legacy-sibling.test.ts",
+    "leaf": "legacy-validate-refs-sibling-added-after-freeze",
+    "lines": "112-124",
+    "charterClause": "1359-A §8 C10 :248 (a sibling root added after the freeze still validates); §5.1 item 6 :171-173 (a sibling root recorded from B or later reads null and notRecorded); 1361-F ruling 10; sibling r2 header :19 (needs any sibling root)",
+    "expectedFailureToday": "At p15a1-b-r2 without P15C: the first statement stepFn() throws the freezeCampaignLegacyWeek message. genuineFrozen() is never called, so the genuine save is not read.",
+    "firstMessageAtRed": "Error: RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)",
+    "control": false,
+    "fixturePending": false,
+    "budget": "FIXTURE_MS",
+    "redBasis": "reading: not run. Same resolver failure as B2. At GREEN the leaf reads docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json (6,720,108 bytes, sha256 c9bfb142...) through EVIDENCE and GENUINE_6240 in tests/helpers/p15c2-legacy.ts:204-208. Not opened here.",
+    "referenceBasis": "reading of p15c-c-r1 (f4612bf); not run. genuineFrozen migrates the genuine Save38 at 6240 to Save45 (powerRanking, sharedMarket and campaignLegacy all record from 6240 = B through initialP15Roots(market.tick)), forges the Legacy root to record from 0, runs freezeCampaignLegacyWeek (the official takes sequence 1, next reads 2) and passes makeSave. siblingBefore reads a root recorded from B as absent, so powerRanking and marketAssessments both read {highWatermark 0, recordedFromWeek null, status 'notRecorded'}. P15_SEQUENCED_ROOTS lists campaignLegacy (save.ts, commit a), so the allocator accepts next 2 with largest 1. No dependence on (c) rows or on the guard (the leaf never ticks).",
+    "readingOnly": true,
+    "expectedAtBr2": "fail",
+    "expectedMerged": "pass",
+    "dependsOnC": false,
+    "imports": [
+      {
+        "from": "vitest",
+        "names": ["expect", "it"],
+        "where": "vitest",
+        "resolvesAtBr2": true,
+        "resolvesOnMerged": true,
+        "needsFromP15C": null
+      },
+      {
+        "from": "../src/core/save.js",
+        "names": ["makeSave"],
+        "where": "src/core/save.ts, the live V45 boundary since p15a2-r2 (makeSave calls validateSaveV45)",
+        "resolvesAtBr2": true,
+        "resolvesOnMerged": true,
+        "needsFromP15C": "validateSaveV45 must run validateCampaignLegacy before an allocator check that lists campaignLegacy (commit a; present at p15c-c-r1)"
+      },
+      {
+        "from": "./helpers/p15c2-legacy.js",
+        "names": ["budgeted", "FIXTURE_MS", "stepFn", "genuineFrozen", "requireSiblings", "officialOf", "P15_SIBLINGS", "rawOf", "sourceOf", "STEP", "B"],
+        "where": "tests/helpers/p15c2-legacy.ts, blob 0606c85e, equal to the repository file; every listed name is exported",
+        "resolvesAtBr2": true,
+        "resolvesOnMerged": true,
+        "needsFromP15C": "stepFn resolves freezeCampaignLegacyWeek by name at call time (absent at b-r2; present at p15c-c-r1, campaignLegacy.ts:1163). genuineFrozen needs the migration to add campaignLegacy at the save's week (commit a) and makeSave to accept the frozen state (commits a to c)."
+      }
+    ]
+  }
+]

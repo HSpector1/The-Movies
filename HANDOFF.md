@@ -1,6 +1,6 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 16:52 CDT. Claude's weekly usage stood at 89% at 14:39 CDT (Owner): if Claude stops, Codex resumes from this file.
+Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 17:17 CDT. Claude's weekly usage stood at 89% at 14:39 CDT (Owner): if Claude stops, Codex resumes from this file.
 
 ## Where the work is
 - Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit after 50181e76 that carries this file, pushed: yes. Protected main is never touched.
@@ -30,16 +30,17 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 16:52 CDT. Claude's 
 - **1361-D2** PROCEED (`E/1361-D2`, rulings `E/1361-F4`); **1363** adopted (`E/1363-F`); **G-P C0** passed (15:48; both exit 0, equal manifest, JSON equal apart from the allowed fields).
 - In flight:
   - **P15C production handed back** (`E/1361-E3`; patches `E/1361-stage/prod/1361-p15c-production-{a,b,c}-r1.patch`): `p15c-a-r1` 2592aea, `p15c-b-r1` 5a3a532, `p15c-c-r1` f4612bf on `p15a1-b-r2`; tree clean on branch `p15c`. The parent accepts the writer's split (replay in (b); the marker rule's due half in (c)); rule it in `1361-F6` with 1361-D3's findings. By reading: 1359 86/98/116 at (a)/(b)/(c); messages of L:854, L:885, L:1089 change at (a)/(b).
-  - **Lane job since 16:51 CDT:** `S/1361-prod/run-1361-X4-p15c.sh` (run-1361-X.sh at p15c-c/b/a into `S/1361-prod/x/pcc|pcb|pca`; d16 at p15c-c-r1 into `S/1361-d16/p15c-c/`; the sibling patch in its own archive tree `S/1361-sibling/run/`); lane log `S/1361-prod/x4.log`. About 25 min. Then: record `1361-X4`; launch the independent review `1361-D3` (read-only agent) with X4's results.
-  - **sibling classification** (1361-F ruling 10) by an independent test author (read-only, sonnet) -> `S/1361-sibling/1361-sibling-classification.json` and `1361-sibling-notes.md`; the parent then applies `E/1359-stage/1359-p15c-wave2-sibling-r2.patch` in a scratch copy of the merged candidate and dry-runs its five leaves.
+  - **Review `1361-D3`** of P15C (independent, read-only agent) -> `S/1361-prod/review/1361-D3-p15c-review.md`.
+  - **Fallout `1361-M2`** in the lane since 17:16 CDT: `S/1361-m2/run-1361-M2.sh` (archive of HEAD + `E/1361-stage/prod/1361-p15c-production-c-r1.patch`; type gates, generators, core over 447 files `S/1361-m2/core-list.txt`, UI, d16); progress `S/1361-m2/m2.meta`; outputs `S/1361-m2/m2-*.txt`. About 2-3 h.
+- **P15C dry run `E/1361-X4`:** src type-clean at (a)/(b)/(c); 1359 86/98/116, no regression; 1356 72/72, harness 80,483 ms at (c); 1355 exactly the 45; d16 the same 12; sibling 5/5 at (c), 5/5 failing by name at b-r2 (its RED-side baseline); classification `E/1361-stage/sibling/`.
 - **Done since the G2 verdict:** `p15a1-b-r2` b0b6fb01 (b-r1 + F3's guard; `E/1361-F5` Amendment 1 adds the 45th leaf); its dry run `E/1361-X3` (src type-clean; 1356 72/72, harness 70,404 ms; 1355 14 passed and exactly the 45 declared failing, list `E/1361-stage/x-r3b/1355-leaves-red-at-b-r2.tsv`; 1359 unchanged; generators 0); **G-P passed** on b-r2 + v2 (`E/1361-GP-X`: no trigger; holder sets equal 1353-X4's; C0 passed; two market-reading expectations of 1361-F5 missed by the parent's own error, explained there).
 - Claims limits: P15A.1's r1 commits and slice 2a r2 are unmeasured; the harness time compares across Node versions and machine load (1361-F3 ruling 5); the 1363-A design rests on reading.
 
 ## Next step
 Standing rules: one production writer; one heavy test process at a time (`bash S/heavy-queue/lane-run.sh 0 <log> <cmd>`); no commits or `git add` during a recorded run or its postflight; free disk ≥ 5 GiB before a recorded run; recorded runs on Node v20.20.2; stems match `^[0-9]{3,4}[a-z0-9-]*$`.
 
-1. **When the writer hands back P15C (`1361-E3`):** stage its patches; check every tag sits on `p15a1-b-r2` and the tree is clean; dry-run `p15c-c-r1` (and (a), (b) as the writer's flip table needs) with `S/1361-prod/run-1361-X.sh <tag> <label>` in the lane (copy `run-1361-X3-b-r2-then-gp.sh` to a new name for the checkout wrapper; never edit a running script); expect 1359 116/116 at (c), 1356 72/72, 1355 exactly the 45 with their messages, `src` type-clean; record `1361-X4`.
-2. Then the independent implementation review `1361-D3` (read-only agent), the sibling test's classification (`E/1359-stage/1359-p15c-wave2-sibling-r2.patch`, five leaves, test author) and its dry run on the merged candidate, the merged-tick 1356 harness run (1361-F ruling 15), the fallout (core suite with no test edit + type gates + the d16 config `src/harness/d16/vitest.d16.config.ts` at `base` and on the candidate), the sweep plan `1361-N`, its units and reviews, the landing `1361-L` with four recorded runs, the broad gates `1361-M`.
+1. **When 1361-D3 returns:** publish it in E; rule `1361-F6` (accept E3's O1 split unless D3 finds a defect; O2-O7); a REVISE goes to the writer (SendMessage `a9b8c143941cbb673`), then a new X run of the changed tags.
+2. **When the fallout ends** (`S/1361-m2/m2.meta` says `end`): attribute core with `E/1321-I-attribution.py` and `E/1344-I-compare.py` against `E/1358-I-core-failures.json` (the Save44 recorded gates), expecting also 1355's 45 declared; UI with `E/1317-I-attribution.py` against `E/1358-I2-ui-failures.json`; d16 against the base 12; gzip `m2-core.txt` after reading; record `1361-M2`. Then the sweep plan `1361-N` (planner agent, 1358-N's method), its units (test authors), dry runs and review; then the landing `1361-L` (one push: productions, sibling test commit, sweep) with four recorded runs (1361-F ruling 14; 1355's files must fail exactly the 45), recorded broad gates `1361-M3`.
 3. **When an agent slot frees and usage allows:** draft the late-founding charter `1364-A` (scope in 1362-O's third section).
 
 ## Open decisions for the Owner
