@@ -121,16 +121,22 @@ function fundIfNeeded(s: GameState): GameState {
   return { ...s, studio: { ...s.studio, cash: target }, ledger: [...s.ledger,
     { week: s.market.tick, kind: delta > 0 ? 'studioRevenue' : 'overhead', amount: delta, note: '1358-P producer disclosed cash bootstrap' }] }
 }
-/** One competition (cancel + re-greenlight once, so `sharedCompetitions` reaches 2 for the pair
- * this slate names on its first two contested slots — no RNG anywhere in this route). */
+/** The route tests/p14b10-conflict-evidence.test.ts runs on this seed (`foundStudio` :236-248,
+ * `threeRealCompetitions` :280-293), through its second cancel at :288: fund, found, greenlight a
+ * contested slate, cancel and fund, re-greenlight the same casting session, cancel and fund. Each
+ * greenlight records the slate's competitions, so `sharedCompetitions` reaches 2 for (a,b). No RNG
+ * anywhere in this route. 1358-C4 (1358-F3 item 1): r3 never called `foundStudio`, so its first
+ * `commissionScript` named an unsigned writer (1358-X); r3 also left the second production active. */
 function runCastingCompetitionRoute(s0: GameState, market: Market): GameState {
   const [a, b, c] = market.actors as [string, string, string]
   const slate: CastingSlate = { lead: [a, b], antagonist: [b, c], support: [c, a] }
-  let s = fundIfNeeded(s0)
+  // Fund before founding, as both reference routes do: tests/p14b9-casting-competition.test.ts
+  // :141-145 applies the bootstrap "before any signing bonus is debited (1315-C2 revision, defect 1)".
+  let s = foundStudio(fundIfNeeded(s0), market)
   const g1 = greenlightCycle(s, market, 0, slate, { lead: a, antagonist: b, support: c })
   s = fundIfNeeded(applyActions(g1.state, [{ kind: 'cancel', productionId: g1.productionId }]))
   const g2 = greenlightCycle(s, market, 0, null, { lead: a, antagonist: b, support: c }, g1.projectId)
-  s = fundIfNeeded(g2.state)
+  s = fundIfNeeded(applyActions(g2.state, [{ kind: 'cancel', productionId: g2.productionId }]))
   const edge = s.relationships.find((e) => [e.a, e.b].includes(a) && [e.a, e.b].includes(b))
   assert.ok(edge && edge.sharedCompetitions >= 1, 'route premise failed: pair (a,b) did not reach sharedCompetitions >= 1')
   return s
@@ -168,7 +174,7 @@ const provenance = {
   purpose: 'generated test campaigns only; never Owner saves', record: '1358-P', plan: ['1347-A', '1347-F', '1358-C'],
   producer: 'docs/engineering/playability-launch-review/evidence/p14b4-20260919/1358-P-save43-producer.ts',
   executionHead: head, saveVersion: LIVE_SAVE_VERSION, projectionVersion: PROJECTION_VERSION, schemaId: SCHEMA_ID,
-  route: `p13aGeneratedStudio('${SEED}'); one real casting-competition cycle (cancel + re-greenlight once); natural ticks to week ${String(foundWeek)}`,
+  route: `p13aGeneratedStudio('${SEED}'); fund; found; greenlight, cancel, re-greenlight the same casting session, cancel (tests/p14b10-conflict-evidence.test.ts through :288); natural ticks to week ${String(foundWeek)}`,
   gzip: id(gz), decoded: id(raw), facts,
 }
 out(`${OUTPUT}/${name}.provenance.json`, json(provenance))

@@ -775,7 +775,13 @@ describe('family 3 — DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); §5.5 :4
 })
 
 // ─────────────────────────────────────────────────────────────────────────────────────────────────────
-describe('family 4 — TIER RULE under RELATIONSHIP_RULES_VERSION 1 and the D2 reachability (scope (3)-(4))', () => {
+// 1358-C (parent ruling 1348-F5 item 3, slice A implementation review 1348-J KEEP): this describe
+// title pinned "RELATIONSHIP_RULES_VERSION 1" in its own text after r5 moved the leaf's own
+// asserted value to 2 (:760 below) -- a stale label, not a behavior change. Title-only rename;
+// every assertion under this describe is byte-identical to r5. See
+// 1358-rel-sliceB-red-classification.json for the old/new full-identity rename record (redStatus
+// unchanged: all three leaves under this describe already pass with slice A's production applied).
+describe('family 4 — TIER RULE under RELATIONSHIP_RULES_VERSION 2 and the D2 reachability (scope (3)-(4))', () => {
   it('eight members, byte-equal output for byte-equal input, and a value in the Enemies/Nemeses bands WITHOUT a conflict record reads Strained', () => {
     expect(typeof currentTier).toBe('function')
     // 1348-C: moves by ruling (1347-F Amendment 2). Was `.toBe(1)`. The rest of this test builds
@@ -1106,6 +1112,40 @@ describe('family 6b — D5 SETTLEMENT-LEVEL through the real bandsFor (record 13
     // sentence would be a FALSE explanation. The reason depends on the WINNER's own band: winner
     // band 1 over a band-0 loser reads the NEW sentence, "every other offer comes from a roster
     // holding someone this person is at odds with".
+    expect(receipt.kind).toBe('settled')
+    expect(receipt.studioId).toBe(base.r01)
+    expect(receipt.reasons).toEqual(['every other offer comes from a roster holding someone this person is at odds with'])
+  }, 120_000)
+})
+
+// 1358-C5 (relationship slice B RED r5; parent ruling 1358-F4 item 2(a); 1347-A:60, §6 item 3; 1347-F
+// Amendment 2): the romance consequence in D5, through the family 6b apparatus above. Partners counts as a
+// close tie, still below hostility. The staged edge carries slice B's two new fields (`competitions`,
+// `romance`) and goes in through `withEdges`, not `stage()`: at RED the Save43 validator inside `live()`
+// refuses keys it does not know, which would fail these leaves on the save law instead of on D5.
+describe('family 6c — D5 reads a Partners counterpart as a close tie, still below hostility (slice B, 1358-C5)', () => {
+  type SliceBEdge = Edge & { competitions: readonly unknown[]; romance: { value: number; anchorWeek: number; bonds: readonly { formedWeek: number; endedWeek: number | null }[] } }
+  const withPartners = (base: F6Base, closeness: number, extra: Partial<Edge> = {}): GameState => {
+    const edge: SliceBEdge = { ...stagedEdge(base.at207, F6.subject, base.offCycle, closeness, 207, extra), competitions: [],
+      romance: { value: 90, anchorWeek: 207, bonds: [{ formedWeek: 207, endedWeek: null }] } }
+    return withEdges(base.at207, [...edges(base.at207), edge])
+  }
+
+  it('a player issuer: a Partners counterpart at Friends on the roster — settlement reads close ties here (2)', () => {
+    const base = f6Base()
+    const after = tick(withPartners(base, floor('Friends')))
+    expect(currentTier(findEdge(after, F6.subject, base.offCycle)!, F6.W)).toBe('Friends') // premise: the friendship tier alone is no close tie
+    const receipt = settlementAt208(after)
+    expect(receipt.kind).toBe('settled')
+    expect(receipt.studioId).toBe(base.playerId)
+    expect(receipt.reasons).toEqual(["their roster holds this person's close ties"])
+  }, 120_000)
+
+  it('a player issuer: a Partners pair whose own tier is Enemies (with conflict evidence) — settlement reads enemies here (0), and the rival wins with the AT-ODDS sentence [control: passes at RED]', () => {
+    const base = f6Base()
+    const after = tick(withPartners(base, floor('Enemies'), { sharedCompetitions: 3 }))
+    expect(currentTier(findEdge(after, F6.subject, base.offCycle)!, F6.W)).toBe('Enemies')
+    const receipt = settlementAt208(after)
     expect(receipt.kind).toBe('settled')
     expect(receipt.studioId).toBe(base.r01)
     expect(receipt.reasons).toEqual(['every other offer comes from a roster holding someone this person is at odds with'])
