@@ -42,7 +42,8 @@ D18, as at x3.
   - pins the measured message;
   - records the masking, citing both guards' source lines;
   - pins `:198`, which still reaches the V37 guard, to that guard's exact message. That leaf now covers the guard
-    `:169` can no longer reach. No test reaches it on genuine pre-V38 input.
+    `:169` can no longer reach. On its own era's input the guard is also reached first by
+  `tests/p14c3-save-v38.test.ts:484`, which converts a V38 envelope straight to V37 (1344-D4 note).
 
   After the commit the file ran alone: 35 passed (35) ([s9-transitions-verify.txt](1344-stage/x12/s9-transitions-verify.txt)).
   The classification carries both rows as S9.
@@ -52,3 +53,23 @@ D18, as at x3.
   their input so that the V36 guard is the first one reached, for example from a genuine pre-V39 capture. It needs its
   own small RED and review. 1344-K lists it under open items.
 - **`p14p3-directing-promises` :361 and :438 need no edit.**
+
+## 4. Three more leaves, after 1344-D4
+
+1344-D4 named three leaves the sweep reached whose first guard nobody had identified. The same logging-copy method ran
+on the merge tree at 27b56c2, one file at a time, and the copies were removed after:
+
+| Site | Expected | First guard that fires |
+|---|---|---|
+| `p14c2s-scientist-retirement:279` (`migrateToV36`) | `/Scientist\|scientist\|downgrade/` | `migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject` |
+| `p14c2s-scientist-retirement:280` (`migrateToV35`) | the same | the same V39 message |
+| `p14c2rm-writer-continuation:254` | bare `toThrow()` | the same V39 message |
+| `p13b-s8-save-v27:188` (`migrateToV26`) | `/cannot downgrade/i` | the same V39 message |
+
+All three copies passed (8, 64 and 15 tests). Save43's guard fires first at none of them, so the sweep owes no S9 edit.
+Each meets the V39 predicate guard before the older guard its leaf names, the pattern of `p14c2b-save-v36` :74 and
+`:82` in §2. Together they are one finding for 1344-K: five downgrade leaves that the V39 guard masks, in place since
+before Save43, each needing an input whose first refusal is the guard it names. Outputs:
+[guard2-p14c2s-scientist-retirement.txt](1344-stage/x12/guard2-p14c2s-scientist-retirement.txt),
+[guard2-p14c2rm-writer-continuation.txt](1344-stage/x12/guard2-p14c2rm-writer-continuation.txt),
+[guard2-p13b-s8-save-v27.txt](1344-stage/x12/guard2-p13b-s8-save-v27.txt).

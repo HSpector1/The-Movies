@@ -6,14 +6,15 @@ r4 and the reference as r3.
 
 ## Required in RED r4: a lawful route L
 
-- **The law today.** A public founding draft opened after week 0 inside a live industry yields no lawful save.
+- **The law today** (corrected after 1356-F5). A public founding after week 0 creates the industry with a migration
+  origin, and once the roster is signed or the clock ticks with the draft open, it yields no lawful save.
   - With the draft open, rival method locks break the technology rule (`src/core/technology.ts:897`).
   - With the draft closed, each draft signing lacks its ledger payment (1356-F4).
   - Route L must not depend on either.
 - **The author picks a lawful construction**, declares it and says why it serves the leaves. Candidates:
-  - the migration-origin pattern 1356-F4 accepted (H8 in `tests/p14c3-profession-history.test.ts:216-218`; 1356-C3's
-    `foundMidGame`): a historical-control draft, `foundStudio`, then `initializeHollywood(…, 'migration')` at the
-    founding week;
+  - the pattern 1356-F4 accepted, 1356-C3's `foundMidGame`: a historical-control draft, `foundStudio`, then
+    `initializeHollywood(…, 'migration')` at the founding week. Its basis is the end state of the repo's V18-to-V19
+    save migration (1356-F5), not H8, which founds publicly and signs no one;
   - a week-0 founding run to the boundary;
   - another construction the law accepts.
 - **What the handback states.** For each leaf on route L, what it needs from the route, especially any industry

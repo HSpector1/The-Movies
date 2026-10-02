@@ -1,0 +1,16 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1344-merge/tree
+
+stdout | tests/zz-guard-p13b-s8-save-v27.test.ts > P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade REFUSED: a NATURAL campaign whose rival genuinely admitted a Laboratory carries a nonzero researchCapacity movement, and save.migrateToV26 refuses it
+GUARD 188 migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject
+
+ ✓ |core| tests/zz-guard-p13b-s8-save-v27.test.ts (8 tests) 2741ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > genuine V26 lighting-cancelled and lighting-restored fixtures: sha256 matches, migrate to V27 honestly (four zero keys, no new receipts) 375ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade REFUSED: a NATURAL campaign whose rival genuinely admitted a Laboratory carries a nonzero researchCapacity movement, and save.migrateToV26 refuses it 970ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade REFUSED: the same natural campaign also carries a new receipt kind (laboratoryCommitted/laboratoryOperational), independently sufficient to refuse V27->V26 473ms
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  20:03:19
+   Duration  6.30s (transform 2.13s, setup 0ms, collect 2.67s, tests 2.74s, environment 0ms, prepare 139ms)
+

@@ -1,0 +1,41 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1344-merge/tree
+
+stdout | tests/zz-guard-p14c2rm-writer-continuation.test.ts > 880-B live allowance stays narrowly scoped > frozen public V36 stays strict, and an exceptional current save cannot silently downgrade
+GUARD 254 migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject
+
+ ✓ |core| tests/zz-guard-p14c2rm-writer-continuation.test.ts (64 tests) 39956ms
+   ✓ 880-B natural retired-writer continuation > keeps the existing active-contract save/load control byte-identical 7454ms
+   ✓ 880-B natural retired-writer continuation > saves and reloads the real E snapshot without adding a contract, changing work or advancing the clock 914ms
+   ✓ 880-B natural retired-writer continuation > continues the real finishing task through its actual due week, then retires once 933ms
+   ✓ 880-B natural retired-writer continuation > loaded and uninterrupted finishing branches produce identical completion and next-week saves 1433ms
+   ✓ 880-B natural retired-writer continuation > allows actual D<E expired writing while still announced, including byte-identical resumed completion 7643ms
+   ✓ 880-B natural retired-writer continuation > the real Calendar and construction callers accept the same retained finishing work without mutations 362ms
+   ✓ 880-B natural retired-writer continuation > a lawful unrelated original commission does not fail on another writer’s retained task 689ms
+   ✓ 880-B natural retired-writer continuation > a real non-attributed pooled writer keeps only their existing assignment across E 1995ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'retired lifecycle cannot own active w…' without altering caller bytes 311ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'another person’s lifecycle record is …' without altering caller bytes 425ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'wrong historical employer studio' without altering caller bytes 367ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'historical employment did not cover c…' without altering caller bytes 530ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'future commission week' without altering caller bytes 318ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'due week exceeds the ordinary draft b…' without altering caller bytes 362ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'unknown writer membership' without altering caller bytes 329ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'uncontracted second writer without re…' without altering caller bytes 310ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'duplicate writer membership' without altering caller bytes 372ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'reservation belongs to another project' without altering caller bytes 321ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'reservation slot is outside capacity' without altering caller bytes 684ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'unknown concept reference' without altering caller bytes 344ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'duplicate active project cannot borro…' without altering caller bytes 380ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses a genuinely terminated interval, even if an illegal cross-branch draft is grafted afterward 473ms
+   ✓ 880-B live allowance stays narrowly scoped > frozen public V36 stays strict, and an exceptional current save cannot silently downgrade 2453ms
+   ✓ 880-B live allowance stays narrowly scoped > genuine older migration preserves existing screenplay, employment and work facts 774ms
+   ✓ 880-B live allowance stays narrowly scoped > validation authority never leaks between campaigns with the same project and PersonIds 1706ms
+   ✓ 880-B malformed authority refuses before live work, not only at persistence > tick refuses 'non-finite effective week' 558ms
+   ✓ 880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'unsupported lifecycle intent version' 368ms
+   ✓ 880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'announcement lies in the future' 354ms
+
+ Test Files  1 passed (1)
+      Tests  64 passed (64)
+   Start at  20:02:34
+   Duration  44.08s (transform 2.38s, setup 0ms, collect 3.20s, tests 39.96s, environment 0ms, prepare 152ms)
+

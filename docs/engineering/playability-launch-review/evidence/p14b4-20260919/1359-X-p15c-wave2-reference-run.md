@@ -38,8 +38,10 @@ Every Wave R guard passes at RED and at the reference, and all of Wave 1's tests
   - two more leaves, one expecting `/qualifying|contrary|refs/`.
 - Every one ends in the frozen V24 rule "Technology save: unfounded or non-player corpus cannot hold technology
   authority" (`src/core/technology.ts:897`).
-- Route L calls `beginFounding` at week 6188 inside a live industry and ticks on with the draft open. Rival method
-  locks then enter the technology corpus, the conflict [1356-X](1356-X-p15a2-wave2-reference-run.md) F-2 found.
+- Route L calls `beginFounding` at week 6188 and ticks on with the draft open. That call also creates the industry,
+  with a migration origin, since route L runs headless before it (corrected after
+  [1356-F5](1356-F5-parent-response-to-1356-D3.md)). The new industry's rival method locks then enter the technology
+  corpus, the conflict [1356-X](1356-X-p15a2-wave2-reference-run.md) F-2 found.
 - Closing the draft with `foundStudio` is no lawful exit. Each draft signing then lacks its ledger payment
   ([1356-F4](1356-F4-parent-ruling-on-1356-C3.md)).
 - The other control, `legacy-control-genuine-save38-6240-lawful`, passes (12.7 s).

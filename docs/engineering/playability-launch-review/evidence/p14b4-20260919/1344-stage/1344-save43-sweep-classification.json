@@ -1534,7 +1534,7 @@
   },
   {
    "file": "tests/p14c2s-scientist-retirement.test.ts",
-   "line": 324,
+   "line": 315,
    "oldText": "for (const business of envelope.state.hollywood.businesses) {\n  for (const period of business.account.periods) delete (period.movements as { termination?: unknown }).termination\n}",
    "newText": "same loop plus delete (business as { screenplayShelving?: unknown }).screenplayShelving",
    "class": "S7",
@@ -5354,13 +5354,46 @@
    "group": "parent",
    "commit": "27b56c2",
    "atHead": "notVerbatim"
+  },
+  {
+   "file": "tests/bridge-p14c2s-scientist-runtime.test.ts",
+   "line": 33,
+   "oldText": "",
+   "newText": "function withEmptyScreenplayShelving<T extends { hollywood: GameStateV36['hollywood'] }>(state: T): T {...} (helper at :31-37 with its 1344-N S5 comment)",
+   "class": "S5",
+   "cause": "S5 local helper building convertV42ToV43's empty screenplayShelving (src/core/save.ts:10678-10686) on every rival business; used at :136 (1344-D4 change 1a)",
+   "group": "g1",
+   "commit": "eb8d902",
+   "atHead": "notVerbatim"
+  },
+  {
+   "file": "tests/bridge-p14c3-promise-digest-continuity.test.ts",
+   "line": 92,
+   "oldText": "",
+   "newText": "function withEmptyScreenplayShelving<T extends WithRivalBusinesses>(state: T): T {...} (helper at :90-96 with its 1344-N S5 comment)",
+   "class": "S5",
+   "cause": "S5 local helper, same form; used at :158 (1344-D4 change 1b)",
+   "group": "g1",
+   "commit": "eb8d902",
+   "atHead": "notVerbatim"
+  },
+  {
+   "file": "tests/p14p4p5-opportunities.test.ts",
+   "line": 83,
+   "oldText": "assert.equal(typeof api.validateSaveV42, 'function', 'new public strict41 reader after actual version assertion')",
+   "newText": "assert.equal(typeof api.validateSaveV43, 'function', 'new public strict42 reader after actual version assertion') + :84 assert.equal(typeof api.convertV43ToV42, 'function', 'new public guarded live\u219242 conversion')",
+   "class": "S1/S4",
+   "cause": "futureAPI() checks the renamed live validator (S1) and the added convertV43ToV42 hop (S4) (1344-D4 change 1c)",
+   "group": "g1",
+   "commit": "eb8d902",
+   "atHead": "notVerbatim"
   }
  ],
  "counts": {
-  "rows": 529,
+  "rows": 532,
   "byGroup": {
    "helpers": 30,
-   "g1": 78,
+   "g1": 81,
    "g2": 81,
    "g3": 49,
    "g4": 70,
@@ -5374,15 +5407,15 @@
   "byClass": {
    "S1": 263,
    "S2": 118,
-   "S5": 42,
+   "S5": 44,
    "S4": 41,
    "S3": 24,
    "S9": 10,
    "S7": 5,
    "S1/S2": 5,
    "S1+S2": 5,
+   "S1/S4": 4,
    "S2/S1": 4,
-   "S1/S4": 3,
    "S6": 3,
    "ORACLE": 2,
    "HYGIENE": 2,
@@ -5391,7 +5424,7 @@
   },
   "atHead": {
    "exact": 316,
-   "notVerbatim": 95,
+   "notVerbatim": 98,
    "moved": 118
   }
  },
