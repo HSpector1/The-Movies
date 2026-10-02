@@ -1,0 +1,49 @@
+{
+  "purpose": "generated test campaigns only; never Owner saves",
+  "record": "1358-P",
+  "executionHead": "650e963a9a23514a85b45b4c292d098d66b477d7",
+  "saveVersion": 43,
+  "elapsedMs": 6517,
+  "inputs": [
+    {
+      "name": "genuine-v43-pre-romance-week-284",
+      "gzip": {
+        "bytes": 239938,
+        "sha256": "a731677fc3cf73bc159be8d489e01120258a34604cb6c49a294b3df85221f406"
+      },
+      "decoded": {
+        "bytes": 2346912,
+        "sha256": "1a3866a951f67ccda50aad894d590e04bb6f58998a5f2a38e05a8776b18bf8bf"
+      },
+      "facts": {
+        "week": 284,
+        "competitionEdges": [
+          {
+            "a": "t-act-08",
+            "b": "t-act-24",
+            "sharedCompetitions": 2
+          },
+          {
+            "a": "t-act-08",
+            "b": "t-act-20",
+            "sharedCompetitions": 2
+          },
+          {
+            "a": "t-act-20",
+            "b": "t-act-24",
+            "sharedCompetitions": 2
+          }
+        ],
+        "shelvingBusinesses": [
+          {
+            "studioId": "studio-c64d15fd-r04",
+            "rejections": 1,
+            "shelved": 0
+          }
+        ],
+        "firstTakes": 123,
+        "industryFilms": 130
+      }
+    }
+  ]
+}
