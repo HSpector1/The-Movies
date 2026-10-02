@@ -1,0 +1,108 @@
+src/core/save.ts(10498,53): error TS2379: Argument of type 'GameStateV40' is not assignable to parameter of type 'GameStateV44' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV40' is missing the following properties from type '{ campaignLegacy: CampaignLegacyRoot; p15Sequence: P15Sequence; }': campaignLegacy, p15Sequence
+src/harness/roster-wall/historical-control.ts(33,3): error TS2375: Type '{ hollywood: null; operations: { workflows: { setup: null; planRevision: number; productionId: string; phase: ProductionPhase; reservations: FacilityReservation[]; shootingTask: ShootingTask | null; blocker: ProductionBlocker | null; bindings: WorkflowBindings; }[]; mode: StudioOperationsMode; facilities: StudioFaci...' is not assignable to type 'GameStateV44' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type '{ hollywood: null; operations: { workflows: { setup: null; planRevision: number; productionId: string; phase: ProductionPhase; reservations: FacilityReservation[]; shootingTask: ShootingTask | null; blocker: ProductionBlocker | null; bindings: WorkflowBindings; }[]; mode: StudioOperationsMode; facilities: StudioFaci...' is missing the following properties from type '{ campaignLegacy: CampaignLegacyRoot; p15Sequence: P15Sequence; }': campaignLegacy, p15Sequence
+tests/contracts/v14-boundary-guards.contract.test.ts(63,116): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/helpers/p14c2b-fixtures.ts(69,122): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/helpers/p14c2c-fixtures.ts(29,3): error TS2375: Type 'GameStateV40' is not assignable to type 'GameStateV44' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV40' is missing the following properties from type '{ campaignLegacy: CampaignLegacyRoot; p15Sequence: P15Sequence; }': campaignLegacy, p15Sequence
+tests/helpers/p14c2rm-fixtures.ts(24,3): error TS2375: Type 'GameStateV40' is not assignable to type 'GameStateV44' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV40' is missing the following properties from type '{ campaignLegacy: CampaignLegacyRoot; p15Sequence: P15Sequence; }': campaignLegacy, p15Sequence
+tests/helpers/p14c3-canonical-rival-fixtures.ts(198,97): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/helpers/p14c4-fixtures.ts(71,104): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p06a-w1-release-authority.test.ts(406,120): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p12-starting-world.test.ts(52,76): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p14b1-first-take.test.ts(301,36): error TS2379: Argument of type 'GameStateV40' is not assignable to parameter of type 'GameStateV44' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV40' is missing the following properties from type '{ campaignLegacy: CampaignLegacyRoot; p15Sequence: P15Sequence; }': campaignLegacy, p15Sequence
+tests/p14b1-t4-regressions.test.ts(168,33): error TS2379: Argument of type 'GameStateV40' is not assignable to parameter of type 'GameStateV44' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV40' is missing the following properties from type '{ campaignLegacy: CampaignLegacyRoot; p15Sequence: P15Sequence; }': campaignLegacy, p15Sequence
+tests/p14b3-reservations.test.ts(96,17): error TS2379: Argument of type 'GameStateV40' is not assignable to parameter of type 'GameStateV44' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV40' is missing the following properties from type '{ campaignLegacy: CampaignLegacyRoot; p15Sequence: P15Sequence; }': campaignLegacy, p15Sequence
+tests/p14b4-material-evidence-core.test.ts(147,44): error TS2379: Argument of type '{ promises: ProfessionalPromiseV40[]; technology: import("/Users/zacheryspector/studio-scratch/1359-x5/tree/src/core/technologyTypes").StudioTechnology; market: MarketState; careerEvents: TalentCareerEvent[]; ... 37 more ...; firstTakeSubjects: FirstTakeSubjects; }' is not assignable to parameter of type 'GameStateV44' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type '{ promises: ProfessionalPromiseV40[]; technology: StudioTechnology; market: MarketState; careerEvents: TalentCareerEvent[]; ... 37 more ...; firstTakeSubjects: FirstTakeSubjects; }' is missing the following properties from type '{ campaignLegacy: CampaignLegacyRoot; p15Sequence: P15Sequence; }': campaignLegacy, p15Sequence
+tests/p14b4-material-evidence-core.test.ts(293,9): error TS2322: Type 'SaveFileV44' is not assignable to type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p14b4-material-evidence-core.test.ts(294,7): error TS2375: Type 'GameStateV40' is not assignable to type 'GameStateV44' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV40' is missing the following properties from type '{ campaignLegacy: CampaignLegacyRoot; p15Sequence: P15Sequence; }': campaignLegacy, p15Sequence
+tests/p14b4-material-evidence-core.test.ts(364,37): error TS2379: Argument of type 'GameStateV40' is not assignable to parameter of type 'GameStateV44' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV40' is missing the following properties from type '{ campaignLegacy: CampaignLegacyRoot; p15Sequence: P15Sequence; }': campaignLegacy, p15Sequence
+tests/p14b4-material-evidence-core.test.ts(409,27): error TS2379: Argument of type 'GameStateV40' is not assignable to parameter of type 'GameStateV44' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV40' is missing the following properties from type '{ campaignLegacy: CampaignLegacyRoot; p15Sequence: P15Sequence; }': campaignLegacy, p15Sequence
+tests/p14b4-material-evidence-core.test.ts(439,65): error TS2379: Argument of type 'GameStateV40' is not assignable to parameter of type 'GameStateV44' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV40' is missing the following properties from type '{ campaignLegacy: CampaignLegacyRoot; p15Sequence: P15Sequence; }': campaignLegacy, p15Sequence
+tests/p14c2a-save-and-settlement.test.ts(347,35): error TS2379: Argument of type 'GameStateV40' is not assignable to parameter of type 'GameStateV44' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV40' is missing the following properties from type '{ campaignLegacy: CampaignLegacyRoot; p15Sequence: P15Sequence; }': campaignLegacy, p15Sequence
+tests/p14c2rm-writer-continuation.test.ts(254,130): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p14c3-cohort-transition.test.ts(287,114): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p14c3-dual-extensions.test.ts(178,114): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p14c3-offmenu-extensions.test.ts(235,114): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p14c3-profession-history.test.ts(119,144): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p14c3-promise-digest-continuity.test.ts(279,119): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p14c4-save-v35.test.ts(279,35): error TS2379: Argument of type 'GameStateV40' is not assignable to parameter of type 'GameStateV44' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV40' is missing the following properties from type '{ campaignLegacy: CampaignLegacyRoot; p15Sequence: P15Sequence; }': campaignLegacy, p15Sequence
+tests/p14p3-directing-promises.test.ts(387,90): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p14p3-directing-promises.test.ts(390,13): error TS2375: Type '{ hollywood: null; technology: import("/Users/zacheryspector/studio-scratch/1359-x5/tree/src/core/technologyTypes").StudioTechnology; market: core.MarketState; careerEvents: core.TalentCareerEvent[]; ... 37 more ...; firstTakeSubjects: core.FirstTakeSubjects; }' is not assignable to type 'GameStateV44' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type '{ hollywood: null; technology: StudioTechnology; market: MarketState; careerEvents: TalentCareerEvent[]; ledger: LedgerEntry[]; ... 36 more ...; firstTakeSubjects: FirstTakeSubjects; }' is missing the following properties from type '{ campaignLegacy: CampaignLegacyRoot; p15Sequence: P15Sequence; }': campaignLegacy, p15Sequence
+tests/p14p3-directing-promises.test.ts(693,91): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p14p4p5-opportunities.test.ts(810,106): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/p14p4p5-receipt-freeze.test.ts(363,17): error TS2379: Argument of type 'GameStateV40' is not assignable to parameter of type 'GameStateV44' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV40' is missing the following properties from type '{ campaignLegacy: CampaignLegacyRoot; p15Sequence: P15Sequence; }': campaignLegacy, p15Sequence
+tests/p14p4p5-screenplay-status.test.ts(320,97): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/save.test.ts(370,120): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.
+tests/save.test.ts(419,120): error TS2345: Argument of type 'SaveFileV44' is not assignable to parameter of type 'SaveFileV43'.
+  Type 'SaveFileV44' is not assignable to type '{ saveVersion: 43; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '44' is not assignable to type '43'.

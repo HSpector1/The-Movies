@@ -1,0 +1,7 @@
+waiting for pid 65386; then: bash /Users/zacheryspector/studio-scratch/1358-x3b/run-1358-X3b.sh /Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1358-stage/1358-rel-sliceB-red-r6.patch 212b798058a8902fcd718b7487584dba805d34a08109e032846cb2801251c9ef; 2026-10-02 00:32:32 CDT
+killed 2026-10-02 01:07:05 CDT: requeued for r7
+waiting for pid 65386; then: bash /Users/zacheryspector/studio-scratch/1358-x3b/run-1358-X3b.sh /Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1358-stage/1358-rel-sliceB-red-r7.patch 82b5e16e17d872fe0bca13eeb92fbe15ecd18a577023f46d58189f1294846074; 2026-10-02 01:07:05 CDT
+killed 2026-10-02 02:04:56 CDT: waits for r8 (1358-F8)
+waiting for pid 80228; then: bash /Users/zacheryspector/studio-scratch/1358-x3b/run-1358-X3b.sh /Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1358-stage/1358-rel-sliceB-red-r8.patch ef7c456a5cc173b1340f2e127ca6af8657f57f3198a38e6b2d7e6d2caed3998e; 2026-10-02 02:10:46 CDT
+start; 2026-10-02 02:29:07 CDT
+end, exit 0; 2026-10-02 02:31:52 CDT

@@ -1,0 +1,36 @@
+[1359-GP] p13a-core-causal-01: week 520/6240, 7 s
+[1359-GP] p13a-core-causal-01: week 1040/6240, 10 s
+[1359-GP] p13a-core-causal-01: week 1560/6240, 13 s
+[1359-GP] p13a-core-causal-01: week 2080/6240, 19 s
+[1359-GP] p13a-core-causal-01: week 2600/6240, 24 s
+[1359-GP] p13a-core-causal-01: week 3120/6240, 31 s
+[1359-GP] p13a-core-causal-01: week 3640/6240, 36 s
+[1359-GP] p13a-core-causal-01: week 4160/6240, 43 s
+[1359-GP] p13a-core-causal-01: week 4680/6240, 51 s
+[1359-GP] p13a-core-causal-01: week 5200/6240, 59 s
+[1359-GP] p13a-core-causal-01: week 5720/6240, 70 s
+[1359-GP] p13a-core-causal-01: week 6240/6240, 81 s
+[1359-GP] p13a-core-causal-01: F1 BRIDGE: the landed law refused an authored film's null settledWeek (campaignLegacy.ts:351; 1359-F2 F1); the law runs on a copy where 8 authored films read settledWeek 0
+[1359-GP] p13a-core-causal-01: freeze at week 6240: adapter 2 ms, law 8 ms, manifest 35139 bytes
+[1359-GP] seed-b: week 520/6240, 13 s
+[1359-GP] seed-b: week 1040/6240, 19 s
+[1359-GP] seed-b: week 1560/6240, 25 s
+[1359-GP] seed-b: week 2080/6240, 35 s
+[1359-GP] seed-b: week 2600/6240, 50 s
+[1359-GP] seed-b: week 3120/6240, 72 s
+[1359-GP] seed-b: week 3640/6240, 103 s
+[1359-GP] seed-b: week 4160/6240, 137 s
+[1359-GP] seed-b: week 4680/6240, 174 s
+[1359-GP] seed-b: week 5200/6240, 217 s
+[1359-GP] seed-b: week 5720/6240, 275 s
+[1359-GP] seed-b: week 6240/6240, 333 s
+[1359-GP] seed-b: F1 BRIDGE: the landed law refused an authored film's null settledWeek (campaignLegacy.ts:351; 1359-F2 F1); the law runs on a copy where 8 authored films read settledWeek 0
+[1359-GP] seed-b: freeze at week 6240: adapter 8 ms, law 35 ms, manifest 60492 bytes
+[1359-GP] check artistic-voice: evaluated; held p13a-core-causal-01 0/10, seed-b 2/10; retune no (some-seed reading YES)
+[1359-GP] check audience-institution: evaluated; held p13a-core-causal-01 0/10, seed-b 5/10; retune no (some-seed reading YES)
+[1359-GP] check commercial-engine: evaluated; held p13a-core-causal-01 0/10, seed-b 2/10; retune no (some-seed reading YES)
+[1359-GP] check technology-pioneer: evaluated; held p13a-core-causal-01 1/10, seed-b 5/10; retune no (some-seed reading no)
+[1359-GP] check talent-foundry: evaluated; held p13a-core-causal-01 2/10, seed-b 5/10; retune no (some-seed reading no)
+[1359-GP] check genre-specialist: evaluated; held p13a-core-causal-01 4/10, seed-b 3/10; retune no (some-seed reading no)
+[1359-GP] check resilient-survivor: exempt; held p13a-core-causal-01 0/10, seed-b 0/10; retune no (some-seed reading no)
+[1359-GP] check awards-dynasty: notEvaluated; held p13a-core-causal-01 0/10, seed-b 0/10; retune no (some-seed reading no)

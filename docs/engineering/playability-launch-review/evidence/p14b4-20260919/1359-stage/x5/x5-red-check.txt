@@ -1,0 +1,2 @@
+red: per file (failed, passed): {'p15c-wave-r-retention.test.ts': [0, 7], 'p15c1-campaign-legacy.test.ts': [5, 67], 'p15c2-campaign-legacy-integration.test.ts': [35, 2]}
+red: classified 116, mismatches 0, unclassified leaves 0

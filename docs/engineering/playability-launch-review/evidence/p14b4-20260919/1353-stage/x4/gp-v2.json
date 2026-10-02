@@ -1,0 +1,866 @@
+{
+  "probe": "1359-GP",
+  "gate": "G-P (1359-A §9; 1353-A §9)",
+  "mode": "g-p",
+  "treeHead": "bc2f6007495951cd44da16275437905a66d5d44d+6874387",
+  "weeks": 6240,
+  "boundaryWeek": 6240,
+  "law": "campaign-legacy/v2",
+  "tuning": {
+    "LEGACY_CRITIC_ACCLAIM_MIN": 60,
+    "LEGACY_CRITIC_PAN_BELOW": 35,
+    "LEGACY_AUDIENCE_LIKED_MIN": 57,
+    "LEGACY_MIN_FILMS": 5,
+    "LEGACY_MIN_SHARE_PERCENT": 20,
+    "LEGACY_HIT_REACH_PERCENT": 49,
+    "LEGACY_FLOP_REACH_PERCENT": 30,
+    "LEGACY_AUDIENCE_MIN_DECADES": 4,
+    "LEGACY_DECADE_MIN_RELEASES": 2,
+    "LEGACY_PIONEER_WEEKS": 52,
+    "LEGACY_TECH_LATE_WEEKS": 260,
+    "LEGACY_FOUNDRY_MIN_PEOPLE": 3,
+    "LEGACY_FOUNDRY_MIN_CREDITS": 10,
+    "LEGACY_FOUNDRY_SETTLE_WEEKS": 260,
+    "LEGACY_GENRE_MIN_FILMS": 8
+  },
+  "seeds": [
+    {
+      "seed": "p13a-core-causal-01",
+      "finalWeek": 6240,
+      "routeMs": 81322,
+      "msPerTick": 13.032371794871795,
+      "playerStudioId": "studio-aca408ec-player",
+      "adapterRefusals": [],
+      "lawRefusal": null,
+      "f1": {
+        "landedLawRefusal": "campaign legacy: films[0] (studio-aca408ec-r01:historical-film:0).settledWeek must be a whole week once settled",
+        "standInFilms": 8
+      },
+      "freeze": {
+        "adapterMs": 2,
+        "lawMs": 8,
+        "freezeMs": 10
+      },
+      "domainTable": [
+        {
+          "domainId": "playerFilms",
+          "highWatermark": 0,
+          "recordedFromWeek": 0,
+          "status": "complete"
+        },
+        {
+          "domainId": "industryFilms",
+          "highWatermark": 99,
+          "recordedFromWeek": 0,
+          "status": "complete"
+        },
+        {
+          "domainId": "playerRuns",
+          "highWatermark": 0,
+          "recordedFromWeek": 0,
+          "status": "complete"
+        },
+        {
+          "domainId": "playerCareerEvents",
+          "highWatermark": 0,
+          "recordedFromWeek": 0,
+          "status": "complete"
+        },
+        {
+          "domainId": "industryCareerEvents",
+          "highWatermark": 546,
+          "recordedFromWeek": 0,
+          "status": "complete"
+        },
+        {
+          "domainId": "technologyAdoptions",
+          "highWatermark": 10,
+          "recordedFromWeek": 0,
+          "status": "complete"
+        },
+        {
+          "domainId": "technologyCatalogue",
+          "highWatermark": 2,
+          "recordedFromWeek": 0,
+          "status": "complete"
+        },
+        {
+          "domainId": "powerRanking",
+          "highWatermark": 0,
+          "recordedFromWeek": null,
+          "status": "notRecorded"
+        },
+        {
+          "domainId": "corporateCondition",
+          "highWatermark": 0,
+          "recordedFromWeek": null,
+          "status": "notRecorded"
+        },
+        {
+          "domainId": "marketAssessments",
+          "highWatermark": 0,
+          "recordedFromWeek": null,
+          "status": "notRecorded"
+        }
+      ],
+      "holders": {
+        "artistic-voice": {
+          "held": [],
+          "notHeld": [
+            "studio-aca408ec-player",
+            "studio-aca408ec-r01",
+            "studio-aca408ec-r02",
+            "studio-aca408ec-r03",
+            "studio-aca408ec-r04",
+            "studio-aca408ec-r05",
+            "studio-aca408ec-r06",
+            "studio-aca408ec-r07",
+            "studio-aca408ec-r08",
+            "studio-aca408ec-r09"
+          ],
+          "notRecorded": []
+        },
+        "audience-institution": {
+          "held": [],
+          "notHeld": [
+            "studio-aca408ec-player",
+            "studio-aca408ec-r01",
+            "studio-aca408ec-r02",
+            "studio-aca408ec-r03",
+            "studio-aca408ec-r04",
+            "studio-aca408ec-r05",
+            "studio-aca408ec-r06",
+            "studio-aca408ec-r07",
+            "studio-aca408ec-r08",
+            "studio-aca408ec-r09"
+          ],
+          "notRecorded": []
+        },
+        "commercial-engine": {
+          "held": [],
+          "notHeld": [
+            "studio-aca408ec-player",
+            "studio-aca408ec-r01",
+            "studio-aca408ec-r02",
+            "studio-aca408ec-r03",
+            "studio-aca408ec-r04",
+            "studio-aca408ec-r05",
+            "studio-aca408ec-r06",
+            "studio-aca408ec-r07",
+            "studio-aca408ec-r08",
+            "studio-aca408ec-r09"
+          ],
+          "notRecorded": []
+        },
+        "technology-pioneer": {
+          "held": [
+            "studio-aca408ec-r01"
+          ],
+          "notHeld": [
+            "studio-aca408ec-player",
+            "studio-aca408ec-r02",
+            "studio-aca408ec-r03",
+            "studio-aca408ec-r04",
+            "studio-aca408ec-r05",
+            "studio-aca408ec-r06",
+            "studio-aca408ec-r07",
+            "studio-aca408ec-r08",
+            "studio-aca408ec-r09"
+          ],
+          "notRecorded": []
+        },
+        "talent-foundry": {
+          "held": [
+            "studio-aca408ec-r05",
+            "studio-aca408ec-r07"
+          ],
+          "notHeld": [
+            "studio-aca408ec-player",
+            "studio-aca408ec-r01",
+            "studio-aca408ec-r02",
+            "studio-aca408ec-r03",
+            "studio-aca408ec-r04",
+            "studio-aca408ec-r06",
+            "studio-aca408ec-r08",
+            "studio-aca408ec-r09"
+          ],
+          "notRecorded": []
+        },
+        "genre-specialist": {
+          "held": [
+            "studio-aca408ec-r01",
+            "studio-aca408ec-r02",
+            "studio-aca408ec-r03",
+            "studio-aca408ec-r06"
+          ],
+          "notHeld": [
+            "studio-aca408ec-player",
+            "studio-aca408ec-r04",
+            "studio-aca408ec-r05",
+            "studio-aca408ec-r07",
+            "studio-aca408ec-r08",
+            "studio-aca408ec-r09"
+          ],
+          "notRecorded": []
+        },
+        "resilient-survivor": {
+          "held": [],
+          "notHeld": [],
+          "notRecorded": [
+            "studio-aca408ec-player",
+            "studio-aca408ec-r01",
+            "studio-aca408ec-r02",
+            "studio-aca408ec-r03",
+            "studio-aca408ec-r04",
+            "studio-aca408ec-r05",
+            "studio-aca408ec-r06",
+            "studio-aca408ec-r07",
+            "studio-aca408ec-r08",
+            "studio-aca408ec-r09"
+          ]
+        },
+        "awards-dynasty": {
+          "held": [],
+          "notHeld": [],
+          "notRecorded": [
+            "studio-aca408ec-player",
+            "studio-aca408ec-r01",
+            "studio-aca408ec-r02",
+            "studio-aca408ec-r03",
+            "studio-aca408ec-r04",
+            "studio-aca408ec-r05",
+            "studio-aca408ec-r06",
+            "studio-aca408ec-r07",
+            "studio-aca408ec-r08",
+            "studio-aca408ec-r09"
+          ]
+        }
+      },
+      "studios": [
+        {
+          "studioId": "studio-aca408ec-player",
+          "role": "player",
+          "enteredWeek": 0,
+          "catalog": {
+            "releases": 0,
+            "settled": 0,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 0
+          },
+          "held": []
+        },
+        {
+          "studioId": "studio-aca408ec-r01",
+          "role": "rival",
+          "enteredWeek": 0,
+          "catalog": {
+            "releases": 15,
+            "settled": 15,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 2
+          },
+          "held": [
+            "technology-pioneer",
+            "genre-specialist"
+          ]
+        },
+        {
+          "studioId": "studio-aca408ec-r02",
+          "role": "rival",
+          "enteredWeek": 0,
+          "catalog": {
+            "releases": 15,
+            "settled": 15,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 2
+          },
+          "held": [
+            "genre-specialist"
+          ]
+        },
+        {
+          "studioId": "studio-aca408ec-r03",
+          "role": "rival",
+          "enteredWeek": 0,
+          "catalog": {
+            "releases": 15,
+            "settled": 15,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 2
+          },
+          "held": [
+            "genre-specialist"
+          ]
+        },
+        {
+          "studioId": "studio-aca408ec-r04",
+          "role": "rival",
+          "enteredWeek": 0,
+          "catalog": {
+            "releases": 8,
+            "settled": 8,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 2
+          },
+          "held": []
+        },
+        {
+          "studioId": "studio-aca408ec-r05",
+          "role": "rival",
+          "enteredWeek": 520,
+          "catalog": {
+            "releases": 8,
+            "settled": 8,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 0
+          },
+          "held": [
+            "talent-foundry"
+          ]
+        },
+        {
+          "studioId": "studio-aca408ec-r06",
+          "role": "rival",
+          "enteredWeek": 988,
+          "catalog": {
+            "releases": 10,
+            "settled": 10,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 0
+          },
+          "held": [
+            "genre-specialist"
+          ]
+        },
+        {
+          "studioId": "studio-aca408ec-r07",
+          "role": "rival",
+          "enteredWeek": 1560,
+          "catalog": {
+            "releases": 7,
+            "settled": 7,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 0
+          },
+          "held": [
+            "talent-foundry"
+          ]
+        },
+        {
+          "studioId": "studio-aca408ec-r08",
+          "role": "rival",
+          "enteredWeek": 1872,
+          "catalog": {
+            "releases": 11,
+            "settled": 11,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 0
+          },
+          "held": []
+        },
+        {
+          "studioId": "studio-aca408ec-r09",
+          "role": "rival",
+          "enteredWeek": 2548,
+          "catalog": {
+            "releases": 2,
+            "settled": 2,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 0
+          },
+          "held": []
+        }
+      ],
+      "manifestBytes": 35139,
+      "manifestSha256": "94d55c761498d44195d00e67eacdac7feadb4a7cb6349f3bdc910f38aa1225fc",
+      "manifestCanonical": "{\"boundaryWeek\":6240,\"definition\":\"campaign-legacy/v2\",\"kind\":\"official2040\",\"postFinaleMode\":\"ordinary-simulation/v1\",\"sources\":[{\"domainId\":\"playerFilms\",\"highWatermark\":0,\"recordedFromWeek\":0,\"status\":\"complete\"},{\"domainId\":\"industryFilms\",\"highWatermark\":99,\"recordedFromWeek\":0,\"status\":\"complete\"},{\"domainId\":\"playerRuns\",\"highWatermark\":0,\"recordedFromWeek\":0,\"status\":\"complete\"},{\"domainId\":\"playerCareerEvents\",\"highWatermark\":0,\"recordedFromWeek\":0,\"status\":\"complete\"},{\"domainId\":\"industryCareerEvents\",\"highWatermark\":546,\"recordedFromWeek\":0,\"status\":\"complete\"},{\"domainId\":\"technologyAdoptions\",\"highWatermark\":10,\"recordedFromWeek\":0,\"status\":\"complete\"},{\"domainId\":\"technologyCatalogue\",\"highWatermark\":2,\"recordedFromWeek\":0,\"status\":\"complete\"},{\"domainId\":\"powerRanking\",\"highWatermark\":0,\"recordedFromWeek\":null,\"status\":\"notRecorded\"},{\"domainId\":\"corporateCondition\",\"highWatermark\":0,\"recordedFromWeek\":null,\"status\":\"notRecorded\"},{\"domainId\":\"marketAssessments\",\"highWatermark\":0,\"recordedFromWeek\":null,\"status\":\"notRecorded\"}],\"studios\":[{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"audience-institution\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"commercial-engine\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[{\"domainId\":\"technologyCatalogue\",\"id\":\"synchronized-sound\"},{\"domainId\":\"technologyCatalogue\",\"id\":\"lighting-control-01\"}],\"contraryCount\":2,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"genre-specialist\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":0,\"inReleaseAtBoundary\":0,\"releases\":0,\"settled\":0},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":0,\"discoveries\":0},\"lensId\":\"people\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":0},\"lensId\":\"technology\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":35.000000000000085,\"commercialConfidence\":50,\"industryPrestige\":40},\"studioId\":\"studio-aca408ec-player\"},{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:20\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:9\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:17\"}],\"contraryCount\":3,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"audience-institution\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:22\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"commercial-engine\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:20\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:22\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:15\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:9\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:17\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:8\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:4\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:10\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:7\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:1\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:5\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:3\"}],\"contraryCount\":14,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[{\"domainId\":\"technologyCatalogue\",\"id\":\"lighting-control-01\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-aca408ec-r01:sound-adoption:0\"}],\"qualifyingCount\":1},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"genre-specialist\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:10\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:4\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:0\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:3\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:8\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:2\"}],\"contraryCount\":6,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:13\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:7\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:22\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:15\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:1\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:5\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:17\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:9\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r01:film:20\"}],\"qualifyingCount\":9},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":2,\"inReleaseAtBoundary\":0,\"releases\":15,\"settled\":15},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":11,\"discoveries\":0},\"lensId\":\"people\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":1},\"lensId\":\"technology\",\"refs\":[{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-aca408ec-r01:sound-adoption:0\"}],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":25.574256537375565,\"commercialConfidence\":69.78504846634654,\"industryPrestige\":32.33139027940136},\"studioId\":\"studio-aca408ec-r01\"},{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:1\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"audience-institution\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:2\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"commercial-engine\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:14\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:20\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:8\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:9\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:2\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:7\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:12\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:3\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:5\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:6\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:1\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:4\"}],\"contraryCount\":13,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[{\"domainId\":\"technologyCatalogue\",\"id\":\"synchronized-sound\"},{\"domainId\":\"technologyCatalogue\",\"id\":\"lighting-control-01\"}],\"contraryCount\":2,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"genre-specialist\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:19\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:4\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:5\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:3\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:14\"}],\"contraryCount\":5,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:9\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:20\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:10\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:2\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:6\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:0\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:12\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:8\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:7\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r02:film:1\"}],\"qualifyingCount\":10},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":2,\"inReleaseAtBoundary\":0,\"releases\":15,\"settled\":15},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":10,\"discoveries\":0},\"lensId\":\"people\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":0},\"lensId\":\"technology\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":26.66902116670711,\"commercialConfidence\":66.02752803021453,\"industryPrestige\":54.094421435784795},\"studioId\":\"studio-aca408ec-r02\"},{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:5\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:7\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:9\"}],\"contraryCount\":3,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"audience-institution\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:1\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"commercial-engine\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:14\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:9\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:5\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:8\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:12\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:1\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:10\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:6\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:2\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:7\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:11\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:3\"}],\"contraryCount\":15,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[{\"domainId\":\"technologyCatalogue\",\"id\":\"synchronized-sound\"},{\"domainId\":\"technologyCatalogue\",\"id\":\"lighting-control-01\"}],\"contraryCount\":2,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"genre-specialist\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:4\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:8\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:5\"}],\"contraryCount\":3,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:13\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:11\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:0\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:2\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:12\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:10\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:14\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:3\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:1\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:6\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:9\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r03:film:7\"}],\"qualifyingCount\":12},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":2,\"inReleaseAtBoundary\":0,\"releases\":15,\"settled\":15},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":6,\"discoveries\":0},\"lensId\":\"people\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":0},\"lensId\":\"technology\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":22.4753845879917,\"commercialConfidence\":58.83622460885097,\"industryPrestige\":3.316368217812216},\"studioId\":\"studio-aca408ec-r03\"},{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r04:film:3\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r04:film:7\"}],\"qualifyingCount\":2},{\"archetypeId\":\"audience-institution\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r04:film:0\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"commercial-engine\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r04:film:6\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r04:film:8\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r04:film:2\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r04:film:3\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r04:film:1\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r04:film:0\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r04:film:4\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r04:film:7\"}],\"contraryCount\":8,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[{\"domainId\":\"technologyCatalogue\",\"id\":\"synchronized-sound\"},{\"domainId\":\"technologyCatalogue\",\"id\":\"lighting-control-01\"}],\"contraryCount\":2,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"genre-specialist\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":2,\"inReleaseAtBoundary\":0,\"releases\":8,\"settled\":8},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":6,\"discoveries\":0},\"lensId\":\"people\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":0},\"lensId\":\"technology\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":30.001878062678117,\"commercialConfidence\":51.93243946926535,\"industryPrestige\":67.4117362071951},\"studioId\":\"studio-aca408ec-r04\"},{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r05:film:0\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"audience-institution\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r05:film:0\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"commercial-engine\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r05:film:8\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r05:film:6\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r05:film:3\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r05:film:0\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r05:film:4\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r05:film:1\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r05:film:5\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r05:film:2\"}],\"contraryCount\":8,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[{\"domainId\":\"technologyCatalogue\",\"id\":\"lighting-control-01\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r05:film:0:t-act-01\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r05:film:0:t-act-00\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r05:film:0:t-act-02\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r05:film:0:t-cra-00\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r05:film:0:t-dir-00\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r05:film:0:t-wri-00\"}],\"qualifyingCount\":6},{\"archetypeId\":\"genre-specialist\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":0,\"inReleaseAtBoundary\":0,\"releases\":8,\"settled\":8},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":6,\"discoveries\":6},\"lensId\":\"people\",\"refs\":[{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r05:film:0:t-act-01\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r05:film:0:t-act-00\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r05:film:0:t-act-02\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r05:film:0:t-cra-00\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r05:film:0:t-dir-00\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r05:film:0:t-wri-00\"}],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":1},\"lensId\":\"technology\",\"refs\":[{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-aca408ec-r05:sound-adoption:0\"}],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":27.27299935191921,\"commercialConfidence\":54.107288031757626,\"industryPrestige\":58.70107258719341},\"studioId\":\"studio-aca408ec-r05\"},{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r06:film:1\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"audience-institution\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r06:film:2\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r06:film:6\"}],\"qualifyingCount\":1},{\"archetypeId\":\"commercial-engine\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r06:film:8\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r06:film:7\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r06:film:2\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r06:film:3\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r06:film:4\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r06:film:1\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r06:film:11\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r06:film:5\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r06:film:6\"}],\"contraryCount\":9,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"genre-specialist\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r06:film:0\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r06:film:5\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r06:film:6\"}],\"contraryCount\":3,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r06:film:2\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r06:film:7\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r06:film:4\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r06:film:11\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r06:film:3\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r06:film:8\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r06:film:1\"}],\"qualifyingCount\":7},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":0,\"inReleaseAtBoundary\":0,\"releases\":10,\"settled\":10},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":6,\"discoveries\":0},\"lensId\":\"people\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":2},\"lensId\":\"technology\",\"refs\":[{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-aca408ec-r06:lighting-control-01:adoption:0\"},{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-aca408ec-r06:sound-adoption:0\"}],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":27.72358980035198,\"commercialConfidence\":55.62742581048307,\"industryPrestige\":53.66239462170968},\"studioId\":\"studio-aca408ec-r06\"},{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"audience-institution\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r07:film:7\"}],\"qualifyingCount\":1},{\"archetypeId\":\"commercial-engine\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r07:film:5\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r07:film:3\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r07:film:1\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r07:film:6\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r07:film:0\"}],\"contraryCount\":5,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r07:film:0:t-act-04\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r07:film:0:t-act-07\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r07:film:0:t-cra-03\"}],\"qualifyingCount\":3},{\"archetypeId\":\"genre-specialist\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r07:film:7\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r07:film:10\"}],\"contraryCount\":2,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r07:film:0\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r07:film:5\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r07:film:1\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r07:film:3\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r07:film:6\"}],\"qualifyingCount\":5},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":0,\"inReleaseAtBoundary\":0,\"releases\":7,\"settled\":7},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":6,\"discoveries\":5},\"lensId\":\"people\",\"refs\":[{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r07:film:0:t-act-04\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r07:film:0:t-act-07\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r07:film:0:t-cra-03\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r07:film:0:t-dir-04\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r07:film:0:t-wri-01\"}],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":2},\"lensId\":\"technology\",\"refs\":[{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-aca408ec-r07:lighting-control-01:adoption:0\"},{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-aca408ec-r07:sound-adoption:0\"}],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":31.773540635177223,\"commercialConfidence\":53.34545103609404,\"industryPrestige\":64.8626840815432},\"studioId\":\"studio-aca408ec-r07\"},{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r08:film:3\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"audience-institution\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r08:film:9\"}],\"qualifyingCount\":1},{\"archetypeId\":\"commercial-engine\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r08:film:8\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r08:film:3\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r08:film:0\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r08:film:4\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r08:film:6\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r08:film:12\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r08:film:2\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r08:film:14\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r08:film:10\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r08:film:1\"}],\"contraryCount\":10,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r08:film:0:person-cohort-104-director-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r08:film:0:t-wri-07\"}],\"qualifyingCount\":2},{\"archetypeId\":\"genre-specialist\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":0,\"inReleaseAtBoundary\":0,\"releases\":11,\"settled\":11},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":6,\"discoveries\":2},\"lensId\":\"people\",\"refs\":[{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r08:film:0:person-cohort-104-director-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r08:film:0:t-wri-07\"}],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":2},\"lensId\":\"technology\",\"refs\":[{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-aca408ec-r08:lighting-control-01:adoption:0\"},{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-aca408ec-r08:sound-adoption:0\"}],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":29.147378814649464,\"commercialConfidence\":56.95561994249139,\"industryPrestige\":32.481831408719906},\"studioId\":\"studio-aca408ec-r08\"},{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"audience-institution\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"commercial-engine\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r09:film:7\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-aca408ec-r09:film:1\"}],\"contraryCount\":2,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"genre-specialist\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":0,\"inReleaseAtBoundary\":0,\"releases\":2,\"settled\":2},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":6,\"discoveries\":6},\"lensId\":\"people\",\"refs\":[{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r09:film:1:person-cohort-364-writer-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r09:film:1:person-cohort-572-director-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r09:film:1:person-cohort-624-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r09:film:1:person-cohort-728-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r09:film:1:person-cohort-728-craft-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-aca408ec-r09:film:1:person-cohort-884-actor-0\"}],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":2},\"lensId\":\"technology\",\"refs\":[{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-aca408ec-r09:lighting-control-01:adoption:0\"},{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-aca408ec-r09:sound-adoption:0\"}],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":33.26810325375548,\"commercialConfidence\":50.92745231470522,\"industryPrestige\":36.85901241142234},\"studioId\":\"studio-aca408ec-r09\"}]}"
+    },
+    {
+      "seed": "seed-b",
+      "finalWeek": 6240,
+      "routeMs": 332928,
+      "msPerTick": 53.353846153846156,
+      "playerStudioId": "studio-bc14baf6-player",
+      "adapterRefusals": [],
+      "lawRefusal": null,
+      "f1": {
+        "landedLawRefusal": "campaign legacy: films[0] (studio-bc14baf6-r01:historical-film:0).settledWeek must be a whole week once settled",
+        "standInFilms": 8
+      },
+      "freeze": {
+        "adapterMs": 8,
+        "lawMs": 35,
+        "freezeMs": 43
+      },
+      "domainTable": [
+        {
+          "domainId": "playerFilms",
+          "highWatermark": 0,
+          "recordedFromWeek": 0,
+          "status": "complete"
+        },
+        {
+          "domainId": "industryFilms",
+          "highWatermark": 1960,
+          "recordedFromWeek": 0,
+          "status": "complete"
+        },
+        {
+          "domainId": "playerRuns",
+          "highWatermark": 0,
+          "recordedFromWeek": 0,
+          "status": "complete"
+        },
+        {
+          "domainId": "playerCareerEvents",
+          "highWatermark": 0,
+          "recordedFromWeek": 0,
+          "status": "complete"
+        },
+        {
+          "domainId": "industryCareerEvents",
+          "highWatermark": 11712,
+          "recordedFromWeek": 0,
+          "status": "complete"
+        },
+        {
+          "domainId": "technologyAdoptions",
+          "highWatermark": 14,
+          "recordedFromWeek": 0,
+          "status": "complete"
+        },
+        {
+          "domainId": "technologyCatalogue",
+          "highWatermark": 2,
+          "recordedFromWeek": 0,
+          "status": "complete"
+        },
+        {
+          "domainId": "powerRanking",
+          "highWatermark": 0,
+          "recordedFromWeek": null,
+          "status": "notRecorded"
+        },
+        {
+          "domainId": "corporateCondition",
+          "highWatermark": 0,
+          "recordedFromWeek": null,
+          "status": "notRecorded"
+        },
+        {
+          "domainId": "marketAssessments",
+          "highWatermark": 0,
+          "recordedFromWeek": null,
+          "status": "notRecorded"
+        }
+      ],
+      "holders": {
+        "artistic-voice": {
+          "held": [
+            "studio-bc14baf6-r06",
+            "studio-bc14baf6-r07"
+          ],
+          "notHeld": [
+            "studio-bc14baf6-player",
+            "studio-bc14baf6-r01",
+            "studio-bc14baf6-r02",
+            "studio-bc14baf6-r03",
+            "studio-bc14baf6-r04",
+            "studio-bc14baf6-r05",
+            "studio-bc14baf6-r08",
+            "studio-bc14baf6-r09"
+          ],
+          "notRecorded": []
+        },
+        "audience-institution": {
+          "held": [
+            "studio-bc14baf6-r05",
+            "studio-bc14baf6-r06",
+            "studio-bc14baf6-r07",
+            "studio-bc14baf6-r08",
+            "studio-bc14baf6-r09"
+          ],
+          "notHeld": [
+            "studio-bc14baf6-player",
+            "studio-bc14baf6-r01",
+            "studio-bc14baf6-r02",
+            "studio-bc14baf6-r03",
+            "studio-bc14baf6-r04"
+          ],
+          "notRecorded": []
+        },
+        "commercial-engine": {
+          "held": [
+            "studio-bc14baf6-r06",
+            "studio-bc14baf6-r07"
+          ],
+          "notHeld": [
+            "studio-bc14baf6-player",
+            "studio-bc14baf6-r01",
+            "studio-bc14baf6-r02",
+            "studio-bc14baf6-r03",
+            "studio-bc14baf6-r04",
+            "studio-bc14baf6-r05",
+            "studio-bc14baf6-r08",
+            "studio-bc14baf6-r09"
+          ],
+          "notRecorded": []
+        },
+        "technology-pioneer": {
+          "held": [
+            "studio-bc14baf6-r01",
+            "studio-bc14baf6-r02",
+            "studio-bc14baf6-r03",
+            "studio-bc14baf6-r04",
+            "studio-bc14baf6-r05"
+          ],
+          "notHeld": [
+            "studio-bc14baf6-player",
+            "studio-bc14baf6-r06",
+            "studio-bc14baf6-r07",
+            "studio-bc14baf6-r08",
+            "studio-bc14baf6-r09"
+          ],
+          "notRecorded": []
+        },
+        "talent-foundry": {
+          "held": [
+            "studio-bc14baf6-r05",
+            "studio-bc14baf6-r06",
+            "studio-bc14baf6-r07",
+            "studio-bc14baf6-r08",
+            "studio-bc14baf6-r09"
+          ],
+          "notHeld": [
+            "studio-bc14baf6-player",
+            "studio-bc14baf6-r01",
+            "studio-bc14baf6-r02",
+            "studio-bc14baf6-r03",
+            "studio-bc14baf6-r04"
+          ],
+          "notRecorded": []
+        },
+        "genre-specialist": {
+          "held": [
+            "studio-bc14baf6-r02",
+            "studio-bc14baf6-r03",
+            "studio-bc14baf6-r04"
+          ],
+          "notHeld": [
+            "studio-bc14baf6-player",
+            "studio-bc14baf6-r01",
+            "studio-bc14baf6-r05",
+            "studio-bc14baf6-r06",
+            "studio-bc14baf6-r07",
+            "studio-bc14baf6-r08",
+            "studio-bc14baf6-r09"
+          ],
+          "notRecorded": []
+        },
+        "resilient-survivor": {
+          "held": [],
+          "notHeld": [],
+          "notRecorded": [
+            "studio-bc14baf6-player",
+            "studio-bc14baf6-r01",
+            "studio-bc14baf6-r02",
+            "studio-bc14baf6-r03",
+            "studio-bc14baf6-r04",
+            "studio-bc14baf6-r05",
+            "studio-bc14baf6-r06",
+            "studio-bc14baf6-r07",
+            "studio-bc14baf6-r08",
+            "studio-bc14baf6-r09"
+          ]
+        },
+        "awards-dynasty": {
+          "held": [],
+          "notHeld": [],
+          "notRecorded": [
+            "studio-bc14baf6-player",
+            "studio-bc14baf6-r01",
+            "studio-bc14baf6-r02",
+            "studio-bc14baf6-r03",
+            "studio-bc14baf6-r04",
+            "studio-bc14baf6-r05",
+            "studio-bc14baf6-r06",
+            "studio-bc14baf6-r07",
+            "studio-bc14baf6-r08",
+            "studio-bc14baf6-r09"
+          ]
+        }
+      },
+      "studios": [
+        {
+          "studioId": "studio-bc14baf6-player",
+          "role": "player",
+          "enteredWeek": 0,
+          "catalog": {
+            "releases": 0,
+            "settled": 0,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 0
+          },
+          "held": []
+        },
+        {
+          "studioId": "studio-bc14baf6-r01",
+          "role": "rival",
+          "enteredWeek": 0,
+          "catalog": {
+            "releases": 26,
+            "settled": 26,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 2
+          },
+          "held": [
+            "technology-pioneer"
+          ]
+        },
+        {
+          "studioId": "studio-bc14baf6-r02",
+          "role": "rival",
+          "enteredWeek": 0,
+          "catalog": {
+            "releases": 30,
+            "settled": 30,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 2
+          },
+          "held": [
+            "technology-pioneer",
+            "genre-specialist"
+          ]
+        },
+        {
+          "studioId": "studio-bc14baf6-r03",
+          "role": "rival",
+          "enteredWeek": 0,
+          "catalog": {
+            "releases": 29,
+            "settled": 29,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 2
+          },
+          "held": [
+            "technology-pioneer",
+            "genre-specialist"
+          ]
+        },
+        {
+          "studioId": "studio-bc14baf6-r04",
+          "role": "rival",
+          "enteredWeek": 0,
+          "catalog": {
+            "releases": 22,
+            "settled": 22,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 2
+          },
+          "held": [
+            "technology-pioneer",
+            "genre-specialist"
+          ]
+        },
+        {
+          "studioId": "studio-bc14baf6-r05",
+          "role": "rival",
+          "enteredWeek": 520,
+          "catalog": {
+            "releases": 273,
+            "settled": 273,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 0
+          },
+          "held": [
+            "audience-institution",
+            "technology-pioneer",
+            "talent-foundry"
+          ]
+        },
+        {
+          "studioId": "studio-bc14baf6-r06",
+          "role": "rival",
+          "enteredWeek": 988,
+          "catalog": {
+            "releases": 419,
+            "settled": 419,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 0
+          },
+          "held": [
+            "artistic-voice",
+            "audience-institution",
+            "commercial-engine",
+            "talent-foundry"
+          ]
+        },
+        {
+          "studioId": "studio-bc14baf6-r07",
+          "role": "rival",
+          "enteredWeek": 1560,
+          "catalog": {
+            "releases": 404,
+            "settled": 404,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 0
+          },
+          "held": [
+            "artistic-voice",
+            "audience-institution",
+            "commercial-engine",
+            "talent-foundry"
+          ]
+        },
+        {
+          "studioId": "studio-bc14baf6-r08",
+          "role": "rival",
+          "enteredWeek": 1872,
+          "catalog": {
+            "releases": 464,
+            "settled": 464,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 0
+          },
+          "held": [
+            "audience-institution",
+            "talent-foundry"
+          ]
+        },
+        {
+          "studioId": "studio-bc14baf6-r09",
+          "role": "rival",
+          "enteredWeek": 2548,
+          "catalog": {
+            "releases": 285,
+            "settled": 285,
+            "inReleaseAtBoundary": 0,
+            "authoredPre1920": 0
+          },
+          "held": [
+            "audience-institution",
+            "talent-foundry"
+          ]
+        }
+      ],
+      "manifestBytes": 60492,
+      "manifestSha256": "e71fdb5c0ef7045b6cef29cb23601863bab1fae58ae1394a86b8cb476b58931d",
+      "manifestCanonical": "{\"boundaryWeek\":6240,\"definition\":\"campaign-legacy/v2\",\"kind\":\"official2040\",\"postFinaleMode\":\"ordinary-simulation/v1\",\"sources\":[{\"domainId\":\"playerFilms\",\"highWatermark\":0,\"recordedFromWeek\":0,\"status\":\"complete\"},{\"domainId\":\"industryFilms\",\"highWatermark\":1960,\"recordedFromWeek\":0,\"status\":\"complete\"},{\"domainId\":\"playerRuns\",\"highWatermark\":0,\"recordedFromWeek\":0,\"status\":\"complete\"},{\"domainId\":\"playerCareerEvents\",\"highWatermark\":0,\"recordedFromWeek\":0,\"status\":\"complete\"},{\"domainId\":\"industryCareerEvents\",\"highWatermark\":11712,\"recordedFromWeek\":0,\"status\":\"complete\"},{\"domainId\":\"technologyAdoptions\",\"highWatermark\":14,\"recordedFromWeek\":0,\"status\":\"complete\"},{\"domainId\":\"technologyCatalogue\",\"highWatermark\":2,\"recordedFromWeek\":0,\"status\":\"complete\"},{\"domainId\":\"powerRanking\",\"highWatermark\":0,\"recordedFromWeek\":null,\"status\":\"notRecorded\"},{\"domainId\":\"corporateCondition\",\"highWatermark\":0,\"recordedFromWeek\":null,\"status\":\"notRecorded\"},{\"domainId\":\"marketAssessments\",\"highWatermark\":0,\"recordedFromWeek\":null,\"status\":\"notRecorded\"}],\"studios\":[{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"audience-institution\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"commercial-engine\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[{\"domainId\":\"technologyCatalogue\",\"id\":\"synchronized-sound\"},{\"domainId\":\"technologyCatalogue\",\"id\":\"lighting-control-01\"}],\"contraryCount\":2,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"genre-specialist\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":0,\"inReleaseAtBoundary\":0,\"releases\":0,\"settled\":0},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":0,\"discoveries\":0},\"lensId\":\"people\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":0},\"lensId\":\"technology\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":35.000000000000085,\"commercialConfidence\":50,\"industryPrestige\":40},\"studioId\":\"studio-bc14baf6-player\"},{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r01:film:1\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r01:film:6\"}],\"contraryCount\":2,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r01:film:15\"}],\"qualifyingCount\":1},{\"archetypeId\":\"audience-institution\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r01:film:34\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"commercial-engine\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r01:film:26\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r01:film:18\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r01:film:35\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r01:film:15\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r01:film:34\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r01:film:2\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r01:film:12\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r01:film:3\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r01:film:8\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r01:film:16\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r01:film:21\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r01:film:22\"}],\"contraryCount\":25,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[{\"domainId\":\"technologyCatalogue\",\"id\":\"lighting-control-01\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-bc14baf6-r01:sound-adoption:0\"}],\"qualifyingCount\":1},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"genre-specialist\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":2,\"inReleaseAtBoundary\":0,\"releases\":26,\"settled\":26},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":13,\"discoveries\":0},\"lensId\":\"people\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":1},\"lensId\":\"technology\",\"refs\":[{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-bc14baf6-r01:sound-adoption:0\"}],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":0,\"commercialConfidence\":94.50507955239084,\"industryPrestige\":69.93259388522284},\"studioId\":\"studio-bc14baf6-r01\"},{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:35\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:42\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:22\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:18\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:16\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:3\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:2\"}],\"contraryCount\":7,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:1\"}],\"qualifyingCount\":1},{\"archetypeId\":\"audience-institution\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:7\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"commercial-engine\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:33\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:42\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:24\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:35\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:26\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:23\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:19\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:16\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:14\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:11\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:15\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:7\"}],\"contraryCount\":30,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[{\"domainId\":\"technologyCatalogue\",\"id\":\"lighting-control-01\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-bc14baf6-r02:sound-adoption:0\"}],\"qualifyingCount\":1},{\"archetypeId\":\"talent-foundry\",\"contrary\":[{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r02:film:42:t-act-00\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r02:film:42:t-act-01\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r02:film:42:t-cra-00\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r02:film:42:t-wri-00\"}],\"contraryCount\":4,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"genre-specialist\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:1\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:8\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:15\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:21\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:25\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:3\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:16\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:22\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:42\"}],\"contraryCount\":9,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:10\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:6\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:17\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:5\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:14\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:26\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:9\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:7\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:11\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:33\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:12\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r02:film:19\"}],\"qualifyingCount\":21},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":2,\"inReleaseAtBoundary\":0,\"releases\":30,\"settled\":30},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":10,\"discoveries\":4},\"lensId\":\"people\",\"refs\":[{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r02:film:42:t-act-00\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r02:film:42:t-act-01\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r02:film:42:t-cra-00\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r02:film:42:t-wri-00\"}],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":1},\"lensId\":\"technology\",\"refs\":[{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-bc14baf6-r02:sound-adoption:0\"}],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":0,\"commercialConfidence\":77.0443316444164,\"industryPrestige\":0},\"studioId\":\"studio-bc14baf6-r02\"},{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:18\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:13\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:10\"}],\"contraryCount\":3,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"audience-institution\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:2\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"commercial-engine\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:25\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:24\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:35\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:21\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:32\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:17\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:28\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:11\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:10\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:23\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:7\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:22\"}],\"contraryCount\":28,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[{\"domainId\":\"technologyCatalogue\",\"id\":\"lighting-control-01\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-bc14baf6-r03:sound-adoption:0\"}],\"qualifyingCount\":1},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"genre-specialist\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:25\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:22\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:0\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:5\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:6\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:15\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:14\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:7\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:11\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:28\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:2\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:10\"}],\"contraryCount\":14,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:16\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:23\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:21\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:20\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:8\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:4\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:24\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:35\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:1\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:12\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:17\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r03:film:19\"}],\"qualifyingCount\":15},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":2,\"inReleaseAtBoundary\":0,\"releases\":29,\"settled\":29},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":6,\"discoveries\":0},\"lensId\":\"people\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":1},\"lensId\":\"technology\",\"refs\":[{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-bc14baf6-r03:sound-adoption:0\"}],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":0,\"commercialConfidence\":78.84112925391165,\"industryPrestige\":4.483958203748994},\"studioId\":\"studio-bc14baf6-r03\"},{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:16\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:15\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:8\"}],\"qualifyingCount\":2},{\"archetypeId\":\"audience-institution\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:3\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"commercial-engine\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:24\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:16\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:18\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:14\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:13\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:15\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:9\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:12\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:21\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:6\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:5\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:20\"}],\"contraryCount\":21,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[{\"domainId\":\"technologyCatalogue\",\"id\":\"lighting-control-01\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-bc14baf6-r04:sound-adoption:0\"}],\"qualifyingCount\":1},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r04:film:21:t-dir-00\"}],\"qualifyingCount\":1},{\"archetypeId\":\"genre-specialist\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:15\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:21\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:6\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:5\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:12\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:3\"}],\"contraryCount\":6,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:8\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:17\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:24\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:1\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:20\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:0\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:9\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:10\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:13\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:14\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:4\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r04:film:2\"}],\"qualifyingCount\":16},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":2,\"inReleaseAtBoundary\":0,\"releases\":22,\"settled\":22},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":12,\"discoveries\":1},\"lensId\":\"people\",\"refs\":[{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r04:film:21:t-dir-00\"}],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":1},\"lensId\":\"technology\",\"refs\":[{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-bc14baf6-r04:sound-adoption:0\"}],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":0,\"commercialConfidence\":69.4183362657292,\"industryPrestige\":78.78446605426814},\"studioId\":\"studio-bc14baf6-r04\"},{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:5\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:224\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:39\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:170\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:211\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:106\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:182\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:216\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:382\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:162\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:40\"}],\"contraryCount\":11,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:159\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:65\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:66\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:215\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:270\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:97\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:109\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:219\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:113\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:103\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:28\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:111\"}],\"qualifyingCount\":36},{\"archetypeId\":\"audience-institution\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:55\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:111\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:114\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:196\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:219\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:275\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:299\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:258\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:415\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:433\"}],\"qualifyingCount\":10},{\"archetypeId\":\"commercial-engine\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:255\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:233\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:356\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:247\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:440\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:413\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:273\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:429\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:204\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:426\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:231\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:428\"}],\"contraryCount\":125,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:111\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:114\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:86\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:130\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:125\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:133\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:96\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:115\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:93\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:139\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:55\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r05:film:136\"}],\"qualifyingCount\":41},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-bc14baf6-r05:lighting-control-01:adoption:0\"}],\"qualifyingCount\":1},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:0:t-cra-01\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:0:t-act-03\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:0:t-dir-01\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:0:t-wri-01\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:161:person-cohort-676-writer-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:160:person-cohort-832-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:160:person-cohort-832-actor-1\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:246:person-cohort-2340-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:68:t-act-10\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:0:t-act-05\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:160:person-cohort-832-actor-2\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:160:person-cohort-364-director-0\"}],\"qualifyingCount\":30},{\"archetypeId\":\"genre-specialist\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":0,\"inReleaseAtBoundary\":0,\"releases\":273,\"settled\":273},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":57,\"discoveries\":33},\"lensId\":\"people\",\"refs\":[{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:0:t-cra-01\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:0:t-act-03\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:0:t-dir-01\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:0:t-wri-01\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:161:person-cohort-676-writer-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:160:person-cohort-832-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:160:person-cohort-832-actor-1\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:246:person-cohort-2340-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:68:t-act-10\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:0:t-act-05\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:160:person-cohort-832-actor-2\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r05:film:160:person-cohort-364-director-0\"}],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":2},\"lensId\":\"technology\",\"refs\":[{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-bc14baf6-r05:sound-adoption:0\"},{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-bc14baf6-r05:lighting-control-01:adoption:0\"}],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":0,\"commercialConfidence\":100,\"industryPrestige\":94.74148052885272},\"studioId\":\"studio-bc14baf6-r05\"},{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:351\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:402\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:406\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:413\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:78\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:424\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:423\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:388\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:27\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:369\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:352\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:392\"}],\"contraryCount\":18,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:88\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:331\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:149\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:334\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:304\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:216\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:343\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:270\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:326\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:329\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:294\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:323\"}],\"qualifyingCount\":95},{\"archetypeId\":\"audience-institution\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:460\"}],\"contraryCount\":1,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:3\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:36\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:88\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:142\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:216\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:275\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:323\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:367\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:414\"}],\"qualifyingCount\":9},{\"archetypeId\":\"commercial-engine\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:471\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:460\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:445\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:451\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:448\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:424\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:432\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:423\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:413\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:442\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:403\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:406\"}],\"contraryCount\":63,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:275\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:216\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:88\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:230\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:129\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:266\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:240\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:142\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:253\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:210\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:242\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r06:film:118\"}],\"qualifyingCount\":99},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:0:t-act-08\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:147:person-cohort-884-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:183:person-cohort-1196-writer-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:137:person-cohort-572-director-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:231:person-cohort-1508-craft-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:147:person-cohort-832-actor-3\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:186:person-cohort-1040-actor-1\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:69:t-cra-08\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:0:t-act-07\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:0:t-act-09\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:276:person-cohort-1872-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:93:t-wri-07\"}],\"qualifyingCount\":28},{\"archetypeId\":\"genre-specialist\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":0,\"inReleaseAtBoundary\":0,\"releases\":419,\"settled\":419},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":41,\"discoveries\":31},\"lensId\":\"people\",\"refs\":[{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:0:t-act-08\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:147:person-cohort-884-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:183:person-cohort-1196-writer-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:137:person-cohort-572-director-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:231:person-cohort-1508-craft-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:147:person-cohort-832-actor-3\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:186:person-cohort-1040-actor-1\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:69:t-cra-08\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:0:t-act-07\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:0:t-act-09\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:276:person-cohort-1872-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r06:film:93:t-wri-07\"}],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":2},\"lensId\":\"technology\",\"refs\":[{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-bc14baf6-r06:lighting-control-01:adoption:0\"},{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-bc14baf6-r06:sound-adoption:0\"}],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":0,\"commercialConfidence\":99.89454444498612,\"industryPrestige\":0},\"studioId\":\"studio-bc14baf6-r06\"},{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:370\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:414\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:151\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:149\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:95\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:123\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:382\"}],\"contraryCount\":7,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:307\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:353\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:308\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:359\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:348\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:343\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:360\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:367\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:309\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:315\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:333\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:327\"}],\"qualifyingCount\":110},{\"archetypeId\":\"audience-institution\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:47\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:101\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:136\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:195\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:267\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:325\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:359\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:392\"}],\"qualifyingCount\":8},{\"archetypeId\":\"commercial-engine\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:407\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:402\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:414\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:403\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:417\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:396\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:413\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:395\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:401\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:387\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:393\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:389\"}],\"contraryCount\":58,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:359\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:101\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:366\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:69\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:360\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:64\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:325\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:267\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:301\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:78\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:268\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r07:film:166\"}],\"qualifyingCount\":84},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:230:person-cohort-2340-actor-1\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:22:person-cohort-520-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:141:person-cohort-1456-craft-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:0:t-wri-04\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:283:person-cohort-2652-craft-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:0:t-act-20\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:180:person-cohort-1560-director-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:0:t-cra-05\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:272:person-cohort-2704-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:22:person-cohort-260-director-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:22:person-cohort-364-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:157:person-cohort-1092-director-0\"}],\"qualifyingCount\":28},{\"archetypeId\":\"genre-specialist\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":0,\"inReleaseAtBoundary\":0,\"releases\":404,\"settled\":404},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":43,\"discoveries\":29},\"lensId\":\"people\",\"refs\":[{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:230:person-cohort-2340-actor-1\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:22:person-cohort-520-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:141:person-cohort-1456-craft-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:0:t-wri-04\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:283:person-cohort-2652-craft-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:0:t-act-20\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:180:person-cohort-1560-director-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:0:t-cra-05\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:272:person-cohort-2704-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:22:person-cohort-260-director-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:22:person-cohort-364-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r07:film:157:person-cohort-1092-director-0\"}],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":2},\"lensId\":\"technology\",\"refs\":[{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-bc14baf6-r07:lighting-control-01:adoption:0\"},{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-bc14baf6-r07:sound-adoption:0\"}],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":0,\"commercialConfidence\":100,\"industryPrestige\":50.40066243940581},\"studioId\":\"studio-bc14baf6-r07\"},{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:371\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:436\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:72\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:321\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:266\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:205\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:365\"}],\"contraryCount\":7,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:13\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:338\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:12\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:291\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:193\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:346\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:288\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:179\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:400\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:459\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:245\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:247\"}],\"qualifyingCount\":68},{\"archetypeId\":\"audience-institution\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:14\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:25\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:112\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:180\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:221\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:246\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:346\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:398\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:456\"}],\"qualifyingCount\":9},{\"archetypeId\":\"commercial-engine\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:279\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:275\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:276\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:278\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:296\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:280\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:432\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:299\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:357\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:139\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:298\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:436\"}],\"contraryCount\":16,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:14\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:10\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:13\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:221\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:6\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:12\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:316\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:213\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:4\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:246\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:346\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r08:film:25\"}],\"qualifyingCount\":85},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:78:person-cohort-1196-craft-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:0:person-cohort-416-writer-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:275:person-cohort-3016-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:133:person-cohort-1248-writer-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:285:person-cohort-3120-craft-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:72:person-cohort-988-director-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:188:person-cohort-2184-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:351:person-cohort-3900-director-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:88:person-cohort-1040-actor-2\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:72:person-cohort-988-actor-1\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:183:person-cohort-1872-actor-1\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:275:person-cohort-3016-actor-1\"}],\"qualifyingCount\":21},{\"archetypeId\":\"genre-specialist\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":0,\"inReleaseAtBoundary\":0,\"releases\":464,\"settled\":464},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":46,\"discoveries\":21},\"lensId\":\"people\",\"refs\":[{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:78:person-cohort-1196-craft-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:0:person-cohort-416-writer-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:275:person-cohort-3016-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:133:person-cohort-1248-writer-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:285:person-cohort-3120-craft-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:72:person-cohort-988-director-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:188:person-cohort-2184-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:351:person-cohort-3900-director-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:88:person-cohort-1040-actor-2\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:72:person-cohort-988-actor-1\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:183:person-cohort-1872-actor-1\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r08:film:275:person-cohort-3016-actor-1\"}],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":2},\"lensId\":\"technology\",\"refs\":[{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-bc14baf6-r08:lighting-control-01:adoption:0\"},{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-bc14baf6-r08:sound-adoption:0\"}],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":37.56623952746597,\"commercialConfidence\":100,\"industryPrestige\":100},\"studioId\":\"studio-bc14baf6-r08\"},{\"archetypes\":[{\"archetypeId\":\"artistic-voice\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:108\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:271\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:311\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:164\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:253\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:159\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:275\"}],\"contraryCount\":7,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:62\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:205\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:186\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:88\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:19\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:4\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:17\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:76\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:95\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:5\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:193\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:129\"}],\"qualifyingCount\":15},{\"archetypeId\":\"audience-institution\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:0\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:55\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:78\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:153\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:187\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:233\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:302\"}],\"qualifyingCount\":7},{\"archetypeId\":\"commercial-engine\",\"contrary\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:305\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:311\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:283\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:276\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:302\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:280\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:279\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:271\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:275\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:277\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:266\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:274\"}],\"contraryCount\":69,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:187\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:55\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:54\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:78\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:202\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:17\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:208\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:191\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:47\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:204\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:57\"},{\"domainId\":\"industryFilms\",\"id\":\"studio-bc14baf6-r09:film:199\"}],\"qualifyingCount\":44},{\"archetypeId\":\"technology-pioneer\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"talent-foundry\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"held\",\"qualifying\":[{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:0:person-cohort-1040-writer-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:101:person-cohort-1768-director-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:117:person-cohort-2236-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:0:person-cohort-988-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:0:person-cohort-780-craft-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:0:person-cohort-936-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:142:person-cohort-1716-writer-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:190:person-cohort-2912-craft-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:190:person-cohort-3016-actor-2\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:91:person-cohort-1508-actor-1\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:96:person-cohort-1716-actor-1\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:22:person-cohort-1092-actor-0\"}],\"qualifyingCount\":18},{\"archetypeId\":\"genre-specialist\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[],\"outcome\":\"notHeld\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"resilient-survivor\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"corporateCondition\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0},{\"archetypeId\":\"awards-dynasty\",\"contrary\":[],\"contraryCount\":0,\"limitedBy\":[\"awards\"],\"outcome\":\"notRecorded\",\"qualifying\":[],\"qualifyingCount\":0}],\"lenses\":[{\"counts\":{\"authoredPre1920\":0,\"inReleaseAtBoundary\":0,\"releases\":285,\"settled\":285},\"lensId\":\"catalog\",\"refs\":[],\"status\":\"complete\"},{\"counts\":{\"credited\":27,\"discoveries\":19},\"lensId\":\"people\",\"refs\":[{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:0:person-cohort-1040-writer-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:101:person-cohort-1768-director-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:117:person-cohort-2236-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:0:person-cohort-988-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:0:person-cohort-780-craft-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:0:person-cohort-936-actor-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:142:person-cohort-1716-writer-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:190:person-cohort-2912-craft-0\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:190:person-cohort-3016-actor-2\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:91:person-cohort-1508-actor-1\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:96:person-cohort-1716-actor-1\"},{\"domainId\":\"industryCareerEvents\",\"id\":\"studio-bc14baf6-r09:film:22:person-cohort-1092-actor-0\"}],\"status\":\"complete\"},{\"counts\":{\"operationalAdoptions\":2},\"lensId\":\"technology\",\"refs\":[{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-bc14baf6-r09:lighting-control-01:adoption:0\"},{\"domainId\":\"technologyAdoptions\",\"id\":\"studio-bc14baf6-r09:sound-adoption:0\"}],\"status\":\"complete\"},{\"counts\":{},\"lensId\":\"ranking\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"financialBand\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"market\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"resilience\",\"refs\":[],\"status\":\"notRecorded\"},{\"counts\":{},\"lensId\":\"awards\",\"refs\":[],\"status\":\"notRecorded\"}],\"standingAtBoundary\":{\"audienceAwareness\":0,\"commercialConfidence\":100,\"industryPrestige\":13.342222637627735},\"studioId\":\"studio-bc14baf6-r09\"}]}"
+    }
+  ],
+  "retuneCheck": {
+    "seedsWithoutManifest": [],
+    "archetypes": [
+      {
+        "archetypeId": "artistic-voice",
+        "status": "evaluated",
+        "held": {
+          "p13a-core-causal-01": "0/10",
+          "seed-b": "2/10"
+        },
+        "allHoldInEverySeed": false,
+        "noHolderInEverySeed": false,
+        "noHolderInSomeSeed": true,
+        "retune": false,
+        "retuneSomeSeedReading": true
+      },
+      {
+        "archetypeId": "audience-institution",
+        "status": "evaluated",
+        "held": {
+          "p13a-core-causal-01": "0/10",
+          "seed-b": "5/10"
+        },
+        "allHoldInEverySeed": false,
+        "noHolderInEverySeed": false,
+        "noHolderInSomeSeed": true,
+        "retune": false,
+        "retuneSomeSeedReading": true
+      },
+      {
+        "archetypeId": "commercial-engine",
+        "status": "evaluated",
+        "held": {
+          "p13a-core-causal-01": "0/10",
+          "seed-b": "2/10"
+        },
+        "allHoldInEverySeed": false,
+        "noHolderInEverySeed": false,
+        "noHolderInSomeSeed": true,
+        "retune": false,
+        "retuneSomeSeedReading": true
+      },
+      {
+        "archetypeId": "technology-pioneer",
+        "status": "evaluated",
+        "held": {
+          "p13a-core-causal-01": "1/10",
+          "seed-b": "5/10"
+        },
+        "allHoldInEverySeed": false,
+        "noHolderInEverySeed": false,
+        "noHolderInSomeSeed": false,
+        "retune": false,
+        "retuneSomeSeedReading": false
+      },
+      {
+        "archetypeId": "talent-foundry",
+        "status": "evaluated",
+        "held": {
+          "p13a-core-causal-01": "2/10",
+          "seed-b": "5/10"
+        },
+        "allHoldInEverySeed": false,
+        "noHolderInEverySeed": false,
+        "noHolderInSomeSeed": false,
+        "retune": false,
+        "retuneSomeSeedReading": false
+      },
+      {
+        "archetypeId": "genre-specialist",
+        "status": "evaluated",
+        "held": {
+          "p13a-core-causal-01": "4/10",
+          "seed-b": "3/10"
+        },
+        "allHoldInEverySeed": false,
+        "noHolderInEverySeed": false,
+        "noHolderInSomeSeed": false,
+        "retune": false,
+        "retuneSomeSeedReading": false
+      },
+      {
+        "archetypeId": "resilient-survivor",
+        "status": "exempt",
+        "held": {
+          "p13a-core-causal-01": "0/10",
+          "seed-b": "0/10"
+        },
+        "allHoldInEverySeed": false,
+        "noHolderInEverySeed": true,
+        "noHolderInSomeSeed": true,
+        "retune": false,
+        "retuneSomeSeedReading": false
+      },
+      {
+        "archetypeId": "awards-dynasty",
+        "status": "notEvaluated",
+        "held": {
+          "p13a-core-causal-01": "0/10",
+          "seed-b": "0/10"
+        },
+        "allHoldInEverySeed": false,
+        "noHolderInEverySeed": true,
+        "noHolderInSomeSeed": true,
+        "retune": false,
+        "retuneSomeSeedReading": false
+      }
+    ],
+    "retune": [],
+    "retuneSomeSeedReading": [
+      "artistic-voice",
+      "audience-institution",
+      "commercial-engine"
+    ]
+  }
+}

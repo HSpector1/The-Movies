@@ -1,0 +1,11 @@
+node v20.20.2, base e1a793fd93dbf409b26e8816a7100622d90b87b2
+capture: MANIFEST.json genuine-v43-pre-romance-week-284.json.gz genuine-v43-pre-romance-week-284.provenance.json 
+r6 tests applied:  6 files changed, 1929 insertions(+), 1 deletion(-)
+x3b-red-sliceB start 02:29:17
+x3b-red-sliceB exit 1
+tsc: == tsconfig.json exit 2 == ui/tsconfig.json exit 0 == tsconfig.bridge.json exit 0 
+tree status: []
+done 02:31:52
+⎯⎯⎯⎯⎯⎯ Failed Tests 89 ⎯⎯⎯⎯⎯⎯⎯
+ Test Files  6 failed (6)
+      Tests  89 failed | 59 passed (148)

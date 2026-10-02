@@ -1,0 +1,4 @@
+smoke-gp-v2: 1359-GP-probe.ts node v20.20.2, tree bc2f6007495951cd44da16275437905a66d5d44d+6874387, weeks 20, seeds p13a-core-causal-01, start 2026-10-02 02:17:49 CDT
+smoke-gp-v2: exit 0, end 2026-10-02 02:17:52 CDT
+gp-v2: 1359-GP-probe.ts node v20.20.2, tree bc2f6007495951cd44da16275437905a66d5d44d+6874387, weeks 6240, seeds p13a-core-causal-01,seed-b, start 2026-10-02 02:17:52 CDT
+gp-v2: exit 0, end 2026-10-02 02:24:48 CDT

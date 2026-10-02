@@ -1,0 +1,24 @@
+base e1a793fd93dbf409b26e8816a7100622d90b87b2, node v20.20.2
+red start 02:25:09
+red exit 1
+red tsc exit 0
+red check exit 0
+ref start 02:26:58
+ref exit 1
+ref tsc exit 2
+ref check exit 0
+tree status: []
+done 02:28:49
+/Users/zacheryspector/studio-scratch/1359-x5/x5-red.txt:⎯⎯⎯⎯⎯⎯ Failed Tests 40 ⎯⎯⎯⎯⎯⎯⎯
+/Users/zacheryspector/studio-scratch/1359-x5/x5-red.txt: Test Files  2 failed | 1 passed (3)
+/Users/zacheryspector/studio-scratch/1359-x5/x5-red.txt:      Tests  40 failed | 76 passed (116)
+/Users/zacheryspector/studio-scratch/1359-x5/x5-ref.txt:⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+/Users/zacheryspector/studio-scratch/1359-x5/x5-ref.txt: Test Files  1 failed | 2 passed (3)
+/Users/zacheryspector/studio-scratch/1359-x5/x5-ref.txt:      Tests  3 failed | 113 passed (116)
+==> /Users/zacheryspector/studio-scratch/1359-x5/x5-red-check.txt <==
+red: per file (failed, passed): {'p15c-wave-r-retention.test.ts': [0, 7], 'p15c1-campaign-legacy.test.ts': [5, 67], 'p15c2-campaign-legacy-integration.test.ts': [35, 2]}
+red: classified 116, mismatches 0, unclassified leaves 0
+
+==> /Users/zacheryspector/studio-scratch/1359-x5/x5-ref-check.txt <==
+ref: per file (failed, passed): {'p15c-wave-r-retention.test.ts': [0, 7], 'p15c1-campaign-legacy.test.ts': [0, 72], 'p15c2-campaign-legacy-integration.test.ts': [3, 34]}
+ref: classified 116, mismatches 0, unclassified leaves 0

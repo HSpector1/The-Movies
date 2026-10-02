@@ -1,0 +1,5 @@
+waiting for pid 67301; then: bash /Users/zacheryspector/studio-scratch/1353-x4/run-x4.sh; 2026-10-02 00:52:52 CDT
+killed 2026-10-02 01:07:05 CDT: requeued behind the r7 run
+waiting for pid 74860; then: bash /Users/zacheryspector/studio-scratch/1353-x4/run-x4.sh; 2026-10-02 01:07:06 CDT
+start; 2026-10-02 02:17:49 CDT
+end, exit 0; 2026-10-02 02:24:48 CDT

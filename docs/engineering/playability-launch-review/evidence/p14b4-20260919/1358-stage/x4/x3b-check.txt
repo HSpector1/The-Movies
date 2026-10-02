@@ -1,0 +1,3 @@
+per file (failed, passed): {'bridge-p14b10-relationship-labels.test.ts': [11, 3], 'p14b10-competitions-log.test.ts': [5, 2], 'p14b10-labels.test.ts': [12, 0], 'p14b10-romance.test.ts': [32, 5], 'p14b10-save-v44.test.ts': [25, 0], 'p14b5-relationships.test.ts': [4, 49]}
+total failed 89 passed 59
+classified 100: ok 100, missing 0, status mismatches 0, message mismatches 0

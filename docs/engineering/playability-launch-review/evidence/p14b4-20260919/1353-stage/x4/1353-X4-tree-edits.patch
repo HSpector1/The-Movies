@@ -1,0 +1,33 @@
+diff --git a/src/core/campaignLegacy.ts b/src/core/campaignLegacy.ts
+index 4bd9e8e..38591c1 100644
+--- a/src/core/campaignLegacy.ts
++++ b/src/core/campaignLegacy.ts
+@@ -69,7 +69,7 @@ import type { FinancialStrengthBand } from './powerRanking.js'
+ import { GENRE_ORDER, TUNING } from './tuning.js'
+ import type { Genre, Standing } from './types.js'
+ 
+-export const CAMPAIGN_LEGACY_DEFINITION = 'campaign-legacy/v1'
++export const CAMPAIGN_LEGACY_DEFINITION = 'campaign-legacy/v2'
+ /** 2040 · Week 1 under `campaign-calendar-1920-52/v1`. Derived from the calendar, never tuned. */
+ export const LEGACY_BOUNDARY_WEEK = (2040 - 1920) * 52
+ /** The mode fact written with the official manifest (1353-A §6). No simulation step reads it. */
+diff --git a/src/core/tuning.ts b/src/core/tuning.ts
+index 521d06c..8e62bdb 100644
+--- a/src/core/tuning.ts
++++ b/src/core/tuning.ts
+@@ -1039,12 +1039,12 @@ export const TUNING = {
+   // and the Owner playtest judges them. Each value is a positive integer, the range
+   // `tuning-legacy-bounded-terms` asserts. Any change changes the law: bump
+   // CAMPAIGN_LEGACY_DEFINITION with it. B is derived from the calendar, never tuned here.
+-  LEGACY_CRITIC_ACCLAIM_MIN: 70, // positive integer; critic tier "strong" floor (receptionVerdict.ts), copied so a presentation retune cannot move a Legacy
++  LEGACY_CRITIC_ACCLAIM_MIN: 60, // positive integer; critic tier "strong" floor (receptionVerdict.ts), copied so a presentation retune cannot move a Legacy
+   LEGACY_CRITIC_PAN_BELOW: 35, // positive integer; critic tier "pan" ceiling (receptionVerdict.ts), copied likewise
+   LEGACY_AUDIENCE_LIKED_MIN: 57, // positive integer; audience tier "liked" floor (receptionVerdict.ts), copied likewise
+   LEGACY_MIN_FILMS: 5, // positive integer; a pattern, not a streak: minimum acclaimed releases or settled hits
+-  LEGACY_MIN_SHARE_PERCENT: 25, // positive integer; one release in four, so volume alone cannot qualify
+-  LEGACY_HIT_REACH_PERCENT: 90, // positive integer; a hit grosses at least 90% of baseMarketValue (pooled p90 reach)
++  LEGACY_MIN_SHARE_PERCENT: 20, // positive integer; one release in four, so volume alone cannot qualify
++  LEGACY_HIT_REACH_PERCENT: 49, // positive integer; a hit grosses at least 90% of baseMarketValue (pooled p90 reach)
+   LEGACY_FLOP_REACH_PERCENT: 30, // positive integer; a flop grosses below 30% of baseMarketValue, a third of a hit
+   LEGACY_AUDIENCE_MIN_DECADES: 4, // positive integer; forty years of audience decades
+   LEGACY_DECADE_MIN_RELEASES: 2, // positive integer; one scored release does not make a decade
