@@ -16,7 +16,7 @@ import { promiseRowsForPerson, trustBlockFor } from '../bridge/trust.ts'
 import { applyActions, hiringMarketIds } from '../src/core/index.js'
 import { attachPromise, promiseFeasibility, trustDrivers } from '../src/core/promises.js'
 import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
-import { LIVE_SAVE_VERSION, makeSave, validateSaveV42 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, makeSave, validateSaveV43 } from '../src/core/save.js'
 import type { GameState } from '../src/core/types.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
 
@@ -35,7 +35,7 @@ function fixture() {
     state = advanceTo(state, 45)
     expect(currentProposals(state, talentId).filter((p) => p.issuerStudioId === player(state))).toEqual([])
     expect(state.promises.filter((p) => p.beneficiaryPersonId === talentId)).toEqual([])
-    validateSaveV42(JSON.parse(JSON.stringify(makeSave(state))))
+    validateSaveV43(JSON.parse(JSON.stringify(makeSave(state))))
     cached = { state, talentId }
   }
   return structuredClone(cached)
@@ -83,7 +83,7 @@ function attachedOwn(state: GameState, talentId: string) {
 function saveSlot(session: BridgeSession, commandId = 'save-fixture') {
   const result = session.save(control(session, commandId))
   if (!result.accepted) throw new Error(result.message)
-  validateSaveV42(JSON.parse(result.saveJson))
+  validateSaveV43(JSON.parse(result.saveJson))
   return result.saveJson
 }
 function feasibilityAfterRealBaseRevision(state: GameState, wire: Payload) {
@@ -133,7 +133,7 @@ describe('P14B.3: quote and atomic command attachment', () => {
     expect(session.exportRuntimeCheckpoint().savedSaveJson).toBe(slot)
     const plain = submitProposal(before, { talentId, issuerStudioId: player(before), termWeeks: 52, premiumTier: 1.25 })
     expect(currentOwn(session.gameState, talentId).digest).not.toBe(currentOwn(plain, talentId).digest)
-    validateSaveV42(JSON.parse(JSON.stringify(makeSave(session.gameState))))
+    validateSaveV43(JSON.parse(JSON.stringify(makeSave(session.gameState))))
   })
 
   it('pure repeated quotes retain exact state/RNG/receipt/cash/slot bytes and one opaque identity', () => {
@@ -360,7 +360,7 @@ describe('P14B.3: revise, remove, withdraw retain abandoned evidence without pha
     expect(session.gameState.ledger).toEqual(beforeMoney.ledger)
     expect(session.gameState.rngState).toBe(beforeMoney.rng)
     const saved = saveSlot(session, 'save-abandoned-evidence')
-    expect(validateSaveV42(JSON.parse(saved)).state.promises).toEqual(session.gameState.promises)
+    expect(validateSaveV43(JSON.parse(saved)).state.promises).toEqual(session.gameState.promises)
   })
 })
 
@@ -505,10 +505,10 @@ describe('P14B.3: real settlement/outcome, V29 and B2 public/private carriers', 
     expect(receipt).toMatchObject({ kind: 'promiseOutcome', week: 92, talentId, studioId: player(outcome) })
     const completed = new BridgeSession(outcome, 'b3-outcome-save')
     const saved = saveSlot(completed)
-    const validated = validateSaveV42(JSON.parse(saved))
-    expect(LIVE_SAVE_VERSION).toBe(42)
+    const validated = validateSaveV43(JSON.parse(saved))
+    expect(LIVE_SAVE_VERSION).toBe(43)
     expect(PROJECTION_VERSION).toBe(56)
-    expect(validated.saveVersion).toBe(42)
+    expect(validated.saveVersion).toBe(43)
     const reloaded = BridgeSession.fromSaveJson(saved, 'b3-outcome-reloaded')
     const read = (world: GameState) => ({ trust: trustBlockFor(world, talentId, player(world)),
       own: promiseRowsForPerson(world, talentId, player(world)), foreign: promiseRowsForPerson(world, talentId, rival),

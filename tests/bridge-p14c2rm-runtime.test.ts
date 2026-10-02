@@ -40,13 +40,20 @@ type WithFirstTakes = { firstTakes: readonly unknown[]; firstTakeSubjects?: unkn
 function withFirstTakeSubjects<T extends WithFirstTakes>(state: T): T {
   return { ...state, firstTakeSubjects: { version: 1, cutoverOrdinal: state.firstTakes.length, facts: [] } }
 }
+// Save43 (1344-N S5): convertV42ToV43 (save.ts:10678-10686) adds this empty root to every rival business.
+type WithScreenplayShelving = { hollywood: { businesses: readonly { screenplayShelving?: unknown }[] } | null }
+function withEmptyScreenplayShelving<T extends WithScreenplayShelving>(state: T): T {
+  if (state.hollywood === null) return state
+  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+    ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
+}
 // Independent old-state preservation alongside the actual governed slot bytes.
 function currentSlot(json: string): string {
   const old = validateSaveV37(JSON.parse(json)), current = migrateToLive(importSave(json)), week = old.state.market.tick
-  expect(current.saveVersion).toBe(42)
+  expect(current.saveVersion).toBe(43)
   const { transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
     industryRetirements, transitionDue, ...oldLifecycle } = current.state.careerLifecycle
-  const expectedOld = withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state)))
+  const expectedOld = withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state))))
   expect(canonicalJson({ ...current.state, careerLifecycle: oldLifecycle })).toBe(canonicalJson(expectedOld))
   expect({ transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
     industryRetirements, transitionDue }).toEqual({ transitionBoundaryWeek: week,
@@ -86,7 +93,7 @@ describe('C.2-RM genuine projection51 recovery', () => {
   it('steps projection once to52 while retaining Save37/protocol4 and enumerating actual outgoing51 exactly once', () => {
     expect(PROJECTION_VERSION).toBe(56)
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(LIVE_SAVE_VERSION).toBe(42)
+    expect(LIVE_SAVE_VERSION).toBe(43)
     expect(SCHEMA_ID).not.toBe(OUTGOING_51)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)

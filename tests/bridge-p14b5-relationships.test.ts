@@ -64,6 +64,16 @@ function withRivalTermination<T extends { hollywood: GameStateV30['hollywood'] }
       ...period, movements: { ...period.movements, termination: 0 } })) },
   })) } }
 }
+
+// convertV42ToV43 (src/core/save.ts:10678-10686) adds the empty shelving state to every
+// rival business; the OLD (V30-vintage) state never carried it, so an expected
+// migrated-state comparison must build it the same way, never a bare `old.state`.
+function withEmptyScreenplayShelving<T extends { hollywood: GameStateV30['hollywood'] }>(state: T): T {
+  if (state.hollywood === null) return state
+  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+    ...business, screenplayShelving: { version: 1 as const, rejections: [] as const, shelved: [] as const, commissionHoldUntilWeek: 0 as const },
+  })) } } as T
+}
 import { advanceTo, fund, p13aGeneratedStudio, player, poachingFixture } from './helpers/p14b2-fixtures.js'
 import type { GameState, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'
 
@@ -370,7 +380,7 @@ describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, 
     // not projection53's identity (OUTGOING_53) -- states the received value.
     expect(SCHEMA_ID).toBe('sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1')
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
-    expect(LIVE_SAVE_VERSION).toBe(42)
+    expect(LIVE_SAVE_VERSION).toBe(43)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
@@ -457,7 +467,7 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
       ...old.state.talentMarket,
       cases: old.state.talentMarket.cases.map((kase) => ({ ...kase, variant: 'expiry' })),
     })
-    expect(actual.state.hollywood).toEqual(withRivalTermination(old.state).hollywood)
+    expect(actual.state.hollywood).toEqual(withEmptyScreenplayShelving(withRivalTermination(old.state)).hollywood)
     expect(sha(raw)).toBe(CHECKPOINT.raw)
   })
 

@@ -11,6 +11,14 @@ import { buildTalentProvenance } from '../src/core/aging.js'
 // Genuine e37cd23 projection45 export, not a current checkpoint with restamped ID.
 const OUTGOING_45 = 'sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d'
 const bytes = gunzipSync(readFileSync(new URL('./fixtures/p14/genuine-projection45-runtime.checkpoint.json.gz', import.meta.url))).toString('utf8')
+// 1344-N S5: Save43 (convertV42ToV43, src/core/save.ts:10678-10686) gives every rival business an
+// empty `screenplayShelving` root; the genuine V29 slots never carried it. This file builds its
+// termination movement inline (below), so the one helper sits here.
+function withEmptyScreenplayShelving<T extends { hollywood: { businesses: readonly object[] } | null }>(state: T): T {
+  if (state.hollywood === null) return state
+  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+    ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
+}
 describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)', () => {
   it('pins actual historical source bytes and the literal outgoing schema registry entry', () => {
     expect(createHash('sha256').update(bytes).digest('hex')).toBe('433629e8aa3f9e6ebbbaf331a63fa307ffe61a03c9a48257b3a8ca3f61a02fc8')
@@ -50,7 +58,7 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
     const addedFields = (promise: Record<string, unknown>) => ({ ...promise, supersededByPromiseId: null })
     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
       const governed = migrateToLive(importSave(before[slot]))
-      expect(governed.saveVersion).toBe(42)
+      expect(governed.saveVersion).toBe(43)
       const source = JSON.parse(before[slot])
       // 763-R8 (P14C.1, R-VERSION): the governed lift now also writes C.1's provenance
       // root and FLOORS every stored age against it — the first step in this chain that
@@ -78,7 +86,10 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
         account: { ...(business.account as Record<string, unknown>),
           periods: ((business.account as { periods: Record<string, unknown>[] }).periods).map((period) => ({
             ...period, movements: { ...(period.movements as Record<string, unknown>), termination: 0 } })) } }))
-      expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 42, state: { ...source.state,
+      // 1344-N S2+S5 (x2 at a318722, :81 measured `"saveVersion": 42` -> 43 and `+ "screenplayShelving"`
+      // {version 1, rejections [], shelved [], commissionHoldUntilWeek 0} on each of the four rival
+      // businesses, nothing else): the live writer stamps 43, and the lift adds the empty shelving root.
+      expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 43, state: withEmptyScreenplayShelving({ ...source.state,
         relationships: [], promises: (source.state.promises as Record<string, unknown>[]).map(addedFields),
         talent: sourcePeople.map((person) => ({ ...person, age: Math.floor(person.age) })),
         talentProvenance: buildTalentProvenance(sourcePeople, source.state.market.tick as number, 'legacy_age_anchor'),
@@ -89,7 +100,7 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
             kind: 'existing', recordedWeek: source.state.market.tick })),
           transitionEvaluations: [], professionChanges: [], industryRetirements: [], transitionDue: [] },
         talentMarket: { ...source.state.talentMarket, cases: sourceCases },
-        hollywood: { ...sourceHollywood, businesses: sourceBusinesses } } })
+        hollywood: { ...sourceHollywood, businesses: sourceBusinesses } }) })
       expect(after[slot]).toBe(exportSave(governed))
     }
     expect(after.currentStateDigest).toBe(sha(after.currentSaveJson))

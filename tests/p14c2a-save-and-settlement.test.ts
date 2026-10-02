@@ -25,7 +25,7 @@ import {
   // RED-by-design (776 S6): none of these five exist in src/core/save.ts today.
   validateSaveV34, convertV33ToV34, convertV34ToV33, migrateToV34, migrateToLive,
   // P14C.2b: the live validator now (G5 alone drives a real tick()/makeSave round trip).
-  validateSaveV37, validateSaveV42,
+  validateSaveV37, validateSaveV43,
 } from '../src/core/save.js'
 import type { GameState, GameStateV34, GameStateV37 } from '../src/core/types.js'
 import {
@@ -343,14 +343,14 @@ describe('P14C.2a G1-G5: Save V34', () => {
     const state = migrateToLive(validateSaveV37({ saveVersion: 37, seed: historical.seed,
       state: historical, broadcastCache: historical.broadcastItems })).state
     const continuous = tick(tick(state))
-    const reloaded = validateSaveV42(JSON.parse(JSON.stringify(makeSave(state)))).state
+    const reloaded = validateSaveV43(JSON.parse(JSON.stringify(makeSave(state)))).state
     const viaSaveLoad = tick(tick(reloaded))
     expect(JSON.stringify(viaSaveLoad)).toBe(JSON.stringify(continuous))
   })
 
   it('records LIVE_SAVE_VERSION and confirms migrateToV34/migrateToLive exist (RED premise only — not exercised further here)', () => {
     // P14C.4: LIVE_SAVE_VERSION is the live writer's own stamp — moves with the bump.
-    expect(LIVE_SAVE_VERSION).toBe(42)
+    expect(LIVE_SAVE_VERSION).toBe(43)
     expect(typeof migrateToV34, 'RED premise: migrateToV34 must exist as a named export of src/core/save.ts').toBe('function')
     expect(typeof migrateToLive, 'RED premise: migrateToLive must exist as a named export of src/core/save.ts').toBe('function')
   })

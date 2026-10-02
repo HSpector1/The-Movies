@@ -168,7 +168,11 @@ function liftForTick(migrated: { envelope: Envelope; state: ProvenanceState }): 
   // incoherent — the frozen V41/V24 Hollywood-account-periods leg refuses a V40
   // state for a missing `termination` movement first. Two further governed
   // steps, by the same rule as above, never a literal.
-  const live = SaveModule.convertV41ToV42(SaveModule.convertV40ToV41(v40))
+  // Save43: one further governed step to the true live boundary --
+  // `tick()` now reads `business.screenplayShelving.shelved`/`.rejections` on
+  // every rival business (convertV42ToV43, save.ts:10678-10686), so every
+  // lifted state needs the V43 root too.
+  const live = SaveModule.convertV42ToV43(SaveModule.convertV41ToV42(SaveModule.convertV40ToV41(v40)))
   return { envelope: live, state: withProvenance(live.state as object) }
 }
 
@@ -1023,6 +1027,6 @@ describe('13. provenance is written at the append, not the mint call', () => {
 // P14C.2a (776 S10): C.1 landed at 33 as this test predicted, then C.2a bumped once more.
 describe('save version bump (contract §6)', () => {
   it('LIVE_SAVE_VERSION is 37 once C.2b lands (was 35 after C.4, was 34 after C.2a)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(42)
+    expect(LIVE_SAVE_VERSION).toBe(43)
   })
 })

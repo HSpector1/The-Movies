@@ -117,7 +117,7 @@ describe('determinism (1344-A §6 item 12): two runs of the natural route are by
     const runA = runNaturalRoute().finalState
     const runB = runNaturalRoute().finalState
     // CLASSIFICATION NOTE: this leaf is expected to PASS at RED too — tick()'s
-    // determinism (same seed, same route, no Math.random/Date.now) does not depend on
+    // determinism (same seed, same route, no unseeded RNG or Date.now) does not depend on
     // the shelving law existing; it is a general invariant this test pins as a
     // regression guard that must continue to hold once GREEN lands real
     // screenplayShelving state and receipts (which themselves must stay deterministic).

@@ -6,7 +6,7 @@ import { assignmentRefusal, contractEndRefusal, retirementRecordFor } from '../s
 import { activeContract, busyTalentIds } from '../src/core/employment.js'
 import { professionAtWeek, transitionInputsFor } from '../src/core/index.js'
 import { validateProfessionHistory } from '../src/core/professionHistory.js'
-import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, exportSave, makeSave, stableStringify, validateSaveV35, validateSaveV37, validateSaveV42 } from '../src/core/save.js'
+import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, exportSave, makeSave, stableStringify, validateSaveV35, validateSaveV37, validateSaveV43 } from '../src/core/save.js'
 import { caseForTalent, playerOffer, proposalDraft } from '../src/core/talentMarket.js'
 import { careerIdentity, expectedPotentialTier, roleTier } from '../src/core/talentSummary.js'
 import { TUNING } from '../src/core/tuning.js'
@@ -270,15 +270,21 @@ describe('C.3 genuine cohort-born Actor enters a new profession with origin auth
     expect(professionAtWeek(state, id, 3283)).toBe('director')
     preserveOrigin(state)
     const control = makeSave(state), controlBytes = stableStringify(control), malformed = clone(control)
-    expect(validateSaveV42(control)).toBe(control)
+    expect(validateSaveV43(control)).toBe(control)
     const amended = malformed.state.careerLifecycle.cohorts.map(row => row.week !== 832 ? row
       : { ...row, requested: { actor: 0, director: 1, writer: 0, craft: 0 } })
     Object.defineProperty(malformed.state.careerLifecycle, 'cohorts', { value: amended, enumerable: true, configurable: true, writable: true })
     expect(validateProfessionHistory({ ...malformed.state }).originalProfession(id)).toBe('actor')
-    expect(() => validateSaveV42(malformed)).toThrow(/cohort receipt.*week 832.*as a director entrant.*original profession disagrees/)
+    expect(() => validateSaveV43(malformed)).toThrow(/cohort receipt.*week 832.*as a director entrant.*original profession disagrees/)
     expect(stableStringify(control)).toBe(controlBytes)
-    expect(validateSaveV42(control)).toBe(control)
-    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(control)))))).toThrow(/cannot downgrade or discard an opportunity predicate or recorded first-take subject/)
+    expect(validateSaveV43(control)).toBe(control)
+    // 1344-N S9 (MASKED): this chain's history holds a screenplayShelved receipt, so
+    // convertV43ToV42 refuses first (src/core/save.ts:10693-10694), before the V39
+    // subject guard this line named (save.ts:10557-10559). Measured (x2 at a318722):
+    // "migrateToV42: cannot downgrade or discard a screenplayShelved receipt". The V39
+    // guard stays covered on its own era's genuine input by
+    // tests/p14p4p5-screenplay-status.test.ts:324 (genuine V39 capture, week 48 take).
+    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(control))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplayShelved receipt$/)
     const origin = cohortSetup()
     expect(validateSaveV35(origin.old)).toBe(origin.old); expect(validateSaveV37(origin.old37)).toBe(origin.old37)
   })

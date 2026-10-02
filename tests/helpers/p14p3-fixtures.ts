@@ -75,19 +75,21 @@ export type FutureSaveAPI = {
   convertV39ToV38: (input: unknown) => SaveFileV38
 }
 type FutureSaveChainSteps = FutureSaveAPI & {
-  validateSaveV42: (input: unknown) => unknown
+  validateSaveV43: (input: unknown) => unknown
   convertV40ToV39: (input: unknown) => unknown
   convertV41ToV40: (input: unknown) => unknown
   convertV42ToV41: (input: unknown) => unknown
+  convertV43ToV42: (input: unknown) => unknown
 }
 export function futureSave(): FutureSaveAPI {
   const candidate = core as unknown as Partial<FutureSaveChainSteps>
   assert.equal(typeof candidate.validateSaveV39, 'function', 'public index exposes the new strict reader')
   assert.equal(typeof candidate.convertV39ToV38, 'function', 'public index exposes the guarded reverse conversion')
-  assert.equal(typeof candidate.validateSaveV42, 'function', 'public index exposes the live validator')
+  assert.equal(typeof candidate.validateSaveV43, 'function', 'public index exposes the live validator')
   assert.equal(typeof candidate.convertV40ToV39, 'function', 'public index exposes the V40->V39 downgrade step')
   assert.equal(typeof candidate.convertV41ToV40, 'function', 'public index exposes the V41->V40 downgrade step')
   assert.equal(typeof candidate.convertV42ToV41, 'function', 'public index exposes the V42->V41 downgrade step')
+  assert.equal(typeof candidate.convertV43ToV42, 'function', 'public index exposes the V43->V42 downgrade step')
   const steps = candidate as FutureSaveChainSteps
   // 1309-X2 ruling 3: the chain 1309-D recommended and 1309-F adopted is
   // refused by the law for live saves — migrateToV39 (src/core/save.ts:10454-10458)
@@ -95,15 +97,17 @@ export function futureSave(): FutureSaveAPI {
   // live P3 fixture in this file genuinely has (measured:
   // tests/p14p3-directing-promises.test.ts:322,614,851 via malformed()).
   // validateSaveV39 therefore validates the LIVE envelope with the LIVE
-  // validator (validateSaveV42, Save42) — the exposed key name stays under the
-  // file's own "name stays, value tracks live" convention, but the value no
+  // validator (Save43, was Save42 at 1320-A) — the exposed key name stays under
+  // the file's own "name stays, value tracks live" convention, but the value no
   // longer downgrades at all; convertV39ToV38 keeps the chain from 1309-C2,
   // since its only callers are the retained C20 leaf (D14), which needs the
   // real lossy-downgrade guard (now projected through convertV42ToV41 first,
-  // 1320-A S4), not a live-only validation.
+  // 1320-A S4; 1344-N S1/S4 adds convertV43ToV42 ahead of it for the same
+  // reason: the live envelope this chain receives is now V43, one era later),
+  // not a live-only validation.
   return {
-    validateSaveV39: (input: unknown) => steps.validateSaveV42(input),
-    convertV39ToV38: (input: unknown) => steps.convertV39ToV38(steps.convertV40ToV39(steps.convertV41ToV40(steps.convertV42ToV41(input)))),
+    validateSaveV39: (input: unknown) => steps.validateSaveV43(input),
+    convertV39ToV38: (input: unknown) => steps.convertV39ToV38(steps.convertV40ToV39(steps.convertV41ToV40(steps.convertV42ToV41(steps.convertV43ToV42(input))))),
   }
 }
 

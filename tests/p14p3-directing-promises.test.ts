@@ -85,6 +85,13 @@ type WithFirstTakes = { firstTakes: readonly unknown[]; firstTakeSubjects?: unkn
 function withFirstTakeSubjects<T extends WithFirstTakes>(state: T): T {
   return { ...state, firstTakeSubjects: { version: 1, cutoverOrdinal: state.firstTakes.length, facts: [] } }
 }
+// 1344-N S5: Save43 (convertV42ToV43, src/core/save.ts:10678-10686) gives every rival business an
+// empty `screenplayShelving` root; a genuine Save38 `outgoing()` state never carried it.
+function withEmptyScreenplayShelving<T extends WithRivalBusinesses>(state: T): T {
+  if (state.hollywood === null) return state
+  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+    ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
+}
 
 describe('P3 first slice: public Director promises and historical meaning', () => {
   it('D01 offers fresh directing work to lawful Actors and Directors', () => {
@@ -340,7 +347,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
     const positives = [a.state, b.state, first.first.afterTake, second.second.afterTake]
     for (const state of positives) {
       admitted(state)
-      const save = saves.makeSave(state); expect(save.saveVersion).toBe(42)
+      const save = saves.makeSave(state); expect(save.saveVersion).toBe(43)
       expect(api.validateSaveV39(save)).toBe(save)
       expect(bytes(reopen(state))).toBe(bytes(state))
       // 1320-A S9-adjacent: a bare saveVersion relabel keeps the live sharedCompetitions
@@ -377,7 +384,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
     // fed directly, they now stop at the V25 Hollywood exact-key check on the
     // Save41 rival `termination` movement, before ever reaching this leaf's own
     // named cause.
-    const projectedA = saves.convertV41ToV40(saves.convertV42ToV41(saves.makeSave(a.state))).state
+    const projectedA = saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.makeSave(a.state)))).state
     for (const builder of [saves.makeSaveV1, saves.makeSaveV13, saves.makeSaveV18]) {
       expect(() => builder(projectedA)).toThrow(/director|promise|predicate/i)
       const invalid: GameState = { ...clone(projectedA), hollywood: null }
@@ -389,10 +396,13 @@ describe('P3 first slice: public Director promises and historical meaning', () =
   it('D14 preserves old meaning and refuses lossy reverse conversion', () => {
     for (const name of outgoingNames) {
       const old = outgoing(name)
-      const oldState = saves.stableStringify(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.save.state))))
+      // 1344-N S5 (x2 at a318722, :396 measured: the two stringified states differ only by an added
+      // `screenplayShelving` {version 1, rejections [], shelved [], commissionHoldUntilWeek 0} on
+      // hollywood.businesses[0..3]; received 769,538 chars against 769,170 expected).
+      const oldState = saves.stableStringify(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.save.state)))))
       const current = saves.migrateToLive(old.save)
       // Existing semantic boundary: fails as37/38 rather than a missing import.
-      expect(current.saveVersion).toBe(42)
+      expect(current.saveVersion).toBe(43)
       expect(saves.stableStringify(current.state)).toBe(oldState)
       expect(current.state.promises).toEqual(old.save.state.promises)
       expect(current.state.firstTakes).toEqual(old.save.state.firstTakes)
@@ -417,7 +427,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
       expect(oldTakes.length).toBeGreaterThanOrEqual(replacement.predicate.count)
       expect(oldTakes.every(take => Object.values(take.cast).includes(replacement.beneficiaryPersonId))).toBe(true)
       const rawBefore = saves.exportSave(old), current = saves.migrateToLive(old)
-      expect(current.saveVersion).toBe(42)
+      expect(current.saveVersion).toBe(43)
       expect(current.state.promises[index]).toEqual(replacement)
       expect(qualifyingTakes(current.state, current.state.promises[index]!)).toEqual(oldTakes)
       expect(saves.exportSave(futureSave().convertV39ToV38(current))).toBe(rawBefore)
@@ -680,7 +690,7 @@ describe('P3 second slice: cancellation and same-domain waiver', () => {
       // 1309-X3 ruling 3: fed the raw live GameState, these frozen builders now
       // stop at the V25 Hollywood exact-key check on the Save41 rival
       // `termination` movement; they receive the lawful V40 projection instead.
-      const projected = saves.convertV41ToV40(saves.convertV42ToV41(save)).state
+      const projected = saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(save))).state
       for (const builder of [saves.makeSaveV1, saves.makeSaveV13, saves.makeSaveV18])
         expect(() => builder(projected)).toThrow(/director|promise|predicate/i)
     }
@@ -1080,7 +1090,7 @@ describe('P3 bounded occupancy admission', () => {
     expect(input.state.market.tick).toBe(52)
     expect(input.actorId).toBe('authored-0006')
     admitted(input.state)
-    expect(saves.makeSave(input.state).saveVersion).toBe(42)
+    expect(saves.makeSave(input.state).saveVersion).toBe(43)
     const root = actualPromise(input.state, input.promiseId)
     expect(root).toMatchObject({ contractId: expect.any(String), progress: 0, outcome: null })
     const contract = activeContract(input.state, input.actorId); assert.ok(contract)
@@ -1120,7 +1130,7 @@ describe('P3 bounded occupancy admission', () => {
     const occupied = made.state
     admitted(occupied)
     expect(occupied.market.tick).toBe(52)
-    expect(saves.makeSave(occupied).saveVersion).toBe(42)
+    expect(saves.makeSave(occupied).saveVersion).toBe(43)
     const production = occupied.studio.activeProductions.find(row => row.id === made.productionId)
     assert.ok(production)
     expect(production).toMatchObject({ startTick: 52, remainingTicks: 8,

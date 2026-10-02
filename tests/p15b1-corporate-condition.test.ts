@@ -739,7 +739,7 @@ describe('p15b corporate condition: condition-owner-swap-and-determinism', () =>
 
   it('condition-owner-swap-and-determinism-module-imports-no-rng', async () => {
     // Read the module's own source text and assert it does not import the
-    // sim's RNG facilities or call Math.random anywhere. At RED this throws
+    // sim's RNG facilities or call the platform's unseeded RNG anywhere. At RED this throws
     // ENOENT (the module does not exist yet), which is itself the correct
     // RED reason; once the module exists this becomes a genuine static
     // guard against a non-deterministic implementation.

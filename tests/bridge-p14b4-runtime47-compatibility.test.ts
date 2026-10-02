@@ -33,6 +33,16 @@ function withRivalTermination<T extends OldV29State>(state: T): T {
   })) } }
 }
 
+// convertV42ToV43 (src/core/save.ts:10678-10686) adds the empty shelving state to every
+// rival business; the OLD state never carried it, so the expected migrated `hollywood`
+// must build it the same way, never a bare old-state businesses array.
+function withEmptyScreenplayShelving<T extends OldV29State>(state: T): T {
+  if (state.hollywood === null) return state
+  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+    ...business, screenplayShelving: { version: 1 as const, rejections: [] as const, shelved: [] as const, commissionHoldUntilWeek: 0 as const },
+  })) } } as T
+}
+
 const OUTGOING_46 = 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c'
 const OUTGOING_51 = 'sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f' // 875/914: genuine outgoing51
 const OUTGOING_52 = 'sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2' // genuine953 outgoing52; C.3 projection53
@@ -195,7 +205,7 @@ describe('P14B4 genuine outgoing46 runtime compatibility — current Save39/proj
   it('requires literal projection54/Save39 and exact 42 prior IDs, excluding the running identity', () => {
     expect(PROTOCOL_VERSION).toBe(4)
     expect(PROJECTION_VERSION).toBe(56)
-    expect(LIVE_SAVE_VERSION).toBe(42)
+    expect(LIVE_SAVE_VERSION).toBe(43)
     expect(SCHEMA_ID).not.toBe(OUTGOING_46)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55].sort())
@@ -244,7 +254,7 @@ describe('P14B4 genuine outgoing46 runtime compatibility — current Save39/proj
       ...old.state.talentMarket,
       cases: old.state.talentMarket.cases.map((kase) => ({ ...kase, variant: 'expiry' })),
     })
-    expect(actual.state.hollywood).toEqual(withRivalTermination(old.state).hollywood)
+    expect(actual.state.hollywood).toEqual(withEmptyScreenplayShelving(withRivalTermination(old.state)).hollywood)
     expect(exportSave(old)).toBe(oldBytes)
     expect(loaded.hydrated.checkpoint.currentSaveJson).not.toBe(loaded.hydrated.checkpoint.savedSaveJson)
     expect(sha(raw)).toBe(PINS.raw)

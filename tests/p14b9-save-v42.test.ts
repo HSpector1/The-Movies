@@ -68,7 +68,7 @@ import {
 // RED (see header): the four names below are absent from src/core/save.ts at HEAD e65012e5.
 // `SaveFileV42` (type-only, cannot itself RED at runtime) is used as the cast target for the
 // dynamically-looked-up `convertV41ToV42`/`validateSaveV42` below, so it is a real, used type.
-import type { SaveFile, SaveFileV42 } from '../src/core/save.js'
+import type { SaveFile, SaveFileV42, SaveFileV43 } from '../src/core/save.js'
 import * as saveModule from '../src/core/save.js'
 import type { GameState, RelationshipEdge } from '../src/core/types.js'
 
@@ -171,11 +171,16 @@ describe('1313-A §3 — the acknowledged input, migrated then greenlit, mints r
     const v41 = genuineV41(acknowledgedRaw())
     const mods = saveModule as unknown as {
       convertV41ToV42: (s: V41Save) => SaveFileV42
-      validateSaveV42: (s: unknown) => SaveFileV42
+      convertV42ToV43: (s: SaveFileV42) => SaveFileV43
+      validateSaveV43: (s: unknown) => SaveFileV43
+      convertV43ToV42: (s: unknown) => unknown
       convertV42ToV41: (s: unknown) => unknown
     }
     const v42 = mods.convertV41ToV42(v41)
-    const state = v42.state as unknown as GameState
+    // Save43 (1344-N S6): the V42-migrated state has no rival `screenplayShelving`, which the live
+    // writer below requires on every rival business; lift it through the genuine convertV42ToV43
+    // (src/core/save.ts:10678-10686) rather than hand-adding the root.
+    const state = mods.convertV42ToV43(v42).state as unknown as GameState
     const projectId = 'script-0000'
     const project = state.scriptDevelopment.projects.find((p) => p.id === projectId)
     expect(project, 'route premise: project "script-0000" is present in the acknowledged fixture').toBeDefined()
@@ -197,19 +202,19 @@ describe('1313-A §3 — the acknowledged input, migrated then greenlit, mints r
       expect(driver, `route/RED premise: pair (${x}, ${y}) should carry a castingCompetitionLost driver from production "${productionId}"`).toBeDefined()
     }
     const newSave = makeSave(greenlit)
-    expect(newSave.saveVersion).toBe(42) // LIVE_SAVE_VERSION 42 (1313-A §3)
-    expect(() => mods.validateSaveV42(newSave)).not.toThrow()
-    expect(() => mods.convertV42ToV41(newSave)).toThrow()
+    expect(newSave.saveVersion).toBe(43) // LIVE_SAVE_VERSION 43 (was 42 at 1313-A §3)
+    expect(() => mods.validateSaveV43(newSave)).not.toThrow()
+    expect(() => mods.convertV42ToV41(mods.convertV43ToV42(newSave))).toThrow()
   }, 30_000)
 })
 
 describe('LIVE_SAVE_VERSION and the dispatcher message', () => {
-  it('LIVE_SAVE_VERSION is 42', () => {
-    expect(LIVE_SAVE_VERSION).toBe(42)
+  it('LIVE_SAVE_VERSION is 43', () => {
+    expect(LIVE_SAVE_VERSION).toBe(43)
   })
 
-  it('validateSave names the new ceiling in its unknown-version message ("1 through 42")', () => {
-    expect(() => validateSave({ saveVersion: 999 })).toThrow(/1 through 42/)
+  it('validateSave names the new ceiling in its unknown-version message ("1 through 43")', () => {
+    expect(() => validateSave({ saveVersion: 999 })).toThrow(/1 through 43/)
   })
 })
 

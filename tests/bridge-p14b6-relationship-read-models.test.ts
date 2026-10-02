@@ -76,7 +76,7 @@ import { castingDraftToEngine, castingProjection, castingQuoteSnapshot } from '.
 import type { BridgeCastingDraftPayload } from '../bridge/schema/bridge-schema.ts'
 import { applyActions } from '../src/core/actions.js'
 import { tick } from '../src/core/tick.js'
-import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV30, validateSaveV42 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV30, validateSaveV43 } from '../src/core/save.js'
 import { pairChemistry, RELATIONSHIP_TIERS } from '../src/core/relationships.js'
 import type { GameState, RelationshipDriver, RelationshipTier } from '../src/core/types.js'
 import { historyFixture, player, retentionFixture } from './helpers/p14b2-fixtures.js'
@@ -226,7 +226,7 @@ function everyBlock(state: GameState): { talentId: string; block: Block }[] {
 function admitted(state: GameState, label: string): GameState {
   const save = makeSave(state)
   expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
-  validateSaveV42(JSON.parse(JSON.stringify(save)))
+  validateSaveV43(JSON.parse(JSON.stringify(save)))
   expect(label.length).toBeGreaterThan(0)
   return save.state as GameState
 }
@@ -776,7 +776,7 @@ describe('family 8 — the WIRE (RED BY VALUE: version literals and a registry c
     expect(PROTOCOL_VERSION).toBe(4)
     expect(PROJECTION_VERSION).toBe(INCOMING_PROJECTION)
     expect(OUTGOING_PROJECTION).toBe(48)
-    expect(LIVE_SAVE_VERSION).toBe(42) // B.6 has NO save step
+    expect(LIVE_SAVE_VERSION).toBe(43) // B.6 has NO save step
     expect(SCHEMA_ID).not.toBe(OUTGOING_48)
     expect(schemaIdentity(BRIDGE_SCHEMA)).toBe(SCHEMA_ID)
     expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-4:projection-${String(INCOMING_PROJECTION)}`)

@@ -29,13 +29,13 @@ import {
   makeSave,
   makeSaveV15,
   convertV38ToV37,
-  convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41,
+  convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42,
   migrateToV15,
   migrateToLive,
   mintReleaseCommitmentId,
   stableStringify,
   tick,
-  validateSaveV42,
+  validateSaveV43,
 } from '../src/core/index.js'
 import type { CastSlot, GameState, SegmentId } from '../src/core/index.js'
 
@@ -403,7 +403,7 @@ describe('P06A W1 — save law', () => {
     // predates `setup`/`planRevision` (added at V25, P13B-S5-R07) exactly as it
     // predates `releaseAuthority` (added at V16, P06A) — strip both leaves the
     // same way, or `makeSaveV15` refuses the workflow's own unknown field.
-    const admitted37 = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(makeSave(ready))))))
+    const admitted37 = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(makeSave(ready)))))))
     const { releaseAuthority: _drop, ...v15State } = admitted37.state
     const v15 = makeSaveV15({
       ...v15State,
@@ -456,12 +456,12 @@ describe('P06A W1 — save law', () => {
       state: { releaseAuthority: { commitments: { productionId: string }[] } }
     }
     orphan.state.releaseAuthority.commitments[0]!.productionId = 'prod-9999'
-    expect(() => validateSaveV42(orphan)).toThrow(/foreign identity|orphan/)
+    expect(() => validateSaveV43(orphan)).toThrow(/foreign identity|orphan/)
 
     const extraKey = JSON.parse(exportSave(good)) as {
       state: { releaseAuthority: Record<string, unknown> }
     }
     extraKey.state.releaseAuthority.surprise = true
-    expect(() => validateSaveV42(extraKey)).toThrow(/unknown field .surprise./)
+    expect(() => validateSaveV43(extraKey)).toThrow(/unknown field .surprise./)
   })
 })

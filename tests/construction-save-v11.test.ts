@@ -47,7 +47,7 @@ import {
   stableStringify,
   validateSave,
   validateSaveV11,
-  validateSaveV42,
+  validateSaveV43,
   type SaveFile,
   type SaveFileV11,
 } from "../src/core/save.js";
@@ -186,9 +186,9 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
 
     for (const state of states) {
       const save = makeSave(state);
-      expect(save.saveVersion).toBe(42);
+      expect(save.saveVersion).toBe(43);
       expect(validateSave(save)).toBe(save);
-      expect(validateSaveV42(save)).toBe(save);
+      expect(validateSaveV43(save)).toBe(save);
       const json = exportSave(save);
       expect(exportSave(importSave(json))).toBe(json);
     }
@@ -511,7 +511,7 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
           productionId: reservedId,
           note: "forged persisted production identity",
         });
-        expect(() => validateSaveV42(forgedV13)).toThrow(
+        expect(() => validateSaveV43(forgedV13)).toThrow(
           /canonical Annex id .*collides with persisted production history/,
         );
       }
@@ -550,8 +550,8 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
     };
     expect(() => makeSave(withFuture)).toThrow(/unknown field "futureV13"/);
     const save = makeSave(managedVacant("save-v11-projection"));
-    expect(() => validateSave({ ...save, saveVersion: 43 })).toThrow(
-      /unknown saveVersion 43.*versions 1 through 42 only/,
+    expect(() => validateSave({ ...save, saveVersion: 44 })).toThrow(
+      /unknown saveVersion 44.*versions 1 through 43 only/,
     );
   });
 });

@@ -87,6 +87,13 @@ type WithFirstTakes = { firstTakes: readonly unknown[]; firstTakeSubjects?: unkn
 function withFirstTakeSubjects<T extends WithFirstTakes>(state: T): T {
   return { ...state, firstTakeSubjects: { version: 1, cutoverOrdinal: state.firstTakes.length, facts: [] } }
 }
+// 1344-N S5: Save43 gives every rival business an empty `screenplayShelving`
+// (convertV42ToV43, save.ts:10678-10686); a genuine Save37 old.state never carried it.
+function withEmptyScreenplayShelving<T extends WithRivalBusinesses>(state: T): T {
+  if (state.hollywood === null) return state
+  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+    ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
+}
 describe('955 genuine207 normal-development continuation', () => {
   it('matches actual BridgeSession advance from saved207 with uninterrupted develop:true on the reordered raw world', () => {
     const raw = reordered(pre207()), save = bytes(raw), direct = tick(raw, { develop: true })
@@ -148,7 +155,7 @@ describe('955 historical preservation and interim projection52 journal authority
       const current = migrateToLive(old)
       const { transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
         industryRetirements, transitionDue, ...oldLifecycle } = current.state.careerLifecycle
-      const expectedOld = withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state)))
+      const expectedOld = withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state))))
       expect(canonicalJson({ ...current.state, careerLifecycle: oldLifecycle })).toBe(canonicalJson(expectedOld))
       expect({ transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
         industryRetirements, transitionDue }).toEqual({ transitionBoundaryWeek: week,
@@ -158,7 +165,7 @@ describe('955 historical preservation and interim projection52 journal authority
         transitionDue: old.state.hollywood === null ? [] : old.state.careerLifecycle.records
           .filter(row => row.status === 'retired').map(row => ({ personId: row.personId, week: week + 1 }))
           .sort((a, b) => a.personId < b.personId ? -1 : a.personId > b.personId ? 1 : 0) })
-      expect(current.saveVersion).toBe(42)
+      expect(current.saveVersion).toBe(43)
       expect(next[slot]).toBe(exportSave(current))
       expect(next[digest]).toBe(sha(exportSave(current)))
     }

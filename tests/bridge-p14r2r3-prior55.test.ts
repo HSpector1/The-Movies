@@ -64,7 +64,7 @@ import {
   encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint,
   SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS,
 } from '../bridge/runtime-checkpoint.ts'
-import { exportSave, migrateToLive, validateSaveV40, validateSaveV42 } from '../src/core/save.js'
+import { exportSave, migrateToLive, validateSaveV40, validateSaveV43 } from '../src/core/save.js'
 
 const FIXTURES = new URL('./fixtures/p14/genuine-runtime55-pre-r3/', import.meta.url)
 const OLD_SCHEMA = 'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158'
@@ -132,6 +132,16 @@ function withSharedCompetitionsZero<T extends WithRelationships>(state: T): T {
   for (const edge of clone.relationships ?? []) (edge as { sharedCompetitions?: number }).sharedCompetitions = 0
   return clone
 }
+// 1344-N S5: Save43 gives every rival business a `screenplayShelving` root (convertV42ToV43,
+// save.ts:10678-10686) in addition to the V41->V42 `sharedCompetitions` addition above; a
+// genuine V42-or-older previous.state never carried it.
+function withEmptyScreenplayShelving<T extends { hollywood?: { businesses?: Business[] } | null }>(state: T): T {
+  const clone = JSON.parse(JSON.stringify(state)) as T
+  for (const business of clone.hollywood?.businesses ?? [])
+    (business as unknown as { screenplayShelving?: unknown }).screenplayShelving =
+      { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 }
+  return clone
+}
 
 describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to current56, and each Save40 slot migrates to Save41 independently', () => {
   it('loadBridgeRuntimeCheckpoint migrates the prior-schema checkpoint, resets runtime authority, and migrates both save slots to V41 with only the new key added', () => {
@@ -172,12 +182,12 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
       const nextRaw = current[slot]
       expect(nextRaw, `${slot} must be present on the migrated checkpoint`).toBeTruthy()
       const previous = validateSaveV40(JSON.parse(old.value[slot]))
-      const now = validateSaveV42(JSON.parse(nextRaw!))
-      expect(now.saveVersion).toBe(42)
+      const now = validateSaveV43(JSON.parse(nextRaw!))
+      expect(now.saveVersion).toBe(43)
       // new.state equals old.state with termination:0 added to every rival finance period's
       // movements, and nothing else — the same fact p14r3-save-v41.test.ts asserts directly
       // on the raw fixtures, independently re-derived here through the runtime-checkpoint path.
-      expect(now.state).toEqual(withSharedCompetitionsZero(withTerminationZero(previous.state as never)))
+      expect(now.state).toEqual(withEmptyScreenplayShelving(withSharedCompetitionsZero(withTerminationZero(previous.state as never))))
       // slot bytes equal exportSave(migrateToLive(previous)) — the checkpoint's own migration
       // must route through the SAME migrateToLive chain the save-file path uses, not a second,
       // divergent conversion.

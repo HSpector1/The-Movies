@@ -144,6 +144,16 @@ function withRivalTermination(state: MigratedV30State): MigratedV30State {
   })) } }
 }
 
+// Save43 (1344-N S5): convertV42ToV43 (src/core/save.ts:10678-10686) adds the empty
+// `screenplayShelving` root to every rival business; the OLD (V30-vintage) state never
+// carried it, so the expected migrated-to-live state below must build it the same way,
+// once per business from the old state, never as a literal in the expectation.
+function withEmptyScreenplayShelving<T extends { hollywood: { businesses: readonly object[] } | null }>(state: T): T {
+  if (state.hollywood === null) return state
+  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+    ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
+}
+
 function preservesExactly(admitted: OldSave) {
   const before = JSON.stringify(admitted)
   const raw = exportSave(admitted)
@@ -203,7 +213,7 @@ function preservesExactly(admitted: OldSave) {
   // own rule) — this corpus predates the retirement-extension market entirely, so
   // every case here always was one, and `lifted` below defaulted it the same way.
   const marketV36 = { ...migrated.state.talentMarket, cases: migrated.state.talentMarket.cases.map((kase) => ({ ...kase, variant: 'expiry' as const })) }
-  expect(lifted).toEqual({ ...migrated, saveVersion: LIVE_SAVE_VERSION, state: { ...withRivalTermination(migrated.state), relationships: [],
+  expect(lifted).toEqual({ ...migrated, saveVersion: LIVE_SAVE_VERSION, state: { ...withEmptyScreenplayShelving(withRivalTermination(migrated.state)), relationships: [],
     promises: migrated.state.promises.map(addedFields), talent: floored, talentProvenance: provenance, careerLifecycle: lifecycle,
     talentMarket: marketV36,
     firstTakeSubjects: { version: 1, cutoverOrdinal: migrated.state.firstTakes.length, facts: [] } } })
@@ -239,7 +249,7 @@ function assertActualBacking(save: OldSave, root: OldPromise): void {
 
 describe('P14B4 Save30: genuine final V29 corpus, exact old-state preservation', () => {
   it('pins LIVE_SAVE_VERSION to literal41 independently of the value under test', () => {
-    expect(LIVE_SAVE_VERSION).toBe(42)
+    expect(LIVE_SAVE_VERSION).toBe(43)
   })
 
   it.each(NAMES)('migrates genuine %s without rewriting roots, receipts, digests or history and downgrades losslessly', (name) => {

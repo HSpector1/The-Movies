@@ -14,7 +14,7 @@ import { decodeCampaignStorage } from '../bridge/runtime/campaign-storage-codec.
 import type { BridgeCheckpointStore } from '../bridge/runtime/checkpoint-store.ts'
 import type { CampaignLibrary } from '../bridge/runtime/campaign-library.ts'
 import type { CampaignRequest } from '../bridge/schema/bridge-schema.ts'
-import { convertV38ToV37, exportSave, LIVE_SAVE_VERSION, makeSave, migrateToV38, validateSaveV37, validateSaveV42 } from '../src/core/save.js'
+import { convertV38ToV37, exportSave, LIVE_SAVE_VERSION, makeSave, migrateToV38, validateSaveV37, validateSaveV43 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import type { GameState } from '../src/core/types.js'
 import { c3Raw, clone, CONTINUOUS208, FOCUS, migrated, PRE207, RUNTIME208, SCIENTIST, sha } from './helpers/p14c3-fixtures.js'
@@ -157,7 +157,7 @@ describe('C.3 projection53 current/save/journal and durable campaign authority',
   })
   it('R2 opens53/Save38 once, registers exact52 and independently migrates208/207 while resetting prior session authority', () => {
     const f = recovered52('slots')
-    expect(PROJECTION_VERSION).toBe(56); expect(PROTOCOL_VERSION).toBe(4); expect(LIVE_SAVE_VERSION).toBe(42)
+    expect(PROJECTION_VERSION).toBe(56); expect(PROTOCOL_VERSION).toBe(4); expect(LIVE_SAVE_VERSION).toBe(43)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OUTGOING_52)).toEqual([[OUTGOING_52, 'projection-v52']])
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     const current = f.loaded.hydrated.checkpoint
@@ -165,7 +165,7 @@ describe('C.3 projection53 current/save/journal and durable campaign authority',
     expect(current.sessionId).not.toBe(f.value.sessionId)
     for (const [slot, week] of [['currentSaveJson', 208], ['savedSaveJson', 207]] as const) {
       assert.ok(current[slot])
-      const saved = validateSaveV42(JSON.parse(current[slot]!))
+      const saved = validateSaveV43(JSON.parse(current[slot]!))
       expect(saved.state.careerLifecycle.transitionBoundaryWeek).toBe(week)
       expect(saved.state.careerLifecycle.professionChanges).toEqual([])
       expect(saved.state.careerLifecycle.transitionEvaluations).toEqual([])

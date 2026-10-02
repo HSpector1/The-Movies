@@ -7,7 +7,7 @@ import { activeContract, canAfford, contractOffer, hiringMarketIds } from '../sr
 import { professionAtWeek } from '../src/core/index.js'
 import { trustDescriptor, trustDrivers } from '../src/core/promises.js'
 import { tiersOnRoster } from '../src/core/relationships.js'
-import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
+import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
 import { caseForTalent, marketEligibility, openMarketCaseFor, playerOffer, proposalDraft, releaseFloor, studioOffer, submitProposal } from '../src/core/talentMarket.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
@@ -226,7 +226,13 @@ describe.each(OFFMENU_TARGETS)('C.3 actor→%s genuine off-menu58-week extension
     expect(carryingEmployment(loaded, id, 410, 468)).toEqual(employment)
     expect(professionAtWeek(loaded, id, extensionCase(loaded, id, 196).openedWeek)).toBe('actor')
     expect(professionAtWeek(loaded, id, extensionCase(loaded, id, 404).openedWeek)).toBe(target)
-    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(saved)))))).toThrow(/cannot downgrade or discard an opportunity predicate or recorded first-take subject/)
+    // 1344-N S9 (MASKED): this chain's history holds a screenplayShelved receipt, so
+    // convertV43ToV42 refuses first (src/core/save.ts:10693-10694), before the V39
+    // subject guard this line named (save.ts:10557-10559). Measured (x2 at a318722,
+    // both targets): "migrateToV42: cannot downgrade or discard a screenplayShelved
+    // receipt". The V39 guard stays covered on its own era's genuine input by
+    // tests/p14p4p5-screenplay-status.test.ts:324 (genuine V39 capture, week 48 take).
+    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(saved))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplayShelved receipt$/)
     accepted(loaded)
     observed[target] = { ...observed[target], term: contract.termWeeks, decision: contract.startWeek, end: contract.endWeekExclusive }
   })

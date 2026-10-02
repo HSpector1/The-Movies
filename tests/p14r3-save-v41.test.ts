@@ -119,7 +119,7 @@ import { describe, expect, it } from 'vitest'
 // src/core/save.ts at HEAD 3c6a7732 (see header, INTERPRETATION 1). Each is called below.
 import {
   LIVE_SAVE_VERSION, exportSave, makeSave, migrateToV40, validateSaveV40,
-  validateSaveV41, validateSaveV42, convertV40ToV41, convertV41ToV40, convertV42ToV41, migrateToV41,
+  validateSaveV41, validateSaveV43, convertV40ToV41, convertV41ToV40, convertV42ToV41, convertV43ToV42, migrateToV41,
 } from '../src/core/save.js'
 import { terminationCost } from '../src/core/employment.js'
 import { tick } from '../src/core/tick.js'
@@ -208,12 +208,12 @@ function lawfulTerminatedSave(): { save: unknown; expectedCharge: number; rivalI
 
 describe('P14 1305-C Save41: live boundary', () => {
   it('LIVE_SAVE_VERSION === 42', () => {
-    expect(LIVE_SAVE_VERSION).toBe(42)
+    expect(LIVE_SAVE_VERSION).toBe(43)
   })
   it('makeSave stamps 41 on a freshly generated current campaign', () => {
     const state = p13aGeneratedStudio()
     const saved = makeSave(state)
-    expect((saved as { saveVersion: number }).saveVersion).toBe(42)
+    expect((saved as { saveVersion: number }).saveVersion).toBe(43)
   })
 })
 
@@ -221,8 +221,8 @@ describe('P14 1305-C Save41: fresh V41 validates (freshly generated, no fixture 
   it('a freshly generated current campaign round-trips through validateSaveV41', () => {
     const state = p13aGeneratedStudio()
     const saved = makeSave(state)
-    const revalidated = validateSaveV42(JSON.parse(JSON.stringify(saved)))
-    expect(revalidated.saveVersion).toBe(42)
+    const revalidated = validateSaveV43(JSON.parse(JSON.stringify(saved)))
+    expect(revalidated.saveVersion).toBe(43)
     for (const business of rivalBusinesses(revalidated.state as never)) {
       for (const period of business.account.periods) expect(period.movements.termination).toBe(0)
     }
@@ -339,8 +339,8 @@ describe('P14 1305-C Save41: the player\'s own termination is not counted as a r
 describe('P14 1305-C Save41: a genuine rival release (lawful route) validates under V41 with the exact charge, and is refused by the frozen V40 reader', () => {
   it('validateSaveV41 admits it; the row-2 period\'s termination movement equals -terminationCost(original terms, 22); relabeling saveVersion 40 is refused by the frozen validateSaveV40', () => {
     const { save, expectedCharge, rivalId } = lawfulTerminatedSave()
-    const validated = validateSaveV42(save as never)
-    expect(validated.saveVersion).toBe(42)
+    const validated = validateSaveV43(save as never)
+    expect(validated.saveVersion).toBe(43)
     const business = rivalBusinesses(validated.state as never).find((b) => b.studioId === rivalId)!
     const period = business.account.periods[business.account.periods.length - 1]!
     expect(period.movements.termination).toBe(-expectedCharge)
@@ -371,7 +371,7 @@ describe('P14 1305-C Save41: 41->40 downgrade', () => {
 
   it('refused, with a message matching /termination/i, on a genuine V41 save carrying a real rival release (lawful route, 1308-F item 5 — replaces the prior receipt-only tamper, which is not a valid V41 envelope: every house converter validates first, so that tamper\'s refusal named the validator\'s own interval-consistency failure, never "termination")', () => {
     const { save } = lawfulTerminatedSave()
-    expect(() => convertV41ToV40(convertV42ToV41(save as never))).toThrow(/termination/i)
+    expect(() => convertV41ToV40(convertV42ToV41(convertV43ToV42(save as never)))).toThrow(/termination/i)
   })
 })
 

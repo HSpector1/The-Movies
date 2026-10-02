@@ -63,8 +63,8 @@ function memo(name: string, build: () => GameState): GameState {
 }
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(42); expect(saves.validateSaveV42(save)).toBe(save)
-  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV42(imported)
+  expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)
+  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV43(imported)
   expect(current).toBe(imported); expect(saves.exportSave(current)).toBe(raw)
   expect(current.state.firstTakeSubjects).toEqual(state.firstTakeSubjects)
   expect(stable(state)).toBe(before)

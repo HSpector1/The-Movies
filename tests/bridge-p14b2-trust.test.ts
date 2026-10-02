@@ -21,7 +21,7 @@ import { BridgeSession } from '../bridge/session.ts'
 import { campaignDate } from '../src/core/calendar.js'
 import { trustDescriptor, trustDrivers, type TrustDriver, type TrustLabel } from '../src/core/promises.js'
 import { caseForTalent, currentProposals, UNKNOWN } from '../src/core/talentMarket.js'
-import { LIVE_SAVE_VERSION, makeSave, validateSaveV42 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, makeSave, validateSaveV43 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import type { GameState, ProfessionalPromise, PromiseFamily, PromiseOutcome } from '../src/core/types.js'
 import { advanceTo, clone, historyFixture, p13aGeneratedStudio, player, poachingFixture, promiseFor,
@@ -138,7 +138,7 @@ describe('P14B.2 group1 — projection46, unchanged Save29/intents, closed wire 
     const state = p13aGeneratedStudio()
     readModels(state, state.talent[0]!.id)
     expect(PROJECTION_VERSION).toBe(56)
-    expect(LIVE_SAVE_VERSION).toBe(42)
+    expect(LIVE_SAVE_VERSION).toBe(43)
     expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-56`)
     expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(56)
     const attentionSchema = schemaDefinition('StudioMarketAttentionRowSnapshot') as unknown as { properties: { cause: { enum: string[] } } }
@@ -284,7 +284,7 @@ describe('P14B.2 group4 — Pulse joins exact outcome receipts once', () => {
     readModels(next, f.keptId)
     expect(next.market.tick).toBe(f.outcomes.market.tick + 1)
     // This deliberately crosses the F1 real wrap boundary; no save bypass.
-    expect(() => validateSaveV42(JSON.parse(JSON.stringify(makeSave(next))))).not.toThrow()
+    expect(() => validateSaveV43(JSON.parse(JSON.stringify(makeSave(next))))).not.toThrow()
     for (const talentId of [f.keptId, f.brokenId]) {
       const promise = promiseFor(f.outcomes, talentId)
       expect(next.talentMarket.receipts.filter((r) => r.eventId === promise.outcomeEventId)).toHaveLength(1)
@@ -421,7 +421,7 @@ describe('P14B.2 group7 — rival terms stay private and rival outcomes stay pub
       feasibilityReceipt: { ...p.feasibilityReceipt, classification: 'FRAGILE', bottleneck: 'private disclosure probe' } })
     expect(variant.promises.find((p) => p.promiseId === f.promise.promiseId)!.outcomeEventId).toBe(f.promise.outcomeEventId)
     expect(variant.talentMarket.receipts).toEqual(f.terminal.talentMarket.receipts)
-    expect(() => validateSaveV42(JSON.parse(JSON.stringify(makeSave(variant))))).not.toThrow()
+    expect(() => validateSaveV43(JSON.parse(JSON.stringify(makeSave(variant))))).not.toThrow()
     expect(publicSurfaces(variant, f.promise.beneficiaryPersonId)).toEqual(publicSurfaces(f.terminal, f.promise.beneficiaryPersonId))
   })
 })
@@ -465,8 +465,8 @@ describe('P14B.2 group9 — validated kept+broken V29 BridgeSession roundtrip', 
       commandId: 'b2-save-kept-and-broken', expectedStateRevision: 0 })
     expect(saved.accepted).toBe(true)
     if (!saved.accepted) throw new Error(saved.message)
-    const validated = validateSaveV42(JSON.parse(saved.saveJson))
-    expect(validated.saveVersion).toBe(42)
+    const validated = validateSaveV43(JSON.parse(saved.saveJson))
+    expect(validated.saveVersion).toBe(43)
     expect(validated.state.promises.filter((p) => p.issuerStudioId === player(validated.state)).map((p) => p.outcome).sort()).toEqual(['BROKEN', 'SATISFIED'])
     const after = BridgeSession.fromSaveJson(saved.saveJson, SESSION_ID)
     expect(after.stateRevision).toBe(before.stateRevision)

@@ -24,7 +24,7 @@ import type { CampaignLibrary } from '../bridge/runtime/campaign-library.ts'
 import { caseDisclosure } from '../src/core/talentMarket.js'
 import { activeContract } from '../src/core/employment.js'
 import { exportSave, importSave, makeSave, migrateToLive, stableStringify,
-  validateSaveV38, validateSaveV39, validateSaveV42 } from '../src/core/save.js'
+  validateSaveV38, validateSaveV39, validateSaveV43 } from '../src/core/save.js'
 import type { GameState, ProfessionalPromise } from '../src/core/types.js'
 
 // 1333-I: D15/D16/D17 measured 139,426/116,959/118,597 ms in the full-suite gate; the old
@@ -61,11 +61,18 @@ type WithRelationships = { relationships: readonly { sharedCompetitions?: number
 function withSharedCompetitions<T extends WithRelationships>(state: T): T {
   return { ...state, relationships: state.relationships.map(edge => ({ ...edge, sharedCompetitions: 0 })) }
 }
+// 1344-N S5: Save43 (convertV42ToV43, src/core/save.ts:10678-10686) gives every rival business an
+// empty `screenplayShelving` root; a genuine V39-or-older old.state never carried it.
+function withEmptyScreenplayShelving<T extends WithRivalBusinesses>(state: T): T {
+  if (state.hollywood === null) return state
+  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+    ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
+}
 const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
 const bytes = (state: GameState): string => exportSave(makeSave(state))
 function full(state: GameState): string {
   const before = stableStringify(state), save = makeSave(state)
-  expect(save.saveVersion).toBe(42); expect(validateSaveV42(save)).toBe(save)
+  expect(save.saveVersion).toBe(43); expect(validateSaveV43(save)).toBe(save)
   const raw = exportSave(save)
   expect(exportSave(importSave(raw))).toBe(raw)
   expect(stableStringify(state)).toBe(before)
@@ -122,8 +129,9 @@ function current45(): GameState {
     expect(save.state.talent.find(row => row.id === ACTOR)?.role).toBe('actor')
     expect(save.state.talent.find(row => row.id === DIRECTOR)?.role).toBe('director')
     const current = migrateToLive(save)
-    expect(current.saveVersion).toBe(42)
-    expect(current.state).toEqual({ ...withRivalTermination(withSharedCompetitions(save.state)), firstTakeSubjects: { version: 1, cutoverOrdinal: save.state.firstTakes.length, facts: [] } })
+    expect(current.saveVersion).toBe(43)
+    // 1344-N S5 (x2 at a318722, :126 D15/D16 measured `+ "screenplayShelving"` on each of four rival businesses, nothing else).
+    expect(current.state).toEqual({ ...withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(save.state))), firstTakeSubjects: { version: 1, cutoverOrdinal: save.state.firstTakes.length, facts: [] } })
     full(current.state); return current.state
   })
 }
@@ -272,7 +280,7 @@ function legacyClassless(open: boolean, version: 4 | 6) {
     feasibilityReceipt: { ...target.feasibilityReceipt, rulesVersion: version } }
   variant.state.promises = variant.state.promises.map(row => row.promiseId === target.promiseId ? replacement : row)
   expect(validateSaveV38(variant)).toBe(variant)
-  const current = migrateToLive(variant); expect(current.saveVersion).toBe(42)
+  const current = migrateToLive(variant); expect(current.saveVersion).toBe(43)
   expect(current.state.promises.find(row => row.promiseId === target.promiseId)).toEqual(replacement)
   full(current.state)
   return { state: current.state, promise: root(current.state, target.promiseId) }
@@ -357,8 +365,9 @@ function qualifyPrior53(): void {
     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
       assert.ok(current[slot])
       const previous = validateSaveV38(JSON.parse(old.value[slot]))
-      const now = validateSaveV42(JSON.parse(current[slot]!))
-      expect(now.state).toEqual({ ...withRivalTermination(withSharedCompetitions(previous.state)), firstTakeSubjects: { version: 1, cutoverOrdinal: previous.state.firstTakes.length, facts: [] } })
+      const now = validateSaveV43(JSON.parse(current[slot]!))
+      // 1344-N S5 (x2 at a318722, :361 D17 measured `+ "screenplayShelving"` on each of four rival businesses, nothing else).
+      expect(now.state).toEqual({ ...withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(previous.state))), firstTakeSubjects: { version: 1, cutoverOrdinal: previous.state.firstTakes.length, facts: [] } })
       expect(current[slot]).toBe(exportSave(migrateToLive(previous)))
       full(now.state)
     }

@@ -604,7 +604,14 @@ describe('P14B.1 test 7: rival symmetry', () => {
     const cast = proven ? [p1] : [flexible, p1]
     const candidates = directingFirst ? [directing, ...cast] : [...cast, directing]
     const business = input.hollywood?.businesses.find((row) => row.studioId === proposal.issuerStudioId)
-    const projects = [...(business?.development.projects ?? [])].filter((row) => row.status !== 'produced')
+    // 1344-F4 ruling 3 (ORACLE): production leaves a rival's shelved screenplays out of this set
+    // (src/core/talentMarket.ts:1442-1449, through shelvedScriptIds at src/core/hollywoodTypes.ts:142-145).
+    // Restated from persisted state, never by calling production: Save43 (unproduced ⇔ active XOR shelved)
+    // makes `screenplayShelving.shelved` exactly the unproduced ordinals outside `activeScriptOrdinals`.
+    const shelved = business?.screenplayShelving.shelved.map((row) => row.ordinal) ?? []
+    expect(shelved).toEqual((business?.development.projects ?? []).flatMap((row, ordinal) =>
+      row.status !== 'produced' && !business!.activeScriptOrdinals.includes(ordinal) ? [ordinal] : []))
+    const projects = [...(business?.development.projects ?? [])].filter((row, ordinal) => row.status !== 'produced' && !shelved.includes(ordinal))
       .sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0).slice(0, 2)
     const seatClass = proven ? 'allCast' as const : 'leadOrAntagonist' as const
     const projectCandidates: PromiseAttachment[] = projects.map((project) => ({ family: 'SPECIFIC_PROJECT',

@@ -38,6 +38,14 @@ type WithRelationships = { relationships: readonly { sharedCompetitions?: number
 function withSharedCompetitions<T extends WithRelationships>(state: T): T {
   return { ...state, relationships: state.relationships.map(edge => ({ ...edge, sharedCompetitions: 0 })) }
 }
+// 1344-N S5: Save43 gives every rival business the empty `screenplayShelving` root
+// (convertV42ToV43, save.ts:10678-10686); a genuine V42-or-older old.state never carried it.
+type WithScreenplayShelving = { hollywood: { businesses: readonly { screenplayShelving?: unknown }[] } | null }
+function withEmptyScreenplayShelving<T extends WithScreenplayShelving>(state: T): T {
+  if (state.hollywood === null) return state
+  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+    ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
+}
 const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
 const issuer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }
 const bytes = (state: GameState): string => saves.exportSave(saves.makeSave(state))
@@ -70,7 +78,7 @@ function memo(name: string, build: () => GameState): GameState {
 }
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(42); expect(saves.validateSaveV42(save)).toBe(save)
+  expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)
   const raw = saves.exportSave(save)
   expect(saves.exportSave(saves.importSave(raw))).toBe(raw); expect(stable(state)).toBe(before)
 }
@@ -186,7 +194,7 @@ function input45(): GameState {
     expect(old).toBe(parsed); expect(saves.exportSave(old)).toBe(raw)
     const state = saves.migrateToLive(old).state
     expect(stable(old)).toBe(prior)
-    expect(state).toEqual({ ...withRivalTermination(withSharedCompetitions(old.state)), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
+    expect(state).toEqual({ ...withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state))), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
     initial = clone(state); retained(state)
     expect(issuer(state)).toBe('studio-de11f27b-player'); expect(state.studio.cash).toBe(24701506)
     expect(state.operations.mode).toBe('managed'); expect(state.scriptDevelopment.mode).toBe('managed')
