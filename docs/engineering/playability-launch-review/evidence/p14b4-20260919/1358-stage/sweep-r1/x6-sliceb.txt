@@ -1,0 +1,238 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1358-sweep/x6/tree
+
+ ✓ |core| tests/p14b10-romance.test.ts > P14B10 T1 — the new bindings exist (RED at behavior, never a vacuous undefined pass) > every romance constant is the Owner/charter-named value (1347-A §3), and both functions exist
+ ✓ |core| tests/p14b10-romance.test.ts > P14B10 T1 — the new bindings exist (RED at behavior, never a vacuous undefined pass) > the named relation holds: EXIT_THRESHOLD is strictly below FORMATION_THRESHOLD (1347-A §3: "the wide gap stops bonds flickering")
+ ✓ |core| tests/p14b10-romance.test.ts > currentRomanceValue — pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > holds the stored value inside the grace window (dormant = 0, and dormant = GRACE exactly)
+ ✓ |core| tests/p14b10-romance.test.ts > currentRomanceValue — pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > decays linearly toward 0 partway through the decay window (independent hand-derived oracle)
+ ✓ |core| tests/p14b10-romance.test.ts > currentRomanceValue — pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > reaches exactly 0 at GRACE + DECAY weeks, and never goes negative or rises past that floor afterward
+ ✓ |core| tests/p14b10-romance.test.ts > currentRomanceValue — pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > a value of 0 stays 0 through the whole window (no negative drift)
+ ✓ |core| tests/p14b10-romance.test.ts > currentRomanceValue — pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > a value of exactly ROMANCE_FORMATION_THRESHOLD decays below ROMANCE_EXIT_THRESHOLD before reaching 0 (the named 229-week note, 1347-A §3)
+ ✓ |core| tests/p14b10-romance.test.ts > romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > null romance reads null
+ ✓ |core| tests/p14b10-romance.test.ts > romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > a track with no bond ever formed (still accumulating) reads null, not "partners"
+ ✓ |core| tests/p14b10-romance.test.ts > romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > an OPEN bond whose derived value is still at/above EXIT_THRESHOLD reads "partners"
+ ✓ |core| tests/p14b10-romance.test.ts > romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > an OPEN bond whose derived value has now decayed below EXIT_THRESHOLD reads "ended" — COMPUTED ON READ, before any write has persisted endedWeek
+ ✓ |core| tests/p14b10-romance.test.ts > romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > an already-recorded closed bond reads "ended" at every later week too, unconditionally
+ ✓ |core| tests/p14b10-romance.test.ts > romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > romanceStatus is independent of tier/closeness: a Partners pair at Strained closeness still reads "partners" (D-1312-2: a friendship-tier drop alone does not end the romance)
+ ✓ |core| tests/p14b10-romance.test.ts > romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > romanceStatus takes no argument beyond (edge, week) — by construction it cannot consult studio, retirement or employment (D-1312-2 non-triggers)
+ ✓ |core| tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): eligibility is Friends+ and no open bond with anyone but the pair's own partner (1347-F note; 1358-F §1) > below Friends, a qualifying high-proximity 2nd+ shared production grants NO romance growth 20331ms
+ ✓ |core| tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): eligibility is Friends+ and no open bond with anyone but the pair's own partner (1347-F note; 1358-F §1) > growth is blocked by a THIRD PARTY's open bond (1358-F §1: Reading B excludes only the pair's own partner)
+ ✓ |core| tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): eligibility is Friends+ and no open bond with anyone but the pair's own partner (1347-F note; 1358-F §1) > romance-partnered-pair-keeps-growing: after formation, a shared success raises the pair's own value, capped at 100 (1358-F §1, Reading B: "anyone" excludes the pair's own partner)
+ ✓ |core| tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > a high-proximity (director-lead) 2nd+ shared production, Friends+, no open bond anywhere, adds ROMANCE_PROXIMITY_GAIN and resets anchorWeek
+ ✓ |core| tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > lead-antagonist is ALSO high proximity (1347-A §2.3 names both seat pairs) and grants the same gain
+ ✓ |core| tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > director-support is LOW proximity and grants NO romance gain (but still resets anchorWeek if a track already exists — "any shared take resets separation")
+ ✓ |core| tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > a write materializes first: a high-proximity touch outside the grace window reads currentRomanceValue at the write week, then adds ROMANCE_PROXIMITY_GAIN (1358-F2 item 1)
+ ✓ |core| tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > a shared SUCCESS (release) adds ROMANCE_SUCCESS_GAIN, Friends+ and no open bond
+ ✓ |core| tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > a rival pair (a rival studioId on the take) forms a bond under the SAME law (1347-A §5: "A rival pair forms under the same law")
+ ✓ |core| tests/p14b10-romance.test.ts > formation — dated once, at the crossing write > crossing ROMANCE_FORMATION_THRESHOLD appends a bond with formedWeek = the crossing week and endedWeek null
+ ✓ |core| tests/p14b10-romance.test.ts > formation — dated once, at the crossing write > a re-formation (after an ended bond) appends a SECOND bond row, never overwriting the first
+ ✓ |core| tests/p14b10-romance.test.ts > formation — dated once, at the crossing write > a THIRD PARTY's open bond that has already ended on read does not block formation, and that formation check records its ending (1347-A:56)
+ ✓ |core| tests/p14b10-romance.test.ts > ending — computed on read, persisted once at the next touching write, never moved again > the next write that touches the edge persists the READ-derived ending week into endedWeek
+ ✓ |core| tests/p14b10-romance.test.ts > ending — computed on read, persisted once at the next touching write, never moved again > once persisted, endedWeek is never moved by a LATER write touching the same edge again
+ ✓ |core| tests/p14b10-romance.test.ts > ending — computed on read, persisted once at the next touching write, never moved again > the ending write moves no closeness, counter, peak or recent: everything but romance equals a twin edge with romance null under the same touch (1347-A:57, :127) [control: passes at RED]
+ ✓ |core| tests/p14b10-romance.test.ts > non-triggers at the write seam: retirement, a studio change and a drop to Strained end nothing (1347-A:59, :129) > a write at a staged retirement week, with a studio change and a drop to Strained, leaves the bond open and the pair partners (1358-F4 item 2(b))
+ ✓ |core| tests/p14b10-romance.test.ts > consequences already selected (1347-A:60, §6 item 3): Partners in pairChemistry > pairChemistry reads sign +1 with one added Partners reason at Strained, and -1 at Enemies (1358-F4 item 2(a))
+ ✓ |core| tests/p14b10-romance.test.ts > drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F §3) > while romanceStatus reads "partners", currentCloseness holds the stored closeness past the drift grace (1358-F §3)
+ ✓ |core| tests/p14b10-romance.test.ts > drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F §3) > after the bond ends, drift resumes from max(lastEventWeek, endedWeek) — not from the stale lastEventWeek
+ ✓ |core| tests/p14b10-romance.test.ts > drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F §3) > after a recorded ending, a LATER ordinary driver anchors the dormancy: max(lastEventWeek, endedWeek) picks lastEventWeek (1358-F §3) [control: passes at RED]
+ ✓ |core| tests/p14b10-romance.test.ts > drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F §3) > an ending computed on read (endedWeek still null) ends the hold at that week and anchors the dormancy there, so recording it later changes no closeness (1358-F §3; 1347-A §2.3)
+ ✓ |core| tests/p14b10-romance.test.ts > drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F §3) > currentTier widens its Pick the same way: a Partners pair past the drift grace keeps its held tier (1358-F §3)
+ ✓ |core| tests/p14b10-romance.test.ts > drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F §3) > the Picks are strict (1358-F §3): a partial edge without romance does not compile for currentCloseness or currentTier [RED at the type gate only]
+ ✓ |core| tests/p14b10-save-v44.test.ts > API decisions this file exercises (existence asserted first) > LIVE_SAVE_VERSION is 44; validateSaveV44 / convertV43ToV44 / convertV44ToV43 / migrateToV44 exist as functions
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: the well-formed empty state validates (control) > accepts empty competitions and null romance on every edge 869ms
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: V43 -> V44 migration > convertV43ToV44 adds competitions: [] and romance: null to every edge of a genuine V43 envelope, and validates 529ms
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: V43 -> V44 migration > GENUINE V43 input (1358-P-save43-producer.ts mint) migrates with competitions: [] and romance: null on every edge, and preserves its non-empty screenplayShelving 592ms
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: V42-era competitions count as conflict evidence but give no Rivals label (1347-A §4 "what old saves show") > an edge with sharedCompetitions >= RELATIONSHIP_CONFLICT_COMPETITIONS and an empty competitions log reads conflict evidence but no Rivals label after migration 703ms
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: the validator rejects a forged competitions log > rejects non-ascending weeks across rows 374ms
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: the validator rejects a forged competitions log > rejects a duplicate production id across two rows 414ms
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: the validator rejects a forged competitions log > rejects a row with an empty slots array 500ms
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: the validator rejects a forged competitions log > rejects a row with slots out of slot order (support before lead) 324ms
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: the validator rejects a forged competitions log > rejects more competitions rows than sharedCompetitions 471ms
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: the validator rejects a forged competitions log > accepts a well-formed two-slot row on one production (the "one production, two slots, one row" shape) 465ms
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: the validator rejects forged romance > rejects a romance value above 100 470ms
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: the validator rejects forged romance > rejects a negative romance value 375ms
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: the validator rejects forged romance > rejects bonds out of order (a later formedWeek before an earlier one) 422ms
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: the validator rejects forged romance > rejects two open bonds (only the last one may be open) 314ms
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: the validator rejects forged romance > accepts a closed earlier bond followed by one open later bond (the re-formation shape) 467ms
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: the validator rejects forged romance > accepts every bond closed (an ended romance with no currently open bond) 469ms
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: the validator rejects forged romance > rejects an open last bond that formed after the track's anchorWeek (formation sets the anchor, and later writes only move it forward) 424ms
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: the validator rejects forged romance > rejects one person holding open bonds on two edges (edges 0 and 1 share person-studio-aca408ec-r01-1) 319ms
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: the validator rejects forged romance > accepts open bonds on two edges that share no person (edges 0 and 5 split studio r01's four people into two pairs) 405ms
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: down-conversion (convertV44ToV43) > accepts the empty state on every edge (round-trips losslessly, Save41/Save43 pattern) 684ms
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: down-conversion (convertV44ToV43) > refuses a real competitions log by name 484ms
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: down-conversion (convertV44ToV43) > refuses a real (non-null) romance by name 468ms
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: the chain and the live route (1358-F4 item 3) > migrateToLive lifts the GENUINE V43 save to Save44 with competitions: [] and romance: null on every edge; makeSave stamps 44 and validateSave dispatches it 924ms
+ ✓ |core| tests/p14b10-save-v44.test.ts > save-v44: the chain and the live route (1358-F4 item 3) > migrateToV43(convertV43ToV44(v43)) deep-equals the GENUINE v43: the downgrade drops only the two empty fields 1164ms
+ ✓ |core| tests/p14b5-relationships.test.ts > P14B.5 T1 — the module and its named exports exist (RED at import; never a spurious pass) > every binding this file calls is a function or a defined constant
+ ✓ |core| tests/p14b5-relationships.test.ts > P14B.5 T1 — the module and its named exports exist (RED at import; never a spurious pass) > the hypothesis constants carry the companion values named in the expansion and the ONE pinned relation 3949ms
+ ✓ |core| tests/p14b5-relationships.test.ts > family 1 — EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) > the seam exists and refuses in the copied guard order: empty delta before the root guard, then the LOUD root guard, then hollywood null
+ ✓ |core| tests/p14b5-relationships.test.ts > family 1 — EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) > advancing the genuine player picture through its first take mints EXACTLY six edges in the receipt's seat order, each with the proximity delta and every week = the tail week
+ ✓ |core| tests/p14b5-relationships.test.ts > family 1 — EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) > a second advance from the same pre-take state mints byte-identical edges (replay); re-ticking the post-take state leaves the six untouched (idempotent) and mints only from THAT week's delta 386ms
+ ✓ |core| tests/p14b5-relationships.test.ts > family 1 — EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) > no RNG reaches the seam: rngState is byte-equal before/after the seam and the tick's rngState equals the frozen control; everything but the root is byte-identical to the frozen post-tick state
+ ✓ |core| tests/p14b5-relationships.test.ts > family 1 — EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) > a person seated twice on one take is refused loudly, never skipped
+ ✓ |core| tests/p14b5-relationships.test.ts > family 1 — EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) > a headless world (legacy-v28-shooting-5: hollywood null) lifted through migrateToV32 keeps relationships empty across a tick 882ms
+ × |core| tests/p14b5-relationships.test.ts > family 2 — CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) > the first post-migration RIVAL take mints six edges under the same law; the 45 pre-migration takes mint none (Q3) 5565ms
+   → expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]
+ × |core| tests/p14b5-relationships.test.ts > family 2 — CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) > the same pair on a second production is ONE edge with sharedProductions 2 and a repeatedCollaboration driver of the capped accelerator; a < b regardless of seat order 4723ms
+   → expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]
+ ✓ |core| tests/p14b5-relationships.test.ts > family 3 — DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); §5.5 :467-468) > currentCloseness/currentTier are functions; inside the grace window the stored value and tier read unchanged
+ ✓ |core| tests/p14b5-relationships.test.ts > family 3 — DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); §5.5 :467-468) > past the grace window the value drifts toward the baseline by the plan formula (independent oracle), from either side, never past it, and is fully returned at GRACE + RETURN 1086ms
+ ✓ |core| tests/p14b5-relationships.test.ts > family 3 — DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); §5.5 :467-468) > drift never moves a tier AWAY from Acquaintances and touches no counter, milestone or peak (a read is pure) 335ms
+ ✓ |core| tests/p14b5-relationships.test.ts > family 3 — DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); §5.5 :467-468) > a WRITE after dormancy materialises the drifted value first, then applies the delta; counters, firstSharedWeek and the peak survive; recent folds by count at the cap 722ms
+ ✓ |core| tests/p14b5-relationships.test.ts > family 4 — TIER RULE under RELATIONSHIP_RULES_VERSION 2 and the D2 reachability (scope (3)-(4)) > eight members, byte-equal output for byte-equal input, and a value in the Enemies/Nemeses bands WITHOUT a conflict record reads Strained
+ ✓ |core| tests/p14b5-relationships.test.ts > family 4 — TIER RULE under RELATIONSHIP_RULES_VERSION 2 and the D2 reachability (scope (3)-(4)) > a released flop nets a LOW-proximity pair below where it stood before the take (FAILURE > PROXIMITY_LOW by name)
+ ✓ |core| tests/p14b5-relationships.test.ts > family 4 — TIER RULE under RELATIONSHIP_RULES_VERSION 2 and the D2 reachability (scope (3)-(4)) > a staged pair at the Acquaintances floor reads Strained after one flop and pairChemistry reads sign −1; Enemies/Nemeses never read on any B.5-minted edge 603ms
+ ✓ |core| tests/p14b5-relationships.test.ts > family 5 — RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) > the genuine player release mints the driver its real criticScore selects on all six pairs ONCE, stamped driver.week = state.market.tick = film.releaseTick + 1; rngState equals the frozen release control
+ × |core| tests/p14b5-relationships.test.ts > family 5 — RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) > a rival release (hollywood.films / industry.growth) mints under the same law; a release whose take predates every edge mints nothing (I2) 4843ms
+   → expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]
+ ✓ |core| tests/p14b5-relationships.test.ts > family 5 — RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) > a player cancel of a picture WITH a first take mints cancelledAfterFirstTake on its six pairs once (week = the action week) while breakPromisesOnCancel is a no-op for it
+ ✓ |core| tests/p14b5-relationships.test.ts > family 5 — RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) > a cancel of a picture WITHOUT a take mints nothing while the promise seam judges on its own (coexistence; both seams fire independently)
+ ✓ |core| tests/p14b5-relationships.test.ts > family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > the base (no edge) declines by the tie order: every landed band ties between the two survivors (measured premise) 13892ms
+ ✓ |core| tests/p14b5-relationships.test.ts > family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > a CloseFriends counterpart on the player's OFF-CYCLE row (startWeek < W, active at W) settles the case for the player with the D5 sentence as the ONLY reason 1030ms
+ ✓ |core| tests/p14b5-relationships.test.ts > family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > the same case at a W where that edge has DRIFTED below Close Friends declines by the tie order 392ms
+ ✓ |core| tests/p14b5-relationships.test.ts > family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > a row CLOSED AT W (the actor signed at 0 for 208 weeks) never counts — the predicate's strict upper end 357ms
+ ✓ |core| tests/p14b5-relationships.test.ts > family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > a row COMMITTED AT W (startWeek === W) never counts — the predicate's strict lower end; the same row one week earlier does 862ms
+ ✓ |core| tests/p14b5-relationships.test.ts > family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > `enemies here` is never read: without a Close Friends counterpart no D5 sentence appears, whatever the value on the record 535ms
+ ✓ |core| tests/p14b5-relationships.test.ts > family 6b — D5 SETTLEMENT-LEVEL through the real bandsFor (record 1348-C2, review 1348-D blocking defect 2) > a player issuer: both a close tie and an enemy (with conflict evidence) on the roster — settlement reads close ties here (2) [RED under v2, 1347-F/1348-F4: the tier premise below now requires Enemies; the settlement outcome is unchanged under either law] 725ms
+ ✓ |core| tests/p14b5-relationships.test.ts > family 6b — D5 SETTLEMENT-LEVEL through the real bandsFor (record 1348-C2, review 1348-D blocking defect 2) > a player issuer: only the enemy (with conflict evidence) on the roster — settlement reads enemies here (0), the rival wins with the AT-ODDS sentence (1348-F2) 425ms
+ ✓ |core| tests/p14b5-relationships.test.ts > family 6c — D5 reads a Partners counterpart as a close tie, still below hostility (slice B, 1358-C5) > a player issuer: a Partners counterpart at Friends on the roster — settlement reads close ties here (2)
+ ✓ |core| tests/p14b5-relationships.test.ts > family 6c — D5 reads a Partners counterpart as a close tie, still below hostility (slice B, 1358-C5) > a player issuer: a Partners pair whose own tier is Enemies (with conflict evidence) — settlement reads enemies here (0), and the rival wins with the AT-ODDS sentence [control: passes at RED]
+ ✓ |core| tests/p14b5-relationships.test.ts > D5 REASON SENTENCE — companion-copy test per branch (record 1348-C3/C4, parent decision 1348-F2) > BRANCH 2 over 1: a close tie beats a roster holding no signal — reads the close-ties sentence, unchanged [control] 435ms
+ ✓ |core| tests/p14b5-relationships.test.ts > D5 REASON SENTENCE — companion-copy test per branch (record 1348-C3/C4, parent decision 1348-F2) > BRANCH 2 over 0: the exported relationshipsReasonSentence(2) is the close-ties sentence, unchanged — the winner's own band governs, no loser band matters [RED: export does not exist at BASE]
+ ✓ |core| tests/p14b5-relationships.test.ts > D5 REASON SENTENCE — companion-copy test per branch (record 1348-C3/C4, parent decision 1348-F2) > BRANCH 1 over 0: a roster holding no signal beats a roster holding evidence-backed enemies — reads the NEW at-odds sentence [RED under v1] 586ms
+ ✓ |core| tests/p14b5-relationships.test.ts > family 7 — PUBLIC ORDER: the SEVEN-member companion orders (§2.1.7 :120), term preference unchanged > publicPriorityOrder is byte-equal to the companion order for both archetypes and publicPreferredTerm is value-identical
+ ✓ |core| tests/p14b5-relationships.test.ts > family 8 — RESERVATION enumerated and CHEMISTRY read-only (scope (6)-(7); §5.6 :476, :482) > pairChemistry returns {null, 0, []} without an edge, sign +1 for Colleagues and above, −1 for Strained and below, no digit in any reason, and reads nothing but the record 1086ms
+ ✓ |core| tests/p14b5-relationships.test.ts > family 8 — RESERVATION enumerated and CHEMISTRY read-only (scope (6)-(7); §5.6 :476, :482) > nemesisOnRoster is an enumerated FreezeDrop member; Nemeses needs a conflict record B.5 never mints, so no genuine edge can trip it
+ ✓ |core| tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > validateSaveV32/validateRelationshipsRoot exist and admit the genuinely minted world round-trip
+ ✓ |core| tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a missing root 343ms
+ ✓ |core| tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a non-ordinal edgeId 478ms
+ ✓ |core| tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a duplicate pair
+ ✓ |core| tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a non-canonical key
+ ✓ |core| tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a person not in state.talent
+ ✓ |core| tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses firstSharedWeek > lastEventWeek
+ ✓ |core| tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a week outside the recording interval (before the boundary; after market.tick) 595ms
+ ✓ |core| tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a driver week after lastEventWeek
+ ✓ |core| tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses recent over the cap
+ ✓ |core| tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses peakTier outside the catalogue 329ms
+ ✓ |core| tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses closeness outside 0..100 or non-integer 446ms
+ ✓ |core| tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses inconsistent counters 768ms
+ ✓ |core| tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses an unknown driver kind, an empty ref and a non-integer delta 485ms
+ ✓ |core| tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses an extra key on an edge
+ ✓ |core| tests/p14b5-relationships.test.ts > family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > a V31 world holding ONE edge, and the SAME world with relationships emptied, both refuse migrateToV30 — MEASURED: the nearest guard is now V33s own materialization gate, one week past its migration boundary, not the V31-specific message 1762ms
+ ✓ |core| tests/p14b10-competitions-log.test.ts > the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > P1: two different pairs each get their OWN row for the same production, slots = the one slot each contested 2380ms
+ ✓ |core| tests/p14b10-competitions-log.test.ts > the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > P2: the SAME pair (a,b) contesting two slots of ONE production is ONE row, slots in slot order [lead, antagonist]
+ ✓ |core| tests/p14b10-competitions-log.test.ts > the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > P3a/P3b: a re-greenlight after a cancel counts once per production — pair (a,b) gets TWO rows, one per production id, each slots=['lead']
+ ✓ |core| tests/p14b10-competitions-log.test.ts > the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > the row count never exceeds sharedCompetitions for ANY edge in the final world (in this route, always exactly equal)
+ ✓ |core| tests/p14b10-competitions-log.test.ts > the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > no RNG draw: rngState is unchanged by the P3a greenlight's minting (the existing recordCastingCompetition contract, unaffected by the new log field)
+ ✓ |core| tests/p14b10-competitions-log.test.ts > the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > cross-check: pair (a,b) with sharedCompetitions=3 (P2 dedup + P3a + P3b) reports conflict evidence, independent of the log field [control: existing D-1312-1 arithmetic, unaffected by the log]
+ ✓ |core| tests/p14b10-competitions-log.test.ts > the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > a log row survives after its driver folds out of recent: each row keeps its week, production and slots (1347-A:13, :33)
+ ✓ |core| tests/p14b10-labels.test.ts > P14B10 T1 — the new bindings exist (RED at behavior, never a vacuous undefined pass) > RIVALS_SAME_SLOT_COMPETITIONS is the Owner's named 2, and professionalRivalsEvidence is a function
+ ✓ |core| tests/p14b10-labels.test.ts > Professional Rivals — the positive case (two same-slot competitions) > two competitions for the SAME slot (lead) give the label, naming that slot and both rows
+ ✓ |core| tests/p14b10-labels.test.ts > Professional Rivals — the positive case (two same-slot competitions) > two competitions for the same slot (support) give the label naming support, not lead — no slot-name hardcoding
+ ✓ |core| tests/p14b10-labels.test.ts > Professional Rivals — the positive case (two same-slot competitions) > a THIRD competition for the same slot still names only the FIRST TWO rows for that slot ("rows are the first two for that slot")
+ ✓ |core| tests/p14b10-labels.test.ts > Professional Rivals — the positive case (two same-slot competitions) > a row holding TWO slots counts toward EACH of its slots: [lead,support] + [lead] gives Rivals for lead, naming both rows
+ ✓ |core| tests/p14b10-labels.test.ts > Professional Rivals — the negative cases > lead then support (two DIFFERENT slots, one competition each) gives no label
+ ✓ |core| tests/p14b10-labels.test.ts > Professional Rivals — the negative cases > a single competition alone (any slot) gives no label, whatever RIVALS_SAME_SLOT_COMPETITIONS-many slots it names
+ ✓ |core| tests/p14b10-labels.test.ts > Professional Rivals — the negative cases > an empty competitions log gives no label
+ ✓ |core| tests/p14b10-labels.test.ts > Professional Rivals — the negative cases > the FIRST slot in slot order [lead, antagonist, support] wins when more than one slot separately qualifies
+ ✓ |core| tests/p14b10-labels.test.ts > Professional Rivals is a DIFFERENT axis from conflict evidence (1347-A §2.4 "how Rivals differs from conflict evidence") > two same-slot competitions give Rivals but are NOT conflict evidence (2 < RELATIONSHIP_CONFLICT_COMPETITIONS = 3)
+ ✓ |core| tests/p14b10-labels.test.ts > Professional Rivals is a DIFFERENT axis from conflict evidence (1347-A §2.4 "how Rivals differs from conflict evidence") > three mixed-slot competitions are conflict evidence WITHOUT Rivals (no slot has two rows)
+ ✓ |core| tests/p14b10-labels.test.ts > Professional Rivals — reading the label is inert (HIS-014: "labels ... create no additional ... effect by themselves") > reading professionalRivalsEvidence leaves the whole state byte-equal (serialized text, not toEqual: live state can hold -0)
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > P14B10 T1 — the projection version moves once for slice B (1347-F Addendum) > PROJECTION_VERSION is 57
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > Professional Rivals — disclosure (row presence is roster-gated, unchanged; the label rides the disclosed row) > a Rivals-qualifying edge on a DISCLOSED counterpart shows the label, naming evidence text 8769ms
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > Professional Rivals — disclosure (row presence is roster-gated, unchanged; the label rides the disclosed row) > the IDENTICAL Rivals-qualifying edge on an UNDISCLOSED counterpart produces NO row at all (existing disclosure law, unaffected by labels)
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > Professional Rivals — disclosure (row presence is roster-gated, unchanged; the label rides the disclosed row) > a disclosed non-Rivals edge (lead then support, no shared slot) shows no Professional Rivals label
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > Romance — disclosure and shape (status/sinceLabel/endedLabel via the existing campaignDate device) > a disclosed OPEN bond reads status "partners", sinceLabel = campaignDate(formedWeek).label, endedLabel null
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > Romance — disclosure and shape (status/sinceLabel/endedLabel via the existing campaignDate device) > a disclosed CLOSED bond reads status "ended", with both sinceLabel and endedLabel set
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > Romance — disclosure and shape (status/sinceLabel/endedLabel via the existing campaignDate device) > no romance (null track) reads romance: null on the row
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > Romance — disclosure and shape (status/sinceLabel/endedLabel via the existing campaignDate device) > a bond on an UNDISCLOSED counterpart produces no row (and so no romance leak) at all
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > No magnitudes, no key named "relationships": (1347-A §4; the landed leak law extended over the two new fields) > a label row is EXACTLY {label, evidence} — no numeric field slips in
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > No magnitudes, no key named "relationships": (1347-A §4; the landed leak law extended over the two new fields) > the serialized block never contains the leak key form "relationships": (the landed law, tests/bridge-p14b5-relationships.test.ts:404-408, extended to the labels/romance fields)
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > Mentor — the Bridge-level "public" gate (1347-A §6 item 8: "withhold the label until all three pictures are public") > a genuine cohort entrant with three genuine RELEASED same-director pictures shows the Mentor label on the disclosed pair 52798ms
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > Mentor — the Bridge-level "public" gate (1347-A §6 item 8: "withhold the label until all three pictures are public") > the SAME cohort entrant, with ONE of the three pictures a RIVAL picture that is not yet public (first take re-attributed to a rival business, no release fact), withholds Mentor at the Bridge level even though the core derivation is unaffected 330ms
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > Mentor — the Bridge-level "public" gate (1347-A §6 item 8: "withhold the label until all three pictures are public") > the SAME cohort entrant, read in the route's own week before its third picture is released (that picture in production, its first take recorded), shows Mentor, and the evidence cites the picture by its production's title (1347-A:105) 408ms
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > Romance — the contract-expiry note names a Partners counterpart (1347-A:18, :60; 1358-F4 item 2(a)) > financeUpcoming: the expiry row of a person whose partner stays on the roster names that partner, at a friendship tier below Inseparable
+ ✓ |core| tests/p14b10-mentor-label.test.ts > P14B10 T1 — the new module and its exports exist (RED per leaf: dynamic import) > MENTOR_FIRST_PICTURES is the Owner's named 3 and mentorEvidence is a function
+ ✓ |core| tests/p14b10-mentor-label.test.ts > Mentor — the positive case (a genuine cohort entrant, three genuine same-director pictures) > mentorEvidence names the real director, the three real productionIds in week order, and the real cohort receipt week 36798ms
+ ✓ |core| tests/p14b10-mentor-label.test.ts > Mentor — negative and boundary cases (1347-F Amendment 1 and the qualifying-pictures note) > two of three sharing the director gives no label [RED: relationshipLabels.ts does not exist at BASE]
+ ✓ |core| tests/p14b10-mentor-label.test.ts > Mentor — negative and boundary cases (1347-F Amendment 1 and the qualifying-pictures note) > a duplicate first take of one production counts once — the label still names the same three original productions [RED]
+ ✓ |core| tests/p14b10-mentor-label.test.ts > Mentor — negative and boundary cases (1347-F Amendment 1 and the qualifying-pictures note) > fewer than three qualifying pictures gives no label [RED]
+ ✓ |core| tests/p14b10-mentor-label.test.ts > Mentor — genesis and authored-start people are structurally excluded (not named in ANY CohortReceipt) > a genesis person with three staged same-director pictures still gets no label [RED]
+ ✓ |core| tests/p14b10-mentor-label.test.ts > Mentor — genesis and authored-start people are structurally excluded (not named in ANY CohortReceipt) > an authored-start person (createCustomTalent) with three staged same-director pictures still gets no label [RED]
+ ✓ |core| tests/p14b10-mentor-label.test.ts > Mentor — reading the label is inert (HIS-014: "labels create no additional ... effect by themselves") > reading mentorEvidence leaves state deep-equal before/after [RED] 530ms
+ ✓ |core| tests/p14b10-mentor-label.test.ts > Mentor — reading the label is inert (HIS-014: "labels create no additional ... effect by themselves") > reading mentorEvidence changes no chemistry/tier/trust reading for the Mentor pair [RED]
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 2 — CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) > the first post-migration RIVAL take mints six edges under the same law; the 45 pre-migration takes mint none (Q3)
+AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]
+
+- Expected
++ Received
+
+- Array [
+-   "studio-aca408ec-r01:film:6",
+- ]
++ Array []
+
+ ❯ rivalWorld tests/p14b5-relationships.test.ts:399:53
+    397|         out.beforeRelease = before; out.atRelease = state
+    398|       } else if (week === FROZEN.rival.repeatTakeWeek) {
+    399|         expect(newTakes.map((t) => t.productionId)).toEqual([FROZEN.ri…
+       |                                                     ^
+    400|         out.beforeRepeat = before; out.atRepeat = state
+    401|       } else {
+ ❯ tests/p14b5-relationships.test.ts:658:46
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 2 — CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) > the same pair on a second production is ONE edge with sharedProductions 2 and a repeatedCollaboration driver of the capped accelerator; a < b regardless of seat order
+AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]
+
+- Expected
++ Received
+
+- Array [
+-   "studio-aca408ec-r01:film:6",
+- ]
++ Array []
+
+ ❯ rivalWorld tests/p14b5-relationships.test.ts:399:53
+    397|         out.beforeRelease = before; out.atRelease = state
+    398|       } else if (week === FROZEN.rival.repeatTakeWeek) {
+    399|         expect(newTakes.map((t) => t.productionId)).toEqual([FROZEN.ri…
+       |                                                     ^
+    400|         out.beforeRepeat = before; out.atRepeat = state
+    401|       } else {
+ ❯ tests/p14b5-relationships.test.ts:667:40
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 5 — RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) > a rival release (hollywood.films / industry.growth) mints under the same law; a release whose take predates every edge mints nothing (I2)
+AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]
+
+- Expected
++ Received
+
+- Array [
+-   "studio-aca408ec-r01:film:6",
+- ]
++ Array []
+
+ ❯ rivalWorld tests/p14b5-relationships.test.ts:399:53
+    397|         out.beforeRelease = before; out.atRelease = state
+    398|       } else if (week === FROZEN.rival.repeatTakeWeek) {
+    399|         expect(newTakes.map((t) => t.productionId)).toEqual([FROZEN.ri…
+       |                                                     ^
+    400|         out.beforeRepeat = before; out.atRepeat = state
+    401|       } else {
+ ❯ tests/p14b5-relationships.test.ts:875:42
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+ Test Files  1 failed | 6 passed (7)
+      Tests  3 failed | 154 passed (157)
+   Start at  04:37:22
+   Duration  78.10s (transform 2.96s, setup 0ms, collect 12.81s, tests 189.28s, environment 2ms, prepare 1.79s)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1358-sweep/x6/sliceb.json

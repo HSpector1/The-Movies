@@ -1,0 +1,11 @@
+start at 768fc6282cf2ef4134d652877a779d372ec69848, node v20.20.2, sweep cbc8ee006e4ab2e9; 2026-10-02 04:35:16 CDT
+applied: step4  13 files changed, 712 insertions(+), 122 deletions(-); sweep  154 files changed, 674 insertions(+), 599 deletions(-); 2026-10-02 04:35:25 CDT
+tsc: == tsconfig.json exit 0 == ui/tsconfig.json exit 0 == tsconfig.bridge.json exit 0  errors 0; 2026-10-02 04:37:19 CDT
+generator: == check:bridge-contract exit 0 == check:bridge-contract:fixtures exit 0 ; 2026-10-02 04:37:22 CDT
+slice B files exit 1;  Tests 3 failed | 154 passed (157); 2026-10-02 04:38:41 CDT
+probe exit 1;  Tests 36 failed | 378 passed (414); lines 249; 2026-10-02 04:48:37 CDT
+core start; 2026-10-02 04:48:38 CDT
+core exit 127; ; 2026-10-02 06:10:32 CDT
+ui exit 1;  Tests 3 failed | 2689 passed | 5 skipped (2697); 2026-10-02 06:23:29 CDT
+tree status: [?? dist/ ]; 2026-10-02 06:23:29 CDT
+end; 2026-10-02 06:23:29 CDT

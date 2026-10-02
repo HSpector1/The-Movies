@@ -1,0 +1,191 @@
+{
+ "raw": {
+  "path": "/Users/zacheryspector/studio-scratch/1358-sweep/x6/ui.txt",
+  "bytes": 171777,
+  "sha256": "8b4c8dc87dd94c93262b1d284d8cbfa5ac0bd4260e951b1c3701bf5ab5110361"
+ },
+ "summary": {
+  "Test Files": "1 failed | 203 passed (204)",
+  "Tests": "3 failed | 2689 passed | 5 skipped (2697)"
+ },
+ "unhandled": [],
+ "failedCases": 3,
+ "byStatus": {
+  "RETAINED-CHANGED": 3
+ },
+ "byCluster1303": {
+  "C3-missing-pil-rgba-export": 3
+ },
+ "vanishedFrom1303": 28,
+ "vanishedByCluster": {
+  "C1-timeout-5000ms": 7,
+  "C6-worldinspector-typeerror-options": 1,
+  "C2-worldinspector-duplicate-testid": 7,
+  "C3-missing-pil-rgba-export": 3,
+  "C4-missing-pil-stage-a": 4,
+  "C7-livingturn-parity-dom-race": 1,
+  "C8-studiocalendar-stale-v38-literal": 3,
+  "C5-p05a-w2-gate-hiring-throw": 2
+ },
+ "failedFiles": [
+  "ui/src/lot/authored-rgba-export.test.ts"
+ ],
+ "rows": [
+  {
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "describe": "rgba-export tool contract",
+   "leaf": "6. output is truecolour RGBA with no PLTE/tRNS, alpha preserved exactly",
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 6. output is truecolour RGBA with no PLTE/tRNS, alpha preserved exactly",
+   "primary": "Error: Command failed: python3 /Users/zacheryspector/studio-scratch/1358-sweep/x6/tree/scripts/art/authored-asset-pipeline.py rgba-export --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-dXhOih/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-dXhOih/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-dXhOih --stem t --colours 16",
+   "frame": "ui/src/lot/authored-rgba-export.test.ts:138:7",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 1,
+   "status_vs_1303": "RETAINED-CHANGED",
+   "cluster_1303": "C3-missing-pil-rgba-export",
+   "primary_1303": "Error: Command failed: python3 -c"
+  },
+  {
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "describe": "rgba-export tool contract",
+   "leaf": "7. repeated runs are byte-identical",
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 7. repeated runs are byte-identical",
+   "primary": "Error: Command failed: python3 /Users/zacheryspector/studio-scratch/1358-sweep/x6/tree/scripts/art/authored-asset-pipeline.py rgba-export --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-MoZSjq/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-MoZSjq/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-MoZSjq/a --stem t --colours 16",
+   "frame": "ui/src/lot/authored-rgba-export.test.ts:164:9",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 2,
+   "status_vs_1303": "RETAINED-CHANGED",
+   "cluster_1303": "C3-missing-pil-rgba-export",
+   "primary_1303": "Error: Command failed: python3 -c"
+  },
+  {
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "describe": "rgba-export tool contract",
+   "leaf": "8. the historical PNG-8 path is still available and clearly separate",
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 8. the historical PNG-8 path is still available and clearly separate",
+   "primary": "Error: Command failed: python3 /Users/zacheryspector/studio-scratch/1358-sweep/x6/tree/scripts/art/authored-asset-pipeline.py quantize --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-SGhAiV/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-SGhAiV/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-SGhAiV --stem q",
+   "frame": "ui/src/lot/authored-rgba-export.test.ts:178:7",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 3,
+   "status_vs_1303": "RETAINED-CHANGED",
+   "cluster_1303": "C3-missing-pil-rgba-export",
+   "primary_1303": "Error: Command failed: python3 -c"
+  }
+ ],
+ "vanished": [
+  {
+   "identity": "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 \u2014 App/Lot integration > greenlights the canonical Package into exact formation without replacing the Lot, canvas, or renderer",
+   "cluster_1303": "C1-timeout-5000ms"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx > Lot-native Casting review \u2014 App commit and handoff authority > never lets stale Casting review closures demote or mutate a newer exact event",
+   "cluster_1303": "C1-timeout-5000ms"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 \u2014 App/Lot integration > orients a cash stop to Administration and focuses the supporting Finances section",
+   "cluster_1303": "C1-timeout-5000ms"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 \u2014 App/Lot integration > clears every next-event transient across an accepted same-seed same-week whole-studio replacement",
+   "cluster_1303": "C1-timeout-5000ms"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > World Inspector Default V1 \u2014 no building click ever ejects > reaches the canonical deep screen ONLY through the explicit details action",
+   "cluster_1303": "C1-timeout-5000ms"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > never lets any place print its blocks out of the canonical order",
+   "cluster_1303": "C1-timeout-5000ms"
+  },
+  {
+   "identity": "ui/src/lot/livingTurn.scheduler.test.tsx > Living Turn V1 \u2014 the partition, at the seam > auto-pauses on the FIRST PAUSE-class stop, at exactly the hand-advanced week",
+   "cluster_1303": "C1-timeout-5000ms"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > World Inspector Default V1 \u2014 no building click ever ejects > routes canvas intent and semantic companion activation to the same owner",
+   "cluster_1303": "C6-worldinspector-typeerror-options"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > offers Development the Commission verb at Week 0 \u2014 the first step of the whole game",
+   "cluster_1303": "C2-worldinspector-duplicate-testid"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > routes the Commission verb to the commission intent, and the deep ghost to Development",
+   "cluster_1303": "C2-worldinspector-duplicate-testid"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > F4: offers the Commission verb while a screenplay is already being written",
+   "cluster_1303": "C2-worldinspector-duplicate-testid"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > F4: offers it with an accepted screenplay waiting on casting, too",
+   "cluster_1303": "C2-worldinspector-duplicate-testid"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > names the picture in Casting\u2019s audition verb, and prefers the retained in-world planner",
+   "cluster_1303": "C2-worldinspector-duplicate-testid"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > falls back to the existing deep Casting path rather than leaving a dead button",
+   "cluster_1303": "C2-worldinspector-duplicate-testid"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > reads the deep ghosts in plain language, never in internal screen names",
+   "cluster_1303": "C2-worldinspector-duplicate-testid"
+  },
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > current production authored export \u2014 the shipped Stage B assets > 3. the RGB channel is reduced to the recovered 128-colour contract",
+   "cluster_1303": "C3-missing-pil-rgba-export"
+  },
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > current production authored export \u2014 the shipped Stage B assets > 4. alpha is bit-identical between the two finishes",
+   "cluster_1303": "C3-missing-pil-rgba-export"
+  },
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > current production authored export \u2014 the shipped Stage B assets > 5. alpha is genuinely lossless, not collapsed into a palette-sized set",
+   "cluster_1303": "C3-missing-pil-rgba-export"
+  },
+  {
+   "identity": "ui/src/lot/authored-stage-a.test.ts > Stage A \u2014 the committed assets satisfy the CURRENT production export contract > 4. the RGB channel carries the recovered 128-colour contract",
+   "cluster_1303": "C4-missing-pil-stage-a"
+  },
+  {
+   "identity": "ui/src/lot/authored-stage-a.test.ts > Stage A \u2014 the committed assets satisfy the CURRENT production export contract > 5. alpha is bit-identical between the two finishes",
+   "cluster_1303": "C4-missing-pil-stage-a"
+  },
+  {
+   "identity": "ui/src/lot/authored-stage-a.test.ts > Stage A \u2014 the committed assets satisfy the CURRENT production export contract > 6. alpha is lossless, not collapsed into a palette-sized set",
+   "cluster_1303": "C4-missing-pil-stage-a"
+  },
+  {
+   "identity": "ui/src/lot/authored-stage-a.test.ts > Stage A \u2014 the committed assets satisfy the CURRENT production export contract > 7. registration is the approved one \u2014 inset, with a forecourt",
+   "cluster_1303": "C4-missing-pil-stage-a"
+  },
+  {
+   "identity": "ui/src/lot/livingTurn.parity.test.tsx > C2a-M5 \u2014 four-way time parity: the same twelve weeks, four ways > (a) by hand at the seam \u2014 the manual verb, pressed twelve times",
+   "cluster_1303": "C7-livingturn-parity-dom-race"
+  },
+  {
+   "identity": "ui/src/screens/StudioCalendar.career.test.tsx > C.3 recent career facts use existing Calendar identity routes > U1 renders genuine change/finality names and dates, retains age12, and removes age13 news",
+   "cluster_1303": "C8-studiocalendar-stale-v38-literal"
+  },
+  {
+   "identity": "ui/src/screens/StudioCalendar.career.test.tsx > C.3 recent career facts use existing Calendar identity routes > U2 App opens the exact off-roster career profile and restores focus without post-hydration writes",
+   "cluster_1303": "C8-studiocalendar-stale-v38-literal"
+  },
+  {
+   "identity": "ui/src/screens/StudioCalendar.career.test.tsx > C.3 recent career facts use existing Calendar identity routes > U3 actual208 expiry explains its stop while Scientist finality alone adds no automatic stop",
+   "cluster_1303": "C8-studiocalendar-stale-v38-literal"
+  },
+  {
+   "identity": "ui/src/test/contracts/p05a-w2-closed-production.contract.test.ts > P05A W2 \u2014 closed operational states across the lifecycle > the guidance card agrees with the rail on the wrapped-waiting oracle fixture \u2014 never SHOOTING (P06C \u00a75)",
+   "cluster_1303": "C5-p05a-w2-gate-hiring-throw"
+  },
+  {
+   "identity": "ui/src/test/contracts/p05a-w2-closed-production.contract.test.ts > P05A W2 \u2014 closed operational states across the lifecycle > the rail, the world Stage card, the workspace source and the guidance card all agree for the wrapped-waiting picture (P06D item 2)",
+   "cluster_1303": "C5-p05a-w2-gate-hiring-throw"
+  }
+ ]
+}

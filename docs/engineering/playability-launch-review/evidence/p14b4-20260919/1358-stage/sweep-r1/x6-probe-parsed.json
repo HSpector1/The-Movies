@@ -1,0 +1,1247 @@
+[
+ [
+  "N-0096",
+  "[family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a non-ordinal edgeId > /edgeId/]",
+  "validateSaveV44: state.relationships[0].edgeId is not this root's ordinal id"
+ ],
+ [
+  "N-0096",
+  "[family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a duplicate pair > /duplicate|pair/i]",
+  "validateSaveV44: state.relationships[1] records a second edge for the pair \"t-act-09\" and \"t-dir-01\""
+ ],
+ [
+  "N-0096",
+  "[family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a non-canonical key > /canonical|order|a < b|\\ba\\b/i]",
+  "validateSaveV44: state.relationships[0] is not a canonical pair: a < b is required"
+ ],
+ [
+  "N-0096",
+  "[family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a person not in state.talent > /person|talent/i]",
+  "validateSaveV44: state.relationships[0].b does not name a person of this world"
+ ],
+ [
+  "N-0096",
+  "[family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses firstSharedWeek > lastEventWeek > /firstSharedWeek|lastEventWeek/]",
+  "validateSaveV44: state.relationships[0].firstSharedWeek is outside this campaign's recording interval"
+ ],
+ [
+  "N-0096",
+  "[family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a week outside the recording interval (before the boundary; after market.tick) > /recording|interval|firstSharedWeek/i]",
+  "validateSaveV44: state.relationships[0].firstSharedWeek must be a non-negative integer"
+ ],
+ [
+  "N-0096",
+  "[family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a week outside the recording interval (before the boundary; after market.tick) > /recording|interval|lastEventWeek/i]",
+  "validateSaveV44: state.relationships[0].lastEventWeek is outside this campaign's recording interval"
+ ],
+ [
+  "N-0096",
+  "[family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a driver week after lastEventWeek > /week|driver/i]",
+  "validateSaveV44: state.relationships[0].recent[0].week is outside this campaign's recording interval"
+ ],
+ [
+  "N-0096",
+  "[family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses recent over the cap > /recent|cap/i]",
+  "validateSaveV44: state.relationships[0].recent holds more drivers than the cap"
+ ],
+ [
+  "N-0096",
+  "[family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses peakTier outside the catalogue > /peakTier|tier/i]",
+  "validateSaveV44: state.relationships[0].peakTier is not a tier of the catalogue"
+ ],
+ [
+  "N-0096",
+  "[family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses closeness outside 0..100 or non-integer > /closeness/]",
+  "validateSaveV44: state.relationships[0].closeness must be an integer from 0 to 100"
+ ],
+ [
+  "N-0096",
+  "[family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses closeness outside 0..100 or non-integer > /closeness/]",
+  "validateSaveV44: state.relationships[0].closeness must be an integer from 0 to 100"
+ ],
+ [
+  "N-0096",
+  "[family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses closeness outside 0..100 or non-integer > /closeness/]",
+  "validateSaveV44: state.relationships[0].closeness must be an integer"
+ ],
+ [
+  "N-0096",
+  "[family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses inconsistent counters > /sharedSuccesses|sharedFailures|sharedProductions|counter/i]",
+  "validateSaveV44: state.relationships[0] counters are inconsistent: sharedSuccesses + sharedFailures exceeds sharedProductions"
+ ],
+ [
+  "N-0096",
+  "[family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses inconsistent counters > /sharedCancellations|sharedProductions|counter/i]",
+  "validateSaveV44: state.relationships[0] counters are inconsistent: sharedCancellations exceeds sharedProductions"
+ ],
+ [
+  "N-0096",
+  "[family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses inconsistent counters > /sharedProductions|counter|non-negative/i]",
+  "validateSaveV44: state.relationships[0].sharedProductions must be a non-negative integer"
+ ],
+ [
+  "N-0096",
+  "[family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses an unknown driver kind, an empty ref and a non-integer delta > /kind/]",
+  "validateSaveV44: state.relationships[0].recent[0].kind is not a driver kind of the catalogue"
+ ],
+ [
+  "N-0096",
+  "[family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses an unknown driver kind, an empty ref and a non-integer delta > /ref/]",
+  "validateSaveV44: state.relationships[0].recent[0].ref must be a non-empty string"
+ ],
+ [
+  "N-0096",
+  "[family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses an unknown driver kind, an empty ref and a non-integer delta > /delta/]",
+  "validateSaveV44: state.relationships[0].recent[0].delta must be an integer"
+ ],
+ [
+  "N-0096",
+  "[family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses an extra key on an edge > /field|key|closenessShown/i]",
+  "validateSaveV44: state.relationships[0].closenessShown is not a field of this record"
+ ],
+ [
+  "N-0101",
+  "",
+  "migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-aca408ec-r01"
+ ],
+ [
+  "N-0102",
+  "[migrateToV29]",
+  "migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-aca408ec-r01"
+ ],
+ [
+  "N-0102",
+  "[migrateToV28]",
+  "migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-aca408ec-r01"
+ ],
+ [
+  "N-0102",
+  "[migrateToV27]",
+  "migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-aca408ec-r01"
+ ],
+ [
+  "N-0102",
+  "[migrateToV26]",
+  "migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-aca408ec-r01"
+ ],
+ [
+  "N-0103",
+  "",
+  "migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-aca408ec-r01"
+ ],
+ [
+  "N-0105",
+  "",
+  "migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-aca408ec-r01"
+ ],
+ [
+  "N-0555",
+  "",
+  "migrateToV43: cannot downgrade or discard the romance of relationship-edge-0"
+ ],
+ [
+  "N-0498",
+  "[createTalent]",
+  "migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-de11f27b-r04"
+ ],
+ [
+  "N-0498",
+  "[createCustomTalent]",
+  "migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-de11f27b-r04"
+ ],
+ [
+  "N-0498",
+  "[createBalancedTalent]",
+  "migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-de11f27b-r04"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > rejects every omitted new root field and an unrecognized root authority > missing transitionBoundaryWeek]",
+  "validateSaveV38: careerLifecycle must carry exactly boundaryWeek, records, cohorts, transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, industryRetirements, transitionDue"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > rejects every omitted new root field and an unrecognized root authority > missing professionAnchors]",
+  "validateSaveV38: careerLifecycle must carry exactly boundaryWeek, records, cohorts, transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, industryRetirements, transitionDue"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > rejects every omitted new root field and an unrecognized root authority > missing transitionEvaluations]",
+  "validateSaveV38: careerLifecycle must carry exactly boundaryWeek, records, cohorts, transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, industryRetirements, transitionDue"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > rejects every omitted new root field and an unrecognized root authority > missing professionChanges]",
+  "validateSaveV38: careerLifecycle must carry exactly boundaryWeek, records, cohorts, transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, industryRetirements, transitionDue"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > rejects every omitted new root field and an unrecognized root authority > missing industryRetirements]",
+  "validateSaveV38: careerLifecycle must carry exactly boundaryWeek, records, cohorts, transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, industryRetirements, transitionDue"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > rejects every omitted new root field and an unrecognized root authority > missing transitionDue]",
+  "validateSaveV38: careerLifecycle must carry exactly boundaryWeek, records, cohorts, transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, industryRetirements, transitionDue"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > rejects every omitted new root field and an unrecognized root authority > unknown root key]",
+  "validateSaveV38: careerLifecycle must carry exactly boundaryWeek, records, cohorts, transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges, industryRetirements, transitionDue"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > rejects every omitted new root field and an unrecognized root authority > events cannot be null]",
+  "validateSaveV38: transitionEvaluations must be an array"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > rejects every omitted new root field and an unrecognized root authority > queue cannot be an object]",
+  "validateSaveV38: transitionDue must be an array"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires a finite safe nonnegative boundary at or before the actual clock > invalid boundary -1]",
+  "validateSaveV38: careerLifecycle.transitionBoundaryWeek must be a safe nonnegative integer"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires a finite safe nonnegative boundary at or before the actual clock > invalid boundary 0.5]",
+  "validateSaveV38: careerLifecycle.transitionBoundaryWeek must be a safe nonnegative integer"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires a finite safe nonnegative boundary at or before the actual clock > invalid boundary NaN]",
+  "validateSaveV38: careerLifecycle.transitionBoundaryWeek must be a safe nonnegative integer"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires a finite safe nonnegative boundary at or before the actual clock > invalid boundary Infinity]",
+  "validateSaveV38: careerLifecycle.transitionBoundaryWeek must be a safe nonnegative integer"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires a finite safe nonnegative boundary at or before the actual clock > invalid boundary 9007199254740992]",
+  "validateSaveV38: careerLifecycle.transitionBoundaryWeek must be a safe nonnegative integer"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires a finite safe nonnegative boundary at or before the actual clock > invalid boundary 208]",
+  "validateSaveV38: transition boundary is outside recorded campaign history"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates > missing person anchor]",
+  "validateSaveV38: professionAnchors must name every person once in talent order"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates > duplicate person anchor]",
+  "validateSaveV38: professionAnchors must name every person once in talent order"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates > wrong anchor order]",
+  "validateSaveV38: professionAnchors identity or order mismatch"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates > unknown person]",
+  "validateSaveV38: professionAnchors identity or order mismatch"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates > invalid kind]",
+  "validateSaveV38: unknown profession anchor kind"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates > unknown profession]",
+  "validateSaveV38: anchor profession is not a profession"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates > existing anchor before boundary]",
+  "validateSaveV38: existing profession anchor must equal transition boundary"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates > anchor after current clock]",
+  "validateSaveV38: existing profession anchor must equal transition boundary"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates > unknown anchor field]",
+  "validateSaveV38: professionAnchors[0] must carry exactly personId, profession, recordedWeek, kind"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates > missing anchor field]",
+  "validateSaveV38: professionAnchors[0] must carry exactly personId, profession, recordedWeek, kind"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires exact, ordered, unique person anchors at their authoritative recording dates > role rewrite without a change]",
+  "validateSaveV38: current profession changed without its anchored change history"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > cannot relabel a genuinely later-created person as an existing person before their entry > existing anchor cannot grant presence before genuine creation]",
+  "validateSaveV38: existing profession anchor predates the person\u2019s observed presence"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires the complete sorted prospective queue and strictly future exact due dates > missing due person]",
+  "validateSaveV38: transitionDue differs from exact prospective reconciliation or deferred schedule"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires the complete sorted prospective queue and strictly future exact due dates > duplicate due person]",
+  "validateSaveV38: transitionDue differs from exact prospective reconciliation or deferred schedule"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires the complete sorted prospective queue and strictly future exact due dates > wrong queue order]",
+  "validateSaveV38: transitionDue differs from exact prospective reconciliation or deferred schedule"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires the complete sorted prospective queue and strictly future exact due dates > due today is stale]",
+  "validateSaveV38: transitionDue must be strictly after the current week"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires the complete sorted prospective queue and strictly future exact due dates > arbitrary future week is not the exact next due]",
+  "validateSaveV38: transitionDue differs from exact prospective reconciliation or deferred schedule"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires the complete sorted prospective queue and strictly future exact due dates > fractional week]",
+  "validateSaveV38: transitionDue.week must be a safe nonnegative integer"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires the complete sorted prospective queue and strictly future exact due dates > unknown due person]",
+  "validateSaveV38: profession history names unknown person missing-person"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires the complete sorted prospective queue and strictly future exact due dates > extra due property]",
+  "validateSaveV38: transitionDue[0] must carry exactly personId, week"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 exact root, anchored identity and due authority > requires the complete sorted prospective queue and strictly future exact due dates > missing due date]",
+  "validateSaveV38: transitionDue[0] must carry exactly personId, week"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks exact keys on evaluation, input, target, context, picture and source objects > extra evaluation key]",
+  "validateSaveV38: transitionEvaluations[0] must carry exactly id, ordinal, week, personId, source, rulesVersion, inputs, inputsDigest, outcome, selected, reason"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks exact keys on evaluation, input, target, context, picture and source objects > missing rules version]",
+  "validateSaveV38: transitionEvaluations[0] must carry exactly id, ordinal, week, personId, source, rulesVersion, inputs, inputsDigest, outcome, selected, reason"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks exact keys on evaluation, input, target, context, picture and source objects > extra inputs key]",
+  "validateSaveV38: transition inputs must carry exactly age, actingFirstTakes, leadFirstTakes, actingWitnesses, targets"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks exact keys on evaluation, input, target, context, picture and source objects > extra target key]",
+  "validateSaveV38: transition targets[0] must carry exactly profession, capability, roleTier, workHistory, proven, potentialTier, contextCount, contextBand, contextWitness"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks exact keys on evaluation, input, target, context, picture and source objects > extra context key]",
+  "validateSaveV38: contextWitness must carry exactly counterpartId, pictures"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks exact keys on evaluation, input, target, context, picture and source objects > extra picture key]",
+  "validateSaveV38: context picture must carry exactly studioId, pictureId"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks exact keys on evaluation, input, target, context, picture and source objects > extra source key]",
+  "validateSaveV38: retirement source must carry exactly personId, profession"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology > rules version2]",
+  "validateSaveV38: evaluation ordinal/id/rulesVersion mismatch"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology > negative ordinal]",
+  "validateSaveV38: evaluation ordinal/id/rulesVersion mismatch"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology > noncontiguous ordinal]",
+  "validateSaveV38: evaluation ordinal/id/rulesVersion mismatch"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology > id not derived from ordinal]",
+  "validateSaveV38: evaluation ordinal/id/rulesVersion mismatch"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology > duplicate evaluation]",
+  "validateSaveV38: evaluation ordinal/id/rulesVersion mismatch"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology > unknown person]",
+  "validateSaveV38: profession history names unknown person missing-person"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology > source names another person]",
+  "validateSaveV38: retirement source person must match its subject"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology > source is not an actor retirement]",
+  "validateSaveV38: transition catalogue requires original actor retirement"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology > evaluation before actual retirement]",
+  "validateSaveV38: evaluation week must be after the transition boundary and at/before the campaign week"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology > evaluation after current week]",
+  "validateSaveV38: evaluation week must be after the transition boundary and at/before the campaign week"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology > nonfinite event week]",
+  "validateSaveV38: evaluation week must be a safe nonnegative integer"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > rejects invalid rules, ordinal identity, source retirement and event chronology > uncompleted source]",
+  "validateSaveV38: evaluation lacks completed acting retirement predecessor"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth > age disagrees with immutable provenance]",
+  "validateSaveV38: evaluation age differs from immutable provenance"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth > unsafe total]",
+  "validateSaveV38: actingFirstTakes must be a safe nonnegative integer"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth > negative lead count]",
+  "validateSaveV38: leadFirstTakes must be a safe nonnegative integer"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth > capability zero]",
+  "validateSaveV38: target capability must be within1..99"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth > capability100]",
+  "validateSaveV38: target capability must be within1..99"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth > fractional capability]",
+  "validateSaveV38: target capability must be a safe nonnegative integer"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth > invalid potential enum]",
+  "validateSaveV38: unknown public potential tier"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth > tier disagrees with capability]",
+  "validateSaveV38: target roleTier disagrees with its public capability"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth > proven disagrees with zero work]",
+  "validateSaveV38: target proven disagrees with capability/workHistory snapshot"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth > context band outside closed enum]",
+  "validateSaveV38: target contextBand disagrees with exact count"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth > wrong target order]",
+  "validateSaveV38: transition target order must be director, writer"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth > missing target]",
+  "validateSaveV38: transition inputs need exactly director and writer targets"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth > missing acting witness]",
+  "validateSaveV38: acting witness count differs from bounded evidence"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth > unknown acting witness]",
+  "validateSaveV38: acting counts or bounded witness differ from retained evidence"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth > wrong context witness]",
+  "validateSaveV38: target context count or bounded witness differs from retained evidence"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth > malformed digest]",
+  "validateSaveV38: transition inputsDigest differs from the canonical recorded question"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > checks snapshot ranges, consistency, target order and digest integrity without claiming reconstructed historical skill truth > different well-shaped digest]",
+  "validateSaveV38: transition inputsDigest differs from the canonical recorded question"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > recomputes the outcome separately from the unchanged question digest > valid digest cannot authorize wrong selected target]",
+  "validateSaveV38: transition outcome/selection/reason differs from deterministic public choice"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > recomputes the outcome separately from the unchanged question digest > valid digest cannot authorize wrong outcome]",
+  "validateSaveV38: transition outcome/selection/reason differs from deterministic public choice"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > recomputes the outcome separately from the unchanged question digest > valid digest cannot authorize wrong reason]",
+  "validateSaveV38: transition outcome/selection/reason differs from deterministic public choice"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > recomputes the outcome separately from the unchanged question digest > unknown outcome]",
+  "validateSaveV38: transition outcome/selection/reason differs from deterministic public choice"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > recomputes the outcome separately from the unchanged question digest > noncatalogue selection]",
+  "validateSaveV38: transition outcome/selection/reason differs from deterministic public choice"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person > missing chosen change]",
+  "validateSaveV38: invalid profession change catalogue/ordinal/id"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person > missing predecessor evaluation]",
+  "validateSaveV38: evaluation ordinal/id/rulesVersion mismatch"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person > duplicate profession change]",
+  "validateSaveV38: invalid profession change catalogue/ordinal/id"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person > unknown evaluation reference]",
+  "validateSaveV38: profession change has no matching chosen evaluation"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person > change person disagrees with evaluation]",
+  "validateSaveV38: profession history names unknown person missing-person"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person > change date disagrees with evaluation]",
+  "validateSaveV38: profession change week must be after the transition boundary and at/before the campaign week"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person > change ordinal not contiguous]",
+  "validateSaveV38: invalid profession change catalogue/ordinal/id"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person > change id not derived from ordinal]",
+  "validateSaveV38: invalid profession change catalogue/ordinal/id"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person > change cannot originate in a writer]",
+  "validateSaveV38: invalid profession change catalogue/ordinal/id"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person > extra change field]",
+  "validateSaveV38: professionChanges[0] must carry exactly id, ordinal, week, personId, from, to, evaluationId"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person > current role omits actual change]",
+  "validateSaveV38: current profession changed without its anchored change history"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A12 actual chosen receipts and their dated joins > requires exactly one correctly linked same-week change and no remaining queue for a chosen person > chosen person still queued]",
+  "validateSaveV38: transitionDue differs from exact prospective reconciliation or deferred schedule"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation > missing finality]",
+  "validateSaveV38: non-catalogue retirement is missing its exact finality"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation > duplicate finality]",
+  "validateSaveV38: industry retirement episode/identity mismatch"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation > retroactive finality at migration]",
+  "validateSaveV38: industry retirement week must be after the transition boundary and at/before the campaign week"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation > future finality]",
+  "validateSaveV38: industry retirement week must be after the transition boundary and at/before the campaign week"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation > wrong final profession]",
+  "validateSaveV38: industry retirement episode/identity mismatch"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation > wrong source person]",
+  "validateSaveV38: retirement source person must match its subject"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation > wrong source profession]",
+  "validateSaveV38: industry retirement episode/identity mismatch"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation > noCatalogue cannot reference an evaluation]",
+  "validateSaveV38: noCatalogue finality requires a non-actor and no evaluation"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation > declinedAll requires its actual evaluation]",
+  "validateSaveV38: unknown industry finality cause"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation > unknown finality cause]",
+  "validateSaveV38: unknown industry finality cause"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation > extra finality field]",
+  "validateSaveV38: industry retirement must carry exactly personId, week, profession, source, cause, evaluationId"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation > missing finality key]",
+  "validateSaveV38: industry retirement must carry exactly personId, week, profession, source, cause, evaluationId"
+ ],
+ [
+  "H-new-1",
+  "[C.3 A11/A12 industry finality and frozen strict readers > requires exact noncatalogue finality identity, chronology and source without inventing an evaluation > final person cannot remain queued]",
+  "validateSaveV38: transitionDue differs from exact prospective reconciliation or deferred schedule"
+ ],
+ [
+  "N-0569",
+  "",
+  "migrateToV43: cannot downgrade or discard the romance of relationship-edge-0"
+ ],
+ [
+  "N-0560",
+  "",
+  "migrateToV43: cannot downgrade or discard the romance of relationship-edge-18"
+ ],
+ [
+  "G5-new-5",
+  "[0]",
+  "migrateToV43: cannot downgrade or discard the romance of relationship-edge-0"
+ ],
+ [
+  "G5-new-5",
+  "[1]",
+  "migrateToV43: cannot downgrade or discard the romance of relationship-edge-0"
+ ],
+ [
+  "G5-new-5",
+  "[2]",
+  "migrateToV43: cannot downgrade or discard the romance of relationship-edge-0"
+ ],
+ [
+  "G5-new-5",
+  "[3]",
+  "migrateToV43: cannot downgrade or discard the romance of relationship-edge-0"
+ ],
+ [
+  "N-0531",
+  "[change.state]",
+  "migrateToV43: cannot downgrade or discard the romance of relationship-edge-0"
+ ],
+ [
+  "G1-new-1",
+  "",
+  "migrateToV43: cannot downgrade or discard the romance of relationship-edge-27"
+ ],
+ [
+  "G1-new-1",
+  "[:280]",
+  "migrateToV43: cannot downgrade or discard the romance of relationship-edge-27"
+ ],
+ [
+  "N-0468",
+  "[880-B live allowance stays narrowly scoped > refuses 'missing lifecycle record' without altering caller bytes]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: talentMarket.cases[25] is a retirementExtension case for authored-0000, who holds no retirement record"
+ ],
+ [
+  "N-0468",
+  "[880-B live allowance stays narrowly scoped > refuses 'retired lifecycle cannot own active w\u2026' without altering caller bytes]",
+  "validateSaveV38: non-catalogue retirement is missing its exact finality"
+ ],
+ [
+  "N-0468",
+  "[880-B live allowance stays narrowly scoped > refuses 'another person\u2019s lifecycle record is \u2026' without altering caller bytes]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: talentMarket.cases[25] is a retirementExtension case for authored-0000, who holds no retirement record"
+ ],
+ [
+  "N-0468",
+  "[880-B live allowance stays narrowly scoped > refuses 'wrong historical employer studio' without altering caller bytes]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV16: frozen V15 state is invalid \u2014 validateSaveV15: frozen V14 state is invalid \u2014 validateSaveV14: frozen V13 state is invalid \u2014 validateSaveV13: frozen V12 state is invalid \u2014 validateSaveV12: frozen V11 state is invalid \u2014 validateSaveV11: frozen V10 state is invalid \u2014 validateSaveV10: frozen V9 state is invalid \u2014 validateSaveV9: script development invariant: active project \"script-0000\" writer is not contracted"
+ ],
+ [
+  "N-0468",
+  "[880-B live allowance stays narrowly scoped > refuses 'historical employment did not cover c\u2026' without altering caller bytes]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV16: frozen V15 state is invalid \u2014 validateSaveV15: frozen V14 state is invalid \u2014 validateSaveV14: frozen V13 state is invalid \u2014 validateSaveV13: frozen V12 state is invalid \u2014 validateSaveV12: frozen V11 state is invalid \u2014 validateSaveV11: frozen V10 state is invalid \u2014 validateSaveV10: frozen V9 state is invalid \u2014 validateSaveV9: script development invariant: active project \"script-0000\" writer is not contracted"
+ ],
+ [
+  "N-0468",
+  "[880-B live allowance stays narrowly scoped > refuses 'missing historical employment' without altering caller bytes]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV16: frozen V15 state is invalid \u2014 validateSaveV15: frozen V14 state is invalid \u2014 validateSaveV14: frozen V13 state is invalid \u2014 validateSaveV13: frozen V12 state is invalid \u2014 validateSaveV12: frozen V11 state is invalid \u2014 validateSaveV11: frozen V10 state is invalid \u2014 validateSaveV10: frozen V9 state is invalid \u2014 validateSaveV9: script development invariant: active project \"script-0000\" writer is not contracted"
+ ],
+ [
+  "N-0468",
+  "[880-B live allowance stays narrowly scoped > refuses 'new work begins at E' without altering caller bytes]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV16: frozen V15 state is invalid \u2014 validateSaveV15: frozen V14 state is invalid \u2014 validateSaveV14: frozen V13 state is invalid \u2014 validateSaveV13: frozen V12 state is invalid \u2014 validateSaveV12: frozen V11 state is invalid \u2014 validateSaveV11: frozen V10 state is invalid \u2014 validateSaveV10: frozen V9 state is invalid \u2014 validateSaveV9: script development invariant: active project \"script-0000\" writer is not contracted"
+ ],
+ [
+  "N-0468",
+  "[880-B live allowance stays narrowly scoped > refuses 'future commission week' without altering caller bytes]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV16: frozen V15 state is invalid \u2014 validateSaveV15: frozen V14 state is invalid \u2014 validateSaveV14: frozen V13 state is invalid \u2014 validateSaveV13: frozen V12 state is invalid \u2014 validateSaveV12: frozen V11 state is invalid \u2014 validateSaveV11: frozen V10 state is invalid \u2014 validateSaveV10: frozen V9 state is invalid \u2014 validateSaveV9: script development invariant: project \"script-0000\" has an invalid or future commission week"
+ ],
+ [
+  "N-0468",
+  "[880-B live allowance stays narrowly scoped > refuses 'due week is no longer in the future' without altering caller bytes]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV16: frozen V15 state is invalid \u2014 validateSaveV15: frozen V14 state is invalid \u2014 validateSaveV14: frozen V13 state is invalid \u2014 validateSaveV13: frozen V12 state is invalid \u2014 validateSaveV12: frozen V11 state is invalid \u2014 validateSaveV11: frozen V10 state is invalid \u2014 validateSaveV10: frozen V9 state is invalid \u2014 validateSaveV9: script development invariant: drafting project \"script-0000\" has an invalid due week"
+ ],
+ [
+  "N-0468",
+  "[880-B live allowance stays narrowly scoped > refuses 'due week exceeds the ordinary draft b\u2026' without altering caller bytes]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV16: frozen V15 state is invalid \u2014 validateSaveV15: frozen V14 state is invalid \u2014 validateSaveV14: frozen V13 state is invalid \u2014 validateSaveV13: frozen V12 state is invalid \u2014 validateSaveV12: frozen V11 state is invalid \u2014 validateSaveV11: frozen V10 state is invalid \u2014 validateSaveV10: frozen V9 state is invalid \u2014 validateSaveV9: script development invariant: drafting project \"script-0000\" has an invalid due week"
+ ],
+ [
+  "N-0468",
+  "[880-B live allowance stays narrowly scoped > refuses 'unknown writer membership' without altering caller bytes]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV16: frozen V15 state is invalid \u2014 validateSaveV15: frozen V14 state is invalid \u2014 validateSaveV14: frozen V13 state is invalid \u2014 validateSaveV13: frozen V12 state is invalid \u2014 validateSaveV12: frozen V11 state is invalid \u2014 validateSaveV11: frozen V10 state is invalid \u2014 validateSaveV10: frozen V9 state is invalid \u2014 validateSaveV9: script development invariant: project \"script-0000\" references unknown writer \"missing-writer\""
+ ],
+ [
+  "N-0468",
+  "[880-B live allowance stays narrowly scoped > refuses 'uncontracted second writer without re\u2026' without altering caller bytes]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV16: frozen V15 state is invalid \u2014 validateSaveV15: frozen V14 state is invalid \u2014 validateSaveV14: frozen V13 state is invalid \u2014 validateSaveV13: frozen V12 state is invalid \u2014 validateSaveV12: frozen V11 state is invalid \u2014 validateSaveV11: frozen V10 state is invalid \u2014 validateSaveV10: frozen V9 state is invalid \u2014 validateSaveV9: script development invariant: active project \"script-0000\" writer is not contracted"
+ ],
+ [
+  "N-0468",
+  "[880-B live allowance stays narrowly scoped > refuses 'duplicate writer membership' without altering caller bytes]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV16: frozen V15 state is invalid \u2014 validateSaveV15: frozen V14 state is invalid \u2014 validateSaveV14: frozen V13 state is invalid \u2014 validateSaveV13: frozen V12 state is invalid \u2014 validateSaveV12: frozen V11 state is invalid \u2014 validateSaveV11: frozen V10 state is invalid \u2014 validateSaveV10: frozen V9 state is invalid \u2014 validateSaveV9: state.scriptDevelopment.projects[0].writerIds[1] is duplicated"
+ ],
+ [
+  "N-0468",
+  "[880-B live allowance stays narrowly scoped > refuses 'attributed writer is missing from mem\u2026' without altering caller bytes]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV16: frozen V15 state is invalid \u2014 validateSaveV15: frozen V14 state is invalid \u2014 validateSaveV14: frozen V13 state is invalid \u2014 validateSaveV13: frozen V12 state is invalid \u2014 validateSaveV12: frozen V11 state is invalid \u2014 validateSaveV11: frozen V10 state is invalid \u2014 validateSaveV10: frozen V9 state is invalid \u2014 validateSaveV9: state.scriptDevelopment.projects[0].writerIds must hold between 1 and 5 writers"
+ ],
+ [
+  "N-0468",
+  "[880-B live allowance stays narrowly scoped > refuses 'reservation belongs to another project' without altering caller bytes]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV16: frozen V15 state is invalid \u2014 validateSaveV15: frozen V14 state is invalid \u2014 validateSaveV14: frozen V13 state is invalid \u2014 validateSaveV13: frozen V12 state is invalid \u2014 validateSaveV12: frozen V11 state is invalid \u2014 validateSaveV11: frozen V10 state is invalid \u2014 validateSaveV10: frozen V9 state is invalid \u2014 validateSaveV9: script development invariant: project \"script-0000\" reservation owner disagrees"
+ ],
+ [
+  "N-0468",
+  "[880-B live allowance stays narrowly scoped > refuses 'reservation slot is outside capacity' without altering caller bytes]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV16: frozen V15 state is invalid \u2014 validateSaveV15: frozen V14 state is invalid \u2014 validateSaveV14: frozen V13 state is invalid \u2014 validateSaveV13: frozen V12 state is invalid \u2014 validateSaveV12: frozen V11 state is invalid \u2014 validateSaveV11: frozen V10 state is invalid \u2014 validateSaveV10: frozen V9 state is invalid \u2014 validateSaveV9: script development invariant: project \"script-0000\" reservation slot is outside facility capacity"
+ ],
+ [
+  "N-0468",
+  "[880-B live allowance stays narrowly scoped > refuses 'unknown concept reference' without altering caller bytes]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV16: frozen V15 state is invalid \u2014 validateSaveV15: frozen V14 state is invalid \u2014 validateSaveV14: frozen V13 state is invalid \u2014 validateSaveV13: frozen V12 state is invalid \u2014 validateSaveV12: frozen V11 state is invalid \u2014 validateSaveV11: frozen V10 state is invalid \u2014 validateSaveV10: frozen V9 state is invalid \u2014 validateSaveV9: script development invariant: project \"script-0000\" references unknown concept"
+ ],
+ [
+  "N-0468",
+  "[880-B live allowance stays narrowly scoped > refuses 'duplicate active project cannot borro\u2026' without altering caller bytes]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV16: frozen V15 state is invalid \u2014 validateSaveV15: frozen V14 state is invalid \u2014 validateSaveV14: frozen V13 state is invalid \u2014 validateSaveV13: frozen V12 state is invalid \u2014 validateSaveV12: frozen V11 state is invalid \u2014 validateSaveV11: frozen V10 state is invalid \u2014 validateSaveV10: frozen V9 state is invalid \u2014 validateSaveV9: script development invariant: duplicate concept link \"concept-orig-0000\""
+ ],
+ [
+  "N-0470",
+  "",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV16: frozen V15 state is invalid \u2014 validateSaveV15: frozen V14 state is invalid \u2014 validateSaveV14: frozen V13 state is invalid \u2014 validateSaveV13: frozen V12 state is invalid \u2014 validateSaveV12: frozen V11 state is invalid \u2014 validateSaveV11: frozen V10 state is invalid \u2014 validateSaveV10: frozen V9 state is invalid \u2014 validateSaveV9: script development invariant: active project \"script-0000\" writer is not contracted"
+ ],
+ [
+  "N-0472",
+  "",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV16: frozen V15 state is invalid \u2014 validateSaveV15: frozen V14 state is invalid \u2014 validateSaveV14: frozen V13 state is invalid \u2014 validateSaveV13: frozen V12 state is invalid \u2014 validateSaveV12: frozen V11 state is invalid \u2014 validateSaveV11: frozen V10 state is invalid \u2014 validateSaveV10: frozen V9 state is invalid \u2014 validateSaveV9: state.scriptDevelopment.projects[0] has unknown field \"retirementBypass\""
+ ],
+ [
+  "N-0476",
+  "",
+  "migrateToV43: cannot downgrade or discard the romance of relationship-edge-0"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > tick refuses 'non-finite effective week']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].effectiveWeek must be a whole week"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > tick refuses 'fractional effective/finishing week']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].effectiveWeek must be a whole week"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > tick refuses 'announced status at the effective week']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is still announced at week 312, at or after its effective week 312"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > tick refuses 'finishing date differs from the effec\u2026']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is finishing commitments from week 311, which is not its effective week 312 at or before week 312"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > tick refuses 'announcement lies in the future']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: talentMarket.cases[25] opened at week 300, when authored-0000's retirement was not announced (announced week 313, effective week 312)"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > tick refuses 'finishing status carries a retired da\u2026']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is finishing commitments but carries a retirement week"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > tick refuses 'duplicate lifecycle person authority']",
+  "validateSaveV38: duplicate person/profession retirement episode"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > tick refuses 'unsupported lifecycle intent version']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].intentRulesVersion must be 1"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'non-finite effective week']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].effectiveWeek must be a whole week"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'fractional effective/finishing week']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].effectiveWeek must be a whole week"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'announced status at the effective week']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is still announced at week 312, at or after its effective week 312"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'finishing date differs from the effec\u2026']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is finishing commitments from week 311, which is not its effective week 312 at or before week 312"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'announcement lies in the future']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: talentMarket.cases[25] opened at week 300, when authored-0000's retirement was not announced (announced week 313, effective week 312)"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'finishing status carries a retired da\u2026']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is finishing commitments but carries a retirement week"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'duplicate lifecycle person authority']",
+  "validateSaveV38: duplicate person/profession retirement episode"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'unsupported lifecycle intent version']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].intentRulesVersion must be 1"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'non-finite effective week']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].effectiveWeek must be a whole week"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'fractional effective/finishing week']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].effectiveWeek must be a whole week"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'announced status at the effective week']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is still announced at week 312, at or after its effective week 312"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'finishing date differs from the effec\u2026']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is finishing commitments from week 311, which is not its effective week 312 at or before week 312"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'announcement lies in the future']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: talentMarket.cases[25] opened at week 300, when authored-0000's retirement was not announced (announced week 313, effective week 312)"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'finishing status carries a retired da\u2026']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is finishing commitments but carries a retirement week"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'duplicate lifecycle person authority']",
+  "validateSaveV38: duplicate person/profession retirement episode"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'unsupported lifecycle intent version']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].intentRulesVersion must be 1"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'non-finite effective week']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].effectiveWeek must be a whole week"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'fractional effective/finishing week']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].effectiveWeek must be a whole week"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'announced status at the effective week']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is still announced at week 312, at or after its effective week 312"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'finishing date differs from the effec\u2026']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is finishing commitments from week 311, which is not its effective week 312 at or before week 312"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'announcement lies in the future']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: talentMarket.cases[25] opened at week 300, when authored-0000's retirement was not announced (announced week 313, effective week 312)"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'finishing status carries a retired da\u2026']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: retirement record for authored-0000 is finishing commitments but carries a retirement week"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'duplicate lifecycle person authority']",
+  "validateSaveV38: duplicate person/profession retirement episode"
+ ],
+ [
+  "G5-new-7",
+  "[880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'unsupported lifecycle intent version']",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV34: careerLifecycle.records[1].intentRulesVersion must be 1"
+ ],
+ [
+  "N-0450",
+  "",
+  "migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject"
+ ],
+ [
+  "N-0490",
+  "",
+  "migrateToV43: cannot downgrade or discard the romance of relationship-edge-48"
+ ],
+ [
+  "N-0496",
+  "[director]",
+  "migrateToV43: cannot downgrade or discard the romance of relationship-edge-0"
+ ],
+ [
+  "N-0496",
+  "[writer]",
+  "migrateToV43: cannot downgrade or discard the romance of relationship-edge-0"
+ ],
+ [
+  "G6-new-5",
+  "[premiere/seen]",
+  "validateSaveV14: state.studioEvents.rows[0] has unknown field \"seen\""
+ ],
+ [
+  "G6-new-5",
+  "[premiere/consumed]",
+  "validateSaveV14: state.studioEvents.rows[0] has unknown field \"consumed\""
+ ],
+ [
+  "G6-new-5",
+  "[wrapped/seen]",
+  "validateSaveV14: state.studioEvents.rows[0] has unknown field \"seen\""
+ ],
+ [
+  "G6-new-5",
+  "[wrapped/consumed]",
+  "validateSaveV14: state.studioEvents.rows[0] has unknown field \"consumed\""
+ ],
+ [
+  "G6-new-5",
+  "[releaseCommitted/seen]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV12: state.studioEvents releaseCommitted row 0 has unknown field \"seen\""
+ ],
+ [
+  "G6-new-5",
+  "[releaseCommitted/consumed]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV12: state.studioEvents releaseCommitted row 0 has unknown field \"consumed\""
+ ],
+ [
+  "G6-new-5",
+  "[constructionCompleted/seen]",
+  "validateSaveV14: state.studioEvents.rows[0] has unknown field \"seen\""
+ ],
+ [
+  "G6-new-5",
+  "[constructionCompleted/consumed]",
+  "validateSaveV14: state.studioEvents.rows[0] has unknown field \"consumed\""
+ ],
+ [
+  "G6-new-5",
+  "[setBuilt/seen]",
+  "validateSaveV14: state.studioEvents.rows[0] has unknown field \"seen\""
+ ],
+ [
+  "G6-new-5",
+  "[setBuilt/consumed]",
+  "validateSaveV14: state.studioEvents.rows[0] has unknown field \"consumed\""
+ ],
+ [
+  "G6-new-5",
+  "[setRetired/seen]",
+  "validateSaveV14: state.studioEvents.rows[0] has unknown field \"seen\""
+ ],
+ [
+  "G6-new-5",
+  "[setRetired/consumed]",
+  "validateSaveV14: state.studioEvents.rows[0] has unknown field \"consumed\""
+ ],
+ [
+  "G6-new-5",
+  "[reservationGranted/seen]",
+  "validateSaveV14: state.studioEvents.rows[0] has unknown field \"seen\""
+ ],
+ [
+  "G6-new-5",
+  "[reservationGranted/consumed]",
+  "validateSaveV14: state.studioEvents.rows[0] has unknown field \"consumed\""
+ ],
+ [
+  "G6-new-5",
+  "[reservationReleased/seen]",
+  "validateSaveV14: state.studioEvents.rows[0] has unknown field \"seen\""
+ ],
+ [
+  "G6-new-5",
+  "[reservationReleased/consumed]",
+  "validateSaveV14: state.studioEvents.rows[0] has unknown field \"consumed\""
+ ],
+ [
+  "G6-new-5",
+  "[queueAdmitted/seen]",
+  "validateSaveV14: state.studioEvents.rows[0] has unknown field \"seen\""
+ ],
+ [
+  "G6-new-5",
+  "[queueAdmitted/consumed]",
+  "validateSaveV14: state.studioEvents.rows[0] has unknown field \"consumed\""
+ ],
+ [
+  "G6-new-5",
+  "[queueIntentExpired/seen]",
+  "validateSaveV14: state.studioEvents.rows[0] has unknown field \"seen\""
+ ],
+ [
+  "G6-new-5",
+  "[queueIntentExpired/consumed]",
+  "validateSaveV14: state.studioEvents.rows[0] has unknown field \"consumed\""
+ ],
+ [
+  "G6-new-5",
+  "[phaseEntered/seen]",
+  "validateSaveV14: state.studioEvents.rows[0] has unknown field \"seen\""
+ ],
+ [
+  "G6-new-5",
+  "[phaseEntered/consumed]",
+  "validateSaveV14: state.studioEvents.rows[0] has unknown field \"consumed\""
+ ],
+ [
+  "G6-new-5",
+  "[sceneryArrived/seen]",
+  "validateSaveV14: state.studioEvents.rows[0] has unknown field \"seen\""
+ ],
+ [
+  "G6-new-5",
+  "[sceneryArrived/consumed]",
+  "validateSaveV14: state.studioEvents.rows[0] has unknown field \"consumed\""
+ ],
+ [
+  "G6-new-4",
+  "[P14B.1 T4: V29 owns every proposal promise leaf > rejects a missing proposal promises leaf before it is stripped for frozen V28 validation]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.talentMarket.proposals[0].promises must be an array of at most one promise ID"
+ ],
+ [
+  "G6-new-4",
+  "[P14B.1 T4: V29 owns every proposal promise leaf > rejects a null proposal promises leaf before it is stripped for frozen V28 validation]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.talentMarket.proposals[0].promises must be an array of at most one promise ID"
+ ],
+ [
+  "G6-new-4",
+  "[P14B.1 T4: V29 owns every proposal promise leaf > rejects a string proposal promises leaf before it is stripped for frozen V28 validation]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.talentMarket.proposals[0].promises must be an array of at most one promise ID"
+ ],
+ [
+  "G6-new-4",
+  "[P14B.1 T4: V29 owns every proposal promise leaf > rejects a object proposal promises leaf before it is stripped for frozen V28 validation]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.talentMarket.proposals[0].promises must be an array of at most one promise ID"
+ ],
+ [
+  "G6-new-4",
+  "[P14B.1 T4: V29 owns every proposal promise leaf > rejects a non-string member proposal promises leaf before it is stripped for frozen V28 validation]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.talentMarket.proposals[0].promises must be a non-empty string"
+ ],
+ [
+  "G6-new-4",
+  "[P14B.1 T4: V29 owns every proposal promise leaf > rejects a unknown reference proposal promises leaf before it is stripped for frozen V28 validation]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.talentMarket.proposals[0].promises does not name this proposal's own promise"
+ ],
+ [
+  "G6-new-4",
+  "[P14B.1 T4: V29 owns every proposal promise leaf > rejects a duplicate reference proposal promises leaf before it is stripped for frozen V28 validation]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.talentMarket.proposals[0].promises must be an array of at most one promise ID"
+ ],
+ [
+  "G6-new-4",
+  "[P14B.1 T4: V29 owns every proposal promise leaf > rejects attaching another issuer's real promise ID to a proposal]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.talentMarket.proposals[1].promises does not name this proposal's own promise"
+ ],
+ [
+  "G6-new-4",
+  "[P14B.1 T4: V29 owns every proposal promise leaf > rejects a bound promise whose contract ID is absent]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.promises[0].contractId does not name this person's employment at the issuing studio"
+ ],
+ [
+  "G6-new-4",
+  "[P14B.1 T4: V29 owns every proposal promise leaf > rejects a real contract ID belonging to a different beneficiary or issuer]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.promises[0].contractId does not name this person's employment at the issuing studio"
+ ],
+ [
+  "G6-new-4",
+  "[P14B.1 T4: V29 owns every proposal promise leaf > rejects a bound promise with missing contract field independently of the other pair field]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.promises[0].contractId is missing"
+ ],
+ [
+  "G6-new-4",
+  "[P14B.1 T4: V29 owns every proposal promise leaf > rejects a bound promise with wrong beneficiary independently of the other pair field]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.promises[0].contractId does not name this person's employment at the issuing studio"
+ ],
+ [
+  "G6-new-4",
+  "[P14B.1 T4: V29 owns every proposal promise leaf > rejects a bound promise with wrong issuer independently of the other pair field]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.promises[0].contractId does not name this person's employment at the issuing studio"
+ ],
+ [
+  "G6-new-4",
+  "[P14B.1 T4: V29 owns every proposal promise leaf > rejects the same pair's previous contract, whose interval cannot carry this window]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.promises[0].contractId ends before the promised window"
+ ],
+ [
+  "G6-new-4",
+  "[P14B.1 T4: V29 owns every proposal promise leaf > rejects a terminal promise rebound to the same pair's later actual contract starting after its outcome]",
+  "validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV40: state.promises[0].outcomeWeek precedes the contract that carried this promise"
+ ],
+ [
+  "N-0522",
+  "",
+  "migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-de11f27b-r04"
+ ],
+ [
+  "N-0524",
+  "",
+  "migrateToV37: cannot downgrade or discard profession transition, industry retirement or entrant authority"
+ ],
+ [
+  "G4-new-1",
+  "",
+  "migrateToV43: cannot downgrade or discard the romance of relationship-edge-0"
+ ],
+ [
+  "G4-new-2",
+  "",
+  "migrateToV43: cannot downgrade or discard the romance of relationship-edge-0"
+ ],
+ [
+  "N-0367",
+  "",
+  "migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject"
+ ],
+ [
+  "N-0368",
+  "",
+  "migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject"
+ ],
+ [
+  "N-0369",
+  "",
+  "migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject"
+ ],
+ [
+  "G4-new-3",
+  "",
+  "migrateToV43: cannot downgrade or discard the romance of relationship-edge-0"
+ ],
+ [
+  "G4-new-4",
+  "",
+  "migrateToV43: cannot downgrade or discard the romance of relationship-edge-0"
+ ],
+ [
+  "N-0493",
+  "[director]",
+  "migrateToV43: cannot downgrade or discard the romance of relationship-edge-0"
+ ],
+ [
+  "N-0493",
+  "[writer]",
+  "migrateToV43: cannot downgrade or discard the romance of relationship-edge-0"
+ ]
+]

@@ -1,0 +1,182 @@
+[
+ {
+  "test": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > round-trips several beneficiaries sharing one real take and distinct own outcome receipts",
+  "first": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+  "at": "tests/p14b1-t4-regressions.test.ts:289:33"
+ },
+ {
+  "test": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects missing outcome receipt references",
+  "first": "",
+  "at": null
+ },
+ {
+  "test": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects null outcome receipt references",
+  "first": "",
+  "at": null
+ },
+ {
+  "test": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects unknown outcome receipt references",
+  "first": "",
+  "at": null
+ },
+ {
+  "test": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects wrong receipt kind outcome receipt references",
+  "first": "",
+  "at": null
+ },
+ {
+  "test": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects another beneficiary outcome receipt references",
+  "first": "",
+  "at": null
+ },
+ {
+  "test": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects wrong outcome week outcome receipt references",
+  "first": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+  "at": "tests/p14b1-t4-regressions.test.ts:311:33"
+ },
+ {
+  "test": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects missing take qualifying evidence",
+  "first": "",
+  "at": null
+ },
+ {
+  "test": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects non-take receipt qualifying evidence",
+  "first": "",
+  "at": null
+ },
+ {
+  "test": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects wrong studio or cast qualifying evidence",
+  "first": "",
+  "at": null
+ },
+ {
+  "test": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects empty qualifying evidence",
+  "first": "",
+  "at": null
+ },
+ {
+  "test": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects duplicate qualifying evidence",
+  "first": "",
+  "at": null
+ },
+ {
+  "test": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects outside window qualifying evidence",
+  "first": "",
+  "at": null
+ },
+ {
+  "test": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects wrong progress qualifying evidence",
+  "first": "",
+  "at": null
+ },
+ {
+  "test": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects unbound outcome qualifying evidence",
+  "first": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+  "at": "tests/p14b1-t4-regressions.test.ts:330:33"
+ },
+ {
+  "test": "tests/p14b5-relationships.test.ts > family 2 \u2014 CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) > the first post-migration RIVAL take mints six edges under the same law; the 45 pre-migration takes mint none (Q3)",
+  "first": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]",
+  "at": "tests/p14b5-relationships.test.ts:658:46"
+ },
+ {
+  "test": "tests/p14b5-relationships.test.ts > family 2 \u2014 CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) > the same pair on a second production is ONE edge with sharedProductions 2 and a repeatedCollaboration driver of the capped accelerator; a < b regardless of seat order",
+  "first": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]",
+  "at": "tests/p14b5-relationships.test.ts:667:40"
+ },
+ {
+  "test": "tests/p14b5-relationships.test.ts > family 5 \u2014 RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) > a rival release (hollywood.films / industry.growth) mints under the same law; a release whose take predates every edge mints nothing (I2)",
+  "first": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]",
+  "at": "tests/p14b5-relationships.test.ts:875:42"
+ },
+ {
+  "test": "tests/p14c3-cohort-transition.test.ts > C.3 genuine cohort-born Actor enters a new profession with origin authority intact > J7 makes the real3283 Director choice while preserving the original832 Actor receipt and strict cause",
+  "first": "AssertionError: expected [Function] to throw error matching /^migrateToV42: cannot downgrade or di\u2026/ but got 'migrateToV43: cannot downgrade or dis\u2026'",
+  "at": "tests/p14c3-cohort-transition.test.ts:288:146"
+ },
+ {
+  "test": "tests/p14c3-dual-extensions.test.ts > C.3 actor\u2192director two genuine profession extensions > X5 settles and pays the destination468\u2192520 extension while preserving both dated cases through current persistence",
+  "first": "",
+  "at": null
+ },
+ {
+  "test": "tests/p14c3-dual-extensions.test.ts > C.3 actor\u2192writer two genuine profession extensions > X5 settles and pays the destination468\u2192520 extension while preserving both dated cases through current persistence",
+  "first": "AssertionError: expected [Function] to throw error matching /^migrateToV42: cannot downgrade or di\u2026/ but got 'migrateToV43: cannot downgrade or dis\u2026'",
+  "at": "tests/p14c3-dual-extensions.test.ts:179:144"
+ },
+ {
+  "test": "tests/p14c3-offmenu-extensions.test.ts > C.3 actor\u2192director genuine off-menu58-week extension > O3 actually settles and pays58 weeks at410 with real trust and both dated used episodes preserved",
+  "first": "",
+  "at": null
+ },
+ {
+  "test": "tests/p14c3-offmenu-extensions.test.ts > C.3 actor\u2192writer genuine off-menu58-week extension > O3 actually settles and pays58 weeks at410 with real trust and both dated used episodes preserved",
+  "first": "AssertionError: expected [Function] to throw error matching /^migrateToV42: cannot downgrade or di\u2026/ but got 'migrateToV43: cannot downgrade or dis\u2026'",
+  "at": "tests/p14c3-offmenu-extensions.test.ts:236:144"
+ },
+ {
+  "test": "tests/p14c3-save-v38.test.ts > C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-preretirement-week207.json.gz losslessly except for explicit prospective38 scaffolding",
+  "first": "",
+  "at": null
+ },
+ {
+  "test": "tests/p14c3-save-v38.test.ts > C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-retired-week208.json.gz losslessly except for explicit prospective38 scaffolding",
+  "first": "",
+  "at": null
+ },
+ {
+  "test": "tests/p14c3-save-v38.test.ts > C.3 A01/A02 exact Save38 opening > migrates genuine genuine-v37-c3-runtime-current208.json.gz losslessly except for explicit prospective38 scaffolding",
+  "first": "AssertionError: every old field, receipt, clock and RNG value survives migration: expected '{\"broadcastItems\":[],\"careerEvents\":[\u2026' to be '{\"broadcastItems\":[],\"careerEvents\":[\u2026' // Object.is equality",
+  "at": "tests/p14c3-save-v38.test.ts:87:109"
+ },
+ {
+  "test": "tests/p14c3-save-v38.test.ts > C.3 A01/A02 exact Save38 opening > exposes matching strict38 conversion, validation and current migration over a genuine37 save",
+  "first": "AssertionError: expected '{\"broadcastCache\":[],\"saveVersion\":44\u2026' to be '{\"broadcastCache\":[],\"saveVersion\":38\u2026' // Object.is equality",
+  "at": "tests/p14c3-save-v38.test.ts:100:49"
+ },
+ {
+  "test": "tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D13 admits exact new promise authority and rejects malformed current saves",
+  "first": "Error: migrateToV43: cannot downgrade or discard the romance of relationship-edge-0",
+  "at": "tests/p14p3-directing-promises.test.ts:388:96"
+ },
+ {
+  "test": "tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D14 preserves old meaning and refuses lossy reverse conversion",
+  "first": "AssertionError: expected '{\"broadcastItems\":[],\"careerEvents\":[\u2026' to be '{\"broadcastItems\":[],\"careerEvents\":[\u2026' // Object.is equality",
+  "at": "tests/p14p3-directing-promises.test.ts:407:52"
+ },
+ {
+  "test": "tests/p14p3-directing-promises.test.ts > P3 second slice: cancellation and same-domain waiver > D12 waives only forward same-domain remaining work on the same contract",
+  "first": "AssertionError: expected [Function] to throw error matching /director|predicate|promise/i but got 'migrateToV43: cannot downgrade or dis\u2026'",
+  "at": "tests/p14p3-directing-promises.test.ts:692:56"
+ },
+ {
+  "test": "tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D07 authors and fulfills a real rival promise to a credited primary Actor",
+  "first": "",
+  "at": null
+ },
+ {
+  "test": "tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D18 uses the declared rival strategy and legal distinct staffing",
+  "first": "AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{\u2026} ]",
+  "at": "tests/helpers/p14p3-fixtures.ts:1092:99"
+ },
+ {
+  "test": "tests/p14p4p5-opportunities.test.ts > P4/P5 initial Ready paths and genuine39 boundary > Q04 migrates genuine39 to an exact empty subject suffix and preserves outgoing Director authority",
+  "first": "AssertionError: expected '{\"broadcastItems\":[],\"careerEvents\":[\u2026' to be '{\"broadcastItems\":[],\"careerEvents\":[\u2026' // Object.is equality",
+  "at": "tests/p14p4p5-opportunities.test.ts:374:66"
+ },
+ {
+  "test": "tests/p14p4p5-opportunities.test.ts > P4/P5 retained subject and waiver authority controls > Q07 rejects nonempty suffix and owner contradictions after actual cast work",
+  "first": "AssertionError: expected [Function] to throw error matching /cannot downgrade or discard an opport\u2026/ but got 'migrateToV43: cannot downgrade or dis\u2026'",
+  "at": "tests/p14p4p5-opportunities.test.ts:815:143"
+ },
+ {
+  "test": "tests/p14p4p5-screenplay-status.test.ts > P4/P5 screenplay and casting status clocks > Q11 uses actual writing and audition boundaries and retains fact-only take authority",
+  "first": "AssertionError: expected 'migrateToV43: cannot downgrade or dis\u2026' to be 'migrateToV39: cannot downgrade or dis\u2026' // Object.is equality",
+  "at": "tests/p14p4p5-screenplay-status.test.ts:401:5"
+ },
+ {
+  "test": "tests/p14r3-save-v41.test.ts > P14 1305-C Save41: 41->40 downgrade > refused, with a message matching /termination/i, on a genuine V41 save carrying a real rival release (lawful route, 1308-F item 5 \u2014 replaces the prior receipt-only tamper, which is not a valid V41 envelope: every house converter validates first, so that tamper's refusal named the validator's own interval-consistency failure, never \"termination\")",
+  "first": "AssertionError: expected [Function] to throw error matching /termination/i but got 'migrateToV43: cannot downgrade or dis\u2026'",
+  "at": "tests/p14r3-save-v41.test.ts:375:101"
+ }
+]
