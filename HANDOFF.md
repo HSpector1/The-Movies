@@ -34,10 +34,12 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 13:51 CDT (the Mac r
 - **1360-X** (the landing replayed in scratch, 11:50-11:54): every stage matches 1360-F (1356 70/2 before any mint; 1355 51/8 after its mint and pin, the four pin controls green; 1359 40/76 with C2-C4 at "the route L captures are Save44"; six missing-module type errors); bytes equal the Save44 dry runs. P15C **r8 classification** revises C2-C4 (`E/1359-stage/1359-p15c-wave2-red-r8-classification.json`).
 - **The P15 Wave 2 RED landing is CLOSED** (`E/1360-L`, 12:44 CDT). Commits 10b9be41 (1356 RED), e4be3e5c (1355 RED + producer), 6ce916cb (1355 fixtures + sha pin 410d48a8…), 6ac55a37 (1359 RED r8 + producer), 840cf1c7 (route L captures). Recorded runs, each equal to 1360-X leaf for leaf and with fixedSource and allGuardsExact: `1360-p15a2-red-recorded` 70/2, `1360-p15a1-mint` (13 and 146 MANIFEST fields equal), `1360-p15a1-red-recorded` 51/8, `1360-p15c-mint` (17 fields equal), `1360-p15c-red-recorded` 40/76. Type gates at e16b782e: root the six declared TS2307, UI, Bridge and both generator checks clean (`E/1360-L-type-gates.txt`). Reviews 1360-D, 1360-D2; responses 1360-F2, 1360-F3.
 - **1361-R and 1361-F** (committed f3fe97d0): the production protocol and the parent's rulings. The writer's tree is built at `S/1361-prod/tree` (git; tag `base` 1045432 = archive of f3fe97d0, `src` equal to 1706d844's; fixtures and E as real directories of links; script `S/1361-prod/build-tree.sh`).
-- In flight (three agents, none runs anything):
+- In flight (agents; none runs node, vitest or tsc):
   - the **slice 2a production writer** in `S/1361-prod/tree`: commits tagged `p15a2-r1`, patch `S/1361-prod/1361-p15a2-production-r1.patch`, handback `S/1361-prod/1361-E-p15a2-production-handback.md`;
   - the **G2 probe** author in `S/1361-g2/` (probe, `1361-G2-notes.md`, review checklist);
-  - the **G-P sibling branch** author in `S/1361-gp/` (`1361-GP-probe-r2.ts`, notes, review checklist).
+  - the **G-P sibling branch** r2 is written (`S/1361-gp/1361-GP-probe-r2.ts`, notes, checklist); its independent review writes `S/1361-gp/review/1361-GP-D-review.md`;
+  - the **recovery amendment charter** `S/1363-recovery/1363-A-rival-recovery-amendment-charter.md` (Owner 1357-Q1 (a), with items 6 and 7 folded in at 13:50);
+  - the **late-founding reachability check** (Owner item 8) writes `S/1364-founding/1364-R-late-founding-reachability.md`.
 - Claims limits:
   - 1353-T's market-pressure numbers are first order (open-loop factors from 1355-G1).
   - The retune rests on five rival careers on seed-b; p13a's rivals stop filming (1357-R).
@@ -72,6 +74,7 @@ Next questions for the Owner can only come from 1363-A (a material new product r
 - **Deleting scratch.** The harness blocks `rm` on variable paths; use literal absolute paths, links first, then `rm -rf` on the tree.
 - **Agent auth.** If an agent returns `401 OAuth access token has been revoked`, the Owner runs `/login`.
 - **The machine.** 4 CPUs, 8 GB RAM. Disk: 5.13 GiB free at 12:32 CDT (after gzipping closed outputs and removing the closed trees 1353-x4 and 1358-n). Swap shares the disk container (4 GB allocated after the core gate) and moves free space by about 1 GiB; a recorded preflight needs ≥ 5 GiB. Each X run adds a ~130 MB tree: delete it after reading its outputs. `S/1344-merge/x1-core.txt`, `x2-core.txt` and `x3-core.txt` are gzipped in place (gunzip restores the bytes that 1344-X8 and X9 cite). The P15 RED repos survive as mirrors (`S/1355-red/tree-mirror.git`, `S/1356-red/tree-mirror.git`, `S/1359-red/tree-mirror.git`). `S/1358-n/tree` and `S/1358-sweep/merge` hold the slice B reference trees that 1358-J3's scripts read; 1358-L is closed, so they may go once space is needed.
+- **Never scan `docs/` recursively.** `find docs -maxdepth 3` and `git grep … -- docs` hung for minutes at 13:45 CDT on 2026-10-02 and stalled other shells; name exact files, or grep `src`, `ui/src`, `bridge` and `tests`.
 - **Hard limits.** Do not access Owner saves, scan fixture trees, force-push, or launch Codex.
 
 ## Auto snapshot
