@@ -26,8 +26,8 @@
 import { castingSessionForProject } from './castingSessions.js'
 import { SLOT_ORDER } from './tuning.js'
 import type {
-  CastSlot, FilmResult, FirstTakeReceipt, GameState, Production, RelationshipDriver, RelationshipDriverKind,
-  RelationshipEdge, RelationshipTier,
+  CastSlot, FilmResult, FirstTakeReceipt, GameState, Production, RelationshipCompetition, RelationshipDriver,
+  RelationshipDriverKind, RelationshipEdge, RelationshipTier,
 } from './types.js'
 
 // ── the versioned rule and the named HYPOTHESES (plan :761; none is settled law) ──
@@ -50,6 +50,11 @@ export const RELATIONSHIP_RULES_VERSION = 2
  * under `recordCastingCompetition`'s per-production de-duplication. Owner-named
  * initial value; no new counter, driver kind or delta at the threshold. */
 export const RELATIONSHIP_CONFLICT_COMPETITIONS = 3
+
+/** HIS-014 (1340-O): Professional Rivals needs "at least two distinct recorded
+ * competitions between the pair for the same casting slot". An Owner definition, not
+ * tuning (1347-A §3); a label only, read from the `competitions` log. */
+export const RIVALS_SAME_SLOT_COMPETITIONS = 2
 
 /** §5.1 :401's random 45–55 replaced by ONE fixed constant (647-B ruling (i) on
  * OPEN 4; §8 :641 forbids a new RNG stream). Inside Acquaintances. */
@@ -380,9 +385,12 @@ export function recordCancelledAfterFirstTake(state: GameState, studioId: string
  * canonical and de-duplicated, so a pair contesting two slots of one production
  * records ONE competition (1313-F amendment 2). Each pair: `castingCompetitionLost`
  * (ref = the production id, stamped `state.market.tick`), then from its second
- * competition the capped `repeatedCompetition` accelerator. A project without a
- * complete session mints nothing (the SAME reference comes back). No RNG. Rivals
- * hold no casting session, so the reachable set is player-only (1312-F amendment 1).
+ * competition the capped `repeatedCompetition` accelerator, and one `competitions`
+ * row `{week, productionId, slots}` with the slots it contested in slot order (Save44,
+ * 1347-A §2.1): the row is appended exactly where the counter counts, so the log never
+ * outgrows `sharedCompetitions`. A project without a complete session mints nothing
+ * (the SAME reference comes back). No RNG. Rivals hold no casting session, so the
+ * reachable set is player-only (1312-F amendment 1).
  */
 export function recordCastingCompetition(state: GameState, studioId: string, production: Production, projectId: string): GameState {
   const session = castingSessionForProject(state.castingSessions, projectId)
@@ -391,28 +399,28 @@ export function recordCastingCompetition(state: GameState, studioId: string, pro
   if (studioId !== state.hollywood?.playerStudioId) {
     throw new Error(`relationships: casting session "${session.id}" belongs to the player studio, not ${studioId}`)
   }
-  const pairs: { a: string; b: string }[] = []
-  const seen = new Set<string>()
-  for (const slot of ['lead', 'antagonist', 'support'] as const satisfies readonly CastSlot[]) {
+  const pairs = new Map<string, { a: string; b: string; slots: CastSlot[] }>() // first-contest order
+  for (const slot of SLOT_ORDER) {
     const seated = production.cast[slot]
     const [x, y] = session.slate[slot]
     const other = seated === x ? y : seated === y ? x : null
     if (other === null) continue
     const [a, b] = canonicalPair(seated, other)
-    if (seen.has(pairKey(a, b))) continue
-    seen.add(pairKey(a, b))
-    pairs.push({ a, b })
+    const pair = pairs.get(pairKey(a, b))
+    if (pair === undefined) pairs.set(pairKey(a, b), { a, b, slots: [slot] })
+    else pair.slots.push(slot)
   }
-  if (pairs.length === 0) return state
+  if (pairs.size === 0) return state
   const week = state.market.tick
   const ledger = openLedger(state)
-  for (const { a, b } of pairs) {
+  for (const { a, b, slots } of pairs.values()) {
     const driver: RelationshipDriver = { kind: 'castingCompetitionLost', week, ref: production.id,
       delta: driverGain(state, a, b, -RELATIONSHIP_COMPETITION_DELTA) }
+    const row: RelationshipCompetition = { week, productionId: production.id, slots }
     const i = ledger.index.get(pairKey(a, b))
     if (i === undefined) {
       ledger.index.set(pairKey(a, b), ledger.edges.length)
-      ledger.edges.push(newEdge(ledger.edges.length, a, b, week, driver))
+      ledger.edges.push({ ...newEdge(ledger.edges.length, a, b, week, driver), competitions: [row] })
       ledger.changed = true
       continue
     }
@@ -423,7 +431,7 @@ export function recordCastingCompetition(state: GameState, studioId: string, pro
     if (accelerator > 0) {
       next = writeEdge(next, week, { kind: 'repeatedCompetition', week, ref: production.id, delta: driverGain(state, a, b, -accelerator) })
     }
-    ledger.edges[i] = next
+    ledger.edges[i] = { ...next, competitions: [...next.competitions, row] }
     ledger.changed = true
   }
   return commitLedger(state, ledger)
