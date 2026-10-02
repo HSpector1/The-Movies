@@ -45,12 +45,12 @@ Nothing was written to the repository (1360-F ruling 6).
 | s8: 1359-P r4 | step 8 | exit 0; weeks 6239 and 6240, `saveVersion` 44 ([s8-1359-mint.txt](1360-stage/x/s8-1359-mint.txt)) |
 | s10: 1359's integration, retention and p15c1 files | step 10 | 40 failed, 76 passed (116) |
 | s11: 1356's files again, after both mints | the next broad gate | 70 failed, 2 passed (72) |
-| s12: root type gate | the next type gate | exit 2, 6 errors: 1356's four TS2307 and 1355's two (the missing `powerRankingArchive.ts` and `p15Phases.ts`); 1359 adds none |
+| s12: root type gate | the next type gate | exit 2, 6 errors: 1356's four TS2307 (two name the missing `powerRankingArchive.ts`, two `p15Phases.ts`) and 1355's two (both `p15Phases.ts`); 1359 adds none |
 
 ### What each mint changes
 
-The comparison is against each RED alone before its mint (1355-X5, 1359-X6, and s2 for 1356). Two failing load errors
-that name a different importing test file are left out.
+The comparison is against each RED alone before its mint (1355-X5, 1359-X6, and s2 for 1356). Failing load errors that
+name a different importing test file are left out: two for 1355 and thirteen for 1356.
 
 - **1355: four leaves turn green,** exactly the four pin controls whose classification rows read "after minting it
   passes on unchanged production":
@@ -76,8 +76,10 @@ K2 and M0A digests:
 - [x-p15a1-market-pins-MANIFEST.json](1360-stage/x/x-p15a1-market-pins-MANIFEST.json) against 1355-X5;
 - [x-p15c2-route-l-captures-MANIFEST.json](1360-stage/x/x-p15c2-route-l-captures-MANIFEST.json) against 1359-X6.
 
-The recorded mints should write the same bytes. Only each MANIFEST's `executionHead` and `elapsedMs`, and so the
-1355 capture MANIFEST's sha256, will differ. The sha pin takes the recorded mint's value (1360-F ruling 4).
+The recorded mints should write the same bytes. Only three MANIFEST fields may differ: `executionHead` in every
+MANIFEST, `elapsedMs` in the pins MANIFEST, and `routeMs` in the route L MANIFEST. The capture MANIFEST's sha256 then
+differs too, and the sha pin takes the recorded mint's value (1360-F ruling 4). Corrected after
+[1360-D](1360-D-p15-wave2-landing-review.md) finding 4.
 
 ## Classification revision: P15C r8
 

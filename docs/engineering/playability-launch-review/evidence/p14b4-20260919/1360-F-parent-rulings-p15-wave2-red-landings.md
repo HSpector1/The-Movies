@@ -1,5 +1,7 @@
 # 1360-F: parent rulings for landing the three P15 Wave 2 REDs on the Save44 base
 
+Amended by [1360-F2](1360-F2-parent-response-to-1360-D.md) after the review [1360-D](1360-D-p15-wave2-landing-review.md).
+
 [1360-R](1360-R-p15-wave2-red-landing-protocol.md) compiled the landing protocol from the records. It left twelve
 questions open; these rulings settle them. The REDs are:
 - P15A.2 slice 2a: 1356 r4;
@@ -31,7 +33,6 @@ questions open; these rulings settle them. The REDs are:
    - 1355-F4 orders productions, and the parent extends it to the REDs.
    - The 1355 mint must follow the 1355 RED commit, because the producer imports that RED's helpers. It must also
      precede the first P15 production.
-   - Landing P15C third keeps its five forged-root leaves in its own patch (1359 patch :848-851).
 3. **1356's recorded RED runs before the 1355 mint** (question 2).
    - It then fails with the pre-mint message its classification declares (:165-167), as 1356-X4 measured on Save44.
    - After the mint, its capture leaf fails at the version check (44 against 43) until Save45 lands. The next broad
@@ -90,12 +91,12 @@ questions open; these rulings settle them. The REDs are:
 | 4 | 1355 recorded mint, `P15A1_CAPTURE_MODE=mint` | `1360-p15a1-mint` |
 | 5 | Fixture commit: both directories, the mint's outputs and the sha pin; push | |
 | 6 | 1355 recorded RED: the three market files | `1360-p15a1-red-recorded` |
-| 7 | 1359 RED r8 commit (merged list) with `E/1359-P-p15c2-route-l-producer.ts` and r8's revised classification; push | |
+| 7 | 1359 RED r8 commit (merged list) with `E/1359-P-p15c2-route-l-producer.ts`; push (r8's revised classification is already committed, cfce1f38) | |
 | 8 | 1359 recorded mint | `1360-p15c-mint` |
 | 9 | Fixture commit with the mint's outputs; push | |
 | 10 | 1359 recorded RED: the integration, retention and p15c1 files | `1360-p15c-red-recorded` |
 
 - **The standing rules hold for every recorded run.** The heavy lane runs alone on Node v20.20.2, with free disk of at
   least 5 GiB, and HEAD equals the pushed remote. No commit and no `git add` happen during a run or its postflight.
-- **A mismatch stops the sequence.** Each step's result must match 1360-X before the next step starts. The record of
-  the landing is 1360-L.
+- **A mismatch stops the sequence.** Each step's result must match 1360-X, in the sense 1360-F2 ruling 4 defines,
+  before the next step starts. The record of the landing is 1360-L.
