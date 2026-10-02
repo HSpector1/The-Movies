@@ -1,6 +1,6 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 13:25 CDT (the Mac runs on CDT; use `date`)
+Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 13:51 CDT (the Mac runs on CDT; use `date`)
 
 ## Where the work is
 - Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit after f3fe97d0 that carries this file (P15 Wave 2 REDs landed, 1360-L; the Save45 production phase started under 1361-F), pushed: yes.
@@ -53,14 +53,15 @@ E = `docs/engineering/playability-launch-review/evidence/p14b4-20260919`, S = `/
 Agents: the user allows as many subagents as help (2026-10-01). Agents author and review; only the parent runs broad or heavy tests.
 
 ## Open decisions for the Owner
-Answered 2026-10-02 (`E/1362-O`): 1357-Q1 = (a); numpy approved (`.venv` only, between recorded runs); P15C tuning kept for the planned playtest; slice B's relationship wording stays candidate pending copy review. The seven declared exceptions are NOT approved by being listed or by the bounded searches; keep their exact coverage limits (1362-O routing item 5).
-
-Still open, sent to the Owner as one compact decision message on 2026-10-02 (no new research for them):
-- **P16's nine questions** (`E/1354-Q-proposed-owner-rulings-p16.txt`). Items 1 and 2 block the P15B Wave 4 charter (1354-P:30); the P16A charter can start once 1354-Q is answered (1354-P:53). Nothing in Save45 or the recovery amendment waits on them.
-- **The seven declared exceptions** (1344-F6): three row-6 leaves in `tests/p14b5-relationships.test.ts` and four promise-148 leaves (`p14c2c-rival-promises` R1-R3, `p14c3-admission-boundaries` N10). Not approved. Repair options (1344-F6 §4): a new natural fixture whose chain holds each premise under the shelving law, or retiring the leaves; each needs its own charter. They block nothing; they stay failing, attributed identities in every broad gate.
-- **The §7 flags** (1344-V §9 items 1-6): measured behaviour with no threshold. Flags 1, 2 and 4 (retries, growing shelved lists, the cash-blocked stall) fall inside the recovery amendment; flag 3 (rival cash below zero) is P15B scope; flag 5 asks whether seed `p15a1-w2-market-01` is in scope; flag 6 is the 154 promise movements with no named path. They block nothing.
-- **1356-X F-2** (as 1356-F5 restates it): a public founding after week 0 reaches no valid save once the player signs the roster, or ticks with the draft open after rivals lock methods. Recommend checking whether the shipped bridge offers a late public founding first, then one charter for both rules if it does. It blocks nothing on the current path.
-- **X12's V39-masking family** (1344-X12): five downgrade leaves pass without reaching the guard their titles name, because the V39 guard fires first. Recommend a small RED giving each leaf an input whose first refusal is its own guard. It blocks nothing.
+None open. The Owner answered every listed item on 2026-10-02 (`E/1362-O`, both sections; `DECISIONS.md` "Owner rulings, 2026-10-02"). Apply each at its next safe checkpoint; Save45 continues unchanged:
+- **1357-Q1 (a):** the rival-recovery amendment `1363-A` (charter drafting in `S/1363-recovery/`; production after the Save45 landing, before P15B's live closure). It also carries item 7: seed `p15a1-w2-market-01` in the recovery measurement, the 154 promise movements re-measured with their changed paths attributed, and findings stay findings.
+- **numpy:** done (`E/1362-V`).
+- **P15C playtest tuning** unchanged; **slice B's relationship wording** stays candidate pending copy review.
+- **Item 5 (P16):** the qualified choices 5.1-5.9 bind the P15B Wave 4 and P16 charters when they are written (they are not 1354-Q verbatim; 5.3 replaces 1354-Q item 3).
+- **Item 6 (seven exceptions):** bounded replacement natural fixtures after the recovery amendment lands; keep the historical fixtures and failed evidence; no retirement or waiver by default. Until then they stay failing, attributed identities.
+- **Item 8 (late founding, 1356-X F-2):** a bounded read-only check of the actually supported entry paths, bridge included, first; reachable → one bounded charter for both failures; not exposed → record the precise reachability limit, never "fixed".
+- **Item 9 (masked downgrade guards, 1344-X12):** targeted coverage repair (valid baseline, isolate the named guard, keep historical inputs and validator behaviour), authored and landed after the Save45 landing because the Save45 sweep's S9 class touches the same pins.
+Next questions for the Owner can only come from 1363-A (a material new product rule) or the item 8 check.
 
 ## Blockers and warnings
 - **Node.** Recorded runs pin v20.20.2: put `/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin` first on PATH. The session's nvm default is v22.23.2.
@@ -75,14 +76,16 @@ Still open, sent to the Owner as one compact decision message on 2026-10-02 (no 
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-02 11:47 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
-- Branch: `wip/headless-program-20260916-ts` @ `cb49fd0282ea1edec166a899b4d6852dba138032`
+- Stamped: 2026-10-02 13:51 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
+- Branch: `wip/headless-program-20260916-ts` @ `3ebaca24a4a8844977a7ce1b7b2ba5e769458958`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 0
+- Uncommitted files: 2
+  - `M HANDOFF.md`
+  - ` M docs/engineering/playability-launch-review/evidence/p14b4-20260919/1362-O-owner-response-20261002.md`
 - Last commits:
-  - cb49fd02 docs(p15): the three P15 Wave 2 REDs on the Save44 base (1355-X5, 1356-X4, 1359-X6): every classified leaf keeps its expected status on Save43 and Save44; P15C RED r8 moves BASE_LIVE_SAVE_VERSION to 44; both producers mint on Save44 (dry runs)
-  - 1706d844 docs(p14b): relationship slice B CLOSED (1358-L): 1358-M3 recorded broad gates reproduce 1348-M (core SAME 84 + C20 CHANGED by the version digit; UI the numpy rows); type gates and generators pass at the landed HEAD; 1358-C9 landing handback; 1358-J3 landing review
-  - c5c0a0a6 docs(p14b): recorded core gate 1358-sliceb-broad-core at b60db650: 85 failed / 4,992 passed (5,091), 440 files; against 1348-I SAME 84, CHANGED 1 (C20, live version 44 in its primary), NEW 0, GONE 0; fixedSource, allGuardsExact
-  - b60db650 docs(p14b): recorded run 1358-sliceb-green-recorded at 5ac4b738: slice B GREEN, 3 failed / 145 passed (148), fixedSource, allGuardsExact
-  - 5ac4b738 test(p14b): F10/F11 take the recorded projection-57 producer values (1358-p57-declaration; 1358-F9 P4)
+  - 3ebaca24 docs(env): numpy 2.5.1 in the project .venv only (Owner approval 1362-O; the repo's own pin in .github/requirements-tests.txt); 1362-V records versions before and after (numpy the only addition, pip not upgraded, pip check clean), the import through the tests' execFileSync route, and the three rgba-export tool-contract tests now passing (8 of 8)
+  - cbdd8cdc docs(owner): record the Owner response of 2026-10-02 verbatim (1362-O): 1357-Q1 option (a), a bounded rival-recovery amendment before P15B's live closure, scheduled after the Save45 landing; numpy approved in .venv only; P15C tuning and relationship wording unchanged; the seven declared exceptions not approved, coverage limits kept; items 5-9 to one decision message
+  - 8d40b6dc docs(handoff): Save45 production phase started (1361-R, 1361-F); writer tree built; slice 2a writer, G2 probe and G-P branch authors in flight
+  - f3fe97d0 docs(p15): 1361-R the Save45 production protocol (compiled from the records) and 1361-F parent rulings: one writer in a scratch tree who runs nothing; references as guides; one Save45 step built in commits; merged refusal, allocator check and phase lookup; G2 and G-P probes by agents with reviews; the bound is the first gate failure; four recorded GREENs; P15B not in Save45
+  - a63c7de8 docs(p15): 1360-L the P15 Wave 2 RED landing CLOSED: three REDs, two recorded mints and three recorded REDs, each equal to the 1360-X replay; type gates at e16b782e as declared (root six TS2307, UI, Bridge and generator checks clean); 1360-D2 recheck and 1360-F3 response; landing scripts staged; CURRENT blocks and HANDOFF
 <!-- AUTO:END -->

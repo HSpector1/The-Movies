@@ -35,10 +35,40 @@ The Owner said: "Do not stop after the decision report or reopen settled choices
   through the test environment, and run the three image-export tests. No other upgrade.
 - **P15C's tuning** stays for the planned playtest. **The relationship wording** stays a candidate, pending copy
   review.
-- **Items 5-9** (P16's nine questions, the seven exceptions, the §7 flags, 1356-X F-2, and X12's V39 family) go to
-  the Owner in one compact decision message. No new research runs for them.
 - **The seven declared exceptions are not approved** by being listed or by a bounded search that found no witness.
   Their exact coverage limits are kept.
+- **Items 5-9, the second response** (recorded in 1362-O, "The second response"). Each applies at the next safe
+  checkpoint, and Save45 continues unchanged.
+  - **Item 5, P16.** These qualified choices bind the P15B Wave 4 and P16 charters. They are not 1354-Q verbatim.
+    - 5.1: public distress stages and bands, no private countdown, and actual closure announced. On the estate path,
+      staff enter free agency in the closure week, and an estate purchase buys no people.
+    - 5.2: the player's run ends with a prompt closure record. It uses the common settlement rules and keeps actual
+      paid and unpaid claims, assets and work dispositions. Nothing is claimed settled unless it was. No post-game
+      buyout simulation is required.
+    - 5.3: transferable rights may sell in the bounded estate window. Only unsold rights are archived "not for sale",
+      with no free claim, and chain of title, licences and creator history are kept. This replaces 1354-Q item 3.
+    - 5.4: the first slice is cash-funded with the post-purchase reserve. There is no acquisition-financing product,
+      rescue-loan funds cannot buy, and an outstanding P15B loan bars bidding. This is not a permanent ban on future
+      ordinary loans.
+    - 5.5: rival finances stay private in general views. A bounded, costed, dated, recorded disclosure of the target's
+      assets, liabilities, rights and contract terms goes to a permitted bidder. The fee and presentation are
+      provisional tuning.
+    - 5.6: healthy sales need willing, stable-stage targets, and distressed going-concern sales are left out.
+    - 5.7: ordinary sales are bilateral, and only estates take competitive bids.
+    - 5.8: the player gets an explicit retention choice. The no-action default continues lawful contracts that fit
+      capacity and affordability, in target order, with terms and commitments kept and proper exit accounting. No
+      windfall.
+    - 5.9: only the four enumerated defaults are approved, which is not blanket approval of the research.
+  - **Item 6.** (a) bounded replacement natural fixtures, after the recovery amendment lands. Historical fixtures and
+    failed evidence are kept, and each replacement proves its intended requirement. No retirement and no waivers by
+    default.
+  - **Item 7.** The routing stands. `p15a1-w2-market-01` joins the recovery measurement, and the 154 promise movements
+    are re-measured with their changed paths attributed. Findings stay findings.
+  - **Item 8.** Check the actually supported entry paths first, the bridge included. If the path is reachable, a
+    bounded charter covers both failures. If not, record the precise reachability limit; the invalid state is not
+    called fixed.
+  - **Item 9.** A targeted coverage repair. Each negative case starts from a valid baseline and isolates its named
+    guard. Historical inputs and validator behaviour are kept, and an unrelated refusal does not qualify.
 
 ## Owner rulings, 2026-09-29
 

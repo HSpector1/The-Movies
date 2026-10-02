@@ -18,14 +18,21 @@ State at 2026-10-02 13:25 CDT, at the commit that adds this block (pushed). No r
   - **numpy** is approved in `.venv` only, between recorded runs (evidence `1362-V`).
   - **Unchanged:** P15C's playtest tuning, and slice B's candidate wording pending copy review.
   - **The seven declared exceptions** are not approved, and their exact coverage limits are kept.
-  - **Items 5 to 9** went to the Owner as one decision message. They stay open.
+  - **Items 5 to 9** were answered in a second response ([1362-O](evidence/p14b4-20260919/1362-O-owner-response-20261002.md)
+    "The second response"). Each applies at its next safe checkpoint:
+    - P16's qualified choices 5.1 to 5.9 bind the P15B Wave 4 and P16 charters.
+    - The seven exceptions get bounded replacement natural fixtures after the recovery amendment, with no retirement or
+      waiver.
+    - The §7 routing stands. Seed `p15a1-w2-market-01` and the 154 promise movements join 1363-A's measurement.
+    - The late founding gets a reachability check of the supported entry paths first.
+    - The masked downgrade guards get a targeted repair after the Save45 landing.
 - **Save45 productions** ([1361-F](evidence/p14b4-20260919/1361-F-parent-rulings-p15-save45-productions.md)): in
   progress.
   - The slice 2a writer works in `studio-scratch/1361-prod/tree`.
   - The G2 probe and the G-P sibling branch are being written for review.
   - Nothing that changes `src/` lands before Save45.
-- **Still open for the Owner:** P16's nine questions (1354-Q); the seven declared exceptions' repair; the §7 flags;
-  1356-X F-2; X12's V39 family.
+- **Still open for the Owner:** none. Any new question comes from 1363-A (a material new product rule) or from the
+  late-founding reachability check.
 
 ## CURRENT: P15 Wave 2 REDs landed on Save44 (1360-L); both P15 captures minted; Save45 reserved for the three P15 productions
 

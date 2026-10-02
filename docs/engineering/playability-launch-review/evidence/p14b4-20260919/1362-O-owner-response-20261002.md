@@ -109,3 +109,145 @@ Do not stop after the decision report or reopen settled choices.
    - They keep failing as declared, attributed identities in every broad gate until the Owner rules on a repair.
 6. **Work continues.** The Save45 production sequence (1361-F) and its verification continue unchanged, and no
    settled choice is reopened.
+
+## The second response: items 5 to 9 (2026-10-02, recorded at 13:50 CDT)
+
+The parent sent the compact decision message on items 5 to 9 that the first response asked for. The Owner answered it
+in the Claude session, pasting the response below and asking "Any other questions?". The parent recorded it word for
+word. It also amends `DECISIONS.md`, `HANDOFF.md` and the CURRENT blocks, as the first response did.
+
+```text
+OWNER DECISIONS — ITEMS 5–9
+
+Apply at the next safe checkpoint. Save45 continues unchanged.
+
+5. P16: approve the following qualified choices, not “approve all”
+of 1354-Q verbatim.
+
+5.1 Closure disclosure and staff:
+Keep public distress stages/bands, with no private closure countdown.
+Announce actual closure. On the estate path, staff enter free agency
+in the closure week; an estate purchase does not purchase people.
+Healthy-acquisition retention remains separate.
+
+5.2 Player closure:
+End the playable run and publish its closure record promptly.
+Use the common settlement/accounting rules and preserve actual paid
+claims, unpaid claims, assets and work dispositions.
+Do not claim everything settled in that week unless it actually did.
+No additional post-game rival-buyout simulation is required merely
+to display the ending; unexecuted disposal stays explicitly pending
+or archived according to the adopted estate policy.
+
+5.3 Estate rights:
+Transferable films/property rights MAY be offered during the bounded
+estate-disposal window. Only UNSOLD rights after estate archival become
+“archived, not for sale”; no free claim mechanism.
+Preserve chain of title, existing licences and creator history.
+This replaces 1354-Q item 3 and removes its conflict with item 1.
+
+5.4 Financing:
+For the first P16 slice, acquisitions are cash-funded with the required
+post-purchase reserve. No new acquisition-financing product.
+Rescue-loan funds cannot finance purchases, and an outstanding P15B
+distress loan makes the studio ineligible to bid.
+Do not turn this into a permanent prohibition on every possible future
+ordinary loan product.
+
+5.5 Due diligence:
+Keep rival finances private in general views. Authorize a bounded,
+costed, dated transaction-specific disclosure to a permitted bidder:
+the target's relevant assets, liabilities, rights and contract terms.
+No access to unrelated studios. Record who received the disclosure.
+Delegate the fee and detailed presentation as provisional tuning.
+
+5.6 Healthy whole-studio sales:
+Approve willing, stable-stage targets for the initial healthy-sale path.
+Do not add distressed going-concern acquisitions in this slice.
+Ordinary single-asset sales retain their own rules.
+
+5.7 Bidding:
+Approve bilateral ordinary sales; competitive bidding for estates only.
+
+5.8 Retention:
+Give the player an explicit retention choice. The disclosed no-action
+default continues lawful contracts that fit usable capacity and
+affordability, in target-contract order.
+Preserve terms, person-choice rules and existing commitments.
+Apply the proper exit/claim accounting to non-retained staff.
+No free termination, duplicated payment or guarantee deduction that
+creates an acquisition windfall.
+
+5.9 Remaining defaults:
+Approve the four defaults explicitly enumerated in 1354-Q:
+cancel acquired in-flight research while retaining verified progress;
+no transfer of the inventor price advantage;
+no territory subdivision in the first licence slices;
+keep the Star & Script Selling Facility outside P16B for now.
+This is not blanket approval of every research proposal.
+
+6. Seven exceptions:
+Choose (a): bounded replacement natural fixtures after the recovery
+amendment lands. Preserve the historical fixtures and failed evidence.
+The replacements must prove each intended requirement.
+Do not retire the leaves or approve coverage waivers by default.
+
+7. §7 flags:
+Agree with the proposed routing. Include p15a1-w2-market-01 in recovery
+measurement and re-measure the 154 promise movements, attributing their
+changed paths. Findings remain findings—not automatically accepted
+behavior merely because they were measured.
+
+8. Late founding:
+Check actual supported entry paths first, including the bridge.
+If reachable, charter the bounded correction covering both failures.
+If not exposed, record the precise reachability limit; do not call the
+underlying invalid-state issue fixed.
+
+9. Masked downgrade guards:
+Approve the targeted coverage repair. Start each negative case from a
+valid baseline and isolate the guard its title names.
+Preserve historical inputs and validator behavior.
+Already-passing unrelated refusals do not qualify the intended guard.
+
+Record these rulings in the existing files, then continue.
+Do not interrupt active verification or expand this into a new
+research campaign.
+```
+
+### How the parent routes the second response
+
+Each item applies at its next safe checkpoint. The Save45 sequence (1361-F) is unchanged.
+
+1. **Item 5, P16.**
+   - **What binds.** The qualified choices 5.1 to 5.9 bind the P15B Wave 4 charter and the P16 charters. They replace
+     the corresponding 1354-Q items, and 5.3 replaces 1354-Q item 3. Where 1354-Q's text differs, these words govern.
+   - **When.** They apply when those charters are written. No current work changes, and 1354-P's sequencing stands.
+2. **Item 6, the seven exceptions.**
+   - **What and when.** Bounded replacement natural fixtures, after the recovery amendment (1363) lands.
+   - **What is preserved.** The historical fixtures and the failed evidence (1344-F6, 1344-X10, 1344-X11) stay.
+   - **What a replacement must do.** Each must prove its leaf's intended requirement.
+   - **What does not happen.** No leaf is retired and no coverage waiver is approved.
+   - **Until then** the seven stay failing, attributed identities. 1363-A records that it is their precondition, and it
+     measures whether the amended law moves their natural premises.
+3. **Item 7, the §7 flags.**
+   - **Routing.** Flags 1, 2 and 4 go into 1363-A's measurement; flag 3 goes to P15B.
+   - **Seed `p15a1-w2-market-01`** joins the recovery measurement.
+   - **The 154 promise movements** are re-measured under the amended law, with each changed path attributed.
+   - **Findings remain findings.** Measuring a behaviour does not accept it.
+   - The 1363-A author received these at 13:50 CDT.
+4. **Item 8, the late founding (1356-X F-2).**
+   - **The check first.** A bounded, read-only check of the actually supported entry paths, the bridge included, decides
+     whether a public founding after week 0 is reachable.
+   - **If it is reachable:** one bounded charter that corrects both failures (signing the roster, and ticking with the
+     draft open after rivals lock methods).
+   - **If it is not exposed:** the record states the precise reachability limit, and the underlying invalid state stays
+     open, never called fixed.
+   - **This is not a research campaign.** The check reads the entry paths and nothing more.
+5. **Item 9, the masked downgrade guards (1344-X12).**
+   - **The repair.** A targeted coverage repair of the five leaves. Each negative case starts from a valid baseline and
+     isolates the guard its title names.
+   - **What stays.** Historical inputs and validator behaviour are preserved, and a passing refusal from another guard
+     does not qualify.
+   - **When.** The Save45 sweep's S9 class touches the same downgrade pins (1361-R Part 3.3), so the repair is authored
+     and lands after the Save45 landing, as its own reviewed tests-only change.
