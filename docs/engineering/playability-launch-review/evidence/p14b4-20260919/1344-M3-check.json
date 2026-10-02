@@ -1,0 +1,67 @@
+{
+ "core": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-I3-core-vs1338.json",
+ "ui": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-I4-ui-vs1343.json",
+ "coreCounts": {
+  "SAME": 73,
+  "CHANGED": 5,
+  "NEW": 7,
+  "GONE": 1
+ },
+ "uiCounts": {
+  "CHANGED": 3,
+  "GONE": 7
+ },
+ "allHold": true,
+ "checks": [
+  {
+   "check": "core GONE is the exporter row only",
+   "ok": true,
+   "rows": []
+  },
+  {
+   "check": "core SAME plus CHANGED equals x3 (1338 minus the exporter row)",
+   "ok": true,
+   "rows": []
+  },
+  {
+   "check": "core CHANGED is the four S10 rows and the C20 row",
+   "ok": true,
+   "rows": []
+  },
+  {
+   "check": "each CHANGED primary equals x3",
+   "ok": true,
+   "rows": []
+  },
+  {
+   "check": "core NEW includes every 1344-F6 exception",
+   "ok": true,
+   "rows": []
+  },
+  {
+   "check": "core NEW holds nothing else (else: attribute or report a finding)",
+   "ok": true,
+   "rows": []
+  },
+  {
+   "check": "UI CHANGED equals x3 (numpy)",
+   "ok": true,
+   "rows": []
+  },
+  {
+   "check": "UI NEW equals x3 (none)",
+   "ok": true,
+   "rows": []
+  },
+  {
+   "check": "UI GONE equals x3 (Pillow)",
+   "ok": true,
+   "rows": []
+  },
+  {
+   "check": "UI SAME is empty, as at x3",
+   "ok": true,
+   "rows": []
+  }
+ ]
+}

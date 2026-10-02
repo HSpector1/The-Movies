@@ -1,0 +1,75 @@
+{
+ "new": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-I4-ui-failures.json",
+ "base": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1343-I-failures.json",
+ "counts": {
+  "CHANGED": 3,
+  "GONE": 7
+ },
+ "newByFile": {},
+ "rows": [
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 6. output is truecolour RGBA with no PLTE/tRNS, alpha preserved exactly",
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "status": "CHANGED",
+   "primary": "Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/scripts/art/authored-asset-pipeline.py rgba-export --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-VCVLGl/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-VCVLGl/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-VCVLGl --stem t --colours 16",
+   "basePrimary": "Error: Command failed: python3 -c",
+   "timeout": false,
+   "frame": "ui/src/lot/authored-rgba-export.test.ts:138:7"
+  },
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 7. repeated runs are byte-identical",
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "status": "CHANGED",
+   "primary": "Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/scripts/art/authored-asset-pipeline.py rgba-export --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-7lVTJy/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-7lVTJy/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-7lVTJy/a --stem t --colours 16",
+   "basePrimary": "Error: Command failed: python3 -c",
+   "timeout": false,
+   "frame": "ui/src/lot/authored-rgba-export.test.ts:164:9"
+  },
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 8. the historical PNG-8 path is still available and clearly separate",
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "status": "CHANGED",
+   "primary": "Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/scripts/art/authored-asset-pipeline.py quantize --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-5Xgj6B/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-5Xgj6B/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-5Xgj6B --stem q",
+   "basePrimary": "Error: Command failed: python3 -c",
+   "timeout": false,
+   "frame": "ui/src/lot/authored-rgba-export.test.ts:178:7"
+  }
+ ],
+ "gone": [
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > current production authored export \u2014 the shipped Stage B assets > 3. the RGB channel is reduced to the recovered 128-colour contract",
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "basePrimary": "Error: Command failed: python3 -c"
+  },
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > current production authored export \u2014 the shipped Stage B assets > 4. alpha is bit-identical between the two finishes",
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "basePrimary": "Error: Command failed: python3 -c"
+  },
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > current production authored export \u2014 the shipped Stage B assets > 5. alpha is genuinely lossless, not collapsed into a palette-sized set",
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "basePrimary": "Error: Command failed: python3 -c"
+  },
+  {
+   "identity": "ui/src/lot/authored-stage-a.test.ts > Stage A \u2014 the committed assets satisfy the CURRENT production export contract > 4. the RGB channel carries the recovered 128-colour contract",
+   "file": "ui/src/lot/authored-stage-a.test.ts",
+   "basePrimary": "Error: Command failed: python3 -c"
+  },
+  {
+   "identity": "ui/src/lot/authored-stage-a.test.ts > Stage A \u2014 the committed assets satisfy the CURRENT production export contract > 5. alpha is bit-identical between the two finishes",
+   "file": "ui/src/lot/authored-stage-a.test.ts",
+   "basePrimary": "Error: Command failed: python3 -c"
+  },
+  {
+   "identity": "ui/src/lot/authored-stage-a.test.ts > Stage A \u2014 the committed assets satisfy the CURRENT production export contract > 6. alpha is lossless, not collapsed into a palette-sized set",
+   "file": "ui/src/lot/authored-stage-a.test.ts",
+   "basePrimary": "Error: Command failed: python3 -c"
+  },
+  {
+   "identity": "ui/src/lot/authored-stage-a.test.ts > Stage A \u2014 the committed assets satisfy the CURRENT production export contract > 7. registration is the approved one \u2014 inset, with a forecourt",
+   "file": "ui/src/lot/authored-stage-a.test.ts",
+   "basePrimary": "Error: Command failed: python3 -c"
+  }
+ ]
+}

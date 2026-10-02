@@ -1,0 +1,688 @@
+[
+  {
+    "file": "tests/p14b5-relationships.test.ts",
+    "leaf": "family 4 \u2014 TIER RULE under RELATIONSHIP_RULES_VERSION 2 and the D2 reachability (scope (3)-(4)) > eight members, byte-equal output for byte-equal input, and a value in the Enemies/Nemeses bands WITHOUT a conflict record reads Strained",
+    "requirement": "1348-F5 item 3 / slice A implementation review 1348-J KEEP: the describe title pinned \"RELATIONSHIP_RULES_VERSION 1\" after r5 already moved the leaf's own asserted value to 2 (the file's line ~760 `expect(RELATIONSHIP_RULES_VERSION).toBe(2)`). Title-only rename.",
+    "redStatus": "control-passes",
+    "redReason": "RENAME, not a behavior change: no assertion inside any of these three leaves was edited. Measured before AND after the rename, isolated (`vitest run --project core tests/p14b5-relationships.test.ts -t \"family 4\"`): 3 passed | 48 skipped (51), identical pass count and identical per-leaf pass/fail outcome both times.",
+    "renameOldIdentity": "family 4 \u2014 TIER RULE under RELATIONSHIP_RULES_VERSION 1 and the D2 reachability (scope (3)-(4)) > eight members, byte-equal output for byte-equal input, and a value in the Enemies/Nemeses bands WITHOUT a conflict record reads Strained",
+    "renameNewIdentity": "family 4 \u2014 TIER RULE under RELATIONSHIP_RULES_VERSION 2 and the D2 reachability (scope (3)-(4)) > eight members, byte-equal output for byte-equal input, and a value in the Enemies/Nemeses bands WITHOUT a conflict record reads Strained"
+  },
+  {
+    "file": "tests/p14b5-relationships.test.ts",
+    "leaf": "family 4 \u2014 TIER RULE under RELATIONSHIP_RULES_VERSION 2 and the D2 reachability (scope (3)-(4)) > a released flop nets a LOW-proximity pair below where it stood before the take (FAILURE > PROXIMITY_LOW by name)",
+    "requirement": "1348-F5 item 3 / slice A implementation review 1348-J KEEP: the describe title pinned \"RELATIONSHIP_RULES_VERSION 1\" after r5 already moved the leaf's own asserted value to 2 (the file's line ~760 `expect(RELATIONSHIP_RULES_VERSION).toBe(2)`). Title-only rename.",
+    "redStatus": "control-passes",
+    "redReason": "RENAME, not a behavior change: no assertion inside any of these three leaves was edited. Measured before AND after the rename, isolated (`vitest run --project core tests/p14b5-relationships.test.ts -t \"family 4\"`): 3 passed | 48 skipped (51), identical pass count and identical per-leaf pass/fail outcome both times.",
+    "renameOldIdentity": "family 4 \u2014 TIER RULE under RELATIONSHIP_RULES_VERSION 1 and the D2 reachability (scope (3)-(4)) > a released flop nets a LOW-proximity pair below where it stood before the take (FAILURE > PROXIMITY_LOW by name)",
+    "renameNewIdentity": "family 4 \u2014 TIER RULE under RELATIONSHIP_RULES_VERSION 2 and the D2 reachability (scope (3)-(4)) > a released flop nets a LOW-proximity pair below where it stood before the take (FAILURE > PROXIMITY_LOW by name)"
+  },
+  {
+    "file": "tests/p14b5-relationships.test.ts",
+    "leaf": "family 4 \u2014 TIER RULE under RELATIONSHIP_RULES_VERSION 2 and the D2 reachability (scope (3)-(4)) > a staged pair at the Acquaintances floor reads Strained after one flop and pairChemistry reads sign \u22121; Enemies/Nemeses never read on any B.5-minted edge",
+    "requirement": "1348-F5 item 3 / slice A implementation review 1348-J KEEP: the describe title pinned \"RELATIONSHIP_RULES_VERSION 1\" after r5 already moved the leaf's own asserted value to 2 (the file's line ~760 `expect(RELATIONSHIP_RULES_VERSION).toBe(2)`). Title-only rename.",
+    "redStatus": "control-passes",
+    "redReason": "RENAME, not a behavior change: no assertion inside any of these three leaves was edited. Measured before AND after the rename, isolated (`vitest run --project core tests/p14b5-relationships.test.ts -t \"family 4\"`): 3 passed | 48 skipped (51), identical pass count and identical per-leaf pass/fail outcome both times.",
+    "renameOldIdentity": "family 4 \u2014 TIER RULE under RELATIONSHIP_RULES_VERSION 1 and the D2 reachability (scope (3)-(4)) > a staged pair at the Acquaintances floor reads Strained after one flop and pairChemistry reads sign \u22121; Enemies/Nemeses never read on any B.5-minted edge",
+    "renameNewIdentity": "family 4 \u2014 TIER RULE under RELATIONSHIP_RULES_VERSION 2 and the D2 reachability (scope (3)-(4)) > a staged pair at the Acquaintances floor reads Strained after one flop and pairChemistry reads sign \u22121; Enemies/Nemeses never read on any B.5-minted edge"
+  },
+  {
+    "file": "tests/p14b10-competitions-log.test.ts",
+    "leaf": "the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > P1: two different pairs each get their OWN row for the same production, slots = the one slot each contested",
+    "requirement": "D-1312-1 (1340-O:59-67): \"each edge gains an append-only log ... one row per competition, where slots lists the cast slots the pair contested.\" Brief scope item 3: \"one row per pair per production.\"",
+    "redStatus": "fails",
+    "redReason": "RelationshipEdge.competitions is undefined on the real, engine-minted edge at BASE. Measured: \"expected undefined to deeply equal [ { week: 10, productionId: 'prod-0010', slots: ['lead'] } ]\".",
+    "note": "1358-F2 item 4: the explicit vitest timeout now carries the 1356-F5 note (a comment): vitest cannot stop a synchronous body, so it is not a budget."
+  },
+  {
+    "file": "tests/p14b10-competitions-log.test.ts",
+    "leaf": "the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > P2: the SAME pair (a,b) contesting two slots of ONE production is ONE row, slots in slot order [lead, antagonist]",
+    "requirement": "1347-A \u00a72.4 :70: \"A pair that contests both lead and support on one production records one competition with two slots.\"",
+    "redStatus": "fails",
+    "redReason": "TypeError: Cannot read properties of undefined (reading 'filter') on edge.competitions \u2014 the field does not exist at BASE.",
+    "note": "1358-F2 item 4: the explicit vitest timeout now carries the 1356-F5 note (a comment): vitest cannot stop a synchronous body, so it is not a budget."
+  },
+  {
+    "file": "tests/p14b10-competitions-log.test.ts",
+    "leaf": "the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > P3a/P3b: a re-greenlight after a cancel counts once per production \u2014 pair (a,b) gets TWO rows, one per production id, each slots=['lead']",
+    "requirement": "1313-F Amendment 3 (cited at relationships.ts:378): a re-greenlight after a cancel gets a new production id and counts again; brief scope item 3.",
+    "redStatus": "fails",
+    "redReason": "TypeError: Cannot read properties of undefined (reading 'filter') on edge.competitions.",
+    "note": "1358-F2 item 4: the explicit vitest timeout now carries the 1356-F5 note (a comment): vitest cannot stop a synchronous body, so it is not a budget."
+  },
+  {
+    "file": "tests/p14b10-competitions-log.test.ts",
+    "leaf": "the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > the row count never exceeds sharedCompetitions for ANY edge in the final world (in this route, always exactly equal)",
+    "requirement": "Brief scope item 3: \"the row count never exceeds sharedCompetitions.\"",
+    "redStatus": "fails",
+    "redReason": "TypeError: Cannot read properties of undefined (reading 'length') on edge.competitions.",
+    "note": "1358-F2 item 4: the explicit vitest timeout now carries the 1356-F5 note (a comment): vitest cannot stop a synchronous body, so it is not a budget."
+  },
+  {
+    "file": "tests/p14b10-competitions-log.test.ts",
+    "leaf": "the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > no RNG draw: rngState is unchanged by the P3a greenlight's minting (the existing recordCastingCompetition contract, unaffected by the new log field)",
+    "requirement": "Brief scope item 3: \"no RNG draw\"; 1313-A/F (relationships.ts :371-382): recordCastingCompetition already touches no RNG.",
+    "redStatus": "control-passes",
+    "redReason": "Measured: rngState identical before/after the P3a greenlight (2 passed of 6 in this file's isolated run). recordCastingCompetition is untouched production code at BASE; this is a regression guard that the NEW log field must not introduce an RNG draw."
+  },
+  {
+    "file": "tests/p14b10-competitions-log.test.ts",
+    "leaf": "the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > cross-check: pair (a,b) with sharedCompetitions=3 (P2 dedup + P3a + P3b) reports conflict evidence, independent of the log field [control: existing D-1312-1 arithmetic, unaffected by the log]",
+    "requirement": "D-1312-1 / slice A hasConflictEvidence (relationships.ts :164-166), unaffected by the competitions log field.",
+    "redStatus": "control-passes",
+    "redReason": "Measured passing: sharedCompetitions reaches exactly RELATIONSHIP_CONFLICT_COMPETITIONS (3) and hasConflictEvidence(edge) is true \u2014 both already true under slice A production, independent of whether the log field exists.",
+    "note": "1358-F2 item 4: the explicit vitest timeout now carries the 1356-F5 note (a comment): vitest cannot stop a synchronous body, so it is not a budget."
+  },
+  {
+    "file": "tests/p14b10-labels.test.ts",
+    "leaf": "P14B10 T1 \u2014 the new bindings exist (RED at behavior, never a vacuous undefined pass) > RIVALS_SAME_SLOT_COMPETITIONS is the Owner's named 2, and professionalRivalsEvidence is a function",
+    "requirement": "HIS-014 (1340-O:85-90): \"at least two distinct recorded competitions ... for the same casting slot.\" Parent API: RIVALS_SAME_SLOT_COMPETITIONS in relationships.ts, professionalRivalsEvidence in relationshipLabels.ts.",
+    "redStatus": "fails",
+    "redReason": "Measured: \"expected undefined to be 2\" (RIVALS_SAME_SLOT_COMPETITIONS absent from the existing relationships.ts module)."
+  },
+  {
+    "file": "tests/p14b10-labels.test.ts",
+    "leaf": "Professional Rivals \u2014 the positive case (two same-slot competitions) > two competitions for the SAME slot (lead) give the label, naming that slot and both rows",
+    "requirement": "HIS-014; 1347-A \u00a72.4 :66: \"At least two competitions rows share a slot.\"",
+    "redStatus": "fails",
+    "redReason": "Measured: \"rivals is not a function\" \u2014 professionalRivalsEvidence absent from the existing relationshipLabels.ts module."
+  },
+  {
+    "file": "tests/p14b10-labels.test.ts",
+    "leaf": "Professional Rivals \u2014 the positive case (two same-slot competitions) > two competitions for the same slot (support) give the label naming support, not lead \u2014 no slot-name hardcoding",
+    "requirement": "HIS-014, same clause, exercised on a different slot to rule out a hardcoded \"lead\" answer.",
+    "redStatus": "fails",
+    "redReason": "Measured: \"rivals is not a function\"."
+  },
+  {
+    "file": "tests/p14b10-labels.test.ts",
+    "leaf": "Professional Rivals \u2014 the positive case (two same-slot competitions) > a THIRD competition for the same slot still names only the FIRST TWO rows for that slot (\"rows are the first two for that slot\")",
+    "requirement": "Brief Parent API: \"the first slot in slot order with two rows; rows are the first two for that slot.\"",
+    "redStatus": "fails",
+    "redReason": "Measured: \"rivals is not a function\"."
+  },
+  {
+    "file": "tests/p14b10-labels.test.ts",
+    "leaf": "Professional Rivals \u2014 the positive case (two same-slot competitions) > a row holding TWO slots counts toward EACH of its slots: [lead,support] + [lead] gives Rivals for lead, naming both rows",
+    "requirement": "1347-A \u00a72.4 :70 (\"one competition with two slots\") combined with HIS-014's two-same-slot rule: a two-slot row is evidence for EACH slot it names.",
+    "redStatus": "fails",
+    "redReason": "Measured: \"rivals is not a function\"."
+  },
+  {
+    "file": "tests/p14b10-labels.test.ts",
+    "leaf": "Professional Rivals \u2014 the negative cases > lead then support (two DIFFERENT slots, one competition each) gives no label",
+    "requirement": "Brief scope item: \"lead then support gives none.\"",
+    "redStatus": "fails",
+    "redReason": "Measured: \"rivals is not a function\"."
+  },
+  {
+    "file": "tests/p14b10-labels.test.ts",
+    "leaf": "Professional Rivals \u2014 the negative cases > a single competition alone (any slot) gives no label, whatever RIVALS_SAME_SLOT_COMPETITIONS-many slots it names",
+    "requirement": "HIS-014: \"at least two distinct recorded competitions\" \u2014 one row (however many slots it names) is never two DISTINCT competitions.",
+    "redStatus": "fails",
+    "redReason": "Measured: \"rivals is not a function\"."
+  },
+  {
+    "file": "tests/p14b10-labels.test.ts",
+    "leaf": "Professional Rivals \u2014 the negative cases > an empty competitions log gives no label",
+    "requirement": "HIS-014 boundary case.",
+    "redStatus": "fails",
+    "redReason": "Measured: \"rivals is not a function\"."
+  },
+  {
+    "file": "tests/p14b10-labels.test.ts",
+    "leaf": "Professional Rivals \u2014 the negative cases > the FIRST slot in slot order [lead, antagonist, support] wins when more than one slot separately qualifies",
+    "requirement": "Parent API: \"the first slot in slot order with two rows.\"",
+    "redStatus": "fails",
+    "redReason": "Measured: \"rivals is not a function\"."
+  },
+  {
+    "file": "tests/p14b10-labels.test.ts",
+    "leaf": "Professional Rivals is a DIFFERENT axis from conflict evidence (1347-A \u00a72.4 \"how Rivals differs from conflict evidence\") > two same-slot competitions give Rivals but are NOT conflict evidence (2 < RELATIONSHIP_CONFLICT_COMPETITIONS = 3) [control: hasConflictEvidence is slice A, unaffected by the log]",
+    "requirement": "1347-A \u00a72.4 :67-69: \"Rivals means two competitions for the same slot kind ... Conflict means three competitions in any slots.\"",
+    "redStatus": "fails",
+    "redReason": "The Rivals half fails (\"rivals is not a function\"); the hasConflictEvidence half (slice A, already landed) is a control and would pass alone \u2014 file-level status is \"fails\" because the leaf as a whole throws on its first assertion."
+  },
+  {
+    "file": "tests/p14b10-labels.test.ts",
+    "leaf": "Professional Rivals is a DIFFERENT axis from conflict evidence (1347-A \u00a72.4 \"how Rivals differs from conflict evidence\") > three mixed-slot competitions are conflict evidence WITHOUT Rivals (no slot has two rows) [control: hasConflictEvidence is slice A]",
+    "requirement": "1347-A \u00a72.4 :67-69, same clause, the conflict-without-Rivals direction.",
+    "redStatus": "fails",
+    "redReason": "hasConflictEvidence(true) passes (slice A, control); rivals(...) throws \"rivals is not a function\" on the second assertion \u2014 the leaf fails on that call."
+  },
+  {
+    "file": "tests/p14b10-labels.test.ts",
+    "leaf": "Professional Rivals \u2014 reading the label is inert (HIS-014: \"labels ... create no additional ... effect by themselves\") > reading professionalRivalsEvidence leaves the whole state byte-equal (serialized text, not toEqual: live state can hold -0)",
+    "requirement": "HIS-014 (1340-O:88-90): \"Labels ... create no additional skill, trust, chemistry or closeness effect by themselves.\" Pitfall: compare serialized text, not toEqual (live state can hold -0).",
+    "redStatus": "fails",
+    "redReason": "Measured: \"rivals is not a function\" at the `const result = rivals(edge)` call, before either byte-equality check runs."
+  },
+  {
+    "file": "tests/p14b10-save-v44.test.ts",
+    "leaf": "API decisions this file exercises (existence asserted first) > LIVE_SAVE_VERSION is 44; validateSaveV44 / convertV43ToV44 / convertV44ToV43 / migrateToV44 exist as functions",
+    "requirement": "Parent API: src/core/save.ts LIVE_SAVE_VERSION = 44, validateSaveV44, convertV43ToV44, convertV44ToV43, migrateToV44.",
+    "redStatus": "fails",
+    "redReason": "Measured: \"expected 43 to be 44\" \u2014 LIVE_SAVE_VERSION is still 43 at BASE (slice B not landed)."
+  },
+  {
+    "file": "tests/p14b10-save-v44.test.ts",
+    "leaf": "save-v44: the well-formed empty state validates (control) > accepts empty competitions and null romance on every edge",
+    "requirement": "1347-A \u00a74: convertV43ToV44 produces the empty-fields shape; the well-formed control must validate.",
+    "redStatus": "fails",
+    "redReason": "Measured: \"TypeError: mods(...).validateSaveV44 is not a function\"."
+  },
+  {
+    "file": "tests/p14b10-save-v44.test.ts",
+    "leaf": "save-v44: V43 -> V44 migration > convertV43ToV44 adds competitions: [] and romance: null to every edge of a genuine V43 envelope, and validates",
+    "requirement": "1347-A \u00a74: \"convertV43ToV44 adds competitions: [] and romance: null.\"",
+    "redStatus": "fails",
+    "redReason": "Measured: \"mods(...).convertV43ToV44 is not a function\". Route premise (a genuine V42->V43 conversion holding at least one relationship edge) is satisfied before that call."
+  },
+  {
+    "file": "tests/p14b10-save-v44.test.ts",
+    "leaf": "save-v44: V43 -> V44 migration > GENUINE V43 input (1358-P-save43-producer.ts mint) migrates with competitions: [] and romance: null on every edge, and preserves its non-empty screenplayShelving",
+    "requirement": "Brief: \"the Save44 migration leaves need a genuine V43 capture ... holding at least one edge with sharedCompetitions >= 1 ... and a business with non-empty screenplayShelving.\"",
+    "redStatus": "fails",
+    "redReason": "MISSING FIXTURE, not a slice-B code gap: tests/fixtures/p14/genuine-v43-pre-romance/MANIFEST.json does not exist (the producer 1358-P-save43-producer.ts is written but explicitly NOT run per the brief \u2014 \"the parent runs it as a recorded mint\"). Measured: assert.ok(existsSync(manifestPath)) throws with an explicit \"GENUINE V43 FIXTURE NOT YET MINTED\" message naming the producer path. This leaf cannot exercise validateSaveV44/convertV43ToV44 until the mint runs; a SECOND, independent RED (the missing functions) would also apply once the fixture exists.",
+    "note": "RED reason is the missing fixture per the brief's explicit allowance, not (only) the missing functions. 1358-F2 item 5: the assertion message (tests/p14b10-save-v44.test.ts:126) now names docs/engineering/playability-launch-review/evidence/p14b4-20260919/1358-P-save43-producer.ts, where the parent publishes the producer. The leaf still fails at RED on the missing MANIFEST.json."
+  },
+  {
+    "file": "tests/p14b10-save-v44.test.ts",
+    "leaf": "save-v44: V42-era competitions count as conflict evidence but give no Rivals label (1347-A \u00a74 \"what old saves show\") > an edge with sharedCompetitions >= RELATIONSHIP_CONFLICT_COMPETITIONS and an empty competitions log reads conflict evidence but no Rivals label after migration",
+    "requirement": "1347-A \u00a74 \"What old saves show\": \"Conflict evidence comes from the recorded sharedCompetitions ... No Rivals label appears until two slotted rows exist after Save44.\"",
+    "redStatus": "fails",
+    "redReason": "Measured: \"mods(...).validateSaveV44 is not a function\"."
+  },
+  {
+    "file": "tests/p14b10-save-v44.test.ts",
+    "leaf": "save-v44: the validator rejects a forged competitions log > rejects non-ascending weeks across rows",
+    "requirement": "1347-A \u00a74: validateRelationshipsRoot(raw,44) checks \"ascending weeks\". Brief: \"a forged log refuses (non-ascending weeks ...)\".",
+    "redStatus": "fails",
+    "redReason": "Measured: \"expected [Function] to throw error matching /competit|week|ascend|order/i but got 'mods(...).validateSaveV44 is not a function'\" \u2014 the generic TypeError does not match the content-specific pattern (the p14d1-rival-shelving-save-v43.test.ts vacuous-.toThrow() pitfall guard), so this leaf fails loudly and specifically at RED."
+  },
+  {
+    "file": "tests/p14b10-save-v44.test.ts",
+    "leaf": "save-v44: the validator rejects a forged competitions log > rejects a duplicate production id across two rows",
+    "requirement": "1347-A \u00a74: \"distinct refs\". Brief: \"duplicate production\" refuses.",
+    "redStatus": "fails",
+    "redReason": "Same pattern-mismatch mechanism as the sibling leaf above."
+  },
+  {
+    "file": "tests/p14b10-save-v44.test.ts",
+    "leaf": "save-v44: the validator rejects a forged competitions log > rejects a row with an empty slots array",
+    "requirement": "1347-A \u00a74: \"a non-empty subset of slots in slot order\". Brief: \"empty or out-of-order slots\" refuses.",
+    "redStatus": "fails",
+    "redReason": "Same pattern-mismatch mechanism."
+  },
+  {
+    "file": "tests/p14b10-save-v44.test.ts",
+    "leaf": "save-v44: the validator rejects a forged competitions log > rejects a row with slots out of slot order (support before lead)",
+    "requirement": "Same clause, the \"out-of-order\" half.",
+    "redStatus": "fails",
+    "redReason": "Same pattern-mismatch mechanism."
+  },
+  {
+    "file": "tests/p14b10-save-v44.test.ts",
+    "leaf": "save-v44: the validator rejects a forged competitions log > rejects more competitions rows than sharedCompetitions",
+    "requirement": "1347-A \u00a74: \"competitions.length \u2264 sharedCompetitions\". Brief: \"more rows than sharedCompetitions\" refuses.",
+    "redStatus": "fails",
+    "redReason": "Same pattern-mismatch mechanism."
+  },
+  {
+    "file": "tests/p14b10-save-v44.test.ts",
+    "leaf": "save-v44: the validator rejects a forged competitions log > accepts a well-formed two-slot row on one production (the \"one production, two slots, one row\" shape)",
+    "requirement": "1347-A \u00a72.4 :70, the accepted positive shape the log must admit.",
+    "redStatus": "fails",
+    "redReason": "Measured: \"expected [Function] to not throw an error but 'TypeError: mods(...).validateSaveV44 is not a function' was thrown\" \u2014 the control itself cannot pass while the function is absent."
+  },
+  {
+    "file": "tests/p14b10-save-v44.test.ts",
+    "leaf": "save-v44: the validator rejects forged romance > rejects a romance value above 100",
+    "requirement": "1347-A \u00a74: \"romance (value 0..100 ...)\".",
+    "redStatus": "fails",
+    "redReason": "Same pattern-mismatch mechanism as the forged-log leaves."
+  },
+  {
+    "file": "tests/p14b10-save-v44.test.ts",
+    "leaf": "save-v44: the validator rejects forged romance > rejects a negative romance value",
+    "requirement": "Same clause, the lower bound.",
+    "redStatus": "fails",
+    "redReason": "Same pattern-mismatch mechanism."
+  },
+  {
+    "file": "tests/p14b10-save-v44.test.ts",
+    "leaf": "save-v44: the validator rejects forged romance > rejects bonds out of order (a later formedWeek before an earlier one)",
+    "requirement": "1347-A \u00a74: \"bonds in order\".",
+    "redStatus": "fails",
+    "redReason": "Same pattern-mismatch mechanism."
+  },
+  {
+    "file": "tests/p14b10-save-v44.test.ts",
+    "leaf": "save-v44: the validator rejects forged romance > rejects two open bonds (only the last one may be open)",
+    "requirement": "1347-A \u00a74: \"only the last one open\".",
+    "redStatus": "fails",
+    "redReason": "Same pattern-mismatch mechanism."
+  },
+  {
+    "file": "tests/p14b10-save-v44.test.ts",
+    "leaf": "save-v44: the validator rejects forged romance > accepts a closed earlier bond followed by one open later bond (the re-formation shape)",
+    "requirement": "The accepted positive shape (a re-formation) the validator must admit.",
+    "redStatus": "fails",
+    "redReason": "Measured: control cannot pass while validateSaveV44 is absent."
+  },
+  {
+    "file": "tests/p14b10-save-v44.test.ts",
+    "leaf": "save-v44: the validator rejects forged romance > accepts every bond closed (an ended romance with no currently open bond)",
+    "requirement": "The accepted positive shape (a fully-ended history) the validator must admit.",
+    "redStatus": "fails",
+    "redReason": "Measured: control cannot pass while validateSaveV44 is absent."
+  },
+  {
+    "file": "tests/p14b10-save-v44.test.ts",
+    "leaf": "save-v44: down-conversion (convertV44ToV43) > accepts the empty state on every edge (round-trips losslessly, Save41/Save43 pattern)",
+    "requirement": "1347-A \u00a74: \"The 44\u219243 downgrade refuses by name when any log row or romance exists\" \u2014 implying the empty case is lossless, the Save41/Save43 precedent.",
+    "redStatus": "fails",
+    "redReason": "Measured: \"TypeError: mods(...).convertV44ToV43 is not a function\"."
+  },
+  {
+    "file": "tests/p14b10-save-v44.test.ts",
+    "leaf": "save-v44: down-conversion (convertV44ToV43) > refuses a real competitions log by name",
+    "requirement": "1347-A \u00a74: \"refuses by name when any log row ... exists\". Brief: \"the 44->43 downgrade is lossless only when both fields are empty on every edge and otherwise refuses by name.\"",
+    "redStatus": "fails",
+    "redReason": "Measured: \"expected [Function] to throw error matching /competit/i but got 'mods(...).convertV44ToV43 is not a function'\" \u2014 pattern mismatch, correctly RED."
+  },
+  {
+    "file": "tests/p14b10-save-v44.test.ts",
+    "leaf": "save-v44: down-conversion (convertV44ToV43) > refuses a real (non-null) romance by name",
+    "requirement": "Same clause, the romance half.",
+    "redStatus": "fails",
+    "redReason": "Same pattern-mismatch mechanism."
+  },
+  {
+    "file": "tests/bridge-p14b10-relationship-labels.test.ts",
+    "leaf": "P14B10 T1 \u2014 the projection version moves once for slice B (1347-F Addendum) > PROJECTION_VERSION is 57",
+    "requirement": "1347-F Addendum: \"Slice B takes projection 57 once.\"",
+    "redStatus": "fails",
+    "redReason": "Measured: \"expected 56 to be 57\" \u2014 bridge/schema/bridge-schema.ts still pins 56 at BASE."
+  },
+  {
+    "file": "tests/bridge-p14b10-relationship-labels.test.ts",
+    "leaf": "Professional Rivals \u2014 disclosure (row presence is roster-gated, unchanged; the label rides the disclosed row) > a Rivals-qualifying edge on a DISCLOSED counterpart shows the label, naming evidence text",
+    "requirement": "1347-A \u00a74: StudioRelationshipRow gains labels; disclosure unchanged (rows exist only for counterparts on the viewer's roster).",
+    "redStatus": "fails",
+    "redReason": "RE-VERIFIED after two fixture fixes (see handback \"fixture bugs found and fixed\"): (1) signContract's termWeeks is clamped to TUNING.CONTRACT_MAX_WEEKS (measured 208) regardless of the requested value, so the original week-400 advance let the roster contract naturally expire before the read week -- moved the advance to week 150 and memoized rosterWorld() (a genuine, separate efficiency fix: an un-memoized version cost ~25-32s PER LEAF, ~275s for the whole file; memoized, the same non-Mentor leaves run in ~13.5s total). Measured (vitest run --project core tests/bridge-p14b10-relationship-labels.test.ts -t \"(P14B10 T1|Professional Rivals|Romance|No magnitudes)\"): \"expected false to be true\" at the Array.isArray(counterpartRow.labels) guard -- the row is now genuinely disclosed and reached; labels is undefined on StudioRelationshipRow at BASE."
+  },
+  {
+    "file": "tests/bridge-p14b10-relationship-labels.test.ts",
+    "leaf": "Professional Rivals \u2014 disclosure (row presence is roster-gated, unchanged; the label rides the disclosed row) > the IDENTICAL Rivals-qualifying edge on an UNDISCLOSED counterpart produces NO row at all (existing disclosure law, unaffected by labels)",
+    "requirement": "1347-A \u00a74: \"Disclosure is unchanged: rows exist only for counterparts on the viewer's roster.\"",
+    "redStatus": "control-passes",
+    "redReason": "Measured passing both before and after the roster-expiry fix (route premise unaffected: the counterpart here was never on the roster at all). Existing disclosure law, unaffected by the new fields."
+  },
+  {
+    "file": "tests/bridge-p14b10-relationship-labels.test.ts",
+    "leaf": "Professional Rivals \u2014 disclosure (row presence is roster-gated, unchanged; the label rides the disclosed row) > a disclosed non-Rivals edge (lead then support, no shared slot) shows no Professional Rivals label",
+    "requirement": "HIS-014 negative case, exercised at the Bridge layer.",
+    "redStatus": "fails",
+    "redReason": "RE-VERIFIED after the same two fixture fixes. Measured: \"expected false to be true\" at the same Array.isArray guard."
+  },
+  {
+    "file": "tests/bridge-p14b10-relationship-labels.test.ts",
+    "leaf": "Romance \u2014 disclosure and shape (status/sinceLabel/endedLabel via the existing campaignDate device) > a disclosed OPEN bond reads status \"partners\", sinceLabel = campaignDate(formedWeek).label, endedLabel null",
+    "requirement": "Parent API: romance: { status, sinceLabel, endedLabel } | null.",
+    "redStatus": "fails",
+    "redReason": "RE-VERIFIED after the roster/memoization fixes AND a third fix (the original formedWeek = week-300/endedWeek = week-50 offsets no longer fit under the week-150 roster ceiling; narrowed to week-100/week-30, immaterial to what this leaf tests since these are hand-staged calendar labels, not derived decay arithmetic). Measured: \"expected undefined to deeply equal { status: 'partners', sinceLabel: '1922 \u00b7 Week 42', endedLabel: null }\", received undefined -- StudioRelationshipRow.romance does not exist at BASE."
+  },
+  {
+    "file": "tests/bridge-p14b10-relationship-labels.test.ts",
+    "leaf": "Romance \u2014 disclosure and shape (status/sinceLabel/endedLabel via the existing campaignDate device) > a disclosed CLOSED bond reads status \"ended\", with both sinceLabel and endedLabel set",
+    "requirement": "Same clause, the ended-bond shape.",
+    "redStatus": "fails",
+    "redReason": "RE-VERIFIED. Measured: \"expected undefined to deeply equal { status: 'ended', sinceLabel: '1920 \u00b7 Week 51', endedLabel: '1922 \u00b7 Week 17' }\", received undefined."
+  },
+  {
+    "file": "tests/bridge-p14b10-relationship-labels.test.ts",
+    "leaf": "Romance \u2014 disclosure and shape (status/sinceLabel/endedLabel via the existing campaignDate device) > no romance (null track) reads romance: null on the row",
+    "requirement": "Parent API: romance is nullable.",
+    "redStatus": "fails",
+    "redReason": "RE-VERIFIED. Measured: \"expected undefined to be null\" -- the field is absent, not merely unpopulated."
+  },
+  {
+    "file": "tests/bridge-p14b10-relationship-labels.test.ts",
+    "leaf": "Romance \u2014 disclosure and shape (status/sinceLabel/endedLabel via the existing campaignDate device) > a bond on an UNDISCLOSED counterpart produces no row (and so no romance leak) at all",
+    "requirement": "1347-A \u00a74 disclosure law extended to romance.",
+    "redStatus": "control-passes",
+    "redReason": "Measured passing both before and after the fix (route premise unaffected: this counterpart was never on the roster)."
+  },
+  {
+    "file": "tests/bridge-p14b10-relationship-labels.test.ts",
+    "leaf": "No magnitudes, no key named \"relationships\": (1347-A \u00a74; the landed leak law extended over the two new fields) > a label row is EXACTLY {label, evidence} \u2014 no numeric field slips in",
+    "requirement": "1347-A \u00a74: \"No magnitudes appear.\" Parent API: labels: { label, evidence }[] \u2014 no numeric field in the shape.",
+    "redStatus": "fails",
+    "redReason": "RE-VERIFIED. Measured: \"Cannot read properties of undefined (reading 'find')\" on counterpartRow.labels.find(...) -- the row is reached but labels is undefined."
+  },
+  {
+    "file": "tests/bridge-p14b10-relationship-labels.test.ts",
+    "leaf": "No magnitudes, no key named \"relationships\": (1347-A \u00a74; the landed leak law extended over the two new fields) > the serialized block never contains the leak key form \"relationships\": (the landed law, tests/bridge-p14b5-relationships.test.ts:404-408, extended to the labels/romance fields)",
+    "requirement": "1347-A \u00a74: \"no key named \\\"relationships:\\\"\".",
+    "redStatus": "control-passes",
+    "redReason": "Measured passing both before and after the fix: the DTO at BASE (without labels/romance fields at all) trivially contains none of the leak strings. A genuine regression guard: once production adds the fields, this leaf must still pass."
+  },
+  {
+    "file": "tests/bridge-p14b10-relationship-labels.test.ts",
+    "leaf": "Mentor \u2014 the Bridge-level \"public\" gate (1347-A \u00a76 item 8: \"withhold the label until all three pictures are public\") > a genuine cohort entrant with three genuine RELEASED same-director pictures shows the Mentor label on the disclosed pair",
+    "requirement": "1347-A \u00a76 item 8: \"Mentor evidence on rival pictures. Withhold the label until all three pictures are public.\" (here: the positive, all-public control).",
+    "redStatus": "fails",
+    "redReason": "BLOCKED by a pre-existing, unrelated regression (confirmed independently reproducible on real repo HEAD c614b7e9, no slice A/B changes involved): tests/helpers/p14c3-genuine-evidence-fixtures.ts:17 hardcodes `expect(saved.saveVersion).toBe(42)` inside `acceptedEvidence()`, which `cohortThreeFilms()` calls; the real repo's LIVE_SAVE_VERSION is 43 (post rival-shelving), so `makeSave(state).saveVersion` is genuinely 43 there now, and this pre-existing assertion throws before this file's own leaf ever reaches a Bridge-level assertion. This is the parent's own tracked \"Save43 sweep fallout\" item (git log: \"Save43 sweep fallout measurement next (1344-L)\"), not a slice-B defect. The intended slice-B assertion in this leaf (the Mentor Bridge-level \"public\" gate) is UNEXERCISED as a result \u2014 a genuine evidence limit, not a pass.",
+    "blockedByPreexistingRegression": false,
+    "note": "1358-C2 re-check by reading (brief task 3; 1358-F \u00a74, F1 and F2). The Save43 pin sweep (cec3902c) moved tests/helpers/p14c3-genuine-evidence-fixtures.ts:17-18 to toBe(43) and validateSaveV43, and LIVE_SAVE_VERSION is 43 at r2's base (src/core/save.ts:6560), so acceptedEvidence no longer throws. No other save-version pin sits on the cohortThreeFilms() path: tests/helpers/p14c3-cohort-transition-fixtures.ts holds none, and the pins in tests/helpers/p14c3-fixtures.ts (:134, envelope38) and tests/helpers/p14c2b-fixtures.ts (frozen V35 helpers) are off that path. The parent's recorded run docs/.../1344-save43-sweep-broad-core.txt:1915 (in progress, read at 20:47 CDT) shows tests/p14c3-cohort-transition.test.ts passing 9 of 9 on the same fixture at HEAD. With slice A applied the route is unchanged: it holds no casting competition, so rules version 2 changes no tier on it. The redReason above is r1's measurement at c614b7e9 and no longer describes this base. Derived RED at r2: the leaf reaches its own Bridge-level assertion and fails there, because StudioRelationshipRow has no labels field: toContainEqual runs Array.from(undefined) and throws \"TypeError: undefined is not iterable (cannot read property Symbol(Symbol.iterator))\". The first cohortThreeFilms() build in the file costs 50.8-82.3 s (1348-C5); the leaf budget is 180_000 ms. 1358-F2 item 4: the explicit vitest timeout now carries the 1356-F5 note (a comment): vitest cannot stop a synchronous body, so it is not a budget. The file header no longer calls the 180_000 ms timeout a budget."
+  },
+  {
+    "file": "tests/bridge-p14b10-relationship-labels.test.ts",
+    "leaf": "Mentor \u2014 the Bridge-level \"public\" gate (1347-A \u00a76 item 8: \"withhold the label until all three pictures are public\") > the SAME cohort entrant, with ONE of the three pictures NOT YET public (its release fact removed), withholds Mentor at the Bridge level even though the core derivation is unaffected",
+    "requirement": "1347-A \u00a76 item 8, the withholding direction.",
+    "redStatus": "fails",
+    "redReason": "BLOCKED by a pre-existing, unrelated regression (confirmed independently reproducible on real repo HEAD c614b7e9, no slice A/B changes involved): tests/helpers/p14c3-genuine-evidence-fixtures.ts:17 hardcodes `expect(saved.saveVersion).toBe(42)` inside `acceptedEvidence()`, which `cohortThreeFilms()` calls; the real repo's LIVE_SAVE_VERSION is 43 (post rival-shelving), so `makeSave(state).saveVersion` is genuinely 43 there now, and this pre-existing assertion throws before this file's own leaf ever reaches a Bridge-level assertion. This is the parent's own tracked \"Save43 sweep fallout\" item (git log: \"Save43 sweep fallout measurement next (1344-L)\"), not a slice-B defect. The intended slice-B assertion in this leaf (the Mentor Bridge-level \"public\" gate) is UNEXERCISED as a result \u2014 a genuine evidence limit, not a pass.",
+    "blockedByPreexistingRegression": false,
+    "note": "1358-C2 re-check by reading (brief task 3; 1358-F \u00a74, F1 and F2). The Save43 pin sweep (cec3902c) moved tests/helpers/p14c3-genuine-evidence-fixtures.ts:17-18 to toBe(43) and validateSaveV43, and LIVE_SAVE_VERSION is 43 at r2's base (src/core/save.ts:6560), so acceptedEvidence no longer throws. No other save-version pin sits on the cohortThreeFilms() path: tests/helpers/p14c3-cohort-transition-fixtures.ts holds none, and the pins in tests/helpers/p14c3-fixtures.ts (:134, envelope38) and tests/helpers/p14c2b-fixtures.ts (frozen V35 helpers) are off that path. The parent's recorded run docs/.../1344-save43-sweep-broad-core.txt:1915 (in progress, read at 20:47 CDT) shows tests/p14c3-cohort-transition.test.ts passing 9 of 9 on the same fixture at HEAD. With slice A applied the route is unchanged: it holds no casting competition, so rules version 2 changes no tier on it. The redReason above is r1's measurement at c614b7e9 and no longer describes this base. Derived RED at r2: the leaf reaches its own Bridge-level assertion and fails there, because StudioRelationshipRow has no labels field: directorRow.labels.some(...) throws \"TypeError: Cannot read properties of undefined (reading 'some')\". It reads the memoized fixture, so it runs in seconds after the first leaf. 1358-F2 item 4: the explicit vitest timeout now carries the 1356-F5 note (a comment): vitest cannot stop a synchronous body, so it is not a budget. The file header no longer calls the 180_000 ms timeout a budget."
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "P14B10 T1 \u2014 the new bindings exist (RED at behavior, never a vacuous undefined pass) > every romance constant is the Owner/charter-named value (1347-A \u00a73), and both functions exist",
+    "requirement": "1347-A \u00a73: ROMANCE_FORMATION_THRESHOLD 75, ROMANCE_EXIT_THRESHOLD 40, ROMANCE_PROXIMITY_GAIN 10, ROMANCE_SUCCESS_GAIN 5, ROMANCE_GRACE_WEEKS 104, ROMANCE_DECAY_WEEKS 260; currentRomanceValue/romanceStatus exist.",
+    "redStatus": "fails",
+    "redReason": "Measured: \"expected undefined to be 75\" \u2014 none of the six constants nor either function exist in relationships.ts at BASE."
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "P14B10 T1 \u2014 the new bindings exist (RED at behavior, never a vacuous undefined pass) > the named relation holds: EXIT_THRESHOLD is strictly below FORMATION_THRESHOLD (1347-A \u00a73: \"the wide gap stops bonds flickering\")",
+    "requirement": "1347-A \u00a73: \"The wide gap stops bonds flickering between formed and ended.\"",
+    "redStatus": "fails",
+    "redReason": "Measured: \"actual value must be number or bigint, received undefined\" \u2014 both constants are undefined at BASE."
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "currentRomanceValue \u2014 pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > holds the stored value inside the grace window (dormant = 0, and dormant = GRACE exactly)",
+    "requirement": "1347-A \u00a72.3 Separation: \"The value holds for ROMANCE_GRACE_WEEKS.\"",
+    "redStatus": "fails",
+    "redReason": "Measured: \"currentRomanceValue is not a function\"."
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "currentRomanceValue \u2014 pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > decays linearly toward 0 partway through the decay window (independent hand-derived oracle)",
+    "requirement": "1347-A \u00a72.3: \"then falls linearly to 0 over ROMANCE_DECAY_WEEKS, the same shape as currentCloseness.\"",
+    "redStatus": "fails",
+    "redReason": "Measured: \"currentRomanceValue is not a function\". Expected value hand-derived independently (value - trunc(value*span/DECAY)), never copied from any implementation."
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "currentRomanceValue \u2014 pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > reaches exactly 0 at GRACE + DECAY weeks, and never goes negative or rises past that floor afterward",
+    "requirement": "Same clause, the terminal/floor boundary.",
+    "redStatus": "fails",
+    "redReason": "Measured: \"currentRomanceValue is not a function\"."
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "currentRomanceValue \u2014 pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > a value of 0 stays 0 through the whole window (no negative drift)",
+    "requirement": "Floor boundary at the opposite extreme (already-zero value).",
+    "redStatus": "fails",
+    "redReason": "Measured: \"currentRomanceValue is not a function\"."
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "currentRomanceValue \u2014 pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > a value of exactly ROMANCE_FORMATION_THRESHOLD decays below ROMANCE_EXIT_THRESHOLD before reaching 0 (the named 229-week note, 1347-A \u00a73)",
+    "requirement": "1347-A \u00a73 rationale row: \"A bond at 75 ends about 229 weeks after the last shared picture.\"",
+    "redStatus": "fails",
+    "redReason": "Measured (after an explicit typeof-guard fix to this leaf \u2014 see handback \"fixture bugs found and fixed\"): \"expected 'undefined' to be 'number'\". Without the guard, the loop bound ROMANCE_GRACE_WEEKS + ROMANCE_DECAY_WEEKS silently evaluates to NaN (undefined+undefined), which makes week<=NaN false from the first iteration, so the loop body never runs and currentRomanceValue is never called at all \u2014 this would have surfaced as a confusing \"expected -1 to be greater than 0\" instead of naming the real cause. Fixed and re-measured before handback."
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "romanceStatus \u2014 pure reads (no route needed; independent of tier, closeness, studio or employment) > null romance reads null",
+    "requirement": "Parent API: romanceStatus(edge, week): 'partners'|'ended'|null.",
+    "redStatus": "fails",
+    "redReason": "Measured: \"romanceStatus is not a function\"."
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "romanceStatus \u2014 pure reads (no route needed; independent of tier, closeness, studio or employment) > a track with no bond ever formed (still accumulating) reads null, not \"partners\"",
+    "requirement": "Inferred contract (stated in file header): a track with an empty bonds array has never formed a Partners relationship and must not read partners.",
+    "redStatus": "fails",
+    "redReason": "Measured: \"romanceStatus is not a function\"."
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "romanceStatus \u2014 pure reads (no route needed; independent of tier, closeness, studio or employment) > an OPEN bond whose derived value is still at/above EXIT_THRESHOLD reads \"partners\"",
+    "requirement": "1347-A \u00a72.3 Ending: the bond is open until the derived value drops below the exit threshold.",
+    "redStatus": "fails",
+    "redReason": "Measured: \"romanceStatus is not a function\"."
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "romanceStatus \u2014 pure reads (no route needed; independent of tier, closeness, studio or employment) > an OPEN bond whose derived value has now decayed below EXIT_THRESHOLD reads \"ended\" \u2014 COMPUTED ON READ, before any write has persisted endedWeek",
+    "requirement": "1347-A \u00a72.3: \"That week is computed on read. It is written into endedWeek once, at the next write.\"",
+    "redStatus": "fails",
+    "redReason": "Measured: \"currentRomanceValue is not a function\" (this leaf also calls currentRomanceValue directly to establish its own fixture premise before calling romanceStatus)."
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "romanceStatus \u2014 pure reads (no route needed; independent of tier, closeness, studio or employment) > an already-recorded closed bond reads \"ended\" at every later week too, unconditionally",
+    "requirement": "1347-A \u00a72.3: \"It is never overwritten.\"",
+    "redStatus": "fails",
+    "redReason": "Measured: \"romanceStatus is not a function\"."
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "romanceStatus \u2014 pure reads (no route needed; independent of tier, closeness, studio or employment) > romanceStatus is independent of tier/closeness: a Partners pair at Strained closeness still reads \"partners\" (D-1312-2: a friendship-tier drop alone does not end the romance)",
+    "requirement": "D-1312-2 (1340-O:76-78): \"a friendship-tier drop alone does not automatically end the romance.\"",
+    "redStatus": "fails",
+    "redReason": "Measured: \"romanceStatus is not a function\". Fixture premise (currentTier reads Strained on the same staged edge) is independently true under slice A production."
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "romanceStatus \u2014 pure reads (no route needed; independent of tier, closeness, studio or employment) > romanceStatus takes no argument beyond (edge, week) \u2014 by construction it cannot consult studio, retirement or employment (D-1312-2 non-triggers)",
+    "requirement": "D-1312-2: \"Changing studios, retirement ... alone does not automatically end the romance.\" 1347-A \u00a72.3 Non-triggers: \"No romance rule reads employment, retirement or the friendship tier after formation.\"",
+    "redStatus": "fails",
+    "redReason": "Measured: \"Cannot read properties of undefined (reading 'length')\" \u2014 romanceStatus does not exist, so .length cannot be read. A structural arity proof, not a route test: once the function exists with the declared 2-argument signature, this leaf becomes a permanent guard against ever widening it to consult additional state."
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "growth in advanceRelationshipsWeek (1358-F \u00a72): eligibility is Friends+ and no open bond with anyone but the pair's own partner (1347-F note; 1358-F \u00a71) > below Friends, a qualifying high-proximity 2nd+ shared production grants NO romance growth",
+    "requirement": "1347-A \u00a72.3 (growth, formation, ending) and 1347-F's eligibility note. The write seam is advanceRelationshipsWeek(state, delta, week), ruled by 1358-F \u00a72; r1 named it as this author's proposed reading. The leaf code is unchanged from r1 unless the note says otherwise.",
+    "redStatus": "not executed",
+    "redReason": "NOT RUN before handback (machine-load hold: the coordinator's note restricts runs over ~1 minute until the recorded measurement clears; this describe block's first leaf pays baseWorld()'s one-time advanceTo(state,400) cost, an unmeasured but plausibly >1-minute engine-tick cost). Code-reviewed for correctness; not executed. Reported honestly as NOT EXECUTED, not as a claimed RED.",
+    "proposedSeam": false,
+    "note": "Derived at RED: passes (control). Slice A's advanceRelationshipsWeek leaves the staged romance untouched, so romance stays null, and the sharedProductions premise reads 2. It is the first leaf to call baseWorld(), which r3 times itself (1358-F2 item 4): the build throws BaseWorldBudgetExceeded past PROVISIONAL_BASEWORLD_BUDGET_MS = 120_000, and the failure is cached so no later leaf rebuilds. Expected build time 25-32 s (inferred from r1's week-400 advance). Renamed in r3 (1358-F2 item 6): the describe title now states the ruled seam or API; the leaf title is unchanged.",
+    "renameOldIdentity": "growth (Proposed seam: advanceRelationshipsWeek) \u2014 eligibility (1347-F non-blocking note: Friends+ and no open bond with anyone) > below Friends, a qualifying high-proximity 2nd+ shared production grants NO romance growth",
+    "renameNewIdentity": "growth in advanceRelationshipsWeek (1358-F \u00a72): eligibility is Friends+ and no open bond with anyone but the pair's own partner (1347-F note; 1358-F \u00a71) > below Friends, a qualifying high-proximity 2nd+ shared production grants NO romance growth"
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "growth in advanceRelationshipsWeek (1358-F \u00a72): eligibility is Friends+ and no open bond with anyone but the pair's own partner (1347-F note; 1358-F \u00a71) > growth is blocked by a THIRD PARTY's open bond (1358-F \u00a71: Reading B excludes only the pair's own partner)",
+    "requirement": "1347-A \u00a72.3 (growth, formation, ending) and 1347-F's eligibility note. The write seam is advanceRelationshipsWeek(state, delta, week), ruled by 1358-F \u00a72; r1 named it as this author's proposed reading. The leaf code is unchanged from r1 unless the note says otherwise.",
+    "redStatus": "not executed",
+    "redReason": "NOT RUN before handback (machine-load hold: the coordinator's note restricts runs over ~1 minute until the recorded measurement clears; this describe block's first leaf pays baseWorld()'s one-time advanceTo(state,400) cost, an unmeasured but plausibly >1-minute engine-tick cost). Code-reviewed for correctness; not executed. Reported honestly as NOT EXECUTED, not as a claimed RED.",
+    "proposedSeam": false,
+    "note": "Derived at RED: passes (control), vacuously. The staged value ROMANCE_FORMATION_THRESHOLD - ROMANCE_PROXIMITY_GAIN is undefined - undefined = NaN, the write keeps it, and toBe compares NaN with NaN by Object.is, which passes; bonds stay []. It becomes meaningful at GREEN (65 stays 65). Reading B (1358-F \u00a71) leaves this leaf as written. Renamed in r3 (1358-F2 item 6): the describe title now states the ruled seam or API; the leaf title too.",
+    "renameOldIdentity": "growth (Proposed seam: advanceRelationshipsWeek) \u2014 eligibility (1347-F non-blocking note: Friends+ and no open bond with anyone) > growth is blocked by a THIRD PARTY's open bond (both readings of the disputed question agree here \u2014 see file header)",
+    "renameNewIdentity": "growth in advanceRelationshipsWeek (1358-F \u00a72): eligibility is Friends+ and no open bond with anyone but the pair's own partner (1347-F note; 1358-F \u00a71) > growth is blocked by a THIRD PARTY's open bond (1358-F \u00a71: Reading B excludes only the pair's own partner)"
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "growth in advanceRelationshipsWeek (1358-F \u00a72): eligibility is Friends+ and no open bond with anyone but the pair's own partner (1347-F note; 1358-F \u00a71) > romance-partnered-pair-keeps-growing: after formation, a shared success raises the pair's own value, capped at 100 (1358-F \u00a71, Reading B: \"anyone\" excludes the pair's own partner)",
+    "requirement": "1358-F \u00a71, Reading B: \"anyone\" in 1347-F's eligibility note excludes the pair's own partner, so an already-partnered pair keeps growing under the same drivers, up to the 0-100 bound. A third party's open bond still blocks (the r1 leaf above).",
+    "redStatus": "not executed",
+    "redReason": "NOT RUN (1358-C2: the heavy lane is locked; no vitest, tsc or node process was started). Derived at RED: fails at its first line, \"expected 'undefined' to be 'number'\": ROMANCE_SUCCESS_GAIN is not exported at slice A. The guard exists because the staged value 100 - ROMANCE_SUCCESS_GAIN + 1 is NaN at RED, and NaN read back passes toBe(NaN) by Object.is.",
+    "note": "Added in r2. Derived at GREEN: sharedSuccesses 1; value min(100, 96 + 5) = 100, so the value moved (Reading A would keep 96) and the cap held (101 would fail); bonds still the one open row. The staged anchor is the write week minus one, so the result does not depend on whether a write materializes decay. Renamed in r3 (1358-F2 item 6): the describe title now states the ruled seam or API; the leaf title is unchanged.",
+    "renameOldIdentity": "growth (Proposed seam: advanceRelationshipsWeek) \u2014 eligibility (1347-F non-blocking note: Friends+ and no open bond with anyone) > romance-partnered-pair-keeps-growing: after formation, a shared success raises the pair's own value, capped at 100 (1358-F \u00a71, Reading B: \"anyone\" excludes the pair's own partner)",
+    "renameNewIdentity": "growth in advanceRelationshipsWeek (1358-F \u00a72): eligibility is Friends+ and no open bond with anyone but the pair's own partner (1347-F note; 1358-F \u00a71) > romance-partnered-pair-keeps-growing: after formation, a shared success raises the pair's own value, capped at 100 (1358-F \u00a71, Reading B: \"anyone\" excludes the pair's own partner)"
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "growth in advanceRelationshipsWeek (1358-F \u00a72): the eligible case, written in the ruled order (1358-F2 item 1) > a high-proximity (director-lead) 2nd+ shared production, Friends+, no open bond anywhere, adds ROMANCE_PROXIMITY_GAIN and resets anchorWeek",
+    "requirement": "1347-A \u00a72.3 (growth, formation, ending) and 1347-F's eligibility note. The write seam is advanceRelationshipsWeek(state, delta, week), ruled by 1358-F \u00a72; r1 named it as this author's proposed reading. The leaf code is unchanged from r1 unless the note says otherwise.",
+    "redStatus": "not executed",
+    "redReason": "NOT RUN before handback (machine-load hold: the coordinator's note restricts runs over ~1 minute until the recorded measurement clears; this describe block's first leaf pays baseWorld()'s one-time advanceTo(state,400) cost, an unmeasured but plausibly >1-minute engine-tick cost). Code-reviewed for correctness; not executed. Reported honestly as NOT EXECUTED, not as a claimed RED.",
+    "proposedSeam": false,
+    "note": "Derived at RED: fails \"expected null not to be null\" at expect(written.romance).not.toBeNull(), after the sharedProductions premise (2) passes. Renamed in r3 (1358-F2 item 6): the describe title now states the ruled seam or API; the leaf title is unchanged.",
+    "renameOldIdentity": "growth (Proposed seam: advanceRelationshipsWeek) \u2014 the eligible case > a high-proximity (director-lead) 2nd+ shared production, Friends+, no open bond anywhere, adds ROMANCE_PROXIMITY_GAIN and resets anchorWeek",
+    "renameNewIdentity": "growth in advanceRelationshipsWeek (1358-F \u00a72): the eligible case, written in the ruled order (1358-F2 item 1) > a high-proximity (director-lead) 2nd+ shared production, Friends+, no open bond anywhere, adds ROMANCE_PROXIMITY_GAIN and resets anchorWeek"
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "growth in advanceRelationshipsWeek (1358-F \u00a72): the eligible case, written in the ruled order (1358-F2 item 1) > lead-antagonist is ALSO high proximity (1347-A \u00a72.3 names both seat pairs) and grants the same gain",
+    "requirement": "1347-A \u00a72.3 (growth, formation, ending) and 1347-F's eligibility note. The write seam is advanceRelationshipsWeek(state, delta, week), ruled by 1358-F \u00a72; r1 named it as this author's proposed reading. The leaf code is unchanged from r1 unless the note says otherwise.",
+    "redStatus": "not executed",
+    "redReason": "NOT RUN before handback (machine-load hold: the coordinator's note restricts runs over ~1 minute until the recorded measurement clears; this describe block's first leaf pays baseWorld()'s one-time advanceTo(state,400) cost, an unmeasured but plausibly >1-minute engine-tick cost). Code-reviewed for correctness; not executed. Reported honestly as NOT EXECUTED, not as a claimed RED.",
+    "proposedSeam": false,
+    "note": "Derived at RED: fails with \"TypeError: Cannot read properties of null (reading 'value')\": no track is created. Renamed in r3 (1358-F2 item 6): the describe title now states the ruled seam or API; the leaf title is unchanged.",
+    "renameOldIdentity": "growth (Proposed seam: advanceRelationshipsWeek) \u2014 the eligible case > lead-antagonist is ALSO high proximity (1347-A \u00a72.3 names both seat pairs) and grants the same gain",
+    "renameNewIdentity": "growth in advanceRelationshipsWeek (1358-F \u00a72): the eligible case, written in the ruled order (1358-F2 item 1) > lead-antagonist is ALSO high proximity (1347-A \u00a72.3 names both seat pairs) and grants the same gain"
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "growth in advanceRelationshipsWeek (1358-F \u00a72): the eligible case, written in the ruled order (1358-F2 item 1) > director-support is LOW proximity and grants NO romance gain (but still resets anchorWeek if a track already exists \u2014 \"any shared take resets separation\")",
+    "requirement": "1347-A \u00a72.3 (growth, formation, ending) and 1347-F's eligibility note. The write seam is advanceRelationshipsWeek(state, delta, week), ruled by 1358-F \u00a72; r1 named it as this author's proposed reading. The leaf code is unchanged from r1 unless the note says otherwise.",
+    "redStatus": "not executed",
+    "redReason": "NOT RUN (1358-C3: the heavy lane is locked; no vitest, tsc or node process was started). CHANGED in r3 (1358-F2 item 1(a)): the staged anchor moves from week - 200 to week - 100, inside ROMANCE_GRACE_WEEKS, so no decay applies at the touch and the leaf tests only its title. A premise after the behaviour checks (week + 1) - anchor <= ROMANCE_GRACE_WEEKS. Derived at RED: the value assertion (staged 50) passes, then it fails \"expected 300 to be 401\" at the anchor assertion (week - 100 kept, week + 1 expected, with baseWorld at week 400).",
+    "proposedSeam": false,
+    "note": "r2's derivation (anchor week - 200, \"expected 200 to be 401\") and its open GREEN point are superseded: 1358-F2 item 1 ruled materialize-first and moved the anchor inside the grace window, so the leaf holds under any write order. Renamed in r3 (1358-F2 item 6): the describe title now states the ruled seam; the leaf title is unchanged.",
+    "renameOldIdentity": "growth (Proposed seam: advanceRelationshipsWeek) \u2014 the eligible case > director-support is LOW proximity and grants NO romance gain (but still resets anchorWeek if a track already exists \u2014 \"any shared take resets separation\")",
+    "renameNewIdentity": "growth in advanceRelationshipsWeek (1358-F \u00a72): the eligible case, written in the ruled order (1358-F2 item 1) > director-support is LOW proximity and grants NO romance gain (but still resets anchorWeek if a track already exists \u2014 \"any shared take resets separation\")"
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "growth in advanceRelationshipsWeek (1358-F \u00a72): the eligible case, written in the ruled order (1358-F2 item 1) > a write materializes first: a high-proximity touch outside the grace window reads currentRomanceValue at the write week, then adds ROMANCE_PROXIMITY_GAIN (1358-F2 item 1)",
+    "requirement": "1358-F2 item 1 (from 1347-A \u00a72.3 \"the same shape as currentCloseness\" and writeEdge): a romance write records any derived ending, then reads currentRomanceValue(romance, writeWeek), then adds any gain, clamps to 0..100 and sets anchorWeek to the write week.",
+    "redStatus": "not executed",
+    "redReason": "NOT RUN (1358-C3: the heavy lane is locked; no vitest, tsc or node process was started). Derived at RED: fails at its first line, \"expected 'undefined' to be 'number'\": ROMANCE_GRACE_WEEKS is not exported at slice A. The guard exists because every expected value is an expression over the missing constants.",
+    "note": "Added in r3. Staged value 50 anchored at week - 200, high-proximity (director-lead) touch at week + 1: dormancy 201, span min(201 - ROMANCE_GRACE_WEEKS, ROMANCE_DECAY_WEEKS) = 97. Restore-then-gain gives 50 + 10 = 60, materialize-then-gain gives 50 - trunc(50 * 97 / 260) + 10 = 32 + 10 = 42, gain-then-decay gives 60 - trunc(60 * 97 / 260) = 38. The leaf asserts 42 and anchorWeek = week + 1."
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "growth in advanceRelationshipsWeek (1358-F \u00a72): the eligible case, written in the ruled order (1358-F2 item 1) > a shared SUCCESS (release) adds ROMANCE_SUCCESS_GAIN, Friends+ and no open bond",
+    "requirement": "1347-A \u00a72.3 (growth, formation, ending) and 1347-F's eligibility note. The write seam is advanceRelationshipsWeek(state, delta, week), ruled by 1358-F \u00a72; r1 named it as this author's proposed reading. The leaf code is unchanged from r1 unless the note says otherwise.",
+    "redStatus": "not executed",
+    "redReason": "NOT RUN before handback (machine-load hold: the coordinator's note restricts runs over ~1 minute until the recorded measurement clears; this describe block's first leaf pays baseWorld()'s one-time advanceTo(state,400) cost, an unmeasured but plausibly >1-minute engine-tick cost). Code-reviewed for correctness; not executed. Reported honestly as NOT EXECUTED, not as a claimed RED.",
+    "proposedSeam": false,
+    "note": "Derived at RED: fails with \"TypeError: Cannot read properties of null (reading 'value')\", after the sharedSuccesses premise (1) passes. Renamed in r3 (1358-F2 item 6): the describe title now states the ruled seam or API; the leaf title is unchanged.",
+    "renameOldIdentity": "growth (Proposed seam: advanceRelationshipsWeek) \u2014 the eligible case > a shared SUCCESS (release) adds ROMANCE_SUCCESS_GAIN, Friends+ and no open bond",
+    "renameNewIdentity": "growth in advanceRelationshipsWeek (1358-F \u00a72): the eligible case, written in the ruled order (1358-F2 item 1) > a shared SUCCESS (release) adds ROMANCE_SUCCESS_GAIN, Friends+ and no open bond"
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "growth in advanceRelationshipsWeek (1358-F \u00a72): the eligible case, written in the ruled order (1358-F2 item 1) > a rival pair (rival studioId in the take) forms romance under the SAME law [control: advanceRelationshipsWeek never reads delta.takes[].studioId]",
+    "requirement": "1347-A \u00a72.3 (growth, formation, ending) and 1347-F's eligibility note. The write seam is advanceRelationshipsWeek(state, delta, week), ruled by 1358-F \u00a72; r1 named it as this author's proposed reading. The leaf code is unchanged from r1 unless the note says otherwise.",
+    "redStatus": "not executed",
+    "redReason": "NOT RUN before handback (machine-load hold: the coordinator's note restricts runs over ~1 minute until the recorded measurement clears; this describe block's first leaf pays baseWorld()'s one-time advanceTo(state,400) cost, an unmeasured but plausibly >1-minute engine-tick cost). Code-reviewed for correctness; not executed. Reported honestly as NOT EXECUTED, not as a claimed RED.",
+    "proposedSeam": false,
+    "note": "Derived at RED: fails with \"TypeError: Cannot read properties of null (reading 'value')\". Renamed in r3 (1358-F2 item 6): the describe title now states the ruled seam or API; the leaf title is unchanged.",
+    "renameOldIdentity": "growth (Proposed seam: advanceRelationshipsWeek) \u2014 the eligible case > a rival pair (rival studioId in the take) forms romance under the SAME law [control: advanceRelationshipsWeek never reads delta.takes[].studioId]",
+    "renameNewIdentity": "growth in advanceRelationshipsWeek (1358-F \u00a72): the eligible case, written in the ruled order (1358-F2 item 1) > a rival pair (rival studioId in the take) forms romance under the SAME law [control: advanceRelationshipsWeek never reads delta.takes[].studioId]"
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "formation \u2014 dated once, at the crossing write > crossing ROMANCE_FORMATION_THRESHOLD appends a bond with formedWeek = the crossing week and endedWeek null",
+    "requirement": "1347-A \u00a72.3 (growth, formation, ending) and 1347-F's eligibility note. The write seam is advanceRelationshipsWeek(state, delta, week), ruled by 1358-F \u00a72; r1 named it as this author's proposed reading. The leaf code is unchanged from r1 unless the note says otherwise.",
+    "redStatus": "not executed",
+    "redReason": "NOT RUN before handback (machine-load hold: the coordinator's note restricts runs over ~1 minute until the recorded measurement clears; this describe block's first leaf pays baseWorld()'s one-time advanceTo(state,400) cost, an unmeasured but plausibly >1-minute engine-tick cost). Code-reviewed for correctness; not executed. Reported honestly as NOT EXECUTED, not as a claimed RED.",
+    "proposedSeam": false,
+    "note": "Derived at RED: fails \"expected NaN to be undefined\": the staged value is undefined - undefined = NaN and the expected ROMANCE_FORMATION_THRESHOLD is undefined. The cause is the missing constants."
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "formation \u2014 dated once, at the crossing write > a re-formation (after an ended bond) appends a SECOND bond row, never overwriting the first",
+    "requirement": "1347-A \u00a72.3 (growth, formation, ending) and 1347-F's eligibility note. The write seam is advanceRelationshipsWeek(state, delta, week), ruled by 1358-F \u00a72; r1 named it as this author's proposed reading. The leaf code is unchanged from r1 unless the note says otherwise.",
+    "redStatus": "not executed",
+    "redReason": "NOT RUN before handback (machine-load hold: the coordinator's note restricts runs over ~1 minute until the recorded measurement clears; this describe block's first leaf pays baseWorld()'s one-time advanceTo(state,400) cost, an unmeasured but plausibly >1-minute engine-tick cost). Code-reviewed for correctness; not executed. Reported honestly as NOT EXECUTED, not as a claimed RED.",
+    "proposedSeam": false,
+    "note": "Derived at RED: fails toEqual: one bond row {formedWeek: -100, endedWeek: 300} received; the expected second row {formedWeek: 401, endedWeek: null} is absent."
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "ending \u2014 computed on read, persisted once at the next touching write, never moved again > the next write that touches the edge persists the READ-derived ending week into endedWeek",
+    "requirement": "1347-A \u00a72.3 (growth, formation, ending) and 1347-F's eligibility note. The write seam is advanceRelationshipsWeek(state, delta, week), ruled by 1358-F \u00a72; r1 named it as this author's proposed reading. The leaf code is unchanged from r1 unless the note says otherwise.",
+    "redStatus": "not executed",
+    "redReason": "NOT RUN (1358-C2: the heavy lane is locked; no vitest, tsc or node process was started). CHANGED in r2 under 1358-F \u00a74 F4: two guards, expect(typeof ROMANCE_GRACE_WEEKS).toBe('number') and the same for ROMANCE_DECAY_WEEKS, now open the leaf. Derived at RED: fails at the first guard, \"expected 'undefined' to be 'number'\". As r1 wrote it, the leaf would throw its own \"fixture premise failed: the staged track never crosses the exit threshold by `week`\": formedWeek = 400 - undefined - undefined - 10 is NaN, so the search loop never ran. That message blames the fixture for a missing API, the defect r1 fixed in the 229-week leaf (r1 F3.3, accepted by 1358-F \u00a74 F3).",
+    "proposedSeam": false,
+    "note": "Derived at GREEN: formedWeek 26, derived ending week 264 (80 - trunc(80 * 134 / 260) = 39 < 40); the touch at 401 records 264. 1358-F2 item 3: the guards stand (the F3.3 defect class that 1358-F \u00a74 accepted)."
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "ending \u2014 computed on read, persisted once at the next touching write, never moved again > once persisted, endedWeek is never moved by a LATER write touching the same edge again",
+    "requirement": "1347-A \u00a72.3 (growth, formation, ending) and 1347-F's eligibility note. The write seam is advanceRelationshipsWeek(state, delta, week), ruled by 1358-F \u00a72; r1 named it as this author's proposed reading. The leaf code is unchanged from r1 unless the note says otherwise.",
+    "redStatus": "not executed",
+    "redReason": "NOT RUN before handback (machine-load hold: the coordinator's note restricts runs over ~1 minute until the recorded measurement clears; this describe block's first leaf pays baseWorld()'s one-time advanceTo(state,400) cost, an unmeasured but plausibly >1-minute engine-tick cost). Code-reviewed for correctness; not executed. Reported honestly as NOT EXECUTED, not as a claimed RED.",
+    "proposedSeam": false,
+    "note": "Derived at RED: passes (control): the staged endedWeek (week - 500 = -100) is kept."
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "ending \u2014 computed on read, persisted once at the next touching write, never moved again > the ending write adds no romance-shaped driver and moves no counter/peak/recent beyond the mundane event that touched the edge",
+    "requirement": "1347-A \u00a72.3 (growth, formation, ending) and 1347-F's eligibility note. The write seam is advanceRelationshipsWeek(state, delta, week), ruled by 1358-F \u00a72; r1 named it as this author's proposed reading. The leaf code is unchanged from r1 unless the note says otherwise.",
+    "redStatus": "not executed",
+    "redReason": "NOT RUN before handback (machine-load hold: the coordinator's note restricts runs over ~1 minute until the recorded measurement clears; this describe block's first leaf pays baseWorld()'s one-time advanceTo(state,400) cost, an unmeasured but plausibly >1-minute engine-tick cost). Code-reviewed for correctness; not executed. Reported honestly as NOT EXECUTED, not as a claimed RED.",
+    "proposedSeam": false,
+    "note": "Derived at RED: passes (control): recent kinds are sharedProduction, sharedProduction and repeatedCollaboration, and peakTier stays Friends."
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F \u00a73) > while romanceStatus reads \"partners\", currentCloseness holds the stored closeness past the drift grace (1358-F \u00a73)",
+    "requirement": "1358-F \u00a73: currentCloseness holds closeness while romanceStatus(edge, week) === 'partners', and takes the strict Pick<RelationshipEdge, 'closeness' | 'lastEventWeek' | 'romance'>.",
+    "redStatus": "not executed",
+    "redReason": "NOT RUN (1358-C2: the heavy lane is locked; no vitest, tsc or node process was started). Derived at RED: fails \"expected 70 to be 90\". Slice A's currentCloseness ignores romance: dormancy RELATIONSHIP_DRIFT_GRACE_WEEKS + RELATIONSHIP_DRIFT_RETURN_WEEKS / 2 = 182, span 130, 90 + trunc((50 - 90) * 130 / 260) = 70. The root type gate also reports TS2353 at tests/p14b10-romance.test.ts(508,90): slice A's two-key Pick has no romance key. The trailing romanceStatus premise is not reached at RED; at GREEN a value-100 track anchored at 1000 reads 100 - trunc(100 * 78 / 260) = 70 >= 40 at week 1182, so the pair is partners.",
+    "renameOldIdentity": "drift exemption and resumption (Proposed API: currentCloseness reading a populated romance field \u2014 see file header gap 2) > while romanceStatus reads \"partners\", currentCloseness holds the stored closeness past the drift grace (1358-F \u00a73)",
+    "renameNewIdentity": "drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F \u00a73) > while romanceStatus reads \"partners\", currentCloseness holds the stored closeness past the drift grace (1358-F \u00a73)",
+    "note": "REPLACED, not a title-only rename (1358-F \u00a73). r1 asserted the hold at week 100000 for a value-90 bond anchored at 1000. That bond ends on read at week 1252, romanceStatus then reads 'ended', and the ruled law drifts the pair to the baseline (50), so r1's expected 70 could never pass at GREEN. Renamed in r3 (1358-F2 item 6): the describe title now states the ruled seam or API; the leaf title is unchanged. r2 had already replaced r1's \"drift exemption and resumption (Proposed API: currentCloseness reading a populated romance field \u2014 see file header gap 2) > a Partners pair (open bond) does NOT drift toward the baseline, however long ago lastEventWeek was\" (1358-F \u00a73). Type-gate positions updated to r3 lines."
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F \u00a73) > after the bond ends, drift resumes from max(lastEventWeek, endedWeek) \u2014 not from the stale lastEventWeek",
+    "requirement": "1358-F \u00a73: after the ending, currentCloseness counts dormancy from max(lastEventWeek, endedWeek). This leaf pins the endedWeek side for a recorded ending.",
+    "redStatus": "fails",
+    "redReason": "Measured: \"expected 50 to be 70\" \u2014 same root cause as the sibling leaf: currentCloseness cannot read romance/endedWeek at all today, so it drifts from the stale lastEventWeek on its own unchanged formula. Run before handback (quick, no engine route).",
+    "proposedSeam": false,
+    "note": "Unchanged in r2. r1's measured RED (\"expected 50 to be 70\") holds at r2's base, where currentCloseness is unchanged. Its cast (edge as unknown as Parameters<typeof currentCloseness>[0]) adds no type error at RED or GREEN. Renamed in r3 (1358-F2 item 6): the describe title now states the ruled seam or API; the leaf title is unchanged.",
+    "renameOldIdentity": "drift exemption and resumption (Proposed API: currentCloseness reading a populated romance field \u2014 see file header gap 2) > after the bond ends, drift resumes from max(lastEventWeek, endedWeek) \u2014 not from the stale lastEventWeek",
+    "renameNewIdentity": "drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F \u00a73) > after the bond ends, drift resumes from max(lastEventWeek, endedWeek) \u2014 not from the stale lastEventWeek"
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F \u00a73) > after a recorded ending, a LATER ordinary driver anchors the dormancy: max(lastEventWeek, endedWeek) picks lastEventWeek (1358-F \u00a73) [control: passes at RED]",
+    "requirement": "1358-F \u00a73: after the ending, dormancy counts from max(lastEventWeek, endedWeek). This leaf pins the lastEventWeek side, which r1 did not pin.",
+    "redStatus": "not executed",
+    "redReason": "NOT RUN (1358-C2: the heavy lane is locked; no vitest, tsc or node process was started). Derived at RED: passes at runtime (control). Slice A counts from lastEventWeek 950: dormancy 182, span 130, 70 + trunc((50 - 70) * 130 / 260) = 60, the expected value. Counting from endedWeek alone would give 70 + trunc((50 - 70) * 180 / 260) = 57, so the leaf guards GREEN against that. The root type gate reports TS2353 at tests/p14b10-romance.test.ts(526,90).",
+    "note": "Added in r2. Renamed in r3 (1358-F2 item 6): the describe title now states the ruled seam or API; the leaf title is unchanged. Type-gate positions updated to r3 lines.",
+    "renameOldIdentity": "drift exemption and resumption (Proposed API: currentCloseness reading a populated romance field \u2014 see file header gap 2) > after a recorded ending, a LATER ordinary driver anchors the dormancy: max(lastEventWeek, endedWeek) picks lastEventWeek (1358-F \u00a73) [control: passes at RED]",
+    "renameNewIdentity": "drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F \u00a73) > after a recorded ending, a LATER ordinary driver anchors the dormancy: max(lastEventWeek, endedWeek) picks lastEventWeek (1358-F \u00a73) [control: passes at RED]"
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F \u00a73) > an ending computed on read (endedWeek still null) ends the hold at that week and anchors the dormancy there, so recording it later changes no closeness (1358-F \u00a73; 1347-A \u00a72.3)",
+    "requirement": "1358-F \u00a73 with 1347-A \u00a72.3, ruled by 1358-F2 item 2: the drift exemption stops at the derived ending week whether or not a write has recorded it (\"computed on read\"), and recording it \"changes no closeness\" (1347-A \u00a75).",
+    "redStatus": "not executed",
+    "redReason": "NOT RUN (1358-C2: the heavy lane is locked; no vitest, tsc or node process was started). Derived at RED: fails at its first line, \"expected 'undefined' to be 'function'\": currentRomanceValue is not exported at slice A. The root type gate reports TS2353 at tests/p14b10-romance.test.ts(545,92) and (546,91).",
+    "note": "Added in r2. Derived at GREEN: a value-90 track anchored at 1000 first reads below 40 at week 1252 (90 - trunc(90 * 148 / 260) = 39; week 1251 reads 40). currentCloseness holds 90 at 1251 and at 1252 + 52, and equals the recorded-ending edge at 1252, 1304 and 1434 (70 at 1434). Renamed in r3 (1358-F2 item 6): the describe title now states the ruled seam or API; the leaf title is unchanged. Type-gate positions updated to r3 lines.",
+    "renameOldIdentity": "drift exemption and resumption (Proposed API: currentCloseness reading a populated romance field \u2014 see file header gap 2) > an ending computed on read (endedWeek still null) ends the hold at that week and anchors the dormancy there, so recording it later changes no closeness (1358-F \u00a73; 1347-A \u00a72.3)",
+    "renameNewIdentity": "drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F \u00a73) > an ending computed on read (endedWeek still null) ends the hold at that week and anchors the dormancy there, so recording it later changes no closeness (1358-F \u00a73; 1347-A \u00a72.3)"
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F \u00a73) > currentTier widens its Pick the same way: a Partners pair past the drift grace keeps its held tier (1358-F \u00a73)",
+    "requirement": "1358-F \u00a73: currentTier widens its Pick the same way and reads the held closeness.",
+    "redStatus": "not executed",
+    "redReason": "NOT RUN (1358-C2: the heavy lane is locked; no vitest, tsc or node process was started). Derived at RED: fails \"expected 'Friends' to be 'Inseparable'\". Slice A drifts closeness 81 to 81 + trunc((50 - 81) * 130 / 260) = 66, which reads Friends. The root type gate reports TS2353 at tests/p14b10-romance.test.ts(557,126).",
+    "note": "Added in r2. Renamed in r3 (1358-F2 item 6): the describe title now states the ruled seam or API; the leaf title is unchanged. Type-gate positions updated to r3 lines.",
+    "renameOldIdentity": "drift exemption and resumption (Proposed API: currentCloseness reading a populated romance field \u2014 see file header gap 2) > currentTier widens its Pick the same way: a Partners pair past the drift grace keeps its held tier (1358-F \u00a73)",
+    "renameNewIdentity": "drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F \u00a73) > currentTier widens its Pick the same way: a Partners pair past the drift grace keeps its held tier (1358-F \u00a73)"
+  },
+  {
+    "file": "tests/p14b10-romance.test.ts",
+    "leaf": "drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F \u00a73) > the Picks are strict (1358-F \u00a73): a partial edge without romance does not compile for currentCloseness or currentTier [RED at the type gate only]",
+    "requirement": "1358-F \u00a73: romance is required, not optional, in both Picks, so a caller that omits it fails to compile.",
+    "redStatus": "not executed",
+    "redReason": "NOT RUN (1358-C2: the heavy lane is locked; no vitest, tsc or node process was started). Derived at RED: passes at runtime, because the closure is never called. RED at the root type gate only: TS2578 \"Unused '@ts-expect-error' directive.\" at tests/p14b10-romance.test.ts(566,7) and (568,7), since both partial-edge calls compile against slice A's Picks. At GREEN both calls fail on the missing romance key and the directives are used.",
+    "note": "Added in r2. Renamed in r3 (1358-F2 item 6): the describe title now states the ruled seam or API; the leaf title is unchanged. Type-gate positions updated to r3 lines.",
+    "renameOldIdentity": "drift exemption and resumption (Proposed API: currentCloseness reading a populated romance field \u2014 see file header gap 2) > the Picks are strict (1358-F \u00a73): a partial edge without romance does not compile for currentCloseness or currentTier [RED at the type gate only]",
+    "renameNewIdentity": "drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F \u00a73) > the Picks are strict (1358-F \u00a73): a partial edge without romance does not compile for currentCloseness or currentTier [RED at the type gate only]"
+  }
+]
