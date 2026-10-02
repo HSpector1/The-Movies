@@ -59,10 +59,11 @@ Its patch (sha256 d2e89b46…) covers 154 test files, +1,057/-679, and these rul
 
 ## Next
 
-1. **1358-X9t:** r3's twelve changed files and the generator test, on script v2.
+1. **1358-X9t:** r3's eleven changed files and the generator test, on script v2. Its record also carries revision r4,
+   r3 plus one comment fix (1358-D9b N1).
 2. **The landing (1358-L):**
    - production steps 1 to 4 as four commits;
-   - the r3 sweep commit;
+   - the sweep commit, revision r4;
    - the p57 source manifest and the recorded producer run;
    - the F10 and F11 commit;
    - the recorded GREEN, broad core and UI gates.

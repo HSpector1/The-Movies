@@ -1,0 +1,3 @@
+ FAIL |core|  tests/bridge-contract-generator.test.ts > CF-08 sound union-to-C# generation > current accepted contract and future sentinel > pins exact positive output identities and deterministic rerendering
+ FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D07 authors and fulfills a real rival promise to a credited primary Actor
+ FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 fixed rival: public credit, ordinary contest and distinct staffing > D18 uses the declared rival strategy and legal distinct staffing

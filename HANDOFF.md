@@ -1,9 +1,9 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 07:02 CDT (the Mac runs on CDT; use `date`)
+Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 09:08 CDT (the Mac runs on CDT; use `date`)
 
 ## Where the work is
-- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit after 63bd78ac that carries this file (slice B RED landed 650e963a, capture 4ad8e0f7; records through 1358-F11 committed), pushed: yes.
+- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit after 97690eeb that carries this file (slice B RED landed 650e963a, capture 4ad8e0f7; records through 1358-X9t and 1358-D9b committed), pushed: yes.
 - Resume this session: `cd ~/Downloads/project-studio-p13-owner-direction-inputs-01 && claude --resume 60db833c-4cf7-4685-b2ec-8aac42c6dac1` (the session started in that folder; it works in this repo). A fresh session: start `claude` in this repo root and say "resume from HANDOFF.md".
 - Required reading, in order:
   1. This file.
@@ -39,11 +39,11 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 07:02 CDT (the Mac r
 - **1358-M2** (with the snapshot measurement): core vs 1348-I NEW 795 all pins, helpers or environment; UI 13 NEW; routes keep every §7 measure; snapshot probe 2: ~46,000 mentorEvidence calls per route, 0 throws; relationship blocks at most 40% over base; cohort projection 235 vs 246 ms.
 - **1358-X6** (sweep r1): type gates 0 errors, slice B GREEN shape, UI = 1348-I2; message probe: Save44 romance refusal first at 15 sites. **Its core output was lost** to a parent edit of the running script (memory `never-edit-running-script`).
 - **1358-X7t** (targeted) and **1358-F11**: follow-up units F1 and F2 settled S9 pins, S8 pins, own-era covers (V41, V39, V36, V27, Scientist, screenplayShelved receipt), S5 helpers; D13 and D12 frozen builders take genuine Save39 1221 captures.
-- **Sweep r2** = scratch branch `sweep-x8` 8559440 in `S/1358-sweep/merge`; patch `E/1358-stage/sweep-r2/1358-sweep-r2.patch` (e1f93665…, 154 test files, +1,039/-676). F10/F11 (generator test :726-727) still hold the projection-56 values; they move after the recorded producer run.
-- In flight:
-  - **1358-X8** (full dry run of r2 with probe 4): started 06:58:49, `S/1358-sweep/x8/run.meta`; type gates 0 errors, generators pass; then slice B, probe 4 (D13 and D12 captures, N-0140 week-93 counts), core 440 (`x8/core.txt`), UI. Expected end about 08:45.
-  - **1358-D9** reviewer agent on r2 (read-only), output `S/1358-sweep/review/1358-D9-sweep-r2-review.md`.
-- Prepared landing (1358-L): `S/1358-land/land-sliceB-steps.sh` (production steps 1-4 r2 as four commits, push, blob check against `S/1358-n/tree` tag step4); then apply the final sweep patch (without F10/F11) and commit; `python3 S/1358-land/p57-manifest.py` and commit the manifest; `lane-run.sh 0 … bash S/1358-land/recorded2.sh producer`; write F10/F11 from its output (1328 provenance pattern) and commit; then `recorded2.sh green`, `core`, `ui` (each under lane-run; no commits during a run); attribute against 1348-I and 1348-I2; record 1358-M3; review; close 1358-L.
+- **1358-X8** (full dry run of sweep r2, 06:58-08:47): type gates 0 errors; slice B row-6 exceptions only; core vs 1348-I 78 SAME, 7 CHANGED, 9 NEW (7 scratch Fake Unity rows, the week-93 control, the F10 leaf as a linked-fixtures artifact), 0 GONE; UI equals 1348-I2; probe 4: D13 and D12 captures pass, week 93 holds 15 tracks and 0 log rows.
+- **1358-D9** (independent review of r2): REFINE, R1-R4. **1358-F12** rules on it: R2 pin, R4 engine shelving values, R3 measured-no-pin, the week-93 control takes slice B's edge roots out of the candidate, dry-run script v2 copies the one fixtures module. Sweep **r3**.
+- **1358-X9t** (r3, 11 files plus the generator test, script v2): 241 of 244 pass; only the P4 leaf (F10 renders `1dadf88f…71fa4`), D07 and D18 fail; F10 identity passes. **1358-D9b** CONFIRMED r3, with one comment fix: sweep **r4** = scratch branch `sweep-r4` 4e36a25 in `S/1358-sweep/merge`; patch `E/1358-stage/sweep-r4/1358-sweep-r4.patch` (94f0b476…, 154 test files, +1,058/-679). Parent classification rows (R1): `E/1358-stage/sweep-r4/1358-classification-parent.json` (44 rows).
+- In flight: nothing. The lane is free.
+- Prepared landing (1358-L): `S/1358-land/land-sliceB-steps.sh` (production steps 1-4 r2 as four commits, push, blob check against `S/1358-n/tree` tag step4); then `git apply --index` the r4 patch and commit; `python3 S/1358-land/p57-manifest.py` and commit the manifest; `lane-run.sh 0 … bash S/1358-land/recorded2.sh producer`; write F10/F11 from its output (1328 provenance pattern; F10 must equal X9t's `1dadf88f…`) and commit; then `recorded2.sh green`, `core`, `ui` (each under lane-run; no commits during a run); attribute against 1348-I and 1348-I2; record 1358-M3; review; close 1358-L. Success line: core equals 1348-I's 85 identities (C20 CHANGED by the version digit), UI equals 1348-I2, no NEW, no GONE.
 - **P15 rebase after slice B:** the three P15 REDs read the save step from `LIVE_SAVE_VERSION`; the only base pin is P15C's `BASE_LIVE_SAVE_VERSION = 43` (integration test :151), which moves to 44. The producers carry no hardcoded version.
 - Claims limits:
   - 1353-T's market-pressure numbers are first order (open-loop factors from 1355-G1).
@@ -53,7 +53,7 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 07:02 CDT (the Mac r
 ## Next step
 E = `docs/engineering/playability-launch-review/evidence/p14b4-20260919`, S = `/Users/zacheryspector/studio-scratch`. Standing rules: one production writer; one heavy test process at a time; no commits (and no `git add`) during a recorded run or its postflight; free disk ≥ 5 GiB before a recorded run (5.14 GiB at 01:57; delete each X run's tree after reading it); recorded runs pin Node v20.20.2; recorded stems match `^[0-9]{3,4}[a-z0-9-]*$` (lowercase).
 
-1. **After X8 and 1358-D9:** attribute `x8/core.txt` (`1321-I-attribution.py`, then `1344-I-compare.py` against `E/1348-I-core-failures.json`) and `x8/ui.txt`; read probe 4; record 1358-X8. If the 1358-N success line holds (apart from F10/F11 and attributed rows) and D9 says KEEP, land per the prepared scripts above. Otherwise a small r3 and a targeted rerun.
+1. **Land slice B** per "Prepared landing" above, in order, checking each step's log (`S/1358-land/land-steps.meta`, `S/1358-land/recorded2.meta`). After the sweep commit, check each of the 154 files' blobs equal `sweep-r4:<file>` in `S/1358-sweep/merge` and `src`/`bridge` equal tag `step4` in `S/1358-n/tree`.
 2. **P15 REDs and mints** wait for slice B's Save44 production: P15A.1 (producer 1355-P r3), P15A.2, P15C (1359-P r4; rebase I:151 first). **P15B** waits for 1357-Q1.
 
 Agents: the user allows as many subagents as help (2026-10-01). Agents author and review; only the parent runs broad or heavy tests.
@@ -75,20 +75,21 @@ Agents: the user allows as many subagents as help (2026-10-01). Agents author an
 - **Patches that touch `docs/`.** Scratch trees link the real `docs`; apply only `tests/*` there (`git apply --include`) and put E-path files in a separate tree with a real directory. Never write under a link.
 - **Deleting scratch.** The harness blocks `rm` on variable paths; use literal absolute paths, links first, then `rm -rf` on the tree.
 - **Agent auth.** If an agent returns `401 OAuth access token has been revoked`, the Owner runs `/login`.
-- **The machine.** 4 CPUs, 8 GB RAM. Disk: 4.64 GiB free at 01:56 CDT during the gates (swap 1.9 GB used); 5.14 GiB after removing finished trees (1358-x3, 1344-merge/tree, 1358-d2, 1359-d5, 1358-work). Each X run adds a ~130 MB tree: delete it (links first, literal paths) after reading its outputs, before any recorded run. `S/1358-x2/tree` and `ptree` stay until slice B's RED lands (X3b copies X2's capture); `S/p15-probes/tree` serves the next 975e72a1-based probe.
+- **The machine.** 4 CPUs, 8 GB RAM. Disk: 5.28 GiB free at 09:05 CDT after removing the sweep worktrees and the P15 RED working trees. Free space drops about 0.9 GiB during a heavy run (swap) and returns after. Each X run adds a ~130 MB tree: delete it (links first, literal paths) after reading its outputs, before any recorded run. The P15 RED repos survive as mirrors (`S/1355-red/tree-mirror.git`, `S/1356-red/tree-mirror.git`, `S/1359-red/tree-mirror.git`, every branch); their re-dry-runs on Save44 build new trees. Keep `S/1358-n/tree` (tag step4) and `S/1358-sweep/merge` until 1358-L closes.
+- **Dry runs** use `S/1358-sweep/run-1358-sweep-dry-v2.sh` (v1 linked `tests/fixtures`, which made the union fixtures module import the repo's schema).
 - **Hard limits.** Do not access Owner saves, scan fixture trees, force-push, or launch Codex.
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-02 06:46 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
-- Branch: `wip/headless-program-20260916-ts` @ `4e411b78f21cb1ba5fcec5512b04ee10f3a992ca`
+- Stamped: 2026-10-02 08:02 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
+- Branch: `wip/headless-program-20260916-ts` @ `e0dfe0653880981dbbaf443cdbaf535cd5f138c0`
 - Upstream: `none`, unpushed commits: ?
 - Uncommitted files: 1
   - `M HANDOFF.md`
 - Last commits:
+  - e0dfe065 docs(handoff): sweep r2, X8 running, D9 review running, slice B landing prepared
+  - 63bd78ac docs(p14b): 1358-F11 rulings after X6 and X7t; 1358-M2 snapshot measurement (no mentorEvidence throw; cost in the base's class); sweep r2 staged
   - 4e411b78 docs(p14b): 1358-X6 sweep r1 dry run: type gates 0 errors, slice B GREEN shape, UI equals 1348-I2; probe finds 15 sites Save44 now masks; core output lost to a parent script edit
   - e36f9c28 docs(handoff,p14b): 1358-N measured fallout from M2; X6 running, snapshot probe queued
   - 5f2b5999 docs(p14b): 1358-M2 slice B fallout measured (core 795 NEW, all Save44/P57 pins, helpers or environment); 1358-F10 sweep rulings; sweep r1 staged
-  - 768fc628 docs(handoff): 1358-N sweep r1 merged in scratch; probe and G1 follow-up running; M2 in core
-  - b17e8ac2 docs(p14b): 1358-p57 declaration producer for F10/F11 (projection 57), derived from 1328's
 <!-- AUTO:END -->
