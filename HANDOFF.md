@@ -1,9 +1,9 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 02:33 CDT (the Mac runs on CDT; use `date`)
+Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 02:50 CDT (the Mac runs on CDT; use `date`)
 
 ## Where the work is
-- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the checkpoint commit after bc2f6007 (docs only; source equals b0809602), pushed: yes.
+- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit after 324b8701 that carries this file (slice B RED landed at 650e963a, capture 4ad8e0f7, recorded RED and 1358-X5 committed), pushed: yes.
 - Resume this session: `cd ~/Downloads/project-studio-p13-owner-direction-inputs-01 && claude --resume 60db833c-4cf7-4685-b2ec-8aac42c6dac1` (the session started in that folder; it works in this repo). A fresh session: start `claude` in this repo root and say "resume from HANDOFF.md".
 - Required reading, in order:
   1. This file.
@@ -34,7 +34,12 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 02:33 CDT (the Mac r
   - **1353-X4** (G-P on 60/49/20, `campaign-legacy/v2`): `artistic-voice` 0 and 2 (r06, r07), `commercial-engine` 0 and 2 (r06, r07), every other row as 1359-X4, `retune` false everywhere. Outputs in `E/1353-stage/x4/`.
   - **1359-X5** (P15C RED r7 and reference r4): RED 40 failed / 76 passed, root tsc 0; reference 113 passed, C2-C4 FIXTURE PENDING, tsc 35 errors at 1359-X2's positions; 0 mismatches. Outputs in `E/1359-stage/x5/`.
   - **1358-X4** (slice B RED r8): 89 failed / 59 passed (148); 100 rows ok; 17 root type errors at r8's positions; UI and Bridge 0; 1358-D2's five leaves as tabled (first Mentor build 39.9 s). Outputs in `E/1358-stage/x4/`.
-- In flight: the slice B landing (Next step 1).
+- **Slice B RED landed:** RED r8 committed at 650e963a; recorded mint `1358-sliceb-mint` (exit 0, fixedSource, allGuardsExact) wrote `tests/fixtures/p14/genuine-v43-pre-romance/` (save gzip a731677f…, equal to X2's), committed at 4ad8e0f7; recorded RED `1358-sliceb-red-recorded` at 4ad8e0f7: 89 failed / 59 passed (148), identities equal 1358-X4's. **1358-L** opened (IN PROGRESS).
+- **1358-X5** (production r2 steps on the landed RED, committed at 324b8701): classified reds 62, 44, 10 and 3 with 0 mismatches; after step 4 only rows 59-61 stay red (at `acceptedEvidence`, "expected 44 to be 43"); both generator checks pass. All other failures sit in test files (27 in p14b5-relationships; type errors 20 at step 1 and 46 from step 3 in the root gate, 2 each in UI and Bridge from the shared helpers `p14c2b-fixtures:69` and `p14c4-fixtures:71`): sweep fallout.
+- In flight:
+  - **1358-M2** (fallout on HEAD 5245072a plus production step 4 r2): started 02:48:24 CDT, lane-run PID in `S/1358-m2/m2.pid`, progress `S/1358-m2/m2.meta`, outputs `S/1358-m2/m2-{tsc,generate,core,ui}.txt` and the route logs `m2-*.log` (kit outputs in `S/1344-s7/out/m2-*`). About 2 h.
+  - The **sweep planner** agent drafts 1358-N and a site census in `S/1358-n/` (read-only).
+- **P15 rebase after slice B:** the three P15 REDs read the save step from `LIVE_SAVE_VERSION`; the only base pin is P15C's `BASE_LIVE_SAVE_VERSION = 43` (integration test :151), which moves to 44. The producers carry no hardcoded version.
 - Claims limits:
   - 1353-T's market-pressure numbers are first order (open-loop factors from 1355-G1).
   - The retune rests on five rival careers on seed-b; p13a's rivals stop filming (1357-R).
@@ -43,10 +48,8 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 02:33 CDT (the Mac r
 ## Next step
 E = `docs/engineering/playability-launch-review/evidence/p14b4-20260919`, S = `/Users/zacheryspector/studio-scratch`. Standing rules: one production writer; one heavy test process at a time; no commits (and no `git add`) during a recorded run or its postflight; free disk ≥ 5 GiB before a recorded run (5.14 GiB at 01:57; delete each X run's tree after reading it); recorded runs pin Node v20.20.2; recorded stems match `^[0-9]{3,4}[a-z0-9-]*$` (lowercase).
 
-1. **Land the slice B RED:** `git apply --index E/1358-stage/1358-rel-sliceB-red-r8.patch` (tests and the producer hunk), commit, push; check disk ≥ 5 GiB; `nohup bash S/heavy-queue/lane-run.sh 0 S/1358-land/mint.log bash S/1358-land/recorded.sh mint &`; check the capture (its `.json.gz` should equal X2's a731677f…), then `git add -f` the fixture `tests/fixtures/p14/genuine-v43-pre-romance/` and the recorder outputs, commit, push; then `recorded.sh red` the same way; commit its outputs; delete `S/1358-x2/tree` and `ptree`.
-4. **1358-X5:** `bash S/1358-x5/run-1358-X5.sh E/1358-stage/1358-rel-sliceB-red-r8-classification.json` under lane-run; read it against 1358-J's "What the dry run must show" (rows 56-58 there are 59-61 under r8).
-5. **1358-M2** (fallout with step 4 r2: broad core and UI in scratch, plus the natural routes) and the sweep plan **1358-N** (1358-E's and 1358-J's lists).
-6. **P15 REDs and mints** wait for slice B's Save44 production: P15A.1 (producer 1355-P r3), P15A.2, P15C (1359-P r4; rebase I:151 first). **P15B** waits for 1357-Q1.
+1. **1358-M2** (running): when `S/1358-m2/m2.meta` says `end`, attribute core against `E/1348-I-core-failures.json` and UI against `E/1348-I2-ui-failures.json`; compare the routes with 1348-X7's h-* outputs. Then finalize **1358-N** from the planner's draft and the measurement, and dispatch the sweep authors by group.
+2. **P15 REDs and mints** wait for slice B's Save44 production: P15A.1 (producer 1355-P r3), P15A.2, P15C (1359-P r4; rebase I:151 first). **P15B** waits for 1357-Q1.
 
 Agents: the user allows as many subagents as help (2026-10-01). Agents author and review; only the parent runs broad or heavy tests.
 
