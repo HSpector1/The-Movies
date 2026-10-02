@@ -1,0 +1,100 @@
+{
+  "manifestVersion": 1,
+  "inputs": [
+    {
+      "path": "scripts/bridge-contract-csharp.ts",
+      "bytes": 65692,
+      "sha256": "9adf58d7350062e25fdb4fbed73b7bdf8d613b89f4e2841eb032d06e32294057"
+    },
+    {
+      "path": "scripts/generate-bridge-contract.ts",
+      "bytes": 7091,
+      "sha256": "2e032f3b53b03591631c3dbab773368ff1aff8ba74217efd5d45388f5182dd56"
+    },
+    {
+      "path": "bridge/schema/canonical.ts",
+      "bytes": 870,
+      "sha256": "b84768f3a565f7e027938fefd46960ffbbd55a35d44a51145e94b82a1529e340"
+    },
+    {
+      "path": "bridge/schema/dsl.ts",
+      "bytes": 3946,
+      "sha256": "199880cc5ad275cdf4e277c7afba44823022d9e0e0b93bbee01e4fb8ad7cef8b"
+    },
+    {
+      "path": "bridge/schema/bridge-schema.ts",
+      "bytes": 191170,
+      "sha256": "d2272d4938b458701ed9feeacc49dc349890857c0c68431c41576988ca424718"
+    },
+    {
+      "path": "bridge/schema/industry-schema.ts",
+      "bytes": 24682,
+      "sha256": "794ef431e62a5f44674f874f9144ed0a667965781e587d23fc0e71eb65c58453"
+    },
+    {
+      "path": "bridge/schema/intent-schema.ts",
+      "bytes": 3616,
+      "sha256": "6230f858a05da061f5934e85a93ba247e0483e50a4d2aee845b2e9b642ab366a"
+    },
+    {
+      "path": "tests/fixtures/bridge-contract-union-fixtures.ts",
+      "bytes": 10210,
+      "sha256": "0689507dd4e5407ec9fdc5ba3834ab9304d29120040ccac2af254cb51b637e8f"
+    },
+    {
+      "path": "tests/bridge-contract-generator.test.ts",
+      "bytes": 54320,
+      "sha256": "a97b19ba5878c772071f6689a71f7625d268f6e2769def3ff06aaaeb3732132e"
+    },
+    {
+      "path": "generated/unity/StudioBridgeDtos.Generated.cs",
+      "bytes": 890695,
+      "sha256": "23e3d843d0e74eddb1d17e057640f0905faf2727afecaebac0ef33349275e49b"
+    },
+    {
+      "path": "generated/unity/project-studio-bridge.contract-manifest.json",
+      "bytes": 820,
+      "sha256": "5a0c28b95462ee315afb19858920e05b26c4ac53e8a016889b257a2097d39801"
+    },
+    {
+      "path": "bridge/schema/project-studio-bridge.schema.json",
+      "bytes": 403927,
+      "sha256": "032d261c21f3f0556593bebfe6f9f9530b4f9330eaee500d11782e247cd41829"
+    },
+    {
+      "path": "package.json",
+      "bytes": 2726,
+      "sha256": "031dadd99741140dae256481de76d98502bfb5855dee6f8eb46d043baa6fac9f"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 149287,
+      "sha256": "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1328-p56-declaration-measurement.ts",
+      "bytes": 9413,
+      "sha256": "8218a08ee0a6e1dd920e5496953f5e93a024396d7708e14736d805154fcee16f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1328-p56-declaration-measurement.txt",
+      "bytes": 50085,
+      "sha256": "a1bd5337d18ab58c0a3916873130f835faea9ea73c45816184b94a3f9033fc54"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1328-p56-declaration-measurement.json",
+      "bytes": 52874,
+      "sha256": "782bb7985f58c3e4f08ceaf5c5c20398e8c5d81bcdf775c83a8448f74087c0ff"
+    }
+  ],
+  "producer": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1358-p57-declaration-measurement.ts",
+    "bytes": 9488,
+    "sha256": "a1ca78595eeb941c6089091adaa94dd3ce637f871943c5a2deb0418de9ca9a5c"
+  },
+  "compilerConfig": {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1358-p57-declaration-measurement.tsconfig.json",
+    "bytes": 180,
+    "sha256": "ce0560bc995533784cee1a55a1a27d814f5bcccef1bf6d87e2f40da7e64e0a49"
+  }
+}
