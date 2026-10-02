@@ -1,6 +1,6 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 15:13 CDT. Claude's weekly usage stood at 89% at 14:39 CDT (Owner): if Claude stops, Codex resumes from this file.
+Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 15:53 CDT. Claude's weekly usage stood at 89% at 14:39 CDT (Owner): if Claude stops, Codex resumes from this file.
 
 ## Where the work is
 - Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit after 50181e76 that carries this file, pushed: yes. Protected main is never touched.
@@ -26,21 +26,19 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 15:13 CDT. Claude's 
 - The writer's tree now (`main`, clean): `p15a2-r1` 1f2495a (kept); `p15a2-r2` 5eccada (R1-R4); `p15a1-a-r1` 39d0481, `p15a1-b-r1` 1074744, `p15a1-c-r1` c524911 (the frozen G2 candidate).
 - **1361-X2** (15:06 CDT): the stack measured at (c), (b) and slice 2a r2: `src` type-clean everywhere; 1356 72/72; 1355 59/59 at (c) (K1/K2/M0A and capture leaves pass), 15 at (b), 9 at r2; harness 83,603 ms at (c); generators clean. `E/1361-E2` and the r2 delta in `E/1361-E` published.
 - **G2 probe** reviewed (`E/1361-G2-D` HOLD) and fixed (`E/1361-G2-F`: Defect band, whole-run streaks, integer thresholds, RED_JSON tie, items 5-10); the parent checked the diff.
+- **G2 read Retune** (`E/1361-G2-X`; rulings `E/1361-F5`): K1-K5 exact (K3 case (a) of `E/1361-F4` ruling 1, pre-registered at 5b911ed3); Retune rows p13a industry gross 0.875 at 520, seed-b stall (stopped rivals) and below-zero +325% at 520, seed-b root share 2.3-3.1% (storage fix). Save45 now lands slice 2a r2 + P15A.1 (a) and (b) r2 (+ P15C if G-P passes); (c) and (d) wait for a tuning amendment (record 1365, after the landing).
+- **1361-D2** PROCEED (`E/1361-D2`, rulings `E/1361-F4`); **1363** adopted (`E/1363-F`); **G-P C0** passed (15:48; both exit 0, equal manifest, JSON equal apart from the allowed fields).
 - In flight:
-  - **G2 running** in the heavy lane since 15:06 CDT: `S/1361-g2/run-g2-all.sh` (trees ok, smoke ok, then control, candidate-1, candidate-2, k4, era-guard, report); log `S/1361-g2/g2-all.log`; outputs `S/1361-g2/run/out/`; report `S/1361-g2/run/out/report/g2-report.{json,md}`. Expected 40-55 min. Verdicts per 1361-F2 ruling 4 (a K failure is a Defect).
-  - **review 1361-D2** of the P15A.1 stack and slice 2a r2 -> `S/1361-prod/review/1361-D2-p15a1-r1-review.md` (includes the writer's claim that (b) can land alone, which bears on 1361-F2 ruling 3);
-  - **G-P control C0** queued in the lane behind G2 (`S/1361-gp/run-1361-gp-c0.sh`, lane log `S/1361-gp-c0.log`, outputs `S/1361-gp-c0/out/`; about 10 s). Pass per notes §5.5: both exit 0, equal `manifestSha256`.
+  - **the writer** (agent `a9b8c143941cbb673`, SendMessage) makes `p15a1-b-r2` = b-r1 + 1361-D2 F3's guard, one commit on `p15a1-a-r1`; replies with sha, diff and the refusal text.
 - Claims limits: P15A.1's r1 commits and slice 2a r2 are unmeasured; the harness time compares across Node versions and machine load (1361-F3 ruling 5); the 1363-A design rests on reading.
 
 ## Next step
 Standing rules: one production writer; one heavy test process at a time (`bash S/heavy-queue/lane-run.sh 0 <log> <cmd>`); no commits or `git add` during a recorded run or its postflight; free disk ≥ 5 GiB before a recorded run; recorded runs on Node v20.20.2; stems match `^[0-9]{3,4}[a-z0-9-]*$`.
 
-1. **When G2 finishes:** read `S/1361-g2/run/out/report/g2-report.md`; record `E/1361-G2-X` (stage the report, notes, probe files and digest sha256s, not the digests); rule. Proceed or Flag: (c) stays in Save45, then G-P (step 3). Retune: 1361-F2 ruling 3, unless 1361-D2 supports the writer's (b)-alone design. Defect: production fix and a new G2.
-2. **When 1361-D2 returns:** publish it; rule (`1361-F4`); a REVISE goes to the writer (SendMessage to the writer agent keeps its context; a fresh writer reads `E/1361-E2`).
-3. **G-P:** `nohup bash S/heavy-queue/lane-run.sh 0 S/1361-gp-x.log bash S/1361-gp/run-1361-gp.sh p15a1-c-r1 &` (written and syntax-checked; 1361-F2 ruling 1's guard and GP-D finding 6's checks built in; outputs `S/1361-gp-x/out/`). On a G2 Retune use tag `p15a2-r2` and second argument `"p15Sequence, powerRanking"` (1363-F ruling 7). Expected `rankingRows` and `standInRows` 4,229 per seed and 5 in the smoke; record per notes §5.7 as `E/1361-GP-X`.
-4. **1363 is adopted** (`E/1363-F`, 15:2x CDT): production after Save45, step number by ruling 8, ordered against 1364-A.
-5. **When an agent slot frees:** draft the late-founding charter `1364-A` (scope in 1362-O's third section).
-6. Then P15C's production (writer), the sibling test's classification, the merged-tick harness run, the fallout and the `1361-N` sweep, and the landing (`1361-L`), per 1361-F's order of work.
+1. **When the writer returns b-r2:** check `git -C S/1361-prod/tree diff p15a1-b-r1 p15a1-b-r2` is the guard only; then in the lane: dry run `bash S/1361-prod/run-1361-X.sh p15a1-b-r2 x-r3b` (tree checked out at the tag, clean) and compare 1355's failures with `E/1361-stage/x-r2b/1355-leaves-red-at-b.tsv` (same 44, same messages, else finding); then G-P: `nohup bash S/heavy-queue/lane-run.sh 0 S/1361-gp-x.log bash S/1361-gp/run-1361-gp.sh p15a1-b-r2 &`, read against `E/1361-F5` ruling 4's pre-registered expectations; record `E/1361-GP-X` (with C0: `S/1361-gp-c0/out/`).
+2. **If G-P passes:** send `S/1361-prod/brief-p15c-production.md` to the writer with base `p15a1-b-r2` and without commit (d) (moot at (b); rides with (c)).
+3. Then P15C's dry run, review 1361-D3, the sibling test's classification, the merged-tick harness run, the fallout (+ the d16 config at `base` and the landed tree), the `1361-N` sweep, the landing `1361-L` (four recorded runs; 1355's files fail exactly the 44), per 1361-F's order of work.
+4. **When an agent slot frees and usage allows:** draft the late-founding charter `1364-A` (scope in 1362-O's third section).
 
 ## Open decisions for the Owner
 - **1363-A O1, rival facility disposal** (asked 2026-10-02; `E/1363-A` §4.7, §10.2): may rivals close facilities; at what refund; may core filming plant go. v1 keeps facilities and does not wait. Parent recommends: no disposal in v1; revisit with 1363-V's numbers; if ever allowed, non-core plant only at the player's demolition refund, core plant never.
@@ -64,14 +62,14 @@ Standing rules: one production writer; one heavy test process at a time (`bash S
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-02 15:08 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
-- Branch: `wip/headless-program-20260916-ts` @ `bd50b72c766075ec86da727c89a1282f2468bfb9`
+- Stamped: 2026-10-02 15:50 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
+- Branch: `wip/headless-program-20260916-ts` @ `5b911ed355b7314e7ddf0b7e78559cc9ce675c52`
 - Upstream: `none`, unpushed commits: ?
 - Uncommitted files: 0
 - Last commits:
+  - 5b911ed3 docs(p15): 1361-D2 review (PROCEED) and 1361-F4 rulings; K3 reading pre-registered before the G2 report
+  - fc107749 docs(p15): 1363-B review and 1363-F adoption of the recovery charter (12 amendments, O6); G-P scripts ready, C0 queued
   - bd50b72c docs(handoff): P15A.1 stack measured (1361-X2); G2 running on p15a1-c-r1; reviews 1361-D2 and 1363-B running
   - ffe571c6 docs(p15): 1361-X2 dry run of the P15A.1 r1 stack on slice 2a r2: src type-clean at every tag; 1356 72/72; 1355 9 -> 15 -> 59 (all 59 at (c), K1/K2/M0A and both capture leaves included); harness 83.6 s at (c); generators clean. G2 running on p15a1-c-r1; review 1361-D2 running
   - c1580d39 docs(p15): 1361-G2-D review of the G2 probe (HOLD on four report/runner edits; probe sound) and 1361-G2-F parent response (all four plus items 5-10 adopted; candidate fixed at p15a1-c-r1 c524911)
-  - d98ba43e docs(p15): 1361-E2 P15A.1 production handback r1 (three commits on slice 2a r2) and the slice 2a r2 delta (R1-R4 of 1361-F3) in 1361-E; the four cumulative patches staged; the three-tag dry run is running
-  - 1d4134fc docs(owner): record the Owner's third response of 2026-10-02 verbatim (1362-O): the late-founding import path counts as reachable; bounded correction 1364-A authorized for both invariant failures, scheduled after the Save45 landing. HANDOFF rewritten in full for durability (usage at 89%): state, in-flight agents, exact next commands, open Owner item O1
 <!-- AUTO:END -->

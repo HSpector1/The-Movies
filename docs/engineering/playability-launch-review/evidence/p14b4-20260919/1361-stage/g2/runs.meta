@@ -1,0 +1,24 @@
+smoke-control: start, control tree e4be3e5ca536b74977be0212009cff0cda93c016, 40 weeks, seeds p13a-core-causal-01, node v20.20.2; 2026-10-02 15:06:42 CDT
+smoke-control: vitest exit 0; 2026-10-02 15:06:50 CDT
+smoke-candidate-1: start, candidate tree c5249114ae3c5e52253625210a9512b1e5cf19ac, 40 weeks, seeds p13a-core-causal-01, node v20.20.2; 2026-10-02 15:06:50 CDT
+smoke-candidate-1: vitest exit 0; 2026-10-02 15:06:58 CDT
+smoke-candidate-2: start, candidate tree c5249114ae3c5e52253625210a9512b1e5cf19ac, 40 weeks, seeds p13a-core-causal-01, node v20.20.2; 2026-10-02 15:06:58 CDT
+smoke-candidate-2: vitest exit 0; 2026-10-02 15:07:05 CDT
+smoke-k4: start, k4 tree c5249114ae3c5e52253625210a9512b1e5cf19ac, 40 weeks, seeds p13a-core-causal-01, node v20.20.2; 2026-10-02 15:07:05 CDT
+smoke-k4: vitest exit 0; 2026-10-02 15:07:12 CDT
+smoke-era-guard: start; 2026-10-02 15:07:12 CDT
+smoke-era-guard: vitest exit 1 (1 expected; the report reads the leaf); 2026-10-02 15:07:17 CDT
+smoke-report: start, RED_JSON not set; 2026-10-02 15:07:17 CDT
+smoke-report: vitest exit 0; 2026-10-02 15:07:19 CDT
+control: start, control tree e4be3e5ca536b74977be0212009cff0cda93c016, 6240 weeks, seeds p13a-core-causal-01,seed-b, node v20.20.2; 2026-10-02 15:07:19 CDT
+control: vitest exit 0; 2026-10-02 15:18:18 CDT
+candidate-1: start, candidate tree c5249114ae3c5e52253625210a9512b1e5cf19ac, 6240 weeks, seeds p13a-core-causal-01,seed-b, node v20.20.2; 2026-10-02 15:18:18 CDT
+candidate-1: vitest exit 0; 2026-10-02 15:28:15 CDT
+candidate-2: start, candidate tree c5249114ae3c5e52253625210a9512b1e5cf19ac, 6240 weeks, seeds p13a-core-causal-01,seed-b, node v20.20.2; 2026-10-02 15:28:15 CDT
+candidate-2: vitest exit 0; 2026-10-02 15:38:23 CDT
+k4: start, k4 tree c5249114ae3c5e52253625210a9512b1e5cf19ac, 6240 weeks, seeds p13a-core-causal-01,seed-b, node v20.20.2; 2026-10-02 15:38:23 CDT
+k4: vitest exit 0; 2026-10-02 15:47:37 CDT
+era-guard: start; 2026-10-02 15:47:37 CDT
+era-guard: vitest exit 1 (1 expected; the report reads the leaf); 2026-10-02 15:47:42 CDT
+report: start, RED_JSON /Users/zacheryspector/studio-scratch/1361-prod/x/r2c/p15a1.json; 2026-10-02 15:47:42 CDT
+report: vitest exit 0; 2026-10-02 15:47:44 CDT

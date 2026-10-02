@@ -1,0 +1,44 @@
+p15a1-market-integration-atomicity.test.ts	p15a1 market all-or-none at the seam (1355-F3 Blocking 1) market-second-subject-failure-commits-nothing: a rival second subject refuses in the seam; nothing from either subject commits
+p15a1-market-integration-atomicity.test.ts	p15a1 market all-or-none at the seam (1355-F3 Blocking 1) market-second-subject-failure-commits-nothing: a player second subject refuses in the seam; nothing from either subject commits
+p15a1-market-integration-atomicity.test.ts	p15a1 market due-set witness in the live tick (RED 5) market-due-set-mismatch-fails-closed: a frozen batch that loses a due rival picture fails the week by name; input unchanged
+p15a1-market-integration-atomicity.test.ts	p15a1 market seam at both release sites (RED 2 live, 1355-A §3.2) market-seam-both-call-sites: the batch factor scales the player's and the rival's opening and total; critic and legs hold
+p15a1-market-integration-phases.test.ts	p15a1 market phase identity (1355-F3; 1355-F4 R4) market-phase-version-immutable: v1 rows keep their triple under a v2 table, a row declared v2 with v2's ordinal validates, a triple off its own version refuses by name
+p15a1-market-integration.test.ts	p15a1 market due set (RED 4-5, 1355-A §3.1) market-due-set-equals-releases: frozen members are the committed player release plus every rival picture at 1
+p15a1-market-integration.test.ts	p15a1 market due set (RED 4-5, 1355-A §3.1) market-due-set-mismatch-fails-closed: a frozen batch missing a due rival picture throws, input unchanged
+p15a1-market-integration.test.ts	p15a1 market due set (RED 4-5, 1355-A §3.1) market-due-set-mismatch-fails-closed: a frozen batch naming a picture nobody releases throws, input unchanged
+p15a1-market-integration.test.ts	p15a1 market live batches (RED 6-9) market-live-one-player-one-rival: same genre, same week, both pressureFactor(1), each names the other
+p15a1-market-integration.test.ts	p15a1 market live batches (RED 6-9) market-live-window-stock-retire: releases at W−2, W−10 and W−26 act through WINDOW_RELEASES, GENRE_SATURATION and nothing
+p15a1-market-integration.test.ts	p15a1 market live batches (RED 6-9) market-live-self-exclusion-clamp: one studio's two same-genre same-week releases see each other at 1.00, never themselves
+p15a1-market-integration.test.ts	p15a1 market live batches (RED 6-9) market-live-no-player-flag: a persisted row carries exactly the law fields and the 1355-F2 fields, no owner
+p15a1-market-integration.test.ts	p15a1 market live batches (RED 6-9) market-live-no-player-flag: mirror fixtures that swap the player studio give equal assessments after id normalization
+p15a1-market-integration.test.ts	p15a1 market chronology controls (RED 10-11, 1355-A §4 K1/K2) market-week-diff-confined (K1): the K1 week is pressured exactly where the law says
+p15a1-market-integration.test.ts	p15a1 market chronology controls (RED 10-11, 1355-A §4 K1/K2) market-no-pressure-week-identity (K2): every release of the K2 week is assessed at P = 0 and f = 1
+p15a1-market-integration.test.ts	p15a1 market root (RED 12-13, 1355-A §3.3; 1355-F2 item 2; 1355-F3) market-root-append-canonical: one ordered append per week; derived exposures equal reduceExposures
+p15a1-market-integration.test.ts	p15a1 market root (RED 12-13, 1355-A §3.3; 1355-F2 item 2; 1355-F3) market-root-append-canonical: rows ascend in (week, releaseId) and in p15DomainSequence, each with its v1 phase triple
+p15a1-market-integration.test.ts	p15a1 market root (RED 12-13, 1355-A §3.3; 1355-F2 item 2; 1355-F3) market-inflight-save-replay: save during an active exposure, reload, run 30 weeks: assessments and terminal save equal an unsaved run
+p15a1-market-integration.test.ts	p15a1 market validator (RED 14, 1355-A §3.4) market-validator-reconciles: the unforged route state validates (premise of every refusal below)
+p15a1-market-integration.test.ts	p15a1 market validator (RED 14, 1355-A §3.4) market-validator-reconciles: refuses a forged pressure by name
+p15a1-market-integration.test.ts	p15a1 market validator (RED 14, 1355-A §3.4) market-validator-reconciles: refuses a forged factor by name
+p15a1-market-integration.test.ts	p15a1 market validator (RED 14, 1355-A §3.4) market-validator-reconciles: refuses a forged windowTerm by name
+p15a1-market-integration.test.ts	p15a1 market validator (RED 14, 1355-A §3.4) market-validator-reconciles: refuses a forged stockTerm by name
+p15a1-market-integration.test.ts	p15a1 market validator (RED 14, 1355-A §3.4) market-validator-reconciles: refuses a forged reason by name
+p15a1-market-integration.test.ts	p15a1 market validator (RED 14, 1355-A §3.4) market-validator-reconciles: refuses a forged inputDigest by name
+p15a1-market-integration.test.ts	p15a1 market validator (RED 14, 1355-A §3.4) market-validator-reconciles: refuses rows out of (week, releaseId) order by name
+p15a1-market-integration.test.ts	p15a1 market validator (RED 14, 1355-A §3.4) market-validator-reconciles: refuses a duplicate assessment by name
+p15a1-market-integration.test.ts	p15a1 market validator (RED 14, 1355-A §3.4) market-validator-reconciles: refuses an orphan assessment with no film by name
+p15a1-market-integration.test.ts	p15a1 market validator (RED 14, 1355-A §3.4) market-validator-reconciles: refuses a missing assessment by name
+p15a1-market-integration.test.ts	p15a1 market validator (RED 14, 1355-A §3.4) market-validator-reconciles: refuses an assessment before recordedFromWeek by name
+p15a1-market-integration.test.ts	p15a1 market validator (RED 14, 1355-A §3.4) market-validator-reconciles: refuses an assessment at the tick by name
+p15a1-market-integration.test.ts	p15a1 market validator (RED 14, 1355-A §3.4) market-validator-reconciles: refuses an unknown definitionVersion by name
+p15a1-market-integration.test.ts	p15a1 market validator (RED 14, 1355-A §3.4) market-validator-reconciles: refuses an owner field on a row (exact keys) by name
+p15a1-market-integration.test.ts	p15a1 market validator (RED 14, 1355-A §3.4) market-validator-reconciles: refuses a duplicate p15DomainSequence by name
+p15a1-market-integration.test.ts	p15a1 market validator (RED 14, 1355-A §3.4) market-validator-reconciles: refuses a p15DomainSequence at p15Sequence.next by name
+p15a1-market-integration.test.ts	p15a1 market validator (RED 14, 1355-A §3.4) market-validator-reconciles: refuses a p15DomainSequence below 1 by name
+p15a1-market-integration.test.ts	p15a1 market validator (RED 14, 1355-A §3.4) market-validator-reconciles: refuses a phase ordinal off its version's table entry by name
+p15a1-market-integration.test.ts	p15a1 market validator (RED 14, 1355-A §3.4) market-validator-reconciles: refuses another phase's phaseId by name
+p15a1-market-integration.test.ts	p15a1 market validator (RED 14, 1355-A §3.4) market-validator-reconciles: refuses an unknown phaseOrderVersion by name
+p15a1-market-integration.test.ts	p15a1 market validator (RED 14, 1355-A §3.4) market-validator-reconciles: across P15 roots, a sibling row may hold the largest sequence and a market row may not reuse a sibling's
+p15a1-market-integration.test.ts	p15a1 market old saves (RED 16) market-old-save: the first batches after migration see no pre-migration release [fixture-pending]
+p15a1-market-integration.test.ts	p15a1 market old saves (RED 16) market-old-save: a non-empty root refuses the downgrade by name, at the step and through every older migrator
+p15a1-market-integration.test.ts	p15a1 market persisted storage (RED 18) market-large-batch-persisted-linear: every live row is bounded: exact keys, at most five reasons of at most five ids
+p15a1-market-integration.test.ts	p15a1 market persisted storage (RED 18) market-large-batch-persisted-linear: 32- and 512-member batches persist equal-bounded rows and linear root bytes
