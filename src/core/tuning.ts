@@ -1033,19 +1033,19 @@ export const TUNING = {
   LOAN_INTEREST_PERCENT: 12, // integer > 0; flat over the term: total = principal·(100 + 12)/100
   LOAN_AMOUNT_STEP: 1000, // integer > 0; principals are whole multiples, which keeps the flat interest an integer
 
-  // P15C Legacy law `campaign-legacy/v1` (src/core/campaignLegacy.ts; charter 1353-A §5.5,
-  // adopted in 1353-F). PROVISIONAL TUNING under Owner rulings 5 and 6 of 1342-O, which
+  // P15C Legacy law `campaign-legacy/v2` (src/core/campaignLegacy.ts; charter 1353-A §5.5,
+  // adopted in 1353-F, amended by 1353-T and 1353-F6). PROVISIONAL TUNING under Owner rulings 5 and 6 of 1342-O, which
   // delegate the archetype thresholds: the §9 measurement gate measures them before Wave 2
   // and the Owner playtest judges them. Each value is a positive integer, the range
   // `tuning-legacy-bounded-terms` asserts. Any change changes the law: bump
   // CAMPAIGN_LEGACY_DEFINITION with it. B is derived from the calendar, never tuned here.
-  LEGACY_CRITIC_ACCLAIM_MIN: 70, // positive integer; critic tier "strong" floor (receptionVerdict.ts), copied so a presentation retune cannot move a Legacy
+  LEGACY_CRITIC_ACCLAIM_MIN: 60, // positive integer; critic band "hit" floor (receptionVerdict.ts), copied so a presentation retune cannot move a Legacy (1353-T)
   LEGACY_CRITIC_PAN_BELOW: 35, // positive integer; critic tier "pan" ceiling (receptionVerdict.ts), copied likewise
   LEGACY_AUDIENCE_LIKED_MIN: 57, // positive integer; audience tier "liked" floor (receptionVerdict.ts), copied likewise
   LEGACY_MIN_FILMS: 5, // positive integer; a pattern, not a streak: minimum acclaimed releases or settled hits
-  LEGACY_MIN_SHARE_PERCENT: 25, // positive integer; one release in four, so volume alone cannot qualify
-  LEGACY_HIT_REACH_PERCENT: 90, // positive integer; a hit grosses at least 90% of baseMarketValue (pooled p90 reach)
-  LEGACY_FLOP_REACH_PERCENT: 30, // positive integer; a flop grosses below 30% of baseMarketValue, a third of a hit
+  LEGACY_MIN_SHARE_PERCENT: 20, // positive integer; one release in five, above the rival rate at either line, so volume alone cannot qualify (1353-T)
+  LEGACY_HIT_REACH_PERCENT: 49, // positive integer; a hit grosses at least 49% of baseMarketValue; 18.1% of seed-b's rival releases as run, 15.2% under shared-market pressure (1353-T; 1353-F6)
+  LEGACY_FLOP_REACH_PERCENT: 30, // positive integer; a flop grosses below 30% of baseMarketValue, under the rival pool's lower quartile (1353-T)
   LEGACY_AUDIENCE_MIN_DECADES: 4, // positive integer; forty years of audience decades
   LEGACY_DECADE_MIN_RELEASES: 2, // positive integer; one scored release does not make a decade
   LEGACY_PIONEER_WEEKS: 52, // positive integer; operational within a year of commercial availability

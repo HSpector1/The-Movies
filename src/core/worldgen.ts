@@ -817,7 +817,7 @@ export function generateWorld(seed: string, options?: GenerateWorldOptions): Gam
     careerLifecycle: initialCareerLifecycle(0, people),
     // P15A.2 slice 2a (1356-A §5; 1355-F2 item 1): a fresh world records Power Ranking quarters
     // from week 0, and the one P15 allocator starts at 1. P15A.1 Wave 2 (1355-A §3.5): the shared
-    // market records from week 0 too.
+    // market records from week 0 too. P15C Wave 2 (1359-A §5.2): so does the Legacy, unfrozen.
     ...initialP15Roots(0),
   }
 }

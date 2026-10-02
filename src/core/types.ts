@@ -2322,7 +2322,7 @@ export type GameStateV31 = GameStateV30 & {
 // V43 adds rival screenplay shelving: `screenplayShelving` per business and its receipt.
 // V44 adds the edge's `competitions` log and `romance` track.
 // V45 is the shared P15 step: slice 2a adds the Power Ranking archive and the one P15 allocator,
-// and P15A.1 Wave 2 adds the shared-market root.
+// P15A.1 Wave 2 adds the shared-market root, and P15C Wave 2 adds the Campaign Legacy root.
 export type GameState = GameStateV45
 
 // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
@@ -2595,13 +2595,15 @@ export type PersistedMarketAssessment = import('./sharedMarket.js').MarketAssess
 export type SharedMarketRoot = { version: 1; recordedFromWeek: number; assessments: PersistedMarketAssessment[] }
 /**
  * The roots of the shared P15 save step, Save45 (1360-F ruling 1; 1361-F ruling 3). Slice 2a brings
- * the archive and the one P15 allocator (1355-F2 item 1), P15A.1 the shared market, and P15C adds
- * `campaignLegacy` here.
+ * the archive and the one P15 allocator (1355-F2 item 1), P15A.1 the shared market, and P15C the
+ * Campaign Legacy (1359-A §5), whose type and validator live in campaignLegacy.ts, so no other
+ * src/core file spells the manifest's mode field.
  */
 export type P15StepRoots = {
   powerRanking: PowerRankingArchive
   p15Sequence: import('./p15Phases.js').P15Sequence
   sharedMarket: SharedMarketRoot
+  campaignLegacy: import('./campaignLegacy.js').CampaignLegacyRoot
 }
 export type GameStateV45 = GameStateV44 & P15StepRoots
 

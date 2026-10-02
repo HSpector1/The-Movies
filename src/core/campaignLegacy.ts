@@ -1,11 +1,12 @@
-// ── P15C Wave 1: the pure Legacy law `campaign-legacy/v1` ─────────────────────
+// ── P15C Wave 1: the pure Legacy law `campaign-legacy/v2` ─────────────────────
 // Authority (docs/engineering/playability-launch-review/evidence/p14b4-20260919/):
 // Owner rulings 2, 3, 5 and 6 of 1342-O; charter 1353-A §5 as amended by 1353-F (the
 // §5.3 amendments 1-4 govern); the LegacyFacts shape adopted in 1353-F2; the decade
 // ordering rule of 1353-F3; and the parent's API decisions on the 1353 RED.
 //
-// Pure `(facts) => manifest`: no randomness, clock, GameState, save, Bridge or tick hook,
-// and no engine consumer until Wave 2 adds the root, the adapter and the freeze step.
+// The law is pure `(facts) => manifest`: no randomness, clock, GameState, save, Bridge or
+// tick hook. P15C Wave 2 (record 1359: 1359-A §3-§5 with 1359-F) adds the live-game parts
+// after the law, each under its own heading; only they read a GameState.
 // Inputs are never mutated; every output is a fresh object in the order stated below.
 // Public facts only: no fact type carries a studio's cash, costs or revenue, and an error
 // names a field and a rule, never a value.
@@ -65,11 +66,13 @@
 // carries no count and no ref. A ranking ref cites the archive record's own recordId.
 
 import { campaignDate } from './calendar.js'
+import { P15_PHASE_TABLES } from './p15Phases.js'
 import type { FinancialStrengthBand } from './powerRanking.js'
 import { GENRE_ORDER, TUNING } from './tuning.js'
-import type { Genre, Standing } from './types.js'
+import type { GameState, Genre, Standing } from './types.js'
 
-export const CAMPAIGN_LEGACY_DEFINITION = 'campaign-legacy/v1'
+/** The live era: 1353-T's retune with 1353-F6's hit line. A change to any LEGACY_* value bumps it (tuning.ts). */
+export const CAMPAIGN_LEGACY_DEFINITION = 'campaign-legacy/v2'
 /** 2040 · Week 1 under `campaign-calendar-1920-52/v1`. Derived from the calendar, never tuned. */
 export const LEGACY_BOUNDARY_WEEK = (2040 - 1920) * 52
 /** The mode fact written with the official manifest (1353-A §6). No simulation step reads it. */
@@ -83,7 +86,7 @@ export const LEGACY_ARCHETYPE_IDS = [
 export const LEGACY_LENS_IDS = [
   'catalog', 'people', 'technology', 'ranking', 'financialBand', 'market', 'resilience', 'awards',
 ] as const
-/** The eleven v1 domains of 1353-A §5.2, in that order. `awards` is never recorded in v1. */
+/** The eleven domains of 1353-A §5.2, in that order, the same in every era. `awards` is never recorded. */
 export const LEGACY_DOMAIN_IDS = [
   'playerFilms', 'industryFilms', 'playerRuns', 'playerCareerEvents', 'industryCareerEvents',
   'technologyAdoptions', 'technologyCatalogue', 'powerRanking', 'corporateCondition',
@@ -93,6 +96,8 @@ export const LEGACY_DOMAIN_IDS = [
 export type LegacyArchetypeId = (typeof LEGACY_ARCHETYPE_IDS)[number]
 export type LegacyLensId = (typeof LEGACY_LENS_IDS)[number]
 export type LegacyManifestKind = 'official2040' | 'endOfRun'
+/** The keys of the frozen definition table (1359-A §5.1): every era a stored manifest may name. */
+export type LegacyDefinitionId = 'campaign-legacy/v1' | 'campaign-legacy/v2'
 export type LegacyStatus = 'complete' | 'limited' | 'notRecorded'
 export type LegacyFilmDomainId = 'playerFilms' | 'industryFilms'
 export type LegacyCareerEventDomainId = 'playerCareerEvents' | 'industryCareerEvents'
@@ -189,7 +194,7 @@ export type LensSummary = { lensId: LegacyLensId; status: LegacyStatus; counts: 
 export type LegacyStudio = { studioId: string; standingAtBoundary: Standing; archetypes: ArchetypeResult[]; lenses: LensSummary[] }
 export type LegacyManifest = {
   kind: LegacyManifestKind
-  definition: typeof CAMPAIGN_LEGACY_DEFINITION
+  definition: LegacyDefinitionId
   boundaryWeek: number
   postFinaleMode: typeof LEGACY_POST_FINALE_MODE | null
   sources: LegacySource[]
@@ -278,7 +283,7 @@ function readFacts(facts: LegacyFacts): Facts {
   domainRows.forEach((d, i) => {
     const at = `domains[${i}]`
     if (!isId(d?.domainId)) fail(`${at}.domainId`, 'must be a non-empty string')
-    if (d.domainId === 'awards') fail(at, 'must not record awards: no Awards source exists in v1')
+    if (d.domainId === 'awards') fail(at, 'must not record awards: no era of the law has an Awards source')
     if (domainFacts.has(d.domainId)) fail(at, `repeats domain ${d.domainId}`)
     if (!isWeek(d.highWatermark)) fail(`${at}.highWatermark`, 'must be a non-negative whole number')
     if (d.recordedFromWeek !== null && !isWeek(d.recordedFromWeek)) fail(`${at}.recordedFromWeek`, 'must be null or a non-negative whole week')
@@ -582,17 +587,17 @@ function archetypeResult(
 }
 const heldWhen = (held: boolean): ArchetypeResult['outcome'] => (held ? 'held' : 'notHeld')
 
-function artisticVoice(f: Facts, s: LegacyStudioFact, releases: Release[]): ArchetypeResult {
-  const acclaimed = releases.filter((r) => r.film.criticScore >= TUNING.LEGACY_CRITIC_ACCLAIM_MIN)
+function artisticVoice(f: Facts, s: LegacyStudioFact, releases: Release[], th: LegacyThresholds): ArchetypeResult {
+  const acclaimed = releases.filter((r) => r.film.criticScore >= th.LEGACY_CRITIC_ACCLAIM_MIN)
     .sort((a, b) => b.film.criticScore - a.film.criticScore || byWeekThenId(a, b))
-  const panned = releases.filter((r) => r.film.criticScore < TUNING.LEGACY_CRITIC_PAN_BELOW)
+  const panned = releases.filter((r) => r.film.criticScore < th.LEGACY_CRITIC_PAN_BELOW)
     .sort((a, b) => a.film.criticScore - b.film.criticScore || byWeekThenId(a, b))
   const a = acclaimed.length
-  const held = a >= TUNING.LEGACY_MIN_FILMS && 100 * a >= TUNING.LEGACY_MIN_SHARE_PERCENT * releases.length
+  const held = a >= th.LEGACY_MIN_FILMS && 100 * a >= th.LEGACY_MIN_SHARE_PERCENT * releases.length
   return archetypeResult('artistic-voice', heldWhen(held), limitedBy(f, s, FILM_READS), acclaimed.map(filmRef), panned.map(filmRef))
 }
 
-function audienceInstitution(f: Facts, s: LegacyStudioFact, releases: Release[]): ArchetypeResult {
+function audienceInstitution(f: Facts, s: LegacyStudioFact, releases: Release[], th: LegacyThresholds): ArchetypeResult {
   const decades = new Map<number, Release[]>()
   const unscoredDomains: string[] = []
   for (const r of releases) {
@@ -603,24 +608,24 @@ function audienceInstitution(f: Facts, s: LegacyStudioFact, releases: Release[])
   const worst: Release[] = []
   for (const decade of [...decades.keys()].sort((a, b) => a - b)) {
     const scored = decades.get(decade)!
-    if (scored.length < TUNING.LEGACY_DECADE_MIN_RELEASES) continue
-    const liked = scored.filter((r) => r.audience! >= TUNING.LEGACY_AUDIENCE_LIKED_MIN).length
+    if (scored.length < th.LEGACY_DECADE_MIN_RELEASES) continue
+    const liked = scored.filter((r) => r.audience! >= th.LEGACY_AUDIENCE_LIKED_MIN).length
     if (2 * liked >= scored.length) best.push([...scored].sort((a, b) => b.audience! - a.audience! || byWeekThenId(a, b))[0]!)
     else worst.push([...scored].sort((a, b) => a.audience! - b.audience! || byWeekThenId(a, b))[0]!)
   }
-  const held = best.length >= TUNING.LEGACY_AUDIENCE_MIN_DECADES
+  const held = best.length >= th.LEGACY_AUDIENCE_MIN_DECADES
   return archetypeResult('audience-institution', heldWhen(held), limitedBy(f, s, FILM_AND_EVENT_READS, unscoredDomains), best.map(filmRef), worst.map(filmRef))
 }
 
-function commercialEngine(f: Facts, s: LegacyStudioFact, releases: Release[]): ArchetypeResult {
+function commercialEngine(f: Facts, s: LegacyStudioFact, releases: Release[], th: LegacyThresholds): ArchetypeResult {
   const settled = releases.filter((r) => r.settled)
   const gross = (r: Release): number => r.film.grossSettled!
-  const hits = settled.filter((r) => 100 * gross(r) >= TUNING.LEGACY_HIT_REACH_PERCENT * f.bmv)
+  const hits = settled.filter((r) => 100 * gross(r) >= th.LEGACY_HIT_REACH_PERCENT * f.bmv)
     .sort((a, b) => gross(b) - gross(a) || byWeekThenId(a, b))
-  const flops = settled.filter((r) => 100 * gross(r) < TUNING.LEGACY_FLOP_REACH_PERCENT * f.bmv)
+  const flops = settled.filter((r) => 100 * gross(r) < th.LEGACY_FLOP_REACH_PERCENT * f.bmv)
     .sort((a, b) => gross(a) - gross(b) || byWeekThenId(a, b))
   const h = hits.length
-  const held = h >= TUNING.LEGACY_MIN_FILMS && 100 * h >= TUNING.LEGACY_MIN_SHARE_PERCENT * settled.length
+  const held = h >= th.LEGACY_MIN_FILMS && 100 * h >= th.LEGACY_MIN_SHARE_PERCENT * settled.length
   return archetypeResult('commercial-engine', heldWhen(held), limitedBy(f, s, [...FILM_DOMAINS, 'playerRuns']), hits.map(filmRef), flops.map(filmRef))
 }
 
@@ -631,10 +636,10 @@ function operationalAdoptions(f: Facts, s: LegacyStudioFact): LegacyAdoptionFact
     .sort((a, b) => a.operationalWeek! - b.operationalWeek! || compareText(a.adoptionId, b.adoptionId))
 }
 
-function technologyPioneer(f: Facts, s: LegacyStudioFact): ArchetypeResult {
+function technologyPioneer(f: Facts, s: LegacyStudioFact, th: LegacyThresholds): ArchetypeResult {
   const commercialWeekOf = new Map(f.technologies.map((t) => [t.technologyId, t.commercialWeek]))
   const operational = operationalAdoptions(f, s)
-  const pioneers = operational.filter((a) => a.operationalWeek! <= commercialWeekOf.get(a.technologyId)! + TUNING.LEGACY_PIONEER_WEEKS)
+  const pioneers = operational.filter((a) => a.operationalWeek! <= commercialWeekOf.get(a.technologyId)! + th.LEGACY_PIONEER_WEEKS)
   const spanEnd = Math.min(s.closedWeek ?? f.B, f.B)
   const contrary: { week: number; ref: LegacyRef }[] = []
   for (const t of f.technologies) {
@@ -642,7 +647,7 @@ function technologyPioneer(f: Facts, s: LegacyStudioFact): ArchetypeResult {
     if (t.commercialWeek < s.enteredWeek! || t.commercialWeek >= spanEnd) continue
     const own = operational.find((a) => a.technologyId === t.technologyId) // S's own earliest (amendment 4)
     if (own === undefined) contrary.push({ week: t.commercialWeek, ref: { domainId: 'technologyCatalogue', id: t.technologyId } })
-    else if (own.operationalWeek! > t.commercialWeek + TUNING.LEGACY_TECH_LATE_WEEKS) {
+    else if (own.operationalWeek! > t.commercialWeek + th.LEGACY_TECH_LATE_WEEKS) {
       contrary.push({ week: own.operationalWeek!, ref: { domainId: 'technologyAdoptions', id: own.adoptionId } })
     }
   }
@@ -657,15 +662,15 @@ const discoveryRef = (d: Discovery): LegacyRef => ({ domainId: d.event.domainId,
 const byMostCredits = (a: Discovery, b: Discovery): number =>
   b.credits - a.credits || a.firstWeek - b.firstWeek || compareText(a.event.eventId, b.event.eventId)
 
-function talentFoundry(f: Facts, s: LegacyStudioFact, discoveries: Discovery[]): ArchetypeResult {
-  const careers = discoveries.filter((d) => d.credits >= TUNING.LEGACY_FOUNDRY_MIN_CREDITS).sort(byMostCredits)
-  const stalled = discoveries.filter((d) => d.credits === 1 && d.firstWeek < f.B - TUNING.LEGACY_FOUNDRY_SETTLE_WEEKS)
+function talentFoundry(f: Facts, s: LegacyStudioFact, discoveries: Discovery[], th: LegacyThresholds): ArchetypeResult {
+  const careers = discoveries.filter((d) => d.credits >= th.LEGACY_FOUNDRY_MIN_CREDITS).sort(byMostCredits)
+  const stalled = discoveries.filter((d) => d.credits === 1 && d.firstWeek < f.B - th.LEGACY_FOUNDRY_SETTLE_WEEKS)
     .sort((a, b) => a.firstWeek - b.firstWeek || compareText(a.event.eventId, b.event.eventId))
-  const held = careers.length >= TUNING.LEGACY_FOUNDRY_MIN_PEOPLE
+  const held = careers.length >= th.LEGACY_FOUNDRY_MIN_PEOPLE
   return archetypeResult('talent-foundry', heldWhen(held), limitedBy(f, s, FILM_AND_EVENT_READS), careers.map(discoveryRef), stalled.map(discoveryRef))
 }
 
-function genreSpecialist(f: Facts, s: LegacyStudioFact, releases: Release[]): ArchetypeResult {
+function genreSpecialist(f: Facts, s: LegacyStudioFact, releases: Release[], th: LegacyThresholds): ArchetypeResult {
   const n = releases.length
   const counts = new Map<Genre, number>()
   for (const r of releases) counts.set(r.genre, (counts.get(r.genre) ?? 0) + 1)
@@ -673,7 +678,7 @@ function genreSpecialist(f: Facts, s: LegacyStudioFact, releases: Release[]): Ar
   const byCritic = (a: Release, b: Release): number => b.film.criticScore - a.film.criticScore || byWeekThenId(a, b)
   const inGenre = majority === undefined ? [] : releases.filter((r) => r.genre === majority).sort(byCritic)
   const others = majority === undefined ? [] : releases.filter((r) => r.genre !== majority).sort(byCritic)
-  const held = n >= TUNING.LEGACY_GENRE_MIN_FILMS && majority !== undefined
+  const held = n >= th.LEGACY_GENRE_MIN_FILMS && majority !== undefined
   return archetypeResult('genre-specialist', heldWhen(held), limitedBy(f, s, FILM_AND_EVENT_READS), inGenre.map(filmRef), others.map(filmRef))
 }
 
@@ -756,9 +761,18 @@ function lenses(f: Facts, s: LegacyStudioFact, releases: Release[], discoveries:
 
 // ── the builder and the freeze step ───────────────────────────────────────────
 export function buildLegacyManifest(facts: LegacyFacts, kind: LegacyManifestKind): LegacyManifest {
+  return evaluateLegacyManifest(facts, kind, CAMPAIGN_LEGACY_DEFINITION,
+    { boundaryWeek: LEGACY_BOUNDARY_WEEK, postFinaleMode: LEGACY_POST_FINALE_MODE, thresholds: liveLegacyThresholds() })
+}
+
+/** The law under one era: the live definition and TUNING when a manifest is built, a frozen entry's own id,
+ * boundary, mode and thresholds when the validator replays one (1359-F Amendment 1; 1353-F7 ruling 4). */
+function evaluateLegacyManifest(facts: LegacyFacts, kind: LegacyManifestKind, definition: LegacyDefinitionId,
+  era: Pick<LegacyDefinition, 'boundaryWeek' | 'postFinaleMode' | 'thresholds'>): LegacyManifest {
   if (kind !== 'official2040' && kind !== 'endOfRun') fail('kind', 'must be official2040 or endOfRun')
   const f = readFacts(facts)
-  if (kind === 'official2040' && f.B !== LEGACY_BOUNDARY_WEEK) fail('boundaryWeek', 'must be 2040 · Week 1 for the official Legacy')
+  if (kind === 'official2040' && f.B !== era.boundaryWeek) fail('boundaryWeek', 'must be 2040 · Week 1 for the official Legacy')
+  const th = era.thresholds
   const studios = f.studios.map((s): LegacyStudio => {
     const releases = [...(f.releasesOf.get(s.studioId) ?? [])].sort(byWeekThenId)
     const discoveries = f.discoveriesOf.get(s.studioId) ?? []
@@ -770,12 +784,12 @@ export function buildLegacyManifest(facts: LegacyFacts, kind: LegacyManifestKind
         commercialConfidence: s.standing.commercialConfidence,
       },
       archetypes: [
-        artisticVoice(f, s, releases),
-        audienceInstitution(f, s, releases),
-        commercialEngine(f, s, releases),
-        technologyPioneer(f, s),
-        talentFoundry(f, s, discoveries),
-        genreSpecialist(f, s, releases),
+        artisticVoice(f, s, releases, th),
+        audienceInstitution(f, s, releases, th),
+        commercialEngine(f, s, releases, th),
+        technologyPioneer(f, s, th),
+        talentFoundry(f, s, discoveries, th),
+        genreSpecialist(f, s, releases, th),
         resilientSurvivor(f, s),
         archetypeResult('awards-dynasty', 'notRecorded', ['awards'], [], []),
       ],
@@ -784,9 +798,9 @@ export function buildLegacyManifest(facts: LegacyFacts, kind: LegacyManifestKind
   })
   return {
     kind,
-    definition: CAMPAIGN_LEGACY_DEFINITION,
+    definition,
     boundaryWeek: f.B,
-    postFinaleMode: kind === 'official2040' ? LEGACY_POST_FINALE_MODE : null,
+    postFinaleMode: kind === 'official2040' ? era.postFinaleMode : null,
     sources: sources(f),
     studios,
   }
@@ -802,4 +816,280 @@ export function freezeLegacy(root: CampaignLegacy, producedWeek: number, facts: 
   if (root.version !== 1 || root.official === undefined) fail('root', 'must be a version 1 CampaignLegacy root')
   if (root.official !== null) return root
   return { ...root, official: buildLegacyManifest(facts, 'official2040') }
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+// P15C Wave 2 (record 1359): the Legacy in the live game. 1359-A §3-§5 with 1359-F, the era
+// table of 1353-F6 ruling 2, and the shared Save45 step (1361-F rulings 4 to 6).
+// ═════════════════════════════════════════════════════════════════════════════
+
+// ── the frozen definition table (1359-A §5.1 era versioning; 1353-F6 ruling 2) ─
+/** The fifteen thresholds every era sets, by their TUNING names (1353-A §5.5). */
+export const LEGACY_THRESHOLD_NAMES = [
+  'LEGACY_CRITIC_ACCLAIM_MIN', 'LEGACY_CRITIC_PAN_BELOW', 'LEGACY_AUDIENCE_LIKED_MIN', 'LEGACY_MIN_FILMS',
+  'LEGACY_MIN_SHARE_PERCENT', 'LEGACY_HIT_REACH_PERCENT', 'LEGACY_FLOP_REACH_PERCENT', 'LEGACY_AUDIENCE_MIN_DECADES',
+  'LEGACY_DECADE_MIN_RELEASES', 'LEGACY_PIONEER_WEEKS', 'LEGACY_TECH_LATE_WEEKS', 'LEGACY_FOUNDRY_MIN_PEOPLE',
+  'LEGACY_FOUNDRY_MIN_CREDITS', 'LEGACY_FOUNDRY_SETTLE_WEEKS', 'LEGACY_GENRE_MIN_FILMS',
+] as const
+export type LegacyThresholdName = (typeof LEGACY_THRESHOLD_NAMES)[number]
+export type LegacyThresholds = Readonly<Record<LegacyThresholdName, number>>
+
+/** The live era's thresholds, read from TUNING each time a manifest is built. */
+function liveLegacyThresholds(): LegacyThresholds {
+  const live = {} as Record<LegacyThresholdName, number>
+  for (const name of LEGACY_THRESHOLD_NAMES) live[name] = TUNING[name]
+  return live
+}
+
+/** Everything the validator needs to judge a manifest of one definition. */
+export type LegacyDefinition = {
+  readonly boundaryWeek: number
+  readonly postFinaleMode: typeof LEGACY_POST_FINALE_MODE
+  readonly archetypeIds: readonly string[]
+  readonly lensIds: readonly string[]
+  /** 1353-F2 §2. `ranking` omits `bestRank` when no quarter ranked; a notRecorded lens has none. */
+  readonly lensCountKeys: Readonly<Record<string, readonly string[]>>
+  readonly bounds: Readonly<{ domains: number; archetypes: number; refsPerSide: number; lenses: number }>
+  readonly domainIds: readonly string[]
+  readonly thresholds: LegacyThresholds
+  readonly evaluate: (facts: LegacyFacts, kind: LegacyManifestKind) => LegacyManifest
+}
+
+/** v1's thresholds as Wave 1 landed them. A v1 manifest replays under these forever. */
+const V1_THRESHOLDS: LegacyThresholds = Object.freeze({
+  LEGACY_CRITIC_ACCLAIM_MIN: 70, LEGACY_CRITIC_PAN_BELOW: 35, LEGACY_AUDIENCE_LIKED_MIN: 57, LEGACY_MIN_FILMS: 5,
+  LEGACY_MIN_SHARE_PERCENT: 25, LEGACY_HIT_REACH_PERCENT: 90, LEGACY_FLOP_REACH_PERCENT: 30,
+  LEGACY_AUDIENCE_MIN_DECADES: 4, LEGACY_DECADE_MIN_RELEASES: 2, LEGACY_PIONEER_WEEKS: 52,
+  LEGACY_TECH_LATE_WEEKS: 260, LEGACY_FOUNDRY_MIN_PEOPLE: 3, LEGACY_FOUNDRY_MIN_CREDITS: 10,
+  LEGACY_FOUNDRY_SETTLE_WEEKS: 260, LEGACY_GENRE_MIN_FILMS: 8,
+})
+
+/** v2, the live era: 1353-T's retune with 1353-F6's hit line (critic 60, hit line 49, share floor 20); the
+ * other twelve as v1. A later retune adds an entry and leaves this one untouched. */
+const V2_THRESHOLDS: LegacyThresholds = Object.freeze({
+  LEGACY_CRITIC_ACCLAIM_MIN: 60, LEGACY_CRITIC_PAN_BELOW: 35, LEGACY_AUDIENCE_LIKED_MIN: 57, LEGACY_MIN_FILMS: 5,
+  LEGACY_MIN_SHARE_PERCENT: 20, LEGACY_HIT_REACH_PERCENT: 49, LEGACY_FLOP_REACH_PERCENT: 30,
+  LEGACY_AUDIENCE_MIN_DECADES: 4, LEGACY_DECADE_MIN_RELEASES: 2, LEGACY_PIONEER_WEEKS: 52,
+  LEGACY_TECH_LATE_WEEKS: 260, LEGACY_FOUNDRY_MIN_PEOPLE: 3, LEGACY_FOUNDRY_MIN_CREDITS: 10,
+  LEGACY_FOUNDRY_SETTLE_WEEKS: 260, LEGACY_GENRE_MIN_FILMS: 8,
+})
+
+/** What v1 and v2 share, as literals, never the live exports: 1353-T moved three thresholds and nothing else. */
+const LEGACY_ERA_STRUCTURE = Object.freeze({
+  boundaryWeek: 6240,
+  postFinaleMode: 'ordinary-simulation/v1' as const,
+  archetypeIds: Object.freeze([
+    'artistic-voice', 'audience-institution', 'commercial-engine', 'technology-pioneer',
+    'talent-foundry', 'genre-specialist', 'resilient-survivor', 'awards-dynasty',
+  ]),
+  lensIds: Object.freeze(['catalog', 'people', 'technology', 'ranking', 'financialBand', 'market', 'resilience', 'awards']),
+  lensCountKeys: Object.freeze({
+    catalog: Object.freeze(['releases', 'settled', 'inReleaseAtBoundary', 'authoredPre1920']),
+    people: Object.freeze(['credited', 'discoveries']),
+    technology: Object.freeze(['operationalAdoptions']),
+    ranking: Object.freeze(['rankedQuarters', 'quartersAtFirst', 'bestRank']),
+    financialBand: Object.freeze(['inTheRed', 'strained', 'stable', 'thriving']),
+    market: Object.freeze(['assessed', 'underPressure']),
+    resilience: Object.freeze(['warnings', 'distressEntries', 'returnsToStable', 'closures']),
+    awards: Object.freeze([]),
+  }),
+  bounds: Object.freeze({ domains: 16, archetypes: 8, refsPerSide: 12, lenses: 12 }),
+  domainIds: Object.freeze([
+    'playerFilms', 'industryFilms', 'playerRuns', 'playerCareerEvents', 'industryCareerEvents',
+    'technologyAdoptions', 'technologyCatalogue', 'powerRanking', 'corporateCondition',
+    'marketAssessments', 'awards',
+  ]),
+})
+
+/** A frozen entry. Its evaluator stamps the entry's own id, boundary and mode and applies the entry's own
+ * thresholds, so a replay under one era never writes another's (1353-U finding 8; 1353-F7 ruling 4). */
+function frozenDefinition(definition: LegacyDefinitionId, thresholds: LegacyThresholds): LegacyDefinition {
+  const era = { ...LEGACY_ERA_STRUCTURE, thresholds }
+  return Object.freeze({
+    ...era,
+    evaluate: (facts: LegacyFacts, kind: LegacyManifestKind) => evaluateLegacyManifest(facts, kind, definition, era),
+  })
+}
+
+/** The frozen definition table: each era a stored manifest may name. The validator reads only this. */
+export const LEGACY_DEFINITIONS: Readonly<Record<LegacyDefinitionId, LegacyDefinition>> = Object.freeze({
+  'campaign-legacy/v1': frozenDefinition('campaign-legacy/v1', V1_THRESHOLDS),
+  'campaign-legacy/v2': frozenDefinition('campaign-legacy/v2', V2_THRESHOLDS),
+})
+
+// ── the root (1359-A §5) ──────────────────────────────────────────────────────
+/** The official manifest plus the P15 stamp the freeze adds; the law never sees the stamp. */
+export type OfficialLegacy = LegacyManifest & {
+  legacySnapshotId: string
+  p15DomainSequence: number
+  phaseId: string
+  phaseOrdinal: number
+  phaseOrderVersion: number
+}
+/** The persisted root, a top-level key of the Save45 step (1359-A §5 "Placement"). */
+export type CampaignLegacyRoot = {
+  version: 1
+  recordedFromWeek: number
+  official: OfficialLegacy | null
+  /** Wave 5 (1359-A §6): always null in this era. */
+  endOfRun: null
+}
+/** The empty root a fresh world, a migration and a historical lift write: recording from `week`, unfrozen. No
+ * freeze runs at migration (1359-A §5.2). */
+export const initialCampaignLegacy = (week: number): CampaignLegacyRoot => ({ version: 1, recordedFromWeek: week, official: null, endOfRun: null })
+const STAMP_KEYS = ['legacySnapshotId', 'p15DomainSequence', 'phaseId', 'phaseOrdinal', 'phaseOrderVersion'] as const
+const FINALE_PHASE = 'p15c.finale'
+
+// ── the validator (1359-A §5.1) ───────────────────────────────────────────────
+type Row = Record<string, unknown>
+const isRow = (value: unknown): value is Row => value !== null && typeof value === 'object' && !Array.isArray(value)
+
+/**
+ * The root's validator. `validateSaveV45` runs it after the frozen chain and the sibling roots' validators have
+ * proved the rest of the state, and the one allocator check after it (1361-F ruling 5). It judges a manifest by
+ * the frozen entry its definition names, never by TUNING or the live exports, and it refuses by name.
+ */
+export function validateCampaignLegacy(raw: Record<string, unknown>, label: string): void {
+  // An explicit type on the binding makes every call a never-returning call for narrowing.
+  const refuse: (path: string, rule: string) => never = (path, rule) => {
+    throw new Error(`${label}: campaignLegacy${path === '' ? '' : `.${path}`} ${rule}`)
+  }
+  const exactKeys = (value: Row, keys: readonly string[], path: string): void => {
+    const own = Object.keys(value)
+    if (own.length !== keys.length || keys.some((key) => !Object.hasOwn(value, key))) {
+      refuse(path, `must carry exactly ${keys.join(', ')}`)
+    }
+  }
+  const state = raw as unknown as GameState
+  const B = LEGACY_BOUNDARY_WEEK
+  const tick = state.market.tick
+
+  // 1. Shape.
+  const root = raw.campaignLegacy
+  if (!isRow(root)) refuse('', 'must be an object')
+  exactKeys(root, ['version', 'recordedFromWeek', 'official', 'endOfRun'], '')
+  if (root.version !== 1) refuse('version', 'must be 1')
+  const from = root.recordedFromWeek
+  if (typeof from !== 'number' || !Number.isSafeInteger(from) || from < 0 || from > tick) {
+    refuse('recordedFromWeek', 'must be a whole week in [0, market.tick]')
+  }
+  if (root.endOfRun !== null) refuse('endOfRun', 'must be null in this era: the end-of-run record is Wave 5 (1359-A §6)')
+
+  // 2. The marker rule (1359-A §4.3). The freeze was due exactly when the industry and the root both record
+  // from before B and the save stands at B or later. No official manifest exists unless it was due.
+  const h = state.hollywood
+  const due = h !== null && h.originWeek < B && from < B && tick >= B
+  if (!due && root.official !== null) refuse('official', 'must be null: the 2040 freeze was not due')
+  if (root.official === null || h === null) return // a manifest that was due has an industry
+  const value = root.official
+  if (!isRow(value)) refuse('official', 'must be an object')
+  exactKeys(value, ['kind', 'definition', 'boundaryWeek', 'postFinaleMode', 'sources', 'studios', ...STAMP_KEYS], 'official')
+  const official = value as unknown as OfficialLegacy
+
+  // 3. Identity, against the frozen definition table.
+  if (official.kind !== 'official2040') refuse('official.kind', 'must be official2040')
+  if (typeof official.definition !== 'string' || !Object.hasOwn(LEGACY_DEFINITIONS, official.definition)) {
+    refuse('official.definition', 'must name a definition of the frozen table')
+  }
+  const entry = LEGACY_DEFINITIONS[official.definition]
+  if (official.boundaryWeek !== entry.boundaryWeek) refuse('official.boundaryWeek', `must be ${entry.boundaryWeek}, its definition's boundary`)
+  if (official.postFinaleMode !== entry.postFinaleMode) refuse('official.postFinaleMode', `must be ${entry.postFinaleMode}, its definition's mode`)
+
+  // 4. The stamp (1355-F2 items 2-5). This root's own rule: a whole sequence and the id that cites it. Distinct
+  // across the P15 roots and below p15Sequence.next is the one allocator check's rule (1361-F ruling 5).
+  const sequence = official.p15DomainSequence
+  if (typeof sequence !== 'number' || !Number.isSafeInteger(sequence) || sequence < 1) {
+    refuse('official.p15DomainSequence', 'must be a whole number of at least 1')
+  }
+  if (official.legacySnapshotId !== `campaign-legacy-${sequence}`) refuse('official.legacySnapshotId', 'must be campaign-legacy-<p15DomainSequence>')
+  if (official.phaseId !== FINALE_PHASE) refuse('official.phaseId', `must be ${FINALE_PHASE}`)
+  // 1355-F5 ruling 1 (1361-F ruling 6): the entry of the manifest's own phase-order version, read through the
+  // exported table. A version with no table, or a table with no finale entry, refuses.
+  const phase = Number.isSafeInteger(official.phaseOrderVersion)
+    ? P15_PHASE_TABLES[official.phaseOrderVersion]?.find((candidate) => candidate.phaseId === FINALE_PHASE) : undefined
+  if (phase === undefined || phase.phaseOrdinal !== official.phaseOrdinal) {
+    refuse('official.phaseOrdinal', `and official.phaseOrderVersion must be the ${FINALE_PHASE} entry of their phase-order table`)
+  }
+
+  // 5. Bounds per the entry.
+  const { bounds } = entry
+  if (!Array.isArray(official.sources) || official.sources.length > bounds.domains) {
+    refuse('official.sources', `must name at most ${bounds.domains} sources`)
+  }
+  const sourceIds = new Set<string>()
+  official.sources.forEach((source, i) => {
+    const at = `official.sources[${i}]`
+    if (!isRow(source)) refuse(at, 'must be an object')
+    exactKeys(source as unknown as Row, ['domainId', 'highWatermark', 'recordedFromWeek', 'status'], at)
+    if (!entry.domainIds.includes(source.domainId) || source.domainId === 'awards') {
+      refuse(`${at}.domainId`, 'must name a domain of its definition other than awards')
+    }
+    if (sourceIds.has(source.domainId)) refuse(`${at}.domainId`, 'must not repeat a domain')
+    sourceIds.add(source.domainId)
+  })
+  if (!Array.isArray(official.studios)) refuse('official.studios', 'must be an array')
+  const identities = new Map(h.identities.map((identity) => [identity.studioId, identity]))
+  const studioIds = new Set<string>()
+  let previous: { row: number; studioId: string } | null = null
+  official.studios.forEach((studio, i) => {
+    const at = `official.studios[${i}]`
+    if (!isRow(studio)) refuse(at, 'must be an object')
+    exactKeys(studio as unknown as Row, ['studioId', 'standingAtBoundary', 'archetypes', 'lenses'], at)
+    const identity = identities.get(studio.studioId)
+    if (identity === undefined || identity.enteredWeek === null || identity.enteredWeek >= entry.boundaryWeek || studioIds.has(studio.studioId)) {
+      refuse(`${at}.studioId`, 'must name a distinct studio that entered before the boundary')
+    }
+    studioIds.add(studio.studioId)
+    if (previous !== null && (identity.row < previous.row || (identity.row === previous.row && compareText(studio.studioId, previous.studioId) < 0))) {
+      refuse('official.studios', 'must list the studios in row order')
+    }
+    previous = { row: identity.row, studioId: studio.studioId }
+    // standingAtBoundary is range-checked only: Standing at B is gone after the freeze tick (1359-F Amendment 1).
+    const standing = studio.standingAtBoundary as unknown
+    if (!isRow(standing)) refuse(`${at}.standingAtBoundary`, 'must be an object')
+    exactKeys(standing, ['audienceAwareness', 'industryPrestige', 'commercialConfidence'], `${at}.standingAtBoundary`)
+    for (const channel of ['audienceAwareness', 'industryPrestige', 'commercialConfidence'] as const) {
+      const level = standing[channel]
+      if (typeof level !== 'number' || !Number.isFinite(level) || level < 0 || level > 100) {
+        refuse(`${at}.standingAtBoundary.${channel}`, 'must be a finite value in [0, 100]')
+      }
+    }
+    const archetypes: unknown = studio.archetypes
+    if (!Array.isArray(archetypes) || archetypes.length !== entry.archetypeIds.length
+      || archetypes.some((a, j) => !isRow(a) || a.archetypeId !== entry.archetypeIds[j])) {
+      refuse(`${at}.archetypes`, `must list the ${entry.archetypeIds.length} archetypes of ${official.definition} in order`)
+    }
+    studio.archetypes.forEach((archetype, j) => {
+      const aat = `${at}.archetypes[${j}]`
+      exactKeys(archetype as unknown as Row, ['archetypeId', 'outcome', 'limitedBy', 'qualifyingCount', 'contraryCount', 'qualifying', 'contrary'], aat)
+      if (!['held', 'notHeld', 'notRecorded'].includes(archetype.outcome)) refuse(`${aat}.outcome`, 'must be held, notHeld or notRecorded')
+      for (const side of ['qualifying', 'contrary'] as const) {
+        const refs: unknown = archetype[side]
+        const count: unknown = archetype[side === 'qualifying' ? 'qualifyingCount' : 'contraryCount']
+        if (!Array.isArray(refs) || refs.length > bounds.refsPerSide) refuse(`${aat}.${side}`, `must cite at most ${bounds.refsPerSide} refs`)
+        if (!Number.isSafeInteger(count) || (count as number) < refs.length) refuse(`${aat}.${side}Count`, 'must be a whole count of at least its refs')
+      }
+    })
+    const lensList: unknown = studio.lenses
+    if (!Array.isArray(lensList) || lensList.length > bounds.lenses) refuse(`${at}.lenses`, `must list at most ${bounds.lenses} lenses`)
+    const lensIds = new Set<string>()
+    studio.lenses.forEach((lens, k) => {
+      const lat = `${at}.lenses[${k}]`
+      exactKeys(lens as unknown as Row, ['lensId', 'status', 'counts', 'refs'], lat)
+      if (!entry.lensIds.includes(lens.lensId) || lensIds.has(lens.lensId)) refuse(`${lat}.lensId`, 'must name a distinct lens of its definition')
+      lensIds.add(lens.lensId)
+      if (!['complete', 'limited', 'notRecorded'].includes(lens.status)) refuse(`${lat}.status`, 'must be complete, limited or notRecorded')
+      const counts: unknown = lens.counts
+      if (!isRow(counts)) refuse(`${lat}.counts`, 'must be an object')
+      const full = entry.lensCountKeys[lens.lensId] ?? []
+      const expected = lens.status === 'notRecorded' ? []
+        : lens.lensId === 'ranking' && counts.rankedQuarters === 0 ? full.filter((key) => key !== 'bestRank') : full
+      exactKeys(counts, expected, `${lat}.counts`)
+      for (const key of expected) {
+        if (!Number.isSafeInteger(counts[key]) || (counts[key] as number) < 0) refuse(`${lat}.counts.${key}`, 'must be a whole count')
+      }
+      const refs: unknown = lens.refs
+      if (!Array.isArray(refs) || refs.length > bounds.refsPerSide) refuse(`${lat}.refs`, `must cite at most ${bounds.refsPerSide} refs`)
+    })
+  })
 }
