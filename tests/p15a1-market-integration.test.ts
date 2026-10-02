@@ -711,8 +711,8 @@ describe('p15a1 market era guard (RED 15)', () => {
 // RED 16 — the old save (1355-A §3.5; 1355-F Amendment 3; 1355-F3 RED 16)
 // ════════════════════════════════════════════════════════════════════════════════
 type CaptureManifest = { saveVersion: number; inputs: { name: string; gzip: { bytes: number; sha256: string }; decoded: { bytes: number; sha256: string } }[] }
-/** 1355-F4: the minted MANIFEST's sha256, pinned here after 1355-P runs (it covers every input). */
-const CAPTURE_MANIFEST_SHA256: string | null = null
+/** 1355-F4: the minted MANIFEST's sha256, pinned here after 1355-P runs (it covers every input). From the recorded mint 1360-p15a1-mint (1360-F ruling 4). */
+const CAPTURE_MANIFEST_SHA256: string | null = '410d48a8c8590e9c6177db2df34b186aab875525626d726eadf09263555dc794'
 function belowStepCaptures(): Envelope[] {
   const url = new URL(`../${CAPTURE_DIRECTORY}MANIFEST.json`, import.meta.url)
   if (!existsSync(url)) {
