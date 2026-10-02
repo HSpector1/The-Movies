@@ -1,0 +1,1638 @@
+{"guardScope":{"excludedAutomaticReadPrefixes":["tests/fixtures/","ui/e2e/","ui/public/"],"includedPaths":["bridge/campaign-origin.ts","bridge/cancellation.ts","bridge/casting.ts","bridge/contract.ts","bridge/development.ts","bridge/finance-consequence.ts","bridge/finance-portfolio.ts","bridge/finance-route.ts","bridge/finance-upcoming.ts","bridge/finance.ts","bridge/history.ts","bridge/industry.ts","bridge/laboratory.ts","bridge/lifecycle.ts","bridge/market.ts","bridge/office.ts","bridge/operations-events.ts","bridge/people.ts","bridge/placement.ts","bridge/plans.ts","bridge/productionSetup.ts","bridge/promises.ts","bridge/proof.ts","bridge/protocol.ts","bridge/relationships.ts","bridge/release.ts","bridge/retirement-extension.ts","bridge/runtime-checkpoint.ts","bridge/runtime/campaign-library.ts","bridge/runtime/campaign-storage-codec.ts","bridge/runtime/checkpoint-store.ts","bridge/runtime/process-incarnation.ts","bridge/runtime/runtime-coordinator.ts","bridge/runtime/worker-adapter.ts","bridge/runtime/worker-client.ts","bridge/runtime/worker-contract.ts","bridge/runtime/worker-entry-path.ts","bridge/runtime/worker-entry.ts","bridge/schema/README.md","bridge/schema/bridge-schema.ts","bridge/schema/canonical.ts","bridge/schema/dsl.ts","bridge/schema/industry-schema.ts","bridge/schema/intent-schema.ts","bridge/schema/project-studio-bridge.schema.json","bridge/schema/runtime.ts","bridge/server.ts","bridge/session.ts","bridge/setCommission.ts","bridge/snapshot-build-context.ts","bridge/supervisor/bounded-log.ts","bridge/supervisor/cli-main.ts","bridge/supervisor/cli-packaged.ts","bridge/supervisor/cli.ts","bridge/supervisor/config.ts","bridge/supervisor/lease.ts","bridge/supervisor/supervisor.ts","bridge/testing/c3-active-endurance-contract.ts","bridge/testing/c3-active-endurance-observer.ts","bridge/testing/in-flight-evidence-verifier.ts","bridge/testing/post-commit-response-gate.ts","bridge/trust.ts","bridge/world.ts","generated/unity/StudioBridgeDtos.Generated.cs","generated/unity/project-studio-bridge.contract-manifest.json","generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs","package-lock.json","package.json","scripts/3d-asset-audit-allowlist.json","scripts/art/authored-asset-pipeline.py","scripts/audio/generate_pf1_audio.py","scripts/audit-3d-assets.mjs","scripts/audit-repository-hygiene.mjs","scripts/audit-studio-packaged.mjs","scripts/bridge-contract-consumer-lock.ts","scripts/bridge-contract-csharp.ts","scripts/build-studio.mjs","scripts/gen-career-fixtures.mts","scripts/gen-expanded-property-fixtures.mts","scripts/gen-live-week-advance-fixtures.mts","scripts/gen-lot-fixtures.mts","scripts/gen-lot-native-next-event-fixtures.mts","scripts/gen-p05-visual-oracle-fixtures.mts","scripts/gen-p06-visual-oracle-fixtures.mts","scripts/gen-p07-visual-oracle-fixtures.mts","scripts/gen-p08-visual-oracle-fixtures.mts","scripts/gen-p09-p18-reverify-fixtures.mts","scripts/gen-p09-visual-oracle-fixtures.mts","scripts/gen-p10-visual-oracle-fixtures.mts","scripts/gen-p19-reverify-fixtures.mts","scripts/gen-playmode-embedded-wire.mts","scripts/gen-recap-fixtures.mts","scripts/gen-world-first-operational-annex-work-presence-fixtures.mts","scripts/gen-world-first-scenery-load-in-fixtures.mts","scripts/generate-bridge-contract-fixtures.ts","scripts/generate-bridge-contract.ts","scripts/generate-foundation-recovery-fixtures.ts","scripts/generate-p11-core-fixtures.mts","scripts/generate-p11-editmode-fixtures.mts","scripts/generate-p11-scale-fixture.mts","scripts/living-lot-profile.mjs","scripts/make-favicon.mjs","scripts/measure-c1-economy.mts","scripts/measure-c2-throughput.mts","scripts/measure-p08-history-growth.mts","scripts/measure-v14-save-size.mts","scripts/migrate-p11-current-fixtures.mts","scripts/p06-real-profile-journey.mts","scripts/p07-real-profile-journey.mts","scripts/p08-real-profile-journey.mts","scripts/p09-solvency-preflight.mts","scripts/p10-compat-boundary-probe.sh","scripts/p10-owner-profile-copy.mts","scripts/p10-run-owner-copy-engine.sh","scripts/p11-compat-boundary-probe.py","scripts/p11-owner-profile-copy.mts","scripts/p11-run-owner-copy-engine.sh","scripts/p12a-milestone-checker.mjs","scripts/p13a-generate-evidence.ts","scripts/p13a-generate-review-library.ts","scripts/p13a-package-candidate.mjs","scripts/p13a/accepted-v19-checkpoint.mjs","scripts/p13a/build-performance-probes.mjs","scripts/p13a/instrument-performance-profile.mjs","scripts/p13a/performance-generator.mjs","scripts/p13a/performance-library32-fixture.mjs","scripts/p13a/performance-library32-recovery.mjs","scripts/p13a/performance-migration.mjs","scripts/p13a/performance-preflight.mjs","scripts/p13a/performance-profile.mjs","scripts/p13a/performance-store.mjs","scripts/p13a/performance-summary.mjs","scripts/phase-m-matrix.mjs","scripts/playability-package-candidate.mjs","scripts/playability/generate-evidence.ts","scripts/playability/generate-review-library.ts","scripts/prepare-runtime-worker.mjs","scripts/rebind-foundation-oracle-fixtures.ts","scripts/sweep-c2a-placement.mts","scripts/verify-bridge-contract-consumer.ts","scripts/verify-bridge-inflight-evidence.ts","scripts/verify-foundation-recovery-engine.py","src/core/actions.ts","src/core/agents.ts","src/core/aging.ts","src/core/blueprintRequirements.ts","src/core/boundedStableSort.ts","src/core/broadcast.ts","src/core/calendar.ts","src/core/campaignLegacy.ts","src/core/candidates.ts","src/core/careerLifecycle.ts","src/core/castingPackageReadModel.ts","src/core/castingReadModel.ts","src/core/castingSessions.ts","src/core/construction.ts","src/core/corporateCondition.ts","src/core/data/screenplay.ts","src/core/data/wordlists.ts","src/core/development.ts","src/core/economy.ts","src/core/economyView.ts","src/core/employment.ts","src/core/facilityEffects.ts","src/core/filmPackage.ts","src/core/filmParticipants.ts","src/core/financeReport.ts","src/core/firstFilmJourney.ts","src/core/firstTakeSubjects.ts","src/core/fixedCostAllocation.ts","src/core/forecast.ts","src/core/grid.ts","src/core/hollywood.ts","src/core/hollywoodPolicy.ts","src/core/hollywoodStartingData.ts","src/core/hollywoodTick.ts","src/core/hollywoodTypes.ts","src/core/hollywoodValidation.ts","src/core/index.ts","src/core/industryCareer.ts","src/core/industryEmployment.ts","src/core/installationCancellation.ts","src/core/liveRetirementWriting.ts","src/core/lot.ts","src/core/marketingMenu.ts","src/core/math.ts","src/core/newspaper.ts","src/core/occupancy.ts","src/core/officeConversion.ts","src/core/operations.ts","src/core/opportunityPromises.ts","src/core/physicalPlans.ts","src/core/placement.ts","src/core/powerRanking.ts","src/core/presence.ts","src/core/productionAdmission.ts","src/core/productionIdentity.ts","src/core/productionPeople.ts","src/core/productionPhases.ts","src/core/productionQueue.ts","src/core/productionSetup.ts","src/core/professionHistory.ts","src/core/professionTransitions.ts","src/core/promiseCapacityEnumerator.ts","src/core/promiseCapacityKernel.ts","src/core/promiseCapacityOwnerReplay.ts","src/core/promiseCapacityOwners.ts","src/core/promises.ts","src/core/publicity.ts","src/core/queueAdmission.ts","src/core/reception.ts","src/core/receptionVerdict.ts","src/core/relationshipLabels.ts","src/core/relationships.ts","src/core/releaseAuthority.ts","src/core/releaseCareers.ts","src/core/researchPeople.ts","src/core/retirementWriting.ts","src/core/rivalResearch.ts","src/core/rng.ts","src/core/save.ts","src/core/sceneryLoadIn.ts","src/core/screenplay.ts","src/core/scriptDevelopment.ts","src/core/scriptReadModel.ts","src/core/sets.ts","src/core/shape.ts","src/core/sharedMarket.ts","src/core/standing.ts","src/core/starPower.ts","src/core/studioCalendar.ts","src/core/studioEvents.ts","src/core/studioHistory.ts","src/core/studioLoan.ts","src/core/studioQueueView.ts","src/core/studioRunRecap.ts","src/core/studioWeekTheater.ts","src/core/talentMarket.ts","src/core/talentSummary.ts","src/core/technology.ts","src/core/technologyAdoption.ts","src/core/technologyCatalogue.ts","src/core/technologyDisclosure.ts","src/core/technologyMilestones.ts","src/core/technologyProduction.ts","src/core/technologyRival.ts","src/core/technologyTypes.ts","src/core/tick.ts","src/core/tuning.ts","src/core/types.ts","src/core/vector.ts","src/core/worldgen.ts","src/harness/aggregate.ts","src/harness/d16/compare-d17b-production.ts","src/harness/d16/counterflow.test.ts","src/harness/d16/counterflow.ts","src/harness/d16/driver.test.ts","src/harness/d16/driver.ts","src/harness/d16/experiment.test.ts","src/harness/d16/experiment.ts","src/harness/d16/isolation.test.ts","src/harness/d16/luck.test.ts","src/harness/d16/luck.ts","src/harness/d16/packages.test.ts","src/harness/d16/packages.ts","src/harness/d16/policies.ts","src/harness/d16/production-agreement.test.ts","src/harness/d16/productionIdentity.ts","src/harness/d16/publicity.test.ts","src/harness/d16/publicity.ts","src/harness/d16/run-d16-corpus.ts","src/harness/d16/run-d17b-continuation.ts","src/harness/d16/run-d17b-week86.ts","src/harness/d16/sourceProvenance.ts","src/harness/d16/states.test.ts","src/harness/d16/states.ts","src/harness/d16/stats.test.ts","src/harness/d16/stats.ts","src/harness/d16/view.ts","src/harness/d16/vitest.d16.config.ts","src/harness/facilities/index.ts","src/harness/measure.ts","src/harness/p13a/fixtures.ts","src/harness/p13b/fixtures.ts","src/harness/p13b/legacy-v20-fixtures.ts","src/harness/p13b/legacy-v21-fixtures.ts","src/harness/p13b/legacy-v22-fixtures.ts","src/harness/p13b/legacy-v23-fixtures.ts","src/harness/p13b/legacy-v24-fixtures.ts","src/harness/p13b/legacy-v25-fixtures.ts","src/harness/p13b/legacy-v26-fixtures.ts","src/harness/p13b/legacy-v27-fixtures.ts","src/harness/p13b/s3-fixtures.ts","src/harness/p13b/s4-fixtures.ts","src/harness/p13b/s6-fixtures.ts","src/harness/p14/legacy-v28-fixtures.ts","src/harness/roster-wall/artifacts.ts","src/harness/roster-wall/campaign.ts","src/harness/roster-wall/continuation.ts","src/harness/roster-wall/corpus.ts","src/harness/roster-wall/fixtures.ts","src/harness/roster-wall/historical-control.ts","src/harness/roster-wall/player-policy.ts","src/harness/roster-wall/provenance.ts","src/harness/roster-wall/records.ts","src/harness/roster-wall/renewal.ts","src/harness/roster-wall/schema.ts","src/harness/roster-wall/summary.ts","src/harness/run-capital-risk-reward-audit.ts","src/harness/run-corpus.ts","src/harness/run-creator-baseline-study.ts","src/harness/run-creator-development-study.ts","src/harness/run-dev-study.ts","src/harness/run-driver.ts","src/harness/run-economy-balance-study.ts","src/harness/run-facilities-observatory.ts","src/harness/run-final-balance.ts","src/harness/run-integrated-balance.ts","src/harness/run-microbudget-dominance-audit.ts","src/harness/run-multihyphenate-stats.ts","src/harness/run-owner-calibration-study.ts","src/harness/run-roster-balance-study.ts","src/harness/run-roster-wall-observatory.ts","src/harness/run-selection-stats.ts","src/harness/run-shape-sensitivity.ts","src/harness/run-star-power-calibration.ts","src/harness/run-writer-bottleneck-study.ts","tests/3d-asset-audit.test.ts","tests/_fixtures.ts","tests/_historicalCurrent.ts","tests/_legacyV1Fixtures.ts","tests/_m4Fixtures.ts","tests/_m5Fixtures.ts","tests/_m5PlaytestSave.ts","tests/_p04a2WriterCreditFixtures.ts","tests/_p08HistoryTwins.ts","tests/_presenceFixtures.ts","tests/acceptance-corpus.test.ts","tests/actions.test.ts","tests/agents.test.ts","tests/blueprint-requirements.test.ts","tests/bridge-casting.test.ts","tests/bridge-checkpoint-store.test.ts","tests/bridge-contract-consumer-lock.test.ts","tests/bridge-contract-generator.test.ts","tests/bridge-development.test.ts","tests/bridge-foundation-recovery.test.ts","tests/bridge-founding.test.ts","tests/bridge-http-security.test.ts","tests/bridge-inflight-evidence-verifier.test.ts","tests/bridge-operations-events.test.ts","tests/bridge-owner-ux-genre-projection.test.ts","tests/bridge-owner-ux-projection20-migration.test.ts","tests/bridge-owner-ux-projection21-schema.test.ts","tests/bridge-owner-ux-saved-slot.test.ts","tests/bridge-p04a2-writer-credit-law.test.ts","tests/bridge-p05a-w2-intents.test.ts","tests/bridge-p05a1-owner-greenlight.test.ts","tests/bridge-p05a3-roster-liveness.test.ts","tests/bridge-p06-checkpoint-recovery.test.ts","tests/bridge-p07a-w6-result-continuity.test.ts","tests/bridge-p08a-w2-history-projection.test.ts","tests/bridge-p09a-r2-facility-history-rows.test.ts","tests/bridge-p09a-w1-placement-quote.test.ts","tests/bridge-p09a-w1b-bare-lot-projection.test.ts","tests/bridge-p09a-w5-bare-lot-first-film.test.ts","tests/bridge-p09a-w5-set-commission.test.ts","tests/bridge-p10a-r1-contract-quote.test.ts","tests/bridge-p10a-w0-people-projection.test.ts","tests/bridge-p11-capital-contributors.test.ts","tests/bridge-p11-finance.test.ts","tests/bridge-p11-production-location.test.ts","tests/bridge-p11-ready.test.ts","tests/bridge-p12-campaign-library.test.ts","tests/bridge-p12-industry.test.ts","tests/bridge-p12-storage-codec.test.ts","tests/bridge-p13-campaign-isolation.test.ts","tests/bridge-p13-laboratory.test.ts","tests/bridge-p13-lot-technology.test.ts","tests/bridge-p13-no-laboratory-commercial.test.ts","tests/bridge-p13-profile-availability.test.ts","tests/bridge-p13-scientist-expiry.test.ts","tests/bridge-p13-technology-history.test.ts","tests/bridge-p13b-r07-setup.test.ts","tests/bridge-p13b-s1-identity.test.ts","tests/bridge-p13b-s1b-seats.test.ts","tests/bridge-p13b-s2-labs.test.ts","tests/bridge-p13b-s3-plans.test.ts","tests/bridge-p13b-s3-save-as.test.ts","tests/bridge-p13b-s4-office.test.ts","tests/bridge-p13b-s5-adoption.test.ts","tests/bridge-p13b-s6-cancellation.test.ts","tests/bridge-p13b-s7-disclosure.test.ts","tests/bridge-p13b-s8-rivals.test.ts","tests/bridge-p14a1-market.test.ts","tests/bridge-p14a1-release-busy-set.test.ts","tests/bridge-p14a2-market.test.ts","tests/bridge-p14a3-world.test.ts","tests/bridge-p14b1-promises.test.ts","tests/bridge-p14b10-relationship-labels.test.ts","tests/bridge-p14b2-checkpoint.test.ts","tests/bridge-p14b2-trust.test.ts","tests/bridge-p14b3-promise-command.test.ts","tests/bridge-p14b4-cast-class.test.ts","tests/bridge-p14b4-runtime47-compatibility.test.ts","tests/bridge-p14b5-relationships.test.ts","tests/bridge-p14b6-d2-withheld-employment-claim.test.ts","tests/bridge-p14b6-e714-false-empty-absence-lines.test.ts","tests/bridge-p14b6-relationship-read-models.test.ts","tests/bridge-p14b7-promise-waiver.test.ts","tests/bridge-p14b8-waiver-surface.test.ts","tests/bridge-p14b9-casting-expiry.test.ts","tests/bridge-p14b9-casting-readers.test.ts","tests/bridge-p14c2b-extension.test.ts","tests/bridge-p14c2c-retirement-promises.test.ts","tests/bridge-p14c2rm-proposals.test.ts","tests/bridge-p14c2rm-retirement.test.ts","tests/bridge-p14c2rm-runtime.test.ts","tests/bridge-p14c2s-scientist-runtime.test.ts","tests/bridge-p14c2s-scientist.test.ts","tests/bridge-p14c3-dual-career-surfaces.test.ts","tests/bridge-p14c3-promise-digest-continuity.test.ts","tests/bridge-p14c3-read-models.test.ts","tests/bridge-p14c3-runtime.test.ts","tests/bridge-p14p3-directing-promises.test.ts","tests/bridge-p14p4p5-opportunities.test.ts","tests/bridge-p14r2r3-prior55.test.ts","tests/bridge-process-incarnation.test.ts","tests/bridge-process-restart.test.ts","tests/bridge-r3n4-read-model-deltas.test.ts","tests/bridge-runtime-checkpoint-prepared-reuse.test.ts","tests/bridge-runtime-checkpoint.test.ts","tests/bridge-runtime-coordinator.test.ts","tests/bridge-runtime-session.test.ts","tests/bridge-runtime-worker.test.ts","tests/bridge-schema.test.ts","tests/bridge-snapshot-build-context.test.ts","tests/bridge-supervisor.test.ts","tests/bridge.test.ts","tests/broadcast.test.ts","tests/c1-m6-identity-not-coordinates.test.ts","tests/c1-m6-no-property-cap.test.ts","tests/c1-m6-second-zone-by-data.test.ts","tests/c2a-m0-engine-union.test.ts","tests/c2a-m2-blueprint-slate.test.ts","tests/c2a-m2-set-binding.test.ts","tests/c2a-m2-set-catalog.test.ts","tests/c2a-m2-sets-machinery.test.ts","tests/c2a-m2-sets-save.test.ts","tests/c2a-m3-determinism-and-guards.test.ts","tests/c2a-m3-provenance-surfaces.test.ts","tests/c2a-m3-rename-and-pooling.test.ts","tests/c2a-m3-screenplay-mint.test.ts","tests/c2a-m3-screenplay-vocabulary.test.ts","tests/c2a-m3-writer-speed.test.ts","tests/c2a-m4-contention-property.test.ts","tests/c2a-m4-g101-throughput.test.ts","tests/c2a-m4-queue-admission.test.ts","tests/c2a-m4-queue-legibility.test.ts","tests/c2a-m4-release-law.test.ts","tests/c2a-m5-scenery-load-in-layout.test.ts","tests/c2a-m5-studio-week-theater.test.ts","tests/candidates.test.ts","tests/cash-ledger-checkpoint-v11.test.ts","tests/casting-package-read-model.test.ts","tests/casting-sessions-actions.test.ts","tests/casting-sessions-domain.test.ts","tests/casting-sessions-save-v10.test.ts","tests/construction-accounting-calendar.test.ts","tests/construction-core.test.ts","tests/construction-save-v11.test.ts","tests/contracts/_contractFixtures.ts","tests/contracts/_foundationRecoveryFixtures.ts","tests/contracts/_v14Contract.ts","tests/contracts/cross-owner-refusal.contract.test.ts","tests/contracts/determinism-floor.contract.test.ts","tests/contracts/phase-table-agreement.contract.test.ts","tests/contracts/sticky-retention.contract.test.ts","tests/contracts/studio-events.contract.test.ts","tests/contracts/union-producer-subsumption.contract.test.ts","tests/contracts/v14-boundary-guards.contract.test.ts","tests/contracts/v14-byte-parity.contract.test.ts","tests/d11-cycle2.test.ts","tests/d11-cycle3.test.ts","tests/d11-cycle4.test.ts","tests/d11-employment.test.ts","tests/d12-audience-aligned-weak-execution.test.ts","tests/d12-calibration-closure.test.ts","tests/d12-commercial-outlook-fame.test.ts","tests/d12-economy-view.test.ts","tests/d12-economy.test.ts","tests/d12-fame-isolation.test.ts","tests/d12-final-downside.test.ts","tests/d12-p2-calibration.test.ts","tests/d13-capital-frontier.test.ts","tests/d13-discoverability.test.ts","tests/d14-star-power.test.ts","tests/d17-engagement-persistence.test.ts","tests/d17a-adv-action-parity.test.ts","tests/d17a-adv-cliff.test.ts","tests/d17a-adv-discovery.test.ts","tests/d17a-adv-migration.test.ts","tests/d17a-adv-offer-truth.test.ts","tests/d17a-adv-prospective-cycle.test.ts","tests/d17a-adv-reconciliation.test.ts","tests/d17a-discovery-exposure.test.ts","tests/d17a-economy-selectors.test.ts","tests/d17a-fixed-cost-allocation.test.ts","tests/d17a-recap-studio-economics.test.ts","tests/d17b-awareness-counterflow.test.ts","tests/d17b-disc-shape.test.ts","tests/d17b-marketing-menu.test.ts","tests/d17b-publicity.test.ts","tests/d17b-save-v7.test.ts","tests/d9-talent.test.ts","tests/declarations.test.ts","tests/facilities-observatory-cli.test.ts","tests/facilities-observatory.test.ts","tests/facility-effects.test.ts","tests/facility-move-demolish.test.ts","tests/film-chronicle.test.ts","tests/film-package-truthfulness.test.ts","tests/first-film-journey.test.ts","tests/forecast-independence.test.ts","tests/forecast.test.ts","tests/frozen-save-builder-projection.test.ts","tests/helpers/p14b2-fixtures.ts","tests/helpers/p14c2a-fixtures.ts","tests/helpers/p14c2b-fixtures.ts","tests/helpers/p14c2c-fixtures.ts","tests/helpers/p14c2rm-fixtures.ts","tests/helpers/p14c2rm-writer-fixtures.ts","tests/helpers/p14c2s-fixtures.ts","tests/helpers/p14c3-canonical-rival-fixtures.ts","tests/helpers/p14c3-cohort-transition-fixtures.ts","tests/helpers/p14c3-dual-extension-fixtures.ts","tests/helpers/p14c3-equal-tuple-fixtures.ts","tests/helpers/p14c3-fixtures.ts","tests/helpers/p14c3-genuine-evidence-fixtures.ts","tests/helpers/p14c3-history-boundary-fixtures.ts","tests/helpers/p14c3-offmenu-extension-fixtures.ts","tests/helpers/p14c3-queued-writing-fixtures.ts","tests/helpers/p14c3-second-episode-fixtures.ts","tests/helpers/p14c3-surface-fixtures.ts","tests/helpers/p14c4-fixtures.ts","tests/helpers/p14p3-fixtures.ts","tests/hygiene.test.ts","tests/legacy-parcel-ground.test.ts","tests/migration.test.ts","tests/operations.test.ts","tests/p04a2-writer-credit-law.test.ts","tests/p04a3-greenlight-law.test.ts","tests/p05a-w1-scenery-truth.test.ts","tests/p05a3-minimal-founding-liveness.test.ts","tests/p06a-w1-release-authority.test.ts","tests/p08a-w0-studio-history.test.ts","tests/p09a-w0-founding-regime.test.ts","tests/p11-finance-history-scale.test.ts","tests/p11-finance-recurring.test.ts","tests/p11-finance-report.test.ts","tests/p12-calendar.test.ts","tests/p12-checker.test.ts","tests/p12-lifecycle.test.ts","tests/p12-starting-world.test.ts","tests/p13a-catalogue.test.ts","tests/p13a-causal-core.test.ts","tests/p13a-physical-installation.test.ts","tests/p13a-placement-history-validation.test.ts","tests/p13a-production-technology.test.ts","tests/p13a-research-employment.test.ts","tests/p13a-research-identity.test.ts","tests/p13a-rival-adoption.test.ts","tests/p13a-save-v20.test.ts","tests/p13a-scientist-foundation.test.ts","tests/p13a-technology-membership.test.ts","tests/p13a-technology-milestones.test.ts","tests/p13a-technology-validation.test.ts","tests/p13b-r07-controls.test.ts","tests/p13b-r07-gate.test.ts","tests/p13b-r07-recipes.test.ts","tests/p13b-r07-save-v25.test.ts","tests/p13b-r07-timeline.test.ts","tests/p13b-rival-scientist-staffing.test.ts","tests/p13b-s1-save-v21.test.ts","tests/p13b-s1-scheduler.test.ts","tests/p13b-s1-staffing.test.ts","tests/p13b-s1-validation.test.ts","tests/p13b-s2-access-identity.test.ts","tests/p13b-s2-catalogue.test.ts","tests/p13b-s2-cooperation.test.ts","tests/p13b-s2-doc03.test.ts","tests/p13b-s2-expiry.test.ts","tests/p13b-s2-labs.test.ts","tests/p13b-s2-save-v22.test.ts","tests/p13b-s2-validation.test.ts","tests/p13b-s3-admission.test.ts","tests/p13b-s3-dependencies.test.ts","tests/p13b-s3-save-v23.test.ts","tests/p13b-s3-validation.test.ts","tests/p13b-s4-downtime.test.ts","tests/p13b-s4-plans.test.ts","tests/p13b-s4-quotes.test.ts","tests/p13b-s4-validation.test.ts","tests/p13b-s5-conservation.test.ts","tests/p13b-s5-equipment.test.ts","tests/p13b-s5-operational.test.ts","tests/p13b-s5-quotes.test.ts","tests/p13b-s5-save-v24.test.ts","tests/p13b-s5-validation.test.ts","tests/p13b-s6-equipment.test.ts","tests/p13b-s6-finance.test.ts","tests/p13b-s6-ordering.test.ts","tests/p13b-s6-receipts.test.ts","tests/p13b-s6-refund-once.test.ts","tests/p13b-s6-restoration.test.ts","tests/p13b-s6-save-v26.test.ts","tests/p13b-s7-announcements.test.ts","tests/p13b-s7-forecast.test.ts","tests/p13b-s7-independence.test.ts","tests/p13b-s7-replacement.test.ts","tests/p13b-s8-adoption.test.ts","tests/p13b-s8-capacity.test.ts","tests/p13b-s8-finance.test.ts","tests/p13b-s8-nonleak.test.ts","tests/p13b-s8-research.test.ts","tests/p13b-s8-save-v27.test.ts","tests/p13b-s8-setup-symmetry.test.ts","tests/p14a1-case.test.ts","tests/p14a1-decline-reasons.test.ts","tests/p14a1-disclosure.test.ts","tests/p14a1-eligibility.test.ts","tests/p14a1-f1-priority-order.test.ts","tests/p14a1-firing.test.ts","tests/p14a1-proposals.test.ts","tests/p14a1-release-busy-set.test.ts","tests/p14a1-rival-trigger.test.ts","tests/p14a1-save-v28.test.ts","tests/p14a1-seat-budget.test.ts","tests/p14a1-settlement.test.ts","tests/p14b1-first-take.test.ts","tests/p14b1-leak.test.ts","tests/p14b1-promises.test.ts","tests/p14b1-save-v29.test.ts","tests/p14b1-t4-regressions.test.ts","tests/p14b1-trust-chooser.test.ts","tests/p14b10-competitions-log.test.ts","tests/p14b10-conflict-evidence.test.ts","tests/p14b10-labels.test.ts","tests/p14b10-mentor-label.test.ts","tests/p14b10-romance.test.ts","tests/p14b10-save-v44.test.ts","tests/p14b2-fixture-preconditions.test.ts","tests/p14b2-setup-wrap-regressions.test.ts","tests/p14b3-reservations.test.ts","tests/p14b3-rule-revision.test.ts","tests/p14b4-bounded-employment-lookup.test.ts","tests/p14b4-bounded-sort-owners.test.ts","tests/p14b4-bounded-stable-sort.test.ts","tests/p14b4-cancel-causal-proof.test.ts","tests/p14b4-capacity-kernel.test.ts","tests/p14b4-cast-class-capacity-evaluator5.test.ts","tests/p14b4-cast-class-capacity.test.ts","tests/p14b4-cast-class-outcomes.test.ts","tests/p14b4-cast-class-policy.test.ts","tests/p14b4-d3-matching.test.ts","tests/p14b4-joint-trace-mode-extension.test.ts","tests/p14b4-joint-trace.test.ts","tests/p14b4-kernel-hold-order-extension.test.ts","tests/p14b4-managed-clock-owner.test.ts","tests/p14b4-material-evidence-core.test.ts","tests/p14b4-owner-adapter-first-slice.test.ts","tests/p14b4-owner-enumerator-slice.test.ts","tests/p14b4-owner-fact-views.test.ts","tests/p14b4-production-admission.test.ts","tests/p14b4-ready-owner-replay.test.ts","tests/p14b4-ready-replay-background.test.ts","tests/p14b4-ready-replay-command.test.ts","tests/p14b4-ready-replay-first-take.test.ts","tests/p14b4-ready-replay-identity.test.ts","tests/p14b4-ready-replay-stale-target.test.ts","tests/p14b4-replay-bill-reductions.test.ts","tests/p14b4-replay-record-facts.test.ts","tests/p14b4-rival-seating-preference.test.ts","tests/p14b4-save-v30-compatibility.test.ts","tests/p14b4-started-owner-replay.test.ts","tests/p14b4-started-replay-background-command.test.ts","tests/p14b4-started-replay-casting.test.ts","tests/p14b4-started-replay-director.test.ts","tests/p14b4-started-replay-retained-development.test.ts","tests/p14b4-started-replay-scenery-commands.test.ts","tests/p14b5-relationships.test.ts","tests/p14b5-save-v31.test.ts","tests/p14b5-t-failure-tuning.test.ts","tests/p14b7-promise-waiver.test.ts","tests/p14b8-waiver-surface-oracle.test.ts","tests/p14b9-casting-competition.test.ts","tests/p14b9-casting-copy.test.ts","tests/p14b9-save-v42.test.ts","tests/p14bf2-acting-discipline.test.ts","tests/p14c1-materialized-aging.test.ts","tests/p14c2a-consumers.test.ts","tests/p14c2a-core-lifecycle.test.ts","tests/p14c2a-save-and-settlement.test.ts","tests/p14c2b-extension.test.ts","tests/p14c2b-save-v36.test.ts","tests/p14c2c-retirement-promises.test.ts","tests/p14c2c-rival-promises.test.ts","tests/p14c2rm-writer-continuation.test.ts","tests/p14c2s-scientist-retirement.test.ts","tests/p14c3-admission-boundaries.test.ts","tests/p14c3-calendar-career.test.ts","tests/p14c3-canonical-rival-history.test.ts","tests/p14c3-cohort-transition.test.ts","tests/p14c3-deferred-transition-chain.test.ts","tests/p14c3-dual-extensions.test.ts","tests/p14c3-equal-tuple-evidence.test.ts","tests/p14c3-force-order.test.ts","tests/p14c3-held-actor-evidence.test.ts","tests/p14c3-offmenu-extensions.test.ts","tests/p14c3-profession-episodes.test.ts","tests/p14c3-profession-history.test.ts","tests/p14c3-promise-digest-continuity.test.ts","tests/p14c3-queued-writing-proof.test.ts","tests/p14c3-save-v38.test.ts","tests/p14c3-second-episode-writing.test.ts","tests/p14c3-transition-evidence.test.ts","tests/p14c3-transition-owner-and-snapshots.test.ts","tests/p14c3-transitions.test.ts","tests/p14c4-cohorts.test.ts","tests/p14c4-save-v35.test.ts","tests/p14d1-rival-shelving-fixtures.ts","tests/p14d1-rival-shelving-natural.test.ts","tests/p14d1-rival-shelving-save-v43.test.ts","tests/p14d1-rival-shelving.test.ts","tests/p14p3-directing-promises.test.ts","tests/p14p4p5-casting-reservation.test.ts","tests/p14p4p5-cross-owner.test.ts","tests/p14p4p5-delayed-retirement.test.ts","tests/p14p4p5-finishing-material.test.ts","tests/p14p4p5-grouped-witness.test.ts","tests/p14p4p5-opportunities.test.ts","tests/p14p4p5-post-capacity.test.ts","tests/p14p4p5-queued-project-outcome.test.ts","tests/p14p4p5-receipt-freeze.test.ts","tests/p14p4p5-retired-acting.test.ts","tests/p14p4p5-scenery-capacity.test.ts","tests/p14p4p5-screenplay-status.test.ts","tests/p14p4p5-soundstage-capacity.test.ts","tests/p14p4p5-stock-subject.test.ts","tests/p14p4p5-writer-resources.test.ts","tests/p14r3-rival-release.test.ts","tests/p14r3-save-v41.test.ts","tests/p15a1-shared-market-harness.test.ts","tests/p15a1-shared-market.test.ts","tests/p15a2-power-ranking-harness.test.ts","tests/p15a2-power-ranking.test.ts","tests/p15b1-corporate-condition.test.ts","tests/p15b1-studio-loan.test.ts","tests/p15c-wave-r-retention.test.ts","tests/p15c1-campaign-legacy.test.ts","tests/placement-core.test.ts","tests/placement-lifecycle.test.ts","tests/placement-lot.test.ts","tests/placement-save-v12.test.ts","tests/presence-determinism.test.ts","tests/presence-projection.test.ts","tests/presence-scenario.test.ts","tests/production-operations-save-v8.test.ts","tests/property-state-v13.test.ts","tests/r3n1-stale-schedule-take-02.test.ts","tests/r3n1-stale-schedule-take-02p31.test.ts","tests/r3n1-stale-schedule-take-02p32.test.ts","tests/r3n1-stale-schedule-take.test.ts","tests/reception-bounds.test.ts","tests/reception-formulas.test.ts","tests/reception-verdict-canonical.test.ts","tests/replay.test.ts","tests/rng.test.ts","tests/roster-wall-artifacts.test.ts","tests/roster-wall-campaign.test.ts","tests/roster-wall-continuation.test.ts","tests/roster-wall-corpus.test.ts","tests/roster-wall-fixtures.test.ts","tests/roster-wall-observatory-cli.test.ts","tests/roster-wall-player-policy.test.ts","tests/roster-wall-renewal.test.ts","tests/roster-wall-schema.test.ts","tests/roster-wall-summary.test.ts","tests/ruling-a-development-in-play.test.ts","tests/ruling-b-multihyphenate.test.ts","tests/ruling-c-filmshape.test.ts","tests/save.test.ts","tests/script-development.test.ts","tests/script-projects-actions.test.ts","tests/script-projects-save-v9.test.ts","tests/script-read-model.test.ts","tests/standing.test.ts","tests/studio-calendar.test.ts","tests/studio-decision.test.ts","tests/studioRunRecap.test.ts","tests/three-visual-regression/capture.spec.ts","tests/three-visual-regression/playwright.config.ts","tests/tick.test.ts","tests/tuning.test.ts","tests/v14-dual-run.test.ts","tests/v14-migration.contract.test.ts","tests/world-first-scenery-load-in-provenance.test.ts","tests/worldgen.test.ts","tsconfig.bridge.json","tsconfig.json","tsconfig.src.json","ui/.gitignore","ui/index.html","ui/m6b-art.config.ts","ui/playwright.config.ts","ui/src/App.test.tsx","ui/src/App.tsx","ui/src/audio/audioService.ts","ui/src/audio/registry.ts","ui/src/audio/sink.test.ts","ui/src/audio/sink.ts","ui/src/audio/tokens.ts","ui/src/audio/wiring.test.tsx","ui/src/components/AffordabilityScopes.tsx","ui/src/components/CareerImpact.tsx","ui/src/components/ChangePreview.tsx","ui/src/components/ConceptCard.tsx","ui/src/components/ConstructionCompletionNotice.tsx","ui/src/components/DiscoveryExposure.tsx","ui/src/components/FilmPackageSummary.tsx","ui/src/components/FilmPoster.test.tsx","ui/src/components/FilmPoster.tsx","ui/src/components/FilmReadiness.tsx","ui/src/components/ForecastDisplay.tsx","ui/src/components/ProductionBoard.tsx","ui/src/components/ProfessionalPromiseTerms.test.tsx","ui/src/components/ProfessionalPromiseTerms.tsx","ui/src/components/SceneryShopPanel.tsx","ui/src/components/SetStagePanel.tsx","ui/src/components/StudioQueuePanel.tsx","ui/src/components/TalentPicker.tsx","ui/src/components/TalentProfileDrawer.tsx","ui/src/components/common.tsx","ui/src/components/creator/BalancedCareerCreator.tsx","ui/src/components/creator/BudgetMeter.tsx","ui/src/components/creator/EmphasisStep.tsx","ui/src/components/creator/FullCustomCreator.tsx","ui/src/components/creator/PotentialStep.tsx","ui/src/components/creator/TemperamentStep.tsx","ui/src/components/creator/WorkEthicStep.tsx","ui/src/components/information-integrity.test.tsx","ui/src/components/refusal-voice.test.tsx","ui/src/components/restricted.test.tsx","ui/src/content.ts","ui/src/determinism.test.tsx","ui/src/engine/adapter.test.ts","ui/src/engine/adapter.ts","ui/src/engine/careerImpact.ts","ui/src/engine/completion-receipt-copy.test.ts","ui/src/engine/d17-save-migration.test.ts","ui/src/engine/d17a-regime.test.ts","ui/src/engine/film-chronicle-adapter.test.ts","ui/src/engine/placement-completion-stop.test.ts","ui/src/engine/productionOperationsProjection.ts","ui/src/engine/recap-parity.test.tsx","ui/src/engine/salary-sum-writer-credit.test.ts","ui/src/engine/screenplay.ts","ui/src/engine/script-assessment-parity.test.ts","ui/src/engine/session.ts","ui/src/engine/sets.ts","ui/src/engine/writer-credit-not-assignment.test.ts","ui/src/flags.test.ts","ui/src/flags.ts","ui/src/format.ts","ui/src/hygiene.test.tsx","ui/src/lot/FirstPictureGuidanceApp.test.tsx","ui/src/lot/LotAuditionWorkspace.css","ui/src/lot/LotAuditionWorkspace.test.tsx","ui/src/lot/LotAuditionWorkspace.tsx","ui/src/lot/LotCastingReviewPanel.test.tsx","ui/src/lot/LotCastingReviewPanel.tsx","ui/src/lot/LotCommissionWorkspace.tsx","ui/src/lot/LotNextEventRail.test.tsx","ui/src/lot/LotNextEventRail.tsx","ui/src/lot/LotPackageWorkspace.tsx","ui/src/lot/LotPictureGuidanceCard.test.tsx","ui/src/lot/LotPictureGuidanceCard.tsx","ui/src/lot/LotRetainedWorkspace.test.tsx","ui/src/lot/LotRetainedWorkspace.tsx","ui/src/lot/LotScriptReviewPanel.test.tsx","ui/src/lot/LotScriptReviewPanel.tsx","ui/src/lot/NamedPersonWorkCareerInspectorV1.test.tsx","ui/src/lot/StudioLotIdentityReview.test.tsx","ui/src/lot/StudioLotScreen.audition-planning.test.tsx","ui/src/lot/StudioLotScreen.commission-receipt.test.tsx","ui/src/lot/StudioLotScreen.import-race.test.tsx","ui/src/lot/StudioLotScreen.script-review-receipt.test.tsx","ui/src/lot/StudioLotScreen.test.tsx","ui/src/lot/StudioLotScreen.tsx","ui/src/lot/StudioLotView.hollywood.test.ts","ui/src/lot/StudioLotView.ts","ui/src/lot/WorldFirstAnnexConstruction.test.tsx","ui/src/lot/WorldFirstBuildModeV1.test.tsx","ui/src/lot/WorldFirstGateHiringReturnApp.test.tsx","ui/src/lot/WorldFirstGateTalentArrival.test.tsx","ui/src/lot/WorldFirstGreenlightProductionFormation.test.tsx","ui/src/lot/WorldFirstLiveWeekAdvance.test.tsx","ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx","ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx","ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx","ui/src/lot/WorldFirstLotNativeScriptReviewAppAuthority.test.tsx","ui/src/lot/WorldFirstLotRetainedAuditionPlanningAppAuthority.test.tsx","ui/src/lot/WorldFirstLotRetainedCommissioningWorkspaceAppAuthority.test.tsx","ui/src/lot/WorldFirstProductionFormationApp.test.tsx","ui/src/lot/WorldFirstRosterStaffPresence.test.ts","ui/src/lot/WorldFirstSceneryLoadIn.test.tsx","ui/src/lot/WorldFirstStage7ProductionDetailHandoff.test.tsx","ui/src/lot/WorldFirstStage7ProductionDetailHandoffApp.test.tsx","ui/src/lot/WorldFirstStudioHome.test.tsx","ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx","ui/src/lot/authored-rgba-export.test.ts","ui/src/lot/authored-stage-a-wiring.test.tsx","ui/src/lot/authored-stage-a.test.ts","ui/src/lot/authored-stage.test.ts","ui/src/lot/buildCatalog.test.ts","ui/src/lot/buildCatalog.ts","ui/src/lot/buildMode.test.ts","ui/src/lot/buildMode.ts","ui/src/lot/buildingInspector.sets.test.ts","ui/src/lot/buildingInspector.test.ts","ui/src/lot/buildingInspector.ts","ui/src/lot/d1b-assignment-lifecycle.test.tsx","ui/src/lot/d1b-soundstage-wiring.test.tsx","ui/src/lot/facilityMutation.test.ts","ui/src/lot/facilityMutation.ts","ui/src/lot/hollywood/HollywoodScene.test.ts","ui/src/lot/hollywood/HollywoodScene.ts","ui/src/lot/hollywood/hollywood-bridge.test.ts","ui/src/lot/hollywood/roleAtlas.test.ts","ui/src/lot/hollywood/roleAtlas.ts","ui/src/lot/identity/draw.test.ts","ui/src/lot/identity/emblem.ts","ui/src/lot/identity/manifest.test.ts","ui/src/lot/identity/manifest.ts","ui/src/lot/identity/signage.ts","ui/src/lot/livingTurn.parity.test.tsx","ui/src/lot/livingTurn.scheduler.test.tsx","ui/src/lot/livingTurn.test.ts","ui/src/lot/livingTurn.ts","ui/src/lot/lot.css","ui/src/lot/navigation.ts","ui/src/lot/packageJourney.ts","ui/src/lot/presence-on-the-lot.test.ts","ui/src/lot/scene/LotScene.production-occupancy.test.ts","ui/src/lot/scene/LotScene.ts","ui/src/lot/scene/assets.test.ts","ui/src/lot/scene/assets.ts","ui/src/lot/scene/authoredValueStandard.test.ts","ui/src/lot/scene/iso.ts","ui/src/lot/scene/layout.ts","ui/src/lot/scene/palette.ts","ui/src/lot/scene/productionStageState.test.ts","ui/src/lot/scene/productionStageState.ts","ui/src/lot/scene/rng.ts","ui/src/lot/scene/stageSpec.ts","ui/src/lot/scene/vignettes.ts","ui/src/lot/selectionReassert.test.tsx","ui/src/lot/snapshot/StudioLotSnapshot.ts","ui/src/lot/snapshot/ambientGrounding.ts","ui/src/lot/snapshot/annexWork.test.ts","ui/src/lot/snapshot/annexWork.ts","ui/src/lot/snapshot/auditionPlanning.test.ts","ui/src/lot/snapshot/auditionPlanning.ts","ui/src/lot/snapshot/castingReview.test.ts","ui/src/lot/snapshot/castingReview.ts","ui/src/lot/snapshot/firstFilmJourney.test.ts","ui/src/lot/snapshot/firstFilmJourney.ts","ui/src/lot/snapshot/gateHiring.test.ts","ui/src/lot/snapshot/gateHiring.ts","ui/src/lot/snapshot/nextEvent.test.ts","ui/src/lot/snapshot/nextEvent.ts","ui/src/lot/snapshot/personWork.test.ts","ui/src/lot/snapshot/personWork.ts","ui/src/lot/snapshot/presenceLines.test.ts","ui/src/lot/snapshot/presenceLines.ts","ui/src/lot/snapshot/productionCompany.test.ts","ui/src/lot/snapshot/productionCompany.ts","ui/src/lot/snapshot/productionFormation.test.ts","ui/src/lot/snapshot/productionFormation.ts","ui/src/lot/snapshot/publicityCampaign.test.ts","ui/src/lot/snapshot/publicityCampaign.ts","ui/src/lot/snapshot/queueAdmission.test.ts","ui/src/lot/snapshot/queueAdmission.ts","ui/src/lot/snapshot/sceneryLoadIn.test.ts","ui/src/lot/snapshot/sceneryLoadIn.ts","ui/src/lot/snapshot/scriptCommission.test.ts","ui/src/lot/snapshot/scriptCommission.ts","ui/src/lot/snapshot/scriptReview.test.ts","ui/src/lot/snapshot/scriptReview.ts","ui/src/lot/snapshot/selectedBuildingSession.ts","ui/src/lot/snapshot/setDressing.test.ts","ui/src/lot/snapshot/setDressing.ts","ui/src/lot/snapshot/stage7Production.test.ts","ui/src/lot/snapshot/stage7Production.ts","ui/src/lot/snapshot/stageAssignment.test.ts","ui/src/lot/snapshot/stageAssignment.ts","ui/src/lot/snapshot/stageIdentity.test.ts","ui/src/lot/snapshot/stageIdentity.ts","ui/src/lot/snapshot/v14SetHolderBoundary.test.ts","ui/src/lot/snapshot/weekTheater.test.ts","ui/src/lot/snapshot/weekTheater.ts","ui/src/lot/studio-lot-snapshot.test.ts","ui/src/lot/three/ThreeLotScene.ts","ui/src/lot/three/atmosphere3d.ts","ui/src/lot/three/buildings3d.ts","ui/src/lot/three/crew3d.ts","ui/src/lot/three/environment3d.ts","ui/src/lot/three/iso3d.ts","ui/src/lot/three/materials3d.ts","ui/src/lot/three/props3d.ts","ui/src/lot/three/sets3d.ts","ui/src/lot/tycoon/TycoonScene.ts","ui/src/lot/tycoon/assets.ts","ui/src/lot/tycoon/buildings.test.ts","ui/src/lot/tycoon/buildings.ts","ui/src/lot/tycoon/expandedPropertyWorld.test.ts","ui/src/lot/tycoon/palette.ts","ui/src/lot/tycoon/placedSoundstageBody.test.ts","ui/src/lot/tycoon/placedSupportBodies.test.ts","ui/src/lot/tycoon/playback.test.ts","ui/src/lot/tycoon/playback.ts","ui/src/lot/tycoon/presence.test.ts","ui/src/lot/tycoon/presence.ts","ui/src/lot/tycoon/visualWarmth.test.ts","ui/src/lot/tycoon/world.test.ts","ui/src/lot/tycoon/world.ts","ui/src/lot/world-first-operational-annex-work-presence-fixtures.test.ts","ui/src/main.tsx","ui/src/prefs.ts","ui/src/presentation/CashReadout.tsx","ui/src/presentation/auditionEvidence.ts","ui/src/presentation/eventGrammar.ts","ui/src/presentation/punctuate.ts","ui/src/presentation/refusalVoice.ts","ui/src/presentation/setVoice.ts","ui/src/presentation/transientNotice.ts","ui/src/presentation/wiring.test.tsx","ui/src/saves.test.tsx","ui/src/screens/Assembly.tsx","ui/src/screens/AssemblyFormationReceipt.test.tsx","ui/src/screens/AssemblySurface.test.tsx","ui/src/screens/Autopsy.tsx","ui/src/screens/CastingRoom.tsx","ui/src/screens/CastingSlatePlanner.tsx","ui/src/screens/Dashboard.navigation.test.tsx","ui/src/screens/Dashboard.tsx","ui/src/screens/FilmRecord.tsx","ui/src/screens/FoundingScreen.tsx","ui/src/screens/HiringMarket.tsx","ui/src/screens/NewspaperReveal.tsx","ui/src/screens/Recap.test.tsx","ui/src/screens/ReleaseResult.tsx","ui/src/screens/Saves.tsx","ui/src/screens/ScreenplayCommissionForm.test.tsx","ui/src/screens/StartScreen.tsx","ui/src/screens/StudioCalendar.career.test.tsx","ui/src/screens/StudioCalendar.retirement.test.tsx","ui/src/screens/StudioCalendar.tsx","ui/src/screens/StudioDevelopment.tsx","ui/src/screens/StudioRoster.tsx","ui/src/screens/StudioRunRecap.tsx","ui/src/screens/TalentCreator.tsx","ui/src/screens/TalentHub.tsx","ui/src/screens/WeeklySummary.tsx","ui/src/screens/WorldFirstGateHiringFocus.test.tsx","ui/src/screens/WritersRoom.tsx","ui/src/screens/a3-queue-admission-ui.test.tsx","ui/src/screens/assembly-legality.test.tsx","ui/src/screens/audition-payoff.test.tsx","ui/src/screens/autopsy-faithful.test.tsx","ui/src/screens/c2a-m2-production-board-sets.test.tsx","ui/src/screens/c2a-m2-scenery-shop.test.tsx","ui/src/screens/c2a-m2-set-legibility.test.tsx","ui/src/screens/c2a-m3-commission-original.test.tsx","ui/src/screens/c2a-m3-package-and-chronicle.test.tsx","ui/src/screens/c2a-m3-title-and-rename.test.tsx","ui/src/screens/c2a-m4-cap-consumers.test.tsx","ui/src/screens/c2a-m4-queue-panel.test.tsx","ui/src/screens/casting-sessions-ui.test.tsx","ui/src/screens/d11-cycle2-ui.test.tsx","ui/src/screens/d11-cycle3-ui.test.tsx","ui/src/screens/d11-cycle4-ui.test.tsx","ui/src/screens/d11-screens.test.tsx","ui/src/screens/d12-autopsy-arithmetic.test.tsx","ui/src/screens/d12-beta-closure.test.tsx","ui/src/screens/d12-decision-ux.test.tsx","ui/src/screens/d12-economy-ui.test.tsx","ui/src/screens/d12-live-forecast-truth.test.tsx","ui/src/screens/d12-owner-ux.test.tsx","ui/src/screens/d12-p2-marketing-ui.test.tsx","ui/src/screens/d12-production-demand-ui.test.tsx","ui/src/screens/d12-sim-event-stop.test.tsx","ui/src/screens/d12-team-direction.test.tsx","ui/src/screens/d14-career-impact.test.tsx","ui/src/screens/d14-talent-profile.test.tsx","ui/src/screens/d17a-decision-truth.test.tsx","ui/src/screens/d17a-offer-truth.test.tsx","ui/src/screens/d17a-regime-basis.test.tsx","ui/src/screens/d17a-release-truth.test.tsx","ui/src/screens/d17b-truth-surfaces.test.tsx","ui/src/screens/dashboard-release-commit.test.tsx","ui/src/screens/development-summary.test.tsx","ui/src/screens/film-chronicle-ui.test.tsx","ui/src/screens/film-package.test.tsx","ui/src/screens/hub-integrity.test.tsx","ui/src/screens/next-event-destination-focus.test.tsx","ui/src/screens/p07a-film-result-view.test.tsx","ui/src/screens/p07a-result-projection.test.tsx","ui/src/screens/production-operations-ui.test.tsx","ui/src/screens/script-projects-edge-ui.test.tsx","ui/src/screens/script-projects-ui.test.tsx","ui/src/screens/studio-calendar-ui.test.tsx","ui/src/screens/studio-development-ui.test.tsx","ui/src/screens/talent-creator.test.tsx","ui/src/session.test.tsx","ui/src/shell/AppNotice.tsx","ui/src/shell/ConfirmDialog.tsx","ui/src/shell/SettingsOverlay.tsx","ui/src/shell/ShellDialog.tsx","ui/src/shell/dialog-replacement.test.tsx","ui/src/shell/motion.ts","ui/src/shell/persistence.ts","ui/src/shell/save-presentation.test.tsx","ui/src/shell/saveCard.ts","ui/src/shell/settings.test.tsx","ui/src/shell/useResolvedMotion.ts","ui/src/simulation.test.tsx","ui/src/styles.css","ui/src/test/contracts/advance-week-grammar.contract.test.ts","ui/src/test/contracts/audio-hygiene.contract.test.ts","ui/src/test/contracts/audio-provenance.contract.test.ts","ui/src/test/contracts/audio-service.contract.test.ts","ui/src/test/contracts/cue-determinism.contract.test.ts","ui/src/test/contracts/dialog-hygiene.contract.test.ts","ui/src/test/contracts/event-grammar.contract.test.ts","ui/src/test/contracts/m5-determinism.contract.test.ts","ui/src/test/contracts/m5-hands-off-gate.contract.test.ts","ui/src/test/contracts/motion-css-pairing.contract.test.ts","ui/src/test/contracts/motion-resolver.contract.test.ts","ui/src/test/contracts/p05a-w1-scenery-alignment.contract.test.ts","ui/src/test/contracts/p05a-w2-closed-production.contract.test.ts","ui/src/test/contracts/p05a-w2-invariant-kills.contract.test.ts","ui/src/test/contracts/parity-proof.contract.test.ts","ui/src/test/contracts/prefs.contract.test.ts","ui/src/test/contracts/punctuate.contract.test.ts","ui/src/test/contracts/registry.contract.test.ts","ui/src/test/contracts/save-card.contract.test.ts","ui/src/test/contracts/session-status.contract.test.ts","ui/src/test/contracts/sim-stop-ladder.contract.test.ts","ui/src/test/contracts/week-theater-mirror.contract.test.ts","ui/src/test/founding.ts","ui/src/test/p06a-w1-decision-surfaces.test.ts","ui/src/test/pinnedSaveFixture.ts","ui/src/test/redteam/rt-announcement-law.redteam.test.tsx","ui/src/test/redteam/rt-audio-edges.redteam.test.tsx","ui/src/test/redteam/rt-hygiene-voice.redteam.test.ts","ui/src/test/redteam/rt-notice-epoch.redteam.test.tsx","ui/src/test/redteam/rt-parity-adversarial.redteam.test.ts","ui/src/test/redteam/rt-prefs-hostile.redteam.test.tsx","ui/src/test/redteam/rt-save-shell.redteam.test.tsx","ui/src/test/setup.ts","ui/tsconfig.json","ui/vite.config.ts","vitest.config.ts","vitest.workspace.ts"],"authorizedManualInputsSeparate":true},"sourceSha":"4ad8e0f7988f6e9341f628eb28b751386672f3d7","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b10-competitions-log.test.ts","tests/p14b10-labels.test.ts","tests/p14b10-save-v44.test.ts","tests/bridge-p14b10-relationship-labels.test.ts","tests/p14b10-romance.test.ts","tests/p14b5-relationships.test.ts"],"node":"v20.20.2","start":"2026-10-02T07:34:43.509Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b10-romance.test.ts (37 tests | 32 failed) 17165ms
+   × P14B10 T1 — the new bindings exist (RED at behavior, never a vacuous undefined pass) > every romance constant is the Owner/charter-named value (1347-A §3), and both functions exist 19ms
+     → expected undefined to be 75 // Object.is equality
+   × P14B10 T1 — the new bindings exist (RED at behavior, never a vacuous undefined pass) > the named relation holds: EXIT_THRESHOLD is strictly below FORMATION_THRESHOLD (1347-A §3: "the wide gap stops bonds flickering") 3ms
+     → actual value must be number or bigint, received "undefined"
+   × currentRomanceValue — pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > holds the stored value inside the grace window (dormant = 0, and dormant = GRACE exactly) 1ms
+     → currentRomanceValue is not a function
+   × currentRomanceValue — pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > decays linearly toward 0 partway through the decay window (independent hand-derived oracle) 1ms
+     → currentRomanceValue is not a function
+   × currentRomanceValue — pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > reaches exactly 0 at GRACE + DECAY weeks, and never goes negative or rises past that floor afterward 1ms
+     → currentRomanceValue is not a function
+   × currentRomanceValue — pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > a value of 0 stays 0 through the whole window (no negative drift) 1ms
+     → currentRomanceValue is not a function
+   × currentRomanceValue — pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > a value of exactly ROMANCE_FORMATION_THRESHOLD decays below ROMANCE_EXIT_THRESHOLD before reaching 0 (the named 229-week note, 1347-A §3) 9ms
+     → ROMANCE_GRACE_WEEKS: expected 'undefined' to be 'number' // Object.is equality
+   × romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > null romance reads null 1ms
+     → romanceStatus is not a function
+   × romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > a track with no bond ever formed (still accumulating) reads null, not "partners" 1ms
+     → romanceStatus is not a function
+   × romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > an OPEN bond whose derived value is still at/above EXIT_THRESHOLD reads "partners" 1ms
+     → romanceStatus is not a function
+   × romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > an OPEN bond whose derived value has now decayed below EXIT_THRESHOLD reads "ended" — COMPUTED ON READ, before any write has persisted endedWeek 1ms
+     → currentRomanceValue is not a function
+   × romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > an already-recorded closed bond reads "ended" at every later week too, unconditionally 1ms
+     → romanceStatus is not a function
+   × romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > romanceStatus is independent of tier/closeness: a Partners pair at Strained closeness still reads "partners" (D-1312-2: a friendship-tier drop alone does not end the romance) 1ms
+     → romanceStatus is not a function
+   × romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > romanceStatus takes no argument beyond (edge, week) — by construction it cannot consult studio, retirement or employment (D-1312-2 non-triggers) 1ms
+     → Cannot read properties of undefined (reading 'length')
+   ✓ growth in advanceRelationshipsWeek (1358-F §2): eligibility is Friends+ and no open bond with anyone but the pair's own partner (1347-F note; 1358-F §1) > below Friends, a qualifying high-proximity 2nd+ shared production grants NO romance growth 17069ms
+   × growth in advanceRelationshipsWeek (1358-F §2): eligibility is Friends+ and no open bond with anyone but the pair's own partner (1347-F note; 1358-F §1) > growth is blocked by a THIRD PARTY's open bond (1358-F §1: Reading B excludes only the pair's own partner) 1ms
+     → ROMANCE_FORMATION_THRESHOLD: expected 'undefined' to be 'number' // Object.is equality
+   × growth in advanceRelationshipsWeek (1358-F §2): eligibility is Friends+ and no open bond with anyone but the pair's own partner (1347-F note; 1358-F §1) > romance-partnered-pair-keeps-growing: after formation, a shared success raises the pair's own value, capped at 100 (1358-F §1, Reading B: "anyone" excludes the pair's own partner) 1ms
+     → ROMANCE_SUCCESS_GAIN: expected 'undefined' to be 'number' // Object.is equality
+   × growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > a high-proximity (director-lead) 2nd+ shared production, Friends+, no open bond anywhere, adds ROMANCE_PROXIMITY_GAIN and resets anchorWeek 1ms
+     → expected null not to be null
+   × growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > lead-antagonist is ALSO high proximity (1347-A §2.3 names both seat pairs) and grants the same gain 1ms
+     → Cannot read properties of null (reading 'value')
+   × growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > director-support is LOW proximity and grants NO romance gain (but still resets anchorWeek if a track already exists — "any shared take resets separation") 3ms
+     → expected 300 to be 401 // Object.is equality
+   × growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > a write materializes first: a high-proximity touch outside the grace window reads currentRomanceValue at the write week, then adds ROMANCE_PROXIMITY_GAIN (1358-F2 item 1) 1ms
+     → ROMANCE_GRACE_WEEKS: expected 'undefined' to be 'number' // Object.is equality
+   × growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > a shared SUCCESS (release) adds ROMANCE_SUCCESS_GAIN, Friends+ and no open bond 14ms
+     → Cannot read properties of null (reading 'value')
+   × growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > a rival pair (a rival studioId on the take) forms a bond under the SAME law (1347-A §5: "A rival pair forms under the same law") 1ms
+     → ROMANCE_FORMATION_THRESHOLD: expected 'undefined' to be 'number' // Object.is equality
+   × formation — dated once, at the crossing write > crossing ROMANCE_FORMATION_THRESHOLD appends a bond with formedWeek = the crossing week and endedWeek null 1ms
+     → expected NaN to be undefined // Object.is equality
+   × formation — dated once, at the crossing write > a re-formation (after an ended bond) appends a SECOND bond row, never overwriting the first 4ms
+     → expected [ { formedWeek: 100, endedWeek: 300 } ] to deeply equal [ { formedWeek: 100, …(1) }, …(1) ]
+   × formation — dated once, at the crossing write > a THIRD PARTY's open bond that has already ended on read does not block formation, and that formation check records its ending (1347-A:56) 1ms
+     → ROMANCE_FORMATION_THRESHOLD: expected 'undefined' to be 'number' // Object.is equality
+   × ending — computed on read, persisted once at the next touching write, never moved again > the next write that touches the edge persists the READ-derived ending week into endedWeek 1ms
+     → ROMANCE_GRACE_WEEKS: expected 'undefined' to be 'number' // Object.is equality
+   × non-triggers at the write seam: retirement, a studio change and a drop to Strained end nothing (1347-A:59, :129) > a write at a staged retirement week, with a studio change and a drop to Strained, leaves the bond open and the pair partners (1358-F4 item 2(b)) 1ms
+     → romanceStatus: expected 'undefined' to be 'function' // Object.is equality
+   × consequences already selected (1347-A:60, §6 item 3): Partners in pairChemistry > pairChemistry reads sign +1 with one added Partners reason at Strained, and -1 at Enemies (1358-F4 item 2(a)) 1ms
+     → expected -1 to be 1 // Object.is equality
+   × drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F §3) > while romanceStatus reads "partners", currentCloseness holds the stored closeness past the drift grace (1358-F §3) 1ms
+     → expected 70 to be 90 // Object.is equality
+   × drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F §3) > after the bond ends, drift resumes from max(lastEventWeek, endedWeek) — not from the stale lastEventWeek 1ms
+     → expected 50 to be 70 // Object.is equality
+   × drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F §3) > an ending computed on read (endedWeek still null) ends the hold at that week and anchors the dormancy there, so recording it later changes no closeness (1358-F §3; 1347-A §2.3) 1ms
+     → currentRomanceValue: expected 'undefined' to be 'function' // Object.is equality
+   × drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F §3) > currentTier widens its Pick the same way: a Partners pair past the drift grace keeps its held tier (1358-F §3) 1ms
+     → expected 'Friends' to be 'Inseparable' // Object.is equality
+ ❯ |core| tests/p14b10-save-v44.test.ts (25 tests | 25 failed) 7610ms
+   × API decisions this file exercises (existence asserted first) > LIVE_SAVE_VERSION is 44; validateSaveV44 / convertV43ToV44 / convertV44ToV43 / migrateToV44 exist as functions 37ms
+     → expected 43 to be 44 // Object.is equality
+   × save-v44: the well-formed empty state validates (control) > accepts empty competitions and null romance on every edge 702ms
+     → expected [Function] to not throw an error but 'TypeError: mods(...).validateSaveV44 …' was thrown
+   × save-v44: V43 -> V44 migration > convertV43ToV44 adds competitions: [] and romance: null to every edge of a genuine V43 envelope, and validates 295ms
+     → mods(...).convertV43ToV44 is not a function
+   × save-v44: V43 -> V44 migration > GENUINE V43 input (1358-P-save43-producer.ts mint) migrates with competitions: [] and romance: null on every edge, and preserves its non-empty screenplayShelving 51ms
+     → mods(...).convertV43ToV44 is not a function
+   × save-v44: V42-era competitions count as conflict evidence but give no Rivals label (1347-A §4 "what old saves show") > an edge with sharedCompetitions >= RELATIONSHIP_CONFLICT_COMPETITIONS and an empty competitions log reads conflict evidence but no Rivals label after migration 262ms
+     → mods(...).convertV43ToV44 is not a function
+   × save-v44: the validator rejects a forged competitions log > rejects non-ascending weeks across rows 282ms
+     → expected [Function] to throw error matching /competit|week|ascend|order/i but got 'mods(...).validateSaveV44 is not a fu…'
+   × save-v44: the validator rejects a forged competitions log > rejects a duplicate production id across two rows 480ms
+     → expected [Function] to throw error matching /competit|duplicate|production/i but got 'mods(...).validateSaveV44 is not a fu…'
+   × save-v44: the validator rejects a forged competitions log > rejects a row with an empty slots array 361ms
+     → expected [Function] to throw error matching /competit|slot|empty|non-empty/i but got 'mods(...).validateSaveV44 is not a fu…'
+   × save-v44: the validator rejects a forged competitions log > rejects a row with slots out of slot order (support before lead) 361ms
+     → expected [Function] to throw error matching /competit|slot|order/i but got 'mods(...).validateSaveV44 is not a fu…'
+   × save-v44: the validator rejects a forged competitions log > rejects more competitions rows than sharedCompetitions 285ms
+     → expected [Function] to throw error matching /competit|shared|exceed/i but got 'mods(...).validateSaveV44 is not a fu…'
+   × save-v44: the validator rejects a forged competitions log > accepts a well-formed two-slot row on one production (the "one production, two slots, one row" shape) 294ms
+     → expected [Function] to not throw an error but 'TypeError: mods(...).validateSaveV44 …' was thrown
+   × save-v44: the validator rejects forged romance > rejects a romance value above 100 341ms
+     → expected [Function] to throw error matching /romance|value|0.*100/i but got 'mods(...).validateSaveV44 is not a fu…'
+   × save-v44: the validator rejects forged romance > rejects a negative romance value 276ms
+     → expected [Function] to throw error matching /romance|value|negative|0.*100/i but got 'mods(...).validateSaveV44 is not a fu…'
+   × save-v44: the validator rejects forged romance > rejects bonds out of order (a later formedWeek before an earlier one) 261ms
+     → expected [Function] to throw error matching /romance|bond|order/i but got 'mods(...).validateSaveV44 is not a fu…'
+   × save-v44: the validator rejects forged romance > rejects two open bonds (only the last one may be open) 220ms
+     → expected [Function] to throw error matching /romance|bond|open/i but got 'mods(...).validateSaveV44 is not a fu…'
+   × save-v44: the validator rejects forged romance > accepts a closed earlier bond followed by one open later bond (the re-formation shape) 354ms
+     → expected [Function] to not throw an error but 'TypeError: mods(...).validateSaveV44 …' was thrown
+   × save-v44: the validator rejects forged romance > accepts every bond closed (an ended romance with no currently open bond) 350ms
+     → expected [Function] to not throw an error but 'TypeError: mods(...).validateSaveV44 …' was thrown
+   × save-v44: the validator rejects forged romance > rejects an open last bond that formed after the track's anchorWeek (formation sets the anchor, and later writes only move it forward) 319ms
+     → expected [Function] to throw error matching /romance|bond|anchor/i but got 'mods(...).validateSaveV44 is not a fu…'
+   × save-v44: the validator rejects forged romance > rejects one person holding open bonds on two edges (edges 0 and 1 share person-studio-aca408ec-r01-1) 404ms
+     → expected [Function] to throw error matching /romance|bond|open/i but got 'mods(...).validateSaveV44 is not a fu…'
+   × save-v44: the validator rejects forged romance > accepts open bonds on two edges that share no person (edges 0 and 5 split studio r01's four people into two pairs) 376ms
+     → expected [Function] to not throw an error but 'TypeError: mods(...).validateSaveV44 …' was thrown
+   × save-v44: down-conversion (convertV44ToV43) > accepts the empty state on every edge (round-trips losslessly, Save41/Save43 pattern) 327ms
+     → expected [Function] to not throw an error but 'TypeError: mods(...).convertV44ToV43 …' was thrown
+   × save-v44: down-conversion (convertV44ToV43) > refuses a real competitions log by name 295ms
+     → expected [Function] to throw error matching /cannot downgrade.*competit/i but got 'mods(...).convertV44ToV43 is not a fu…'
+   × save-v44: down-conversion (convertV44ToV43) > refuses a real (non-null) romance by name 288ms
+     → expected [Function] to throw error matching /cannot downgrade.*romance/i but got 'mods(...).convertV44ToV43 is not a fu…'
+   × save-v44: the chain and the live route (1358-F4 item 3) > migrateToLive lifts the GENUINE V43 save to Save44 with competitions: [] and romance: null on every edge; makeSave stamps 44 and validateSave dispatches it 236ms
+     → expected 43 to be 44 // Object.is equality
+   × save-v44: the chain and the live route (1358-F4 item 3) > migrateToV43(convertV43ToV44(v43)) deep-equals the GENUINE v43: the downgrade drops only the two empty fields 152ms
+     → mods(...).convertV43ToV44 is not a function
+ ❯ |core| tests/p14b10-competitions-log.test.ts (7 tests | 5 failed) 2129ms
+   × the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > P1: two different pairs each get their OWN row for the same production, slots = the one slot each contested 1887ms
+     → expected undefined to deeply equal [ { week: 10, …(2) } ]
+   × the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > P2: the SAME pair (a,b) contesting two slots of ONE production is ONE row, slots in slot order [lead, antagonist] 49ms
+     → Cannot read properties of undefined (reading 'filter')
+   × the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > P3a/P3b: a re-greenlight after a cancel counts once per production — pair (a,b) gets TWO rows, one per production id, each slots=['lead'] 56ms
+     → Cannot read properties of undefined (reading 'filter')
+   × the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > the row count never exceeds sharedCompetitions for ANY edge in the final world (in this route, always exactly equal) 18ms
+     → Cannot read properties of undefined (reading 'length')
+   × the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > a log row survives after its driver folds out of recent: each row keeps its week, production and slots (1347-A:13, :33) 21ms
+     → Cannot read properties of undefined (reading 'length')
+ ❯ |core| tests/p14b10-labels.test.ts (12 tests | 12 failed) 175ms
+   × P14B10 T1 — the new bindings exist (RED at behavior, never a vacuous undefined pass) > RIVALS_SAME_SLOT_COMPETITIONS is the Owner's named 2, and professionalRivalsEvidence is a function 20ms
+     → expected undefined to be 2 // Object.is equality
+   × Professional Rivals — the positive case (two same-slot competitions) > two competitions for the SAME slot (lead) give the label, naming that slot and both rows 1ms
+     → rivals is not a function
+   × Professional Rivals — the positive case (two same-slot competitions) > two competitions for the same slot (support) give the label naming support, not lead — no slot-name hardcoding 1ms
+     → rivals is not a function
+   × Professional Rivals — the positive case (two same-slot competitions) > a THIRD competition for the same slot still names only the FIRST TWO rows for that slot ("rows are the first two for that slot") 1ms
+     → rivals is not a function
+   × Professional Rivals — the positive case (two same-slot competitions) > a row holding TWO slots counts toward EACH of its slots: [lead,support] + [lead] gives Rivals for lead, naming both rows 1ms
+     → rivals is not a function
+   × Professional Rivals — the negative cases > lead then support (two DIFFERENT slots, one competition each) gives no label 2ms
+     → rivals is not a function
+   × Professional Rivals — the negative cases > a single competition alone (any slot) gives no label, whatever RIVALS_SAME_SLOT_COMPETITIONS-many slots it names 13ms
+     → rivals is not a function
+   × Professional Rivals — the negative cases > an empty competitions log gives no label 1ms
+     → rivals is not a function
+   × Professional Rivals — the negative cases > the FIRST slot in slot order [lead, antagonist, support] wins when more than one slot separately qualifies 1ms
+     → rivals is not a function
+   × Professional Rivals is a DIFFERENT axis from conflict evidence (1347-A §2.4 "how Rivals differs from conflict evidence") > two same-slot competitions give Rivals but are NOT conflict evidence (2 < RELATIONSHIP_CONFLICT_COMPETITIONS = 3) 1ms
+     → rivals is not a function
+   × Professional Rivals is a DIFFERENT axis from conflict evidence (1347-A §2.4 "how Rivals differs from conflict evidence") > three mixed-slot competitions are conflict evidence WITHOUT Rivals (no slot has two rows) 1ms
+     → rivals is not a function
+   × Professional Rivals — reading the label is inert (HIS-014: "labels ... create no additional ... effect by themselves") > reading professionalRivalsEvidence leaves the whole state byte-equal (serialized text, not toEqual: live state can hold -0) 132ms
+     → rivals is not a function
+ ❯ |core| tests/p14b5-relationships.test.ts (53 tests | 4 failed) 38721ms
+   ✓ P14B.5 T1 — the module and its named exports exist (RED at import; never a spurious pass) > the hypothesis constants carry the companion values named in the expansion and the ONE pinned relation 3479ms
+   ✓ family 1 — EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) > a second advance from the same pre-take state mints byte-identical edges (replay); re-ticking the post-take state leaves the six untouched (idempotent) and mints only from THAT week's delta 776ms
+   ✓ family 1 — EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) > a headless world (legacy-v28-shooting-5: hollywood null) lifted through migrateToV32 keeps relationships empty across a tick 797ms
+   × family 2 — CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) > the first post-migration RIVAL take mints six edges under the same law; the 45 pre-migration takes mint none (Q3) 4615ms
+     → expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]
+   × family 2 — CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) > the same pair on a second production is ONE edge with sharedProductions 2 and a repeatedCollaboration driver of the capped accelerator; a < b regardless of seat order 3681ms
+     → expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]
+   ✓ family 3 — DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); §5.5 :467-468) > past the grace window the value drifts toward the baseline by the plan formula (independent oracle), from either side, never past it, and is fully returned at GRACE + RETURN 819ms
+   ✓ family 3 — DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); §5.5 :467-468) > a WRITE after dormancy materialises the drifted value first, then applies the delta; counters, firstSharedWeek and the peak survive; recent folds by count at the cap 716ms
+   ✓ family 4 — TIER RULE under RELATIONSHIP_RULES_VERSION 2 and the D2 reachability (scope (3)-(4)) > a staged pair at the Acquaintances floor reads Strained after one flop and pairChemistry reads sign −1; Enemies/Nemeses never read on any B.5-minted edge 387ms
+   × family 5 — RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) > a rival release (hollywood.films / industry.growth) mints under the same law; a release whose take predates every edge mints nothing (I2) 3794ms
+     → expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > the base (no edge) declines by the tie order: every landed band ties between the two survivors (measured premise) 11339ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > a CloseFriends counterpart on the player's OFF-CYCLE row (startWeek < W, active at W) settles the case for the player with the D5 sentence as the ONLY reason 540ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > a row COMMITTED AT W (startWeek === W) never counts — the predicate's strict lower end; the same row one week earlier does 472ms
+   ✓ family 6b — D5 SETTLEMENT-LEVEL through the real bandsFor (record 1348-C2, review 1348-D blocking defect 2) > a player issuer: both a close tie and an enemy (with conflict evidence) on the roster — settlement reads close ties here (2) [RED under v2, 1347-F/1348-F4: the tier premise below now requires Enemies; the settlement outcome is unchanged under either law] 371ms
+   × family 6c — D5 reads a Partners counterpart as a close tie, still below hostility (slice B, 1358-C5) > a player issuer: a Partners counterpart at Friends on the roster — settlement reads close ties here (2) 117ms
+     → expected 'declined' to be 'settled' // Object.is equality
+   ✓ D5 REASON SENTENCE — companion-copy test per branch (record 1348-C3/C4, parent decision 1348-F2) > BRANCH 2 over 1: a close tie beats a roster holding no signal — reads the close-ties sentence, unchanged [control] 331ms
+   ✓ family 8 — RESERVATION enumerated and CHEMISTRY read-only (scope (6)-(7); §5.6 :476, :482) > pairChemistry returns {null, 0, []} without an edge, sign +1 for Colleagues and above, −1 for Strained and below, no digit in any reason, and reads nothing but the record 467ms
+   ✓ family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses inconsistent counters 309ms
+   ✓ family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses an unknown driver kind, an empty ref and a non-integer delta 406ms
+   ✓ family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > a V31 world holding ONE edge, and the SAME world with relationships emptied, both refuse migrateToV30 — MEASURED: the nearest guard is now V33s own materialization gate, one week past its migration boundary, not the V31-specific message 642ms
+ ❯ |core| tests/bridge-p14b10-relationship-labels.test.ts (14 tests | 11 failed) 42838ms
+   × P14B10 T1 — the projection version moves once for slice B (1347-F Addendum) > PROJECTION_VERSION is 57 16ms
+     → expected 56 to be 57 // Object.is equality
+   × Professional Rivals — disclosure (row presence is roster-gated, unchanged; the label rides the disclosed row) > a Rivals-qualifying edge on a DISCLOSED counterpart shows the label, naming evidence text 7902ms
+     → expected false to be true // Object.is equality
+   × Professional Rivals — disclosure (row presence is roster-gated, unchanged; the label rides the disclosed row) > a disclosed non-Rivals edge (lead then support, no shared slot) shows no Professional Rivals label 75ms
+     → expected false to be true // Object.is equality
+   × Romance — disclosure and shape (status/sinceLabel/endedLabel via the existing campaignDate device) > a disclosed OPEN bond reads status "partners", sinceLabel = campaignDate(formedWeek).label, endedLabel null 59ms
+     → expected undefined to deeply equal { status: 'partners', …(2) }
+   × Romance — disclosure and shape (status/sinceLabel/endedLabel via the existing campaignDate device) > a disclosed CLOSED bond reads status "ended", with both sinceLabel and endedLabel set 66ms
+     → expected undefined to deeply equal { status: 'ended', …(2) }
+   × Romance — disclosure and shape (status/sinceLabel/endedLabel via the existing campaignDate device) > no romance (null track) reads romance: null on the row 59ms
+     → expected undefined to be null
+   × No magnitudes, no key named "relationships": (1347-A §4; the landed leak law extended over the two new fields) > a label row is EXACTLY {label, evidence} — no numeric field slips in 87ms
+     → Cannot read properties of undefined (reading 'find')
+   × Mentor — the Bridge-level "public" gate (1347-A §6 item 8: "withhold the label until all three pictures are public") > a genuine cohort entrant with three genuine RELEASED same-director pictures shows the Mentor label on the disclosed pair 33774ms
+     → undefined is not iterable (cannot read property Symbol(Symbol.iterator))
+   × Mentor — the Bridge-level "public" gate (1347-A §6 item 8: "withhold the label until all three pictures are public") > the SAME cohort entrant, with ONE of the three pictures a RIVAL picture that is not yet public (first take re-attributed to a rival business, no release fact), withholds Mentor at the Bridge level even though the core derivation is unaffected 138ms
+     → Cannot read properties of undefined (reading 'some')
+   × Mentor — the Bridge-level "public" gate (1347-A §6 item 8: "withhold the label until all three pictures are public") > the SAME cohort entrant, read in the route's own week before its third picture is released (that picture in production, its first take recorded), shows Mentor, and the evidence cites the picture by its production's title (1347-A:105) 185ms
+     → Cannot read properties of undefined (reading 'find')
+   × Romance — the contract-expiry note names a Partners counterpart (1347-A:18, :60; 1358-F4 item 2(a)) > financeUpcoming: the expiry row of a person whose partner stays on the roster names that partner, at a friendship tier below Inseparable 145ms
+     → the expiry note names the Partners counterpart: expected false to be true // Object.is equality
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 89 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14b10-relationship-labels.test.ts > P14B10 T1 — the projection version moves once for slice B (1347-F Addendum) > PROJECTION_VERSION is 57
+AssertionError: expected 56 to be 57 // Object.is equality
+
+- Expected
++ Received
+
+- 57
++ 56
+
+ ❯ tests/bridge-p14b10-relationship-labels.test.ts:149:32
+    147| describe('P14B10 T1 — the projection version moves once for slice B (1…
+    148|   it('PROJECTION_VERSION is 57', () => {
+    149|     expect(PROJECTION_VERSION).toBe(57)
+       |                                ^
+    150|   })
+    151| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/89]⎯
+
+ FAIL |core|  tests/bridge-p14b10-relationship-labels.test.ts > Professional Rivals — disclosure (row presence is roster-gated, unchanged; the label rides the disclosed row) > a Rivals-qualifying edge on a DISCLOSED counterpart shows the label, naming evidence text
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/bridge-p14b10-relationship-labels.test.ts:161:50
+    159|     const counterpartRow = block.rows.find((r) => r.counterpartId === …
+    160|     assert.ok(counterpartRow, 'route premise: the disclosed counterpar…
+    161|     expect(Array.isArray(counterpartRow.labels)).toBe(true)
+       |                                                  ^
+    162|     expect(counterpartRow.labels).toContainEqual(expect.objectContaini…
+    163|     const rivalsLabel = counterpartRow.labels.find((l) => l.label === …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/89]⎯
+
+ FAIL |core|  tests/bridge-p14b10-relationship-labels.test.ts > Professional Rivals — disclosure (row presence is roster-gated, unchanged; the label rides the disclosed row) > a disclosed non-Rivals edge (lead then support, no shared slot) shows no Professional Rivals label
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/bridge-p14b10-relationship-labels.test.ts:184:50
+    182|     const counterpartRow = block.rows.find((r) => r.counterpartId === …
+    183|     assert.ok(counterpartRow, 'route premise')
+    184|     expect(Array.isArray(counterpartRow.labels)).toBe(true)
+       |                                                  ^
+    185|     expect(counterpartRow.labels.some((l) => l.label === 'Professional…
+    186|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/89]⎯
+
+ FAIL |core|  tests/bridge-p14b10-relationship-labels.test.ts > Romance — disclosure and shape (status/sinceLabel/endedLabel via the existing campaignDate device) > a disclosed OPEN bond reads status "partners", sinceLabel = campaignDate(formedWeek).label, endedLabel null
+AssertionError: expected undefined to deeply equal { status: 'partners', …(2) }
+
+- Expected: 
+Object {
+  "endedLabel": null,
+  "sinceLabel": "1922 · Week 42",
+  "status": "partners",
+}
+
++ Received: 
+undefined
+
+ ❯ tests/bridge-p14b10-relationship-labels.test.ts:198:36
+    196|     const counterpartRow = block.rows.find((r) => r.counterpartId === …
+    197|     assert.ok(counterpartRow, 'route premise')
+    198|     expect(counterpartRow.romance).toEqual({ status: 'partners', since…
+       |                                    ^
+    199|   })
+    200| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/89]⎯
+
+ FAIL |core|  tests/bridge-p14b10-relationship-labels.test.ts > Romance — disclosure and shape (status/sinceLabel/endedLabel via the existing campaignDate device) > a disclosed CLOSED bond reads status "ended", with both sinceLabel and endedLabel set
+AssertionError: expected undefined to deeply equal { status: 'ended', …(2) }
+
+- Expected: 
+Object {
+  "endedLabel": "1922 · Week 17",
+  "sinceLabel": "1920 · Week 51",
+  "status": "ended",
+}
+
++ Received: 
+undefined
+
+ ❯ tests/bridge-p14b10-relationship-labels.test.ts:209:36
+    207|     const counterpartRow = block.rows.find((r) => r.counterpartId === …
+    208|     assert.ok(counterpartRow, 'route premise')
+    209|     expect(counterpartRow.romance).toEqual({ status: 'ended', sinceLab…
+       |                                    ^
+    210|   })
+    211| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/89]⎯
+
+ FAIL |core|  tests/bridge-p14b10-relationship-labels.test.ts > Romance — disclosure and shape (status/sinceLabel/endedLabel via the existing campaignDate device) > no romance (null track) reads romance: null on the row
+AssertionError: expected undefined to be null
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/bridge-p14b10-relationship-labels.test.ts:218:36
+    216|     const counterpartRow = block.rows.find((r) => r.counterpartId === …
+    217|     assert.ok(counterpartRow, 'route premise')
+    218|     expect(counterpartRow.romance).toBeNull()
+       |                                    ^
+    219|   })
+    220| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/89]⎯
+
+ FAIL |core|  tests/bridge-p14b10-relationship-labels.test.ts > No magnitudes, no key named "relationships": (1347-A §4; the landed leak law extended over the two new fields) > a label row is EXACTLY {label, evidence} — no numeric field slips in
+TypeError: Cannot read properties of undefined (reading 'find')
+ ❯ tests/bridge-p14b10-relationship-labels.test.ts:238:47
+    236|     const counterpartRow = block.rows.find((r) => r.counterpartId === …
+    237|     assert.ok(counterpartRow, 'route premise')
+    238|     const rivalsLabel = counterpartRow.labels.find((l) => l.label === …
+       |                                               ^
+    239|     assert.ok(rivalsLabel, 'route premise: this edge is Rivals-qualify…
+    240|     expect(Object.keys(rivalsLabel).sort()).toEqual(['evidence', 'labe…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/89]⎯
+
+ FAIL |core|  tests/bridge-p14b10-relationship-labels.test.ts > Mentor — the Bridge-level "public" gate (1347-A §6 item 8: "withhold the label until all three pictures are public") > a genuine cohort entrant with three genuine RELEASED same-director pictures shows the Mentor label on the disclosed pair
+TypeError: undefined is not iterable (cannot read property Symbol(Symbol.iterator))
+ ❯ tests/bridge-p14b10-relationship-labels.test.ts:323:32
+    321|     const directorRow = block.rows.find((r) => r.counterpartId === tea…
+    322|     assert.ok(directorRow, 'route premise: the director must be disclo…
+    323|     expect(directorRow.labels).toContainEqual(expect.objectContaining(…
+       |                                ^
+    324|   }, 180_000) // 1356-F5: vitest cannot stop a synchronous body, so th…
+    325| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/89]⎯
+
+ FAIL |core|  tests/bridge-p14b10-relationship-labels.test.ts > Mentor — the Bridge-level "public" gate (1347-A §6 item 8: "withhold the label until all three pictures are public") > the SAME cohort entrant, with ONE of the three pictures a RIVAL picture that is not yet public (first take re-attributed to a rival business, no release fact), withholds Mentor at the Bridge level even though the core derivation is unaffected
+TypeError: Cannot read properties of undefined (reading 'some')
+ ❯ tests/bridge-p14b10-relationship-labels.test.ts:348:31
+    346|     const directorRow = block.rows.find((r) => r.counterpartId === tea…
+    347|     assert.ok(directorRow, 'route premise: the director must still be …
+    348|     expect(directorRow.labels.some((l) => l.label === 'Mentor')).toBe(…
+       |                               ^
+    349|   }, 180_000) // 1356-F5: vitest cannot stop a synchronous body, so th…
+    350| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/89]⎯
+
+ FAIL |core|  tests/bridge-p14b10-relationship-labels.test.ts > Mentor — the Bridge-level "public" gate (1347-A §6 item 8: "withhold the label until all three pictures are public") > the SAME cohort entrant, read in the route's own week before its third picture is released (that picture in production, its first take recorded), shows Mentor, and the evidence cites the picture by its production's title (1347-A:105)
+TypeError: Cannot read properties of undefined (reading 'find')
+ ❯ tests/bridge-p14b10-relationship-labels.test.ts:371:39
+    369|     const directorRow = block.rows.find((r) => r.counterpartId === tea…
+    370|     assert.ok(directorRow, 'route premise: the director must be disclo…
+    371|     const mentor = directorRow.labels.find((l) => l.label === 'Mentor')
+       |                                       ^
+    372|     expect(mentor, 'Mentor shows: the unreleased picture is the viewer…
+    373|     expect(mentor!.evidence).toContain(title)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/89]⎯
+
+ FAIL |core|  tests/bridge-p14b10-relationship-labels.test.ts > Romance — the contract-expiry note names a Partners counterpart (1347-A:18, :60; 1358-F4 item 2(a)) > financeUpcoming: the expiry row of a person whose partner stays on the roster names that partner, at a friendship tier below Inseparable
+AssertionError: the expiry note names the Partners counterpart: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/bridge-p14b10-relationship-labels.test.ts:399:99
+    397|     assert.ok(expiry, 'route premise: the 52-week window lists the exp…
+    398|     const partnerName = state.talent.find((t) => t.id === w.disclosedX…
+    399|     expect(expiry.detail.includes(partnerName), 'the expiry note names…
+       |                                                                                                   ^
+    400|   })
+    401| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/89]⎯
+
+ FAIL |core|  tests/p14b10-competitions-log.test.ts > the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > P1: two different pairs each get their OWN row for the same production, slots = the one slot each contested
+AssertionError: expected undefined to deeply equal [ { week: 10, …(2) } ]
+
+- Expected: 
+Array [
+  Object {
+    "productionId": "prod-0010",
+    "slots": Array [
+      "lead",
+    ],
+    "week": 10,
+  },
+]
+
++ Received: 
+undefined
+
+ ❯ tests/p14b10-competitions-log.test.ts:193:33
+    191|     const adEdge = edgeOf(w.afterP1, a, d)!
+    192|     assert.ok(adEdge, 'route premise: pair (a,d) never formed an edge')
+    193|     expect(adEdge.competitions).toEqual([{ week: w.afterP1.market.tick…
+       |                                 ^
+    194|     const bdEdge = edgeOf(w.afterP1, b, d)!
+    195|     assert.ok(bdEdge, 'route premise: pair (b,d) never formed an edge')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/89]⎯
+
+ FAIL |core|  tests/p14b10-competitions-log.test.ts > the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > P2: the SAME pair (a,b) contesting two slots of ONE production is ONE row, slots in slot order [lead, antagonist]
+TypeError: Cannot read properties of undefined (reading 'filter')
+ ❯ tests/p14b10-competitions-log.test.ts:205:38
+    203|     assert.ok(edge, 'route premise: pair (a,b) never formed an edge')
+    204|     // Exactly one row for P2 (never two rows, one per slot).
+    205|     const p2Rows = edge.competitions.filter((row) => row.productionId …
+       |                                      ^
+    206|     expect(p2Rows).toHaveLength(1)
+    207|     expect(p2Rows[0]).toEqual({ week: w.afterP2.market.tick, productio…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/89]⎯
+
+ FAIL |core|  tests/p14b10-competitions-log.test.ts > the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > P3a/P3b: a re-greenlight after a cancel counts once per production — pair (a,b) gets TWO rows, one per production id, each slots=['lead']
+TypeError: Cannot read properties of undefined (reading 'filter')
+ ❯ tests/p14b10-competitions-log.test.ts:216:38
+    214|     const edge = edgeOf(w.afterP3b, a, b)!
+    215|     assert.ok(edge, 'route premise: pair (a,b) never formed an edge')
+    216|     const p3Rows = edge.competitions.filter((row) => row.productionId …
+       |                                      ^
+    217|     expect(p3Rows).toHaveLength(2)
+    218|     expect(new Set(p3Rows.map((row) => row.productionId))).toEqual(new…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/89]⎯
+
+ FAIL |core|  tests/p14b10-competitions-log.test.ts > the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > the row count never exceeds sharedCompetitions for ANY edge in the final world (in this route, always exactly equal)
+TypeError: Cannot read properties of undefined (reading 'length')
+ ❯ tests/p14b10-competitions-log.test.ts:231:32
+    229|     const w = competitionsLogWorld()
+    230|     for (const edge of w.afterP3b.relationships as unknown as EdgeWith…
+    231|       expect(edge.competitions.length).toBeLessThanOrEqual(edge.shared…
+       |                                ^
+    232|       expect(edge.competitions.length).toBe(edge.sharedCompetitions) /…
+    233|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/89]⎯
+
+ FAIL |core|  tests/p14b10-competitions-log.test.ts > the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > a log row survives after its driver folds out of recent: each row keeps its week, production and slots (1347-A:13, :33)
+TypeError: Cannot read properties of undefined (reading 'length')
+ ❯ tests/p14b10-competitions-log.test.ts:255:32
+    253|     const before = edgeOf(w.afterP3b, a, b)!
+    254|     assert.ok(before, 'route premise: pair (a,b) never formed an edge')
+    255|     expect(before.competitions.length).toBe(3) // P2, P3a and P3b
+       |                                ^
+    256|     // Five later shared takes add 1 + 2 + 2 + 2 + 2 drivers (the acce…
+    257|     // every competition driver on (a,b) folds out of `recent`, which …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/89]⎯
+
+ FAIL |core|  tests/p14b10-labels.test.ts > P14B10 T1 — the new bindings exist (RED at behavior, never a vacuous undefined pass) > RIVALS_SAME_SLOT_COMPETITIONS is the Owner's named 2, and professionalRivalsEvidence is a function
+AssertionError: expected undefined to be 2 // Object.is equality
+
+- Expected: 
+2
+
++ Received: 
+undefined
+
+ ❯ tests/p14b10-labels.test.ts:63:43
+     61|   it('RIVALS_SAME_SLOT_COMPETITIONS is the Owner\'s named 2, and profe…
+     62|     // HIS-014 (1340-O:85-90): "at least TWO distinct recorded competi…
+     63|     expect(RIVALS_SAME_SLOT_COMPETITIONS).toBe(2)
+       |                                           ^
+     64|     expect(typeof professionalRivalsEvidence, 'professionalRivalsEvide…
+     65|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/89]⎯
+
+ FAIL |core|  tests/p14b10-labels.test.ts > Professional Rivals — the positive case (two same-slot competitions) > two competitions for the SAME slot (lead) give the label, naming that slot and both rows
+TypeError: rivals is not a function
+ ❯ tests/p14b10-labels.test.ts:71:12
+     69|   it('two competitions for the SAME slot (lead) give the label, naming…
+     70|     const edge = { competitions: [row(10, 'prod-a', ['lead']), row(20,…
+     71|     expect(rivals(edge)).toEqual({ slot: 'lead', rows: [row(10, 'prod-…
+       |            ^
+     72|   })
+     73| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/89]⎯
+
+ FAIL |core|  tests/p14b10-labels.test.ts > Professional Rivals — the positive case (two same-slot competitions) > two competitions for the same slot (support) give the label naming support, not lead — no slot-name hardcoding
+TypeError: rivals is not a function
+ ❯ tests/p14b10-labels.test.ts:76:12
+     74|   it('two competitions for the same slot (support) give the label nami…
+     75|     const edge = { competitions: [row(5, 'prod-x', ['support']), row(9…
+     76|     expect(rivals(edge)).toEqual({ slot: 'support', rows: [row(5, 'pro…
+       |            ^
+     77|   })
+     78| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/89]⎯
+
+ FAIL |core|  tests/p14b10-labels.test.ts > Professional Rivals — the positive case (two same-slot competitions) > a THIRD competition for the same slot still names only the FIRST TWO rows for that slot ("rows are the first two for that slot")
+TypeError: rivals is not a function
+ ❯ tests/p14b10-labels.test.ts:81:12
+     79|   it('a THIRD competition for the same slot still names only the FIRST…
+     80|     const edge = { competitions: [row(1, 'prod-1', ['lead']), row(2, '…
+     81|     expect(rivals(edge)).toEqual({ slot: 'lead', rows: [row(1, 'prod-1…
+       |            ^
+     82|   })
+     83| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/89]⎯
+
+ FAIL |core|  tests/p14b10-labels.test.ts > Professional Rivals — the positive case (two same-slot competitions) > a row holding TWO slots counts toward EACH of its slots: [lead,support] + [lead] gives Rivals for lead, naming both rows
+TypeError: rivals is not a function
+ ❯ tests/p14b10-labels.test.ts:89:12
+     87|     // combine with a LATER single-slot row on either shared slot to c…
+     88|     const edge = { competitions: [row(1, 'prod-1', ['lead', 'support']…
+     89|     expect(rivals(edge)).toEqual({ slot: 'lead', rows: [row(1, 'prod-1…
+       |            ^
+     90|   })
+     91| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/89]⎯
+
+ FAIL |core|  tests/p14b10-labels.test.ts > Professional Rivals — the negative cases > lead then support (two DIFFERENT slots, one competition each) gives no label
+TypeError: rivals is not a function
+ ❯ tests/p14b10-labels.test.ts:96:12
+     94|   it('lead then support (two DIFFERENT slots, one competition each) gi…
+     95|     const edge = { competitions: [row(1, 'prod-1', ['lead']), row(2, '…
+     96|     expect(rivals(edge)).toBeNull()
+       |            ^
+     97|   })
+     98| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/89]⎯
+
+ FAIL |core|  tests/p14b10-labels.test.ts > Professional Rivals — the negative cases > a single competition alone (any slot) gives no label, whatever RIVALS_SAME_SLOT_COMPETITIONS-many slots it names
+TypeError: rivals is not a function
+ ❯ tests/p14b10-labels.test.ts:101:12
+     99|   it('a single competition alone (any slot) gives no label, whatever R…
+    100|     const edge = { competitions: [row(1, 'prod-1', ['lead', 'antagonis…
+    101|     expect(rivals(edge)).toBeNull()
+       |            ^
+    102|   })
+    103| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/89]⎯
+
+ FAIL |core|  tests/p14b10-labels.test.ts > Professional Rivals — the negative cases > an empty competitions log gives no label
+TypeError: rivals is not a function
+ ❯ tests/p14b10-labels.test.ts:105:12
+    103| 
+    104|   it('an empty competitions log gives no label', () => {
+    105|     expect(rivals({ competitions: [] })).toBeNull()
+       |            ^
+    106|   })
+    107| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/89]⎯
+
+ FAIL |core|  tests/p14b10-labels.test.ts > Professional Rivals — the negative cases > the FIRST slot in slot order [lead, antagonist, support] wins when more than one slot separately qualifies
+TypeError: rivals is not a function
+ ❯ tests/p14b10-labels.test.ts:116:12
+    114|       ],
+    115|     }
+    116|     expect(rivals(edge)).toEqual({ slot: 'lead', rows: [row(3, 'prod-3…
+       |            ^
+    117|   })
+    118| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/89]⎯
+
+ FAIL |core|  tests/p14b10-labels.test.ts > Professional Rivals is a DIFFERENT axis from conflict evidence (1347-A §2.4 "how Rivals differs from conflict evidence") > two same-slot competitions give Rivals but are NOT conflict evidence (2 < RELATIONSHIP_CONFLICT_COMPETITIONS = 3)
+TypeError: rivals is not a function
+ ❯ tests/p14b10-labels.test.ts:125:12
+    123|   it('two same-slot competitions give Rivals but are NOT conflict evid…
+    124|     const competitions = [row(1, 'prod-1', ['lead']), row(2, 'prod-2',…
+    125|     expect(rivals({ competitions })).not.toBeNull()
+       |            ^
+    126|     expect(hasConflictEvidence({ sharedCompetitions: competitions.leng…
+    127|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/89]⎯
+
+ FAIL |core|  tests/p14b10-labels.test.ts > Professional Rivals is a DIFFERENT axis from conflict evidence (1347-A §2.4 "how Rivals differs from conflict evidence") > three mixed-slot competitions are conflict evidence WITHOUT Rivals (no slot has two rows)
+TypeError: rivals is not a function
+ ❯ tests/p14b10-labels.test.ts:132:12
+    130|     const competitions = [row(1, 'prod-1', ['lead']), row(2, 'prod-2',…
+    131|     expect(hasConflictEvidence({ sharedCompetitions: competitions.leng…
+    132|     expect(rivals({ competitions })).toBeNull()
+       |            ^
+    133|   })
+    134| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/89]⎯
+
+ FAIL |core|  tests/p14b10-labels.test.ts > Professional Rivals — reading the label is inert (HIS-014: "labels ... create no additional ... effect by themselves") > reading professionalRivalsEvidence leaves the whole state byte-equal (serialized text, not toEqual: live state can hold -0)
+TypeError: rivals is not a function
+ ❯ tests/p14b10-labels.test.ts:151:20
+    149|     const state = { ...generated, relationships: [held] }
+    150|     const beforeText = JSON.stringify(state)
+    151|     const result = rivals(state.relationships[0]!)
+       |                    ^
+    152|     expect(result).not.toBeNull() // fixture premise: the read actuall…
+    153|     expect(JSON.stringify(state)).toBe(beforeText)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > P14B10 T1 — the new bindings exist (RED at behavior, never a vacuous undefined pass) > every romance constant is the Owner/charter-named value (1347-A §3), and both functions exist
+AssertionError: expected undefined to be 75 // Object.is equality
+
+- Expected: 
+75
+
++ Received: 
+undefined
+
+ ❯ tests/p14b10-romance.test.ts:160:41
+    158| describe('P14B10 T1 — the new bindings exist (RED at behavior, never a…
+    159|   it('every romance constant is the Owner/charter-named value (1347-A …
+    160|     expect(ROMANCE_FORMATION_THRESHOLD).toBe(75)
+       |                                         ^
+    161|     expect(ROMANCE_EXIT_THRESHOLD).toBe(40)
+    162|     expect(ROMANCE_PROXIMITY_GAIN).toBe(10)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > P14B10 T1 — the new bindings exist (RED at behavior, never a vacuous undefined pass) > the named relation holds: EXIT_THRESHOLD is strictly below FORMATION_THRESHOLD (1347-A §3: "the wide gap stops bonds flickering")
+TypeError: actual value must be number or bigint, received "undefined"
+ ❯ tests/p14b10-romance.test.ts:171:36
+    169| 
+    170|   it('the named relation holds: EXIT_THRESHOLD is strictly below FORMA…
+    171|     expect(ROMANCE_EXIT_THRESHOLD).toBeLessThan(ROMANCE_FORMATION_THRE…
+       |                                    ^
+    172|   })
+    173| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > currentRomanceValue — pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > holds the stored value inside the grace window (dormant = 0, and dormant = GRACE exactly)
+TypeError: currentRomanceValue is not a function
+ ❯ tests/p14b10-romance.test.ts:178:12
+    176|   it('holds the stored value inside the grace window (dormant = 0, and…
+    177|     const romance: RomanceTrack = { value: 80, anchorWeek: 1000, bonds…
+    178|     expect(currentRomanceValue(romance, 1000)).toBe(80)
+       |            ^
+    179|     expect(currentRomanceValue(romance, 1000 + ROMANCE_GRACE_WEEKS)).t…
+    180|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[31/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > currentRomanceValue — pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > decays linearly toward 0 partway through the decay window (independent hand-derived oracle)
+TypeError: currentRomanceValue is not a function
+ ❯ tests/p14b10-romance.test.ts:187:12
+    185|     const span = Math.floor(ROMANCE_DECAY_WEEKS / 2)
+    186|     const expected = 80 - Math.trunc(80 * span / ROMANCE_DECAY_WEEKS) …
+    187|     expect(currentRomanceValue(romance, halfway)).toBe(expected)
+       |            ^
+    188|   })
+    189| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[32/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > currentRomanceValue — pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > reaches exactly 0 at GRACE + DECAY weeks, and never goes negative or rises past that floor afterward
+TypeError: currentRomanceValue is not a function
+ ❯ tests/p14b10-romance.test.ts:192:12
+    190|   it('reaches exactly 0 at GRACE + DECAY weeks, and never goes negativ…
+    191|     const romance: RomanceTrack = { value: 80, anchorWeek: 1000, bonds…
+    192|     expect(currentRomanceValue(romance, 1000 + ROMANCE_GRACE_WEEKS + R…
+       |            ^
+    193|     expect(currentRomanceValue(romance, 1000 + ROMANCE_GRACE_WEEKS + R…
+    194|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[33/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > currentRomanceValue — pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > a value of 0 stays 0 through the whole window (no negative drift)
+TypeError: currentRomanceValue is not a function
+ ❯ tests/p14b10-romance.test.ts:199:14
+    197|     const romance: RomanceTrack = { value: 0, anchorWeek: 1000, bonds:…
+    198|     for (const week of [1000, 1000 + ROMANCE_GRACE_WEEKS, 1000 + ROMAN…
+    199|       expect(currentRomanceValue(romance, week)).toBe(0)
+       |              ^
+    200|     }
+    201|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[34/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > currentRomanceValue — pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > a value of exactly ROMANCE_FORMATION_THRESHOLD decays below ROMANCE_EXIT_THRESHOLD before reaching 0 (the named 229-week note, 1347-A §3)
+AssertionError: ROMANCE_GRACE_WEEKS: expected 'undefined' to be 'number' // Object.is equality
+
+Expected: "number"
+Received: "undefined"
+
+ ❯ tests/p14b10-romance.test.ts:209:63
+    207|     // of a clear, attributable failure. Guarded explicitly so THIS le…
+    208|     // reason directly, matching the file's dedicated bindings-check l…
+    209|     expect(typeof ROMANCE_GRACE_WEEKS, 'ROMANCE_GRACE_WEEKS').toBe('nu…
+       |                                                               ^
+    210|     expect(typeof ROMANCE_DECAY_WEEKS, 'ROMANCE_DECAY_WEEKS').toBe('nu…
+    211|     const romance: RomanceTrack = { value: ROMANCE_FORMATION_THRESHOLD…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[35/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > null romance reads null
+TypeError: romanceStatus is not a function
+ ❯ tests/p14b10-romance.test.ts:228:12
+    226|   it('null romance reads null', () => {
+    227|     const edge = stagedEdge(0, 'p-a', 'p-b', 65, 1000, { romance: null…
+    228|     expect(romanceStatus(edge, 1000)).toBeNull()
+       |            ^
+    229|   })
+    230| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[36/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > a track with no bond ever formed (still accumulating) reads null, not "partners"
+TypeError: romanceStatus is not a function
+ ❯ tests/p14b10-romance.test.ts:233:12
+    231|   it('a track with no bond ever formed (still accumulating) reads null…
+    232|     const edge = stagedEdge(0, 'p-a', 'p-b', 65, 1000, { romance: { va…
+    233|     expect(romanceStatus(edge, 1000)).toBeNull()
+       |            ^
+    234|   })
+    235| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[37/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > an OPEN bond whose derived value is still at/above EXIT_THRESHOLD reads "partners"
+TypeError: romanceStatus is not a function
+ ❯ tests/p14b10-romance.test.ts:238:12
+    236|   it('an OPEN bond whose derived value is still at/above EXIT_THRESHOL…
+    237|     const edge = stagedEdge(0, 'p-a', 'p-b', 65, 1000, { romance: { va…
+    238|     expect(romanceStatus(edge, 1000)).toBe('partners')
+       |            ^
+    239|   })
+    240| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[38/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > an OPEN bond whose derived value has now decayed below EXIT_THRESHOLD reads "ended" — COMPUTED ON READ, before any write has persisted endedWeek
+TypeError: currentRomanceValue is not a function
+ ❯ tests/p14b10-romance.test.ts:244:12
+    242|     const romance: RomanceTrack = { value: 90, anchorWeek: 1000, bonds…
+    243|     const farWeek = 1000 + ROMANCE_GRACE_WEEKS + ROMANCE_DECAY_WEEKS /…
+    244|     expect(currentRomanceValue(romance, farWeek)).toBeLessThan(ROMANCE…
+       |            ^
+    245|     const edge = stagedEdge(0, 'p-a', 'p-b', 65, 1000, { romance })
+    246|     expect(romanceStatus(edge, farWeek)).toBe('ended')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[39/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > an already-recorded closed bond reads "ended" at every later week too, unconditionally
+TypeError: romanceStatus is not a function
+ ❯ tests/p14b10-romance.test.ts:253:12
+    251|   it('an already-recorded closed bond reads "ended" at every later wee…
+    252|     const edge = stagedEdge(0, 'p-a', 'p-b', 65, 1000, { romance: { va…
+    253|     expect(romanceStatus(edge, 1000)).toBe('ended')
+       |            ^
+    254|     expect(romanceStatus(edge, 5000)).toBe('ended')
+    255|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[40/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > romanceStatus is independent of tier/closeness: a Partners pair at Strained closeness still reads "partners" (D-1312-2: a friendship-tier drop alone does not end the romance)
+TypeError: romanceStatus is not a function
+ ❯ tests/p14b10-romance.test.ts:260:12
+    258|     const edge = stagedEdge(0, 'p-a', 'p-b', floor('Strained'), 1000, …
+    259|     expect(currentTier(edge, 1000)).toBe('Strained') // fixture premise
+    260|     expect(romanceStatus(edge, 1000)).toBe('partners')
+       |            ^
+    261|   })
+    262| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[41/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > romanceStatus takes no argument beyond (edge, week) — by construction it cannot consult studio, retirement or employment (D-1312-2 non-triggers)
+TypeError: Cannot read properties of undefined (reading 'length')
+ ❯ tests/p14b10-romance.test.ts:264:26
+    262| 
+    263|   it('romanceStatus takes no argument beyond (edge, week) — by constru…
+    264|     expect(romanceStatus.length).toBe(2)
+       |                          ^
+    265|   })
+    266| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[42/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): eligibility is Friends+ and no open bond with anyone but the pair's own partner (1347-F note; 1358-F §1) > growth is blocked by a THIRD PARTY's open bond (1358-F §1: Reading B excludes only the pair's own partner)
+AssertionError: ROMANCE_FORMATION_THRESHOLD: expected 'undefined' to be 'number' // Object.is equality
+
+Expected: "number"
+Received: "undefined"
+
+ ❯ tests/p14b10-romance.test.ts:283:133
+    281|   it('growth is blocked by a THIRD PARTY\'s open bond (1358-F §1: Read…
+    282|     // Guard first (1358-F2 §7, 1358-F3 item 3): with the constants mi…
+    283|     for (const [name, value] of Object.entries({ ROMANCE_FORMATION_THR…
+       |                                                                                                                                     ^
+    284|     const { state, people } = baseWorld()
+    285|     const [d, l, a2, s2, z] = people
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[43/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): eligibility is Friends+ and no open bond with anyone but the pair's own partner (1347-F note; 1358-F §1) > romance-partnered-pair-keeps-growing: after formation, a shared success raises the pair's own value, capped at 100 (1358-F §1, Reading B: "anyone" excludes the pair's own partner)
+AssertionError: ROMANCE_SUCCESS_GAIN: expected 'undefined' to be 'number' // Object.is equality
+
+Expected: "number"
+Received: "undefined"
+
+ ❯ tests/p14b10-romance.test.ts:302:65
+    300|   it('romance-partnered-pair-keeps-growing: after formation, a shared …
+    301|     // Guard first: with the gain missing the staged value is NaN, and…
+    302|     expect(typeof ROMANCE_SUCCESS_GAIN, 'ROMANCE_SUCCESS_GAIN').toBe('…
+       |                                                                 ^
+    303|     const { state, people } = baseWorld()
+    304|     const [d, l, a2, s2] = people
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[44/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > a high-proximity (director-lead) 2nd+ shared production, Friends+, no open bond anywhere, adds ROMANCE_PROXIMITY_GAIN and resets anchorWeek
+AssertionError: expected null not to be null
+ ❯ tests/p14b10-romance.test.ts:335:33
+    333|     const written = edgeOf(next, d!, l!)!
+    334|     expect(written.sharedProductions).toBe(2)
+    335|     expect(written.romance).not.toBeNull()
+       |                                 ^
+    336|     expect(written.romance!.value).toBe(ROMANCE_PROXIMITY_GAIN) // the…
+    337|     expect(written.romance!.anchorWeek).toBe(week + 1)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[45/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > lead-antagonist is ALSO high proximity (1347-A §2.3 names both seat pairs) and grants the same gain
+TypeError: Cannot read properties of null (reading 'value')
+ ❯ tests/p14b10-romance.test.ts:349:29
+    347|       { takes: [{ studioId: 'irrelevant', production: syntheticTake('g…
+    348|     const written = edgeOf(next, l!, a2!)!
+    349|     expect(written.romance!.value).toBe(ROMANCE_PROXIMITY_GAIN)
+       |                             ^
+    350|   })
+    351| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[46/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > director-support is LOW proximity and grants NO romance gain (but still resets anchorWeek if a track already exists — "any shared take resets separation")
+AssertionError: expected 300 to be 401 // Object.is equality
+
+- Expected
++ Received
+
+- 401
++ 300
+
+ ❯ tests/p14b10-romance.test.ts:364:41
+    362|     const written = edgeOf(next, d!, s2!)!
+    363|     expect(written.romance!.value).toBe(staged) // LOW proximity: no g…
+    364|     expect(written.romance!.anchorWeek).toBe(week + 1) // but the anch…
+       |                                         ^
+    365|     // Fixture premise, after the behaviour so the RED names the ancho…
+    366|     expect(week + 1 - anchor).toBeLessThanOrEqual(ROMANCE_GRACE_WEEKS)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[47/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > a write materializes first: a high-proximity touch outside the grace window reads currentRomanceValue at the write week, then adds ROMANCE_PROXIMITY_GAIN (1358-F2 item 1)
+AssertionError: ROMANCE_GRACE_WEEKS: expected 'undefined' to be 'number' // Object.is equality
+
+Expected: "number"
+Received: "undefined"
+
+ ❯ tests/p14b10-romance.test.ts:371:146
+    369|   it('a write materializes first: a high-proximity touch outside the g…
+    370|     // Guard first: with the constants missing every expected value be…
+    371|     for (const [name, value] of Object.entries({ ROMANCE_GRACE_WEEKS, …
+       |                                                                                                                                                  ^
+    372|     const { state, people } = baseWorld()
+    373|     const [d, l, a2, s2] = people
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[48/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > a shared SUCCESS (release) adds ROMANCE_SUCCESS_GAIN, Friends+ and no open bond
+TypeError: Cannot read properties of null (reading 'value')
+ ❯ tests/p14b10-romance.test.ts:407:29
+    405|     const written = edgeOf(next, d!, l!)!
+    406|     expect(written.sharedSuccesses).toBe(1) // fixture premise: the ex…
+    407|     expect(written.romance!.value).toBe(ROMANCE_SUCCESS_GAIN)
+       |                             ^
+    408|   })
+    409| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[49/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > a rival pair (a rival studioId on the take) forms a bond under the SAME law (1347-A §5: "A rival pair forms under the same law")
+AssertionError: ROMANCE_FORMATION_THRESHOLD: expected 'undefined' to be 'number' // Object.is equality
+
+Expected: "number"
+Received: "undefined"
+
+ ❯ tests/p14b10-romance.test.ts:413:133
+    411|     // 1358-F4 (titles): r4's title said "forms" but checked only the …
+    412|     // tag sat on a failing leaf. The pair now starts one gain below t…
+    413|     for (const [name, value] of Object.entries({ ROMANCE_FORMATION_THR…
+       |                                                                                                                                     ^
+    414|     const { state, people } = baseWorld()
+    415|     const [d, l, a2, s2] = people
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[50/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > formation — dated once, at the crossing write > crossing ROMANCE_FORMATION_THRESHOLD appends a bond with formedWeek = the crossing week and endedWeek null
+AssertionError: expected NaN to be undefined // Object.is equality
+
+- Expected: 
+undefined
+
++ Received: 
+NaN
+
+ ❯ tests/p14b10-romance.test.ts:438:36
+    436|       { takes: [{ studioId: 'irrelevant', production: syntheticTake('g…
+    437|     const written = edgeOf(next, d!, l!)!
+    438|     expect(written.romance!.value).toBe(ROMANCE_FORMATION_THRESHOLD)
+       |                                    ^
+    439|     expect(written.romance!.bonds).toEqual([{ formedWeek: crossingWeek…
+    440|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[51/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > formation — dated once, at the crossing write > a re-formation (after an ended bond) appends a SECOND bond row, never overwriting the first
+AssertionError: expected [ { formedWeek: 100, endedWeek: 300 } ] to deeply equal [ { formedWeek: 100, …(1) }, …(1) ]
+
+- Expected
++ Received
+
+  Array [
+    Object {
+      "endedWeek": 300,
+      "formedWeek": 100,
+    },
+-   Object {
+-     "endedWeek": null,
+-     "formedWeek": 401,
+-   },
+  ]
+
+ ❯ tests/p14b10-romance.test.ts:456:36
+    454|       { takes: [{ studioId: 'irrelevant', production: syntheticTake('g…
+    455|     const written = edgeOf(next, d!, l!)!
+    456|     expect(written.romance!.bonds).toEqual([earlier, { formedWeek: cro…
+       |                                    ^
+    457|   })
+    458| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[52/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > formation — dated once, at the crossing write > a THIRD PARTY's open bond that has already ended on read does not block formation, and that formation check records its ending (1347-A:56)
+AssertionError: ROMANCE_FORMATION_THRESHOLD: expected 'undefined' to be 'number' // Object.is equality
+
+Expected: "number"
+Received: "undefined"
+
+ ❯ tests/p14b10-romance.test.ts:462:34
+    460|     // 1358-F4 item 2(c). Guard first: every week below is an expressi…
+    461|     for (const [name, value] of Object.entries({ ROMANCE_FORMATION_THR…
+    462|       expect(typeof value, name).toBe('number')
+       |                                  ^
+    463|     }
+    464|     expect(typeof currentRomanceValue, 'currentRomanceValue').toBe('fu…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[53/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > ending — computed on read, persisted once at the next touching write, never moved again > the next write that touches the edge persists the READ-derived ending week into endedWeek
+AssertionError: ROMANCE_GRACE_WEEKS: expected 'undefined' to be 'number' // Object.is equality
+
+Expected: "number"
+Received: "undefined"
+
+ ❯ tests/p14b10-romance.test.ts:494:63
+    492|     // formedWeek NaN, the search below never runs, and the leaf throw…
+    493|     // failed" message instead of naming the missing API.
+    494|     expect(typeof ROMANCE_GRACE_WEEKS, 'ROMANCE_GRACE_WEEKS').toBe('nu…
+       |                                                               ^
+    495|     expect(typeof ROMANCE_DECAY_WEEKS, 'ROMANCE_DECAY_WEEKS').toBe('nu…
+    496|     const { state, people } = baseWorld()
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[54/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > non-triggers at the write seam: retirement, a studio change and a drop to Strained end nothing (1347-A:59, :129) > a write at a staged retirement week, with a studio change and a drop to Strained, leaves the bond open and the pair partners (1358-F4 item 2(b))
+AssertionError: romanceStatus: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ tests/p14b10-romance.test.ts:550:51
+    548| describe('non-triggers at the write seam: retirement, a studio change …
+    549|   it('a write at a staged retirement week, with a studio change and a …
+    550|     expect(typeof romanceStatus, 'romanceStatus').toBe('function')
+       |                                                   ^
+    551|     const { state, people } = baseWorld()
+    552|     const [d, l, a2, s2] = people
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[55/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > consequences already selected (1347-A:60, §6 item 3): Partners in pairChemistry > pairChemistry reads sign +1 with one added Partners reason at Strained, and -1 at Enemies (1358-F4 item 2(a))
+AssertionError: expected -1 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ -1
+
+ ❯ tests/p14b10-romance.test.ts:599:27
+    597|     const strained = pairChemistry(staged, x!, y!, week)
+    598|     expect(strained.tier).toBe('Strained') // fixture premise: romance…
+    599|     expect(strained.sign).toBe(1)
+       |                           ^
+    600|     const twin = pairChemistry(staged, u!, v!, week)
+    601|     expect(twin.sign).toBe(-1)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[56/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F §3) > while romanceStatus reads "partners", currentCloseness holds the stored closeness past the drift grace (1358-F §3)
+AssertionError: expected 70 to be 90 // Object.is equality
+
+- Expected
++ Received
+
+- 90
++ 70
+
+ ❯ tests/p14b10-romance.test.ts:622:42
+    620|     const week = lastEventWeek + RELATIONSHIP_DRIFT_GRACE_WEEKS + RELA…
+    621|     // Not held, the pair would be halfway home: 90 + trunc((RELATIONS…
+    622|     expect(currentCloseness(edge, week)).toBe(edge.closeness)
+       |                                          ^
+    623|     // Fixture premise, after the behaviour so the RED names the drift…
+    624|     expect(romanceStatus(stagedEdge(0, 'p-a', 'p-b', edge.closeness, l…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[57/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F §3) > after the bond ends, drift resumes from max(lastEventWeek, endedWeek) — not from the stale lastEventWeek
+AssertionError: expected 50 to be 70 // Object.is equality
+
+- Expected
++ Received
+
+- 70
++ 50
+
+ ❯ tests/p14b10-romance.test.ts:631:95
+    629|     const edge = stagedEdge(0, 'p-a', 'p-b', 70, lastEventWeek, { roma…
+    630|     const week = endedWeek + 10 // only 10 weeks past the ENDING, well…
+    631|     expect(currentCloseness(edge as unknown as Parameters<typeof curre…
+       |                                                                                               ^
+    632|   })
+    633| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[58/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F §3) > an ending computed on read (endedWeek still null) ends the hold at that week and anchors the dormancy there, so recording it later changes no closeness (1358-F §3; 1347-A §2.3)
+AssertionError: currentRomanceValue: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ tests/p14b10-romance.test.ts:644:63
+    642| 
+    643|   it('an ending computed on read (endedWeek still null) ends the hold …
+    644|     expect(typeof currentRomanceValue, 'currentRomanceValue').toBe('fu…
+       |                                                               ^
+    645|     const lastEventWeek = 1000
+    646|     const open: RomanceTrack = { value: 90, anchorWeek: lastEventWeek,…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[59/89]⎯
+
+ FAIL |core|  tests/p14b10-romance.test.ts > drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F §3) > currentTier widens its Pick the same way: a Partners pair past the drift grace keeps its held tier (1358-F §3)
+AssertionError: expected 'Friends' to be 'Inseparable' // Object.is equality
+
+Expected: "Inseparable"
+Received: "Friends"
+
+ ❯ tests/p14b10-romance.test.ts:671:37
+    669|     const week = lastEventWeek + RELATIONSHIP_DRIFT_GRACE_WEEKS + RELA…
+    670|     // Not held: 81 + trunc((RELATIONSHIP_BASELINE - 81) / 2) = 66, wh…
+    671|     expect(currentTier(edge, week)).toBe('Inseparable')
+       |                                     ^
+    672|   })
+    673| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[60/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > API decisions this file exercises (existence asserted first) > LIVE_SAVE_VERSION is 44; validateSaveV44 / convertV43ToV44 / convertV44ToV43 / migrateToV44 exist as functions
+AssertionError: expected 43 to be 44 // Object.is equality
+
+- Expected
++ Received
+
+- 44
++ 43
+
+ ❯ tests/p14b10-save-v44.test.ts:119:42
+    117| describe('API decisions this file exercises (existence asserted first)…
+    118|   it('LIVE_SAVE_VERSION is 44; validateSaveV44 / convertV43ToV44 / con…
+    119|     expect(saveModule.LIVE_SAVE_VERSION).toBe(44)
+       |                                          ^
+    120|     expect(typeof mods().validateSaveV44, 'validateSaveV44').toBe('fun…
+    121|     expect(typeof mods().convertV43ToV44, 'convertV43ToV44').toBe('fun…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[61/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: the well-formed empty state validates (control) > accepts empty competitions and null romance on every edge
+AssertionError: expected [Function] to not throw an error but 'TypeError: mods(...).validateSaveV44 …' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"TypeError: mods(...).validateSaveV44 is not a function"
+
+ ❯ tests/p14b10-save-v44.test.ts:129:65
+    127| describe('save-v44: the well-formed empty state validates (control)', …
+    128|   it('accepts empty competitions and null romance on every edge', () =…
+    129|     expect(() => mods().validateSaveV44(baseV44Envelope())).not.toThro…
+       |                                                                 ^
+    130|   })
+    131| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[62/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: V43 -> V44 migration > convertV43ToV44 adds competitions: [] and romance: null to every edge of a genuine V43 envelope, and validates
+TypeError: mods(...).convertV43ToV44 is not a function
+ ❯ tests/p14b10-save-v44.test.ts:138:24
+    136|     const v43 = (saveModule as unknown as { convertV42ToV43: (s: unkno…
+    137|     assert.ok(v43.state.relationships.length > 0, 'route premise: the …
+    138|     const v44 = mods().convertV43ToV44(v43)
+       |                        ^
+    139|     expect(v44.saveVersion).toBe(44)
+    140|     const validated = mods().validateSaveV44(v44)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[63/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: V43 -> V44 migration > GENUINE V43 input (1358-P-save43-producer.ts mint) migrates with competitions: [] and romance: null on every edge, and preserves its non-empty screenplayShelving
+TypeError: mods(...).convertV43ToV44 is not a function
+ ❯ tests/p14b10-save-v44.test.ts:156:24
+    154|     expect(hasCompetition, 'producer premise: at least one edge holds …
+    155|     expect(hasShelving, 'producer premise: at least one business holds…
+    156|     const v44 = mods().convertV43ToV44(v43)
+       |                        ^
+    157|     const validated = mods().validateSaveV44(v44)
+    158|     for (const edge of validated.state.relationships) {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[64/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: V42-era competitions count as conflict evidence but give no Rivals label (1347-A §4 "what old saves show") > an edge with sharedCompetitions >= RELATIONSHIP_CONFLICT_COMPETITIONS and an empty competitions log reads conflict evidence but no Rivals label after migration
+TypeError: mods(...).convertV43ToV44 is not a function
+ ❯ tests/p14b10-save-v44.test.ts:178:53
+    176|     staged.sharedCompetitions = 3 // Save42-era recorded count; the lo…
+    177|     const v43 = (saveModule as unknown as { convertV42ToV43: (s: unkno…
+    178|     const validated = mods().validateSaveV44(mods().convertV43ToV44(v4…
+       |                                                     ^
+    179|     const migratedEdge = validated.state.relationships.find((e) => e.e…
+    180|     expect(migratedEdge.competitions).toEqual([]) // no Rivals evidenc…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[65/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: the validator rejects a forged competitions log > rejects non-ascending weeks across rows
+AssertionError: expected [Function] to throw error matching /competit|week|ascend|order/i but got 'mods(...).validateSaveV44 is not a fu…'
+
+- Expected: 
+/competit|week|ascend|order/i
+
++ Received: 
+"mods(...).validateSaveV44 is not a function"
+
+ ❯ tests/p14b10-save-v44.test.ts:206:47
+    204|       e.competitions = [{ week: hi, productionId: 'prod-x', slots: ['l…
+    205|     })
+    206|     expect(() => mods().validateSaveV44(env)).toThrow(/competit|week|a…
+       |                                               ^
+    207|   })
+    208| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[66/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: the validator rejects a forged competitions log > rejects a duplicate production id across two rows
+AssertionError: expected [Function] to throw error matching /competit|duplicate|production/i but got 'mods(...).validateSaveV44 is not a fu…'
+
+- Expected: 
+/competit|duplicate|production/i
+
++ Received: 
+"mods(...).validateSaveV44 is not a function"
+
+ ❯ tests/p14b10-save-v44.test.ts:214:47
+    212|       e.competitions = [{ week: lo, productionId: 'prod-x', slots: ['l…
+    213|     })
+    214|     expect(() => mods().validateSaveV44(env)).toThrow(/competit|duplic…
+       |                                               ^
+    215|   })
+    216| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[67/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: the validator rejects a forged competitions log > rejects a row with an empty slots array
+AssertionError: expected [Function] to throw error matching /competit|slot|empty|non-empty/i but got 'mods(...).validateSaveV44 is not a fu…'
+
+- Expected: 
+/competit|slot|empty|non-empty/i
+
++ Received: 
+"mods(...).validateSaveV44 is not a function"
+
+ ❯ tests/p14b10-save-v44.test.ts:222:47
+    220|       e.competitions = [{ week: hi, productionId: 'prod-x', slots: [] …
+    221|     })
+    222|     expect(() => mods().validateSaveV44(env)).toThrow(/competit|slot|e…
+       |                                               ^
+    223|   })
+    224| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[68/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: the validator rejects a forged competitions log > rejects a row with slots out of slot order (support before lead)
+AssertionError: expected [Function] to throw error matching /competit|slot|order/i but got 'mods(...).validateSaveV44 is not a fu…'
+
+- Expected: 
+/competit|slot|order/i
+
++ Received: 
+"mods(...).validateSaveV44 is not a function"
+
+ ❯ tests/p14b10-save-v44.test.ts:230:47
+    228|       e.competitions = [{ week: hi, productionId: 'prod-x', slots: ['s…
+    229|     })
+    230|     expect(() => mods().validateSaveV44(env)).toThrow(/competit|slot|o…
+       |                                               ^
+    231|   })
+    232| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[69/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: the validator rejects a forged competitions log > rejects more competitions rows than sharedCompetitions
+AssertionError: expected [Function] to throw error matching /competit|shared|exceed/i but got 'mods(...).validateSaveV44 is not a fu…'
+
+- Expected: 
+/competit|shared|exceed/i
+
++ Received: 
+"mods(...).validateSaveV44 is not a function"
+
+ ❯ tests/p14b10-save-v44.test.ts:238:47
+    236|       e.competitions = [{ week: lo, productionId: 'prod-x', slots: ['l…
+    237|     })
+    238|     expect(() => mods().validateSaveV44(env)).toThrow(/competit|shared…
+       |                                               ^
+    239|   })
+    240| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[70/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: the validator rejects a forged competitions log > accepts a well-formed two-slot row on one production (the "one production, two slots, one row" shape)
+AssertionError: expected [Function] to not throw an error but 'TypeError: mods(...).validateSaveV44 …' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"TypeError: mods(...).validateSaveV44 is not a function"
+
+ ❯ tests/p14b10-save-v44.test.ts:246:51
+    244|       e.competitions = [{ week: hi, productionId: 'prod-x', slots: ['l…
+    245|     })
+    246|     expect(() => mods().validateSaveV44(env)).not.toThrow()
+       |                                                   ^
+    247|   })
+    248| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[71/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: the validator rejects forged romance > rejects a romance value above 100
+AssertionError: expected [Function] to throw error matching /romance|value|0.*100/i but got 'mods(...).validateSaveV44 is not a fu…'
+
+- Expected: 
+/romance|value|0.*100/i
+
++ Received: 
+"mods(...).validateSaveV44 is not a function"
+
+ ❯ tests/p14b10-save-v44.test.ts:261:47
+    259|   it('rejects a romance value above 100', () => {
+    260|     const env = withFirstEdge((e) => { e.romance = { value: 101, ancho…
+    261|     expect(() => mods().validateSaveV44(env)).toThrow(/romance|value|0…
+       |                                               ^
+    262|   })
+    263| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[72/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: the validator rejects forged romance > rejects a negative romance value
+AssertionError: expected [Function] to throw error matching /romance|value|negative|0.*100/i but got 'mods(...).validateSaveV44 is not a fu…'
+
+- Expected: 
+/romance|value|negative|0.*100/i
+
++ Received: 
+"mods(...).validateSaveV44 is not a function"
+
+ ❯ tests/p14b10-save-v44.test.ts:266:47
+    264|   it('rejects a negative romance value', () => {
+    265|     const env = withFirstEdge((e) => { e.romance = { value: -1, anchor…
+    266|     expect(() => mods().validateSaveV44(env)).toThrow(/romance|value|n…
+       |                                               ^
+    267|   })
+    268| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[73/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: the validator rejects forged romance > rejects bonds out of order (a later formedWeek before an earlier one)
+AssertionError: expected [Function] to throw error matching /romance|bond|order/i but got 'mods(...).validateSaveV44 is not a fu…'
+
+- Expected: 
+/romance|bond|order/i
+
++ Received: 
+"mods(...).validateSaveV44 is not a function"
+
+ ❯ tests/p14b10-save-v44.test.ts:277:47
+    275|       e.romance = { value: 80, anchorWeek: 100, bonds: [{ formedWeek: …
+    276|     })
+    277|     expect(() => mods().validateSaveV44(env)).toThrow(/romance|bond|or…
+       |                                               ^
+    278|   })
+    279| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[74/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: the validator rejects forged romance > rejects two open bonds (only the last one may be open)
+AssertionError: expected [Function] to throw error matching /romance|bond|open/i but got 'mods(...).validateSaveV44 is not a fu…'
+
+- Expected: 
+/romance|bond|open/i
+
++ Received: 
+"mods(...).validateSaveV44 is not a function"
+
+ ❯ tests/p14b10-save-v44.test.ts:284:47
+    282|       e.romance = { value: 80, anchorWeek: 100, bonds: [{ formedWeek: …
+    283|     })
+    284|     expect(() => mods().validateSaveV44(env)).toThrow(/romance|bond|op…
+       |                                               ^
+    285|   })
+    286| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[75/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: the validator rejects forged romance > accepts a closed earlier bond followed by one open later bond (the re-formation shape)
+AssertionError: expected [Function] to not throw an error but 'TypeError: mods(...).validateSaveV44 …' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"TypeError: mods(...).validateSaveV44 is not a function"
+
+ ❯ tests/p14b10-save-v44.test.ts:291:51
+    289|       e.romance = { value: 80, anchorWeek: 100, bonds: [{ formedWeek: …
+    290|     })
+    291|     expect(() => mods().validateSaveV44(env)).not.toThrow()
+       |                                                   ^
+    292|   })
+    293| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[76/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: the validator rejects forged romance > accepts every bond closed (an ended romance with no currently open bond)
+AssertionError: expected [Function] to not throw an error but 'TypeError: mods(...).validateSaveV44 …' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"TypeError: mods(...).validateSaveV44 is not a function"
+
+ ❯ tests/p14b10-save-v44.test.ts:298:51
+    296|       e.romance = { value: 30, anchorWeek: 100, bonds: [{ formedWeek: …
+    297|     })
+    298|     expect(() => mods().validateSaveV44(env)).not.toThrow()
+       |                                                   ^
+    299|   })
+    300| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[77/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: the validator rejects forged romance > rejects an open last bond that formed after the track's anchorWeek (formation sets the anchor, and later writes only move it forward)
+AssertionError: expected [Function] to throw error matching /romance|bond|anchor/i but got 'mods(...).validateSaveV44 is not a fu…'
+
+- Expected: 
+/romance|bond|anchor/i
+
++ Received: 
+"mods(...).validateSaveV44 is not a function"
+
+ ❯ tests/p14b10-save-v44.test.ts:307:47
+    305|       e.romance = { value: 80, anchorWeek: 100, bonds: [{ formedWeek: …
+    306|     })
+    307|     expect(() => mods().validateSaveV44(env)).toThrow(/romance|bond|an…
+       |                                               ^
+    308|   })
+    309| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[78/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: the validator rejects forged romance > rejects one person holding open bonds on two edges (edges 0 and 1 share person-studio-aca408ec-r01-1)
+AssertionError: expected [Function] to throw error matching /romance|bond|open/i but got 'mods(...).validateSaveV44 is not a fu…'
+
+- Expected: 
+/romance|bond|open/i
+
++ Received: 
+"mods(...).validateSaveV44 is not a function"
+
+ ❯ tests/p14b10-save-v44.test.ts:322:47
+    320|     assert.ok([first.a, first.b].some((id) => id === second.a || id ==…
+    321|     for (const edge of [first, second]) edge.romance = lawfulOpenBond(…
+    322|     expect(() => mods().validateSaveV44(env)).toThrow(/romance|bond|op…
+       |                                               ^
+    323|   })
+    324| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[79/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: the validator rejects forged romance > accepts open bonds on two edges that share no person (edges 0 and 5 split studio r01's four people into two pairs)
+AssertionError: expected [Function] to not throw an error but 'TypeError: mods(...).validateSaveV44 …' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"TypeError: mods(...).validateSaveV44 is not a function"
+
+ ❯ tests/p14b10-save-v44.test.ts:331:51
+    329|     assert.ok(![first.a, first.b].some((id) => id === other.a || id ==…
+    330|     for (const edge of [first, other]) edge.romance = lawfulOpenBond(e…
+    331|     expect(() => mods().validateSaveV44(env)).not.toThrow()
+       |                                                   ^
+    332|   })
+    333| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[80/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: down-conversion (convertV44ToV43) > accepts the empty state on every edge (round-trips losslessly, Save41/Save43 pattern)
+AssertionError: expected [Function] to not throw an error but 'TypeError: mods(...).convertV44ToV43 …' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"TypeError: mods(...).convertV44ToV43 is not a function"
+
+ ❯ tests/p14b10-save-v44.test.ts:338:51
+    336|   it('accepts the empty state on every edge (round-trips losslessly, S…
+    337|     const env = baseV44Envelope()
+    338|     expect(() => mods().convertV44ToV43(env)).not.toThrow()
+       |                                                   ^
+    339|   })
+    340| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[81/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: down-conversion (convertV44ToV43) > refuses a real competitions log by name
+AssertionError: expected [Function] to throw error matching /cannot downgrade.*competit/i but got 'mods(...).convertV44ToV43 is not a fu…'
+
+- Expected: 
+/cannot downgrade.*competit/i
+
++ Received: 
+"mods(...).convertV44ToV43 is not a function"
+
+ ❯ tests/p14b10-save-v44.test.ts:348:47
+    346|     edge.sharedCompetitions = 1
+    347|     edge.competitions = [{ week: edge.lastEventWeek as number, product…
+    348|     expect(() => mods().convertV44ToV43(env)).toThrow(/cannot downgrad…
+       |                                               ^
+    349|   })
+    350| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[82/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: down-conversion (convertV44ToV43) > refuses a real (non-null) romance by name
+AssertionError: expected [Function] to throw error matching /cannot downgrade.*romance/i but got 'mods(...).convertV44ToV43 is not a fu…'
+
+- Expected: 
+/cannot downgrade.*romance/i
+
++ Received: 
+"mods(...).convertV44ToV43 is not a function"
+
+ ❯ tests/p14b10-save-v44.test.ts:356:47
+    354|     assert.ok(edge, 'route premise')
+    355|     edge.romance = { value: 80, anchorWeek: 10, bonds: [{ formedWeek: …
+    356|     expect(() => mods().convertV44ToV43(env)).toThrow(/cannot downgrad…
+       |                                               ^
+    357|   })
+    358| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[83/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: the chain and the live route (1358-F4 item 3) > migrateToLive lifts the GENUINE V43 save to Save44 with competitions: [] and romance: null on every edge; makeSave stamps 44 and validateSave dispatches it
+AssertionError: expected 43 to be 44 // Object.is equality
+
+- Expected
++ Received
+
+- 44
++ 43
+
+ ❯ tests/p14b10-save-v44.test.ts:363:30
+    361|   it('migrateToLive lifts the GENUINE V43 save to Save44 with competit…
+    362|     const live = saveModule.migrateToLive(saveModule.importSave(genuin…
+    363|     expect(live.saveVersion).toBe(44)
+       |                              ^
+    364|     for (const edge of live.state.relationships) {
+    365|       expect(edge.competitions).toEqual([])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[84/89]⎯
+
+ FAIL |core|  tests/p14b10-save-v44.test.ts > save-v44: the chain and the live route (1358-F4 item 3) > migrateToV43(convertV43ToV44(v43)) deep-equals the GENUINE v43: the downgrade drops only the two empty fields
+TypeError: mods(...).convertV43ToV44 is not a function
+ ❯ tests/p14b10-save-v44.test.ts:376:49
+    374|     const raw = genuineV43Raw()
+    375|     // A fresh parse on each side, so a converter that wrote into its …
+    376|     const back = saveModule.migrateToV43(mods().convertV43ToV44(JSON.p…
+       |                                                 ^
+    377|     expect(back).toEqual(JSON.parse(raw))
+    378|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[85/89]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 2 — CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) > the first post-migration RIVAL take mints six edges under the same law; the 45 pre-migration takes mint none (Q3)
+AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]
+
+- Expected
++ Received
+
+- Array [
+-   "studio-aca408ec-r01:film:6",
+- ]
++ Array []
+
+ ❯ rivalWorld tests/p14b5-relationships.test.ts:397:53
+    395|         out.beforeRelease = before; out.atRelease = state
+    396|       } else if (week === FROZEN.rival.repeatTakeWeek) {
+    397|         expect(newTakes.map((t) => t.productionId)).toEqual([FROZEN.ri…
+       |                                                     ^
+    398|         out.beforeRepeat = before; out.atRepeat = state
+    399|       } else {
+ ❯ tests/p14b5-relationships.test.ts:656:46
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[86/89]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 2 — CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) > the same pair on a second production is ONE edge with sharedProductions 2 and a repeatedCollaboration driver of the capped accelerator; a < b regardless of seat order
+AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]
+
+- Expected
++ Received
+
+- Array [
+-   "studio-aca408ec-r01:film:6",
+- ]
++ Array []
+
+ ❯ rivalWorld tests/p14b5-relationships.test.ts:397:53
+    395|         out.beforeRelease = before; out.atRelease = state
+    396|       } else if (week === FROZEN.rival.repeatTakeWeek) {
+    397|         expect(newTakes.map((t) => t.productionId)).toEqual([FROZEN.ri…
+       |                                                     ^
+    398|         out.beforeRepeat = before; out.atRepeat = state
+    399|       } else {
+ ❯ tests/p14b5-relationships.test.ts:665:40
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[87/89]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 5 — RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) > a rival release (hollywood.films / industry.growth) mints under the same law; a release whose take predates every edge mints nothing (I2)
+AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]
+
+- Expected
++ Received
+
+- Array [
+-   "studio-aca408ec-r01:film:6",
+- ]
++ Array []
+
+ ❯ rivalWorld tests/p14b5-relationships.test.ts:397:53
+    395|         out.beforeRelease = before; out.atRelease = state
+    396|       } else if (week === FROZEN.rival.repeatTakeWeek) {
+    397|         expect(newTakes.map((t) => t.productionId)).toEqual([FROZEN.ri…
+       |                                                     ^
+    398|         out.beforeRepeat = before; out.atRepeat = state
+    399|       } else {
+ ❯ tests/p14b5-relationships.test.ts:873:42
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[88/89]⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts > family 6c — D5 reads a Partners counterpart as a close tie, still below hostility (slice B, 1358-C5) > a player issuer: a Partners counterpart at Friends on the roster — settlement reads close ties here (2)
+AssertionError: expected 'declined' to be 'settled' // Object.is equality
+
+Expected: "settled"
+Received: "declined"
+
+ ❯ tests/p14b5-relationships.test.ts:1139:26
+    1137|     expect(currentTier(findEdge(after, F6.subject, base.offCycle)!, F6…
+    1138|     const receipt = settlementAt208(after)
+    1139|     expect(receipt.kind).toBe('settled')
+       |                          ^
+    1140|     expect(receipt.studioId).toBe(base.playerId)
+    1141|     expect(receipt.reasons).toEqual(["their roster holds this person's…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[89/89]⎯
+
+ Test Files  6 failed (6)
+      Tests  89 failed | 59 passed (148)
+   Start at  02:34:44
+   Duration  47.53s (transform 3.71s, setup 0ms, collect 12.73s, tests 108.64s, environment 2ms, prepare 1.52s)
+
