@@ -1,7 +1,7 @@
 # 1358-N: Save44 and projection-57 test pin sweep plan
 
 **Status: ADOPTED as drafted, with [1358-F9](1358-F9-parent-rulings-on-1358-N-draft.md)'s rulings; the parent completes
-"Measured fallout" from 1358-M2.** The planner read HEAD 5245072a on `wip/headless-program-20260916-ts` on 2026-10-02
+"Measured fallout" from 1358-M2 (done); [1358-F10](1358-F10-parent-rulings-on-sweep-handbacks.md) rules on the handbacks.** The planner read HEAD 5245072a on `wip/headless-program-20260916-ts` on 2026-10-02
 and drafted this plan at 03:20 CDT. HEAD 2ff1bf89 differs from 5245072a only under `docs`.
 
 - **Census:** [census.json](1358-stage/n/census.json) and [census.md](1358-stage/n/census.md), with the planner's
@@ -42,10 +42,15 @@ with or without the production steps.
     - rows 59-61 fail at `acceptedEvidence` with `expected 44 to be 43`;
     - `p14b5-relationships` adds 27 fallout failures (staged edges, `validateSaveV43` on live envelopes, family 10),
       beside the three 1344-F6 row 6 exceptions.
-- **1358-M2** runs core over the 440 files, UI, and the four §7 routes. The parent adds:
-  - its tallies;
-  - the attribution against [1348-I](1348-I-core-failures.json) (85) and [1348-I2](1348-I2-ui-failures.json) (3);
-  - the route comparison with [1348-X7](1348-X7-rel-sliceA-natural-routes.md).
+- **[1358-M2](1358-M2-rel-sliceB-fallout-measurement.md)** (no test edit):
+  - **Core:** 879 failed. Against 1348-I: SAME 71, CHANGED 14, NEW 795, GONE 0. Every NEW row is a Save44 or
+    projection-57 pin, a shared helper's pin, or a known environment row. 114 sit in files without census rows: 105
+    behind group H's helper pins, one suite-level row of a G5 file, and 8 environment rows.
+  - **UI:** 16 failed. Against 1348-I2: CHANGED 3 (the numpy rows, by path) and NEW 13 (eight G4 pins, three through a
+    helper, one known intermittent, one candidate intermittent).
+  - **The four §7 routes** keep every §7 measure. Outside the relationship root, each final state equals 1348-X7's.
+  - **What it decides:** the four p14p4p5 S5 rows need the helper. Most other measure rows go to the sweep dry run
+    ([1358-F10](1358-F10-parent-rulings-on-sweep-handbacks.md) ruling 1).
 - **The census.**
   - **Rows:** 685 in 156 files, 625 certain and 60 measure.
   - **No-edit rows:** 20 of the 685 plan no edit and name what the sweep must confirm at the site.

@@ -1,9 +1,9 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 04:06 CDT (the Mac runs on CDT; use `date`)
+Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 04:45 CDT (the Mac runs on CDT; use `date`)
 
 ## Where the work is
-- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit after 324b8701 that carries this file (slice B RED landed at 650e963a, capture 4ad8e0f7, recorded RED and 1358-X5 committed), pushed: yes.
+- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit after 5f2b5999 that carries this file (slice B RED landed 650e963a, capture 4ad8e0f7; 1358-X5, 1358-M2, 1358-N, 1358-F9, 1358-F10 committed), pushed: yes.
 - Resume this session: `cd ~/Downloads/project-studio-p13-owner-direction-inputs-01 && claude --resume 60db833c-4cf7-4685-b2ec-8aac42c6dac1` (the session started in that folder; it works in this repo). A fresh session: start `claude` in this repo root and say "resume from HANDOFF.md".
 - Required reading, in order:
   1. This file.
@@ -36,11 +36,11 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 04:06 CDT (the Mac r
   - **1358-X4** (slice B RED r8): 89 failed / 59 passed (148); 100 rows ok; 17 root type errors at r8's positions; UI and Bridge 0; 1358-D2's five leaves as tabled (first Mentor build 39.9 s). Outputs in `E/1358-stage/x4/`.
 - **Slice B RED landed:** RED r8 committed at 650e963a; recorded mint `1358-sliceb-mint` (exit 0, fixedSource, allGuardsExact) wrote `tests/fixtures/p14/genuine-v43-pre-romance/` (save gzip a731677f…, equal to X2's), committed at 4ad8e0f7; recorded RED `1358-sliceb-red-recorded` at 4ad8e0f7: 89 failed / 59 passed (148), identities equal 1358-X4's. **1358-L** opened (IN PROGRESS).
 - **1358-X5** (production r2 steps on the landed RED, committed at 324b8701): classified reds 62, 44, 10 and 3 with 0 mismatches; after step 4 only rows 59-61 stay red (at `acceptedEvidence`, "expected 44 to be 43"); both generator checks pass. All other failures sit in test files (27 in p14b5-relationships; type errors 20 at step 1 and 46 from step 3 in the root gate, 2 each in UI and Bridge from the shared helpers `p14c2b-fixtures:69` and `p14c4-fixtures:71`): sweep fallout.
-- In flight:
-  - **1358-M2** (fallout on HEAD 5245072a plus production step 4 r2): started 02:48:24 CDT, lane-run PID in `S/1358-m2/m2.pid`, progress `S/1358-m2/m2.meta`, outputs `S/1358-m2/m2-{tsc,generate,core,ui}.txt` and the route logs `m2-*.log` (kit outputs in `S/1344-s7/out/m2-*`). About 2 h.
-  - **1358-N adopted** (1358-F9). All seven authors finished; merged as **sweep r1** in the scratch worktree `S/1358-sweep/merge` (branch `sweep-merge` 3c7b83a; G6 without its S5 draft commit 49bafc6): 154 test files, +671/-599, `S/1358-sweep/sweep-r1.patch` sha256 20398175…, applies to repo HEAD. Group outputs (patch, classification, deferred, handback) in `S/1358-sweep/out/<g>/`; all deferred rows in `S/1358-sweep/deferred-all.json` (75). Parent rulings so far: `S/1358-sweep/parent-notes.md` (to become **1358-F10**).
-  - Running agents: the **probe author** writes a temporary message-logging probe for 35 S8/S9 sites (`S/1358-sweep/probe-sites.json`; outputs `S/1358-sweep/out/probe/`); **G1** writes N-0122 option (a) on `sweep-g1` (re-merge into `sweep-merge` and regenerate the r1 patch after it reports).
-  - Prepared: `S/1358-sweep/run-1358-sweep-dry.sh <run> <sweep.patch> [<probe.patch> <probe-files>]` (type gates, generators, slice B files plus mentor-label, the probe, core 440, UI), for 1358-X6 after M2 frees the lane; `S/1358-land/p57-manifest.py` and `E/1358-p57-declaration-measurement.ts` (committed b17e8ac2) for F10/F11 at landing.
+- **1358-M2** (committed 5f2b5999): core 879 failed vs 1348-I SAME 71 / CHANGED 14 / NEW 795 / GONE 0, every NEW row a Save44/P57 pin, a helper pin or an environment row; UI 16 (13 NEW); the four §7 routes keep every §7 measure. Owed: the snapshot measurement (F8 ruling 5), queued.
+- **Sweep r1** (1358-F10): seven groups merged, `S/1358-sweep/merge` branch `sweep-x6` 8144c0c; staged as `E/1358-stage/sweep-r1/1358-sweep-r1.patch` (cbc8ee00…) with every group's outputs and the message probe.
+- In flight (heavy lane, scratch only, no recorded run):
+  - **1358-X6** (sweep r1 dry run): started 04:35:16, `S/1358-sweep/x6/run.meta`; type gates 0 errors, generators pass, slice B files 154 passed / 3 failed (only the three 1344-F6 row 6 exceptions; first Mentor leaf 52,798 ms); then the message probe (`x6/probe.txt`, grep `PROBE1358`), core 440 (`x6/core.txt`), UI (`x6/ui.txt`).
+  - Queued behind X6: the **snapshot probe** (`S/1358-m2/snap/run-snap.sh`, lane-run PID in `S/1358-m2/snap/snap.pid`, progress `snap/snap.meta`): `peopleProjection` every week on the four routes, step 4 then base.
 - **P15 rebase after slice B:** the three P15 REDs read the save step from `LIVE_SAVE_VERSION`; the only base pin is P15C's `BASE_LIVE_SAVE_VERSION = 43` (integration test :151), which moves to 44. The producers carry no hardcoded version.
 - Claims limits:
   - 1353-T's market-pressure numbers are first order (open-loop factors from 1355-G1).
@@ -50,7 +50,7 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 04:06 CDT (the Mac r
 ## Next step
 E = `docs/engineering/playability-launch-review/evidence/p14b4-20260919`, S = `/Users/zacheryspector/studio-scratch`. Standing rules: one production writer; one heavy test process at a time; no commits (and no `git add`) during a recorded run or its postflight; free disk ≥ 5 GiB before a recorded run (5.14 GiB at 01:57; delete each X run's tree after reading it); recorded runs pin Node v20.20.2; recorded stems match `^[0-9]{3,4}[a-z0-9-]*$` (lowercase).
 
-1. **1358-M2** (running): when `S/1358-m2/m2.meta` says `end`, attribute core against `E/1348-I-core-failures.json` and UI against `E/1348-I2-ui-failures.json`; compare the routes with 1348-X7's h-* outputs. Then complete 1358-N's "Measured fallout" from M2, decide the measure rows M2 settles, merge the seven author branches, and run the sweep dry run (type gates, generators, slice B files plus mentor-label, core, UI).
+1. **After X6:** attribute `x6/core.txt` and `x6/ui.txt` (`1321-I-attribution.py`, `1317-I-attribution.py`, then `1344-I-compare.py` against `E/1348-I-core-failures.json` and `E/1348-I2-ui-failures.json`); read `x6/probe.txt`; record **1358-X6**. Then dispatch follow-up units per 1358-F10 (S5 helpers, S8 pins, S9 forms, the p14d1 week-93 control after its probe), merge, confirm with X7, review (1358-D for the sweep), then land per 1358-L (production steps, p57 manifest and recorded producer for F10/F11, sweep commit, recorded GREEN, recorded broad core and UI).
 2. **P15 REDs and mints** wait for slice B's Save44 production: P15A.1 (producer 1355-P r3), P15A.2, P15C (1359-P r4; rebase I:151 first). **P15B** waits for 1357-Q1.
 
 Agents: the user allows as many subagents as help (2026-10-01). Agents author and review; only the parent runs broad or heavy tests.
