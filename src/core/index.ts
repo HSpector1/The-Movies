@@ -1724,3 +1724,7 @@ export type { GameStateV40, GameStateV41, GameStateV42, GameStateV43, GameStateV
   TransitionInputs, TransitionEvaluation, ProfessionChange, IndustryRetirement, TransitionDue } from './types.js'
 export { professionAtWeek, transitionInputsFor, chooseProfessionTransition, advanceProfessionTransitions,
   TRANSITION_RULES_VERSION } from './professionTransitions.js'
+// P15C Wave 2 (1359-A §7; 1361-F ruling 19): the Legacy's ref resolver, which its validator uses and
+// Wave 3's views will read refs through.
+export { legacyRefResolver } from './campaignLegacy.js'
+export type { LegacyRef, LegacyRefPlace } from './campaignLegacy.js'

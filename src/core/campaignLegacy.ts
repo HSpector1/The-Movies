@@ -68,8 +68,9 @@
 import { campaignDate } from './calendar.js'
 import { P15_PHASE_TABLES } from './p15Phases.js'
 import type { FinancialStrengthBand } from './powerRanking.js'
+import { TECHNOLOGY_CATALOGUE } from './technologyCatalogue.js'
 import { GENRE_ORDER, TUNING } from './tuning.js'
-import type { GameState, Genre, Standing } from './types.js'
+import type { GameState, Genre, Standing, TalentCareerEvent } from './types.js'
 
 /** The live era: 1353-T's retune with 1353-F6's hit line. A change to any LEGACY_* value bumps it (tuning.ts). */
 export const CAMPAIGN_LEGACY_DEFINITION = 'campaign-legacy/v2'
@@ -353,7 +354,12 @@ function readFacts(facts: LegacyFacts): Facts {
         fail(atId, 'must carry no settledWeek or grossSettled while in run: only a settled gross is public')
       }
     } else if (f.status === 'settled') {
-      if (!isWeek(f.settledWeek)) fail(`${atId}.settledWeek`, 'must be a whole week once settled')
+      // 1359-A §3.1 with 1359-F2's F1 ruling: an authored pre-1920 film is settled with no campaign week, so
+      // its settledWeek may be null; every other settled film carries a whole week. No outcome moves, so no
+      // definition bump: an authored film is never a release.
+      if (!(f.provenance === 'authored' && f.settledWeek === null) && !isWeek(f.settledWeek)) {
+        fail(`${atId}.settledWeek`, 'must be a whole week once settled')
+      }
       if (typeof f.grossSettled !== 'number' || !Number.isFinite(f.grossSettled) || f.grossSettled < 0) {
         fail(`${atId}.grossSettled`, 'must be a finite non-negative amount once settled')
       }
@@ -480,12 +486,14 @@ function readFacts(facts: LegacyFacts): Facts {
   if (facts.rankingSnapshots !== undefined) {
     rankingOf = new Map()
     const keys = new Set<string>()
-    const ids = new Set<string>()
+    // One record holds one row per studio, the shape the adapter writes (1359-F3): unique on (recordId, studioId).
+    const pairs = new Set<string>()
     rows(facts.rankingSnapshots, 'rankingSnapshots').forEach((r, i) => {
       const at = `rankingSnapshots[${i}]`
       if (!isId(r?.recordId)) fail(`${at}.recordId`, 'must be a non-empty string')
-      if (ids.has(r.recordId)) fail(at, 'repeats a record id')
-      ids.add(r.recordId)
+      const pair = JSON.stringify([r.recordId, r.studioId])
+      if (pairs.has(pair)) fail(`${at} (${r.recordId}, ${r.studioId})`, 'repeats a (recordId, studioId) pair')
+      pairs.add(pair)
       knownStudio(r.studioId, `${at}.studioId`)
       if (!isWeek(r.week)) fail(`${at}.week`, 'must be a whole week')
       if (r.rank !== null && !(Number.isSafeInteger(r.rank) && r.rank >= 1)) fail(`${at}.rank`, 'must be null or a whole rank from 1')
@@ -940,9 +948,211 @@ export const initialCampaignLegacy = (week: number): CampaignLegacyRoot => ({ ve
 const STAMP_KEYS = ['legacySnapshotId', 'p15DomainSequence', 'phaseId', 'phaseOrdinal', 'phaseOrderVersion'] as const
 const FINALE_PHASE = 'p15c.finale'
 
-// ── the validator (1359-A §5.1) ───────────────────────────────────────────────
+// ── the fact adapter (1359-A §3) ──────────────────────────────────────────────
 type Row = Record<string, unknown>
 const isRow = (value: unknown): value is Row => value !== null && typeof value === 'object' && !Array.isArray(value)
+const rowsOf = (value: unknown): readonly Row[] => (Array.isArray(value) ? (value as Row[]) : [])
+
+/** The three sibling roots and the domain each feeds (1356-A, 1357-A, 1355-A). Each is read untyped, so an
+ * absent root reads notRecorded and P15B's root needs no type here yet (1359-A §3.2; 1361-F ruling 18). */
+const SIBLING_ROOTS = [
+  { domainId: 'powerRanking', key: 'powerRanking' },
+  { domainId: 'corporateCondition', key: 'corporateCondition' },
+  { domainId: 'marketAssessments', key: 'sharedMarket' },
+] as const
+
+function rootOf(state: GameState, key: string): Row | undefined {
+  const root = (state as unknown as Row)[key]
+  return isRow(root) ? root : undefined
+}
+/** A sibling root recorded from `boundaryWeek` or later arrived after it: it reads as absent (1359-A §5.1 item 6). */
+function siblingBefore(state: GameState, key: string, boundaryWeek: number): Row | undefined {
+  const root = rootOf(state, key)
+  const from = root?.recordedFromWeek
+  return root !== undefined && typeof from === 'number' && from < boundaryWeek ? root : undefined
+}
+/** The rows of a sibling root that carry a P15 domain sequence: a condition root's loans carry them too. */
+function sequencedRows(root: Row, domainId: string): readonly Row[] {
+  if (domainId === 'powerRanking') return rowsOf(root.snapshots)
+  if (domainId === 'corporateCondition') return [...rowsOf(root.events), ...rowsOf(root.loans)]
+  return rowsOf(root.assessments)
+}
+/** 1355-F2 item 7: a P15 watermark is the largest sequence in the root (below `below`, when given). */
+function largestSequence(rows: readonly Row[], below = Number.POSITIVE_INFINITY): number {
+  let largest = 0
+  for (const row of rows) {
+    const sequence = row.p15DomainSequence
+    if (typeof sequence === 'number' && sequence < below && sequence > largest) largest = sequence
+  }
+  return largest
+}
+
+/**
+ * The public facts of `state` for a cut at `boundaryWeek` (1359-A §3.1-§3.2). It passes facts through and the law
+ * makes every cut. It reads no cash, cost, revenue, loan amount, in-run payment or career money or skill field. A
+ * player film's genre is its concept's; a missing concept refuses by name.
+ */
+export function legacyFactsFromState(state: GameState, boundaryWeek: number): LegacyFacts {
+  if (state.hollywood === null) fail('state.hollywood', 'must hold the living industry the Legacy reads')
+  const h = state.hollywood
+  const genreOf = new Map(state.concepts.map((concept) => [concept.id, concept.genre]))
+  const runOf = new Map(state.theatricalRuns.map((run) => [run.productionId, run]))
+
+  const films: LegacyFilmFact[] = []
+  for (const film of state.studio.releasedFilms) {
+    const genre = genreOf.get(film.conceptId)
+    if (genre === undefined) {
+      fail('state.concepts', `must hold concept ${film.conceptId}, the genre of player film ${film.productionId}`)
+    }
+    const run = runOf.get(film.productionId)
+    // Run end by arithmetic, never by status: a run is settled at B when its last payment week is below B.
+    const settledWeek = run === undefined || run.status === 'legacyCompleted' ? film.releaseTick
+      : film.releaseTick + run.totalWeeks <= boundaryWeek ? film.releaseTick + run.totalWeeks - 1 : null
+    films.push({
+      filmId: film.productionId, studioId: h.playerStudioId, domainId: 'playerFilms', provenance: 'campaign',
+      releaseWeek: film.releaseTick, genre, criticScore: film.criticScore, audienceScore: null,
+      status: settledWeek === null ? 'inRun' : 'settled', settledWeek,
+      grossSettled: settledWeek === null ? null : film.boxOffice.total, credits: [],
+    })
+  }
+  for (const film of h.films) {
+    if (film.provenance === 'simulation/v1') {
+      const settled = film.settledWeek !== null && film.settledWeek < boundaryWeek
+      films.push({
+        filmId: film.filmId, studioId: film.studioId, domainId: 'industryFilms', provenance: 'campaign',
+        releaseWeek: film.result.releaseTick, genre: film.genre, criticScore: film.result.criticScore, audienceScore: null,
+        status: settled ? 'settled' : 'inRun', settledWeek: settled ? film.settledWeek : null,
+        grossSettled: settled ? film.result.boxOffice.total : null, credits: [],
+      })
+    } else {
+      films.push({
+        filmId: film.filmId, studioId: film.studioId, domainId: 'industryFilms', provenance: 'authored',
+        releaseWeek: null, genre: film.genre, criticScore: film.criticScore, audienceScore: film.audienceScore,
+        status: 'settled', settledWeek: null, grossSettled: film.totalGross,
+        credits: film.credits.map((credit) => ({ talentId: credit.talentId, role: credit.role })),
+      })
+    }
+  }
+
+  const eventFact = (event: TalentCareerEvent, domainId: LegacyCareerEventDomainId): LegacyCareerEventFact => ({
+    eventId: event.eventId, filmId: event.filmId, talentId: event.talentId, domainId, role: event.role,
+    releaseWeek: event.releaseWeek, genre: event.genre, audienceScore: event.audienceScore,
+  })
+  const careerEvents = [
+    ...state.careerEvents.map((event) => eventFact(event, 'playerCareerEvents')),
+    ...h.careerEvents.map((event) => eventFact(event, 'industryCareerEvents')),
+  ]
+
+  // closedWeek: the week of the studio's `→ closed` event, whatever its week; the law cuts at B.
+  const closedWeekOf = new Map<string, number>()
+  for (const event of rowsOf(rootOf(state, 'corporateCondition')?.events)) {
+    const studioId = event.studioId as string
+    if (event.to === 'closed' && !closedWeekOf.has(studioId)) closedWeekOf.set(studioId, event.week as number)
+  }
+  const standingOf = new Map(h.businesses.map((business) => [business.studioId, business.standing]))
+  const studios: LegacyStudioFact[] = h.identities
+    .filter((identity) => identity.enteredWeek !== null)
+    .sort((a, b) => a.row - b.row || compareText(a.studioId, b.studioId))
+    .map((identity) => {
+      const standing = identity.studioId === h.playerStudioId ? state.studio.standing : standingOf.get(identity.studioId)
+      if (standing === undefined) fail('state.hollywood.businesses', `must hold entered rival ${identity.studioId}`)
+      return {
+        studioId: identity.studioId, row: identity.row, enteredWeek: identity.enteredWeek,
+        closedWeek: closedWeekOf.get(identity.studioId) ?? null,
+        standing: {
+          audienceAwareness: standing.audienceAwareness,
+          industryPrestige: standing.industryPrestige,
+          commercialConfidence: standing.commercialConfidence,
+        },
+      }
+    })
+
+  const domains: LegacyDomainFact[] = [
+    { domainId: 'playerFilms', highWatermark: state.studio.releasedFilms.length, recordedFromWeek: 0 },
+    { domainId: 'industryFilms', highWatermark: h.films.length, recordedFromWeek: h.originWeek },
+    { domainId: 'playerRuns', highWatermark: state.theatricalRuns.length, recordedFromWeek: 0 },
+    { domainId: 'playerCareerEvents', highWatermark: state.careerEvents.length, recordedFromWeek: 0 },
+    { domainId: 'industryCareerEvents', highWatermark: h.careerEvents.length, recordedFromWeek: h.originWeek },
+    { domainId: 'technologyAdoptions', highWatermark: state.technology.adoptions.length, recordedFromWeek: state.technology.recordingStartedWeek },
+    { domainId: 'technologyCatalogue', highWatermark: TECHNOLOGY_CATALOGUE.length, recordedFromWeek: 0 },
+  ]
+  const facts: LegacyFacts = {
+    boundaryWeek,
+    baseMarketValue: state.market.baseMarketValue,
+    studios,
+    films,
+    careerEvents,
+    adoptions: state.technology.adoptions.map((adoption) => ({
+      adoptionId: adoption.id, studioId: adoption.studioId, technologyId: adoption.technologyId,
+      operationalWeek: adoption.operationalWeek, cancelledWeek: adoption.cancelledWeek,
+    })),
+    technologies: TECHNOLOGY_CATALOGUE.map((technology) => ({ technologyId: technology.id, commercialWeek: technology.commercialWeek })),
+    domains,
+  }
+  // The sibling roots, by p15DomainSequence and week. A ranking fact cites its archive record's own id, the id
+  // the law's record-id rule keys on (1359-A §3.3 A1; 1359-F3).
+  for (const { domainId, key } of SIBLING_ROOTS) {
+    const root = siblingBefore(state, key, boundaryWeek)
+    if (root === undefined) {
+      domains.push({ domainId, highWatermark: 0, recordedFromWeek: null })
+      continue
+    }
+    domains.push({ domainId, highWatermark: largestSequence(sequencedRows(root, domainId)), recordedFromWeek: root.recordedFromWeek as number })
+    if (domainId === 'powerRanking') {
+      facts.rankingSnapshots = rowsOf(root.snapshots).flatMap((record) => rowsOf(record.rows).map((row) => ({
+        recordId: record.id as string, week: record.week as number, studioId: row.studioId as string,
+        rank: row.rank as number | null, band: row.band as FinancialStrengthBand,
+      })))
+    } else if (domainId === 'corporateCondition') {
+      facts.conditionEvents = rowsOf(root.events).map((event) => ({
+        eventId: event.eventId as string, studioId: event.studioId as string, week: event.week as number,
+        from: event.from as LegacyConditionStage, to: event.to as LegacyConditionStage,
+      }))
+    } else {
+      facts.marketAssessments = rowsOf(root.assessments).map((assessment) => ({
+        assessmentId: assessment.releaseId as string, studioId: assessment.studioId as string, week: assessment.week as number,
+        assessed: true, underPressure: (assessment.factor as number) < 1,
+      }))
+    }
+  }
+  return facts
+}
+
+// ── the ref resolver (1359-A §7; 1361-F ruling 19) ────────────────────────────
+/** Where a cited row sits (1359-A §5.1 item 7). `position` is the row's index + 1 in an array root, or its P15
+ * sequence in a P15 root: the measure its domain's watermark uses. `week` is its effective week: −1 for an
+ * authored film, which is dated before the campaign, and null for an adoption that never became operational. */
+export type LegacyRefPlace = { position: number; week: number | null }
+
+/**
+ * The ref resolver the validator uses, exported so Wave 3's views resolve refs the same way (1359-A §7). One pass
+ * per citable root builds an id map. The returned function gives a ref's place, or undefined when its domain is
+ * never cited (playerRuns, awards) or no row has its id. A sibling root recorded from `boundaryWeek` or later
+ * reads as absent, as it does in the adapter.
+ */
+export function legacyRefResolver(state: GameState, boundaryWeek: number): (ref: LegacyRef) => LegacyRefPlace | undefined {
+  const places = new Map<string, Map<string, LegacyRefPlace>>()
+  const index = (domainId: string, entries: Iterable<[string, LegacyRefPlace]>): void => { places.set(domainId, new Map(entries)) }
+  index('playerFilms', state.studio.releasedFilms.map((film, i) => [film.productionId, { position: i + 1, week: film.releaseTick }]))
+  index('playerCareerEvents', state.careerEvents.map((event, i) => [event.eventId, { position: i + 1, week: event.releaseWeek }]))
+  index('technologyAdoptions', state.technology.adoptions.map((adoption, i) => [adoption.id, { position: i + 1, week: adoption.operationalWeek }]))
+  index('technologyCatalogue', TECHNOLOGY_CATALOGUE.map((technology, i) => [technology.id, { position: i + 1, week: technology.commercialWeek }]))
+  const h = state.hollywood
+  if (h !== null) {
+    index('industryFilms', h.films.map((film, i) => [film.filmId, {
+      position: i + 1, week: film.provenance === 'simulation/v1' ? film.result.releaseTick : -1 }]))
+    index('industryCareerEvents', h.careerEvents.map((event, i) => [event.eventId, { position: i + 1, week: event.releaseWeek }]))
+  }
+  index('powerRanking', rowsOf(siblingBefore(state, 'powerRanking', boundaryWeek)?.snapshots).map((record) => [record.id as string, {
+    position: record.p15DomainSequence as number, week: record.week as number }]))
+  index('corporateCondition', rowsOf(siblingBefore(state, 'corporateCondition', boundaryWeek)?.events).map((event) => [event.eventId as string, {
+    position: event.p15DomainSequence as number, week: event.week as number }]))
+  index('marketAssessments', rowsOf(siblingBefore(state, 'sharedMarket', boundaryWeek)?.assessments).map((assessment) => [assessment.releaseId as string, {
+    position: assessment.p15DomainSequence as number, week: assessment.week as number }]))
+  return (ref) => places.get(ref.domainId)?.get(ref.id)
+}
+
+// ── the validator (1359-A §5.1 with 1359-F Amendment 1) ───────────────────────
 
 /**
  * The root's validator. `validateSaveV45` runs it after the frozen chain and the sibling roots' validators have
@@ -1092,4 +1302,101 @@ export function validateCampaignLegacy(raw: Record<string, unknown>, label: stri
       if (!Array.isArray(refs) || refs.length > bounds.refsPerSide) refuse(`${lat}.refs`, `must cite at most ${bounds.refsPerSide} refs`)
     })
   })
+
+  // 6. Sources against their roots. recordedFromWeek is 1359-A §3.2's value, read as null for a sibling root
+  // recorded from B or later; notRecorded exactly when the domain records nothing before B. A P15 watermark is
+  // the largest sequence in its root below the official's, exact because the allocator is append order; an
+  // array watermark lies within its root's length, which grows after the freeze.
+  const facts = legacyFactsFromState(state, entry.boundaryWeek)
+  const derived = new Map(facts.domains.map((domain) => [domain.domainId, domain]))
+  const lengthOf: Readonly<Record<string, number>> = {
+    playerFilms: state.studio.releasedFilms.length, industryFilms: h.films.length, playerRuns: state.theatricalRuns.length,
+    playerCareerEvents: state.careerEvents.length, industryCareerEvents: h.careerEvents.length,
+    technologyAdoptions: state.technology.adoptions.length, technologyCatalogue: TECHNOLOGY_CATALOGUE.length,
+  }
+  official.sources.forEach((source, i) => {
+    const at = `official.sources[${i}]`
+    const domain = derived.get(source.domainId)
+    if (domain === undefined) refuse(`${at}.domainId`, 'must name a domain the adapter reads')
+    if (source.recordedFromWeek !== domain.recordedFromWeek) refuse(`${at}.recordedFromWeek`, 'must equal the re-derived recording week')
+    const notRecorded = source.recordedFromWeek === null || source.recordedFromWeek >= entry.boundaryWeek
+    if ((source.status === 'notRecorded') !== notRecorded || !['complete', 'limited', 'notRecorded'].includes(source.status)) {
+      refuse(`${at}.status`, 'must read notRecorded exactly when the domain records nothing before the boundary')
+    }
+    const sibling = SIBLING_ROOTS.find((candidate) => candidate.domainId === source.domainId)
+    if (sibling !== undefined) {
+      const siblingRoot = siblingBefore(state, sibling.key, entry.boundaryWeek)
+      const expected = siblingRoot === undefined ? 0 : largestSequence(sequencedRows(siblingRoot, source.domainId), sequence)
+      if (source.highWatermark !== expected) refuse(`${at}.highWatermark`, "must equal the largest P15 sequence in its root below the official's")
+    } else if (!Number.isSafeInteger(source.highWatermark) || source.highWatermark < 0 || source.highWatermark > (lengthOf[source.domainId] ?? 0)) {
+      refuse(`${at}.highWatermark`, "must be a whole position within its root's length")
+    }
+  })
+
+  // 7. Refs: a citable domain, an existing row, a position within the watermark, dated before B (a ranking
+  // record at most B), each resolved through the exported resolver.
+  const citable = new Set(entry.domainIds.filter((id) => id !== 'awards' && id !== 'playerRuns'))
+  const resolve = legacyRefResolver(state, entry.boundaryWeek)
+  const watermarkOf = new Map(official.sources.map((source) => [source.domainId, source.highWatermark]))
+  const checkRef = (ref: unknown, path: string): void => {
+    if (!isRow(ref)) refuse(path, 'must be an object')
+    exactKeys(ref, ['domainId', 'id'], path)
+    if (typeof ref.domainId !== 'string' || !citable.has(ref.domainId)) {
+      refuse(`${path}.domainId`, 'must name a citable domain (never playerRuns or awards)')
+    }
+    const place = typeof ref.id === 'string' ? resolve({ domainId: ref.domainId, id: ref.id }) : undefined
+    if (place === undefined) refuse(path, `names no ${ref.domainId} row`)
+    if (place.position > (watermarkOf.get(ref.domainId) ?? 0)) refuse(path, "sits above its domain's watermark")
+    const before = place.week !== null && (ref.domainId === 'powerRanking' ? place.week <= entry.boundaryWeek : place.week < entry.boundaryWeek)
+    if (!before) refuse(path, 'is dated at or after the boundary')
+  }
+  official.studios.forEach((studio, i) => {
+    studio.archetypes.forEach((archetype, j) => {
+      archetype.qualifying.forEach((ref, k) => checkRef(ref, `official.studios[${i}].archetypes[${j}].qualifying[${k}]`))
+      archetype.contrary.forEach((ref, k) => checkRef(ref, `official.studios[${i}].archetypes[${j}].contrary[${k}]`))
+    })
+    studio.lenses.forEach((lens, k) => lens.refs.forEach((ref, m) => checkRef(ref, `official.studios[${i}].lenses[${k}].refs[${m}]`)))
+  })
+
+  // 1359-F Amendment 1: the replay under the evaluator the definition names, with the stored sources standing in
+  // for the domain facts, since an array root grows after the freeze. Item 6 has proved each stored source against
+  // its root. Every field but standingAtBoundary, which is gone after the freeze tick, must match.
+  const stored = new Map(official.sources.map((source) => [source.domainId, source]))
+  const replayFacts: LegacyFacts = {
+    ...facts,
+    domains: facts.domains.map((domain) => {
+      const source = stored.get(domain.domainId)
+      return source === undefined ? domain
+        : { domainId: domain.domainId, highWatermark: source.highWatermark, recordedFromWeek: source.recordedFromWeek }
+    }),
+  }
+  const replayed = entry.evaluate(replayFacts, 'official2040')
+  const manifest: Row = { ...official }
+  for (const key of STAMP_KEYS) delete manifest[key]
+  const difference = firstDifference(manifest, replayed, 'official')
+  if (difference !== null) refuse(difference, `must equal the replay under ${official.definition}`)
+}
+
+/** The first path at which `stored` departs from `expected`, skipping standingAtBoundary. */
+function firstDifference(stored: unknown, expected: unknown, path: string): string | null {
+  if (Array.isArray(expected)) {
+    if (!Array.isArray(stored) || stored.length !== expected.length) return path
+    for (let i = 0; i < expected.length; i++) {
+      const found = firstDifference(stored[i], expected[i], `${path}[${i}]`)
+      if (found !== null) return found
+    }
+    return null
+  }
+  if (isRow(expected)) {
+    if (!isRow(stored)) return path
+    for (const key of Object.keys(expected)) {
+      if (key === 'standingAtBoundary') continue
+      if (!Object.hasOwn(stored, key)) return `${path}.${key}`
+      const found = firstDifference(stored[key], expected[key], `${path}.${key}`)
+      if (found !== null) return found
+    }
+    for (const key of Object.keys(stored)) if (!Object.hasOwn(expected, key)) return `${path}.${key}`
+    return null
+  }
+  return stored === expected ? null : path
 }
