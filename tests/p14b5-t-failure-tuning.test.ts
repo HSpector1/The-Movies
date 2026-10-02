@@ -292,7 +292,7 @@ describe('CONSTRUCTED group 2 — POSITIVE CONTROL: the success driver, the prox
     const trail = driveChain(stagedWorld(), STAGED_STUDIO, STAGED, STAGED_FIRST_WEEK, productions, HIT_SCORE)
     // The band is always the owner's read; only the VALUE comes from the constant-derived model.
     const topOf = (rows: { label: string; week: number; closeness: number }[]): string | undefined =>
-      rows.find((r) => currentTier({ closeness: r.closeness, lastEventWeek: r.week }, r.week) === 'Inseparable')?.label
+      rows.find((r) => currentTier({ closeness: r.closeness, lastEventWeek: r.week, sharedCompetitions: 0 }, r.week) === 'Inseparable')?.label // 1348-C5/1348-F4 item 2: sharedCompetitions is type-only here (evidence never gates the Inseparable band); runtime result unchanged, confirmed by re-running this file before/after
     for (const seat of seats(STAGED)) {
       const predicted = topOf(expectedTrail(seat.weight, SUCCESS_DELTA, STAGED_FIRST_WEEK, productions))
       assert.ok(predicted, `premise: the ${String(seat.weight)}-weight pair does not top the ladder within ${String(productions)} pictures`)
@@ -370,7 +370,7 @@ describe('CONSTRUCTED group 4 — DRIFT IS READ-ONLY AND UNCHANGED by this tunin
     expect(JSON.stringify(edge)).toBe(snapshot)
     expect(rootBytes(state)).toBe(before)
     expect({ productions: edge.sharedProductions, failures: edge.sharedFailures, first: edge.firstSharedWeek, peak: edge.peakTier })
-      .toEqual({ productions: 2, failures: 2, first: STAGED_FIRST_WEEK, peak: currentTier({ closeness: clamp(RELATIONSHIP_BASELINE + LOW), lastEventWeek: STAGED_FIRST_WEEK }, STAGED_FIRST_WEEK) })
+      .toEqual({ productions: 2, failures: 2, first: STAGED_FIRST_WEEK, peak: currentTier({ closeness: clamp(RELATIONSHIP_BASELINE + LOW), lastEventWeek: STAGED_FIRST_WEEK, sharedCompetitions: 0 }, STAGED_FIRST_WEEK) }) // 1348-C5/1348-F4 item 2: sharedCompetitions is type-only here; runtime result unchanged, confirmed by re-running this file before/after
   })
 })
 

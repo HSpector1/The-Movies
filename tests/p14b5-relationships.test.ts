@@ -529,7 +529,10 @@ describe('P14B.5 T1 — the module and its named exports exist (RED at import; n
     expect(RELATIONSHIP_DRIFT_GRACE_WEEKS).toBe(52) // §5.5 :467
     expect(RELATIONSHIP_DRIFT_RETURN_WEEKS).toBe(260) // §5.5 :467
     expect(RELATIONSHIP_RECENT_CAP).toBe(8) // OPEN 16 as folded
-    expect(RELATIONSHIP_RULES_VERSION).toBe(1) // scope (3), code-only
+    // 1348-C: moves by ruling (1347-F Amendment 2, "RELATIONSHIP_RULES_VERSION moves to 2";
+    // 1347-A §3:86) — the conflict-evidence gate (D-1312-1) is rules version 2, not a routine
+    // implementation detail. Was `.toBe(1)`.
+    expect(RELATIONSHIP_RULES_VERSION).toBe(2)
     // 647-B ruling (ii) on OPEN 5: pinned BY NAME — a relation between two hypotheses, not a value.
     expect(RELATIONSHIP_FAILURE_DELTA).toBeGreaterThan(RELATIONSHIP_PROXIMITY_LOW)
     // §5.4 :439 proximity classes: director–lead / co-leads highest, supporting lowest.
@@ -775,7 +778,11 @@ describe('family 3 — DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); §5.5 :4
 describe('family 4 — TIER RULE under RELATIONSHIP_RULES_VERSION 1 and the D2 reachability (scope (3)-(4))', () => {
   it('eight members, byte-equal output for byte-equal input, and a value in the Enemies/Nemeses bands WITHOUT a conflict record reads Strained', () => {
     expect(typeof currentTier).toBe('function')
-    expect(RELATIONSHIP_RULES_VERSION).toBe(1)
+    // 1348-C: moves by ruling (1347-F Amendment 2). Was `.toBe(1)`. The rest of this test builds
+    // every edge through `stagedEdge`, which hardcodes `sharedCompetitions: 0` (no conflict
+    // evidence) — so under rules v2 the SAME "WITHOUT a conflict record reads Strained" premise
+    // this test's own title states still holds for every tier in the ladder, unchanged.
+    expect(RELATIONSHIP_RULES_VERSION).toBe(2)
     expect(new Set(RELATIONSHIP_TIERS).size).toBe(8)
     const world = takeWorld().after
     for (const tier of LADDER) {
@@ -1013,6 +1020,182 @@ describe('family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5
     const receipt = settlementAt208(tick(strained))
     expect(receipt.kind).toBe('declined')
     expect(receipt.reasons).toEqual([TIE_SENTENCE])
+  }, 120_000)
+})
+
+// 1348-C2 (revision of 1348-C, per review 1348-D blocking defect 2 and parent response 1348-F
+// item 2): a SETTLEMENT-LEVEL D5 leaf that drives the real, private `bandsFor` combinator
+// (talentMarket.ts:911-918) through this file's own `f6Base()`/`settlementAt208()` apparatus —
+// not the copied-literal `d5Band()` in tests/p14b10-conflict-evidence.test.ts, which 1348-D
+// correctly flagged as verifying only a frozen snapshot of the ternary text, never the live
+// function. 1347-F Amendment 2: "with both on the roster, D5 reads close ties here (2) ... with
+// only an enemy, enemies here (0)."
+//
+// PLAYER ISSUER ONLY (both leaves), disclosed and measured, not silently narrowed: r01's own
+// roster for F6.subject is genuinely EMPTY in this fixture (measured on this scratch tree,
+// `rosterAt(tick(base.at207), base.r01, F6.subject, F6.W)` returns `[]` — r01 employs nobody
+// this subject's D1 predicate admits at week 208 on this seed). Reaching a rival-issuer
+// settlement-decisive D5 signal would need either a synthetic rival employment-row injection
+// (an unproven technique for a RIVAL business's employment/standing bookkeeping, unlike the
+// player-side real re-sign this file already uses below) or a wholly separate tie-engineered
+// fixture (the ~90-line cost 1348-D's own review weighed against duplicating). The existing
+// `tiersOnRoster`-level D5 leaves in tests/p14b10-conflict-evidence.test.ts already cover a
+// rival issuer (real rival roster, both "both present" and "enemy only") at that (documented,
+// non-settlement) level — kept per the parent response's "the copied-combinator leaves may stay
+// as documentation."
+//
+// FIXTURE FOR "BOTH PRESENT": the player's real roster at W has exactly one member (`offCycle`)
+// by `f6Base()`'s own design (family 6 premise, line ~466 above). A second roster member is
+// needed to hold BOTH tiers at once, so `base.reliable` — a REAL talent whose own first contract
+// genuinely ended at week 52 (measured: `{start:0, end:52}` on this fixture, confirmed a true
+// free agent by week 207, not a synthetic id) — is RE-SIGNED with a real `signContract` action at
+// week 207 (`startWeek: 207 < W`, satisfying the strict D1 predicate). This is the SAME kind of
+// real, validator-consistent action `f6Base()` itself uses throughout, not a hand-built
+// employment row: `activeEmploymentOrdinals` and every other invariant stay consistent because
+// the real production code path performs the signing. `reliable`'s identity is unclaimed by any
+// OTHER family-6 assertion (see the fixture's own note, line ~450-457 above), so re-signing them
+// disturbs no other test.
+//
+// REVISION 1348-C5 (parent rulings 1348-F4 item 1, production finding F1 against 1348-E): the two
+// leaves below and BRANCH 1-over-0 further down each staged an edge at closeness `floor('Enemies')`
+// = 11 with `sharedCompetitions: 3` and then asserted `currentTier(...) === 'Strained'` for that
+// edge, commented "measured at BASE (v1)". That premise pins the OLD law on the exact edge D-1312-1,
+// 1342-O item 8, 1347-F and `tests/p14b10-conflict-evidence.test.ts:151` require to read Enemies
+// under v2 evidence-gating — and two of the three leaves' OWN settlement expectations (the player's
+// `relationships` band reading 0, "enemies here", not 1, "none") only hold when that edge already
+// reads Enemies. No single law can satisfy both the old premise and the settlement expectation
+// beneath it; the parent read the contradiction directly (1348-F4 §1) after four reviews (1348-D
+// through D3) missed it, because every one of these leaves already failed at RED for an unrelated
+// reason (the sentence/status assertions further down), which hid the intermediate premise. Fixed:
+// the three `.toBe('Strained')` premises become `.toBe('Enemies')`. This is a genuine test defect
+// fix, not a loosened expectation — the corrected premise is what D-1312-1 and 1347-F already
+// require, and it is what makes the "both present" leaf below a real RED leaf rather than a false
+// control (its OWN settlement assertions were always going to hold regardless of this one line, so
+// nothing about the leaf's settlement-level meaning changes; only its status does).
+describe('family 6b — D5 SETTLEMENT-LEVEL through the real bandsFor (record 1348-C2, review 1348-D blocking defect 2)', () => {
+  it('a player issuer: both a close tie and an enemy (with conflict evidence) on the roster — settlement reads close ties here (2) [RED under v2, 1347-F/1348-F4: the tier premise below now requires Enemies; the settlement outcome is unchanged under either law]', () => {
+    const base = f6Base()
+    const withClose = stage(base.at207, stagedEdge(base.at207, F6.subject, base.offCycle, floor('CloseFriends'), 207))
+    const withSecondSigned = applyActions(withClose, [{ kind: 'signContract', talentId: base.reliable, termWeeks: 208 }])
+    const withEnemy = stage(withSecondSigned, stagedEdge(withSecondSigned, F6.subject, base.reliable, floor('Enemies'), 207, { sharedCompetitions: 3 }))
+    const after = tick(withEnemy)
+    expect(rosterAt(after, base.playerId, F6.subject, F6.W)).toEqual(expect.arrayContaining([base.offCycle, base.reliable]))
+    expect(rosterAt(after, base.playerId, F6.subject, F6.W)).toHaveLength(2)
+    const enemyEdge = findEdge(after, F6.subject, base.reliable)!
+    expect(currentTier(enemyEdge, F6.W)).toBe('Enemies') // 1347-F / 1348-F4 item 1: v2 evidence-gated tier (closeness 11, sharedCompetitions 3) reads Enemies, not Strained; RED at BASE, which still implements v1. The settlement outcome below is unchanged either way.
+    const receipt = settlementAt208(after)
+    expect(receipt.kind).toBe('settled')
+    expect(receipt.studioId).toBe(base.playerId)
+    expect(receipt.reasons).toEqual(["their roster holds this person's close ties"])
+  }, 120_000)
+
+  it('a player issuer: only the enemy (with conflict evidence) on the roster — settlement reads enemies here (0), the rival wins with the AT-ODDS sentence (1348-F2)', () => {
+    const base = f6Base()
+    const withEnemyOnly = stage(base.at207, stagedEdge(base.at207, F6.subject, base.offCycle, floor('Enemies'), 207, { sharedCompetitions: 3 }))
+    const after = tick(withEnemyOnly)
+    const enemyEdge = findEdge(after, F6.subject, base.offCycle)!
+    expect(currentTier(enemyEdge, F6.W)).toBe('Enemies') // 1347-F / 1348-F4 item 1: same v2 premise as the leaf above; RED at BASE, which still implements v1
+    const receipt = settlementAt208(after)
+    // RED under v1: the redirect to Strained means the player's own `relationships` band reads
+    // 'none' (1), identical to r01's baseline — the SAME tie the family-6 base case (no edge at
+    // all) produces. Required under v2 (1347-F Amendment 2): the player's band reads 'enemies
+    // here' (0), strictly below r01's 'none' (1), so r01 DOMINATES and wins outright with the D5
+    // sentence as its sole reason (DESCRIPTOR_ORDER.relationships is the only strictly-better key).
+    // 1348-F2 (parent decision, correcting 1348-C2's leaf): the winner here reads band 1 ("none"),
+    // NOT band 2 ("close ties") — r01's OWN roster holds no close tie at all, so the close-ties
+    // sentence would be a FALSE explanation. The reason depends on the WINNER's own band: winner
+    // band 1 over a band-0 loser reads the NEW sentence, "every other offer comes from a roster
+    // holding someone this person is at odds with".
+    expect(receipt.kind).toBe('settled')
+    expect(receipt.studioId).toBe(base.r01)
+    expect(receipt.reasons).toEqual(['every other offer comes from a roster holding someone this person is at odds with'])
+  }, 120_000)
+})
+
+// 1348-C3 (revision of 1348-C2, per re-review 1348-D2 ACCEPT and parent decision 1348-F2): the
+// "only enemy" leaf above pinned a FALSE reason (the close-ties sentence for a winner whose own
+// roster holds no close tie). The parent's decision: the `relationships` reason depends on the
+// WINNER's own band, not merely on "relationships was decisive" — winner band 2 keeps the
+// existing close-ties sentence; winner band 1 (beating a band-0 loser) reads a NEW sentence. This
+// describe block is the required "companion-copy test... a companion-text test per branch"
+// (1348-F2's own citation of that rule) pinning each reachable branch EXPLICITLY.
+//
+// REVISION 1348-C4 (per parent dry run 1348-X3, requested change): the C3 "2 over 0" leaf staged
+// a raw, ordinal-untracked `IndustryEmployment` row for r01 — a state `stage()`/`makeSave()` would
+// reject (`hollywoodValidation.ts:201`, ordinal membership must equal `endedWeek===null &&
+// endWeekExclusive>tick` for every row). Made the row LAWFUL for this revision: correct
+// `contractId` format (`${studioId}:contract:${talentId}:${startWeek}`, `hollywoodValidation.ts:
+// 176-177`), a matching `IndustryReceipt` of kind `employment`/`entry` with the exact ordinal
+// `industry-event-N` (`hollywoodValidation.ts:522-523`), and its own ordinal genuinely included in
+// `activeEmploymentOrdinals` — confirmed by actually calling the SAME `makeSave()` `stage()` uses
+// and asserting no throw (`validated.saveVersion === LIVE_SAVE_VERSION`), not merely by
+// construction. That state IS validator-lawful (measured on this scratch tree, disposable probe:
+// `makeSave` returns saveVersion 42 with no error).
+//
+// BUT it does not survive the tick this leaf then needs: `src/core/hollywoodTick.ts`'s rival
+// weekly `staff()` function terminates the row THE SAME WEEK regardless of its own contract
+// validity. Its surplus-termination loop (`hollywoodTick.ts:182-195`) marks every
+// `activeEmploymentOrdinals` member of a rival business SURPLUS unless it fills one of the FIXED
+// `RIVAL_TEAM_ROLES` canonical production slots (the earlier `filled` set, :127-159) or is a
+// research scientist (:183); the only escapes for a surplus row are being `seated` on a live
+// production/research seat (:187, `industryBusyTalentIds`) or having too little term left
+// (`endWeekExclusive-week<=TUNING.HIRING_TERMINATION_CAP_WEEKS`, also :187). A freshly-staged
+// actor in no canonical slot and no production satisfies neither escape, so it is terminated
+// (`endedWeek:week`, :192) inside the SAME tick that would otherwise read its roster membership at
+// settlement. Measured directly: the staged row's `endedWeek` reads the tick's own processing week
+// post-tick, and `rosterAt(after, base.r01, F6.subject, F6.W)` returns `[]` — the row never reaches
+// settlement. This is the blocking invariant the parent's dry run anticipated: not the SAVE
+// validator (which the row now satisfies), but the RIVAL'S OWN deterministic weekly staffing
+// policy, which this record has no lawful way to hold a non-canonical-role person against without
+// also faking a production/research seat assignment (a materially larger, still-synthetic
+// construction, and one this record's scope does not extend to).
+//
+// Per the coordinator's instruction, BRANCH 2 over 0 therefore moves to the exported PURE
+// accessor `relationshipsReasonSentence(band: 0|1|2): string` (new export, `src/core/
+// relationships.ts` — PARENT API DECISION for this revision), tested via a dynamic import inside
+// the leaf so it fails RED on the missing export, exactly the same discipline
+// `tests/p14b10-mentor-label.test.ts`'s `loadLabels()` already uses for a brand-new export on an
+// EXISTING module. BRANCH 2 over 1 and BRANCH 1 over 0 are UNCHANGED — both are reachable through
+// the real settlement path without any rival-side injection (r01 naturally holds no signal, band
+// 1, in both), so they keep their C3 form and RED status exactly.
+async function loadRelationshipsReasonSentence(): Promise<((band: 0 | 1 | 2) => string) | undefined> {
+  const mod = (await import('../src/core/relationships.js')) as unknown as Record<string, unknown>
+  return mod.relationshipsReasonSentence as ((band: 0 | 1 | 2) => string) | undefined
+}
+describe('D5 REASON SENTENCE — companion-copy test per branch (record 1348-C3/C4, parent decision 1348-F2)', () => {
+  it('BRANCH 2 over 1: a close tie beats a roster holding no signal — reads the close-ties sentence, unchanged [control]', () => {
+    const base = f6Base()
+    const withClose = stage(base.at207, stagedEdge(base.at207, F6.subject, base.offCycle, floor('CloseFriends'), 207))
+    const after = tick(withClose)
+    expect(rosterAt(after, base.r01, F6.subject, F6.W)).toEqual([]) // premise: r01 holds no signal at all (band 1, "none")
+    const receipt = settlementAt208(after)
+    expect(receipt.kind).toBe('settled')
+    expect(receipt.studioId).toBe(base.playerId)
+    expect(receipt.reasons).toEqual(["their roster holds this person's close ties"])
+  }, 120_000)
+
+  it('BRANCH 2 over 0: the exported relationshipsReasonSentence(2) is the close-ties sentence, unchanged — the winner\'s own band governs, no loser band matters [RED: export does not exist at BASE]', async () => {
+    // 1348-C4: moved off the settlement path (see the header note above: no rival employment row
+    // in a non-canonical role survives the tick, regardless of the save validator).
+    const relationshipsReasonSentence = await loadRelationshipsReasonSentence()
+    expect(typeof relationshipsReasonSentence).toBe('function')
+    expect(relationshipsReasonSentence!(2)).toBe("their roster holds this person's close ties")
+  })
+
+  it('BRANCH 1 over 0: a roster holding no signal beats a roster holding evidence-backed enemies — reads the NEW at-odds sentence [RED under v1]', () => {
+    const base = f6Base()
+    const withEnemyOnly = stage(base.at207, stagedEdge(base.at207, F6.subject, base.offCycle, floor('Enemies'), 207, { sharedCompetitions: 3 }))
+    const after = tick(withEnemyOnly)
+    expect(rosterAt(after, base.r01, F6.subject, F6.W)).toEqual([]) // premise: r01 holds no signal at all (band 1, "none")
+    const enemyEdge = findEdge(after, F6.subject, base.offCycle)!
+    expect(currentTier(enemyEdge, F6.W)).toBe('Enemies') // 1347-F / 1348-F4 item 1: same v2 premise as family 6b above; RED at BASE, which still implements v1
+    const receipt = settlementAt208(after)
+    const sentence = 'every other offer comes from a roster holding someone this person is at odds with'
+    expect(sentence).not.toMatch(/\d/) // 1348-F2: "stays in the sentence class of :744-745: ordering only, naming no person, tier or number"
+    for (const name of [F6.subject, base.offCycle, base.r01, base.playerId, ...LADDER]) expect(sentence).not.toContain(name)
+    expect(receipt.kind).toBe('settled')
+    expect(receipt.studioId).toBe(base.r01)
+    expect(receipt.reasons).toEqual([sentence])
   }, 120_000)
 })
 
