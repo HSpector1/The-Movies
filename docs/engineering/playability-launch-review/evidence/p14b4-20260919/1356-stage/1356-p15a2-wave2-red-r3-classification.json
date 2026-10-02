@@ -1,0 +1,506 @@
+[
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-archive-module-exports",
+  "charterClause": "1356-A §3 :45-46 (one module: adapter, fixed cost, step, validator)",
+  "expectedFailureToday": "module load failure: src/core/powerRankingArchive.ts does not exist (vite \"Failed to load url ../src/core/powerRankingArchive.js\")",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "p15-phase-table-v1",
+  "charterClause": "1355-F2 item 3 :31-42 (p15Phases.ts v1 table, ordinals ascending)",
+  "expectedFailureToday": "module load failure: src/core/p15Phases.ts does not exist (vite \"Failed to load url ../src/core/p15Phases.js\")",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-adapter-player-films",
+  "charterClause": "1356-A §8 item 1 :198; §3 table :48-55, :60-61 (player film; runEndedByWeek by arithmetic, never status); 1356-F2 item 1 :9-11",
+  "expectedFailureToday": "module load failure: src/core/powerRankingArchive.ts does not exist (vite \"Failed to load url ../src/core/powerRankingArchive.js\")",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-adapter-field-mapping-rivals-and-cohort",
+  "charterClause": "1356-A §8 item 1 :198; §3 table :50-53, :56 (studios, cash, cost, rival live film)",
+  "expectedFailureToday": "module load failure: src/core/powerRankingArchive.ts does not exist (vite \"Failed to load url ../src/core/powerRankingArchive.js\")",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-adapter-run-end-parity",
+  "charterClause": "1356-A §8 item 2 :199-200; §3 :55-56, :60-61",
+  "expectedFailureToday": "module load failure: src/core/powerRankingArchive.ts does not exist (vite \"Failed to load url ../src/core/powerRankingArchive.js\")",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-adapter-authored",
+  "charterClause": "1356-A §8 item 3 :201; §3 :57; 1351-F :24-27",
+  "expectedFailureToday": "module load failure: src/core/powerRankingArchive.ts does not exist (vite \"Failed to load url ../src/core/powerRankingArchive.js\")",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-adapter-pre-origin",
+  "charterClause": "1356-A §8 item 4 :202; §3 :58, :63-65; 1356-F3 :17-18 (any leaf that ticks under an open founding draft gets the same fix): foundedAt founds at 60 through foundMidGame before ticking to 70",
+  "expectedFailureToday": "module load failure: src/core/powerRankingArchive.ts does not exist (vite \"Failed to load url ../src/core/powerRankingArchive.js\")",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-adapter-owner-swap",
+  "charterClause": "1356-A §8 item 6 :205; §3 :46 (no player flag)",
+  "expectedFailureToday": "module load failure: src/core/powerRankingArchive.ts does not exist (vite \"Failed to load url ../src/core/powerRankingArchive.js\")",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-adapter-no-leak",
+  "charterClause": "1356-A §8 item 7 :206; §3 :72 (privacy)",
+  "expectedFailureToday": "module load failure: src/core/powerRankingArchive.ts does not exist (vite \"Failed to load url ../src/core/powerRankingArchive.js\")",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-fixed-cost-player-after-founding-excludes-research",
+  "charterClause": "1356-A §8 item 5 :203-204; §3 :67-70",
+  "expectedFailureToday": "module load failure: src/core/powerRankingArchive.ts does not exist (vite \"Failed to load url ../src/core/powerRankingArchive.js\")",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-fixed-cost-player-zero-while-founding",
+  "charterClause": "1356-A §8 item 5 :203-204; §3 :68-70; 1356-F3 :17-18 (any leaf that ticks under an open founding draft gets the same fix): founding would void the open-draft premise, so beginFounding opens the draft at 70 and the leaf reads it there with no tick under it",
+  "expectedFailureToday": "module load failure: src/core/powerRankingArchive.ts does not exist (vite \"Failed to load url ../src/core/powerRankingArchive.js\")",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-fixed-cost-rival-research-window-premise",
+  "charterClause": "1356-A §8 item 5 :203-204 (\"research moves neither\"); 1356-F2 item 2 :12-16 (premise leaf)",
+  "expectedFailureToday": "none: CONTROL (premise), passes today: the S8 research route reaches a rival that booked researchSpend after week 260 and still holds an active project, by week 572",
+  "control": true
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-fixed-cost-rival-operating-cost",
+  "charterClause": "1356-A §8 item 5 :203-204; §3 :69; 1356-F2 item 2 :12-16 (checked inside the rival research window)",
+  "expectedFailureToday": "module load failure: src/core/powerRankingArchive.ts does not exist (vite \"Failed to load url ../src/core/powerRankingArchive.js\")",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-step-cadence",
+  "charterClause": "1356-A §8 item 8 :207-208; §4 :76-77, :84-86",
+  "expectedFailureToday": "RED message from archiveOf: \"the state at week 130 has no top-level powerRanking root (1356-A §5)\" after 130 ticks",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-step-cadence-no-industry",
+  "charterClause": "1356-A §8 item 8 :207-208 (\"none without hollywood\"); §4 :76-77",
+  "expectedFailureToday": "RED message from archiveOf: \"the state at week 1 has no top-level powerRanking root (1356-A §5)\"",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-step-cadence-founded-midgame-none-at-origin-plus-one",
+  "charterClause": "1356-A §8 item 8 :207-208 (\"none at originWeek+1\"); §4 :84-86; 1356-F3 :17-18 (any leaf that ticks under an open founding draft gets the same fix): founded at 27 through foundMidGame before ticking",
+  "expectedFailureToday": "RED message from archiveOf: \"the state at week 28 has no top-level powerRanking root (1356-A §5)\"; the founding at 27 (foundMidGame) and the chart contrast at 28 pass first",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-step-record-is-law-snapshot",
+  "charterClause": "1356-A §5 :93-102 (the law snapshot minus pointsTenths, honors, distressStage); 1356-F2 item 3 :17, :32-34 (DECLARED: re-pinned at a sibling landing)",
+  "expectedFailureToday": "module load failure: src/core/powerRankingArchive.ts does not exist (vite \"Failed to load url ../src/core/powerRankingArchive.js\")",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-step-record-shape",
+  "charterClause": "1356-A §5 :93-98, :100, :110-112; 1356-F Later ruling :50-53",
+  "expectedFailureToday": "RED message from archiveOf: \"the state at week 130 has no top-level powerRanking root (1356-A §5)\"",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-record-sequence-allocation",
+  "charterClause": "1355-F2 items 1-2, 4-5 :24-30, :43-49; 1355-F3 :46; 1356-F2 item 3 :21-24 (sibling-proof)",
+  "expectedFailureToday": "RED message from archiveOf: \"the state at week 130 has no top-level powerRanking root (1356-A §5)\"",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-record-phase-triple",
+  "charterClause": "1355-F2 item 3 :31-42; 1356-F2 item 4 :35 (non-empty premise)",
+  "expectedFailureToday": "module load failure: src/core/p15Phases.ts does not exist (vite \"Failed to load url ../src/core/p15Phases.js\")",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-step-entrant",
+  "charterClause": "1356-A §8 item 11 :212; §4 :82",
+  "expectedFailureToday": "RED message from archiveOf: \"the state at week 520 has no top-level powerRanking root (1356-A §5)\" after the memoized campaign reaches 520; the entry-week premise passes first",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-root-fresh",
+  "charterClause": "1356-A §8 item 12 :213-214; §5 :135 (worldgen seeds 0); 1355-F2 item 1 :24-25",
+  "expectedFailureToday": "RED message from archiveOf: \"the state at week 0 has no top-level powerRanking root (1356-A §5)\"",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-root-migration-empty",
+  "charterClause": "1356-A §8 item 12 :213-214; §5 :134-135; 1355-F2 item 6 :51-53; 1356-F2 item 3 :17, :32-34 (DECLARED: re-pinned at a sibling landing)",
+  "expectedFailureToday": "RED message from archiveOf: \"the state at week 130 has no top-level powerRanking root (1356-A §5)\" on the migrateToLive output (Save43 today)",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-root-migration-genuine-below-step-capture",
+  "charterClause": "1356-A §8 item 12 :213-214, §9 :239-240; 1355-F Amendment 3 :32-36; 1356-F2 item 3 :17, :32-34 (DECLARED: re-pinned at a sibling landing)",
+  "expectedFailureToday": "RED message: no genuine capture at tests/fixtures/p15/genuine-below-p15-save-step/ (stays RED in the reference run until the parent mints it)",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-root-downgrade-empty-strips",
+  "charterClause": "1356-A §8 item 13 :215; §5 :136-137; 1355-F2 item 6 :51-53",
+  "expectedFailureToday": "RED message from archiveOf: \"the state at week 130 has no top-level powerRanking root (1356-A §5)\" (premise)",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-root-downgrade-round-trip-claims-less",
+  "charterClause": "1356-A §8 item 13 :215; §5 :137 (\"a round trip can only claim less history\"); 1356-F2 item 3 :17, :32-34 (DECLARED: re-pinned at a sibling landing)",
+  "expectedFailureToday": "RED message from archiveOf: \"the state at week 135 has no top-level powerRanking root (1356-A §5)\"",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-root-downgrade-recorded-quarter-refuses",
+  "charterClause": "1356-A §8 item 13 :215; §5 :136-139 (by name; a downgrade line per older migrateToVxx); 1356-F2 item 3 :17, :32-34 (DECLARED: re-pinned at a sibling landing)",
+  "expectedFailureToday": "RED message from archiveOf: \"the state at week 13 has no top-level powerRanking root (1356-A §5)\" (premise)",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-root-downgrade-frozen-builders-refuse",
+  "charterClause": "1356-A §8 item 13 :215 (\"frozen builders included\"); §5 :138-139; 1356-F2 item 3 :17, :32-34 (DECLARED: re-pinned at a sibling landing)",
+  "expectedFailureToday": "RED message from archiveOf: \"the state at week 13 has no top-level powerRanking root (1356-A §5)\" (premise)",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-root-frozen-builder-headless-control",
+  "charterClause": "1356-A §5 :136, :138-139 (an empty archive strips; frozen builders keep building)",
+  "expectedFailureToday": "none: CONTROL, passes today (a headless engaged world builds a frozen V18 save with no P15 root)",
+  "control": true
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-append-only",
+  "charterClause": "1356-A §8 item 16 :219; §5 :94 (append-only)",
+  "expectedFailureToday": "RED message from archiveOf: \"the state at week 572 has no top-level powerRanking root (1356-A §5)\" after the memoized campaign reaches 572",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-round-trip",
+  "charterClause": "1356-A §8 item 16 :219",
+  "expectedFailureToday": "RED message from archiveOf: \"the state at week 520 has no top-level powerRanking root (1356-A §5)\" on the reloaded state",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-genuine-archive-validates",
+  "charterClause": "1356-A §5 :118-128 (validator accepts the step output)",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-keys-root",
+  "charterClause": "1356-A §8 item 14 :216; §5 item 1 :119; 1355-F2 item 5 :48 (nextRecord withdrawn)",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-keys-record-extra",
+  "charterClause": "1356-A §8 item 14 :216; §5 item 1 :119",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-keys-record-missing",
+  "charterClause": "1356-A §8 item 14 :216; §5 item 1 :119",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-keys-row-points",
+  "charterClause": "1356-A §8 item 14 :216; §5 item 1 :119, :100, :106-107",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-keys-row-honors-and-stage",
+  "charterClause": "1356-A §8 item 14 :216; §5 item 1 :119; §7 :185",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-version",
+  "charterClause": "1356-A §8 item 14 :216; §5 item 1 :119",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-recorded-from-week-range",
+  "charterClause": "1356-A §8 item 14 :216; §5 item 1 :119",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-cadence-gap",
+  "charterClause": "1356-A §8 item 14 :216; §5 item 2 :120-121; 1356-F2 item 3 :17 (renumbered above every P15 row)",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-cadence-duplicate",
+  "charterClause": "1356-A §8 item 14 :216; §5 item 2 :120-121; 1356-F2 item 3 :17 (renumbered above every P15 row)",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-cadence-off-cadence",
+  "charterClause": "1356-A §8 item 14 :216; §5 item 2 :120-121",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-cadence-future",
+  "charterClause": "1356-A §8 item 14 :216; §5 item 2 :120-121; 1356-F2 item 3 :17 (renumbered above every P15 row)",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-cadence-order",
+  "charterClause": "1356-A §8 item 14 :216; §5 item 2 :120-121 (ascending); 1356-F2 item 3 :17 (renumbered above every P15 row)",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-cadence-no-industry",
+  "charterClause": "1356-A §8 item 14 :216; §5 item 2 :120 (\"with hollywood === null, no records\"); 1356-F2 item 3 :17 (renumbered above every P15 row)",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-cadence-boundary",
+  "charterClause": "1356-F Amendment 2 :24-34 (RED 14 leaf rank-validate-cadence-boundary); 1356-F2 item 3 :17 (case c migrates the genuine Save37 week-103 save; no downgrade); 1356-F3 item 1 :8-13 (case a founds the studio at 26, minimum roster from a founding draft then foundStudio, and the industry enters at 26 (foundMidGame) before ticking to 66; a closed draft asserted from 26 on; origin week 26); 1356-F3 :17-18 (any leaf that ticks under an open founding draft gets the same fix): case d founds at 25 the same way",
+  "expectedFailureToday": "module load failure: src/core/powerRankingArchive.ts does not exist (vite \"Failed to load url ../src/core/powerRankingArchive.js\")",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-definition",
+  "charterClause": "1356-A §8 item 14 :216; §5 item 3 :122",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-cohort-missing-row",
+  "charterClause": "1356-A §8 item 14 :216; §5 item 4 :123",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-cohort-extra-row",
+  "charterClause": "1356-A §8 item 14 :216; §5 item 4 :123",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-cohort-duplicate-row",
+  "charterClause": "1356-A §8 item 14 :216; §5 item 4 :123 (\"each once\")",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-id-week-only",
+  "charterClause": "1356-F Amendment 1 :12-21 with Later ruling :50-53; 1355-F2 item 5 :46-48; 1356-F2 item 3 :17 (a record whose sequence is not its week)",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-sequence-duplicate",
+  "charterClause": "1356-F Amendment 1 :18-20; 1355-F2 item 4 :43-45",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-sequence-at-or-above-next",
+  "charterClause": "1356-F Amendment 1 :18-20; 1355-F2 item 4 :43-45",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-next-stale",
+  "charterClause": "1355-F2 item 4 :43-45 (next = 1 + largest); 1355-F3 :24",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-sequence-ascends-with-weeks",
+  "charterClause": "1356-F Amendment 1 :18-19; 1355-F2 item 4 :43-44",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-phase-triple",
+  "charterClause": "1355-F2 items 3-4 :31-45",
+  "expectedFailureToday": "module load failure: src/core/p15Phases.ts does not exist (vite \"Failed to load url ../src/core/p15Phases.js\")",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "p15-validate-sequence-root",
+  "charterClause": "1355-F2 items 1, 4 :24-25, :43-45",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-recompute-films-lane",
+  "charterClause": "1356-A §8 item 15 :217-218 (a lane); §5 item 5 :124-128",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-recompute-releases-lane",
+  "charterClause": "1356-A §8 item 15 :217-218 (a lane); §5 item 5 :124-128",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-recompute-rank",
+  "charterClause": "1356-A §8 item 15 :217-218 (rank); §5 item 5 :124-128",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-recompute-ranked",
+  "charterClause": "1356-A §8 item 15 :217-218 (ranked); §5 item 5 :124-128",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-recompute-releases",
+  "charterClause": "1356-A §8 item 15 :217-218 (releases); §5 item 5 :124-128",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-recompute-film-outside-window",
+  "charterClause": "1356-A §8 item 15 :217-218 (a film outside the window)",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-recompute-swapped-film",
+  "charterClause": "1356-A §8 item 15 :217-218 (a swapped film)",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-recompute-available",
+  "charterClause": "1356-A §8 item 15 :217-218 (available)",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-recompute-window-start",
+  "charterClause": "1356-A §8 item 15 :217-218 (windowStartWeek)",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-recompute-row-order",
+  "charterClause": "1356-A §5 item 5 :125-126 (\"row order included\")",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-band-another-valid-band-passes",
+  "charterClause": "1356-A §8 item 15 :218 (\"another valid band passes\"); §5 item 5 :126-127",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive.test.ts",
+  "leaf": "rank-validate-band-unknown-refuses",
+  "charterClause": "1356-A §8 item 15 :218 (\"an unknown band refuses\"); §5 item 5 :126-127",
+  "expectedFailureToday": "RED message from base(): the week-130 save carries no top-level powerRanking root (archiveOf), after the memoized campaign reaches 130",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive-isolation.test.ts",
+  "leaf": "rank-step-only-writes-archive",
+  "charterClause": "1356-A §8 item 10 :211; §4 :76-77; 1355-F2 item 2 :26-30; 1356-F2 item 3 :25-31 (sibling-proof)",
+  "expectedFailureToday": "RED message from archiveOf: \"the state at week 13 has no top-level powerRanking root (1356-A §5)\" on the stepped run (both runs identical today)",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive-isolation.test.ts",
+  "leaf": "rank-step-final-facts",
+  "charterClause": "1356-A §8 item 9 :209-210; §4 :79-82; 1356-F2 item 3 :17, :32-34 (DECLARED: re-pinned at a sibling landing)",
+  "expectedFailureToday": "RED message: \"tick() producing week 1 never called recordPowerRankingQuarter (1356-A §4)\" (the mocked step never runs)",
+  "control": false
+ },
+ {
+  "file": "tests/p15a2-power-ranking-archive-harness.test.ts",
+  "leaf": "rank-bounded-harness",
+  "charterClause": "1356-A §8 item 17 :220-221; §5 :114-116; 1356-F2 item 5 :36-40 (run alone); 1356-F3 item 2 :14-15 (ceiling 300,000 ms, about five times 1356-X campaignMs 61,020 run alone)",
+  "expectedFailureToday": "RED message from archiveOf: \"the state at week 13 has no top-level powerRanking root (1356-A §5)\" at the first quarter of the 6,240-week run",
+  "control": false
+ }
+]

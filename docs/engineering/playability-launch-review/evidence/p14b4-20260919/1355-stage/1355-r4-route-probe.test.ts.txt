@@ -1,0 +1,234 @@
+// 1355-C4 route probe (1355-F6 items 2 and 3). SCRATCH ONLY: never part of the RED patch.
+// Run alone from the RED tree with the reference `src` in place:
+//   PROBE_SRC=reference node_modules/.bin/vitest run --project core tests/zz-p15a1-route-probe.test.ts
+// A: every route premise with its week, and the industry's counts by week, read through the
+//    helper's exports (tests/helpers/p15a1-market-route.ts, tests/helpers/p15-roots.ts).
+// B: why the r3 held route stalls. On three seeds it runs r3's slate (r3's pickStaff, copied from
+//    3b0b0b5 below), the same slate under r4's employment rule, and no slate.
+import { it } from 'vitest'
+import { applyActions } from '../src/core/actions.js'
+import { assignmentRefusal } from '../src/core/careerLifecycle.js'
+import { busyTalentIds } from '../src/core/employment.js'
+import { MARKETING_BUDGET_LEVELS } from '../src/core/grid.js'
+import { initializeHollywood, studioEmployerId } from '../src/core/hollywood.js'
+import { resolveShape } from '../src/core/shape.js'
+import { tick } from '../src/core/tick.js'
+import { GENRE_ORDER, TUNING } from '../src/core/tuning.js'
+import { generateWorld } from '../src/core/worldgen.js'
+import type { Action, FilmConcept, FilmShape, GameState, Genre } from '../src/core/types.js'
+import {
+  capturePremise, firstRouteWeek, heldRoute, kRoute, MARKET_ROUTE_SEED, pairWeek, releaseHistory, RIVAL_ROUTE_SEED,
+  rivalDue, rivalRouteAt, ROUTE_CAP_WEEK, routeAt, soloWeek, twinWeek,
+} from './helpers/p15a1-market-route.js'
+import { P15_ROOTS, p15Rows } from './helpers/p15-roots.js'
+
+const HEAVY = 600_000
+const SRC = process.env.PROBE_SRC ?? '(unlabelled)'
+const money = (n: number) => Math.round(n).toLocaleString('en-US')
+const short = (studioId: string) => studioId.slice(-3)
+function attempt(lines: string[], name: string, f: () => string): void {
+  try { lines.push(`${name}: ${f()}`) } catch (error) { lines.push(`${name}: FAILED ${(error as Error).message}`) }
+}
+
+/** Per week w in [from, to): rival productions in flight at the start of w / rival greenlights in w
+ * (filmAnnounced receipts) / rival releases in w (filmReleased receipts), ten weeks a line. */
+function industryByWeek(at: (week: number) => GameState, from: number, to: number): string[] {
+  const receipts = at(to).hollywood!.receipts
+  const count = (kind: string, week: number) => receipts.filter((r) => r.kind === kind && r.week === week).length
+  const cells: string[] = []
+  for (let w = from; w < to; w++) {
+    const inFlight = at(w).hollywood!.businesses.reduce((n, b) => n + b.productions.length, 0)
+    cells.push(`${w}:${inFlight}/${count('filmAnnounced', w)}/${count('filmReleased', w)}`)
+  }
+  const lines: string[] = []
+  for (let i = 0; i < cells.length; i += 10) lines.push(`  ${cells.slice(i, i + 10).join(' ')}`)
+  lines.push(`  ${industryTotals(at, from, to)}`)
+  return lines
+}
+function industryTotals(at: (week: number) => GameState, from: number, to: number): string {
+  const receipts = at(to).hollywood!.receipts.filter((r) => r.week >= from && r.week < to)
+  const released = receipts.filter((r) => r.kind === 'filmReleased')
+  return `weeks ${from}-${to - 1}: ${receipts.filter((r) => r.kind === 'filmAnnounced').length} greenlights, ${released.length} releases; ` +
+    `release weeks [${[...new Set(released.map((r) => r.week))].join(', ')}]`
+}
+
+it('A: the r4 route premises and the industry by week', () => {
+  const lines: string[] = [`A. src ${SRC}; held route seed ${MARKET_ROUTE_SEED}; rival route seed ${RIVAL_ROUTE_SEED}; cap ${ROUTE_CAP_WEEK}`]
+  const first = firstRouteWeek()
+  const start = routeAt(first)
+  for (const p of heldRoute().held) {
+    const production = start.studio.activeProductions.find((q) => q.id === p.productionId)!
+    const employed = [production.writerId, production.directorId, ...Object.values(production.cast)]
+      .filter((id) => studioEmployerId(start, id) !== null).length
+    lines.push(`held ${p.productionId} ${p.genre}${p.pairTwin ? ' (twin)' : ''}, ready week ${p.readyWeek}; credits a studio employs: ${employed}`)
+  }
+  attempt(lines, 'routeAt(30), RED 3 leaf 1', () => `first route week ${first}; week 30 reached ${routeAt(30).market.tick === 30}`)
+  attempt(lines, 'pairWeek', () => {
+    const p = pairWeek()
+    const others = p.pre.studio.activeProductions.filter((q) => q.remainingTicks === 1 && q.id !== p.picture.productionId).length
+    return `week ${p.week}: rival ${p.rival.releaseId} (${p.rival.genre}) with held ${p.picture.productionId}; ` +
+      `${rivalDue(p.pre).length} rival pictures due; ${others} other held pictures ready`
+  })
+  attempt(lines, 'twinWeek', () => {
+    const t = twinWeek()
+    return `week ${t.week}: twins ${t.twins.map((p) => p.productionId).join(', ')} (${t.twins[0].genre}); ${rivalDue(t.pre).length} rival pictures due`
+  })
+  attempt(lines, 'soloWeek', () => {
+    const s = soloWeek()
+    return `week ${s.week}: held ${s.picture.productionId} (${s.picture.genre}); ${rivalDue(s.pre).length} rival pictures due`
+  })
+  attempt(lines, 'kRoute', () => {
+    const { k1, k2 } = kRoute()
+    const due = (s: GameState) => rivalDue(s).map((m) => `${m.releaseId} ${m.genre}`).join(', ')
+    return `K2 week ${k2.week} (due ${due(k2.pre)}); K1 week ${k1.week} (due ${due(k1.pre)}; committed ${String(k1.committed)})`
+  })
+  lines.push(`held route player cash at week ${ROUTE_CAP_WEEK}: ${money(routeAt(ROUTE_CAP_WEEK).studio.cash)}`)
+  lines.push('held route industry, week:inFlight/greenlit/released')
+  lines.push(...industryByWeek(routeAt, first, ROUTE_CAP_WEEK))
+
+  // ── the rival-only route (seed unchanged in r4) ──
+  attempt(lines, 'RED 3 leaf 2', () => {
+    const ids = (s: GameState) => s.hollywood!.businesses.flatMap((b) => b.productions.map((p) => p.id))
+    for (let week = 2; week <= 120; week++) {
+      if (rivalDue(rivalRouteAt(week)).length === 0 && ids(rivalRouteAt(week + 1)).some((id) => !ids(rivalRouteAt(week)).includes(id))) {
+        return `week ${week}: no release due, a rival greenlights`
+      }
+    }
+    throw new Error('no such week by 120')
+  })
+  attempt(lines, 'RED 12', () => {
+    const weeks = Array.from({ length: 80 }, (_, w) => w).filter((w) => rivalDue(rivalRouteAt(w)).length > 0)
+    return `${weeks.length} rival-route weeks with a release in [0, 80)`
+  })
+  attempt(lines, 'RED 13', () => {
+    for (let week = 20; week <= 100; week++) {
+      const state = rivalRouteAt(week)
+      const recent = releaseHistory(state).some((f) => week - f.week >= 1 && week - f.week < TUNING.SHARED_MARKET_RETIRE_AFTER_WEEKS)
+      if (recent && rivalDue(state).length > 0) return `week ${week}: a release in the last 25 weeks and one due`
+    }
+    throw new Error('no such week in [20, 100]')
+  })
+  attempt(lines, 'RED 14, RED 16 leaf 4, phases: rivalRouteAt(70)', () => {
+    const films = releaseHistory(rivalRouteAt(70))
+    return `${films.length} releases in ${new Set(films.map((f) => f.week)).size} weeks before week 70`
+  })
+  attempt(lines, 'rivalRouteAt(66), cross-root leaf', () => {
+    const siblings = P15_ROOTS.filter((key) => key !== 'sharedMarket')
+    const top = (s: GameState, roots: readonly string[]) => Math.max(0, ...p15Rows(s, roots).map((row) => row.p15DomainSequence))
+    for (let week = 66; week <= ROUTE_CAP_WEEK; week++) {
+      const s = rivalRouteAt(week)
+      if (top(s, siblings) > top(s, ['sharedMarket'])) return `week ${week}: sibling top ${top(s, siblings)} > market top ${top(s, ['sharedMarket'])}`
+    }
+    throw new Error(`no week in [66, ${ROUTE_CAP_WEEK}] where a sibling P15 row holds the largest sequence`)
+  })
+  attempt(lines, 'capturePremise, RED 16 ramp', () => {
+    for (let week = 30; week <= ROUTE_CAP_WEEK; week++) {
+      const facts = capturePremise(rivalRouteAt(week))
+      if (facts === null) continue
+      const after = rivalRouteAt(Math.min(week + TUNING.SHARED_MARKET_RETIRE_AFTER_WEEKS, ROUTE_CAP_WEEK))
+      const film = releaseHistory(after).find((f) => f.releaseId === facts.inFlightProductionId)
+      return `week ${week}: recent ${facts.recentReleaseId}, in flight ${facts.inFlightProductionId} (${facts.genre}); ` +
+        `paired release week ${film?.week ?? 'none'}, window [${week}, ${week + TUNING.SHARED_MARKET_RETIRE_AFTER_WEEKS - 1}]`
+    }
+    throw new Error(`no week in [30, ${ROUTE_CAP_WEEK}]`)
+  })
+  lines.push('rival route industry, week:inFlight/greenlit/released')
+  lines.push(...industryByWeek(rivalRouteAt, 0, ROUTE_CAP_WEEK))
+  console.log(lines.join('\n'))
+}, HEAVY)
+
+// ── B. r3's slate, copied from 3b0b0b5 tests/helpers/p15a1-market-route.ts:148-213 ─────────
+const SHAPE: FilmShape = { opening: 'slowSetup', midpoint: 'reversal', ending: 'bittersweet' }
+type GreenlightPayload = Extract<Action, { kind: 'greenlight' }>['production']
+function pickStaff(state: GameState, role: 'writer' | 'director' | 'actor', count: number, used: Set<string>, r4Rule: boolean): string[] {
+  const out: string[] = []
+  for (const person of [...state.talent].reverse()) {
+    if (out.length === count) break
+    if (person.role !== role || used.has(person.id)) continue
+    if (r4Rule && studioEmployerId(state, person.id) !== null) continue // the only r4 line
+    if (role !== 'writer' && assignmentRefusal(state, person.id, state.market.tick, role) !== null) continue
+    out.push(person.id)
+    used.add(person.id)
+  }
+  if (out.length !== count) throw new Error(`seed ${state.seed} lacks ${count} free ${role}(s)`)
+  return out
+}
+function payload(state: GameState, concept: FilmConcept, used: Set<string>, r4Rule: boolean): GreenlightPayload {
+  const [writerId] = pickStaff(state, 'writer', 1, used, r4Rule)
+  const [directorId] = pickStaff(state, 'director', 1, used, r4Rule)
+  const [lead, antagonist, support] = pickStaff(state, 'actor', 3, used, r4Rule)
+  return {
+    conceptId: concept.id, shape: SHAPE,
+    promise: { genre: concept.genre, intendedSegments: ['adult'], ranges: { intimacy: [-1, 1], tonalWeight: [-1, 1], kineticEnergy: [-1, 1] } },
+    writerId: writerId!, directorId: directorId!, craftIds: [], cast: { lead: lead!, antagonist: antagonist!, support: support! },
+    budget: { negative: concept.baseNegativeCost * resolveShape(SHAPE).budgetDemandMultiplier * state.era.costScale, marketing: MARKETING_BUDGET_LEVELS[0] },
+  }
+}
+function slate(start: GameState, r4Rule: boolean): GameState {
+  const byGenre = new Map<Genre, FilmConcept[]>()
+  for (const concept of start.concepts) byGenre.set(concept.genre, [...(byGenre.get(concept.genre) ?? []), concept])
+  const twinGenre = GENRE_ORDER.find((genre) => (byGenre.get(genre)?.length ?? 0) >= 2)!
+  const plan = [byGenre.get(twinGenre)![0]!, byGenre.get(twinGenre)![1]!,
+    ...GENRE_ORDER.filter((genre) => genre !== twinGenre && byGenre.has(genre)).map((genre) => byGenre.get(genre)![0]!)]
+  const used = new Set<string>()
+  let state = start
+  for (const concept of plan) {
+    state = applyActions(state, [{ kind: 'greenlight', production: payload(state, concept, used, r4Rule) }])
+    state = tick(state)
+  }
+  return state
+}
+function walk(start: GameState): (week: number) => GameState {
+  const states = new Map([[start.market.tick, start]])
+  let cursor = start
+  return (week) => {
+    while (cursor.market.tick < week) { cursor = tick(cursor); states.set(cursor.market.tick, cursor) }
+    return states.get(week)!
+  }
+}
+/** decide()'s staffing gate (hollywoodTick.ts evaluate): own employees seatable / employed, by role. */
+function rivalLine(state: GameState, b: NonNullable<GameState['hollywood']>['businesses'][number]): string {
+  const h = state.hollywood!
+  const busy = busyTalentIds(state)
+  const seated = new Set(state.studio.activeProductions.flatMap((p) => [p.directorId, ...Object.values(p.cast)]))
+  const own = h.activeEmploymentOrdinals.map((i) => h.employment[i]!).filter((e) => e.studioId === b.studioId)
+    .map((e) => state.talent.find((t) => t.id === e.terms.talentId)!)
+  const role = (r: string) => {
+    const all = own.filter((t) => t.role === r)
+    return `${r} ${all.filter((t) => !busy.has(t.id) && assignmentRefusal(state, t.id, state.market.tick) === null).length}/${all.length}`
+  }
+  const statuses = new Map<string, number>()
+  for (const p of b.development.projects) statuses.set(p.status, (statuses.get(p.status) ?? 0) + 1)
+  return `${short(b.studioId)} productions ${b.productions.length}; screenplays ${[...statuses].map(([s, n]) => `${s} ${n}`).join(', ') || 'none'}; ` +
+    `shelved ${b.screenplayShelving.shelved.length}; seatable ${['director', 'actor', 'craft'].map(role).join(', ')}; ` +
+    `on the player's slate ${own.filter((t) => seated.has(t.id)).length}`
+}
+
+const R3_SEED = 'p15a1-w2-market-01'
+it('B: why the r3 held route stalls (seeds -01, -02, -03; r3 slate, r4 slate, no slate)', () => {
+  const lines: string[] = [`B. src ${SRC}`]
+  for (const seed of [R3_SEED, RIVAL_ROUTE_SEED, MARKET_ROUTE_SEED]) {
+    const fresh = initializeHollywood(generateWorld(seed), 'fresh')
+    const h0 = fresh.hollywood!
+    const rivalPeople = new Set(h0.activeEmploymentOrdinals.map((i) => h0.employment[i]!.terms.talentId))
+    const tail = fresh.talent.slice(-rivalPeople.size).filter((t) => rivalPeople.has(t.id)).length
+    lines.push(`seed ${seed}: baseMarketValue ${money(fresh.market.baseMarketValue)}; the ${h0.businesses.length} rivals employ ` +
+      `${rivalPeople.size} people, ${tail} of them the last ${rivalPeople.size} of ${fresh.talent.length} entries of state.talent`)
+    const variants: [string, (week: number) => GameState, number][] = [
+      ['r3 slate', walk(slate(fresh, false)), 7],
+      ['r4 slate', walk(slate(fresh, true)), 7],
+      ['no slate', walk(fresh), 0],
+    ]
+    for (const [label, at, from] of variants) {
+      const seats = at(from).studio.activeProductions.flatMap((p) => [p.directorId, ...Object.values(p.cast)])
+      const end = at(ROUTE_CAP_WEEK)
+      const shelvings = end.hollywood!.receipts.filter((r) => r.kind === 'screenplayShelved')
+      lines.push(` ${label}: rival employees in ${seats.filter((id) => rivalPeople.has(id)).length} of ${seats.length} seats; ` +
+        `${industryTotals(at, from, ROUTE_CAP_WEEK)}; screenplayShelved receipts ${shelvings.length}` +
+        `${shelvings.length > 0 ? ` (first week ${shelvings[0]!.week})` : ''}; player cash at ${ROUTE_CAP_WEEK} ${money(end.studio.cash)}`)
+      for (const b of at(30).hollywood!.businesses) lines.push(`  week 30 ${rivalLine(at(30), b)}`)
+      lines.push(`  week ${ROUTE_CAP_WEEK} rival cash: ${end.hollywood!.businesses.map((b) => `${short(b.studioId)} ${money(b.account.cash)}`).join('; ')}`)
+    }
+  }
+  console.log(lines.join('\n'))
+}, HEAVY)
