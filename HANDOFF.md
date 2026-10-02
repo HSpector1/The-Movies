@@ -1,6 +1,6 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 03:31 CDT (the Mac runs on CDT; use `date`)
+Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 04:06 CDT (the Mac runs on CDT; use `date`)
 
 ## Where the work is
 - Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit after 324b8701 that carries this file (slice B RED landed at 650e963a, capture 4ad8e0f7, recorded RED and 1358-X5 committed), pushed: yes.
@@ -38,7 +38,9 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 03:31 CDT (the Mac r
 - **1358-X5** (production r2 steps on the landed RED, committed at 324b8701): classified reds 62, 44, 10 and 3 with 0 mismatches; after step 4 only rows 59-61 stay red (at `acceptedEvidence`, "expected 44 to be 43"); both generator checks pass. All other failures sit in test files (27 in p14b5-relationships; type errors 20 at step 1 and 46 from step 3 in the root gate, 2 each in UI and Bridge from the shared helpers `p14c2b-fixtures:69` and `p14c4-fixtures:71`): sweep fallout.
 - In flight:
   - **1358-M2** (fallout on HEAD 5245072a plus production step 4 r2): started 02:48:24 CDT, lane-run PID in `S/1358-m2/m2.pid`, progress `S/1358-m2/m2.meta`, outputs `S/1358-m2/m2-{tsc,generate,core,ui}.txt` and the route logs `m2-*.log` (kit outputs in `S/1344-s7/out/m2-*`). About 2 h.
-  - **1358-N adopted** (planner's draft plus parent rulings **1358-F9**); census in `E/1358-stage/n/` (685 rows, 156 files: 625 certain, 60 measure). Seven author agents (H, G1-G6) edit certain rows in worktrees `S/1358-sweep/{h,g1..g6}` (branches `sweep-<g>` off tag `step4` = 8e02a44 in the scratch repo `S/1358-n/tree`); deliverables land in `S/1358-sweep/out/<g>/` (patch.diff, classification.json, deferred.json, handback.md). No author runs tests.
+  - **1358-N adopted** (1358-F9). All seven authors finished; merged as **sweep r1** in the scratch worktree `S/1358-sweep/merge` (branch `sweep-merge` 3c7b83a; G6 without its S5 draft commit 49bafc6): 154 test files, +671/-599, `S/1358-sweep/sweep-r1.patch` sha256 20398175…, applies to repo HEAD. Group outputs (patch, classification, deferred, handback) in `S/1358-sweep/out/<g>/`; all deferred rows in `S/1358-sweep/deferred-all.json` (75). Parent rulings so far: `S/1358-sweep/parent-notes.md` (to become **1358-F10**).
+  - Running agents: the **probe author** writes a temporary message-logging probe for 35 S8/S9 sites (`S/1358-sweep/probe-sites.json`; outputs `S/1358-sweep/out/probe/`); **G1** writes N-0122 option (a) on `sweep-g1` (re-merge into `sweep-merge` and regenerate the r1 patch after it reports).
+  - Prepared: `S/1358-sweep/run-1358-sweep-dry.sh <run> <sweep.patch> [<probe.patch> <probe-files>]` (type gates, generators, slice B files plus mentor-label, the probe, core 440, UI), for 1358-X6 after M2 frees the lane; `S/1358-land/p57-manifest.py` and `E/1358-p57-declaration-measurement.ts` (committed b17e8ac2) for F10/F11 at landing.
 - **P15 rebase after slice B:** the three P15 REDs read the save step from `LIVE_SAVE_VERSION`; the only base pin is P15C's `BASE_LIVE_SAVE_VERSION = 43` (integration test :151), which moves to 44. The producers carry no hardcoded version.
 - Claims limits:
   - 1353-T's market-pressure numbers are first order (open-loop factors from 1355-G1).
@@ -75,14 +77,15 @@ Agents: the user allows as many subagents as help (2026-10-01). Agents author an
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-02 03:01 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
-- Branch: `wip/headless-program-20260916-ts` @ `2ff1bf8942402eb4ce49dda3cf501018f6b8f7f0`
+- Stamped: 2026-10-02 04:05 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
+- Branch: `wip/headless-program-20260916-ts` @ `b17e8ac2a635b4e1b19455d843f3c6f9dffdddc4`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 0
+- Uncommitted files: 1
+  - `M HANDOFF.md`
 - Last commits:
+  - b17e8ac2 docs(p14b): 1358-p57 declaration producer for F10/F11 (projection 57), derived from 1328's
+  - faf0812d docs(p14b): 1358-N Save44 and projection-57 sweep plan adopted with 1358-F9; census of 685 rows in 156 files
   - 2ff1bf89 docs(handoff): slice B RED landed, 1358-X5 as declared, 1358-M2 running
   - 324b8701 docs(p14b): 1358-X5 slice B production r2 on the landed RED: every classified row as declared at every step
   - 5245072a docs(p14b): slice B recorded RED at 4ad8e0f7 (89 failed / 59 passed of 148, identities equal 1358-X4's); 1358-L opened
-  - 4ad8e0f7 test(p14b): mint the slice B GENUINE capture (1358-P at 650e963a, recorded as 1358-sliceb-mint)
-  - 650e963a test(p14b): relationship slice B RED r8 (1358-C8): the competitions log, Professional Rivals, romance, Save44 and projection 57
 <!-- AUTO:END -->
