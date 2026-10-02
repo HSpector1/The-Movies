@@ -1,0 +1,12 @@
+tests/helpers/p14c2b-fixtures.ts(69,138): error TS2345: Argument of type 'SaveFileV45' is not assignable to parameter of type 'SaveFileV44'.
+  Type 'SaveFileV45' is not assignable to type '{ saveVersion: 44; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '45' is not assignable to type '44'.
+tests/helpers/p14c2c-fixtures.ts(29,3): error TS2375: Type 'GameStateV40' is not assignable to type 'GameStateV45' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV40' is missing the following properties from type 'P15StepRoots': powerRanking, p15Sequence, sharedMarket
+tests/helpers/p14c2rm-fixtures.ts(24,3): error TS2375: Type 'GameStateV40' is not assignable to type 'GameStateV45' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV40' is missing the following properties from type 'P15StepRoots': powerRanking, p15Sequence, sharedMarket
+tests/helpers/p14c4-fixtures.ts(71,120): error TS2345: Argument of type 'SaveFileV45' is not assignable to parameter of type 'SaveFileV44'.
+  Type 'SaveFileV45' is not assignable to type '{ saveVersion: 44; state: GameStateV40; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '45' is not assignable to type '44'.

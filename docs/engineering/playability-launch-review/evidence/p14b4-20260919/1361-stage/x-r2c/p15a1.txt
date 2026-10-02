@@ -1,0 +1,23 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1361-prod/tree
+
+ ✓ |core| tests/p15a1-market-integration-atomicity.test.ts (4 tests) 3443ms
+   ✓ p15a1 market all-or-none at the seam (1355-F3 Blocking 1) > market-second-subject-failure-commits-nothing: a rival second subject refuses in the seam; nothing from either subject commits 2960ms
+ ✓ |core| tests/p15a1-market-integration-phases.test.ts (1 test) 4926ms
+   ✓ p15a1 market phase identity (1355-F3; 1355-F4 R4) > market-phase-version-immutable: v1 rows keep their triple under a v2 table, a row declared v2 with v2's ordinal validates, a triple off its own version refuses by name 4924ms
+ ✓ |core| tests/p15a1-market-integration.test.ts (54 tests) 12400ms
+   ✓ p15a1 market forecast paths (RED 3, 1355-A §3.2 "never carry it") > market-forecast-paths-unchanged: agent choices and forecast history ignore the root [control] 3238ms
+   ✓ p15a1 market forecast paths (RED 3, 1355-A §3.2 "never carry it") > market-forecast-paths-unchanged: a week of rival decisions with no release ignores the root [control] 842ms
+   ✓ p15a1 market root (RED 12-13, 1355-A §3.3; 1355-F2 item 2; 1355-F3) > market-root-append-canonical: one ordered append per week; derived exposures equal reduceExposures 1726ms
+   ✓ p15a1 market root (RED 12-13, 1355-A §3.3; 1355-F2 item 2; 1355-F3) > market-inflight-save-replay: save during an active exposure, reload, run 30 weeks: assessments and terminal save equal an unsaved run 961ms
+   ✓ p15a1 market old saves (RED 16) > market-old-save: the first batches after migration see no pre-migration release [fixture-pending] 613ms
+   ✓ p15a1 market old saves (RED 16) > market-old-save: the genuine Save42 week-130 capture lifts to an empty root at its own week and steps down losslessly while empty 805ms
+   ✓ p15a1 market old saves (RED 16) > market-old-save: a non-empty root refuses the downgrade by name, at the step and through every older migrator 1052ms
+   ✓ p15a1 market disengaged world (RED 17) > market-disengaged-world: with no industry there is no batch: the root stays empty at week 0 and no market row exists anywhere 772ms
+
+ Test Files  3 passed (3)
+      Tests  59 passed (59)
+   Start at  14:53:20
+   Duration  16.60s (transform 4.52s, setup 0ms, collect 9.78s, tests 20.77s, environment 1ms, prepare 589ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1361-prod/x/r2c/p15a1.json
