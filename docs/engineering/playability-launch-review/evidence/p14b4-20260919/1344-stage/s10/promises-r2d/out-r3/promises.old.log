@@ -1,0 +1,16 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1344-r2/r2d/old-tree
+
+stdout | tests/zz-s10-promises.test.ts > S10 probe rows 8-11 r3 (scratch only) > S10-promises promise-148 chain 2600 to 2695: C1 anchors, shelving receipts, first divergence, the satisfying take, re-witness search
+S10-promises gates {"C1_head_anchor":true,"C1_old_anchor":true,"P1_d1_r01_shelving_before_take":true,"P2_d2_thirteen_rejections":true,"P3_C2_C3_first_divergence_at_Ws_plus_1":true,"P4_d3_take_via_commission_or_retry":true,"P5_d4_stall_without_shelving":true}
+S10-promises predictions {"wsR01_is_2612":true,"r01_shelves_script0229_and_script0230_at_2612":true,"ws_is_2612":true,"hold_until_2625":true,"retry_weeks_2638":true,"path_is_commission":true,"rewitness_rows8to10_is_NONE":true,"rewitness_row11_is_NONE":true,"first_divergence_at_post_2613":true,"first_divergence_in_hollywood_only":true}
+
+ ✓ |core| tests/zz-s10-promises.test.ts (4 tests | 3 skipped) 23173ms
+   ✓ S10 probe rows 8-11 r3 (scratch only) > S10-promises promise-148 chain 2600 to 2695: C1 anchors, shelving receipts, first divergence, the satisfying take, re-witness search 23170ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 3 skipped (4)
+   Start at  19:02:05
+   Duration  26.50s (transform 2.01s, setup 0ms, collect 2.66s, tests 23.17s, environment 0ms, prepare 120ms)
+
+exit=0

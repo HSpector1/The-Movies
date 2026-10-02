@@ -1,0 +1,13 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1344-merge/tree
+
+ ✓ |core| tests/zz-s10-row7b.test.ts (13 tests | 11 skipped) 13782ms
+   ✓ P14B.1 test 7: rival symmetry > the FIRST natural rival proposal carries exactly one promise iff an ORIGINAL authoring read is REASONABLY_ACHIEVABLE — the flexible P2 read first for an unproven person, the P1 read alone for a proven one — with exact proposal/root/receipt joins 6694ms
+   ✓ P14B.1 test 7: rival symmetry > natural rival authoring preserves the first writer IFF, the first actor positive (P1 if proven, flexible P2 if unproven), and an actual non-achievable zero-attachment witness for a proven person (unproven branches: open coverage finding above) 7084ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed | 11 skipped (13)
+   Start at  17:16:15
+   Duration  17.38s (transform 2.03s, setup 0ms, collect 2.56s, tests 13.78s, environment 1ms, prepare 168ms)
+
+exit=0

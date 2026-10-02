@@ -1,0 +1,16 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1344-merge/tree
+
+stdout | tests/zz-s10-row6.test.ts > S10 probe row 6 r2 (scratch only) > S10-row6 rival chain from 196 through the leaf guard: 41 ticks, post-tick 197..237
+S10-row6 predicates {"R1_d1_shelving_208":true,"R2_d2_counts_196_207":true,"R3_d3_film11_208_213_217":true,"R4_d4_d5_shelved_hold_no_commission":true,"R5_d6_no_other_take_197_221":true}
+S10-row6 outcome {"kind":"PREMISE_CONFLICT","next":{"week":229,"studioId":"studio-aca408ec-r01","productionId":"studio-aca408ec-r01:film:12","directorId":"person-studio-aca408ec-r02-1","cast":{"lead":"person-studio-aca408ec-r02-4","antagonist":"person-studio-aca408ec-r02-3","support":"person-studio-aca408ec-r02-2"}},"sameWeek":[{"week":229,"studioId":"studio-aca408ec-r01","productionId":"studio-aca408ec-r01:film:12","directorId":"person-studio-aca408ec-r02-1","cast":{"lead":"person-studio-aca408ec-r02-4","antagonist":"person-studio-aca408ec-r02-3","support":"person-studio-aca408ec-r02-2"}},{"week":229,"studioId":"studio-aca408ec-r02","productionId":"studio-aca408ec-r02:film:14","directorId":"person-studio-aca408ec-r01-1","cast":{"lead":"person-studio-aca408ec-r01-4","antagonist":"person-studio-aca408ec-r01-2","support":"person-studio-aca408ec-r01-3"}}],"sharedPairs":[{"x":"person-studio-aca408ec-r02-1","y":"person-studio-aca408ec-r02-3","weight":"MID"},{"x":"person-studio-aca408ec-r02-1","y":"person-studio-aca408ec-r02-2","weight":"LOW"},{"x":"person-studio-aca408ec-r02-3","y":"person-studio-aca408ec-r02-2","weight":"LOW"}]}
+
+ ✓ |core| tests/zz-s10-row6.test.ts (47 tests | 46 skipped) 2518ms
+   ✓ S10 probe row 6 r2 (scratch only) > S10-row6 rival chain from 196 through the leaf guard: 41 ticks, post-tick 197..237 2516ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 46 skipped (47)
+   Start at  17:15:54
+   Duration  6.75s (transform 2.56s, setup 0ms, collect 3.29s, tests 2.52s, environment 0ms, prepare 281ms)
+
+exit=0

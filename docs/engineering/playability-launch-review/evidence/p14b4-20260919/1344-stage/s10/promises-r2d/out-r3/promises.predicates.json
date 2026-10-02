@@ -1,0 +1,5642 @@
+{
+ "probe": "S10-promises r2d r3",
+ "gates": {
+  "C1_head_anchor": {
+   "pass": true,
+   "detail": {
+    "premise": {
+     "tick": 2600,
+     "outcome": null,
+     "progress": 0,
+     "beneficiaryPersonId": "person-cohort-208-actor-1",
+     "issuerStudioId": "studio-25969b11-r01",
+     "windowStartWeek": 2496,
+     "dueWeekExclusive": 2704,
+     "contractId": "studio-25969b11-r01:contract:person-cohort-208-actor-1:2496"
+    },
+    "tick": 2695,
+    "retirement": {
+     "ageAtAnnouncement": 70,
+     "announcedWeek": 2566,
+     "cause": "hardBoundary",
+     "effectiveWeek": 2704,
+     "finishingFromWeek": null,
+     "intentRulesVersion": 1,
+     "personId": "person-cohort-208-actor-1",
+     "profession": "actor",
+     "retiredWeek": null,
+     "status": "announced",
+     "extensionUsed": false,
+     "extendedFromWeek": null
+    },
+    "p148": {
+     "outcome": "SATISFIED",
+     "progress": 1,
+     "outcomeWeek": 2636,
+     "outcomeEventId": "talent-market-event-552",
+     "evidenceRefs": [
+      "first-take-event-321"
+     ]
+    },
+    "productions": [],
+    "anchor": {
+     "outcome": "SATISFIED",
+     "progress": 1
+    }
+   }
+  },
+  "C1_old_anchor": {
+   "pass": true,
+   "detail": {
+    "premise": {
+     "tick": 2600,
+     "outcome": null,
+     "progress": 0,
+     "beneficiaryPersonId": "person-cohort-208-actor-1",
+     "issuerStudioId": "studio-25969b11-r01",
+     "windowStartWeek": 2496,
+     "dueWeekExclusive": 2704,
+     "contractId": "studio-25969b11-r01:contract:person-cohort-208-actor-1:2496"
+    },
+    "tick": 2695,
+    "retirement": {
+     "ageAtAnnouncement": 70,
+     "announcedWeek": 2566,
+     "cause": "hardBoundary",
+     "effectiveWeek": 2704,
+     "finishingFromWeek": null,
+     "intentRulesVersion": 1,
+     "personId": "person-cohort-208-actor-1",
+     "profession": "actor",
+     "retiredWeek": null,
+     "status": "announced",
+     "extensionUsed": false,
+     "extendedFromWeek": null
+    },
+    "p148": {
+     "outcome": null,
+     "progress": 0,
+     "outcomeWeek": null,
+     "outcomeEventId": null,
+     "evidenceRefs": []
+    },
+    "productions": [],
+    "rivalLines": {
+     "l27": true,
+     "l28": true,
+     "savedError": null,
+     "terminals": [
+      "SATISFIED",
+      "BROKEN"
+     ],
+     "l37": true,
+     "afterTick": {
+      "outcome": "VOIDED",
+      "outcomeWeek": 2696,
+      "dueWeekExclusive": 2704,
+      "progress": 0
+     },
+     "l40_41": true,
+     "r2Helper114": true,
+     "r3L65": true
+    },
+    "dispatch": {
+     "l142": true,
+     "l143": true,
+     "l148": true,
+     "l149": true,
+     "l150": true,
+     "l151": true,
+     "l152": true,
+     "calls": 1
+    },
+    "anchor": {
+     "outcome": null,
+     "progress": 0
+    }
+   }
+  },
+  "P1_d1_r01_shelving_before_take": {
+   "pass": true,
+   "detail": {
+    "ws": 2612,
+    "wsR01": 2612,
+    "wt": 2636,
+    "takeId": "first-take-event-321",
+    "shelvedR01": [
+     {
+      "week": 2612,
+      "studioId": "studio-25969b11-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0229",
+      "conceptId": "studio-25969b11-r01:concept:229",
+      "rejections": 13,
+      "eventId": "industry-event-1326"
+     },
+     {
+      "week": 2612,
+      "studioId": "studio-25969b11-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0230",
+      "conceptId": "studio-25969b11-r01:concept:230",
+      "rejections": 13,
+      "eventId": "industry-event-1327"
+     },
+     {
+      "week": 2648,
+      "studioId": "studio-25969b11-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0231",
+      "conceptId": "studio-25969b11-r01:concept:231",
+      "rejections": 13,
+      "eventId": "industry-event-1335"
+     },
+     {
+      "week": 2655,
+      "studioId": "studio-25969b11-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0233",
+      "conceptId": "studio-25969b11-r01:concept:233",
+      "rejections": 13,
+      "eventId": "industry-event-1336"
+     },
+     {
+      "week": 2683,
+      "studioId": "studio-25969b11-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0234",
+      "conceptId": "studio-25969b11-r01:concept:234",
+      "rejections": 13,
+      "eventId": "industry-event-1339"
+     },
+     {
+      "week": 2686,
+      "studioId": "studio-25969b11-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0235",
+      "conceptId": "studio-25969b11-r01:concept:235",
+      "rejections": 13,
+      "eventId": "industry-event-1340"
+     }
+    ]
+   }
+  },
+  "P2_d2_thirteen_rejections": {
+   "pass": true,
+   "detail": [
+    {
+     "eventId": "industry-event-1326",
+     "week": 2612,
+     "scriptProjectId": "script-0229",
+     "rejections": 13,
+     "countBefore": 12,
+     "heldByGuard": false,
+     "guardRecord": [],
+     "climb": [
+      [
+       2600,
+       1
+      ],
+      [
+       2601,
+       2
+      ],
+      [
+       2602,
+       3
+      ],
+      [
+       2603,
+       4
+      ],
+      [
+       2604,
+       5
+      ],
+      [
+       2605,
+       6
+      ],
+      [
+       2606,
+       7
+      ],
+      [
+       2607,
+       8
+      ],
+      [
+       2608,
+       9
+      ],
+      [
+       2609,
+       10
+      ],
+      [
+       2610,
+       11
+      ],
+      [
+       2611,
+       12
+      ]
+     ],
+     "ok": true
+    },
+    {
+     "eventId": "industry-event-1327",
+     "week": 2612,
+     "scriptProjectId": "script-0230",
+     "rejections": 13,
+     "countBefore": 12,
+     "heldByGuard": false,
+     "guardRecord": [],
+     "climb": [
+      [
+       2600,
+       1
+      ],
+      [
+       2601,
+       2
+      ],
+      [
+       2602,
+       3
+      ],
+      [
+       2603,
+       4
+      ],
+      [
+       2604,
+       5
+      ],
+      [
+       2605,
+       6
+      ],
+      [
+       2606,
+       7
+      ],
+      [
+       2607,
+       8
+      ],
+      [
+       2608,
+       9
+      ],
+      [
+       2609,
+       10
+      ],
+      [
+       2610,
+       11
+      ],
+      [
+       2611,
+       12
+      ]
+     ],
+     "ok": true
+    },
+    {
+     "eventId": "industry-event-1335",
+     "week": 2648,
+     "scriptProjectId": "script-0231",
+     "rejections": 13,
+     "countBefore": 12,
+     "heldByGuard": false,
+     "guardRecord": [],
+     "climb": [
+      [
+       2600,
+       0
+      ],
+      [
+       2601,
+       0
+      ],
+      [
+       2602,
+       0
+      ],
+      [
+       2603,
+       0
+      ],
+      [
+       2604,
+       0
+      ],
+      [
+       2605,
+       0
+      ],
+      [
+       2606,
+       0
+      ],
+      [
+       2607,
+       0
+      ],
+      [
+       2608,
+       0
+      ],
+      [
+       2609,
+       0
+      ],
+      [
+       2610,
+       0
+      ],
+      [
+       2611,
+       0
+      ],
+      [
+       2612,
+       0
+      ],
+      [
+       2613,
+       0
+      ],
+      [
+       2614,
+       0
+      ],
+      [
+       2615,
+       0
+      ],
+      [
+       2616,
+       0
+      ],
+      [
+       2617,
+       0
+      ],
+      [
+       2618,
+       0
+      ],
+      [
+       2619,
+       0
+      ],
+      [
+       2620,
+       0
+      ],
+      [
+       2621,
+       0
+      ],
+      [
+       2622,
+       0
+      ],
+      [
+       2623,
+       0
+      ],
+      [
+       2624,
+       0
+      ],
+      [
+       2625,
+       0
+      ],
+      [
+       2626,
+       0
+      ],
+      [
+       2627,
+       0
+      ],
+      [
+       2628,
+       1
+      ],
+      [
+       2629,
+       2
+      ],
+      [
+       2630,
+       3
+      ],
+      [
+       2631,
+       4
+      ],
+      [
+       2632,
+       4
+      ],
+      [
+       2633,
+       4
+      ],
+      [
+       2634,
+       4
+      ],
+      [
+       2635,
+       4
+      ],
+      [
+       2636,
+       4
+      ],
+      [
+       2637,
+       4
+      ],
+      [
+       2638,
+       4
+      ],
+      [
+       2639,
+       4
+      ],
+      [
+       2640,
+       5
+      ],
+      [
+       2641,
+       6
+      ],
+      [
+       2642,
+       7
+      ],
+      [
+       2643,
+       8
+      ],
+      [
+       2644,
+       9
+      ],
+      [
+       2645,
+       10
+      ],
+      [
+       2646,
+       11
+      ],
+      [
+       2647,
+       12
+      ]
+     ],
+     "ok": true
+    },
+    {
+     "eventId": "industry-event-1336",
+     "week": 2655,
+     "scriptProjectId": "script-0233",
+     "rejections": 13,
+     "countBefore": 12,
+     "heldByGuard": false,
+     "guardRecord": [],
+     "climb": [
+      [
+       2600,
+       0
+      ],
+      [
+       2601,
+       0
+      ],
+      [
+       2602,
+       0
+      ],
+      [
+       2603,
+       0
+      ],
+      [
+       2604,
+       0
+      ],
+      [
+       2605,
+       0
+      ],
+      [
+       2606,
+       0
+      ],
+      [
+       2607,
+       0
+      ],
+      [
+       2608,
+       0
+      ],
+      [
+       2609,
+       0
+      ],
+      [
+       2610,
+       0
+      ],
+      [
+       2611,
+       0
+      ],
+      [
+       2612,
+       0
+      ],
+      [
+       2613,
+       0
+      ],
+      [
+       2614,
+       0
+      ],
+      [
+       2615,
+       0
+      ],
+      [
+       2616,
+       0
+      ],
+      [
+       2617,
+       0
+      ],
+      [
+       2618,
+       0
+      ],
+      [
+       2619,
+       0
+      ],
+      [
+       2620,
+       0
+      ],
+      [
+       2621,
+       0
+      ],
+      [
+       2622,
+       0
+      ],
+      [
+       2623,
+       0
+      ],
+      [
+       2624,
+       0
+      ],
+      [
+       2625,
+       0
+      ],
+      [
+       2626,
+       0
+      ],
+      [
+       2627,
+       0
+      ],
+      [
+       2628,
+       0
+      ],
+      [
+       2629,
+       0
+      ],
+      [
+       2630,
+       0
+      ],
+      [
+       2631,
+       0
+      ],
+      [
+       2632,
+       0
+      ],
+      [
+       2633,
+       0
+      ],
+      [
+       2634,
+       0
+      ],
+      [
+       2635,
+       0
+      ],
+      [
+       2636,
+       0
+      ],
+      [
+       2637,
+       0
+      ],
+      [
+       2638,
+       0
+      ],
+      [
+       2639,
+       0
+      ],
+      [
+       2640,
+       0
+      ],
+      [
+       2641,
+       0
+      ],
+      [
+       2642,
+       0
+      ],
+      [
+       2643,
+       1
+      ],
+      [
+       2644,
+       2
+      ],
+      [
+       2645,
+       3
+      ],
+      [
+       2646,
+       4
+      ],
+      [
+       2647,
+       5
+      ],
+      [
+       2648,
+       6
+      ],
+      [
+       2649,
+       7
+      ],
+      [
+       2650,
+       8
+      ],
+      [
+       2651,
+       9
+      ],
+      [
+       2652,
+       10
+      ],
+      [
+       2653,
+       11
+      ],
+      [
+       2654,
+       12
+      ]
+     ],
+     "ok": true
+    },
+    {
+     "eventId": "industry-event-1339",
+     "week": 2683,
+     "scriptProjectId": "script-0234",
+     "rejections": 13,
+     "countBefore": 12,
+     "heldByGuard": false,
+     "guardRecord": [],
+     "climb": [
+      [
+       2600,
+       0
+      ],
+      [
+       2601,
+       0
+      ],
+      [
+       2602,
+       0
+      ],
+      [
+       2603,
+       0
+      ],
+      [
+       2604,
+       0
+      ],
+      [
+       2605,
+       0
+      ],
+      [
+       2606,
+       0
+      ],
+      [
+       2607,
+       0
+      ],
+      [
+       2608,
+       0
+      ],
+      [
+       2609,
+       0
+      ],
+      [
+       2610,
+       0
+      ],
+      [
+       2611,
+       0
+      ],
+      [
+       2612,
+       0
+      ],
+      [
+       2613,
+       0
+      ],
+      [
+       2614,
+       0
+      ],
+      [
+       2615,
+       0
+      ],
+      [
+       2616,
+       0
+      ],
+      [
+       2617,
+       0
+      ],
+      [
+       2618,
+       0
+      ],
+      [
+       2619,
+       0
+      ],
+      [
+       2620,
+       0
+      ],
+      [
+       2621,
+       0
+      ],
+      [
+       2622,
+       0
+      ],
+      [
+       2623,
+       0
+      ],
+      [
+       2624,
+       0
+      ],
+      [
+       2625,
+       0
+      ],
+      [
+       2626,
+       0
+      ],
+      [
+       2627,
+       0
+      ],
+      [
+       2628,
+       0
+      ],
+      [
+       2629,
+       0
+      ],
+      [
+       2630,
+       0
+      ],
+      [
+       2631,
+       0
+      ],
+      [
+       2632,
+       0
+      ],
+      [
+       2633,
+       0
+      ],
+      [
+       2634,
+       0
+      ],
+      [
+       2635,
+       0
+      ],
+      [
+       2636,
+       0
+      ],
+      [
+       2637,
+       0
+      ],
+      [
+       2638,
+       0
+      ],
+      [
+       2639,
+       0
+      ],
+      [
+       2640,
+       0
+      ],
+      [
+       2641,
+       0
+      ],
+      [
+       2642,
+       0
+      ],
+      [
+       2643,
+       0
+      ],
+      [
+       2644,
+       0
+      ],
+      [
+       2645,
+       0
+      ],
+      [
+       2646,
+       0
+      ],
+      [
+       2647,
+       0
+      ],
+      [
+       2648,
+       0
+      ],
+      [
+       2649,
+       0
+      ],
+      [
+       2650,
+       0
+      ],
+      [
+       2651,
+       0
+      ],
+      [
+       2652,
+       0
+      ],
+      [
+       2653,
+       0
+      ],
+      [
+       2654,
+       0
+      ],
+      [
+       2655,
+       0
+      ],
+      [
+       2656,
+       0
+      ],
+      [
+       2657,
+       0
+      ],
+      [
+       2658,
+       0
+      ],
+      [
+       2659,
+       0
+      ],
+      [
+       2660,
+       0
+      ],
+      [
+       2661,
+       0
+      ],
+      [
+       2662,
+       0
+      ],
+      [
+       2663,
+       0
+      ],
+      [
+       2664,
+       0
+      ],
+      [
+       2665,
+       0
+      ],
+      [
+       2666,
+       0
+      ],
+      [
+       2667,
+       0
+      ],
+      [
+       2668,
+       0
+      ],
+      [
+       2669,
+       0
+      ],
+      [
+       2670,
+       0
+      ],
+      [
+       2671,
+       1
+      ],
+      [
+       2672,
+       2
+      ],
+      [
+       2673,
+       3
+      ],
+      [
+       2674,
+       4
+      ],
+      [
+       2675,
+       5
+      ],
+      [
+       2676,
+       6
+      ],
+      [
+       2677,
+       7
+      ],
+      [
+       2678,
+       8
+      ],
+      [
+       2679,
+       9
+      ],
+      [
+       2680,
+       10
+      ],
+      [
+       2681,
+       11
+      ],
+      [
+       2682,
+       12
+      ]
+     ],
+     "ok": true
+    },
+    {
+     "eventId": "industry-event-1340",
+     "week": 2686,
+     "scriptProjectId": "script-0235",
+     "rejections": 13,
+     "countBefore": 12,
+     "heldByGuard": false,
+     "guardRecord": [],
+     "climb": [
+      [
+       2600,
+       0
+      ],
+      [
+       2601,
+       0
+      ],
+      [
+       2602,
+       0
+      ],
+      [
+       2603,
+       0
+      ],
+      [
+       2604,
+       0
+      ],
+      [
+       2605,
+       0
+      ],
+      [
+       2606,
+       0
+      ],
+      [
+       2607,
+       0
+      ],
+      [
+       2608,
+       0
+      ],
+      [
+       2609,
+       0
+      ],
+      [
+       2610,
+       0
+      ],
+      [
+       2611,
+       0
+      ],
+      [
+       2612,
+       0
+      ],
+      [
+       2613,
+       0
+      ],
+      [
+       2614,
+       0
+      ],
+      [
+       2615,
+       0
+      ],
+      [
+       2616,
+       0
+      ],
+      [
+       2617,
+       0
+      ],
+      [
+       2618,
+       0
+      ],
+      [
+       2619,
+       0
+      ],
+      [
+       2620,
+       0
+      ],
+      [
+       2621,
+       0
+      ],
+      [
+       2622,
+       0
+      ],
+      [
+       2623,
+       0
+      ],
+      [
+       2624,
+       0
+      ],
+      [
+       2625,
+       0
+      ],
+      [
+       2626,
+       0
+      ],
+      [
+       2627,
+       0
+      ],
+      [
+       2628,
+       0
+      ],
+      [
+       2629,
+       0
+      ],
+      [
+       2630,
+       0
+      ],
+      [
+       2631,
+       0
+      ],
+      [
+       2632,
+       0
+      ],
+      [
+       2633,
+       0
+      ],
+      [
+       2634,
+       0
+      ],
+      [
+       2635,
+       0
+      ],
+      [
+       2636,
+       0
+      ],
+      [
+       2637,
+       0
+      ],
+      [
+       2638,
+       0
+      ],
+      [
+       2639,
+       0
+      ],
+      [
+       2640,
+       0
+      ],
+      [
+       2641,
+       0
+      ],
+      [
+       2642,
+       0
+      ],
+      [
+       2643,
+       0
+      ],
+      [
+       2644,
+       0
+      ],
+      [
+       2645,
+       0
+      ],
+      [
+       2646,
+       0
+      ],
+      [
+       2647,
+       0
+      ],
+      [
+       2648,
+       0
+      ],
+      [
+       2649,
+       0
+      ],
+      [
+       2650,
+       0
+      ],
+      [
+       2651,
+       0
+      ],
+      [
+       2652,
+       0
+      ],
+      [
+       2653,
+       0
+      ],
+      [
+       2654,
+       0
+      ],
+      [
+       2655,
+       0
+      ],
+      [
+       2656,
+       0
+      ],
+      [
+       2657,
+       0
+      ],
+      [
+       2658,
+       0
+      ],
+      [
+       2659,
+       0
+      ],
+      [
+       2660,
+       0
+      ],
+      [
+       2661,
+       0
+      ],
+      [
+       2662,
+       0
+      ],
+      [
+       2663,
+       0
+      ],
+      [
+       2664,
+       0
+      ],
+      [
+       2665,
+       0
+      ],
+      [
+       2666,
+       0
+      ],
+      [
+       2667,
+       0
+      ],
+      [
+       2668,
+       0
+      ],
+      [
+       2669,
+       0
+      ],
+      [
+       2670,
+       0
+      ],
+      [
+       2671,
+       0
+      ],
+      [
+       2672,
+       0
+      ],
+      [
+       2673,
+       0
+      ],
+      [
+       2674,
+       1
+      ],
+      [
+       2675,
+       2
+      ],
+      [
+       2676,
+       3
+      ],
+      [
+       2677,
+       4
+      ],
+      [
+       2678,
+       5
+      ],
+      [
+       2679,
+       6
+      ],
+      [
+       2680,
+       7
+      ],
+      [
+       2681,
+       8
+      ],
+      [
+       2682,
+       9
+      ],
+      [
+       2683,
+       10
+      ],
+      [
+       2684,
+       11
+      ],
+      [
+       2685,
+       12
+      ]
+     ],
+     "ok": true
+    }
+   ]
+  },
+  "P3_C2_C3_first_divergence_at_Ws_plus_1": {
+   "pass": true,
+   "detail": {
+    "ws": 2612,
+    "firstDiffPost": 2613,
+    "firstDiffKeys": [
+     "hollywood"
+    ],
+    "startEqual": true
+   }
+  },
+  "P4_d3_take_via_commission_or_retry": {
+   "pass": true,
+   "detail": {
+    "take": {
+     "eventId": "first-take-event-321",
+     "week": 2636,
+     "productionId": "studio-25969b11-r01:film:232",
+     "studioId": "studio-25969b11-r01",
+     "directorId": "person-cohort-156-director-0",
+     "cast": {
+      "lead": "person-cohort-208-actor-1",
+      "antagonist": "person-cohort-416-actor-0",
+      "support": "person-cohort-416-actor-1"
+     }
+    },
+    "announced": {
+     "week": 2631,
+     "studioId": "studio-25969b11-r01",
+     "kind": "filmAnnounced",
+     "productionId": "studio-25969b11-r01:film:232",
+     "conceptId": "studio-25969b11-r01:concept:232",
+     "eventId": "industry-event-1330"
+    },
+    "wg": 2631,
+    "script": {
+     "id": "script-0232",
+     "status": "produced",
+     "commissionedWeek": 2628
+    },
+    "ordinal": 232,
+    "projectsBeforeWs": 231,
+    "hold": 2625,
+    "shelvedEntry": null,
+    "path": "commission after the hold",
+    "outcomeReceipt": {
+     "kind": "promiseOutcome",
+     "week": 2636,
+     "talentId": "person-cohort-208-actor-1",
+     "studioId": "studio-25969b11-r01",
+     "reasons": [
+      "a promise to this person was kept"
+     ],
+     "dropped": [],
+     "eventId": "talent-market-event-552"
+    }
+   }
+  },
+  "P5_d4_stall_without_shelving": {
+   "pass": true,
+   "detail": {
+    "head": {
+     "pass": true,
+     "detail": {
+      "startR01": {
+       "active": [
+        229,
+        230
+       ],
+       "projects": 231,
+       "productions": [],
+       "activeStatuses": [
+        "ready",
+        "ready"
+       ],
+       "shelving": {
+        "version": 1,
+        "rejections": [],
+        "shelved": [],
+        "commissionHoldUntilWeek": 0
+       }
+      },
+      "preWeeks": 12,
+      "broken": []
+     }
+    },
+    "old": {
+     "pass": true,
+     "detail": {
+      "startR01": {
+       "active": [
+        229,
+        230
+       ],
+       "projects": 231,
+       "productions": [],
+       "activeStatuses": [
+        "ready",
+        "ready"
+       ],
+       "shelving": null
+      },
+      "broken": []
+     }
+    }
+   }
+  }
+ },
+ "predictions": {
+  "wsR01_is_2612": true,
+  "r01_shelves_script0229_and_script0230_at_2612": true,
+  "ws_is_2612": true,
+  "hold_until_2625": true,
+  "retry_weeks_2638": true,
+  "path_is_commission": true,
+  "rewitness_rows8to10_is_NONE": true,
+  "rewitness_row11_is_NONE": true,
+  "first_divergence_at_post_2613": true,
+  "first_divergence_in_hollywood_only": true
+ },
+ "outcome": {
+  "rows8to10": "PREMISE_CONFLICT",
+  "row11": "PREMISE_CONFLICT",
+  "firstFailingAfterRederivation": {
+   "R1": ":37",
+   "R2": "helpers/p14c2c-fixtures.ts:114 via :50",
+   "R3": ":65",
+   "N10": ":148"
+  },
+  "rivalLines": {
+   "l27": true,
+   "l28": true,
+   "savedError": null,
+   "terminals": [
+    "SATISFIED",
+    "BROKEN",
+    "SATISFIED"
+   ],
+   "l37": false,
+   "afterTick": {
+    "outcome": "SATISFIED",
+    "outcomeWeek": 2636,
+    "dueWeekExclusive": 2704,
+    "progress": 1
+   },
+   "l40_41": false,
+   "r2Helper114": false,
+   "r3L65": false
+  },
+  "dispatch": {
+   "l142": true,
+   "l143": true,
+   "l148": false,
+   "l149": true,
+   "l150": true,
+   "l151": true,
+   "l152": true,
+   "calls": 0
+  },
+  "lastOpenPost": 2635,
+  "openBoundForPerson": [],
+  "repinValues": {
+   "outcome": "SATISFIED",
+   "progress": 1,
+   "takeEventId": "first-take-event-321",
+   "takeWeek": 2636,
+   "wsR01": 2612
+  },
+  "rewitness": {
+   "rows8to10": {
+    "leaves": "tests/p14c2c-rival-promises.test.ts R1 :34, R2 :49, R3 :60",
+    "rule": "rival-issued, VOIDED by the tick into Wc, 2601 <= Wc <= 2696; order: issuer r01 first, then Wc, then promise number; witness: the first with boundOpenProgress0AtWcMinus1, wcIsEffectiveWeekMinus8, wcAtMost2696 and issuerHasNoProductionAtWcMinus1",
+    "horizon": {
+     "wcFrom": 2601,
+     "wcTo": 2696
+    },
+    "witness": "NONE",
+    "errors": [],
+    "candidates": [],
+    "scanned": [],
+    "scanMatchesTicks": true
+   },
+   "row11": {
+    "leaf": "tests/p14c3-admission-boundaries.test.ts N10 :230",
+    "rule": "rival-issued, open, bound and progress 0 at post-tick w, 2600 <= w <= 2695, beneficiary announced with effectiveWeek - 8 = w + 1, VOIDED or not; order: issuer r01 first, then Wc = w + 1, then promise number; witness: the first with issuerHasNoProductionAtW and passCallsActorAtW",
+    "horizon": {
+     "wFrom": 2600,
+     "wTo": 2695
+    },
+    "witness": "NONE",
+    "errors": [],
+    "candidates": []
+   }
+  }
+ },
+ "explanatory": {
+  "r01Timeline": {
+   "shelvings": [
+    {
+     "week": 2612,
+     "studioId": "studio-25969b11-r01",
+     "kind": "screenplayShelved",
+     "scriptProjectId": "script-0229",
+     "conceptId": "studio-25969b11-r01:concept:229",
+     "rejections": 13,
+     "eventId": "industry-event-1326"
+    },
+    {
+     "week": 2612,
+     "studioId": "studio-25969b11-r01",
+     "kind": "screenplayShelved",
+     "scriptProjectId": "script-0230",
+     "conceptId": "studio-25969b11-r01:concept:230",
+     "rejections": 13,
+     "eventId": "industry-event-1327"
+    },
+    {
+     "week": 2648,
+     "studioId": "studio-25969b11-r01",
+     "kind": "screenplayShelved",
+     "scriptProjectId": "script-0231",
+     "conceptId": "studio-25969b11-r01:concept:231",
+     "rejections": 13,
+     "eventId": "industry-event-1335"
+    },
+    {
+     "week": 2655,
+     "studioId": "studio-25969b11-r01",
+     "kind": "screenplayShelved",
+     "scriptProjectId": "script-0233",
+     "conceptId": "studio-25969b11-r01:concept:233",
+     "rejections": 13,
+     "eventId": "industry-event-1336"
+    },
+    {
+     "week": 2683,
+     "studioId": "studio-25969b11-r01",
+     "kind": "screenplayShelved",
+     "scriptProjectId": "script-0234",
+     "conceptId": "studio-25969b11-r01:concept:234",
+     "rejections": 13,
+     "eventId": "industry-event-1339"
+    },
+    {
+     "week": 2686,
+     "studioId": "studio-25969b11-r01",
+     "kind": "screenplayShelved",
+     "scriptProjectId": "script-0235",
+     "conceptId": "studio-25969b11-r01:concept:235",
+     "rejections": 13,
+     "eventId": "industry-event-1340"
+    }
+   ],
+   "holdAfterWs": 2625,
+   "commissions": [
+    {
+     "processed": 2625,
+     "ordinal": 231,
+     "id": "script-0231",
+     "commissionedWeek": 2625,
+     "status": "drafting"
+    },
+    {
+     "processed": 2628,
+     "ordinal": 232,
+     "id": "script-0232",
+     "commissionedWeek": 2628,
+     "status": "drafting"
+    },
+    {
+     "processed": 2640,
+     "ordinal": 233,
+     "id": "script-0233",
+     "commissionedWeek": 2640,
+     "status": "drafting"
+    },
+    {
+     "processed": 2668,
+     "ordinal": 234,
+     "id": "script-0234",
+     "commissionedWeek": 2668,
+     "status": "drafting"
+    },
+    {
+     "processed": 2671,
+     "ordinal": 235,
+     "id": "script-0235",
+     "commissionedWeek": 2671,
+     "status": "drafting"
+    }
+   ],
+   "announced": [
+    {
+     "week": 2631,
+     "studioId": "studio-25969b11-r01",
+     "kind": "filmAnnounced",
+     "productionId": "studio-25969b11-r01:film:232",
+     "conceptId": "studio-25969b11-r01:concept:232",
+     "eventId": "industry-event-1330"
+    }
+   ],
+   "released": [
+    {
+     "week": 2639,
+     "studioId": "studio-25969b11-r01",
+     "kind": "filmReleased",
+     "productionId": "studio-25969b11-r01:film:232",
+     "conceptId": "studio-25969b11-r01:concept:232",
+     "before": {
+      "audienceAwareness": 35.00000000047986,
+      "commercialConfidence": 100,
+      "industryPrestige": 94.03140859814398
+     },
+     "after": {
+      "audienceAwareness": 33.05699207173641,
+      "industryPrestige": 84.03140859814398,
+      "commercialConfidence": 100
+     },
+     "eventId": "industry-event-1331"
+    }
+   ],
+   "takes": [
+    {
+     "eventId": "first-take-event-321",
+     "week": 2636,
+     "studioId": "studio-25969b11-r01",
+     "productionId": "studio-25969b11-r01:film:232",
+     "directorId": "person-cohort-156-director-0",
+     "cast": {
+      "lead": "person-cohort-208-actor-1",
+      "antagonist": "person-cohort-416-actor-0",
+      "support": "person-cohort-416-actor-1"
+     }
+    }
+   ],
+   "byWeek": [
+    {
+     "processed": 2600,
+     "active": [
+      229,
+      230
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 229,
+        "count": 1
+       },
+       {
+        "ordinal": 230,
+        "count": 1
+       }
+      ],
+      "shelved": [],
+      "commissionHoldUntilWeek": 0
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2601,
+     "active": [
+      229,
+      230
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 229,
+        "count": 2
+       },
+       {
+        "ordinal": 230,
+        "count": 2
+       }
+      ],
+      "shelved": [],
+      "commissionHoldUntilWeek": 0
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2602,
+     "active": [
+      229,
+      230
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 229,
+        "count": 3
+       },
+       {
+        "ordinal": 230,
+        "count": 3
+       }
+      ],
+      "shelved": [],
+      "commissionHoldUntilWeek": 0
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2603,
+     "active": [
+      229,
+      230
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 229,
+        "count": 4
+       },
+       {
+        "ordinal": 230,
+        "count": 4
+       }
+      ],
+      "shelved": [],
+      "commissionHoldUntilWeek": 0
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2604,
+     "active": [
+      229,
+      230
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 229,
+        "count": 5
+       },
+       {
+        "ordinal": 230,
+        "count": 5
+       }
+      ],
+      "shelved": [],
+      "commissionHoldUntilWeek": 0
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2605,
+     "active": [
+      229,
+      230
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 229,
+        "count": 6
+       },
+       {
+        "ordinal": 230,
+        "count": 6
+       }
+      ],
+      "shelved": [],
+      "commissionHoldUntilWeek": 0
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2606,
+     "active": [
+      229,
+      230
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 229,
+        "count": 7
+       },
+       {
+        "ordinal": 230,
+        "count": 7
+       }
+      ],
+      "shelved": [],
+      "commissionHoldUntilWeek": 0
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2607,
+     "active": [
+      229,
+      230
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 229,
+        "count": 8
+       },
+       {
+        "ordinal": 230,
+        "count": 8
+       }
+      ],
+      "shelved": [],
+      "commissionHoldUntilWeek": 0
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2608,
+     "active": [
+      229,
+      230
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 229,
+        "count": 9
+       },
+       {
+        "ordinal": 230,
+        "count": 9
+       }
+      ],
+      "shelved": [],
+      "commissionHoldUntilWeek": 0
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2609,
+     "active": [
+      229,
+      230
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 229,
+        "count": 10
+       },
+       {
+        "ordinal": 230,
+        "count": 10
+       }
+      ],
+      "shelved": [],
+      "commissionHoldUntilWeek": 0
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2610,
+     "active": [
+      229,
+      230
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 229,
+        "count": 11
+       },
+       {
+        "ordinal": 230,
+        "count": 11
+       }
+      ],
+      "shelved": [],
+      "commissionHoldUntilWeek": 0
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2611,
+     "active": [
+      229,
+      230
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 229,
+        "count": 12
+       },
+       {
+        "ordinal": 230,
+        "count": 12
+       }
+      ],
+      "shelved": [],
+      "commissionHoldUntilWeek": 0
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2612,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2613,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2614,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2615,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2616,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2617,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2618,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2619,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2620,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2621,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2622,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2623,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2624,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2625,
+     "active": [
+      231
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2626,
+     "active": [
+      231
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2627,
+     "active": [
+      231
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2628,
+     "active": [
+      231,
+      232
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 231,
+        "count": 1
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2629,
+     "active": [
+      231,
+      232
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 231,
+        "count": 2
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2630,
+     "active": [
+      231,
+      232
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 231,
+        "count": 3
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2631,
+     "active": [
+      231,
+      232
+     ],
+     "productions": [
+      "studio-25969b11-r01:film:232"
+     ],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 231,
+        "count": 4
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2632,
+     "active": [
+      231,
+      232
+     ],
+     "productions": [
+      "studio-25969b11-r01:film:232"
+     ],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 231,
+        "count": 4
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2633,
+     "active": [
+      231,
+      232
+     ],
+     "productions": [
+      "studio-25969b11-r01:film:232"
+     ],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 231,
+        "count": 4
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2634,
+     "active": [
+      231,
+      232
+     ],
+     "productions": [
+      "studio-25969b11-r01:film:232"
+     ],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 231,
+        "count": 4
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": null,
+      "progress": 0,
+      "outcomeWeek": null,
+      "outcomeEventId": null,
+      "evidenceRefs": []
+     }
+    },
+    {
+     "processed": 2635,
+     "active": [
+      231,
+      232
+     ],
+     "productions": [
+      "studio-25969b11-r01:film:232"
+     ],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 231,
+        "count": 4
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2636,
+     "active": [
+      231,
+      232
+     ],
+     "productions": [
+      "studio-25969b11-r01:film:232"
+     ],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 231,
+        "count": 4
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2637,
+     "active": [
+      231,
+      232
+     ],
+     "productions": [
+      "studio-25969b11-r01:film:232"
+     ],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 231,
+        "count": 4
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2638,
+     "active": [
+      231,
+      232
+     ],
+     "productions": [
+      "studio-25969b11-r01:film:232"
+     ],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 231,
+        "count": 4
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2639,
+     "active": [
+      231
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 231,
+        "count": 4
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2638
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2640,
+     "active": [
+      231,
+      233
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 231,
+        "count": 5
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2641,
+     "active": [
+      231,
+      233
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 231,
+        "count": 6
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2642,
+     "active": [
+      231,
+      233
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 231,
+        "count": 7
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2643,
+     "active": [
+      231,
+      233
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 231,
+        "count": 8
+       },
+       {
+        "ordinal": 233,
+        "count": 1
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2644,
+     "active": [
+      231,
+      233
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 231,
+        "count": 9
+       },
+       {
+        "ordinal": 233,
+        "count": 2
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2645,
+     "active": [
+      231,
+      233
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 231,
+        "count": 10
+       },
+       {
+        "ordinal": 233,
+        "count": 3
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2646,
+     "active": [
+      231,
+      233
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 231,
+        "count": 11
+       },
+       {
+        "ordinal": 233,
+        "count": 4
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2647,
+     "active": [
+      231,
+      233
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 231,
+        "count": 12
+       },
+       {
+        "ordinal": 233,
+        "count": 5
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2638
+       }
+      ],
+      "commissionHoldUntilWeek": 2625
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2648,
+     "active": [
+      233
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 233,
+        "count": 6
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       }
+      ],
+      "commissionHoldUntilWeek": 2661
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2649,
+     "active": [
+      233
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 233,
+        "count": 7
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       }
+      ],
+      "commissionHoldUntilWeek": 2661
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2650,
+     "active": [
+      233
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 233,
+        "count": 8
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       }
+      ],
+      "commissionHoldUntilWeek": 2661
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2651,
+     "active": [
+      233
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 233,
+        "count": 9
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       }
+      ],
+      "commissionHoldUntilWeek": 2661
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2652,
+     "active": [
+      233
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 233,
+        "count": 10
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       }
+      ],
+      "commissionHoldUntilWeek": 2661
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2653,
+     "active": [
+      233
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 233,
+        "count": 11
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       }
+      ],
+      "commissionHoldUntilWeek": 2661
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2654,
+     "active": [
+      233
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 233,
+        "count": 12
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       }
+      ],
+      "commissionHoldUntilWeek": 2661
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2655,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2656,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2657,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2658,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2659,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2660,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2661,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2662,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2663,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2664,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2665,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2666
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2666,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2667,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2668,
+     "active": [
+      234
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2669,
+     "active": [
+      234
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2670,
+     "active": [
+      234
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2671,
+     "active": [
+      234,
+      235
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 234,
+        "count": 1
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2672,
+     "active": [
+      234,
+      235
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 234,
+        "count": 2
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2673,
+     "active": [
+      234,
+      235
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 234,
+        "count": 3
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2674,
+     "active": [
+      234,
+      235
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 234,
+        "count": 4
+       },
+       {
+        "ordinal": 235,
+        "count": 1
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2675,
+     "active": [
+      234,
+      235
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 234,
+        "count": 5
+       },
+       {
+        "ordinal": 235,
+        "count": 2
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2676,
+     "active": [
+      234,
+      235
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 234,
+        "count": 6
+       },
+       {
+        "ordinal": 235,
+        "count": 3
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2677,
+     "active": [
+      234,
+      235
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 234,
+        "count": 7
+       },
+       {
+        "ordinal": 235,
+        "count": 4
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2678,
+     "active": [
+      234,
+      235
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 234,
+        "count": 8
+       },
+       {
+        "ordinal": 235,
+        "count": 5
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2679,
+     "active": [
+      234,
+      235
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 234,
+        "count": 9
+       },
+       {
+        "ordinal": 235,
+        "count": 6
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2680,
+     "active": [
+      234,
+      235
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 234,
+        "count": 10
+       },
+       {
+        "ordinal": 235,
+        "count": 7
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2681,
+     "active": [
+      234,
+      235
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 234,
+        "count": 11
+       },
+       {
+        "ordinal": 235,
+        "count": 8
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2682,
+     "active": [
+      234,
+      235
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 234,
+        "count": 12
+       },
+       {
+        "ordinal": 235,
+        "count": 9
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       }
+      ],
+      "commissionHoldUntilWeek": 2668
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2683,
+     "active": [
+      235
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 235,
+        "count": 10
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2709
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2674
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       },
+       {
+        "ordinal": 234,
+        "week": 2683,
+        "retryWeek": 2709
+       }
+      ],
+      "commissionHoldUntilWeek": 2696
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2684,
+     "active": [
+      235
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 235,
+        "count": 11
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2709
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2710
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2681
+       },
+       {
+        "ordinal": 234,
+        "week": 2683,
+        "retryWeek": 2709
+       }
+      ],
+      "commissionHoldUntilWeek": 2696
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2685,
+     "active": [
+      235
+     ],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [
+       {
+        "ordinal": 235,
+        "count": 12
+       }
+      ],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2709
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2710
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2711
+       },
+       {
+        "ordinal": 234,
+        "week": 2683,
+        "retryWeek": 2709
+       }
+      ],
+      "commissionHoldUntilWeek": 2696
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2686,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2709
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2710
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2711
+       },
+       {
+        "ordinal": 234,
+        "week": 2683,
+        "retryWeek": 2709
+       },
+       {
+        "ordinal": 235,
+        "week": 2686,
+        "retryWeek": 2712
+       }
+      ],
+      "commissionHoldUntilWeek": 2699
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2687,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2709
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2710
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2711
+       },
+       {
+        "ordinal": 234,
+        "week": 2683,
+        "retryWeek": 2709
+       },
+       {
+        "ordinal": 235,
+        "week": 2686,
+        "retryWeek": 2712
+       }
+      ],
+      "commissionHoldUntilWeek": 2699
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2688,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2709
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2710
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2711
+       },
+       {
+        "ordinal": 234,
+        "week": 2683,
+        "retryWeek": 2709
+       },
+       {
+        "ordinal": 235,
+        "week": 2686,
+        "retryWeek": 2712
+       }
+      ],
+      "commissionHoldUntilWeek": 2699
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2689,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2709
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2710
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2711
+       },
+       {
+        "ordinal": 234,
+        "week": 2683,
+        "retryWeek": 2709
+       },
+       {
+        "ordinal": 235,
+        "week": 2686,
+        "retryWeek": 2712
+       }
+      ],
+      "commissionHoldUntilWeek": 2699
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2690,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2709
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2710
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2711
+       },
+       {
+        "ordinal": 234,
+        "week": 2683,
+        "retryWeek": 2709
+       },
+       {
+        "ordinal": 235,
+        "week": 2686,
+        "retryWeek": 2712
+       }
+      ],
+      "commissionHoldUntilWeek": 2699
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2691,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2692
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2709
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2710
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2711
+       },
+       {
+        "ordinal": 234,
+        "week": 2683,
+        "retryWeek": 2709
+       },
+       {
+        "ordinal": 235,
+        "week": 2686,
+        "retryWeek": 2712
+       }
+      ],
+      "commissionHoldUntilWeek": 2699
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2692,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2718
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2709
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2710
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2711
+       },
+       {
+        "ordinal": 234,
+        "week": 2683,
+        "retryWeek": 2709
+       },
+       {
+        "ordinal": 235,
+        "week": 2686,
+        "retryWeek": 2712
+       }
+      ],
+      "commissionHoldUntilWeek": 2699
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2693,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2718
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2709
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2710
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2711
+       },
+       {
+        "ordinal": 234,
+        "week": 2683,
+        "retryWeek": 2709
+       },
+       {
+        "ordinal": 235,
+        "week": 2686,
+        "retryWeek": 2712
+       }
+      ],
+      "commissionHoldUntilWeek": 2699
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    },
+    {
+     "processed": 2694,
+     "active": [],
+     "productions": [],
+     "shelving": {
+      "version": 1,
+      "rejections": [],
+      "shelved": [
+       {
+        "ordinal": 229,
+        "week": 2612,
+        "retryWeek": 2718
+       },
+       {
+        "ordinal": 230,
+        "week": 2612,
+        "retryWeek": 2709
+       },
+       {
+        "ordinal": 231,
+        "week": 2648,
+        "retryWeek": 2710
+       },
+       {
+        "ordinal": 233,
+        "week": 2655,
+        "retryWeek": 2711
+       },
+       {
+        "ordinal": 234,
+        "week": 2683,
+        "retryWeek": 2709
+       },
+       {
+        "ordinal": 235,
+        "week": 2686,
+        "retryWeek": 2712
+       }
+      ],
+      "commissionHoldUntilWeek": 2699
+     },
+     "p148": {
+      "outcome": "SATISFIED",
+      "progress": 1,
+      "outcomeWeek": 2636,
+      "outcomeEventId": "talent-market-event-552",
+      "evidenceRefs": [
+       "first-take-event-321"
+      ]
+     }
+    }
+   ]
+  },
+  "otherShelvingsBeforeTake": [
+   {
+    "week": 2612,
+    "studioId": "studio-25969b11-r09",
+    "kind": "screenplayShelved",
+    "scriptProjectId": "script-0000",
+    "conceptId": "studio-25969b11-r09:concept:0",
+    "rejections": 13,
+    "eventId": "industry-event-1328"
+   },
+   {
+    "week": 2612,
+    "studioId": "studio-25969b11-r09",
+    "kind": "screenplayShelved",
+    "scriptProjectId": "script-0001",
+    "conceptId": "studio-25969b11-r09:concept:1",
+    "rejections": 13,
+    "eventId": "industry-event-1329"
+   }
+  ],
+  "guardRecord": [],
+  "r01PromisesAuthored": []
+ }
+}

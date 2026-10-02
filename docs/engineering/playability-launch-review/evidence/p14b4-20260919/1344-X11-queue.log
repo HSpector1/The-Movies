@@ -1,0 +1,41 @@
+######## row6-r3 19:01:27
+exit=0
+stdout | tests/zz-s10-r3-row6.test.ts > S10 r3 row 6 re-witness (scratch only) > S10-r3-row6 witness rule over the take receipts of rival-current-p1-and-p2, post-tick 197..237
+S10-r3-row6 gates {"G1_start_196":true,"G2_fixed_fields_in_file":true,"G3_weeks_197_237":true,"G4_take_week_is_post":true,"G5_first_take_213":true,"G6_release_217":true,"A0_anchor_recorded_chain":true,"P_SIM_rule_equals_leaf":true}
+S10-r3-row6 witness {"witness":"NONE","reason":"P3_NOT_ALONE_IN_ITS_WEEK","t1":{"week":229,"studioId":"studio-aca408ec-r01","productionId":"studio-aca408ec-r01:film:12","directorId":"person-studio-aca408ec-r02-1","cast":{"lead":"person-studio-aca408ec-r02-4","antagonist":"person-studio-aca408ec-r02-3","support":"person-studio-aca408ec-r02-2"}},"sameWeek":["studio-aca408ec-r01:film:12","studio-aca408ec-r02:film:14"]}
+   ✓ S10 r3 row 6 re-witness (scratch only) > S10-r3-row6 witness rule over the take receipts of rival-current-p1-and-p2, post-tick 197..237 1665ms
+######## promises-r3 19:01:33
+== 0 19:01:33
+status: [?? dist/]
+/dev/disk1s1  113Gi   85Gi  6.1Gi    94%  963544 63750640    1%   /System/Volumes/Data
+== 1-head 19:01:33
+status: [?? dist/]
+exit=0
+S10-promises head gates {"C1_head_anchor":true,"P1_d1_r01_shelving_before_take":true,"P2_d2_thirteen_rejections":true,"P4_d3_take_via_commission_or_retry":true,"P5_head_half":true}
+S10-promises head outcome {"rows8to10":"PREMISE_CONFLICT","row11":"PREMISE_CONFLICT","leaf":{"R1":":37","R2":"helpers/p14c2c-fixtures.ts:114 via :50","R3":":65","N10":":148"},"lastOpenPost":2635}
+S10-promises head rewitness {"rows8to10":{"witness":"NONE","candidates":0,"first":null,"errors":0,"scanMatchesTicks":true},"row11":{"witness":"NONE","candidates":0,"first":null,"errors":0}}
+S10-promises head predictions {"wsR01_is_2612":true,"r01_shelves_script0229_and_script0230_at_2612":true,"ws_is_2612":true,"hold_until_2625":true,"retry_weeks_2638":true,"path_is_commission":true,"rewitness_rows8to10_is_NONE":true,"rewitness_row11_is_NONE":true}
+== 2-old-tree 19:02:00
+old tree /Users/zacheryspector/studio-scratch/1344-r2/r2d/old-tree: src+generated from ff803032 (src tree 347cfcce5602570eaa39137e6490d7e6fa0228eb); tests, bridge, ui, configs from merge 6935ea5e6bd372e7895319f9f0cea5614ecff8b3
+status: [?? dist/]
+== 3-old 19:02:04
+status: [?? dist/]
+exit=0
+S10-promises gates {"C1_head_anchor":true,"C1_old_anchor":true,"P1_d1_r01_shelving_before_take":true,"P2_d2_thirteen_rejections":true,"P3_C2_C3_first_divergence_at_Ws_plus_1":true,"P4_d3_take_via_commission_or_retry":true,"P5_d4_stall_without_shelving":true}
+S10-promises predictions {"wsR01_is_2612":true,"r01_shelves_script0229_and_script0230_at_2612":true,"ws_is_2612":true,"hold_until_2625":true,"retry_weeks_2638":true,"path_is_commission":true,"rewitness_rows8to10_is_NONE":true,"rewitness_row11_is_NONE":true,"first_divergence_at_post_2613":true,"first_divergence_in_hollywood_only":true}
+== 4-record 19:02:31
+S10-promises head gates {"C1_head_anchor":true,"P1_d1_r01_shelving_before_take":true,"P2_d2_thirteen_rejections":true,"P4_d3_take_via_commission_or_retry":true,"P5_head_half":true}
+S10-promises head outcome {"rows8to10":"PREMISE_CONFLICT","row11":"PREMISE_CONFLICT","leaf":{"R1":":37","R2":"helpers/p14c2c-fixtures.ts:114 via :50","R3":":65","N10":":148"},"lastOpenPost":2635}
+S10-promises head rewitness {"rows8to10":{"witness":"NONE","candidates":0,"first":null,"errors":0,"scanMatchesTicks":true},"row11":{"witness":"NONE","candidates":0,"first":null,"errors":0}}
+S10-promises head predictions {"wsR01_is_2612":true,"r01_shelves_script0229_and_script0230_at_2612":true,"ws_is_2612":true,"hold_until_2625":true,"retry_weeks_2638":true,"path_is_commission":true,"rewitness_rows8to10_is_NONE":true,"rewitness_row11_is_NONE":true}
+S10-promises gates {"C1_head_anchor":true,"C1_old_anchor":true,"P1_d1_r01_shelving_before_take":true,"P2_d2_thirteen_rejections":true,"P3_C2_C3_first_divergence_at_Ws_plus_1":true,"P4_d3_take_via_commission_or_retry":true,"P5_d4_stall_without_shelving":true}
+S10-promises predictions {"wsR01_is_2612":true,"r01_shelves_script0229_and_script0230_at_2612":true,"ws_is_2612":true,"hold_until_2625":true,"retry_weeks_2638":true,"path_is_commission":true,"rewitness_rows8to10_is_NONE":true,"rewitness_row11_is_NONE":true,"first_divergence_at_post_2613":true,"first_divergence_in_hollywood_only":true}
+3: "rows8to10": {
+10:  "witness": "NONE",
+16: "row11": {
+23:  "witness": "NONE",
+== 5-cleanup 19:02:31
+no probe copies left
+status: [?? dist/]
+== done 19:02:32
+######## 1356-X 19:02:32

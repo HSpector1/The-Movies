@@ -1,0 +1,2651 @@
+{
+ "probe": "S10-ledger r2",
+ "seed": "p13a-core-causal-01",
+ "gates": {
+  "C1_head_anchor": {
+   "pass": true,
+   "detail": {
+    "want": {
+     "rows": 40,
+     "settled": 16,
+     "declined": 8,
+     "expired": 16,
+     "settlement": "8a4df62fdd64ba26fc6e00e438c47c25749921fcad0e849921a7909f2f8b85f9"
+    },
+    "counts": {
+     "rows": 40,
+     "settled": 16,
+     "declined": 8,
+     "expired": 16
+    },
+    "settlement": "8a4df62fdd64ba26fc6e00e438c47c25749921fcad0e849921a7909f2f8b85f9",
+    "unexpected": []
+   }
+  },
+  "C1_old_anchor": {
+   "pass": true,
+   "detail": {
+    "want": {
+     "rows": 40,
+     "settled": 16,
+     "declined": 8,
+     "expired": 16,
+     "settlement": "4a047502216f05c0d2e972743d9d94be57be056039148499d6fde2750d4ac5a4"
+    },
+    "counts": {
+     "rows": 40,
+     "settled": 16,
+     "declined": 8,
+     "expired": 16
+    },
+    "settlement": "4a047502216f05c0d2e972743d9d94be57be056039148499d6fde2750d4ac5a4",
+    "unexpected": []
+   }
+  },
+  "P1_d1_d2_C2_first_moved_row_after_Ws": {
+   "pass": true,
+   "detail": {
+    "ws": 93,
+    "firstDiffWeek": 208,
+    "diffReceipts": {
+     "index": 0,
+     "week": 208,
+     "old": {
+      "kind": "settled",
+      "week": 208,
+      "talentId": "person-studio-aca408ec-r01-0",
+      "studioId": "studio-aca408ec-r02",
+      "reasons": [
+       "they offered an opportunity",
+       "their studio standing ranked higher"
+      ],
+      "dropped": [
+       "Bellwether Pictures's attached promise no longer had a feasible path by the decision week."
+      ],
+      "eventId": "talent-market-event-96"
+     },
+     "head": {
+      "kind": "settled",
+      "week": 208,
+      "talentId": "person-studio-aca408ec-r01-0",
+      "studioId": "studio-aca408ec-r03",
+      "reasons": [
+       "their compensation band ranked above the others",
+       "they offered an opportunity"
+      ],
+      "dropped": [
+       "Rose Lantern Films's attached promise no longer had a feasible path by the decision week."
+      ],
+      "eventId": "talent-market-event-96"
+     }
+    },
+    "diffRows": {
+     "index": 0,
+     "week": 208,
+     "old": {
+      "week": 208,
+      "eventId": "talent-market-event-96",
+      "kind": "settled",
+      "talentId": "person-studio-aca408ec-r01-0",
+      "subjectStudioId": "studio-aca408ec-r01",
+      "winner": "studio-aca408ec-r02",
+      "reasons": [
+       "they offered an opportunity",
+       "their studio standing ranked higher"
+      ],
+      "dropped": [
+       "Bellwether Pictures's attached promise no longer had a feasible path by the decision week."
+      ],
+      "survivors": [
+       {
+        "issuer": "studio-aca408ec-r02",
+        "roster": [],
+        "sharedTakeCounterparts": [],
+        "band": 1
+       },
+       {
+        "issuer": "studio-aca408ec-r03",
+        "roster": [],
+        "sharedTakeCounterparts": [],
+        "band": 1
+       }
+      ],
+      "churn": true,
+      "exposed": false,
+      "newSentences": []
+     },
+     "head": {
+      "week": 208,
+      "eventId": "talent-market-event-96",
+      "kind": "settled",
+      "talentId": "person-studio-aca408ec-r01-0",
+      "subjectStudioId": "studio-aca408ec-r01",
+      "winner": "studio-aca408ec-r03",
+      "reasons": [
+       "their compensation band ranked above the others",
+       "they offered an opportunity"
+      ],
+      "dropped": [
+       "Rose Lantern Films's attached promise no longer had a feasible path by the decision week."
+      ],
+      "survivors": [
+       {
+        "issuer": "studio-aca408ec-r01",
+        "roster": [],
+        "sharedTakeCounterparts": [],
+        "band": 1
+       },
+       {
+        "issuer": "studio-aca408ec-r03",
+        "roster": [],
+        "sharedTakeCounterparts": [],
+        "band": 1
+       }
+      ],
+      "churn": true,
+      "exposed": false,
+      "newSentences": []
+     }
+    }
+   }
+  },
+  "P3_C3_state_equal_at_Ws": {
+   "pass": true,
+   "detail": {
+    "ws": 93,
+    "head": "cdfbe6389df06eec429bdd3aa6cf0a6cf5a7546d9d34ee9d3b6cdd08ba4a7305",
+    "old": "cdfbe6389df06eec429bdd3aa6cf0a6cf5a7546d9d34ee9d3b6cdd08ba4a7305",
+    "plainHadShelvingAtWs": false
+   }
+  },
+  "P4_d4_law_lines_head": {
+   "pass": true,
+   "detail": {
+    "unexpected": [],
+    "l543_everyRowAtChurn": true,
+    "l545_rosters208Empty": true,
+    "l546_551_rosters416": true,
+    "l552_noExposedRow": true,
+    "l557_noUnexpectedSentence": true,
+    "l558_everyBandOne": true,
+    "l565_edgeCaps": true
+   }
+  },
+  "P5_d5_rng_unmoved": {
+   "pass": true,
+   "detail": {
+    "head": "2598418427,508725886,1318803286,3129010527",
+    "old": "2598418427,508725886,1318803286,3129010527"
+   }
+  },
+  "P6_d6_extension_row": {
+   "pass": true,
+   "detail": {
+    "old": [],
+    "head": []
+   }
+  }
+ },
+ "E_d3_explanatory": {
+  "gating": false,
+  "moved": [
+   {
+    "key": "208:person-studio-aca408ec-r01-0",
+    "old": {
+     "week": 208,
+     "eventId": "talent-market-event-96",
+     "kind": "settled",
+     "talentId": "person-studio-aca408ec-r01-0",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": "studio-aca408ec-r02",
+     "reasons": [
+      "they offered an opportunity",
+      "their studio standing ranked higher"
+     ],
+     "dropped": [
+      "Bellwether Pictures's attached promise no longer had a feasible path by the decision week."
+     ],
+     "survivors": [
+      {
+       "issuer": "studio-aca408ec-r02",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      },
+      {
+       "issuer": "studio-aca408ec-r03",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      }
+     ],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 208,
+     "eventId": "talent-market-event-96",
+     "kind": "settled",
+     "talentId": "person-studio-aca408ec-r01-0",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": "studio-aca408ec-r03",
+     "reasons": [
+      "their compensation band ranked above the others",
+      "they offered an opportunity"
+     ],
+     "dropped": [
+      "Rose Lantern Films's attached promise no longer had a feasible path by the decision week."
+     ],
+     "survivors": [
+      {
+       "issuer": "studio-aca408ec-r01",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      },
+      {
+       "issuer": "studio-aca408ec-r03",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      }
+     ],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-0",
+      "studioId": "studio-aca408ec-r01",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-24"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-0",
+      "studioId": "studio-aca408ec-r02",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-25"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-0",
+      "studioId": "studio-aca408ec-r03",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-26"
+     }
+    ],
+    "proposalsHead": [
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-0",
+      "studioId": "studio-aca408ec-r01",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-24"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-0",
+      "studioId": "studio-aca408ec-r02",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-25"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-0",
+      "studioId": "studio-aca408ec-r03",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-26"
+     }
+    ],
+    "issuerShelvingsBefore": [
+     {
+      "week": 93,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0006",
+      "conceptId": "studio-aca408ec-r01:concept:6",
+      "rejections": 13,
+      "eventId": "industry-event-143"
+     },
+     {
+      "week": 123,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0011",
+      "conceptId": "studio-aca408ec-r02:concept:11",
+      "rejections": 13,
+      "eventId": "industry-event-166"
+     },
+     {
+      "week": 130,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0011",
+      "conceptId": "studio-aca408ec-r01:concept:11",
+      "rejections": 13,
+      "eventId": "industry-event-170"
+     },
+     {
+      "week": 130,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0013",
+      "conceptId": "studio-aca408ec-r02:concept:13",
+      "rejections": 13,
+      "eventId": "industry-event-171"
+     },
+     {
+      "week": 133,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0012",
+      "conceptId": "studio-aca408ec-r01:concept:12",
+      "rejections": 13,
+      "eventId": "industry-event-172"
+     },
+     {
+      "week": 150,
+      "studioId": "studio-aca408ec-r03",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0015",
+      "conceptId": "studio-aca408ec-r03:concept:15",
+      "rejections": 13,
+      "eventId": "industry-event-178"
+     },
+     {
+      "week": 166,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0015",
+      "conceptId": "studio-aca408ec-r02:concept:15",
+      "rejections": 13,
+      "eventId": "industry-event-184"
+     },
+     {
+      "week": 169,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0016",
+      "conceptId": "studio-aca408ec-r02:concept:16",
+      "rejections": 13,
+      "eventId": "industry-event-186"
+     },
+     {
+      "week": 178,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0014",
+      "conceptId": "studio-aca408ec-r01:concept:14",
+      "rejections": 13,
+      "eventId": "industry-event-188"
+     },
+     {
+      "week": 185,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0016",
+      "conceptId": "studio-aca408ec-r01:concept:16",
+      "rejections": 13,
+      "eventId": "industry-event-189"
+     },
+     {
+      "week": 197,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0017",
+      "conceptId": "studio-aca408ec-r02:concept:17",
+      "rejections": 13,
+      "eventId": "industry-event-190"
+     },
+     {
+      "week": 200,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0018",
+      "conceptId": "studio-aca408ec-r02:concept:18",
+      "rejections": 13,
+      "eventId": "industry-event-191"
+     }
+    ]
+   },
+   {
+    "key": "208:person-studio-aca408ec-r01-1",
+    "old": {
+     "week": 208,
+     "eventId": "talent-market-event-97",
+     "kind": "settled",
+     "talentId": "person-studio-aca408ec-r01-1",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": "studio-aca408ec-r01",
+     "reasons": [
+      "they are the current employer"
+     ],
+     "dropped": [],
+     "survivors": [
+      {
+       "issuer": "studio-aca408ec-r01",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      },
+      {
+       "issuer": "studio-aca408ec-r02",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      },
+      {
+       "issuer": "studio-aca408ec-r03",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      }
+     ],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 208,
+     "eventId": "talent-market-event-97",
+     "kind": "settled",
+     "talentId": "person-studio-aca408ec-r01-1",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": "studio-aca408ec-r01",
+     "reasons": [
+      "their studio standing ranked higher",
+      "they are the current employer"
+     ],
+     "dropped": [
+      "Rose Lantern Films's attached promise no longer had a feasible path by the decision week."
+     ],
+     "survivors": [
+      {
+       "issuer": "studio-aca408ec-r01",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      },
+      {
+       "issuer": "studio-aca408ec-r03",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      }
+     ],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-1",
+      "studioId": "studio-aca408ec-r01",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-27"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-1",
+      "studioId": "studio-aca408ec-r02",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-28"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-1",
+      "studioId": "studio-aca408ec-r03",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-29"
+     }
+    ],
+    "proposalsHead": [
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-1",
+      "studioId": "studio-aca408ec-r01",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-27"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-1",
+      "studioId": "studio-aca408ec-r02",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-28"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-1",
+      "studioId": "studio-aca408ec-r03",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-29"
+     }
+    ],
+    "issuerShelvingsBefore": [
+     {
+      "week": 93,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0006",
+      "conceptId": "studio-aca408ec-r01:concept:6",
+      "rejections": 13,
+      "eventId": "industry-event-143"
+     },
+     {
+      "week": 123,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0011",
+      "conceptId": "studio-aca408ec-r02:concept:11",
+      "rejections": 13,
+      "eventId": "industry-event-166"
+     },
+     {
+      "week": 130,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0011",
+      "conceptId": "studio-aca408ec-r01:concept:11",
+      "rejections": 13,
+      "eventId": "industry-event-170"
+     },
+     {
+      "week": 130,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0013",
+      "conceptId": "studio-aca408ec-r02:concept:13",
+      "rejections": 13,
+      "eventId": "industry-event-171"
+     },
+     {
+      "week": 133,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0012",
+      "conceptId": "studio-aca408ec-r01:concept:12",
+      "rejections": 13,
+      "eventId": "industry-event-172"
+     },
+     {
+      "week": 150,
+      "studioId": "studio-aca408ec-r03",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0015",
+      "conceptId": "studio-aca408ec-r03:concept:15",
+      "rejections": 13,
+      "eventId": "industry-event-178"
+     },
+     {
+      "week": 166,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0015",
+      "conceptId": "studio-aca408ec-r02:concept:15",
+      "rejections": 13,
+      "eventId": "industry-event-184"
+     },
+     {
+      "week": 169,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0016",
+      "conceptId": "studio-aca408ec-r02:concept:16",
+      "rejections": 13,
+      "eventId": "industry-event-186"
+     },
+     {
+      "week": 178,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0014",
+      "conceptId": "studio-aca408ec-r01:concept:14",
+      "rejections": 13,
+      "eventId": "industry-event-188"
+     },
+     {
+      "week": 185,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0016",
+      "conceptId": "studio-aca408ec-r01:concept:16",
+      "rejections": 13,
+      "eventId": "industry-event-189"
+     },
+     {
+      "week": 197,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0017",
+      "conceptId": "studio-aca408ec-r02:concept:17",
+      "rejections": 13,
+      "eventId": "industry-event-190"
+     },
+     {
+      "week": 200,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0018",
+      "conceptId": "studio-aca408ec-r02:concept:18",
+      "rejections": 13,
+      "eventId": "industry-event-191"
+     }
+    ]
+   },
+   {
+    "key": "208:person-studio-aca408ec-r01-2",
+    "old": {
+     "week": 208,
+     "eventId": "talent-market-event-98",
+     "kind": "settled",
+     "talentId": "person-studio-aca408ec-r01-2",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": "studio-aca408ec-r02",
+     "reasons": [
+      "they offered an opportunity"
+     ],
+     "dropped": [],
+     "survivors": [
+      {
+       "issuer": "studio-aca408ec-r01",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      },
+      {
+       "issuer": "studio-aca408ec-r02",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      },
+      {
+       "issuer": "studio-aca408ec-r03",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      }
+     ],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 208,
+     "eventId": "talent-market-event-98",
+     "kind": "settled",
+     "talentId": "person-studio-aca408ec-r01-2",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": "studio-aca408ec-r02",
+     "reasons": [
+      "their proposal ranked above the others overall"
+     ],
+     "dropped": [],
+     "survivors": [
+      {
+       "issuer": "studio-aca408ec-r01",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      },
+      {
+       "issuer": "studio-aca408ec-r02",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      },
+      {
+       "issuer": "studio-aca408ec-r03",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      }
+     ],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-2",
+      "studioId": "studio-aca408ec-r01",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-30"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-2",
+      "studioId": "studio-aca408ec-r02",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-31"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-2",
+      "studioId": "studio-aca408ec-r03",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-32"
+     }
+    ],
+    "proposalsHead": [
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-2",
+      "studioId": "studio-aca408ec-r01",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-30"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-2",
+      "studioId": "studio-aca408ec-r02",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-31"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-2",
+      "studioId": "studio-aca408ec-r03",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-32"
+     }
+    ],
+    "issuerShelvingsBefore": [
+     {
+      "week": 93,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0006",
+      "conceptId": "studio-aca408ec-r01:concept:6",
+      "rejections": 13,
+      "eventId": "industry-event-143"
+     },
+     {
+      "week": 123,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0011",
+      "conceptId": "studio-aca408ec-r02:concept:11",
+      "rejections": 13,
+      "eventId": "industry-event-166"
+     },
+     {
+      "week": 130,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0011",
+      "conceptId": "studio-aca408ec-r01:concept:11",
+      "rejections": 13,
+      "eventId": "industry-event-170"
+     },
+     {
+      "week": 130,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0013",
+      "conceptId": "studio-aca408ec-r02:concept:13",
+      "rejections": 13,
+      "eventId": "industry-event-171"
+     },
+     {
+      "week": 133,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0012",
+      "conceptId": "studio-aca408ec-r01:concept:12",
+      "rejections": 13,
+      "eventId": "industry-event-172"
+     },
+     {
+      "week": 150,
+      "studioId": "studio-aca408ec-r03",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0015",
+      "conceptId": "studio-aca408ec-r03:concept:15",
+      "rejections": 13,
+      "eventId": "industry-event-178"
+     },
+     {
+      "week": 166,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0015",
+      "conceptId": "studio-aca408ec-r02:concept:15",
+      "rejections": 13,
+      "eventId": "industry-event-184"
+     },
+     {
+      "week": 169,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0016",
+      "conceptId": "studio-aca408ec-r02:concept:16",
+      "rejections": 13,
+      "eventId": "industry-event-186"
+     },
+     {
+      "week": 178,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0014",
+      "conceptId": "studio-aca408ec-r01:concept:14",
+      "rejections": 13,
+      "eventId": "industry-event-188"
+     },
+     {
+      "week": 185,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0016",
+      "conceptId": "studio-aca408ec-r01:concept:16",
+      "rejections": 13,
+      "eventId": "industry-event-189"
+     },
+     {
+      "week": 197,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0017",
+      "conceptId": "studio-aca408ec-r02:concept:17",
+      "rejections": 13,
+      "eventId": "industry-event-190"
+     },
+     {
+      "week": 200,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0018",
+      "conceptId": "studio-aca408ec-r02:concept:18",
+      "rejections": 13,
+      "eventId": "industry-event-191"
+     }
+    ]
+   },
+   {
+    "key": "208:person-studio-aca408ec-r01-3",
+    "old": {
+     "week": 208,
+     "eventId": "talent-market-event-99",
+     "kind": "settled",
+     "talentId": "person-studio-aca408ec-r01-3",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": "studio-aca408ec-r02",
+     "reasons": [
+      "they offered an opportunity"
+     ],
+     "dropped": [],
+     "survivors": [
+      {
+       "issuer": "studio-aca408ec-r01",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      },
+      {
+       "issuer": "studio-aca408ec-r02",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      },
+      {
+       "issuer": "studio-aca408ec-r03",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      }
+     ],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 208,
+     "eventId": "talent-market-event-99",
+     "kind": "settled",
+     "talentId": "person-studio-aca408ec-r01-3",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": "studio-aca408ec-r02",
+     "reasons": [
+      "their proposal ranked above the others overall"
+     ],
+     "dropped": [],
+     "survivors": [
+      {
+       "issuer": "studio-aca408ec-r01",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      },
+      {
+       "issuer": "studio-aca408ec-r02",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      },
+      {
+       "issuer": "studio-aca408ec-r03",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      }
+     ],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-3",
+      "studioId": "studio-aca408ec-r01",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-33"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-3",
+      "studioId": "studio-aca408ec-r02",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-34"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-3",
+      "studioId": "studio-aca408ec-r03",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-35"
+     }
+    ],
+    "proposalsHead": [
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-3",
+      "studioId": "studio-aca408ec-r01",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-33"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-3",
+      "studioId": "studio-aca408ec-r02",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-34"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-3",
+      "studioId": "studio-aca408ec-r03",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-35"
+     }
+    ],
+    "issuerShelvingsBefore": [
+     {
+      "week": 93,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0006",
+      "conceptId": "studio-aca408ec-r01:concept:6",
+      "rejections": 13,
+      "eventId": "industry-event-143"
+     },
+     {
+      "week": 123,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0011",
+      "conceptId": "studio-aca408ec-r02:concept:11",
+      "rejections": 13,
+      "eventId": "industry-event-166"
+     },
+     {
+      "week": 130,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0011",
+      "conceptId": "studio-aca408ec-r01:concept:11",
+      "rejections": 13,
+      "eventId": "industry-event-170"
+     },
+     {
+      "week": 130,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0013",
+      "conceptId": "studio-aca408ec-r02:concept:13",
+      "rejections": 13,
+      "eventId": "industry-event-171"
+     },
+     {
+      "week": 133,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0012",
+      "conceptId": "studio-aca408ec-r01:concept:12",
+      "rejections": 13,
+      "eventId": "industry-event-172"
+     },
+     {
+      "week": 150,
+      "studioId": "studio-aca408ec-r03",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0015",
+      "conceptId": "studio-aca408ec-r03:concept:15",
+      "rejections": 13,
+      "eventId": "industry-event-178"
+     },
+     {
+      "week": 166,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0015",
+      "conceptId": "studio-aca408ec-r02:concept:15",
+      "rejections": 13,
+      "eventId": "industry-event-184"
+     },
+     {
+      "week": 169,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0016",
+      "conceptId": "studio-aca408ec-r02:concept:16",
+      "rejections": 13,
+      "eventId": "industry-event-186"
+     },
+     {
+      "week": 178,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0014",
+      "conceptId": "studio-aca408ec-r01:concept:14",
+      "rejections": 13,
+      "eventId": "industry-event-188"
+     },
+     {
+      "week": 185,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0016",
+      "conceptId": "studio-aca408ec-r01:concept:16",
+      "rejections": 13,
+      "eventId": "industry-event-189"
+     },
+     {
+      "week": 197,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0017",
+      "conceptId": "studio-aca408ec-r02:concept:17",
+      "rejections": 13,
+      "eventId": "industry-event-190"
+     },
+     {
+      "week": 200,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0018",
+      "conceptId": "studio-aca408ec-r02:concept:18",
+      "rejections": 13,
+      "eventId": "industry-event-191"
+     }
+    ]
+   },
+   {
+    "key": "208:person-studio-aca408ec-r01-4",
+    "old": {
+     "week": 208,
+     "eventId": "talent-market-event-100",
+     "kind": "settled",
+     "talentId": "person-studio-aca408ec-r01-4",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": "studio-aca408ec-r02",
+     "reasons": [
+      "they offered an opportunity"
+     ],
+     "dropped": [],
+     "survivors": [
+      {
+       "issuer": "studio-aca408ec-r01",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      },
+      {
+       "issuer": "studio-aca408ec-r02",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      },
+      {
+       "issuer": "studio-aca408ec-r03",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      }
+     ],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 208,
+     "eventId": "talent-market-event-100",
+     "kind": "settled",
+     "talentId": "person-studio-aca408ec-r01-4",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": "studio-aca408ec-r02",
+     "reasons": [
+      "their proposal ranked above the others overall"
+     ],
+     "dropped": [],
+     "survivors": [
+      {
+       "issuer": "studio-aca408ec-r01",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      },
+      {
+       "issuer": "studio-aca408ec-r02",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      },
+      {
+       "issuer": "studio-aca408ec-r03",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      }
+     ],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-4",
+      "studioId": "studio-aca408ec-r01",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-36"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-4",
+      "studioId": "studio-aca408ec-r02",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-37"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-4",
+      "studioId": "studio-aca408ec-r03",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-38"
+     }
+    ],
+    "proposalsHead": [
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-4",
+      "studioId": "studio-aca408ec-r01",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-36"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-4",
+      "studioId": "studio-aca408ec-r02",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-37"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-4",
+      "studioId": "studio-aca408ec-r03",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-38"
+     }
+    ],
+    "issuerShelvingsBefore": [
+     {
+      "week": 93,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0006",
+      "conceptId": "studio-aca408ec-r01:concept:6",
+      "rejections": 13,
+      "eventId": "industry-event-143"
+     },
+     {
+      "week": 123,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0011",
+      "conceptId": "studio-aca408ec-r02:concept:11",
+      "rejections": 13,
+      "eventId": "industry-event-166"
+     },
+     {
+      "week": 130,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0011",
+      "conceptId": "studio-aca408ec-r01:concept:11",
+      "rejections": 13,
+      "eventId": "industry-event-170"
+     },
+     {
+      "week": 130,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0013",
+      "conceptId": "studio-aca408ec-r02:concept:13",
+      "rejections": 13,
+      "eventId": "industry-event-171"
+     },
+     {
+      "week": 133,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0012",
+      "conceptId": "studio-aca408ec-r01:concept:12",
+      "rejections": 13,
+      "eventId": "industry-event-172"
+     },
+     {
+      "week": 150,
+      "studioId": "studio-aca408ec-r03",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0015",
+      "conceptId": "studio-aca408ec-r03:concept:15",
+      "rejections": 13,
+      "eventId": "industry-event-178"
+     },
+     {
+      "week": 166,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0015",
+      "conceptId": "studio-aca408ec-r02:concept:15",
+      "rejections": 13,
+      "eventId": "industry-event-184"
+     },
+     {
+      "week": 169,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0016",
+      "conceptId": "studio-aca408ec-r02:concept:16",
+      "rejections": 13,
+      "eventId": "industry-event-186"
+     },
+     {
+      "week": 178,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0014",
+      "conceptId": "studio-aca408ec-r01:concept:14",
+      "rejections": 13,
+      "eventId": "industry-event-188"
+     },
+     {
+      "week": 185,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0016",
+      "conceptId": "studio-aca408ec-r01:concept:16",
+      "rejections": 13,
+      "eventId": "industry-event-189"
+     },
+     {
+      "week": 197,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0017",
+      "conceptId": "studio-aca408ec-r02:concept:17",
+      "rejections": 13,
+      "eventId": "industry-event-190"
+     },
+     {
+      "week": 200,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0018",
+      "conceptId": "studio-aca408ec-r02:concept:18",
+      "rejections": 13,
+      "eventId": "industry-event-191"
+     }
+    ]
+   },
+   {
+    "key": "208:person-studio-aca408ec-r01-5",
+    "old": {
+     "week": 208,
+     "eventId": "talent-market-event-101",
+     "kind": "settled",
+     "talentId": "person-studio-aca408ec-r01-5",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": "studio-aca408ec-r02",
+     "reasons": [
+      "they offered an opportunity"
+     ],
+     "dropped": [],
+     "survivors": [
+      {
+       "issuer": "studio-aca408ec-r01",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      },
+      {
+       "issuer": "studio-aca408ec-r02",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      },
+      {
+       "issuer": "studio-aca408ec-r03",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      }
+     ],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 208,
+     "eventId": "talent-market-event-101",
+     "kind": "settled",
+     "talentId": "person-studio-aca408ec-r01-5",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": "studio-aca408ec-r02",
+     "reasons": [
+      "their proposal ranked above the others overall"
+     ],
+     "dropped": [],
+     "survivors": [
+      {
+       "issuer": "studio-aca408ec-r01",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      },
+      {
+       "issuer": "studio-aca408ec-r02",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      },
+      {
+       "issuer": "studio-aca408ec-r03",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      }
+     ],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-5",
+      "studioId": "studio-aca408ec-r01",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-39"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-5",
+      "studioId": "studio-aca408ec-r02",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-40"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-5",
+      "studioId": "studio-aca408ec-r03",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-41"
+     }
+    ],
+    "proposalsHead": [
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-5",
+      "studioId": "studio-aca408ec-r01",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-39"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-5",
+      "studioId": "studio-aca408ec-r02",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-40"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r01-5",
+      "studioId": "studio-aca408ec-r03",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-41"
+     }
+    ],
+    "issuerShelvingsBefore": [
+     {
+      "week": 93,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0006",
+      "conceptId": "studio-aca408ec-r01:concept:6",
+      "rejections": 13,
+      "eventId": "industry-event-143"
+     },
+     {
+      "week": 123,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0011",
+      "conceptId": "studio-aca408ec-r02:concept:11",
+      "rejections": 13,
+      "eventId": "industry-event-166"
+     },
+     {
+      "week": 130,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0011",
+      "conceptId": "studio-aca408ec-r01:concept:11",
+      "rejections": 13,
+      "eventId": "industry-event-170"
+     },
+     {
+      "week": 130,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0013",
+      "conceptId": "studio-aca408ec-r02:concept:13",
+      "rejections": 13,
+      "eventId": "industry-event-171"
+     },
+     {
+      "week": 133,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0012",
+      "conceptId": "studio-aca408ec-r01:concept:12",
+      "rejections": 13,
+      "eventId": "industry-event-172"
+     },
+     {
+      "week": 150,
+      "studioId": "studio-aca408ec-r03",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0015",
+      "conceptId": "studio-aca408ec-r03:concept:15",
+      "rejections": 13,
+      "eventId": "industry-event-178"
+     },
+     {
+      "week": 166,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0015",
+      "conceptId": "studio-aca408ec-r02:concept:15",
+      "rejections": 13,
+      "eventId": "industry-event-184"
+     },
+     {
+      "week": 169,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0016",
+      "conceptId": "studio-aca408ec-r02:concept:16",
+      "rejections": 13,
+      "eventId": "industry-event-186"
+     },
+     {
+      "week": 178,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0014",
+      "conceptId": "studio-aca408ec-r01:concept:14",
+      "rejections": 13,
+      "eventId": "industry-event-188"
+     },
+     {
+      "week": 185,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0016",
+      "conceptId": "studio-aca408ec-r01:concept:16",
+      "rejections": 13,
+      "eventId": "industry-event-189"
+     },
+     {
+      "week": 197,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0017",
+      "conceptId": "studio-aca408ec-r02:concept:17",
+      "rejections": 13,
+      "eventId": "industry-event-190"
+     },
+     {
+      "week": 200,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0018",
+      "conceptId": "studio-aca408ec-r02:concept:18",
+      "rejections": 13,
+      "eventId": "industry-event-191"
+     }
+    ]
+   },
+   {
+    "key": "208:person-studio-aca408ec-r02-0",
+    "old": {
+     "week": 208,
+     "eventId": "talent-market-event-102",
+     "kind": "settled",
+     "talentId": "person-studio-aca408ec-r02-0",
+     "subjectStudioId": "studio-aca408ec-r02",
+     "winner": "studio-aca408ec-r01",
+     "reasons": [
+      "their studio standing ranked higher"
+     ],
+     "dropped": [
+      "Rose Lantern Films had no seat open for this person's role at the decision week."
+     ],
+     "survivors": [
+      {
+       "issuer": "studio-aca408ec-r01",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      },
+      {
+       "issuer": "studio-aca408ec-r03",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      }
+     ],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 208,
+     "eventId": "talent-market-event-102",
+     "kind": "settled",
+     "talentId": "person-studio-aca408ec-r02-0",
+     "subjectStudioId": "studio-aca408ec-r02",
+     "winner": "studio-aca408ec-r02",
+     "reasons": [
+      "they are the current employer"
+     ],
+     "dropped": [
+      "Night Orchard Productions had no seat open for this person's role at the decision week."
+     ],
+     "survivors": [
+      {
+       "issuer": "studio-aca408ec-r01",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      },
+      {
+       "issuer": "studio-aca408ec-r02",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      }
+     ],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r02-0",
+      "studioId": "studio-aca408ec-r01",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-42"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r02-0",
+      "studioId": "studio-aca408ec-r02",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-43"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r02-0",
+      "studioId": "studio-aca408ec-r03",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-44"
+     }
+    ],
+    "proposalsHead": [
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r02-0",
+      "studioId": "studio-aca408ec-r01",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-42"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r02-0",
+      "studioId": "studio-aca408ec-r02",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-43"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r02-0",
+      "studioId": "studio-aca408ec-r03",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-44"
+     }
+    ],
+    "issuerShelvingsBefore": [
+     {
+      "week": 93,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0006",
+      "conceptId": "studio-aca408ec-r01:concept:6",
+      "rejections": 13,
+      "eventId": "industry-event-143"
+     },
+     {
+      "week": 123,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0011",
+      "conceptId": "studio-aca408ec-r02:concept:11",
+      "rejections": 13,
+      "eventId": "industry-event-166"
+     },
+     {
+      "week": 130,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0011",
+      "conceptId": "studio-aca408ec-r01:concept:11",
+      "rejections": 13,
+      "eventId": "industry-event-170"
+     },
+     {
+      "week": 130,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0013",
+      "conceptId": "studio-aca408ec-r02:concept:13",
+      "rejections": 13,
+      "eventId": "industry-event-171"
+     },
+     {
+      "week": 133,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0012",
+      "conceptId": "studio-aca408ec-r01:concept:12",
+      "rejections": 13,
+      "eventId": "industry-event-172"
+     },
+     {
+      "week": 150,
+      "studioId": "studio-aca408ec-r03",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0015",
+      "conceptId": "studio-aca408ec-r03:concept:15",
+      "rejections": 13,
+      "eventId": "industry-event-178"
+     },
+     {
+      "week": 166,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0015",
+      "conceptId": "studio-aca408ec-r02:concept:15",
+      "rejections": 13,
+      "eventId": "industry-event-184"
+     },
+     {
+      "week": 169,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0016",
+      "conceptId": "studio-aca408ec-r02:concept:16",
+      "rejections": 13,
+      "eventId": "industry-event-186"
+     },
+     {
+      "week": 178,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0014",
+      "conceptId": "studio-aca408ec-r01:concept:14",
+      "rejections": 13,
+      "eventId": "industry-event-188"
+     },
+     {
+      "week": 185,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0016",
+      "conceptId": "studio-aca408ec-r01:concept:16",
+      "rejections": 13,
+      "eventId": "industry-event-189"
+     },
+     {
+      "week": 197,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0017",
+      "conceptId": "studio-aca408ec-r02:concept:17",
+      "rejections": 13,
+      "eventId": "industry-event-190"
+     },
+     {
+      "week": 200,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0018",
+      "conceptId": "studio-aca408ec-r02:concept:18",
+      "rejections": 13,
+      "eventId": "industry-event-191"
+     }
+    ]
+   },
+   {
+    "key": "208:person-studio-aca408ec-r03-0",
+    "old": {
+     "week": 208,
+     "eventId": "talent-market-event-108",
+     "kind": "settled",
+     "talentId": "person-studio-aca408ec-r03-0",
+     "subjectStudioId": "studio-aca408ec-r03",
+     "winner": "studio-aca408ec-r03",
+     "reasons": [
+      "theirs was the only proposal on the table"
+     ],
+     "dropped": [
+      "Bellwether Pictures had no seat open for this person's role at the decision week.",
+      "Rose Lantern Films had no seat open for this person's role at the decision week."
+     ],
+     "survivors": [
+      {
+       "issuer": "studio-aca408ec-r03",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      }
+     ],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 208,
+     "eventId": "talent-market-event-108",
+     "kind": "settled",
+     "talentId": "person-studio-aca408ec-r03-0",
+     "subjectStudioId": "studio-aca408ec-r03",
+     "winner": "studio-aca408ec-r01",
+     "reasons": [
+      "theirs was the only proposal on the table"
+     ],
+     "dropped": [
+      "Rose Lantern Films had no seat open for this person's role at the decision week.",
+      "Night Orchard Productions had no seat open for this person's role at the decision week."
+     ],
+     "survivors": [
+      {
+       "issuer": "studio-aca408ec-r01",
+       "roster": [],
+       "sharedTakeCounterparts": [],
+       "band": 1
+      }
+     ],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r03-0",
+      "studioId": "studio-aca408ec-r01",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-60"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r03-0",
+      "studioId": "studio-aca408ec-r02",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-61"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r03-0",
+      "studioId": "studio-aca408ec-r03",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-62"
+     }
+    ],
+    "proposalsHead": [
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r03-0",
+      "studioId": "studio-aca408ec-r01",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-60"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r03-0",
+      "studioId": "studio-aca408ec-r02",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-61"
+     },
+     {
+      "kind": "proposalSubmitted",
+      "week": 196,
+      "talentId": "person-studio-aca408ec-r03-0",
+      "studioId": "studio-aca408ec-r03",
+      "reasons": [],
+      "dropped": [],
+      "eventId": "talent-market-event-62"
+     }
+    ],
+    "issuerShelvingsBefore": [
+     {
+      "week": 93,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0006",
+      "conceptId": "studio-aca408ec-r01:concept:6",
+      "rejections": 13,
+      "eventId": "industry-event-143"
+     },
+     {
+      "week": 130,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0011",
+      "conceptId": "studio-aca408ec-r01:concept:11",
+      "rejections": 13,
+      "eventId": "industry-event-170"
+     },
+     {
+      "week": 133,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0012",
+      "conceptId": "studio-aca408ec-r01:concept:12",
+      "rejections": 13,
+      "eventId": "industry-event-172"
+     },
+     {
+      "week": 150,
+      "studioId": "studio-aca408ec-r03",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0015",
+      "conceptId": "studio-aca408ec-r03:concept:15",
+      "rejections": 13,
+      "eventId": "industry-event-178"
+     },
+     {
+      "week": 178,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0014",
+      "conceptId": "studio-aca408ec-r01:concept:14",
+      "rejections": 13,
+      "eventId": "industry-event-188"
+     },
+     {
+      "week": 185,
+      "studioId": "studio-aca408ec-r01",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0016",
+      "conceptId": "studio-aca408ec-r01:concept:16",
+      "rejections": 13,
+      "eventId": "industry-event-189"
+     }
+    ]
+   },
+   {
+    "key": "416:person-studio-aca408ec-r01-0",
+    "old": {
+     "week": 416,
+     "eventId": "talent-market-event-143",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r01-0",
+     "subjectStudioId": "studio-aca408ec-r02",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 416,
+     "eventId": "talent-market-event-140",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r01-0",
+     "subjectStudioId": "studio-aca408ec-r03",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [],
+    "proposalsHead": [],
+    "issuerShelvingsBefore": []
+   },
+   {
+    "key": "416:person-studio-aca408ec-r01-1",
+    "old": {
+     "week": 416,
+     "eventId": "talent-market-event-144",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r01-1",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 416,
+     "eventId": "talent-market-event-141",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r01-1",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [],
+    "proposalsHead": [],
+    "issuerShelvingsBefore": []
+   },
+   {
+    "key": "416:person-studio-aca408ec-r01-2",
+    "old": {
+     "week": 416,
+     "eventId": "talent-market-event-145",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r01-2",
+     "subjectStudioId": "studio-aca408ec-r02",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 416,
+     "eventId": "talent-market-event-142",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r01-2",
+     "subjectStudioId": "studio-aca408ec-r02",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [],
+    "proposalsHead": [],
+    "issuerShelvingsBefore": []
+   },
+   {
+    "key": "416:person-studio-aca408ec-r01-3",
+    "old": {
+     "week": 416,
+     "eventId": "talent-market-event-146",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r01-3",
+     "subjectStudioId": "studio-aca408ec-r02",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 416,
+     "eventId": "talent-market-event-143",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r01-3",
+     "subjectStudioId": "studio-aca408ec-r02",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [],
+    "proposalsHead": [],
+    "issuerShelvingsBefore": []
+   },
+   {
+    "key": "416:person-studio-aca408ec-r01-4",
+    "old": {
+     "week": 416,
+     "eventId": "talent-market-event-147",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r01-4",
+     "subjectStudioId": "studio-aca408ec-r02",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 416,
+     "eventId": "talent-market-event-144",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r01-4",
+     "subjectStudioId": "studio-aca408ec-r02",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [],
+    "proposalsHead": [],
+    "issuerShelvingsBefore": []
+   },
+   {
+    "key": "416:person-studio-aca408ec-r01-5",
+    "old": {
+     "week": 416,
+     "eventId": "talent-market-event-148",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r01-5",
+     "subjectStudioId": "studio-aca408ec-r02",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 416,
+     "eventId": "talent-market-event-145",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r01-5",
+     "subjectStudioId": "studio-aca408ec-r02",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [],
+    "proposalsHead": [],
+    "issuerShelvingsBefore": []
+   },
+   {
+    "key": "416:person-studio-aca408ec-r02-0",
+    "old": {
+     "week": 416,
+     "eventId": "talent-market-event-149",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r02-0",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 416,
+     "eventId": "talent-market-event-146",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r02-0",
+     "subjectStudioId": "studio-aca408ec-r02",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [],
+    "proposalsHead": [],
+    "issuerShelvingsBefore": []
+   },
+   {
+    "key": "416:person-studio-aca408ec-r02-1",
+    "old": {
+     "week": 416,
+     "eventId": "talent-market-event-150",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r02-1",
+     "subjectStudioId": "studio-aca408ec-r02",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 416,
+     "eventId": "talent-market-event-147",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r02-1",
+     "subjectStudioId": "studio-aca408ec-r02",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [],
+    "proposalsHead": [],
+    "issuerShelvingsBefore": []
+   },
+   {
+    "key": "416:person-studio-aca408ec-r02-2",
+    "old": {
+     "week": 416,
+     "eventId": "talent-market-event-151",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r02-2",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 416,
+     "eventId": "talent-market-event-148",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r02-2",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [],
+    "proposalsHead": [],
+    "issuerShelvingsBefore": []
+   },
+   {
+    "key": "416:person-studio-aca408ec-r02-3",
+    "old": {
+     "week": 416,
+     "eventId": "talent-market-event-152",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r02-3",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 416,
+     "eventId": "talent-market-event-149",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r02-3",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [],
+    "proposalsHead": [],
+    "issuerShelvingsBefore": []
+   },
+   {
+    "key": "416:person-studio-aca408ec-r02-4",
+    "old": {
+     "week": 416,
+     "eventId": "talent-market-event-153",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r02-4",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 416,
+     "eventId": "talent-market-event-150",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r02-4",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [],
+    "proposalsHead": [],
+    "issuerShelvingsBefore": []
+   },
+   {
+    "key": "416:person-studio-aca408ec-r02-5",
+    "old": {
+     "week": 416,
+     "eventId": "talent-market-event-154",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r02-5",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 416,
+     "eventId": "talent-market-event-151",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r02-5",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [],
+    "proposalsHead": [],
+    "issuerShelvingsBefore": []
+   },
+   {
+    "key": "416:person-studio-aca408ec-r03-0",
+    "old": {
+     "week": 416,
+     "eventId": "talent-market-event-155",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r03-0",
+     "subjectStudioId": "studio-aca408ec-r03",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 416,
+     "eventId": "talent-market-event-152",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r03-0",
+     "subjectStudioId": "studio-aca408ec-r01",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [],
+    "proposalsHead": [],
+    "issuerShelvingsBefore": []
+   },
+   {
+    "key": "416:person-studio-aca408ec-r03-1",
+    "old": {
+     "week": 416,
+     "eventId": "talent-market-event-156",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r03-1",
+     "subjectStudioId": "studio-aca408ec-r03",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 416,
+     "eventId": "talent-market-event-153",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r03-1",
+     "subjectStudioId": "studio-aca408ec-r03",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [],
+    "proposalsHead": [],
+    "issuerShelvingsBefore": []
+   },
+   {
+    "key": "416:person-studio-aca408ec-r03-2",
+    "old": {
+     "week": 416,
+     "eventId": "talent-market-event-157",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r03-2",
+     "subjectStudioId": "studio-aca408ec-r03",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 416,
+     "eventId": "talent-market-event-154",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r03-2",
+     "subjectStudioId": "studio-aca408ec-r03",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [],
+    "proposalsHead": [],
+    "issuerShelvingsBefore": []
+   },
+   {
+    "key": "416:person-studio-aca408ec-r03-3",
+    "old": {
+     "week": 416,
+     "eventId": "talent-market-event-158",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r03-3",
+     "subjectStudioId": "studio-aca408ec-r03",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "head": {
+     "week": 416,
+     "eventId": "talent-market-event-155",
+     "kind": "expired",
+     "talentId": "person-studio-aca408ec-r03-3",
+     "subjectStudioId": "studio-aca408ec-r03",
+     "winner": null,
+     "reasons": [
+      "no studio proposed before the decision week"
+     ],
+     "dropped": [],
+     "survivors": [],
+     "churn": true,
+     "exposed": false,
+     "newSentences": []
+    },
+    "proposalsOld": [],
+    "proposalsHead": [],
+    "issuerShelvingsBefore": []
+   }
+  ],
+  "headDigests": {
+   "receipts": "1c3f415bf98e969c3af783e2613b19bd6c573e935a49fd93289626ce956720f9",
+   "employment": "7e64d2fbfd525edf40daa4fb952fe08ac68d4a877b4d212afd7adcfdca25237d",
+   "takes": "e88c6b792a493768e766bbdf59698ed32a48b1c9cf4982cc9f5dfd894983e593"
+  },
+  "oldDigests": {
+   "receipts": "42d7293bd8b9a13a48bf9d5b12192b407139ec726bd3b86a18a3df12e8ed784b",
+   "employment": "8e831bb9ef0d96d9381a36d1d31f483f333f9bb559759f477e9bcb4eaefa28b6",
+   "takes": "5b3d19280db4e123f9a9c3d18d11562972c05867017d1793a3be95da6b91d2ad"
+  }
+ }
+}

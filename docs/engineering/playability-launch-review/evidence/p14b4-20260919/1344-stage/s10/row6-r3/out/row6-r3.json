@@ -1,0 +1,117 @@
+{
+ "probe": "S10-r3-row6",
+ "gates": {
+  "G1_start_196": true,
+  "G2_fixed_fields_in_file": true,
+  "G3_weeks_197_237": true,
+  "G4_take_week_is_post": true,
+  "G5_first_take_213": true,
+  "G6_release_217": true,
+  "A0_anchor_recorded_chain": true,
+  "P_SIM_rule_equals_leaf": true
+ },
+ "witness": "NONE",
+ "reason": "P3_NOT_ALONE_IN_ITS_WEEK",
+ "t1": {
+  "week": 229,
+  "studioId": "studio-aca408ec-r01",
+  "productionId": "studio-aca408ec-r01:film:12",
+  "directorId": "person-studio-aca408ec-r02-1",
+  "cast": {
+   "lead": "person-studio-aca408ec-r02-4",
+   "antagonist": "person-studio-aca408ec-r02-3",
+   "support": "person-studio-aca408ec-r02-2"
+  }
+ },
+ "sameWeek": [
+  {
+   "week": 229,
+   "studioId": "studio-aca408ec-r01",
+   "productionId": "studio-aca408ec-r01:film:12",
+   "directorId": "person-studio-aca408ec-r02-1",
+   "cast": {
+    "lead": "person-studio-aca408ec-r02-4",
+    "antagonist": "person-studio-aca408ec-r02-3",
+    "support": "person-studio-aca408ec-r02-2"
+   }
+  },
+  {
+   "week": 229,
+   "studioId": "studio-aca408ec-r02",
+   "productionId": "studio-aca408ec-r02:film:14",
+   "directorId": "person-studio-aca408ec-r01-1",
+   "cast": {
+    "lead": "person-studio-aca408ec-r01-4",
+    "antagonist": "person-studio-aca408ec-r01-2",
+    "support": "person-studio-aca408ec-r01-3"
+   }
+  }
+ ],
+ "sharedPairs": [
+  {
+   "x": "person-studio-aca408ec-r02-1",
+   "y": "person-studio-aca408ec-r02-3",
+   "weight": "MID"
+  },
+  {
+   "x": "person-studio-aca408ec-r02-1",
+   "y": "person-studio-aca408ec-r02-2",
+   "weight": "LOW"
+  },
+  {
+   "x": "person-studio-aca408ec-r02-3",
+   "y": "person-studio-aca408ec-r02-2",
+   "weight": "LOW"
+  }
+ ],
+ "lawful": [],
+ "takes": [
+  {
+   "week": 213,
+   "studioId": "studio-aca408ec-r01",
+   "productionId": "studio-aca408ec-r01:film:11",
+   "directorId": "person-studio-aca408ec-r02-1",
+   "cast": {
+    "lead": "person-studio-aca408ec-r02-3",
+    "antagonist": "person-studio-aca408ec-r02-2",
+    "support": "person-studio-aca408ec-r02-0"
+   }
+  },
+  {
+   "week": 229,
+   "studioId": "studio-aca408ec-r01",
+   "productionId": "studio-aca408ec-r01:film:12",
+   "directorId": "person-studio-aca408ec-r02-1",
+   "cast": {
+    "lead": "person-studio-aca408ec-r02-4",
+    "antagonist": "person-studio-aca408ec-r02-3",
+    "support": "person-studio-aca408ec-r02-2"
+   }
+  },
+  {
+   "week": 229,
+   "studioId": "studio-aca408ec-r02",
+   "productionId": "studio-aca408ec-r02:film:14",
+   "directorId": "person-studio-aca408ec-r01-1",
+   "cast": {
+    "lead": "person-studio-aca408ec-r01-4",
+    "antagonist": "person-studio-aca408ec-r01-2",
+    "support": "person-studio-aca408ec-r01-3"
+   }
+  }
+ ],
+ "films": [
+  {
+   "post": 217,
+   "filmId": "studio-aca408ec-r01:film:11"
+  },
+  {
+   "post": 233,
+   "filmId": "studio-aca408ec-r01:film:12"
+  },
+  {
+   "post": 233,
+   "filmId": "studio-aca408ec-r02:film:14"
+  }
+ ]
+}

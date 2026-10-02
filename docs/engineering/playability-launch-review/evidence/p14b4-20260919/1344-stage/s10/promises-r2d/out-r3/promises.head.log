@@ -1,0 +1,18 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1344-merge/tree
+
+stdout | tests/zz-s10-promises.test.ts > S10 probe rows 8-11 r3 (scratch only) > S10-promises promise-148 chain 2600 to 2695: C1 anchors, shelving receipts, first divergence, the satisfying take, re-witness search
+S10-promises head gates {"C1_head_anchor":true,"P1_d1_r01_shelving_before_take":true,"P2_d2_thirteen_rejections":true,"P4_d3_take_via_commission_or_retry":true,"P5_head_half":true}
+S10-promises head outcome {"rows8to10":"PREMISE_CONFLICT","row11":"PREMISE_CONFLICT","leaf":{"R1":":37","R2":"helpers/p14c2c-fixtures.ts:114 via :50","R3":":65","N10":":148"},"lastOpenPost":2635}
+S10-promises head rewitness {"rows8to10":{"witness":"NONE","candidates":0,"first":null,"errors":0,"scanMatchesTicks":true},"row11":{"witness":"NONE","candidates":0,"first":null,"errors":0}}
+S10-promises head predictions {"wsR01_is_2612":true,"r01_shelves_script0229_and_script0230_at_2612":true,"ws_is_2612":true,"hold_until_2625":true,"retry_weeks_2638":true,"path_is_commission":true,"rewitness_rows8to10_is_NONE":true,"rewitness_row11_is_NONE":true}
+
+ ✓ |core| tests/zz-s10-promises.test.ts (4 tests | 3 skipped) 22413ms
+   ✓ S10 probe rows 8-11 r3 (scratch only) > S10-promises promise-148 chain 2600 to 2695: C1 anchors, shelving receipts, first divergence, the satisfying take, re-witness search 22411ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 3 skipped (4)
+   Start at  19:01:34
+   Duration  25.59s (transform 1.79s, setup 0ms, collect 2.46s, tests 22.41s, environment 0ms, prepare 95ms)
+
+exit=0

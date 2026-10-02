@@ -1,0 +1,99 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1344-merge/tree
+
+stdout | tests/zz-s10-row7a.test.ts > P14B.1 test 7: rival symmetry > the FIRST natural rival proposal carries exactly one promise iff an ORIGINAL authoring read is REASONABLY_ACHIEVABLE — the flexible P2 read first for an unproven person, the P1 read alone for a proven one — with exact proposal/root/receipt joins
+S10-row7-runA {"d1":true,"week":196,"issuer":"studio-aca408ec-r03","talentId":"person-studio-aca408ec-r01-1","index":2,"draft":{"family":"PREFERRED_GENRE_OPPORTUNITY","predicate":{"kind":"genreOpportunity","count":1,"seatClass":"allCast","genre":"horror"},"windowStartWeek":208,"dueWeekExclusive":416,"issuerStudioId":"studio-aca408ec-r03","beneficiaryPersonId":"person-studio-aca408ec-r01-1","startWeek":208,"termWeeks":208},"want":{"family":"PREFERRED_GENRE_OPPORTUNITY","predicate":{"kind":"genreOpportunity","count":1,"seatClass":"allCast","genre":"comedy"},"issuerStudioId":"studio-aca408ec-r03","beneficiaryPersonId":"person-studio-aca408ec-r01-1","startWeek":208,"termWeeks":208,"windowStartWeek":208,"dueWeekExclusive":416},"shelved":[{"ordinal":15,"week":150,"retryWeek":176}],"shelvedIds":["script-0015"],"active":[16,17],"candidates":[{"family":"DIRECTING_COUNT","predicate":{"kind":"directorCount","count":1},"windowStartWeek":208,"dueWeekExclusive":416},{"family":"APPEARANCE_COUNT","predicate":{"count":1},"windowStartWeek":208,"dueWeekExclusive":416},{"family":"PREFERRED_GENRE_OPPORTUNITY","predicate":{"kind":"genreOpportunity","count":1,"seatClass":"allCast","genre":"comedy"},"windowStartWeek":208,"dueWeekExclusive":416},{"family":"PREFERRED_GENRE_OPPORTUNITY","predicate":{"kind":"genreOpportunity","count":1,"seatClass":"allCast","genre":"horror"},"windowStartWeek":208,"dueWeekExclusive":416},{"family":"SPECIFIC_PROJECT","predicate":{"kind":"projectOpportunity","count":1,"seatClass":"allCast","scriptProjectId":"script-0015"},"windowStartWeek":208,"dueWeekExclusive":416},{"family":"SPECIFIC_PROJECT","predicate":{"kind":"projectOpportunity","count":1,"seatClass":"allCast","scriptProjectId":"script-0016"},"windowStartWeek":208,"dueWeekExclusive":416}],"priorReads":["FRAGILE","FRAGILE"]}
+
+stdout | tests/zz-s10-row7a.test.ts > P14B.1 test 7: rival symmetry > natural rival authoring preserves the first writer IFF, the first actor positive (P1 if proven, flexible P2 if unproven), and an actual non-achievable zero-attachment witness for a proven person (unproven branches: open coverage finding above)
+S10-row7-runA {"d1":true,"week":196,"issuer":"studio-aca408ec-r03","talentId":"person-studio-aca408ec-r01-1","index":2,"draft":{"family":"PREFERRED_GENRE_OPPORTUNITY","predicate":{"kind":"genreOpportunity","count":1,"seatClass":"allCast","genre":"horror"},"windowStartWeek":208,"dueWeekExclusive":416,"issuerStudioId":"studio-aca408ec-r03","beneficiaryPersonId":"person-studio-aca408ec-r01-1","startWeek":208,"termWeeks":208},"want":{"family":"PREFERRED_GENRE_OPPORTUNITY","predicate":{"kind":"genreOpportunity","count":1,"seatClass":"allCast","genre":"comedy"},"issuerStudioId":"studio-aca408ec-r03","beneficiaryPersonId":"person-studio-aca408ec-r01-1","startWeek":208,"termWeeks":208,"windowStartWeek":208,"dueWeekExclusive":416},"shelved":[{"ordinal":15,"week":150,"retryWeek":176}],"shelvedIds":["script-0015"],"active":[16,17],"candidates":[{"family":"DIRECTING_COUNT","predicate":{"kind":"directorCount","count":1},"windowStartWeek":208,"dueWeekExclusive":416},{"family":"APPEARANCE_COUNT","predicate":{"count":1},"windowStartWeek":208,"dueWeekExclusive":416},{"family":"PREFERRED_GENRE_OPPORTUNITY","predicate":{"kind":"genreOpportunity","count":1,"seatClass":"allCast","genre":"comedy"},"windowStartWeek":208,"dueWeekExclusive":416},{"family":"PREFERRED_GENRE_OPPORTUNITY","predicate":{"kind":"genreOpportunity","count":1,"seatClass":"allCast","genre":"horror"},"windowStartWeek":208,"dueWeekExclusive":416},{"family":"SPECIFIC_PROJECT","predicate":{"kind":"projectOpportunity","count":1,"seatClass":"allCast","scriptProjectId":"script-0015"},"windowStartWeek":208,"dueWeekExclusive":416},{"family":"SPECIFIC_PROJECT","predicate":{"kind":"projectOpportunity","count":1,"seatClass":"allCast","scriptProjectId":"script-0016"},"windowStartWeek":208,"dueWeekExclusive":416}],"priorReads":["FRAGILE","FRAGILE"]}
+
+ ❯ |core| tests/zz-s10-row7a.test.ts (13 tests | 2 failed | 11 skipped) 7546ms
+   × P14B.1 test 7: rival symmetry > the FIRST natural rival proposal carries exactly one promise iff an ORIGINAL authoring read is REASONABLY_ACHIEVABLE — the flexible P2 read first for an unproven person, the P1 read alone for a proven one — with exact proposal/root/receipt joins 4002ms
+     → expected { …(8) } to deeply equal { …(8) }
+   × P14B.1 test 7: rival symmetry > natural rival authoring preserves the first writer IFF, the first actor positive (P1 if proven, flexible P2 if unproven), and an actual non-achievable zero-attachment witness for a proven person (unproven branches: open coverage finding above) 3543ms
+     → expected { …(8) } to deeply equal { …(8) }
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/zz-s10-row7a.test.ts > P14B.1 test 7: rival symmetry > the FIRST natural rival proposal carries exactly one promise iff an ORIGINAL authoring read is REASONABLY_ACHIEVABLE — the flexible P2 read first for an unproven person, the P1 read alone for a proven one — with exact proposal/root/receipt joins
+AssertionError: expected { …(8) } to deeply equal { …(8) }
+
+- Expected
++ Received
+
+  Object {
+    "beneficiaryPersonId": "person-studio-aca408ec-r01-1",
+    "dueWeekExclusive": 416,
+    "family": "PREFERRED_GENRE_OPPORTUNITY",
+    "issuerStudioId": "studio-aca408ec-r03",
+    "predicate": Object {
+      "count": 1,
+-     "genre": "comedy",
++     "genre": "horror",
+      "kind": "genreOpportunity",
+      "seatClass": "allCast",
+    },
+    "startWeek": 208,
+    "termWeeks": 208,
+    "windowStartWeek": 208,
+  }
+
+ ❯ Module.<anonymous> tests/zz-s10-row7a.test.ts:686:23
+    684|       // toEqual ignores key order; production spreads the attachment …
+    685|       try {
+    686|         expect(draft).toEqual(expectedAuthoringDraft(proposal, observe…
+       |                       ^
+    687|       } catch (error) {
+    688|         const want = expectedAuthoringDraft(proposal, observed.candida…
+ ❯ authorRivalPromise src/core/talentMarket.ts:1486:28
+ ❯ Module.advanceTalentMarketWeek src/core/talentMarket.ts:1407:14
+ ❯ Module.tick src/core/tick.ts:1160:37
+ ❯ scanNaturalRivalAuthoring tests/zz-s10-row7a.test.ts:714:17
+ ❯ tests/zz-s10-row7a.test.ts:780:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/zz-s10-row7a.test.ts > P14B.1 test 7: rival symmetry > natural rival authoring preserves the first writer IFF, the first actor positive (P1 if proven, flexible P2 if unproven), and an actual non-achievable zero-attachment witness for a proven person (unproven branches: open coverage finding above)
+AssertionError: expected { …(8) } to deeply equal { …(8) }
+
+- Expected
++ Received
+
+  Object {
+    "beneficiaryPersonId": "person-studio-aca408ec-r01-1",
+    "dueWeekExclusive": 416,
+    "family": "PREFERRED_GENRE_OPPORTUNITY",
+    "issuerStudioId": "studio-aca408ec-r03",
+    "predicate": Object {
+      "count": 1,
+-     "genre": "comedy",
++     "genre": "horror",
+      "kind": "genreOpportunity",
+      "seatClass": "allCast",
+    },
+    "startWeek": 208,
+    "termWeeks": 208,
+    "windowStartWeek": 208,
+  }
+
+ ❯ Module.<anonymous> tests/zz-s10-row7a.test.ts:686:23
+    684|       // toEqual ignores key order; production spreads the attachment …
+    685|       try {
+    686|         expect(draft).toEqual(expectedAuthoringDraft(proposal, observe…
+       |                       ^
+    687|       } catch (error) {
+    688|         const want = expectedAuthoringDraft(proposal, observed.candida…
+ ❯ authorRivalPromise src/core/talentMarket.ts:1486:28
+ ❯ Module.advanceTalentMarketWeek src/core/talentMarket.ts:1407:14
+ ❯ Module.tick src/core/tick.ts:1160:37
+ ❯ scanNaturalRivalAuthoring tests/zz-s10-row7a.test.ts:714:17
+ ❯ tests/zz-s10-row7a.test.ts:824:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 11 skipped (13)
+   Start at  17:16:02
+   Duration  11.79s (transform 2.24s, setup 0ms, collect 2.84s, tests 7.55s, environment 140ms, prepare 432ms)
+
+exit=1

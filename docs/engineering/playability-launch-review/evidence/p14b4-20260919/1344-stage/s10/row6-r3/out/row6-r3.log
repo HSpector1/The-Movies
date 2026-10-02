@@ -1,0 +1,16 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1344-merge/tree
+
+stdout | tests/zz-s10-r3-row6.test.ts > S10 r3 row 6 re-witness (scratch only) > S10-r3-row6 witness rule over the take receipts of rival-current-p1-and-p2, post-tick 197..237
+S10-r3-row6 gates {"G1_start_196":true,"G2_fixed_fields_in_file":true,"G3_weeks_197_237":true,"G4_take_week_is_post":true,"G5_first_take_213":true,"G6_release_217":true,"A0_anchor_recorded_chain":true,"P_SIM_rule_equals_leaf":true}
+S10-r3-row6 witness {"witness":"NONE","reason":"P3_NOT_ALONE_IN_ITS_WEEK","t1":{"week":229,"studioId":"studio-aca408ec-r01","productionId":"studio-aca408ec-r01:film:12","directorId":"person-studio-aca408ec-r02-1","cast":{"lead":"person-studio-aca408ec-r02-4","antagonist":"person-studio-aca408ec-r02-3","support":"person-studio-aca408ec-r02-2"}},"sameWeek":["studio-aca408ec-r01:film:12","studio-aca408ec-r02:film:14"]}
+
+ ✓ |core| tests/zz-s10-r3-row6.test.ts (47 tests | 46 skipped) 1667ms
+   ✓ S10 r3 row 6 re-witness (scratch only) > S10-r3-row6 witness rule over the take receipts of rival-current-p1-and-p2, post-tick 197..237 1665ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 46 skipped (47)
+   Start at  19:01:27
+   Duration  5.11s (transform 2.12s, setup 0ms, collect 2.75s, tests 1.67s, environment 0ms, prepare 94ms)
+
+exit=0

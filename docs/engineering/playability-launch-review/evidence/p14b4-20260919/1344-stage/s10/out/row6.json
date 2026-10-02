@@ -1,0 +1,1240 @@
+{
+ "probe": "S10-row6 r2",
+ "predicates": {
+  "R1_d1_shelving_208": {
+   "pass": true,
+   "detail": [
+    {
+     "week": 208,
+     "studioId": "studio-aca408ec-r01",
+     "kind": "screenplayShelved",
+     "scriptProjectId": "script-0006",
+     "conceptId": "studio-aca408ec-r01:concept:6",
+     "rejections": 13,
+     "eventId": "industry-event-211"
+    }
+   ]
+  },
+  "R2_d2_counts_196_207": {
+   "pass": true,
+   "detail": {
+    "preCounts": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "productionsBefore": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  "R3_d3_film11_208_213_217": {
+   "pass": true,
+   "detail": {
+    "announced11": {
+     "week": 208,
+     "studioId": "studio-aca408ec-r01",
+     "kind": "filmAnnounced",
+     "productionId": "studio-aca408ec-r01:film:11",
+     "conceptId": "studio-aca408ec-r01:concept:11",
+     "eventId": "industry-event-212"
+    },
+    "released11": {
+     "week": 216,
+     "studioId": "studio-aca408ec-r01",
+     "kind": "filmReleased",
+     "productionId": "studio-aca408ec-r01:film:11",
+     "conceptId": "studio-aca408ec-r01:concept:11",
+     "before": {
+      "audienceAwareness": 31.353707643271807,
+      "commercialConfidence": 67.21166167354619,
+      "industryPrestige": 39.15987173072739
+     },
+     "after": {
+      "audienceAwareness": 30.254993347804596,
+      "industryPrestige": 38.40282201760517,
+      "commercialConfidence": 67.70976677291027
+     },
+     "eventId": "industry-event-215"
+    },
+    "films": [
+     {
+      "post": 217,
+      "filmId": "studio-aca408ec-r01:film:11"
+     },
+     {
+      "post": 233,
+      "filmId": "studio-aca408ec-r01:film:12"
+     },
+     {
+      "post": 233,
+      "filmId": "studio-aca408ec-r02:film:14"
+     }
+    ]
+   }
+  },
+  "R4_d4_d5_shelved_hold_no_commission": {
+   "pass": true,
+   "detail": {
+    "at222": {
+     "version": 1,
+     "rejections": [],
+     "shelved": [
+      {
+       "ordinal": 6,
+       "week": 208,
+       "retryWeek": 234
+      }
+     ],
+     "commissionHoldUntilWeek": 221
+    },
+    "projects207": 12,
+    "holdProjects": [
+     12,
+     12,
+     12,
+     12,
+     12,
+     12,
+     12,
+     12,
+     12,
+     12,
+     12,
+     12,
+     12
+    ]
+   }
+  },
+  "R5_d6_no_other_take_197_221": {
+   "pass": true,
+   "detail": {
+    "otherEarly": [],
+    "otherShelvings": [
+     {
+      "week": 208,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0011",
+      "conceptId": "studio-aca408ec-r02:concept:11",
+      "rejections": 13,
+      "eventId": "industry-event-213"
+     },
+     {
+      "week": 208,
+      "studioId": "studio-aca408ec-r02",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0013",
+      "conceptId": "studio-aca408ec-r02:concept:13",
+      "rejections": 13,
+      "eventId": "industry-event-214"
+     }
+    ]
+   }
+  }
+ },
+ "outcome": {
+  "kind": "PREMISE_CONFLICT",
+  "next": {
+   "week": 229,
+   "studioId": "studio-aca408ec-r01",
+   "productionId": "studio-aca408ec-r01:film:12",
+   "directorId": "person-studio-aca408ec-r02-1",
+   "cast": {
+    "lead": "person-studio-aca408ec-r02-4",
+    "antagonist": "person-studio-aca408ec-r02-3",
+    "support": "person-studio-aca408ec-r02-2"
+   }
+  },
+  "sameWeek": [
+   {
+    "week": 229,
+    "studioId": "studio-aca408ec-r01",
+    "productionId": "studio-aca408ec-r01:film:12",
+    "directorId": "person-studio-aca408ec-r02-1",
+    "cast": {
+     "lead": "person-studio-aca408ec-r02-4",
+     "antagonist": "person-studio-aca408ec-r02-3",
+     "support": "person-studio-aca408ec-r02-2"
+    }
+   },
+   {
+    "week": 229,
+    "studioId": "studio-aca408ec-r02",
+    "productionId": "studio-aca408ec-r02:film:14",
+    "directorId": "person-studio-aca408ec-r01-1",
+    "cast": {
+     "lead": "person-studio-aca408ec-r01-4",
+     "antagonist": "person-studio-aca408ec-r01-2",
+     "support": "person-studio-aca408ec-r01-3"
+    }
+   }
+  ],
+  "sharedPairs": [
+   {
+    "x": "person-studio-aca408ec-r02-1",
+    "y": "person-studio-aca408ec-r02-3",
+    "weight": "MID"
+   },
+   {
+    "x": "person-studio-aca408ec-r02-1",
+    "y": "person-studio-aca408ec-r02-2",
+    "weight": "LOW"
+   },
+   {
+    "x": "person-studio-aca408ec-r02-3",
+    "y": "person-studio-aca408ec-r02-2",
+    "weight": "LOW"
+   }
+  ]
+ },
+ "weeks": [
+  {
+   "processed": 196,
+   "post": 197,
+   "productionsBefore": 0,
+   "projects": 12,
+   "active": [
+    6,
+    11
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [
+     {
+      "ordinal": 6,
+      "count": 1
+     },
+     {
+      "ordinal": 11,
+      "count": 1
+     }
+    ],
+    "shelved": [],
+    "commissionHoldUntilWeek": 0
+   }
+  },
+  {
+   "processed": 197,
+   "post": 198,
+   "productionsBefore": 0,
+   "projects": 12,
+   "active": [
+    6,
+    11
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [
+     {
+      "ordinal": 6,
+      "count": 2
+     },
+     {
+      "ordinal": 11,
+      "count": 2
+     }
+    ],
+    "shelved": [],
+    "commissionHoldUntilWeek": 0
+   }
+  },
+  {
+   "processed": 198,
+   "post": 199,
+   "productionsBefore": 0,
+   "projects": 12,
+   "active": [
+    6,
+    11
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [
+     {
+      "ordinal": 6,
+      "count": 3
+     },
+     {
+      "ordinal": 11,
+      "count": 3
+     }
+    ],
+    "shelved": [],
+    "commissionHoldUntilWeek": 0
+   }
+  },
+  {
+   "processed": 199,
+   "post": 200,
+   "productionsBefore": 0,
+   "projects": 12,
+   "active": [
+    6,
+    11
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [
+     {
+      "ordinal": 6,
+      "count": 4
+     },
+     {
+      "ordinal": 11,
+      "count": 4
+     }
+    ],
+    "shelved": [],
+    "commissionHoldUntilWeek": 0
+   }
+  },
+  {
+   "processed": 200,
+   "post": 201,
+   "productionsBefore": 0,
+   "projects": 12,
+   "active": [
+    6,
+    11
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [
+     {
+      "ordinal": 6,
+      "count": 5
+     },
+     {
+      "ordinal": 11,
+      "count": 5
+     }
+    ],
+    "shelved": [],
+    "commissionHoldUntilWeek": 0
+   }
+  },
+  {
+   "processed": 201,
+   "post": 202,
+   "productionsBefore": 0,
+   "projects": 12,
+   "active": [
+    6,
+    11
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [
+     {
+      "ordinal": 6,
+      "count": 6
+     },
+     {
+      "ordinal": 11,
+      "count": 6
+     }
+    ],
+    "shelved": [],
+    "commissionHoldUntilWeek": 0
+   }
+  },
+  {
+   "processed": 202,
+   "post": 203,
+   "productionsBefore": 0,
+   "projects": 12,
+   "active": [
+    6,
+    11
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [
+     {
+      "ordinal": 6,
+      "count": 7
+     },
+     {
+      "ordinal": 11,
+      "count": 7
+     }
+    ],
+    "shelved": [],
+    "commissionHoldUntilWeek": 0
+   }
+  },
+  {
+   "processed": 203,
+   "post": 204,
+   "productionsBefore": 0,
+   "projects": 12,
+   "active": [
+    6,
+    11
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [
+     {
+      "ordinal": 6,
+      "count": 8
+     },
+     {
+      "ordinal": 11,
+      "count": 8
+     }
+    ],
+    "shelved": [],
+    "commissionHoldUntilWeek": 0
+   }
+  },
+  {
+   "processed": 204,
+   "post": 205,
+   "productionsBefore": 0,
+   "projects": 12,
+   "active": [
+    6,
+    11
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [
+     {
+      "ordinal": 6,
+      "count": 9
+     },
+     {
+      "ordinal": 11,
+      "count": 9
+     }
+    ],
+    "shelved": [],
+    "commissionHoldUntilWeek": 0
+   }
+  },
+  {
+   "processed": 205,
+   "post": 206,
+   "productionsBefore": 0,
+   "projects": 12,
+   "active": [
+    6,
+    11
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [
+     {
+      "ordinal": 6,
+      "count": 10
+     },
+     {
+      "ordinal": 11,
+      "count": 10
+     }
+    ],
+    "shelved": [],
+    "commissionHoldUntilWeek": 0
+   }
+  },
+  {
+   "processed": 206,
+   "post": 207,
+   "productionsBefore": 0,
+   "projects": 12,
+   "active": [
+    6,
+    11
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [
+     {
+      "ordinal": 6,
+      "count": 11
+     },
+     {
+      "ordinal": 11,
+      "count": 11
+     }
+    ],
+    "shelved": [],
+    "commissionHoldUntilWeek": 0
+   }
+  },
+  {
+   "processed": 207,
+   "post": 208,
+   "productionsBefore": 0,
+   "projects": 12,
+   "active": [
+    6,
+    11
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [
+     {
+      "ordinal": 6,
+      "count": 12
+     },
+     {
+      "ordinal": 11,
+      "count": 12
+     }
+    ],
+    "shelved": [],
+    "commissionHoldUntilWeek": 0
+   }
+  },
+  {
+   "processed": 208,
+   "post": 209,
+   "productionsBefore": 0,
+   "projects": 12,
+   "active": [
+    11
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 209,
+   "post": 210,
+   "productionsBefore": 1,
+   "projects": 12,
+   "active": [
+    11
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 210,
+   "post": 211,
+   "productionsBefore": 1,
+   "projects": 12,
+   "active": [
+    11
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 211,
+   "post": 212,
+   "productionsBefore": 1,
+   "projects": 12,
+   "active": [
+    11
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 212,
+   "post": 213,
+   "productionsBefore": 1,
+   "projects": 12,
+   "active": [
+    11
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 213,
+   "post": 214,
+   "productionsBefore": 1,
+   "projects": 12,
+   "active": [
+    11
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 214,
+   "post": 215,
+   "productionsBefore": 1,
+   "projects": 12,
+   "active": [
+    11
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 215,
+   "post": 216,
+   "productionsBefore": 1,
+   "projects": 12,
+   "active": [
+    11
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 216,
+   "post": 217,
+   "productionsBefore": 1,
+   "projects": 12,
+   "active": [],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 217,
+   "post": 218,
+   "productionsBefore": 0,
+   "projects": 12,
+   "active": [],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 218,
+   "post": 219,
+   "productionsBefore": 0,
+   "projects": 12,
+   "active": [],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 219,
+   "post": 220,
+   "productionsBefore": 0,
+   "projects": 12,
+   "active": [],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 220,
+   "post": 221,
+   "productionsBefore": 0,
+   "projects": 12,
+   "active": [],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 221,
+   "post": 222,
+   "productionsBefore": 0,
+   "projects": 13,
+   "active": [
+    12
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 222,
+   "post": 223,
+   "productionsBefore": 0,
+   "projects": 13,
+   "active": [
+    12
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 223,
+   "post": 224,
+   "productionsBefore": 0,
+   "projects": 13,
+   "active": [
+    12
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 224,
+   "post": 225,
+   "productionsBefore": 0,
+   "projects": 13,
+   "active": [
+    12
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 225,
+   "post": 226,
+   "productionsBefore": 1,
+   "projects": 13,
+   "active": [
+    12
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 226,
+   "post": 227,
+   "productionsBefore": 1,
+   "projects": 13,
+   "active": [
+    12
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 227,
+   "post": 228,
+   "productionsBefore": 1,
+   "projects": 13,
+   "active": [
+    12
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 228,
+   "post": 229,
+   "productionsBefore": 1,
+   "projects": 13,
+   "active": [
+    12
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 229,
+   "post": 230,
+   "productionsBefore": 1,
+   "projects": 13,
+   "active": [
+    12
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 230,
+   "post": 231,
+   "productionsBefore": 1,
+   "projects": 13,
+   "active": [
+    12
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 231,
+   "post": 232,
+   "productionsBefore": 1,
+   "projects": 13,
+   "active": [
+    12
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 232,
+   "post": 233,
+   "productionsBefore": 1,
+   "projects": 13,
+   "active": [],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 233,
+   "post": 234,
+   "productionsBefore": 0,
+   "projects": 13,
+   "active": [],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [
+     {
+      "ordinal": 6,
+      "week": 208,
+      "retryWeek": 234
+     }
+    ],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 234,
+   "post": 235,
+   "productionsBefore": 0,
+   "projects": 13,
+   "active": [
+    6
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 235,
+   "post": 236,
+   "productionsBefore": 1,
+   "projects": 13,
+   "active": [
+    6
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [],
+    "commissionHoldUntilWeek": 221
+   }
+  },
+  {
+   "processed": 236,
+   "post": 237,
+   "productionsBefore": 1,
+   "projects": 13,
+   "active": [
+    6
+   ],
+   "shelving": {
+    "version": 1,
+    "rejections": [],
+    "shelved": [],
+    "commissionHoldUntilWeek": 221
+   }
+  }
+ ],
+ "takes": [
+  {
+   "week": 213,
+   "studioId": "studio-aca408ec-r01",
+   "productionId": "studio-aca408ec-r01:film:11",
+   "directorId": "person-studio-aca408ec-r02-1",
+   "cast": {
+    "lead": "person-studio-aca408ec-r02-3",
+    "antagonist": "person-studio-aca408ec-r02-2",
+    "support": "person-studio-aca408ec-r02-0"
+   }
+  },
+  {
+   "week": 229,
+   "studioId": "studio-aca408ec-r01",
+   "productionId": "studio-aca408ec-r01:film:12",
+   "directorId": "person-studio-aca408ec-r02-1",
+   "cast": {
+    "lead": "person-studio-aca408ec-r02-4",
+    "antagonist": "person-studio-aca408ec-r02-3",
+    "support": "person-studio-aca408ec-r02-2"
+   }
+  },
+  {
+   "week": 229,
+   "studioId": "studio-aca408ec-r02",
+   "productionId": "studio-aca408ec-r02:film:14",
+   "directorId": "person-studio-aca408ec-r01-1",
+   "cast": {
+    "lead": "person-studio-aca408ec-r01-4",
+    "antagonist": "person-studio-aca408ec-r01-2",
+    "support": "person-studio-aca408ec-r01-3"
+   }
+  }
+ ],
+ "receipts": [
+  {
+   "week": 208,
+   "studioId": "studio-aca408ec-r01",
+   "kind": "screenplayShelved",
+   "scriptProjectId": "script-0006",
+   "conceptId": "studio-aca408ec-r01:concept:6",
+   "rejections": 13,
+   "eventId": "industry-event-211"
+  },
+  {
+   "week": 208,
+   "studioId": "studio-aca408ec-r01",
+   "kind": "filmAnnounced",
+   "productionId": "studio-aca408ec-r01:film:11",
+   "conceptId": "studio-aca408ec-r01:concept:11",
+   "eventId": "industry-event-212"
+  },
+  {
+   "week": 208,
+   "studioId": "studio-aca408ec-r02",
+   "kind": "screenplayShelved",
+   "scriptProjectId": "script-0011",
+   "conceptId": "studio-aca408ec-r02:concept:11",
+   "rejections": 13,
+   "eventId": "industry-event-213"
+  },
+  {
+   "week": 208,
+   "studioId": "studio-aca408ec-r02",
+   "kind": "screenplayShelved",
+   "scriptProjectId": "script-0013",
+   "conceptId": "studio-aca408ec-r02:concept:13",
+   "rejections": 13,
+   "eventId": "industry-event-214"
+  },
+  {
+   "week": 216,
+   "studioId": "studio-aca408ec-r01",
+   "kind": "filmReleased",
+   "productionId": "studio-aca408ec-r01:film:11",
+   "conceptId": "studio-aca408ec-r01:concept:11",
+   "before": {
+    "audienceAwareness": 31.353707643271807,
+    "commercialConfidence": 67.21166167354619,
+    "industryPrestige": 39.15987173072739
+   },
+   "after": {
+    "audienceAwareness": 30.254993347804596,
+    "industryPrestige": 38.40282201760517,
+    "commercialConfidence": 67.70976677291027
+   },
+   "eventId": "industry-event-215"
+  },
+  {
+   "week": 224,
+   "studioId": "studio-aca408ec-r01",
+   "kind": "filmAnnounced",
+   "productionId": "studio-aca408ec-r01:film:12",
+   "conceptId": "studio-aca408ec-r01:concept:12",
+   "eventId": "industry-event-217"
+  },
+  {
+   "week": 224,
+   "studioId": "studio-aca408ec-r02",
+   "kind": "filmAnnounced",
+   "productionId": "studio-aca408ec-r02:film:14",
+   "conceptId": "studio-aca408ec-r02:concept:14",
+   "eventId": "industry-event-218"
+  },
+  {
+   "week": 232,
+   "studioId": "studio-aca408ec-r01",
+   "kind": "filmReleased",
+   "productionId": "studio-aca408ec-r01:film:12",
+   "conceptId": "studio-aca408ec-r01:concept:12",
+   "before": {
+    "audienceAwareness": 30.254993347804596,
+    "industryPrestige": 38.40282201760517,
+    "commercialConfidence": 67.70976677291027
+   },
+   "after": {
+    "audienceAwareness": 29.93412024506239,
+    "industryPrestige": 44.20036575174923,
+    "commercialConfidence": 68.39006309641789
+   },
+   "eventId": "industry-event-219"
+  },
+  {
+   "week": 232,
+   "studioId": "studio-aca408ec-r02",
+   "kind": "filmReleased",
+   "productionId": "studio-aca408ec-r02:film:14",
+   "conceptId": "studio-aca408ec-r02:concept:14",
+   "before": {
+    "audienceAwareness": 28.614387715131258,
+    "commercialConfidence": 63.99246042421397,
+    "industryPrestige": 50.67228349649868
+   },
+   "after": {
+    "audienceAwareness": 27.32224094354055,
+    "industryPrestige": 40.67228349649868,
+    "commercialConfidence": 64.50813739004657
+   },
+   "eventId": "industry-event-220"
+  },
+  {
+   "week": 234,
+   "studioId": "studio-aca408ec-r01",
+   "kind": "filmAnnounced",
+   "productionId": "studio-aca408ec-r01:film:6",
+   "conceptId": "studio-aca408ec-r01:concept:6",
+   "eventId": "industry-event-221"
+  }
+ ]
+}

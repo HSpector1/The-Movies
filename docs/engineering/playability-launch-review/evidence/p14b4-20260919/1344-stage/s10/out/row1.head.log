@@ -1,0 +1,15 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1344-merge/tree
+
+stdout | tests/zz-s10-row1.test.ts > S10 probe row 1 r2 (scratch only) > S10-row1 seed-b: C1 anchor, shelving receipts and counts, C3 state at Ws, C2 first moved row
+S10-row1 head gates {"C1_head_anchor":true,"P1_d1_shelving_before_w211":true,"P2_d2_thirteen_rejections":true,"P6_d5_leaf_law_head":true}
+
+ ✓ |core| tests/zz-s10-row1.test.ts (23 tests | 22 skipped) 16453ms
+   ✓ S10 probe row 1 r2 (scratch only) > S10-row1 seed-b: C1 anchor, shelving receipts and counts, C3 state at Ws, C2 first moved row 16451ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 22 skipped (23)
+   Start at  17:16:40
+   Duration  20.95s (transform 2.68s, setup 0ms, collect 3.62s, tests 16.45s, environment 0ms, prepare 203ms)
+
+exit=0

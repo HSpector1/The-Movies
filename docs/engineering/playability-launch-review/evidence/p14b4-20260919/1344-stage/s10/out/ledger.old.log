@@ -1,0 +1,23 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1344-sweep/s10/old-tree
+
+stdout | tests/zz-s10-ledger.test.ts > S10 probe rows 2-4 r2 (scratch only) > S10-ledger seed-b
+S10-ledger seed-b gates {"C1_head_anchor":true,"C1_old_anchor":true,"P1_d1_d2_C2_first_moved_row_after_Ws":true,"P3_C3_state_equal_at_Ws":true,"P4_d4_law_lines_head":true,"P5_d5_rng_unmoved":true,"P6_d6_extension_row":true}
+
+stdout | tests/zz-s10-ledger.test.ts > S10 probe rows 2-4 r2 (scratch only) > S10-ledger p13-public-commercial-adoption
+S10-ledger p13-public-commercial-adoption gates {"C1_head_anchor":true,"C1_old_anchor":true,"P1_d1_d2_C2_first_moved_row_after_Ws":true,"P3_C3_state_equal_at_Ws":true,"P4_d4_law_lines_head":true,"P5_d5_rng_unmoved":true,"P6_d6_extension_row":true}
+
+stdout | tests/zz-s10-ledger.test.ts > S10 probe rows 2-4 r2 (scratch only) > S10-ledger p13a-core-causal-01
+S10-ledger p13a-core-causal-01 gates {"C1_head_anchor":true,"C1_old_anchor":true,"P1_d1_d2_C2_first_moved_row_after_Ws":true,"P3_C3_state_equal_at_Ws":true,"P4_d4_law_lines_head":true,"P5_d5_rng_unmoved":true,"P6_d6_extension_row":true}
+
+ ✓ |core| tests/zz-s10-ledger.test.ts (18 tests | 15 skipped) 26012ms
+   ✓ S10 probe rows 2-4 r2 (scratch only) > S10-ledger seed-b 13731ms
+   ✓ S10 probe rows 2-4 r2 (scratch only) > S10-ledger p13-public-commercial-adoption 7262ms
+   ✓ S10 probe rows 2-4 r2 (scratch only) > S10-ledger p13a-core-causal-01 5015ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed | 15 skipped (18)
+   Start at  17:17:56
+   Duration  31.98s (transform 3.46s, setup 0ms, collect 4.42s, tests 26.01s, environment 0ms, prepare 369ms)
+
+exit=0

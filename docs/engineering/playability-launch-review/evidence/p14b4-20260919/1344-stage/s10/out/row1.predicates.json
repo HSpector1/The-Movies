@@ -1,0 +1,462 @@
+{
+ "probe": "S10-row1 r2",
+ "gates": {
+  "C1_head_anchor": {
+   "pass": true,
+   "detail": {
+    "digest": "d32e68f685f658666d620bd3faee2841a3af4ac20373e9449ea0851fbb18a100",
+    "stableRows": 115,
+    "decisions": 544,
+    "anchor": {
+     "digest": "d32e68f685f658666d620bd3faee2841a3af4ac20373e9449ea0851fbb18a100",
+     "stableRows": 115,
+     "decisions": 544
+    }
+   }
+  },
+  "P1_d1_shelving_before_w211": {
+   "pass": true,
+   "detail": {
+    "ws": 195,
+    "shelvings": [
+     {
+      "week": 195,
+      "studioId": "studio-bc14baf6-r04",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0019",
+      "conceptId": "studio-bc14baf6-r04:concept:19",
+      "rejections": 13,
+      "eventId": "industry-event-285"
+     },
+     {
+      "week": 202,
+      "studioId": "studio-bc14baf6-r04",
+      "kind": "screenplayShelved",
+      "scriptProjectId": "script-0021",
+      "conceptId": "studio-bc14baf6-r04:concept:21",
+      "rejections": 13,
+      "eventId": "industry-event-295"
+     }
+    ]
+   }
+  },
+  "P2_d2_thirteen_rejections": {
+   "pass": true,
+   "detail": [
+    {
+     "eventId": "industry-event-285",
+     "studioId": "studio-bc14baf6-r04",
+     "scriptProjectId": "script-0019",
+     "week": 195,
+     "rejections": 13,
+     "countBefore": 12
+    },
+    {
+     "eventId": "industry-event-295",
+     "studioId": "studio-bc14baf6-r04",
+     "scriptProjectId": "script-0021",
+     "week": 202,
+     "rejections": 13,
+     "countBefore": 12
+    }
+   ]
+  },
+  "P6_d5_leaf_law_head": {
+   "pass": true,
+   "detail": {
+    "rowsNonEmpty": true,
+    "controlsNonEmpty": true,
+    "controlsUnambiguous": true,
+    "controlsFirstThree": true,
+    "everyRowOk": true,
+    "nullOnlyWhenNoneViable": true,
+    "poolIsSeam": true,
+    "noAdmissions": true
+   }
+  },
+  "C1_old_anchor": {
+   "pass": true,
+   "detail": {
+    "digest": "9eeb62f640c8a749e71a0c1d21b917ce5cf708f7ed002ce2470ca0605a48aac8",
+    "stableRows": 134,
+    "decisions": 1099,
+    "anchor": {
+     "digest": "9eeb62f640c8a749e71a0c1d21b917ce5cf708f7ed002ce2470ca0605a48aac8",
+     "stableRows": 134,
+     "decisions": 1099
+    }
+   }
+  },
+  "P3_C3_state_equal_at_Ws": {
+   "pass": true,
+   "detail": {
+    "ws": 195,
+    "head": "170b82f5f2112c3edb49247636bca0b4901608f4d83b6e93baf3b61514914cb8",
+    "old": "170b82f5f2112c3edb49247636bca0b4901608f4d83b6e93baf3b61514914cb8"
+   }
+  },
+  "P4_C2_first_moved_row_after_Ws": {
+   "pass": true,
+   "detail": {
+    "index": 105,
+    "firstDiffWeek": 196,
+    "ws": 195,
+    "old": [
+     196,
+     "studio-bc14baf6-r04",
+     "studio-bc14baf6-r04:package:script-0019",
+     [
+      "person-studio-bc14baf6-r04-2",
+      "person-studio-bc14baf6-r04-3",
+      "person-studio-bc14baf6-r04-4"
+     ],
+     null,
+     null
+    ],
+    "head": [
+     196,
+     "studio-bc14baf6-r04",
+     "studio-bc14baf6-r04:package:script-0021",
+     [
+      "person-studio-bc14baf6-r04-2",
+      "person-studio-bc14baf6-r04-3",
+      "person-studio-bc14baf6-r04-4"
+     ],
+     null,
+     null
+    ]
+   }
+  }
+ },
+ "P5_d4_explanatory": {
+  "pass": true,
+  "gating": false,
+  "detail": {
+   "moved": [
+    {
+     "side": "oldOnly",
+     "tuple": [
+      196,
+      "studio-bc14baf6-r04",
+      "studio-bc14baf6-r04:package:script-0019",
+      [
+       "person-studio-bc14baf6-r04-2",
+       "person-studio-bc14baf6-r04-3",
+       "person-studio-bc14baf6-r04-4"
+      ],
+      null,
+      null
+     ],
+     "why": "missing: the screenplay was shelved"
+    },
+    {
+     "side": "oldOnly",
+     "tuple": [
+      197,
+      "studio-bc14baf6-r04",
+      "studio-bc14baf6-r04:package:script-0019",
+      [
+       "person-studio-bc14baf6-r04-2",
+       "person-studio-bc14baf6-r04-3",
+       "person-studio-bc14baf6-r04-4"
+      ],
+      null,
+      null
+     ],
+     "why": "missing: the screenplay was shelved"
+    },
+    {
+     "side": "oldOnly",
+     "tuple": [
+      198,
+      "studio-bc14baf6-r04",
+      "studio-bc14baf6-r04:package:script-0019",
+      [
+       "person-studio-bc14baf6-r04-2",
+       "person-studio-bc14baf6-r04-3",
+       "person-studio-bc14baf6-r04-4"
+      ],
+      null,
+      null
+     ],
+     "why": "missing: the screenplay was shelved"
+    },
+    {
+     "side": "oldOnly",
+     "tuple": [
+      199,
+      "studio-bc14baf6-r04",
+      "studio-bc14baf6-r04:package:script-0019",
+      [
+       "person-studio-bc14baf6-r04-2",
+       "person-studio-bc14baf6-r04-3",
+       "person-studio-bc14baf6-r04-4"
+      ],
+      null,
+      null
+     ],
+     "why": "missing: the screenplay was shelved"
+    },
+    {
+     "side": "oldOnly",
+     "tuple": [
+      200,
+      "studio-bc14baf6-r04",
+      "studio-bc14baf6-r04:package:script-0019",
+      [
+       "person-studio-bc14baf6-r04-2",
+       "person-studio-bc14baf6-r04-3",
+       "person-studio-bc14baf6-r04-4"
+      ],
+      null,
+      null
+     ],
+     "why": "missing: the screenplay was shelved"
+    },
+    {
+     "side": "oldOnly",
+     "tuple": [
+      201,
+      "studio-bc14baf6-r04",
+      "studio-bc14baf6-r04:package:script-0019",
+      [
+       "person-studio-bc14baf6-r04-2",
+       "person-studio-bc14baf6-r04-3",
+       "person-studio-bc14baf6-r04-4"
+      ],
+      null,
+      null
+     ],
+     "why": "missing: the screenplay was shelved"
+    },
+    {
+     "side": "oldOnly",
+     "tuple": [
+      202,
+      "studio-bc14baf6-r04",
+      "studio-bc14baf6-r04:package:script-0019",
+      [
+       "person-studio-bc14baf6-r04-2",
+       "person-studio-bc14baf6-r04-3",
+       "person-studio-bc14baf6-r04-4"
+      ],
+      null,
+      null
+     ],
+     "why": "missing: the screenplay was shelved"
+    },
+    {
+     "side": "oldOnly",
+     "tuple": [
+      203,
+      "studio-bc14baf6-r04",
+      "studio-bc14baf6-r04:package:script-0019",
+      [
+       "person-studio-bc14baf6-r04-2",
+       "person-studio-bc14baf6-r04-3",
+       "person-studio-bc14baf6-r04-4"
+      ],
+      null,
+      null
+     ],
+     "why": "missing: the screenplay was shelved"
+    },
+    {
+     "side": "oldOnly",
+     "tuple": [
+      203,
+      "studio-bc14baf6-r04",
+      "studio-bc14baf6-r04:package:script-0021",
+      [
+       "person-studio-bc14baf6-r04-2",
+       "person-studio-bc14baf6-r04-3",
+       "person-studio-bc14baf6-r04-4"
+      ],
+      null,
+      null
+     ],
+     "why": "missing: the screenplay was shelved"
+    },
+    {
+     "side": "oldOnly",
+     "tuple": [
+      204,
+      "studio-bc14baf6-r04",
+      "studio-bc14baf6-r04:package:script-0019",
+      [
+       "person-studio-bc14baf6-r04-2",
+       "person-studio-bc14baf6-r04-3",
+       "person-studio-bc14baf6-r04-4"
+      ],
+      null,
+      null
+     ],
+     "why": "missing: the screenplay was shelved"
+    },
+    {
+     "side": "oldOnly",
+     "tuple": [
+      204,
+      "studio-bc14baf6-r04",
+      "studio-bc14baf6-r04:package:script-0021",
+      [
+       "person-studio-bc14baf6-r04-2",
+       "person-studio-bc14baf6-r04-3",
+       "person-studio-bc14baf6-r04-4"
+      ],
+      null,
+      null
+     ],
+     "why": "missing: the screenplay was shelved"
+    },
+    {
+     "side": "oldOnly",
+     "tuple": [
+      205,
+      "studio-bc14baf6-r04",
+      "studio-bc14baf6-r04:package:script-0019",
+      [
+       "person-studio-bc14baf6-r04-2",
+       "person-studio-bc14baf6-r04-3",
+       "person-studio-bc14baf6-r04-4"
+      ],
+      null,
+      null
+     ],
+     "why": "missing: the screenplay was shelved"
+    },
+    {
+     "side": "oldOnly",
+     "tuple": [
+      205,
+      "studio-bc14baf6-r04",
+      "studio-bc14baf6-r04:package:script-0021",
+      [
+       "person-studio-bc14baf6-r04-2",
+       "person-studio-bc14baf6-r04-3",
+       "person-studio-bc14baf6-r04-4"
+      ],
+      null,
+      null
+     ],
+     "why": "missing: the screenplay was shelved"
+    },
+    {
+     "side": "oldOnly",
+     "tuple": [
+      206,
+      "studio-bc14baf6-r04",
+      "studio-bc14baf6-r04:package:script-0019",
+      [
+       "person-studio-bc14baf6-r04-2",
+       "person-studio-bc14baf6-r04-3",
+       "person-studio-bc14baf6-r04-4"
+      ],
+      null,
+      null
+     ],
+     "why": "missing: the screenplay was shelved"
+    },
+    {
+     "side": "oldOnly",
+     "tuple": [
+      206,
+      "studio-bc14baf6-r04",
+      "studio-bc14baf6-r04:package:script-0021",
+      [
+       "person-studio-bc14baf6-r04-2",
+       "person-studio-bc14baf6-r04-3",
+       "person-studio-bc14baf6-r04-4"
+      ],
+      null,
+      null
+     ],
+     "why": "missing: the screenplay was shelved"
+    },
+    {
+     "side": "oldOnly",
+     "tuple": [
+      207,
+      "studio-bc14baf6-r04",
+      "studio-bc14baf6-r04:package:script-0019",
+      [
+       "person-studio-bc14baf6-r04-2",
+       "person-studio-bc14baf6-r04-3",
+       "person-studio-bc14baf6-r04-4"
+      ],
+      null,
+      null
+     ],
+     "why": "missing: the screenplay was shelved"
+    },
+    {
+     "side": "oldOnly",
+     "tuple": [
+      207,
+      "studio-bc14baf6-r04",
+      "studio-bc14baf6-r04:package:script-0021",
+      [
+       "person-studio-bc14baf6-r04-2",
+       "person-studio-bc14baf6-r04-3",
+       "person-studio-bc14baf6-r04-4"
+      ],
+      null,
+      null
+     ],
+     "why": "missing: the screenplay was shelved"
+    },
+    {
+     "side": "oldOnly",
+     "tuple": [
+      210,
+      "studio-bc14baf6-r04",
+      "studio-bc14baf6-r04:package:script-0019",
+      [
+       "person-studio-bc14baf6-r01-2",
+       "person-studio-bc14baf6-r01-3",
+       "person-studio-bc14baf6-r01-4"
+      ],
+      null,
+      null
+     ],
+     "why": "missing: the screenplay was shelved"
+    },
+    {
+     "side": "oldOnly",
+     "tuple": [
+      210,
+      "studio-bc14baf6-r04",
+      "studio-bc14baf6-r04:package:script-0021",
+      [
+       "person-studio-bc14baf6-r01-2",
+       "person-studio-bc14baf6-r01-3",
+       "person-studio-bc14baf6-r01-4"
+      ],
+      "bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4",
+      {
+       "negative": 1661158,
+       "marketing": 339412
+      }
+     ],
+     "why": "missing: the screenplay was shelved"
+    }
+   ],
+   "byReason": {
+    "missing: the screenplay was shelved": 19
+   }
+  }
+ },
+ "oldLeafLaw": {
+  "pass": true,
+  "detail": {
+   "rowsNonEmpty": true,
+   "controlsNonEmpty": true,
+   "controlsUnambiguous": true,
+   "controlsFirstThree": true,
+   "everyRowOk": true,
+   "nullOnlyWhenNoneViable": true,
+   "poolIsSeam": true,
+   "noAdmissions": true
+  }
+ }
+}

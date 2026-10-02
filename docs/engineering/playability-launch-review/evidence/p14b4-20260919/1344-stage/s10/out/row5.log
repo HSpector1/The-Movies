@@ -1,0 +1,16 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1344-merge/tree
+
+stdout | tests/zz-s10-row5.test.ts > S10 probe row 5 (scratch only) > S10-row5: screenplayShelving is the only moved content of bytes(after)
+S10-row5 shelving [["studio-aca408ec-r01",{"version":1,"rejections":[{"ordinal":6,"count":1}],"shelved":[],"commissionHoldUntilWeek":0}],["studio-aca408ec-r02",{"version":1,"rejections":[],"shelved":[],"commissionHoldUntilWeek":0}],["studio-aca408ec-r03",{"version":1,"rejections":[],"shelved":[],"commissionHoldUntilWeek":0}],["studio-aca408ec-r04",{"version":1,"rejections":[],"shelved":[],"commissionHoldUntilWeek":0}]]
+S10-row5 stripped digest 9702aa6869cf80f82d5133f68137427a0ed44c07ce987e8fe2be66bbb60f3d78
+
+ ✓ |core| tests/zz-s10-row5.test.ts (47 tests | 46 skipped) 1159ms
+   ✓ S10 probe row 5 (scratch only) > S10-row5: screenplayShelving is the only moved content of bytes(after) 1157ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 46 skipped (47)
+   Start at  17:15:46
+   Duration  5.69s (transform 2.73s, setup 0ms, collect 3.61s, tests 1.16s, environment 0ms, prepare 198ms)
+
+exit=0

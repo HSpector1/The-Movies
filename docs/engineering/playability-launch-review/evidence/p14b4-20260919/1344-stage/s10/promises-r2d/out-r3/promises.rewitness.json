@@ -1,0 +1,27 @@
+{
+ "probe": "S10-promises r2d r3",
+ "rows8to10": {
+  "leaves": "tests/p14c2c-rival-promises.test.ts R1 :34, R2 :49, R3 :60",
+  "rule": "rival-issued, VOIDED by the tick into Wc, 2601 <= Wc <= 2696; order: issuer r01 first, then Wc, then promise number; witness: the first with boundOpenProgress0AtWcMinus1, wcIsEffectiveWeekMinus8, wcAtMost2696 and issuerHasNoProductionAtWcMinus1",
+  "horizon": {
+   "wcFrom": 2601,
+   "wcTo": 2696
+  },
+  "witness": "NONE",
+  "errors": [],
+  "candidates": [],
+  "scanned": [],
+  "scanMatchesTicks": true
+ },
+ "row11": {
+  "leaf": "tests/p14c3-admission-boundaries.test.ts N10 :230",
+  "rule": "rival-issued, open, bound and progress 0 at post-tick w, 2600 <= w <= 2695, beneficiary announced with effectiveWeek - 8 = w + 1, VOIDED or not; order: issuer r01 first, then Wc = w + 1, then promise number; witness: the first with issuerHasNoProductionAtW and passCallsActorAtW",
+  "horizon": {
+   "wFrom": 2600,
+   "wTo": 2695
+  },
+  "witness": "NONE",
+  "errors": [],
+  "candidates": []
+ }
+}

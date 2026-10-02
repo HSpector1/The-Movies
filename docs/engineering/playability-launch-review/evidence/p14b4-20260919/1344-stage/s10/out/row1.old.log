@@ -1,0 +1,15 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1344-sweep/s10/old-tree
+
+stdout | tests/zz-s10-row1.test.ts > S10 probe row 1 r2 (scratch only) > S10-row1 seed-b: C1 anchor, shelving receipts and counts, C3 state at Ws, C2 first moved row
+S10-row1 gates {"C1_head_anchor":true,"P1_d1_shelving_before_w211":true,"P2_d2_thirteen_rejections":true,"P6_d5_leaf_law_head":true,"C1_old_anchor":true,"P3_C3_state_equal_at_Ws":true,"P4_C2_first_moved_row_after_Ws":true}
+
+ ✓ |core| tests/zz-s10-row1.test.ts (23 tests | 22 skipped) 17208ms
+   ✓ S10 probe row 1 r2 (scratch only) > S10-row1 seed-b: C1 anchor, shelving receipts and counts, C3 state at Ws, C2 first moved row 17206ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 22 skipped (23)
+   Start at  17:17:02
+   Duration  20.78s (transform 2.08s, setup 0ms, collect 2.72s, tests 17.21s, environment 0ms, prepare 140ms)
+
+exit=0

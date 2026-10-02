@@ -1,0 +1,23 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1344-merge/tree
+
+stdout | tests/zz-s10-ledger.test.ts > S10 probe rows 2-4 r2 (scratch only) > S10-ledger seed-b
+S10-ledger seed-b head anchor=true ws=195 shelvings=46
+
+stdout | tests/zz-s10-ledger.test.ts > S10 probe rows 2-4 r2 (scratch only) > S10-ledger p13-public-commercial-adoption
+S10-ledger p13-public-commercial-adoption head anchor=true ws=118 shelvings=14
+
+stdout | tests/zz-s10-ledger.test.ts > S10 probe rows 2-4 r2 (scratch only) > S10-ledger p13a-core-causal-01
+S10-ledger p13a-core-causal-01 head anchor=true ws=93 shelvings=14
+
+ ✓ |core| tests/zz-s10-ledger.test.ts (18 tests | 15 skipped) 25470ms
+   ✓ S10 probe rows 2-4 r2 (scratch only) > S10-ledger seed-b 11685ms
+   ✓ S10 probe rows 2-4 r2 (scratch only) > S10-ledger p13-public-commercial-adoption 7991ms
+   ✓ S10 probe rows 2-4 r2 (scratch only) > S10-ledger p13a-core-causal-01 5792ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed | 15 skipped (18)
+   Start at  17:17:25
+   Duration  30.36s (transform 2.98s, setup 0ms, collect 3.99s, tests 25.47s, environment 0ms, prepare 163ms)
+
+exit=0
