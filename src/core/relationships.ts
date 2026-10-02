@@ -34,8 +34,21 @@ import type {
 /** The tier rule revision (code-only: the chooser receipt carries no rules
  * version, the B.1 precedent). 1 = value bands with the named floors PLUS the
  * §5.3 evidence condition: Nemeses/Enemies need a conflict record, and B.5
- * mints no conflict-record kind, so those bands READ Strained. */
-export const RELATIONSHIP_RULES_VERSION = 1
+ * mints no conflict-record kind, so those bands READ Strained. 2 (D-1312-1 and
+ * 1342-O item 8; 1347-A §2.2 as adopted by 1347-F) = the same bands and floors;
+ * the conflict record is `hasConflictEvidence`, so a value in the Nemeses/Enemies
+ * bands reads that band with evidence and Strained without it. Evidence never
+ * moves closeness, and the tier reads CURRENT closeness, never `peakTier`.
+ * No persisted value carries or is validated against this version: `peakTier`
+ * is checked for catalogue membership only (`validateRelationshipsRoot`), so a
+ * rules-1 save reads under rules 2 with no era split (record 1348-E). */
+export const RELATIONSHIP_RULES_VERSION = 2
+
+/** D-1312-1 (1340-O): "initially three distinct recorded casting competitions
+ * between the same pair". One competition is one `sharedCompetitions` increment,
+ * under `recordCastingCompetition`'s per-production de-duplication. Owner-named
+ * initial value; no new counter, driver kind or delta at the threshold. */
+export const RELATIONSHIP_CONFLICT_COMPETITIONS = 3
 
 /** §5.1 :401's random 45–55 replaced by ONE fixed constant (647-B ruling (i) on
  * OPEN 4; §8 :641 forbids a new RNG stream). Inside Acquaintances. */
@@ -146,17 +159,23 @@ function bandOf(closeness: number): RelationshipTier {
   return band
 }
 
-/** RULES 1: the band, under §5.3's evidence condition — Nemeses (:423) and Enemies
- * (:424) require a conflict record; B.5 mints none, so those bands read Strained
- * (:425 "a recent negative driver without a conflict record"). */
-function tierOf(closeness: number): RelationshipTier {
+/** D-1312-1: the pair's conflict record — evidence only, never a tier or a value
+ * by itself (1342-O item 8). Kept for good: recovery and drift leave it intact. */
+export function hasConflictEvidence(edge: Pick<RelationshipEdge, 'sharedCompetitions'>): boolean {
+  return edge.sharedCompetitions >= RELATIONSHIP_CONFLICT_COMPETITIONS
+}
+
+/** RULES 2: the band, under §5.3's evidence condition — Nemeses (:423) and Enemies
+ * (:424) require a conflict record; without one those bands read Strained (:425
+ * "a recent negative driver without a conflict record"). */
+function tierOf(closeness: number, evidence: boolean): RelationshipTier {
   const band = bandOf(closeness)
-  return band === 'Nemeses' || band === 'Enemies' ? 'Strained' : band
+  return (band === 'Nemeses' || band === 'Enemies') && !evidence ? 'Strained' : band
 }
 
 /** The tier at `week` under `RELATIONSHIP_RULES_VERSION`, a pure read. */
-export function currentTier(edge: Pick<RelationshipEdge, 'closeness' | 'lastEventWeek'>, week: number): RelationshipTier {
-  return tierOf(currentCloseness(edge, week))
+export function currentTier(edge: Pick<RelationshipEdge, 'closeness' | 'lastEventWeek' | 'sharedCompetitions'>, week: number): RelationshipTier {
+  return tierOf(currentCloseness(edge, week), hasConflictEvidence(edge))
 }
 
 /**
@@ -190,11 +209,12 @@ function counted(edge: RelationshipEdge, kind: RelationshipDriverKind): Relation
  * a HIGHER tier; the driver appends and the oldest folds out past the cap (the
  * counters are the fold target — §5.5 :468). Spread-preserving. */
 function writeEdge(edge: RelationshipEdge, week: number, driver: RelationshipDriver): RelationshipEdge {
+  const next = counted(edge, driver.kind)
   const closeness = clamp(currentCloseness(edge, week) + driver.delta)
-  const tier = tierOf(closeness)
+  const tier = tierOf(closeness, hasConflictEvidence(next))
   const higher = rank(tier) > rank(edge.peakTier)
   return {
-    ...counted(edge, driver.kind),
+    ...next,
     closeness,
     lastEventWeek: week,
     peakTier: higher ? tier : edge.peakTier,
@@ -208,14 +228,15 @@ function writeEdge(edge: RelationshipEdge, week: number, driver: RelationshipDri
  * applied (drift materialized on a fresh baseline is the baseline itself). */
 function newEdge(index: number, a: string, b: string, week: number, driver: RelationshipDriver): RelationshipEdge {
   const closeness = clamp(RELATIONSHIP_BASELINE + driver.delta)
-  const tier = tierOf(closeness)
   const competition = driver.kind === 'castingCompetitionLost'
+  const sharedCompetitions = competition ? 1 : 0
+  const tier = tierOf(closeness, hasConflictEvidence({ sharedCompetitions }))
   return {
     edgeId: `relationship-edge-${String(index)}`,
     a, b, closeness,
     firstSharedWeek: week, lastEventWeek: week,
     sharedProductions: competition ? 0 : 1, sharedSuccesses: 0, sharedFailures: 0, sharedCancellations: 0,
-    sharedCompetitions: competition ? 1 : 0,
+    sharedCompetitions,
     peakTier: tier, peakTierWeek: week,
     recent: [driver],
   }
