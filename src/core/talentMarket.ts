@@ -39,7 +39,7 @@ import type { ContractOffer, TerminationLaw } from './employment.js'
 import { attachPromise, attachedPromiseDigest, promiseFeasibility, proposalDigest, trustDescriptor } from './promises.js'
 import { isOpportunityPredicate } from './opportunityPromises.js'
 import { takeSubjectOwner } from './firstTakeSubjects.js'
-import { tiersOnRoster } from './relationships.js'
+import { relationshipsReasonSentence, tiersOnRoster } from './relationships.js'
 import type { PromiseAttachment } from './promises.js'
 import { careerIdentity } from './talentSummary.js'
 import { TUNING } from './tuning.js'
@@ -737,14 +737,13 @@ export function rivalProposalTrigger(
 const DESCRIPTOR_ORDER = ['compensation', 'term', 'opportunity', 'trust', 'relationships', 'standing', 'incumbency'] as const
 export type DescriptorKey = (typeof DESCRIPTOR_ORDER)[number]
 
-const DESCRIPTOR_REASON: Record<DescriptorKey, string> = {
+// D5's reason depends on the winner's own band, so it comes from
+// `relationshipsReasonSentence` (1348-F2), not from this table.
+const DESCRIPTOR_REASON: Record<Exclude<DescriptorKey, 'relationships'>, string> = {
   compensation: 'their compensation band ranked above the others',
   term: 'their term matched what this person prefers',
   opportunity: 'they offered an opportunity',
   trust: 'their record with this person ranked above the others',
-  // P14B.5 (5): CANDIDATE WORDING; the contract is the sentence's CLASS —
-  // ordering-only, naming no person, tier or number.
-  relationships: "their roster holds this person's close ties",
   standing: 'their studio standing ranked higher',
   incumbency: 'they are the current employer',
 }
@@ -912,7 +911,10 @@ function bandsFor(
     // D5 relationships (P14B.5 (5); companion :116): `close ties here` (2) iff a
     // counterpart of the subject reads CloseFriends or Inseparable on the issuer's
     // roster at W; `enemies here` (0) iff one reads Enemies or Nemeses and no close
-    // tie (precedence when both: OPEN 11, unreachable in B.5); else `none` (1).
+    // tie; else `none` (1). When both are on the roster the shipped order holds and
+    // close ties rank first (1347-F Amendment 2; OPEN 11's enemies-first candidate is
+    // not selected). Relationship rules 2 make Enemies/Nemeses reachable through
+    // conflict evidence, so `enemies here` is now a reachable band.
     const tiers = tiersOnRoster(state, kase.talentId, rosterAt(hollywood, p.issuerStudioId, kase.talentId, week), week)
     const relationships = tiers.some((t) => t === 'CloseFriends' || t === 'Inseparable') ? 2
       : tiers.some((t) => t === 'Enemies' || t === 'Nemeses') ? 0 : 1
@@ -986,7 +988,9 @@ function chooseProposal(
   const reasons = others.length === 0
     ? ['theirs was the only proposal on the table']
     : DESCRIPTOR_ORDER.filter((key) => others.every((q) => bands.get(winner)![key] > bands.get(q)![key]))
-        .map((key) => DESCRIPTOR_REASON[key])
+        .map((key) => key === 'relationships'
+          ? relationshipsReasonSentence(bands.get(winner)!.relationships as 0 | 1 | 2)
+          : DESCRIPTOR_REASON[key])
   return { winner, reasons: reasons.length > 0 ? reasons : ['their proposal ranked above the others overall'] }
 }
 

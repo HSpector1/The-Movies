@@ -1531,6 +1531,7 @@ export {
   pairChemistry,
   driverGain,
   tiersOnRoster,
+  relationshipsReasonSentence,
   requireRelationshipsRoot,
   validateRelationshipsRoot,
   projectRelationshipsPreV31,

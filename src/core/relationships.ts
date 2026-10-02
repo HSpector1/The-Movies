@@ -441,6 +441,22 @@ export function tiersOnRoster(state: GameState, subject: string, roster: Readonl
   return tiers
 }
 
+/**
+ * 1348-F2/F3: the D5 settlement reason, keyed by the WINNER's own relationships band
+ * (`talentMarket.ts` `bandsFor`: 2 close ties here, 1 none, 0 enemies here). The
+ * sentence class of the other descriptor reasons: ordering-only, naming no person,
+ * tier or number (P14B.5 (5) candidate wording). `chooseProposal` names a
+ * descriptor only where the winner stands strictly above every other proposal, so
+ * a band-1 winner only ever beats band-0 rosters.
+ */
+export function relationshipsReasonSentence(band: 0 | 1 | 2): string {
+  if (band === 2) return "their roster holds this person's close ties"
+  // Band 0 is the floor of {0, 1, 2}: it can never be a decisive winner's band, so
+  // it is unreachable through `chooseProposal` and shares band 1's sentence rather
+  // than inventing a third (1348-F3).
+  return 'every other offer comes from a roster holding someone this person is at odds with'
+}
+
 export type PairChemistry = { tier: RelationshipTier | null; sign: -1 | 0 | 1; reasons: readonly string[] }
 
 /** Kind → copy at read (the B.2 pattern); no number in any string. */
