@@ -1,0 +1,23 @@
+HEAD e16b782e7a38e4d207664acbca78d77dab1f2c69, node v20.20.2, start 2026-10-02 12:41:28 CDT
+== tsconfig.json
+tests/p15a1-market-integration-phases.test.ts(37,30): error TS2307: Cannot find module '../src/core/p15Phases.js' or its corresponding type declarations.
+tests/p15a1-market-integration.test.ts(110,25): error TS2307: Cannot find module '../src/core/p15Phases.js' or its corresponding type declarations.
+tests/p15a2-power-ranking-archive-isolation.test.ts(66,29): error TS2307: Cannot find module '../src/core/powerRankingArchive.js' or its corresponding type declarations.
+tests/p15a2-power-ranking-archive.test.ts(85,29): error TS2307: Cannot find module '../src/core/powerRankingArchive.js' or its corresponding type declarations.
+tests/p15a2-power-ranking-archive.test.ts(97,29): error TS2307: Cannot find module '../src/core/p15Phases.js' or its corresponding type declarations.
+tests/p15a2-power-ranking-archive.test.ts(348,31): error TS2307: Cannot find module '../src/core/p15Phases.js' or its corresponding type declarations.
+exit 2
+== ui/tsconfig.json
+exit 0
+== tsconfig.bridge.json
+exit 0
+== check:bridge-contract
+verified /Users/zacheryspector/The-Movies-headless-program/bridge/schema/project-studio-bridge.schema.json
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/StudioBridgeDtos.Generated.cs
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/project-studio-bridge.contract-manifest.json
+exit 0
+== check:bridge-contract:fixtures
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs
+exit 0
+source paths after: []
+end 2026-10-02 12:43:47 CDT

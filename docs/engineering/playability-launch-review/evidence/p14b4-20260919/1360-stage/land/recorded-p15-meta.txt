@@ -1,0 +1,33 @@
+1360-p15a2-red-recorded start at 10b9be414ef361558729238379c372d639ffb0a8, node v20.20.2; 2026-10-02 11:56:57 CDT
+1360-p15a2-red-recorded pre; 2026-10-02 11:56:58 CDT
+1360-p15a2-red-recorded run; 2026-10-02 11:57:01 CDT
+1360-p15a2-red-recorded run exit 0; 2026-10-02 11:57:24 CDT
+1360-p15a2-red-recorded post exit 0;  Tests 70 failed | 2 passed (72); 2026-10-02 11:57:26 CDT
+1360-p15a2-red-recorded end; 2026-10-02 11:57:26 CDT
+1360-p15a1-mint start at 601ea70908a17c715e839a47c81764e3a580bd58, node v20.20.2, recorded-p15-v2.sh; 2026-10-02 12:32:00 CDT
+1360-p15a1-mint pre; 2026-10-02 12:32:01 CDT
+1360-p15a1-mint run; 2026-10-02 12:32:05 CDT
+1360-p15a1-mint recorder exit 0; 2026-10-02 12:32:12 CDT
+1360-p15a1-mint post exit 0; command exitCode 0; ; 2026-10-02 12:32:13 CDT
+1360-p15a1-mint wrote tests/fixtures/p15/genuine-below-p15-save-step: MANIFEST.json fresh-market-week-30.json.gz ; 2026-10-02 12:32:13 CDT
+1360-p15a1-mint wrote tests/fixtures/p15/p15a1-market-pins: MANIFEST.json k1-post-tick-week-21.json.gz ; 2026-10-02 12:32:13 CDT
+1360-p15a1-mint end; 2026-10-02 12:32:13 CDT
+1360-p15a1-red-recorded start at 6ce916cb073c4f9a86eb42d3288367fe6ce07c91, node v20.20.2, recorded-p15-v2.sh; 2026-10-02 12:32:49 CDT
+1360-p15a1-red-recorded pre; 2026-10-02 12:32:50 CDT
+1360-p15a1-red-recorded run; 2026-10-02 12:32:52 CDT
+1360-p15a1-red-recorded recorder exit 0; 2026-10-02 12:33:03 CDT
+1360-p15a1-red-recorded post exit 0; command exitCode 1;  Tests 51 failed | 8 passed (59); 2026-10-02 12:33:04 CDT
+1360-p15a1-red-recorded end; 2026-10-02 12:33:04 CDT
+1360-p15c-mint start at 6044ad4f4a02cc2cee6b2b4eb807cb7d669c0a22, node v20.20.2, recorded-p15-v2.sh; 2026-10-02 12:39:09 CDT
+1360-p15c-mint pre; 2026-10-02 12:39:10 CDT
+1360-p15c-mint run; 2026-10-02 12:39:14 CDT
+1360-p15c-mint recorder exit 0; 2026-10-02 12:39:24 CDT
+1360-p15c-mint post exit 0; command exitCode 0; ; 2026-10-02 12:39:26 CDT
+1360-p15c-mint wrote tests/fixtures/p15/p15c2-route-l-captures: MANIFEST.json route-l-week-6239.json.gz route-l-week-6240.json.gz ; 2026-10-02 12:39:26 CDT
+1360-p15c-mint end; 2026-10-02 12:39:26 CDT
+1360-p15c-red-recorded start at 840cf1c7bc731943450807d8725311814d0939a3, node v20.20.2, recorded-p15-v2.sh; 2026-10-02 12:39:46 CDT
+1360-p15c-red-recorded pre; 2026-10-02 12:39:46 CDT
+1360-p15c-red-recorded run; 2026-10-02 12:39:49 CDT
+1360-p15c-red-recorded recorder exit 0; 2026-10-02 12:40:44 CDT
+1360-p15c-red-recorded post exit 0; command exitCode 1;  Tests 40 failed | 76 passed (116); 2026-10-02 12:40:45 CDT
+1360-p15c-red-recorded end; 2026-10-02 12:40:45 CDT

@@ -1,5 +1,45 @@
 # R3-N1 native correction record — 2026-09-15 · OPS-R3-N1-NATIVE-CORRECTION-20260915-01
 
+## CURRENT: P15 Wave 2 REDs landed on Save44 (1360-L); both P15 captures minted; Save45 reserved for the three P15 productions
+
+State at 2026-10-02 12:45 CDT, at the commit that adds this block (pushed). No recorded run is active. Root `HANDOFF.md` carries the
+resume commands and the lane queue.
+
+- **P15 Wave 2 REDs: LANDED.** [1360-L](evidence/p14b4-20260919/1360-L-p15-wave2-red-landing.md) holds the step table.
+  - **The plan.** [1360-R](evidence/p14b4-20260919/1360-R-p15-wave2-red-landing-protocol.md) compiled the protocol.
+    The parent ruled in [1360-F](evidence/p14b4-20260919/1360-F-parent-rulings-p15-wave2-red-landings.md), amended
+    by [1360-F2](evidence/p14b4-20260919/1360-F2-parent-response-to-1360-D.md) and
+    [1360-F3](evidence/p14b4-20260919/1360-F3-parent-response-to-1360-D2.md).
+  - **The rehearsal.** [1360-X](evidence/p14b4-20260919/1360-X-p15-wave2-landing-replay.md) replayed the whole
+    sequence in scratch first.
+  - **The reviews.** [1360-D](evidence/p14b4-20260919/1360-D-p15-wave2-landing-review.md) and
+    [1360-D2](evidence/p14b4-20260919/1360-D2-p15-wave2-landing-recheck.md).
+  - **The order:** 1356 (P15A.2 slice 2a), 1355 (P15A.1), 1359 (P15C r8). `P15_ROOTS` merged to four keys.
+  - **Recorded REDs:** 70 failed / 2 passed, 51 / 8, and 40 / 76. Each equals the replay leaf for leaf.
+  - **Recorded mints** `1360-p15a1-mint` and `1360-p15c-mint` wrote the Save44 captures and pins under
+    `tests/fixtures/p15/`. Every MANIFEST field equals the replay's, apart from the head and the timings.
+    `CAPTURE_MANIFEST_SHA256` is 410d48a8….
+  - **The type gates** at the landed HEAD:
+    - root has the six missing-module errors the REDs declare;
+    - UI, Bridge and both generator checks are clean.
+- **Save45 is reserved** for P15A.2 slice 2a, P15A.1 and P15C (1360-F ruling 1; 1360-F2 ruling 2).
+  - The single writer authors them in that order on the Save44 base, and they land together behind one Save45 sweep.
+  - No commit that changes `src/` lands before then (1360-F3 ruling 5).
+  - P15B joins only if 1357-Q1 resolves in time.
+  - If P15A.1 or P15C misses the step, slice 2a may land alone, and the other two take their declared re-pins.
+- **Next.** The Save45 production protocol is in compilation. Then come the productions, with G2's control on an
+  archive of e4be3e5c and P15C's G-P on the production tree.
+- **Open Owner items:**
+  - 1357-Q1: rival recovery before P15B closure. Recommend (a), starting with the shelving `cashBlocked` fix (1357-F3).
+  - The P15C playtest brief (1353-T §6.3; 1353-F7 ruling 6).
+  - Slice B's provisional copy (1358-F7 ruling 7).
+  - numpy for the three rgba rows.
+  - P16's nine questions (1354-Q).
+  - The §7 flags (1344-V §9).
+  - The seven declared exceptions.
+  - 1356-X F-2.
+  - X12's V39 family.
+
 ## CURRENT: slice B closed (1358-L, 1358-M3); Save44 and projection 57 live; P15 Wave 2 REDs rebase onto Save44
 
 State at 2026-10-02 11:12 CDT, at the commit that adds this block (pushed). No recorded run is active. Root `HANDOFF.md` carries the
