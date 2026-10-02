@@ -1,0 +1,28 @@
+{
+ "routes": [
+  {
+   "route": "Oracle",
+   "seed": "replay-bcast-Oracle",
+   "weeks": 4,
+   "weekly": [
+    "3684415dbfff5e87",
+    "7450975cc119b9e2",
+    "0ba49b8fba1045b9",
+    "038db286bd5f5f85"
+   ],
+   "v42ExportSha256": "0b75518cb44828c657efb583c3e9f5ec3fdbb4f5b2a69973fabc8fd97e2e06fe"
+  },
+  {
+   "route": "Random",
+   "seed": "replay-bcast-Random",
+   "weeks": 4,
+   "weekly": [
+    "2df70fabcd3a7daa",
+    "6b674515789504e0",
+    "88f6ea7b4468024f",
+    "2da16f3ca18d0226"
+   ],
+   "v42ExportSha256": "1e6803fab6787d56f7b0d8d2f540a2ddf5979903eae850c4317ee7aa249fc340"
+  }
+ ]
+}

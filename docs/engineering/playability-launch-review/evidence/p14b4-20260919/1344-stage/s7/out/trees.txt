@@ -1,0 +1,3 @@
+candidate 469a9547f1a3b53b7c9985ec53beaa55e2a65587 src-tree db80ca312211a70b54fcb75cb80480ad5e8dc867 -> /Users/zacheryspector/studio-scratch/1344-s7/tree (c6b501e)
+old src ff803032 src-tree 347cfcce5602570eaa39137e6490d7e6fa0228eb (equal to 133aca7a), tests and configs from 469a9547f1a3b53b7c9985ec53beaa55e2a65587 -> /Users/zacheryspector/studio-scratch/1344-s7/old-tree (1ac575f)
+src and generated unchanged since 9fc79624: yes

@@ -1,0 +1,8278 @@
+{
+ "meta": {
+  "seed": "seed-b",
+  "weeks": 520,
+  "tree": "candidate",
+  "kit": "1344-s7 probes/s7-natural-route.test.ts",
+  "finalStateSha256": "759943bd8c3794c0068eb332218adbed0f37b45333ffe59208f52e4782df8fd1",
+  "tuning": {
+   "HOLLYWOOD_SHELVE_AFTER_REJECTIONS": 13,
+   "HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS": 13,
+   "HOLLYWOOD_SHELVED_RETRY_WEEKS": 26
+  }
+ },
+ "industryFilms": {
+  "filmsAt140": 68,
+  "filmsAtEnd": 115,
+  "filmsAddedFromWeek140": 47,
+  "head1329": {
+   "commit": "133aca7a",
+   "filmsAt140": 53,
+   "filmsAt520": 53
+  }
+ },
+ "studios": [
+  {
+   "studioId": "studio-bc14baf6-r01",
+   "short": "r01",
+   "cashEnd": 15495747.272298224,
+   "films": 28,
+   "firstTakes": 26,
+   "shelvings": [
+    {
+     "week": 223,
+     "id": "script-0023",
+     "conceptId": "studio-bc14baf6-r01:concept:23",
+     "rejections": 13
+    },
+    {
+     "week": 226,
+     "id": "script-0024",
+     "conceptId": "studio-bc14baf6-r01:concept:24",
+     "rejections": 13
+    },
+    {
+     "week": 262,
+     "id": "script-0025",
+     "conceptId": "studio-bc14baf6-r01:concept:25",
+     "rejections": 13
+    },
+    {
+     "week": 269,
+     "id": "script-0027",
+     "conceptId": "studio-bc14baf6-r01:concept:27",
+     "rejections": 13
+    },
+    {
+     "week": 297,
+     "id": "script-0028",
+     "conceptId": "studio-bc14baf6-r01:concept:28",
+     "rejections": 13
+    },
+    {
+     "week": 300,
+     "id": "script-0029",
+     "conceptId": "studio-bc14baf6-r01:concept:29",
+     "rejections": 13
+    },
+    {
+     "week": 328,
+     "id": "script-0030",
+     "conceptId": "studio-bc14baf6-r01:concept:30",
+     "rejections": 13
+    },
+    {
+     "week": 331,
+     "id": "script-0031",
+     "conceptId": "studio-bc14baf6-r01:concept:31",
+     "rejections": 13
+    },
+    {
+     "week": 359,
+     "id": "script-0032",
+     "conceptId": "studio-bc14baf6-r01:concept:32",
+     "rejections": 13
+    },
+    {
+     "week": 362,
+     "id": "script-0033",
+     "conceptId": "studio-bc14baf6-r01:concept:33",
+     "rejections": 13
+    },
+    {
+     "week": 399,
+     "id": "script-0035",
+     "conceptId": "studio-bc14baf6-r01:concept:35",
+     "rejections": 13
+    },
+    {
+     "week": 402,
+     "id": "script-0036",
+     "conceptId": "studio-bc14baf6-r01:concept:36",
+     "rejections": 13
+    },
+    {
+     "week": 430,
+     "id": "script-0037",
+     "conceptId": "studio-bc14baf6-r01:concept:37",
+     "rejections": 13
+    },
+    {
+     "week": 431,
+     "id": "script-0038",
+     "conceptId": "studio-bc14baf6-r01:concept:38",
+     "rejections": 13
+    },
+    {
+     "week": 461,
+     "id": "script-0039",
+     "conceptId": "studio-bc14baf6-r01:concept:39",
+     "rejections": 13
+    },
+    {
+     "week": 464,
+     "id": "script-0040",
+     "conceptId": "studio-bc14baf6-r01:concept:40",
+     "rejections": 13
+    },
+    {
+     "week": 492,
+     "id": "script-0041",
+     "conceptId": "studio-bc14baf6-r01:concept:41",
+     "rejections": 13
+    },
+    {
+     "week": 495,
+     "id": "script-0042",
+     "conceptId": "studio-bc14baf6-r01:concept:42",
+     "rejections": 13
+    }
+   ],
+   "shelvingsPerYear": {
+    "4": 2,
+    "5": 4,
+    "6": 4,
+    "7": 2,
+    "8": 4,
+    "9": 2
+   },
+   "maxShelvingsInAny52Weeks": 4,
+   "retries": {
+    "viable": [
+     {
+      "week": 440,
+      "id": "script-0035"
+     }
+    ],
+    "economicRejection": [
+     {
+      "week": 254,
+      "id": "script-0023",
+      "retryWeekBefore": 249,
+      "retryWeekAfter": 280
+     },
+     {
+      "week": 262,
+      "id": "script-0024",
+      "retryWeekBefore": 252,
+      "retryWeekAfter": 288
+     },
+     {
+      "week": 280,
+      "id": "script-0023",
+      "retryWeekBefore": 280,
+      "retryWeekAfter": 306
+     },
+     {
+      "week": 297,
+      "id": "script-0024",
+      "retryWeekBefore": 288,
+      "retryWeekAfter": 323
+     },
+     {
+      "week": 298,
+      "id": "script-0025",
+      "retryWeekBefore": 288,
+      "retryWeekAfter": 324
+     },
+     {
+      "week": 299,
+      "id": "script-0027",
+      "retryWeekBefore": 295,
+      "retryWeekAfter": 325
+     },
+     {
+      "week": 306,
+      "id": "script-0023",
+      "retryWeekBefore": 306,
+      "retryWeekAfter": 332
+     },
+     {
+      "week": 328,
+      "id": "script-0024",
+      "retryWeekBefore": 323,
+      "retryWeekAfter": 354
+     },
+     {
+      "week": 329,
+      "id": "script-0025",
+      "retryWeekBefore": 324,
+      "retryWeekAfter": 355
+     },
+     {
+      "week": 330,
+      "id": "script-0027",
+      "retryWeekBefore": 325,
+      "retryWeekAfter": 356
+     },
+     {
+      "week": 331,
+      "id": "script-0028",
+      "retryWeekBefore": 323,
+      "retryWeekAfter": 357
+     },
+     {
+      "week": 332,
+      "id": "script-0023",
+      "retryWeekBefore": 332,
+      "retryWeekAfter": 358
+     },
+     {
+      "week": 333,
+      "id": "script-0029",
+      "retryWeekBefore": 326,
+      "retryWeekAfter": 359
+     },
+     {
+      "week": 359,
+      "id": "script-0023",
+      "retryWeekBefore": 358,
+      "retryWeekAfter": 385
+     },
+     {
+      "week": 360,
+      "id": "script-0024",
+      "retryWeekBefore": 354,
+      "retryWeekAfter": 386
+     },
+     {
+      "week": 361,
+      "id": "script-0025",
+      "retryWeekBefore": 355,
+      "retryWeekAfter": 387
+     },
+     {
+      "week": 362,
+      "id": "script-0027",
+      "retryWeekBefore": 356,
+      "retryWeekAfter": 388
+     },
+     {
+      "week": 363,
+      "id": "script-0028",
+      "retryWeekBefore": 357,
+      "retryWeekAfter": 389
+     },
+     {
+      "week": 364,
+      "id": "script-0029",
+      "retryWeekBefore": 359,
+      "retryWeekAfter": 390
+     },
+     {
+      "week": 365,
+      "id": "script-0030",
+      "retryWeekBefore": 354,
+      "retryWeekAfter": 391
+     },
+     {
+      "week": 366,
+      "id": "script-0031",
+      "retryWeekBefore": 357,
+      "retryWeekAfter": 392
+     },
+     {
+      "week": 387,
+      "id": "script-0023",
+      "retryWeekBefore": 385,
+      "retryWeekAfter": 413
+     },
+     {
+      "week": 399,
+      "id": "script-0024",
+      "retryWeekBefore": 386,
+      "retryWeekAfter": 425
+     },
+     {
+      "week": 400,
+      "id": "script-0025",
+      "retryWeekBefore": 387,
+      "retryWeekAfter": 426
+     },
+     {
+      "week": 401,
+      "id": "script-0027",
+      "retryWeekBefore": 388,
+      "retryWeekAfter": 427
+     },
+     {
+      "week": 402,
+      "id": "script-0028",
+      "retryWeekBefore": 389,
+      "retryWeekAfter": 428
+     },
+     {
+      "week": 403,
+      "id": "script-0029",
+      "retryWeekBefore": 390,
+      "retryWeekAfter": 429
+     },
+     {
+      "week": 404,
+      "id": "script-0030",
+      "retryWeekBefore": 391,
+      "retryWeekAfter": 430
+     },
+     {
+      "week": 405,
+      "id": "script-0031",
+      "retryWeekBefore": 392,
+      "retryWeekAfter": 431
+     },
+     {
+      "week": 406,
+      "id": "script-0032",
+      "retryWeekBefore": 385,
+      "retryWeekAfter": 432
+     },
+     {
+      "week": 407,
+      "id": "script-0033",
+      "retryWeekBefore": 388,
+      "retryWeekAfter": 433
+     },
+     {
+      "week": 413,
+      "id": "script-0023",
+      "retryWeekBefore": 413,
+      "retryWeekAfter": 439
+     },
+     {
+      "week": 430,
+      "id": "script-0024",
+      "retryWeekBefore": 425,
+      "retryWeekAfter": 456
+     },
+     {
+      "week": 431,
+      "id": "script-0025",
+      "retryWeekBefore": 426,
+      "retryWeekAfter": 457
+     },
+     {
+      "week": 432,
+      "id": "script-0027",
+      "retryWeekBefore": 427,
+      "retryWeekAfter": 458
+     },
+     {
+      "week": 433,
+      "id": "script-0028",
+      "retryWeekBefore": 428,
+      "retryWeekAfter": 459
+     },
+     {
+      "week": 434,
+      "id": "script-0029",
+      "retryWeekBefore": 429,
+      "retryWeekAfter": 460
+     },
+     {
+      "week": 435,
+      "id": "script-0030",
+      "retryWeekBefore": 430,
+      "retryWeekAfter": 461
+     },
+     {
+      "week": 436,
+      "id": "script-0031",
+      "retryWeekBefore": 431,
+      "retryWeekAfter": 462
+     },
+     {
+      "week": 437,
+      "id": "script-0032",
+      "retryWeekBefore": 432,
+      "retryWeekAfter": 463
+     },
+     {
+      "week": 438,
+      "id": "script-0033",
+      "retryWeekBefore": 433,
+      "retryWeekAfter": 464
+     },
+     {
+      "week": 439,
+      "id": "script-0023",
+      "retryWeekBefore": 439,
+      "retryWeekAfter": 465
+     },
+     {
+      "week": 449,
+      "id": "script-0036",
+      "retryWeekBefore": 428,
+      "retryWeekAfter": 475
+     },
+     {
+      "week": 461,
+      "id": "script-0024",
+      "retryWeekBefore": 456,
+      "retryWeekAfter": 487
+     },
+     {
+      "week": 462,
+      "id": "script-0025",
+      "retryWeekBefore": 457,
+      "retryWeekAfter": 488
+     },
+     {
+      "week": 463,
+      "id": "script-0027",
+      "retryWeekBefore": 458,
+      "retryWeekAfter": 489
+     },
+     {
+      "week": 464,
+      "id": "script-0028",
+      "retryWeekBefore": 459,
+      "retryWeekAfter": 490
+     },
+     {
+      "week": 465,
+      "id": "script-0023",
+      "retryWeekBefore": 465,
+      "retryWeekAfter": 491
+     },
+     {
+      "week": 466,
+      "id": "script-0029",
+      "retryWeekBefore": 460,
+      "retryWeekAfter": 492
+     },
+     {
+      "week": 467,
+      "id": "script-0030",
+      "retryWeekBefore": 461,
+      "retryWeekAfter": 493
+     },
+     {
+      "week": 468,
+      "id": "script-0031",
+      "retryWeekBefore": 462,
+      "retryWeekAfter": 494
+     },
+     {
+      "week": 469,
+      "id": "script-0032",
+      "retryWeekBefore": 463,
+      "retryWeekAfter": 495
+     },
+     {
+      "week": 470,
+      "id": "script-0033",
+      "retryWeekBefore": 464,
+      "retryWeekAfter": 496
+     },
+     {
+      "week": 471,
+      "id": "script-0037",
+      "retryWeekBefore": 456,
+      "retryWeekAfter": 497
+     },
+     {
+      "week": 472,
+      "id": "script-0038",
+      "retryWeekBefore": 457,
+      "retryWeekAfter": 498
+     },
+     {
+      "week": 475,
+      "id": "script-0036",
+      "retryWeekBefore": 475,
+      "retryWeekAfter": 501
+     },
+     {
+      "week": 492,
+      "id": "script-0023",
+      "retryWeekBefore": 491,
+      "retryWeekAfter": 518
+     },
+     {
+      "week": 493,
+      "id": "script-0024",
+      "retryWeekBefore": 487,
+      "retryWeekAfter": 519
+     },
+     {
+      "week": 494,
+      "id": "script-0025",
+      "retryWeekBefore": 488,
+      "retryWeekAfter": 520
+     },
+     {
+      "week": 495,
+      "id": "script-0027",
+      "retryWeekBefore": 489,
+      "retryWeekAfter": 521
+     },
+     {
+      "week": 496,
+      "id": "script-0028",
+      "retryWeekBefore": 490,
+      "retryWeekAfter": 522
+     },
+     {
+      "week": 497,
+      "id": "script-0029",
+      "retryWeekBefore": 492,
+      "retryWeekAfter": 523
+     },
+     {
+      "week": 498,
+      "id": "script-0030",
+      "retryWeekBefore": 493,
+      "retryWeekAfter": 524
+     },
+     {
+      "week": 499,
+      "id": "script-0031",
+      "retryWeekBefore": 494,
+      "retryWeekAfter": 525
+     },
+     {
+      "week": 500,
+      "id": "script-0032",
+      "retryWeekBefore": 495,
+      "retryWeekAfter": 526
+     },
+     {
+      "week": 501,
+      "id": "script-0033",
+      "retryWeekBefore": 496,
+      "retryWeekAfter": 527
+     },
+     {
+      "week": 502,
+      "id": "script-0036",
+      "retryWeekBefore": 501,
+      "retryWeekAfter": 528
+     },
+     {
+      "week": 503,
+      "id": "script-0037",
+      "retryWeekBefore": 497,
+      "retryWeekAfter": 529
+     },
+     {
+      "week": 504,
+      "id": "script-0038",
+      "retryWeekBefore": 498,
+      "retryWeekAfter": 530
+     },
+     {
+      "week": 505,
+      "id": "script-0039",
+      "retryWeekBefore": 487,
+      "retryWeekAfter": 531
+     },
+     {
+      "week": 506,
+      "id": "script-0040",
+      "retryWeekBefore": 490,
+      "retryWeekAfter": 532
+     }
+    ]
+   },
+   "shelvedAtEnd": [
+    {
+     "ordinal": 23,
+     "week": 223,
+     "retryWeek": 518
+    },
+    {
+     "ordinal": 24,
+     "week": 226,
+     "retryWeek": 519
+    },
+    {
+     "ordinal": 25,
+     "week": 262,
+     "retryWeek": 520
+    },
+    {
+     "ordinal": 27,
+     "week": 269,
+     "retryWeek": 521
+    },
+    {
+     "ordinal": 28,
+     "week": 297,
+     "retryWeek": 522
+    },
+    {
+     "ordinal": 29,
+     "week": 300,
+     "retryWeek": 523
+    },
+    {
+     "ordinal": 30,
+     "week": 328,
+     "retryWeek": 524
+    },
+    {
+     "ordinal": 31,
+     "week": 331,
+     "retryWeek": 525
+    },
+    {
+     "ordinal": 32,
+     "week": 359,
+     "retryWeek": 526
+    },
+    {
+     "ordinal": 33,
+     "week": 362,
+     "retryWeek": 527
+    },
+    {
+     "ordinal": 36,
+     "week": 402,
+     "retryWeek": 528
+    },
+    {
+     "ordinal": 37,
+     "week": 430,
+     "retryWeek": 529
+    },
+    {
+     "ordinal": 38,
+     "week": 431,
+     "retryWeek": 530
+    },
+    {
+     "ordinal": 39,
+     "week": 461,
+     "retryWeek": 531
+    },
+    {
+     "ordinal": 40,
+     "week": 464,
+     "retryWeek": 532
+    },
+    {
+     "ordinal": 41,
+     "week": 492,
+     "retryWeek": 518
+    },
+    {
+     "ordinal": 42,
+     "week": 495,
+     "retryWeek": 521
+    }
+   ],
+   "filmsAgain": [
+    {
+     "shelvingWeek": 223,
+     "shelved": "script-0023",
+     "announced": {
+      "week": 245,
+      "id": "studio-bc14baf6-r01:film:26"
+     },
+     "firstTake": {
+      "week": 250,
+      "id": "studio-bc14baf6-r01:film:26"
+     },
+     "released": {
+      "week": 253,
+      "id": "studio-bc14baf6-r01:film:26"
+     }
+    },
+    {
+     "shelvingWeek": 226,
+     "shelved": "script-0024",
+     "announced": {
+      "week": 245,
+      "id": "studio-bc14baf6-r01:film:26"
+     },
+     "firstTake": {
+      "week": 250,
+      "id": "studio-bc14baf6-r01:film:26"
+     },
+     "released": {
+      "week": 253,
+      "id": "studio-bc14baf6-r01:film:26"
+     }
+    },
+    {
+     "shelvingWeek": 262,
+     "shelved": "script-0025",
+     "announced": {
+      "week": 378,
+      "id": "studio-bc14baf6-r01:film:34"
+     },
+     "firstTake": {
+      "week": 383,
+      "id": "studio-bc14baf6-r01:film:34"
+     },
+     "released": {
+      "week": 386,
+      "id": "studio-bc14baf6-r01:film:34"
+     }
+    },
+    {
+     "shelvingWeek": 269,
+     "shelved": "script-0027",
+     "announced": {
+      "week": 378,
+      "id": "studio-bc14baf6-r01:film:34"
+     },
+     "firstTake": {
+      "week": 383,
+      "id": "studio-bc14baf6-r01:film:34"
+     },
+     "released": {
+      "week": 386,
+      "id": "studio-bc14baf6-r01:film:34"
+     }
+    },
+    {
+     "shelvingWeek": 297,
+     "shelved": "script-0028",
+     "announced": {
+      "week": 378,
+      "id": "studio-bc14baf6-r01:film:34"
+     },
+     "firstTake": {
+      "week": 383,
+      "id": "studio-bc14baf6-r01:film:34"
+     },
+     "released": {
+      "week": 386,
+      "id": "studio-bc14baf6-r01:film:34"
+     }
+    },
+    {
+     "shelvingWeek": 300,
+     "shelved": "script-0029",
+     "announced": {
+      "week": 378,
+      "id": "studio-bc14baf6-r01:film:34"
+     },
+     "firstTake": {
+      "week": 383,
+      "id": "studio-bc14baf6-r01:film:34"
+     },
+     "released": {
+      "week": 386,
+      "id": "studio-bc14baf6-r01:film:34"
+     }
+    },
+    {
+     "shelvingWeek": 328,
+     "shelved": "script-0030",
+     "announced": {
+      "week": 378,
+      "id": "studio-bc14baf6-r01:film:34"
+     },
+     "firstTake": {
+      "week": 383,
+      "id": "studio-bc14baf6-r01:film:34"
+     },
+     "released": {
+      "week": 386,
+      "id": "studio-bc14baf6-r01:film:34"
+     }
+    },
+    {
+     "shelvingWeek": 331,
+     "shelved": "script-0031",
+     "announced": {
+      "week": 378,
+      "id": "studio-bc14baf6-r01:film:34"
+     },
+     "firstTake": {
+      "week": 383,
+      "id": "studio-bc14baf6-r01:film:34"
+     },
+     "released": {
+      "week": 386,
+      "id": "studio-bc14baf6-r01:film:34"
+     }
+    },
+    {
+     "shelvingWeek": 359,
+     "shelved": "script-0032",
+     "announced": {
+      "week": 378,
+      "id": "studio-bc14baf6-r01:film:34"
+     },
+     "firstTake": {
+      "week": 383,
+      "id": "studio-bc14baf6-r01:film:34"
+     },
+     "released": {
+      "week": 386,
+      "id": "studio-bc14baf6-r01:film:34"
+     }
+    },
+    {
+     "shelvingWeek": 362,
+     "shelved": "script-0033",
+     "announced": {
+      "week": 378,
+      "id": "studio-bc14baf6-r01:film:34"
+     },
+     "firstTake": {
+      "week": 383,
+      "id": "studio-bc14baf6-r01:film:34"
+     },
+     "released": {
+      "week": 386,
+      "id": "studio-bc14baf6-r01:film:34"
+     }
+    },
+    {
+     "shelvingWeek": 399,
+     "shelved": "script-0035",
+     "announced": {
+      "week": 440,
+      "id": "studio-bc14baf6-r01:film:35"
+     },
+     "firstTake": {
+      "week": 445,
+      "id": "studio-bc14baf6-r01:film:35"
+     },
+     "released": {
+      "week": 448,
+      "id": "studio-bc14baf6-r01:film:35"
+     }
+    },
+    {
+     "shelvingWeek": 402,
+     "shelved": "script-0036",
+     "announced": {
+      "week": 440,
+      "id": "studio-bc14baf6-r01:film:35"
+     },
+     "firstTake": {
+      "week": 445,
+      "id": "studio-bc14baf6-r01:film:35"
+     },
+     "released": {
+      "week": 448,
+      "id": "studio-bc14baf6-r01:film:35"
+     }
+    },
+    {
+     "shelvingWeek": 430,
+     "shelved": "script-0037",
+     "announced": {
+      "week": 440,
+      "id": "studio-bc14baf6-r01:film:35"
+     },
+     "firstTake": {
+      "week": 445,
+      "id": "studio-bc14baf6-r01:film:35"
+     },
+     "released": {
+      "week": 448,
+      "id": "studio-bc14baf6-r01:film:35"
+     }
+    },
+    {
+     "shelvingWeek": 431,
+     "shelved": "script-0038",
+     "announced": {
+      "week": 440,
+      "id": "studio-bc14baf6-r01:film:35"
+     },
+     "firstTake": {
+      "week": 445,
+      "id": "studio-bc14baf6-r01:film:35"
+     },
+     "released": {
+      "week": 448,
+      "id": "studio-bc14baf6-r01:film:35"
+     }
+    },
+    {
+     "shelvingWeek": 461,
+     "shelved": "script-0039",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    },
+    {
+     "shelvingWeek": 464,
+     "shelved": "script-0040",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    },
+    {
+     "shelvingWeek": 492,
+     "shelved": "script-0041",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    },
+    {
+     "shelvingWeek": 495,
+     "shelved": "script-0042",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    }
+   ],
+   "events": {
+    "announced": [
+     {
+      "week": 4,
+      "id": "studio-bc14baf6-r01:film:0"
+     },
+     {
+      "week": 13,
+      "id": "studio-bc14baf6-r01:film:1"
+     },
+     {
+      "week": 22,
+      "id": "studio-bc14baf6-r01:film:2"
+     },
+     {
+      "week": 31,
+      "id": "studio-bc14baf6-r01:film:3"
+     },
+     {
+      "week": 40,
+      "id": "studio-bc14baf6-r01:film:4"
+     },
+     {
+      "week": 49,
+      "id": "studio-bc14baf6-r01:film:5"
+     },
+     {
+      "week": 58,
+      "id": "studio-bc14baf6-r01:film:6"
+     },
+     {
+      "week": 67,
+      "id": "studio-bc14baf6-r01:film:7"
+     },
+     {
+      "week": 76,
+      "id": "studio-bc14baf6-r01:film:8"
+     },
+     {
+      "week": 85,
+      "id": "studio-bc14baf6-r01:film:9"
+     },
+     {
+      "week": 94,
+      "id": "studio-bc14baf6-r01:film:10"
+     },
+     {
+      "week": 103,
+      "id": "studio-bc14baf6-r01:film:11"
+     },
+     {
+      "week": 112,
+      "id": "studio-bc14baf6-r01:film:12"
+     },
+     {
+      "week": 121,
+      "id": "studio-bc14baf6-r01:film:13"
+     },
+     {
+      "week": 130,
+      "id": "studio-bc14baf6-r01:film:14"
+     },
+     {
+      "week": 139,
+      "id": "studio-bc14baf6-r01:film:15"
+     },
+     {
+      "week": 148,
+      "id": "studio-bc14baf6-r01:film:16"
+     },
+     {
+      "week": 157,
+      "id": "studio-bc14baf6-r01:film:17"
+     },
+     {
+      "week": 166,
+      "id": "studio-bc14baf6-r01:film:18"
+     },
+     {
+      "week": 175,
+      "id": "studio-bc14baf6-r01:film:19"
+     },
+     {
+      "week": 184,
+      "id": "studio-bc14baf6-r01:film:20"
+     },
+     {
+      "week": 193,
+      "id": "studio-bc14baf6-r01:film:21"
+     },
+     {
+      "week": 202,
+      "id": "studio-bc14baf6-r01:film:22"
+     },
+     {
+      "week": 245,
+      "id": "studio-bc14baf6-r01:film:26"
+     },
+     {
+      "week": 378,
+      "id": "studio-bc14baf6-r01:film:34"
+     },
+     {
+      "week": 440,
+      "id": "studio-bc14baf6-r01:film:35"
+     }
+    ],
+    "firstTakes": [
+     {
+      "week": 9,
+      "id": "studio-bc14baf6-r01:film:0"
+     },
+     {
+      "week": 18,
+      "id": "studio-bc14baf6-r01:film:1"
+     },
+     {
+      "week": 27,
+      "id": "studio-bc14baf6-r01:film:2"
+     },
+     {
+      "week": 36,
+      "id": "studio-bc14baf6-r01:film:3"
+     },
+     {
+      "week": 45,
+      "id": "studio-bc14baf6-r01:film:4"
+     },
+     {
+      "week": 54,
+      "id": "studio-bc14baf6-r01:film:5"
+     },
+     {
+      "week": 63,
+      "id": "studio-bc14baf6-r01:film:6"
+     },
+     {
+      "week": 72,
+      "id": "studio-bc14baf6-r01:film:7"
+     },
+     {
+      "week": 81,
+      "id": "studio-bc14baf6-r01:film:8"
+     },
+     {
+      "week": 90,
+      "id": "studio-bc14baf6-r01:film:9"
+     },
+     {
+      "week": 99,
+      "id": "studio-bc14baf6-r01:film:10"
+     },
+     {
+      "week": 108,
+      "id": "studio-bc14baf6-r01:film:11"
+     },
+     {
+      "week": 117,
+      "id": "studio-bc14baf6-r01:film:12"
+     },
+     {
+      "week": 126,
+      "id": "studio-bc14baf6-r01:film:13"
+     },
+     {
+      "week": 135,
+      "id": "studio-bc14baf6-r01:film:14"
+     },
+     {
+      "week": 144,
+      "id": "studio-bc14baf6-r01:film:15"
+     },
+     {
+      "week": 153,
+      "id": "studio-bc14baf6-r01:film:16"
+     },
+     {
+      "week": 162,
+      "id": "studio-bc14baf6-r01:film:17"
+     },
+     {
+      "week": 171,
+      "id": "studio-bc14baf6-r01:film:18"
+     },
+     {
+      "week": 180,
+      "id": "studio-bc14baf6-r01:film:19"
+     },
+     {
+      "week": 189,
+      "id": "studio-bc14baf6-r01:film:20"
+     },
+     {
+      "week": 198,
+      "id": "studio-bc14baf6-r01:film:21"
+     },
+     {
+      "week": 207,
+      "id": "studio-bc14baf6-r01:film:22"
+     },
+     {
+      "week": 250,
+      "id": "studio-bc14baf6-r01:film:26"
+     },
+     {
+      "week": 383,
+      "id": "studio-bc14baf6-r01:film:34"
+     },
+     {
+      "week": 445,
+      "id": "studio-bc14baf6-r01:film:35"
+     }
+    ],
+    "released": [
+     {
+      "week": 12,
+      "id": "studio-bc14baf6-r01:film:0"
+     },
+     {
+      "week": 21,
+      "id": "studio-bc14baf6-r01:film:1"
+     },
+     {
+      "week": 30,
+      "id": "studio-bc14baf6-r01:film:2"
+     },
+     {
+      "week": 39,
+      "id": "studio-bc14baf6-r01:film:3"
+     },
+     {
+      "week": 48,
+      "id": "studio-bc14baf6-r01:film:4"
+     },
+     {
+      "week": 57,
+      "id": "studio-bc14baf6-r01:film:5"
+     },
+     {
+      "week": 66,
+      "id": "studio-bc14baf6-r01:film:6"
+     },
+     {
+      "week": 75,
+      "id": "studio-bc14baf6-r01:film:7"
+     },
+     {
+      "week": 84,
+      "id": "studio-bc14baf6-r01:film:8"
+     },
+     {
+      "week": 93,
+      "id": "studio-bc14baf6-r01:film:9"
+     },
+     {
+      "week": 102,
+      "id": "studio-bc14baf6-r01:film:10"
+     },
+     {
+      "week": 111,
+      "id": "studio-bc14baf6-r01:film:11"
+     },
+     {
+      "week": 120,
+      "id": "studio-bc14baf6-r01:film:12"
+     },
+     {
+      "week": 129,
+      "id": "studio-bc14baf6-r01:film:13"
+     },
+     {
+      "week": 138,
+      "id": "studio-bc14baf6-r01:film:14"
+     },
+     {
+      "week": 147,
+      "id": "studio-bc14baf6-r01:film:15"
+     },
+     {
+      "week": 156,
+      "id": "studio-bc14baf6-r01:film:16"
+     },
+     {
+      "week": 165,
+      "id": "studio-bc14baf6-r01:film:17"
+     },
+     {
+      "week": 174,
+      "id": "studio-bc14baf6-r01:film:18"
+     },
+     {
+      "week": 183,
+      "id": "studio-bc14baf6-r01:film:19"
+     },
+     {
+      "week": 192,
+      "id": "studio-bc14baf6-r01:film:20"
+     },
+     {
+      "week": 201,
+      "id": "studio-bc14baf6-r01:film:21"
+     },
+     {
+      "week": 210,
+      "id": "studio-bc14baf6-r01:film:22"
+     },
+     {
+      "week": 253,
+      "id": "studio-bc14baf6-r01:film:26"
+     },
+     {
+      "week": 386,
+      "id": "studio-bc14baf6-r01:film:34"
+     },
+     {
+      "week": 448,
+      "id": "studio-bc14baf6-r01:film:35"
+     }
+    ],
+    "commissions": [
+     {
+      "week": 1,
+      "id": "script-0000"
+     },
+     {
+      "week": 4,
+      "id": "script-0001"
+     },
+     {
+      "week": 13,
+      "id": "script-0002"
+     },
+     {
+      "week": 22,
+      "id": "script-0003"
+     },
+     {
+      "week": 31,
+      "id": "script-0004"
+     },
+     {
+      "week": 40,
+      "id": "script-0005"
+     },
+     {
+      "week": 49,
+      "id": "script-0006"
+     },
+     {
+      "week": 58,
+      "id": "script-0007"
+     },
+     {
+      "week": 67,
+      "id": "script-0008"
+     },
+     {
+      "week": 76,
+      "id": "script-0009"
+     },
+     {
+      "week": 85,
+      "id": "script-0010"
+     },
+     {
+      "week": 94,
+      "id": "script-0011"
+     },
+     {
+      "week": 103,
+      "id": "script-0012"
+     },
+     {
+      "week": 112,
+      "id": "script-0013"
+     },
+     {
+      "week": 121,
+      "id": "script-0014"
+     },
+     {
+      "week": 130,
+      "id": "script-0015"
+     },
+     {
+      "week": 139,
+      "id": "script-0016"
+     },
+     {
+      "week": 148,
+      "id": "script-0017"
+     },
+     {
+      "week": 157,
+      "id": "script-0018"
+     },
+     {
+      "week": 166,
+      "id": "script-0019"
+     },
+     {
+      "week": 175,
+      "id": "script-0020"
+     },
+     {
+      "week": 184,
+      "id": "script-0021"
+     },
+     {
+      "week": 193,
+      "id": "script-0022"
+     },
+     {
+      "week": 202,
+      "id": "script-0023"
+     },
+     {
+      "week": 211,
+      "id": "script-0024"
+     },
+     {
+      "week": 239,
+      "id": "script-0025"
+     },
+     {
+      "week": 242,
+      "id": "script-0026"
+     },
+     {
+      "week": 254,
+      "id": "script-0027"
+     },
+     {
+      "week": 282,
+      "id": "script-0028"
+     },
+     {
+      "week": 285,
+      "id": "script-0029"
+     },
+     {
+      "week": 313,
+      "id": "script-0030"
+     },
+     {
+      "week": 316,
+      "id": "script-0031"
+     },
+     {
+      "week": 344,
+      "id": "script-0032"
+     },
+     {
+      "week": 347,
+      "id": "script-0033"
+     },
+     {
+      "week": 375,
+      "id": "script-0034"
+     },
+     {
+      "week": 378,
+      "id": "script-0035"
+     },
+     {
+      "week": 387,
+      "id": "script-0036"
+     },
+     {
+      "week": 415,
+      "id": "script-0037"
+     },
+     {
+      "week": 416,
+      "id": "script-0038"
+     },
+     {
+      "week": 444,
+      "id": "script-0039"
+     },
+     {
+      "week": 449,
+      "id": "script-0040"
+     },
+     {
+      "week": 477,
+      "id": "script-0041"
+     },
+     {
+      "week": 480,
+      "id": "script-0042"
+     },
+     {
+      "week": 508,
+      "id": "script-0043"
+     },
+     {
+      "week": 511,
+      "id": "script-0044"
+     }
+    ]
+   }
+  },
+  {
+   "studioId": "studio-bc14baf6-r02",
+   "short": "r02",
+   "cashEnd": 10365261.76176734,
+   "films": 32,
+   "firstTakes": 30,
+   "shelvings": [
+    {
+     "week": 259,
+     "id": "script-0027",
+     "conceptId": "studio-bc14baf6-r02:concept:27",
+     "rejections": 13
+    },
+    {
+     "week": 262,
+     "id": "script-0028",
+     "conceptId": "studio-bc14baf6-r02:concept:28",
+     "rejections": 13
+    },
+    {
+     "week": 290,
+     "id": "script-0029",
+     "conceptId": "studio-bc14baf6-r02:concept:29",
+     "rejections": 13
+    },
+    {
+     "week": 293,
+     "id": "script-0030",
+     "conceptId": "studio-bc14baf6-r02:concept:30",
+     "rejections": 13
+    },
+    {
+     "week": 321,
+     "id": "script-0031",
+     "conceptId": "studio-bc14baf6-r02:concept:31",
+     "rejections": 13
+    },
+    {
+     "week": 324,
+     "id": "script-0032",
+     "conceptId": "studio-bc14baf6-r02:concept:32",
+     "rejections": 13
+    },
+    {
+     "week": 369,
+     "id": "script-0034",
+     "conceptId": "studio-bc14baf6-r02:concept:34",
+     "rejections": 13
+    },
+    {
+     "week": 376,
+     "id": "script-0036",
+     "conceptId": "studio-bc14baf6-r02:concept:36",
+     "rejections": 13
+    },
+    {
+     "week": 404,
+     "id": "script-0037",
+     "conceptId": "studio-bc14baf6-r02:concept:37",
+     "rejections": 13
+    },
+    {
+     "week": 407,
+     "id": "script-0038",
+     "conceptId": "studio-bc14baf6-r02:concept:38",
+     "rejections": 13
+    },
+    {
+     "week": 435,
+     "id": "script-0039",
+     "conceptId": "studio-bc14baf6-r02:concept:39",
+     "rejections": 13
+    },
+    {
+     "week": 438,
+     "id": "script-0040",
+     "conceptId": "studio-bc14baf6-r02:concept:40",
+     "rejections": 13
+    },
+    {
+     "week": 476,
+     "id": "script-0041",
+     "conceptId": "studio-bc14baf6-r02:concept:41",
+     "rejections": 13
+    },
+    {
+     "week": 481,
+     "id": "script-0043",
+     "conceptId": "studio-bc14baf6-r02:concept:43",
+     "rejections": 13
+    },
+    {
+     "week": 509,
+     "id": "script-0044",
+     "conceptId": "studio-bc14baf6-r02:concept:44",
+     "rejections": 13
+    },
+    {
+     "week": 512,
+     "id": "script-0045",
+     "conceptId": "studio-bc14baf6-r02:concept:45",
+     "rejections": 13
+    }
+   ],
+   "shelvingsPerYear": {
+    "4": 1,
+    "5": 3,
+    "6": 2,
+    "7": 4,
+    "8": 2,
+    "9": 4
+   },
+   "maxShelvingsInAny52Weeks": 4,
+   "retries": {
+    "viable": [],
+    "economicRejection": [
+     {
+      "week": 290,
+      "id": "script-0027",
+      "retryWeekBefore": 285,
+      "retryWeekAfter": 316
+     },
+     {
+      "week": 291,
+      "id": "script-0028",
+      "retryWeekBefore": 288,
+      "retryWeekAfter": 317
+     },
+     {
+      "week": 321,
+      "id": "script-0027",
+      "retryWeekBefore": 316,
+      "retryWeekAfter": 347
+     },
+     {
+      "week": 322,
+      "id": "script-0028",
+      "retryWeekBefore": 317,
+      "retryWeekAfter": 348
+     },
+     {
+      "week": 323,
+      "id": "script-0029",
+      "retryWeekBefore": 316,
+      "retryWeekAfter": 349
+     },
+     {
+      "week": 324,
+      "id": "script-0030",
+      "retryWeekBefore": 319,
+      "retryWeekAfter": 350
+     },
+     {
+      "week": 349,
+      "id": "script-0027",
+      "retryWeekBefore": 347,
+      "retryWeekAfter": 375
+     },
+     {
+      "week": 361,
+      "id": "script-0028",
+      "retryWeekBefore": 348,
+      "retryWeekAfter": 387
+     },
+     {
+      "week": 369,
+      "id": "script-0029",
+      "retryWeekBefore": 349,
+      "retryWeekAfter": 395
+     },
+     {
+      "week": 370,
+      "id": "script-0030",
+      "retryWeekBefore": 350,
+      "retryWeekAfter": 396
+     },
+     {
+      "week": 371,
+      "id": "script-0031",
+      "retryWeekBefore": 347,
+      "retryWeekAfter": 397
+     },
+     {
+      "week": 372,
+      "id": "script-0032",
+      "retryWeekBefore": 350,
+      "retryWeekAfter": 398
+     },
+     {
+      "week": 375,
+      "id": "script-0027",
+      "retryWeekBefore": 375,
+      "retryWeekAfter": 401
+     },
+     {
+      "week": 387,
+      "id": "script-0028",
+      "retryWeekBefore": 387,
+      "retryWeekAfter": 413
+     },
+     {
+      "week": 404,
+      "id": "script-0027",
+      "retryWeekBefore": 401,
+      "retryWeekAfter": 430
+     },
+     {
+      "week": 405,
+      "id": "script-0029",
+      "retryWeekBefore": 395,
+      "retryWeekAfter": 431
+     },
+     {
+      "week": 406,
+      "id": "script-0030",
+      "retryWeekBefore": 396,
+      "retryWeekAfter": 432
+     },
+     {
+      "week": 407,
+      "id": "script-0031",
+      "retryWeekBefore": 397,
+      "retryWeekAfter": 433
+     },
+     {
+      "week": 416,
+      "id": "script-0028",
+      "retryWeekBefore": 413,
+      "retryWeekAfter": 442
+     },
+     {
+      "week": 417,
+      "id": "script-0032",
+      "retryWeekBefore": 398,
+      "retryWeekAfter": 443
+     },
+     {
+      "week": 418,
+      "id": "script-0034",
+      "retryWeekBefore": 395,
+      "retryWeekAfter": 444
+     },
+     {
+      "week": 419,
+      "id": "script-0036",
+      "retryWeekBefore": 402,
+      "retryWeekAfter": 445
+     },
+     {
+      "week": 435,
+      "id": "script-0027",
+      "retryWeekBefore": 430,
+      "retryWeekAfter": 461
+     },
+     {
+      "week": 436,
+      "id": "script-0029",
+      "retryWeekBefore": 431,
+      "retryWeekAfter": 462
+     },
+     {
+      "week": 437,
+      "id": "script-0030",
+      "retryWeekBefore": 432,
+      "retryWeekAfter": 463
+     },
+     {
+      "week": 438,
+      "id": "script-0031",
+      "retryWeekBefore": 433,
+      "retryWeekAfter": 464
+     },
+     {
+      "week": 439,
+      "id": "script-0037",
+      "retryWeekBefore": 430,
+      "retryWeekAfter": 465
+     },
+     {
+      "week": 440,
+      "id": "script-0038",
+      "retryWeekBefore": 433,
+      "retryWeekAfter": 466
+     },
+     {
+      "week": 442,
+      "id": "script-0028",
+      "retryWeekBefore": 442,
+      "retryWeekAfter": 468
+     },
+     {
+      "week": 443,
+      "id": "script-0032",
+      "retryWeekBefore": 443,
+      "retryWeekAfter": 469
+     },
+     {
+      "week": 444,
+      "id": "script-0034",
+      "retryWeekBefore": 444,
+      "retryWeekAfter": 470
+     },
+     {
+      "week": 445,
+      "id": "script-0036",
+      "retryWeekBefore": 445,
+      "retryWeekAfter": 471
+     },
+     {
+      "week": 476,
+      "id": "script-0027",
+      "retryWeekBefore": 461,
+      "retryWeekAfter": 502
+     },
+     {
+      "week": 477,
+      "id": "script-0028",
+      "retryWeekBefore": 468,
+      "retryWeekAfter": 503
+     },
+     {
+      "week": 478,
+      "id": "script-0029",
+      "retryWeekBefore": 462,
+      "retryWeekAfter": 504
+     },
+     {
+      "week": 479,
+      "id": "script-0030",
+      "retryWeekBefore": 463,
+      "retryWeekAfter": 505
+     },
+     {
+      "week": 480,
+      "id": "script-0031",
+      "retryWeekBefore": 464,
+      "retryWeekAfter": 506
+     },
+     {
+      "week": 481,
+      "id": "script-0032",
+      "retryWeekBefore": 469,
+      "retryWeekAfter": 507
+     },
+     {
+      "week": 482,
+      "id": "script-0034",
+      "retryWeekBefore": 470,
+      "retryWeekAfter": 508
+     },
+     {
+      "week": 483,
+      "id": "script-0036",
+      "retryWeekBefore": 471,
+      "retryWeekAfter": 509
+     },
+     {
+      "week": 484,
+      "id": "script-0037",
+      "retryWeekBefore": 465,
+      "retryWeekAfter": 510
+     },
+     {
+      "week": 485,
+      "id": "script-0038",
+      "retryWeekBefore": 466,
+      "retryWeekAfter": 511
+     },
+     {
+      "week": 486,
+      "id": "script-0039",
+      "retryWeekBefore": 461,
+      "retryWeekAfter": 512
+     },
+     {
+      "week": 487,
+      "id": "script-0040",
+      "retryWeekBefore": 464,
+      "retryWeekAfter": 513
+     },
+     {
+      "week": 509,
+      "id": "script-0027",
+      "retryWeekBefore": 502,
+      "retryWeekAfter": 535
+     },
+     {
+      "week": 510,
+      "id": "script-0028",
+      "retryWeekBefore": 503,
+      "retryWeekAfter": 536
+     },
+     {
+      "week": 511,
+      "id": "script-0029",
+      "retryWeekBefore": 504,
+      "retryWeekAfter": 537
+     },
+     {
+      "week": 512,
+      "id": "script-0030",
+      "retryWeekBefore": 505,
+      "retryWeekAfter": 538
+     },
+     {
+      "week": 513,
+      "id": "script-0031",
+      "retryWeekBefore": 506,
+      "retryWeekAfter": 539
+     },
+     {
+      "week": 514,
+      "id": "script-0032",
+      "retryWeekBefore": 507,
+      "retryWeekAfter": 540
+     },
+     {
+      "week": 515,
+      "id": "script-0034",
+      "retryWeekBefore": 508,
+      "retryWeekAfter": 541
+     },
+     {
+      "week": 516,
+      "id": "script-0036",
+      "retryWeekBefore": 509,
+      "retryWeekAfter": 542
+     },
+     {
+      "week": 517,
+      "id": "script-0037",
+      "retryWeekBefore": 510,
+      "retryWeekAfter": 543
+     },
+     {
+      "week": 518,
+      "id": "script-0038",
+      "retryWeekBefore": 511,
+      "retryWeekAfter": 544
+     },
+     {
+      "week": 519,
+      "id": "script-0039",
+      "retryWeekBefore": 512,
+      "retryWeekAfter": 545
+     }
+    ]
+   },
+   "shelvedAtEnd": [
+    {
+     "ordinal": 27,
+     "week": 259,
+     "retryWeek": 535
+    },
+    {
+     "ordinal": 28,
+     "week": 262,
+     "retryWeek": 536
+    },
+    {
+     "ordinal": 29,
+     "week": 290,
+     "retryWeek": 537
+    },
+    {
+     "ordinal": 30,
+     "week": 293,
+     "retryWeek": 538
+    },
+    {
+     "ordinal": 31,
+     "week": 321,
+     "retryWeek": 539
+    },
+    {
+     "ordinal": 32,
+     "week": 324,
+     "retryWeek": 540
+    },
+    {
+     "ordinal": 34,
+     "week": 369,
+     "retryWeek": 541
+    },
+    {
+     "ordinal": 36,
+     "week": 376,
+     "retryWeek": 542
+    },
+    {
+     "ordinal": 37,
+     "week": 404,
+     "retryWeek": 543
+    },
+    {
+     "ordinal": 38,
+     "week": 407,
+     "retryWeek": 544
+    },
+    {
+     "ordinal": 39,
+     "week": 435,
+     "retryWeek": 545
+    },
+    {
+     "ordinal": 40,
+     "week": 438,
+     "retryWeek": 513
+    },
+    {
+     "ordinal": 41,
+     "week": 476,
+     "retryWeek": 502
+    },
+    {
+     "ordinal": 43,
+     "week": 481,
+     "retryWeek": 507
+    },
+    {
+     "ordinal": 44,
+     "week": 509,
+     "retryWeek": 535
+    },
+    {
+     "ordinal": 45,
+     "week": 512,
+     "retryWeek": 538
+    }
+   ],
+   "filmsAgain": [
+    {
+     "shelvingWeek": 259,
+     "shelved": "script-0027",
+     "announced": {
+      "week": 340,
+      "id": "studio-bc14baf6-r02:film:33"
+     },
+     "firstTake": {
+      "week": 345,
+      "id": "studio-bc14baf6-r02:film:33"
+     },
+     "released": {
+      "week": 348,
+      "id": "studio-bc14baf6-r02:film:33"
+     }
+    },
+    {
+     "shelvingWeek": 262,
+     "shelved": "script-0028",
+     "announced": {
+      "week": 340,
+      "id": "studio-bc14baf6-r02:film:33"
+     },
+     "firstTake": {
+      "week": 345,
+      "id": "studio-bc14baf6-r02:film:33"
+     },
+     "released": {
+      "week": 348,
+      "id": "studio-bc14baf6-r02:film:33"
+     }
+    },
+    {
+     "shelvingWeek": 290,
+     "shelved": "script-0029",
+     "announced": {
+      "week": 340,
+      "id": "studio-bc14baf6-r02:film:33"
+     },
+     "firstTake": {
+      "week": 345,
+      "id": "studio-bc14baf6-r02:film:33"
+     },
+     "released": {
+      "week": 348,
+      "id": "studio-bc14baf6-r02:film:33"
+     }
+    },
+    {
+     "shelvingWeek": 293,
+     "shelved": "script-0030",
+     "announced": {
+      "week": 340,
+      "id": "studio-bc14baf6-r02:film:33"
+     },
+     "firstTake": {
+      "week": 345,
+      "id": "studio-bc14baf6-r02:film:33"
+     },
+     "released": {
+      "week": 348,
+      "id": "studio-bc14baf6-r02:film:33"
+     }
+    },
+    {
+     "shelvingWeek": 321,
+     "shelved": "script-0031",
+     "announced": {
+      "week": 340,
+      "id": "studio-bc14baf6-r02:film:33"
+     },
+     "firstTake": {
+      "week": 345,
+      "id": "studio-bc14baf6-r02:film:33"
+     },
+     "released": {
+      "week": 348,
+      "id": "studio-bc14baf6-r02:film:33"
+     }
+    },
+    {
+     "shelvingWeek": 324,
+     "shelved": "script-0032",
+     "announced": {
+      "week": 340,
+      "id": "studio-bc14baf6-r02:film:33"
+     },
+     "firstTake": {
+      "week": 345,
+      "id": "studio-bc14baf6-r02:film:33"
+     },
+     "released": {
+      "week": 348,
+      "id": "studio-bc14baf6-r02:film:33"
+     }
+    },
+    {
+     "shelvingWeek": 369,
+     "shelved": "script-0034",
+     "announced": {
+      "week": 457,
+      "id": "studio-bc14baf6-r02:film:42"
+     },
+     "firstTake": {
+      "week": 462,
+      "id": "studio-bc14baf6-r02:film:42"
+     },
+     "released": {
+      "week": 465,
+      "id": "studio-bc14baf6-r02:film:42"
+     }
+    },
+    {
+     "shelvingWeek": 376,
+     "shelved": "script-0036",
+     "announced": {
+      "week": 457,
+      "id": "studio-bc14baf6-r02:film:42"
+     },
+     "firstTake": {
+      "week": 462,
+      "id": "studio-bc14baf6-r02:film:42"
+     },
+     "released": {
+      "week": 465,
+      "id": "studio-bc14baf6-r02:film:42"
+     }
+    },
+    {
+     "shelvingWeek": 404,
+     "shelved": "script-0037",
+     "announced": {
+      "week": 457,
+      "id": "studio-bc14baf6-r02:film:42"
+     },
+     "firstTake": {
+      "week": 462,
+      "id": "studio-bc14baf6-r02:film:42"
+     },
+     "released": {
+      "week": 465,
+      "id": "studio-bc14baf6-r02:film:42"
+     }
+    },
+    {
+     "shelvingWeek": 407,
+     "shelved": "script-0038",
+     "announced": {
+      "week": 457,
+      "id": "studio-bc14baf6-r02:film:42"
+     },
+     "firstTake": {
+      "week": 462,
+      "id": "studio-bc14baf6-r02:film:42"
+     },
+     "released": {
+      "week": 465,
+      "id": "studio-bc14baf6-r02:film:42"
+     }
+    },
+    {
+     "shelvingWeek": 435,
+     "shelved": "script-0039",
+     "announced": {
+      "week": 457,
+      "id": "studio-bc14baf6-r02:film:42"
+     },
+     "firstTake": {
+      "week": 462,
+      "id": "studio-bc14baf6-r02:film:42"
+     },
+     "released": {
+      "week": 465,
+      "id": "studio-bc14baf6-r02:film:42"
+     }
+    },
+    {
+     "shelvingWeek": 438,
+     "shelved": "script-0040",
+     "announced": {
+      "week": 457,
+      "id": "studio-bc14baf6-r02:film:42"
+     },
+     "firstTake": {
+      "week": 462,
+      "id": "studio-bc14baf6-r02:film:42"
+     },
+     "released": {
+      "week": 465,
+      "id": "studio-bc14baf6-r02:film:42"
+     }
+    },
+    {
+     "shelvingWeek": 476,
+     "shelved": "script-0041",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    },
+    {
+     "shelvingWeek": 481,
+     "shelved": "script-0043",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    },
+    {
+     "shelvingWeek": 509,
+     "shelved": "script-0044",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    },
+    {
+     "shelvingWeek": 512,
+     "shelved": "script-0045",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    }
+   ],
+   "events": {
+    "announced": [
+     {
+      "week": 4,
+      "id": "studio-bc14baf6-r02:film:0"
+     },
+     {
+      "week": 13,
+      "id": "studio-bc14baf6-r02:film:1"
+     },
+     {
+      "week": 22,
+      "id": "studio-bc14baf6-r02:film:2"
+     },
+     {
+      "week": 31,
+      "id": "studio-bc14baf6-r02:film:3"
+     },
+     {
+      "week": 40,
+      "id": "studio-bc14baf6-r02:film:4"
+     },
+     {
+      "week": 49,
+      "id": "studio-bc14baf6-r02:film:5"
+     },
+     {
+      "week": 58,
+      "id": "studio-bc14baf6-r02:film:6"
+     },
+     {
+      "week": 67,
+      "id": "studio-bc14baf6-r02:film:7"
+     },
+     {
+      "week": 76,
+      "id": "studio-bc14baf6-r02:film:8"
+     },
+     {
+      "week": 85,
+      "id": "studio-bc14baf6-r02:film:9"
+     },
+     {
+      "week": 94,
+      "id": "studio-bc14baf6-r02:film:10"
+     },
+     {
+      "week": 103,
+      "id": "studio-bc14baf6-r02:film:11"
+     },
+     {
+      "week": 112,
+      "id": "studio-bc14baf6-r02:film:12"
+     },
+     {
+      "week": 121,
+      "id": "studio-bc14baf6-r02:film:13"
+     },
+     {
+      "week": 130,
+      "id": "studio-bc14baf6-r02:film:14"
+     },
+     {
+      "week": 139,
+      "id": "studio-bc14baf6-r02:film:15"
+     },
+     {
+      "week": 148,
+      "id": "studio-bc14baf6-r02:film:16"
+     },
+     {
+      "week": 157,
+      "id": "studio-bc14baf6-r02:film:17"
+     },
+     {
+      "week": 166,
+      "id": "studio-bc14baf6-r02:film:18"
+     },
+     {
+      "week": 175,
+      "id": "studio-bc14baf6-r02:film:19"
+     },
+     {
+      "week": 184,
+      "id": "studio-bc14baf6-r02:film:20"
+     },
+     {
+      "week": 193,
+      "id": "studio-bc14baf6-r02:film:21"
+     },
+     {
+      "week": 202,
+      "id": "studio-bc14baf6-r02:film:22"
+     },
+     {
+      "week": 211,
+      "id": "studio-bc14baf6-r02:film:23"
+     },
+     {
+      "week": 220,
+      "id": "studio-bc14baf6-r02:film:24"
+     },
+     {
+      "week": 229,
+      "id": "studio-bc14baf6-r02:film:25"
+     },
+     {
+      "week": 238,
+      "id": "studio-bc14baf6-r02:film:26"
+     },
+     {
+      "week": 340,
+      "id": "studio-bc14baf6-r02:film:33"
+     },
+     {
+      "week": 352,
+      "id": "studio-bc14baf6-r02:film:35"
+     },
+     {
+      "week": 457,
+      "id": "studio-bc14baf6-r02:film:42"
+     }
+    ],
+    "firstTakes": [
+     {
+      "week": 9,
+      "id": "studio-bc14baf6-r02:film:0"
+     },
+     {
+      "week": 18,
+      "id": "studio-bc14baf6-r02:film:1"
+     },
+     {
+      "week": 27,
+      "id": "studio-bc14baf6-r02:film:2"
+     },
+     {
+      "week": 36,
+      "id": "studio-bc14baf6-r02:film:3"
+     },
+     {
+      "week": 45,
+      "id": "studio-bc14baf6-r02:film:4"
+     },
+     {
+      "week": 54,
+      "id": "studio-bc14baf6-r02:film:5"
+     },
+     {
+      "week": 63,
+      "id": "studio-bc14baf6-r02:film:6"
+     },
+     {
+      "week": 72,
+      "id": "studio-bc14baf6-r02:film:7"
+     },
+     {
+      "week": 81,
+      "id": "studio-bc14baf6-r02:film:8"
+     },
+     {
+      "week": 90,
+      "id": "studio-bc14baf6-r02:film:9"
+     },
+     {
+      "week": 99,
+      "id": "studio-bc14baf6-r02:film:10"
+     },
+     {
+      "week": 108,
+      "id": "studio-bc14baf6-r02:film:11"
+     },
+     {
+      "week": 117,
+      "id": "studio-bc14baf6-r02:film:12"
+     },
+     {
+      "week": 126,
+      "id": "studio-bc14baf6-r02:film:13"
+     },
+     {
+      "week": 135,
+      "id": "studio-bc14baf6-r02:film:14"
+     },
+     {
+      "week": 144,
+      "id": "studio-bc14baf6-r02:film:15"
+     },
+     {
+      "week": 153,
+      "id": "studio-bc14baf6-r02:film:16"
+     },
+     {
+      "week": 162,
+      "id": "studio-bc14baf6-r02:film:17"
+     },
+     {
+      "week": 171,
+      "id": "studio-bc14baf6-r02:film:18"
+     },
+     {
+      "week": 180,
+      "id": "studio-bc14baf6-r02:film:19"
+     },
+     {
+      "week": 189,
+      "id": "studio-bc14baf6-r02:film:20"
+     },
+     {
+      "week": 198,
+      "id": "studio-bc14baf6-r02:film:21"
+     },
+     {
+      "week": 207,
+      "id": "studio-bc14baf6-r02:film:22"
+     },
+     {
+      "week": 216,
+      "id": "studio-bc14baf6-r02:film:23"
+     },
+     {
+      "week": 225,
+      "id": "studio-bc14baf6-r02:film:24"
+     },
+     {
+      "week": 234,
+      "id": "studio-bc14baf6-r02:film:25"
+     },
+     {
+      "week": 243,
+      "id": "studio-bc14baf6-r02:film:26"
+     },
+     {
+      "week": 345,
+      "id": "studio-bc14baf6-r02:film:33"
+     },
+     {
+      "week": 357,
+      "id": "studio-bc14baf6-r02:film:35"
+     },
+     {
+      "week": 462,
+      "id": "studio-bc14baf6-r02:film:42"
+     }
+    ],
+    "released": [
+     {
+      "week": 12,
+      "id": "studio-bc14baf6-r02:film:0"
+     },
+     {
+      "week": 21,
+      "id": "studio-bc14baf6-r02:film:1"
+     },
+     {
+      "week": 30,
+      "id": "studio-bc14baf6-r02:film:2"
+     },
+     {
+      "week": 39,
+      "id": "studio-bc14baf6-r02:film:3"
+     },
+     {
+      "week": 48,
+      "id": "studio-bc14baf6-r02:film:4"
+     },
+     {
+      "week": 57,
+      "id": "studio-bc14baf6-r02:film:5"
+     },
+     {
+      "week": 66,
+      "id": "studio-bc14baf6-r02:film:6"
+     },
+     {
+      "week": 75,
+      "id": "studio-bc14baf6-r02:film:7"
+     },
+     {
+      "week": 84,
+      "id": "studio-bc14baf6-r02:film:8"
+     },
+     {
+      "week": 93,
+      "id": "studio-bc14baf6-r02:film:9"
+     },
+     {
+      "week": 102,
+      "id": "studio-bc14baf6-r02:film:10"
+     },
+     {
+      "week": 111,
+      "id": "studio-bc14baf6-r02:film:11"
+     },
+     {
+      "week": 120,
+      "id": "studio-bc14baf6-r02:film:12"
+     },
+     {
+      "week": 129,
+      "id": "studio-bc14baf6-r02:film:13"
+     },
+     {
+      "week": 138,
+      "id": "studio-bc14baf6-r02:film:14"
+     },
+     {
+      "week": 147,
+      "id": "studio-bc14baf6-r02:film:15"
+     },
+     {
+      "week": 156,
+      "id": "studio-bc14baf6-r02:film:16"
+     },
+     {
+      "week": 165,
+      "id": "studio-bc14baf6-r02:film:17"
+     },
+     {
+      "week": 174,
+      "id": "studio-bc14baf6-r02:film:18"
+     },
+     {
+      "week": 183,
+      "id": "studio-bc14baf6-r02:film:19"
+     },
+     {
+      "week": 192,
+      "id": "studio-bc14baf6-r02:film:20"
+     },
+     {
+      "week": 201,
+      "id": "studio-bc14baf6-r02:film:21"
+     },
+     {
+      "week": 210,
+      "id": "studio-bc14baf6-r02:film:22"
+     },
+     {
+      "week": 219,
+      "id": "studio-bc14baf6-r02:film:23"
+     },
+     {
+      "week": 228,
+      "id": "studio-bc14baf6-r02:film:24"
+     },
+     {
+      "week": 237,
+      "id": "studio-bc14baf6-r02:film:25"
+     },
+     {
+      "week": 246,
+      "id": "studio-bc14baf6-r02:film:26"
+     },
+     {
+      "week": 348,
+      "id": "studio-bc14baf6-r02:film:33"
+     },
+     {
+      "week": 360,
+      "id": "studio-bc14baf6-r02:film:35"
+     },
+     {
+      "week": 465,
+      "id": "studio-bc14baf6-r02:film:42"
+     }
+    ],
+    "commissions": [
+     {
+      "week": 1,
+      "id": "script-0000"
+     },
+     {
+      "week": 4,
+      "id": "script-0001"
+     },
+     {
+      "week": 13,
+      "id": "script-0002"
+     },
+     {
+      "week": 22,
+      "id": "script-0003"
+     },
+     {
+      "week": 31,
+      "id": "script-0004"
+     },
+     {
+      "week": 40,
+      "id": "script-0005"
+     },
+     {
+      "week": 49,
+      "id": "script-0006"
+     },
+     {
+      "week": 58,
+      "id": "script-0007"
+     },
+     {
+      "week": 67,
+      "id": "script-0008"
+     },
+     {
+      "week": 76,
+      "id": "script-0009"
+     },
+     {
+      "week": 85,
+      "id": "script-0010"
+     },
+     {
+      "week": 94,
+      "id": "script-0011"
+     },
+     {
+      "week": 103,
+      "id": "script-0012"
+     },
+     {
+      "week": 112,
+      "id": "script-0013"
+     },
+     {
+      "week": 121,
+      "id": "script-0014"
+     },
+     {
+      "week": 130,
+      "id": "script-0015"
+     },
+     {
+      "week": 139,
+      "id": "script-0016"
+     },
+     {
+      "week": 148,
+      "id": "script-0017"
+     },
+     {
+      "week": 157,
+      "id": "script-0018"
+     },
+     {
+      "week": 166,
+      "id": "script-0019"
+     },
+     {
+      "week": 175,
+      "id": "script-0020"
+     },
+     {
+      "week": 184,
+      "id": "script-0021"
+     },
+     {
+      "week": 193,
+      "id": "script-0022"
+     },
+     {
+      "week": 202,
+      "id": "script-0023"
+     },
+     {
+      "week": 211,
+      "id": "script-0024"
+     },
+     {
+      "week": 220,
+      "id": "script-0025"
+     },
+     {
+      "week": 229,
+      "id": "script-0026"
+     },
+     {
+      "week": 238,
+      "id": "script-0027"
+     },
+     {
+      "week": 247,
+      "id": "script-0028"
+     },
+     {
+      "week": 275,
+      "id": "script-0029"
+     },
+     {
+      "week": 278,
+      "id": "script-0030"
+     },
+     {
+      "week": 306,
+      "id": "script-0031"
+     },
+     {
+      "week": 309,
+      "id": "script-0032"
+     },
+     {
+      "week": 337,
+      "id": "script-0033"
+     },
+     {
+      "week": 340,
+      "id": "script-0034"
+     },
+     {
+      "week": 349,
+      "id": "script-0035"
+     },
+     {
+      "week": 361,
+      "id": "script-0036"
+     },
+     {
+      "week": 389,
+      "id": "script-0037"
+     },
+     {
+      "week": 392,
+      "id": "script-0038"
+     },
+     {
+      "week": 420,
+      "id": "script-0039"
+     },
+     {
+      "week": 423,
+      "id": "script-0040"
+     },
+     {
+      "week": 451,
+      "id": "script-0041"
+     },
+     {
+      "week": 454,
+      "id": "script-0042"
+     },
+     {
+      "week": 466,
+      "id": "script-0043"
+     },
+     {
+      "week": 494,
+      "id": "script-0044"
+     },
+     {
+      "week": 497,
+      "id": "script-0045"
+     }
+    ]
+   }
+  },
+  {
+   "studioId": "studio-bc14baf6-r03",
+   "short": "r03",
+   "cashEnd": -1661052.2177487575,
+   "films": 31,
+   "firstTakes": 29,
+   "shelvings": [
+    {
+     "week": 250,
+     "id": "script-0026",
+     "conceptId": "studio-bc14baf6-r03:concept:26",
+     "rejections": 13
+    },
+    {
+     "week": 253,
+     "id": "script-0027",
+     "conceptId": "studio-bc14baf6-r03:concept:27",
+     "rejections": 13
+    },
+    {
+     "week": 290,
+     "id": "script-0029",
+     "conceptId": "studio-bc14baf6-r03:concept:29",
+     "rejections": 13
+    },
+    {
+     "week": 292,
+     "id": "script-0030",
+     "conceptId": "studio-bc14baf6-r03:concept:30",
+     "rejections": 13
+    },
+    {
+     "week": 327,
+     "id": "script-0031",
+     "conceptId": "studio-bc14baf6-r03:concept:31",
+     "rejections": 13
+    },
+    {
+     "week": 332,
+     "id": "script-0033",
+     "conceptId": "studio-bc14baf6-r03:concept:33",
+     "rejections": 13
+    },
+    {
+     "week": 368,
+     "id": "script-0034",
+     "conceptId": "studio-bc14baf6-r03:concept:34",
+     "rejections": 13
+    },
+    {
+     "week": 374,
+     "id": "script-0036",
+     "conceptId": "studio-bc14baf6-r03:concept:36",
+     "rejections": 13
+    },
+    {
+     "week": 402,
+     "id": "script-0037",
+     "conceptId": "studio-bc14baf6-r03:concept:37",
+     "rejections": 13
+    },
+    {
+     "week": 405,
+     "id": "script-0038",
+     "conceptId": "studio-bc14baf6-r03:concept:38",
+     "rejections": 13
+    },
+    {
+     "week": 433,
+     "id": "script-0039",
+     "conceptId": "studio-bc14baf6-r03:concept:39",
+     "rejections": 13
+    },
+    {
+     "week": 436,
+     "id": "script-0040",
+     "conceptId": "studio-bc14baf6-r03:concept:40",
+     "rejections": 13
+    }
+   ],
+   "shelvingsPerYear": {
+    "4": 2,
+    "5": 2,
+    "6": 2,
+    "7": 4,
+    "8": 2
+   },
+   "maxShelvingsInAny52Weeks": 4,
+   "retries": {
+    "viable": [],
+    "economicRejection": [
+     {
+      "week": 278,
+      "id": "script-0026",
+      "retryWeekBefore": 276,
+      "retryWeekAfter": 304
+     },
+     {
+      "week": 290,
+      "id": "script-0027",
+      "retryWeekBefore": 279,
+      "retryWeekAfter": 316
+     },
+     {
+      "week": 304,
+      "id": "script-0026",
+      "retryWeekBefore": 304,
+      "retryWeekAfter": 330
+     },
+     {
+      "week": 318,
+      "id": "script-0027",
+      "retryWeekBefore": 316,
+      "retryWeekAfter": 344
+     },
+     {
+      "week": 327,
+      "id": "script-0029",
+      "retryWeekBefore": 316,
+      "retryWeekAfter": 353
+     },
+     {
+      "week": 328,
+      "id": "script-0030",
+      "retryWeekBefore": 318,
+      "retryWeekAfter": 354
+     },
+     {
+      "week": 330,
+      "id": "script-0026",
+      "retryWeekBefore": 330,
+      "retryWeekAfter": 356
+     },
+     {
+      "week": 344,
+      "id": "script-0027",
+      "retryWeekBefore": 344,
+      "retryWeekAfter": 370
+     },
+     {
+      "week": 359,
+      "id": "script-0026",
+      "retryWeekBefore": 356,
+      "retryWeekAfter": 385
+     },
+     {
+      "week": 368,
+      "id": "script-0029",
+      "retryWeekBefore": 353,
+      "retryWeekAfter": 394
+     },
+     {
+      "week": 369,
+      "id": "script-0030",
+      "retryWeekBefore": 354,
+      "retryWeekAfter": 395
+     },
+     {
+      "week": 370,
+      "id": "script-0027",
+      "retryWeekBefore": 370,
+      "retryWeekAfter": 396
+     },
+     {
+      "week": 371,
+      "id": "script-0031",
+      "retryWeekBefore": 353,
+      "retryWeekAfter": 397
+     },
+     {
+      "week": 372,
+      "id": "script-0033",
+      "retryWeekBefore": 358,
+      "retryWeekAfter": 398
+     },
+     {
+      "week": 385,
+      "id": "script-0026",
+      "retryWeekBefore": 385,
+      "retryWeekAfter": 411
+     },
+     {
+      "week": 402,
+      "id": "script-0027",
+      "retryWeekBefore": 396,
+      "retryWeekAfter": 428
+     },
+     {
+      "week": 403,
+      "id": "script-0029",
+      "retryWeekBefore": 394,
+      "retryWeekAfter": 429
+     },
+     {
+      "week": 404,
+      "id": "script-0030",
+      "retryWeekBefore": 395,
+      "retryWeekAfter": 430
+     },
+     {
+      "week": 405,
+      "id": "script-0031",
+      "retryWeekBefore": 397,
+      "retryWeekAfter": 431
+     },
+     {
+      "week": 406,
+      "id": "script-0033",
+      "retryWeekBefore": 398,
+      "retryWeekAfter": 432
+     },
+     {
+      "week": 407,
+      "id": "script-0034",
+      "retryWeekBefore": 394,
+      "retryWeekAfter": 433
+     },
+     {
+      "week": 408,
+      "id": "script-0036",
+      "retryWeekBefore": 400,
+      "retryWeekAfter": 434
+     },
+     {
+      "week": 411,
+      "id": "script-0026",
+      "retryWeekBefore": 411,
+      "retryWeekAfter": 437
+     },
+     {
+      "week": 433,
+      "id": "script-0027",
+      "retryWeekBefore": 428,
+      "retryWeekAfter": 459
+     },
+     {
+      "week": 434,
+      "id": "script-0029",
+      "retryWeekBefore": 429,
+      "retryWeekAfter": 460
+     },
+     {
+      "week": 435,
+      "id": "script-0030",
+      "retryWeekBefore": 430,
+      "retryWeekAfter": 461
+     },
+     {
+      "week": 436,
+      "id": "script-0031",
+      "retryWeekBefore": 431,
+      "retryWeekAfter": 462
+     },
+     {
+      "week": 437,
+      "id": "script-0026",
+      "retryWeekBefore": 437,
+      "retryWeekAfter": 463
+     },
+     {
+      "week": 438,
+      "id": "script-0033",
+      "retryWeekBefore": 432,
+      "retryWeekAfter": 464
+     },
+     {
+      "week": 439,
+      "id": "script-0034",
+      "retryWeekBefore": 433,
+      "retryWeekAfter": 465
+     },
+     {
+      "week": 440,
+      "id": "script-0036",
+      "retryWeekBefore": 434,
+      "retryWeekAfter": 466
+     },
+     {
+      "week": 441,
+      "id": "script-0037",
+      "retryWeekBefore": 428,
+      "retryWeekAfter": 467
+     },
+     {
+      "week": 442,
+      "id": "script-0038",
+      "retryWeekBefore": 431,
+      "retryWeekAfter": 468
+     }
+    ]
+   },
+   "shelvedAtEnd": [
+    {
+     "ordinal": 26,
+     "week": 250,
+     "retryWeek": 463
+    },
+    {
+     "ordinal": 27,
+     "week": 253,
+     "retryWeek": 459
+    },
+    {
+     "ordinal": 29,
+     "week": 290,
+     "retryWeek": 460
+    },
+    {
+     "ordinal": 30,
+     "week": 292,
+     "retryWeek": 461
+    },
+    {
+     "ordinal": 31,
+     "week": 327,
+     "retryWeek": 462
+    },
+    {
+     "ordinal": 33,
+     "week": 332,
+     "retryWeek": 464
+    },
+    {
+     "ordinal": 34,
+     "week": 368,
+     "retryWeek": 465
+    },
+    {
+     "ordinal": 36,
+     "week": 374,
+     "retryWeek": 466
+    },
+    {
+     "ordinal": 37,
+     "week": 402,
+     "retryWeek": 467
+    },
+    {
+     "ordinal": 38,
+     "week": 405,
+     "retryWeek": 468
+    },
+    {
+     "ordinal": 39,
+     "week": 433,
+     "retryWeek": 459
+    },
+    {
+     "ordinal": 40,
+     "week": 436,
+     "retryWeek": 462
+    }
+   ],
+   "filmsAgain": [
+    {
+     "shelvingWeek": 250,
+     "shelved": "script-0026",
+     "announced": {
+      "week": 269,
+      "id": "studio-bc14baf6-r03:film:28"
+     },
+     "firstTake": {
+      "week": 274,
+      "id": "studio-bc14baf6-r03:film:28"
+     },
+     "released": {
+      "week": 277,
+      "id": "studio-bc14baf6-r03:film:28"
+     }
+    },
+    {
+     "shelvingWeek": 253,
+     "shelved": "script-0027",
+     "announced": {
+      "week": 269,
+      "id": "studio-bc14baf6-r03:film:28"
+     },
+     "firstTake": {
+      "week": 274,
+      "id": "studio-bc14baf6-r03:film:28"
+     },
+     "released": {
+      "week": 277,
+      "id": "studio-bc14baf6-r03:film:28"
+     }
+    },
+    {
+     "shelvingWeek": 290,
+     "shelved": "script-0029",
+     "announced": {
+      "week": 309,
+      "id": "studio-bc14baf6-r03:film:32"
+     },
+     "firstTake": {
+      "week": 314,
+      "id": "studio-bc14baf6-r03:film:32"
+     },
+     "released": {
+      "week": 317,
+      "id": "studio-bc14baf6-r03:film:32"
+     }
+    },
+    {
+     "shelvingWeek": 292,
+     "shelved": "script-0030",
+     "announced": {
+      "week": 309,
+      "id": "studio-bc14baf6-r03:film:32"
+     },
+     "firstTake": {
+      "week": 314,
+      "id": "studio-bc14baf6-r03:film:32"
+     },
+     "released": {
+      "week": 317,
+      "id": "studio-bc14baf6-r03:film:32"
+     }
+    },
+    {
+     "shelvingWeek": 327,
+     "shelved": "script-0031",
+     "announced": {
+      "week": 350,
+      "id": "studio-bc14baf6-r03:film:35"
+     },
+     "firstTake": {
+      "week": 355,
+      "id": "studio-bc14baf6-r03:film:35"
+     },
+     "released": {
+      "week": 358,
+      "id": "studio-bc14baf6-r03:film:35"
+     }
+    },
+    {
+     "shelvingWeek": 332,
+     "shelved": "script-0033",
+     "announced": {
+      "week": 350,
+      "id": "studio-bc14baf6-r03:film:35"
+     },
+     "firstTake": {
+      "week": 355,
+      "id": "studio-bc14baf6-r03:film:35"
+     },
+     "released": {
+      "week": 358,
+      "id": "studio-bc14baf6-r03:film:35"
+     }
+    },
+    {
+     "shelvingWeek": 368,
+     "shelved": "script-0034",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    },
+    {
+     "shelvingWeek": 374,
+     "shelved": "script-0036",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    },
+    {
+     "shelvingWeek": 402,
+     "shelved": "script-0037",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    },
+    {
+     "shelvingWeek": 405,
+     "shelved": "script-0038",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    },
+    {
+     "shelvingWeek": 433,
+     "shelved": "script-0039",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    },
+    {
+     "shelvingWeek": 436,
+     "shelved": "script-0040",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    }
+   ],
+   "events": {
+    "announced": [
+     {
+      "week": 4,
+      "id": "studio-bc14baf6-r03:film:0"
+     },
+     {
+      "week": 13,
+      "id": "studio-bc14baf6-r03:film:1"
+     },
+     {
+      "week": 22,
+      "id": "studio-bc14baf6-r03:film:2"
+     },
+     {
+      "week": 31,
+      "id": "studio-bc14baf6-r03:film:3"
+     },
+     {
+      "week": 40,
+      "id": "studio-bc14baf6-r03:film:4"
+     },
+     {
+      "week": 49,
+      "id": "studio-bc14baf6-r03:film:5"
+     },
+     {
+      "week": 58,
+      "id": "studio-bc14baf6-r03:film:6"
+     },
+     {
+      "week": 67,
+      "id": "studio-bc14baf6-r03:film:7"
+     },
+     {
+      "week": 76,
+      "id": "studio-bc14baf6-r03:film:8"
+     },
+     {
+      "week": 85,
+      "id": "studio-bc14baf6-r03:film:9"
+     },
+     {
+      "week": 94,
+      "id": "studio-bc14baf6-r03:film:10"
+     },
+     {
+      "week": 103,
+      "id": "studio-bc14baf6-r03:film:11"
+     },
+     {
+      "week": 112,
+      "id": "studio-bc14baf6-r03:film:12"
+     },
+     {
+      "week": 121,
+      "id": "studio-bc14baf6-r03:film:13"
+     },
+     {
+      "week": 130,
+      "id": "studio-bc14baf6-r03:film:14"
+     },
+     {
+      "week": 139,
+      "id": "studio-bc14baf6-r03:film:15"
+     },
+     {
+      "week": 148,
+      "id": "studio-bc14baf6-r03:film:16"
+     },
+     {
+      "week": 157,
+      "id": "studio-bc14baf6-r03:film:17"
+     },
+     {
+      "week": 166,
+      "id": "studio-bc14baf6-r03:film:18"
+     },
+     {
+      "week": 175,
+      "id": "studio-bc14baf6-r03:film:19"
+     },
+     {
+      "week": 184,
+      "id": "studio-bc14baf6-r03:film:20"
+     },
+     {
+      "week": 193,
+      "id": "studio-bc14baf6-r03:film:21"
+     },
+     {
+      "week": 202,
+      "id": "studio-bc14baf6-r03:film:22"
+     },
+     {
+      "week": 211,
+      "id": "studio-bc14baf6-r03:film:23"
+     },
+     {
+      "week": 220,
+      "id": "studio-bc14baf6-r03:film:24"
+     },
+     {
+      "week": 229,
+      "id": "studio-bc14baf6-r03:film:25"
+     },
+     {
+      "week": 269,
+      "id": "studio-bc14baf6-r03:film:28"
+     },
+     {
+      "week": 309,
+      "id": "studio-bc14baf6-r03:film:32"
+     },
+     {
+      "week": 350,
+      "id": "studio-bc14baf6-r03:film:35"
+     }
+    ],
+    "firstTakes": [
+     {
+      "week": 9,
+      "id": "studio-bc14baf6-r03:film:0"
+     },
+     {
+      "week": 18,
+      "id": "studio-bc14baf6-r03:film:1"
+     },
+     {
+      "week": 27,
+      "id": "studio-bc14baf6-r03:film:2"
+     },
+     {
+      "week": 36,
+      "id": "studio-bc14baf6-r03:film:3"
+     },
+     {
+      "week": 45,
+      "id": "studio-bc14baf6-r03:film:4"
+     },
+     {
+      "week": 54,
+      "id": "studio-bc14baf6-r03:film:5"
+     },
+     {
+      "week": 63,
+      "id": "studio-bc14baf6-r03:film:6"
+     },
+     {
+      "week": 72,
+      "id": "studio-bc14baf6-r03:film:7"
+     },
+     {
+      "week": 81,
+      "id": "studio-bc14baf6-r03:film:8"
+     },
+     {
+      "week": 90,
+      "id": "studio-bc14baf6-r03:film:9"
+     },
+     {
+      "week": 99,
+      "id": "studio-bc14baf6-r03:film:10"
+     },
+     {
+      "week": 108,
+      "id": "studio-bc14baf6-r03:film:11"
+     },
+     {
+      "week": 117,
+      "id": "studio-bc14baf6-r03:film:12"
+     },
+     {
+      "week": 126,
+      "id": "studio-bc14baf6-r03:film:13"
+     },
+     {
+      "week": 135,
+      "id": "studio-bc14baf6-r03:film:14"
+     },
+     {
+      "week": 144,
+      "id": "studio-bc14baf6-r03:film:15"
+     },
+     {
+      "week": 153,
+      "id": "studio-bc14baf6-r03:film:16"
+     },
+     {
+      "week": 162,
+      "id": "studio-bc14baf6-r03:film:17"
+     },
+     {
+      "week": 171,
+      "id": "studio-bc14baf6-r03:film:18"
+     },
+     {
+      "week": 180,
+      "id": "studio-bc14baf6-r03:film:19"
+     },
+     {
+      "week": 189,
+      "id": "studio-bc14baf6-r03:film:20"
+     },
+     {
+      "week": 198,
+      "id": "studio-bc14baf6-r03:film:21"
+     },
+     {
+      "week": 207,
+      "id": "studio-bc14baf6-r03:film:22"
+     },
+     {
+      "week": 216,
+      "id": "studio-bc14baf6-r03:film:23"
+     },
+     {
+      "week": 225,
+      "id": "studio-bc14baf6-r03:film:24"
+     },
+     {
+      "week": 234,
+      "id": "studio-bc14baf6-r03:film:25"
+     },
+     {
+      "week": 274,
+      "id": "studio-bc14baf6-r03:film:28"
+     },
+     {
+      "week": 314,
+      "id": "studio-bc14baf6-r03:film:32"
+     },
+     {
+      "week": 355,
+      "id": "studio-bc14baf6-r03:film:35"
+     }
+    ],
+    "released": [
+     {
+      "week": 12,
+      "id": "studio-bc14baf6-r03:film:0"
+     },
+     {
+      "week": 21,
+      "id": "studio-bc14baf6-r03:film:1"
+     },
+     {
+      "week": 30,
+      "id": "studio-bc14baf6-r03:film:2"
+     },
+     {
+      "week": 39,
+      "id": "studio-bc14baf6-r03:film:3"
+     },
+     {
+      "week": 48,
+      "id": "studio-bc14baf6-r03:film:4"
+     },
+     {
+      "week": 57,
+      "id": "studio-bc14baf6-r03:film:5"
+     },
+     {
+      "week": 66,
+      "id": "studio-bc14baf6-r03:film:6"
+     },
+     {
+      "week": 75,
+      "id": "studio-bc14baf6-r03:film:7"
+     },
+     {
+      "week": 84,
+      "id": "studio-bc14baf6-r03:film:8"
+     },
+     {
+      "week": 93,
+      "id": "studio-bc14baf6-r03:film:9"
+     },
+     {
+      "week": 102,
+      "id": "studio-bc14baf6-r03:film:10"
+     },
+     {
+      "week": 111,
+      "id": "studio-bc14baf6-r03:film:11"
+     },
+     {
+      "week": 120,
+      "id": "studio-bc14baf6-r03:film:12"
+     },
+     {
+      "week": 129,
+      "id": "studio-bc14baf6-r03:film:13"
+     },
+     {
+      "week": 138,
+      "id": "studio-bc14baf6-r03:film:14"
+     },
+     {
+      "week": 147,
+      "id": "studio-bc14baf6-r03:film:15"
+     },
+     {
+      "week": 156,
+      "id": "studio-bc14baf6-r03:film:16"
+     },
+     {
+      "week": 165,
+      "id": "studio-bc14baf6-r03:film:17"
+     },
+     {
+      "week": 174,
+      "id": "studio-bc14baf6-r03:film:18"
+     },
+     {
+      "week": 183,
+      "id": "studio-bc14baf6-r03:film:19"
+     },
+     {
+      "week": 192,
+      "id": "studio-bc14baf6-r03:film:20"
+     },
+     {
+      "week": 201,
+      "id": "studio-bc14baf6-r03:film:21"
+     },
+     {
+      "week": 210,
+      "id": "studio-bc14baf6-r03:film:22"
+     },
+     {
+      "week": 219,
+      "id": "studio-bc14baf6-r03:film:23"
+     },
+     {
+      "week": 228,
+      "id": "studio-bc14baf6-r03:film:24"
+     },
+     {
+      "week": 237,
+      "id": "studio-bc14baf6-r03:film:25"
+     },
+     {
+      "week": 277,
+      "id": "studio-bc14baf6-r03:film:28"
+     },
+     {
+      "week": 317,
+      "id": "studio-bc14baf6-r03:film:32"
+     },
+     {
+      "week": 358,
+      "id": "studio-bc14baf6-r03:film:35"
+     }
+    ],
+    "commissions": [
+     {
+      "week": 1,
+      "id": "script-0000"
+     },
+     {
+      "week": 4,
+      "id": "script-0001"
+     },
+     {
+      "week": 14,
+      "id": "script-0002"
+     },
+     {
+      "week": 22,
+      "id": "script-0003"
+     },
+     {
+      "week": 31,
+      "id": "script-0004"
+     },
+     {
+      "week": 40,
+      "id": "script-0005"
+     },
+     {
+      "week": 49,
+      "id": "script-0006"
+     },
+     {
+      "week": 58,
+      "id": "script-0007"
+     },
+     {
+      "week": 67,
+      "id": "script-0008"
+     },
+     {
+      "week": 76,
+      "id": "script-0009"
+     },
+     {
+      "week": 85,
+      "id": "script-0010"
+     },
+     {
+      "week": 94,
+      "id": "script-0011"
+     },
+     {
+      "week": 103,
+      "id": "script-0012"
+     },
+     {
+      "week": 112,
+      "id": "script-0013"
+     },
+     {
+      "week": 121,
+      "id": "script-0014"
+     },
+     {
+      "week": 130,
+      "id": "script-0015"
+     },
+     {
+      "week": 139,
+      "id": "script-0016"
+     },
+     {
+      "week": 148,
+      "id": "script-0017"
+     },
+     {
+      "week": 157,
+      "id": "script-0018"
+     },
+     {
+      "week": 166,
+      "id": "script-0019"
+     },
+     {
+      "week": 175,
+      "id": "script-0020"
+     },
+     {
+      "week": 184,
+      "id": "script-0021"
+     },
+     {
+      "week": 193,
+      "id": "script-0022"
+     },
+     {
+      "week": 202,
+      "id": "script-0023"
+     },
+     {
+      "week": 211,
+      "id": "script-0024"
+     },
+     {
+      "week": 220,
+      "id": "script-0025"
+     },
+     {
+      "week": 229,
+      "id": "script-0026"
+     },
+     {
+      "week": 238,
+      "id": "script-0027"
+     },
+     {
+      "week": 266,
+      "id": "script-0028"
+     },
+     {
+      "week": 269,
+      "id": "script-0029"
+     },
+     {
+      "week": 278,
+      "id": "script-0030"
+     },
+     {
+      "week": 305,
+      "id": "script-0031"
+     },
+     {
+      "week": 307,
+      "id": "script-0032"
+     },
+     {
+      "week": 318,
+      "id": "script-0033"
+     },
+     {
+      "week": 345,
+      "id": "script-0034"
+     },
+     {
+      "week": 348,
+      "id": "script-0035"
+     },
+     {
+      "week": 359,
+      "id": "script-0036"
+     },
+     {
+      "week": 387,
+      "id": "script-0037"
+     },
+     {
+      "week": 390,
+      "id": "script-0038"
+     },
+     {
+      "week": 418,
+      "id": "script-0039"
+     },
+     {
+      "week": 421,
+      "id": "script-0040"
+     },
+     {
+      "week": 449,
+      "id": "script-0041"
+     },
+     {
+      "week": 451,
+      "id": "script-0042"
+     }
+    ]
+   }
+  },
+  {
+   "studioId": "studio-bc14baf6-r04",
+   "short": "r04",
+   "cashEnd": -4017621.3902904987,
+   "films": 24,
+   "firstTakes": 22,
+   "shelvings": [
+    {
+     "week": 195,
+     "id": "script-0019",
+     "conceptId": "studio-bc14baf6-r04:concept:19",
+     "rejections": 13
+    },
+    {
+     "week": 202,
+     "id": "script-0021",
+     "conceptId": "studio-bc14baf6-r04:concept:21",
+     "rejections": 13
+    },
+    {
+     "week": 230,
+     "id": "script-0022",
+     "conceptId": "studio-bc14baf6-r04:concept:22",
+     "rejections": 13
+    },
+    {
+     "week": 241,
+     "id": "script-0023",
+     "conceptId": "studio-bc14baf6-r04:concept:23",
+     "rejections": 13
+    },
+    {
+     "week": 278,
+     "id": "script-0025",
+     "conceptId": "studio-bc14baf6-r04:concept:25",
+     "rejections": 13
+    },
+    {
+     "week": 281,
+     "id": "script-0026",
+     "conceptId": "studio-bc14baf6-r04:concept:26",
+     "rejections": 13
+    },
+    {
+     "week": 309,
+     "id": "script-0027",
+     "conceptId": "studio-bc14baf6-r04:concept:27",
+     "rejections": 13
+    },
+    {
+     "week": 312,
+     "id": "script-0028",
+     "conceptId": "studio-bc14baf6-r04:concept:28",
+     "rejections": 13
+    },
+    {
+     "week": 340,
+     "id": "script-0029",
+     "conceptId": "studio-bc14baf6-r04:concept:29",
+     "rejections": 13
+    },
+    {
+     "week": 343,
+     "id": "script-0030",
+     "conceptId": "studio-bc14baf6-r04:concept:30",
+     "rejections": 13
+    },
+    {
+     "week": 371,
+     "id": "script-0031",
+     "conceptId": "studio-bc14baf6-r04:concept:31",
+     "rejections": 13
+    },
+    {
+     "week": 374,
+     "id": "script-0032",
+     "conceptId": "studio-bc14baf6-r04:concept:32",
+     "rejections": 13
+    },
+    {
+     "week": 402,
+     "id": "script-0033",
+     "conceptId": "studio-bc14baf6-r04:concept:33",
+     "rejections": 13
+    },
+    {
+     "week": 405,
+     "id": "script-0034",
+     "conceptId": "studio-bc14baf6-r04:concept:34",
+     "rejections": 13
+    }
+   ],
+   "shelvingsPerYear": {
+    "3": 2,
+    "4": 2,
+    "5": 3,
+    "6": 3,
+    "7": 4
+   },
+   "maxShelvingsInAny52Weeks": 4,
+   "retries": {
+    "viable": [
+     {
+      "week": 231,
+      "id": "script-0021"
+     }
+    ],
+    "economicRejection": [
+     {
+      "week": 230,
+      "id": "script-0019",
+      "retryWeekBefore": 221,
+      "retryWeekAfter": 256
+     },
+     {
+      "week": 256,
+      "id": "script-0019",
+      "retryWeekBefore": 256,
+      "retryWeekAfter": 282
+     },
+     {
+      "week": 266,
+      "id": "script-0022",
+      "retryWeekBefore": 256,
+      "retryWeekAfter": 292
+     },
+     {
+      "week": 278,
+      "id": "script-0023",
+      "retryWeekBefore": 267,
+      "retryWeekAfter": 304
+     },
+     {
+      "week": 282,
+      "id": "script-0019",
+      "retryWeekBefore": 282,
+      "retryWeekAfter": 308
+     },
+     {
+      "week": 292,
+      "id": "script-0022",
+      "retryWeekBefore": 292,
+      "retryWeekAfter": 318
+     },
+     {
+      "week": 309,
+      "id": "script-0019",
+      "retryWeekBefore": 308,
+      "retryWeekAfter": 335
+     },
+     {
+      "week": 310,
+      "id": "script-0023",
+      "retryWeekBefore": 304,
+      "retryWeekAfter": 336
+     },
+     {
+      "week": 311,
+      "id": "script-0025",
+      "retryWeekBefore": 304,
+      "retryWeekAfter": 337
+     },
+     {
+      "week": 312,
+      "id": "script-0026",
+      "retryWeekBefore": 307,
+      "retryWeekAfter": 338
+     },
+     {
+      "week": 318,
+      "id": "script-0022",
+      "retryWeekBefore": 318,
+      "retryWeekAfter": 344
+     },
+     {
+      "week": 340,
+      "id": "script-0019",
+      "retryWeekBefore": 335,
+      "retryWeekAfter": 366
+     },
+     {
+      "week": 341,
+      "id": "script-0023",
+      "retryWeekBefore": 336,
+      "retryWeekAfter": 367
+     },
+     {
+      "week": 342,
+      "id": "script-0025",
+      "retryWeekBefore": 337,
+      "retryWeekAfter": 368
+     },
+     {
+      "week": 343,
+      "id": "script-0026",
+      "retryWeekBefore": 338,
+      "retryWeekAfter": 369
+     },
+     {
+      "week": 344,
+      "id": "script-0022",
+      "retryWeekBefore": 344,
+      "retryWeekAfter": 370
+     },
+     {
+      "week": 345,
+      "id": "script-0027",
+      "retryWeekBefore": 335,
+      "retryWeekAfter": 371
+     },
+     {
+      "week": 346,
+      "id": "script-0028",
+      "retryWeekBefore": 338,
+      "retryWeekAfter": 372
+     },
+     {
+      "week": 371,
+      "id": "script-0019",
+      "retryWeekBefore": 366,
+      "retryWeekAfter": 397
+     },
+     {
+      "week": 372,
+      "id": "script-0022",
+      "retryWeekBefore": 370,
+      "retryWeekAfter": 398
+     },
+     {
+      "week": 373,
+      "id": "script-0023",
+      "retryWeekBefore": 367,
+      "retryWeekAfter": 399
+     },
+     {
+      "week": 374,
+      "id": "script-0025",
+      "retryWeekBefore": 368,
+      "retryWeekAfter": 400
+     },
+     {
+      "week": 375,
+      "id": "script-0026",
+      "retryWeekBefore": 369,
+      "retryWeekAfter": 401
+     },
+     {
+      "week": 376,
+      "id": "script-0027",
+      "retryWeekBefore": 371,
+      "retryWeekAfter": 402
+     },
+     {
+      "week": 377,
+      "id": "script-0028",
+      "retryWeekBefore": 372,
+      "retryWeekAfter": 403
+     },
+     {
+      "week": 378,
+      "id": "script-0029",
+      "retryWeekBefore": 366,
+      "retryWeekAfter": 404
+     },
+     {
+      "week": 379,
+      "id": "script-0030",
+      "retryWeekBefore": 369,
+      "retryWeekAfter": 405
+     },
+     {
+      "week": 402,
+      "id": "script-0019",
+      "retryWeekBefore": 397,
+      "retryWeekAfter": 428
+     },
+     {
+      "week": 403,
+      "id": "script-0022",
+      "retryWeekBefore": 398,
+      "retryWeekAfter": 429
+     },
+     {
+      "week": 404,
+      "id": "script-0023",
+      "retryWeekBefore": 399,
+      "retryWeekAfter": 430
+     },
+     {
+      "week": 405,
+      "id": "script-0025",
+      "retryWeekBefore": 400,
+      "retryWeekAfter": 431
+     },
+     {
+      "week": 406,
+      "id": "script-0026",
+      "retryWeekBefore": 401,
+      "retryWeekAfter": 432
+     },
+     {
+      "week": 407,
+      "id": "script-0027",
+      "retryWeekBefore": 402,
+      "retryWeekAfter": 433
+     },
+     {
+      "week": 408,
+      "id": "script-0028",
+      "retryWeekBefore": 403,
+      "retryWeekAfter": 434
+     },
+     {
+      "week": 409,
+      "id": "script-0029",
+      "retryWeekBefore": 404,
+      "retryWeekAfter": 435
+     },
+     {
+      "week": 410,
+      "id": "script-0030",
+      "retryWeekBefore": 405,
+      "retryWeekAfter": 436
+     },
+     {
+      "week": 411,
+      "id": "script-0031",
+      "retryWeekBefore": 397,
+      "retryWeekAfter": 437
+     },
+     {
+      "week": 412,
+      "id": "script-0032",
+      "retryWeekBefore": 400,
+      "retryWeekAfter": 438
+     }
+    ]
+   },
+   "shelvedAtEnd": [
+    {
+     "ordinal": 19,
+     "week": 195,
+     "retryWeek": 428
+    },
+    {
+     "ordinal": 22,
+     "week": 230,
+     "retryWeek": 429
+    },
+    {
+     "ordinal": 23,
+     "week": 241,
+     "retryWeek": 430
+    },
+    {
+     "ordinal": 25,
+     "week": 278,
+     "retryWeek": 431
+    },
+    {
+     "ordinal": 26,
+     "week": 281,
+     "retryWeek": 432
+    },
+    {
+     "ordinal": 27,
+     "week": 309,
+     "retryWeek": 433
+    },
+    {
+     "ordinal": 28,
+     "week": 312,
+     "retryWeek": 434
+    },
+    {
+     "ordinal": 29,
+     "week": 340,
+     "retryWeek": 435
+    },
+    {
+     "ordinal": 30,
+     "week": 343,
+     "retryWeek": 436
+    },
+    {
+     "ordinal": 31,
+     "week": 371,
+     "retryWeek": 437
+    },
+    {
+     "ordinal": 32,
+     "week": 374,
+     "retryWeek": 438
+    },
+    {
+     "ordinal": 33,
+     "week": 402,
+     "retryWeek": 428
+    },
+    {
+     "ordinal": 34,
+     "week": 405,
+     "retryWeek": 431
+    }
+   ],
+   "filmsAgain": [
+    {
+     "shelvingWeek": 195,
+     "shelved": "script-0019",
+     "announced": {
+      "week": 231,
+      "id": "studio-bc14baf6-r04:film:21"
+     },
+     "firstTake": {
+      "week": 236,
+      "id": "studio-bc14baf6-r04:film:21"
+     },
+     "released": {
+      "week": 239,
+      "id": "studio-bc14baf6-r04:film:21"
+     }
+    },
+    {
+     "shelvingWeek": 202,
+     "shelved": "script-0021",
+     "announced": {
+      "week": 231,
+      "id": "studio-bc14baf6-r04:film:21"
+     },
+     "firstTake": {
+      "week": 236,
+      "id": "studio-bc14baf6-r04:film:21"
+     },
+     "released": {
+      "week": 239,
+      "id": "studio-bc14baf6-r04:film:21"
+     }
+    },
+    {
+     "shelvingWeek": 230,
+     "shelved": "script-0022",
+     "announced": {
+      "week": 231,
+      "id": "studio-bc14baf6-r04:film:21"
+     },
+     "firstTake": {
+      "week": 236,
+      "id": "studio-bc14baf6-r04:film:21"
+     },
+     "released": {
+      "week": 239,
+      "id": "studio-bc14baf6-r04:film:21"
+     }
+    },
+    {
+     "shelvingWeek": 241,
+     "shelved": "script-0023",
+     "announced": {
+      "week": 257,
+      "id": "studio-bc14baf6-r04:film:24"
+     },
+     "firstTake": {
+      "week": 262,
+      "id": "studio-bc14baf6-r04:film:24"
+     },
+     "released": {
+      "week": 265,
+      "id": "studio-bc14baf6-r04:film:24"
+     }
+    },
+    {
+     "shelvingWeek": 278,
+     "shelved": "script-0025",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    },
+    {
+     "shelvingWeek": 281,
+     "shelved": "script-0026",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    },
+    {
+     "shelvingWeek": 309,
+     "shelved": "script-0027",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    },
+    {
+     "shelvingWeek": 312,
+     "shelved": "script-0028",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    },
+    {
+     "shelvingWeek": 340,
+     "shelved": "script-0029",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    },
+    {
+     "shelvingWeek": 343,
+     "shelved": "script-0030",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    },
+    {
+     "shelvingWeek": 371,
+     "shelved": "script-0031",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    },
+    {
+     "shelvingWeek": 374,
+     "shelved": "script-0032",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    },
+    {
+     "shelvingWeek": 402,
+     "shelved": "script-0033",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    },
+    {
+     "shelvingWeek": 405,
+     "shelved": "script-0034",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    }
+   ],
+   "events": {
+    "announced": [
+     {
+      "week": 4,
+      "id": "studio-bc14baf6-r04:film:0"
+     },
+     {
+      "week": 13,
+      "id": "studio-bc14baf6-r04:film:1"
+     },
+     {
+      "week": 22,
+      "id": "studio-bc14baf6-r04:film:2"
+     },
+     {
+      "week": 31,
+      "id": "studio-bc14baf6-r04:film:3"
+     },
+     {
+      "week": 40,
+      "id": "studio-bc14baf6-r04:film:4"
+     },
+     {
+      "week": 49,
+      "id": "studio-bc14baf6-r04:film:5"
+     },
+     {
+      "week": 58,
+      "id": "studio-bc14baf6-r04:film:6"
+     },
+     {
+      "week": 67,
+      "id": "studio-bc14baf6-r04:film:7"
+     },
+     {
+      "week": 76,
+      "id": "studio-bc14baf6-r04:film:8"
+     },
+     {
+      "week": 85,
+      "id": "studio-bc14baf6-r04:film:9"
+     },
+     {
+      "week": 94,
+      "id": "studio-bc14baf6-r04:film:10"
+     },
+     {
+      "week": 103,
+      "id": "studio-bc14baf6-r04:film:11"
+     },
+     {
+      "week": 112,
+      "id": "studio-bc14baf6-r04:film:12"
+     },
+     {
+      "week": 121,
+      "id": "studio-bc14baf6-r04:film:13"
+     },
+     {
+      "week": 130,
+      "id": "studio-bc14baf6-r04:film:14"
+     },
+     {
+      "week": 139,
+      "id": "studio-bc14baf6-r04:film:15"
+     },
+     {
+      "week": 148,
+      "id": "studio-bc14baf6-r04:film:16"
+     },
+     {
+      "week": 157,
+      "id": "studio-bc14baf6-r04:film:17"
+     },
+     {
+      "week": 166,
+      "id": "studio-bc14baf6-r04:film:18"
+     },
+     {
+      "week": 178,
+      "id": "studio-bc14baf6-r04:film:20"
+     },
+     {
+      "week": 231,
+      "id": "studio-bc14baf6-r04:film:21"
+     },
+     {
+      "week": 257,
+      "id": "studio-bc14baf6-r04:film:24"
+     }
+    ],
+    "firstTakes": [
+     {
+      "week": 9,
+      "id": "studio-bc14baf6-r04:film:0"
+     },
+     {
+      "week": 18,
+      "id": "studio-bc14baf6-r04:film:1"
+     },
+     {
+      "week": 27,
+      "id": "studio-bc14baf6-r04:film:2"
+     },
+     {
+      "week": 36,
+      "id": "studio-bc14baf6-r04:film:3"
+     },
+     {
+      "week": 45,
+      "id": "studio-bc14baf6-r04:film:4"
+     },
+     {
+      "week": 54,
+      "id": "studio-bc14baf6-r04:film:5"
+     },
+     {
+      "week": 63,
+      "id": "studio-bc14baf6-r04:film:6"
+     },
+     {
+      "week": 72,
+      "id": "studio-bc14baf6-r04:film:7"
+     },
+     {
+      "week": 81,
+      "id": "studio-bc14baf6-r04:film:8"
+     },
+     {
+      "week": 90,
+      "id": "studio-bc14baf6-r04:film:9"
+     },
+     {
+      "week": 99,
+      "id": "studio-bc14baf6-r04:film:10"
+     },
+     {
+      "week": 108,
+      "id": "studio-bc14baf6-r04:film:11"
+     },
+     {
+      "week": 117,
+      "id": "studio-bc14baf6-r04:film:12"
+     },
+     {
+      "week": 126,
+      "id": "studio-bc14baf6-r04:film:13"
+     },
+     {
+      "week": 135,
+      "id": "studio-bc14baf6-r04:film:14"
+     },
+     {
+      "week": 144,
+      "id": "studio-bc14baf6-r04:film:15"
+     },
+     {
+      "week": 153,
+      "id": "studio-bc14baf6-r04:film:16"
+     },
+     {
+      "week": 162,
+      "id": "studio-bc14baf6-r04:film:17"
+     },
+     {
+      "week": 171,
+      "id": "studio-bc14baf6-r04:film:18"
+     },
+     {
+      "week": 183,
+      "id": "studio-bc14baf6-r04:film:20"
+     },
+     {
+      "week": 236,
+      "id": "studio-bc14baf6-r04:film:21"
+     },
+     {
+      "week": 262,
+      "id": "studio-bc14baf6-r04:film:24"
+     }
+    ],
+    "released": [
+     {
+      "week": 12,
+      "id": "studio-bc14baf6-r04:film:0"
+     },
+     {
+      "week": 21,
+      "id": "studio-bc14baf6-r04:film:1"
+     },
+     {
+      "week": 30,
+      "id": "studio-bc14baf6-r04:film:2"
+     },
+     {
+      "week": 39,
+      "id": "studio-bc14baf6-r04:film:3"
+     },
+     {
+      "week": 48,
+      "id": "studio-bc14baf6-r04:film:4"
+     },
+     {
+      "week": 57,
+      "id": "studio-bc14baf6-r04:film:5"
+     },
+     {
+      "week": 66,
+      "id": "studio-bc14baf6-r04:film:6"
+     },
+     {
+      "week": 75,
+      "id": "studio-bc14baf6-r04:film:7"
+     },
+     {
+      "week": 84,
+      "id": "studio-bc14baf6-r04:film:8"
+     },
+     {
+      "week": 93,
+      "id": "studio-bc14baf6-r04:film:9"
+     },
+     {
+      "week": 102,
+      "id": "studio-bc14baf6-r04:film:10"
+     },
+     {
+      "week": 111,
+      "id": "studio-bc14baf6-r04:film:11"
+     },
+     {
+      "week": 120,
+      "id": "studio-bc14baf6-r04:film:12"
+     },
+     {
+      "week": 129,
+      "id": "studio-bc14baf6-r04:film:13"
+     },
+     {
+      "week": 138,
+      "id": "studio-bc14baf6-r04:film:14"
+     },
+     {
+      "week": 147,
+      "id": "studio-bc14baf6-r04:film:15"
+     },
+     {
+      "week": 156,
+      "id": "studio-bc14baf6-r04:film:16"
+     },
+     {
+      "week": 165,
+      "id": "studio-bc14baf6-r04:film:17"
+     },
+     {
+      "week": 174,
+      "id": "studio-bc14baf6-r04:film:18"
+     },
+     {
+      "week": 186,
+      "id": "studio-bc14baf6-r04:film:20"
+     },
+     {
+      "week": 239,
+      "id": "studio-bc14baf6-r04:film:21"
+     },
+     {
+      "week": 265,
+      "id": "studio-bc14baf6-r04:film:24"
+     }
+    ],
+    "commissions": [
+     {
+      "week": 1,
+      "id": "script-0000"
+     },
+     {
+      "week": 4,
+      "id": "script-0001"
+     },
+     {
+      "week": 13,
+      "id": "script-0002"
+     },
+     {
+      "week": 22,
+      "id": "script-0003"
+     },
+     {
+      "week": 31,
+      "id": "script-0004"
+     },
+     {
+      "week": 40,
+      "id": "script-0005"
+     },
+     {
+      "week": 49,
+      "id": "script-0006"
+     },
+     {
+      "week": 58,
+      "id": "script-0007"
+     },
+     {
+      "week": 67,
+      "id": "script-0008"
+     },
+     {
+      "week": 76,
+      "id": "script-0009"
+     },
+     {
+      "week": 85,
+      "id": "script-0010"
+     },
+     {
+      "week": 94,
+      "id": "script-0011"
+     },
+     {
+      "week": 103,
+      "id": "script-0012"
+     },
+     {
+      "week": 112,
+      "id": "script-0013"
+     },
+     {
+      "week": 121,
+      "id": "script-0014"
+     },
+     {
+      "week": 130,
+      "id": "script-0015"
+     },
+     {
+      "week": 139,
+      "id": "script-0016"
+     },
+     {
+      "week": 148,
+      "id": "script-0017"
+     },
+     {
+      "week": 157,
+      "id": "script-0018"
+     },
+     {
+      "week": 166,
+      "id": "script-0019"
+     },
+     {
+      "week": 175,
+      "id": "script-0020"
+     },
+     {
+      "week": 187,
+      "id": "script-0021"
+     },
+     {
+      "week": 215,
+      "id": "script-0022"
+     },
+     {
+      "week": 218,
+      "id": "script-0023"
+     },
+     {
+      "week": 254,
+      "id": "script-0024"
+     },
+     {
+      "week": 257,
+      "id": "script-0025"
+     },
+     {
+      "week": 266,
+      "id": "script-0026"
+     },
+     {
+      "week": 294,
+      "id": "script-0027"
+     },
+     {
+      "week": 297,
+      "id": "script-0028"
+     },
+     {
+      "week": 325,
+      "id": "script-0029"
+     },
+     {
+      "week": 328,
+      "id": "script-0030"
+     },
+     {
+      "week": 356,
+      "id": "script-0031"
+     },
+     {
+      "week": 359,
+      "id": "script-0032"
+     },
+     {
+      "week": 387,
+      "id": "script-0033"
+     },
+     {
+      "week": 390,
+      "id": "script-0034"
+     },
+     {
+      "week": 418,
+      "id": "script-0035"
+     },
+     {
+      "week": 421,
+      "id": "script-0036"
+     }
+    ]
+   }
+  },
+  {
+   "studioId": "studio-bc14baf6-r05",
+   "short": "r05",
+   "cashEnd": 17454843,
+   "films": 0,
+   "firstTakes": 0,
+   "shelvings": [],
+   "shelvingsPerYear": {},
+   "maxShelvingsInAny52Weeks": 0,
+   "retries": {
+    "viable": [],
+    "economicRejection": []
+   },
+   "shelvedAtEnd": [],
+   "filmsAgain": [],
+   "events": {
+    "announced": [],
+    "firstTakes": [],
+    "released": [],
+    "commissions": []
+   }
+  }
+ ],
+ "otherStudios": [],
+ "player": {
+  "studioId": "studio-bc14baf6-player",
+  "shelvingReceipts": 0,
+  "developmentHasShelvingKey": false,
+  "issuedPromisesAtEnd": 0,
+  "proposalWeeksWithPromises": 0
+ },
+ "series": [
+  {
+   "week": 0,
+   "films": 8,
+   "firstTakes": 0,
+   "studios": {
+    "r01": {
+     "cash": 25563055,
+     "films": 2,
+     "firstTakes": 0,
+     "productions": 0,
+     "active": 0,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 22775839,
+     "films": 2,
+     "firstTakes": 0,
+     "productions": 0,
+     "active": 0,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 16586998,
+     "films": 2,
+     "firstTakes": 0,
+     "productions": 0,
+     "active": 0,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 13799861,
+     "films": 2,
+     "firstTakes": 0,
+     "productions": 0,
+     "active": 0,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 10,
+   "films": 8,
+   "firstTakes": 4,
+   "studios": {
+    "r01": {
+     "cash": 15719526,
+     "films": 2,
+     "firstTakes": 1,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 14120868,
+     "films": 2,
+     "firstTakes": 1,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 7769748,
+     "films": 2,
+     "firstTakes": 1,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 7751724,
+     "films": 2,
+     "firstTakes": 1,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 20,
+   "films": 12,
+   "firstTakes": 8,
+   "studios": {
+    "r01": {
+     "cash": 22656467,
+     "films": 3,
+     "firstTakes": 2,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 16028520,
+     "films": 3,
+     "firstTakes": 2,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 8300360,
+     "films": 3,
+     "firstTakes": 2,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 11866692,
+     "films": 3,
+     "firstTakes": 2,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 30,
+   "films": 16,
+   "firstTakes": 12,
+   "studios": {
+    "r01": {
+     "cash": 25409660,
+     "films": 4,
+     "firstTakes": 3,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 18037408,
+     "films": 4,
+     "firstTakes": 3,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 16929301,
+     "films": 4,
+     "firstTakes": 3,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 17490702,
+     "films": 4,
+     "firstTakes": 3,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 40,
+   "films": 24,
+   "firstTakes": 16,
+   "studios": {
+    "r01": {
+     "cash": 25563419,
+     "films": 6,
+     "firstTakes": 4,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 26140050,
+     "films": 6,
+     "firstTakes": 4,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 18990919,
+     "films": 6,
+     "firstTakes": 4,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 25854049,
+     "films": 6,
+     "firstTakes": 4,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 50,
+   "films": 28,
+   "firstTakes": 20,
+   "studios": {
+    "r01": {
+     "cash": 26356047,
+     "films": 7,
+     "firstTakes": 5,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 25871770,
+     "films": 7,
+     "firstTakes": 5,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 16257620,
+     "films": 7,
+     "firstTakes": 5,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 26031309,
+     "films": 7,
+     "firstTakes": 5,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 60,
+   "films": 32,
+   "firstTakes": 24,
+   "studios": {
+    "r01": {
+     "cash": 25836436,
+     "films": 8,
+     "firstTakes": 6,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 26465654,
+     "films": 8,
+     "firstTakes": 6,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 21477416,
+     "films": 8,
+     "firstTakes": 6,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 27260775,
+     "films": 8,
+     "firstTakes": 6,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 70,
+   "films": 36,
+   "firstTakes": 28,
+   "studios": {
+    "r01": {
+     "cash": 29712683,
+     "films": 9,
+     "firstTakes": 7,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 30877947,
+     "films": 9,
+     "firstTakes": 7,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 25571856,
+     "films": 9,
+     "firstTakes": 7,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 25908960,
+     "films": 9,
+     "firstTakes": 7,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 80,
+   "films": 40,
+   "firstTakes": 32,
+   "studios": {
+    "r01": {
+     "cash": 33518730,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 30399085,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 25660717,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 26004392,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 90,
+   "films": 44,
+   "firstTakes": 40,
+   "studios": {
+    "r01": {
+     "cash": 33921185,
+     "films": 11,
+     "firstTakes": 10,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 32251896,
+     "films": 11,
+     "firstTakes": 10,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 24726937,
+     "films": 11,
+     "firstTakes": 10,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 33644709,
+     "films": 11,
+     "firstTakes": 10,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 100,
+   "films": 48,
+   "firstTakes": 44,
+   "studios": {
+    "r01": {
+     "cash": 37835171,
+     "films": 12,
+     "firstTakes": 11,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 34722994,
+     "films": 12,
+     "firstTakes": 11,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 30026946,
+     "films": 12,
+     "firstTakes": 11,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 30851677,
+     "films": 12,
+     "firstTakes": 11,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 110,
+   "films": 52,
+   "firstTakes": 48,
+   "studios": {
+    "r01": {
+     "cash": 39330351,
+     "films": 13,
+     "firstTakes": 12,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 35895708,
+     "films": 13,
+     "firstTakes": 12,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 30695146,
+     "films": 13,
+     "firstTakes": 12,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 37306850,
+     "films": 13,
+     "firstTakes": 12,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 120,
+   "films": 56,
+   "firstTakes": 52,
+   "studios": {
+    "r01": {
+     "cash": 42627058,
+     "films": 14,
+     "firstTakes": 13,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 36143657,
+     "films": 14,
+     "firstTakes": 13,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 30223179,
+     "films": 14,
+     "firstTakes": 13,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 41019343,
+     "films": 14,
+     "firstTakes": 13,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 130,
+   "films": 64,
+   "firstTakes": 56,
+   "studios": {
+    "r01": {
+     "cash": 44246992,
+     "films": 16,
+     "firstTakes": 14,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 39712455,
+     "films": 16,
+     "firstTakes": 14,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 34296971,
+     "films": 16,
+     "firstTakes": 14,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 41353019,
+     "films": 16,
+     "firstTakes": 14,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 140,
+   "films": 68,
+   "firstTakes": 60,
+   "studios": {
+    "r01": {
+     "cash": 47812147,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 38714897,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 31282750,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 36442037,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 150,
+   "films": 72,
+   "firstTakes": 64,
+   "studios": {
+    "r01": {
+     "cash": 47795439,
+     "films": 18,
+     "firstTakes": 16,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 39952230,
+     "films": 18,
+     "firstTakes": 16,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 34169162,
+     "films": 18,
+     "firstTakes": 16,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 35785100,
+     "films": 18,
+     "firstTakes": 16,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 160,
+   "films": 76,
+   "firstTakes": 68,
+   "studios": {
+    "r01": {
+     "cash": 48206666,
+     "films": 19,
+     "firstTakes": 17,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 38622438,
+     "films": 19,
+     "firstTakes": 17,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 36932118,
+     "films": 19,
+     "firstTakes": 17,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 33295259,
+     "films": 19,
+     "firstTakes": 17,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 170,
+   "films": 80,
+   "firstTakes": 72,
+   "studios": {
+    "r01": {
+     "cash": 50334110,
+     "films": 20,
+     "firstTakes": 18,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 41004503,
+     "films": 20,
+     "firstTakes": 18,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 34950786,
+     "films": 20,
+     "firstTakes": 18,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 34464396,
+     "films": 20,
+     "firstTakes": 18,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 180,
+   "films": 84,
+   "firstTakes": 79,
+   "studios": {
+    "r01": {
+     "cash": 48664417,
+     "films": 21,
+     "firstTakes": 20,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 41980420,
+     "films": 21,
+     "firstTakes": 20,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 36246559,
+     "films": 21,
+     "firstTakes": 20,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 33920932,
+     "films": 21,
+     "firstTakes": 19,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 190,
+   "films": 88,
+   "firstTakes": 83,
+   "studios": {
+    "r01": {
+     "cash": 50215806,
+     "films": 22,
+     "firstTakes": 21,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 41443231,
+     "films": 22,
+     "firstTakes": 21,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 36490725,
+     "films": 22,
+     "firstTakes": 21,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 36053938,
+     "films": 22,
+     "firstTakes": 20,
+     "productions": 0,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 200,
+   "films": 91,
+   "firstTakes": 86,
+   "studios": {
+    "r01": {
+     "cash": 52345753,
+     "films": 23,
+     "firstTakes": 22,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 41384047,
+     "films": 23,
+     "firstTakes": 22,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 37545851,
+     "films": 23,
+     "firstTakes": 22,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 35520811,
+     "films": 22,
+     "firstTakes": 20,
+     "productions": 0,
+     "active": 1,
+     "shelved": 1
+    }
+   }
+  },
+  {
+   "week": 210,
+   "films": 94,
+   "firstTakes": 89,
+   "studios": {
+    "r01": {
+     "cash": 52171659,
+     "films": 24,
+     "firstTakes": 23,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 40856938,
+     "films": 24,
+     "firstTakes": 23,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 36030598,
+     "films": 24,
+     "firstTakes": 23,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 34009276,
+     "films": 22,
+     "firstTakes": 20,
+     "productions": 0,
+     "active": 0,
+     "shelved": 2
+    }
+   }
+  },
+  {
+   "week": 220,
+   "films": 99,
+   "firstTakes": 91,
+   "studios": {
+    "r01": {
+     "cash": 55675931,
+     "films": 25,
+     "firstTakes": 23,
+     "productions": 0,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 42742560,
+     "films": 26,
+     "firstTakes": 24,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 37551957,
+     "films": 26,
+     "firstTakes": 24,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 32844056,
+     "films": 22,
+     "firstTakes": 20,
+     "productions": 0,
+     "active": 2,
+     "shelved": 2
+    }
+   }
+  },
+  {
+   "week": 230,
+   "films": 101,
+   "firstTakes": 93,
+   "studios": {
+    "r01": {
+     "cash": 54729781,
+     "films": 25,
+     "firstTakes": 23,
+     "productions": 0,
+     "active": 0,
+     "shelved": 2
+    },
+    "r02": {
+     "cash": 37486792,
+     "films": 27,
+     "firstTakes": 25,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 36065981,
+     "films": 27,
+     "firstTakes": 25,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 31678836,
+     "films": 22,
+     "firstTakes": 20,
+     "productions": 0,
+     "active": 2,
+     "shelved": 2
+    }
+   }
+  },
+  {
+   "week": 240,
+   "films": 104,
+   "firstTakes": 96,
+   "studios": {
+    "r01": {
+     "cash": 53783631,
+     "films": 25,
+     "firstTakes": 23,
+     "productions": 0,
+     "active": 1,
+     "shelved": 2
+    },
+    "r02": {
+     "cash": 39648436,
+     "films": 28,
+     "firstTakes": 26,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 37629179,
+     "films": 28,
+     "firstTakes": 26,
+     "productions": 0,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 29672583,
+     "films": 23,
+     "firstTakes": 21,
+     "productions": 0,
+     "active": 1,
+     "shelved": 2
+    }
+   }
+  },
+  {
+   "week": 250,
+   "films": 105,
+   "firstTakes": 98,
+   "studios": {
+    "r01": {
+     "cash": 48208427,
+     "films": 25,
+     "firstTakes": 24,
+     "productions": 1,
+     "active": 2,
+     "shelved": 2
+    },
+    "r02": {
+     "cash": 42894866,
+     "films": 29,
+     "firstTakes": 27,
+     "productions": 0,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 36698881,
+     "films": 28,
+     "firstTakes": 26,
+     "productions": 0,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 29923509,
+     "films": 23,
+     "firstTakes": 21,
+     "productions": 0,
+     "active": 0,
+     "shelved": 3
+    }
+   }
+  },
+  {
+   "week": 260,
+   "films": 106,
+   "firstTakes": 98,
+   "studios": {
+    "r01": {
+     "cash": 48661010,
+     "films": 26,
+     "firstTakes": 24,
+     "productions": 0,
+     "active": 2,
+     "shelved": 2
+    },
+    "r02": {
+     "cash": 42158547,
+     "films": 29,
+     "firstTakes": 27,
+     "productions": 0,
+     "active": 1,
+     "shelved": 1
+    },
+    "r03": {
+     "cash": 35396111,
+     "films": 28,
+     "firstTakes": 26,
+     "productions": 0,
+     "active": 0,
+     "shelved": 2
+    },
+    "r04": {
+     "cash": 25765751,
+     "films": 23,
+     "firstTakes": 21,
+     "productions": 1,
+     "active": 2,
+     "shelved": 3
+    }
+   }
+  },
+  {
+   "week": 270,
+   "films": 107,
+   "firstTakes": 99,
+   "studios": {
+    "r01": {
+     "cash": 46109980,
+     "films": 26,
+     "firstTakes": 24,
+     "productions": 0,
+     "active": 0,
+     "shelved": 4
+    },
+    "r02": {
+     "cash": 40745867,
+     "films": 29,
+     "firstTakes": 27,
+     "productions": 0,
+     "active": 0,
+     "shelved": 2
+    },
+    "r03": {
+     "cash": 29783741,
+     "films": 28,
+     "firstTakes": 26,
+     "productions": 1,
+     "active": 2,
+     "shelved": 2
+    },
+    "r04": {
+     "cash": 25159790,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 2,
+     "shelved": 3
+    }
+   }
+  },
+  {
+   "week": 280,
+   "films": 108,
+   "firstTakes": 100,
+   "studios": {
+    "r01": {
+     "cash": 43782830,
+     "films": 26,
+     "firstTakes": 24,
+     "productions": 0,
+     "active": 0,
+     "shelved": 4
+    },
+    "r02": {
+     "cash": 39673187,
+     "films": 29,
+     "firstTakes": 27,
+     "productions": 0,
+     "active": 2,
+     "shelved": 2
+    },
+    "r03": {
+     "cash": 31837602,
+     "films": 29,
+     "firstTakes": 27,
+     "productions": 0,
+     "active": 2,
+     "shelved": 2
+    },
+    "r04": {
+     "cash": 24018887,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 1,
+     "shelved": 4
+    }
+   }
+  },
+  {
+   "week": 290,
+   "films": 108,
+   "firstTakes": 100,
+   "studios": {
+    "r01": {
+     "cash": 42646680,
+     "films": 26,
+     "firstTakes": 24,
+     "productions": 0,
+     "active": 2,
+     "shelved": 4
+    },
+    "r02": {
+     "cash": 38600507,
+     "films": 29,
+     "firstTakes": 27,
+     "productions": 0,
+     "active": 2,
+     "shelved": 2
+    },
+    "r03": {
+     "cash": 31207726,
+     "films": 29,
+     "firstTakes": 27,
+     "productions": 0,
+     "active": 2,
+     "shelved": 2
+    },
+    "r04": {
+     "cash": 22833667,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 0,
+     "shelved": 5
+    }
+   }
+  },
+  {
+   "week": 300,
+   "films": 108,
+   "firstTakes": 100,
+   "studios": {
+    "r01": {
+     "cash": 41510530,
+     "films": 26,
+     "firstTakes": 24,
+     "productions": 0,
+     "active": 1,
+     "shelved": 5
+    },
+    "r02": {
+     "cash": 37527827,
+     "films": 29,
+     "firstTakes": 27,
+     "productions": 0,
+     "active": 0,
+     "shelved": 4
+    },
+    "r03": {
+     "cash": 29884956,
+     "films": 29,
+     "firstTakes": 27,
+     "productions": 0,
+     "active": 0,
+     "shelved": 4
+    },
+    "r04": {
+     "cash": 21648447,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 2,
+     "shelved": 5
+    }
+   }
+  },
+  {
+   "week": 310,
+   "films": 108,
+   "firstTakes": 100,
+   "studios": {
+    "r01": {
+     "cash": 40374380,
+     "films": 26,
+     "firstTakes": 24,
+     "productions": 0,
+     "active": 0,
+     "shelved": 6
+    },
+    "r02": {
+     "cash": 36455147,
+     "films": 29,
+     "firstTakes": 27,
+     "productions": 0,
+     "active": 2,
+     "shelved": 4
+    },
+    "r03": {
+     "cash": 24660320,
+     "films": 29,
+     "firstTakes": 27,
+     "productions": 1,
+     "active": 2,
+     "shelved": 4
+    },
+    "r04": {
+     "cash": 20463227,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 1,
+     "shelved": 6
+    }
+   }
+  },
+  {
+   "week": 320,
+   "films": 109,
+   "firstTakes": 101,
+   "studios": {
+    "r01": {
+     "cash": 39238230,
+     "films": 26,
+     "firstTakes": 24,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r02": {
+     "cash": 35382467,
+     "films": 29,
+     "firstTakes": 27,
+     "productions": 0,
+     "active": 2,
+     "shelved": 4
+    },
+    "r03": {
+     "cash": 26250911,
+     "films": 30,
+     "firstTakes": 28,
+     "productions": 0,
+     "active": 2,
+     "shelved": 4
+    },
+    "r04": {
+     "cash": 19278007,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 0,
+     "shelved": 7
+    }
+   }
+  },
+  {
+   "week": 330,
+   "films": 109,
+   "firstTakes": 101,
+   "studios": {
+    "r01": {
+     "cash": 38102080,
+     "films": 26,
+     "firstTakes": 24,
+     "productions": 0,
+     "active": 1,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": 34309787,
+     "films": 29,
+     "firstTakes": 27,
+     "productions": 0,
+     "active": 0,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": 25528383,
+     "films": 30,
+     "firstTakes": 28,
+     "productions": 0,
+     "active": 1,
+     "shelved": 5
+    },
+    "r04": {
+     "cash": 18092787,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    }
+   }
+  },
+  {
+   "week": 340,
+   "films": 109,
+   "firstTakes": 101,
+   "studios": {
+    "r01": {
+     "cash": 36965930,
+     "films": 26,
+     "firstTakes": 24,
+     "productions": 0,
+     "active": 0,
+     "shelved": 8
+    },
+    "r02": {
+     "cash": 33237107,
+     "films": 29,
+     "firstTakes": 27,
+     "productions": 0,
+     "active": 1,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": 24205613,
+     "films": 30,
+     "firstTakes": 28,
+     "productions": 0,
+     "active": 0,
+     "shelved": 6
+    },
+    "r04": {
+     "cash": 16907567,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    }
+   }
+  },
+  {
+   "week": 350,
+   "films": 110,
+   "firstTakes": 102,
+   "studios": {
+    "r01": {
+     "cash": 35829780,
+     "films": 26,
+     "firstTakes": 24,
+     "productions": 0,
+     "active": 2,
+     "shelved": 8
+    },
+    "r02": {
+     "cash": 31460280,
+     "films": 30,
+     "firstTakes": 28,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": 22882843,
+     "films": 30,
+     "firstTakes": 28,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r04": {
+     "cash": 15722347,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 0,
+     "shelved": 9
+    }
+   }
+  },
+  {
+   "week": 360,
+   "films": 111,
+   "firstTakes": 104,
+   "studios": {
+    "r01": {
+     "cash": 34693630,
+     "films": 26,
+     "firstTakes": 24,
+     "productions": 0,
+     "active": 1,
+     "shelved": 9
+    },
+    "r02": {
+     "cash": 28297620,
+     "films": 30,
+     "firstTakes": 29,
+     "productions": 1,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": 21174114,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r04": {
+     "cash": 14537127,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 2,
+     "shelved": 9
+    }
+   }
+  },
+  {
+   "week": 370,
+   "films": 112,
+   "firstTakes": 104,
+   "studios": {
+    "r01": {
+     "cash": 33557480,
+     "films": 26,
+     "firstTakes": 24,
+     "productions": 0,
+     "active": 0,
+     "shelved": 10
+    },
+    "r02": {
+     "cash": 30105266,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 1,
+     "shelved": 7
+    },
+    "r03": {
+     "cash": 20819939,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 1,
+     "shelved": 7
+    },
+    "r04": {
+     "cash": 13351907,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 2,
+     "shelved": 9
+    }
+   }
+  },
+  {
+   "week": 380,
+   "films": 112,
+   "firstTakes": 104,
+   "studios": {
+    "r01": {
+     "cash": 31014546,
+     "films": 26,
+     "firstTakes": 24,
+     "productions": 1,
+     "active": 2,
+     "shelved": 10
+    },
+    "r02": {
+     "cash": 29032586,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 0,
+     "shelved": 8
+    },
+    "r03": {
+     "cash": 19497169,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 0,
+     "shelved": 8
+    },
+    "r04": {
+     "cash": 12166687,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 0,
+     "shelved": 11
+    }
+   }
+  },
+  {
+   "week": 390,
+   "films": 113,
+   "firstTakes": 105,
+   "studios": {
+    "r01": {
+     "cash": 32272009,
+     "films": 27,
+     "firstTakes": 25,
+     "productions": 0,
+     "active": 2,
+     "shelved": 10
+    },
+    "r02": {
+     "cash": 27959906,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 1,
+     "shelved": 8
+    },
+    "r03": {
+     "cash": 18174399,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 1,
+     "shelved": 8
+    },
+    "r04": {
+     "cash": 10981467,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 1,
+     "shelved": 11
+    }
+   }
+  },
+  {
+   "week": 400,
+   "films": 113,
+   "firstTakes": 105,
+   "studios": {
+    "r01": {
+     "cash": 31373288,
+     "films": 27,
+     "firstTakes": 25,
+     "productions": 0,
+     "active": 1,
+     "shelved": 11
+    },
+    "r02": {
+     "cash": 26887226,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 2,
+     "shelved": 8
+    },
+    "r03": {
+     "cash": 16851629,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 2,
+     "shelved": 8
+    },
+    "r04": {
+     "cash": 9796247,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 2,
+     "shelved": 11
+    }
+   }
+  },
+  {
+   "week": 410,
+   "films": 113,
+   "firstTakes": 105,
+   "studios": {
+    "r01": {
+     "cash": 30237138,
+     "films": 27,
+     "firstTakes": 25,
+     "productions": 0,
+     "active": 0,
+     "shelved": 12
+    },
+    "r02": {
+     "cash": 25814546,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 0,
+     "shelved": 10
+    },
+    "r03": {
+     "cash": 15528859,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 0,
+     "shelved": 10
+    },
+    "r04": {
+     "cash": 8611027,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 0,
+     "shelved": 13
+    }
+   }
+  },
+  {
+   "week": 420,
+   "films": 113,
+   "firstTakes": 105,
+   "studios": {
+    "r01": {
+     "cash": 28389428,
+     "films": 27,
+     "firstTakes": 25,
+     "productions": 0,
+     "active": 2,
+     "shelved": 12
+    },
+    "r02": {
+     "cash": 22503298,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 0,
+     "shelved": 10
+    },
+    "r03": {
+     "cash": 11935148,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 1,
+     "shelved": 10
+    },
+    "r04": {
+     "cash": 5627679,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 1,
+     "shelved": 13
+    }
+   }
+  },
+  {
+   "week": 430,
+   "films": 113,
+   "firstTakes": 105,
+   "studios": {
+    "r01": {
+     "cash": 27029738,
+     "films": 27,
+     "firstTakes": 25,
+     "productions": 0,
+     "active": 2,
+     "shelved": 12
+    },
+    "r02": {
+     "cash": 21242788,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 2,
+     "shelved": 10
+    },
+    "r03": {
+     "cash": 10575528,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 2,
+     "shelved": 10
+    },
+    "r04": {
+     "cash": 4663149,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 2,
+     "shelved": 13
+    }
+   }
+  },
+  {
+   "week": 440,
+   "films": 113,
+   "firstTakes": 105,
+   "studios": {
+    "r01": {
+     "cash": 25670048,
+     "films": 27,
+     "firstTakes": 25,
+     "productions": 0,
+     "active": 0,
+     "shelved": 14
+    },
+    "r02": {
+     "cash": 19982278,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 0,
+     "shelved": 12
+    },
+    "r03": {
+     "cash": 9215908,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 0,
+     "shelved": 12
+    },
+    "r04": {
+     "cash": 3698619,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 2,
+     "shelved": 13
+    }
+   }
+  },
+  {
+   "week": 450,
+   "films": 114,
+   "firstTakes": 106,
+   "studios": {
+    "r01": {
+     "cash": 23833743,
+     "films": 28,
+     "firstTakes": 26,
+     "productions": 0,
+     "active": 2,
+     "shelved": 13
+    },
+    "r02": {
+     "cash": 18721768,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 0,
+     "shelved": 12
+    },
+    "r03": {
+     "cash": 7856288,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 1,
+     "shelved": 12
+    },
+    "r04": {
+     "cash": 2734089,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 2,
+     "shelved": 13
+    }
+   }
+  },
+  {
+   "week": 460,
+   "films": 114,
+   "firstTakes": 106,
+   "studios": {
+    "r01": {
+     "cash": 22995887,
+     "films": 28,
+     "firstTakes": 26,
+     "productions": 0,
+     "active": 2,
+     "shelved": 13
+    },
+    "r02": {
+     "cash": 14698938,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 1,
+     "active": 2,
+     "shelved": 12
+    },
+    "r03": {
+     "cash": 6496668,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 2,
+     "shelved": 12
+    },
+    "r04": {
+     "cash": 1769559,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 2,
+     "shelved": 13
+    }
+   }
+  },
+  {
+   "week": 470,
+   "films": 115,
+   "firstTakes": 107,
+   "studios": {
+    "r01": {
+     "cash": 21636197,
+     "films": 28,
+     "firstTakes": 26,
+     "productions": 0,
+     "active": 0,
+     "shelved": 15
+    },
+    "r02": {
+     "cash": 15772115,
+     "films": 32,
+     "firstTakes": 30,
+     "productions": 0,
+     "active": 2,
+     "shelved": 12
+    },
+    "r03": {
+     "cash": 5137048,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 2,
+     "shelved": 12
+    },
+    "r04": {
+     "cash": 805029,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 2,
+     "shelved": 13
+    }
+   }
+  },
+  {
+   "week": 480,
+   "films": 115,
+   "firstTakes": 107,
+   "studios": {
+    "r01": {
+     "cash": 20374507,
+     "films": 28,
+     "firstTakes": 26,
+     "productions": 0,
+     "active": 1,
+     "shelved": 15
+    },
+    "r02": {
+     "cash": 14781942,
+     "films": 32,
+     "firstTakes": 30,
+     "productions": 0,
+     "active": 1,
+     "shelved": 13
+    },
+    "r03": {
+     "cash": 3777428,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 2,
+     "shelved": 12
+    },
+    "r04": {
+     "cash": -159501,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 2,
+     "shelved": 13
+    }
+   }
+  },
+  {
+   "week": 490,
+   "films": 115,
+   "firstTakes": 107,
+   "studios": {
+    "r01": {
+     "cash": 19154817,
+     "films": 28,
+     "firstTakes": 26,
+     "productions": 0,
+     "active": 2,
+     "shelved": 15
+    },
+    "r02": {
+     "cash": 13677772,
+     "films": 32,
+     "firstTakes": 30,
+     "productions": 0,
+     "active": 0,
+     "shelved": 14
+    },
+    "r03": {
+     "cash": 2417808,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 2,
+     "shelved": 12
+    },
+    "r04": {
+     "cash": -1124031,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 2,
+     "shelved": 13
+    }
+   }
+  },
+  {
+   "week": 500,
+   "films": 115,
+   "firstTakes": 107,
+   "studios": {
+    "r01": {
+     "cash": 17935127,
+     "films": 28,
+     "firstTakes": 26,
+     "productions": 0,
+     "active": 0,
+     "shelved": 17
+    },
+    "r02": {
+     "cash": 12573602,
+     "films": 32,
+     "firstTakes": 30,
+     "productions": 0,
+     "active": 2,
+     "shelved": 14
+    },
+    "r03": {
+     "cash": 1058188,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 2,
+     "shelved": 12
+    },
+    "r04": {
+     "cash": -2088561,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 2,
+     "shelved": 13
+    }
+   }
+  },
+  {
+   "week": 510,
+   "films": 115,
+   "firstTakes": 107,
+   "studios": {
+    "r01": {
+     "cash": 16715437,
+     "films": 28,
+     "firstTakes": 26,
+     "productions": 0,
+     "active": 1,
+     "shelved": 17
+    },
+    "r02": {
+     "cash": 11469432,
+     "films": 32,
+     "firstTakes": 30,
+     "productions": 0,
+     "active": 1,
+     "shelved": 15
+    },
+    "r03": {
+     "cash": -301432,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 2,
+     "shelved": 12
+    },
+    "r04": {
+     "cash": -3053091,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 2,
+     "shelved": 13
+    }
+   }
+  },
+  {
+   "week": 520,
+   "films": 115,
+   "firstTakes": 107,
+   "studios": {
+    "r01": {
+     "cash": 15495747,
+     "films": 28,
+     "firstTakes": 26,
+     "productions": 0,
+     "active": 2,
+     "shelved": 17
+    },
+    "r02": {
+     "cash": 10365262,
+     "films": 32,
+     "firstTakes": 30,
+     "productions": 0,
+     "active": 0,
+     "shelved": 16
+    },
+    "r03": {
+     "cash": -1661052,
+     "films": 31,
+     "firstTakes": 29,
+     "productions": 0,
+     "active": 2,
+     "shelved": 12
+    },
+    "r04": {
+     "cash": -4017621,
+     "films": 24,
+     "firstTakes": 22,
+     "productions": 0,
+     "active": 2,
+     "shelved": 13
+    },
+    "r05": {
+     "cash": 17454843,
+     "films": 0,
+     "firstTakes": 0,
+     "productions": 0,
+     "active": 0,
+     "shelved": 0
+    }
+   }
+  }
+ ],
+ "controlC": [
+  {
+   "week": 195,
+   "studioId": "studio-bc14baf6-r04",
+   "scriptProjectId": "script-0019",
+   "ordinal": 19,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -32066
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 202,
+   "studioId": "studio-bc14baf6-r04",
+   "scriptProjectId": "script-0021",
+   "ordinal": 21,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -32066
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 223,
+   "studioId": "studio-bc14baf6-r01",
+   "scriptProjectId": "script-0023",
+   "ordinal": 23,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -44115
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 226,
+   "studioId": "studio-bc14baf6-r01",
+   "scriptProjectId": "script-0024",
+   "ordinal": 24,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -44115
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 230,
+   "studioId": "studio-bc14baf6-r04",
+   "scriptProjectId": "script-0022",
+   "ordinal": 22,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -66022
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 241,
+   "studioId": "studio-bc14baf6-r04",
+   "scriptProjectId": "script-0023",
+   "ordinal": 23,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -66022,
+    "studioRevenue": 325799.9620102495
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 250,
+   "studioId": "studio-bc14baf6-r03",
+   "scriptProjectId": "script-0026",
+   "ordinal": 26,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -79777
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 253,
+   "studioId": "studio-bc14baf6-r03",
+   "scriptProjectId": "script-0027",
+   "ordinal": 27,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -79777
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 259,
+   "studioId": "studio-bc14baf6-r02",
+   "scriptProjectId": "script-0027",
+   "ordinal": 27,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -54768
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 262,
+   "studioId": "studio-bc14baf6-r01",
+   "scriptProjectId": "script-0025",
+   "ordinal": 25,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -44115
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 262,
+   "studioId": "studio-bc14baf6-r02",
+   "scriptProjectId": "script-0028",
+   "ordinal": 28,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -54768
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 269,
+   "studioId": "studio-bc14baf6-r01",
+   "scriptProjectId": "script-0027",
+   "ordinal": 27,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -30000,
+    "payroll": -52115,
+    "researchSpend": -40000
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 278,
+   "studioId": "studio-bc14baf6-r04",
+   "scriptProjectId": "script-0025",
+   "ordinal": 25,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -66022
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 281,
+   "studioId": "studio-bc14baf6-r04",
+   "scriptProjectId": "script-0026",
+   "ordinal": 26,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -66022
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 290,
+   "studioId": "studio-bc14baf6-r02",
+   "scriptProjectId": "script-0029",
+   "ordinal": 29,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -54768
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 290,
+   "studioId": "studio-bc14baf6-r03",
+   "scriptProjectId": "script-0029",
+   "ordinal": 29,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -79777
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 292,
+   "studioId": "studio-bc14baf6-r03",
+   "scriptProjectId": "script-0030",
+   "ordinal": 30,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -79777
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 293,
+   "studioId": "studio-bc14baf6-r02",
+   "scriptProjectId": "script-0030",
+   "ordinal": 30,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -54768
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 297,
+   "studioId": "studio-bc14baf6-r01",
+   "scriptProjectId": "script-0028",
+   "ordinal": 28,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -31500,
+    "overhead": -30000,
+    "payroll": -52115
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 300,
+   "studioId": "studio-bc14baf6-r01",
+   "scriptProjectId": "script-0029",
+   "ordinal": 29,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -31500,
+    "overhead": -30000,
+    "payroll": -52115
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 309,
+   "studioId": "studio-bc14baf6-r04",
+   "scriptProjectId": "script-0027",
+   "ordinal": 27,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -66022
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 312,
+   "studioId": "studio-bc14baf6-r04",
+   "scriptProjectId": "script-0028",
+   "ordinal": 28,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -66022
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 321,
+   "studioId": "studio-bc14baf6-r02",
+   "scriptProjectId": "script-0031",
+   "ordinal": 31,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -54768
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 324,
+   "studioId": "studio-bc14baf6-r02",
+   "scriptProjectId": "script-0032",
+   "ordinal": 32,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -54768
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 327,
+   "studioId": "studio-bc14baf6-r03",
+   "scriptProjectId": "script-0031",
+   "ordinal": 31,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -79777
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 328,
+   "studioId": "studio-bc14baf6-r01",
+   "scriptProjectId": "script-0030",
+   "ordinal": 30,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -31500,
+    "overhead": -30000,
+    "payroll": -52115
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 331,
+   "studioId": "studio-bc14baf6-r01",
+   "scriptProjectId": "script-0031",
+   "ordinal": 31,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -31500,
+    "overhead": -30000,
+    "payroll": -52115
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 332,
+   "studioId": "studio-bc14baf6-r03",
+   "scriptProjectId": "script-0033",
+   "ordinal": 33,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -79777
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 340,
+   "studioId": "studio-bc14baf6-r04",
+   "scriptProjectId": "script-0029",
+   "ordinal": 29,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -66022
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 343,
+   "studioId": "studio-bc14baf6-r04",
+   "scriptProjectId": "script-0030",
+   "ordinal": 30,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -66022
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 359,
+   "studioId": "studio-bc14baf6-r01",
+   "scriptProjectId": "script-0032",
+   "ordinal": 32,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -31500,
+    "overhead": -30000,
+    "payroll": -52115
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 362,
+   "studioId": "studio-bc14baf6-r01",
+   "scriptProjectId": "script-0033",
+   "ordinal": 33,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -31500,
+    "overhead": -30000,
+    "payroll": -52115
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 368,
+   "studioId": "studio-bc14baf6-r03",
+   "scriptProjectId": "script-0034",
+   "ordinal": 34,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -79777
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 369,
+   "studioId": "studio-bc14baf6-r02",
+   "scriptProjectId": "script-0034",
+   "ordinal": 34,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -54768
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 371,
+   "studioId": "studio-bc14baf6-r04",
+   "scriptProjectId": "script-0031",
+   "ordinal": 31,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -66022
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 374,
+   "studioId": "studio-bc14baf6-r03",
+   "scriptProjectId": "script-0036",
+   "ordinal": 36,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -79777
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 374,
+   "studioId": "studio-bc14baf6-r04",
+   "scriptProjectId": "script-0032",
+   "ordinal": 32,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -66022
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 376,
+   "studioId": "studio-bc14baf6-r02",
+   "scriptProjectId": "script-0036",
+   "ordinal": 36,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -54768
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 399,
+   "studioId": "studio-bc14baf6-r01",
+   "scriptProjectId": "script-0035",
+   "ordinal": 35,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -31500,
+    "overhead": -30000,
+    "payroll": -52115
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 402,
+   "studioId": "studio-bc14baf6-r01",
+   "scriptProjectId": "script-0036",
+   "ordinal": 36,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -31500,
+    "overhead": -30000,
+    "payroll": -52115
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 402,
+   "studioId": "studio-bc14baf6-r03",
+   "scriptProjectId": "script-0037",
+   "ordinal": 37,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -79777
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 402,
+   "studioId": "studio-bc14baf6-r04",
+   "scriptProjectId": "script-0033",
+   "ordinal": 33,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -66022
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 404,
+   "studioId": "studio-bc14baf6-r02",
+   "scriptProjectId": "script-0037",
+   "ordinal": 37,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -54768
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 405,
+   "studioId": "studio-bc14baf6-r03",
+   "scriptProjectId": "script-0038",
+   "ordinal": 38,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -79777
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 405,
+   "studioId": "studio-bc14baf6-r04",
+   "scriptProjectId": "script-0034",
+   "ordinal": 34,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -66022
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 407,
+   "studioId": "studio-bc14baf6-r02",
+   "scriptProjectId": "script-0038",
+   "ordinal": 38,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -54768
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 430,
+   "studioId": "studio-bc14baf6-r01",
+   "scriptProjectId": "script-0037",
+   "ordinal": 37,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -31500,
+    "overhead": -30000,
+    "payroll": -74469
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 431,
+   "studioId": "studio-bc14baf6-r01",
+   "scriptProjectId": "script-0038",
+   "ordinal": 38,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -31500,
+    "overhead": -30000,
+    "payroll": -74469
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 433,
+   "studioId": "studio-bc14baf6-r03",
+   "scriptProjectId": "script-0039",
+   "ordinal": 39,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -83462
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 435,
+   "studioId": "studio-bc14baf6-r02",
+   "scriptProjectId": "script-0039",
+   "ordinal": 39,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -73551
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 436,
+   "studioId": "studio-bc14baf6-r03",
+   "scriptProjectId": "script-0040",
+   "ordinal": 40,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -83462
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 438,
+   "studioId": "studio-bc14baf6-r02",
+   "scriptProjectId": "script-0040",
+   "ordinal": 40,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -73551
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 461,
+   "studioId": "studio-bc14baf6-r01",
+   "scriptProjectId": "script-0039",
+   "ordinal": 39,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -31500,
+    "overhead": -30000,
+    "payroll": -74469
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 464,
+   "studioId": "studio-bc14baf6-r01",
+   "scriptProjectId": "script-0040",
+   "ordinal": 40,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -31500,
+    "overhead": -30000,
+    "payroll": -74469
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 476,
+   "studioId": "studio-bc14baf6-r02",
+   "scriptProjectId": "script-0041",
+   "ordinal": 41,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -57917
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 481,
+   "studioId": "studio-bc14baf6-r02",
+   "scriptProjectId": "script-0043",
+   "ordinal": 43,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -57917
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 492,
+   "studioId": "studio-bc14baf6-r01",
+   "scriptProjectId": "script-0041",
+   "ordinal": 41,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -31500,
+    "overhead": -24000,
+    "payroll": -66469
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 495,
+   "studioId": "studio-bc14baf6-r01",
+   "scriptProjectId": "script-0042",
+   "ordinal": 42,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -31500,
+    "overhead": -24000,
+    "payroll": -66469
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 509,
+   "studioId": "studio-bc14baf6-r02",
+   "scriptProjectId": "script-0044",
+   "ordinal": 44,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -57917
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 512,
+   "studioId": "studio-bc14baf6-r02",
+   "scriptProjectId": "script-0045",
+   "ordinal": 45,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -28500,
+    "overhead": -24000,
+    "payroll": -57917
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  }
+ ],
+ "integrity": []
+}

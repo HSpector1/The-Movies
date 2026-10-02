@@ -1,0 +1,4013 @@
+{
+ "meta": {
+  "seed": "p13a-core-causal-01",
+  "weeks": 520,
+  "tree": "candidate",
+  "kit": "1344-s7 probes/s7-natural-route.test.ts",
+  "finalStateSha256": "4e9c0d75eb7559b702fbfc2d106b68d80ac9d1558a9c4dc11b6cb41505af9dcb",
+  "tuning": {
+   "HOLLYWOOD_SHELVE_AFTER_REJECTIONS": 13,
+   "HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS": 13,
+   "HOLLYWOOD_SHELVED_RETRY_WEEKS": 26
+  }
+ },
+ "industryFilms": {
+  "filmsAt140": 53,
+  "filmsAtEnd": 61,
+  "filmsAddedFromWeek140": 8,
+  "head1329": {
+   "commit": "133aca7a",
+   "filmsAt140": 53,
+   "filmsAt520": 53
+  }
+ },
+ "studios": [
+  {
+   "studioId": "studio-aca408ec-r01",
+   "short": "r01",
+   "cashEnd": -20319779.668054283,
+   "films": 17,
+   "firstTakes": 15,
+   "shelvings": [
+    {
+     "week": 93,
+     "id": "script-0006",
+     "conceptId": "studio-aca408ec-r01:concept:6",
+     "rejections": 13
+    },
+    {
+     "week": 130,
+     "id": "script-0011",
+     "conceptId": "studio-aca408ec-r01:concept:11",
+     "rejections": 13
+    },
+    {
+     "week": 133,
+     "id": "script-0012",
+     "conceptId": "studio-aca408ec-r01:concept:12",
+     "rejections": 13
+    },
+    {
+     "week": 178,
+     "id": "script-0014",
+     "conceptId": "studio-aca408ec-r01:concept:14",
+     "rejections": 13
+    },
+    {
+     "week": 185,
+     "id": "script-0016",
+     "conceptId": "studio-aca408ec-r01:concept:16",
+     "rejections": 13
+    },
+    {
+     "week": 222,
+     "id": "script-0018",
+     "conceptId": "studio-aca408ec-r01:concept:18",
+     "rejections": 13
+    },
+    {
+     "week": 225,
+     "id": "script-0019",
+     "conceptId": "studio-aca408ec-r01:concept:19",
+     "rejections": 13
+    }
+   ],
+   "shelvingsPerYear": {
+    "1": 1,
+    "2": 2,
+    "3": 2,
+    "4": 2
+   },
+   "maxShelvingsInAny52Weeks": 4,
+   "retries": {
+    "viable": [],
+    "economicRejection": [
+     {
+      "week": 130,
+      "id": "script-0006",
+      "retryWeekBefore": 119,
+      "retryWeekAfter": 156
+     },
+     {
+      "week": 158,
+      "id": "script-0006",
+      "retryWeekBefore": 156,
+      "retryWeekAfter": 184
+     },
+     {
+      "week": 170,
+      "id": "script-0011",
+      "retryWeekBefore": 156,
+      "retryWeekAfter": 196
+     },
+     {
+      "week": 178,
+      "id": "script-0012",
+      "retryWeekBefore": 159,
+      "retryWeekAfter": 204
+     },
+     {
+      "week": 184,
+      "id": "script-0006",
+      "retryWeekBefore": 184,
+      "retryWeekAfter": 210
+     },
+     {
+      "week": 196,
+      "id": "script-0011",
+      "retryWeekBefore": 196,
+      "retryWeekAfter": 222
+     },
+     {
+      "week": 210,
+      "id": "script-0006",
+      "retryWeekBefore": 210,
+      "retryWeekAfter": 236
+     },
+     {
+      "week": 222,
+      "id": "script-0011",
+      "retryWeekBefore": 222,
+      "retryWeekAfter": 248
+     },
+     {
+      "week": 223,
+      "id": "script-0012",
+      "retryWeekBefore": 204,
+      "retryWeekAfter": 249
+     },
+     {
+      "week": 224,
+      "id": "script-0014",
+      "retryWeekBefore": 204,
+      "retryWeekAfter": 250
+     },
+     {
+      "week": 225,
+      "id": "script-0016",
+      "retryWeekBefore": 211,
+      "retryWeekAfter": 251
+     },
+     {
+      "week": 236,
+      "id": "script-0006",
+      "retryWeekBefore": 236,
+      "retryWeekAfter": 262
+     }
+    ]
+   },
+   "shelvedAtEnd": [
+    {
+     "ordinal": 6,
+     "week": 93,
+     "retryWeek": 262
+    },
+    {
+     "ordinal": 11,
+     "week": 130,
+     "retryWeek": 248
+    },
+    {
+     "ordinal": 12,
+     "week": 133,
+     "retryWeek": 249
+    },
+    {
+     "ordinal": 14,
+     "week": 178,
+     "retryWeek": 250
+    },
+    {
+     "ordinal": 16,
+     "week": 185,
+     "retryWeek": 251
+    },
+    {
+     "ordinal": 18,
+     "week": 222,
+     "retryWeek": 248
+    },
+    {
+     "ordinal": 19,
+     "week": 225,
+     "retryWeek": 251
+    }
+   ],
+   "filmsAgain": [
+    {
+     "shelvingWeek": 93,
+     "shelved": "script-0006",
+     "announced": {
+      "week": 109,
+      "id": "studio-aca408ec-r01:film:10"
+     },
+     "firstTake": {
+      "week": 114,
+      "id": "studio-aca408ec-r01:film:10"
+     },
+     "released": {
+      "week": 117,
+      "id": "studio-aca408ec-r01:film:10"
+     }
+    },
+    {
+     "shelvingWeek": 130,
+     "shelved": "script-0011",
+     "announced": {
+      "week": 149,
+      "id": "studio-aca408ec-r01:film:13"
+     },
+     "firstTake": {
+      "week": 154,
+      "id": "studio-aca408ec-r01:film:13"
+     },
+     "released": {
+      "week": 157,
+      "id": "studio-aca408ec-r01:film:13"
+     }
+    },
+    {
+     "shelvingWeek": 133,
+     "shelved": "script-0012",
+     "announced": {
+      "week": 149,
+      "id": "studio-aca408ec-r01:film:13"
+     },
+     "firstTake": {
+      "week": 154,
+      "id": "studio-aca408ec-r01:film:13"
+     },
+     "released": {
+      "week": 157,
+      "id": "studio-aca408ec-r01:film:13"
+     }
+    },
+    {
+     "shelvingWeek": 178,
+     "shelved": "script-0014",
+     "announced": {
+      "week": 201,
+      "id": "studio-aca408ec-r01:film:17"
+     },
+     "firstTake": {
+      "week": 206,
+      "id": "studio-aca408ec-r01:film:17"
+     },
+     "released": {
+      "week": 209,
+      "id": "studio-aca408ec-r01:film:17"
+     }
+    },
+    {
+     "shelvingWeek": 185,
+     "shelved": "script-0016",
+     "announced": {
+      "week": 201,
+      "id": "studio-aca408ec-r01:film:17"
+     },
+     "firstTake": {
+      "week": 206,
+      "id": "studio-aca408ec-r01:film:17"
+     },
+     "released": {
+      "week": 209,
+      "id": "studio-aca408ec-r01:film:17"
+     }
+    },
+    {
+     "shelvingWeek": 222,
+     "shelved": "script-0018",
+     "announced": {
+      "week": 241,
+      "id": "studio-aca408ec-r01:film:20"
+     },
+     "firstTake": {
+      "week": 246,
+      "id": "studio-aca408ec-r01:film:20"
+     },
+     "released": {
+      "week": 249,
+      "id": "studio-aca408ec-r01:film:20"
+     }
+    },
+    {
+     "shelvingWeek": 225,
+     "shelved": "script-0019",
+     "announced": {
+      "week": 241,
+      "id": "studio-aca408ec-r01:film:20"
+     },
+     "firstTake": {
+      "week": 246,
+      "id": "studio-aca408ec-r01:film:20"
+     },
+     "released": {
+      "week": 249,
+      "id": "studio-aca408ec-r01:film:20"
+     }
+    }
+   ],
+   "events": {
+    "announced": [
+     {
+      "week": 3,
+      "id": "studio-aca408ec-r01:film:0"
+     },
+     {
+      "week": 12,
+      "id": "studio-aca408ec-r01:film:1"
+     },
+     {
+      "week": 21,
+      "id": "studio-aca408ec-r01:film:2"
+     },
+     {
+      "week": 30,
+      "id": "studio-aca408ec-r01:film:3"
+     },
+     {
+      "week": 39,
+      "id": "studio-aca408ec-r01:film:4"
+     },
+     {
+      "week": 48,
+      "id": "studio-aca408ec-r01:film:5"
+     },
+     {
+      "week": 60,
+      "id": "studio-aca408ec-r01:film:7"
+     },
+     {
+      "week": 72,
+      "id": "studio-aca408ec-r01:film:8"
+     },
+     {
+      "week": 84,
+      "id": "studio-aca408ec-r01:film:9"
+     },
+     {
+      "week": 109,
+      "id": "studio-aca408ec-r01:film:10"
+     },
+     {
+      "week": 149,
+      "id": "studio-aca408ec-r01:film:13"
+     },
+     {
+      "week": 161,
+      "id": "studio-aca408ec-r01:film:15"
+     },
+     {
+      "week": 201,
+      "id": "studio-aca408ec-r01:film:17"
+     },
+     {
+      "week": 241,
+      "id": "studio-aca408ec-r01:film:20"
+     },
+     {
+      "week": 253,
+      "id": "studio-aca408ec-r01:film:22"
+     }
+    ],
+    "firstTakes": [
+     {
+      "week": 8,
+      "id": "studio-aca408ec-r01:film:0"
+     },
+     {
+      "week": 17,
+      "id": "studio-aca408ec-r01:film:1"
+     },
+     {
+      "week": 26,
+      "id": "studio-aca408ec-r01:film:2"
+     },
+     {
+      "week": 35,
+      "id": "studio-aca408ec-r01:film:3"
+     },
+     {
+      "week": 44,
+      "id": "studio-aca408ec-r01:film:4"
+     },
+     {
+      "week": 53,
+      "id": "studio-aca408ec-r01:film:5"
+     },
+     {
+      "week": 65,
+      "id": "studio-aca408ec-r01:film:7"
+     },
+     {
+      "week": 77,
+      "id": "studio-aca408ec-r01:film:8"
+     },
+     {
+      "week": 89,
+      "id": "studio-aca408ec-r01:film:9"
+     },
+     {
+      "week": 114,
+      "id": "studio-aca408ec-r01:film:10"
+     },
+     {
+      "week": 154,
+      "id": "studio-aca408ec-r01:film:13"
+     },
+     {
+      "week": 166,
+      "id": "studio-aca408ec-r01:film:15"
+     },
+     {
+      "week": 206,
+      "id": "studio-aca408ec-r01:film:17"
+     },
+     {
+      "week": 246,
+      "id": "studio-aca408ec-r01:film:20"
+     },
+     {
+      "week": 258,
+      "id": "studio-aca408ec-r01:film:22"
+     }
+    ],
+    "released": [
+     {
+      "week": 11,
+      "id": "studio-aca408ec-r01:film:0"
+     },
+     {
+      "week": 20,
+      "id": "studio-aca408ec-r01:film:1"
+     },
+     {
+      "week": 29,
+      "id": "studio-aca408ec-r01:film:2"
+     },
+     {
+      "week": 38,
+      "id": "studio-aca408ec-r01:film:3"
+     },
+     {
+      "week": 47,
+      "id": "studio-aca408ec-r01:film:4"
+     },
+     {
+      "week": 56,
+      "id": "studio-aca408ec-r01:film:5"
+     },
+     {
+      "week": 68,
+      "id": "studio-aca408ec-r01:film:7"
+     },
+     {
+      "week": 80,
+      "id": "studio-aca408ec-r01:film:8"
+     },
+     {
+      "week": 92,
+      "id": "studio-aca408ec-r01:film:9"
+     },
+     {
+      "week": 117,
+      "id": "studio-aca408ec-r01:film:10"
+     },
+     {
+      "week": 157,
+      "id": "studio-aca408ec-r01:film:13"
+     },
+     {
+      "week": 169,
+      "id": "studio-aca408ec-r01:film:15"
+     },
+     {
+      "week": 209,
+      "id": "studio-aca408ec-r01:film:17"
+     },
+     {
+      "week": 249,
+      "id": "studio-aca408ec-r01:film:20"
+     },
+     {
+      "week": 261,
+      "id": "studio-aca408ec-r01:film:22"
+     }
+    ],
+    "commissions": [
+     {
+      "week": 1,
+      "id": "script-0000"
+     },
+     {
+      "week": 3,
+      "id": "script-0001"
+     },
+     {
+      "week": 12,
+      "id": "script-0002"
+     },
+     {
+      "week": 21,
+      "id": "script-0003"
+     },
+     {
+      "week": 30,
+      "id": "script-0004"
+     },
+     {
+      "week": 39,
+      "id": "script-0005"
+     },
+     {
+      "week": 48,
+      "id": "script-0006"
+     },
+     {
+      "week": 57,
+      "id": "script-0007"
+     },
+     {
+      "week": 69,
+      "id": "script-0008"
+     },
+     {
+      "week": 81,
+      "id": "script-0009"
+     },
+     {
+      "week": 106,
+      "id": "script-0010"
+     },
+     {
+      "week": 109,
+      "id": "script-0011"
+     },
+     {
+      "week": 118,
+      "id": "script-0012"
+     },
+     {
+      "week": 146,
+      "id": "script-0013"
+     },
+     {
+      "week": 149,
+      "id": "script-0014"
+     },
+     {
+      "week": 158,
+      "id": "script-0015"
+     },
+     {
+      "week": 170,
+      "id": "script-0016"
+     },
+     {
+      "week": 198,
+      "id": "script-0017"
+     },
+     {
+      "week": 201,
+      "id": "script-0018"
+     },
+     {
+      "week": 210,
+      "id": "script-0019"
+     },
+     {
+      "week": 238,
+      "id": "script-0020"
+     },
+     {
+      "week": 241,
+      "id": "script-0021"
+     },
+     {
+      "week": 250,
+      "id": "script-0022"
+     },
+     {
+      "week": 262,
+      "id": "script-0023"
+     }
+    ]
+   }
+  },
+  {
+   "studioId": "studio-aca408ec-r02",
+   "short": "r02",
+   "cashEnd": -15659958.086571857,
+   "films": 17,
+   "firstTakes": 15,
+   "shelvings": [
+    {
+     "week": 123,
+     "id": "script-0011",
+     "conceptId": "studio-aca408ec-r02:concept:11",
+     "rejections": 13
+    },
+    {
+     "week": 130,
+     "id": "script-0013",
+     "conceptId": "studio-aca408ec-r02:concept:13",
+     "rejections": 13
+    },
+    {
+     "week": 166,
+     "id": "script-0015",
+     "conceptId": "studio-aca408ec-r02:concept:15",
+     "rejections": 13
+    },
+    {
+     "week": 169,
+     "id": "script-0016",
+     "conceptId": "studio-aca408ec-r02:concept:16",
+     "rejections": 13
+    },
+    {
+     "week": 197,
+     "id": "script-0017",
+     "conceptId": "studio-aca408ec-r02:concept:17",
+     "rejections": 13
+    },
+    {
+     "week": 200,
+     "id": "script-0018",
+     "conceptId": "studio-aca408ec-r02:concept:18",
+     "rejections": 13
+    }
+   ],
+   "shelvingsPerYear": {
+    "2": 2,
+    "3": 4
+   },
+   "maxShelvingsInAny52Weeks": 4,
+   "retries": {
+    "viable": [],
+    "economicRejection": [
+     {
+      "week": 154,
+      "id": "script-0011",
+      "retryWeekBefore": 149,
+      "retryWeekAfter": 180
+     },
+     {
+      "week": 166,
+      "id": "script-0013",
+      "retryWeekBefore": 156,
+      "retryWeekAfter": 192
+     },
+     {
+      "week": 180,
+      "id": "script-0011",
+      "retryWeekBefore": 180,
+      "retryWeekAfter": 206
+     },
+     {
+      "week": 197,
+      "id": "script-0013",
+      "retryWeekBefore": 192,
+      "retryWeekAfter": 223
+     },
+     {
+      "week": 198,
+      "id": "script-0015",
+      "retryWeekBefore": 192,
+      "retryWeekAfter": 224
+     },
+     {
+      "week": 199,
+      "id": "script-0016",
+      "retryWeekBefore": 195,
+      "retryWeekAfter": 225
+     },
+     {
+      "week": 206,
+      "id": "script-0011",
+      "retryWeekBefore": 206,
+      "retryWeekAfter": 232
+     }
+    ]
+   },
+   "shelvedAtEnd": [
+    {
+     "ordinal": 11,
+     "week": 123,
+     "retryWeek": 232
+    },
+    {
+     "ordinal": 13,
+     "week": 130,
+     "retryWeek": 223
+    },
+    {
+     "ordinal": 15,
+     "week": 166,
+     "retryWeek": 224
+    },
+    {
+     "ordinal": 16,
+     "week": 169,
+     "retryWeek": 225
+    },
+    {
+     "ordinal": 17,
+     "week": 197,
+     "retryWeek": 223
+    },
+    {
+     "ordinal": 18,
+     "week": 200,
+     "retryWeek": 226
+    }
+   ],
+   "filmsAgain": [
+    {
+     "shelvingWeek": 123,
+     "shelved": "script-0011",
+     "announced": {
+      "week": 145,
+      "id": "studio-aca408ec-r02:film:14"
+     },
+     "firstTake": {
+      "week": 150,
+      "id": "studio-aca408ec-r02:film:14"
+     },
+     "released": {
+      "week": 153,
+      "id": "studio-aca408ec-r02:film:14"
+     }
+    },
+    {
+     "shelvingWeek": 130,
+     "shelved": "script-0013",
+     "announced": {
+      "week": 145,
+      "id": "studio-aca408ec-r02:film:14"
+     },
+     "firstTake": {
+      "week": 150,
+      "id": "studio-aca408ec-r02:film:14"
+     },
+     "released": {
+      "week": 153,
+      "id": "studio-aca408ec-r02:film:14"
+     }
+    },
+    {
+     "shelvingWeek": 166,
+     "shelved": "script-0015",
+     "announced": {
+      "week": 216,
+      "id": "studio-aca408ec-r02:film:19"
+     },
+     "firstTake": {
+      "week": 221,
+      "id": "studio-aca408ec-r02:film:19"
+     },
+     "released": {
+      "week": 224,
+      "id": "studio-aca408ec-r02:film:19"
+     }
+    },
+    {
+     "shelvingWeek": 169,
+     "shelved": "script-0016",
+     "announced": {
+      "week": 216,
+      "id": "studio-aca408ec-r02:film:19"
+     },
+     "firstTake": {
+      "week": 221,
+      "id": "studio-aca408ec-r02:film:19"
+     },
+     "released": {
+      "week": 224,
+      "id": "studio-aca408ec-r02:film:19"
+     }
+    },
+    {
+     "shelvingWeek": 197,
+     "shelved": "script-0017",
+     "announced": {
+      "week": 216,
+      "id": "studio-aca408ec-r02:film:19"
+     },
+     "firstTake": {
+      "week": 221,
+      "id": "studio-aca408ec-r02:film:19"
+     },
+     "released": {
+      "week": 224,
+      "id": "studio-aca408ec-r02:film:19"
+     }
+    },
+    {
+     "shelvingWeek": 200,
+     "shelved": "script-0018",
+     "announced": {
+      "week": 216,
+      "id": "studio-aca408ec-r02:film:19"
+     },
+     "firstTake": {
+      "week": 221,
+      "id": "studio-aca408ec-r02:film:19"
+     },
+     "released": {
+      "week": 224,
+      "id": "studio-aca408ec-r02:film:19"
+     }
+    }
+   ],
+   "events": {
+    "announced": [
+     {
+      "week": 4,
+      "id": "studio-aca408ec-r02:film:0"
+     },
+     {
+      "week": 13,
+      "id": "studio-aca408ec-r02:film:1"
+     },
+     {
+      "week": 22,
+      "id": "studio-aca408ec-r02:film:2"
+     },
+     {
+      "week": 31,
+      "id": "studio-aca408ec-r02:film:3"
+     },
+     {
+      "week": 40,
+      "id": "studio-aca408ec-r02:film:4"
+     },
+     {
+      "week": 49,
+      "id": "studio-aca408ec-r02:film:5"
+     },
+     {
+      "week": 58,
+      "id": "studio-aca408ec-r02:film:6"
+     },
+     {
+      "week": 67,
+      "id": "studio-aca408ec-r02:film:7"
+     },
+     {
+      "week": 76,
+      "id": "studio-aca408ec-r02:film:8"
+     },
+     {
+      "week": 85,
+      "id": "studio-aca408ec-r02:film:9"
+     },
+     {
+      "week": 94,
+      "id": "studio-aca408ec-r02:film:10"
+     },
+     {
+      "week": 106,
+      "id": "studio-aca408ec-r02:film:12"
+     },
+     {
+      "week": 145,
+      "id": "studio-aca408ec-r02:film:14"
+     },
+     {
+      "week": 216,
+      "id": "studio-aca408ec-r02:film:19"
+     },
+     {
+      "week": 225,
+      "id": "studio-aca408ec-r02:film:20"
+     }
+    ],
+    "firstTakes": [
+     {
+      "week": 9,
+      "id": "studio-aca408ec-r02:film:0"
+     },
+     {
+      "week": 18,
+      "id": "studio-aca408ec-r02:film:1"
+     },
+     {
+      "week": 27,
+      "id": "studio-aca408ec-r02:film:2"
+     },
+     {
+      "week": 36,
+      "id": "studio-aca408ec-r02:film:3"
+     },
+     {
+      "week": 45,
+      "id": "studio-aca408ec-r02:film:4"
+     },
+     {
+      "week": 54,
+      "id": "studio-aca408ec-r02:film:5"
+     },
+     {
+      "week": 63,
+      "id": "studio-aca408ec-r02:film:6"
+     },
+     {
+      "week": 72,
+      "id": "studio-aca408ec-r02:film:7"
+     },
+     {
+      "week": 81,
+      "id": "studio-aca408ec-r02:film:8"
+     },
+     {
+      "week": 90,
+      "id": "studio-aca408ec-r02:film:9"
+     },
+     {
+      "week": 99,
+      "id": "studio-aca408ec-r02:film:10"
+     },
+     {
+      "week": 111,
+      "id": "studio-aca408ec-r02:film:12"
+     },
+     {
+      "week": 150,
+      "id": "studio-aca408ec-r02:film:14"
+     },
+     {
+      "week": 221,
+      "id": "studio-aca408ec-r02:film:19"
+     },
+     {
+      "week": 230,
+      "id": "studio-aca408ec-r02:film:20"
+     }
+    ],
+    "released": [
+     {
+      "week": 12,
+      "id": "studio-aca408ec-r02:film:0"
+     },
+     {
+      "week": 21,
+      "id": "studio-aca408ec-r02:film:1"
+     },
+     {
+      "week": 30,
+      "id": "studio-aca408ec-r02:film:2"
+     },
+     {
+      "week": 39,
+      "id": "studio-aca408ec-r02:film:3"
+     },
+     {
+      "week": 48,
+      "id": "studio-aca408ec-r02:film:4"
+     },
+     {
+      "week": 57,
+      "id": "studio-aca408ec-r02:film:5"
+     },
+     {
+      "week": 66,
+      "id": "studio-aca408ec-r02:film:6"
+     },
+     {
+      "week": 75,
+      "id": "studio-aca408ec-r02:film:7"
+     },
+     {
+      "week": 84,
+      "id": "studio-aca408ec-r02:film:8"
+     },
+     {
+      "week": 93,
+      "id": "studio-aca408ec-r02:film:9"
+     },
+     {
+      "week": 102,
+      "id": "studio-aca408ec-r02:film:10"
+     },
+     {
+      "week": 114,
+      "id": "studio-aca408ec-r02:film:12"
+     },
+     {
+      "week": 153,
+      "id": "studio-aca408ec-r02:film:14"
+     },
+     {
+      "week": 224,
+      "id": "studio-aca408ec-r02:film:19"
+     },
+     {
+      "week": 233,
+      "id": "studio-aca408ec-r02:film:20"
+     }
+    ],
+    "commissions": [
+     {
+      "week": 1,
+      "id": "script-0000"
+     },
+     {
+      "week": 4,
+      "id": "script-0001"
+     },
+     {
+      "week": 13,
+      "id": "script-0002"
+     },
+     {
+      "week": 22,
+      "id": "script-0003"
+     },
+     {
+      "week": 31,
+      "id": "script-0004"
+     },
+     {
+      "week": 40,
+      "id": "script-0005"
+     },
+     {
+      "week": 49,
+      "id": "script-0006"
+     },
+     {
+      "week": 58,
+      "id": "script-0007"
+     },
+     {
+      "week": 67,
+      "id": "script-0008"
+     },
+     {
+      "week": 76,
+      "id": "script-0009"
+     },
+     {
+      "week": 85,
+      "id": "script-0010"
+     },
+     {
+      "week": 94,
+      "id": "script-0011"
+     },
+     {
+      "week": 103,
+      "id": "script-0012"
+     },
+     {
+      "week": 115,
+      "id": "script-0013"
+     },
+     {
+      "week": 143,
+      "id": "script-0014"
+     },
+     {
+      "week": 145,
+      "id": "script-0015"
+     },
+     {
+      "week": 154,
+      "id": "script-0016"
+     },
+     {
+      "week": 182,
+      "id": "script-0017"
+     },
+     {
+      "week": 185,
+      "id": "script-0018"
+     },
+     {
+      "week": 213,
+      "id": "script-0019"
+     },
+     {
+      "week": 216,
+      "id": "script-0020"
+     },
+     {
+      "week": 226,
+      "id": "script-0021"
+     },
+     {
+      "week": 234,
+      "id": "script-0022"
+     }
+    ]
+   }
+  },
+  {
+   "studioId": "studio-aca408ec-r03",
+   "short": "r03",
+   "cashEnd": -22130410.281007193,
+   "films": 17,
+   "firstTakes": 15,
+   "shelvings": [
+    {
+     "week": 150,
+     "id": "script-0015",
+     "conceptId": "studio-aca408ec-r03:concept:15",
+     "rejections": 13
+    }
+   ],
+   "shelvingsPerYear": {
+    "2": 1
+   },
+   "maxShelvingsInAny52Weeks": 1,
+   "retries": {
+    "viable": [],
+    "economicRejection": []
+   },
+   "shelvedAtEnd": [
+    {
+     "ordinal": 15,
+     "week": 150,
+     "retryWeek": 176
+    }
+   ],
+   "filmsAgain": [
+    {
+     "shelvingWeek": 150,
+     "shelved": "script-0015",
+     "announced": null,
+     "firstTake": null,
+     "released": null
+    }
+   ],
+   "events": {
+    "announced": [
+     {
+      "week": 3,
+      "id": "studio-aca408ec-r03:film:0"
+     },
+     {
+      "week": 12,
+      "id": "studio-aca408ec-r03:film:1"
+     },
+     {
+      "week": 21,
+      "id": "studio-aca408ec-r03:film:2"
+     },
+     {
+      "week": 30,
+      "id": "studio-aca408ec-r03:film:3"
+     },
+     {
+      "week": 39,
+      "id": "studio-aca408ec-r03:film:4"
+     },
+     {
+      "week": 48,
+      "id": "studio-aca408ec-r03:film:5"
+     },
+     {
+      "week": 57,
+      "id": "studio-aca408ec-r03:film:6"
+     },
+     {
+      "week": 66,
+      "id": "studio-aca408ec-r03:film:7"
+     },
+     {
+      "week": 75,
+      "id": "studio-aca408ec-r03:film:8"
+     },
+     {
+      "week": 84,
+      "id": "studio-aca408ec-r03:film:9"
+     },
+     {
+      "week": 93,
+      "id": "studio-aca408ec-r03:film:10"
+     },
+     {
+      "week": 102,
+      "id": "studio-aca408ec-r03:film:11"
+     },
+     {
+      "week": 111,
+      "id": "studio-aca408ec-r03:film:12"
+     },
+     {
+      "week": 120,
+      "id": "studio-aca408ec-r03:film:13"
+     },
+     {
+      "week": 129,
+      "id": "studio-aca408ec-r03:film:14"
+     }
+    ],
+    "firstTakes": [
+     {
+      "week": 8,
+      "id": "studio-aca408ec-r03:film:0"
+     },
+     {
+      "week": 17,
+      "id": "studio-aca408ec-r03:film:1"
+     },
+     {
+      "week": 26,
+      "id": "studio-aca408ec-r03:film:2"
+     },
+     {
+      "week": 35,
+      "id": "studio-aca408ec-r03:film:3"
+     },
+     {
+      "week": 44,
+      "id": "studio-aca408ec-r03:film:4"
+     },
+     {
+      "week": 53,
+      "id": "studio-aca408ec-r03:film:5"
+     },
+     {
+      "week": 62,
+      "id": "studio-aca408ec-r03:film:6"
+     },
+     {
+      "week": 71,
+      "id": "studio-aca408ec-r03:film:7"
+     },
+     {
+      "week": 80,
+      "id": "studio-aca408ec-r03:film:8"
+     },
+     {
+      "week": 89,
+      "id": "studio-aca408ec-r03:film:9"
+     },
+     {
+      "week": 98,
+      "id": "studio-aca408ec-r03:film:10"
+     },
+     {
+      "week": 107,
+      "id": "studio-aca408ec-r03:film:11"
+     },
+     {
+      "week": 116,
+      "id": "studio-aca408ec-r03:film:12"
+     },
+     {
+      "week": 125,
+      "id": "studio-aca408ec-r03:film:13"
+     },
+     {
+      "week": 134,
+      "id": "studio-aca408ec-r03:film:14"
+     }
+    ],
+    "released": [
+     {
+      "week": 11,
+      "id": "studio-aca408ec-r03:film:0"
+     },
+     {
+      "week": 20,
+      "id": "studio-aca408ec-r03:film:1"
+     },
+     {
+      "week": 29,
+      "id": "studio-aca408ec-r03:film:2"
+     },
+     {
+      "week": 38,
+      "id": "studio-aca408ec-r03:film:3"
+     },
+     {
+      "week": 47,
+      "id": "studio-aca408ec-r03:film:4"
+     },
+     {
+      "week": 56,
+      "id": "studio-aca408ec-r03:film:5"
+     },
+     {
+      "week": 65,
+      "id": "studio-aca408ec-r03:film:6"
+     },
+     {
+      "week": 74,
+      "id": "studio-aca408ec-r03:film:7"
+     },
+     {
+      "week": 83,
+      "id": "studio-aca408ec-r03:film:8"
+     },
+     {
+      "week": 92,
+      "id": "studio-aca408ec-r03:film:9"
+     },
+     {
+      "week": 101,
+      "id": "studio-aca408ec-r03:film:10"
+     },
+     {
+      "week": 110,
+      "id": "studio-aca408ec-r03:film:11"
+     },
+     {
+      "week": 119,
+      "id": "studio-aca408ec-r03:film:12"
+     },
+     {
+      "week": 128,
+      "id": "studio-aca408ec-r03:film:13"
+     },
+     {
+      "week": 137,
+      "id": "studio-aca408ec-r03:film:14"
+     }
+    ],
+    "commissions": [
+     {
+      "week": 1,
+      "id": "script-0000"
+     },
+     {
+      "week": 3,
+      "id": "script-0001"
+     },
+     {
+      "week": 12,
+      "id": "script-0002"
+     },
+     {
+      "week": 21,
+      "id": "script-0003"
+     },
+     {
+      "week": 30,
+      "id": "script-0004"
+     },
+     {
+      "week": 39,
+      "id": "script-0005"
+     },
+     {
+      "week": 48,
+      "id": "script-0006"
+     },
+     {
+      "week": 57,
+      "id": "script-0007"
+     },
+     {
+      "week": 66,
+      "id": "script-0008"
+     },
+     {
+      "week": 75,
+      "id": "script-0009"
+     },
+     {
+      "week": 84,
+      "id": "script-0010"
+     },
+     {
+      "week": 93,
+      "id": "script-0011"
+     },
+     {
+      "week": 102,
+      "id": "script-0012"
+     },
+     {
+      "week": 112,
+      "id": "script-0013"
+     },
+     {
+      "week": 120,
+      "id": "script-0014"
+     },
+     {
+      "week": 129,
+      "id": "script-0015"
+     },
+     {
+      "week": 138,
+      "id": "script-0016"
+     },
+     {
+      "week": 163,
+      "id": "script-0017"
+     }
+    ]
+   }
+  },
+  {
+   "studioId": "studio-aca408ec-r04",
+   "short": "r04",
+   "cashEnd": -22811219.04438932,
+   "films": 10,
+   "firstTakes": 8,
+   "shelvings": [],
+   "shelvingsPerYear": {},
+   "maxShelvingsInAny52Weeks": 0,
+   "retries": {
+    "viable": [],
+    "economicRejection": []
+   },
+   "shelvedAtEnd": [],
+   "filmsAgain": [],
+   "events": {
+    "announced": [
+     {
+      "week": 4,
+      "id": "studio-aca408ec-r04:film:0"
+     },
+     {
+      "week": 13,
+      "id": "studio-aca408ec-r04:film:1"
+     },
+     {
+      "week": 22,
+      "id": "studio-aca408ec-r04:film:2"
+     },
+     {
+      "week": 31,
+      "id": "studio-aca408ec-r04:film:3"
+     },
+     {
+      "week": 40,
+      "id": "studio-aca408ec-r04:film:4"
+     },
+     {
+      "week": 52,
+      "id": "studio-aca408ec-r04:film:6"
+     },
+     {
+      "week": 64,
+      "id": "studio-aca408ec-r04:film:7"
+     },
+     {
+      "week": 77,
+      "id": "studio-aca408ec-r04:film:8"
+     }
+    ],
+    "firstTakes": [
+     {
+      "week": 9,
+      "id": "studio-aca408ec-r04:film:0"
+     },
+     {
+      "week": 18,
+      "id": "studio-aca408ec-r04:film:1"
+     },
+     {
+      "week": 27,
+      "id": "studio-aca408ec-r04:film:2"
+     },
+     {
+      "week": 36,
+      "id": "studio-aca408ec-r04:film:3"
+     },
+     {
+      "week": 45,
+      "id": "studio-aca408ec-r04:film:4"
+     },
+     {
+      "week": 57,
+      "id": "studio-aca408ec-r04:film:6"
+     },
+     {
+      "week": 69,
+      "id": "studio-aca408ec-r04:film:7"
+     },
+     {
+      "week": 82,
+      "id": "studio-aca408ec-r04:film:8"
+     }
+    ],
+    "released": [
+     {
+      "week": 12,
+      "id": "studio-aca408ec-r04:film:0"
+     },
+     {
+      "week": 21,
+      "id": "studio-aca408ec-r04:film:1"
+     },
+     {
+      "week": 30,
+      "id": "studio-aca408ec-r04:film:2"
+     },
+     {
+      "week": 39,
+      "id": "studio-aca408ec-r04:film:3"
+     },
+     {
+      "week": 48,
+      "id": "studio-aca408ec-r04:film:4"
+     },
+     {
+      "week": 60,
+      "id": "studio-aca408ec-r04:film:6"
+     },
+     {
+      "week": 72,
+      "id": "studio-aca408ec-r04:film:7"
+     },
+     {
+      "week": 85,
+      "id": "studio-aca408ec-r04:film:8"
+     }
+    ],
+    "commissions": [
+     {
+      "week": 1,
+      "id": "script-0000"
+     },
+     {
+      "week": 4,
+      "id": "script-0001"
+     },
+     {
+      "week": 13,
+      "id": "script-0002"
+     },
+     {
+      "week": 22,
+      "id": "script-0003"
+     },
+     {
+      "week": 32,
+      "id": "script-0004"
+     },
+     {
+      "week": 43,
+      "id": "script-0005"
+     },
+     {
+      "week": 49,
+      "id": "script-0006"
+     },
+     {
+      "week": 61,
+      "id": "script-0007"
+     },
+     {
+      "week": 74,
+      "id": "script-0008"
+     }
+    ]
+   }
+  },
+  {
+   "studioId": "studio-aca408ec-r05",
+   "short": "r05",
+   "cashEnd": 17642436,
+   "films": 0,
+   "firstTakes": 0,
+   "shelvings": [],
+   "shelvingsPerYear": {},
+   "maxShelvingsInAny52Weeks": 0,
+   "retries": {
+    "viable": [],
+    "economicRejection": []
+   },
+   "shelvedAtEnd": [],
+   "filmsAgain": [],
+   "events": {
+    "announced": [],
+    "firstTakes": [],
+    "released": [],
+    "commissions": []
+   }
+  }
+ ],
+ "otherStudios": [],
+ "player": {
+  "studioId": "studio-aca408ec-player",
+  "shelvingReceipts": 0,
+  "developmentHasShelvingKey": false,
+  "issuedPromisesAtEnd": 0,
+  "proposalWeeksWithPromises": 0
+ },
+ "series": [
+  {
+   "week": 0,
+   "films": 8,
+   "firstTakes": 0,
+   "studios": {
+    "r01": {
+     "cash": 25630079,
+     "films": 2,
+     "firstTakes": 0,
+     "productions": 0,
+     "active": 0,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 22714068,
+     "films": 2,
+     "firstTakes": 0,
+     "productions": 0,
+     "active": 0,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 16641716,
+     "films": 2,
+     "firstTakes": 0,
+     "productions": 0,
+     "active": 0,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 13393073,
+     "films": 2,
+     "firstTakes": 0,
+     "productions": 0,
+     "active": 0,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 10,
+   "films": 8,
+   "firstTakes": 4,
+   "studios": {
+    "r01": {
+     "cash": 19467792,
+     "films": 2,
+     "firstTakes": 1,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 14586032,
+     "films": 2,
+     "firstTakes": 1,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 10665032,
+     "films": 2,
+     "firstTakes": 1,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 8598111,
+     "films": 2,
+     "firstTakes": 1,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 20,
+   "films": 12,
+   "firstTakes": 8,
+   "studios": {
+    "r01": {
+     "cash": 20164205,
+     "films": 3,
+     "firstTakes": 2,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 17694542,
+     "films": 3,
+     "firstTakes": 2,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 11848129,
+     "films": 3,
+     "firstTakes": 2,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 7805653,
+     "films": 3,
+     "firstTakes": 2,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 30,
+   "films": 18,
+   "firstTakes": 12,
+   "studios": {
+    "r01": {
+     "cash": 20885948,
+     "films": 5,
+     "firstTakes": 3,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 18267274,
+     "films": 4,
+     "firstTakes": 3,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 12920098,
+     "films": 5,
+     "firstTakes": 3,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 7060471,
+     "films": 4,
+     "firstTakes": 3,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 40,
+   "films": 24,
+   "firstTakes": 16,
+   "studios": {
+    "r01": {
+     "cash": 19406164,
+     "films": 6,
+     "firstTakes": 4,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 19636962,
+     "films": 6,
+     "firstTakes": 4,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 9673743,
+     "films": 6,
+     "firstTakes": 4,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 7368386,
+     "films": 6,
+     "firstTakes": 4,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 50,
+   "films": 28,
+   "firstTakes": 20,
+   "studios": {
+    "r01": {
+     "cash": 19795590,
+     "films": 7,
+     "firstTakes": 5,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 18217453,
+     "films": 7,
+     "firstTakes": 5,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 11189651,
+     "films": 7,
+     "firstTakes": 5,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 7230044,
+     "films": 7,
+     "firstTakes": 5,
+     "productions": 0,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 60,
+   "films": 31,
+   "firstTakes": 24,
+   "studios": {
+    "r01": {
+     "cash": 23341242,
+     "films": 8,
+     "firstTakes": 6,
+     "productions": 0,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 19155881,
+     "films": 8,
+     "firstTakes": 6,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 10724321,
+     "films": 8,
+     "firstTakes": 6,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 4775066,
+     "films": 7,
+     "firstTakes": 6,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 70,
+   "films": 35,
+   "firstTakes": 28,
+   "studios": {
+    "r01": {
+     "cash": 21729061,
+     "films": 9,
+     "firstTakes": 7,
+     "productions": 0,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 18899465,
+     "films": 9,
+     "firstTakes": 7,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 9604936,
+     "films": 9,
+     "firstTakes": 7,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 2618869,
+     "films": 8,
+     "firstTakes": 7,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 80,
+   "films": 38,
+   "firstTakes": 32,
+   "studios": {
+    "r01": {
+     "cash": 19484088,
+     "films": 9,
+     "firstTakes": 8,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 19460659,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 10188933,
+     "films": 10,
+     "firstTakes": 9,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 3025004,
+     "films": 9,
+     "firstTakes": 7,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 90,
+   "films": 42,
+   "firstTakes": 37,
+   "studios": {
+    "r01": {
+     "cash": 19421969,
+     "films": 10,
+     "firstTakes": 9,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r02": {
+     "cash": 18221652,
+     "films": 11,
+     "firstTakes": 10,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 10295501,
+     "films": 11,
+     "firstTakes": 10,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 4858238,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 100,
+   "films": 45,
+   "firstTakes": 39,
+   "studios": {
+    "r01": {
+     "cash": 21298478,
+     "films": 11,
+     "firstTakes": 9,
+     "productions": 0,
+     "active": 0,
+     "shelved": 1
+    },
+    "r02": {
+     "cash": 15433783,
+     "films": 12,
+     "firstTakes": 11,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 9247322,
+     "films": 12,
+     "firstTakes": 11,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 3747589,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 110,
+   "films": 47,
+   "firstTakes": 40,
+   "studios": {
+    "r01": {
+     "cash": 16507176,
+     "films": 11,
+     "firstTakes": 9,
+     "productions": 1,
+     "active": 2,
+     "shelved": 1
+    },
+    "r02": {
+     "cash": 17254058,
+     "films": 13,
+     "firstTakes": 11,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 7555732,
+     "films": 13,
+     "firstTakes": 12,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 2487329,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 120,
+   "films": 51,
+   "firstTakes": 43,
+   "studios": {
+    "r01": {
+     "cash": 18756339,
+     "films": 12,
+     "firstTakes": 10,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r02": {
+     "cash": 20059962,
+     "films": 14,
+     "firstTakes": 12,
+     "productions": 0,
+     "active": 2,
+     "shelved": 0
+    },
+    "r03": {
+     "cash": 8865670,
+     "films": 15,
+     "firstTakes": 13,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": 1227069,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 130,
+   "films": 52,
+   "firstTakes": 44,
+   "studios": {
+    "r01": {
+     "cash": 18412932,
+     "films": 12,
+     "firstTakes": 10,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r02": {
+     "cash": 19142642,
+     "films": 14,
+     "firstTakes": 12,
+     "productions": 0,
+     "active": 1,
+     "shelved": 1
+    },
+    "r03": {
+     "cash": 5912233,
+     "films": 16,
+     "firstTakes": 14,
+     "productions": 1,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": -33191,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 140,
+   "films": 53,
+   "firstTakes": 45,
+   "studios": {
+    "r01": {
+     "cash": 17405882,
+     "films": 12,
+     "firstTakes": 10,
+     "productions": 0,
+     "active": 0,
+     "shelved": 3
+    },
+    "r02": {
+     "cash": 18225322,
+     "films": 14,
+     "firstTakes": 12,
+     "productions": 0,
+     "active": 0,
+     "shelved": 2
+    },
+    "r03": {
+     "cash": 8496337,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": -1293451,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 150,
+   "films": 53,
+   "firstTakes": 46,
+   "studios": {
+    "r01": {
+     "cash": 11544773,
+     "films": 12,
+     "firstTakes": 10,
+     "productions": 1,
+     "active": 2,
+     "shelved": 3
+    },
+    "r02": {
+     "cash": 15016966,
+     "films": 14,
+     "firstTakes": 13,
+     "productions": 1,
+     "active": 2,
+     "shelved": 2
+    },
+    "r03": {
+     "cash": 7884183,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 0
+    },
+    "r04": {
+     "cash": -2553711,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 160,
+   "films": 55,
+   "firstTakes": 47,
+   "studios": {
+    "r01": {
+     "cash": 14871647,
+     "films": 13,
+     "firstTakes": 11,
+     "productions": 0,
+     "active": 2,
+     "shelved": 3
+    },
+    "r02": {
+     "cash": 16963091,
+     "films": 15,
+     "firstTakes": 13,
+     "productions": 0,
+     "active": 2,
+     "shelved": 2
+    },
+    "r03": {
+     "cash": 6889573,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 1,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -3813971,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 170,
+   "films": 56,
+   "firstTakes": 48,
+   "studios": {
+    "r01": {
+     "cash": 13902141,
+     "films": 14,
+     "firstTakes": 12,
+     "productions": 0,
+     "active": 1,
+     "shelved": 3
+    },
+    "r02": {
+     "cash": 16045771,
+     "films": 15,
+     "firstTakes": 13,
+     "productions": 0,
+     "active": 0,
+     "shelved": 4
+    },
+    "r03": {
+     "cash": 5894963,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -5074231,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 180,
+   "films": 56,
+   "firstTakes": 48,
+   "studios": {
+    "r01": {
+     "cash": 14522149,
+     "films": 14,
+     "firstTakes": 12,
+     "productions": 0,
+     "active": 1,
+     "shelved": 4
+    },
+    "r02": {
+     "cash": 15128451,
+     "films": 15,
+     "firstTakes": 13,
+     "productions": 0,
+     "active": 0,
+     "shelved": 4
+    },
+    "r03": {
+     "cash": 4900353,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -6334491,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 190,
+   "films": 56,
+   "firstTakes": 48,
+   "studios": {
+    "r01": {
+     "cash": 13515099,
+     "films": 14,
+     "firstTakes": 12,
+     "productions": 0,
+     "active": 0,
+     "shelved": 5
+    },
+    "r02": {
+     "cash": 14211131,
+     "films": 15,
+     "firstTakes": 13,
+     "productions": 0,
+     "active": 2,
+     "shelved": 4
+    },
+    "r03": {
+     "cash": 3905743,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -7594751,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 200,
+   "films": 56,
+   "firstTakes": 48,
+   "studios": {
+    "r01": {
+     "cash": 12508049,
+     "films": 14,
+     "firstTakes": 12,
+     "productions": 0,
+     "active": 1,
+     "shelved": 5
+    },
+    "r02": {
+     "cash": 13293811,
+     "films": 15,
+     "firstTakes": 13,
+     "productions": 0,
+     "active": 1,
+     "shelved": 5
+    },
+    "r03": {
+     "cash": 2911133,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -8855011,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 210,
+   "films": 57,
+   "firstTakes": 49,
+   "studios": {
+    "r01": {
+     "cash": 9609591,
+     "films": 15,
+     "firstTakes": 13,
+     "productions": 0,
+     "active": 1,
+     "shelved": 5
+    },
+    "r02": {
+     "cash": 11708920,
+     "films": 15,
+     "firstTakes": 13,
+     "productions": 0,
+     "active": 0,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": 1495206,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -9946219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 220,
+   "films": 57,
+   "firstTakes": 49,
+   "studios": {
+    "r01": {
+     "cash": 10374231,
+     "films": 15,
+     "firstTakes": 13,
+     "productions": 0,
+     "active": 2,
+     "shelved": 5
+    },
+    "r02": {
+     "cash": 4406721,
+     "films": 15,
+     "firstTakes": 13,
+     "productions": 1,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": 557846,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -10361219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 230,
+   "films": 58,
+   "firstTakes": 51,
+   "studios": {
+    "r01": {
+     "cash": 9369081,
+     "films": 15,
+     "firstTakes": 13,
+     "productions": 0,
+     "active": 0,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": 8264367,
+     "films": 16,
+     "firstTakes": 15,
+     "productions": 1,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -379514,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -10776219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 240,
+   "films": 59,
+   "firstTakes": 51,
+   "studios": {
+    "r01": {
+     "cash": 8363931,
+     "films": 15,
+     "firstTakes": 13,
+     "productions": 0,
+     "active": 1,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": 10024266,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -1316874,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -11191219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 250,
+   "films": 60,
+   "firstTakes": 52,
+   "studios": {
+    "r01": {
+     "cash": 5919830,
+     "films": 16,
+     "firstTakes": 14,
+     "productions": 0,
+     "active": 1,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": 8859026,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -2254234,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -11606219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 260,
+   "films": 60,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": 4164754,
+     "films": 16,
+     "firstTakes": 15,
+     "productions": 1,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": 7693786,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -3191594,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -12021219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 270,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": 3954410,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": 6168546,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -4128954,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -12436219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 280,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": 1568260,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": 4983306,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -5066314,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -12851219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 290,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": 373110,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": 3798066,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -6003674,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -13266219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 300,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": -822040,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": 2612826,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -6941034,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -13681219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 310,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": -2017190,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": 1427586,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -7878394,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -14096219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 320,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": -3212340,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": 242346,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -8815754,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -14511219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 330,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": -4407490,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": -942894,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -9753114,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -14926219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 340,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": -5602640,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": -2128134,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -10690474,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -15341219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 350,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": -6797790,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": -3313374,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -11627834,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -15756219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 360,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": -7992940,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": -4498614,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -12565194,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -16171219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 370,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": -9188090,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": -5683854,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -13502554,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -16586219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 380,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": -10383240,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": -6869094,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -14439914,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -17001219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 390,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": -11578390,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": -8054334,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -15377274,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -17416219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 400,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": -12773540,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": -9239574,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -16314634,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -17831219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 410,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": -13968690,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": -10424814,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -17251994,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -18246219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 420,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": -14927780,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": -11309958,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -17980410,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -18661219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 430,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": -15532780,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": -11744958,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -18395410,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -19076219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 440,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": -16137780,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": -12179958,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -18810410,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -19491219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 450,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": -16742780,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": -12614958,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -19225410,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -19906219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 460,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": -17347780,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": -13049958,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -19640410,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -20321219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 470,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": -17952780,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": -13484958,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -20055410,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -20736219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 480,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": -18459780,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": -13919958,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -20470410,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -21151219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 490,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": -18924780,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": -14354958,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -20885410,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -21566219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 500,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": -19389780,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": -14789958,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -21300410,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -21981219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 510,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": -19854780,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": -15224958,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -21715410,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -22396219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    }
+   }
+  },
+  {
+   "week": 520,
+   "films": 61,
+   "firstTakes": 53,
+   "studios": {
+    "r01": {
+     "cash": -20319780,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 7
+    },
+    "r02": {
+     "cash": -15659958,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 6
+    },
+    "r03": {
+     "cash": -22130410,
+     "films": 17,
+     "firstTakes": 15,
+     "productions": 0,
+     "active": 2,
+     "shelved": 1
+    },
+    "r04": {
+     "cash": -22811219,
+     "films": 10,
+     "firstTakes": 8,
+     "productions": 0,
+     "active": 1,
+     "shelved": 0
+    },
+    "r05": {
+     "cash": 17642436,
+     "films": 0,
+     "firstTakes": 0,
+     "productions": 0,
+     "active": 0,
+     "shelved": 0
+    }
+   }
+  }
+ ],
+ "controlC": [
+  {
+   "week": 93,
+   "studioId": "studio-aca408ec-r01",
+   "scriptProjectId": "script-0006",
+   "ordinal": 6,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -50205,
+    "studioRevenue": 821383.5088046789
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 123,
+   "studioId": "studio-aca408ec-r02",
+   "scriptProjectId": "script-0011",
+   "ordinal": 11,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -41232
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 130,
+   "studioId": "studio-aca408ec-r01",
+   "scriptProjectId": "script-0011",
+   "ordinal": 11,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -50205
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 130,
+   "studioId": "studio-aca408ec-r02",
+   "scriptProjectId": "script-0013",
+   "ordinal": 13,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -41232
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 133,
+   "studioId": "studio-aca408ec-r01",
+   "scriptProjectId": "script-0012",
+   "ordinal": 12,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -50205
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 150,
+   "studioId": "studio-aca408ec-r03",
+   "scriptProjectId": "script-0015",
+   "ordinal": 15,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -48961
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 166,
+   "studioId": "studio-aca408ec-r02",
+   "scriptProjectId": "script-0015",
+   "ordinal": 15,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -41232
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 169,
+   "studioId": "studio-aca408ec-r02",
+   "scriptProjectId": "script-0016",
+   "ordinal": 16,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -41232
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 178,
+   "studioId": "studio-aca408ec-r01",
+   "scriptProjectId": "script-0014",
+   "ordinal": 14,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -50205
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 185,
+   "studioId": "studio-aca408ec-r01",
+   "scriptProjectId": "script-0016",
+   "ordinal": 16,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -50205
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 197,
+   "studioId": "studio-aca408ec-r02",
+   "scriptProjectId": "script-0017",
+   "ordinal": 17,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -41232
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 200,
+   "studioId": "studio-aca408ec-r02",
+   "scriptProjectId": "script-0018",
+   "ordinal": 18,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -41232
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 222,
+   "studioId": "studio-aca408ec-r01",
+   "scriptProjectId": "script-0018",
+   "ordinal": 18,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -50015
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  },
+  {
+   "week": 225,
+   "studioId": "studio-aca408ec-r01",
+   "scriptProjectId": "script-0019",
+   "ordinal": 19,
+   "checks": {
+    "costRowUnchanged": true,
+    "scriptProjectUnchanged": true,
+    "readyAndOutsideIndex": true,
+    "productionDeltaEqualsSameWeekGreenlights": true,
+    "marketingDeltaEqualsSameWeekGreenlights": true,
+    "noDevelopmentMovement": true,
+    "noPositiveMovementExceptStudioRevenue": true,
+    "cashChangeEqualsMovements": true,
+    "liveValidatorPasses": true
+   },
+   "deltas": {
+    "facilityOpex": -26500,
+    "overhead": -24000,
+    "payroll": -50015
+   },
+   "sameWeekGreenlights": [],
+   "validator": "ok"
+  }
+ ],
+ "integrity": []
+}

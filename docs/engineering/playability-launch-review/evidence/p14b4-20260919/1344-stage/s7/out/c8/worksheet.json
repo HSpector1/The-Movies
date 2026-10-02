@@ -1,0 +1,1769 @@
+{
+ "rows": [
+  {
+   "n": 1,
+   "group": "C8 rivalFixture (1329-A)",
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group3 \u2014 one bound-only newest-first history DTO on both carriers > does not publish another studio\u2019s real bound history as the player\u2019s own terms",
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "frame1338": "tests/bridge-p14b2-trust.test.ts:253:15",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "candidateFrame": "tests/bridge-p14b2-trust.test.ts:253:15",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 240,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 240",
+    "premise1329Field": "firstRivalSatisfied",
+    "premise": {
+     "candidate": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "old": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "head1329": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     }
+    }
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 2,
+   "group": "C1 row with the rivalFixture primary (1329-A :16-17)",
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group5 \u2014 independent promise attention after cases close > ignores real withdrawn unbound drafts near due and never interrupts for rival-issued promises",
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "frame1338": "tests/bridge-p14b2-trust.test.ts:363:19",
+   "cluster1338": "C1-validateSaveV38-39-selection",
+   "primary1338": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "candidateFrame": "tests/bridge-p14b2-trust.test.ts:363:19",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 240,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 240",
+    "premise1329Field": "firstRivalSatisfied",
+    "premise": {
+     "candidate": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "old": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "head1329": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     }
+    }
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 3,
+   "group": "C8 rivalFixture (1329-A)",
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group7 \u2014 rival terms stay private and rival outcomes stay public > keeps open rival proposal terms literal UNKNOWN across Profile and Market",
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "frame1338": "tests/bridge-p14b2-trust.test.ts:386:15",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "candidateFrame": "tests/bridge-p14b2-trust.test.ts:386:15",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 240,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 240",
+    "premise1329Field": "firstRivalSatisfied",
+    "premise": {
+     "candidate": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "old": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "head1329": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     }
+    }
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 4,
+   "group": "C8 rivalFixture (1329-A)",
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group7 \u2014 rival terms stay private and rival outcomes stay public > publishes the real rival kept outcome and aggregate label while withholding bound history terms",
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "frame1338": "tests/bridge-p14b2-trust.test.ts:398:15",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "candidateFrame": "tests/bridge-p14b2-trust.test.ts:398:15",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 240,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 240",
+    "premise1329Field": "firstRivalSatisfied",
+    "premise": {
+     "candidate": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "old": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "head1329": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     }
+    }
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 5,
+   "group": "C8 rivalFixture (1329-A)",
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group7 \u2014 rival terms stay private and rival outcomes stay public > is semantically unchanged when only hidden terminal terms vary, retaining real outcome/event identities",
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "frame1338": "tests/bridge-p14b2-trust.test.ts:412:15",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "candidateFrame": "tests/bridge-p14b2-trust.test.ts:412:15",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 240,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 240",
+    "premise1329Field": "firstRivalSatisfied",
+    "premise": {
+     "candidate": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "old": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "head1329": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     }
+    }
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 6,
+   "group": "UNRESOLVED family 12 ledger",
+   "identity": "tests/bridge-p14b5-relationships.test.ts > family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > p13a-core-causal-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+   "file": "tests/bridge-p14b5-relationships.test.ts",
+   "frame1338": "tests/bridge-p14b5-relationships.test.ts:550:37",
+   "cluster1338": "UNRESOLVED",
+   "primary1338": "AssertionError: expected '4a047502216f05c0d2e972743d9d94be57be0\u2026' to be '706e54c6ec9728df1664025982ebbafeb0fc3\u2026' // Object.is equality",
+   "candidate": "FAILED",
+   "candidatePrimary": "AssertionError: expected '8a4df62fdd64ba26fc6e00e438c47c2574992\u2026' to be '706e54c6ec9728df1664025982ebbafeb0fc3\u2026' // Object.is equality",
+   "candidateFrame": "tests/bridge-p14b5-relationships.test.ts:560:37",
+   "samePrimary": false,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 416,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 416"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 7,
+   "group": "UNRESOLVED family 12 ledger",
+   "identity": "tests/bridge-p14b5-relationships.test.ts > family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > seed-b: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+   "file": "tests/bridge-p14b5-relationships.test.ts",
+   "frame1338": "tests/bridge-p14b5-relationships.test.ts:547:36",
+   "cluster1338": "UNRESOLVED",
+   "primary1338": "AssertionError: expected [ { \u2026(2) } ] to deeply equal []",
+   "candidate": "FAILED",
+   "candidatePrimary": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(40) ] to have a length of 48 but got 41",
+   "candidateFrame": "tests/bridge-p14b5-relationships.test.ts:540:54",
+   "samePrimary": false,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 416,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 416"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 8,
+   "group": "UNRESOLVED family 12 ledger",
+   "identity": "tests/bridge-p14b5-relationships.test.ts > family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > p13b-s8-bridge-probe-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+   "file": "tests/bridge-p14b5-relationships.test.ts",
+   "frame1338": "tests/bridge-p14b5-relationships.test.ts:530:54",
+   "cluster1338": "UNRESOLVED",
+   "primary1338": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(42) ] to have a length of 48 but got 43",
+   "candidate": "FAILED",
+   "candidatePrimary": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(42) ] to have a length of 48 but got 43",
+   "candidateFrame": "tests/bridge-p14b5-relationships.test.ts:540:54",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13b-s8-bridge-probe-01",
+    "searchBoundTicks": 416,
+    "firstShelving": {
+     "week": 428,
+     "studioId": "studio-efb645e3-r04",
+     "screenplay": "script-0044"
+    },
+    "firstDifferentTick": 429,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the search (ticks 0..416) ends before the first shelving shows (tick 429)"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 9,
+   "group": "UNRESOLVED family 12 ledger",
+   "identity": "tests/bridge-p14b5-relationships.test.ts > family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > p13-public-commercial-adoption: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+   "file": "tests/bridge-p14b5-relationships.test.ts",
+   "frame1338": "tests/bridge-p14b5-relationships.test.ts:530:54",
+   "cluster1338": "UNRESOLVED",
+   "primary1338": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(34) ] to have a length of 36 but got 35",
+   "candidate": "FAILED",
+   "candidatePrimary": "AssertionError: expected '62c9fd5d2d7887b1b6263a38f9545f2ad77cd\u2026' to be 'c034f2fb5a8e5f454a475020cec9de1ac764d\u2026' // Object.is equality",
+   "candidateFrame": "tests/bridge-p14b5-relationships.test.ts:560:37",
+   "samePrimary": false,
+   "evidence": {
+    "seed": "p13-public-commercial-adoption",
+    "searchBoundTicks": 416,
+    "firstShelving": {
+     "week": 118,
+     "studioId": "studio-5a47d054-r04",
+     "screenplay": "script-0011"
+    },
+    "firstDifferentTick": 119,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 119, inside the search bound 416"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 10,
+   "group": "C8 T4 sharedTakeOutcomes (1329-A)",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > round-trips several beneficiaries sharing one real take and distinct own outcome receipts",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "frame1338": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidateFrame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 230,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 230",
+    "premise1329Field": "firstShared",
+    "premise": {
+     "candidate": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "old": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "head1329": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     }
+    }
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 11,
+   "group": "C8 T4 sharedTakeOutcomes (1329-A)",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects missing outcome receipt references",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "frame1338": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidateFrame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 230,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 230",
+    "premise1329Field": "firstShared",
+    "premise": {
+     "candidate": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "old": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "head1329": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     }
+    }
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 12,
+   "group": "C8 T4 sharedTakeOutcomes (1329-A)",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects null outcome receipt references",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "frame1338": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidateFrame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 230,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 230",
+    "premise1329Field": "firstShared",
+    "premise": {
+     "candidate": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "old": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "head1329": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     }
+    }
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 13,
+   "group": "C8 T4 sharedTakeOutcomes (1329-A)",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects unknown outcome receipt references",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "frame1338": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidateFrame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 230,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 230",
+    "premise1329Field": "firstShared",
+    "premise": {
+     "candidate": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "old": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "head1329": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     }
+    }
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 14,
+   "group": "C8 T4 sharedTakeOutcomes (1329-A)",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects wrong receipt kind outcome receipt references",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "frame1338": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidateFrame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 230,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 230",
+    "premise1329Field": "firstShared",
+    "premise": {
+     "candidate": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "old": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "head1329": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     }
+    }
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 15,
+   "group": "C8 T4 sharedTakeOutcomes (1329-A)",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects another beneficiary outcome receipt references",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "frame1338": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidateFrame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 230,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 230",
+    "premise1329Field": "firstShared",
+    "premise": {
+     "candidate": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "old": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "head1329": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     }
+    }
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 16,
+   "group": "C8 T4 sharedTakeOutcomes (1329-A)",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects wrong outcome week outcome receipt references",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "frame1338": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidateFrame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 230,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 230",
+    "premise1329Field": "firstShared",
+    "premise": {
+     "candidate": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "old": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "head1329": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     }
+    }
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 17,
+   "group": "C8 T4 sharedTakeOutcomes (1329-A)",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects missing take qualifying evidence",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "frame1338": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidateFrame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 230,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 230",
+    "premise1329Field": "firstShared",
+    "premise": {
+     "candidate": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "old": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "head1329": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     }
+    }
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 18,
+   "group": "C8 T4 sharedTakeOutcomes (1329-A)",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects non-take receipt qualifying evidence",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "frame1338": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidateFrame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 230,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 230",
+    "premise1329Field": "firstShared",
+    "premise": {
+     "candidate": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "old": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "head1329": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     }
+    }
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 19,
+   "group": "C8 T4 sharedTakeOutcomes (1329-A)",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects wrong studio or cast qualifying evidence",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "frame1338": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidateFrame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 230,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 230",
+    "premise1329Field": "firstShared",
+    "premise": {
+     "candidate": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "old": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "head1329": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     }
+    }
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 20,
+   "group": "C8 T4 sharedTakeOutcomes (1329-A)",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects empty qualifying evidence",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "frame1338": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidateFrame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 230,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 230",
+    "premise1329Field": "firstShared",
+    "premise": {
+     "candidate": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "old": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "head1329": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     }
+    }
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 21,
+   "group": "C8 T4 sharedTakeOutcomes (1329-A)",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects duplicate qualifying evidence",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "frame1338": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidateFrame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 230,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 230",
+    "premise1329Field": "firstShared",
+    "premise": {
+     "candidate": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "old": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "head1329": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     }
+    }
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 22,
+   "group": "C8 T4 sharedTakeOutcomes (1329-A)",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects outside window qualifying evidence",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "frame1338": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidateFrame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 230,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 230",
+    "premise1329Field": "firstShared",
+    "premise": {
+     "candidate": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "old": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "head1329": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     }
+    }
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 23,
+   "group": "C8 T4 sharedTakeOutcomes (1329-A)",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects wrong progress qualifying evidence",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "frame1338": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidateFrame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 230,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 230",
+    "premise1329Field": "firstShared",
+    "premise": {
+     "candidate": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "old": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "head1329": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     }
+    }
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 24,
+   "group": "C8 T4 sharedTakeOutcomes (1329-A)",
+   "identity": "tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects unbound outcome qualifying evidence",
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "frame1338": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "candidateFrame": "tests/p14b1-t4-regressions.test.ts:283:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 230,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 230",
+    "premise1329Field": "firstShared",
+    "premise": {
+     "candidate": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "old": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "head1329": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     }
+    }
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 25,
+   "group": "C8 rivalFixture (1329-A)",
+   "identity": "tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > produces a rival-only open promise and public kept outcome from the unmodified natural rival chain",
+   "file": "tests/p14b2-fixture-preconditions.test.ts",
+   "frame1338": "tests/p14b2-fixture-preconditions.test.ts:27:15",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "candidateFrame": "tests/p14b2-fixture-preconditions.test.ts:27:15",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 240,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 240",
+    "premise1329Field": "firstRivalSatisfied",
+    "premise": {
+     "candidate": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "old": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     },
+     "head1329": {
+      "firstRivalOpen": 196,
+      "firstRivalSatisfied": -1,
+      "firstShared": -1
+     }
+    }
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 26,
+   "group": "C8 cast-class rivalWorlds (P14C.1 770/771)",
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 genuine submit/settle/take routes, no synthetic commitments > RIVAL: a genuinely naturally authored tagged commitment binds and qualifies through the real scheduled owner transition",
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "frame1338": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "candidateFrame": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 27,
+   "group": "C8 cast-class rivalWorlds (P14C.1 770/771)",
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'lead' seat: qualification=true",
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "frame1338": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "candidateFrame": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 28,
+   "group": "C8 cast-class rivalWorlds (P14C.1 770/771)",
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'antagonist' seat: qualification=false",
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "frame1338": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "candidateFrame": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 29,
+   "group": "C8 cast-class rivalWorlds (P14C.1 770/771)",
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'support' seat: qualification=false",
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "frame1338": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "candidateFrame": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 30,
+   "group": "C8 cast-class rivalWorlds (P14C.1 770/771)",
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'lead' seat: qualification=true",
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "frame1338": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "candidateFrame": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 31,
+   "group": "C8 cast-class rivalWorlds (P14C.1 770/771)",
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'antagonist' seat: qualification=true",
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "frame1338": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "candidateFrame": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 32,
+   "group": "C8 cast-class rivalWorlds (P14C.1 770/771)",
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'support' seat: qualification=false",
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "frame1338": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "candidateFrame": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 33,
+   "group": "C8 cast-class rivalWorlds (P14C.1 770/771)",
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival support qualifies for P1 and shape-legacy count-only P2, not tagged P2",
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "frame1338": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "candidateFrame": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 34,
+   "group": "C8 cast-class rivalWorlds (P14C.1 770/771)",
+   "identity": "tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival half-open window counts start, excludes before-start and excludes due",
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "frame1338": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "candidate": "FAILED",
+   "candidatePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "candidateFrame": "tests/p14b4-cast-class-outcomes.test.ts:247:9",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 35,
+   "group": "UNRESOLVED seating decisions",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225) > p13a-core-causal-01: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "frame1338": "tests/p14b4-rival-seating-preference.test.ts:483:78",
+   "cluster1338": "UNRESOLVED",
+   "primary1338": "AssertionError: expected [] to deeply equal [ { week: 208, \u2026(4) }, \u2026(1) ]",
+   "candidate": "FAILED",
+   "candidatePrimary": "AssertionError: expected [] to deeply equal [ { week: 208, \u2026(4) }, \u2026(1) ]",
+   "candidateFrame": "tests/p14b4-rival-seating-preference.test.ts:483:78",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 36,
+   "group": "UNRESOLVED seating decisions (S10 row 1)",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225) > seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "frame1338": "tests/p14b4-rival-seating-preference.test.ts:498:20",
+   "cluster1338": "UNRESOLVED",
+   "primary1338": "AssertionError: expected '9eeb62f640c8a749e71a0c1d21b917ce5cf70\u2026' to be 'f9cd2a86368b222882e84776b30f8a8d3f5b2\u2026' // Object.is equality",
+   "candidate": "FAILED",
+   "candidatePrimary": "AssertionError: expected 'd32e68f685f658666d620bd3faee2841a3af4\u2026' to be 'f9cd2a86368b222882e84776b30f8a8d3f5b2\u2026' // Object.is equality",
+   "candidateFrame": "tests/p14b4-rival-seating-preference.test.ts:498:20",
+   "samePrimary": false,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 37,
+   "group": "C8 seating natural witness (P14C.1 770/771)",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > search table: the first seed-b decision whose seating matters holds two tagged leadOrAntagonist beneficiaries and one P1 beneficiary in a three-actor pool",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "frame1338": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidate": "FAILED",
+   "candidatePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidateFrame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 38,
+   "group": "C8 seating natural witness (P14C.1 770/771)",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > RED: the real seating serves the maximal DISTINCT-beneficiary count (plan :215-218), the picture is viable and affordable (:223-225), and the real first take then satisfies all three through advancePromisesWeek/qualifyingTakes",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "frame1338": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidate": "FAILED",
+   "candidatePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidateFrame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 39,
+   "group": "C8 seating natural witness (P14C.1 770/771)",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > CONFLICT: the ordinary economic score prefers a two-beneficiary permutation; benefit count wins over score (:216-217) and the real take proves it",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "frame1338": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidate": "FAILED",
+   "candidatePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidateFrame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 40,
+   "group": "C8 seating natural witness (P14C.1 770/771)",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > TIE FALLBACK (labeled reception-input variant): two reception-identical tagged beneficiaries tie on score; the first strict-greater winner in the inherited BILLINGS order is seated \u2014 inherited tie behaviour, not fairness (:218-221)",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "frame1338": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidate": "FAILED",
+   "candidatePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidateFrame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 41,
+   "group": "UNRESOLVED current unaccepted offers",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > CURRENT unaccepted offers never count: seed-b w202, three rivals decide while their own retention offers carry promises with contractId null; re-authored offers make the negative discriminating",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "frame1338": "tests/p14b4-rival-seating-preference.test.ts:622:66",
+   "cluster1338": "UNRESOLVED",
+   "primary1338": "AssertionError: expected { week: 202, \u2026(1) } to deeply equal { week: 202, \u2026(1) }",
+   "candidate": "FAILED",
+   "candidatePrimary": "AssertionError: expected { week: 202, \u2026(1) } to deeply equal { week: 202, \u2026(1) }",
+   "candidateFrame": "tests/p14b4-rival-seating-preference.test.ts:622:66",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 42,
+   "group": "C8 seating natural witness (P14C.1 770/771)",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > another issuer's promise never counts: r02's offers to r01's three actors are present at w202 and at the witness and never enter r01's member set; re-authored r02 offers make the negative discriminating",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "frame1338": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidate": "FAILED",
+   "candidatePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidateFrame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 43,
+   "group": "C8 seating natural witness (P14C.1 770/771)",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > a met promise never counts (r01 chain, RED today only through the witness defect): after the witness take the SATISFIED roots leave r01's member set at its next real decision",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "frame1338": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidate": "FAILED",
+   "candidatePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidateFrame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 44,
+   "group": "C8 seating natural witness (P14C.1 770/771)",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts \u2014 'window starts after every plausible t\u2026'",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "frame1338": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidate": "FAILED",
+   "candidatePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidateFrame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 45,
+   "group": "C8 seating natural witness (P14C.1 770/771)",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts \u2014 'window ends before any take can land \u2026'",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "frame1338": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidate": "FAILED",
+   "candidatePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidateFrame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 46,
+   "group": "C8 seating natural witness (P14C.1 770/771)",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader \u2014 'tagged lead stays exact: r01-2 counts\u2026'",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "frame1338": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidate": "FAILED",
+   "candidatePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidateFrame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 47,
+   "group": "C8 seating natural witness (P14C.1 770/771)",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader \u2014 'legacy count-only LEAD_OR_SIGNIFICANT\u2026'",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "frame1338": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidate": "FAILED",
+   "candidatePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidateFrame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 48,
+   "group": "C8 seating natural witness (P14C.1 770/771)",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader \u2014 'APPEARANCE_COUNT is generic cast'",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "frame1338": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidate": "FAILED",
+   "candidatePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidateFrame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 49,
+   "group": "C8 seating natural witness (P14C.1 770/771)",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 the initial cast seam (plan :225-232) > promised non-primary-actor beneficiaries (the witness rival's writer, director and craft, each bound OPEN P1) are never seated: one person cannot double, and the sole holder of a role is a capacity constraint, not a forged package",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "frame1338": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidate": "FAILED",
+   "candidatePrimary": "AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "candidateFrame": "tests/p14b4-rival-seating-preference.test.ts:343:10",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "seed-b",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 195,
+     "studioId": "studio-bc14baf6-r04",
+     "screenplay": "script-0019"
+    },
+    "firstDifferentTick": 196,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 196, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  },
+  {
+   "n": 50,
+   "group": "C8 seating seam witness",
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 the initial cast seam (plan :225-232) > the positive seam witness (plan :225-227, :233; record 621 R2 / G10-b): the first default-seed picture whose pool seats a promised person outside the historical first three admits r01's sole WRITER \u2014 a non-primary-actor beneficiary \u2014 and the real package and first take serve his promise",
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "frame1338": "tests/p14b4-rival-seating-preference.test.ts:807:12",
+   "cluster1338": "C8-natural-search-exhaustion-first-take",
+   "primary1338": "AssertionError: UNEXECUTED natural premise: no picture on 'p13a-core-causal-01' within 350 ticks seats a promised person outside the historical first three",
+   "candidate": "FAILED",
+   "candidatePrimary": "AssertionError: UNEXECUTED natural premise: no picture on 'p13a-core-causal-01' within 350 ticks seats a promised person outside the historical first three",
+   "candidateFrame": "tests/p14b4-rival-seating-preference.test.ts:807:12",
+   "samePrimary": true,
+   "evidence": {
+    "seed": "p13a-core-causal-01",
+    "searchBoundTicks": 350,
+    "firstShelving": {
+     "week": 93,
+     "studioId": "studio-aca408ec-r01",
+     "screenplay": "script-0006"
+    },
+    "firstDifferentTick": 94,
+    "firstDifferenceIsTheFirstShelvingTick": true,
+    "reading": "the first shelving shows at tick 94, inside the search bound 350"
+   },
+   "attribution": "TO FILL",
+   "cause": "TO FILL"
+  }
+ ],
+ "otherFailuresInTheseFiles": [
+  {
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group5 \u2014 independent promise attention after cases close > does not require any case entry to retain a real promise reminder (explicit read-only case-carrier probe)",
+   "primary": "AssertionError: expected 208 to be 52 // Object.is equality"
+  },
+  {
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group5 \u2014 independent promise attention after cases close > raises due at minus8 but not minus9 for an actual player poaching winner with no proposals",
+   "primary": "AssertionError: expected 208 to be 52 // Object.is equality"
+  },
+  {
+   "identity": "tests/bridge-p14b2-trust.test.ts > P14B.2 group5 \u2014 independent promise attention after cases close > raises the poaching winner\u2019s actual outcome only in its recorded week, once per cause/person",
+   "primary": "AssertionError: expected 208 to be 52 // Object.is equality"
+  },
+  {
+   "identity": "tests/bridge-p14b5-relationships.test.ts > family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > the MOST EXPOSED shared fixture, poachingFixture (p14b2-fixtures.ts :145-211; consumers bridge-p14b2-trust, p14b2-fixture-preconditions): the week-208 reasons pin and endedWeek 208 hold, and under D1 no survivor holds a shared-take counterpart",
+   "primary": "AssertionError: expected 208 to be 52 // Object.is equality"
+  },
+  {
+   "identity": "tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone",
+   "primary": "AssertionError: expected 208 to be 52 // Object.is equality"
+  },
+  {
+   "identity": "tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) > a met promise never counts (control, r02 chain): after r02's w211 picture satisfies its three P1 roots at w216, its next real decision has no member and takes the ordinary pick",
+   "primary": "AssertionError: The expression evaluated to a falsy value:"
+  }
+ ],
+ "counts": {
+  "FAILED": 50
+ },
+ "files": [
+  "tests/bridge-p14b2-trust.test.ts",
+  "tests/bridge-p14b5-relationships.test.ts",
+  "tests/p14b1-t4-regressions.test.ts",
+  "tests/p14b2-fixture-preconditions.test.ts",
+  "tests/p14b4-cast-class-outcomes.test.ts",
+  "tests/p14b4-rival-seating-preference.test.ts"
+ ]
+}

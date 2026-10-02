@@ -1,0 +1,22 @@
+{
+ "seed": "p13a-core-causal-01",
+ "weeks": 20,
+ "tree": "old",
+ "rows": 8,
+ "countsByStudio": {
+  "r01": {
+   "ready:viable": 2
+  },
+  "r03": {
+   "ready:viable": 2
+  },
+  "r02": {
+   "ready:viable": 2
+  },
+  "r04": {
+   "ready:viable": 2
+  }
+ },
+ "stateAtEndSha256": "69ed39b0bbad06b23e84823d1dc85d1c4a08acd4b0abcffc7125f272d876f468",
+ "note": "stateAtEndSha256 must equal s7.json meta.finalStateSha256 of a natural-route run with the same tree, seed and weeks: the spy did not perturb the chain"
+}

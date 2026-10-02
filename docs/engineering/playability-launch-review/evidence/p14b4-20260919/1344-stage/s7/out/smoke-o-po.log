@@ -1,0 +1,12 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1344-s7/old-tree
+
+ ✓ |core| tests/zz-s7-player-only.test.ts (1 test) 1009ms
+   ✓ s7 control b: player-only saves 1008ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  21:44:22
+   Duration  4.93s (transform 2.16s, setup 0ms, collect 2.87s, tests 1.01s, environment 0ms, prepare 138ms)
+
+exit=0

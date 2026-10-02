@@ -1,0 +1,22 @@
+{
+ "tree": "candidate",
+ "weeks": 4,
+ "routes": [
+  {
+   "route": "Oracle",
+   "seed": "replay-bcast-Oracle",
+   "hollywoodNullEveryWeek": true,
+   "liveSaveVersion": 43,
+   "liveExportSha256": "11ee362cc8a3b5520cda2f1ddb600f7d28341d3af8fa6689258d07c20d1765b3",
+   "liveDiffersFromV42OnlyInVersionStamp": true
+  },
+  {
+   "route": "Random",
+   "seed": "replay-bcast-Random",
+   "hollywoodNullEveryWeek": true,
+   "liveSaveVersion": 43,
+   "liveExportSha256": "46afbad1b0f74dfe03b157d02f21c4bd67f8f05701f1786df705bbdd6e31ff08",
+   "liveDiffersFromV42OnlyInVersionStamp": true
+  }
+ ]
+}

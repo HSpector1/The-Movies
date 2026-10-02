@@ -1,0 +1,108 @@
+{
+ "a_test3_head_equality": {
+  "status": "PASS",
+  "exit": [
+   "0"
+  ],
+  "vitestTests": "2 passed | 26 skipped (28)",
+  "expect": "exit=0 and exactly 2 passed (the two shelving-viable-control leaves)"
+ },
+ "b_player_only_saves": {
+  "status": "PASS",
+  "playerOnlyWorldsByteIdenticalAcrossTrees": true,
+  "candidateRoutes": [
+   {
+    "route": "Oracle",
+    "seed": "replay-bcast-Oracle",
+    "hollywoodNullEveryWeek": true,
+    "liveSaveVersion": 43,
+    "liveExportSha256": "5908fc575151500607dcfe477a4c857f29a10bd48c135623fda2e1a6c91153f8",
+    "liveDiffersFromV42OnlyInVersionStamp": true
+   },
+   {
+    "route": "Random",
+    "seed": "replay-bcast-Random",
+    "hollywoodNullEveryWeek": true,
+    "liveSaveVersion": 43,
+    "liveExportSha256": "a6958234c08442b390d8852d2b336a1cb26b68f3827046955f46657785856d69",
+    "liveDiffersFromV42OnlyInVersionStamp": true
+   }
+  ],
+  "playerInRivalWorlds": {
+   "c-p13a-1": {
+    "shelvingReceipts": 0,
+    "developmentHasShelvingKey": false
+   },
+   "c-seedb": {
+    "shelvingReceipts": 0,
+    "developmentHasShelvingKey": false
+   },
+   "c-ledger-p13b": {
+    "shelvingReceipts": 0,
+    "developmentHasShelvingKey": false
+   },
+   "c-ledger-p13pub": {
+    "shelvingReceipts": 0,
+    "developmentHasShelvingKey": false
+   }
+  }
+ },
+ "c_no_refund_or_ledger_movement_at_shelving": {
+  "status": "PASS",
+  "shelvingsChecked": 102,
+  "failing": [],
+  "firstShelvingExact": {
+   "p13a-core-causal-01": {
+    "firstDifferentTick": 94,
+    "isFirstShelvingTick": true,
+    "accounts": {
+     "r01": "EQUAL",
+     "r02": "EQUAL",
+     "r03": "EQUAL",
+     "r04": "EQUAL"
+    }
+   },
+   "seed-b": {
+    "firstDifferentTick": 196,
+    "isFirstShelvingTick": true,
+    "accounts": {
+     "r01": "EQUAL",
+     "r02": "EQUAL",
+     "r03": "EQUAL",
+     "r04": "EQUAL"
+    }
+   },
+   "p13b-s8-bridge-probe-01": {
+    "firstDifferentTick": 429,
+    "isFirstShelvingTick": true,
+    "accounts": {
+     "r01": "EQUAL",
+     "r02": "EQUAL",
+     "r03": "EQUAL",
+     "r04": "EQUAL"
+    }
+   },
+   "p13-public-commercial-adoption": {
+    "firstDifferentTick": 119,
+    "isFirstShelvingTick": true,
+    "accounts": {
+     "r01": "EQUAL",
+     "r02": "EQUAL",
+     "r03": "EQUAL",
+     "r04": "EQUAL"
+    }
+   }
+  }
+ },
+ "d_determinism_two_runs": {
+  "status": "PASS",
+  "filesCompared": [
+   "natural-chain.jsonl",
+   "rival-economy.jsonl",
+   "weekly.jsonl",
+   "s7.json",
+   "final-state.json"
+  ],
+  "differ": []
+ }
+}

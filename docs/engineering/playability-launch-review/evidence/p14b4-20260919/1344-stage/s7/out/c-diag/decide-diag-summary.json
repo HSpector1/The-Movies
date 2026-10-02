@@ -1,0 +1,33 @@
+{
+ "seed": "p13a-core-causal-01",
+ "weeks": 520,
+ "tree": "candidate",
+ "rows": 1172,
+ "countsByStudio": {
+  "r01": {
+   "ready:viable": 15,
+   "ready:economicRejection": 94,
+   "retry:economicRejection": 12,
+   "ready:cashBlocked": 306,
+   "retry:cashBlocked": 2
+  },
+  "r03": {
+   "ready:viable": 15,
+   "ready:economicRejection": 17,
+   "ready:cashBlocked": 106
+  },
+  "r02": {
+   "ready:viable": 15,
+   "ready:economicRejection": 98,
+   "retry:economicRejection": 7,
+   "ready:cashBlocked": 341,
+   "retry:cashBlocked": 1
+  },
+  "r04": {
+   "ready:viable": 8,
+   "ready:cashBlocked": 135
+  }
+ },
+ "stateAtEndSha256": "4e9c0d75eb7559b702fbfc2d106b68d80ac9d1558a9c4dc11b6cb41505af9dcb",
+ "note": "stateAtEndSha256 must equal s7.json meta.finalStateSha256 of a natural-route run with the same tree, seed and weeks: the spy did not perturb the chain"
+}

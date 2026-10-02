@@ -1,0 +1,13 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1344-s7/tree
+
+ ✓ |core| tests/p14d1-rival-shelving.test.ts (28 tests | 26 skipped) 3694ms
+   ✓ shelving-viable-control (1344-F Amendment 2) > genesis to week 93: with screenplayShelving stripped from every business, state equals the genuine week-93 input migrated by convertV42ToV43 (also stripped); receipts identical; the leaf asserts its own premise that no shelving has happened yet and that the first screenplayShelved receipt falls strictly after this state, never a hard-coded week 3209ms
+   ✓ shelving-viable-control (1344-F Amendment 2) > a business with at least one recorded greenlight and zero economic rejections in the first 5 weeks keeps the empty screenplayShelving state 483ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed | 26 skipped (28)
+   Start at  21:43:42
+   Duration  8.28s (transform 2.59s, setup 0ms, collect 3.39s, tests 3.69s, environment 0ms, prepare 160ms)
+
+exit=0

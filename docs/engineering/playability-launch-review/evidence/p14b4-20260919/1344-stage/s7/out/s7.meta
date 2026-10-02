@@ -1,0 +1,76 @@
+start, C_SHA 469a9547f1a3b53b7c9985ec53beaa55e2a65587, node v20.20.2 at /Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node; 2026-10-01 21:39:19 CDT
+/dev/disk1s1  113Gi   86Gi  5.5Gi    94%  977384 58123720    2%   /System/Volumes/Data
+step 0 done; 2026-10-01 21:39:19 CDT
+candidate 469a9547f1a3b53b7c9985ec53beaa55e2a65587 src-tree db80ca312211a70b54fcb75cb80480ad5e8dc867 -> /Users/zacheryspector/studio-scratch/1344-s7/tree (c6b501e)
+old src ff803032 src-tree 347cfcce5602570eaa39137e6490d7e6fa0228eb (equal to 133aca7a), tests and configs from 469a9547f1a3b53b7c9985ec53beaa55e2a65587 -> /Users/zacheryspector/studio-scratch/1344-s7/old-tree (1ac575f)
+src and generated unchanged since 9fc79624: yes
+step 1 done; 2026-10-01 21:39:34 CDT
+{
+ "summary": {
+  "Test Files": "6 failed (6)",
+  "Tests": "56 failed | 64 passed | 1 todo (121)"
+ },
+ "failedCases": 56,
+ "byStatus": {
+  "RETAINED-SAME": 52,
+  "RETAINED-CHANGED": 4
+ },
+ "vanishedFrom1316": 95
+}
+c8 status: []
+step 2 done (exit=1); 2026-10-01 21:43:41 CDT
+   ✓ shelving-viable-control (1344-F Amendment 2) > a business with at least one recorded greenlight and zero economic rejections in the first 5 weeks keeps the empty screenplayShelving state 483ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed | 26 skipped (28)
+   Start at  21:43:42
+   Duration  8.28s (transform 2.59s, setup 0ms, collect 3.39s, tests 3.69s, environment 0ms, prepare 160ms)
+
+exit=0
+step 3 done; 2026-10-01 21:43:51 CDT
+step 4 done; 2026-10-01 21:43:51 CDT
+smoke-c-route: S7 natural-route {"seed":"p13a-core-causal-01","weeks":20,"tree":"candidate","ms":2195,"finalStateSha256":"f756ac10a4d3f7874c1f44d056c4c49564e2a88636d0a81d82148592769bc017","shelvings":0,"integrity":0}       Tests  1 passed (1) exit=0 ; 2026-10-01 21:43:58 CDT
+smoke-o-route: S7 natural-route {"seed":"p13a-core-causal-01","weeks":20,"tree":"old","ms":1477,"finalStateSha256":"69ed39b0bbad06b23e84823d1dc85d1c4a08acd4b0abcffc7125f272d876f468","shelvings":0,"integrity":0}       Tests  1 passed (1) exit=0 ; 2026-10-01 21:44:04 CDT
+smoke-c-diag: S7 decide-diag {"seed":"p13a-core-causal-01","weeks":20,"tree":"candidate","rows":8,"ms":1282,"stateAtEndSha256":"f756ac10a4d3f7874c1f44d056c4c49564e2a88636d0a81d82148592769bc017"}       Tests  1 passed (1) exit=0 ; 2026-10-01 21:44:10 CDT
+smoke-o-diag: S7 decide-diag {"seed":"p13a-core-causal-01","weeks":20,"tree":"old","rows":8,"ms":1147,"stateAtEndSha256":"69ed39b0bbad06b23e84823d1dc85d1c4a08acd4b0abcffc7125f272d876f468"}       Tests  1 passed (1) exit=0 ; 2026-10-01 21:44:16 CDT
+smoke-c-po:       Tests  1 passed (1) exit=0 ; 2026-10-01 21:44:21 CDT
+smoke-o-po:       Tests  1 passed (1) exit=0 ; 2026-10-01 21:44:28 CDT
+step 5 done: four smoke comparisons equal; 2026-10-01 21:44:28 CDT
+c-p13a-1: S7 natural-route {"seed":"p13a-core-causal-01","weeks":520,"tree":"candidate","ms":33746,"finalStateSha256":"4e9c0d75eb7559b702fbfc2d106b68d80ac9d1558a9c4dc11b6cb41505af9dcb","shelvings":14,"integrity":0}       Tests  1 passed (1) exit=0 ; 2026-10-01 21:45:06 CDT
+c-p13a-2: S7 natural-route {"seed":"p13a-core-causal-01","weeks":520,"tree":"candidate","ms":30754,"finalStateSha256":"4e9c0d75eb7559b702fbfc2d106b68d80ac9d1558a9c4dc11b6cb41505af9dcb","shelvings":14,"integrity":0}       Tests  1 passed (1) exit=0 ; 2026-10-01 21:45:42 CDT
+o-p13a: S7 natural-route {"seed":"p13a-core-causal-01","weeks":520,"tree":"old","ms":24742,"finalStateSha256":"bdd7587d2508b830be9b6daca351ccb93f0142039d36ef9ccbf00279c8be2a87","shelvings":0,"integrity":0}       Tests  1 passed (1) exit=0 ; 2026-10-01 21:46:11 CDT
+c-seedb: S7 natural-route {"seed":"seed-b","weeks":520,"tree":"candidate","ms":46503,"finalStateSha256":"759943bd8c3794c0068eb332218adbed0f37b45333ffe59208f52e4782df8fd1","shelvings":60,"integrity":0}       Tests  1 passed (1) exit=0 ; 2026-10-01 21:47:01 CDT
+o-seedb: S7 natural-route {"seed":"seed-b","weeks":520,"tree":"old","ms":37677,"finalStateSha256":"b4c0cc675b5e2ffddb2c6791b114d0e011ad64677b5e39095e746ef8676283be","shelvings":0,"integrity":0}       Tests  1 passed (1) exit=0 ; 2026-10-01 21:47:43 CDT
+c-ledger-p13b: S7 natural-route {"seed":"p13b-s8-bridge-probe-01","weeks":520,"tree":"candidate","ms":45422,"finalStateSha256":"e8f534bbbfba85add4ed233516c7c79dcd558f71e4e05b5d5a3003493b4565ef","shelvings":6,"integrity":0}       Tests  1 passed (1) exit=0 ; 2026-10-01 21:48:32 CDT
+o-ledger-p13b: S7 natural-route {"seed":"p13b-s8-bridge-probe-01","weeks":520,"tree":"old","ms":45656,"finalStateSha256":"c44d36f3194a46416085e35295291d746b26842c2d2cd234d707335d873eb409","shelvings":0,"integrity":0}       Tests  1 passed (1) exit=0 ; 2026-10-01 21:49:23 CDT
+c-ledger-p13pub: S7 natural-route {"seed":"p13-public-commercial-adoption","weeks":520,"tree":"candidate","ms":39038,"finalStateSha256":"4db7734b37e4e5b309099861739a6c5e6bf1c90ba7501391103f46b2676b274b","shelvings":22,"integrity":0}       Tests  1 passed (1) exit=0 ; 2026-10-01 21:50:06 CDT
+o-ledger-p13pub: S7 natural-route {"seed":"p13-public-commercial-adoption","weeks":520,"tree":"old","ms":38176,"finalStateSha256":"95a8677749fea9844d5483a34d7b97cbb3523c831eb702744e481ca6add52dfb","shelvings":0,"integrity":0}       Tests  1 passed (1) exit=0 ; 2026-10-01 21:50:48 CDT
+step 6 done; 2026-10-01 21:50:48 CDT
+c-diag: S7 decide-diag {"seed":"p13a-core-causal-01","weeks":520,"tree":"candidate","rows":1172,"ms":9018,"stateAtEndSha256":"4e9c0d75eb7559b702fbfc2d106b68d80ac9d1558a9c4dc11b6cb41505af9dcb"}       Tests  1 passed (1) exit=0 ; 2026-10-01 21:51:02 CDT
+o-diag: S7 decide-diag {"seed":"p13a-core-causal-01","weeks":216,"tree":"old","rows":756,"ms":7856,"stateAtEndSha256":"4355f96423dc6805bf502d103806bcf1a6d2d9ec15f4120c33397bb516438eeb"}       Tests  1 passed (1) exit=0 ; 2026-10-01 21:51:15 CDT
+step 7 done; 2026-10-01 21:51:15 CDT
+c-player-only:       Tests  1 passed (1) exit=0 ; 2026-10-01 21:51:23 CDT
+o-player-only:       Tests  1 passed (1) exit=0 ; 2026-10-01 21:51:30 CDT
+step 8 done; 2026-10-01 21:51:30 CDT
+status /Users/zacheryspector/studio-scratch/1344-s7/tree: [ ]
+status /Users/zacheryspector/studio-scratch/1344-s7/old-tree: [ ]
+step 9 done; 2026-10-01 21:51:30 CDT
+anchor naturalChain_old_vs_1329: EQUAL
+anchor rivalEconomy_old_first31_vs_1329: EQUAL
+anchor decideDiag_old_vs_1329: EQUAL
+anchor decideDiag_candidate_unperturbed: EQUAL
+p13a-core-causal-01: first different tick 94, first shelving {'week': 93, 'studioId': 'studio-aca408ec-r01', 'screenplay': 'script-0006'}, is that tick True, accounts {'r01': 'EQUAL', 'r02': 'EQUAL', 'r03': 'EQUAL', 'r04': 'EQUAL'}, movements 56 (before the first shelving: 0)
+seed-b: first different tick 196, first shelving {'week': 195, 'studioId': 'studio-bc14baf6-r04', 'screenplay': 'script-0019'}, is that tick True, accounts {'r01': 'EQUAL', 'r02': 'EQUAL', 'r03': 'EQUAL', 'r04': 'EQUAL'}, movements 108 (before the first shelving: 0)
+p13b-s8-bridge-probe-01: first different tick 429, first shelving {'week': 428, 'studioId': 'studio-efb645e3-r04', 'screenplay': 'script-0044'}, is that tick True, accounts {'r01': 'EQUAL', 'r02': 'EQUAL', 'r03': 'EQUAL', 'r04': 'EQUAL'}, movements 6 (before the first shelving: 0)
+p13-public-commercial-adoption: first different tick 119, first shelving {'week': 118, 'studioId': 'studio-5a47d054-r04', 'screenplay': 'script-0011'}, is that tick True, accounts {'r01': 'EQUAL', 'r02': 'EQUAL', 'r03': 'EQUAL', 'r04': 'EQUAL'}, movements 61 (before the first shelving: 0)
+wrote /Users/zacheryspector/studio-scratch/1344-s7/out/compare.json
+compare.py exit 0; 2026-10-01 21:51:30 CDT
+control a_test3_head_equality: PASS
+control b_player_only_saves: PASS
+control c_no_refund_or_ledger_movement_at_shelving: PASS
+control d_determinism_two_runs: PASS
+wrote /Users/zacheryspector/studio-scratch/1344-s7/out/controls.json
+check.py exit 0; 2026-10-01 21:51:30 CDT
+{"FAILED": 50} others=6 wrote /Users/zacheryspector/studio-scratch/1344-s7/out/c8/worksheet.md
+worksheet.py exit 0; 2026-10-01 21:51:30 CDT
+end; 2026-10-01 21:51:30 CDT

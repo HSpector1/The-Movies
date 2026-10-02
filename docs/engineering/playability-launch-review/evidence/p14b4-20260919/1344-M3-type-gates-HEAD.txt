@@ -1,0 +1,8 @@
+HEAD 85764cd5b5711ea12b80f19f7492f4844ce30d41
+== tsconfig.json
+exit 0
+== ui/tsconfig.json
+exit 0
+== tsconfig.bridge.json
+exit 0
+status: []

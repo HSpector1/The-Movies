@@ -1,0 +1,15 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1344-s7/old-tree
+
+stdout | tests/zz-s7-decide-diag.test.ts > s7 decide diag
+S7 decide-diag {"seed":"p13a-core-causal-01","weeks":216,"tree":"old","rows":756,"ms":7856,"stateAtEndSha256":"4355f96423dc6805bf502d103806bcf1a6d2d9ec15f4120c33397bb516438eeb"}
+
+ ✓ |core| tests/zz-s7-decide-diag.test.ts (1 test) 7861ms
+   ✓ s7 decide diag 7860ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  21:51:02
+   Duration  12.24s (transform 2.73s, setup 0ms, collect 3.68s, tests 7.86s, environment 1ms, prepare 121ms)
+
+exit=0

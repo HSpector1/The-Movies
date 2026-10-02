@@ -1,6 +1,7 @@
 """1344-M3: read the recorded gates' comparisons against the 1344-N success line (1344-N:80-82, as 1344-F6 §3 reads it).
 usage (repo root): python3 1344-M3-check.py <core-vs1338.json> <ui-vs1343.json> <out.json>
-Expected sets come from the x3 dry run (1344-X9), whose tree equals the applied one except the HYGIENE comments:
+Expected sets come from the x3 dry run (1344-X9). The applied tree differs from x3's in three test files (two HYGIENE
+comments, and the S9 regexes in p14c3-transitions, which passes in both trees; 1344-J3 defect 1):
 - core GONE: the exporter row only; SAME plus CHANGED: x3's 78 retained identities;
 - core CHANGED: x3's CHANGED rows without a scratch path (four S10 rows, the C20 row), each with x3's primary;
   x3's six C17 rows carried the scratch path, so in the repo they are SAME;

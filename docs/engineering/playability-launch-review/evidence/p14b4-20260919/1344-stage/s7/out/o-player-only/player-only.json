@@ -1,0 +1,22 @@
+{
+ "tree": "old",
+ "weeks": 52,
+ "routes": [
+  {
+   "route": "Oracle",
+   "seed": "replay-bcast-Oracle",
+   "hollywoodNullEveryWeek": true,
+   "liveSaveVersion": 42,
+   "liveExportSha256": "178979983ef036f859063ff9512a37c088ea95b1e5090b71010b57a788c88c53",
+   "liveDiffersFromV42OnlyInVersionStamp": null
+  },
+  {
+   "route": "Random",
+   "seed": "replay-bcast-Random",
+   "hollywoodNullEveryWeek": true,
+   "liveSaveVersion": 42,
+   "liveExportSha256": "5761f1e560ad5f885dbbb3a30c0aad693d684bf959da071a7113bebdb3cb3a0e",
+   "liveDiffersFromV42OnlyInVersionStamp": null
+  }
+ ]
+}
