@@ -7,7 +7,7 @@
 // `p15DomainSequence` (1355-F2 item 2); `p15Rows` finds them without knowing a root's shape.
 
 /** The top-level P15 root keys. Each later P15 RED adds its root key here at its landing. */
-export const P15_ROOTS: readonly string[] = ['p15Sequence', 'powerRanking', 'sharedMarket']
+export const P15_ROOTS: readonly string[] = ['p15Sequence', 'powerRanking', 'sharedMarket', 'campaignLegacy']
 
 /** The state without its P15 roots: exactly the keys in `P15_ROOTS` dropped, every other key kept. */
 export function stripP15(state: object): Record<string, unknown> {

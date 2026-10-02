@@ -8,7 +8,7 @@
 // below). 1353-B/1353-B2 raised no objection to Wave R's scope or method.
 // 1353-D's review and 1353-F3's response (1353-C3) raised the GUARD_TIMEOUT_MS
 // budget from 120_000 to 180_000 with both measurements stated below; no other
-// change to this file. The six guards themselves, their fixtures and their
+// change to this file. The six original guards themselves, their fixtures and their
 // injection proofs are otherwise unchanged from 1353-C/1353-C2.
 //
 // THESE GUARDS PASS AT RED BY DESIGN (classify 'control-passes' in the
@@ -50,13 +50,12 @@
 // every one of the 150 ticks between W1 and W2 regardless.
 //
 // The campaign is computed ONCE and memoized (module-level cached Promise),
-// shared by all six guards below, exactly as tests/p15a2-power-ranking-harness
-// .test.ts memoizes its own fixture rows. Every one of the six `it()`s below
-// `await campaignRun()` as its first statement, so the vitest per-test timeout
-// wraps the full campaign build on whichever guard runs first (the memoized
-// `Promise` is what makes the other five near-instant, not a bypass of the
-// timeout) -- the budget genuinely can fire if the build is slow, it is not
-// a number that can never be reached.
+// shared by all seven guards below, exactly as tests/p15a2-power-ranking-harness
+// .test.ts memoizes its own fixture rows. Every one of the seven `it()`s below
+// `await campaignRun()` as its first statement, so whichever guard runs first
+// pays the full campaign build (the memoized `Promise` makes the other six
+// near-instant). 1359-D item 2 found that the per-test timeout cannot fire on
+// that build; BUDGET below replaces it with a self-timed budget.
 //
 // 1353-D / 1353-F3: two real measurements set the budget. The real full-suite
 // run of all 6 leaves in one process (which pays the campaign-build cost
@@ -69,9 +68,24 @@
 // not the 90.4s figure alone: if CI hardware is slower or more contended than
 // the authoring sandbox, the margin at 120_000 was thinner than the headline
 // 90.4s suggested.
+//
+// 1359-F Amendment 2 (record 1359-C, P15C Wave 2 RED): a seventh guard,
+// `wave-r-retention-player-concepts`, covers `state.concepts`, the root the Wave 2
+// adapter reads a player film's genre from (1359-A §3.1). It reuses the memoized
+// campaign above and passes at RED by design, like the other six (CONTROL).
+//
+// BUDGET (1359-F2 item 2; 1359-D item 2). The campaign build is synchronous: `campaignRun()`'s
+// async body has no await, so it runs inside the first guard's call before vitest 2.1.9 arms that
+// guard's timer (@vitest/runner `withTimeout` races the timer only after `fn()` returns).
+// GUARD_TIMEOUT_MS therefore cannot fire. Each guard now times its own body and asserts it against
+// GUARD_BUDGET_MS, 300 s. MEASURED single-file, the first guard paying the campaign: 67.3 s at RED and
+// 74.0 s at the reference (1359-X); 51,084 ms at RED and 51,550 ms at the reference (1359-X2, Node
+// v22.23.2). Both 1353-F3 measurements (90.4 s full-suite, 189.9 s isolated under load) also sit below
+// it. The rule: 1359-F3 keeps 300 s, and 1359-F4 sets it with the other P15C budgets. Test-only change.
 
 import { describe, expect, it } from 'vitest'
 import { initializeHollywood } from '../src/core/hollywood.js'
+import { stableStringify } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import {
   foundRosterWallStudio,
@@ -86,7 +100,19 @@ const SEED = '1353-wave-r-seed-01'
 const POLICY: RosterWallOperatingPolicyId = 'direct-package'
 const W1 = 300
 const W2 = 450
-const GUARD_TIMEOUT_MS = 180_000 // see header: 90.4s full-suite / up to 189.9s isolated-under-load measurements
+const GUARD_TIMEOUT_MS = 180_000 // see header: 90.4s full-suite / up to 189.9s isolated-under-load measurements; cannot fire (BUDGET)
+const GUARD_BUDGET_MS = 300_000 // 1359-F2 item 2; 1359-F4: see BUDGET in the header
+
+/** Times a guard's own body, the memoized campaign build included when it runs first or alone. */
+function budgeted(body: () => Promise<void>): () => Promise<void> {
+  return async () => {
+    const started = performance.now()
+    await body()
+    const ms = performance.now() - started
+    expect(ms, `elapsed ${Math.round(ms)} ms against the ${GUARD_BUDGET_MS} ms budget`)
+      .toBeLessThanOrEqual(GUARD_BUDGET_MS)
+  }
+}
 
 type Snapshot = { w1: GameState; w2: GameState }
 
@@ -129,7 +155,7 @@ describe('p15c wave R: retention guards over the six named roots (1353-A §4 row
   // law would read on an unengaged/M0A save, so still protected here).
   it(
     'wave-r-retention-studio-released-films',
-    async () => {
+    budgeted(async () => {
       const { w1, w2 } = await campaignRun()
       expect(w1.studio.releasedFilms.length).toBeGreaterThan(0)
       const w2ById = byId(w2.studio.releasedFilms, (f) => f.productionId)
@@ -141,7 +167,7 @@ describe('p15c wave R: retention guards over the six named roots (1353-A §4 row
         expect(later.boxOffice.total).toBe(row.boxOffice.total)
         expect(later.conceptId).toBe(row.conceptId)
       }
-    },
+    }),
     GUARD_TIMEOUT_MS,
   )
 
@@ -165,7 +191,7 @@ describe('p15c wave R: retention guards over the six named roots (1353-A §4 row
   // depends on their stability and this guard does not assert on them.
   it(
     'wave-r-retention-hollywood-films',
-    async () => {
+    budgeted(async () => {
       const { w1, w2 } = await campaignRun()
       const w1Films: IndustryFilm[] = w1.hollywood!.films
       const w2Films: IndustryFilm[] = w2.hollywood!.films
@@ -196,7 +222,7 @@ describe('p15c wave R: retention guards over the six named roots (1353-A §4 row
           }
         }
       }
-    },
+    }),
     GUARD_TIMEOUT_MS,
   )
 
@@ -218,7 +244,7 @@ describe('p15c wave R: retention guards over the six named roots (1353-A §4 row
   // v1 archetype/lens's read set per §5.3/§5.4 and are not asserted here.
   it(
     'wave-r-retention-player-career-events',
-    async () => {
+    budgeted(async () => {
       const { w1, w2 } = await campaignRun()
       expect(w1.careerEvents.length).toBeGreaterThan(0)
       const w2ById = byId(w2.careerEvents, (e) => e.eventId)
@@ -231,7 +257,7 @@ describe('p15c wave R: retention guards over the six named roots (1353-A §4 row
         expect(later.genre).toBe(row.genre)
         expect(later.audienceScore).toBe(row.audienceScore)
       }
-    },
+    }),
     GUARD_TIMEOUT_MS,
   )
 
@@ -241,7 +267,7 @@ describe('p15c wave R: retention guards over the six named roots (1353-A §4 row
   // six per live rival film, so this root is dense from very early on).
   it(
     'wave-r-retention-hollywood-career-events',
-    async () => {
+    budgeted(async () => {
       const { w1, w2 } = await campaignRun()
       const w1Events: TalentCareerEvent[] = w1.hollywood!.careerEvents
       const w2Events: TalentCareerEvent[] = w2.hollywood!.careerEvents
@@ -256,7 +282,7 @@ describe('p15c wave R: retention guards over the six named roots (1353-A §4 row
         expect(later.genre).toBe(row.genre)
         expect(later.audienceScore).toBe(row.audienceScore)
       }
-    },
+    }),
     GUARD_TIMEOUT_MS,
   )
 
@@ -274,7 +300,7 @@ describe('p15c wave R: retention guards over the six named roots (1353-A §4 row
   // above.
   it(
     'wave-r-retention-theatrical-runs',
-    async () => {
+    budgeted(async () => {
       const { w1, w2 } = await campaignRun()
       const w1Runs: TheatricalRun[] = w1.theatricalRuns
       const w2Runs: TheatricalRun[] = w2.theatricalRuns
@@ -293,7 +319,7 @@ describe('p15c wave R: retention guards over the six named roots (1353-A §4 row
           expect(later.status).toBe(row.status)
         }
       }
-    },
+    }),
     GUARD_TIMEOUT_MS,
   )
 
@@ -308,7 +334,7 @@ describe('p15c wave R: retention guards over the six named roots (1353-A §4 row
   // asserted.
   it(
     'wave-r-retention-technology-adoptions',
-    async () => {
+    budgeted(async () => {
       const { w1, w2 } = await campaignRun()
       const w1Adoptions: TechnologyAdoption[] = w1.technology.adoptions
       const w2Adoptions: TechnologyAdoption[] = w2.technology.adoptions
@@ -322,7 +348,32 @@ describe('p15c wave R: retention guards over the six named roots (1353-A §4 row
         expect(later.operationalWeek).toBe(row.operationalWeek)
         expect(later.cancelledWeek).toBe(row.cancelledWeek)
       }
-    },
+    }),
+    GUARD_TIMEOUT_MS,
+  )
+
+  // ── 7. state.concepts (player) — 1359-F Amendment 2 ─────────────────────
+  // The Wave 2 adapter reads a player film's genre from the concept its
+  // `conceptId` names in `state.concepts` (1359-A §3.1), and refuses by name
+  // when that concept is gone. No writer prunes the root today; this guard
+  // keeps it so: every concept a W1 player film reads survives to W2,
+  // byte-equal. (`renameScreenplay` may retitle a concept; this campaign's
+  // policy never calls it.)
+  it(
+    'wave-r-retention-player-concepts',
+    budgeted(async () => {
+      const { w1, w2 } = await campaignRun()
+      expect(w1.studio.releasedFilms.length).toBeGreaterThan(0)
+      const w1ById = byId(w1.concepts, (c) => c.id)
+      const w2ById = byId(w2.concepts, (c) => c.id)
+      for (const film of w1.studio.releasedFilms) {
+        const row = w1ById.get(film.conceptId)
+        if (!row) throw new Error(`premise: player film ${film.productionId} reads concept ${film.conceptId}, absent at W1=${W1}`)
+        const later = w2ById.get(film.conceptId)
+        if (!later) throw new Error(`RED: concept ${film.conceptId} read by player film ${film.productionId} at W1=${W1} is gone at W2=${W2}`)
+        expect(stableStringify(later), film.conceptId).toBe(stableStringify(row))
+      }
+    }),
     GUARD_TIMEOUT_MS,
   )
 })

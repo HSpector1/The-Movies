@@ -1,4 +1,4 @@
-// ── P15C Wave 1 — the pure Legacy law `campaign-legacy/v1`, RED tests (record 1353-C, revision 1353-C4/r4) ──
+// ── P15C Wave 1 — the pure Legacy law `campaign-legacy/v2`, RED tests (record 1353-C, revision 1353-C4/r4; v2 values: 1359-C6) ──
 //
 // r4 (1353-C4, per 1353-F4's rulings on the production handback 1353-E):
 // (D1) LegacyFacts gains a required top-level `baseMarketValue`, supplied in
@@ -308,14 +308,14 @@ function lens(manifest: any, studioId: string, lensId: string): any {
   return result
 }
 
-// §5.5 TUNING values, restated here (never imported from production — none
-// exists yet); used to derive every fixture's expected outcome by hand.
-const LEGACY_CRITIC_ACCLAIM_MIN = 70
+// 1353-A §5.5's TUNING values as retuned by 1353-T and 1353-F6 (critic 60, hit line 49, share floor 20),
+// restated here (never imported from production); used to derive every fixture's expected outcome by hand.
+const LEGACY_CRITIC_ACCLAIM_MIN = 60
 const LEGACY_CRITIC_PAN_BELOW = 35
 const LEGACY_AUDIENCE_LIKED_MIN = 57
 const LEGACY_MIN_FILMS = 5
-const LEGACY_MIN_SHARE_PERCENT = 25
-const LEGACY_HIT_REACH_PERCENT = 90
+const LEGACY_MIN_SHARE_PERCENT = 20
+const LEGACY_HIT_REACH_PERCENT = 49
 const LEGACY_FLOP_REACH_PERCENT = 30
 const LEGACY_AUDIENCE_MIN_DECADES = 4
 const LEGACY_DECADE_MIN_RELEASES = 2
@@ -333,7 +333,7 @@ const BMV = 1_000_000 // baseMarketValue, an arbitrary but fixed fixture constan
 describe('p15c1 campaign legacy: module surface (1353-A §5.1/§5.2, PARENT API DECISIONS)', () => {
   it('campaign-legacy-definition-version-export', async () => {
     const mod = await loadCampaignLegacy()
-    expect(requireValue(mod, 'CAMPAIGN_LEGACY_DEFINITION')).toBe('campaign-legacy/v1')
+    expect(requireValue(mod, 'CAMPAIGN_LEGACY_DEFINITION')).toBe('campaign-legacy/v2')
   })
 
   it('legacy-boundary-week', async () => {
@@ -379,7 +379,7 @@ describe('p15c1 campaign legacy: the boundary cut (1353-A §5.1, RED 2)', () => 
   it('legacy-boundary-cut-film-before-and-at-b', async () => {
     // A film released at B-1=6239 is inside; one released AT B=6240 is outside
     // (1353-A §5.1: "A fact is inside when its effective week is below B").
-    // Both films are acclaimed (critic 80 >= LEGACY_CRITIC_ACCLAIM_MIN=70), so
+    // Both films are acclaimed (critic 70 >= LEGACY_CRITIC_ACCLAIM_MIN=60), so
     // artistic-voice's qualifyingCount directly observes whether the cut ran:
     // 1 if F-OUT was correctly excluded from n entirely, 2 if the cut leaked.
     const mod = await loadCampaignLegacy()
@@ -578,7 +578,7 @@ describe('p15c1 campaign legacy: archetype edges (1353-A §8 item 4)', () => {
   })
 
   it('legacy-archetype-edges-commercial-engine-min-films-n-minus-1-vs-n', async () => {
-    // LEGACY_MIN_FILMS=5 (h, the hit count). S-N1: h=4 settled hits (95% BMV
+    // LEGACY_MIN_FILMS=5 (h, the hit count). S-N1: h=4 settled hits (54% BMV
     // each) -> h<5, notHeld even though share (100*4/4=100%) is fine. S-N: h=5 -> held.
     const mod = await loadCampaignLegacy()
     const buildLegacyManifest = requireFn<(facts: LegacyFacts, kind: 'official2040' | 'endOfRun') => any>(
@@ -626,8 +626,8 @@ describe('p15c1 campaign legacy: archetype edges (1353-A §8 item 4)', () => {
 
   it('legacy-archetype-edges-artistic-voice-share-exactly-at-threshold', async () => {
     // a=5 acclaimed (critic 90) + padding non-acclaimed (critic 50) releases.
-    // S-EXACT: n=20 -> 100*5=500 = 25*20=500 (exact equality) -> held.
-    // S-BELOW: n=21 -> 100*5=500 < 25*21=525 -> notHeld (one padding film more).
+    // S-EXACT: n=25 -> 100*5=500 = 20*25=500 (exact equality) -> held.
+    // S-BELOW: n=26 -> 100*5=500 < 20*26=520 -> notHeld (one padding film more).
     const mod = await loadCampaignLegacy()
     const buildLegacyManifest = requireFn<(facts: LegacyFacts, kind: 'official2040' | 'endOfRun') => any>(
       mod, 'buildLegacyManifest',
@@ -640,7 +640,7 @@ describe('p15c1 campaign legacy: archetype edges (1353-A §8 item 4)', () => {
       return [...acclaimed, ...pad]
     }
     // n at exact equality: 100*LEGACY_MIN_FILMS = LEGACY_MIN_SHARE_PERCENT*n
-    // -> n = 100*LEGACY_MIN_FILMS/LEGACY_MIN_SHARE_PERCENT = 100*5/25 = 20.
+    // -> n = 100*LEGACY_MIN_FILMS/LEGACY_MIN_SHARE_PERCENT = 100*5/20 = 25.
     const nExact = (100 * LEGACY_MIN_FILMS) / LEGACY_MIN_SHARE_PERCENT
     const facts = baseFacts({
       studios: [studioFact({ studioId: 'S-EXACT' }), studioFact({ studioId: 'S-BELOW' })],
@@ -875,7 +875,7 @@ describe('p15c1 campaign legacy: notRecorded vs notHeld (1353-A §8 item 5)', ()
 // excluded: it is never evaluated in v1). 10 campaign releases across exactly
 // LEGACY_AUDIENCE_MIN_DECADES=4 calendar decades (weeks chosen so
 // floor((1920+floor(week/52))/10) lands in four distinct decade blocks), all
-// acclaimed (critic 90) and hits (95% BMV, settled); 8 comedy + 2 drama (a
+// acclaimed (critic 90) and hits (54% BMV, settled); 8 comedy + 2 drama (a
 // genre-specialist majority); one on-time technology-pioneer adoption; three
 // people (P1/P2/P3) each credited on all 10 films (talent-foundry); one
 // distress -> recovery -> stable condition sequence with no closure
@@ -1891,12 +1891,12 @@ describe('p15c1 campaign legacy: postFinaleMode inert (1353-A §8 item 16, §6)'
 describe('p15c1 campaign legacy: TUNING bounded terms (1353-A §5.5, RED 17)', () => {
   it('tuning-legacy-bounded-terms', () => {
     const t = TUNING as unknown as Record<string, unknown>
-    expect(t.LEGACY_CRITIC_ACCLAIM_MIN).toBe(70)
+    expect(t.LEGACY_CRITIC_ACCLAIM_MIN).toBe(60)
     expect(t.LEGACY_CRITIC_PAN_BELOW).toBe(35)
     expect(t.LEGACY_AUDIENCE_LIKED_MIN).toBe(57)
     expect(t.LEGACY_MIN_FILMS).toBe(5)
-    expect(t.LEGACY_MIN_SHARE_PERCENT).toBe(25)
-    expect(t.LEGACY_HIT_REACH_PERCENT).toBe(90)
+    expect(t.LEGACY_MIN_SHARE_PERCENT).toBe(20)
+    expect(t.LEGACY_HIT_REACH_PERCENT).toBe(49)
     expect(t.LEGACY_FLOP_REACH_PERCENT).toBe(30)
     expect(t.LEGACY_AUDIENCE_MIN_DECADES).toBe(4)
     expect(t.LEGACY_DECADE_MIN_RELEASES).toBe(2)
