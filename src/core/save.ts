@@ -8,6 +8,7 @@ import { initializeHollywood } from './hollywood.js'
 import { validateHollywood } from './hollywoodValidation.js'
 import { validatePowerRankingArchive } from './powerRankingArchive.js'
 import { initialP15Sequence } from './p15Phases.js'
+import { initialSharedMarket, validateSharedMarketRoot } from './marketIntegration.js'
 import { RIVAL_RESEARCH_MONEY_KINDS } from './hollywood.js'
 import { RIVAL_RESEARCH_RECEIPT_KINDS } from './hollywoodTypes.js'
 import type { HollywoodState, RivalFinancePeriod } from './hollywoodTypes.js'
@@ -10859,15 +10860,15 @@ export function migrateToV44(save: SaveFile | { saveVersion: number }): SaveFile
 
 // The shared P15 save step, Save45 (1360-F ruling 1; 1361-F rulings 3 to 5). Slice 2a creates it
 // with two top-level roots: the quarterly Power Ranking archive `powerRanking` (1356-A §5) and the
-// one P15 allocator `p15Sequence` (1355-F2 item 1). Each root keeps its own validator, migration
-// and refusal (1355-F Amendment 4). P15A.1 adds `sharedMarket` and P15C adds `campaignLegacy`, each
-// with one entry in P15StepRoots (types.ts), P15_ROOT_KEYS, P15_SEQUENCED_ROOTS,
-// P15_DOWNGRADE_REFUSALS, initialP15Roots and validateSaveV45.
+// one P15 allocator `p15Sequence` (1355-F2 item 1). P15A.1 Wave 2 adds the shared-market root
+// `sharedMarket` (1355-A §3.3). Each root keeps its own validator, migration and refusal (1355-F
+// Amendment 4). P15C adds `campaignLegacy` with one entry in P15StepRoots (types.ts),
+// P15_ROOT_KEYS, P15_SEQUENCED_ROOTS, P15_DOWNGRADE_REFUSALS, initialP15Roots and validateSaveV45.
 
 /** The step's own top-level roots, a subset of the four keys `tests/helpers/p15-roots.ts` lists for
  * every P15 RED. The `satisfies` clause ties the literal to P15StepRoots: a root missing here, or a
  * key the type lacks, fails the type gate, so no root can miss the strips (1361-F3 R1). */
-const P15_ROOT_KEYS: readonly string[] = Object.keys({ p15Sequence: true, powerRanking: true } satisfies Record<keyof P15StepRoots, true>);
+const P15_ROOT_KEYS: readonly string[] = Object.keys({ p15Sequence: true, powerRanking: true, sharedMarket: true } satisfies Record<keyof P15StepRoots, true>);
 
 /** The state without the step's roots, every other key kept in its order. */
 function stripP15Roots(raw: object): Record<string, unknown> {
@@ -10877,13 +10878,16 @@ function stripP15Roots(raw: object): Record<string, unknown> {
 /** The step's roots as a fresh world, a migration and a historical control's lift write them:
  * nothing recorded, recording from `week`, the allocator at 1 (1355-F2 item 6). */
 export function initialP15Roots(week: number): P15StepRoots {
-  return { powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] }, p15Sequence: initialP15Sequence() };
+  return { powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] }, p15Sequence: initialP15Sequence(),
+    sharedMarket: initialSharedMarket(week) };
 }
 
 /** The downgrade refusals, in the ruled order sharedMarket, powerRanking, campaignLegacy (1361-F
- * ruling 4): P15A.1 puts its entry first and P15C appends its own. Each reads an unvalidated
- * state, because the frozen builders ask too, and returns null for an empty or absent root. */
+ * ruling 4): P15C appends its own. Each reads an unvalidated state, because the frozen builders ask
+ * too, and returns null for an empty or absent root. */
 const P15_DOWNGRADE_REFUSALS: readonly ((state: Record<string, unknown>) => string | null)[] = [
+  (state) => isRecord(state.sharedMarket) && Array.isArray(state.sharedMarket.assessments) && state.sharedMarket.assessments.length > 0
+    ? `cannot downgrade or discard a recorded shared-market assessment (${state.sharedMarket.assessments.length} recorded)` : null,
   (state) => isRecord(state.powerRanking) && Array.isArray(state.powerRanking.snapshots) && state.powerRanking.snapshots.length > 0
     ? 'cannot downgrade or discard a recorded Power Ranking quarter' : null,
 ];
@@ -10896,13 +10900,13 @@ function p15DowngradeRefusal(state: object): string | null {
 }
 
 /**
- * Every Save45 root whose rows draw from the allocator (1361-F ruling 5). P15A.1 adds `sharedMarket`
- * and P15C adds `campaignLegacy`. P15B's `corporateCondition` never joins this list or P15_ROOT_KEYS
- * (1361-F3 ruling 2): P15B's later step keeps its root out of both, has its frozen `validateSaveV45`
- * call skip this check by an era flag (the Save43 pattern at validateSaveV42Era) or a roots
- * parameter, and runs the one check itself over every root, its own included.
+ * Every Save45 root whose rows draw from the allocator (1361-F ruling 5). P15C adds `campaignLegacy`.
+ * P15B's `corporateCondition` never joins this list or P15_ROOT_KEYS (1361-F3 ruling 2): P15B's
+ * later step keeps its root out of both, has its frozen `validateSaveV45` call skip this check by an
+ * era flag (the Save43 pattern at validateSaveV42Era) or a roots parameter, and runs the one check
+ * itself over every root, its own included.
  */
-const P15_SEQUENCED_ROOTS: readonly string[] = ['powerRanking'];
+const P15_SEQUENCED_ROOTS: readonly string[] = ['sharedMarket', 'powerRanking'];
 
 /** Every value stored under `p15DomainSequence` inside `node`, at any depth. A lawful P15 native row
  * carries a number there, the reading `tests/helpers/p15-roots.ts` uses; any other value is
@@ -10960,6 +10964,7 @@ export function validateSaveV45(save: unknown): SaveFileV45 {
   }
   validateSaveV44({ ...save, saveVersion: 44, state: stripP15Roots(raw) });
   validatePowerRankingArchive(raw);
+  validateSharedMarketRoot(raw, 'validateSaveV45');
   validateP15Allocator(raw, 'validateSaveV45');
   return save as SaveFileV45;
 }

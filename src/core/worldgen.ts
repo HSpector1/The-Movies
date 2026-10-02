@@ -816,7 +816,8 @@ export function generateWorld(seed: string, options?: GenerateWorldOptions): Gam
     // P14C.2a: a fresh world has announced no retirement; the root records from week 0.
     careerLifecycle: initialCareerLifecycle(0, people),
     // P15A.2 slice 2a (1356-A §5; 1355-F2 item 1): a fresh world records Power Ranking quarters
-    // from week 0, and the one P15 allocator starts at 1.
+    // from week 0, and the one P15 allocator starts at 1. P15A.1 Wave 2 (1355-A §3.5): the shared
+    // market records from week 0 too.
     ...initialP15Roots(0),
   }
 }

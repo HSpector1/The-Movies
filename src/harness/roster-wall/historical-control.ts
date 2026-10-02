@@ -52,13 +52,15 @@ export function liftV18Control(state:GameStateV18):GameState { const cloned=stru
   // engages and nobody announces — the empty root, exactly what the real lift writes.
   // P14C.4 (Save V35): nor does any cohort enter — the live opener carries `cohorts: []`.
   careerLifecycle:initialCareerLifecycle(state.market.tick, people),
-  // P15 (Save V45): a control has no industry, so it records no Power Ranking quarter and
-  // allocates no P15 row: the empty roots at the lift week, exactly what the real lift writes.
+  // P15 (Save V45): a control has no industry, so it records no Power Ranking quarter, assesses
+  // no release and allocates no P15 row: the empty roots at the lift week, exactly what the real
+  // lift writes.
   ...initialP15Roots(state.market.tick)} }
 export function historicalHashState<T extends object>(state:T):object {
   if(!('technology' in state) && !('hollywood' in state) && !('physicalPlans' in state) && !('talentMarket' in state)
     && !('firstTakes' in state) && !('promises' in state) && !('relationships' in state) && !('talentProvenance' in state)
-    && !('careerLifecycle' in state) && !('firstTakeSubjects' in state) && !('powerRanking' in state) && !('p15Sequence' in state))return state
+    && !('careerLifecycle' in state) && !('firstTakeSubjects' in state) && !('powerRanking' in state) && !('p15Sequence' in state)
+    && !('sharedMarket' in state))return state
   if('hollywood' in state && state.hollywood!==null)throw new Error('Historical hash cannot discard a living industry')
   // P14B.1: the control records no qualifying event and no commitment; an empty
   // pair of roots is the only lawful shape to discard. P14B.5: nor any edge.
@@ -110,15 +112,17 @@ export function historicalHashState<T extends object>(state:T):object {
     // empty too, or the entrants they describe would stay in `talent` unexplained.
     if (((state as Partial<GameState>).careerLifecycle?.cohorts?.length ?? 0) !== 0) throw new Error('Historical hash cannot discard cohort receipt authority')
   }
-  if ('powerRanking' in state || 'p15Sequence' in state) {
-    // P15 (Save V45). A control has no industry, so it records no Power Ranking quarter and its P15
-    // allocator never moves: only the empty archive and the allocator at 1 are lawful to discard.
+  if ('powerRanking' in state || 'p15Sequence' in state || 'sharedMarket' in state) {
+    // P15 (Save V45). A control has no industry, so it records no Power Ranking quarter, assesses no
+    // release and its P15 allocator never moves: only the empty roots and the allocator at 1 are
+    // lawful to discard.
     const p15 = state as Partial<GameState>
-    if ((p15.powerRanking?.snapshots.length ?? 0) !== 0 || (p15.p15Sequence?.next ?? 1) !== 1) throw new Error('Historical hash cannot discard P15 authority')
+    if ((p15.powerRanking?.snapshots.length ?? 0) !== 0 || (p15.sharedMarket?.assessments.length ?? 0) !== 0
+      || (p15.p15Sequence?.next ?? 1) !== 1) throw new Error('Historical hash cannot discard P15 authority')
   }
   const {hollywood: _control, technology: _research, physicalPlans: _plans, talentMarket: _market,
     firstTakes: _takes, firstTakeSubjects: _subjects, promises: _promises, relationships: _relationships, talentProvenance: _provenance,
-    careerLifecycle: _lifecycle, powerRanking: _ranking, p15Sequence: _sequence, ...frozen}=state as Partial<GameState>
+    careerLifecycle: _lifecycle, powerRanking: _ranking, p15Sequence: _sequence, sharedMarket: _sharedMarket, ...frozen}=state as Partial<GameState>
   if (frozen.operations) {
     // P13B S5-R07: the live workflow carries `setup`/`planRevision`; a historical control never selected a recipe, so the only lawful
     // shape to discard is the null record at revision 0.

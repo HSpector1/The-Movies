@@ -1,5 +1,6 @@
 import { prepareLiveWritingContext } from './liveRetirementWriting.js'
 import { advanceHollywoodWeek, finishHollywoodWeek } from './hollywoodTick.js'
+import { requireSharedMarket } from './marketIntegration.js'
 import { birthdaysDueAt, materializeAges, withTalentProvenance } from './aging.js'
 import { advanceLifecycleIntent, advanceLifecycleSettlement } from './careerLifecycle.js'
 import { recordPowerRankingQuarter } from './powerRankingArchive.js'
@@ -1063,6 +1064,13 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // reads intent for exactly these people and never scans the population.
   const birthdays = birthdaysDueAt(provenanced.talentProvenance, currentTick + 1)
   const materialized = materializeAges(provenanced, currentTick + 1)
+  // P15A.1 Wave 2 (b) r2, F3's guard (1361-D2 F3; 1361-F4 ruling 3 item 4): the finalize write below
+  // moves the market root's recordedFromWeek, so a root that already holds rows refuses here, at the
+  // first tick, instead of at the next save.
+  const heldAssessments = admitted.hollywood === null ? 0 : requireSharedMarket(admitted).assessments.length
+  if (heldAssessments > 0) {
+    throw new Error(`tick: the sharedMarket root already holds market assessments (${heldAssessments} recorded); the save was written by a build with the market batch, and this build cannot move recordedFromWeek past those rows`)
+  }
 
   let finalized: GameState = {
     // C2a-M4: the ADMITTED state is the base — it carries this advance's queue
@@ -1115,6 +1123,11 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     // P08A: stamp this advance's history rows in pipeline order and fold routine
     // detail that aged past the window — against the week this advance PRODUCES.
     studioHistory: commitStudioHistory(state.studioHistory, history, currentTick + 1, facilityCompletionDrafts(placementCompletion.completed)),
+    // P15A.1 Wave 2 commit (b): no market batch runs yet, so a world with an industry assesses
+    // nothing and its root records from the week this advance produces. The film bijection
+    // (1355-A §3.4 item 3) then covers no release, and a later batch starts with the disclosed
+    // 26-week ramp of a migrated world. A world with no industry keeps its root as created.
+    ...(admitted.hollywood === null ? {} : { sharedMarket: { ...requireSharedMarket(admitted), recordedFromWeek: currentTick + 1 } }),
   }
   for(const identity of finalized.hollywood?.identities ?? []) {
     if(identity.role==='rival' && identity.enteredWeek===null && identity.eligibleWeek<=finalized.market.tick) {
