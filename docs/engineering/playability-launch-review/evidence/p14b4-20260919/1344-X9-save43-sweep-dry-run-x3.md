@@ -60,7 +60,7 @@ retained row's primary moved, and every NEW identity was already NEW in x2.
   - Row 5, `p14b5-relationships:596`. The stripped digest equals the pinned 9702aa68…, so the S7 strip holds, and so
     does row 5's attribution.
   - S9 ×9, S5 ×8, and the four S1-S3 leftovers.
-  - The four `p14c3-queued-writing-proof` Q1 rows.
+  - The four `p14c3-queued-writing-proof` rows: Q1 ×2 (:56) and Q3 ×2 (:154).
   - x2's 20 s timeout in `bridge-p13b-s3-save-as`, from the sleep.
 - **The r2 deferrals, measured.**
   - `p14b4-cast-class-policy` :627 and :644, the pinned witness set: 7/7 pass, so the set holds under Save43.

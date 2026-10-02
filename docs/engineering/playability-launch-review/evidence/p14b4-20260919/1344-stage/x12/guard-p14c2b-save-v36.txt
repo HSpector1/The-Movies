@@ -1,0 +1,26 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1344-merge/tree
+
+stdout | tests/zz-guard-p14c2b-save-v36.test.ts > P14C.2b S2: V36 -> V35 downgrade > refused as a downgrade when a record carries extensionUsed: true (a genuinely accepted extension, axis a, natural route)
+GUARD 74 migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject
+
+stdout | tests/zz-guard-p14c2b-save-v36.test.ts > P14C.2b S2: V36 -> V35 downgrade > refused as a downgrade when a case carries variant: retirementExtension (open, not yet used — the case alone is enough)
+GUARD 82 migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject
+
+ ✓ |core| tests/zz-guard-p14c2b-save-v36.test.ts (14 tests) 11510ms
+   ✓ P14C.2b S1: every corpus world migrates V35 -> V36 per 806 §2 > genuine-v35-c2b-rival-incumbent-cohorts 747ms
+   ✓ P14C.2b S2: V36 -> V35 downgrade > lossless when no record has extensionUsed and no case is a retirementExtension (a genuinely migrated, never-ticked world) 1019ms
+   ✓ P14C.2b S2: V36 -> V35 downgrade > refused as a downgrade when a record carries extensionUsed: true (a genuinely accepted extension, axis a, natural route) 2599ms
+   ✓ P14C.2b S2: V36 -> V35 downgrade > refused as a downgrade when a case carries variant: retirementExtension (open, not yet used — the case alone is enough) 1532ms
+   ✓ P14C.2b S3: the validator refuses each tampering, one per case, from a GENUINE settled V36 state (806 §8.2) > the unmutated, genuinely-produced baseline must validate 895ms
+   ✓ P14C.2b S3: the validator refuses each tampering, one per case, from a GENUINE settled V36 state (806 §8.2) > a second extension case for the SAME person is refused (at most one per person, ever) 827ms
+   ✓ P14C.2b S3: the validator refuses each tampering, one per case, from a GENUINE settled V36 state (806 §8.2) > extensionUsed: true with no SETTLED extension case for that person is refused 1065ms
+   ✓ P14C.2b S3: the validator refuses each tampering, one per case, from a GENUINE settled V36 state (806 §8.2) > extendedFromWeek mismatched with effectiveWeek - 52 is refused 1011ms
+   ✓ P14C.2b S3: the validator refuses each tampering, one per case, from a GENUINE settled V36 state (806 §8.2) > no contract ending at the new E is found by TERMS (the new contract's endWeekExclusive is altered) — refused 982ms
+   ✓ P14C.2b S4: LIVE_SAVE_VERSION, makeSave, replay determinism > makeSave stamps 38 415ms
+
+ Test Files  1 passed (1)
+      Tests  14 passed (14)
+   Start at  19:22:03
+   Duration  15.59s (transform 2.32s, setup 0ms, collect 3.00s, tests 11.51s, environment 0ms, prepare 384ms)
+

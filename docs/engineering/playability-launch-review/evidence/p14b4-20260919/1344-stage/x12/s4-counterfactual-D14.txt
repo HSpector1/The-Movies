@@ -1,0 +1,36 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1344-merge/tree
+
+stdout | tests/p14p3-directing-promises.test.ts > P3 occupancy ownership and retirement query controls
+1155-P3-RIVAL-COUNTERS {"rivalCalls":0,"rivalCap":260,"otherCoreCalls":0,"total":0,"cap":816}
+1149-P3-CONTINUITY-COUNTERS {"playerCalls":0,"playerCap":208,"branches":[{"name":"cancelBefore","actualTicks":0,"cap":64,"startWeek":null},{"name":"cancelAfter","actualTicks":0,"cap":64,"startWeek":null},{"name":"waiver","actualTicks":0,"cap":64,"startWeek":null}],"total":0,"cap":556,"lifecycleCalls":0,"lifecycleCap":156,"selectedCap":364}
+1143-P3-OUTCOME-COUNTERS {"playerCalls":0,"playerCap":208,"branches":[{"name":"cancelBefore","actualTicks":0,"cap":64,"startWeek":null},{"name":"cancelAfter","actualTicks":0,"cap":64,"startWeek":null},{"name":"waiver","actualTicks":0,"cap":64,"startWeek":null}],"total":0,"cap":400}
+1133-P3-COUNTERS {"actualTicks":0,"cap":208,"cachedPhases":[]}
+
+ ❯ |core| tests/p14p3-directing-promises.test.ts (20 tests | 1 failed | 19 skipped) 574ms
+   × P3 first slice: public Director promises and historical meaning > D14 preserves old meaning and refuses lossy reverse conversion 569ms
+     → validateSaveV42: expected version 42
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14p3-directing-promises.test.ts > P3 first slice: public Director promises and historical meaning > D14 preserves old meaning and refuses lossy reverse conversion
+Error: validateSaveV42: expected version 42
+ ❯ validateSaveV42Era src/core/save.ts:10629:38
+    10627|   if (!isRecord(save)) throw new Error('validateSaveV42: object requir…
+    10628|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    10629|   if (save.saveVersion !== 42) throw new Error('validateSaveV42: expec…
+       |                                      ^
+    10630|   const raw = v14Record(checkEnvelope(save, 'validateSaveV42'), 'state…
+    10631|   validateRelationshipsRoot(raw, 42);
+ ❯ validateSaveV42 src/core/save.ts:10623:10
+ ❯ Module.convertV42ToV41 src/core/save.ts:10649:21
+ ❯ Object.convertV39ToV38 tests/helpers/p14p3-fixtures.ts:110:114
+ ❯ tests/p14p3-directing-promises.test.ts:411:44
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 19 skipped (20)
+   Start at  19:20:10
+   Duration  5.01s (transform 2.75s, setup 0ms, collect 3.67s, tests 574ms, environment 0ms, prepare 148ms)
+

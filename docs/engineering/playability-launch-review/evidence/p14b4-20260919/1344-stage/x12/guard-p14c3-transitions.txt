@@ -1,0 +1,23 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1344-merge/tree
+
+stdout | tests/zz-guard-p14c3-transitions.test.ts > C.3 A05/A06 public profession history, current evidence and repeat safety > uses inclusive change weeks and current-versus-explicit retirement lookup after save and reload
+GUARD 169 migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-de11f27b-r04
+
+stdout | tests/zz-guard-p14c3-transitions.test.ts > C.3 A09/A10 genuine prospective finality and deferred reconciliation > records Scientist noCatalogue finality at671 once, preserving the actual670 profession retirement
+GUARD 198 migrateToV37: cannot downgrade or discard profession transition, industry retirement or entrant authority
+
+ ✓ |core| tests/zz-guard-p14c3-transitions.test.ts (35 tests) 15265ms
+   ✓ C.3 A03/A04 genuine retirement choices through existing tick > retires the two genuine207 actors into director and writer at208 with real bounded evidence 1835ms
+   ✓ C.3 A03/A04 genuine retirement choices through existing tick > reconciles actual retired genuine-v37-c3-retired-week208.json.gz prospectively at209 without backdating or rewriting old receipts 2358ms
+   ✓ C.3 A03/A04 genuine retirement choices through existing tick > reconciles actual retired genuine-v37-c3-runtime-current208.json.gz prospectively at209 without backdating or rewriting old receipts 2274ms
+   ✓ C.3 A05/A06 public profession history, current evidence and repeat safety > derives the exact current public input without mutation and refuses past-week reconstruction 1054ms
+   ✓ C.3 A05/A06 public profession history, current evidence and repeat safety > uses inclusive change weeks and current-versus-explicit retirement lookup after save and reload 1111ms
+   ✓ C.3 A09/A10 genuine prospective finality and deferred reconciliation > records Scientist noCatalogue finality at671 once, preserving the actual670 profession retirement 2261ms
+   ✓ C.3 A09/A10 genuine prospective finality and deferred reconciliation > defers the real retired cohort actor at2601 and schedules the exact annual-or-age deadline, never the next week 4347ms
+
+ Test Files  1 passed (1)
+      Tests  35 passed (35)
+   Start at  19:21:43
+   Duration  19.23s (transform 2.11s, setup 0ms, collect 2.88s, tests 15.27s, environment 0ms, prepare 167ms)
+

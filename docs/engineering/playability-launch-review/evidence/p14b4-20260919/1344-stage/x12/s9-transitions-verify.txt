@@ -1,0 +1,17 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1344-merge/tree
+
+ ✓ |core| tests/p14c3-transitions.test.ts (35 tests) 14554ms
+   ✓ C.3 A03/A04 genuine retirement choices through existing tick > retires the two genuine207 actors into director and writer at208 with real bounded evidence 1775ms
+   ✓ C.3 A03/A04 genuine retirement choices through existing tick > reconciles actual retired genuine-v37-c3-retired-week208.json.gz prospectively at209 without backdating or rewriting old receipts 2590ms
+   ✓ C.3 A03/A04 genuine retirement choices through existing tick > reconciles actual retired genuine-v37-c3-runtime-current208.json.gz prospectively at209 without backdating or rewriting old receipts 2049ms
+   ✓ C.3 A05/A06 public profession history, current evidence and repeat safety > derives the exact current public input without mutation and refuses past-week reconstruction 1059ms
+   ✓ C.3 A05/A06 public profession history, current evidence and repeat safety > uses inclusive change weeks and current-versus-explicit retirement lookup after save and reload 1053ms
+   ✓ C.3 A09/A10 genuine prospective finality and deferred reconciliation > records Scientist noCatalogue finality at671 once, preserving the actual670 profession retirement 1403ms
+   ✓ C.3 A09/A10 genuine prospective finality and deferred reconciliation > defers the real retired cohort actor at2601 and schedules the exact annual-or-age deadline, never the next week 4454ms
+
+ Test Files  1 passed (1)
+      Tests  35 passed (35)
+   Start at  19:25:35
+   Duration  18.25s (transform 2.17s, setup 0ms, collect 2.85s, tests 14.55s, environment 0ms, prepare 181ms)
+
