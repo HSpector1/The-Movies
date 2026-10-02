@@ -5,7 +5,7 @@ import { weeklySalary } from '../src/core/employment.ts'
 import { setIsUnderRepair } from '../src/core/sets.ts'
 import { TUNING } from '../src/core/tuning.ts'
 import { ordinaryRenewalWindow } from '../src/core/studioCalendar.ts'
-import { currentTier } from '../src/core/relationships.ts'
+import { currentTier, romanceStatus } from '../src/core/relationships.ts'
 import type { FinanceRoute } from './finance-route.ts'
 
 export type FinanceUpcomingEvent = {
@@ -19,9 +19,11 @@ export const FINANCE_UPCOMING_LIMIT = 64
  * the player's roster at the expiry week, in roster (employment) order. The roster test
  * restates `bridge/relationships.ts` `rosterAt` (strict at the week on both ends) and,
  * because the week is in the future, also requires the counterpart's committed term to
- * reach past it. The tier is read at the expiry week, drift included.
+ * reach past it. The tier is read at the expiry week, drift included. D-1312-2 (1313-A §2
+ * "Partners joins this sentence when the romance track lands"; 1347-A §2.3): a Partners
+ * counterpart joins at any tier, its bond read at the same week.
  */
-function inseparableNote(state: GameState, subjectId: string, week: number): string {
+function closeTieNote(state: GameState, subjectId: string, week: number): string {
   const playerStudioId = state.hollywood?.playerStudioId
   if (playerStudioId === undefined || state.relationships === undefined) return ''
   const notes: string[] = []
@@ -30,10 +32,14 @@ function inseparableNote(state: GameState, subjectId: string, week: number): str
     if (row.studioId !== playerStudioId || id === subjectId) continue
     if (!(row.terms.startWeek < week && week < (row.endedWeek ?? row.terms.endWeekExclusive))) continue
     const edge = state.relationships.find(e => (e.a === subjectId && e.b === id) || (e.b === subjectId && e.a === id))
-    if (edge === undefined || currentTier(edge, week) !== 'Inseparable') continue
+    if (edge === undefined) continue
+    const partners = romanceStatus(edge, week) === 'partners'
+    if (!partners && currentTier(edge, week) !== 'Inseparable') continue
     const name = state.talent.find(t => t.id === id)?.name
     if (name === undefined) throw new Error('Finance Upcoming: unknown roster counterpart')
-    notes.push(` ${name} works here and is Inseparable with them; letting the contract lapse separates them.`)
+    notes.push(partners
+      ? ` ${name} works here and is their partner; letting the contract lapse separates them.`
+      : ` ${name} works here and is Inseparable with them; letting the contract lapse separates them.`)
   }
   return notes.join('')
 }
@@ -67,7 +73,7 @@ export function financeUpcoming(state: GameState) {
       weeklyOperatingCostChange: null, route })
     events.push({ id: `expiry:${talent.id}:${contract.endWeekExclusive}`, kind: 'contractExpiry', week: contract.endWeekExclusive,
       label: `${talent.name} current contract expires`,
-      detail: `If not renewed, current weekly salary of $${weeklySalary(contract.annualSalary).toLocaleString('en-US')} ends on arrival in Week ${contract.endWeekExclusive}. No replacement contract is assumed.${inseparableNote(state, talent.id, contract.endWeekExclusive)}`,
+      detail: `If not renewed, current weekly salary of $${weeklySalary(contract.annualSalary).toLocaleString('en-US')} ends on arrival in Week ${contract.endWeekExclusive}. No replacement contract is assumed.${closeTieNote(state, talent.id, contract.endWeekExclusive)}`,
       weeklyOperatingCostChange: null, route })
   }
   for (const set of state.sets) {

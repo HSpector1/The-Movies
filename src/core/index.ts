@@ -1537,8 +1537,12 @@ export {
   assertRelationshipsAtV31,
   currentCloseness,
   currentTier,
+  currentRomanceValue,
+  romanceStatus,
+  romanceEndWeek,
   pairChemistry,
   driverGain,
+  rosterTies,
   tiersOnRoster,
   relationshipsReasonSentence,
   requireRelationshipsRoot,
@@ -1567,8 +1571,14 @@ export {
   RELATIONSHIP_DRIFT_GRACE_WEEKS,
   RELATIONSHIP_DRIFT_RETURN_WEEKS,
   RELATIONSHIP_RECENT_CAP,
+  ROMANCE_FORMATION_THRESHOLD,
+  ROMANCE_EXIT_THRESHOLD,
+  ROMANCE_PROXIMITY_GAIN,
+  ROMANCE_SUCCESS_GAIN,
+  ROMANCE_GRACE_WEEKS,
+  ROMANCE_DECAY_WEEKS,
 } from './relationships.js'
-export type { PairChemistry, RelationshipDelta } from './relationships.js'
+export type { PairChemistry, RelationshipDelta, RosterTie } from './relationships.js'
 
 // ── P13B-S3 Physical plans (persistent queue, dependencies, admission) ───────
 export {

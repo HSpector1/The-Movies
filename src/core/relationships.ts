@@ -27,7 +27,7 @@ import { castingSessionForProject } from './castingSessions.js'
 import { SLOT_ORDER } from './tuning.js'
 import type {
   CastSlot, FilmResult, FirstTakeReceipt, GameState, Production, RelationshipCompetition, RelationshipDriver,
-  RelationshipDriverKind, RelationshipEdge, RelationshipTier,
+  RelationshipDriverKind, RelationshipEdge, RelationshipTier, RomanceTrack,
 } from './types.js'
 
 // ── the versioned rule and the named HYPOTHESES (plan :761; none is settled law) ──
@@ -121,6 +121,19 @@ export const RELATIONSHIP_FAILURE_CRITIC_SCORE = 40
  * return to the baseline over the return horizon, from either side. */
 export const RELATIONSHIP_DRIFT_GRACE_WEEKS = 52
 export const RELATIONSHIP_DRIFT_RETURN_WEEKS = 260
+/** D-1312-2 romance track (1347-A §3): PROVISIONAL TUNING by name; the Owner delegated
+ * the numbers. Formation at 75 takes about six high-proximity pictures with successes
+ * after Friends, and the exit at 40 sits well below it so a bond does not flicker. */
+export const ROMANCE_FORMATION_THRESHOLD = 75
+export const ROMANCE_EXIT_THRESHOLD = 40
+/** The main driver (§5.4a :456): a high-proximity shared take from the second shared production. */
+export const ROMANCE_PROXIMITY_GAIN = 10
+export const ROMANCE_SUCCESS_GAIN = 5
+/** Separation: the value holds for the grace window, then falls linearly to 0 over the
+ * decay window, the `currentCloseness` shape. A bond at 75 ends 229 weeks after the last
+ * shared picture; a bond at 100 after 263. */
+export const ROMANCE_GRACE_WEEKS = 104
+export const ROMANCE_DECAY_WEEKS = 260
 /** §5.5 :468 / plan (9): `recent` holds at most this many drivers; the oldest
  * folds OUT at write and the exact counters keep the count.
  * ponytail: fold-by-count only; the §5.5 :468 windowed 260-week compaction is
@@ -150,12 +163,52 @@ const pairKey = (a: string, b: string): string => `${a}\u0000${b}`
 
 /** The value at `week`, drift materialized on read (§5.5 :467; §5.2 :413): the
  * stored value inside the grace window, else a linear return toward the baseline
- * from either side, complete at GRACE + RETURN and never past the baseline. */
-export function currentCloseness(edge: Pick<RelationshipEdge, 'closeness' | 'lastEventWeek'>, week: number): number {
-  const dormant = week - edge.lastEventWeek
+ * from either side, complete at GRACE + RETURN and never past the baseline.
+ * D-1312-2 (1358-F §3): Partners are exempt while their bond is open; after the ending,
+ * recorded or derived on read, dormancy counts from max(lastEventWeek, the ending). */
+export function currentCloseness(edge: Pick<RelationshipEdge, 'closeness' | 'lastEventWeek' | 'romance'>, week: number): number {
+  const ending = romanceEndWeek(edge.romance)
+  if (ending !== null && week < ending) return edge.closeness
+  const dormant = week - Math.max(edge.lastEventWeek, ending ?? edge.lastEventWeek)
   if (dormant <= RELATIONSHIP_DRIFT_GRACE_WEEKS) return edge.closeness
   const span = Math.min(dormant - RELATIONSHIP_DRIFT_GRACE_WEEKS, RELATIONSHIP_DRIFT_RETURN_WEEKS)
   return edge.closeness + Math.trunc((RELATIONSHIP_BASELINE - edge.closeness) * span / RELATIONSHIP_DRIFT_RETURN_WEEKS)
+}
+
+/** The romance value at `week` (1347-A §2.3): the stored value inside the grace window,
+ * else a linear fall to 0 over the decay window, `currentCloseness`'s shape with 0 as
+ * its target. */
+export function currentRomanceValue(romance: RomanceTrack, week: number): number {
+  const dormant = week - romance.anchorWeek
+  if (dormant <= ROMANCE_GRACE_WEEKS) return romance.value
+  const span = Math.min(dormant - ROMANCE_GRACE_WEEKS, ROMANCE_DECAY_WEEKS)
+  return romance.value - Math.trunc(romance.value * span / ROMANCE_DECAY_WEEKS)
+}
+
+/** The first week `currentRomanceValue` reads below ROMANCE_EXIT_THRESHOLD, in closed
+ * form (record 1358-E checks it against the week-by-week read for every value 0..100);
+ * a stored value already below the threshold ends at its anchor. */
+function derivedEndWeek(romance: RomanceTrack): number {
+  if (romance.value < ROMANCE_EXIT_THRESHOLD) return romance.anchorWeek
+  return romance.anchorWeek + ROMANCE_GRACE_WEEKS
+    + Math.ceil(ROMANCE_DECAY_WEEKS * (romance.value - ROMANCE_EXIT_THRESHOLD + 1) / romance.value)
+}
+
+/** The last bond's ending week, recorded or derived on read; null when no bond ever
+ * formed. Only the last bond can be open, and `value`/`anchorWeek` describe it. A staged
+ * edge built without the field reads as `romance: null`. */
+export function romanceEndWeek(romance: RomanceTrack | null): number | null {
+  const bond = romance?.bonds.at(-1)
+  if (romance == null || bond === undefined) return null
+  return bond.endedWeek ?? derivedEndWeek(romance)
+}
+
+/** The pair's bond at `week` (1347-A §2.3): 'partners' before the last bond's ending,
+ * 'ended' from it on, null when none ever formed. It reads the track and the week only,
+ * so a studio change, a retirement or a fall in the friendship tier ends nothing. */
+export function romanceStatus(edge: Pick<RelationshipEdge, 'romance'>, week: number): 'partners' | 'ended' | null {
+  const ending = romanceEndWeek(edge.romance)
+  return ending === null ? null : week < ending ? 'partners' : 'ended'
 }
 
 /** The value band by the named floors alone (no evidence condition). */
@@ -180,7 +233,7 @@ function tierOf(closeness: number, evidence: boolean): RelationshipTier {
 }
 
 /** The tier at `week` under `RELATIONSHIP_RULES_VERSION`, a pure read. */
-export function currentTier(edge: Pick<RelationshipEdge, 'closeness' | 'lastEventWeek' | 'sharedCompetitions'>, week: number): RelationshipTier {
+export function currentTier(edge: Pick<RelationshipEdge, 'closeness' | 'lastEventWeek' | 'sharedCompetitions' | 'romance'>, week: number): RelationshipTier {
   return tierOf(currentCloseness(edge, week), hasConflictEvidence(edge))
 }
 
@@ -210,13 +263,25 @@ function counted(edge: RelationshipEdge, kind: RelationshipDriverKind): Relation
   }
 }
 
-/** One driver applied to an existing edge: drift materialized first, then the
- * delta, clamped to [0, 100]; the anchor moves to `week`; the peak rises only on
- * a HIGHER tier; the driver appends and the oldest folds out past the cap (the
- * counters are the fold target — §5.5 :468). Spread-preserving. */
+/** 1347-A §2.3: a derived romance ending is written into `endedWeek` once, at the next
+ * write that touches the edge (or either person's formation check), before any new
+ * driver applies. It writes no driver and moves no closeness, counter, peak or `recent`. */
+function recordEnding(edge: RelationshipEdge, week: number): RelationshipEdge {
+  const romance = edge.romance
+  const bond = romance?.bonds.at(-1)
+  if (romance == null || bond === undefined || bond.endedWeek !== null) return edge
+  const endedWeek = derivedEndWeek(romance)
+  if (endedWeek > week) return edge
+  return { ...edge, romance: { ...romance, bonds: [...romance.bonds.slice(0, -1), { ...bond, endedWeek }] } }
+}
+
+/** One driver applied to an existing edge: any derived romance ending recorded,
+ * drift materialized, then the delta, clamped to [0, 100]; the anchor moves to `week`;
+ * the peak rises only on a HIGHER tier; the driver appends and the oldest folds out
+ * past the cap (the counters are the fold target — §5.5 :468). Spread-preserving. */
 function writeEdge(edge: RelationshipEdge, week: number, driver: RelationshipDriver): RelationshipEdge {
-  const next = counted(edge, driver.kind)
-  const closeness = clamp(currentCloseness(edge, week) + driver.delta)
+  const next = counted(recordEnding(edge, week), driver.kind)
+  const closeness = clamp(currentCloseness(next, week) + driver.delta)
   const tier = tierOf(closeness, hasConflictEvidence(next))
   const higher = rank(tier) > rank(edge.peakTier)
   return {
@@ -294,7 +359,50 @@ function driveTake(state: GameState, ledger: Ledger, take: FirstTakeReceipt, kin
     if (hasDriver(edge, kind, take.productionId)) continue
     ledger.edges[i] = writeEdge(edge, week, { kind, week, ref: take.productionId, delta: driverGain(state, pair.a, pair.b, delta) })
     ledger.changed = true
+    if (kind === 'sharedSuccess') writeRomance(ledger, i, week, ROMANCE_SUCCESS_GAIN, false)
   }
+}
+
+/** The formation check of 1347-A §2.3 for edge `i`: does either person hold an open
+ * bond with anyone else at `week`? It records every third-party ending it reads, so a
+ * bond that already ended on read neither blocks nor stays open. */
+function thirdPartyBond(ledger: Ledger, i: number, week: number): boolean {
+  const { a, b } = ledger.edges[i]!
+  let open = false
+  for (let j = 0; j < ledger.edges.length; j++) {
+    const other = ledger.edges[j]!
+    if (j === i || other.romance == null || ![a, b].some((person) => person === other.a || person === other.b)) continue
+    const recorded = recordEnding(other, week)
+    if (recorded !== other) {
+      ledger.edges[j] = recorded
+      ledger.changed = true
+    }
+    if (romanceStatus(recorded, week) === 'partners') open = true
+  }
+  return open
+}
+
+/**
+ * One romance write on edge `i` at the tick seam, after that write's friendship drivers
+ * (1347-A §2.3; 1358-F §1-§2; 1358-F2 item 1): the derived ending recorded first, then
+ * the value read at `week`, the gain added and clamped to 0..100, and the anchor moved to
+ * `week`. A gain needs the pair at Friends or above, read on the edge as this write left
+ * it, and no open bond for either person with anyone but each other: the pair's own bond
+ * never blocks it (Reading B). A gain that reaches ROMANCE_FORMATION_THRESHOLD while the
+ * pair holds no open bond forms one, dated `week`. A shared take always writes, since any
+ * shared take resets separation; a success writes only when it gains.
+ */
+function writeRomance(ledger: Ledger, i: number, week: number, gain: number, take: boolean): void {
+  const edge = recordEnding(ledger.edges[i]!, week)
+  ledger.edges[i] = edge
+  const gains = gain > 0 && rank(currentTier(edge, week)) >= rank('Friends') && !thirdPartyBond(ledger, i, week)
+  if (!gains && (!take || edge.romance == null)) return
+  const track: RomanceTrack = edge.romance ?? { value: 0, anchorWeek: week, bonds: [] }
+  const value = clamp(currentRomanceValue(track, week) + (gains ? gain : 0))
+  const forms = gains && value >= ROMANCE_FORMATION_THRESHOLD && track.bonds.at(-1)?.endedWeek !== null
+  const bonds = forms ? [...track.bonds, { formedWeek: week, endedWeek: null }] : track.bonds
+  ledger.edges[i] = { ...edge, romance: { value, anchorWeek: week, bonds } }
+  ledger.changed = true
 }
 
 // ── the ONE tail seam (plan scope (2)) ───────────────────────────────────────
@@ -313,7 +421,9 @@ export type RelationshipDelta = {
  * BEFORE the root guard; then the loud root guard; then no industry → unchanged,
  * so the headless corpus and the roster-wall observatory stay byte-identical
  * apart from the empty root. Every driver is stamped `week` (the tail week, as
- * takes are — 647-B R1). Idempotent by (edgeId, kind, ref) over `recent`.
+ * takes are — 647-B R1). Idempotent by (edgeId, kind, ref) over `recent`. The
+ * romance track grows, forms and records its ending here too, from the same delta
+ * (1358-F §2): see `writeRomance`.
  */
 export function advanceRelationshipsWeek(state: GameState, delta: RelationshipDelta, week: number): GameState {
   if (delta.takes.length === 0 && delta.releases.length === 0) return state
@@ -341,10 +451,14 @@ export function advanceRelationshipsWeek(state: GameState, delta: RelationshipDe
       }
       ledger.edges[i] = next
       ledger.changed = true
+      // D-1312-2: from the pair's second shared production, a high-proximity take gains.
+      const proximity = pair.weight === RELATIONSHIP_PROXIMITY_HIGH && next.sharedProductions >= 2
+      writeRomance(ledger, i, week, proximity ? ROMANCE_PROXIMITY_GAIN : 0, true)
     }
   }
   // (2b) shared success / failure at release, joined to the recorded take by
-  // productionId on `criticScore` alone; nothing between the two edges.
+  // productionId on `criticScore` alone; nothing between the two edges; a success
+  // also gains on the romance track.
   for (const film of delta.releases) {
     const kind: RelationshipDriverKind | null = film.criticScore >= RELATIONSHIP_SUCCESS_CRITIC_SCORE ? 'sharedSuccess'
       : film.criticScore < RELATIONSHIP_FAILURE_CRITIC_SCORE ? 'sharedFailure' : null
@@ -439,17 +553,25 @@ export function recordCastingCompetition(state: GameState, studioId: string, pro
 
 // ── reads (plan scope (5)-(7)) ───────────────────────────────────────────────
 
-/** The D5 / reservation read: the subject's current tier with every counterpart
- * in `roster` at `week` (the roster itself is the caller's — `talentMarket.ts`
- * owns the employer-interval predicate). Order is immaterial to every consumer. */
-export function tiersOnRoster(state: GameState, subject: string, roster: ReadonlySet<string>, week: number): readonly RelationshipTier[] {
+/** One roster counterpart's tie for D5: the current tier, and whether the pair are Partners. */
+export type RosterTie = { tier: RelationshipTier; partners: boolean }
+
+/** The D5 / reservation read: the subject's current tie with every counterpart in
+ * `roster` at `week` (the roster itself is the caller's — `talentMarket.ts` owns the
+ * employer-interval predicate). Order is immaterial to every consumer. */
+export function rosterTies(state: GameState, subject: string, roster: ReadonlySet<string>, week: number): readonly RosterTie[] {
   requireRelationshipsRoot(state)
-  const tiers: RelationshipTier[] = []
+  const ties: RosterTie[] = []
   for (const edge of state.relationships) {
     const counterpart = edge.a === subject ? edge.b : edge.b === subject ? edge.a : null
-    if (counterpart !== null && roster.has(counterpart)) tiers.push(currentTier(edge, week))
+    if (counterpart !== null && roster.has(counterpart)) ties.push({ tier: currentTier(edge, week), partners: romanceStatus(edge, week) === 'partners' })
   }
-  return tiers
+  return ties
+}
+
+/** `rosterTies`, tiers only. */
+export function tiersOnRoster(state: GameState, subject: string, roster: ReadonlySet<string>, week: number): readonly RelationshipTier[] {
+  return rosterTies(state, subject, roster, week).map((tie) => tie.tier)
 }
 
 /**
@@ -486,7 +608,9 @@ const DRIVER_COPY: Readonly<Record<RelationshipDriverKind, string>> = {
  * in B.5 (the result owner's bound, formula and seam are a later slice; R17).
  * `null`/`0`/`[]` without an edge; `sign` +1 for Colleagues and above, 0 for
  * Acquaintances, −1 for Strained and below; reasons from the recent kinds and
- * the dormancy, none carrying a number.
+ * the dormancy, none carrying a number. D-1312-2 (1347-A §2.3, §6 item 3): Partners
+ * carry Inseparable's +1 at Strained and above, add one reason, and read −1 at
+ * Enemies or Nemeses, where current hostility governs.
  */
 export function pairChemistry(state: GameState, x: string, y: string, week: number): PairChemistry {
   requireRelationshipsRoot(state)
@@ -494,8 +618,10 @@ export function pairChemistry(state: GameState, x: string, y: string, week: numb
   const edge = state.relationships.find((e) => e.a === a && e.b === b)
   if (edge === undefined) return { tier: null, sign: 0, reasons: [] }
   const tier = currentTier(edge, week)
-  const sign = rank(tier) >= rank('Colleagues') ? 1 : tier === 'Acquaintances' ? 0 : -1
+  const partners = romanceStatus(edge, week) === 'partners'
+  const sign = rank(tier) >= rank('Colleagues') || (partners && rank(tier) >= rank('Strained')) ? 1 : tier === 'Acquaintances' ? 0 : -1
   const reasons = RELATIONSHIP_DRIVER_KINDS.filter((kind) => edge.recent.some((d) => d.kind === kind)).map((kind) => DRIVER_COPY[kind])
+  if (partners) reasons.push('they are partners')
   if (week - edge.lastEventWeek > RELATIONSHIP_DRIFT_GRACE_WEEKS) {
     reasons.push(edge.sharedProductions === 0 ? 'they have never worked together' : 'they have not worked together lately')
   }

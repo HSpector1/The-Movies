@@ -39,7 +39,7 @@ import type { ContractOffer, TerminationLaw } from './employment.js'
 import { attachPromise, attachedPromiseDigest, promiseFeasibility, proposalDigest, trustDescriptor } from './promises.js'
 import { isOpportunityPredicate } from './opportunityPromises.js'
 import { takeSubjectOwner } from './firstTakeSubjects.js'
-import { relationshipsReasonSentence, tiersOnRoster } from './relationships.js'
+import { relationshipsReasonSentence, rosterTies, tiersOnRoster } from './relationships.js'
 import type { PromiseAttachment } from './promises.js'
 import { careerIdentity } from './talentSummary.js'
 import { TUNING } from './tuning.js'
@@ -910,14 +910,17 @@ function bandsFor(
     const trust = band === 'Reliable' ? 2 : band === 'Mixed record' ? 1 : 0
     // D5 relationships (P14B.5 (5); companion :116): `close ties here` (2) iff a
     // counterpart of the subject reads CloseFriends or Inseparable on the issuer's
-    // roster at W; `enemies here` (0) iff one reads Enemies or Nemeses and no close
-    // tie; else `none` (1). When both are on the roster the shipped order holds and
-    // close ties rank first (1347-F Amendment 2; OPEN 11's enemies-first candidate is
-    // not selected). Relationship rules 2 make Enemies/Nemeses reachable through
-    // conflict evidence, so `enemies here` is now a reachable band.
-    const tiers = tiersOnRoster(state, kase.talentId, rosterAt(hollywood, p.issuerStudioId, kase.talentId, week), week)
-    const relationships = tiers.some((t) => t === 'CloseFriends' || t === 'Inseparable') ? 2
-      : tiers.some((t) => t === 'Enemies' || t === 'Nemeses') ? 0 : 1
+    // roster at W, or is the subject's Partner at a tier short of hostility (D-1312-2;
+    // 1347-A §2.3 "a close tie, still below hostility"); `enemies here` (0) iff one
+    // reads Enemies or Nemeses and no close tie; else `none` (1). When both are on the
+    // roster the shipped order holds and close ties rank first (1347-F Amendment 2;
+    // OPEN 11's enemies-first candidate is not selected). Relationship rules 2 make
+    // Enemies/Nemeses reachable through conflict evidence, so `enemies here` is now a
+    // reachable band, and a Partner at Enemies counts there.
+    const ties = rosterTies(state, kase.talentId, rosterAt(hollywood, p.issuerStudioId, kase.talentId, week), week)
+      .map((tie) => ({ ...tie, hostile: tie.tier === 'Enemies' || tie.tier === 'Nemeses' }))
+    const relationships = ties.some((t) => t.tier === 'CloseFriends' || t.tier === 'Inseparable' || (t.partners && !t.hostile)) ? 2
+      : ties.some((t) => t.hostile) ? 0 : 1
     out.set(p, { compensation, term, opportunity, trust, relationships, standing, incumbency })
   })
   return out
