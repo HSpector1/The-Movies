@@ -1,14 +1,14 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-01 19:30 CDT (the Mac runs on CDT; use `date`)
+Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-01 20:07 CDT (the Mac runs on CDT; use `date`)
 
 ## Where the work is
-- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ 7f0d15c3 plus the commit that updates this file, pushed: yes. The working tree is clean.
+- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ cec3902c plus the commit that updates this file, pushed: yes. The working tree is clean.
 - Resume this session: `cd ~/Downloads/project-studio-p13-owner-direction-inputs-01 && claude --resume 60db833c-4cf7-4685-b2ec-8aac42c6dac1` (the session started in that folder; it works in this repo). A fresh session: start `claude` in this repo root and say "resume from HANDOFF.md".
 - Required reading, in order:
   1. This file.
-  2. `E/1344-X9-save43-sweep-dry-run-x3.md` (x3 attributed), `E/1344-X11-row6-and-promise-probe-results.md` and `E/1344-F6-parent-ruling-declared-exceptions.md`.
-  3. The staged sweep: `E/1344-C5-save43-sweep-handback.md`, `E/1344-stage/1344-save43-sweep.patch` and `-classification.json`, then `E/1344-X12-guard-order-and-s4-measurements.md`.
+  2. `/Users/zacheryspector/studio-scratch/1344-gates/gates.meta` (the recorded gates' progress), then `E/1344-C5-save43-sweep-handback.md` and `E/1344-D4-save43-sweep-review.md`.
+  3. `E/1344-X9-save43-sweep-dry-run-x3.md`, `E/1344-X12-guard-order-and-s4-measurements.md` and `E/1344-F6-parent-ruling-declared-exceptions.md`.
   4. `E/1344-N-save43-pin-sweep-plan.md` (classes S1-S10, success line :80-82), then the rulings `E/1344-F4-parent-rulings-on-sweep-s10-and-open-items.md` and `E/1344-F5-parent-rulings-row6-and-s7-definitions.md`.
   5. `docs/engineering/playability-launch-review/CONTINUATION-STATE.md`, top `## CURRENT` block (refreshed at c8c2872b; this file is newer).
 
@@ -19,28 +19,23 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-01 19:30 CDT (the Mac r
 
 ## State
 - Done (all pushed; records in E):
-  - P15C Wave 1 landed (1353-L). Save43 sweep authored (helpers, g1-g6), merged in `S/1344-merge/tree` (own git repo, base 6c54d5e = repo 3a606df4), r2 merged (r2a 5c7f499, r2b 1c2f9e8, r2c 6935ea5), plus parent commits f8c48ec (S1), becafce (S2), **62f14e7 (HYGIENE)** and **27b56c2 (S9, X12)**. Merge HEAD 27b56c2.
-  - **1344-X9, dry run x3** (merge 6935ea5): type gates 0 errors; core 93 failed (x2 123); vs 1338 SAME 67, CHANGED 11, NEW 15, GONE 1 (exporter). No new identity over x2; 30 rows cleared; every r2 deferral measured and passing. UI 3 failed (numpy), vs 1343 CHANGED 3, GONE 7, NEW 0. X8 carries an erratum: `hygiene:45` is real (two base comments), fixed by 62f14e7.
-  - **1344-X11**: row 6 probe r3 NONE (reason P3, all 8 gates true); promise-row probe r3 PREMISE_CONFLICT with re-witness NONE per file (all 7 gates, 10 predictions true). **1344-F6**: the seven leaves (row 6 ×3, R1-R3, N10) are declared exceptions for the Owner; 1344-N's "no new identity" reads with them listed. X10's outputs (`E/1344-stage/s10/out/`) are now tracked (the `out/` and `*.log` ignore rules had kept them local).
-  - **Staged and committed (7f0d15c3)**: `E/1344-stage/1344-save43-sweep.patch` (6c54d5e..27b56c2 of the merge tree; 327,929 bytes, sha256 4b461eda…; 137 files: 132 tests and 5 ui; +822/-512; `git apply --check` OK at HEAD), `E/1344-stage/1344-save43-sweep-classification.json` (529 rows, sha256 6f55fca6…, every changed file covered) and the handback **`E/1344-C5-save43-sweep-handback.md`**.
-  - **1344-X12**: F4 ruling 7's S4 condition measured (without the step D14 fails `validateSaveV42: expected version 42`); six alternation-regex sites measured. `p14c3-transitions:169` was masked by Save43's shelving guard, so parent commit **27b56c2** pins it (S9) and pins :198 to the V37 guard (file alone: 35 passed). `p14c2b-save-v36` :74/:82 are masked by the V39 guard since before Save43: a finding for 1344-K, outside the sweep. Merge HEAD is now 27b56c2.
-  - P15 reference runs: **1356-X** (RED 69/2 as declared; reference 69 pass, 2 fail: the capture leaf and `rank-validate-cadence-boundary` case (a), whose world keeps a founding draft open while rival method locks enter the technology corpus, which the repo's own validator refuses, at base too); harness 61.0 s alone. **1355-X** (RED 55/4 as declared; reference 42 pass, 17 fail: 4 FIXTURE PENDING and 13 route-premise failures; the route's industry produces nothing through week 160). Rulings **1356-F3** (r3: found the studio in case (a); harness ceiling 300 s) and **1355-F6** (r4: a measured route).
-- In flight (as of 19:30 CDT, 2026-10-01):
-  - Agent reviewing the staged sweep as **1344-D4** (read-only) into `S/1344-merge/1344-D4-review.md`.
-  - Agent writing **1356 r3** in `S/1356-red/tree` (may run two single-leaf vitest runs).
-  - Agent writing **1355 r4** in `S/1355-red/tree` (may run single-file route probes, at most 40 min).
-  - The heavy lane is lent to the two author agents for single-file runs. Start no recorded gate until both report done.
-- Claims limits: the staged patch is unreviewed (1344-D4 running). 27b56c2 is verified by a single-file run, not a dry run. The Fake Unity rows are scratch-only by 1320-X's evidence; the recorded gate in the repo decides. 1356-X F-2 (open-draft conflict) is unverified through the shipped bridge.
+  - **The Save43 sweep is applied: cec3902c** (`test(p14): Save43 pin sweep, 137 files`). It is `E/1344-stage/1344-save43-sweep.patch` (sha256 4b461eda…), and the applied `tests/` and `ui/` trees equal the scratch dry-run tree at 27b56c2 file for file (1,192 files), with `src` db80ca31 and `generated` 8b0ab810 identical. Handback **1344-C5**; review **1344-D4** ACCEPT WITH CHANGES, all changes applied (classification now 532 rows, sha256 424b2dbc…).
+  - Dry runs x2 (1344-X8, with erratum) and x3 (1344-X9): core 93 failed, no new identity over x2; UI 3 (numpy). Probes 1344-X10, X11; measurements **1344-X12** (S4 counterfactual; nine guard-order sites; the S9 parent commit 27b56c2; a pre-Save43 V39-masking finding on five downgrade leaves for 1344-K). Declared exceptions **1344-F6** (row 6 ×3, promise rows ×4).
+  - P15: **P15A.1 RED r4 CONFIRMED (1355-D4)**: review-complete, reference re-run 1355-X2 53 pass + 6 FIXTURE PENDING. P15A.2 RED r3 NOT CONFIRMED (1356-D3: the harness ceiling cannot fire); **1356-F5** orders r4 and corrects 1356-F4's founding facts. P15C: **1359-X** found route L unlawful (a late public founding with the draft open) and a reference ranking-key bug; **1359-F3** orders RED r4 and reference r3.
+- In flight (as of 20:07 CDT, 2026-10-01):
+  - **The recorded broad gates**, about to launch detached: `/Users/zacheryspector/studio-scratch/1344-gates/run-gates.sh` (core 433 files, then UI; guards pre and post; `.venv` on PATH). Progress `/Users/zacheryspector/studio-scratch/1344-gates/gates.meta`, output `gates.log`. It holds `/Users/zacheryspector/studio-scratch/HEAVY-LANE-LOCK` while running. **NO COMMITS until gates.meta says "end"** (the recorder compares HEAD). Expected 85-130 min core, 20 min UI.
+  - Agent writing **1356 RED r4** in `/Users/zacheryspector/studio-scratch/1356-red/tree` (harness ceiling self-timed).
+  - Agent writing **1359 RED r4 + reference r3** in `/Users/zacheryspector/studio-scratch/1359-red/tree`.
+  - Both agents start no vitest while the lock file exists.
+- Claims limits: the recorded gates decide the sweep. The Fake Unity rows are scratch-only by 1320-X's evidence; the repo run decides them. 1356-X F-2 (late public founding) is unverified through the shipped bridge.
 
 ## Next step
 E = `docs/engineering/playability-launch-review/evidence/p14b4-20260919`, S = `/Users/zacheryspector/studio-scratch`. Standing rules: one production writer; one heavy test process at a time; no commits during a recorded run; free disk ≥ 5 GB before a recorded run.
 
-1. **1344-C5** is done (7f0d15c3).
-2. **1344-D4** (running). When it returns: publish it to `E/1344-D4-save43-sweep-review.md`; apply any required change in the merge tree as a parent commit, regenerate the patch and classification, and re-stage. The review covers the 1320-D checklist: assertion strength, live versus historical saves, sentinels, chains and S9 against production law, helper and catalogue pins, a classification sample of more than 40 rows (the `atHead` field marks moved and notVerbatim rows), the handbacks' open items, the S10 declarations, the declared exceptions (1344-F6) and the HYGIENE commit.
-3. **Apply and recorded gates**, after D4 accepts and both author agents are done: `git apply --index E/1344-stage/1344-save43-sweep.patch`, commit (tests only), push, confirm disk ≥ 5 GB. Core: `python3 E/run-bounded-source-guards.py pre 1344-save43-sweep-broad-core 0`, then `PATH="$PWD/.venv/bin:$PATH" node E/run-bounded-source-c2.mjs 1344-save43-sweep-broad-core node_modules/.bin/vitest run --project core $(cat S/1344-merge/core-list.txt)`, then `python3 E/run-bounded-source-guards.py post 1344-save43-sweep-broad-core` (85-130 min). UI alone, the same way, with `1344-save43-sweep-broad-ui` and `vitest run --project ui`. A void run repeats with a `-r2` suffix. Attribute as 1344-I3 (core vs 1338) and 1344-I4 (UI vs 1343), record 1344-M3 (expected NEW set: exactly the seven declared exceptions, plus any environment row attributed on its own evidence), review 1344-J3. Check appliedEqualsDryRunTree against merge HEAD 27b56c2 (or the re-staged HEAD).
-4. **§7, then closure 1344-K.** Run §7 with the kit (`E/1344-stage/s7/RUNBOOK.md`; definitions in 1344-F5 Part B). Then 1344-K on the 1319-K pattern, listing the declared exceptions (1344-F6) for the Owner. Add the K entry atop 06, refresh the CURRENT blocks and this file. 1352-L and 1353-L close their pending broad gates with the same runs.
-5. **P15 revisions.** 1356-C3 (r3) and 1355-C4 (r4) from the agents: the parent re-runs each reference (1356-X2, 1355-X2; for 1355 also its route probe), then a confirmation review each. 1359-X (`S/1359-x/run-1359-X.sh`, ready, long: route L to week 6760) runs when the heavy lane has no P14 work.
-6. **Queue after P14.** Heavy lane, in order: slice A recorded RED and GREEN (1348-F5:31-38), P15B probe 1357-P (record 1357-X), slice B producer mint 1358-P (at the last Save43 writer), probes G1 (P15A.1, after §7) and G-P (P15C, before production), then the P15 recorded REDs. Writers, one at a time: slice A steps 1-3 (r5 rebases on the landed sweep) → slice B (Save44, projection 57) → P15A.2 slice 2a → the P15A.1, P15B and P15C Wave 2 productions (may share one save step, Save45). Carried: P15 capture mints at the last writer below the P15 step (1355-P, 1359-P); 1355-P records the proven release week in its MANIFEST `facts`.
+1. **When gates.meta says "end"** (or a STOP line): check each run's `fixedSource` and guards (`E/1344-save43-sweep-broad-core.json`, `-postflight.json`; the same for `-broad-ui`). A void run repeats with a `-r2` suffix. Then attribute from the repo root: core `python3 E/1321-I-attribution.py E/1344-save43-sweep-broad-core.txt E/1344-I3-core-failures.json` and `python3 E/1344-I-compare.py E/1344-I3-core-failures.json E/1338-I-failures.json E/1344-I3-core-vs1338.json`; UI `python3 E/1317-I-attribution.py E/1344-save43-sweep-broad-ui.txt E/1344-I4-ui-failures.json`, then compare against `E/1343-I-failures.json` into `E/1344-I4-ui-vs1343.json`. Expected: core SAME + CHANGED = 78 (1338's 79 minus the exporter), NEW = exactly the seven F6 exceptions plus any environment row attributed on its own evidence (the C17 and Fake Unity scratch artifacts should vanish in the repo); UI CHANGED 3 (numpy), GONE 7, NEW 0. Record 1344-M3; review 1344-J3 (independent, read-only).
+2. **§7, then closure 1344-K.** Run §7 with the kit (`E/1344-stage/s7/RUNBOOK.md`; definitions 1344-F5 Part B; add 1355-X2's seed `-01` stall as a flagged observation). Then 1344-K on the 1319-K pattern: pinned artifacts, red, green, the sweep block, the application commit cec3902c with appliedEqualsDryRunTree true, core and UI gates, type gates at HEAD, the §7 result, the seven declared exceptions (F6), open items (X12's V39-masking family; 1356-X F-2), next. Add the K entry atop 06, refresh the CURRENT blocks and this file. 1352-L and 1353-L close their pending broad gates with the same runs.
+3. **P15 revisions.** 1356 r4 (C4) and 1359 r4 (C4 + reference r3) from the agents: the parent re-runs each (1356-X3: harness alone; 1359-X2: RED and reference with route L lawful, setting the route and extension budgets), then a confirmation review each.
+4. **Queue after P14.** Heavy lane, in order: slice A recorded RED and GREEN (1348-F5:31-38), P15B probe 1357-P (record 1357-X), slice B producer mint 1358-P and its dry run 1358-X, probes G1 (P15A.1, after §7) and G-P (P15C, before production), then the P15 recorded REDs. Writers, one at a time: slice A steps 1-3 (r5 rebases on cec3902c) → slice B (Save44, projection 57) → P15A.2 slice 2a → the P15A.1, P15B and P15C Wave 2 productions (may share Save45). P15 capture mints at the last writer below the P15 step (1355-P r3, 1359-P).
 
 Agents: the user allows as many subagents as help (2026-10-01). Agents author and review; only the parent runs broad or heavy tests.
 
@@ -48,7 +43,8 @@ Agents: the user allows as many subagents as help (2026-10-01). Agents author an
 - numpy for the three rgba-export tool-contract rows: recommend a scoped `.venv` install beside Pillow, because the rows otherwise stay permanent environment failures (1345-E).
 - P16: the nine questions in 1354-Q, open until the Owner answers.
 - 1344-K will list seven declared exceptions (1344-F6: row 6 ×3, promise rows ×4). Recommend accepting them as they stand: both probes found no lawful re-witness in the fixtures, so only a new fixture or retiring the leaves would change them.
-- 1356-X F-2: an open founding draft plus rival method locks gives a state the repo's validator refuses. Recommend narrowing the rule at `src/core/technology.ts:897` to the player's own rows, under its own charter, after a reachability check through the bridge.
+- 1356-X F-2 as restated in 1356-F5: a public founding after week 0 reaches no valid save once the player signs the roster (ledger-payment rule) or ticks with the draft open after rivals lock methods (technology rule). Recommend a reachability check through the bridge first, then one charter for both rules if the path is reachable.
+- X12's V39-masking family: five downgrade leaves (`p14c2b-save-v36` :74/:82, `p14c2s-scientist-retirement` :279/:280, `p14c2rm-writer-continuation:254`, `p13b-s8-save-v27:188`) pass without reaching the guard they name, since before Save43. Recommend a small RED that gives each an input whose first refusal is its own guard.
 
 ## Blockers and warnings
 - `~/Downloads/project-studio-p13-owner-direction-inputs-01` is a superseded P13 input kit. It holds only a pointer HANDOFF.md to this file.
@@ -61,15 +57,14 @@ Agents: the user allows as many subagents as help (2026-10-01). Agents author an
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-01 18:40 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
-- Branch: `wip/headless-program-20260916-ts` @ `32640b1ec519bd3d54c0828e3f1bf2c68b2ab8f6`
+- Stamped: 2026-10-01 19:54 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
+- Branch: `wip/headless-program-20260916-ts` @ `6427a49119b12351eaeacdbf71916166c954c512`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 1
-  - `M HANDOFF.md`
+- Uncommitted files: 0
 - Last commits:
-  - 32640b1e docs(p15c): 1359-D3 confirmation of RED r3 — CONFIRMED (all three P15 Wave 2 REDs review-complete)
-  - 8ed00148 docs(p15c): Wave 2 RED r3 staged (1359-C3: routeL fix at B6; F1 matches the :351 message)
-  - 872b4b08 docs(p15c): 1359-D2 confirmation of RED r2 — NOT CONFIRMED (route().ms leftover at :770; F1 refusal pattern too loose)
-  - 5474b879 docs(handoff): two P15 REDs review-complete; promise probe confirmed; heavy queue armed behind x3
-  - da6e73f6 docs(p14): 1344-D9 confirmation of promise-row probe r3 — CONFIRMED
+  - 6427a491 docs(p15c): 1359-X reference run (route L unlawful under the founding-draft conflict; reference ranking key wrong); 1359-F3
+  - 2eaacb29 docs(p15): 1356 RED r3 and 1355 RED r4 staged; both reference re-runs match their declarations (1356-X2, 1355-X2); 1356-F4
+  - af315499 docs(handoff): sweep staged with C5 (7f0d15c3); X12 and the S9 parent commit; D4 review running
+  - 7f0d15c3 docs(p14): stage the Save43 sweep (1344-C5): patch, classification, handback; 1344-X12 guard-order and S4 measurements
+  - 6e61d01f docs(handoff): x3 attributed (X9), probes done (X11, F6), sweep patch staged; P15 reference-run findings; three agents in flight
 <!-- AUTO:END -->
