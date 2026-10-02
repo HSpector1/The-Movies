@@ -1,6 +1,6 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 13:51 CDT (the Mac runs on CDT; use `date`)
+Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 14:09 CDT (the Mac runs on CDT; use `date`)
 
 ## Where the work is
 - Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit after f3fe97d0 that carries this file (P15 Wave 2 REDs landed, 1360-L; the Save45 production phase started under 1361-F), pushed: yes.
@@ -34,12 +34,15 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 13:51 CDT (the Mac r
 - **1360-X** (the landing replayed in scratch, 11:50-11:54): every stage matches 1360-F (1356 70/2 before any mint; 1355 51/8 after its mint and pin, the four pin controls green; 1359 40/76 with C2-C4 at "the route L captures are Save44"; six missing-module type errors); bytes equal the Save44 dry runs. P15C **r8 classification** revises C2-C4 (`E/1359-stage/1359-p15c-wave2-red-r8-classification.json`).
 - **The P15 Wave 2 RED landing is CLOSED** (`E/1360-L`, 12:44 CDT). Commits 10b9be41 (1356 RED), e4be3e5c (1355 RED + producer), 6ce916cb (1355 fixtures + sha pin 410d48a8…), 6ac55a37 (1359 RED r8 + producer), 840cf1c7 (route L captures). Recorded runs, each equal to 1360-X leaf for leaf and with fixedSource and allGuardsExact: `1360-p15a2-red-recorded` 70/2, `1360-p15a1-mint` (13 and 146 MANIFEST fields equal), `1360-p15a1-red-recorded` 51/8, `1360-p15c-mint` (17 fields equal), `1360-p15c-red-recorded` 40/76. Type gates at e16b782e: root the six declared TS2307, UI, Bridge and both generator checks clean (`E/1360-L-type-gates.txt`). Reviews 1360-D, 1360-D2; responses 1360-F2, 1360-F3.
 - **1361-R and 1361-F** (committed f3fe97d0): the production protocol and the parent's rulings. The writer's tree is built at `S/1361-prod/tree` (git; tag `base` 1045432 = archive of f3fe97d0, `src` equal to 1706d844's; fixtures and E as real directories of links; script `S/1361-prod/build-tree.sh`).
+- **Slice 2a r1** (writer commit 1f2495a, tag `p15a2-r1`; `E/1361-E`): parent dry run `E/1361-X` at 13:56-14:02 CDT: `src` type-clean on root, UI and Bridge (test-side errors 33/4/9 are Save45 sweep S4/S5 material); 1356 RED 72/72 with the harness at 81,692 ms of 300,000; generator checks clean; 1355 50/9 (`market-validator-reconciles` passes via the shared allocator; five leaves now stop at the missing `sharedMarket` root); 1359 40/76 (C2-C4 now stop at the missing `campaignLegacy` root).
+- **Late founding (Owner item 8):** `E/1364-R`: not exposed by any supported writer or action; one input-dependent import exposure of failure 2; not fixed. One question for the Owner: does the import exposure count as reachable?
 - In flight (agents; none runs node, vitest or tsc):
-  - the **slice 2a production writer** in `S/1361-prod/tree`: commits tagged `p15a2-r1`, patch `S/1361-prod/1361-p15a2-production-r1.patch`, handback `S/1361-prod/1361-E-p15a2-production-handback.md`;
-  - the **G2 probe** author in `S/1361-g2/` (probe, `1361-G2-notes.md`, review checklist);
-  - the **G-P sibling branch** r2 is written (`S/1361-gp/1361-GP-probe-r2.ts`, notes, checklist); its independent review writes `S/1361-gp/review/1361-GP-D-review.md`;
-  - the **recovery amendment charter** `S/1363-recovery/1363-A-rival-recovery-amendment-charter.md` (Owner 1357-Q1 (a), with items 6 and 7 folded in at 13:50);
-  - the **late-founding reachability check** (Owner item 8) writes `S/1364-founding/1364-R-late-founding-reachability.md`.
+  - the **writer**, now on **P15A.1** commits (a), (b), (c) on top of `p15a2-r1` (tags `p15a1-{a,b,c}-r1`; patches `S/1361-prod/1361-p15a1-production-{a,b,c}-r1.patch`; handback `S/1361-prod/1361-E2-p15a1-production-handback.md`);
+  - the **slice 2a r1 implementation review** -> `S/1361-prod/review/1361-D-p15a2-r1-review.md` (a REVISE becomes `p15a2-r2` with P15A.1 rebased);
+  - the **G2 probe** author in `S/1361-g2/`;
+  - the **G-P r2 review** -> `S/1361-gp/review/1361-GP-D-review.md`;
+  - the **recovery amendment charter** `S/1363-recovery/1363-A-…`.
+
 - Claims limits:
   - 1353-T's market-pressure numbers are first order (open-loop factors from 1355-G1).
   - The retune rests on five rival careers on seed-b; p13a's rivals stop filming (1357-R).
@@ -48,7 +51,7 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 13:51 CDT (the Mac r
 ## Next step
 E = `docs/engineering/playability-launch-review/evidence/p14b4-20260919`, S = `/Users/zacheryspector/studio-scratch`. Standing rules: one production writer; one heavy test process at a time; no commits (and no `git add`) during a recorded run or its postflight; free disk ≥ 5 GiB before a recorded run; recorded runs pin Node v20.20.2; recorded stems match `^[0-9]{3,4}[a-z0-9-]*$` (lowercase).
 
-1. **When the slice 2a writer returns:** publish its handback as `E/1361-E-…`; run the dry run `1361-X` in `S/1361-prod/tree` at tag `p15a2-r1` under the heavy lane (root tsc: zero errors in `src/` files; the 1356 archive and isolation files; the 1356 harness alone; the 1355 and 1359 RED files for observation); compare with the handback's row map; then an independent implementation review `1361-D`; rule (`1361-F2`) and send the writer a revision brief if needed (SendMessage to the writer agent keeps its context).
+1. **When the slice 2a review returns:** rule (`1361-F2`); on REVISE send the writer the items (r2 commit, then rebase P15A.1). **When P15A.1 returns:** dry run `run-1361-X.sh p15a1-c-r1 r1-p15a1` (and `p15a1-b-r1` for the (a)+(b) state), publish `1361-E2`/`1361-X2`, review `1361-D2`. Then G2 (control: archive of e4be3e5c; candidate: `p15a1-c-r1`), after its probe review.
 2. **When the probe authors return:** an independent read-only review of each (`1361-G2-D`, `1361-GP-D`) before any run.
 3. **Then** P15A.1 (a), (b), (c) on slice 2a's candidate, G2, G-P, P15C, the sweep and the landing, by 1361-F's order of work. The bound is the first gate failure (1361-F ruling 13). No commit that changes `src/` lands before Save45.
 
@@ -74,21 +77,22 @@ Next questions for the Owner can only come from 1363-A (a material new product r
 - **Deleting scratch.** The harness blocks `rm` on variable paths; use literal absolute paths, links first, then `rm -rf` on the tree.
 - **Agent auth.** If an agent returns `401 OAuth access token has been revoked`, the Owner runs `/login`.
 - **The machine.** 4 CPUs, 8 GB RAM. Disk: 5.13 GiB free at 12:32 CDT (after gzipping closed outputs and removing the closed trees 1353-x4 and 1358-n). Swap shares the disk container (4 GB allocated after the core gate) and moves free space by about 1 GiB; a recorded preflight needs ≥ 5 GiB. Each X run adds a ~130 MB tree: delete it after reading its outputs. `S/1344-merge/x1-core.txt`, `x2-core.txt` and `x3-core.txt` are gzipped in place (gunzip restores the bytes that 1344-X8 and X9 cite). The P15 RED repos survive as mirrors (`S/1355-red/tree-mirror.git`, `S/1356-red/tree-mirror.git`, `S/1359-red/tree-mirror.git`). `S/1358-n/tree` and `S/1358-sweep/merge` hold the slice B reference trees that 1358-J3's scripts read; 1358-L is closed, so they may go once space is needed.
+- **Stuck kernel processes.** The shell's `grep` wrapper (ugrep) and `pgrep -f`/`ps … command` can hang; some processes sit in state `U`/`UE` and survive `kill -9` (a `ReportCrash` for five days; a grep from 2026-10-02). Use `/usr/bin/grep`, `ps -Ao pid,etime,stat,comm`, and `perl -e 'alarm N; exec @ARGV'` for a hard timeout. A reboot clears them; not urgent.
+- **Memory.** 8 GB with five agents, VS Code and Chrome left about 20 MB free and 1.8 GB swap in use at 13:58; keep heavy runs one at a time and avoid the full core fallout while many agents read.
 - **Never scan `docs/` recursively.** `find docs -maxdepth 3` and `git grep … -- docs` hung for minutes at 13:45 CDT on 2026-10-02 and stalled other shells; name exact files, or grep `src`, `ui/src`, `bridge` and `tests`.
 - **Hard limits.** Do not access Owner saves, scan fixture trees, force-push, or launch Codex.
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-02 13:51 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
-- Branch: `wip/headless-program-20260916-ts` @ `3ebaca24a4a8844977a7ce1b7b2ba5e769458958`
+- Stamped: 2026-10-02 14:09 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
+- Branch: `wip/headless-program-20260916-ts` @ `2b1ffd6ed75e7faca83c58775c25666ad81ebeeb`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 2
+- Uncommitted files: 1
   - `M HANDOFF.md`
-  - ` M docs/engineering/playability-launch-review/evidence/p14b4-20260919/1362-O-owner-response-20261002.md`
 - Last commits:
+  - 2b1ffd6e docs(p15): 1361-E slice 2a production handback r1 and 1361-X its dry run (src type-clean on root, UI and Bridge; 1356 RED 72/72 with the harness at 81.7 s of 300 s; generator checks clean; 1355 and 1359 move only as predicted); 1364-R late-founding reachability (not exposed by any supported writer or action; one input-dependent import exposure of failure 2; not fixed)
+  - ec5ca7af docs(handoff): in-flight agents after the Owner's items 5-9 response; warning against recursive scans of docs/
+  - c6ad14f1 docs(owner): record the Owner's second response of 2026-10-02 (items 5-9) verbatim in 1362-O: P16's qualified choices 5.1-5.9; replacement natural fixtures for the seven exceptions after the recovery amendment; the §7 routing with p15a1-w2-market-01 and the 154 promise movements in the recovery measurement; the late-founding reachability check first; the masked-guard coverage repair after Save45
   - 3ebaca24 docs(env): numpy 2.5.1 in the project .venv only (Owner approval 1362-O; the repo's own pin in .github/requirements-tests.txt); 1362-V records versions before and after (numpy the only addition, pip not upgraded, pip check clean), the import through the tests' execFileSync route, and the three rgba-export tool-contract tests now passing (8 of 8)
   - cbdd8cdc docs(owner): record the Owner response of 2026-10-02 verbatim (1362-O): 1357-Q1 option (a), a bounded rival-recovery amendment before P15B's live closure, scheduled after the Save45 landing; numpy approved in .venv only; P15C tuning and relationship wording unchanged; the seven declared exceptions not approved, coverage limits kept; items 5-9 to one decision message
-  - 8d40b6dc docs(handoff): Save45 production phase started (1361-R, 1361-F); writer tree built; slice 2a writer, G2 probe and G-P branch authors in flight
-  - f3fe97d0 docs(p15): 1361-R the Save45 production protocol (compiled from the records) and 1361-F parent rulings: one writer in a scratch tree who runs nothing; references as guides; one Save45 step built in commits; merged refusal, allocator check and phase lookup; G2 and G-P probes by agents with reviews; the bound is the first gate failure; four recorded GREENs; P15B not in Save45
-  - a63c7de8 docs(p15): 1360-L the P15 Wave 2 RED landing CLOSED: three REDs, two recorded mints and three recorded REDs, each equal to the 1360-X replay; type gates at e16b782e as declared (root six TS2307, UI, Bridge and generator checks clean); 1360-D2 recheck and 1360-F3 response; landing scripts staged; CURRENT blocks and HANDOFF
 <!-- AUTO:END -->
