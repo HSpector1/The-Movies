@@ -1,0 +1,594 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/p15-save44/tree-new
+
+ ❯ |core| tests/p15c1-campaign-legacy.test.ts (72 tests | 5 failed) 498ms
+   × p15c1 campaign legacy: module surface (1353-A §5.1/§5.2, PARENT API DECISIONS) > campaign-legacy-definition-version-export 33ms
+     → expected 'campaign-legacy/v1' to be 'campaign-legacy/v2' // Object.is equality
+   × p15c1 campaign legacy: archetype edges (1353-A §8 item 4) > legacy-archetype-edges-commercial-engine-min-films-n-minus-1-vs-n 5ms
+     → expected 'notHeld' to be 'held' // Object.is equality
+   × p15c1 campaign legacy: archetype edges (1353-A §8 item 4) > legacy-archetype-edges-artistic-voice-share-exactly-at-threshold 2ms
+     → expected 'notHeld' to be 'held' // Object.is equality
+   × p15c1 campaign legacy: coexistence, no winner, row order (1353-A §8 item 6) > legacy-coexist-every-evaluated-archetype-held 30ms
+     → ALLSTAR1/commercial-engine: expected 'notHeld' to be 'held' // Object.is equality
+   × p15c1 campaign legacy: TUNING bounded terms (1353-A §5.5, RED 17) > tuning-legacy-bounded-terms 5ms
+     → expected 70 to be 60 // Object.is equality
+stdout | tests/p15c2-campaign-legacy-integration.test.ts > p15c2 controls: the fixtures are lawful at RED and at GREEN > legacy-control-late-founding-route-lawful
+{"kind":"1359-legacy-route-timing","seed":"1359-legacy-late-founding-01","headlessTo6188":3494.2955620000002,"industry6188To6241":5140.9390220000005}
+
+ ❯ |core| tests/p15c2-campaign-legacy-integration.test.ts (37 tests | 35 failed) 31436ms
+   ✓ p15c2 controls: the fixtures are lawful at RED and at GREEN > legacy-control-late-founding-route-lawful 9037ms
+   ✓ p15c2 controls: the fixtures are lawful at RED and at GREEN > legacy-control-genuine-save38-6240-lawful 9094ms
+   × p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-film-facts 30ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5)
+   × p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-run-status 1ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5)
+   × p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-run-status-natural-no-run 1ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5)
+   × p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-private-money-never-read 1ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5)
+   × p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-career-events 1ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5)
+   × p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-studios 1ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5)
+   × p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-domain-facts 8ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5)
+   × p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-sibling-roots 1ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5)
+   × p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-p15-watermarks 11ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5)
+   × p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-missing-concept-refuses 1ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5)
+   × p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-tick-freezes-once-at-6240 1ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+   × p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-freeze-writes-only-its-root 1ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+   × p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-condition-at-6240-outside 1ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5)
+   × p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-adapter-only-at-boundary 1ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+   × p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-ticks-after-freeze 1ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+   × p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-hollywood-null-no-freeze 1ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+   × p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-determinism 1ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+   × p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-root-fresh 20ms
+     → RED: the state carries no campaignLegacy root (1359-A §5: a top-level GameState key)
+   × p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-empty-root 1ms
+     → FIXTURE PENDING: tests/fixtures/p15/p15c2-route-l-captures/MANIFEST.json does not exist; the parent mints it with 1359-P at the last writer below the Legacy's save step (route L at weeks 6239 and 6240)
+   × p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-empty-root-genuine-save38 6779ms
+     → RED: the state carries no campaignLegacy root (1359-A §5: a top-level GameState key)
+   × p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-before-boundary 1ms
+     → FIXTURE PENDING: tests/fixtures/p15/p15c2-route-l-captures/MANIFEST.json does not exist; the parent mints it with 1359-P at the last writer below the Legacy's save step (route L at weeks 6239 and 6240)
+   × p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-past-boundary 0ms
+     → FIXTURE PENDING: tests/fixtures/p15/p15c2-route-l-captures/MANIFEST.json does not exist; the parent mints it with 1359-P at the last writer below the Legacy's save step (route L at weeks 6239 and 6240)
+   × p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-past-boundary-genuine-save38 1ms
+     → RED: the state carries no campaignLegacy root (1359-A §5: a top-level GameState key)
+   × p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-root-downgrade 6423ms
+     → RED: the state carries no campaignLegacy root (1359-A §5: a top-level GameState key)
+   × p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-marker 1ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+   × p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-manifest-identity 0ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+   × p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-stamp 0ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+   × p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-bounds 0ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+   × p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-refs 5ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+   × p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-refs-post-boundary-row 1ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+   × p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-definition-era-guard 1ms
+     → RED: src/core/campaignLegacy.ts does not export LEGACY_DEFINITIONS (1359-A §5.1 era versioning)
+   × p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-round-trip 1ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+   × p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) > legacy-validate-replay 1ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+   × p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) > legacy-old-law-fixture-v1-validates-after-retune 1ms
+     → RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+   × p15c2 law: an authored film may settle with no week (1359-F2 F1; 1359-D item 7) > legacy-law-settled-week-null-authored-only 5ms
+     → campaign legacy: films[0] (AUTHORED).settledWeek must be a whole week once settled
+ ✓ |core| tests/p15c-wave-r-retention.test.ts (7 tests) 46409ms
+   ✓ p15c wave R: retention guards over the six named roots (1353-A §4 row R) > wave-r-retention-studio-released-films 46287ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 40 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: module surface (1353-A §5.1/§5.2, PARENT API DECISIONS) > campaign-legacy-definition-version-export
+AssertionError: expected 'campaign-legacy/v1' to be 'campaign-legacy/v2' // Object.is equality
+
+Expected: "campaign-legacy/v2"
+Received: "campaign-legacy/v1"
+
+ ❯ tests/p15c1-campaign-legacy.test.ts:336:61
+    334|   it('campaign-legacy-definition-version-export', async () => {
+    335|     const mod = await loadCampaignLegacy()
+    336|     expect(requireValue(mod, 'CAMPAIGN_LEGACY_DEFINITION')).toBe('camp…
+       |                                                             ^
+    337|   })
+    338| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/40]⎯
+
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: archetype edges (1353-A §8 item 4) > legacy-archetype-edges-commercial-engine-min-films-n-minus-1-vs-n
+AssertionError: expected 'notHeld' to be 'held' // Object.is equality
+
+Expected: "held"
+Received: "notHeld"
+
+ ❯ tests/p15c1-campaign-legacy.test.ts:599:70
+    597|     const manifest = buildLegacyManifest(facts, 'official2040')
+    598|     expect(archetype(manifest, 'CE-N1', 'commercial-engine').outcome).…
+    599|     expect(archetype(manifest, 'CE-N', 'commercial-engine').outcome).t…
+       |                                                                      ^
+    600|   })
+    601| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/40]⎯
+
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: archetype edges (1353-A §8 item 4) > legacy-archetype-edges-artistic-voice-share-exactly-at-threshold
+AssertionError: expected 'notHeld' to be 'held' // Object.is equality
+
+Expected: "held"
+Received: "notHeld"
+
+ ❯ tests/p15c1-campaign-legacy.test.ts:650:70
+    648|     })
+    649|     const manifest = buildLegacyManifest(facts, 'official2040')
+    650|     expect(archetype(manifest, 'S-EXACT', 'artistic-voice').outcome).t…
+       |                                                                      ^
+    651|     expect(archetype(manifest, 'S-BELOW', 'artistic-voice').outcome).t…
+    652|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/40]⎯
+
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: coexistence, no winner, row order (1353-A §8 item 6) > legacy-coexist-every-evaluated-archetype-held
+AssertionError: ALLSTAR1/commercial-engine: expected 'notHeld' to be 'held' // Object.is equality
+
+Expected: "held"
+Received: "notHeld"
+
+ ❯ tests/p15c1-campaign-legacy.test.ts:975:98
+    973|     for (const studioId of ['ALLSTAR1', 'ALLSTAR2']) {
+    974|       for (const archetypeId of evaluated) {
+    975|         expect(archetype(manifest, studioId, archetypeId).outcome, `${…
+       |                                                                                                  ^
+    976|       }
+    977|       expect(archetype(manifest, studioId, 'awards-dynasty').outcome).…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/40]⎯
+
+ FAIL |core|  tests/p15c1-campaign-legacy.test.ts > p15c1 campaign legacy: TUNING bounded terms (1353-A §5.5, RED 17) > tuning-legacy-bounded-terms
+AssertionError: expected 70 to be 60 // Object.is equality
+
+- Expected
++ Received
+
+- 60
++ 70
+
+ ❯ tests/p15c1-campaign-legacy.test.ts:1894:41
+    1892|   it('tuning-legacy-bounded-terms', () => {
+    1893|     const t = TUNING as unknown as Record<string, unknown>
+    1894|     expect(t.LEGACY_CRITIC_ACCLAIM_MIN).toBe(60)
+       |                                         ^
+    1895|     expect(t.LEGACY_CRITIC_PAN_BELOW).toBe(35)
+    1896|     expect(t.LEGACY_AUDIENCE_LIKED_MIN).toBe(57)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-film-facts
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ Module.factsFn tests/helpers/p15c2-legacy.ts:131:39
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:393:19
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-run-status
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ Module.factsFn tests/helpers/p15c2-legacy.ts:131:39
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:405:19
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-run-status-natural-no-run
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ Module.factsFn tests/helpers/p15c2-legacy.ts:131:39
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:437:19
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-private-money-never-read
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ Module.factsFn tests/helpers/p15c2-legacy.ts:131:39
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:451:19
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-career-events
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ Module.factsFn tests/helpers/p15c2-legacy.ts:131:39
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:520:19
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-studios
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ Module.factsFn tests/helpers/p15c2-legacy.ts:131:39
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:536:19
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-domain-facts
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ Module.factsFn tests/helpers/p15c2-legacy.ts:131:39
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:563:19
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-sibling-roots
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ Module.factsFn tests/helpers/p15c2-legacy.ts:131:39
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:577:19
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-p15-watermarks
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ Module.factsFn tests/helpers/p15c2-legacy.ts:131:39
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:632:19
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-missing-concept-refuses
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ Module.factsFn tests/helpers/p15c2-legacy.ts:131:39
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:653:19
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-tick-freezes-once-at-6240
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ Module.stepFn tests/helpers/p15c2-legacy.ts:132:37
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:670:5
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-freeze-writes-only-its-root
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ Module.stepFn tests/helpers/p15c2-legacy.ts:132:37
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:701:5
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-condition-at-6240-outside
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'legacyFactsFromState' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ Module.factsFn tests/helpers/p15c2-legacy.ts:131:39
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:730:19
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-adapter-only-at-boundary
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ Module.stepFn tests/helpers/p15c2-legacy.ts:132:37
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:754:5
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-ticks-after-freeze
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ Module.stepFn tests/helpers/p15c2-legacy.ts:132:37
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:772:5
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-hollywood-null-no-freeze
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ Module.stepFn tests/helpers/p15c2-legacy.ts:132:37
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:789:5
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-determinism
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ Module.stepFn tests/helpers/p15c2-legacy.ts:132:37
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:801:5
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-root-fresh
+Error: RED: the state carries no campaignLegacy root (1359-A §5: a top-level GameState key)
+ ❯ Module.legacyOf tests/helpers/p15c2-legacy.ts:143:33
+    141| export function legacyOf(state: GameState): LegacyRoot {
+    142|   const root = rawOf(state).campaignLegacy
+    143|   if (root === undefined) throw new Error('RED: the state carries no c…
+       |                                 ^
+    144|   return root as LegacyRoot
+    145| }
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:817:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-empty-root
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-before-boundary
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-past-boundary
+Error: FIXTURE PENDING: tests/fixtures/p15/p15c2-route-l-captures/MANIFEST.json does not exist; the parent mints it with 1359-P at the last writer below the Legacy's save step (route L at weeks 6239 and 6240)
+ ❯ tests/helpers/p15c2-legacy.ts:245:11
+    243|   const manifestUrl = new URL('MANIFEST.json', CAPTURES)
+    244|   if (!existsSync(manifestUrl)) {
+    245|     throw new Error(`FIXTURE PENDING: ${CAPTURE_DIRECTORY}MANIFEST.jso…
+       |           ^
+    246|       + `at the last writer below the Legacy's save step (route L at w…
+    247|   }
+ ❯ Module.<anonymous> tests/helpers/p15c2-legacy.ts:92:22
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:825:22
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-empty-root-genuine-save38
+Error: RED: the state carries no campaignLegacy root (1359-A §5: a top-level GameState key)
+ ❯ Module.legacyOf tests/helpers/p15c2-legacy.ts:143:33
+    141| export function legacyOf(state: GameState): LegacyRoot {
+    142|   const root = rawOf(state).campaignLegacy
+    143|   if (root === undefined) throw new Error('RED: the state carries no c…
+       |                                 ^
+    144|   return root as LegacyRoot
+    145| }
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:846:18
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-past-boundary-genuine-save38
+Error: RED: the state carries no campaignLegacy root (1359-A §5: a top-level GameState key)
+ ❯ Module.legacyOf tests/helpers/p15c2-legacy.ts:143:33
+    141| export function legacyOf(state: GameState): LegacyRoot {
+    142|   const root = rawOf(state).campaignLegacy
+    143|   if (root === undefined) throw new Error('RED: the state carries no c…
+       |                                 ^
+    144|   return root as LegacyRoot
+    145| }
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:877:12
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-root-downgrade
+Error: RED: the state carries no campaignLegacy root (1359-A §5: a top-level GameState key)
+ ❯ Module.legacyOf tests/helpers/p15c2-legacy.ts:143:33
+    141| export function legacyOf(state: GameState): LegacyRoot {
+    142|   const root = rawOf(state).campaignLegacy
+    143|   if (root === undefined) throw new Error('RED: the state carries no c…
+       |                                 ^
+    144|   return root as LegacyRoot
+    145| }
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:890:12
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-marker
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-manifest-identity
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-stamp
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-bounds
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-refs
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) > legacy-validate-replay
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) > legacy-old-law-fixture-v1-validates-after-retune
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ stepFn tests/helpers/p15c2-legacy.ts:132:37
+ ❯ tests/helpers/p15c2-legacy.ts:223:16
+ ❯ Module.<anonymous> tests/helpers/p15c2-legacy.ts:92:22
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:981:20
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-refs-post-boundary-row
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ Module.stepFn tests/helpers/p15c2-legacy.ts:132:37
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:1068:5
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-definition-era-guard
+Error: RED: src/core/campaignLegacy.ts does not export LEGACY_DEFINITIONS (1359-A §5.1 era versioning)
+ ❯ Module.definitionsTable tests/helpers/p15c2-legacy.ts:136:11
+    134|   const table = wave2.LEGACY_DEFINITIONS
+    135|   if (table === null || typeof table !== 'object') {
+    136|     throw new Error('RED: src/core/campaignLegacy.ts does not export L…
+       |           ^
+    137|   }
+    138|   return table as Record<string, DefinitionEntry>
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:1093:19
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-round-trip
+Error: RED: src/core/campaignLegacy.ts does not export a function named 'freezeCampaignLegacyWeek' (1359-A §3-§5)
+ ❯ wave2Fn tests/helpers/p15c2-legacy.ts:125:11
+    123|   const fn = wave2[name]
+    124|   if (typeof fn !== 'function') {
+    125|     throw new Error(`RED: src/core/campaignLegacy.ts does not export a…
+       |           ^
+    126|   }
+    127|   return fn as unknown as T
+ ❯ Module.stepFn tests/helpers/p15c2-legacy.ts:132:37
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:1114:5
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[31/40]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 law: an authored film may settle with no week (1359-F2 F1; 1359-D item 7) > legacy-law-settled-week-null-authored-only
+Error: campaign legacy: films[0] (AUTHORED).settledWeek must be a whole week once settled
+ ❯ fail src/core/campaignLegacy.ts:223:9
+    221| 
+    222| function fail(field: string, rule: string): never {
+    223|   throw new Error(`campaign legacy: ${field} ${rule}`)
+       |         ^
+    224| }
+    225| const isWeek = (v: unknown): v is number => Number.isSafeInteger(v) &&…
+ ❯ src/core/campaignLegacy.ts:351:35
+ ❯ readFacts src/core/campaignLegacy.ts:336:30
+ ❯ Module.buildLegacyManifest src/core/campaignLegacy.ts:760:13
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:1260:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[32/40]⎯
+
+ Test Files  2 failed | 1 passed (3)
+      Tests  40 failed | 76 passed (116)
+   Start at  11:19:51
+   Duration  50.50s (transform 4.34s, setup 0ms, collect 6.70s, tests 78.34s, environment 1ms, prepare 899ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/p15-save44/new-1359.json

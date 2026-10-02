@@ -1,0 +1,63 @@
+== 1355: OLD passed/failed/total (4, 55, 59); NEW (4, 55, 59); classified 59
+  OLD->NEW p15a1-market-integration.test.ts :: market-live-window-stock-retire: releases at W−2, W−10 and W−26 act through WIND
+      old ('failed', 'Error: RED: src/core/p15Phases.ts cannot be loaded (1355-F2 item 3; 1356-C owns it): Failed to load url ../src/core/p15Phases.js (resolved id: ../src/core/p15Phases.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a1-market-integration.test.ts. Does the file exist?')
+      new ('failed', 'Error: RED: src/core/p15Phases.ts cannot be loaded (1355-F2 item 3; 1356-C owns it): Failed to load url ../src/core/p15Phases.js (resolved id: ../src/core/p15Phases.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a1-market-integration-phases.test.ts. Does the file exist?')
+  OLD->NEW p15a1-market-integration.test.ts :: market-no-pressure-week-identity (K2): the post-tick state minus the new roots i
+      old ('failed', 'Error: FIXTURE PENDING: tests/fixtures/p15/p15a1-market-pins/MANIFEST.json is minted by 1355-P at the last writer below the P15 save step (1355-A §4 "pins minted at the RED commit on unchanged production"). Computed at this commit: K2 week 12, digest 083e525c33fed9c085f288438b23ad55ba264a2acceaf42bf')
+      new ('failed', 'Error: FIXTURE PENDING: tests/fixtures/p15/p15a1-market-pins/MANIFEST.json is minted by 1355-P at the last writer below the P15 save step (1355-A §4 "pins minted at the RED commit on unchanged production"). Computed at this commit: K2 week 12, digest 772a86ba89a6546c5260d3bdd268d10699bd7275aa78cb10e')
+  OLD->NEW p15a1-market-integration.test.ts :: market-old-save: the first batches after migration see no pre-migration release 
+      old ('failed', 'Error: FIXTURE PENDING: no genuine capture below the P15 save step at tests/fixtures/p15/genuine-below-p15-save-step/ (1355-F Amendment 3: minted by 1355-P at the last Save42 writer)')
+      new ('failed', 'Error: FIXTURE PENDING: no genuine capture below the P15 save step at tests/fixtures/p15/genuine-below-p15-save-step/ (1355-F Amendment 3: minted by 1355-P at the last Save43 writer)')
+  OLD->NEW p15a1-market-integration.test.ts :: market-old-save: the genuine capture below the step loads to the empty root at i
+      old ('failed', 'Error: FIXTURE PENDING: no genuine capture below the P15 save step at tests/fixtures/p15/genuine-below-p15-save-step/ (1355-F Amendment 3: minted by 1355-P at the last Save42 writer)')
+      new ('failed', 'Error: FIXTURE PENDING: no genuine capture below the P15 save step at tests/fixtures/p15/genuine-below-p15-save-step/ (1355-F Amendment 3: minted by 1355-P at the last Save43 writer)')
+  OLD->NEW p15a1-market-integration.test.ts :: market-root-append-canonical: rows ascend in (week, releaseId) and in p15DomainS
+      old ('failed', 'Error: RED: src/core/p15Phases.ts cannot be loaded (1355-F2 item 3; 1356-C owns it): Failed to load url ../src/core/p15Phases.js (resolved id: ../src/core/p15Phases.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a1-market-integration.test.ts. Does the file exist?')
+      new ('failed', 'Error: RED: src/core/p15Phases.ts cannot be loaded (1355-F2 item 3; 1356-C owns it): Failed to load url ../src/core/p15Phases.js (resolved id: ../src/core/p15Phases.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a1-market-integration-phases.test.ts. Does the file exist?')
+  OLD->NEW p15a1-market-integration.test.ts :: market-week-diff-confined (K1): one pressured tick differs from the RED-commit p
+      old ('failed', 'Error: FIXTURE PENDING: tests/fixtures/p15/p15a1-market-pins/MANIFEST.json is minted by 1355-P at the last writer below the P15 save step (1355-A §4 "pins minted at the RED commit on unchanged production"). Computed at this commit: K1 week 21, committed null, post-tick digest 23ea085ef88a9018e07d633')
+      new ('failed', 'Error: FIXTURE PENDING: tests/fixtures/p15/p15a1-market-pins/MANIFEST.json is minted by 1355-P at the last writer below the P15 save step (1355-A §4 "pins minted at the RED commit on unchanged production"). Computed at this commit: K1 week 21, committed null, post-tick digest f3e27c14278c94565b02e41')
+== 1356: OLD passed/failed/total (2, 70, 72); NEW (2, 70, 72); classified 72
+  OLD->NEW p15a2-power-ranking-archive.test.ts :: rank-adapter-authored
+      old ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive.test.ts. Does the file exist?')
+      new ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive-isolation.test.ts. Does the file exist?')
+  OLD->NEW p15a2-power-ranking-archive.test.ts :: rank-adapter-field-mapping-rivals-and-cohort
+      old ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive.test.ts. Does the file exist?')
+      new ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive-isolation.test.ts. Does the file exist?')
+  OLD->NEW p15a2-power-ranking-archive.test.ts :: rank-adapter-no-leak
+      old ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive.test.ts. Does the file exist?')
+      new ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive-isolation.test.ts. Does the file exist?')
+  OLD->NEW p15a2-power-ranking-archive.test.ts :: rank-adapter-owner-swap
+      old ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive.test.ts. Does the file exist?')
+      new ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive-isolation.test.ts. Does the file exist?')
+  OLD->NEW p15a2-power-ranking-archive.test.ts :: rank-adapter-player-films
+      old ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive.test.ts. Does the file exist?')
+      new ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive-isolation.test.ts. Does the file exist?')
+  OLD->NEW p15a2-power-ranking-archive.test.ts :: rank-adapter-pre-origin
+      old ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive.test.ts. Does the file exist?')
+      new ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive-isolation.test.ts. Does the file exist?')
+  OLD->NEW p15a2-power-ranking-archive.test.ts :: rank-adapter-run-end-parity
+      old ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive.test.ts. Does the file exist?')
+      new ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive-isolation.test.ts. Does the file exist?')
+  OLD->NEW p15a2-power-ranking-archive.test.ts :: rank-archive-module-exports
+      old ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive.test.ts. Does the file exist?')
+      new ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive-isolation.test.ts. Does the file exist?')
+  OLD->NEW p15a2-power-ranking-archive.test.ts :: rank-fixed-cost-player-after-founding-excludes-research
+      old ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive.test.ts. Does the file exist?')
+      new ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive-isolation.test.ts. Does the file exist?')
+  OLD->NEW p15a2-power-ranking-archive.test.ts :: rank-fixed-cost-player-zero-while-founding
+      old ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive.test.ts. Does the file exist?')
+      new ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive-isolation.test.ts. Does the file exist?')
+  OLD->NEW p15a2-power-ranking-archive.test.ts :: rank-fixed-cost-rival-operating-cost
+      old ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive.test.ts. Does the file exist?')
+      new ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive-isolation.test.ts. Does the file exist?')
+  OLD->NEW p15a2-power-ranking-archive.test.ts :: rank-root-migration-genuine-below-step-capture
+      old ('failed', 'Error: RED: no genuine capture below the P15 save step at tests/fixtures/p15/genuine-below-p15-save-step/ (1356-A §9: mint it at the last Save42 writer)')
+      new ('failed', 'Error: RED: no genuine capture below the P15 save step at tests/fixtures/p15/genuine-below-p15-save-step/ (1356-A §9: mint it at the last Save43 writer)')
+  OLD->NEW p15a2-power-ranking-archive.test.ts :: rank-step-record-is-law-snapshot
+      old ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive.test.ts. Does the file exist?')
+      new ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive-isolation.test.ts. Does the file exist?')
+  OLD->NEW p15a2-power-ranking-archive.test.ts :: rank-validate-cadence-boundary
+      old ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive.test.ts. Does the file exist?')
+      new ('failed', 'Error: Failed to load url ../src/core/powerRankingArchive.js (resolved id: ../src/core/powerRankingArchive.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree/tests/p15a2-power-ranking-archive-isolation.test.ts. Does the file exist?')
+== 1359: OLD passed/failed/total (76, 40, 116); NEW (76, 40, 116); classified 116

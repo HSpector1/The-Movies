@@ -1,0 +1,17 @@
+tests/p14b10-labels.test.ts(47,10): error TS2305: Module '"../src/core/relationships.js"' has no exported member 'RIVALS_SAME_SLOT_COMPETITIONS'.
+tests/p14b10-labels.test.ts(48,10): error TS2305: Module '"../src/core/relationshipLabels.js"' has no exported member 'professionalRivalsEvidence'.
+tests/p14b10-romance.test.ts(91,3): error TS2305: Module '"../src/core/relationships.js"' has no exported member 'ROMANCE_DECAY_WEEKS'.
+tests/p14b10-romance.test.ts(91,24): error TS2305: Module '"../src/core/relationships.js"' has no exported member 'ROMANCE_EXIT_THRESHOLD'.
+tests/p14b10-romance.test.ts(91,48): error TS2305: Module '"../src/core/relationships.js"' has no exported member 'ROMANCE_FORMATION_THRESHOLD'.
+tests/p14b10-romance.test.ts(91,77): error TS2305: Module '"../src/core/relationships.js"' has no exported member 'ROMANCE_GRACE_WEEKS'.
+tests/p14b10-romance.test.ts(92,3): error TS2305: Module '"../src/core/relationships.js"' has no exported member 'ROMANCE_PROXIMITY_GAIN'.
+tests/p14b10-romance.test.ts(92,27): error TS2305: Module '"../src/core/relationships.js"' has no exported member 'ROMANCE_SUCCESS_GAIN'.
+tests/p14b10-romance.test.ts(93,47): error TS2305: Module '"../src/core/relationships.js"' has no exported member 'currentRomanceValue'.
+tests/p14b10-romance.test.ts(93,81): error TS2305: Module '"../src/core/relationships.js"' has no exported member 'romanceStatus'.
+tests/p14b10-romance.test.ts(619,90): error TS2353: Object literal may only specify known properties, and 'romance' does not exist in type 'Pick<RelationshipEdge, "closeness" | "lastEventWeek">'.
+tests/p14b10-romance.test.ts(637,90): error TS2353: Object literal may only specify known properties, and 'romance' does not exist in type 'Pick<RelationshipEdge, "closeness" | "lastEventWeek">'.
+tests/p14b10-romance.test.ts(656,92): error TS2353: Object literal may only specify known properties, and 'romance' does not exist in type 'Pick<RelationshipEdge, "closeness" | "lastEventWeek">'.
+tests/p14b10-romance.test.ts(657,91): error TS2353: Object literal may only specify known properties, and 'romance' does not exist in type 'Pick<RelationshipEdge, "closeness" | "lastEventWeek">'.
+tests/p14b10-romance.test.ts(668,126): error TS2353: Object literal may only specify known properties, and 'romance' does not exist in type 'Pick<RelationshipEdge, "closeness" | "lastEventWeek" | "sharedCompetitions">'.
+tests/p14b10-romance.test.ts(677,7): error TS2578: Unused '@ts-expect-error' directive.
+tests/p14b10-romance.test.ts(679,7): error TS2578: Unused '@ts-expect-error' directive.

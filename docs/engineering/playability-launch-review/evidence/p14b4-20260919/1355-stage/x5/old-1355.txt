@@ -1,0 +1,928 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/p15-save44/tree-old
+
+ ❯ |core| tests/p15a1-market-integration-phases.test.ts (1 test | 1 failed) 50ms
+   × p15a1 market phase identity (1355-F3; 1355-F4 R4) > market-phase-version-immutable: v1 rows keep their triple under a v2 table, a row declared v2 with v2's ordinal validates, a triple off its own version refuses by name 48ms
+     → RED: src/core/p15Phases.ts cannot be loaded (1355-F2 item 3; 1356-C owns it): [vitest] There was an error when mocking a module. If you are using "vi.mock" factory, make sure there are no top level variables inside, since this call is hoisted to top of the file. Read more: https://vitest.dev/api/vi.html#vi-mock
+ ❯ |core| tests/p15a1-market-integration-atomicity.test.ts (4 tests | 4 failed) 2039ms
+   × p15a1 market all-or-none at the seam (1355-F3 Blocking 1) > market-second-subject-failure-commits-nothing: a rival second subject refuses in the seam; nothing from either subject commits 2028ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market all-or-none at the seam (1355-F3 Blocking 1) > market-second-subject-failure-commits-nothing: a player second subject refuses in the seam; nothing from either subject commits 1ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market due-set witness in the live tick (RED 5) > market-due-set-mismatch-fails-closed: a frozen batch that loses a due rival picture fails the week by name; input unchanged 1ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market seam at both release sites (RED 2 live, 1355-A §3.2) > market-seam-both-call-sites: the batch factor scales the player's and the rival's opening and total; critic and legs hold 1ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ |core| tests/p15a1-market-integration.test.ts (54 tests | 50 failed) 5516ms
+   × p15a1 market seam (RED 1-2, 1355-A §3.2) > market-seam-default-exact: the default path is bit-equal to the RED-commit pin [control, fixture-pending] 16ms
+     → FIXTURE PENDING: tests/fixtures/p15/p15a1-market-pins/MANIFEST.json is minted by 1355-P at the last writer below the P15 save step (1355-A §4 "pins minted at the RED commit on unchanged production"). Computed at this commit: [{"name":"default-headless","digest":"29a04b42fcfcdeeac45bd56121390dd3444a5c7f16c834b836570387130cf2b0"},{"name":"default-engaged","digest":"0dde8ac354483daa2ccb00ab61b319a6f60267d646ddcb47627a1826f61991f6"},{"name":"stars-heavy-marketing","digest":"a2ef93d2b25532525a95c6e856ecfed2cbe107a649c388b57cec1774953abc9f"}]
+   × p15a1 market seam (RED 1-2, 1355-A §3.2) > market-seam-scales-opening-only: f < 1 scales the opening and total only; ReceptionResult reports f 14ms
+     → default-headless f=0.9016326649281583: expected 1 to be 0.9016326649281583 // Object.is equality
+   × p15a1 market seam (RED 1-2, 1355-A §3.2) > market-seam-scales-opening-only: a factor outside [1 − SHARED_MARKET_FACTOR_MAX_PENALTY, 1] throws 17ms
+     → f=1.000000001: expected [Function] to throw an error
+   ✓ p15a1 market forecast paths (RED 3, 1355-A §3.2 "never carry it") > market-forecast-paths-unchanged: agent choices and forecast history ignore the root [control] 2460ms
+   ✓ p15a1 market forecast paths (RED 3, 1355-A §3.2 "never carry it") > market-forecast-paths-unchanged: a week of rival decisions with no release ignores the root [control] 501ms
+   × p15a1 market due set (RED 4-5, 1355-A §3.1) > market-due-set-equals-releases: frozen members are the committed player release plus every rival picture at 1 12ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market due set (RED 4-5, 1355-A §3.1) > market-due-set-mismatch-fails-closed: a frozen batch missing a due rival picture throws, input unchanged 35ms
+     → expected [Function] to throw an error
+   × p15a1 market due set (RED 4-5, 1355-A §3.1) > market-due-set-mismatch-fails-closed: a frozen batch naming a picture nobody releases throws, input unchanged 34ms
+     → expected [Function] to throw an error
+   × p15a1 market live batches (RED 6-9) > market-live-one-player-one-rival: same genre, same week, both pressureFactor(1), each names the other 1ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market live batches (RED 6-9) > market-live-window-stock-retire: releases at W−2, W−10 and W−26 act through WINDOW_RELEASES, GENRE_SATURATION and nothing 19ms
+     → RED: src/core/p15Phases.ts cannot be loaded (1355-F2 item 3; 1356-C owns it): Failed to load url ../src/core/p15Phases.js (resolved id: ../src/core/p15Phases.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree-old/tests/p15a1-market-integration.test.ts. Does the file exist?
+   × p15a1 market live batches (RED 6-9) > market-live-self-exclusion-clamp: one studio's two same-genre same-week releases see each other at 1.00, never themselves 2ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market live batches (RED 6-9) > market-live-no-player-flag: a persisted row carries exactly the law fields and the 1355-F2 fields, no owner 1ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market live batches (RED 6-9) > market-live-no-player-flag: mirror fixtures that swap the player studio give equal assessments after id normalization 1ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market chronology controls (RED 10-11, 1355-A §4 K1/K2) > market-week-diff-confined (K1): the K1 week is pressured exactly where the law says 9ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market chronology controls (RED 10-11, 1355-A §4 K1/K2) > market-week-diff-confined (K1): one pressured tick differs from the RED-commit pin only inside the pressured chain [control, fixture-pending] 63ms
+     → FIXTURE PENDING: tests/fixtures/p15/p15a1-market-pins/MANIFEST.json is minted by 1355-P at the last writer below the P15 save step (1355-A §4 "pins minted at the RED commit on unchanged production"). Computed at this commit: K1 week 21, committed null, post-tick digest 23ea085ef88a9018e07d633917b01d8ad4ed24a9284be88fbe2603a7bb858312
+   × p15a1 market chronology controls (RED 10-11, 1355-A §4 K1/K2) > market-no-pressure-week-identity (K2): every release of the K2 week is assessed at P = 0 and f = 1 5ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market chronology controls (RED 10-11, 1355-A §4 K1/K2) > market-no-pressure-week-identity (K2): the post-tick state minus the new roots is byte-equal to the RED-commit pin [control, fixture-pending] 34ms
+     → FIXTURE PENDING: tests/fixtures/p15/p15a1-market-pins/MANIFEST.json is minted by 1355-P at the last writer below the P15 save step (1355-A §4 "pins minted at the RED commit on unchanged production"). Computed at this commit: K2 week 12, digest 083e525c33fed9c085f288438b23ad55ba264a2acceaf42bf5b2ca232a7ab652
+   × p15a1 market root (RED 12-13, 1355-A §3.3; 1355-F2 item 2; 1355-F3) > market-root-append-canonical: one ordered append per week; derived exposures equal reduceExposures 1ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market root (RED 12-13, 1355-A §3.3; 1355-F2 item 2; 1355-F3) > market-root-append-canonical: rows ascend in (week, releaseId) and in p15DomainSequence, each with its v1 phase triple 4ms
+     → RED: src/core/p15Phases.ts cannot be loaded (1355-F2 item 3; 1356-C owns it): Failed to load url ../src/core/p15Phases.js (resolved id: ../src/core/p15Phases.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree-old/tests/p15a1-market-integration.test.ts. Does the file exist?
+   × p15a1 market root (RED 12-13, 1355-A §3.3; 1355-F2 item 2; 1355-F3) > market-inflight-save-replay: save during an active exposure, reload, run 30 weeks: assessments and terminal save equal an unsaved run 159ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: the unforged route state validates (premise of every refusal below) 802ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged pressure by name 19ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged factor by name 16ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged windowTerm by name 16ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged stockTerm by name 16ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged reason by name 16ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged inputDigest by name 16ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses rows out of (week, releaseId) order by name 17ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a duplicate assessment by name 16ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an orphan assessment with no film by name 16ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a missing assessment by name 16ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an assessment before recordedFromWeek by name 20ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an assessment at the tick by name 19ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an unknown definitionVersion by name 16ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an unknown root version by name 16ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an owner field on a row (exact keys) by name 16ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a duplicate p15DomainSequence by name 15ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a p15DomainSequence at p15Sequence.next by name 16ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a p15DomainSequence below 1 by name 22ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a stale p15Sequence.next by name 16ms
+     → RED: GameState has no `p15Sequence` allocator (1355-F2 item 1); no P15 save step has landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a phase ordinal off its version's table entry by name 16ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses another phase's phaseId by name 16ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an unknown phaseOrderVersion by name 18ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: across P15 roots, a sibling row may hold the largest sequence and a market row may not reuse a sibling's 1ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market old saves (RED 16) > market-old-save: the genuine capture below the step loads to the empty root at its tick; a second migration is a no-op; it round-trips while empty [fixture-pending] 1ms
+     → FIXTURE PENDING: no genuine capture below the P15 save step at tests/fixtures/p15/genuine-below-p15-save-step/ (1355-F Amendment 3: minted by 1355-P at the last Save42 writer)
+   × p15a1 market old saves (RED 16) > market-old-save: the first batches after migration see no pre-migration release [fixture-pending] 1ms
+     → FIXTURE PENDING: no genuine capture below the P15 save step at tests/fixtures/p15/genuine-below-p15-save-step/ (1355-F Amendment 3: minted by 1355-P at the last Save42 writer)
+   × p15a1 market old saves (RED 16) > market-old-save: the genuine Save42 week-130 capture lifts to an empty root at its own week and steps down losslessly while empty 215ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market old saves (RED 16) > market-old-save: a non-empty root refuses the downgrade by name, at the step and through every older migrator 1ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market disengaged world (RED 17) > market-disengaged-world: with no industry there is no batch: the root stays empty at week 0 and no market row exists anywhere 523ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market disengaged world (RED 17) > market-disengaged-world: the M0A outputs equal the RED-commit pin [control, fixture-pending] 20ms
+     → FIXTURE PENDING: tests/fixtures/p15/p15a1-market-pins/MANIFEST.json is minted by 1355-P at the last writer below the P15 save step (1355-A §4 "pins minted at the RED commit on unchanged production"). Computed at this commit: M0A 40 weeks, digest 405f3b4dcce303aa0346a9a0b6073c71237afe56ac35da1bb5d126f6a2230379
+   × p15a1 market persisted storage (RED 18) > market-large-batch-persisted-linear: every live row is bounded: exact keys, at most five reasons of at most five ids 177ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+   × p15a1 market persisted storage (RED 18) > market-large-batch-persisted-linear: 32- and 512-member batches persist equal-bounded rows and linear root bytes 1ms
+     → RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 55 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p15a1-market-integration-atomicity.test.ts > p15a1 market all-or-none at the seam (1355-F3 Blocking 1) > market-second-subject-failure-commits-nothing: a rival second subject refuses in the seam; nothing from either subject commits
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ Module.withEmptyMarketRoot tests/helpers/p15a1-market-route.ts:383:16
+ ❯ pairState tests/p15a1-market-integration-atomicity.test.ts:96:27
+ ❯ tests/p15a1-market-integration-atomicity.test.ts:108:58
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration-atomicity.test.ts > p15a1 market all-or-none at the seam (1355-F3 Blocking 1) > market-second-subject-failure-commits-nothing: a player second subject refuses in the seam; nothing from either subject commits
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ Module.withEmptyMarketRoot tests/helpers/p15a1-market-route.ts:383:16
+ ❯ twinState tests/p15a1-market-integration-atomicity.test.ts:103:34
+ ❯ tests/p15a1-market-integration-atomicity.test.ts:123:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration-atomicity.test.ts > p15a1 market due-set witness in the live tick (RED 5) > market-due-set-mismatch-fails-closed: a frozen batch that loses a due rival picture fails the week by name; input unchanged
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ Module.withEmptyMarketRoot tests/helpers/p15a1-market-route.ts:383:16
+ ❯ pairState tests/p15a1-market-integration-atomicity.test.ts:96:27
+ ❯ tests/p15a1-market-integration-atomicity.test.ts:139:43
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration-atomicity.test.ts > p15a1 market seam at both release sites (RED 2 live, 1355-A §3.2) > market-seam-both-call-sites: the batch factor scales the player's and the rival's opening and total; critic and legs hold
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ Module.withEmptyMarketRoot tests/helpers/p15a1-market-route.ts:383:16
+ ❯ pairState tests/p15a1-market-integration-atomicity.test.ts:96:27
+ ❯ tests/p15a1-market-integration-atomicity.test.ts:150:58
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration-phases.test.ts > p15a1 market phase identity (1355-F3; 1355-F4 R4) > market-phase-version-immutable: v1 rows keep their triple under a v2 table, a row declared v2 with v2's ordinal validates, a triple off its own version refuses by name
+Error: RED: src/core/p15Phases.ts cannot be loaded (1355-F2 item 3; 1356-C owns it): [vitest] There was an error when mocking a module. If you are using "vi.mock" factory, make sure there are no top level variables inside, since this call is hoisted to top of the file. Read more: https://vitest.dev/api/vi.html#vi-mock
+ ❯ tests/p15a1-market-integration-phases.test.ts:39:13
+     37|       phases = (await import('../src/core/p15Phases.js')) as unknown a…
+     38|     } catch (error) {
+     39|       throw new Error(`RED: src/core/p15Phases.ts cannot be loaded (13…
+       |             ^
+     40|     }
+     41|     const live = phases.P15_PHASE_ORDER_VERSION as number
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market seam (RED 1-2, 1355-A §3.2) > market-seam-default-exact: the default path is bit-equal to the RED-commit pin [control, fixture-pending]
+Error: FIXTURE PENDING: tests/fixtures/p15/p15a1-market-pins/MANIFEST.json is minted by 1355-P at the last writer below the P15 save step (1355-A §4 "pins minted at the RED commit on unchanged production"). Computed at this commit: [{"name":"default-headless","digest":"29a04b42fcfcdeeac45bd56121390dd3444a5c7f16c834b836570387130cf2b0"},{"name":"default-engaged","digest":"0dde8ac354483daa2ccb00ab61b319a6f60267d646ddcb47627a1826f61991f6"},{"name":"stars-heavy-marketing","digest":"a2ef93d2b25532525a95c6e856ecfed2cbe107a649c388b57cec1774953abc9f"}]
+ ❯ readPins tests/p15a1-market-integration.test.ts:130:11
+    128|   const url = new URL(`../${PIN_DIRECTORY}MANIFEST.json`, import.meta.…
+    129|   if (!existsSync(url)) {
+    130|     throw new Error(`FIXTURE PENDING: ${PIN_DIRECTORY}MANIFEST.json is…
+       |           ^
+    131|       `P15 save step (1355-A §4 "pins minted at the RED commit on unch…
+    132|   }
+ ❯ tests/p15a1-market-integration.test.ts:175:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market seam (RED 1-2, 1355-A §3.2) > market-seam-scales-opening-only: f < 1 scales the opening and total only; ReceptionResult reports f
+AssertionError: default-headless f=0.9016326649281583: expected 1 to be 0.9016326649281583 // Object.is equality
+
+- Expected
++ Received
+
+- 0.9016326649281583
++ 1
+
+ ❯ tests/p15a1-market-integration.test.ts:185:62
+    183|       for (const f of factors) {
+    184|         const scaled = runPinCase(c, { competitionFactor: f })
+    185|         expect(scaled.competitionFactor, `${c.name} f=${f}`).toBe(f)
+       |                                                              ^
+    186|         expect(scaled.criticScore).toBe(control.criticScore)
+    187|         expect(canon(scaled.segmentScores)).toBe(canon(control.segment…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market seam (RED 1-2, 1355-A §3.2) > market-seam-scales-opening-only: a factor outside [1 − SHARED_MARKET_FACTOR_MAX_PENALTY, 1] throws
+AssertionError: f=1.000000001: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/p15a1-market-integration.test.ts:205:71
+    203|     const c = receptionPinCases()[1]!
+    204|     for (const f of [1 + 1e-9, 1.5, floor - 1e-9, 0, -1, Number.NaN, N…
+    205|       expect(() => runPinCase(c, { competitionFactor: f }), `f=${f}`).…
+       |                                                                       ^
+    206|     }
+    207|     for (const f of [floor, 1]) expect(() => runPinCase(c, { competiti…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market due set (RED 4-5, 1355-A §3.1) > market-due-set-equals-releases: frozen members are the committed player release plus every rival picture at 1
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ Module.rowsAt tests/helpers/p15a1-market-route.ts:62:3
+ ❯ tests/p15a1-market-integration.test.ts:280:28
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market due set (RED 4-5, 1355-A §3.1) > market-due-set-mismatch-fails-closed: a frozen batch missing a due rival picture throws, input unchanged
+AssertionError: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/p15a1-market-integration.test.ts:296:53
+    294|     const missing = due[0]!
+    295|     const forged = new Map(due.slice(1).map((m) => [m.releaseId, 1]))
+    296|     expect(() => advanceWithFactors(state, forged)).toThrow(missing.re…
+       |                                                     ^
+    297|     expect(canon(state)).toBe(before)
+    298|   }, MEDIUM)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market due set (RED 4-5, 1355-A §3.1) > market-due-set-mismatch-fails-closed: a frozen batch naming a picture nobody releases throws, input unchanged
+AssertionError: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/p15a1-market-integration.test.ts:304:54
+    302|     const before = canon(state)
+    303|     const phantom = new Map([...rivalDue(state).map((m) => [m.releaseI…
+    304|     expect(() => advanceWithFactors(state, phantom)).toThrow('p15a1-re…
+       |                                                      ^
+    305|     expect(canon(state)).toBe(before)
+    306|   }, MEDIUM)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market live batches (RED 6-9) > market-live-one-player-one-rival: same genre, same week, both pressureFactor(1), each names the other
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ Module.withEmptyMarketRoot tests/helpers/p15a1-market-route.ts:383:16
+ ❯ tests/p15a1-market-integration.test.ts:315:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market live batches (RED 6-9) > market-live-window-stock-retire: releases at W−2, W−10 and W−26 act through WINDOW_RELEASES, GENRE_SATURATION and nothing
+Error: RED: src/core/p15Phases.ts cannot be loaded (1355-F2 item 3; 1356-C owns it): Failed to load url ../src/core/p15Phases.js (resolved id: ../src/core/p15Phases.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree-old/tests/p15a1-market-integration.test.ts. Does the file exist?
+ ❯ loadPhases tests/p15a1-market-integration.test.ts:112:11
+    110|     mod = (await import('../src/core/p15Phases.js')) as unknown as Rec…
+    111|   } catch (error) {
+    112|     throw new Error(`RED: src/core/p15Phases.ts cannot be loaded (1355…
+       |           ^
+    113|   }
+    114|   if (typeof mod.P15_PHASE_ORDER_VERSION !== 'number' || mod.P15_PHASE…
+ ❯ marketTriple tests/p15a1-market-integration.test.ts:120:31
+ ❯ tests/p15a1-market-integration.test.ts:345:77
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market live batches (RED 6-9) > market-live-self-exclusion-clamp: one studio's two same-genre same-week releases see each other at 1.00, never themselves
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ Module.withEmptyMarketRoot tests/helpers/p15a1-market-route.ts:383:16
+ ❯ tests/p15a1-market-integration.test.ts:368:38
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market live batches (RED 6-9) > market-live-no-player-flag: a persisted row carries exactly the law fields and the 1355-F2 fields, no owner
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ Module.withEmptyMarketRoot tests/helpers/p15a1-market-route.ts:383:16
+ ❯ tests/p15a1-market-integration.test.ts:386:38
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market live batches (RED 6-9) > market-live-no-player-flag: mirror fixtures that swap the player studio give equal assessments after id normalization
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ Module.withEmptyMarketRoot tests/helpers/p15a1-market-route.ts:383:16
+ ❯ tests/p15a1-market-integration.test.ts:394:42
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market chronology controls (RED 10-11, 1355-A §4 K1/K2) > market-week-diff-confined (K1): the K1 week is pressured exactly where the law says
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ Module.rowsAt tests/helpers/p15a1-market-route.ts:62:3
+ ❯ tests/p15a1-market-integration.test.ts:424:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market chronology controls (RED 10-11, 1355-A §4 K1/K2) > market-week-diff-confined (K1): one pressured tick differs from the RED-commit pin only inside the pressured chain [control, fixture-pending]
+Error: FIXTURE PENDING: tests/fixtures/p15/p15a1-market-pins/MANIFEST.json is minted by 1355-P at the last writer below the P15 save step (1355-A §4 "pins minted at the RED commit on unchanged production"). Computed at this commit: K1 week 21, committed null, post-tick digest 23ea085ef88a9018e07d633917b01d8ad4ed24a9284be88fbe2603a7bb858312
+ ❯ readPins tests/p15a1-market-integration.test.ts:130:11
+    128|   const url = new URL(`../${PIN_DIRECTORY}MANIFEST.json`, import.meta.…
+    129|   if (!existsSync(url)) {
+    130|     throw new Error(`FIXTURE PENDING: ${PIN_DIRECTORY}MANIFEST.json is…
+       |           ^
+    131|       `P15 save step (1355-A §4 "pins minted at the RED commit on unch…
+    132|   }
+ ❯ tests/p15a1-market-integration.test.ts:433:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market chronology controls (RED 10-11, 1355-A §4 K1/K2) > market-no-pressure-week-identity (K2): every release of the K2 week is assessed at P = 0 and f = 1
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ Module.rowsAt tests/helpers/p15a1-market-route.ts:62:3
+ ❯ tests/p15a1-market-integration.test.ts:458:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market chronology controls (RED 10-11, 1355-A §4 K1/K2) > market-no-pressure-week-identity (K2): the post-tick state minus the new roots is byte-equal to the RED-commit pin [control, fixture-pending]
+Error: FIXTURE PENDING: tests/fixtures/p15/p15a1-market-pins/MANIFEST.json is minted by 1355-P at the last writer below the P15 save step (1355-A §4 "pins minted at the RED commit on unchanged production"). Computed at this commit: K2 week 12, digest 083e525c33fed9c085f288438b23ad55ba264a2acceaf42bf5b2ca232a7ab652
+ ❯ readPins tests/p15a1-market-integration.test.ts:130:11
+    128|   const url = new URL(`../${PIN_DIRECTORY}MANIFEST.json`, import.meta.…
+    129|   if (!existsSync(url)) {
+    130|     throw new Error(`FIXTURE PENDING: ${PIN_DIRECTORY}MANIFEST.json is…
+       |           ^
+    131|       `P15 save step (1355-A §4 "pins minted at the RED commit on unch…
+    132|   }
+ ❯ tests/p15a1-market-integration.test.ts:471:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market root (RED 12-13, 1355-A §3.3; 1355-F2 item 2; 1355-F3) > market-root-append-canonical: one ordered append per week; derived exposures equal reduceExposures
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ tests/p15a1-market-integration.test.ts:488:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market root (RED 12-13, 1355-A §3.3; 1355-F2 item 2; 1355-F3) > market-root-append-canonical: rows ascend in (week, releaseId) and in p15DomainSequence, each with its v1 phase triple
+Error: RED: src/core/p15Phases.ts cannot be loaded (1355-F2 item 3; 1356-C owns it): Failed to load url ../src/core/p15Phases.js (resolved id: ../src/core/p15Phases.js) in /Users/zacheryspector/studio-scratch/p15-save44/tree-old/tests/p15a1-market-integration.test.ts. Does the file exist?
+ ❯ loadPhases tests/p15a1-market-integration.test.ts:112:11
+    110|     mod = (await import('../src/core/p15Phases.js')) as unknown as Rec…
+    111|   } catch (error) {
+    112|     throw new Error(`RED: src/core/p15Phases.ts cannot be loaded (1355…
+       |           ^
+    113|   }
+    114|   if (typeof mod.P15_PHASE_ORDER_VERSION !== 'number' || mod.P15_PHASE…
+ ❯ marketTriple tests/p15a1-market-integration.test.ts:120:31
+ ❯ tests/p15a1-market-integration.test.ts:511:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market root (RED 12-13, 1355-A §3.3; 1355-F2 item 2; 1355-F3) > market-inflight-save-replay: save during an active exposure, reload, run 30 weeks: assessments and terminal save equal an unsaved run
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ tests/p15a1-market-integration.test.ts:533:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: the unforged route state validates (premise of every refusal below)
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ rowsOf tests/p15a1-market-integration.test.ts:552:61
+ ❯ tests/p15a1-market-integration.test.ts:641:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged pressure by name
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ rowsOf tests/p15a1-market-integration.test.ts:552:61
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:577:71
+ ❯ tests/p15a1-market-integration.test.ts:649:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged factor by name
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ rowsOf tests/p15a1-market-integration.test.ts:552:61
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:578:77
+ ❯ tests/p15a1-market-integration.test.ts:649:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged windowTerm by name
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ rowsOf tests/p15a1-market-integration.test.ts:552:61
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:579:80
+ ❯ tests/p15a1-market-integration.test.ts:649:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged stockTerm by name
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ rowsOf tests/p15a1-market-integration.test.ts:552:61
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:580:78
+ ❯ tests/p15a1-market-integration.test.ts:649:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged reason by name
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ rowsOf tests/p15a1-market-integration.test.ts:552:61
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:582:15
+ ❯ tests/p15a1-market-integration.test.ts:649:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged inputDigest by name
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ rowsOf tests/p15a1-market-integration.test.ts:552:61
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:585:84
+ ❯ tests/p15a1-market-integration.test.ts:649:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses rows out of (week, releaseId) order by name
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ rowsOf tests/p15a1-market-integration.test.ts:552:61
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:587:18
+ ❯ tests/p15a1-market-integration.test.ts:649:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[31/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a duplicate assessment by name
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ rowsOf tests/p15a1-market-integration.test.ts:552:61
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:592:18
+ ❯ tests/p15a1-market-integration.test.ts:649:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[32/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an orphan assessment with no film by name
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ rowsOf tests/p15a1-market-integration.test.ts:552:61
+ ❯ lastRow tests/p15a1-market-integration.test.ts:574:60
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:596:46
+ ❯ tests/p15a1-market-integration.test.ts:649:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[33/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a missing assessment by name
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ rowsOf tests/p15a1-market-integration.test.ts:552:61
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:599:18
+ ❯ tests/p15a1-market-integration.test.ts:649:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[34/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an assessment before recordedFromWeek by name
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:608:5
+ ❯ tests/p15a1-market-integration.test.ts:649:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[35/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an assessment at the tick by name
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ rowsOf tests/p15a1-market-integration.test.ts:552:61
+ ❯ appendLawRow tests/p15a1-market-integration.test.ts:559:16
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:613:5
+ ❯ tests/p15a1-market-integration.test.ts:649:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[36/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an unknown definitionVersion by name
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ rowsOf tests/p15a1-market-integration.test.ts:552:61
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:616:6
+ ❯ tests/p15a1-market-integration.test.ts:649:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[37/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an unknown root version by name
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:618:76
+ ❯ tests/p15a1-market-integration.test.ts:649:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[38/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an owner field on a row (exact keys) by name
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ rowsOf tests/p15a1-market-integration.test.ts:552:61
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:620:6
+ ❯ tests/p15a1-market-integration.test.ts:649:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[39/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a duplicate p15DomainSequence by name
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ rowsOf tests/p15a1-market-integration.test.ts:552:61
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:623:18
+ ❯ tests/p15a1-market-integration.test.ts:649:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[40/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a p15DomainSequence at p15Sequence.next by name
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ rowsOf tests/p15a1-market-integration.test.ts:552:61
+ ❯ lastRow tests/p15a1-market-integration.test.ts:574:60
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:627:5
+ ❯ tests/p15a1-market-integration.test.ts:649:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[41/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a p15DomainSequence below 1 by name
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ rowsOf tests/p15a1-market-integration.test.ts:552:61
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:629:99
+ ❯ tests/p15a1-market-integration.test.ts:649:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[42/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a stale p15Sequence.next by name
+Error: RED: GameState has no `p15Sequence` allocator (1355-F2 item 1); no P15 save step has landed
+ ❯ Module.sequenceRoot tests/helpers/p15a1-market-route.ts:57:11
+     55|   const root = (state as unknown as Record<string, unknown>).p15Sequen…
+     56|   if (root === undefined) {
+     57|     throw new Error('RED: GameState has no `p15Sequence` allocator (13…
+       |           ^
+     58|   }
+     59|   return root as SequenceRoot
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:631:5
+ ❯ tests/p15a1-market-integration.test.ts:649:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[43/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a phase ordinal off its version's table entry by name
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ rowsOf tests/p15a1-market-integration.test.ts:552:61
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:633:97
+ ❯ tests/p15a1-market-integration.test.ts:649:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[44/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses another phase's phaseId by name
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ rowsOf tests/p15a1-market-integration.test.ts:552:61
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:634:75
+ ❯ tests/p15a1-market-integration.test.ts:649:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[45/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an unknown phaseOrderVersion by name
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ rowsOf tests/p15a1-market-integration.test.ts:552:61
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:635:87
+ ❯ tests/p15a1-market-integration.test.ts:649:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[46/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: across P15 roots, a sibling row may hold the largest sequence and a market row may not reuse a sibling's
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ tests/p15a1-market-integration.test.ts:659:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[47/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market old saves (RED 16) > market-old-save: the genuine capture below the step loads to the empty root at its tick; a second migration is a no-op; it round-trips while empty [fixture-pending]
+Error: FIXTURE PENDING: no genuine capture below the P15 save step at tests/fixtures/p15/genuine-below-p15-save-step/ (1355-F Amendment 3: minted by 1355-P at the last Save42 writer)
+ ❯ belowStepCaptures tests/p15a1-market-integration.test.ts:719:11
+    717|   const url = new URL(`../${CAPTURE_DIRECTORY}MANIFEST.json`, import.m…
+    718|   if (!existsSync(url)) {
+    719|     throw new Error(`FIXTURE PENDING: no genuine capture below the P15…
+       |           ^
+    720|       `(1355-F Amendment 3: minted by 1355-P at the last Save${MARKET_…
+    721|   }
+ ❯ tests/p15a1-market-integration.test.ts:739:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[48/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market old saves (RED 16) > market-old-save: the first batches after migration see no pre-migration release [fixture-pending]
+Error: FIXTURE PENDING: no genuine capture below the P15 save step at tests/fixtures/p15/genuine-below-p15-save-step/ (1355-F Amendment 3: minted by 1355-P at the last Save42 writer)
+ ❯ belowStepCaptures tests/p15a1-market-integration.test.ts:719:11
+    717|   const url = new URL(`../${CAPTURE_DIRECTORY}MANIFEST.json`, import.m…
+    718|   if (!existsSync(url)) {
+    719|     throw new Error(`FIXTURE PENDING: no genuine capture below the P15…
+       |           ^
+    720|       `(1355-F Amendment 3: minted by 1355-P at the last Save${MARKET_…
+    721|   }
+ ❯ tests/p15a1-market-integration.test.ts:751:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[49/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market old saves (RED 16) > market-old-save: the genuine Save42 week-130 capture lifts to an empty root at its own week and steps down losslessly while empty
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ tests/p15a1-market-integration.test.ts:780:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[50/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market old saves (RED 16) > market-old-save: a non-empty root refuses the downgrade by name, at the step and through every older migrator
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ rowsOf tests/p15a1-market-integration.test.ts:552:61
+ ❯ tests/p15a1-market-integration.test.ts:790:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[51/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market disengaged world (RED 17) > market-disengaged-world: with no industry there is no batch: the root stays empty at week 0 and no market row exists anywhere
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ tests/p15a1-market-integration.test.ts:811:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[52/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market disengaged world (RED 17) > market-disengaged-world: the M0A outputs equal the RED-commit pin [control, fixture-pending]
+Error: FIXTURE PENDING: tests/fixtures/p15/p15a1-market-pins/MANIFEST.json is minted by 1355-P at the last writer below the P15 save step (1355-A §4 "pins minted at the RED commit on unchanged production"). Computed at this commit: M0A 40 weeks, digest 405f3b4dcce303aa0346a9a0b6073c71237afe56ac35da1bb5d126f6a2230379
+ ❯ readPins tests/p15a1-market-integration.test.ts:130:11
+    128|   const url = new URL(`../${PIN_DIRECTORY}MANIFEST.json`, import.meta.…
+    129|   if (!existsSync(url)) {
+    130|     throw new Error(`FIXTURE PENDING: ${PIN_DIRECTORY}MANIFEST.json is…
+       |           ^
+    131|       `P15 save step (1355-A §4 "pins minted at the RED commit on unch…
+    132|   }
+ ❯ tests/p15a1-market-integration.test.ts:820:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[53/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market persisted storage (RED 18) > market-large-batch-persisted-linear: every live row is bounded: exact keys, at most five reasons of at most five ids
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ tests/p15a1-market-integration.test.ts:832:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[54/55]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market persisted storage (RED 18) > market-large-batch-persisted-linear: 32- and 512-member batches persist equal-bounded rows and linear root bytes
+Error: RED: GameState has no `sharedMarket` root (1355-A §3.3); the P15A.1 Wave 2 step has not landed
+ ❯ Module.marketRoot tests/helpers/p15a1-market-route.ts:50:11
+     48|   const root = (state as unknown as Record<string, unknown>).sharedMar…
+     49|   if (root === undefined) {
+     50|     throw new Error('RED: GameState has no `sharedMarket` root (1355-A…
+       |           ^
+     51|   }
+     52|   return root as MarketRoot
+ ❯ tests/p15a1-market-integration.test.ts:843:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[55/55]⎯
+
+ Test Files  3 failed (3)
+      Tests  55 failed | 4 passed (59)
+   Start at  11:14:30
+   Duration  10.26s (transform 4.23s, setup 0ms, collect 11.52s, tests 7.61s, environment 1ms, prepare 861ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/p15-save44/old-1355.json

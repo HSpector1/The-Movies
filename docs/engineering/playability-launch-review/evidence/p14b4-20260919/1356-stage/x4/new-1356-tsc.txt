@@ -1,0 +1,4 @@
+tests/p15a2-power-ranking-archive-isolation.test.ts(66,29): error TS2307: Cannot find module '../src/core/powerRankingArchive.js' or its corresponding type declarations.
+tests/p15a2-power-ranking-archive.test.ts(85,29): error TS2307: Cannot find module '../src/core/powerRankingArchive.js' or its corresponding type declarations.
+tests/p15a2-power-ranking-archive.test.ts(97,29): error TS2307: Cannot find module '../src/core/p15Phases.js' or its corresponding type declarations.
+tests/p15a2-power-ranking-archive.test.ts(348,31): error TS2307: Cannot find module '../src/core/p15Phases.js' or its corresponding type declarations.

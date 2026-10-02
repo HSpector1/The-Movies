@@ -1,0 +1,2 @@
+tests/p15a1-market-integration-phases.test.ts(37,30): error TS2307: Cannot find module '../src/core/p15Phases.js' or its corresponding type declarations.
+tests/p15a1-market-integration.test.ts(110,25): error TS2307: Cannot find module '../src/core/p15Phases.js' or its corresponding type declarations.
