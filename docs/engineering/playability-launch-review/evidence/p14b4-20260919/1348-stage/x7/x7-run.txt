@@ -1,0 +1,7 @@
+node v20.20.2, base e7f075ce6c88748710a66450c12d43bec715a645
+h-p13a: S7 natural-route {"seed":"p13a-core-causal-01","weeks":520,"tree":"candidate","ms":35460,"finalStateSha256":"4e9c0d75eb7559b702fbfc2d106b68d80ac9d1558a9c4dc11b6cb41505af9dcb","shelvings":14,"integrity":0}       Tests  1 passed (1) exit=0 
+h-seedb: S7 natural-route {"seed":"seed-b","weeks":520,"tree":"candidate","ms":50151,"finalStateSha256":"759943bd8c3794c0068eb332218adbed0f37b45333ffe59208f52e4782df8fd1","shelvings":60,"integrity":0}       Tests  1 passed (1) exit=0 
+h-ledger-p13b: S7 natural-route {"seed":"p13b-s8-bridge-probe-01","weeks":520,"tree":"candidate","ms":52716,"finalStateSha256":"e8f534bbbfba85add4ed233516c7c79dcd558f71e4e05b5d5a3003493b4565ef","shelvings":6,"integrity":0}       Tests  1 passed (1) exit=0 
+h-ledger-p13pub: S7 natural-route {"seed":"p13-public-commercial-adoption","weeks":520,"tree":"candidate","ms":42735,"finalStateSha256":"4db7734b37e4e5b309099861739a6c5e6bf1c90ba7501391103f46b2676b274b","shelvings":22,"integrity":0}       Tests  1 passed (1) exit=0 
+tree status: []
+done 22:56:50

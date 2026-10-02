@@ -31,19 +31,20 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-01 22:50 CDT (the Mac r
   - **1357-X:** the P15B probe at b0809602 reads **Re-tune** (7 of 8 rivals closure due by 1960 on both p13a seeds; no rival recovers). **1357-F2:** no §4.5 value passes (Flag would need about 85 years in distress); Wave 2 holds at the gate; Owner question 1357-Q1.
   - **1359-D4:** P15C RED r4 and r5 CONFIRMED, no defects.
   - **Slice B r4** (1358-C4) staged in `E/1358-stage/` (patch d41ea111…, classification 3b008e0a…); the apply check at HEAD passes.
-- In flight: `S/1358-x2/run-1358-X2.sh` under `S/heavy-queue/lane-run.sh` (PID in `S/1358-x2/x2.pid`; log `S/1358-x2/x2.log`, meta `x2.log.meta`). It holds `S/HEAVY-LANE-LOCK`, builds a tree at b0809602, applies only `tests/*` of the r4 patch, runs the six slice B files and the type gates, then runs producer r4 in a tree with a real `tests/fixtures/p14`. Expected (1358-C4): romance 29 failed and 5 passed, Bridge 9 and 3, the other four files as 1358-X; root tsc 17 errors; producer exit 0 with three pairs at `sharedCompetitions` 2.
+- Done after e7f075ce: **1358-X2** (slice B r4 dry run at HEAD) equals 1358-C4 on every count: 77 failed, 58 passed (135); root tsc exactly the 17 declared errors; producer r4 exit 0, capture at week 284 with the three slate pairs at `sharedCompetitions` 2. **1348-X7:** the four §7 natural routes at HEAD are byte-identical to §7's candidate runs, so slice A moves none of them.
+- In flight (agents, read-only or authoring; no heavy job runs): review **1358-D** of slice B r4; probe authors **G1** (`S/1355-g1/`) and **G-P** (`S/1359-gp/`); the rival-stall diagnosis **1357-R** (`S/1357-r/`).
 - Claims limits:
-  - §7 describes 469a9547 (the sweep's landed source). Slice A landed after §7 ended; its effect on natural routes is unmeasured.
+  - §7 describes 469a9547 (the sweep's landed source); 1348-X7 shows HEAD gives byte-identical outputs on the four §7 routes.
   - The 154 §7 promise movements: the shelving law causes them; the path is unnamed.
   - 1357-X measured b0809602 (with slice A); its p13a timings agree with §7's at 469a9547.
 
 ## Next step
 E = `docs/engineering/playability-launch-review/evidence/p14b4-20260919`, S = `/Users/zacheryspector/studio-scratch`. Standing rules: one production writer; one heavy test process at a time; no commits during a recorded run; free disk ≥ 5 GB before a recorded run (4.9 GiB at 22:45; check before each); recorded runs pin Node v20.20.2; recorded stems must match `^[0-9]{3,4}[a-z0-9-]*$`.
 
-1. **1358-X2.** When `x2.log.meta` says `end`: compare with 1358-C4's expected results, record 1358-X2 in E, then run review 1358-D (independent, read-only) on r4 and X2. Note r4's one unordered change: the producer cancels the second production (:139).
-2. **Slice B mint and RED.** After 1358-D: the recorded mint 1358-P at HEAD (the last Save43 writer), then the recorded RED of r4 (lowercase stem), then production (Save44).
+1. **1358-D.** When the review returns, save it verbatim and act on any blocking defect (r4's unordered producer cancel at :139 is in its scope).
+2. **Slice B RED, then mint.** After 1358-D: `git apply --index` the full r4 patch (tests and the producer), commit, push; the recorded RED (stem `1358-sliceb-red-recorded`, expect 77 failed and 58 passed, with the genuine-V43 leaf failing on the missing fixture as declared); then the recorded mint 1358-P at the same Save43 source (`node_modules/.bin/vite-node E/1358-P-save43-producer.ts` with `P14_SAVE43_PRODUCER_HEAD` set); commit the fixture with `git add`; then production (Save44).
 3. **P15 REDs.** P15C: dry-run producer 1359-P r4, mint, then the recorded RED (1359-D4 note 5: the writer must replace the landed record-id uniqueness rule). P15A.1 and P15A.2: their recorded REDs per 1355-D4 and 1356-D4.
-4. **Slice A follow-ups.** The four 520-week natural routes at HEAD against 1344-V's final-state hashes, and slice A's broad gates with the next broad run.
+4. **Slice A follow-ups.** Only its broad gates remain, with the next broad run (1348-X7 settled the natural routes).
 5. **P15B** waits for 1357-Q1. Probes G1 (P15A.1) and G-P (P15C) as their charters order.
 
 Agents: the user allows as many subagents as help (2026-10-01). Agents author and review; only the parent runs broad or heavy tests.
