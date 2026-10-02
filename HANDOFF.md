@@ -1,6 +1,6 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 02:50 CDT (the Mac runs on CDT; use `date`)
+Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 03:31 CDT (the Mac runs on CDT; use `date`)
 
 ## Where the work is
 - Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit after 324b8701 that carries this file (slice B RED landed at 650e963a, capture 4ad8e0f7, recorded RED and 1358-X5 committed), pushed: yes.
@@ -38,7 +38,7 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 02:50 CDT (the Mac r
 - **1358-X5** (production r2 steps on the landed RED, committed at 324b8701): classified reds 62, 44, 10 and 3 with 0 mismatches; after step 4 only rows 59-61 stay red (at `acceptedEvidence`, "expected 44 to be 43"); both generator checks pass. All other failures sit in test files (27 in p14b5-relationships; type errors 20 at step 1 and 46 from step 3 in the root gate, 2 each in UI and Bridge from the shared helpers `p14c2b-fixtures:69` and `p14c4-fixtures:71`): sweep fallout.
 - In flight:
   - **1358-M2** (fallout on HEAD 5245072a plus production step 4 r2): started 02:48:24 CDT, lane-run PID in `S/1358-m2/m2.pid`, progress `S/1358-m2/m2.meta`, outputs `S/1358-m2/m2-{tsc,generate,core,ui}.txt` and the route logs `m2-*.log` (kit outputs in `S/1344-s7/out/m2-*`). About 2 h.
-  - The **sweep planner** agent drafts 1358-N and a site census in `S/1358-n/` (read-only).
+  - **1358-N adopted** (planner's draft plus parent rulings **1358-F9**); census in `E/1358-stage/n/` (685 rows, 156 files: 625 certain, 60 measure). Seven author agents (H, G1-G6) edit certain rows in worktrees `S/1358-sweep/{h,g1..g6}` (branches `sweep-<g>` off tag `step4` = 8e02a44 in the scratch repo `S/1358-n/tree`); deliverables land in `S/1358-sweep/out/<g>/` (patch.diff, classification.json, deferred.json, handback.md). No author runs tests.
 - **P15 rebase after slice B:** the three P15 REDs read the save step from `LIVE_SAVE_VERSION`; the only base pin is P15C's `BASE_LIVE_SAVE_VERSION = 43` (integration test :151), which moves to 44. The producers carry no hardcoded version.
 - Claims limits:
   - 1353-T's market-pressure numbers are first order (open-loop factors from 1355-G1).
@@ -48,7 +48,7 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 02:50 CDT (the Mac r
 ## Next step
 E = `docs/engineering/playability-launch-review/evidence/p14b4-20260919`, S = `/Users/zacheryspector/studio-scratch`. Standing rules: one production writer; one heavy test process at a time; no commits (and no `git add`) during a recorded run or its postflight; free disk ≥ 5 GiB before a recorded run (5.14 GiB at 01:57; delete each X run's tree after reading it); recorded runs pin Node v20.20.2; recorded stems match `^[0-9]{3,4}[a-z0-9-]*$` (lowercase).
 
-1. **1358-M2** (running): when `S/1358-m2/m2.meta` says `end`, attribute core against `E/1348-I-core-failures.json` and UI against `E/1348-I2-ui-failures.json`; compare the routes with 1348-X7's h-* outputs. Then finalize **1358-N** from the planner's draft and the measurement, and dispatch the sweep authors by group.
+1. **1358-M2** (running): when `S/1358-m2/m2.meta` says `end`, attribute core against `E/1348-I-core-failures.json` and UI against `E/1348-I2-ui-failures.json`; compare the routes with 1348-X7's h-* outputs. Then complete 1358-N's "Measured fallout" from M2, decide the measure rows M2 settles, merge the seven author branches, and run the sweep dry run (type gates, generators, slice B files plus mentor-label, core, UI).
 2. **P15 REDs and mints** wait for slice B's Save44 production: P15A.1 (producer 1355-P r3), P15A.2, P15C (1359-P r4; rebase I:151 first). **P15B** waits for 1357-Q1.
 
 Agents: the user allows as many subagents as help (2026-10-01). Agents author and review; only the parent runs broad or heavy tests.
@@ -75,30 +75,14 @@ Agents: the user allows as many subagents as help (2026-10-01). Agents author an
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-02 02:06 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
-- Branch: `wip/headless-program-20260916-ts` @ `bc2f6007495951cd44da16275437905a66d5d44d`
+- Stamped: 2026-10-02 03:01 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
+- Branch: `wip/headless-program-20260916-ts` @ `2ff1bf8942402eb4ce49dda3cf501018f6b8f7f0`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 46
-  - `M HANDOFF.md`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1348-I-core-failures.json`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1348-I-core-vs1344I3.json`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1348-slicea-broad-core-postflight.json`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1348-slicea-broad-core-preflight.json`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1348-slicea-broad-core.json`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1348-slicea-broad-core.patch`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1348-slicea-broad-core.txt`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1348-slicea-broad-ui-preflight.json`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1348-slicea-broad-ui.json`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1348-slicea-broad-ui.patch`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1348-slicea-broad-ui.txt`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1353-F6-parent-rulings-on-1353-T.md`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1353-F7-parent-response-to-1353-U.md`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1353-T-p15c-legacy-tuning-amendment.md`
-  - ...
+- Uncommitted files: 0
 - Last commits:
-  - bc2f6007 docs(handoff): 1348 recorded broad gates launching at a5359347; no commits until gates.meta says end
-  - a5359347 docs(p14b): slice B RED r5 staged (1358-C5); 1358-X3 matches it: 86 failed / 59 passed (145), 17 type errors
-  - 85ffc6bc docs(p14b,p15): 1358-D REFINE and 1358-F4 (slice B r5); 1357-R rival stall root cause; G-P retune (1359-X4/F5); G1 Proceed-flag (1355-X4)
-  - 975e72a1 docs(p15): 1359-X3 and 1355-X3: both P15 producers dry-run clean at the Save43 HEAD
-  - 26566be8 docs(p14b): 1358-X2 slice B r4 dry run equals 1358-C4; 1348-X7 slice A leaves the §7 natural routes byte-identical
+  - 2ff1bf89 docs(handoff): slice B RED landed, 1358-X5 as declared, 1358-M2 running
+  - 324b8701 docs(p14b): 1358-X5 slice B production r2 on the landed RED: every classified row as declared at every step
+  - 5245072a docs(p14b): slice B recorded RED at 4ad8e0f7 (89 failed / 59 passed of 148, identities equal 1358-X4's); 1358-L opened
+  - 4ad8e0f7 test(p14b): mint the slice B GENUINE capture (1358-P at 650e963a, recorded as 1358-sliceb-mint)
+  - 650e963a test(p14b): relationship slice B RED r8 (1358-C8): the competitions log, Professional Rivals, romance, Save44 and projection 57
 <!-- AUTO:END -->
