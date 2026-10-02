@@ -1,0 +1,39 @@
+{
+  "purpose": "generated test campaigns only; never Owner saves",
+  "record": "1359-P r4",
+  "executionHead": "6044ad4f4a02cc2cee6b2b4eb807cb7d669c0a22",
+  "saveVersion": 44,
+  "seed": "1359-legacy-late-founding-01",
+  "route": "generateWorld('1359-legacy-late-founding-01'); one headless OracleAgent year; idle headless ticks to 6188; founded through the migration origin (historical-control draft, minimum roster signed, foundStudio, then initializeHollywood migration); natural ticks to weeks 6239 and 6240",
+  "inputs": [
+    {
+      "name": "route-l-week-6239",
+      "week": 6239,
+      "gzip": {
+        "bytes": 68078,
+        "sha256": "8d82fbc3a6e9f2b4c9666f5b76e97d8c2e23ca1cca8d47c51500dee36b22100c"
+      },
+      "decoded": {
+        "bytes": 565993,
+        "sha256": "465b17575d9ae2f43a06147c19d8a1c05a69939b385bbe47e9d2833610cb022e"
+      }
+    },
+    {
+      "name": "route-l-week-6240",
+      "week": 6240,
+      "gzip": {
+        "bytes": 78045,
+        "sha256": "50e790233fc5c38f4a61cd78f04870a22c77cae1fdab7a83e408eaa5271c563f"
+      },
+      "decoded": {
+        "bytes": 660033,
+        "sha256": "27217060d32f786797f7212cac85874197129d861b6965b16d7a75c1fe466592"
+      }
+    }
+  ],
+  "routeMs": {
+    "headlessTo6188": 1978.2298279999995,
+    "industry6188To6241": 3653.310012
+  },
+  "elapsedMs": 6118
+}
