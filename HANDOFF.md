@@ -29,7 +29,8 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 11:13 CDT (the Mac r
   - **1358-M3** (recorded broad gates, Node v20.20.2, fixedSource and allGuardsExact): core at b60db650 85 failed / 4,992 passed (440 files), against 1348-I SAME 84 + C20 CHANGED by the version digit, NEW 0, GONE 0; UI at c5c0a0a6 3 failed (the numpy rows), CHANGED 3 by the temporary directory only. Type gates and both generator checks pass at the landed HEAD (`E/1358-L-type-gates.txt`).
   - **1358-C9** (landing handback: 762 classification rows, 29 census dispositions, eight closure findings) and **1358-J3** (independent landing review: REFINE on records, applied).
 - **P15 Wave 2 REDs on Save44** (1355-X5, 1356-X4, 1359-X6; run 11:14-11:23 CDT): each RED alone on Save43 (65515b66) and Save44 (1706d844). All 247 classified leaves keep their expected status on both bases; the only message differences are computed text (K1/K2 digests the mint pins, `Save${STEP-1}` digits) and Vite's importing-file names. Root type gate at Save44: 1355 two and 1356 four TS2307 (their missing modules, as before), 1359 none. Both producers mint on Save44 with unchanged weeks (dry runs only). P15C RED **r8** recorded in 1359-X6 (`E/1359-stage/1359-p15c-wave2-red-r8.patch`).
-- In flight: a read-only agent compiles the P15 RED landing protocol from the records into `S/p15-save44/p15-red-landing-protocol.md` (order, `p15-roots.ts` merges, mint timing against 1356's genuine-capture leaf).
+- **P15 landing protocol and rulings:** `E/1360-R` (compiled from the records) and `E/1360-F` (twelve rulings). Ruling 1: P15A.2 slice 2a, P15A.1 and P15C share **one save step, Save45** (1355-F Amendment 4; one sweep, and the Save44 mints serve all three). Order 1356 → 1355 → 1359; 1356's recorded RED before the 1355 mint; the 1355 capture sha pinned in its fixture commit; vite-node; producers committed at the E root with their REDs; stems `1360-p15a2-red-recorded`, `1360-p15a1-mint`, `1360-p15a1-red-recorded`, `1360-p15c-mint`, `1360-p15c-red-recorded`.
+- In flight: **1360-X**, the landing replayed in scratch (`S/1360-x/run-1360-X.sh`, log `S/1360-x/run.meta`), to measure the post-mint RED states before any recorded run.
 - Prepared for the P15 rebase, in `S/p15-save44/` (all run):
   - P15C RED **r8** `1359-p15c-wave2-red-r8.patch` (sha256 2a5df977…): `BASE_LIVE_SAVE_VERSION` 43 → 44 and three comment lines; nothing else changes. Its `legacy-root-fresh` leaf fails at RED on its first assertion, so the RED messages stand.
   - `run-p15-reds-save44.sh`: each P15 RED applied alone (all three create `tests/helpers/p15-roots.ts`) on OLD 65515b66 (Save43) and NEW HEAD (Save44), with JSON output and the root type gate; 1359 runs r7 on OLD and r8 on NEW. `check-p15-save44.py` compares OLD with NEW leaf by leaf, and each with its classification.
@@ -42,9 +43,9 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 11:13 CDT (the Mac r
 ## Next step
 E = `docs/engineering/playability-launch-review/evidence/p14b4-20260919`, S = `/Users/zacheryspector/studio-scratch`. Standing rules: one production writer; one heavy test process at a time; no commits (and no `git add`) during a recorded run or its postflight; free disk ≥ 5 GiB before a recorded run; recorded runs pin Node v20.20.2; recorded stems match `^[0-9]{3,4}[a-z0-9-]*$` (lowercase).
 
-1. **The P15 RED landing protocol.** Read the agent's `S/p15-save44/p15-red-landing-protocol.md` and check its citations; settle the order of RED commits, mints and recorded REDs (who reads `tests/fixtures/p15/genuine-below-p15-save-step/` and when it is minted).
-2. **P15 RED landings** on the Save44 base, in 1355-F4's order (P15A.2 slice 2a before P15A.1 Wave 2). Each RED creates `tests/helpers/p15-roots.ts`, so the second and third merge `P15_ROOTS`. For P15A.1 and P15C: commit the producer at the E root (its imports are five levels deep), run the recorded mint, commit the fixtures, then the recorded RED.
-3. **P15A.2 slice 2a production** (Save45) from the 1356 reference, retargeted. P15B waits for 1357-Q1.
+1. **After 1360-X:** compare each stage with 1360-F's expectations (1356 70/2 before the mint; 1355 by reading 51 failed / 8 passed with its capture leaves at the version check; 1359 40/76 with C2-C4 at "the route L captures are Save44"); revise P15C's r8 classification rows C2-C4 from the measurement; record 1360-X; remove `S/1360-x/tree` (links first, literal paths).
+2. **Land the REDs** by 1360-F's sequence table, each recorded run under `lane-run.sh` with a recorded script modeled on `S/1358-land/recorded3.sh`; record 1360-L.
+3. **The Save45 productions** (1360-F ruling 1): the single writer authors P15A.2 slice 2a, then P15A.1, then P15C on the Save44 base; they land together behind one Save45 sweep. P15B joins only if 1357-Q1 resolves in time.
 
 Agents: the user allows as many subagents as help (2026-10-01). Agents author and review; only the parent runs broad or heavy tests.
 
@@ -72,15 +73,14 @@ Agents: the user allows as many subagents as help (2026-10-01). Agents author an
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-02 08:02 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
-- Branch: `wip/headless-program-20260916-ts` @ `e0dfe0653880981dbbaf443cdbaf535cd5f138c0`
+- Stamped: 2026-10-02 11:47 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
+- Branch: `wip/headless-program-20260916-ts` @ `cb49fd0282ea1edec166a899b4d6852dba138032`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 1
-  - `M HANDOFF.md`
+- Uncommitted files: 0
 - Last commits:
-  - e0dfe065 docs(handoff): sweep r2, X8 running, D9 review running, slice B landing prepared
-  - 63bd78ac docs(p14b): 1358-F11 rulings after X6 and X7t; 1358-M2 snapshot measurement (no mentorEvidence throw; cost in the base's class); sweep r2 staged
-  - 4e411b78 docs(p14b): 1358-X6 sweep r1 dry run: type gates 0 errors, slice B GREEN shape, UI equals 1348-I2; probe finds 15 sites Save44 now masks; core output lost to a parent script edit
-  - e36f9c28 docs(handoff,p14b): 1358-N measured fallout from M2; X6 running, snapshot probe queued
-  - 5f2b5999 docs(p14b): 1358-M2 slice B fallout measured (core 795 NEW, all Save44/P57 pins, helpers or environment); 1358-F10 sweep rulings; sweep r1 staged
+  - cb49fd02 docs(p15): the three P15 Wave 2 REDs on the Save44 base (1355-X5, 1356-X4, 1359-X6): every classified leaf keeps its expected status on Save43 and Save44; P15C RED r8 moves BASE_LIVE_SAVE_VERSION to 44; both producers mint on Save44 (dry runs)
+  - 1706d844 docs(p14b): relationship slice B CLOSED (1358-L): 1358-M3 recorded broad gates reproduce 1348-M (core SAME 84 + C20 CHANGED by the version digit; UI the numpy rows); type gates and generators pass at the landed HEAD; 1358-C9 landing handback; 1358-J3 landing review
+  - c5c0a0a6 docs(p14b): recorded core gate 1358-sliceb-broad-core at b60db650: 85 failed / 4,992 passed (5,091), 440 files; against 1348-I SAME 84, CHANGED 1 (C20, live version 44 in its primary), NEW 0, GONE 0; fixedSource, allGuardsExact
+  - b60db650 docs(p14b): recorded run 1358-sliceb-green-recorded at 5ac4b738: slice B GREEN, 3 failed / 145 passed (148), fixedSource, allGuardsExact
+  - 5ac4b738 test(p14b): F10/F11 take the recorded projection-57 producer values (1358-p57-declaration; 1358-F9 P4)
 <!-- AUTO:END -->
