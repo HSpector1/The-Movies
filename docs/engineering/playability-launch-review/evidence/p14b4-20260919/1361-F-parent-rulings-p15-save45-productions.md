@@ -1,5 +1,7 @@
 # 1361-F: parent rulings for the three P15 Wave 2 productions at the shared Save45 step
 
+Amended by [1361-F2](1361-F2-parent-rulings-on-the-probes.md): its ruling 3 corrects rulings 11 and 13 on a G2 Retune. P15A.1 then takes its declared later step, because (a) and (b) cannot land without (c)'s batch.
+
 [1361-R](1361-R-p15-save45-production-protocol.md) compiled the production protocol from the records at a63c7de8 and
 left sixteen questions open. These rulings settle them and fix how the work proceeds. The productions are:
 - P15A.2 slice 2a, the Power Ranking archive (1356);
