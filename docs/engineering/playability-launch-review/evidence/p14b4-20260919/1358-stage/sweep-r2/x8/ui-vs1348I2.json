@@ -1,0 +1,39 @@
+{
+ "new": "/Users/zacheryspector/studio-scratch/1358-sweep/x8/ui-failures.json",
+ "base": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1348-I2-ui-failures.json",
+ "counts": {
+  "CHANGED": 3,
+  "GONE": 0
+ },
+ "newByFile": {},
+ "rows": [
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 6. output is truecolour RGBA with no PLTE/tRNS, alpha preserved exactly",
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "status": "CHANGED",
+   "primary": "Error: Command failed: python3 /Users/zacheryspector/studio-scratch/1358-sweep/x8/tree/scripts/art/authored-asset-pipeline.py rgba-export --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-HqdOYN/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-HqdOYN/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-HqdOYN --stem t --colours 16",
+   "basePrimary": "Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/scripts/art/authored-asset-pipeline.py rgba-export --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-BN0cU7/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-BN0cU7/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-BN0cU7 --stem t --colours 16",
+   "timeout": false,
+   "frame": "ui/src/lot/authored-rgba-export.test.ts:138:7"
+  },
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 7. repeated runs are byte-identical",
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "status": "CHANGED",
+   "primary": "Error: Command failed: python3 /Users/zacheryspector/studio-scratch/1358-sweep/x8/tree/scripts/art/authored-asset-pipeline.py rgba-export --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-0076QX/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-0076QX/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-0076QX/a --stem t --colours 16",
+   "basePrimary": "Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/scripts/art/authored-asset-pipeline.py rgba-export --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-6dcNvf/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-6dcNvf/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-6dcNvf/a --stem t --colours 16",
+   "timeout": false,
+   "frame": "ui/src/lot/authored-rgba-export.test.ts:164:9"
+  },
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 8. the historical PNG-8 path is still available and clearly separate",
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "status": "CHANGED",
+   "primary": "Error: Command failed: python3 /Users/zacheryspector/studio-scratch/1358-sweep/x8/tree/scripts/art/authored-asset-pipeline.py quantize --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-0MUoJF/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-0MUoJF/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-0MUoJF --stem q",
+   "basePrimary": "Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/scripts/art/authored-asset-pipeline.py quantize --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-XIh7eL/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-XIh7eL/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-XIh7eL --stem q",
+   "timeout": false,
+   "frame": "ui/src/lot/authored-rgba-export.test.ts:178:7"
+  }
+ ],
+ "gone": []
+}

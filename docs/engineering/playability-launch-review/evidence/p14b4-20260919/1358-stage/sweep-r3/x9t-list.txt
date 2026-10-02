@@ -1,0 +1,12 @@
+tests/bridge-contract-generator.test.ts
+tests/p13b-s8-save-v27.test.ts
+tests/p14c2b-save-v36.test.ts
+tests/p14c2rm-writer-continuation.test.ts
+tests/p14c2s-scientist-retirement.test.ts
+tests/p14c3-cohort-transition.test.ts
+tests/p14c3-dual-extensions.test.ts
+tests/p14c3-offmenu-extensions.test.ts
+tests/p14d1-rival-shelving-save-v43.test.ts
+tests/p14d1-rival-shelving.test.ts
+tests/p14p3-directing-promises.test.ts
+tests/p14r3-save-v41.test.ts
