@@ -1,0 +1,35 @@
+# 1362-V setup, 2026-10-02 13:26:17 CDT, repo HEAD cbdd8cdc; Owner approval: 1362-O (numpy in .venv only)
+$ .venv/bin/python --version
+Python 3.14.4
+exit 0
+$ ls -l .venv/bin/python3
+.venv/bin/python3 -> python3.14
+$ .venv/bin/python -m pip --version
+pip 26.1 from /Users/zacheryspector/The-Movies-headless-program/.venv/lib/python3.14/site-packages/pip (python 3.14)
+$ .venv/bin/python -m pip list   (before)
+Package Version
+------- -------
+pillow  12.3.0
+pip     26.1
+exit 0
+$ .venv/bin/python -m pip install --only-binary=:all: 'numpy==2.5.1'
+Collecting numpy==2.5.1
+  Downloading numpy-2.5.1-cp314-cp314-macosx_10_15_x86_64.whl.metadata (6.6 kB)
+Downloading numpy-2.5.1-cp314-cp314-macosx_10_15_x86_64.whl (16.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.8/16.8 MB 5.3 MB/s  0:00:03
+Installing collected packages: numpy
+Successfully installed numpy-2.5.1
+
+[notice] A new release of pip is available: 26.1 -> 26.2.1
+[notice] To update, run: /Users/zacheryspector/The-Movies-headless-program/.venv/bin/python -m pip install --upgrade pip
+exit 0
+$ .venv/bin/python -m pip list   (after)
+Package Version
+------- -------
+numpy   2.5.1
+pillow  12.3.0
+pip     26.1
+exit 0
+$ .venv/bin/python -m pip check
+No broken requirements found.
+exit 0

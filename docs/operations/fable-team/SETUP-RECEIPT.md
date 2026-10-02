@@ -158,5 +158,14 @@ authorizes one scoped Pillow installation for the existing image tests.
   Installed: `pillow 12.3.0` (bundled zlib 1.3.1.zlib-ng); pip 26.1 as created, not upgraded.
 - Scoping: only test commands get `PATH="$PWD/.venv/bin:$PATH"` on their own command line, as do the recorded gates
   from 1345 on. No shell profile or global setting changes. Without the prefix, `from PIL import Image` still fails.
-- Not installed: `numpy`. `scripts/art/authored-asset-pipeline.py` needs it (`:43-47`), and the ruling authorizes
-  Pillow only. The three rgba-export "tool contract" tests stay failing until the Owner decides.
+- numpy (2026-10-02, record 1362). The Owner response of 2026-10-02 (`…/1362-O-owner-response-20261002.md`) approves
+  numpy in this `.venv` only, between recorded runs, with no unrelated upgrade. `scripts/art/authored-asset-pipeline.py`
+  needs it (`:43-47`). The version is the repository's own pin in `.github/requirements-tests.txt`:
+
+  ```
+  .venv/bin/python -m pip install --only-binary=:all: 'numpy==2.5.1'
+  ```
+
+  Installed: `numpy 2.5.1` (cp314 macOS x86_64 wheel). `pip list` now shows exactly `numpy 2.5.1`, `pillow 12.3.0` and
+  `pip 26.1`; pip was not upgraded and `pip check` is clean. Without the PATH prefix, `import numpy` still fails.
+  The three rgba-export "tool contract" tests pass (record 1362-V).

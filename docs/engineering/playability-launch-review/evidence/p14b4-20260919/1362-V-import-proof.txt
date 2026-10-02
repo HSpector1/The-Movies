@@ -1,0 +1,23 @@
+# 1362-V import proof, 2026-10-02 13:26:44 CDT, node v20.20.2, through Node's execFileSync('python3') as the tests call it
+$ PATH="$PWD/.venv/bin:$PATH" node -e <execFileSync python3 -c "import numpy, PIL ...">
+/Users/zacheryspector/The-Movies-headless-program/.venv/bin/python3
+3.14.4
+numpy 2.5.1
+pillow 12.3.0
+zlib 1.2.11
+exit 0
+$ node -e <same, without the scoped PATH>
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import sys, platform, zlib, numpy, PIL; print(sys.executable); print(platform.python_version()); print("numpy", numpy.__version__); print("pillow", PIL.__version__); print("zlib", zlib.ZLIB_RUNTIME_VERSION)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'numpy'
+import fails: ModuleNotFoundError: No module named 'numpy'
+exit 1
+$ PATH="$PWD/.venv/bin:$PATH" python3 scripts/art/authored-asset-pipeline.py --help (dependency gate only)
+usage: authored-asset-pipeline [-h]
+                               {quantize,verify,rgba-export,rgba-verify,measure} ...
+
+Deterministic final-output quantisation and value measurement for authored
+environment art.
+exit 0

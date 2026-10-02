@@ -1,0 +1,19 @@
+# 1362-V, 2026-10-02 13:27:04 CDT, HEAD cbdd8cdc, node v20.20.2
+$ PATH="$PWD/.venv/bin:$PATH" node_modules/.bin/vitest run --project ui ui/src/lot/authored-rgba-export.test.ts
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |ui| ui/src/lot/authored-rgba-export.test.ts (8 tests) 13564ms
+   ✓ current production authored export — the shipped Stage B assets > 3. the RGB channel is reduced to the recovered 128-colour contract 776ms
+   ✓ current production authored export — the shipped Stage B assets > 4. alpha is bit-identical between the two finishes 755ms
+   ✓ rgba-export tool contract > 6. output is truecolour RGBA with no PLTE/tRNS, alpha preserved exactly 8904ms
+   ✓ rgba-export tool contract > 7. repeated runs are byte-identical 2154ms
+   ✓ rgba-export tool contract > 8. the historical PNG-8 path is still available and clearly separate 680ms
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  13:27:05
+   Duration  17.23s (transform 102ms, setup 433ms, collect 92ms, tests 13.56s, environment 2.41s, prepare 167ms)
+
+exit 0
+end 2026-10-02 13:27:23 CDT
