@@ -1,14 +1,14 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 11:13 CDT (the Mac runs on CDT; use `date`)
+Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 12:34 CDT (the Mac runs on CDT; use `date`)
 
 ## Where the work is
-- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit after c5c0a0a6 that carries this file (relationship slice B CLOSED: 1358-L, 1358-M3), pushed: yes.
+- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit after 6ac55a37 that carries this file (P15 Wave 2 RED landing: 1360-F steps 1-7 done; steps 8-10 next), pushed: yes.
 - Resume this session: `cd ~/Downloads/project-studio-p13-owner-direction-inputs-01 && claude --resume 60db833c-4cf7-4685-b2ec-8aac42c6dac1` (the session started in that folder; it works in this repo). A fresh session: start `claude` in this repo root and say "resume from HANDOFF.md".
 - Required reading, in order:
   1. This file.
   2. `E/1358-L-rel-sliceB-landing.md` (CLOSED, the full step table), `E/1358-M3-sliceb-recorded-broad-gates.md` and `E/1358-C9-sweep-landing-handback.md` (classification, dispositions, closure findings).
-  3. P15 Wave 2 REDs: `E/1359-F6-parent-response-to-1359-D5.md` (ruling 5: the rebase onto Save44), `E/1355-F4-parent-response-to-1355-D.md` (landing order), then the handbacks `E/1355-C4-…`, `E/1356-C4-…` and `E/1359-C7-…`.
+  3. P15 Wave 2 RED landing: `E/1360-F-parent-rulings-p15-wave2-red-landings.md` (rulings, the ten-step sequence), `E/1360-F2-parent-response-to-1360-D.md` (Save45 reserved; P15C's own fallback; what "matches 1360-X" means), `E/1360-X-p15-wave2-landing-replay.md` (the predicted results). Background: `E/1359-F6-parent-response-to-1359-D5.md` (ruling 5: the rebase onto Save44), `E/1355-F4-parent-response-to-1355-D.md` (landing order), then the handbacks `E/1355-C4-…`, `E/1356-C4-…` and `E/1359-C7-…`.
   4. `E/1357-R-rival-stall-diagnosis.md` and `E/1357-F3-parent-note-on-1357-R.md`: Owner question 1357-Q1.
   5. `docs/engineering/playability-launch-review/CONTINUATION-STATE.md`, top `## CURRENT` block (same as 06's).
 
@@ -31,8 +31,14 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 11:13 CDT (the Mac r
 - **P15 Wave 2 REDs on Save44** (1355-X5, 1356-X4, 1359-X6; run 11:14-11:23 CDT): each RED alone on Save43 (65515b66) and Save44 (1706d844). All 247 classified leaves keep their expected status on both bases; the only message differences are computed text (K1/K2 digests the mint pins, `Save${STEP-1}` digits) and Vite's importing-file names. Root type gate at Save44: 1355 two and 1356 four TS2307 (their missing modules, as before), 1359 none. Both producers mint on Save44 with unchanged weeks (dry runs only). P15C RED **r8** recorded in 1359-X6 (`E/1359-stage/1359-p15c-wave2-red-r8.patch`).
 - **P15 landing protocol and rulings:** `E/1360-R` (compiled from the records) and `E/1360-F` (twelve rulings). Ruling 1: P15A.2 slice 2a, P15A.1 and P15C share **one save step, Save45** (1355-F Amendment 4; one sweep, and the Save44 mints serve all three). Order 1356 → 1355 → 1359; 1356's recorded RED before the 1355 mint; the 1355 capture sha pinned in its fixture commit; vite-node; producers committed at the E root with their REDs; stems `1360-p15a2-red-recorded`, `1360-p15a1-mint`, `1360-p15a1-red-recorded`, `1360-p15c-mint`, `1360-p15c-red-recorded`.
 - **1360-X** (the landing replayed in scratch, 11:50-11:54): every stage matches 1360-F (1356 70/2 before any mint; 1355 51/8 after its mint and pin, the four pin controls green; 1359 40/76 with C2-C4 at "the route L captures are Save44"; six missing-module type errors); bytes equal the Save44 dry runs. P15C **r8 classification** revises C2-C4 (`E/1359-stage/1359-p15c-wave2-red-r8-classification.json`).
-- **Landing in progress (1360-F sequence):** step 1 the 1356 RED at 10b9be41; step 2 recorded RED `1360-p15a2-red-recorded` (70 failed / 2 passed, equal to 1360-X s2; fixedSource, allGuardsExact); step 3 the 1355 RED with merged `P15_ROOTS` and producer `E/1355-P-p15a1-market-producer.ts` at e4be3e5c (pushed).
-- In flight: **1360-D**, an independent read-only review of 1360-F, 1360-X, the r8 classification and `S/1360-land/recorded-p15.sh` (output `S/1360-land/review/1360-D-landing-review.md`). Step 4, the once-only 1355 mint, waits for its verdict.
+- **Landing in progress (1360-F sequence; every step equals 1360-X under 1360-F2 ruling 4):**
+  - step 1, 10b9be41: the 1356 RED; step 2, `1360-p15a2-red-recorded`: 70 failed / 2 passed;
+  - step 3, e4be3e5c: the 1355 RED with merged `P15_ROOTS` and its producer at the E root;
+  - step 4, `1360-p15a1-mint` at 601ea709 (source equals e4be3e5c's): exit 0; both MANIFESTs equal 1360-X's (13 and 146 fields);
+  - step 5, 6ce916cb: the fixtures and `CAPTURE_MANIFEST_SHA256` = 410d48a8…; step 6, `1360-p15a1-red-recorded`: 51 failed / 8 passed;
+  - step 7, 6ac55a37: the P15C RED r8 with four-key `P15_ROOTS` (blob 2f2acc5f) and producer r4 at the E root.
+  - Every recorded run: fixedSource, allGuardsExact. Review 1360-D (PROCEED steps 4-7, HOLD step 8) and response 1360-F2 are committed.
+- In flight: the 1360-D reviewer rechecks 1360-F2 and `S/1360-land/recorded-p15-v2.sh` (reply to `S/1360-land/review/1360-D2-recheck.md`). Step 8 waits for its PROCEED.
 - Prepared for the P15 rebase, in `S/p15-save44/` (all run):
   - P15C RED **r8** `1359-p15c-wave2-red-r8.patch` (sha256 2a5df977…): `BASE_LIVE_SAVE_VERSION` 43 → 44 and three comment lines; nothing else changes. Its `legacy-root-fresh` leaf fails at RED on its first assertion, so the RED messages stand.
   - `run-p15-reds-save44.sh`: each P15 RED applied alone (all three create `tests/helpers/p15-roots.ts`) on OLD 65515b66 (Save43) and NEW HEAD (Save44), with JSON output and the root type gate; 1359 runs r7 on OLD and r8 on NEW. `check-p15-save44.py` compares OLD with NEW leaf by leaf, and each with its classification.
@@ -45,7 +51,7 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 11:13 CDT (the Mac r
 ## Next step
 E = `docs/engineering/playability-launch-review/evidence/p14b4-20260919`, S = `/Users/zacheryspector/studio-scratch`. Standing rules: one production writer; one heavy test process at a time; no commits (and no `git add`) during a recorded run or its postflight; free disk ≥ 5 GiB before a recorded run; recorded runs pin Node v20.20.2; recorded stems match `^[0-9]{3,4}[a-z0-9-]*$` (lowercase).
 
-1. **After 1360-D says PROCEED:** step 4 `nohup bash S/heavy-queue/lane-run.sh 0 S/1360-land/mint1355.log bash S/1360-land/recorded-p15.sh mint1355 &`; step 5 commit both fixture dirs, the mint's five outputs and `CAPTURE_MANIFEST_SHA256` (from the recorded mint's `genuine-below-p15-save-step/MANIFEST.json`); step 6 `recorded-p15.sh red1355` (expect 51/8 as 1360-X s6); step 7 the 1359 RED r8 (apply without its `p15-roots.ts` hunk, edit line 10 to four keys, producer `E/1359-P-p15c2-route-l-producer.ts`); step 8 `mint1359`; step 9 fixture commit; step 10 `red1359` (expect 40/76 as 1360-X s10). No commit during a run. Then record 1360-L.
+1. **After the recheck says PROCEED:** step 8 `nohup bash S/heavy-queue/lane-run.sh 0 S/1360-land/mint1359.log bash S/1360-land/recorded-p15-v2.sh mint1359 &` (once only; a failure is a finding: stop, no retry); compare its route L MANIFEST with `E/1360-stage/x/x-p15c2-route-l-captures-MANIFEST.json` by `python3 E/1360-stage/d/cmp-manifest.py <new> <x>`; step 9 commit `tests/fixtures/p15/p15c2-route-l-captures` and the mint's five outputs, push; step 10 `recorded-p15-v2.sh red1359` (expect 40/76), compare by `python3 S/1360-land/cmp-recorded.py E/1360-p15c-red-recorded.txt E/1360-stage/x/s10-1359.json`. No commit during a run. Then record 1360-L (stage the scripts into `E/1360-stage/land/`), the CURRENT blocks and this file.
 3. **The Save45 productions** (1360-F ruling 1): the single writer authors P15A.2 slice 2a, then P15A.1, then P15C on the Save44 base; they land together behind one Save45 sweep. P15B joins only if 1357-Q1 resolves in time.
 
 Agents: the user allows as many subagents as help (2026-10-01). Agents author and review; only the parent runs broad or heavy tests.
@@ -69,7 +75,7 @@ Agents: the user allows as many subagents as help (2026-10-01). Agents author an
 - **Scratch trees.** Never link `tests/fixtures` wholesale: make it a real directory of links and copy `bridge-contract-union-fixtures.ts` (memory `scratch-tree-fixture-links`; model `S/1358-sweep/run-1358-sweep-dry-v2.sh`). Patches that touch `docs/`: apply only `tests/*` in a scratch tree. Never write under a link.
 - **Deleting scratch.** The harness blocks `rm` on variable paths; use literal absolute paths, links first, then `rm -rf` on the tree.
 - **Agent auth.** If an agent returns `401 OAuth access token has been revoked`, the Owner runs `/login`.
-- **The machine.** 4 CPUs, 8 GB RAM. Disk: 5.05 GiB free at 11:13 CDT. Swap shares the disk container (4 GB allocated after the core gate) and moves free space by about 1 GiB; a recorded preflight needs ≥ 5 GiB. Each X run adds a ~130 MB tree: delete it after reading its outputs. `S/1344-merge/x1-core.txt`, `x2-core.txt` and `x3-core.txt` are gzipped in place (gunzip restores the bytes that 1344-X8 and X9 cite). The P15 RED repos survive as mirrors (`S/1355-red/tree-mirror.git`, `S/1356-red/tree-mirror.git`, `S/1359-red/tree-mirror.git`). `S/1358-n/tree` and `S/1358-sweep/merge` hold the slice B reference trees that 1358-J3's scripts read; 1358-L is closed, so they may go once space is needed.
+- **The machine.** 4 CPUs, 8 GB RAM. Disk: 5.13 GiB free at 12:32 CDT (after gzipping closed outputs and removing the closed trees 1353-x4 and 1358-n). Swap shares the disk container (4 GB allocated after the core gate) and moves free space by about 1 GiB; a recorded preflight needs ≥ 5 GiB. Each X run adds a ~130 MB tree: delete it after reading its outputs. `S/1344-merge/x1-core.txt`, `x2-core.txt` and `x3-core.txt` are gzipped in place (gunzip restores the bytes that 1344-X8 and X9 cite). The P15 RED repos survive as mirrors (`S/1355-red/tree-mirror.git`, `S/1356-red/tree-mirror.git`, `S/1359-red/tree-mirror.git`). `S/1358-n/tree` and `S/1358-sweep/merge` hold the slice B reference trees that 1358-J3's scripts read; 1358-L is closed, so they may go once space is needed.
 - **Hard limits.** Do not access Owner saves, scan fixture trees, force-push, or launch Codex.
 
 ## Auto snapshot
