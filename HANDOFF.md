@@ -33,7 +33,10 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-01 23:45 CDT (the Mac r
   - **Slice B r4** (1358-C4) staged in `E/1358-stage/` (patch d41ea111…, classification 3b008e0a…); the apply check at HEAD passes.
 - Done after e7f075ce: **1358-X2** (slice B r4 dry run at HEAD) equals 1358-C4 on every count: 77 failed, 58 passed (135); root tsc exactly the 17 declared errors; producer r4 exit 0, capture at week 284 with the three slate pairs at `sharedCompetitions` 2. **1348-X7:** the four §7 natural routes at HEAD are byte-identical to §7's candidate runs, so slice A moves none of them.
 - Done after 26566be8: **1359-X3 and 1355-X3** (both P15 producers dry-run clean at Save43); **1358-D** REFINE (five blocking items) and **1358-F4** (the r5 order, sent to the slice B author); **1357-R** (why rivals stall, verified in code and rows) and **1357-F3** (sharpens 1357-Q1); **G-P (1359-X4)**: `artistic-voice` and `commercial-engine` held by nobody on either seed, so **1359-F5** routes a §5.5 amendment; **G1 (1355-X4)**: Proceed, flagged (p13a: 8.8% of releases at f ≤ 0.95).
-- In flight (agents; no heavy job runs): slice B **r5** (author, `S/1358-r2/`); the §5.5 **retune author** stage 1 (a distributions probe, `S/1353-t/`).
+- In flight:
+  - **The 1348 recorded broad gates. NO COMMITS until `S/1348-gates/gates.meta` says `end` (about 02:40 CDT).** They run at a5359347 on Node v20.20.2, core (435 files: 1344's 433 plus slice A's two) then UI, stems `1348-slicea-broad-core` and `1348-slicea-broad-ui`. Launched detached via `S/1348-gates/run-gates.sh`; they hold `S/HEAVY-LANE-LOCK`. They close slice A's broad gates and give slice B's Save44 baseline. After `end`: attribute core against 1344-I3 and UI against 1344-I4 (`1321-I-attribution.py`, `1317-I-attribution.py`, `1344-I-compare.py`), record 1348-M, commit with `git add -f` for the outputs.
+  - Agents: slice B **r6** (two leaves, `S/1358-r2/`); the **§5.5 amendment 1353-T** stage 2 (`S/1353-t/`); the slice B **production writer** (`S/1358-prod/`).
+  - Staged but uncommitted work during the gates stays as files in E until `end`.
 - Claims limits:
   - §7 describes 469a9547 (the sweep's landed source); 1348-X7 shows HEAD gives byte-identical outputs on the four §7 routes.
   - The 154 §7 promise movements: the shelving law causes them; the path is unnamed.
@@ -71,22 +74,14 @@ Agents: the user allows as many subagents as help (2026-10-01). Agents author an
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-01 23:31 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
-- Branch: `wip/headless-program-20260916-ts` @ `975e72a18746ee0e3cc2096750f7fdf7967a18be`
+- Stamped: 2026-10-01 23:44 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
+- Branch: `wip/headless-program-20260916-ts` @ `85ffc6bc702ccd85058b21d5f539c439365a69ca`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 8
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1355-X4-p15a1-g1-probe-results.md`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1355-stage/g1/`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1357-F3-parent-note-on-1357-R.md`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1357-R-rival-stall-diagnosis.md`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1358-D-rel-sliceB-red-r4-review.md`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1358-F4-parent-rulings-on-1358-D.md`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1359-X4-p15c-gp-probe-results.md`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1359-stage/gp/`
+- Uncommitted files: 0
 - Last commits:
+  - 85ffc6bc docs(p14b,p15): 1358-D REFINE and 1358-F4 (slice B r5); 1357-R rival stall root cause; G-P retune (1359-X4/F5); G1 Proceed-flag (1355-X4)
   - 975e72a1 docs(p15): 1359-X3 and 1355-X3: both P15 producers dry-run clean at the Save43 HEAD
   - 26566be8 docs(p14b): 1358-X2 slice B r4 dry run equals 1358-C4; 1348-X7 slice A leaves the §7 natural routes byte-identical
   - e7f075ce docs(p14,p15): P14 closed (1344-K, §7 1344-V); P15 Wave 1 closed; P15B probe reads Re-tune (1357-X, 1357-F2)
   - b0809602 docs(p14b,p15): slice A landed (1348-L, recorded GREEN 89/92 with the 3 F6 exceptions); 1358-X/F3; 1356-D4 CONFIRMED; 1359 r5
-  - c208d214 feat(p14b): relationship slice A production step 3 (1348-E; review 1348-J KEEP; 1348-F4, 1348-F5)
 <!-- AUTO:END -->
