@@ -1,5 +1,32 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT: Owner response recorded (1362-O): 1357-Q1 (a), numpy approved; Save45 productions in progress (1361-F)
+
+State at 2026-10-02 13:25 CDT, at the commit that adds this block (pushed). No recorded run is active.
+
+- **Owner response, 2026-10-02.** [1362-O](evidence/p14b4-20260919/1362-O-owner-response-20261002.md) records it
+  verbatim; `DECISIONS.md` carries the summary.
+  - **1357-Q1 (a).** The bounded rival-recovery amendment `1363-A` covers three things, in order:
+    - the `cashBlocked` fix (binding cash against economic rejection);
+    - scoped rival cost-cutting;
+    - a measurement under the existing tuning authority.
+  - **When the amendment runs.** Its charter starts now. Its production follows the Save45 landing and precedes
+    P15B's live closure.
+  - **Captures.** Only the affected ones are re-minted, and the originals are kept.
+  - **The recovery report.** Recovery is re-probed on the integrated source before P15B's closure is accepted. The
+    report gives production, cash, costs, borrowing and recovery.
+  - **numpy** is approved in `.venv` only, between recorded runs (evidence `1362-V`).
+  - **Unchanged:** P15C's playtest tuning, and slice B's candidate wording pending copy review.
+  - **The seven declared exceptions** are not approved, and their exact coverage limits are kept.
+  - **Items 5 to 9** went to the Owner as one decision message. They stay open.
+- **Save45 productions** ([1361-F](evidence/p14b4-20260919/1361-F-parent-rulings-p15-save45-productions.md)): in
+  progress.
+  - The slice 2a writer works in `studio-scratch/1361-prod/tree`.
+  - The G2 probe and the G-P sibling branch are being written for review.
+  - Nothing that changes `src/` lands before Save45.
+- **Still open for the Owner:** P16's nine questions (1354-Q); the seven declared exceptions' repair; the §7 flags;
+  1356-X F-2; X12's V39 family.
+
 ## CURRENT: P15 Wave 2 REDs landed on Save44 (1360-L); both P15 captures minted; Save45 reserved for the three P15 productions
 
 State at 2026-10-02 12:45 CDT, at the commit that adds this block (pushed). No recorded run is active. Root `HANDOFF.md` carries the

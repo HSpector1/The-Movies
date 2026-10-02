@@ -12,6 +12,34 @@ order). Marathon-era "no successor" language below is historical.**
 This is a compact routing index, not a replacement for the contracts, evidence, Owner records, or
 canonical Lessons Learned.
 
+## Owner rulings, 2026-10-02
+
+Recorded word for word in
+[1362-O](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1362-O-owner-response-20261002.md).
+The Owner said: "Do not stop after the decision report or reopen settled choices."
+
+- **1357-Q1: option (a).** A bounded rival-recovery amendment comes before P15B's live closure integration.
+  - **First:** the `cashBlocked` problem. It must tell a binding cash constraint from economic rejection.
+  - **Then:** a scoped rival cost-cutting route that respects employment costs, binding work, facilities, history and
+    accounting.
+  - **Then:** a measurement of the remaining low-market problems under the existing tuning authority. Material new
+    product rules go to the Owner.
+  - **What stays:** genuine failure. No automatic replacement studios, no minimum rival count, no guaranteed survival
+    and no hidden subsidies.
+  - **The schedule.** The Save45 sequence continues unchanged, and the amendment comes at the next dependency-safe
+    checkpoint. Only the affected captures are re-minted, and the originals are kept.
+  - **Before P15B's live closure is accepted,** recovery is re-probed on the integrated source, with shared-market
+    pressure when it is enabled. The report gives production, cash, costs, borrowing and recovery. "Closure due" is
+    not completed closure.
+- **numpy is approved,** in the project `.venv` only and between recorded runs. Record the versions, verify the import
+  through the test environment, and run the three image-export tests. No other upgrade.
+- **P15C's tuning** stays for the planned playtest. **The relationship wording** stays a candidate, pending copy
+  review.
+- **Items 5-9** (P16's nine questions, the seven exceptions, the §7 flags, 1356-X F-2, and X12's V39 family) go to
+  the Owner in one compact decision message. No new research runs for them.
+- **The seven declared exceptions are not approved** by being listed or by a bounded search that found no witness.
+  Their exact coverage limits are kept.
+
 ## Owner rulings, 2026-09-29
 
 Recorded word for word in

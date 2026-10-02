@@ -1,6 +1,6 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 13:12 CDT (the Mac runs on CDT; use `date`)
+Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 13:25 CDT (the Mac runs on CDT; use `date`)
 
 ## Where the work is
 - Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit after f3fe97d0 that carries this file (P15 Wave 2 REDs landed, 1360-L; the Save45 production phase started under 1361-F), pushed: yes.
@@ -13,8 +13,8 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 13:12 CDT (the Mac r
   5. `docs/engineering/playability-launch-review/CONTINUATION-STATE.md`, top `## CURRENT` block (same as 06's).
 
 ## Active order
-- Governing Owner order: the Opus take-over mandate (recover, finish P14, then P15 → P16 → P17 → a specified P18) under `docs/operations/fable-team/OWNER-DIRECTIVE-THREE-WEEK-AUTONOMOUS-20260915.md`, with Owner rulings 1340-O, D-1339-1 and 1342-O.
-- In scope: the three P15 Wave 2 productions at the shared Save45 step (P15A.2 slice 2a, then P15A.1, then P15C), their gates (P15A.1 G2, P15C G-P) and one Save45 pin sweep; P15B Wave 2 only after 1357-Q1.
+- Governing Owner order: the Opus take-over mandate (recover, finish P14, then P15 → P16 → P17 → a specified P18) under `docs/operations/fable-team/OWNER-DIRECTIVE-THREE-WEEK-AUTONOMOUS-20260915.md`, with Owner rulings 1340-O, D-1339-1 and 1342-O. The Owner response of 2026-10-02 (`E/1362-O-owner-response-20261002.md`, verbatim; `DECISIONS.md` "Owner rulings, 2026-10-02") answers 1357-Q1 with (a) and approves numpy; it says to keep the Save45 sequence, not to stop after the decision report, and not to reopen settled choices.
+- In scope: the three P15 Wave 2 productions at the shared Save45 step (P15A.2 slice 2a, then P15A.1, then P15C), their gates (P15A.1 G2, P15C G-P) and one Save45 pin sweep; the **rival-recovery amendment** `1363-A` (1357-Q1 (a): the `cashBlocked` fix, then scoped rival cost-cutting, then a measurement), charter now, production after the Save45 landing and before P15B's live closure; numpy in `.venv` (`1362-V`); P15B Wave 2 after the recovery amendment, at the next free step after Save45.
 - Closed, do not reopen:
   - P14 shelving, Save43 and the sweep (1344-K); §7 (1344-V);
   - P15 Wave 1 (1346-K, 1352-K, 1353-K);
@@ -53,15 +53,14 @@ E = `docs/engineering/playability-launch-review/evidence/p14b4-20260919`, S = `/
 Agents: the user allows as many subagents as help (2026-10-01). Agents author and review; only the parent runs broad or heavy tests.
 
 ## Open decisions for the Owner
-- **1357-Q1:** the P15B closure law closes 7 of 8 rivals by 1960 on two seeds because rivals that stop filming have no income and cannot cut costs. 1357-R/1357-F3 trace the start of the stall to the shelving law's `cashBlocked` rule (1344-A:57): a screenplay that loses money at every affordable package never shelves once its dearest package is out of reach. Recommend (a): fix that rule first, then rival cost-cutting, then re-probe. Options (b) and (c) are in 1357-F2 §4.
-- **The P15C playtest brief** carries 1353-T §6.3: no player distribution backs the retuned Legacy lines; the Owner judges `artistic-voice` (critic 60, one release in five) and `commercial-engine` (49% of `baseMarketValue`) in play.
-- **Slice B's provisional copy** (1358-F7 ruling 7): the relationship labels' player-facing text.
-- **numpy** for the three rgba-export tool-contract rows. Recommend a scoped `.venv` install beside Pillow (1345-E).
-- **P16:** the nine questions in 1354-Q.
-- **The seven declared exceptions** that 1344-K lists (1344-F6). Recommend accepting them: both probes found no lawful re-witness.
-- **The §7 flags** (1344-V §9, items 1-6): measured behaviour with no threshold, including the 154 promise movements.
-- **1356-X F-2,** as 1356-F5 restates it. Recommend checking reachability through the bridge first.
-- **X12's V39-masking family.** Recommend a small RED that gives each leaf an input whose first refusal is its own guard.
+Answered 2026-10-02 (`E/1362-O`): 1357-Q1 = (a); numpy approved (`.venv` only, between recorded runs); P15C tuning kept for the planned playtest; slice B's relationship wording stays candidate pending copy review. The seven declared exceptions are NOT approved by being listed or by the bounded searches; keep their exact coverage limits (1362-O routing item 5).
+
+Still open, sent to the Owner as one compact decision message on 2026-10-02 (no new research for them):
+- **P16's nine questions** (`E/1354-Q-proposed-owner-rulings-p16.txt`). Items 1 and 2 block the P15B Wave 4 charter (1354-P:30); the P16A charter can start once 1354-Q is answered (1354-P:53). Nothing in Save45 or the recovery amendment waits on them.
+- **The seven declared exceptions** (1344-F6): three row-6 leaves in `tests/p14b5-relationships.test.ts` and four promise-148 leaves (`p14c2c-rival-promises` R1-R3, `p14c3-admission-boundaries` N10). Not approved. Repair options (1344-F6 §4): a new natural fixture whose chain holds each premise under the shelving law, or retiring the leaves; each needs its own charter. They block nothing; they stay failing, attributed identities in every broad gate.
+- **The §7 flags** (1344-V §9 items 1-6): measured behaviour with no threshold. Flags 1, 2 and 4 (retries, growing shelved lists, the cash-blocked stall) fall inside the recovery amendment; flag 3 (rival cash below zero) is P15B scope; flag 5 asks whether seed `p15a1-w2-market-01` is in scope; flag 6 is the 154 promise movements with no named path. They block nothing.
+- **1356-X F-2** (as 1356-F5 restates it): a public founding after week 0 reaches no valid save once the player signs the roster, or ticks with the draft open after rivals lock methods. Recommend checking whether the shipped bridge offers a late public founding first, then one charter for both rules if it does. It blocks nothing on the current path.
+- **X12's V39-masking family** (1344-X12): five downgrade leaves pass without reaching the guard their titles name, because the V39 guard fires first. Recommend a small RED giving each leaf an input whose first refusal is its own guard. It blocks nothing.
 
 ## Blockers and warnings
 - **Node.** Recorded runs pin v20.20.2: put `/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin` first on PATH. The session's nvm default is v22.23.2.
