@@ -1,0 +1,13 @@
+start at cb49fd0282ea1edec166a899b4d6852dba138032, node v20.20.2; 2026-10-02 11:50:17 CDT
+s2-1356: vitest exit 1;  Tests 70 failed | 2 passed (72); 2026-10-02 11:51:43 CDT
+s3 roots: export const P15_ROOTS: readonly string[] = ['p15Sequence', 'powerRanking', 'sharedMarket']; 2026-10-02 11:51:43 CDT
+s4 1355 mint exit 0; 2026-10-02 11:51:48 CDT
+s5 capture MANIFEST sha256 8a1d56d6ee66cad6b681e540bda274373660646ee6d3db5297f9934478b7b627; 2026-10-02 11:51:48 CDT
+s6-1355: vitest exit 1;  Tests 51 failed | 8 passed (59); 2026-10-02 11:51:58 CDT
+s7 roots: export const P15_ROOTS: readonly string[] = ['p15Sequence', 'powerRanking', 'sharedMarket', 'campaignLegacy']; 2026-10-02 11:51:58 CDT
+s8 1359 mint exit 0; 2026-10-02 11:52:06 CDT
+s10-1359: vitest exit 1;  Tests 40 failed | 76 passed (116); 2026-10-02 11:52:56 CDT
+s11-1356-after: vitest exit 1;  Tests 70 failed | 2 passed (72); 2026-10-02 11:53:15 CDT
+s12 tsc exit 2, 6 errors; 2026-10-02 11:53:51 CDT
+tree status: []; 2026-10-02 11:53:52 CDT
+end; 2026-10-02 11:53:52 CDT
