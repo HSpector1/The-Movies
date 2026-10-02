@@ -9,7 +9,7 @@
   - seed-b's rival weeks below zero at week 520;
   - seed-b's root share, which routes to a storage fix.
 
-These rulings apply 1361-F ruling 13, as [1361-F4](1361-F4-parent-response-to-1361-D2.md) ruling 3 restored it.
+These rulings apply 1361-F ruling 13, as [1361-F4](1361-F4-parent-response-to-1361-D2.md) ruling 3 restored it. Amendment 1, at the end, adds the 45th leaf after `p15a1-b-r2`.
 
 ## Rulings
 
@@ -87,3 +87,30 @@ These rulings apply 1361-F ruling 13, as [1361-F4](1361-F4-parent-response-to-13
    fallback.
 5. **Records.** G-P's run is `1361-GP-X`. P15C's handback is `1361-E3`. The retune opens as record 1365 after the
    landing.
+
+## Amendment 1 (16:00 CDT): `p15a1-b-r2` and the 45th leaf
+
+**The commit.** The writer made `p15a1-b-r2`, b0b6fb01, one commit on `p15a1-a-r1`. The parent checked:
+- its diff against b-r1 is seven lines in `src/core/tick.ts`;
+- every other tag is unmoved.
+
+**What the guard does.** A tick refuses when the `sharedMarket` root already holds a row: "tick: the sharedMarket root
+already holds market assessments (N recorded); the save was written by a build with the market batch, and this build
+cannot move recordedFromWeek past those rows".
+
+**The 45th leaf.** By the writer's reading, the guard turns one more 1355 leaf red at (b): "market-forecast-paths-unchanged:
+a week of rival decisions with no release ignores the root [control]" (T:247-261).
+- **Why it fails.** Its helper puts 12 synthetic rows into the root and ticks. That state is (c)-era.
+- **Why it passed at b-r1.** b-r1 moved `recordedFromWeek` past those rows, the defect 1361-D2 F3 names.
+- **The ruling.** The guard stays, and the leaf joins the declared list as waiting for (c). That makes 45 leaves.
+  At (b) no code besides the guard and the validator reads the root, so the claim this control protects holds
+  trivially until (c).
+- **What moves in the 44.** Only one message changes, by reading: window-stock-retire (T:334) now fails at the guard
+  (T:347, "3 recorded").
+
+**The baseline.** The declared list and its messages come from the b-r2 dry run (`x-r3b`), not from x-r2b. The landing's
+recorded run of 1355's files must fail exactly those 45 leaves with those messages.
+
+**(c)'s retune removes the guard** together with (b)'s write. (c) appends rows, so a guard left in place would refuse
+every tick after the first assessment. The rebased (c) shows the guard's removal in its diff, and its dry run covers
+it.

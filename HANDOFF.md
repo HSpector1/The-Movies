@@ -1,6 +1,6 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 15:53 CDT. Claude's weekly usage stood at 89% at 14:39 CDT (Owner): if Claude stops, Codex resumes from this file.
+Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 16:00 CDT. Claude's weekly usage stood at 89% at 14:39 CDT (Owner): if Claude stops, Codex resumes from this file.
 
 ## Where the work is
 - Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit after 50181e76 that carries this file, pushed: yes. Protected main is never touched.
@@ -29,13 +29,14 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 15:53 CDT. Claude's 
 - **G2 read Retune** (`E/1361-G2-X`; rulings `E/1361-F5`): K1-K5 exact (K3 case (a) of `E/1361-F4` ruling 1, pre-registered at 5b911ed3); Retune rows p13a industry gross 0.875 at 520, seed-b stall (stopped rivals) and below-zero +325% at 520, seed-b root share 2.3-3.1% (storage fix). Save45 now lands slice 2a r2 + P15A.1 (a) and (b) r2 (+ P15C if G-P passes); (c) and (d) wait for a tuning amendment (record 1365, after the landing).
 - **1361-D2** PROCEED (`E/1361-D2`, rulings `E/1361-F4`); **1363** adopted (`E/1363-F`); **G-P C0** passed (15:48; both exit 0, equal manifest, JSON equal apart from the allowed fields).
 - In flight:
-  - **the writer** (agent `a9b8c143941cbb673`, SendMessage) makes `p15a1-b-r2` = b-r1 + 1361-D2 F3's guard, one commit on `p15a1-a-r1`; replies with sha, diff and the refusal text.
+  - **`p15a1-b-r2` b0b6fb01** made by the writer (b-r1 + F3's guard, 7 lines in `tick.ts`; parent-verified; patch `E/1361-stage/prod/1361-p15a1-production-b-r2.patch`). The guard turns a 45th 1355 leaf red at (b) (`market-forecast-paths-unchanged`, T:247-261); `E/1361-F5` Amendment 1 declares it; (c)'s retune must remove the guard with (b)'s write.
+  - **Lane job since 15:59 CDT:** `S/1361-prod/run-1361-X3-b-r2-then-gp.sh` (dry run of `p15a1-b-r2` into `S/1361-prod/x/r3b/`, tree back to branch `b-r2`, then G-P into `S/1361-gp-x/out/`); lane log `S/1361-prod/x3-gp.log` (+ `.meta`). About 20 min.
 - Claims limits: P15A.1's r1 commits and slice 2a r2 are unmeasured; the harness time compares across Node versions and machine load (1361-F3 ruling 5); the 1363-A design rests on reading.
 
 ## Next step
 Standing rules: one production writer; one heavy test process at a time (`bash S/heavy-queue/lane-run.sh 0 <log> <cmd>`); no commits or `git add` during a recorded run or its postflight; free disk ≥ 5 GiB before a recorded run; recorded runs on Node v20.20.2; stems match `^[0-9]{3,4}[a-z0-9-]*$`.
 
-1. **When the writer returns b-r2:** check `git -C S/1361-prod/tree diff p15a1-b-r1 p15a1-b-r2` is the guard only; then in the lane: dry run `bash S/1361-prod/run-1361-X.sh p15a1-b-r2 x-r3b` (tree checked out at the tag, clean) and compare 1355's failures with `E/1361-stage/x-r2b/1355-leaves-red-at-b.tsv` (same 44, same messages, else finding); then G-P: `nohup bash S/heavy-queue/lane-run.sh 0 S/1361-gp-x.log bash S/1361-gp/run-1361-gp.sh p15a1-b-r2 &`, read against `E/1361-F5` ruling 4's pre-registered expectations; record `E/1361-GP-X` (with C0: `S/1361-gp-c0/out/`).
+1. **When the lane job ends:** read `S/1361-prod/x/r3b/run.meta` (type gates `src` 0; 1356 72/72; 1355 14 passed and 45 failed: the 44 of `E/1361-stage/x-r2b/1355-leaves-red-at-b.tsv` plus `market-forecast-paths-unchanged`, messages as Amendment 1 expects; 1359 unchanged; generators exit 0); stage the x-r3b outputs and the 45-leaf list from x-r3b; record `E/1361-X3`. Then read G-P (`S/1361-gp-x/out/`: smoke-gp.err/json, gp.err/json, runs.meta) against `E/1361-F5` ruling 4's pre-registered expectations; record `E/1361-GP-X` with C0 (`S/1361-gp-c0/out/`).
 2. **If G-P passes:** send `S/1361-prod/brief-p15c-production.md` to the writer with base `p15a1-b-r2` and without commit (d) (moot at (b); rides with (c)).
 3. Then P15C's dry run, review 1361-D3, the sibling test's classification, the merged-tick harness run, the fallout (+ the d16 config at `base` and the landed tree), the `1361-N` sweep, the landing `1361-L` (four recorded runs; 1355's files fail exactly the 44), per 1361-F's order of work.
 4. **When an agent slot frees and usage allows:** draft the late-founding charter `1364-A` (scope in 1362-O's third section).
