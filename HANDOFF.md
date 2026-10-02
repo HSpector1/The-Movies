@@ -1,13 +1,13 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 12:45 CDT (the Mac runs on CDT; use `date`)
+Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 13:12 CDT (the Mac runs on CDT; use `date`)
 
 ## Where the work is
-- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit after e16b782e that carries this file (P15 Wave 2 REDs LANDED: 1360-L), pushed: yes.
+- Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit after f3fe97d0 that carries this file (P15 Wave 2 REDs landed, 1360-L; the Save45 production phase started under 1361-F), pushed: yes.
 - Resume this session: `cd ~/Downloads/project-studio-p13-owner-direction-inputs-01 && claude --resume 60db833c-4cf7-4685-b2ec-8aac42c6dac1` (the session started in that folder; it works in this repo). A fresh session: start `claude` in this repo root and say "resume from HANDOFF.md".
 - Required reading, in order:
   1. This file.
-  2. `E/1360-L-p15-wave2-red-landing.md` (CLOSED: the step table, the mints, the recorded REDs, what the next broad gates inherit, open items), with its rulings `E/1360-F`, `E/1360-F2`, `E/1360-F3` (Save45 reserved for the three P15 productions; P15C's own fallback; a production commit is one that changes `src/`).
+  2. `E/1361-F-parent-rulings-p15-save45-productions.md` (22 rulings and the order of work for the three Save45 productions) and `E/1361-R-p15-save45-production-protocol.md` (the protocol it rules on: per production, the references against HEAD, the sweep scope, 16 questions). Then `E/1360-L-p15-wave2-red-landing.md` (CLOSED: the step table, the mints, the recorded REDs, what the next broad gates inherit, open items), with its rulings `E/1360-F`, `E/1360-F2`, `E/1360-F3` (Save45 reserved for the three P15 productions; P15C's own fallback; a production commit is one that changes `src/`).
   3. The P15 Wave 2 charters and RED handbacks for the productions: `E/1356-A`, `E/1355-A`, `E/1359-A`; `E/1355-F4` (production order), `E/1355-F5`, `E/1353-F7` (P15C's G-P); handbacks `E/1355-C4-…`, `E/1356-C4-…`, `E/1359-C7-…`. Slice B for the sweep method: `E/1358-L`, `E/1358-N`, `E/1358-C9`.
   4. `E/1357-R-rival-stall-diagnosis.md` and `E/1357-F3-parent-note-on-1357-R.md`: Owner question 1357-Q1.
   5. `docs/engineering/playability-launch-review/CONTINUATION-STATE.md`, top `## CURRENT` block (same as 06's).
@@ -33,7 +33,11 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 12:45 CDT (the Mac r
 - **P15 landing protocol and rulings:** `E/1360-R` (compiled from the records) and `E/1360-F` (twelve rulings). Ruling 1: P15A.2 slice 2a, P15A.1 and P15C share **one save step, Save45** (1355-F Amendment 4; one sweep, and the Save44 mints serve all three). Order 1356 → 1355 → 1359; 1356's recorded RED before the 1355 mint; the 1355 capture sha pinned in its fixture commit; vite-node; producers committed at the E root with their REDs; stems `1360-p15a2-red-recorded`, `1360-p15a1-mint`, `1360-p15a1-red-recorded`, `1360-p15c-mint`, `1360-p15c-red-recorded`.
 - **1360-X** (the landing replayed in scratch, 11:50-11:54): every stage matches 1360-F (1356 70/2 before any mint; 1355 51/8 after its mint and pin, the four pin controls green; 1359 40/76 with C2-C4 at "the route L captures are Save44"; six missing-module type errors); bytes equal the Save44 dry runs. P15C **r8 classification** revises C2-C4 (`E/1359-stage/1359-p15c-wave2-red-r8-classification.json`).
 - **The P15 Wave 2 RED landing is CLOSED** (`E/1360-L`, 12:44 CDT). Commits 10b9be41 (1356 RED), e4be3e5c (1355 RED + producer), 6ce916cb (1355 fixtures + sha pin 410d48a8…), 6ac55a37 (1359 RED r8 + producer), 840cf1c7 (route L captures). Recorded runs, each equal to 1360-X leaf for leaf and with fixedSource and allGuardsExact: `1360-p15a2-red-recorded` 70/2, `1360-p15a1-mint` (13 and 146 MANIFEST fields equal), `1360-p15a1-red-recorded` 51/8, `1360-p15c-mint` (17 fields equal), `1360-p15c-red-recorded` 40/76. Type gates at e16b782e: root the six declared TS2307, UI, Bridge and both generator checks clean (`E/1360-L-type-gates.txt`). Reviews 1360-D, 1360-D2; responses 1360-F2, 1360-F3.
-- In flight: a read-only research agent compiles the Save45 production protocol into `S/p15-save45/p15-save45-production-protocol.md` (per production: src files, save-step mechanics, bridge surface, GREEN expectations, gates; the three reference patches against HEAD; the Save45 sweep scope; dependencies; open questions).
+- **1361-R and 1361-F** (committed f3fe97d0): the production protocol and the parent's rulings. The writer's tree is built at `S/1361-prod/tree` (git; tag `base` 1045432 = archive of f3fe97d0, `src` equal to 1706d844's; fixtures and E as real directories of links; script `S/1361-prod/build-tree.sh`).
+- In flight (three agents, none runs anything):
+  - the **slice 2a production writer** in `S/1361-prod/tree`: commits tagged `p15a2-r1`, patch `S/1361-prod/1361-p15a2-production-r1.patch`, handback `S/1361-prod/1361-E-p15a2-production-handback.md`;
+  - the **G2 probe** author in `S/1361-g2/` (probe, `1361-G2-notes.md`, review checklist);
+  - the **G-P sibling branch** author in `S/1361-gp/` (`1361-GP-probe-r2.ts`, notes, review checklist).
 - Claims limits:
   - 1353-T's market-pressure numbers are first order (open-loop factors from 1355-G1).
   - The retune rests on five rival careers on seed-b; p13a's rivals stop filming (1357-R).
@@ -42,8 +46,9 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 12:45 CDT (the Mac r
 ## Next step
 E = `docs/engineering/playability-launch-review/evidence/p14b4-20260919`, S = `/Users/zacheryspector/studio-scratch`. Standing rules: one production writer; one heavy test process at a time; no commits (and no `git add`) during a recorded run or its postflight; free disk ≥ 5 GiB before a recorded run; recorded runs pin Node v20.20.2; recorded stems match `^[0-9]{3,4}[a-z0-9-]*$` (lowercase).
 
-1. **When the protocol agent returns:** read `S/p15-save45/p15-save45-production-protocol.md`, check its citations, and rule on the production plan as `E/1361-F` (publish the protocol as `E/1361-R`): who writes, how each reference retargets to Save45 on HEAD, the order (slice 2a, P15A.1, P15C), the review chain, G2 on an archive of e4be3e5c, P15C's G-P with the sibling-roots probe branch, and the one Save45 sweep (method of 1358-N).
-2. **Then the productions** (1360-F ruling 1): the single writer authors them in scratch on the Save44 base; dry runs and reviews per production; they land together behind one Save45 sweep, by recorded GREENs and broad gates. P15B joins only if 1357-Q1 resolves in time. No commit that changes `src/` lands before Save45 (1360-F3 ruling 5).
+1. **When the slice 2a writer returns:** publish its handback as `E/1361-E-…`; run the dry run `1361-X` in `S/1361-prod/tree` at tag `p15a2-r1` under the heavy lane (root tsc: zero errors in `src/` files; the 1356 archive and isolation files; the 1356 harness alone; the 1355 and 1359 RED files for observation); compare with the handback's row map; then an independent implementation review `1361-D`; rule (`1361-F2`) and send the writer a revision brief if needed (SendMessage to the writer agent keeps its context).
+2. **When the probe authors return:** an independent read-only review of each (`1361-G2-D`, `1361-GP-D`) before any run.
+3. **Then** P15A.1 (a), (b), (c) on slice 2a's candidate, G2, G-P, P15C, the sweep and the landing, by 1361-F's order of work. The bound is the first gate failure (1361-F ruling 13). No commit that changes `src/` lands before Save45.
 
 Agents: the user allows as many subagents as help (2026-10-01). Agents author and review; only the parent runs broad or heavy tests.
 
