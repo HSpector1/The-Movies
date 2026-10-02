@@ -53,8 +53,10 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-01 21:41 CDT (the Mac r
      - slice B r3 over them;
      - the 1358-P producer dry run in a tree with a real `tests/fixtures`.
 - Claims limits:
-  - §7, the type gates at HEAD, the P15 r4s and slice B r3 are unmeasured.
-  - The type gates were clean at x3, whose tree equals the applied one.
+  - Measured since: §7 (all four anchors EQUAL, controls a-d PASS; report 1344-V in drafting), the type gates at
+    HEAD 85764cd5 (all exit 0), 1359-X2 and 1356-X3 (both as declared), 1348-X6 (slice A: 89 of 92 on the candidate,
+    the 3 failures being the F6 row 6 exceptions). Slice B r3 and the 1358-P producer dry run are in flight.
+  - The applied tree differs from x3's in three test files (two HYGIENE comments, the S9 regexes); 1344-J3 defect 1.
 
 ## Next step
 E = `docs/engineering/playability-launch-review/evidence/p14b4-20260919`, S = `/Users/zacheryspector/studio-scratch`. Standing rules: one production writer; one heavy test process at a time; no commits during a recorded run; free disk ≥ 5 GB before a recorded run; recorded runs pin Node v20.20.2.
@@ -103,18 +105,14 @@ Agents: the user allows as many subagents as help (2026-10-01). Agents author an
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-01 21:05 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
-- Branch: `wip/headless-program-20260916-ts` @ `469a9547f1a3b53b7c9985ec53beaa55e2a65587`
+- Stamped: 2026-10-01 22:09 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
+- Branch: `wip/headless-program-20260916-ts` @ `4947f231f5afee80d32e3f7fa0652a83b175d285`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 4
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-save43-sweep-broad-core-preflight.json`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-save43-sweep-broad-core.json`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-save43-sweep-broad-core.patch`
-  - `?? docs/engineering/playability-launch-review/evidence/p14b4-20260919/1344-save43-sweep-broad-core.txt`
+- Uncommitted files: 0
 - Last commits:
+  - 4947f231 docs(p15): 1359-X2 and 1356-X3 match their declarations; 1359-F4 sets the P15C budgets
+  - 93781f43 docs(p14): 1344-J3 REFINE on the gate record; 1344-M3 r2 applies it; type gates at HEAD clean; §7 outputs
+  - 85764cd5 docs(p14,p15): Save43 sweep recorded gates hold the 1344-N success line (1344-M3); P15 r4s and slice B r2/r3 published
   - 469a9547 docs(handoff): sweep applied (cec3902c); recorded gates launching; P15 revisions in flight; no commits until the gates end
   - cec3902c test(p14): Save43 pin sweep, 137 files (1344-C5; review 1344-D4 ACCEPT WITH CHANGES)
-  - 8896b5a0 docs(p14,p15): 1344-D4 ACCEPT WITH CHANGES, changes applied; X12 section 4; 1356-D3 NOT CONFIRMED (1356-F5); 1355-D4 CONFIRMED
-  - 6427a491 docs(p15c): 1359-X reference run (route L unlawful under the founding-draft conflict; reference ranking key wrong); 1359-F3
-  - 2eaacb29 docs(p15): 1356 RED r3 and 1355 RED r4 staged; both reference re-runs match their declarations (1356-X2, 1355-X2); 1356-F4
 <!-- AUTO:END -->

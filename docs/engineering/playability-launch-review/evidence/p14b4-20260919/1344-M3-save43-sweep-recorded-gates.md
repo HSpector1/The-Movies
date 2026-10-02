@@ -7,7 +7,8 @@ Status: **the 1344-N success line holds on both recorded gates.**
 - No new environment row and no new identity appeared.
 
 Revision r2 applies the independent review [1344-J3](1344-J3-save43-sweep-gates-attribution-review.md) (REFINE): its two
-blocking defects and its eleven notes. No number changed.
+blocking defects and its eleven notes. [1344-J4](1344-J4-m3-revision-confirmation.md) CONFIRMED r2, and r3 applies
+J4's wording residuals a-e. No count changed. The run times are now quoted from the recorder.
 
 The recorded gates measure the applied Save43 pin sweep (cec3902c, [1344-C5](1344-C5-save43-sweep-handback.md),
 review [1344-D4](1344-D4-save43-sweep-review.md)) against the 1344-N success line (1344-N:80-82), read with the seven
@@ -130,7 +131,8 @@ None fails in this gate. For a timing row, the gate cannot separate the quiet ma
 
 One pass does not retire an intermittent, so 1344-M2's readings stand.
 - **The deep-route row's history.**
-  - 1344-M2's four runs at 644b9038 (Node v20.20.2) passed 2 of 4.
+  - 1344-M2's four runs at 644b9038 passed 2 of 4. Only the recorded broad run among them records its Node
+    (v20.20.2); the three diagnostic runs record none.
   - This gate at 469a9547 (Node v22.23.2) passed 1 of 1.
   - The two runs at 6b73e424 passed 2 of 2.
 - Whether the deep-route row failed before shelving stays open, as M2 left it.
@@ -145,7 +147,7 @@ One pass does not retire an intermittent, so 1344-M2's readings stand.
 | Same primaries | Yes for all 73 SAME rows. The core table names the five CHANGED rows. |
 | The seven masked rows restored (1344-N:58) | Yes. C1, C15 ×2 and C3 ×3 are SAME with their 1338 primaries. The C20 row fails at its own assertion, as it already did in 1344-M (`:93:49`), and its message differs from 1338's only by the live version it embeds. 1344-N:58 groups it with the masked rows. |
 | The four S10 rows attributed | Yes: 1344-X10, kept failing by 1344-F4 ruling 1. |
-| Environment rows, attributed separately | No new environment row. The 3 numpy rows are environment failures already on record (1345-E). 1344-M's four load rows and 1344-M2's four intermittent rows pass; for these timing rows the gate cannot separate the quiet machine from the Node change. |
+| Environment rows, attributed separately | No new environment row. The 3 numpy rows are environment failures already on record (1345-E). 1344-M's four environment rows and 1344-M2's four intermittent rows pass. 1344-M's `hygiene` ELOOP row came from a stray self-link, since removed (1344-M:51-55). For the other seven, which are timing rows, the gate cannot separate the quiet machine from the Node change. |
 | UI equals 1343's 10, environment-adjusted | Yes. The `.venv` clears the 7 Pillow rows, and the 3 numpy rows wait on the Owner. |
 | No new identity, as 1344-F6 §3 reads it | Yes. Core NEW is exactly the seven declared exceptions, and UI NEW is empty. |
 
@@ -173,7 +175,7 @@ One pass does not retire an intermittent, so 1344-M2's readings stand.
 - **Consequence.**
   - The success line needs no re-run (1344-J3 item 9).
   - A UI re-run under v20.20.2 would become necessary only if a closure called the M2 intermittent rows or the 1344-M
-    load rows resolved. 1344-K does not.
+    load rows resolved. 1344-K will not.
 - **Going forward.**
   - The §7 verification pinned v20.20.2, because its anchors compare bytes with 1329's outputs. Its log names the
     binary.
@@ -181,8 +183,8 @@ One pass does not retire an intermittent, so 1344-M2's readings stand.
 
 ## Reproduce
 
-From the repo root, with the archived scripts unchanged. Each script refuses an existing output, so the outputs go to
-a temporary directory and are compared with the committed files:
+From the repo root, with the archived scripts unchanged. Each script refuses an existing output, so these commands
+write to a temporary directory and compare each output with the committed file:
 
 ```
 E=docs/engineering/playability-launch-review/evidence/p14b4-20260919; T=$(mktemp -d)
