@@ -24,6 +24,7 @@
 // no edge from its old credits (Q3, OPEN 2 stays open).
 
 import { castingSessionForProject } from './castingSessions.js'
+import { SLOT_ORDER } from './tuning.js'
 import type {
   CastSlot, FilmResult, FirstTakeReceipt, GameState, Production, RelationshipDriver, RelationshipDriverKind,
   RelationshipEdge, RelationshipTier,
@@ -239,6 +240,8 @@ function newEdge(index: number, a: string, b: string, week: number, driver: Rela
     sharedCompetitions,
     peakTier: tier, peakTierWeek: week,
     recent: [driver],
+    competitions: [],
+    romance: null,
   }
 }
 
@@ -500,7 +503,11 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 const EDGE_KEYS = ['edgeId', 'a', 'b', 'closeness', 'firstSharedWeek', 'lastEventWeek', 'sharedProductions', 'sharedSuccesses',
   'sharedFailures', 'sharedCancellations', 'peakTier', 'peakTierWeek', 'recent'] as const
 const EDGE_KEYS_V42 = [...EDGE_KEYS, 'sharedCompetitions'] as const
+const EDGE_KEYS_V44 = [...EDGE_KEYS_V42, 'competitions', 'romance'] as const
 const DRIVER_KEYS = ['kind', 'week', 'ref', 'delta'] as const
+const COMPETITION_KEYS = ['week', 'productionId', 'slots'] as const
+const ROMANCE_KEYS = ['value', 'anchorWeek', 'bonds'] as const
+const BOND_KEYS = ['formedWeek', 'endedWeek'] as const
 
 /**
  * The V31 root's own validator (the `validatePromiseRoots` model): array; each
@@ -513,13 +520,20 @@ const DRIVER_KEYS = ['kind', 'week', 'ref', 'delta'] as const
  * `recent` within the cap, each driver in the catalogue with `week ≤ lastEventWeek`.
  * `era` 31 (every frozen Save31..Save41 reader) is exactly that law with the frozen
  * five-kind catalogue; `era` 42 adds the exact `sharedCompetitions` counter and the
- * two casting kinds (1313-A §3, 1313-F note 8).
+ * two casting kinds (1313-A §3, 1313-F note 8); `era` 44 adds the `competitions` log and
+ * the `romance` track (1347-A §4). The log: weeks in order, equal weeks allowed (two
+ * productions can contest in one week, the parent's reading of "ascending"), distinct
+ * production refs, a non-empty subset of the cast slots in slot order, and no more rows
+ * than `sharedCompetitions`. Romance: an integer value 0..100 and bonds in order, only the
+ * last of them open, an open bond formed at or before the track's `anchorWeek`, and no
+ * person holding open bonds on two edges (1358-F8 ruling 2: no engine route writes either
+ * shape, so a save holding one is forged). Every week inside the recording interval, as above.
  */
-export function validateRelationshipsRoot(state: unknown, era: 31 | 42 = 31): void {
+export function validateRelationshipsRoot(state: unknown, era: 31 | 42 | 44 = 31): void {
   const fail = (message: string): never => {
     throw new Error(`validateSaveV${String(era)}: ${message}`)
   }
-  const catalogue = era === 42 ? RELATIONSHIP_DRIVER_KINDS : RELATIONSHIP_DRIVER_KINDS_V31
+  const catalogue = era === 31 ? RELATIONSHIP_DRIVER_KINDS_V31 : RELATIONSHIP_DRIVER_KINDS
   if (!isRecord(state)) return fail('state is not a plain object')
   const rows = state.relationships
   if (!Array.isArray(rows)) return fail('state.relationships is not an array')
@@ -560,10 +574,11 @@ export function validateRelationshipsRoot(state: unknown, era: 31 | 42 = 31): vo
   }
 
   const seenPairs = new Set<string>()
+  const openBonds = new Map<string, string>() // era 44: person -> the edge holding their open bond
   for (let i = 0; i < rows.length; i++) {
     const at = `state.relationships[${String(i)}]`
     const row = record(rows[i], at)
-    exact(row, era === 42 ? EDGE_KEYS_V42 : EDGE_KEYS, at)
+    exact(row, era === 44 ? EDGE_KEYS_V44 : era === 42 ? EDGE_KEYS_V42 : EDGE_KEYS, at)
     if (row.edgeId !== `relationship-edge-${String(i)}`) return fail(`${at}.edgeId is not this root's ordinal id`)
     const a = personId(row.a, `${at}.a`)
     const b = personId(row.b, `${at}.b`)
@@ -582,7 +597,7 @@ export function validateRelationshipsRoot(state: unknown, era: 31 | 42 = 31): vo
     const cancellations = nonnegative(row.sharedCancellations, `${at}.sharedCancellations`)
     if (successes + failures > productions) return fail(`${at} counters are inconsistent: sharedSuccesses + sharedFailures exceeds sharedProductions`)
     if (cancellations > productions) return fail(`${at} counters are inconsistent: sharedCancellations exceeds sharedProductions`)
-    if (era === 42) nonnegative(row.sharedCompetitions, `${at}.sharedCompetitions`)
+    const competitions = era === 31 ? 0 : nonnegative(row.sharedCompetitions, `${at}.sharedCompetitions`)
     if (!RELATIONSHIP_TIERS.includes(row.peakTier as RelationshipTier)) return fail(`${at}.peakTier is not a tier of the catalogue`)
     recordedWeek(row.peakTierWeek, `${at}.peakTierWeek`)
     const recent = row.recent
@@ -597,6 +612,66 @@ export function validateRelationshipsRoot(state: unknown, era: 31 | 42 = 31): vo
       if (week > last) return fail(`${d}.week is after lastEventWeek`)
       text(driver.ref, `${d}.ref`)
       integer(driver.delta, `${d}.delta`)
+    }
+    if (era !== 44) continue
+    const log = row.competitions
+    if (!Array.isArray(log)) return fail(`${at}.competitions is not an array`)
+    if (log.length > competitions) return fail(`${at}.competitions holds more rows than sharedCompetitions`)
+    const refs = new Set<string>()
+    let previousWeek = boundary
+    for (let j = 0; j < log.length; j++) {
+      const c = `${at}.competitions[${String(j)}]`
+      const entry = record(log[j], c)
+      exact(entry, COMPETITION_KEYS, c)
+      const week = recordedWeek(entry.week, `${c}.week`)
+      if (week < previousWeek) return fail(`${c}.week is before the previous row's week: the log must be in week order`)
+      previousWeek = week
+      const ref = text(entry.productionId, `${c}.productionId`)
+      if (refs.has(ref)) return fail(`${c}.productionId repeats an earlier row's production`)
+      refs.add(ref)
+      const slots = entry.slots
+      if (!Array.isArray(slots) || slots.length === 0) return fail(`${c}.slots must be a non-empty array of cast slots`)
+      let previousSlot = -1
+      for (const slot of slots) {
+        const order = SLOT_ORDER.indexOf(slot as CastSlot)
+        if (order <= previousSlot) return fail(`${c}.slots must name distinct cast slots in slot order (lead, antagonist, support)`)
+        previousSlot = order
+      }
+    }
+    if (row.romance === null) continue
+    const r = `${at}.romance`
+    const romance = record(row.romance, r)
+    exact(romance, ROMANCE_KEYS, r)
+    const value = integer(romance.value, `${r}.value`)
+    if (value < 0 || value > 100) return fail(`${r}.value must be an integer from 0 to 100`)
+    const anchor = recordedWeek(romance.anchorWeek, `${r}.anchorWeek`)
+    const bonds = romance.bonds
+    if (!Array.isArray(bonds)) return fail(`${r}.bonds is not an array`)
+    let previousEnd = boundary
+    let open = false
+    for (let j = 0; j < bonds.length; j++) {
+      const b = `${r}.bonds[${String(j)}]`
+      const bond = record(bonds[j], b)
+      exact(bond, BOND_KEYS, b)
+      const formed = recordedWeek(bond.formedWeek, `${b}.formedWeek`)
+      if (formed < previousEnd) return fail(`${b} is out of order: it forms before the previous bond ended`)
+      if (bond.endedWeek === null) {
+        if (j !== bonds.length - 1) return fail(`${b} is open, but only the last bond may be open`)
+        // Formation anchors the track at its own week and every later write moves the anchor forward.
+        if (formed > anchor) return fail(`${b} is open but forms after ${r}.anchorWeek: an open bond forms at or before the track's anchor`)
+        open = true
+        continue
+      }
+      previousEnd = recordedWeek(bond.endedWeek, `${b}.endedWeek`)
+      if (previousEnd < formed) return fail(`${b}.endedWeek is before its formedWeek`)
+    }
+    if (!open) continue
+    // The formation check records every third-party ending before a bond forms (1347-A §2.3).
+    const edgeId = `relationship-edge-${String(i)}`
+    for (const person of [a, b]) {
+      const held = openBonds.get(person)
+      if (held !== undefined) return fail(`${r}: ${person} holds an open romance bond on ${held} and on ${edgeId}; a person holds at most one`)
+      openBonds.set(person, edgeId)
     }
   }
 }
@@ -617,13 +692,21 @@ export function projectRelationshipsPreV31(state: unknown): void {
 
 /**
  * Save42 → the era-31 edge every frozen reader knows (1313-A §3): `sharedCompetitions`
- * dropped and the two casting kinds removed from `recent`. `validateSaveV42` hands the
- * frozen V41 chain this projection after validating its own root at era 42; the
- * downgrade calls it only after `assertRelationshipsAtV31` has refused real history.
+ * dropped and the two casting kinds removed from `recent` (and the Save44 fields, when the
+ * live state is handed down directly). `validateSaveV42` hands the frozen V41 chain this
+ * projection after validating its own root at era 42; the downgrade calls it only after
+ * `assertRelationshipsAtV31` has refused real history.
  */
 export function relationshipsAtV31(rows: readonly RelationshipEdge[]): Record<string, unknown>[] {
-  return rows.map(({ sharedCompetitions: _competitions, ...edge }) =>
+  return rows.map(({ sharedCompetitions: _competitions, competitions: _log, romance: _romance, ...edge }) =>
     ({ ...edge, recent: edge.recent.filter((d) => RELATIONSHIP_DRIVER_KINDS_V31.includes(d.kind)) }))
+}
+
+/** Save44 → the era-42 edge the V43 chain knows (1347-A §4): `competitions` and `romance`
+ * dropped. `validateSaveV44` hands the frozen V43 chain this projection after validating
+ * its own root at era 44; the downgrade calls it only after refusing real history. */
+export function relationshipsAtV42(rows: readonly RelationshipEdge[]): Record<string, unknown>[] {
+  return rows.map(({ competitions: _log, romance: _romance, ...edge }) => edge)
 }
 
 /** The 42→41 refusal (1313-A §3): lossless exactly while no pair ever competed. */

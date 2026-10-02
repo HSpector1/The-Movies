@@ -2256,6 +2256,26 @@ export type RelationshipDriver = {
   delta: number
 }
 
+/** Save44 (1347-A §2.1): one counted casting competition, one row per pair per production;
+ * `slots` are the cast slots the pair contested there, in slot order. Never compacted. */
+export type RelationshipCompetition = {
+  week: number
+  productionId: string
+  slots: readonly CastSlot[]
+}
+
+/** Save44 (1347-A §2.3): one Partners bond. `endedWeek` stays null while the bond is open
+ * and is written once, at the next write after the derived ending. */
+export type RomanceBond = { formedWeek: number; endedWeek: number | null }
+
+/** Save44 (1347-A §2.3): the romance track, held beside the friendship tier. `value` is an
+ * integer 0..100 AT `anchorWeek`; separation decay is computed on read from that anchor. */
+export type RomanceTrack = {
+  value: number
+  anchorWeek: number
+  bonds: readonly RomanceBond[]
+}
+
 /** §5.2 :412's two facts per pair — CURRENT closeness (integer 0..100 AT
  * `lastEventWeek`; drift is computed on read from that anchor) and CAREER history
  * (the exact counters, never compacted; the peak; the bounded `recent` window,
@@ -2278,6 +2298,11 @@ export type RelationshipEdge = {
   peakTier: RelationshipTier
   peakTierWeek: number
   recent: readonly RelationshipDriver[]
+  /** Save44: the dated rows behind `sharedCompetitions`, appended by the same helper. A
+   * pre-Save44 competition keeps only its count; nothing is reconstructed (Q3). */
+  competitions: readonly RelationshipCompetition[]
+  /** Save44: null until the pair's first romance gain. */
+  romance: RomanceTrack | null
 }
 
 export type GameStateV31 = GameStateV30 & {
@@ -2295,7 +2320,8 @@ export type GameStateV31 = GameStateV30 & {
 // V41 adds no field: the rival `termination` movement is version-aware at the boundary.
 // V42 adds the edge's `sharedCompetitions` counter and the two casting driver kinds.
 // V43 adds rival screenplay shelving: `screenplayShelving` per business and its receipt.
-export type GameState = GameStateV43
+// V44 adds the edge's `competitions` log and `romance` track.
+export type GameState = GameStateV44
 
 // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
 
@@ -2534,6 +2560,12 @@ export type GameStateV42 = GameStateV41
  * the boundary as V41's termination was. Frozen readers keep "unproduced ⇔ active".
  */
 export type GameStateV43 = GameStateV42
+/**
+ * The competitions log and the romance track (Save V44, 1347-A §4). NO new root: every
+ * relationship edge gains `competitions` and `romance`. Frozen V31..V43 readers validate the
+ * edge projected to era 42, exactly the V43 law.
+ */
+export type GameStateV44 = GameStateV43
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.
