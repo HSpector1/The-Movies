@@ -1,0 +1,638 @@
+diff --git a/tests/bridge-p14b5-relationships.test.ts b/tests/bridge-p14b5-relationships.test.ts
+index c1645ad..332bbc0 100644
+--- a/tests/bridge-p14b5-relationships.test.ts
++++ b/tests/bridge-p14b5-relationships.test.ts
+@@ -75,7 +75,7 @@ function withEmptyScreenplayShelving<T extends { hollywood: GameStateV30['hollyw
+   })) } } as T
+ }
+ import { advanceTo, fund, p13aGeneratedStudio, player, poachingFixture } from './helpers/p14b2-fixtures.js'
+-import type { GameState, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'
++import type { GameState, RelationshipEdge, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'
+ 
+ const OUTGOING_46 = 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c'
+ const OUTGOING_47 = 'sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538' // T0 MANIFEST authority.schemaId
+@@ -89,6 +89,7 @@ const OUTGOING_52 = 'sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850
+ const OUTGOING_53 = 'sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d' // P3: genuine1117 outgoing53
+ const OUTGOING_54 = 'sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302' // P4/P5: genuine1221 outgoing54
+ const OUTGOING_55 = 'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158' // R2/R3: genuine1307 outgoing55
++const OUTGOING_56 = 'sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1' // 1358-N P2: outgoing56, projection-v56 at bridge/runtime-checkpoint.ts:64
+ const OUTGOING_PROJECTION = 47
+ // The 35 accepted prior literals (tests/bridge-p14b4-runtime47-compatibility.test.ts :41-83); never derived from the registry.
+ const EXPECTED_35_PRIOR_IDS = [
+@@ -228,7 +229,9 @@ type Edge = { edgeId: string; a: string; b: string; closeness: number; firstShar
+   sharedSuccesses: number; sharedFailures: number; sharedCancellations: number
+   // 1320-A S6: Save42 adds this exact counter to every edge at the live validator (era 42).
+   sharedCompetitions: number
+-  peakTier: string; peakTierWeek: number; recent: readonly { kind: string; week: number; ref: string; delta: number }[] }
++  peakTier: string; peakTierWeek: number; recent: readonly { kind: string; week: number; ref: string; delta: number }[]
++  // 1358-N S6: Save44 adds the competitions log and the romance track to every edge (era 44).
++  competitions: RelationshipEdge['competitions']; romance: RelationshipEdge['romance'] }
+ const edges = (state: GameState): readonly Edge[] => (state as unknown as { relationships?: readonly Edge[] }).relationships ?? []
+ /** The engine's new module, reached dynamically so the frozen pins of this file run before it exists. */
+ async function relationships(): Promise<Relationships | null> {
+@@ -374,14 +377,15 @@ const wireEnum = (): string[] => {
+ describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, re-expressed by 700-T2 after P14B.8 landed projection 50 / Save V32 unchanged)', () => {
+   it('live projection52/Save37 and literal current hash retain all40 independent prior identities (875)', () => {
+     expect(PROTOCOL_VERSION).toBe(4)
+-    expect(PROJECTION_VERSION).toBe(56)
++    expect(PROJECTION_VERSION).toBe(57)
+     expect(OUTGOING_PROJECTION).toBe(47)
+     // 1309-X3 ruling 5: SCHEMA_ID tracks the LIVE (projection56) schema now,
+     // not projection53's identity (OUTGOING_53) -- states the received value.
+-    expect(SCHEMA_ID).toBe('sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1')
++    // 1358-N P2: the live schema is projection57's (1358-E); projection56's id is OUTGOING_56.
++    expect(SCHEMA_ID).toBe('sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253')
+     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
+-    expect(LIVE_SAVE_VERSION).toBe(43)
+-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55].sort())
++    expect(LIVE_SAVE_VERSION).toBe(44)
++    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56].sort())
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
+@@ -430,7 +434,7 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
+     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
+-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55].sort())
++    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56].sort())
+     expect(LIVE_SAVE_VERSION).toBeGreaterThan(30) // the governed inner-save step rides the same wave (R22 :610)
+   })
+ 
+@@ -491,7 +495,7 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
+     const closeness = rel.RELATIONSHIP_TIER_FLOOR['CloseFriends']!
+     const edge: Edge = { edgeId: `relationship-edge-${String(edges(base.at207).length)}`, a, b, closeness, firstSharedWeek: 207, lastEventWeek: 207,
+       sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0, sharedCancellations: 0, sharedCompetitions: 0, peakTier: 'CloseFriends', peakTierWeek: 207,
+-      recent: [{ kind: 'sharedProduction', week: 207, ref: 'staged-production', delta: 1 }] }
++      recent: [{ kind: 'sharedProduction', week: 207, ref: 'staged-production', delta: 1 }], competitions: [], romance: null }
+     const staged = makeSave({ ...base.at207, relationships: [...edges(base.at207), edge] } as unknown as GameState) // validator-admitted staging
+     expect(staged.saveVersion).toBe(LIVE_SAVE_VERSION)
+     const after = tick(staged.state as GameState)
+diff --git a/tests/bridge-p14b6-d2-withheld-employment-claim.test.ts b/tests/bridge-p14b6-d2-withheld-employment-claim.test.ts
+index 05d063c..bb1783b 100644
+--- a/tests/bridge-p14b6-d2-withheld-employment-claim.test.ts
++++ b/tests/bridge-p14b6-d2-withheld-employment-claim.test.ts
+@@ -58,8 +58,8 @@ import assert from 'node:assert/strict'
+ import { describe, expect, it } from 'vitest'
+ 
+ import { beginFounding, generateWorld } from '../src/core/index.js'
+-import { LIVE_SAVE_VERSION, makeSave, validateSaveV43 } from '../src/core/save.js'
+-import type { GameState, RelationshipDriver, RelationshipTier } from '../src/core/types.js'
++import { LIVE_SAVE_VERSION, makeSave, validateSaveV44 } from '../src/core/save.js'
++import type { GameState, RelationshipDriver, RelationshipEdge, RelationshipTier } from '../src/core/types.js'
+ import { peopleProjection } from '../bridge/people.ts'
+ import { contractedByRole, richFoundedStudio } from './contracts/_contractFixtures.ts'
+ 
+@@ -73,6 +73,8 @@ type Edge = {
+   // 1320-A S6: Save42 adds this exact counter to every edge at the live validator (era 42).
+   sharedCompetitions: number
+   peakTier: RelationshipTier; peakTierWeek: number; recent: RelationshipDriver[]
++  // 1358-N S6: Save44 adds the competitions log and the romance track to every edge (era 44).
++  competitions: RelationshipEdge['competitions']; romance: RelationshipEdge['romance']
+ }
+ const withRoot = (state: GameState, rows: readonly Edge[]): GameState =>
+   ({ ...state, relationships: rows } as unknown as GameState)
+@@ -81,7 +83,7 @@ const withRoot = (state: GameState, rows: readonly Edge[]): GameState =>
+ function admitted(state: GameState): GameState {
+   const save = makeSave(state)
+   expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
+-  validateSaveV43(JSON.parse(JSON.stringify(save)))
++  validateSaveV44(JSON.parse(JSON.stringify(save)))
+   return save.state as GameState
+ }
+ /** One edge, staged between `x` and `y` at `week` — the single canonical pair, ordinal id 0. */
+@@ -92,6 +94,7 @@ const stagedEdge = (x: string, y: string, week: number): Edge => {
+     sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0, sharedCancellations: 0, sharedCompetitions: 0,
+     peakTier: 'Acquaintances', peakTierWeek: week,
+     recent: [{ kind: 'sharedProduction', week, ref: 'staged-d2-production', delta: 2 }],
++    competitions: [], romance: null,
+   }
+ }
+ /** The published block, read off the SAME carrier a real bridge consumer reads
+diff --git a/tests/bridge-p14b6-e714-false-empty-absence-lines.test.ts b/tests/bridge-p14b6-e714-false-empty-absence-lines.test.ts
+index aa79689..250074c 100644
+--- a/tests/bridge-p14b6-e714-false-empty-absence-lines.test.ts
++++ b/tests/bridge-p14b6-e714-false-empty-absence-lines.test.ts
+@@ -49,7 +49,7 @@ import { describe, expect, it } from 'vitest'
+ 
+ import { applyActions, beginFounding, generateWorld, nextStudioDecision, tick } from '../src/core/index.js'
+ import { RELATIONSHIP_TIERS } from '../src/core/relationships.js'
+-import { LIVE_SAVE_VERSION, makeSave, validateSaveV43 } from '../src/core/save.js'
++import { LIVE_SAVE_VERSION, makeSave, validateSaveV44 } from '../src/core/save.js'
+ import type { CreativeRole, GameState, RelationshipDriver, RelationshipTier, SegmentId } from '../src/core/types.js'
+ import { peopleProjection } from '../bridge/people.ts'
+ import { castingChemistryRows, sharedPictureCount, type ChemistrySeats } from '../bridge/relationships.ts'
+@@ -92,7 +92,7 @@ const withRoot = (state: GameState, rows: readonly Edge[]): GameState => ({ ...s
+ function admitted(state: GameState, label: string): GameState {
+   const save = makeSave(state)
+   expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
+-  validateSaveV43(JSON.parse(JSON.stringify(save)))
++  validateSaveV44(JSON.parse(JSON.stringify(save)))
+   expect(label.length).toBeGreaterThan(0)
+   return save.state as GameState
+ }
+diff --git a/tests/bridge-p14b6-relationship-read-models.test.ts b/tests/bridge-p14b6-relationship-read-models.test.ts
+index 53b8233..f6abe59 100644
+--- a/tests/bridge-p14b6-relationship-read-models.test.ts
++++ b/tests/bridge-p14b6-relationship-read-models.test.ts
+@@ -76,9 +76,9 @@ import { castingDraftToEngine, castingProjection, castingQuoteSnapshot } from '.
+ import type { BridgeCastingDraftPayload } from '../bridge/schema/bridge-schema.ts'
+ import { applyActions } from '../src/core/actions.js'
+ import { tick } from '../src/core/tick.js'
+-import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV30, validateSaveV43 } from '../src/core/save.js'
++import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV30, validateSaveV44 } from '../src/core/save.js'
+ import { pairChemistry, RELATIONSHIP_TIERS } from '../src/core/relationships.js'
+-import type { GameState, RelationshipDriver, RelationshipTier } from '../src/core/types.js'
++import type { GameState, RelationshipDriver, RelationshipEdge, RelationshipTier } from '../src/core/types.js'
+ import { historyFixture, player, retentionFixture } from './helpers/p14b2-fixtures.js'
+ import {
+   availableConceptId, availableWriterId, commissionPayload, managedStudio, withCash,
+@@ -99,8 +99,9 @@ const OUTGOING_52 = 'sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850
+ const OUTGOING_53 = 'sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d' // P3: genuine1117 outgoing53
+ const OUTGOING_54 = 'sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302' // P4/P5: genuine1221 outgoing54
+ const OUTGOING_55 = 'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158' // R2/R3: genuine1307 outgoing55
++const OUTGOING_56 = 'sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1' // 1358-N P2: outgoing56, projection-v56 at bridge/runtime-checkpoint.ts:64
+ const OUTGOING_PROJECTION = 48
+-const INCOMING_PROJECTION = 56
++const INCOMING_PROJECTION = 57
+ // The 36 accepted prior literals as they stand today (tests/bridge-p14b4-runtime47-compatibility.test.ts
+ // :40-80, exact-count pin at :162). B.6 took this roster to 37 by adding OUTGOING_48;
+ // B.8 takes it to 38 by adding OUTGOING_49.
+@@ -151,6 +152,8 @@ type Edge = {
+   // 1320-A S6: Save42 adds this exact counter to every edge at the live validator (era 42).
+   sharedCompetitions: number
+   peakTier: RelationshipTier; peakTierWeek: number; recent: RelationshipDriver[]
++  // 1358-N S6: Save44 adds the competitions log and the romance track to every edge (era 44).
++  competitions: RelationshipEdge['competitions']; romance: RelationshipEdge['romance']
+ }
+ const edges = (state: GameState): readonly Edge[] => (state as unknown as { relationships?: readonly Edge[] }).relationships ?? []
+ const withRoot = (state: GameState, rows: readonly Edge[]): GameState =>
+@@ -226,7 +229,7 @@ function everyBlock(state: GameState): { talentId: string; block: Block }[] {
+ function admitted(state: GameState, label: string): GameState {
+   const save = makeSave(state)
+   expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
+-  validateSaveV43(JSON.parse(JSON.stringify(save)))
++  validateSaveV44(JSON.parse(JSON.stringify(save)))
+   expect(label.length).toBeGreaterThan(0)
+   return save.state as GameState
+ }
+@@ -287,6 +290,7 @@ function stageEdge(world: CastingWorld, x: string, y: string, closeness: number,
+     firstSharedWeek: week, lastEventWeek: week, sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0,
+     sharedCancellations: 0, sharedCompetitions: 0, peakTier: tier, peakTierWeek: week,
+     recent: [{ kind: 'sharedProduction', week, ref: 'staged-s2-production', delta: 2 }],
++    competitions: [], romance: null,
+   }
+   return admitted(withRoot(world.state, [...edges(world.state), edge]), 'S2')
+ }
+@@ -399,7 +403,8 @@ describe('family 1 — the PROFILE BLOCK (RED BY RESOLUTION: bridge/relationship
+       // Deterministic, not Map/insertion dependent.
+       expect(block.rows.map((r) => r.counterpartId)).toEqual([...block.rows.map((r) => r.counterpartId)].sort())
+       for (const row of block.rows) {
+-        expect(Object.keys(row).sort()).toEqual(['counterpartId', 'counterpartName', 'drivers', 'sharedPictures', 'sign', 'tierLabel'])
++        // 1358-N P3: projection 57 adds `labels` and `romance` to every row (bridge-schema.ts:2812, :2814).
++        expect(Object.keys(row).sort()).toEqual(['counterpartId', 'counterpartName', 'drivers', 'labels', 'romance', 'sharedPictures', 'sign', 'tierLabel'])
+         // `tierLabel` is the ladder label, NEVER a number; null only where no edge exists.
+         expect(typeof row.tierLabel === 'string' || row.tierLabel === null).toBe(true)
+         if (row.tierLabel !== null) expect(RELATIONSHIP_TIERS).toContain(row.tierLabel)
+@@ -776,7 +781,7 @@ describe('family 8 — the WIRE (RED BY VALUE: version literals and a registry c
+     expect(PROTOCOL_VERSION).toBe(4)
+     expect(PROJECTION_VERSION).toBe(INCOMING_PROJECTION)
+     expect(OUTGOING_PROJECTION).toBe(48)
+-    expect(LIVE_SAVE_VERSION).toBe(43) // B.6 has NO save step
++    expect(LIVE_SAVE_VERSION).toBe(44) // B.6 has NO save step
+     expect(SCHEMA_ID).not.toBe(OUTGOING_48)
+     expect(schemaIdentity(BRIDGE_SCHEMA)).toBe(SCHEMA_ID)
+     expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-4:projection-${String(INCOMING_PROJECTION)}`)
+@@ -788,10 +793,10 @@ describe('family 8 — the WIRE (RED BY VALUE: version literals and a registry c
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+     expect(EXPECTED_36_PRIOR_IDS).toHaveLength(36)
+-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48, OUTGOING_49, OUTGOING_50, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55].sort())
++    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48, OUTGOING_49, OUTGOING_50, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56].sort())
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
+-    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(44)
++    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(45)
+   })
+ 
+   it('the checked-in generator artifacts equal the running identity (`--check` clean), and priorityOrder keeps its seven members and its line', () => {
+diff --git a/tests/p14b10-conflict-evidence.test.ts b/tests/p14b10-conflict-evidence.test.ts
+index 57af299..b5429e2 100644
+--- a/tests/p14b10-conflict-evidence.test.ts
++++ b/tests/p14b10-conflict-evidence.test.ts
+@@ -110,6 +110,8 @@ function stagedEdge(index: number, x: string, y: string, closeness: number, last
+     sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0, sharedCancellations: 0, sharedCompetitions: 0,
+     peakTier: 'Acquaintances', peakTierWeek: lastEventWeek,
+     recent: [{ kind: 'sharedProduction', week: lastEventWeek, ref: 'staged-production', delta: 2 }],
++    // 1358-N S6: Save44 gives every edge an empty log and a null romance (convertV43ToV44).
++    competitions: [], romance: null,
+     ...extra,
+   }
+ }
+diff --git a/tests/p14b5-relationships.test.ts b/tests/p14b5-relationships.test.ts
+index d20faf0..49e2d52 100644
+--- a/tests/p14b5-relationships.test.ts
++++ b/tests/p14b5-relationships.test.ts
+@@ -71,11 +71,11 @@ import * as marketModule from '../src/core/talentMarket.js'
+ import { publicPreferredTerm, publicPriorityOrder, submitProposal, type FreezeDrop } from '../src/core/talentMarket.js'
+ import { attachPromise } from '../src/core/promises.js'
+ import { validateFirstTakeSubjects } from '../src/core/firstTakeSubjects.js'
+-import { LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31, validateSaveV33, validateSaveV43 } from '../src/core/save.js'
++import { LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31, validateSaveV33, validateSaveV44 } from '../src/core/save.js'
+ import { TUNING } from '../src/core/tuning.js'
+ import { careerIdentity } from '../src/core/talentSummary.js'
+ import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
+-import type { CastSlot, FilmResult, GameState, Production, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'
++import type { CastSlot, FilmResult, GameState, Production, RelationshipEdge, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'
+ // RED-by-design: src/core/relationships.ts does not exist. Every binding below is CALLED.
+ import {
+   RELATIONSHIP_BASELINE, RELATIONSHIP_CANCEL_DELTA, RELATIONSHIP_DRIFT_GRACE_WEEKS, RELATIONSHIP_DRIFT_RETURN_WEEKS,
+@@ -96,6 +96,8 @@ type Edge = {
+   // 1320-A S6: Save42 adds this exact counter to every edge at the live validator (era 42).
+   sharedCompetitions: number
+   peakTier: Tier; peakTierWeek: number; recent: readonly Driver[]
++  // 1358-N S6: Save44 adds the competitions log and the romance track to every edge (era 44).
++  competitions: RelationshipEdge['competitions']; romance: RelationshipEdge['romance']
+ }
+ type Chemistry = { tier: Tier | null; sign: -1 | 0 | 1; reasons: readonly string[] }
+ type TakeEntry = { studioId: string; production: Production }
+@@ -222,7 +224,7 @@ function mintedEdge(index: number, x: string, y: string, weight: number, week: n
+   const closeness = clamp(RELATIONSHIP_BASELINE + weight)
+   return { edgeId: `relationship-edge-${String(index)}`, a, b, closeness, firstSharedWeek: week, lastEventWeek: week,
+     sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0, sharedCancellations: 0, sharedCompetitions: 0, peakTier: tierOracle(closeness), peakTierWeek: week,
+-    recent: [{ kind: 'sharedProduction', week, ref, delta: weight }] }
++    recent: [{ kind: 'sharedProduction', week, ref, delta: weight }], competitions: [], romance: null }
+ }
+ /** A STAGED (reader-admitted, validator-checked) edge — never a claim that the engine minted it. */
+ function stagedEdge(state: GameState, x: string, y: string, closeness: number, lastEventWeek: number, extra: Partial<Edge> = {}): Edge {
+@@ -230,7 +232,7 @@ function stagedEdge(state: GameState, x: string, y: string, closeness: number, l
+   const tier = tierOracle(closeness)
+   return { edgeId: `relationship-edge-${String(edges(state).length)}`, a, b, closeness, firstSharedWeek: lastEventWeek, lastEventWeek,
+     sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0, sharedCancellations: 0, sharedCompetitions: 0, peakTier: tier, peakTierWeek: lastEventWeek,
+-    recent: [{ kind: 'sharedProduction', week: lastEventWeek, ref: 'staged-production', delta: RELATIONSHIP_PROXIMITY_HIGH }], ...extra }
++    recent: [{ kind: 'sharedProduction', week: lastEventWeek, ref: 'staged-production', delta: RELATIONSHIP_PROXIMITY_HIGH }], competitions: [], romance: null, ...extra }
+ }
+ const stage = (state: GameState, edge: Edge): GameState => live(withEdges(state, [...edges(state), edge]))
+ // 735-T (P14B.7): strips `relationships` (this file's own root under test) AND
+@@ -1294,11 +1296,13 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
+   const expectRefused = (mutate: (edges: Edge[], state: Record<string, unknown>) => void, pattern: RegExp) => {
+     const save = v31()
+     mutate(save.state.relationships, save.state)
+-    expect(() => validateSaveV43(save)).toThrow(pattern)
++    expect(() => validateSaveV44(save)).toThrow(pattern)
+     // 1320-A: save is genuinely live (era 42, from v31()'s makeSave); the era-31
+     // default would refuse on the unrelated new sharedCompetitions field before
+     // ever reaching the deliberate tamper below it.
+-    expect(() => validateRelationshipsRoot(save.state, 42)).toThrow(pattern)
++    // 1358-N S1: live is era 44 now; era 42 would refuse the unrelated
++    // `competitions` and `romance` keys first, the same way.
++    expect(() => validateRelationshipsRoot(save.state, 44)).toThrow(pattern)
+   }
+ 
+   it('validateSaveV32/validateRelationshipsRoot exist and admit the genuinely minted world round-trip', () => {
+@@ -1308,13 +1312,13 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
+     const save = v31()
+     expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
+     expect(save.state.relationships).toHaveLength(6)
+-    expect(validateSaveV43(save)).toEqual(save)
++    expect(validateSaveV44(save)).toEqual(save)
+   })
+ 
+   it('refuses a missing root', () => {
+     const save = v31()
+     Reflect.deleteProperty(save.state, 'relationships')
+-    expect(() => validateSaveV43(save)).toThrow(/relationships/)
++    expect(() => validateSaveV44(save)).toThrow(/relationships/)
+   })
+   it('refuses a non-ordinal edgeId', () => expectRefused((e) => { e[0]!.edgeId = 'edge-x' }, /edgeId/))
+   it('refuses a duplicate pair', () => expectRefused((e) => { e[1]!.a = e[0]!.a; e[1]!.b = e[0]!.b }, /duplicate|pair/i))
+@@ -1356,7 +1360,8 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
+     // with it again, same reasoning.
+     // 1320-A: `one.saveVersion` moved once more, to 42 (Save42) — the live validator
+     // moves with it again, same reasoning.
+-    const admitted = validateSaveV43(one)
++    // 1358-N S1: and once more, to 44 (Save44); same reasoning.
++    const admitted = validateSaveV44(one)
+     const before = JSON.stringify(admitted)
+     expect(() => projectRelationshipsPreV31(one.state)).toThrow()
+     // RE-EXPRESSED (was: `/cannot downgrade SaveFileV31 or discard the relationship
+@@ -1436,7 +1441,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
+     // That downgrade route does not exist for this fixture any more; the correct,
+     // current-law assertion is that it is refused too — not a different message,
+     // and not a success.
+-    const empty = validateSaveV43({ ...save, state: { ...save.state, relationships: [] } })
++    const empty = validateSaveV44({ ...save, state: { ...save.state, relationships: [] } })
+     expect(projectRelationshipsPreV31(empty.state)).toBeUndefined()
+     // 1309-X3 ruling 2: `empty` is also takeWorld()-derived, so it too carries a
+     // recorded first-take subject; the V39 guard masks the V33 materialization
+diff --git a/tests/p14b5-t-failure-tuning.test.ts b/tests/p14b5-t-failure-tuning.test.ts
+index 12c30c6..2690f91 100644
+--- a/tests/p14b5-t-failure-tuning.test.ts
++++ b/tests/p14b5-t-failure-tuning.test.ts
+@@ -54,7 +54,7 @@ import {
+   RELATIONSHIP_SUCCESS_CRITIC_SCORE, RELATIONSHIP_SUCCESS_DELTA, RELATIONSHIP_TIER_FLOOR,
+   advanceRelationshipsWeek, currentCloseness, currentTier, pairChemistry, validateRelationshipsRoot,
+ } from '../src/core/relationships.js'
+-import { LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV43 } from '../src/core/save.js'
++import { LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV44 } from '../src/core/save.js'
+ import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+ import { tick } from '../src/core/tick.js'
+ import type { FilmResult, GameState, Production, RelationshipDriver, RelationshipEdge } from '../src/core/types.js'
+@@ -114,13 +114,13 @@ function shoot(state: GameState, studioId: string, q: Quartet, week: number, pro
+   const production = shot(productionId, q, conceptId)
+   const staged = appendFirstTakes(at(state, week), [{ studioId, production }], week) // the REAL receipt writer
+   const written = advanceRelationshipsWeek(staged, { takes: [{ studioId, production }], releases: [] }, week)
+-  validateRelationshipsRoot(written, 42)
++  validateRelationshipsRoot(written, 44)
+   return written
+ }
+ function release(state: GameState, week: number, productionId: string, criticScore: number): GameState {
+   const film = { productionId, criticScore } as unknown as FilmResult // the two fields the release join reads
+   const written = advanceRelationshipsWeek(at(state, week), { takes: [], releases: [film] }, week)
+-  validateRelationshipsRoot(written, 42)
++  validateRelationshipsRoot(written, 44)
+   return written
+ }
+ 
+@@ -292,7 +292,7 @@ describe('CONSTRUCTED group 2 — POSITIVE CONTROL: the success driver, the prox
+     const trail = driveChain(stagedWorld(), STAGED_STUDIO, STAGED, STAGED_FIRST_WEEK, productions, HIT_SCORE)
+     // The band is always the owner's read; only the VALUE comes from the constant-derived model.
+     const topOf = (rows: { label: string; week: number; closeness: number }[]): string | undefined =>
+-      rows.find((r) => currentTier({ closeness: r.closeness, lastEventWeek: r.week, sharedCompetitions: 0 }, r.week) === 'Inseparable')?.label // 1348-C5/1348-F4 item 2: sharedCompetitions is type-only here (evidence never gates the Inseparable band); runtime result unchanged, confirmed by re-running this file before/after
++      rows.find((r) => currentTier({ closeness: r.closeness, lastEventWeek: r.week, sharedCompetitions: 0, romance: null }, r.week) === 'Inseparable')?.label // 1348-C5/1348-F4 item 2: sharedCompetitions is type-only here (evidence never gates the Inseparable band); runtime result unchanged, confirmed by re-running this file before/after; 1358-N S6: likewise `romance: null` (no bond, so no drift exemption)
+     for (const seat of seats(STAGED)) {
+       const predicted = topOf(expectedTrail(seat.weight, SUCCESS_DELTA, STAGED_FIRST_WEEK, productions))
+       assert.ok(predicted, `premise: the ${String(seat.weight)}-weight pair does not top the ladder within ${String(productions)} pictures`)
+@@ -370,7 +370,7 @@ describe('CONSTRUCTED group 4 — DRIFT IS READ-ONLY AND UNCHANGED by this tunin
+     expect(JSON.stringify(edge)).toBe(snapshot)
+     expect(rootBytes(state)).toBe(before)
+     expect({ productions: edge.sharedProductions, failures: edge.sharedFailures, first: edge.firstSharedWeek, peak: edge.peakTier })
+-      .toEqual({ productions: 2, failures: 2, first: STAGED_FIRST_WEEK, peak: currentTier({ closeness: clamp(RELATIONSHIP_BASELINE + LOW), lastEventWeek: STAGED_FIRST_WEEK, sharedCompetitions: 0 }, STAGED_FIRST_WEEK) }) // 1348-C5/1348-F4 item 2: sharedCompetitions is type-only here; runtime result unchanged, confirmed by re-running this file before/after
++      .toEqual({ productions: 2, failures: 2, first: STAGED_FIRST_WEEK, peak: currentTier({ closeness: clamp(RELATIONSHIP_BASELINE + LOW), lastEventWeek: STAGED_FIRST_WEEK, sharedCompetitions: 0, romance: null }, STAGED_FIRST_WEEK) }) // 1348-C5/1348-F4 item 2: sharedCompetitions is type-only here; runtime result unchanged, confirmed by re-running this file before/after; 1358-N S6: likewise `romance: null` (no bond, so no drift exemption)
+   })
+ })
+ 
+@@ -410,7 +410,7 @@ describe('CONSTRUCTED group 6 — SAVE AND LOAD ACROSS THE CHANGE: historical de
+     expect(written.every((row) => row.includes(FAIL_DELTA))).toBe(true) // the chain really recorded failures
+     const save = makeSave(state)
+     expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
+-    expect(validateSaveV43(save)).toEqual(save)
++    expect(validateSaveV44(save)).toEqual(save)
+     const migrated = migrateToLive(save)
+     expect(JSON.stringify(migrated.state.relationships)).toBe(JSON.stringify(save.state.relationships))
+     expect(migrated.state.relationships.map((e) => e.recent.map((d) => d.delta))).toEqual(written)
+@@ -430,12 +430,12 @@ describe('CONSTRUCTED group 6 — SAVE AND LOAD ACROSS THE CHANGE: historical de
+       recent: edge.recent.map((d: RelationshipDriver) => (d.kind === 'sharedFailure' ? { ...d, delta: historicalDelta } : d)),
+     })
+     const historical = { ...chain.at(-1)!.state, relationships: edgesOf(chain.at(-1)!.state).map(restamp) } as GameState
+-    expect(() => { validateRelationshipsRoot(historical, 42) }).not.toThrow()
++    expect(() => { validateRelationshipsRoot(historical, 44) }).not.toThrow()
+     const save = makeSave(historical)
+     const carried = save.state.relationships.flatMap((e) => e.recent.filter((d) => d.kind === 'sharedFailure').map((d) => d.delta))
+     expect(carried.length).toBeGreaterThan(0)
+     expect(new Set(carried)).toEqual(new Set([historicalDelta]))
+-    const migrated = migrateToLive(validateSaveV43(save))
++    const migrated = migrateToLive(validateSaveV44(save))
+     expect(JSON.stringify(migrated.state.relationships)).toBe(JSON.stringify(save.state.relationships))
+     expect(migrated.state.relationships.flatMap((e) => e.recent.filter((d) => d.kind === 'sharedFailure').map((d) => d.delta)))
+       .toEqual(carried)
+@@ -486,6 +486,6 @@ describe('NATURAL WORLD group 7 — one standard seed, what is TRUE and nothing
+       expect(edge.sharedFailures).toBe(was.sharedFailures + 1)
+       expect(edge.lastEventWeek).toBe(week)
+     }
+-    validateRelationshipsRoot(state, 42)
++    validateRelationshipsRoot(state, 44)
+   })
+ })
+diff --git a/tests/p14b9-save-v42.test.ts b/tests/p14b9-save-v42.test.ts
+index 507d29c..40594be 100644
+--- a/tests/p14b9-save-v42.test.ts
++++ b/tests/p14b9-save-v42.test.ts
+@@ -68,7 +68,7 @@ import {
+ // RED (see header): the four names below are absent from src/core/save.ts at HEAD e65012e5.
+ // `SaveFileV42` (type-only, cannot itself RED at runtime) is used as the cast target for the
+ // dynamically-looked-up `convertV41ToV42`/`validateSaveV42` below, so it is a real, used type.
+-import type { SaveFile, SaveFileV42, SaveFileV43 } from '../src/core/save.js'
++import type { SaveFile, SaveFileV42, SaveFileV43, SaveFileV44 } from '../src/core/save.js'
+ import * as saveModule from '../src/core/save.js'
+ import type { GameState, RelationshipEdge } from '../src/core/types.js'
+ 
+@@ -172,15 +172,24 @@ describe('1313-A §3 — the acknowledged input, migrated then greenlit, mints r
+     const mods = saveModule as unknown as {
+       convertV41ToV42: (s: V41Save) => SaveFileV42
+       convertV42ToV43: (s: SaveFileV42) => SaveFileV43
+-      validateSaveV43: (s: unknown) => SaveFileV43
++      convertV43ToV44: (s: SaveFileV43) => SaveFileV44
++      validateSaveV44: (s: unknown) => SaveFileV44
++      convertV44ToV43: (s: unknown) => unknown
+       convertV43ToV42: (s: unknown) => unknown
+       convertV42ToV41: (s: unknown) => unknown
+     }
+     const v42 = mods.convertV41ToV42(v41)
++    // 1358-N S9 (1358-F9 ruling 3; 1358-F10 records this): the counter is staged, on edge 0 of a
++    // copy of `v42`, because no pre-Save44 engine remains to write it. convertV42ToV41 refuses at
++    // its casting-competition guard (src/core/relationships.ts:847-849, via src/core/save.ts:10696).
++    const staged = { ...v42, state: { ...v42.state, relationships: v42.state.relationships.map((row, i) => (i === 0 ? { ...row, sharedCompetitions: 1 } : row)) } }
++    expect(() => mods.convertV42ToV41(staged)).toThrow(/^migrateToV41: cannot downgrade or discard a casting competition$/)
+     // Save43 (1344-N S6): the V42-migrated state has no rival `screenplayShelving`, which the live
+     // writer below requires on every rival business; lift it through the genuine convertV42ToV43
+     // (src/core/save.ts:10678-10686) rather than hand-adding the root.
+-    const state = mods.convertV42ToV43(v42).state as unknown as GameState
++    // 1358-N S5 (1358-J 3e, finding 16): the live writer also needs Save44's `competitions` and
++    // `romance` on every edge; lift through the genuine convertV43ToV44 (src/core/save.ts:10776-10781).
++    const state = mods.convertV43ToV44(mods.convertV42ToV43(v42)).state as unknown as GameState
+     const projectId = 'script-0000'
+     const project = state.scriptDevelopment.projects.find((p) => p.id === projectId)
+     expect(project, 'route premise: project "script-0000" is present in the acknowledged fixture').toBeDefined()
+@@ -202,19 +211,26 @@ describe('1313-A §3 — the acknowledged input, migrated then greenlit, mints r
+       expect(driver, `route/RED premise: pair (${x}, ${y}) should carry a castingCompetitionLost driver from production "${productionId}"`).toBeDefined()
+     }
+     const newSave = makeSave(greenlit)
+-    expect(newSave.saveVersion).toBe(43) // LIVE_SAVE_VERSION 43 (was 42 at 1313-A §3)
+-    expect(() => mods.validateSaveV43(newSave)).not.toThrow()
+-    expect(() => mods.convertV42ToV41(mods.convertV43ToV42(newSave))).toThrow()
++    expect(newSave.saveVersion).toBe(44) // LIVE_SAVE_VERSION 44 (was 42 at 1313-A §3)
++    expect(() => mods.validateSaveV44(newSave)).not.toThrow()
++    // 1358-N S9 (MASKED): the live chain now crosses convertV44ToV43 first, and the greenlight
++    // appended a competitions-log row on each slate pair (src/core/relationships.ts:537), so
++    // the Save44 log guard (src/core/save.ts:10789) refuses before convertV42ToV41's casting-
++    // competition guard (src/core/relationships.ts:847-849). The acknowledged fixture's 24 edges
++    // are all rival-internal, so the three pairs are new edges 24-26 and edge 24 refuses first.
++    // Read from source and the fixture, not measured. The staged `v42` copy above keeps the
++    // casting-competition guard's own-era pin.
++    expect(() => mods.convertV42ToV41(mods.convertV43ToV42(mods.convertV44ToV43(newSave)))).toThrow(/^migrateToV43: cannot downgrade or discard the competitions log of relationship-edge-24$/)
+   }, 30_000)
+ })
+ 
+ describe('LIVE_SAVE_VERSION and the dispatcher message', () => {
+-  it('LIVE_SAVE_VERSION is 43', () => {
+-    expect(LIVE_SAVE_VERSION).toBe(43)
++  it('LIVE_SAVE_VERSION is 44', () => {
++    expect(LIVE_SAVE_VERSION).toBe(44)
+   })
+ 
+-  it('validateSave names the new ceiling in its unknown-version message ("1 through 43")', () => {
+-    expect(() => validateSave({ saveVersion: 999 })).toThrow(/1 through 43/)
++  it('validateSave names the new ceiling in its unknown-version message ("1 through 44")', () => {
++    expect(() => validateSave({ saveVersion: 999 })).toThrow(/1 through 44/)
+   })
+ })
+ 
+diff --git a/tests/p14c1-materialized-aging.test.ts b/tests/p14c1-materialized-aging.test.ts
+index 9b395a7..0386f8a 100644
+--- a/tests/p14c1-materialized-aging.test.ts
++++ b/tests/p14c1-materialized-aging.test.ts
+@@ -172,7 +172,10 @@ function liftForTick(migrated: { envelope: Envelope; state: ProvenanceState }):
+   // `tick()` now reads `business.screenplayShelving.shelved`/`.rejections` on
+   // every rival business (convertV42ToV43, save.ts:10678-10686), so every
+   // lifted state needs the V43 root too.
+-  const live = SaveModule.convertV42ToV43(SaveModule.convertV41ToV42(SaveModule.convertV40ToV41(v40)))
++  // 1358-N S5 (1358-J 3e): one further governed step to the true live boundary,
++  // Save44's `competitions` and `romance` on every edge (convertV43ToV44,
++  // save.ts:10776-10781), which the live validator requires.
++  const live = SaveModule.convertV43ToV44(SaveModule.convertV42ToV43(SaveModule.convertV41ToV42(SaveModule.convertV40ToV41(v40))))
+   return { envelope: live, state: withProvenance(live.state as object) }
+ }
+ 
+@@ -1027,6 +1030,6 @@ describe('13. provenance is written at the append, not the mint call', () => {
+ // P14C.2a (776 S10): C.1 landed at 33 as this test predicted, then C.2a bumped once more.
+ describe('save version bump (contract §6)', () => {
+   it('LIVE_SAVE_VERSION is 37 once C.2b lands (was 35 after C.4, was 34 after C.2a)', () => {
+-    expect(LIVE_SAVE_VERSION).toBe(43)
++    expect(LIVE_SAVE_VERSION).toBe(44)
+   })
+ })
+diff --git a/tests/p14c2s-scientist-retirement.test.ts b/tests/p14c2s-scientist-retirement.test.ts
+index cf0a26c..5c40cb3 100644
+--- a/tests/p14c2s-scientist-retirement.test.ts
++++ b/tests/p14c2s-scientist-retirement.test.ts
+@@ -252,7 +252,7 @@ describe('Scientist retirement persistence has an explicit semantic version boun
+     const state = scientistWorld()
+     const before = bytes(state)
+     const live = makeSave(state)
+-    expect(live.saveVersion).toBe(43)
++    expect(live.saveVersion).toBe(44)
+     const outgoing37 = migrateToV37(live) // governed lossless C.3 boundary, preserving every older root
+     expect(live.state.careerLifecycle).toEqual({ ...outgoing37.state.careerLifecycle,
+       transitionBoundaryWeek: state.market.tick,
+@@ -263,7 +263,7 @@ describe('Scientist retirement persistence has an explicit semantic version boun
+     expect(old.saveVersion).toBe(36)
+     expect(JSON.stringify(old.state)).toBe(JSON.stringify(outgoing37.state))
+     const lifted = migrateToLive(old)
+-    expect(lifted.saveVersion).toBe(43)
++    expect(lifted.saveVersion).toBe(44)
+     expect(JSON.stringify(lifted.state)).toBe(JSON.stringify(live.state))
+     expect(JSON.stringify(migrateToV37(lifted).state)).toBe(JSON.stringify(old.state))
+     expect(bytes(state)).toBe(before)
+@@ -273,7 +273,7 @@ describe('Scientist retirement persistence has an explicit semantic version boun
+     const state = scientistAt('hardResearch', 566)
+     expect(record(state)?.profession).toBe('scientist')
+     const live = makeSave(state)
+-    expect(live.saveVersion).toBe(43)
++    expect(live.saveVersion).toBe(44)
+     const before = JSON.stringify(live)
+     expect(importSave(before)).toEqual(live)
+     expect(() => migrateToV36(live)).toThrow(/Scientist|scientist|downgrade/)
+@@ -297,7 +297,14 @@ describe('Scientist retirement persistence has an explicit semantic version boun
+       // 1327-C sweep (C15): none of V34/V35/V36 ever had the relationship
+       // `sharedCompetitions` field (added V42) either — same reader-only shape
+       // adjustment as the careerLifecycle fields just above.
+-      for (const edge of envelope.state.relationships) delete (edge as { sharedCompetitions?: unknown }).sharedCompetitions
++      // 1358-N sweep (S7): nor the Save44 edge fields `competitions` and
++      // `romance` (convertV43ToV44, save.ts:10776-10781); same reader-only
++      // shape adjustment.
++      for (const edge of envelope.state.relationships) {
++        delete (edge as { sharedCompetitions?: unknown }).sharedCompetitions
++        delete (edge as { competitions?: unknown }).competitions
++        delete (edge as { romance?: unknown }).romance
++      }
+       // 1327-C sweep (C15): nor the `firstTakeSubjects` root (added V40) —
+       // measured non-empty on this world (real first-take history), but this
+       // block is a reader-only shape control, not a fidelity-preserving
+@@ -335,7 +342,7 @@ describe('Scientist retirement persistence has an explicit semantic version boun
+     const state = scientistAt('hardResearch', 566)
+     expect(record(state)?.profession).toBe('scientist')
+     const live = makeSave(state)
+-    expect(live.saveVersion).toBe(43)
++    expect(live.saveVersion).toBe(44)
+     const before = JSON.stringify(live)
+     type MutableEnvelope = { state: { talentProvenance: { rows: Record<string, unknown>[] },
+       careerLifecycle: { records: Record<string, unknown>[] } } }
+diff --git a/tests/p14d1-rival-shelving-save-v43.test.ts b/tests/p14d1-rival-shelving-save-v43.test.ts
+index cfa5c4c..079ab69 100644
+--- a/tests/p14d1-rival-shelving-save-v43.test.ts
++++ b/tests/p14d1-rival-shelving-save-v43.test.ts
+@@ -42,8 +42,8 @@ const mods = () => saveModule as unknown as V43ModuleShape
+ const TUNING_FUTURE = TUNING as unknown as { HOLLYWOOD_SHELVE_AFTER_REJECTIONS: number }
+ 
+ describe('API decisions this file exercises (existence asserted first)', () => {
+-  it('validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist as functions; LIVE_SAVE_VERSION is 43', () => {
+-    expect(saveModule.LIVE_SAVE_VERSION).toBe(43)
++  it('validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist as functions; LIVE_SAVE_VERSION is 44', () => {
++    expect(saveModule.LIVE_SAVE_VERSION).toBe(44)
+     expect(typeof mods().validateSaveV43).toBe('function')
+     expect(typeof mods().convertV42ToV43).toBe('function')
+     expect(typeof mods().convertV43ToV42).toBe('function')
+@@ -79,10 +79,10 @@ describe('save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration', () => {
+     }
+   })
+ 
+-  it('migrateToLive carries a genuine V42 save to V43 (LIVE_SAVE_VERSION)', () => {
++  it('migrateToLive carries a genuine V42 save to V44 (LIVE_SAVE_VERSION)', () => {
+     const v42 = saveModule.importSave(week130Raw())
+     const live = migrateToLive(v42)
+-    expect((live as unknown as { saveVersion: number }).saveVersion).toBe(43)
++    expect((live as unknown as { saveVersion: number }).saveVersion).toBe(44)
+   })
+ })
+ 
+diff --git a/tests/p14d1-rival-shelving.test.ts b/tests/p14d1-rival-shelving.test.ts
+index 625b362..bab0895 100644
+--- a/tests/p14d1-rival-shelving.test.ts
++++ b/tests/p14d1-rival-shelving.test.ts
+@@ -183,8 +183,8 @@ describe('API decisions this file exercises (asserted to exist first, per PITFAL
+     const fn = (hollywoodPolicy as unknown as Record<string, unknown>).searchIndustryPackages
+     expect(typeof fn).toBe('function')
+   })
+-  it('save.ts LIVE_SAVE_VERSION is 43, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist', () => {
+-    expect(saveModule.LIVE_SAVE_VERSION).toBe(43)
++  it('save.ts LIVE_SAVE_VERSION is 44, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist', () => {
++    expect(saveModule.LIVE_SAVE_VERSION).toBe(44)
+     const mods = saveModule as unknown as Record<string, unknown>
+     expect(typeof mods.validateSaveV43).toBe('function')
+     expect(typeof mods.convertV42ToV43).toBe('function')
+@@ -977,8 +977,8 @@ describe('shelving-chart-output (1344-A §6.8)', () => {
+     const releasedSimulationCount = h.films.filter(f => f.studioId === RIVAL && f.provenance === 'simulation/v1' && f.result.releaseTick < state.market.tick).length
+     expect(authoredCount, 'route premise: r01 has its two canonical starting (authored) films').toBe(2)
+     expect(row!.output).toBe(releasedSimulationCount + authoredCount)
+-    const mods = saveModule as unknown as { validateSaveV43: (s: unknown) => unknown }
+-    expect(() => mods.validateSaveV43(saveModule.makeSave(state))).not.toThrow()
++    const mods = saveModule as unknown as { validateSaveV44: (s: unknown) => unknown }
++    expect(() => mods.validateSaveV44(saveModule.makeSave(state))).not.toThrow()
+   }, 20_000)
+ })
+ 
+diff --git a/tests/p14p4p5-post-capacity.test.ts b/tests/p14p4p5-post-capacity.test.ts
+index be4d516..9d951cb 100644
+--- a/tests/p14p4p5-post-capacity.test.ts
++++ b/tests/p14p4p5-post-capacity.test.ts
+@@ -68,8 +68,8 @@ function memo(name: string, build: () => GameState): GameState {
+ }
+ function admitted(state: GameState): void {
+   const before = stable(state), save = saves.makeSave(state)
+-  expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)
+-  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV43(imported)
++  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)
++  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)
+   expect(current).toBe(imported); expect(saves.exportSave(current)).toBe(raw); expect(stable(state)).toBe(before)
+ }
+ function production(state: GameState, id = PROD) {
+@@ -347,7 +347,7 @@ function firstPairs(state: GameState) {
+     expect(edge).toEqual({ edgeId: edge.edgeId, a: pair.a, b: pair.b, closeness: 50 + pair.weight,
+       firstSharedWeek: 313, lastEventWeek: 313, sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0,
+       sharedCancellations: 0, sharedCompetitions: 0, peakTier: pair.weight === 6 ? 'Colleagues' : 'Acquaintances', peakTierWeek: 313,
+-      recent: [{ kind: 'sharedProduction', week: 313, ref: PROD, delta: pair.weight }] })
++      recent: [{ kind: 'sharedProduction', week: 313, ref: PROD, delta: pair.weight }], competitions: [], romance: null })
+     expect(edge.a).not.toBe('authored-0001'); expect(edge.b).not.toBe('authored-0001')
+     expect(edge.a).not.toBe('authored-0002'); expect(edge.b).not.toBe('authored-0002')
+     return { pair, edge: clone(edge) }

@@ -1,0 +1,15 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1358-m2/tree
+
+stdout | tests/zz-s7-natural-route.test.ts > s7 natural route
+S7 natural-route {"seed":"p13-public-commercial-adoption","weeks":520,"tree":"candidate","ms":37487,"finalStateSha256":"3199eec3b4d947785373f94cb0a18fd62f1f25d6c7212f81843ebcb56240ecfd","shelvings":22,"integrity":0}
+
+ ✓ |core| tests/zz-s7-natural-route.test.ts (1 test) 37502ms
+   ✓ s7 natural route 37500ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  04:34:34
+   Duration  40.99s (transform 2.04s, setup 0ms, collect 2.73s, tests 37.50s, environment 0ms, prepare 258ms)
+
+exit=0

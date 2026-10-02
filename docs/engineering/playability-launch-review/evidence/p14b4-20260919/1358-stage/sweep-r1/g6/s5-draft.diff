@@ -1,0 +1,126 @@
+diff --git a/tests/p14p4p5-casting-reservation.test.ts b/tests/p14p4p5-casting-reservation.test.ts
+index 903932d..999fb1a 100644
+--- a/tests/p14p4p5-casting-reservation.test.ts
++++ b/tests/p14p4p5-casting-reservation.test.ts
+@@ -40,6 +40,11 @@ type WithRelationships = { relationships: readonly { sharedCompetitions?: number
+ function withSharedCompetitions<T extends WithRelationships>(state: T): T {
+   return { ...state, relationships: state.relationships.map(edge => ({ ...edge, sharedCompetitions: 0 })) }
+ }
++// 1358-N S5: Save44 gives every relationship edge an empty `competitions` log and a null
++// `romance` (convertV43ToV44, save.ts:10776-10781); a genuine V43-or-older old.state never carried them.
++function withEmptyCompetitionsAndRomance<T extends WithRelationships>(state: T): T {
++  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, competitions: [], romance: null })) }
++}
+ // Save43 (convertV42ToV43, save.ts:10678-10686) gives every rival business an
+ // empty screenplayShelving root; a genuine V39-or-older old.state never carried it.
+ function withEmptyScreenplayShelving<T extends WithRivalBusinesses>(state: T): T {
+@@ -201,7 +206,7 @@ function input45(): GameState {
+     expect(old).toBe(parsed); expect(saves.exportSave(old)).toBe(raw)
+     const state = saves.migrateToLive(old).state
+     expect(stable(old)).toBe(prior)
+-    expect(state).toEqual({ ...withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state))), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
++    expect(state).toEqual({ ...withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
+     initial = clone(state); retained(state)
+     expect(issuer(state)).toBe('studio-de11f27b-player')
+     expect(state.operations.mode).toBe('managed'); expect(state.scriptDevelopment.mode).toBe('managed')
+diff --git a/tests/p14p4p5-cross-owner.test.ts b/tests/p14p4p5-cross-owner.test.ts
+index 8925472..e89726c 100644
+--- a/tests/p14p4p5-cross-owner.test.ts
++++ b/tests/p14p4p5-cross-owner.test.ts
+@@ -39,6 +39,11 @@ type WithRelationships = { relationships: readonly { sharedCompetitions?: number
+ function withSharedCompetitions<T extends WithRelationships>(state: T): T {
+   return { ...state, relationships: state.relationships.map(edge => ({ ...edge, sharedCompetitions: 0 })) }
+ }
++// 1358-N S5: Save44 (convertV43ToV44, src/core/save.ts:10776-10781) gives every relationship edge an
++// empty `competitions` log and a null `romance`; a genuine V43-or-older old.state never carried them.
++function withEmptyCompetitionsAndRomance<T extends WithRelationships>(state: T): T {
++  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, competitions: [], romance: null })) }
++}
+ // 1344-N S5: Save43 (convertV42ToV43, src/core/save.ts:10678-10686) gives every rival business an
+ // empty `screenplayShelving` root; a genuine V42-or-older old.state never carried it.
+ function withEmptyScreenplayShelving<T extends WithRivalBusinesses>(state: T): T {
+@@ -99,7 +104,7 @@ function input45(): GameState {
+     expect(stable(old)).toBe(prior); admitted(state)
+     const { firstTakeSubjects, ...retained } = state
+     // 1344-N S5 (x2 at a318722, :94 measured `+ "screenplayShelving"` on each of four rival businesses, nothing else).
+-    expect(retained).toEqual(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))); expect(firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: 19, facts: [] })
++    expect(retained).toEqual(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state))))); expect(firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: 19, facts: [] })
+     expect(state.market.tick).toBe(45); expect(state.studio.cash).toBe(24701506)
+     expect(issuer(state)).toBe('studio-de11f27b-player')
+     expect(state.firstTakes).toHaveLength(19); expect(state.promises).toEqual([]); expect(state.talentMarket.proposals).toEqual([])
+diff --git a/tests/p14p4p5-delayed-retirement.test.ts b/tests/p14p4p5-delayed-retirement.test.ts
+index 239133c..24963e0 100644
+--- a/tests/p14p4p5-delayed-retirement.test.ts
++++ b/tests/p14p4p5-delayed-retirement.test.ts
+@@ -41,6 +41,12 @@ type WithRelationships = { relationships: readonly { sharedCompetitions?: number
+ function withSharedCompetitions<T extends WithRelationships>(state: T): T {
+   return { ...state, relationships: state.relationships.map(edge => ({ ...edge, sharedCompetitions: 0 })) }
+ }
++// 1358-N S5: convertV43ToV44 (src/core/save.ts:10776-10781) adds an empty
++// `competitions` log and a null `romance` to every relationship edge; a genuine
++// V43-or-older old.state never carried them.
++function withEmptyCompetitionsAndRomance<T extends WithRelationships>(state: T): T {
++  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, competitions: [], romance: null })) }
++}
+ // 1344-N S5: convertV42ToV43 (src/core/save.ts:10678-10686) adds the empty
+ // shelving state to every rival business; a genuine V42-or-older old.state
+ // never carried it.
+@@ -180,7 +186,7 @@ function input45(): GameState {
+     const parsed: unknown = JSON.parse(raw), old = saves.validateSaveV39(parsed), frozen = stable(old)
+     expect(old).toBe(parsed); expect(saves.exportSave(old)).toBe(raw)
+     const state = saves.migrateToLive(old).state
+-    expect(stable(old)).toBe(frozen); expect(state).toEqual({ ...withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state))), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
++    expect(stable(old)).toBe(frozen); expect(state).toEqual({ ...withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
+     oldTakes = clone(old.state.firstTakes); expect(oldTakes).toHaveLength(19); admitted(state); suffix(state)
+     expect(state.market.tick).toBe(45); expect(state.studio.cash).toBe(24701506); expect(state.promises).toEqual([])
+     expect(state.talentMarket.proposals).toEqual([]); expect(state.studio.activeProductions).toEqual([])
+diff --git a/tests/p14p4p5-queued-project-outcome.test.ts b/tests/p14p4p5-queued-project-outcome.test.ts
+index dd785a8..61bb0f2 100644
+--- a/tests/p14p4p5-queued-project-outcome.test.ts
++++ b/tests/p14p4p5-queued-project-outcome.test.ts
+@@ -42,6 +42,11 @@ type WithRelationships = { relationships: readonly { sharedCompetitions?: number
+ function withSharedCompetitions<T extends WithRelationships>(state: T): T {
+   return { ...state, relationships: state.relationships.map(edge => ({ ...edge, sharedCompetitions: 0 })) }
+ }
++// 1358-N S5: Save44 gives every relationship edge an empty `competitions` log and a null
++// `romance` (convertV43ToV44, save.ts:10776-10781); a genuine V43-or-older old.state never carried them.
++function withEmptyCompetitionsAndRomance<T extends WithRelationships>(state: T): T {
++  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, competitions: [], romance: null })) }
++}
+ // Save43 (convertV42ToV43, save.ts:10678-10686) gives every rival business an
+ // empty screenplayShelving root; a genuine V39-or-older old.state never carried it.
+ function withEmptyScreenplayShelving<T extends WithRivalBusinesses>(state: T): T {
+@@ -178,7 +183,7 @@ function input45(): GameState {
+     const parsed: unknown = JSON.parse(raw), old = saves.validateSaveV39(parsed), frozen = stable(old)
+     expect(old).toBe(parsed); expect(saves.exportSave(old)).toBe(raw)
+     const state = saves.migrateToLive(old).state
+-    expect(stable(old)).toBe(frozen); expect(state).toEqual({ ...withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state))), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
++    expect(stable(old)).toBe(frozen); expect(state).toEqual({ ...withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
+     oldTakes = clone(old.state.firstTakes); expect(oldTakes).toHaveLength(19); admitted(state); suffix(state)
+     expect(state.market.tick).toBe(45); expect(state.studio.cash).toBe(24701506); expect(state.promises).toEqual([])
+     expect(state.talentMarket.proposals).toEqual([]); expect(state.studio.activeProductions).toEqual([])
+diff --git a/tests/p14p4p5-scenery-capacity.test.ts b/tests/p14p4p5-scenery-capacity.test.ts
+index fd85eda..8956b11 100644
+--- a/tests/p14p4p5-scenery-capacity.test.ts
++++ b/tests/p14p4p5-scenery-capacity.test.ts
+@@ -38,6 +38,11 @@ type WithRelationships = { relationships: readonly { sharedCompetitions?: number
+ function withSharedCompetitions<T extends WithRelationships>(state: T): T {
+   return { ...state, relationships: state.relationships.map(edge => ({ ...edge, sharedCompetitions: 0 })) }
+ }
++// 1358-N S5: Save44 gives every relationship edge an empty `competitions` log and a null `romance`
++// (convertV43ToV44, save.ts:10776-10781); a genuine V43-or-older old.state never carried them.
++function withEmptyCompetitionsAndRomance<T extends WithRelationships>(state: T): T {
++  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, competitions: [], romance: null })) }
++}
+ // 1344-N S5: Save43 gives every rival business the empty `screenplayShelving` root
+ // (convertV42ToV43, save.ts:10678-10686); a genuine V42-or-older old.state never carried it.
+ type WithScreenplayShelving = { hollywood: { businesses: readonly { screenplayShelving?: unknown }[] } | null }
+@@ -194,7 +199,7 @@ function input45(): GameState {
+     expect(old).toBe(parsed); expect(saves.exportSave(old)).toBe(raw)
+     const state = saves.migrateToLive(old).state
+     expect(stable(old)).toBe(prior)
+-    expect(state).toEqual({ ...withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state))), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
++    expect(state).toEqual({ ...withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
+     initial = clone(state); retained(state)
+     expect(issuer(state)).toBe('studio-de11f27b-player'); expect(state.studio.cash).toBe(24701506)
+     expect(state.operations.mode).toBe('managed'); expect(state.scriptDevelopment.mode).toBe('managed')

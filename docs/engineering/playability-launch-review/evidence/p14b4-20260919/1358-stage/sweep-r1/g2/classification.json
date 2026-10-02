@@ -1,0 +1,592 @@
+[
+ {
+  "id": "N-0147",
+  "file": "tests/bridge-contract-generator.test.ts",
+  "line": 569,
+  "old": "const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 56 })",
+  "new": "const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 57 })",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Current-contract render (P1). Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6). Two comment lines inserted above it at :567-568 name 1358-N P1/P2 and projection 57."
+ },
+ {
+  "id": "N-0148",
+  "file": "tests/bridge-contract-generator.test.ts",
+  "line": 571,
+  "old": "'// Schema identity: sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1',",
+  "new": "'// Schema identity: sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253',",
+  "cls": "P2",
+  "status": "certain",
+  "note": "Schema identity (P2). Value read from the step-4 generated/unity/project-studio-bridge.contract-manifest.json:8 schemaId and the step-4 generated/unity/StudioBridgeDtos.Generated.cs:3 and :20. Method check: the pin comment names the manifest schemaId as the source; the base manifest reads sha256:349b2d3e..., the current pin. Independent recomputation: sha256 of the sorted-key compact JSON of bridge/schema/project-studio-bridge.schema.json (schemaIdentity, bridge/schema/canonical.ts:22) reproduces sha256:349b2d3e... at base and gives sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253 at step 4."
+ },
+ {
+  "id": "N-0149",
+  "file": "tests/bridge-contract-generator.test.ts",
+  "line": 574,
+  "old": "'sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1',",
+  "new": "'sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253',",
+  "cls": "P2",
+  "status": "certain",
+  "note": "Schema identity (P2). Value read from the step-4 generated/unity/project-studio-bridge.contract-manifest.json:8 schemaId and the step-4 generated/unity/StudioBridgeDtos.Generated.cs:3 and :20. Method check: the pin comment names the manifest schemaId as the source; the base manifest reads sha256:349b2d3e..., the current pin. Independent recomputation: sha256 of the sorted-key compact JSON of bridge/schema/project-studio-bridge.schema.json (schemaIdentity, bridge/schema/canonical.ts:22) reproduces sha256:349b2d3e... at base and gives sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253 at step 4."
+ },
+ {
+  "id": "N-0152",
+  "file": "tests/bridge-operations-events.test.ts",
+  "line": 333,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0153",
+  "file": "tests/bridge-owner-ux-projection21-schema.test.ts",
+  "line": 18,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0154",
+  "file": "tests/bridge-owner-ux-projection21-schema.test.ts",
+  "line": 19,
+  "old": "expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-56')",
+  "new": "expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-57')",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0155",
+  "file": "tests/bridge-p10a-w0-people-projection.test.ts",
+  "line": 321,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0156",
+  "file": "tests/bridge-p10a-w0-people-projection.test.ts",
+  "line": 322,
+  "old": "expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-56')",
+  "new": "expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-57')",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0157",
+  "file": "tests/bridge-p11-capital-contributors.test.ts",
+  "line": 24,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0158",
+  "file": "tests/bridge-p11-ready.test.ts",
+  "line": 52,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0159",
+  "file": "tests/bridge-p13b-r07-setup.test.ts",
+  "line": 320,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0160",
+  "file": "tests/bridge-p13b-r07-setup.test.ts",
+  "line": 321,
+  "old": "expect(BRIDGE_SCHEMA.$id).toContain('projection-56')",
+  "new": "expect(BRIDGE_SCHEMA.$id).toContain('projection-57')",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0161",
+  "file": "tests/bridge-p13b-r07-setup.test.ts",
+  "line": 322,
+  "old": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(56)",
+  "new": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0162",
+  "file": "tests/bridge-p13b-r07-setup.test.ts",
+  "line": 587,
+  "old": "expect(parsedSaveVersion).toBe(43) // the CURRENT live version \u2014 confirms this is not genuinely a migration",
+  "new": "expect(parsedSaveVersion).toBe(44) // the CURRENT live version \u2014 confirms this is not genuinely a migration",
+  "cls": "S2",
+  "status": "certain",
+  "note": "Live writer version. LIVE_SAVE_VERSION = 44 at src/core/save.ts:6567 (step 4). session.save() exports the session state at the live version. The trailing comment, with its pre-existing em dash, is unchanged."
+ },
+ {
+  "id": "N-0163",
+  "file": "tests/bridge-p13b-s1b-seats.test.ts",
+  "line": 76,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0164",
+  "file": "tests/bridge-p13b-s1b-seats.test.ts",
+  "line": 102,
+  "old": "expect(page.snapshotVersion).toBe(56)",
+  "new": "expect(page.snapshotVersion).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0165",
+  "file": "tests/bridge-p13b-s2-labs.test.ts",
+  "line": 115,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0166",
+  "file": "tests/bridge-p13b-s2-labs.test.ts",
+  "line": 126,
+  "old": "expect(response.snapshotVersion).toBe(56)",
+  "new": "expect(response.snapshotVersion).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0167",
+  "file": "tests/bridge-p13b-s3-plans.test.ts",
+  "line": 202,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0168",
+  "file": "tests/bridge-p13b-s3-plans.test.ts",
+  "line": 214,
+  "old": "expect(plans.snapshotVersion).toBe(56)",
+  "new": "expect(plans.snapshotVersion).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0169",
+  "file": "tests/bridge-p13b-s4-office.test.ts",
+  "line": 224,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0170",
+  "file": "tests/bridge-p13b-s4-office.test.ts",
+  "line": 235,
+  "old": "expect(response.snapshotVersion).toBe(56)",
+  "new": "expect(response.snapshotVersion).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0171",
+  "file": "tests/bridge-p13b-s5-adoption.test.ts",
+  "line": 250,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0172",
+  "file": "tests/bridge-p13b-s5-adoption.test.ts",
+  "line": 251,
+  "old": "expect(BRIDGE_SCHEMA.$id).toContain('projection-56')",
+  "new": "expect(BRIDGE_SCHEMA.$id).toContain('projection-57')",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0173",
+  "file": "tests/bridge-p13b-s5-adoption.test.ts",
+  "line": 252,
+  "old": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(56)",
+  "new": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0174",
+  "file": "tests/bridge-p13b-s6-cancellation.test.ts",
+  "line": 270,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0175",
+  "file": "tests/bridge-p13b-s6-cancellation.test.ts",
+  "line": 271,
+  "old": "expect(BRIDGE_SCHEMA.$id).toContain('projection-56')",
+  "new": "expect(BRIDGE_SCHEMA.$id).toContain('projection-57')",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0176",
+  "file": "tests/bridge-p13b-s6-cancellation.test.ts",
+  "line": 272,
+  "old": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(56)",
+  "new": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0177",
+  "file": "tests/bridge-p13b-s7-disclosure.test.ts",
+  "line": 270,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0178",
+  "file": "tests/bridge-p13b-s7-disclosure.test.ts",
+  "line": 271,
+  "old": "expect(BRIDGE_SCHEMA.$id).toContain('projection-56')",
+  "new": "expect(BRIDGE_SCHEMA.$id).toContain('projection-57')",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0179",
+  "file": "tests/bridge-p13b-s7-disclosure.test.ts",
+  "line": 272,
+  "old": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(56)",
+  "new": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0180",
+  "file": "tests/bridge-p13b-s8-rivals.test.ts",
+  "line": 223,
+  "old": "expect(PROJECTION_VERSION).toBe(56) // RED: today PROJECTION_VERSION is 40",
+  "new": "expect(PROJECTION_VERSION).toBe(57) // RED: today PROJECTION_VERSION is 40",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6). The stale trailing comment \"RED: today PROJECTION_VERSION is 40\" is unchanged."
+ },
+ {
+  "id": "N-0181",
+  "file": "tests/bridge-p13b-s8-rivals.test.ts",
+  "line": 224,
+  "old": "expect(BRIDGE_SCHEMA.$id).toContain('projection-56')",
+  "new": "expect(BRIDGE_SCHEMA.$id).toContain('projection-57')",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0182",
+  "file": "tests/bridge-p13b-s8-rivals.test.ts",
+  "line": 225,
+  "old": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(56)",
+  "new": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0183",
+  "file": "tests/bridge-p13b-s8-rivals.test.ts",
+  "line": 233,
+  "old": "expect((JSON.parse(saved.saveJson) as { saveVersion: number }).saveVersion).toBe(43)",
+  "new": "expect((JSON.parse(saved.saveJson) as { saveVersion: number }).saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "Live writer version. LIVE_SAVE_VERSION = 44 at src/core/save.ts:6567 (step 4). session.save() exports the session state at the live version."
+ },
+ {
+  "id": "N-0184",
+  "file": "tests/bridge-p13b-s8-rivals.test.ts",
+  "line": 404,
+  "old": "expect((JSON.parse(savedBefore.saveJson) as { saveVersion: number }).saveVersion).toBe(43)",
+  "new": "expect((JSON.parse(savedBefore.saveJson) as { saveVersion: number }).saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "Live writer version. LIVE_SAVE_VERSION = 44 at src/core/save.ts:6567 (step 4). session.save() exports the session state at the live version."
+ },
+ {
+  "id": "N-0185",
+  "file": "tests/bridge-process-restart.test.ts",
+  "line": 797,
+  "old": "expect(hydrated.currentSave.saveVersion).toBe(43)",
+  "new": "expect(hydrated.currentSave.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "Live writer version. LIVE_SAVE_VERSION = 44 at src/core/save.ts:6567 (step 4). decodeBridgeRuntimeCheckpoint hydrates only a current save: bridge/runtime-checkpoint.ts:501-503 refuses any saveVersion other than LIVE_SAVE_VERSION."
+ },
+ {
+  "id": "N-0186",
+  "file": "tests/bridge-process-restart.test.ts",
+  "line": 799,
+  "old": "expect(hydrated.savedSave?.saveVersion).toBe(43)",
+  "new": "expect(hydrated.savedSave?.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "Live writer version. LIVE_SAVE_VERSION = 44 at src/core/save.ts:6567 (step 4). decodeBridgeRuntimeCheckpoint hydrates only a current save: bridge/runtime-checkpoint.ts:501-503 refuses any saveVersion other than LIVE_SAVE_VERSION."
+ },
+ {
+  "id": "N-0187",
+  "file": "tests/bridge-r3n4-read-model-deltas.test.ts",
+  "line": 144,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0188",
+  "file": "tests/bridge-r3n4-read-model-deltas.test.ts",
+  "line": 145,
+  "old": "expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-56')",
+  "new": "expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-57')",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0189",
+  "file": "tests/bridge-r3n4-read-model-deltas.test.ts",
+  "line": 351,
+  "old": "expect(response.snapshotVersion).toBe(56)",
+  "new": "expect(response.snapshotVersion).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0200",
+  "file": "tests/bridge-runtime-checkpoint.test.ts",
+  "line": 210,
+  "old": "",
+  "new": "const OUTGOING_56 = 'sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1'",
+  "cls": "P2",
+  "status": "certain",
+  "note": "Named constant for the roster entry, with a two-line provenance comment at :208-209. Exact prior-roster list (P2). Value: the base contract manifest schemaId (generated/unity/project-studio-bridge.contract-manifest.json:8 at base, the blob that repo 5245072a and HEAD b17e8ac2 carry), equal to the step-4 roster entry at bridge/runtime-checkpoint.ts:64 (projection-v56). Method check: the list pins the sorted keys of SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS; parsing the base roster (44 entries) reproduces the base list exactly, and the step-4 roster (45 entries) adds exactly this one key, with no removal or relabel. Sorted position: after 2c377b6f..., before 510f08e4...."
+ },
+ {
+  "id": "N-0190",
+  "file": "tests/bridge-runtime-checkpoint.test.ts",
+  "line": 235,
+  "old": "expect(loaded.hydrated.currentSave.saveVersion).toBe(43)",
+  "new": "expect(loaded.hydrated.currentSave.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "Live writer version. LIVE_SAVE_VERSION = 44 at src/core/save.ts:6567 (step 4). Hydrated slots pass validateCanonicalCurrentSave (bridge/runtime-checkpoint.ts:501-503 requires LIVE_SAVE_VERSION); prior slots go through migrateToLive (:893) first."
+ },
+ {
+  "id": "N-0191",
+  "file": "tests/bridge-runtime-checkpoint.test.ts",
+  "line": 236,
+  "old": "expect(loaded.hydrated.savedSave?.saveVersion).toBe(43)",
+  "new": "expect(loaded.hydrated.savedSave?.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "Live writer version. LIVE_SAVE_VERSION = 44 at src/core/save.ts:6567 (step 4). Hydrated slots pass validateCanonicalCurrentSave (bridge/runtime-checkpoint.ts:501-503 requires LIVE_SAVE_VERSION); prior slots go through migrateToLive (:893) first."
+ },
+ {
+  "id": "N-0192",
+  "file": "tests/bridge-runtime-checkpoint.test.ts",
+  "line": 272,
+  "old": "expect(loaded.hydrated.currentSave.saveVersion).toBe(43)",
+  "new": "expect(loaded.hydrated.currentSave.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "Live writer version. LIVE_SAVE_VERSION = 44 at src/core/save.ts:6567 (step 4). Hydrated slots pass validateCanonicalCurrentSave (bridge/runtime-checkpoint.ts:501-503 requires LIVE_SAVE_VERSION); prior slots go through migrateToLive (:893) first."
+ },
+ {
+  "id": "N-0193",
+  "file": "tests/bridge-runtime-checkpoint.test.ts",
+  "line": 273,
+  "old": "expect(loaded.hydrated.savedSave?.saveVersion).toBe(43)",
+  "new": "expect(loaded.hydrated.savedSave?.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "Live writer version. LIVE_SAVE_VERSION = 44 at src/core/save.ts:6567 (step 4). Hydrated slots pass validateCanonicalCurrentSave (bridge/runtime-checkpoint.ts:501-503 requires LIVE_SAVE_VERSION); prior slots go through migrateToLive (:893) first."
+ },
+ {
+  "id": "N-0194",
+  "file": "tests/bridge-runtime-checkpoint.test.ts",
+  "line": 334,
+  "old": "expect(hydrated.currentSave.saveVersion).toBe(43)",
+  "new": "expect(hydrated.currentSave.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "Live writer version. LIVE_SAVE_VERSION = 44 at src/core/save.ts:6567 (step 4). Hydrated slots pass validateCanonicalCurrentSave (bridge/runtime-checkpoint.ts:501-503 requires LIVE_SAVE_VERSION); prior slots go through migrateToLive (:893) first."
+ },
+ {
+  "id": "N-0195",
+  "file": "tests/bridge-runtime-checkpoint.test.ts",
+  "line": 335,
+  "old": "expect(hydrated.savedSave?.saveVersion).toBe(43)",
+  "new": "expect(hydrated.savedSave?.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "Live writer version. LIVE_SAVE_VERSION = 44 at src/core/save.ts:6567 (step 4). Hydrated slots pass validateCanonicalCurrentSave (bridge/runtime-checkpoint.ts:501-503 requires LIVE_SAVE_VERSION); prior slots go through migrateToLive (:893) first."
+ },
+ {
+  "id": "G2-new-1",
+  "file": "tests/bridge-runtime-checkpoint.test.ts",
+  "line": 439,
+  "old": "})).toThrow(/canonical V43 save bytes exactly/)",
+  "new": "})).toThrow(/canonical V44 save bytes exactly/)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "Live writer version inside the guard message: bridge/runtime-checkpoint.ts:505 (step 4) throws `must preserve the canonical V${LIVE_SAVE_VERSION} save bytes exactly`, and LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567). The leaf's premise (a trailing LF on a live save) still reaches that guard; only the number moves, as the comment at :434-438 says. The census missed it: detect.py's lit43 pattern (?<![\\w.:-])43 skips a 43 that follows the letter V, and no detector matches a bare V43. The Save43 sweep moved the same line V42 to V43 and labeled it S8 (1344 classification, g2); under 1358-N, S8 covers the relationship-tamper prefix, so this row takes S2."
+ },
+ {
+  "id": "N-0196",
+  "file": "tests/bridge-runtime-checkpoint.test.ts",
+  "line": 729,
+  "old": "expect(loaded.hydrated.currentSave.saveVersion).toBe(43)",
+  "new": "expect(loaded.hydrated.currentSave.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "Live writer version. LIVE_SAVE_VERSION = 44 at src/core/save.ts:6567 (step 4). Hydrated slots pass validateCanonicalCurrentSave (bridge/runtime-checkpoint.ts:501-503 requires LIVE_SAVE_VERSION); prior slots go through migrateToLive (:893) first."
+ },
+ {
+  "id": "N-0197",
+  "file": "tests/bridge-runtime-checkpoint.test.ts",
+  "line": 757,
+  "old": "expect(loaded.hydrated.savedSave?.saveVersion).toBe(43)",
+  "new": "expect(loaded.hydrated.savedSave?.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "Live writer version. LIVE_SAVE_VERSION = 44 at src/core/save.ts:6567 (step 4). Hydrated slots pass validateCanonicalCurrentSave (bridge/runtime-checkpoint.ts:501-503 requires LIVE_SAVE_VERSION); prior slots go through migrateToLive (:893) first."
+ },
+ {
+  "id": "N-0199",
+  "file": "tests/bridge-runtime-checkpoint.test.ts",
+  "line": 785,
+  "old": "expect(loaded.hydrated.currentSave.saveVersion).toBe(43)",
+  "new": "expect(loaded.hydrated.currentSave.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "Live writer version. LIVE_SAVE_VERSION = 44 at src/core/save.ts:6567 (step 4). Hydrated slots pass validateCanonicalCurrentSave (bridge/runtime-checkpoint.ts:501-503 requires LIVE_SAVE_VERSION); prior slots go through migrateToLive (:893) first. Applies to every it.each case, including the new projection-v56 case (N-0198)."
+ },
+ {
+  "id": "N-0200",
+  "file": "tests/bridge-runtime-checkpoint.test.ts",
+  "line": 998,
+  "old": "",
+  "new": "OUTGOING_56,",
+  "cls": "P2",
+  "status": "certain",
+  "note": "List entry inserted after the 2c377b6f... line, with a one-line comment at :997. Exact prior-roster list (P2). Value: the base contract manifest schemaId (generated/unity/project-studio-bridge.contract-manifest.json:8 at base, the blob that repo 5245072a and HEAD b17e8ac2 carry), equal to the step-4 roster entry at bridge/runtime-checkpoint.ts:64 (projection-v56). Method check: the list pins the sorted keys of SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS; parsing the base roster (44 entries) reproduces the base list exactly, and the step-4 roster (45 entries) adds exactly this one key, with no removal or relabel. Sorted position: after 2c377b6f..., before 510f08e4...."
+ },
+ {
+  "id": "N-0201",
+  "file": "tests/bridge-schema.test.ts",
+  "line": 81,
+  "old": "projectionVersion: 56,",
+  "new": "projectionVersion: 57,",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0202",
+  "file": "tests/bridge-schema.test.ts",
+  "line": 84,
+  "old": "expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-56')",
+  "new": "expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-57')",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0203",
+  "file": "tests/bridge-schema.test.ts",
+  "line": 340,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ },
+ {
+  "id": "N-0204",
+  "file": "tests/bridge-schema.test.ts",
+  "line": 341,
+  "old": "expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 56/)",
+  "new": "expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 57/)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Literal-guard message (P1; 1358-J 3j). bridge/schema/runtime.ts:114 throws `expected literal ${JSON.stringify(const)}`; snapshotVersion is literal(PROJECTION_VERSION) (bridge-schema.ts:3443), 57 at step 4."
+ },
+ {
+  "id": "N-0205",
+  "file": "tests/bridge-schema.test.ts",
+  "line": 576,
+  "old": "expect(generatedCsharp).toContain('public const int ProjectionVersion = 56;')",
+  "new": "expect(generatedCsharp).toContain('public const int ProjectionVersion = 57;')",
+  "cls": "P1",
+  "status": "certain",
+  "note": "C# constant (P1; 1358-J 3j). Step-4 generated/unity/StudioBridgeDtos.Generated.cs:18 reads `public const int ProjectionVersion = 57;`."
+ },
+ {
+  "id": "N-0206",
+  "file": "tests/bridge.test.ts",
+  "line": 167,
+  "old": "expect(SNAPSHOT_VERSION).toBe(56)",
+  "new": "expect(SNAPSHOT_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "Live projection pin. PROJECTION_VERSION = 57 at bridge/schema/bridge-schema.ts:286 (step 4); SNAPSHOT_VERSION = PROJECTION_VERSION (bridge/protocol.ts:34); $id is built from it at bridge-schema.ts:3790; the step-4 schema JSON reads $id urn:project-studio:bridge:protocol-4:projection-57 and x-project-studio.projectionVersion 57; the step-4 manifest reads projectionVersion 57 (:6)."
+ }
+]

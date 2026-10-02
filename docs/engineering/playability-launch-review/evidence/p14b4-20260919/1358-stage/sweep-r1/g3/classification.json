@@ -1,0 +1,1042 @@
+[
+ {
+  "id": "N-0207",
+  "file": "tests/bridge-p14a1-market.test.ts",
+  "line": 152,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "PROJECTION_VERSION = 57 (bridge/schema/bridge-schema.ts:286 at step 4)"
+ },
+ {
+  "id": "N-0208",
+  "file": "tests/bridge-p14a1-market.test.ts",
+  "line": 153,
+  "old": "expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-56`)",
+  "new": "expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-57`)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "$id 'urn:project-studio:bridge:protocol-4:projection-57' (built from PROJECTION_VERSION at bridge-schema.ts:3790; the step-4 schema JSON carries it at :18044)"
+ },
+ {
+  "id": "N-0209",
+  "file": "tests/bridge-p14a1-market.test.ts",
+  "line": 154,
+  "old": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(56)",
+  "new": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "x-project-studio.projectionVersion 57 (step-4 schema JSON :18100)"
+ },
+ {
+  "id": "N-0210",
+  "file": "tests/bridge-p14a1-market.test.ts",
+  "line": 408,
+  "old": "expect(parsed.saveVersion).toBe(43)",
+  "new": "expect(parsed.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "parsed BridgeSession.save() saveJson; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0211",
+  "file": "tests/bridge-p14a1-release-busy-set.test.ts",
+  "line": 214,
+  "old": "it('schema leaf: PROJECTION_VERSION is 56, the schema $id and x-project-studio.projectionVersion move with it, and both new refusal codes reach the generated CONTRACT_REFUSAL_KINDS enum (mirrors the underMarketCase/projection-42 precedent, tests/bridge-p14a1-market.test.ts group 1)', () => {",
+  "new": "it('schema leaf: PROJECTION_VERSION is 57, the schema $id and x-project-studio.projectionVersion move with it, and both new refusal codes reach the generated CONTRACT_REFUSAL_KINDS enum (mirrors the underMarketCase/projection-42 precedent, tests/bridge-p14a1-market.test.ts group 1)', () => {",
+  "cls": "P5",
+  "status": "certain",
+  "note": "title rename, a new test identity: old \"schema leaf: PROJECTION_VERSION is 56, ...\" -> new \"schema leaf: PROJECTION_VERSION is 57, ...\" (the rest of the title is unchanged); the file holds no retained 1348-I identity; PROJECTION_VERSION = 57 (bridge/schema/bridge-schema.ts:286 at step 4)"
+ },
+ {
+  "id": "N-0212",
+  "file": "tests/bridge-p14a1-release-busy-set.test.ts",
+  "line": 215,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "PROJECTION_VERSION = 57 (bridge/schema/bridge-schema.ts:286 at step 4)"
+ },
+ {
+  "id": "N-0213",
+  "file": "tests/bridge-p14a1-release-busy-set.test.ts",
+  "line": 216,
+  "old": "expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-56`)",
+  "new": "expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-57`)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "$id 'urn:project-studio:bridge:protocol-4:projection-57' (built from PROJECTION_VERSION at bridge-schema.ts:3790; the step-4 schema JSON carries it at :18044)"
+ },
+ {
+  "id": "N-0214",
+  "file": "tests/bridge-p14a1-release-busy-set.test.ts",
+  "line": 217,
+  "old": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(56)",
+  "new": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "x-project-studio.projectionVersion 57 (step-4 schema JSON :18100)"
+ },
+ {
+  "id": "N-0215",
+  "file": "tests/bridge-p14a2-market.test.ts",
+  "line": 217,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "PROJECTION_VERSION = 57 (bridge/schema/bridge-schema.ts:286 at step 4)"
+ },
+ {
+  "id": "N-0216",
+  "file": "tests/bridge-p14a2-market.test.ts",
+  "line": 218,
+  "old": "expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-56`)",
+  "new": "expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-57`)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "$id 'urn:project-studio:bridge:protocol-4:projection-57' (built from PROJECTION_VERSION at bridge-schema.ts:3790; the step-4 schema JSON carries it at :18044)"
+ },
+ {
+  "id": "N-0217",
+  "file": "tests/bridge-p14a2-market.test.ts",
+  "line": 219,
+  "old": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(56)",
+  "new": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "x-project-studio.projectionVersion 57 (step-4 schema JSON :18100)"
+ },
+ {
+  "id": "N-0218",
+  "file": "tests/bridge-p14a2-market.test.ts",
+  "line": 232,
+  "old": "expect(LIVE_SAVE_VERSION).toBe(43)",
+  "new": "expect(LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "LIVE_SAVE_VERSION constant; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0219",
+  "file": "tests/bridge-p14a2-market.test.ts",
+  "line": 739,
+  "old": "expect(LIVE_SAVE_VERSION).toBe(43)",
+  "new": "expect(LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "LIVE_SAVE_VERSION constant; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0220",
+  "file": "tests/bridge-p14a2-market.test.ts",
+  "line": 772,
+  "old": "if (reSavedOpen.accepted) expect((JSON.parse(reSavedOpen.saveJson) as { saveVersion: number }).saveVersion).toBe(43)",
+  "new": "if (reSavedOpen.accepted) expect((JSON.parse(reSavedOpen.saveJson) as { saveVersion: number }).saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "re-save of a loaded genuine V28 fixture, written by the live writer; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0221",
+  "file": "tests/bridge-p14a2-market.test.ts",
+  "line": 784,
+  "old": "if (reSavedSettled.accepted) expect((JSON.parse(reSavedSettled.saveJson) as { saveVersion: number }).saveVersion).toBe(43)",
+  "new": "if (reSavedSettled.accepted) expect((JSON.parse(reSavedSettled.saveJson) as { saveVersion: number }).saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "re-save of a loaded genuine V28 fixture, written by the live writer; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0222",
+  "file": "tests/bridge-p14a2-market.test.ts",
+  "line": 794,
+  "old": "if (reSavedLegacy.accepted) expect((JSON.parse(reSavedLegacy.saveJson) as { saveVersion: number }).saveVersion).toBe(43)",
+  "new": "if (reSavedLegacy.accepted) expect((JSON.parse(reSavedLegacy.saveJson) as { saveVersion: number }).saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "re-save of a loaded genuine V28 fixture, written by the live writer; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0223",
+  "file": "tests/bridge-p14a2-market.test.ts",
+  "line": 809,
+  "old": "expect(parsed.saveVersion).toBe(43)",
+  "new": "expect(parsed.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "parsed BridgeSession.save() saveJson; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0224",
+  "file": "tests/bridge-p14a3-world.test.ts",
+  "line": 229,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "PROJECTION_VERSION = 57 (bridge/schema/bridge-schema.ts:286 at step 4)"
+ },
+ {
+  "id": "N-0225",
+  "file": "tests/bridge-p14a3-world.test.ts",
+  "line": 230,
+  "old": "expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-56`)",
+  "new": "expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-57`)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "$id 'urn:project-studio:bridge:protocol-4:projection-57' (built from PROJECTION_VERSION at bridge-schema.ts:3790; the step-4 schema JSON carries it at :18044)"
+ },
+ {
+  "id": "N-0226",
+  "file": "tests/bridge-p14a3-world.test.ts",
+  "line": 231,
+  "old": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(56)",
+  "new": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "x-project-studio.projectionVersion 57 (step-4 schema JSON :18100)"
+ },
+ {
+  "id": "N-0227",
+  "file": "tests/bridge-p14a3-world.test.ts",
+  "line": 245,
+  "old": "expect(LIVE_SAVE_VERSION).toBe(43)",
+  "new": "expect(LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "LIVE_SAVE_VERSION constant; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0228",
+  "file": "tests/bridge-p14a3-world.test.ts",
+  "line": 575,
+  "old": "expect(LIVE_SAVE_VERSION).toBe(43)",
+  "new": "expect(LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "LIVE_SAVE_VERSION constant; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0229",
+  "file": "tests/bridge-p14a3-world.test.ts",
+  "line": 600,
+  "old": "expect((JSON.parse(saved.saveJson) as { saveVersion: number }).saveVersion).toBe(43)",
+  "new": "expect((JSON.parse(saved.saveJson) as { saveVersion: number }).saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "re-save of a loaded genuine V28 fixture, written by the live writer; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0230",
+  "file": "tests/bridge-p14a3-world.test.ts",
+  "line": 622,
+  "old": "expect(parsed.saveVersion).toBe(43)",
+  "new": "expect(parsed.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "parsed BridgeSession.save() saveJson; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0231",
+  "file": "tests/bridge-p14b1-promises.test.ts",
+  "line": 207,
+  "old": "expect(LIVE_SAVE_VERSION).toBe(43)",
+  "new": "expect(LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "LIVE_SAVE_VERSION constant; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0232",
+  "file": "tests/bridge-p14b1-promises.test.ts",
+  "line": 208,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "PROJECTION_VERSION = 57 (bridge/schema/bridge-schema.ts:286 at step 4)"
+ },
+ {
+  "id": "N-0233",
+  "file": "tests/bridge-p14b1-promises.test.ts",
+  "line": 209,
+  "old": "expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-56`)",
+  "new": "expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-57`)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "$id 'urn:project-studio:bridge:protocol-4:projection-57' (built from PROJECTION_VERSION at bridge-schema.ts:3790; the step-4 schema JSON carries it at :18044)"
+ },
+ {
+  "id": "N-0234",
+  "file": "tests/bridge-p14b1-promises.test.ts",
+  "line": 210,
+  "old": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(56)",
+  "new": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "x-project-studio.projectionVersion 57 (step-4 schema JSON :18100)"
+ },
+ {
+  "id": "N-0235",
+  "file": "tests/bridge-p14b1-promises.test.ts",
+  "line": 504,
+  "old": "if (reSaved.accepted) expect((JSON.parse(reSaved.saveJson) as { saveVersion: number }).saveVersion).toBe(43)",
+  "new": "if (reSaved.accepted) expect((JSON.parse(reSaved.saveJson) as { saveVersion: number }).saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "re-save of a loaded genuine V28 fixture, written by the live writer; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0236",
+  "file": "tests/bridge-p14b1-promises.test.ts",
+  "line": 520,
+  "old": "expect(parsed.saveVersion).toBe(43)",
+  "new": "expect(parsed.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "parsed BridgeSession.save() saveJson; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0237",
+  "file": "tests/bridge-p14b2-checkpoint.test.ts",
+  "line": 61,
+  "old": "expect(governed.saveVersion).toBe(43)",
+  "new": "expect(governed.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "migrateToLive(importSave(genuine V29 slot)); LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0238",
+  "file": "tests/bridge-p14b2-checkpoint.test.ts",
+  "line": 93,
+  "old": "expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 43, state: withEmptyScreenplayShelving({ ...source.state,",
+  "new": "expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 44, state: withEmptyScreenplayShelving({ ...source.state,",
+  "cls": "S2",
+  "status": "certain",
+  "note": "expected export of the same migrateToLive output; its expected state holds relationships: [], so convertV43ToV44 adds no edge field and no S5 edit applies; one comment line added above (:92); LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0239",
+  "file": "tests/bridge-p14b2-trust.test.ts",
+  "line": 24,
+  "old": "import { LIVE_SAVE_VERSION, makeSave, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { LIVE_SAVE_VERSION, makeSave, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; its three uses (:287, :424, :468) read live envelopes"
+ },
+ {
+  "id": "N-0240",
+  "file": "tests/bridge-p14b2-trust.test.ts",
+  "line": 140,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "PROJECTION_VERSION = 57 (bridge/schema/bridge-schema.ts:286 at step 4)"
+ },
+ {
+  "id": "N-0241",
+  "file": "tests/bridge-p14b2-trust.test.ts",
+  "line": 141,
+  "old": "expect(LIVE_SAVE_VERSION).toBe(43)",
+  "new": "expect(LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "LIVE_SAVE_VERSION constant; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0242",
+  "file": "tests/bridge-p14b2-trust.test.ts",
+  "line": 142,
+  "old": "expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-56`)",
+  "new": "expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-57`)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "$id 'urn:project-studio:bridge:protocol-4:projection-57' (built from PROJECTION_VERSION at bridge-schema.ts:3790; the step-4 schema JSON carries it at :18044)"
+ },
+ {
+  "id": "N-0243",
+  "file": "tests/bridge-p14b2-trust.test.ts",
+  "line": 143,
+  "old": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(56)",
+  "new": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "x-project-studio.projectionVersion 57 (step-4 schema JSON :18100)"
+ },
+ {
+  "id": "N-0244",
+  "file": "tests/bridge-p14b2-trust.test.ts",
+  "line": 287,
+  "old": "expect(() => validateSaveV43(JSON.parse(JSON.stringify(makeSave(next))))).not.toThrow()",
+  "new": "expect(() => validateSaveV44(JSON.parse(JSON.stringify(makeSave(next))))).not.toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave(next), next = tick(f.outcomes); validateSaveV44 is the live validator (src/core/save.ts:10763 at step 4)"
+ },
+ {
+  "id": "N-0245",
+  "file": "tests/bridge-p14b2-trust.test.ts",
+  "line": 424,
+  "old": "expect(() => validateSaveV43(JSON.parse(JSON.stringify(makeSave(variant))))).not.toThrow()",
+  "new": "expect(() => validateSaveV44(JSON.parse(JSON.stringify(makeSave(variant))))).not.toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave(variant); validateSaveV44 is the live validator (src/core/save.ts:10763 at step 4)"
+ },
+ {
+  "id": "N-0246",
+  "file": "tests/bridge-p14b2-trust.test.ts",
+  "line": 468,
+  "old": "const validated = validateSaveV43(JSON.parse(saved.saveJson))",
+  "new": "const validated = validateSaveV44(JSON.parse(saved.saveJson))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "BridgeSession.save() saveJson, the live writer; validateSaveV44 is the live validator (src/core/save.ts:10763 at step 4)"
+ },
+ {
+  "id": "N-0247",
+  "file": "tests/bridge-p14b2-trust.test.ts",
+  "line": 469,
+  "old": "expect(validated.saveVersion).toBe(43)",
+  "new": "expect(validated.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "validated BridgeSession.save() saveJson; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0248",
+  "file": "tests/bridge-p14b3-promise-command.test.ts",
+  "line": 19,
+  "old": "import { LIVE_SAVE_VERSION, makeSave, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { LIVE_SAVE_VERSION, makeSave, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; its five uses (:38, :86, :136, :363, :508) read live envelopes"
+ },
+ {
+  "id": "N-0249",
+  "file": "tests/bridge-p14b3-promise-command.test.ts",
+  "line": 38,
+  "old": "validateSaveV43(JSON.parse(JSON.stringify(makeSave(state))))",
+  "new": "validateSaveV44(JSON.parse(JSON.stringify(makeSave(state))))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave(state) in fixture(); validateSaveV44 is the live validator (src/core/save.ts:10763 at step 4)"
+ },
+ {
+  "id": "N-0250",
+  "file": "tests/bridge-p14b3-promise-command.test.ts",
+  "line": 86,
+  "old": "validateSaveV43(JSON.parse(result.saveJson))",
+  "new": "validateSaveV44(JSON.parse(result.saveJson))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveSlot(): BridgeSession.save() saveJson; validateSaveV44 is the live validator (src/core/save.ts:10763 at step 4)"
+ },
+ {
+  "id": "N-0251",
+  "file": "tests/bridge-p14b3-promise-command.test.ts",
+  "line": 136,
+  "old": "validateSaveV43(JSON.parse(JSON.stringify(makeSave(session.gameState))))",
+  "new": "validateSaveV44(JSON.parse(JSON.stringify(makeSave(session.gameState))))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave(session.gameState); validateSaveV44 is the live validator (src/core/save.ts:10763 at step 4)"
+ },
+ {
+  "id": "N-0252",
+  "file": "tests/bridge-p14b3-promise-command.test.ts",
+  "line": 363,
+  "old": "expect(validateSaveV43(JSON.parse(saved)).state.promises).toEqual(session.gameState.promises)",
+  "new": "expect(validateSaveV44(JSON.parse(saved)).state.promises).toEqual(session.gameState.promises)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveSlot() output (BridgeSession.save()); validateSaveV44 is the live validator (src/core/save.ts:10763 at step 4)"
+ },
+ {
+  "id": "N-0253",
+  "file": "tests/bridge-p14b3-promise-command.test.ts",
+  "line": 508,
+  "old": "const validated = validateSaveV43(JSON.parse(saved))",
+  "new": "const validated = validateSaveV44(JSON.parse(saved))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveSlot(completed) output (BridgeSession.save()); validateSaveV44 is the live validator (src/core/save.ts:10763 at step 4)"
+ },
+ {
+  "id": "N-0254",
+  "file": "tests/bridge-p14b3-promise-command.test.ts",
+  "line": 509,
+  "old": "expect(LIVE_SAVE_VERSION).toBe(43)",
+  "new": "expect(LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "LIVE_SAVE_VERSION constant; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0255",
+  "file": "tests/bridge-p14b3-promise-command.test.ts",
+  "line": 510,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "PROJECTION_VERSION = 57 (bridge/schema/bridge-schema.ts:286 at step 4)"
+ },
+ {
+  "id": "N-0256",
+  "file": "tests/bridge-p14b3-promise-command.test.ts",
+  "line": 511,
+  "old": "expect(validated.saveVersion).toBe(43)",
+  "new": "expect(validated.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "validated saveSlot() output; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0257",
+  "file": "tests/bridge-p14b4-cast-class.test.ts",
+  "line": 25,
+  "old": "import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; its three uses (:127, :456, :514) read live envelopes"
+ },
+ {
+  "id": "N-0258",
+  "file": "tests/bridge-p14b4-cast-class.test.ts",
+  "line": 127,
+  "old": "validateSaveV43({ ...live, state, broadcastCache: state.broadcastItems })",
+  "new": "validateSaveV44({ ...live, state, broadcastCache: state.broadcastItems })",
+  "cls": "S1",
+  "status": "certain",
+  "note": "{ ...live, state }, live = migrateToLive(...) at :114; validateSaveV44 is the live validator (src/core/save.ts:10763 at step 4)"
+ },
+ {
+  "id": "N-0259",
+  "file": "tests/bridge-p14b4-cast-class.test.ts",
+  "line": 456,
+  "old": "validateSaveV43({ ...live, state }) // disclosed synthetic pure-read age input, no fake credit",
+  "new": "validateSaveV44({ ...live, state }) // disclosed synthetic pure-read age input, no fake credit",
+  "cls": "S1",
+  "status": "certain",
+  "note": "{ ...live, state }, live = migrateToLive(...) at :451; validateSaveV44 is the live validator (src/core/save.ts:10763 at step 4)"
+ },
+ {
+  "id": "N-0260",
+  "file": "tests/bridge-p14b4-cast-class.test.ts",
+  "line": 514,
+  "old": "expect(validateSaveV43(JSON.parse(saved.saveJson)).state.promises).toEqual(brokenState.promises)",
+  "new": "expect(validateSaveV44(JSON.parse(saved.saveJson)).state.promises).toEqual(brokenState.promises)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "savedSession.save() saveJson; validateSaveV44 is the live validator (src/core/save.ts:10763 at step 4)"
+ },
+ {
+  "id": "N-0261",
+  "file": "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+  "line": 208,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "PROJECTION_VERSION = 57 (bridge/schema/bridge-schema.ts:286 at step 4)"
+ },
+ {
+  "id": "N-0262",
+  "file": "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+  "line": 209,
+  "old": "expect(LIVE_SAVE_VERSION).toBe(43)",
+  "new": "expect(LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "LIVE_SAVE_VERSION constant; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0263",
+  "file": "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+  "line": 52,
+  "old": "(no line: new constant after OUTGOING_55)",
+  "new": "const OUTGOING_56 = 'sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1' // relationship slice B: outgoing56, the manifest schemaId before projection 57",
+  "cls": "P2",
+  "status": "certain",
+  "note": "new named constant for N-0263: value from the step-4 bridge/runtime-checkpoint.ts:64 entry labelled projection-v56; equals the base contract manifest schemaId and the base C# header (generated/unity/StudioBridgeDtos.Generated.cs:3)"
+ },
+ {
+  "id": "N-0263",
+  "file": "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+  "line": 212,
+  "old": "expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55].sort())",
+  "new": "expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56].sort())",
+  "cls": "P2",
+  "status": "certain",
+  "note": "appends OUTGOING_56 to the full prior-roster key list; the list then equals the 45 step-4 roster keys exactly (out/g3/runtime47_keys_check.py)"
+ },
+ {
+  "id": "N-0264",
+  "file": "tests/bridge-p14b7-promise-waiver.test.ts",
+  "line": 137,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "PROJECTION_VERSION = 57 (bridge/schema/bridge-schema.ts:286 at step 4)"
+ },
+ {
+  "id": "N-0265",
+  "file": "tests/bridge-p14b8-waiver-surface.test.ts",
+  "line": 776,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "PROJECTION_VERSION = 57 (bridge/schema/bridge-schema.ts:286 at step 4)"
+ },
+ {
+  "id": "N-0266",
+  "file": "tests/bridge-p14b8-waiver-surface.test.ts",
+  "line": 777,
+  "old": "expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-56`)",
+  "new": "expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-57`)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "$id 'urn:project-studio:bridge:protocol-4:projection-57' (built from PROJECTION_VERSION at bridge-schema.ts:3790; the step-4 schema JSON carries it at :18044)"
+ },
+ {
+  "id": "N-0267",
+  "file": "tests/bridge-p14b8-waiver-surface.test.ts",
+  "line": 778,
+  "old": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(56)",
+  "new": "expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "x-project-studio.projectionVersion 57 (step-4 schema JSON :18100)"
+ },
+ {
+  "id": "N-0268",
+  "file": "tests/bridge-p14b8-waiver-surface.test.ts",
+  "line": 788,
+  "old": "expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size, 'P3 adds the genuine outgoing53 identity: 41 -> 42').toBe(44)",
+  "new": "expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size, 'P3 adds the genuine outgoing53 identity: 41 -> 42').toBe(45)",
+  "cls": "P2",
+  "status": "certain",
+  "note": "step-4 roster size 45: base 44 plus the one projection-v56 entry (out/g3/roster_recompute.py counts both and finds no other change); the stale assertion message \"41 -> 42\" stays, as 1309-E left it"
+ },
+ {
+  "id": "N-0269",
+  "file": "tests/bridge-p14b8-waiver-surface.test.ts",
+  "line": 817,
+  "old": "expect(hydrated.currentSave.saveVersion, 'P3: each historical slot reaches actual live Save39').toBe(43)",
+  "new": "expect(hydrated.currentSave.saveVersion, 'P3: each historical slot reaches actual live Save39').toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "hydrated currentSave of the genuine projection-49 checkpoint; the stale message \"live Save39\" stays; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0270",
+  "file": "tests/bridge-p14b8-waiver-surface.test.ts",
+  "line": 818,
+  "old": "expect(hydrated.savedSave.saveVersion).toBe(43)",
+  "new": "expect(hydrated.savedSave.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "hydrated savedSave of the same checkpoint; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0271",
+  "file": "tests/bridge-p14c2rm-runtime.test.ts",
+  "line": 53,
+  "old": "expect(current.saveVersion).toBe(43)",
+  "new": "expect(current.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "migrateToLive(importSave(genuine V37 slot)) in currentSlot(); LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0273",
+  "file": "tests/bridge-p14c2rm-runtime.test.ts",
+  "line": 94,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "PROJECTION_VERSION = 57 (bridge/schema/bridge-schema.ts:286 at step 4)"
+ },
+ {
+  "id": "N-0274",
+  "file": "tests/bridge-p14c2rm-runtime.test.ts",
+  "line": 96,
+  "old": "expect(LIVE_SAVE_VERSION).toBe(43)",
+  "new": "expect(LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "LIVE_SAVE_VERSION constant; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0275",
+  "file": "tests/bridge-p14c2s-scientist-runtime.test.ts",
+  "line": 12,
+  "old": "import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV36, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV36, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; its one use (:124) reads a hydrated checkpoint slot"
+ },
+ {
+  "id": "N-0276",
+  "file": "tests/bridge-p14c2s-scientist-runtime.test.ts",
+  "line": 107,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "PROJECTION_VERSION = 57 (bridge/schema/bridge-schema.ts:286 at step 4)"
+ },
+ {
+  "id": "N-0277",
+  "file": "tests/bridge-p14c2s-scientist-runtime.test.ts",
+  "line": 108,
+  "old": "expect(LIVE_SAVE_VERSION).toBe(43)",
+  "new": "expect(LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "LIVE_SAVE_VERSION constant; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0278",
+  "file": "tests/bridge-p14c2s-scientist-runtime.test.ts",
+  "line": 124,
+  "old": "const actual = validateSaveV43(importSave(actualJson!))",
+  "new": "const actual = validateSaveV44(importSave(actualJson!))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "importSave of the hydrated checkpoint slot (loadBridgeRuntimeCheckpoint); validateSaveV44 is the live validator (src/core/save.ts:10763 at step 4)"
+ },
+ {
+  "id": "N-0279",
+  "file": "tests/bridge-p14c2s-scientist-runtime.test.ts",
+  "line": 125,
+  "old": "expect(actual.saveVersion).toBe(43)",
+  "new": "expect(actual.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "validated hydrated checkpoint slot; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0281",
+  "file": "tests/bridge-p14c3-promise-digest-continuity.test.ts",
+  "line": 119,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "PROJECTION_VERSION = 57 (bridge/schema/bridge-schema.ts:286 at step 4)"
+ },
+ {
+  "id": "N-0283",
+  "file": "tests/bridge-p14c3-promise-digest-continuity.test.ts",
+  "line": 168,
+  "old": "expect(current.saveVersion).toBe(43)",
+  "new": "expect(current.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "migrateToLive(genuine V37 slot); LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0284",
+  "file": "tests/bridge-p14c3-runtime.test.ts",
+  "line": 17,
+  "old": "import { convertV38ToV37, exportSave, LIVE_SAVE_VERSION, makeSave, migrateToV38, validateSaveV37, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { convertV38ToV37, exportSave, LIVE_SAVE_VERSION, makeSave, migrateToV38, validateSaveV37, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; its one use (:168) reads a hydrated checkpoint slot"
+ },
+ {
+  "id": "N-0285",
+  "file": "tests/bridge-p14c3-runtime.test.ts",
+  "line": 160,
+  "old": "expect(PROJECTION_VERSION).toBe(56); expect(PROTOCOL_VERSION).toBe(4); expect(LIVE_SAVE_VERSION).toBe(43)",
+  "new": "expect(PROJECTION_VERSION).toBe(57); expect(PROTOCOL_VERSION).toBe(4); expect(LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "PROJECTION_VERSION = 57 (bridge/schema/bridge-schema.ts:286 at step 4) (first edit kind on this line)"
+ },
+ {
+  "id": "N-0286",
+  "file": "tests/bridge-p14c3-runtime.test.ts",
+  "line": 160,
+  "old": "expect(PROJECTION_VERSION).toBe(56); expect(PROTOCOL_VERSION).toBe(4); expect(LIVE_SAVE_VERSION).toBe(43)",
+  "new": "expect(PROJECTION_VERSION).toBe(57); expect(PROTOCOL_VERSION).toBe(4); expect(LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "LIVE_SAVE_VERSION constant (second edit kind on this line); LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0287",
+  "file": "tests/bridge-p14c3-runtime.test.ts",
+  "line": 168,
+  "old": "const saved = validateSaveV43(JSON.parse(current[slot]!))",
+  "new": "const saved = validateSaveV44(JSON.parse(current[slot]!))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "hydrated checkpoint slot (recovered52 -> loadBridgeRuntimeCheckpoint); the later migrateToV38(saved) at :178 dispatches a V44 save through convertV44ToV43 (save.ts:10535), so no S4 insert; validateSaveV44 is the live validator (src/core/save.ts:10763 at step 4)"
+ },
+ {
+  "id": "N-0288",
+  "file": "tests/bridge-p14p3-directing-promises.test.ts",
+  "line": 27,
+  "old": "validateSaveV38, validateSaveV39, validateSaveV43 } from '../src/core/save.js'",
+  "new": "validateSaveV38, validateSaveV39, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; its two uses (:75, :368) read live envelopes"
+ },
+ {
+  "id": "N-0289",
+  "file": "tests/bridge-p14p3-directing-promises.test.ts",
+  "line": 75,
+  "old": "expect(save.saveVersion).toBe(43); expect(validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(validateSaveV44(save)).toBe(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave(state) in full(); validateSaveV44 is the live validator (src/core/save.ts:10763 at step 4)"
+ },
+ {
+  "id": "N-0290",
+  "file": "tests/bridge-p14p3-directing-promises.test.ts",
+  "line": 75,
+  "old": "expect(save.saveVersion).toBe(43); expect(validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(validateSaveV44(save)).toBe(save)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "makeSave(state) in full() (second edit kind on this line); LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0291",
+  "file": "tests/bridge-p14p3-directing-promises.test.ts",
+  "line": 132,
+  "old": "expect(current.saveVersion).toBe(43)",
+  "new": "expect(current.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "migrateToLive(genuine V39 capture) in current45(); LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0293",
+  "file": "tests/bridge-p14p3-directing-promises.test.ts",
+  "line": 283,
+  "old": "const current = migrateToLive(variant); expect(current.saveVersion).toBe(43)",
+  "new": "const current = migrateToLive(variant); expect(current.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "migrateToLive(variant of a genuine V38 save) in legacyClassless(); LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0294",
+  "file": "tests/bridge-p14p3-directing-promises.test.ts",
+  "line": 358,
+  "old": "expect(PROJECTION_VERSION).toBe(56); expect(PROTOCOL_VERSION).toBe(4)",
+  "new": "expect(PROJECTION_VERSION).toBe(57); expect(PROTOCOL_VERSION).toBe(4)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "PROJECTION_VERSION = 57 (bridge/schema/bridge-schema.ts:286 at step 4)"
+ },
+ {
+  "id": "N-0295",
+  "file": "tests/bridge-p14p3-directing-promises.test.ts",
+  "line": 368,
+  "old": "const now = validateSaveV43(JSON.parse(current[slot]!))",
+  "new": "const now = validateSaveV44(JSON.parse(current[slot]!))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "hydrated checkpoint slot (qualifyPrior53); validateSaveV44 is the live validator (src/core/save.ts:10763 at step 4)"
+ },
+ {
+  "id": "N-0297",
+  "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+  "line": 20,
+  "old": "import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV39, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV39, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; its four uses (:66, :512, :517, :518) read live envelopes"
+ },
+ {
+  "id": "N-0298",
+  "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+  "line": 66,
+  "old": "expect(save.saveVersion).toBe(43); expect(validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(validateSaveV44(save)).toBe(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave(state) in full(); validateSaveV44 is the live validator (src/core/save.ts:10763 at step 4)"
+ },
+ {
+  "id": "N-0299",
+  "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+  "line": 66,
+  "old": "expect(save.saveVersion).toBe(43); expect(validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(validateSaveV44(save)).toBe(save)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "makeSave(state) in full() (second edit kind on this line); LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0300",
+  "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+  "line": 92,
+  "old": "const current = migrateToLive(old); expect(current.saveVersion).toBe(43)",
+  "new": "const current = migrateToLive(old); expect(current.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "migrateToLive(genuine V39 capture) in input45(); LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ },
+ {
+  "id": "N-0302",
+  "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+  "line": 487,
+  "old": "expect(PROTOCOL_VERSION).toBe(4); expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROTOCOL_VERSION).toBe(4); expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "PROJECTION_VERSION = 57 (bridge/schema/bridge-schema.ts:286 at step 4)"
+ },
+ {
+  "id": "N-0303",
+  "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+  "line": 488,
+  "old": "expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-56')",
+  "new": "expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-57')",
+  "cls": "P1",
+  "status": "certain",
+  "note": "$id 'urn:project-studio:bridge:protocol-4:projection-57' (built from PROJECTION_VERSION at bridge-schema.ts:3790; the step-4 schema JSON carries it at :18044)"
+ },
+ {
+  "id": "N-0304",
+  "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+  "line": 505,
+  "old": "expect(older).toHaveLength(43)",
+  "new": "expect(older).toHaveLength(44)",
+  "cls": "P2",
+  "status": "certain",
+  "note": "older = step-4 roster minus projection-v54 (OLD_SCHEMA): 44 entries (out/g3/roster_recompute.py); two-line comment added above (:503-504)"
+ },
+ {
+  "id": "N-0305",
+  "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+  "line": 506,
+  "old": "expect(sha(canonicalJson(older))).toBe('f62253f540a1b498e953cfb22b9558ca70131a14ef4754352457e75d0f6c13da')",
+  "new": "expect(sha(canonicalJson(older))).toBe('afae82e478438adcd177592fca60fc283c0e73bdc5eefc1101a8115de28cce58')",
+  "cls": "P2",
+  "status": "certain",
+  "note": "recomputed by the method the pin comment states (tests/bridge-p14p4p5-opportunities.test.ts:493-502): parse the literal [hash, label] pairs of SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS in the step-4 bridge/runtime-checkpoint.ts (named constants resolved), drop OLD_SCHEMA, sort by key, sha256 of compact JSON (out/g3/roster_recompute.py); the method reproduces the base pin f62253f540a1b498e953cfb22b9558ca70131a14ef4754352457e75d0f6c13da exactly; the new value equals the planner's py/roster.py value"
+ },
+ {
+  "id": "N-0306",
+  "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+  "line": 512,
+  "old": "const previous = validateSaveV39(JSON.parse(old.value[slot])), now = validateSaveV43(JSON.parse(current[slot]!))",
+  "new": "const previous = validateSaveV39(JSON.parse(old.value[slot])), now = validateSaveV44(JSON.parse(current[slot]!))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "hydrated checkpoint slot (B55-3); validateSaveV44 is the live validator (src/core/save.ts:10763 at step 4)"
+ },
+ {
+  "id": "N-0308",
+  "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+  "line": 517,
+  "old": "const currentState = validateSaveV43(JSON.parse(current.currentSaveJson)).state",
+  "new": "const currentState = validateSaveV44(JSON.parse(current.currentSaveJson)).state",
+  "cls": "S1",
+  "status": "certain",
+  "note": "hydrated checkpoint currentSaveJson; validateSaveV44 is the live validator (src/core/save.ts:10763 at step 4)"
+ },
+ {
+  "id": "N-0309",
+  "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+  "line": 518,
+  "old": "const savedState = validateSaveV43(JSON.parse(current.savedSaveJson!)).state",
+  "new": "const savedState = validateSaveV44(JSON.parse(current.savedSaveJson!)).state",
+  "cls": "S1",
+  "status": "certain",
+  "note": "hydrated checkpoint savedSaveJson; validateSaveV44 is the live validator (src/core/save.ts:10763 at step 4)"
+ },
+ {
+  "id": "N-0310",
+  "file": "tests/bridge-p14r2r3-prior55.test.ts",
+  "line": 67,
+  "old": "import { exportSave, migrateToLive, validateSaveV40, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { exportSave, migrateToLive, validateSaveV40, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; its one use (:188) reads a hydrated checkpoint slot"
+ },
+ {
+  "id": "N-0311",
+  "file": "tests/bridge-p14r2r3-prior55.test.ts",
+  "line": 154,
+  "old": "expect(PROJECTION_VERSION).toBe(56)",
+  "new": "expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "PROJECTION_VERSION = 57 (bridge/schema/bridge-schema.ts:286 at step 4)"
+ },
+ {
+  "id": "N-0312",
+  "file": "tests/bridge-p14r2r3-prior55.test.ts",
+  "line": 155,
+  "old": "expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-56')",
+  "new": "expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-57')",
+  "cls": "P1",
+  "status": "certain",
+  "note": "$id 'urn:project-studio:bridge:protocol-4:projection-57' (built from PROJECTION_VERSION at bridge-schema.ts:3790; the step-4 schema JSON carries it at :18044)"
+ },
+ {
+  "id": "N-0313",
+  "file": "tests/bridge-p14r2r3-prior55.test.ts",
+  "line": 174,
+  "old": "expect(older).toHaveLength(43)",
+  "new": "expect(older).toHaveLength(44)",
+  "cls": "P2",
+  "status": "certain",
+  "note": "older = step-4 roster minus projection-v55 (OLD_SCHEMA): 44 entries (out/g3/roster_recompute.py); three-line comment added above (:169-171)"
+ },
+ {
+  "id": "N-0314",
+  "file": "tests/bridge-p14r2r3-prior55.test.ts",
+  "line": 175,
+  "old": "expect(sha(canonicalJson(older))).toBe('11ec9999e052d8e6ce6dbdbb08060d57ad3a7dbb45335182c85806c4d88e4e51')",
+  "new": "expect(sha(canonicalJson(older))).toBe('d25c64254ac090a8470cc43b2f02740e149b6f29f75966ba4d2d1684b26654a6')",
+  "cls": "P2",
+  "status": "certain",
+  "note": "recomputed by the method the pin comment states (tests/bridge-p14p4p5-opportunities.test.ts:493-502): parse the literal [hash, label] pairs of SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS in the step-4 bridge/runtime-checkpoint.ts (named constants resolved), drop OLD_SCHEMA, sort by key, sha256 of compact JSON (out/g3/roster_recompute.py); the method reproduces the base pin 11ec9999e052d8e6ce6dbdbb08060d57ad3a7dbb45335182c85806c4d88e4e51 exactly; the new value equals the planner's py/roster.py value"
+ },
+ {
+  "id": "N-0315",
+  "file": "tests/bridge-p14r2r3-prior55.test.ts",
+  "line": 188,
+  "old": "const now = validateSaveV43(JSON.parse(nextRaw!))",
+  "new": "const now = validateSaveV44(JSON.parse(nextRaw!))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "hydrated checkpoint slot; validateSaveV44 is the live validator (src/core/save.ts:10763 at step 4)"
+ },
+ {
+  "id": "N-0316",
+  "file": "tests/bridge-p14r2r3-prior55.test.ts",
+  "line": 189,
+  "old": "expect(now.saveVersion).toBe(43)",
+  "new": "expect(now.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "validated hydrated checkpoint slot; LIVE_SAVE_VERSION = 44 (src/core/save.ts:6567 at step 4)"
+ }
+]

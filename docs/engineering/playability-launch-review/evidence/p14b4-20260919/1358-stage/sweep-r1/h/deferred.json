@@ -1,0 +1,58 @@
+[
+ {
+  "id": "N-0007",
+  "file": "tests/helpers/p14c2b-fixtures.ts",
+  "line": 69,
+  "cls": "S9",
+  "reason": "Untouched beyond the S4 insert (N-0006); the planned S9 edit is none while every log is empty and every romance null. Reading: the only test that calls liveEnvelopeV36 is tests/p14c2b-save-v36.test.ts (:64, :74, :82); the census's five importers of p14c2b-fixtures import other names. At :64 the input is c2bLiveFixture, a genuine V35 world migrated live with no tick, so every edge carries competitions [] and romance null from convertV43ToV44 (src/core/save.ts:10779) and the chain must succeed. At :74 (week 98) and :82 (week 92) the leaves expect a refusal matching /downgrade/i; a convertV44ToV43 refusal ('migrateToV43: cannot downgrade or discard ...', src/core/save.ts:10789-10790) would also match. 1344-X12 already measured the V39 guard firing first there (1344-C5 item 39, a 1344-K finding), so those two leaves are masked with or without Save44. Measurement: the sweep dry run runs tests/p14c2b-save-v36.test.ts after H; :64 must pass, and the thrown message at :74 and :82 shows whether convertV44ToV43 now fires first. If :64 refuses, F9 ruling 2 applies: return the leaf to the parent, strip nothing.",
+  "decidedBy": "dry run"
+ },
+ {
+  "id": "N-0027",
+  "file": "tests/helpers/p14c4-fixtures.ts",
+  "line": 71,
+  "cls": "S9",
+  "reason": "Untouched beyond the S4 insert (N-0026); planned S9 edit is none. Reading: no test or UI file calls this liveEnvelope (grep over tests and ui/src). Its importers, tests/p14c4-save-v35.test.ts and tests/p14c4-cohorts.test.ts, import other names; p14c4-save-v35 names it only in comments (:94, :274). The chain runs in no leaf, so no first-guard masking can occur at runtime. Measurement: the dry run's root, UI and Bridge type gates, which X5 step 4 failed here with TS2345 (E/1358-stage/x5/x5-step4-tsc.txt lines 14, 138, 148).",
+  "decidedBy": "dry run"
+ },
+ {
+  "id": "N-0041",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 87,
+  "cls": "S5",
+  "reason": "Untouched (measure row). The it.each leaf 'migrates genuine %s losslessly except for explicit prospective38 scaffolding' (:68-92) reaches :87 only after H's S2 move at :72 (N-0040). On M2's tree, which carries no sweep, all four cases stop at :72 with 'actual migration must change the current envelope: expected 44 to be 43', so M2 cannot show the :87 difference that F9 ruling 1 assigns to M2. Expected after H: each case whose genuine V37 state holds an edge fails :87, because migrateToLive gives every edge competitions [] and romance null (src/core/save.ts:10779) and the expectation lacks them. The week-0 capture may hold no edge. Measurement: the sweep dry run of tests/p14c3-save-v38.test.ts with H, recording which of the four cases differ and by what, for the S5 follow-up unit (withEmptyCompetitionsAndRomance beside withSharedCompetitions, built from old.state).",
+  "decidedBy": "dry run"
+ },
+ {
+  "id": "N-0042",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 100,
+  "cls": "S10",
+  "reason": "Retained 1348-I identity C20 ('exposes matching strict38 conversion, validation and current migration over a genuine37 save'); no edit (F9 ruling 7, the 1344 C20 precedent). Its primary embeds the live envelope, so it reads 44 after Save44. Lines :95-99 hold no live pin, so M2 reaches :100 without the sweep. Measurement: M2's core run; the gate compare attributes the CHANGED primary.",
+  "decidedBy": "M2"
+ },
+ {
+  "id": "H-new-1",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 116,
+  "cls": "S8",
+  "reason": "New row. The plan's S1 rule gives a renamed call under a bare .toThrow() an S8 row. The census missed this one: the renamed lookup sits at :111 (const validate = saveApi('validateSaveV44'), N-0043) and the bare .toThrow() at :116 inside rejectMutations, so no single line carried both. Not vacuous on step 4 today: every caller fails first at :112, where the accepted control meets 'validateSaveV43: expected version 43'. Reading after H: all cases in the 11 callers (:143, :152, :159, :175, :192, :211, :224, :244, :268, :278, :297) mutate careerLifecycle roots or a talent role. validateSaveV44 reads none of those before the frozen V43 chain (its own checks: envelope keys and version, checkEnvelope at src/core/save.ts:749, and validateRelationshipsRoot over relationships, talent ids, market.tick and studioHistory.recordingStartedWeek, src/core/relationships.ts:666-811). So each case meets the V43-chain guard it met at HEAD. No edit planned. Measurement: the sweep dry run passes all 11 leaves; the parent may log each case's message if it wants the guard named.",
+  "decidedBy": "dry run"
+ },
+ {
+  "id": "H-new-2",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 361,
+  "cls": "S9",
+  "reason": "Outside H's files (G5), reached through H's S4 insert in futureSave (tests/helpers/p14p3-fixtures.ts:113), which now runs convertV44ToV43 before every older step of api.convertV39ToV38. The regex /director|predicate|promise|discard/i also matches convertV44ToV43's refusal ('migrateToV43: cannot downgrade or discard the competitions log of <edgeId>' or '... the romance of <edgeId>', src/core/save.ts:10789-10790). 1344-X12 measured the V39 predicate guard firing first here (1344-C5 item 56). If any D13 positive (a.state, b.state, first.first.afterTake, second.second.afterTake) holds a log row or a romance track, the leaf passes on that refusal and the predicate guard goes unexercised. The census has no row at :361. Measurement: the dry run logs the message thrown at :361 for each positive, or checks that every edge of those four states has competitions [] and romance null. If masked, the S9 form applies in G5's file: name the measured first guard and record the masking.",
+  "decidedBy": "dry run"
+ },
+ {
+  "id": "H-new-3",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 438,
+  "cls": "S9",
+  "reason": "Same mechanism as H-new-2, for D14's abandoned state: futureSave().convertV39ToV38(saves.makeSave(abandoned)) under /director|promise|predicate|discard/i. 1344-X12 measured the V39 predicate guard first here (1344-C5 item 56). Measurement: the dry run logs the thrown message at :438, or checks that every edge of abandoned has competitions [] and romance null. If masked, the S9 form applies in G5's file.",
+  "decidedBy": "dry run"
+ }
+]

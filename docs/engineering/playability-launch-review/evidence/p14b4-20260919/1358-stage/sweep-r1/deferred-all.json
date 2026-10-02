@@ -1,0 +1,677 @@
+[
+ {
+  "id": "N-0007",
+  "file": "tests/helpers/p14c2b-fixtures.ts",
+  "line": 69,
+  "cls": "S9",
+  "reason": "Untouched beyond the S4 insert (N-0006); the planned S9 edit is none while every log is empty and every romance null. Reading: the only test that calls liveEnvelopeV36 is tests/p14c2b-save-v36.test.ts (:64, :74, :82); the census's five importers of p14c2b-fixtures import other names. At :64 the input is c2bLiveFixture, a genuine V35 world migrated live with no tick, so every edge carries competitions [] and romance null from convertV43ToV44 (src/core/save.ts:10779) and the chain must succeed. At :74 (week 98) and :82 (week 92) the leaves expect a refusal matching /downgrade/i; a convertV44ToV43 refusal ('migrateToV43: cannot downgrade or discard ...', src/core/save.ts:10789-10790) would also match. 1344-X12 already measured the V39 guard firing first there (1344-C5 item 39, a 1344-K finding), so those two leaves are masked with or without Save44. Measurement: the sweep dry run runs tests/p14c2b-save-v36.test.ts after H; :64 must pass, and the thrown message at :74 and :82 shows whether convertV44ToV43 now fires first. If :64 refuses, F9 ruling 2 applies: return the leaf to the parent, strip nothing.",
+  "decidedBy": "dry run",
+  "_g": "H"
+ },
+ {
+  "id": "N-0027",
+  "file": "tests/helpers/p14c4-fixtures.ts",
+  "line": 71,
+  "cls": "S9",
+  "reason": "Untouched beyond the S4 insert (N-0026); planned S9 edit is none. Reading: no test or UI file calls this liveEnvelope (grep over tests and ui/src). Its importers, tests/p14c4-save-v35.test.ts and tests/p14c4-cohorts.test.ts, import other names; p14c4-save-v35 names it only in comments (:94, :274). The chain runs in no leaf, so no first-guard masking can occur at runtime. Measurement: the dry run's root, UI and Bridge type gates, which X5 step 4 failed here with TS2345 (E/1358-stage/x5/x5-step4-tsc.txt lines 14, 138, 148).",
+  "decidedBy": "dry run",
+  "_g": "H"
+ },
+ {
+  "id": "N-0041",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 87,
+  "cls": "S5",
+  "reason": "Untouched (measure row). The it.each leaf 'migrates genuine %s losslessly except for explicit prospective38 scaffolding' (:68-92) reaches :87 only after H's S2 move at :72 (N-0040). On M2's tree, which carries no sweep, all four cases stop at :72 with 'actual migration must change the current envelope: expected 44 to be 43', so M2 cannot show the :87 difference that F9 ruling 1 assigns to M2. Expected after H: each case whose genuine V37 state holds an edge fails :87, because migrateToLive gives every edge competitions [] and romance null (src/core/save.ts:10779) and the expectation lacks them. The week-0 capture may hold no edge. Measurement: the sweep dry run of tests/p14c3-save-v38.test.ts with H, recording which of the four cases differ and by what, for the S5 follow-up unit (withEmptyCompetitionsAndRomance beside withSharedCompetitions, built from old.state).",
+  "decidedBy": "dry run",
+  "_g": "H"
+ },
+ {
+  "id": "N-0042",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 100,
+  "cls": "S10",
+  "reason": "Retained 1348-I identity C20 ('exposes matching strict38 conversion, validation and current migration over a genuine37 save'); no edit (F9 ruling 7, the 1344 C20 precedent). Its primary embeds the live envelope, so it reads 44 after Save44. Lines :95-99 hold no live pin, so M2 reaches :100 without the sweep. Measurement: M2's core run; the gate compare attributes the CHANGED primary.",
+  "decidedBy": "M2",
+  "_g": "H"
+ },
+ {
+  "id": "H-new-1",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 116,
+  "cls": "S8",
+  "reason": "New row. The plan's S1 rule gives a renamed call under a bare .toThrow() an S8 row. The census missed this one: the renamed lookup sits at :111 (const validate = saveApi('validateSaveV44'), N-0043) and the bare .toThrow() at :116 inside rejectMutations, so no single line carried both. Not vacuous on step 4 today: every caller fails first at :112, where the accepted control meets 'validateSaveV43: expected version 43'. Reading after H: all cases in the 11 callers (:143, :152, :159, :175, :192, :211, :224, :244, :268, :278, :297) mutate careerLifecycle roots or a talent role. validateSaveV44 reads none of those before the frozen V43 chain (its own checks: envelope keys and version, checkEnvelope at src/core/save.ts:749, and validateRelationshipsRoot over relationships, talent ids, market.tick and studioHistory.recordingStartedWeek, src/core/relationships.ts:666-811). So each case meets the V43-chain guard it met at HEAD. No edit planned. Measurement: the sweep dry run passes all 11 leaves; the parent may log each case's message if it wants the guard named.",
+  "decidedBy": "dry run",
+  "_g": "H"
+ },
+ {
+  "id": "H-new-2",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 361,
+  "cls": "S9",
+  "reason": "Outside H's files (G5), reached through H's S4 insert in futureSave (tests/helpers/p14p3-fixtures.ts:113), which now runs convertV44ToV43 before every older step of api.convertV39ToV38. The regex /director|predicate|promise|discard/i also matches convertV44ToV43's refusal ('migrateToV43: cannot downgrade or discard the competitions log of <edgeId>' or '... the romance of <edgeId>', src/core/save.ts:10789-10790). 1344-X12 measured the V39 predicate guard firing first here (1344-C5 item 56). If any D13 positive (a.state, b.state, first.first.afterTake, second.second.afterTake) holds a log row or a romance track, the leaf passes on that refusal and the predicate guard goes unexercised. The census has no row at :361. Measurement: the dry run logs the message thrown at :361 for each positive, or checks that every edge of those four states has competitions [] and romance null. If masked, the S9 form applies in G5's file: name the measured first guard and record the masking.",
+  "decidedBy": "dry run",
+  "_g": "H"
+ },
+ {
+  "id": "H-new-3",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 438,
+  "cls": "S9",
+  "reason": "Same mechanism as H-new-2, for D14's abandoned state: futureSave().convertV39ToV38(saves.makeSave(abandoned)) under /director|promise|predicate|discard/i. 1344-X12 measured the V39 predicate guard first here (1344-C5 item 56). Measurement: the dry run logs the thrown message at :438, or checks that every edge of abandoned has competitions [] and romance null. If masked, the S9 form applies in G5's file.",
+  "decidedBy": "dry run",
+  "_g": "H"
+ },
+ {
+  "id": "N-0070",
+  "file": "tests/bridge-p14b5-relationships.test.ts",
+  "line": 544,
+  "cls": "S10",
+  "reason": "Untouched (census :540). Family 12 ledger row count on a retained 1348-I identity (seed-b and p13b-s8-bridge-probe-01 primaries: ledger length 48 against 41 and 43). From step 3 a formed romance bond can move tiers through the drift exemption and with them D5 and the settlements this leaf counts. No edit (1358-F9 ruling 7); the gate compare attributes a CHANGED primary. No value is written from a run output.",
+  "decidedBy": "M2",
+  "_g": "G1"
+ },
+ {
+  "id": "N-0071",
+  "file": "tests/bridge-p14b5-relationships.test.ts",
+  "line": 564,
+  "cls": "S10",
+  "reason": "Untouched (census :560). The settlement digest of retained 1348-I identities (p13a-core-causal-01 and p13-public-commercial-adoption primaries are digest mismatches). Same mechanism as N-0070. No edit (1358-F9 ruling 7); the gate compare attributes a CHANGED primary.",
+  "decidedBy": "M2",
+  "_g": "G1"
+ },
+ {
+  "id": "N-0092",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 238,
+  "cls": "S10",
+  "reason": "Untouched (census :236). bytes() strips the whole relationships root before the frozen postTakeDigestStripped pin at :626, so the 33 bytes per edge never reach the digest. X5 step 4 already shows that leaf ('no RNG reaches the seam ...') passing on the step-4 source (E/1358-stage/x5/x5-step4.json). No edit expected; M2 confirms.",
+  "decidedBy": "M2",
+  "_g": "G1"
+ },
+ {
+  "id": "N-0096",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 1299,
+  "cls": "S8",
+  "reason": "Untouched; reading predicts no edit. After the S1 rename (N-0095) and era 44 (N-0097), validateSaveV44 (src/core/save.ts:10763-10772) runs only the envelope checks before validateRelationshipsRoot(raw, 44) at :10768, so each tamper meets its own field's guard in src/core/relationships.ts with the prefix 'validateSaveV44: ' (same message from the era-44 direct call at :1305): :1323 edgeId -> :716 'state.relationships[0].edgeId is not this root's ordinal id'; :1324 duplicate pair -> :721 'state.relationships[1] records a second edge for the pair ...'; :1325 swapped key -> :719 '... is not a canonical pair: a < b is required'; :1326 unknown person -> :706 'state.relationships[0].b does not name a person of this world'; :1327 firstSharedWeek 62 at tick 61 -> :725/:700 '...firstSharedWeek is outside this campaign's recording interval'; :1329 firstSharedWeek -1 -> :692 '...firstSharedWeek must be a non-negative integer'; :1330 lastEventWeek 62 -> :726/:700 '...lastEventWeek is outside ...'; :1332 driver week 62 -> :745/:700 '...recent[0].week is outside ...'; :1333 nine drivers -> :739 '...recent holds more drivers than the cap'; :1334 'Partners' -> :735 '...peakTier is not a tier of the catalogue'; :1336-1337 closeness 101 and -1 -> :724; :1338 50.5 -> :723/:688 '...closeness must be an integer'; :1341 -> :732; :1342 -> :733; :1343 -> :728/:692 '...sharedProductions must be a non-negative integer'; :1346 -> :744 '...recent[0].kind is not a driver kind of the catalogue'; :1347 -> :747/:684 '...recent[0].ref must be a non-empty string'; :1348 -> :748/:688 '...recent[0].delta must be an integer'; :1350 extra key -> :715/:681 '...closenessShown is not a field of this record'. Every pattern matches its message. The dry run confirms the 13 leaves pass.",
+  "decidedBy": "dry run",
+  "_g": "G1"
+ },
+ {
+  "id": "N-0101",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 1399,
+  "cls": "S9",
+  "reason": "Untouched; reading predicts no edit. migrateToV30(admitted) takes the V44 branch (src/core/save.ts:9242) into convertV44ToV43. admitted holds one edge, takeWorld's relationship-edge-0, minted by newEdge at week 61 with competitions [] and romance null (src/core/relationships.ts:300-316; takeWorld runs no greenlight, and a new edge takes no romance write), so :10789-10790 pass it. The chain then refuses where it did at Save43: save.ts:10744 'migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-aca408ec-r01', the leaf's own expected message. M2 stops this leaf earlier at 'validateSaveV43: expected version 43' (:1359 at step 4), so the dry run decides.",
+  "decidedBy": "dry run",
+  "_g": "G1"
+ },
+ {
+  "id": "N-0102",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 1416,
+  "cls": "S9",
+  "reason": "Untouched; reading predicts no edit. migrateToV29, V28, V27 and V26 each take their V44 branch (src/core/save.ts:9176, :9064, :8964, :8796) on the same admitted, so convertV44ToV43 passes and save.ts:10744 refuses with the expected message, as for N-0101.",
+  "decidedBy": "dry run",
+  "_g": "G1"
+ },
+ {
+  "id": "N-0103",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 1431,
+  "cls": "S9",
+  "reason": "Untouched; reading predicts no edit. migrateToV25 takes its V44 branch (src/core/save.ts:8618), then the V43 branch, so save.ts:10744 refuses with the expected message, as for N-0101.",
+  "decidedBy": "dry run",
+  "_g": "G1"
+ },
+ {
+  "id": "N-0105",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 1452,
+  "cls": "S9",
+  "reason": "Untouched; reading predicts no edit. empty holds no edge, so convertV44ToV43 cannot refuse it; it differs from admitted only in relationships and meets save.ts:10744 with the expected message.",
+  "decidedBy": "dry run",
+  "_g": "G1"
+ },
+ {
+  "id": "N-0122",
+  "file": "tests/p14b9-save-v42.test.ts",
+  "line": 220,
+  "cls": "S9",
+  "reason": "Second half of 1358-F9 ruling 3, returned. The live-chain assertion is authored (classification N-0122, status read). The ruling also asks for one assertion calling convertV42ToV41 on the V42 state the file builds before the lift. That state (v42 at :181, from the acknowledged fixture, not greenlit) holds no competition, so convertV42ToV41(v42) succeeds: the :155 leaf proves the round trip lossless. A V42 state holding a real competition needs a greenlight on a pre-Save44 state (V42- or V43-shaped edges, 1358-J finding 16). The step-4 engine then writes Save44 keys on the new edges (newEdge, src/core/relationships.ts:300-316, :537), and validateSaveV42 refuses them ('is not a field of this record', relationships.ts:681) before assertRelationshipsAtV31 runs. Reaching the guard would need stripping competitions and romance, which ruling 2 forbids. Options for the parent: (a) stage the counter on v42 itself, no greenlight: one edge's sharedCompetitions set to 1 is admitted at era 42, and convertV42ToV41 then refuses at relationships.ts:847-849 via save.ts:10696 ('migrateToV41: cannot downgrade or discard a casting competition'); this proves the guard on a staged counter, not on engine-written history; (b) record a reduction: no test covers this guard on its own era's input after Save44.",
+  "decidedBy": "parent",
+  "_g": "G1"
+ },
+ {
+  "id": "N-0140",
+  "file": "tests/p14d1-rival-shelving.test.ts",
+  "line": 561,
+  "cls": "S5",
+  "reason": "Untouched. The edit would lift genuineV43 through convertV43ToV44 before the canonical comparison with the live week-93 state. The comparison then holds only if the route wrote no log row and no romance track by week 93. Log rows need a player greenlight with a complete casting session (src/core/relationships.ts:509-515, src/core/actions.ts:590). A track opens at the first gaining write at Friends or above (relationships.ts:395-406), which a rival repeat collaboration or success can reach by week 93. Reading does not settle it. If any row or track exists, the S5 stop applies: report the difference as an S10 value or a defect, never edit the expectation.",
+  "decidedBy": "M2",
+  "_g": "G1"
+ },
+ {
+  "id": "G1-new-1",
+  "file": "tests/p14c2s-scientist-retirement.test.ts",
+  "line": 279,
+  "cls": "S9",
+  "reason": "Census missed (no census row). :279 migrateToV36(live) and :280 migrateToV35(live) on scientistAt('hardResearch', 566) now enter convertV44ToV43 first through their V44 branches. If the ticks from 520 to 566 open a romance track or write a log row, convertV44ToV43 refuses first ('migrateToV43: cannot downgrade or discard the romance|competitions log of <edgeId>', src/core/save.ts:10789-10790), and /Scientist|scientist|downgrade/ still matches. 1344-X12 \u00a74 measured the V39 predicate guard firing first at these lines under Save43, so the Scientist guard was already masked and pass or fail cannot change. No edit expected; the dry run can record which guard fires first, as X12 did. The sibling chain at :256 (migrateToV37 of scientistWorld(), a genuine V33 capture lifted with no tick) holds only empty logs and null romance, so it still succeeds.",
+  "decidedBy": "dry run",
+  "_g": "G1"
+ },
+ {
+  "id": "N-0150",
+  "file": "tests/bridge-contract-generator.test.ts",
+  "line": 726,
+  "cls": "P4",
+  "reason": "F10_CURRENT_QUOTE_UNIONS (census :724, post-image :726) renders the whole current schema. 1358-F9 \"P4\" and 1358-N P4: the value comes from the recorded producer run on the production commit, with the provenance comment at post-image :718-724 naming that run. Cross-check only, never written: 1dadf88fb7230405a6232fff3a37e3aee9014718200dfdb8baf4ff385ab71fa4 (420,340 bytes, 1358-J finding 10). F12 (post-image :728) stays. Left unedited at a0f316eb..., so the F10/F11 declaration-body leaf fails on this branch until the run lands.",
+  "decidedBy": "recorded producer run",
+  "_g": "G2"
+ },
+ {
+  "id": "N-0151",
+  "file": "tests/bridge-contract-generator.test.ts",
+  "line": 727,
+  "cls": "P4",
+  "reason": "F11_CURRENT_COMMAND_UNION (census :725, post-image :727) renders the whole current schema. 1358-F9 \"P4\" and 1358-N P4: the value comes from the recorded producer run on the production commit, with the provenance comment at post-image :718-724 naming that run. Cross-check only, never written: 1dadf88fb7230405a6232fff3a37e3aee9014718200dfdb8baf4ff385ab71fa4 (420,340 bytes, 1358-J finding 10). F12 (post-image :728) stays. Left unedited at a0f316eb..., so the F10/F11 declaration-body leaf fails on this branch until the run lands.",
+  "decidedBy": "recorded producer run",
+  "_g": "G2"
+ },
+ {
+  "id": "N-0272",
+  "file": "tests/bridge-p14c2rm-runtime.test.ts",
+  "line": 56,
+  "cls": "S5",
+  "decidedBy": "dry run",
+  "reason": "S5 measure row, left untouched. The brief and 1358-F9 ruling 1 name M2 as the decider, but M2's step-4 tree cannot reach this comparison: the leaf stops first at step-4 :53 `expect(current.saveVersion).toBe(43)` (currentSlot(), reached from :108 and :140). The first run that reaches it is the sweep dry run with this patch. out/g3/s5-draft.patch (a droppable commit, not on sweep-g3) applies this file's withEmptyCompetitionsAndRomance at this line; without it the comparison holds only if the state has no edge. Any difference left after the helper is an S10 value or a defect (S5 stop rule), never an expectation edit.",
+  "_g": "G3"
+ },
+ {
+  "id": "N-0280",
+  "file": "tests/bridge-p14c2s-scientist-runtime.test.ts",
+  "line": 136,
+  "cls": "S5",
+  "decidedBy": "dry run",
+  "reason": "S5 measure row, left untouched. The brief and 1358-F9 ruling 1 name M2 as the decider, but M2's step-4 tree cannot reach this comparison: the leaf stops first at step-4 :124 `const actual = validateSaveV43(importSave(actualJson!))` (it at :114; throws \"validateSaveV43: expected version 43\" on the V44 slot). The first run that reaches it is the sweep dry run with this patch. out/g3/s5-draft.patch (a droppable commit, not on sweep-g3) applies this file's withEmptyCompetitionsAndRomance at this line; without it the comparison holds only if the state has no edge. Any difference left after the helper is an S10 value or a defect (S5 stop rule), never an expectation edit.",
+  "_g": "G3"
+ },
+ {
+  "id": "N-0282",
+  "file": "tests/bridge-p14c3-promise-digest-continuity.test.ts",
+  "line": 158,
+  "cls": "S5",
+  "decidedBy": "dry run",
+  "reason": "S5 measure row, left untouched. The brief and 1358-F9 ruling 1 name M2 as the decider, but M2's step-4 tree cannot reach this comparison: the leaf stops first at step-4 :119 `expect(PROJECTION_VERSION).toBe(56)` (the first assertion of the it at :115). The first run that reaches it is the sweep dry run with this patch. out/g3/s5-draft.patch (a droppable commit, not on sweep-g3) applies this file's withEmptyCompetitionsAndRomance at this line; without it the comparison holds only if the state has no edge. Any difference left after the helper is an S10 value or a defect (S5 stop rule), never an expectation edit.",
+  "_g": "G3"
+ },
+ {
+  "id": "N-0292",
+  "file": "tests/bridge-p14p3-directing-promises.test.ts",
+  "line": 134,
+  "cls": "S5",
+  "decidedBy": "dry run",
+  "reason": "S5 measure row, left untouched. The brief and 1358-F9 ruling 1 name M2 as the decider, but M2's step-4 tree cannot reach this comparison: the leaf stops first at step-4 :132 `expect(current.saveVersion).toBe(43)` (current45(); memo() caches the error for every caller). The first run that reaches it is the sweep dry run with this patch. out/g3/s5-draft.patch (a droppable commit, not on sweep-g3) applies this file's withEmptyCompetitionsAndRomance at this line; without it the comparison holds only if the state has no edge. Any difference left after the helper is an S10 value or a defect (S5 stop rule), never an expectation edit.",
+  "_g": "G3"
+ },
+ {
+  "id": "N-0296",
+  "file": "tests/bridge-p14p3-directing-promises.test.ts",
+  "line": 370,
+  "cls": "S5",
+  "decidedBy": "dry run",
+  "reason": "S5 measure row, left untouched. The brief and 1358-F9 ruling 1 name M2 as the decider, but M2's step-4 tree cannot reach this comparison: the leaf stops first at step-4 :358 `expect(PROJECTION_VERSION).toBe(56); expect(PROTOCOL_VERSION).toBe(4)` (qualifyPrior53(), run by D17). The first run that reaches it is the sweep dry run with this patch. out/g3/s5-draft.patch (a droppable commit, not on sweep-g3) applies this file's withEmptyCompetitionsAndRomance at this line; without it the comparison holds only if the state has no edge. Any difference left after the helper is an S10 value or a defect (S5 stop rule), never an expectation edit.",
+  "_g": "G3"
+ },
+ {
+  "id": "N-0301",
+  "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+  "line": 93,
+  "cls": "S5",
+  "decidedBy": "dry run",
+  "reason": "S5 measure row, left untouched. The brief and 1358-F9 ruling 1 name M2 as the decider, but M2's step-4 tree cannot reach this comparison: the leaf stops first at step-4 :92 `const current = migrateToLive(old); expect(current.saveVersion).toBe(43)` (input45(); memo() caches the error for every caller). The first run that reaches it is the sweep dry run with this patch. out/g3/s5-draft.patch (a droppable commit, not on sweep-g3) applies this file's withEmptyCompetitionsAndRomance at this line; without it the comparison holds only if the state has no edge. Any difference left after the helper is an S10 value or a defect (S5 stop rule), never an expectation edit.",
+  "_g": "G3"
+ },
+ {
+  "id": "N-0307",
+  "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+  "line": 513,
+  "cls": "S5",
+  "decidedBy": "dry run",
+  "reason": "S5 measure row (census :511), left untouched. The brief and 1358-F9 ruling 1 name M2 as the decider, but M2's step-4 tree cannot reach this comparison: the leaf stops first at step-4 :487 `expect(PROTOCOL_VERSION).toBe(4); expect(PROJECTION_VERSION).toBe(56)` (B55-3). The first run that reaches it is the sweep dry run with this patch. out/g3/s5-draft.patch (a droppable commit, not on sweep-g3) applies this file's withEmptyCompetitionsAndRomance at this line; without it the comparison holds only if the state has no edge. Any difference left after the helper is an S10 value or a defect (S5 stop rule), never an expectation edit.",
+  "_g": "G3"
+ },
+ {
+  "id": "N-0317",
+  "file": "tests/bridge-p14r2r3-prior55.test.ts",
+  "line": 193,
+  "cls": "S5",
+  "decidedBy": "dry run",
+  "reason": "S5 measure row (census :190), left untouched. The brief and 1358-F9 ruling 1 name M2 as the decider, but M2's step-4 tree cannot reach this comparison: the leaf stops first at step-4 :154 `expect(PROJECTION_VERSION).toBe(56)` (the file's one leaf). The first run that reaches it is the sweep dry run with this patch. out/g3/s5-draft.patch (a droppable commit, not on sweep-g3) applies this file's withEmptyCompetitionsAndRomance at this line; without it the comparison holds only if the state has no edge. Any difference left after the helper is an S10 value or a defect (S5 stop rule), never an expectation edit.",
+  "_g": "G3"
+ },
+ {
+  "id": "G3-new-1",
+  "file": "tests/bridge-p14c3-runtime.test.ts",
+  "line": 178,
+  "cls": "S9",
+  "decidedBy": "dry run",
+  "reason": "Examined site the census did not list; no edit. R2 feeds the validated V44 hydrated slot to migrateToV38, which dispatches V44 through convertV44ToV43 (src/core/save.ts:10535). The slots are genuine V37 bytes migrated forward, so every log is empty and every romance null, and the chain should succeed unchanged (the plan's \"no S9 risk\" form, as at p14c3-promise-digest-continuity:279). The dry run confirms R2 passes; a refusal here goes to the parent under 1358-F9 ruling 2.",
+  "_g": "G3"
+ },
+ {
+  "id": "G3-new-2",
+  "file": "tests/bridge-p14r2r3-prior55.test.ts",
+  "line": 146,
+  "cls": "P5",
+  "decidedBy": "parent",
+  "reason": "Describe title \"P14 1308-C: the outgoing projection55 runtime checkpoint migrates to current56, and each Save40 slot migrates to Save41 independently\" names current56, and its leaf moves PROJECTION_VERSION 56 -> 57. Left unedited: the same title already names the stale Save41, 1358-N P5 keeps titles that earlier sweeps left naming an older live version, 1309-E left D17's \"isolates current55 campaigns\" (bridge-p14p3-directing-promises:603) when its body moved to 56, and 1358-F9 ruling 5 fixes the renames at 17. If the parent reads P5 to cover it: \"current56\" -> \"current57\", a new identity for the file's one leaf (no retained 1348-I identity in the file).",
+  "_g": "G3"
+ },
+ {
+  "id": "N-0354",
+  "file": "tests/p13a-scientist-foundation.test.ts",
+  "line": 32,
+  "cls": "S10",
+  "reason": "No edit (census 'measure', S10 known row). The three it.each leaves are retained 1348-I identities (RETAINED-INHERITED-FROM-1100) whose primary is a sha256 over generateWorld's people, concepts, market, era and RNG. The gate compare attributes any CHANGED primary (1358-N S10; 1358-F9 ruling 7).",
+  "decidedBy": "M2",
+  "_g": "G4"
+ },
+ {
+  "id": "N-0367",
+  "file": "tests/p13b-s3-save-v23.test.ts",
+  "line": 115,
+  "cls": "S9",
+  "reason": "migrateToV22(live) expects the V39 subject guard. The chain is production's, so no S4 insert applies. The 44 arm runs first (src/core/save.ts:8239) into convertV44ToV43, which refuses on any competitions row or romance track (src/core/save.ts:10789-10790) before the V39 guard the leaf pins (src/core/save.ts:10598-10602). The input is makeSave(p13aLaboratorySlice()), a 12-week natural advance (src/harness/p13a/fixtures.ts:18-20). Reading cannot settle whether any week-12 edge holds a log row or a track. If M2 shows the V39 message, the leaf needs no edit. If it shows convertV44ToV43's, pin that message and add the 1344-N S9 masking comment; tests/p14p4p5-opportunities.test.ts:327 (convertV40ToV39 on a V40 envelope) is the candidate that still covers the V39 guard on its own era's input.",
+  "decidedBy": "M2",
+  "_g": "G4"
+ },
+ {
+  "id": "N-0368",
+  "file": "tests/p13b-s3-save-v23.test.ts",
+  "line": 116,
+  "cls": "S9",
+  "reason": "migrateToV21(live) expects the V39 subject guard. The chain is production's, so no S4 insert applies. The 44 arm runs first (src/core/save.ts:8198) into convertV44ToV43, which refuses on any competitions row or romance track (src/core/save.ts:10789-10790) before the V39 guard the leaf pins (src/core/save.ts:10598-10602). The input is makeSave(p13aLaboratorySlice()), a 12-week natural advance (src/harness/p13a/fixtures.ts:18-20). Reading cannot settle whether any week-12 edge holds a log row or a track. If M2 shows the V39 message, the leaf needs no edit. If it shows convertV44ToV43's, pin that message and add the 1344-N S9 masking comment; tests/p14p4p5-opportunities.test.ts:327 (convertV40ToV39 on a V40 envelope) is the candidate that still covers the V39 guard on its own era's input.",
+  "decidedBy": "M2",
+  "_g": "G4"
+ },
+ {
+  "id": "N-0369",
+  "file": "tests/p13b-s3-save-v23.test.ts",
+  "line": 117,
+  "cls": "S9",
+  "reason": "migrateToV20(live) expects the V39 subject guard. The chain is production's, so no S4 insert applies. The 44 arm runs first (src/core/save.ts:10198) into convertV44ToV43, which refuses on any competitions row or romance track (src/core/save.ts:10789-10790) before the V39 guard the leaf pins (src/core/save.ts:10598-10602). The input is makeSave(p13aLaboratorySlice()), a 12-week natural advance (src/harness/p13a/fixtures.ts:18-20). Reading cannot settle whether any week-12 edge holds a log row or a track. If M2 shows the V39 message, the leaf needs no edit. If it shows convertV44ToV43's, pin that message and add the 1344-N S9 masking comment; tests/p14p4p5-opportunities.test.ts:327 (convertV40ToV39 on a V40 envelope) is the candidate that still covers the V39 guard on its own era's input.",
+  "decidedBy": "M2",
+  "_g": "G4"
+ },
+ {
+  "id": "G4-new-1",
+  "file": "tests/p13b-s8-save-v27.test.ts",
+  "line": 188,
+  "cls": "S9",
+  "reason": "No edit proposed. save.migrateToV26(makeSave(natural)) on a week-20 natural campaign; production's 44 arm (src/core/save.ts:8796) runs convertV44ToV43 first. The leaf's regex is /cannot downgrade/i, so it passes on any downgrade refusal. The V39 guard already fires ahead of its named guard (1344-X12 section 4; 1344-C5 item 58). Save44 can put convertV44ToV43 (src/core/save.ts:10789-10790) first when the state holds a competitions row or a romance track. The census lists no row here: the leaf passes either way. 1344 left the same kind of masking unedited as a closure finding. Whether Save44 does the same, or tightens the regex the way 1358-N plans for p12-starting-world:52, needs a parent ruling.",
+  "decidedBy": "M2",
+  "_g": "G4"
+ },
+ {
+  "id": "G4-new-2",
+  "file": "tests/p13b-s8-save-v27.test.ts",
+  "line": 195,
+  "cls": "S9",
+  "reason": "No edit proposed. The same week-20 natural campaign and the same production chain as :188 (src/core/save.ts:8796). The leaf's regex is /cannot downgrade/i, so it passes on any downgrade refusal. The V39 guard already fires ahead of its named guard (the same campaign as :188; 1344-C5 item 58 measured :188). Save44 can put convertV44ToV43 (src/core/save.ts:10789-10790) first when the state holds a competitions row or a romance track. The census lists no row here: the leaf passes either way. 1344 left the same kind of masking unedited as a closure finding. Whether Save44 does the same, or tightens the regex the way 1358-N plans for p12-starting-world:52, needs a parent ruling.",
+  "decidedBy": "M2",
+  "_g": "G4"
+ },
+ {
+  "id": "G4-new-3",
+  "file": "tests/p14c2b-save-v36.test.ts",
+  "line": 74,
+  "cls": "S9",
+  "reason": "No edit proposed. convertV36ToV35(liveEnvelopeV36(settled)) on a 98-week natural state; the chain sits in H's helper tests/helpers/p14c2b-fixtures.ts:69, which takes the S4 convertV44ToV43 insert, so the dry run measures it. The leaf's regex is /downgrade/i, so it passes on any downgrade refusal. The V39 guard already fires ahead of its named guard (1344-X12 section 2; 1344-C5 item 39). Save44 can put convertV44ToV43 (src/core/save.ts:10789-10790) first when the state holds a competitions row or a romance track. The census lists no row here: the leaf passes either way. 1344 left the same kind of masking unedited as a closure finding. Whether Save44 does the same, or tightens the regex the way 1358-N plans for p12-starting-world:52, needs a parent ruling.",
+  "decidedBy": "dry run",
+  "_g": "G4"
+ },
+ {
+  "id": "G4-new-4",
+  "file": "tests/p14c2b-save-v36.test.ts",
+  "line": 82,
+  "cls": "S9",
+  "reason": "No edit proposed. convertV36ToV35(liveEnvelopeV36(atWindow)) on a 92-week natural state, through the same helper chain as :74 (tests/helpers/p14c2b-fixtures.ts:69). The leaf's regex is /downgrade/i, so it passes on any downgrade refusal. The V39 guard already fires ahead of its named guard (1344-X12 section 2; 1344-C5 item 39). Save44 can put convertV44ToV43 (src/core/save.ts:10789-10790) first when the state holds a competitions row or a romance track. The census lists no row here: the leaf passes either way. 1344 left the same kind of masking unedited as a closure finding. Whether Save44 does the same, or tightens the regex the way 1358-N plans for p12-starting-world:52, needs a parent ruling.",
+  "decidedBy": "dry run",
+  "_g": "G4"
+ },
+ {
+  "id": "N-0444",
+  "file": "tests/contracts/v14-boundary-guards.contract.test.ts",
+  "line": 63,
+  "cls": "S9",
+  "reason": "Projection chain that must succeed (1358-N S9; no edit while every log is empty and every romance null). Decided by the dry run on the merged tree: the leaf passes, or convertV44ToV43 refuses with \"migrateToV43: cannot downgrade or discard the competitions log|romance of <edgeId>\" (src/core/save.ts:10789-10790). If it refuses, return the leaf to the parent with the measured refusal; never strip competitions or romance (1358-F9 ruling 2). Reading: inFlight is operationsStudio + one concept greenlight + two ticks; no casting session exists (activateStudioOperations only; greenlight by concept), so recordCastingCompetition writes no log row (src/core/relationships.ts:511), and a track needs a gaining write on an existing Friends-or-above edge (:395-404). Expect a pass.",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0449",
+  "file": "tests/p06a-w1-release-authority.test.ts",
+  "line": 406,
+  "cls": "S9",
+  "reason": "Projection chain that must succeed (1358-N S9; no edit while every log is empty and every romance null). Decided by the dry run on the merged tree: the leaf passes, or convertV44ToV43 refuses with \"migrateToV43: cannot downgrade or discard the competitions log|romance of <edgeId>\" (src/core/save.ts:10789-10790). If it refuses, return the leaf to the parent with the measured refusal; never strip competitions or romance (1358-F9 ruling 2). Reading settles the outcome: ready = foundedToReleaseReady(seed, true) founds through beginFoundingHistoricalControl (no Hollywood; makeSaveV15 at :408 would refuse a Hollywood), so advanceRelationshipsWeek returns before writing (src/core/relationships.ts:431) and no casting session exists; relationships stays [] and convertV44ToV43 has nothing to refuse. The dry run only confirms.",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0450",
+  "file": "tests/p06a-w1-release-authority.test.ts",
+  "line": 447,
+  "cls": "S9",
+  "reason": "migrateToV15(live save) reaches the production chain: migrateToV15 sends 44 through convertV44ToV43 first (src/core/save.ts:7713). M2 runs this leaf unchanged at step 4 and decides it: a pass means the V39 guard still fires first (no edit); a failure reading \"migrateToV43: cannot downgrade or discard the competitions log|romance of <edgeId>\" means pin it with the 1344-N S9 comment naming a test that still covers the V39 guard. The route founds with Hollywood (historical=false) and plays up to 20 weeks, so a rival track is possible.",
+  "decidedBy": "M2",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0454",
+  "file": "tests/p08a-w0-studio-history.test.ts",
+  "line": 398,
+  "cls": "S9",
+  "reason": "Census row wrong; recommend dropping it. `live` is a V18 envelope (live = convertV17ToV18(v17), :386; :387 expects saveVersion 18), not a Save44 envelope, so migrateToV16 never takes its saveVersion 44 branch (src/core/save.ts:7876) and convertV44ToV43 never runs. The V18 guard stays first. No edit, no measurement needed.",
+  "decidedBy": "parent",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0455",
+  "file": "tests/p08a-w0-studio-history.test.ts",
+  "line": 399,
+  "cls": "S9",
+  "reason": "Census row wrong; recommend dropping it. Same input as :398 (a V18 envelope from convertV17ToV18); migrateToV15 takes no saveVersion 44 branch (src/core/save.ts:7713). No edit, no measurement needed.",
+  "decidedBy": "parent",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0468",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 218,
+  "cls": "S8",
+  "reason": "S1 rename done (N-0467); the bare .toThrow() stays. it.each runs 18 corruptions (:178-213), each with its own first guard deep in the validateSaveV44 -> validateSaveV43 -> V37 chain; reading cannot settle 18 wrapped messages. Decided by a dry-run message probe (the 1344-X12 logging-copy method), then a per-case cause on InvalidCase pinned with the guard source line. A plain pass does not settle it.",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0470",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 232,
+  "cls": "S8",
+  "reason": "S1 rename done (N-0469); bare .toThrow() stays. The cross-branch graft (:230-231) can fail several deep guards (retirement writing authority, screenplay, concept or employment consistency); the first is not settled by reading. Decided by a dry-run message probe, then pin with the guard source line.",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0472",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 241,
+  "cls": "S8",
+  "reason": "S1 rename done (N-0471); bare .toThrow() stays. The extra project key retirementBypass passes validateSaveV44 and the envelope checks and is refused somewhere inside the wrapped V43 -> V37 chain; the wrapper prefixes and the first project-key check are not settled by reading. Decided by a dry-run message probe. (:242, the envelope-level key, was settled by reading: N-0474.)",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0476",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 254,
+  "cls": "S9",
+  "reason": "S4 insert done (N-0475); bare .toThrow() stays. f.finishing is a natural week-312 route, so a log row or track is possible. 1344-X12 measured the V39 predicate guard first here before Save44. A pass does not settle it (bare toThrow): decided by a dry-run message probe, then pin the measured first guard, with the 1344-N S9 masking comment if it is convertV44ToV43 (1358-F9 ruling 4).",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0490",
+  "file": "tests/p14c3-cohort-transition.test.ts",
+  "line": 287,
+  "cls": "S9",
+  "reason": "S9 leaf behind a test-side chain. Decided by the dry run on the merged tree: if the leaf passes, the older guard still fires first and no edit is due; if it fails with \"migrateToV43: cannot downgrade or discard the competitions log|romance of <edgeId>\" (src/core/save.ts:10789-10790), pin that message and add the 1344-N S9 masking comment naming the test that still covers the older guard. Week-3283 natural route.",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0493",
+  "file": "tests/p14c3-dual-extensions.test.ts",
+  "line": 178,
+  "cls": "S9",
+  "reason": "S9 leaf behind a test-side chain. Decided by the dry run on the merged tree: if the leaf passes, the older guard still fires first and no edit is due; if it fails with \"migrateToV43: cannot downgrade or discard the competitions log|romance of <edgeId>\" (src/core/save.ts:10789-10790), pin that message and add the 1344-N S9 masking comment naming the test that still covers the older guard. Natural route to week 520, both DUAL_TARGETS.",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0496",
+  "file": "tests/p14c3-offmenu-extensions.test.ts",
+  "line": 235,
+  "cls": "S9",
+  "reason": "S9 leaf behind a test-side chain. Decided by the dry run on the merged tree: if the leaf passes, the older guard still fires first and no edit is due; if it fails with \"migrateToV43: cannot downgrade or discard the competitions log|romance of <edgeId>\" (src/core/save.ts:10789-10790), pin that message and add the 1344-N S9 masking comment naming the test that still covers the older guard. Natural route to week 468, both OFFMENU_TARGETS.",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0498",
+  "file": "tests/p14c3-profession-history.test.ts",
+  "line": 119,
+  "cls": "S9",
+  "reason": "S9 leaf behind a test-side chain. Decided by the dry run on the merged tree: if the leaf passes, the older guard still fires first and no edit is due; if it fails with \"migrateToV43: cannot downgrade or discard the competitions log|romance of <edgeId>\" (src/core/save.ts:10789-10790), pin that message and add the 1344-N S9 masking comment naming the test that still covers the older guard. Week-209 state, three creator kinds.",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0522",
+  "file": "tests/p14c3-transitions.test.ts",
+  "line": 175,
+  "cls": "S9",
+  "reason": "S9 leaf behind a test-side chain. Decided by the dry run on the merged tree: if the leaf passes, the older guard still fires first and no edit is due; if it fails with \"migrateToV43: cannot downgrade or discard the competitions log|romance of <edgeId>\" (src/core/save.ts:10789-10790), pin that message and add the 1344-N S9 masking comment naming the test that still covers the older guard. Week-209 reopened state; envelope38 (group H) must move first.",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0524",
+  "file": "tests/p14c3-transitions.test.ts",
+  "line": 207,
+  "cls": "S9",
+  "reason": "S9 leaf behind a test-side chain. Decided by the dry run on the merged tree: if the leaf passes, the older guard still fires first and no edit is due; if it fails with \"migrateToV43: cannot downgrade or discard the competitions log|romance of <edgeId>\" (src/core/save.ts:10789-10790), pin that message and add the 1344-N S9 masking comment naming the test that still covers the older guard. Week-671 state. This leaf is the one 1344-X12 pinned to keep the V37 guard covered for :175; if Save44 masks it too, the parent needs a new covering test for that guard.",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0527",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 387,
+  "cls": "S9",
+  "reason": "Projection chain that must succeed (1358-N S9; no edit while every log is empty and every romance null). Decided by the dry run on the merged tree: the leaf passes, or convertV44ToV43 refuses with \"migrateToV43: cannot downgrade or discard the competitions log|romance of <edgeId>\" (src/core/save.ts:10789-10790). If it refuses, return the leaf to the parent with the measured refusal; never strip competitions or romance (1358-F9 ruling 2). a = attached(), a P3 route.",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0528",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 402,
+  "cls": "S5",
+  "reason": "S5 helper withEmptyCompetitionsAndRomance (every edge gains competitions: [] and romance: null, built from the old state) beside withSharedCompetitions, for the :406 comparison of migrateToLive(genuine V38 outgoing). Not M2: at step 4 the leaf stops first at :405 toBe(43); after this unit S2 edit the dry run reaches :406 and shows whether the edges differ. The expectation already maps edges, so a failure is likely.",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0531",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 689,
+  "cls": "S9",
+  "reason": "futureSave().convertV39ToV38(save): the chain lives in tests/helpers/p14p3-fixtures.ts:110 (group H adds convertV44ToV43). Regex /director|predicate|promise/i does not match the Save44 refusal, so masking shows as a failure in the dry run; then pin the measured guard with the 1344-N S9 comment.",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0533",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 693,
+  "cls": "S9",
+  "reason": "Projection chain that must succeed (1358-N S9; no edit while every log is empty and every romance null). Decided by the dry run on the merged tree: the leaf passes, or convertV44ToV43 refuses with \"migrateToV43: cannot downgrade or discard the competitions log|romance of <edgeId>\" (src/core/save.ts:10789-10790). If it refuses, return the leaf to the parent with the measured refusal; never strip competitions or romance (1358-F9 ruling 2). change.state (week 61) and done.state (week 104), P3 routes.",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0542",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 330,
+  "cls": "S9",
+  "reason": "Projection chain that must succeed (1358-N S9; no edit while every log is empty and every romance null). Decided by the dry run on the merged tree: the leaf passes, or convertV44ToV43 refuses with \"migrateToV43: cannot downgrade or discard the competitions log|romance of <edgeId>\" (src/core/save.ts:10789-10790). If it refuses, return the leaf to the parent with the measured refusal; never strip competitions or romance (1358-F9 ruling 2). Census line :326. valid = admittedGenre bytes; the V39 refusal at :331 needs this chain to succeed.",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0547",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 374,
+  "cls": "S5",
+  "reason": "Census line :370. S5 helper withEmptyCompetitionsAndRomance beside withSharedCompetitions for the Q04 comparison of migrateToLive(genuine V39 captures). Not M2: at step 4 Q04 stops first at the LIVE_SAVE_VERSION pin (now :345); after this unit S2 edit the dry run reaches :374.",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0555",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 814,
+  "cls": "S9",
+  "reason": "Census line :810. S9 leaf behind a test-side chain. Decided by the dry run on the merged tree: if the leaf passes, the older guard still fires first and no edit is due; if it fails with \"migrateToV43: cannot downgrade or discard the competitions log|romance of <edgeId>\" (src/core/save.ts:10789-10790), pin that message and add the 1344-N S9 masking comment naming the test that still covers the older guard. released follows Q07 actual cast work, so a log row is possible; the regex does not match the Save44 refusal, so masking shows as a failure.",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0560",
+  "file": "tests/p14p4p5-screenplay-status.test.ts",
+  "line": 324,
+  "cls": "S9",
+  "reason": "S9 leaf behind a test-side chain. Decided by the dry run on the merged tree: if the leaf passes, the older guard still fires first and no edit is due; if it fails with \"migrateToV43: cannot downgrade or discard the competitions log|romance of <edgeId>\" (src/core/save.ts:10789-10790), pin that message and add the 1344-N S9 masking comment naming the test that still covers the older guard. The :320 chain runs on makeSave(state) at week 48 after audition work (casting sessions), so a log row is possible. Note for the follow-up: the 1344 S9 comments in p14c3-cohort-transition:281-286, p14c3-dual-extensions:172-177 and p14c3-offmenu-extensions:229-234 name this leaf as the one that keeps the V39 guard covered; if Save44 masks it, those comments need another covering test.",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0569",
+  "file": "tests/p14r3-save-v41.test.ts",
+  "line": 374,
+  "cls": "S9",
+  "reason": "S9 leaf behind a test-side chain. Decided by the dry run on the merged tree: if the leaf passes, the older guard still fires first and no edit is due; if it fails with \"migrateToV43: cannot downgrade or discard the competitions log|romance of <edgeId>\" (src/core/save.ts:10789-10790), pin that message and add the 1344-N S9 masking comment naming the test that still covers the older guard. lawfulTerminatedSave() plays to week 22; /termination/i does not match the Save44 refusal, so masking shows as a failure.",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0573",
+  "file": "tests/save.test.ts",
+  "line": 370,
+  "cls": "S9",
+  "reason": "Projection chain that must succeed (1358-N S9; no edit while every log is empty and every romance null). Decided by the dry run on the merged tree: the leaf passes, or convertV44ToV43 refuses with \"migrateToV43: cannot downgrade or discard the competitions log|romance of <edgeId>\" (src/core/save.ts:10789-10790). If it refuses, return the leaf to the parent with the measured refusal; never strip competitions or romance (1358-F9 ruling 2). Reading: contendedStudio greenlights script projects without a casting session (tests/_m4Fixtures.ts:174-205) and ticks twice; expect a pass.",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0575",
+  "file": "tests/save.test.ts",
+  "line": 419,
+  "cls": "S9",
+  "reason": "Projection chain that must succeed (1358-N S9; no edit while every log is empty and every romance null). Decided by the dry run on the merged tree: the leaf passes, or convertV44ToV43 refuses with \"migrateToV43: cannot downgrade or discard the competitions log|romance of <edgeId>\" (src/core/save.ts:10789-10790). If it refuses, return the leaf to the parent with the measured refusal; never strip competitions or romance (1358-F9 ruling 2). Same fixture as :370.",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "G5-new-5",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 361,
+  "cls": "S9",
+  "reason": "New row; the census lists only :689 for the futureSave chain. api.convertV39ToV38(save) runs through the H helper chain, which gains convertV44ToV43. The regex /director|predicate|promise|discard/i also matches the Save44 refusal (\"... cannot downgrade or discard the competitions log of <edgeId>\"), so a log row on any of the four positives would pass the leaf without reaching the V39 predicate guard 1344-X12 measured here (finding-17 kind: a silent pass). A dry-run pass does not settle it; decided by a message probe (1344-X12 method), then pin the measured guard.",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "G5-new-6",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 438,
+  "cls": "S9",
+  "reason": "New row, same kind as G5-new-5: futureSave().convertV39ToV38(saves.makeSave(abandoned)) with /director|promise|predicate|discard/i; the census missed it because the leaf would not fail. Decided by a message probe on the merged tree.",
+  "decidedBy": "dry run",
+  "_g": "G5"
+ },
+ {
+  "id": "G5-new-7",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 345,
+  "cls": "S8",
+  "reason": "New row for a ruling. Same shape as the finding-17 leaves (bare .toThrow() on the live validator, it.each over corrupt authority, no validator control in the leaf), but 1358-J finding 17 and 1358-F9 ruling 4 name only :218, :232, :241, :242. After the S1 rename (N-0479) it no longer passes on the version alone. If S8 extends to it, a message probe per case decides the pins. (:279 is not listed: :278 asserts the legal envelope passes in the same loop, so its refusal is tied to the tamper.)",
+  "decidedBy": "parent",
+  "_g": "G5"
+ },
+ {
+  "id": "N-0640",
+  "file": "tests/p14b4-rival-seating-preference.test.ts",
+  "line": 498,
+  "cls": "S10",
+  "reason": "Retained 1348-I identity \"seed-b: every real film decision without members equals the pre-existing choice and pool; ...\" (it.each at :459; 17 retained identities in the file). Its primary is the seed-b chain digest at :498:20, a sha256 over seed-b rival film decisions before the witness week 211 (:495-496), which Save44 can move from step 3 (bonds move tiers and chemistry). No edit (1358-F9 ruling 7); the gate compare attributes a CHANGED primary. The file holds no version pin, so G6 made no edit in it.",
+  "decidedBy": "M2",
+  "_g": "G6"
+ },
+ {
+  "id": "N-0652",
+  "file": "tests/p14p4p5-casting-reservation.test.ts",
+  "line": 209,
+  "cls": "S5",
+  "reason": "migrateToLive of the genuine V39 week-45 capture (E/1171-p3-current45-capture) is compared with old.state plus the known new roots; convertV43ToV44 (src/core/save.ts:10776-10781) adds `competitions: []` and `romance: null` to every edge, and the expectation already maps edges through withSharedCompetitions. Census line :204. The comparison runs before retained()/admitted() (:210), so M2 reaches it. Draft in commit 49bafc6: helper withEmptyCompetitionsAndRomance at :43-47, wrapped expectation at :209. Keep the draft only if M2 shows exactly the two fields missing on every edge; any other difference is the 1358-N S5 stop.",
+  "decidedBy": "M2",
+  "_g": "G6"
+ },
+ {
+  "id": "N-0656",
+  "file": "tests/p14p4p5-cross-owner.test.ts",
+  "line": 107,
+  "cls": "S5",
+  "reason": "migrateToLive of the genuine V39 week-45 capture (E/1171-p3-current45-capture) is compared with old.state plus the known new roots; convertV43ToV44 (src/core/save.ts:10776-10781) adds `competitions: []` and `romance: null` to every edge, and the expectation already maps edges through withSharedCompetitions. Census line :102. admitted(state) runs first (census :99, post-image :104); without the sweep it fails at :75 with \"expected 44 to be 43\", so M2 never reaches the comparison and the sweep dry run decides it, not M2 as the census says. Draft in commit 49bafc6: helper at :42-46, wrapped expectation at :107.",
+  "decidedBy": "dry run",
+  "_g": "G6"
+ },
+ {
+  "id": "N-0659",
+  "file": "tests/p14p4p5-delayed-retirement.test.ts",
+  "line": 189,
+  "cls": "S5",
+  "reason": "migrateToLive of the genuine V39 week-45 capture (E/1171-p3-current45-capture) is compared with old.state plus the known new roots; convertV43ToV44 (src/core/save.ts:10776-10781) adds `competitions: []` and `romance: null` to every edge, and the expectation already maps edges through withSharedCompetitions. Census line :182. The comparison precedes admitted() on the next line, so M2 reaches it. Draft in commit 49bafc6: helper at :44-49, wrapped expectation at :189.",
+  "decidedBy": "M2",
+  "_g": "G6"
+ },
+ {
+  "id": "N-0668",
+  "file": "tests/p14p4p5-queued-project-outcome.test.ts",
+  "line": 186,
+  "cls": "S5",
+  "reason": "migrateToLive of the genuine V39 week-45 capture (E/1171-p3-current45-capture) is compared with old.state plus the known new roots; convertV43ToV44 (src/core/save.ts:10776-10781) adds `competitions: []` and `romance: null` to every edge, and the expectation already maps edges through withSharedCompetitions. Census line :181. The comparison precedes admitted() on the next line, so M2 reaches it. Draft in commit 49bafc6: helper at :45-49, wrapped expectation at :186.",
+  "decidedBy": "M2",
+  "_g": "G6"
+ },
+ {
+  "id": "N-0677",
+  "file": "tests/p14p4p5-scenery-capacity.test.ts",
+  "line": 202,
+  "cls": "S5",
+  "reason": "migrateToLive of the genuine V39 week-45 capture (E/1171-p3-current45-capture) is compared with old.state plus the known new roots; convertV43ToV44 (src/core/save.ts:10776-10781) adds `competitions: []` and `romance: null` to every edge, and the expectation already maps edges through withSharedCompetitions. Census line :197. The comparison runs before retained()/admitted() (:203), so M2 reaches it. Draft in commit 49bafc6: helper at :41-45, wrapped expectation at :202.",
+  "decidedBy": "M2",
+  "_g": "G6"
+ },
+ {
+  "id": "G6-new-4",
+  "file": "tests/p14b1-t4-regressions.test.ts",
+  "line": 86,
+  "cls": "S8",
+  "reason": "1358-N S1 stop rule: a renamed call under a bare .toThrow() also takes an S8 row; the census lists none here (its S8 rows come from 1358-J only). rejects() (:82-87) first asserts that validateSaveV44 accepts the same unmutated live envelope (:84), so a throw at :86 comes from the mutation, never from the version. The 15 rejects() identities at :175-:257 tamper promises, proposals and receipts, which validateRelationshipsRoot(raw, 44) (src/core/save.ts:10768; src/core/relationships.ts:666-811) does not read, so the V43 chain guard that refused before Save44 should still refuse. The 14 rejects() identities at :309-:346 are retained 1348-I rows that fail first at :283. The dry run shows whether each leaf passes; pinning a message per tamper needs a measured refusal (1358-N S8). S1 edit made (N-0619); no S8 edit.",
+  "decidedBy": "dry run",
+  "_g": "G6"
+ },
+ {
+  "id": "G6-new-5",
+  "file": "tests/contracts/studio-events.contract.test.ts",
+  "line": 221,
+  "cls": "S8",
+  "reason": "The bare .toThrow() at :218-221 runs validateAtOwningBoundary, which for kind releaseCommitted calls the validator looked up by name at :129 (renamed to validateSaveV44, N-0608) on clone(makeSave(managed)). :212 first asserts that the same live save with the legal row validates, so the throw comes from the forbidden key. 1358-N S1 stop rule: a renamed call under a bare .toThrow() takes an S8 row; the census lists none. The dry run decides whether a pinned message is needed. S1 edit made (N-0608); no S8 edit.",
+  "decidedBy": "dry run",
+  "_g": "G6"
+ }
+]

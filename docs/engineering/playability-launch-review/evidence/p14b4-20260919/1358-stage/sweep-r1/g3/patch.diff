@@ -1,0 +1,759 @@
+diff --git a/tests/bridge-p14a1-market.test.ts b/tests/bridge-p14a1-market.test.ts
+index 76f833d..7bba6a8 100644
+--- a/tests/bridge-p14a1-market.test.ts
++++ b/tests/bridge-p14a1-market.test.ts
+@@ -149,9 +149,9 @@ function employmentQuery(sessionId: string, targetId: string): IndustryQuery {
+ 
+ describe('group 1: PROJECTION_VERSION', () => {
+   it('PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it', () => {
+-    expect(PROJECTION_VERSION).toBe(56)
+-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-56`)
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(56)
++    expect(PROJECTION_VERSION).toBe(57)
++    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-57`)
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(57)
+   })
+ })
+ 
+@@ -405,7 +405,7 @@ describe('group 7: save/load', () => {
+     expect(saved.accepted).toBe(true)
+     if (!saved.accepted) throw new Error(`save refused: ${JSON.stringify(saved)}`)
+     const parsed = JSON.parse(saved.saveJson) as { saveVersion: number; state: { talentMarket: { legacyTerminations: unknown[]; representation: null } } }
+-    expect(parsed.saveVersion).toBe(43)
++    expect(parsed.saveVersion).toBe(44)
+     expect(parsed.state.talentMarket.legacyTerminations).toEqual([])
+     expect(parsed.state.talentMarket.representation).toBeNull()
+ 
+diff --git a/tests/bridge-p14a1-release-busy-set.test.ts b/tests/bridge-p14a1-release-busy-set.test.ts
+index 3d1fa4d..538dd07 100644
+--- a/tests/bridge-p14a1-release-busy-set.test.ts
++++ b/tests/bridge-p14a1-release-busy-set.test.ts
+@@ -211,10 +211,10 @@ function foundingDraftFixture(seed: string) {
+ }
+ 
+ describe('P14 1304-C RED (Bridge): R2 seated/founding refusal, schema leaf, release-copy correction', () => {
+-  it('schema leaf: PROJECTION_VERSION is 56, the schema $id and x-project-studio.projectionVersion move with it, and both new refusal codes reach the generated CONTRACT_REFUSAL_KINDS enum (mirrors the underMarketCase/projection-42 precedent, tests/bridge-p14a1-market.test.ts group 1)', () => {
+-    expect(PROJECTION_VERSION).toBe(56)
+-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-56`)
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(56)
++  it('schema leaf: PROJECTION_VERSION is 57, the schema $id and x-project-studio.projectionVersion move with it, and both new refusal codes reach the generated CONTRACT_REFUSAL_KINDS enum (mirrors the underMarketCase/projection-42 precedent, tests/bridge-p14a1-market.test.ts group 1)', () => {
++    expect(PROJECTION_VERSION).toBe(57)
++    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-57`)
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(57)
+     const refusalSchema = (BRIDGE_SCHEMA.$defs as Record<string, unknown>).StudioContractQuoteSnapshot as
+       { properties: { refusal: { anyOf: readonly [{ enum: readonly string[] }, unknown] } } }
+     const enumMembers = refusalSchema.properties.refusal.anyOf[0].enum
+diff --git a/tests/bridge-p14a2-market.test.ts b/tests/bridge-p14a2-market.test.ts
+index f7fa8ab..d0e8ca4 100644
+--- a/tests/bridge-p14a2-market.test.ts
++++ b/tests/bridge-p14a2-market.test.ts
+@@ -214,9 +214,9 @@ function marketQuery(sessionId: string, targetId: string | null, page = 0, histo
+ 
+ describe('group 1: PROJECTION_VERSION 46 / schema / view market / converted law', () => {
+   it('PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it', () => {
+-    expect(PROJECTION_VERSION).toBe(56)
+-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-56`)
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(56)
++    expect(PROJECTION_VERSION).toBe(57)
++    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-57`)
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(57)
+   })
+ 
+   it('a view:"market" industry request validates against the wire schema, and marketPage answers it', () => {
+@@ -229,7 +229,7 @@ describe('group 1: PROJECTION_VERSION 46 / schema / view market / converted law'
+   })
+ 
+   it('LIVE_SAVE_VERSION is 35 (stale title corrected post-C.4) under projection 46 — no persisted fact of A.2’s own, the converted law is unchanged', () => {
+-    expect(LIVE_SAVE_VERSION).toBe(43)
++    expect(LIVE_SAVE_VERSION).toBe(44)
+   })
+ })
+ 
+@@ -736,7 +736,7 @@ describe('group 8: disclosure leak check — workspace and pulse JSON', () => {
+ 
+ describe('group 9: save/load', () => {
+   it('LIVE_SAVE_VERSION === 28; a genuine V27 fixture converts to an EMPTY workspace (no attention, no cases, no selected)', () => {
+-    expect(LIVE_SAVE_VERSION).toBe(43)
++    expect(LIVE_SAVE_VERSION).toBe(44)
+     const json = load(V27_RENEWAL_WINDOW.file)
+     assertSha256(json, V27_RENEWAL_WINDOW.sha256)
+     const session = BridgeSession.fromSaveJson(json, 'p14a2-bridge-v27-load')
+@@ -769,7 +769,7 @@ describe('group 9: save/load', () => {
+     // by law (the two new roots are added), so the re-save is V29 bytes and can never
+     // equal the V28 fixture's own sha. The fixture's V28 sha above stays the provenance
+     // pin; what the re-save must prove is that it is the LIVE envelope.
+-    if (reSavedOpen.accepted) expect((JSON.parse(reSavedOpen.saveJson) as { saveVersion: number }).saveVersion).toBe(43)
++    if (reSavedOpen.accepted) expect((JSON.parse(reSavedOpen.saveJson) as { saveVersion: number }).saveVersion).toBe(44)
+     // NOT YET EXISTING: marketPage — this test's RED cause.
+     const openPage = marketPage(openSession.gameState, { view: 'market', targetId: null })
+     expect(openPage.cases.renewalWindow).toHaveLength(1)
+@@ -781,7 +781,7 @@ describe('group 9: save/load', () => {
+     const settledSession = BridgeSession.fromSaveJson(settledJson, 'p14a2-bridge-v28-settled')
+     const reSavedSettled = settledSession.save({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: settledSession.sessionId, commandId: 'save-1', expectedStateRevision: settledSession.stateRevision })
+     expect(reSavedSettled.accepted).toBe(true)
+-    if (reSavedSettled.accepted) expect((JSON.parse(reSavedSettled.saveJson) as { saveVersion: number }).saveVersion).toBe(43)
++    if (reSavedSettled.accepted) expect((JSON.parse(reSavedSettled.saveJson) as { saveVersion: number }).saveVersion).toBe(44)
+     const settledPage = marketPage(settledSession.gameState, { view: 'market', targetId: null })
+     expect(settledPage.cases.closed.total).toBe(24)
+ 
+@@ -791,7 +791,7 @@ describe('group 9: save/load', () => {
+     const legacySession = BridgeSession.fromSaveJson(legacyJson, 'p14a2-bridge-v28-legacy')
+     const reSavedLegacy = legacySession.save({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: legacySession.sessionId, commandId: 'save-1', expectedStateRevision: legacySession.stateRevision })
+     expect(reSavedLegacy.accepted).toBe(true)
+-    if (reSavedLegacy.accepted) expect((JSON.parse(reSavedLegacy.saveJson) as { saveVersion: number }).saveVersion).toBe(43)
++    if (reSavedLegacy.accepted) expect((JSON.parse(reSavedLegacy.saveJson) as { saveVersion: number }).saveVersion).toBe(44)
+     expect((legacySession.gameState as unknown as { talentMarket: { legacyTerminations: unknown[] } }).talentMarket.legacyTerminations).toHaveLength(1)
+     const legacyPage = marketPage(legacySession.gameState, { view: 'market', targetId: null })
+     expect(legacyPage.attention).toEqual([])
+@@ -806,7 +806,7 @@ describe('group 9: save/load', () => {
+     expect(saved.accepted).toBe(true)
+     if (!saved.accepted) throw new Error(`save refused: ${JSON.stringify(saved)}`)
+     const parsed = JSON.parse(saved.saveJson) as { saveVersion: number }
+-    expect(parsed.saveVersion).toBe(43)
++    expect(parsed.saveVersion).toBe(44)
+     const reloaded = BridgeSession.fromSaveJson(saved.saveJson, 'p14a2-bridge-roundtrip-reload')
+     expect(reloaded.gameState).toEqual(JSON.parse(JSON.stringify(session.gameState)))
+     // NOT YET EXISTING: marketPage — this test's RED cause.
+diff --git a/tests/bridge-p14a3-world.test.ts b/tests/bridge-p14a3-world.test.ts
+index 3177758..3c6d0e4 100644
+--- a/tests/bridge-p14a3-world.test.ts
++++ b/tests/bridge-p14a3-world.test.ts
+@@ -226,9 +226,9 @@ function studioQuery(sessionId: string, targetId: string): IndustryQuery {
+ 
+ describe('group 1: PROJECTION_VERSION 46 / schema / converted law', () => {
+   it('PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it', () => {
+-    expect(PROJECTION_VERSION).toBe(56)
+-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-56`)
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(56)
++    expect(PROJECTION_VERSION).toBe(57)
++    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-57`)
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(57)
+   })
+ 
+   it('personWorldRoute answers for a freshly signed actor with no case yet — reach playerLot, statusLine null, caseRef null', () => {
+@@ -242,7 +242,7 @@ describe('group 1: PROJECTION_VERSION 46 / schema / converted law', () => {
+   })
+ 
+   it('LIVE_SAVE_VERSION is 35 (stale title corrected post-C.4) under projection 46 — no persisted fact of A.3’s own, the converted law is unchanged', () => {
+-    expect(LIVE_SAVE_VERSION).toBe(43)
++    expect(LIVE_SAVE_VERSION).toBe(44)
+   })
+ })
+ 
+@@ -572,7 +572,7 @@ describe('group 6: negative pins — the TypeScript unions and the ONE true wire
+ 
+ describe('group 7: save/load — V28 unchanged, the world route converts and round-trips', () => {
+   it('a genuine V27 fixture converts with statusLine null for every person (no case exists anywhere in a converted state)', () => {
+-    expect(LIVE_SAVE_VERSION).toBe(43)
++    expect(LIVE_SAVE_VERSION).toBe(44)
+     const json = load(V27_RENEWAL_WINDOW.file)
+     assertSha256(json, V27_RENEWAL_WINDOW.sha256)
+     const session = BridgeSession.fromSaveJson(json, 'p14a3-bridge-world-v27-load')
+@@ -597,7 +597,7 @@ describe('group 7: save/load — V28 unchanged, the world route converts and rou
+       // P14B.1-T3 sweep (Save V29 is live): the load CONVERTS this genuine V28
+       // fixture by law, so the re-save is V29 bytes — never the fixture's own sha,
+       // which stays the provenance pin asserted on the file above.
+-      expect((JSON.parse(saved.saveJson) as { saveVersion: number }).saveVersion).toBe(43)
++      expect((JSON.parse(saved.saveJson) as { saveVersion: number }).saveVersion).toBe(44)
+       const reloaded = BridgeSession.fromSaveJson(saved.saveJson, `p14a3-bridge-world-v28-reload-${String(fixture.week)}`)
+       // A bounded sample: any case subject, plus the first five roster ids.
+       const subjectIds = new Set(session.gameState.talentMarket.cases.map((c) => c.talentId))
+@@ -619,7 +619,7 @@ describe('group 7: save/load — V28 unchanged, the world route converts and rou
+     expect(saved.accepted).toBe(true)
+     if (!saved.accepted) throw new Error(`save refused: ${JSON.stringify(saved)}`)
+     const parsed = JSON.parse(saved.saveJson) as { saveVersion: number }
+-    expect(parsed.saveVersion).toBe(43)
++    expect(parsed.saveVersion).toBe(44)
+     const reloaded = BridgeSession.fromSaveJson(saved.saveJson, 'p14a3-bridge-world-roundtrip-reload')
+     // NOT YET EXISTING: personWorldRoute — this test's RED cause.
+     const before = personWorldRoute(session.gameState, talentId) as WorldRouteSnapshot
+diff --git a/tests/bridge-p14b1-promises.test.ts b/tests/bridge-p14b1-promises.test.ts
+index becd7ac..d2607f8 100644
+--- a/tests/bridge-p14b1-promises.test.ts
++++ b/tests/bridge-p14b1-promises.test.ts
+@@ -204,10 +204,10 @@ function containsNumber(value: unknown, target: number): boolean {
+ 
+ describe('group 1: PROJECTION_VERSION / LIVE_SAVE_VERSION', () => {
+   it('LIVE_SAVE_VERSION is 35 (stale title corrected post-C.4) and the live promise surface carries projection 47 after the P14B.4 cutover (record 600 / 616)', () => {
+-    expect(LIVE_SAVE_VERSION).toBe(43)
+-    expect(PROJECTION_VERSION).toBe(56)
+-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-56`)
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(56)
++    expect(LIVE_SAVE_VERSION).toBe(44)
++    expect(PROJECTION_VERSION).toBe(57)
++    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-57`)
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(57)
+   })
+ })
+ 
+@@ -501,7 +501,7 @@ describe('group 6: save/load', () => {
+     // above ARE the V28->V29 step of that conversion), so the re-save is live-version bytes
+     // by law. The fixture's V28 sha stays the provenance pin on the FILE (line above); the
+     // re-save proves only that the bridge wrote the live envelope.
+-    if (reSaved.accepted) expect((JSON.parse(reSaved.saveJson) as { saveVersion: number }).saveVersion).toBe(43)
++    if (reSaved.accepted) expect((JSON.parse(reSaved.saveJson) as { saveVersion: number }).saveVersion).toBe(44)
+   })
+ 
+   it('a live V30 state carrying a real promise round-trips through the bridge save/load path byte-stable, and the promise-row read is identical on both sides', () => {
+@@ -517,7 +517,7 @@ describe('group 6: save/load', () => {
+     expect(saved.accepted).toBe(true)
+     if (!saved.accepted) throw new Error(`save refused: ${JSON.stringify(saved)}`)
+     const parsed = JSON.parse(saved.saveJson) as { saveVersion: number; state: { promises: unknown[] } }
+-    expect(parsed.saveVersion).toBe(43)
++    expect(parsed.saveVersion).toBe(44)
+     expect(parsed.state.promises).toHaveLength(1)
+ 
+     const reloaded = BridgeSession.fromSaveJson(saved.saveJson, 'p14b1-bridge-roundtrip-reload')
+diff --git a/tests/bridge-p14b2-checkpoint.test.ts b/tests/bridge-p14b2-checkpoint.test.ts
+index e4b1763..3ced53d 100644
+--- a/tests/bridge-p14b2-checkpoint.test.ts
++++ b/tests/bridge-p14b2-checkpoint.test.ts
+@@ -58,7 +58,7 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
+     const addedFields = (promise: Record<string, unknown>) => ({ ...promise, supersededByPromiseId: null })
+     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
+       const governed = migrateToLive(importSave(before[slot]))
+-      expect(governed.saveVersion).toBe(43)
++      expect(governed.saveVersion).toBe(44)
+       const source = JSON.parse(before[slot])
+       // 763-R8 (P14C.1, R-VERSION): the governed lift now also writes C.1's provenance
+       // root and FLOORS every stored age against it — the first step in this chain that
+@@ -89,7 +89,8 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
+       // 1344-N S2+S5 (x2 at a318722, :81 measured `"saveVersion": 42` -> 43 and `+ "screenplayShelving"`
+       // {version 1, rejections [], shelved [], commissionHoldUntilWeek 0} on each of the four rival
+       // businesses, nothing else): the live writer stamps 43, and the lift adds the empty shelving root.
+-      expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 43, state: withEmptyScreenplayShelving({ ...source.state,
++      // 1358-N S2: Save44 stamps 44; its edge fields add nothing here, as `relationships` stays [].
++      expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 44, state: withEmptyScreenplayShelving({ ...source.state,
+         relationships: [], promises: (source.state.promises as Record<string, unknown>[]).map(addedFields),
+         talent: sourcePeople.map((person) => ({ ...person, age: Math.floor(person.age) })),
+         talentProvenance: buildTalentProvenance(sourcePeople, source.state.market.tick as number, 'legacy_age_anchor'),
+diff --git a/tests/bridge-p14b2-trust.test.ts b/tests/bridge-p14b2-trust.test.ts
+index 795381d..f4f9e54 100644
+--- a/tests/bridge-p14b2-trust.test.ts
++++ b/tests/bridge-p14b2-trust.test.ts
+@@ -21,7 +21,7 @@ import { BridgeSession } from '../bridge/session.ts'
+ import { campaignDate } from '../src/core/calendar.js'
+ import { trustDescriptor, trustDrivers, type TrustDriver, type TrustLabel } from '../src/core/promises.js'
+ import { caseForTalent, currentProposals, UNKNOWN } from '../src/core/talentMarket.js'
+-import { LIVE_SAVE_VERSION, makeSave, validateSaveV43 } from '../src/core/save.js'
++import { LIVE_SAVE_VERSION, makeSave, validateSaveV44 } from '../src/core/save.js'
+ import { tick } from '../src/core/tick.js'
+ import type { GameState, ProfessionalPromise, PromiseFamily, PromiseOutcome } from '../src/core/types.js'
+ import { advanceTo, clone, historyFixture, p13aGeneratedStudio, player, poachingFixture, promiseFor,
+@@ -137,10 +137,10 @@ describe('P14B.2 group1 — projection46, unchanged Save29/intents, closed wire
+   it('pins the exact version, old-five-plus-two attention enum and unchanged intent vocabulary', () => {
+     const state = p13aGeneratedStudio()
+     readModels(state, state.talent[0]!.id)
+-    expect(PROJECTION_VERSION).toBe(56)
+-    expect(LIVE_SAVE_VERSION).toBe(43)
+-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-56`)
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(56)
++    expect(PROJECTION_VERSION).toBe(57)
++    expect(LIVE_SAVE_VERSION).toBe(44)
++    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-57`)
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(57)
+     const attentionSchema = schemaDefinition('StudioMarketAttentionRowSnapshot') as unknown as { properties: { cause: { enum: string[] } } }
+     // Schema enum order is not gameplay row order; copies retain exact membership/count without mutating the schema.
+     expect([...attentionSchema.properties.cause.enum].sort()).toEqual(['decisionWeekNear', 'newCompetingProposal', 'termsRevised',
+@@ -284,7 +284,7 @@ describe('P14B.2 group4 — Pulse joins exact outcome receipts once', () => {
+     readModels(next, f.keptId)
+     expect(next.market.tick).toBe(f.outcomes.market.tick + 1)
+     // This deliberately crosses the F1 real wrap boundary; no save bypass.
+-    expect(() => validateSaveV43(JSON.parse(JSON.stringify(makeSave(next))))).not.toThrow()
++    expect(() => validateSaveV44(JSON.parse(JSON.stringify(makeSave(next))))).not.toThrow()
+     for (const talentId of [f.keptId, f.brokenId]) {
+       const promise = promiseFor(f.outcomes, talentId)
+       expect(next.talentMarket.receipts.filter((r) => r.eventId === promise.outcomeEventId)).toHaveLength(1)
+@@ -421,7 +421,7 @@ describe('P14B.2 group7 — rival terms stay private and rival outcomes stay pub
+       feasibilityReceipt: { ...p.feasibilityReceipt, classification: 'FRAGILE', bottleneck: 'private disclosure probe' } })
+     expect(variant.promises.find((p) => p.promiseId === f.promise.promiseId)!.outcomeEventId).toBe(f.promise.outcomeEventId)
+     expect(variant.talentMarket.receipts).toEqual(f.terminal.talentMarket.receipts)
+-    expect(() => validateSaveV43(JSON.parse(JSON.stringify(makeSave(variant))))).not.toThrow()
++    expect(() => validateSaveV44(JSON.parse(JSON.stringify(makeSave(variant))))).not.toThrow()
+     expect(publicSurfaces(variant, f.promise.beneficiaryPersonId)).toEqual(publicSurfaces(f.terminal, f.promise.beneficiaryPersonId))
+   })
+ })
+@@ -465,8 +465,8 @@ describe('P14B.2 group9 — validated kept+broken V29 BridgeSession roundtrip',
+       commandId: 'b2-save-kept-and-broken', expectedStateRevision: 0 })
+     expect(saved.accepted).toBe(true)
+     if (!saved.accepted) throw new Error(saved.message)
+-    const validated = validateSaveV43(JSON.parse(saved.saveJson))
+-    expect(validated.saveVersion).toBe(43)
++    const validated = validateSaveV44(JSON.parse(saved.saveJson))
++    expect(validated.saveVersion).toBe(44)
+     expect(validated.state.promises.filter((p) => p.issuerStudioId === player(validated.state)).map((p) => p.outcome).sort()).toEqual(['BROKEN', 'SATISFIED'])
+     const after = BridgeSession.fromSaveJson(saved.saveJson, SESSION_ID)
+     expect(after.stateRevision).toBe(before.stateRevision)
+diff --git a/tests/bridge-p14b3-promise-command.test.ts b/tests/bridge-p14b3-promise-command.test.ts
+index 475b20f..6c7bff8 100644
+--- a/tests/bridge-p14b3-promise-command.test.ts
++++ b/tests/bridge-p14b3-promise-command.test.ts
+@@ -16,7 +16,7 @@ import { promiseRowsForPerson, trustBlockFor } from '../bridge/trust.ts'
+ import { applyActions, hiringMarketIds } from '../src/core/index.js'
+ import { attachPromise, promiseFeasibility, trustDrivers } from '../src/core/promises.js'
+ import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
+-import { LIVE_SAVE_VERSION, makeSave, validateSaveV43 } from '../src/core/save.js'
++import { LIVE_SAVE_VERSION, makeSave, validateSaveV44 } from '../src/core/save.js'
+ import type { GameState } from '../src/core/types.js'
+ import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
+ 
+@@ -35,7 +35,7 @@ function fixture() {
+     state = advanceTo(state, 45)
+     expect(currentProposals(state, talentId).filter((p) => p.issuerStudioId === player(state))).toEqual([])
+     expect(state.promises.filter((p) => p.beneficiaryPersonId === talentId)).toEqual([])
+-    validateSaveV43(JSON.parse(JSON.stringify(makeSave(state))))
++    validateSaveV44(JSON.parse(JSON.stringify(makeSave(state))))
+     cached = { state, talentId }
+   }
+   return structuredClone(cached)
+@@ -83,7 +83,7 @@ function attachedOwn(state: GameState, talentId: string) {
+ function saveSlot(session: BridgeSession, commandId = 'save-fixture') {
+   const result = session.save(control(session, commandId))
+   if (!result.accepted) throw new Error(result.message)
+-  validateSaveV43(JSON.parse(result.saveJson))
++  validateSaveV44(JSON.parse(result.saveJson))
+   return result.saveJson
+ }
+ function feasibilityAfterRealBaseRevision(state: GameState, wire: Payload) {
+@@ -133,7 +133,7 @@ describe('P14B.3: quote and atomic command attachment', () => {
+     expect(session.exportRuntimeCheckpoint().savedSaveJson).toBe(slot)
+     const plain = submitProposal(before, { talentId, issuerStudioId: player(before), termWeeks: 52, premiumTier: 1.25 })
+     expect(currentOwn(session.gameState, talentId).digest).not.toBe(currentOwn(plain, talentId).digest)
+-    validateSaveV43(JSON.parse(JSON.stringify(makeSave(session.gameState))))
++    validateSaveV44(JSON.parse(JSON.stringify(makeSave(session.gameState))))
+   })
+ 
+   it('pure repeated quotes retain exact state/RNG/receipt/cash/slot bytes and one opaque identity', () => {
+@@ -360,7 +360,7 @@ describe('P14B.3: revise, remove, withdraw retain abandoned evidence without pha
+     expect(session.gameState.ledger).toEqual(beforeMoney.ledger)
+     expect(session.gameState.rngState).toBe(beforeMoney.rng)
+     const saved = saveSlot(session, 'save-abandoned-evidence')
+-    expect(validateSaveV43(JSON.parse(saved)).state.promises).toEqual(session.gameState.promises)
++    expect(validateSaveV44(JSON.parse(saved)).state.promises).toEqual(session.gameState.promises)
+   })
+ })
+ 
+@@ -505,10 +505,10 @@ describe('P14B.3: real settlement/outcome, V29 and B2 public/private carriers',
+     expect(receipt).toMatchObject({ kind: 'promiseOutcome', week: 92, talentId, studioId: player(outcome) })
+     const completed = new BridgeSession(outcome, 'b3-outcome-save')
+     const saved = saveSlot(completed)
+-    const validated = validateSaveV43(JSON.parse(saved))
+-    expect(LIVE_SAVE_VERSION).toBe(43)
+-    expect(PROJECTION_VERSION).toBe(56)
+-    expect(validated.saveVersion).toBe(43)
++    const validated = validateSaveV44(JSON.parse(saved))
++    expect(LIVE_SAVE_VERSION).toBe(44)
++    expect(PROJECTION_VERSION).toBe(57)
++    expect(validated.saveVersion).toBe(44)
+     const reloaded = BridgeSession.fromSaveJson(saved, 'b3-outcome-reloaded')
+     const read = (world: GameState) => ({ trust: trustBlockFor(world, talentId, player(world)),
+       own: promiseRowsForPerson(world, talentId, player(world)), foreign: promiseRowsForPerson(world, talentId, rival),
+diff --git a/tests/bridge-p14b4-cast-class.test.ts b/tests/bridge-p14b4-cast-class.test.ts
+index 4eba201..5cd9599 100644
+--- a/tests/bridge-p14b4-cast-class.test.ts
++++ b/tests/bridge-p14b4-cast-class.test.ts
+@@ -22,7 +22,7 @@ import { attachPromise } from '../src/core/promises.js'
+ import * as promiseModule from '../src/core/promises.js'
+ import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
+ import { careerIdentity } from '../src/core/talentSummary.js'
+-import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV43 } from '../src/core/save.js'
++import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV44 } from '../src/core/save.js'
+ import { advanceTo } from '../src/harness/p13a/fixtures.js'
+ import { provenanceRowFor, recomputeDue } from '../src/core/aging.js'
+ import type { GameState, ProfessionalPromiseV30 } from '../src/core/types.js'
+@@ -124,7 +124,7 @@ function base() {
+   expect(state.operations.mode).toBe('managed')
+   expect(state.scriptDevelopment.mode).toBe('legacy')
+   expect(currentProposals(state, focus.beneficiaryPersonId)).toEqual([])
+-  validateSaveV43({ ...live, state, broadcastCache: state.broadcastItems })
++  validateSaveV44({ ...live, state, broadcastCache: state.broadcastItems })
+   return { state, talentId: focus.beneficiaryPersonId }
+ }
+ function p2(talentId: string, seatClass: SeatClass = 'lead'): P2Payload {
+@@ -453,7 +453,7 @@ describe('P14B4 existing own/private/public carriers', () => {
+     // hand-written `talent[i].age` disagreeing with it is now refused), not a
+     // fabricated credit — same disclosed synthetic pure-read age input as before.
+     const state = withSyntheticAge(live.state, person.id, age)
+-    validateSaveV43({ ...live, state }) // disclosed synthetic pure-read age input, no fake credit
++    validateSaveV44({ ...live, state }) // disclosed synthetic pure-read age input, no fake credit
+     const before = clone(state)
+     const block = marketCaseProjection(state, person.id, player(state))!
+     const profile = peopleProjection(state).profiles.find((p) => p.talentId === person.id)!
+@@ -511,7 +511,7 @@ describe('P14B4 existing own/private/public carriers', () => {
+     const savedSession = new BridgeSession(brokenState, 'b4-saved-' + seatClass)
+     const saved = savedSession.save(control(savedSession, 'save-real-outcome'))
+     if (!saved.accepted) throw new Error(saved.message)
+-    expect(validateSaveV43(JSON.parse(saved.saveJson)).state.promises).toEqual(brokenState.promises)
++    expect(validateSaveV44(JSON.parse(saved.saveJson)).state.promises).toEqual(brokenState.promises)
+     const loaded = BridgeSession.fromSaveJson(saved.saveJson, 'b4-loaded-' + seatClass)
+     expect(loaded.gameState.promises).toEqual(brokenState.promises)
+     history(loaded.gameState, loaded.gameState.promises.find((p) => p.promiseId === broken.promiseId)!, seatClass)
+diff --git a/tests/bridge-p14b4-runtime47-compatibility.test.ts b/tests/bridge-p14b4-runtime47-compatibility.test.ts
+index 973df8b..ebffa99 100644
+--- a/tests/bridge-p14b4-runtime47-compatibility.test.ts
++++ b/tests/bridge-p14b4-runtime47-compatibility.test.ts
+@@ -49,6 +49,7 @@ const OUTGOING_52 = 'sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850
+ const OUTGOING_53 = 'sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d' // genuine1117 outgoing53; P3 projection54
+ const OUTGOING_54 = 'sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302' // P4/P5: genuine1221 outgoing54
+ const OUTGOING_55 = 'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158' // R2/R3: genuine1307 outgoing55
++const OUTGOING_56 = 'sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1' // relationship slice B: outgoing56, the manifest schemaId before projection 57
+ const PINS = {
+   gzip: '3db0599c6e183140b79c83880eb967dde37aecc0d178a85d192283893ea0cc34',
+   raw: 'e344be06db6794e9d1523c036befb4180595564ef8a3fb6e6062328e477e7699',
+@@ -204,11 +205,11 @@ describe('P14B4 genuine outgoing46 runtime compatibility — current Save39/proj
+ 
+   it('requires literal projection54/Save39 and exact 42 prior IDs, excluding the running identity', () => {
+     expect(PROTOCOL_VERSION).toBe(4)
+-    expect(PROJECTION_VERSION).toBe(56)
+-    expect(LIVE_SAVE_VERSION).toBe(43)
++    expect(PROJECTION_VERSION).toBe(57)
++    expect(LIVE_SAVE_VERSION).toBe(44)
+     expect(SCHEMA_ID).not.toBe(OUTGOING_46)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55].sort())
++    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56].sort())
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_53)).toBe('projection-v53')
+diff --git a/tests/bridge-p14b7-promise-waiver.test.ts b/tests/bridge-p14b7-promise-waiver.test.ts
+index fef64e8..54b1630 100644
+--- a/tests/bridge-p14b7-promise-waiver.test.ts
++++ b/tests/bridge-p14b7-promise-waiver.test.ts
+@@ -134,7 +134,7 @@ function allActivities(state: GameState): IndustryPage['activities'] {
+ // ═══════════════════════════════════════════════════════════════════════════════════════════════
+ describe('P14B.7 group9b — PROJECTION_VERSION is the frozen value this slice must not move (bridge half of group9; relocated by 730-T finding 3)', () => {
+   it('PROJECTION_VERSION is still 49', () => {
+-    expect(PROJECTION_VERSION).toBe(56)
++    expect(PROJECTION_VERSION).toBe(57)
+   })
+ })
+ 
+diff --git a/tests/bridge-p14b8-waiver-surface.test.ts b/tests/bridge-p14b8-waiver-surface.test.ts
+index 3dc7906..554b3f8 100644
+--- a/tests/bridge-p14b8-waiver-surface.test.ts
++++ b/tests/bridge-p14b8-waiver-surface.test.ts
+@@ -773,9 +773,9 @@ describe('P14B.8 group11 — A8: the waiver draft offers only what this surface
+ // group12 — 744 §11 A3: the projection bump, complete and consistent, in ONE commit.
+ describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing identity is registered as a prior', () => {
+   it('PROJECTION_VERSION is 54 and the schema document agrees', () => {
+-    expect(PROJECTION_VERSION).toBe(56)
+-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-56`)
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(56)
++    expect(PROJECTION_VERSION).toBe(57)
++    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-57`)
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(57)
+     expect(PROJECTION_VERSION).toBeGreaterThan(OUTGOING_PROJECTION)
+   })
+ 
+@@ -785,7 +785,7 @@ describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing iden
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID), 'the RUNNING identity is never its own prior').toBe(false)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get('sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2')).toBe('projection-v52')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get('sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d')).toBe('projection-v53')
+-    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size, 'P3 adds the genuine outgoing53 identity: 41 -> 42').toBe(44)
++    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size, 'P3 adds the genuine outgoing53 identity: 41 -> 42').toBe(45)
+   })
+ 
+   it('the checked-in JSON schema, the contract manifest and the C# header all equal the running identity', () => {
+@@ -814,8 +814,8 @@ describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing iden
+     expect(loaded.migratedFromProtocolVersion, 'handled exactly as its projection-47 and -48 siblings are').toBe(4)
+     expect(minted, 'the governed prior path mints one fresh session id').toBe(1)
+     const hydrated = loaded.hydrated as unknown as { currentSave: { saveVersion: number; state: { market: { tick: number } } }; savedSave: { saveVersion: number } }
+-    expect(hydrated.currentSave.saveVersion, 'P3: each historical slot reaches actual live Save39').toBe(43)
+-    expect(hydrated.savedSave.saveVersion).toBe(43)
++    expect(hydrated.currentSave.saveVersion, 'P3: each historical slot reaches actual live Save39').toBe(44)
++    expect(hydrated.savedSave.saveVersion).toBe(44)
+     expect(hydrated.currentSave.state.market.tick).toBe(PROJECTION49_CHECKPOINT.week)
+   })
+ })
+diff --git a/tests/bridge-p14c2rm-runtime.test.ts b/tests/bridge-p14c2rm-runtime.test.ts
+index d18788f..a7d40b9 100644
+--- a/tests/bridge-p14c2rm-runtime.test.ts
++++ b/tests/bridge-p14c2rm-runtime.test.ts
+@@ -50,7 +50,7 @@ function withEmptyScreenplayShelving<T extends WithScreenplayShelving>(state: T)
+ // Independent old-state preservation alongside the actual governed slot bytes.
+ function currentSlot(json: string): string {
+   const old = validateSaveV37(JSON.parse(json)), current = migrateToLive(importSave(json)), week = old.state.market.tick
+-  expect(current.saveVersion).toBe(43)
++  expect(current.saveVersion).toBe(44)
+   const { transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
+     industryRetirements, transitionDue, ...oldLifecycle } = current.state.careerLifecycle
+   const expectedOld = withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state))))
+@@ -91,9 +91,9 @@ describe('C.2-RM genuine projection51 recovery', () => {
+   })
+ 
+   it('steps projection once to52 while retaining Save37/protocol4 and enumerating actual outgoing51 exactly once', () => {
+-    expect(PROJECTION_VERSION).toBe(56)
++    expect(PROJECTION_VERSION).toBe(57)
+     expect(PROTOCOL_VERSION).toBe(4)
+-    expect(LIVE_SAVE_VERSION).toBe(43)
++    expect(LIVE_SAVE_VERSION).toBe(44)
+     expect(SCHEMA_ID).not.toBe(OUTGOING_51)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+diff --git a/tests/bridge-p14c2s-scientist-runtime.test.ts b/tests/bridge-p14c2s-scientist-runtime.test.ts
+index 3a0e21e..0c2dd31 100644
+--- a/tests/bridge-p14c2s-scientist-runtime.test.ts
++++ b/tests/bridge-p14c2s-scientist-runtime.test.ts
+@@ -9,7 +9,7 @@ import { canonicalJson } from '../bridge/schema/canonical.ts'
+ import { decodeBridgeRuntimeCheckpoint, encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint,
+   SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS } from '../bridge/runtime-checkpoint.ts'
+ import { BridgeSession } from '../bridge/session.ts'
+-import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV36, validateSaveV43 } from '../src/core/save.js'
++import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV36, validateSaveV44 } from '../src/core/save.js'
+ import type { GameStateV36 } from '../src/core/types.js'
+ 
+ // 1309-X3 ruling 4: convertV40ToV41 (src/core/save.ts:10479) adds a zero
+@@ -104,8 +104,8 @@ describe('C.2 Scientist S11: genuine outgoing50 runtime compatibility', () => {
+ 
+   it('requires literal projection52/Save37, registers actual outgoing50, and excludes the running identity from prior schemas', () => {
+     expect(PROTOCOL_VERSION).toBe(4)
+-    expect(PROJECTION_VERSION).toBe(56)
+-    expect(LIVE_SAVE_VERSION).toBe(43)
++    expect(PROJECTION_VERSION).toBe(57)
++    expect(LIVE_SAVE_VERSION).toBe(44)
+     expect(SCHEMA_ID).not.toBe(OUTGOING_50)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_50)).toBe('projection-v50')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+@@ -121,8 +121,8 @@ describe('C.2 Scientist S11: genuine outgoing50 runtime compatibility', () => {
+       const old = validateSaveV36(JSON.parse(prior[slot]))
+       const actualJson = loaded.hydrated.checkpoint[slot]
+       expect(typeof actualJson).toBe('string')
+-      const actual = validateSaveV43(importSave(actualJson!))
+-      expect(actual.saveVersion).toBe(43)
++      const actual = validateSaveV44(importSave(actualJson!))
++      expect(actual.saveVersion).toBe(44)
+       expect(actual.state.market.tick).toBe(week)
+       // C.3 adds only six dated profession-authority fields; every old root,
+       // retirement, skill, employment and receipt remains independently exact.
+diff --git a/tests/bridge-p14c3-promise-digest-continuity.test.ts b/tests/bridge-p14c3-promise-digest-continuity.test.ts
+index 0cf0643..86ced09 100644
+--- a/tests/bridge-p14c3-promise-digest-continuity.test.ts
++++ b/tests/bridge-p14c3-promise-digest-continuity.test.ts
+@@ -116,7 +116,7 @@ describe('955 historical preservation and interim projection52 journal authority
+     // Stable historical leaf title is retained for the paired selector. Under
+     // the explicit53 cutover this actual52 journal is preserved as old evidence;
+     // it must lose replay authority when both genuine37 slots migrate to38.
+-    expect(PROJECTION_VERSION).toBe(56)
++    expect(PROJECTION_VERSION).toBe(57)
+     const outgoing52 = 'sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2'
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(outgoing52)).toBe('projection-v52')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+@@ -165,7 +165,7 @@ describe('955 historical preservation and interim projection52 journal authority
+         transitionDue: old.state.hollywood === null ? [] : old.state.careerLifecycle.records
+           .filter(row => row.status === 'retired').map(row => ({ personId: row.personId, week: week + 1 }))
+           .sort((a, b) => a.personId < b.personId ? -1 : a.personId > b.personId ? 1 : 0) })
+-      expect(current.saveVersion).toBe(43)
++      expect(current.saveVersion).toBe(44)
+       expect(next[slot]).toBe(exportSave(current))
+       expect(next[digest]).toBe(sha(exportSave(current)))
+     }
+diff --git a/tests/bridge-p14c3-runtime.test.ts b/tests/bridge-p14c3-runtime.test.ts
+index f488cae..401b184 100644
+--- a/tests/bridge-p14c3-runtime.test.ts
++++ b/tests/bridge-p14c3-runtime.test.ts
+@@ -14,7 +14,7 @@ import { decodeCampaignStorage } from '../bridge/runtime/campaign-storage-codec.
+ import type { BridgeCheckpointStore } from '../bridge/runtime/checkpoint-store.ts'
+ import type { CampaignLibrary } from '../bridge/runtime/campaign-library.ts'
+ import type { CampaignRequest } from '../bridge/schema/bridge-schema.ts'
+-import { convertV38ToV37, exportSave, LIVE_SAVE_VERSION, makeSave, migrateToV38, validateSaveV37, validateSaveV43 } from '../src/core/save.js'
++import { convertV38ToV37, exportSave, LIVE_SAVE_VERSION, makeSave, migrateToV38, validateSaveV37, validateSaveV44 } from '../src/core/save.js'
+ import { tick } from '../src/core/tick.js'
+ import type { GameState } from '../src/core/types.js'
+ import { c3Raw, clone, CONTINUOUS208, FOCUS, migrated, PRE207, RUNTIME208, SCIENTIST, sha } from './helpers/p14c3-fixtures.js'
+@@ -157,7 +157,7 @@ describe('C.3 projection53 current/save/journal and durable campaign authority',
+   })
+   it('R2 opens53/Save38 once, registers exact52 and independently migrates208/207 while resetting prior session authority', () => {
+     const f = recovered52('slots')
+-    expect(PROJECTION_VERSION).toBe(56); expect(PROTOCOL_VERSION).toBe(4); expect(LIVE_SAVE_VERSION).toBe(43)
++    expect(PROJECTION_VERSION).toBe(57); expect(PROTOCOL_VERSION).toBe(4); expect(LIVE_SAVE_VERSION).toBe(44)
+     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OUTGOING_52)).toEqual([[OUTGOING_52, 'projection-v52']])
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+     const current = f.loaded.hydrated.checkpoint
+@@ -165,7 +165,7 @@ describe('C.3 projection53 current/save/journal and durable campaign authority',
+     expect(current.sessionId).not.toBe(f.value.sessionId)
+     for (const [slot, week] of [['currentSaveJson', 208], ['savedSaveJson', 207]] as const) {
+       assert.ok(current[slot])
+-      const saved = validateSaveV43(JSON.parse(current[slot]!))
++      const saved = validateSaveV44(JSON.parse(current[slot]!))
+       expect(saved.state.careerLifecycle.transitionBoundaryWeek).toBe(week)
+       expect(saved.state.careerLifecycle.professionChanges).toEqual([])
+       expect(saved.state.careerLifecycle.transitionEvaluations).toEqual([])
+diff --git a/tests/bridge-p14p3-directing-promises.test.ts b/tests/bridge-p14p3-directing-promises.test.ts
+index 1545a27..a782ad8 100644
+--- a/tests/bridge-p14p3-directing-promises.test.ts
++++ b/tests/bridge-p14p3-directing-promises.test.ts
+@@ -24,7 +24,7 @@ import type { CampaignLibrary } from '../bridge/runtime/campaign-library.ts'
+ import { caseDisclosure } from '../src/core/talentMarket.js'
+ import { activeContract } from '../src/core/employment.js'
+ import { exportSave, importSave, makeSave, migrateToLive, stableStringify,
+-  validateSaveV38, validateSaveV39, validateSaveV43 } from '../src/core/save.js'
++  validateSaveV38, validateSaveV39, validateSaveV44 } from '../src/core/save.js'
+ import type { GameState, ProfessionalPromise } from '../src/core/types.js'
+ 
+ // 1333-I: D15/D16/D17 measured 139,426/116,959/118,597 ms in the full-suite gate; the old
+@@ -72,7 +72,7 @@ const sha = (value: string | Uint8Array): string => createHash('sha256').update(
+ const bytes = (state: GameState): string => exportSave(makeSave(state))
+ function full(state: GameState): string {
+   const before = stableStringify(state), save = makeSave(state)
+-  expect(save.saveVersion).toBe(43); expect(validateSaveV43(save)).toBe(save)
++  expect(save.saveVersion).toBe(44); expect(validateSaveV44(save)).toBe(save)
+   const raw = exportSave(save)
+   expect(exportSave(importSave(raw))).toBe(raw)
+   expect(stableStringify(state)).toBe(before)
+@@ -129,7 +129,7 @@ function current45(): GameState {
+     expect(save.state.talent.find(row => row.id === ACTOR)?.role).toBe('actor')
+     expect(save.state.talent.find(row => row.id === DIRECTOR)?.role).toBe('director')
+     const current = migrateToLive(save)
+-    expect(current.saveVersion).toBe(43)
++    expect(current.saveVersion).toBe(44)
+     // 1344-N S5 (x2 at a318722, :126 D15/D16 measured `+ "screenplayShelving"` on each of four rival businesses, nothing else).
+     expect(current.state).toEqual({ ...withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(save.state))), firstTakeSubjects: { version: 1, cutoverOrdinal: save.state.firstTakes.length, facts: [] } })
+     full(current.state); return current.state
+@@ -280,7 +280,7 @@ function legacyClassless(open: boolean, version: 4 | 6) {
+     feasibilityReceipt: { ...target.feasibilityReceipt, rulesVersion: version } }
+   variant.state.promises = variant.state.promises.map(row => row.promiseId === target.promiseId ? replacement : row)
+   expect(validateSaveV38(variant)).toBe(variant)
+-  const current = migrateToLive(variant); expect(current.saveVersion).toBe(43)
++  const current = migrateToLive(variant); expect(current.saveVersion).toBe(44)
+   expect(current.state.promises.find(row => row.promiseId === target.promiseId)).toEqual(replacement)
+   full(current.state)
+   return { state: current.state, promise: root(current.state, target.promiseId) }
+@@ -355,7 +355,7 @@ function qualifyPrior53(): void {
+     const factory = vi.fn(() => `1174-prior53-${name}`)
+     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
+     expect(loaded.migratedFromProtocolVersion).toBe(4); expect(factory).toHaveBeenCalledTimes(1)
+-    expect(PROJECTION_VERSION).toBe(56); expect(PROTOCOL_VERSION).toBe(4)
++    expect(PROJECTION_VERSION).toBe(57); expect(PROTOCOL_VERSION).toBe(4)
+     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v53']])
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+     const current = loaded.hydrated.checkpoint
+@@ -365,7 +365,7 @@ function qualifyPrior53(): void {
+     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
+       assert.ok(current[slot])
+       const previous = validateSaveV38(JSON.parse(old.value[slot]))
+-      const now = validateSaveV43(JSON.parse(current[slot]!))
++      const now = validateSaveV44(JSON.parse(current[slot]!))
+       // 1344-N S5 (x2 at a318722, :361 D17 measured `+ "screenplayShelving"` on each of four rival businesses, nothing else).
+       expect(now.state).toEqual({ ...withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(previous.state))), firstTakeSubjects: { version: 1, cutoverOrdinal: previous.state.firstTakes.length, facts: [] } })
+       expect(current[slot]).toBe(exportSave(migrateToLive(previous)))
+diff --git a/tests/bridge-p14p4p5-opportunities.test.ts b/tests/bridge-p14p4p5-opportunities.test.ts
+index 5e41e00..15bc8c8 100644
+--- a/tests/bridge-p14p4p5-opportunities.test.ts
++++ b/tests/bridge-p14p4p5-opportunities.test.ts
+@@ -17,7 +17,7 @@ import { decodeBridgeRuntimeCheckpoint, encodeBridgeRuntimeCheckpoint, loadBridg
+ import { caseDisclosure } from '../src/core/talentMarket.js'
+ import { activeContract } from '../src/core/employment.js'
+ import { trustDescriptor } from '../src/core/promises.js'
+-import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV39, validateSaveV43 } from '../src/core/save.js'
++import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV39, validateSaveV44 } from '../src/core/save.js'
+ import type { GameState, ProfessionalPromise } from '../src/core/types.js'
+ 
+ const TIMEOUT = 60_000
+@@ -63,7 +63,7 @@ const bytes = (state: GameState): string => exportSave(makeSave(state))
+ const viewer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }
+ function full(state: GameState): string {
+   const before = stableStringify(state), save = makeSave(state)
+-  expect(save.saveVersion).toBe(43); expect(validateSaveV43(save)).toBe(save)
++  expect(save.saveVersion).toBe(44); expect(validateSaveV44(save)).toBe(save)
+   const raw = exportSave(save); expect(exportSave(importSave(raw))).toBe(raw)
+   expect(stableStringify(state)).toBe(before); return raw
+ }
+@@ -89,7 +89,7 @@ function input45(): GameState {
+       'e7401f2578a7ad151383ca905df4253c2bbd82d6823c406c28b7e76aa809c5af')
+     const parsed: unknown = JSON.parse(raw), old = validateSaveV39(parsed)
+     expect(old).toBe(parsed); expect(exportSave(old)).toBe(raw)
+-    const current = migrateToLive(old); expect(current.saveVersion).toBe(43)
++    const current = migrateToLive(old); expect(current.saveVersion).toBe(44)
+     expect(current.state).toEqual({ ...withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state))), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
+     expect(current.state.market.tick).toBe(45); expect(current.state.promises).toEqual([])
+     expect(current.state.scriptDevelopment.projects.map(p => [p.id, p.status, p.productionId]))
+@@ -484,8 +484,8 @@ describe('P4/P5 closed Bridge material and outgoing runtime authority', () => {
+     const old = prior54(), preimage = canonicalJson(old.value), factory = vi.fn(() => '1236-prior54')
+     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
+     expect(loaded.migratedFromProtocolVersion).toBe(4); expect(factory).toHaveBeenCalledTimes(1)
+-    expect(PROTOCOL_VERSION).toBe(4); expect(PROJECTION_VERSION).toBe(56)
+-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-56')
++    expect(PROTOCOL_VERSION).toBe(4); expect(PROJECTION_VERSION).toBe(57)
++    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-57')
+     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v54']])
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+     const older = [...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id !== OLD_SCHEMA)
+@@ -500,20 +500,22 @@ describe('P4/P5 closed Bridge material and outgoing runtime authority', () => {
+     // separators=(',', ':')) to match canonicalJson's compact array-of-tuples
+     // encoding exactly (canonicalize() only sorts object keys, never reorders
+     // array elements, and this array has no object elements to sort).
+-    expect(older).toHaveLength(43)
+-    expect(sha(canonicalJson(older))).toBe('f62253f540a1b498e953cfb22b9558ca70131a14ef4754352457e75d0f6c13da')
++    // 1358-N P2: outgoing56 (projection-v56) is registered too, so the older count
++    // grows to 44; the digest is recomputed by the same method.
++    expect(older).toHaveLength(44)
++    expect(sha(canonicalJson(older))).toBe('afae82e478438adcd177592fca60fc283c0e73bdc5eefc1101a8115de28cce58')
+     const current = loaded.hydrated.checkpoint
+     expect(current).toMatchObject({ schemaId: SCHEMA_ID, sessionId: '1236-prior54', stateRevision: 0, journal: [], journalDigest: sha('[]') })
+     expect(current.sessionId).not.toBe(old.value.sessionId)
+     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
+       assert.ok(current[slot])
+-      const previous = validateSaveV39(JSON.parse(old.value[slot])), now = validateSaveV43(JSON.parse(current[slot]!))
++      const previous = validateSaveV39(JSON.parse(old.value[slot])), now = validateSaveV44(JSON.parse(current[slot]!))
+       expect(now.state).toEqual({ ...withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(previous.state))), firstTakeSubjects: { version: 1, cutoverOrdinal: 25, facts: [] } })
+       expect(current[slot]).toBe(exportSave(migrateToLive(previous))); full(now.state)
+     }
+     expect(current.currentSaveJson).not.toBe(current.savedSaveJson)
+-    const currentState = validateSaveV43(JSON.parse(current.currentSaveJson)).state
+-    const savedState = validateSaveV43(JSON.parse(current.savedSaveJson!)).state
++    const currentState = validateSaveV44(JSON.parse(current.currentSaveJson)).state
++    const savedState = validateSaveV44(JSON.parse(current.savedSaveJson!)).state
+     expect(root(currentState, 'promise-0')).toMatchObject({ outcome: 'WAIVED', progress: 1, supersededByPromiseId: 'promise-1' })
+     expect(root(savedState, 'promise-0')).toMatchObject({ outcome: null, progress: 1, supersededByPromiseId: null })
+     const currentRaw = encodeBridgeRuntimeCheckpoint(current), again = vi.fn(() => { throw new Error('current55 must not migrate again') })
+diff --git a/tests/bridge-p14r2r3-prior55.test.ts b/tests/bridge-p14r2r3-prior55.test.ts
+index 9d1274d..75d5ee0 100644
+--- a/tests/bridge-p14r2r3-prior55.test.ts
++++ b/tests/bridge-p14r2r3-prior55.test.ts
+@@ -64,7 +64,7 @@ import {
+   encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint,
+   SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS,
+ } from '../bridge/runtime-checkpoint.ts'
+-import { exportSave, migrateToLive, validateSaveV40, validateSaveV43 } from '../src/core/save.js'
++import { exportSave, migrateToLive, validateSaveV40, validateSaveV44 } from '../src/core/save.js'
+ 
+ const FIXTURES = new URL('./fixtures/p14/genuine-runtime55-pre-r3/', import.meta.url)
+ const OLD_SCHEMA = 'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158'
+@@ -151,8 +151,8 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
+ 
+     // The schema/projection literals the migration target must already carry.
+     expect(PROTOCOL_VERSION).toBe(4)
+-    expect(PROJECTION_VERSION).toBe(56)
+-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-56')
++    expect(PROJECTION_VERSION).toBe(57)
++    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-57')
+     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v55']])
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+     // 1308-D required change 1 / 1308-F item 1 (B55-3-style older-roster pin, mirrored from
+@@ -166,10 +166,13 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
+     // assertion is ALREADY-TRUE today (OLD_SCHEMA isn't registered yet, so excluding it is a
+     // no-op over the same 43 pre-existing entries) and stays true as a regression guard once
+     // the increment lands.
++    // 1358-N P2: outgoing56 (projection-v56) is registered too, so the older count grows to
++    // 44; the digest is recomputed by the method the B55-3 pin states
++    // (tests/bridge-p14p4p5-opportunities.test.ts).
+     const older = [...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id !== OLD_SCHEMA)
+       .sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0)
+-    expect(older).toHaveLength(43)
+-    expect(sha(canonicalJson(older))).toBe('11ec9999e052d8e6ce6dbdbb08060d57ad3a7dbb45335182c85806c4d88e4e51')
++    expect(older).toHaveLength(44)
++    expect(sha(canonicalJson(older))).toBe('d25c64254ac090a8470cc43b2f02740e149b6f29f75966ba4d2d1684b26654a6')
+ 
+     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
+     expect(loaded.migratedFromProtocolVersion).toBe(4)
+@@ -182,8 +185,8 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
+       const nextRaw = current[slot]
+       expect(nextRaw, `${slot} must be present on the migrated checkpoint`).toBeTruthy()
+       const previous = validateSaveV40(JSON.parse(old.value[slot]))
+-      const now = validateSaveV43(JSON.parse(nextRaw!))
+-      expect(now.saveVersion).toBe(43)
++      const now = validateSaveV44(JSON.parse(nextRaw!))
++      expect(now.saveVersion).toBe(44)
+       // new.state equals old.state with termination:0 added to every rival finance period's
+       // movements, and nothing else — the same fact p14r3-save-v41.test.ts asserts directly
+       // on the raw fixtures, independently re-derived here through the runtime-checkpoint path.

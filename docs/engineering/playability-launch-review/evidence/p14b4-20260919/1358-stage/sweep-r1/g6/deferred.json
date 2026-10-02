@@ -1,0 +1,66 @@
+[
+ {
+  "id": "N-0640",
+  "file": "tests/p14b4-rival-seating-preference.test.ts",
+  "line": 498,
+  "cls": "S10",
+  "reason": "Retained 1348-I identity \"seed-b: every real film decision without members equals the pre-existing choice and pool; ...\" (it.each at :459; 17 retained identities in the file). Its primary is the seed-b chain digest at :498:20, a sha256 over seed-b rival film decisions before the witness week 211 (:495-496), which Save44 can move from step 3 (bonds move tiers and chemistry). No edit (1358-F9 ruling 7); the gate compare attributes a CHANGED primary. The file holds no version pin, so G6 made no edit in it.",
+  "decidedBy": "M2"
+ },
+ {
+  "id": "N-0652",
+  "file": "tests/p14p4p5-casting-reservation.test.ts",
+  "line": 209,
+  "cls": "S5",
+  "reason": "migrateToLive of the genuine V39 week-45 capture (E/1171-p3-current45-capture) is compared with old.state plus the known new roots; convertV43ToV44 (src/core/save.ts:10776-10781) adds `competitions: []` and `romance: null` to every edge, and the expectation already maps edges through withSharedCompetitions. Census line :204. The comparison runs before retained()/admitted() (:210), so M2 reaches it. Draft in commit 49bafc6: helper withEmptyCompetitionsAndRomance at :43-47, wrapped expectation at :209. Keep the draft only if M2 shows exactly the two fields missing on every edge; any other difference is the 1358-N S5 stop.",
+  "decidedBy": "M2"
+ },
+ {
+  "id": "N-0656",
+  "file": "tests/p14p4p5-cross-owner.test.ts",
+  "line": 107,
+  "cls": "S5",
+  "reason": "migrateToLive of the genuine V39 week-45 capture (E/1171-p3-current45-capture) is compared with old.state plus the known new roots; convertV43ToV44 (src/core/save.ts:10776-10781) adds `competitions: []` and `romance: null` to every edge, and the expectation already maps edges through withSharedCompetitions. Census line :102. admitted(state) runs first (census :99, post-image :104); without the sweep it fails at :75 with \"expected 44 to be 43\", so M2 never reaches the comparison and the sweep dry run decides it, not M2 as the census says. Draft in commit 49bafc6: helper at :42-46, wrapped expectation at :107.",
+  "decidedBy": "dry run"
+ },
+ {
+  "id": "N-0659",
+  "file": "tests/p14p4p5-delayed-retirement.test.ts",
+  "line": 189,
+  "cls": "S5",
+  "reason": "migrateToLive of the genuine V39 week-45 capture (E/1171-p3-current45-capture) is compared with old.state plus the known new roots; convertV43ToV44 (src/core/save.ts:10776-10781) adds `competitions: []` and `romance: null` to every edge, and the expectation already maps edges through withSharedCompetitions. Census line :182. The comparison precedes admitted() on the next line, so M2 reaches it. Draft in commit 49bafc6: helper at :44-49, wrapped expectation at :189.",
+  "decidedBy": "M2"
+ },
+ {
+  "id": "N-0668",
+  "file": "tests/p14p4p5-queued-project-outcome.test.ts",
+  "line": 186,
+  "cls": "S5",
+  "reason": "migrateToLive of the genuine V39 week-45 capture (E/1171-p3-current45-capture) is compared with old.state plus the known new roots; convertV43ToV44 (src/core/save.ts:10776-10781) adds `competitions: []` and `romance: null` to every edge, and the expectation already maps edges through withSharedCompetitions. Census line :181. The comparison precedes admitted() on the next line, so M2 reaches it. Draft in commit 49bafc6: helper at :45-49, wrapped expectation at :186.",
+  "decidedBy": "M2"
+ },
+ {
+  "id": "N-0677",
+  "file": "tests/p14p4p5-scenery-capacity.test.ts",
+  "line": 202,
+  "cls": "S5",
+  "reason": "migrateToLive of the genuine V39 week-45 capture (E/1171-p3-current45-capture) is compared with old.state plus the known new roots; convertV43ToV44 (src/core/save.ts:10776-10781) adds `competitions: []` and `romance: null` to every edge, and the expectation already maps edges through withSharedCompetitions. Census line :197. The comparison runs before retained()/admitted() (:203), so M2 reaches it. Draft in commit 49bafc6: helper at :41-45, wrapped expectation at :202.",
+  "decidedBy": "M2"
+ },
+ {
+  "id": "G6-new-4",
+  "file": "tests/p14b1-t4-regressions.test.ts",
+  "line": 86,
+  "cls": "S8",
+  "reason": "1358-N S1 stop rule: a renamed call under a bare .toThrow() also takes an S8 row; the census lists none here (its S8 rows come from 1358-J only). rejects() (:82-87) first asserts that validateSaveV44 accepts the same unmutated live envelope (:84), so a throw at :86 comes from the mutation, never from the version. The 15 rejects() identities at :175-:257 tamper promises, proposals and receipts, which validateRelationshipsRoot(raw, 44) (src/core/save.ts:10768; src/core/relationships.ts:666-811) does not read, so the V43 chain guard that refused before Save44 should still refuse. The 14 rejects() identities at :309-:346 are retained 1348-I rows that fail first at :283. The dry run shows whether each leaf passes; pinning a message per tamper needs a measured refusal (1358-N S8). S1 edit made (N-0619); no S8 edit.",
+  "decidedBy": "dry run"
+ },
+ {
+  "id": "G6-new-5",
+  "file": "tests/contracts/studio-events.contract.test.ts",
+  "line": 221,
+  "cls": "S8",
+  "reason": "The bare .toThrow() at :218-221 runs validateAtOwningBoundary, which for kind releaseCommitted calls the validator looked up by name at :129 (renamed to validateSaveV44, N-0608) on clone(makeSave(managed)). :212 first asserts that the same live save with the legal row validates, so the throw comes from the forbidden key. 1358-N S1 stop rule: a renamed call under a bare .toThrow() takes an S8 row; the census lists none. The dry run decides whether a pinned message is needed. S1 edit made (N-0608); no S8 edit.",
+  "decidedBy": "dry run"
+ }
+]

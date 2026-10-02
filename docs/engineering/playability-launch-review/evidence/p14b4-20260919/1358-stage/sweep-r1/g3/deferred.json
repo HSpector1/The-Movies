@@ -1,0 +1,82 @@
+[
+ {
+  "id": "N-0272",
+  "file": "tests/bridge-p14c2rm-runtime.test.ts",
+  "line": 56,
+  "cls": "S5",
+  "decidedBy": "dry run",
+  "reason": "S5 measure row, left untouched. The brief and 1358-F9 ruling 1 name M2 as the decider, but M2's step-4 tree cannot reach this comparison: the leaf stops first at step-4 :53 `expect(current.saveVersion).toBe(43)` (currentSlot(), reached from :108 and :140). The first run that reaches it is the sweep dry run with this patch. out/g3/s5-draft.patch (a droppable commit, not on sweep-g3) applies this file's withEmptyCompetitionsAndRomance at this line; without it the comparison holds only if the state has no edge. Any difference left after the helper is an S10 value or a defect (S5 stop rule), never an expectation edit."
+ },
+ {
+  "id": "N-0280",
+  "file": "tests/bridge-p14c2s-scientist-runtime.test.ts",
+  "line": 136,
+  "cls": "S5",
+  "decidedBy": "dry run",
+  "reason": "S5 measure row, left untouched. The brief and 1358-F9 ruling 1 name M2 as the decider, but M2's step-4 tree cannot reach this comparison: the leaf stops first at step-4 :124 `const actual = validateSaveV43(importSave(actualJson!))` (it at :114; throws \"validateSaveV43: expected version 43\" on the V44 slot). The first run that reaches it is the sweep dry run with this patch. out/g3/s5-draft.patch (a droppable commit, not on sweep-g3) applies this file's withEmptyCompetitionsAndRomance at this line; without it the comparison holds only if the state has no edge. Any difference left after the helper is an S10 value or a defect (S5 stop rule), never an expectation edit."
+ },
+ {
+  "id": "N-0282",
+  "file": "tests/bridge-p14c3-promise-digest-continuity.test.ts",
+  "line": 158,
+  "cls": "S5",
+  "decidedBy": "dry run",
+  "reason": "S5 measure row, left untouched. The brief and 1358-F9 ruling 1 name M2 as the decider, but M2's step-4 tree cannot reach this comparison: the leaf stops first at step-4 :119 `expect(PROJECTION_VERSION).toBe(56)` (the first assertion of the it at :115). The first run that reaches it is the sweep dry run with this patch. out/g3/s5-draft.patch (a droppable commit, not on sweep-g3) applies this file's withEmptyCompetitionsAndRomance at this line; without it the comparison holds only if the state has no edge. Any difference left after the helper is an S10 value or a defect (S5 stop rule), never an expectation edit."
+ },
+ {
+  "id": "N-0292",
+  "file": "tests/bridge-p14p3-directing-promises.test.ts",
+  "line": 134,
+  "cls": "S5",
+  "decidedBy": "dry run",
+  "reason": "S5 measure row, left untouched. The brief and 1358-F9 ruling 1 name M2 as the decider, but M2's step-4 tree cannot reach this comparison: the leaf stops first at step-4 :132 `expect(current.saveVersion).toBe(43)` (current45(); memo() caches the error for every caller). The first run that reaches it is the sweep dry run with this patch. out/g3/s5-draft.patch (a droppable commit, not on sweep-g3) applies this file's withEmptyCompetitionsAndRomance at this line; without it the comparison holds only if the state has no edge. Any difference left after the helper is an S10 value or a defect (S5 stop rule), never an expectation edit."
+ },
+ {
+  "id": "N-0296",
+  "file": "tests/bridge-p14p3-directing-promises.test.ts",
+  "line": 370,
+  "cls": "S5",
+  "decidedBy": "dry run",
+  "reason": "S5 measure row, left untouched. The brief and 1358-F9 ruling 1 name M2 as the decider, but M2's step-4 tree cannot reach this comparison: the leaf stops first at step-4 :358 `expect(PROJECTION_VERSION).toBe(56); expect(PROTOCOL_VERSION).toBe(4)` (qualifyPrior53(), run by D17). The first run that reaches it is the sweep dry run with this patch. out/g3/s5-draft.patch (a droppable commit, not on sweep-g3) applies this file's withEmptyCompetitionsAndRomance at this line; without it the comparison holds only if the state has no edge. Any difference left after the helper is an S10 value or a defect (S5 stop rule), never an expectation edit."
+ },
+ {
+  "id": "N-0301",
+  "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+  "line": 93,
+  "cls": "S5",
+  "decidedBy": "dry run",
+  "reason": "S5 measure row, left untouched. The brief and 1358-F9 ruling 1 name M2 as the decider, but M2's step-4 tree cannot reach this comparison: the leaf stops first at step-4 :92 `const current = migrateToLive(old); expect(current.saveVersion).toBe(43)` (input45(); memo() caches the error for every caller). The first run that reaches it is the sweep dry run with this patch. out/g3/s5-draft.patch (a droppable commit, not on sweep-g3) applies this file's withEmptyCompetitionsAndRomance at this line; without it the comparison holds only if the state has no edge. Any difference left after the helper is an S10 value or a defect (S5 stop rule), never an expectation edit."
+ },
+ {
+  "id": "N-0307",
+  "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+  "line": 513,
+  "cls": "S5",
+  "decidedBy": "dry run",
+  "reason": "S5 measure row (census :511), left untouched. The brief and 1358-F9 ruling 1 name M2 as the decider, but M2's step-4 tree cannot reach this comparison: the leaf stops first at step-4 :487 `expect(PROTOCOL_VERSION).toBe(4); expect(PROJECTION_VERSION).toBe(56)` (B55-3). The first run that reaches it is the sweep dry run with this patch. out/g3/s5-draft.patch (a droppable commit, not on sweep-g3) applies this file's withEmptyCompetitionsAndRomance at this line; without it the comparison holds only if the state has no edge. Any difference left after the helper is an S10 value or a defect (S5 stop rule), never an expectation edit."
+ },
+ {
+  "id": "N-0317",
+  "file": "tests/bridge-p14r2r3-prior55.test.ts",
+  "line": 193,
+  "cls": "S5",
+  "decidedBy": "dry run",
+  "reason": "S5 measure row (census :190), left untouched. The brief and 1358-F9 ruling 1 name M2 as the decider, but M2's step-4 tree cannot reach this comparison: the leaf stops first at step-4 :154 `expect(PROJECTION_VERSION).toBe(56)` (the file's one leaf). The first run that reaches it is the sweep dry run with this patch. out/g3/s5-draft.patch (a droppable commit, not on sweep-g3) applies this file's withEmptyCompetitionsAndRomance at this line; without it the comparison holds only if the state has no edge. Any difference left after the helper is an S10 value or a defect (S5 stop rule), never an expectation edit."
+ },
+ {
+  "id": "G3-new-1",
+  "file": "tests/bridge-p14c3-runtime.test.ts",
+  "line": 178,
+  "cls": "S9",
+  "decidedBy": "dry run",
+  "reason": "Examined site the census did not list; no edit. R2 feeds the validated V44 hydrated slot to migrateToV38, which dispatches V44 through convertV44ToV43 (src/core/save.ts:10535). The slots are genuine V37 bytes migrated forward, so every log is empty and every romance null, and the chain should succeed unchanged (the plan's \"no S9 risk\" form, as at p14c3-promise-digest-continuity:279). The dry run confirms R2 passes; a refusal here goes to the parent under 1358-F9 ruling 2."
+ },
+ {
+  "id": "G3-new-2",
+  "file": "tests/bridge-p14r2r3-prior55.test.ts",
+  "line": 146,
+  "cls": "P5",
+  "decidedBy": "parent",
+  "reason": "Describe title \"P14 1308-C: the outgoing projection55 runtime checkpoint migrates to current56, and each Save40 slot migrates to Save41 independently\" names current56, and its leaf moves PROJECTION_VERSION 56 -> 57. Left unedited: the same title already names the stale Save41, 1358-N P5 keeps titles that earlier sweeps left naming an older live version, 1309-E left D17's \"isolates current55 campaigns\" (bridge-p14p3-directing-promises:603) when its body moved to 56, and 1358-F9 ruling 5 fixes the renames at 17. If the parent reads P5 to cover it: \"current56\" -> \"current57\", a new identity for the file's one leaf (no retained 1348-I identity in the file)."
+ }
+]

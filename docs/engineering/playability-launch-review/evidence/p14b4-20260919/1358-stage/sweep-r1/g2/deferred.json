@@ -1,0 +1,18 @@
+[
+ {
+  "id": "N-0150",
+  "file": "tests/bridge-contract-generator.test.ts",
+  "line": 726,
+  "cls": "P4",
+  "reason": "F10_CURRENT_QUOTE_UNIONS (census :724, post-image :726) renders the whole current schema. 1358-F9 \"P4\" and 1358-N P4: the value comes from the recorded producer run on the production commit, with the provenance comment at post-image :718-724 naming that run. Cross-check only, never written: 1dadf88fb7230405a6232fff3a37e3aee9014718200dfdb8baf4ff385ab71fa4 (420,340 bytes, 1358-J finding 10). F12 (post-image :728) stays. Left unedited at a0f316eb..., so the F10/F11 declaration-body leaf fails on this branch until the run lands.",
+  "decidedBy": "recorded producer run"
+ },
+ {
+  "id": "N-0151",
+  "file": "tests/bridge-contract-generator.test.ts",
+  "line": 727,
+  "cls": "P4",
+  "reason": "F11_CURRENT_COMMAND_UNION (census :725, post-image :727) renders the whole current schema. 1358-F9 \"P4\" and 1358-N P4: the value comes from the recorded producer run on the production commit, with the provenance comment at post-image :718-724 naming that run. Cross-check only, never written: 1dadf88fb7230405a6232fff3a37e3aee9014718200dfdb8baf4ff385ab71fa4 (420,340 bytes, 1358-J finding 10). F12 (post-image :728) stays. Left unedited at a0f316eb..., so the F10/F11 declaration-body leaf fails on this branch until the run lands.",
+  "decidedBy": "recorded producer run"
+ }
+]

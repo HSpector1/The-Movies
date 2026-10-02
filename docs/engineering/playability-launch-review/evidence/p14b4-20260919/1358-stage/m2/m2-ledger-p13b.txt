@@ -1,0 +1,15 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1358-m2/tree
+
+stdout | tests/zz-s7-natural-route.test.ts > s7 natural route
+S7 natural-route {"seed":"p13b-s8-bridge-probe-01","weeks":520,"tree":"candidate","ms":43857,"finalStateSha256":"2338f90836aeede6c54de4d5a47e25974c57395a9a8beb66d8677d85463f0357","shelvings":6,"integrity":0}
+
+ ✓ |core| tests/zz-s7-natural-route.test.ts (1 test) 43878ms
+   ✓ s7 natural route 43876ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  04:33:46
+   Duration  46.93s (transform 1.87s, setup 0ms, collect 2.51s, tests 43.88s, environment 0ms, prepare 89ms)
+
+exit=0

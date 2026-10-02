@@ -1,0 +1,338 @@
+diff --git a/tests/contracts/studio-events.contract.test.ts b/tests/contracts/studio-events.contract.test.ts
+index 882ac52..7445615 100644
+--- a/tests/contracts/studio-events.contract.test.ts
++++ b/tests/contracts/studio-events.contract.test.ts
+@@ -215,6 +215,7 @@ describe('C2a-M1 · events (B) — every row carries exactly the keys §8.1 give
+       // only form of "never" a later maintainer cannot quietly widen.
+       for (const forbidden of FORBIDDEN_EVENT_ROW_KEYS) {
+         const forged = { ...row, [forbidden]: false }
++        try { validateAtOwningBoundary(kind, [forged], 1); console.log('PROBE1358 G6-new-5[' + kind + '/' + forbidden + '] NO-THROW') } catch (e) { console.log('PROBE1358 G6-new-5[' + kind + '/' + forbidden + '] ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+         expect(
+           () => validateAtOwningBoundary(kind, [forged], 1),
+           `a ${kind} row carrying "${forbidden}" was accepted — §5.1 forbids it forever`,
+diff --git a/tests/p06a-w1-release-authority.test.ts b/tests/p06a-w1-release-authority.test.ts
+index 3876429..b122793 100644
+--- a/tests/p06a-w1-release-authority.test.ts
++++ b/tests/p06a-w1-release-authority.test.ts
+@@ -444,6 +444,7 @@ describe('P06A W1 — save law', () => {
+     // 1309-X3 ruling 2: migrateToV15 now crosses convertV41ToV40 then convertV40ToV39 FIRST; this
+     // fixture's `save` genuinely carries a recorded first-take subject, so the NEW V39 guard is the
+     // one that actually refuses -- migrateToV37's own guard, still true of this state, is masked.
++    try { migrateToV15(save); console.log('PROBE1358 N-0450 NO-THROW') } catch (e) { console.log('PROBE1358 N-0450 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => migrateToV15(save)).toThrow(/^migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject$/)
+   })
+ 
+diff --git a/tests/p13b-s3-save-v23.test.ts b/tests/p13b-s3-save-v23.test.ts
+index e0210dc..8fc295a 100644
+--- a/tests/p13b-s3-save-v23.test.ts
++++ b/tests/p13b-s3-save-v23.test.ts
+@@ -112,8 +112,11 @@ describe('P13B-S3 Save V23 (test 7)', () => {
+     // `live` genuinely carries a recorded first-take subject, so the NEW V39 guard refuses first --
+     // migrateToV37's own guard, still true of this state, is masked.
+     const live = makeSave(p13aLaboratorySlice())
++    try { migrateToV22(live); console.log('PROBE1358 N-0367 NO-THROW') } catch (e) { console.log('PROBE1358 N-0367 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => migrateToV22(live)).toThrow(/^migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject$/)
++    try { migrateToV21(live); console.log('PROBE1358 N-0368 NO-THROW') } catch (e) { console.log('PROBE1358 N-0368 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => migrateToV21(live)).toThrow(/^migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject$/)
++    try { migrateToV20(live); console.log('PROBE1358 N-0369 NO-THROW') } catch (e) { console.log('PROBE1358 N-0369 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => migrateToV20(live)).toThrow(/^migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject$/)
+   })
+ 
+diff --git a/tests/p13b-s8-save-v27.test.ts b/tests/p13b-s8-save-v27.test.ts
+index 5ae1b94..bf08996 100644
+--- a/tests/p13b-s8-save-v27.test.ts
++++ b/tests/p13b-s8-save-v27.test.ts
+@@ -185,6 +185,7 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
+     expect(totalResearchCapacity).not.toBe(0) // the fact this refusal depends on is genuinely nonzero, not forged
+     const envelope = save.makeSave(natural) // LIVE_SAVE_VERSION is 28 (P14A.1) — a real, validated SaveFileV28
+     expect(envelope.saveVersion).toBe(44)
++    try { save.migrateToV26(envelope as never); console.log('PROBE1358 G4-new-1 NO-THROW') } catch (e) { console.log('PROBE1358 G4-new-1 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => save.migrateToV26(envelope as never)).toThrow(/cannot downgrade/i)
+   })
+ 
+@@ -192,6 +193,7 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
+     const natural = advanceTo(p13aGeneratedStudio(NATURAL_SEED), 20)
+     expect(natural.hollywood!.receipts.some(r => NEW_RECEIPT_KINDS.includes(r.kind))).toBe(true)
+     const envelope = save.makeSave(natural)
++    try { save.migrateToV26(envelope as never); console.log('PROBE1358 G4-new-2 NO-THROW') } catch (e) { console.log('PROBE1358 G4-new-2 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => save.migrateToV26(envelope as never)).toThrow(/cannot downgrade/i)
+   })
+ 
+diff --git a/tests/p14b1-t4-regressions.test.ts b/tests/p14b1-t4-regressions.test.ts
+index 1d0fdfd..7fec1b5 100644
+--- a/tests/p14b1-t4-regressions.test.ts
++++ b/tests/p14b1-t4-regressions.test.ts
+@@ -83,6 +83,7 @@ function rejects(state: GameState, mutate: (raw: Raw) => void): void {
+   const valid = JSON.parse(JSON.stringify(envelope(state))) as Raw
+   expect(() => validateSaveV44(valid)).not.toThrow()
+   mutate(valid)
++  try { validateSaveV44(valid); console.log('PROBE1358 G6-new-4[' + expect.getState().currentTestName + '] NO-THROW') } catch (e) { console.log('PROBE1358 G6-new-4[' + expect.getState().currentTestName + '] ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+   expect(() => validateSaveV44(valid)).toThrow()
+ }
+ 
+diff --git a/tests/p14b5-relationships.test.ts b/tests/p14b5-relationships.test.ts
+index 49e2d52..fe20649 100644
+--- a/tests/p14b5-relationships.test.ts
++++ b/tests/p14b5-relationships.test.ts
+@@ -1296,6 +1296,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
+   const expectRefused = (mutate: (edges: Edge[], state: Record<string, unknown>) => void, pattern: RegExp) => {
+     const save = v31()
+     mutate(save.state.relationships, save.state)
++    try { validateSaveV44(save); console.log('PROBE1358 N-0096[' + expect.getState().currentTestName + ' > ' + String(pattern) + '] NO-THROW') } catch (e) { console.log('PROBE1358 N-0096[' + expect.getState().currentTestName + ' > ' + String(pattern) + '] ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => validateSaveV44(save)).toThrow(pattern)
+     // 1320-A: save is genuinely live (era 42, from v31()'s makeSave); the era-31
+     // default would refuse on the unrelated new sharedCompetitions field before
+@@ -1396,6 +1397,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
+     // genuine input by tests/p14p4p5-screenplay-status.test.ts:324 (exact
+     // message; genuine V39 capture at week 45, fact-only take at 48), the V33
+     // aging guard by tests/p14c1-materialized-aging.test.ts:445 (family 5, :423).
++    try { migrateToV30(admitted); console.log('PROBE1358 N-0101 NO-THROW') } catch (e) { console.log('PROBE1358 N-0101 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => migrateToV30(admitted)).toThrow(/^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-aca408ec-r01$/)
+     // Every older migrateToVn refuses too, but MEASURED (not assumed) to be for
+     // two DIFFERENT reasons depending on vintage, so the loop's regex only claims
+@@ -1413,6 +1415,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
+     // same rejection-count guard refuses. Derived from source, not measured: x2
+     // stopped at the migrateToV30(admitted) assertion.
+     for (const older of [migrateToV29, migrateToV28, migrateToV27, migrateToV26]) {
++      try { older(admitted as never); console.log('PROBE1358 N-0102[' + older.name + '] NO-THROW') } catch (e) { console.log('PROBE1358 N-0102[' + older.name + '] ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+       expect(() => older(admitted as never)).toThrow(/^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-aca408ec-r01$/)
+     }
+     // P14C.4: migrateToV25 (and every migrator older than V26) now meets the
+@@ -1428,6 +1431,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
+     // retirement-extension guard behind the same recorded first-take subject.
+     // 1344-N S9: migrateToV25 crosses convertV43ToV42 first too (save.ts:8591);
+     // derived from source, as above.
++    try { migrateToV25(admitted as never); console.log('PROBE1358 N-0103 NO-THROW') } catch (e) { console.log('PROBE1358 N-0103 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => migrateToV25(admitted as never)).toThrow(/^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-aca408ec-r01$/)
+     expect(JSON.stringify(admitted)).toBe(before)
+ 
+@@ -1449,6 +1453,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
+     // 1344-N S9: `empty` differs from `admitted` only in `relationships`, so it
+     // holds the same rival rejection count and convertV43ToV42 (save.ts:9210,
+     // :10698) refuses it first too; derived from source, as above.
++    try { migrateToV30(empty); console.log('PROBE1358 N-0105 NO-THROW') } catch (e) { console.log('PROBE1358 N-0105 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => migrateToV30(empty)).toThrow(/^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-aca408ec-r01$/)
+     // GAP, disclosed rather than hidden: the ORIGINAL claim under test here — that an
+     // EMPTY relationship root downgrades losslessly — is a real, still-implemented
+diff --git a/tests/p14c2b-save-v36.test.ts b/tests/p14c2b-save-v36.test.ts
+index 9a56e6d..f67aed9 100644
+--- a/tests/p14c2b-save-v36.test.ts
++++ b/tests/p14c2b-save-v36.test.ts
+@@ -71,6 +71,7 @@ describe('P14C.2b S2: V36 -> V35 downgrade', () => {
+     const withOffer = submitProposal(atWindow, { talentId: 'authored-0000', issuerStudioId: 'studio-d7df6c8e-player', termWeeks: 58, premiumTier: 1.1 })
+     const settled = advanceTo(withOffer, 98)
+     expect(retirementRecordFor(settled, 'authored-0000')?.extensionUsed).toBe(true)
++    try { convertV36ToV35(liveEnvelopeV36(settled)); console.log('PROBE1358 G4-new-3 NO-THROW') } catch (e) { console.log('PROBE1358 G4-new-3 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => convertV36ToV35(liveEnvelopeV36(settled))).toThrow(/downgrade/i)
+   })
+ 
+@@ -79,6 +80,7 @@ describe('P14C.2b S2: V36 -> V35 downgrade', () => {
+     const kase = atWindow.talentMarket.cases.find((c) => c.contractId === 'studio-d7df6c8e-player:contract:authored-0000:0:player-24')
+     expect(kase?.variant).toBe('retirementExtension')
+     expect(retirementRecordFor(atWindow, 'authored-0000')?.extensionUsed, 'this state must NOT yet have used its extension — the CASE alone must be enough to refuse').toBe(false)
++    try { convertV36ToV35(liveEnvelopeV36(atWindow)); console.log('PROBE1358 G4-new-4 NO-THROW') } catch (e) { console.log('PROBE1358 G4-new-4 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => convertV36ToV35(liveEnvelopeV36(atWindow))).toThrow(/downgrade/i)
+   })
+ })
+diff --git a/tests/p14c2rm-writer-continuation.test.ts b/tests/p14c2rm-writer-continuation.test.ts
+index 7d87283..f676461 100644
+--- a/tests/p14c2rm-writer-continuation.test.ts
++++ b/tests/p14c2rm-writer-continuation.test.ts
+@@ -215,6 +215,7 @@ const invalidCases: InvalidCase[] = [
+ describe('880-B live allowance stays narrowly scoped', () => {
+   it.each(invalidCases)('refuses $name without altering caller bytes', ({ corrupt }) => {
+     const f = finishingWriter(), state = corrupt(f.finishing, f.writerId), input = envelope(state), before = stableStringify(input)
++    try { validateSaveV44(input); console.log('PROBE1358 N-0468[' + expect.getState().currentTestName + '] NO-THROW') } catch (e) { console.log('PROBE1358 N-0468[' + expect.getState().currentTestName + '] ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => validateSaveV44(input)).toThrow()
+     expect(stableStringify(input)).toBe(before)
+   })
+@@ -229,6 +230,7 @@ describe('880-B live allowance stays narrowly scoped', () => {
+     // branch, so it cannot borrow retirement to become lawful here.
+     const illegal = { ...terminated, concepts: f.commissioned.concepts, scriptDevelopment: f.commissioned.scriptDevelopment,
+       originalScreenplays: f.commissioned.originalScreenplays }
++    try { validateSaveV44(envelope(illegal)); console.log('PROBE1358 N-0470 NO-THROW') } catch (e) { console.log('PROBE1358 N-0470 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => validateSaveV44(envelope(illegal))).toThrow()
+     expect(() => applyActions(terminated, [originalCommission(f.writerId)])).toThrow()
+   })
+@@ -238,6 +240,7 @@ describe('880-B live allowance stays narrowly scoped', () => {
+     const input = envelope({ ...f.finishing, scriptDevelopment: { ...f.finishing.scriptDevelopment,
+       projects: f.finishing.scriptDevelopment.projects.map(row => ({ ...row, retirementBypass: true })),
+     } })
++    try { validateSaveV44(input); console.log('PROBE1358 N-0472 NO-THROW') } catch (e) { console.log('PROBE1358 N-0472 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => validateSaveV44(input)).toThrow()
+     expect(() => validateSaveV44({ ...envelope(f.finishing), retirementBypass: true })).toThrow(/^validateSaveV12: save has unknown field "retirementBypass"$/)
+   })
+@@ -251,6 +254,7 @@ describe('880-B live allowance stays narrowly scoped', () => {
+     expect(convertV37ToV36(old.commissioned).saveVersion).toBe(36)
+     expect(() => convertV37ToV36(old.finishing)).toThrow(/not contracted/i)
+     const current = makeSave(f.finishing), before = stableStringify(current)
++    try { convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(current)))))))); console.log('PROBE1358 N-0476 NO-THROW') } catch (e) { console.log('PROBE1358 N-0476 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(current))))))))).toThrow()
+     expect(stableStringify(current)).toBe(before)
+   })
+@@ -342,6 +346,7 @@ describe('880-B malformed authority refuses before live work, not only at persis
+       // The unmodified real state and this same live entrypoint are admissible.
+       expect(() => caller.run(f.state, f.youngId)).not.toThrow()
+       const invalid = corrupt(f.state, f.retiringId), before = structuredClone(invalid)
++      try { validateSaveV44(envelope(invalid)); console.log('PROBE1358 G5-new-7[' + expect.getState().currentTestName + '] NO-THROW') } catch (e) { console.log('PROBE1358 G5-new-7[' + expect.getState().currentTestName + '] ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+       expect(() => validateSaveV44(envelope(invalid)), 'existing full-save refusal is a control').toThrow()
+       expect(() => caller.run(invalid, f.youngId), 'live permission must also reject malformed authority').toThrow()
+       // Compare in memory so NaN and signed zero are not hidden by JSON encoding.
+diff --git a/tests/p14c2s-scientist-retirement.test.ts b/tests/p14c2s-scientist-retirement.test.ts
+index 5c40cb3..0c81efc 100644
+--- a/tests/p14c2s-scientist-retirement.test.ts
++++ b/tests/p14c2s-scientist-retirement.test.ts
+@@ -276,7 +276,9 @@ describe('Scientist retirement persistence has an explicit semantic version boun
+     expect(live.saveVersion).toBe(44)
+     const before = JSON.stringify(live)
+     expect(importSave(before)).toEqual(live)
++    try { migrateToV36(live); console.log('PROBE1358 G1-new-1 NO-THROW') } catch (e) { console.log('PROBE1358 G1-new-1 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => migrateToV36(live)).toThrow(/Scientist|scientist|downgrade/)
++    try { migrateToV35(live); console.log('PROBE1358 G1-new-1[:280] NO-THROW') } catch (e) { console.log('PROBE1358 G1-new-1[:280] ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => migrateToV35(live)).toThrow(/Scientist|scientist|downgrade/)
+     expect(JSON.stringify(live)).toBe(before)
+     expect(bytes(state)).toBe(before)
+diff --git a/tests/p14c3-cohort-transition.test.ts b/tests/p14c3-cohort-transition.test.ts
+index 48627f7..67cc24e 100644
+--- a/tests/p14c3-cohort-transition.test.ts
++++ b/tests/p14c3-cohort-transition.test.ts
+@@ -284,6 +284,7 @@ describe('C.3 genuine cohort-born Actor enters a new profession with origin auth
+     // "migrateToV42: cannot downgrade or discard a screenplayShelved receipt". The V39
+     // guard stays covered on its own era's genuine input by
+     // tests/p14p4p5-screenplay-status.test.ts:324 (genuine V39 capture, week 48 take).
++    try { convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(control))))))); console.log('PROBE1358 N-0490 NO-THROW') } catch (e) { console.log('PROBE1358 N-0490 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(control)))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplayShelved receipt$/)
+     const origin = cohortSetup()
+     expect(validateSaveV35(origin.old)).toBe(origin.old); expect(validateSaveV37(origin.old37)).toBe(origin.old37)
+diff --git a/tests/p14c3-dual-extensions.test.ts b/tests/p14c3-dual-extensions.test.ts
+index e12516e..d92743f 100644
+--- a/tests/p14c3-dual-extensions.test.ts
++++ b/tests/p14c3-dual-extensions.test.ts
+@@ -175,6 +175,7 @@ describe.each(DUAL_TARGETS)('C.3 actor→%s two genuine profession extensions',
+     // both targets): "migrateToV42: cannot downgrade or discard a screenplayShelved
+     // receipt". The V39 guard stays covered on its own era's genuine input by
+     // tests/p14p4p5-screenplay-status.test.ts:324 (genuine V39 capture, week 48 take).
++    try { convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(saved))))))); console.log('PROBE1358 N-0493[' + target + '] NO-THROW') } catch (e) { console.log('PROBE1358 N-0493[' + target + '] ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(saved)))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplayShelved receipt$/)
+     accepted(loaded)
+   })
+diff --git a/tests/p14c3-offmenu-extensions.test.ts b/tests/p14c3-offmenu-extensions.test.ts
+index ce038b5..6db939f 100644
+--- a/tests/p14c3-offmenu-extensions.test.ts
++++ b/tests/p14c3-offmenu-extensions.test.ts
+@@ -232,6 +232,7 @@ describe.each(OFFMENU_TARGETS)('C.3 actor→%s genuine off-menu58-week extension
+     // both targets): "migrateToV42: cannot downgrade or discard a screenplayShelved
+     // receipt". The V39 guard stays covered on its own era's genuine input by
+     // tests/p14p4p5-screenplay-status.test.ts:324 (genuine V39 capture, week 48 take).
++    try { convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(saved))))))); console.log('PROBE1358 N-0496[' + target + '] NO-THROW') } catch (e) { console.log('PROBE1358 N-0496[' + target + '] ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(saved)))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplayShelved receipt$/)
+     accepted(loaded)
+     observed[target] = { ...observed[target], term: contract.termWeeks, decision: contract.startWeek, end: contract.endWeekExclusive }
+diff --git a/tests/p14c3-profession-history.test.ts b/tests/p14c3-profession-history.test.ts
+index 61d3f68..0f68ba3 100644
+--- a/tests/p14c3-profession-history.test.ts
++++ b/tests/p14c3-profession-history.test.ts
+@@ -116,6 +116,7 @@ describe('C.3 current append and strict historical authority boundaries', () =>
+     // "migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of
+     // studio-de11f27b-r04". The entrant guard stays covered on its own era's genuine input
+     // by tests/p14c3-save-v38.test.ts:484 (genuine V37 C3 corpus, same-week entrant at 207).
++    try { save.convertV38ToV37(save.convertV39ToV38(save.convertV40ToV39(save.convertV41ToV40(save.convertV42ToV41(save.convertV43ToV42(save.convertV44ToV43(save.makeSave(f.state)))))))); console.log('PROBE1358 N-0498[' + kind + '] NO-THROW') } catch (e) { console.log('PROBE1358 N-0498[' + kind + '] ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => save.convertV38ToV37(save.convertV39ToV38(save.convertV40ToV39(save.convertV41ToV40(save.convertV42ToV41(save.convertV43ToV42(save.convertV44ToV43(save.makeSave(f.state))))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-de11f27b-r04$/)
+     expect(save.stableStringify(f.before)).toBe(beforeBytes)
+   })
+diff --git a/tests/p14c3-save-v38.test.ts b/tests/p14c3-save-v38.test.ts
+index 0af6a30..be62062 100644
+--- a/tests/p14c3-save-v38.test.ts
++++ b/tests/p14c3-save-v38.test.ts
+@@ -113,6 +113,7 @@ function rejectMutations(control: Save38, cases: Negative[]): void {
+   for (const row of cases) {
+     const mutated = clone(control)
+     row.mutate(mutated)
++    try { validate(mutated); console.log('PROBE1358 H-new-1[' + expect.getState().currentTestName + ' > ' + row.name + '] NO-THROW') } catch (e) { console.log('PROBE1358 H-new-1[' + expect.getState().currentTestName + ' > ' + row.name + '] ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => validate(mutated), row.name).toThrow()
+   }
+   expect(stableStringify(control)).toBe(immutable)
+diff --git a/tests/p14c3-transitions.test.ts b/tests/p14c3-transitions.test.ts
+index b899674..d0a9cc4 100644
+--- a/tests/p14c3-transitions.test.ts
++++ b/tests/p14c3-transitions.test.ts
+@@ -172,6 +172,7 @@ describe('C.3 A05/A06 public profession history, current evidence and repeat saf
+     // (merge 62f14e7): "migrateToV42: cannot downgrade or discard a screenplay shelving
+     // rejection count of studio-de11f27b-r04". The V37 guard stays covered by the leaf below
+     // ("records Scientist noCatalogue finality"), whose chain reaches it first (1344-X12).
++    try { convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(envelope38(reopened) as never))))))); console.log('PROBE1358 N-0522 NO-THROW') } catch (e) { console.log('PROBE1358 N-0522 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(envelope38(reopened) as never)))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-de11f27b-r04$/)
+   })
+ })
+@@ -204,6 +205,7 @@ describe('C.3 A09/A10 genuine prospective finality and deferred reconciliation',
+     // 1344-X12 measured this chain's first guard: the V37 profession transition guard
+     // (src/core/professionHistory.ts:67), which the shelving guard masks in the leaf above. Pinned
+     // exactly, so this leaf keeps that guard covered (1344-N S9).
++    try { convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(envelope38(reopened) as never))))))); console.log('PROBE1358 N-0524 NO-THROW') } catch (e) { console.log('PROBE1358 N-0524 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(envelope38(reopened) as never)))))))).toThrow(/^migrateToV37: cannot downgrade or discard profession transition, industry retirement or entrant authority$/)
+   })
+ 
+diff --git a/tests/p14p3-directing-promises.test.ts b/tests/p14p3-directing-promises.test.ts
+index eb60ec1..7a7a794 100644
+--- a/tests/p14p3-directing-promises.test.ts
++++ b/tests/p14p3-directing-promises.test.ts
+@@ -358,6 +358,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
+       expect(() => saves.validateSaveV38({ ...clone(save), saveVersion: 38,
+         state: { ...save.state, relationships: core.relationshipsAtV31(save.state.relationships) } }))
+         .toThrow(/predicate|promise/i)
++      try { api.convertV39ToV38(save); console.log('PROBE1358 G5-new-5[' + positives.indexOf(state) + '] NO-THROW') } catch (e) { console.log('PROBE1358 G5-new-5[' + positives.indexOf(state) + '] ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+       expect(() => api.convertV39ToV38(save)).toThrow(/director|predicate|promise|discard/i)
+     }
+     const id = a.promiseId
+@@ -435,6 +436,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
+     const tagged = attached(), abandoned = core.withdrawProposal(tagged.state, tagged.actorId, issuer(tagged.state))
+     admitted(abandoned)
+     expect(abandoned.promises).toEqual(tagged.state.promises)
++    try { futureSave().convertV39ToV38(saves.makeSave(abandoned)); console.log('PROBE1358 G5-new-6 NO-THROW') } catch (e) { console.log('PROBE1358 G5-new-6 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => futureSave().convertV39ToV38(saves.makeSave(abandoned))).toThrow(/director|promise|predicate|discard/i)
+   }, LEAF_TIMEOUT_MS)
+ })
+@@ -686,6 +688,7 @@ describe('P3 second slice: cancellation and same-domain waiver', () => {
+       expect(() => saves.validateSaveV38({ ...clone(save), saveVersion: 38,
+         state: { ...save.state, relationships: core.relationshipsAtV31(save.state.relationships) } }))
+         .toThrow(/predicate|promise/i)
++      try { futureSave().convertV39ToV38(save); console.log('PROBE1358 N-0531[' + (state === change.state ? 'change.state' : 'done.state') + '] NO-THROW') } catch (e) { console.log('PROBE1358 N-0531[' + (state === change.state ? 'change.state' : 'done.state') + '] ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+       expect(() => futureSave().convertV39ToV38(save)).toThrow(/director|predicate|promise/i)
+       // 1309-X3 ruling 3: fed the raw live GameState, these frozen builders now
+       // stop at the V25 Hollywood exact-key check on the Save41 rival
+diff --git a/tests/p14p4p5-opportunities.test.ts b/tests/p14p4p5-opportunities.test.ts
+index 0b2cd99..77a1f32 100644
+--- a/tests/p14p4p5-opportunities.test.ts
++++ b/tests/p14p4p5-opportunities.test.ts
+@@ -811,6 +811,7 @@ describe('P4/P5 retained subject and waiver authority controls', () => {
+     // The retained screenplay link legitimately precedes the film-only join.
+     subjectNegative(released, 'coherent other tuple vs released authority', replaceTuple, /firstTakeSubjects facts\[\d+\] disagrees with the surviving screenplay link/)
+     const before = stable(released)
++    try { saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(released))))); console.log('PROBE1358 N-0555 NO-THROW') } catch (e) { console.log('PROBE1358 N-0555 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(released)))))).toThrow(/cannot downgrade or discard an opportunity predicate or recorded first-take subject/)
+     expect(stable(released)).toBe(before) // Combined tag+fact refusal; not isolated fact-only proof.
+     controlsEnd(counters)
+diff --git a/tests/p14p4p5-screenplay-status.test.ts b/tests/p14p4p5-screenplay-status.test.ts
+index d5d7819..ba0721a 100644
+--- a/tests/p14p4p5-screenplay-status.test.ts
++++ b/tests/p14p4p5-screenplay-status.test.ts
+@@ -321,6 +321,7 @@ function factOnly(state: GameState): void {
+   const message = error instanceof Error ? error.message : String(error)
+   emit('FACT-ONLY-REFUSAL', { actualWeek: 48, message, facts: state.firstTakeSubjects.facts })
+   expect(error).toBeInstanceOf(Error)
++  try { saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(save))))); console.log('PROBE1358 N-0560 NO-THROW') } catch (e) { console.log('PROBE1358 N-0560 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+   expect(message).toBe('migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject')
+   expect(saves.exportSave(save)).toBe(before); expect(bytes(state)).toBe(before); expect(state.rngState).toEqual(rng)
+ }
+diff --git a/tests/p14r3-save-v41.test.ts b/tests/p14r3-save-v41.test.ts
+index e9f5c56..b5436f2 100644
+--- a/tests/p14r3-save-v41.test.ts
++++ b/tests/p14r3-save-v41.test.ts
+@@ -371,6 +371,7 @@ describe('P14 1305-C Save41: 41->40 downgrade', () => {
+ 
+   it('refused, with a message matching /termination/i, on a genuine V41 save carrying a real rival release (lawful route, 1308-F item 5 — replaces the prior receipt-only tamper, which is not a valid V41 envelope: every house converter validates first, so that tamper\'s refusal named the validator\'s own interval-consistency failure, never "termination")', () => {
+     const { save } = lawfulTerminatedSave()
++    try { convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(save as never)))); console.log('PROBE1358 N-0569 NO-THROW') } catch (e) { console.log('PROBE1358 N-0569 ' + JSON.stringify(e instanceof Error ? e.message : String(e))) }
+     expect(() => convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(save as never))))).toThrow(/termination/i)
+   })
+ })

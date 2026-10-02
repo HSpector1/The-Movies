@@ -1,0 +1,632 @@
+[
+ {
+  "id": "N-0001",
+  "file": "tests/helpers/p14b2-fixtures.ts",
+  "line": 7,
+  "old": "import { makeSave, validateSaveV43 } from '../../src/core/save.js'",
+  "new": "import { makeSave, validateSaveV44 } from '../../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator validateSaveV44 (src/core/save.ts:10763)"
+ },
+ {
+  "id": "N-0002",
+  "file": "tests/helpers/p14b2-fixtures.ts",
+  "line": 122,
+  "old": "  validateSaveV43(JSON.parse(JSON.stringify(makeSave(state))))",
+  "new": "  validateSaveV44(JSON.parse(JSON.stringify(makeSave(state))))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: makeSave output; validateSaveV43 refuses a 44 envelope (\"validateSaveV43: expected version 43\", src/core/save.ts:10717); retentionFixture"
+ },
+ {
+  "id": "N-0003",
+  "file": "tests/helpers/p14b2-fixtures.ts",
+  "line": 244,
+  "old": "  validateSaveV43(JSON.parse(JSON.stringify(makeSave(outcome))))",
+  "new": "  validateSaveV44(JSON.parse(JSON.stringify(makeSave(outcome))))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: makeSave output; validateSaveV43 refuses a 44 envelope (\"validateSaveV43: expected version 43\", src/core/save.ts:10717); poachingFixture"
+ },
+ {
+  "id": "N-0004",
+  "file": "tests/helpers/p14b2-fixtures.ts",
+  "line": 259,
+  "old": "      validateSaveV43(JSON.parse(JSON.stringify(makeSave(state))))",
+  "new": "      validateSaveV44(JSON.parse(JSON.stringify(makeSave(state))))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: makeSave output; validateSaveV43 refuses a 44 envelope (\"validateSaveV43: expected version 43\", src/core/save.ts:10717); rivalFixture"
+ },
+ {
+  "id": "N-0005",
+  "file": "tests/helpers/p14c2b-fixtures.ts",
+  "line": 23,
+  "old": "import { convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, makeSave, migrateToLive, validateSaveV35 } from '../../src/core/save.js'",
+  "new": "import { convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, makeSave, migrateToLive, validateSaveV35 } from '../../src/core/save.js'",
+  "cls": "S4",
+  "status": "certain",
+  "note": "import of convertV44ToV43 (src/core/save.ts:10785) for the inserted step"
+ },
+ {
+  "id": "N-0006",
+  "file": "tests/helpers/p14c2b-fixtures.ts",
+  "line": 69,
+  "old": "  return convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(makeSave(state))))))))",
+  "new": "  return convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(makeSave(state)))))))))",
+  "cls": "S4",
+  "status": "certain",
+  "note": "convertV44ToV43 (src/core/save.ts:10785-10794) projects the live V44 envelope to V43 ahead of convertV43ToV42; it refuses a log row or romance by name and strips nothing (records 840 and 975); liveEnvelopeV36; fixes X5 step-4 TS2345 (root, UI, Bridge). S9 row N-0007 deferred"
+ },
+ {
+  "id": "N-0008",
+  "file": "tests/helpers/p14c2c-fixtures.ts",
+  "line": 8,
+  "old": "import { makeSave, validateSaveV43 } from '../../src/core/save.js'",
+  "new": "import { makeSave, validateSaveV44 } from '../../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator validateSaveV44 (src/core/save.ts:10763)"
+ },
+ {
+  "id": "N-0009",
+  "file": "tests/helpers/p14c2c-fixtures.ts",
+  "line": 29,
+  "old": "  return validateSaveV43(JSON.parse(JSON.stringify(written))).state",
+  "new": "  return validateSaveV44(JSON.parse(JSON.stringify(written))).state",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: makeSave output; validateSaveV43 refuses a 44 envelope (\"validateSaveV43: expected version 43\", src/core/save.ts:10717); savedState"
+ },
+ {
+  "id": "N-0010",
+  "file": "tests/helpers/p14c2rm-fixtures.ts",
+  "line": 6,
+  "old": "import { exportSave, importSave, makeSave, migrateToLive, validateSaveV37, validateSaveV43 } from '../../src/core/save.js'",
+  "new": "import { exportSave, importSave, makeSave, migrateToLive, validateSaveV37, validateSaveV44 } from '../../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator validateSaveV44 (src/core/save.ts:10763); validateSaveV37 kept for genuine V37 bytes"
+ },
+ {
+  "id": "N-0011",
+  "file": "tests/helpers/p14c2rm-fixtures.ts",
+  "line": 24,
+  "old": "  return validateSaveV43(JSON.parse(bytes(state))).state",
+  "new": "  return validateSaveV44(JSON.parse(bytes(state))).state",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: makeSave output; validateSaveV43 refuses a 44 envelope (\"validateSaveV43: expected version 43\", src/core/save.ts:10717); admitted (bytes = exportSave(makeSave(state)))"
+ },
+ {
+  "id": "N-0012",
+  "file": "tests/helpers/p14c3-canonical-rival-fixtures.ts",
+  "line": 8,
+  "old": "import { LIVE_SAVE_VERSION, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42,",
+  "new": "import { LIVE_SAVE_VERSION, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43,",
+  "cls": "S4",
+  "status": "certain",
+  "note": "import of convertV44ToV43 (src/core/save.ts:10785) for the inserted step"
+ },
+ {
+  "id": "N-0013",
+  "file": "tests/helpers/p14c3-canonical-rival-fixtures.ts",
+  "line": 198,
+  "old": "    const v38 = convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(live)))))",
+  "new": "    const v38 = convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(live))))))",
+  "cls": "S4",
+  "status": "certain",
+  "note": "convertV44ToV43 (src/core/save.ts:10785-10794) projects the live V44 envelope to V43 ahead of convertV43ToV42; it refuses a log row or romance by name and strips nothing (records 840 and 975); live = makeSave(state) at tick 0 with relationships [] (src/core/worldgen.ts:812), so the V38 export still equals CANONICAL_INITIAL_SHA; fixes X5 step-4 root TS2345"
+ },
+ {
+  "id": "N-0014",
+  "file": "tests/helpers/p14c3-fixtures.ts",
+  "line": 64,
+  "old": "",
+  "new": "  // 1358-N S1: 43 -> 44 (the competitions log and romance); validateSaveV44",
+  "cls": "S1",
+  "status": "certain",
+  "note": "comment beside the key rename, in the style of the 1344-N S1 comment above it; new line"
+ },
+ {
+  "id": "N-0014",
+  "file": "tests/helpers/p14c3-fixtures.ts",
+  "line": 65,
+  "old": "",
+  "new": "  // (save.ts:10763) is live and validateSaveV43 (:10714) is frozen.",
+  "cls": "S1",
+  "status": "certain",
+  "note": "comment beside the key rename; new line"
+ },
+ {
+  "id": "N-0014",
+  "file": "tests/helpers/p14c3-fixtures.ts",
+  "line": 66,
+  "old": "  validateSaveV43: (input: unknown) => Save38 }",
+  "new": "  validateSaveV44: (input: unknown) => Save38 }",
+  "cls": "S1",
+  "status": "certain",
+  "note": "SaveAPI key renamed to the live validator (1309-X3 ruling 1 live-name key; 1344 f8c48ec pattern); all 24 saveApi callers follow in the four caller files"
+ },
+ {
+  "id": "N-0015",
+  "file": "tests/helpers/p14c3-fixtures.ts",
+  "line": 136,
+  "old": "  expect(result.saveVersion, 'existing live writer moves coherently to38').toBe(43)",
+  "new": "  expect(result.saveVersion, 'existing live writer moves coherently to38').toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "envelope38 wraps save.makeSave(state), the live writer; makeSave stamps LIVE_SAVE_VERSION 44 (src/core/save.ts:6567, :6572)"
+ },
+ {
+  "id": "N-0016",
+  "file": "tests/helpers/p14c3-genuine-evidence-fixtures.ts",
+  "line": 8,
+  "old": "import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV43 } from '../../src/core/save.js'",
+  "new": "import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV44 } from '../../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator validateSaveV44 (src/core/save.ts:10763)"
+ },
+ {
+  "id": "N-0017",
+  "file": "tests/helpers/p14c3-genuine-evidence-fixtures.ts",
+  "line": 17,
+  "old": "  expect(saved.saveVersion).toBe(43)",
+  "new": "  expect(saved.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "acceptedEvidence; makeSave stamps LIVE_SAVE_VERSION 44 (src/core/save.ts:6567, :6572); X5 step 4 rows 59-61 failed here at :17:29 \"expected 44 to be 43\""
+ },
+ {
+  "id": "N-0018",
+  "file": "tests/helpers/p14c3-genuine-evidence-fixtures.ts",
+  "line": 18,
+  "old": "  expect(validateSaveV43(saved)).toBe(saved)",
+  "new": "  expect(validateSaveV44(saved)).toBe(saved)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "acceptedEvidence; live envelope: makeSave output; validateSaveV43 refuses a 44 envelope (\"validateSaveV43: expected version 43\", src/core/save.ts:10717); validateSaveV44 returns its input (save.ts:10771), so toBe(saved) holds"
+ },
+ {
+  "id": "N-0019",
+  "file": "tests/helpers/p14c3-history-boundary-fixtures.ts",
+  "line": 6,
+  "old": "import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV43 } from '../../src/core/save.js'",
+  "new": "import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV44 } from '../../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator validateSaveV44 (src/core/save.ts:10763)"
+ },
+ {
+  "id": "N-0020",
+  "file": "tests/helpers/p14c3-history-boundary-fixtures.ts",
+  "line": 26,
+  "old": "  expect(saved.saveVersion).toBe(43)",
+  "new": "  expect(saved.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "acceptBoundary; makeSave stamps LIVE_SAVE_VERSION 44 (src/core/save.ts:6567, :6572)"
+ },
+ {
+  "id": "N-0021",
+  "file": "tests/helpers/p14c3-history-boundary-fixtures.ts",
+  "line": 27,
+  "old": "  expect(validateSaveV43(saved)).toBe(saved)",
+  "new": "  expect(validateSaveV44(saved)).toBe(saved)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "acceptBoundary; live envelope: makeSave output; validateSaveV43 refuses a 44 envelope (\"validateSaveV43: expected version 43\", src/core/save.ts:10717)"
+ },
+ {
+  "id": "N-0022",
+  "file": "tests/helpers/p14c3-second-episode-fixtures.ts",
+  "line": 8,
+  "old": "import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV43 } from '../../src/core/save.js'",
+  "new": "import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV44 } from '../../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator validateSaveV44 (src/core/save.ts:10763)"
+ },
+ {
+  "id": "N-0023",
+  "file": "tests/helpers/p14c3-second-episode-fixtures.ts",
+  "line": 27,
+  "old": "  expect(save.saveVersion).toBe(43)",
+  "new": "  expect(save.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "accepted; makeSave stamps LIVE_SAVE_VERSION 44 (src/core/save.ts:6567, :6572)"
+ },
+ {
+  "id": "N-0024",
+  "file": "tests/helpers/p14c3-second-episode-fixtures.ts",
+  "line": 28,
+  "old": "  expect(validateSaveV43(save)).toBe(save)",
+  "new": "  expect(validateSaveV44(save)).toBe(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "accepted; live envelope: makeSave output; validateSaveV43 refuses a 44 envelope (\"validateSaveV43: expected version 43\", src/core/save.ts:10717); the census edit text says validateSaveV43(saved), the line reads validateSaveV43(save)"
+ },
+ {
+  "id": "N-0025",
+  "file": "tests/helpers/p14c4-fixtures.ts",
+  "line": 12,
+  "old": "  convertV35ToV36, convertV36ToV37, convertV36ToV35, convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42,",
+  "new": "  convertV35ToV36, convertV36ToV37, convertV36ToV35, convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43,",
+  "cls": "S4",
+  "status": "certain",
+  "note": "import of convertV44ToV43 (src/core/save.ts:10785) for the inserted step"
+ },
+ {
+  "id": "N-0026",
+  "file": "tests/helpers/p14c4-fixtures.ts",
+  "line": 71,
+  "old": "  const historical38 = convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(makeSave(state))))))",
+  "new": "  const historical38 = convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(makeSave(state)))))))",
+  "cls": "S4",
+  "status": "certain",
+  "note": "convertV44ToV43 (src/core/save.ts:10785-10794) projects the live V44 envelope to V43 ahead of convertV43ToV42; it refuses a log row or romance by name and strips nothing (records 840 and 975); liveEnvelope; read :58-69 first: the insert keeps \"refuse rather than strip\"; fixes X5 step-4 TS2345 (root, UI, Bridge). S9 row N-0027 deferred"
+ },
+ {
+  "id": "N-0028",
+  "file": "tests/helpers/p14p3-fixtures.ts",
+  "line": 78,
+  "old": "  validateSaveV43: (input: unknown) => unknown",
+  "new": "  validateSaveV44: (input: unknown) => unknown",
+  "cls": "S1",
+  "status": "certain",
+  "note": "typed member of the live validator in FutureSaveChainSteps (local type, not exported)"
+ },
+ {
+  "id": "N-0029",
+  "file": "tests/helpers/p14p3-fixtures.ts",
+  "line": 83,
+  "old": "",
+  "new": "  convertV44ToV43: (input: unknown) => unknown",
+  "cls": "S4",
+  "status": "certain",
+  "note": "typed member for the inserted step; new line"
+ },
+ {
+  "id": "N-0030",
+  "file": "tests/helpers/p14p3-fixtures.ts",
+  "line": 89,
+  "old": "  assert.equal(typeof candidate.validateSaveV43, 'function', 'public index exposes the live validator')",
+  "new": "  assert.equal(typeof candidate.validateSaveV44, 'function', 'public index exposes the live validator')",
+  "cls": "S1",
+  "status": "certain",
+  "note": "existence check of the live validator the helper calls (its message names the live validator), not of a frozen function"
+ },
+ {
+  "id": "N-0031",
+  "file": "tests/helpers/p14p3-fixtures.ts",
+  "line": 94,
+  "old": "",
+  "new": "  assert.equal(typeof candidate.convertV44ToV43, 'function', 'public index exposes the V44->V43 downgrade step')",
+  "cls": "S4",
+  "status": "certain",
+  "note": "existence check of the inserted step, beside the V43->V42 check; core index exports convertV44ToV43 (src/core/index.ts:1377); new line"
+ },
+ {
+  "id": "N-0032",
+  "file": "tests/helpers/p14p3-fixtures.ts",
+  "line": 102,
+  "old": "  // validator (Save43, was Save42 at 1320-A) — the exposed key name stays under",
+  "new": "  // validator (Save44, was Save43 at 1344-N); the exposed key name stays under",
+  "cls": "S1",
+  "status": "certain",
+  "note": "comment: the live validator is now Save44; the old em dash becomes a semicolon"
+ },
+ {
+  "id": "N-0033",
+  "file": "tests/helpers/p14p3-fixtures.ts",
+  "line": 108,
+  "old": "  // reason: the live envelope this chain receives is now V43, one era later),",
+  "new": "  // reason: the live envelope this chain receives became V43, one era later;",
+  "cls": "S4",
+  "status": "certain",
+  "note": "comment: \"is now V43\" becomes \"became V43\" so the next line can name V44"
+ },
+ {
+  "id": "N-0033",
+  "file": "tests/helpers/p14p3-fixtures.ts",
+  "line": 109,
+  "old": "",
+  "new": "  // 1358-N S4 adds convertV44ToV43 ahead of that for Save44, the next era),",
+  "cls": "S4",
+  "status": "certain",
+  "note": "comment naming 1358-N S4 and the inserted step; new line"
+ },
+ {
+  "id": "N-0032",
+  "file": "tests/helpers/p14p3-fixtures.ts",
+  "line": 112,
+  "old": "    validateSaveV39: (input: unknown) => steps.validateSaveV43(input),",
+  "new": "    validateSaveV39: (input: unknown) => steps.validateSaveV44(input),",
+  "cls": "S1",
+  "status": "certain",
+  "note": "futureSave().validateSaveV39 validates live envelopes (bytes()/makeSave in tests/p14p3-directing-promises.test.ts :58, :350, :680) with the live validator"
+ },
+ {
+  "id": "N-0033",
+  "file": "tests/helpers/p14p3-fixtures.ts",
+  "line": 113,
+  "old": "    convertV39ToV38: (input: unknown) => steps.convertV39ToV38(steps.convertV40ToV39(steps.convertV41ToV40(steps.convertV42ToV41(steps.convertV43ToV42(input))))),",
+  "new": "    convertV39ToV38: (input: unknown) => steps.convertV39ToV38(steps.convertV40ToV39(steps.convertV41ToV40(steps.convertV42ToV41(steps.convertV43ToV42(steps.convertV44ToV43(input)))))),",
+  "cls": "S4",
+  "status": "certain",
+  "note": "convertV44ToV43 (src/core/save.ts:10785-10794) projects the live V44 envelope to V43 ahead of convertV43ToV42; it refuses a log row or romance by name and strips nothing (records 840 and 975); every caller passes a live envelope (makeSave or migrateToLive: tests/p14p3-directing-promises.test.ts :361, :411, :433, :438, :689)"
+ },
+ {
+  "id": "N-0034",
+  "file": "tests/p14c3-admission-boundaries.test.ts",
+  "line": 23,
+  "old": "  expect(saveApi('validateSaveV43')(saved)).toBe(saved)",
+  "new": "  expect(saveApi('validateSaveV44')(saved)).toBe(saved)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope"
+ },
+ {
+  "id": "N-0035",
+  "file": "tests/p14c3-profession-episodes.test.ts",
+  "line": 59,
+  "old": "  expect(saveApi('validateSaveV43')(saved)).toBe(saved)",
+  "new": "  expect(saveApi('validateSaveV44')(saved)).toBe(saved)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope"
+ },
+ {
+  "id": "N-0036",
+  "file": "tests/p14c3-profession-episodes.test.ts",
+  "line": 65,
+  "old": "  expect(saveApi('validateSaveV43')(allowedSave)).toBe(allowedSave)",
+  "new": "  expect(saveApi('validateSaveV44')(allowedSave)).toBe(allowedSave)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope"
+ },
+ {
+  "id": "N-0037",
+  "file": "tests/p14c3-profession-episodes.test.ts",
+  "line": 143,
+  "old": "    expect(saveApi('validateSaveV43')(saved)).toBe(saved)",
+  "new": "    expect(saveApi('validateSaveV44')(saved)).toBe(saved)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope"
+ },
+ {
+  "id": "N-0038",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 53,
+  "old": "    expect(saved.saveVersion, 'existing makeSave must write the governed new envelope').toBe(43)",
+  "new": "    expect(saved.saveVersion, 'existing makeSave must write the governed new envelope').toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "makeSave(world) is the live writer; makeSave stamps LIVE_SAVE_VERSION 44 (src/core/save.ts:6567, :6572)"
+ },
+ {
+  "id": "N-0039",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 54,
+  "old": "    expect(LIVE_SAVE_VERSION).toBe(43)",
+  "new": "    expect(LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "LIVE_SAVE_VERSION is 44 (src/core/save.ts:6567)"
+ },
+ {
+  "id": "N-0040",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 72,
+  "old": "      expect(upgraded.saveVersion, 'actual migration must change the current envelope').toBe(43)",
+  "new": "      expect(upgraded.saveVersion, 'actual migration must change the current envelope').toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "migrateToLive output is the live envelope (src/core/save.ts:10176-10177, migrateToV44); the leaf then reaches the S5 comparison at :87 (N-0041, deferred)"
+ },
+ {
+  "id": "N-0043",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 111,
+  "old": "  const validate = saveApi('validateSaveV43'), immutable = stableStringify(control)",
+  "new": "  const validate = saveApi('validateSaveV44'), immutable = stableStringify(control)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope (envelope38 or acceptedChosen); the renamed lookup feeds the bare .toThrow() at :116, deferred as S8 row H-new-1"
+ },
+ {
+  "id": "N-0044",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 321,
+  "old": "    expect(saveApi('validateSaveV43')(current)).toBe(current)",
+  "new": "    expect(saveApi('validateSaveV44')(current)).toBe(current)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope"
+ },
+ {
+  "id": "N-0045",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 336,
+  "old": "      expect(saveApi('validateSaveV43')(current)).toBe(current)",
+  "new": "      expect(saveApi('validateSaveV44')(current)).toBe(current)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope"
+ },
+ {
+  "id": "N-0046",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 356,
+  "old": "    expect(saveApi('validateSaveV43')(current)).toBe(current)",
+  "new": "    expect(saveApi('validateSaveV44')(current)).toBe(current)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope"
+ },
+ {
+  "id": "N-0047",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 367,
+  "old": "    expect(saveApi('validateSaveV43')(current)).toBe(current)",
+  "new": "    expect(saveApi('validateSaveV44')(current)).toBe(current)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope"
+ },
+ {
+  "id": "N-0048",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 370,
+  "old": "    expect(() => saveApi('validateSaveV43')(malformed)).toThrow(/straddles a retained production obligation/)",
+  "new": "    expect(() => saveApi('validateSaveV44')(malformed)).toThrow(/straddles a retained production obligation/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope ; the regex names the tampered obligation; the tamper (activeProductions, firstTakes, rival productions, scriptDevelopment) is nothing validateSaveV44 reads before the V43 chain (relationships, talent ids, market.tick, studioHistory.recordingStartedWeek; src/core/relationships.ts:666-811)"
+ },
+ {
+  "id": "N-0049",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 400,
+  "old": "    expect(saveApi('validateSaveV43')(current)).toBe(current)",
+  "new": "    expect(saveApi('validateSaveV44')(current)).toBe(current)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope"
+ },
+ {
+  "id": "N-0050",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 405,
+  "old": "    expect(() => saveApi('validateSaveV43')(malformed)).toThrow(/straddles a retained completed production obligation/)",
+  "new": "    expect(() => saveApi('validateSaveV44')(malformed)).toThrow(/straddles a retained completed production obligation/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope ; the regex names the tampered obligation; the tamper (activeProductions, firstTakes, rival productions, scriptDevelopment) is nothing validateSaveV44 reads before the V43 chain (relationships, talent ids, market.tick, studioHistory.recordingStartedWeek; src/core/relationships.ts:666-811)"
+ },
+ {
+  "id": "N-0051",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 410,
+  "old": "    expect(saveApi('validateSaveV43')(current)).toBe(current)",
+  "new": "    expect(saveApi('validateSaveV44')(current)).toBe(current)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope"
+ },
+ {
+  "id": "N-0052",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 416,
+  "old": "    expect(() => saveApi('validateSaveV43')(malformed)).toThrow(/straddles a retained production obligation/)",
+  "new": "    expect(() => saveApi('validateSaveV44')(malformed)).toThrow(/straddles a retained production obligation/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope ; the regex names the tampered obligation; the tamper (activeProductions, firstTakes, rival productions, scriptDevelopment) is nothing validateSaveV44 reads before the V43 chain (relationships, talent ids, market.tick, studioHistory.recordingStartedWeek; src/core/relationships.ts:666-811)"
+ },
+ {
+  "id": "N-0053",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 424,
+  "old": "    expect(saveApi('validateSaveV43')(current)).toBe(current)",
+  "new": "    expect(saveApi('validateSaveV44')(current)).toBe(current)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope"
+ },
+ {
+  "id": "N-0054",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 429,
+  "old": "    expect(() => saveApi('validateSaveV43')(malformed)).toThrow(/straddles a retained original drafting obligation/)",
+  "new": "    expect(() => saveApi('validateSaveV44')(malformed)).toThrow(/straddles a retained original drafting obligation/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope ; the regex names the tampered obligation; the tamper (activeProductions, firstTakes, rival productions, scriptDevelopment) is nothing validateSaveV44 reads before the V43 chain (relationships, talent ids, market.tick, studioHistory.recordingStartedWeek; src/core/relationships.ts:666-811)"
+ },
+ {
+  "id": "N-0055",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 434,
+  "old": "    expect(saveApi('validateSaveV43')(current)).toBe(current)",
+  "new": "    expect(saveApi('validateSaveV44')(current)).toBe(current)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope"
+ },
+ {
+  "id": "N-0056",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 445,
+  "old": "    expect(saveApi('validateSaveV43')(current)).toBe(current)",
+  "new": "    expect(saveApi('validateSaveV44')(current)).toBe(current)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope"
+ },
+ {
+  "id": "N-0057",
+  "file": "tests/p14c3-save-v38.test.ts",
+  "line": 454,
+  "old": "    expect(saveApi('validateSaveV43')(current)).toBe(current)",
+  "new": "    expect(saveApi('validateSaveV44')(current)).toBe(current)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope"
+ },
+ {
+  "id": "N-0058",
+  "file": "tests/p14c3-transition-evidence.test.ts",
+  "line": 34,
+  "old": "    expect(saveApi('validateSaveV43')(actual)).toBe(actual)",
+  "new": "    expect(saveApi('validateSaveV44')(actual)).toBe(actual)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope"
+ },
+ {
+  "id": "N-0059",
+  "file": "tests/p14c3-transition-evidence.test.ts",
+  "line": 41,
+  "old": "    expect(saveApi('validateSaveV43')(reencoded)).toBe(reencoded)",
+  "new": "    expect(saveApi('validateSaveV44')(reencoded)).toBe(reencoded)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope"
+ },
+ {
+  "id": "N-0060",
+  "file": "tests/p14c3-transition-evidence.test.ts",
+  "line": 50,
+  "old": "  expect(saveApi('validateSaveV43')(original)).toBe(original)",
+  "new": "  expect(saveApi('validateSaveV44')(original)).toBe(original)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope"
+ },
+ {
+  "id": "N-0061",
+  "file": "tests/p14c3-transition-evidence.test.ts",
+  "line": 61,
+  "old": "  expect(() => saveApi('validateSaveV43')(malformed)).toThrow(cause)",
+  "new": "  expect(() => saveApi('validateSaveV44')(malformed)).toThrow(cause)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope; the tamper edits transitionEvaluations only, which validateSaveV44 does not read before the V43 chain, so cause still names the V43-chain guard"
+ },
+ {
+  "id": "N-0062",
+  "file": "tests/p14c3-transition-evidence.test.ts",
+  "line": 107,
+  "old": "    expect(saveApi('validateSaveV43')(saved)).toBe(saved)",
+  "new": "    expect(saveApi('validateSaveV44')(saved)).toBe(saved)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saveApi key renamed at tests/helpers/p14c3-fixtures.ts:66; the input comes from envelope38 (save.makeSave), a live envelope"
+ }
+]

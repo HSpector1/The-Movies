@@ -1,0 +1,1152 @@
+[
+ {
+  "id": "N-0442",
+  "file": "tests/contracts/v14-boundary-guards.contract.test.ts",
+  "line": 34,
+  "old": "import { applyActions, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, makeSave, stableStringify, tick } from '../../src/core/index.js'",
+  "new": "import { applyActions, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, makeSave, stableStringify, tick } from '../../src/core/index.js'",
+  "cls": "S4",
+  "status": "certain",
+  "note": "import for the inserted convertV44ToV43 step"
+ },
+ {
+  "id": "N-0443",
+  "file": "tests/contracts/v14-boundary-guards.contract.test.ts",
+  "line": 63,
+  "old": "const admitted = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(makeSave(state))))))).state",
+  "new": "const admitted = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(makeSave(state)))))))).state",
+  "cls": "S4",
+  "status": "certain",
+  "note": "convertV43ToV42(live) -> convertV43ToV42(convertV44ToV43(live)); without it convertV43ToV42 refuses the V44 envelope with \"validateSaveV43: expected version 43\" (src/core/save.ts:10717) (historicalWorkflowCarrier, makeSave(state)); X5 step 4 TS2345 at this call (col 116), SaveFileV44 passed where SaveFileV43 is typed"
+ },
+ {
+  "id": "G5-new-1",
+  "file": "tests/contracts/v14-boundary-guards.contract.test.ts",
+  "line": 321,
+  "old": "// 43 is now live (src/core/save.ts:5438 handles 1 through 43), so the unknown sentinel is 44.",
+  "new": "// 1358-N S3: 44 is now live (src/core/save.ts:5443-5445 handles 1 through 44), so the unknown sentinel is 45.",
+  "cls": "S3",
+  "status": "certain",
+  "note": "comment above the S3 sentinel. The census listed :321 under noEditInFiles with \"update only if the author touches the block\"; the :322 edit touches it, and the old text (43 live, sentinel 44) would contradict the line below. Cites the post-image dispatcher, src/core/save.ts:5443-5445"
+ },
+ {
+  "id": "N-0445",
+  "file": "tests/contracts/v14-boundary-guards.contract.test.ts",
+  "line": 322,
+  "old": "expect(() => validateSave({ ...save, saveVersion: 44 })).toThrow(/unknown saveVersion 44/)",
+  "new": "expect(() => validateSave({ ...save, saveVersion: 45 })).toThrow(/unknown saveVersion 45/)",
+  "cls": "S3",
+  "status": "certain",
+  "note": "sentinel 44 -> 45 and \"unknown saveVersion 44\" -> 45: validateSave dispatches 44 to validateSaveV44 (src/core/save.ts:5443) and names the stamped version for anything else (:5444-5446)"
+ },
+ {
+  "id": "N-0446",
+  "file": "tests/p06a-w1-release-authority.test.ts",
+  "line": 32,
+  "old": "convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42,",
+  "new": "convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43,",
+  "cls": "S4",
+  "status": "certain",
+  "note": "import for the inserted convertV44ToV43 step"
+ },
+ {
+  "id": "N-0447",
+  "file": "tests/p06a-w1-release-authority.test.ts",
+  "line": 38,
+  "old": "validateSaveV43,",
+  "new": "validateSaveV44,",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator: every validateSaveV43 call in the file moved to validateSaveV44, so the old name would be unused (TS6133) (:459, :465)"
+ },
+ {
+  "id": "N-0448",
+  "file": "tests/p06a-w1-release-authority.test.ts",
+  "line": 406,
+  "old": "const admitted37 = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(makeSave(ready)))))))",
+  "new": "const admitted37 = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(makeSave(ready))))))))",
+  "cls": "S4",
+  "status": "certain",
+  "note": "convertV43ToV42(live) -> convertV43ToV42(convertV44ToV43(live)); without it convertV43ToV42 refuses the V44 envelope with \"validateSaveV43: expected version 43\" (src/core/save.ts:10717) (makeSave(ready)); X5 step 4 TS2345 at this call (col 120), SaveFileV44 passed where SaveFileV43 is typed"
+ },
+ {
+  "id": "N-0451",
+  "file": "tests/p06a-w1-release-authority.test.ts",
+  "line": 459,
+  "old": "expect(() => validateSaveV43(orphan)).toThrow(/foreign identity|orphan/)",
+  "new": "expect(() => validateSaveV44(orphan)).toThrow(/foreign identity|orphan/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: orphan = JSON.parse(exportSave(good)) (:455), good = makeSave(commit(ready, id)) (:453)"
+ },
+ {
+  "id": "N-0452",
+  "file": "tests/p06a-w1-release-authority.test.ts",
+  "line": 465,
+  "old": "expect(() => validateSaveV43(extraKey)).toThrow(/unknown field .surprise./)",
+  "new": "expect(() => validateSaveV44(extraKey)).toThrow(/unknown field .surprise./)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: extraKey = JSON.parse(exportSave(good)) (:461), good = makeSave(commit(ready, id)) (:453)"
+ },
+ {
+  "id": "N-0453",
+  "file": "tests/p08a-w0-studio-history.test.ts",
+  "line": 53,
+  "old": "validateSaveV43,",
+  "new": "validateSaveV44,",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator: every validateSaveV43 call in the file moved to validateSaveV44, so the old name would be unused (TS6133) (:441, :450, :459, :465, :477)"
+ },
+ {
+  "id": "N-0456",
+  "file": "tests/p08a-w0-studio-history.test.ts",
+  "line": 441,
+  "old": "expect(validateSaveV43(clone(legal))).toBeTruthy()",
+  "new": "expect(validateSaveV44(clone(legal))).toBeTruthy()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: legal = makeSave(after) at :440"
+ },
+ {
+  "id": "N-0457",
+  "file": "tests/p08a-w0-studio-history.test.ts",
+  "line": 450,
+  "old": "expect(() => validateSaveV43(swapped)).toThrow(/ascending eventId/)",
+  "new": "expect(() => validateSaveV44(swapped)).toThrow(/ascending eventId/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: swapped = clone(legal)"
+ },
+ {
+  "id": "N-0458",
+  "file": "tests/p08a-w0-studio-history.test.ts",
+  "line": 459,
+  "old": "expect(() => validateSaveV43(early)).toThrow(/recording boundary/)",
+  "new": "expect(() => validateSaveV44(early)).toThrow(/recording boundary/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: early = clone(legal)"
+ },
+ {
+  "id": "N-0459",
+  "file": "tests/p08a-w0-studio-history.test.ts",
+  "line": 465,
+  "old": "expect(() => validateSaveV43(lying)).toThrow(/after − before/)",
+  "new": "expect(() => validateSaveV44(lying)).toThrow(/after − before/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: lying = clone(legal)"
+ },
+ {
+  "id": "N-0460",
+  "file": "tests/p08a-w0-studio-history.test.ts",
+  "line": 477,
+  "old": "expect(() => validateSaveV43(unknown)).toThrow(/not a known history kind/)",
+  "new": "expect(() => validateSaveV44(unknown)).toThrow(/not a known history kind/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: unknown = clone(legal)"
+ },
+ {
+  "id": "N-0461",
+  "file": "tests/p12-starting-world.test.ts",
+  "line": 2,
+  "old": "import { beginFounding, generateWorld, makeSave, exportSave, importSave, migrateToV25, migrateToLive, makeSaveV18, convertV41ToV40, convertV42ToV41, convertV43ToV42 } from '../src/core/index.js'",
+  "new": "import { beginFounding, generateWorld, makeSave, exportSave, importSave, migrateToV25, migrateToLive, makeSaveV18, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43 } from '../src/core/index.js'",
+  "cls": "S4",
+  "status": "certain",
+  "note": "import for the inserted convertV44ToV43 step"
+ },
+ {
+  "id": "N-0462",
+  "file": "tests/p12-starting-world.test.ts",
+  "line": 55,
+  "old": "expect(()=>makeSaveV18(convertV41ToV40(convertV42ToV41(convertV43ToV42(makeSave(state)))).state)).toThrow(/cannot downgrade/)",
+  "new": "expect(()=>makeSaveV18(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(makeSave(state))))).state)).toThrow(/^makeSaveV18: cannot downgrade or discard profession transition, industry retirement or entrant authority$/)",
+  "cls": "S4",
+  "status": "certain",
+  "note": "convertV43ToV42(live) -> convertV43ToV42(convertV44ToV43(live)); without it convertV43ToV42 refuses the V44 envelope with \"validateSaveV43: expected version 43\" (src/core/save.ts:10717) (makeSave(state) at founding); X5 step 4 TS2345 at this call (col 76), SaveFileV44 passed where SaveFileV43 is typed. Same line as N-0463"
+ },
+ {
+  "id": "N-0463",
+  "file": "tests/p12-starting-world.test.ts",
+  "line": 55,
+  "old": "expect(()=>makeSaveV18(convertV41ToV40(convertV42ToV41(convertV43ToV42(makeSave(state)))).state)).toThrow(/cannot downgrade/)",
+  "new": "expect(()=>makeSaveV18(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(makeSave(state))))).state)).toThrow(/^makeSaveV18: cannot downgrade or discard profession transition, industry retirement or entrant authority$/)",
+  "cls": "S9",
+  "status": "read",
+  "note": "Regex /cannot downgrade/ -> /^makeSaveV18: cannot downgrade or discard profession transition, industry retirement or entrant authority$/, with a 3-line comment inserted at :52-54. Read, not measured. (1) No Save44 refusal: state = beginFounding(generateWorld(...)) with no tick; generateWorld writes relationships: [] (src/core/worldgen.ts:812) and only tick.ts (advanceRelationshipsWeek) and actions.ts (recordCancelledAfterFirstTake, recordCastingCompetition) write edges, so convertV44ToV43 (src/core/save.ts:10785-10794) has no edge to refuse at :10789-10790. (2) No V43->V40 step refuses at founding: no screenplayShelved receipt and empty shelving (hollywood.ts:206), no edge for assertRelationshipsAtV31, no rival termination receipt or movement. (3) First guard: makeSaveV18 (save.ts:6523) -> assertFrozenBuilderRetainsHollywood (save.ts:6181): convertV40ToV39 passes (no first-take fact, no promise), validateSaveV39 and assertNoDirectorPromises pass (no promise), then assertProfessionHistoryDowngrade(state, \"makeSaveV18\") at save.ts:6191 throws at src/core/professionHistory.ts:67: \"makeSaveV18: cannot downgrade or discard profession transition, industry retirement or entrant authority\", because the four authored rival teams (RIVAL_ARRIVAL_WEEKS 0, calendar.ts:3; enterRival hollywood.ts:189, authored at :200) mint people whose anchors withTalentProvenance appends with kind \"entrant\" (src/core/aging.ts:268-269). It fires ahead of the technology checks (save.ts:6192) and the V19 Hollywood guard (save.ts:6194). 1358-J finding 17: the old /cannot downgrade/ would also match the Save44 refusal"
+ },
+ {
+  "id": "N-0464",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 12,
+  "old": "import { convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,",
+  "new": "import { convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,",
+  "cls": "S4",
+  "status": "certain",
+  "note": "import for the inserted convertV44ToV43 step"
+ },
+ {
+  "id": "N-0465",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 13,
+  "old": "validateSaveV36, validateSaveV43 } from '../src/core/save.js'",
+  "new": "validateSaveV36, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator: every validateSaveV43 call in the file moved to validateSaveV44, so the old name would be unused (TS6133) (eight calls)"
+ },
+ {
+  "id": "N-0466",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 81,
+  "old": "expect(validateSaveV43(envelope(reopened)).state).toBe(reopened)",
+  "new": "expect(validateSaveV44(envelope(reopened)).state).toBe(reopened)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: envelope() stamps LIVE_SAVE_VERSION (:37)"
+ },
+ {
+  "id": "N-0467",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 218,
+  "old": "expect(() => validateSaveV43(input)).toThrow()",
+  "new": "expect(() => validateSaveV44(input)).toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: envelope(state) (:37); the S8 pin is deferred (N-0468)"
+ },
+ {
+  "id": "N-0469",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 232,
+  "old": "expect(() => validateSaveV43(envelope(illegal))).toThrow()",
+  "new": "expect(() => validateSaveV44(envelope(illegal))).toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: envelope(illegal) (:37); the S8 pin is deferred (N-0470)"
+ },
+ {
+  "id": "N-0471",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 241,
+  "old": "expect(() => validateSaveV43(input)).toThrow()",
+  "new": "expect(() => validateSaveV44(input)).toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: envelope(...) (:37); the S8 pin is deferred (N-0472)"
+ },
+ {
+  "id": "N-0473",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 242,
+  "old": "expect(() => validateSaveV43({ ...envelope(f.finishing), retirementBypass: true })).toThrow()",
+  "new": "expect(() => validateSaveV44({ ...envelope(f.finishing), retirementBypass: true })).toThrow(/^validateSaveV12: save has unknown field \"retirementBypass\"$/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: envelope(f.finishing) (:37). Same line as N-0474"
+ },
+ {
+  "id": "N-0474",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 242,
+  "old": "expect(() => validateSaveV43({ ...envelope(f.finishing), retirementBypass: true })).toThrow()",
+  "new": "expect(() => validateSaveV44({ ...envelope(f.finishing), retirementBypass: true })).toThrow(/^validateSaveV12: save has unknown field \"retirementBypass\"$/)",
+  "cls": "S8",
+  "status": "read",
+  "note": "Bare .toThrow() -> .toThrow(/^validateSaveV12: save has unknown field \"retirementBypass\"$/). Read, not measured: validateSaveV44 (src/core/save.ts:10763) checks isRecord (:10764), then v12ExactKeys(save, [saveVersion, seed, state, broadcastCache], \"save\") at :10765; all four required keys are present (:4167-4171), and the key loop (:4172-4176) reaches the extra top-level key retirementBypass and calls v12Error (:4151-4153), which throws \"validateSaveV12: save has unknown field \\\"retirementBypass\\\"\" before the version check (:10766) or any state read. 1358-J finding 17"
+ },
+ {
+  "id": "N-0475",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 254,
+  "old": "expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(current)))))))).toThrow()",
+  "new": "expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(current))))))))).toThrow()",
+  "cls": "S4",
+  "status": "certain",
+  "note": "convertV43ToV42(live) -> convertV43ToV42(convertV44ToV43(live)); without it convertV43ToV42 refuses the V44 envelope with \"validateSaveV43: expected version 43\" (src/core/save.ts:10717) (current = makeSave(f.finishing)); X5 step 4 TS2345 at this call (col 130), SaveFileV44 passed where SaveFileV43 is typed. The bare .toThrow() stays; its S9 pin is deferred (N-0476)"
+ },
+ {
+  "id": "N-0477",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 278,
+  "old": "expect(() => validateSaveV43(legal)).not.toThrow()",
+  "new": "expect(() => validateSaveV44(legal)).not.toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: legal = envelope(f.finishing) (:272)"
+ },
+ {
+  "id": "N-0478",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 279,
+  "old": "expect(() => validateSaveV43(illegal)).toThrow()",
+  "new": "expect(() => validateSaveV44(illegal)).toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: illegal = envelope(...) (:273)"
+ },
+ {
+  "id": "N-0479",
+  "file": "tests/p14c2rm-writer-continuation.test.ts",
+  "line": 345,
+  "old": "expect(() => validateSaveV43(envelope(invalid)), 'existing full-save refusal is a control').toThrow()",
+  "new": "expect(() => validateSaveV44(envelope(invalid)), 'existing full-save refusal is a control').toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: envelope(invalid) (:37)"
+ },
+ {
+  "id": "N-0480",
+  "file": "tests/p14c3-canonical-rival-history.test.ts",
+  "line": 10,
+  "old": "import { exportSave, makeSave, stableStringify, validateSaveV37, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { exportSave, makeSave, stableStringify, validateSaveV37, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator: every validateSaveV43 call in the file moved to validateSaveV44, so the old name would be unused (TS6133) (:233, :245, :255, :256)"
+ },
+ {
+  "id": "N-0481",
+  "file": "tests/p14c3-canonical-rival-history.test.ts",
+  "line": 233,
+  "old": "expect(validateSaveV43(control)).toBe(control)",
+  "new": "expect(validateSaveV44(control)).toBe(control)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: control = makeSave(canonicalChosen().loaded) (:232)"
+ },
+ {
+  "id": "N-0482",
+  "file": "tests/p14c3-canonical-rival-history.test.ts",
+  "line": 245,
+  "old": "expect(() => validateSaveV43(mutant)).toThrow(cause)",
+  "new": "expect(() => validateSaveV44(mutant)).toThrow(cause)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: mutant = clone(control)"
+ },
+ {
+  "id": "N-0483",
+  "file": "tests/p14c3-canonical-rival-history.test.ts",
+  "line": 255,
+  "old": "expect(() => validateSaveV43(missing)).toThrow(/current profession changed without its anchored change history/)",
+  "new": "expect(() => validateSaveV44(missing)).toThrow(/current profession changed without its anchored change history/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: missing = clone(control)"
+ },
+ {
+  "id": "N-0484",
+  "file": "tests/p14c3-canonical-rival-history.test.ts",
+  "line": 256,
+  "old": "expect(validateSaveV43(control)).toBe(control)",
+  "new": "expect(validateSaveV44(control)).toBe(control)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: control (:232)"
+ },
+ {
+  "id": "N-0485",
+  "file": "tests/p14c3-cohort-transition.test.ts",
+  "line": 9,
+  "old": "import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, exportSave, makeSave, stableStringify, validateSaveV35, validateSaveV37, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, exportSave, makeSave, stableStringify, validateSaveV35, validateSaveV37, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S4",
+  "status": "certain",
+  "note": "import for the inserted convertV44ToV43 step. Same line as G5-new-2"
+ },
+ {
+  "id": "G5-new-2",
+  "file": "tests/p14c3-cohort-transition.test.ts",
+  "line": 9,
+  "old": "import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, exportSave, makeSave, stableStringify, validateSaveV35, validateSaveV37, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, exportSave, makeSave, stableStringify, validateSaveV35, validateSaveV37, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "validateSaveV43 -> validateSaveV44 in the import. Census N-0485 covers only the convertV44ToV43 half of this line; the file imports validateSaveV43 here and all three callers (:273, :278, :280) move under S1, so without this half validateSaveV44 is unbound and validateSaveV43 unused"
+ },
+ {
+  "id": "N-0486",
+  "file": "tests/p14c3-cohort-transition.test.ts",
+  "line": 273,
+  "old": "expect(validateSaveV43(control)).toBe(control)",
+  "new": "expect(validateSaveV44(control)).toBe(control)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: control = makeSave(state) (:272)"
+ },
+ {
+  "id": "N-0487",
+  "file": "tests/p14c3-cohort-transition.test.ts",
+  "line": 278,
+  "old": "expect(() => validateSaveV43(malformed)).toThrow(/cohort receipt.*week 832.*as a director entrant.*original profession disagrees/)",
+  "new": "expect(() => validateSaveV44(malformed)).toThrow(/cohort receipt.*week 832.*as a director entrant.*original profession disagrees/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: malformed = clone(control)"
+ },
+ {
+  "id": "N-0488",
+  "file": "tests/p14c3-cohort-transition.test.ts",
+  "line": 280,
+  "old": "expect(validateSaveV43(control)).toBe(control)",
+  "new": "expect(validateSaveV44(control)).toBe(control)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: control (:272)"
+ },
+ {
+  "id": "N-0489",
+  "file": "tests/p14c3-cohort-transition.test.ts",
+  "line": 287,
+  "old": "expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(control))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplayShelved receipt$/)",
+  "new": "expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(control)))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplayShelved receipt$/)",
+  "cls": "S4",
+  "status": "certain",
+  "note": "convertV43ToV42(live) -> convertV43ToV42(convertV44ToV43(live)); without it convertV43ToV42 refuses the V44 envelope with \"validateSaveV43: expected version 43\" (src/core/save.ts:10717) (control = makeSave(state)); X5 step 4 TS2345 at this call (col 114), SaveFileV44 passed where SaveFileV43 is typed. Regex and 1344 S9 comment unchanged; the Save44 S9 question is deferred (N-0490)"
+ },
+ {
+  "id": "N-0491",
+  "file": "tests/p14c3-dual-extensions.test.ts",
+  "line": 8,
+  "old": "import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'",
+  "new": "import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'",
+  "cls": "S4",
+  "status": "certain",
+  "note": "import for the inserted convertV44ToV43 step"
+ },
+ {
+  "id": "N-0492",
+  "file": "tests/p14c3-dual-extensions.test.ts",
+  "line": 178,
+  "old": "expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(saved))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplayShelved receipt$/)",
+  "new": "expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(saved)))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplayShelved receipt$/)",
+  "cls": "S4",
+  "status": "certain",
+  "note": "convertV43ToV42(live) -> convertV43ToV42(convertV44ToV43(live)); without it convertV43ToV42 refuses the V44 envelope with \"validateSaveV43: expected version 43\" (src/core/save.ts:10717) (saved = makeSave(state), :168); X5 step 4 TS2345 at this call (col 114), SaveFileV44 passed where SaveFileV43 is typed. S9 deferred (N-0493)"
+ },
+ {
+  "id": "N-0494",
+  "file": "tests/p14c3-offmenu-extensions.test.ts",
+  "line": 10,
+  "old": "import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'",
+  "new": "import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'",
+  "cls": "S4",
+  "status": "certain",
+  "note": "import for the inserted convertV44ToV43 step"
+ },
+ {
+  "id": "N-0495",
+  "file": "tests/p14c3-offmenu-extensions.test.ts",
+  "line": 235,
+  "old": "expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(saved))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplayShelved receipt$/)",
+  "new": "expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(saved)))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplayShelved receipt$/)",
+  "cls": "S4",
+  "status": "certain",
+  "note": "convertV43ToV42(live) -> convertV43ToV42(convertV44ToV43(live)); without it convertV43ToV42 refuses the V44 envelope with \"validateSaveV43: expected version 43\" (src/core/save.ts:10717) (saved = makeSave(state), :222); X5 step 4 TS2345 at this call (col 114), SaveFileV44 passed where SaveFileV43 is typed. S9 deferred (N-0496)"
+ },
+ {
+  "id": "N-0497",
+  "file": "tests/p14c3-profession-history.test.ts",
+  "line": 119,
+  "old": "expect(() => save.convertV38ToV37(save.convertV39ToV38(save.convertV40ToV39(save.convertV41ToV40(save.convertV42ToV41(save.convertV43ToV42(save.makeSave(f.state)))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-de11f27b-r04$/)",
+  "new": "expect(() => save.convertV38ToV37(save.convertV39ToV38(save.convertV40ToV39(save.convertV41ToV40(save.convertV42ToV41(save.convertV43ToV42(save.convertV44ToV43(save.makeSave(f.state))))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-de11f27b-r04$/)",
+  "cls": "S4",
+  "status": "certain",
+  "note": "save.convertV43ToV42(save.makeSave(f.state)) -> save.convertV43ToV42(save.convertV44ToV43(save.makeSave(f.state))); namespace import, no import edit; X5 step 4 TS2345 at this call (col 144), SaveFileV44 passed where SaveFileV43 is typed. S9 deferred (N-0498)"
+ },
+ {
+  "id": "N-0499",
+  "file": "tests/p14c3-profession-history.test.ts",
+  "line": 276,
+  "old": "expect(save.validateSaveV43(current)).toBe(current); expect(save.validateSaveV37(old)).toBe(old)",
+  "new": "expect(save.validateSaveV44(current)).toBe(current); expect(save.validateSaveV37(old)).toBe(old)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: current = save.makeSave(f.state) (:275)"
+ },
+ {
+  "id": "N-0500",
+  "file": "tests/p14c3-profession-history.test.ts",
+  "line": 280,
+  "old": "expect(save.validateSaveV43(current)).toBe(current)",
+  "new": "expect(save.validateSaveV44(current)).toBe(current)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: current (:275)"
+ },
+ {
+  "id": "N-0501",
+  "file": "tests/p14c3-profession-history.test.ts",
+  "line": 301,
+  "old": "for (const input of [a, b, a]) expect(save.validateSaveV43(input)).toBe(input)",
+  "new": "for (const input of [a, b, a]) expect(save.validateSaveV44(input)).toBe(input)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: a, b = save.makeSave(...) (:299)"
+ },
+ {
+  "id": "N-0502",
+  "file": "tests/p14c3-profession-history.test.ts",
+  "line": 305,
+  "old": "try { expect(save.validateSaveV43(detached)).toBe(detached) } finally { spy.mockRestore() }",
+  "new": "try { expect(save.validateSaveV44(detached)).toBe(detached) } finally { spy.mockRestore() }",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: detached = clone(a)"
+ },
+ {
+  "id": "N-0503",
+  "file": "tests/p14c3-profession-history.test.ts",
+  "line": 320,
+  "old": "expect(() => save.validateSaveV43(forgedB)).toThrow(/current profession changed without its anchored change history/)",
+  "new": "expect(() => save.validateSaveV44(forgedB)).toThrow(/current profession changed without its anchored change history/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: forgedB = clone(b)"
+ },
+ {
+  "id": "N-0504",
+  "file": "tests/p14c3-profession-history.test.ts",
+  "line": 326,
+  "old": "expect(save.validateSaveV43(a)).toBe(a); expect(save.validateSaveV43(b)).toBe(b)",
+  "new": "expect(save.validateSaveV44(a)).toBe(a); expect(save.validateSaveV44(b)).toBe(b)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: a, b (:299); both calls on the line"
+ },
+ {
+  "id": "N-0505",
+  "file": "tests/p14c3-profession-history.test.ts",
+  "line": 332,
+  "old": "expect(save.validateSaveV43(control)).toBe(control)",
+  "new": "expect(save.validateSaveV44(control)).toBe(control)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: control = save.makeSave(f.state) (:331)"
+ },
+ {
+  "id": "N-0506",
+  "file": "tests/p14c3-profession-history.test.ts",
+  "line": 340,
+  "old": "expect(() => save.validateSaveV43(malformed)).toThrow(/future entrant in its recorded talent prefix/)",
+  "new": "expect(() => save.validateSaveV44(malformed)).toThrow(/future entrant in its recorded talent prefix/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: malformed = clone(control)"
+ },
+ {
+  "id": "N-0507",
+  "file": "tests/p14c3-profession-history.test.ts",
+  "line": 342,
+  "old": "expect(save.validateSaveV43(control)).toBe(control)",
+  "new": "expect(save.validateSaveV44(control)).toBe(control)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: control (:331)"
+ },
+ {
+  "id": "N-0508",
+  "file": "tests/p14c3-profession-history.test.ts",
+  "line": 347,
+  "old": "expect(save.validateSaveV43(control)).toBe(control)",
+  "new": "expect(save.validateSaveV44(control)).toBe(control)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: control = save.makeSave(f.state) (:346)"
+ },
+ {
+  "id": "N-0509",
+  "file": "tests/p14c3-profession-history.test.ts",
+  "line": 354,
+  "old": "expect(() => save.validateSaveV43(malformed)).toThrow(/precedes this person's actual creation/)",
+  "new": "expect(() => save.validateSaveV44(malformed)).toThrow(/precedes this person's actual creation/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: malformed = clone(control)"
+ },
+ {
+  "id": "N-0510",
+  "file": "tests/p14c3-profession-history.test.ts",
+  "line": 356,
+  "old": "expect(save.validateSaveV43(control)).toBe(control)",
+  "new": "expect(save.validateSaveV44(control)).toBe(control)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: control (:346)"
+ },
+ {
+  "id": "N-0511",
+  "file": "tests/p14c3-profession-history.test.ts",
+  "line": 361,
+  "old": "expect(save.validateSaveV37(old)).toBe(old); expect(save.validateSaveV43(current)).toBe(current)",
+  "new": "expect(save.validateSaveV37(old)).toBe(old); expect(save.validateSaveV44(current)).toBe(current)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: current = save.makeSave(actual209()) (:360)"
+ },
+ {
+  "id": "N-0512",
+  "file": "tests/p14c3-profession-history.test.ts",
+  "line": 376,
+  "old": "expect(save.validateSaveV43(current)).toBe(current)",
+  "new": "expect(save.validateSaveV44(current)).toBe(current)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: current (:360)"
+ },
+ {
+  "id": "N-0513",
+  "file": "tests/p14c3-promise-digest-continuity.test.ts",
+  "line": 14,
+  "old": "import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify, validateSaveV37 } from '../src/core/save.js'",
+  "new": "import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify, validateSaveV37 } from '../src/core/save.js'",
+  "cls": "S4",
+  "status": "certain",
+  "note": "import for the inserted convertV44ToV43 step"
+ },
+ {
+  "id": "N-0514",
+  "file": "tests/p14c3-promise-digest-continuity.test.ts",
+  "line": 279,
+  "old": "expect(exportSave(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(current)))))))).toBe(raw)",
+  "new": "expect(exportSave(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(current))))))))).toBe(raw)",
+  "cls": "S4",
+  "status": "certain",
+  "note": "convertV43ToV42(live) -> convertV43ToV42(convertV44ToV43(live)); without it convertV43ToV42 refuses the V44 envelope with \"validateSaveV43: expected version 43\" (src/core/save.ts:10717) (current = makeSave(migrateToLive(genuine V37 bytes).state), no tick, so every log is empty and every romance null and the round trip to raw stays byte-equal); X5 step 4 TS2345 at this call (col 119), SaveFileV44 passed where SaveFileV43 is typed"
+ },
+ {
+  "id": "N-0515",
+  "file": "tests/p14c3-queued-writing-proof.test.ts",
+  "line": 11,
+  "old": "import { stableStringify, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { stableStringify, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator: every validateSaveV43 call in the file moved to validateSaveV44, so the old name would be unused (TS6133) (:62, :135, :160)"
+ },
+ {
+  "id": "N-0516",
+  "file": "tests/p14c3-queued-writing-proof.test.ts",
+  "line": 28,
+  "old": "const envelope = (state: GameState) => ({ saveVersion: 43, seed: state.seed, state, broadcastCache: state.broadcastItems })",
+  "new": "const envelope = (state: GameState) => ({ saveVersion: 44, seed: state.seed, state, broadcastCache: state.broadcastItems })",
+  "cls": "S2",
+  "status": "certain",
+  "note": "envelope() stamp 43 -> 44: the helper wraps live states (tick()/queuedWritingFixture), per the 1309-X3 ruling 1 comment above it. One comment line inserted at :27 naming 1358-N S2+S1; lines below shift by one"
+ },
+ {
+  "id": "N-0517",
+  "file": "tests/p14c3-queued-writing-proof.test.ts",
+  "line": 62,
+  "old": "expect(validateSaveV43(control)).toBe(control)",
+  "new": "expect(validateSaveV44(control)).toBe(control)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: control = envelope(state), the live stamp at :28"
+ },
+ {
+  "id": "N-0518",
+  "file": "tests/p14c3-queued-writing-proof.test.ts",
+  "line": 135,
+  "old": "expect(() => validateSaveV43(envelope(malformed))).toThrow(/intentRulesVersion must be 1/)",
+  "new": "expect(() => validateSaveV44(envelope(malformed))).toThrow(/intentRulesVersion must be 1/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: envelope(malformed), the live stamp at :28"
+ },
+ {
+  "id": "N-0519",
+  "file": "tests/p14c3-queued-writing-proof.test.ts",
+  "line": 160,
+  "old": "expect(validateSaveV43(control)).toBe(control)",
+  "new": "expect(validateSaveV44(control)).toBe(control)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: control = envelope(state), the live stamp at :28"
+ },
+ {
+  "id": "N-0520",
+  "file": "tests/p14c3-transitions.test.ts",
+  "line": 8,
+  "old": "import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, exportSave, importSave, migrateToLive, stableStringify } from '../src/core/save.js'",
+  "new": "import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, exportSave, importSave, migrateToLive, stableStringify } from '../src/core/save.js'",
+  "cls": "S4",
+  "status": "certain",
+  "note": "import for the inserted convertV44ToV43 step"
+ },
+ {
+  "id": "N-0521",
+  "file": "tests/p14c3-transitions.test.ts",
+  "line": 175,
+  "old": "expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(envelope38(reopened) as never))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-de11f27b-r04$/)",
+  "new": "expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(envelope38(reopened) as never)))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-de11f27b-r04$/)",
+  "cls": "S4",
+  "status": "certain",
+  "note": "convertV43ToV42(live) -> convertV43ToV42(convertV44ToV43(live)); without it convertV43ToV42 refuses the V44 envelope with \"validateSaveV43: expected version 43\" (src/core/save.ts:10717) (envelope38(reopened) wraps makeSave; typed \"as never\", so X5 shows no TS2345 here). S9 deferred (N-0522)"
+ },
+ {
+  "id": "N-0523",
+  "file": "tests/p14c3-transitions.test.ts",
+  "line": 207,
+  "old": "expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(envelope38(reopened) as never))))))).toThrow(/^migrateToV37: cannot downgrade or discard profession transition, industry retirement or entrant authority$/)",
+  "new": "expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(envelope38(reopened) as never)))))))).toThrow(/^migrateToV37: cannot downgrade or discard profession transition, industry retirement or entrant authority$/)",
+  "cls": "S4",
+  "status": "certain",
+  "note": "convertV43ToV42(live) -> convertV43ToV42(convertV44ToV43(live)); without it convertV43ToV42 refuses the V44 envelope with \"validateSaveV43: expected version 43\" (src/core/save.ts:10717) (envelope38(reopened), \"as never\"). S9 deferred (N-0524)"
+ },
+ {
+  "id": "N-0525",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 350,
+  "old": "const save = saves.makeSave(state); expect(save.saveVersion).toBe(43)",
+  "new": "const save = saves.makeSave(state); expect(save.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "toBe(43) -> toBe(44): saves.makeSave(state).saveVersion states the live writer"
+ },
+ {
+  "id": "N-0526",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 387,
+  "old": "const projectedA = saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.makeSave(a.state)))).state",
+  "new": "const projectedA = saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.makeSave(a.state))))).state",
+  "cls": "S4",
+  "status": "certain",
+  "note": "saves.convertV43ToV42(saves.makeSave(a.state)) gains saves.convertV44ToV43 innermost; namespace import; X5 step 4 TS2345 at this call (col 90), SaveFileV44 passed where SaveFileV43 is typed. Projection chain; its S9 question is deferred (N-0527)"
+ },
+ {
+  "id": "N-0529",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 405,
+  "old": "expect(current.saveVersion).toBe(43)",
+  "new": "expect(current.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "current = saves.migrateToLive(old.save): states the live writer"
+ },
+ {
+  "id": "N-0530",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 430,
+  "old": "expect(current.saveVersion).toBe(43)",
+  "new": "expect(current.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "current = saves.migrateToLive(old): states the live writer"
+ },
+ {
+  "id": "N-0532",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 693,
+  "old": "const projected = saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(save))).state",
+  "new": "const projected = saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(save)))).state",
+  "cls": "S4",
+  "status": "certain",
+  "note": "saves.convertV43ToV42(save) gains saves.convertV44ToV43 innermost (save = saves.makeSave(state), :679); X5 step 4 TS2345 at this call (col 91), SaveFileV44 passed where SaveFileV43 is typed. Projection chain; S9 deferred (N-0533)"
+ },
+ {
+  "id": "N-0534",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 1093,
+  "old": "expect(saves.makeSave(input.state).saveVersion).toBe(43)",
+  "new": "expect(saves.makeSave(input.state).saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "saves.makeSave(input.state).saveVersion states the live writer"
+ },
+ {
+  "id": "N-0535",
+  "file": "tests/p14p3-directing-promises.test.ts",
+  "line": 1133,
+  "old": "expect(saves.makeSave(occupied).saveVersion).toBe(43)",
+  "new": "expect(saves.makeSave(occupied).saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "saves.makeSave(occupied).saveVersion states the live writer"
+ },
+ {
+  "id": "N-0536",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 34,
+  "old": "validateSaveV43(input: unknown): unknown",
+  "new": "validateSaveV44(input: unknown): unknown",
+  "cls": "S1",
+  "status": "certain",
+  "note": "typed FutureAPI member validateSaveV43 -> validateSaveV44 (the live validator the file calls through api)"
+ },
+ {
+  "id": "N-0537",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 37,
+  "old": "",
+  "new": "convertV44ToV43(input: unknown): unknown",
+  "cls": "S4",
+  "status": "certain",
+  "note": "FutureAPI gains convertV44ToV43(input: unknown): unknown, with a 2-line comment inserted at :35-36 in the style of the 1344 and 1320 hops below it; used by the chains at :330, :378, :398"
+ },
+ {
+  "id": "N-0538",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 86,
+  "old": "assert.equal(typeof api.validateSaveV43, 'function', 'new public strict42 reader after actual version assertion')",
+  "new": "assert.equal(typeof api.validateSaveV44, 'function', 'new public strict43 reader after actual version assertion')",
+  "cls": "S1",
+  "status": "certain",
+  "note": "futureAPI() existence check renamed to validateSaveV44, and its message \"strict42\" -> \"strict43\" (validateSaveV44 hands the frozen V43 chain; 1344 moved strict41 -> strict42 the same way)"
+ },
+ {
+  "id": "G5-new-4",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 87,
+  "old": "",
+  "new": "assert.equal(typeof api.convertV44ToV43, 'function', 'new public guarded live→43 conversion')",
+  "cls": "S4",
+  "status": "certain",
+  "note": "inserted existence check assert.equal(typeof api.convertV44ToV43, \"function\", ...) beside the others. Census N-0537 adds the typed member only; futureAPI() asserts every FutureAPI member before the cast, and 1344 added the matching convertV43ToV42 check (now :88, the noEditInFiles :84 entry, kept)"
+ },
+ {
+  "id": "N-0539",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 325,
+  "old": "expect((valid as { saveVersion: number }).saveVersion).toBe(43)",
+  "new": "expect((valid as { saveVersion: number }).saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "valid = JSON.parse(bytes(admittedGenre)): live bytes; toBe(43) -> toBe(44)"
+ },
+ {
+  "id": "N-0540",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 326,
+  "old": "const api = futureAPI(); expect(api.validateSaveV43(valid)).toBe(valid)",
+  "new": "const api = futureAPI(); expect(api.validateSaveV44(valid)).toBe(valid)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: valid (:324)"
+ },
+ {
+  "id": "N-0541",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 330,
+  "old": "const oneDown = api.convertV41ToV40(api.convertV42ToV41(api.convertV43ToV42(valid)))",
+  "new": "const oneDown = api.convertV41ToV40(api.convertV42ToV41(api.convertV43ToV42(api.convertV44ToV43(valid))))",
+  "cls": "S4",
+  "status": "certain",
+  "note": "api.convertV43ToV42(valid) gains api.convertV44ToV43 innermost (typed unknown, so no TS2345 at X5). Projection chain; S9 deferred (N-0542)"
+ },
+ {
+  "id": "N-0543",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 339,
+  "old": "expect(() => api.validateSaveV43(bad)).toThrow(/predicate|family|genre|project|class|count|opportunit/i)",
+  "new": "expect(() => api.validateSaveV44(bad)).toThrow(/predicate|family|genre|project|class|count|opportunit/i)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: bad = clone(valid)"
+ },
+ {
+  "id": "N-0544",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 345,
+  "old": "expect(saves.LIVE_SAVE_VERSION).toBe(43)",
+  "new": "expect(saves.LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "saves.LIVE_SAVE_VERSION toBe(43) -> toBe(44)"
+ },
+ {
+  "id": "N-0545",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 366,
+  "old": "expect(current.saveVersion).toBe(43); expect(api.validateSaveV43(current)).toBe(current)",
+  "new": "expect(current.saveVersion).toBe(44); expect(api.validateSaveV44(current)).toBe(current)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: current = saves.migrateToLive(old). Same line as N-0546"
+ },
+ {
+  "id": "N-0546",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 366,
+  "old": "expect(current.saveVersion).toBe(43); expect(api.validateSaveV43(current)).toBe(current)",
+  "new": "expect(current.saveVersion).toBe(44); expect(api.validateSaveV44(current)).toBe(current)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "current.saveVersion toBe(43) -> toBe(44). Same line as N-0545"
+ },
+ {
+  "id": "N-0548",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 378,
+  "old": "expect(saves.exportSave(api.convertV40ToV39(api.convertV41ToV40(api.convertV42ToV41(api.convertV43ToV42(current)))))).toBe(raw)",
+  "new": "expect(saves.exportSave(api.convertV40ToV39(api.convertV41ToV40(api.convertV42ToV41(api.convertV43ToV42(api.convertV44ToV43(current))))))).toBe(raw)",
+  "cls": "S4",
+  "status": "certain",
+  "note": "api.convertV43ToV42(current) gains api.convertV44ToV43 innermost; current migrates genuine V39 bytes with no tick, so every log is empty and every romance null and the round trip stays byte-equal"
+ },
+ {
+  "id": "N-0549",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 383,
+  "old": "expect(api.validateSaveV43(positive)).toBe(positive)",
+  "new": "expect(api.validateSaveV44(positive)).toBe(positive)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: positive = JSON.parse(bytes(input45()))"
+ },
+ {
+  "id": "N-0550",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 397,
+  "old": "expect(() => api.validateSaveV43(bad)).toThrow(/first.?take|subject|suffix|cutover/i)",
+  "new": "expect(() => api.validateSaveV44(bad)).toThrow(/first.?take|subject|suffix|cutover/i)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: bad = clone(positive)"
+ },
+ {
+  "id": "N-0551",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 398,
+  "old": "expect(() => api.convertV41ToV40(api.convertV42ToV41(api.convertV43ToV42(bad)))).toThrow(/first.?take|subject|suffix|cutover/i)",
+  "new": "expect(() => api.convertV41ToV40(api.convertV42ToV41(api.convertV43ToV42(api.convertV44ToV43(bad))))).toThrow(/first.?take|subject|suffix|cutover/i)",
+  "cls": "S4",
+  "status": "certain",
+  "note": "api.convertV43ToV42(bad) gains api.convertV44ToV43 innermost. No S9 risk: convertV44ToV43 runs validateSaveV44 (src/core/save.ts:10786) before its edge loop, the same validator path the line above asserts with the same regex"
+ },
+ {
+  "id": "N-0552",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 736,
+  "old": "expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: save = saves.makeSave(state) (:735)"
+ },
+ {
+  "id": "N-0553",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 744,
+  "old": "try { saves.validateSaveV43(bad) } catch (caught) { error = caught }",
+  "new": "try { saves.validateSaveV44(bad) } catch (caught) { error = caught }",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: bad = clone(base), base a ControlSave = ReturnType<typeof saves.makeSave> (:722)"
+ },
+ {
+  "id": "N-0554",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 814,
+  "old": "expect(() => saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(released))))).toThrow(/cannot downgrade or discard an opportunity predicate or recorded first-take subject/)",
+  "new": "expect(() => saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(released)))))).toThrow(/cannot downgrade or discard an opportunity predicate or recorded first-take subject/)",
+  "cls": "S4",
+  "status": "certain",
+  "note": "saves.convertV43ToV42(released) gains saves.convertV44ToV43 innermost (released is a ControlSave); X5 step 4 TS2345 at this call (col 106), SaveFileV44 passed where SaveFileV43 is typed. S9 deferred (N-0555)"
+ },
+ {
+  "id": "N-0556",
+  "file": "tests/p14p4p5-opportunities.test.ts",
+  "line": 961,
+  "old": "try { saves.validateSaveV43(bad) } catch (caught) { error = caught }",
+  "new": "try { saves.validateSaveV44(bad) } catch (caught) { error = caught }",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: bad = clone(base), a ControlSave"
+ },
+ {
+  "id": "N-0557",
+  "file": "tests/p14p4p5-screenplay-status.test.ts",
+  "line": 65,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: save = saves.makeSave(state) (:64). Same line as N-0558"
+ },
+ {
+  "id": "N-0558",
+  "file": "tests/p14p4p5-screenplay-status.test.ts",
+  "line": 65,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "save.saveVersion toBe(43) -> toBe(44). Same line as N-0557"
+ },
+ {
+  "id": "N-0559",
+  "file": "tests/p14p4p5-screenplay-status.test.ts",
+  "line": 320,
+  "old": "try { saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(save)))) } catch (caught) { error = caught }",
+  "new": "try { saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(save))))) } catch (caught) { error = caught }",
+  "cls": "S4",
+  "status": "certain",
+  "note": "saves.convertV43ToV42(save) gains saves.convertV44ToV43 innermost (save = saves.makeSave(state), :297); X5 step 4 TS2345 at this call (col 97), SaveFileV44 passed where SaveFileV43 is typed. The exact message at :324 is deferred (N-0560)"
+ },
+ {
+  "id": "N-0561",
+  "file": "tests/p14r3-save-v41.test.ts",
+  "line": 122,
+  "old": "validateSaveV41, validateSaveV43, convertV40ToV41, convertV41ToV40, convertV42ToV41, convertV43ToV42, migrateToV41,",
+  "new": "validateSaveV41, validateSaveV44, convertV40ToV41, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, migrateToV41,",
+  "cls": "S4",
+  "status": "certain",
+  "note": "import for the inserted convertV44ToV43 step. Same line as G5-new-3"
+ },
+ {
+  "id": "G5-new-3",
+  "file": "tests/p14r3-save-v41.test.ts",
+  "line": 122,
+  "old": "validateSaveV41, validateSaveV43, convertV40ToV41, convertV41ToV40, convertV42ToV41, convertV43ToV42, migrateToV41,",
+  "new": "validateSaveV41, validateSaveV44, convertV40ToV41, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, migrateToV41,",
+  "cls": "S1",
+  "status": "certain",
+  "note": "validateSaveV43 -> validateSaveV44 in the import. Census N-0561 covers only the convertV44ToV43 half; both callers (:224, :342) move under S1 (census N-0564, N-0566), so without this half validateSaveV44 is unbound and validateSaveV43 unused"
+ },
+ {
+  "id": "N-0562",
+  "file": "tests/p14r3-save-v41.test.ts",
+  "line": 211,
+  "old": "expect(LIVE_SAVE_VERSION).toBe(43)",
+  "new": "expect(LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "LIVE_SAVE_VERSION toBe(43) -> toBe(44). Title \"LIVE_SAVE_VERSION === 42\" left as an older stale title (1358-F9 ruling 5)"
+ },
+ {
+  "id": "N-0563",
+  "file": "tests/p14r3-save-v41.test.ts",
+  "line": 216,
+  "old": "expect((saved as { saveVersion: number }).saveVersion).toBe(43)",
+  "new": "expect((saved as { saveVersion: number }).saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "makeSave(state).saveVersion states the live writer. Title \"makeSave stamps 41\" left as an older stale title"
+ },
+ {
+  "id": "N-0564",
+  "file": "tests/p14r3-save-v41.test.ts",
+  "line": 224,
+  "old": "const revalidated = validateSaveV43(JSON.parse(JSON.stringify(saved)))",
+  "new": "const revalidated = validateSaveV44(JSON.parse(JSON.stringify(saved)))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: JSON round trip of makeSave(state) (:223)"
+ },
+ {
+  "id": "N-0565",
+  "file": "tests/p14r3-save-v41.test.ts",
+  "line": 225,
+  "old": "expect(revalidated.saveVersion).toBe(43)",
+  "new": "expect(revalidated.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "revalidated.saveVersion states the live writer"
+ },
+ {
+  "id": "N-0566",
+  "file": "tests/p14r3-save-v41.test.ts",
+  "line": 342,
+  "old": "const validated = validateSaveV43(save as never)",
+  "new": "const validated = validateSaveV44(save as never)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live envelope: lawfulTerminatedSave() returns makeSave(restored) (:206)"
+ },
+ {
+  "id": "N-0567",
+  "file": "tests/p14r3-save-v41.test.ts",
+  "line": 343,
+  "old": "expect(validated.saveVersion).toBe(43)",
+  "new": "expect(validated.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "validated.saveVersion states the live writer"
+ },
+ {
+  "id": "N-0568",
+  "file": "tests/p14r3-save-v41.test.ts",
+  "line": 374,
+  "old": "expect(() => convertV41ToV40(convertV42ToV41(convertV43ToV42(save as never)))).toThrow(/termination/i)",
+  "new": "expect(() => convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(save as never))))).toThrow(/termination/i)",
+  "cls": "S4",
+  "status": "certain",
+  "note": "convertV43ToV42(save as never) gains convertV44ToV43 innermost (lawfulTerminatedSave() is makeSave(restored); \"as never\", so no TS2345 at X5). S9 deferred (N-0569)"
+ },
+ {
+  "id": "N-0570",
+  "file": "tests/save.test.ts",
+  "line": 35,
+  "old": "convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42,",
+  "new": "convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43,",
+  "cls": "S4",
+  "status": "certain",
+  "note": "import for the inserted convertV44ToV43 step"
+ },
+ {
+  "id": "N-0571",
+  "file": "tests/save.test.ts",
+  "line": 288,
+  "old": "const bad = { ...save, saveVersion: 44 } as unknown as SaveFileV14;",
+  "new": "const bad = { ...save, saveVersion: 45 } as unknown as SaveFileV14;",
+  "cls": "S3",
+  "status": "certain",
+  "note": "sentinel 44 -> 45: wellFormedSave() is makeSave(state) (:248-252), so at step 4 a stamp of 44 is the live version, validateSave dispatches it to validateSaveV44 (src/core/save.ts:5443) and loadSave (:6582-6584) accepts it; 45 restores the unknown-version refusal (:5444-5446). Title \"(e.g. 42; ...)\" left as an older stale title"
+ },
+ {
+  "id": "N-0572",
+  "file": "tests/save.test.ts",
+  "line": 370,
+  "old": "const historical = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(makeSave(cancelled))))))).state;",
+  "new": "const historical = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(makeSave(cancelled)))))))).state;",
+  "cls": "S4",
+  "status": "certain",
+  "note": "convertV43ToV42(live) -> convertV43ToV42(convertV44ToV43(live)); without it convertV43ToV42 refuses the V44 envelope with \"validateSaveV43: expected version 43\" (src/core/save.ts:10717) (makeSave(cancelled)); X5 step 4 TS2345 at this call (col 120), SaveFileV44 passed where SaveFileV43 is typed. Projection chain; S9 deferred (N-0573)"
+ },
+ {
+  "id": "N-0574",
+  "file": "tests/save.test.ts",
+  "line": 419,
+  "old": "const historical = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(makeSave(cancelled))))))).state;",
+  "new": "const historical = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(makeSave(cancelled)))))))).state;",
+  "cls": "S4",
+  "status": "certain",
+  "note": "convertV43ToV42(live) -> convertV43ToV42(convertV44ToV43(live)); without it convertV43ToV42 refuses the V44 envelope with \"validateSaveV43: expected version 43\" (src/core/save.ts:10717) (makeSave(cancelled)); X5 step 4 TS2345 at this call (col 120), SaveFileV44 passed where SaveFileV43 is typed. Projection chain; S9 deferred (N-0575)"
+ },
+ {
+  "id": "N-0576",
+  "file": "tests/save.test.ts",
+  "line": 453,
+  "old": "it(\"rejects an unknown saveVersion 43 with the updated range, and rejects downgrading V15 to V14 (stale number corrected post-C.2b)\", () => {",
+  "new": "it(\"rejects an unknown saveVersion 45 with the updated range, and rejects downgrading V15 to V14 (stale number corrected post-C.2b)\", () => {",
+  "cls": "P5",
+  "status": "certain",
+  "note": "title renamed; the body moves the sentinel to 45 and the range to 1 through 44. Old title: \"rejects an unknown saveVersion 43 with the updated range, and rejects downgrading V15 to V14 (stale number corrected post-C.2b)\". New title: \"rejects an unknown saveVersion 45 with the updated range, and rejects downgrading V15 to V14 (stale number corrected post-C.2b)\". save.test.ts holds no retained 1348-I identity"
+ },
+ {
+  "id": "N-0577",
+  "file": "tests/save.test.ts",
+  "line": 455,
+  "old": "expect(() => validateSave({ ...save, saveVersion: 44 })).toThrow(",
+  "new": "expect(() => validateSave({ ...save, saveVersion: 45 })).toThrow(",
+  "cls": "S3",
+  "status": "certain",
+  "note": "sentinel saveVersion 44 -> 45 (src/core/save.ts:5443)"
+ },
+ {
+  "id": "N-0578",
+  "file": "tests/save.test.ts",
+  "line": 456,
+  "old": "/versions 1 through 43 only/,",
+  "new": "/versions 1 through 44 only/,",
+  "cls": "S3",
+  "status": "certain",
+  "note": "\"1 through 43\" -> \"1 through 44\" (src/core/save.ts:5445)"
+ }
+]

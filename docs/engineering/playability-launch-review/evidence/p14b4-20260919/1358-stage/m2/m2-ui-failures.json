@@ -1,0 +1,371 @@
+{
+ "raw": {
+  "path": "/Users/zacheryspector/studio-scratch/1358-m2/m2-ui.txt",
+  "bytes": 187501,
+  "sha256": "75d0ad6c44d807d9089a676ac7cfec94d07dc561083d22d97e2cf29340b5cd41"
+ },
+ "summary": {
+  "Test Files": "9 failed | 195 passed (204)",
+  "Tests": "16 failed | 2676 passed | 5 skipped (2697)"
+ },
+ "unhandled": [],
+ "failedCases": 16,
+ "byStatus": {
+  "NEW": 10,
+  "RETAINED-CHANGED": 6
+ },
+ "byCluster1303": {
+  "NEW": 10,
+  "C3-missing-pil-rgba-export": 3,
+  "C8-studiocalendar-stale-v38-literal": 3
+ },
+ "vanishedFrom1303": 25,
+ "vanishedByCluster": {
+  "C1-timeout-5000ms": 7,
+  "C6-worldinspector-typeerror-options": 1,
+  "C2-worldinspector-duplicate-testid": 7,
+  "C3-missing-pil-rgba-export": 3,
+  "C4-missing-pil-stage-a": 4,
+  "C7-livingturn-parity-dom-race": 1,
+  "C5-p05a-w2-gate-hiring-throw": 2
+ },
+ "failedFiles": [
+  "ui/src/engine/d17-save-migration.test.ts",
+  "ui/src/engine/film-chronicle-adapter.test.ts",
+  "ui/src/lot/StudioLotScreen.test.tsx",
+  "ui/src/lot/WorldFirstAnnexConstruction.test.tsx",
+  "ui/src/lot/authored-rgba-export.test.ts",
+  "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts",
+  "ui/src/saves.test.tsx",
+  "ui/src/screens/StudioCalendar.career.test.tsx",
+  "ui/src/session.test.tsx"
+ ],
+ "rows": [
+  {
+   "file": "ui/src/saves.test.tsx",
+   "describe": "saves: export \u2192 import round-trips the EXACT state",
+   "leaf": "importSaveJson(exportSaveJson(state)) has a serialized form equal to the original",
+   "identity": "ui/src/saves.test.tsx > saves: export \u2192 import round-trips the EXACT state > importSaveJson(exportSaveJson(state)) has a serialized form equal to the original",
+   "primary": "AssertionError: expected 44 to be 43 // Object.is equality",
+   "frame": "ui/src/saves.test.tsx:126:42",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 1,
+   "status_vs_1303": "NEW",
+   "cluster_1303": null,
+   "primary_1303": null
+  },
+  {
+   "file": "ui/src/session.test.tsx",
+   "describe": "D-17A fix-pass \u2014 a stored V5 autosave migrates on load",
+   "leaf": "an ENGAGED V5 session restores with the flag true and the converted banner",
+   "identity": "ui/src/session.test.tsx > D-17A fix-pass \u2014 a stored V5 autosave migrates on load > an ENGAGED V5 session restores with the flag true and the converted banner",
+   "primary": "AssertionError: expected 44 to be 43 // Object.is equality",
+   "frame": "ui/src/session.test.tsx:332:79",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 2,
+   "status_vs_1303": "NEW",
+   "cluster_1303": null,
+   "primary_1303": null
+  },
+  {
+   "file": "ui/src/session.test.tsx",
+   "describe": "D-17A fix-pass \u2014 a stored V5 autosave migrates on load",
+   "leaf": "a NEVER-ENGAGED headless V5 session restores with the flag false",
+   "identity": "ui/src/session.test.tsx > D-17A fix-pass \u2014 a stored V5 autosave migrates on load > a NEVER-ENGAGED headless V5 session restores with the flag false",
+   "primary": "AssertionError: expected 44 to be 43 // Object.is equality",
+   "frame": "ui/src/session.test.tsx:360:79",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 3,
+   "status_vs_1303": "NEW",
+   "cluster_1303": null,
+   "primary_1303": null
+  },
+  {
+   "file": "ui/src/session.test.tsx",
+   "describe": "Script Projects V1 \u2014 a stored V8 autosave migrates on load",
+   "leaf": "preserves operations, seeds legacy screenplay and casting state, then re-saves as V15",
+   "identity": "ui/src/session.test.tsx > Script Projects V1 \u2014 a stored V8 autosave migrates on load > preserves operations, seeds legacy screenplay and casting state, then re-saves as V15",
+   "primary": "AssertionError: expected 44 to be 43 // Object.is equality",
+   "frame": "ui/src/session.test.tsx:387:35",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 4,
+   "status_vs_1303": "NEW",
+   "cluster_1303": null,
+   "primary_1303": null
+  },
+  {
+   "file": "ui/src/engine/d17-save-migration.test.ts",
+   "describe": "D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file",
+   "leaf": "a CURRENT-version save round-trips through the adapter as NOT converted",
+   "identity": "ui/src/engine/d17-save-migration.test.ts > D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a CURRENT-version save round-trips through the adapter as NOT converted",
+   "primary": "AssertionError: expected 44 to be 43 // Object.is equality",
+   "frame": "ui/src/engine/d17-save-migration.test.ts:131:42",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 5,
+   "status_vs_1303": "NEW",
+   "cluster_1303": null,
+   "primary_1303": null
+  },
+  {
+   "file": "ui/src/engine/d17-save-migration.test.ts",
+   "describe": "D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file",
+   "leaf": "a literal V8 save upgrades to V16 with legacy screenplay, casting, construction, placement, and property state",
+   "identity": "ui/src/engine/d17-save-migration.test.ts > D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a literal V8 save upgrades to V16 with legacy screenplay, casting, construction, placement, and property state",
+   "primary": "AssertionError: expected 44 to be 43 // Object.is equality",
+   "frame": "ui/src/engine/d17-save-migration.test.ts:155:61",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 6,
+   "status_vs_1303": "NEW",
+   "cluster_1303": null,
+   "primary_1303": null
+  },
+  {
+   "file": "ui/src/engine/film-chronicle-adapter.test.ts",
+   "describe": "Film Chronicle V1 \u2014 real adapter wiring",
+   "leaf": "uses current market week as the chronology gate and reconstructs deeply after V13 reload",
+   "identity": "ui/src/engine/film-chronicle-adapter.test.ts > Film Chronicle V1 \u2014 real adapter wiring > uses current market week as the chronology gate and reconstructs deeply after V13 reload",
+   "primary": "AssertionError: expected 44 to be 43 // Object.is equality",
+   "frame": "ui/src/engine/film-chronicle-adapter.test.ts:289:71",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 7,
+   "status_vs_1303": "NEW",
+   "cluster_1303": null,
+   "primary_1303": null
+  },
+  {
+   "file": "ui/src/lot/StudioLotScreen.test.tsx",
+   "describe": "StudioLotScreen \u2014 authoritative Hollywood operations host",
+   "leaf": "moves Hollywood keyboard focus to each successor and announces the final take",
+   "identity": "ui/src/lot/StudioLotScreen.test.tsx > StudioLotScreen \u2014 authoritative Hollywood operations host > moves Hollywood keyboard focus to each successor and announces the final take",
+   "primary": "Error: expect(element).toHaveFocus()",
+   "frame": "ui/src/lot/StudioLotScreen.test.tsx:930:20",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 8,
+   "status_vs_1303": "NEW",
+   "cluster_1303": null,
+   "primary_1303": null
+  },
+  {
+   "file": "ui/src/lot/WorldFirstAnnexConstruction.test.tsx",
+   "describe": "World-First Annex Construction Interaction V1 \u2014 React/App boundary",
+   "leaf": "keeps the semantic Annex context when the live renderer cannot paint its outline",
+   "identity": "ui/src/lot/WorldFirstAnnexConstruction.test.tsx > World-First Annex Construction Interaction V1 \u2014 React/App boundary > keeps the semantic Annex context when the live renderer cannot paint its outline",
+   "primary": "AssertionError: expected 2 to be 1 // Object.is equality",
+   "frame": "ui/src/lot/WorldFirstAnnexConstruction.test.tsx:584:46",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 9,
+   "status_vs_1303": "NEW",
+   "cluster_1303": null,
+   "primary_1303": null
+  },
+  {
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "describe": "rgba-export tool contract",
+   "leaf": "6. output is truecolour RGBA with no PLTE/tRNS, alpha preserved exactly",
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 6. output is truecolour RGBA with no PLTE/tRNS, alpha preserved exactly",
+   "primary": "Error: Command failed: python3 /Users/zacheryspector/studio-scratch/1358-m2/tree/scripts/art/authored-asset-pipeline.py rgba-export --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-PuKTMH/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-PuKTMH/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-PuKTMH --stem t --colours 16",
+   "frame": "ui/src/lot/authored-rgba-export.test.ts:138:7",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 10,
+   "status_vs_1303": "RETAINED-CHANGED",
+   "cluster_1303": "C3-missing-pil-rgba-export",
+   "primary_1303": "Error: Command failed: python3 -c"
+  },
+  {
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "describe": "rgba-export tool contract",
+   "leaf": "7. repeated runs are byte-identical",
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 7. repeated runs are byte-identical",
+   "primary": "Error: Command failed: python3 /Users/zacheryspector/studio-scratch/1358-m2/tree/scripts/art/authored-asset-pipeline.py rgba-export --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-vyxdNJ/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-vyxdNJ/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/rgba-export-det-vyxdNJ/a --stem t --colours 16",
+   "frame": "ui/src/lot/authored-rgba-export.test.ts:164:9",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 11,
+   "status_vs_1303": "RETAINED-CHANGED",
+   "cluster_1303": "C3-missing-pil-rgba-export",
+   "primary_1303": "Error: Command failed: python3 -c"
+  },
+  {
+   "file": "ui/src/lot/authored-rgba-export.test.ts",
+   "describe": "rgba-export tool contract",
+   "leaf": "8. the historical PNG-8 path is still available and clearly separate",
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > rgba-export tool contract > 8. the historical PNG-8 path is still available and clearly separate",
+   "primary": "Error: Command failed: python3 /Users/zacheryspector/studio-scratch/1358-m2/tree/scripts/art/authored-asset-pipeline.py quantize --normal /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-ORrrNj/src.png --worn /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-ORrrNj/src.png --out-dir /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/png8-still-ORrrNj --stem q",
+   "frame": "ui/src/lot/authored-rgba-export.test.ts:178:7",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 12,
+   "status_vs_1303": "RETAINED-CHANGED",
+   "cluster_1303": "C3-missing-pil-rgba-export",
+   "primary_1303": "Error: Command failed: python3 -c"
+  },
+  {
+   "file": "ui/src/screens/StudioCalendar.career.test.tsx",
+   "describe": "C.3 recent career facts use existing Calendar identity routes",
+   "leaf": "U1 renders genuine change/finality names and dates, retains age12, and removes age13 news",
+   "identity": "ui/src/screens/StudioCalendar.career.test.tsx > C.3 recent career facts use existing Calendar identity routes > U1 renders genuine change/finality names and dates, retains age12, and removes age13 news",
+   "primary": "AssertionError: expected 44 to be 43 // Object.is equality",
+   "frame": "ui/src/screens/StudioCalendar.career.test.tsx:29:23",
+   "timeout": false,
+   "shared_group_size": 3,
+   "marker_no": 13,
+   "status_vs_1303": "RETAINED-CHANGED",
+   "cluster_1303": "C8-studiocalendar-stale-v38-literal",
+   "primary_1303": "AssertionError: expected 40 to be 38 // Object.is equality"
+  },
+  {
+   "file": "ui/src/screens/StudioCalendar.career.test.tsx",
+   "describe": "C.3 recent career facts use existing Calendar identity routes",
+   "leaf": "U2 App opens the exact off-roster career profile and restores focus without post-hydration writes",
+   "identity": "ui/src/screens/StudioCalendar.career.test.tsx > C.3 recent career facts use existing Calendar identity routes > U2 App opens the exact off-roster career profile and restores focus without post-hydration writes",
+   "primary": "AssertionError: expected 44 to be 43 // Object.is equality",
+   "frame": "ui/src/screens/StudioCalendar.career.test.tsx:29:23",
+   "timeout": false,
+   "shared_group_size": 3,
+   "marker_no": 13,
+   "status_vs_1303": "RETAINED-CHANGED",
+   "cluster_1303": "C8-studiocalendar-stale-v38-literal",
+   "primary_1303": "AssertionError: expected 40 to be 38 // Object.is equality"
+  },
+  {
+   "file": "ui/src/screens/StudioCalendar.career.test.tsx",
+   "describe": "C.3 recent career facts use existing Calendar identity routes",
+   "leaf": "U3 actual208 expiry explains its stop while Scientist finality alone adds no automatic stop",
+   "identity": "ui/src/screens/StudioCalendar.career.test.tsx > C.3 recent career facts use existing Calendar identity routes > U3 actual208 expiry explains its stop while Scientist finality alone adds no automatic stop",
+   "primary": "AssertionError: expected 44 to be 43 // Object.is equality",
+   "frame": "ui/src/screens/StudioCalendar.career.test.tsx:29:23",
+   "timeout": false,
+   "shared_group_size": 3,
+   "marker_no": 13,
+   "status_vs_1303": "RETAINED-CHANGED",
+   "cluster_1303": "C8-studiocalendar-stale-v38-literal",
+   "primary_1303": "AssertionError: expected 40 to be 38 // Object.is equality"
+  },
+  {
+   "file": "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts",
+   "describe": "C2a-M2 \u2014 a save round-trips as V15, roots and all",
+   "leaf": "exports V15 and imports it back with the four C2a roots intact",
+   "identity": "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts > C2a-M2 \u2014 a save round-trips as V15, roots and all > exports V15 and imports it back with the four C2a roots intact",
+   "primary": "AssertionError: expected 44 to be 43 // Object.is equality",
+   "frame": "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts:46:42",
+   "timeout": false,
+   "shared_group_size": 1,
+   "marker_no": 14,
+   "status_vs_1303": "NEW",
+   "cluster_1303": null,
+   "primary_1303": null
+  }
+ ],
+ "vanished": [
+  {
+   "identity": "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx > World-First Lot-Native Casting Review Intervention V1 \u2014 App/Lot integration > greenlights the canonical Package into exact formation without replacing the Lot, canvas, or renderer",
+   "cluster_1303": "C1-timeout-5000ms"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx > Lot-native Casting review \u2014 App commit and handoff authority > never lets stale Casting review closures demote or mutate a newer exact event",
+   "cluster_1303": "C1-timeout-5000ms"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 \u2014 App/Lot integration > orients a cash stop to Administration and focuses the supporting Finances section",
+   "cluster_1303": "C1-timeout-5000ms"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 \u2014 App/Lot integration > clears every next-event transient across an accepted same-seed same-week whole-studio replacement",
+   "cluster_1303": "C1-timeout-5000ms"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > World Inspector Default V1 \u2014 no building click ever ejects > reaches the canonical deep screen ONLY through the explicit details action",
+   "cluster_1303": "C1-timeout-5000ms"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > never lets any place print its blocks out of the canonical order",
+   "cluster_1303": "C1-timeout-5000ms"
+  },
+  {
+   "identity": "ui/src/lot/livingTurn.scheduler.test.tsx > Living Turn V1 \u2014 the partition, at the seam > auto-pauses on the FIRST PAUSE-class stop, at exactly the hand-advanced week",
+   "cluster_1303": "C1-timeout-5000ms"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > World Inspector Default V1 \u2014 no building click ever ejects > routes canvas intent and semantic companion activation to the same owner",
+   "cluster_1303": "C6-worldinspector-typeerror-options"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > offers Development the Commission verb at Week 0 \u2014 the first step of the whole game",
+   "cluster_1303": "C2-worldinspector-duplicate-testid"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > routes the Commission verb to the commission intent, and the deep ghost to Development",
+   "cluster_1303": "C2-worldinspector-duplicate-testid"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > F4: offers the Commission verb while a screenplay is already being written",
+   "cluster_1303": "C2-worldinspector-duplicate-testid"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > F4: offers it with an accepted screenplay waiting on casting, too",
+   "cluster_1303": "C2-worldinspector-duplicate-testid"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > names the picture in Casting\u2019s audition verb, and prefers the retained in-world planner",
+   "cluster_1303": "C2-worldinspector-duplicate-testid"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > falls back to the existing deep Casting path rather than leaving a dead button",
+   "cluster_1303": "C2-worldinspector-duplicate-testid"
+  },
+  {
+   "identity": "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B \u2014 the buildings carry the verbs the guidance names > reads the deep ghosts in plain language, never in internal screen names",
+   "cluster_1303": "C2-worldinspector-duplicate-testid"
+  },
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > current production authored export \u2014 the shipped Stage B assets > 3. the RGB channel is reduced to the recovered 128-colour contract",
+   "cluster_1303": "C3-missing-pil-rgba-export"
+  },
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > current production authored export \u2014 the shipped Stage B assets > 4. alpha is bit-identical between the two finishes",
+   "cluster_1303": "C3-missing-pil-rgba-export"
+  },
+  {
+   "identity": "ui/src/lot/authored-rgba-export.test.ts > current production authored export \u2014 the shipped Stage B assets > 5. alpha is genuinely lossless, not collapsed into a palette-sized set",
+   "cluster_1303": "C3-missing-pil-rgba-export"
+  },
+  {
+   "identity": "ui/src/lot/authored-stage-a.test.ts > Stage A \u2014 the committed assets satisfy the CURRENT production export contract > 4. the RGB channel carries the recovered 128-colour contract",
+   "cluster_1303": "C4-missing-pil-stage-a"
+  },
+  {
+   "identity": "ui/src/lot/authored-stage-a.test.ts > Stage A \u2014 the committed assets satisfy the CURRENT production export contract > 5. alpha is bit-identical between the two finishes",
+   "cluster_1303": "C4-missing-pil-stage-a"
+  },
+  {
+   "identity": "ui/src/lot/authored-stage-a.test.ts > Stage A \u2014 the committed assets satisfy the CURRENT production export contract > 6. alpha is lossless, not collapsed into a palette-sized set",
+   "cluster_1303": "C4-missing-pil-stage-a"
+  },
+  {
+   "identity": "ui/src/lot/authored-stage-a.test.ts > Stage A \u2014 the committed assets satisfy the CURRENT production export contract > 7. registration is the approved one \u2014 inset, with a forecourt",
+   "cluster_1303": "C4-missing-pil-stage-a"
+  },
+  {
+   "identity": "ui/src/lot/livingTurn.parity.test.tsx > C2a-M5 \u2014 four-way time parity: the same twelve weeks, four ways > (a) by hand at the seam \u2014 the manual verb, pressed twelve times",
+   "cluster_1303": "C7-livingturn-parity-dom-race"
+  },
+  {
+   "identity": "ui/src/test/contracts/p05a-w2-closed-production.contract.test.ts > P05A W2 \u2014 closed operational states across the lifecycle > the guidance card agrees with the rail on the wrapped-waiting oracle fixture \u2014 never SHOOTING (P06C \u00a75)",
+   "cluster_1303": "C5-p05a-w2-gate-hiring-throw"
+  },
+  {
+   "identity": "ui/src/test/contracts/p05a-w2-closed-production.contract.test.ts > P05A W2 \u2014 closed operational states across the lifecycle > the rail, the world Stage card, the workspace source and the guidance card all agree for the wrapped-waiting picture (P06D item 2)",
+   "cluster_1303": "C5-p05a-w2-gate-hiring-throw"
+  }
+ ]
+}

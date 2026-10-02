@@ -1,0 +1,66 @@
+[
+ {
+  "id": "N-0354",
+  "file": "tests/p13a-scientist-foundation.test.ts",
+  "line": 32,
+  "cls": "S10",
+  "reason": "No edit (census 'measure', S10 known row). The three it.each leaves are retained 1348-I identities (RETAINED-INHERITED-FROM-1100) whose primary is a sha256 over generateWorld's people, concepts, market, era and RNG. The gate compare attributes any CHANGED primary (1358-N S10; 1358-F9 ruling 7).",
+  "decidedBy": "M2"
+ },
+ {
+  "id": "N-0367",
+  "file": "tests/p13b-s3-save-v23.test.ts",
+  "line": 115,
+  "cls": "S9",
+  "reason": "migrateToV22(live) expects the V39 subject guard. The chain is production's, so no S4 insert applies. The 44 arm runs first (src/core/save.ts:8239) into convertV44ToV43, which refuses on any competitions row or romance track (src/core/save.ts:10789-10790) before the V39 guard the leaf pins (src/core/save.ts:10598-10602). The input is makeSave(p13aLaboratorySlice()), a 12-week natural advance (src/harness/p13a/fixtures.ts:18-20). Reading cannot settle whether any week-12 edge holds a log row or a track. If M2 shows the V39 message, the leaf needs no edit. If it shows convertV44ToV43's, pin that message and add the 1344-N S9 masking comment; tests/p14p4p5-opportunities.test.ts:327 (convertV40ToV39 on a V40 envelope) is the candidate that still covers the V39 guard on its own era's input.",
+  "decidedBy": "M2"
+ },
+ {
+  "id": "N-0368",
+  "file": "tests/p13b-s3-save-v23.test.ts",
+  "line": 116,
+  "cls": "S9",
+  "reason": "migrateToV21(live) expects the V39 subject guard. The chain is production's, so no S4 insert applies. The 44 arm runs first (src/core/save.ts:8198) into convertV44ToV43, which refuses on any competitions row or romance track (src/core/save.ts:10789-10790) before the V39 guard the leaf pins (src/core/save.ts:10598-10602). The input is makeSave(p13aLaboratorySlice()), a 12-week natural advance (src/harness/p13a/fixtures.ts:18-20). Reading cannot settle whether any week-12 edge holds a log row or a track. If M2 shows the V39 message, the leaf needs no edit. If it shows convertV44ToV43's, pin that message and add the 1344-N S9 masking comment; tests/p14p4p5-opportunities.test.ts:327 (convertV40ToV39 on a V40 envelope) is the candidate that still covers the V39 guard on its own era's input.",
+  "decidedBy": "M2"
+ },
+ {
+  "id": "N-0369",
+  "file": "tests/p13b-s3-save-v23.test.ts",
+  "line": 117,
+  "cls": "S9",
+  "reason": "migrateToV20(live) expects the V39 subject guard. The chain is production's, so no S4 insert applies. The 44 arm runs first (src/core/save.ts:10198) into convertV44ToV43, which refuses on any competitions row or romance track (src/core/save.ts:10789-10790) before the V39 guard the leaf pins (src/core/save.ts:10598-10602). The input is makeSave(p13aLaboratorySlice()), a 12-week natural advance (src/harness/p13a/fixtures.ts:18-20). Reading cannot settle whether any week-12 edge holds a log row or a track. If M2 shows the V39 message, the leaf needs no edit. If it shows convertV44ToV43's, pin that message and add the 1344-N S9 masking comment; tests/p14p4p5-opportunities.test.ts:327 (convertV40ToV39 on a V40 envelope) is the candidate that still covers the V39 guard on its own era's input.",
+  "decidedBy": "M2"
+ },
+ {
+  "id": "G4-new-1",
+  "file": "tests/p13b-s8-save-v27.test.ts",
+  "line": 188,
+  "cls": "S9",
+  "reason": "No edit proposed. save.migrateToV26(makeSave(natural)) on a week-20 natural campaign; production's 44 arm (src/core/save.ts:8796) runs convertV44ToV43 first. The leaf's regex is /cannot downgrade/i, so it passes on any downgrade refusal. The V39 guard already fires ahead of its named guard (1344-X12 section 4; 1344-C5 item 58). Save44 can put convertV44ToV43 (src/core/save.ts:10789-10790) first when the state holds a competitions row or a romance track. The census lists no row here: the leaf passes either way. 1344 left the same kind of masking unedited as a closure finding. Whether Save44 does the same, or tightens the regex the way 1358-N plans for p12-starting-world:52, needs a parent ruling.",
+  "decidedBy": "M2"
+ },
+ {
+  "id": "G4-new-2",
+  "file": "tests/p13b-s8-save-v27.test.ts",
+  "line": 195,
+  "cls": "S9",
+  "reason": "No edit proposed. The same week-20 natural campaign and the same production chain as :188 (src/core/save.ts:8796). The leaf's regex is /cannot downgrade/i, so it passes on any downgrade refusal. The V39 guard already fires ahead of its named guard (the same campaign as :188; 1344-C5 item 58 measured :188). Save44 can put convertV44ToV43 (src/core/save.ts:10789-10790) first when the state holds a competitions row or a romance track. The census lists no row here: the leaf passes either way. 1344 left the same kind of masking unedited as a closure finding. Whether Save44 does the same, or tightens the regex the way 1358-N plans for p12-starting-world:52, needs a parent ruling.",
+  "decidedBy": "M2"
+ },
+ {
+  "id": "G4-new-3",
+  "file": "tests/p14c2b-save-v36.test.ts",
+  "line": 74,
+  "cls": "S9",
+  "reason": "No edit proposed. convertV36ToV35(liveEnvelopeV36(settled)) on a 98-week natural state; the chain sits in H's helper tests/helpers/p14c2b-fixtures.ts:69, which takes the S4 convertV44ToV43 insert, so the dry run measures it. The leaf's regex is /downgrade/i, so it passes on any downgrade refusal. The V39 guard already fires ahead of its named guard (1344-X12 section 2; 1344-C5 item 39). Save44 can put convertV44ToV43 (src/core/save.ts:10789-10790) first when the state holds a competitions row or a romance track. The census lists no row here: the leaf passes either way. 1344 left the same kind of masking unedited as a closure finding. Whether Save44 does the same, or tightens the regex the way 1358-N plans for p12-starting-world:52, needs a parent ruling.",
+  "decidedBy": "dry run"
+ },
+ {
+  "id": "G4-new-4",
+  "file": "tests/p14c2b-save-v36.test.ts",
+  "line": 82,
+  "cls": "S9",
+  "reason": "No edit proposed. convertV36ToV35(liveEnvelopeV36(atWindow)) on a 92-week natural state, through the same helper chain as :74 (tests/helpers/p14c2b-fixtures.ts:69). The leaf's regex is /downgrade/i, so it passes on any downgrade refusal. The V39 guard already fires ahead of its named guard (1344-X12 section 2; 1344-C5 item 39). Save44 can put convertV44ToV43 (src/core/save.ts:10789-10790) first when the state holds a competitions row or a romance track. The census lists no row here: the leaf passes either way. 1344 left the same kind of masking unedited as a closure finding. Whether Save44 does the same, or tightens the regex the way 1358-N plans for p12-starting-world:52, needs a parent ruling.",
+  "decidedBy": "dry run"
+ }
+]

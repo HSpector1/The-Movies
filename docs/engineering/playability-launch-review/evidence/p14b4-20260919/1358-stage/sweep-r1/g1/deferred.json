@@ -1,0 +1,82 @@
+[
+ {
+  "id": "N-0070",
+  "file": "tests/bridge-p14b5-relationships.test.ts",
+  "line": 544,
+  "cls": "S10",
+  "reason": "Untouched (census :540). Family 12 ledger row count on a retained 1348-I identity (seed-b and p13b-s8-bridge-probe-01 primaries: ledger length 48 against 41 and 43). From step 3 a formed romance bond can move tiers through the drift exemption and with them D5 and the settlements this leaf counts. No edit (1358-F9 ruling 7); the gate compare attributes a CHANGED primary. No value is written from a run output.",
+  "decidedBy": "M2"
+ },
+ {
+  "id": "N-0071",
+  "file": "tests/bridge-p14b5-relationships.test.ts",
+  "line": 564,
+  "cls": "S10",
+  "reason": "Untouched (census :560). The settlement digest of retained 1348-I identities (p13a-core-causal-01 and p13-public-commercial-adoption primaries are digest mismatches). Same mechanism as N-0070. No edit (1358-F9 ruling 7); the gate compare attributes a CHANGED primary.",
+  "decidedBy": "M2"
+ },
+ {
+  "id": "N-0092",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 238,
+  "cls": "S10",
+  "reason": "Untouched (census :236). bytes() strips the whole relationships root before the frozen postTakeDigestStripped pin at :626, so the 33 bytes per edge never reach the digest. X5 step 4 already shows that leaf ('no RNG reaches the seam ...') passing on the step-4 source (E/1358-stage/x5/x5-step4.json). No edit expected; M2 confirms.",
+  "decidedBy": "M2"
+ },
+ {
+  "id": "N-0096",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 1299,
+  "cls": "S8",
+  "reason": "Untouched; reading predicts no edit. After the S1 rename (N-0095) and era 44 (N-0097), validateSaveV44 (src/core/save.ts:10763-10772) runs only the envelope checks before validateRelationshipsRoot(raw, 44) at :10768, so each tamper meets its own field's guard in src/core/relationships.ts with the prefix 'validateSaveV44: ' (same message from the era-44 direct call at :1305): :1323 edgeId -> :716 'state.relationships[0].edgeId is not this root's ordinal id'; :1324 duplicate pair -> :721 'state.relationships[1] records a second edge for the pair ...'; :1325 swapped key -> :719 '... is not a canonical pair: a < b is required'; :1326 unknown person -> :706 'state.relationships[0].b does not name a person of this world'; :1327 firstSharedWeek 62 at tick 61 -> :725/:700 '...firstSharedWeek is outside this campaign's recording interval'; :1329 firstSharedWeek -1 -> :692 '...firstSharedWeek must be a non-negative integer'; :1330 lastEventWeek 62 -> :726/:700 '...lastEventWeek is outside ...'; :1332 driver week 62 -> :745/:700 '...recent[0].week is outside ...'; :1333 nine drivers -> :739 '...recent holds more drivers than the cap'; :1334 'Partners' -> :735 '...peakTier is not a tier of the catalogue'; :1336-1337 closeness 101 and -1 -> :724; :1338 50.5 -> :723/:688 '...closeness must be an integer'; :1341 -> :732; :1342 -> :733; :1343 -> :728/:692 '...sharedProductions must be a non-negative integer'; :1346 -> :744 '...recent[0].kind is not a driver kind of the catalogue'; :1347 -> :747/:684 '...recent[0].ref must be a non-empty string'; :1348 -> :748/:688 '...recent[0].delta must be an integer'; :1350 extra key -> :715/:681 '...closenessShown is not a field of this record'. Every pattern matches its message. The dry run confirms the 13 leaves pass.",
+  "decidedBy": "dry run"
+ },
+ {
+  "id": "N-0101",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 1399,
+  "cls": "S9",
+  "reason": "Untouched; reading predicts no edit. migrateToV30(admitted) takes the V44 branch (src/core/save.ts:9242) into convertV44ToV43. admitted holds one edge, takeWorld's relationship-edge-0, minted by newEdge at week 61 with competitions [] and romance null (src/core/relationships.ts:300-316; takeWorld runs no greenlight, and a new edge takes no romance write), so :10789-10790 pass it. The chain then refuses where it did at Save43: save.ts:10744 'migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-aca408ec-r01', the leaf's own expected message. M2 stops this leaf earlier at 'validateSaveV43: expected version 43' (:1359 at step 4), so the dry run decides.",
+  "decidedBy": "dry run"
+ },
+ {
+  "id": "N-0102",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 1416,
+  "cls": "S9",
+  "reason": "Untouched; reading predicts no edit. migrateToV29, V28, V27 and V26 each take their V44 branch (src/core/save.ts:9176, :9064, :8964, :8796) on the same admitted, so convertV44ToV43 passes and save.ts:10744 refuses with the expected message, as for N-0101.",
+  "decidedBy": "dry run"
+ },
+ {
+  "id": "N-0103",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 1431,
+  "cls": "S9",
+  "reason": "Untouched; reading predicts no edit. migrateToV25 takes its V44 branch (src/core/save.ts:8618), then the V43 branch, so save.ts:10744 refuses with the expected message, as for N-0101.",
+  "decidedBy": "dry run"
+ },
+ {
+  "id": "N-0105",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 1452,
+  "cls": "S9",
+  "reason": "Untouched; reading predicts no edit. empty holds no edge, so convertV44ToV43 cannot refuse it; it differs from admitted only in relationships and meets save.ts:10744 with the expected message.",
+  "decidedBy": "dry run"
+ },
+ {
+  "id": "N-0140",
+  "file": "tests/p14d1-rival-shelving.test.ts",
+  "line": 561,
+  "cls": "S5",
+  "reason": "Untouched. The edit would lift genuineV43 through convertV43ToV44 before the canonical comparison with the live week-93 state. The comparison then holds only if the route wrote no log row and no romance track by week 93. Log rows need a player greenlight with a complete casting session (src/core/relationships.ts:509-515, src/core/actions.ts:590). A track opens at the first gaining write at Friends or above (relationships.ts:395-406), which a rival repeat collaboration or success can reach by week 93. Reading does not settle it. If any row or track exists, the S5 stop applies: report the difference as an S10 value or a defect, never edit the expectation.",
+  "decidedBy": "M2"
+ },
+ {
+  "id": "G1-new-1",
+  "file": "tests/p14c2s-scientist-retirement.test.ts",
+  "line": 279,
+  "cls": "S9",
+  "reason": "Census missed (no census row). :279 migrateToV36(live) and :280 migrateToV35(live) on scientistAt('hardResearch', 566) now enter convertV44ToV43 first through their V44 branches. If the ticks from 520 to 566 open a romance track or write a log row, convertV44ToV43 refuses first ('migrateToV43: cannot downgrade or discard the romance|competitions log of <edgeId>', src/core/save.ts:10789-10790), and /Scientist|scientist|downgrade/ still matches. 1344-X12 §4 measured the V39 predicate guard firing first at these lines under Save43, so the Scientist guard was already masked and pass or fail cannot change. No edit expected; the dry run can record which guard fires first, as X12 did. The sibling chain at :256 (migrateToV37 of scientistWorld(), a genuine V33 capture lifted with no tick) holds only empty logs and null romance, so it still succeeds.",
+  "decidedBy": "dry run"
+ }
+]

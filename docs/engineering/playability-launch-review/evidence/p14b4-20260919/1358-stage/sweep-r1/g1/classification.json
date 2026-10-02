@@ -1,0 +1,832 @@
+[
+ {
+  "id": "N-0063",
+  "file": "tests/bridge-p14b5-relationships.test.ts",
+  "line": 78,
+  "old": "import type { GameState, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'",
+  "new": "import type { GameState, RelationshipEdge, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'",
+  "cls": "S6",
+  "status": "certain",
+  "note": "supporting type import: the Edge fields are typed from RelationshipEdge"
+ },
+ {
+  "id": "N-0067",
+  "file": "tests/bridge-p14b5-relationships.test.ts",
+  "line": 92,
+  "old": "",
+  "new": "const OUTGOING_56 = 'sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1' // 1358-N P2: outgoing56, projection-v56 at bridge/runtime-checkpoint.ts:64",
+  "cls": "P2",
+  "status": "certain",
+  "note": "named OUTGOING_56 constant (the outgoing56 id registered as projection-v56 at bridge/runtime-checkpoint.ts:64); the roster lists at :388 (N-0067) and :437 (N-0068) use it"
+ },
+ {
+  "id": "N-0063",
+  "file": "tests/bridge-p14b5-relationships.test.ts",
+  "line": 234,
+  "old": "  peakTier: string; peakTierWeek: number; recent: readonly { kind: string; week: number; ref: string; delta: number }[] }",
+  "new": "  peakTier: string; peakTierWeek: number; recent: readonly { kind: string; week: number; ref: string; delta: number }[]\n  // 1358-N S6: Save44 adds the competitions log and the romance track to every edge (era 44).\n  competitions: RelationshipEdge['competitions']; romance: RelationshipEdge['romance'] }",
+  "cls": "S6",
+  "status": "certain",
+  "note": "local Edge type gains competitions and romance typed from RelationshipEdge; no strict Pick reads this type (rel.currentTier takes unknown), so the change is for the staged literal at :498"
+ },
+ {
+  "id": "N-0064",
+  "file": "tests/bridge-p14b5-relationships.test.ts",
+  "line": 380,
+  "old": "    expect(PROJECTION_VERSION).toBe(56)",
+  "new": "    expect(PROJECTION_VERSION).toBe(57)",
+  "cls": "P1",
+  "status": "certain",
+  "note": "live projection 57 (bridge/schema/bridge-schema.ts:286)"
+ },
+ {
+  "id": "N-0065",
+  "file": "tests/bridge-p14b5-relationships.test.ts",
+  "line": 385,
+  "old": "    expect(SCHEMA_ID).toBe('sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1')",
+  "new": "    // 1358-N P2: the live schema is projection57's (1358-E); projection56's id is OUTGOING_56.\n    expect(SCHEMA_ID).toBe('sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253')",
+  "cls": "P2",
+  "status": "certain",
+  "note": "schema id of projection 57 (1358-E; the step-4 contract manifest schemaId); comment line names OUTGOING_56. The 1309-X3 comment above it still says projection56 and stays as written"
+ },
+ {
+  "id": "N-0066",
+  "file": "tests/bridge-p14b5-relationships.test.ts",
+  "line": 387,
+  "old": "    expect(LIVE_SAVE_VERSION).toBe(43)",
+  "new": "    expect(LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live writer version"
+ },
+ {
+  "id": "N-0067",
+  "file": "tests/bridge-p14b5-relationships.test.ts",
+  "line": 388,
+  "old": "    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55].sort())",
+  "new": "    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56].sort())",
+  "cls": "P2",
+  "status": "certain",
+  "note": "full prior-roster key list gains OUTGOING_56: 35 + 9 + 1 = 45 entries, the step-4 roster count (42 literal pairs + 3 named constants in runtime-checkpoint.ts)"
+ },
+ {
+  "id": "N-0068",
+  "file": "tests/bridge-p14b5-relationships.test.ts",
+  "line": 437,
+  "old": "    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55].sort())",
+  "new": "    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56].sort())",
+  "cls": "P2",
+  "status": "certain",
+  "note": "same roster list, family 11"
+ },
+ {
+  "id": "N-0069",
+  "file": "tests/bridge-p14b5-relationships.test.ts",
+  "line": 498,
+  "old": "      recent: [{ kind: 'sharedProduction', week: 207, ref: 'staged-production', delta: 1 }] }",
+  "new": "      recent: [{ kind: 'sharedProduction', week: 207, ref: 'staged-production', delta: 1 }], competitions: [], romance: null }",
+  "cls": "S6",
+  "status": "certain",
+  "note": "census line :493 is the counters line of the same literal; the fields land after recent, in newEdge key order (src/core/relationships.ts:300-316)"
+ },
+ {
+  "id": "N-0072",
+  "file": "tests/bridge-p14b6-d2-withheld-employment-claim.test.ts",
+  "line": 61,
+  "old": "import { LIVE_SAVE_VERSION, makeSave, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { LIVE_SAVE_VERSION, makeSave, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator"
+ },
+ {
+  "id": "N-0073",
+  "file": "tests/bridge-p14b6-d2-withheld-employment-claim.test.ts",
+  "line": 62,
+  "old": "import type { GameState, RelationshipDriver, RelationshipTier } from '../src/core/types.js'",
+  "new": "import type { GameState, RelationshipDriver, RelationshipEdge, RelationshipTier } from '../src/core/types.js'",
+  "cls": "S6",
+  "status": "certain",
+  "note": "supporting type import for the Edge fields"
+ },
+ {
+  "id": "N-0073",
+  "file": "tests/bridge-p14b6-d2-withheld-employment-claim.test.ts",
+  "line": 77,
+  "old": "",
+  "new": "  // 1358-N S6: Save44 adds the competitions log and the romance track to every edge (era 44).\n  competitions: RelationshipEdge['competitions']; romance: RelationshipEdge['romance']",
+  "cls": "S6",
+  "status": "certain",
+  "note": "local Edge type gains competitions and romance typed from RelationshipEdge"
+ },
+ {
+  "id": "N-0074",
+  "file": "tests/bridge-p14b6-d2-withheld-employment-claim.test.ts",
+  "line": 86,
+  "old": "  validateSaveV43(JSON.parse(JSON.stringify(save)))",
+  "new": "  validateSaveV44(JSON.parse(JSON.stringify(save)))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "admitted(): makeSave output is live"
+ },
+ {
+  "id": "N-0075",
+  "file": "tests/bridge-p14b6-d2-withheld-employment-claim.test.ts",
+  "line": 97,
+  "old": "",
+  "new": "    competitions: [], romance: null,",
+  "cls": "S6",
+  "status": "certain",
+  "note": "stagedEdge() literal; census line :92 is its counters line"
+ },
+ {
+  "id": "N-0076",
+  "file": "tests/bridge-p14b6-e714-false-empty-absence-lines.test.ts",
+  "line": 52,
+  "old": "import { LIVE_SAVE_VERSION, makeSave, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { LIVE_SAVE_VERSION, makeSave, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator"
+ },
+ {
+  "id": "N-0077",
+  "file": "tests/bridge-p14b6-e714-false-empty-absence-lines.test.ts",
+  "line": 95,
+  "old": "  validateSaveV43(JSON.parse(JSON.stringify(save)))",
+  "new": "  validateSaveV44(JSON.parse(JSON.stringify(save)))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "admitted(): makeSave output is live"
+ },
+ {
+  "id": "N-0078",
+  "file": "tests/bridge-p14b6-relationship-read-models.test.ts",
+  "line": 79,
+  "old": "import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV30, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV30, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator"
+ },
+ {
+  "id": "N-0080",
+  "file": "tests/bridge-p14b6-relationship-read-models.test.ts",
+  "line": 81,
+  "old": "import type { GameState, RelationshipDriver, RelationshipTier } from '../src/core/types.js'",
+  "new": "import type { GameState, RelationshipDriver, RelationshipEdge, RelationshipTier } from '../src/core/types.js'",
+  "cls": "S6",
+  "status": "certain",
+  "note": "supporting type import for the Edge fields"
+ },
+ {
+  "id": "N-0085",
+  "file": "tests/bridge-p14b6-relationship-read-models.test.ts",
+  "line": 102,
+  "old": "",
+  "new": "const OUTGOING_56 = 'sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1' // 1358-N P2: outgoing56, projection-v56 at bridge/runtime-checkpoint.ts:64",
+  "cls": "P2",
+  "status": "certain",
+  "note": "named OUTGOING_56 constant used by the roster list at :796"
+ },
+ {
+  "id": "N-0079",
+  "file": "tests/bridge-p14b6-relationship-read-models.test.ts",
+  "line": 104,
+  "old": "const INCOMING_PROJECTION = 56",
+  "new": "const INCOMING_PROJECTION = 57",
+  "cls": "P1",
+  "status": "certain",
+  "note": "INCOMING_PROJECTION 57; read at :782, :787, :807, :808"
+ },
+ {
+  "id": "N-0080",
+  "file": "tests/bridge-p14b6-relationship-read-models.test.ts",
+  "line": 156,
+  "old": "",
+  "new": "  // 1358-N S6: Save44 adds the competitions log and the romance track to every edge (era 44).\n  competitions: RelationshipEdge['competitions']; romance: RelationshipEdge['romance']",
+  "cls": "S6",
+  "status": "certain",
+  "note": "local Edge type gains competitions and romance typed from RelationshipEdge"
+ },
+ {
+  "id": "N-0081",
+  "file": "tests/bridge-p14b6-relationship-read-models.test.ts",
+  "line": 232,
+  "old": "  validateSaveV43(JSON.parse(JSON.stringify(save)))",
+  "new": "  validateSaveV44(JSON.parse(JSON.stringify(save)))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "admitted(): makeSave output is live"
+ },
+ {
+  "id": "N-0082",
+  "file": "tests/bridge-p14b6-relationship-read-models.test.ts",
+  "line": 293,
+  "old": "",
+  "new": "    competitions: [], romance: null,",
+  "cls": "S6",
+  "status": "certain",
+  "note": "stageEdge() literal; census line :288 is its counters line"
+ },
+ {
+  "id": "N-0083",
+  "file": "tests/bridge-p14b6-relationship-read-models.test.ts",
+  "line": 407,
+  "old": "        expect(Object.keys(row).sort()).toEqual(['counterpartId', 'counterpartName', 'drivers', 'sharedPictures', 'sign', 'tierLabel'])",
+  "new": "        // 1358-N P3: projection 57 adds `labels` and `romance` to every row (bridge-schema.ts:2812, :2814).\n        expect(Object.keys(row).sort()).toEqual(['counterpartId', 'counterpartName', 'drivers', 'labels', 'romance', 'sharedPictures', 'sign', 'tierLabel'])",
+  "cls": "P3",
+  "status": "certain",
+  "note": "row key list gains labels and romance (bridge/schema/bridge-schema.ts:2812, :2814; bridge/relationships.ts:270-280 builds exactly these eight keys)"
+ },
+ {
+  "id": "N-0084",
+  "file": "tests/bridge-p14b6-relationship-read-models.test.ts",
+  "line": 784,
+  "old": "    expect(LIVE_SAVE_VERSION).toBe(43) // B.6 has NO save step",
+  "new": "    expect(LIVE_SAVE_VERSION).toBe(44) // B.6 has NO save step",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live writer version"
+ },
+ {
+  "id": "N-0085",
+  "file": "tests/bridge-p14b6-relationship-read-models.test.ts",
+  "line": 796,
+  "old": "    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48, OUTGOING_49, OUTGOING_50, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55].sort())",
+  "new": "    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48, OUTGOING_49, OUTGOING_50, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56].sort())",
+  "cls": "P2",
+  "status": "certain",
+  "note": "full prior-roster key list gains OUTGOING_56: 36 + 8 + 1 = 45"
+ },
+ {
+  "id": "N-0086",
+  "file": "tests/bridge-p14b6-relationship-read-models.test.ts",
+  "line": 799,
+  "old": "    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(44)",
+  "new": "    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(45)",
+  "cls": "P2",
+  "status": "certain",
+  "note": "roster size 45 (42 literal pairs + 3 named constants in bridge/runtime-checkpoint.ts at step 4)"
+ },
+ {
+  "id": "N-0087",
+  "file": "tests/p14b10-conflict-evidence.test.ts",
+  "line": 114,
+  "old": "",
+  "new": "    // 1358-N S6: Save44 gives every edge an empty log and a null romance (convertV43ToV44).\n    competitions: [], romance: null,",
+  "cls": "S6",
+  "status": "certain",
+  "note": "stagedEdge() literal before ...extra; clears X5 TS2322 at :108 (the fields no longer arrive only through Partial<RelationshipEdge>)"
+ },
+ {
+  "id": "N-0088",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 74,
+  "old": "import { LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31, validateSaveV33, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31, validateSaveV33, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator"
+ },
+ {
+  "id": "N-0089",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 78,
+  "old": "import type { CastSlot, FilmResult, GameState, Production, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'",
+  "new": "import type { CastSlot, FilmResult, GameState, Production, RelationshipEdge, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'",
+  "cls": "S6",
+  "status": "certain",
+  "note": "supporting type import for the Edge fields"
+ },
+ {
+  "id": "N-0089",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 100,
+  "old": "",
+  "new": "  // 1358-N S6: Save44 adds the competitions log and the romance track to every edge (era 44).\n  competitions: RelationshipEdge['competitions']; romance: RelationshipEdge['romance']",
+  "cls": "S6",
+  "status": "certain",
+  "note": "local Edge type gains competitions and romance typed from RelationshipEdge; clears X5 step-4 24 strict-Pick TS2345 errors (romance missing) at :590, :709, :710, :720, :726, :729, :730, :741, :796, :798, :801, :802, :832, :834, :837, :981, :982, :1025, :1091, :1103, :1137, :1147, :1231, :1286 (step-4 numbering)"
+ },
+ {
+  "id": "N-0090",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 227,
+  "old": "    recent: [{ kind: 'sharedProduction', week, ref, delta: weight }] }",
+  "new": "    recent: [{ kind: 'sharedProduction', week, ref, delta: weight }], competitions: [], romance: null }",
+  "cls": "S6",
+  "status": "certain",
+  "note": "mintedEdge() writes the two fields as newEdge does (relationships.ts:300-316); clears X5 family 1 minted oracle (16 keys against 14)"
+ },
+ {
+  "id": "N-0091",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 235,
+  "old": "    recent: [{ kind: 'sharedProduction', week: lastEventWeek, ref: 'staged-production', delta: RELATIONSHIP_PROXIMITY_HIGH }], ...extra }",
+  "new": "    recent: [{ kind: 'sharedProduction', week: lastEventWeek, ref: 'staged-production', delta: RELATIONSHIP_PROXIMITY_HIGH }], competitions: [], romance: null, ...extra }",
+  "cls": "S6",
+  "status": "certain",
+  "note": "stagedEdge() writes the two fields before ...extra; stage() then passes validateSaveV44 exact keys (relationships.ts EDGE_KEYS_V44 :640, exact() :715)"
+ },
+ {
+  "id": "N-0093",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 584,
+  "old": "    const expected = seatPairs(take).map((p, i) => mintedEdge(i, p.x, p.y, weightOf[p.weight](), week, production.id))",
+  "new": "    const expected = seatPairs(take).map((p, i) => mintedEdge(i, p.x, p.y, weightOf[p.weight](), week, production.id))",
+  "cls": "S6",
+  "status": "certain",
+  "note": "no edit at this line: the oracle carries the fields through mintedEdge (N-0090)"
+ },
+ {
+  "id": "N-0094",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 662,
+  "old": "    const expected = seatPairs(take).map((p, i) => mintedEdge(i, p.x, p.y, weightOf[p.weight](), atFirstTake.market.tick, take.productionId))",
+  "new": "    const expected = seatPairs(take).map((p, i) => mintedEdge(i, p.x, p.y, weightOf[p.weight](), atFirstTake.market.tick, take.productionId))",
+  "cls": "S6",
+  "status": "certain",
+  "note": "no edit at this line: the oracle carries the fields through mintedEdge (N-0090); this leaf is a retained 1344-F6 row 6 failure that stops at the rivalWorld premise :399 (step-4 :397) before the oracle"
+ },
+ {
+  "id": "N-0095",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 1299,
+  "old": "    expect(() => validateSaveV43(save)).toThrow(pattern)",
+  "new": "    expect(() => validateSaveV44(save)).toThrow(pattern)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "expectRefused: v31() is makeSave output (live); the S8 row N-0096 stays deferred"
+ },
+ {
+  "id": "N-0097",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 1305,
+  "old": "    expect(() => validateRelationshipsRoot(save.state, 42)).toThrow(pattern)",
+  "new": "    // 1358-N S1: live is era 44 now; era 42 would refuse the unrelated\n    // `competitions` and `romance` keys first, the same way.\n    expect(() => validateRelationshipsRoot(save.state, 44)).toThrow(pattern)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "era 42 -> 44 on the engine-written live root; comment added beside the 1320-A one"
+ },
+ {
+  "id": "N-0098",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 1315,
+  "old": "    expect(validateSaveV43(save)).toEqual(save)",
+  "new": "    expect(validateSaveV44(save)).toEqual(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live round trip"
+ },
+ {
+  "id": "N-0099",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 1321,
+  "old": "    expect(() => validateSaveV43(save)).toThrow(/relationships/)",
+  "new": "    expect(() => validateSaveV44(save)).toThrow(/relationships/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "missing-root refusal: validateRelationshipsRoot(raw, 44) at save.ts:10768 refuses first with \"validateSaveV44: state.relationships is not an array\" (src/core/relationships.ts:673), which matches /relationships/"
+ },
+ {
+  "id": "N-0100",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 1364,
+  "old": "    const admitted = validateSaveV43(one)",
+  "new": "    // 1358-N S1: and once more, to 44 (Save44); same reasoning.\n    const admitted = validateSaveV44(one)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "one-edge live save; comment continues the file's per-bump note"
+ },
+ {
+  "id": "N-0104",
+  "file": "tests/p14b5-relationships.test.ts",
+  "line": 1444,
+  "old": "    const empty = validateSaveV43({ ...save, state: { ...save.state, relationships: [] } })",
+  "new": "    const empty = validateSaveV44({ ...save, state: { ...save.state, relationships: [] } })",
+  "cls": "S1",
+  "status": "certain",
+  "note": "empty-root live save"
+ },
+ {
+  "id": "N-0106",
+  "file": "tests/p14b5-t-failure-tuning.test.ts",
+  "line": 57,
+  "old": "import { LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator"
+ },
+ {
+  "id": "N-0107",
+  "file": "tests/p14b5-t-failure-tuning.test.ts",
+  "line": 117,
+  "old": "  validateRelationshipsRoot(written, 42)",
+  "new": "  validateRelationshipsRoot(written, 44)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "shoot(): engine-written root, era 44"
+ },
+ {
+  "id": "N-0108",
+  "file": "tests/p14b5-t-failure-tuning.test.ts",
+  "line": 123,
+  "old": "  validateRelationshipsRoot(written, 42)",
+  "new": "  validateRelationshipsRoot(written, 44)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "release(): engine-written root, era 44"
+ },
+ {
+  "id": "N-0109",
+  "file": "tests/p14b5-t-failure-tuning.test.ts",
+  "line": 295,
+  "old": "      rows.find((r) => currentTier({ closeness: r.closeness, lastEventWeek: r.week, sharedCompetitions: 0 }, r.week) === 'Inseparable')?.label // 1348-C5/1348-F4 item 2: sharedCompetitions is type-only here (evidence never gates the Inseparable band); runtime result unchanged, confirmed by re-running this file before/after",
+  "new": "      rows.find((r) => currentTier({ closeness: r.closeness, lastEventWeek: r.week, sharedCompetitions: 0, romance: null }, r.week) === 'Inseparable')?.label // 1348-C5/1348-F4 item 2: sharedCompetitions is type-only here (evidence never gates the Inseparable band); runtime result unchanged, confirmed by re-running this file before/after; 1358-N S6: likewise `romance: null` (no bond, so no drift exemption)",
+  "cls": "S6",
+  "status": "certain",
+  "note": "strict Pick names romance (relationships.ts:236); romance null is type-only (romanceEndWeek(null) is null, so currentCloseness reads as before); trailing comment extended"
+ },
+ {
+  "id": "N-0110",
+  "file": "tests/p14b5-t-failure-tuning.test.ts",
+  "line": 373,
+  "old": "      .toEqual({ productions: 2, failures: 2, first: STAGED_FIRST_WEEK, peak: currentTier({ closeness: clamp(RELATIONSHIP_BASELINE + LOW), lastEventWeek: STAGED_FIRST_WEEK, sharedCompetitions: 0 }, STAGED_FIRST_WEEK) }) // 1348-C5/1348-F4 item 2: sharedCompetitions is type-only here; runtime result unchanged, confirmed by re-running this file before/after",
+  "new": "      .toEqual({ productions: 2, failures: 2, first: STAGED_FIRST_WEEK, peak: currentTier({ closeness: clamp(RELATIONSHIP_BASELINE + LOW), lastEventWeek: STAGED_FIRST_WEEK, sharedCompetitions: 0, romance: null }, STAGED_FIRST_WEEK) }) // 1348-C5/1348-F4 item 2: sharedCompetitions is type-only here; runtime result unchanged, confirmed by re-running this file before/after; 1358-N S6: likewise `romance: null` (no bond, so no drift exemption)",
+  "cls": "S6",
+  "status": "certain",
+  "note": "same as :295"
+ },
+ {
+  "id": "N-0111",
+  "file": "tests/p14b5-t-failure-tuning.test.ts",
+  "line": 413,
+  "old": "    expect(validateSaveV43(save)).toEqual(save)",
+  "new": "    expect(validateSaveV44(save)).toEqual(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output is live"
+ },
+ {
+  "id": "N-0112",
+  "file": "tests/p14b5-t-failure-tuning.test.ts",
+  "line": 433,
+  "old": "    expect(() => { validateRelationshipsRoot(historical, 42) }).not.toThrow()",
+  "new": "    expect(() => { validateRelationshipsRoot(historical, 44) }).not.toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "restamped engine-written root, era 44"
+ },
+ {
+  "id": "N-0113",
+  "file": "tests/p14b5-t-failure-tuning.test.ts",
+  "line": 438,
+  "old": "    const migrated = migrateToLive(validateSaveV43(save))",
+  "new": "    const migrated = migrateToLive(validateSaveV44(save))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output is live"
+ },
+ {
+  "id": "N-0114",
+  "file": "tests/p14b5-t-failure-tuning.test.ts",
+  "line": 489,
+  "old": "    validateRelationshipsRoot(state, 42)",
+  "new": "    validateRelationshipsRoot(state, 44)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "natural-world root, era 44"
+ },
+ {
+  "id": "N-0115",
+  "file": "tests/p14b9-save-v42.test.ts",
+  "line": 71,
+  "old": "import type { SaveFile, SaveFileV42, SaveFileV43 } from '../src/core/save.js'",
+  "new": "import type { SaveFile, SaveFileV42, SaveFileV43, SaveFileV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "type import gains SaveFileV44; SaveFileV43 stays for convertV42ToV43 and convertV43ToV44"
+ },
+ {
+  "id": "N-0118",
+  "file": "tests/p14b9-save-v42.test.ts",
+  "line": 175,
+  "old": "",
+  "new": "      convertV43ToV44: (s: SaveFileV43) => SaveFileV44",
+  "cls": "S5",
+  "status": "certain",
+  "note": "supporting typed member convertV43ToV44 for the lift at :192"
+ },
+ {
+  "id": "N-0116",
+  "file": "tests/p14b9-save-v42.test.ts",
+  "line": 176,
+  "old": "      validateSaveV43: (s: unknown) => SaveFileV43",
+  "new": "      validateSaveV44: (s: unknown) => SaveFileV44",
+  "cls": "S1",
+  "status": "certain",
+  "note": "typed member renamed to the live validator"
+ },
+ {
+  "id": "N-0117",
+  "file": "tests/p14b9-save-v42.test.ts",
+  "line": 177,
+  "old": "",
+  "new": "      convertV44ToV43: (s: unknown) => unknown",
+  "cls": "S4",
+  "status": "certain",
+  "note": "typed member convertV44ToV43 for the chain at :223"
+ },
+ {
+  "id": "N-0122",
+  "file": "tests/p14b9-save-v42.test.ts",
+  "line": 186,
+  "old": "",
+  "new": "    // 1358-N S9 (1358-F9 ruling 3; 1358-F10 records this): the counter is staged, on edge 0 of a\n    // copy of `v42`, because no pre-Save44 engine remains to write it. convertV42ToV41 refuses at\n    // its casting-competition guard (src/core/relationships.ts:847-849, via src/core/save.ts:10696).\n    const staged = { ...v42, state: { ...v42.state, relationships: v42.state.relationships.map((row, i) => (i === 0 ? { ...row, sharedCompetitions: 1 } : row)) } }\n    expect(() => mods.convertV42ToV41(staged)).toThrow(/^migrateToV41: cannot downgrade or discard a casting competition$/)",
+  "cls": "S9",
+  "status": "read",
+  "note": "1358-F9 ruling 3, second half; parent ruling option (a); 1358-F10 records the staged counter. First guard by reading: src/core/relationships.ts:849, the throw in assertRelationshipsAtV31 (:847-849), called at src/core/save.ts:10696 in convertV42ToV41; message \"migrateToV41: cannot downgrade or discard a casting competition\". Nothing refuses earlier: validateSaveV42Era (src/core/save.ts:10671-10680) sees the same envelope keys, version 42, seed and broadcastCache as the v42 that convertV41ToV42 already validated; validateRelationshipsRoot at era 42 asks only that sharedCompetitions be a non-negative integer (src/core/relationships.ts:734) and stops before the era-44 log checks (:750); proveProfessionSave gets relationshipsAtV31's projection (src/core/relationships.ts:834-837), which drops the counter, so the frozen V41 chain sees the input it already admitted. The spread copy leaves v42 unchanged for the lift at :192. Nothing stripped."
+ },
+ {
+  "id": "N-0118",
+  "file": "tests/p14b9-save-v42.test.ts",
+  "line": 192,
+  "old": "    const state = mods.convertV42ToV43(v42).state as unknown as GameState",
+  "new": "    // 1358-N S5 (1358-J 3e, finding 16): the live writer also needs Save44's `competitions` and\n    // `romance` on every edge; lift through the genuine convertV43ToV44 (src/core/save.ts:10776-10781).\n    const state = mods.convertV43ToV44(mods.convertV42ToV43(v42)).state as unknown as GameState",
+  "cls": "S5",
+  "status": "certain",
+  "note": "lift through convertV43ToV44 (1358-J 3e, finding 16). Fixture read (see handback): no slate pair holds an edge in the acknowledged input, so no greenlight path reaches relationships.ts:548 either way"
+ },
+ {
+  "id": "N-0119",
+  "file": "tests/p14b9-save-v42.test.ts",
+  "line": 214,
+  "old": "    expect(newSave.saveVersion).toBe(43) // LIVE_SAVE_VERSION 43 (was 42 at 1313-A §3)",
+  "new": "    expect(newSave.saveVersion).toBe(44) // LIVE_SAVE_VERSION 44 (was 42 at 1313-A §3)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live writer version"
+ },
+ {
+  "id": "N-0120",
+  "file": "tests/p14b9-save-v42.test.ts",
+  "line": 215,
+  "old": "    expect(() => mods.validateSaveV43(newSave)).not.toThrow()",
+  "new": "    expect(() => mods.validateSaveV44(newSave)).not.toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output is live"
+ },
+ {
+  "id": "N-0121",
+  "file": "tests/p14b9-save-v42.test.ts",
+  "line": 223,
+  "old": "    expect(() => mods.convertV42ToV41(mods.convertV43ToV42(newSave))).toThrow()",
+  "new": "    expect(() => mods.convertV42ToV41(mods.convertV43ToV42(mods.convertV44ToV43(newSave)))).toThrow(/^migrateToV43: cannot downgrade or discard the competitions log of relationship-edge-24$/)",
+  "cls": "S4",
+  "status": "certain",
+  "note": "convertV44ToV43 inserted innermost on the live envelope"
+ },
+ {
+  "id": "N-0122",
+  "file": "tests/p14b9-save-v42.test.ts",
+  "line": 223,
+  "old": "    expect(() => mods.convertV42ToV41(mods.convertV43ToV42(newSave))).toThrow()",
+  "new": "    // 1358-N S9 (MASKED): the live chain now crosses convertV44ToV43 first, and the greenlight\n    // appended a competitions-log row on each slate pair (src/core/relationships.ts:537), so\n    // the Save44 log guard (src/core/save.ts:10789) refuses before convertV42ToV41's casting-\n    // competition guard (src/core/relationships.ts:847-849). The acknowledged fixture's 24 edges\n    // are all rival-internal, so the three pairs are new edges 24-26 and edge 24 refuses first.\n    // Read from source and the fixture, not measured. The staged `v42` copy above keeps the\n    // casting-competition guard's own-era pin.\n    expect(() => mods.convertV42ToV41(mods.convertV43ToV42(mods.convertV44ToV43(newSave)))).toThrow(/^migrateToV43: cannot downgrade or discard the competitions log of relationship-edge-24$/)",
+  "cls": "S9",
+  "status": "read",
+  "note": "first guard by reading: src/core/save.ts:10789 in convertV44ToV43, \"migrateToV43: cannot downgrade or discard the competitions log of relationship-edge-24\". The greenlight appends a log row with each new slate-pair edge (src/core/relationships.ts:537); the acknowledged fixture holds 24 rival-internal edges (relationship-edge-0..23, none touching t-act-08, t-act-20 or t-act-24; read once, sha256 pins matched), so the slate pairs are edges 24-26 and edge 24 is the first with a log row. Masking comment added; it now points to the staged-copy pin above (the second N-0122 object, parent ruling option (a)) for the casting-competition guard"
+ },
+ {
+  "id": "N-0123",
+  "file": "tests/p14b9-save-v42.test.ts",
+  "line": 228,
+  "old": "  it('LIVE_SAVE_VERSION is 43', () => {",
+  "new": "  it('LIVE_SAVE_VERSION is 44', () => {",
+  "cls": "P5",
+  "status": "certain",
+  "note": "title 'LIVE_SAVE_VERSION is 43' -> 'LIVE_SAVE_VERSION is 44'"
+ },
+ {
+  "id": "N-0124",
+  "file": "tests/p14b9-save-v42.test.ts",
+  "line": 229,
+  "old": "    expect(LIVE_SAVE_VERSION).toBe(43)",
+  "new": "    expect(LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live writer version"
+ },
+ {
+  "id": "N-0125",
+  "file": "tests/p14b9-save-v42.test.ts",
+  "line": 232,
+  "old": "  it('validateSave names the new ceiling in its unknown-version message (\"1 through 43\")', () => {",
+  "new": "  it('validateSave names the new ceiling in its unknown-version message (\"1 through 44\")', () => {",
+  "cls": "P5",
+  "status": "certain",
+  "note": "title \"1 through 43\" -> \"1 through 44\""
+ },
+ {
+  "id": "N-0126",
+  "file": "tests/p14b9-save-v42.test.ts",
+  "line": 233,
+  "old": "    expect(() => validateSave({ saveVersion: 999 })).toThrow(/1 through 43/)",
+  "new": "    expect(() => validateSave({ saveVersion: 999 })).toThrow(/1 through 44/)",
+  "cls": "S3",
+  "status": "certain",
+  "note": "save.ts:5445 message names 1 through 44"
+ },
+ {
+  "id": "N-0127",
+  "file": "tests/p14c1-materialized-aging.test.ts",
+  "line": 178,
+  "old": "  const live = SaveModule.convertV42ToV43(SaveModule.convertV41ToV42(SaveModule.convertV40ToV41(v40)))",
+  "new": "  // 1358-N S5 (1358-J 3e): one further governed step to the true live boundary,\n  // Save44's `competitions` and `romance` on every edge (convertV43ToV44,\n  // save.ts:10776-10781), which the live validator requires.\n  const live = SaveModule.convertV43ToV44(SaveModule.convertV42ToV43(SaveModule.convertV41ToV42(SaveModule.convertV40ToV41(v40))))",
+  "cls": "S5",
+  "status": "certain",
+  "note": "hand-lifted live state gains convertV43ToV44 (1358-J 3e); comment added"
+ },
+ {
+  "id": "N-0128",
+  "file": "tests/p14c1-materialized-aging.test.ts",
+  "line": 1033,
+  "old": "    expect(LIVE_SAVE_VERSION).toBe(43)",
+  "new": "    expect(LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live writer version; the stale title (\"is 37 once C.2b lands\") stays, as earlier sweeps left it"
+ },
+ {
+  "id": "N-0129",
+  "file": "tests/p14c2s-scientist-retirement.test.ts",
+  "line": 255,
+  "old": "    expect(live.saveVersion).toBe(43)",
+  "new": "    expect(live.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "makeSave output"
+ },
+ {
+  "id": "N-0130",
+  "file": "tests/p14c2s-scientist-retirement.test.ts",
+  "line": 266,
+  "old": "    expect(lifted.saveVersion).toBe(43)",
+  "new": "    expect(lifted.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "migrateToLive output"
+ },
+ {
+  "id": "N-0131",
+  "file": "tests/p14c2s-scientist-retirement.test.ts",
+  "line": 276,
+  "old": "    expect(live.saveVersion).toBe(43)",
+  "new": "    expect(live.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "makeSave output"
+ },
+ {
+  "id": "N-0132",
+  "file": "tests/p14c2s-scientist-retirement.test.ts",
+  "line": 305,
+  "old": "      for (const edge of envelope.state.relationships) delete (edge as { sharedCompetitions?: unknown }).sharedCompetitions",
+  "new": "      // 1358-N sweep (S7): nor the Save44 edge fields `competitions` and\n      // `romance` (convertV43ToV44, save.ts:10776-10781); same reader-only\n      // shape adjustment.\n      for (const edge of envelope.state.relationships) {\n        delete (edge as { sharedCompetitions?: unknown }).sharedCompetitions\n        delete (edge as { competitions?: unknown }).competitions\n        delete (edge as { romance?: unknown }).romance\n      }",
+  "cls": "S7",
+  "status": "certain",
+  "note": "reader-only V34-V36 relabel deletes exactly the two Save44 edge keys beside sharedCompetitions (the 1327-C and 1344 precedent at the same block); the envelope is never played or exported"
+ },
+ {
+  "id": "N-0133",
+  "file": "tests/p14c2s-scientist-retirement.test.ts",
+  "line": 345,
+  "old": "    expect(live.saveVersion).toBe(43)",
+  "new": "    expect(live.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "makeSave output"
+ },
+ {
+  "id": "N-0134",
+  "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+  "line": 45,
+  "old": "  it('validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist as functions; LIVE_SAVE_VERSION is 43', () => {",
+  "new": "  it('validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist as functions; LIVE_SAVE_VERSION is 44', () => {",
+  "cls": "P5",
+  "status": "certain",
+  "note": "title '... exist as functions; LIVE_SAVE_VERSION is 43' -> '... LIVE_SAVE_VERSION is 44'"
+ },
+ {
+  "id": "N-0135",
+  "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+  "line": 46,
+  "old": "    expect(saveModule.LIVE_SAVE_VERSION).toBe(43)",
+  "new": "    expect(saveModule.LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "LIVE_SAVE_VERSION"
+ },
+ {
+  "id": "N-0136",
+  "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+  "line": 82,
+  "old": "  it('migrateToLive carries a genuine V42 save to V43 (LIVE_SAVE_VERSION)', () => {",
+  "new": "  it('migrateToLive carries a genuine V42 save to V44 (LIVE_SAVE_VERSION)', () => {",
+  "cls": "P5",
+  "status": "certain",
+  "note": "title 'migrateToLive carries a genuine V42 save to V43 (LIVE_SAVE_VERSION)' -> '... to V44 (LIVE_SAVE_VERSION)'"
+ },
+ {
+  "id": "N-0137",
+  "file": "tests/p14d1-rival-shelving-save-v43.test.ts",
+  "line": 85,
+  "old": "    expect((live as unknown as { saveVersion: number }).saveVersion).toBe(43)",
+  "new": "    expect((live as unknown as { saveVersion: number }).saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "migrateToLive output"
+ },
+ {
+  "id": "N-0138",
+  "file": "tests/p14d1-rival-shelving.test.ts",
+  "line": 186,
+  "old": "  it('save.ts LIVE_SAVE_VERSION is 43, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist', () => {",
+  "new": "  it('save.ts LIVE_SAVE_VERSION is 44, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist', () => {",
+  "cls": "P5",
+  "status": "certain",
+  "note": "title 'save.ts LIVE_SAVE_VERSION is 43, and ...' -> 'save.ts LIVE_SAVE_VERSION is 44, and ...'; the V43 existence checks in the body stay (noEditInFiles)"
+ },
+ {
+  "id": "N-0139",
+  "file": "tests/p14d1-rival-shelving.test.ts",
+  "line": 187,
+  "old": "    expect(saveModule.LIVE_SAVE_VERSION).toBe(43)",
+  "new": "    expect(saveModule.LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "LIVE_SAVE_VERSION"
+ },
+ {
+  "id": "N-0141",
+  "file": "tests/p14d1-rival-shelving.test.ts",
+  "line": 980,
+  "old": "    const mods = saveModule as unknown as { validateSaveV43: (s: unknown) => unknown }",
+  "new": "    const mods = saveModule as unknown as { validateSaveV44: (s: unknown) => unknown }",
+  "cls": "S1",
+  "status": "certain",
+  "note": "typed member renamed to the live validator"
+ },
+ {
+  "id": "N-0142",
+  "file": "tests/p14d1-rival-shelving.test.ts",
+  "line": 981,
+  "old": "    expect(() => mods.validateSaveV43(saveModule.makeSave(state))).not.toThrow()",
+  "new": "    expect(() => mods.validateSaveV44(saveModule.makeSave(state))).not.toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output is live"
+ },
+ {
+  "id": "N-0143",
+  "file": "tests/p14p4p5-post-capacity.test.ts",
+  "line": 71,
+  "old": "  expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output is live (same line as N-0144)"
+ },
+ {
+  "id": "N-0144",
+  "file": "tests/p14p4p5-post-capacity.test.ts",
+  "line": 71,
+  "old": "  expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live writer version (same line as N-0143)"
+ },
+ {
+  "id": "N-0145",
+  "file": "tests/p14p4p5-post-capacity.test.ts",
+  "line": 72,
+  "old": "  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV43(imported)",
+  "new": "  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "exportSave/importSave of a live save"
+ },
+ {
+  "id": "N-0146",
+  "file": "tests/p14p4p5-post-capacity.test.ts",
+  "line": 350,
+  "old": "      recent: [{ kind: 'sharedProduction', week: 313, ref: PROD, delta: pair.weight }] })",
+  "new": "      recent: [{ kind: 'sharedProduction', week: 313, ref: PROD, delta: pair.weight }], competitions: [], romance: null })",
+  "cls": "S6",
+  "status": "certain",
+  "note": "whole-edge oracle on a new engine edge at week 313 (newEdge writes both fields empty); census line :347 opens the toEqual"
+ }
+]

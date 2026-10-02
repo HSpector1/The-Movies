@@ -1,0 +1,1202 @@
+[
+ {
+  "id": "N-0318",
+  "file": "tests/cash-ledger-checkpoint-v11.test.ts",
+  "line": 48,
+  "old": "validateSaveV43,",
+  "new": "validateSaveV44,",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; every call in this file takes a live envelope"
+ },
+ {
+  "id": "N-0319",
+  "file": "tests/cash-ledger-checkpoint-v11.test.ts",
+  "line": 225,
+  "old": "expect(validateSaveV43(native)).toBe(native);",
+  "new": "expect(validateSaveV44(native)).toBe(native);",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: native = makeSave(nativeWorld) (:223)"
+ },
+ {
+  "id": "N-0320",
+  "file": "tests/cash-ledger-checkpoint-v11.test.ts",
+  "line": 235,
+  "old": "expect(validateSaveV43(reconciled)).toBe(reconciled);",
+  "new": "expect(validateSaveV44(reconciled)).toBe(reconciled);",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: reconciled = makeSave(played) (:232)"
+ },
+ {
+  "id": "N-0321",
+  "file": "tests/cash-ledger-checkpoint-v11.test.ts",
+  "line": 287,
+  "old": "expect(() => validateSaveV43(redundant)).toThrow(",
+  "new": "expect(() => validateSaveV44(redundant)).toThrow(",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: redundant = clone(makeSave(...)) (:282); tamper is cashLedgerCheckpoint; validateSaveV44 checks only envelope keys, version, checkEnvelope and validateRelationshipsRoot(raw, 44) (save.ts:10763-10772; relationships.ts:666-811 reads state.market.tick, studioHistory.recordingStartedWeek, talent ids and the edges) before the frozen V43 chain, and this tamper touches none of those, so the leaf still meets its own guard"
+ },
+ {
+  "id": "N-0322",
+  "file": "tests/cash-ledger-checkpoint-v11.test.ts",
+  "line": 364,
+  "old": "const current = validateSaveV43(makeSave(generateWorld(\"checkpoint-frozen-redundant\")));",
+  "new": "const current = validateSaveV44(makeSave(generateWorld(\"checkpoint-frozen-redundant\")));",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: makeSave(generateWorld(...)) inline"
+ },
+ {
+  "id": "N-0323",
+  "file": "tests/cash-ledger-checkpoint-v11.test.ts",
+  "line": 461,
+  "old": "expect(() => validateSaveV43(changedAnchor)).toThrow(",
+  "new": "expect(() => validateSaveV44(changedAnchor)).toThrow(",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: clone(valid), valid = makeSave(settled) (:451); tamper is the checkpoint cash; validateSaveV44 checks only envelope keys, version, checkEnvelope and validateRelationshipsRoot(raw, 44) (save.ts:10763-10772; relationships.ts:666-811 reads state.market.tick, studioHistory.recordingStartedWeek, talent ids and the edges) before the frozen V43 chain, and this tamper touches none of those, so the leaf still meets its own guard"
+ },
+ {
+  "id": "N-0324",
+  "file": "tests/cash-ledger-checkpoint-v11.test.ts",
+  "line": 467,
+  "old": "expect(() => validateSaveV43(changedCash)).toThrow(",
+  "new": "expect(() => validateSaveV44(changedCash)).toThrow(",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: clone(valid) (:451); tamper is studio.cash; validateSaveV44 checks only envelope keys, version, checkEnvelope and validateRelationshipsRoot(raw, 44) (save.ts:10763-10772; relationships.ts:666-811 reads state.market.tick, studioHistory.recordingStartedWeek, talent ids and the edges) before the frozen V43 chain, and this tamper touches none of those, so the leaf still meets its own guard"
+ },
+ {
+  "id": "N-0325",
+  "file": "tests/cash-ledger-checkpoint-v11.test.ts",
+  "line": 473,
+  "old": "expect(() => validateSaveV43(movedBoundary)).toThrow(",
+  "new": "expect(() => validateSaveV44(movedBoundary)).toThrow(",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: clone(valid) (:451); tamper is the checkpoint ledgerLength; validateSaveV44 checks only envelope keys, version, checkEnvelope and validateRelationshipsRoot(raw, 44) (save.ts:10763-10772; relationships.ts:666-811 reads state.market.tick, studioHistory.recordingStartedWeek, talent ids and the edges) before the frozen V43 chain, and this tamper touches none of those, so the leaf still meets its own guard"
+ },
+ {
+  "id": "N-0326",
+  "file": "tests/cash-ledger-checkpoint-v11.test.ts",
+  "line": 479,
+  "old": "expect(() => validateSaveV43(changedSuffix)).toThrow(",
+  "new": "expect(() => validateSaveV44(changedSuffix)).toThrow(",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: clone(valid) (:451); tamper is one ledger amount; validateSaveV44 checks only envelope keys, version, checkEnvelope and validateRelationshipsRoot(raw, 44) (save.ts:10763-10772; relationships.ts:666-811 reads state.market.tick, studioHistory.recordingStartedWeek, talent ids and the edges) before the frozen V43 chain, and this tamper touches none of those, so the leaf still meets its own guard"
+ },
+ {
+  "id": "N-0327",
+  "file": "tests/construction-save-v11.test.ts",
+  "line": 50,
+  "old": "validateSaveV43,",
+  "new": "validateSaveV44,",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; every call in this file takes a live envelope"
+ },
+ {
+  "id": "N-0328",
+  "file": "tests/construction-save-v11.test.ts",
+  "line": 189,
+  "old": "expect(save.saveVersion).toBe(43);",
+  "new": "expect(save.saveVersion).toBe(44);",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live: makeSave(state) (:188)"
+ },
+ {
+  "id": "N-0329",
+  "file": "tests/construction-save-v11.test.ts",
+  "line": 191,
+  "old": "expect(validateSaveV43(save)).toBe(save);",
+  "new": "expect(validateSaveV44(save)).toBe(save);",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: save = makeSave(state) (:188)"
+ },
+ {
+  "id": "N-0330",
+  "file": "tests/construction-save-v11.test.ts",
+  "line": 514,
+  "old": "expect(() => validateSaveV43(forgedV13)).toThrow(",
+  "new": "expect(() => validateSaveV44(forgedV13)).toThrow(",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: forgedV13 = clone(makeSave(state)) (:506); tamper is a pushed ledger row; validateSaveV44 checks only envelope keys, version, checkEnvelope and validateRelationshipsRoot(raw, 44) (save.ts:10763-10772; relationships.ts:666-811 reads state.market.tick, studioHistory.recordingStartedWeek, talent ids and the edges) before the frozen V43 chain, and this tamper touches none of those, so the leaf still meets its own guard"
+ },
+ {
+  "id": "N-0331",
+  "file": "tests/construction-save-v11.test.ts",
+  "line": 553,
+  "old": "expect(() => validateSave({ ...save, saveVersion: 44 })).toThrow(",
+  "new": "expect(() => validateSave({ ...save, saveVersion: 45 })).toThrow(",
+  "cls": "S3",
+  "status": "certain",
+  "note": "sentinel 44 is now dispatched to validateSaveV44 (save.ts:5443); 45 reaches the unknown-version throw (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0332",
+  "file": "tests/construction-save-v11.test.ts",
+  "line": 554,
+  "old": "/unknown saveVersion 44.*versions 1 through 43 only/,",
+  "new": "/unknown saveVersion 45.*versions 1 through 44 only/,",
+  "cls": "S3",
+  "status": "certain",
+  "note": "production message: validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 44 only) (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0333",
+  "file": "tests/contracts/v14-byte-parity.contract.test.ts",
+  "line": 201,
+  "old": "'validateSaveV43',",
+  "new": "'validateSaveV44',",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live validator looked up by name through requireFunction; the module is src/core/index.js (tests/contracts/_v14Contract.ts:255), which exports validateSaveV44 (src/core/index.ts:1375); the input is makeSave(...) at :204"
+ },
+ {
+  "id": "N-0334",
+  "file": "tests/contracts/v14-byte-parity.contract.test.ts",
+  "line": 205,
+  "old": "expect(save.saveVersion).toBe(43) // P14C.2b: the live version (was 35)",
+  "new": "expect(save.saveVersion).toBe(44) // P14C.2b: the live version (was 35)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live: makeSave(runScriptedWeeks(...)) (:204)"
+ },
+ {
+  "id": "N-0335",
+  "file": "tests/d11-employment.test.ts",
+  "line": 551,
+  "old": "expect(save.saveVersion).toBe(43) // P13B-S8: new games save as V27.",
+  "new": "expect(save.saveVersion).toBe(44) // P13B-S8: new games save as V27.",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live: makeSave(s) (:550)"
+ },
+ {
+  "id": "N-0336",
+  "file": "tests/d17-engagement-persistence.test.ts",
+  "line": 466,
+  "old": "expect(save.saveVersion).toBe(43)",
+  "new": "expect(save.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live: makeSave(foundStudio(...)) (:465)"
+ },
+ {
+  "id": "N-0337",
+  "file": "tests/d17a-adv-migration.test.ts",
+  "line": 274,
+  "old": "expect(() => validateSave({ ...v6, saveVersion: 44 })).toThrow(/unknown saveVersion 44/)",
+  "new": "expect(() => validateSave({ ...v6, saveVersion: 45 })).toThrow(/unknown saveVersion 45/)",
+  "cls": "S3",
+  "status": "certain",
+  "note": "pins.txt missed it (1358-J 3b); sentinel 44 is now dispatched to validateSaveV44 (save.ts:5443); 45 reaches the unknown-version throw (save.ts:5444-5446); production message: validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 44 only) (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0338",
+  "file": "tests/d17a-adv-reconciliation.test.ts",
+  "line": 337,
+  "old": "expect(reloaded.saveVersion).toBe(43)",
+  "new": "expect(reloaded.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live: migrateToCurrentControl(validateSave(importSave(exportSave(makeSave(s))))) (:336)"
+ },
+ {
+  "id": "N-0339",
+  "file": "tests/d17b-save-v7.test.ts",
+  "line": 163,
+  "old": "expect(() => validateSave({ ...save, saveVersion: 44 })).toThrow(/unknown saveVersion 44/)",
+  "new": "expect(() => validateSave({ ...save, saveVersion: 45 })).toThrow(/unknown saveVersion 45/)",
+  "cls": "S3",
+  "status": "certain",
+  "note": "pins.txt missed it (1358-J 3b); sentinel 44 is now dispatched to validateSaveV44 (save.ts:5443); 45 reaches the unknown-version throw (save.ts:5444-5446); production message: validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 44 only) (save.ts:5444-5446); the V16 assertion at :167 is unaffected"
+ },
+ {
+  "id": "N-0340",
+  "file": "tests/film-chronicle.test.ts",
+  "line": 911,
+  "old": "expect(envelope.saveVersion).toBe(43);",
+  "new": "expect(envelope.saveVersion).toBe(44);",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live: envelope = makeSave(state) (:910); moves with :922 and :923 (1358-J 3k)"
+ },
+ {
+  "id": "N-0341",
+  "file": "tests/film-chronicle.test.ts",
+  "line": 922,
+  "old": "expect(restored.saveVersion).toBe(43);",
+  "new": "expect(restored.saveVersion).toBe(44);",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live: restored = importSave(exportSave(envelope)) (:921); moves with :911 and :923 (1358-J 3k)"
+ },
+ {
+  "id": "N-0342",
+  "file": "tests/film-chronicle.test.ts",
+  "line": 923,
+  "old": "if (restored.saveVersion !== 43) return;",
+  "new": "if (restored.saveVersion !== 44) return;",
+  "cls": "S2",
+  "status": "certain",
+  "note": "the narrowing guard moves with :922; left at 43 it would return early and make the leaf vacuous (1358-J 3k); 44 narrows restored to SaveFileV44, which migrateToCurrentControl(save: SaveFile) accepts (tests/_historicalCurrent.ts:11)"
+ },
+ {
+  "id": "N-0343",
+  "file": "tests/p04a2-writer-credit-law.test.ts",
+  "line": 773,
+  "old": "expect(save.saveVersion).toBe(43)",
+  "new": "expect(save.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live: makeSave(greenlit) (:770)"
+ },
+ {
+  "id": "N-0344",
+  "file": "tests/p09a-w0-founding-regime.test.ts",
+  "line": 57,
+  "old": "validateSaveV43,",
+  "new": "validateSaveV44,",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator from src/core/index.js, which exports it (src/core/index.ts:1375)"
+ },
+ {
+  "id": "N-0345",
+  "file": "tests/p09a-w0-founding-regime.test.ts",
+  "line": 137,
+  "old": "expect(save.saveVersion).toBe(43)",
+  "new": "expect(save.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live: makeSave(state) (:136)"
+ },
+ {
+  "id": "N-0346",
+  "file": "tests/p09a-w0-founding-regime.test.ts",
+  "line": 145,
+  "old": "expect(() => validateSaveV43({ ...raw, state: { ...raw.state, foundingRegime: 'sandbox' } })).toThrow(/not a known founding regime/)",
+  "new": "expect(() => validateSaveV44({ ...raw, state: { ...raw.state, foundingRegime: 'sandbox' } })).toThrow(/not a known founding regime/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: raw = JSON.parse(exportSave(makeSave(...))) (:143-144); tamper is foundingRegime; validateSaveV44 checks only envelope keys, version, checkEnvelope and validateRelationshipsRoot(raw, 44) (save.ts:10763-10772; relationships.ts:666-811 reads state.market.tick, studioHistory.recordingStartedWeek, talent ids and the edges) before the frozen V43 chain, and this tamper touches none of those, so the leaf still meets its own guard"
+ },
+ {
+  "id": "N-0347",
+  "file": "tests/p09a-w0-founding-regime.test.ts",
+  "line": 147,
+  "old": "expect(() => validateSaveV43({ ...raw, state: missing })).toThrow(/foundingRegime is missing/)",
+  "new": "expect(() => validateSaveV44({ ...raw, state: missing })).toThrow(/foundingRegime is missing/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: raw (:144); foundingRegime removed; validateSaveV44 checks only envelope keys, version, checkEnvelope and validateRelationshipsRoot(raw, 44) (save.ts:10763-10772; relationships.ts:666-811 reads state.market.tick, studioHistory.recordingStartedWeek, talent ids and the edges) before the frozen V43 chain, and this tamper touches none of those, so the leaf still meets its own guard"
+ },
+ {
+  "id": "N-0348",
+  "file": "tests/p09a-w0-founding-regime.test.ts",
+  "line": 149,
+  "old": "expect(() => validateSaveV43({ ...raw, state: { ...raw.state, foundingRegime: 'bare-lot' } })).toThrow(/cannot carry founding structures/)",
+  "new": "expect(() => validateSaveV44({ ...raw, state: { ...raw.state, foundingRegime: 'bare-lot' } })).toThrow(/cannot carry founding structures/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: raw (:144); foundingRegime laundered; validateSaveV44 checks only envelope keys, version, checkEnvelope and validateRelationshipsRoot(raw, 44) (save.ts:10763-10772; relationships.ts:666-811 reads state.market.tick, studioHistory.recordingStartedWeek, talent ids and the edges) before the frozen V43 chain, and this tamper touches none of those, so the leaf still meets its own guard"
+ },
+ {
+  "id": "N-0349",
+  "file": "tests/p09a-w0-founding-regime.test.ts",
+  "line": 151,
+  "old": "expect(() => validateSaveV43({ ...bare, state: { ...bare.state, foundingRegime: 'endowed' } })).toThrow(/must carry its founding structures/)",
+  "new": "expect(() => validateSaveV44({ ...bare, state: { ...bare.state, foundingRegime: 'endowed' } })).toThrow(/must carry its founding structures/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: bare = JSON.parse(exportSave(makeSave(...))) (:150); foundingRegime laundered; validateSaveV44 checks only envelope keys, version, checkEnvelope and validateRelationshipsRoot(raw, 44) (save.ts:10763-10772; relationships.ts:666-811 reads state.market.tick, studioHistory.recordingStartedWeek, talent ids and the edges) before the frozen V43 chain, and this tamper touches none of those, so the leaf still meets its own guard"
+ },
+ {
+  "id": "N-0350",
+  "file": "tests/p09a-w0-founding-regime.test.ts",
+  "line": 214,
+  "old": "expect(() => validateSaveV43(makeSave(state))).not.toThrow()",
+  "new": "expect(() => validateSaveV44(makeSave(state))).not.toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: makeSave(state) inline; .not.toThrow() fails at step4 on \"validateSaveV43: expected version 43\""
+ },
+ {
+  "id": "N-0351",
+  "file": "tests/p13a-causal-core.test.ts",
+  "line": 4,
+  "old": "import { exportCurrentState, importSave, migrateToLive, validateSaveV43, makeSave } from '../src/core/save.js'",
+  "new": "import { exportCurrentState, importSave, migrateToLive, validateSaveV44, makeSave } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; both calls take makeSave(state)"
+ },
+ {
+  "id": "N-0352",
+  "file": "tests/p13a-causal-core.test.ts",
+  "line": 49,
+  "old": "expect(()=>validateSaveV43(makeSave(state))).not.toThrow()",
+  "new": "expect(()=>validateSaveV44(makeSave(state))).not.toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: makeSave(state) inline"
+ },
+ {
+  "id": "N-0353",
+  "file": "tests/p13a-causal-core.test.ts",
+  "line": 91,
+  "old": "expect(()=>validateSaveV43(makeSave(state))).not.toThrow()",
+  "new": "expect(()=>validateSaveV44(makeSave(state))).not.toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: makeSave(state) inline"
+ },
+ {
+  "id": "N-0355",
+  "file": "tests/p13a-technology-milestones.test.ts",
+  "line": 6,
+  "old": "import { exportSave, importSave, makeSave, migrateToV25, migrateToLive, validateSaveV19, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { exportSave, importSave, makeSave, migrateToV25, migrateToLive, validateSaveV19, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; validateSaveV19 stays on its frozen envelope"
+ },
+ {
+  "id": "N-0356",
+  "file": "tests/p13a-technology-milestones.test.ts",
+  "line": 74,
+  "old": "expect(() => validateSaveV43(forged)).toThrow(/technology milestone/)",
+  "new": "expect(() => validateSaveV44(forged)).toThrow(/technology milestone/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: structuredClone(save), save = makeSave(states.get(416)!) (:67); tamper is one milestone row in studioHistory.rows; validateSaveV44 checks only envelope keys, version, checkEnvelope and validateRelationshipsRoot(raw, 44) (save.ts:10763-10772; relationships.ts:666-811 reads state.market.tick, studioHistory.recordingStartedWeek, talent ids and the edges) before the frozen V43 chain, and this tamper touches none of those, so the leaf still meets its own guard"
+ },
+ {
+  "id": "N-0357",
+  "file": "tests/p13a-technology-milestones.test.ts",
+  "line": 79,
+  "old": "expect(() => validateSaveV43(duplicated)).toThrow(/duplicate technology milestone/)",
+  "new": "expect(() => validateSaveV44(duplicated)).toThrow(/duplicate technology milestone/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: structuredClone(save) (:67); a duplicated milestone row; validateSaveV44 checks only envelope keys, version, checkEnvelope and validateRelationshipsRoot(raw, 44) (save.ts:10763-10772; relationships.ts:666-811 reads state.market.tick, studioHistory.recordingStartedWeek, talent ids and the edges) before the frozen V43 chain, and this tamper touches none of those, so the leaf still meets its own guard"
+ },
+ {
+  "id": "N-0358",
+  "file": "tests/p13a-technology-milestones.test.ts",
+  "line": 82,
+  "old": "expect(() => validateSaveV43(preRecorded)).toThrow(/invented technology history/)",
+  "new": "expect(() => validateSaveV44(preRecorded)).toThrow(/invented technology history/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: structuredClone(save) (:67); tamper is technology.recordingStartedWeek, not studioHistory.recordingStartedWeek; validateSaveV44 checks only envelope keys, version, checkEnvelope and validateRelationshipsRoot(raw, 44) (save.ts:10763-10772; relationships.ts:666-811 reads state.market.tick, studioHistory.recordingStartedWeek, talent ids and the edges) before the frozen V43 chain, and this tamper touches none of those, so the leaf still meets its own guard"
+ },
+ {
+  "id": "N-0359",
+  "file": "tests/p13b-r07-save-v25.test.ts",
+  "line": 273,
+  "old": "it('an unknown saveVersion 44 is refused, naming the handled range \"1 through 43 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {",
+  "new": "it('an unknown saveVersion 45 is refused, naming the handled range \"1 through 44 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {",
+  "cls": "P5",
+  "status": "certain",
+  "note": "renamed title, a new test identity; only the numbers the body moves change, the parenthetical stays verbatim; no 1348-I identity sits in this file"
+ },
+ {
+  "id": "N-0360",
+  "file": "tests/p13b-r07-save-v25.test.ts",
+  "line": 274,
+  "old": "const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 44 }",
+  "new": "const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 45 }",
+  "cls": "S3",
+  "status": "certain",
+  "note": "sentinel 44 is now dispatched to validateSaveV44 (save.ts:5443); 45 reaches the unknown-version throw (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0361",
+  "file": "tests/p13b-r07-save-v25.test.ts",
+  "line": 275,
+  "old": "expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 43 only/)",
+  "new": "expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 44 only/)",
+  "cls": "S3",
+  "status": "certain",
+  "note": "production message: validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 44 only) (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0362",
+  "file": "tests/p13b-s2-access-identity.test.ts",
+  "line": 4,
+  "old": "import { exportSave, importSave, makeSave, migrateToLive, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { exportSave, importSave, makeSave, migrateToLive, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator"
+ },
+ {
+  "id": "N-0363",
+  "file": "tests/p13b-s2-access-identity.test.ts",
+  "line": 196,
+  "old": "expect(() => validateSaveV43(makeSave(state))).not.toThrow()",
+  "new": "expect(() => validateSaveV44(makeSave(state))).not.toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: makeSave(state) inline"
+ },
+ {
+  "id": "N-0364",
+  "file": "tests/p13b-s2-save-v22.test.ts",
+  "line": 208,
+  "old": "expect(makeSave(live(migrated)).saveVersion).toBe(43)",
+  "new": "expect(makeSave(live(migrated)).saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live: makeSave(live(migrated)) inline"
+ },
+ {
+  "id": "N-0365",
+  "file": "tests/p13b-s2-save-v22.test.ts",
+  "line": 211,
+  "old": "it('refuses an unknown saveVersion 43 with the updated range (stale number corrected post-C.2b)', () => {",
+  "new": "it('refuses an unknown saveVersion 45 with the updated range (stale number corrected post-C.2b)', () => {",
+  "cls": "P5",
+  "status": "certain",
+  "note": "renamed title, a new test identity; only the numbers the body moves change, the parenthetical stays verbatim; no 1348-I identity sits in this file; the old title named the stale sentinel 43 (1358-J 3k)"
+ },
+ {
+  "id": "N-0366",
+  "file": "tests/p13b-s2-save-v22.test.ts",
+  "line": 214,
+  "old": "expect(() => validateSave({ ...save, saveVersion: 44 })).toThrow(/versions 1 through 43 only/)",
+  "new": "expect(() => validateSave({ ...save, saveVersion: 45 })).toThrow(/versions 1 through 44 only/)",
+  "cls": "S3",
+  "status": "certain",
+  "note": "sentinel 44 is now dispatched to validateSaveV44 (save.ts:5443); 45 reaches the unknown-version throw (save.ts:5444-5446); production message: validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 44 only) (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0370",
+  "file": "tests/p13b-s3-save-v23.test.ts",
+  "line": 121,
+  "old": "expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(43)",
+  "new": "expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live: makeSave(p13aLaboratorySlice()) inline"
+ },
+ {
+  "id": "N-0371",
+  "file": "tests/p13b-s3-save-v23.test.ts",
+  "line": 124,
+  "old": "it('an unknown saveVersion 43 is refused, naming the handled range (stale number corrected post-C.2b)', () => {",
+  "new": "it('an unknown saveVersion 45 is refused, naming the handled range (stale number corrected post-C.2b)', () => {",
+  "cls": "P5",
+  "status": "certain",
+  "note": "renamed title, a new test identity; only the numbers the body moves change, the parenthetical stays verbatim; no 1348-I identity sits in this file; the old title named the stale sentinel 43 (1358-J 3k)"
+ },
+ {
+  "id": "N-0372",
+  "file": "tests/p13b-s3-save-v23.test.ts",
+  "line": 125,
+  "old": "const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 44 }",
+  "new": "const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 45 }",
+  "cls": "S3",
+  "status": "certain",
+  "note": "sentinel 44 is now dispatched to validateSaveV44 (save.ts:5443); 45 reaches the unknown-version throw (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0373",
+  "file": "tests/p13b-s3-save-v23.test.ts",
+  "line": 126,
+  "old": "expect(() => validateSave(forged)).toThrow(/versions 1 through 43 only/)",
+  "new": "expect(() => validateSave(forged)).toThrow(/versions 1 through 44 only/)",
+  "cls": "S3",
+  "status": "certain",
+  "note": "production message: validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 44 only) (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0374",
+  "file": "tests/p13b-s3-validation.test.ts",
+  "line": 2,
+  "old": "import { exportSave, makeSave, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { exportSave, makeSave, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator"
+ },
+ {
+  "id": "N-0375",
+  "file": "tests/p13b-s3-validation.test.ts",
+  "line": 159,
+  "old": "expect(() => validateSaveV43(JSON.parse(json))).not.toThrow()",
+  "new": "expect(() => validateSaveV44(JSON.parse(json))).not.toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: JSON.parse(exportSave(makeSave(base))) (:158)"
+ },
+ {
+  "id": "N-0376",
+  "file": "tests/p13b-s5-save-v24.test.ts",
+  "line": 210,
+  "old": "expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(43)",
+  "new": "expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live: makeSave(p13aLaboratorySlice()) inline"
+ },
+ {
+  "id": "N-0377",
+  "file": "tests/p13b-s5-save-v24.test.ts",
+  "line": 213,
+  "old": "it('an unknown saveVersion 44 is refused, naming the handled range \"1 through 43 only\" (stale numbers corrected post-C.2b)', () => {",
+  "new": "it('an unknown saveVersion 45 is refused, naming the handled range \"1 through 44 only\" (stale numbers corrected post-C.2b)', () => {",
+  "cls": "P5",
+  "status": "certain",
+  "note": "renamed title, a new test identity; only the numbers the body moves change, the parenthetical stays verbatim; no 1348-I identity sits in this file"
+ },
+ {
+  "id": "N-0378",
+  "file": "tests/p13b-s5-save-v24.test.ts",
+  "line": 214,
+  "old": "const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 44 }",
+  "new": "const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 45 }",
+  "cls": "S3",
+  "status": "certain",
+  "note": "sentinel 44 is now dispatched to validateSaveV44 (save.ts:5443); 45 reaches the unknown-version throw (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0379",
+  "file": "tests/p13b-s5-save-v24.test.ts",
+  "line": 215,
+  "old": "expect(() => validateSave(forged as never)).toThrow(/versions 1 through 43 only/)",
+  "new": "expect(() => validateSave(forged as never)).toThrow(/versions 1 through 44 only/)",
+  "cls": "S3",
+  "status": "certain",
+  "note": "production message: validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 44 only) (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0380",
+  "file": "tests/p13b-s6-save-v26.test.ts",
+  "line": 221,
+  "old": "it('an unknown saveVersion 44 is refused, naming the handled range \"1 through 43 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b, then post-1344-N)', () => {",
+  "new": "it('an unknown saveVersion 45 is refused, naming the handled range \"1 through 44 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b, then post-1344-N)', () => {",
+  "cls": "P5",
+  "status": "certain",
+  "note": "renamed title, a new test identity; only the numbers the body moves change, the parenthetical stays verbatim; no 1348-I identity sits in this file"
+ },
+ {
+  "id": "N-0381",
+  "file": "tests/p13b-s6-save-v26.test.ts",
+  "line": 224,
+  "old": "const forged = { ...v26, saveVersion: 44 }",
+  "new": "const forged = { ...v26, saveVersion: 45 }",
+  "cls": "S3",
+  "status": "certain",
+  "note": "sentinel 44 is now dispatched to validateSaveV44 (save.ts:5443); 45 reaches the unknown-version throw (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0382",
+  "file": "tests/p13b-s6-save-v26.test.ts",
+  "line": 225,
+  "old": "expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 43 only/)",
+  "new": "expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 44 only/)",
+  "cls": "S3",
+  "status": "certain",
+  "note": "production message: validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 44 only) (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0383",
+  "file": "tests/p13b-s6-save-v26.test.ts",
+  "line": 254,
+  "old": "expect((reimported as { saveVersion: number }).saveVersion).toBe(43) // did NOT throw (at the live version this real advance writes)",
+  "new": "expect((reimported as { saveVersion: number }).saveVersion).toBe(44) // did NOT throw (at the live version this real advance writes)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live: s6ForgeLive stamps save.LIVE_SAVE_VERSION (:135) and round-trips through exportSave/importSave"
+ },
+ {
+  "id": "N-0384",
+  "file": "tests/p13b-s7-announcements.test.ts",
+  "line": 86,
+  "old": "it('LIVE_SAVE_VERSION is 43 (stale title corrected post-C.4 and again for Save43; P13B-S8 made it 27 at the time) — S7 itself changes no save', () => {",
+  "new": "it('LIVE_SAVE_VERSION is 44 (stale title corrected post-C.4 and again for Save43; P13B-S8 made it 27 at the time) — S7 itself changes no save', () => {",
+  "cls": "P5",
+  "status": "certain",
+  "note": "renamed title, a new test identity; only the numbers the body moves change, the parenthetical stays verbatim; no 1348-I identity sits in this file"
+ },
+ {
+  "id": "N-0385",
+  "file": "tests/p13b-s7-announcements.test.ts",
+  "line": 87,
+  "old": "expect(save.LIVE_SAVE_VERSION).toBe(43)",
+  "new": "expect(save.LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "LIVE_SAVE_VERSION is 44 (save.ts:6567)"
+ },
+ {
+  "id": "N-0386",
+  "file": "tests/p13b-s7-announcements.test.ts",
+  "line": 135,
+  "old": "expect(reimported.saveVersion).toBe(43) // S7 added no save root; the live version is S8's",
+  "new": "expect(reimported.saveVersion).toBe(44) // S7 added no save root; the live version is S8's",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live: importSave(exportCurrentState(at884)) (:130, :134)"
+ },
+ {
+  "id": "N-0387",
+  "file": "tests/p13b-s8-save-v27.test.ts",
+  "line": 187,
+  "old": "expect(envelope.saveVersion).toBe(43)",
+  "new": "expect(envelope.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live: save.makeSave(natural) (:186)"
+ },
+ {
+  "id": "N-0388",
+  "file": "tests/p13b-s8-save-v27.test.ts",
+  "line": 211,
+  "old": "it('an unknown saveVersion 43 is refused, naming the handled range \"1 through 42 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {",
+  "new": "it('an unknown saveVersion 45 is refused, naming the handled range \"1 through 44 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {",
+  "cls": "P5",
+  "status": "certain",
+  "note": "renamed title, a new test identity; only the numbers the body moves change, the parenthetical stays verbatim; no 1348-I identity sits in this file; the old title named the stale 43 and \"1 through 42\" (1358-J 3k)"
+ },
+ {
+  "id": "N-0389",
+  "file": "tests/p13b-s8-save-v27.test.ts",
+  "line": 214,
+  "old": "const forged = { ...v27, saveVersion: 44 }",
+  "new": "const forged = { ...v27, saveVersion: 45 }",
+  "cls": "S3",
+  "status": "certain",
+  "note": "sentinel 44 is now dispatched to validateSaveV44 (save.ts:5443); 45 reaches the unknown-version throw (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0390",
+  "file": "tests/p13b-s8-save-v27.test.ts",
+  "line": 215,
+  "old": "expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 43 only/)",
+  "new": "expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 44 only/)",
+  "cls": "S3",
+  "status": "certain",
+  "note": "production message: validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 44 only) (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0391",
+  "file": "tests/p14a1-save-v28.test.ts",
+  "line": 252,
+  "old": "it('an unknown saveVersion 43 is refused, naming the handled range \"1 through 42 only\" (stale numbers corrected post-C.2b)', () => {",
+  "new": "it('an unknown saveVersion 45 is refused, naming the handled range \"1 through 44 only\" (stale numbers corrected post-C.2b)', () => {",
+  "cls": "P5",
+  "status": "certain",
+  "note": "renamed title, a new test identity; only the numbers the body moves change, the parenthetical stays verbatim; no 1348-I identity sits in this file; the old title named the stale 43 and \"1 through 42\" (1358-J 3k)"
+ },
+ {
+  "id": "N-0392",
+  "file": "tests/p14a1-save-v28.test.ts",
+  "line": 255,
+  "old": "const forged = { ...lifted, saveVersion: 44 }",
+  "new": "const forged = { ...lifted, saveVersion: 45 }",
+  "cls": "S3",
+  "status": "certain",
+  "note": "sentinel 44 is now dispatched to validateSaveV44 (save.ts:5443); 45 reaches the unknown-version throw (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0393",
+  "file": "tests/p14a1-save-v28.test.ts",
+  "line": 256,
+  "old": "expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 43 only/)",
+  "new": "expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 44 only/)",
+  "cls": "S3",
+  "status": "certain",
+  "note": "production message: validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 44 only) (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0394",
+  "file": "tests/p14b1-save-v29.test.ts",
+  "line": 110,
+  "old": "expect(save.LIVE_SAVE_VERSION as number).toBe(43)",
+  "new": "expect(save.LIVE_SAVE_VERSION as number).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "LIVE_SAVE_VERSION is 44 (save.ts:6567)"
+ },
+ {
+  "id": "N-0395",
+  "file": "tests/p14b1-save-v29.test.ts",
+  "line": 202,
+  "old": "it('an unknown saveVersion 43 is refused, naming the handled range \"1 through 42 only\" (stale numbers corrected post-C.2b)', () => {",
+  "new": "it('an unknown saveVersion 45 is refused, naming the handled range \"1 through 44 only\" (stale numbers corrected post-C.2b)', () => {",
+  "cls": "P5",
+  "status": "certain",
+  "note": "renamed title, a new test identity; only the numbers the body moves change, the parenthetical stays verbatim; no 1348-I identity sits in this file; the old title named the stale 43 and \"1 through 42\" (1358-J 3k)"
+ },
+ {
+  "id": "N-0396",
+  "file": "tests/p14b1-save-v29.test.ts",
+  "line": 205,
+  "old": "const forged = { ...lifted, saveVersion: 44 }",
+  "new": "const forged = { ...lifted, saveVersion: 45 }",
+  "cls": "S3",
+  "status": "certain",
+  "note": "sentinel 44 is now dispatched to validateSaveV44 (save.ts:5443); 45 reaches the unknown-version throw (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0397",
+  "file": "tests/p14b1-save-v29.test.ts",
+  "line": 206,
+  "old": "expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 43 only/)",
+  "new": "expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 44 only/)",
+  "cls": "S3",
+  "status": "certain",
+  "note": "production message: validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 44 only) (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0398",
+  "file": "tests/p14b4-save-v30-compatibility.test.ts",
+  "line": 252,
+  "old": "expect(LIVE_SAVE_VERSION).toBe(43)",
+  "new": "expect(LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "LIVE_SAVE_VERSION is 44 (save.ts:6567)"
+ },
+ {
+  "id": "N-0399",
+  "file": "tests/p14b5-save-v31.test.ts",
+  "line": 195,
+  "old": "it('LIVE_SAVE_VERSION is the literal 43 the live writer stamps (stale title corrected post-C.2b and again for Save43; body always asserted the live constant); 30 is the OUTGOING identity (R-VERSION class, re-expressed by 735-T after P14B.7 landed V32)', () => {",
+  "new": "it('LIVE_SAVE_VERSION is the literal 44 the live writer stamps (stale title corrected post-C.2b and again for Save43; body always asserted the live constant); 30 is the OUTGOING identity (R-VERSION class, re-expressed by 735-T after P14B.7 landed V32)', () => {",
+  "cls": "P5",
+  "status": "certain",
+  "note": "renamed title, a new test identity; only the numbers the body moves change, the parenthetical stays verbatim; no 1348-I identity sits in this file"
+ },
+ {
+  "id": "N-0400",
+  "file": "tests/p14b5-save-v31.test.ts",
+  "line": 196,
+  "old": "expect(LIVE_SAVE_VERSION).toBe(43)",
+  "new": "expect(LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "LIVE_SAVE_VERSION is 44 (save.ts:6567); V30_AUTHORITY at :197 stays 30"
+ },
+ {
+  "id": "N-0401",
+  "file": "tests/p14c2b-save-v36.test.ts",
+  "line": 29,
+  "old": "import { LIVE_SAVE_VERSION, convertV35ToV36, convertV36ToV35, makeSave, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { LIVE_SAVE_VERSION, convertV35ToV36, convertV36ToV35, makeSave, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator"
+ },
+ {
+  "id": "N-0402",
+  "file": "tests/p14c2b-save-v36.test.ts",
+  "line": 113,
+  "old": "expect(() => validateSaveV43(makeSave(state))).not.toThrow()",
+  "new": "expect(() => validateSaveV44(makeSave(state))).not.toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: makeSave(state) inline"
+ },
+ {
+  "id": "N-0403",
+  "file": "tests/p14c2b-save-v36.test.ts",
+  "line": 121,
+  "old": "expect(() => validateSaveV43(makeSave(tampered))).toThrow(/at most one|second retirementExtension/i)",
+  "new": "expect(() => validateSaveV44(makeSave(tampered))).toThrow(/at most one|second retirementExtension/i)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: makeSave(tampered); makeSave itself validates with validateSaveV44 (save.ts:6571-6572), so the tamper (talentMarket.cases) throws there with its own guard either way"
+ },
+ {
+  "id": "N-0404",
+  "file": "tests/p14c2b-save-v36.test.ts",
+  "line": 130,
+  "old": "expect(() => validateSaveV43(makeSave(tampered))).toThrow(/settled retirementExtension case/i)",
+  "new": "expect(() => validateSaveV44(makeSave(tampered))).toThrow(/settled retirementExtension case/i)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: makeSave(tampered) (save.ts:6571-6572); tamper is talentMarket.cases; own guard either way"
+ },
+ {
+  "id": "N-0405",
+  "file": "tests/p14c2b-save-v36.test.ts",
+  "line": 142,
+  "old": "expect(() => validateSaveV43(makeSave(tampered))).toThrow(/weeks before its effective week/i)",
+  "new": "expect(() => validateSaveV44(makeSave(tampered))).toThrow(/weeks before its effective week/i)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: makeSave(tampered) (save.ts:6571-6572); tamper is careerLifecycle.records; own guard either way"
+ },
+ {
+  "id": "N-0406",
+  "file": "tests/p14c2b-save-v36.test.ts",
+  "line": 155,
+  "old": "expect(() => validateSaveV43(makeSave(tampered))).toThrow(/exactly one must/i)",
+  "new": "expect(() => validateSaveV44(makeSave(tampered))).toThrow(/exactly one must/i)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: makeSave(tampered) (save.ts:6571-6572); tamper is hollywood.employment terms; own guard either way"
+ },
+ {
+  "id": "N-0407",
+  "file": "tests/p14c2b-save-v36.test.ts",
+  "line": 161,
+  "old": "expect(LIVE_SAVE_VERSION).toBe(43)",
+  "new": "expect(LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "LIVE_SAVE_VERSION is 44 (save.ts:6567)"
+ },
+ {
+  "id": "N-0408",
+  "file": "tests/p14c2b-save-v36.test.ts",
+  "line": 167,
+  "old": "expect((saved as { saveVersion: number }).saveVersion).toBe(43)",
+  "new": "expect((saved as { saveVersion: number }).saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live: makeSave(c2bLiveFixture(...)) (:166)"
+ },
+ {
+  "id": "N-0409",
+  "file": "tests/p14c4-save-v35.test.ts",
+  "line": 33,
+  "old": "LIVE_SAVE_VERSION, convertV34ToV35, convertV35ToV34, makeSave, migrateToV35, validateSaveV35, validateSaveV43,",
+  "new": "LIVE_SAVE_VERSION, convertV34ToV35, convertV35ToV34, makeSave, migrateToV35, validateSaveV35, validateSaveV44,",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; validateSaveV35 stays on its frozen envelopes"
+ },
+ {
+  "id": "N-0410",
+  "file": "tests/p14c4-save-v35.test.ts",
+  "line": 57,
+  "old": "expect(LIVE_SAVE_VERSION).toBe(43)",
+  "new": "expect(LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "LIVE_SAVE_VERSION is 44 (save.ts:6567)"
+ },
+ {
+  "id": "N-0411",
+  "file": "tests/p14c4-save-v35.test.ts",
+  "line": 63,
+  "old": "expect((saved as { saveVersion: number }).saveVersion).toBe(43)",
+  "new": "expect((saved as { saveVersion: number }).saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live: makeSave(c4LiveFixture(...)) (:62)"
+ },
+ {
+  "id": "N-0412",
+  "file": "tests/p14c4-save-v35.test.ts",
+  "line": 277,
+  "old": "const savedLive = validateSaveV43({ saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems })",
+  "new": "const savedLive = validateSaveV44({ saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems })",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: an explicit LIVE_SAVE_VERSION stamp on a c4LiveFixture state"
+ },
+ {
+  "id": "N-0413",
+  "file": "tests/p14c4-save-v35.test.ts",
+  "line": 278,
+  "old": "const reloaded = validateSaveV43(JSON.parse(JSON.stringify(savedLive)))",
+  "new": "const reloaded = validateSaveV44(JSON.parse(JSON.stringify(savedLive)))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: the JSON reload of savedLive (:277)"
+ },
+ {
+  "id": "N-0414",
+  "file": "tests/placement-save-v12.test.ts",
+  "line": 53,
+  "old": "validateSaveV43,",
+  "new": "validateSaveV44,",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator from src/core/index.js (src/core/index.ts:1375); validateSaveV11 and V12 stay on frozen envelopes"
+ },
+ {
+  "id": "N-0415",
+  "file": "tests/placement-save-v12.test.ts",
+  "line": 412,
+  "old": "expect(validateSaveV43(valid)).toBe(valid)",
+  "new": "expect(validateSaveV44(valid)).toBe(valid)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: valid = makeSave(twoPlacements) (:411)"
+ },
+ {
+  "id": "N-0416",
+  "file": "tests/placement-save-v12.test.ts",
+  "line": 418,
+  "old": "expect(() => validateSaveV43(overlapped)).toThrow(/overlaps placed facility 1/)",
+  "new": "expect(() => validateSaveV44(overlapped)).toThrow(/overlaps placed facility 1/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: clone(valid) (:411); tamper is placement facility cells; validateSaveV44 checks only envelope keys, version, checkEnvelope and validateRelationshipsRoot(raw, 44) (save.ts:10763-10772; relationships.ts:666-811 reads state.market.tick, studioHistory.recordingStartedWeek, talent ids and the edges) before the frozen V43 chain, and this tamper touches none of those, so the leaf still meets its own guard"
+ },
+ {
+  "id": "N-0417",
+  "file": "tests/placement-save-v12.test.ts",
+  "line": 430,
+  "old": "expect(() => validateSaveV43(tooClose)).toThrow(/violates its clearance ring/)",
+  "new": "expect(() => validateSaveV44(tooClose)).toThrow(/violates its clearance ring/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: clone(valid) (:411); tamper is placement facility cells; validateSaveV44 checks only envelope keys, version, checkEnvelope and validateRelationshipsRoot(raw, 44) (save.ts:10763-10772; relationships.ts:666-811 reads state.market.tick, studioHistory.recordingStartedWeek, talent ids and the edges) before the frozen V43 chain, and this tamper touches none of those, so the leaf still meets its own guard"
+ },
+ {
+  "id": "N-0418",
+  "file": "tests/placement-save-v12.test.ts",
+  "line": 436,
+  "old": "expect(validateSaveV43(valid)).toBe(valid)",
+  "new": "expect(validateSaveV44(valid)).toBe(valid)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: valid = makeSave(operational) (:435)"
+ },
+ {
+  "id": "N-0419",
+  "file": "tests/placement-save-v12.test.ts",
+  "line": 443,
+  "old": "expect(() => validateSaveV43(doubled)).toThrow(",
+  "new": "expect(() => validateSaveV44(doubled)).toThrow(",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: clone(valid) (:435); tamper is a facilityOpex amount and studio.cash; validateSaveV44 checks only envelope keys, version, checkEnvelope and validateRelationshipsRoot(raw, 44) (save.ts:10763-10772; relationships.ts:666-811 reads state.market.tick, studioHistory.recordingStartedWeek, talent ids and the edges) before the frozen V43 chain, and this tamper touches none of those, so the leaf still meets its own guard"
+ },
+ {
+  "id": "N-0420",
+  "file": "tests/placement-save-v12.test.ts",
+  "line": 450,
+  "old": "expect(() => validateSaveV43(early)).toThrow(",
+  "new": "expect(() => validateSaveV44(early)).toThrow(",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: clone(valid) (:435); tamper is a facilityOpex week; validateSaveV44 checks only envelope keys, version, checkEnvelope and validateRelationshipsRoot(raw, 44) (save.ts:10763-10772; relationships.ts:666-811 reads state.market.tick, studioHistory.recordingStartedWeek, talent ids and the edges) before the frozen V43 chain, and this tamper touches none of those, so the leaf still meets its own guard"
+ },
+ {
+  "id": "N-0421",
+  "file": "tests/property-state-v13.test.ts",
+  "line": 65,
+  "old": "validateSaveV43,",
+  "new": "validateSaveV44,",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator from src/core/index.js (src/core/index.ts:1375)"
+ },
+ {
+  "id": "N-0422",
+  "file": "tests/property-state-v13.test.ts",
+  "line": 533,
+  "old": "expect(reloaded.saveVersion).toBe(43)",
+  "new": "expect(reloaded.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live: migrateToCurrentControl(importSave(exportSave(makeSave(operational)))) (:531-532)"
+ },
+ {
+  "id": "N-0423",
+  "file": "tests/property-state-v13.test.ts",
+  "line": 700,
+  "old": "expect(save.saveVersion).toBe(43)",
+  "new": "expect(save.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live: makeSave(state) (:697)"
+ },
+ {
+  "id": "N-0424",
+  "file": "tests/property-state-v13.test.ts",
+  "line": 702,
+  "old": "expect(validateSaveV43(save)).toBe(save)",
+  "new": "expect(validateSaveV44(save)).toBe(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: save = makeSave(state) (:697)"
+ },
+ {
+  "id": "N-0425",
+  "file": "tests/property-state-v13.test.ts",
+  "line": 799,
+  "old": "expect(() => validateSaveV43(bad)).toThrow(expected)",
+  "new": "expect(() => validateSaveV44(bad)).toThrow(expected)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: clone(valid), valid = makeSave(...) (:721); every case mutates state.property only; validateSaveV44 checks only envelope keys, version, checkEnvelope and validateRelationshipsRoot(raw, 44) (save.ts:10763-10772; relationships.ts:666-811 reads state.market.tick, studioHistory.recordingStartedWeek, talent ids and the edges) before the frozen V43 chain, and this tamper touches none of those, so the leaf still meets its own guard"
+ },
+ {
+  "id": "N-0426",
+  "file": "tests/property-state-v13.test.ts",
+  "line": 868,
+  "old": "expect(() => validateSaveV43(bad)).toThrow(expected)",
+  "new": "expect(() => validateSaveV44(bad)).toThrow(expected)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: clone(valid), valid = makeSave(...) (:804); every case mutates state.property only; validateSaveV44 checks only envelope keys, version, checkEnvelope and validateRelationshipsRoot(raw, 44) (save.ts:10763-10772; relationships.ts:666-811 reads state.market.tick, studioHistory.recordingStartedWeek, talent ids and the edges) before the frozen V43 chain, and this tamper touches none of those, so the leaf still meets its own guard"
+ },
+ {
+  "id": "N-0427",
+  "file": "tests/property-state-v13.test.ts",
+  "line": 880,
+  "old": "expect(() => validateSaveV43(forged)).toThrow(",
+  "new": "expect(() => validateSaveV44(forged)).toThrow(",
+  "cls": "S1",
+  "status": "certain",
+  "note": "live: forged = clone(makeSave(state)) (:877); tamper is a property structure origin; validateSaveV44 checks only envelope keys, version, checkEnvelope and validateRelationshipsRoot(raw, 44) (save.ts:10763-10772; relationships.ts:666-811 reads state.market.tick, studioHistory.recordingStartedWeek, talent ids and the edges) before the frozen V43 chain, and this tamper touches none of those, so the leaf still meets its own guard"
+ },
+ {
+  "id": "N-0428",
+  "file": "tests/property-state-v13.test.ts",
+  "line": 943,
+  "old": "expect(() => validateSave({ ...live, saveVersion: 44 })).toThrow(",
+  "new": "expect(() => validateSave({ ...live, saveVersion: 45 })).toThrow(",
+  "cls": "S3",
+  "status": "certain",
+  "note": "sentinel 44 is now dispatched to validateSaveV44 (save.ts:5443); 45 reaches the unknown-version throw (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0429",
+  "file": "tests/property-state-v13.test.ts",
+  "line": 944,
+  "old": "/unknown saveVersion 44.*versions 1 through 43 only/,",
+  "new": "/unknown saveVersion 45.*versions 1 through 44 only/,",
+  "cls": "S3",
+  "status": "certain",
+  "note": "production message: validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 44 only) (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0430",
+  "file": "tests/script-projects-save-v9.test.ts",
+  "line": 415,
+  "old": "expect(() => validateSave({ ...save, saveVersion: 44 })).toThrow(",
+  "new": "expect(() => validateSave({ ...save, saveVersion: 45 })).toThrow(",
+  "cls": "S3",
+  "status": "certain",
+  "note": "sentinel 44 is now dispatched to validateSaveV44 (save.ts:5443); 45 reaches the unknown-version throw (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0431",
+  "file": "tests/script-projects-save-v9.test.ts",
+  "line": 416,
+  "old": "/unknown saveVersion 44/,",
+  "new": "/unknown saveVersion 45/,",
+  "cls": "S3",
+  "status": "certain",
+  "note": "production message: validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 44 only) (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0432",
+  "file": "tests/script-projects-save-v9.test.ts",
+  "line": 418,
+  "old": "expect(() => validateSave({ ...save, saveVersion: 44 })).toThrow(",
+  "new": "expect(() => validateSave({ ...save, saveVersion: 45 })).toThrow(",
+  "cls": "S3",
+  "status": "certain",
+  "note": "sentinel 44 is now dispatched to validateSaveV44 (save.ts:5443); 45 reaches the unknown-version throw (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0433",
+  "file": "tests/script-projects-save-v9.test.ts",
+  "line": 419,
+  "old": "/versions 1 through 43 only/,",
+  "new": "/versions 1 through 44 only/,",
+  "cls": "S3",
+  "status": "certain",
+  "note": "production message: validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 44 only) (save.ts:5444-5446)"
+ },
+ {
+  "id": "N-0434",
+  "file": "ui/src/engine/d17-save-migration.test.ts",
+  "line": 131,
+  "old": "expect(JSON.parse(json).saveVersion).toBe(43) // Current C.3 writer: SaveFileV38.",
+  "new": "expect(JSON.parse(json).saveVersion).toBe(44) // Current C.3 writer: SaveFileV38.",
+  "cls": "S2",
+  "status": "certain",
+  "note": "UI pin (1358-J 3a): exportSaveJson is exportCurrentState (ui/src/engine/adapter.ts:3779-3781), the live writer; trailing comment left as written"
+ },
+ {
+  "id": "N-0435",
+  "file": "ui/src/engine/d17-save-migration.test.ts",
+  "line": 155,
+  "old": "expect(JSON.parse(exportSaveJson(r.state)).saveVersion).toBe(43) // current C.3 writer: SaveFileV38.",
+  "new": "expect(JSON.parse(exportSaveJson(r.state)).saveVersion).toBe(44) // current C.3 writer: SaveFileV38.",
+  "cls": "S2",
+  "status": "certain",
+  "note": "UI pin (1358-J 3a): exportSaveJson(r.state), the live writer (ui/src/engine/adapter.ts:3779-3781)"
+ },
+ {
+  "id": "N-0436",
+  "file": "ui/src/engine/film-chronicle-adapter.test.ts",
+  "line": 289,
+  "old": "expect((JSON.parse(json) as { saveVersion: number }).saveVersion).toBe(43) // current C.3 writer: SaveFileV38.",
+  "new": "expect((JSON.parse(json) as { saveVersion: number }).saveVersion).toBe(44) // current C.3 writer: SaveFileV38.",
+  "cls": "S2",
+  "status": "certain",
+  "note": "UI pin (1358-J 3a): exportSaveJson(state), the live writer (ui/src/engine/adapter.ts:3779-3781)"
+ },
+ {
+  "id": "N-0437",
+  "file": "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts",
+  "line": 46,
+  "old": "expect(JSON.parse(json).saveVersion).toBe(43) // current C.3 writer: SaveFileV38.",
+  "new": "expect(JSON.parse(json).saveVersion).toBe(44) // current C.3 writer: SaveFileV38.",
+  "cls": "S2",
+  "status": "certain",
+  "note": "UI pin (1358-J 3a): exportSaveJson(state), the live writer (ui/src/engine/adapter.ts:3779-3781)"
+ },
+ {
+  "id": "N-0438",
+  "file": "ui/src/saves.test.tsx",
+  "line": 126,
+  "old": "expect(JSON.parse(json).saveVersion).toBe(43) // current C.3 writer: SaveFileV38.",
+  "new": "expect(JSON.parse(json).saveVersion).toBe(44) // current C.3 writer: SaveFileV38.",
+  "cls": "S2",
+  "status": "certain",
+  "note": "UI pin (1358-J 3a): exportSaveJson(state), the live writer (ui/src/engine/adapter.ts:3779-3781)"
+ },
+ {
+  "id": "N-0439",
+  "file": "ui/src/session.test.tsx",
+  "line": 332,
+  "old": "expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(43) // C.3: live saves are SaveFileV38.",
+  "new": "expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(44) // C.3: live saves are SaveFileV38.",
+  "cls": "S2",
+  "status": "certain",
+  "note": "UI pin (1358-J 3a): saveActiveSession writes exportSaveJson (ui/src/engine/session.ts:39-43)"
+ },
+ {
+  "id": "N-0440",
+  "file": "ui/src/session.test.tsx",
+  "line": 360,
+  "old": "expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(43) // C.3: live saves are SaveFileV38.",
+  "new": "expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(44) // C.3: live saves are SaveFileV38.",
+  "cls": "S2",
+  "status": "certain",
+  "note": "UI pin (1358-J 3a): saveActiveSession writes exportSaveJson (ui/src/engine/session.ts:39-43)"
+ },
+ {
+  "id": "N-0441",
+  "file": "ui/src/session.test.tsx",
+  "line": 387,
+  "old": "expect(parsedV11.saveVersion).toBe(43) // C.3: live saves are SaveFileV38.",
+  "new": "expect(parsedV11.saveVersion).toBe(44) // C.3: live saves are SaveFileV38.",
+  "cls": "S2",
+  "status": "certain",
+  "note": "UI pin (1358-J 3a): saveActiveSession writes exportSaveJson (ui/src/engine/session.ts:39-43)"
+ }
+]

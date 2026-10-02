@@ -1,0 +1,13 @@
+start at 5245072a67b07ea5107a8201c4a86ce60b8c82c8, node v20.20.2; 2026-10-02 02:48:24 CDT
+step 4 r2 applied:  13 files changed, 712 insertions(+), 122 deletions(-); 2026-10-02 02:48:34 CDT
+tsc: == tsconfig.json exit 2 == ui/tsconfig.json exit 2 == tsconfig.bridge.json exit 2 ; 2026-10-02 02:50:54 CDT
+generator: == check:bridge-contract exit 0 == check:bridge-contract:fixtures exit 0 ; 2026-10-02 02:50:57 CDT
+core start; 2026-10-02 02:50:57 CDT
+core exit 1;  Tests 879 failed | 4162 passed | 39 skipped | 11 todo (5091); 2026-10-02 04:19:02 CDT
+ui exit 1;  Tests 16 failed | 2676 passed | 5 skipped (2697); 2026-10-02 04:32:28 CDT
+m2-p13a: S7 natural-route {"seed":"p13a-core-causal-01","weeks":520,"tree":"candidate","ms":25823,"finalStateSha256":"1017f8ccc4aa7fe8d7198d115bc41897a660faf4e346c5fcdb6fffea2589ee1f","shelvings":14,"integrity":0}       Tests  1 passed (1) exit=0 ; 2026-10-02 04:32:58 CDT
+m2-seedb: S7 natural-route {"seed":"seed-b","weeks":520,"tree":"candidate","ms":44586,"finalStateSha256":"d5fb06adf7f4b0102d4e7bfd080a58b6f3db5cd9540558e47fde028fa309faad","shelvings":60,"integrity":0}       Tests  1 passed (1) exit=0 ; 2026-10-02 04:33:46 CDT
+m2-ledger-p13b: S7 natural-route {"seed":"p13b-s8-bridge-probe-01","weeks":520,"tree":"candidate","ms":43857,"finalStateSha256":"2338f90836aeede6c54de4d5a47e25974c57395a9a8beb66d8677d85463f0357","shelvings":6,"integrity":0}       Tests  1 passed (1) exit=0 ; 2026-10-02 04:34:34 CDT
+m2-ledger-p13pub: S7 natural-route {"seed":"p13-public-commercial-adoption","weeks":520,"tree":"candidate","ms":37487,"finalStateSha256":"3199eec3b4d947785373f94cb0a18fd62f1f25d6c7212f81843ebcb56240ecfd","shelvings":22,"integrity":0}       Tests  1 passed (1) exit=0 ; 2026-10-02 04:35:15 CDT
+tree status: [?? dist/ ?? tests/zz-s7-lib.ts ?? tests/zz-s7-natural-route.test.ts ]; 2026-10-02 04:35:16 CDT
+end; 2026-10-02 04:35:16 CDT

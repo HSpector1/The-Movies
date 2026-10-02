@@ -1,0 +1,211 @@
+{
+ "record": "1358-M2",
+ "candidate": "m2-* (HEAD 5245072a + production step 4 r2)",
+ "base": "h-* (1348-X7, slice A at HEAD)",
+ "routes": {
+  "p13a": {
+   "files": {
+    "s7.json": {
+     "h": "4ff1521d67c4dc25b91b7ca75a2b8286dfdc663c8f61ea3c2a4495bdbf5e3779",
+     "m2": "4a2c5855dd385ff5fe9fceca30ff2961e753772b57bfc337cca4c69d3bc86670",
+     "equal": false
+    },
+    "weekly.jsonl": {
+     "h": "5c70d18bdf61b7d705e077ee72d890ecf2a21c129cab7ef082a22f524bc1f7db",
+     "m2": "0b8875e6741345e5683816f95f8bbddeddb68583305e8249cfc51da96c5cbc20",
+     "equal": false
+    },
+    "natural-chain.jsonl": {
+     "h": "8dbf723bbc28df19d483b20885d65a83903c9197960fab1146e6c2e12a970f78",
+     "m2": "8dbf723bbc28df19d483b20885d65a83903c9197960fab1146e6c2e12a970f78",
+     "equal": true
+    },
+    "rival-economy.jsonl": {
+     "h": "70dcbac78d103ef1e4ac01edb9e1a87501b7188587a322827a0121e814e7e403",
+     "m2": "70dcbac78d103ef1e4ac01edb9e1a87501b7188587a322827a0121e814e7e403",
+     "equal": true
+    },
+    "final-state.json": {
+     "h": "fe78e4abd6c7cb4ca0eb55808b63a72fa230353fb7e26bf01a26b1537806e3c1",
+     "m2": "7e34bb784fe5939dc125e671f05d09f1d60badc6dd1a2cfbbe812fdc018089bc",
+     "equal": false
+    }
+   },
+   "s7KeysThatDiffer": [
+    "meta"
+   ],
+   "edges": 30,
+   "edgesWithLogRows": 0,
+   "romanceTracks": 15,
+   "openBonds": 3,
+   "stateOutsideRelationshipsEqual": true,
+   "edgeDiffsWithoutTheTwoFields": []
+  },
+  "seedb": {
+   "files": {
+    "s7.json": {
+     "h": "e62a1c6f5de45e7f9e69d00076d16eee3ab2cd7e8037a0f69752030efb42bbd9",
+     "m2": "173c341e5b503632695b89c1d0850561f694c75adb04358e2d02518dc5c1fe3b",
+     "equal": false
+    },
+    "weekly.jsonl": {
+     "h": "97a639096094f272db1ea570d8a7a1c16b4e5eceefb0e88cb8d8eb4a7f39ea99",
+     "m2": "b3d7b05a706c18cfeada9a96ff6f0c52814a82a7852d34fcd99ef34e51412721",
+     "equal": false
+    },
+    "natural-chain.jsonl": {
+     "h": "9b6f7cd00547b4261f903c0526730a22aaa5550934a39ff220bb4895a4c4b92d",
+     "m2": "9b6f7cd00547b4261f903c0526730a22aaa5550934a39ff220bb4895a4c4b92d",
+     "equal": true
+    },
+    "rival-economy.jsonl": {
+     "h": "b1be9e533a6002a81565139a4c5cd346ea090357ef3f66bd14859e8c13d0f9f0",
+     "m2": "b1be9e533a6002a81565139a4c5cd346ea090357ef3f66bd14859e8c13d0f9f0",
+     "equal": true
+    },
+    "final-state.json": {
+     "h": "c7a30778434bde8ea58e8011637ab653718d0ffa4ce45922d98a0cdbf1bc4f3a",
+     "m2": "ef957892876e870f64c73554e90654a6521b7ad4865c415c3709232e7d59564c",
+     "equal": false
+    }
+   },
+   "s7KeysThatDiffer": [
+    "meta"
+   ],
+   "edges": 32,
+   "edgesWithLogRows": 0,
+   "romanceTracks": 18,
+   "openBonds": 5,
+   "stateOutsideRelationshipsEqual": true,
+   "edgeDiffsWithoutTheTwoFields": [
+    {
+     "edge": 6,
+     "edgeId": "relationship-edge-6",
+     "field": "closeness",
+     "h": 91,
+     "m2": 95,
+     "romance": {
+      "anchorWeek": 462,
+      "bonds": [
+       {
+        "endedWeek": null,
+        "formedWeek": 81
+       }
+      ],
+      "value": 100
+     }
+    },
+    {
+     "edge": 18,
+     "edgeId": "relationship-edge-18",
+     "field": "closeness",
+     "h": 90,
+     "m2": 100,
+     "romance": {
+      "anchorWeek": 383,
+      "bonds": [
+       {
+        "endedWeek": null,
+        "formedWeek": 117
+       }
+      ],
+      "value": 89
+     }
+    },
+    {
+     "edge": 23,
+     "edgeId": "relationship-edge-23",
+     "field": "closeness",
+     "h": 94,
+     "m2": 100,
+     "romance": {
+      "anchorWeek": 383,
+      "bonds": [
+       {
+        "endedWeek": null,
+        "formedWeek": 171
+       }
+      ],
+      "value": 90
+     }
+    }
+   ]
+  },
+  "ledger-p13b": {
+   "files": {
+    "s7.json": {
+     "h": "e663086c30ec6b43595e29bdcf812c825154af3fe43f73282c67f00e2d89bc6b",
+     "m2": "8f8e1d26b3f395b20886a458ce3736fabf970574ec8cc5c1bd32200613c24163",
+     "equal": false
+    },
+    "weekly.jsonl": {
+     "h": "ea9bee0bc11d391b5bfbf63dd20e906f6878ef8bfbf13aa20a2d53e3e1cc5de6",
+     "m2": "f14b71022c1530e757085962f3846b191d1bdfb0a6b9698e80d4bc0d2e6d2f17",
+     "equal": false
+    },
+    "natural-chain.jsonl": {
+     "h": "ab7a3e67ff3fa7b0498a99177e33b56b6e3f87a6eca2f4a6cbbb2587d70b16d1",
+     "m2": "ab7a3e67ff3fa7b0498a99177e33b56b6e3f87a6eca2f4a6cbbb2587d70b16d1",
+     "equal": true
+    },
+    "rival-economy.jsonl": {
+     "h": "bb5eb0451ce73c864e18f581c5210260662e0378374cd5b75fcd6ea7deca5d0d",
+     "m2": "bb5eb0451ce73c864e18f581c5210260662e0378374cd5b75fcd6ea7deca5d0d",
+     "equal": true
+    },
+    "final-state.json": {
+     "h": "48ad8023b176686f5a7ec483394097f5b961ee7046a0a63ff39ec0bd9ea91ba4",
+     "m2": "badb50efe52af71c349aa9d8881812a5e959f956495d1a0d8bf1e81484598b06",
+     "equal": false
+    }
+   },
+   "s7KeysThatDiffer": [
+    "meta"
+   ],
+   "edges": 42,
+   "edgesWithLogRows": 0,
+   "romanceTracks": 26,
+   "openBonds": 4,
+   "stateOutsideRelationshipsEqual": true,
+   "edgeDiffsWithoutTheTwoFields": []
+  },
+  "ledger-p13pub": {
+   "files": {
+    "s7.json": {
+     "h": "de437055b223273be24522f2ee44e3917c1bb9dddb1260061bc2da1cd93fcccd",
+     "m2": "cd93148675e92ea184b3dea759b7986f7ac40e37f018eaa2aa45e494c9cd917e",
+     "equal": false
+    },
+    "weekly.jsonl": {
+     "h": "baf194316a4aac513dd0c0025e0bfe0fba54fd188a55f008d1785dd370a86529",
+     "m2": "d0c92740fc092958d71a2a7143d571cf60e26685b132c04ed1cf19666eb025c5",
+     "equal": false
+    },
+    "natural-chain.jsonl": {
+     "h": "0a44b53f4f23121575e7edf465ad72d4dff1da1abb866a1ffb6b80bda9a6f0fd",
+     "m2": "0a44b53f4f23121575e7edf465ad72d4dff1da1abb866a1ffb6b80bda9a6f0fd",
+     "equal": true
+    },
+    "rival-economy.jsonl": {
+     "h": "1ca479e2d75a11aafe655e884ce9ad1250f478347fae3d8756e51fc4628f2363",
+     "m2": "1ca479e2d75a11aafe655e884ce9ad1250f478347fae3d8756e51fc4628f2363",
+     "equal": true
+    },
+    "final-state.json": {
+     "h": "89e42265c668f807f2f1741d7e5ac6091b33ba2e4eda82401b3fb03102547133",
+     "m2": "7d8ea34646de566c2ff6e46857cdf5f45ea222eb3a6f5831be3fd04e8036f603",
+     "equal": false
+    }
+   },
+   "s7KeysThatDiffer": [
+    "meta"
+   ],
+   "edges": 33,
+   "edgesWithLogRows": 0,
+   "romanceTracks": 18,
+   "openBonds": 4,
+   "stateOutsideRelationshipsEqual": true,
+   "edgeDiffsWithoutTheTwoFields": []
+  }
+ }
+}

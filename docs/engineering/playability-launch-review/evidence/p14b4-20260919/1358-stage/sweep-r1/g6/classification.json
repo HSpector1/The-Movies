@@ -1,0 +1,1042 @@
+[
+ {
+  "id": "N-0579",
+  "file": "tests/c2a-m2-sets-save.test.ts",
+  "line": 32,
+  "old": "validateSaveV43,",
+  "new": "validateSaveV44,",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; no validateSaveV43 use remains in the file"
+ },
+ {
+  "id": "N-0580",
+  "file": "tests/c2a-m2-sets-save.test.ts",
+  "line": 52,
+  "old": "expect(() => validateSaveV43(makeSave(generated))).not.toThrow()",
+  "new": "expect(() => validateSaveV44(makeSave(generated))).not.toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output, the live V44 envelope"
+ },
+ {
+  "id": "N-0581",
+  "file": "tests/c2a-m2-sets-save.test.ts",
+  "line": 172,
+  "old": "expect(() => validateSaveV43(envelope)).not.toThrow()",
+  "new": "expect(() => validateSaveV44(envelope)).not.toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "envelope is JSON.parse(exportSave(makeSave(state))) (:169), the live V44 save"
+ },
+ {
+  "id": "N-0582",
+  "file": "tests/c2a-m2-sets-save.test.ts",
+  "line": 182,
+  "old": "validateSaveV43(",
+  "new": "validateSaveV44(",
+  "cls": "S1",
+  "status": "certain",
+  "note": "forge() copies the live envelope of :169 and changes one sets field; the pattern names that field"
+ },
+ {
+  "id": "N-0583",
+  "file": "tests/c2a-m2-sets-save.test.ts",
+  "line": 191,
+  "old": "validateSaveV43(",
+  "new": "validateSaveV44(",
+  "cls": "S1",
+  "status": "certain",
+  "note": "forge() copies the live envelope of :169 and changes one sets field; the pattern names that field"
+ },
+ {
+  "id": "N-0584",
+  "file": "tests/c2a-m2-sets-save.test.ts",
+  "line": 200,
+  "old": "validateSaveV43(",
+  "new": "validateSaveV44(",
+  "cls": "S1",
+  "status": "certain",
+  "note": "forge() copies the live envelope of :169 and changes one sets field; the pattern names that field"
+ },
+ {
+  "id": "G6-new-1",
+  "file": "tests/c2a-m2-sets-save.test.ts",
+  "line": 231,
+  "old": "",
+  "new": "// 1358-N S1: Save44 moves the live stamp to 44, so all three calls name validateSaveV44.",
+  "cls": "S1",
+  "status": "certain",
+  "note": "inserted comment line under the 1344-N note that says makeSave \"stamps the live 43\"; marks N-0585, N-0586 and N-0587. The census detectors skip comment lines (py/detect.py COMMENT)"
+ },
+ {
+  "id": "N-0585",
+  "file": "tests/c2a-m2-sets-save.test.ts",
+  "line": 232,
+  "old": "expect(() => validateSaveV43(makeSave(native))).not.toThrow()",
+  "new": "expect(() => validateSaveV44(makeSave(native))).not.toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output, the live V44 envelope; the 1358-N line above (G6-new-1) marks the move"
+ },
+ {
+  "id": "N-0586",
+  "file": "tests/c2a-m2-sets-save.test.ts",
+  "line": 251,
+  "old": "expect(() => validateSaveV43(makeSave(liveMigrated))).not.toThrow()",
+  "new": "expect(() => validateSaveV44(makeSave(liveMigrated))).not.toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output, the live V44 envelope"
+ },
+ {
+  "id": "N-0587",
+  "file": "tests/c2a-m2-sets-save.test.ts",
+  "line": 281,
+  "old": "expect(() => validateSaveV43(JSON.parse(exportSave(makeSave(played))))).not.toThrow()",
+  "new": "expect(() => validateSaveV44(JSON.parse(exportSave(makeSave(played))))).not.toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output, the live V44 envelope"
+ },
+ {
+  "id": "G6-new-2",
+  "file": "tests/c2a-m2-sets-save.test.ts",
+  "line": 290,
+  "old": "",
+  "new": "// 1358-N S1: Save44 moves the live stamp to 44, so both calls name validateSaveV44.",
+  "cls": "S1",
+  "status": "certain",
+  "note": "inserted comment line under the 1344-N note that says makeSave \"stamps the live 43\"; marks N-0588 and N-0589. The census detectors skip comment lines"
+ },
+ {
+  "id": "N-0588",
+  "file": "tests/c2a-m2-sets-save.test.ts",
+  "line": 291,
+  "old": "expect(() => validateSaveV43(makeSave(native))).not.toThrow()",
+  "new": "expect(() => validateSaveV44(makeSave(native))).not.toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output, the live V44 envelope; the 1358-N line above (G6-new-2) marks the move"
+ },
+ {
+  "id": "N-0589",
+  "file": "tests/c2a-m2-sets-save.test.ts",
+  "line": 297,
+  "old": "expect(() => validateSaveV43(makeSave(liveMigrated))).not.toThrow()",
+  "new": "expect(() => validateSaveV44(makeSave(liveMigrated))).not.toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output, the live V44 envelope"
+ },
+ {
+  "id": "N-0590",
+  "file": "tests/c2a-m3-rename-and-pooling.test.ts",
+  "line": 214,
+  "old": "expect(makeSave(state).saveVersion).toBe(43)",
+  "new": "expect(makeSave(state).saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "makeSave stamps the live 44 (src/core/save.ts:6571-6572)"
+ },
+ {
+  "id": "N-0591",
+  "file": "tests/c2a-m3-rename-and-pooling.test.ts",
+  "line": 363,
+  "old": "expect(makeSave(state).saveVersion).toBe(43)",
+  "new": "expect(makeSave(state).saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "makeSave stamps the live 44 (src/core/save.ts:6571-6572)"
+ },
+ {
+  "id": "N-0592",
+  "file": "tests/c2a-m3-screenplay-mint.test.ts",
+  "line": 356,
+  "old": "expect(save.saveVersion).toBe(43)",
+  "new": "expect(save.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "makeSave stamps the live 44 (src/core/save.ts:6571-6572)"
+ },
+ {
+  "id": "N-0593",
+  "file": "tests/construction-core.test.ts",
+  "line": 19,
+  "old": "validateSaveV43,",
+  "new": "validateSaveV44,",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; no validateSaveV43 use remains in the file"
+ },
+ {
+  "id": "N-0594",
+  "file": "tests/construction-core.test.ts",
+  "line": 497,
+  "old": "expect(() => validateSaveV43(forgedSave)).toThrow(",
+  "new": "expect(() => validateSaveV44(forgedSave)).toThrow(",
+  "cls": "S1",
+  "status": "certain",
+  "note": "forgedSave is JSON.parse(stableStringify(makeSave(state))) with one tamper; the pattern names it"
+ },
+ {
+  "id": "N-0595",
+  "file": "tests/construction-core.test.ts",
+  "line": 505,
+  "old": "expect(() => validateSaveV43(makeSave(laundered))).toThrow(",
+  "new": "expect(() => validateSaveV44(makeSave(laundered))).toThrow(",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave(laundered) refuses inside makeSave before the named call; the pattern is unchanged"
+ },
+ {
+  "id": "N-0596",
+  "file": "tests/construction-core.test.ts",
+  "line": 566,
+  "old": "expect(() => validateSaveV43(forgedSave)).toThrow(",
+  "new": "expect(() => validateSaveV44(forgedSave)).toThrow(",
+  "cls": "S1",
+  "status": "certain",
+  "note": "forgedSave is JSON.parse(stableStringify(makeSave(state))) with one tamper; the pattern names it"
+ },
+ {
+  "id": "N-0597",
+  "file": "tests/construction-core.test.ts",
+  "line": 664,
+  "old": "expect(() => validateSaveV43(makeSave(state))).not.toThrow()",
+  "new": "expect(() => validateSaveV44(makeSave(state))).not.toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output, the live V44 envelope"
+ },
+ {
+  "id": "N-0598",
+  "file": "tests/contracts/cross-owner-refusal.contract.test.ts",
+  "line": 24,
+  "old": "import { applyActions, exportSave, importSave, makeSave, stableStringify, tick, validateSaveV43 } from '../../src/core/index.js'",
+  "new": "import { applyActions, exportSave, importSave, makeSave, stableStringify, tick, validateSaveV44 } from '../../src/core/index.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; no validateSaveV43 use remains in the file"
+ },
+ {
+  "id": "N-0599",
+  "file": "tests/contracts/cross-owner-refusal.contract.test.ts",
+  "line": 72,
+  "old": "expect(validateSaveV43(save)).toBe(save)",
+  "new": "expect(validateSaveV44(save)).toBe(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "save is makeSave(state) (:71), the live V44 envelope"
+ },
+ {
+  "id": "N-0600",
+  "file": "tests/contracts/cross-owner-refusal.contract.test.ts",
+  "line": 100,
+  "old": "validateSaveV43(forged)",
+  "new": "validateSaveV44(forged)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "forged is clone(legal), a LiveSaveFile from makeSave (:71), with one slot tamper; toContain/toMatch pin the refusal"
+ },
+ {
+  "id": "N-0601",
+  "file": "tests/contracts/cross-owner-refusal.contract.test.ts",
+  "line": 118,
+  "old": "expect(validateSaveV43(forged as LiveSaveFile)).toBe(forged)",
+  "new": "expect(validateSaveV44(forged as LiveSaveFile)).toBe(forged)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "the restored twin of the live save"
+ },
+ {
+  "id": "N-0602",
+  "file": "tests/contracts/phase-table-agreement.contract.test.ts",
+  "line": 28,
+  "old": "validateSaveV43,",
+  "new": "validateSaveV44,",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; no validateSaveV43 use remains in the file"
+ },
+ {
+  "id": "N-0603",
+  "file": "tests/contracts/phase-table-agreement.contract.test.ts",
+  "line": 104,
+  "old": "expect(validateSaveV43(save)).toBe(save)",
+  "new": "expect(validateSaveV44(save)).toBe(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "save is makeSave(state) (:103), the live V44 envelope"
+ },
+ {
+  "id": "N-0604",
+  "file": "tests/contracts/phase-table-agreement.contract.test.ts",
+  "line": 224,
+  "old": "expect(() => validateSaveV43(forged), `${snapshot.phase} forged`).toThrow(",
+  "new": "expect(() => validateSaveV44(forged), `${snapshot.phase} forged`).toThrow(",
+  "cls": "S1",
+  "status": "certain",
+  "note": "forged is clone(saveOf(...)), a makeSave envelope, with one workflow tamper; the message is pinned"
+ },
+ {
+  "id": "N-0605",
+  "file": "tests/contracts/phase-table-agreement.contract.test.ts",
+  "line": 230,
+  "old": "expect(validateSaveV43(legal)).toBe(legal)",
+  "new": "expect(validateSaveV44(legal)).toBe(legal)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "legal comes from saveOf(), makeSave (:103)"
+ },
+ {
+  "id": "N-0606",
+  "file": "tests/contracts/phase-table-agreement.contract.test.ts",
+  "line": 246,
+  "old": "expect(() => validateSaveV43(forged), `${snapshot.phase} → ${wrongTarget}`).toThrow(",
+  "new": "expect(() => validateSaveV44(forged), `${snapshot.phase} → ${wrongTarget}`).toThrow(",
+  "cls": "S1",
+  "status": "certain",
+  "note": "forged is clone(saveOf(...)), a makeSave envelope, with one workflow tamper; the message is pinned"
+ },
+ {
+  "id": "N-0607",
+  "file": "tests/contracts/phase-table-agreement.contract.test.ts",
+  "line": 266,
+  "old": "expect(() => validateSaveV43(forged)).toThrow(",
+  "new": "expect(() => validateSaveV44(forged)).toThrow(",
+  "cls": "S1",
+  "status": "certain",
+  "note": "forged is clone(saveOf(...)), a makeSave envelope, with one workflow tamper; the message is pinned"
+ },
+ {
+  "id": "N-0608",
+  "file": "tests/contracts/studio-events.contract.test.ts",
+  "line": 129,
+  "old": "const validateLive = requireFunction(requireCore(), 'validateSaveV43', 'P09 live boundary') as unknown as (",
+  "new": "const validateLive = requireFunction(requireCore(), 'validateSaveV44', 'P09 live boundary') as unknown as (",
+  "cls": "S1",
+  "status": "certain",
+  "note": "the looked-up validator runs on clone(makeSave(managed)) at :132-134; the bare .toThrow() it feeds at :221 is deferred as G6-new-5 (S8)"
+ },
+ {
+  "id": "N-0609",
+  "file": "tests/facility-move-demolish.test.ts",
+  "line": 52,
+  "old": "validateSaveV43,",
+  "new": "validateSaveV44,",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; no validateSaveV43 use remains in the file"
+ },
+ {
+  "id": "N-0610",
+  "file": "tests/facility-move-demolish.test.ts",
+  "line": 781,
+  "old": "expect(validateSaveV43(save)).toBe(save)",
+  "new": "expect(validateSaveV44(save)).toBe(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "save is makeSave(state) (:778), stamped LIVE_SAVE_VERSION (:779)"
+ },
+ {
+  "id": "N-0611",
+  "file": "tests/legacy-parcel-ground.test.ts",
+  "line": 49,
+  "old": "validateSaveV43,",
+  "new": "validateSaveV44,",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; no validateSaveV43 use remains in the file"
+ },
+ {
+  "id": "N-0612",
+  "file": "tests/legacy-parcel-ground.test.ts",
+  "line": 365,
+  "old": "expect(() => validateSaveV43(save)).toThrow(named)",
+  "new": "expect(() => validateSaveV44(save)).toThrow(named)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "forgedSave() is clone(makeSave(...)) with a placement tamper; toThrow(named) pins it"
+ },
+ {
+  "id": "N-0613",
+  "file": "tests/legacy-parcel-ground.test.ts",
+  "line": 376,
+  "old": "expect(validateSaveV43(save)).toBe(save)",
+  "new": "expect(validateSaveV44(save)).toBe(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "save is makeSave(annex) (:375), the live V44 envelope"
+ },
+ {
+  "id": "N-0614",
+  "file": "tests/legacy-parcel-ground.test.ts",
+  "line": 404,
+  "old": "expect(() => validateSaveV43(save), blueprint.id).toThrow(/reserved for the studio's Annex/)",
+  "new": "expect(() => validateSaveV44(save), blueprint.id).toThrow(/reserved for the studio's Annex/)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "clone(makeSave(built)) with a placement tamper; the pattern names it"
+ },
+ {
+  "id": "N-0615",
+  "file": "tests/p14b1-first-take.test.ts",
+  "line": 294,
+  "old": "const roundTripped = save.validateSaveV43(JSON.parse(JSON.stringify(envelope)))",
+  "new": "const roundTripped = save.validateSaveV44(JSON.parse(JSON.stringify(envelope)))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "envelope is stamped save.LIVE_SAVE_VERSION (:293), an engine state after the first take"
+ },
+ {
+  "id": "N-0616",
+  "file": "tests/p14b1-promises.test.ts",
+  "line": 503,
+  "old": "save.validateSaveV43(save.makeSave(withActivePromise))",
+  "new": "save.validateSaveV44(save.makeSave(withActivePromise))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output, the live V44 envelope"
+ },
+ {
+  "id": "N-0617",
+  "file": "tests/p14b1-t4-regressions.test.ts",
+  "line": 12,
+  "old": "import { LIVE_SAVE_VERSION, migrateToLive, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { LIVE_SAVE_VERSION, migrateToLive, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; no validateSaveV43 use remains in the file"
+ },
+ {
+  "id": "N-0618",
+  "file": "tests/p14b1-t4-regressions.test.ts",
+  "line": 84,
+  "old": "expect(() => validateSaveV43(valid)).not.toThrow()",
+  "new": "expect(() => validateSaveV44(valid)).not.toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "envelope() stamps LIVE_SAVE_VERSION (:74)"
+ },
+ {
+  "id": "N-0619",
+  "file": "tests/p14b1-t4-regressions.test.ts",
+  "line": 86,
+  "old": "expect(() => validateSaveV43(valid)).toThrow()",
+  "new": "expect(() => validateSaveV44(valid)).toThrow()",
+  "cls": "S1",
+  "status": "certain",
+  "note": "envelope() stamps LIVE_SAVE_VERSION (:74); bare .toThrow(), so the 1358-N S1 stop rule adds S8 row G6-new-4 (deferred)"
+ },
+ {
+  "id": "N-0620",
+  "file": "tests/p14b1-t4-regressions.test.ts",
+  "line": 166,
+  "old": "const loaded = validateSaveV43(JSON.parse(json))",
+  "new": "const loaded = validateSaveV44(JSON.parse(json))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "envelope(historicalVariant) stamps LIVE_SAVE_VERSION (:74)"
+ },
+ {
+  "id": "N-0621",
+  "file": "tests/p14b1-t4-regressions.test.ts",
+  "line": 306,
+  "old": "expect(JSON.stringify(validateSaveV43(JSON.parse(json)))).toBe(json)",
+  "new": "expect(JSON.stringify(validateSaveV44(JSON.parse(json)))).toBe(json)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "envelope(state) stamps LIVE_SAVE_VERSION; the leaf is a retained 1348-I identity that fails first at :283"
+ },
+ {
+  "id": "N-0622",
+  "file": "tests/p14b2-setup-wrap-regressions.test.ts",
+  "line": 7,
+  "old": "import { makeSave, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { makeSave, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; no validateSaveV43 use remains in the file"
+ },
+ {
+  "id": "N-0623",
+  "file": "tests/p14b2-setup-wrap-regressions.test.ts",
+  "line": 27,
+  "old": "expect(validateSaveV43(JSON.parse(JSON.stringify(saved)))).toEqual(saved)",
+  "new": "expect(validateSaveV44(JSON.parse(JSON.stringify(saved)))).toEqual(saved)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "saved is makeSave(state) (:26), the live V44 envelope"
+ },
+ {
+  "id": "N-0624",
+  "file": "tests/p14b3-reservations.test.ts",
+  "line": 12,
+  "old": "import { makeSave, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { makeSave, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; no validateSaveV43 use remains in the file"
+ },
+ {
+  "id": "N-0625",
+  "file": "tests/p14b3-reservations.test.ts",
+  "line": 94,
+  "old": "const reloaded = validateSaveV43(JSON.parse(JSON.stringify(makeSave(next)))).state",
+  "new": "const reloaded = validateSaveV44(JSON.parse(JSON.stringify(makeSave(next)))).state",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output, the live V44 envelope"
+ },
+ {
+  "id": "N-0626",
+  "file": "tests/p14b3-reservations.test.ts",
+  "line": 134,
+  "old": "validateSaveV43(JSON.parse(JSON.stringify(makeSave(settled))))",
+  "new": "validateSaveV44(JSON.parse(JSON.stringify(makeSave(settled))))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output, the live V44 envelope"
+ },
+ {
+  "id": "N-0627",
+  "file": "tests/p14b3-reservations.test.ts",
+  "line": 177,
+  "old": "validateSaveV43(JSON.parse(JSON.stringify(makeSave(released))))",
+  "new": "validateSaveV44(JSON.parse(JSON.stringify(makeSave(released))))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output, the live V44 envelope"
+ },
+ {
+  "id": "N-0628",
+  "file": "tests/p14b3-reservations.test.ts",
+  "line": 201,
+  "old": "validateSaveV43(JSON.parse(JSON.stringify(makeSave(settled))))",
+  "new": "validateSaveV44(JSON.parse(JSON.stringify(makeSave(settled))))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output, the live V44 envelope"
+ },
+ {
+  "id": "N-0629",
+  "file": "tests/p14b3-rule-revision.test.ts",
+  "line": 13,
+  "old": "import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; no validateSaveV43 use remains in the file"
+ },
+ {
+  "id": "N-0630",
+  "file": "tests/p14b3-rule-revision.test.ts",
+  "line": 235,
+  "old": "const reloaded = validateSaveV43(importSave(exportSave(makeSave(attached)))).state",
+  "new": "const reloaded = validateSaveV44(importSave(exportSave(makeSave(attached)))).state",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output, the live V44 envelope"
+ },
+ {
+  "id": "N-0631",
+  "file": "tests/p14b3-rule-revision.test.ts",
+  "line": 277,
+  "old": "const reloaded = validateSaveV43(importSave(exportSave(makeSave(settled)))).state",
+  "new": "const reloaded = validateSaveV44(importSave(exportSave(makeSave(settled)))).state",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output, the live V44 envelope"
+ },
+ {
+  "id": "N-0632",
+  "file": "tests/p14b4-cancel-causal-proof.test.ts",
+  "line": 271,
+  "old": "expect(makeSave(state).saveVersion).toBe(43)",
+  "new": "expect(makeSave(state).saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "makeSave stamps the live 44 (src/core/save.ts:6571-6572)"
+ },
+ {
+  "id": "N-0633",
+  "file": "tests/p14b4-cast-class-outcomes.test.ts",
+  "line": 20,
+  "old": "import { exportSave, importSave, makeSave, migrateToLive, validateSaveV29, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { exportSave, importSave, makeSave, migrateToLive, validateSaveV29, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; no validateSaveV43 use remains in the file"
+ },
+ {
+  "id": "N-0634",
+  "file": "tests/p14b4-cast-class-outcomes.test.ts",
+  "line": 79,
+  "old": "expect(validated.saveVersion).toBe(43)",
+  "new": "expect(validated.saveVersion).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "live() runs makeSave(state), which stamps the live 44 (src/core/save.ts:6571-6572)"
+ },
+ {
+  "id": "N-0635",
+  "file": "tests/p14b4-cast-class-outcomes.test.ts",
+  "line": 355,
+  "old": "const reloaded = validateSaveV43(importSave(exportSave(makeSave(after.state))))",
+  "new": "const reloaded = validateSaveV44(importSave(exportSave(makeSave(after.state))))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output, the live V44 envelope"
+ },
+ {
+  "id": "N-0636",
+  "file": "tests/p14b4-material-evidence-core.test.ts",
+  "line": 17,
+  "old": "import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, convertV36ToV37, convertV37ToV38, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV31, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, convertV36ToV37, convertV37ToV38, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV31, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; no validateSaveV43 use remains in the file"
+ },
+ {
+  "id": "N-0637",
+  "file": "tests/p14b4-material-evidence-core.test.ts",
+  "line": 40,
+  "old": "type EnvelopeV33 = ReturnType<typeof validateSaveV43>",
+  "new": "type EnvelopeV33 = ReturnType<typeof validateSaveV44>",
+  "cls": "S4",
+  "status": "certain",
+  "note": "1358-J 3h: :293 assigns migrateToLive's LiveSaveFile (SaveFileV44) to this alias; clears X5 step 4 TS2322 at (293,9)"
+ },
+ {
+  "id": "N-0638",
+  "file": "tests/p14b4-material-evidence-core.test.ts",
+  "line": 109,
+  "old": "return validateSaveV43({ ...carrier, state, broadcastCache: state.broadcastItems })",
+  "new": "return validateSaveV44({ ...carrier, state, broadcastCache: state.broadcastItems })",
+  "cls": "S1",
+  "status": "certain",
+  "note": "carrier is migratedLive (migrateToLive, :293) or a result of this function, both saveVersion 44"
+ },
+ {
+  "id": "N-0639",
+  "file": "tests/p14b4-material-evidence-core.test.ts",
+  "line": 362,
+  "old": "validateSaveV43(input)",
+  "new": "validateSaveV44(input)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "input is a validateStateV33 carrier (saveVersion 44)"
+ },
+ {
+  "id": "N-0641",
+  "file": "tests/p14b7-promise-waiver.test.ts",
+  "line": 651,
+  "old": "expect(LIVE_SAVE_VERSION).toBe(43)",
+  "new": "expect(LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "LIVE_SAVE_VERSION is 44 (src/core/save.ts:6567)"
+ },
+ {
+  "id": "N-0642",
+  "file": "tests/p14bf2-acting-discipline.test.ts",
+  "line": 20,
+  "old": "import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV43 } from '../src/core/save.js'",
+  "new": "import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV44 } from '../src/core/save.js'",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; no validateSaveV43 use remains in the file"
+ },
+ {
+  "id": "N-0643",
+  "file": "tests/p14bf2-acting-discipline.test.ts",
+  "line": 97,
+  "old": "validateSaveV43(makeSave(state))",
+  "new": "validateSaveV44(makeSave(state))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output, the live V44 envelope"
+ },
+ {
+  "id": "N-0644",
+  "file": "tests/p14bf2-acting-discipline.test.ts",
+  "line": 137,
+  "old": "validateSaveV43(makeSave(legal))",
+  "new": "validateSaveV44(makeSave(legal))",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output, the live V44 envelope"
+ },
+ {
+  "id": "N-0645",
+  "file": "tests/p14bf2-acting-discipline.test.ts",
+  "line": 269,
+  "old": "const loaded = validateSaveV43(importSave(exportSave(makeSave(state)))).state",
+  "new": "const loaded = validateSaveV44(importSave(exportSave(makeSave(state)))).state",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output, the live V44 envelope"
+ },
+ {
+  "id": "N-0646",
+  "file": "tests/p14bf2-acting-discipline.test.ts",
+  "line": 418,
+  "old": "expect(validateSaveV43(importSave(exportSave(makeSave(attached)))).state.promises).toEqual(attached.promises)",
+  "new": "expect(validateSaveV44(importSave(exportSave(makeSave(attached)))).state.promises).toEqual(attached.promises)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output, the live V44 envelope"
+ },
+ {
+  "id": "N-0647",
+  "file": "tests/p14c2a-save-and-settlement.test.ts",
+  "line": 28,
+  "old": "validateSaveV37, validateSaveV43,",
+  "new": "validateSaveV37, validateSaveV44,",
+  "cls": "S1",
+  "status": "certain",
+  "note": "import of the live validator; no validateSaveV43 use remains in the file"
+ },
+ {
+  "id": "N-0648",
+  "file": "tests/p14c2a-save-and-settlement.test.ts",
+  "line": 346,
+  "old": "const reloaded = validateSaveV43(JSON.parse(JSON.stringify(makeSave(state)))).state",
+  "new": "const reloaded = validateSaveV44(JSON.parse(JSON.stringify(makeSave(state)))).state",
+  "cls": "S1",
+  "status": "certain",
+  "note": "makeSave output, the live V44 envelope"
+ },
+ {
+  "id": "N-0649",
+  "file": "tests/p14c2a-save-and-settlement.test.ts",
+  "line": 353,
+  "old": "expect(LIVE_SAVE_VERSION).toBe(43)",
+  "new": "expect(LIVE_SAVE_VERSION).toBe(44)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "LIVE_SAVE_VERSION is 44 (src/core/save.ts:6567)"
+ },
+ {
+  "id": "N-0650",
+  "file": "tests/p14p4p5-casting-reservation.test.ts",
+  "line": 86,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "save is makeSave(state), the live V44 envelope"
+ },
+ {
+  "id": "N-0651",
+  "file": "tests/p14p4p5-casting-reservation.test.ts",
+  "line": 86,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "makeSave stamps the live 44 (src/core/save.ts:6571-6572)"
+ },
+ {
+  "id": "N-0653",
+  "file": "tests/p14p4p5-cross-owner.test.ts",
+  "line": 80,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "save is makeSave(state), the live V44 envelope"
+ },
+ {
+  "id": "N-0654",
+  "file": "tests/p14p4p5-cross-owner.test.ts",
+  "line": 80,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "makeSave stamps the live 44 (src/core/save.ts:6571-6572)"
+ },
+ {
+  "id": "N-0655",
+  "file": "tests/p14p4p5-cross-owner.test.ts",
+  "line": 81,
+  "old": "const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV43(imported)",
+  "new": "const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "current re-validates importSave(exportSave(save)), the live save of admitted()"
+ },
+ {
+  "id": "G6-new-3",
+  "file": "tests/p14p4p5-delayed-retirement.test.ts",
+  "line": 106,
+  "old": "",
+  "new": "// 1358-N S2+S1: Save44 moves the live stamp to 44, and both pins on the next line move with it.",
+  "cls": "S2",
+  "status": "certain",
+  "note": "inserted comment line under the 1344-N note that says \"makeSave writes the live 43\"; marks N-0657 (S1) and N-0658 (S2) on the next line. The census detectors skip comment lines"
+ },
+ {
+  "id": "N-0657",
+  "file": "tests/p14p4p5-delayed-retirement.test.ts",
+  "line": 107,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "save is makeSave(state), the live V44 envelope; the 1358-N line above (G6-new-3) marks the move"
+ },
+ {
+  "id": "N-0658",
+  "file": "tests/p14p4p5-delayed-retirement.test.ts",
+  "line": 107,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "makeSave stamps the live 44; the 1358-N line above (G6-new-3) marks the move"
+ },
+ {
+  "id": "N-0660",
+  "file": "tests/p14p4p5-finishing-material.test.ts",
+  "line": 64,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "save is makeSave(state), the live V44 envelope"
+ },
+ {
+  "id": "N-0661",
+  "file": "tests/p14p4p5-finishing-material.test.ts",
+  "line": 64,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "makeSave stamps the live 44 (src/core/save.ts:6571-6572)"
+ },
+ {
+  "id": "N-0662",
+  "file": "tests/p14p4p5-finishing-material.test.ts",
+  "line": 65,
+  "old": "const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV43(imported)",
+  "new": "const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "current re-validates importSave(exportSave(save)), the live save of admitted()"
+ },
+ {
+  "id": "N-0663",
+  "file": "tests/p14p4p5-grouped-witness.test.ts",
+  "line": 70,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "save is makeSave(state), the live V44 envelope"
+ },
+ {
+  "id": "N-0664",
+  "file": "tests/p14p4p5-grouped-witness.test.ts",
+  "line": 70,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "makeSave stamps the live 44 (src/core/save.ts:6571-6572)"
+ },
+ {
+  "id": "N-0665",
+  "file": "tests/p14p4p5-grouped-witness.test.ts",
+  "line": 71,
+  "old": "const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV43(imported)",
+  "new": "const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "current re-validates importSave(exportSave(save)), the live save of admitted()"
+ },
+ {
+  "id": "N-0666",
+  "file": "tests/p14p4p5-queued-project-outcome.test.ts",
+  "line": 104,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "save is makeSave(state), the live V44 envelope"
+ },
+ {
+  "id": "N-0667",
+  "file": "tests/p14p4p5-queued-project-outcome.test.ts",
+  "line": 104,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "makeSave stamps the live 44 (src/core/save.ts:6571-6572)"
+ },
+ {
+  "id": "N-0669",
+  "file": "tests/p14p4p5-receipt-freeze.test.ts",
+  "line": 65,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "save is makeSave(state), the live V44 envelope"
+ },
+ {
+  "id": "N-0670",
+  "file": "tests/p14p4p5-receipt-freeze.test.ts",
+  "line": 65,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "makeSave stamps the live 44 (src/core/save.ts:6571-6572)"
+ },
+ {
+  "id": "N-0671",
+  "file": "tests/p14p4p5-receipt-freeze.test.ts",
+  "line": 361,
+  "old": "const raw = bytes(state), imported = saves.importSave(raw), round = saves.validateSaveV43(imported)",
+  "new": "const raw = bytes(state), imported = saves.importSave(raw), round = saves.validateSaveV44(imported)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "raw is bytes(state) = exportSave(makeSave(state)) (:22)"
+ },
+ {
+  "id": "N-0672",
+  "file": "tests/p14p4p5-retired-acting.test.ts",
+  "line": 47,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "save is makeSave(state), the live V44 envelope"
+ },
+ {
+  "id": "N-0673",
+  "file": "tests/p14p4p5-retired-acting.test.ts",
+  "line": 47,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "makeSave stamps the live 44 (src/core/save.ts:6571-6572)"
+ },
+ {
+  "id": "N-0674",
+  "file": "tests/p14p4p5-retired-acting.test.ts",
+  "line": 48,
+  "old": "const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV43(imported)",
+  "new": "const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "current re-validates importSave(exportSave(save)), the live save of admitted()"
+ },
+ {
+  "id": "N-0675",
+  "file": "tests/p14p4p5-scenery-capacity.test.ts",
+  "line": 86,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "save is makeSave(state), the live V44 envelope"
+ },
+ {
+  "id": "N-0676",
+  "file": "tests/p14p4p5-scenery-capacity.test.ts",
+  "line": 86,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "makeSave stamps the live 44 (src/core/save.ts:6571-6572)"
+ },
+ {
+  "id": "N-0678",
+  "file": "tests/p14p4p5-soundstage-capacity.test.ts",
+  "line": 55,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "save is makeSave(state), the live V44 envelope"
+ },
+ {
+  "id": "N-0679",
+  "file": "tests/p14p4p5-soundstage-capacity.test.ts",
+  "line": 55,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "makeSave stamps the live 44 (src/core/save.ts:6571-6572)"
+ },
+ {
+  "id": "N-0680",
+  "file": "tests/p14p4p5-soundstage-capacity.test.ts",
+  "line": 56,
+  "old": "const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV43(imported)",
+  "new": "const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "current re-validates importSave(exportSave(save)), the live save of admitted()"
+ },
+ {
+  "id": "N-0681",
+  "file": "tests/p14p4p5-stock-subject.test.ts",
+  "line": 66,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "save is makeSave(state), the live V44 envelope"
+ },
+ {
+  "id": "N-0682",
+  "file": "tests/p14p4p5-stock-subject.test.ts",
+  "line": 66,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "makeSave stamps the live 44 (src/core/save.ts:6571-6572)"
+ },
+ {
+  "id": "N-0683",
+  "file": "tests/p14p4p5-stock-subject.test.ts",
+  "line": 67,
+  "old": "const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV43(imported)",
+  "new": "const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "current re-validates importSave(exportSave(save)), the live save of admitted()"
+ },
+ {
+  "id": "N-0684",
+  "file": "tests/p14p4p5-writer-resources.test.ts",
+  "line": 50,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S1",
+  "status": "certain",
+  "note": "save is makeSave(state), the live V44 envelope"
+ },
+ {
+  "id": "N-0685",
+  "file": "tests/p14p4p5-writer-resources.test.ts",
+  "line": 50,
+  "old": "expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)",
+  "new": "expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)",
+  "cls": "S2",
+  "status": "certain",
+  "note": "makeSave stamps the live 44 (src/core/save.ts:6571-6572)"
+ }
+]

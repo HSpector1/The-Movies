@@ -1,0 +1,198 @@
+From ba0a25065bc0ba743382ad0ee7d030c500fab73e Mon Sep 17 00:00:00 2001
+From: Zachery Spector <howardzspector@yahoo.com>
+Date: Fri, 2 Oct 2026 03:49:43 -0500
+Subject: [PATCH] 1358-N G3: S5 draft (droppable),
+ withEmptyCompetitionsAndRomance at the 8 measure sites
+
+One helper per file (1358-F9 ruling 6) beside the file's Save43 helper, applied at
+its S5 comparison: every edge gains `competitions: []` and `romance: null`, mapped over
+the old state's own edges (convertV43ToV44, save.ts:10776-10781). The helpers are
+applied here because an unused helper fails the Bridge type gate (noUnusedLocals).
+Not on sweep-g3: the parent keeps it with `git am` or drops it.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ tests/bridge-p14c2rm-runtime.test.ts                 |  7 ++++++-
+ tests/bridge-p14c2s-scientist-runtime.test.ts        |  7 ++++++-
+ tests/bridge-p14c3-promise-digest-continuity.test.ts |  8 +++++++-
+ tests/bridge-p14p3-directing-promises.test.ts        | 10 ++++++++--
+ tests/bridge-p14p4p5-opportunities.test.ts           | 10 ++++++++--
+ tests/bridge-p14r2r3-prior55.test.ts                 | 10 +++++++++-
+ 6 files changed, 44 insertions(+), 8 deletions(-)
+
+diff --git a/tests/bridge-p14c2rm-runtime.test.ts b/tests/bridge-p14c2rm-runtime.test.ts
+index a7d40b9..c81414e 100644
+--- a/tests/bridge-p14c2rm-runtime.test.ts
++++ b/tests/bridge-p14c2rm-runtime.test.ts
+@@ -47,13 +47,18 @@ function withEmptyScreenplayShelving<T extends WithScreenplayShelving>(state: T)
+   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+     ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
+ }
++// Save44 (1358-N S5): convertV43ToV44 (save.ts:10776-10781) adds an empty log and a null romance to every edge.
++type WithEdgeLogAndRomance = { relationships: readonly { competitions?: readonly unknown[]; romance?: unknown }[] }
++function withEmptyCompetitionsAndRomance<T extends WithEdgeLogAndRomance>(state: T): T {
++  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, competitions: [], romance: null })) }
++}
+ // Independent old-state preservation alongside the actual governed slot bytes.
+ function currentSlot(json: string): string {
+   const old = validateSaveV37(JSON.parse(json)), current = migrateToLive(importSave(json)), week = old.state.market.tick
+   expect(current.saveVersion).toBe(44)
+   const { transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
+     industryRetirements, transitionDue, ...oldLifecycle } = current.state.careerLifecycle
+-  const expectedOld = withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state))))
++  const expectedOld = withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state)))))
+   expect(canonicalJson({ ...current.state, careerLifecycle: oldLifecycle })).toBe(canonicalJson(expectedOld))
+   expect({ transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
+     industryRetirements, transitionDue }).toEqual({ transitionBoundaryWeek: week,
+diff --git a/tests/bridge-p14c2s-scientist-runtime.test.ts b/tests/bridge-p14c2s-scientist-runtime.test.ts
+index 0c2dd31..31d1034 100644
+--- a/tests/bridge-p14c2s-scientist-runtime.test.ts
++++ b/tests/bridge-p14c2s-scientist-runtime.test.ts
+@@ -35,6 +35,11 @@ function withEmptyScreenplayShelving<T extends { hollywood: GameStateV36['hollyw
+   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+     ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
+ }
++// 1358-N S5: Save44 gives every relationship edge an empty `competitions` log and a null `romance`
++// (convertV43ToV44, save.ts:10776-10781); a genuine V36-vintage old.state never carried either.
++function withEmptyCompetitionsAndRomance<T extends { relationships: readonly { competitions?: readonly unknown[]; romance?: unknown }[] }>(state: T): T {
++  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, competitions: [], romance: null })) }
++}
+ 
+ const OUTGOING_50 = 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698'
+ const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
+@@ -133,7 +138,7 @@ describe('C.2 Scientist S11: genuine outgoing50 runtime compatibility', () => {
+       // comparison the same way p14p4p5-opportunities.test.ts's Q04 does.
+       const { firstTakeSubjects, ...restState } = actual.state
+       expect(firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: old.state.firstTakes.length, facts: [] })
+-      expect(canonicalJson({ ...restState, careerLifecycle: oldLifecycle })).toBe(canonicalJson(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))))
++      expect(canonicalJson({ ...restState, careerLifecycle: oldLifecycle })).toBe(canonicalJson(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state))))))
+       expect({ transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
+         industryRetirements, transitionDue }).toEqual({ transitionBoundaryWeek: week,
+         professionAnchors: old.state.talent.map(person => ({ personId: person.id, profession: person.role,
+diff --git a/tests/bridge-p14c3-promise-digest-continuity.test.ts b/tests/bridge-p14c3-promise-digest-continuity.test.ts
+index 86ced09..73f9a5f 100644
+--- a/tests/bridge-p14c3-promise-digest-continuity.test.ts
++++ b/tests/bridge-p14c3-promise-digest-continuity.test.ts
+@@ -94,6 +94,12 @@ function withEmptyScreenplayShelving<T extends WithRivalBusinesses>(state: T): T
+   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+     ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
+ }
++// 1358-N S5: Save44 gives every relationship edge an empty `competitions` log and a null `romance`
++// (convertV43ToV44, save.ts:10776-10781); a genuine Save37 old.state never carried either.
++type WithEdgeLogAndRomance = { relationships: readonly { competitions?: readonly unknown[]; romance?: unknown }[] }
++function withEmptyCompetitionsAndRomance<T extends WithEdgeLogAndRomance>(state: T): T {
++  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, competitions: [], romance: null })) }
++}
+ describe('955 genuine207 normal-development continuation', () => {
+   it('matches actual BridgeSession advance from saved207 with uninterrupted develop:true on the reordered raw world', () => {
+     const raw = reordered(pre207()), save = bytes(raw), direct = tick(raw, { develop: true })
+@@ -155,7 +161,7 @@ describe('955 historical preservation and interim projection52 journal authority
+       const current = migrateToLive(old)
+       const { transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
+         industryRetirements, transitionDue, ...oldLifecycle } = current.state.careerLifecycle
+-      const expectedOld = withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state))))
++      const expectedOld = withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state)))))
+       expect(canonicalJson({ ...current.state, careerLifecycle: oldLifecycle })).toBe(canonicalJson(expectedOld))
+       expect({ transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
+         industryRetirements, transitionDue }).toEqual({ transitionBoundaryWeek: week,
+diff --git a/tests/bridge-p14p3-directing-promises.test.ts b/tests/bridge-p14p3-directing-promises.test.ts
+index a782ad8..3d6e7fd 100644
+--- a/tests/bridge-p14p3-directing-promises.test.ts
++++ b/tests/bridge-p14p3-directing-promises.test.ts
+@@ -68,6 +68,12 @@ function withEmptyScreenplayShelving<T extends WithRivalBusinesses>(state: T): T
+   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+     ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
+ }
++// 1358-N S5: Save44 (convertV43ToV44, src/core/save.ts:10776-10781) gives every relationship edge an
++// empty `competitions` log and a null `romance`; a genuine V39-or-older old.state never carried either.
++type WithEdgeLogAndRomance = { relationships: readonly { competitions?: readonly unknown[]; romance?: unknown }[] }
++function withEmptyCompetitionsAndRomance<T extends WithEdgeLogAndRomance>(state: T): T {
++  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, competitions: [], romance: null })) }
++}
+ const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
+ const bytes = (state: GameState): string => exportSave(makeSave(state))
+ function full(state: GameState): string {
+@@ -131,7 +137,7 @@ function current45(): GameState {
+     const current = migrateToLive(save)
+     expect(current.saveVersion).toBe(44)
+     // 1344-N S5 (x2 at a318722, :126 D15/D16 measured `+ "screenplayShelving"` on each of four rival businesses, nothing else).
+-    expect(current.state).toEqual({ ...withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(save.state))), firstTakeSubjects: { version: 1, cutoverOrdinal: save.state.firstTakes.length, facts: [] } })
++    expect(current.state).toEqual({ ...withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(save.state)))), firstTakeSubjects: { version: 1, cutoverOrdinal: save.state.firstTakes.length, facts: [] } })
+     full(current.state); return current.state
+   })
+ }
+@@ -367,7 +373,7 @@ function qualifyPrior53(): void {
+       const previous = validateSaveV38(JSON.parse(old.value[slot]))
+       const now = validateSaveV44(JSON.parse(current[slot]!))
+       // 1344-N S5 (x2 at a318722, :361 D17 measured `+ "screenplayShelving"` on each of four rival businesses, nothing else).
+-      expect(now.state).toEqual({ ...withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(previous.state))), firstTakeSubjects: { version: 1, cutoverOrdinal: previous.state.firstTakes.length, facts: [] } })
++      expect(now.state).toEqual({ ...withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(previous.state)))), firstTakeSubjects: { version: 1, cutoverOrdinal: previous.state.firstTakes.length, facts: [] } })
+       expect(current[slot]).toBe(exportSave(migrateToLive(previous)))
+       full(now.state)
+     }
+diff --git a/tests/bridge-p14p4p5-opportunities.test.ts b/tests/bridge-p14p4p5-opportunities.test.ts
+index 15bc8c8..b75e719 100644
+--- a/tests/bridge-p14p4p5-opportunities.test.ts
++++ b/tests/bridge-p14p4p5-opportunities.test.ts
+@@ -58,6 +58,12 @@ function withEmptyScreenplayShelving<T extends WithScreenplayShelvingBusinesses>
+   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map(business => ({
+     ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
+ }
++// 1358-N S5: Save44 gives every relationship edge an empty `competitions` log and a null `romance`
++// (convertV43ToV44); a genuine V43-or-older old.state never carried either.
++type WithEdgeLogAndRomance = { relationships: readonly { competitions?: readonly unknown[]; romance?: unknown }[] }
++function withEmptyCompetitionsAndRomance<T extends WithEdgeLogAndRomance>(state: T): T {
++  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, competitions: [], romance: null })) }
++}
+ const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
+ const bytes = (state: GameState): string => exportSave(makeSave(state))
+ const viewer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }
+@@ -90,7 +96,7 @@ function input45(): GameState {
+     const parsed: unknown = JSON.parse(raw), old = validateSaveV39(parsed)
+     expect(old).toBe(parsed); expect(exportSave(old)).toBe(raw)
+     const current = migrateToLive(old); expect(current.saveVersion).toBe(44)
+-    expect(current.state).toEqual({ ...withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state))), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
++    expect(current.state).toEqual({ ...withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
+     expect(current.state.market.tick).toBe(45); expect(current.state.promises).toEqual([])
+     expect(current.state.scriptDevelopment.projects.map(p => [p.id, p.status, p.productionId]))
+       .toEqual([['script-0000', 'ready', null], ['script-0001', 'ready', null]])
+@@ -510,7 +516,7 @@ describe('P4/P5 closed Bridge material and outgoing runtime authority', () => {
+     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
+       assert.ok(current[slot])
+       const previous = validateSaveV39(JSON.parse(old.value[slot])), now = validateSaveV44(JSON.parse(current[slot]!))
+-      expect(now.state).toEqual({ ...withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(previous.state))), firstTakeSubjects: { version: 1, cutoverOrdinal: 25, facts: [] } })
++      expect(now.state).toEqual({ ...withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(previous.state)))), firstTakeSubjects: { version: 1, cutoverOrdinal: 25, facts: [] } })
+       expect(current[slot]).toBe(exportSave(migrateToLive(previous))); full(now.state)
+     }
+     expect(current.currentSaveJson).not.toBe(current.savedSaveJson)
+diff --git a/tests/bridge-p14r2r3-prior55.test.ts b/tests/bridge-p14r2r3-prior55.test.ts
+index 75d5ee0..0af1717 100644
+--- a/tests/bridge-p14r2r3-prior55.test.ts
++++ b/tests/bridge-p14r2r3-prior55.test.ts
+@@ -142,6 +142,14 @@ function withEmptyScreenplayShelving<T extends { hollywood?: { businesses?: Busi
+       { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 }
+   return clone
+ }
++// 1358-N S5: Save44 gives every relationship edge an empty `competitions` log and a null `romance`
++// (convertV43ToV44, save.ts:10776-10781) in addition to the V42->V43 shelving root above; a
++// genuine V43-or-older previous.state never carried either.
++function withEmptyCompetitionsAndRomance<T extends { relationships?: readonly object[] }>(state: T): T {
++  const clone = JSON.parse(JSON.stringify(state)) as T
++  for (const edge of clone.relationships ?? []) Object.assign(edge, { competitions: [], romance: null })
++  return clone
++}
+ 
+ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to current56, and each Save40 slot migrates to Save41 independently', () => {
+   it('loadBridgeRuntimeCheckpoint migrates the prior-schema checkpoint, resets runtime authority, and migrates both save slots to V41 with only the new key added', () => {
+@@ -190,7 +198,7 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
+       // new.state equals old.state with termination:0 added to every rival finance period's
+       // movements, and nothing else — the same fact p14r3-save-v41.test.ts asserts directly
+       // on the raw fixtures, independently re-derived here through the runtime-checkpoint path.
+-      expect(now.state).toEqual(withEmptyScreenplayShelving(withSharedCompetitionsZero(withTerminationZero(previous.state as never))))
++      expect(now.state).toEqual(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withSharedCompetitionsZero(withTerminationZero(previous.state as never)))))
+       // slot bytes equal exportSave(migrateToLive(previous)) — the checkpoint's own migration
+       // must route through the SAME migrateToLive chain the save-file path uses, not a second,
+       // divergent conversion.
+-- 
+2.37.1 (Apple Git-137.1)
+
