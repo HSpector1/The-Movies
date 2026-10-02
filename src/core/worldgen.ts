@@ -83,7 +83,7 @@ import {
   WORLD_CONFIG,
 } from './tuning.js'
 import { ageRunwayMult, roleOVR } from './talentSummary.js'
-import { emptyPublicityState } from './save.js'
+import { emptyPublicityState, initialP15Roots } from './save.js'
 import type {
   CastSlot,
   Ceilings,
@@ -815,5 +815,8 @@ export function generateWorld(seed: string, options?: GenerateWorldOptions): Gam
     talentProvenance: buildTalentProvenance(drawn, 0, 'authored_exact_week'),
     // P14C.2a: a fresh world has announced no retirement; the root records from week 0.
     careerLifecycle: initialCareerLifecycle(0, people),
+    // P15A.2 slice 2a (1356-A §5; 1355-F2 item 1): a fresh world records Power Ranking quarters
+    // from week 0, and the one P15 allocator starts at 1.
+    ...initialP15Roots(0),
   }
 }

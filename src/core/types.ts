@@ -2321,7 +2321,8 @@ export type GameStateV31 = GameStateV30 & {
 // V42 adds the edge's `sharedCompetitions` counter and the two casting driver kinds.
 // V43 adds rival screenplay shelving: `screenplayShelving` per business and its receipt.
 // V44 adds the edge's `competitions` log and `romance` track.
-export type GameState = GameStateV44
+// V45 is the shared P15 step: slice 2a adds the Power Ranking archive and the one P15 allocator.
+export type GameState = GameStateV45
 
 // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
 
@@ -2566,6 +2567,31 @@ export type GameStateV43 = GameStateV42
  * edge projected to era 42, exactly the V43 law.
  */
 export type GameStateV44 = GameStateV43
+/**
+ * P15A.2 slice 2a (1356-A §5; 1355-F2 items 1-5): the append-only quarterly Power Ranking archive.
+ * A record is the law's snapshot minus `pointsTenths`, `honors` and `distressStage`, plus its id,
+ * its P15 domain sequence and its phase triple.
+ */
+export type PowerRankingRecordRow = {
+  studioId: string; ranked: boolean; rank: number | null; filmsTenths: number; releases: number
+  releasesTenths: number; countedFilmIds: string[]; band: import('./powerRanking.js').FinancialStrengthBand
+}
+export type PowerRankingRecord = {
+  id: string; p15DomainSequence: number; phaseId: string; phaseOrdinal: number; phaseOrderVersion: number
+  week: number; definitionVersion: 'power-ranking/v1'; available: boolean; windowStartWeek: number
+  rows: PowerRankingRecordRow[]
+}
+export type PowerRankingArchive = { version: 1; recordedFromWeek: number; snapshots: PowerRankingRecord[] }
+/**
+ * The roots of the shared P15 save step, Save45 (1360-F ruling 1; 1361-F ruling 3). Slice 2a brings
+ * the archive and the one P15 allocator (1355-F2 item 1). P15A.1 adds `sharedMarket` and P15C adds
+ * `campaignLegacy` here.
+ */
+export type P15StepRoots = {
+  powerRanking: PowerRankingArchive
+  p15Sequence: import('./p15Phases.js').P15Sequence
+}
+export type GameStateV45 = GameStateV44 & P15StepRoots
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.

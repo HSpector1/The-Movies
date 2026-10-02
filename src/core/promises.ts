@@ -38,7 +38,7 @@ import { isOpportunityPredicate, opportunitySlots, opportunityPredicateRefusal, 
   opportunityProductionMatches, opportunityReservations, opportunityFeasibilityInputs, opportunityAssessment,
   opportunityPhysicalImpossibility, OPPORTUNITY_PROMISE_RULES_VERSION } from './opportunityPromises.js'
 import type {
-  CastRoleCountPredicate, DirectorCountPredicate, OpportunityPredicate, Genre, CastSlot, FirstTakeReceipt, GameState, GameStateV30, ProfessionalPromise, ProfessionalPromiseV30, Production,
+  CastRoleCountPredicate, DirectorCountPredicate, OpportunityPredicate, Genre, CastSlot, FirstTakeReceipt, GameState, GameStateV30, GameStateV40, ProfessionalPromise, ProfessionalPromiseV30, Production,
   PromiseClassification, PromiseFamily, PromiseFeasibilityReceipt, TalentMarketStateV36,
 } from './types.js'
 
@@ -1225,8 +1225,9 @@ function identicalSubstitute(promise: ProfessionalPromise, substitute: PromiseAt
     && substitute.dueWeekExclusive === promise.dueWeekExclusive
 }
 
-/** Restriction inclusion is independent of class inclusion and remaining count. */
-function opportunitySubstitutionRefusal(state: GameState, promise: ProfessionalPromise, substitute: PromiseAttachment): string | null {
+/** Restriction inclusion is independent of class inclusion and remaining count. It reads only the
+ * Save40 era's state, so the frozen V40/V41 proof can ask it as well as the live writer. */
+function opportunitySubstitutionRefusal(state: GameStateV40, promise: ProfessionalPromise, substitute: PromiseAttachment): string | null {
   if (!isOpportunityPredicate(promise.predicate)) return null
   if (!isOpportunityPredicate(substitute.predicate)) return 'a substitute cannot erase the promised genre or project restriction'
   if (promise.predicate.kind === 'projectOpportunity') {
@@ -1909,8 +1910,9 @@ export function validateDirectorWaiverLinks(promises: readonly ProfessionalPromi
   }
 }
 
-/** Called only after complete40 admission, with full material and employment authority. */
-export function validateOpportunityWaiverLinks(state: GameState): void {
+/** Called only after complete40 admission, with full material and employment authority. Typed by
+ * the era it proves: save.ts hands it the V40/V41 state, which carries no later root. */
+export function validateOpportunityWaiverLinks(state: GameStateV40): void {
   const indices = new Map(state.promises.map((row, i) => [row.promiseId, i] as const))
   const incoming = new Set<string>()
   const fail = (id: string, reason: string): never => { throw new Error(`validateSaveV40: opportunity waiver ${id} ${reason}`) }

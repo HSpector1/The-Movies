@@ -2,6 +2,7 @@ import { prepareLiveWritingContext } from './liveRetirementWriting.js'
 import { advanceHollywoodWeek, finishHollywoodWeek } from './hollywoodTick.js'
 import { birthdaysDueAt, materializeAges, withTalentProvenance } from './aging.js'
 import { advanceLifecycleIntent, advanceLifecycleSettlement } from './careerLifecycle.js'
+import { recordPowerRankingQuarter } from './powerRankingArchive.js'
 import { advancePromisesWeek, appendFirstTakes, breakPromisesOnGreenlight } from './promises.js'
 import { advanceRelationshipsWeek } from './relationships.js'
 import { advanceTalentMarketWeek } from './talentMarket.js'
@@ -1157,7 +1158,12 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // runs AFTER the market, so an accepted extension has already moved the effective week it
   // reads. By here the P10 expiry and `finishHollywoodWeek` have written every contract
   // end at this week, which settlement asserts rather than repeats (773 D10). No RNG.
-  return advanceLifecycleSettlement(advanceTalentMarketWeek(advancePromisesWeek(advanceLifecycleIntent(withBonds, birthdays))))
+  // P15A.2 slice 2a (1356-A §4): the quarterly Power Ranking record wraps the last expression, so
+  // the band reads the week's final cash and contracts. At the end of the tick the ranking record
+  // runs first; P15C's freeze wraps it as the last step, and P15B's condition steps later sit
+  // between the two (1355-F2 item 2; 1361-F ruling 9). No RNG.
+  return recordPowerRankingQuarter(
+    advanceLifecycleSettlement(advanceTalentMarketWeek(advancePromisesWeek(advanceLifecycleIntent(withBonds, birthdays)))))
 }
 
 /**
