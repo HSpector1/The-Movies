@@ -62,7 +62,7 @@ function memo(name: string, build: () => GameState): GameState {
 }
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)
+  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)
   const raw = saves.exportSave(save)
   expect(saves.exportSave(saves.importSave(raw))).toBe(raw)
   expect(stable(state)).toBe(before)
@@ -317,12 +317,28 @@ function factOnly(state: GameState): void {
   expect(suffix.some(t => t.studioId === 'studio-de11f27b-r04' && t.productionId === 'studio-de11f27b-r04:film:4' && t.week === 48)).toBe(true)
   assert.equal(count.downgradeAttempts, 0); count.downgradeAttempts++
   let error: unknown
-  try { saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(save)))) } catch (caught) { error = caught }
+  try { saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(save))))) } catch (caught) { error = caught }
   const message = error instanceof Error ? error.message : String(error)
   emit('FACT-ONLY-REFUSAL', { actualWeek: 48, message, facts: state.firstTakeSubjects.facts })
   expect(error).toBeInstanceOf(Error)
-  expect(message).toBe('migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject')
+  // 1358-N S9 (MASKED): this route's week-48 save holds a romance track on relationship-edge-18, so
+  // convertV44ToV43 refuses first (src/core/save.ts:10790), before the V39 opportunity-predicate and
+  // first-take-subject guard this check named (save.ts:10600-10602). Measured in 1358-X6 (probe N-0560).
+  // The V39 guard keeps its own-era coverage in the genuine Save40 assertion at the end of this function.
+  expect(message).toBe('migrateToV43: cannot downgrade or discard the romance of relationship-edge-18')
   expect(saves.exportSave(save)).toBe(before); expect(bytes(state)).toBe(before); expect(state.rngState).toEqual(rng)
+  // 1358-F10 ruling 4: four 1344 masking comments name this function as the V39 guard's cover, so it
+  // gains direct coverage on that era's input: the genuine week-110 Save40 capture (pins as in
+  // tests/p14r3-save-v41.test.ts:147-151), downgraded once. A campaign generated under Save40 records a
+  // subject for every first take, and no newer root stands between it and convertV40ToV39. Measured in
+  // 1358-X7t (probe F1-V39): 47 subjects for 47 first takes, cutover 0, and this refusal.
+  const zipped40 = readFileSync(new URL('./fixtures/p14/genuine-v40-pre-r3/genuine-v40-r3-outgoing-week110.json.gz', import.meta.url))
+  expect(sha(zipped40)).toBe('196b73d43ac6e346c6b6e6a73e0b13f16bc23a1f5d321947067d6f81ca774bd8')
+  const raw40 = gunzipSync(zipped40).toString('utf8')
+  expect(sha(raw40)).toBe('2e717382e952fa0f175f07d5f7055d6d3f37c66eb4bf86a783dd169ae21d2ddc')
+  const v40 = saves.validateSaveV40(JSON.parse(raw40))
+  expect(v40.state.firstTakeSubjects.facts.length, 'capture premise: recorded first-take subjects').toBeGreaterThan(0)
+  expect(() => saves.convertV40ToV39(v40)).toThrow(/^migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject$/)
 }
 
 describe('P4/P5 screenplay and casting status clocks', () => {

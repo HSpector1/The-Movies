@@ -5,7 +5,7 @@ import { expect, vi } from 'vitest'
 import * as owner from '../../src/core/professionTransitions.js'
 import * as scripts from '../../src/core/scriptDevelopment.js'
 import { busyTalentIds } from '../../src/core/employment.js'
-import { LIVE_SAVE_VERSION, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42,
+import { LIVE_SAVE_VERSION, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43,
   exportSave, makeSave, stableStringify } from '../../src/core/save.js'
 import { careerIdentity, expectedPotentialTier, roleTier } from '../../src/core/talentSummary.js'
 import { tick } from '../../src/core/tick.js'
@@ -195,7 +195,7 @@ export function canonicalInitial(): GameState {
     // pinned here), v38 down-projection sha 2f9ec0fa… (equals CANONICAL_INITIAL_SHA).
     const live = makeSave(state)
     expect(live.saveVersion).toBe(LIVE_SAVE_VERSION)
-    const v38 = convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(live)))))
+    const v38 = convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(live))))))
     expect(sha(exportSave(v38))).toBe(CANONICAL_INITIAL_SHA)
     expect(state.market.tick).toBe(0)
     expect(person(state, id)).toMatchObject({ name: 'Clara Moss', role: 'actor', age: 62 })

@@ -49,7 +49,7 @@ import {
   tick,
   validateSave,
   LIVE_SAVE_VERSION,
-  validateSaveV43,
+  validateSaveV44,
 } from '../src/core/index.js'
 import {
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
@@ -778,7 +778,7 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     const save = makeSave(state)
     expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(validateSave(save)).toBe(save)
-    expect(validateSaveV43(save)).toBe(save)
+    expect(validateSaveV44(save)).toBe(save)
     const json = exportSave(save)
     expect(exportSave(importSave(json))).toBe(json)
     const reloaded = migrateToCurrentControl(importSave(json)).state

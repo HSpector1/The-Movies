@@ -184,15 +184,36 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
       .account.periods.reduce((sum, p) => sum + p.movements.researchCapacity, 0)
     expect(totalResearchCapacity).not.toBe(0) // the fact this refusal depends on is genuinely nonzero, not forged
     const envelope = save.makeSave(natural) // LIVE_SAVE_VERSION is 28 (P14A.1) — a real, validated SaveFileV28
-    expect(envelope.saveVersion).toBe(43)
-    expect(() => save.migrateToV26(envelope as never)).toThrow(/cannot downgrade/i)
+    expect(envelope.saveVersion).toBe(44)
+    // 1358-N S9 (MASKED): `natural` holds a romance track on relationship-edge-0, so convertV44ToV43 refuses
+    // first (src/core/save.ts:10790). Under Save43 the V39 subject guard already refused first (1344-X12
+    // section 4), so the V27 rival-research guard this title names (convertV27ToV26, save.ts:8945-8956) is
+    // not reached here. Measured in 1358-X6 (probe G4-new-1). The V27 guard's receipt arm (save.ts:8833)
+    // keeps its own-era coverage in the next leaf's last assertion. Its finance arm (save.ts:8848), the
+    // movement this title names, cannot fire on a valid save (1358-F11 closure findings; 1358-D9 N3).
+    expect(() => save.migrateToV26(envelope as never)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)
   })
 
   it('downgrade REFUSED: the same natural campaign also carries a new receipt kind (laboratoryCommitted/laboratoryOperational), independently sufficient to refuse V27->V26', () => {
     const natural = advanceTo(p13aGeneratedStudio(NATURAL_SEED), 20)
     expect(natural.hollywood!.receipts.some(r => NEW_RECEIPT_KINDS.includes(r.kind))).toBe(true)
     const envelope = save.makeSave(natural)
-    expect(() => save.migrateToV26(envelope as never)).toThrow(/cannot downgrade/i)
+    // 1358-N S9 (MASKED): the same romance track on relationship-edge-0 makes convertV44ToV43 refuse first
+    // (src/core/save.ts:10790), ahead of the V27 receipt guard this title names (save.ts:8945-8956). Under
+    // Save43 the V39 subject guard already refused first on this campaign (1344-X12 section 4, at :188).
+    // Measured in 1358-X6 (probe G4-new-2). The V27 guard keeps its own-era coverage in the staged
+    // assertion below.
+    expect(() => save.migrateToV26(envelope as never)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)
+    // 1358-F10 ruling 4: no Save27 engine remains, so the V27 guard's own-era input is a genuine V26
+    // fixture lifted to V27 (as the LOSSLESS leaf lifts it) after one admission by the S8 rival admission
+    // boundary itself (admitRivalPlans, src/core/rivalResearch.ts:200-209): a started Laboratory plan, its
+    // laboratoryCommitted receipt and the researchCapacity movement. Nothing is stripped. Measured in
+    // 1358-X7t (probe F1-V27): the week-309 fixture admits a Laboratory, and the receipt arm refuses it.
+    const staged = Object.values(V26_FIXTURES).map(fixture => withV27.migrateToV27(JSON.parse(load(fixture.file))))
+      .map(lifted => ({ ...lifted, state: admitRivalPlans(lifted.state).state }))
+      .find(lifted => lifted.state.hollywood!.receipts.some(r => r.kind === 'laboratoryCommitted'))
+    expect(staged, 'staging premise: a rival in a genuine V26 fixture can afford a Laboratory').toBeDefined()
+    expect(() => save.convertV27ToV26(staged as never)).toThrow(/^migrateToV26: cannot downgrade SaveFileV27 or discard rival research \u2014 frozen save projection cannot discard authoritative V27 rival research state on receipt industry-event-\d+$/)
   })
 
   it('VALIDATOR REFUSED: "no rival authority without a receipt" — a rival Laboratory facility with no laboratoryCommitted/laboratoryOperational receipt is refused', () => {
@@ -208,11 +229,11 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
     })).toThrow()
   })
 
-  it('an unknown saveVersion 43 is refused, naming the handled range "1 through 42 only" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {
+  it('an unknown saveVersion 45 is refused, naming the handled range "1 through 44 only" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {
     const json = load(V26_FIXTURES.soundMidDeployment.file)
     const v27 = withV27.migrateToV27(JSON.parse(json))
-    const forged = { ...v27, saveVersion: 44 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 43 only/)
+    const forged = { ...v27, saveVersion: 45 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 44 only/)
   })
 
   it('genuine usage of admitRivalPlans (not just an unused import — the same measured-risk guard tests/p13b-s6-save-v26.test.ts names for cancellationQuote): admitting a well-funded rival Laboratory books a real, nonzero researchCapacity movement — the same fact the natural-campaign downgrade-refused cases above observe emerging on their own', () => {

@@ -110,6 +110,8 @@ function stagedEdge(index: number, x: string, y: string, closeness: number, last
     sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0, sharedCancellations: 0, sharedCompetitions: 0,
     peakTier: 'Acquaintances', peakTierWeek: lastEventWeek,
     recent: [{ kind: 'sharedProduction', week: lastEventWeek, ref: 'staged-production', delta: 2 }],
+    // 1358-N S6: Save44 gives every edge an empty log and a null romance (convertV43ToV44).
+    competitions: [], romance: null,
     ...extra,
   }
 }

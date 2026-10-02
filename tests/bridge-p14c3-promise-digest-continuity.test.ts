@@ -94,6 +94,12 @@ function withEmptyScreenplayShelving<T extends WithRivalBusinesses>(state: T): T
   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
     ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
 }
+// 1358-N S5: Save44 gives every relationship edge an empty `competitions` log and a null `romance`
+// (convertV43ToV44, save.ts:10776-10781); a genuine Save37 old.state never carried either.
+type WithEdgeLogAndRomance = { relationships: readonly { competitions?: readonly unknown[]; romance?: unknown }[] }
+function withEmptyCompetitionsAndRomance<T extends WithEdgeLogAndRomance>(state: T): T {
+  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, competitions: [], romance: null })) }
+}
 describe('955 genuine207 normal-development continuation', () => {
   it('matches actual BridgeSession advance from saved207 with uninterrupted develop:true on the reordered raw world', () => {
     const raw = reordered(pre207()), save = bytes(raw), direct = tick(raw, { develop: true })
@@ -116,7 +122,7 @@ describe('955 historical preservation and interim projection52 journal authority
     // Stable historical leaf title is retained for the paired selector. Under
     // the explicit53 cutover this actual52 journal is preserved as old evidence;
     // it must lose replay authority when both genuine37 slots migrate to38.
-    expect(PROJECTION_VERSION).toBe(56)
+    expect(PROJECTION_VERSION).toBe(57)
     const outgoing52 = 'sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2'
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(outgoing52)).toBe('projection-v52')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
@@ -155,7 +161,7 @@ describe('955 historical preservation and interim projection52 journal authority
       const current = migrateToLive(old)
       const { transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
         industryRetirements, transitionDue, ...oldLifecycle } = current.state.careerLifecycle
-      const expectedOld = withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state))))
+      const expectedOld = withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state)))))
       expect(canonicalJson({ ...current.state, careerLifecycle: oldLifecycle })).toBe(canonicalJson(expectedOld))
       expect({ transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
         industryRetirements, transitionDue }).toEqual({ transitionBoundaryWeek: week,
@@ -165,7 +171,7 @@ describe('955 historical preservation and interim projection52 journal authority
         transitionDue: old.state.hollywood === null ? [] : old.state.careerLifecycle.records
           .filter(row => row.status === 'retired').map(row => ({ personId: row.personId, week: week + 1 }))
           .sort((a, b) => a.personId < b.personId ? -1 : a.personId > b.personId ? 1 : 0) })
-      expect(current.saveVersion).toBe(43)
+      expect(current.saveVersion).toBe(44)
       expect(next[slot]).toBe(exportSave(current))
       expect(next[digest]).toBe(sha(exportSave(current)))
     }

@@ -58,8 +58,8 @@ import assert from 'node:assert/strict'
 import { describe, expect, it } from 'vitest'
 
 import { beginFounding, generateWorld } from '../src/core/index.js'
-import { LIVE_SAVE_VERSION, makeSave, validateSaveV43 } from '../src/core/save.js'
-import type { GameState, RelationshipDriver, RelationshipTier } from '../src/core/types.js'
+import { LIVE_SAVE_VERSION, makeSave, validateSaveV44 } from '../src/core/save.js'
+import type { GameState, RelationshipDriver, RelationshipEdge, RelationshipTier } from '../src/core/types.js'
 import { peopleProjection } from '../bridge/people.ts'
 import { contractedByRole, richFoundedStudio } from './contracts/_contractFixtures.ts'
 
@@ -73,6 +73,8 @@ type Edge = {
   // 1320-A S6: Save42 adds this exact counter to every edge at the live validator (era 42).
   sharedCompetitions: number
   peakTier: RelationshipTier; peakTierWeek: number; recent: RelationshipDriver[]
+  // 1358-N S6: Save44 adds the competitions log and the romance track to every edge (era 44).
+  competitions: RelationshipEdge['competitions']; romance: RelationshipEdge['romance']
 }
 const withRoot = (state: GameState, rows: readonly Edge[]): GameState =>
   ({ ...state, relationships: rows } as unknown as GameState)
@@ -81,7 +83,7 @@ const withRoot = (state: GameState, rows: readonly Edge[]): GameState =>
 function admitted(state: GameState): GameState {
   const save = makeSave(state)
   expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
-  validateSaveV43(JSON.parse(JSON.stringify(save)))
+  validateSaveV44(JSON.parse(JSON.stringify(save)))
   return save.state as GameState
 }
 /** One edge, staged between `x` and `y` at `week` — the single canonical pair, ordinal id 0. */
@@ -92,6 +94,7 @@ const stagedEdge = (x: string, y: string, week: number): Edge => {
     sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0, sharedCancellations: 0, sharedCompetitions: 0,
     peakTier: 'Acquaintances', peakTierWeek: week,
     recent: [{ kind: 'sharedProduction', week, ref: 'staged-d2-production', delta: 2 }],
+    competitions: [], romance: null,
   }
 }
 /** The published block, read off the SAME carrier a real bridge consumer reads

@@ -75,7 +75,7 @@ function withEmptyScreenplayShelving<T extends { hollywood: GameStateV30['hollyw
   })) } } as T
 }
 import { advanceTo, fund, p13aGeneratedStudio, player, poachingFixture } from './helpers/p14b2-fixtures.js'
-import type { GameState, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'
+import type { GameState, RelationshipEdge, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'
 
 const OUTGOING_46 = 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c'
 const OUTGOING_47 = 'sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538' // T0 MANIFEST authority.schemaId
@@ -89,6 +89,7 @@ const OUTGOING_52 = 'sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850
 const OUTGOING_53 = 'sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d' // P3: genuine1117 outgoing53
 const OUTGOING_54 = 'sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302' // P4/P5: genuine1221 outgoing54
 const OUTGOING_55 = 'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158' // R2/R3: genuine1307 outgoing55
+const OUTGOING_56 = 'sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1' // 1358-N P2: outgoing56, projection-v56 at bridge/runtime-checkpoint.ts:64
 const OUTGOING_PROJECTION = 47
 // The 35 accepted prior literals (tests/bridge-p14b4-runtime47-compatibility.test.ts :41-83); never derived from the registry.
 const EXPECTED_35_PRIOR_IDS = [
@@ -228,7 +229,9 @@ type Edge = { edgeId: string; a: string; b: string; closeness: number; firstShar
   sharedSuccesses: number; sharedFailures: number; sharedCancellations: number
   // 1320-A S6: Save42 adds this exact counter to every edge at the live validator (era 42).
   sharedCompetitions: number
-  peakTier: string; peakTierWeek: number; recent: readonly { kind: string; week: number; ref: string; delta: number }[] }
+  peakTier: string; peakTierWeek: number; recent: readonly { kind: string; week: number; ref: string; delta: number }[]
+  // 1358-N S6: Save44 adds the competitions log and the romance track to every edge (era 44).
+  competitions: RelationshipEdge['competitions']; romance: RelationshipEdge['romance'] }
 const edges = (state: GameState): readonly Edge[] => (state as unknown as { relationships?: readonly Edge[] }).relationships ?? []
 /** The engine's new module, reached dynamically so the frozen pins of this file run before it exists. */
 async function relationships(): Promise<Relationships | null> {
@@ -374,14 +377,15 @@ const wireEnum = (): string[] => {
 describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, re-expressed by 700-T2 after P14B.8 landed projection 50 / Save V32 unchanged)', () => {
   it('live projection52/Save37 and literal current hash retain all40 independent prior identities (875)', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(56)
+    expect(PROJECTION_VERSION).toBe(57)
     expect(OUTGOING_PROJECTION).toBe(47)
     // 1309-X3 ruling 5: SCHEMA_ID tracks the LIVE (projection56) schema now,
     // not projection53's identity (OUTGOING_53) -- states the received value.
-    expect(SCHEMA_ID).toBe('sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1')
+    // 1358-N P2: the live schema is projection57's (1358-E); projection56's id is OUTGOING_56.
+    expect(SCHEMA_ID).toBe('sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253')
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
-    expect(LIVE_SAVE_VERSION).toBe(43)
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55].sort())
+    expect(LIVE_SAVE_VERSION).toBe(44)
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
@@ -430,7 +434,7 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56].sort())
     expect(LIVE_SAVE_VERSION).toBeGreaterThan(30) // the governed inner-save step rides the same wave (R22 :610)
   })
 
@@ -491,7 +495,7 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
     const closeness = rel.RELATIONSHIP_TIER_FLOOR['CloseFriends']!
     const edge: Edge = { edgeId: `relationship-edge-${String(edges(base.at207).length)}`, a, b, closeness, firstSharedWeek: 207, lastEventWeek: 207,
       sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0, sharedCancellations: 0, sharedCompetitions: 0, peakTier: 'CloseFriends', peakTierWeek: 207,
-      recent: [{ kind: 'sharedProduction', week: 207, ref: 'staged-production', delta: 1 }] }
+      recent: [{ kind: 'sharedProduction', week: 207, ref: 'staged-production', delta: 1 }], competitions: [], romance: null }
     const staged = makeSave({ ...base.at207, relationships: [...edges(base.at207), edge] } as unknown as GameState) // validator-admitted staging
     expect(staged.saveVersion).toBe(LIVE_SAVE_VERSION)
     const after = tick(staged.state as GameState)

@@ -412,11 +412,11 @@ describe("Script Projects V1 — SaveFileV9", () => {
 
   it("rejects unknown V42 and refuses to downgrade V9 through migrateToV8 (stale number corrected post-C.2b)", () => {
     const save = makeSaveV9(generateWorld("save-v9-boundary"));
-    expect(() => validateSave({ ...save, saveVersion: 44 })).toThrow(
-      /unknown saveVersion 44/,
+    expect(() => validateSave({ ...save, saveVersion: 45 })).toThrow(
+      /unknown saveVersion 45/,
     );
-    expect(() => validateSave({ ...save, saveVersion: 44 })).toThrow(
-      /versions 1 through 43 only/,
+    expect(() => validateSave({ ...save, saveVersion: 45 })).toThrow(
+      /versions 1 through 44 only/,
     );
     expect(() => migrateToV8(save)).toThrow(/cannot downgrade SaveFileV9/);
   });

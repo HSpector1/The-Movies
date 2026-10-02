@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest'
 import * as core from '../src/core/index.js'
 import { ageAt, nextBirthdayWeek } from '../src/core/aging.js'
 import { retirementRecordFor } from '../src/core/careerLifecycle.js'
-import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, exportSave, importSave, migrateToLive, stableStringify } from '../src/core/save.js'
+import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, exportSave, importSave, migrateToLive, stableStringify } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { CreativeRole, GameState } from '../src/core/types.js'
@@ -172,7 +172,7 @@ describe('C.3 A05/A06 public profession history, current evidence and repeat saf
     // (merge 62f14e7): "migrateToV42: cannot downgrade or discard a screenplay shelving
     // rejection count of studio-de11f27b-r04". The V37 guard stays covered by the leaf below
     // ("records Scientist noCatalogue finality"), whose chain reaches it first (1344-X12).
-    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(envelope38(reopened) as never))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-de11f27b-r04$/)
+    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(envelope38(reopened) as never)))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-de11f27b-r04$/)
   })
 })
 
@@ -204,7 +204,7 @@ describe('C.3 A09/A10 genuine prospective finality and deferred reconciliation',
     // 1344-X12 measured this chain's first guard: the V37 profession transition guard
     // (src/core/professionHistory.ts:67), which the shelving guard masks in the leaf above. Pinned
     // exactly, so this leaf keeps that guard covered (1344-N S9).
-    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(envelope38(reopened) as never))))))).toThrow(/^migrateToV37: cannot downgrade or discard profession transition, industry retirement or entrant authority$/)
+    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(envelope38(reopened) as never)))))))).toThrow(/^migrateToV37: cannot downgrade or discard profession transition, industry retirement or entrant authority$/)
   })
 
   it('defers the real retired cohort actor at2601 and schedules the exact annual-or-age deadline, never the next week', () => {

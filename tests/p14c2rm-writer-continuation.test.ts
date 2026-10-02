@@ -9,8 +9,8 @@ import { studioConstructionView } from '../src/core/placement.js'
 import { availableDevelopmentCastingSlots } from '../src/core/scriptDevelopment.js'
 import { studioCalendar } from '../src/core/studioCalendar.js'
 import { tick } from '../src/core/tick.js'
-import { convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,
-  validateSaveV36, validateSaveV43 } from '../src/core/save.js'
+import { convertV36ToV35, convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,
+  validateSaveV36, validateSaveV44 } from '../src/core/save.js'
 import type { GameState, GameStateV33, RetirementRecordV36, ScriptProject } from '../src/core/types.js'
 import { c2Fixture } from './helpers/p14c2a-fixtures.js'
 
@@ -78,7 +78,7 @@ describe('880-B natural retired-writer continuation', () => {
     const reopened = readBack(f.finishing)
     // Persistence has always canonicalized JSON -0 to 0. Validate the actual
     // reopened object and compare authoritative canonical bytes across storage.
-    expect(validateSaveV43(envelope(reopened)).state).toBe(reopened)
+    expect(validateSaveV44(envelope(reopened)).state).toBe(reopened)
     expect(stableStringify(reopened)).toBe(before)
     expect(stableStringify(f.finishing)).toBe(before)
   })
@@ -175,47 +175,65 @@ function anotherUncontractedWriter(state: GameState, id: string): string {
   expect(person, 'negative control premise: an existing writer with no player contract or retirement authority').toBeDefined()
   return person!.id
 }
-const invalidCases: InvalidCase[] = [
+// 1358-N S8 (1358-F10 ruling 2): `refusal` pins the innermost guard the live validator reaches
+// for each tamper, measured by the 1358-X6 message probe (N-0468, 18 cases) and cited at its
+// source. The V9 script development invariants carry the prefixes of src/core/scriptDevelopment.ts:811
+// and src/core/save.ts:3655; the deeper chain prefixes vary, so each pin anchors on the end.
+const invalidCases: (InvalidCase & { refusal: RegExp })[] = [
   { name: 'missing lifecycle record', corrupt: (state, id) => ({ ...state, careerLifecycle: { ...state.careerLifecycle,
-    records: state.careerLifecycle.records.filter(row => row.personId !== id) } }) },
+    records: state.careerLifecycle.records.filter(row => row.personId !== id) } }),
+    refusal: /validateSaveV36: talentMarket\.cases\[25\] is a retirementExtension case for authored-0000, who holds no retirement record$/ }, // save.ts:10295
   { name: 'retired lifecycle cannot own active writing', corrupt: (state, id) => ({ ...state, careerLifecycle: { ...state.careerLifecycle,
-    records: state.careerLifecycle.records.map(row => row.personId === id ? { ...row, status: 'retired', retiredWeek: state.market.tick } : row) } }) },
+    records: state.careerLifecycle.records.map(row => row.personId === id ? { ...row, status: 'retired', retiredWeek: state.market.tick } : row) } }),
+    refusal: /validateSaveV38: non-catalogue retirement is missing its exact finality$/ }, // professionHistory.ts:270
   { name: 'another person’s lifecycle record is not authority', corrupt: (state, id) => ({ ...state, careerLifecycle: { ...state.careerLifecycle,
-    records: state.careerLifecycle.records.map(row => row.personId === id ? { ...row, personId: state.talent.find(t => t.role === 'writer' && t.id !== id)!.id } : row) } }) },
+    records: state.careerLifecycle.records.map(row => row.personId === id ? { ...row, personId: state.talent.find(t => t.role === 'writer' && t.id !== id)!.id } : row) } }),
+    refusal: /validateSaveV36: talentMarket\.cases\[25\] is a retirementExtension case for authored-0000, who holds no retirement record$/ }, // save.ts:10295
   { name: 'wrong historical employer studio', corrupt: (state, id) => ({ ...state, hollywood: { ...state.hollywood!,
     employment: state.hollywood!.employment.map(row => row.terms.talentId === id && row.terms.endWeekExclusive === 312
-      ? { ...row, studioId: state.hollywood!.businesses[0]!.studioId } : row) } }) },
+      ? { ...row, studioId: state.hollywood!.businesses[0]!.studioId } : row) } }),
+    refusal: /validateSaveV9: script development invariant: active project "script-0000" writer is not contracted$/ }, // scriptDevelopment.ts:1118
   { name: 'historical employment did not cover commissioning', corrupt: (state, id) => ({ ...state, hollywood: { ...state.hollywood!,
     employment: state.hollywood!.employment.map(row => row.terms.talentId === id && row.terms.endWeekExclusive === 312
-      ? { ...row, terms: { ...row.terms, startWeek: 312 } } : row) } }) },
+      ? { ...row, terms: { ...row.terms, startWeek: 312 } } : row) } }),
+    refusal: /validateSaveV9: script development invariant: active project "script-0000" writer is not contracted$/ }, // scriptDevelopment.ts:1118
   { name: 'missing historical employment', corrupt: (state, id) => ({ ...state, hollywood: { ...state.hollywood!,
-    employment: state.hollywood!.employment.filter(row => row.terms.talentId !== id) } }) },
-  { name: 'new work begins at E', corrupt: (state, id) => changeProject(state, id, { commissionedWeek: 312 }) },
-  { name: 'future commission week', corrupt: (state, id) => changeProject(state, id, { commissionedWeek: 313 }) },
-  { name: 'due week is no longer in the future', corrupt: (state, id) => changeProject(state, id, { dueWeek: 312 }) },
-  { name: 'due week exceeds the ordinary draft bound', corrupt: (state, id) => changeProject(state, id, { dueWeek: 318 }) },
-  { name: 'unknown writer membership', corrupt: (state, id) => changeProject(state, id, { writerIds: [id, 'missing-writer'] }) },
+    employment: state.hollywood!.employment.filter(row => row.terms.talentId !== id) } }),
+    refusal: /validateSaveV9: script development invariant: active project "script-0000" writer is not contracted$/ }, // scriptDevelopment.ts:1118
+  { name: 'new work begins at E', corrupt: (state, id) => changeProject(state, id, { commissionedWeek: 312 }),
+    refusal: /validateSaveV9: script development invariant: active project "script-0000" writer is not contracted$/ }, // scriptDevelopment.ts:1118
+  { name: 'future commission week', corrupt: (state, id) => changeProject(state, id, { commissionedWeek: 313 }),
+    refusal: /validateSaveV9: script development invariant: project "script-0000" has an invalid or future commission week$/ }, // scriptDevelopment.ts:996
+  { name: 'due week is no longer in the future', corrupt: (state, id) => changeProject(state, id, { dueWeek: 312 }),
+    refusal: /validateSaveV9: script development invariant: drafting project "script-0000" has an invalid due week$/ }, // scriptDevelopment.ts:1020
+  { name: 'due week exceeds the ordinary draft bound', corrupt: (state, id) => changeProject(state, id, { dueWeek: 318 }),
+    refusal: /validateSaveV9: script development invariant: drafting project "script-0000" has an invalid due week$/ }, // scriptDevelopment.ts:1020
+  { name: 'unknown writer membership', corrupt: (state, id) => changeProject(state, id, { writerIds: [id, 'missing-writer'] }),
+    refusal: /validateSaveV9: script development invariant: project "script-0000" references unknown writer "missing-writer"$/ }, // scriptDevelopment.ts:1113
   { name: 'uncontracted second writer without retirement authority', corrupt: (state, id) => changeProject(state, id, {
     writerIds: [id, anotherUncontractedWriter(state, id)],
-  }) },
-  { name: 'duplicate writer membership', corrupt: (state, id) => changeProject(state, id, { writerIds: [id, id] }) },
-  { name: 'attributed writer is missing from membership', corrupt: (state, id) => changeProject(state, id, { writerIds: [] }) },
+  }), refusal: /validateSaveV9: script development invariant: active project "script-0000" writer is not contracted$/ }, // scriptDevelopment.ts:1118
+  { name: 'duplicate writer membership', corrupt: (state, id) => changeProject(state, id, { writerIds: [id, id] }),
+    refusal: /validateSaveV9: state\.scriptDevelopment\.projects\[0\]\.writerIds\[1\] is duplicated$/ }, // save.ts:3532
+  { name: 'attributed writer is missing from membership', corrupt: (state, id) => changeProject(state, id, { writerIds: [] }),
+    refusal: /validateSaveV9: state\.scriptDevelopment\.projects\[0\]\.writerIds must hold between 1 and 5 writers$/ }, // save.ts:3526
   { name: 'reservation belongs to another project', corrupt: (state, id) => changeProject(state, id, {
     reservation: { ...writeProject(state, id).reservation!, projectId: 'script-9999' },
-  }) },
+  }), refusal: /validateSaveV9: script development invariant: project "script-0000" reservation owner disagrees$/ }, // scriptDevelopment.ts:919
   { name: 'reservation slot is outside capacity', corrupt: (state, id) => changeProject(state, id, {
     reservation: { ...writeProject(state, id).reservation!, slot: 999 },
-  }) },
-  { name: 'unknown concept reference', corrupt: (state, id) => changeProject(state, id, { conceptId: 'missing-concept' }) },
+  }), refusal: /validateSaveV9: script development invariant: project "script-0000" reservation slot is outside facility capacity$/ }, // scriptDevelopment.ts:932
+  { name: 'unknown concept reference', corrupt: (state, id) => changeProject(state, id, { conceptId: 'missing-concept' }),
+    refusal: /validateSaveV9: script development invariant: project "script-0000" references unknown concept$/ }, // scriptDevelopment.ts:984
   { name: 'duplicate active project cannot borrow the same writer or slot', corrupt: (state, id) => ({ ...state,
     scriptDevelopment: { ...state.scriptDevelopment, projects: [...state.scriptDevelopment.projects, { ...writeProject(state, id), id: 'script-0001' }] },
-  }) },
+  }), refusal: /validateSaveV9: script development invariant: duplicate concept link "concept-orig-0000"$/ }, // scriptDevelopment.ts:980
 ]
 
 describe('880-B live allowance stays narrowly scoped', () => {
-  it.each(invalidCases)('refuses $name without altering caller bytes', ({ corrupt }) => {
+  it.each(invalidCases)('refuses $name without altering caller bytes', ({ corrupt, refusal }) => {
     const f = finishingWriter(), state = corrupt(f.finishing, f.writerId), input = envelope(state), before = stableStringify(input)
-    expect(() => validateSaveV43(input)).toThrow()
+    expect(() => validateSaveV44(input)).toThrow(refusal)
     expect(stableStringify(input)).toBe(before)
   })
 
@@ -229,7 +247,9 @@ describe('880-B live allowance stays narrowly scoped', () => {
     // branch, so it cannot borrow retirement to become lawful here.
     const illegal = { ...terminated, concepts: f.commissioned.concepts, scriptDevelopment: f.commissioned.scriptDevelopment,
       originalScreenplays: f.commissioned.originalScreenplays }
-    expect(() => validateSaveV43(envelope(illegal))).toThrow()
+    // 1358-N S8: the grafted draft's writer holds no contract and no retirement authority on this
+    // branch (src/core/scriptDevelopment.ts:1118). Measured by the 1358-X6 message probe (N-0470).
+    expect(() => validateSaveV44(envelope(illegal))).toThrow(/validateSaveV9: script development invariant: active project "script-0000" writer is not contracted$/)
     expect(() => applyActions(terminated, [originalCommission(f.writerId)])).toThrow()
   })
 
@@ -238,8 +258,10 @@ describe('880-B live allowance stays narrowly scoped', () => {
     const input = envelope({ ...f.finishing, scriptDevelopment: { ...f.finishing.scriptDevelopment,
       projects: f.finishing.scriptDevelopment.projects.map(row => ({ ...row, retirementBypass: true })),
     } })
-    expect(() => validateSaveV43(input)).toThrow()
-    expect(() => validateSaveV43({ ...envelope(f.finishing), retirementBypass: true })).toThrow()
+    // 1358-N S8: the V9 project key set refuses the extra key (src/core/save.ts:3371). Measured by
+    // the 1358-X6 message probe (N-0472).
+    expect(() => validateSaveV44(input)).toThrow(/validateSaveV9: state\.scriptDevelopment\.projects\[0\] has unknown field "retirementBypass"$/)
+    expect(() => validateSaveV44({ ...envelope(f.finishing), retirementBypass: true })).toThrow(/^validateSaveV12: save has unknown field "retirementBypass"$/)
   })
 
   it('frozen public V36 stays strict, and an exceptional current save cannot silently downgrade', () => {
@@ -249,9 +271,20 @@ describe('880-B live allowance stays narrowly scoped', () => {
     expect(() => validateSaveV36({ ...old.commissioned, saveVersion: 36 })).not.toThrow()
     expect(() => validateSaveV36({ ...old.finishing, saveVersion: 36 })).toThrow(/not contracted/i)
     expect(convertV37ToV36(old.commissioned).saveVersion).toBe(36)
+    // 1358-N S9: the V36 extension guard on its own era's input (src/core/save.ts:10382-10388).
+    // The genuine pair's commissioned311 save holds authored-0000's open retirementExtension case,
+    // opened at week 300, and the real convertV37ToV36 carries it to V36. The two downgrade leaves of
+    // tests/p14c2b-save-v36.test.ts name this assertion, since Save44 now stops their live chains.
+    expect(() => convertV36ToV35(convertV37ToV36(old.commissioned))).toThrow(/^migrateToV35: cannot downgrade SaveFileV36 or discard the retirement extension \u2014 it holds 1 retirementExtension case\(s\) and 0 used extension\(s\) \(first: authored-0000\), and V35 has nowhere to record the one final extension$/)
     expect(() => convertV37ToV36(old.finishing)).toThrow(/not contracted/i)
     const current = makeSave(f.finishing), before = stableStringify(current)
-    expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(current)))))))).toThrow()
+    // 1358-N S9 (MASKED): the finishing state's romance track on relationship-edge-0 makes Save44's
+    // convertV44ToV43 refuse first (src/core/save.ts:10790). That masks the V39 guard that fired first
+    // under Save43 (save.ts:10600-10602, 1344-X12 §4) and the frozen V36 refusal this title names,
+    // which the convertV37ToV36(old.finishing) assertion above covers on the genuine V37 pair.
+    // Measured by the 1358-X6 message probe (N-0476). The V39 guard stays covered on V40 input by
+    // tests/p14p4p5-opportunities.test.ts Q03 (:336) and exactly by tests/p13b-s3-save-v23.test.ts:115-117.
+    expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(current))))))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)
     expect(stableStringify(current)).toBe(before)
   })
 
@@ -275,8 +308,9 @@ describe('880-B live allowance stays narrowly scoped', () => {
       records: f.finishing.careerLifecycle.records.filter(row => row.personId !== f.writerId) } })
     const legalBefore = stableStringify(legal), illegalBefore = stableStringify(illegal)
     for (let round = 0; round < 2; round++) {
-      expect(() => validateSaveV43(legal)).not.toThrow()
-      expect(() => validateSaveV43(illegal)).toThrow()
+      expect(() => validateSaveV44(legal)).not.toThrow()
+      // 1358-D9 R2 (S8): `illegal` is N-0468 case 1's input, so it takes that case's measured refusal.
+      expect(() => validateSaveV44(illegal)).toThrow(/validateSaveV36: talentMarket\.cases\[25\] is a retirementExtension case for authored-0000, who holds no retirement record$/) // save.ts:10295
       expect(() => validateSaveV36({ ...historicalWriterPair().finishing, saveVersion: 36 })).toThrow(/not contracted/i)
     }
     expect(stableStringify(legal)).toBe(legalBefore)
@@ -342,7 +376,7 @@ describe('880-B malformed authority refuses before live work, not only at persis
       // The unmodified real state and this same live entrypoint are admissible.
       expect(() => caller.run(f.state, f.youngId)).not.toThrow()
       const invalid = corrupt(f.state, f.retiringId), before = structuredClone(invalid)
-      expect(() => validateSaveV43(envelope(invalid)), 'existing full-save refusal is a control').toThrow()
+      expect(() => validateSaveV44(envelope(invalid)), 'existing full-save refusal is a control').toThrow()
       expect(() => caller.run(invalid, f.youngId), 'live permission must also reject malformed authority').toThrow()
       // Compare in memory so NaN and signed zero are not hidden by JSON encoding.
       expect(invalid).toEqual(before)

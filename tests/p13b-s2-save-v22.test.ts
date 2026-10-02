@@ -205,13 +205,13 @@ describe('P13B-S2 V21 to V22 migration (test 8)', () => {
 describe('P13B-S2 envelope law at the live writer (test 8)', () => {
   it('makeSave always writes the live saveVersion 37 (stale title corrected post-C.4)', () => {
     const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz')))
-    expect(makeSave(live(migrated)).saveVersion).toBe(43)
+    expect(makeSave(live(migrated)).saveVersion).toBe(44)
   })
 
-  it('refuses an unknown saveVersion 43 with the updated range (stale number corrected post-C.2b)', () => {
+  it('refuses an unknown saveVersion 45 with the updated range (stale number corrected post-C.2b)', () => {
     const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz')))
     const save = makeSave(live(migrated))
-    expect(() => validateSave({ ...save, saveVersion: 44 })).toThrow(/versions 1 through 43 only/)
+    expect(() => validateSave({ ...save, saveVersion: 45 })).toThrow(/versions 1 through 44 only/)
   })
 
   it('round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV32 byte-identically', () => {

@@ -207,12 +207,12 @@ describe('P13B-S5 Save V24 (test 4)', () => {
   // AMENDED AGAIN (P13B-S6 live-version sweep, 2026-09-17): `makeSave` moved to
   // the live V26 boundary; this section moved with it a second time.
   it('makeSave writes the live saveVersion 37 (stale title corrected post-C.4)', () => {
-    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(43)
+    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(44)
   })
 
-  it('an unknown saveVersion 44 is refused, naming the handled range "1 through 43 only" (stale numbers corrected post-C.2b)', () => {
-    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 44 }
-    expect(() => validateSave(forged as never)).toThrow(/versions 1 through 43 only/)
+  it('an unknown saveVersion 45 is refused, naming the handled range "1 through 44 only" (stale numbers corrected post-C.2b)', () => {
+    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 45 }
+    expect(() => validateSave(forged as never)).toThrow(/versions 1 through 44 only/)
   })
 
   it('save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational', () => {

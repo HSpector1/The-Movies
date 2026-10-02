@@ -183,8 +183,8 @@ describe('API decisions this file exercises (asserted to exist first, per PITFAL
     const fn = (hollywoodPolicy as unknown as Record<string, unknown>).searchIndustryPackages
     expect(typeof fn).toBe('function')
   })
-  it('save.ts LIVE_SAVE_VERSION is 43, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist', () => {
-    expect(saveModule.LIVE_SAVE_VERSION).toBe(43)
+  it('save.ts LIVE_SAVE_VERSION is 44, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist', () => {
+    expect(saveModule.LIVE_SAVE_VERSION).toBe(44)
     const mods = saveModule as unknown as Record<string, unknown>
     expect(typeof mods.validateSaveV43).toBe('function')
     expect(typeof mods.convertV42ToV43).toBe('function')
@@ -557,9 +557,16 @@ describe('shelving-viable-control (1344-F Amendment 2)', () => {
     // 93 is the last week on this route with no shelving yet, so it is the correct
     // control point: a genuine pre-shelving Save42 input minted at week 93 (1344-P2).
     manifestPin93()
-    const mods = saveModule as unknown as { convertV42ToV43: (s: unknown) => { state: GameState } }
+    const mods = saveModule as unknown as {
+      convertV42ToV43: (s: unknown) => { state: GameState }
+      convertV43ToV44: (s: unknown) => { state: GameState }
+    }
     const genuineV43 = mods.convertV42ToV43(genuineV42Week93())
-    const genuineState = genuineV43.state
+    // 1358-N S5 (1358-F10 ruling 9): Save44 gives every edge `competitions` and `romance`, so the
+    // genuine input is lifted once more through production's own convertV43ToV44. The control
+    // asserts the candidate holds no log row and sets its romance tracks to the lift's null
+    // below (1358-F12 ruling 7; 1358-D9b N1).
+    const genuineState = mods.convertV43ToV44(genuineV43).state
     let state = HARNESS_GENESIS()
     for (let week = 0; week < 93; week++) state = tick(state)
     expect(state.market.tick).toBe(93)
@@ -601,7 +608,14 @@ describe('shelving-viable-control (1344-F Amendment 2)', () => {
     const canon = (v: unknown): unknown => Array.isArray(v) ? v.map(canon)
       : v !== null && typeof v === 'object' ? Object.fromEntries(Object.keys(v as object).sort().map(k => [k, canon((v as Record<string, unknown>)[k])]))
       : v
-    expect(JSON.stringify(canon(strip(state)))).toBe(JSON.stringify(canon(strip(genuineState))))
+    // 1358-F12: Save44's romance law writes tracks on the route's own pairs, 15 of them by week 93
+    // (1358-X8 probe 4), which a genuine Save42 input cannot hold. As this control already takes Save43's
+    // shelving root out, it takes slice B's two edge roots out of the candidate too: the log is still
+    // empty at week 93 (asserted) and each track is set to the lift's null. Everything else must match
+    // byte for byte. Slice B's tracks are measured by its own tests and by 1358-M2's routes.
+    const withoutSliceB = (s: GameState) => ({ ...s, relationships: (s.relationships ?? []).map(e => ({ ...e, competitions: [], romance: null })) })
+    expect((state.relationships ?? []).every(e => e.competitions.length === 0)).toBe(true)
+    expect(JSON.stringify(canon(strip(withoutSliceB(state))))).toBe(JSON.stringify(canon(strip(genuineState))))
     expect(state.hollywood!.receipts).toEqual(genuineState.hollywood!.receipts)
     // Premise, derived from the CANDIDATE's own receipts (never a hard-coded shelving
     // week, per 1344-F3): no screenplayShelved receipt has accumulated by week 93 on
@@ -977,8 +991,8 @@ describe('shelving-chart-output (1344-A §6.8)', () => {
     const releasedSimulationCount = h.films.filter(f => f.studioId === RIVAL && f.provenance === 'simulation/v1' && f.result.releaseTick < state.market.tick).length
     expect(authoredCount, 'route premise: r01 has its two canonical starting (authored) films').toBe(2)
     expect(row!.output).toBe(releasedSimulationCount + authoredCount)
-    const mods = saveModule as unknown as { validateSaveV43: (s: unknown) => unknown }
-    expect(() => mods.validateSaveV43(saveModule.makeSave(state))).not.toThrow()
+    const mods = saveModule as unknown as { validateSaveV44: (s: unknown) => unknown }
+    expect(() => mods.validateSaveV44(saveModule.makeSave(state))).not.toThrow()
   }, 20_000)
 })
 

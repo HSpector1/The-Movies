@@ -39,11 +39,11 @@ type V43ModuleShape = {
 const mods = () => saveModule as unknown as V43ModuleShape
 /** Bare `TUNING.HOLLYWOOD_SHELVE_AFTER_REJECTIONS` access is a real, expected tsc
  * TS2339 until tuning.ts adds it (see the handback's type-gate section). */
-const TUNING_FUTURE = TUNING as unknown as { HOLLYWOOD_SHELVE_AFTER_REJECTIONS: number }
+const TUNING_FUTURE = TUNING as unknown as { HOLLYWOOD_SHELVE_AFTER_REJECTIONS: number; HOLLYWOOD_SHELVED_RETRY_WEEKS: number; HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS: number }
 
 describe('API decisions this file exercises (existence asserted first)', () => {
-  it('validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist as functions; LIVE_SAVE_VERSION is 43', () => {
-    expect(saveModule.LIVE_SAVE_VERSION).toBe(43)
+  it('validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist as functions; LIVE_SAVE_VERSION is 44', () => {
+    expect(saveModule.LIVE_SAVE_VERSION).toBe(44)
     expect(typeof mods().validateSaveV43).toBe('function')
     expect(typeof mods().convertV42ToV43).toBe('function')
     expect(typeof mods().convertV43ToV42).toBe('function')
@@ -79,10 +79,10 @@ describe('save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration', () => {
     }
   })
 
-  it('migrateToLive carries a genuine V42 save to V43 (LIVE_SAVE_VERSION)', () => {
+  it('migrateToLive carries a genuine V42 save to V44 (LIVE_SAVE_VERSION)', () => {
     const v42 = saveModule.importSave(week130Raw())
     const live = migrateToLive(v42)
-    expect((live as unknown as { saveVersion: number }).saveVersion).toBe(43)
+    expect((live as unknown as { saveVersion: number }).saveVersion).toBe(44)
   })
 })
 
@@ -238,17 +238,25 @@ describe('save-v43-shelving: down-conversion (convertV43ToV42)', () => {
   it('refuses a real shelved entry (with its receipt) by name', () => {
     const env = JSON.parse(week130Raw()) as { saveVersion: number
       state: { hollywood: { businesses: { studioId: string; activeScriptOrdinals: number[]
-        development: { projects: { id: string }[] }; screenplayShelving?: unknown }[]
+        development: { projects: { id: string }[] }; projects: { conceptId: string }[]; screenplayShelving?: unknown }[]
         receipts: unknown[]; nextReceipt: number } } }
     env.saveVersion = 43
     for (const b of env.state.hollywood.businesses) b.screenplayShelving = { ...EMPTY_SHELVING }
     const b = env.state.hollywood.businesses.find(row => row.studioId === RIVAL_R01)!
     b.activeScriptOrdinals = b.activeScriptOrdinals.filter(i => i !== 6)
-    b.screenplayShelving = { version: 1, rejections: [], shelved: [{ ordinal: 6, week: 130, retryWeek: 200 }], commissionHoldUntilWeek: 0 }
+    // 1358-D9 R4: the shelved entry and the commission hold take the engine's own writes at week 130
+    // (src/core/hollywoodTick.ts:279-280), as an own-era cover must.
+    b.screenplayShelving = { version: 1, rejections: [], shelved: [{ ordinal: 6, week: 130, retryWeek: 130 + TUNING_FUTURE.HOLLYWOOD_SHELVED_RETRY_WEEKS }],
+      commissionHoldUntilWeek: 130 + TUNING_FUTURE.HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS }
     env.state.hollywood.receipts.push({ eventId: `industry-event-${env.state.hollywood.nextReceipt}`, week: 130,
-      studioId: RIVAL_R01, kind: 'screenplayShelved', scriptProjectId: b.development.projects[6]!.id, conceptId: 'x', rejections: TUNING_FUTURE.HOLLYWOOD_SHELVE_AFTER_REJECTIONS })
+      studioId: RIVAL_R01, kind: 'screenplayShelved', scriptProjectId: b.development.projects[6]!.id, conceptId: b.projects[6]!.conceptId, rejections: TUNING_FUTURE.HOLLYWOOD_SHELVE_AFTER_REJECTIONS })
     env.state.hollywood.nextReceipt += 1
-    expect(() => mods().convertV43ToV42(env)).toThrow(/shelv/i)
+    // 1358-F11: the receipt names the business's own costed concept. The old conceptId 'x' was
+    // refused inside validateSaveV43 (src/core/hollywoodValidation.ts:539) before the guard ran, and
+    // the loose /shelv/i hid it (1358-X7t probe F2-RECEIPT43). The pin is convertV43ToV42's receipt
+    // guard (src/core/save.ts:10739-10740). This leaf is now that guard's own-era cover, which the
+    // J7, X5 and O3 chains of the p14c3 cohort, dual and off-menu files reached first under Save43.
+    expect(() => mods().convertV43ToV42(env)).toThrow(/^migrateToV42: cannot downgrade or discard a screenplayShelved receipt$/)
   })
 
   it('refuses a nonzero commissionHoldUntilWeek by name', () => {

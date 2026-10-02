@@ -58,7 +58,7 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
     const addedFields = (promise: Record<string, unknown>) => ({ ...promise, supersededByPromiseId: null })
     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
       const governed = migrateToLive(importSave(before[slot]))
-      expect(governed.saveVersion).toBe(43)
+      expect(governed.saveVersion).toBe(44)
       const source = JSON.parse(before[slot])
       // 763-R8 (P14C.1, R-VERSION): the governed lift now also writes C.1's provenance
       // root and FLOORS every stored age against it — the first step in this chain that
@@ -89,7 +89,8 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
       // 1344-N S2+S5 (x2 at a318722, :81 measured `"saveVersion": 42` -> 43 and `+ "screenplayShelving"`
       // {version 1, rejections [], shelved [], commissionHoldUntilWeek 0} on each of the four rival
       // businesses, nothing else): the live writer stamps 43, and the lift adds the empty shelving root.
-      expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 43, state: withEmptyScreenplayShelving({ ...source.state,
+      // 1358-N S2: Save44 stamps 44; its edge fields add nothing here, as `relationships` stays [].
+      expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 44, state: withEmptyScreenplayShelving({ ...source.state,
         relationships: [], promises: (source.state.promises as Record<string, unknown>[]).map(addedFields),
         talent: sourcePeople.map((person) => ({ ...person, age: Math.floor(person.age) })),
         talentProvenance: buildTalentProvenance(sourcePeople, source.state.market.tick as number, 'legacy_age_anchor'),

@@ -172,7 +172,10 @@ function liftForTick(migrated: { envelope: Envelope; state: ProvenanceState }): 
   // `tick()` now reads `business.screenplayShelving.shelved`/`.rejections` on
   // every rival business (convertV42ToV43, save.ts:10678-10686), so every
   // lifted state needs the V43 root too.
-  const live = SaveModule.convertV42ToV43(SaveModule.convertV41ToV42(SaveModule.convertV40ToV41(v40)))
+  // 1358-N S5 (1358-J 3e): one further governed step to the true live boundary,
+  // Save44's `competitions` and `romance` on every edge (convertV43ToV44,
+  // save.ts:10776-10781), which the live validator requires.
+  const live = SaveModule.convertV43ToV44(SaveModule.convertV42ToV43(SaveModule.convertV41ToV42(SaveModule.convertV40ToV41(v40))))
   return { envelope: live, state: withProvenance(live.state as object) }
 }
 
@@ -1027,6 +1030,6 @@ describe('13. provenance is written at the append, not the mint call', () => {
 // P14C.2a (776 S10): C.1 landed at 33 as this test predicted, then C.2a bumped once more.
 describe('save version bump (contract §6)', () => {
   it('LIVE_SAVE_VERSION is 37 once C.2b lands (was 35 after C.4, was 34 after C.2a)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(43)
+    expect(LIVE_SAVE_VERSION).toBe(44)
   })
 })

@@ -54,7 +54,7 @@ import {
   RELATIONSHIP_SUCCESS_CRITIC_SCORE, RELATIONSHIP_SUCCESS_DELTA, RELATIONSHIP_TIER_FLOOR,
   advanceRelationshipsWeek, currentCloseness, currentTier, pairChemistry, validateRelationshipsRoot,
 } from '../src/core/relationships.js'
-import { LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV43 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV44 } from '../src/core/save.js'
 import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
 import { tick } from '../src/core/tick.js'
 import type { FilmResult, GameState, Production, RelationshipDriver, RelationshipEdge } from '../src/core/types.js'
@@ -114,13 +114,13 @@ function shoot(state: GameState, studioId: string, q: Quartet, week: number, pro
   const production = shot(productionId, q, conceptId)
   const staged = appendFirstTakes(at(state, week), [{ studioId, production }], week) // the REAL receipt writer
   const written = advanceRelationshipsWeek(staged, { takes: [{ studioId, production }], releases: [] }, week)
-  validateRelationshipsRoot(written, 42)
+  validateRelationshipsRoot(written, 44)
   return written
 }
 function release(state: GameState, week: number, productionId: string, criticScore: number): GameState {
   const film = { productionId, criticScore } as unknown as FilmResult // the two fields the release join reads
   const written = advanceRelationshipsWeek(at(state, week), { takes: [], releases: [film] }, week)
-  validateRelationshipsRoot(written, 42)
+  validateRelationshipsRoot(written, 44)
   return written
 }
 
@@ -292,7 +292,7 @@ describe('CONSTRUCTED group 2 — POSITIVE CONTROL: the success driver, the prox
     const trail = driveChain(stagedWorld(), STAGED_STUDIO, STAGED, STAGED_FIRST_WEEK, productions, HIT_SCORE)
     // The band is always the owner's read; only the VALUE comes from the constant-derived model.
     const topOf = (rows: { label: string; week: number; closeness: number }[]): string | undefined =>
-      rows.find((r) => currentTier({ closeness: r.closeness, lastEventWeek: r.week, sharedCompetitions: 0 }, r.week) === 'Inseparable')?.label // 1348-C5/1348-F4 item 2: sharedCompetitions is type-only here (evidence never gates the Inseparable band); runtime result unchanged, confirmed by re-running this file before/after
+      rows.find((r) => currentTier({ closeness: r.closeness, lastEventWeek: r.week, sharedCompetitions: 0, romance: null }, r.week) === 'Inseparable')?.label // 1348-C5/1348-F4 item 2: sharedCompetitions is type-only here (evidence never gates the Inseparable band); runtime result unchanged, confirmed by re-running this file before/after; 1358-N S6: likewise `romance: null` (no bond, so no drift exemption)
     for (const seat of seats(STAGED)) {
       const predicted = topOf(expectedTrail(seat.weight, SUCCESS_DELTA, STAGED_FIRST_WEEK, productions))
       assert.ok(predicted, `premise: the ${String(seat.weight)}-weight pair does not top the ladder within ${String(productions)} pictures`)
@@ -370,7 +370,7 @@ describe('CONSTRUCTED group 4 — DRIFT IS READ-ONLY AND UNCHANGED by this tunin
     expect(JSON.stringify(edge)).toBe(snapshot)
     expect(rootBytes(state)).toBe(before)
     expect({ productions: edge.sharedProductions, failures: edge.sharedFailures, first: edge.firstSharedWeek, peak: edge.peakTier })
-      .toEqual({ productions: 2, failures: 2, first: STAGED_FIRST_WEEK, peak: currentTier({ closeness: clamp(RELATIONSHIP_BASELINE + LOW), lastEventWeek: STAGED_FIRST_WEEK, sharedCompetitions: 0 }, STAGED_FIRST_WEEK) }) // 1348-C5/1348-F4 item 2: sharedCompetitions is type-only here; runtime result unchanged, confirmed by re-running this file before/after
+      .toEqual({ productions: 2, failures: 2, first: STAGED_FIRST_WEEK, peak: currentTier({ closeness: clamp(RELATIONSHIP_BASELINE + LOW), lastEventWeek: STAGED_FIRST_WEEK, sharedCompetitions: 0, romance: null }, STAGED_FIRST_WEEK) }) // 1348-C5/1348-F4 item 2: sharedCompetitions is type-only here; runtime result unchanged, confirmed by re-running this file before/after; 1358-N S6: likewise `romance: null` (no bond, so no drift exemption)
   })
 })
 
@@ -410,7 +410,7 @@ describe('CONSTRUCTED group 6 — SAVE AND LOAD ACROSS THE CHANGE: historical de
     expect(written.every((row) => row.includes(FAIL_DELTA))).toBe(true) // the chain really recorded failures
     const save = makeSave(state)
     expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
-    expect(validateSaveV43(save)).toEqual(save)
+    expect(validateSaveV44(save)).toEqual(save)
     const migrated = migrateToLive(save)
     expect(JSON.stringify(migrated.state.relationships)).toBe(JSON.stringify(save.state.relationships))
     expect(migrated.state.relationships.map((e) => e.recent.map((d) => d.delta))).toEqual(written)
@@ -430,12 +430,12 @@ describe('CONSTRUCTED group 6 — SAVE AND LOAD ACROSS THE CHANGE: historical de
       recent: edge.recent.map((d: RelationshipDriver) => (d.kind === 'sharedFailure' ? { ...d, delta: historicalDelta } : d)),
     })
     const historical = { ...chain.at(-1)!.state, relationships: edgesOf(chain.at(-1)!.state).map(restamp) } as GameState
-    expect(() => { validateRelationshipsRoot(historical, 42) }).not.toThrow()
+    expect(() => { validateRelationshipsRoot(historical, 44) }).not.toThrow()
     const save = makeSave(historical)
     const carried = save.state.relationships.flatMap((e) => e.recent.filter((d) => d.kind === 'sharedFailure').map((d) => d.delta))
     expect(carried.length).toBeGreaterThan(0)
     expect(new Set(carried)).toEqual(new Set([historicalDelta]))
-    const migrated = migrateToLive(validateSaveV43(save))
+    const migrated = migrateToLive(validateSaveV44(save))
     expect(JSON.stringify(migrated.state.relationships)).toBe(JSON.stringify(save.state.relationships))
     expect(migrated.state.relationships.flatMap((e) => e.recent.filter((d) => d.kind === 'sharedFailure').map((d) => d.delta)))
       .toEqual(carried)
@@ -486,6 +486,6 @@ describe('NATURAL WORLD group 7 — one standard seed, what is TRUE and nothing 
       expect(edge.sharedFailures).toBe(was.sharedFailures + 1)
       expect(edge.lastEventWeek).toBe(week)
     }
-    validateRelationshipsRoot(state, 42)
+    validateRelationshipsRoot(state, 44)
   })
 })

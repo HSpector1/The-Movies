@@ -17,7 +17,7 @@ import { decodeBridgeRuntimeCheckpoint, encodeBridgeRuntimeCheckpoint, loadBridg
 import { caseDisclosure } from '../src/core/talentMarket.js'
 import { activeContract } from '../src/core/employment.js'
 import { trustDescriptor } from '../src/core/promises.js'
-import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV39, validateSaveV43 } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV39, validateSaveV44 } from '../src/core/save.js'
 import type { GameState, ProfessionalPromise } from '../src/core/types.js'
 
 const TIMEOUT = 60_000
@@ -58,12 +58,18 @@ function withEmptyScreenplayShelving<T extends WithScreenplayShelvingBusinesses>
   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map(business => ({
     ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
 }
+// 1358-N S5: Save44 gives every relationship edge an empty `competitions` log and a null `romance`
+// (convertV43ToV44); a genuine V43-or-older old.state never carried either.
+type WithEdgeLogAndRomance = { relationships: readonly { competitions?: readonly unknown[]; romance?: unknown }[] }
+function withEmptyCompetitionsAndRomance<T extends WithEdgeLogAndRomance>(state: T): T {
+  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, competitions: [], romance: null })) }
+}
 const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
 const bytes = (state: GameState): string => exportSave(makeSave(state))
 const viewer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }
 function full(state: GameState): string {
   const before = stableStringify(state), save = makeSave(state)
-  expect(save.saveVersion).toBe(43); expect(validateSaveV43(save)).toBe(save)
+  expect(save.saveVersion).toBe(44); expect(validateSaveV44(save)).toBe(save)
   const raw = exportSave(save); expect(exportSave(importSave(raw))).toBe(raw)
   expect(stableStringify(state)).toBe(before); return raw
 }
@@ -89,8 +95,8 @@ function input45(): GameState {
       'e7401f2578a7ad151383ca905df4253c2bbd82d6823c406c28b7e76aa809c5af')
     const parsed: unknown = JSON.parse(raw), old = validateSaveV39(parsed)
     expect(old).toBe(parsed); expect(exportSave(old)).toBe(raw)
-    const current = migrateToLive(old); expect(current.saveVersion).toBe(43)
-    expect(current.state).toEqual({ ...withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state))), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
+    const current = migrateToLive(old); expect(current.saveVersion).toBe(44)
+    expect(current.state).toEqual({ ...withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
     expect(current.state.market.tick).toBe(45); expect(current.state.promises).toEqual([])
     expect(current.state.scriptDevelopment.projects.map(p => [p.id, p.status, p.productionId]))
       .toEqual([['script-0000', 'ready', null], ['script-0001', 'ready', null]])
@@ -484,8 +490,8 @@ describe('P4/P5 closed Bridge material and outgoing runtime authority', () => {
     const old = prior54(), preimage = canonicalJson(old.value), factory = vi.fn(() => '1236-prior54')
     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
     expect(loaded.migratedFromProtocolVersion).toBe(4); expect(factory).toHaveBeenCalledTimes(1)
-    expect(PROTOCOL_VERSION).toBe(4); expect(PROJECTION_VERSION).toBe(56)
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-56')
+    expect(PROTOCOL_VERSION).toBe(4); expect(PROJECTION_VERSION).toBe(57)
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-57')
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v54']])
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     const older = [...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id !== OLD_SCHEMA)
@@ -500,20 +506,22 @@ describe('P4/P5 closed Bridge material and outgoing runtime authority', () => {
     // separators=(',', ':')) to match canonicalJson's compact array-of-tuples
     // encoding exactly (canonicalize() only sorts object keys, never reorders
     // array elements, and this array has no object elements to sort).
-    expect(older).toHaveLength(43)
-    expect(sha(canonicalJson(older))).toBe('f62253f540a1b498e953cfb22b9558ca70131a14ef4754352457e75d0f6c13da')
+    // 1358-N P2: outgoing56 (projection-v56) is registered too, so the older count
+    // grows to 44; the digest is recomputed by the same method.
+    expect(older).toHaveLength(44)
+    expect(sha(canonicalJson(older))).toBe('afae82e478438adcd177592fca60fc283c0e73bdc5eefc1101a8115de28cce58')
     const current = loaded.hydrated.checkpoint
     expect(current).toMatchObject({ schemaId: SCHEMA_ID, sessionId: '1236-prior54', stateRevision: 0, journal: [], journalDigest: sha('[]') })
     expect(current.sessionId).not.toBe(old.value.sessionId)
     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
       assert.ok(current[slot])
-      const previous = validateSaveV39(JSON.parse(old.value[slot])), now = validateSaveV43(JSON.parse(current[slot]!))
-      expect(now.state).toEqual({ ...withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(previous.state))), firstTakeSubjects: { version: 1, cutoverOrdinal: 25, facts: [] } })
+      const previous = validateSaveV39(JSON.parse(old.value[slot])), now = validateSaveV44(JSON.parse(current[slot]!))
+      expect(now.state).toEqual({ ...withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(previous.state)))), firstTakeSubjects: { version: 1, cutoverOrdinal: 25, facts: [] } })
       expect(current[slot]).toBe(exportSave(migrateToLive(previous))); full(now.state)
     }
     expect(current.currentSaveJson).not.toBe(current.savedSaveJson)
-    const currentState = validateSaveV43(JSON.parse(current.currentSaveJson)).state
-    const savedState = validateSaveV43(JSON.parse(current.savedSaveJson!)).state
+    const currentState = validateSaveV44(JSON.parse(current.currentSaveJson)).state
+    const savedState = validateSaveV44(JSON.parse(current.savedSaveJson!)).state
     expect(root(currentState, 'promise-0')).toMatchObject({ outcome: 'WAIVED', progress: 1, supersededByPromiseId: 'promise-1' })
     expect(root(savedState, 'promise-0')).toMatchObject({ outcome: null, progress: 1, supersededByPromiseId: null })
     const currentRaw = encodeBridgeRuntimeCheckpoint(current), again = vi.fn(() => { throw new Error('current55 must not migrate again') })

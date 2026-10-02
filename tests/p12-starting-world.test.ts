@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { beginFounding, generateWorld, makeSave, exportSave, importSave, migrateToV25, migrateToLive, makeSaveV18, convertV41ToV40, convertV42ToV41, convertV43ToV42 } from '../src/core/index.js'
+import { beginFounding, generateWorld, makeSave, exportSave, importSave, migrateToV25, migrateToLive, makeSaveV18, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43 } from '../src/core/index.js'
 import { enterRival } from '../src/core/hollywood.js'
 import { persistedConceptIds, persistedProductionIds } from '../src/core/productionIdentity.js'
 
@@ -49,7 +49,10 @@ describe('R05 canonical starting history and genuine migration', () => {
     // 1309-X3 ruling 3: makeSaveV18 fed the raw live GameState now stops at the
     // V25 Hollywood exact-key check on the Save41 rival `termination` movement;
     // it receives the lawful V40 projection instead.
-    expect(()=>makeSaveV18(convertV41ToV40(convertV42ToV41(convertV43ToV42(makeSave(state)))).state)).toThrow(/cannot downgrade/)
+    // 1358-N S9, read from source (not measured): a founding state holds no relationship edge, so
+    // convertV44ToV43 passes; makeSaveV18 then refuses first on the authored rival teams' week-0 entrant
+    // anchors (src/core/professionHistory.ts:67, via save.ts:6191), ahead of its V19 Hollywood guard (:6194).
+    expect(()=>makeSaveV18(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(makeSave(state))))).state)).toThrow(/^makeSaveV18: cannot downgrade or discard profession transition, industry retirement or entrant authority$/)
     const saved=makeSave(state)
     const duplicate=structuredClone(saved)
     duplicate.state.hollywood!.films.push(duplicate.state.hollywood!.films[0]!)

@@ -76,9 +76,9 @@ import { castingDraftToEngine, castingProjection, castingQuoteSnapshot } from '.
 import type { BridgeCastingDraftPayload } from '../bridge/schema/bridge-schema.ts'
 import { applyActions } from '../src/core/actions.js'
 import { tick } from '../src/core/tick.js'
-import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV30, validateSaveV43 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV30, validateSaveV44 } from '../src/core/save.js'
 import { pairChemistry, RELATIONSHIP_TIERS } from '../src/core/relationships.js'
-import type { GameState, RelationshipDriver, RelationshipTier } from '../src/core/types.js'
+import type { GameState, RelationshipDriver, RelationshipEdge, RelationshipTier } from '../src/core/types.js'
 import { historyFixture, player, retentionFixture } from './helpers/p14b2-fixtures.js'
 import {
   availableConceptId, availableWriterId, commissionPayload, managedStudio, withCash,
@@ -99,8 +99,9 @@ const OUTGOING_52 = 'sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850
 const OUTGOING_53 = 'sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d' // P3: genuine1117 outgoing53
 const OUTGOING_54 = 'sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302' // P4/P5: genuine1221 outgoing54
 const OUTGOING_55 = 'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158' // R2/R3: genuine1307 outgoing55
+const OUTGOING_56 = 'sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1' // 1358-N P2: outgoing56, projection-v56 at bridge/runtime-checkpoint.ts:64
 const OUTGOING_PROJECTION = 48
-const INCOMING_PROJECTION = 56
+const INCOMING_PROJECTION = 57
 // The 36 accepted prior literals as they stand today (tests/bridge-p14b4-runtime47-compatibility.test.ts
 // :40-80, exact-count pin at :162). B.6 took this roster to 37 by adding OUTGOING_48;
 // B.8 takes it to 38 by adding OUTGOING_49.
@@ -151,6 +152,8 @@ type Edge = {
   // 1320-A S6: Save42 adds this exact counter to every edge at the live validator (era 42).
   sharedCompetitions: number
   peakTier: RelationshipTier; peakTierWeek: number; recent: RelationshipDriver[]
+  // 1358-N S6: Save44 adds the competitions log and the romance track to every edge (era 44).
+  competitions: RelationshipEdge['competitions']; romance: RelationshipEdge['romance']
 }
 const edges = (state: GameState): readonly Edge[] => (state as unknown as { relationships?: readonly Edge[] }).relationships ?? []
 const withRoot = (state: GameState, rows: readonly Edge[]): GameState =>
@@ -226,7 +229,7 @@ function everyBlock(state: GameState): { talentId: string; block: Block }[] {
 function admitted(state: GameState, label: string): GameState {
   const save = makeSave(state)
   expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
-  validateSaveV43(JSON.parse(JSON.stringify(save)))
+  validateSaveV44(JSON.parse(JSON.stringify(save)))
   expect(label.length).toBeGreaterThan(0)
   return save.state as GameState
 }
@@ -287,6 +290,7 @@ function stageEdge(world: CastingWorld, x: string, y: string, closeness: number,
     firstSharedWeek: week, lastEventWeek: week, sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0,
     sharedCancellations: 0, sharedCompetitions: 0, peakTier: tier, peakTierWeek: week,
     recent: [{ kind: 'sharedProduction', week, ref: 'staged-s2-production', delta: 2 }],
+    competitions: [], romance: null,
   }
   return admitted(withRoot(world.state, [...edges(world.state), edge]), 'S2')
 }
@@ -399,7 +403,8 @@ describe('family 1 — the PROFILE BLOCK (RED BY RESOLUTION: bridge/relationship
       // Deterministic, not Map/insertion dependent.
       expect(block.rows.map((r) => r.counterpartId)).toEqual([...block.rows.map((r) => r.counterpartId)].sort())
       for (const row of block.rows) {
-        expect(Object.keys(row).sort()).toEqual(['counterpartId', 'counterpartName', 'drivers', 'sharedPictures', 'sign', 'tierLabel'])
+        // 1358-N P3: projection 57 adds `labels` and `romance` to every row (bridge-schema.ts:2812, :2814).
+        expect(Object.keys(row).sort()).toEqual(['counterpartId', 'counterpartName', 'drivers', 'labels', 'romance', 'sharedPictures', 'sign', 'tierLabel'])
         // `tierLabel` is the ladder label, NEVER a number; null only where no edge exists.
         expect(typeof row.tierLabel === 'string' || row.tierLabel === null).toBe(true)
         if (row.tierLabel !== null) expect(RELATIONSHIP_TIERS).toContain(row.tierLabel)
@@ -776,7 +781,7 @@ describe('family 8 — the WIRE (RED BY VALUE: version literals and a registry c
     expect(PROTOCOL_VERSION).toBe(4)
     expect(PROJECTION_VERSION).toBe(INCOMING_PROJECTION)
     expect(OUTGOING_PROJECTION).toBe(48)
-    expect(LIVE_SAVE_VERSION).toBe(43) // B.6 has NO save step
+    expect(LIVE_SAVE_VERSION).toBe(44) // B.6 has NO save step
     expect(SCHEMA_ID).not.toBe(OUTGOING_48)
     expect(schemaIdentity(BRIDGE_SCHEMA)).toBe(SCHEMA_ID)
     expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-4:projection-${String(INCOMING_PROJECTION)}`)
@@ -788,10 +793,10 @@ describe('family 8 — the WIRE (RED BY VALUE: version literals and a registry c
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect(EXPECTED_36_PRIOR_IDS).toHaveLength(36)
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48, OUTGOING_49, OUTGOING_50, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48, OUTGOING_49, OUTGOING_50, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
-    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(44)
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(45)
   })
 
   it('the checked-in generator artifacts equal the running identity (`--check` clean), and priorityOrder keeps its seven members and its line', () => {

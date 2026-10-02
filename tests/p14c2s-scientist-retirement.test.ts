@@ -5,13 +5,14 @@ import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { retirementRecordFor, retirementWindow } from '../src/core/careerLifecycle.js'
 import { activeContract, busyTalentIds } from '../src/core/employment.js'
-import { importSave, makeSave, migrateToLive, migrateToV35, migrateToV36, migrateToV37 } from '../src/core/save.js'
+import { convertV37ToV36, importSave, makeSave, migrateToLive, migrateToV35, migrateToV36, migrateToV37, validateSaveV37 } from '../src/core/save.js'
 import { openMarketCaseFor, submitProposal } from '../src/core/talentMarket.js'
 import { eligibleSeatIds, researchCandidates } from '../src/core/technology.js'
 import { tick } from '../src/core/tick.js'
 import type { GameState } from '../src/core/types.js'
 import { advanceTo, exhaustedScientistPool, labId, owner, project, saveRoundTrip, SCI, SCI_END,
   scientistAt, scientistFilm, scientistSupply, scientistWorld } from './helpers/p14c2s-fixtures.js'
+import { scientistRaw } from './helpers/p14c3-fixtures.js'
 
 const record = (state: GameState) => retirementRecordFor(state, SCI)
 const bytes = (state: GameState) => JSON.stringify(makeSave(state))
@@ -252,7 +253,7 @@ describe('Scientist retirement persistence has an explicit semantic version boun
     const state = scientistWorld()
     const before = bytes(state)
     const live = makeSave(state)
-    expect(live.saveVersion).toBe(43)
+    expect(live.saveVersion).toBe(44)
     const outgoing37 = migrateToV37(live) // governed lossless C.3 boundary, preserving every older root
     expect(live.state.careerLifecycle).toEqual({ ...outgoing37.state.careerLifecycle,
       transitionBoundaryWeek: state.market.tick,
@@ -263,7 +264,7 @@ describe('Scientist retirement persistence has an explicit semantic version boun
     expect(old.saveVersion).toBe(36)
     expect(JSON.stringify(old.state)).toBe(JSON.stringify(outgoing37.state))
     const lifted = migrateToLive(old)
-    expect(lifted.saveVersion).toBe(43)
+    expect(lifted.saveVersion).toBe(44)
     expect(JSON.stringify(lifted.state)).toBe(JSON.stringify(live.state))
     expect(JSON.stringify(migrateToV37(lifted).state)).toBe(JSON.stringify(old.state))
     expect(bytes(state)).toBe(before)
@@ -273,11 +274,21 @@ describe('Scientist retirement persistence has an explicit semantic version boun
     const state = scientistAt('hardResearch', 566)
     expect(record(state)?.profession).toBe('scientist')
     const live = makeSave(state)
-    expect(live.saveVersion).toBe(43)
+    expect(live.saveVersion).toBe(44)
     const before = JSON.stringify(live)
     expect(importSave(before)).toEqual(live)
-    expect(() => migrateToV36(live)).toThrow(/Scientist|scientist|downgrade/)
-    expect(() => migrateToV35(live)).toThrow(/Scientist|scientist|downgrade/)
+    // 1358-N S9 (MASKED): this state's romance track on relationship-edge-27 makes Save44's
+    // convertV44ToV43 refuse first on both routes (src/core/save.ts:10790). That masks the V39 guard
+    // that fired first under Save43 (save.ts:10600-10602, 1344-X12 §4) and the Scientist guard this
+    // title names (save.ts:10449-10454). Measured by the 1358-X6 message probe (G1-new-1, both
+    // lines). The next assertion keeps the Scientist guard covered on its own era's genuine input.
+    // The V39 guard stays covered on V40 input by tests/p14p4p5-opportunities.test.ts Q03 (:336)
+    // and exactly by tests/p13b-s3-save-v23.test.ts:115-117.
+    expect(() => migrateToV36(live)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-27$/)
+    expect(() => migrateToV35(live)).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-27$/)
+    // The genuine V37 capture at week 670 holds the retired Scientist record of t-sci-00, and
+    // convertV37ToV36 refuses it by name before validation.
+    expect(() => convertV37ToV36(validateSaveV37(JSON.parse(scientistRaw())))).toThrow(/^migrateToV36: cannot downgrade SaveFileV37 or discard Scientist retirement \u2014 t-sci-00 holds a record that V36 does not support$/)
     expect(JSON.stringify(live)).toBe(before)
     expect(bytes(state)).toBe(before)
   })
@@ -297,7 +308,14 @@ describe('Scientist retirement persistence has an explicit semantic version boun
       // 1327-C sweep (C15): none of V34/V35/V36 ever had the relationship
       // `sharedCompetitions` field (added V42) either — same reader-only shape
       // adjustment as the careerLifecycle fields just above.
-      for (const edge of envelope.state.relationships) delete (edge as { sharedCompetitions?: unknown }).sharedCompetitions
+      // 1358-N sweep (S7): nor the Save44 edge fields `competitions` and
+      // `romance` (convertV43ToV44, save.ts:10776-10781); same reader-only
+      // shape adjustment.
+      for (const edge of envelope.state.relationships) {
+        delete (edge as { sharedCompetitions?: unknown }).sharedCompetitions
+        delete (edge as { competitions?: unknown }).competitions
+        delete (edge as { romance?: unknown }).romance
+      }
       // 1327-C sweep (C15): nor the `firstTakeSubjects` root (added V40) —
       // measured non-empty on this world (real first-take history), but this
       // block is a reader-only shape control, not a fidelity-preserving
@@ -335,7 +353,7 @@ describe('Scientist retirement persistence has an explicit semantic version boun
     const state = scientistAt('hardResearch', 566)
     expect(record(state)?.profession).toBe('scientist')
     const live = makeSave(state)
-    expect(live.saveVersion).toBe(43)
+    expect(live.saveVersion).toBe(44)
     const before = JSON.stringify(live)
     type MutableEnvelope = { state: { talentProvenance: { rows: Record<string, unknown>[] },
       careerLifecycle: { records: Record<string, unknown>[] } } }

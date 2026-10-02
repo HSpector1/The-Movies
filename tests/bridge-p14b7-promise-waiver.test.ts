@@ -134,7 +134,7 @@ function allActivities(state: GameState): IndustryPage['activities'] {
 // ═══════════════════════════════════════════════════════════════════════════════════════════════
 describe('P14B.7 group9b — PROJECTION_VERSION is the frozen value this slice must not move (bridge half of group9; relocated by 730-T finding 3)', () => {
   it('PROJECTION_VERSION is still 49', () => {
-    expect(PROJECTION_VERSION).toBe(56)
+    expect(PROJECTION_VERSION).toBe(57)
   })
 })
 

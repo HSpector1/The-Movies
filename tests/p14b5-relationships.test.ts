@@ -71,11 +71,11 @@ import * as marketModule from '../src/core/talentMarket.js'
 import { publicPreferredTerm, publicPriorityOrder, submitProposal, type FreezeDrop } from '../src/core/talentMarket.js'
 import { attachPromise } from '../src/core/promises.js'
 import { validateFirstTakeSubjects } from '../src/core/firstTakeSubjects.js'
-import { LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31, validateSaveV33, validateSaveV43 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31, validateSaveV33, validateSaveV44 } from '../src/core/save.js'
 import { TUNING } from '../src/core/tuning.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
-import type { CastSlot, FilmResult, GameState, Production, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'
+import type { CastSlot, FilmResult, GameState, Production, RelationshipEdge, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'
 // RED-by-design: src/core/relationships.ts does not exist. Every binding below is CALLED.
 import {
   RELATIONSHIP_BASELINE, RELATIONSHIP_CANCEL_DELTA, RELATIONSHIP_DRIFT_GRACE_WEEKS, RELATIONSHIP_DRIFT_RETURN_WEEKS,
@@ -96,6 +96,8 @@ type Edge = {
   // 1320-A S6: Save42 adds this exact counter to every edge at the live validator (era 42).
   sharedCompetitions: number
   peakTier: Tier; peakTierWeek: number; recent: readonly Driver[]
+  // 1358-N S6: Save44 adds the competitions log and the romance track to every edge (era 44).
+  competitions: RelationshipEdge['competitions']; romance: RelationshipEdge['romance']
 }
 type Chemistry = { tier: Tier | null; sign: -1 | 0 | 1; reasons: readonly string[] }
 type TakeEntry = { studioId: string; production: Production }
@@ -222,7 +224,7 @@ function mintedEdge(index: number, x: string, y: string, weight: number, week: n
   const closeness = clamp(RELATIONSHIP_BASELINE + weight)
   return { edgeId: `relationship-edge-${String(index)}`, a, b, closeness, firstSharedWeek: week, lastEventWeek: week,
     sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0, sharedCancellations: 0, sharedCompetitions: 0, peakTier: tierOracle(closeness), peakTierWeek: week,
-    recent: [{ kind: 'sharedProduction', week, ref, delta: weight }] }
+    recent: [{ kind: 'sharedProduction', week, ref, delta: weight }], competitions: [], romance: null }
 }
 /** A STAGED (reader-admitted, validator-checked) edge — never a claim that the engine minted it. */
 function stagedEdge(state: GameState, x: string, y: string, closeness: number, lastEventWeek: number, extra: Partial<Edge> = {}): Edge {
@@ -230,7 +232,7 @@ function stagedEdge(state: GameState, x: string, y: string, closeness: number, l
   const tier = tierOracle(closeness)
   return { edgeId: `relationship-edge-${String(edges(state).length)}`, a, b, closeness, firstSharedWeek: lastEventWeek, lastEventWeek,
     sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0, sharedCancellations: 0, sharedCompetitions: 0, peakTier: tier, peakTierWeek: lastEventWeek,
-    recent: [{ kind: 'sharedProduction', week: lastEventWeek, ref: 'staged-production', delta: RELATIONSHIP_PROXIMITY_HIGH }], ...extra }
+    recent: [{ kind: 'sharedProduction', week: lastEventWeek, ref: 'staged-production', delta: RELATIONSHIP_PROXIMITY_HIGH }], competitions: [], romance: null, ...extra }
 }
 const stage = (state: GameState, edge: Edge): GameState => live(withEdges(state, [...edges(state), edge]))
 // 735-T (P14B.7): strips `relationships` (this file's own root under test) AND
@@ -1294,11 +1296,13 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
   const expectRefused = (mutate: (edges: Edge[], state: Record<string, unknown>) => void, pattern: RegExp) => {
     const save = v31()
     mutate(save.state.relationships, save.state)
-    expect(() => validateSaveV43(save)).toThrow(pattern)
+    expect(() => validateSaveV44(save)).toThrow(pattern)
     // 1320-A: save is genuinely live (era 42, from v31()'s makeSave); the era-31
     // default would refuse on the unrelated new sharedCompetitions field before
     // ever reaching the deliberate tamper below it.
-    expect(() => validateRelationshipsRoot(save.state, 42)).toThrow(pattern)
+    // 1358-N S1: live is era 44 now; era 42 would refuse the unrelated
+    // `competitions` and `romance` keys first, the same way.
+    expect(() => validateRelationshipsRoot(save.state, 44)).toThrow(pattern)
   }
 
   it('validateSaveV32/validateRelationshipsRoot exist and admit the genuinely minted world round-trip', () => {
@@ -1308,13 +1312,13 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     const save = v31()
     expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(save.state.relationships).toHaveLength(6)
-    expect(validateSaveV43(save)).toEqual(save)
+    expect(validateSaveV44(save)).toEqual(save)
   })
 
   it('refuses a missing root', () => {
     const save = v31()
     Reflect.deleteProperty(save.state, 'relationships')
-    expect(() => validateSaveV43(save)).toThrow(/relationships/)
+    expect(() => validateSaveV44(save)).toThrow(/relationships/)
   })
   it('refuses a non-ordinal edgeId', () => expectRefused((e) => { e[0]!.edgeId = 'edge-x' }, /edgeId/))
   it('refuses a duplicate pair', () => expectRefused((e) => { e[1]!.a = e[0]!.a; e[1]!.b = e[0]!.b }, /duplicate|pair/i))
@@ -1356,7 +1360,8 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // with it again, same reasoning.
     // 1320-A: `one.saveVersion` moved once more, to 42 (Save42) — the live validator
     // moves with it again, same reasoning.
-    const admitted = validateSaveV43(one)
+    // 1358-N S1: and once more, to 44 (Save44); same reasoning.
+    const admitted = validateSaveV44(one)
     const before = JSON.stringify(admitted)
     expect(() => projectRelationshipsPreV31(one.state)).toThrow()
     // RE-EXPRESSED (was: `/cannot downgrade SaveFileV31 or discard the relationship
@@ -1388,8 +1393,9 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // (save.ts:10557-10559). Measured (x2 at a318722): "migrateToV42: cannot
     // downgrade or discard a screenplay shelving rejection count of
     // studio-aca408ec-r01". The V39 subject guard stays covered on its own era's
-    // genuine input by tests/p14p4p5-screenplay-status.test.ts:324 (exact
-    // message; genuine V39 capture at week 45, fact-only take at 48), the V33
+    // genuine input by tests/p14p4p5-screenplay-status.test.ts Q11 (`factOnly`'s
+    // last assertion: the genuine week-110 Save40 capture, downgraded once; 1358-F11,
+    // since Save44's romance refusal now masks Q11's live chain), the V33
     // aging guard by tests/p14c1-materialized-aging.test.ts:445 (family 5, :423).
     expect(() => migrateToV30(admitted)).toThrow(/^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-aca408ec-r01$/)
     // Every older migrateToVn refuses too, but MEASURED (not assumed) to be for
@@ -1436,7 +1442,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // That downgrade route does not exist for this fixture any more; the correct,
     // current-law assertion is that it is refused too — not a different message,
     // and not a success.
-    const empty = validateSaveV43({ ...save, state: { ...save.state, relationships: [] } })
+    const empty = validateSaveV44({ ...save, state: { ...save.state, relationships: [] } })
     expect(projectRelationshipsPreV31(empty.state)).toBeUndefined()
     // 1309-X3 ruling 2: `empty` is also takeWorld()-derived, so it too carries a
     // recorded first-take subject; the V39 guard masks the V33 materialization

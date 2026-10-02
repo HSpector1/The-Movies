@@ -7,7 +7,7 @@ import { activeContract, canAfford, contractOffer, hiringMarketIds } from '../sr
 import { professionAtWeek } from '../src/core/index.js'
 import { trustDescriptor, trustDrivers } from '../src/core/promises.js'
 import { tiersOnRoster } from '../src/core/relationships.js'
-import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
+import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
 import { caseForTalent, marketEligibility, openMarketCaseFor, playerOffer, proposalDraft, releaseFloor, studioOffer, submitProposal } from '../src/core/talentMarket.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
@@ -226,13 +226,15 @@ describe.each(OFFMENU_TARGETS)('C.3 actor→%s genuine off-menu58-week extension
     expect(carryingEmployment(loaded, id, 410, 468)).toEqual(employment)
     expect(professionAtWeek(loaded, id, extensionCase(loaded, id, 196).openedWeek)).toBe('actor')
     expect(professionAtWeek(loaded, id, extensionCase(loaded, id, 404).openedWeek)).toBe(target)
-    // 1344-N S9 (MASKED): this chain's history holds a screenplayShelved receipt, so
-    // convertV43ToV42 refuses first (src/core/save.ts:10693-10694), before the V39
-    // subject guard this line named (save.ts:10557-10559). Measured (x2 at a318722,
-    // both targets): "migrateToV42: cannot downgrade or discard a screenplayShelved
-    // receipt". The V39 guard stays covered on its own era's genuine input by
-    // tests/p14p4p5-screenplay-status.test.ts:324 (genuine V39 capture, week 48 take).
-    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(saved))))))).toThrow(/^migrateToV42: cannot downgrade or discard a screenplayShelved receipt$/)
+    // 1358-N S9 (MASKED): the saved state's romance track on relationship-edge-0 makes Save44's
+    // convertV44ToV43 refuse first (src/core/save.ts:10790). That masks the screenplayShelved
+    // receipt guard 1344-N pinned here (save.ts:10739-10740) and the V39 subject guard this line
+    // named before Save43 (save.ts:10600-10602). Measured by the 1358-X6 message probe (N-0496,
+    // both targets). The V39 guard stays covered on V40 input by
+    // tests/p14p4p5-opportunities.test.ts Q03 (:336) and exactly by
+    // tests/p13b-s3-save-v23.test.ts:115-117. The receipt guard stays covered on V43 input by
+    // tests/p14d1-rival-shelving-save-v43.test.ts:256 (1358-F11).
+    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(saved)))))))).toThrow(/^migrateToV43: cannot downgrade or discard the romance of relationship-edge-0$/)
     accepted(loaded)
     observed[target] = { ...observed[target], term: contract.termWeeks, decision: contract.startWeek, end: contract.endWeekExclusive }
   })

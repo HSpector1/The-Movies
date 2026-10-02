@@ -564,12 +564,14 @@ describe('CF-08 sound union-to-C# generation', () => {
       // below is the schemaId of the checked-in
       // generated/unity/project-studio-bridge.contract-manifest.json,
       // read independently of this test (never schemaIdentity(schema) itself).
-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 56 })
+      // Relationship slice B (1358-N P1/P2, projection 57): `labels` and `romance` on
+      // the relationship row moved the whole-schema identity again.
+      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 57 })
       expect(generated).toContain(
-        '// Schema identity: sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1',
+        '// Schema identity: sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1',
+        'sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')

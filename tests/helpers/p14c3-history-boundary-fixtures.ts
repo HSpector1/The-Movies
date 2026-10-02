@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { expect } from 'vitest'
 import { applyActions } from '../../src/core/actions.js'
 import { beginFounding } from '../../src/core/employment.js'
-import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV43 } from '../../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV44 } from '../../src/core/save.js'
 import { tick } from '../../src/core/tick.js'
 import { generateWorld } from '../../src/core/worldgen.js'
 import type { Action, GameState } from '../../src/core/types.js'
@@ -23,8 +23,8 @@ export function cachedBoundary<T>(key: string, build: () => T): T {
 }
 export function acceptBoundary(state: GameState): void {
   const before = stableStringify(state), saved = makeSave(state)
-  expect(saved.saveVersion).toBe(43)
-  expect(validateSaveV43(saved)).toBe(saved)
+  expect(saved.saveVersion).toBe(44)
+  expect(validateSaveV44(saved)).toBe(saved)
   expect(stableStringify(state)).toBe(before)
 }
 export function reopenBoundary(state: GameState): GameState {

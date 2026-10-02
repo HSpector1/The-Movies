@@ -24,7 +24,7 @@ import type { CampaignLibrary } from '../bridge/runtime/campaign-library.ts'
 import { caseDisclosure } from '../src/core/talentMarket.js'
 import { activeContract } from '../src/core/employment.js'
 import { exportSave, importSave, makeSave, migrateToLive, stableStringify,
-  validateSaveV38, validateSaveV39, validateSaveV43 } from '../src/core/save.js'
+  validateSaveV38, validateSaveV39, validateSaveV44 } from '../src/core/save.js'
 import type { GameState, ProfessionalPromise } from '../src/core/types.js'
 
 // 1333-I: D15/D16/D17 measured 139,426/116,959/118,597 ms in the full-suite gate; the old
@@ -68,11 +68,17 @@ function withEmptyScreenplayShelving<T extends WithRivalBusinesses>(state: T): T
   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
     ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
 }
+// 1358-N S5: Save44 (convertV43ToV44, src/core/save.ts:10776-10781) gives every relationship edge an
+// empty `competitions` log and a null `romance`; a genuine V39-or-older old.state never carried either.
+type WithEdgeLogAndRomance = { relationships: readonly { competitions?: readonly unknown[]; romance?: unknown }[] }
+function withEmptyCompetitionsAndRomance<T extends WithEdgeLogAndRomance>(state: T): T {
+  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, competitions: [], romance: null })) }
+}
 const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
 const bytes = (state: GameState): string => exportSave(makeSave(state))
 function full(state: GameState): string {
   const before = stableStringify(state), save = makeSave(state)
-  expect(save.saveVersion).toBe(43); expect(validateSaveV43(save)).toBe(save)
+  expect(save.saveVersion).toBe(44); expect(validateSaveV44(save)).toBe(save)
   const raw = exportSave(save)
   expect(exportSave(importSave(raw))).toBe(raw)
   expect(stableStringify(state)).toBe(before)
@@ -129,9 +135,9 @@ function current45(): GameState {
     expect(save.state.talent.find(row => row.id === ACTOR)?.role).toBe('actor')
     expect(save.state.talent.find(row => row.id === DIRECTOR)?.role).toBe('director')
     const current = migrateToLive(save)
-    expect(current.saveVersion).toBe(43)
+    expect(current.saveVersion).toBe(44)
     // 1344-N S5 (x2 at a318722, :126 D15/D16 measured `+ "screenplayShelving"` on each of four rival businesses, nothing else).
-    expect(current.state).toEqual({ ...withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(save.state))), firstTakeSubjects: { version: 1, cutoverOrdinal: save.state.firstTakes.length, facts: [] } })
+    expect(current.state).toEqual({ ...withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(save.state)))), firstTakeSubjects: { version: 1, cutoverOrdinal: save.state.firstTakes.length, facts: [] } })
     full(current.state); return current.state
   })
 }
@@ -280,7 +286,7 @@ function legacyClassless(open: boolean, version: 4 | 6) {
     feasibilityReceipt: { ...target.feasibilityReceipt, rulesVersion: version } }
   variant.state.promises = variant.state.promises.map(row => row.promiseId === target.promiseId ? replacement : row)
   expect(validateSaveV38(variant)).toBe(variant)
-  const current = migrateToLive(variant); expect(current.saveVersion).toBe(43)
+  const current = migrateToLive(variant); expect(current.saveVersion).toBe(44)
   expect(current.state.promises.find(row => row.promiseId === target.promiseId)).toEqual(replacement)
   full(current.state)
   return { state: current.state, promise: root(current.state, target.promiseId) }
@@ -355,7 +361,7 @@ function qualifyPrior53(): void {
     const factory = vi.fn(() => `1174-prior53-${name}`)
     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
     expect(loaded.migratedFromProtocolVersion).toBe(4); expect(factory).toHaveBeenCalledTimes(1)
-    expect(PROJECTION_VERSION).toBe(56); expect(PROTOCOL_VERSION).toBe(4)
+    expect(PROJECTION_VERSION).toBe(57); expect(PROTOCOL_VERSION).toBe(4)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v53']])
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     const current = loaded.hydrated.checkpoint
@@ -365,9 +371,9 @@ function qualifyPrior53(): void {
     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
       assert.ok(current[slot])
       const previous = validateSaveV38(JSON.parse(old.value[slot]))
-      const now = validateSaveV43(JSON.parse(current[slot]!))
+      const now = validateSaveV44(JSON.parse(current[slot]!))
       // 1344-N S5 (x2 at a318722, :361 D17 measured `+ "screenplayShelving"` on each of four rival businesses, nothing else).
-      expect(now.state).toEqual({ ...withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(previous.state))), firstTakeSubjects: { version: 1, cutoverOrdinal: previous.state.firstTakes.length, facts: [] } })
+      expect(now.state).toEqual({ ...withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(previous.state)))), firstTakeSubjects: { version: 1, cutoverOrdinal: previous.state.firstTakes.length, facts: [] } })
       expect(current[slot]).toBe(exportSave(migrateToLive(previous)))
       full(now.state)
     }

@@ -198,11 +198,11 @@ describe('C2a-M1 · parity (C) — every exported row is inside the window or Ti
   it('re-validates what it wrote, at its own version', () => {
     const validateV15 = requireFunction(
       requireCore(),
-      'validateSaveV43',
+      'validateSaveV44',
       '§8.1: the live boundary (P13B-S6: V26)',
     ) as unknown as (save: unknown) => unknown
     const save = makeSave(runScriptedWeeks(scriptedStart(SEED), RUN_WEEKS))
-    expect(save.saveVersion).toBe(43) // P14C.2b: the live version (was 35)
+    expect(save.saveVersion).toBe(44) // P14C.2b: the live version (was 35)
     expect(() => validateV15(save)).not.toThrow()
   })
 })

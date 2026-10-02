@@ -68,7 +68,7 @@ import {
 // RED (see header): the four names below are absent from src/core/save.ts at HEAD e65012e5.
 // `SaveFileV42` (type-only, cannot itself RED at runtime) is used as the cast target for the
 // dynamically-looked-up `convertV41ToV42`/`validateSaveV42` below, so it is a real, used type.
-import type { SaveFile, SaveFileV42, SaveFileV43 } from '../src/core/save.js'
+import type { SaveFile, SaveFileV42, SaveFileV43, SaveFileV44 } from '../src/core/save.js'
 import * as saveModule from '../src/core/save.js'
 import type { GameState, RelationshipEdge } from '../src/core/types.js'
 
@@ -172,15 +172,24 @@ describe('1313-A §3 — the acknowledged input, migrated then greenlit, mints r
     const mods = saveModule as unknown as {
       convertV41ToV42: (s: V41Save) => SaveFileV42
       convertV42ToV43: (s: SaveFileV42) => SaveFileV43
-      validateSaveV43: (s: unknown) => SaveFileV43
+      convertV43ToV44: (s: SaveFileV43) => SaveFileV44
+      validateSaveV44: (s: unknown) => SaveFileV44
+      convertV44ToV43: (s: unknown) => unknown
       convertV43ToV42: (s: unknown) => unknown
       convertV42ToV41: (s: unknown) => unknown
     }
     const v42 = mods.convertV41ToV42(v41)
+    // 1358-N S9 (1358-F9 ruling 3; 1358-F10 records this): the counter is staged, on edge 0 of a
+    // copy of `v42`, because no pre-Save44 engine remains to write it. convertV42ToV41 refuses at
+    // its casting-competition guard (src/core/relationships.ts:847-849, via src/core/save.ts:10696).
+    const staged = { ...v42, state: { ...v42.state, relationships: v42.state.relationships.map((row, i) => (i === 0 ? { ...row, sharedCompetitions: 1 } : row)) } }
+    expect(() => mods.convertV42ToV41(staged)).toThrow(/^migrateToV41: cannot downgrade or discard a casting competition$/)
     // Save43 (1344-N S6): the V42-migrated state has no rival `screenplayShelving`, which the live
     // writer below requires on every rival business; lift it through the genuine convertV42ToV43
     // (src/core/save.ts:10678-10686) rather than hand-adding the root.
-    const state = mods.convertV42ToV43(v42).state as unknown as GameState
+    // 1358-N S5 (1358-J 3e, finding 16): the live writer also needs Save44's `competitions` and
+    // `romance` on every edge; lift through the genuine convertV43ToV44 (src/core/save.ts:10776-10781).
+    const state = mods.convertV43ToV44(mods.convertV42ToV43(v42)).state as unknown as GameState
     const projectId = 'script-0000'
     const project = state.scriptDevelopment.projects.find((p) => p.id === projectId)
     expect(project, 'route premise: project "script-0000" is present in the acknowledged fixture').toBeDefined()
@@ -202,19 +211,26 @@ describe('1313-A §3 — the acknowledged input, migrated then greenlit, mints r
       expect(driver, `route/RED premise: pair (${x}, ${y}) should carry a castingCompetitionLost driver from production "${productionId}"`).toBeDefined()
     }
     const newSave = makeSave(greenlit)
-    expect(newSave.saveVersion).toBe(43) // LIVE_SAVE_VERSION 43 (was 42 at 1313-A §3)
-    expect(() => mods.validateSaveV43(newSave)).not.toThrow()
-    expect(() => mods.convertV42ToV41(mods.convertV43ToV42(newSave))).toThrow()
+    expect(newSave.saveVersion).toBe(44) // LIVE_SAVE_VERSION 44 (was 42 at 1313-A §3)
+    expect(() => mods.validateSaveV44(newSave)).not.toThrow()
+    // 1358-N S9 (MASKED): the live chain now crosses convertV44ToV43 first, and the greenlight
+    // appended a competitions-log row on each slate pair (src/core/relationships.ts:537), so
+    // the Save44 log guard (src/core/save.ts:10789) refuses before convertV42ToV41's casting-
+    // competition guard (src/core/relationships.ts:847-849). The acknowledged fixture's 24 edges
+    // are all rival-internal, so the three pairs are new edges 24-26 and edge 24 refuses first.
+    // Read from source and the fixture, not measured. The staged `v42` copy above keeps the
+    // casting-competition guard's own-era pin.
+    expect(() => mods.convertV42ToV41(mods.convertV43ToV42(mods.convertV44ToV43(newSave)))).toThrow(/^migrateToV43: cannot downgrade or discard the competitions log of relationship-edge-24$/)
   }, 30_000)
 })
 
 describe('LIVE_SAVE_VERSION and the dispatcher message', () => {
-  it('LIVE_SAVE_VERSION is 43', () => {
-    expect(LIVE_SAVE_VERSION).toBe(43)
+  it('LIVE_SAVE_VERSION is 44', () => {
+    expect(LIVE_SAVE_VERSION).toBe(44)
   })
 
-  it('validateSave names the new ceiling in its unknown-version message ("1 through 43")', () => {
-    expect(() => validateSave({ saveVersion: 999 })).toThrow(/1 through 43/)
+  it('validateSave names the new ceiling in its unknown-version message ("1 through 44")', () => {
+    expect(() => validateSave({ saveVersion: 999 })).toThrow(/1 through 44/)
   })
 })
 

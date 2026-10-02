@@ -39,6 +39,11 @@ type WithRelationships = { relationships: readonly { sharedCompetitions?: number
 function withSharedCompetitions<T extends WithRelationships>(state: T): T {
   return { ...state, relationships: state.relationships.map(edge => ({ ...edge, sharedCompetitions: 0 })) }
 }
+// 1358-N S5: Save44 (convertV43ToV44, src/core/save.ts:10776-10781) gives every relationship edge an
+// empty `competitions` log and a null `romance`; a genuine V43-or-older old.state never carried them.
+function withEmptyCompetitionsAndRomance<T extends WithRelationships>(state: T): T {
+  return { ...state, relationships: state.relationships.map(edge => ({ ...edge, competitions: [], romance: null })) }
+}
 // 1344-N S5: Save43 (convertV42ToV43, src/core/save.ts:10678-10686) gives every rival business an
 // empty `screenplayShelving` root; a genuine V42-or-older old.state never carried it.
 function withEmptyScreenplayShelving<T extends WithRivalBusinesses>(state: T): T {
@@ -72,8 +77,8 @@ afterAll(() => {
 })
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(43); expect(saves.validateSaveV43(save)).toBe(save)
-  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV43(imported)
+  expect(save.saveVersion).toBe(44); expect(saves.validateSaveV44(save)).toBe(save)
+  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV44(imported)
   expect(current).toBe(imported); expect(saves.exportSave(current)).toBe(raw); expect(stable(state)).toBe(before)
 }
 function input45(): GameState {
@@ -99,7 +104,7 @@ function input45(): GameState {
     expect(stable(old)).toBe(prior); admitted(state)
     const { firstTakeSubjects, ...retained } = state
     // 1344-N S5 (x2 at a318722, :94 measured `+ "screenplayShelving"` on each of four rival businesses, nothing else).
-    expect(retained).toEqual(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))); expect(firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: 19, facts: [] })
+    expect(retained).toEqual(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state))))); expect(firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: 19, facts: [] })
     expect(state.market.tick).toBe(45); expect(state.studio.cash).toBe(24701506)
     expect(issuer(state)).toBe('studio-de11f27b-player')
     expect(state.firstTakes).toHaveLength(19); expect(state.promises).toEqual([]); expect(state.talentMarket.proposals).toEqual([])

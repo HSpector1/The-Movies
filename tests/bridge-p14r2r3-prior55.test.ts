@@ -64,7 +64,7 @@ import {
   encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint,
   SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS,
 } from '../bridge/runtime-checkpoint.ts'
-import { exportSave, migrateToLive, validateSaveV40, validateSaveV43 } from '../src/core/save.js'
+import { exportSave, migrateToLive, validateSaveV40, validateSaveV44 } from '../src/core/save.js'
 
 const FIXTURES = new URL('./fixtures/p14/genuine-runtime55-pre-r3/', import.meta.url)
 const OLD_SCHEMA = 'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158'
@@ -142,6 +142,14 @@ function withEmptyScreenplayShelving<T extends { hollywood?: { businesses?: Busi
       { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 }
   return clone
 }
+// 1358-N S5: Save44 gives every relationship edge an empty `competitions` log and a null `romance`
+// (convertV43ToV44, save.ts:10776-10781) in addition to the V42->V43 shelving root above; a
+// genuine V43-or-older previous.state never carried either.
+function withEmptyCompetitionsAndRomance<T extends { relationships?: readonly object[] }>(state: T): T {
+  const clone = JSON.parse(JSON.stringify(state)) as T
+  for (const edge of clone.relationships ?? []) Object.assign(edge, { competitions: [], romance: null })
+  return clone
+}
 
 describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to current56, and each Save40 slot migrates to Save41 independently', () => {
   it('loadBridgeRuntimeCheckpoint migrates the prior-schema checkpoint, resets runtime authority, and migrates both save slots to V41 with only the new key added', () => {
@@ -151,8 +159,8 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
 
     // The schema/projection literals the migration target must already carry.
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(56)
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-56')
+    expect(PROJECTION_VERSION).toBe(57)
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-57')
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v55']])
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     // 1308-D required change 1 / 1308-F item 1 (B55-3-style older-roster pin, mirrored from
@@ -166,10 +174,13 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
     // assertion is ALREADY-TRUE today (OLD_SCHEMA isn't registered yet, so excluding it is a
     // no-op over the same 43 pre-existing entries) and stays true as a regression guard once
     // the increment lands.
+    // 1358-N P2: outgoing56 (projection-v56) is registered too, so the older count grows to
+    // 44; the digest is recomputed by the method the B55-3 pin states
+    // (tests/bridge-p14p4p5-opportunities.test.ts).
     const older = [...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id !== OLD_SCHEMA)
       .sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0)
-    expect(older).toHaveLength(43)
-    expect(sha(canonicalJson(older))).toBe('11ec9999e052d8e6ce6dbdbb08060d57ad3a7dbb45335182c85806c4d88e4e51')
+    expect(older).toHaveLength(44)
+    expect(sha(canonicalJson(older))).toBe('d25c64254ac090a8470cc43b2f02740e149b6f29f75966ba4d2d1684b26654a6')
 
     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
     expect(loaded.migratedFromProtocolVersion).toBe(4)
@@ -182,12 +193,12 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
       const nextRaw = current[slot]
       expect(nextRaw, `${slot} must be present on the migrated checkpoint`).toBeTruthy()
       const previous = validateSaveV40(JSON.parse(old.value[slot]))
-      const now = validateSaveV43(JSON.parse(nextRaw!))
-      expect(now.saveVersion).toBe(43)
+      const now = validateSaveV44(JSON.parse(nextRaw!))
+      expect(now.saveVersion).toBe(44)
       // new.state equals old.state with termination:0 added to every rival finance period's
       // movements, and nothing else — the same fact p14r3-save-v41.test.ts asserts directly
       // on the raw fixtures, independently re-derived here through the runtime-checkpoint path.
-      expect(now.state).toEqual(withEmptyScreenplayShelving(withSharedCompetitionsZero(withTerminationZero(previous.state as never))))
+      expect(now.state).toEqual(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withSharedCompetitionsZero(withTerminationZero(previous.state as never)))))
       // slot bytes equal exportSave(migrateToLive(previous)) — the checkpoint's own migration
       // must route through the SAME migrateToLive chain the save-file path uses, not a second,
       // divergent conversion.
