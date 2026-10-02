@@ -1,6 +1,6 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 16:15 CDT. Claude's weekly usage stood at 89% at 14:39 CDT (Owner): if Claude stops, Codex resumes from this file.
+Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 16:52 CDT. Claude's weekly usage stood at 89% at 14:39 CDT (Owner): if Claude stops, Codex resumes from this file.
 
 ## Where the work is
 - Repo / branch / HEAD: `wip/headless-program-20260916-ts` @ the commit after 50181e76 that carries this file, pushed: yes. Protected main is never touched.
@@ -29,7 +29,8 @@ Last writer: Claude (Opus 5.5, claude-opus-5-5), 2026-10-02 16:15 CDT. Claude's 
 - **G2 read Retune** (`E/1361-G2-X`; rulings `E/1361-F5`): K1-K5 exact (K3 case (a) of `E/1361-F4` ruling 1, pre-registered at 5b911ed3); Retune rows p13a industry gross 0.875 at 520, seed-b stall (stopped rivals) and below-zero +325% at 520, seed-b root share 2.3-3.1% (storage fix). Save45 now lands slice 2a r2 + P15A.1 (a) and (b) r2 (+ P15C if G-P passes); (c) and (d) wait for a tuning amendment (record 1365, after the landing).
 - **1361-D2** PROCEED (`E/1361-D2`, rulings `E/1361-F4`); **1363** adopted (`E/1363-F`); **G-P C0** passed (15:48; both exit 0, equal manifest, JSON equal apart from the allowed fields).
 - In flight:
-  - **P15C production** by the writer (agent `a9b8c143941cbb673`, SendMessage; started 16:15 CDT): brief `S/1361-prod/brief-p15c-production.md`; base `p15a1-b-r2` b0b6fb01; tags `p15c-a-r1`, `p15c-b-r1`, `p15c-c-r1`; handback `1361-E3` with cumulative patches.
+  - **P15C production handed back** (`E/1361-E3`; patches `E/1361-stage/prod/1361-p15c-production-{a,b,c}-r1.patch`): `p15c-a-r1` 2592aea, `p15c-b-r1` 5a3a532, `p15c-c-r1` f4612bf on `p15a1-b-r2`; tree clean on branch `p15c`. The parent accepts the writer's split (replay in (b); the marker rule's due half in (c)); rule it in `1361-F6` with 1361-D3's findings. By reading: 1359 86/98/116 at (a)/(b)/(c); messages of L:854, L:885, L:1089 change at (a)/(b).
+  - **Lane job since 16:51 CDT:** `S/1361-prod/run-1361-X4-p15c.sh` (run-1361-X.sh at p15c-c/b/a into `S/1361-prod/x/pcc|pcb|pca`; d16 at p15c-c-r1 into `S/1361-d16/p15c-c/`; the sibling patch in its own archive tree `S/1361-sibling/run/`); lane log `S/1361-prod/x4.log`. About 25 min. Then: record `1361-X4`; launch the independent review `1361-D3` (read-only agent) with X4's results.
   - **sibling classification** (1361-F ruling 10) by an independent test author (read-only, sonnet) -> `S/1361-sibling/1361-sibling-classification.json` and `1361-sibling-notes.md`; the parent then applies `E/1359-stage/1359-p15c-wave2-sibling-r2.patch` in a scratch copy of the merged candidate and dry-runs its five leaves.
 - **Done since the G2 verdict:** `p15a1-b-r2` b0b6fb01 (b-r1 + F3's guard; `E/1361-F5` Amendment 1 adds the 45th leaf); its dry run `E/1361-X3` (src type-clean; 1356 72/72, harness 70,404 ms; 1355 14 passed and exactly the 45 declared failing, list `E/1361-stage/x-r3b/1355-leaves-red-at-b-r2.tsv`; 1359 unchanged; generators 0); **G-P passed** on b-r2 + v2 (`E/1361-GP-X`: no trigger; holder sets equal 1353-X4's; C0 passed; two market-reading expectations of 1361-F5 missed by the parent's own error, explained there).
 - Claims limits: P15A.1's r1 commits and slice 2a r2 are unmeasured; the harness time compares across Node versions and machine load (1361-F3 ruling 5); the 1363-A design rests on reading.
@@ -64,14 +65,14 @@ Standing rules: one production writer; one heavy test process at a time (`bash S
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-02 15:50 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
-- Branch: `wip/headless-program-20260916-ts` @ `5b911ed355b7314e7ddf0b7e78559cc9ce675c52`
+- Stamped: 2026-10-02 16:42 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
+- Branch: `wip/headless-program-20260916-ts` @ `ddc01e585b2b90dfc580c6724c9136cc2f8f2855`
 - Upstream: `none`, unpushed commits: ?
 - Uncommitted files: 0
 - Last commits:
-  - 5b911ed3 docs(p15): 1361-D2 review (PROCEED) and 1361-F4 rulings; K3 reading pre-registered before the G2 report
-  - fc107749 docs(p15): 1363-B review and 1363-F adoption of the recovery charter (12 amendments, O6); G-P scripts ready, C0 queued
-  - bd50b72c docs(handoff): P15A.1 stack measured (1361-X2); G2 running on p15a1-c-r1; reviews 1361-D2 and 1363-B running
-  - ffe571c6 docs(p15): 1361-X2 dry run of the P15A.1 r1 stack on slice 2a r2: src type-clean at every tag; 1356 72/72; 1355 9 -> 15 -> 59 (all 59 at (c), K1/K2/M0A and both capture leaves included); harness 83.6 s at (c); generators clean. G2 running on p15a1-c-r1; review 1361-D2 running
-  - c1580d39 docs(p15): 1361-G2-D review of the G2 probe (HOLD on four report/runner edits; probe sound) and 1361-G2-F parent response (all four plus items 5-10 adopted; candidate fixed at p15a1-c-r1 c524911)
+  - ddc01e58 docs(handoff): sibling test classification in flight
+  - 3ed9f0e1 docs(p15): d16 suite baseline at base and p15a1-b-r2 (the same 12 of 176 fail at both; pre-existing)
+  - 389c81f8 docs(p15): 1361-X3 (p15a1-b-r2 dry run: exactly the 45 declared) and 1361-GP-X (G-P passes on b-r2, C0 passes); P15C production started
+  - 75be4e14 docs(p15): p15a1-b-r2 staged; 1361-F5 Amendment 1 declares the 45th leaf at (b); dry run and G-P in the lane
+  - d833dd0d docs(p15): 1361-G2-X (G2 reads Retune; K1-K5 exact) and 1361-F5 rulings; Save45 lands (a)+(b), (c) to a tuning amendment; G-P expectations pre-registered
 <!-- AUTO:END -->
