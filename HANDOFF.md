@@ -66,7 +66,10 @@ None open. The Owner answered every listed item on 2026-10-02 (`E/1362-O`, both 
 - **Item 6 (seven exceptions):** bounded replacement natural fixtures after the recovery amendment lands; keep the historical fixtures and failed evidence; no retirement or waiver by default. Until then they stay failing, attributed identities.
 - **Item 8 (late founding, 1356-X F-2):** a bounded read-only check of the actually supported entry paths, bridge included, first; reachable → one bounded charter for both failures; not exposed → record the precise reachability limit, never "fixed".
 - **Item 9 (masked downgrade guards, 1344-X12):** targeted coverage repair (valid baseline, isolate the named guard, keep historical inputs and validator behaviour), authored and landed after the Save45 landing because the Save45 sweep's S9 class touches the same pins.
-Next questions for the Owner can only come from 1363-A (a material new product rule) or the item 8 check.
+Open for the Owner (asked 2026-10-02):
+- **1363-A O1, rival facility disposal** (`E/1363-A` §4.7, §10.2): may rivals close facilities; at what refund (the player's demolition refund of half the capex, a new rival inflow, or nothing); may core filming plant go (a rival that can never film again). v1 keeps facilities and does not wait. Parent recommends: no disposal in v1; revisit with 1363-V's numbers; if ever allowed, non-core plant only at the player's demolition refund, core filming plant never.
+- **1364-R's import exposure:** does an imported save that already holds an open founding draft past week 0 (exposing failure 2 only) count as "reachable", which calls for the bounded charter, or does it stay a recorded limit?
+O2-O5 of 1363-A are asked only with 1363-V's numbers.
 
 ## Blockers and warnings
 - **Node.** Recorded runs pin v20.20.2: put `/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin` first on PATH. The session's nvm default is v22.23.2.
@@ -84,15 +87,15 @@ Next questions for the Owner can only come from 1363-A (a material new product r
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-02 14:09 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
-- Branch: `wip/headless-program-20260916-ts` @ `2b1ffd6ed75e7faca83c58775c25666ad81ebeeb`
+- Stamped: 2026-10-02 14:36 CDT by **claude** on PreCompact (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
+- Branch: `wip/headless-program-20260916-ts` @ `7d5823186308752ff268ec3f9bdd41f61c7f670e`
 - Upstream: `none`, unpushed commits: ?
 - Uncommitted files: 1
   - `M HANDOFF.md`
 - Last commits:
+  - 7d582318 docs(p15): 1361-GP-D review of the G-P sibling-roots branch r2 (PROCEED) and 1361-F2 parent rulings: run hygiene and a tree guard for G-P; the G2 probe's four choices (a K failure is a Defect); the G2-Retune path corrected (P15A.1 takes its later step, since (a)+(b) fail the chartered film bijection without (c)); G-L reruns after the recovery amendment
+  - 95a4cf06 docs(handoff): slice 2a r1 measured clean (1361-X); P15A.1 writing; reviews of slice 2a and G-P r2 running; late-founding classification; machine warnings
   - 2b1ffd6e docs(p15): 1361-E slice 2a production handback r1 and 1361-X its dry run (src type-clean on root, UI and Bridge; 1356 RED 72/72 with the harness at 81.7 s of 300 s; generator checks clean; 1355 and 1359 move only as predicted); 1364-R late-founding reachability (not exposed by any supported writer or action; one input-dependent import exposure of failure 2; not fixed)
   - ec5ca7af docs(handoff): in-flight agents after the Owner's items 5-9 response; warning against recursive scans of docs/
   - c6ad14f1 docs(owner): record the Owner's second response of 2026-10-02 (items 5-9) verbatim in 1362-O: P16's qualified choices 5.1-5.9; replacement natural fixtures for the seven exceptions after the recovery amendment; the §7 routing with p15a1-w2-market-01 and the 154 promise movements in the recovery measurement; the late-founding reachability check first; the masked-guard coverage repair after Save45
-  - 3ebaca24 docs(env): numpy 2.5.1 in the project .venv only (Owner approval 1362-O; the repo's own pin in .github/requirements-tests.txt); 1362-V records versions before and after (numpy the only addition, pip not upgraded, pip check clean), the import through the tests' execFileSync route, and the three rgba-export tool-contract tests now passing (8 of 8)
-  - cbdd8cdc docs(owner): record the Owner response of 2026-10-02 verbatim (1362-O): 1357-Q1 option (a), a bounded rival-recovery amendment before P15B's live closure, scheduled after the Save45 landing; numpy approved in .venv only; P15C tuning and relationship wording unchanged; the seven declared exceptions not approved, coverage limits kept; items 5-9 to one decision message
 <!-- AUTO:END -->
