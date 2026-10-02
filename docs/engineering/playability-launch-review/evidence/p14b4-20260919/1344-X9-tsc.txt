@@ -1,0 +1,6 @@
+== tsconfig.json
+exit 0
+== ui/tsconfig.json
+exit 0
+== tsconfig.bridge.json
+exit 0

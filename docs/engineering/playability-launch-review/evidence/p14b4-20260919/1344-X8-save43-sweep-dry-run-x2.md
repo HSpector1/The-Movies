@@ -42,6 +42,12 @@ exporter row. 1344-N expects exactly that.
 - **NEW 45.**
   - 9 environment or scratch rows: `bridge-supervisor` "Fake Unity" ×7 (the 1320-X scratch artifact), `hygiene:45`
     (scratch links) and a 20 s timeout in `bridge-p13b-s3-save-as` from the sleep.
+    **Erratum ([1344-X9](1344-X9-save43-sweep-dry-run-x3.md)):** `hygiene:45` is not a scratch row. x2-core.txt
+    names its two offenders: comments at `tests/p14d1-rival-shelving-natural.test.ts:120` (from 9260baf4) and
+    `tests/p15b1-corporate-condition.test.ts:742` (from 5bb8d559). Both files sit in the sweep base and at repo HEAD,
+    so the row fails in the repo too. Separately, `1344-X8-core-extract.txt` lacks the first failure block
+    (`bridge-p13-campaign-isolation`, the 60 s timeout). The parser output `1344-X8-core-failures.json` has it, and the
+    counts above come from the parser.
   - 7 rows already ruled in 1344-F4: ORACLE `p14b1-trust-chooser:683` ×2 and `p14b4-cast-class-policy:485`, row 5
     `p14b5-relationships:596`, and row 6 `p14b5-relationships:372` ×3.
   - 9 S9 rows: `migrateToV42` now refuses first, through the V43 to V42 guard. They are in `p14b5-relationships:1136`,
