@@ -41,8 +41,10 @@ exactly as the writer read it: at (c) all 59 pass, including K1, K2, M0A and bot
 - **(c) passes every 1355 leaf.** That includes the four pin controls: the default seam, K1, K2 and M0A against the
   pins minted at the RED commit, so the batch moves nothing outside the declared fields at week 21. Both
   `market-old-save` capture leaves pass on the landed Save44 capture.
-- **The harness** runs 5% slower at (c) than at r2 (83,603 against 78,490 ms), with the batch on. That is 28% of the
-  ceiling.
+- **The harness** took 83,603 ms at (c) and 78,490 ms at r2, 28% of the ceiling at (c).
+  - **Correction (1361-D2 F5; 1361-F4 ruling 4):** the first version of this record read the difference as the
+    batch's cost. Run-to-run noise covers it: r1 and r2 run identical tick code and differ by 4.1%, and (c) plays a
+    different campaign. Ruling 15's merged-tick run decides the cost.
 - **(a)** was not measured on its own. It never ships without (b).
 
 ## What follows
